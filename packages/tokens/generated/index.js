@@ -17018,17 +17018,17 @@ export const tokens = {
     },
     "color-stroke-hairline": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-08",
+        "id": "color-static-black-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+        "--louis-color-stroke-hairline": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
       "sourcePath": "semantic.light.color.stroke-hairline",
       "tier": "semantic",
       "type": "color",
@@ -17039,7 +17039,7 @@ export const tokens = {
           0.105882,
           0.133333
         ],
-        "alpha": 0.08
+        "alpha": 0.12
       }
     },
     "color-stroke-strong": {

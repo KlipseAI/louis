@@ -24640,13 +24640,13 @@
               "sourcePath": "semantic.dark.color.stroke-hairline"
             },
             "Light": {
-              "$value": "{primitive.color.static-black-alpha.08}",
+              "$value": "{primitive.color.static-black-alpha.12}",
               "aliasTarget": {
-                "id": "color-static-black-alpha-08",
+                "id": "color-static-black-alpha-12",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.08,
+                "alpha": 0.12,
                 "colorSpace": "srgb",
                 "components": [
                   0.090196,

@@ -1255,7 +1255,7 @@ export declare const tokens: Readonly<{
   readonly "color-stroke-danger": TokenRecord<"color-stroke-danger", "light", "semantic", { readonly id: "color-red-500"; readonly mode: "base" }>;
   readonly "color-stroke-default": TokenRecord<"color-stroke-default", "light", "semantic", { readonly id: "color-palette-gray-300"; readonly mode: "base" }>;
   readonly "color-stroke-focus": TokenRecord<"color-stroke-focus", "light", "semantic", { readonly id: "color-blue-500"; readonly mode: "base" }>;
-  readonly "color-stroke-hairline": TokenRecord<"color-stroke-hairline", "light", "semantic", { readonly id: "color-static-black-alpha-08"; readonly mode: "base" }>;
+  readonly "color-stroke-hairline": TokenRecord<"color-stroke-hairline", "light", "semantic", { readonly id: "color-static-black-alpha-12"; readonly mode: "base" }>;
   readonly "color-stroke-strong": TokenRecord<"color-stroke-strong", "light", "semantic", { readonly id: "color-palette-gray-500"; readonly mode: "base" }>;
   readonly "color-stroke-subtle": TokenRecord<"color-stroke-subtle", "light", "semantic", { readonly id: "color-palette-gray-200"; readonly mode: "base" }>;
   readonly "color-stroke-tooltip": TokenRecord<"color-stroke-tooltip", "light", "semantic", { readonly id: "color-static-white-alpha-12"; readonly mode: "base" }>;

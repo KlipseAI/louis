@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "16099ef0daa7ebcb81cc45c2b69138d395d705956e0624361b5e8a845bed0ccc"
+      "sha256": "4e65d46d0bf1daabc95d22faa8f5eb9ba3d7cc8da23149061aa328f2b47d1518"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "bfa56bec24617f76aec8ecf7b436d2cf7b2c94c2e3d260f549e4c2a3cdb10217"
+      "sha256": "021af4d12f3781beda576c324ecfd3e40e5eb2c6f55554cac75feeeed222eb79"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "f4452f239d9b4c80abf9cfc5afe80bf96aec88b9c6c7495b4b1d135057c45cb4"
+      "sha256": "8d82dd8e92df2e1f46f245610c6d86689c108181cbfaf9b5c69dd42fe1b95888"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "a1da5733db630f80818ec61dd33339b7427124078c07589f476643e66fbeac86"
+      "sha256": "2618dd914e3a23056b571e9ff56344b26b425c55256fd7bbf85b6075fc0546bc"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "e028efdb4a40fee41e5e8e022c40204384a8aaa1c58d0d371b024a4ce90e1f64"
+      "sha256": "c5d35536ad301a2eca2a265dfffafaeb56e075ce55aae90f083f2cedfe186085"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "1b457697e9a4f99649fa3e9129620f5b6dbc97a3b690bc67ba936dedec302ce9"
+    "sha256": "102a173b8656485ea7e88f1de6215de221d271a1839030301cea87e7e52ebe80"
   },
   "themes": [
     "light",
@@ -13026,19 +13026,19 @@
     },
     {
       "aliasTarget": {
-        "id": "color-static-black-alpha-08",
+        "id": "color-static-black-alpha-12",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-stroke-hairline": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+        "--louis-color-stroke-hairline": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-stroke-hairline",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
       "resolvedValue": {
-        "alpha": 0.08,
+        "alpha": 0.12,
         "colorSpace": "srgb",
         "components": [
           0.090196,

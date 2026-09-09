@@ -11,9 +11,13 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 아니라 좌우 20 여백까지 전부 누를 수 있다. 열리면 버튼은 질문 줄까지이고 **답변은 버튼 밖**이라,
 답변을 눌러도 접히지 않는다.
 
-**정본은 제품이다.** `FAQ.tsx` 가 구현이고 LOUIS 에는 표면이 없다 —
-`packages/css/src/component` 에 아코디언·디스클로저 레시피가 없고 `packages/react/src` 에도
-디렉터리가 없다. Figma 는 그 제품 구현을 투영한 것이고, 이 문서는 그 둘을 처음으로 대조한다.
+**정본은 제품이다.** `FAQ.tsx`(`lg`)와 `guide/FAQPanel.tsx`(`md`)가 구현이고, Figma 는 그 제품
+구현을 투영한 것이다.
+
+**LOUIS 레시피가 2026-09-09 에 섰다** — `packages/css/src/component/faq-row.css`. 그 전까지 계약과
+Figma 는 서 있는데 **생성 CSS 에 클래스가 0** 이라 제품이 물 수가 없었다(클래스만 붙이면 아무 일도
+일어나지 않는 상태였다). React 표면은 여전히 없다 — 소비처가 클래스를 직접 쓰는 형태이고
+[Alert](./alert.md) · [Section Header](./section-header.md) · [Stat Tile](./stat-tile.md) 가 같다.
 
 **행을 밑줄이 아니라 면으로 나눈다.** 이전 배치는 좌 제목 고정 · 우 목록의 2열이었고 항목 사이를
 가는 선으로 갈랐다. 지금은 한 열이고, 항목마다 채워진 알약이 서서 페이지 바닥과의 명도차만으로
@@ -30,10 +34,10 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 두 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                              |
-| Figma         | `partial`      | `FaqRow` 4 variant(`Expanded` × `Size`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 **과 기하**다 — `figma/components.measured.json` 의 `faq-row` 가 `{Expanded}/{Size}` 네 칸을 갖는다. `lg` 는 브라우저 실측, `md` 는 소스에서 읽은 값이며 칸마다 `$` 사유를 갖는다(Known deviations 8) |
+| Web           | `partial`      | `packages/css/src/component/faq-row.css` 레시피와 실브라우저 acceptance test 11건(`faq-row.browser.test.tsx`). React 표면은 없고, 제품 두 벌은 아직 자기 클래스로 그린다 — **소비 증거가 아직 0 이라 `done` 이 아니다** |
+| Figma         | `done`         | `FaqRow` 4 variant(`Expanded` × `Size`) · TEXT 2. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 **과 기하**다 — `figma/components.measured.json` 의 `faq-row` 가 `{Expanded}/{Size}` 네 칸을 갖는다. `lg` 는 브라우저 실측, `md` 는 소스에서 읽은 값이며 칸마다 `$` 사유를 갖는다(Known deviations 8). **기하가 양방향이 됐다** — `faq-row.browser.test.tsx` 가 코드 쪽에서 같은 실측을 네 칸 전부 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
-| Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
+| Maturity      | `experimental` | LOUIS recipe 와 되재기가 이 회차에 섰다. 남은 승격 조건은 **제품이 이 클래스를 무는 것**이다 — 그때까지 레시피는 정본을 옮겨 적은 것이지 정본이 아니다                    |
 
 ## When to use
 
@@ -48,6 +52,42 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
     누르면 열린다.
   - **길어서 접는 본문** — 접기 자체가 목적이면 이 컴포넌트가 아니다. 여기는 「질문 하나 =
     답변 하나」가 전제이며 답변이 문자열 하나다(Content 참조).
+
+## API
+
+React 표면이 없다. 소비처는 클래스를 직접 쓴다.
+
+```html
+<!-- Size=lg — 랜딩 · 가격 페이지 -->
+<div class="louis-faq-row">
+  <button type="button" class="louis-faq-row__question" aria-expanded="false">
+    <span class="louis-faq-row__question-text">Klipse는 무엇인가요?</span>
+    <span class="louis-faq-row__icon" aria-hidden="true">+</span>
+  </button>
+  <!-- 열렸을 때만 -->
+  <p class="louis-faq-row__answer">Klipse는 크리에이터를 위한 AI 영상 제작 플랫폼입니다.</p>
+</div>
+
+<!-- Size=md — 노드 캔버스 가이드 모달 -->
+<div class="louis-faq-row" data-size="md">
+  <button type="button" class="louis-faq-row__question" aria-expanded="true">
+    <span class="louis-faq-row__question-text">모델은 무엇을 쓰나요?</span>
+    <span class="louis-faq-row__icon" aria-hidden="true">&minus;</span>
+  </button>
+  <p class="louis-faq-row__answer">Kling 과 Gemini 를 노드마다 고를 수 있습니다.</p>
+</div>
+```
+
+**답변은 버튼 밖의 형제다.** 버튼 안에 넣으면 답변을 눌러도 접히고, 버튼 안에 문단이 들어가
+HTML 도 어긋난다. 이 배치가 정본의 구조이고 브라우저 시험이 그대로 렌더한다.
+
+**`aria-expanded` 가 시각의 출처이기도 하다.** 글리프의 45° 회전이
+`.louis-faq-row__question[aria-expanded="true"]` 에 걸려 있어, 그 속성을 빼면 **회전도 함께
+죽는다.** 상태를 `data-open` 같은 별도 축으로 옮기면 시각과 보조기술이 갈릴 수 있는데 이 배선은
+그것을 구조로 막는다 — 대신 **`aria-expanded` 를 갱신하는 것은 소비처의 책임**이다.
+
+**여닫이 자체는 레시피가 그리지 않는다.** 높이 전개는 소비처가 소유한다(아래 States 의 전환 표와
+Known deviations 12).
 
 ## Anatomy
 
@@ -110,8 +150,12 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 (`GUIDE_FAQ_QUESTION`)이다. 그래서 `md` 에서 열린 답변은 **면 밖**에 선다. 구조가 갈리는
 유일한 자리이고, Figma 의 네 변형도 그대로 그렇게 서 있다.
 
-**`State` 축이 없다.** hover · active · disabled 선언이 제품 행에 하나도 없고 Figma 에도 그 축이
-없다. 포커스는 컴포넌트가 그리지 않는다(States 참조).
+**`State` 축이 없다 — 다만 `md` 에는 hover 가 있다.** 랜딩 행(`lg`)에는 hover · active · disabled
+선언이 하나도 없지만, 가이드 모달의 질문 버튼은 면을 잉크 4% 에서 8% 로 올린다. Figma 에는 그 축이
+없어 **네 변형 중 어느 것도 hover 를 그리지 않는다.** 축을 열지 않은 이유는 그 하나로는 격자가
+두 배(8 변형)가 되는데 값이 갈리는 것은 `md` 뿐이기 때문이다 — 레시피는 그것을 변형이 아니라
+`@media (hover: hover)` 한 규칙으로 갖는다. active · disabled 는 두 크기 다 없다. 포커스는
+컴포넌트가 그리지 않는다(States 참조).
 
 ## States
 
@@ -119,7 +163,7 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 | --- | --- |
 | 닫힘 | 질문 줄만. `aria-expanded="false"` |
 | 열림 | 답변이 **같은 면 안에** 붙고 `+` 가 45° 돈다. `aria-expanded="true"` |
-| Hover | **없다.** 커서가 `pointer` 로 바뀌는 것이 전부다 |
+| Hover | **`lg` 에는 없다** — 커서가 `pointer` 로 바뀌는 것이 전부다. **`md` 는 질문 버튼의 면이 잉크 4% → 8% 로 진해진다**(정본 `GUIDE_FAQ_QUESTION`). 이 차이는 Figma 에 그려지지 않았다 |
 | Focus | **컴포넌트가 그리지 않는다.** 다만 전역 리셋이 끄는 것은 `:focus:not(:focus-visible)` 뿐이라 **브라우저 기본 `:focus-visible` 링은 남는다** — 보이기는 하는데 디자인 시스템이 소유하지 않는다 |
 | Disabled | **없다.** 열 수 없는 행이라는 개념이 없다 |
 | Active(누르는 중) | **없다.** `:active` 선언이 없다 |
@@ -190,17 +234,22 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
   토큰값으로 계산한 값이며 **브라우저 실측이 아니다.** 바닥을 테마와 무관하게 고정하는 가격
   페이지는 다른 표가 필요하다 — 그 자리의 미해결은 Known deviations 7 이 갖는다.
 
-  | | 라이트 | 다크 |
-  | --- | ---: | ---: |
-  | 질문 글자 | 15.6:1 | 17.6:1 |
-  | 답변 글자 | 4.9:1 | 12.8:1 |
-  | `+` 글리프 | **3.73:1** | 5.1:1 |
-  | 행 면 ↔ 페이지 바닥 | 1.19:1 | 1.14:1 |
+  | | 라이트 | 다크 | 기준 |
+  | --- | ---: | ---: | --- |
+  | 질문 글자 | 15.6:1 | 17.6:1 | 옛 팔레트 |
+  | 답변 글자 | 4.9:1 | 12.8:1 | 옛 팔레트 |
+  | `+` 글리프 | 4.53:1 | 7.67:1 | **현재 토큰** |
+  | 행 면 ↔ 페이지 바닥 | 1.19:1 | 1.14:1 | 옛 팔레트 |
 
-  `+` 의 3.73:1 은 **SC 1.4.3 의 4.5 에 미달한다.** 다만 이것은 읽는 문구가 아니라 상태를
-  나타내는 아이콘성 글리프이고, 상태 자체는 `aria-expanded` 가 따로 싣는다. 그래서 판정 기준을
-  SC 1.4.11(비-텍스트 3:1)로 두고 그 기준은 넘는 것으로 본다. 판단을 뒤집으려면 알파를 50% 에서
-  64% 안팎으로 올리면 되고, 그 순간 시안의 「흰색 50%」와 갈라진다 — **소유자 판정 필요.**
+  **네 줄이 같은 기준이 아니다.** `+` 줄만 이 회차가 현재 토큰(`landing/page-bg` =
+  `palette-gray/050`)으로 다시 계산했고, 나머지 세 줄은 바닥을 `#f1f1f3` 으로 두던 옛 팔레트에서
+  계산된 값이다. 표 전체의 재계산은 별건이며, 어느 줄도 브라우저 실측이 아니다.
+
+  **`+` 의 미결은 정본이 스스로 닫았다.** 이 문서가 「알파를 50% 에서 64% 안팎으로 올리면
+  뒤집힌다 — 소유자 판정 필요」로 남겨 둔 자리인데, 제품이 `b1d1409c` 에서 정확히 그 이동을 했다
+  (잉크 50% 리터럴 → `--text-muted` = 잉크 64%). 사유는 대비가 아니라 **어휘**였다 — 랜딩의
+  「흐린 보조 잉크」가 한 값으로 남는다. 레시피는 그 결과를 따른다. 남는 것은 **Figma 가 아직
+  50% 라는 사실**이고 Known deviations 3 이 갖는다.
 
   행 면과 페이지 바닥의 차가 1.2:1 이라 **경계가 색으로는 거의 서지 않는다.** SC 1.4.11 은
   컴포넌트를 식별하는 데 **필요한** 시각 정보에만 3:1 을 요구하고 여기서는 글자와 `+` 가 식별을
@@ -222,12 +271,12 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 | Question 정렬 | 위 맞춤 | `items-start`. 제품 주석이 「시안에서 `MIN`」이라 적었을 뿐 되읽기에 정렬 필드가 없다(Known deviations 11) |
 | QuestionText | body-20-medium | `typography/body-lg-medium` · `color/gray/000` |
 | Glyph | `+`, body-20-regular, 13 × 30 | 글리프 높이 30 은 20 × 1.5 의 줄 상자다 |
-| Glyph 색 | 잉크 50% | Figma 는 `color/gray/000` 50%. 시안의 순수 흰색 50% 를 팔레트로 통일했다(Known deviations 3) |
+| Glyph 색 | 잉크 64% | `color/landing/text-muted`. **50% 가 아니다** — 정본이 리터럴 50% 에서 이 토큰으로 옮겼다(제품 `b1d1409c`). Figma 는 아직 `color/gray/000` 50% 다(Known deviations 3) |
 | Glyph 회전 | 열림에서 45° | `transform: rotate(45deg)`. `rotate` 프로퍼티가 아니라 `transform` 이다 — 전환 대상이기 때문 |
 | Answer | 좌우 20 · 위 0 · 아래 18, 최대 `64ch` | 질문의 좌우 여백에 맞추고 아래만 띄운다 |
 | Answer 글자 | body-16-regular | `color/gray/300` |
 | 펼침 전환 | 300ms `cubic-bezier(0.4, 0, 0.2, 1)` — 높이 · 투명도 | framer-motion |
-| 글리프 전환 | 220ms `ease` — transform | CSS |
+| 글리프 전환 | 220ms — transform | 정본은 `ease`. 레시피는 `motion-layout-change`(같은 220ms, 커브만 이 토큰의 것) |
 
 ### `Size=md` — 가이드 모달
 
@@ -235,7 +284,8 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 | --- | ---: | ---: | --- |
 | Row radius | 12 | **8** | `GUIDE_FAQ_ITEM` 의 `rounded-8` |
 | Row 면 | 잉크 8% | **없음** | 모달에서는 질문 버튼이 면을 갖는다 |
-| Question 면 | 없음 | **잉크 4%** | `GUIDE_FAQ_QUESTION` 의 `bg-[rgb(var(--gray-100-rgb)/4%)]` |
+| Question 면 | 없음 | **잉크 4%** | `GUIDE_FAQ_QUESTION` 의 `bg-[rgb(var(--gray-100-rgb)/4%)]`. 레시피는 `color/landing/panel`(Known deviations 13) |
+| Question hover | **없음** | **잉크 8%** | 정본은 다크 12% · 라이트 8%. 레시피는 `color/accent-ghost-hover` 하나로 둔다(Known deviations 13) |
 | Question 위아래 | 18 | **12** | `py-6` × `--spacing: 2px` |
 | Question 좌우 | 20 | **14** | `px-7`. 모달 본문 단이 1080 − 좌우 24 = 1032 라 행이 좁다 |
 | Question 사이 | 16 | **12** | `gap-6` |
@@ -251,6 +301,40 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 글리프 문자 자체를 `+` ↔ `−` 로 갈아 끼운다(`FAQPanel.tsx`). Figma 의 `md` 두 변형은 랜딩과
 같은 회전으로 서 있다 — **이 차이는 아직 Figma 에 그려지지 않았다.**
 
+## Implementation
+
+레시피는 `packages/css/src/component/faq-row.css` 다. 값의 정본은 그대로 제품이고, 이 절은 **그
+값이 LOUIS 에서 어느 이름으로 서는가**만 적는다.
+
+| 자리 | LOUIS |
+| --- | --- |
+| Row 반경 `lg` 12 | `radius-card` |
+| Row 반경 `md` 8 | `radius-control-sm` |
+| Row 면 `lg` | `color/landing/panel-strong` |
+| Question 사이 `lg` 16 | `space-control-lg` |
+| Question 사이 · 위아래 `md` 12 | `space-control-md` |
+| Question 위아래 `lg` 18 · 좌우 20 · `md` 좌우 14 | **리터럴.** 간격 계단(4·8·12·16) 밖이고, 18 · 20 이 닫힌 높이 66 을 만드는 실측이다. `inspector-row` 가 같은 형태로 계단 밖 값을 리터럴에 사유를 달아 둔 선례다 |
+| 질문 타입 `lg` · `md` | `typography-body-lg-medium` · `typography-body-md-medium` |
+| 답변 타입 `lg` · `md` | `typography-body-md-regular` · `typography-body-sm-regular` |
+| 질문 잉크 | `color/fg-primary` |
+| 답변 잉크 `lg` | `color/fg-secondary` |
+| 글리프 잉크 | `color/landing/text-muted` |
+| 글리프 회전 시간 | `motion-layout-change` |
+| `md` hover 시간 | `motion-control-hover` |
+
+- **여백 0 은 선언하지 않는다.** 행이 여백을 「가지지 않는」 것이 계약이므로 `padding: 0` 을 적어
+  두면 다음 사람이 그것을 값으로 읽는다. 계약의 `paddingBlock` · `paddingInline` 0 은 브라우저
+  시험이 계산값으로 잡는다.
+- **닫힌 행 높이 66 · 48 을 고정값으로 두지 않는다.** 여백과 줄 상자에서 떨어지는 수다
+  (18 + 30 + 18 · 12 + 24 + 12). `min-block-size` 로 박으면 타입이 뷰포트를 따라 줄어드는
+  자리에서 행이 글자를 자른다.
+- **`overflow: hidden` 이 포커스 링을 자른다.** 소비처가 질문 버튼에 `louis-focus-ring` 을 붙이면
+  그 링은 `outline-offset: 2px` 이라 행 밖으로 나가고, 행의 `overflow: hidden` 이 그것을 자른다.
+  레시피가 포커스를 그리지 않는 것은 정본을 따른 것이고(States 참조), 링을 원하면 행에 걸거나
+  offset 을 안쪽으로 주어야 한다 — **소유자 판정**이다.
+- `verify-recipe-record` 가 레시피의 선언을 계약과 열두 줄 대조하고 면 이름 넷을 고정한다.
+  `packages/react/test/faq-row.browser.test.tsx` 가 브라우저에서 같은 값을 되잰다.
+
 ## Known deviations
 
 1. **면이 `gray-900` 이 아니라 잉크 8% 오버레이다.** 시안은 다크 렌더이고 그 값만 보면 `gray-900`
@@ -263,9 +347,13 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
    `box-shadow` 선언이 없다. 되읽기의 `boundStrokes` · `rawStrokes` 가 둘 다 0 인 것이 그
    사실이다. **헤어라인을 두를지는 소유자 판정이다** — 두르면 위 1.2:1 경계가 개선되지만 랜딩
    면 어휘가 하나 더 갈린다.
-3. **`+` 가 순수 흰색 50% 가 아니라 `gray-000` 50% 다.** 시안은 `+` 만 순수 흰색 50% 이고
-   질문·제목은 `#fafafa` 다. 같은 면 위에서 두 흰색을 쓰는 이유를 찾지 못해 팔레트 쪽으로
-   통일했다 — 차이는 1% 미만이다. 대신 **테마를 따르게 되어 라이트에서 검정 잉크 50% 가 된다.**
+3. **`+` 의 알파가 50% 가 아니라 64% 이고, Figma 만 아직 50% 다.** 시안은 `+` 만 순수 흰색 50%
+   이고 질문·제목은 `#fafafa` 다. 같은 면 위에서 두 흰색을 쓰는 이유를 찾지 못해 팔레트 쪽으로
+   통일했고(차이는 1% 미만), 그래서 테마를 따라 라이트에서 잉크가 된다. **그 뒤 정본이 알파까지
+   옮겼다** — `b1d1409c` 가 잉크 50% 리터럴을 `--text-muted`(= `color/landing/text-muted`, 잉크
+   64%)로 바꿨고 사유는 「랜딩의 흐린 보조 잉크를 한 값으로 남긴다」였다. 레시피는 그 64% 를
+   쓴다. **Figma 의 네 변형은 아직 `color/gray/000` 50% 다** — parity 계약이 색을 대조하지 않아
+   게이트는 초록이고, 확인하려면 파일을 열어야 한다. 다음 회차의 Figma 작업 하나다.
 4. **전환 시간이 제품은 둘, Figma 는 하나다.** 제품은 높이·투명도 300ms 와 글리프 회전 220ms 가
    따로 돈다. Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다. **그 하나가
    얼마인지는 이 저장소의 어떤 산출물로도 대조되지 않는다** — 되읽기가 프로토타입 전이를 채취하지
@@ -305,13 +393,40 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
    결과다. Figma 는 상호작용과 프로토타입을 받는 단위가 행이라 행을 set 으로 뽑았다. 그 결과
    **행 간격 4 를 아무도 소유하지 않는다** — 제품에서는 목록의 `gap` 이고 Figma 에는 없다.
    이 문서가 임시로 소유한다.
-10. **`aria-controls` 와 제목 요소가 코드에 없다.** Accessibility 의 두 결손과 같은 항목이다.
-    Figma 로는 표현되지 않는 차이라 되읽기가 잡을 수 없고, LOUIS recipe 를 세울 때 구조로
-    채워야 한다.
+10. **`aria-controls` 와 제목 요소가 코드에 없다(부분 해소).** Accessibility 의 두 결손과 같은
+    항목이다. Figma 로는 표현되지 않는 차이라 되읽기가 잡을 수 없다. **레시피가 채운 것은
+    `aria-expanded` 뿐이다** — 글리프 회전을 그 속성에 걸어 두어 속성을 빼면 시각도 함께 죽는다
+    (API 참조). `aria-controls` · `id` · 제목 요소는 **CSS 가 강제할 수 없는 마크업**이라
+    레시피가 채울 수 없고, API 절의 마크업 계약과 소비처가 진다.
 11. **counter 축 정렬이 대조되지 않는다.** `items-start` 의 근거로 적힌 「시안 counter 정렬
     `MIN`」은 제품 주석의 전언이고, 되읽기에는 정렬 필드가 아예 없다(`FaqRow` 의
     `parts.Question` 은 width · height · padding · itemSpacing 뿐이다). 되읽기 채취에 counter
     정렬을 더하는 것이 승격 조건 하나다.
+12. **여닫이 전개를 레시피가 그리지 않는다.** 정본은 framer-motion 이 `height: 0 ↔ auto` 를
+    300ms 로 옮기고, `grid-template-rows: 0fr ↔ 1fr` 은 매 프레임 재레이아웃으로 렉이 있어
+    버렸다는 기록이 제품에 남아 있다. CSS 만으로는 그 둘 중 하나를 고를 수밖에 없으므로 레시피는
+    **정지 상태의 기하와 글리프 회전만** 갖고 여닫이는 소비처에 남긴다. 그 결과 **소비처가
+    reduced-motion 을 스스로 판단해야 한다** — 레시피의 `prefers-reduced-motion` 은 회전만 닫는다.
+13. **`md` 의 두 면이 레시피에서 이름으로 옮겨지며 다크 값이 갈린다.** 정본의 쉬는 면은 다크
+    `gray-100` 4% · 라이트 `palette-gray-900` 4% 이고 hover 는 다크 12% · 라이트 8% 다. 레시피는
+    `color/landing/panel`(잉크·흰색 4%)과 `color/accent-ghost-hover`(8%)를 쓴다 — **라이트는 두
+    자리 다 바이트가 같고 다크만 갈린다**(쉬는 면은 흰색과 `palette-gray/100` 의 차이라 합성
+    결과가 0.5% 아래로 다르고, hover 는 12% 에서 8% 로 내려온다).
+
+    **사다리(`color/bg-*`)로 옮길 수 없다.** 정본의 라이트 hover 는 쉬는 면보다 **어두운데**
+    사다리의 라이트는 위로 갈수록 밝다 — `bg-surface` 를 얹으면 라이트에서 모달 바닥
+    (`palette-gray/100`)보다 밝아져 방향이 뒤집힌다. Known deviations 1 과 같은 사고다.
+
+    **`landing/` 접두사는 이름 빚이다.** 두 토큰이 실제로 갖는 것은 「잉크 알파 오버레이 4% ·
+    8%」이고 랜딩이 첫 소비처였을 뿐이다. 일반 이름(`bg-tint-*`)으로 승격할지는 토큰과 Figma
+    변수를 같이 여는 별건이라 **소유자 판정**으로 남긴다.
+14. **글리프 회전의 커브가 정본과 다르다.** 정본은 `220ms ease` 이고 레시피는
+    `motion-layout-change`(같은 220ms, 커브는 `cubic-bezier(0.4, 0, 0.2, 1)`)를 쓴다. 시간은
+    같고 커브만 이름 있는 토큰의 것으로 옮긴 것이며, [Text Field](./text-field.md) 가 제품의
+    이름 없는 `all 180ms ease` 를 같은 방식으로 옮긴 선례다. **`motion-layout-change` 의 선언된
+    property 목록(`inline-size` · `background-color`)에 `transform` 이 없다** — 그 목록을 강제하는
+    게이트는 `@keyframes` 만 보므로 transition 은 지나가지만, 목록을 넓힐지는 토큰과 Figma 변수
+    제안을 함께 여는 별건이라 **소유자 판정**으로 남긴다.
 
 ## Acceptance tests
 
@@ -325,10 +440,25 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 8. 질문 버튼이 `aria-expanded` 를 갖고 `+` 가 `aria-hidden` 이다.
 9. 목록에서 한 번에 한 행만 열려 있다.
+10. `Size=md` 에서 반경이 8, 질문 여백이 12/14, 사이가 12 이고 닫힌 높이가 48 = 12 + 24 + 12 이다.
+11. `Size=md` 에서 **글리프가 돌지 않는다.** 정본이 글자 자체를 `+` ↔ `−` 로 갈아 끼우므로
+    거기까지 돌리면 `−` 가 세로줄이 되어 닫힘으로 읽힌다.
+12. 글리프 회전이 `aria-expanded="true"` 에만 선다 — 속성이 없으면 회전도 없다.
+13. 행 면의 합성 결과가 랜딩 바닥과 **다르다.** 이름(`landing/panel-strong`)은
+    `verify-recipe-record` 가, 합성 결과는 브라우저 시험이 잡는다.
+
+1 · 2 · 7 은 Figma 되읽기 쪽이고, 3 · 4 · 5(회전) · 6 · 10 · 11 · 12 · 13 은
+`packages/react/test/faq-row.browser.test.tsx` 가 코드 쪽에서 잰다. 5 의 「답변이 같은 면 안에」와
+8 · 9 는 소비처의 마크업·상태 계약이라 이 저장소가 재지 않는다.
 
 ## Migration and changelog
 
 새로 선 컴포넌트다. 이전 API 가 없다. 이 행이 대체한 것은 좌 제목 고정 · 우 목록의 2열 배치와
-그 사이의 밑줄 구분이며, 그 배치가 의존하던 섹션 id 기반 폭 훅도 함께 사라졌다. LOUIS recipe 가
-서면 이 문서의 Specification 이 그 값의 정본이 된다. 사용자 영향 변경은
+그 사이의 밑줄 구분이며, 그 배치가 의존하던 섹션 id 기반 폭 훅도 함께 사라졌다.
+
+**2026-09-09 — LOUIS recipe 가 섰다.** `packages/css/src/component/faq-row.css` 와
+`packages/react/test/faq-row.browser.test.tsx` 가 함께 서고 `verify-recipe-record` 에 이 컴포넌트의
+표가 열렸다. Figma 가 `partial` 에서 `done` 으로, Web 이 `not-ready` 에서 `partial` 로 간다.
+**정본은 아직 제품이다** — 레시피는 정본을 옮겨 적은 것이고, 제품 두 벌이 이 클래스를 물면 그때
+이 문서의 Specification 이 값의 정본이 된다. 사용자 영향 변경은
 [Updates](../updates/README.md) 에 적는다.

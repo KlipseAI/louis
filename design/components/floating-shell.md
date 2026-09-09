@@ -43,10 +43,42 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
-| Web           | `not-ready`    | LOUIS recipe 가 없다. 제품 `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 정본이다 |
+| Web           | `partial`      | CSS recipe(`packages/css/src/component/floating-shell.css`)가 섰다. React 표면은 없고 제품은 아직 물지 않았다 — `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 여전히 그리고 있다 |
 | Figma         | `partial`      | FloatingShell(단일 · 축 없음) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 계획서가 제안한 네 축 중 하나도 열지 않았고 그 이유가 전부 실측이다 |
+
+`partial` 이지 `done` 이 아닌 이유는 둘이다. **소비처가 아직 없다** — 앵커의 네 자리가 그대로
+자기 값을 그리고 있고, 제품이 이 클래스를 무는 것은 다음 회차다. 그리고 **흐림 4 가 여전히
+이름을 갖지 못한다**(Known deviations 1). 상태를 올리려고 그 둘 중 하나를 없는 셈 치지 않는다.
+
+## 레시피 — 무엇을 소유하고 무엇을 소유하지 않나
+
+`packages/css/src/component/floating-shell.css` 한 파일에 두 조형이 함께 산다. **파일이 하나인
+이유는 문서가 하나인 이유와 같다** — 재료가 하나이기 때문이고, 두 파일로 나누면 그 불변식을
+적을 자리가 없다.
+
+| 클래스 | 무엇 |
+| --- | --- |
+| `.louis-floating-shell` | 조각을 담는 셸. 여백 4 · 간격 4 · 반경 16 · 재료 한 벌 |
+| `.louis-floating-shell__item` | 조각이 서는 **자리**. 겉 크기 32 와 곡률 12 만 갖는다 |
+| `.louis-pill-trigger` | 알약 트리거. 높이 36 · 좌우 12 · 간격 4 · 반경 16 · 재료 한 벌 |
+| `.louis-pill-trigger__caret` | 방향 표시 10 · 불투명도 0.7. 열림에서 180° 뒤집힌다 |
+
+**소유하지 않는 것 셋.**
+
+- **층(z-index).** 어디에 어떻게 뜨는지는 호출부가 정한다 — 앵커의 세 자리도 겹침 순서를
+  감싸는 래퍼가 갖는다. 여기서 층을 정하면 호출부가 이미 세운 순서를 레시피가 조용히 이긴다.
+- **그림자.** 경계는 안쪽 헤어라인 **한 겹**이 전부다(계약의 `borderWidth: 0`, DS-D-0023).
+  `--louis-elevation-menu` 를 한 겹 더 얹는 것은 `CommandPalette` 의 560 모달이고 그것은
+  [Dialog](dialog.md) 쪽 문법이다.
+- **조각.** `__item` 이 갖는 것은 자리의 겉 크기와 곡률뿐이다. 호버 틴트가 갈리는 툴바 버튼의
+  레시피는 아직 없다(Known deviations 4).
+
+**재료는 두 규칙에 각각 적힌다.** 트리거가 셸의 자손이 아니라서다 — 배율 트리거는 캔버스 우측
+하단에 홀로 서므로 상속으로 한 벌을 물려줄 수 없다. 값이 두 번 적히는 대신 갈리지 않는 것을
+기계가 지킨다: `verify-recipe-record` 가 두 선언을 각각 기록과 대조하고, 브라우저 시험이 렌더한
+둘의 유리(면 · 흐림 · 반경 · 헤어라인)가 **같은지**를 실브라우저에서 잰다.
 
 ## Anatomy
 
@@ -134,26 +166,43 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 ## Acceptance tests
 
 `packages/react/test/floating-shell.browser.test.tsx` 가 두 컴포넌트를 함께 잰다(문서가 하나라
-파일도 하나다). **LOUIS recipe 가 없으므로 그리는 코드를 재는 것이 아니다** — 재는 것은 states
-표가 부르는 이름이 토큰층에 실재하는가와, 표가 스스로 선언한 규칙이 실브라우저에서 참인가다.
+파일도 하나다). React 표면이 없으므로 **클래스 마크업을 직접 렌더해** 잰다 — `alert` ·
+`switch` · `node-chip` · `inspector-row` 가 같은 형태다.
 
 1. 두 표의 토큰 이름이 라이트·다크 양쪽에 **실재한다**(오타·개명을 잡는다).
 2. 면과 잉크가 **테마를 타는 세만틱**이다. 고정 팔레트 토큰을 잘못 적으면 걸린다.
-3. 프레임이 공용 헤어라인 recipe(`--louis-hairline-inset`)가 칠하는 그 색·그 알파다(DS-D-0023).
-4. 호버가 **색이 아니라 같은 면의 알파**를 올린다 — 세 상태의 면 rgb 가 같고 알파만
-   `sizes` 의 `surfaceAlpha` 대로 갈린다.
-5. 셸과 트리거가 **같은 면**을 문다.
+3. 레시피가 기록의 **기하**를 만든다 — 여백 · 간격 · 반경 · 조각 32/12 · 트리거 36/12/4/16 ·
+   라벨 14 와 행간 1 · 캐럿 10 과 불투명도 0.7. **높이 40 과 폭 112 는 선언이 아니라 파생값이라
+   이 시험에서만 재진다**(`4 + 32 + 4` 와 `4 + 32×3 + 4×2 + 4`).
+4. 프레임이 공용 헤어라인 recipe(`--louis-hairline-inset`)가 칠하는 그 색·그 알파다(DS-D-0023).
+5. 호버가 **색이 아니라 같은 면의 알파**를 올린다 — 실제 포인터를 얹어 재고, 면 rgb 는 그대로에
+   알파만 `sizes` 의 `surfaceAlpha` 대로 0.72 → 0.88 로 갈린다.
+6. 셸과 트리거가 **같은 유리**다 — 면 · 흐림 · 반경 · 헤어라인 넷이 서로 같고, 흐림이 기록의
+   4 다. 이 넷이 두 조형을 한 문서에 둔 이유이므로 그 불변식을 직접 잰다.
+7. 열림이 바꾸는 것은 **캐럿의 향뿐**이다 — 면 · 잉크 · 프레임은 그대로이고 회전 행렬이
+   반 바퀴다.
 
-**아직 재지 못하는 것**: 여백·간격·높이·흐림 4 · 캐럿의 향. 넷 다 그리는 코드가 서야 잴 수
-있고, 그때까지는 `figma/components.measured.json` 의 `floating-shell` · `pill-trigger` 가 앵커
-소스 인용으로 지킨다. 열지 않은 네 축의 사유도 같은 기록의 `$whyNoOrientationAxis` ·
-`$whyNoDividerAxis` · `$whyNoCaretAxis` · `$whyNoBadgeAxis` 가 갖는다.
+**전이가 도는 동안은 재지 않는다.** 호버를 얹거나 테마를 뒤집은 직후의 계산 스타일은 계약값이
+아니라 계약값으로 가는 중인 보간값(Chromium 은 `oklab(…)` 으로 발행한다)이다. 첫 판이 그것을
+재고 빨개졌고, `document.getAnimations()` 의 `finished` 를 기다리는 것으로 고쳤다.
+
+`verify-recipe-record` 가 반대 방향을 잰다 — **레시피의 선언 ↔ 기록의 값** 49 건이고, 그중
+23 건이 이 두 벌이다. 흐림 4 는 `backdrop-filter: blur(…)` 로는 수로 풀리지 않아 지역 변수
+`--louis-floating-shell-blur` 로 한 번 발행하고 그 선언을 기록의 `blurRadius` 와 맞춘다 —
+이름 없는 값이 게이트 밖에 남지 않게 하는 방법이다.
+
+**아직 재지 못하는 것**: 구분선과 점 배지. 둘 다 이 세트에 없는 것이고(아래 「축을 열지 않은 것
+넷」) 없는 것을 잴 수는 없다. 열지 않은 네 축의 사유는 `figma/components.measured.json` 의
+`$whyNoOrientationAxis` · `$whyNoDividerAxis` · `$whyNoCaretAxis` · `$whyNoBadgeAxis` 가 갖는다.
 
 ## Known deviations
 
 1. **흐림 4 가 이름을 갖지 못한다.** LOUIS 흐림 사다리는 10 · 12 · 16 이고 4 가 없다. Figma 는
    그 반경을 변수에 묶지 못하고 값으로 둔다. 이름을 주려면 토큰을 새로 세우고 재생성해야 하며
-   그것은 이 변경 단위 밖이다.
+   Figma 변수까지 함께 열어야 한다 — 그것은 이 변경 단위 밖이다. **레시피도 리터럴로 두되
+   게이트 밖에 두지는 않았다**: 값을 지역 변수 `--louis-floating-shell-blur` 로 한 번 발행하고
+   `verify-recipe-record` 가 그 선언을 기록의 `blurRadius` 와 대조한다. 이름이 없는 것과 아무도
+   보지 않는 것은 다르다.
 2. **라이트 면 색이 앵커와 현재 제품에서 다르다.** 앵커 `5a67d692` 는 `palette-gray 100` 72%,
    앵커 뒤 커밋 `54150126`(「라이트 캔버스를 pg-100, 노드 카드를 pg-050, 알약을 pg-050 으로」)이
    그것을 `palette-gray 050` 으로 옮겼다. Figma 는 **현재 값**에 물렸다 — 그 쌍(라이트 050 ·
@@ -167,7 +216,17 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 5. **`transform: translateZ(0)` 를 Figma 가 담지 못한다.** 제품은 세 자리 모두에 그것을 함께
    적는다. 합성 레이어로 올려 배경 흐림이 안정적으로 걸리게 하는 선언이고, iOS 의 중첩 스크롤에서
    같은 레이어의 글자가 흐려지는 결함을 막는 자리이기도 하다. 정지 화면에는 나타나지 않는 값이라
-   Figma 변형이 담을 축이 아니고, 제품이 이 레시피를 물 때 반드시 함께 가야 한다.
+   Figma 변형이 담을 축이 아니다 — **그래서 레시피가 그것을 갖는다.** 제품이 이 클래스를 물면
+   자동으로 따라가고, 그것이 정지 화면에 없는 값을 보존하는 유일한 방법이다.
+6. **호버 전이의 지속시간이 앵커와 다르다.** 앵커는 `color 0.12s ease, background 0.12s ease`
+   이고 레시피는 컨트롤 호버 역할의 토큰(`--louis-motion-control-hover-duration` 160ms)을 읽는다.
+   `.louis-menu-trigger` 가 같은 자리에서 같은 판정을 했다 — 역할에 이름이 있으면 그 이름을
+   쓰고, 갈리는 것은 지속시간 하나다. **캐럿의 회전은 갈리지 않는다**: 앵커가 `160ms ease` 이고
+   그 토큰의 timing 이 `cubic-bezier(0.25, 0.1, 0.25, 1)` = `ease` 라 두 값이 같다.
+7. **React 표면이 없다.** 소비처가 제품 캔버스의 네 자리뿐이고 이 저장소 안에는 하나도 없다 —
+   감쌀 근거가 생기기 전에 감싸면 아무도 쓰지 않는 API 가 된다. `Alert` · `Switch` ·
+   `NodeChip` · `Inspector Row` 가 같은 형태이고, 브라우저 시험은 클래스 마크업을 직접 렌더해
+   잰다. 소비처가 생기고 상태 관리(`aria-expanded` 의 소유)가 필요해지면 그때 연다.
 
 ## Related
 

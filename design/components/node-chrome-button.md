@@ -25,7 +25,7 @@ summary: 노드 카드 헤더의 아이콘 버튼 — 면이 없고 호버에서
 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
-| Web           | `not-ready`    | LOUIS recipe 가 없다. 제품 `NodeHeaderActions.tsx` 의 BUTTON/BUTTON_NEUTRAL/BUTTON_DANGER 세 상수가 정본이다 |
+| Web           | `partial`      | CSS recipe `packages/css/src/component/node-chrome-button.css`. React 표면은 없다 — 소비처가 클래스를 물면 되는 자리다 |
 | Figma         | `partial`      | NodeChromeButton — Tone(neutral·danger) × State(Default·Hover·Disabled) = 6 variant. 슬롯: Glyph(INSTANCE_SWAP) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | Figma 가 코드보다 앞서 있고 호버 틴트 알파가 다크에서 갈린다 |
@@ -86,9 +86,21 @@ summary: 노드 카드 헤더의 아이콘 버튼 — 면이 없고 호버에서
 
 ## Acceptance tests
 
-아직 없다. LOUIS recipe 가 없어 붙일 코드가 없고, 값은 `figma/components.measured.json` 의
-`node-chrome-button` 이 앵커 소스 인용으로 지킨다. 제품 클래스가 세 상수로 이미 뽑혀 있어
-측정 하네스에 등록하기는 쉬운 편이다 — 그것이 이 칸의 다음 단계다.
+`packages/react/test/node-chrome.browser.test.tsx` 가 실브라우저에서 잰다 — 32 정사각과 반경,
+글리프 16, **기본 면이 투명하다**는 사실, 그리고 비활성이 면이 아니라 불투명도 0.35 로만
+갈린다는 것. 셸과 한 파일인 이유는 이 버튼이 셸의 헤더 높이를 정하기 때문이다.
+
+레시피 선언과 기록의 대조는 `node ./scripts/verify-recipe-record.mjs` 가 따로 갖는다. 거기서
+`background: transparent` 를 **이름으로** 고정한다 — 기본에 면이 하나 생기면 이 버튼이
+IconButton 의 `ghost` 와 구분되지 않고, 노드 크롬 축을 따로 두는 이유도 사라진다.
+
+호버 두 톤은 아직 재지 않는다. `:hover` 는 진짜 포인터를 옮겨야 하고, 이 저장소에서 남은
+포인터가 다음 시험의 색을 바꾼 사고가 있어 `test/setup-styles.ts` 가 그 뒤처리를 갖는다 —
+톤 두 벌을 재려면 그 왕복을 두 번 더 얹게 되므로, 값이 갈리는 자리(잉크가 붉게 간다)를
+Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
+
+제품 클래스가 세 상수로 이미 뽑혀 있어 측정 하네스에 등록하기는 쉬운 편이다 — `$noProductRender`
+를 지우는 것이 이 칸의 다음 단계이고, recipe 가 섰다고 그 면제가 풀리지는 않는다.
 
 ## Known deviations
 
@@ -104,6 +116,10 @@ summary: 노드 카드 헤더의 아이콘 버튼 — 면이 없고 호버에서
    `Success` 는 축 어휘의 닫힌 `State` 목록에 없다. 규범을 먼저 고쳐야 하는 자리라 열지 않았다.
 4. **툴팁을 담지 않는다.** 제품은 두 버튼을 `ChromeTooltip` 으로 감싸고 캔버스 배율을 역보정한다.
    툴팁은 [Tooltip](tooltip.md)이 소유하고, 배율 역보정은 캔버스의 몫이다.
+5. **삭제 호버의 붉은 틴트를 `color-mix` 로 만든다.** 같은 값의 원시 토큰
+   (`color-red-alpha-08`)이 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이
+   저장소의 규칙이고 저작 게이트가 그것을 강제한다. `accent-danger` 를 8% 로 섞은 색은 그
+   원시 칸과 바이트 단위로 같으므로 값이 아니라 **적는 방법**만 다르다.
 
 ## Related
 

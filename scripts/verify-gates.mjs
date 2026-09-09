@@ -1224,6 +1224,75 @@ withCanary(
   "이름**이 계약입니다",
 );
 
+// 이름 없는 값도 게이트 안에 있는지 (2026-09-09). floating-shell 의 흐림 4 는 LOUIS 흐림
+// 사다리(10 · 12 · 16)에 없어 토큰이 아니고, `backdrop-filter: blur(…)` 로는 게이트가 수로 풀지
+// 못한다. 그래서 값을 지역 변수 `--louis-floating-shell-blur` 로 한 번 발행하고 그 **선언**을
+// 기록과 대조하는데, 그것은 위 두 카나리아가 재는 것과 다른 형태다 — 앞의 둘은 실제 CSS
+// property(`inline-size`)와 면 이름을 재고 이것은 커스텀 속성을 잰다.
+//
+// **셸이 아니라 트리거 쪽을 변조한다.** 이 선언은 파일에 **두 번** 나온다(트리거가 셸의 자손이
+// 아니라 재료를 각자 적는다). 첫 일치로 치환하면 셸 규칙이 바뀌고, 그러면 카나리아는 빨개지긴
+// 하지만 「의도한 그 규칙이 물렸다」를 증명하지 못한다. 규칙 머리를 앵커에 포함해 자리를 못박고,
+// 진단문이 `pill-trigger` 를 부르는지까지 확인한다.
+withCanary(
+  "packages/css/src/component/floating-shell.css",
+  (source) => {
+    const target = ".louis-pill-trigger {\n  --louis-floating-shell-blur: 4px;";
+    const next = source.replace(target, ".louis-pill-trigger {\n  --louis-floating-shell-blur: 6px;");
+    if (next === source) {
+      errors.push("recipe-record 흐림 canary 가 레시피에서 트리거의 흐림 선언을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "unnamed values stay bound to the record",
+  "scripts/verify-recipe-record.mjs",
+  "pill-trigger: 레시피와 기록이 다릅니다",
+);
+
+// ── 「레시피가 없다」가 판정인 자리 카나리아 둘 (2026-09-09, DS-D-0061) ──
+// 위의 둘은 레시피가 **있는** 자리를 잰다. canvas-edge 는 반대쪽이다 — 쉬머의 페인트가
+// 인스턴스 기하이고 주기가 SMIL 의 `dur` 이라 CSS 가 이 조형을 담지 못하고, 그래서 레시피를
+// 세우지 않는 것이 결론이다. 그 판정은 두 길로 조용히 사라질 수 있다.
+//
+// ① 누가 상태를 「정리」하며 `not-planned` 를 `not-ready` 로 되돌린다. 그러면 다음 사람은
+//    다시 「빠진 것」으로 읽고 같은 조사를 반복한다 — 이 회차가 없애려던 바로 그 낭비다.
+// ② 사유만 지우고 `not-planned` 는 남긴다. 그러면 `not-planned` 는 상태가 아니라
+//    **검사를 끄는 값**이 된다.
+//
+// 대상 문자열은 둘 다 파일에서 유일하다(`"web": "not-planned"` 는 manifest 에 한 건,
+// `$noRecipe` 의 canvas-edge 항은 그 산문 머리로 유일하다). 첫 일치 치환이 다른 컴포넌트를
+// 건드리는 사고를 피하려고 유일성을 치환 결과로 확인한다.
+withCanary(
+  "design/manifest.json",
+  (source) => {
+    const next = source.replace('"web": "not-planned"', '"web": "not-ready"');
+    if (next === source) {
+      errors.push("recipe-record 판정 canary 가 manifest 에서 not-planned 를 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "recipe-less verdict stays not-planned",
+  "scripts/verify-recipe-record.mjs",
+  "레시피를 세우지 않기로 정한 자리는",
+);
+
+withCanary(
+  "figma/components.measured.json",
+  (source) => {
+    // **지우지 않고 이름만 바꾼다.** 마지막 항이라 줄을 지우면 앞 항의 쉼표가 남아 JSON 이
+    // 깨지고, 그러면 게이트는 「사유가 없다」가 아니라 「JSON 을 읽지 못했다」로 실패해
+    // 카나리아가 엉뚱한 사유로 초록이 된다(실측으로 확인).
+    const next = source.replace('"canvas-edge": "**정본은 CSS', '"canvas-edge-gone": "**정본은 CSS');
+    if (next === source) {
+      errors.push("recipe-record 사유 canary 가 기록에서 $noRecipe 의 canvas-edge 항을 찾지 못했습니다.");
+    }
+    return next;
+  },
+  "not-planned carries a written verdict",
+  "scripts/verify-recipe-record.mjs",
+  "사유 없는 `not-planned` 는 상태가 아니라",
+);
+
 // **배분 게이트 자신도 실패할 수 있어야 한다.** verify-gate-split 이 지키는 것 중 가장
 // 되돌아가기 쉬운 것은 4번 — 워크플로가 다시 `pnpm verify` 를 부르는 것이다. 2026-08-19의
 // 사고가 정확히 그 상태였다. 워크플로를 그 상태로 되돌려 놓고 게이트가 잡는지 본다.

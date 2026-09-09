@@ -129,8 +129,8 @@ const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가
 // 전부 선다 — verify-figma-done 이 「조건은 서는데 partial 로 남은 항목: alert」로 먼저 지목했다.
-const MANIFEST_DONE_FLOOR = 23; // 바닥. 오르면 올려 이득을 잠근다
-const DEAD_TOKEN_BASELINE = 94; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
+const DEAD_TOKEN_BASELINE = 74; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
 
 // ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────

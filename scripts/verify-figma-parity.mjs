@@ -2780,13 +2780,16 @@ const COMPONENT_CONTRACTS = [
     },
   },
   // ── 캔버스 노드 크롬 셋 ────────────────────────────────────────────────────
-  // 계획서 6위(노드 셸 + 크롬)에서 올라온 셋이다. **코드가 아직 없다** — Keycap 계열과 같은
-  // `figmaAhead` 상태이고, 값의 정본은 제품 앵커 `5a67d692` 의 소스다.
+  // 계획서 6위(노드 셸 + 크롬)에서 올라온 셋이다. 이제 **CSS recipe 는 있고 React 표면이
+  // 없다** — Alert·Switch·NodeChip 과 같은 `figmaAhead` 형태이고, 대조할 `.d.ts` 가 없으므로
+  // declaration 을 읽지 않는다. 값의 출처는 제품 앵커 `5a67d692` 의 소스이고, 레시피가 그
+  // 값을 여전히 만드는지는 verify-recipe-record 와
+  // packages/react/test/node-chrome.browser.test.tsx 가 잰다.
   {
     id: "node-chrome-button",
     figmaName: "NodeChromeButton",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 `NodeHeaderActions.tsx` 의 BUTTON/BUTTON_NEUTRAL/BUTTON_DANGER 가 정본이고 노드 9종이 그 쌍을 쓴다.",
+      "React 표면 없음 — packages/css/src/component/node-chrome-button.css 가 정본이다. 값의 출처는 제품 `NodeHeaderActions.tsx` 의 BUTTON/BUTTON_NEUTRAL/BUTTON_DANGER 이고 SectionNode 까지 9종이 그 쌍을 쓴다.",
     variantProperties: {},
     // **테두리가 없는 것이 계약이다.** `border-0` 이고 면은 투명이며 호버에서만 틴트가 뜬다.
     // 빈 객체로 두면 역방향 검사(`계약에 없는 stroke`)는 그대로 돌아 stroke 가 생기면 잡힌다.
@@ -2839,7 +2842,7 @@ const COMPONENT_CONTRACTS = [
     id: "node-shell",
     figmaName: "NodeShell",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 `nodes/*Node.tsx` 아홉과 `node-canvas-v2/index.tsx` 의 CANVAS_SHELL_BASE 가 정본이다.",
+      "React 표면 없음 — packages/css/src/component/node-shell.css 가 정본이다. 값의 출처는 제품 `nodes/*Node.tsx` 여덟과 `node-canvas-v2/index.tsx` 의 CANVAS_SHELL_BASE 다.",
     variantProperties: {},
     // 카드의 2px 테두리는 **실제 stroke** 다. Button·IconButton 의 헤어라인과 달리 레이아웃을
     // 접는 inset 그림자가 아니라 제품이 `border: 2px solid` 로 그리는 선이므로 stroke 로 옮긴다.
@@ -2922,7 +2925,7 @@ const COMPONENT_CONTRACTS = [
     id: "node-side-handle",
     figmaName: "NodeSideHandle",
     figmaAhead:
-      "LOUIS recipe 없음 — 제품 `NodeSideButtons.tsx` 의 TargetButton 이 정본이고 노드 9종이 그 버튼을 쓴다.",
+      "React 표면 없음 — packages/css/src/component/node-side-handle.css 가 정본이다. 값의 출처는 제품 `NodeSideButtons.tsx` 의 TargetButton 이다.",
     variantProperties: {},
     // 셸에도 디스크에도 테두리가 없다(`[border:none]`). 경계는 곡률과 면이 만든다.
     strokes: {},

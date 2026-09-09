@@ -26,7 +26,7 @@ summary: 노드 카드 좌우 레일에 서는 28px 채널 연결 버튼.
 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
-| Web           | `not-ready`    | LOUIS recipe 가 없다. 제품 `NodeSideButtons.tsx` 의 TargetButton 이 정본이다 |
+| Web           | `partial`      | CSS recipe `packages/css/src/component/node-side-handle.css`. React 표면은 없다 — 연결 핸들 배선은 소비처(React Flow)의 몫이라 감싸는 컴포넌트를 두면 그 배선이 LOUIS 로 넘어온다 |
 | Figma         | `partial`      | NodeSideHandle — Channel(image·text·edit) = 3 variant. 슬롯: Glyph(INSTANCE_SWAP). 상태 축은 열지 않았다(아래) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 상태 축 셋이 담기지 않았고 그 이유가 전부 「담을 수 없다」이다 |
@@ -93,17 +93,39 @@ summary: 노드 카드 좌우 레일에 서는 28px 채널 연결 버튼.
 
 ## Acceptance tests
 
-아직 없다. LOUIS recipe 가 없어 붙일 코드가 없고, 값은 `figma/components.measured.json` 의
-`node-side-handle` 이 앵커 소스 인용으로 지킨다. 상태 축 셋이 담기지 않은 사유도 같은 기록의
-`$whyNoDisabledVariant` · `$whyNoHoverVariant` 가 갖는다.
+`packages/react/test/node-chrome.browser.test.tsx` 가 실브라우저에서 잰다 — 셸 28×28 과 반경 8,
+글리프 20, **셸의 면이 투명하다**는 사실, 채널 셋이 각자의 토큰을 물고 서로 다르다는 것,
+비활성 디스크가 채널별 비활성 토큰으로 간다는 것.
+
+**디스크의 28 과 8 은 이 시험만 잡는다.** 레시피는 그 둘을 수로 적지 않고 `100%` 와 `inherit`
+로 적는다 — 관계가 계약이고 수는 그 결과이기 때문이다. 그래서 저작 CSS 의 글자를 읽는
+`verify-recipe-record` 는 그 칸을 볼 수 없고, 렌더해야만 나온다. 실제로 디스크 폭을 24 로
+바꿔 두고 돌려 보면 이 시험만 빨개진다(`expected 24 to be 28`).
+
+상태 축 셋이 Figma 에 담기지 않은 사유는 `figma/components.measured.json` 의
+`$whyNoDisabledVariant` · `$whyNoHoverVariant` 가 그대로 갖는다 — recipe 가 섰다고 그 사유가
+풀리지는 않는다. 호버·프레스의 밝기와 스케일은 코드에는 있고 Figma 에는 없다.
 
 ## Known deviations
 
-1. **글리프 기본값이 채널을 주장하지 않는다.** 같은 채널 안에서도 자리마다 글리프가 다르다 —
+1. **비활성 면이 라이트에서 제품과 갈린다.** 제품은 다크에서만
+   `--node-handle-bg-disabled-{채널}` 을 쓰고, 라이트에서는 활성 토큰에
+   `brightness(0.78) saturate(0.95)` 를 걸어 어둡게 만든다. 필터가 만든 색은 값이 아니라
+   **연산**이라 옮길 변수가 없고, 테마마다 팔레트 칸을 직접 고르는 분기는 이 저장소가 하지
+   않는다. 그래서 레시피는 두 테마 다 같은 비활성 토큰을 읽는다 — 라이트에서 채널 900 면이
+   서고, 제품의 「채널 200 을 어둡게」와 다르다. 세만틱 변수 여섯이 서면 풀린다(위 상태 축
+   1번과 같은 조건이다).
+2. **흰 잉크가 `fg-on-danger` 에서 온다.** 두 테마에서 같은 흰색을 갖는 세만틱이 그 이름
+   하나뿐이다. 「채널 면 위의 잉크」라는 이름이 아직 없다는 사실을 여기 적는다 — 값은 제품의
+   `palette-gray-000` 과 같다.
+3. **`data-channel` 을 붙이지 않으면 시스템 강조색이 면이 된다.** 채널은 기본값 없는 축이라
+   CSS 에는 「축을 지정하지 않은 상태」가 실재한다. 셋 중 하나로 채우면 **거짓 채널**이 되므로
+   `accent-primary` 로 둔다.
+4. **글리프 기본값이 채널을 주장하지 않는다.** 같은 채널 안에서도 자리마다 글리프가 다르다 —
    image 채널이 시작 프레임에서는 align-left, 끝 프레임에서는 align-right 를 쓴다. 그래서
    글리프는 축이 아니라 슬롯이고, 기본값 하나만 둔다. edit 채널이 실제로 쓰는 video-camera 는
    아이콘 세트에 아직 없다.
-2. **툴팁과 연결 핸들을 담지 않는다.** 제품은 이 버튼을 React Flow 의 `Handle` 로 만들거나
+5. **툴팁과 연결 핸들을 담지 않는다.** 제품은 이 버튼을 React Flow 의 `Handle` 로 만들거나
    일반 버튼으로 만들고 둘 다 `ChromeTooltip` 으로 감싼다. 연결 가능 여부는 데이터가 정하는
    것이라 Figma 변형이 담을 축이 아니다.
 

@@ -1,0 +1,199 @@
+/* Node side handle — 노드 카드 좌우 레일의 28px 채널 버튼
+ *
+ * 규범: design/components/node-side-handle.md
+ * 계약: figma/components.measured.json 의 `node-side-handle`.
+ * 정본: 제품 앵커 `5a67d692` 의
+ *       apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx 의 TargetButton
+ *       (SIDE_BUTTON_SHELL · SIDE_BUTTON_FACET_BASE · FACET_{IMAGE,TEXT,EDIT} 계열).
+ *
+ * **셸과 디스크가 나뉜다.** 바깥 버튼은 투명하고 포인터만 받으며, 색과 곡률은 안쪽 디스크
+ * (`__facet`)가 갖는다. 제품이 그렇게 나눈 이유는 호버·프레스가 디스크만 키우고 줄이기
+ * 때문이다 — 셸이 채색을 가지면 스케일이 클릭 영역까지 흔든다.
+ *
+ * **채널이 셋이다.** 표면 원장은 여섯이라 적었지만 소스는 `type SideTone = "image" | "text" |
+ * "edit"` 셋이고, 나머지 셋(youtube · instagram · audio)은 사이드 버튼이 아니라 노드 액센트
+ * 축에서만 쓰인다(계약의 `$whyThreeChannels`).
+ *
+ * **레일 좌표는 이 컴포넌트가 갖지 않는다.** 카드 패딩 박스에서 바깥으로 `--node-side-gap`,
+ * 버튼끼리 세로 간격은 `--node-side-stack-gap` 이며 둘 다 캔버스가 소유한다. 어느 채널 버튼이
+ * 몇 개 서는지는 노드 타입이 정한다. */
+
+.louis-node-side-handle {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-node-side-handle-size);
+  block-size: var(--louis-node-side-handle-size);
+  padding-block: 0;
+  padding-inline: 0;
+  /* 셸에도 디스크에도 테두리가 없다. 경계는 곡률과 면이 만든다. */
+  border: 0;
+  border-radius: var(--louis-node-side-handle-radius);
+  background: transparent;
+  cursor: pointer;
+  /* 호버·프레스는 **색이 아니라 필터**다(계약의 `$whyNoHoverVariant`). 옮길 색 변수가 없어
+   * Figma 는 그 칸을 열지 않았고, 코드에는 그대로 있다. */
+  transition-property: filter;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  /* 채널 면. 아래 세 규칙이 이 변수만 갈아 끼운다 — 채널을 지정하지 않은 소비처가 거짓 채널
+   * 색을 갖지 않도록 기본값은 시스템 강조색이다. */
+  --louis-node-side-handle-face: var(--louis-color-accent-primary);
+  --louis-node-side-handle-ink: var(--louis-color-fg-on-danger);
+}
+
+/* 채널 셋. 면 토큰의 이름이 `handle-icon-*` 인 것은 제품 어휘를 그대로 옮긴 결과다 — 그 값이
+ * 디스크의 **면**에 붙는다(`FACET_IMAGE` 의 `[background:var(--node-handle-icon-image)]`).
+ * `handle-bg-*` 는 라이트 비활성이 밝기를 깎는 기준으로만 쓰인다. */
+.louis-node-side-handle[data-channel="image"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-image);
+}
+
+.louis-node-side-handle[data-channel="text"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-text);
+}
+
+.louis-node-side-handle[data-channel="edit"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-edit);
+}
+
+/* 디스크. 셸을 꽉 채우고 곡률을 그대로 물려받는다 — 그래서 이 두 값은 수가 아니라 관계이고,
+ * 계약의 `facetSize` 28 · `facetRadius` 8 은 그 관계가 만드는 결과다.
+ *
+ * 포인터는 셸이 받는다. 디스크가 포인터를 받으면 스케일이 히트 영역을 흔든다. */
+.louis-node-side-handle__facet {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--louis-node-side-handle-face);
+  /* 흰 글리프. 두 테마에서 같은 흰색을 갖는 세만틱이 `fg-on-danger` 하나뿐이라 그 이름을
+   * 읽는다 — 「채널 면 위의 잉크」라는 이름이 아직 없다는 사실을 여기 남긴다. */
+  color: var(--louis-node-side-handle-ink);
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+  transform: scale(1);
+  transition-property: transform;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 디스크 안쪽의 광. 제품은 `inset 0 0 8px` 흰 그림자를 `mix-blend-mode: overlay` 로 얹고
+ * Figma 는 INNER_SHADOW 의 blendMode 로 같은 것을 그린다. `translateZ(0)` 은 합성 레이어를
+ * 강제해 iOS 에서 블렌드가 같은 층의 글리프를 흐리게 잡는 것을 막는다. */
+.louis-node-side-handle__facet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 8px 0 var(--louis-node-side-handle-ink);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.louis-node-side-handle__glyph {
+  display: block;
+  flex: none;
+  /* 20. 헤더 액션의 16 보다 크다 — 이 버튼은 라벨 없이 글리프만으로 채널을 말한다. */
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
+  color: inherit;
+}
+
+/* 호버·프레스 — 디스크가 커지고 작아지며 셸이 밝기를 민다. 메뉴가 열린 상태는 소스가
+ * `filter: none` 만 더해 **기본과 시각이 같다**(계약의 `$whyNoHoverVariant`) — 그래서 여는
+ * 상태의 규칙을 두지 않는 것이 옳다. */
+.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover {
+  filter: brightness(1.1);
+}
+
+.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+  .louis-node-side-handle__facet {
+  transform: scale(1.08);
+}
+
+.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active {
+  filter: brightness(0.94);
+}
+
+.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active
+  .louis-node-side-handle__facet {
+  transform: scale(0.94);
+}
+
+/* 비활성 — 면과 잉크가 채널별 비활성 토큰으로 간다.
+ *
+ * **라이트에서 제품과 갈린다.** 제품은 다크에서만 이 토큰을 쓰고 라이트에서는 활성 토큰에
+ * `brightness(0.78) saturate(0.95)` 를 걸어 어둡게 만든다. 필터로 만든 색은 값이 아니라
+ * 연산이라 옮길 변수가 없고, 테마마다 팔레트 칸을 직접 고르는 분기는 이 저장소가 하지 않는다
+ * — 그래서 두 테마 다 같은 비활성 토큰을 읽고, 갈리는 칸은 문서 Known deviations 가 소유한다.
+ *
+ * 안쪽 광은 끈다. 비활성 면 위에서 채도가 폭주하는 것을 제품도 같은 이유로 껐다. */
+.louis-node-side-handle:disabled,
+.louis-node-side-handle[aria-disabled="true"] {
+  cursor: not-allowed;
+  filter: none;
+}
+
+.louis-node-side-handle:disabled .louis-node-side-handle__facet::before,
+.louis-node-side-handle[aria-disabled="true"] .louis-node-side-handle__facet::before {
+  display: none;
+}
+
+.louis-node-side-handle[data-channel="image"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="image"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-image);
+  color: var(--louis-color-node-handle-icon-disabled-image);
+}
+
+.louis-node-side-handle[data-channel="text"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="text"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-text);
+  color: var(--louis-color-node-handle-icon-disabled-text);
+}
+
+.louis-node-side-handle[data-channel="edit"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="edit"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-edit);
+  color: var(--louis-color-node-handle-icon-disabled-edit);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-node-side-handle,
+  .louis-node-side-handle__facet {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+    .louis-node-side-handle__facet,
+  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active
+    .louis-node-side-handle__facet {
+    transform: none;
+  }
+}
+
+/* forced-colors — 면이 강제 치환되면 **채널 셋이 서로 구분되지 않는다.** 색이 유일한 신호인
+ * 자리라(문서 Accessibility 절) 여기서는 경계를 되살리는 것까지만 한다. 채널의 뜻은 글리프와
+ * 툴팁·`aria-label` 이 나른다 — 그것이 이 모드에서 남는 신호다. */
+@media (forced-colors: active) {
+  .louis-node-side-handle__facet {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-node-side-handle:disabled .louis-node-side-handle__facet,
+  .louis-node-side-handle[aria-disabled="true"] .louis-node-side-handle__facet {
+    color: GrayText;
+  }
+}

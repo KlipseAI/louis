@@ -7,15 +7,16 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 
 # Node Shell
 
-캔버스에 놓이는 노드 아홉 종이 공유하는 **겉**이다. 카드 **위**에 얹힌 헤더 한 줄(타입 글리프 ·
+캔버스에 놓이는 노드 여덟 종이 공유하는 **겉**이다. 카드 **위**에 얹힌 헤더 한 줄(타입 글리프 ·
 노드 이름 · 다운로드/삭제 액션)과 그 아래 400px 폭 카드로 이루어진다. 카드 **안**은 이 컴포넌트가
 소유하지 않는다 — 미디어든 폼이든 프롬프트든 노드 타입이 채우는 슬롯이다.
 
-**제품에 정본이 없다는 것이 이 컴포넌트의 출발점이다.** 아홉 노드 파일이 각자
+**제품에 정본이 없다는 것이 이 컴포넌트의 출발점이었다.** 여덟 노드 파일이 각자
 `[--node-card-width:400px]` 를 선언하고, 각자 `NODE_WRAP` · `NODE_HEADER_ABOVE` ·
-`NODE_TITLE_WRAP` 이라는 같은 이름의 상수를 갖는다. 값이 전부 같은 채로 아홉 벌이 복제돼 있고,
-공유되는 것은 클래스가 아니라 **토큰과 이름**뿐이다. 카드 테두리만은 예외로
-`node-canvas-v2/index.tsx` 의 캔버스 셸이 `[data-node-chrome=wrap]` 후손 선택자 하나로 아홉을
+`NODE_TITLE_WRAP` 이라는 같은 이름의 상수를 갖는다. 값이 전부 같은 채로 여덟 벌이 복제돼 있고,
+공유되는 것은 클래스가 아니라 **토큰과 이름**뿐이다. (「아홉」이라 적혀 있던 것은 틀렸다 —
+`SectionNode` 는 카드가 아니라 그 선언을 하나도 갖지 않는다. 2026-09-09 실측.) 카드 테두리만은 예외로
+`node-canvas-v2/index.tsx` 의 캔버스 셸이 `[data-node-chrome=wrap]` 후손 선택자 하나로 여덟을
 한꺼번에 칠한다 — 그 한 줄이 「셸이 있어야 한다」는 것을 제품 스스로 인정한 자리다.
 
 ## 타입 축이 아홉이 아니라 일곱인 이유
@@ -40,7 +41,7 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
-| Web           | `not-ready`      | LOUIS recipe 가 없다. 제품 아홉 파일이 정본이고 이 문서가 그것을 처음 규범으로 적는다 |
+| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다 |
 | Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT). 본문·사이드 레일은 담지 않는다 |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있고 라이트 모드의 면·테두리가 제품과 갈린다(아래 Known deviations) |
@@ -122,10 +123,20 @@ NodeShell (세로, 간격 4, 폭 400)
 
 ## Acceptance tests
 
-아직 없다. LOUIS recipe 가 없어 브라우저 acceptance test 를 붙일 코드가 없고, 값은
-`figma/components.measured.json` 의 `node-shell` 이 앵커 소스 인용으로 지킨다. 제품 렌더 하네스가
-이 조형에 닿지 못하는 사유는 같은 파일의 `$noProductRender` 가 갖는다. recipe 가 서면 그때
-`packages/react/test` 에 기하 테스트를 세우고 이 절을 바꾼다.
+`packages/react/test/node-chrome.browser.test.tsx` 가 실브라우저에서 잰다 — 셋이 한 벌이라 한
+파일이고, 헤더 높이가 크롬 버튼의 토큰에서 온다는 인과가 거기서 한 눈에 보인다. 재는 것은
+프레임의 폭·간격, 헤더의 높이·간격·여백, 제목 간격과 글리프, 라벨의 줄 상자, 액션 쌍의 간격과
+폭, 카드의 폭·곡률·테두리, 그리고 **미선택 일곱이 전부 같은 면과 테두리를 갖는다**는 사실과
+선택 테두리의 액센트 88% 다.
+
+`packages/css/src/component/node-shell.css` 의 선언이 기록과 어긋나지 않는지는
+`node ./scripts/verify-recipe-record.mjs` 가 따로 본다 — 그쪽은 저작 CSS 의 글자를 읽고, 위
+브라우저 시험은 그 글자가 실제로 만드는 픽셀을 읽는다. 둘 다 필요하다: 캐스케이드와
+`inherit` 는 글자만 보아서는 나오지 않고, 렌더만 보아서는 팔레트 칸을 직접 적어 넣은 되돌림이
+같은 픽셀로 통과한다.
+
+제품 렌더 하네스가 이 조형에 닿지 못하는 사유는 `figma/components.measured.json` 의
+`$noProductRender` 가 그대로 갖는다 — recipe 가 섰다고 그 면제가 풀리지는 않는다.
 
 ## Known deviations
 
@@ -147,7 +158,15 @@ NodeShell (세로, 간격 4, 폭 400)
 5. **본문 높이 160은 자리표시자다.** 실제 높이는 미디어 비율과 폼 길이가 정한다. 160은 제품이
    실측 높이가 없을 때 쓰는 폴백(`V2_DEFAULT_NODE_HEIGHT`)이고, 셸이 본문 높이를 소유한다는
    뜻이 아니다.
-6. **사이드 레일을 담지 않는다.** 노드마다 채널 목록이 달라서, 셸이 레일을 소유하면 열넷의
+6. **선택 표시의 88% 는 `color-mix` 로 만든다.** 제품은 `rgb(var(--node-selection-accent-rgb)/88%)`
+   로 채널을 거쳐 알파를 얹는데, LOUIS 의 저작 게이트는 component CSS 에 원시 rgb 리터럴을
+   허용하지 않는다. 같은 색을 `color-mix(in srgb, … 88%, transparent)` 로 만들고, 그 값이
+   브라우저에서 실제로 같은지는 acceptance test 가 액센트 일곱 전부에 대해 대조한다.
+7. **`data-accent` 를 붙이지 않으면 시스템 강조색이 선택 색이 된다.** 액센트는 Figma 에서
+   기본값 없는 축이고 CSS 에는 「축을 지정하지 않은 상태」가 실재한다. 그 자리를 일곱 중
+   하나로 채우면 **거짓 채널 색**이 되므로 `accent-primary` 로 둔다 — 틀린 채널보다 「채널이
+   아니다」가 낫다.
+8. **사이드 레일을 담지 않는다.** 노드마다 채널 목록이 달라서, 셸이 레일을 소유하면 열넷의
    변형이 채널 목록을 굳혀 버린다. 레일 좌표는 토큰(`--node-side-gap` · `--node-side-ctrl`)이
    갖고 버튼은 [Node Side Handle](node-side-handle.md)이 갖는다.
 

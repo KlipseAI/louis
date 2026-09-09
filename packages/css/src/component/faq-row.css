@@ -1,0 +1,232 @@
+/* FAQ row — 질문 한 줄을 눌러 답변을 펼치는 채워진 아코디언 행
+ *
+ * 정본과 실측 — 제품 앵커 `5a67d692`:
+ *   apps/web/components/landing/sections/FAQ.tsx            (`lg` · 랜딩과 가격 페이지)
+ *   apps/web/components/scenes/create/guide/FAQPanel.tsx    (`md` · 노드 캔버스 가이드 모달)
+ * 값의 출처는 `figma/components.measured.json` 의 `faq-row` 이고 `scripts/verify-recipe-record.mjs`
+ * 가 아래 선언을 그 기록과 한 줄씩 대조한다. 기하를 되재는 것은
+ * `packages/react/test/faq-row.browser.test.tsx` 다.
+ *
+ * **행은 여백을 갖지 않는다.** 반경과 `overflow: hidden` 뿐이고 여백은 질문 버튼과 답변이 각자
+ * 진다. 그래야 열린 답변이 같은 면 안에 들어가면서도 질문의 좌우와 정확히 맞는다.
+ *
+ * **닫힌 행은 통째로 버튼이다.** 질문 글자만이 아니라 좌우 여백까지 전부 누를 수 있다. 열리면
+ * 버튼은 질문 줄까지이고 답변은 **버튼 밖의 형제**라, 답변을 눌러도 접히지 않는다. 그 구조가
+ * 마크업 계약이며 문서 Usage 절이 갖는다.
+ *
+ * **상태의 출처는 `aria-expanded` 하나다.** 글리프 회전을 `[aria-expanded="true"]` 에 걸어
+ * 시각과 보조기술이 같은 하나를 읽게 한다 — 별도의 `data-open` 을 두면 둘이 갈릴 수 있고,
+ * 실제로 정본 문서의 결손 목록이 「`+` 는 `aria-hidden` 이라 상태의 출처는 그것 하나」를 적는다.
+ *
+ * **면을 사다리(`--louis-color-bg-*`)로 바꾸면 라이트에서 행이 사라진다.** `bg-*` 의 라이트 칸은
+ * 랜딩 바닥(`landing-page-bg` = palette-gray/050)과 같거나 더 밝아서 방향이 뒤집힌다. 정본이
+ * `gray-900` 을 버리고 잉크 8% 오버레이를 고른 이유가 그것이고(문서 Known deviations 1),
+ * `verify-recipe-record` 의 `forbidden` 이 그 되돌림을 막는다.
+ */
+
+.louis-faq-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  /* 반경 12 는 `radius-card` 다 — 랜딩 행은 카드 급의 면이고, 66 높이에서 12 는 알약으로
+   * 읽히지 않는다. `overflow: hidden` 은 펼침 애니메이션이 모서리를 넘지 않게 한다. */
+  border-radius: var(--louis-radius-card);
+  overflow: hidden;
+  background: var(--louis-color-landing-panel-strong);
+}
+
+/* 질문 줄 전체를 덮는 버튼. `justify-content: space-between` 이 글자와 글리프를 양 끝으로
+ * 민다 — 글자가 짧아도 오른쪽 빈 자리까지 눌린다.
+ *
+ * **위 맞춤이다.** 질문이 두 줄이 되면 `+` 는 첫 줄에 붙어 위에 남는다(정본 `items-start`).
+ * `md` 만 가운데 맞춤으로 되돌린다 — 모달 질문은 한 줄을 전제한다. */
+.louis-faq-row__question {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* 사이 16 = `space-control-lg`. */
+  gap: var(--louis-space-control-lg);
+  inline-size: 100%;
+  /* 18 · 20 은 간격 계단(4·8·12·16) 위에 없다. 두 값이 닫힌 행 높이 66 = 18 + 30 + 18 을
+   * 만드는 정본 실측이고(`px-10 py-9`, 제품 격자가 `--spacing: 2px`), 16 으로 내리면 62 가
+   * 되어 기록·Figma·제품 셋이 동시에 어긋난다. inspector-row 가 같은 형태로 계단 밖 값을
+   * 리터럴로 두고 사유를 남긴 선례다. */
+  padding-block: 18px;
+  padding-inline: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+  text-align: start;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--louis-typography-body-lg-medium-font-family);
+  font-size: var(--louis-typography-body-lg-medium-font-size);
+  font-weight: var(--louis-typography-body-lg-medium-font-weight);
+  line-height: var(--louis-typography-body-lg-medium-line-height);
+  letter-spacing: var(--louis-typography-body-lg-medium-letter-spacing);
+}
+
+/* 질문 글자. 타입은 버튼에서 물려받고 이 칸은 줄바꿈만 소유한다 — 정본도 버튼에 타입 클래스를
+ * 붙이고 안의 `<span>` 은 글자만 담는다. */
+.louis-faq-row__question-text {
+  min-inline-size: 0;
+}
+
+/* `+` 글리프. 열리면 45° 돌아 `×` 가 된다.
+ *
+ * **잉크 64%(`landing-text-muted`)이지 50% 가 아니다.** 정본이 2026-09-08 에 잉크 50% 리터럴을
+ * 이 토큰으로 옮겼다(제품 `b1d1409c`) — 랜딩의 「흐린 보조 잉크」가 한 값으로 남는다. 문서
+ * Specification 이 적고 있던 50% 는 그 이전 값이며 이 회차가 정정한다.
+ *
+ * **회전은 `transform` 이지 `rotate` 프로퍼티가 아니다.** 정본이 전환 대상이라는 이유로 그렇게
+ * 두었고 기록·Figma 도 그 형태로 서 있다. 시간은 `layout-change`(220ms)이며 정본의 220ms 와
+ * 같은 수다 — 커브만 `ease` 에서 이 토큰의 것으로 옮긴다(text-field 가 같은 형태로 제품의
+ * 이름 없는 커브를 이름 있는 모션 토큰으로 옮긴 선례다). */
+.louis-faq-row__icon {
+  display: block;
+  flex: none;
+  color: var(--louis-color-landing-text-muted);
+  font-family: var(--louis-typography-body-lg-regular-font-family);
+  font-size: var(--louis-typography-body-lg-regular-font-size);
+  font-weight: var(--louis-typography-body-lg-regular-font-weight);
+  line-height: var(--louis-typography-body-lg-regular-line-height);
+  letter-spacing: var(--louis-typography-body-lg-regular-letter-spacing);
+  transition-property: transform;
+  transition-duration: var(--louis-motion-layout-change-duration);
+  transition-timing-function: var(--louis-motion-layout-change-timing-function);
+}
+
+.louis-faq-row__question[aria-expanded="true"] .louis-faq-row__icon {
+  transform: rotate(45deg);
+}
+
+/* 답변. **같은 면 안**에 들어가고 좌우는 질문과 맞추며 위는 0, 아래만 18 이다.
+ *
+ * `64ch` 는 행이 1400 까지 늘어나도 답변이 한 줄로 늘어지지 않게 하는 정본의 장치다.
+ *
+ * **높이 전개는 이 레시피가 그리지 않는다.** 정본은 framer-motion 이 `height: 0 ↔ auto` 를
+ * 300ms 로 옮기고, `grid-template-rows: 0fr ↔ 1fr` 로 하지 않은 이유(매 프레임 재레이아웃)를
+ * 제품이 주석으로 남겼다. CSS 만으로는 그 둘 중 하나를 고를 수밖에 없으므로 여닫이 자체는
+ * 소비처가 소유한다 — 레시피가 갖는 것은 정지 상태의 기하와 글리프 회전이다. */
+.louis-faq-row__answer {
+  margin: 0;
+  padding-block: 0 18px;
+  padding-inline: 20px;
+  max-inline-size: 64ch;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+}
+
+/* ── Size=md — 가이드 모달의 밀도 ──────────────────────────────────────────────
+ *
+ * `Size` 가 바꾸는 것은 폭이 아니라 밀도다. 폭은 껍데기가 정하고 좁아지면 그대로 줄어든다.
+ *
+ * **면의 주인이 바뀐다.** `lg` 는 알약 전체가 잉크 8% 이고 답변이 그 면 안에 들어가지만,
+ * `md` 는 행이 반경과 `overflow: hidden` 뿐이고 잉크 4% 를 칠하는 것은 **질문 버튼**이다.
+ * 그래서 `md` 에서 열린 답변은 면 밖에 선다. Figma 의 네 변형도 그대로 그렇게 서 있다.
+ */
+.louis-faq-row[data-size="md"] {
+  /* 48 높이에 12 를 두면 곡률이 높이의 1/4 이라 알약으로 읽힌다 — Button 의 `sm` 이 24
+   * 높이에서 같은 판단을 했다. 8 은 `radius-control-sm` 이다. */
+  border-radius: var(--louis-radius-control-sm);
+  background: transparent;
+}
+
+/* **면이 알파 오버레이이지 사다리가 아니다.** 여기서만 사다리를 쓸 수 없다: 정본의 라이트
+ * hover 는 쉬는 상태보다 **어둡고**(잉크 4% → 8%) 사다리의 라이트는 위로 갈수록 밝아진다.
+ * `bg-surface` 를 얹으면 라이트에서 모달 바닥(palette-gray/100)보다 밝아져 방향이 뒤집히고, 이 파일
+ * 머리말이 적은 「행이 사라진다」와 같은 사고가 난다.
+ *
+ * **`landing/` 접두사는 이름 빚이다.** 두 토큰이 실제로 갖는 것은 「잉크 알파 오버레이 4% ·
+ * 8%」이고 랜딩이 첫 소비처였을 뿐이다. 가이드 모달의 정본 값도 같은 오버레이다 — 라이트는
+ * 바이트가 같고(잉크 4%), 다크만 정본이 팔레트 칸(palette-gray/100)을 쓰고 이 토큰은
+ * 흰색을 써서 합성 결과가 0.5% 아래로 갈린다. 일반 이름(`bg-tint-*`)으로 승격할지는 토큰과
+ * Figma 변수를 같이 여는 별건이라 **소유자 판정**으로 남긴다.
+ *
+ * hover 는 `accent-ghost-hover` 다 — 이 질문 버튼이 곧 ghost 컨트롤이고, 그 토큰의 라이트
+ * 값(잉크 8%)은 정본과 바이트가 같다. 다크만 정본의 12% 에서 8% 로 내려온다. */
+.louis-faq-row[data-size="md"] .louis-faq-row__question {
+  align-items: center;
+  gap: var(--louis-space-control-md);
+  padding-block: var(--louis-space-control-md);
+  /* 14 는 간격 계단 밖이다. 모달 본문 단이 1400 이 아니라 1032 라 행이 좁고, 좁은 행에 20 을
+   * 두면 질문 글자가 가운데로 몰린다(정본 `px-7`). */
+  padding-inline: 14px;
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-landing-panel);
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  transition-property: background;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* **`lg` 에는 hover 가 없고 `md` 에만 있다.** 정본이 그렇다 — 랜딩 행에는 `:hover` 선언이 하나도
+ * 없고 가이드 모달의 질문 버튼만 면을 바꾼다. 정본의 `:hover` 는 hover 미디어로 감싸이지
+ * 않았지만 여기서는 감싼다: 터치에서 눌린 면이 남는 것은 이 저장소가 이미 버린 형태다. */
+@media (hover: hover) {
+  .louis-faq-row[data-size="md"] .louis-faq-row__question:hover {
+    background: var(--louis-color-accent-ghost-hover);
+  }
+}
+
+/* 셰브론은 질문 글자와 같은 16 을 명시하고 행간 24 는 버튼에서 물려받는다(정본
+ * `GUIDE_FAQ_CHEVRON` 이 `font-size` 하나만 세운다). */
+.louis-faq-row[data-size="md"] .louis-faq-row__icon {
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  font-weight: var(--louis-typography-body-md-regular-font-weight);
+  line-height: var(--louis-typography-body-md-regular-line-height);
+  letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+}
+
+/* **`md` 는 글리프를 돌리지 않는다.** 정본이 글자 자체를 `+` ↔ `−` 로 갈아 끼운다. 돌리기까지
+ * 하면 `−` 가 세로줄이 되어 닫힘으로 읽힌다. 이 차이는 아직 Figma 에 그려지지 않았고 문서
+ * Specification 이 그 사실을 갖는다. */
+.louis-faq-row[data-size="md"] .louis-faq-row__question[aria-expanded="true"] .louis-faq-row__icon {
+  transform: none;
+}
+
+.louis-faq-row[data-size="md"] .louis-faq-row__answer {
+  /* 10 · 14 는 정본 `pt-5 pb-7` 이다. `lg` 와 달리 위가 0 이 아닌 것은 답변이 질문 면 **밖**에
+   * 서기 때문이다 — 0 이면 답변이 면에 붙는다. */
+  padding-block: 10px 14px;
+  padding-inline: 14px;
+  /* 모달 단이 이미 1032 로 좁아 줄 길이 상한이 필요 없다. */
+  max-inline-size: none;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* **정본에는 reduced-motion 계약이 없다**(전역 무력화 규칙도 없고 framer-motion 쪽에도
+ * `useReducedMotion` 이 없다). 문서가 그것을 결손으로 적었고, LOUIS 표면이 서는 이 회차에
+ * 채운다 — 회전은 이 레시피가 소유하는 유일한 전환이므로 여기서 닫을 수 있다. 높이 전개는
+ * 소비처의 것이라 소비처가 같은 판단을 해야 한다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-faq-row__icon,
+  .louis-faq-row[data-size="md"] .louis-faq-row__question {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors 에서는 알파 오버레이가 통째로 시스템 색으로 치환돼 행과 바닥의 경계가 사라진다.
+ * 색으로만 서 있던 경계이므로(정본은 헤어라인도 두르지 않는다) 실선으로 되살린다. */
+@media (forced-colors: active) {
+  .louis-faq-row {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}

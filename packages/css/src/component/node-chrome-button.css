@@ -1,0 +1,111 @@
+/* Node chrome button — 노드 카드 헤더의 32px 아이콘 버튼 쌍 (다운로드 · 삭제)
+ *
+ * 규범: design/components/node-chrome-button.md
+ * 계약: figma/components.measured.json 의 `node-chrome-button`.
+ * 정본: 제품 앵커 `5a67d692` 의
+ *       apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx
+ *       (BUTTON · BUTTON_NEUTRAL · BUTTON_DANGER 세 상수).
+ *
+ * **IconButton 과 다른 계열이다.** 치수를 컨트롤 사다리가 아니라 노드 크롬 축
+ * (`node-chrome-btn-h` 32 · `node-chrome-btn-radius`)에서 받고, **면이 없다** — 기본은 투명이고
+ * 호버에서만 틴트가 뜬다. `ghost` 변형이 가장 가깝지만 그쪽은 컨트롤 높이 사다리를 탄다. 두
+ * 축이 같은 수를 갖는 것은 지금의 우연이고, 어느 한쪽이 움직이면 갈린다 — 그래서 여기서
+ * IconButton 을 재사용하지 않는다.
+ *
+ * **같은 토큰을 쓰지만 이 컴포넌트가 아닌 자리가 있다.** 메타 툴바의 알약(`node-chip`)은 좌우
+ * 패딩과 면을 갖는다. 이 버튼만 치수(`-h`·`-radius`)만 빌려 쓰고 면을 쓰지 않는다.
+ *
+ * **호버 틴트의 알파가 다크에서 제품과 갈린다.** 제품은 중립을 라이트 검정 8% · 다크 흰 12% 로,
+ * 삭제를 라이트 8% · 다크 12% 로 칠한다. 여기서는 두 테마 다 8% 인 세만틱에 문다 — 12/8 쌍을
+ * 담을 변수가 없고 새 변수는 토큰 생성물을 다시 내야 한다. Figma 도 같은 8% 에 물려 있어
+ * 세 곳이 같은 값이고, 갈리는 칸은 문서 Known deviations 1 이 소유한다. */
+
+.louis-node-chrome-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* 아이콘 전용 정사각이라 폭이 높이와 같고 좌우 패딩이 없다 — `--node-chrome-btn-padding-x`
+   * 를 **쓰지 않는 것**이 계약이다. */
+  inline-size: var(--louis-node-chrome-btn-h);
+  block-size: var(--louis-node-chrome-btn-h);
+  padding-block: 0;
+  padding-inline: 0;
+  /* 테두리가 없는 것이 계약이다. 경계는 호버 틴트가 만든다. */
+  border: 0;
+  border-radius: var(--louis-node-chrome-btn-radius);
+  background: transparent;
+  /* 헤더 제목과 같은 톤이다 — 제품은 다크 palette-gray-500 · 라이트 palette-gray-700 이고
+   * `fg-secondary` 는 라이트가 정확히 같다(node-shell 문서 Known deviations 3 과 같은 칸).
+   * **선택 시 액센트를 따라가지 않는다**: 캔버스는 제목에만 액센트를 걸고 액션은 그대로 둔다. */
+  color: var(--louis-color-fg-secondary);
+  cursor: pointer;
+  transition-property: color, background, opacity;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-node-chrome-button__glyph {
+  display: block;
+  flex: none;
+  /* 32 버튼 안의 16 글리프가 한 쌍이라고 제품 상수(`HEADER_GLYPH_PX`)가 적는다. */
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+  color: inherit;
+}
+
+/* 중립(다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
+.louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+  background: var(--louis-color-accent-ghost-hover);
+}
+
+/* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
+ * `Tone` 이 축이고 글리프는 슬롯이다.
+ *
+ * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
+ * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
+ * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
+.louis-node-chrome-button[data-tone="danger"]:where(
+    :not(:disabled):not([aria-disabled="true"])
+  ):hover {
+  background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
+  color: var(--louis-color-accent-danger);
+}
+
+/* 프레스 — **축이 아니라 동작이다.** 변형으로 그리면 기하 계약이 「눌린 크기」를 정본처럼
+ * 말하게 되므로 Figma 는 이 칸을 열지 않았다(계약의 `$whyNoActive`). 코드에는 그대로 있다. */
+.louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):active {
+  transform: scale(0.94);
+}
+
+/* 비활성 — 면이 아니라 불투명도로만 갈린다. 0.35 는 제품의 `disabled:opacity-35` 이고, 같은
+ * 수를 Figma 쪽에서는 parity 게이트의 `opacity` 블록이 소유한다(기록에 두면 정본이 둘이 된다). */
+.louis-node-chrome-button:disabled,
+.louis-node-chrome-button[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-node-chrome-button {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):active {
+    transform: none;
+  }
+}
+
+/* forced-colors — 틴트가 강제 치환되면 호버가 사라진다. 면 대신 시스템 색 실선으로 되살린다.
+ * 기본 상태에 테두리를 두지 않는 것은 그대로다 — 이 버튼은 면도 선도 없는 것이 계약이다. */
+@media (forced-colors: active) {
+  .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    outline: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-node-chrome-button:disabled,
+  .louis-node-chrome-button[aria-disabled="true"] {
+    color: GrayText;
+  }
+}

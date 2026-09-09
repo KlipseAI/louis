@@ -1,0 +1,216 @@
+/* Floating Shell · Pill Trigger — design/components/floating-shell.md
+ *
+ * 캔버스 **위에** 뜨는 크롬의 재료 한 벌. 면은 반투명하고, 뒤가 흐려지며, 경계는 테두리가 아니라
+ * 안쪽 헤어라인 한 겹이 만든다. 그 재료로 두 가지가 선다 — 조각을 담는 셸과, 눌러 패널을 여는
+ * 알약 트리거.
+ *
+ * **한 파일인 이유는 문서가 하나이기 때문이다.** 재료가 하나다 — 면(`color-bg-menu`) 72% ·
+ * 배경 흐림 4 · `--louis-hairline-inset` · 반경 16 이 한 묶음이고, 그 넷이 갈리면 캔버스 위에서
+ * 두 조각이 서로 다른 유리로 보인다. 두 파일로 나누면 그 불변식을 적을 자리가 없다.
+ * Progress(ProgressBar·ProgressRing)와 Video Player 가 이미 쓰는 형태다.
+ *
+ * 정본과 실측 — 제품 앵커 `5a67d692`:
+ *   apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx      TOOLBAR_WRAP
+ *   apps/web/components/scenes/create/node-canvas-v2/index.tsx                   TOOLBAR_WRAP (사본)
+ *   apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx
+ *                                                                                ZOOM_LABEL_BUTTON
+ * 값의 출처는 `figma/components.measured.json` 의 `floating-shell` · `pill-trigger` 가 `$` 사유로
+ * 하나씩 인용하고, 그 대조는 `scripts/verify-recipe-record.mjs` 가 매 실행 잰다.
+ *
+ * **elevation 을 얹지 않는다.** 이 재료의 경계는 안쪽 헤어라인 **한 겹**이 전부이고(계약의
+ * `borderWidth: 0`, DS-D-0023), 그림자를 한 겹 더 얹는 것은 `CommandPalette` 의 560 모달이다 —
+ * 그것은 알약이 아니라 Dialog 쪽 문법이라 이 세트에 담지 않았다(문서 「되풀이는 넷이다」).
+ *
+ * **z-index 를 갖지 않는다.** 이 레시피가 소유하는 것은 재료와 액자이고 어디에 뜨는지는 호출부가
+ * 정한다 — 앵커의 세 자리도 겹침 순서를 감싸는 래퍼가 갖는다. 여기서 층을 정하면 호출부가 이미
+ * 세운 순서를 이 파일이 조용히 이긴다.
+ */
+
+/* ── 재료 ─────────────────────────────────────────────────────────────────────
+ *
+ * 흐림과 알파를 **지역 변수로 발행한다.** 두 규칙이 각자 선언하는 이유는 트리거가 셸의 자손이
+ * 아니기 때문이다 — 앵커의 배율 트리거는 캔버스 우측 하단에 홀로 선다. 상속으로 한 벌을
+ * 물려줄 수 없어서 값이 두 번 적히고, 그 둘이 갈리지 않는 것은 게이트가 지킨다:
+ * `verify-recipe-record` 가 두 선언을 각각 기록의 `blurRadius` 와 대조하고,
+ * `floating-shell.browser.test.tsx` 가 렌더한 둘의 유리(면 · 흐림 · 반경 · 헤어라인)가 같은지
+ * 실브라우저에서 잰다.
+ *
+ * **흐림 4 는 이름을 갖지 못한다.** LOUIS 흐림 사다리는 10 · 12 · 16 이고 4 가 없다. 이름을
+ * 주려면 토큰을 새로 세우고 재생성해야 하며 Figma 변수까지 함께 열어야 한다 — 문서
+ * Known deviations 1 이 그것을 이 변경 단위 밖으로 둔다. 리터럴로 두되 기록에 묶어, 이름 없는
+ * 값이 게이트 밖에 있지는 않게 한다.
+ *
+ * **`-webkit-` 접두사를 병기하지 않는다.** 제품 빌드의 lightningcss 가 병기 시 표준 선언을
+ * 떨어뜨린 전례가 있고 앵커의 세 자리가 모두 그 주석을 달고 있다. `.louis-glass-surface` 도
+ * 같은 이유로 표준 속성만 적는다.
+ *
+ * **`translateZ(0)` 는 장식이 아니다.** 합성 레이어로 올려 배경 흐림이 안정적으로 걸리게 하는
+ * 선언이고, iOS 의 중첩 스크롤에서 같은 레이어의 글자가 흐려지는 결함을 막는 자리이기도 하다.
+ * 앵커의 세 자리가 전부 이것을 함께 적는다 — 정지 화면에 나타나지 않아 Figma 가 담지 못하는
+ * 값이라(문서 Known deviations 5) 레시피가 갖는 것이 유일한 보존 방법이다.
+ */
+.louis-floating-shell {
+  --louis-floating-shell-blur: 4px;
+  --louis-floating-shell-surface-alpha: 72%;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  /* 셸의 크기는 담은 조각이 정한다. flex 컨테이너 안에 놓였을 때 늘어나지 않게 한다 —
+   * 앵커의 `w-fit h-fit` 이 지키던 것이 이것이다. */
+  flex: none;
+  align-items: center;
+  /* 4. `gap-2` 이고 제품 `--spacing` 이 2px 이라 유틸 숫자 × 2 다. 조각 사이 간격이 셸 여백과
+   * 같아 첫 조각의 왼쪽과 조각 사이가 같은 값으로 보인다. */
+  gap: var(--louis-space-control-xs);
+  /* **높이를 선언하지 않는다.** 계약의 40 은 선언이 아니라 파생값이다 — 여백 4 + 조각 32 +
+   * 여백 4. 여기에 40 을 적으면 조각 수나 크기가 바뀔 때 두 값이 갈린다. 40 이 실제로 나오는지는
+   * 브라우저 시험이 렌더해서 잰다. */
+  padding-block: var(--louis-space-control-xs);
+  padding-inline: var(--louis-space-control-xs);
+  /* 경계는 테두리가 아니라 안쪽 헤어라인 한 겹이 만든다 — 그래서 셸의 폭이 조각 수로만 정해진다. */
+  border: 0;
+  /* 16. `--louis-radius-overlay` 와 같은 값이라 Figma 도 그 세만틱에 물렸다 — 이 셸은 컨트롤이
+   * 아니라 떠 있는 층이다. */
+  border-radius: var(--louis-radius-overlay);
+  background: color-mix(
+    in srgb,
+    var(--louis-color-bg-menu) var(--louis-floating-shell-surface-alpha),
+    transparent
+  );
+  backdrop-filter: blur(var(--louis-floating-shell-blur));
+  transform: translateZ(0);
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* 조각의 **자리**. 안에 무엇이 서는지는 이 셸의 계약이 아니다 — 계약이 담는 것은 그 자리의
+ * 겉 크기 32 와 곡률 12 뿐이고, 호버 틴트가 갈리는 툴바 버튼의 레시피는 아직 없다(문서
+ * Known deviations 4). 32 는 컨트롤 사다리의 `md` 이고 정사각이라 두 축이 같은 토큰을 읽는다 —
+ * `.louis-inspector-section-head__action` 이 24 정사각에 `sm` 을 읽는 것과 같은 형태다. */
+.louis-floating-shell__item {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
+  border-radius: var(--louis-radius-control);
+}
+
+/* ── Pill Trigger ────────────────────────────────────────────────────────────
+ *
+ * 눌러 패널을 여는 알약. **여는 패널은 여기서 만들지 않는다** — `.louis-popover` 가 이미 그것을
+ * 소유한다.
+ *
+ * **Size 축이 없다.** 36 은 컨트롤 높이 사다리의 값이 아니고(DS-D-0048) 이 조형은 한 자리에만
+ * 선다. 칸이 하나뿐인 축은 축이 아니라 재고다. 그래서 36 은 토큰이 아니라 이 규칙의 값이다.
+ */
+.louis-pill-trigger {
+  --louis-floating-shell-blur: 4px;
+  --louis-floating-shell-surface-alpha: 72%;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  /* 4. `gap-2`. 배율 문구와 캐럿 사이다. */
+  gap: var(--louis-space-control-xs);
+  /* 36. `h-18` 이고 제품 `--spacing` 이 2px 이다. 사다리 밖 값이라는 사유는 위 주석이 갖는다. */
+  block-size: 36px;
+  /* 위아래 여백이 없고 높이가 직접 고정돼 있어 라벨의 행간이 알약 높이를 만들지 않는다. */
+  padding-block: 0;
+  /* 12. `px-6`. 소스 주석은 「높이 32 + 좌우 패딩 10」이라 적지만 그것은 옮겨오기 전 모듈 CSS 의
+   * 값이고 살아 있는 선언은 36/12 다 — 주석이 낡았다. */
+  padding-inline: var(--louis-space-control-md);
+  border: 0;
+  /* 셸과 같은 16. 999 알약이 아니다 — 36 높이에 16 이면 모서리가 거의 반원으로 보이지만 값은
+   * 반경 사다리의 한 칸이다. */
+  border-radius: var(--louis-radius-overlay);
+  background: color-mix(
+    in srgb,
+    var(--louis-color-bg-menu) var(--louis-floating-shell-surface-alpha),
+    transparent
+  );
+  backdrop-filter: blur(var(--louis-floating-shell-blur));
+  transform: translateZ(0);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  /* **면이 아니라 `background-color` 를 전이한다.** 호버가 바꾸는 것은 지역 변수 하나이고, 그
+   * 치환 결과인 `background-color` 는 보간 가능한 계산값이라 그대로 전이된다.
+   *
+   * 앵커는 `0.12s ease` 를 적는다. 여기서는 컨트롤 호버 역할의 토큰(160ms · `ease` 와 같은
+   * cubic-bezier)을 읽는다 — `.louis-menu-trigger` 가 같은 자리에서 같은 판정을 했다. 갈리는
+   * 것은 지속시간 하나이고 문서 Known deviations 가 그것을 적는다. */
+  transition-property: background-color, color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  /* 라벨은 호출부가 아니라 트리거가 갖는다 — 앵커도 `type-body-14-medium` 을 이 버튼에 직접
+   * 건다. `line-height` 만 스케일(1.5)을 따르지 않고 1 로 눌린다: 높이가 36 으로 고정돼 있어
+   * 행간이 알약을 늘릴 자리가 없고, 늘어나면 캐럿과 글자의 광학 중심이 어긋난다. */
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  line-height: 1;
+}
+
+/* 호버는 **색을 바꾸지 않고 같은 면을 더 불투명하게** 만든다. 그래서 여기서 바뀌는 선언은
+ * 알파 하나뿐이다 — `background` 를 다시 적으면 색을 갈아 끼울 자리가 생기고, 그것이 이
+ * 컴포넌트가 하지 않기로 한 일이다. Figma 도 같은 변수에 paint opacity 만 올린다.
+ *
+ * `@media (hover: hover)` 가드를 두지 않는다 — 앵커가 `[&:hover]:` 로 적어 그 가드가 없다. */
+.louis-pill-trigger:hover {
+  --louis-floating-shell-surface-alpha: 88%;
+}
+
+/* 캐럿. **아이콘이 아니라 방향 표시다** — 10 은 아이콘 사다리(16 · 20 · 24)의 값이 아니고
+ * 툴바 글리프 20 보다 작다. 잉크 색을 따로 깎지 않고 불투명도로만 물러선다. */
+.louis-pill-trigger__caret {
+  display: block;
+  flex: none;
+  inline-size: 10px;
+  block-size: 10px;
+  opacity: 0.7;
+  /* 앵커는 `transform 160ms ease` 다. 컨트롤 호버 토큰이 160ms 에 `ease` 와 같은
+   * cubic-bezier(0.25, 0.1, 0.25, 1) 이라 이 자리는 토큰과 앵커가 **같은 값**이다. */
+  transition-property: transform;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 열림은 면도 잉크도 건드리지 않는다 — 바뀌는 것은 캐럿의 향뿐이다. 메뉴가 위로 열리므로
+ * 열리면 위를 가리킨다. 상태의 원천은 `aria-expanded` 이고 그것이 접근성 계약이기도 하다 —
+ * 별도의 data 속성을 세우면 화면과 보조기술이 두 원천을 갖게 된다. */
+.louis-pill-trigger[aria-expanded="true"] .louis-pill-trigger__caret {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-pill-trigger,
+  .louis-pill-trigger__caret {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — box-shadow 는 강제 색에서 사라진다. 이 재료는 경계가 헤어라인 한 겹뿐이라
+ * 그것이 사라지면 알약이 배경과 붙는다. 시스템 색 실선으로 되살린다(DS-D-0023, `.louis-popover`
+ * 와 같은 형태). 흐림도 함께 걷는다 — 강제 색은 대비를 보장하려는 모드인데 반투명 면이 그
+ * 보장을 되돌린다. */
+@media (forced-colors: active) {
+  .louis-floating-shell,
+  .louis-pill-trigger {
+    border: var(--louis-border-width-default) solid currentColor;
+    background: Canvas;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  /* 고대비 모드가 보장한 대비를 opacity 로 깎지 않는다. 방향은 회전이 나른다. */
+  .louis-pill-trigger__caret {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,206 @@
+/* Node shell — 캔버스 노드의 겉 (카드 위 헤더 한 줄 + 400px 카드)
+ *
+ * 규범: design/components/node-shell.md
+ * 계약: figma/components.measured.json 의 `node-shell` — 칸마다 어느 제품 선언에서 온 값인지를
+ *       `$` 사유가 갖는다. 이 레시피는 그 수를 하나도 바꾸지 않는다.
+ * 정본: 제품 앵커 `5a67d692` 의
+ *       apps/web/components/scenes/create/node-canvas-v2/nodes/*Node.tsx 여덟과
+ *       같은 디렉터리의 index.tsx(CANVAS_SHELL_BASE).
+ *
+ * **왜 CSS 로 세우는가.** 여덟 노드 파일이 `NODE_WRAP` · `NODE_HEADER_ABOVE` ·
+ * `NODE_TITLE_WRAP` 이라는 같은 이름의 상수를 각자 들고 있고 값이 바이트 단위로 같다. 공유되는
+ * 것이 클래스가 아니라 이름뿐이라 한 벌을 고치면 나머지 일곱이 조용히 갈린다 — 그 복제가
+ * 정확히 recipe 가 없어서 생긴 것이므로, 여기 세우는 것이 맞다. (모든 컴포넌트가 그렇지는
+ * 않다: `canvas-edge` 는 SVG 속성과 JS 로 만든 문자열이라 클래스가 붙을 자리가 없다.)
+ *
+ * **헤더와 카드 사이 4 는 뺄셈의 결과가 아니라 값이다.** 제품은 컨테이너 `gap-5`(격자가 2px 라
+ * 10)에 헤더의 `-mb-3`(−6)을 겹쳐 4 를 만든다. 음수 여백은 두 선언이 짝일 때만 참이고 한쪽만
+ * 옮기면 조용히 6 이 남는다 — Figma 오토레이아웃에도 음수 여백이 없으므로 결과값 4 를 그대로
+ * 컨테이너 간격으로 쓴다. 계약의 `$headerToCardGap` 이 같은 사실을 적는다.
+ *
+ * **면과 테두리는 사다리 토큰에 문다.** 제품은 카드 바닥을 다크 palette-gray-800 · 라이트
+ * palette-gray-100 으로, 테두리를 다크 palette-gray-600 · 라이트 palette-gray-000 으로 칠하는데
+ * 그 라이트/다크 쌍을 가진 세만틱이 없다 — `bg-surface` 와 `stroke-default` 는 다크가 정확히
+ * 같고 라이트만 갈린다. 팔레트 칸을 테마마다 직접 고르는 대신 **관계**(카드는 캔버스 위로
+ * 한 칸 나온 면이고, 그 경계는 공용 기본 선이다)를 고정한다. 갈리는 칸은 문서
+ * Known deviations 1·2 가 소유한다. */
+
+.louis-node-shell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 헤더 → 카드. 위 머리말의 뺄셈이 만들던 값이다. */
+  gap: var(--louis-space-control-xs);
+  /* 400 은 제품 `constants.ts` 의 `V2_MEDIA_NODE_WIDTH` 이고 여덟 노드가 각자
+   * `[--node-card-width:400px]` 로 같은 수를 적는다. 폭 사다리에 그 값의 이름이 없어 리터럴로
+   * 둔다 — 캔버스 배율은 소비처가 transform 으로 걸지 이 폭을 고쳐서 만들지 않는다. */
+  inline-size: 400px;
+  /* 바깥 프레임은 헤더와 카드를 담는 레이아웃 상자일 뿐이다 — 여백도 곡률도 갖지 않는다.
+   * 곡률은 카드가 갖는다. */
+  padding-block: 0;
+  padding-inline: 0;
+  /* 선택 테두리 색. 일곱 액센트가 아래에서 이 변수만 갈아 끼운다 — `data-accent` 를 붙이지
+   * 않은 소비처가 **거짓 채널 색**을 갖지 않도록 기본값은 시스템 강조색이다. */
+  --louis-node-shell-accent: var(--louis-color-accent-primary);
+}
+
+/* 액센트 일곱. 제품 `globals.css` 의 `[data-node-accent]` 어휘를 그대로 옮긴다 — 노드 타입은
+ * 아홉이지만 셸이 구별하는 것은 일곱이고(tts·bgm 이 같은 audio), `youtube` 와 `instagram` 은
+ * 같은 red-500 을 가리켜 **선택 테두리까지 바이트 단위로 같다.** 같은 값을 두 칸으로 두는
+ * 것은 제품의 어휘를 잃지 않기 위해서다 — 계약의 `$whyAccentNotType` 이 그 사실을 갖는다.
+ * 아홉 번째인 `section` 은 카드가 아니라 프레임이라 이 벌에 없다. */
+.louis-node-shell[data-accent="video"] {
+  --louis-node-shell-accent: var(--louis-color-node-video-accent);
+}
+
+.louis-node-shell[data-accent="image"] {
+  --louis-node-shell-accent: var(--louis-color-node-image-accent);
+}
+
+.louis-node-shell[data-accent="text"] {
+  --louis-node-shell-accent: var(--louis-color-node-text-accent);
+}
+
+.louis-node-shell[data-accent="youtube"] {
+  --louis-node-shell-accent: var(--louis-color-node-youtube-accent);
+}
+
+.louis-node-shell[data-accent="instagram"] {
+  --louis-node-shell-accent: var(--louis-color-node-instagram-accent);
+}
+
+.louis-node-shell[data-accent="audio"] {
+  --louis-node-shell-accent: var(--louis-color-node-audio-accent);
+}
+
+.louis-node-shell[data-accent="edit"] {
+  --louis-node-shell-accent: var(--louis-color-node-edit-accent);
+}
+
+/* 헤더 한 줄 — 제목 묶음이 왼쪽, 액션 묶음이 오른쪽.
+ *
+ * **높이를 정하는 것은 제목이 아니라 액션 버튼이다.** 글리프는 16 이고 라벨의 줄 상자는 14 인데
+ * 행이 32 인 것은 [Node Chrome Button] 둘이 32 이기 때문이다. 그래서 높이를 수로 적지 않고
+ * 그 버튼의 토큰을 읽는다 — 버튼이 움직이면 헤더가 따라 움직이는 것이 계약이다. */
+.louis-node-shell__header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-sm);
+  inline-size: 100%;
+  block-size: var(--louis-node-chrome-btn-h);
+  padding-block: 0;
+  /* 2. 헤더만 갖는 여백이라 카드 폭과 어긋나지 않는다. 간격 계단(4·8·12·16)에 2 가 없고
+   * 같은 수를 가진 `space-overlay-item-gap` 은 오버레이 항목 사이의 값이라 뜻이 다르다. */
+  padding-inline: 2px;
+}
+
+/* 제목 묶음 — 내용폭만 차지한다. 늘어나면 편집 모드 칩이 제목에서 떨어진다. */
+.louis-node-shell__title {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  /* 5. 2px 격자에도 간격 계단에도 없는 값이고 제품이 `gap-[5px]` 로 적은 그대로다 —
+   * 격자에 맞추는 것은 소유자 판정이라 실측을 옮긴다(계약의 `$titleGap`). */
+  gap: 5px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  /* 제품은 다크 palette-gray-500 · 라이트 palette-gray-700 이다. `fg-secondary` 는 라이트가
+   * 정확히 같고 다크만 한 단 밝다 — 문서 Known deviations 3 이 그 칸을 소유한다. */
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-node-shell__glyph {
+  display: block;
+  flex: none;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+  color: inherit;
+}
+
+/* 이름은 한 줄이다. 두 줄이 되면 헤더가 카드 위로 자라 노드끼리 겹친다.
+ *
+ * **줄 높이가 1 인 것이 계약이다.** body-14 의 기본 1.5 를 1 로 좁혀 글리프와 시각 중앙을
+ * 맞춘다 — 계약의 `labelHeight` 14 가 그 결과값(14 × 1)이다. */
+.louis-node-shell__label {
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: 1;
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 액션 묶음. **간격 0 이 계약이다** — 제품이 `--node-chrome-btn-gap` 을 쓰지 않고 `gap-0` 을
+ * 쓰며 「의도적으로 붙인다」를 주석으로 남겼다. 잘못 누르는 쪽이 삭제라는 점에서 이 값은
+ * 다시 볼 만하고, 그 판정은 문서 Accessibility 절이 소유자에게 남겨 두었다. */
+.louis-node-shell__actions {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+}
+
+/* 카드. 폭은 프레임을 꽉 채우고 곡률과 경계는 여기서 갖는다.
+ *
+ * **높이를 소유하지 않는다.** 실제 높이는 미디어 비율과 폼 길이가 정한다 — 계약의 160 은
+ * 제품이 실측 높이가 없을 때 쓰는 폴백(`V2_DEFAULT_NODE_HEIGHT`)이고 자리표시자다. 여기에
+ * 높이를 적으면 그 자리표시자가 계약처럼 읽힌다.
+ *
+ * **테두리가 진짜 stroke 다.** Button·IconButton 의 0.5 inset 헤어라인(DS-D-0023)과 달리 제품이
+ * `border: 2px solid` 로 그리는 선이고 레이아웃 박스를 실제로 접는다 — 기법을 헤어라인으로
+ * 바꾸면 카드 바깥 치수가 4 움직인다. */
+.louis-node-shell__card {
+  box-sizing: border-box;
+  inline-size: 100%;
+  /* 24. 같은 수를 가진 세만틱은 `radius-overlay-lg` 하나뿐인데 노드 카드는 오버레이가 아니라
+   * 카드다 — 이름이 뜻과 어긋나므로 리터럴로 두고 사유를 여기 남긴다(계약의 `$cardRadius`
+   * 가 Figma 쪽에서 같은 판정을 적는다). */
+  border-radius: 24px;
+  border-style: solid;
+  border-width: var(--louis-border-width-ring);
+  border-color: var(--louis-color-stroke-default);
+  background: var(--louis-color-bg-surface);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 카드 안은 셸이 소유하지 않는다 — 미디어든 폼이든 프롬프트든 노드 타입이 채우는 슬롯이다. */
+.louis-node-shell__body {
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* 선택 — 테두리가 액센트 88% 로 가고 제목 잉크도 액센트로 간다.
+ *
+ * 88% 는 제품 실측이다(`index.tsx` 의 `rgb(var(--node-selection-accent-rgb)/88%)`). 알파를
+ * 색 채널로 직접 적지 않고 `color-mix` 로 만드는 것이 이 저장소의 방식이다 — 원시 rgb 리터럴은
+ * 저작 게이트가 막는다.
+ *
+ * **호버는 없다.** 캔버스에서 카드에 마우스를 얹는 것만으로는 아무것도 바뀌지 않고, 반응하는
+ * 것은 안쪽 컨트롤과 좌우 레일 버튼이다. */
+.louis-node-shell[data-selected="true"] .louis-node-shell__card {
+  border-color: color-mix(in srgb, var(--louis-node-shell-accent) 88%, transparent);
+}
+
+.louis-node-shell[data-selected="true"] .louis-node-shell__title {
+  color: var(--louis-node-shell-accent);
+}
+
+/* forced-colors — 카드 경계는 진짜 border 라 시스템 색으로 치환되며 살아남지만, **선택 표시가
+ * 사라진다**(치환된 뒤 두 상태의 테두리가 같은 색이다). 선택은 캔버스가 노드를 앞으로 올리고
+ * 좌우 레일을 드러내는 신호를 함께 갖지만 그 둘은 이 레시피 밖이므로, 여기서는 두께로 한 겹
+ * 더 말한다. */
+@media (forced-colors: active) {
+  .louis-node-shell[data-selected="true"] .louis-node-shell__card {
+    border-style: double;
+  }
+}

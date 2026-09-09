@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 71
+- Documents: 72
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -13,6 +13,7 @@
 - design/README.md
 - design/develop/README.md
 - design/content/README.md
+- design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md
 - design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
@@ -145,7 +146,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 148 |
+| Normative documents | 149 |
 | Generated documents | 5 |
 | Components | 51 |
 | Patterns | 8 |
@@ -275,6 +276,107 @@ Klipse가 사용자에게 일관되게 말하는 방법을 정의한다. 현재�
 - 하드코딩 사용자 문구 게이트
 - 숫자·날짜·duration·credit 표기 규칙
 - 이메일 콘텐츠 규칙과 앱 디자인 시스템의 관계 정리
+
+## DS-D-0061 연결선의 정본은 CSS 가 아니라 톤 표다 — canvas-edge 레시피를 세우지 않는다
+
+- Source: design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md
+- Maturity: experimental
+
+### DS-D-0061 연결선의 정본은 CSS 가 아니라 톤 표다 — canvas-edge 레시피를 세우지 않는다
+
+- Status: accepted (LOUIS · 계약 · 문서 2026-09-09. Figma 는 움직이지 않는다)
+- Date: 2026-09-09
+- Owners: design system maintainer
+- Affects: `component-canvas-edge`, `decision-figma-done-without-publish`
+
+#### Context
+
+생성 CSS 에 클래스가 0 건인 컴포넌트를 세어 보면 다섯이다 — `faq-row` · `node-shell` ·
+`floating-shell` · `pill-trigger` · `canvas-edge`. 넷은 「아직 안 세운 것」이고 manifest 가
+`not-ready` 로 정직하게 적고 있었다. **다섯째가 그 넷과 같은 종류인지가 이 결정의 질문이다.**
+
+같은 질문을 다시 하게 되는 이유가 있다. 제품은 이 컴포넌트를 **이미 채택했는데** 그 방식이
+CSS 클래스가 아니라 **JS 상수 표**였다 —
+`node-canvas-v2/edges/V2EdgeLayers.tsx` 의 `V2_EDGE_TONE`(일곱 톤 × stroke · shimmer ·
+wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다」는 사실이 **채택이 안 됐다는
+뜻이 아니다.** 기록에 그 구분이 없으면 열어 보는 사람마다 같은 조사를 다시 한다.
+
+#### Decision
+
+**CSS 레시피를 세우지 않는다. 이 컴포넌트의 정본은 톤 표이고, LOUIS 는 그 표가 부르는 이름을
+소유한다.** manifest 의 `web` 을 `not-ready` 에서 **`not-planned`** 로 옮긴다.
+
+근거는 「지금 필요가 없다」가 아니라 **CSS 가 이 조형을 담지 못한다**는 것이다.
+
+1. **쉬머의 페인트가 인스턴스 기하다.** 쉬머는 `gradientUnits="userSpaceOnUse"` 인
+   `<linearGradient>` 이고 좌표 넷이 **두 핸들의 런타임 좌표**에서 나온다. 획은 엣지마다 다른
+   `url(#…)` 를 물어야 한다. CSS 클래스는 paint server 를 만들지도, 그 좌표를 정하지도,
+   인스턴스마다 다른 id 를 붙이지도 못한다.
+2. **주기는 SMIL 이지 CSS 가 아니다.** 1.45초는 `<animateTransform>` 의 `dur` 이고 그것을
+   정하는 CSS property 는 없다. 계약의 `shimmerPeriodMs` 는 **어떤 레시피로도** 옮겨가지 못한다.
+3. **그래서 레시피는 한 표를 두 집에 살게 한다.** CSS 가 담을 수 있는 것은 실선 색 · stop 색 ·
+   stop 불투명도 · 번짐 필터 넷뿐이고 나머지는 JS 에 남는다.
+
+세 번째가 결정적이다. **이 컴포넌트를 기록할 값어치가 정확히 그 반대편에 있기 때문이다.**
+이 조형은 앵커에서 손으로 일곱 벌 복제돼 있었고 그중 워크스루 오버레이 넷이 주기(1.85초 대
+1.45초) · 번짐 색 · image 하이라이트에서 이미 갈렸다. 제품 `V2_EDGE_TONE` 의 주석이 그 교훈을
+적는다 — 주석은 동일함을 지켜 주지 않으며, 값을 한 곳에 두어야 갈릴 자리가 사라진다.
+**LOUIS 레시피는 여덟 번째 사본이 되고, 위 1·2 때문에 통째로 소비될 수 없는 첫 사본이 된다.**
+
+#### Alternatives
+
+**(a) 넷만 담는 부분 레시피를 세운다.** 실선 색 · stop 색 · stop 불투명도 · 번짐 필터를 톤
+수정자 클래스로 연다. 기각한다 — 표가 CSS 와 JS 로 갈리고, 그것이 이 컴포넌트가 고치려던
+결함 그 자체다. 제품이 물어도 사본이 하나 줄지 않고 하나 는다.
+
+**(b) 쉬머를 CSS 로 애니메이트할 수 있게 다시 설계한다.** 기각한다 — 출시된 제품 시각을 바꾸는
+일이고, 그 순간 「정본은 제품」이라는 전제가 뒤집힌다. 값을 옮기려고 조형을 바꾸는 것은 순서가
+거꾸로다.
+
+**(c) LOUIS 가 톤 표를 TS export 로 소유한다.** **기각하지 않는다 — 오늘 하지 않을 뿐이다.**
+그러면 제품 사본 일곱이 하나로 접히고 위 「넷의 어긋남」이 구조적으로 사라진다. 오늘 하지 않는
+이유는 하나다: **소비처가 없다.** 제품이 그것을 물어야 이득이 생기고, 무는 것은 제품 회차의
+일이다. 소비처 없이 세우면 아무도 안 읽는 여덟 번째 사본이 되는 것은 (a) 와 같다.
+**이 결정은 (c) 를 닫지 않는다.** 수요가 서면 Decision 으로 다시 연다 — `select` 가 DS-D-0053
+에서 그렇게 열렸다.
+
+**(d) `not-ready` 로 둔다.** 기각한다. 어휘가 둘을 이미 갈라 두었다 — `not-ready` 는 「아직
+제공하지 않는다」이고 `not-planned` 는 「제공할 필요가 없다」다. 「아직」으로 적어 두면 이 조사가
+영구히 반복된다. `not-planned` 는 「안 만든다」가 아니라 **「계획에 없다는 것이 결정됐다」**는
+뜻이라고 2026-08-18 항목이 이미 적어 두었다.
+
+#### Consequences
+
+- `canvas-edge` 의 `web` 이 `not-planned` 가 된다. 이 저장소에서 `select` 이후 두 번째다.
+- **레시피가 없다는 사실이 근거를 갖는다.** 계약 최상위에 `$noRecipe` 명부가 서고 canvas-edge
+  가 그 첫 항목이다. 형태는 같은 파일의 `$noProductRender` 를 따랐다 — 면제는 검사를 빼는 것이
+  아니라 다른 근거로 옮기는 것이다.
+- **검사가 줄지 않는다.** 표가 부르는 이름이 두 테마에서 실재하는지와 톤마다 옳은 칸(실선 500 ·
+  쉬머 200)을 무는지는 `packages/react/test/canvas-edge.browser.test.tsx` 가 실브라우저에서
+  이미 잰다. 근거가 CSS 가 아닌 자리에 서 있을 뿐이다.
+- Figma 는 움직이지 않는다. `CanvasEdge` 14 variant 와 계약 값이 그대로이므로
+  `verify-figma-parity` 의 대조도 그대로다.
+- 문서 Acceptance tests 의 5·6·7(주기 · 번짐 반경 · 히트 영역)은 여전히 아무도 재지 않는다.
+  **그 자리는 레시피를 기다리는 자리가 아니다** — 제품 쪽 탐침이 서야 열리고, 그 사유는 계약의
+  `$noProductRender` 가 이미 갖고 있다.
+
+#### Rollout and verification
+
+같은 회차에서 셋을 함께 옮겼다 — 계약(`$noRecipe`) · 문서(Availability 와 「왜 CSS 레시피가
+없는가」 절) · manifest(`web`).
+
+`scripts/verify-recipe-record.mjs` 가 이 판정을 **세 방향으로** 문다. 그 게이트는 원래 「레시피가
+있는 것을 기록과 맞추는」 검사였고, 여기에 반대쪽 절을 붙였다.
+
+1. `$noRecipe` 의 이름은 manifest 의 `web` 이 `not-planned` 여야 한다.
+2. 그 이름으로 `packages/css/src/component/<id>.css` 가 **생기면 실패한다.** 판정을 뒤집는
+   일이므로 조용히 일어날 수 없다.
+3. 거꾸로 `web` 이 `not-planned` 인데 명부에 사유가 없으면 실패한다 — 사유 없는 `not-planned`
+   는 상태가 아니라 검사를 끄는 값이다.
+
+넷을 사본에서 변조해 확인했다(전부 exit=1, 메시지가 canvas-edge 의 그 규칙): `web` 을
+`not-ready` 로 되돌리기 · `canvas-edge.css` 를 만들기 · `$noRecipe` 사유를 지우기 · 사유를 한
+마디로 줄이기.
 
 ## DS-D-0060 크롭 창과 선택 상자는 한 벌이다 — 손잡이 위치는 축이 아니다
 
@@ -12739,6 +12841,56 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-09 (124) — 떠 있는 크롬에 그리는 코드를 준다 (FloatingShell · PillTrigger)
+
+123 이 세운 것은 계약과 Figma 였고 **그리는 코드는 없었다.** 그 상태에서 제품이 클래스를 붙이면
+아무 일도 일어나지 않는다 — 실제로 제품 채택 회차가 이 셋에 기대는 절차를 하지 못하고 건너뛰었다.
+이 회차가 그 빈자리를 채운다: `packages/css/src/component/floating-shell.css` 한 파일에
+`.louis-floating-shell` · `.louis-floating-shell__item` · `.louis-pill-trigger` ·
+`.louis-pill-trigger__caret` 이 함께 산다.
+
+**파일이 하나인 이유는 문서가 하나인 이유와 같다.** 재료가 하나다 — 면 72%(`color-bg-menu`) ·
+배경 흐림 4 · `--louis-hairline-inset` · 반경 16. 두 파일로 나누면 그 불변식을 적을 자리가 없다.
+
+**레시피가 소유하지 않는 것 셋을 명시했다.** z-index(어디에 뜨는지는 호출부가 갖는다 — 앵커의
+세 자리도 겹침 순서를 감싸는 래퍼가 갖고, 여기서 층을 정하면 이미 세운 순서를 레시피가 조용히
+이긴다) · 그림자(경계는 헤어라인 **한 겹**이 전부다. `--louis-elevation-menu` 를 더 얹는 것은
+`CommandPalette` 의 560 모달이고 그것은 Dialog 문법이다) · 조각의 내용(자리의 겉 크기 32 와
+곡률 12 만 갖는다).
+
+**재료가 두 규칙에 각각 적힌다.** 트리거가 셸의 자손이 아니라서다 — 배율 트리거는 캔버스 우측
+하단에 홀로 서므로 상속으로 한 벌을 물려줄 수 없다. 값이 두 번 적히는 대신 갈리지 않는 것을
+기계가 지킨다: `verify-recipe-record` 가 두 선언을 각각 기록과 대조하고(레시피↔기록 대조가
+26 → 49 건으로 늘었고 그중 23 건이 이 두 벌이다), 브라우저 시험이 렌더한 둘의 유리 — 면 · 흐림 ·
+반경 · 헤어라인 — 가 **같은지**를 실브라우저에서 잰다.
+
+**이름 없는 값을 게이트 밖에 두지 않았다.** 흐림 4 는 LOUIS 흐림 사다리(10 · 12 · 16)에 없어
+토큰이 될 수 없고 `backdrop-filter: blur(…)` 로는 게이트가 수로 풀지 못한다. 값을 지역 변수
+`--louis-floating-shell-blur` 로 한 번 발행하고 그 선언을 기록의 `blurRadius` 와 맞췄다.
+이름이 없는 것과 아무도 보지 않는 것은 다르다.
+
+**`translateZ(0)` 가 이제 레시피의 것이다.** 정지 화면에 나타나지 않아 Figma 가 담지 못하는
+값이고, 앵커의 세 자리가 각자 적고 있었다. 레시피가 가지면 제품이 클래스를 무는 순간 따라간다 —
+정지 화면에 없는 값을 보존하는 유일한 방법이다.
+
+**브라우저 시험이 재는 것이 바뀌었다.** 이전 판은 그리는 코드가 없어 「표가 부르는 이름이
+토큰층에 실재하는가」만 잴 수 있었고, 여백·간격·높이·흐림 4 · 캐럿의 향은 문서가 「아직 재지
+못하는 것」으로 남겨 두고 있었다. 이제 다섯이 전부 측정 대상이다. **높이 40 과 폭 112 는 선언이
+아니라 파생값이라 이 시험에서만 재진다**(`4 + 32 + 4` 와 `4 + 32×3 + 4×2 + 4`).
+
+**전이가 도는 동안은 재지 않는다.** 호버를 얹거나 테마를 뒤집은 직후의 계산 스타일은 계약값이
+아니라 계약값으로 가는 중인 보간값(Chromium 은 `oklab(…)` 으로 발행한다)이다. 첫 판이 그것을
+재고 빨개졌고, `document.getAnimations()` 의 `finished` 를 기다리는 것으로 고쳤다.
+
+갈리는 것 하나 — **호버 전이가 앵커의 0.12s 가 아니라 컨트롤 호버 역할 토큰(160ms)을 읽는다.**
+`.louis-menu-trigger` 가 같은 자리에서 같은 판정을 했다. 캐럿 회전은 갈리지 않는다: 앵커가
+`160ms ease` 이고 그 토큰의 timing 이 `cubic-bezier(0.25, 0.1, 0.25, 1)` = `ease` 라 같은 값이다.
+
+`web` 은 `not-ready` → **`partial`** 이다. `done` 이 아닌 이유 둘: React 표면이 없고(소비처가
+제품 캔버스 네 자리뿐이라 감쌀 근거가 아직 없다 — `Alert` · `Switch` · `NodeChip` ·
+`InspectorRow` 와 같은 형태), 제품이 아직 이 클래스를 물지 않았다. 상태를 올리려고 그 둘 중
+하나를 없는 셈 치지 않았다.
 
 #### 2026-09-07 (123) — 캔버스 위에 뜨는 크롬의 재료를 세운다 (FloatingShell · PillTrigger)
 

@@ -13560,26 +13560,26 @@ export const tokens = {
     },
     "color-bg-inset": {
       "aliasTarget": {
-        "id": "color-palette-gray-025",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inset": "color(srgb 0.94902 0.952941 0.960784 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inset",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.025}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "sourcePath": "semantic.light.color.bg-inset",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.94902,
-          0.952941,
-          0.960784
+          0.921569,
+          0.92549,
+          0.933333
         ],
         "alpha": 1
       }

@@ -1575,24 +1575,24 @@
       "states": {
         "base": {
           "Default": {
-            "background": "color-bg-canvas",
-            "$background": "바닥 배경 color-bg-canvas — 소유자가 2026-09-04 에 면을 «놓이는 자리보다 한 칸 낮춘다» 로 바꿨다(c480c92). bg-surface 였을 때 표준 면 위의 필드는 바닥과 값이 같아(라이트 #fafafa on #fafafa, 다크 #2c2f37 on #2c2f37) 경계가 10% 헤어라인 하나뿐이었다. text-field.css:51 이 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
+            "background": "color-bg-inset",
+            "$background": "파고든 자리 배경 color-bg-inset — 2026-09-09 에 `bg-canvas` 에서 옮겼다. 이름이 뜻과 맞다(레시피 주석이 스스로 「파고든 자리(well)」라고 적는다). 라이트에서 카드(bg-surface #fafafa) 위의 필드가 #f2f3f5 로 대비 1.064 라 헤어라인 하나로 버티던 것을, 같은 회차에 bg-inset(light)을 한 톤 내려(pg-025 → pg-050) 1.133 으로 벌렸다 — toss.im 의 우묵한 면이 바닥 대비 1.103 인 것과 같은 급이다. 다크는 inset 과 canvas 가 같은 값(pg-900)이라 이 이동으로 바뀌는 것이 없다. text-field.css:52 가 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
             "foreground": "color-fg-primary",
             "$foreground": "입력 텍스트 전경 color-fg-primary",
             "border": "color-stroke-hairline",
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           },
           "Invalid": {
-            "background": "color-bg-canvas",
-            "$background": "바닥 배경 color-bg-canvas — 소유자가 2026-09-04 에 면을 «놓이는 자리보다 한 칸 낮춘다» 로 바꿨다(c480c92). bg-surface 였을 때 표준 면 위의 필드는 바닥과 값이 같아(라이트 #fafafa on #fafafa, 다크 #2c2f37 on #2c2f37) 경계가 10% 헤어라인 하나뿐이었다. text-field.css:51 이 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
+            "background": "color-bg-inset",
+            "$background": "파고든 자리 배경 color-bg-inset — 2026-09-09 에 `bg-canvas` 에서 옮겼다. 이름이 뜻과 맞다(레시피 주석이 스스로 「파고든 자리(well)」라고 적는다). 라이트에서 카드(bg-surface #fafafa) 위의 필드가 #f2f3f5 로 대비 1.064 라 헤어라인 하나로 버티던 것을, 같은 회차에 bg-inset(light)을 한 톤 내려(pg-025 → pg-050) 1.133 으로 벌렸다 — toss.im 의 우묵한 면이 바닥 대비 1.103 인 것과 같은 급이다. 다크는 inset 과 canvas 가 같은 값(pg-900)이라 이 이동으로 바뀌는 것이 없다. text-field.css:52 가 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
             "foreground": "color-fg-primary",
             "$foreground": "입력 텍스트 전경 color-fg-primary",
             "border": "color-stroke-hairline",
             "$border": "generic 헤어라인 (color-stroke-hairline). 오류는 메시지+aria-invalid가 전달한다 (DS-D-0023)"
           },
           "Disabled": {
-            "background": "color-bg-canvas",
-            "$background": "바닥 배경 color-bg-canvas — 소유자가 2026-09-04 에 면을 «놓이는 자리보다 한 칸 낮춘다» 로 바꿨다(c480c92). bg-surface 였을 때 표준 면 위의 필드는 바닥과 값이 같아(라이트 #fafafa on #fafafa, 다크 #2c2f37 on #2c2f37) 경계가 10% 헤어라인 하나뿐이었다. text-field.css:51 이 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
+            "background": "color-bg-inset",
+            "$background": "파고든 자리 배경 color-bg-inset — 2026-09-09 에 `bg-canvas` 에서 옮겼다. 이름이 뜻과 맞다(레시피 주석이 스스로 「파고든 자리(well)」라고 적는다). 라이트에서 카드(bg-surface #fafafa) 위의 필드가 #f2f3f5 로 대비 1.064 라 헤어라인 하나로 버티던 것을, 같은 회차에 bg-inset(light)을 한 톤 내려(pg-025 → pg-050) 1.133 으로 벌렸다 — toss.im 의 우묵한 면이 바닥 대비 1.103 인 것과 같은 급이다. 다크는 inset 과 canvas 가 같은 값(pg-900)이라 이 이동으로 바뀌는 것이 없다. text-field.css:52 가 상자 전체에 한 번 칠하므로 Default·Invalid·Disabled 가 모두 같다.",
             "foreground": "color-fg-disabled",
             "$foreground": "비활성 전경 color-fg-disabled",
             "border": "color-stroke-hairline",

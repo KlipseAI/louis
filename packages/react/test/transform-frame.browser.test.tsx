@@ -141,19 +141,18 @@ test("TransformFrame corners는 변 손잡이를 숨기는 것이 아니라 그�
   }
 });
 
-test("TransformFrame의 변 손잡이는 움직이지 않는 축 방향으로 눕는다", async () => {
+test("TransformFrame의 변 손잡이는 모서리와 같은 점이다", async () => {
+  // 한때 변만 «움직이지 않는 축» 방향으로 36 만큼 눕혔다. 짧은 상자 위에서 알약이 창보다
+  // 커져 접었고(DS-D-0062), 축은 자리와 커서가 말한다. 그래서 여기서 재는 것은 «같다» 다 —
+  // 두 축을 각각 대조해야 한 축만 조용히 늘어나는 회귀가 잡힌다.
   const spec = measured.components["transform-frame"].sizes["corners-and-edges"];
   await render(<Specimen handles="corners-and-edges" />);
-  for (const position of ["n", "s"] as const) {
+  for (const position of EDGES) {
     const box = rect(find(`handle-${position}`));
-    expect(round(box.width), `edgeHandleLength (${position})`).toBe(spec.edgeHandleLength);
-    expect(round(box.height), `handleSize (${position})`).toBe(spec.handleSize);
+    expect(round(box.width), `edgeHandleSize (${position} 폭)`).toBe(spec.edgeHandleSize);
+    expect(round(box.height), `edgeHandleSize (${position} 높이)`).toBe(spec.edgeHandleSize);
   }
-  for (const position of ["e", "w"] as const) {
-    const box = rect(find(`handle-${position}`));
-    expect(round(box.width), `handleSize (${position})`).toBe(spec.handleSize);
-    expect(round(box.height), `edgeHandleLength (${position})`).toBe(spec.edgeHandleLength);
-  }
+  expect(spec.edgeHandleSize, "변과 모서리가 같은 수인 것이 계약이다").toBe(spec.handleSize);
 });
 
 test("TransformFrame의 손잡이는 변의 바깥으로 절반 나간다", async () => {

@@ -3273,11 +3273,12 @@ const COMPONENT_CONTRACTS = [
         // **필드 순서가 계약이다.** `optional` 은 `Object.values(fields)[0]` 이 가리키는 실측
         // 키가 그 size 에 없을 때만 자손의 부재를 통과시킨다. `handleSize` 를 앞에 두면 그
         // 키는 corners 에도 있어서 「없어야 하는데 값이 남았다」와 구분되지 않는다 — 두
-        // 항목 모두 `edgeHandleLength` 를 첫 칸에 둔다.
+        // 항목 모두 `edgeHandleSize` 를 첫 칸에 둔다. 그 키가 `handleSize` 와 **같은 값을
+        // 갖는데도** 따로 있는 이유가 이것이다(DS-D-0062).
         HandleEdgeH: {
           optional: true,
           fields: {
-            width: "edgeHandleLength",
+            width: "edgeHandleSize",
             height: "handleSize",
             cornerRadius: "handleRadius",
           },
@@ -3285,7 +3286,7 @@ const COMPONENT_CONTRACTS = [
         HandleEdgeV: {
           optional: true,
           fields: {
-            height: "edgeHandleLength",
+            height: "edgeHandleSize",
             width: "handleSize",
             cornerRadius: "handleRadius",
           },

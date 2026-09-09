@@ -21112,7 +21112,7 @@
             "NONE"
           ],
           "strokeWeight": [
-            2
+            1
           ],
           "overflowingParts": [
             "HandleCorner"
@@ -21142,7 +21142,7 @@
             },
             "HandleEdgeH": {
               "width": [
-                36
+                12
               ],
               "height": [
                 12
@@ -21156,7 +21156,7 @@
                 12
               ],
               "height": [
-                36
+                12
               ],
               "cornerRadius": [
                 999
@@ -21181,7 +21181,7 @@
             "NONE"
           ],
           "strokeWeight": [
-            2
+            1
           ],
           "overflowingParts": [
             "HandleEdgeH",
@@ -21193,16 +21193,16 @@
       },
       "strokes": {
         "self": [
-          "2|INSIDE"
+          "1|INSIDE"
         ],
         "HandleCorner": [
-          "2|INSIDE"
+          "1|INSIDE"
         ],
         "HandleEdgeH": [
-          "2|INSIDE"
+          "1|INSIDE"
         ],
         "HandleEdgeV": [
-          "2|INSIDE"
+          "1|INSIDE"
         ]
       },
       "effects": {},

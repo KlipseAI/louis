@@ -104,6 +104,15 @@
       "generated": false
     },
     {
+      "id": "decision-transform-frame-chrome-is-quiet",
+      "path": "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
+      "title": "DS-D-0062 프레임의 크롬은 조용해야 한다 — 선을 1 로 내리고 변 손잡이의 알약을 접는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "decision-transform-frame-is-one-set",
       "path": "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
       "title": "DS-D-0060 크롭 창과 선택 상자는 한 벌이다 — 손잡이 위치는 축이 아니다",
@@ -1550,6 +1559,7 @@
         "design/develop/README.md",
         "design/content/README.md",
         "design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md",
+        "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",

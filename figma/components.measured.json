@@ -12,30 +12,30 @@
       "$whyNoScrim": "**바깥을 어둡게 덮는 스크림은 이 컴포넌트가 소유하지 않는다.** ClipCropModal 은 `box-shadow: 0 0 0 9999px` 로 무한히 번지게 그리는데, 그것은 프레임의 값이 아니라 프레임이 놓인 무대의 값이다 — Figma 에는 담을 도형이 없고(프레임 밖으로 무한히 나간다) PreviewOverlayLayer 는 같은 프레임을 스크림 없이 쓴다. 레시피는 소비처가 켤 수 있는 선언 하나로만 제공하고, 무대는 pane-divider 가 grid-area 를 소비처에 남긴 것과 같은 방식으로 소비처가 소유한다.",
       "sizes": {
         "corners": {
-          "borderWidth": 2,
-          "$borderWidth": "border-width-ring 2. 두 제품 규범이 갈린 자리다 — PreviewOverlayLayer 의 선택 상자는 `box-shadow: 0 0 0 calc(2px / …) var(--primary-500)` 로 정확히 이 두께이고, ClipCropModal 의 크롭 창은 1.5 짜리 테두리에 바깥 링 하나를 겹쳐 잉크가 그보다 두껍다. 1.5 는 이 시스템의 두께 계단에 없는 수라 그것을 택하면 계단에 네 번째 칸이 생긴다. 그리고 이 토큰은 「지금 이것이 선택돼 있다」를 그리라고 있는 것이며, 이 프레임이 하는 말이 정확히 그것이다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. **한때 2 였다.** 그 2 는 PreviewOverlayLayer 의 선택 상자 실측(`box-shadow: 0 0 0 calc(2px / …) var(--primary-500)`)에서 왔는데, 소유자가 바로 그 자리를 보고 「너무 복잡하다」고 했다(2026-09-09). 그래서 값을 낳은 실측이 그 값을 물린 셈이다. 1 을 고른 근거는 세 가지다 — ClipCropModal 의 크롭 창 실측이 1.5 라 계단 위의 두 칸 중 1 이 2 보다 가깝고, 이 선은 컨트롤의 링이 아니라 **매체 위의 표식**이라 `ring` 이 가진「눌러 고른 것」의 뜻을 빌릴 자리가 아니며, 프리뷰에서 이 선이 굵으면 결과 화면을 그 두께만큼 가린다. DS-D-0062.",
           "radius": 0,
           "$radius": "0. 직각인 것이 계약이다. PreviewOverlayLayer 는 선택되지 않은 오버레이에 4 를 주고 **선택되는 순간 0 으로 편다**(vemClass 의 overlayPreviewSelected 가 border-radius 를 0 으로 덮는다). 곡률이 있으면 「잘려 나갈 픽셀」의 경계를 프레임이 거짓말한다 — 모서리의 실제 잘림선은 직각이기 때문이다.",
           "handleSize": 12,
           "$handleSize": "12. 세 구현 중 둘이 이 수다 — react-image-crop 의 `--rc-drag-handle-size` 가 12 이고 ClipCropModal 의 변 손잡이 짧은 변(`h-6`, 제품 --spacing 이 2px 이라 12)도 12 다. 셋째(PreviewOverlayLayer)만 10 인데 그 값은 2px 격자 위에 있지 않다. 모서리 손잡이와 변 손잡이의 짧은 변을 **한 수로 묶은 것**이 이 칸의 요지다: 두 벌이 같은 두께여야 여덟 자리가 한 언어로 읽힌다.",
           "handleRadius": 999,
-          "$handleRadius": "radius-pill 999. 모서리는 원, 변은 알약이다 — 같은 곡률 토큰이 짧은 변에 걸려 둘 다 끝이 둥글다. **손잡이의 생김새가 어느 축을 움직이는지를 말한다**: 모서리는 두 축을 함께 움직이므로 회전 대칭인 원이고, 변은 한 축만 움직이므로 «움직이지 않는 축» 방향으로 길다.",
+          "$handleRadius": "radius-pill 999. 여덟 자리가 모두 원이다. 한때 변 손잡이만 알약으로 눕혀「어느 축이 움직이는가」를 모양으로 말했는데, 짧은 상자(자동맞춤 텍스트 오버레이는 높이가 40 대다) 위에서는 36 짜리 알약이 상자보다 커져 창보다 손잡이가 먼저 읽혔다. 축은 자리(모서리냐 변의 가운데냐)와 커서가 이미 말한다. DS-D-0062.",
           "gridLineWidth": 1,
           "$gridLineWidth": "border-width-default 1. 삼분할 안내선의 두께. ClipCropModal 이 그라디언트로 33.333%·66.666% 자리에 ±0.5 폭의 띠를 그려 결과가 1 이고, react-image-crop 의 rule-of-thirds 도 1 이다."
         },
         "corners-and-edges": {
-          "borderWidth": 2,
-          "$borderWidth": "border-width-ring 2. 손잡이 벌이 바뀌어도 창의 테두리는 같다 — 갈리는 것은 손잡이 넷의 유무뿐이다.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 손잡이 벌이 바뀌어도 창의 테두리는 같다 — 갈리는 것은 손잡이 넷의 유무뿐이다.",
           "radius": 0,
           "$radius": "0. corners 와 같다. 손잡이 벌은 곡률을 건드리지 않는다.",
           "handleSize": 12,
-          "$handleSize": "12. corners 와 같다. 이 칸이 더하는 것은 변 손잡이 넷이고 그 짧은 변도 같은 12 다.",
+          "$handleSize": "12. corners 와 같다. 이 칸이 더하는 것은 변 손잡이 넷이고 그 크기도 같은 12 다.",
           "handleRadius": 999,
           "$handleRadius": "radius-pill 999. corners 와 같다.",
           "gridLineWidth": 1,
           "$gridLineWidth": "border-width-default 1. corners 와 같다.",
-          "edgeHandleLength": 36,
-          "$edgeHandleLength": "36. 변 손잡이의 긴 변이다. ClipCropModal 의 `w-18`(제품 --spacing 2px 기준 36)이 유일한 실측이고 다른 두 구현에는 이 축 자체가 없다 — 그쪽은 변에도 모서리와 같은 정사각을 놓아 「무엇이 한 축만 움직이는가」를 모양으로 말하지 않는다. 짧은 변 12 의 세 배라 알약의 비율이 3:1 이고, 그 정도가 되어야 옆의 모서리 원(12)과 한눈에 구별된다."
+          "edgeHandleSize": 12,
+          "$edgeHandleSize": "12. 변 손잡이의 크기다. **모서리와 같은 수인 것이 이 칸의 요지**이고, 그래서 값이 아니라 사실을 적는다 — 한때 이 자리는 `edgeHandleLength: 36` 이었다(ClipCropModal 의 `w-18` 이 유일한 실측이었고 다른 두 구현은 변에도 정사각을 놓았다). 키를 지우지 않고 남긴 이유는 둘이다: 「변과 모서리가 같다」는 우연이 아니라 판정이라 되잴 자리가 있어야 하고, parity 게이트가 `HandleEdge*` 자손의 부재를 이 키의 유무로 가른다(첫 칸 규칙). DS-D-0062."
         }
       }
     },

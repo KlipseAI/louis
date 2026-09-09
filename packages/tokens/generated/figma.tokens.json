@@ -20968,18 +20968,18 @@
               "sourcePath": "semantic.dark.color.landing.page-bg"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$value": "{primitive.color.palette-gray.000}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-palette-gray-000",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.921569,
-                  0.92549,
-                  0.933333
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.light.color.landing.page-bg"
@@ -21053,35 +21053,35 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.static-white-alpha.08}",
+              "$value": "{primitive.color.palette-gray.900}",
               "aliasTarget": {
-                "id": "color-static-white-alpha-08",
+                "id": "color-palette-gray-900",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 0.08,
-                "colorSpace": "srgb",
-                "components": [
-                  0.980392,
-                  0.980392,
-                  0.980392
-                ]
-              },
-              "sourcePath": "semantic.dark.color.landing.panel-strong"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-black-alpha.08}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-08",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.08,
+                "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
                   0.090196,
                   0.105882,
                   0.133333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.landing.panel-strong"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.050}",
+              "aliasTarget": {
+                "id": "color-palette-gray-050",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.921569,
+                  0.92549,
+                  0.933333
                 ]
               },
               "sourcePath": "semantic.light.color.landing.panel-strong"

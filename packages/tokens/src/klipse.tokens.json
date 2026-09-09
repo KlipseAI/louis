@@ -8120,7 +8120,7 @@
             }
           },
           "page-bg": {
-            "$value": "{primitive.color.palette-gray.050}",
+            "$value": "{primitive.color.palette-gray.000}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-page-bg",
@@ -8140,7 +8140,7 @@
             }
           },
           "panel-strong": {
-            "$value": "{primitive.color.static-black-alpha.08}",
+            "$value": "{primitive.color.palette-gray.050}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-panel-strong",
@@ -10030,7 +10030,7 @@
             }
           },
           "panel-strong": {
-            "$value": "{primitive.color.static-white-alpha.08}",
+            "$value": "{primitive.color.palette-gray.900}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-panel-strong",

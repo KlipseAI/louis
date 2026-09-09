@@ -354,9 +354,9 @@
   --louis-color-gray-900: color(srgb 0.862745 0.870588 0.882353 / 1);
   --louis-color-icon-input-glyph: color(srgb 0.090196 0.105882 0.133333 / 0.4);
   --louis-color-landing-line: color(srgb 0.090196 0.105882 0.133333 / 0.12);
-  --louis-color-landing-page-bg: color(srgb 0.921569 0.92549 0.933333 / 1);
+  --louis-color-landing-page-bg: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-landing-panel: color(srgb 0.090196 0.105882 0.133333 / 0.04);
-  --louis-color-landing-panel-strong: color(srgb 0.090196 0.105882 0.133333 / 0.08);
+  --louis-color-landing-panel-strong: color(srgb 0.921569 0.92549 0.933333 / 1);
   --louis-color-landing-text-muted: color(srgb 0.090196 0.105882 0.133333 / 0.64);
   --louis-color-landing-text-soft: color(srgb 0.090196 0.105882 0.133333 / 0.72);
   --louis-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);
@@ -805,7 +805,7 @@
   --louis-color-landing-line: color(srgb 0.980392 0.980392 0.980392 / 0.12);
   --louis-color-landing-page-bg: color(srgb 0 0 0 / 1);
   --louis-color-landing-panel: color(srgb 0.980392 0.980392 0.980392 / 0.04);
-  --louis-color-landing-panel-strong: color(srgb 0.980392 0.980392 0.980392 / 0.08);
+  --louis-color-landing-panel-strong: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-landing-text-muted: color(srgb 0.980392 0.980392 0.980392 / 0.64);
   --louis-color-landing-text-soft: color(srgb 0.980392 0.980392 0.980392 / 0.72);
   --louis-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);

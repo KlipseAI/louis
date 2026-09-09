@@ -15146,26 +15146,26 @@ export const tokens = {
     },
     "color-landing-page-bg": {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-palette-gray-000",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-page-bg": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-landing-page-bg": "color(srgb 0.980392 0.980392 0.980392 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-page-bg",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.palette-gray.000}",
       "sourcePath": "semantic.light.color.landing.page-bg",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.980392,
+          0.980392,
+          0.980392
         ],
         "alpha": 1
       }
@@ -15198,28 +15198,28 @@ export const tokens = {
     },
     "color-landing-panel-strong": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-08",
+        "id": "color-palette-gray-050",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel-strong": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+        "--louis-color-landing-panel-strong": "color(srgb 0.921569 0.92549 0.933333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-panel-strong",
       "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "rawValue": "{primitive.color.palette-gray.050}",
       "sourcePath": "semantic.light.color.landing.panel-strong",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.921569,
+          0.92549,
+          0.933333
         ],
-        "alpha": 0.08
+        "alpha": 1
       }
     },
     "color-landing-text-muted": {
@@ -20125,28 +20125,28 @@ export const tokens = {
     },
     "color-landing-panel-strong": {
       "aliasTarget": {
-        "id": "color-static-white-alpha-08",
+        "id": "color-palette-gray-900",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel-strong": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
+        "--louis-color-landing-panel-strong": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-panel-strong",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.08}",
+      "rawValue": "{primitive.color.palette-gray.900}",
       "sourcePath": "semantic.dark.color.landing.panel-strong",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.980392,
-          0.980392,
-          0.980392
+          0.090196,
+          0.105882,
+          0.133333
         ],
-        "alpha": 0.08
+        "alpha": 1
       }
     },
     "color-landing-text-muted": {

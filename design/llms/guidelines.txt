@@ -12842,8 +12842,46 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-#### 2026-09-09 (125) — 회색 램프의 색상각을 gray-900 에 맞춘다
+#### 2026-09-09 (126) — 랜딩 바닥을 pg-000 으로 올리고 면을 사다리 칸에 세운다
 
+소유자 지정이다 — 라이트 바닥 pg-050 → **pg-000**, 그 위 면은 「라이트에서 한 톤 어둡게,
+다크에서 한 톤 밝게」.
+
+**면이 알파였다.** `landing-panel-strong` 은 라이트 검정 8% · 다크 흰색 8% 였다. 알파는
+「깔린 것이 무엇이든 그 위에서 한 칸」이라 바닥이 움직이면 결과가 따라 움직인다 — 실제로
+바닥을 pg-000 으로 올리는 순간 면의 밝기도 같이 밀려 올라간다. 두 값이 서로를 붙잡지 않도록
+불투명 칸으로 세운다: 라이트 **pg-050**, 다크 **pg-900**. 다크 랜딩 바닥은 순수 검정이라
+pg-900(L\* 9.59)이 실제로 한 칸 위다.
+
+| 토큰 | before | after |
+| --- | --- | --- |
+| `landing-page-bg` (light) | `palette-gray.050` | `palette-gray.000` |
+| `landing-panel-strong` (light) | `static-black-alpha.08` | `palette-gray.050` |
+| `landing-panel-strong` (dark) | `static-white-alpha.08` | `palette-gray.900` |
+
+`landing-panel`(4%)은 **그대로 둔다.** 이름과 달리 면이 아니라 호버 잉크다 — 푸터 링크 호버와
+캐러셀 화살표 호버, 둘 다 「밑에 무엇이 있든 그 위를 한 겹 어둡게」가 목적이라 알파가 맞는
+형태다.
+
+##### 소비처 하나가 면이 아니었다
+
+`landing-panel-strong` 을 읽던 여섯 중 다섯(OverviewSection · NewsCarousel · StepTiles · FAQ ·
+Footer)은 랜딩 바닥 위의 면이라 함께 움직이는 것이 맞다. 나머지 하나인 **캐러셀 화살표 알약**
+은 면이 아니라 컨트롤이고, 랜딩뿐 아니라 **앱 홈에서도 쓰인다** — 그쪽 바닥은 랜딩과 다르므로
+랜딩 바닥을 기준으로 잡은 값을 따라가면 앱에서 관계가 어긋난다(앱 홈 라이트 바닥 L\* 95.8 대
+pg-050 의 93.4 로, 차이가 절반으로 줄어든다).
+
+제품에서 그 알약을 `accent-secondary`(잉크 8%)로 옮겼다. **이전 값과 같은 8% 라 보이는 변화는
+없고**, 호버도 `accent-secondary-hover`(12%)가 한 줄로 받아 8% 면에 4% 를 그라디언트로 덧대
+12% 를 만들던 우회가 사라진다.
+
+##### 의도적 breaking
+
+[Releases](../governance/releases.md) 절차대로 이 항목을 먼저 쓰고, `node scripts/diff-tokens.mjs`
+로 breaking 이 `color-landing-page-bg`(light) · `color-landing-panel-strong`(light·dark) 셋뿐인지
+확인한 뒤 `packages/tokens/baseline/manifest.json` 을 같은 변경 단위에서 갱신했다.
+
+#### 2026-09-09 (125) — 회색 램프의 색상각을 gray-900 에 맞춘다
 제품 다크 화면의 넓은 면(gray-800)이 「보라 핑크 쪽으로 보인다」는 소유자 지적에서 출발했다.
 기분 탓이 아니었다.
 

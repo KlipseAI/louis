@@ -326,7 +326,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Tooltip](../components/tooltip.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx). |
 | [Video Player](../components/video-player.md) | `experimental` | `partial` | `not-ready` | `done` | 제품 구현(VideoPlayer.tsx)이 정본이고 소비처가 8곳이다. LOUIS recipe 는 아직 없다 — Figma 가 코드보다 앞서 있는 자리다. **Web 을 `partial` 에서 `not-ready` 로 내렸다**(2026-08-30 재판정): `packages/css/src/component` 에 `video-player.css` 가 없고 `packages/react/src` 에도 표면이 없다. 제품 파일이 LOUIS 에서 받는 것은 `--louis-hairline-inset` 한 줄뿐이다. recipe 없이 Figma 만 선 자리는 이 저장소에서 전부 `not-ready` 이고(carousel-arrow · faq-row · media-card 등 열둘), video-player 만 `partial` 로 어긋나 있었다 — 문서의 근거 칸도 이미 「LOUIS recipe 는 없다」라고 적고 있었다. **스킨 축을 없앴다** — 두 벌 중 하나만 8곳 중 7곳에서 쓰였고 나머지 한 자리도 같은 조형으로 통합했다(제품·Figma 동시 반영). Figma 는 둘로 나뉜다: 포인터 이벤트를 혼자 소유하는 MediaScrubber(2 variant, ON_HOVER 프로토타입)와 그것을 조립하는 VideoPlayer(4 variant, Chrome × Tone). tone=bright 가 유리 틴트가 아니라 잉크만 뒤집는다는 함정을 문서에 적어 두었다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [Canvas Edge](../components/canvas-edge.md) | `experimental` | `partial` | `not-planned` | `done` | 노드 캔버스의 연결선. 제품 V2EdgeLayers.tsx 가 정본이고 톤 어휘의 실행 가능한 SSOT 는 lib/edgeTone.ts 다 — LOUIS recipe 는 없다. 앵커에서 이 조형은 손으로 일곱 벌 복제돼 있고 그중 워크스루 오버레이 네 벌은 이미 주기(1.85초 대 1.45초)·번짐 색·image 하이라이트에서 정본과 갈려 있다. Figma 는 CanvasEdge 14 variant(Tone 7 × State 2)로 섰고 **실선만** 그린다: 흐르는 쉬머는 애니메이션이라 담기지 않고(Skeleton 스윕과 같은 한계), 번짐은 톤마다 반경이 달라 되읽기의 effect 역할(자손 이름 하나에 값 하나)이 담을 자리가 없다 — 한 값으로 적으면 일곱 중 여섯을 거짓으로 고정한다. 이 회차의 판정 둘: 실선 색의 정본을 accent 램프가 아니라 채널 토큰(node-handle-icon-*)으로 두고, 쉬머 하이라이트를 채널 램프의 200 칸으로 정했다(여섯 톤 중 edit·audio 는 제품 리터럴이 이미 그 칸과 같고 셋만 램프 밖이다). hover 가 일곱 톤 중 넷에서만 색을 바꾸는 것은 접지 않고 기록에 null 로 적어 고정했다. `partial` 인 이유는 쉬머·번짐·삭제 버튼이 Figma 에 없고 LOUIS recipe 가 아직 없어 evidence 가 한 방향이기 때문이다. **2026-09-09 판정(DS-D-0061): web 을 `not-ready` 에서 `not-planned` 로 옮겼다** — 이 컴포넌트의 정본은 CSS 가 아니라 톤 표이고, LOUIS 레시피는 세우지 않는다. 쉬머의 페인트가 인스턴스 기하(핸들 좌표에서 나오는 linearGradient)이고 주기는 SMIL 의 `dur` 이라 CSS 로 옮겨갈 수 없어, 레시피는 한 표를 CSS 와 JS 두 집에 살게 만든다 — 일곱 벌 복제가 이미 넷에서 갈린 이 조형에 여덟 번째 사본을 더하는 일이다. LOUIS 가 소유하는 것은 그 표가 부르는 **이름**(채널 토큰과 accent 램프)이고 canvas-edge.browser.test.tsx 가 그것을 잰다. 계약의 `$noRecipe` 가 사유를 갖고 verify-recipe-record 가 레시피 파일이 생기면 실패한다. `not-ready` 는 「아직」이라는 뜻이라 다음 사람이 매번 같은 질문을 하게 만들던 자리다. |
-| [Inspector Row](../components/inspector-row.md) | `experimental` | `partial` | `partial` | `done` | 속성 패널의 라벨-값 한 줄. **부품 다섯이 아니라 문법 하나로 세웠다** — 편집기 인스펙터 다섯 보드는 이 행과 Inspector Section Head 의 배치일 뿐이고, 알약·숫자 칸·색 점은 독립 부품이 아니라 값 자리의 형태여서 Value 축(Text · Number · Color · Pill)으로 접혔다. 행이 곧 박스다(224×28 · 반경 8 · 안쪽 여백 0 8 · 사이 간격 10) — 정본이 한때 행을 투명하게 두고 값에만 140 박스를 씌웠고 그 배치를 스스로 정정하며 박스를 행으로 옮겼다. 옛 배치의 라벨 38% 고정폭은 그래서 채택하지 않았다. CSS 레시피만 있고 React 표면은 없다. **라이트 면이 정본과 갈린다** — 다크는 color-bg-inset · color-bg-raised 와 정확히 같고 라이트만 어긋나며, 레시피는 팔레트 칸이 아니라 관계(행은 한 칸 들어가고 컨트롤은 한 칸 나온다)를 고정한다. 소유자 확인 대상 셋을 문서가 갖는다: 라이트 면, 알약의 1px 진짜 테두리(SegmentedCodeInput 과 같은 묶음), 알약 tone 축의 Badge 흡수 여부(정본의 tone 넷 중 셋이 선언까지 같아 죽어 있다). 숫자 칸의 상태 축은 열지 않았다 — hover 만이 시각 선언을 갖고 드래그·편집은 앵커에 선언이 없으며, 편집의 포커스 링은 같은 특이도의 두 선언이 경쟁해 소스로 판정할 수 없다. Figma 는 partial 이다: 기하 계약이 붙었으나 그 값을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. |
+| [Inspector Row](../components/inspector-row.md) | `experimental` | `partial` | `partial` | `done` | 속성 패널의 라벨-값 한 줄. **부품 다섯이 아니라 문법 하나로 세웠다** — 편집기 인스펙터 다섯 보드는 이 행과 Inspector Section Head 의 배치일 뿐이고, 알약·숫자 칸·색 점은 독립 부품이 아니라 값 자리의 형태여서 Value 축(Text · Number · Color · Pill)으로 접혔다. 행이 곧 박스다(224×28 · 반경 8 · 안쪽 여백 0 8 · 사이 간격 10) — 정본이 한때 행을 투명하게 두고 값에만 140 박스를 씌웠고 그 배치를 스스로 정정하며 박스를 행으로 옮겼다. 옛 배치의 라벨 38% 고정폭은 그래서 채택하지 않았다. CSS 레시피만 있고 React 표면은 없다. **면이 정본과 갈린다 — 이제 라이트만이 아니라 다크도** — 한동안 다크는 color-bg-inset · color-bg-raised 와 정확히 같았는데 다크 면 사다리를 내린 두 회차(3a2ca71 · 2026-09-09)가 그 등식을 깼고 지금은 행이 두 칸 · 숫자 칸이 한 칸 어긋난다. 판정은 그대로다 — 레시피는 팔레트 칸이 아니라 관계(행은 한 칸 들어가고 컨트롤은 한 칸 나온다)를 고정하고 넷이 함께 내려갔으므로 관계는 유지된다. 소유자 확인 대상 셋을 문서가 갖는다: 라이트 면, 알약의 1px 진짜 테두리(SegmentedCodeInput 과 같은 묶음), 알약 tone 축의 Badge 흡수 여부(정본의 tone 넷 중 셋이 선언까지 같아 죽어 있다). 숫자 칸의 상태 축은 열지 않았다 — hover 만이 시각 선언을 갖고 드래그·편집은 앵커에 선언이 없으며, 편집의 포커스 링은 같은 특이도의 두 선언이 경쟁해 소스로 판정할 수 없다. Figma 는 partial 이다: 기하 계약이 붙었으나 그 값을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. |
 | [Inspector Section Head](../components/inspector-section-head.md) | `experimental` | `partial` | `partial` | `done` | 인스펙터 절의 머리 한 줄. 제목이 왼쪽, 값 힌트와 조작 아이콘이 오른쪽 묶음에 선다. **존재 이유가 통일이다** — 정본에서 인스펙터 넷과 효과 절이 각자 머리를 적고 있었고 효과 절만 제목이 한 단계 크고 밑줄이 있어 혼자 달라 보였다. 그래서 stroke 도 effect 도 0 인 것이 계약이고 누가 밑줄을 되살리면 게이트가 「계약에 없는 것」으로 잡는다. Action 축은 불리언이 아니라 구조다 — 불리언은 가시성만 꺼서 24 폭이 남고 Figma 의 불리언은 set 단위라 한 변형에서 끄면 다른 변형에서도 사라진다. **감싸는 세로 묶음을 옮기지 않았다**: 정본이 머리를 사이 간격 8 의 세로 묶음에 넣지만 자식이 언제나 하나라 그 8 이 아무 것도 벌리지 않는다 — 그리지 않는 값을 계약에 적으면 다음 사람이 그것을 계약으로 착각한다. 글리프 16 · 누르는 면 24 이며 정본 주석이 「디자인의 16 은 글리프 크기이지 히트 영역이 아니다」를 적고 로컬로 세웠다고 남겼는데, DS-D-0032 가 그 칸을 열었으므로 레시피는 layout-control-height-sm 을 읽는다. CSS 레시피만 있고 React 표면은 없다. Figma 는 partial 이다 — 조작 아이콘의 hover·disabled 두 칸을 세우지 않았고(Action 축과 곱해지고 정지 화면에서 읽을 것이 없다) 브라우저 되재기도 없다. |
 | [Node Chrome Button](../components/node-chrome-button.md) | `experimental` | `partial` | `partial` | `done` | 노드 카드 헤더의 32px 아이콘 버튼 쌍(다운로드·삭제). LOUIS recipe 는 packages/css/src/component/node-chrome-button.css 이고 제품 NodeHeaderActions.tsx 가 값의 정본이다 — 치수만 노드 크롬 토큰에서 받고 면은 투명, 호버에서만 틴트가 뜬다. Figma 는 NodeChromeButton 6 variant(Tone 2 × State 3)로 섰다. Active(scale 0.94)와 Success(복사→체크)는 열지 않았고 사유를 문서가 갖는다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다(Alert·Switch·NodeChip 과 같은 형태 — 감싸는 컴포넌트를 요구하는 소비처가 없다). figma 가 partial 인 이유는 호버 틴트 알파가 다크에서 4%p 갈리기 때문이다(라이트/다크 쌍을 담을 변수가 없다). 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 셋을 한 파일로 갖는다. |
 | [Node Shell](../components/node-shell.md) | `experimental` | `partial` | `partial` | `done` | 캔버스 노드의 겉 — 카드 위 헤더 한 줄과 400px 카드. LOUIS recipe 는 packages/css/src/component/node-shell.css 이고, 제품 nodes/*Node.tsx 여덟이 같은 상수 이름으로 값을 복제하고 있는 것이 그 recipe 가 필요했던 이유다. Figma 는 NodeShell 14 variant(Accent 7 × Selected 2)로 섰다. 계획서의 「타입 축 9」는 실측에서 일곱이 됐다 — tts·bgm 이 같은 audio 액센트를 쓰고 youtube·instagram 은 같은 red-500 을 가리키며 section 은 카드가 아니라 프레임이라 세트 밖이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. figma 가 partial 인 이유는 라이트 모드의 카드 면·테두리·제목 잉크 셋이 제품과 갈리기 때문이다 — 그 라이트/다크 쌍을 가진 변수가 파일에 없다. 브라우저 되재기는 packages/react/test/node-chrome.browser.test.tsx 가 갖는다. |
@@ -733,7 +733,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   | --- | --- | --- | --- |
   | `primary` | `#fafafa` | `#0088ff` | **3.37** |
   | `danger` | `#fafafa` | `#ff4b59` | **3.14** |
-  | `danger-secondary` | `#ff4b59` | red 12% 알파 | **2.54 ~ 3.27** (`bg-raised` 다크에서 **1.93**) |
+  | `danger-secondary` | `#ff4b59` | red 12% 알파 | **2.43 ~ 4.62** |
 
   **`secondary`·`ghost`는 2026-09-03 에 이 표에서 빠졌다.** 둘 다 흰 배경 위 `#777d89` 로
   4.13 이었는데, 두 변경이 따로 그 값을 밀어 올렸다.
@@ -754,7 +754,24 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   2026-09-01에 `bg-danger`+`fg-danger-on-surface`(라이트 5.32 · 다크 5.31, 통과)로 먼저 세웠고,
   소유자가 제품 어드민이 쓰던 레드 알파 디자인(`ADMIN_BUTTON_DANGER_SOFT`)으로 뒤집었다.
   올리려면 라벨을 `fg-danger-on-surface`로 되돌리는 것이 그 축이다. 실효값은 면마다 다르다 —
-  다이얼로그 면 라이트 2.73 · 다크 3.27, 어드민 카드 바닥 라이트 2.54, `bg-raised` 다크 1.93.
+  다이얼로그 면 라이트 2.72 · 다크 3.61, 어드민 카드 바닥 라이트 2.43, `bg-raised` 다크 3.61.
+
+  **`bg-raised` 다크가 1.93 이던 것이 3.61 로 올라갔다.** 2026-09-09 에 다크 면 사다리를 한
+  칸씩 내리며 `bg-raised`(dark)가 `palette-gray-700` → `palette-gray-800` 이 됐고, 그 칸은
+  다이얼로그 면(`bg-overlay`)의 다크 값과 **바이트 단위로 같다** — 같은 밑색 위의 같은 12%
+  알파이므로 실효값도 같은 수다.
+
+  **이 문단은 한 번 3.27 로 잘못 적혔다가 고쳤다.** 「동일성으로 따라오니 재계산할 필요가
+  없다」로 판단해 `bg-overlay` 다크에 적혀 있던 수를 그대로 옮겼는데, **그 수 자체가 낡은
+  값**이었다 — 3.27 은 `palette-gray-800` 이 `#313640` 이던 옛 램프의 것이고, `a6e7e83` 이
+  색상각을 `gray-900` 에 맞춰 다시 굴린 뒤로는 `#2b2f36` 이다. 동일성 논증은 맞았고 **기준으로
+  삼은 수가 틀렸다.** 게이트는 이것을 못 잡는다(`verify-record-citations` 는 기하·모션만 본다).
+
+  같은 이유로 표의 범위도 다시 쟀다 — `2.54 ~ 3.27` 은 현재 값을 담지 못한다. 여섯 면 위에서
+  실측하면 라이트 `bg-canvas` 2.43 · `bg-surface` 2.72 · `bg-raised` 2.84, 다크 `bg-raised`
+  (= `bg-overlay`) 3.61 · `bg-surface` 4.10 · `bg-canvas` 4.62 다.
+  **대비를 올리려고 값을 바꾼 것이 아니다** — 소유자가 화면을 보고 고른 면 이동의 결과로
+  따라온 것이고, 이 문단이 적어 둔 「고를 수 있었는데 고른 것」이라는 성격 판정은 그대로다.
 
   Figma의 `danger-secondary` 60칸은 `danger` 60칸을 복제해 만들었다(2026-09-01). Disabled는
   복제 그대로 `bg-inset`·`fg-disabled`다 — CSS와 같다. **Hover는 Figma가 Default와 같은 칸이다.**
@@ -2639,9 +2656,19 @@ Figma가 같은 원천을 본다.
   스케일의 축이 아니라 카드의 값이다. **Figma에서는 이것이 text style을 못 쓰게 만든다** — Figma
   text style은 all-or-nothing이라 줄 간격만 덮으면 style 연결이 끊긴다. 그래서 세 줄은 style에
   묶이지 않고 parity 게이트가 `fontSize`와 `lineHeightPercent`를 직접 대조한다.
-- **미디어 배경이 light에서 제품과 7/255 다르다.** 제품은 `palette-gray-200`(#e3e4e8), DS는
-  `color-bg-canvas`(light #f1f1f3 · dark #171b22)다. dark는 정확히 같다. 이 한 자리를 위해
+- **미디어 배경이 light에서 제품과 7/255 다르다.** 제품은 `palette-gray-050`, DS는
+  `color-bg-canvas`(light `palette-gray-025`)다. dark는 정확히 같다. 이 한 자리를 위해
   색 계단을 늘리지 않는다.
+
+  **이 항목은 2026-09-09 에 두 번 낡았다가 실측으로 고쳤다.** 「제품은 `palette-gray-200`
+  (#e3e4e8)이라 15/255 다」로 적혀 있었는데 둘 다 틀렸다 — (가) `#e3e4e8` 은 램프 재구성
+  이전의 `palette-gray-200` 이고 지금 그 칸은 `0.756863 0.764706 0.776471` 이라, 그 전제로
+  계산하면 15 가 아니라 49 가 나온다. (나) 그보다 먼저, **제품이 그 자리를 옮겼다** —
+  `appHomeSceneStyles.ts` 의 `archivePreview` 가 이제 `.louis-project-card-media` 를 물고
+  라이트에서 `palette-gray-050` 을 쓴다. 「제품은 gray-200」은 앵커에서도 이미 참이 아니다.
+  **낡은 hex 를 기준으로 뺄셈을 하면 두 번 틀린다** — 램프가 움직였고 소비처도 움직였다. dark 쪽 등식은 한 번 깨졌다가 돌아왔다 — `93353f9` 가 `bg-canvas`(dark)를
+  `palette-gray-850` 으로 내리며 어긋났고, 2026-09-09 의 다크 사다리 이동이 `palette-gray-900`
+  으로 되돌리며 다시 바이트 단위로 같아졌다.
 - **위계를 opacity가 아니라 토큰으로 만든다.** 제품은 같은 색에 0.72/0.7을 곱한다. 그러면 결과가
   뒤에 놓인 썸네일에 따라 달라진다.
 
@@ -3387,8 +3414,17 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
 **`compact` 만 면을 갖는다.** 그것이 「9벌 전부 없음」 합의의 유일한 반례이며, 반례가 실재한다는
 사실이 축을 여는 근거다. 면과 테두리는 제품 실측과 **값이 같은** semantic 을 골랐다 — 제품 다크의
 `--dashboard-chip-bg-strong`(gray-700)이 `color-bg-raised` 와, `--dashboard-input-border`(gray-600)가
-`color-stroke-default` 와 같은 색이다. 카드보다 한 단계 **밝은** 면이므로 `bg-inset` 이 아니라
+`color-stroke-default` 와 같은 색**이었다**. 카드보다 한 단계 **밝은** 면이므로 `bg-inset` 이 아니라
 `bg-raised` 다 — 제품 주석도 그 자리를 "카드보다 한 단계 밝은 표면"이라 부른다.
+
+**면 쪽 등식은 2026-09-09 에 깨졌다.** 다크 면 사다리를 한 칸씩 내린 회차가 `bg-raised`(dark)를
+`palette-gray-700` → `palette-gray-800` 으로 옮겼다. 제품 칩은 여전히 `gray-700` 이므로 이제
+**LOUIS 쪽이 제품보다 한 칸 어둡다.** 테두리 쪽 등식(`--dashboard-input-border` ↔
+`color-stroke-default`)은 그대로다 — 이 이동은 면 넷만 건드렸다. 토큰 **선택**의 근거는 값이
+아니라 관계(「카드보다 한 단계 밝은 면」)이고 그 관계는 넷이 함께 내려가도 유지되므로
+`bg-raised` 를 고른 판정은 바뀌지 않는다. 값을 다시 맞출지는 수렴 방향(LOUIS 레시피 ≠ 제품
+픽셀이면 LOUIS 를 제품 쪽으로 재조율)의 대상이며 **소유자 판정이다** — 소유자가 화면 세 안을
+보고 이 사다리를 골랐으므로 여기서 되돌리지 않는다.
 
 **`canvas` 는 그림을 그리지 않는다.** 캔버스가 비었다는 사실보다 그림이 먼저 읽히기 때문이고,
 제품도 그렇게 그린다. 대신 액션이 둘이다 — 액션 «개수»는 소비처가 정하므로 축이 아니다.
@@ -5105,7 +5141,7 @@ xs는 10 − 3 = 7. 중첩한 모서리가 어긋나지 않는다. lg·md의 두
 | 트랙 반경 8 | **실측.** 이 화면의 24 높이 컨트롤이 전부 반경 8이다 — 가져오기 `1087:2429`, 필터 탭 세그먼트, 70% 줌 칩 `1087:2482`, 트랙 레인 토글 `1087:2583` 외 8. 24에서 `radius-control`(12)은 한 변의 절반이라 알약이 된다 |
 | 세그먼트 좌우 여백 8 | **실측.** 다섯 세그먼트가 좌우 8이다. 이 컴포넌트의 여백은 트랙이 아니라 세그먼트 높이를 따라와 lg 12 → md 8로 내려왔으므로 **비례만 이으면 4**인데, 비례보다 실측이 앞선다. 4로 깎으면 "비디오"·"이미지" 같은 세 글자 라벨이 서로 붙는다 |
 | 타이포 12/1.5 | **실측이자 스케일의 바닥.** 디자인이 12px Pretendard Medium · line-height 150%이고, 타입 스케일의 마지막 칸이 caption(12)이라 아래가 없다. 두 근거가 같은 값을 가리킨다 |
-| 트랙 padding 2 | **유도.** 아래는 세그먼트가 caption 행 높이 18px을 담아야 하므로 3 이하 — lg·md의 상수 4를 그대로 쓰면 세그먼트가 24 − 8 = 16이 되어 라벨이 선택 면을 뚫는다. 위는 트랙의 inset 헤어라인이 padding 상자 안쪽에 그려지고 자식이 그 위에 칠해지므로 0이면 양 끝 세그먼트가 선택됐을 때 헤어라인 세 변이 가려진다 — 다크에서 `bg-inset`이 `bg-surface`와 같은 색이라 그 헤어라인이 트랙의 유일한 경계다. 2px 격자에서 그 사이에 남는 값은 2 하나뿐이고, 3은 홀수인 데다 세그먼트가 정확히 18이라 여유가 0이 된다 |
+| 트랙 padding 2 | **유도.** 아래는 세그먼트가 caption 행 높이 18px을 담아야 하므로 3 이하 — lg·md의 상수 4를 그대로 쓰면 세그먼트가 24 − 8 = 16이 되어 라벨이 선택 면을 뚫는다. 위는 트랙의 inset 헤어라인이 padding 상자 안쪽에 그려지고 자식이 그 위에 칠해지므로 0이면 양 끝 세그먼트가 선택됐을 때 헤어라인 세 변이 가려진다 — 이 유도를 세울 당시 다크에서 `bg-inset`이 `bg-surface`와 같은 색이라 그 헤어라인이 트랙의 유일한 경계였다(**지금은 아니다** — `3a2ca71` 과 2026-09-09 의 다크 사다리 이동이 `bg-inset`(dark)을 `palette-gray-850` → `900` 까지 내려 `bg-surface`(dark) `palette-gray-850` 과 갈라졌다). 트랙 면이 그 뒤 잉크 알파로 옮겨져 트랙은 어느 면 위에 놓이든 호스트와 가까우므로 **헤어라인이 유일한 경계라는 결론과 padding 2 라는 값은 그대로다.** 2px 격자에서 그 사이에 남는 값은 2 하나뿐이고, 3은 홀수인 데다 세그먼트가 정확히 18이라 여유가 0이 된다 |
 | 세그먼트 높이 20 | 트랙 − 2×padding |
 | 세그먼트 반경 6 | 위 파생식 — 8 − 2 |
 | 슬롯 간격 8 | **비례(상수).** lg·md 둘 다 8이다. 디자인의 탭에는 아이콘 슬롯이 없어 이 축은 재지 못했다 |
@@ -5157,9 +5193,13 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
 - 트랙 면과 선택 면은 **둘 다 잉크 알파다** — 트랙 `color-accent-secondary`(8%), 선택
   `color-accent-secondary-selected`. 처음에는 불투명 `color-bg-inset` ↔ `color-bg-raised`
-  였는데, 그 짝은 **불투명 조합으로 남은 유일한 하나**였을 뿐 좋은 짝이 아니었다: 다크에서
-  `inset`·`surface`·`menu`·`overlay` 넷이 같은 색이고 라이트에서 `raised`·`overlay`·`surface`
-  셋이 같아 고를 수 있는 것이 그것뿐이었다.
+  였는데, 그 짝은 **불투명 조합으로 남은 유일한 하나**였을 뿐 좋은 짝이 아니었다: **그때는**
+  다크에서 `inset`·`surface`·`menu`·`overlay` 넷이 같은 색이고 라이트에서
+  `raised`·`overlay`·`surface` 셋이 같아 고를 수 있는 것이 그것뿐이었다.
+  (**두 무리 다 지금은 흩어졌다** — 라이트는 `fe31e52` 가 `bg-raised` 를 `static/white` 로
+  세우며, 다크는 `3a2ca71` 과 2026-09-09 의 사다리 이동이 `inset` 을 `palette-gray-900` ·
+  `surface` 를 `850` 으로 내리며 갈렸다. 위 문장은 그 시절의 사유를 남긴 기록이고, 알파 축으로
+  옮긴 판정은 아래 항목의 이유로 선 것이라 무리가 흩어져도 되돌아가지 않는다.)
 - **불투명 썸을 알파 트랙과 짝지으면 얹히는 면에 따라 무너진다.** 알파 트랙은 호스트를 따라
   움직이는데 불투명 썸은 고정이라 둘의 거리가 호스트마다 달라진다 — 다크 `bg-surface` 위에서
   ΔL\* 10.8 이던 것이 `bg-menu` 위에서 2.8 이 됐고, 뒤쪽이 제품의 프로필 팝오버였다. 선택 면을
@@ -7193,7 +7233,7 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 
 | tone | 면 (light) | 테두리 (light) | 글자 (light) | 면 (dark) | 테두리 (dark) | 글자 (dark) | 글자 대비 light / dark |
 | --- | --- | --- | --- | --- | --- | --- | ---: |
-| danger (기본) | `#ff4b59` 12% | `#ff4b59` 24% | `#b72431` | `#ff4b59` 12% | `#ff4b59` 24% | `#ffe5e8` | 5.27 / 9.06 |
+| danger (기본) | `#ff4b59` 12% | `#ff4b59` 24% | `#b72431` | `#ff4b59` 12% | `#ff4b59` 24% | `#ffe5e8` | 5.27 / 11.29 |
 | `info` | `#f0f7ff` | `#a3d5ff` | `#005fb3` | `#003461` | `#005fb3` | `#d6ebff` | 5.92 / 10.33 |
 | `success` | `#e5fff7` | `#00c68e` | `#008f67` | `#004c39` | `#008f67` | `#e5fff7` | **3.90** / 9.55 |
 | `warning` | `#fff5d6` | `#ffb200` | `#b87600` | `#4c3300` | `#b87600` | `#fff5d6` | **3.43** / 10.83 |
@@ -7201,6 +7241,10 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 토큰 이름은 톤마다 `color-alert-{tone}-surface` · `-stroke` · `-foreground` 셋이다. 굵은 두
 수치는 WCAG AA(4.5) 미달이며 Known deviations 4가 그것이다. danger 의 대비는 면이 알파라
 페이지 면에 따라 달라진다 — 위 값은 `color-bg-surface` 위에서 합성해 잰 것이다.
+**그래서 다크 값은 면 사다리를 따라 움직인다** — 9.06 이라고 적혀 있던 것은 `bg-surface`(dark)가
+`palette-gray-800` 이던 시절의 수이고, 회색 램프 재구성으로 9.90 이 됐다가 2026-09-09 에 다크
+사다리를 한 칸씩 내려 `palette-gray-850` 이 되면서 11.29 가 됐다. 불투명한 셋은 면과 무관해
+그대로다.
 
 **danger 만 알파 면이고 나머지 셋은 불투명하다.** 알파는 제품 정본에서 온 값이고, 나머지 셋은
 DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
@@ -7830,6 +7874,13 @@ forced-colors에서 그림자를 지운다 — 그 모드에서 그림자는 렌
   | 썸 대 꺼짐 트랙 | 1.06 | 10.05 |
   | 켜짐 트랙 대 표면 | 1.97 | 7.78 |
   | 썸 대 켜짐 트랙 | 2.12 | 2.12 |
+
+  **위 표의 두 바닥값은 `color-bg-canvas` 이고, 그 토큰이 그 뒤 두 번 움직였다.** 라이트는
+  라이트 면 사다리(`0279520`·`fe31e52`)가 `palette-gray-100`(#f1f1f3) → `palette-gray-025`
+  (#f2f3f5)로 올려 표의 라이트 열이 계산된 바닥과 다르다 — 다만 두 칸 차이라 위 수치의 소수
+  둘째 자리 안에서 움직인다. 다크는 `93353f9` 가 `palette-gray-850`(#22252d)로 내렸다가
+  2026-09-09 의 사다리 이동이 `palette-gray-900`(#171b22)으로 되돌려, **다크 열은 계산 당시의
+  바닥과 다시 같다.** 결론은 어느 쪽에서도 바뀌지 않는다.
 
   라이트에서 꺼진 스위치는 표면과 구별되지 않고 썸도 트랙과 구별되지 않는다. **지금 드러나지
   않는 이유는 유일한 소비처가 어두운 화면이기 때문이다.** 제품 원본은 썸을 `--gray-000`으로
@@ -8547,9 +8598,13 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 
 #### Known deviations
 
-- **미선택 탭의 대비가 SC 1.4.3(4.5:1)에 미달한다.** `color-fg-primary`를 0.48로 깐 실측
-  대비다 — light `bg-surface` 3.11 · light `bg-canvas` 3.05 · dark `bg-surface` 3.99 ·
-  dark `bg-canvas` 4.73. **넷 중 하나만 넘는다.** 미선택 탭은 장식이 아니라 누를 수 있는 컨트롤의
+- **미선택 탭의 대비가 라이트에서 SC 1.4.3(4.5:1)에 미달한다.** `color-fg-primary`를 0.48로 깐
+  실측 대비다 — light `bg-surface` 3.11 · light `bg-canvas` 3.06 · dark `bg-surface` 4.51 ·
+  dark `bg-canvas` 4.73. **넷 중 둘이 넘는다 — 다크 두 칸이다.**
+  **다크가 넘게 된 것은 2026-09-09 에 다크 면 사다리를 한 칸씩 내린 결과다** — `bg-surface`(dark)가
+  `palette-gray-800` → `850` 으로 어두워지면서 3.99 였던 칸이 4.51 이 됐다(`bg-canvas`(dark)는
+  `palette-gray-900` 으로 돌아와 4.73 그대로다). **대비를 올리려고 값을 바꾼 것이 아니라 면
+  이동의 결과로 따라온 것이다.** 미선택 탭은 장식이 아니라 누를 수 있는 컨트롤의
   라벨이므로 면제 대상이 아니다. 그런데도 제품 값을 채택한 이유는 하나다 — 이것을 고치면 선택과
   미선택의 대비 차이가 좁아져 **어느 탭이 현재 화면인지 읽히지 않는다.** 투명도 하나로 선택을
   말하는 설계 자체를 바꿔야 하는 문제이며, 그 결정은 이 변경 단위 밖이다. 수용하고 여기 적는다.
@@ -8910,17 +8965,26 @@ CSS 에 있는 상태는 **하나뿐이다.**
   맞출지가 이 컴포넌트의 미결 판정이다.
 - **마지막 행 구분선도 두 소비처가 되돌린다.** 레시피는 카드 경계와 겹친다며 지우는데, 두 표는
   마지막 행에도 선을 남긴다. 정본이 그렇다면 레시피의 `:last-child` 규칙이 틀렸을 수 있다.
-- **다크에서 행 호버가 보이지 않는다.** `color-table-row-hover`(dark)와
-  `color-bg-surface`(dark)가 **같은 값**이다(둘 다 `palette-gray-800`,
-  `color(srgb 0.192157 0.211765 0.25098)`). 표면 위 표에서 대비 1.00 — 호버 면이 배경과 구별되지
-  않는다. `Selectable List Row` 가 같은 계열의 함정을 만나 선행 표식을 함께 그린 것과 같은 문제다.
-- **다크에서 헤더 면도 표면과 같은 값이다.** 대비 1.00. 헤더를 세우는 것은 면이 아니라 헤어라인
-  하나다. 라이트에서도 헤더 면 대 `color-bg-surface` 는 1.08이고, `color-bg-canvas` 위에 놓이면
-  **1.00**이다(둘 다 `palette-gray-100`).
-- **행 구분선 대비가 3:1 아래다.** `color-bg-surface` 기준 라이트 1.14 · 다크 1.83.
+- **다크에서 행 호버가 표면에서 갈라졌다 — 전에는 같은 값이었다.**
+  `color-table-row-hover`(dark)는 `palette-gray-800`(`color(srgb 0.168627 0.184314 0.211765)`)에
+  남아 있고, `color-bg-surface`(dark)만 한 칸 내려가 `palette-gray-850` 이 됐다. 표면 위 표에서
+  대비 **1.14** 다. **왜 바뀌었나** — 다크 면 사다리를 한 칸씩 내린 회차가 `bg-surface`(dark)를
+  `palette-gray-800` → `palette-gray-850` 으로 옮겼다. 그 전에는 둘이 바이트 단위로 같아서
+  (대비 1.00) 호버 면이 배경과 전혀 구별되지 않았고, 이 문단은 그것을 결함으로 적은 자리다.
+  이동이 그 결함을 해소했다. 1.14 는 여전히 얕으므로 `Selectable List Row` 가 같은 계열의
+  함정에서 선행 표식을 함께 그린 판단은 그대로 유효하다 — 면 하나에 기대지 않는다.
+- **다크에서 헤더 면도 같은 이동으로 표면에서 갈라졌다.** 헤더 면은 `palette-gray-800` 에
+  남고 표면만 내려갔다 — 대비 **1.14**(전에는 1.00). 그래도 헤더를 세우는 주된 것은 면이 아니라
+  헤어라인 하나다. 라이트에서 헤더 면 대 `color-bg-surface` 는 **1.29**, `color-bg-canvas`
+  위에 놓이면 **1.21** 이다. **라이트에서 헤더 면과 `color-bg-canvas` 가 둘 다
+  `palette-gray-100` 이라 1.00 이던 것은 이 회차가 아니라 라이트 면 사다리를 세운
+  `0279520`·`fe31e52` 가 `bg-canvas`(light)를 `palette-gray-025` 로 올리며 해소했다.**
+- **행 구분선 대비가 3:1 아래다.** `color-bg-surface` 기준 라이트 1.48 · 다크 1.59.
   [color-theme.md](../foundations/color-theme.md)가 의미 있는 비텍스트 그래픽에 3:1을 목표로 두는데
-  구분선은 그 아래다. 잉크 대비는 넉넉하다 — 본문 16.54(light) / 11.61(dark), 헤더
-  5.87(light) / 8.42(dark). 위 수치는 전부 토큰 값에서 계산한 것이고 **게이트가 계산하지 않는다.**
+  구분선은 그 아래다. 잉크 대비는 넉넉하다 — 본문 16.54(light) / 14.72(dark), 헤더
+  7.15(light) / 5.63(dark). 위 수치는 전부 토큰 값에서 계산한 것이고 **게이트가 계산하지 않는다** —
+  그래서 회색 램프를 다시 세운 회차와 위 두 사다리 이동이 이 숫자들을 조용히 낡게 만들었고,
+  2026-09-09 에 현재 토큰 값으로 다시 계산했다.
 - **`@media (hover: hover)` 가드가 없다.** 포인터가 없는 기기에서 탭이 호버 면을 남긴다.
   [interaction-states.md](../foundations/interaction-states.md) 「셀렉터 함정 — 터치에서도 hover가
   발동한다」가 제품에서 같은 함정을 이미 기록해 두었다.
@@ -12094,12 +12158,19 @@ component set 단위라 한 변형에서 슬롯을 숨기면 다른 변형에서
 
 #### Known deviations
 
-1. **라이트 면이 정본과 갈린다.** 정본은 팔레트 칸을 테마마다 직접 골랐고(행 다크 gray-800 /
-   라이트 gray-100, 숫자 칸 다크 gray-700 / 라이트 gray-300) 다크는 `color-bg-inset` ·
-   `color-bg-raised`와 정확히 같다. 라이트만 한 칸(행) 그리고 여러 칸(숫자 칸) 어긋난다.
-   레시피는 팔레트 칸이 아니라 **관계**를 고정한다 — 행은 한 칸 들어가고 그 안의 컨트롤은 한
-   칸 나온다. 정본의 라이트가 이 사다리 위에 없는 것은 그 화면이 다크를 먼저 그리고 라이트를
-   팔레트로 번역했기 때문이며, 움직여야 할 쪽은 정본이다. **소유자 확인 대상이다.**
+1. **면이 정본과 갈린다 — 이제 라이트만이 아니라 다크도 그렇다.** 정본은 팔레트 칸을 테마마다
+   직접 골랐다(행 다크 gray-800 / 라이트 gray-100, 숫자 칸 다크 gray-700 / 라이트 gray-300).
+   **한동안 다크는 `color-bg-inset` · `color-bg-raised` 와 정확히 같았고 라이트만 어긋났다.**
+   그 등식은 다크 면 사다리를 내린 두 회차가 깼다 — `3a2ca71` 이 `bg-inset`(dark)을
+   `palette-gray-800` → `850` 으로, 2026-09-09 의 이동이 다시 `850` → `900` 으로 내리고
+   `bg-raised`(dark)를 `palette-gray-700` → `800` 으로 내렸다. 지금은 행이 두 칸(정본
+   gray-800 대 `bg-inset` gray-900), 숫자 칸이 한 칸(정본 gray-700 대 `bg-raised` gray-800)
+   어긋난다. 라이트는 전과 같이 한 칸(행) 그리고 여러 칸(숫자 칸) 어긋난다.
+   **판정은 바뀌지 않는다.** 레시피는 팔레트 칸이 아니라 **관계**를 고정하기 때문이다 — 행은
+   한 칸 들어가고 그 안의 컨트롤은 한 칸 나온다. 넷이 함께 내려갔으므로 그 관계는 그대로다.
+   정본의 라이트가 이 사다리 위에 없는 것은 그 화면이 다크를 먼저 그리고 라이트를 팔레트로
+   번역했기 때문이며, 움직여야 할 쪽은 정본이다. **소유자 확인 대상이다** — 이제 확인할 것이
+   라이트 한 축이 아니라 두 축이다.
 2. **알약 테두리가 0.5 inset 헤어라인이 아니라 진짜 1px이다.** 이 시스템에서 그런 자리는
    여기와 `SegmentedCodeInput` 둘뿐이다. 알약의 면이 패널 바닥과 같은 값이라 경계가 사라지면
    알약이 사라지고, 기법을 바꾸면 20 높이 상자의 바깥 치수도 함께 움직인다. 기법 통일은 그
@@ -12539,9 +12610,11 @@ NodeShell (세로, 간격 4, 폭 400)
 1. **라이트 모드의 면과 테두리가 제품과 갈린다.** 제품은 카드 바닥을 다크
    `--gray-800`(=`palette-gray-800`) · 라이트 `--palette-gray-100` 으로, 테두리를 다크
    `palette-gray-600` · 라이트 `palette-gray-000` 으로 칠한다. 파일의 색 변수 중 그 라이트/다크
-   **쌍**을 가진 것이 하나도 없다 — `color/bg-surface` 는 다크가 정확히 같고 라이트가
-   `palette-gray-000` 이며, `color/stroke-default` 는 다크가 정확히 같고 라이트가
-   `palette-gray-300` 이다. 새 세만틱 변수를 만들려면 토큰 생성물을 다시 내야 하고 이 회차는
+   **쌍**을 가진 것이 하나도 없다 — `color/bg-surface` 는 **2026-09-09 까지** 다크가 정확히
+   같았고 라이트가 `palette-gray-000` 이며, `color/stroke-default` 는 다크가 정확히 같고
+   라이트가 `palette-gray-300` 이다. 그날 다크 면 사다리를 한 칸씩 내리며 `bg-surface`(dark)가
+   `palette-gray-800` → `850` 이 되어 **다크 쪽 등식마저 깨졌다** — 이제 카드 바닥은 두 테마
+   모두 갈린다. 결손이 하나 더 늘었을 뿐 아래 판정(사다리 토큰 둘에 물린다)은 그대로다. 새 세만틱 변수를 만들려면 토큰 생성물을 다시 내야 하고 이 회차는
    그것을 하지 않으므로 **사다리 토큰 둘에 물리고 라이트 두 값을 결손으로 남긴다.**
 2. **1번이 드러낸 사실 하나.** 제품 라이트에서 카드 바닥(`palette-gray-100`)은 캔버스 바닥과
    같은 값이다. 즉 라이트에서 카드를 만드는 것은 면이 아니라 **흰 테두리**이고, 사다리에는 그
@@ -13077,7 +13150,7 @@ hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 
 | Frame 반경 | `radius-overlay` 16 | 정본 `rounded-16` |
 | Frame 여백 | `space-overlay-inset` 6 | 정본 `p-3` |
 | Frame 간격 | `space-control-sm` 8 | 정본 `gap-4` |
-| Frame 면 | `color-bg-canvas` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-100 · 다크 palette-gray-900) |
+| Frame 면 | `color-bg-canvas` | 값이 정본과 바이트 단위로 같다 — 정본이 `--dashboard-card-bg` 로 이 토큰을 직접 물기 때문에 **동일성으로** 같다. 팔레트 칸은 라이트 `palette-gray-025` · 다크 `palette-gray-900` 이다(적어 둔 「라이트 palette-gray-100」은 라이트 사다리 `0279520`·`fe31e52` 이전 값이고, 다크는 `93353f9` 가 `palette-gray-850` 으로 내렸다가 2026-09-09 의 사다리 이동이 `900` 으로 되돌렸다) |
 | Panel 반경 | `radius-overlay-item` 10 | 16 − 6 동심 정렬 |
 | Panel 면 | `color-bg-overlay` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-000 · 다크 palette-gray-800) |
 | Panel 여백 `area` | `space-control-md` 12 / 14px | 정본 `py-6 px-7` |
@@ -13513,7 +13586,7 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고 `textUnstyled` 가 0 
 | ---------- | --------------- | --------- |
 | Frame 여백 | `space-control-lg` 16 | 정본 `p-8`(제품 격자는 `--spacing: 2px`) |
 | Frame 반경 | `radius-card` 12 | 정본 `rounded-card` |
-| Frame 면 | `color-bg-raised` | 정본과 같다. 다크에서 `bg-inset`·`bg-surface` 는 어드민 카드 바닥과 같은 색이라 쓸 수 없다 |
+| Frame 면 | `color-bg-raised` | 정본과 같다(제품 `--app-card-raised-bg` 가 이 토큰을 흘려 쓴다). 다크에서 `bg-surface` 는 어드민 카드 바닥 **그 자체**라 쓸 수 없다. `bg-inset` 도 한동안 같은 값이라 못 썼는데, 2026-09-09 의 다크 사다리 이동이 그것을 `palette-gray-900` 으로 내려 이제는 바닥과 다른 값이다 — 그래도 바닥보다 **어두워서** 카드 위로 올라온 면이 될 수 없으므로 결론은 그대로다 |
 | Frame 경계 | `hairline-inset` | DS-D-0023 |
 | Frame 간격 | 6px 리터럴 | 간격 계단에 없다. `space-overlay-item-content-gap` 도 6 이지만 그 이름은 오버레이 항목의 것이다 |
 | Label | `typography-caption-medium` · `color-fg-tertiary` | |

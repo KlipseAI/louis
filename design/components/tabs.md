@@ -272,9 +272,13 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 
 ## Known deviations
 
-- **미선택 탭의 대비가 SC 1.4.3(4.5:1)에 미달한다.** `color-fg-primary`를 0.48로 깐 실측
-  대비다 — light `bg-surface` 3.11 · light `bg-canvas` 3.05 · dark `bg-surface` 3.99 ·
-  dark `bg-canvas` 4.73. **넷 중 하나만 넘는다.** 미선택 탭은 장식이 아니라 누를 수 있는 컨트롤의
+- **미선택 탭의 대비가 라이트에서 SC 1.4.3(4.5:1)에 미달한다.** `color-fg-primary`를 0.48로 깐
+  실측 대비다 — light `bg-surface` 3.11 · light `bg-canvas` 3.06 · dark `bg-surface` 4.51 ·
+  dark `bg-canvas` 4.73. **넷 중 둘이 넘는다 — 다크 두 칸이다.**
+  **다크가 넘게 된 것은 2026-09-09 에 다크 면 사다리를 한 칸씩 내린 결과다** — `bg-surface`(dark)가
+  `palette-gray-800` → `850` 으로 어두워지면서 3.99 였던 칸이 4.51 이 됐다(`bg-canvas`(dark)는
+  `palette-gray-900` 으로 돌아와 4.73 그대로다). **대비를 올리려고 값을 바꾼 것이 아니라 면
+  이동의 결과로 따라온 것이다.** 미선택 탭은 장식이 아니라 누를 수 있는 컨트롤의
   라벨이므로 면제 대상이 아니다. 그런데도 제품 값을 채택한 이유는 하나다 — 이것을 고치면 선택과
   미선택의 대비 차이가 좁아져 **어느 탭이 현재 화면인지 읽히지 않는다.** 투명도 하나로 선택을
   말하는 설계 자체를 바꿔야 하는 문제이며, 그 결정은 이 변경 단위 밖이다. 수용하고 여기 적는다.

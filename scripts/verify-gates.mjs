@@ -771,6 +771,59 @@ withCanary(
   "판정 규칙($verdictRule)이 없습니다",
 );
 
+// ── 종류 축 카나리아 셋 (2026-09-09) ─────────────────────────────────────
+// `needed` 안에 `kind`(부품·화면·한자리·판단대기) 축을 열었다. 축을 하나 열면 빠져나갈
+// 구멍이 하나씩 생긴다 — 셋을 막는다. 그중 둘째가 이 축의 «존재 이유»를 지키는 자리다.
+
+// 어휘 밖의 낱말은 어느 칸에도 세어지지 않는다. neededKinds 를 함께 내려서 요약 불일치가
+// 먼저 잡히지 않게 한다 — 그래야 어휘 검사만 시험된다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.surfaces).find(
+      (key) => ledger.surfaces[key].verdict === "needed" && ledger.surfaces[key].kind === "screen",
+    );
+    ledger.surfaces[id].kind = "board";
+    ledger.neededKinds.screen -= 1;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage kind outside vocabulary",
+  "scripts/check-figma-surface-coverage.mjs",
+  "종류 어휘 밖입니다",
+);
+
+// **분모를 옮기는 문.** `kind` 가 `scoped` 에도 붙을 수 있으면 「화면이라 범위 밖」이 한 줄로
+// 가능해진다 — 일 하나 없이 대상 분모가 줄고 커버리지가 오른다. 이 저장소가 `needed` 축을
+// 연 이유가 바로 그 둔갑을 막는 것이었고, 같은 둔갑이 종류 축에서 다시 열리는 자리다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const id = Object.keys(ledger.surfaces).find((key) => ledger.surfaces[key].verdict === "scoped");
+    ledger.surfaces[id].kind = "screen";
+    ledger.surfaces[id].kindReason = "화면이라 부품으로 세우지 않는다 — 이 줄이 통과하면 분모가 준다.";
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage kind on non-needed verdict",
+  "scripts/check-figma-surface-coverage.mjs",
+  "kind 는 needed 판정에만 붙습니다",
+);
+
+// 분모를 옮기지 «않는» 근거가 파일에서 사라지면 다음 사람은 화면 59 를 분모에서 빼고
+// 커버리지가 올랐다고 적는다. 그 상승은 발견이 아니라 후퇴다.
+withCanary(
+  "migration/product.surfaces.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    delete ledger.$kindRule;
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "figma surface coverage missing kind rule",
+  "scripts/check-figma-surface-coverage.mjs",
+  "종류 규칙($kindRule)이 없습니다",
+);
+
 // ── 패턴 대응 카나리아 셋 (2026-09-01, DS-D-0039 · DS-D-0040) ─────────────
 // 대응 어휘가 컴포넌트 51 에서 **컴포넌트 51 + 패턴 보드 9** 로 넓어졌고, 상태 축 규칙이
 // 원장 안으로 들어왔다. 넓어진 문마다 빠져나갈 구멍이 하나씩 생긴다 — 셋을 막는다.

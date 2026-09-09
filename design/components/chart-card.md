@@ -137,7 +137,7 @@ hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 
 | Frame 반경 | `radius-overlay` 16 | 정본 `rounded-16` |
 | Frame 여백 | `space-overlay-inset` 6 | 정본 `p-3` |
 | Frame 간격 | `space-control-sm` 8 | 정본 `gap-4` |
-| Frame 면 | `color-bg-canvas` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-100 · 다크 palette-gray-900) |
+| Frame 면 | `color-bg-canvas` | 값이 정본과 바이트 단위로 같다 — 정본이 `--dashboard-card-bg` 로 이 토큰을 직접 물기 때문에 **동일성으로** 같다. 팔레트 칸은 라이트 `palette-gray-025` · 다크 `palette-gray-900` 이다(적어 둔 「라이트 palette-gray-100」은 라이트 사다리 `0279520`·`fe31e52` 이전 값이고, 다크는 `93353f9` 가 `palette-gray-850` 으로 내렸다가 2026-09-09 의 사다리 이동이 `900` 으로 되돌렸다) |
 | Panel 반경 | `radius-overlay-item` 10 | 16 − 6 동심 정렬 |
 | Panel 면 | `color-bg-overlay` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-000 · 다크 palette-gray-800) |
 | Panel 여백 `area` | `space-control-md` 12 / 14px | 정본 `py-6 px-7` |

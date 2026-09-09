@@ -260,9 +260,19 @@ Figma가 같은 원천을 본다.
   스케일의 축이 아니라 카드의 값이다. **Figma에서는 이것이 text style을 못 쓰게 만든다** — Figma
   text style은 all-or-nothing이라 줄 간격만 덮으면 style 연결이 끊긴다. 그래서 세 줄은 style에
   묶이지 않고 parity 게이트가 `fontSize`와 `lineHeightPercent`를 직접 대조한다.
-- **미디어 배경이 light에서 제품과 7/255 다르다.** 제품은 `palette-gray-200`(#e3e4e8), DS는
-  `color-bg-canvas`(light #f1f1f3 · dark #171b22)다. dark는 정확히 같다. 이 한 자리를 위해
+- **미디어 배경이 light에서 제품과 7/255 다르다.** 제품은 `palette-gray-050`, DS는
+  `color-bg-canvas`(light `palette-gray-025`)다. dark는 정확히 같다. 이 한 자리를 위해
   색 계단을 늘리지 않는다.
+
+  **이 항목은 2026-09-09 에 두 번 낡았다가 실측으로 고쳤다.** 「제품은 `palette-gray-200`
+  (#e3e4e8)이라 15/255 다」로 적혀 있었는데 둘 다 틀렸다 — (가) `#e3e4e8` 은 램프 재구성
+  이전의 `palette-gray-200` 이고 지금 그 칸은 `0.756863 0.764706 0.776471` 이라, 그 전제로
+  계산하면 15 가 아니라 49 가 나온다. (나) 그보다 먼저, **제품이 그 자리를 옮겼다** —
+  `appHomeSceneStyles.ts` 의 `archivePreview` 가 이제 `.louis-project-card-media` 를 물고
+  라이트에서 `palette-gray-050` 을 쓴다. 「제품은 gray-200」은 앵커에서도 이미 참이 아니다.
+  **낡은 hex 를 기준으로 뺄셈을 하면 두 번 틀린다** — 램프가 움직였고 소비처도 움직였다. dark 쪽 등식은 한 번 깨졌다가 돌아왔다 — `93353f9` 가 `bg-canvas`(dark)를
+  `palette-gray-850` 으로 내리며 어긋났고, 2026-09-09 의 다크 사다리 이동이 `palette-gray-900`
+  으로 되돌리며 다시 바이트 단위로 같아졌다.
 - **위계를 opacity가 아니라 토큰으로 만든다.** 제품은 같은 색에 0.72/0.7을 곱한다. 그러면 결과가
   뒤에 놓인 썸네일에 따라 달라진다.
 

@@ -110,6 +110,13 @@ const MAPPED_BASELINE = 30;
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 27;
 const TOTAL_FLOOR = 400;
+// 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
+// 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
+// `figma` 로 닫혀(CanvasConnectHint · CanvasFirstNodeHint · LegalDocumentBackButton ·
+// CopyPromptButton · LanguageSelector) 176 이 됐다. 앞 회차가 미판정으로 남긴 InstagramNode
+// 하나는 앵커 소스를 읽어 primitive 로 판정했다(NODE_TYPES 아홉 칸의 아홉 번째).
+// **이 회차는 종류만 심고 분모는 건드리지 않았다** — 176 은 176 이고 대응도 30 그대로다.
+const KINDLESS_BASELINE = 0;
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 조용히 `unclassified` 밖으로
 // 새어 나가 아무 래칫에도 잡히지 않는다.
@@ -117,6 +124,20 @@ const VERDICTS = new Set(["figma", "scoped", "needed", "unclear"]);
 // `needed` 의 우선순위. 「무엇을 먼저 그리는가」가 이 목록의 유일한 쓸모라, 판정만 있고
 // 순서가 없으면 목록은 400줄짜리 벽이 된다.
 const WEIGHTS = new Set(["high", "medium", "low"]);
+// `needed` «안»의 종류. 왜 축을 하나 더 여는가: `needed` 176 은 「Figma 에 세워야 한다」를
+// 한 통에 담아 **Figma 컴포넌트가 될 수 없는 것까지 같은 분모에 넣는다** — 1427줄짜리 화면
+// 한 장과 재사용 12곳짜리 부품이 같은 1 로 세어진다. 그 분모로 계산한 「대상 대비 14.5%」는
+// 무엇의 비율인지 말하지 못하고, DS-D-0044 의 「모든 지표 100%」도 화면이 분모에 있는 한
+// 정의상 도달 불가다.
+//
+// **그런데 종류는 분모를 옮기지 않는다.** `kind` 는 needed 안의 축이고, 이 게이트가 그것을
+// 기계로 강제한다 — kind 는 `needed` 에만 붙는다. `scoped` 에 붙일 수 있으면 「화면이라
+// 범위 밖」이 한 줄로 가능해지고, 그것이 바로 이 저장소가 이미 한 번 당한 «미등록이 사유로
+// 둔갑하는» 자리다. 분모를 옮기는 조건과, 그 조건을 기계로 재려다 실패한 실측은 원장의
+// `$kindRule` 이 갖는다(요약: 후보였던 「그 화면 보드의 replaceable 이 0」은 36 보드 전부에서
+// 0 이라 공허하고, 보드 원장의 $verdictRule 이 스스로 needed 의 하류라고 적었으므로 순환이며,
+// /archive 보드는 「No projects yet」11 노드라 화면이 아니라 빈 상태를 그린다).
+const KINDS = new Set(["primitive", "screen", "oneoff", "unclear"]);
 
 // 사유의 최소 길이. `verify-product-parity` 의 MINIMUM_REASON 과 같은 값이다 —
 // 「없음」·「해당 없음」 같은 한 낱말이 사유로 통과하면 분류는 형식만 남는다.
@@ -178,6 +199,17 @@ if (typeof ledger.$stateRule !== "string" || ledger.$stateRule.length < 40) {
   );
 }
 
+// 종류 축의 「왜」도 같은 이유로 파일 안에 있어야 한다. 여기에는 **분모를 옮기지 «않는»
+// 근거**가 실려 있다 — 사라지면 다음 사람은 screen 59 를 분모에서 빼고 커버리지가 올랐다고
+// 적는다. 일 하나 없이 14.5% 가 25.6% 가 되는 길이고, 이 저장소는 그 종류의 상승을 후퇴라고
+// 부른다.
+if (typeof ledger.$kindRule !== "string" || ledger.$kindRule.length < 40) {
+  errors.push(
+    LEDGER + " 에 종류 규칙($kindRule)이 없습니다. 분모를 옮기지 «않는» 근거가 파일 안에 " +
+      "없으면 다음 사람은 screen 을 분모에서 빼고 그것을 진척이라고 적습니다.",
+  );
+}
+
 const surfaces = ledger.surfaces ?? {};
 const ids = Object.keys(surfaces);
 if (ids.length === 0) errors.push(LEDGER + " 에 표면이 하나도 없습니다.");
@@ -191,6 +223,9 @@ let unclear = 0;
 let unclassified = 0;
 const unclassifiedIds = [];
 const neededByWeight = { high: 0, medium: 0, low: 0 };
+const neededByKind = { primitive: 0, screen: 0, oneoff: 0, unclear: 0 };
+let kindless = 0;
+const kindlessIds = [];
 
 for (const id of ids) {
   const surface = surfaces[id];
@@ -266,6 +301,38 @@ for (const id of ids) {
     errors.push(at + ": weight 는 needed 판정에만 붙습니다(현재 " + verdict + ").");
   }
 
+  // `kind` 는 needed 에만 붙는다. 다른 판정에 붙을 수 있으면 「화면이라 범위 밖」이 한 줄로
+  // 가능해지고, 종류가 분모를 옮기는 문이 된다.
+  const kind = surface.kind ?? null;
+  const kindReason = typeof surface.kindReason === "string" ? surface.kindReason.trim() : "";
+  if (verdict === "needed") {
+    if (kind === null) {
+      kindless += 1;
+      kindlessIds.push(id);
+      if (kindReason.length > 0) {
+        errors.push(at + ": kind 없이 kindReason 만 적혀 있습니다: " + [...KINDS].join("/"));
+      }
+    } else if (!KINDS.has(kind)) {
+      errors.push(
+        at + ": kind 가 종류 어휘 밖입니다: " + String(kind) + ". " + [...KINDS].join("/") +
+          " 중 하나여야 합니다 — 어휘 밖의 낱말은 어느 칸에도 세어지지 않습니다.",
+      );
+    } else {
+      neededByKind[kind] += 1;
+      if (kindReason.length < MINIMUM_REASON) {
+        errors.push(
+          at + ": kind 를 " + kind + " 로 두려면 kindReason 에 " + MINIMUM_REASON +
+            "자 이상의 근거가 필요합니다(무엇이 되풀이되는가 · 소비처가 몇인가).",
+        );
+      }
+    }
+  } else if (kind !== null || kindReason.length > 0) {
+    errors.push(
+      at + ": kind 는 needed 판정에만 붙습니다(현재 " + verdict + "). 종류는 needed 안의 " +
+        "축이지 needed 밖으로 나가는 문이 아닙니다.",
+    );
+  }
+
   if (verdict === "figma") {
     const name = typeof surface.figma === "string" ? surface.figma : null;
     const isComponent = name !== null && componentVocabulary.has(name);
@@ -306,6 +373,19 @@ for (const key of ["total", "mapped", "scoped", "needed", "unclear", "unclassifi
   }
 }
 
+// 종류 분포도 같은 자리에서 다시 센다. `counts` 와 «따로» 든 수라 따로 검산하지 않으면
+// 조용히 어긋난다.
+const ledgerKinds = ledger.neededKinds ?? {};
+const recountedKinds = { ...neededByKind, kindless };
+for (const key of ["primitive", "screen", "oneoff", "unclear", "kindless"]) {
+  if (ledgerKinds[key] !== recountedKinds[key]) {
+    errors.push(
+      LEDGER + " 의 neededKinds." + key + " (" + String(ledgerKinds[key]) + ") 가 다시 센 값 " +
+        recountedKinds[key] + " 와 다릅니다. `pnpm run measure-product-surfaces` 로 다시 뽑으세요.",
+    );
+  }
+}
+
 // ── 래칫 ──────────────────────────────────────────────────────────────────
 if (unclassified > UNCLASSIFIED_BASELINE) {
   errors.push(
@@ -321,6 +401,25 @@ if (unclassified > UNCLASSIFIED_BASELINE) {
       "(" + UNCLASSIFIED_BASELINE + " → " + unclassified + "). 이득을 잠그세요 — " +
       "이 파일의 UNCLASSIFIED_BASELINE 을 " + unclassified + " 로 내립니다. " +
       "내리지 않으면 그 자리는 다음에 조용히 되돌아옵니다.",
+  );
+}
+
+// 종류 없는 `needed` 에 **양방향** 래칫을 건다 — `unclassified` 와 같은 모양이다. 늘면
+// 아무도 종류를 안 본 자리가 새로 생긴 것이고, 줄면 판정이 진행된 것이니 잠그라고 요구한다.
+// needed 자체의 상승은 발견이라 자유지만, 종류 없이 늘어나는 것은 발견이 아니라 미룸이다.
+if (kindless > KINDLESS_BASELINE) {
+  errors.push(
+    "종류 없는 필요 표면이 " + (kindless - KINDLESS_BASELINE) + "개 늘었습니다 " +
+      "(" + KINDLESS_BASELINE + " → " + kindless + "). `kind` 를 " + [...KINDS].join("/") +
+      " 중 하나로 적고 `kindReason` 에 근거를 붙이세요 — 종류 없는 needed 는 " +
+      "「무엇을 세우는가」에 답하지 못합니다.\n      새로 생긴 자리: " +
+      kindlessIds.slice(-5).join(", "),
+  );
+} else if (kindless < KINDLESS_BASELINE) {
+  errors.push(
+    "종류 없는 필요 표면이 " + (KINDLESS_BASELINE - kindless) + "개 줄었습니다 " +
+      "(" + KINDLESS_BASELINE + " → " + kindless + "). 이득을 잠그세요 — 이 파일의 " +
+      "KINDLESS_BASELINE 을 " + kindless + " 로 내립니다.",
   );
 }
 
@@ -392,6 +491,18 @@ console.log(
     " (전체 대비 " + percentComponentAll + "% · 대상 대비 " + percentComponentTarget + "%). " +
     "패턴 " + mappedPattern + "건은 보드 대응이라 「Figma 에 있다」까지이고 " +
     "「컴포넌트로 서 있다」가 아니다 — 부품에 key 가 없어 집어다 쓸 인스턴스가 없다(DS-D-0039).",
+);
+console.log(
+  "  필요 " + needed + " 의 종류: 부품 " + neededByKind.primitive + " · 화면 " +
+    neededByKind.screen + " · 한자리 " + neededByKind.oneoff + " · 판단 대기 " +
+    neededByKind.unclear + " · 종류 없음 " + kindless + ". " +
+    "**이 축은 분모를 옮기지 않는다** — 화면 " + neededByKind.screen + " 을 빼면 대상은 " +
+    (target - neededByKind.screen) + " 이 되어 같은 대응 " + mapped + " 이 " +
+    (target - neededByKind.screen > 0
+      ? ((mapped / (target - neededByKind.screen)) * 100).toFixed(1)
+      : "0.0") +
+    "% 로 «보이지만», 그리는 일은 한 자리도 늘지 않는다. 그 문을 여는 조건과 그것을 기계로 " +
+    "재려다 실패한 실측은 " + LEDGER + " 의 $kindRule 이 갖는다.",
 );
 console.log(
   "  필요 " + needed + "건은 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. 줄이는 것이 목표다. " +

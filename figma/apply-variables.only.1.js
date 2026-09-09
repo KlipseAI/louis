@@ -1,9 +1,9 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 1/2 — Klipse Primitive 1/1 (변수 1개).
+// use_figma에 그대로 넘긴다. 1/1 — Klipse Semantic Color 1/1 (변수 4개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
-const NAME={};
-const COL={"c":"Klipse Primitive","m":["Base"],"d":"Base","vars":[{"i":"color-palette-gray-850","n":"color/palette-gray/850","t":"COLOR","h":true,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Base":{"c":[0.133333,0.145098,0.176471,1]}}}]};
+const NAME={"color-palette-gray-900":"Klipse Primitive::color/palette-gray/900","color-palette-gray-025":"Klipse Primitive::color/palette-gray/025","color-palette-gray-800":"Klipse Primitive::color/palette-gray/800","color-static-white":"Klipse Primitive::color/static/white","color-palette-gray-850":"Klipse Primitive::color/palette-gray/850","color-palette-gray-000":"Klipse Primitive::color/palette-gray/000"};
+const COL={"c":"Klipse Semantic Color","m":["Light","Dark"],"d":"Light","vars":[{"i":"color-bg-canvas","n":"color/bg-canvas","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-900"},"Light":{"a":"color-palette-gray-025"}}},{"i":"color-bg-inset","n":"color/bg-inset","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-900"},"Light":{"a":"color-palette-gray-025"}}},{"i":"color-bg-raised","n":"color/bg-raised","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-800"},"Light":{"a":"color-static-white"}}},{"i":"color-bg-surface","n":"color/bg-surface","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-850"},"Light":{"a":"color-palette-gray-000"}}}]};
 
 const report={created:[],updated:[],unchanged:0,modesAdded:[],collectionsCreated:[],missingAlias:[]};
 const near=(a,b)=>Math.abs((a??1)-(b??1))<1e-5;

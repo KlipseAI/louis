@@ -385,6 +385,11 @@ LOUIS CSS recipe 는 아직 없다 — 두 컴포넌트 다 `figmaAhead` 이고 
 - **면을 팔레트 칸이 아니라 사다리로 옮겼다.** 다크는 `color-bg-inset` · `color-bg-raised` ·
   `color-bg-canvas` 와 정확히 같고 라이트만 갈린다. 레시피는 **관계**를 고정한다 — 행은 한 칸
   들어가고 그 안의 컨트롤은 한 칸 나오며 알약은 바닥까지 내려간다.
+  <br>**〔2026-09-09 정정〕** 다크 등식은 그 뒤 깨졌다 — `3a2ca71` 과 이날의 다크 면 사다리
+  이동이 `bg-inset`(dark)을 `palette-gray-800` → `900`, `bg-raised`(dark)를 `700` → `800` 으로
+  내렸다. 정본은 그대로라 이제 다크도 갈린다. **관계를 고정한다는 판정은 유효하다**(넷이 함께
+  내려갔다). 현재 상태는 [Inspector Row](../components/inspector-row.md) Known deviations 1 이
+  갖는다.
 - 절 머리의 조작이 `layout-control-height-sm` 을 읽는다. 정본이 그 칸이 없던 때 로컬로 세웠다고
   적어 두었고 DS-D-0032 가 그 칸을 열었다.
 

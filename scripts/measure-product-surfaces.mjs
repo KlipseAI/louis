@@ -197,8 +197,8 @@ if (duplicate) {
 }
 
 // ── 분류는 사람이 소유한다 ─────────────────────────────────────────────────
-// 열거는 기계가, 분류는 사람이. 다시 뽑을 때 사람이 적은 `verdict`·`figma`·`reason`·`weight`
-// 를 그대로 물려받는다. 사라진 표면의 분류는 함께 사라진다 — 없는 표면에 대한 사유는
+// 열거는 기계가, 분류는 사람이. 다시 뽑을 때 사람이 적은
+// `verdict`·`figma`·`reason`·`weight`·`kind`·`kindReason` 를 그대로 물려받는다. 사라진 표면의 분류는 함께 사라진다 — 없는 표면에 대한 사유는
 // 거짓말이다.
 //
 // **`verdict` 를 물려받지 않으면 판정 400건이 다음 재측정에서 통째로 사라진다.** 이 목록은
@@ -220,6 +220,16 @@ for (const surface of found) {
     // needed 에만 붙는 우선순위. 「무엇을 먼저 그리는가」가 needed 목록의 유일한 쓸모라
     // 판정과 같은 자리에 둔다. 다른 판정에서는 null 이고 게이트가 그것을 강제한다.
     weight: before.weight ?? null,
+    // needed 의 «종류». 왜 판정과 따로 두는가: `needed` 176 은 「Figma 에 세워야 한다」를 한
+    // 통에 담고 있어 **Figma 컴포넌트가 될 수 없는 것까지 같은 분모에 넣는다** — 화면 한
+    // 장과 재사용 12곳짜리 부품이 같은 1 로 세어진다. 종류를 적어야 「무엇을 세우는가」가
+    // 목록에서 읽힌다. `weight` 와 같은 이유로 needed 에만 붙고, 게이트가 그것을 강제한다.
+    //
+    // **분모를 옮기는 권한은 이 필드에 없다.** kind 는 needed «안»의 축이지 needed 밖으로
+    // 나가는 문이 아니다 — 그 문을 여는 조건과, 그 조건을 기계로 재려다 실패한 실측은
+    // 아래 $kindRule 이 갖는다.
+    kind: before.kind ?? null,
+    kindReason: before.kindReason ?? null,
   };
 }
 
@@ -230,6 +240,15 @@ const scoped = tally("scoped");
 const needed = tally("needed");
 const unclear = tally("unclear");
 const unclassified = found.length - mapped - scoped - needed - unclear;
+const kindTally = (kind) =>
+  Object.values(surfaces).filter((s) => s.verdict === "needed" && s.kind === kind).length;
+const kinds = {
+  primitive: kindTally("primitive"),
+  screen: kindTally("screen"),
+  oneoff: kindTally("oneoff"),
+  unclear: kindTally("unclear"),
+};
+const kindless = needed - kinds.primitive - kinds.screen - kinds.oneoff - kinds.unclear;
 
 const output = {
   $comment:
@@ -272,6 +291,40 @@ const output = {
     "§2 가 그다음에 정한다. 두 층을 섞으면 「BOOLEAN 으로 못 그리니까 별 컴포넌트」라는 잘못된 " +
     "추론이 나온다. 축을 연다고 조합을 전수로 채우는 것도 아니다 — 쓰지 않는 계단은 사다리가 " +
     "아니다(DS-D-0027 · DS-D-0030).",
+  // **$stateRule 과 같은 이유로 «생성기»가 발행한다.** 생성물에 손으로 적은 규범은 다음
+  // 재측정에서 반드시 사라진다 — $stateRule 이 이미 한 번 그렇게 사라졌다.
+  $kindRule:
+    "`kind` 는 needed «안»의 축이다. 넷이다 — primitive(되풀이되는 부품: 다른 소비처·다른 " +
+    "그림이 실측으로 있다. Figma 컴포넌트로 세울 것) · screen(화면 한 장: 소비처 1 · 라우트 1. " +
+    "부품이 아니라 보드로 그릴 것) · oneoff(한 자리에만 있는 그림: 되풀이 증거가 없어 부품으로 " +
+    "볼 수 없고 화면도 아니다) · unclear(소유자 판단 대기). 사유는 `kindReason` 에 적는다. " +
+    "종류 없이 넘기는 길은 없다.\n" +
+    "왜 필요한가: `needed` 는 「Figma 에 세워야 한다」를 한 통에 담아, 화면 한 장과 재사용 " +
+    "12곳짜리 부품을 같은 1 로 센다. 종류가 없으면 목록은 176줄짜리 벽이고 " +
+    "「무엇을 세우는가」에 답하지 못한다.\n" +
+    "**분모를 옮기는 권한은 이 필드에 없다 — 176 은 176 으로 남는다.** screen 을 needed " +
+    "밖으로 내보내려면 조건이 둘이었다: (가) 그 화면의 보드가 실재하고 (나) 그 화면이 안에서 " +
+    "꺼낼 부품을 다 꺼냈다. (나)를 기계로 재려고 2026-09-09 에 실측했고, **못 잰다**는 결론이 " +
+    "나왔다. 후보였던 「그 보드의 replaceable 이 0 이면 다 꺼낸 것」은 셋에서 깨진다.\n" +
+    "① 공허하다 — migration/figma-board-composition.json 의 replaceable 은 36 보드 «전부»에서 " +
+    "0 이다. 이 시험은 보드가 있는 모든 화면을 아무것도 재지 않고 통과시킨다.\n" +
+    "② 순환이다 — 그 원장의 $verdictRule 이 스스로 「bespoke 가 열리는 조건은 제품이 정본을 " +
+    "물기 시작하는 것이고, 그것은 표면 원장의 needed 가 세는 질문이다」라고 적었다. needed 를 " +
+    "정하려고 needed 의 하류를 읽는 꼴이다.\n" +
+    "③ 보드가 화면이 아니다 — /archive 보드의 데스크톱 spec 은 11 노드이고 그 내용은 " +
+    "「No projects yet」이다. auth fixture 에 프로젝트가 0 건이라 «빈 상태»를 그렸고, 1427줄 " +
+    "AppHomeScene 의 카드 그리드·배너 캐러셀·확인 모달·토스트는 보드에 한 노드도 없다. 그 " +
+    "보드의 `missing 0 · replaceable 0` 을 「다 꺼냈다」로 읽는 것은 빈 방을 보고 이사가 " +
+    "끝났다고 적는 것이다. /analytics/youtube 는 연결 이전 상태를, /highlight/[projectId] " +
+    "여섯 보드는 전부 결과 이전 상태를 그린다. (가)조차 「그 라우트에 보드가 있다」로는 " +
+    "만족되지 않는다 — 상태 하나의 보드는 화면의 보드가 아니다.\n" +
+    "게다가 두 원장에는 조인 키가 없다. figma-board-composition 의 $overlapRule 이 " +
+    "「draw payload 에는 제품 소스 경로가 한 글자도 없다」고 적었고, 그쪽 식별자는 " +
+    "`<route>@<context>#<자식 인덱스 체인>` 이라 «위치»다. 라우트↔표면을 사람이 그어 잇는 " +
+    "순간 그것이 곧 손으로 센 원장이고, 이 열거기가 없애려던 물건이다.\n" +
+    "(나)를 재려면 두 가지가 먼저 움직여야 한다 — 보드가 화면의 «채워진» 상태를 그리는 것, " +
+    "그리고 대응 규칙이 LOUIS 51종 중 6종만 보는 상한($upperBound)이 걷히는 것. 둘 다 " +
+    "measure-figma-board-composition 이 할 일이지 이 원장이 할 일이 아니다.",
   $upperBound:
     "이 수는 상한이 아니라 하한이다 — 다른 함수 안에서 정의된 컴포넌트(앵커에서 2개)와 " +
     "camelCase 렌더 헬퍼(14개)는 세지 않는다. `louis` 도 하한이다: 클래스 맵 파일을 " +
@@ -283,13 +336,18 @@ const output = {
   // `mapped` 는 verdict === "figma" 의 수다. 이름을 유지하는 이유는 그것이 커버리지의
   // 분자이고, 이 이름을 읽는 게이트·카나리아가 이미 있기 때문이다.
   counts: { total: found.length, mapped, scoped, needed, unclear, unclassified },
+  // needed 안의 종류 분포. `counts` 와 «따로» 두는 이유는 이것이 커버리지의 분자도 분모도
+  // 아니기 때문이다 — 한 통에 섞어 두면 다음 사람이 「screen 을 빼면 분모가 준다」로 읽는다.
+  neededKinds: { ...kinds, kindless },
   surfaces,
 };
 
 const body = JSON.stringify(output, null, 2) + "\n";
 const line =
   `표면 ${found.length}종 · Figma 대응 ${mapped} · 범위 밖 ${scoped} · 필요 ${needed}` +
-  ` · 판단대기 ${unclear} · 미분류 ${unclassified} · 파일 ${files.length} @ ${commit.slice(0, 8)}`;
+  ` · 판단대기 ${unclear} · 미분류 ${unclassified} · 파일 ${files.length} @ ${commit.slice(0, 8)}` +
+  `\n  필요 ${needed} 의 종류: 부품 ${kinds.primitive} · 화면 ${kinds.screen}` +
+  ` · 한자리 ${kinds.oneoff} · 판단대기 ${kinds.unclear} · 종류없음 ${kindless}`;
 
 if (check) {
   if (!existsSync(outPath)) {

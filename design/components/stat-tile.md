@@ -124,7 +124,7 @@ summary: 지표 하나를 라벨·수치·보조 설명·증감 알약 네 줄�
 | ---------- | --------------- | --------- |
 | Frame 여백 | `space-control-lg` 16 | 정본 `p-8`(제품 격자는 `--spacing: 2px`) |
 | Frame 반경 | `radius-card` 12 | 정본 `rounded-card` |
-| Frame 면 | `color-bg-raised` | 정본과 같다. 다크에서 `bg-inset`·`bg-surface` 는 어드민 카드 바닥과 같은 색이라 쓸 수 없다 |
+| Frame 면 | `color-bg-raised` | 정본과 같다(제품 `--app-card-raised-bg` 가 이 토큰을 흘려 쓴다). 다크에서 `bg-surface` 는 어드민 카드 바닥 **그 자체**라 쓸 수 없다. `bg-inset` 도 한동안 같은 값이라 못 썼는데, 2026-09-09 의 다크 사다리 이동이 그것을 `palette-gray-900` 으로 내려 이제는 바닥과 다른 값이다 — 그래도 바닥보다 **어두워서** 카드 위로 올라온 면이 될 수 없으므로 결론은 그대로다 |
 | Frame 경계 | `hairline-inset` | DS-D-0023 |
 | Frame 간격 | 6px 리터럴 | 간격 계단에 없다. `space-overlay-item-content-gap` 도 6 이지만 그 이름은 오버레이 항목의 것이다 |
 | Label | `typography-caption-medium` · `color-fg-tertiary` | |

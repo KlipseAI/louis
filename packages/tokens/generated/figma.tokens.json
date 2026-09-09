@@ -17687,18 +17687,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.850}",
+              "$value": "{primitive.color.palette-gray.900}",
               "aliasTarget": {
-                "id": "color-palette-gray-850",
+                "id": "color-palette-gray-900",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.129412,
-                  0.145098,
-                  0.176471
+                  0.090196,
+                  0.105882,
+                  0.133333
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-canvas"
@@ -17840,18 +17840,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.850}",
+              "$value": "{primitive.color.palette-gray.900}",
               "aliasTarget": {
-                "id": "color-palette-gray-850",
+                "id": "color-palette-gray-900",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.129412,
-                  0.145098,
-                  0.176471
+                  0.090196,
+                  0.105882,
+                  0.133333
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-inset"
@@ -18095,18 +18095,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.700}",
+              "$value": "{primitive.color.palette-gray.800}",
               "aliasTarget": {
-                "id": "color-palette-gray-700",
+                "id": "color-palette-gray-800",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.254902,
-                  0.270588,
-                  0.298039
+                  0.168627,
+                  0.184314,
+                  0.211765
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-raised"
@@ -18197,18 +18197,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.800}",
+              "$value": "{primitive.color.palette-gray.850}",
               "aliasTarget": {
-                "id": "color-palette-gray-800",
+                "id": "color-palette-gray-850",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.168627,
-                  0.184314,
-                  0.211765
+                  0.129412,
+                  0.145098,
+                  0.176471
                 ]
               },
               "sourcePath": "semantic.dark.color.bg-surface"

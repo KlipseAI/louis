@@ -606,7 +606,7 @@
               "Base",
               null,
               [
-                0.866667,
+                0.862745,
                 0.870588,
                 0.882353,
                 1
@@ -623,7 +623,7 @@
               "Base",
               null,
               [
-                0.811765,
+                0.807843,
                 0.815686,
                 0.831373,
                 1
@@ -708,7 +708,7 @@
               "Base",
               null,
               [
-                0.34902,
+                0.345098,
                 0.360784,
                 0.388235,
                 1
@@ -725,7 +725,7 @@
               "Base",
               null,
               [
-                0.258824,
+                0.254902,
                 0.270588,
                 0.298039,
                 1
@@ -742,9 +742,9 @@
               "Base",
               null,
               [
-                0.172549,
+                0.168627,
                 0.184314,
-                0.215686,
+                0.211765,
                 1
               ]
             ]
@@ -759,7 +759,7 @@
               "Base",
               null,
               [
-                0.133333,
+                0.129412,
                 0.145098,
                 0.176471,
                 1
@@ -6245,7 +6245,7 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/palette-gray/050",
+              "Klipse Primitive::color/palette-gray/000",
               null
             ],
             [
@@ -6279,12 +6279,12 @@
           [
             [
               "Dark",
-              "Klipse Primitive::color/static-white-alpha/08",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ],
             [
               "Light",
-              "Klipse Primitive::color/static-black-alpha/08",
+              "Klipse Primitive::color/palette-gray/050",
               null
             ]
           ]

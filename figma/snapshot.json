@@ -10,8 +10,8 @@
     "proposalSha256": "b21b4c4183e6121e149ef3765baeb6ae9a5c42b29ffb601aeb33bdb182f61050",
     "readback": {
       "tokens": 510,
-      "canonicalLength": 51611,
-      "fnv1a32": "4e2f6795",
+      "canonicalLength": 51602,
+      "fnv1a32": "39bc065e",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 16,
@@ -1871,7 +1871,7 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Light": {
-          "alias": "color-palette-gray-050"
+          "alias": "color-palette-gray-000"
         },
         "Dark": {
           "alias": "color-static-black"
@@ -1895,10 +1895,10 @@
       "resolvedType": "COLOR",
       "valuesByMode": {
         "Dark": {
-          "alias": "color-static-white-alpha-08"
+          "alias": "color-palette-gray-900"
         },
         "Light": {
-          "alias": "color-static-black-alpha-08"
+          "alias": "color-palette-gray-050"
         }
       }
     },
@@ -2658,7 +2658,7 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.866667,
+            0.862745,
             0.870588,
             0.882353,
             1
@@ -2672,7 +2672,7 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.811765,
+            0.807843,
             0.815686,
             0.831373,
             1
@@ -2742,7 +2742,7 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.34902,
+            0.345098,
             0.360784,
             0.388235,
             1
@@ -2756,7 +2756,7 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.258824,
+            0.254902,
             0.270588,
             0.298039,
             1
@@ -2770,9 +2770,9 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.172549,
+            0.168627,
             0.184314,
-            0.215686,
+            0.211765,
             1
           ]
         }
@@ -2784,7 +2784,7 @@
       "valuesByMode": {
         "Base": {
           "value": [
-            0.133333,
+            0.129412,
             0.145098,
             0.176471,
             1

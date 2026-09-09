@@ -10,6 +10,19 @@ import {
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  countByFile,
+  dedupe,
+  findingKey,
+  partitionByExemption,
+  ratchet,
+  readExemptions,
+  readLadder,
+  readProductAliases,
+  readTokenMaps,
+  scanCss,
+  scanScript,
+} from "./lib/palette-ladder.mjs";
 
 // **CI 에는 제품 저장소가 없다.** 카나리아 대부분은 이 저장소 안에서 끝나지만, 인용 좌표
 // 카나리아 셋은 `verify-citations.mjs` 를 부르고 그 스크립트가 `git -C <제품 저장소>` 를 한다.
@@ -1364,6 +1377,15 @@ withCanary(
   "아직 `pnpm verify` 를 돕니다",
 );
 
+// ── 팔레트/사다리 충돌 판정 카나리아 ──────────────────────────────────────
+// **이 카나리아가 없으면 `check-palette-ladder-collision` 은 「초록이라 잘 도는 것 같다」로만
+// 남는다.** 그 게이트는 2026-09-08~09 에 손으로 고친 넷을 잡으려고 세웠는데, 그 넷은 전부
+// 다른 게이트 열 개를 통과했었다 — 「안 잡히는 것」이 이 영역의 기본값이다.
+//
+// 그래서 **그 넷의 되돌린 형태를 그대로 먹여 실제로 무는지** 본다. 판정기가 순수해서
+// (`scripts/lib/palette-ladder.mjs`) 제품 저장소 없이 이 프로세스 안에서 돈다.
+paletteLadderCanaries();
+
 runPass(
   "post-canary catalog check",
   "scripts/build-design-docs.mjs",
@@ -1848,4 +1870,255 @@ function validateFenceProjection() {
       "AI projection이 fenced Markdown template을 byte-identical하게 보존하지 않습니다.",
     );
   }
+}
+
+// 합성 입력으로 판정기를 시험한다. 값은 2026-09-09 시점의 실제 사다리와 같게 두되, 이 카나리아가
+// LOUIS 토큰 파일을 읽지 않는 것은 의도다 — 사다리가 움직여도 **판정 로직**의 회귀는 그대로 잡혀야 한다.
+function paletteLadderCanaries() {
+  const louisCss = [
+    ":root {",
+    "  --louis-color-palette-gray-000: color(srgb 0.980392 0.980392 0.980392 / 1);",
+    "  --louis-color-palette-gray-800: color(srgb 0.168627 0.184314 0.211765 / 1);",
+    "  --louis-color-palette-gray-850: color(srgb 0.129412 0.145098 0.176471 / 1);",
+    "  --louis-color-static-white: color(srgb 1 1 1 / 1);",
+    "}",
+    // 라이트는 `:root` 와 한 목록으로 선언된다 — 이 형태를 「라이트 전용」으로 읽으면
+    // 프리미티브가 다크 지도에서 통째로 사라진다(themesFor 의 :root 규칙이 그것을 막는다).
+    ':root, [data-theme="light"] {',
+    "  --louis-color-bg-surface: color(srgb 0.980392 0.980392 0.980392 / 1);",
+    "  --louis-color-bg-raised: color(srgb 1 1 1 / 1);",
+    "}",
+    '[data-theme="dark"] {',
+    "  --louis-color-bg-surface: color(srgb 0.129412 0.145098 0.176471 / 1);",
+    "  --louis-color-bg-raised: color(srgb 0.168627 0.184314 0.211765 / 1);",
+    "}",
+  ].join("\n");
+  const globalsCss = [
+    ":root {",
+    "  --palette-gray-000: var(--louis-color-palette-gray-000);",
+    "  --palette-gray-800: var(--louis-color-palette-gray-800);",
+    "  --palette-gray-800-rgb: var(--louis-color-palette-gray-800);",
+    "}",
+  ].join("\n");
+  const louis = readTokenMaps(louisCss);
+  const context = { louis, ladder: readLadder(louis), aliases: readProductAliases(globalsCss) };
+
+  const expect = (label, actual, wanted) => {
+    if (actual === wanted) {
+      canaryCount += 1;
+      return;
+    }
+    errors.push(
+      "palette-ladder canary 「" + label + "」 가 " + wanted + " 을(를) 기대했는데 " + actual + " 였습니다.",
+    );
+  };
+
+  // (1) `.appMainCardChromeSurface` — 다크가 팔레트 직행이던 형태. 사다리 `bg-raised`(dark)와
+  //     값이 같다. 되돌린 사본이 물리지 않으면 이 게이트는 존재 이유가 없다.
+  expect(
+    "reverted .appMainCardChromeSurface (dark)",
+    scanCss(
+      "canary.css",
+      'html[data-theme="dark"] .appMainCardChromeSurface { background-color: var(--palette-gray-800); }',
+      context,
+    ).length,
+    1,
+  );
+
+  // (2) `gnb-menuSidebarActiveIndicator` — `.tsx` 의 Tailwind 임의값이다. **CSS 파일만 보면
+  //     오늘 고친 셋 중 둘을 통째로 놓친다.** 라이트 줄(pg-300)은 사다리에 그 톤의 칸이 없어
+  //     위반이 아니다 — 팔레트를 무는 것 자체는 위반이 아니라는 규칙이 여기서 증명된다.
+  const indicator = scanScript(
+    "canary.tsx",
+    [
+      '"[html[data-theme=light]_&]:[background-color:var(--palette-gray-300)]",',
+      '"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
+    ].join("\n"),
+    context,
+  );
+  expect("reverted gnb-menuSidebarActiveIndicator (dark only)", indicator.length, 1);
+  expect("indicator canary theme", indicator[0]?.theme ?? "(none)", "dark");
+
+  // (3) **테마별 덮개 두 줄.** 같은 클래스 목록 안에 사다리 토큰 한 줄이 이미 있는데도 뒤에
+  //     오는 두 줄이 그것을 이겼다 — 브라우저로 재기 전에는 「고쳤는데 값이 안 바뀐다」로만
+  //     보이던 자리다. 같은 요소에 사다리 줄이 있다는 사실은 면제 사유가 아니다.
+  const covers = scanScript(
+    "canary.tsx",
+    [
+      '"[background:var(--louis-color-bg-surface)]",',
+      '"[html[data-theme=light]_&]:[background:var(--palette-gray-000)]",',
+      '"[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",',
+    ].join("\n"),
+    context,
+  );
+  expect("reverted gnb-mainChromeTopBarInPanel (both theme covers)", covers.length, 2);
+  expect(
+    "theme covers are one per theme",
+    covers.map((f) => f.theme).sort().join(","),
+    "dark,light",
+  );
+
+  // (4) **음성 대조.** 고친 형태는 물리지 않아야 한다. 이것이 없으면 「항상 무는 게이트」와
+  //     구별되지 않는다.
+  expect(
+    "fixed form stays silent",
+    scanScript("canary.tsx", '"[background:var(--louis-color-bg-surface)]",', context).length,
+    0,
+  );
+
+  // (5) 알파 합성은 사다리 칸이 아니다 — 화면에 나오는 값이 아래 면과의 합성값이라
+  //     「같은 값」이 성립하지 않는다. `/ 100%` 는 반대로 같은 색을 다르게 적은 것이다.
+  expect(
+    "alpha composite is not a rung",
+    scanCss("canary.css", '[data-theme="dark"] .x { background: rgb(var(--palette-gray-800-rgb) / 24%); }', context)
+      .length,
+    0,
+  );
+  expect(
+    "opaque rgb() channel form still bites",
+    scanCss("canary.css", '[data-theme="dark"] .x { background: rgb(var(--palette-gray-800-rgb) / 100%); }', context)
+      .length,
+    1,
+  );
+
+  // (6) 면제: 사유가 있으면 통과시키고, **사유가 없으면 거부한다.**
+  const one = scanCss(
+    "canary.css",
+    'html[data-theme="dark"] .x { background-color: var(--palette-gray-800); }',
+    context,
+  );
+  const oneEvidence = one[0].evidence;
+  const withWhy = readExemptions({
+    exemptions: [
+      {
+        file: "canary.css",
+        token: "--palette-gray-800",
+        theme: "dark",
+        evidence: oneEvidence,
+        why: "카나리아 — 사유가 있는 면제는 받아들여야 한다",
+      },
+    ],
+  });
+  expect("exemption with a reason is accepted", withWhy.problems.length, 0);
+  expect(
+    "exemption with a reason removes the finding",
+    partitionByExemption(one, withWhy.index).live.length,
+    0,
+  );
+  const withoutWhy = readExemptions({
+    exemptions: [
+      { file: "canary.css", token: "--palette-gray-800", theme: "dark", evidence: oneEvidence },
+    ],
+  });
+  expect("exemption without a reason is refused", withoutWhy.problems.length, 1);
+  // 면제는 **그 자리의 모양**에 붙는다. `evidence` 없이 파일×토큰×테마로만 적으면 그 파일의
+  // 같은 토큰 배경이 한꺼번에 열리고, 나중에 더해지는 같은 형태까지 조용히 통과한다.
+  expect(
+    "exemption without evidence is refused",
+    readExemptions({
+      exemptions: [
+        {
+          file: "canary.css",
+          token: "--palette-gray-800",
+          theme: "dark",
+          why: "카나리아 — evidence 없는 면제는 파일 전체를 연다",
+        },
+      ],
+    }).problems.length,
+    1,
+  );
+  // 같은 파일·토큰·테마지만 **다른 모양**은 그 면제가 열지 않는다.
+  expect(
+    "an exemption does not open a different shape in the same file",
+    partitionByExemption(
+      scanCss(
+        "canary.css",
+        'html[data-theme="dark"] .y { background-color: var(--palette-gray-800); }',
+        context,
+      ),
+      readExemptions({
+        exemptions: [
+          {
+            file: "canary.css",
+            token: "--palette-gray-800",
+            theme: "dark",
+            evidence: oneEvidence,
+            why: "카나리아 — .x 한 자리에만 붙은 면제",
+          },
+        ],
+      }).index,
+    ).live.length,
+    1,
+  );
+  // 아무 자리도 안 무는 면제는 남겨 두면 그 자리로 돌아오는 위반을 조용히 통과시킨다.
+  // **새 index 로 잰다** — 위에서 이미 한 번 쓴 index 는 `used` 가 서 있어 절대 stale 이 아니다.
+  expect(
+    "stale exemption is refused",
+    partitionByExemption(
+      [],
+      readExemptions({
+        exemptions: [
+          {
+            file: "gone.css",
+            token: "--palette-gray-800",
+            theme: "dark",
+            why: "카나리아 — 위반이 사라진 뒤 남은 면제",
+          },
+        ],
+      }).index,
+    ).stale.length,
+    1,
+  );
+
+  // (7) 래칫은 **한 방향**이다. 늘면 실패하고, 줄면 실패하지 않는다(줄어든 것을 실패로
+  //     만들면 앵커 갱신이 baseline 갱신을 강제하는 사슬이 되고, 다음 사람은 게이트를 끈다).
+  //     그리고 **파일 단위**다 — A 에서 하나 고치고 B 에 하나 넣는 것은 통과하지 않는다.
+  const moved = ratchet({ "a.tsx": 0, "b.tsx": 1 }, { "a.tsx": 1 });
+  expect("per-file ratchet catches a moved violation", moved.grew.length, 1);
+  expect("per-file ratchet reports the drop separately", moved.shrank.length, 1);
+  expect(
+    "counts fold by file",
+    JSON.stringify(countByFile([{ file: "a.tsx" }, { file: "a.tsx" }, { file: "b.tsx" }])),
+    JSON.stringify({ "a.tsx": 2, "b.tsx": 1 }),
+  );
+  // 줄 번호는 정체가 아니다 — 위가 한 줄 밀렸다고 새 위반이 되면 baseline 이 매일 깨진다.
+  expect(
+    "line number is not part of the identity",
+    findingKey({ file: "a", theme: "dark", token: "t", prop: "background", evidence: "e", line: 1 }) ===
+      findingKey({ file: "a", theme: "dark", token: "t", prop: "background", evidence: "e", line: 999 }),
+    true,
+  );
+
+  // (8) **글자까지 같은 자리 둘이 하나로 접히지 않는다.** 처음 세운 게이트가 이 자리에서
+  //     구멍이 났다 — 정체가 `file|theme|token|prop|evidence` 뿐이라 `.tsx` 의 클래스 문자열이
+  //     같으면 새 위반이 기존 칸으로 접혀 파일의 수가 오르지 않았다. 그래서 사이드바
+  //     인디케이터와 상단 띠의 다크 줄을 되돌려도 게이트가 초록이었다.
+  //
+  //     **`scan…` 을 직접 부르는 것으로는 이 결함이 안 잡힌다.** 접힘은 dedupe→countByFile→
+  //     ratchet 경로에서 일어나므로 아래는 그 경로를 끝까지 지난다 — 앞선 카나리아 열다섯이
+  //     전부 순수 `scan…` 호출이라 같은 사각지대를 공유했다.
+  const twin =
+    '"[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",\n' +
+    '"[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",';
+  const twinFindings = scanScript("twin.tsx", twin, context);
+  expect("two identical class strings scan as two", twinFindings.length, 2);
+  const twinUnique = dedupe(twinFindings);
+  expect("dedupe keeps both — same shape, different places", twinUnique.length, 2);
+  expect(
+    "the file count rises for the second one",
+    JSON.stringify(countByFile(twinUnique)),
+    JSON.stringify({ "twin.tsx": 2 }),
+  );
+  //     그리고 그 오름이 실제로 래칫에 물린다.
+  expect(
+    "the ratchet catches the twin that used to fold away",
+    ratchet(countByFile(twinUnique), { "twin.tsx": 1 }).grew.length,
+    1,
+  );
+  //     한 자리가 두 번 세이지도 않는다 — 같은 줄을 두 번 넣어도 개수는 그 줄 수만큼이다.
+  expect(
+    "one place is still counted once per occurrence",
+    dedupe(scanScript("solo.tsx", twin.split("\n")[0], context)).length,
+    1,
+  );
 }

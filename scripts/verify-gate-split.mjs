@@ -366,6 +366,10 @@ const KNOWN_PRODUCT_STEPS = [
   // 래칫(check-coverage-targets)은 반대로 verify:ci 에 있다 — 원장이 제품 쪽 절반만 나르고
   // LOUIS 쪽 절반은 CI 가 매번 다시 계산하기 때문이다.
   "verify-louis-token-usage",
+  // 사다리 칸과 값이 같은데 팔레트 이름으로 적힌 면을 세는 래칫. 제품 소스 전수를 읽으므로
+  // 로컬 전용이다 — 판정 자체는 `scripts/lib/palette-ladder.mjs` 가 순수하게 갖고 있어서
+  // 카나리아는 제품 없이 verify-gates 안에서 돈다.
+  "check-palette-ladder-collision",
 ];
 // verify-gates 가 --no-product 로 건너뛰겠다고 선언한 카나리아는, 제품이 있는 곳에서
 // 반드시 다시 돌아야 한다. 선언만 하고 verify:product 에 전체 verify-gates 가 없으면

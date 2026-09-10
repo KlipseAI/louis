@@ -3011,7 +3011,7 @@
                       {
                         "part": "menuLinkLabel",
                         "slot": false,
-                        "text": "노드 캔버스",
+                        "text": "캔버스",
                         "w": 63.92,
                         "h": 21,
                         "abs": false,
@@ -3818,7 +3818,7 @@
       "specimens": [
         {
           "id": "skeleton/analysisModalIg",
-          "label": "노드 캔버스 분석 모달 · 인스타그램 로딩 뼈대",
+          "label": "캔버스 분석 모달 · 인스타그램 로딩 뼈대",
           "jsx": "NodeCanvasAnalysisModal.tsx:616-670",
           "hosted": false,
           "hostNone": "IG_SCROLL 에 display 선언이 없다 — flex/inline-flex/grid 중 어느 것도 아니고 기본 block 이다. \"[flex:1_1_auto]\" 는 자기 자신이 CARD(54)의 flex 자식일 때 적용되는 항목 속성이지 컨테이너를 만드는 선언이 아니다. 레이아웃을 만드는 조상은 CARD(54, \"flex flex-col items-stretch min-h-0\")이고 IG_SCROLL 은 그 사이의 스크",
@@ -8104,7 +8104,7 @@
         },
         {
           "id": "tooltip/chromeTooltip",
-          "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·노드 캔버스)",
+          "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·캔버스)",
           "jsx": "ChromeTooltip.tsx:293-304",
           "hosted": false,
           "hostNone": "ChromeTooltip.tsx 279-308행이 전부다. 표본(PORTAL_ANCHOR div, 293-296행)은 292행 `createPortal(` 의 첫 인자이고 두 번째 인자가 305행 ` document.body,` 다 — 즉 DOM 부모는 <body> 직속이다. React 트리상 조상인 HOST span(280-287행, `className={`${HOST}${hostClassName ? ` ${hostClass",
@@ -18801,7 +18801,7 @@
                           {
                             "part": "archivePreviewEyebrow",
                             "slot": false,
-                            "text": "노드 캔버스",
+                            "text": "캔버스",
                             "w": 56.5,
                             "h": 16.8,
                             "abs": false,
@@ -19387,7 +19387,7 @@
         },
         {
           "id": "project-card/nodeCanvasHome",
-          "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
+          "label": "캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
           "jsx": "NodeCanvasHomeScene.tsx:1355-1595",
           "hosted": true,
           "hostNone": "",

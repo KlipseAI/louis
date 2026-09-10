@@ -2650,23 +2650,53 @@
       "authority": "reference"
     },
     {
-      "path": "figma/product-pricing-comparison-desktop-a.draw.js",
-      "purpose": "desktop Trial·Basic 비교표 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
+      "path": "figma/product-pricing-comparison-desktop-1.draw.js",
+      "purpose": "desktop 비교표의 Trial 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
       "authority": "reference"
     },
     {
-      "path": "figma/product-pricing-comparison-desktop-b.draw.js",
-      "purpose": "desktop Pro·Max 비교표 열 variant를 같은 component set에 추가하는 분할 Figma runner",
+      "path": "figma/product-pricing-comparison-desktop-2.draw.js",
+      "purpose": "desktop 비교표의 Lite 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
       "authority": "reference"
     },
     {
-      "path": "figma/product-pricing-comparison-mobile-a.draw.js",
-      "purpose": "mobile Trial·Basic 비교표 열의 실제 줄바꿈과 14px 셀 inset을 생성하는 분할 Figma runner",
+      "path": "figma/product-pricing-comparison-desktop-3.draw.js",
+      "purpose": "desktop 비교표의 Plus 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
       "authority": "reference"
     },
     {
-      "path": "figma/product-pricing-comparison-mobile-b.draw.js",
-      "purpose": "mobile Pro·Max 비교표 열 variant를 같은 component set에 추가하는 분할 Figma runner",
+      "path": "figma/product-pricing-comparison-desktop-4.draw.js",
+      "purpose": "desktop 비교표의 Pro 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-desktop-5.draw.js",
+      "purpose": "desktop 비교표의 Ultra 열을 측정된 셀·체크·값으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-mobile-1.draw.js",
+      "purpose": "mobile 비교표의 Trial 열을 실제 줄바꿈과 14px 셀 inset으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-mobile-2.draw.js",
+      "purpose": "mobile 비교표의 Lite 열을 실제 줄바꿈과 14px 셀 inset으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-mobile-3.draw.js",
+      "purpose": "mobile 비교표의 Plus 열을 실제 줄바꿈과 14px 셀 inset으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-mobile-4.draw.js",
+      "purpose": "mobile 비교표의 Pro 열을 실제 줄바꿈과 14px 셀 inset으로 생성하는 분할 Figma runner",
+      "authority": "reference"
+    },
+    {
+      "path": "figma/product-pricing-comparison-mobile-5.draw.js",
+      "purpose": "mobile 비교표의 Ultra 열을 실제 줄바꿈과 14px 셀 inset으로 생성하는 분할 Figma runner",
       "authority": "reference"
     },
     {

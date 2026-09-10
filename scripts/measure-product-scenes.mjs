@@ -1442,6 +1442,9 @@ try {
     }
     for (const route of MEASURED_ROUTES) {
       const result = pageScreens[contextSpec.id][route];
+      // 비켜난 축의 route 는 결과가 없다(위 landingNotMeasured). 문맥 검사는 **잰 것**에만
+      // 건다 — 없는 결과를 읽으면 「축이 비었다」가 TypeError 로 둔갑해 원인이 가려진다.
+      if (!result) continue;
       if (result.theme !== "light" || !result.locale.toLowerCase().startsWith("en")) {
         throw new Error(
           "[product-scenes] 페이지 렌더 문맥이 light/en이 아닙니다: route=" + route +

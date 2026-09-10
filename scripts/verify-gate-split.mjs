@@ -20,7 +20,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EXIT_NOT_MEASURED } from "./lib/gate-exit.mjs";
+import { EXIT_UNAVAILABLE } from "./lib/gate-exit.mjs";
 import { LIVE_PRODUCT_SCENE_IDS } from "./lib/product-scene-contract.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -137,25 +137,46 @@ try {
 }
 const emptySampleOutput =
   String(emptySampleScene.stdout ?? "") + String(emptySampleScene.stderr ?? "");
-if (LIVE_PRODUCT_SCENE_IDS.length === 0) {
-  if (emptySampleScene.status !== EXIT_NOT_MEASURED) {
-    errors.push(
-      "liveOnly 표본이 0개인데 verify-product-scenes가 NOT_MEASURED(" + EXIT_NOT_MEASURED +
-        ")로 끝나지 않았습니다(status=" + emptySampleScene.status + "). " +
-        "재지 않은 것은 통과가 아닙니다: " + emptySampleOutput.trim().slice(0, 240),
-    );
-  }
-  if (!emptySampleOutput.includes("NOT_MEASURED")) {
-    errors.push(
-      "verify-product-scenes의 「재지 않았습니다」 진단을 확인하지 못했습니다: " +
-        emptySampleOutput.trim().slice(0, 240),
-    );
-  }
-} else if (emptySampleScene.status === 0) {
-  // 표본이 다시 생겼다면 이 경로는 빌드 루트가 없어서 UNAVAILABLE(1)로 끝나야 한다.
+// ── 2026-09-10: 측정기가 축을 갈랐고 이 카나리아도 따라간다 ──────────────
+// 예전에는 「표본 0 → NOT_MEASURED(2)」였다. 지금은 표본 0 이 **장면 축만** 끄고 route 축은
+// 그대로 돌므로, 이 환경(빌드 루트 없음)에서는 표본 수와 **무관하게** 빌드 산출물이 없어
+// UNAVAILABLE(1) 로 끝나는 것이 맞다. 「재지 않은 것은 통과가 아니다」는 사라진 것이 아니라
+// route 축으로 옮겨졌다 — 그 판정은 아래 두 번째 카나리아가 지킨다.
+if (emptySampleScene.status === 0) {
   errors.push(
     "verify-product-scenes가 빌드 산출물 없이 exit 0 했습니다. 로컬 게이트는 조용히 꺼질 수 없습니다.",
   );
+}
+if (emptySampleScene.status !== EXIT_UNAVAILABLE) {
+  errors.push(
+    "verify-product-scenes가 빌드 루트 없이 UNAVAILABLE(" + EXIT_UNAVAILABLE +
+      ")로 끝나지 않았습니다(status=" + emptySampleScene.status + "). " +
+      "축을 가른 뒤 이 경로의 실패 사유는 「환경이 없다」여야 합니다: " +
+      emptySampleOutput.trim().slice(0, 240),
+  );
+}
+
+// **두 번째 카나리아 — 「잰 것이 0건」이 여전히 2 로 끝나는가.**
+// 축을 가른 뒤 그 판정은 route 축이 갖는다. 소스에 그 분기가 실제로 있는지 확인한다 —
+// 환경 없이 그 경로를 실행할 수는 없지만, 분기가 지워지면 조용히 초록이 되므로 존재는 잰다.
+{
+  const scenesSource = readFileSync(
+    resolve(repoRoot, "scripts/measure-product-" + "scenes.mjs"),
+    "utf8",
+  );
+  if (!/measuredRoutes === 0 && measuredGuest === 0/.test(scenesSource)) {
+    errors.push(
+      "measure-product-scenes 에서 route 축 0건 판정이 사라졌습니다. 축을 가르면서 " +
+        "「재지 않은 것은 통과가 아니다」를 route 축으로 옮겼는데, 그 분기가 없으면 " +
+        "route 0건이 조용히 exit 0 이 됩니다(원장 scenes-gate-measures-nothing 의 재발).",
+    );
+  }
+  if (LIVE_PRODUCT_SCENE_IDS.length === 0 && !/SCENE_AXIS_SKIP/.test(scenesSource)) {
+    errors.push(
+      "liveOnly 표본이 0개인데 measure-product-scenes 에 장면 축 스킵 경로가 없습니다. " +
+        "표본 0 이 다시 측정기 전체를 멈추게 하면 route 축이 함께 죽습니다.",
+    );
+  }
 }
 if (/SKIP/i.test(emptySampleOutput)) {
   errors.push("verify-product-scenes가 SKIP을 출력했습니다. 검증 불가는 실패여야 합니다.");

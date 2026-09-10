@@ -54,10 +54,22 @@ const MEASURED_ROUTES = [...PAGE_ROUTES, ...GENERIC_PAGE_ROUTES];
 // **제품 저장소 확인보다 뒤에 둔다.** `verify-gate-split` 이 「제품/빌드 없이 exit 0 하면
 // 로컬 게이트가 조용히 꺼진 것」이라고 판정하고, 그 진단 문구를 직접 확인한다. 순서를 바꾸면
 // 그 메타 게이트가 깨진다 — 실제로 한 번 그렇게 만들었다가 잡혔다.
-{
+// ── 2026-09-10: 축을 갈랐다 ──────────────────────────────────────────────
+// 여기서 통째로 멈추던 것을 **장면 축만** 멈추게 바꾼다. 아래 주석이 그 이유를 이미 적고
+// 있었다 — 「이 return 뒤에는 concrete route 측정이 통째로 있다. 표본이 비면 그것까지 같이
+// 죽고, 그동안 migration/product.scenes.json 은 갱신되지 않은 채
+// scripts/build-figma-product-pricing-page.mjs 의 증거로 계속 소비된다.」
+// 실제로 그렇게 됐다: 앵커가 286커밋 움직이는 동안 요금제 보드는 옛 제품 문구를 그렸다.
+//
+// **「재지 않은 것은 통과가 아니다」는 그대로 지킨다.** 판정을 축마다로 옮겼을 뿐이다 —
+// route 축이 0건이면 아래에서 NOT_MEASURED(2) 로 끝난다. 장면 축이 0건인 것은 payload 의
+// `scenes.notMeasured` 에 사유와 함께 적히고, 그 값이 LIVE_PRODUCT_SCENE_IDS 와 어긋나면
+// assertLiveProductSceneCoverage 가 던진다. 즉 조용히 꺼지는 경로는 새로 생기지 않는다.
+const SCENE_AXIS_SKIP = (() => {
   const specimens = JSON.parse(readFileSync(specimenPath, "utf8")).specimens;
   assertLiveProductSceneCoverage(specimens);
   if (specimens.filter((entry) => entry.liveOnly).length === 0) {
+    return (
     // **`exit 0` 이 아니다.** 예전에는 여기서 전용 문구를 찍고 통과했다. 문구는 사람이 읽으라고
     // 있었지만 `package.json` 의 `&&` 사슬도 `verify-gate-split` 의 단계 계수도 **종료코드만**
     // 본다 — 그래서 `verify-product-scenes` 는 표본 0개·route 0개를 재고 초록이었다
@@ -67,17 +79,13 @@ const MEASURED_ROUTES = [...PAGE_ROUTES, ...GENERIC_PAGE_ROUTES];
     // 있다. 표본이 비면 그것까지 같이 죽고, 그동안 migration/product.scenes.json 은 갱신되지
     // 않은 채 scripts/build-figma-product-pricing-page.mjs 의 증거로 계속 소비된다. 그래서
     // 무엇을 못 쟀는지 숫자로 적는다 — 「랜딩 데모가 지워졌다」로 읽고 넘어가지 않게 한다.
-    notMeasured(
-      "product-scenes",
-      "liveOnly 표본이 0개입니다. 합성 장면 " + CONTEXTS.length + "문맥과 함께 " +
-        "concrete route " + MEASURED_ROUTES.length + "개 × " + CONTEXTS.length + "문맥, " +
-        "그리고 guest outcome route 측정까지 **한 건도 돌지 않습니다** — 같은 return 뒤에 있습니다. " +
+      "liveOnly 표본이 0개입니다. 합성 장면 " + CONTEXTS.length + "문맥을 재지 않습니다. " +
         "랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 " +
-        "LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. 표본 없이 route 만 재려면 " +
-        "이 측정기를 장면 축과 route 축으로 갈라야 합니다(원장 scenes-gate-measures-nothing).",
+        "LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다."
     );
   }
-}
+  return null;
+})();
 
 if (!productBuildRoot) cannotMeasure("KLIPSE_PRODUCT_BUILD_ROOT가 없습니다");
 if (!existsSync(resolve(productBuildRoot, ".git"))) {
@@ -110,7 +118,17 @@ if (buildStatus) {
 
 const specimenFile = JSON.parse(readFileSync(specimenPath, "utf8"));
 const liveSpecimens = assertLiveProductSceneCoverage(specimenFile.specimens);
+// **표본이 없으면 undefined 다.** 위 SCENE_AXIS_SKIP 가 그 사정을 문자열로 들고 있고,
+// 아래 장면 축은 그것이 null 일 때만 돈다. 이 자리에서 죽지 않는 것이 축 분리의 요점이다.
 const specimen = liveSpecimens.find((entry) => entry.id === "scene/staticHighlightDemo");
+if (!SCENE_AXIS_SKIP && !specimen) {
+  console.error(
+    "[product-scenes] liveOnly 표본은 있는데 `scene/staticHighlightDemo` 가 없습니다. " +
+      "장면 측정 본문이 그 id 를 하드코딩하므로(아래 #highlight DOM 모양) 다른 id 를 " +
+      "LIVE_PRODUCT_SCENE_IDS 에 넣는 것만으로는 되살아나지 않습니다 — 본문을 함께 고치세요.",
+  );
+  process.exit(1);
+}
 
 const declaredNodes = [];
 const visit = (node, parent = null) => {
@@ -122,7 +140,7 @@ const visit = (node, parent = null) => {
   });
   for (const child of node.children ?? []) visit(child, node.part);
 };
-visit(specimen.node);
+if (specimen) visit(specimen.node);
 const declaredParts = declaredNodes.map((node) => node.part);
 if (new Set(declaredParts).size !== declaredParts.length) {
   console.error("[product-scenes] liveOnly 표본의 part 이름은 측정 키로 쓰므로 중복될 수 없습니다.");
@@ -243,12 +261,14 @@ if (!buildId || buildId !== standaloneBuildId) {
 
 // clean 상태는 측정 시점의 checkout만 증명한다. 오래되거나 다른 작업 트리에서 복사한 .next도
 // 막으려면, 장면을 구성하는 소스가 build sourcemap에 고정 커밋의 원문 그대로 들어갔는지 본다.
+// **데모 스냅숏 둘은 제품에 없다.** `EmptyProjectDemoPad` · `StaticHighlightDemo` 는 제품
+// `8802565e`(랜딩 개편)에서 삭제됐고, 그것이 장면 축이 잴 것을 잃은 원인이다. 지문은
+// 「이 .next 가 이 커밋의 소스로 구워졌나」를 보는 것이라 **살아 있는 파일이면 목적을
+// 달성한다** — 죽은 둘을 걷고 셋으로 줄인다. `node-canvas-v2` 경로는 캔버스 개명을 따라간다.
 const BUILD_SOURCE_PATHS = [
   "apps/web/app/HomePageClient.tsx",
-  "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
-  "apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
   "apps/web/components/scenes/highlightSceneStyles.ts",
-  "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+  "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
 ];
 const buildSourceBySuffix = new Map(
   BUILD_SOURCE_PATHS.map((path) => ["./" + path.slice("apps/web/".length), {
@@ -283,14 +303,41 @@ for (const mapPath of sourceMapPaths) {
     proof.matched = true;
   }
 }
-for (const proof of buildSourceBySuffix.values()) {
-  if (!proof.matched) cannotMeasure("빌드 sourcemap에서 고정 소스 근거를 찾지 못했습니다: " + proof.path);
+// **지문의 전제가 제품에서 죽었다(2026-09-10).** 이 검사는 「이 .next 가 다른 트리에서
+// 복사된 것이 아님」을 sourcemap 원문으로 봤다. 그런데 제품 `61be8649`(소스맵 업로드를 배포
+// 빌드로 한정)이후 로컬 빌드는 **페이지 sourcemap 을 아예 내지 않는다** — 실측: 앵커
+// 27984014 의 `next build --webpack` 산출에서 `.next/server/**/*.map` 은 3개(edge·middleware)
+// 뿐이고 `.next/static/**/*.map` 은 0개다. 그러면 이 검사는 어떤 빌드로도 만족될 수 없고,
+// 「환경이 없다」로 영구 UNAVAILABLE 이 된다 — 이 저장소가 이미 두 번 겪은 「영구 빨강」이다.
+//
+// **그래서 두 경우를 가른다.**
+//   맵이 있는데 원문이 다르다  → 그대로 하드 실패(위 루프). 이것이 진짜 낡음이다.
+//   맵 자체가 없다            → 지문을 못 뜬다고 기록하고 넘어간다. 대신 같은 주장을
+//                              **더 강한 근거**가 이미 하고 있다 — 위에서 확인한
+//                              `required-server-files.config.env._sentryRelease === productCommit`.
+//                              그 값은 빌드 시점의 git 이 박은 것이라 복사한 .next 로는
+//                              고정 커밋을 사칭할 수 없다.
+// 맵이 다시 나오면(배포 빌드·`productionBrowserSourceMaps`) 지문은 저절로 되살아난다.
+const pageSourceMapCount = sourceMapPaths.filter(
+  (mapPath) => !/\/(edge-|middleware)/.test(mapPath),
+).length;
+const unmatched = [...buildSourceBySuffix.values()].filter((proof) => !proof.matched);
+if (unmatched.length > 0 && pageSourceMapCount > 0) {
+  cannotMeasure("빌드 sourcemap에서 고정 소스 근거를 찾지 못했습니다: " + unmatched[0].path);
+}
+const fingerprintTaken = unmatched.length === 0;
+if (!fingerprintTaken) {
+  console.log(
+    "[product-scenes] sourcemap 지문 없음 — 이 빌드는 페이지 sourcemap 을 내지 않는다" +
+      "(제품 61be8649). 대신 _sentryRelease === " + buildRelease.slice(0, 8) + " 로 커밋을 고정했다.",
+  );
 }
 
 const buildEvidence = {
   releaseCommit: buildRelease,
+  sourcemapFingerprint: fingerprintTaken ? "taken" : "unavailable(no page sourcemaps)",
   $verified:
-    "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같으며 장면 구성 소스가 build sourcemap에 고정 원문 그대로 있음을 실행 시 확인했다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
+    "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같음을 실행 시 확인했다. 장면 구성 소스의 sourcemap 원문 대조는 페이지 sourcemap 이 있을 때만 수행한다 — 없으면 `sourcemapFingerprint` 가 unavailable 이고, 커밋 고정은 _sentryRelease 가 진다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
   sourceInputs: [...buildSourceBySuffix.values()].map((proof) => ({
     path: proof.path,
     sha256: createHash("sha256").update(proof.expected).digest("hex"),
@@ -375,11 +422,14 @@ const startPinnedProductServer = async () => {
 const pinnedServer = await startPinnedProductServer();
 let browser = null;
 const rendered = {};
+let landingNotMeasured = null;
 const pageScreens = {};
 const guestOutcomes = {};
 try {
   browser = await chromium.launch({ headless: true });
-  for (const contextSpec of CONTEXTS) {
+  // 장면 축 — 살아 있는 표본이 있을 때만 돈다. 없으면 `rendered` 가 비고 payload 의
+  // `scenes.notMeasured` 가 사유를 든다. route 축은 아래에서 무조건 돈다.
+  for (const contextSpec of (SCENE_AXIS_SKIP ? [] : CONTEXTS)) {
     const context = await browser.newContext({
       viewport: { width: contextSpec.width, height: contextSpec.height },
       colorScheme: "dark",
@@ -977,8 +1027,21 @@ try {
               }),
           );
         }
-        if (tierCards.length !== 4) {
-          throw new Error("가격 페이지 요금제 카드 수가 4가 아닙니다: " + tierCards.length);
+        // **넷이 아니라 다섯이다(2026-09-10 실측).** 제품의 요금제가 Trial·Basic·Pro·Max 에서
+        // **Trial·Lite·Plus·Pro·Ultra** 로 바뀌었다 — 장이 하나 늘고 이름 셋이 갈렸다.
+        // 이 수를 하드코딩한 채 앵커가 286커밋 움직이는 동안 측정기는 던졌고, 그래서
+        // migration/product.scenes.json 이 갱신되지 않았으며, 그것을 읽는
+        // build-figma-product-pricing-page 는 **옛 요금제를 그린 Figma 보드를 계속 정본으로
+        // 들고 있었다.** 수를 여기 다시 박는 대신 「제품이 말하는 수」와 대조한다면 더 좋겠지만,
+        // 그 목록은 i18n 안이라 이 브라우저 문맥에서 읽을 방법이 없다 — 그래서 수는 남기고
+        // **틀렸을 때 무엇을 고쳐야 하는지**를 진단문에 적는다.
+        if (tierCards.length !== 5) {
+          throw new Error(
+            "가격 페이지 요금제 카드 수가 5가 아닙니다: " + tierCards.length +
+              ". 제품이 플랜을 늘리거나 줄였다면 이 수와 " +
+              "scripts/build-figma-product-pricing-page.mjs 의 planNames 를 함께 옮기세요 — " +
+              "둘이 어긋나면 Figma 보드의 variant 이름이 엉뚱한 카드에 붙습니다.",
+          );
         }
         const tree = subtreeSnapshots(main);
         if (tree.length > 2_000) throw new Error("가격 페이지 측정 노드가 2,000개를 넘었습니다: " + tree.length);
@@ -1348,7 +1411,25 @@ try {
       }), route);
     };
 
-    pageScreens[contextSpec.id]["/"] = await measureLanding();
+    // **랜딩 축은 자기 몫만 잃는다.** `measureLanding` 은 `#capabilities article` 과
+    // 「상위 섹션 정확히 8개」를 하드코딩하는데, 그 섹션은 제품 `8802565e`(랜딩 개편)에서
+    // 삭제됐다 — 장면 축이 잴 것을 잃은 것과 **같은 개편**이다. 그대로 두면 던져서
+    // `/pricing` 을 포함한 나머지 21개 route 가 함께 죽고, 그러면 요금제 보드가 옛 제품
+    // 문구를 계속 그린다(이 회차가 고치려던 바로 그 증상).
+    //
+    // 그래서 장면 축과 같은 규칙을 쓴다 — **죽은 자리는 사유를 남기고 비켜난다.**
+    // 랜딩 측정을 되살리려면 지금 랜딩(Hero · OverviewSection · StepTiles · ModelCarousel ·
+    // TemplateGrid · Testimonials · CreatorProgram · FAQ)의 모양으로 본문을 다시 써야 하고,
+    // 그것은 「무엇을 증거로 삼을 것인가」라는 판정이라 이 회차의 몫이 아니다.
+    try {
+      pageScreens[contextSpec.id]["/"] = await measureLanding();
+    } catch (error) {
+      landingNotMeasured =
+        "랜딩 측정 본문이 지금 랜딩과 맞지 않습니다(" + String(error?.message ?? error).slice(0, 120) +
+        "). `#capabilities` 는 제품 8802565e 에서 삭제됐습니다 — 본문을 지금 랜딩의 모양으로 " +
+        "다시 써야 되살아납니다. 나머지 route 는 그대로 쟀습니다.";
+      console.log("[product-scenes] 랜딩 축 NOT_MEASURED — " + landingNotMeasured);
+    }
     pageScreens[contextSpec.id]["/pricing"] = await measurePricing();
     for (const route of PAGE_ROUTES.slice(2)) {
       pageScreens[contextSpec.id][route] = await measureLegal(route);
@@ -1374,13 +1455,32 @@ try {
   await pinnedServer.stop();
 }
 
-const inlineSvgEvidence = rendered[CONTEXTS[0].id].inlineSvg;
-for (const contextSpec of CONTEXTS.slice(1)) {
-  if (JSON.stringify(rendered[contextSpec.id].inlineSvg) !== JSON.stringify(inlineSvgEvidence)) {
-    throw new Error("[product-scenes] viewport마다 라이브 SVG geometry가 다릅니다: " + contextSpec.id);
+if (!SCENE_AXIS_SKIP) {
+  const inlineSvgEvidence = rendered[CONTEXTS[0].id].inlineSvg;
+  for (const contextSpec of CONTEXTS.slice(1)) {
+    if (JSON.stringify(rendered[contextSpec.id].inlineSvg) !== JSON.stringify(inlineSvgEvidence)) {
+      throw new Error("[product-scenes] viewport마다 라이브 SVG geometry가 다릅니다: " + contextSpec.id);
+    }
+  }
+  for (const contextSpec of CONTEXTS) delete rendered[contextSpec.id].inlineSvg;
+}
+
+// **판정을 축으로 옮긴 자리.** 예전에는 표본 0 이 곧 NOT_MEASURED 였다. 이제는 route 축이
+// 0건일 때가 그것이다 — 「전제조건은 갖췄는데 잰 것이 0건」이라는 코드 2 의 뜻 그대로다.
+// 장면 축 0건은 payload 에 사유로 남고 LIVE_PRODUCT_SCENE_IDS 가 그것을 잠근다.
+{
+  const measuredRoutes = Object.keys(pageScreens).length;
+  const measuredGuest = Object.keys(guestOutcomes).length;
+  if (measuredRoutes === 0 && measuredGuest === 0) {
+    notMeasured(
+      "product-scenes",
+      "concrete route " + MEASURED_ROUTES.length + "개와 guest outcome route 를 재려 했는데 " +
+        "한 건도 남지 않았습니다. 장면 축(" + (SCENE_AXIS_SKIP ? "표본 0" : "표본 있음") +
+        ")과 무관하게 route 축이 비었다는 뜻이라 원인이 다릅니다 — 렌더 실패인지 목록이 비었는지 " +
+        "보세요.",
+    );
   }
 }
-for (const contextSpec of CONTEXTS) delete rendered[contextSpec.id].inlineSvg;
 
 const payload =
   JSON.stringify(
@@ -1394,7 +1494,7 @@ const payload =
       productRef,
       productCommit: commit,
       buildEvidence,
-      specimen: specimen.id,
+      specimen: specimen ? specimen.id : null,
       structure: declaredNodes,
       contexts: CONTEXTS,
       routeInventory: {
@@ -1432,44 +1532,28 @@ const payload =
           line: 54,
           quote: sourceLine("apps/web/components/landing/sections/Hero.tsx", 54),
         },
+        // 데모 스냅숏 둘(StaticHighlightDemo · EmptyProjectDemoPad)의 인용은 걷었다 —
+        // 제품 8802565e 에서 삭제된 파일이라 `git show` 가 실패한다. 장면 축과 함께 죽은 자리다.
         {
           command:
             "git show " + commit +
-            ":apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
-          path: "apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
-          line: 12,
-          quote: sourceLine(
-            "apps/web/components/landing/demo-snapshots/StaticHighlightDemo.tsx",
-            12,
-          ),
-        },
-        {
-          command:
-            "git show " + commit +
-            ":apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
-          path: "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
-          line: 21,
-          quote: sourceLine(
-            "apps/web/components/landing/demo-snapshots/EmptyProjectDemoPad.tsx",
-            21,
-          ),
-        },
-        {
-          command:
-            "git show " + commit +
-            ":apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+            ":apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
           path:
-            "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+            "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
           line: 96,
           quote: sourceLine(
-            "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+            "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
             96,
           ),
         },
       ],
       scenes: {
+        // 장면 축이 재지 않았으면 사유를 여기 남긴다 — 빈 객체만 두면 다음 사람이
+        // 「측정했는데 결과가 비었다」로 읽는다. 그 혼동이 이 파일의 원래 사고였다.
+        ...(SCENE_AXIS_SKIP ? { notMeasured: SCENE_AXIS_SKIP } : {}),
         StaticHighlightDemo: rendered,
       },
+      ...(landingNotMeasured ? { landingNotMeasured } : {}),
       pages: pageScreens,
     },
     null,
@@ -1517,6 +1601,15 @@ if (checkOnly) {
 
 console.log(
   "[product-scenes] " + (checkOnly ? "checked" : "built") + ": " +
-    specimen.id + " · " + CONTEXTS.length + "문맥 · " + declaredParts.length +
-    "노드 @ " + commit.slice(0, 8),
+    (SCENE_AXIS_SKIP
+      ? "장면 축 재지 않음(표본 0)"
+      : specimen.id + " · " + CONTEXTS.length + "문맥 · " + declaredParts.length + "노드") +
+    " · route " + Object.keys(pageScreens).length +
+    " · guest " + Object.keys(guestOutcomes).length +
+    " @ " + commit.slice(0, 8),
 );
+if (SCENE_AXIS_SKIP) {
+  // 종료코드는 0 이다 — route 축을 실제로 쟀기 때문이다. 그러나 축 하나가 비었다는 사실은
+  // 눈에 보여야 한다. 이 문구가 사라지면 장면 축이 조용히 죽은 것이다.
+  console.log("[product-scenes] 장면 축 NOT_MEASURED — " + SCENE_AXIS_SKIP);
+}

@@ -170,7 +170,10 @@ const makeContext = ({ id, viewport }) => {
       icons: iconSpecs(entries, root),
     };
   };
-  const planNames = ["Trial", "Basic", "Pro", "Max"];
+  // 제품 실측(27984014). 2026-09-10 에 Trial·Basic·Pro·Max 에서 다섯으로 바뀌었다 —
+  // 장이 하나 늘고 이름 셋이 갈렸다. 이 배열의 길이와 순서는 `planRoots` 의 DOM 순서와
+  // 짝이 맞아야 한다(measure-product-scenes 의 카드 수 검사가 그 짝을 지킨다).
+  const planNames = ["Trial", "Lite", "Plus", "Pro", "Ultra"];
   const packNames = ["Bronze", "Silver", "Gold"];
   const navRoots = ["main.1"];
   const planRoots = page.tierCards.map((card) => tree.find((entry) =>

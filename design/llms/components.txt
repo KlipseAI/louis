@@ -2286,7 +2286,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달
-  안내 토스트가 `role="status"`로 띄운다(`VideoEditModal.tsx:13986`). **live region을 가진 제품 토스트
+  안내 토스트가 `role="status"`로 띄운다(`CompositionModal.tsx:15021`). **live region을 가진 제품 토스트
   표면은 이 둘뿐이고**, 나머지 글래스 토스트 계열은 보조 기술에 **아무것도 알리지 않는다.** 그쪽을
   기준으로 삼으면 이 절의 `role` 규정이 근거 없는 발명처럼 읽히지만, 제품은 두 role을 이미 쓰고 있다.
 
@@ -2383,7 +2383,7 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 | 제품의 에디터 오류 토스트 | 미채택 | 제품에는 이 문서가 규정한 표면 말고 **에디터 오류 전용 토스트가 하나 더** 있다 — 하단 고정 `bottom 32px` · z-index **1400** · padding `11px 20px` · radius **999px**(알약) · 최대 폭 `min(92vw, 440px)` · 가운데 정렬 · 배경 `gray-900` **82%** + `blur(12px)` · 그림자 `0 10px 28px` 검정 30%, 타이포는 소비처가 붙이는 **14px medium**(`EditorProjectWorkspace.tsx:156-164`, 소비처 `:1108`). 이 문서의 radius 16px · 70% 반투명 · blur 16px · 420px · 14px regular과 **전부 어긋난다.** 알약 모양 토스트를 제품 표준으로 착각하면 틀린다 — 이쪽이 한 곳짜리 예외다 |
 | 제품의 `pointer-events: none` | 미채택 | 에디터 오류 토스트는 포인터를 아예 받지 않는다(`EditorProjectWorkspace.tsx:162`). 그러면 얹어서 타이머를 멈출 수 없고, **닫기 버튼을 두지 않는 근거가 통째로 무너진다** — States와 Accessibility가 「포인터·focus로 멈춘다」에 기대고 있기 때문이다. Figma에서 이 표면을 그대로 베끼면 hover 정지 계약이 조용히 사라진다. 이 문서는 포인터를 받는 쪽을 택한다 |
 | reduced-motion 대체 | 미규정 | 에디터 오류 토스트만 `prefers-reduced-motion: reduce`에서 `animate-none!`을 걸고(`EditorProjectWorkspace.tsx:163`), 진입·퇴장은 240ms `ease`다(`:159-160`). **저장소에서 reduced-motion을 처리하는 토스트 표면은 이 하나뿐이다** — 모달 `editorToast`(220ms)에도, 글래스 토스트 계열(280ms)에도 감소 모션 규칙이 없다. 이 문서는 진입 애니메이션의 reduced-motion 대체를 아직 적지 않았다 — 나머지 제품 토스트를 근거로 삼으면 대체 없는 채로 굳는다 |
-| 실측 하네스 커버리지 | 구멍 | 실측 변형 목록의 `editorToast`(`vemClass.ts:834-848`)는 radius 999 · blur **8px** · 그림자 없음 · z-index **10100** · padding `12px 20px` · 배경 `gray-900` **72%**로, 위 에디터 오류 토스트와 **다른 세 번째 표면**이다(이 문서는 70%라고 적고 있었는데 `ae8fd627`·`5a67d692` 두 앵커에서 모두 72% 다 — 좌표도 `:672-686` 로 엉뚱한 상수를 가리키고 있었다. 둘 다 재고정에서 바로잡았고, 「배경만 이 문서와 같다」는 문장은 그래서 성립하지 않는다). 게다가 하네스는 이 항목을 `uses: 0`으로 적었지만 제품은 실제로 `VideoEditModal.tsx:13986`에서 `role="status"`로 렌더한다 — **집계가 소비처를 놓쳤다.** 에디터 오류 토스트는 더해서 아예 없다: 하네스에 `EditorProjectWorkspace.tsx` 항목이 **0개**다. 제품 토스트를 2종으로 세면 틀린다 — 최소 3종이고, 값이 가장 크게 벌어진 하나가 통째로 집계 밖이다 |
+| 실측 하네스 커버리지 | 구멍 | 실측 변형 목록의 `editorToast`(`compClass.ts:901-915`)는 radius 999 · blur **8px** · 그림자 없음 · z-index **10100** · padding `12px 20px` · 배경 `gray-900` **72%**로, 위 에디터 오류 토스트와 **다른 세 번째 표면**이다(이 문서는 70%라고 적고 있었는데 `ae8fd627`·`5a67d692` 두 앵커에서 모두 72% 다 — 좌표도 `:672-686` 로 엉뚱한 상수를 가리키고 있었다. 둘 다 재고정에서 바로잡았고, 「배경만 이 문서와 같다」는 문장은 그래서 성립하지 않는다). 게다가 하네스는 이 항목을 `uses: 0`으로 적었지만 제품은 실제로 `CompositionModal.tsx:15021`에서 `role="status"`로 렌더한다 — **집계가 소비처를 놓쳤다.** 에디터 오류 토스트는 더해서 아예 없다: 하네스에 `EditorProjectWorkspace.tsx` 항목이 **0개**다. 제품 토스트를 2종으로 세면 틀린다 — 최소 3종이고, 값이 가장 크게 벌어진 하나가 통째로 집계 밖이다 |
 
 #### Acceptance tests
 
@@ -2570,9 +2570,9 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 | 벌 | 판정 전 | 판정 후 |
 | --- | --- | --- |
 | 앱 홈 `appHomeSceneStyles.ts:341` | 정본 채택 + 반경 2 덮기(`:344`) | 덮기를 걷으면 정본이 밑줄을 준다 |
-| 캔버스 홈 `NodeCanvasHomeScene.tsx:404` | 정본 채택 + 반경 2 덮기(`:405`) | 같음 |
+| 캔버스 홈 `CanvasHomeScene.tsx:409` | 정본 채택 + 반경 2 덮기(`:405`) | 같음 |
 | 하이라이트 허브 `highlightSceneStyles.ts:1040` | 비채택 · 직접 그린 밑줄(`:1046`) | 정본을 얹으면 선언이 사라진다 |
-| 비디오 에디터 허브 `VideoEditScene.tsx:401` | 비채택 · 같은 밑줄(`:404`) | 같음 |
+| 비디오 에디터 허브 `CompositionScene.tsx:402` | 비채택 · 같은 밑줄(`:404`) | 같음 |
 
 정본이 쓰던 반경 8(`radius-control-sm`)은 **네 벌 중 어느 벌도 쓰지 않았고**(2 · 2 · 0 · 0),
 밑줄이 정본이 된 지금은 틀린 값이다 — 반경을 주면 밑줄 끝이 말려 올라간다. 그 문장은 하이라이트
@@ -4309,7 +4309,7 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 **제품의 옛 공용 정본은 사라졌고 LOUIS가 그 자리를 받았다.** `.app-native-checkbox`
 (20×20 · `accent-color`)는 `globals.css@77b9a26e:990-1001`이 마지막이고 배포본 `74a7303b`에는
 없다. 지워진 이유를 제품이 직접 적는다 — 「그 전역 클래스는 소비처가 0이 되어 globals.css 에서
-삭제했다」(`VideoEditProjectPicker.tsx:139-148`).
+삭제했다」(`CompositionProjectPicker.tsx:139-148`).
 
 그 클래스가 21벌 중 2벌에서만 쓰이던 원인도 같은 주석이 적는다: 클래스가 **cascade layer 밖**이라
 `@layer utilities` 안의 어떤 유틸리티도 이길 수 없어서, 색 하나를 바꾸려는 소비처가 클래스를 떼고
@@ -4395,18 +4395,18 @@ button의 md·sm을 모두 18로 기록한다. 제품 Button에는 loading prop�
 | 변형 | 상자 | 소비처 |
 | --- | --- | --- |
 | ~~`.app-native-checkbox`~~ | `20 × 20` · `accent-color: --palette-gray-900`(다크 `--palette-gray-000`) | **없다** — 소비처 0이 되어 삭제됨 (`globals.css@77b9a26e:990-1001`) |
-| 20px — LOUIS 정본 | `.louis-checkbox__control`, 20×20 | 비디오 편집 프로젝트 선택 (`VideoEditProjectPicker.tsx:139-149`) |
+| 20px — LOUIS 정본 | `.louis-checkbox__control`, 20×20 | 비디오 편집 프로젝트 선택 (`CompositionProjectPicker.tsx:139-149`) |
 | 14px — 확인 모달 「이 세션에서 다시 보지 않기」 | `.louis-checkbox__control w-7 h-7 rounded-6` — `--spacing: 2px`라 `w-7` = **14px** | **2곳** — 크레딧 차감 확인 · 노드 삭제 확인 |
 
 **남은 크기 편차는 20 대 14 하나다.** 색 축은 사라졌다 — 선택 면이 두 테마 모두
-`accent-primary` 하나로 모였다고 제품이 적는다(`VideoEditProjectPicker.tsx:145-147`). 앞선 판이
+`accent-primary` 하나로 모였다고 제품이 적는다(`CompositionProjectPicker.tsx:145-147`). 앞선 판이
 적었던 「두 벌의 `accent-color` 성격이 다르다(팔레트 대 시맨틱)」는 그 축이 있던 시절의 서술이고
 지금은 해당하지 않는다.
 
 라벨 행의 위 여백 16px은 제목–설명 간격(8px)의 **두 배**다 — 코드가 그 의도를 주석으로 갖고 있다.
 
 근거: `CreditConfirmModal.tsx:47`·`:54-59`·`:129` · `NodeDeleteConfirmModal.tsx:74`·`:86` ·
-`VideoEditProjectPicker.tsx:139-149`.
+`CompositionProjectPicker.tsx:139-149`.
 
 #### Hierarchy와 variants
 
@@ -5906,13 +5906,13 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
   브레드크럼 구조를 소유하지 않는다.
 
 <!-- GENERATED:app-nav-labels START -->
-배포본 `5a67d692` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+배포본 `27984014` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
 
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
 | `/archive` | 홈 | Home | **불가** |
-| `/nodecanvas` | 캔버스 | NodeCanvas | 가능 |
-| `/videoeditor` | 비디오 에디터 | VideoEditor | 가능 |
+| `/canvas` | 캔버스 | Canvas | 가능 |
+| `/composition` | 컴포지션 | Composition | 가능 |
 | `/highlight` | 하이라이트 | Highlight | 가능 |
 | `/analytics/youtube` | YouTube 분석 | YouTube analytics | **불가** |
 | `/analytics/instagram` | Instagram 분석 | Instagram analytics | **불가** |
@@ -6285,7 +6285,7 @@ style이다.
   **`--mainchrome-divider-progress`의 폴백은 「없음」이 아니라 `1`이다(위 표 정정).** 소비처가
   `var(--mainchrome-divider-progress, 1)`로 읽으므로 **진행값을 주입하지 않는 화면은 스크롤 0에서도
   경계선이 100%로 그려진다.** 진행값을 주입하는 것은 훅을 부르는 세 화면뿐이다
-  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `NodeCanvasHomeScene.tsx:707`).
+  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `CanvasHomeScene.tsx:727`).
 
   그래서 Properties의 `divider` 기본 `false`와 Acceptance test 8은 **제품 기본과 반대다.** Figma로
   옮길 때 그 세 화면 밖의 기본 프레임은 **경계선 있음**으로 그린다 — `divider`를 끈 상태를 기본으로

@@ -12036,8 +12036,8 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 | --- | --- |
 | `AppHomeScene.tsx:1091` | `aspectRatio: "1 / 1"` |
 | `HighlightScene.tsx:1313` | `aspectRatio: "1 / 1"` |
-| `VideoEditScene.tsx:773` | `aspectRatio: "1 / 1"` |
-| `NodeCanvasHomeScene.tsx:1498` | `aspectRatio: "1 / 1"` |
+| `CompositionScene.tsx:774` | `aspectRatio: "1 / 1"` |
+| `CanvasHomeScene.tsx:1518` | `aspectRatio: "1 / 1"` |
 
 네 벌이 전수 정사각이고, 그 값은 정본의 기본값(`--louis-project-card-aspect-ratio: 1`)과
 같다. 9:16 은 이 그리드가 아니라 애널리틱스의 인기 콘텐츠 목록과 `ContentTable` 의 영상 셀에
@@ -12049,9 +12049,9 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 | 벌 | 프레임 | 제목 띠 | 더보기 | 모서리 슬롯 |
 | --- | --- | --- | --- | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:18`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음(사유 기록됨) |
-| 캔버스 홈 (`NodeCanvasHomeScene.tsx:264`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
+| 캔버스 홈 (`CanvasHomeScene.tsx:262`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
 | 하이라이트 허브 (`highlightSceneStyles.ts:725`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:230`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
+| 비디오 에디터 허브 (`CompositionScene.tsx:226`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
 
 제목 오버레이와 더보기는 **CSS·React·Figma 셋 다에 이미 서 있다.** 넷째 벌만 정본을 하나도
 물지 않는데, 그 반경은 `rounded-12` 로 정본 `radius-card`(12)와 **같다** — 값이 갈린 것이
@@ -12073,9 +12073,9 @@ variants`) 스무 변형 중 다섯만 면제할 방법이 없다. 그래서 cap
 | 벌 | 정본 채택 | 반경 | 밑줄 |
 | --- | --- | ---: | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:340`) | `louis-project-card-rename` | **2** | 없음 |
-| 캔버스 홈 (`NodeCanvasHomeScene.tsx:401`) | `louis-project-card-rename` | **2** | 없음 |
+| 캔버스 홈 (`CanvasHomeScene.tsx:402`) | `louis-project-card-rename` | **2** | 없음 |
 | 하이라이트 허브 (`highlightSceneStyles.ts:1040`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
-| 비디오 에디터 허브 (`VideoEditScene.tsx:401`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
+| 비디오 에디터 허브 (`CompositionScene.tsx:402`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
 
 두 쌍이 각각 글자 그대로 같고, **정본의 반경 8(`radius-control-sm`)을 쓰는 벌은 하나도
 없다.** 하이라이트의 비채택 사유는 제품 주석에 낱말 그대로 있다 — 「정본의 `border: 0` 과
@@ -12227,9 +12227,9 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 | 벌 | 정본 채택 | 반경 | 밑줄 | 아래 여백 | 초점 표시 |
 | --- | --- | ---: | --- | ---: | --- |
 | 앱 홈 `appHomeSceneStyles.ts:341` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
-| 캔버스 홈 `NodeCanvasHomeScene.tsx:404` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
+| 캔버스 홈 `CanvasHomeScene.tsx:409` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
 | 하이라이트 허브 `highlightSceneStyles.ts:1040` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
-| 비디오 에디터 허브 `VideoEditScene.tsx:401` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
+| 비디오 에디터 허브 `CompositionScene.tsx:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
 
 낱말 그대로의 선언 — `git show 5a67d692:<경로>` 로 재확인한다.
 
@@ -12237,16 +12237,16 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 highlightSceneStyles.ts:1046     "[border-bottom:1px_solid_var(--palette-gray-400)]",
 highlightSceneStyles.ts:1049     "[padding:0_0_2px]",
 highlightSceneStyles.ts:1052     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-VideoEditScene.tsx:404           "[border-bottom:1px_solid_var(--palette-gray-400)]",
-VideoEditScene.tsx:406           "pt-0 pr-0 pb-1 pl-0",
-VideoEditScene.tsx:409           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
+CompositionScene.tsx:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
+CompositionScene.tsx:407           "pt-0 pr-0 pb-1 pl-0",
+CompositionScene.tsx:410           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
 appHomeSceneStyles.ts:344        "[border-radius:2px]",
-NodeCanvasHomeScene.tsx:405      "[outline:none] rounded-2",
+CanvasHomeScene.tsx:410      "[outline:none] rounded-2",
 ```
 
-`VideoEditScene.tsx:406` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
+`CompositionScene.tsx:407` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
 `highlightSceneStyles.ts:1049` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
-`VideoEditScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
+`CompositionScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
 「`border: none` 뒤의 `border-bottom` 단축을 롱핸드로 풀어 정렬 의존을 없앤다」.
 
 **값은 움직이지 않았다.** 밑줄 색은 여전히 라이트 `palette-gray-400` · 다크 `gray-500` 이고,
@@ -12553,8 +12553,8 @@ DS 의 `ActionMenu`·`CompositePopover` 가 덮는다고 결론지었다.
 | `components/navigation/Gnb.tsx:3314` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
 | `SubscriptionScene.tsx:1092` 정렬 | 28(min) | 8 | 10 · 10 | 6 | 10 |
 | `create/ComposerBar.tsx:519` 모델 | 32 | 알약 | 12 · 32 | — | `▼` 12 |
-| `VideoEditModal.tsx:10838` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
-| `videoEditParts/CompositionInspector.tsx:207` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
+| `CompositionModal.tsx:11616` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
+| `compositionParts/SequenceInspector.tsx:205` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/EditorSettingsPanel.tsx:83` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:937` 글꼴 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:1109` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
@@ -12669,7 +12669,7 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 > **그 근거는 기준선에서 사라졌다.** `98c421ea` 가 그 버튼을 LOUIS `<Button>` 으로 갈아
 > 끼웠고, 지금 기준선(`df414c24`)의 그 파일에는 `180ms` 가 한 번도 나오지 않는다. 판정을
 > **살아 있는 자리로 옮긴다** — 아카이브 프로젝트 카드가 `transform` · `filter` · `box-shadow`
-> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:273`), 같은 요소의 `:active` 가
+> 를 셋 다 180ms ease 로 쓰고(`CanvasHomeScene.tsx:271`), 같은 요소의 `:active` 가
 > `scale(0.975)` 와 그림자 교체다(:274-275). **결론은 그대로이고 근거만 바뀌었다.**
 
 그 자리에서 움직이는 것은 **누름(`scale(0.975)`)과 밝기·그림자 변화** — 즉 **컨트롤 피드백**이다.
@@ -12689,28 +12689,28 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `5a67d692` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `27984014` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |
-| alpha | 41단 2601회 | 46.5% | `8%` 358회 | `100%` 324회 / 46파일 |
-| radius | 19단 201회 | 62.7% | `12px` 36회 | `7px` 20회 / 1파일 |
-| border-width | 4단 124회 | 92.7% | `1px` 93회 | `1.5px` 8회 / 5파일 |
-| spacing | 43단 882회 | 80.6% | `8px` 211회 | `3px` 40회 / 18파일 |
-| duration | 53단 1009회 | 60.9% | `180ms` 171회 **토큰 없음** | `180ms` 171회 / 43파일 |
+| alpha | 39단 2387회 | 46.6% | `8%` 323회 | `100%` 270회 / 33파일 |
+| radius | 19단 194회 | 61.3% | `12px` 31회 | `7px` 20회 / 1파일 |
+| border-width | 4단 112회 | 92.9% | `1px` 82회 | `1.5px` 7회 / 4파일 |
+| spacing | 44단 875회 | 80.5% | `8px` 204회 | `3px` 37회 / 16파일 |
+| duration | 72단 1036회 | 59.5% | `180ms` 167회 **토큰 없음** | `180ms` 167회 / 42파일 |
 
 **투명도 % (`alpha`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `100%` | 324 | 46 |
-| `88%` | 244 | 80 |
-| `56%` | 157 | 70 |
-| `48%` | 141 | 62 |
-| `72%` | 114 | 55 |
-| `96%` | 92 | 28 |
-| `32%` | 84 | 40 |
-| `28%` | 71 | 36 |
+| `100%` | 270 | 33 |
+| `88%` | 230 | 78 |
+| `56%` | 152 | 70 |
+| `48%` | 136 | 61 |
+| `72%` | 102 | 51 |
+| `96%` | 85 | 28 |
+| `32%` | 78 | 39 |
+| `28%` | 70 | 35 |
 
 **모서리 반경 (`radius`) — 토큰 없는 값 상위**
 
@@ -12729,34 +12729,34 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `1.5px` | 8 | 5 |
+| `1.5px` | 7 | 4 |
 | `4px` | 1 | 1 |
 
 **간격 (`spacing`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `3px` | 40 | 18 |
+| `3px` | 37 | 16 |
 | `5px` | 34 | 26 |
-| `1px` | 24 | 14 |
+| `1px` | 25 | 15 |
 | `7px` | 18 | 10 |
 | `9px` | 15 | 8 |
-| `11px` | 7 | 6 |
+| `160px` | 7 | 4 |
+| `11px` | 6 | 5 |
 | `112px` | 5 | 5 |
-| `160px` | 5 | 3 |
 
 **모션 길이 (`duration`) — 토큰 없는 값 상위**
 
 | 값 | 사용 | 파일 |
 | --- | ---: | ---: |
-| `180ms` | 171 | 43 |
-| `280ms` | 33 | 14 |
-| `150ms` | 19 | 11 |
-| `100ms` | 15 | 7 |
+| `180ms` | 167 | 42 |
+| `280ms` | 31 | 13 |
+| `150ms` | 17 | 10 |
+| `100ms` | 17 | 8 |
+| `80ms` | 17 | 11 |
 | `240ms` | 14 | 7 |
+| `600ms` | 12 | 8 |
 | `500ms` | 11 | 2 |
-| `80ms` | 11 | 10 |
-| `600ms` | 10 | 7 |
 <!-- GENERATED:product-drift END -->
 
 **수치 정정(2026-08-21).** 이 절의 표는 원래 손으로 적었고 **두 칸이 틀렸다** — radius 결손을
@@ -12860,10 +12860,10 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **왜.** `useMainChromeHeaderScrollProgress`가 `--header-progress`를 두 곳에 쓴다 —
 `headerSlot`과 `wrapper.closest("main")`. 그런데 형태 B에서 페이드를 가진 패널 div는
-**`<main>`의 부모**다(`VideoEditScene.tsx:709-710` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
+**`<main>`의 부모**다(`CompositionScene.tsx:710-711` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
 않으므로** 패널의 `::before`는 언제나 폴백 `0`을 읽는다.
 
-게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `VideoEditScene.tsx` · `InquiryClient.tsx`)
+게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `CompositionScene.tsx` · `InquiryClient.tsx`)
 중 **훅을 호출하는 것은 하나도 없다.** 훅 호출처는 `AppHomeScene`(형태 A) ·
 `NodeCanvasHomeScene`(형태 A) · `HighlightScene` 셋뿐이다.
 

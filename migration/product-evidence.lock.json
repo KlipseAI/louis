@@ -2,7 +2,7 @@
   "$comment": "생성물. scripts/build-product-evidence.mjs가 배포본에서 뽑는다. 직접 수정하지 않는다.",
   "$whyThisExists": "migration/product.measured.json의 축들은 제품 파일을 인용한다. 그 파일이 제품에서 바뀌어도 이 저장소는 알 방법이 없었다 — 모든 게이트가 초록인 채로 실측이 낡는다. 여기에 인용 파일의 blob 해시를 고정해, 제품 저장소가 있을 때 어긋남을 실패로 만든다.",
   "productRemote": "git@github.com:KlipseAI/klipse-web.git",
-  "productRef": "design",
+  "productRef": "origin/design",
   "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
   "evidence": {
     "apps/web/app/admin/AdminClient.tsx": "35002184fdc99f1ceb3742bfcaaa4434692c93ad",

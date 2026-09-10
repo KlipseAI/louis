@@ -1111,12 +1111,16 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 40),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 41),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 345),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 346),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 347),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 348),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 349),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 350),
+    // 앵커 27984014 기준. 이 여섯 줄은 5a67d692 에서 345~350 이었고 **내용 대조로** 옮겼다 —
+    // `sourceQuote` 는 좌표를 검증하지 않고 그 줄을 그대로 굽는다. 인용이 밀리면 실패하지 않고
+    // **다른 코드를 근거로 굽는다**(조용히 틀린 데이터). 앵커를 옮길 때는 이 파일의 좌표
+    // 스물다섯을 내용으로 다시 찾아라 — 그 대조가 이 회차에서 다섯 개를 잡았다.
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 352),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 353),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 354),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 355),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 356),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 357),
     // phase 강제 후크. 인증 바이패스와 **같은 플래그**를 쓴다는 것이 이 두 줄에 있다 —
     // 새 환경변수가 늘지 않았고, 운영에선 NODE_ENV 게이트로 켜지지 않는다.
     sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 128),

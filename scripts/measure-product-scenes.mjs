@@ -36,7 +36,9 @@ const CONTEXTS = [
 ];
 const PAGE_ROUTES = ["/", "/pricing", "/privacy", "/terms"];
 const GENERIC_PAGE_ROUTES = [
-  "/docs", "/docs/highlight", "/docs/canvas", "/docs/videoeditor",
+  /* `/docs` 넷은 걷어냈다. 제품 `ca56540c feat(web): /docs 를 제품에서 제거한다` 로 트리째
+     사라져 잴 것이 없다. 개명 회차가 이 줄의 `/docs/nodecanvas` 를 `/docs/canvas` 로 옮겼는데
+     그건 **이미 죽은 주소를 옮긴 것**이었다. 문서는 이제 klipse-docs 가 따로 낸다. */
   "/blog", "/templates", "/templates/filter", "/inquiry", "/data-deletion-status",
   "/login", "/signup", "/signup/check-email", "/signup/expired", "/signup/verified",
   "/recover", "/reset-password", "/reset-password/new", "/aws/signup",

@@ -79,10 +79,18 @@ const DECLARED_RATCHET = 2;
 //   product.measured.json        손으로 쓴 파일이고, 핀을 옮기기 전에 파일 안의 모순을
 //                                사람이 판정해야 한다(아래 HOW_TO_REALIGN).
 // 진단이 「재고정하면 된다」고 말하는 동안은 다음 사람이 lock 만 다시 박고 넘어간다.
+// ── 2026-09-10 (4회차) — **넷 중 둘이 0 이 됐다** ─────────────────────────
+// `product.scenes.json`(3) 과 그 그림자 `product-pricing-page.plan.json`(1) 이 사라졌다.
+// 셋째 회차가 「lock 을 옮기는 것과 무관하다」고 적은 그대로였다 — 이 둘을 푼 것은 재고정이
+// 아니라 **측정기의 축 분리**다. `measure-product-scenes` 가 「liveOnly 표본 0」에서 통째로
+// 멈추던 것을 장면 축만 멈추게 바꾸자 route 축이 돌았고, 2026-08-30 이후 처음으로 통과했다.
+// 그 원장이 27984014 로 움직이자 가격 계획도 따라왔다.
+//
+// 남은 둘은 성격이 그대로다 — `product.measured.json` 은 손으로 쓰는 파일이라 사람이 모순을
+// 판정해야 하고, `product.variable-modes.json` 은 제품을 브라우저에 올려 문맥별 해결값을
+// 뽑아야 한다.
 const KNOWN_STALE = new Map([
-  ["figma/product-pricing-page.plan.json", 1],
   ["migration/product.measured.json", 1],
-  ["migration/product.scenes.json", 3],
   ["migration/product.variable-modes.json", 2],
 ]);
 

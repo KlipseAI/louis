@@ -1,10 +1,10 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-eff38326a288",
+    "id": "subtree-4a764af3ad4d",
     "nodeCount": 47,
     "roots": [
       {
@@ -13,7 +13,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -24,7 +24,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -35,7 +35,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -46,7 +46,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -57,7 +57,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -68,7 +68,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -79,7 +79,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -90,7 +90,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -101,7 +101,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -112,7 +112,7 @@
         "tag": "div",
         "rect": {
           "x": 12,
-          "y": 64,
+          "y": 60,
           "width": 256,
           "height": 250
         }
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
       },
       {
         "current": "Composition",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
       }
     ],
     "rows": [
@@ -222,7 +222,7 @@
         "label": {
           "text": "Search",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 5.5,
             "width": 44.4531,
             "height": 21
@@ -233,24 +233,24 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 6,
             "width": 20,
             "height": 20
           },
           "asset": "/icons/MagnifyingGlass.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
@@ -260,7 +260,7 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         }
       },
       {
@@ -275,7 +275,7 @@
         "label": {
           "text": "Home",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 41.5,
             "width": 37.1719,
             "height": 21
@@ -286,24 +286,24 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 42,
             "width": 20,
             "height": 20
           },
           "asset": "/icons/House.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
@@ -313,7 +313,7 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         }
       },
       {
@@ -328,9 +328,9 @@
         "label": {
           "text": "Canvas",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 77.5,
-            "width": 83.0156,
+            "width": 48.75,
             "height": 21
           },
           "fontFamily": "pretendard",
@@ -339,32 +339,32 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 78,
             "width": 20,
             "height": 20
           },
           "asset": "/icons/Graph.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
         },
         "mainRect": {
-          "x": 4,
+          "x": 8,
           "y": 72,
-          "width": 220,
+          "width": 216,
           "height": 32
         },
         "addRect": {
@@ -375,9 +375,9 @@
         },
         "addRadius": 6,
         "addBackground": [
-          0.9333333333333333,
-          0.9333333333333333,
-          0.9450980392156862,
+          0.862745,
+          0.870588,
+          0.882353,
           1
         ],
         "radius": 10,
@@ -386,7 +386,7 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         },
         "ariaLabel": "New project (open canvas)"
       },
@@ -402,9 +402,9 @@
         "label": {
           "text": "Composition",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 113.5,
-            "width": 74.4688,
+            "width": 80.625,
             "height": 21
           },
           "fontFamily": "pretendard",
@@ -413,32 +413,32 @@
           "lineHeight": 21,
           "letterSpacing": 0,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 114,
             "width": 20,
             "height": 20
           },
           "asset": "/icons/MagicWand.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
         },
         "mainRect": {
-          "x": 4,
+          "x": 8,
           "y": 108,
-          "width": 220,
+          "width": 216,
           "height": 32
         },
         "addRect": {
@@ -449,9 +449,9 @@
         },
         "addRadius": 6,
         "addBackground": [
-          0.9333333333333333,
-          0.9333333333333333,
-          0.9450980392156862,
+          0.862745,
+          0.870588,
+          0.882353,
           1
         ],
         "radius": 10,
@@ -460,9 +460,9 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         },
-        "ariaLabel": "New project (video edit)"
+        "ariaLabel": "New project (Composition)"
       },
       {
         "kind": "highlight",
@@ -476,7 +476,7 @@
         "label": {
           "text": "Highlight",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 149.5,
             "width": 55.8906,
             "height": 21
@@ -487,24 +487,24 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 150,
             "width": 20,
             "height": 20
           },
           "asset": "/highlight_symbol.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
@@ -514,7 +514,7 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         },
         "beta": {
           "rect": {
@@ -537,17 +537,17 @@
             "lineHeight": 18,
             "letterSpacing": -0.12,
             "color": [
-              0.6039215686274509,
-              0.6274509803921569,
-              0.6705882352941176,
+              0.345098,
+              0.360784,
+              0.388235,
               1
             ]
           },
           "radius": 6,
           "background": [
-            0.7372549019607844,
-            0.7529411764705882,
-            0.788235294117647,
+            0.4470588235294118,
+            0.4588235294117647,
+            0.4823529411764706,
             0.12
           ],
           "padding": {
@@ -581,9 +581,9 @@
           "lineHeight": 18,
           "letterSpacing": -0.12,
           "color": [
-            0.6039215686274509,
-            0.6274509803921569,
-            0.6705882352941176,
+            0.345098,
+            0.360784,
+            0.388235,
             1
           ]
         },
@@ -606,7 +606,7 @@
         "label": {
           "text": "YouTube analytics",
           "rect": {
-            "x": 34,
+            "x": 38,
             "y": 223.5,
             "width": 114.5,
             "height": 21
@@ -617,24 +617,24 @@
           "lineHeight": 21,
           "letterSpacing": -0.14,
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ]
         },
         "icon": {
           "rect": {
-            "x": 4,
+            "x": 8,
             "y": 224,
             "width": 20,
             "height": 20
           },
           "asset": "/icons/youtube.svg",
           "color": [
-            0.25098,
+            0.254902,
             0.270588,
-            0.309804,
+            0.298039,
             1
           ],
           "opacity": 0.92
@@ -644,7 +644,7 @@
           "top": 0,
           "right": 4,
           "bottom": 0,
-          "left": 4
+          "left": 8
         }
       }
     ],
@@ -752,21 +752,21 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 564,
+        "line": 588,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 570,
+        "line": 594,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 574,
+        "line": 598,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]\","
       }
     },
@@ -775,7 +775,7 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-d1dc5adb9fa0",
+          "id": "subtree-79b78b9dcc94",
           "nodeCount": 59,
           "roots": [
             {
@@ -850,7 +850,7 @@
           "score": 354
         },
         {
-          "id": "subtree-c3cf629b9e07",
+          "id": "subtree-30c5289f8743",
           "nodeCount": 59,
           "roots": [
             {
@@ -926,9 +926,9 @@
             1
           ],
           "color": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.862745,
+            0.870588,
+            0.882353,
             1
           ],
           "effects": [
@@ -994,9 +994,9 @@
           "gap": 8,
           "radius": 12,
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "color": [
@@ -1009,9 +1009,9 @@
             {
               "type": "DROP_SHADOW",
               "color": [
-                0.7372549019607844,
-                0.7529411764705882,
-                0.788235294117647,
+                0.4470588235294118,
+                0.4588235294117647,
+                0.4823529411764706,
                 0.12
               ],
               "offset": {
@@ -1053,7 +1053,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1064,7 +1064,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1075,7 +1075,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1086,7 +1086,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1097,7 +1097,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1108,7 +1108,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1119,7 +1119,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1130,7 +1130,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1141,7 +1141,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1152,7 +1152,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1163,7 +1163,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1174,7 +1174,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1185,7 +1185,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1196,7 +1196,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1207,7 +1207,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1218,7 +1218,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1229,7 +1229,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1240,7 +1240,7 @@
               "tag": "div",
               "rect": {
                 "x": 12,
-                "y": 12,
+                "y": 8,
                 "width": 256,
                 "height": 40
               }
@@ -1251,7 +1251,7 @@
           "score": 108
         },
         {
-          "id": "subtree-d1dc5adb9fa0",
+          "id": "subtree-79b78b9dcc94",
           "nodeCount": 59,
           "roots": [
             {
@@ -1326,7 +1326,7 @@
           "score": 354
         },
         {
-          "id": "subtree-c3cf629b9e07",
+          "id": "subtree-30c5289f8743",
           "nodeCount": 59,
           "roots": [
             {
@@ -1383,9 +1383,9 @@
         "width": 280,
         "height": 1080,
         "padding": {
-          "top": 12,
+          "top": 8,
           "right": 12,
-          "bottom": 12,
+          "bottom": 0,
           "left": 12
         },
         "background": [
@@ -1397,14 +1397,14 @@
       },
       "nav": {
         "x": 12,
-        "y": 12,
+        "y": 8,
         "width": 256,
-        "height": 1056
+        "height": 1072
       },
       "brand": {
         "rect": {
           "x": 12,
-          "y": 12,
+          "y": 8,
           "width": 256,
           "height": 40
         },
@@ -1413,14 +1413,14 @@
         "image": {
           "rect": {
             "x": 16,
-            "y": 18,
+            "y": 14,
             "width": 96,
             "height": 28
           },
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1429,13 +1429,13 @@
       },
       "menu": {
         "x": 12,
-        "y": 64,
+        "y": 60,
         "width": 256,
         "height": 250
       },
       "upgradeCta": {
         "x": 12,
-        "y": 1027,
+        "y": 1039,
         "width": 256,
         "height": 41
       },
@@ -1490,7 +1490,7 @@
       "componentSetName": "Product/Payment Result Content",
       "sourceCandidates": [
         {
-          "id": "subtree-1c5b53bcf0bf",
+          "id": "subtree-8d24ecec085d",
           "nodeCount": 9,
           "roots": [
             {
@@ -1498,8 +1498,8 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 834,
-                "y": 173,
+                "x": 836,
+                "y": 169,
                 "width": 520,
                 "height": 229.5938
               }
@@ -1509,8 +1509,8 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 834,
-                "y": 173,
+                "x": 836,
+                "y": 169,
                 "width": 520,
                 "height": 229.5938
               }
@@ -1521,7 +1521,7 @@
           "score": 18
         },
         {
-          "id": "subtree-b9e2626a8aae",
+          "id": "subtree-4d3434d8b90b",
           "nodeCount": 9,
           "roots": [
             {
@@ -1529,9 +1529,9 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 16,
+                "x": 6,
                 "y": 109,
-                "width": 370,
+                "width": 390,
                 "height": 312.1875
               }
             },
@@ -1540,9 +1540,9 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 16,
+                "x": 6,
                 "y": 109,
-                "width": 370,
+                "width": 390,
                 "height": 312.1875
               }
             }
@@ -1552,7 +1552,7 @@
           "score": 18
         },
         {
-          "id": "subtree-56ee03ac380f",
+          "id": "subtree-d53f06a79810",
           "nodeCount": 5,
           "roots": [
             {
@@ -1560,8 +1560,8 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 834,
-                "y": 173,
+                "x": 836,
+                "y": 169,
                 "width": 520,
                 "height": 209.1875
               }
@@ -1571,8 +1571,8 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 834,
-                "y": 173,
+                "x": 836,
+                "y": 169,
                 "width": 520,
                 "height": 209.1875
               }
@@ -1675,9 +1675,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"
@@ -1749,7 +1749,7 @@
           "viewport": "Mobile",
           "route": "/mypage/upgrade/billing-change-fail",
           "rect": {
-            "width": 370,
+            "width": 390,
             "height": 312.1875
           },
           "gap": 24,
@@ -1764,7 +1764,7 @@
             "rect": {
               "x": 0,
               "y": 0,
-              "width": 370,
+              "width": 390,
               "height": 97.1875
             },
             "fontFamily": "pretendard",
@@ -1785,7 +1785,7 @@
             "rect": {
               "x": 0,
               "y": 121.1875,
-              "width": 370,
+              "width": 390,
               "height": 21
             },
             "fontFamily": "pretendard",
@@ -1805,7 +1805,7 @@
             "rect": {
               "x": 0,
               "y": 280.1875,
-              "width": 370,
+              "width": 390,
               "height": 32
             },
             "radius": 12,
@@ -1826,7 +1826,7 @@
               "rect": {
                 "x": 0,
                 "y": 280.1875,
-                "width": 370,
+                "width": 390,
                 "height": 32
               },
               "fontFamily": "pretendard",
@@ -1835,9 +1835,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"
@@ -1847,7 +1847,7 @@
             "rect": {
               "x": 0,
               "y": 166.1875,
-              "width": 370,
+              "width": 390,
               "height": 82
             },
             "direction": "column",
@@ -1863,7 +1863,7 @@
             "term": {
               "text": "Error code",
               "rect": {
-                "x": 153.0938,
+                "x": 163.0938,
                 "y": 178.1875,
                 "width": 63.8125,
                 "height": 21
@@ -1884,7 +1884,7 @@
             "value": {
               "text": "UNKNOWN_ERROR",
               "rect": {
-                "x": 125,
+                "x": 135,
                 "y": 215.1875,
                 "width": 119.9844,
                 "height": 21
@@ -1995,9 +1995,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"
@@ -2009,7 +2009,7 @@
           "viewport": "Mobile",
           "route": "/mypage/upgrade/billing-change-success",
           "rect": {
-            "width": 370,
+            "width": 390,
             "height": 275.7813
           },
           "gap": 24,
@@ -2024,7 +2024,7 @@
             "rect": {
               "x": 0,
               "y": 0,
-              "width": 370,
+              "width": 390,
               "height": 145.7813
             },
             "fontFamily": "pretendard",
@@ -2045,7 +2045,7 @@
             "rect": {
               "x": 0,
               "y": 169.7813,
-              "width": 370,
+              "width": 390,
               "height": 42
             },
             "fontFamily": "pretendard",
@@ -2065,7 +2065,7 @@
             "rect": {
               "x": 0,
               "y": 243.7813,
-              "width": 370,
+              "width": 390,
               "height": 32
             },
             "radius": 12,
@@ -2086,7 +2086,7 @@
               "rect": {
                 "x": 0,
                 "y": 243.7813,
-                "width": 370,
+                "width": 390,
                 "height": 32
               },
               "fontFamily": "pretendard",
@@ -2095,9 +2095,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"
@@ -2195,9 +2195,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.16,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"
@@ -2209,7 +2209,7 @@
           "viewport": "Mobile",
           "route": "/mypage/topup/success",
           "rect": {
-            "width": 370,
+            "width": 390,
             "height": 254.7813
           },
           "gap": 24,
@@ -2224,7 +2224,7 @@
             "rect": {
               "x": 0,
               "y": 0,
-              "width": 370,
+              "width": 390,
               "height": 145.7813
             },
             "fontFamily": "pretendard",
@@ -2245,7 +2245,7 @@
             "rect": {
               "x": 0,
               "y": 169.7813,
-              "width": 370,
+              "width": 390,
               "height": 21
             },
             "fontFamily": "pretendard",
@@ -2265,7 +2265,7 @@
             "rect": {
               "x": 0,
               "y": 222.7813,
-              "width": 370,
+              "width": 390,
               "height": 32
             },
             "radius": 12,
@@ -2286,7 +2286,7 @@
               "rect": {
                 "x": 0,
                 "y": 222.7813,
-                "width": 370,
+                "width": 390,
                 "height": 32
               },
               "fontFamily": "pretendard",
@@ -2295,9 +2295,9 @@
               "lineHeight": 21,
               "letterSpacing": -0.14,
               "color": [
-                0.866667,
+                0.862745,
                 0.870588,
-                0.878431,
+                0.882353,
                 1
               ],
               "textAlign": "start"

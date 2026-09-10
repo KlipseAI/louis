@@ -151,12 +151,14 @@ const simpleRow = (key, index, text) => {
     },
   };
 };
-/* `text` 는 **앵커 트리에서 노드를 찾는 열쇠**라 앵커가 가진 문자열이어야 한다.
-   `displayText` 는 그 위에 얹는 **표시 이름**이다 — 앵커 `5a67d692` 는 2026-09-09
-   「노드캔버스 → 캔버스」 개명 **이전** 트리라 사이드바 행 글자가 아직 "NodeCanvas" 인데,
-   라이브 Figma 와 현재 제품은 "Canvas" 다. 열쇠를 바꾸면 측정이 못 찾아 즉시 죽고,
-   표시를 안 바꾸면 draw.js 가 `row/NodeCanvas` 로 이름 지어 라이브 개명을 되돌린다.
-   **앵커를 다시 고정하는 회차에서 이 인자는 사라진다.** */
+/* `text` 는 **앵커 트리에서 노드를 찾는 열쇠**다. `displayText` 는 그 위에 얹는 표시 이름이고,
+   기본값이 `text` 라 보통은 넘기지 않는다.
+
+   **2026-09-09 에 이 인자를 쓰던 이유는 2026-09-10 재고정으로 사라졌다.** 그때 앵커
+   `5a67d692` 는 개명 이전 트리라 사이드바 행 글자가 아직 "NodeCanvas"·"VideoEditor" 였고,
+   열쇠를 바꾸면 측정이 못 찾아 죽고 표시를 안 바꾸면 draw.js 가 라이브 개명을 되돌렸다.
+   앵커가 `27984014` 로 옮겨간 지금은 **앵커 자신이 "Canvas"·"Composition" 을 갖는다** —
+   열쇠와 표시가 같아졌으므로 우회를 걷었다. 인자는 다음 개명을 위해 남겨 둔다. */
 const compoundRow = (key, index, text, ariaLabel, displayText = text) => {
   const label = byText(routes.default.route, text);
   const icon = iconForText(routes.default.route, text);
@@ -243,9 +245,18 @@ const sectionRowStyle = style(rowNodes[5]);
    computedStyles 580 → 579 — 구조는 한 곳도 안 움직였고 id 체계만 한 번 갈렸다. 그 서명으로
    옛→새를 1:1 로 이어 붙였으므로 47/10 은 손대지 않는다.
    **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
-   실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다. */
+   실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다.
+
+   네 번째로 갈렸다(eff38326a288 → 4a764af3ad4d, 2026-09-10 재고정 5a67d692 → 27984014).
+   **위 예고대로 진짜 변경이었고, 4px 이다.** 가드가 물기에 서명을 전수 대조했다 —
+   nodeCount 47 · routeCount 10 · occurrenceCount 10 · score 470 · 최상위 후보 · 경로
+   `body.1.0.0.0.0.1` · 크기 256×250 이 **전부 같고**, `roots[].rect.y` 만 64 → 60 이다.
+   원인은 제품 `e59b1003` 계열의 앱 셸 여백 정리다 — 사이드바 상단 안전 여백
+   `--app-gnb-safe-top` 이 `max(12px, env(safe-area-inset-top))` 에서 `max(8px, …)` 로
+   내려가 메뉴가 4px 올라왔다. 구조가 아니라 위치 하나가 움직인 것이므로 47/10 은 그대로
+   두고 id 만 못박는다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-eff38326a288",
+  (entry) => entry.id === "subtree-4a764af3ad4d",
 );
 if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
@@ -266,8 +277,19 @@ if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
    세 번째로 갈렸다(bd975676e6bb→d1dc5adb9fa0, 23a203251141→c3cf629b9e07). 위 사이드바와
    **같은 하나**다 — 제품이 아니라 측정기가 움직였고(앵커 `5a67d692` 그대로, styleRef 를
    자리번호에서 내용 해시로 교체 + `content-visibility: auto` 래치를 스크롤 훑기로 못박음),
-   서명 전수 대조에서 불일치 0 이었다. 59/6 · 59/4 는 그대로 둔다. */
-const headerCandidates = ["subtree-d1dc5adb9fa0", "subtree-c3cf629b9e07"].map((id) =>
+   서명 전수 대조에서 불일치 0 이었다. 59/6 · 59/4 는 그대로 둔다.
+
+   네 번째로 갈렸다(d1dc5adb9fa0→79b78b9dcc94, c3cf629b9e07→30c5289f8743, 2026-09-10
+   재고정 5a67d692 → 27984014). 옛↔새를 **roots 까지 포함해 전수 대조했고 불일치 0** 이다
+   (nodeCount · routeCount · occurrenceCount · score · roots 의 route·path·tag·rect 전부).
+   위 사이드바 후보는 y 가 4px 움직였는데 헤더 둘은 그마저도 없다 — 여백 변경이 사이드바
+   메뉴 안쪽이었기 때문이다.
+
+   **다만 59/6 후보가 하나 더 생겼다**(`subtree-d6ac743feeba`, score 354). 이것은 헤더가
+   아니라 `/highlight/[projectId]` 여섯 단계(loading·uploading·upload·analyzing·extracting·
+   failed)가 공유하는 `body.1.0.0.0.0` 셸이다 — 같은 수치를 갖지만 다른 것이므로 nodeCount
+   만으로 고르면 엉뚱한 것을 집는다. 그래서 여기서는 **id 로** 집는다(아래). */
+const headerCandidates = ["subtree-79b78b9dcc94", "subtree-30c5289f8743"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
@@ -503,7 +525,7 @@ const repeatedCandidates = fixture.componentCandidateAudit.repeatedSubtreesByCon
    cd13bafaafe1→56ee03ac380f). 위 셋과 **같은 하나**다 — 제품이 아니라 측정기가 움직였고
    (앵커 `5a67d692` 그대로, styleRef 를 자리번호에서 내용 해시로 교체 + `content-visibility:
    auto` 래치를 스크롤 훑기로 못박음), 서명 전수 대조에서 불일치 0 이었다. 9·9·5 는 그대로. */
-const resultCandidateIds = ["subtree-1c5b53bcf0bf", "subtree-b9e2626a8aae", "subtree-56ee03ac380f"];
+const resultCandidateIds = ["subtree-8d24ecec085d", "subtree-4d3434d8b90b", "subtree-d53f06a79810"];
 const resultCandidates = resultCandidateIds.map(
   (id) =>
     repeatedCandidates[contextName].find((entry) => entry.id === id) ??
@@ -607,8 +629,8 @@ const plan = {
     rows: [
       simpleRow("search", 0, "Search"),
       simpleRow("home", 1, "Home"),
-      compoundRow("canvas", 2, "NodeCanvas", "New project (open canvas)", "Canvas"),
-      compoundRow("composition", 3, "VideoEditor", "New project (video edit)", "Composition"),
+      compoundRow("canvas", 2, "Canvas", "New project (open canvas)"),
+      compoundRow("composition", 3, "Composition", "New project (Composition)"),
       {
         ...simpleRow("highlight", 4, "Highlight"),
         kind: "highlight",
@@ -694,17 +716,17 @@ const plan = {
     darkThemeSource: {
       inactive: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        564,
+        588,
         '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
       ),
       active: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        570,
+        594,
         '    "[color:var(--gray-000)]",',
       ),
       activeIndicator: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        574,
+        598,
         '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
       ),
     },

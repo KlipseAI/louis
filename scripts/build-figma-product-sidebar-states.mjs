@@ -35,7 +35,7 @@ const collapsedUpgrade = byAria("collapsed", "Upgrade");
 const collapsedUpgradeLabel = measurement.states.collapsed.tree.find(
   (entry) => entry.parentPath === collapsedUpgrade.path && entry.tag === "span" && entry.ownText === "Upgrade",
 ) ?? fail("missing collapsed Upgrade label span");
-const menu = ["Search", "Home", "NodeCanvas", "VideoEditor", "Highlight", "YouTube analytics"].map(
+const menu = ["Search", "Home", "Canvas", "Composition", "Highlight", "YouTube analytics"].map(
   (label) => {
     const entry = byAria("collapsed", label);
     return {
@@ -108,8 +108,8 @@ const plan = {
     iconComponents: {
       Search: "icon/MagnifyingGlass",
       Home: "icon/House",
-      NodeCanvas: "icon/Graph",
-      VideoEditor: "icon/MagicWand",
+      Canvas: "icon/Graph",
+      Composition: "icon/MagicWand",
       Highlight: "root/highlight_symbol",
       YouTube: "icon/youtube",
       logo: "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",

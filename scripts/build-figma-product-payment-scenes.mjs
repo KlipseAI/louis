@@ -101,10 +101,10 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-48b751ac1e30(25, body.1.0.0.1, fail)     → subtree-0f24f9093a95
 //   subtree-6dd1be31e112(21, body.1.0.0.1, success)  → subtree-71e9f8d4cba7
 const candidateContracts = [
-  ["subtree-708f3483317a", 87, 2],
-  ["subtree-4f5aa4e9cf22", 83, 2],
-  ["subtree-0f24f9093a95", 25, 2],
-  ["subtree-71e9f8d4cba7", 21, 2],
+  ["subtree-ed47f43c48b1", 87, 2],
+  ["subtree-6ba92d715b72", 83, 2],
+  ["subtree-ea6c9f0dfd59", 25, 2],
+  ["subtree-f034cc084ea1", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -132,10 +132,10 @@ const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByConte
 //   subtree-25acb8040b2f(26, body.1.0.0)   → subtree-ba57b7970eb9
 //   subtree-918343b944e5(25, body.1.0.0.1) → subtree-43750710c66c
 const mobileCandidateContracts = [
-  ["subtree-3dc02b6b63cf", 28, 2],
-  ["subtree-138bcfafd15b", 27, 2],
-  ["subtree-ba57b7970eb9", 26, 2],
-  ["subtree-43750710c66c", 25, 2],
+  ["subtree-2425ad25b02e", 28, 2],
+  ["subtree-50076969733f", 27, 2],
+  ["subtree-a6ba0dac2ab4", 26, 2],
+  ["subtree-60ed0dd6bac4", 25, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = mobileCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

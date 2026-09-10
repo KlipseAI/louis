@@ -76,27 +76,27 @@ const plan = {
   sourceEvidence: [
     // historyGrid(`styles.historyGrid`, 839~847행) — 같은 문자열이 clipGrid(241~254행)에도 있어
     // 블록 시작(`historyGrid: [`)에서 센 오프셋으로 자리를 판정했다.
-    sourceQuote(HIGHLIGHT, 841, '    "[display:grid]",'),
-    sourceQuote(HIGHLIGHT, 843, '    "gap-layout-project-grid-gap",'),
-    sourceQuote(HIGHLIGHT, 846, '    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",'),
+    sourceQuote(HIGHLIGHT, 842, '    \"[display:grid]\",'),
+    sourceQuote(HIGHLIGHT, 844, '    \"gap-layout-project-grid-gap\",'),
+    sourceQuote(HIGHLIGHT, 847, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
     // historySection(1055~1061행) — `"[width:100%]"` 는 파일에 27번 나오지만, 바로 뒤 두 줄
     // (`margin:40px_auto_0` · `padding-bottom:200px`)이 이 블록에만 있어 셋이 한 덩어리다.
-    sourceQuote(HIGHLIGHT, 1057, '    "[width:100%]",'),
-    sourceQuote(HIGHLIGHT, 1059, '    "[margin:40px_auto_0]",'),
-    sourceQuote(HIGHLIGHT, 1060, '    "[padding-bottom:200px]",'),
+    sourceQuote(HIGHLIGHT, 1059, '    \"[width:100%]\",'),
+    sourceQuote(HIGHLIGHT, 1061, '    \"[margin:40px_auto_0]\",'),
+    sourceQuote(HIGHLIGHT, 1062, '    \"[padding-bottom:200px]\",'),
     // historySectionEyebrow(1063~1069행) — viewport Auto Layout 의 itemSpacing 근거.
-    sourceQuote(HIGHLIGHT, 1065, '    "[margin:0_0_12px]",'),
+    sourceQuote(HIGHLIGHT, 1067, '    \"[margin:0_0_12px]\",'),
     // historySectionEyebrowCount(1071~1075행) — clipCountValue(63~67행)에도 같은 줄이 있으나
     // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
-    sourceQuote(HIGHLIGHT, 1074, '    "[margin-left:6px]",'),
+    sourceQuote(HIGHLIGHT, 1076, '    \"[margin-left:6px]\",'),
     // uploadCardCompact(2130~2147행).
-    sourceQuote(HIGHLIGHT, 2137, '    "[&:not(.tw-hs-188)]:[width:400px]!",'),
-    sourceQuote(HIGHLIGHT, 2139, '    "[&:not(.tw-hs-188)]:[height:140px]!",'),
-    sourceQuote(HIGHLIGHT, 2141, '    "[padding:8px]!",'),
-    sourceQuote(HIGHLIGHT, 2142, '    "[gap:8px]!",'),
+    sourceQuote(HIGHLIGHT, 2142, '    \"[&:not(.tw-hs-188)]:[width:400px]!\",'),
+    sourceQuote(HIGHLIGHT, 2144, '    \"[&:not(.tw-hs-188)]:[height:140px]!\",'),
+    sourceQuote(HIGHLIGHT, 2146, '    \"[padding:8px]!\",'),
+    sourceQuote(HIGHLIGHT, 2147, '    \"[gap:8px]!\",'),
     // 제품이 이 값을 LOUIS 로 넘겼다(`ae8fd627`) — 20px 은 그대로이고 소유자만 바뀌었다.
     // `--louis-radius-card-lg: 20px`(tokens.css:568). 리터럴을 계속 인용하면 채택 사실이 지워진다.
-    sourceQuote(HIGHLIGHT, 2143, '    "[border-radius:var(--louis-radius-card-lg)]!",'),
+    sourceQuote(HIGHLIGHT, 2148, '    \"[border-radius:var(--louis-radius-card-lg)]!\",'),
   ],
   figma: {
     // 정본 파일 OlYKERKOkgbxBEEoXGZW2c. install id로 찾아 reconcile한다.

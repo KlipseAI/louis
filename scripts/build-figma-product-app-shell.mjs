@@ -209,9 +209,9 @@ const candidateContracts = [
   //   subtree-4f8ad570cbbb(14/4) → subtree-3b91f2c79326
   // **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
   // 실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다.
-  ["subtree-d0270a3536b1", 6, 18],
-  ["subtree-58853450d255", 15, 4],
-  ["subtree-3b91f2c79326", 14, 4],
+  ["subtree-70d030923c4b", 6, 18],
+  ["subtree-e7d2c976fc2b", 15, 4],
+  ["subtree-19866f2fb6c4", 14, 4],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -354,12 +354,12 @@ const desktopCandidateContracts = [
   //   subtree-e4077e3527d7(5/3)   → subtree-beece6df8949
   // 위 문단이 「값 차이가 하나도 없는데도 id 가 바뀐 증거」로 든 5/3 후보는 이번에도 값이
   // 그대로인 채 이름만 갈렸다 — 그 증거가 한 번 더 재현된 셈이고, 이번이 그 마지막이다.
-  ["subtree-f61c1155f4b4", 6, 18],
-  ["subtree-9a75e3d066ea", 15, 4],
-  ["subtree-0510292f2d82", 14, 4],
-  ["subtree-548fe53795f0", 17, 3],
-  ["subtree-2fab43c147d6", 16, 3],
-  ["subtree-beece6df8949", 5, 3],
+  ["subtree-e1fe7ee1d038", 6, 18],
+  ["subtree-685a4a4bfa2e", 15, 4],
+  ["subtree-caedd8a1445d", 14, 4],
+  ["subtree-be0ca032e800", 17, 3],
+  ["subtree-0733666e63fc", 16, 3],
+  ["subtree-a36ea3231cff", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

@@ -183,9 +183,9 @@
         "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1."
       },
       {
-        "current": "VideoEditor",
-        "route": "/videoeditor",
-        "activeRow": "VideoEditor",
+        "current": "Composition",
+        "route": "/composition",
+        "activeRow": "Composition",
         "activeColor": [
           0,
           0,
@@ -392,7 +392,7 @@
       },
       {
         "kind": "compound",
-        "key": "video-editor",
+        "key": "composition",
         "rect": {
           "x": 0,
           "y": 108,
@@ -400,7 +400,7 @@
           "height": 32
         },
         "label": {
-          "text": "VideoEditor",
+          "text": "Composition",
           "rect": {
             "x": 34,
             "y": 113.5,
@@ -1459,9 +1459,9 @@
           "ctaState": "Current"
         },
         {
-          "current": "VideoEditor",
-          "route": "/videoeditor",
-          "menuCurrent": "VideoEditor",
+          "current": "Composition",
+          "route": "/composition",
+          "menuCurrent": "Composition",
           "ctaState": "Current"
         },
         {

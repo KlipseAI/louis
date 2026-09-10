@@ -36,7 +36,7 @@ export const COMPONENT_SETS = Object.freeze({
 const VARIANTS = Object.freeze({
   [COMPONENT_SETS.sidebar]: [
     "Current=Default", "Current=Home", "Current=YouTube", "Current=Upgrade",
-    "Current=Canvas", "Current=VideoEditor", "Current=Highlight",
+    "Current=Canvas", "Current=Composition", "Current=Highlight",
   ],
   [COMPONENT_SETS.desktopTopBar]: [
     "Content=Home, Breadcrumb=Single, Back=False, Divider=Off",

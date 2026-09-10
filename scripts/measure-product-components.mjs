@@ -130,7 +130,7 @@ const PROBES = [
   // ── 프로필 팝오버 — **제품의 유일한 composite popover 인데 한 번도 재지 않았다** ────────
   //
   // 2026-08-30 감사에서 드러났다. LOUIS 의 composite-popover 규격은 세 군데서 왔다 — 표면과 항목
-  // 높이는 제품 **노드 캔버스 메뉴** 실측, 여백 8 과 간격 8 은 **LOUIS 자기 브라우저 테스트**
+  // 높이는 제품 **캔버스 메뉴** 실측, 여백 8 과 간격 8 은 **LOUIS 자기 브라우저 테스트**
   // (`menu-pointer.browser.test.tsx` 의 유령 스크롤바 케이스)에서 유도한 값이다. 프로필 팝오버는
   // 그 셋 중 어디에도 없었다.
   //
@@ -1770,7 +1770,7 @@ const EXPECT = [
     "위와 같은 축이다."],
   ["composite-popover-item-product", "borderTopLeftRadius", ["menu-popover", "sizes", "panel", "itemRadius"], "same"],
   ["composite-popover-item-product", "height", ["menu-popover", "sizes", "panel", "itemHeight"], "deviates",
-    "제품 40, DS 37. DS 의 37 은 제품 수렴 결정으로 정해졌지만 그때 잰 것은 **노드 캔버스 메뉴**였다. 프로필 팝오버는 그 이관에 들어가지 않아 40 으로 남았다."],
+    "제품 40, DS 37. DS 의 37 은 제품 수렴 결정으로 정해졌지만 그때 잰 것은 **캔버스 메뉴**였다. 프로필 팝오버는 그 이관에 들어가지 않아 40 으로 남았다."],
   ["composite-popover-item-product", "paddingLeft", ["menu-popover", "sizes", "panel", "itemPaddingInline"], "deviates",
     "제품 10, DS 12. 위 높이와 같은 원인 — 이 패널은 `.louis-menu__item` 을 소비하지 않는다."],
   ["composite-popover-item-product", "columnGap", ["menu-popover", "sizes", "panel", "itemGap"], "deviates",

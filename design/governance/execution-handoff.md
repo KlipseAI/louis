@@ -628,14 +628,14 @@ popover(1100)보다 위인데 DS 사다리는 `sticky < popover` 라 그 조합�
 IconButton secondary는 `color-stroke-default`(불투명)를 쓴다. TextField는 Button을 따랐다. 셋 중
 하나가 틀렸거나 셋 다 맞고 이름이 부족한 것이며, 어느 쪽인지는 owner가 정해야 한다.
 
-**(2c) Textarea가 없다.** 제품에 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). TextField와
+**(2c) Textarea가 없다.** 제품에 여러 줄 입력이 최소 5벌 있다(캔버스 프롬프트 계열). TextField와
 같은 박스 구조로 확장할 수 있다.
 
 **`DS-F-007-home`의 gap 72건은 다시 재야 한다.** 그 실측은 Figma에 Button 하나만 있을 때 한 것이고
 지금은 여덟이다. 재측정 전까지 72라는 숫자를 현재 상태로 인용하지 않는다.
 
 **gap registry의 ProjectCard 항목은 "정의 3벌"로 적혀 있으나 실제로는 4벌이다** — 앱 홈,
-노드캔버스 홈, 하이라이트 허브, 비디오 에디터 허브. 등록부가 NodeCanvasHome을 빠뜨렸다.
+캔버스 홈, 하이라이트 허브, 비디오 에디터 허브. 등록부가 NodeCanvasHome을 빠뜨렸다.
 
 **`DS-P3-008`(Core local RC)의 소비자 검증이 섰다(2026-08-18).** `verify-consumer`가 `pnpm verify`에
 들어 있고, 루트를 실제 소비자로 두어 서브패스 16개 resolve · 타입 선언 · **Node SSR 렌더** ·

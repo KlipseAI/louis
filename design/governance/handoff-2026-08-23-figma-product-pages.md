@@ -1152,7 +1152,7 @@ mobile 프레임에 shared variant instance를 넣었다(옛 bar는 visible=fals
   - `28:44` /settings → `400:606`(Full/Single/Div On) · "Settings" (ko "설정"→en, 측정·desktop 선례 일치)
   - `190:1497` /subscription → `400:606` + text override "Subscription" (mobile fixture 측정 = Single "Subscription")
   - `30:33` /analytics/youtube → `400:617`(Full/Trail/Div On) · "Analytics / YouTube analytics"
-  - `219:3209` /nodecanvas hub → `400:606` + "노드 캔버스" (desktop 허브 선례 `493:262`와 동일)
+  - `219:3209` /nodecanvas hub → `400:606` + "캔버스" (desktop 허브 선례 `493:262`와 동일)
   - `219:3701` /videoeditor hub → `400:595` + "비디오 에디터" (desktop `493:539` 동일)
   - `29:44` /highlight hub → `400:595` + "Highlight" (desktop `493:816` 동일)
   - text override는 clip 방지로 `textAutoResize=WIDTH_AND_HEIGHT`. desktop 선례(static 4)의 top-bar 라벨을

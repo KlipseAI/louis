@@ -28,7 +28,7 @@
 |---|---|---|---|
 | **A. 앱 홈** | `/archive` | 사이드바 첫 항목, 한국어 라벨이 문자 그대로 "홈". `apps/web/lib/app-paths.ts`가 `APP_HOME_PATH = "/archive"`로 SSOT 선언. scene 이름은 `AppHomeScene`. route 이름(`archive`)과 화면 이름(홈)이 어긋나 있고, 코드 주석이 "예전 '아카이브'는 라우트명이 샌 것"이라 기록 | **`project-grid`·`app-shell` 패턴의 정본 대상** |
 | B. 마케팅 랜딩 | `/` | 컴포넌트 이름이 `HomePage`/`HomePageClient`이지만 내용은 Hero·FAQ·Footer의 공개 랜딩 | 별개의 마케팅 표면으로 분리 취급 |
-| C. 노드 캔버스 허브 | `/nodecanvas` | scene 이름이 `NodeCanvasHomeScene`. "노드 캔버스의 홈"이지 앱 전체 홈이 아님 | 허브 4종 중 하나로 취급 |
+| C. 캔버스 허브 | `/nodecanvas` | scene 이름이 `NodeCanvasHomeScene`. "캔버스의 홈"이지 앱 전체 홈이 아님 | 허브 4종 중 하나로 취급 |
 
 #### "Highlight" — 셸 2개 × 화면 3층
 
@@ -46,11 +46,11 @@
 
 | 후보 | route | 성격 |
 |---|---|---|
-| **E1. 노드 캔버스 에디터** | `/nodecanvas?project=<id>` / `?new=1` | 노드 그래프 기반 생성 캔버스. **라우트 세그먼트가 아니라 쿼리스트링으로 허브↔에디터가 갈린다** — route 트리만 봐서는 보이지 않는다 |
+| **E1. 캔버스 에디터** | `/nodecanvas?project=<id>` / `?new=1` | 노드 그래프 기반 생성 캔버스. **라우트 세그먼트가 아니라 쿼리스트링으로 허브↔에디터가 갈린다** — route 트리만 봐서는 보이지 않는다 |
 | **E2. 비디오 에디터(타임라인)** | `/videoeditor/[projectId]` | 클립·오버레이·오디오 트랙·트랜지션·마커. 이름에 "editor"가 들어간 유일한 route |
 | E3. 숏폼 클립 에디터 | `/highlight/[projectId]/shorts/[shortId]` | 자막·워터마크 중심 경량 편집. E2와 같은 편집 본체를 공유 |
 
-**결정 분기점**: `editor-workspace` 패턴이 타임라인·트랙·플레이헤드를 뜻하면 **E2**, 노드 그래프·캔버스·툴바를 뜻하면 **E1**이다. 그리고 E1·E2·E3는 편집 모달·플랜 게이트·확인 모달을 **노드 캔버스 디렉터리 하위에서 공유**한다 — 비디오 에디터 자산이 노드 캔버스 디렉터리 안에 살고 있다. 이 위치 불일치를 카탈로그 경계로 복사하면 안 된다.
+**결정 분기점**: `editor-workspace` 패턴이 타임라인·트랙·플레이헤드를 뜻하면 **E2**, 노드 그래프·캔버스·툴바를 뜻하면 **E1**이다. 그리고 E1·E2·E3는 편집 모달·플랜 게이트·확인 모달을 **캔버스 디렉터리 하위에서 공유**한다 — 비디오 에디터 자산이 캔버스 디렉터리 안에 살고 있다. 이 위치 불일치를 카탈로그 경계로 복사하면 안 된다.
 
 ### 전체 route 목록
 
@@ -62,8 +62,8 @@
 | route | 화면 | 구현 소유 파일 | 규모 |
 |---|---|---|---|
 | `/archive` | 앱 홈 | `apps/web/components/scenes/AppHomeScene.tsx` | 1,433줄 |
-| `/nodecanvas` | 노드 캔버스 허브 | `apps/web/components/scenes/NodeCanvasHomeScene.tsx` | 1,668줄 |
-| `/nodecanvas?project=` `?new=1` | 노드 캔버스 에디터 | `apps/web/components/scenes/CreateScene.tsx` + `.../create/node-canvas-v2/index.tsx` | 1,025줄 + 11,307줄 |
+| `/nodecanvas` | 캔버스 허브 | `apps/web/components/scenes/NodeCanvasHomeScene.tsx` | 1,668줄 |
+| `/nodecanvas?project=` `?new=1` | 캔버스 에디터 | `apps/web/components/scenes/CreateScene.tsx` + `.../create/node-canvas-v2/index.tsx` | 1,025줄 + 11,307줄 |
 | `/videoeditor` | 비디오 에디터 허브 | `apps/web/components/scenes/VideoEditScene.tsx` | 989줄 |
 | `/videoeditor/[projectId]` | 비디오 에디터 워크스페이스 | `apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx` | 1,318줄 |
 | `/highlight` | 하이라이트 허브 | `apps/web/components/scenes/HighlightScene.tsx` | 1,572줄 |
@@ -161,7 +161,7 @@ API route handler 약 130개는 화면이 아니므로 목록화하지 않았다
 | 플랫폼 배지 | `components/scenes/archive/PlatformSection.tsx` | 카탈로그에 없음 (badge) | 하드코딩 색 사용처 |
 | 아카이브 썸네일(Canvas 렌더) | `.../node-canvas-v2/lib/archiveThumbnail/` | 카탈로그에 없음 | CSS 변수 접근 불가 → 색 하드코딩이 구조적 제약 |
 
-### `/nodecanvas` — 노드 캔버스 허브
+### `/nodecanvas` — 캔버스 허브
 
 | 구성 요소 | 제품 구현 위치 | 카탈로그 ID | 비고 |
 |---|---|---|---|
@@ -172,7 +172,7 @@ API route handler 약 130개는 화면이 아니므로 목록화하지 않았다
 | 로딩 워드 | `NodeCanvasHomeScene.tsx` 내 상수 | `loading` | — |
 | 썸네일 하단 톤 계산 | `useThumbnailBottomTone` | 카탈로그에 없음 | 허브 2곳 공유 |
 
-### `/nodecanvas?project=` — 노드 캔버스 에디터 (E1)
+### `/nodecanvas?project=` — 캔버스 에디터 (E1)
 
 캔버스 본체 서브트리는 **164개 파일 / 약 86,264줄**, 진입 파일 하나가 11,307줄이다.
 
@@ -375,7 +375,7 @@ API route handler 약 130개는 화면이 아니므로 목록화하지 않았다
 | 구성 요소 | 제품 구현 위치 | 카탈로그 ID | 비고 |
 |---|---|---|---|
 | 랜딩 셸(별개 GNB) | `components/landing/navigation/Gnb.tsx` | `app-shell` (별개 계보) | 상단 바 + 모바일 햄버거 + 드롭다운 |
-| Hero / 노드 캔버스 쇼케이스 / FAQ / Footer | `components/landing/sections/` (25개+) | 카탈로그에 없음 | 마케팅 전용 |
+| Hero / 캔버스 쇼케이스 / FAQ / Footer | `components/landing/sections/` (25개+) | 카탈로그에 없음 | 마케팅 전용 |
 | 섹션 인터랙션 | `SectionInteractions` | 카탈로그에 없음 | — |
 | 가격 섹션 + 플랜 비교표 | `components/landing/sections/PricingSection.tsx` | 카탈로그에 없음 (table) | — |
 | 스테이지 카드 | `components/landing/sections/CapabilitiesShowcaseParts.tsx` | 카탈로그에 없음 (card) | 상위 쇼케이스는 현재 주석 처리 |
@@ -588,7 +588,7 @@ v2가 있음에도 **10개 이상 화면이 아직 여기서 import 중**이다(
 
 ### 사용처 요약
 
-- **노드 캔버스** — 아이콘 사용의 압도적 중심. 노드 타입 아이콘, 액션 글리프, 레이어 패널, 컨텍스트 메뉴, 툴바, 사이드 버튼, 빈 상태 64px 글리프가 전부 여기 모임
+- **캔버스** — 아이콘 사용의 압도적 중심. 노드 타입 아이콘, 액션 글리프, 레이어 패널, 컨텍스트 메뉴, 툴바, 사이드 버튼, 빈 상태 64px 글리프가 전부 여기 모임
 - **편집 워크스페이스** — 단일 파일 42개 인라인 SVG. **저장소에서 아이콘 부채가 가장 심한 지점**
 - **앱 셸 / 커맨드 팔레트** — 정적 SVG를 mask로 소비하는 유일한 대규모 영역. 내비 아이콘 매핑이 셸 파일 한 곳에 상수로 있음
 - **인증 화면** — 비밀번호 토글(참조 각 15회) + 에러 아이콘. **여기서만 정적 SVG를 이미지 컴포넌트로 로드**한다 → 테마 반전 불가
@@ -745,7 +745,7 @@ Tailwind 반응형 접두사는 거의 안 쓴다(`md:` 25회). 실제로는 임
 
 #### 11. 제품 부채 수치 (규범 우선순위 참고용)
 
-제품의 부채 집계가 총 **324건**(unverified 190 / decision-needed 134)을 기록하고 있고, 문서별 상위는 노드 캔버스 48 · 비디오 에디터 40 · 분석 39다. 이는 **화면 복잡도 순위와 일치**하며, 카탈로그 우선순위 판단의 보조 지표로 쓸 수 있다.
+제품의 부채 집계가 총 **324건**(unverified 190 / decision-needed 134)을 기록하고 있고, 문서별 상위는 캔버스 48 · 비디오 에디터 40 · 분석 39다. 이는 **화면 복잡도 순위와 일치**하며, 카탈로그 우선순위 판단의 보조 지표로 쓸 수 있다.
 
 #### 12. 공용 UI 패키지 경계는 존재하지 않는다
 

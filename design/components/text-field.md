@@ -11,7 +11,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 **제품에 공용 구현이 없다.** 텍스트 입력 정의가 약 40벌이고 다섯 계열로 갈리며 계열 사이에 합의가
 없다 — 인증 floating-label 9벌, 테두리 박스 5벌, 테두리 없는 채운 면 9벌, 투명 인라인 rename 8벌,
-노드 캔버스 프롬프트 5벌. 그래서 이 컴포넌트의 값은 제품 정본을 옮긴 것이 **아니라 DS가 정한
+캔버스 프롬프트 5벌. 그래서 이 컴포넌트의 값은 제품 정본을 옮긴 것이 **아니라 DS가 정한
 것**이고, 어디서 갈라지는지는 [`product.measured.json`](../../migration/product.measured.json)이
 사유와 함께 갖는다.
 
@@ -338,7 +338,7 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
   [`product.measured.json`](../../migration/product.measured.json)의 `text-field`에 있다.
 - **Figma의 Focus는 링을 stroke로 그린다.** CSS는 `outline`인데 Figma에 outline이 없어 바깥으로
   나가는 사각형 stroke로 표현한다. 두께는 같고(`border-width-ring` 2px) 모서리 반경만 근사다.
-- **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(노드 캔버스 프롬프트 계열). 같은
+- **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(캔버스 프롬프트 계열). 같은
   박스 구조로 확장할 수 있으나 이번 범위가 아니다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로
   남았다. 도구 줄의 `sm` 필드는 보통 시각 라벨 없이 `aria-label`로 서므로 지금은 부딪히지

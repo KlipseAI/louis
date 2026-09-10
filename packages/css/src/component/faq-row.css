@@ -2,7 +2,7 @@
  *
  * 정본과 실측 — 제품 앵커 `5a67d692`:
  *   apps/web/components/landing/sections/FAQ.tsx            (`lg` · 랜딩과 가격 페이지)
- *   apps/web/components/scenes/create/guide/FAQPanel.tsx    (`md` · 노드 캔버스 가이드 모달)
+ *   apps/web/components/scenes/create/guide/FAQPanel.tsx    (`md` · 캔버스 가이드 모달)
  * 값의 출처는 `figma/components.measured.json` 의 `faq-row` 이고 `scripts/verify-recipe-record.mjs`
  * 가 아래 선언을 그 기록과 한 줄씩 대조한다. 기하를 되재는 것은
  * `packages/react/test/faq-row.browser.test.tsx` 다.

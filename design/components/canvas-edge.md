@@ -2,12 +2,12 @@
 id: canvas-edge
 status: experimental
 authority: normative
-summary: 노드 캔버스에서 두 핸들을 잇는 연결선입니다. 채널 톤 일곱이 이 컴포넌트의 내용입니다.
+summary: 캔버스에서 두 핸들을 잇는 연결선입니다. 채널 톤 일곱이 이 컴포넌트의 내용입니다.
 ---
 
 # Canvas Edge
 
-노드 캔버스의 **연결선**. 실선 한 겹 위에 흐르는 쉬머 한 겹이 얹히고, 쉬머에는 톤마다 반경이
+캔버스의 **연결선**. 실선 한 겹 위에 흐르는 쉬머 한 겹이 얹히고, 쉬머에는 톤마다 반경이
 다른 번짐이 걸린다.
 
 **정본은 제품이고, 그 정본의 형태는 CSS 가 아니라 톤 표다.** `V2EdgeLayers.tsx` 가 구현이고
@@ -31,7 +31,7 @@ LOUIS 에는 표면이 없다 — `packages/css/src/component` 에도 `packages/
 
 ## When to use
 
-- 노드 캔버스에서 두 핸들을 잇는 선을 그릴 때. 캔버스의 **모든** 연결선이 이것이다 —
+- 캔버스에서 두 핸들을 잇는 선을 그릴 때. 캔버스의 **모든** 연결선이 이것이다 —
   `DeletableEdge` 가 React Flow 의 엣지 타입으로 등록돼 있고, 드래그 중 미리보기 선
   (`PreviewConnectionLine`)과 워크스루 연결 시연도 같은 조형을 쓴다.
 - 쓰지 않는 자리:

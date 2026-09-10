@@ -150,7 +150,7 @@
 ### 사이드바 로고를 누르면 `navigate(APP_HOME_PATH)` = `/archive` 로 간다 **[medium]**
 
 - **문서**: 클릭 시 `navigate(APP_HOME_PATH)` = `/archive`
-- **배포본**: 목적지는 `logoHomeHref` 이고 조건부다 — `logoVariant==="admin" ? "/admin" : createNavHub ? NODE_CANVAS_HUB_PATH : logoTargetsAppHome ? APP_HOME_PATH : "/"`. `NodeCanvasHomeScene` 이 `createNavHub={true}` 를 넘기고 그 화면도 이 사이드바를 쓰므로(useSidebarNav 는 createNavHub 로도 참이 된다), 노드 캔버스 허브에서 로고는 `/archive` 가 아니라 `/nodecanvas` 로 간다.
+- **배포본**: 목적지는 `logoHomeHref` 이고 조건부다 — `logoVariant==="admin" ? "/admin" : createNavHub ? NODE_CANVAS_HUB_PATH : logoTargetsAppHome ? APP_HOME_PATH : "/"`. `NodeCanvasHomeScene` 이 `createNavHub={true}` 를 넘기고 그 화면도 이 사이드바를 쓰므로(useSidebarNav 는 createNavHub 로도 참이 된다), 캔버스 허브에서 로고는 `/archive` 가 아니라 `/nodecanvas` 로 간다.
 - 근거: Gnb.tsx 전체에 `navigate(APP_HOME_PATH)` 호출 없음 — APP_HOME_PATH 는 import(19)와 삼항 한 갈래(2438)에만 등장. Gnb.tsx:2432-2439 `const logoHomeHref = logoVariant === "admin" ? "/admin" : createNavHub ? NODE_CANVAS_HUB_PATH : logoTargetsAppHome ? APP_HOME_PATH : "/";`. 사이드바 로고는 Gnb.tsx:4383 `onClick={() => navigate(logoHomeHref)}` / :4401 `<Link href={logoHomeHref}>` (useSidebarNav 분기 4374~). NodeCanvasHomeScene.t
 
 
@@ -225,7 +225,7 @@
 ### 좌상단 브랜드 영역 / 우상단 액션 영역의 위·아래 기준 패딩은 `max(12px, env(safe-area-inset-top, 0px))` **[medium]**
 
 - **문서**: 상단 두 영역의 상하 여백 = `--app-gnb-safe-top` 식(safe-area 반영)
-- **배포본**: Create 노드 뷰 헤더 컨테이너는 `py-4` 다. `--spacing: 2px` 격자이므로 상하 8px 이고 `env(safe-area-inset-top)` 은 어디에도 없다. 코드 주석이 명시적으로 '좌우 12px … 상하는 8px' 이라고 적는다. `--app-gnb-safe-top` 은 앱 셸(Gnb)의 토큰이지 노드 캔버스 헤더의 값이 아니다
+- **배포본**: Create 노드 뷰 헤더 컨테이너는 `py-4` 다. `--spacing: 2px` 격자이므로 상하 8px 이고 `env(safe-area-inset-top)` 은 어디에도 없다. 코드 주석이 명시적으로 '좌우 12px … 상하는 8px' 이라고 적는다. `--app-gnb-safe-top` 은 앱 셸(Gnb)의 토큰이지 캔버스 헤더의 값이 아니다
 - 근거: apps/web/components/scenes/CreateScene.tsx:145-147 — `/* 노드 뷰 전용 상단 헤더 — 좌우 12px 은 레이어 패널·툴바·줌과 같은 시작선, 상하는 8px. */` 아래 `const NODE_PROJECT_HEADER = "fixed top-0 left-0 right-0 w-full max-w-none z-[1001] py-4 px-6 box-border"`. CreateScene.tsx:661-663 에서 `viewMode === "node"` 분기가 이 클래스를 그대로 쓰고 style 오버라이드가 없다. apps/web/app/tailwind.css:164 `--spacing: 2px;`(주석 '실측 결과 2px 격자다') 이므로 py-4 = 상하 8px. C
 
 ### 좌상단은 `env(safe-area-inset-left, 0px) + 12px`, 우상단은 `var(--app-gnb-main-inline-padding-end)`(= 12px) **[medium]**

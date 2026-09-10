@@ -441,7 +441,7 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
    없다(제품은 `fontWeight: 600` + `textDecoration: underline` 을 인라인 style 로 준다).
    그 축은 열지 않았고, 소비처가 `__content` 안에 넣는다.
 
-9. **같은 계열인데 덮지 못한 자리가 다섯 벌 더 있다.** 노드 캔버스의 다섯 노드 파일이
+9. **같은 계열인데 덮지 못한 자리가 다섯 벌 더 있다.** 캔버스의 다섯 노드 파일이
    `PROMPT_ERROR_BANNER` 라는 같은 이름의 배너를 **각자 정의**하며 클래스 문자열이 다섯 벌 모두
    같다(`BgmNode.tsx` · `EditNode.tsx` · `ImageNode.tsx` · `TtsNode.tsx` · `VideoNode.tsx`).
    값이 이 레시피와 다르다 — 간격 8은 같지만 패딩 8/8 · 반경 12 · 면 `accent-red-500` 8% ·

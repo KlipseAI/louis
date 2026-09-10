@@ -464,7 +464,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   라벨이 사실상 보이지 않는다** — 제품은 `#fafafa` 라벨에 0.35를 그대로 곱한다. 판정은
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
-- **노드 캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
+- **캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
   토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:522-548`, 라이트 덮어쓰기 `:567-573`).
 
   | 토큰 | 값 | LOUIS `md` 대비 |

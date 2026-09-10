@@ -155,7 +155,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
 | `/archive` | 홈 | Home | **불가** |
-| `/nodecanvas` | 노드 캔버스 | NodeCanvas | 가능 |
+| `/nodecanvas` | 캔버스 | NodeCanvas | 가능 |
 | `/videoeditor` | 비디오 에디터 | VideoEditor | 가능 |
 | `/highlight` | 하이라이트 | Highlight | 가능 |
 | `/analytics/youtube` | YouTube 분석 | YouTube analytics | **불가** |
@@ -172,7 +172,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 | ---: | --- | --- | --- | --- | --- |
 | 1 | 검색 | — | `/icons/MagnifyingGlass.svg` | **밖** | 커맨드 팔레트를 연다. `href`가 없다 |
 | 2 | 홈 | `/archive` | `/icons/House.svg` | 안 | |
-| 3 | 노드 캔버스 | `/nodecanvas` | `/icons/Graph.svg` | 안 | 복합 행(「+」) |
+| 3 | 캔버스 | `/nodecanvas` | `/icons/Graph.svg` | 안 | 복합 행(「+」) |
 | 4 | 비디오 에디터 | `/videoeditor` | `/icons/MagicWand.svg` | 안 | 복합 행(「+」) |
 | 5 | 하이라이트 | `/highlight` | `/highlight_symbol.svg` | 안 | trailing 베타 칩 |
 | 6 | 「분석」 구획 라벨 | — | — | 밖 | `<li role="presentation">` |
@@ -221,14 +221,14 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 **접히면 액션이 사라진다.** 아이콘 하나가 들어가는 32px 자리에 둘을 넣을 수 없다. 배포본도
 접힘에서 `display: none`으로 지운다.
 
-**복합 행은 「노드 캔버스」와 「비디오 에디터」 두 줄이다.** 위 문단의 「하이라이트 허브 ·
+**복합 행은 「캔버스」와 「비디오 에디터」 두 줄이다.** 위 문단의 「하이라이트 허브 ·
 비디오에디터 허브」는 오기다 — **하이라이트 행에는 「+」가 없고** 그 자리에 베타 칩이 온다(trailing).
 
 **두 「+」의 동작이 서로 다르다.** 한 문장으로 뭉뚱그리면 한쪽을 반드시 잘못 그린다.
 
 | 행 | 「+」 동작 | 화면 결과 |
 | --- | --- | --- |
-| 노드 캔버스 | `stopPropagation()` 후 트리거 요소를 넘겨 생성 모달을 연다 | **모달이 뜬다.** 복귀 포커스가 그 버튼이다 |
+| 캔버스 | `stopPropagation()` 후 트리거 요소를 넘겨 생성 모달을 연다 | **모달이 뜬다.** 복귀 포커스가 그 버튼이다 |
 | 비디오 에디터 | `stopPropagation()` 후 프로젝트를 만들고 `/videoeditor/{id}`로 이동한다 | **모달 없이 즉시 생성 후 이동.** 중간 화면이 없다 |
 
 두 행이 `stopPropagation()`을 쓰는 이유는 같다 — 액션이 행의 내비 절반을 함께 발화시키면 안 된다.
@@ -262,7 +262,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 
 근거: `Gnb.tsx:765-789`(액션 버튼) · `Gnb.tsx:790-797`(행) · `Gnb.tsx:2198-2223`(글리프) ·
 `Gnb.tsx:2060-2061`(앱 셸 라이트 램프) · `globals.css:35-36`(다크) ·
-`Gnb.tsx:2151-2162`(행 배열) · `Gnb.tsx:4660-4675`(노드 캔버스 모달) ·
+`Gnb.tsx:2151-2162`(행 배열) · `Gnb.tsx:4660-4675`(캔버스 모달) ·
 `Gnb.tsx:2706-2720`(비디오 에디터 즉시 생성) · `Gnb.tsx:4749-4791`(하이라이트 = 일반 행 + 베타 칩).
 
 ## Sidebar brand와 CTA

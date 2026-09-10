@@ -81,7 +81,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 대상에 붙어 **함께 움직이는** 제목/본문 두 줄 안내다. 크기 사다리가 아니라 표면에 담기는 것이
 달라지는 축이다.
 
-제품 정본은 노드 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
+제품 정본은 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
 좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
 
 `coachmark`에서 갈리는 것 셋: 폭이 320 고정이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라

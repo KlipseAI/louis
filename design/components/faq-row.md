@@ -68,7 +68,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다.
   <p class="louis-faq-row__answer">Klipse는 크리에이터를 위한 AI 영상 제작 플랫폼입니다.</p>
 </div>
 
-<!-- Size=md — 노드 캔버스 가이드 모달 -->
+<!-- Size=md — 캔버스 가이드 모달 -->
 <div class="louis-faq-row" data-size="md">
   <button type="button" class="louis-faq-row__question" aria-expanded="true">
     <span class="louis-faq-row__question-text">모델은 무엇을 쓰나요?</span>
@@ -134,7 +134,7 @@ Known deviations 12).
 | `Expanded` | `false` · `true` | 답변의 유무와 `+` 의 45° 회전. 면·반경·좌우 여백은 그대로다 |
 
 `lg` 는 랜딩 섹션(`faq` · `pricing-faq`)의 행이고 `md` 는 **가이드 모달**의 행이다
-(`FAQPanel.tsx` — 노드 캔버스 가이드의 FAQ 탭). 두 자리의 차이는 자리 하나뿐이 아니다 —
+(`FAQPanel.tsx` — 캔버스 가이드의 FAQ 탭). 두 자리의 차이는 자리 하나뿐이 아니다 —
 랜딩의 행은 페이지의 한 절이라 질문이 제목 급(body-20)이고, 모달의 행은 탭 하나의 목록이라
 한 단 내려간다(body-16). 반경이 12 에서 8 로 함께 내려가는 것도 그 결과다: 48 높이에 12 를
 두면 곡률이 높이의 1/4 이라 알약으로 읽힌다(Button 의 `sm` 이 24 높이에서 같은 판단을 했다).

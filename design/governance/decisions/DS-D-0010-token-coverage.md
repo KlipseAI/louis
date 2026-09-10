@@ -73,7 +73,7 @@ weight 600인데, 배포 화면의 heading은 전량 medium 500이다(semibold·
 
 ### 3. 도메인 색은 semantic으로 승격하되 오염을 기록한다
 
-노드 캔버스의 채널 색(video·image·text·social·audio·edit)은 장식이 아니라 **노드 타입 식별자**이므로
+캔버스의 채널 색(video·image·text·social·audio·edit)은 장식이 아니라 **노드 타입 식별자**이므로
 semantic role로 승격한다. 현재 tier가 `primitive`/`semantic` 2단뿐이라 도메인 전용 토큰이 semantic에
 들어간다. 이는 계층 오염이며, component tier 도입은 컴포넌트 패키지 착수 시 재검토한다. tier 추가는
 schema breaking이므로 지금 하지 않는다.

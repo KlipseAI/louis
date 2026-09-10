@@ -871,7 +871,7 @@
       "productConstant": "INPUT — `[font-size:var(--type-body-16-size)]`",
       "productFile": "/Users/sejunki/klipse-web/apps/web/app/inquiry/InquiryClient.tsx",
       "productLine": 319,
-      "productValue": "16px (`--type-body-16-size`, apps/web/app/globals.css:366; 뷰포트 ≤450px에서 14px로 내려간다). 제품은 계열마다 갈린다 — 인증·모달 계열 16px(login/page.tsx:434, CreateProjectModal.tsx:465), admin·노드 캔버스 14px(AdminClient.tsx:296, NodeLayersPanel.tsx:719), VideoEditModal 수치 입력 12px."
+      "productValue": "16px (`--type-body-16-size`, apps/web/app/globals.css:366; 뷰포트 ≤450px에서 14px로 내려간다). 제품은 계열마다 갈린다 — 인증·모달 계열 16px(login/page.tsx:434, CreateProjectModal.tsx:465), admin·캔버스 14px(AdminClient.tsx:296, NodeLayersPanel.tsx:719), VideoEditModal 수치 입력 12px."
     },
     {
       "component": "input",
@@ -2910,7 +2910,7 @@
       "productLine": 337,
       "productValue": "#f1f1f3 (다크, :337) · #171b22 (라이트, :345)",
       "productSelector": "",
-      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.louis-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·노드캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-fg-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
+      "reason": "DS의 이 축은 제목 줄의 색이다(surface-states.browser.test.tsx:218이 `.louis-project-card-title`의 color로 확인한다). 제품 제목 색은 앱 홈·캔버스 홈이 위 두 값이고(NodeCanvasHomeScene.tsx:349·352 동일), 라이트값 #171b22는 DS `color-fg-primary`의 라이트값과 정확히 같지만 다크는 제품 #f1f1f3 대 DS #fafafa로 다르다. 하이라이트 허브와 비디오 에디터 허브는 썸네일 dominant color 광도로 뒤집는 `--card-text-color`가 이 색을 덮는다(appHomeSceneStyles.ts:346·348 조건 `.tw-ah-017` = dominantColor가 있는 하이라이트 카드, highlightSceneStyles.ts:1071, VideoEditScene.tsx:395-400) — 그 런타임 계약은 DS가 옮기지 않았다."
     },
     {
       "component": "app-shell-parts",

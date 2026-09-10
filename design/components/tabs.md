@@ -15,7 +15,7 @@ summary: 같은 화면 안에서 보이는 뷰를 바꿉니다.
 | 무리 | 벌 | 자리 |
 | --- | ---: | --- |
 | 높이 28 · 좌우 12 · pill | 4 | `YoutubeAnalyticsScene.tsx:959-967` · `InstagramAnalyticsScene.tsx:409-417` · 아카이브 영상 분석 뷰(`YoutubeVideoAnalyticsView.tsx`) · 랜딩 데모 스냅숏(`StaticAnalyticsDemo.tsx`) |
-| 높이 28 · 인셋 0 | 3 | `InquiryClient.tsx:211-227`(폼 카테고리 칩) · 노드 캔버스 가이드 모달(`NodeCanvasGuideModal.tsx`) · 영상 모델 필터 칩(`VideoModelMenu.tsx`) |
+| 높이 28 · 인셋 0 | 3 | `InquiryClient.tsx:211-227`(폼 카테고리 칩) · 캔버스 가이드 모달(`NodeCanvasGuideModal.tsx`) · 영상 모델 필터 칩(`VideoModelMenu.tsx`) |
 
 **YouTube와 Instagram 두 벌은 빈 줄 하나를 빼면 바이트 단위로 같다.** 아카이브 뷰는 `rounded-full`
 대신 `rounded-[999px]`로 적었을 뿐 계산값이 같다.

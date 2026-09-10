@@ -1624,7 +1624,7 @@
       "louis": [],
       "verdict": "scoped",
       "figma": null,
-      "reason": "부모 표면 `apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection` 의 목업 슬롯이다. 자기 크롬이 없다 — 500/420/280 프레임 높이 계단과 fit 계산(zoom·translate), react-flow 의 background·attribution 을 숨기는 규칙이 전부이고, 안에 실제로 그려지는 것은 제품 노드 캔버스 컴포넌트들(각자 원장에 있다)이다. Figma 에서는 카드 안의 이미지/캔버스 슬롯 한 칸이다.",
+      "reason": "부모 표면 `apps/web/components/landing/sections/OverviewSection.tsx#OverviewSection` 의 목업 슬롯이다. 자기 크롬이 없다 — 500/420/280 프레임 높이 계단과 fit 계산(zoom·translate), react-flow 의 background·attribution 을 숨기는 규칙이 전부이고, 안에 실제로 그려지는 것은 제품 캔버스 컴포넌트들(각자 원장에 있다)이다. Figma 에서는 카드 안의 이미지/캔버스 슬롯 한 칸이다.",
       "weight": null,
       "kind": null,
       "kindReason": null
@@ -2667,7 +2667,7 @@
       "reason": "노드 프롬프트의 생성 알약 — `--node-prompt-generate-gradient` 그라디언트 면 + inset 0 0 8 흰 오버레이 스트로크(mix-blend overlay) + 별 아이콘 + 크레딧 후행 슬롯 + 스피너 상태. Button 정본에 그라디언트/브랜드 변형이 없고 Image·Video·Text·Bgm·Tts 노드와 홈 CTA 가 모두 쓴다.",
       "weight": "high",
       "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Button] JSX 실측 6 (Bgm·Image·Text·Tts·Video 노드 5 + **HighlightScene** — /highlight 라우트, 주석에 「노드 캔버스 그대로 사용」)에, `creative-media/CreativeMediaClient.tsx:876` 이 「NodePromptGenerateButton 크롬·치수 복제」라 적고 **손으로 베낀** 자리가 하나 더 = 7. 공유물이 없어 복제된 직접 증거다. 그라디언트 면(`--node-prompt-generate-gradient`) + mix-blend overlay inset 스트로크 + 후행 크레딧 슬롯 + 스피너 상태는 Button 정본에 없는 축이다."
+      "kindReason": "[LOUIS 대응 후보: Button] JSX 실측 6 (Bgm·Image·Text·Tts·Video 노드 5 + **HighlightScene** — /highlight 라우트, 주석에 「캔버스 그대로 사용」)에, `creative-media/CreativeMediaClient.tsx:876` 이 「NodePromptGenerateButton 크롬·치수 복제」라 적고 **손으로 베낀** 자리가 하나 더 = 7. 공유물이 없어 복제된 직접 증거다. 그라디언트 면(`--node-prompt-generate-gradient`) + mix-blend overlay inset 스트로크 + 후행 크레딧 슬롯 + 스피너 상태는 Button 정본에 없는 축이다."
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx#NodePromptInputCopyButton": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx",
@@ -3658,7 +3658,7 @@
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 클립/오버레이 자르기 모달 — 크롭 프레임과 8방향 핸들(흰 면 + primary-500 테두리)을 갖는다. 노드 캔버스의 CropModalInner 와 같은 일을 다른 핸들 규범으로 하고 있어 한 정본으로 묶어야 한다.",
+      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 클립/오버레이 자르기 모달 — 크롭 프레임과 8방향 핸들(흰 면 + primary-500 테두리)을 갖는다. 캔버스의 CropModalInner 와 같은 일을 다른 핸들 규범으로 하고 있어 한 정본으로 묶어야 한다.",
       "weight": "medium",
       "kind": "primitive",
       "kindReason": "라우트 3. 이름 재사용은 1이지만 «모양»이 셋이다 — 원장에서 아직 needed 인 크롭 표면이 셋(…/create/ImageCropModal.tsx#ImageCropModal, …/nodes/CropModal.tsx#CropModalInner, 이것)이고 전부 «크롭 프레임 + 8방향 핸들»이라는 같은 조형을 서로 다른 규범으로 그린다. LOUIS 가 세울 것은 이 모달이 아니라 그 «크롭 프레임 + 핸들 세트»이며 셸은 dialog 정본에 태운다. 이미 louis-elevation-menu · louis-hairline-inset 을 문다."
@@ -4100,7 +4100,7 @@
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "Figma Icons 31종에 icon/plus 는 있는데 짝인 minus 가 없다. 기간 스테퍼와 노드 캔버스 컨트롤에서 plus 와 항상 쌍으로 쓰이므로 한쪽만 있는 상태가 그 자체로 결함이다.",
+      "reason": "Figma Icons 31종에 icon/plus 는 있는데 짝인 minus 가 없다. 기간 스테퍼와 캔버스 컨트롤에서 plus 와 항상 쌍으로 쓰이므로 한쪽만 있는 상태가 그 자체로 결함이다.",
       "weight": "medium",
       "kind": "primitive",
       "kindReason": "라우트 실측 1(create 씬). 그러나 import 는 2 모듈(create/ComposerBar.tsx:5 · create/ShotCarousel.tsx:4)이고 «둘 다 PlusIcon 과 한 쌍으로» 가져온다. 이 파일에서 살아 있는 수출은 PlusIcon·MinusIcon·XIcon 셋뿐인데(아래 죽은 9종과 대조) 그중 PlusIcon 은 Figma Icons 31종에 icon/plus 로 이미 있고 minus 만 없다. 한쪽만 있는 상태가 그 자체로 결함이라 짓는 값이 크고 비용은 글리프 한 장이다."
@@ -4166,10 +4166,10 @@
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "노드 선택 테두리다. 자식이 없는 aria-hidden 장식 레이어라 골격은 하나지만, `group=true` 형태가 **어느 노드에도 속하지 않는다** — 여러 노드를 감싸는 사각이라 노드 표면의 State 축으로는 놓을 자리가 없다. 그래서 부모의 상태가 아니라 캔버스가 소유하는 별 표면이고, 단일 형태(부모 곡률 상속)는 그 표면의 변형으로 들어간다. 노드 캔버스를 Figma 에 세우는 작업과 함께 서야 한다.",
+      "reason": "노드 선택 테두리다. 자식이 없는 aria-hidden 장식 레이어라 골격은 하나지만, `group=true` 형태가 **어느 노드에도 속하지 않는다** — 여러 노드를 감싸는 사각이라 노드 표면의 State 축으로는 놓을 자리가 없다. 그래서 부모의 상태가 아니라 캔버스가 소유하는 별 표면이고, 단일 형태(부모 곡률 상속)는 그 표면의 변형으로 들어간다. 캔버스를 Figma 에 세우는 작업과 함께 서야 한다.",
       "weight": "medium",
       "kind": "oneoff",
-      "kindReason": "죽은 수출. 참조 0(정의 제외)이고, v2 캔버스에도 대응 구현이 없다 — node-canvas-v2 전체에서 selectionChrome/SelectionChrome/selection-chrome 문자열이 0 이다. 같은 디렉터리의 SELECTION_GRID_FX.md 는 남아 있으나 그 문서를 쓰는 코드가 없다. 원장은 「노드 캔버스를 Figma 에 세우는 작업과 함께 서야 한다」고 적었지만, 지금 캔버스가 실제로 그리는 선택 테두리는 이 컴포넌트가 아니다 — 정본을 세우려면 v2 의 진짜 선택 표현을 먼저 찾아야 한다."
+      "kindReason": "죽은 수출. 참조 0(정의 제외)이고, v2 캔버스에도 대응 구현이 없다 — node-canvas-v2 전체에서 selectionChrome/SelectionChrome/selection-chrome 문자열이 0 이다. 같은 디렉터리의 SELECTION_GRID_FX.md 는 남아 있으나 그 문서를 쓰는 코드가 없다. 원장은 「캔버스를 Figma 에 세우는 작업과 함께 서야 한다」고 적었지만, 지금 캔버스가 실제로 그리는 선택 테두리는 이 컴포넌트가 아니다 — 정본을 세우려면 v2 의 진짜 선택 표현을 먼저 찾아야 한다."
     },
     "apps/web/components/scenes/create/node-canvas/primitives.tsx#SettingsEyebrowIcon": {
       "file": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
@@ -4322,7 +4322,7 @@
       ],
       "verdict": "needed",
       "figma": null,
-      "reason": "노드 캔버스 상단 헤더 전체 — 진행형 블러 띠(--louis-progressive-blur) · 브랜드 알약 셸 · 인라인 이름변경 입력과 제목 슬롯 · 저장 스피너(열림/닫힘 폭 전이) · 저장 클라우드 글리프 · 가이드 토글(idle/active) · 액션 셸 · 아바타 슬롯이 한 줄에 붙는다. Figma AppTopBar 는 높이 40 의 Title + Leading/Trailing 슬롯 골격뿐이라 이 조립을 담지 못한다. 제품에서 가장 눈에 띄는 앱 셸 표면이다.",
+      "reason": "캔버스 상단 헤더 전체 — 진행형 블러 띠(--louis-progressive-blur) · 브랜드 알약 셸 · 인라인 이름변경 입력과 제목 슬롯 · 저장 스피너(열림/닫힘 폭 전이) · 저장 클라우드 글리프 · 가이드 토글(idle/active) · 액션 셸 · 아바타 슬롯이 한 줄에 붙는다. Figma AppTopBar 는 높이 40 의 Title + Leading/Trailing 슬롯 골격뿐이라 이 조립을 담지 못한다. 제품에서 가장 눈에 띄는 앱 셸 표면이다.",
       "weight": "high",
       "kind": "primitive",
       "kindReason": "[LOUIS 대응 후보: AppTopBar] 앵커 실측: JSX 1곳(CreateScene.tsx:676)이지만 앱 셸 상단 바라 시스템 소유가 자연스럽고, 두 번째 사본이 실재한다 — landing/demo-snapshots/StaticCreateDemo.tsx:63~68 이 `.nodeProjectHeader` 를 NODE_PROJECT_HEADER 상수로 모사해 랜딩 라우트에 그린다. 게다가 navigation/Gnb.tsx:92 주석이 「두 벌(ProjectHeader.tsx · appHomeSceneStyles.ts)은 판정이 필요해 남겨 두었다」고 미해결 중복을 자백한다. LOUIS AppTopBar 는 높이 40 의 Title + Leading/Trailing 골격뿐이라 진행형 블러 띠·브랜드 알약·인라인 이름변경·저장 스피너 폭 전이·가이드 토글·아바타 슬롯 조립을 담지 못한다 — 그 축을 열어라."
@@ -4380,10 +4380,10 @@
       "louis": [],
       "verdict": "needed",
       "figma": null,
-      "reason": "노드 캔버스를 담는 create 라우트의 스테이지 프레임이다. 스테이지 곡률·오버행·드래그오버 상태·하단 progressive blur 그라디언트는 이 화면 고유 크롬인데 모델이 없다. 캔버스 내부 부품은 scenes/create 도메인 소관이라 여기서는 프레임만 대상이다.",
+      "reason": "캔버스를 담는 create 라우트의 스테이지 프레임이다. 스테이지 곡률·오버행·드래그오버 상태·하단 progressive blur 그라디언트는 이 화면 고유 크롬인데 모델이 없다. 캔버스 내부 부품은 scenes/create 도메인 소관이라 여기서는 프레임만 대상이다.",
       "weight": "low",
       "kind": "screen",
-      "kindReason": "앵커 실측: import 1곳(app/nodecanvas/NodeCanvasWorkspace.tsx), JSX 1곳. 노드 캔버스를 담는 스테이지 프레임 — 곡률·오버행·드래그오버·하단 progressive blur 는 이 화면 고유 크롬이다. 되풀이되는 부품이 아니라 보드다."
+      "kindReason": "앵커 실측: import 1곳(app/nodecanvas/NodeCanvasWorkspace.tsx), JSX 1곳. 캔버스를 담는 스테이지 프레임 — 곡률·오버행·드래그오버·하단 progressive blur 는 이 화면 고유 크롬이다. 되풀이되는 부품이 아니라 보드다."
     },
     "apps/web/components/scenes/ExploreScene.tsx#ExploreScene": {
       "file": "apps/web/components/scenes/ExploreScene.tsx",
@@ -4525,7 +4525,7 @@
       ],
       "verdict": "needed",
       "figma": null,
-      "reason": "노드 캔버스 홈(아카이브 그리드) 화면. 카드·빈 상태·메뉴·토스트는 이미 LOUIS 정본(project-card · empty-state · popover/menu · toast)을 소비하므로 남는 미모델은 그리드 레이아웃·섹션 eyebrow·무한스크롤 로딩 워드 시머·삭제 확인 모달이다. 확인 모달은 Dialog 로 수렴할 후보.",
+      "reason": "캔버스 홈(아카이브 그리드) 화면. 카드·빈 상태·메뉴·토스트는 이미 LOUIS 정본(project-card · empty-state · popover/menu · toast)을 소비하므로 남는 미모델은 그리드 레이아웃·섹션 eyebrow·무한스크롤 로딩 워드 시머·삭제 확인 모달이다. 확인 모달은 Dialog 로 수렴할 후보.",
       "weight": "medium",
       "kind": "screen",
       "kindReason": "앵커 실측: import 1곳(app/nodecanvas/NodeCanvasWorkspace.tsx), JSX 1곳. 1798줄 화면. 네 카드 그리드 중 유일하게 LOUIS 정본(project-card · empty-state · popover/menu · toast)을 이미 소비하므로 남는 미모델은 그리드 레이아웃·섹션 eyebrow·무한스크롤 시머·삭제 확인 모달뿐 — 보드 하나로 닫힌다."

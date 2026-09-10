@@ -18,7 +18,7 @@ export type ToastTone = "neutral" | "danger";
  * 표면에 담기는 것이 달라지는 축. 크기 사다리가 아니다.
  *
  * `base` 는 한 줄 메시지, `callout` 은 제목/본문 두 줄과 그 옆의 액션이다. 제품 정본은
- * 노드 캔버스 온보딩 힌트 두 벌(`CanvasConnectHint` · `CanvasNextStepHint`)이며, 표면 원장이
+ * 캔버스 온보딩 힌트 두 벌(`CanvasConnectHint` · `CanvasNextStepHint`)이며, 표면 원장이
  * 뒤엣것을 「같은 CALLOUT 표면을 공유하고 문구만 다르다」로 이미 접어 두었다.
  */
 export type ToastLayout = "base" | "callout";

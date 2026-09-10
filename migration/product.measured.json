@@ -1248,7 +1248,7 @@
       "$measuredBy": "2026-08-16 전수 조사. 클래스 쪽과 요소 쪽 두 방향으로 훑어 합쳤다",
       "axes": {
         "계열 분포": {
-          "product": "A 인증 floating-label 9벌(시각적 필드가 감싸는 div, input은 투명) · B 테두리 박스 5벌 · C 테두리 없는 채운 면 9벌 · D 투명 인라인 rename 8벌 · E 노드 캔버스 프롬프트 textarea 5벌",
+          "product": "A 인증 floating-label 9벌(시각적 필드가 감싸는 div, input은 투명) · B 테두리 박스 5벌 · C 테두리 없는 채운 면 9벌 · D 투명 인라인 rename 8벌 · E 캔버스 프롬프트 textarea 5벌",
           "ds": "단일 계열. 테두리 있는 박스형 하나이며 slot으로 접두·접미를 받는다",
           "match": "different",
           "evidence": "apps/web/app/login/page.tsx:112-140 · apps/web/components/projects/CreateProjectModal.tsx:94-103 · apps/web/components/scenes/create/PublishFlow.tsx:60-68",

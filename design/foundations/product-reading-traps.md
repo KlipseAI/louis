@@ -279,7 +279,7 @@ Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파�
 정적 자산의 아이콘 SVG를 열어 그 도형과 그 색을 그대로 옮기면 **모양도 색도 두께도** 틀린다.
 세 층이 각각 파일을 덮는다.
 
-**(a) 도형이 대체돼 있을 수 있다.** 노드 캔버스는 일부 공개 SVG를 인라인 React 글리프로 갈아탔다.
+**(a) 도형이 대체돼 있을 수 있다.** 캔버스는 일부 공개 SVG를 인라인 React 글리프로 갈아탔다.
 `components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx`의 `ToolbarIconTrashSimple`은
 lucide `trash-2`(viewBox 24 · 뚜껑 + 손잡이 + 안쪽 세로 두 줄)이고, 공개 자산의 `TrashSimple.svg`
 (viewBox 32 · 안쪽 줄 없음)를 **대체한다**고 주석에 명시돼 있다. `ToolbarIconDownload`도 같은 방식으로
@@ -290,7 +290,7 @@ lucide `download`(열린 트레이)가 각진 트레이를 대체한다. 같은 
 
 | 기제 | 쓰이는 곳 | 실제 색 |
 | --- | --- | --- |
-| `background-color: currentColor` + `mask-image` | 사이드바 내비, 노드 캔버스 툴바 | 둘레의 `color`. 내비는 `opacity .92`(활성 행 1), 툴바는 비활성 `--gray-200` · 활성 `--gray-000` |
+| `background-color: currentColor` + `mask-image` | 사이드바 내비, 캔버스 툴바 | 둘레의 `color`. 내비는 `opacity .92`(활성 행 1), 툴바는 비활성 `--gray-200` · 활성 `--gray-000` |
 | `filter` | 입력칸 글리프 | `brightness(0) invert(1)` + `opacity .6`(어두운 면) / `brightness(0)` + `.42`(밝은 면) |
 | 에셋 교체 | 브랜드 로고 | 어두운 면 `klipse-dark.svg`(흰색) / 밝은 면 `klipse-light.svg`(검정). 단 인증 브랜드 패널은 `themeMode="dark"` 고정이라 항상 흰색 |
 | `mask` + 팔레트 알파 | 프로젝트 카드 워드마크 | `--palette-gray-000`(어두운 면) / `--palette-gray-1000`(밝은 면)을 **22%**로 |
@@ -298,19 +298,19 @@ lucide `download`(열린 트레이)가 각진 트레이를 대체한다. 같은 
 인라인 SVG의 `fill="currentColor"`도 마찬가지다. 기본 아바타는 `text-palette-gray-400`(밝은 면) /
 `dark:text-palette-gray-600`(어두운 면)이라, 파일만 보면 색을 알 수 없다.
 
-**(c) 두께는 크기에 비례하지 않는다.** 노드 캔버스는 `iconScreenStroke.ts`의
+**(c) 두께는 크기에 비례하지 않는다.** 캔버스는 `iconScreenStroke.ts`의
 `nodeIconStrokeScreenPx(size)`로 **화면 두께를 크기별로 고정**한다 — 14px→**0.88**(비례값 0.875가 아니라
 디자인 확정값), 16px→1, 그 밖은 `size / 16`(20px→1.25 = `NODE_CHROME_STROKE_SCREEN_PX`, 32px→2).
 user-space 두께는 `screenPx × viewBox / size`로 역산한 값이라, 파일에 적힌 `stroke-width`를 그대로
 읽으면 틀린다.
 
 **판정 절차.** 아이콘을 옮길 때는 자산 파일이 아니라 **그 아이콘을 쓰는 컴포넌트**를 먼저 읽는다.
-(1) 그 이름의 인라인 글리프가 있는지, (2) 색을 정하는 기제가 무엇인지, (3) 노드 캔버스 안이면
+(1) 그 이름의 인라인 글리프가 있는지, (2) 색을 정하는 기제가 무엇인지, (3) 캔버스 안이면
 화면 두께가 얼마인지 — 셋을 확인한 뒤에 그린다.
 
 **Figma로 옮길 때.** Figma에서 아이콘 프레임을 `resize()`로 줄이면 **획 두께는 따라 줄지 않는다.**
 32 격자에 획 2.4인 글리프를 20px 자리에 놓으면 제품의 실효 1.5px 대신 2.4px이 남는다. `rescale()`을
-쓰거나 배치 뒤 `strokeWeight × (표시 크기 / 원본 viewBox)`로 다시 계산한다. 노드 캔버스 안이면
+쓰거나 배치 뒤 `strokeWeight × (표시 크기 / 원본 viewBox)`로 다시 계산한다. 캔버스 안이면
 비례식이 아니라 위의 고정 두께표를 쓴다.
 
 ## Acceptance tests

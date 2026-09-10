@@ -140,7 +140,7 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 | --- | --- |
 | `mask-image` + 배경색 소비 | npm 패키지가 소유할 수 없는 URL에 의존하고, 아이콘당 요청 1건이며, forced-colors에서 무너지고, stroke 계약을 소비 시점에 게이트할 수 없다 |
 | SVG sprite | 외부 sprite는 소비 앱의 public 경로에 의존하고, 인라인 sprite는 전량 DOM 삽입이라 tree-shaking이 불가능하다 |
-| 12 / 13 / 14 / 15px | 4px 격자 밖. 제품 실측의 15px 다수는 노드 캔버스 국소값이다. 이관 시 16으로 수렴한다 |
+| 12 / 13 / 14 / 15px | 4px 격자 밖. 제품 실측의 15px 다수는 캔버스 국소값이다. 이관 시 16으로 수렴한다 |
 | 32px과 64px | 32는 정본 viewBox와 숫자가 같아 혼동을 만든다. 64는 빈 상태 컴포넌트가 생길 때 사유와 함께 추가한다 |
 | `vector-effect: non-scaling-stroke` | 아이콘 규범이 아니라 줌 컨텍스트의 국소 처방이다 |
 | 크기 variant를 가진 Figma component set | 정본 이중화 |

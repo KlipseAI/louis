@@ -1,4 +1,4 @@
-/* Node chip — 노드 캔버스의 메타 알약(모델·화면비·길이·해상도·사운드 등)
+/* Node chip — 캔버스의 메타 알약(모델·화면비·길이·해상도·사운드 등)
  *
  * 제품 정본은 node-canvas-v2 의 `--node-chrome-btn-*` 계열이다(VideoNode·ImageNode·BgmNode·
  * TtsNode 네 벌에 같은 값이 복제돼 있었다): 높이 32 · 좌우 패딩 10 · 반경 12 · 사이 간격 4,

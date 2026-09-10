@@ -4002,7 +4002,7 @@
                     "parts": null,
                     "tag": "span",
                     "line": 655,
-                    "text": "노드 캔버스",
+                    "text": "캔버스",
                     "values": {
                       "height": "21px",
                       "minHeight": "auto",
@@ -11664,7 +11664,7 @@
                         "parts": null,
                         "tag": "span",
                         "line": 204,
-                        "text": "노드 캔버스",
+                        "text": "캔버스",
                         "values": {
                           "height": "16.7969px",
                           "minHeight": "auto",
@@ -12114,7 +12114,7 @@
     {
       "id": "project-card/nodeCanvasHome",
       "kind": "project-card",
-      "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
+      "label": "캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
       "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1355-1595",
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "tree": {
@@ -13772,7 +13772,7 @@
     {
       "id": "skeleton/analysisModalIg",
       "kind": "skeleton",
-      "label": "노드 캔버스 분석 모달 · 인스타그램 로딩 뼈대",
+      "label": "캔버스 분석 모달 · 인스타그램 로딩 뼈대",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:616-670",
       "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
       "tree": {
@@ -16382,7 +16382,7 @@
     {
       "id": "tooltip/chromeTooltip",
       "kind": "tooltip",
-      "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·노드 캔버스)",
+      "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·캔버스)",
       "jsx": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:293-304",
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx",
       "tree": {

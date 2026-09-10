@@ -41,7 +41,7 @@ authority: normative
 | 벌 | 프레임 | 제목 띠 | 더보기 | 모서리 슬롯 |
 | --- | --- | --- | --- | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:18`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음(사유 기록됨) |
-| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:264`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
+| 캔버스 홈 (`NodeCanvasHomeScene.tsx:264`) | `louis-project-card` | 정본 | 정본 | 앵커라 얹지 않음 |
 | 하이라이트 허브 (`highlightSceneStyles.ts:725`) | `louis-project-card` | 정본 | 정본 | **정본**(`:946`, top-start 상태 칩) |
 | 비디오 에디터 허브 (`VideoEditScene.tsx:230`) | **자체** | 자체 | 자체(`:298`) | 자체(`:271`) |
 
@@ -65,7 +65,7 @@ authority: normative
 | 벌 | 정본 채택 | 반경 | 밑줄 |
 | --- | --- | ---: | --- |
 | 앱 홈 (`appHomeSceneStyles.ts:340`) | `louis-project-card-rename` | **2** | 없음 |
-| 노드캔버스 홈 (`NodeCanvasHomeScene.tsx:401`) | `louis-project-card-rename` | **2** | 없음 |
+| 캔버스 홈 (`NodeCanvasHomeScene.tsx:401`) | `louis-project-card-rename` | **2** | 없음 |
 | 하이라이트 허브 (`highlightSceneStyles.ts:1040`) | **얹지 않는다** | 0 | `border-bottom: 1px solid palette-gray-400` (다크 `gray-500`) |
 | 비디오 에디터 허브 (`VideoEditScene.tsx:401`) | 얹지 않는다(프레임부터 자체) | 0 | 같은 선언 |
 

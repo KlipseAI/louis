@@ -55,7 +55,7 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 제품 정본 — auth 브랜드 패널의 면은 `bg-accent-primary`에 `/footer-logo-bg.svg`를 얹고 테마 분기가 없다
 (`AuthStatusCard.tsx:27-30` · `login/page.tsx:43-47` · `app/signup/page.tsx:37-40`). 그 위 슬로건 전경은
 `text-fg-inverse`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:41` · `login/page.tsx:63` ·
-`app/signup/page.tsx:51`). 같은 부류로 노드 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
+`app/signup/page.tsx:51`). 같은 부류로 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
 `--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:358-359`).
 
 **이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고

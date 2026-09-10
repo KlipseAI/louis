@@ -9,7 +9,7 @@
 
 ## 1) 적용 범위
 
-**적용 대상** — `apps/web` 의 랜딩·마케팅, 인증, 제품 앱(노드 캔버스 · 비디오 에디터 · 하이라이트 ·
+**적용 대상** — `apps/web` 의 랜딩·마케팅, 인증, 제품 앱(캔버스 · 비디오 에디터 · 하이라이트 ·
 아카이브 · 애널리틱스 · 계정/결제).
 
 **범위 밖 (2026-08 결정)**
@@ -217,7 +217,7 @@ _라우트 53개 — 전체 30 · 셸까지 16 · 토큰만 0 · 범위 밖 7 ·
 > **§7.5 미결정**에 올려 두었다. 정해지기 전까지는 위 표대로 한다.
 
 **적용 대상은 사이드바가 있는 화면**(`.gnb-wrapperSidebar` 가 body 안에 있을 때)이다 —
-§10.1 아카이브 · §10.7 계정 · §10.8 결제 · §10.9 노드 캔버스 · §10.10 비디오 에디터 ·
+§10.1 아카이브 · §10.7 계정 · §10.8 결제 · §10.9 캔버스 · §10.10 비디오 에디터 ·
 §10.11 하이라이트 · §10.12 애널리틱스·어드민. 랜딩 계열(§10.2~10.5)은 전역 램프를 쓴다.
 
 > **이걸 모르면 앱 화면 문서의 색이 전부 「한 단계 밀린 오류」로 보인다.** 실제로 그렇게 오판해
@@ -1363,7 +1363,7 @@ hover 는 `[&:hover]:` 로 옮겨져 **`@media (hover: hover)` 가드가 없다*
 | --- | --- | --- | --- | --- |
 | ① | 검색 `appNav.search` 「검색」/「Search」 | — | `/icons/MagnifyingGlass.svg` | CommandPalette 를 연다 |
 | ② | 홈 `appNav.archive` 「홈」/「Home」 | `/archive` | `/icons/House.svg` | **라우트명은 archive 인데 라벨은 「홈」이다** |
-| ③ | 노드 캔버스 「노드 캔버스」/「NodeCanvas」 | `/nodecanvas` | `/icons/Graph.svg` | 「+」 복합 행 |
+| ③ | 캔버스 「캔버스」/「NodeCanvas」 | `/nodecanvas` | `/icons/Graph.svg` | 「+」 복합 행 |
 | ④ | 비디오 에디터 「비디오 에디터」/「VideoEditor」 | `/videoeditor` | `/icons/MagicWand.svg` | 「+」 복합 행 |
 | ⑤ | 하이라이트 「하이라이트」/「Highlight」 | `/highlight` | `/highlight_symbol.svg` | 베타 칩 |
 | ⑥ | eyebrow 「분석」/「Analytics」 | — | — | 라벨 행 |
@@ -1444,7 +1444,7 @@ isLandingDemo ? true : normalizeUpgradePlanCode(billing?.current_plan_code) !== 
 
 전환은 전부 `320ms cubic-bezier(0.4,0,0.2,1)`, `prefers-reduced-motion` 에서 `0.01ms!`.
 
-#### 「+」 복합 행 — 노드 캔버스 · 비디오 에디터
+#### 「+」 복합 행 — 캔버스 · 비디오 에디터
 
 **이 두 행은 단순 링크가 아니라 좌우 2분할이다.** 왼쪽이 내비, 오른쪽이 24×24 「+」 버튼이다.
 
@@ -1464,7 +1464,7 @@ isLandingDemo ? true : normalizeUpgradePlanCode(billing?.current_plan_code) !== 
 
 **동작이 서로 다르다.**
 
-- 노드 캔버스 「+」 (`Gnb.tsx:4675-4690`) — `event.stopPropagation()` 후
+- 캔버스 「+」 (`Gnb.tsx:4675-4690`) — `event.stopPropagation()` 후
   `openCreateProjectModal(event.currentTarget)`. **`CreateProjectModal` 의 네 번째 트리거이며,
   모달의 모션 원점이 이 24×24 버튼의 rect 다.** 라벨 `messages.appNav.createNewCanvasProject`.
 - 비디오 에디터 「+」 (`Gnb.tsx:4739-4757`) — `void createVideoEditProject()`.
@@ -1630,7 +1630,7 @@ Blur `40px` 만 맞다 — 단 CSS 가 아니라 **세 마운트 지점 모두 �
 
 | # | 어디 | 위치 | 근거 |
 | --- | --- | --- | --- |
-| ① | `profileOnly` 분기(노드 캔버스 `ProjectHeader` 가 쓰는 경로) | `document.body` 포털, **트리거 기준 인라인 좌표** | `Gnb.tsx:3976`, `:4012-4041` |
+| ① | `profileOnly` 분기(캔버스 `ProjectHeader` 가 쓰는 경로) | `document.body` 포털, **트리거 기준 인라인 좌표** | `Gnb.tsx:3976`, `:4012-4041` |
 | ② | 일반 앱 GNB | `document.body` 포털, **트리거 기준 인라인 좌표** | `Gnb.tsx:5348-5379` |
 | ③ | `embedded`(랜딩 데모) | 포털 없음. `profilePopoverEmbedded` = `position:absolute · top:calc(100% + 8px) · right:0` | `Gnb.tsx:5154-5174`, `:1346-1352` |
 
@@ -1690,9 +1690,9 @@ Blur `40px` 만 맞다 — 단 CSS 가 아니라 **세 마운트 지점 모두 �
 `height:1px · margin:4px 10px · background: var(--profile-line-color)` ⇒ 내용 폭 228px 중 **208px** 만
 그어진다.
 
-### 6.5 Dropdown / Menu (App — 노드 캔버스 패턴)
+### 6.5 Dropdown / Menu (App — 캔버스 패턴)
 
-노드 캔버스에서 쓰는 **작은 드롭다운 패널**과 **열림·닫힘 모션**의 기준이다. 동일 토큰을 **대시보드 플랫폼 툴바 “더보기”(계정 전환·연동 해제)** 등에서 재사용한다.
+캔버스에서 쓰는 **작은 드롭다운 패널**과 **열림·닫힘 모션**의 기준이다. 동일 토큰을 **대시보드 플랫폼 툴바 “더보기”(계정 전환·연동 해제)** 등에서 재사용한다.
 
 **원천 파일 (`apps/web`):**
 
@@ -1999,7 +1999,7 @@ requestAnimationFrame(() => {
 
 ### 6.6 Node Canvas Chrome (App)
 
-`Create` 씬의 **노드 캔버스 화면 가장자리 3영역** — 좌상단 알약, 우상단 알약, 하단 ComposerBar — 과 노드 카드 외곽선의 토큰을 한 곳에서 관리한다. 셋의 **베이스 색은 동일 토큰**으로 묶여 있으므로 새로운 모서리 UI를 추가할 때도 같은 토큰을 따른다.
+`Create` 씬의 **캔버스 화면 가장자리 3영역** — 좌상단 알약, 우상단 알약, 하단 ComposerBar — 과 노드 카드 외곽선의 토큰을 한 곳에서 관리한다. 셋의 **베이스 색은 동일 토큰**으로 묶여 있으므로 새로운 모서리 UI를 추가할 때도 같은 토큰을 따른다.
 
 **원천 파일 (`apps/web`):**
 
@@ -2007,7 +2007,7 @@ requestAnimationFrame(() => {
 | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 좌상단 `projectHeaderBrandShell` / 우상단 `projectHeaderActionsShell` | `components/navigation/Gnb.tsx`, `components/scenes/create/ProjectHeader.tsx`                                                                             |
 | 하단 알약 — 컴포저 모드 (`COMPOSER_CARD`)                             | `components/scenes/create/ComposerBar.tsx` (`viewMode === "default"` 일 때 노출)                                                                          |
-| 하단 알약 — 노드 캔버스 모드 (`TOOLBAR_WRAP` in `TOOLBAR_ROW`)        | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx` · `components/scenes/create/node-canvas-v2/index.tsx` (`viewMode === "node"` 일 때 노출) |
+| 하단 알약 — 캔버스 모드 (`TOOLBAR_WRAP` in `TOOLBAR_ROW`)        | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx` · `components/scenes/create/node-canvas-v2/index.tsx` (`viewMode === "node"` 일 때 노출) |
 | 노드 카드 외곽선 SSOT                                                 | `components/scenes/create/node-canvas-v2/index.tsx` 의 `CANVAS_SHELL_BASE` — `[data-node-chrome="wrap"]` 후손 변형                                        |
 | 노드 카드 배경(노드별)                                                | 각 노드 TSX 의 `NODE_WRAP` 상수 (`components/scenes/create/node-canvas-v2/nodes/*.tsx`) — 모듈 CSS 는 전부 사라졌다                                       |
 
@@ -2024,7 +2024,7 @@ requestAnimationFrame(() => {
 | ------------------------------------------------- | ---------------------------------------- | --------------------------------------------- |
 | 상단 `BRAND_SHELL` · `ACTIONS_SHELL`              | 없음 (`bg-transparent`)                  | 동일                                          |
 | 하단 — 컴포저 모드 `COMPOSER_CARD`                | `rgb(var(--gray-800-rgb) / 100%)`        | `rgb(var(--palette-gray-100-rgb) / 100%)`     |
-| 하단 — 노드 캔버스 모드 `TOOLBAR_WRAP`            | `rgb(var(--gray-800-rgb) / 70%)` + 블러  | `rgb(var(--palette-gray-100-rgb) / 70%)`      |
+| 하단 — 캔버스 모드 `TOOLBAR_WRAP`            | `rgb(var(--gray-800-rgb) / 70%)` + 블러  | `rgb(var(--palette-gray-100-rgb) / 70%)`      |
 
 - `COMPOSER_CARD` 는 불투명 면 + **6.1절** 글래스 이너 2줄. 누름은 `COMPOSER_CARD_PRESSED`.
 - `TOOLBAR_WRAP` 은 **70% 알파 + `backdrop-filter: blur(4px)`** 로 캔버스가 비쳐 보이는
@@ -2365,7 +2365,7 @@ CSS Module 클래스**를 파일별로 정리한 목록이다. 신규 버튼은 
 
 - `submitButton`(login/signup), `primaryButton`/`secondaryButton`(AuthStatusCard), `LEGAL_VIEW_BUTTON`(signup) — **모두 `border-radius: 12px`** 로 통일. 과거 pill(`999px`) 사용 패턴 제거.
 
-### 6.9 Node Anatomy (Create — 노드 캔버스 V2 카드)
+### 6.9 Node Anatomy (Create — 캔버스 V2 카드)
 
 **6.6** 이 노드 카드의 *면·외곽선 토큰*을 다룬다면, 이 절은 그 카드가 **무엇으로 이루어지고 어떤 순서로 쌓이는지**를 다룬다 — 부품, 세로 리듬, 동심원 곡률, 사이드 컨트롤 좌표, 줌 역보정. 노드 8종이 이 구조를 공유하므로, 새 노드는 여기서 시작한다.
 
@@ -2680,7 +2680,7 @@ CSS Module 클래스**를 파일별로 정리한 목록이다. 신규 버튼은 
 
 | 파일 | 무엇 | 왜 헷갈리나 |
 | --- | --- | --- |
-| `components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx` | 노드 캔버스 생성 FAB | 같은 `--button-radius` · 같은 그라디언트 토큰 · 같은 `inset 0 0 8px` 오버레이를 쓰지만 치수는 `h-16`/`min-w-16`/`px-4`(높이 32px · 최소폭 32px · 좌우 8px)이고 프레스 스케일이 0.95 다. **`Button size="sm"` 과 가장 혼동하기 쉽다** |
+| `components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx` | 캔버스 생성 FAB | 같은 `--button-radius` · 같은 그라디언트 토큰 · 같은 `inset 0 0 8px` 오버레이를 쓰지만 치수는 `h-16`/`min-w-16`/`px-4`(높이 32px · 최소폭 32px · 좌우 8px)이고 프레스 스케일이 0.95 다. **`Button size="sm"` 과 가장 혼동하기 쉽다** |
 | `components/ui/VideoPlayer.tsx` | 재생 컨트롤 | 파일 안에서 `--button-radius` 를 쓰는 32×32(`w-16 h-16`) 로컬 버튼 크롬을 여러 벌 따로 정의한다 |
 
 그 밖에 primary 그라디언트를 로컬로 재구현한 파일이 더 있다(`admin/BlogManagement.tsx` · `admin/TemplateManagement.tsx` · node-canvas-v2 의 `InstagramNode` · `YoutubeNode` · `EditNode` · `VideoEditModal`). 새 화면에서 파란 채움 버튼이 필요하면 **먼저 `ui/Button` 을 본다.**
@@ -3159,7 +3159,7 @@ Image · Video · Edit · Tts · Bgm **다섯 노드가 바이트 동일한 배�
 
 ### 6.13 앱 페이지 셸 (App Page Shell — 사이드바 우측 메인 영역)
 
-**6.3** 이 좌측 사이드바 *안쪽*을 다룬다면, 이 절은 **사이드바 오른쪽 전부**를 다룬다 — 카드가 어느 요소에 걸리는지, 뷰포트 여백을 누가 만드는지, 무엇이 스크롤하는지, 720px 아래에서 무엇이 사라지는지. 로그인 후 화면 대부분(홈·아카이브·노드캔버스 허브·대시보드·마이페이지·설정·구독·영상 편집·어드민)이 이 셸을 공유한다.
+**6.3** 이 좌측 사이드바 *안쪽*을 다룬다면, 이 절은 **사이드바 오른쪽 전부**를 다룬다 — 카드가 어느 요소에 걸리는지, 뷰포트 여백을 누가 만드는지, 무엇이 스크롤하는지, 720px 아래에서 무엇이 사라지는지. 로그인 후 화면 대부분(홈·아카이브·캔버스 허브·대시보드·마이페이지·설정·구독·영상 편집·어드민)이 이 셸을 공유한다.
 
 **원천 파일 (`apps/web`):**
 
@@ -3373,7 +3373,7 @@ Image · Video · Edit · Tts · Bgm **다섯 노드가 바이트 동일한 배�
 
 #### 카드에서 빠지는 화면 (opt-out)
 
-**CreateScene 의 `viewMode === "node"`(노드 캔버스 편집 화면)은 앱 카드 셸을 쓰지 않는다.** 루트는 `[background: var(--app-page-bg)] h-[100svh] min-h-[100svh] overflow-hidden` 이고 `margin-left` 오프셋도 `appMainCardChrome*` 도 없다. 사이드바 대신 `create/ProjectHeader.tsx` 가 상단 크롬을 담당한다(**6.3절**의 `PROFILE_SLOT` 이 여기다). 좌우 여백만 셸 토큰을 재사용한다 — `<main>` 이 `pl-[var(--app-gnb-main-inline-padding)] pr-[var(--app-gnb-main-inline-padding-end)]`(16/12px), ≤720px 에서 `pt-32`(64px) `pb-10`(20px), ≤480px `pb-6!`(12px).
+**CreateScene 의 `viewMode === "node"`(캔버스 편집 화면)은 앱 카드 셸을 쓰지 않는다.** 루트는 `[background: var(--app-page-bg)] h-[100svh] min-h-[100svh] overflow-hidden` 이고 `margin-left` 오프셋도 `appMainCardChrome*` 도 없다. 사이드바 대신 `create/ProjectHeader.tsx` 가 상단 크롬을 담당한다(**6.3절**의 `PROFILE_SLOT` 이 여기다). 좌우 여백만 셸 토큰을 재사용한다 — `<main>` 이 `pl-[var(--app-gnb-main-inline-padding)] pr-[var(--app-gnb-main-inline-padding-end)]`(16/12px), ≤720px 에서 `pt-32`(64px) `pb-10`(20px), ≤480px `pb-6!`(12px).
 
 #### 새 앱 페이지를 만들 때 놓치기 쉬운 것
 
@@ -3738,7 +3738,7 @@ div (INPUT_GROUP — 스택 그룹일 때만)
 
 #### 로딩 ① — 리스트 페이지는 스켈레톤이 아니라 **시머 단어**다
 
-아카이브·노드캔버스 허브·영상 편집 프로젝트 목록은 첫 로딩에 스켈레톤을 그리지 않는다. 가운데 텍스트 한 줄의 글자 자체가 그라디언트로 채워져 쓸린다.
+아카이브·캔버스 허브·영상 편집 프로젝트 목록은 첫 로딩에 스켈레톤을 그리지 않는다. 가운데 텍스트 한 줄의 글자 자체가 그라디언트로 채워져 쓸린다.
 
 - 컨테이너: `min-h-[480px] flex items-center justify-center py-40 px-0` → **최소 높이 480px, 패딩 80px 0**.
 - 라벨: **`type-heading-28-medium`**.
@@ -4289,7 +4289,7 @@ Bgm / Tts / Video / Text 는 `flex-[1_1_auto]`(남는 폭을 타이틀이 먹음
 
 ### 페이지 피드백: 토스트 z-index 가 세 값이다
 
-1300(글래스) · 2000(솔리드 알약) · 1400(EditorProjectWorkspace 오류 토스트). 모달 오버레이는 1200 이다. 페이지 레벨 오버레이의 z 스케일이 문서화돼 있지 않으므로, 하나를 정하고 **토스트가 모달·드롭다운·노드 캔버스 크롬에 대해 어디 서는지** 명시해야 한다(위 "z-index 계층" 항목과 함께 정리).
+1300(글래스) · 2000(솔리드 알약) · 1400(EditorProjectWorkspace 오류 토스트). 모달 오버레이는 1200 이다. 페이지 레벨 오버레이의 z 스케일이 문서화돼 있지 않으므로, 하나를 정하고 **토스트가 모달·드롭다운·캔버스 크롬에 대해 어디 서는지** 명시해야 한다(위 "z-index 계층" 항목과 함께 정리).
 
 ### 페이지 피드백: 토스트 유지 시간이 세 값이다
 
@@ -4311,7 +4311,7 @@ Bgm / Tts / Video / Text 는 `flex-[1_1_auto]`(남는 폭을 타이틀이 먹음
 
 ### 페이지 피드백: 페이지 빈 상태 레이아웃이 네 가지다
 
-**A** 제목 + 본문(+ 선택 CTA), 간격 12px, 패딩 80px 0 — 아카이브·노드캔버스 허브. **B** 문단 하나 + primary CTA, 간격 16px, 패딩 64px 0, 색 `--palette-gray-500` — `VideoEditScene:187-190`. **C** 가운데 문단 하나, 패딩 80px 0, `--text-soft`, max-width 1120px — `app/templates/page.tsx:68-73`. **D** 테두리 패널(제목 + 메시지) — `AnalyticsStatePanel`.
+**A** 제목 + 본문(+ 선택 CTA), 간격 12px, 패딩 80px 0 — 아카이브·캔버스 허브. **B** 문단 하나 + primary CTA, 간격 16px, 패딩 64px 0, 색 `--palette-gray-500` — `VideoEditScene:187-190`. **C** 가운데 문단 하나, 패딩 80px 0, `--text-soft`, max-width 1120px — `app/templates/page.tsx:68-73`. **D** 테두리 패널(제목 + 메시지) — `AnalyticsStatePanel`.
 
 **D 를 '섹션 빈 상태'라는 별도 컴포넌트로 둘지, A 가 흡수할지 결정 필요.**
 
@@ -4368,7 +4368,7 @@ NodeCanvasHomeScene · VideoEditScene 에는 있고 AppHomeScene · `app/templat
 | §10.6 | 인증 | 9개 | [`design/pages/10.6.md`](product-screens/10.6.md) (1,069줄) | 0 | 10 | 8 |
 | §10.7 | 계정·설정 | 3개 | [`design/pages/10.7.md`](product-screens/10.7.md) (1,657줄) | 0 | 19 | 9 |
 | §10.8 | 결제·충전 | 9개 | [`design/pages/10.8.md`](product-screens/10.8.md) (1,321줄) | 0 | 12 | 4 |
-| §10.9 | 노드 캔버스 | 1개 | [`design/pages/10.9.md`](product-screens/10.9.md) (3,629줄) | 0 | 27 | 21 |
+| §10.9 | 캔버스 | 1개 | [`design/pages/10.9.md`](product-screens/10.9.md) (3,629줄) | 0 | 27 | 21 |
 | §10.10 | 비디오 에디터 | 2개 | [`design/pages/10.10.md`](product-screens/10.10.md) (3,033줄) | 0 | 17 | 23 |
 | §10.11 | 하이라이트 | 3개 | [`design/pages/10.11.md`](product-screens/10.11.md) (2,286줄) | 0 | 15 | 13 |
 | §10.12 | 애널리틱스·어드민 | 3개 | [`design/pages/10.12.md`](product-screens/10.12.md) (1,873줄) | 0 | 18 | 21 |

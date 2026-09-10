@@ -18,7 +18,7 @@ authority: normative
 | 정의 | 파일 | 반경 |
 | --- | --- | ---: |
 | 앱 홈 | `appHomeSceneStyles.ts` `archiveCard` | 16px |
-| 노드캔버스 홈 | `NodeCanvasHomeScene.tsx` `ARCHIVE_CARD` | 16px |
+| 캔버스 홈 | `NodeCanvasHomeScene.tsx` `ARCHIVE_CARD` | 16px |
 | 하이라이트 허브 | `highlightSceneStyles.ts` `historyCard` | 16px |
 | 비디오 에디터 허브 | `VideoEditScene.tsx` `HISTORY_CARD` | 16px |
 

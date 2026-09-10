@@ -42,7 +42,7 @@ authority: normative
 - **알파 틴트 보존을 택하지 않았다.** `static-black/white-alpha`를 순수 흑/백으로 두어(이전 #171b22/
   #fafafa 틴트 제거) 오버레이·호버·헤어라인의 알파가 순수 흑/백이 된다 — 저알파라 거의 안 보이지만
   전 표면에 걸린다. owner가 "SEED식 순수 알파"를 택했다.
-- **hue 계열을 지우지 않았다.** `mint/yellow/violet/pink`는 노드 캔버스 7종 accent identity라 유지한다.
+- **hue 계열을 지우지 않았다.** `mint/yellow/violet/pink`는 캔버스 7종 accent identity라 유지한다.
 
 ## Consequences
 

@@ -4,7 +4,7 @@ import { type OverlayAlign, type OverlaySide } from "../overlay/positioner.js";
  * 표면에 담기는 것이 달라지는 축. 크기 사다리가 아니다.
  *
  * `base` 는 포인터를 따라다니는 한 줄 설명이고, `coachmark` 는 대상에 붙어 함께 움직이는
- * 제목/본문 두 줄 안내다. 제품 정본은 노드 캔버스의 `CanvasFirstNodeHint` 로, React Flow 의
+ * 제목/본문 두 줄 안내다. 제품 정본은 캔버스의 `CanvasFirstNodeHint` 로, React Flow 의
  * `ViewportPortal` 안에서 flow 좌표로 놓여 캔버스와 함께 팬·줌된다.
  */
 export type TooltipLayout = "base" | "coachmark";

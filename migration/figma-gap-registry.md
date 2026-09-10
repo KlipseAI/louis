@@ -50,9 +50,9 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | **탭 배너 캐러셀** — *해소. LOUIS `banner-carousel` 이 소유한다* | 앱 홈 | `components/scenes/appHomeSceneStyles.ts:913`(`updateBanner`) |
 | **배너 컨트롤 (화살표 + 진행 도트)** — *해소* | 앱 홈 | `components/scenes/appHomeSceneStyles.ts:415`(`bannerControls`) · `:394` · `:436` · `:443` |
 | **업로드 진행바 (determinate)** | 하이라이트 상세 · 숏폼 클립 편집 | `components/scenes/HighlightProjectScene.tsx:2652` |
-| **사이드바 브랜드 워드마크 행** | 앱 홈 · 노드캔버스 허브 | `components/navigation/Gnb.tsx:4377` |
+| **사이드바 브랜드 워드마크 행** | 앱 홈 · 캔버스 허브 | `components/navigation/Gnb.tsx:4377` |
 | **복합 내비 행 + 인셋 생성(+) 버튼** | 하이라이트 허브 · 비디오에디터 허브 | `components/navigation/Gnb.tsx:4743` |
-| **사이드바 하단 '보관함' 버튼** | 앱 홈 · 노드캔버스 허브 | `components/navigation/Gnb.tsx:5015` |
+| **사이드바 하단 '보관함' 버튼** | 앱 홈 · 캔버스 허브 | `components/navigation/Gnb.tsx:5015` |
 
 ### 한 화면 전용 — 42종
 
@@ -74,17 +74,17 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 진입 로딩 시머 텍스트 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:1189` |
 | 업로드 카드 셸 (인플로우 960×240 / 하단 고정 400×140 두 변형) | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:885` |
 | 업로드 드롭존 버튼 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:895` |
-| 점 격자 배경 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:11` |
-| 도움말 버튼 점 뱃지 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/index.tsx:11136` |
-| 하단 플로팅 툴바 알약 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:269` |
-| 프로젝트명 인라인 이름 편집 | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:507` |
-| 프로젝트 헤더 크롬 (프로그레시브 블러 + 글래스 브랜드 셸) | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:454` |
-| 저장 상태 클라우드 글리프 | 노드캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:559` |
-| 툴바 그라디언트 구분선 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:99` |
-| 줌 비율 트리거 알약 | 노드캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx:145` |
-| 앱 셸 레이아웃(좌측 레일 예약 + 우측 메인 카드 + 카드 안 스크롤 루트) | 노드캔버스 허브 | `components/scenes/NodeCanvasHomeScene.tsx:86` |
-| 잔여 크레딧 진행 바 | 노드캔버스 허브 | `components/navigation/Gnb.tsx:3175` |
-| 사이드바 복합 내비 행(내비 + 인셋 생성 버튼) | 노드캔버스 허브 | `components/navigation/Gnb.tsx:4626` |
+| 점 격자 배경 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:11` |
+| 도움말 버튼 점 뱃지 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/index.tsx:11136` |
+| 하단 플로팅 툴바 알약 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:269` |
+| 프로젝트명 인라인 이름 편집 | 캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:507` |
+| 프로젝트 헤더 크롬 (프로그레시브 블러 + 글래스 브랜드 셸) | 캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:454` |
+| 저장 상태 클라우드 글리프 | 캔버스 에디터 | `components/scenes/create/ProjectHeader.tsx:559` |
+| 툴바 그라디언트 구분선 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:99` |
+| 줌 비율 트리거 알약 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx:145` |
+| 앱 셸 레이아웃(좌측 레일 예약 + 우측 메인 카드 + 카드 안 스크롤 루트) | 캔버스 허브 | `components/scenes/NodeCanvasHomeScene.tsx:86` |
+| 잔여 크레딧 진행 바 | 캔버스 허브 | `components/navigation/Gnb.tsx:3175` |
+| 사이드바 복합 내비 행(내비 + 인셋 생성 버튼) | 캔버스 허브 | `components/navigation/Gnb.tsx:4626` |
 | 결과 액션 2열 그리드 (YouTube 업로드 primary + 다운로드·다시 편집 soft ghost) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:253` |
 | 레이아웃 프리셋 칩 + 9:16 미니 다이어그램 | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:371` |
 | 결과 메타데이터 정의 목록 (비율/길이/해상도/용량/형식, 행 사이 상단 구분선) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:1284` |
@@ -367,7 +367,7 @@ DS는 의도한 값을 채택한다. `color-accent-primary`가 이미 `#0088ff`�
 
 #### 아이콘도 없다
 
-카탈로그 29개에 노드 캔버스 · 비디오 에디터 · 하이라이트 · 분석 아이콘이 없다. `magic-wand`는
+카탈로그 29개에 캔버스 · 비디오 에디터 · 하이라이트 · 분석 아이콘이 없다. `magic-wand`는
 이 문서가 이미 *"−45° 회전 rect라 `transform` 없이 표현되지 않는다 · 이관 보류"*로 적어 두었고,
 그 처분이 사이드바의 선행 조건이 됐다.
 
@@ -448,7 +448,7 @@ Home을 실제로 다시 조립해야 나오는 숫자이고, 여기서는 근�
 7순위와 8순위를 채택하기 전에 제품을 전수로 다시 셌다. 두 항목 모두 **처음 센 숫자가 적었다.**
 
 **TextField / Input — 공용 구현 0, 정의 약 40벌, 5계열.** 처음엔 "에디터 16 · 하이라이트 3"으로
-적었으나 인증·설정·블로그·문의·노드 캔버스까지 합치면 그보다 훨씬 넓다.
+적었으나 인증·설정·블로그·문의·캔버스까지 합치면 그보다 훨씬 넓다.
 
 | 계열 | 벌 | 시각적 필드가 무엇인가 |
 | --- | ---: | --- |
@@ -456,7 +456,7 @@ Home을 실제로 다시 조립해야 나오는 숫자이고, 여기서는 근�
 | B. 테두리 보이는 박스 | 5 | `<input>` 자신 |
 | C. 테두리 없는 채운 면 | 9 | `<input>` 자신 (배경만) |
 | D. 투명 인라인 rename | 8 | 없음 (제자리 편집) |
-| E. 노드 캔버스 프롬프트 | 5 | `<textarea>` 자신 |
+| E. 캔버스 프롬프트 | 5 | `<textarea>` 자신 |
 
 **포커스 표현이 통일돼 있지 않다.** 인증 계열은 outline을 쓰지 않고 wrapper의 border-color를
 바꾸며 `box-shadow: inset 0 0 0 1px`로 테두리를 두껍게 보이게 한다. `outline: 2px solid
@@ -519,7 +519,7 @@ Spinner 레시피 5종, PaneDivider 6선언.
 | 3 | **Toast** | 3/3 | **20 파일** | 같은 이유. 카탈로그에 규범조차 없다 |
 | 4 | **Menu / Popover** | 3/3 | 서피스 정의 3벌 | 코드에 ActionMenu가 있으나 Figma component가 없다. 임의 좌표 앵커 변형이 추가로 필요 |
 | 5 | **Dialog** | 3/3 | 직접 import 8곳 | 코드에 있고 Figma에 없다. DS-F-006 대상 |
-| 6 | **ProjectCard** | 3/3 | 정의 **4벌** | 앱 홈·노드캔버스 홈·하이라이트 허브·에디터 허브. **web·figma partial**(2026-08-16) — 네 벌의 기하가 같아 그 값을 정본으로 옮겼다. parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다 |
+| 6 | **ProjectCard** | 3/3 | 정의 **4벌** | 앱 홈·캔버스 홈·하이라이트 허브·에디터 허브. **web·figma partial**(2026-08-16) — 네 벌의 기하가 같아 그 값을 정본으로 옮겼다. parity 게이트가 자손 기하·타이포·흐림·자식 순서를 대조한다 |
 | 7 | **TextField / Input** | 2/3 | **약 40벌 · 5계열** | 공용 구현 0. **web·figma partial**(2026-08-16) |
 | 8 | **EmptyState** | 3/3 | **9벌**(살아 있는 것 8) | 홈 2 · 하이라이트 2(그중 1은 죽은 분기) · 에디터 **5**. **web·figma partial**(2026-08-16) — 9벌이 합의하는 축은 "면을 갖지 않는다" 하나뿐이고 그것을 옮겼다 |
 | 9 | **Badge / StatusBadge** | 3/3 | **65벌** | **web·figma partial**(2026-08-17). "톤 4 + 상태 5"는 **둘 다 틀렸다** — 네 톤 클래스의 선언이 바이트 단위로 같고, 앱 홈 4변형의 색이 전부 `var(--gray-400)`다. 두 축 다 죽어 있었다 |
@@ -860,7 +860,7 @@ INSTANCE_SWAP으로 열고 계약에 넣었다.
 - 카드 썸네일이 비어 있다. 이미지 자산은 이 저장소가 소유하지 않는다.
 - 사이드바 토글 아이콘이 제품과 다르다 — 전용 글리프가 카탈로그에 없어 `arrows-left-right`로
   대신한다.
-- 허브 템플릿 셋(노드캔버스 · 비디오에디터 · 하이라이트)이 남았다.
+- 허브 템플릿 셋(캔버스 · 비디오에디터 · 하이라이트)이 남았다.
 
 
 ## 방향을 뒤집었다 — 제품이 선언한 것을 기계가 열거한다 (2026-08-19)

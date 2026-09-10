@@ -366,7 +366,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 
 ### 세로 배치와 flip
 
-**기본 세로 배치는 트리거 위쪽이다.** 제품의 노드 캔버스 계열 패널은 앵커에서 `bottom: calc(100% + gap)`으로
+**기본 세로 배치는 트리거 위쪽이다.** 제품의 캔버스 계열 패널은 앵커에서 `bottom: calc(100% + gap)`으로
 서고(`BgmNode.tsx:244`, `Toolbar.tsx:110`), 위쪽 여유가 모자랄 때만 아래로 flip해 `top: calc(100% + gap)`으로
 간다(`metaDropdownViewport.ts:4-5`, `MetaDropdownPanel.tsx:314-322`). Properties 표의 `placement` 기본값
 `bottom`은 이 계열과 **정반대**다. 기본값을 그대로 그리면 패널이 트리거 아래로 뒤집혀 캔버스 노드를 덮는다.

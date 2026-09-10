@@ -260,7 +260,11 @@ const CAPTURE = {
   "SelectTrigger": {"key":{"by":["Size"]},"parts":{"Glyph":["width","height"],"Caret":["width","height"]},"effects":["self"]},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
   "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},
-  "SidebarNavItem": {"key":{"name":"navItem"},"parts":{"Icon":["width","height"]}},
+  // **Collapsed 축으로 가른다.** 한 바구니에 담으면 펼침(좌 8)과 접힘(좌 0)이 섞여
+  // `paddingInline: [8, 0]` 이 되고, parity 는 「variant 마다 다르다」로 죽는다.
+  // 원장이 이미 `navItem` · `navItemCollapsed` 로 갈라져 있으므로 `map` 으로 그 이름에 맞춘다
+  // (SidebarBrand 는 원장 키가 `false`/`true` 라 map 없이 축 값을 그대로 쓴다).
+  "SidebarNavItem": {"key":{"by":["Collapsed"],"map":{"false":"navItem","true":"navItemCollapsed"}},"parts":{"Icon":["width","height"]}},
   "SidebarNavRow": {"key":{"name":"navRow"},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","itemSpacing","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd"],"parts":{"Item":["height"],"Action":["width","height"]},"childOrder":true},
   "Skeleton": {"key":{"by":["Shape"]}},
   "Slider": {"key":{"by":["Size","Variant"]},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Control":["width","height"],"Rail":["width","height"],"Fill":["width","height"],"Thumb":["width","height"]},"strokes":["Thumb"],"outsideParts":["FocusRing"]},
@@ -524,12 +528,15 @@ for (const name of Object.keys(SPEC)) {
     // \`lg/floating/start\` 로 늘리기 위해서다. 축을 통째로 키에 넣으면 기존 네 키가 전부
     // 개명되고, 그 개명은 계약·브라우저 테스트·제품 대조 핀까지 따라 움직인다 (DS-D-0052).
     const omitted = spec.key.omit || {};
+    // \`map\` 은 축 값을 **원장 키 이름으로** 옮긴다. 축 이름과 원장 키가 다른데 축은 갈라야
+    // 하는 경우다 — SidebarNavItem 의 Collapsed=false/true 가 navItem/navItemCollapsed 다.
+    const mapped = spec.key.map || {};
     const key = spec.key.name !== undefined
       ? spec.key.name
       : spec.key.by
           .map((axis) => [axis, variantValues(variant)[axis]])
           .filter((pair) => pair[1] !== omitted[pair[0]])
-          .map((pair) => pair[1])
+          .map((pair) => mapped[pair[1]] !== undefined ? mapped[pair[1]] : pair[1])
           .join("/");
     if (!bags[key]) { bags[key] = { slots: {}, parts: {}, root: {}, weights: [], overflowing: [], childOrder: null }; order.push(key); }
     const bag = bags[key];

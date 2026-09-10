@@ -47,7 +47,8 @@ test("SidebarNavItem의 구조값이 components.measured.json과 같다", async 
   const style = getComputedStyle(item);
 
   expect(round(item.getBoundingClientRect().height), "height").toBe(spec.height);
-  expect(px(style.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(style.paddingInlineStart), "paddingInlineStart").toBe(spec.paddingInlineStart);
+  expect(px(style.paddingInlineEnd), "paddingInlineEnd").toBe(spec.paddingInlineEnd);
   expect(px(style.columnGap), "gap").toBe(spec.gap);
   expect(px(style.borderTopLeftRadius), "radius").toBe(spec.radius);
   expect(round(find(".louis-sidebar-nav-item__icon").getBoundingClientRect().width), "icon").toBe(
@@ -124,7 +125,7 @@ test("접혀도 라벨이 DOM에 남는다", async () => {
   expect(getComputedStyle(label).display, "display로 지우지 않는다").not.toBe("none");
   expect(round(label.getBoundingClientRect().width), "시각에서는 1px").toBe(1);
 
-  expect(px(getComputedStyle(item).paddingInlineStart), "좌우 여백 0").toBe(spec.paddingInline);
+  expect(px(getComputedStyle(item).paddingInlineStart), "좌우 여백 0").toBe(spec.paddingInlineStart);
   // trailing은 접힘에서 사라진다 — 자리가 없다.
   expect(getComputedStyle(find(".louis-sidebar-nav-item__trailing")).display).toBe("none");
 });

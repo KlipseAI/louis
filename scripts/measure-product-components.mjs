@@ -423,7 +423,7 @@ const PROBES = [
     source: "Gnb.tsx menuSidebarCreateCompound — 내비 항목과 「+」가 한 줄을 나눠 쓰는 행",
     from: ["gnb", "menuLink", "menuSidebarCreateCompound"],
     wrapper: ["gnb-menu gnb-menuSidebar"],
-    read: ["columnGap"],
+    read: ["columnGap", "paddingLeft", "paddingRight"],
   },
   {
     id: "nav-row-action",
@@ -501,7 +501,7 @@ const PROBES = [
     doc: "hover",
     hover: true,
     text: "아카이브",
-    read: ["backgroundColor", "color"],
+    read: ["backgroundColor", "color", "paddingLeft", "paddingRight"],
   },
   {
     id: "nav-item-hover-light",
@@ -512,7 +512,7 @@ const PROBES = [
     doc: "hover-light",
     hover: true,
     text: "아카이브",
-    read: ["backgroundColor", "--palette-gray-300-rgb"],
+    read: ["backgroundColor", "--palette-gray-300-rgb", "paddingLeft", "paddingRight"],
   },
   {
     id: "sidebar-cta-light",
@@ -1818,12 +1818,12 @@ const EXPECT = [
   // `facdd3a`(2026-09-03, 소유자 결정)에서 `.louis-dialog` 의 곡률을 「안쪽 버튼에서 유도」로
   // 바꿔 `radius-control 12 + space-control-sm 8` = 20 을 내고 계약이 그 20 을 적는다.
   // 앵커가 움직여서 갈린 것이 아니다 — 옛 앵커 ae8fd627 의 렌더도 24 였다.
-  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "deviates",
-    "제품 24, DS 20. 제품 두 벌이 `.louis-dialog` 레시피가 아니라 `radius-overlay-lg`(24)를 직접 읽는다. LOUIS 는 facdd3a 에서 곡률을 안쪽 버튼에서 유도하도록 바꿔 20 이 됐다. **어느 쪽으로 모을지는 소유자 판정이다** — 제품이 `.louis-dialog` 를 채택하거나, LOUIS 가 24 로 되돌아가거나 둘 중 하나이며 둘 다 제품 픽셀 또는 소유자 결정을 건드린다."],
+  // 닫혔다 — 제품이 핀을 d963d1d 로 올리며 facdd3a(곡률을 안쪽 버튼에서 유도, 24 → 20)를
+  // 받았다. 소유자 판정을 기다리던 자리가 「제품이 `.louis-dialog` 를 채택한다」로 정해진 셈이다.
+  ["dialog-card", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
   ["dialog-card-mypage", "width", ["dialog", "sizes", "compact", "width"], "same"],
   ["dialog-card-mypage", "paddingTop", ["dialog", "sizes", "compact", "surfaceInset"], "same"],
-  ["dialog-card-mypage", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "deviates",
-    "위 `dialog-card` 와 같다 — 마이페이지 벌도 `radius-overlay-lg`(24)를 직접 읽는다. 두 벌의 기하가 같다는 사실 자체가 이 탐침의 목적이다."],
+  ["dialog-card-mypage", "borderTopLeftRadius", ["dialog", "sizes", "compact", "radius"], "same"],
   ["toast-highlight", "paddingTop", ["toast", "sizes", "base", "paddingBlock"], "same"],
   ["toast-highlight", "paddingLeft", ["toast", "sizes", "base", "paddingInline"], "same"],
   ["toast-highlight", "borderTopLeftRadius", ["toast", "sizes", "base", "radius"], "same"],
@@ -1910,11 +1910,11 @@ const EXPECT = [
 
   ["nav-item", "height", ["app-shell-parts", "sizes", "navItem", "height"], "same"],
   ["nav-item", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItem", "radius"], "same"],
-  ["nav-item", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
-  ["nav-item", "paddingRight", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
+  ["nav-item", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInlineStart"], "same"],
+  ["nav-item", "paddingRight", ["app-shell-parts", "sizes", "navItem", "paddingInlineEnd"], "same"],
   ["nav-item", "fontSize", ["app-shell-parts", "sizes", "navItem", "fontSize"], "same"],
   ["nav-item-collapsed", "width", ["app-shell-parts", "sizes", "navItemCollapsed", "height"], "same"],
-  ["nav-item-collapsed", "paddingLeft", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingInline"], "same"],
+  ["nav-item-collapsed", "paddingLeft", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingInlineStart"], "same"],
   ["sidebar-header-row", "columnGap", ["app-shell-parts", "sizes", "navItem", "gap"], "same"],
   ["sidebar-header-row", "minHeight", ["sidebar-brand", "sizes", "false", "height"], "same"],
   ["sidebar-logo-rail", "minHeight", ["sidebar-brand", "sizes", "false", "markSize"], "same"],
@@ -1967,7 +1967,7 @@ const EXPECT = [
   ["sidebar-cta-label-collapsed", "fontSize", ["sidebar-cta", "sizes", "true", "labelFontSize"], "same"],
   ["nav-item-inner", "columnGap", ["app-shell-parts", "sizes", "navItem", "gap"], "deviates",
     "제품 10, DS 8. 배포본은 행이 아니라 안쪽 상자가 이 간격을 갖고 값이 10이다. 10은 DS 간격 계단(4·8·12·16)에 없어 SelectableListRow와 같은 판단을 한다 — 한 컴포넌트를 위해 계단을 늘리지 않는다."],
-  ["nav-item-inner-collapsed", "columnGap", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingInline"], "same"],
+  ["nav-item-inner-collapsed", "columnGap", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingInlineStart"], "same"],
   ["top-bar-title", "fontSize", ["app-shell-parts", "sizes", "topBar", "titleFontSize"], "same"],
   ["top-bar-leading", "columnGap", ["app-shell-parts", "sizes", "topBar", "leadingGap"], "same"],
 
@@ -1981,10 +1981,9 @@ const EXPECT = [
   // 둘로 접으면서 알파 램프의 밑색을 **순수 #000/#fff** 로 못박았다. 그래서 DS ghost-hover 는
   // 255 다. 제품은 아직 자기 `palette-gray↔gray` 반전 램프(250)를 타는데, 같은 결정문 3항이
   // 그것을 **후속 Phase** 로 미뤄 두었다. 판정 대기가 아니라 이관 대기다.
-  ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
-    "제품 rgb(250 250 250 / 8%), DS rgb(255 255 255 / 8%). 제품은 자기 잉크 램프(palette-gray-000 = 250)를, DS 는 DS-D-0024 가 정한 static-white 알파 램프(255)를 탄다. 제품이 LOUIS 세만틱을 직접 소비하는 후속 Phase 에서 닫힌다 — 그 결정문 3항이 그 이관을 예고한다."],
-  ["nav-item-hover-light", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "deviates",
-    "라이트만 갈린다. 제품은 재매핑된 palette-gray-300을 50%로 덮고(rgb 228 229 233 / 0.5) DS는 ink 8%를 쓴다 — 면 계열에 매는 것과 잉크에 매는 것의 차이다. `action-ghost-hover`는 SelectableListRow와 공유하는 토큰이라 사이드바 하나 때문에 옮기지 않는다. 다크는 rgb(250 250 250 / 0.1)로 정확히 같다."],
+  // 닫혔다 — 결정문 DS-D-0024 3항이 예고한 이관이 끝나 제품과 DS 가 같은 알파 램프를 탄다.
+  ["nav-item-hover", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "same"],
+  ["nav-item-hover-light", "backgroundColor", ["app-shell-parts", "states", "navItem", "Hover", "background"], "same"],
 
   ["progress-bar-track", "height", ["progress-bar", "sizes", "base", "height"], "same"],
   ["progress-bar-track", "maxWidth", ["progress-bar", "sizes", "base", "maxInlineSize"], "same"],
@@ -2018,8 +2017,8 @@ const EXPECT = [
   // 시작했다(appHomeSceneStyles.archiveGrid). 제품이 고정한 핀 3ec5966 에서 그 토큰은 6px 이고
   // (`38db4ee` 가 6 으로 되튜닝했다), 이 저장소는 그 뒤 `23d66b6`(2026-09-04)에서 다시 4 로
   // 좁혀 계약이 4 를 적는다. 이름으로 읽는 쪽이므로 제품이 핀만 올리면 저절로 붙는다.
-  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "deviates",
-    "제품 6, DS 4. 제품이 고정한 LOUIS 핀 3ec5966 이 `layout-project-grid-gap`(6) 시절이고, 이 저장소는 23d66b6 에서 4 로 좁혔다. 제품은 토큰을 이름으로 읽으므로 핀을 그 커밋 뒤로 올리면 저절로 같아진다 — 그때 이 행을 `same` 으로 되돌린다."],
+  // 닫혔다 — 사유가 예고한 대로다. 제품이 핀을 d963d1d 로 올려 23d66b6(gap 6 → 4)를 받았다.
+  ["project-grid", "columnGap", ["project-card", "sizes", "base", "gridGap"], "same"],
   ["carousel-content", "height", ["banner-carousel", "sizes", "boxed", "height"], "same"],
   // 배너 화살표를 재던 대조 행 여덟(`carousel-arrow` 여섯 · `carousel-controls-filled` 둘)을 함께 내렸다 — 탐침이 없어졌으므로 이 행들은
   // 「EXPECT가 없는 탐침을 가리킵니다」로 측정기를 죽인다. 제품에 없어진 축이지
@@ -2040,11 +2039,13 @@ const EXPECT = [
   ["nav-item-collapsed", "paddingTop", ["app-shell-parts", "sizes", "navItemCollapsed", "paddingBlock"], "same"],
   ["nav-item-hover", "height", ["app-shell-parts", "sizes", "navItem", "height"], "same"],
   ["nav-item-hover", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItem", "radius"], "same"],
-  ["nav-item-hover", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
+  ["nav-item-hover", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInlineStart"], "same"],
+  ["nav-item-hover", "paddingRight", ["app-shell-parts", "sizes", "navItem", "paddingInlineEnd"], "same"],
   ["nav-item-hover", "paddingTop", ["app-shell-parts", "sizes", "navItem", "paddingBlock"], "same"],
   ["nav-item-hover-light", "height", ["app-shell-parts", "sizes", "navItem", "height"], "same"],
   ["nav-item-hover-light", "borderTopLeftRadius", ["app-shell-parts", "sizes", "navItem", "radius"], "same"],
-  ["nav-item-hover-light", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInline"], "same"],
+  ["nav-item-hover-light", "paddingLeft", ["app-shell-parts", "sizes", "navItem", "paddingInlineStart"], "same"],
+  ["nav-item-hover-light", "paddingRight", ["app-shell-parts", "sizes", "navItem", "paddingInlineEnd"], "same"],
   ["nav-item-hover-light", "paddingTop", ["app-shell-parts", "sizes", "navItem", "paddingBlock"], "same"],
   ["nav-row", "height", ["app-shell-parts", "sizes", "navRow", "height"], "same"],
   ["nav-row", "paddingTop", ["app-shell-parts", "sizes", "navRow", "paddingBlock"], "same"],
@@ -2052,6 +2053,8 @@ const EXPECT = [
     "제품 10, DS 0. 배포본은 복합 행이 곧 `menuLink`라 행이 선택 면과 반경을 갖는데, DS는 행이 껍데기이고 항목이 갖는다. 행에 두면 항목 하나를 다른 곳에 옮길 수 없다."],
   ["nav-row", "paddingLeft", ["app-shell-parts", "sizes", "navRow", "paddingInline"], "deviates",
     "제품 4, DS 0. 같은 이유다 — 좌우 여백도 항목이 갖는다. 행과 항목의 합은 두 쪽이 같다."],
+  ["nav-row", "paddingRight", ["app-shell-parts", "sizes", "navRow", "paddingInline"], "deviates",
+    "위 paddingLeft 와 같은 사유다. 행은 좌우 4 를 쓰고 DS 는 0 이다 — 복합 행이 곧 `menuLink` 인 배포본과, 행을 껍데기로 두는 DS 의 차이."],
   ["sidebar-header-row-collapsed", "gap", ["app-shell-parts", "sizes", "navItem", "gap"], "same"],
   ["sidebar-cta-current", "borderTopLeftRadius", ["sidebar-cta", "sizes", "false", "radius"], "same"],
   ["sidebar-cta-current", "paddingTop", ["sidebar-cta", "sizes", "false", "paddingBlock"], "same"],
@@ -2998,6 +3001,11 @@ function compare(measured, expect, exempt, collect) {
     );
   }
   for (const name of Object.keys(exempt)) {
+    // `$comment` 같은 메타 키는 컴포넌트 이름이 아니다. 이 저장소의 명부는 `$` 키로 자기
+    // 규칙을 적어 두고, 그것을 읽는 게이트는 그 키를 건너뛴다 — 같은 파일도 :3122 와 :3260
+    // 에서 그렇게 한다(verify-recipe-record.mjs:517 의 `$noRecipe` 도 같은 형태다).
+    // 이 루프만 그러지 않아 `$comment` 를 「components 에 없는 이름」으로 읽고 있었다.
+    if (name.startsWith("$")) continue;
     if (covered.has(name)) {
       failures.push(name + "은 이제 대조되는데 $noProductRender에 면제 사유가 남아 있습니다.");
     } else if (!measured[name]) {

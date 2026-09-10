@@ -1758,13 +1758,15 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "app-shell-parts",
-      sizeKey: "navItem",
+      // 접힘이 축이다 — 되읽기도 map 으로 이 두 이름에 맞춰 담는다.
+      sizeKeys: ["navItem", "navItemCollapsed"],
       fields: {
         height: "height",
         itemSpacing: "gap",
         cornerRadius: "radius",
-        paddingInline: "paddingInline",
-        paddingInlineEnd: "paddingInline",
+        // 좌우가 갈렸다 — 배포본이 시작 8 · 끝 4 를 쓴다(app-shell.css 의 사유 참조).
+        paddingInline: "paddingInlineStart",
+        paddingInlineEnd: "paddingInlineEnd",
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},

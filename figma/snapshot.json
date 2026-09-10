@@ -16017,6 +16017,9 @@
         "Glyph": {
           "type": "INSTANCE_SWAP"
         },
+        "HasTrailing": {
+          "type": "BOOLEAN"
+        },
         "State": {
           "type": "VARIANT",
           "options": [
@@ -16031,17 +16034,14 @@
             "false",
             "true"
           ]
-        },
-        "HasTrailing": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 7,
+        "boundFills": 13,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 3,
+        "textStyled": 9,
         "textUnstyled": 0
       },
       "geometry": {
@@ -16061,8 +16061,7 @@
             32
           ],
           "width": [
-            71,
-            28
+            75
           ],
           "paddingBlock": [
             0
@@ -16071,10 +16070,53 @@
             0
           ],
           "paddingInline": [
-            4
+            8
           ],
           "paddingInlineEnd": [
             4
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "navItemCollapsed": {
+          "slots": {},
+          "parts": {
+            "Icon": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            20
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
           ],
           "itemSpacing": [
             8
@@ -16157,12 +16199,12 @@
           "paddingBlockEnd": [
             0
           ],
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "childOrder": [
             "Item",
             "Action"
-          ]
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},

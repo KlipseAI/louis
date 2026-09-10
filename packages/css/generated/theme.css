@@ -72,6 +72,7 @@
   --color-bg-upgrade-hover: var(--louis-color-bg-upgrade-hover);
   --color-bg-warning: var(--louis-color-bg-warning);
   --color-brand-logo-ink: var(--louis-color-brand-logo-ink);
+  --color-canvas-dot: var(--louis-color-canvas-dot);
   --color-dim-modal: var(--louis-color-dim-modal);
   --color-fg-danger: var(--louis-color-fg-danger);
   --color-fg-danger-on-surface: var(--louis-color-fg-danger-on-surface);
@@ -136,7 +137,6 @@
   --color-node-audio-accent: var(--louis-color-node-audio-accent);
   --color-node-audio-icon: var(--louis-color-node-audio-icon);
   --color-node-audio-surface: var(--louis-color-node-audio-surface);
-  --color-node-canvas-dot: var(--louis-color-node-canvas-dot);
   --color-node-chip-fg-disabled: var(--louis-color-node-chip-fg-disabled);
   --color-node-chip-surface: var(--louis-color-node-chip-surface);
   --color-node-chip-surface-hover: var(--louis-color-node-chip-surface-hover);

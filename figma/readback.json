@@ -5440,6 +5440,23 @@
           ]
         ],
         [
+          "color/canvas-dot",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
           "color/dim-modal",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6846,23 +6863,6 @@
             [
               "Light",
               "Klipse Primitive::color/red/200",
-              null
-            ]
-          ]
-        ],
-        [
-          "color/node/canvas-dot",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-white-alpha/16",
-              null
-            ],
-            [
-              "Light",
-              "Klipse Primitive::color/static-black-alpha/12",
               null
             ]
           ]

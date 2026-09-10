@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "0fc8df6a02d05ef701b9f491fb346f9437529bd75c92c12ec916ae939a3cd9c0"
+      "sha256": "e80fc9199ec6a3371198d07dc213dcfd45a363209c680307a12642a89830f890"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "8b6b89d5cb2acea038c4acd7847edbb18eb461c79bb30e5f77f5b44836e03106"
+      "sha256": "db40813eee4769ef01b3951cf487c0958539e8cfd6b6a4bc6a089f5d4b8ac748"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "8f8dfe5554f2ae4faf9eb7a9b435699a62ffbd697c95aeaa9b8c93dc6563aaf0"
+      "sha256": "1de07ec2f9da70c685b6cfee7e65e92c38f9fa89139a70c5492e93e9b2f1ebbb"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "e34655026fc85dbc22db0e182675609cb6c75bfe8cb49d5951f228ce6b7bdc85"
+      "sha256": "3b2b1c1f2da7b2d955cca4cf1241be029a6e66d45ddbeb36042bdb2d2cb1fe89"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "d7fb2ef1f9bdd0d15a119d14a04d68698d8ce7d33b4b0e0864b0cbace4736fad"
+      "sha256": "c9bb940eec48159e34d2f73187231450794fba76e6c6c1bdcb900b5bc3fc3e4d"
     }
   ],
   "contrastPairs": [
@@ -419,7 +419,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "96fba1af70c336fad582fb76a103be83ba13fab428854b76ce3b3ecd37167b10"
+    "sha256": "70e998c0ff32d755d5fa9b97d6d0aebc5f690e04b39d66f9c281ba95c19623f5"
   },
   "themes": [
     "light",
@@ -4273,6 +4273,58 @@
     },
     {
       "aliasTarget": {
+        "id": "color-static-black-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-dot": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-dot",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
+      "resolvedValue": {
+        "alpha": 0.12,
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-dot",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-dot": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-dot",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.16}",
+      "resolvedValue": {
+        "alpha": 0.16,
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-dot",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-static-black-alpha-56",
         "mode": "base"
       },
@@ -7918,58 +7970,6 @@
         ]
       },
       "sourcePath": "semantic.dark.color.node-audio-surface",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-black-alpha-12",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-node-canvas-dot": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-node-canvas-dot",
-      "mode": "light",
-      "rawValue": "{primitive.color.static-black-alpha.12}",
-      "resolvedValue": {
-        "alpha": 0.12,
-        "colorSpace": "srgb",
-        "components": [
-          0.090196,
-          0.105882,
-          0.133333
-        ]
-      },
-      "sourcePath": "semantic.light.color.node.canvas-dot",
-      "tier": "semantic",
-      "type": "color"
-    },
-    {
-      "aliasTarget": {
-        "id": "color-static-white-alpha-16",
-        "mode": "base"
-      },
-      "cssProperties": {
-        "--louis-color-node-canvas-dot": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
-      },
-      "deprecated": null,
-      "description": null,
-      "id": "color-node-canvas-dot",
-      "mode": "dark",
-      "rawValue": "{primitive.color.static-white-alpha.16}",
-      "resolvedValue": {
-        "alpha": 0.16,
-        "colorSpace": "srgb",
-        "components": [
-          0.980392,
-          0.980392,
-          0.980392
-        ]
-      },
-      "sourcePath": "semantic.dark.color.node.canvas-dot",
       "tier": "semantic",
       "type": "color"
     },

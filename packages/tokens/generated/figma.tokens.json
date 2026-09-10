@@ -18538,6 +18538,57 @@
             }
           }
         },
+        "color-canvas-dot": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-dot",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-dot"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-dot"
+            }
+          }
+        },
         "color-dim-modal": {
           "$type": "color",
           "fields": [],
@@ -21799,57 +21850,6 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-audio-surface"
-            }
-          }
-        },
-        "color-node-canvas-dot": {
-          "$type": "color",
-          "fields": [],
-          "figmaName": "color/node/canvas-dot",
-          "hiddenFromPublishing": false,
-          "losses": [],
-          "nativeVariableType": "COLOR",
-          "representation": "variable",
-          "scopes": [
-            "FRAME_FILL",
-            "SHAPE_FILL",
-            "STROKE_COLOR",
-            "TEXT_FILL"
-          ],
-          "valuesByMode": {
-            "Dark": {
-              "$value": "{primitive.color.static-white-alpha.16}",
-              "aliasTarget": {
-                "id": "color-static-white-alpha-16",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.16,
-                "colorSpace": "srgb",
-                "components": [
-                  0.980392,
-                  0.980392,
-                  0.980392
-                ]
-              },
-              "sourcePath": "semantic.dark.color.node.canvas-dot"
-            },
-            "Light": {
-              "$value": "{primitive.color.static-black-alpha.12}",
-              "aliasTarget": {
-                "id": "color-static-black-alpha-12",
-                "mode": "base"
-              },
-              "resolvedValue": {
-                "alpha": 0.12,
-                "colorSpace": "srgb",
-                "components": [
-                  0.090196,
-                  0.105882,
-                  0.133333
-                ]
-              },
-              "sourcePath": "semantic.light.color.node.canvas-dot"
             }
           }
         },

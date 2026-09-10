@@ -36,7 +36,7 @@ const CONTEXTS = [
 ];
 const PAGE_ROUTES = ["/", "/pricing", "/privacy", "/terms"];
 const GENERIC_PAGE_ROUTES = [
-  "/docs", "/docs/highlight", "/docs/nodecanvas", "/docs/videoeditor",
+  "/docs", "/docs/highlight", "/docs/canvas", "/docs/videoeditor",
   "/blog", "/templates", "/templates/filter", "/inquiry", "/data-deletion-status",
   "/login", "/signup", "/signup/check-email", "/signup/expired", "/signup/verified",
   "/recover", "/reset-password", "/reset-password/new", "/aws/signup",

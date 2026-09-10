@@ -151,7 +151,13 @@ const simpleRow = (key, index, text) => {
     },
   };
 };
-const compoundRow = (key, index, text, ariaLabel) => {
+/* `text` 는 **앵커 트리에서 노드를 찾는 열쇠**라 앵커가 가진 문자열이어야 한다.
+   `displayText` 는 그 위에 얹는 **표시 이름**이다 — 앵커 `5a67d692` 는 2026-09-09
+   「노드캔버스 → 캔버스」 개명 **이전** 트리라 사이드바 행 글자가 아직 "NodeCanvas" 인데,
+   라이브 Figma 와 현재 제품은 "Canvas" 다. 열쇠를 바꾸면 측정이 못 찾아 즉시 죽고,
+   표시를 안 바꾸면 draw.js 가 `row/NodeCanvas` 로 이름 지어 라이브 개명을 되돌린다.
+   **앵커를 다시 고정하는 회차에서 이 인자는 사라진다.** */
+const compoundRow = (key, index, text, ariaLabel, displayText = text) => {
   const label = byText(routes.default.route, text);
   const icon = iconForText(routes.default.route, text);
   const main = node(routes.default.route, label.parentPath.replace(/\.\d+$/, ""));
@@ -162,7 +168,7 @@ const compoundRow = (key, index, text, ariaLabel) => {
     kind: "compound",
     key,
     rect: rowRect(index),
-    label: textSpec(routes.default.route, text, rootRect),
+    label: { ...textSpec(routes.default.route, text, rootRect), text: displayText },
     icon,
     mainRect: relRect(main, rootRect),
     addRect: relRect(add, rootRect),
@@ -391,7 +397,7 @@ const shellSpec = {
   variants: [
     { current: "Default", route: "/settings", menuCurrent: "Default", ctaState: "Current" },
     { current: "Home", route: "/archive", menuCurrent: "Home", ctaState: "Current" },
-    { current: "NodeCanvas", route: "/nodecanvas", menuCurrent: "NodeCanvas", ctaState: "Current" },
+    { current: "Canvas", route: "/canvas", menuCurrent: "Canvas", ctaState: "Current" },
     { current: "VideoEditor", route: "/videoeditor", menuCurrent: "VideoEditor", ctaState: "Current" },
     { current: "Highlight", route: "/highlight", menuCurrent: "Highlight", ctaState: "Current" },
     { current: "YouTube", route: "/analytics/youtube", menuCurrent: "YouTube", ctaState: "Current" },
@@ -574,9 +580,9 @@ const plan = {
         activeIconOpacity: iconForText(routes.youtube.route, "YouTube analytics").opacity,
       },
       {
-        current: "NodeCanvas",
-        route: "/nodecanvas",
-        activeRow: "NodeCanvas",
+        current: "Canvas",
+        route: "/canvas",
+        activeRow: "Canvas",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
         $note: sharedActiveColourNote,
@@ -601,7 +607,7 @@ const plan = {
     rows: [
       simpleRow("search", 0, "Search"),
       simpleRow("home", 1, "Home"),
-      compoundRow("node-canvas", 2, "NodeCanvas", "New project (open canvas)"),
+      compoundRow("canvas", 2, "NodeCanvas", "New project (open canvas)", "Canvas"),
       compoundRow("video-editor", 3, "VideoEditor", "New project (video edit)"),
       {
         ...simpleRow("highlight", 4, "Highlight"),

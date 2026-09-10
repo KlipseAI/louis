@@ -170,9 +170,9 @@
         "activeIconOpacity": 1
       },
       {
-        "current": "NodeCanvas",
-        "route": "/nodecanvas",
-        "activeRow": "NodeCanvas",
+        "current": "Canvas",
+        "route": "/canvas",
+        "activeRow": "Canvas",
         "activeColor": [
           0,
           0,
@@ -318,7 +318,7 @@
       },
       {
         "kind": "compound",
-        "key": "node-canvas",
+        "key": "canvas",
         "rect": {
           "x": 0,
           "y": 72,
@@ -326,7 +326,7 @@
           "height": 32
         },
         "label": {
-          "text": "NodeCanvas",
+          "text": "Canvas",
           "rect": {
             "x": 34,
             "y": 77.5,
@@ -1453,9 +1453,9 @@
           "ctaState": "Current"
         },
         {
-          "current": "NodeCanvas",
-          "route": "/nodecanvas",
-          "menuCurrent": "NodeCanvas",
+          "current": "Canvas",
+          "route": "/canvas",
+          "menuCurrent": "Canvas",
           "ctaState": "Current"
         },
         {

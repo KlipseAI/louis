@@ -167,7 +167,11 @@ const cardGrid = node("body.1.0.0.1.0.0.1.1");
 const mainStyle = style(main);
 if (
   pageRoot.rect.width !== 1920 || pageRoot.rect.height !== 1080 ||
-  mainOuter.rect.width !== 1640 || main.rect.width !== 1628 || main.rect.height !== 1056 ||
+  // **1628×1056 → 1632×1064 (2026-09-10 재고정).** 앱 셸 링 패딩이 12 → 8 로 줄어
+  // 메인 카드가 가로 +4 · 세로 +8 만큼 자랐다(`--app-gnb-main-inline-padding-end` ·
+  // `--app-gnb-safe-top` · `--app-gnb-rail-padding-bottom`). 바깥(1640)과 카드 격자
+  // (1300×608.1875)는 그대로다 — 자란 것은 카드 안쪽 하나뿐이고, 그것이 이 변경의 전부다.
+  mainOuter.rect.width !== 1640 || main.rect.width !== 1632 || main.rect.height !== 1064 ||
   // 카드 덱이 넷에서 **다섯**으로 늘며 높이가 560 → 608.1875 로 자랐다.
   // `58a85b13` 이 Lite 티어를 넣고 Basic·Max 를 Plus·Ultra 로 개명했고, PRICING_DECK 의
   // 격자가 `repeat(5,minmax(0,1fr))` 라 폭 1300 은 그대로인 채 칸이 다섯으로 쪼개졌다.

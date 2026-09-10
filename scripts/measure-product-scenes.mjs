@@ -1458,8 +1458,12 @@ try {
   await pinnedServer.stop();
 }
 
+// 장면 축이 잰 라이브 SVG 근거. 축이 비면 `null` 이고, 아래 assets 는 그때
+// `$measuredFrom` 만 남기고 값을 싣지 않는다 — 없는 것을 편 채로 두면 빈 객체가 되어
+// 「쟀는데 비었다」로 읽힌다.
+let inlineSvgEvidence = null;
 if (!SCENE_AXIS_SKIP) {
-  const inlineSvgEvidence = rendered[CONTEXTS[0].id].inlineSvg;
+  inlineSvgEvidence = rendered[CONTEXTS[0].id].inlineSvg;
   for (const contextSpec of CONTEXTS.slice(1)) {
     if (JSON.stringify(rendered[contextSpec.id].inlineSvg) !== JSON.stringify(inlineSvgEvidence)) {
       throw new Error("[product-scenes] viewport마다 라이브 SVG geometry가 다릅니다: " + contextSpec.id);
@@ -1517,14 +1521,18 @@ const payload =
         demoBackground: hashProductAsset("apps/web/public/images/hero/demo-bg-01.jpg"),
         highlightWordmark: hashProductAsset("apps/web/public/highlight-wordmark.svg"),
         monitorArrowUp: hashProductAsset("apps/web/public/icons/MonitorArrowUp.svg"),
-        themeDropdownChevron: {
-          $measuredFrom: "두 viewport의 라이브 themeDropdownChevron SVG가 byte-for-byte 같음을 확인",
-          ...inlineSvgEvidence.themeDropdownChevron,
-        },
-        sparkleFill: {
-          $measuredFrom: "두 viewport의 라이브 ICON SVG가 byte-for-byte 같음을 확인",
-          ...inlineSvgEvidence.ICON,
-        },
+        themeDropdownChevron: inlineSvgEvidence
+          ? {
+              $measuredFrom: "두 viewport의 라이브 themeDropdownChevron SVG가 byte-for-byte 같음을 확인",
+              ...inlineSvgEvidence.themeDropdownChevron,
+            }
+          : { $notMeasured: SCENE_AXIS_SKIP },
+        sparkleFill: inlineSvgEvidence
+          ? {
+              $measuredFrom: "두 viewport의 라이브 ICON SVG가 byte-for-byte 같음을 확인",
+              ...inlineSvgEvidence.ICON,
+            }
+          : { $notMeasured: SCENE_AXIS_SKIP },
       },
       sourceQuotes: [
         {

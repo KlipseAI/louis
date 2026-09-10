@@ -2,15 +2,15 @@
   "$comment": "생성물. scripts/measure-app-nav-labels.mjs가 배포본에서 뽑는다. 직접 수정하지 않는다.",
   "$whyThisExists": "`/archive`의 라벨은 「보관함」이 아니라 「홈」이다. 2026-08-21에 app-shell-parts.md가 네 곳에서 경로로부터 유추한 이름을 적고 있었고, 그 문서는 「라벨은 화면의 이름이다」를 규범으로 두므로 틀린 이름이 규칙을 타고 번진다. 라벨은 제품이 소유한 값이라 여기서 고정한다.",
   "$howToRead": "inferable이 false면 **경로에서 라벨을 유추할 수 없다는 뜻**이다. 그런 자리를 문서가 손으로 적으면 틀린다.",
-  "productRef": "27984014f37e6ea19cd126c65dea7c23ab855a89",
-  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productRef": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
+  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
   "sources": {
     "ko": "apps/web/components/landing/system/messages/ko.ts",
     "en": "apps/web/components/landing/system/messages/en.ts",
     "gnb": "apps/web/components/navigation/Gnb.tsx",
     "appPaths": "apps/web/lib/app-paths.ts"
   },
-  "gnbNavMapLine": 2597,
+  "gnbNavMapLine": 2596,
   "labels": [
     {
       "key": "archive",
@@ -22,19 +22,19 @@
     },
     {
       "key": "create",
-      "route": "/canvas",
-      "routeSource": "CANVAS_HUB_PATH (apps/web/lib/app-paths.ts)",
+      "route": "/nodecanvas",
+      "routeSource": "NODE_CANVAS_HUB_PATH (apps/web/lib/app-paths.ts)",
       "ko": "캔버스",
       "en": "Canvas",
-      "inferable": true
+      "inferable": false
     },
     {
-      "key": "composition",
-      "route": "/composition",
-      "routeSource": "COMPOSITION_HUB_PATH (apps/web/lib/app-paths.ts)",
+      "key": "videoEdit",
+      "route": "/videoeditor",
+      "routeSource": "리터럴",
       "ko": "컴포지션",
       "en": "Composition",
-      "inferable": true
+      "inferable": false
     },
     {
       "key": "highlight",

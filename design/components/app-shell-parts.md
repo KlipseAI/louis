@@ -150,13 +150,13 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
   브레드크럼 구조를 소유하지 않는다.
 
 <!-- GENERATED:app-nav-labels START -->
-배포본 `27984014` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+배포본 `91e5ea2a` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
 
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
 | `/archive` | 홈 | Home | **불가** |
-| `/canvas` | 캔버스 | Canvas | 가능 |
-| `/composition` | 컴포지션 | Composition | 가능 |
+| `/nodecanvas` | 캔버스 | Canvas | **불가** |
+| `/videoeditor` | 컴포지션 | Composition | **불가** |
 | `/highlight` | 하이라이트 | Highlight | 가능 |
 | `/analytics/youtube` | YouTube 분석 | YouTube analytics | **불가** |
 | `/analytics/instagram` | Instagram 분석 | Instagram analytics | **불가** |
@@ -529,7 +529,7 @@ style이다.
   **`--mainchrome-divider-progress`의 폴백은 「없음」이 아니라 `1`이다(위 표 정정).** 소비처가
   `var(--mainchrome-divider-progress, 1)`로 읽으므로 **진행값을 주입하지 않는 화면은 스크롤 0에서도
   경계선이 100%로 그려진다.** 진행값을 주입하는 것은 훅을 부르는 세 화면뿐이다
-  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `CanvasHomeScene.tsx:727`).
+  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `NodeCanvasHomeScene.tsx:727`).
 
   그래서 Properties의 `divider` 기본 `false`와 Acceptance test 8은 **제품 기본과 반대다.** Figma로
   옮길 때 그 세 화면 밖의 기본 프레임은 **경계선 있음**으로 그린다 — `divider`를 끈 상태를 기본으로

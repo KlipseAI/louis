@@ -2,10 +2,10 @@
   "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 합성 장면과 공개·문서·법무·인증 22개 concrete route를 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
   "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
-  "productRef": "27984014f37e6ea19cd126c65dea7c23ab855a89",
-  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productRef": "origin/design",
+  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
   "buildEvidence": {
-    "releaseCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+    "releaseCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
     "sourcemapFingerprint": "unavailable(no page sourcemaps)",
     "$verified": "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같음을 실행 시 확인했다. 장면 구성 소스의 sourcemap 원문 대조는 페이지 sourcemap 이 있을 때만 수행한다 — 없으면 `sourcemapFingerprint` 가 unavailable 이고, 커밋 고정은 _sentryRelease 가 진다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
     "sourceInputs": [
@@ -18,7 +18,7 @@
         "sha256": "79a2b09a4c236246480b8c57979a95621fdac795de4c216c6cf76aa39d41ef29"
       },
       {
-        "path": "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+        "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
         "sha256": "1fce5d9445ab10bc28f7c0f77055c5781511210e162e4e54a1242843af7bbe84"
       }
     ]
@@ -38,7 +38,7 @@
     }
   ],
   "routeInventory": {
-    "command": "git ls-tree -r --name-only 27984014f37e6ea19cd126c65dea7c23ab855a89 -- apps/web/app",
+    "command": "git ls-tree -r --name-only 91e5ea2a93982dc8f65cd267f0fcaae7d1759138 -- apps/web/app",
     "pageFileCount": 46,
     "measuredConcreteRouteCount": 18,
     "guestOutcomeRouteCount": 23,
@@ -109,27 +109,6 @@
           "desktop-1920x1080",
           "mobile-402x874"
         ]
-      },
-      {
-        "path": "apps/web/app/canvas/page.tsx",
-        "routePattern": "/canvas",
-        "dynamic": false,
-        "concreteMeasurements": [],
-        "measuredContexts": []
-      },
-      {
-        "path": "apps/web/app/composition/[projectId]/page.tsx",
-        "routePattern": "/composition/[projectId]",
-        "dynamic": true,
-        "concreteMeasurements": [],
-        "measuredContexts": []
-      },
-      {
-        "path": "apps/web/app/composition/page.tsx",
-        "routePattern": "/composition",
-        "dynamic": false,
-        "concreteMeasurements": [],
-        "measuredContexts": []
       },
       {
         "path": "apps/web/app/creative-media-admin/page.tsx",
@@ -282,6 +261,13 @@
       {
         "path": "apps/web/app/mypage/upgrade/page.tsx",
         "routePattern": "/mypage/upgrade",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/nodecanvas/page.tsx",
+        "routePattern": "/nodecanvas",
         "dynamic": false,
         "concreteMeasurements": [],
         "measuredContexts": []
@@ -455,6 +441,20 @@
           "desktop-1920x1080",
           "mobile-402x874"
         ]
+      },
+      {
+        "path": "apps/web/app/videoeditor/[projectId]/page.tsx",
+        "routePattern": "/videoeditor/[projectId]",
+        "dynamic": true,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/videoeditor/page.tsx",
+        "routePattern": "/videoeditor",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
       }
     ]
   },
@@ -532,122 +532,6 @@
           }
         ]
       },
-      "/canvas": {
-        "route": "/canvas",
-        "finalPath": "/",
-        "redirected": true,
-        "viewport": {
-          "width": 1920,
-          "height": 1080
-        },
-        "locale": "en",
-        "theme": "light",
-        "documentHeight": 6278,
-        "headings": [
-          {
-            "level": 1,
-            "text": "Every moment of AI video creation,in one workspace."
-          },
-          {
-            "level": 2,
-            "text": "The all-in-one AI video creation platformbuilt for creators."
-          },
-          {
-            "level": 2,
-            "text": "“ Klipse reviews ”"
-          },
-          {
-            "level": 2,
-            "text": "We build Klipsetogether with creators"
-          },
-          {
-            "level": 2,
-            "text": "What’s new"
-          },
-          {
-            "level": 2,
-            "text": "Frequently asked questions"
-          },
-          {
-            "level": 2,
-            "text": "Your first AI video,\nmake it with Klipse"
-          },
-          {
-            "level": 2,
-            "text": "Product"
-          },
-          {
-            "level": 2,
-            "text": "Resources"
-          },
-          {
-            "level": 2,
-            "text": "Social"
-          },
-          {
-            "level": 2,
-            "text": "Trust"
-          }
-        ]
-      },
-      "/composition": {
-        "route": "/composition",
-        "finalPath": "/",
-        "redirected": true,
-        "viewport": {
-          "width": 1920,
-          "height": 1080
-        },
-        "locale": "en",
-        "theme": "light",
-        "documentHeight": 6278,
-        "headings": [
-          {
-            "level": 1,
-            "text": "Every moment of AI video creation,in one workspace."
-          },
-          {
-            "level": 2,
-            "text": "The all-in-one AI video creation platformbuilt for creators."
-          },
-          {
-            "level": 2,
-            "text": "“ Klipse reviews ”"
-          },
-          {
-            "level": 2,
-            "text": "We build Klipsetogether with creators"
-          },
-          {
-            "level": 2,
-            "text": "What’s new"
-          },
-          {
-            "level": 2,
-            "text": "Frequently asked questions"
-          },
-          {
-            "level": 2,
-            "text": "Your first AI video,\nmake it with Klipse"
-          },
-          {
-            "level": 2,
-            "text": "Product"
-          },
-          {
-            "level": 2,
-            "text": "Resources"
-          },
-          {
-            "level": 2,
-            "text": "Social"
-          },
-          {
-            "level": 2,
-            "text": "Trust"
-          }
-        ]
-      },
       "/creative-media-admin": {
         "route": "/creative-media-admin",
         "finalPath": "/creative-media-admin",
@@ -958,6 +842,64 @@
           }
         ]
       },
+      "/nodecanvas": {
+        "route": "/nodecanvas",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 6278,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
+          }
+        ]
+      },
       "/settings": {
         "route": "/settings",
         "finalPath": "/login",
@@ -991,6 +933,64 @@
           {
             "level": 1,
             "text": "Log in"
+          }
+        ]
+      },
+      "/videoeditor": {
+        "route": "/videoeditor",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 6278,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
           }
         ]
       }
@@ -1068,122 +1068,6 @@
           }
         ]
       },
-      "/canvas": {
-        "route": "/canvas",
-        "finalPath": "/",
-        "redirected": true,
-        "viewport": {
-          "width": 402,
-          "height": 874
-        },
-        "locale": "en",
-        "theme": "light",
-        "documentHeight": 5145,
-        "headings": [
-          {
-            "level": 1,
-            "text": "Every moment of AI video creation,in one workspace."
-          },
-          {
-            "level": 2,
-            "text": "The all-in-one AI video creation platformbuilt for creators."
-          },
-          {
-            "level": 2,
-            "text": "“ Klipse reviews ”"
-          },
-          {
-            "level": 2,
-            "text": "We build Klipsetogether with creators"
-          },
-          {
-            "level": 2,
-            "text": "What’s new"
-          },
-          {
-            "level": 2,
-            "text": "Frequently asked questions"
-          },
-          {
-            "level": 2,
-            "text": "Your first AI video,\nmake it with Klipse"
-          },
-          {
-            "level": 2,
-            "text": "Product"
-          },
-          {
-            "level": 2,
-            "text": "Resources"
-          },
-          {
-            "level": 2,
-            "text": "Social"
-          },
-          {
-            "level": 2,
-            "text": "Trust"
-          }
-        ]
-      },
-      "/composition": {
-        "route": "/composition",
-        "finalPath": "/",
-        "redirected": true,
-        "viewport": {
-          "width": 402,
-          "height": 874
-        },
-        "locale": "en",
-        "theme": "light",
-        "documentHeight": 5145,
-        "headings": [
-          {
-            "level": 1,
-            "text": "Every moment of AI video creation,in one workspace."
-          },
-          {
-            "level": 2,
-            "text": "The all-in-one AI video creation platformbuilt for creators."
-          },
-          {
-            "level": 2,
-            "text": "“ Klipse reviews ”"
-          },
-          {
-            "level": 2,
-            "text": "We build Klipsetogether with creators"
-          },
-          {
-            "level": 2,
-            "text": "What’s new"
-          },
-          {
-            "level": 2,
-            "text": "Frequently asked questions"
-          },
-          {
-            "level": 2,
-            "text": "Your first AI video,\nmake it with Klipse"
-          },
-          {
-            "level": 2,
-            "text": "Product"
-          },
-          {
-            "level": 2,
-            "text": "Resources"
-          },
-          {
-            "level": 2,
-            "text": "Social"
-          },
-          {
-            "level": 2,
-            "text": "Trust"
-          }
-        ]
-      },
       "/creative-media-admin": {
         "route": "/creative-media-admin",
         "finalPath": "/creative-media-admin",
@@ -1494,6 +1378,64 @@
           }
         ]
       },
+      "/nodecanvas": {
+        "route": "/nodecanvas",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 5145,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
+          }
+        ]
+      },
       "/settings": {
         "route": "/settings",
         "finalPath": "/login",
@@ -1527,6 +1469,64 @@
           {
             "level": 1,
             "text": "Log in"
+          }
+        ]
+      },
+      "/videoeditor": {
+        "route": "/videoeditor",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 5145,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
           }
         ]
       }
@@ -1722,22 +1722,22 @@
     "heroWordmark": {
       "path": "apps/web/public/klipse-wordmark-text-dark.svg",
       "sha256": "6024e3a27d33fbd3e61efe45c546518a99989d0ef59acb2b2746f68546d36131",
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/public/klipse-wordmark-text-dark.svg"
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/public/klipse-wordmark-text-dark.svg"
     },
     "demoBackground": {
       "path": "apps/web/public/images/hero/demo-bg-01.jpg",
       "sha256": "30865cf27be80471c18324433ae2ac349ef9d798bae8423a35992ca051e9c27b",
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/public/images/hero/demo-bg-01.jpg"
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/public/images/hero/demo-bg-01.jpg"
     },
     "highlightWordmark": {
       "path": "apps/web/public/highlight-wordmark.svg",
       "sha256": "68829a9f96c5dbef43126cdc91571ddfdc48212ce236bd9d7c1f8b3b5a558bfb",
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/public/highlight-wordmark.svg"
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/public/highlight-wordmark.svg"
     },
     "monitorArrowUp": {
       "path": "apps/web/public/icons/MonitorArrowUp.svg",
       "sha256": "8e2df0e6d3dd8332e595d4c4bed54f33940f946b8217895fcf32da8c8029d46d",
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/public/icons/MonitorArrowUp.svg"
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/public/icons/MonitorArrowUp.svg"
     },
     "themeDropdownChevron": {
       "$notMeasured": "liveOnly 표본이 0개입니다. 합성 장면 2문맥을 재지 않습니다. 랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다."
@@ -1748,14 +1748,14 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/landing/sections/Hero.tsx",
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/landing/sections/Hero.tsx",
       "path": "apps/web/components/landing/sections/Hero.tsx",
       "line": 54,
       "quote": ""
     },
     {
-      "command": "git show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
-      "path": "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+      "command": "git show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "line": 96,
       "quote": "        <span className={CONTENT}>"
     }
@@ -365661,7 +365661,7 @@
               "tag": "header",
               "ariaLabel": null,
               "x": 16,
-              "y": 107.6449,
+              "y": 82,
               "width": 370,
               "height": 126.7969
             }
@@ -365712,7 +365712,7 @@
             "level": 1,
             "text": "The Klipse blog",
             "x": 16,
-            "y": 140.6449,
+            "y": 115,
             "width": 370,
             "height": 37.7969
           },

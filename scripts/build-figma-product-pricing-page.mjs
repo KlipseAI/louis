@@ -121,12 +121,12 @@ const ancestorPaths = (path) => {
 
 const makeContext = ({ id, viewport }) => {
   const page = evidence.pages[id]?.["/pricing"] ?? fail(`missing ${id} /pricing`);
-  // **883 → 1160 (2026-09-10 재고정 5a67d692 → 27984014).** 요금제가 넷에서 다섯이 되며
+  // **883 → 1160 (2026-09-10 재고정 5a67d692 → 91e5ea2a).** 요금제가 넷에서 다섯이 되며
   // 플랜 카드와 비교 열이 각각 하나씩 늘었고, 그 사이 286커밋의 문구·구조 변경이 얹혔다.
   // 이 수는 「같은 페이지인가」를 보는 것이지 값이 아니다 — 아래 반복 뿌리 수(플랜 5 · 팩 3 ·
   // 비교 5 · FAQ 7)가 실제 계약이고, 그 넷이 맞는지가 이 수보다 강한 확인이다.
   if (page.tree.length !== 1160) fail(`${id} pricing tree must have 1160 nodes, got ${page.tree.length}`);
-  // 높이 실측(27984014): Desktop 4615.2969 → **4242.1563**, Mobile 5097.9063 → **5354.6719**.
+  // 높이 실측(91e5ea2a): Desktop 4615.2969 → **4242.1563**, Mobile 5097.9063 → **5354.6719**.
   // 데스크톱은 줄고 모바일은 늘었다 — 플랜이 다섯이 되며 데스크톱은 한 줄에 더 눕고
   // 모바일은 세로로 한 장 더 쌓이기 때문이다. 폭은 둘 다 그대로다(1920 · 402).
   if ((viewport === "Desktop" && (page.main.width !== 1920 || page.main.height !== 4242.1563)) ||
@@ -226,7 +226,7 @@ const makeContext = ({ id, viewport }) => {
       icons: iconSpecs(entries, root),
     };
   };
-  // 제품 실측(27984014). 2026-09-10 에 Trial·Basic·Pro·Max 에서 다섯으로 바뀌었다 —
+  // 제품 실측(91e5ea2a). 2026-09-10 에 Trial·Basic·Pro·Max 에서 다섯으로 바뀌었다 —
   // 장이 하나 늘고 이름 셋이 갈렸다. 이 배열의 길이와 순서는 `planRoots` 의 DOM 순서와
   // 짝이 맞아야 한다(measure-product-scenes 의 카드 수 검사가 그 짝을 지킨다).
   const planNames = ["Trial", "Lite", "Plus", "Pro", "Ultra"];

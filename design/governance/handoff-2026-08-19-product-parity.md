@@ -399,20 +399,20 @@ DS 캐스케이드에 대한 참인 진술이지 **제품을 확인한 진술이
   secondary·ghost만 덮는다) Default의 `background-danger`가 그대로 남는다. 제품
   `overlayDeleteBtn`은 **반대다** — 평소 `background:transparent` · `color:gray-400 92%`이고
   hover에서만 `accent-red-600 88%`를 채우고 전경을 `palette-gray-000 95%`로 뒤집는다
-  (`apps/web/components/scenes/create/canvas/nodes/compositionParts/compClass.ts:1916`,
+  (`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:1916`,
   `klipse-web` `origin/design`). 극성이 반대이므로 어느 쪽을 정본으로 삼을지 판정이 필요하다.
 - `icon-button.states.secondary.Hover.foreground` — 확인했다. 제품 `backButton`은 hover에서
   전경을 올린다(`[&:hover]:[color:var(--palette-gray-900)]`, 다크는
   `[html[data-theme=dark]_&:hover]:[color:var(--palette-gray-000)]`,
   `apps/web/components/scenes/highlightSceneStyles.ts:9-38`). DS는 hover에서 면만 바꾼다.
 - `icon-button.states.ghost.Hover.foreground` — 사유에 상수가 빠져 있어 찾아 뒀다.
-  `projectImportBackBtn`이다(`apps/web/components/scenes/create/canvas/nodes/compositionParts/compClass.ts:3013`).
+  `projectImportBackBtn`이다(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts:3013`).
   평소 `background:transparent` · `color:gray-000 78%`이고 hover에서 전경을 `100%`로 올리면서
   면도 `gray-000 8%`로 함께 얹는다 — DS는 hover에서 면만 바꾸고 전경을 그대로 둔다.
   (같은 파일의 `alignButton`(4행)과 `assetRailBtnActive`(143행)도 hover 전경을 100%로 올리지만
   둘 다 평소 면이 채워져 있어 ghost가 아니다. ghost 대응물은 `projectImportBackBtn` 하나다.)
 
-  > **좌표 주의.** 위 넷은 한때 `CompositionModal.tsx` 에 있었고 제품이 `videoEditParts/` 로
+  > **좌표 주의.** 위 넷은 한때 `VideoEditModal.tsx` 에 있었고 제품이 `videoEditParts/` 로
   > 쪼개면서 옮겨갔다. 그 파일에서 찾으면 0건이 나오고 「제품에 없다」로 잘못 기각하게 된다.
   > **값은 그대로이고 좌표만 죽었던 것이다.**
 - `banner-carousel.sizes.{boxed,full}.controlsWidth` — 사유 자체가 DS가 제품보다 36px 넓다고

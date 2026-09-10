@@ -484,7 +484,7 @@
           "product": "gnb-iconButton은 없음(32 고정). 다만 같은 역할의 에디터 버튼들은 ≤719px에서 40×40으로 커지고 radius가 12 또는 14로 갈린다 — timelineDockToolbarBtn은 14px, previewControlsBtn은 12px",
           "ds": "없음. \"뷰포트로 크기를 자동 전환하지 않는다\"가 명시적 규범이고 radius는 12px 고정",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/CompositionModal.tsx:4218",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:4218",
           "status": "no-canon"
         },
         "상태 표현 메커니즘": {
@@ -788,87 +788,87 @@
       "axisCount": 22,
       "axes": {
         "z-index / 레이어": {
-          "product": "10200 (숫자 리터럴). 벌마다 다름: 9999(CropModal·CompositionModal·PricingModal·CanvasGuideModal), 1300(YoutubeUploadModal), 1200(ConfirmModal), 1010(ImageCropModal), 200(HighlightCreateModal), 80(ClipCropModal)",
+          "product": "10200 (숫자 리터럴). 벌마다 다름: 9999(CropModal·VideoEditModal·PricingModal·NodeCanvasGuideModal), 1300(YoutubeUploadModal), 1200(ConfirmModal), 1010(ImageCropModal), 200(HighlightCreateModal), 80(ClipCropModal)",
           "ds": "300 = var(--louis-layer-modal). .louis-layer-modal 클래스로만 부여하고 숫자 리터럴을 금지",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:38",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:38",
           "status": "no-canon"
         },
         "크기 — 카드 폭": {
           "product": "min(360px, 100vw − 40px). 좌우 20px gutter가 폭 계산식 안에 들어 있음. 높이 상한 없음(내용 구동)",
           "ds": "min(480px, 100%) 기본(task/medium), compact 360px, large 720px, fullscreen 100%. gutter는 root padding이 소유. 높이 상한 min(100%, 100dvh − 40px)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:52",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:52",
           "status": "no-canon"
         },
         "padding — 표면 내부": {
           "product": "카드 단일 padding 16px (p-8 × --spacing:2px). header/body/footer 분리 없음. 액션 행은 −8px 네거티브 마진으로 카드 밖으로 확장",
           "ds": "surface-inset 24px(기본) / 16px(compact). header 24/24/8px, body inline 24px·block 8px, footer 24/8/24px. 네거티브 마진 없음",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:52",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:52",
           "status": "no-canon"
         },
         "radius — 표면": {
-          "product": "24px (rounded-24). 다른 벌: 16px(CropModal·HighlightCreateModal --dropdown-radius), 10px(ImageCropModal), 24px(CompositionModal docked), 0(CanvasGuideModal fullscreen)",
+          "product": "24px (rounded-24). 다른 벌: 16px(CropModal·HighlightCreateModal --dropdown-radius), 10px(ImageCropModal), 24px(VideoEditModal docked), 0(NodeCanvasGuideModal fullscreen)",
           "ds": "16px = var(--louis-radius-overlay) 기본, compact 20px = var(--louis-radius-card), fullscreen 0",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:52",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:52",
           "status": "no-canon"
         },
         "border — 표면 (두께·색)": {
           "product": "border 선언 없음. 대신 spread-only box-shadow 헤어라인 var(--glass-dropdown-frame) = 0 0 0 0.5px #575d68 (다크) / 0 0 0 0.5px #d5d7dd (라이트)",
           "ds": "1px solid var(--louis-color-stroke-subtle) = #E3E4E8 (light) / #575D68 (dark). forced-colors에서 currentColor",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:57",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:57",
           "status": "no-canon"
         },
         "배경 — 표면": {
           "product": "rgb(49 54 64 / 100%) = #313640 (기본·다크). 라이트 rgb(241 241 243) = #F1F1F3. palette 직접 참조라 테마 시맨틱 토큰을 우회",
           "ds": "var(--louis-color-bg-overlay) = #FAFAFA (light) / #313640 (dark)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:54",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:54",
           "status": "no-canon"
         },
         "scrim — 색·알파": {
           "product": "rgb(23 27 34 / 50%) (palette-gray-900 @50%). 라이트/다크 분기 없음. 0% → 50% background 전이. 다른 벌: rgb(0 0 0 / 55%)·라이트 32%(HighlightCreateModal), 55% + blur 8px(YoutubeUploadModal), 40%/62% + blur 2px(ClipCropModal), 50% + blur 16px saturate 130%(ConfirmModal)",
           "ds": "var(--louis-color-dim-modal) = rgb(0 0 0 / 56%) (light) / rgb(0 0 0 / 72%) (dark). blur 없음. 알파 고정, opacity는 root가 페이드",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:49",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:49",
           "status": "no-canon"
         },
         "그림자 — elevation": {
           "product": "var(--glass-dropdown-frame) = 0 0 0 0.5px #575d68 (다크) / 0 0 0 0.5px #d5d7dd (라이트). 드롭 섀도우 없음(헤어라인 한 겹뿐)",
           "ds": "var(--louis-elevation-modal) = 0px 16px 48px -8px rgb(0 0 0 / 22%) + 별도 1px border",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:57",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:57",
           "status": "no-canon"
         },
         "전경 — 제목 색": {
           "product": "var(--gray-000) = #fafafa (다크) / #000000 (라이트)",
           "ds": "var(--louis-color-fg-primary) = #171B22 (light) / #FAFAFA (dark)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:79",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:79",
           "status": "no-canon"
         },
         "전경 — 설명 색": {
           "product": "rgb(250 250 250 / 60%) (다크) / rgb(0 0 0 / 60%) (라이트). 알파 합성",
           "ds": "var(--louis-color-fg-secondary) = #575D68 (light) / #D5D7DD (dark). 불투명 색",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:84",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:84",
           "status": "no-canon"
         },
         "타이포 — 제목 (크기/굵기/행간/자간)": {
           "product": "16px / 600 / 1.5 / -0.01em (= -0.16px @16px), Pretendard. h3 + .type-body-16-semibold",
           "ds": "36px / 500 / 1.35 / -0.72px, Pretendard Variable (typography-heading-md-medium)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:286",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:286",
           "status": "no-canon"
         },
         "타이포 — 설명 (크기/굵기/행간/자간)": {
           "product": "16px / 400 / 1.5 / -0.01em (= -0.16px), Pretendard. line-height는 !로 재선언",
           "ds": "14px / 400 / 1.5 / -0.14px (typography-body-sm-regular)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:290",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:290",
           "status": "no-canon"
         },
         "닫기 버튼 — 한 변·radius·색": {
@@ -882,28 +882,28 @@
           "product": "카드 transform 320ms cubic-bezier(0.22,1,0.36,1) + opacity 220ms ease + filter 320ms ease. 시작값 translate3d(0,16px,0) scale(0.96) saturate(88%) blur(1px) → translate3d(0,0,0) scale(1) saturate(100%) blur(0). scrim background 260ms cubic-bezier(0.22,1,0.36,1)",
           "ds": "root opacity 0→1, 320ms, cubic-bezier(0.32,0.72,0,1). surface translate 0 8px→0 0, scale 0.98→1, duration/timing을 inherit로 받아 root와 동일 선언. 세 property(opacity·translate·scale)가 한 곡선",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:63",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:63",
           "status": "no-canon"
         },
         "애니메이션 — exit (시간·이징·unmount)": {
           "product": "exit용 별도 이징 없이 같은 transition을 되쓰고, unmount는 JS 상수 CLOSE_MS = 280ms 하드코딩. ConfirmModal은 카드 140ms cubic-bezier(0.7,0,0.84,0) + overlay 220ms cubic-bezier(0.32,0.72,0,1), unmount는 transitionend",
           "ds": "200ms cubic-bezier(0.4,0,1,1). unmount timer가 root의 computed transition-duration을 읽으므로 시각 전이와 timer가 같은 선언 하나에서 나온다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:32",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:32",
           "status": "no-canon"
         },
         "reduced motion": {
           "product": "motion-reduce:[transition:none] 두 곳. 단 CLOSE_MS 280ms는 그대로라 unmount가 280ms 지연된다. ConfirmModal에는 reduced-motion 분기 자체가 없다",
           "ds": "duration 0ms = var(--louis-motion-reduced-duration), timing cubic-bezier(0.2,0,0,1), 비필수 transform(translate/scale) 제거. timer도 같은 선언을 읽어 함께 0ms",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:64",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:64",
           "status": "no-canon"
         },
         "safe-area / viewport gutter": {
           "product": "root padding = env(safe-area-inset-top/right/bottom/left) 4변. 최소 gutter 없음(safe-area가 0이면 0). 20px gutter는 카드 폭 계산식 안에만 존재",
           "ds": "root padding = max(20px, env(safe-area-inset-*)) 4변. fullscreen에서는 root padding 0이고 header/footer가 safe-area를 진다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:39",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:39",
           "status": "no-canon"
         },
         "backdrop-filter (블러)": {
@@ -917,28 +917,28 @@
           "product": "카드에 overflow/max-height 선언이 없다 — 내용이 길면 카드가 뷰포트를 넘어간다. ConfirmModal도 동일. 720px 벌(SignupLegalModal·PricingModal)만 max-h + overflow-hidden + 내부 스크롤",
           "ds": "root overflow:hidden, surface overflow:hidden + grid-template-rows auto minmax(0,1fr) auto, body만 overflow:auto + overscroll-behavior:contain + scroll-padding-block 8px",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:52",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:52",
           "status": "no-canon"
         },
         "좁은 폭 액션 세로 전환 (200% 확대)": {
           "product": "없음. flex gap-4 한 행 고정, flex-wrap 없음, 각 버튼 flex-1 균등 분할",
           "ds": "flex-wrap:wrap + @container (max-width: 320px) → flex-direction:column, align-items:stretch. surface가 container-type:inline-size",
           "match": "product-missing",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:89",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:89",
           "status": "no-canon"
         },
         "구조 — role / aria / portal": {
           "product": "GlassConfirmModal: 카드에 role=dialog + aria-modal=true + aria-labelledby, document.body로 portal. ConfirmModal: role·aria-modal·aria-labelledby 전무, portal도 없이 제자리 렌더",
           "ds": "surface에 role=dialog + aria-modal=true + aria-labelledby + (설명이 렌더될 때만) aria-describedby + aria-busy + tabIndex -1. backdrop은 surface의 형제이며 같은 portal subtree",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:280",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:280",
           "status": "no-canon"
         },
         "dismiss — backdrop / Escape / Enter": {
           "product": "root 전체에 onClick=onCancel을 걸고 카드가 stopPropagation으로 막는 구조(target 검사 없음, mousedown preventDefault 없음). Escape 핸들러 없음. document capture 단계 전역 Enter keydown → onConfirm, danger variant에도 그대로 적용",
           "ds": "backdrop 자신에 핸들러 + event.target===currentTarget 검사 + mousedown preventDefault. Escape는 topmost 하나만. 전역 Enter confirm 금지, danger-confirm은 명시적 포커스+활성화 필요",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/GlassConfirmModal.tsx:226",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/GlassConfirmModal.tsx:226",
           "status": "no-canon"
         }
       }
@@ -958,7 +958,7 @@
           "product": "min(320px, calc(100vw - 20px))",
           "ds": "288px (max-inline-size)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:36",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36",
           "status": "adopted",
           "reason": "제품 min(320px, calc(100vw - 20px))을 채택했다. 뷰포트 여유는 overlay primitive가 잰 --louis-overlay-available-width를 쓴다. 이전 DS는 288px 고정이었다"
         },
@@ -1038,7 +1038,7 @@
           "product": "140ms cubic-bezier(0.23, 1, 0.32, 1). opacity 0→1 + scale 0.97→1",
           "ds": "200ms cubic-bezier(0.32, 0.72, 0, 1) (--louis-motion-overlay-enter-*)",
           "match": "different",
-          "evidence": "apps/web/app/globals.css:399,385; apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:62-66",
+          "evidence": "apps/web/app/globals.css:399,385; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:62-66",
           "status": "adopted",
           "reason": "제품 140ms cubic-bezier(0.23, 1, 0.32, 1)을 motion-tooltip-enter로 채택했다"
         },
@@ -1046,7 +1046,7 @@
           "product": "120ms cubic-bezier(0.19, 1, 0.22, 1) — 별도의 exit 커브를 갖는다. 언마운트 fallback 180ms",
           "ds": "없음 — 닫힘은 즉시(모션 없음). [data-louis-state=\"opening\"]에만 애니메이션이 걸린다",
           "match": "different",
-          "evidence": "apps/web/app/globals.css:400,386; apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:55-59,227",
+          "evidence": "apps/web/app/globals.css:400,386; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:55-59,227",
           "status": "accepted-deviation",
           "reason": "제품은 120ms 페이드아웃 뒤 최대 180ms 더 DOM에 남는다. DS는 닫힘을 즉시로 둔다 — 포인터가 떠났는데 설명이 남으면 어느 컨트롤의 설명인지 알 수 없다. motion-tooltip-exit 토큰은 만들어 두었고 채택은 별도 판정이다"
         },
@@ -1054,7 +1054,7 @@
           "product": "0.97 (--app-tooltip-motion-scale-rest), transform-origin = 트리거 쪽 모서리(origin-bottom/right/left)",
           "ds": "없음 — tooltip.css에 keyframe/변형 선언이 없다. duration·timing만 지정하고 실제 animation-name이 없어 현재 상태로는 모션이 발생하지 않는다",
           "match": "different",
-          "evidence": "apps/web/app/globals.css:398; apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:56,71-73",
+          "evidence": "apps/web/app/globals.css:398; apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:56,71-73",
           "status": "adopted",
           "reason": "제품 0.97을 채택했다. 그 과정에서 **DS에 animation-name이 없어 모션이 아예 걸리지 않던 것**을 발견해 고쳤다"
         },
@@ -1067,10 +1067,10 @@
           "reason": "제품은 1ms로 줄인다. DS는 motion-reduced 0ms와 animation-name: none으로 크기 이동 자체를 제거한다. 결과는 같고 표현만 다르다"
         },
         "z-index / 레이어": {
-          "product": "10400 (ChromeTooltip 포털 앵커). 구현마다 갈린다 — 10300(radix), 10002(CompositionModal), 1200(analytics bar), 100(node handle ::after), 10(TIER_FEATURE_TIP), 2(chart)",
+          "product": "10400 (ChromeTooltip 포털 앵커). 구현마다 갈린다 — 10300(radix), 10002(VideoEditModal), 1200(analytics bar), 100(node handle ::after), 10(TIER_FEATURE_TIP), 2(chart)",
           "ds": "200 (--louis-layer-popover), positioner에 1회 선언",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:35",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:35",
           "status": "accepted-deviation",
           "reason": "제품은 구현마다 10400·10300·10002·1200으로 갈린다. DS는 layer-popover 토큰 하나를 쓰고 elevation-layer 규범이 숫자 리터럴을 금지한다"
         },
@@ -1078,7 +1078,7 @@
           "product": "300ms. 단, 직전에 다른 tooltip이 떠 있었으면 0ms(그룹 skip), 그룹 해제 대기 600ms. focus는 지연 없이 즉시",
           "ds": "280ms (openDelay 기본값). 그룹 skip 없음. focus는 지연 없이 즉시",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:140,157,285",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:140,157,285",
           "status": "adopted",
           "reason": "제품 300ms를 채택했다(이전 DS 280ms). 그룹 skip은 아직 없다 — Known deviations 참조"
         },
@@ -1086,7 +1086,7 @@
           "product": "즉시 상태 전환 후 120ms 페이드아웃. 표면이 최대 180ms 더 DOM에 남는다",
           "ds": "즉시. 페이드아웃 없음",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:220-227",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:220-227",
           "status": "accepted-deviation",
           "reason": "제품은 즉시 상태 전환 뒤 페이드아웃한다. DS는 페이드 없이 즉시 사라진다 — 위와 같은 사유다"
         },
@@ -1094,7 +1094,7 @@
           "product": "top 5px / left·right 8px — 방향마다 값이 다르다. 다른 구현은 또 다르다: 9px(node handle), 6px(radix sideOffset, ComposerBar, TIER_FEATURE_TIP), 10px(myPage)",
           "ds": "8px 전 방향 동일 (--louis-overlay-offset, Menu·Dialog와 공유)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:17,18",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:17,18",
           "status": "accepted-deviation",
           "reason": "제품은 방향마다 5px/8px로 다르고 구현마다 9px·6px로 또 갈린다. DS는 8px 하나를 Menu·Dialog와 공유한다. 여기서 자체 숫자를 가지면 표면마다 간격이 갈린다"
         },
@@ -1102,15 +1102,15 @@
           "product": "명시적 collision padding 없음. max-width의 calc(100vw - 20px)로 좌우 20px 여유를 간접 확보. 방향 뒤집기(flip) 없음 — placement가 고정",
           "ds": "8px (--louis-overlay-collision-padding). 공간이 없으면 방향이 뒤집힌다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:36,265-270",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:36,265-270",
           "status": "accepted-deviation",
           "reason": "제품은 flip이 없어 화면 밖으로 나갈 수 있다. DS는 8px collision padding으로 방향을 뒤집는다. 잘리는 설명은 설명이 아니다"
         },
         "arrow": {
-          "product": "가장 널리 쓰이는 ChromeTooltip에는 없음. Radix 구현만 10x5 삼각형(fill: --app-tooltip-bg, stroke 없음 → 1px border와 이가 맞지 않는다). CompositionModal은 별도 CSS 삼각형",
+          "product": "가장 널리 쓰이는 ChromeTooltip에는 없음. Radix 구현만 10x5 삼각형(fill: --app-tooltip-bg, stroke 없음 → 1px border와 이가 맞지 않는다). VideoEditModal은 별도 CSS 삼각형",
           "ds": "없음 (Known deviations에 미판정으로 기록됨)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/compositionParts/inspectorPrimitives.tsx:405-409, 131-134",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/inspectorPrimitives.tsx:405-409, 131-134",
           "status": "accepted-deviation",
           "reason": "제품도 가장 널리 쓰이는 구현에는 arrow가 없다. DS도 두지 않는다. Radix 구현의 10x5 삼각형은 1px border와 이가 맞지 않아 채택 대상이 아니다"
         },
@@ -1118,7 +1118,7 @@
           "product": "whitespace-normal + overflow-wrap:break-word + word-break:normal (ChromeTooltip). 단, node handle ::after는 white-space:nowrap로 줄바꿈 자체를 금지",
           "ds": "overflow-wrap: break-word. nowrap 분기 없음",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:87; apps/web/app/globals.css:1531",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:87; apps/web/app/globals.css:1531",
           "status": "accepted-deviation",
           "reason": "제품의 node handle 경로는 nowrap이라 긴 설명이 잘린다. DS는 break-word 하나만 둔다"
         },
@@ -1126,7 +1126,7 @@
           "product": "없음 — ChromeTooltip은 role=\"tooltip\"도 aria-describedby도 붙이지 않는다. 표면은 순수 시각 요소다",
           "ds": "표면에 role=\"tooltip\", trigger에 aria-describedby",
           "match": "product-missing",
-          "evidence": "apps/web/components/scenes/create/canvas/components/ChromeTooltip.tsx:293-303",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx:293-303",
           "status": "accepted-deviation",
           "reason": "제품의 표면은 role도 aria-describedby도 없어 보조 기술에 존재하지 않는다. DS는 role=tooltip과 aria-describedby를 붙인다. 접근성 계약이라 제품에 없다고 빼지 않는다"
         }
@@ -1279,7 +1279,7 @@
           "product": "통일돼 있지 않다. 인증 계열은 outline 없이 wrapper border-color 변경 + box-shadow inset 0 0 0 1px. `outline: 2px solid rgb(var(--gray-000-rgb)/22%)` + offset 1px을 문자 단위로 같이 갖는 것이 5벌. outline:none만 두고 배경색으로만 표현하는 것이 다수. 포커스 표시를 의도적으로 없앤 것도 있다",
           "ds": "공유 .louis-focus-ring — outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus), offset 2px",
           "match": "different",
-          "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/canvas/components/NodeLayersPanel.tsx:178",
+          "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
           "status": "accepted-deviation",
           "reason": "제품은 포커스 표현이 계열마다 다르고 일부는 의도적으로 제거했다. 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 DS가 옮기지 않는다. 공유 링 하나로 통일한다"
         },
@@ -1287,7 +1287,7 @@
           "product": "gray-000/25~42% 알파 다수 · 비어서 경고일 때 rgb(255 120 80)/45%(ShotCarousel)",
           "ds": "color-fg-secondary. 값 텍스트는 foreground-primary라 서로 구분된다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/ShotCarousel.tsx:93-94 · apps/web/components/scenes/create/canvas/components/NodeLayersPanel.tsx:184",
+          "evidence": "apps/web/components/scenes/create/ShotCarousel.tsx:93-94 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:184",
           "status": "accepted-deviation",
           "reason": "제품의 알파 placeholder는 light에서 4.5:1에 미달한다. foreground-tertiary도 3.96:1로 미달해 secondary를 쓴다. 값과의 구분은 색 단계가 아니라 primary/secondary 위계가 맡는다"
         },
@@ -1396,7 +1396,7 @@
           "product": "셋으로 갈린다 — aria-pressed(A) · **아무것도 없음, 색으로만**(B·B2, 4벌) · role=tab + aria-selected(C)",
           "ds": "네이티브 input[type=radio]. checked가 선택을 소유하고 role/valuenow/그룹 안내가 브라우저의 것이다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/SegmentedToggle.tsx:56 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2100-2110 · apps/web/components/scenes/create/canvas/nodes/BgmNode.tsx:1171",
+          "evidence": "apps/web/components/scenes/SegmentedToggle.tsx:56 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2100-2110 · apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:1171",
           "status": "accepted-deviation",
           "reason": "패널을 바꾸지 않고 값을 고르는 것은 radiogroup이다. B 계열 4벌은 선택을 색으로만 전달해 색각 이상과 스크린 리더 양쪽에서 현재 값이 사라진다"
         },
@@ -1420,7 +1420,7 @@
           "product": "여섯 중 넷이 슬라이딩 썸을 갖는다 — 220ms cubic-bezier(0.4,0,0.2,1)(A) · 0.22s cubic-bezier(0.2,0.9,0.3,1)(B) · 0.24s cubic-bezier(0.34,1.4,0.5,1)(C). **C만 motion-reduce를 지킨다.** 위치 계산도 셋으로 갈린다(JS offsetWidth · JS getBoundingClientRect+ResizeObserver · CSS만)",
           "ds": "전환 없음. 선택 면이 즉시 바뀐다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1089 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:980 · apps/web/components/scenes/create/canvas/nodes/BgmNode.tsx:174-175",
+          "evidence": "apps/web/components/scenes/myPageSceneStyles.ts:1089 · apps/web/components/scenes/YoutubeAnalyticsScene.tsx:980 · apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:174-175",
           "status": "accepted-deviation",
           "reason": "이 전환을 부를 토큰이 없다. motion.md가 layout-change를 이름만 예약해 두었고 lifecycle도 enter·exit·loop 셋뿐이라, 넷째 lifecycle을 세우는 것은 DS-D-0016과 같은 크기의 별도 변경이다. 이름이 맞지 않는 기존 motion 토큰을 빌려 쓰면 radius-card와 같은 함정이 된다"
         },
@@ -1447,14 +1447,14 @@
           "product": "Radix Slider(div 기반) 22벌 · 네이티브 input[type=range] 15벌. 두 갈래가 같은 화면 안에 섞여 있다",
           "ds": "네이티브 input[type=range] 하나. 키보드·role·aria·터치·forced-colors·RTL이 전부 브라우저의 것이다",
           "match": "partial",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/CompositionModal.tsx:15177 · apps/web/components/scenes/create/canvas/nodes/TtsNode.tsx:1349",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:15177 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:1349",
           "status": "no-canon"
         },
         "포커스 표시": {
           "product": "**37벌 중 25벌(68%)이 포커스 표시를 명시적으로 지운다.** overlayRadix 썸은 `width:0;height:0;opacity:0;pointer-events:none` + `focus-visible:outline:none!`(17벌), DURATION_SLIDER_THUMB은 `[&:focus-visible]:[outline:none]`(2벌), RANGE_SLIDER는 `[&:focus]:[outline:none] [&:focus-visible]:[outline:none]`(6벌). 링이 있는 것은 crop 2벌(sky-500 offset 3)과 timelineZoom 1벌(sky-500 offset 2)뿐이다",
           "ds": "공유 링 하나 — outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus), offset 2px. 컨트롤 전체가 받는다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/CompositionModal.tsx:2060-2072 · apps/web/components/scenes/create/canvas/nodes/VideoNode.tsx:592 · apps/web/components/scenes/create/canvas/nodes/TtsNode.tsx:516",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2060-2072 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:592 · apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx:516",
           "status": "accepted-deviation",
           "reason": "키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다. 사용의 다수라는 사실은 그것을 정본으로 만들지 않는다 — Text Field와 앱 셸 사이드바에서도 같은 판정을 했다"
         },
@@ -1462,7 +1462,7 @@
           "product": "인스펙터 17벌은 썸을 지우고 채움 오른쪽 끝에 2×14px 표식을 ::after 장식으로 따로 그린다. 그 표식은 포커스를 받지 못하고 방향키에 반응하지 않는다",
           "ds": "track 변형이 같은 2×14px 표식을 **실제 썸으로** 그린다. 모양은 같고 포커스·키보드가 살아 있다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/CompositionModal.tsx:2003-2026",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:2003-2026",
           "status": "accepted-deviation",
           "reason": "장식과 손잡이를 분리하면 보이는 것과 조작되는 것이 어긋난다. 같은 자리에 진짜 썸을 두면 시각은 그대로이고 접근성만 회복된다"
         },
@@ -1470,28 +1470,28 @@
           "product": "8px(RANGE_SLIDER) · 12px(refinement) · 16px(DURATION) · 24px(crop) · 28px(timelineZoom) · 20/28px(overlay). 다섯 값이 흩어져 있다",
           "ds": "layout-control-height-md 40px / -sm 32px. Button·Text Field와 같은 계단",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/BgmNode.tsx:361 · apps/web/components/scenes/create/canvas/nodes/compositionParts/ClipCropModal.tsx:185-186",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:361 · apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:185-186",
           "status": "no-canon"
         },
         "레일 두께": {
           "product": "2px(timelineZoom 기본) · 4px(timelineZoom 툴바 · crop · duration · RANGE_SLIDER · refinement) · 20/28px(overlay 막대)",
           "ds": "4px. thumb 변형에서 크기 축을 갖지 않는다",
           "match": "partial",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/compositionParts/ClipCropModal.tsx:187 · apps/web/components/scenes/create/canvas/nodes/VideoNode.tsx:574",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:187 · apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:574",
           "status": "no-canon"
         },
         "썸 크기": {
           "product": "0px(overlay 17벌, 지워짐) · 10px(refinement) · 12px(duration · RANGE_SLIDER, --spacing:2px에서 w-6) · 14px(timelineZoom) · 16px(crop, w-8)",
           "ds": "md 16px / sm 12px",
           "match": "partial",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/VideoNode.tsx:587 · apps/web/components/scenes/highlightSceneStyles.ts:1607-1608",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:587 · apps/web/components/scenes/highlightSceneStyles.ts:1607-1608",
           "status": "no-canon"
         },
         "썸 분리 방법": {
           "product": "그림자 셋이 값이 다 다르다 — `0 1.5px 3px rgb(0 0 0/24%)`(duration) · `0 2px 8px rgb(0 0 0/22%)`(crop) · `0 1px 2px .../30%`(refinement). crop만 2px 테두리를 함께 갖는다",
           "ds": "그림자 없음. border-width-ring 2px의 color-bg-surface 링으로 분리한다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/VideoNode.tsx:588 · apps/web/components/scenes/create/canvas/nodes/compositionParts/ClipCropModal.tsx:191-192",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx:588 · apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx:191-192",
           "status": "accepted-deviation",
           "reason": "세 그림자 중 어느 것도 DS elevation 넷과 맞지 않아 채택하려면 새 elevation 토큰이 필요하다. 표면색 링은 어느 배경 위에서도 성립하고 forced-colors에서 사라지지 않는다"
         },
@@ -1499,7 +1499,7 @@
           "product": "sky-500(crop · 맨 input 1벌) · pink-500(RANGE_SLIDER 6벌, 오디오 채널) · white/gray-900(duration) · white 96%(timelineZoom) · gray-100(refinement) · gray-700→800 그라디언트(overlay) · gray-500(맨 input 7벌 accentColor)",
           "ds": "color-accent-primary 하나. 빈 레일은 color-stroke-default",
           "match": "different",
-          "evidence": "apps/web/components/scenes/create/canvas/nodes/BgmNode.tsx:366 · apps/web/app/admin/CaptionTemplateManagement.tsx:783",
+          "evidence": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx:366 · apps/web/app/admin/CaptionTemplateManagement.tsx:783",
           "status": "no-canon"
         }
       }
@@ -1510,7 +1510,7 @@
         "paths": [
           "apps/web/app/globals.css"
         ],
-        "note": "globals.css:990의 .app-native-checkbox(20×20 · accent-color). **21벌 중 2벌만 쓴다** — 그 클래스가 cascade layer 밖이라 @layer utilities 안의 어떤 유틸리티도 이길 수 없어, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 통째로 베껴야 했다. CompositionProjectPicker.tsx:140-151이 그 사실을 적어 두었다"
+        "note": "globals.css:990의 .app-native-checkbox(20×20 · accent-color). **21벌 중 2벌만 쓴다** — 그 클래스가 cascade layer 밖이라 @layer utilities 안의 어떤 유틸리티도 이길 수 없어, 색 하나를 바꾸려는 소비처가 클래스를 떼고 선언을 통째로 베껴야 했다. VideoEditProjectPicker.tsx:140-151이 그 사실을 적어 두었다"
       },
       "axisCount": 7,
       "$measuredBy": "2026-08-18 전수 조사. input[type=checkbox] 21벌 14파일을 클래스 쪽과 요소 쪽 두 방향으로 훑었다. **gap registry가 적은 \"4 파일\"은 틀렸다.** aria-checked 8건은 전부 radio/segment 계열이라 이 컴포넌트가 아니어서 갈랐다",
@@ -1543,10 +1543,10 @@
           "reason": "accent-color는 면 색 하나만 주고 체크 표시의 굵기·반경·포커스 링·부분 선택 막대를 전부 브라우저가 정한다. 제품의 signup 계열 6벌이 이미 직접 그리는 것도 같은 이유다"
         },
         "정본의 캐스케이드 위치": {
-          "product": ".app-native-checkbox가 globals.css에 있어 **cascade layer 밖**이다. @layer utilities 안의 어떤 선언도 이길 수 없어 소비처가 색 하나를 바꾸려면 클래스를 떼야 한다. 그 결과 CompositionProjectPicker의 accent가 라이트 sky-500 · 다크 near-white로 갈렸는데 결정이 아니라 캐스케이드 사고다",
+          "product": ".app-native-checkbox가 globals.css에 있어 **cascade layer 밖**이다. @layer utilities 안의 어떤 선언도 이길 수 없어 소비처가 색 하나를 바꾸려면 클래스를 떼야 한다. 그 결과 VideoEditProjectPicker의 accent가 라이트 sky-500 · 다크 near-white로 갈렸는데 결정이 아니라 캐스케이드 사고다",
           "ds": "컴포넌트 CSS가 전부 @layer 안에 있다. 소비처가 유틸리티로 이길 수 있다",
           "match": "different",
-          "evidence": "apps/web/components/scenes/CompositionProjectPicker.tsx:140-151",
+          "evidence": "apps/web/components/scenes/VideoEditProjectPicker.tsx:140-151",
           "status": "accepted-deviation",
           "reason": "레이어 밖 전역 선언은 소비처가 이길 수 없어 정본이 정본으로 기능하지 못한다. 21벌 중 2벌만 쓰는 이유가 이것이다"
         },
@@ -1562,7 +1562,7 @@
           "product": "gray-900/gray-000(A 정본, 전경색) · sky-500/gray-000(C) · gray-000(D) · 브라우저 기본(E). 셋이 다르다",
           "ds": "color-accent-primary. 선택은 액션 색이 소유한다",
           "match": "different",
-          "evidence": "apps/web/app/globals.css:1032-1000 · apps/web/components/scenes/CompositionProjectPicker.tsx:154-155",
+          "evidence": "apps/web/app/globals.css:1032-1000 · apps/web/components/scenes/VideoEditProjectPicker.tsx:154-155",
           "status": "accepted-deviation",
           "reason": "A의 전경색(gray-900/gray-000)은 선택을 텍스트와 같은 색으로 칠해 상태가 아니라 밀도로 읽힌다. C의 sky-500은 캐스케이드 사고의 결과이며 제품의 브랜드 액션 색도 아니다"
         },
@@ -1591,13 +1591,13 @@
       },
       "axisCount": 6,
       "$measuredBy": "2026-08-18 전수 조사. Active 짝을 가진 리스트 행을 전수로 훑었다 — 저장소 전체에 셋뿐이고 그중 둘(transitionMenuItemActive · voiceMenuItemActive)은 메뉴 항목이라 갈랐다. **등록부의 '하이라이트 2 · 에디터 1'이 처음으로 맞았다**",
-      "$recipes": "A clipDetailListItem(+Active) 2벌(HighlightProjectScene:2924, 3209) · B SOURCE_ROW 1벌(CompositionProjectPicker:498, label로 감싸고 선택은 체크박스가 갖는다) · C sourceItem(CompositionModal)은 세로 자산 카드이고 선택 상태가 없어 제외",
+      "$recipes": "A clipDetailListItem(+Active) 2벌(HighlightProjectScene:2924, 3209) · B SOURCE_ROW 1벌(VideoEditProjectPicker:498, label로 감싸고 선택은 체크박스가 갖는다) · C sourceItem(VideoEditModal)은 세로 자산 카드이고 선택 상태가 없어 제외",
       "axes": {
         "골격": {
           "product": "셋 다 가로 flex 행 · 선행 슬롯 · 글자 묶음 · cursor pointer · hover 면 · **전환 140ms ease.** 이것이 셋이 합의하는 전부다",
           "ds": "같은 골격. 선행 media · 제목/보조 글자 묶음 · 후행 slot",
           "match": "same",
-          "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:147-163 · apps/web/components/scenes/CompositionProjectPicker.tsx:127-138",
+          "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:147-163 · apps/web/components/scenes/VideoEditProjectPicker.tsx:127-138",
           "status": "adopted",
           "reason": "기계 대조가 불가능한 구조 축이다. 두 레시피의 선언을 나란히 읽어 flex 방향·슬롯 순서·hover 면·전환 시간이 일치하는 것을 확인했다"
         },
@@ -1629,7 +1629,7 @@
           "product": "A: padding 6 · gap 10 · 반경 14. B: padding 8/6 · gap 10 · 반경 8. 둘이 반경에서 갈린다",
           "ds": "padding 8(space-control-sm) · gap 8(space-control-sm) · 반경 10(radius-overlay-item)",
           "match": "different",
-          "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:151-151 · apps/web/components/scenes/CompositionProjectPicker.tsx:128-129",
+          "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:151-151 · apps/web/components/scenes/VideoEditProjectPicker.tsx:128-129",
           "status": "accepted-deviation",
           "reason": "제품의 gap 10과 반경 14에 맞는 semantic 토큰이 없고 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 — 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않는 것이 더 중요하다"
         },

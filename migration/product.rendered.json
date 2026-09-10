@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-render.mjs가 배포본 CSS를 실브라우저에 올려 뽑는다. 직접 수정하지 않는다.",
   "$whyThisExists": "product.measured.json의 축들은 제품 소스의 줄을 인용한다. 줄 읽기는 cascade와 media query를 모른다. 여기 값은 브라우저가 실제로 푼 값이며, 문맥이 갈리면 문맥마다 다르게 기록된다.",
   "$method": "제품 서버를 띄우지 않는다. 배포본의 정적 stylesheet만 git show로 읽어 빈 문서에 올리고 :root의 계산값을 읽는다. 제품이 @import로 부르는 keyframes.css와 LOUIS CSS는 선언된 자리에 그대로 이어 붙인다 — LOUIS는 제품 apps/web/package.json이 SHA로 고정한 커밋에서 꺼낸다.",
-  "productRef": "27984014f37e6ea19cd126c65dea7c23ab855a89",
-  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productRef": "origin/design",
+  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
   "stylesheets": [
     "apps/web/app/tailwind.css",
     "apps/web/app/globals.css"

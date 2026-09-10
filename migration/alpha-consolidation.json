@@ -20,8 +20,8 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "27984014f37e6ea19cd126c65dea7c23ab855a89",
-  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productRef": "origin/design",
+  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
   "totals": {
     "stops": 39,
     "trueAlphaStops": 31,
@@ -958,6 +958,26 @@
       ]
     },
     {
+      "ink": "--accent-yellow-300-rgb",
+      "uses": 2,
+      "stops": [
+        {
+          "stop": 50,
+          "uses": 2
+        }
+      ]
+    },
+    {
+      "ink": "--accent-green-300-rgb",
+      "uses": 2,
+      "stops": [
+        {
+          "stop": 50,
+          "uses": 2
+        }
+      ]
+    },
+    {
       "ink": "--accent-pink-300-rgb",
       "uses": 2,
       "stops": [
@@ -978,26 +998,6 @@
         {
           "stop": 50,
           "uses": 1
-        }
-      ]
-    },
-    {
-      "ink": "--accent-green-300-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 2
-        }
-      ]
-    },
-    {
-      "ink": "--accent-yellow-300-rgb",
-      "uses": 2,
-      "stops": [
-        {
-          "stop": 50,
-          "uses": 2
         }
       ]
     },
@@ -1380,12 +1380,12 @@
       "sites": [
         {
           "file": "components/navigation/Gnb.tsx",
-          "line": 141,
+          "line": 140,
           "ink": "--gray-900-rgb"
         },
         {
           "file": "components/navigation/Gnb.tsx",
-          "line": 143,
+          "line": 142,
           "ink": "--gray-800-rgb"
         }
       ]

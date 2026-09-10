@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
     "id": "subtree-4a764af3ad4d",
@@ -171,7 +171,7 @@
       },
       {
         "current": "Canvas",
-        "route": "/canvas",
+        "route": "/nodecanvas",
         "activeRow": "Canvas",
         "activeColor": [
           0,
@@ -180,11 +180,11 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 91e5ea2a93982dc8f65cd267f0fcaae7d1759138."
       },
       {
         "current": "Composition",
-        "route": "/composition",
+        "route": "/videoeditor",
         "activeRow": "Composition",
         "activeColor": [
           0,
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 91e5ea2a93982dc8f65cd267f0fcaae7d1759138."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 27984014f37e6ea19cd126c65dea7c23ab855a89."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 91e5ea2a93982dc8f65cd267f0fcaae7d1759138."
       }
     ],
     "rows": [
@@ -752,19 +752,19 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 588,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 594,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 598,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]\","
@@ -1420,7 +1420,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show 27984014f37e6ea19cd126c65dea7c23ab855a89:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show 91e5ea2a93982dc8f65cd267f0fcaae7d1759138:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1454,13 +1454,13 @@
         },
         {
           "current": "Canvas",
-          "route": "/canvas",
+          "route": "/nodecanvas",
           "menuCurrent": "Canvas",
           "ctaState": "Current"
         },
         {
           "current": "Composition",
-          "route": "/composition",
+          "route": "/videoeditor",
           "menuCurrent": "Composition",
           "ctaState": "Current"
         },

@@ -310,10 +310,10 @@ const PROBES = [
     from: ["appHome", "emptyState"],
     read: ["paddingTop", "paddingLeft", "rowGap", "borderTopWidth", "borderTopLeftRadius"],
   },
-  // **`empty-state-actions` 탐침은 걷었다(2026-09-10, 앵커 5a67d692 → 27984014).**
+  // **`empty-state-actions` 탐침은 걷었다(2026-09-10, 앵커 5a67d692 → 91e5ea2a).**
   // `CanvasEmptyState.tsx` 의 `ACTIONS_CLASS = "flex gap-6"` 가 사라진 것은 제품이 그 자리에서
   // **LOUIS 정본을 물기 시작했기 때문이다** — 액션 줄이 이제 `louis-empty-state__action` 이고
-  // 간격은 그 클래스가 갖는다(제품 27984014 의 같은 파일). 제품에 `ACTIONS_CLASS` 는 0건이다.
+  // 간격은 그 클래스가 갖는다(제품 91e5ea2a 의 같은 파일). 제품에 `ACTIONS_CLASS` 는 0건이다.
   // 즉 「측정 대상이 사라진」 것이 아니라 **측정할 필요가 없어진** 자리다. 탐침을 남겨 두면
   // 재고정마다 하드 실패로 멈추고, 다음 사람은 그것을 제품 결함으로 읽는다.
   // **`AVATAR` 상수에는 이제 크기가 없다.** `UserCircleDefaultAvatar.tsx:13-14` 가 사유를 적는다

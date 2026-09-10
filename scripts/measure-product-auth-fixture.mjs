@@ -1111,7 +1111,7 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 40),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 41),
-    // 앵커 27984014 기준. 이 여섯 줄은 5a67d692 에서 345~350 이었고 **내용 대조로** 옮겼다 —
+    // 앵커 91e5ea2a 기준. 이 여섯 줄은 5a67d692 에서 345~350 이었고 **내용 대조로** 옮겼다 —
     // `sourceQuote` 는 좌표를 검증하지 않고 그 줄을 그대로 굽는다. 인용이 밀리면 실패하지 않고
     // **다른 코드를 근거로 굽는다**(조용히 틀린 데이터). 앵커를 옮길 때는 이 파일의 좌표
     // 스물다섯을 내용으로 다시 찾아라 — 그 대조가 이 회차에서 다섯 개를 잡았다.

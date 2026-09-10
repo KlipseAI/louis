@@ -136,7 +136,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달
-  안내 토스트가 `role="status"`로 띄운다(`CompositionModal.tsx:15021`). **live region을 가진 제품 토스트
+  안내 토스트가 `role="status"`로 띄운다(`VideoEditModal.tsx:15021`). **live region을 가진 제품 토스트
   표면은 이 둘뿐이고**, 나머지 글래스 토스트 계열은 보조 기술에 **아무것도 알리지 않는다.** 그쪽을
   기준으로 삼으면 이 절의 `role` 규정이 근거 없는 발명처럼 읽히지만, 제품은 두 role을 이미 쓰고 있다.
 
@@ -233,7 +233,7 @@ Figma에서 이 컴포넌트가 갖는 effect를 종류와 순서까지 고정�
 | 제품의 에디터 오류 토스트 | 미채택 | 제품에는 이 문서가 규정한 표면 말고 **에디터 오류 전용 토스트가 하나 더** 있다 — 하단 고정 `bottom 32px` · z-index **1400** · padding `11px 20px` · radius **999px**(알약) · 최대 폭 `min(92vw, 440px)` · 가운데 정렬 · 배경 `gray-900` **82%** + `blur(12px)` · 그림자 `0 10px 28px` 검정 30%, 타이포는 소비처가 붙이는 **14px medium**(`EditorProjectWorkspace.tsx:156-164`, 소비처 `:1108`). 이 문서의 radius 16px · 70% 반투명 · blur 16px · 420px · 14px regular과 **전부 어긋난다.** 알약 모양 토스트를 제품 표준으로 착각하면 틀린다 — 이쪽이 한 곳짜리 예외다 |
 | 제품의 `pointer-events: none` | 미채택 | 에디터 오류 토스트는 포인터를 아예 받지 않는다(`EditorProjectWorkspace.tsx:162`). 그러면 얹어서 타이머를 멈출 수 없고, **닫기 버튼을 두지 않는 근거가 통째로 무너진다** — States와 Accessibility가 「포인터·focus로 멈춘다」에 기대고 있기 때문이다. Figma에서 이 표면을 그대로 베끼면 hover 정지 계약이 조용히 사라진다. 이 문서는 포인터를 받는 쪽을 택한다 |
 | reduced-motion 대체 | 미규정 | 에디터 오류 토스트만 `prefers-reduced-motion: reduce`에서 `animate-none!`을 걸고(`EditorProjectWorkspace.tsx:163`), 진입·퇴장은 240ms `ease`다(`:159-160`). **저장소에서 reduced-motion을 처리하는 토스트 표면은 이 하나뿐이다** — 모달 `editorToast`(220ms)에도, 글래스 토스트 계열(280ms)에도 감소 모션 규칙이 없다. 이 문서는 진입 애니메이션의 reduced-motion 대체를 아직 적지 않았다 — 나머지 제품 토스트를 근거로 삼으면 대체 없는 채로 굳는다 |
-| 실측 하네스 커버리지 | 구멍 | 실측 변형 목록의 `editorToast`(`compClass.ts:901-915`)는 radius 999 · blur **8px** · 그림자 없음 · z-index **10100** · padding `12px 20px` · 배경 `gray-900` **72%**로, 위 에디터 오류 토스트와 **다른 세 번째 표면**이다(이 문서는 70%라고 적고 있었는데 `ae8fd627`·`5a67d692` 두 앵커에서 모두 72% 다 — 좌표도 `:672-686` 로 엉뚱한 상수를 가리키고 있었다. 둘 다 재고정에서 바로잡았고, 「배경만 이 문서와 같다」는 문장은 그래서 성립하지 않는다). 게다가 하네스는 이 항목을 `uses: 0`으로 적었지만 제품은 실제로 `CompositionModal.tsx:15021`에서 `role="status"`로 렌더한다 — **집계가 소비처를 놓쳤다.** 에디터 오류 토스트는 더해서 아예 없다: 하네스에 `EditorProjectWorkspace.tsx` 항목이 **0개**다. 제품 토스트를 2종으로 세면 틀린다 — 최소 3종이고, 값이 가장 크게 벌어진 하나가 통째로 집계 밖이다 |
+| 실측 하네스 커버리지 | 구멍 | 실측 변형 목록의 `editorToast`(`vemClass.ts:901-915`)는 radius 999 · blur **8px** · 그림자 없음 · z-index **10100** · padding `12px 20px` · 배경 `gray-900` **72%**로, 위 에디터 오류 토스트와 **다른 세 번째 표면**이다(이 문서는 70%라고 적고 있었는데 `ae8fd627`·`5a67d692` 두 앵커에서 모두 72% 다 — 좌표도 `:672-686` 로 엉뚱한 상수를 가리키고 있었다. 둘 다 재고정에서 바로잡았고, 「배경만 이 문서와 같다」는 문장은 그래서 성립하지 않는다). 게다가 하네스는 이 항목을 `uses: 0`으로 적었지만 제품은 실제로 `VideoEditModal.tsx:15021`에서 `role="status"`로 렌더한다 — **집계가 소비처를 놓쳤다.** 에디터 오류 토스트는 더해서 아예 없다: 하네스에 `EditorProjectWorkspace.tsx` 항목이 **0개**다. 제품 토스트를 2종으로 세면 틀린다 — 최소 3종이고, 값이 가장 크게 벌어진 하나가 통째로 집계 밖이다 |
 
 ## Acceptance tests
 

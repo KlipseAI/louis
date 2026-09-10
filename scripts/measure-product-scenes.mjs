@@ -268,7 +268,7 @@ if (!buildId || buildId !== standaloneBuildId) {
 const BUILD_SOURCE_PATHS = [
   "apps/web/app/HomePageClient.tsx",
   "apps/web/components/scenes/highlightSceneStyles.ts",
-  "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+  "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
 ];
 const buildSourceBySuffix = new Map(
   BUILD_SOURCE_PATHS.map((path) => ["./" + path.slice("apps/web/".length), {
@@ -306,7 +306,7 @@ for (const mapPath of sourceMapPaths) {
 // **지문의 전제가 제품에서 죽었다(2026-09-10).** 이 검사는 「이 .next 가 다른 트리에서
 // 복사된 것이 아님」을 sourcemap 원문으로 봤다. 그런데 제품 `61be8649`(소스맵 업로드를 배포
 // 빌드로 한정)이후 로컬 빌드는 **페이지 sourcemap 을 아예 내지 않는다** — 실측: 앵커
-// 27984014 의 `next build --webpack` 산출에서 `.next/server/**/*.map` 은 3개(edge·middleware)
+// 91e5ea2a 의 `next build --webpack` 산출에서 `.next/server/**/*.map` 은 3개(edge·middleware)
 // 뿐이고 `.next/static/**/*.map` 은 0개다. 그러면 이 검사는 어떤 빌드로도 만족될 수 없고,
 // 「환경이 없다」로 영구 UNAVAILABLE 이 된다 — 이 저장소가 이미 두 번 겪은 「영구 빨강」이다.
 //
@@ -1548,12 +1548,12 @@ const payload =
         {
           command:
             "git show " + commit +
-            ":apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+            ":apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
           path:
-            "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+            "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
           line: 96,
           quote: sourceLine(
-            "apps/web/components/scenes/create/canvas/components/NodePromptGenerateButton.tsx",
+            "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
             96,
           ),
         },

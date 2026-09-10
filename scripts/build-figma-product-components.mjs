@@ -157,7 +157,7 @@ const simpleRow = (key, index, text) => {
    **2026-09-09 에 이 인자를 쓰던 이유는 2026-09-10 재고정으로 사라졌다.** 그때 앵커
    `5a67d692` 는 개명 이전 트리라 사이드바 행 글자가 아직 "NodeCanvas"·"VideoEditor" 였고,
    열쇠를 바꾸면 측정이 못 찾아 죽고 표시를 안 바꾸면 draw.js 가 라이브 개명을 되돌렸다.
-   앵커가 `27984014` 로 옮겨간 지금은 **앵커 자신이 "Canvas"·"Composition" 을 갖는다** —
+   앵커가 `91e5ea2a` 로 옮겨간 지금은 **앵커 자신이 "Canvas"·"Composition" 을 갖는다** —
    열쇠와 표시가 같아졌으므로 우회를 걷었다. 인자는 다음 개명을 위해 남겨 둔다. */
 const compoundRow = (key, index, text, ariaLabel, displayText = text) => {
   const label = byText(routes.default.route, text);
@@ -247,7 +247,7 @@ const sectionRowStyle = style(rowNodes[5]);
    **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
    실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다.
 
-   네 번째로 갈렸다(eff38326a288 → 4a764af3ad4d, 2026-09-10 재고정 5a67d692 → 27984014).
+   네 번째로 갈렸다(eff38326a288 → 4a764af3ad4d, 2026-09-10 재고정 5a67d692 → 91e5ea2a).
    **위 예고대로 진짜 변경이었고, 4px 이다.** 가드가 물기에 서명을 전수 대조했다 —
    nodeCount 47 · routeCount 10 · occurrenceCount 10 · score 470 · 최상위 후보 · 경로
    `body.1.0.0.0.0.1` · 크기 256×250 이 **전부 같고**, `roots[].rect.y` 만 64 → 60 이다.
@@ -280,7 +280,7 @@ if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
    서명 전수 대조에서 불일치 0 이었다. 59/6 · 59/4 는 그대로 둔다.
 
    네 번째로 갈렸다(d1dc5adb9fa0→79b78b9dcc94, c3cf629b9e07→30c5289f8743, 2026-09-10
-   재고정 5a67d692 → 27984014). 옛↔새를 **roots 까지 포함해 전수 대조했고 불일치 0** 이다
+   재고정 5a67d692 → 91e5ea2a). 옛↔새를 **roots 까지 포함해 전수 대조했고 불일치 0** 이다
    (nodeCount · routeCount · occurrenceCount · score · roots 의 route·path·tag·rect 전부).
    위 사이드바 후보는 y 가 4px 움직였는데 헤더 둘은 그마저도 없다 — 여백 변경이 사이드바
    메뉴 안쪽이었기 때문이다.
@@ -419,8 +419,8 @@ const shellSpec = {
   variants: [
     { current: "Default", route: "/settings", menuCurrent: "Default", ctaState: "Current" },
     { current: "Home", route: "/archive", menuCurrent: "Home", ctaState: "Current" },
-    { current: "Canvas", route: "/canvas", menuCurrent: "Canvas", ctaState: "Current" },
-    { current: "Composition", route: "/composition", menuCurrent: "Composition", ctaState: "Current" },
+    { current: "Canvas", route: "/nodecanvas", menuCurrent: "Canvas", ctaState: "Current" },
+    { current: "Composition", route: "/videoeditor", menuCurrent: "Composition", ctaState: "Current" },
     { current: "Highlight", route: "/highlight", menuCurrent: "Highlight", ctaState: "Current" },
     { current: "YouTube", route: "/analytics/youtube", menuCurrent: "YouTube", ctaState: "Current" },
     { current: "Upgrade", route: "/mypage/upgrade", menuCurrent: "Default", ctaState: "Current" },
@@ -603,7 +603,7 @@ const plan = {
       },
       {
         current: "Canvas",
-        route: "/canvas",
+        route: "/nodecanvas",
         activeRow: "Canvas",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,
@@ -611,7 +611,7 @@ const plan = {
       },
       {
         current: "Composition",
-        route: "/composition",
+        route: "/videoeditor",
         activeRow: "Composition",
         activeColor: rgba(style(byText(routes.home.route, "Home")).color),
         activeIconOpacity: iconForText(routes.home.route, "Home").opacity,

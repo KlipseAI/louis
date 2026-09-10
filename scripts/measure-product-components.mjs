@@ -310,12 +310,12 @@ const PROBES = [
     from: ["appHome", "emptyState"],
     read: ["paddingTop", "paddingLeft", "rowGap", "borderTopWidth", "borderTopLeftRadius"],
   },
-  {
-    id: "empty-state-actions",
-    source: "CanvasEmptyState.tsx ACTIONS_CLASS — 제품에서 액션이 둘 이상인 빈 상태는 이 한 벌뿐이다",
-    from: ["canvasEmpty", "ACTIONS_CLASS"],
-    read: ["columnGap"],
-  },
+  // **`empty-state-actions` 탐침은 걷었다(2026-09-10, 앵커 5a67d692 → 27984014).**
+  // `CanvasEmptyState.tsx` 의 `ACTIONS_CLASS = "flex gap-6"` 가 사라진 것은 제품이 그 자리에서
+  // **LOUIS 정본을 물기 시작했기 때문이다** — 액션 줄이 이제 `louis-empty-state__action` 이고
+  // 간격은 그 클래스가 갖는다(제품 27984014 의 같은 파일). 제품에 `ACTIONS_CLASS` 는 0건이다.
+  // 즉 「측정 대상이 사라진」 것이 아니라 **측정할 필요가 없어진** 자리다. 탐침을 남겨 두면
+  // 재고정마다 하드 실패로 멈추고, 다음 사람은 그것을 제품 결함으로 읽는다.
   // **`AVATAR` 상수에는 이제 크기가 없다.** `UserCircleDefaultAvatar.tsx:13-14` 가 사유를 적는다
   // — 자기 루트에 달고 있던 28px 을 호출부 셋이 전부 `!` 로 되받아 쳐서 함께 걷어냈고, 남은 것은
   // `louis-avatar__fallback` + 색뿐이다. 그 상수를 재면 크기 선언이 없어 문서 폭(360)이 나온다 —
@@ -1973,7 +1973,8 @@ const EXPECT = [
 
   ["sidebar-header-row", "paddingLeft", ["sidebar-brand", "sizes", "false", "paddingInlineStart"], "same"],
   ["sidebar-header-row-collapsed", "paddingLeft", ["sidebar-brand", "sizes", "true", "paddingInlineStart"], "same"],
-  ["empty-state-actions", "columnGap", ["empty-state", "sizes", "base", "actionGap"], "same"],
+  // `empty-state-actions` 행은 걷었다 — 제품이 그 자리에서 `louis-empty-state__action` 을 물어
+  // 간격을 LOUIS 가 소유한다(위 탐침 주석). 남겨 두면 LOUIS 를 LOUIS 와 대조하는 동어반복이 된다.
   ["project-card-overlay", "borderBottomLeftRadius", ["project-card", "sizes", "base", "radius"], "same"],
 
   // **이미 정해진 차이다.** DS-D-0024 가 알파 5계열을 `static-black-alpha` / `static-white-alpha`

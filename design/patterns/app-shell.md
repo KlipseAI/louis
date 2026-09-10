@@ -191,13 +191,13 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | --- | --- | --- | --- |
 | 형태 A — AppHome | 상 `--app-gnb-safe-top` · 좌 `0` · 우 `--app-gnb-main-inline-padding-end` · 하 `--app-gnb-rail-padding-bottom` | 상·우·하 **모두 `0`** | `appHomeSceneStyles.ts:846-849` → `857-859` |
 | 형태 A — Admin | 동일 | 상·우·하 **모두 `0`** | `AdminClient.tsx:57-58` → `45-47` |
-| 형태 A — NodeCanvasHome | 동일 | 상·우·하 **모두 `0`** | `NodeCanvasHomeScene.tsx:96-97` → `103` |
+| 형태 A — NodeCanvasHome | 동일 | 상·우·하 **모두 `0`** | `CanvasHomeScene.tsx:97-98` → `103` |
 | 형태 A — 분석 2씬 | 동일 | 상·우·하 **모두 `0`** | `InstagramAnalyticsScene.tsx:277-278` → `284-286` · `YoutubeAnalyticsScene.tsx:743-744` → `750-752` |
 | 형태 B — 페이지 루트 | 상 `--app-gnb-safe-top` · 하 `--app-gnb-rail-padding-bottom`, 좌우 padding 없음 (패널이 `margin`으로 벌린다) | 상·하 `0`, 패널 `margin-right: 0` | `myPageSceneStyles.ts:495-496` → `524-525` · `74` → `90` |
 
 **그래서 compact의 16px은 카드 바깥이 아니라 카드 안쪽으로 간다.** compact에서
 `--app-gnb-main-inline-padding-end`를 읽는 자리는 전부 카드 안쪽이다 — 카드와 `<main>`의 안쪽
-패딩(`appHomeSceneStyles.ts:766` · `myPageSceneStyles.ts:66` · `NodeCanvasHomeScene.tsx:131` ·
+패딩(`appHomeSceneStyles.ts:766` · `myPageSceneStyles.ts:66` · `CanvasHomeScene.tsx:129` ·
 `AdminClient.tsx:98`), 카드 안 본문 컬럼(`InstagramAnalyticsScene.tsx:320`), 패널 안 상단
 바(`Gnb.tsx:477`)다. **모바일 시안에 카드 바깥 여백을 그리면 틀린다 — 카드가 화면 폭 전체다.**
 
@@ -337,7 +337,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | 스크롤 루트 | `<main>` 바깥의 뷰포트 div | `<main>` 자신 |
 
 | `<main>` 안쪽 패딩 — 분석 2씬 예외 | `0` — 카드는 패딩 0이고 인셋을 자식이 갖는다 (`InstagramAnalyticsScene.tsx:299` · `YoutubeAnalyticsScene.tsx:773`, 본문 컬럼 좌우 `--app-gnb-main-inline-padding`은 `InstagramAnalyticsScene.tsx:319`·`320` · `YoutubeAnalyticsScene.tsx:806`·`807`) | 해당 없음 |
-| `<main>` 하단 패딩 (≤780px) | 카드에는 **없다** — `0`. 옛 모듈 CSS의 `160px`은 카드가 **아닌** `<main>`에만 남았다 (`appHomeSceneStyles.ts:739`는 `:not(.tw-ah-067)` 조건, `NodeCanvasHomeScene.tsx:116`는 `MAIN_EMBEDDED`). 카드 쪽 선언은 `NodeCanvasHomeScene.tsx:130` · `AdminClient.tsx:97`의 `pb-0` | 해당 없음 |
+| `<main>` 하단 패딩 (≤780px) | 카드에는 **없다** — `0`. 옛 모듈 CSS의 `160px`은 카드가 **아닌** `<main>`에만 남았다 (`appHomeSceneStyles.ts:739`는 `:not(.tw-ah-067)` 조건, `CanvasHomeScene.tsx:114`는 `MAIN_EMBEDDED`). 카드 쪽 선언은 `CanvasHomeScene.tsx:128` · `AdminClient.tsx:97`의 `pb-0` | 해당 없음 |
 
 **형태 B의 아래쪽 20px은 `pb-10`이다.** 제품이 Tailwind의 `--spacing`을 `2px`로 재정의했기
 때문에(`tailwind.css:153`) `pb-10` = 20px이지 40px이 아니다. **Tailwind 기본값(4px 격자)으로
@@ -348,10 +348,10 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 `padding-bottom: 160px`이 `.mainWithAppSidebar`의 padding 단축보다 소스 뒤에 있어 이겼고, 그래서
 모바일 카드 하단이 0이 아니라 160px이었다. **배포본은 그 승자를 옮기지 않았다** — 이미 제거된
 플로팅 CTA 자리의 잔재이고 스크롤 루트 **바깥**이라 스크롤해도 사라지지 않는 죽은 여백이 되기
-때문이며, 배포본이 그 판단을 주석에 직접 적는다(`NodeCanvasHomeScene.tsx:122-126` ·
+때문이며, 배포본이 그 판단을 주석에 직접 적는다(`CanvasHomeScene.tsx:120-124` ·
 `AdminClient.tsx:87-90`). 남은 160px은 카드가 아닌 `<main>` 쪽뿐이다 —
 `appHomeSceneStyles.ts:739`는 `:not(.tw-ah-067)`(= `mainWithAppSidebar`가 아닐 때)로 걸러지고,
-`NodeCanvasHomeScene.tsx:116`는 랜딩 데모 임베드용 `MAIN_EMBEDDED`다. **모바일 시안에 카드 하단
+`CanvasHomeScene.tsx:114`는 랜딩 데모 임베드용 `MAIN_EMBEDDED`다. **모바일 시안에 카드 하단
 160px을 그리면 틀린다** — 형태 A 카드의 ≤780px 하단 패딩은 `0`이다.
 
 전환 곡선은 양쪽 모두 `320ms cubic-bezier(0.4, 0, 0.2, 1)`로 같다 — 위 표의
@@ -361,8 +361,8 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | 계열 | 소비처 |
 | --- | --- |
-| A — 직접 | `appHomeSceneStyles.ts` · `NodeCanvasHomeScene.tsx` · `YoutubeAnalyticsScene.tsx` · `InstagramAnalyticsScene.tsx` · `AdminClient.tsx` |
-| B — 직접 | `myPageSceneStyles.ts` · `VideoEditScene.tsx` · `EditorProjectWorkspace.tsx` · `InquiryClient.tsx` · 숏폼 클립 편집 라우트 |
+| A — 직접 | `appHomeSceneStyles.ts` · `CanvasHomeScene.tsx` · `YoutubeAnalyticsScene.tsx` · `InstagramAnalyticsScene.tsx` · `AdminClient.tsx` |
+| B — 직접 | `myPageSceneStyles.ts` · `CompositionScene.tsx` · `EditorProjectWorkspace.tsx` · `InquiryClient.tsx` · 숏폼 클립 편집 라우트 |
 | B — 모듈 경유 | `ExploreScene.tsx` · `HighlightScene.tsx` · `HighlightProjectScene.tsx` · `SettingsScene.tsx` · `SubscriptionScene.tsx` |
 
 **마지막 줄이 함정이다.** 이 다섯은 `myPageSceneStyles`(카드)와 `appHomeSceneStyles`(그 밖의 부품)를

@@ -2,122 +2,122 @@
   "$comment": "생성물. scripts/measure-product-drift.mjs가 배포본에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "값을 직접 쓸 수 있는 축마다 드리프트가 번진다. 2026-08-21에 네 축에서 같은 자국이 **따로따로** 발견됐다 — 알파·radius·border-width·duration. 한 축씩 발견하는 방식으로는 다섯 번째를 놓친다. 전 축을 한 번에 재서 드러낸다.",
   "$howToRead": "coverage가 낮으면 DS 스케일이 좁거나 제품이 흩어진 것이다. topHasToken이 false면 **가장 흔한 값을 토큰으로 쓸 수 없다는 뜻**이며, 그 자체로 결함이다. topUsed/missingTop이 문서의 분포표를 생성한다 — 표를 손으로 세지 않는다.",
-  "productRef": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productRef": "27984014f37e6ea19cd126c65dea7c23ab855a89",
+  "productCommit": "27984014f37e6ea19cd126c65dea7c23ab855a89",
   "axes": [
     {
       "id": "alpha",
       "label": "투명도 %",
       "unit": "%",
-      "productStops": 41,
+      "productStops": 39,
       "dsStops": 14,
-      "uses": 2601,
-      "coveragePct": 46.5,
+      "uses": 2387,
+      "coveragePct": 46.6,
       "topValue": 8,
-      "topUses": 358,
+      "topUses": 323,
       "topHasToken": true,
       "missingTop": [
         {
           "value": 100,
-          "uses": 324,
-          "files": 46
+          "uses": 270,
+          "files": 33
         },
         {
           "value": 88,
-          "uses": 244,
-          "files": 80
+          "uses": 230,
+          "files": 78
         },
         {
           "value": 56,
-          "uses": 157,
+          "uses": 152,
           "files": 70
         },
         {
           "value": 48,
-          "uses": 141,
-          "files": 62
+          "uses": 136,
+          "files": 61
         },
         {
           "value": 72,
-          "uses": 114,
-          "files": 55
+          "uses": 102,
+          "files": 51
         },
         {
           "value": 96,
-          "uses": 92,
+          "uses": 85,
           "files": 28
         },
         {
           "value": 32,
-          "uses": 84,
-          "files": 40
+          "uses": 78,
+          "files": 39
         },
         {
           "value": 28,
-          "uses": 71,
-          "files": 36
+          "uses": 70,
+          "files": 35
         }
       ],
       "topUsed": [
         {
           "value": 8,
-          "uses": 358,
-          "files": 94,
+          "uses": 323,
+          "files": 88,
           "hasToken": true
         },
         {
           "value": 100,
-          "uses": 324,
-          "files": 46,
+          "uses": 270,
+          "files": 33,
           "hasToken": false
         },
         {
           "value": 88,
-          "uses": 244,
-          "files": 80,
+          "uses": 230,
+          "files": 78,
           "hasToken": false
         },
         {
           "value": 12,
-          "uses": 204,
-          "files": 78,
+          "uses": 195,
+          "files": 72,
           "hasToken": true
         },
         {
           "value": 4,
-          "uses": 189,
-          "files": 69,
+          "uses": 169,
+          "files": 64,
           "hasToken": true
         },
         {
           "value": 56,
-          "uses": 157,
+          "uses": 152,
           "files": 70,
           "hasToken": false
         },
         {
           "value": 48,
-          "uses": 141,
-          "files": 62,
+          "uses": 136,
+          "files": 61,
           "hasToken": false
         },
         {
           "value": 20,
-          "uses": 135,
-          "files": 50,
+          "uses": 125,
+          "files": 46,
           "hasToken": true
         },
         {
           "value": 80,
-          "uses": 118,
-          "files": 55,
+          "uses": 105,
+          "files": 54,
           "hasToken": true
         },
         {
-          "value": 72,
-          "uses": 114,
-          "files": 55,
-          "hasToken": false
+          "value": 40,
+          "uses": 104,
+          "files": 46,
+          "hasToken": true
         }
       ]
     },
@@ -127,10 +127,10 @@
       "unit": "px",
       "productStops": 19,
       "dsStops": 11,
-      "uses": 201,
-      "coveragePct": 62.7,
+      "uses": 194,
+      "coveragePct": 61.3,
       "topValue": 12,
-      "topUses": 36,
+      "topUses": 31,
       "topHasToken": true,
       "missingTop": [
         {
@@ -177,14 +177,14 @@
       "topUsed": [
         {
           "value": 12,
-          "uses": 36,
+          "uses": 31,
           "files": 8,
           "hasToken": true
         },
         {
           "value": 6,
-          "uses": 28,
-          "files": 3,
+          "uses": 24,
+          "files": 2,
           "hasToken": true
         },
         {
@@ -231,8 +231,8 @@
         },
         {
           "value": 16,
-          "uses": 6,
-          "files": 2,
+          "uses": 8,
+          "files": 3,
           "hasToken": true
         }
       ]
@@ -243,16 +243,16 @@
       "unit": "px",
       "productStops": 4,
       "dsStops": 3,
-      "uses": 124,
-      "coveragePct": 92.7,
+      "uses": 112,
+      "coveragePct": 92.9,
       "topValue": 1,
-      "topUses": 93,
+      "topUses": 82,
       "topHasToken": true,
       "missingTop": [
         {
           "value": 1.5,
-          "uses": 8,
-          "files": 5
+          "uses": 7,
+          "files": 4
         },
         {
           "value": 4,
@@ -263,8 +263,8 @@
       "topUsed": [
         {
           "value": 1,
-          "uses": 93,
-          "files": 39,
+          "uses": 82,
+          "files": 37,
           "hasToken": true
         },
         {
@@ -275,8 +275,8 @@
         },
         {
           "value": 1.5,
-          "uses": 8,
-          "files": 5,
+          "uses": 7,
+          "files": 4,
           "hasToken": false
         },
         {
@@ -291,18 +291,18 @@
       "id": "spacing",
       "label": "간격",
       "unit": "px",
-      "productStops": 43,
+      "productStops": 44,
       "dsStops": 27,
-      "uses": 882,
-      "coveragePct": 80.6,
+      "uses": 875,
+      "coveragePct": 80.5,
       "topValue": 8,
-      "topUses": 211,
+      "topUses": 204,
       "topHasToken": true,
       "missingTop": [
         {
           "value": 3,
-          "uses": 40,
-          "files": 18
+          "uses": 37,
+          "files": 16
         },
         {
           "value": 5,
@@ -311,8 +311,8 @@
         },
         {
           "value": 1,
-          "uses": 24,
-          "files": 14
+          "uses": 25,
+          "files": 15
         },
         {
           "value": 7,
@@ -325,68 +325,68 @@
           "files": 8
         },
         {
-          "value": 11,
+          "value": 160,
           "uses": 7,
-          "files": 6
+          "files": 4
+        },
+        {
+          "value": 11,
+          "uses": 6,
+          "files": 5
         },
         {
           "value": 112,
           "uses": 5,
           "files": 5
-        },
-        {
-          "value": 160,
-          "uses": 5,
-          "files": 3
         }
       ],
       "topUsed": [
         {
           "value": 8,
-          "uses": 211,
-          "files": 47,
+          "uses": 204,
+          "files": 48,
           "hasToken": true
         },
         {
           "value": 4,
-          "uses": 109,
-          "files": 9,
+          "uses": 107,
+          "files": 10,
           "hasToken": true
         },
         {
           "value": 12,
-          "uses": 79,
+          "uses": 85,
           "files": 15,
           "hasToken": true
         },
         {
           "value": 6,
-          "uses": 69,
+          "uses": 71,
+          "files": 11,
+          "hasToken": true
+        },
+        {
+          "value": 2,
+          "uses": 52,
           "files": 10,
           "hasToken": true
         },
         {
           "value": 10,
-          "uses": 56,
-          "files": 9,
-          "hasToken": true
-        },
-        {
-          "value": 2,
           "uses": 49,
-          "files": 10,
+          "files": 8,
           "hasToken": true
         },
         {
           "value": 16,
-          "uses": 47,
+          "uses": 43,
           "files": 9,
           "hasToken": true
         },
         {
           "value": 3,
-          "uses": 40,
-          "files": 18,
+          "uses": 37,
+          "files": 16,
           "hasToken": false
         },
         {
@@ -397,8 +397,8 @@
         },
         {
           "value": 1,
-          "uses": 24,
-          "files": 14,
+          "uses": 25,
+          "files": 15,
           "hasToken": false
         }
       ]
@@ -407,33 +407,38 @@
       "id": "duration",
       "label": "모션 길이",
       "unit": "ms",
-      "productStops": 53,
+      "productStops": 72,
       "dsStops": 17,
-      "uses": 1009,
-      "coveragePct": 60.9,
+      "uses": 1036,
+      "coveragePct": 59.5,
       "topValue": 180,
-      "topUses": 171,
+      "topUses": 167,
       "topHasToken": false,
       "missingTop": [
         {
           "value": 180,
-          "uses": 171,
-          "files": 43
+          "uses": 167,
+          "files": 42
         },
         {
           "value": 280,
-          "uses": 33,
-          "files": 14
+          "uses": 31,
+          "files": 13
         },
         {
           "value": 150,
-          "uses": 19,
-          "files": 11
+          "uses": 17,
+          "files": 10
         },
         {
           "value": 100,
-          "uses": 15,
-          "files": 7
+          "uses": 17,
+          "files": 8
+        },
+        {
+          "value": 80,
+          "uses": 17,
+          "files": 11
         },
         {
           "value": 240,
@@ -441,74 +446,69 @@
           "files": 7
         },
         {
+          "value": 600,
+          "uses": 12,
+          "files": 8
+        },
+        {
           "value": 500,
           "uses": 11,
           "files": 2
-        },
-        {
-          "value": 80,
-          "uses": 11,
-          "files": 10
-        },
-        {
-          "value": 600,
-          "uses": 10,
-          "files": 7
         }
       ],
       "topUsed": [
         {
           "value": 180,
-          "uses": 171,
-          "files": 43,
+          "uses": 167,
+          "files": 42,
           "hasToken": false
         },
         {
           "value": 120,
-          "uses": 107,
-          "files": 42,
+          "uses": 116,
+          "files": 48,
           "hasToken": true
         },
         {
           "value": 160,
-          "uses": 98,
-          "files": 33,
+          "uses": 95,
+          "files": 31,
           "hasToken": true
         },
         {
           "value": 140,
-          "uses": 92,
-          "files": 27,
+          "uses": 83,
+          "files": 25,
           "hasToken": true
         },
         {
           "value": 320,
-          "uses": 81,
+          "uses": 80,
           "files": 33,
           "hasToken": true
         },
         {
           "value": 200,
-          "uses": 72,
-          "files": 30,
+          "uses": 73,
+          "files": 31,
           "hasToken": true
         },
         {
           "value": 220,
-          "uses": 50,
+          "uses": 49,
           "files": 18,
           "hasToken": true
         },
         {
           "value": 130,
-          "uses": 34,
+          "uses": 33,
           "files": 16,
           "hasToken": true
         },
         {
           "value": 280,
-          "uses": 33,
-          "files": 14,
+          "uses": 31,
+          "files": 13,
           "hasToken": false
         },
         {

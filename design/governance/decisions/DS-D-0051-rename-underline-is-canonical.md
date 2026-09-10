@@ -32,9 +32,9 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 | 벌 | 정본 채택 | 반경 | 밑줄 | 아래 여백 | 초점 표시 |
 | --- | --- | ---: | --- | ---: | --- |
 | 앱 홈 `appHomeSceneStyles.ts:341` | `"louis-project-card-rename",` | **2** (`:344`) | 없음 | 0 | 1px 아웃라인 + 2px 띄움 (`:345`·`:346`) |
-| 캔버스 홈 `NodeCanvasHomeScene.tsx:404` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
+| 캔버스 홈 `CanvasHomeScene.tsx:409` | `"louis-project-card-rename",` | **2** (`:405`) | 없음 | 0 | 같음 (`:406`·`:407`) |
 | 하이라이트 허브 `highlightSceneStyles.ts:1040` | **얹지 않는다** (`:1037`) | 0 | `:1046` | 2 (`:1049`) | 없음 |
-| 비디오 에디터 허브 `VideoEditScene.tsx:401` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
+| 비디오 에디터 허브 `CompositionScene.tsx:402` | 얹지 않는다 | 0 | `:404` | 2 (`:406`) | 없음 |
 
 낱말 그대로의 선언 — `git show 5a67d692:<경로>` 로 재확인한다.
 
@@ -42,16 +42,16 @@ DS-D-0050 의 실측은 앵커 `ae8fd627` 기준이고, 그 사이 제품이 회
 highlightSceneStyles.ts:1046     "[border-bottom:1px_solid_var(--palette-gray-400)]",
 highlightSceneStyles.ts:1049     "[padding:0_0_2px]",
 highlightSceneStyles.ts:1052     "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
-VideoEditScene.tsx:404           "[border-bottom:1px_solid_var(--palette-gray-400)]",
-VideoEditScene.tsx:406           "pt-0 pr-0 pb-1 pl-0",
-VideoEditScene.tsx:409           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
+CompositionScene.tsx:405           "[border-bottom:1px_solid_var(--palette-gray-400)]",
+CompositionScene.tsx:407           "pt-0 pr-0 pb-1 pl-0",
+CompositionScene.tsx:410           "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
 appHomeSceneStyles.ts:344        "[border-radius:2px]",
-NodeCanvasHomeScene.tsx:405      "[outline:none] rounded-2",
+CanvasHomeScene.tsx:410      "[outline:none] rounded-2",
 ```
 
-`VideoEditScene.tsx:406` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
+`CompositionScene.tsx:407` 의 `pb-1` 은 제품의 `--spacing: 2px` 격자에서 **2px** 다 —
 `highlightSceneStyles.ts:1049` 의 `padding: 0 0 2px` 와 같은 값이고, 그래서 두 벌이 갈리지 않는다.
-`VideoEditScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
+`CompositionScene.tsx` 는 단축을 롱핸드로 푼 것만 다르며, 그 사유가 그 파일 주석에 적혀 있다 —
 「`border: none` 뒤의 `border-bottom` 단축을 롱핸드로 풀어 정렬 의존을 없앤다」.
 
 **값은 움직이지 않았다.** 밑줄 색은 여전히 라이트 `palette-gray-400` · 다크 `gray-500` 이고,

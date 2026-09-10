@@ -529,7 +529,7 @@ style이다.
   **`--mainchrome-divider-progress`의 폴백은 「없음」이 아니라 `1`이다(위 표 정정).** 소비처가
   `var(--mainchrome-divider-progress, 1)`로 읽으므로 **진행값을 주입하지 않는 화면은 스크롤 0에서도
   경계선이 100%로 그려진다.** 진행값을 주입하는 것은 훅을 부르는 세 화면뿐이다
-  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `NodeCanvasHomeScene.tsx:707`).
+  (`AppHomeScene.tsx:221` · `HighlightScene.tsx:184` · `CanvasHomeScene.tsx:727`).
 
   그래서 Properties의 `divider` 기본 `false`와 Acceptance test 8은 **제품 기본과 반대다.** Figma로
   옮길 때 그 세 화면 밖의 기본 프레임은 **경계선 있음**으로 그린다 — `divider`를 끈 상태를 기본으로

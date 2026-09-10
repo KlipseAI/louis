@@ -37,8 +37,8 @@ DS 의 `ActionMenu`·`CompositePopover` 가 덮는다고 결론지었다.
 | `components/navigation/Gnb.tsx:3314` 언어 | 32 | 10 | 12 · 12 | 6 | 6px 테두리 셰브론 |
 | `SubscriptionScene.tsx:1092` 정렬 | 28(min) | 8 | 10 · 10 | 6 | 10 |
 | `create/ComposerBar.tsx:519` 모델 | 32 | 알약 | 12 · 32 | — | `▼` 12 |
-| `VideoEditModal.tsx:10838` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
-| `videoEditParts/CompositionInspector.tsx:207` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
+| `CompositionModal.tsx:11616` 프리뷰 줌 | 24 | 8 | 8 · 6 | 4 | 12 |
+| `compositionParts/SequenceInspector.tsx:205` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/EditorSettingsPanel.tsx:83` 비율 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:937` 글꼴 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |
 | `videoEditParts/OverlayInspector.tsx:1109` 굵기 | 내용 | 12 | 14 · 14 | 10 | 셰브론 |

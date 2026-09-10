@@ -109,7 +109,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   두는 것은 그 선언이 실재했던 자리를 잃지 않기 위해서다
 - 앱 메인 카드의 `::after` 베벨 링. 카드는 이제 `border-radius: 16px` + `var(--louis-hairline-inset)`
   뿐이다(`globals.css:1330-1335`·`:1421-1431`). 그 자리를 잡고 있던 `--dropdown-frame`은 지금 제품에 없다
-- 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/vemClass.ts`)
+- 비디오 에디터의 헤더 버튼·타임라인 표면이 쓰던 베벨 (`videoEditParts/compClass.ts`)
 
 **이 자리를 5겹으로 되돌리지 마라.** 옛 문서나 `origin/main`을 근거로 다시 그리면 폐지된 개념이 살아난다 —
 [제품을 읽을 때 틀리는 자리](product-reading-traps.md)의 「정본은 `design` 브랜치다」 항목을 먼저 읽는다.
@@ -122,7 +122,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 | 소비처 | 좌표 |
 | --- | --- |
 | 노드 사이드 버튼 | `node-canvas-v2/nodes/NodeSideButtons.tsx:147-148` |
-| 비디오 에디터 `confirmBtn`(내보내기) | `videoEditParts/vemClass.ts:737-738` (선언은 `:505`) |
+| 비디오 에디터 `confirmBtn`(내보내기) | `compositionParts/compClass.ts:804-805` (선언은 `:505`) |
 
 Button 주석이 「이너섀도우는 **노드 사이드 버튼에만** 남는다」고 적지만 `confirmBtn`이 같은 층을 자기
 클래스에 직접 들고 있다 — **주석보다 값이 정본이다.**

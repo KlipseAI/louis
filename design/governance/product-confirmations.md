@@ -42,7 +42,7 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 > **그 근거는 기준선에서 사라졌다.** `98c421ea` 가 그 버튼을 LOUIS `<Button>` 으로 갈아
 > 끼웠고, 지금 기준선(`df414c24`)의 그 파일에는 `180ms` 가 한 번도 나오지 않는다. 판정을
 > **살아 있는 자리로 옮긴다** — 아카이브 프로젝트 카드가 `transform` · `filter` · `box-shadow`
-> 를 셋 다 180ms ease 로 쓰고(`NodeCanvasHomeScene.tsx:273`), 같은 요소의 `:active` 가
+> 를 셋 다 180ms ease 로 쓰고(`CanvasHomeScene.tsx:271`), 같은 요소의 `:active` 가
 > `scale(0.975)` 와 그림자 교체다(:274-275). **결론은 그대로이고 근거만 바뀌었다.**
 
 그 자리에서 움직이는 것은 **누름(`scale(0.975)`)과 밝기·그림자 변화** — 즉 **컨트롤 피드백**이다.
@@ -233,10 +233,10 @@ Tailwind v4 기본은 rem 기반인데 이 제품은 「실측 결과 2px 격자
 
 **왜.** `useMainChromeHeaderScrollProgress`가 `--header-progress`를 두 곳에 쓴다 —
 `headerSlot`과 `wrapper.closest("main")`. 그런데 형태 B에서 페이드를 가진 패널 div는
-**`<main>`의 부모**다(`VideoEditScene.tsx:709-710` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
+**`<main>`의 부모**다(`CompositionScene.tsx:710-711` 구조). CSS 커스텀 프로퍼티는 **위로 상속되지
 않으므로** 패널의 `::before`는 언제나 폴백 `0`을 읽는다.
 
-게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `VideoEditScene.tsx` · `InquiryClient.tsx`)
+게다가 페이드를 선언한 3파일(`myPageSceneStyles.ts` · `CompositionScene.tsx` · `InquiryClient.tsx`)
 중 **훅을 호출하는 것은 하나도 없다.** 훅 호출처는 `AppHomeScene`(형태 A) ·
 `NodeCanvasHomeScene`(형태 A) · `HighlightScene` 셋뿐이다.
 

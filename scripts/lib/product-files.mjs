@@ -29,10 +29,10 @@ export const PRODUCT_FILES = {
   myPage: "apps/web/components/scenes/myPageSceneStyles.ts",
   avatar: "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
   spinner: "apps/web/components/ui/LoadingSpinner.tsx",
-  canvasEmpty: "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx",
-  // 6337ad54 재기준선: VEM_CLASS가 VideoEditModal.tsx에서 분리됐다(66d48071 리팩토링).
-  vem: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-  crop: "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx",
+  canvasEmpty: "apps/web/components/scenes/create/canvas/components/CanvasEmptyState.tsx",
+  // 6337ad54 재기준선: COMP_CLASS가 CompositionModal.tsx에서 분리됐다(66d48071 리팩토링).
+  vem: "apps/web/components/scenes/create/canvas/nodes/compositionParts/compClass.ts",
+  crop: "apps/web/components/scenes/create/canvas/nodes/compositionParts/ClipCropModal.tsx",
   // ── 랜딩 여섯 + ui 둘 ─────────────────────────────────────────────────────
   // Figma 가 먼저 서고 LOUIS recipe 가 아직 없는 여덟이다. 계약에 `geometry` 를 붙이려면
   // `figma/components.measured.json` 에 실측 정본이 있어야 하는데, 이 여덟은 LOUIS 컴포넌트가

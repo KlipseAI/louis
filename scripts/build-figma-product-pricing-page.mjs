@@ -20,17 +20,36 @@ const contexts = [
   { id: "desktop-1920x1080", viewport: "Desktop" },
   { id: "mobile-402x874", viewport: "Mobile" },
 ];
+// **회색 램프는 손으로 적지 않고 LOUIS 에서 유도한다(2026-09-10).**
+// 이 표는 원래 열 칸을 리터럴로 들고 있었는데, 그 값들은 LOUIS 가 SEED/TDS 로 recolor 하면서
+// 여덟 칸이 움직였다(예: gray-800 `#313640` → `#2b2f36`). 표가 램프의 **사본**인 한 램프가
+// 움직일 때마다 「unmapped measured color」로 멈추고, 그때 항목을 하나씩 더하면 같은 색이
+// 두 벌 남는다. 정본에서 읽으면 그 부류가 통째로 사라진다.
+//
+// 알파가 섞인 것들은 램프에서 나오지 않으므로(제품이 `rgb(...)/x%` 로 조립한다) 그대로 둔다.
+// 제품이 램프 칸에 실제로 씌우는 알파. 새 값이 나오면 「unmapped」로 멈추므로 여기 더한다 —
+// 조용히 근사하지 않는다. 값은 실측에서 왔다.
+const RAMP_ALPHAS = [0.88, 0.72, 0.64, 0.56, 0.48, 0.4, 0.32, 0.24, 0.16, 0.12, 0.1, 0.08, 0.04];
+const rampCss = readFileSync(resolve(repoRoot, "packages/css/generated/tokens.css"), "utf8");
+const rampBindings = {};
+for (const match of rampCss.matchAll(
+  /--louis-color-palette-gray-(\d+):\s*color\(srgb ([\d.]+) ([\d.]+) ([\d.]+)(?: ?\/ ?[\d.]+)?\);/g,
+)) {
+  const [r, g, b] = match.slice(2, 5).map((n) => Math.round(Number(n) * 255));
+  rampBindings[`rgb(${r}, ${g}, ${b})`] = `gray${match[1]}`;
+  // 제품은 같은 칸을 알파와 함께도 쓴다(`rgb(var(--…-rgb)/88%)`). 램프 칸마다 실제로
+  // 나타나는 알파를 함께 등록해 「같은 색인데 알파만 다르다」로 멈추지 않게 한다.
+  // 이름은 `gray700a88` 꼴로, 아래 손으로 적은 알파 항목과 같은 규칙이다.
+  for (const alpha of RAMP_ALPHAS) {
+    rampBindings[`rgba(${r}, ${g}, ${b}, ${alpha})`] =
+      `gray${match[1]}a${String(Math.round(alpha * 100)).padStart(2, "0")}`;
+  }
+}
+if (Object.keys(rampBindings).length < 10) {
+  fail(`LOUIS 회색 램프를 읽지 못했습니다(${Object.keys(rampBindings).length}칸). tokens.css 형식이 바뀌었는지 보세요.`);
+}
 const colorBindings = {
-  "rgb(250, 250, 250)": "gray000",
-  "rgb(241, 241, 243)": "gray100",
-  "rgb(227, 228, 232)": "gray200",
-  "rgb(188, 192, 201)": "gray400",
-  "rgb(154, 160, 171)": "gray500",
-  "rgb(119, 125, 137)": "gray600",
-  "rgb(87, 93, 104)": "gray700",
-  "rgb(49, 54, 64)": "gray800",
-  "rgb(23, 27, 34)": "gray900",
-  "rgb(0, 0, 0)": "gray1000",
+  ...rampBindings,
   "rgb(0, 198, 142)": "mint500",
   "rgba(154, 160, 171, 0.9)": "gray500a90",
   "rgba(0, 0, 0, 0.74)": "blackA74",
@@ -42,10 +61,27 @@ const colorBindings = {
   "rgba(0, 0, 0, 0.45)": "blackA45",
   "rgba(154, 160, 171, 0.14)": "gray500a14",
   "rgb(0, 122, 255)": "$brandBlueFixed",
+  "rgb(0, 0, 0)": "gray1000",
 };
-const colorKey = (value) => {
+// **표기를 먼저 맞춘다.** 같은 색이 브라우저에서 `rgb(23, 27, 34)` 로도 오고
+// `color(srgb 0.090196 0.105882 0.133333)` 로도 온다 — 값이 `color-mix()` 나 LOUIS 토큰을
+// 거치면 후자가 된다. 2026-09-10 재고정에서 이 표기로 오는 색이 18종이었고, 표에 항목을
+// 하나씩 더하면 **같은 색이 표에 두 벌** 생기고 다음 표기 변화에 또 깨진다. 그래서 조회 전에
+// `rgb()`/`rgba()` 한 형태로 접는다. 표는 그대로 rgb 표기 하나만 안다.
+const srgbToRgb = (value) => {
+  const match = /^color\(srgb ([\d.]+) ([\d.]+) ([\d.]+)(?: ?\/ ?([\d.]+))?\)$/.exec(value);
+  if (!match) return value;
+  const [r, g, b] = match.slice(1, 4).map((n) => Math.round(Number(n) * 255));
+  const alpha = match[4];
+  return alpha === undefined || Number(alpha) === 1
+    ? `rgb(${r}, ${g}, ${b})`
+    : `rgba(${r}, ${g}, ${b}, ${Number(alpha)})`;
+};
+const colorKey = (rawValue) => {
+  const value = srgbToRgb(rawValue);
   if (transparent(value)) return null;
-  return colorBindings[value] ?? fail(`unmapped measured color ${value}`);
+  return colorBindings[value] ?? fail(`unmapped measured color ${rawValue}` +
+    (value === rawValue ? "" : ` (정규화: ${value})`));
 };
 const rel = (rect, root) => ({
   x: rect.x - root.x,
@@ -61,7 +97,12 @@ const borderSpec = (style) => ["Top", "Right", "Bottom", "Left"].map((side) => (
   width: px(style[`border${side}Width`]),
   color: px(style[`border${side}Width`]) ? colorKey(style[`border${side}Color`]) : null,
 }));
-const effectSpec = (value) => {
+const effectSpec = (rawValue) => {
+  // 색과 같은 이유로 그림자도 `color(srgb …)` 로 온다(위 srgbToRgb 주석). 파서가 `rgba?()`
+  // 만 알므로 **먼저 접는다** — 정규식에 srgb 갈래를 더하면 같은 형태를 두 벌 알게 된다.
+  const value = typeof rawValue === "string"
+    ? rawValue.replace(/color\(srgb [\d. /]+\)/g, (m) => srgbToRgb(m))
+    : rawValue;
   if (!value || value === "none") return [];
   const matches = [...value.matchAll(/(rgba?\([^)]*\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+(-?[\d.]+)px(?:\s+(inset))?/g)];
   if (!matches.length) fail(`unsupported measured shadow ${value}`);
@@ -80,9 +121,16 @@ const ancestorPaths = (path) => {
 
 const makeContext = ({ id, viewport }) => {
   const page = evidence.pages[id]?.["/pricing"] ?? fail(`missing ${id} /pricing`);
-  if (page.tree.length !== 883) fail(`${id} pricing tree must have 883 nodes, got ${page.tree.length}`);
-  if ((viewport === "Desktop" && (page.main.width !== 1920 || page.main.height !== 4615.2969)) ||
-      (viewport === "Mobile" && (page.main.width !== 402 || page.main.height !== 5097.9063))) {
+  // **883 → 1160 (2026-09-10 재고정 5a67d692 → 27984014).** 요금제가 넷에서 다섯이 되며
+  // 플랜 카드와 비교 열이 각각 하나씩 늘었고, 그 사이 286커밋의 문구·구조 변경이 얹혔다.
+  // 이 수는 「같은 페이지인가」를 보는 것이지 값이 아니다 — 아래 반복 뿌리 수(플랜 5 · 팩 3 ·
+  // 비교 5 · FAQ 7)가 실제 계약이고, 그 넷이 맞는지가 이 수보다 강한 확인이다.
+  if (page.tree.length !== 1160) fail(`${id} pricing tree must have 1160 nodes, got ${page.tree.length}`);
+  // 높이 실측(27984014): Desktop 4615.2969 → **4242.1563**, Mobile 5097.9063 → **5354.6719**.
+  // 데스크톱은 줄고 모바일은 늘었다 — 플랜이 다섯이 되며 데스크톱은 한 줄에 더 눕고
+  // 모바일은 세로로 한 장 더 쌓이기 때문이다. 폭은 둘 다 그대로다(1920 · 402).
+  if ((viewport === "Desktop" && (page.main.width !== 1920 || page.main.height !== 4242.1563)) ||
+      (viewport === "Mobile" && (page.main.width !== 402 || page.main.height !== 5354.6719))) {
     fail(`${id} pricing page geometry drift`);
   }
   const tree = page.tree;
@@ -106,6 +154,14 @@ const makeContext = ({ id, viewport }) => {
     if (paths.some((value) => value.startsWith("M176,32H80"))) return "instagram";
     if (paths.some((value) => value.startsWith("M23.498 6.186"))) return "youtube";
     if (entry.vector?.viewBox === "0 0 73 28") return "footerLogo";
+    // 2026-09-10 재고정에서 새로 나타났다 — 공개 GNB 에 테마 전환 버튼이 생겼고(`Theme: System`)
+    // 그 안의 모니터 글리프다(`components/theme/ThemeIcons.tsx`). 첫 서브패스로 집는다:
+    // 화면 사각형이라 다른 아이콘과 겹치지 않는다.
+    if (paths.some((value) => value.startsWith("M2.625 10.5L11.375"))) return "themeMonitor";
+    // FAQ 아코디언의 ＋ 글리프. 가로선·세로선 두 path 뿐이라 둘을 함께 봐야 유일하다 —
+    // 가로선만 보면 다른 구분선과 겹친다.
+    if (paths.some((value) => value.startsWith("M3.75 12H20.25")) &&
+        paths.some((value) => value.startsWith("M12 3.75V20.25"))) return "faqPlus";
     return fail(`unclassified measured SVG ${id} ${entry.path}`);
   };
   const textSpecs = (entries, root) => entries.filter((entry) => entry.ownText).flatMap((entry) => {
@@ -181,7 +237,12 @@ const makeContext = ({ id, viewport }) => {
   const packRoots = directChildren(tree, "main.2.0.0.3.1").map((entry) => entry.path);
   const comparisonRoots = directChildren(tree, "main.2.0.0.4.1.0").map((entry) => entry.path);
   const faqRoots = directChildren(tree, "main.2.1.0.0.1").map((entry) => entry.path);
-  if (planRoots.length !== 4 || packRoots.length !== 3 || comparisonRoots.length !== 4 || faqRoots.length !== 7) {
+  // 플랜과 비교 열이 넷에서 **다섯**으로 늘었고(Trial·Lite·Plus·Pro·Ultra), FAQ 가 일곱에서
+  // **열하나**로 늘었다. 팩 셋만 그대로다. FAQ 열하나는 제품 i18n 과 글자로 대조했다 —
+  // ko.ts 의 가격 문맥 `q:` 가 정확히 열하나이고 목록도 측정과 같다(무료 시작 · 크레딧 차감 ·
+  // 소진 · 결제 주기 · 잔여 확인 · 취소 · 모델 · 이월 · 상업 이용 · 환불 · 팀).
+  // planNames 의 길이·순서가 planRoots 와 짝이 맞아야 한다.
+  if (planRoots.length !== 5 || packRoots.length !== 3 || comparisonRoots.length !== 5 || faqRoots.length !== 11) {
     fail(`${id} repeated root count drift: plans=${planRoots.length} packs=${packRoots.length} compare=${comparisonRoots.length} faq=${faqRoots.length}`);
   }
   const groups = [
@@ -251,16 +312,26 @@ const base = {
   bindings,
   dependencies: { featureCheckId: "61:388", headerLogoId: "57:10", footerLogoId: "208:1887" },
 };
+const comparisonGroups = (viewport) =>
+  allGroups.filter((group) =>
+    group.setName === "Product/Pricing Compare Column" && group.viewport === viewport);
 const phases = {
   shell: { ...base, phase: "components", groups: allGroups.filter((group) => ["Product/Public Global Navigation", "Product/Public Footer"].includes(group.setName)) },
   planDesktop: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Plan Card" && group.viewport === "Desktop") },
   planMobile: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Plan Card" && group.viewport === "Mobile") },
   credit: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Credit Pack") },
   faq: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing FAQ Item") },
-  comparisonDesktopA: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Compare Column" && group.viewport === "Desktop").slice(0, 2) },
-  comparisonDesktopB: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Compare Column" && group.viewport === "Desktop").slice(2) },
-  comparisonMobileA: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Compare Column" && group.viewport === "Mobile").slice(0, 2) },
-  comparisonMobileB: { ...base, phase: "components", groups: allGroups.filter((group) => group.setName === "Product/Pricing Compare Column" && group.viewport === "Mobile").slice(2) },
+  // **비교 열은 한 조각에 하나씩 낸다.** 예전에는 2·2 로 둘씩 묶었는데, 요금제가 다섯이 되며
+  // 열 하나가 커져 **두 열만으로도 50KB 상한을 넘었다**(54,253 bytes). 상한은 `use_figma` 가
+  // 한 번에 받는 코드 크기라 조각 수는 늘어도 되고 크기는 안 된다. 열마다 하나면 플랜이 또
+  // 늘어도 여기서 다시 걸리지 않는다 — 조각 이름은 아래 `comparisonChunks` 가 만든다.
+  ...Object.fromEntries(
+    ["Desktop", "Mobile"].flatMap((viewport) =>
+      comparisonGroups(viewport).map((group, index) => [
+        `comparison${viewport}${index}`,
+        { ...base, phase: "components", groups: [group] },
+      ])),
+  ),
   scenes: {
     ...base, phase: "scenes", sceneSetName: "Product/Pricing Full Page",
     scenes: builtContexts.map(({ groups: _groups, ...scene }) => scene),
@@ -281,10 +352,14 @@ const outputs = [
   { absolute: resolve(repoRoot, "figma/product-pricing-plan-mobile.draw.js"), expected: runner("planMobile") },
   { absolute: resolve(repoRoot, "figma/product-pricing-credit.draw.js"), expected: runner("credit") },
   { absolute: resolve(repoRoot, "figma/product-pricing-faq.draw.js"), expected: runner("faq") },
-  { absolute: resolve(repoRoot, "figma/product-pricing-comparison-desktop-a.draw.js"), expected: runner("comparisonDesktopA") },
-  { absolute: resolve(repoRoot, "figma/product-pricing-comparison-desktop-b.draw.js"), expected: runner("comparisonDesktopB") },
-  { absolute: resolve(repoRoot, "figma/product-pricing-comparison-mobile-a.draw.js"), expected: runner("comparisonMobileA") },
-  { absolute: resolve(repoRoot, "figma/product-pricing-comparison-mobile-b.draw.js"), expected: runner("comparisonMobileB") },
+  // 비교 열 조각 — 열 하나당 파일 하나(`…-desktop-1.draw.js` 꼴). 열 수가 바뀌면 파일 수도
+  // 따라 바뀐다. 옛 `-a`/`-b` 두 파일은 이 회차에서 사라진다.
+  ...["Desktop", "Mobile"].flatMap((viewport) =>
+    comparisonGroups(viewport).map((_group, index) => ({
+      absolute: resolve(repoRoot,
+        `figma/product-pricing-comparison-${viewport.toLowerCase()}-${index + 1}.draw.js`),
+      expected: runner(`comparison${viewport}${index}`),
+    }))),
   { absolute: resolve(repoRoot, "figma/product-pricing-scenes.draw.js"), expected: runner("scenes") },
 ];
 for (const { absolute, expected } of outputs) {

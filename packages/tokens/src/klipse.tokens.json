@@ -1064,23 +1064,6 @@
             }
           }
         },
-        "850": {
-          "$value": {
-            "colorSpace": "srgb",
-            "components": [
-              0.129412,
-              0.145098,
-              0.176471
-            ],
-            "hex": "#21252d"
-          },
-          "$extensions": {
-            "com.klipse-design": {
-              "id": "color-palette-gray-850",
-              "tier": "primitive"
-            }
-          }
-        },
         "900": {
           "$value": {
             "colorSpace": "srgb",
@@ -8830,7 +8813,7 @@
           }
         },
         "bg-menu": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-menu",
@@ -8840,7 +8823,7 @@
           }
         },
         "bg-overlay": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-overlay",
@@ -8850,7 +8833,7 @@
           }
         },
         "bg-raised": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-raised",
@@ -8900,7 +8883,7 @@
           }
         },
         "bg-upgrade-current": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-upgrade-current",
@@ -9590,7 +9573,7 @@
           }
         },
         "table-header-surface": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-header-surface",
@@ -9600,7 +9583,7 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",

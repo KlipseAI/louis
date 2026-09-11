@@ -12946,6 +12946,41 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-09-11 (127) — pg-850 칸을 비우고, 그 위에 서 있던 여섯을 pg-900 으로 내린다
+
+소유자 지정이다. 회색 램프에서 **850 만 반 칸**이었다 — 600 다음이 700 이고 800 다음이 900 인데
+그 사이에만 칸이 하나 더 있었다. 다크 사다리가 2026-09-09·09-11 두 번에 걸쳐 내려오면서 850 은
+「카드 면」에서 「카드 위 한 칸」으로 뜻이 두 번 바뀌었고, 반 칸짜리 칸이 남아 있는 한 다음에도
+같은 일이 생긴다. 칸 자체를 없앤다.
+
+| 토큰(다크) | before | after |
+| --- | --- | --- |
+| `color-bg-raised` | pg-850 | **pg-900** |
+| `color-bg-menu` | pg-850 | **pg-900** |
+| `color-bg-overlay` | pg-850 | **pg-900** |
+| `color-bg-upgrade-current` | pg-850 | **pg-900** |
+| `color-table-header-surface` | pg-850 | **pg-900** |
+| `color-table-row-hover` | pg-850 | **pg-900** |
+
+프리미티브 `color-palette-gray-850`(`#21252d`)은 **삭제**했다. 이제 다크 회색 램프는
+700 · 800 · 900 · 950 넷이다.
+
+**다크에서 `bg-raised` 와 `bg-surface` 가 같은 값이 된다.** 면 하나로 계단을 만들던 자리는
+이제 헤어라인과 그림자가 만든다 — `.louis-popover` 가 이미 그 형태다(`bg-menu` + `elevation-menu`
++ `hairline-inset`). 값이 같아진 것이 아니라 **분리 장치를 면에서 선·광으로 옮긴 것**이다.
+다만 `table-header-surface` 와 `table-row-hover` 는 그 둘을 갖고 있지 않아, 다크에서 표가
+`bg-surface` 위에 얹히면 머리 띠와 행 호버가 호스트와 같은 값이 된다. 면이 아니라
+흰색 알파로 옮기는 것이 맞고, 그것은 별건이다.
+
+**Figma 는 같은 변경 단위에서 맞췄다.** 이 파일은 09-09·09-11 의 사다리 이동이 반영된 적이
+없어 `color/palette-gray/950` 이 아예 없었다 — 만들고, 다크 별칭 열하나(`app/page-bg` ·
+`bg-canvas` · `bg-inset` · `bg-menu` · `bg-overlay` · `bg-raised` · `bg-surface` ·
+`bg-upgrade-current` · `landing/panel-strong` · `table-header-surface` · `table-row-hover`)를
+사다리에 다시 물리고, `color/palette-gray/850` 을 지웠다. `check-figma-snapshot` ·
+`verify-figma-parity` 둘 다 이 작업 **전에 이미 빨간불**이었고 여기서 함께 풀렸다.
+`packages/tokens/baseline/manifest.json` 도 같은 변경 단위에서 갱신했다 — 의도 밖 항목은 없다
+(additive 1 = pg-950 · removal 1 = pg-850 · 나머지는 다크 별칭 열하나).
+
 #### 2026-09-09 (126) — 랜딩 바닥을 pg-000 으로 올리고 면을 사다리 칸에 세운다
 
 소유자 지정이다 — 라이트 바닥 pg-050 → **pg-000**, 그 위 면은 「라이트에서 한 톤 어둡게,

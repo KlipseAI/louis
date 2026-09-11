@@ -751,23 +751,6 @@
           ]
         ],
         [
-          "color/palette-gray/850",
-          "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
-          [
-            [
-              "Base",
-              null,
-              [
-                0.129412,
-                0.145098,
-                0.176471,
-                1
-              ]
-            ]
-          ]
-        ],
-        [
           "color/palette-gray/900",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -779,6 +762,23 @@
                 0.090196,
                 0.105882,
                 0.133333,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "color/palette-gray/950",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR",
+          [
+            [
+              "Base",
+              null,
+              [
+                0.05098,
+                0.066666,
+                0.094117,
                 1
               ]
             ]
@@ -5055,7 +5055,7 @@
           [
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/900",
+              "Klipse Primitive::color/palette-gray/950",
               null
             ],
             [
@@ -5162,7 +5162,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/900",
+              "Klipse Primitive::color/palette-gray/950",
               null
             ]
           ]
@@ -5213,7 +5213,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/900",
+              "Klipse Primitive::color/palette-gray/950",
               null
             ]
           ]
@@ -5264,7 +5264,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ]
           ]
@@ -5276,7 +5276,7 @@
           [
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ],
             [
@@ -5298,7 +5298,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ]
           ]
@@ -5332,7 +5332,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/850",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ]
           ]
@@ -5383,7 +5383,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ]
           ]
@@ -6296,7 +6296,7 @@
           [
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/900",
+              "Klipse Primitive::color/palette-gray/950",
               null
             ],
             [
@@ -7605,7 +7605,7 @@
           [
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ],
             [
@@ -7627,7 +7627,7 @@
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/800",
+              "Klipse Primitive::color/palette-gray/900",
               null
             ]
           ]

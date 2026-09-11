@@ -105,10 +105,13 @@ const UNCLASSIFIED_BASELINE = 0;
 // 둘 중 어느 키가 정본 대응인지는 소유자 판정 대기 목록에 올렸다.
 // 2026-09-06 겹침 계열 두 벌로 셋이 더 붙었다 — `CanvasConnectHint`→Toast(Layout=callout),
 // `CanvasFirstNodeHint`→Tooltip(Layout=coachmark), `LanguageSelector`→MenuTrigger.
-const MAPPED_BASELINE = 30;
+// 2026-09-10: 30 → 31 · 27 → 28. **이득이다.** `app/admin/AdminSection.tsx#AdminSelect` 가
+// `.louis-select-trigger` 를 그대로 무는 것이 실측으로 확인돼 Figma SelectTrigger 로 이었다.
+// 사유 없는 표면 35 를 판정하며 드러난 한 건이다(나머지 34 는 scoped 12 · needed 22).
+const MAPPED_BASELINE = 31;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 27;
+const MAPPED_COMPONENT_BASELINE = 28;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

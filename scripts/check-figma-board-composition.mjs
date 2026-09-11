@@ -163,9 +163,17 @@ const PLAN = "figma/app-screens.plan.json";
 //
 // **새 위반을 받아들이려고 이 수를 올리지 마라** — 이 저장소의 baseline 규칙이다.
 const REPLACEABLE_BASELINE = 0;
-const BESPOKE_BASELINE = 53; // 하락만 잠근다(상승은 발견)
+// 2026-09-10: 53 → 52. **판정을 푼 것이 아니라 화면이 움직였다** — 유일한 bespoke 아이콘이던
+// `/subscription` 정렬 드롭다운 꺾쇠가 제품 화면 개편으로 사라졌다(보드의 svg 3 → 2).
+// 그 화면이 돌아오면 이 수도 함께 돌아와야 한다.
+const BESPOKE_BASELINE = 52; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
-const INSTANCE_FLOOR = 76;
+// 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
+// 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
+// 라이트 화면의 secondary 버튼이 한 자리도 인스턴스가 되지 못했다. 원장에 라이트 벌
+// (`button-secondary-light`)을 세우고 실측 두 면으로 판정하게 고쳤고, 면도 헤어라인도 없는
+// `ghost` 도 같은 이유로 자리를 잃고 있어 함께 열었다. 대체가능 22 → 0.
+const INSTANCE_FLOOR = 84;
 const CANDIDATE_FLOOR = 198;
 const BOARD_FLOOR = 36;
 

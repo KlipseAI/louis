@@ -82,9 +82,31 @@ const PROBES = [
   // `--louis-hairline-inset` (inset box-shadow) 이 그린다 (button.css:115-121).
   {
     id: "button-secondary",
-    source: 'Button.tsx — variant="secondary". 헤어라인은 border 가 아니라 inset box-shadow 다',
+    source: 'Button.tsx — variant="secondary" (다크). 헤어라인은 border 가 아니라 inset box-shadow 다',
     html: `<button class="louis-button" data-variant="secondary" data-size="md">저장</button>`,
-    read: ["borderTopWidth", "borderTopLeftRadius", "height"],
+    read: ["borderTopWidth", "borderTopLeftRadius", "height", "backgroundColor"],
+  },
+  // **secondary 도 면이 테마를 따라간다 — inverse 와 같은 사정이다.** 예전에는 투명이라
+  // 한 벌로 충분했는데 `5566ecd feat(color): secondary 에 8% 잉크 면을 준다` 이후
+  // `accent-secondary` 가 라이트 잉크 8% · 다크 흰색 8% 로 갈렸다. 다크만 재면
+  // `buttonVariantOf` 가 라이트 화면의 secondary 를 어느 쪽도 아니라고 판정해 그 자리가
+  // 통째로 도형으로 남는다 — 실제로 `/settings` 일곱 자리가 인스턴스에서 도형으로 후퇴했다.
+  // **ghost — 면도 헤어라인도 없다.** secondary 와 갈리는 것이 정확히 그 헤어라인이라
+  // 둘을 같은 판정에서 다룬다. 면은 `transparent` 로 테마를 따라가지 않으므로 한 벌이면
+  // 충분하다(inverse·secondary 와 다른 점이다). 재지 않으면 `buttonVariantOf` 가
+  // 「어느 쪽도 아니다」로 떨어뜨려 그 자리가 도형으로 남는다.
+  {
+    id: "button-ghost",
+    source: 'Button.tsx — variant="ghost". 면 없이 글자만 선다',
+    html: `<button class="louis-button" data-variant="ghost" data-size="md">저장</button>`,
+    read: ["backgroundColor", "boxShadow"],
+  },
+  {
+    id: "button-secondary-light",
+    source: 'Button.tsx — variant="secondary" (라이트). 면이 테마를 따라간다',
+    html: `<button class="louis-button" data-variant="secondary" data-size="md">저장</button>`,
+    doc: "light",
+    read: ["backgroundColor"],
   },
   // ── inverse 와 disabled — **면 색을 재는 탐침이 없어 생성기가 자리를 포기하고 있었다** ─────
   //

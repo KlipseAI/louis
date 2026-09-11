@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "e80fc9199ec6a3371198d07dc213dcfd45a363209c680307a12642a89830f890"
+      "sha256": "d2d846a33b328c8649a632c6c1164eee34b2c2261a0b9169b96f54b8ef65eaa7"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "db40813eee4769ef01b3951cf487c0958539e8cfd6b6a4bc6a089f5d4b8ac748"
+      "sha256": "3d5dc918b9d4a8c0fe97db51c30e43ac535f700fe99ea31f1a3e6e203be012de"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "1de07ec2f9da70c685b6cfee7e65e92c38f9fa89139a70c5492e93e9b2f1ebbb"
+      "sha256": "3772362a495cc9394752bc4852769d092c32bc25b84d04619d67a1790b69ba73"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "3b2b1c1f2da7b2d955cca4cf1241be029a6e66d45ddbeb36042bdb2d2cb1fe89"
+      "sha256": "84bb3f04a6288476b2dcd962d29f05968457502625a2221a12f99bf8043197c4"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "c9bb940eec48159e34d2f73187231450794fba76e6c6c1bdcb900b5bc3fc3e4d"
+      "sha256": "f7e8ad9b8081ff2ff107916adf227a8e056c29bf7b57b3360c09bc80861a15f8"
     }
   ],
   "contrastPairs": [
@@ -419,13 +419,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "70e998c0ff32d755d5fa9b97d6d0aebc5f690e04b39d66f9c281ba95c19623f5"
+    "sha256": "844c8589b3a084780b3f35983fe68e76cb7169f776ef3200544aad1d6c82e4c5"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 778,
+  "tokenCount": 779,
   "tokens": [
     {
       "aliasTarget": {
@@ -2591,24 +2591,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-950",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-app-page-bg": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-app-page-bg": "color(srgb 0.05098 0.066666 0.094117 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-app-page-bg",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.950}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.05098,
+          0.066666,
+          0.094117
         ]
       },
       "sourcePath": "semantic.dark.color.app.page-bg",
@@ -2903,24 +2903,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-950",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-canvas": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-canvas": "color(srgb 0.05098 0.066666 0.094117 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-canvas",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.950}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.05098,
+          0.066666,
+          0.094117
         ]
       },
       "sourcePath": "semantic.dark.color.bg-canvas",
@@ -3059,24 +3059,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-950",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-inset": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-bg-inset": "color(srgb 0.05098 0.066666 0.094117 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-inset",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.950}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.05098,
+          0.066666,
+          0.094117
         ]
       },
       "sourcePath": "semantic.dark.color.bg-inset",
@@ -3215,24 +3215,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-menu": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-menu",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.bg-menu",
@@ -3267,24 +3267,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-overlay": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-bg-overlay": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-overlay",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.bg-overlay",
@@ -3319,24 +3319,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-raised": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-bg-raised": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-raised",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.bg-raised",
@@ -3423,24 +3423,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-850",
+        "id": "color-palette-gray-900",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-surface": "color(srgb 0.129412 0.145098 0.176471 / 1)"
+        "--louis-color-bg-surface": "color(srgb 0.090196 0.105882 0.133333 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-surface",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.850}",
+      "rawValue": "{primitive.color.palette-gray.900}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.129412,
-          0.145098,
-          0.176471
+          0.090196,
+          0.105882,
+          0.133333
         ]
       },
       "sourcePath": "semantic.dark.color.bg-surface",
@@ -3579,24 +3579,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-upgrade-current": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-bg-upgrade-current": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-upgrade-current",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.bg-upgrade-current",
@@ -7221,24 +7221,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-palette-gray-950",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-landing-panel-strong": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-landing-panel-strong": "color(srgb 0.05098 0.066666 0.094117 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-landing-panel-strong",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.palette-gray.950}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.05098,
+          0.066666,
+          0.094117
         ]
       },
       "sourcePath": "semantic.dark.color.landing.panel-strong",
@@ -10712,6 +10712,38 @@
     {
       "aliasTarget": null,
       "cssProperties": {
+        "--louis-color-palette-gray-950": "color(srgb 0.05098 0.066666 0.094117 / 1)",
+        "--louis-color-palette-gray-950-rgb": "13 17 24"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-palette-gray-950",
+      "mode": "base",
+      "rawValue": {
+        "colorSpace": "srgb",
+        "components": [
+          0.05098,
+          0.066666,
+          0.094117
+        ],
+        "hex": "#0d1118"
+      },
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.05098,
+          0.066666,
+          0.094117
+        ]
+      },
+      "sourcePath": "primitive.color.palette-gray.950",
+      "tier": "primitive",
+      "type": "color"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {
         "--louis-color-pink-100": "color(srgb 1 0.898039 0.929412 / 1)",
         "--louis-color-pink-100-rgb": "255 229 237"
       },
@@ -13468,24 +13500,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-header-surface": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-table-header-surface": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-table-header-surface",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.table-header-surface",
@@ -13520,24 +13552,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-800",
+        "id": "color-palette-gray-850",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-row-hover": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+        "--louis-color-table-row-hover": "color(srgb 0.129412 0.145098 0.176471 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-table-row-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.800}",
+      "rawValue": "{primitive.color.palette-gray.850}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.168627,
-          0.184314,
-          0.211765
+          0.129412,
+          0.145098,
+          0.176471
         ]
       },
       "sourcePath": "semantic.dark.color.table-row-hover",

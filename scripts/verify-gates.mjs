@@ -392,12 +392,40 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find(
+    // 대상이 없으면 `ledger.nodes[undefined]` 를 만들어 「식별자 모양이 아니다」로 죽는다 —
+    // 증명하려던 것(근거 없는 아이콘 bespoke)과 다른 것이 잡힌다. 없으면 **세운다**:
+    // bespoke 노드에 사전 «안»의 이름을 얹고 glyph 를 비운다(사전 밖 이름은 ⑫ 가 따로 잡는다).
+    const ready = Object.keys(ledger.nodes).find(
       (key) => ledger.nodes[key].verdict === "bespoke" && ledger.nodes[key].icon,
     );
-    const node = { ...ledger.nodes[id] };
+    const id = ready ?? Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
+    if (id === undefined) {
+      throw new Error(
+        "migration/figma-board-composition.json 에 bespoke 노드가 없어 이 canary 를 세울 수 없습니다.",
+      );
+    }
+    // 검사는 `candidateClause === "b-vector"` 인 자리에서만 글리프 근거를 요구한다
+    // (check-figma-board-composition.mjs:317). 합성 대상에 그 절도 함께 세운다.
+    const node = {
+      ...ledger.nodes[id],
+      icon: ledger.nodes[id].icon ?? "icon/caret-down",
+      candidateClause: "b-vector",
+    };
     delete node.glyph;
+    // **컴포넌트 이름은 걷는다.** 지금 bespoke 는 전부 컴포넌트 축이라, 거기에 아이콘 이름을
+    // 얹으면 「한 자리가 두 사전을 댔다」가 먼저 잡혀 증명하려던 것(근거 없는 아이콘 bespoke)과
+    // 다른 것이 걸린다. 아이콘 축 하나만 남긴 자리를 세운다.
+    delete node.component;
+    if (ledger.bespokeByComponent && ledger.nodes[id].component) {
+      // 집계 키는 `컴포넌트/사이즈` 다(check-figma-board-composition.mjs:307).
+      const key = ledger.nodes[id].component + "/" + String(ledger.nodes[id].size);
+      const left = (ledger.bespokeByComponent[key] ?? 1) - 1;
+      ledger.bespokeByComponent = { ...ledger.bespokeByComponent };
+      if (left > 0) ledger.bespokeByComponent[key] = left;
+      else delete ledger.bespokeByComponent[key];
+    }
     ledger.nodes[id] = node;
+    ledger.bespokeByIcon = { ...ledger.bespokeByIcon, [node.icon]: 1 };
     return JSON.stringify(ledger, null, 2) + "\n";
   },
   "board composition icon bespoke without a joined glyph",
@@ -412,22 +440,21 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    // **기존 아이콘에 기대지 않는다.** 이 canary 가 증명하는 것은 「사전 밖 이름을 잡는가」이고,
-    // 그 이름은 어차피 합성이다. 그런데 옛 코드는 이미 `icon` 을 «가진» 노드를 찾아 그 이름을
-    // 바꿨다 — 보드에 그런 노드가 0 이 되면 세울 수 없다. 실제로 그렇게 됐다: 유일한 대상이던
-    // `/subscription` 정렬 드롭다운의 꺾쇠가 제품 화면 개편으로 사라졌다(글리프 판정 자체는
-    // 살아 있다 — svg 둘이 `glyph-missing` 으로 잡힌다). 대상이 사라졌다고 계약까지 조용히
-    // 검사되지 않으면 안 되므로, 글리프 노드에 이름을 **얹어서** 세운다.
+    // **`bespoke` 노드에 얹는다.** 집계는 `verdict === "bespoke"` 인 노드만 세므로
+    // (check-figma-board-composition.mjs:311) 다른 칸에 얹으면 다시 센 값이 `undefined` 가 되어
+    // 이름 사전 검사가 아니라 집계 불일치로 죽는다 — 증명하려던 것과 다른 것이 잡힌다.
+    // 기존 `icon` 을 «가진» 노드에 기대지도 않는다: 유일한 대상이던 `/subscription` 정렬 꺾쇠가
+    // 제품 화면 개편으로 사라져 0 이 된 적이 있다. 이름은 어차피 합성이므로 얹어서 세운다.
     const withIcon = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].icon);
-    const id = withIcon
-      ?? Object.keys(ledger.nodes).find((key) => ledger.nodes[key].glyph)
-      ?? Object.keys(ledger.nodes)[0];
+    const id = withIcon ?? Object.keys(ledger.nodes).find((key) => ledger.nodes[key].verdict === "bespoke");
     if (id === undefined) {
-      throw new Error("migration/figma-board-composition.json 의 nodes 가 비어 이 canary 를 세울 수 없습니다.");
+      throw new Error(
+        "migration/figma-board-composition.json 에 bespoke 노드가 없어 이 canary 를 세울 수 없습니다.",
+      );
     }
     const name = ledger.nodes[id].icon;
     ledger.nodes[id] = { ...ledger.nodes[id], icon: "icon/chevron-left" };
-    ledger.bespokeByIcon["icon/chevron-left"] = name ? ledger.bespokeByIcon[name] : 1;
+    ledger.bespokeByIcon = { ...ledger.bespokeByIcon, "icon/chevron-left": 1 };
     if (name) delete ledger.bespokeByIcon[name];
     return JSON.stringify(ledger, null, 2) + "\n";
   },

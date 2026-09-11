@@ -102,7 +102,11 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 2026-09-06: 179 → 176. 셋 다 **Figma 에 세웠다** — `CanvasConnectHint` 는 Toast 의
 // `Layout=callout`, `CanvasFirstNodeHint` 는 Tooltip 의 `Layout=coachmark`,
 // `LanguageSelector` 는 새 `MenuTrigger` 다. 판단 대기로 미룬 것도, 범위 밖으로 옮긴 것도 없다.
-const NEEDED_BASELINE = 176; // 하락만 잠근다(상승은 발견)
+// 2026-09-10: 176 → 175. **Figma 에 세운 것이 아니라 제품에서 사라졌다** —
+// `videoEditParts/inspectorPrimitives.tsx#InspectorPill` 이 앵커를 5a67d692 에서 옮기는
+// 사이에 없어졌다(앵커 재고정 e3242aa 가 그 사실을 먼저 적었다). 세 갈래 중 어느 것도
+// 아니므로 네 번째를 적는다: **소비처가 없어졌다.** 그 자리가 돌아오면 이 수도 돌아와야 한다.
+const NEEDED_BASELINE = 175; // 하락만 잠근다(상승은 발견)
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -123,14 +127,29 @@ const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있�
 //   PhotoGrid#ImageStrip : 부모 PhotoSection(needed)과 자식 구성이 같고 배치만 다르다(DS-D-0040).
 // 셋째 SelectionChrome 은 반대 방향으로 갔다(unclear → needed) — 그룹 형태가 어느 노드에도
 // 속하지 않아 부모의 상태 축으로는 놓을 자리가 없기 때문이고, 그래서 NEEDED_BASELINE 이 +1 이다.
-const SCOPED_BASELINE = 227; // 표면 총수가 오른 만큼만 오를 수 있다
-const SURFACE_TOTAL_BASELINE = 434; // 위 천장의 기준점
+// 2026-09-10: 227 → 239. **총수가 아니라 판정이 움직였다** — 사유 없던 표면 35 를 판정하며
+// 열둘이 범위 밖으로 갔다. 전부 `mobileActionGlyphs.tsx` 의 인라인 글리프이고, 사유는 한 형태다:
+// path 좌표를 펴서 DS·Icons 42종과 대조했더니 같은 그림이 이미 있다(GlyphAudio↔music-notes-simple ·
+// GlyphBack↔caret-left · GlyphDuplicate↔copy · GlyphImage↔image · GlyphDelete↔trash-simple ·
+// GlyphHide↔eye-slash · GlyphPlus↔plus · GlyphText↔text 등). 아이콘 축에 정본이 서 있으므로
+// 컴포넌트 축에 또 세울 일이 아니다 — ChevronGlyph·CloseGlyph 판례와 같은 자리다.
+// 나머지 스물둘은 needed 로 갔고(사전에 없는 그림 열다섯 · 화면 넷 · 한자리 하나 · 부품 둘),
+// 하나는 figma(AdminSelect → SelectTrigger)다.
+const SCOPED_BASELINE = 239; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
+// (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
+// 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
+// 물지 못했다. 범위 밖은 227 그대로이므로 허용치를 지금 총수에 다시 맞춘다.
+const SURFACE_TOTAL_BASELINE = 468; // 위 천장의 기준점
 // 17 → 18 (2026-09-06): `alert` 가 partial 에서 done 으로 올라갔다. 레이아웃 축(block·inline·
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가
 // 전부 선다 — verify-figma-done 이 「조건은 서는데 partial 로 남은 항목: alert」로 먼저 지목했다.
 const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
-const DEAD_TOKEN_BASELINE = 74; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+// 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
+// alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
+// 이득 방향이라 잠근다.
+const DEAD_TOKEN_BASELINE = 73; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
 
 // ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────

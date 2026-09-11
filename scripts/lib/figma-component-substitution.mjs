@@ -402,6 +402,8 @@ const shadowGeometry = (value) => {
  */
 const DISABLED_BUTTON_PROBES = Object.freeze(["button-disabled", "button-disabled-light"]);
 const INVERSE_BUTTON_PROBES = Object.freeze(["button-inverse", "button-inverse-light"]);
+/** secondary 는 면이 테마를 따라간다 — 두 벌을 다 재야 라이트 화면이 빠지지 않는다. */
+const SECONDARY_BUTTON_PROBES = Object.freeze(["button-secondary", "button-secondary-light"]);
 
 /** 원장의 면 값 목록을 꺼낸다. 하나라도 비면 **던진다** — 없는 값을 「다르다」로 접으면 판정이 거짓이 된다. */
 function facesOf(declared, probes, property) {
@@ -483,9 +485,33 @@ function buttonVariantOf(style, declared) {
     throw new Error("[figma-app-screens] 제품 레시피 원장에 button-md/button-secondary 의 면 값이 없습니다.");
   }
   const inverse = facesOf(declared, INVERSE_BUTTON_PROBES, "background-color");
+  // **secondary 를 「투명」으로 알아보지 않는다.** `5566ecd feat(color): secondary 에 8% 잉크
+  // 면을 준다` 이후 이 variant 는 면을 갖고, 그 면이 테마를 따라 갈린다(라이트 잉크 8% ·
+  // 다크 흰색 8%). 투명으로 알아보면 라이트 화면의 secondary 가 통째로 빠지므로 **실측한
+  // 두 면**을 쓴다 — inverse 가 이미 같은 형태다. 헤어라인 기하는 함께 확인해 ghost 와 가른다
+  // (ghost 는 면도 그림자도 없다).
+  const secondaryFaces = facesOf(declared, SECONDARY_BUTTON_PROBES, "background-color");
   if (style.backgroundColor === primary) return "primary";
-  if (isTransparent(style.backgroundColor) && shadowGeometry(style.boxShadow) === secondaryShadow) return "secondary";
+  if (
+    shadowGeometry(style.boxShadow) === secondaryShadow &&
+    (secondaryFaces.includes(style.backgroundColor) || isTransparent(style.backgroundColor))
+  ) {
+    return "secondary";
+  }
   if (inverse.includes(style.backgroundColor)) return "inverse";
+  // **ghost — 면도 헤어라인도 없다.** secondary 와 갈리는 자리가 정확히 그 헤어라인이라
+  // 위 secondary 판정을 통과하지 못한 투명 면이 여기로 온다. 원장이 잰 값으로 대조한다 —
+  // 리터럴 `transparent` 를 여기 적으면 레시피가 면을 주는 날 조용히 틀린다.
+  const ghostFace = declared["button-ghost"]?.["background-color"];
+  if (!ghostFace) {
+    throw new Error("[figma-app-screens] 제품 레시피 원장에 button-ghost 의 면 값이 없습니다.");
+  }
+  if (
+    style.backgroundColor === ghostFace &&
+    shadowGeometry(style.boxShadow) === shadowGeometry(declared["button-ghost"]?.["box-shadow"])
+  ) {
+    return "ghost";
+  }
   return null;
 }
 

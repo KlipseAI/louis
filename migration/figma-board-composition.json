@@ -14,11 +14,11 @@
   "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 1017,
+  "rawNodesBeforePruning": 973,
   "counts": {
     "total": 995,
-    "instance": 62,
-    "replaceable": 22,
+    "instance": 84,
+    "replaceable": 0,
     "bespoke": 52,
     "blocked": 3,
     "missing": 83,
@@ -26,8 +26,8 @@
     "unclassified": 0
   },
   "ratio": {
-    "instanceOverTarget": 73.8,
-    "instanceOverCandidates": 27.9,
+    "instanceOverTarget": 100,
+    "instanceOverCandidates": 37.8,
     "target": 84,
     "candidates": 222
   },
@@ -36,11 +36,9 @@
     "Avatar": 15,
     "Product/Desktop App Top Bar": 10,
     "Product/Mobile App Top Bar": 11,
-    "Button": 8
+    "Button": 30
   },
-  "byComponent": {
-    "Button/md": 22
-  },
+  "byComponent": {},
   "bespokeByComponent": {
     "IconButton/md": 27,
     "Button/md": 21,
@@ -310,8 +308,8 @@
       ],
       "counts": {
         "total": 24,
-        "instance": 3,
-        "replaceable": 1,
+        "instance": 4,
+        "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
         "missing": 1,
@@ -329,8 +327,8 @@
       ],
       "counts": {
         "total": 22,
-        "instance": 2,
-        "replaceable": 1,
+        "instance": 3,
+        "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
         "missing": 1,
@@ -731,8 +729,8 @@
       ],
       "counts": {
         "total": 171,
-        "instance": 6,
-        "replaceable": 1,
+        "instance": 7,
+        "replaceable": 0,
         "bespoke": 0,
         "blocked": 1,
         "missing": 33,
@@ -750,8 +748,8 @@
       ],
       "counts": {
         "total": 71,
-        "instance": 1,
-        "replaceable": 1,
+        "instance": 2,
+        "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 13,
@@ -769,8 +767,8 @@
       ],
       "counts": {
         "total": 58,
-        "instance": 2,
-        "replaceable": 7,
+        "instance": 9,
+        "replaceable": 0,
         "bespoke": 3,
         "blocked": 0,
         "missing": 2,
@@ -788,8 +786,8 @@
       ],
       "counts": {
         "total": 54,
-        "instance": 1,
-        "replaceable": 6,
+        "instance": 7,
+        "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
         "missing": 2,
@@ -807,8 +805,8 @@
       ],
       "counts": {
         "total": 57,
-        "instance": 3,
-        "replaceable": 3,
+        "instance": 6,
+        "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 1,
@@ -826,8 +824,8 @@
       ],
       "counts": {
         "total": 45,
-        "instance": 2,
-        "replaceable": 2,
+        "instance": 4,
+        "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
@@ -2843,14 +2841,11 @@
         86.25,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/highlight/[projectId]?__phase=failed@desktop-1920x1080#0.0.1.0.1.0.1.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
@@ -3103,14 +3098,11 @@
         86.25,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.1.0.1.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
@@ -7282,14 +7274,11 @@
         89,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -9193,14 +9182,11 @@
         89,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
@@ -10042,14 +10028,11 @@
         113.3,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.2": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10124,14 +10107,11 @@
         136.95,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.4": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10184,14 +10164,11 @@
         156.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.5": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10244,14 +10221,11 @@
         184.3,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.6": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10378,14 +10352,11 @@
         48,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.9": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10416,14 +10387,11 @@
         138.67,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.10": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10454,14 +10422,11 @@
         75.27,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.11": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10722,14 +10687,11 @@
         113.3,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@mobile-402x874#0.0.0.1.2": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -10815,14 +10777,11 @@
         136.95,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@mobile-402x874#0.0.0.1.4": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -10886,14 +10845,11 @@
         156.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@mobile-402x874#0.0.0.1.5": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -10957,14 +10913,11 @@
         184.3,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@mobile-402x874#0.0.0.1.6": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -11102,14 +11055,11 @@
         48,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/settings@mobile-402x874#0.0.0.1.9": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -11151,14 +11101,11 @@
         138.67,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/subscription@desktop-1920x1080#root": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
@@ -11440,14 +11387,11 @@
         83.19,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
@@ -11733,14 +11677,11 @@
         137.25,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=ghost, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=ghost, Size=md, State=Default, Icon=none)."
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.2": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
@@ -11804,14 +11745,11 @@
         83.19,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/subscription@mobile-402x874#root": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
@@ -11976,14 +11914,11 @@
         358,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=secondary, Size=md, State=Default, Icon=none)."
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
@@ -12269,14 +12204,11 @@
         137.25,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
-      "site": "button-md",
-      "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "verdict": "instance",
+      "rule": "instance",
       "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "variant": "Variant=ghost, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=ghost, Size=md, State=Default, Icon=none)."
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.2": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",

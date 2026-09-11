@@ -1097,6 +1097,23 @@
               "tier": "primitive"
             }
           }
+        },
+        "950": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.05098,
+              0.066666,
+              0.094117
+            ],
+            "hex": "#0d1118"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-palette-gray-950",
+              "tier": "primitive"
+            }
+          }
         }
       },
       "pink": {
@@ -8753,7 +8770,7 @@
           }
         },
         "bg-canvas": {
-          "$value": "{primitive.color.palette-gray.900}",
+          "$value": "{primitive.color.palette-gray.950}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-canvas",
@@ -8783,7 +8800,7 @@
           }
         },
         "bg-inset": {
-          "$value": "{primitive.color.palette-gray.900}",
+          "$value": "{primitive.color.palette-gray.950}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-inset",
@@ -8813,7 +8830,7 @@
           }
         },
         "bg-menu": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-menu",
@@ -8823,7 +8840,7 @@
           }
         },
         "bg-overlay": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-overlay",
@@ -8833,7 +8850,7 @@
           }
         },
         "bg-raised": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-raised",
@@ -8853,7 +8870,7 @@
           }
         },
         "bg-surface": {
-          "$value": "{primitive.color.palette-gray.850}",
+          "$value": "{primitive.color.palette-gray.900}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-surface",
@@ -8883,7 +8900,7 @@
           }
         },
         "bg-upgrade-current": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-bg-upgrade-current",
@@ -9573,7 +9590,7 @@
           }
         },
         "table-header-surface": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-header-surface",
@@ -9583,7 +9600,7 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.800}",
+          "$value": "{primitive.color.palette-gray.850}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",
@@ -9650,7 +9667,7 @@
             }
           },
           "page-bg": {
-            "$value": "{primitive.color.palette-gray.900}",
+            "$value": "{primitive.color.palette-gray.950}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-app-page-bg",
@@ -10040,7 +10057,7 @@
             }
           },
           "panel-strong": {
-            "$value": "{primitive.color.palette-gray.900}",
+            "$value": "{primitive.color.palette-gray.950}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-landing-panel-strong",

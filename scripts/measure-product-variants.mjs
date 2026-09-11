@@ -81,6 +81,18 @@ try {
 const productRefForList = productRef;
 const git = (args) =>
   execFileSync("git", args, { cwd: productRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024 });
+/** 있는지 «물어보는» 읽기. import 대상의 확장자(.tsx/.ts)를 탐색할 때 쓴다 — 실패가 정상이므로
+ *  git 의 stderr 를 흘리지 않는다. */
+const gitTry = (args) => {
+  try {
+    return execFileSync("git", args, {
+      cwd: productRoot, encoding: "utf8", maxBuffer: 128 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+  } catch {
+    return null;
+  }
+};
 const commit = git(["rev-parse", productRef]).trim();
 // 제품 `tailwind.css` 의 머리말은 `@import "tailwindcss"` 를 **설명하려고** 인용한다. 주석을 남긴
 // 채 import 제거 정규식을 돌리면 그 인용에서 매칭이 시작되고 `[^;]*;` 가 다음 세미콜론까지
@@ -145,7 +157,13 @@ function blankComments(text) {
 }
 
 /** `key: [...].join(" ")` 와 `const KEY = [...].join(" ")` 를 모두 읽는다. */
-function extractAll(rawSource) {
+// `resolveExternal(name)` 은 **다른 파일에서 import 한 클래스 상수**를 풀어 준다. 없으면 예전처럼
+// 같은 파일 안만 본다. 제품이 공용 조형을 소유자 모듈로 올리면서(`SegmentedThumb` 의
+// `SEGMENTED_THUMB_TRACK`/`_SEGMENT`) 합성 상수의 한 조각이 파일 밖으로 나갔고, 그것을 버리면
+// **클래스가 조용히 빠진 채 측정이 초록으로 끝난다** — 세그먼티드 컨트롤에서 `bg-transparent`
+// 가 빠져 정본 레시피의 선택 면이 드러난 것이 실제 사례다(2026-09-11).
+const UNRESOLVED_REFS = new Set();
+function extractAll(rawSource, resolveExternal) {
   const source = blankComments(rawSource);
   const found = [];
   // `export const` 도 받는다 — 제품이 공용 조형을 소유자 파일로 올리면 그 상수는 내보내진다
@@ -218,6 +236,12 @@ function extractAll(rawSource) {
     for (const part of entry.parts) {
       if (part.literal !== undefined) out.push(part.literal);
       else if (byName.has(part.ref)) out.push(resolve(byName.get(part.ref), seen));
+      else {
+        // 같은 파일에 없다 — import 를 따라간다. 그래도 없으면 **버리지 않고 적어 둔다.**
+        const external = resolveExternal?.(part.ref);
+        if (external) out.push(external);
+        else UNRESOLVED_REFS.add(entry.name + " → " + part.ref);
+      }
     }
     entry.classes = out.filter(Boolean).join(" ");
     return entry.classes;
@@ -244,6 +268,70 @@ const FILES = Object.fromEntries(
 const sources = Object.fromEntries(
   Object.entries(FILES).map(([alias, path]) => [alias, git(["show", commit + ":" + path])]),
 );
+
+const constantsByFile = {};
+/** `import { A, B } from "@/components/ui/X"` 를 읽어 이름 → 파일 경로로 잇는다.
+ *  `@/*` 는 `apps/web/*` 다(제품 tsconfig). 상대 경로도 같은 트리 안에서 푼다. */
+const importMapOf = (file, source) => {
+  const map = {};
+  const dir = file.slice(0, file.lastIndexOf("/"));
+  for (const m of source.matchAll(/import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*"([^"]+)"/g)) {
+    const spec = m[2];
+    let base = null;
+    if (spec.startsWith("@/")) base = "apps/web/" + spec.slice(2);
+    else if (spec.startsWith("./") || spec.startsWith("../")) {
+      const parts = (dir + "/" + spec).split("/");
+      const out = [];
+      for (const seg of parts) {
+        if (seg === "." || seg === "") continue;
+        if (seg === "..") out.pop();
+        else out.push(seg);
+      }
+      base = out.join("/");
+    }
+    if (!base) continue; // 패키지 import 는 제품 트리 밖이라 따라가지 않는다
+    for (const raw of m[1].split(",")) {
+      const name = raw.trim().split(/\s+as\s+/).pop().trim();
+      if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) map[name] = base;
+    }
+  }
+  return map;
+};
+const importsByFile = {};
+const loadConstants = (file, seenFiles) => {
+  if (constantsByFile[file]) return constantsByFile[file];
+  const source = sources[file] ?? git(["show", commit + ":" + file]);
+  sources[file] = source;
+  importsByFile[file] = importMapOf(file, source);
+  // 자리를 먼저 잡아 순환 import 에서 무한히 내려가지 않게 한다.
+  constantsByFile[file] = {};
+  const external = (name) => {
+    const base = importsByFile[file][name];
+    if (!base || seenFiles.has(base)) return null;
+    for (const ext of [".tsx", ".ts"]) {
+      const target = base + ext;
+      if (sources[target] === undefined) {
+        const probed = gitTry(["show", commit + ":" + target]);
+        if (probed === null) continue; // 그 경로에 파일이 없다 — 다음 확장자
+        sources[target] = probed;
+      }
+      const table = loadConstants(target, new Set([...seenFiles, base]));
+      const hit = table[name];
+      if (hit && hit.classes) return hit.classes;
+    }
+    return null;
+  };
+  constantsByFile[file] = Object.fromEntries(
+    extractAll(source, external).map((entry) => [entry.name, entry]),
+  );
+  return constantsByFile[file];
+};
+const classesOf = (file, part) => {
+  const table = loadConstants(file, new Set([file]));
+  const found = table[part];
+  if (!found) throw new Error(file + "에 " + part + " 상수가 없습니다.");
+  return found;
+};
 // **상수 이름으로 센다.** 클래스 토큰으로 세면 짧은 마커가 다른 문자열에 섞여 수가 터진다.
 // 정의 자신을 빼고 남는 수가 곧 "몇 곳에서 쓰는가"다.
 const usageCount = (name) => {
@@ -257,7 +345,7 @@ const usageCount = (name) => {
 
 const candidates = [];
 for (const [alias, source] of Object.entries(sources)) {
-  for (const entry of extractAll(source)) {
+  for (const entry of Object.values(loadConstants(alias, new Set([alias])))) {
     for (const kind of KINDS) {
       if (!kind.pattern.test(entry.name)) continue;
       candidates.push({
@@ -284,17 +372,7 @@ for (const [alias, source] of Object.entries(sources)) {
 //
 // 그래서 표본 파일에는 **구조만** 적는다 — 어떤 상수가 어떤 상수를 감싸는가. 여백·크기·색은
 // 한 줄도 없다. 여기서 그 트리를 그대로 렌더하고 **모든 노드를 잰다.**
-const constantsByFile = {};
-const classesOf = (file, part) => {
-  if (!constantsByFile[file]) {
-    const source = sources[file] ?? git(["show", commit + ":" + file]);
-    sources[file] = source;
-    constantsByFile[file] = Object.fromEntries(extractAll(source).map((entry) => [entry.name, entry]));
-  }
-  const found = constantsByFile[file][part];
-  if (!found) throw new Error(file + "에 " + part + " 상수가 없습니다.");
-  return found;
-};
+
 let specimenSeq = 0;
 const specimenNodes = [];
 /** 소비처가 인라인으로 얹는 style 객체를 소스에서 꺼낸다. **클래스를 이기는 선언이 여기 숨는다.** */
@@ -354,6 +432,10 @@ const buildSpecimen = (specimen, node, path) => {
     // 소비처가 렌더 시점에 합친 상수 목록. 크기 선언이 이 안에 흩어져 있다.
     parts: node.parts ?? null,
     tag: node.tag,
+    // **상태를 클래스로만 적을 수 없는 부품이 있다.** 정본 레시피가 `[data-size]`·
+    // `[data-selected]` 같은 속성에 값을 매달면(세그먼티드 컨트롤이 그렇다) 클래스만 얹은
+    // 표본은 «다른 상태»를 재고도 초록이 된다. 속성을 그대로 옮겨 그 구멍을 막는다.
+    attrs: node.attrs ?? null,
     line: constant.line,
     text: node.text ?? "",
     // 소비처가 **렌더 시점에** 여러 상수를 합성하면 그 목록을 그대로 적는다(`parts`).
@@ -399,8 +481,12 @@ const hostOpen = (specimen) => (specimen.host ?? [])
   })
   .join("");
 const hostClose = (specimen) => (specimen.host ?? []).map(() => "</div>").join("");
+const attrsOf = (node) => Object.entries(node.attrs ?? {})
+  .map(([name, value]) => " " + name + '="' + String(value).replace(/"/g, "&quot;") + '"')
+  .join("");
 const renderSpecimen = (node) =>
   "<" + node.tag + ' data-sp="' + node.index + '" class="' + node.classes.replace(/"/g, "&quot;") + '"' +
+  attrsOf(node) +
   (node.inline ? ' style="' + node.inline.replace(/"/g, "&quot;") + '"' : "") + ">" +
   (node.children.length > 0 ? node.children.map(renderSpecimen).join("") : node.text) +
   "</" + node.tag + ">";
@@ -640,3 +726,14 @@ console.log(
       .map(([id, kind]) => id + " " + kind.definitions + "벌→" + kind.groups.length + "묶음")
       .join(" · ") + " · 표본 " + specimenTrees.length + "종 노드 " + specimenNodes.length + "개 실측",
 );
+
+// **못 푼 참조는 조용히 넘기지 않는다.** 합성 상수의 한 조각을 버리면 클래스가 빠진 채로
+// 측정이 끝나고, 그 결과는 제품이 그리지 않는 모양을 「실측」이라고 부른다.
+if (UNRESOLVED_REFS.size > 0) {
+  console.error(
+    "[product-variants] 클래스 상수 참조 " + UNRESOLVED_REFS.size + "개를 풀지 못했습니다 — " +
+      "합쳐야 할 클래스가 빠진 채로 잰 것입니다:",
+  );
+  for (const ref of UNRESOLVED_REFS) console.error("  - " + ref);
+  process.exit(1);
+}

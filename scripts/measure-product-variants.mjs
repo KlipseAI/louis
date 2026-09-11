@@ -148,7 +148,10 @@ function blankComments(text) {
 function extractAll(rawSource) {
   const source = blankComments(rawSource);
   const found = [];
-  const pattern = /(?:^|\n)(?:\s{2}|const\s+)([A-Za-z_][A-Za-z0-9_]*)\s*[:=]\s*(?=\[|")/g;
+  // `export const` 도 받는다 — 제품이 공용 조형을 소유자 파일로 올리면 그 상수는 내보내진다
+  // (`nodeShellStyles.ts` 의 `export const NODE_HEADER_ABOVE`). 안 받으면 「상수가 없습니다」로
+  // 죽는데, 실제로는 있고 파서만 못 본 것이다.
+  const pattern = /(?:^|\n)(?:\s{2}|(?:export\s+)?const\s+)([A-Za-z_][A-Za-z0-9_]*)\s*[:=]\s*(?=\[|")/g;
   let match;
   while ((match = pattern.exec(source)) !== null) {
     const name = match[1];
@@ -337,7 +340,10 @@ const inlineAtOf = (ref) => {
   return decls.join(";");
 };
 const buildSpecimen = (specimen, node, path) => {
-  const constant = classesOf(specimen.file, node.part);
+  // **부품이 다른 파일에 있을 수 있다.** 제품이 공용 조형을 소유자 파일로 올리면(노드 넷이
+  // 같은 헤더를 쓰게 되며 `NODE_HEADER_ABOVE` 가 nodeShellStyles.ts 로 올라간 것처럼) 한 표본이
+  // 두 파일에 걸친다. 부품에 `file` 이 있으면 그것을 쓰고, 없으면 표본의 파일을 쓴다.
+  const constant = classesOf(node.file ?? specimen.file, node.part);
   const index = specimenSeq;
   specimenSeq += 1;
   const record = {
@@ -355,7 +361,7 @@ const buildSpecimen = (specimen, node, path) => {
     // 한 상수만 가리키면 높이·여백·배경이 통째로 빠져 25px짜리 테두리 조각이 된다.
     classes: [
       node.typography,
-      ...(node.parts ?? [node.part]).map((name) => classesOf(specimen.file, name).classes),
+      ...(node.parts ?? [node.part]).map((name) => classesOf(node.file ?? specimen.file, name).classes),
     ].filter(Boolean).join(" "),
     inline: node.inlineFrom
       ? inlineStyleOf(node.inlineFrom.file, node.inlineFrom.name)

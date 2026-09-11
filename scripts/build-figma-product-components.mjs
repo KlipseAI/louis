@@ -716,17 +716,17 @@ const plan = {
     darkThemeSource: {
       inactive: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        588,
+        587,
         '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
       ),
       active: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        594,
+        593,
         '    "[color:var(--gray-000)]",',
       ),
       activeIndicator: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        598,
+        597,
         '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
       ),
     },

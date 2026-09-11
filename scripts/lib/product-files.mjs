@@ -78,4 +78,10 @@ export const PRODUCT_FILES = {
   // 이 하네스가 꺼낼 상수가 없다 — 사유는 measure-product-components.mjs 의 탐침 머리말에 있다.
   notFoundBoundary: "apps/web/app/not-found-content.tsx",
   errorBoundary: "apps/web/app/error.tsx",
+  // ── Alert · SectionHeader 담지자 ────────────────────────────────────────
+  // `ALERT` 는 클래스가 `"louis-alert"` 한 낱말이라 **레시피를 한 축도 덮지 않는다**
+  // (AdminSection.tsx). `AdminAlert` 가 danger·success·warning·info 넷을 `data-tone` 으로
+  // 실제로 내므로 톤 축 열둘을 이 한 벌로 잰다. 같은 파일이 `HEADER` 로 section-header 도
+  // 담지한다 — 어드민 열한 화면의 제목 사다리를 이 파일이 단독으로 소유한다.
+  admin: "apps/web/app/admin/AdminSection.tsx",
 };

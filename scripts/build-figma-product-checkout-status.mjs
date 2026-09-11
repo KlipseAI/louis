@@ -164,7 +164,10 @@ const contentSpec = ({ context, viewport }, { outcome, route, kind }) => {
 
 const variants = contexts.flatMap((context) => outcomeRoutes.map((route) => contentSpec(context, route)));
 for (const spec of variants) {
-  const expectedWidth = spec.viewport === "Desktop" ? 520 : 370;
+  // **모바일 370 → 390 (제품 094c336b, 2026-09-09).** 앱 셸 링이 12 → 8 로 줄었다.
+  // ≤719 에서 본문 좌우 인셋이 `--app-gnb-main-inline-padding` 6 + `-end` 6 이라
+  // 402 − 6 − 6 = 390 이다. 데스크톱은 `min(520, 100%)` 로 상한이 물려 있어 안 움직인다.
+  const expectedWidth = spec.viewport === "Desktop" ? 520 : 390;
   if (spec.rect.width !== expectedWidth || spec.actionGroup.actions.length !== 2) {
     fail(`checkout content geometry changed ${spec.route} ${spec.viewport}`);
   }
@@ -179,9 +182,14 @@ const sceneSpec = ({ context, viewport }, { outcome, route }) => {
   const content = node(context, route, contentPath);
   const pageStyle = style(page);
   const mainStyle = style(main);
+  // **main 이 1628×1004 → 1632×1012 · 402×810 → 402×814 로 움직였다 (같은 094c336b).**
+  // 가로 +4 는 우측 여백(`--app-gnb-main-inline-padding-end` 12 → 8): 1920 − 280 − 8 = 1632.
+  // 세로 +8 은 `calc(100dvh − align-main-margin-top 48 − rail-below-chrome-gap 12 −
+  // rail-padding-bottom 8)` = 1012. 모바일은 ≤719 에서 rail-padding-bottom 이 0 이라
+  // 첫 항만 움직여 874 − 48 − 12 = 814 다. page 는 뷰포트 그대로라 손대지 않는다.
   const expected = viewport === "Desktop"
-    ? { page: [1920, 1080], main: [1628, 1004] }
-    : { page: [402, 874], main: [402, 810] };
+    ? { page: [1920, 1080], main: [1632, 1012] }
+    : { page: [402, 874], main: [402, 814] };
   if (
     page.rect.width !== expected.page[0] || page.rect.height !== expected.page[1] ||
     main.rect.width !== expected.main[0] || main.rect.height !== expected.main[1]

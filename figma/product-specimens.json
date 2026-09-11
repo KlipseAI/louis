@@ -169,30 +169,6 @@
       ]
     },
     {
-      "id": "badge/profileMenuItemBadge",
-      "kind": "badge",
-      "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:3143-3147",
-      "file": "apps/web/components/navigation/Gnb.tsx",
-      "node": {
-        "part": "profileMenuItemBadge",
-        "tag": "span",
-        "children": [
-          {
-            "part": "profileMenuItemBadgeText",
-            "tag": "span",
-            "text": "프로"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/navigation/Gnb.tsx",
-          "part": "profileMenuCreditsHead"
-        }
-      ]
-    },
-    {
       "id": "banner-carousel/appHome",
       "kind": "banner-carousel",
       "label": "앱 홈 배너 캐러셀 — 슬라이드 + 하단 가운데 컨트롤(점)",
@@ -392,9 +368,11 @@
               },
               {
                 "part": "NODE_HEADER_ABOVE_ACTIONS",
-                "tag": "div"
+                "tag": "div",
+                "file": "apps/web/components/scenes/create/node-canvas-v2/nodeShellStyles.ts"
               }
-            ]
+            ],
+            "file": "apps/web/components/scenes/create/node-canvas-v2/nodeShellStyles.ts"
           },
           {
             "part": "NODE_MAIN",
@@ -409,7 +387,8 @@
         ]
       },
       "hostNone": "부모를 못 찾은 게 아니라 '크기를 바꾸는 부모가 없음'을 확인했다. (1) BgmNode.tsx의 return 루트가 표본 루트다(1035행 `<div className={NODE_CONTAINER} data-node-accent=\"audio\">`) — 컴포넌트 안에 DOM 부모가 없다. (2) 호출부를 따라갔다 — 유일한 소비처는 node-canvas-v2/index.tsx:834 `bgm: memo(BgmNode)`로 NODE_TYPES에 등록되고 index.tsx:10845 `nodeTypes={NODE_TYPES}`로 React Flow(@xyflow/react)에 넘겨지는 것뿐이다. React Flow는 노드를 라이브러리 소유 `.react-flow__node` 래퍼(absolute + translate transform)로 캔버스 팬에 배치하므로 제품 클래스 상수로 된 부모가 존재하지 않는다. (3) 제품 CSS에도 `.react-flow__node`의 크기·레이아웃 선언이 없다 — git grep 결과 globals.css:1267의 `:has([data-meta-dropdown-anchor])` 규칙 하나뿐이고 레이아웃과 무관하다. 래퍼가 absolute라 표본 루트는 어떤 flex/grid 항목도 아니고 shrink-to-fit 문맥에 놓인다 — 폭 선언이 없는 NODE_CONTAINER(flex flex-col items-center)는 고정폭 자식(카드 폭 변수)으로 수축한다.",
-      "host": []
+      "host": [],
+      "$fileNote": "헤더 상수 둘은 이 파일에 없다 — 노드 넷이 같은 헤더를 쓰게 되며 `NODE_HEADER_ABOVE`·`NODE_HEADER_ABOVE_ACTIONS` 가 nodeShellStyles.ts 로 올라갔고(제품 40c4e427) BgmNode 는 import 로 쓴다. 그 둘만 부품에 `file` 을 적어 소유자를 겨눈다."
     },
     {
       "id": "checkbox/awsSignupLegal",
@@ -537,38 +516,6 @@
         {
           "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
           "part": "modalOverlay"
-        }
-      ]
-    },
-    {
-      "id": "empty-state/analyticsStatePanel",
-      "kind": "empty-state",
-      "label": "분석 대시보드 상태 패널 — 제목 + 본문",
-      "jsx": "apps/web/components/scenes/analytics/shared.tsx:555-568",
-      "jsxQuote": "          : STATE_PANEL",
-      "file": "apps/web/components/scenes/analytics/shared.tsx",
-      "node": {
-        "part": "STATE_PANEL",
-        "tag": "div",
-        "children": [
-          {
-            "part": "STATE_PANEL_TITLE",
-            "tag": "span",
-            "typography": "type-body-16-semibold",
-            "text": "개요"
-          },
-          {
-            "part": "STATE_PANEL_BODY",
-            "tag": "span",
-            "typography": "type-body-14-regular",
-            "text": "이 기간에 표시할 데이터가 없어요."
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/analytics/OverviewTab.tsx",
-          "part": "OVERVIEW_SECTION"
         }
       ]
     },
@@ -1986,7 +1933,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1091"
+            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1089"
           }
         ]
       },
@@ -2087,7 +2034,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1498"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1514"
           }
         ]
       },
@@ -2888,7 +2835,7 @@
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다. 2026-08-21 재기준선(6337ad54 → ada1b939)에서 하나를 더 뺐다 — 배포본이 `Button.tsx`의 `PRIMARY_HOOK`을 지웠다. hl-* 라우트의 CSS 모듈 훅이라 스타일을 정의한 적이 없고, 그 라우트가 삭제 예정이라 함께 사라졌다. 표본 둘의 parts에서 뺐고 값 변화는 없다.",
   "$inlineRule": "소비처가 인라인 style로 얹는 선언은 클래스를 이긴다. 그 값을 여기 적지 않고 **상수 이름만** 가리킨다(`inlineFrom`) — 값은 스크립트가 소스에서 꺼낸다.",
   "$hostRule": "`host`는 제품에서 이 표본을 감싸는, **크기 계산을 바꾸는** 부모다. 표본을 부모 없이 재면 flex 문맥이 빠져 높이가 `여백+인라인상자`로 잡힌다 — 제품에서는 blockify되어 `여백+행간상자`다. 문맥 없이 잰 값은 실측이 아니다. 크기를 바꾸는 부모가 없는 것(position:fixed로 body에 포털되는 토스트·툴팁 등)은 `host: []`와 함께 `hostNone`에 **확인한 사유**를 적는다 — 비어 있는 것과 확인해서 없는 것은 다르다.",
-  "$retired": "2026-08-27 재기준선: `banner-carousel/highlightTab` · `banner-carousel/tabCarouselControls` 두 표본을 지웠다. 정본 파일 `apps/web/components/banners/TabBannerCarousel.tsx` 가 제품 `6602fd24` 에서 삭제됐고 소비처도 함께 사라졌다 — 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔고, 그 구조는 `banner-carousel/appHome` · `banner-carousel/appHomeControls` · `banner-carousel/appHomeFrame` 세 표본이 이미 갖고 있다. 구조를 옮긴 것이 아니라 **없어진 소비처를 지운 것**이다.",
+  "$retired": "2026-08-27 재기준선: `banner-carousel/highlightTab` · `banner-carousel/tabCarouselControls` 두 표본을 지웠다. 정본 파일 `apps/web/components/banners/TabBannerCarousel.tsx` 가 제품 `6602fd24` 에서 삭제됐고 소비처도 함께 사라졌다 — 캐러셀은 앱 홈 하나만 남아 `AppHomeScene.tsx` 안으로 들어갔고, 그 구조는 `banner-carousel/appHome` · `banner-carousel/appHomeControls` · `banner-carousel/appHomeFrame` 세 표본이 이미 갖고 있다. 구조를 옮긴 것이 아니라 **없어진 소비처를 지운 것**이다.\n\n2026-09-10 재기준선: `badge/profileMenuItemBadge` 표본을 지웠다. 제품 `9d441c68 feat(gnb): 플랜명을 별과 묶고 알약 상자를 걷어낸다`(2026-09-03)가 그 알약을 걷었고, 커밋 주석이 「알약 상자와 시머를 걷어내고(**소유자 요청**) 카드 면 위 글자로만 선다」고 사유를 적는다. 개명이 아니라 **부품이 없어진 것**이라 옮길 자리가 없다 — 지금 그 자리는 `profileMenuCreditsPlan` 이고 배지가 아니라 텍스트다. `badge` kind 로 다시 세우면 계약이 거짓이 된다.\n\n2026-09-10 재기준선: `empty-state/analyticsStatePanel` 표본을 지웠다. 제품 `40c4e427 feat(louis): LOUIS 핀을 995094c 로 올리고 새 축 열둘을 제품이 물게 한다`가 이 자리를 `.louis-empty-state` 로 넘겼다 — 지금 `STATE_PANEL` 은 `\"louis-empty-state\"` 한 낱말이고 `STATE_PANEL_TITLE`·`STATE_PANEL_BODY` 는 제품 어디에도 없다(전수 grep 0). **제품 전용 조형이 아니게 된 것**이라 이 명부에 있을 이유가 사라졌다 — 계약은 이제 LOUIS EmptyState 가 갖고, 제품이 덮는 것은 설명 잉크 한 줄뿐이다(`STATE_PANEL_DESCRIPTION_INK`, 소스 주석이 사유를 적는다).",
   "$retiredSpecimens": [
     {
       "id": "scene/staticHighlightDemo",

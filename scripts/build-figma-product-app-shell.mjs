@@ -163,7 +163,12 @@ const assertProfileVisual = (spec) => {
     control.width !== 36 || control.height !== 36 ||
     visual.avatar.rect.x - control.x !== 4 || visual.avatar.rect.y - control.y !== 4 ||
     visual.avatar.rect.width !== 28 || visual.avatar.rect.height !== 28 ||
-    JSON.stringify(visual.avatar.color) !== JSON.stringify([213 / 255, 215 / 255, 221 / 255, 1]) ||
+    // **#D5D7DD → #8B8E93.** 정체는 그대로다 — 제품 UserCircleDefaultAvatar 는 예나 지금이나
+    // `text-palette-gray-400` 이고, 제품 globals.css 의 그 이름은 두 앵커 모두
+    // `var(--louis-color-palette-gray-400)` 를 가리킨다(값이 아니라 이름을 소비한다).
+    // 움직인 것은 **LOUIS 팔레트 원색 자신**이고, 지금 값은 핀 d963d1d 와 main 이 같다.
+    // 같은 색에 역할 이름도 서 있다 — `app-avatar-default-ink`(tokens.css:284).
+    JSON.stringify(visual.avatar.color) !== JSON.stringify([0.545098, 0.556863, 0.576471, 1]) ||
     visual.ring.rect.x !== control.x || visual.ring.rect.y !== control.y ||
     visual.ring.rect.width !== 36 || visual.ring.rect.height !== 36 ||
     visual.ring.width !== 2 || visual.ring.gap !== 2 || visual.ring.progress !== 0 ||
@@ -441,12 +446,12 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
 // 1452 → 1452).
 const ringSourceLines = [
-  [1452, '    "[--profile-avatar-size:28px]",'],
-  [1455, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1456, '    "[--profile-ring-gap:2px]",'],
-  [1457, '    "[--profile-ring-width:2px]",'],
-  [1484, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1486, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1506, '    "[--profile-avatar-size:28px]",'],
+  [1509, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1510, '    "[--profile-ring-gap:2px]",'],
+  [1511, '    "[--profile-ring-width:2px]",'],
+  [1538, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1540, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 const plan = {
@@ -477,16 +482,18 @@ const plan = {
       paletteMode: "default",
       semanticCollection: "2 · Semantic",
       semanticMode: "dark",
-      surface: { collection: "1 · Palette", name: "palette/gray-800" },
+      // **팔레트 직행에서 시맨틱으로 옮겼다.** 제품이 테마별 덮개 두 줄
+      // (`light → palette-gray-000` · `dark → palette-gray-800`)을 **일부러 걷고**
+      // `bg-surface` 하나를 읽게 바꿨다 — 그 두 줄이 위 한 줄을 이겨 사다리 이동이 안 닿았기
+      // 때문이다. 소스 주석이 사유를 적는다: 이 띠는 메인 카드 «안»에 포털로 들어가는데 면은
+      // 셸 바닥(`bg-canvas`)을 읽고 있었고, 2026-09-09 에 다크 사다리를 한 칸 내리며 카드가
+      // pg-850 이 되자 카드 상단만 바닥으로 파여 보였다(실측 lab 9.59% 대 14.53%).
+      // 라이트는 값이 그대로이고 다크만 pg-800 → pg-850 으로 내려간다.
+      surface: { collection: "2 · Semantic", name: "bg/surface" },
       $darkSurfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        // 430 → 478 → 479. 같은 문자열이 ae8fd627 에서는 파일에 세 번(478 · 1325 · 1981)
-        // 나왔지만, 5a67d692 에서는 **두 번**(479 · 1993)이다 — 제품 52f70bac 가
-        // `profileOnlyContainer` 쪽 한 줄을 사다리 토큰으로 걷어냈다. 남은 둘 중
-        // 479 만 `mainChromeTopBarInPanel:`(463) 안에 있고, 1993 은
-        // `sidebarUpgradeButtonActive:`(1975) 다. 인용 문자열 자체는 그대로다.
-        479,
-        '    "[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]",',
+        484,
+        '    "[background:var(--louis-color-bg-surface)]",',
       ),
       divider: { collection: "2 · Semantic", name: "gray/000" },
       dividerOpacity: 0.08,

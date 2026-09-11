@@ -8,8 +8,8 @@
     "간격이 제각각이면 중첩 오토레이아웃으로 묶는다. spacer 프레임은 쓰지 않는다.",
     "음수 마진은 여백을 바깥·안쪽으로 나눠 만든다."
   ],
-  "productRef": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productRef": "origin/design",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "sections": [
     {
       "kind": "input-form",
@@ -1833,9 +1833,9 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.165,
+              0.169,
               0.184,
-              0.224,
+              0.212,
               0.48
             ],
             "gradient": null,
@@ -1973,9 +1973,9 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.165,
+              0.169,
               0.184,
-              0.224,
+              0.212,
               0.48
             ],
             "gradient": null,
@@ -2050,9 +2050,9 @@
             ],
             "gradient": null,
             "fg": [
-              0.439,
+              0.447,
               0.459,
-              0.502,
+              0.482,
               1
             ],
             "radius": 12,
@@ -2112,17 +2112,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.439,
+                  0.447,
                   0.459,
-                  0.502,
+                  0.482,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.439,
+                  0.447,
                   0.459,
-                  0.502,
+                  0.482,
                   1
                 ],
                 "shadow": null,
@@ -2185,9 +2185,9 @@
             ],
             "gradient": null,
             "fg": [
-              0.439,
+              0.447,
               0.459,
-              0.502,
+              0.482,
               1
             ],
             "radius": 12,
@@ -2247,17 +2247,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.439,
+                  0.447,
                   0.459,
-                  0.502,
+                  0.482,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.439,
+                  0.447,
                   0.459,
-                  0.502,
+                  0.482,
                   1
                 ],
                 "shadow": null,
@@ -2320,17 +2320,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
-            "radius": 999,
+            "radius": 8,
             "borderWidth": 0,
             "borderColor": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "shadow": null,
@@ -2382,17 +2382,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -2771,7 +2771,7 @@
               0,
               4,
               0,
-              4
+              8
             ],
             "inset": [
               0,
@@ -2794,7 +2794,7 @@
             "fg": [
               0.647,
               0.659,
-              0.682,
+              0.678,
               1
             ],
             "radius": 10,
@@ -2802,7 +2802,7 @@
             "borderColor": [
               0.647,
               0.659,
-              0.682,
+              0.678,
               1
             ],
             "shadow": null,
@@ -2824,10 +2824,10 @@
                 "part": "menuSidebarCreateNavPart",
                 "slot": false,
                 "text": "",
-                "w": 224,
+                "w": 220,
                 "h": 32,
                 "abs": false,
-                "x": 4,
+                "x": 8,
                 "y": 0,
                 "pad": [
                   0,
@@ -2856,7 +2856,7 @@
                 "fg": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "radius": 0,
@@ -2864,7 +2864,7 @@
                 "borderColor": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "shadow": null,
@@ -2886,7 +2886,7 @@
                     "part": "menuLinkInner",
                     "slot": false,
                     "text": "",
-                    "w": 224,
+                    "w": 220,
                     "h": 21,
                     "abs": false,
                     "x": 0,
@@ -2918,7 +2918,7 @@
                     "fg": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "radius": 0,
@@ -2926,7 +2926,7 @@
                     "borderColor": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "shadow": null,
@@ -2973,14 +2973,14 @@
                         "bg": [
                           0.647,
                           0.659,
-                          0.682,
+                          0.678,
                           1
                         ],
                         "gradient": null,
                         "fg": [
                           0.647,
                           0.659,
-                          0.682,
+                          0.678,
                           1
                         ],
                         "radius": 0,
@@ -2988,7 +2988,7 @@
                         "borderColor": [
                           0.647,
                           0.659,
-                          0.682,
+                          0.678,
                           1
                         ],
                         "shadow": null,
@@ -3011,7 +3011,7 @@
                       {
                         "part": "menuLinkLabel",
                         "slot": false,
-                        "text": "캔버스",
+                        "text": "노드 캔버스",
                         "w": 63.92,
                         "h": 21,
                         "abs": false,
@@ -3044,7 +3044,7 @@
                         "fg": [
                           0.647,
                           0.659,
-                          0.682,
+                          0.678,
                           1
                         ],
                         "radius": 0,
@@ -3052,7 +3052,7 @@
                         "borderColor": [
                           0.647,
                           0.659,
-                          0.682,
+                          0.678,
                           1
                         ],
                         "shadow": null,
@@ -3105,16 +3105,16 @@
                 "justify": "center",
                 "align": "stretch",
                 "bg": [
-                  0.251,
+                  0.255,
                   0.271,
-                  0.31,
+                  0.298,
                   1
                 ],
                 "gradient": null,
                 "fg": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "radius": 6,
@@ -3122,7 +3122,7 @@
                 "borderColor": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "shadow": null,
@@ -3164,7 +3164,7 @@
               0,
               4,
               0,
-              4
+              8
             ],
             "inset": [
               0,
@@ -3187,7 +3187,7 @@
             "fg": [
               0.647,
               0.659,
-              0.682,
+              0.678,
               1
             ],
             "radius": 10,
@@ -3195,7 +3195,7 @@
             "borderColor": [
               0.647,
               0.659,
-              0.682,
+              0.678,
               1
             ],
             "shadow": null,
@@ -3217,10 +3217,10 @@
                 "part": "menuLinkInner",
                 "slot": false,
                 "text": "",
-                "w": 248,
+                "w": 244,
                 "h": 21,
                 "abs": false,
-                "x": 4,
+                "x": 8,
                 "y": 5.5,
                 "pad": [
                   0,
@@ -3249,7 +3249,7 @@
                 "fg": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "radius": 0,
@@ -3257,7 +3257,7 @@
                 "borderColor": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "shadow": null,
@@ -3304,14 +3304,14 @@
                     "bg": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "gradient": null,
                     "fg": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "radius": 0,
@@ -3319,7 +3319,7 @@
                     "borderColor": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "shadow": null,
@@ -3375,7 +3375,7 @@
                     "fg": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "radius": 0,
@@ -3383,7 +3383,7 @@
                     "borderColor": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       1
                     ],
                     "shadow": null,
@@ -3511,17 +3511,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -3770,17 +3770,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -3818,7 +3818,7 @@
       "specimens": [
         {
           "id": "skeleton/analysisModalIg",
-          "label": "캔버스 분석 모달 · 인스타그램 로딩 뼈대",
+          "label": "노드 캔버스 분석 모달 · 인스타그램 로딩 뼈대",
           "jsx": "NodeCanvasAnalysisModal.tsx:616-670",
           "hosted": false,
           "hostNone": "IG_SCROLL 에 display 선언이 없다 — flex/inline-flex/grid 중 어느 것도 아니고 기본 block 이다. \"[flex:1_1_auto]\" 는 자기 자신이 CARD(54)의 flex 자식일 때 적용되는 항목 속성이지 컨테이너를 만드는 선언이 아니다. 레이아웃을 만드는 조상은 CARD(54, \"flex flex-col items-stretch min-h-0\")이고 IG_SCROLL 은 그 사이의 스크",
@@ -6082,24 +6082,24 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.251,
+              0.255,
               0.271,
-              0.31,
+              0.298,
               1
             ],
             "gradient": null,
             "fg": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "shadow": null,
@@ -6144,24 +6144,24 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.341,
-                  0.365,
-                  0.404,
+                  0.345,
+                  0.361,
+                  0.388,
                   1
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -6224,17 +6224,17 @@
             ],
             "gradient": null,
             "fg": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "shadow": null,
@@ -6286,17 +6286,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -6352,24 +6352,24 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.251,
+              0.255,
               0.271,
-              0.31,
+              0.298,
               1
             ],
             "gradient": null,
             "fg": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "radius": 999,
             "borderWidth": 0,
             "borderColor": [
-              0.541,
+              0.545,
               0.557,
-              0.588,
+              0.576,
               1
             ],
             "shadow": null,
@@ -6414,24 +6414,24 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.341,
-                  0.365,
-                  0.404,
+                  0.345,
+                  0.361,
+                  0.388,
                   1
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -6450,1033 +6450,6 @@
                 "maxW": 0,
                 "children": [],
                 "ci": 0
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "badge",
-      "label": "배지·칩",
-      "count": 4,
-      "specimens": [
-        {
-          "id": "badge/customSidebarBadge",
-          "label": "사이드바 개수 배지",
-          "jsx": "Gnb.tsx:4530-4538",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "customSidebarBadge",
-            "slot": false,
-            "text": "3",
-            "w": 18,
-            "h": 18,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              5,
-              0,
-              5
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0.98,
-              0.98,
-              0.98,
-              0.12
-            ],
-            "gradient": null,
-            "fg": [
-              0.647,
-              0.659,
-              0.682,
-              1
-            ],
-            "radius": 999,
-            "borderWidth": 0,
-            "borderColor": [
-              0.647,
-              0.659,
-              0.682,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 12,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.12,
-            "isText": false,
-            "textFill": false,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "선언",
-            "hx": "FIX",
-            "minW": 18,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        },
-        {
-          "id": "badge/exploreSoonChip",
-          "label": "사이드바 예정 칩",
-          "jsx": "Gnb.tsx:4795-4800",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "exploreSoonChip",
-            "slot": false,
-            "text": "BETA",
-            "w": 44.41,
-            "h": 24,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              3,
-              8,
-              3,
-              8
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0.98,
-              0.98,
-              0.98,
-              0.12
-            ],
-            "gradient": null,
-            "fg": [
-              0.541,
-              0.557,
-              0.588,
-              1
-            ],
-            "radius": 6,
-            "borderWidth": 0,
-            "borderColor": [
-              0.541,
-              0.557,
-              0.588,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 12,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.12,
-            "isText": false,
-            "textFill": true,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        },
-        {
-          "id": "badge/previewZoomBadge",
-          "label": "미리보기 확대 배지",
-          "jsx": "VideoEditModal.tsx:17823-17829",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "previewZoomBadge",
-            "slot": false,
-            "text": "120%",
-            "w": 50.19,
-            "h": 24,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              3,
-              10,
-              3,
-              10
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0.09,
-              0.106,
-              0.133,
-              0.72
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 8,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 12,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.12,
-            "isText": false,
-            "textFill": true,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": []
-          }
-        },
-        {
-          "id": "badge/profileMenuItemBadge",
-          "label": "프로필 메뉴 플랜 배지 — 글자를 자식이 갖는다",
-          "jsx": "Gnb.tsx:3143-3147",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "profileMenuItemBadge",
-            "slot": false,
-            "text": "",
-            "w": 36.44,
-            "h": 22,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              2,
-              8,
-              2,
-              8
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0.533,
-              1,
-              1
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 6,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 12,
-            "lineHeightPct": 150,
-            "weight": 600,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": true,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "profileMenuItemBadgeText",
-                "slot": false,
-                "text": "프로",
-                "w": 20.44,
-                "h": 14,
-                "abs": false,
-                "x": 8,
-                "y": 4,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 12,
-                "lineHeightPct": 150,
-                "weight": 600,
-                "letterSpacing": -0.16,
-                "isText": true,
-                "textFill": false,
-                "wx": "HUG",
-                "wy": "주축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 0
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "empty-state",
-      "label": "빈 상태",
-      "count": 4,
-      "specimens": [
-        {
-          "id": "empty-state/analyticsStatePanel",
-          "label": "분석 대시보드 상태 패널 — 제목 + 본문",
-          "jsx": "shared.tsx:555-568",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "STATE_PANEL",
-            "slot": false,
-            "text": "",
-            "w": 372,
-            "h": 93,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              20,
-              20,
-              20,
-              20
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 6,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 12,
-            "borderWidth": 1,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "STATE_PANEL_TITLE",
-                "slot": false,
-                "text": "개요",
-                "w": 330,
-                "h": 24,
-                "abs": false,
-                "x": 21,
-                "y": 21,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 600,
-                "letterSpacing": -0.16,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 1
-              },
-              {
-                "part": "STATE_PANEL_BODY",
-                "slot": false,
-                "text": "이 기간에 표시할 데이터가 없어요.",
-                "w": 330,
-                "h": 21,
-                "abs": false,
-                "x": 21,
-                "y": 51,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.14,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 1
-              }
-            ]
-          }
-        },
-        {
-          "id": "empty-state/appHomeArchive",
-          "label": "앱 홈 아카이브 빈 상태 — 제목 + 설명",
-          "jsx": "AppHomeScene.tsx:1003-1010",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "emptyState",
-            "slot": false,
-            "text": "",
-            "w": 372,
-            "h": 360,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              80,
-              0,
-              80,
-              0
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 12,
-            "gaps": [],
-            "dir": "V",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              0.4
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              0.4
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "emptyTitle",
-                "slot": false,
-                "text": "아직 프로젝트가 없어요",
-                "w": 179.97,
-                "h": 30,
-                "abs": false,
-                "x": 96.02,
-                "y": 147,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 20,
-                "lineHeightPct": 150,
-                "weight": 600,
-                "letterSpacing": -0.2,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 96.02
-              },
-              {
-                "part": "emptyDescription",
-                "slot": false,
-                "text": "첫 영상을 만들어 보세요.",
-                "w": 152.16,
-                "h": 24,
-                "abs": false,
-                "x": 109.92,
-                "y": 189,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": true,
-                "textFill": true,
-                "wx": "FILL",
-                "wy": "교차축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 109.92
-              }
-            ]
-          }
-        },
-        {
-          "id": "empty-state/projectVideosPopover",
-          "label": "프로젝트 영상 팝오버 빈 상태 — 타이포 클래스를 안 얹는다",
-          "jsx": "ProjectVideosPopover.tsx:258-262",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "EMPTY_STATE",
-            "slot": false,
-            "text": "",
-            "w": 148,
-            "h": 93,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              36,
-              12,
-              36,
-              12
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              0.96
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              0.96
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "HUG",
-            "wy": "주축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "EMPTY_TEXT",
-                "slot": false,
-                "text": "저장된 영상이 없어요",
-                "w": 114.39,
-                "h": 21,
-                "abs": false,
-                "x": 16.8,
-                "y": 36,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.541,
-                  0.557,
-                  0.588,
-                  0.88
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.541,
-                  0.557,
-                  0.588,
-                  0.88
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.14,
-                "isText": true,
-                "textFill": true,
-                "wx": "HUG",
-                "wy": "주축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 0
-              }
-            ]
-          }
-        },
-        {
-          "id": "empty-state/videoEditInspector",
-          "label": "비디오 편집 인스펙터 빈 상태",
-          "jsx": "VideoEditModal.tsx:22662-22668",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "inspectorEmptyState",
-            "slot": false,
-            "text": "",
-            "w": 356,
-            "h": 200,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              32,
-              20,
-              32,
-              20
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "FILL",
-            "wy": "교차축",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 200,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "inspectorEmptyStateText",
-                "slot": false,
-                "text": "아직 선택된 항목이 없습니다",
-                "w": 153.64,
-                "h": 21,
-                "abs": false,
-                "x": 101.17,
-                "y": 89.5,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.439,
-                  0.459,
-                  0.502,
-                  0.88
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.439,
-                  0.459,
-                  0.502,
-                  0.88
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.14,
-                "isText": true,
-                "textFill": true,
-                "wx": "HUG",
-                "wy": "주축",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 57.5
               }
             ]
           }
@@ -7724,17 +6697,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   0.8
                 ],
                 "shadow": null,
@@ -7852,17 +6825,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   0.8
                 ],
                 "shadow": null,
@@ -7918,9 +6891,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.251,
+              0.255,
               0.271,
-              0.31,
+              0.298,
               0.56
             ],
             "gradient": null,
@@ -7988,9 +6961,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.165,
-              0.184,
-              0.224,
+              0.09,
+              0.106,
+              0.133,
               1
             ],
             "gradient": null,
@@ -8066,7 +7039,7 @@
             "align": "stretch",
             "bg": [
               0.757,
-              0.761,
+              0.765,
               0.776,
               1
             ],
@@ -8104,7 +7077,7 @@
         },
         {
           "id": "tooltip/chromeTooltip",
-          "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·캔버스)",
+          "label": "공용 크롬 툴팁 — body로 포털되는 버블(사이드바·노드 캔버스)",
           "jsx": "ChromeTooltip.tsx:293-304",
           "hosted": false,
           "hostNone": "ChromeTooltip.tsx 279-308행이 전부다. 표본(PORTAL_ANCHOR div, 293-296행)은 292행 `createPortal(` 의 첫 인자이고 두 번째 인자가 305행 ` document.body,` 다 — 즉 DOM 부모는 <body> 직속이다. React 트리상 조상인 HOST span(280-287행, `className={`${HOST}${hostClassName ? ` ${hostClass",
@@ -8260,7 +7233,7 @@
                     "align": "stretch",
                     "bg": [
                       0.757,
-                      0.761,
+                      0.765,
                       0.776,
                       1
                     ],
@@ -8336,7 +7309,7 @@
             "align": "stretch",
             "bg": [
               0.757,
-              0.761,
+              0.765,
               0.776,
               1
             ],
@@ -8406,7 +7379,7 @@
             "align": "stretch",
             "bg": [
               0.757,
-              0.761,
+              0.765,
               0.776,
               1
             ],
@@ -8434,6 +7407,223 @@
             "textFill": true,
             "wx": "FIX",
             "wy": "선언",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": []
+          }
+        }
+      ]
+    },
+    {
+      "kind": "badge",
+      "label": "배지·칩",
+      "count": 3,
+      "specimens": [
+        {
+          "id": "badge/customSidebarBadge",
+          "label": "사이드바 개수 배지",
+          "jsx": "Gnb.tsx:4530-4538",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "customSidebarBadge",
+            "slot": false,
+            "text": "3",
+            "w": 18,
+            "h": 18,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              5,
+              0,
+              5
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0.98,
+              0.98,
+              0.98,
+              0.12
+            ],
+            "gradient": null,
+            "fg": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "radius": 999,
+            "borderWidth": 0,
+            "borderColor": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 12,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.12,
+            "isText": false,
+            "textFill": false,
+            "wx": "HUG",
+            "wy": "주축",
+            "hy": "선언",
+            "hx": "FIX",
+            "minW": 18,
+            "minH": 0,
+            "maxW": 0,
+            "children": []
+          }
+        },
+        {
+          "id": "badge/exploreSoonChip",
+          "label": "사이드바 예정 칩",
+          "jsx": "Gnb.tsx:4795-4800",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "exploreSoonChip",
+            "slot": false,
+            "text": "BETA",
+            "w": 44.41,
+            "h": 24,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              3,
+              8,
+              3,
+              8
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0.98,
+              0.98,
+              0.98,
+              0.12
+            ],
+            "gradient": null,
+            "fg": [
+              0.545,
+              0.557,
+              0.576,
+              1
+            ],
+            "radius": 6,
+            "borderWidth": 0,
+            "borderColor": [
+              0.545,
+              0.557,
+              0.576,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 12,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.12,
+            "isText": false,
+            "textFill": true,
+            "wx": "HUG",
+            "wy": "주축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": []
+          }
+        },
+        {
+          "id": "badge/previewZoomBadge",
+          "label": "미리보기 확대 배지",
+          "jsx": "VideoEditModal.tsx:17823-17829",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "previewZoomBadge",
+            "slot": false,
+            "text": "120%",
+            "w": 50.19,
+            "h": 24,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              3,
+              10,
+              3,
+              10
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "V",
+            "justify": "normal",
+            "align": "stretch",
+            "bg": [
+              0.09,
+              0.106,
+              0.133,
+              0.72
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "radius": 8,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 12,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.12,
+            "isText": false,
+            "textFill": true,
+            "wx": "FILL",
+            "wy": "교차축",
             "hy": "내용",
             "hx": "HUG",
             "minW": 0,
@@ -8990,9 +8180,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.28
                         ],
                         "gradient": null,
@@ -9054,9 +8244,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.28
                         ],
                         "gradient": null,
@@ -9118,9 +8308,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.28
                         ],
                         "gradient": null,
@@ -9320,9 +8510,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.28
                     ],
                     "gradient": null,
@@ -9384,9 +8574,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.28
                     ],
                     "gradient": null,
@@ -9448,9 +8638,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.28
                     ],
                     "gradient": null,
@@ -9622,6 +8812,482 @@
                 "maxW": 0,
                 "children": [],
                 "ci": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "empty-state",
+      "label": "빈 상태",
+      "count": 3,
+      "specimens": [
+        {
+          "id": "empty-state/appHomeArchive",
+          "label": "앱 홈 아카이브 빈 상태 — 제목 + 설명",
+          "jsx": "AppHomeScene.tsx:1003-1010",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "emptyState",
+            "slot": false,
+            "text": "",
+            "w": 372,
+            "h": 360,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              80,
+              0,
+              80,
+              0
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 12,
+            "gaps": [],
+            "dir": "V",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              0.4
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              0.4
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "HUG",
+            "wy": "주축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "emptyTitle",
+                "slot": false,
+                "text": "아직 프로젝트가 없어요",
+                "w": 179.97,
+                "h": 30,
+                "abs": false,
+                "x": 96.02,
+                "y": 147,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 20,
+                "lineHeightPct": 150,
+                "weight": 600,
+                "letterSpacing": -0.2,
+                "isText": true,
+                "textFill": true,
+                "wx": "FILL",
+                "wy": "교차축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 96.02
+              },
+              {
+                "part": "emptyDescription",
+                "slot": false,
+                "text": "첫 영상을 만들어 보세요.",
+                "w": 152.16,
+                "h": 24,
+                "abs": false,
+                "x": 109.92,
+                "y": 189,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.56
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.56
+                ],
+                "shadow": null,
+                "fontSize": 16,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.16,
+                "isText": true,
+                "textFill": true,
+                "wx": "FILL",
+                "wy": "교차축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 109.92
+              }
+            ]
+          }
+        },
+        {
+          "id": "empty-state/projectVideosPopover",
+          "label": "프로젝트 영상 팝오버 빈 상태 — 타이포 클래스를 안 얹는다",
+          "jsx": "ProjectVideosPopover.tsx:258-262",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "EMPTY_STATE",
+            "slot": false,
+            "text": "",
+            "w": 148,
+            "h": 93,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              36,
+              12,
+              36,
+              12
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              0.96
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              0.96
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "HUG",
+            "wy": "주축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 0,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "EMPTY_TEXT",
+                "slot": false,
+                "text": "저장된 영상이 없어요",
+                "w": 114.39,
+                "h": 21,
+                "abs": false,
+                "x": 16.8,
+                "y": 36,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.545,
+                  0.557,
+                  0.576,
+                  0.88
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.545,
+                  0.557,
+                  0.576,
+                  0.88
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.14,
+                "isText": true,
+                "textFill": true,
+                "wx": "HUG",
+                "wy": "주축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "empty-state/videoEditInspector",
+          "label": "비디오 편집 인스펙터 빈 상태",
+          "jsx": "VideoEditModal.tsx:22662-22668",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "inspectorEmptyState",
+            "slot": false,
+            "text": "",
+            "w": 356,
+            "h": 200,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              32,
+              20,
+              32,
+              20
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "FILL",
+            "wy": "교차축",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 200,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "inspectorEmptyStateText",
+                "slot": false,
+                "text": "아직 선택된 항목이 없습니다",
+                "w": 153.64,
+                "h": 21,
+                "abs": false,
+                "x": 101.17,
+                "y": 89.5,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "V",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.447,
+                  0.459,
+                  0.482,
+                  0.88
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.447,
+                  0.459,
+                  0.482,
+                  0.88
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.14,
+                "isText": true,
+                "textFill": true,
+                "wx": "HUG",
+                "wy": "주축",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 57.5
               }
             ]
           }
@@ -12194,7 +11860,7 @@
             "slot": false,
             "text": "",
             "w": 81,
-            "h": 150.59,
+            "h": 201.59,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -12216,10 +11882,10 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0,
-              0,
-              0,
-              0
+              0.09,
+              0.106,
+              0.133,
+              1
             ],
             "gradient": null,
             "fg": [
@@ -12385,15 +12051,15 @@
                 "slot": false,
                 "text": "",
                 "w": 69,
-                "h": 101.59,
+                "h": 152.59,
                 "abs": false,
                 "x": 6,
                 "y": 43,
                 "pad": [
+                  12,
                   14,
-                  16,
-                  14,
-                  16
+                  12,
+                  14
                 ],
                 "inset": [
                   0,
@@ -12401,16 +12067,16 @@
                   0,
                   0
                 ],
-                "gap": 12,
+                "gap": 10,
                 "gaps": [],
-                "dir": "H",
-                "justify": "space-between",
+                "dir": "V",
+                "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0,
-                  0,
-                  0,
-                  0
+                  0.169,
+                  0.184,
+                  0.212,
+                  1
                 ],
                 "gradient": null,
                 "fg": [
@@ -12435,22 +12101,22 @@
                 "isText": false,
                 "textFill": false,
                 "wx": "FILL",
-                "wy": "선언(채움)",
-                "hy": "선언",
-                "hx": "FIX",
+                "wy": "교차축",
+                "hy": "내용",
+                "hx": "HUG",
                 "minW": 0,
-                "minH": 92,
+                "minH": 0,
                 "maxW": 0,
                 "children": [
                   {
                     "part": "KPI_CARD_INNER_TEXT",
                     "slot": false,
                     "text": "",
-                    "w": 8.73,
-                    "h": 73.59,
+                    "w": 41,
+                    "h": 72.59,
                     "abs": false,
-                    "x": 16,
-                    "y": 14,
+                    "x": 14,
+                    "y": 12,
                     "pad": [
                       0,
                       0,
@@ -12463,9 +12129,9 @@
                       0,
                       0
                     ],
-                    "gap": 6,
+                    "gap": -97.42,
                     "gaps": [],
-                    "dir": "V",
+                    "dir": "H",
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
@@ -12496,8 +12162,8 @@
                     "letterSpacing": -0.16,
                     "isText": false,
                     "textFill": false,
-                    "wx": "FIX",
-                    "wy": "선언",
+                    "wx": "FILL",
+                    "wy": "교차축",
                     "hy": "내용",
                     "hx": "HUG",
                     "minW": 0,
@@ -12558,8 +12224,8 @@
                         "letterSpacing": -0.72,
                         "isText": true,
                         "textFill": true,
-                        "wx": "FILL",
-                        "wy": "교차축",
+                        "wx": "HUG",
+                        "wy": "주축",
                         "hy": "내용",
                         "hx": "HUG",
                         "minW": 0,
@@ -12572,11 +12238,11 @@
                         "part": "reportChangePill",
                         "slot": false,
                         "text": "+12.5%",
-                        "w": 52.48,
+                        "w": 55.42,
                         "h": 19,
                         "abs": false,
                         "x": 0,
-                        "y": 54.59,
+                        "y": 53.59,
                         "pad": [
                           2,
                           6,
@@ -12595,24 +12261,24 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0,
-                          0,
-                          0,
-                          0
+                          0.09,
+                          0.106,
+                          0.133,
+                          1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.98,
-                          0.98,
-                          0.98,
+                          0.545,
+                          0.557,
+                          0.576,
                           1
                         ],
                         "radius": 999,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.98,
-                          0.98,
-                          0.98,
+                          0.545,
+                          0.557,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -12622,15 +12288,15 @@
                         "letterSpacing": -0.12,
                         "isText": false,
                         "textFill": false,
-                        "wx": "FILL",
-                        "wy": "교차축",
+                        "wx": "HUG",
+                        "wy": "주축",
                         "hy": "내용",
                         "hx": "HUG",
                         "minW": 0,
                         "minH": 0,
                         "maxW": 0,
                         "children": [],
-                        "ci": 0
+                        "ci": 53.59
                       }
                     ],
                     "ci": 0
@@ -12639,11 +12305,11 @@
                     "part": "KPI_CARD_SPARK",
                     "slot": false,
                     "text": "",
-                    "w": 16.27,
+                    "w": 18.03,
                     "h": 46,
                     "abs": false,
-                    "x": 36.73,
-                    "y": 41.59,
+                    "x": 36.97,
+                    "y": 94.59,
                     "pad": [
                       0,
                       0,
@@ -12690,14 +12356,14 @@
                     "isText": false,
                     "textFill": true,
                     "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "선언",
+                    "wy": "빈칸",
+                    "hy": "빈칸",
                     "hx": "FIX",
                     "minW": 0,
                     "minH": 0,
                     "maxW": 0,
                     "children": [],
-                    "ci": 27.59
+                    "ci": 22.97
                   }
                 ],
                 "ci": 0
@@ -12745,24 +12411,24 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.165,
+              0.169,
               0.184,
-              0.224,
+              0.212,
               1
             ],
             "gradient": null,
             "fg": [
-              1,
-              1,
-              1,
+              0.98,
+              0.98,
+              0.98,
               0.88
             ],
             "radius": 16,
             "borderWidth": 0,
             "borderColor": [
-              1,
-              1,
-              1,
+              0.98,
+              0.98,
+              0.98,
               0.88
             ],
             "shadow": null,
@@ -12814,17 +12480,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -12869,24 +12535,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -12943,17 +12609,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -12998,24 +12664,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -13072,17 +12738,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -13127,24 +12793,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -13207,24 +12873,24 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.165,
+              0.169,
               0.184,
-              0.224,
+              0.212,
               1
             ],
             "gradient": null,
             "fg": [
-              1,
-              1,
-              1,
+              0.98,
+              0.98,
+              0.98,
               0.88
             ],
             "radius": 16,
             "borderWidth": 0,
             "borderColor": [
-              1,
-              1,
-              1,
+              0.98,
+              0.98,
+              0.98,
               0.88
             ],
             "shadow": null,
@@ -13276,17 +12942,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -13338,17 +13004,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -13400,17 +13066,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -13464,17 +13130,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -13534,17 +13200,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -13596,17 +13262,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -13658,17 +13324,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -13722,17 +13388,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -13792,17 +13458,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -13856,17 +13522,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "radius": 10,
                 "borderWidth": 0,
                 "borderColor": [
-                  1,
-                  1,
-                  1,
+                  0.98,
+                  0.98,
+                  0.98,
                   0.88
                 ],
                 "shadow": null,
@@ -13918,17 +13584,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      1,
-                      1,
-                      1,
+                      0.98,
+                      0.98,
+                      0.98,
                       0.88
                     ],
                     "shadow": null,
@@ -13980,17 +13646,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -14044,17 +13710,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -14116,9 +13782,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.165,
+              0.169,
               0.184,
-              0.224,
+              0.212,
               1
             ],
             "gradient": null,
@@ -14313,7 +13979,7 @@
                     "fg": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       0.88
                     ],
                     "radius": 999,
@@ -14321,7 +13987,7 @@
                     "borderColor": [
                       0.647,
                       0.659,
-                      0.682,
+                      0.678,
                       0.88
                     ],
                     "shadow": null,
@@ -14574,7 +14240,7 @@
                             "borderColor": [
                               0.647,
                               0.659,
-                              0.682,
+                              0.678,
                               0.16
                             ],
                             "shadow": null,
@@ -14819,17 +14485,17 @@
                                 ],
                                 "gradient": null,
                                 "fg": [
-                                  0.541,
+                                  0.545,
                                   0.557,
-                                  0.588,
+                                  0.576,
                                   0.88
                                 ],
                                 "radius": 0,
                                 "borderWidth": 0,
                                 "borderColor": [
-                                  0.541,
+                                  0.545,
                                   0.557,
-                                  0.588,
+                                  0.576,
                                   0.88
                                 ],
                                 "shadow": null,
@@ -15026,7 +14692,7 @@
                             "borderColor": [
                               0.647,
                               0.659,
-                              0.682,
+                              0.678,
                               0.16
                             ],
                             "shadow": null,
@@ -15271,17 +14937,17 @@
                                 ],
                                 "gradient": null,
                                 "fg": [
-                                  0.541,
+                                  0.545,
                                   0.557,
-                                  0.588,
+                                  0.576,
                                   0.88
                                 ],
                                 "radius": 0,
                                 "borderWidth": 0,
                                 "borderColor": [
-                                  0.541,
+                                  0.545,
                                   0.557,
-                                  0.588,
+                                  0.576,
                                   0.88
                                 ],
                                 "shadow": null,
@@ -16005,24 +15671,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      0.251,
+                      0.255,
                       0.271,
-                      0.31,
+                      0.298,
                       1
                     ],
                     "gradient": null,
                     "fg": [
-                      0.541,
+                      0.545,
                       0.557,
-                      0.588,
+                      0.576,
                       1
                     ],
                     "radius": 999,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.541,
+                      0.545,
                       0.557,
-                      0.588,
+                      0.576,
                       1
                     ],
                     "shadow": null,
@@ -16067,24 +15733,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.341,
-                          0.365,
-                          0.404,
+                          0.345,
+                          0.361,
+                          0.388,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -16359,99 +16025,99 @@
                     [
                       0,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.48
                       ]
                     ],
                     [
                       0.1,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.48
                       ]
                     ],
                     [
                       0.2,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.56
                       ]
                     ],
                     [
                       0.3,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.64
                       ]
                     ],
                     [
                       0.4,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.64
                       ]
                     ],
                     [
                       0.5,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.72
                       ]
                     ],
                     [
                       0.6,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.8
                       ]
                     ],
                     [
                       0.7,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.88
                       ]
                     ],
                     [
                       0.8,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.96
                       ]
                     ],
                     [
                       0.9,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         0.96
                       ]
                     ],
                     [
                       1,
                       [
-                        0.165,
+                        0.169,
                         0.184,
-                        0.224,
+                        0.212,
                         1
                       ]
                     ]
@@ -16576,24 +16242,24 @@
                     "justify": "center",
                     "align": "stretch",
                     "bg": [
-                      0.251,
+                      0.255,
                       0.271,
-                      0.31,
+                      0.298,
                       1
                     ],
                     "gradient": null,
                     "fg": [
-                      0.541,
+                      0.545,
                       0.557,
-                      0.588,
+                      0.576,
                       1
                     ],
                     "radius": 999,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.541,
+                      0.545,
                       0.557,
-                      0.588,
+                      0.576,
                       1
                     ],
                     "shadow": null,
@@ -16638,24 +16304,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.341,
-                          0.365,
-                          0.404,
+                          0.345,
+                          0.361,
+                          0.388,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -17179,7 +16845,7 @@
                 "fg": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "radius": 0,
@@ -17187,7 +16853,7 @@
                 "borderColor": [
                   0.647,
                   0.659,
-                  0.682,
+                  0.678,
                   1
                 ],
                 "shadow": null,
@@ -18036,17 +17702,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.867,
+                  0.863,
                   0.871,
-                  0.878,
+                  0.882,
                   0.8
                 ],
                 "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.867,
+                  0.863,
                   0.871,
-                  0.878,
+                  0.882,
                   0.8
                 ],
                 "shadow": null,
@@ -18178,17 +17844,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -18313,17 +17979,17 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "radius": 999,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.541,
+                  0.545,
                   0.557,
-                  0.588,
+                  0.576,
                   1
                 ],
                 "shadow": null,
@@ -18363,8 +18029,8 @@
             "part": "archiveCard",
             "slot": false,
             "text": "",
-            "w": 88.5,
-            "h": 88.5,
+            "w": 90,
+            "h": 90,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -18425,8 +18091,8 @@
                 "part": "archivePreview",
                 "slot": false,
                 "text": "",
-                "w": 88.5,
-                "h": 88.5,
+                "w": 90,
+                "h": 90,
                 "abs": false,
                 "x": 0,
                 "y": 0,
@@ -18487,8 +18153,8 @@
                     "part": "archivePreviewClip",
                     "slot": false,
                     "text": "",
-                    "w": 88.5,
-                    "h": 88.5,
+                    "w": 90,
+                    "h": 90,
                     "abs": true,
                     "x": 0,
                     "y": 0,
@@ -18549,8 +18215,8 @@
                         "part": "archivePreviewPlaceholder",
                         "slot": false,
                         "text": "",
-                        "w": 88.5,
-                        "h": 88.5,
+                        "w": 90,
+                        "h": 90,
                         "abs": true,
                         "x": 0,
                         "y": 0,
@@ -18579,17 +18245,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "radius": 12,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -18611,8 +18277,8 @@
                             "part": "cardDraftThumbnail",
                             "slot": false,
                             "text": "",
-                            "w": 88.5,
-                            "h": 88.5,
+                            "w": 90,
+                            "h": 90,
                             "abs": true,
                             "x": 0,
                             "y": 0,
@@ -18641,17 +18307,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.541,
+                              0.545,
                               0.557,
-                              0.588,
+                              0.576,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.541,
+                              0.545,
                               0.557,
-                              0.588,
+                              0.576,
                               1
                             ],
                             "shadow": null,
@@ -18678,11 +18344,11 @@
                     "part": "archivePreviewTitleOverlay",
                     "slot": false,
                     "text": "",
-                    "w": 88.5,
+                    "w": 90,
                     "h": 32,
                     "abs": true,
                     "x": 0,
-                    "y": 56.5,
+                    "y": 58,
                     "pad": [
                       16,
                       16,
@@ -18740,7 +18406,7 @@
                         "part": "archivePreviewTitleOverlayInner",
                         "slot": false,
                         "text": "",
-                        "w": 56.5,
+                        "w": 58,
                         "h": 60.78,
                         "abs": false,
                         "x": 16,
@@ -18801,8 +18467,8 @@
                           {
                             "part": "archivePreviewEyebrow",
                             "slot": false,
-                            "text": "캔버스",
-                            "w": 56.5,
+                            "text": "노드 캔버스",
+                            "w": 58,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -18832,17 +18498,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "shadow": null,
@@ -18866,7 +18532,7 @@
                             "part": "archivePreviewTitleOverlayText",
                             "slot": false,
                             "text": "여름 캠페인 키비주얼",
-                            "w": 56.5,
+                            "w": 58,
                             "h": 19.19,
                             "abs": false,
                             "x": 0,
@@ -18896,17 +18562,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "shadow": null,
@@ -18930,7 +18596,7 @@
                             "part": "archivePreviewLastEdited",
                             "slot": false,
                             "text": "3일 전 편집",
-                            "w": 56.5,
+                            "w": 58,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -18960,17 +18626,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "shadow": null,
@@ -19002,7 +18668,7 @@
                     "w": 32,
                     "h": 39,
                     "abs": true,
-                    "x": 48.5,
+                    "x": 50,
                     "y": 8,
                     "pad": [
                       0,
@@ -19084,9 +18750,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.165,
+                          0.169,
                           0.184,
-                          0.224,
+                          0.212,
                           0.48
                         ],
                         "gradient": null,
@@ -19148,24 +18814,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.165,
+                          0.169,
                           0.184,
-                          0.224,
+                          0.212,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 16,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -19217,17 +18883,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -19281,17 +18947,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -19345,17 +19011,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -19387,7 +19053,7 @@
         },
         {
           "id": "project-card/nodeCanvasHome",
-          "label": "캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
+          "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
           "jsx": "NodeCanvasHomeScene.tsx:1355-1595",
           "hosted": true,
           "hostNone": "",
@@ -19395,8 +19061,8 @@
             "part": "ARCHIVE_CARD",
             "slot": false,
             "text": "",
-            "w": 88.5,
-            "h": 88.5,
+            "w": 90,
+            "h": 90,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -19457,8 +19123,8 @@
                 "part": "ARCHIVE_PREVIEW",
                 "slot": false,
                 "text": "",
-                "w": 88.5,
-                "h": 88.5,
+                "w": 90,
+                "h": 90,
                 "abs": false,
                 "x": 0,
                 "y": 0,
@@ -19519,8 +19185,8 @@
                     "part": "ARCHIVE_PREVIEW_CLIP",
                     "slot": false,
                     "text": "",
-                    "w": 88.5,
-                    "h": 88.5,
+                    "w": 90,
+                    "h": 90,
                     "abs": true,
                     "x": 0,
                     "y": 0,
@@ -19581,8 +19247,8 @@
                         "part": "ARCHIVE_PREVIEW_PLACEHOLDER",
                         "slot": false,
                         "text": "",
-                        "w": 88.5,
-                        "h": 88.5,
+                        "w": 90,
+                        "h": 90,
                         "abs": true,
                         "x": 0,
                         "y": 0,
@@ -19611,17 +19277,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "radius": 12,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.541,
+                          0.545,
                           0.557,
-                          0.588,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -19643,8 +19309,8 @@
                             "part": "CARD_DRAFT_WORDMARK_CANVAS",
                             "slot": false,
                             "text": "",
-                            "w": 88.5,
-                            "h": 88.5,
+                            "w": 90,
+                            "h": 90,
                             "abs": true,
                             "x": 0,
                             "y": 0,
@@ -19673,17 +19339,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.541,
+                              0.545,
                               0.557,
-                              0.588,
+                              0.576,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.541,
+                              0.545,
                               0.557,
-                              0.588,
+                              0.576,
                               1
                             ],
                             "shadow": null,
@@ -19710,11 +19376,11 @@
                     "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY",
                     "slot": false,
                     "text": "",
-                    "w": 88.5,
+                    "w": 90,
                     "h": 32,
                     "abs": true,
                     "x": 0,
-                    "y": 56.5,
+                    "y": 58,
                     "pad": [
                       16,
                       16,
@@ -19772,7 +19438,7 @@
                         "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_INNER",
                         "slot": false,
                         "text": "",
-                        "w": 56.5,
+                        "w": 58,
                         "h": 39.98,
                         "abs": false,
                         "x": 16,
@@ -19834,7 +19500,7 @@
                             "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_TEXT",
                             "slot": false,
                             "text": "여름 캠페인 키비주얼",
-                            "w": 56.5,
+                            "w": 58,
                             "h": 19.19,
                             "abs": false,
                             "x": 0,
@@ -19864,17 +19530,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "shadow": null,
@@ -19898,7 +19564,7 @@
                             "part": "ARCHIVE_PREVIEW_LAST_EDITED",
                             "slot": false,
                             "text": "3일 전 편집",
-                            "w": 56.5,
+                            "w": 58,
                             "h": 16.8,
                             "abs": false,
                             "x": 0,
@@ -19928,17 +19594,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.867,
+                              0.863,
                               0.871,
-                              0.878,
+                              0.882,
                               1
                             ],
                             "shadow": null,
@@ -19970,7 +19636,7 @@
                     "w": 32,
                     "h": 39,
                     "abs": true,
-                    "x": 48.5,
+                    "x": 50,
                     "y": 8,
                     "pad": [
                       0,
@@ -20052,9 +19718,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.165,
+                          0.169,
                           0.184,
-                          0.224,
+                          0.212,
                           0.48
                         ],
                         "gradient": null,
@@ -20116,24 +19782,24 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.165,
+                          0.169,
                           0.184,
-                          0.224,
+                          0.212,
                           1
                         ],
                         "gradient": null,
                         "fg": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "radius": 16,
                         "borderWidth": 0,
                         "borderColor": [
-                          1,
-                          1,
-                          1,
+                          0.98,
+                          0.98,
+                          0.98,
                           0.88
                         ],
                         "shadow": null,
@@ -20185,17 +19851,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -20249,17 +19915,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -20313,17 +19979,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "radius": 10,
                             "borderWidth": 0,
                             "borderColor": [
-                              1,
-                              1,
-                              1,
+                              0.98,
+                              0.98,
+                              0.98,
                               0.88
                             ],
                             "shadow": null,
@@ -21181,7 +20847,7 @@
             "align": "stretch",
             "bg": [
               0.757,
-              0.761,
+              0.765,
               0.776,
               0.72
             ],
@@ -21479,9 +21145,9 @@
             "justify": "center",
             "align": "stretch",
             "bg": [
-              0.867,
+              0.863,
               0.871,
-              0.878,
+              0.882,
               1
             ],
             "gradient": null,
@@ -21720,8 +21386,8 @@
                 "letterSpacing": -0.16,
                 "isText": false,
                 "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
+                "wx": "FILL",
+                "wy": "교차축",
                 "hy": "내용",
                 "hx": "HUG",
                 "minW": 0,
@@ -21762,17 +21428,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.439,
+                      0.447,
                       0.459,
-                      0.502,
+                      0.482,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.439,
+                      0.447,
                       0.459,
-                      0.502,
+                      0.482,
                       1
                     ],
                     "shadow": null,
@@ -21824,17 +21490,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.439,
+                          0.447,
                           0.459,
-                          0.502,
+                          0.482,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.439,
+                          0.447,
                           0.459,
-                          0.502,
+                          0.482,
                           1
                         ],
                         "shadow": null,
@@ -21886,17 +21552,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.439,
+                              0.447,
                               0.459,
-                              0.502,
+                              0.482,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.439,
+                              0.447,
                               0.459,
-                              0.502,
+                              0.482,
                               1
                             ],
                             "shadow": null,
@@ -21950,17 +21616,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.439,
+                              0.447,
                               0.459,
-                              0.502,
+                              0.482,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.439,
+                              0.447,
                               0.459,
-                              0.502,
+                              0.482,
                               1
                             ],
                             "shadow": null,
@@ -22142,9 +21808,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0.165,
+                      0.169,
                       0.184,
-                      0.224,
+                      0.212,
                       1
                     ],
                     "gradient": null,
@@ -22203,7 +21869,7 @@
             "slot": false,
             "text": "",
             "w": 360,
-            "h": 169,
+            "h": 157,
             "abs": false,
             "x": 0,
             "y": 0,
@@ -22221,17 +21887,17 @@
             ],
             "gap": 0,
             "gaps": [
-              16,
+              4,
               40
             ],
             "dir": "V",
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.165,
-              0.184,
-              0.224,
-              1
+              0,
+              0,
+              0,
+              0
             ],
             "gradient": null,
             "fg": [
@@ -22240,7 +21906,7 @@
               0.98,
               1
             ],
-            "radius": 24,
+            "radius": 20,
             "borderWidth": 0,
             "borderColor": [
               0.98,
@@ -22335,7 +22001,7 @@
                 "h": 21,
                 "abs": false,
                 "x": 16,
-                "y": 56,
+                "y": 44,
                 "pad": [
                   0,
                   0,
@@ -22399,7 +22065,7 @@
                 "h": 44,
                 "abs": false,
                 "x": 8,
-                "y": 117,
+                "y": 105,
                 "pad": [
                   0,
                   0,
@@ -22951,17 +22617,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.439,
+                      0.447,
                       0.459,
-                      0.502,
+                      0.482,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.439,
+                      0.447,
                       0.459,
-                      0.502,
+                      0.482,
                       1
                     ],
                     "shadow": null,
@@ -23391,25 +23057,25 @@
                           [
                             0.647,
                             0.659,
-                            0.682,
+                            0.678,
                             0.56
                           ]
                         ],
                         [
                           0.25,
                           [
-                            0.867,
+                            0.863,
                             0.871,
-                            0.878,
+                            0.882,
                             0.8
                           ]
                         ],
                         [
                           0.5,
                           [
-                            0.867,
+                            0.863,
                             0.871,
-                            0.878,
+                            0.882,
                             0.8
                           ]
                         ]

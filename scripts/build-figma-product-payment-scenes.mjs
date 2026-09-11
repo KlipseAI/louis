@@ -19,8 +19,22 @@ const style = (entry) => styles.get(entry.styleRef) ?? fail(`missing style ${ent
 const px = (value) => Number(/^(-?[\d.]+)px$/.exec(value ?? "")?.[1] ?? 0);
 const color = (value) => {
   const match = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(value ?? "");
-  if (!match) fail(`unsupported color ${value}`);
-  return [Number(match[1]) / 255, Number(match[2]) / 255, Number(match[3]) / 255, match[4] === undefined ? 1 : Number(match[4])];
+  if (match) {
+    return [Number(match[1]) / 255, Number(match[2]) / 255, Number(match[3]) / 255, match[4] === undefined ? 1 : Number(match[4])];
+  }
+  // **`color(srgb …)` 도 읽는다.** LOUIS 토큰이 그 표기로 서면서 브라우저 계산값도 그대로
+  // 돌아온다 — 값이 바뀐 것이 아니라 표기가 바뀐 것이다. 채널이 이미 0..1 이라 255 로 나누지
+  // 않는다. 형제 생성기 build-figma-product-app-shell.mjs:79-93 이 같은 파서를 먼저 세웠고,
+  // build-figma-app-screens.mjs:303 이 「이 표기를 못 읽으면 헤어라인이 통째로 없어진다」고
+  // 같은 함정을 적어 두었다.
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\)$/.exec(value ?? "");
+  if (srgb) {
+    const alpha = srgb[4] === undefined
+      ? 1
+      : srgb[4].endsWith("%") ? Number(srgb[4].slice(0, -1)) / 100 : Number(srgb[4]);
+    return [Number(srgb[1]), Number(srgb[2]), Number(srgb[3]), alpha];
+  }
+  fail(`unsupported color ${value}`);
 };
 const relRect = (entry, rootRect) => ({
   x: entry.rect.x - rootRect.x,
@@ -151,9 +165,13 @@ const topBar = node(representativeRoute, "body.1.0.0.1.0.0");
 const content = node(representativeRoute, "body.1.0.0.1.1");
 const pageStyle = style(pageRoot);
 const mainStyle = style(main);
+// **main 이 1628×1004 → 1632×1012 로 움직였다 (제품 094c336b, 2026-09-09).** 앱 셸 링이
+// 12 → 8 로 줄었다 — 가로 +4 는 우측 여백(1920 − 280 − 8), 세로 +8 은
+// `calc(100dvh − align-main-margin-top 48 − rail-below-chrome-gap 12 − rail-padding-bottom 8)`.
+// 형제 생성기 build-figma-product-checkout-status 가 같은 사유로 같은 값을 옮겼다.
 if (
   pageRoot.rect.width !== 1920 || pageRoot.rect.height !== 1080 ||
-  main.rect.width !== 1628 || main.rect.height !== 1004 ||
+  main.rect.width !== 1632 || main.rect.height !== 1012 ||
   px(mainStyle.borderTopLeftRadius) !== 16
 ) fail("measured payment scene geometry changed; inspect before regenerating Figma");
 
@@ -178,7 +196,9 @@ const mobileRoot = fixture.screens["mobile-402x874"][representativeRoute].tree.f
 const mobileMain = fixture.screens["mobile-402x874"][representativeRoute].tree.find((entry) => entry.path === "body.1.0.0.1") ??
   fail("missing mobile payment main");
 const mobileMainStyle = style(mobileMain);
-if (mobileRoot.rect.width !== 402 || mobileRoot.rect.height !== 874 || mobileMain.rect.width !== 402 || mobileMain.rect.height !== 810) {
+// 모바일도 같은 회차다 — 810 → 814. ≤719 에서 `--app-gnb-rail-padding-bottom` 이 0 이라
+// 세로에서 움직인 항이 하나(48 + 12)뿐이다: 874 − 48 − 12 = 814. 가로는 그대로 402.
+if (mobileRoot.rect.width !== 402 || mobileRoot.rect.height !== 874 || mobileMain.rect.width !== 402 || mobileMain.rect.height !== 814) {
   fail("measured mobile payment scene geometry changed; inspect before regenerating Figma");
 }
 const mobileVariants = [

@@ -2,49 +2,49 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
   "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Product rects remain authoritative for placement and containers.",
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "profileVisualSource": {
     "avatar": {
-      "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "path": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "line": 22,
       "quote": "  \"text-palette-gray-400\","
     },
     "ring": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1452,
+        "line": 1506,
         "quote": "    \"[--profile-avatar-size:28px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1455,
+        "line": 1509,
         "quote": "    \"[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1456,
+        "line": 1510,
         "quote": "    \"[--profile-ring-gap:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1457,
+        "line": 1511,
         "quote": "    \"[--profile-ring-width:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1484,
+        "line": 1538,
         "quote": "    \"[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1486,
+        "line": 1540,
         "quote": "    \"[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]\","
       }
     ]
@@ -52,7 +52,7 @@
   "context": "mobile-402x874",
   "sourceCandidates": [
     {
-      "id": "subtree-d0270a3536b1",
+      "id": "subtree-70d030923c4b",
       "nodeCount": 6,
       "roots": [
         {
@@ -60,7 +60,7 @@
           "path": "body.1.0.0.1.0.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -71,7 +71,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -82,7 +82,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -93,7 +93,7 @@
           "path": "body.1.0.0.1.0.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -104,7 +104,7 @@
           "path": "body.1.0.0.1.0.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -115,7 +115,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -126,7 +126,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -137,7 +137,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -148,7 +148,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -159,7 +159,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -170,7 +170,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -181,7 +181,7 @@
           "path": "body.1.0.0.1.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 334,
+            "x": 354,
             "y": 8,
             "width": 36,
             "height": 36
@@ -192,7 +192,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -203,7 +203,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -214,7 +214,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -225,7 +225,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -236,7 +236,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -247,7 +247,7 @@
           "path": "body.1.0.0.1.0.0.0.2",
           "tag": "div",
           "rect": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -259,7 +259,7 @@
       "score": 108
     },
     {
-      "id": "subtree-58853450d255",
+      "id": "subtree-e7d2c976fc2b",
       "nodeCount": 15,
       "roots": [
         {
@@ -267,9 +267,9 @@
           "path": "body.1.0.0.1.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -278,9 +278,9 @@
           "path": "body.1.0.0.1.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -289,9 +289,9 @@
           "path": "body.1.0.0.1.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -300,9 +300,9 @@
           "path": "body.1.0.0.1.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         }
@@ -312,7 +312,7 @@
       "score": 60
     },
     {
-      "id": "subtree-3b91f2c79326",
+      "id": "subtree-19866f2fb6c4",
       "nodeCount": 14,
       "roots": [
         {
@@ -320,9 +320,9 @@
           "path": "body.1.0.0.1.0.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -331,9 +331,9 @@
           "path": "body.1.0.0.1.0.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -342,9 +342,9 @@
           "path": "body.1.0.0.1.0.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         },
@@ -353,9 +353,9 @@
           "path": "body.1.0.0.1.0.0",
           "tag": "div",
           "rect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           }
         }
@@ -382,14 +382,14 @@
       "semanticCollection": "2 · Semantic",
       "semanticMode": "dark",
       "surface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-800"
+        "collection": "2 · Semantic",
+        "name": "bg/surface"
       },
       "$darkSurfaceSource": {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 479,
-        "quote": "    \"[html[data-theme=dark]_&]:[background:var(--palette-gray-800)]\","
+        "line": 484,
+        "quote": "    \"[background:var(--louis-color-bg-surface)]\","
       },
       "divider": {
         "collection": "2 · Semantic",
@@ -452,14 +452,14 @@
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
@@ -469,33 +469,33 @@
           0
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 32,
           "height": 32
         },
         "nav": {
-          "x": 56,
+          "x": 46,
           "y": 15.5,
-          "width": 286,
+          "width": 306,
           "height": 21
         },
         "profile": {
-          "x": 350,
+          "x": 360,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": null,
           "profile": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -504,22 +504,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 354,
+              "x": 364,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 350,
+              "x": 360,
               "y": 8,
               "width": 36,
               "height": 36
@@ -549,7 +549,7 @@
           {
             "text": "Home",
             "rect": {
-              "x": 56,
+              "x": 46,
               "y": 17.5,
               "width": 37.1719,
               "height": 16
@@ -585,50 +585,50 @@
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
-          0.933333,
-          0.933333,
-          0.945098,
-          1
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 32,
           "height": 32
         },
         "nav": {
-          "x": 56,
+          "x": 46,
           "y": 15.5,
-          "width": 286,
+          "width": 306,
           "height": 21
         },
         "profile": {
-          "x": 350,
+          "x": 360,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": null,
           "profile": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -637,22 +637,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 354,
+              "x": 364,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 350,
+              "x": 360,
               "y": 8,
               "width": 36,
               "height": 36
@@ -682,7 +682,7 @@
           {
             "text": "Settings",
             "rect": {
-              "x": 56,
+              "x": 46,
               "y": 17.5,
               "width": 51.75,
               "height": 16
@@ -718,50 +718,50 @@
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
-          0.933333,
-          0.933333,
-          0.945098,
-          1
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 32,
           "height": 32
         },
         "nav": {
-          "x": 56,
+          "x": 46,
           "y": 15.1094,
-          "width": 286,
+          "width": 306,
           "height": 21.7813
         },
         "profile": {
-          "x": 350,
+          "x": 360,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": null,
           "profile": {
-            "x": 350,
+            "x": 360,
             "y": 8,
             "width": 36,
             "height": 36
@@ -770,22 +770,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 354,
+              "x": 364,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 350,
+              "x": 360,
               "y": 8,
               "width": 36,
               "height": 36
@@ -815,7 +815,7 @@
           {
             "text": "Analytics",
             "rect": {
-              "x": 56,
+              "x": 46,
               "y": 17.1094,
               "width": 58.125,
               "height": 16
@@ -838,7 +838,7 @@
           {
             "text": "/",
             "rect": {
-              "x": 118.125,
+              "x": 108.125,
               "y": 15.8906,
               "width": 4.7188,
               "height": 21
@@ -861,7 +861,7 @@
           {
             "text": "YouTube analytics",
             "rect": {
-              "x": 126.8438,
+              "x": 116.8438,
               "y": 17.1094,
               "width": 114.5,
               "height": 16
@@ -891,56 +891,56 @@
         "route": "/mypage/topup/fail",
         "rootPath": "body.1.0.0.1.0.0",
         "rect": {
-          "width": 370,
+          "width": 390,
           "height": 53
         },
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
-          0.933333,
-          0.933333,
-          0.945098,
-          1
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 32,
           "height": 32
         },
         "nav": {
-          "x": 56,
+          "x": 46,
           "y": 15.5,
-          "width": 254,
+          "width": 294,
           "height": 21
         },
         "profile": {
-          "x": 318,
+          "x": 348,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": null,
           "profile": {
-            "x": 318,
+            "x": 348,
             "y": 8,
             "width": 36,
             "height": 36
@@ -949,22 +949,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 322,
+              "x": 352,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 318,
+              "x": 348,
               "y": 8,
               "width": 36,
               "height": 36
@@ -994,7 +994,7 @@
           {
             "text": "My Page",
             "rect": {
-              "x": 56,
+              "x": 46,
               "y": 17.5,
               "width": 55,
               "height": 16
@@ -1024,56 +1024,56 @@
         "route": "/mypage/upgrade/billing-success",
         "rootPath": "body.1.0.0.1.0.0",
         "rect": {
-          "width": 370,
+          "width": 390,
           "height": 53
         },
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
-          0.933333,
-          0.933333,
-          0.945098,
-          1
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 32,
           "height": 32
         },
         "nav": {
-          "x": 56,
+          "x": 46,
           "y": 15.1094,
-          "width": 254,
+          "width": 294,
           "height": 21.7813
         },
         "profile": {
-          "x": 318,
+          "x": 348,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": null,
           "profile": {
-            "x": 318,
+            "x": 348,
             "y": 8,
             "width": 36,
             "height": 36
@@ -1082,22 +1082,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 322,
+              "x": 352,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 318,
+              "x": 348,
               "y": 8,
               "width": 36,
               "height": 36
@@ -1127,7 +1127,7 @@
           {
             "text": "Subscription",
             "rect": {
-              "x": 56,
+              "x": 46,
               "y": 17.1094,
               "width": 78.6875,
               "height": 16
@@ -1150,7 +1150,7 @@
           {
             "text": "/",
             "rect": {
-              "x": 138.6875,
+              "x": 128.6875,
               "y": 15.8906,
               "width": 4.7188,
               "height": 21
@@ -1173,7 +1173,7 @@
           {
             "text": "Change plan",
             "rect": {
-              "x": 147.4063,
+              "x": 137.4063,
               "y": 17.1094,
               "width": 80.0625,
               "height": 16
@@ -1203,61 +1203,61 @@
         "route": "/mypage/upgrade",
         "rootPath": "body.1.0.0.1.0.0.0.0",
         "rect": {
-          "width": 370,
+          "width": 390,
           "height": 53
         },
         "gap": 8,
         "padding": {
           "top": 8,
-          "right": 16,
+          "right": 6,
           "bottom": 8,
-          "left": 16
+          "left": 6
         },
         "fill": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "dividerColor": [
-          0.933333,
-          0.933333,
-          0.945098,
-          1
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
-          "x": 16,
+          "x": 6,
           "y": 10,
           "width": 68,
           "height": 32
         },
         "nav": {
-          "x": 92,
+          "x": 82,
           "y": 15.1094,
-          "width": 218,
+          "width": 258,
           "height": 21.7813
         },
         "profile": {
-          "x": 318,
+          "x": 348,
           "y": 8,
           "width": 36,
           "height": 36
         },
         "controls": {
           "menu": {
-            "x": 16,
+            "x": 6,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "back": {
-            "x": 52,
+            "x": 42,
             "y": 10,
             "width": 32,
             "height": 32
           },
           "profile": {
-            "x": 318,
+            "x": 348,
             "y": 8,
             "width": 36,
             "height": 36
@@ -1266,22 +1266,22 @@
         "profileVisual": {
           "avatar": {
             "rect": {
-              "x": 322,
+              "x": 352,
               "y": 12,
               "width": 28,
               "height": 28
             },
             "color": [
-              0.8352941176470589,
-              0.8431372549019608,
-              0.8666666666666667,
+              0.545098,
+              0.556863,
+              0.576471,
               1
             ],
             "asset": ".glyph/UserCircleDefaultAvatar"
           },
           "ring": {
             "rect": {
-              "x": 318,
+              "x": 348,
               "y": 8,
               "width": 36,
               "height": 36
@@ -1311,7 +1311,7 @@
           {
             "text": "Subscription",
             "rect": {
-              "x": 92,
+              "x": 82,
               "y": 17.1094,
               "width": 78.6875,
               "height": 16
@@ -1334,7 +1334,7 @@
           {
             "text": "/",
             "rect": {
-              "x": 174.6875,
+              "x": 164.6875,
               "y": 15.8906,
               "width": 4.7188,
               "height": 21
@@ -1357,7 +1357,7 @@
           {
             "text": "Change plan",
             "rect": {
-              "x": 183.4063,
+              "x": 173.4063,
               "y": 17.1094,
               "width": 80.0625,
               "height": 16
@@ -1386,7 +1386,7 @@
       "componentSetName": "Product/Desktop App Top Bar",
       "sourceCandidates": [
         {
-          "id": "subtree-f61c1155f4b4",
+          "id": "subtree-e1fe7ee1d038",
           "nodeCount": 6,
           "roots": [
             {
@@ -1394,8 +1394,8 @@
               "path": "body.1.0.0.1.0.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1405,8 +1405,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1416,8 +1416,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1427,8 +1427,8 @@
               "path": "body.1.0.0.1.0.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1438,8 +1438,8 @@
               "path": "body.1.0.0.1.0.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1449,8 +1449,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1460,8 +1460,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1471,8 +1471,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1482,8 +1482,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1493,8 +1493,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1504,8 +1504,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1515,8 +1515,8 @@
               "path": "body.1.0.0.1.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1526,8 +1526,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1537,8 +1537,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1548,8 +1548,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1559,8 +1559,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1570,8 +1570,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1581,8 +1581,8 @@
               "path": "body.1.0.0.1.0.0.0.2",
               "tag": "div",
               "rect": {
-                "x": 1864,
-                "y": 20,
+                "x": 1868,
+                "y": 16,
                 "width": 36,
                 "height": 36
               }
@@ -1593,7 +1593,7 @@
           "score": 108
         },
         {
-          "id": "subtree-9a75e3d066ea",
+          "id": "subtree-685a4a4bfa2e",
           "nodeCount": 15,
           "roots": [
             {
@@ -1602,8 +1602,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             },
@@ -1613,8 +1613,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             },
@@ -1624,8 +1624,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             },
@@ -1635,8 +1635,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             }
@@ -1646,7 +1646,7 @@
           "score": 60
         },
         {
-          "id": "subtree-0510292f2d82",
+          "id": "subtree-caedd8a1445d",
           "nodeCount": 14,
           "roots": [
             {
@@ -1655,8 +1655,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             },
@@ -1666,8 +1666,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             },
@@ -1677,8 +1677,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             },
@@ -1688,8 +1688,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             }
@@ -1699,7 +1699,7 @@
           "score": 56
         },
         {
-          "id": "subtree-548fe53795f0",
+          "id": "subtree-be0ca032e800",
           "nodeCount": 17,
           "roots": [
             {
@@ -1708,8 +1708,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             },
@@ -1719,8 +1719,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             },
@@ -1730,8 +1730,8 @@
               "tag": "div",
               "rect": {
                 "x": 304,
-                "y": 12,
-                "width": 1580,
+                "y": 8,
+                "width": 1584,
                 "height": 53
               }
             }
@@ -1741,7 +1741,7 @@
           "score": 51
         },
         {
-          "id": "subtree-2fab43c147d6",
+          "id": "subtree-0733666e63fc",
           "nodeCount": 16,
           "roots": [
             {
@@ -1750,8 +1750,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             },
@@ -1761,8 +1761,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             },
@@ -1772,8 +1772,8 @@
               "tag": "div",
               "rect": {
                 "x": 280,
-                "y": 12,
-                "width": 1628,
+                "y": 8,
+                "width": 1632,
                 "height": 53
               }
             }
@@ -1783,7 +1783,7 @@
           "score": 48
         },
         {
-          "id": "subtree-beece6df8949",
+          "id": "subtree-a36ea3231cff",
           "nodeCount": 5,
           "roots": [
             {
@@ -1792,8 +1792,8 @@
               "tag": "nav",
               "rect": {
                 "x": 328,
-                "y": 25.625,
-                "width": 1528,
+                "y": 21.625,
+                "width": 1532,
                 "height": 24.75
               }
             },
@@ -1803,8 +1803,8 @@
               "tag": "nav",
               "rect": {
                 "x": 328,
-                "y": 25.625,
-                "width": 1528,
+                "y": 21.625,
+                "width": 1532,
                 "height": 24.75
               }
             },
@@ -1814,8 +1814,8 @@
               "tag": "nav",
               "rect": {
                 "x": 328,
-                "y": 25.625,
-                "width": 1528,
+                "y": 21.625,
+                "width": 1532,
                 "height": 24.75
               }
             }
@@ -1840,7 +1840,7 @@
           "route": "/archive",
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -1851,9 +1851,9 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
@@ -1871,11 +1871,11 @@
           "nav": {
             "x": 48,
             "y": 14,
-            "width": 1528,
+            "width": 1532,
             "height": 24
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -1889,7 +1889,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -1898,22 +1898,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36
@@ -1973,7 +1973,7 @@
           "route": "/settings",
           "rootPath": "body.1.0.0.1.0.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -1984,16 +1984,16 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
-            0.933333,
-            0.933333,
-            0.945098,
-            1
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,
@@ -2004,11 +2004,11 @@
           "nav": {
             "x": 48,
             "y": 14,
-            "width": 1528,
+            "width": 1532,
             "height": 24
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -2022,7 +2022,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -2031,22 +2031,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36
@@ -2106,7 +2106,7 @@
           "route": "/analytics/youtube",
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -2117,16 +2117,16 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
-            0.933333,
-            0.933333,
-            0.945098,
-            1
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,
@@ -2137,11 +2137,11 @@
           "nav": {
             "x": 48,
             "y": 13.625,
-            "width": 1528,
+            "width": 1532,
             "height": 24.75
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -2155,7 +2155,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -2164,22 +2164,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36
@@ -2285,7 +2285,7 @@
           "route": "/mypage/topup/fail",
           "rootPath": "body.1.0.0.1.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -2296,16 +2296,16 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
-            0.933333,
-            0.933333,
-            0.945098,
-            1
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,
@@ -2316,11 +2316,11 @@
           "nav": {
             "x": 48,
             "y": 14,
-            "width": 1528,
+            "width": 1532,
             "height": 24
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -2334,7 +2334,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -2343,22 +2343,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36
@@ -2418,7 +2418,7 @@
           "route": "/mypage/upgrade/billing-fail",
           "rootPath": "body.1.0.0.1.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -2429,16 +2429,16 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
-            0.933333,
-            0.933333,
-            0.945098,
-            1
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,
@@ -2449,11 +2449,11 @@
           "nav": {
             "x": 48,
             "y": 13.625,
-            "width": 1528,
+            "width": 1532,
             "height": 24.75
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -2467,7 +2467,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -2476,22 +2476,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36
@@ -2597,7 +2597,7 @@
           "route": "/mypage/upgrade",
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "rect": {
-            "width": 1628,
+            "width": 1632,
             "height": 53
           },
           "gap": 8,
@@ -2608,16 +2608,16 @@
             "left": 8
           },
           "fill": [
-            0.9725490196078431,
-            0.9725490196078431,
-            0.9764705882352941,
+            0.980392,
+            0.980392,
+            0.980392,
             1
           ],
           "dividerColor": [
-            0.933333,
-            0.933333,
-            0.945098,
-            1
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,
@@ -2628,11 +2628,11 @@
           "nav": {
             "x": 84,
             "y": 13.625,
-            "width": 1492,
+            "width": 1496,
             "height": 24.75
           },
           "profile": {
-            "x": 1584,
+            "x": 1588,
             "y": 8,
             "width": 36,
             "height": 36
@@ -2651,7 +2651,7 @@
               "height": 32
             },
             "profile": {
-              "x": 1584,
+              "x": 1588,
               "y": 8,
               "width": 36,
               "height": 36
@@ -2660,22 +2660,22 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1588,
+                "x": 1592,
                 "y": 12,
                 "width": 28,
                 "height": 28
               },
               "color": [
-                0.8352941176470589,
-                0.8431372549019608,
-                0.8666666666666667,
+                0.545098,
+                0.556863,
+                0.576471,
                 1
               ],
               "asset": ".glyph/UserCircleDefaultAvatar"
             },
             "ring": {
               "rect": {
-                "x": 1584,
+                "x": 1588,
                 "y": 8,
                 "width": 36,
                 "height": 36

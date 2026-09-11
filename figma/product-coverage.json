@@ -754,6 +754,9 @@
       "padding-inline-end": "이 탐침은 **면 색과 글자색 두 축만** 본다 — inverse 는 면이 테마를 따라가고, disabled 는 면이 네 variant 를 하나로 접는다. 상자는 같은 레시피(`.louis-button[data-size=md]`)를 그리는 button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
       "padding-inline-start": "이 탐침은 **면 색과 글자색 두 축만** 본다 — inverse 는 면이 테마를 따라가고, disabled 는 면이 네 variant 를 하나로 접는다. 상자는 같은 레시피(`.louis-button[data-size=md]`)를 그리는 button-md 탐침이 이미 대조한다 — 여기서 또 보면 같은 값을 두 번 세는 것이다.",
       "row-gap": "row 방향 flex 이고 flex-wrap 이 없어 이 축이 놓이는 자리가 없다. base 의 `gap: control-sm`(8) 이 남긴 값이며 size 선택자는 column-gap 만 덮는다 (button.css:12,58-75). 눈에 닿는 축은 column-gap 이고 그쪽을 button-md 가 본다."
+    },
+    "section-header-page": {
+      "flex-wrap": "719px 이하에서 제목 줄과 액션 묶음이 세로로 접히게 하는 반응 선언이다. Figma 는 흐름을 못 그려 접힌 모습을 별도 변형으로도 두지 않았고, 계약이 나르는 것은 접힌 뒤의 값이 아니라 접히기 전 사다리다 — `align` 이 그 축을 이미 담는다."
     }
   }
 }

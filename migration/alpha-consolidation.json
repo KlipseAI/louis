@@ -21,19 +21,19 @@
   "visibleThresholdRelative": 0.15,
   "keep": [],
   "productRef": "origin/design",
-  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "totals": {
     "stops": 39,
     "trueAlphaStops": 31,
-    "trueAlphaUses": 1747,
-    "movedUses": 634,
+    "trueAlphaUses": 1761,
+    "movedUses": 647,
     "visibleUses": 2,
     "reviewSites": 2
   },
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 841,
+      "uses": 855,
       "stops": [
         {
           "stop": 4,
@@ -69,19 +69,19 @@
         },
         {
           "stop": 40,
-          "uses": 71
+          "uses": 72
         },
         {
           "stop": 50,
-          "uses": 64
+          "uses": 68
         },
         {
           "stop": 60,
-          "uses": 96
+          "uses": 103
         },
         {
           "stop": 70,
-          "uses": 31
+          "uses": 33
         },
         {
           "stop": 80,
@@ -1220,7 +1220,7 @@
       "to": 40,
       "delta": 0,
       "relative": 0,
-      "uses": 104,
+      "uses": 105,
       "visible": false
     },
     {
@@ -1244,7 +1244,7 @@
       "to": 50,
       "delta": 2,
       "relative": 0.042,
-      "uses": 136,
+      "uses": 140,
       "visible": false
     },
     {
@@ -1276,7 +1276,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.071,
-      "uses": 152,
+      "uses": 156,
       "visible": false
     },
     {
@@ -1292,7 +1292,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.063,
-      "uses": 29,
+      "uses": 32,
       "visible": false
     },
     {
@@ -1308,7 +1308,7 @@
       "to": 70,
       "delta": 2,
       "relative": 0.028,
-      "uses": 102,
+      "uses": 104,
       "visible": false
     },
     {
@@ -1330,7 +1330,7 @@
     {
       "from": 88,
       "to": null,
-      "uses": 230,
+      "uses": 236,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     },
     {

@@ -208,12 +208,12 @@ try {
     // 대조하지 않는 `measure-product-auth-fixture` 의 `sourceQuote` 와 다른 점이고, 그쪽은
     // 같은 회차에 손으로 찾아야 했다. 인용을 굽는 자리는 대조를 함께 굽는 것이 맞다.
     sourceEvidence: [
-      quote(1899, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1973, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1975, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
-      quote(588, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
-      quote(594, '    "[color:var(--gray-000)]",'),
-      quote(604, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
+      quote(1898, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1972, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1974, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(587, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
+      quote(593, '    "[color:var(--gray-000)]",'),
+      quote(603, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),
     ],
     states: { expanded, collapsed, activeCollapsedHome },
   };

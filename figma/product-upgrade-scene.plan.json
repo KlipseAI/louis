@@ -10,19 +10,19 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 219,
+        "line": 221,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 5a67d692f5ca737f06c7b51b98f28ded22d1f7a1:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 220,
+        "line": 222,
         "quote": "  \"[outline-offset:-2px]\","
       }
     ],
@@ -121,25 +121,25 @@
         "height": 1080
       },
       "background": [
-        0.9333333333333333,
-        0.9333333333333333,
-        0.9450980392156862,
+        0.94902,
+        0.952941,
+        0.960784,
         1
       ]
     },
     "main": {
       "rect": {
         "x": 280,
-        "y": 12,
-        "width": 1628,
-        "height": 1056
+        "y": 8,
+        "width": 1632,
+        "height": 1064
       },
-      "width": 1628,
-      "height": 1056,
+      "width": 1632,
+      "height": 1064,
       "background": [
-        0.9725490196078431,
-        0.9725490196078431,
-        0.9764705882352941,
+        0.980392,
+        0.980392,
+        0.980392,
         1
       ],
       "radius": 16,
@@ -147,27 +147,27 @@
       "topBar": {
         "x": 0,
         "y": 0,
-        "width": 1628,
+        "width": 1632,
         "height": 53
       },
       "content": {
-        "x": 166,
+        "x": 170,
         "y": 53,
         "width": 1300,
-        "height": 3362.1719
+        "height": 3453.9688
       },
       "headerTitle": {
         "text": "Start free, upgrade or cancel anytime.",
         "rect": {
-          "x": 166,
-          "y": 93,
-          "width": 796.7344,
-          "height": 64.7969
+          "x": 170,
+          "y": 149,
+          "width": 820,
+          "height": 48.5938
         },
-        "fontSize": 48,
-        "fontWeight": 500,
-        "lineHeight": 64.8,
-        "letterSpacing": -0.96,
+        "fontSize": 36,
+        "fontWeight": 600,
+        "lineHeight": 48.6,
+        "letterSpacing": -0.72,
         "textAlign": "start",
         "color": [
           0,
@@ -179,8 +179,8 @@
       "headerBody": {
         "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
         "rect": {
-          "x": 166,
-          "y": 175.7969,
+          "x": 170,
+          "y": 215.5938,
           "width": 686.25,
           "height": 48
         },
@@ -199,7 +199,7 @@
       "headerNotice": {
         "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
         "rect": {
-          "x": 1046.5,
+          "x": 170,
           "y": 93,
           "width": 419.5,
           "height": 32
@@ -219,8 +219,8 @@
       "compareTitle": {
         "text": "Compare Plans",
         "rect": {
-          "x": 166,
-          "y": 923.9844,
+          "x": 170,
+          "y": 1015.7813,
           "width": 1300,
           "height": 48.5938
         },
@@ -238,8 +238,8 @@
       }
     },
     "cardGrid": {
-      "x": 166,
-      "y": 251.7969,
+      "x": 170,
+      "y": 343.5938,
       "width": 1300,
       "height": 608.1875
     },
@@ -252,8 +252,8 @@
           "height": 608.1875
         },
         "position": {
-          "x": 166,
-          "y": 251.7969,
+          "x": 170,
+          "y": 343.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -265,19 +265,19 @@
         },
         "radius": 12,
         "background": [
-          0.866667,
-          0.870588,
-          0.878431,
+          1,
+          1,
+          1,
           1
         ],
         "effects": [
           {
             "type": "INNER_SHADOW",
             "color": [
-              0,
-              0,
-              0,
-              0.08
+              0.090196,
+              0.105882,
+              0.133333,
+              0.12
             ],
             "offset": {
               "x": 0,
@@ -314,9 +314,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ]
           },
@@ -334,9 +334,9 @@
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ],
             "figmaWidth": 72
@@ -355,9 +355,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 37
@@ -376,9 +376,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -397,9 +397,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -417,14 +417,14 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
           {
-            "text": "1 video editor upload, 2 imports",
+            "text": "1 Composition upload, 2 imports",
             "rect": {
               "x": 42,
               "y": 229.5937,
@@ -437,9 +437,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -447,7 +447,7 @@
             "text": "AI video generation trial",
             "rect": {
               "x": 42,
-              "y": 255.59369999999996,
+              "y": 255.5937,
               "width": 198.7969,
               "height": 21
             },
@@ -457,9 +457,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -467,7 +467,7 @@
             "text": "Basic video cut editing",
             "rect": {
               "x": 42,
-              "y": 281.59369999999996,
+              "y": 281.5937,
               "width": 198.7969,
               "height": 21
             },
@@ -477,9 +477,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -487,7 +487,7 @@
             "text": "Highlight input videos up to 10 min",
             "rect": {
               "x": 42,
-              "y": 307.59369999999996,
+              "y": 307.5937,
               "width": 198.7969,
               "height": 42
             },
@@ -497,9 +497,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -507,7 +507,7 @@
             "text": "Watermark included",
             "rect": {
               "x": 42,
-              "y": 353.59369999999996,
+              "y": 353.5937,
               "width": 198.7969,
               "height": 21
             },
@@ -517,9 +517,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           }
@@ -558,7 +558,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 259.59369999999996,
+              "y": 259.5937,
               "width": 18,
               "height": 18
             },
@@ -573,7 +573,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 285.59369999999996,
+              "y": 285.5937,
               "width": 18,
               "height": 18
             },
@@ -588,7 +588,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 311.59369999999996,
+              "y": 311.5937,
               "width": 18,
               "height": 18
             },
@@ -603,7 +603,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 357.59369999999996,
+              "y": 357.5937,
               "width": 18,
               "height": 18
             },
@@ -626,9 +626,9 @@
           },
           "radius": 12,
           "fill": [
-            0.866667,
-            0.870588,
-            0.878431,
+            0.921569,
+            0.92549,
+            0.933333,
             1
           ],
           "opacity": 1,
@@ -646,9 +646,9 @@
             "letterSpacing": -0.14,
             "textAlign": "center",
             "color": [
-              0.439216,
+              0.447059,
               0.458824,
-              0.501961,
+              0.482353,
               1
             ]
           }
@@ -662,8 +662,8 @@
           "height": 608.1875
         },
         "position": {
-          "x": 426.79690000000005,
-          "y": 251.7969,
+          "x": 430.79690000000005,
+          "y": 343.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -675,19 +675,19 @@
         },
         "radius": 12,
         "background": [
-          0.866667,
-          0.870588,
-          0.878431,
+          1,
+          1,
+          1,
           1
         ],
         "effects": [
           {
             "type": "INNER_SHADOW",
             "color": [
-              0,
-              0,
-              0,
-              0.08
+              0.090196,
+              0.105882,
+              0.133333,
+              0.12
             ],
             "offset": {
               "x": 0,
@@ -713,9 +713,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ]
           },
@@ -733,9 +733,9 @@
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ],
             "$lineNaturalWidths": {
@@ -757,9 +757,9 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.25098039215686274,
+              0.2549019607843137,
               0.27058823529411763,
-              0.30980392156862746,
+              0.2980392156862745,
               0.88
             ],
             "$lineNaturalWidths": {
@@ -781,9 +781,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 53
@@ -802,9 +802,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -823,9 +823,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -833,7 +833,7 @@
             "text": "Up to 5 projects",
             "rect": {
               "x": 42,
-              "y": 252.18750000000006,
+              "y": 252.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -843,17 +843,17 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
           {
-            "text": "3 video editor uploads, 3 imports",
+            "text": "3 Composition uploads, 3 imports",
             "rect": {
               "x": 42,
-              "y": 278.18750000000006,
+              "y": 278.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -863,9 +863,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -873,7 +873,7 @@
             "text": "All AI models unlocked",
             "rect": {
               "x": 42,
-              "y": 324.18750000000006,
+              "y": 324.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -883,9 +883,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -893,7 +893,7 @@
             "text": "Text/image overlay, TTS",
             "rect": {
               "x": 42,
-              "y": 350.18750000000006,
+              "y": 350.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -903,9 +903,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -913,7 +913,7 @@
             "text": "YouTube/Instagram upload",
             "rect": {
               "x": 42,
-              "y": 376.18750000000006,
+              "y": 376.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -923,9 +923,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -933,7 +933,7 @@
             "text": "Highlight input videos up to 10 min",
             "rect": {
               "x": 42,
-              "y": 402.18750000000006,
+              "y": 402.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -943,9 +943,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -953,7 +953,7 @@
             "text": "Bronze credit top-up",
             "rect": {
               "x": 42,
-              "y": 448.18750000000006,
+              "y": 448.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -963,9 +963,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -973,7 +973,7 @@
             "text": "No watermark",
             "rect": {
               "x": 42,
-              "y": 474.18750000000006,
+              "y": 474.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -983,9 +983,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           }
@@ -994,7 +994,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 256.18750000000006,
+              "y": 256.1875,
               "width": 18,
               "height": 18
             },
@@ -1009,7 +1009,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 282.18750000000006,
+              "y": 282.1875,
               "width": 18,
               "height": 18
             },
@@ -1024,7 +1024,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 328.18750000000006,
+              "y": 328.1875,
               "width": 18,
               "height": 18
             },
@@ -1039,7 +1039,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 354.18750000000006,
+              "y": 354.1875,
               "width": 18,
               "height": 18
             },
@@ -1054,7 +1054,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 380.18750000000006,
+              "y": 380.1875,
               "width": 18,
               "height": 18
             },
@@ -1069,7 +1069,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 406.18750000000006,
+              "y": 406.1875,
               "width": 18,
               "height": 18
             },
@@ -1084,7 +1084,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 452.18750000000006,
+              "y": 452.1875,
               "width": 18,
               "height": 18
             },
@@ -1099,7 +1099,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 478.18750000000006,
+              "y": 478.1875,
               "width": 18,
               "height": 18
             },
@@ -1158,8 +1158,8 @@
           "height": 608.1875
         },
         "position": {
-          "x": 687.5938,
-          "y": 251.7969,
+          "x": 691.5938,
+          "y": 343.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -1171,19 +1171,19 @@
         },
         "radius": 12,
         "background": [
-          0.866667,
-          0.870588,
-          0.878431,
+          1,
+          1,
+          1,
           1
         ],
         "effects": [
           {
             "type": "INNER_SHADOW",
             "color": [
-              0,
-              0,
-              0,
-              0.08
+              0.090196,
+              0.105882,
+              0.133333,
+              0.12
             ],
             "offset": {
               "x": 0,
@@ -1209,9 +1209,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ]
           },
@@ -1229,9 +1229,9 @@
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ],
             "$lineNaturalWidths": {
@@ -1253,9 +1253,9 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.25098039215686274,
+              0.2549019607843137,
               0.27058823529411763,
-              0.30980392156862746,
+              0.2980392156862745,
               0.88
             ],
             "$lineNaturalWidths": {
@@ -1277,9 +1277,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -1298,9 +1298,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -1319,9 +1319,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1329,7 +1329,7 @@
             "text": "Up to 12 projects",
             "rect": {
               "x": 42,
-              "y": 252.18750000000006,
+              "y": 252.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1339,17 +1339,17 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
           {
-            "text": "5 video editor uploads, 5 imports",
+            "text": "5 Composition uploads, 5 imports",
             "rect": {
               "x": 42,
-              "y": 278.18750000000006,
+              "y": 278.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -1359,9 +1359,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1369,7 +1369,7 @@
             "text": "All AI models unlocked",
             "rect": {
               "x": 42,
-              "y": 324.18750000000006,
+              "y": 324.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1379,9 +1379,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1389,7 +1389,7 @@
             "text": "Text/image overlay, TTS",
             "rect": {
               "x": 42,
-              "y": 350.18750000000006,
+              "y": 350.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1399,9 +1399,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1409,7 +1409,7 @@
             "text": "YouTube/Instagram upload, schedule & analytics",
             "rect": {
               "x": 42,
-              "y": 376.18750000000006,
+              "y": 376.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -1419,9 +1419,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1429,7 +1429,7 @@
             "text": "AI prompt & caption assist",
             "rect": {
               "x": 42,
-              "y": 422.18750000000006,
+              "y": 422.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1439,9 +1439,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1449,7 +1449,7 @@
             "text": "Highlight input videos up to 30 min",
             "rect": {
               "x": 42,
-              "y": 448.18750000000006,
+              "y": 448.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -1459,9 +1459,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1469,7 +1469,7 @@
             "text": "Credit top-up available",
             "rect": {
               "x": 42,
-              "y": 494.18750000000006,
+              "y": 494.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1479,9 +1479,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1499,9 +1499,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           }
@@ -1510,7 +1510,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 256.18750000000006,
+              "y": 256.1875,
               "width": 18,
               "height": 18
             },
@@ -1525,7 +1525,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 282.18750000000006,
+              "y": 282.1875,
               "width": 18,
               "height": 18
             },
@@ -1540,7 +1540,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 328.18750000000006,
+              "y": 328.1875,
               "width": 18,
               "height": 18
             },
@@ -1555,7 +1555,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 354.18750000000006,
+              "y": 354.1875,
               "width": 18,
               "height": 18
             },
@@ -1570,7 +1570,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 380.18750000000006,
+              "y": 380.1875,
               "width": 18,
               "height": 18
             },
@@ -1585,7 +1585,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 426.18750000000006,
+              "y": 426.1875,
               "width": 18,
               "height": 18
             },
@@ -1600,7 +1600,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 452.18750000000006,
+              "y": 452.1875,
               "width": 18,
               "height": 18
             },
@@ -1615,7 +1615,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 498.18750000000006,
+              "y": 498.1875,
               "width": 18,
               "height": 18
             },
@@ -1689,8 +1689,8 @@
           "height": 608.1875
         },
         "position": {
-          "x": 948.3906,
-          "y": 251.7969,
+          "x": 952.3906,
+          "y": 343.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -1702,19 +1702,19 @@
         },
         "radius": 12,
         "background": [
-          0.866667,
-          0.870588,
-          0.878431,
+          1,
+          1,
+          1,
           1
         ],
         "effects": [
           {
             "type": "INNER_SHADOW",
             "color": [
-              0,
-              0,
-              0,
-              0.08
+              0.090196,
+              0.105882,
+              0.133333,
+              0.12
             ],
             "offset": {
               "x": 0,
@@ -1740,9 +1740,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ]
           },
@@ -1760,9 +1760,9 @@
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ],
             "$lineNaturalWidths": {
@@ -1784,9 +1784,9 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.25098039215686274,
+              0.2549019607843137,
               0.27058823529411763,
-              0.30980392156862746,
+              0.2980392156862745,
               0.88
             ],
             "$lineNaturalWidths": {
@@ -1808,9 +1808,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 66
@@ -1829,9 +1829,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -1850,9 +1850,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1860,7 +1860,7 @@
             "text": "Up to 24 projects",
             "rect": {
               "x": 42,
-              "y": 252.18750000000006,
+              "y": 252.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1870,17 +1870,17 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
           {
-            "text": "7 video editor uploads, 7 imports",
+            "text": "7 Composition uploads, 7 imports",
             "rect": {
               "x": 42,
-              "y": 278.18750000000006,
+              "y": 278.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -1890,9 +1890,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1900,7 +1900,7 @@
             "text": "Highlight input videos up to 120 min",
             "rect": {
               "x": 42,
-              "y": 324.18750000000006,
+              "y": 324.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -1910,9 +1910,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1920,7 +1920,7 @@
             "text": "3 concurrent jobs",
             "rect": {
               "x": 42,
-              "y": 370.18750000000006,
+              "y": 370.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1930,9 +1930,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -1940,7 +1940,7 @@
             "text": "Priority queue processing",
             "rect": {
               "x": 42,
-              "y": 396.18750000000006,
+              "y": 396.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -1950,9 +1950,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           }
@@ -1961,7 +1961,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 256.18750000000006,
+              "y": 256.1875,
               "width": 18,
               "height": 18
             },
@@ -1976,7 +1976,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 282.18750000000006,
+              "y": 282.1875,
               "width": 18,
               "height": 18
             },
@@ -1991,7 +1991,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 328.18750000000006,
+              "y": 328.1875,
               "width": 18,
               "height": 18
             },
@@ -2006,7 +2006,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 374.18750000000006,
+              "y": 374.1875,
               "width": 18,
               "height": 18
             },
@@ -2021,7 +2021,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 400.18750000000006,
+              "y": 400.1875,
               "width": 18,
               "height": 18
             },
@@ -2080,8 +2080,8 @@
           "height": 608.1875
         },
         "position": {
-          "x": 1209.1875,
-          "y": 251.7969,
+          "x": 1213.1875,
+          "y": 343.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -2093,19 +2093,19 @@
         },
         "radius": 12,
         "background": [
-          0.866667,
-          0.870588,
-          0.878431,
+          1,
+          1,
+          1,
           1
         ],
         "effects": [
           {
             "type": "INNER_SHADOW",
             "color": [
-              0,
-              0,
-              0,
-              0.08
+              0.090196,
+              0.105882,
+              0.133333,
+              0.12
             ],
             "offset": {
               "x": 0,
@@ -2131,9 +2131,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ]
           },
@@ -2151,9 +2151,9 @@
             "letterSpacing": -0.72,
             "textAlign": "start",
             "color": [
-              0.164706,
+              0.168627,
               0.184314,
-              0.223529,
+              0.211765,
               1
             ],
             "$lineNaturalWidths": {
@@ -2175,9 +2175,9 @@
             "letterSpacing": -0.16,
             "textAlign": "start",
             "color": [
-              0.25098039215686274,
+              0.2549019607843137,
               0.27058823529411763,
-              0.30980392156862746,
+              0.2980392156862745,
               0.88
             ],
             "$lineNaturalWidths": {
@@ -2199,9 +2199,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 66
@@ -2220,9 +2220,9 @@
             "letterSpacing": -0.2,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ],
             "figmaWidth": 62
@@ -2241,9 +2241,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -2251,7 +2251,7 @@
             "text": "Unlimited projects",
             "rect": {
               "x": 42,
-              "y": 252.18750000000006,
+              "y": 252.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -2261,17 +2261,17 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
           {
-            "text": "10 video editor uploads, 10 imports",
+            "text": "10 Composition uploads, 10 imports",
             "rect": {
               "x": 42,
-              "y": 278.18750000000006,
+              "y": 278.1875,
               "width": 198.7969,
               "height": 42
             },
@@ -2281,9 +2281,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -2291,7 +2291,7 @@
             "text": "10 highlight clip selections",
             "rect": {
               "x": 42,
-              "y": 324.18750000000006,
+              "y": 324.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -2301,9 +2301,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           },
@@ -2311,7 +2311,7 @@
             "text": "Maximum monthly credits",
             "rect": {
               "x": 42,
-              "y": 350.18750000000006,
+              "y": 350.1875,
               "width": 198.7969,
               "height": 21
             },
@@ -2321,9 +2321,9 @@
             "letterSpacing": -0.14,
             "textAlign": "start",
             "color": [
-              0.25098,
+              0.254902,
               0.270588,
-              0.309804,
+              0.298039,
               1
             ]
           }
@@ -2332,7 +2332,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 256.18750000000006,
+              "y": 256.1875,
               "width": 18,
               "height": 18
             },
@@ -2347,7 +2347,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 282.18750000000006,
+              "y": 282.1875,
               "width": 18,
               "height": 18
             },
@@ -2362,7 +2362,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 328.18750000000006,
+              "y": 328.1875,
               "width": 18,
               "height": 18
             },
@@ -2377,7 +2377,7 @@
           {
             "rect": {
               "x": 16,
-              "y": 354.18750000000006,
+              "y": 354.1875,
               "width": 18,
               "height": 18
             },
@@ -2436,9 +2436,9 @@
           "height": 874
         },
         "background": [
-          0.9333333333333333,
-          0.9333333333333333,
-          0.9450980392156862,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ]
       },
@@ -2452,37 +2452,37 @@
         "width": 402,
         "height": 874,
         "background": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "radius": 16,
         "effects": [],
         "topBar": {
-          "x": 16,
+          "x": 6,
           "y": 0,
-          "width": 370,
+          "width": 390,
           "height": 53
         },
         "content": {
-          "x": 16,
+          "x": 6,
           "y": 53,
-          "width": 370,
-          "height": 5748.9531
+          "width": 390,
+          "height": 5651.75
         },
         "headerTitle": {
           "text": "Start free, upgrade or cancel anytime.",
           "rect": {
-            "x": 16,
-            "y": 77,
-            "width": 370,
-            "height": 194.3906
+            "x": 6,
+            "y": 133,
+            "width": 390,
+            "height": 97.1875
           },
-          "fontSize": 48,
-          "fontWeight": 500,
-          "lineHeight": 64.8,
-          "letterSpacing": -0.96,
+          "fontSize": 36,
+          "fontWeight": 600,
+          "lineHeight": 48.6,
+          "letterSpacing": -0.72,
           "textAlign": "start",
           "color": [
             0,
@@ -2494,9 +2494,9 @@
         "headerBody": {
           "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
           "rect": {
-            "x": 16,
-            "y": 289.3906,
-            "width": 370,
+            "x": 6,
+            "y": 248.1875,
+            "width": 390,
             "height": 84
           },
           "fontSize": 14,
@@ -2514,9 +2514,9 @@
         "headerNotice": {
           "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
           "rect": {
-            "x": 16,
-            "y": 417.3906,
-            "width": 419.5,
+            "x": 6,
+            "y": 77,
+            "width": 390,
             "height": 32
           },
           "fontSize": 14,
@@ -2533,10 +2533,10 @@
         }
       },
       "cardGrid": {
-        "x": 16,
-        "y": 449.3906,
-        "width": 370,
-        "height": 1728.7813
+        "x": 6,
+        "y": 412.1875,
+        "width": 390,
+        "height": 1668.7813
       },
       "cards": [
         {
@@ -2544,18 +2544,18 @@
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 183,
-            "height": 592.5938
+            "width": 193,
+            "height": 572.5938
           },
           "position": {
-            "x": 16,
-            "y": 449.3906,
-            "width": 183,
-            "height": 592.5938
+            "x": 6,
+            "y": 412.1875,
+            "width": 193,
+            "height": 572.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 424.6094
+            "bottom": 461.8125
           },
           "padding": {
             "top": 12,
@@ -2565,19 +2565,19 @@
           },
           "radius": 12,
           "background": [
-            0.866667,
-            0.870588,
-            0.878431,
+            1,
+            1,
+            1,
             1
           ],
           "effects": [
             {
               "type": "INNER_SHADOW",
               "color": [
-                0,
-                0,
-                0,
-                0.08
+                0.090196,
+                0.105882,
+                0.133333,
+                0.12
               ],
               "offset": {
                 "x": 0,
@@ -2605,7 +2605,7 @@
               "rect": {
                 "x": 12,
                 "y": 12,
-                "width": 159,
+                "width": 169,
                 "height": 30
               },
               "fontSize": 20,
@@ -2614,9 +2614,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.164706,
+                0.168627,
                 0.184314,
-                0.223529,
+                0.211765,
                 1
               ]
             },
@@ -2634,9 +2634,9 @@
               "letterSpacing": -0.56,
               "textAlign": "start",
               "color": [
-                0.164706,
+                0.168627,
                 0.184314,
-                0.223529,
+                0.211765,
                 1
               ],
               "figmaWidth": 56
@@ -2655,9 +2655,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ],
               "figmaWidth": 37
@@ -2676,9 +2676,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ],
               "figmaWidth": 62
@@ -2687,8 +2687,8 @@
               "text": "Core features for trying Klipse",
               "rect": {
                 "x": 12,
-                "y": 159.7969,
-                "width": 159,
+                "y": 159.79690000000005,
+                "width": 169,
                 "height": 42
               },
               "fontSize": 14,
@@ -2697,9 +2697,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -2707,8 +2707,8 @@
               "text": "Up to 3 projects",
               "rect": {
                 "x": 38,
-                "y": 209.7969,
-                "width": 133,
+                "y": 209.79690000000005,
+                "width": 143,
                 "height": 21
               },
               "fontSize": 14,
@@ -2717,18 +2717,18 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
             {
-              "text": "1 video editor upload, 2 imports",
+              "text": "1 Composition upload, 2 imports",
               "rect": {
                 "x": 38,
-                "y": 235.7969,
-                "width": 133,
+                "y": 235.79690000000005,
+                "width": 143,
                 "height": 42
               },
               "fontSize": 14,
@@ -2737,9 +2737,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -2747,8 +2747,8 @@
               "text": "AI video generation trial",
               "rect": {
                 "x": 38,
-                "y": 281.7969,
-                "width": 133,
+                "y": 281.79690000000005,
+                "width": 143,
                 "height": 42
               },
               "fontSize": 14,
@@ -2757,9 +2757,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -2767,48 +2767,8 @@
               "text": "Basic video cut editing",
               "rect": {
                 "x": 38,
-                "y": 327.7969,
-                "width": 133,
-                "height": 42
-              },
-              "fontSize": 14,
-              "fontWeight": 400,
-              "lineHeight": 21,
-              "letterSpacing": -0.14,
-              "textAlign": "start",
-              "color": [
-                0.25098,
-                0.270588,
-                0.309804,
-                1
-              ]
-            },
-            {
-              "text": "Highlight input videos up to 10 min",
-              "rect": {
-                "x": 38,
-                "y": 373.7969,
-                "width": 133,
-                "height": 42
-              },
-              "fontSize": 14,
-              "fontWeight": 400,
-              "lineHeight": 21,
-              "letterSpacing": -0.14,
-              "textAlign": "start",
-              "color": [
-                0.25098,
-                0.270588,
-                0.309804,
-                1
-              ]
-            },
-            {
-              "text": "Watermark included",
-              "rect": {
-                "x": 38,
-                "y": 419.7969,
-                "width": 133,
+                "y": 327.79690000000005,
+                "width": 143,
                 "height": 21
               },
               "fontSize": 14,
@@ -2817,9 +2777,49 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
+                1
+              ]
+            },
+            {
+              "text": "Highlight input videos up to 10 min",
+              "rect": {
+                "x": 38,
+                "y": 353.79690000000005,
+                "width": 143,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.254902,
+                0.270588,
+                0.298039,
+                1
+              ]
+            },
+            {
+              "text": "Watermark included",
+              "rect": {
+                "x": 38,
+                "y": 399.79690000000005,
+                "width": 143,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.254902,
+                0.270588,
+                0.298039,
                 1
               ]
             }
@@ -2828,7 +2828,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 213.7969,
+                "y": 213.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2843,7 +2843,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 239.7969,
+                "y": 239.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2858,7 +2858,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 285.7969,
+                "y": 285.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2873,7 +2873,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 331.7969,
+                "y": 331.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2888,7 +2888,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 377.7969,
+                "y": 357.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2903,7 +2903,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 423.7969,
+                "y": 403.79690000000005,
                 "width": 18,
                 "height": 18
               },
@@ -2923,18 +2923,18 @@
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 183,
-            "height": 592.5938
+            "width": 193,
+            "height": 572.5938
           },
           "position": {
             "x": 203,
-            "y": 449.3906,
-            "width": 183,
-            "height": 592.5938
+            "y": 412.1875,
+            "width": 193,
+            "height": 572.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 424.6094
+            "bottom": 461.8125
           },
           "padding": {
             "top": 12,
@@ -2944,19 +2944,19 @@
           },
           "radius": 12,
           "background": [
-            0.866667,
-            0.870588,
-            0.878431,
+            1,
+            1,
+            1,
             1
           ],
           "effects": [
             {
               "type": "INNER_SHADOW",
               "color": [
-                0,
-                0,
-                0,
-                0.08
+                0.090196,
+                0.105882,
+                0.133333,
+                0.12
               ],
               "offset": {
                 "x": 0,
@@ -2973,7 +2973,7 @@
               "rect": {
                 "x": 12,
                 "y": 12,
-                "width": 159,
+                "width": 169,
                 "height": 30
               },
               "fontSize": 20,
@@ -2982,9 +2982,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.164706,
+                0.168627,
                 0.184314,
-                0.223529,
+                0.211765,
                 1
               ]
             },
@@ -2993,7 +2993,7 @@
               "rect": {
                 "x": 12,
                 "y": 52,
-                "width": 107.1719,
+                "width": 114.2813,
                 "height": 75.5938
               },
               "fontSize": 28,
@@ -3002,9 +3002,9 @@
               "letterSpacing": -0.56,
               "textAlign": "start",
               "color": [
-                0.164706,
+                0.168627,
                 0.184314,
-                0.223529,
+                0.211765,
                 1
               ],
               "$lineNaturalWidths": {
@@ -3015,9 +3015,9 @@
             {
               "text": "per month",
               "rect": {
-                "x": 127.1719,
-                "y": 81.59380000000004,
-                "width": 43.8281,
+                "x": 134.2813,
+                "y": 81.59379999999999,
+                "width": 46.7188,
                 "height": 46
               },
               "fontSize": 14,
@@ -3026,9 +3026,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098039215686274,
+                0.2549019607843137,
                 0.27058823529411763,
-                0.30980392156862746,
+                0.2980392156862745,
                 0.88
               ],
               "$lineNaturalWidths": {
@@ -3040,7 +3040,7 @@
               "text": "5,000",
               "rect": {
                 "x": 12,
-                "y": 131.59380000000004,
+                "y": 131.5938,
                 "width": 52.5,
                 "height": 30
               },
@@ -3050,9 +3050,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ],
               "figmaWidth": 53
@@ -3061,7 +3061,7 @@
               "text": "credits",
               "rect": {
                 "x": 72.5,
-                "y": 131.59380000000004,
+                "y": 131.5938,
                 "width": 61.1406,
                 "height": 30
               },
@@ -3071,9 +3071,9 @@
               "letterSpacing": -0.2,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ],
               "figmaWidth": 62
@@ -3082,8 +3082,8 @@
               "text": "Everything in Trial",
               "rect": {
                 "x": 12,
-                "y": 197.59380000000004,
-                "width": 159,
+                "y": 197.5938,
+                "width": 169,
                 "height": 21
               },
               "fontSize": 14,
@@ -3092,9 +3092,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -3102,8 +3102,8 @@
               "text": "Up to 5 projects",
               "rect": {
                 "x": 38,
-                "y": 226.59380000000004,
-                "width": 133,
+                "y": 226.5938,
+                "width": 143,
                 "height": 21
               },
               "fontSize": 14,
@@ -3112,18 +3112,18 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
             {
-              "text": "3 video editor uploads, 3 imports",
+              "text": "3 Composition uploads, 3 imports",
               "rect": {
                 "x": 38,
-                "y": 252.59380000000004,
-                "width": 133,
+                "y": 252.5938,
+                "width": 143,
                 "height": 42
               },
               "fontSize": 14,
@@ -3132,9 +3132,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -3142,9 +3142,9 @@
               "text": "All AI models unlocked",
               "rect": {
                 "x": 38,
-                "y": 298.59380000000004,
-                "width": 133,
-                "height": 42
+                "y": 298.5938,
+                "width": 143,
+                "height": 21
               },
               "fontSize": 14,
               "fontWeight": 400,
@@ -3152,9 +3152,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -3162,8 +3162,8 @@
               "text": "Text/image overlay, TTS",
               "rect": {
                 "x": 38,
-                "y": 344.59380000000004,
-                "width": 133,
+                "y": 324.5938,
+                "width": 143,
                 "height": 42
               },
               "fontSize": 14,
@@ -3172,9 +3172,9 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
                 1
               ]
             },
@@ -3182,8 +3182,8 @@
               "text": "YouTube/Instagram upload",
               "rect": {
                 "x": 38,
-                "y": 390.59380000000004,
-                "width": 133,
+                "y": 370.5938,
+                "width": 143,
                 "height": 42
               },
               "fontSize": 14,
@@ -3192,9 +3192,29 @@
               "letterSpacing": -0.14,
               "textAlign": "start",
               "color": [
-                0.25098,
+                0.254902,
                 0.270588,
-                0.309804,
+                0.298039,
+                1
+              ]
+            },
+            {
+              "text": "Highlight input videos up to 10 min",
+              "rect": {
+                "x": 38,
+                "y": 416.5938,
+                "width": 143,
+                "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.254902,
+                0.270588,
+                0.298039,
                 1
               ]
             }
@@ -3203,7 +3223,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 230.59380000000004,
+                "y": 230.5938,
                 "width": 18,
                 "height": 18
               },
@@ -3218,7 +3238,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 256.59380000000004,
+                "y": 256.5938,
                 "width": 18,
                 "height": 18
               },
@@ -3233,7 +3253,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 302.59380000000004,
+                "y": 302.5938,
                 "width": 18,
                 "height": 18
               },
@@ -3248,7 +3268,7 @@
             {
               "rect": {
                 "x": 12,
-                "y": 348.59380000000004,
+                "y": 328.5938,
                 "width": 18,
                 "height": 18
               },
@@ -3263,7 +3283,22 @@
             {
               "rect": {
                 "x": 12,
-                "y": 394.59380000000004,
+                "y": 374.5938,
+                "width": 18,
+                "height": 18
+              },
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "asset": "/icons/CheckCircle.svg"
+            },
+            {
+              "rect": {
+                "x": 12,
+                "y": 420.5938,
                 "width": 18,
                 "height": 18
               },

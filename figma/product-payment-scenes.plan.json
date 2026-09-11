@@ -1,11 +1,11 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "5a67d692f5ca737f06c7b51b98f28ded22d1f7a1",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-708f3483317a",
+      "id": "subtree-ed47f43c48b1",
       "nodeCount": 87,
       "roots": [
         {
@@ -36,7 +36,7 @@
       "score": 174
     },
     {
-      "id": "subtree-4f5aa4e9cf22",
+      "id": "subtree-6ba92d715b72",
       "nodeCount": 83,
       "roots": [
         {
@@ -67,7 +67,7 @@
       "score": 166
     },
     {
-      "id": "subtree-0f24f9093a95",
+      "id": "subtree-ea6c9f0dfd59",
       "nodeCount": 25,
       "roots": [
         {
@@ -76,9 +76,9 @@
           "tag": "main",
           "rect": {
             "x": 280,
-            "y": 12,
-            "width": 1628,
-            "height": 1004
+            "y": 8,
+            "width": 1632,
+            "height": 1012
           }
         },
         {
@@ -87,9 +87,9 @@
           "tag": "main",
           "rect": {
             "x": 280,
-            "y": 12,
-            "width": 1628,
-            "height": 1004
+            "y": 8,
+            "width": 1632,
+            "height": 1012
           }
         }
       ],
@@ -98,7 +98,7 @@
       "score": 50
     },
     {
-      "id": "subtree-71e9f8d4cba7",
+      "id": "subtree-f034cc084ea1",
       "nodeCount": 21,
       "roots": [
         {
@@ -107,9 +107,9 @@
           "tag": "main",
           "rect": {
             "x": 280,
-            "y": 12,
-            "width": 1628,
-            "height": 1004
+            "y": 8,
+            "width": 1632,
+            "height": 1012
           }
         },
         {
@@ -118,9 +118,9 @@
           "tag": "main",
           "rect": {
             "x": 280,
-            "y": 12,
-            "width": 1628,
-            "height": 1004
+            "y": 8,
+            "width": 1632,
+            "height": 1012
           }
         }
       ],
@@ -151,21 +151,21 @@
         "height": 1080
       },
       "background": [
-        0.9333333333333333,
-        0.9333333333333333,
-        0.9450980392156862,
+        0.94902,
+        0.952941,
+        0.960784,
         1
       ]
     },
     "main": {
       "rect": {
-        "width": 1628,
-        "height": 1004
+        "width": 1632,
+        "height": 1012
       },
       "background": [
-        0.9725490196078431,
-        0.9725490196078431,
-        0.9764705882352941,
+        0.980392,
+        0.980392,
+        0.980392,
         1
       ],
       "radius": 16,
@@ -182,18 +182,18 @@
         "route": "/mypage/upgrade/billing-change-fail",
         "mainRect": {
           "x": 280,
-          "y": 12,
-          "width": 1628,
-          "height": 1004
+          "y": 8,
+          "width": 1632,
+          "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1628,
+          "width": 1632,
           "height": 53
         },
         "contentRect": {
-          "x": 554,
+          "x": 556,
           "y": 161,
           "width": 520,
           "height": 229.5938
@@ -204,18 +204,18 @@
         "route": "/mypage/upgrade/billing-change-success",
         "mainRect": {
           "x": 280,
-          "y": 12,
-          "width": 1628,
-          "height": 1004
+          "y": 8,
+          "width": 1632,
+          "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1628,
+          "width": 1632,
           "height": 53
         },
         "contentRect": {
-          "x": 554,
+          "x": 556,
           "y": 161,
           "width": 520,
           "height": 209.1875
@@ -226,18 +226,18 @@
         "route": "/mypage/topup/success",
         "mainRect": {
           "x": 280,
-          "y": 12,
-          "width": 1628,
-          "height": 1004
+          "y": 8,
+          "width": 1632,
+          "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1628,
+          "width": 1632,
           "height": 53
         },
         "contentRect": {
-          "x": 554,
+          "x": 556,
           "y": 161,
           "width": 520,
           "height": 209.1875
@@ -249,7 +249,7 @@
       "sceneSetName": "Product/Mobile Payment Result Scene",
       "sourceCandidates": [
         {
-          "id": "subtree-3dc02b6b63cf",
+          "id": "subtree-2425ad25b02e",
           "nodeCount": 28,
           "roots": [
             {
@@ -280,7 +280,7 @@
           "score": 56
         },
         {
-          "id": "subtree-138bcfafd15b",
+          "id": "subtree-50076969733f",
           "nodeCount": 27,
           "roots": [
             {
@@ -311,7 +311,7 @@
           "score": 54
         },
         {
-          "id": "subtree-ba57b7970eb9",
+          "id": "subtree-a6ba0dac2ab4",
           "nodeCount": 26,
           "roots": [
             {
@@ -342,7 +342,7 @@
           "score": 52
         },
         {
-          "id": "subtree-43750710c66c",
+          "id": "subtree-60ed0dd6bac4",
           "nodeCount": 25,
           "roots": [
             {
@@ -353,7 +353,7 @@
                 "x": 0,
                 "y": 0,
                 "width": 402,
-                "height": 810
+                "height": 814
               }
             },
             {
@@ -364,7 +364,7 @@
                 "x": 0,
                 "y": 0,
                 "width": 402,
-                "height": 810
+                "height": 814
               }
             }
           ],
@@ -379,29 +379,29 @@
           "height": 874
         },
         "background": [
-          0.9333333333333333,
-          0.9333333333333333,
-          0.9450980392156862,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ]
       },
       "main": {
         "rect": {
           "width": 402,
-          "height": 810
+          "height": 814
         },
         "background": [
-          0.9725490196078431,
-          0.9725490196078431,
-          0.9764705882352941,
+          0.980392,
+          0.980392,
+          0.980392,
           1
         ],
         "radius": 16,
         "padding": {
           "top": 0,
-          "right": 16,
+          "right": 6,
           "bottom": 40,
-          "left": 16
+          "left": 6
         }
       },
       "variants": [
@@ -412,18 +412,18 @@
             "x": 0,
             "y": 0,
             "width": 402,
-            "height": 810
+            "height": 814
           },
           "topBarRect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           },
           "contentRect": {
-            "x": 16,
+            "x": 6,
             "y": 109,
-            "width": 370,
+            "width": 390,
             "height": 312.1875
           }
         },
@@ -434,18 +434,18 @@
             "x": 0,
             "y": 0,
             "width": 402,
-            "height": 810
+            "height": 814
           },
           "topBarRect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           },
           "contentRect": {
-            "x": 16,
+            "x": 6,
             "y": 109,
-            "width": 370,
+            "width": 390,
             "height": 275.7813
           }
         },
@@ -456,18 +456,18 @@
             "x": 0,
             "y": 0,
             "width": 402,
-            "height": 810
+            "height": 814
           },
           "topBarRect": {
-            "x": 16,
+            "x": 6,
             "y": 0,
-            "width": 370,
+            "width": 390,
             "height": 53
           },
           "contentRect": {
-            "x": 16,
+            "x": 6,
             "y": 109,
-            "width": 370,
+            "width": 390,
             "height": 254.7813
           }
         }

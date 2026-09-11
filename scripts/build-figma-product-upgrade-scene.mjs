@@ -261,15 +261,21 @@ if (
   cardSpecs.slice(1).some((entry) => entry.outline !== null)
 ) fail("desktop current-plan outline drift");
 
-// 제목·본문이 한 겹 더 들어갔다. `6c5af2d9 fix(landing): 히어로 공지의 i18n 폴백을 걷고
-// 이벤트 알약을 업그레이드 화면에도 둔다` 가 헤더 옆에 이벤트 알약을 붙이며 제목·본문을
-// `<header>` 로 묶었다 — 그래서 `…1.0.0`·`…1.0.1` 이던 두 글자가 `…1.0.0.0`·`…1.0.0.1` 로
-// 한 칸 내려가고, 알약 자신이 `…1.0.1` 자리를 가져갔다.
-// 자리번호만 옮기면 옛 코드는 «글자 없는 header» 를 텍스트로 읽어 조용히 빈 문자열을 냈다.
-const headerTitle = textSpec(node("body.1.0.0.1.0.0.1.0.0.0"), main.rect);
-const headerBody = textSpec(node("body.1.0.0.1.0.0.1.0.0.1"), main.rect);
-// 이벤트 알약. 실측 장면에 보이는 글자라 빠뜨리지 않는다 — 위 경로 이동의 «원인» 이기도 하다.
-const headerNotice = textSpec(node("body.1.0.0.1.0.0.1.0.1"), main.rect);
+// **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더
+// 들어가 있었는데(`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다. 소스가
+// 사유를 적는다 — 알약과 제목이 한 행을 다투다 `flex-wrap` 으로 알약이 다음 줄로 내려가면
+// 헤더 아래 여백이 알약 위에 남아 요금제 카드 상단을 파고들었다(UpgradePlanPageClient.tsx
+// `<header className={PRICING_HEADER}>` 위 주석). 지금 `<header>` 의 직속 자식은 넷이다:
+//   .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span)
+// **자리번호만 옮기면 안 된다** — 옛 코드는 «글자 없는 header» 를 텍스트로 읽어 조용히 빈
+// 문자열을 냈다. 그래서 태그로 확인하고 옮긴다(실측: desktop p·h2·p·div, mobile 같음).
+//
+// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)이다. 실측 장면에는 보이는데
+// 이 생성기의 계획에 슬롯이 없다. 텍스트 셋만 옮겨 생성기를 되살리고, 버튼은 다음 회차에서
+// 슬롯과 함께 넣는다. 여기 적어 두는 이유는 적지 않으면 「없는 것」이 되기 때문이다.
+const headerNotice = textSpec(node("body.1.0.0.1.0.0.1.0.0"), main.rect);
+const headerTitle = textSpec(node("body.1.0.0.1.0.0.1.0.1"), main.rect);
+const headerBody = textSpec(node("body.1.0.0.1.0.0.1.0.2"), main.rect);
 const compareTitle = textSpec(node("body.1.0.0.1.0.0.1.2.0.0"), main.rect);
 
 const mobilePageRoot = mobileNode("body.1");
@@ -282,13 +288,16 @@ const mobileMainStyle = style(mobileMain);
 if (
   mobilePageRoot.rect.width !== 402 || mobilePageRoot.rect.height !== 874 ||
   mobileMainOuter.rect.width !== 402 || mobileMain.rect.width !== 402 || mobileMain.rect.height !== 874 ||
-  mobileTopBar.rect.x !== 16 || mobileTopBar.rect.width !== 370 || mobileTopBar.rect.height !== 53 ||
-  // 문서가 길어진 것은 카드가 다섯이 된 결과다 — 모바일 격자는 2열이라 덱이 2행에서 3행으로
-  // 늘고(1166.1875 → 1728.7813), 비교표도 행이 늘어 문서 전체가 3269.375 → 5748.9531 이 됐다.
-  // 격자 시작이 401.3906 → 449.3906 로 48 내려온 것은 헤더 옆 이벤트 알약(6c5af2d9)이
-  // 모바일에서는 제목 아래로 접혀 한 줄(32) + 여백(16)을 차지하기 때문이다.
-  mobileContent.rect.x !== 16 || mobileContent.rect.y !== 53 || mobileContent.rect.width !== 370 || mobileContent.rect.height !== 5748.9531 ||
-  mobileCardGrid.rect.x !== 16 || mobileCardGrid.rect.y !== 449.3906 || mobileCardGrid.rect.width !== 370 || mobileCardGrid.rect.height !== 1728.7813
+  // **좌우가 16 → 6 으로, 폭이 370 → 390 으로 넓어졌다 (제품 094c336b, 2026-09-09).**
+  // 앱 셸 링을 12 에서 8 로 내리며 ≤719 의 `--app-gnb-main-inline-padding` 도 12 → 6 이 됐다:
+  // 402 − 6 − 6 = 390. 형제 생성기 checkout-status·payment-scenes 가 같은 회차를 이미 옮겼다.
+  //
+  // 높이는 **넓어진 결과**다. 폭이 20 늘어 같은 글이 덜 접히므로 문서가 5748.9531 → 5651.75
+  // 로 «줄었다». 격자도 1728.7813 → 1668.7813 이고, 시작이 449.3906 → 412.1875 로 37.2 올라온
+  // 것은 그 위 헤더가 덜 접힌 만큼이다(알약은 여전히 제목 위 한 줄을 차지한다).
+  mobileTopBar.rect.x !== 6 || mobileTopBar.rect.width !== 390 || mobileTopBar.rect.height !== 53 ||
+  mobileContent.rect.x !== 6 || mobileContent.rect.y !== 53 || mobileContent.rect.width !== 390 || mobileContent.rect.height !== 5651.75 ||
+  mobileCardGrid.rect.x !== 6 || mobileCardGrid.rect.y !== 412.1875 || mobileCardGrid.rect.width !== 390 || mobileCardGrid.rect.height !== 1668.7813
 ) fail("mobile upgrade visible-scene geometry changed");
 
 const mobileCardRoots = mobileScreen.tree.filter((entry) => entry.parentPath === mobileCardGrid.path && entry.tag === "article");
@@ -340,14 +349,17 @@ if (
   // 카드 상자 179×679.5938 → 183×592.5938: 폭은 격자 2열의 gap 이 좁아진 만큼 늘고,
   // 높이는 다섯 티어로 특징 목록이 짧아진 만큼 줄었다.
   mobileCardSpecs.map((entry) => entry.plan).join(",") !== "Trial,Lite" ||
-  mobileCardSpecs.some((entry) => entry.rect.width !== 183 || entry.rect.height !== 592.5938 || entry.padding.left !== 12) ||
+  // 카드 상자 183×592.5938 → **193×572.5938** (제품 094c336b). 격자 폭이 370 → 390 으로
+  // 20 넓어졌고 2열이라 카드마다 +10, 그만큼 특징 줄이 덜 접혀 높이가 20 줄었다.
+  mobileCardSpecs.some((entry) => entry.rect.width !== 193 || entry.rect.height !== 572.5938 || entry.padding.left !== 12) ||
   JSON.stringify(mobileCardSpecs[0].outline) !== JSON.stringify(expectedCurrentPlanOutline) ||
   mobileCardSpecs[1].outline !== null
 ) fail("mobile upgrade card visible-slice drift");
 
-const mobileHeaderTitle = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.0.0"), mobileMain.rect);
-const mobileHeaderBody = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.0.1"), mobileMain.rect);
-const mobileHeaderNotice = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.1"), mobileMain.rect);
+// 모바일도 같은 구조다(위 주석 참조).
+const mobileHeaderNotice = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.0"), mobileMain.rect);
+const mobileHeaderTitle = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.1"), mobileMain.rect);
+const mobileHeaderBody = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.2"), mobileMain.rect);
 // 화면 본체가 `page.tsx` 에서 이 파일로 통째로 옮겨 갔다 —
 // `bdd47792 fix(pricing): 가격 조회가 실패해도 페이지가 죽지 않게 한다` 가 서버 껍데기만
 // page.tsx 에 남기고 783줄을 새 파일로 뽑았다(`git log --diff-filter=A` 로 이 파일의 추가
@@ -357,8 +369,8 @@ const upgradeSourcePath = "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx
 // 안에서 서로 붙어 있다(`git show 5a67d692:…UpgradePlanPageClient.tsx | grep -n outline`
 // 이 219·220 만 준다). 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
 const currentPlanOutlineSource = [
-  sourceQuote(upgradeSourcePath, 219, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
-  sourceQuote(upgradeSourcePath, 220, '  "[outline-offset:-2px]",'),
+  sourceQuote(upgradeSourcePath, 221, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
+  sourceQuote(upgradeSourcePath, 222, '  "[outline-offset:-2px]",'),
 ];
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",

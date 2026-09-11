@@ -58,18 +58,26 @@ const headerHeight = 52;
 // bodyWidth 가 4px 넓게 잡혀 열이 닫히지 않는다 — 대칭 상수 하나로는 담기지 않으므로 둘로 나눈다.
 // (globals.css:362-363 의 16/16 은 `@media (max-width: 719px)` 안이라 이 문맥에 닿지 않는다.)
 const mainPaddingLeft = 16;
-const mainPaddingRight = 12;
+// **우측 인셋이 12 → 8 로 내려왔다 (제품 094c336b, 2026-09-09 「메인 카드를 두르는 앱 셸 링을
+// 12 에서 8 로 내린다」).** globals.css 의 `--app-gnb-main-inline-padding-end: 8px`.
+// 좌는 그대로 16 이다(`--louis-layout-app-shell-content-inset`).
+const mainPaddingRight = 8;
 const mainPaddingBottom = 16;
 const bodyWidth = mainRect.width - mainPaddingLeft - mainPaddingRight;
 const bodyHeight = mainRect.height - headerHeight - mainPaddingBottom;
 // 에디터 격자 기본값도 제품에서 움직였다(vemClass.ts:1449-1450) —
 // assets 236 → 317 · properties 324 → 240 · timeline 400 → 332.
 // preview 는 파생이다: bodyWidth - assets - properties - 디바이더 2×4 - 칸 사이 4×2.
-const columns = { assets: 317, assetsDivider: 4, preview: 1251, propertiesDivider: 4, properties: 240 };
+// preview 1251 → **1259**. 파생이라 bodyWidth 가 넓어진 만큼 그대로 따라온다:
+// 1832 − 317 − 240 − 디바이더 2×4 − 칸 사이 4×2 = 1259.
+const columns = { assets: 317, assetsDivider: 4, preview: 1259, propertiesDivider: 4, properties: 240 };
 const rows = { upper: bodyHeight - 332 - 4 - 2 * 2, timelineDivider: 4, timeline: 332 };
-// 이 자물쇠는 「제품 격자가 움직였으니 사람이 보라」로 세워 둔 것이다. 2026-09-03 재고정에서
-// 실제로 움직였고, 위 두 주석이 그 근거다. 새 값은 1824 × 988, 위 칸 648.
-if (bodyWidth !== 1824 || bodyHeight !== 988 || rows.upper !== 648) fail("derived video editor grid changed");
+// 이 자물쇠는 「제품 격자가 움직였으니 사람이 보라」로 세워 둔 것이다. 이번에 움직인 것은
+// **격자 자체가 아니라 그것을 담은 상자**다 — 앱 셸 링이 12 → 8 로 줄어 main 이 1852×1056 에서
+// 1856×1064 로 커졌고(094c336b), 우측 인셋도 12 → 8 이라 bodyWidth 가 1824 → 1832,
+// bodyHeight 가 988 → 996, 위 칸이 648 → 656 이 됐다. 에디터 격자의 기본값 넷
+// (assets 317 · properties 240 · timeline 332 · 간격)은 한 픽셀도 안 움직였다.
+if (bodyWidth !== 1832 || bodyHeight !== 996 || rows.upper !== 656) fail("derived video editor grid changed");
 if (Object.values(columns).reduce((sum, value) => sum + value, 0) + 2 * 4 !== bodyWidth) {
   fail("video editor columns do not close over measured body width");
 }
@@ -81,23 +89,34 @@ const plan = {
   context: measurement.context,
   sourceEvidence: [
     ...measurement.sourceEvidence,
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 123, '  "[padding:0_var(--app-gnb-main-inline-padding-end)_16px_var(--app-gnb-main-inline-padding)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1449, '    "[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1450, '    "[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1457, '    "[column-gap:2px]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1458, '    "[row-gap:2px]",'),
+    // **이 선언은 제품에 없다 — 소유자가 바뀌었다.** `MAIN` 은 이제 `"[padding:0]"` 이고
+    // 카드 안쪽 여백은 `modalShellDocked` 의 margin 하나가 갖는다(EditorProjectWorkspace.tsx
+    // `MAIN` 위 주석: 「여기서 또 주면 그 위에 더해져 좌우가 갈린다 — 실측 왼 28 · 오른 16」).
+    // 그래서 위 파생이 쓰는 16/8 의 근거를 **값이 선언된 자리**로 옮긴다. 같은 주석이
+    // 「2026-09-09 에 그 토큰이 8px 로 내려갔다」고 이 회차를 직접 적어 두었다.
+    sourceQuote("apps/web/app/globals.css", 138, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
+    sourceQuote("apps/web/app/globals.css", 147, "  --app-gnb-main-inline-padding-end: 8px;"),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 153, '  "[padding:0]",'),
+    // **네 줄은 값이 아니라 스코프가 바뀌었다.** 제품 8a90e3f6 「모바일에서 무너져 있던
+    // 격자를 한 열로 세운다」가 데스크톱 격자를 `[@media(min-width:720px)]:` 안으로 넣었다 —
+    // 같은 레이어·같은 특이도라 Tailwind 정렬 순서로 승패가 갈려 375px 에서 5트랙 격자가
+    // 이기던 것을 상호배타 변형으로 가른 것이다(vemClass.ts 그 위 주석). 값은 그대로다.
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1630, '    "[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1631, '    "[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1633, '    "[@media(min-width:720px)]:[column-gap:2px]",'),
+    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1634, '    "[@media(min-width:720px)]:[row-gap:2px]",'),
     // 제품이 `mainChromeLeadingCluster` 의 인라인 선언을 걷고 LOUIS 레시피로 넘겼다(e5d49507).
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
     // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
     // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 313, '    "louis-app-top-bar__leading",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 472, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1060, '        <path'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1061, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1968, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1969, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2008, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2009, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 314, '    "louis-app-top-bar__leading",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 478, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1090, '        <path'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1091, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2022, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2023, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2062, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2063, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",

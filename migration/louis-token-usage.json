@@ -4,12 +4,12 @@
   "$ledgerScopeRule": "이 원장은 **제품 쪽 절반만** 나른다. LOUIS 쪽 참조와 선언은 CI 에서 볼 수 있으므로 `check-coverage-targets` 가 매번 다시 계산한다. CI 가 볼 수 없는 것만 원장에 적는 것이 원장이 낡을 수 있는 범위를 최소로 만든다.",
   "productRef": "origin/design",
   "productRefSource": "KLIPSE_PRODUCT_REF",
-  "productCommit": "91e5ea2a93982dc8f65cd267f0fcaae7d1759138",
+  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
   "trees": [
     "apps/web",
     "packages"
   ],
-  "filesScanned": 86,
+  "filesScanned": 91,
   "counts": {
     "productRefs": 213
   },

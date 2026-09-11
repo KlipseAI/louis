@@ -2,24 +2,24 @@
   "$comment": "생성물. scripts/measure-product-alpha.mjs가 배포본에서 센다. 직접 수정하지 않는다.",
   "$whyThisExists": "DS-D-0010 원칙 1은 「정의가 아니라 실사용을 승격한다. 승격 근거에는 사용 화면과 빈도를 남긴다」인데, 알파 축을 10단으로 정규화하기로 한 그 10단이 실사용 빈도에서 나온 것인지 확인할 데이터가 없었다. 여기 수치가 그 근거다.",
   "$method": "`rgb(var(--*-rgb) / N%)`과 Tailwind 임의 값 `_/_` 형태를 센다. rgba 리터럴은 토큰이 아니므로 따로 센다. (highlight-standalone)은 DS-D-0010 §5에 따라 제외한다.",
-  "productRef": "origin/design",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productRef": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "totals": {
-    "tokenAlphaUses": 2407,
-    "distinctStops": 39,
+    "tokenAlphaUses": 2420,
+    "distinctStops": 42,
     "opaqueOrNearOpaqueUses": 603,
-    "literalUses": 234
+    "literalUses": 236
   },
   "stops": [
     {
       "key": 0,
-      "uses": 43,
-      "files": 18
+      "uses": 42,
+      "files": 17
     },
     {
       "key": 4,
-      "uses": 169,
-      "files": 64
+      "uses": 170,
+      "files": 65
     },
     {
       "key": 5,
@@ -38,23 +38,28 @@
     },
     {
       "key": 8,
-      "uses": 323,
-      "files": 88
+      "uses": 322,
+      "files": 90
+    },
+    {
+      "key": 10,
+      "uses": 2,
+      "files": 2
     },
     {
       "key": 12,
-      "uses": 195,
-      "files": 72
+      "uses": 198,
+      "files": 75
     },
     {
       "key": 14,
-      "uses": 2,
-      "files": 1
+      "uses": 3,
+      "files": 2
     },
     {
       "key": 16,
       "uses": 87,
-      "files": 42
+      "files": 43
     },
     {
       "key": 17,
@@ -68,7 +73,7 @@
     },
     {
       "key": 20,
-      "uses": 125,
+      "uses": 123,
       "files": 46
     },
     {
@@ -83,8 +88,8 @@
     },
     {
       "key": 28,
-      "uses": 70,
-      "files": 35
+      "uses": 71,
+      "files": 36
     },
     {
       "key": 31,
@@ -102,14 +107,24 @@
       "files": 4
     },
     {
+      "key": 35,
+      "uses": 1,
+      "files": 1
+    },
+    {
       "key": 40,
-      "uses": 105,
-      "files": 47
+      "uses": 108,
+      "files": 49
     },
     {
       "key": 42,
       "uses": 2,
       "files": 1
+    },
+    {
+      "key": 44,
+      "uses": 4,
+      "files": 3
     },
     {
       "key": 45,
@@ -118,8 +133,8 @@
     },
     {
       "key": 48,
-      "uses": 140,
-      "files": 63
+      "uses": 142,
+      "files": 65
     },
     {
       "key": 50,
@@ -138,7 +153,7 @@
     },
     {
       "key": 56,
-      "uses": 156,
+      "uses": 154,
       "files": 74
     },
     {
@@ -148,8 +163,8 @@
     },
     {
       "key": 64,
-      "uses": 32,
-      "files": 21
+      "uses": 31,
+      "files": 20
     },
     {
       "key": 69,
@@ -158,8 +173,8 @@
     },
     {
       "key": 72,
-      "uses": 104,
-      "files": 52
+      "uses": 105,
+      "files": 53
     },
     {
       "key": 78,
@@ -168,13 +183,13 @@
     },
     {
       "key": 80,
-      "uses": 105,
-      "files": 54
+      "uses": 106,
+      "files": 56
     },
     {
       "key": 88,
-      "uses": 236,
-      "files": 82
+      "uses": 231,
+      "files": 81
     },
     {
       "key": 90,
@@ -203,45 +218,35 @@
     },
     {
       "key": 100,
-      "uses": 270,
-      "files": 33
+      "uses": 275,
+      "files": 35
     }
   ],
   "ink": [
     {
       "key": "--gray-000-rgb",
-      "uses": 1014,
-      "files": 115
+      "uses": 1020,
+      "files": 116
     },
     {
       "key": "--palette-gray-000-rgb",
-      "uses": 489,
+      "uses": 488,
       "files": 50
     },
     {
       "key": "--palette-gray-900-rgb",
-      "uses": 258,
+      "uses": 254,
       "files": 53
     },
     {
-      "key": "--palette-gray-800-rgb",
-      "uses": 66,
-      "files": 19
-    },
-    {
       "key": "--gray-900-rgb",
-      "uses": 48,
-      "files": 15
+      "uses": 54,
+      "files": 21
     },
     {
       "key": "--primary-500-rgb",
-      "uses": 45,
-      "files": 15
-    },
-    {
-      "key": "--gray-800-rgb",
-      "uses": 39,
-      "files": 19
+      "uses": 46,
+      "files": 16
     },
     {
       "key": "--gray-500-rgb",
@@ -249,14 +254,24 @@
       "files": 14
     },
     {
+      "key": "--app-main-card-bg-rgb",
+      "uses": 36,
+      "files": 3
+    },
+    {
+      "key": "--palette-gray-700-rgb",
+      "uses": 36,
+      "files": 16
+    },
+    {
       "key": "--gray-100-rgb",
       "uses": 34,
       "files": 12
     },
     {
-      "key": "--palette-gray-700-rgb",
-      "uses": 33,
-      "files": 14
+      "key": "--gray-800-rgb",
+      "uses": 32,
+      "files": 13
     },
     {
       "key": "--gray-1000-rgb",
@@ -264,7 +279,17 @@
       "files": 15
     },
     {
+      "key": "--palette-gray-800-rgb",
+      "uses": 27,
+      "files": 18
+    },
+    {
       "key": "--accent-red-500-rgb",
+      "uses": 25,
+      "files": 18
+    },
+    {
+      "key": "--palette-gray-100-rgb",
       "uses": 25,
       "files": 18
     },
@@ -279,19 +304,9 @@
       "files": 7
     },
     {
-      "key": "--palette-gray-500-rgb",
-      "uses": 21,
-      "files": 14
-    },
-    {
-      "key": "--palette-gray-100-rgb",
-      "uses": 20,
-      "files": 15
-    },
-    {
       "key": "--gray-700-rgb",
-      "uses": 19,
-      "files": 11
+      "uses": 17,
+      "files": 10
     },
     {
       "key": "--palette-gray-1000-rgb",
@@ -309,6 +324,11 @@
       "files": 3
     },
     {
+      "key": "--palette-gray-500-rgb",
+      "uses": 13,
+      "files": 7
+    },
+    {
       "key": "--char-count-overlay-rgb",
       "uses": 12,
       "files": 2
@@ -316,7 +336,7 @@
     {
       "key": "--palette-gray-600-rgb",
       "uses": 12,
-      "files": 8
+      "files": 9
     },
     {
       "key": "--accent-yellow-500-rgb",
@@ -329,9 +349,14 @@
       "files": 5
     },
     {
-      "key": "--gray-600-rgb",
+      "key": "--palette-gray-050-rgb",
       "uses": 10,
-      "files": 6
+      "files": 9
+    },
+    {
+      "key": "--palette-gray-400-rgb",
+      "uses": 10,
+      "files": 9
     },
     {
       "key": "--gray-400-rgb",
@@ -339,19 +364,19 @@
       "files": 4
     },
     {
-      "key": "--palette-gray-050-rgb",
+      "key": "--gray-600-rgb",
       "uses": 9,
-      "files": 9
+      "files": 5
     },
     {
       "key": "--palette-gray-200-rgb",
-      "uses": 7,
-      "files": 6
+      "uses": 9,
+      "files": 8
     },
     {
       "key": "--accent-red-600-rgb",
-      "uses": 6,
-      "files": 3
+      "uses": 7,
+      "files": 4
     },
     {
       "key": "--primary-400-rgb",
@@ -360,6 +385,11 @@
     },
     {
       "key": "--accent-red-400-rgb",
+      "uses": 5,
+      "files": 3
+    },
+    {
+      "key": "--palette-gray-950-rgb",
       "uses": 5,
       "files": 3
     },
@@ -454,11 +484,6 @@
       "files": 1
     },
     {
-      "key": "--palette-gray-400-rgb",
-      "uses": 1,
-      "files": 1
-    },
-    {
       "key": "--primary-200-rgb",
       "uses": 1,
       "files": 1
@@ -482,22 +507,22 @@
     },
     {
       "key": 4,
-      "uses": 12,
+      "uses": 11,
       "files": 3
     },
     {
       "key": 8,
-      "uses": 27,
+      "uses": 26,
       "files": 6
     },
     {
       "key": 12,
-      "uses": 8,
-      "files": 5
+      "uses": 7,
+      "files": 4
     },
     {
       "key": 16,
-      "uses": 21,
+      "uses": 22,
       "files": 5
     },
     {
@@ -512,7 +537,7 @@
     },
     {
       "key": 28,
-      "uses": 16,
+      "uses": 17,
       "files": 7
     },
     {
@@ -522,8 +547,8 @@
     },
     {
       "key": 40,
-      "uses": 9,
-      "files": 3
+      "uses": 11,
+      "files": 4
     },
     {
       "key": 48,
@@ -542,8 +567,8 @@
     },
     {
       "key": 72,
-      "uses": 6,
-      "files": 3
+      "uses": 7,
+      "files": 4
     },
     {
       "key": 80,

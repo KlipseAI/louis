@@ -265,18 +265,6 @@
     "nav-item-hover-light": {
       "background-color": "위와 같다."
     },
-    "nav-row-action": {
-      "background-color": "「+」의 면 색은 소비처가 정한다 — 행이 액션을 소유하지 않는다(app-shell-parts.md).",
-      "border-bottom-left-radius": "「+」의 크기와 반경은 **소비처가 정한다.** 행이 액션을 소유하지 않으므로 계약이 아니다 — 제품은 24×24에 반경 6을 쓰고 DS의 IconButton sm은 32에 12다. 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다. Figma 예시가 24를 쓰는 것은 배포본을 따른 것이고 figma-parity가 그 값을 본다.",
-      "border-bottom-right-radius": "「+」의 크기와 반경은 **소비처가 정한다.** 행이 액션을 소유하지 않으므로 계약이 아니다 — 제품은 24×24에 반경 6을 쓰고 DS의 IconButton sm은 32에 12다. 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다. Figma 예시가 24를 쓰는 것은 배포본을 따른 것이고 figma-parity가 그 값을 본다.",
-      "border-top-left-radius": "「+」의 크기와 반경은 **소비처가 정한다.** 행이 액션을 소유하지 않으므로 계약이 아니다 — 제품은 24×24에 반경 6을 쓰고 DS의 IconButton sm은 32에 12다. 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다. Figma 예시가 24를 쓰는 것은 배포본을 따른 것이고 figma-parity가 그 값을 본다.",
-      "border-top-right-radius": "「+」의 크기와 반경은 **소비처가 정한다.** 행이 액션을 소유하지 않으므로 계약이 아니다 — 제품은 24×24에 반경 6을 쓰고 DS의 IconButton sm은 32에 12다. 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다. Figma 예시가 24를 쓰는 것은 배포본을 따른 것이고 figma-parity가 그 값을 본다.",
-      "height": "「+」의 크기와 반경은 **소비처가 정한다.** 행이 액션을 소유하지 않으므로 계약이 아니다 — 제품은 24×24에 반경 6을 쓰고 DS의 IconButton sm은 32에 12다. 제품과 같은 모습이 필요하면 24짜리 컨트롤을 넣는다. Figma 예시가 24를 쓰는 것은 배포본을 따른 것이고 figma-parity가 그 값을 본다.",
-      "padding-bottom": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-left": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-right": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다.",
-      "padding-top": "제품이 여백을 두지 않는 자리다. 크기가 고정이라 여백이 들어갈 곳이 없다 — 크기를 EXPECT가 본다."
-    },
     "news-card-featured": {
       "grid-column-start": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",
       "grid-column-end": "피처드가 격자에서 2×2 를 차지한다는 선언이다. 그 결과인 698×326 를 EXPECT 가 대조하므로 span 자체를 따로 보지 않는다.",

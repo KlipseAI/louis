@@ -2,10 +2,10 @@
   "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 합성 장면과 공개·문서·법무·인증 22개 concrete route를 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
   "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
-  "productRef": "origin/design",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productRef": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "buildEvidence": {
-    "releaseCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+    "releaseCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
     "sourcemapFingerprint": "unavailable(no page sourcemaps)",
     "$verified": "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같음을 실행 시 확인했다. 장면 구성 소스의 sourcemap 원문 대조는 페이지 sourcemap 이 있을 때만 수행한다 — 없으면 `sourcemapFingerprint` 가 unavailable 이고, 커밋 고정은 _sentryRelease 가 진다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
     "sourceInputs": [
@@ -15,7 +15,7 @@
       },
       {
         "path": "apps/web/components/scenes/highlightSceneStyles.ts",
-        "sha256": "79a2b09a4c236246480b8c57979a95621fdac795de4c216c6cf76aa39d41ef29"
+        "sha256": "7a929528696ecfa3cf8e98082173ab9886bbf216a4cf31976f337bb34f647ea9"
       },
       {
         "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
@@ -38,7 +38,7 @@
     }
   ],
   "routeInventory": {
-    "command": "git ls-tree -r --name-only f19cc41c7c50053e89f30e622fc14f53feb5b269 -- apps/web/app",
+    "command": "git ls-tree -r --name-only 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a -- apps/web/app",
     "pageFileCount": 49,
     "measuredConcreteRouteCount": 18,
     "guestOutcomeRouteCount": 26,
@@ -1851,22 +1851,22 @@
     "heroWordmark": {
       "path": "apps/web/public/klipse-wordmark-text-dark.svg",
       "sha256": "6024e3a27d33fbd3e61efe45c546518a99989d0ef59acb2b2746f68546d36131",
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/public/klipse-wordmark-text-dark.svg"
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/public/klipse-wordmark-text-dark.svg"
     },
     "demoBackground": {
       "path": "apps/web/public/images/hero/demo-bg-01.jpg",
       "sha256": "30865cf27be80471c18324433ae2ac349ef9d798bae8423a35992ca051e9c27b",
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/public/images/hero/demo-bg-01.jpg"
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/public/images/hero/demo-bg-01.jpg"
     },
     "highlightWordmark": {
       "path": "apps/web/public/highlight-wordmark.svg",
       "sha256": "68829a9f96c5dbef43126cdc91571ddfdc48212ce236bd9d7c1f8b3b5a558bfb",
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/public/highlight-wordmark.svg"
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/public/highlight-wordmark.svg"
     },
     "monitorArrowUp": {
       "path": "apps/web/public/icons/MonitorArrowUp.svg",
       "sha256": "8e2df0e6d3dd8332e595d4c4bed54f33940f946b8217895fcf32da8c8029d46d",
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/public/icons/MonitorArrowUp.svg"
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/public/icons/MonitorArrowUp.svg"
     },
     "themeDropdownChevron": {
       "$notMeasured": "liveOnly 표본이 0개입니다. 합성 장면 2문맥을 재지 않습니다. 랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다."
@@ -1877,13 +1877,13 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/landing/sections/Hero.tsx",
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/landing/sections/Hero.tsx",
       "path": "apps/web/components/landing/sections/Hero.tsx",
       "line": 54,
       "quote": ""
     },
     {
-      "command": "git show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+      "command": "git show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "line": 96,
       "quote": "        <span className={CONTENT}>"
@@ -7110,7 +7110,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "h-full flex flex-col gap-1 [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto [border:none] [border-radius:0] [background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+            "classAttr": "h-full flex flex-col gap-1 [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto [border:none] [border-radius:0] [background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-950)]",
             "ownText": "",
             "ownTextLines": [],
             "href": null,
@@ -216539,7 +216539,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "h-full flex flex-col gap-1 [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto [border:none] [border-radius:0] [background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+            "classAttr": "h-full flex flex-col gap-1 [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto [border:none] [border-radius:0] [background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-950)]",
             "ownText": "",
             "ownTextLines": [],
             "href": null,

@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "origin/design",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productRef": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "axes": [
     "height",
     "minHeight",
@@ -44,7 +44,7 @@
         "part": "HEADER_SLOT",
         "parts": null,
         "tag": "div",
-        "line": 124,
+        "line": 136,
         "text": "",
         "values": {
           "height": "auto",
@@ -74,7 +74,7 @@
           "fontFamily": "PretendardHarness",
           "marginTop": "0px",
           "marginRight": "0px",
-          "marginBottom": "0px",
+          "marginBottom": "16px",
           "marginLeft": "0px",
           "rowGap": "normal",
           "textAlign": "start",
@@ -85,7 +85,7 @@
           "$width": 0,
           "$height": 0,
           "$x": -24,
-          "$y": -11432
+          "$y": -11632
         },
         "children": []
       }
@@ -100,7 +100,7 @@
         "part": "AVATAR",
         "parts": null,
         "tag": "div",
-        "line": 247,
+        "line": 259,
         "text": "K",
         "values": {
           "height": "44px",
@@ -156,7 +156,7 @@
         "part": "CHANNEL_AVATAR",
         "parts": null,
         "tag": "div",
-        "line": 341,
+        "line": 367,
         "text": "",
         "values": {
           "height": "48px",
@@ -204,7 +204,7 @@
             "part": "CHANNEL_AVATAR_PLACEHOLDER",
             "parts": null,
             "tag": "div",
-            "line": 351,
+            "line": 377,
             "text": "",
             "values": {
               "height": "48px",
@@ -368,7 +368,7 @@
         "part": "CHANNEL_AVATAR",
         "parts": null,
         "tag": "div",
-        "line": 873,
+        "line": 947,
         "text": "",
         "values": {
           "height": "48px",
@@ -416,7 +416,7 @@
             "part": "CHANNEL_AVATAR_PLACEHOLDER",
             "parts": null,
             "tag": "div",
-            "line": 885,
+            "line": 959,
             "text": "",
             "values": {
               "height": "48px",
@@ -586,7 +586,7 @@
         "part": "previewZoomBadge",
         "parts": null,
         "tag": "div",
-        "line": 2973,
+        "line": 3011,
         "text": "120%",
         "values": {
           "height": "24px",
@@ -642,7 +642,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 935,
+        "line": 1012,
         "text": "",
         "values": {
           "height": "360px",
@@ -658,7 +658,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "none",
@@ -690,7 +690,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 567,
+            "line": 593,
             "text": "",
             "values": {
               "height": "360px",
@@ -738,7 +738,7 @@
                 "part": "bannerSlide",
                 "parts": null,
                 "tag": "article",
-                "line": 463,
+                "line": 489,
                 "text": "",
                 "values": {
                   "height": "360px",
@@ -754,7 +754,7 @@
                   "borderTopWidth": "0px",
                   "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
                   "borderTopStyle": "none",
-                  "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                  "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                   "backgroundImage": "url(\"/images/hero/hero-main-bg.webp\")",
                   "color": "color(srgb 0.980392 0.980392 0.980392)",
                   "boxShadow": "none",
@@ -786,7 +786,7 @@
                     "part": "bannerContent",
                     "parts": null,
                     "tag": "div",
-                    "line": 410,
+                    "line": 436,
                     "text": "",
                     "values": {
                       "height": "360px",
@@ -834,7 +834,7 @@
                         "part": "bannerTitle",
                         "parts": null,
                         "tag": "h1",
-                        "line": 556,
+                        "line": 582,
                         "text": "영상 제작을 더 빠르게",
                         "values": {
                           "height": "48.5938px",
@@ -883,7 +883,7 @@
                         "part": "bannerDescription",
                         "parts": null,
                         "tag": "p",
-                        "line": 440,
+                        "line": 466,
                         "text": "AI 워크플로로 아이디어를 완성작까지 이어 보세요.",
                         "values": {
                           "height": "24px",
@@ -938,7 +938,7 @@
             "part": "bannerControls",
             "parts": null,
             "tag": "div",
-            "line": 434,
+            "line": 460,
             "text": "",
             "values": {
               "height": "2px",
@@ -986,7 +986,7 @@
                 "part": "bannerDots",
                 "parts": null,
                 "tag": "div",
-                "line": 458,
+                "line": 484,
                 "text": "",
                 "values": {
                   "height": "2px",
@@ -1034,7 +1034,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 452,
+                    "line": 478,
                     "text": "",
                     "values": {
                       "height": "2px",
@@ -1083,7 +1083,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 452,
+                    "line": 478,
                     "text": "",
                     "values": {
                       "height": "2px",
@@ -1132,7 +1132,7 @@
                     "part": "bannerDot",
                     "parts": null,
                     "tag": "button",
-                    "line": 452,
+                    "line": 478,
                     "text": "",
                     "values": {
                       "height": "2px",
@@ -1194,7 +1194,7 @@
         "part": "bannerControls",
         "parts": null,
         "tag": "div",
-        "line": 434,
+        "line": 460,
         "text": "",
         "values": {
           "height": "2px",
@@ -1242,7 +1242,7 @@
             "part": "bannerDots",
             "parts": null,
             "tag": "div",
-            "line": 458,
+            "line": 484,
             "text": "",
             "values": {
               "height": "2px",
@@ -1290,7 +1290,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 452,
+                "line": 478,
                 "text": "",
                 "values": {
                   "height": "2px",
@@ -1339,7 +1339,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 452,
+                "line": 478,
                 "text": "",
                 "values": {
                   "height": "2px",
@@ -1388,7 +1388,7 @@
                 "part": "bannerDot",
                 "parts": null,
                 "tag": "button",
-                "line": 452,
+                "line": 478,
                 "text": "",
                 "values": {
                   "height": "2px",
@@ -1448,7 +1448,7 @@
         "part": "updateBanner",
         "parts": null,
         "tag": "section",
-        "line": 935,
+        "line": 1012,
         "text": "",
         "values": {
           "height": "360px",
@@ -1464,7 +1464,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "none",
@@ -1496,7 +1496,7 @@
             "part": "bannerTrack",
             "parts": null,
             "tag": "div",
-            "line": 567,
+            "line": 593,
             "text": "",
             "values": {
               "height": "360px",
@@ -1554,7 +1554,7 @@
         "part": "sidebarUpgradeButton",
         "parts": null,
         "tag": "button",
-        "line": 2009,
+        "line": 1970,
         "text": "",
         "values": {
           "height": "41px",
@@ -1602,7 +1602,7 @@
             "part": "sidebarUpgradeLabel",
             "parts": null,
             "tag": "span",
-            "line": 2056,
+            "line": 2017,
             "text": "보관함",
             "values": {
               "height": "21px",
@@ -1660,7 +1660,7 @@
         "part": "NODE_CONTAINER",
         "parts": null,
         "tag": "div",
-        "line": 78,
+        "line": 84,
         "text": "",
         "values": {
           "height": "28px",
@@ -1756,7 +1756,7 @@
                 "part": "NODE_TITLE_WRAP",
                 "parts": null,
                 "tag": "div",
-                "line": 100,
+                "line": 109,
                 "text": "",
                 "values": {
                   "height": "24px",
@@ -1770,11 +1770,11 @@
                   "paddingLeft": "0px",
                   "borderTopLeftRadius": "0px",
                   "borderTopWidth": "0px",
-                  "borderTopColor": "rgb(114, 117, 123)",
+                  "borderTopColor": "rgb(139, 142, 147)",
                   "borderTopStyle": "none",
                   "backgroundColor": "rgba(0, 0, 0, 0)",
                   "backgroundImage": "none",
-                  "color": "rgb(114, 117, 123)",
+                  "color": "rgb(139, 142, 147)",
                   "boxShadow": "none",
                   "backdropFilter": "none",
                   "columnGap": "5px",
@@ -1804,7 +1804,7 @@
                     "part": "NODE_TITLE_LEFT",
                     "parts": null,
                     "tag": "div",
-                    "line": 107,
+                    "line": 116,
                     "text": "",
                     "values": {
                       "height": "24px",
@@ -1818,11 +1818,11 @@
                       "paddingLeft": "0px",
                       "borderTopLeftRadius": "0px",
                       "borderTopWidth": "0px",
-                      "borderTopColor": "rgb(114, 117, 123)",
+                      "borderTopColor": "rgb(139, 142, 147)",
                       "borderTopStyle": "none",
                       "backgroundColor": "rgba(0, 0, 0, 0)",
                       "backgroundImage": "none",
-                      "color": "rgb(114, 117, 123)",
+                      "color": "rgb(139, 142, 147)",
                       "boxShadow": "none",
                       "backdropFilter": "none",
                       "columnGap": "5px",
@@ -1852,7 +1852,7 @@
                         "part": "NODE_TITLE_ICON",
                         "parts": null,
                         "tag": "span",
-                        "line": 113,
+                        "line": 122,
                         "text": "",
                         "values": {
                           "height": "0px",
@@ -1866,11 +1866,11 @@
                           "paddingLeft": "0px",
                           "borderTopLeftRadius": "0px",
                           "borderTopWidth": "0px",
-                          "borderTopColor": "rgb(114, 117, 123)",
+                          "borderTopColor": "rgb(139, 142, 147)",
                           "borderTopStyle": "none",
                           "backgroundColor": "rgba(0, 0, 0, 0)",
                           "backgroundImage": "none",
-                          "color": "rgb(114, 117, 123)",
+                          "color": "rgb(139, 142, 147)",
                           "boxShadow": "none",
                           "backdropFilter": "none",
                           "columnGap": "normal",
@@ -1901,7 +1901,7 @@
                         "part": "NODE_TITLE_LABEL",
                         "parts": null,
                         "tag": "span",
-                        "line": 119,
+                        "line": 128,
                         "text": "사운드",
                         "values": {
                           "height": "14px",
@@ -1915,11 +1915,11 @@
                           "paddingLeft": "0px",
                           "borderTopLeftRadius": "0px",
                           "borderTopWidth": "0px",
-                          "borderTopColor": "rgb(114, 117, 123)",
+                          "borderTopColor": "rgb(139, 142, 147)",
                           "borderTopStyle": "none",
                           "backgroundColor": "rgba(0, 0, 0, 0)",
                           "backgroundImage": "none",
-                          "color": "rgb(114, 117, 123)",
+                          "color": "rgb(139, 142, 147)",
                           "boxShadow": "none",
                           "backdropFilter": "none",
                           "columnGap": "normal",
@@ -2005,7 +2005,7 @@
             "part": "NODE_MAIN",
             "parts": null,
             "tag": "div",
-            "line": 85,
+            "line": 91,
             "text": "",
             "values": {
               "height": "0px",
@@ -2053,7 +2053,7 @@
                 "part": "NODE_WRAP",
                 "parts": null,
                 "tag": "div",
-                "line": 89,
+                "line": 95,
                 "text": "",
                 "values": {
                   "height": "0px",
@@ -2069,7 +2069,7 @@
                   "borderTopWidth": "0px",
                   "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
                   "borderTopStyle": "none",
-                  "backgroundColor": "rgb(43, 47, 54)",
+                  "backgroundColor": "rgb(23, 27, 34)",
                   "backgroundImage": "none",
                   "color": "color(srgb 0.980392 0.980392 0.980392)",
                   "boxShadow": "none",
@@ -2637,7 +2637,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -2924,7 +2924,7 @@
         "part": "emptyState",
         "parts": null,
         "tag": "section",
-        "line": 672,
+        "line": 740,
         "text": "",
         "values": {
           "height": "360px",
@@ -2972,7 +2972,7 @@
             "part": "emptyTitle",
             "parts": null,
             "tag": "h2",
-            "line": 683,
+            "line": 751,
             "text": "아직 프로젝트가 없어요",
             "values": {
               "height": "30px",
@@ -3021,7 +3021,7 @@
             "part": "emptyDescription",
             "parts": null,
             "tag": "p",
-            "line": 658,
+            "line": 726,
             "text": "첫 영상을 만들어 보세요.",
             "values": {
               "height": "24px",
@@ -3291,7 +3291,7 @@
         "part": "sidebarHeaderRow",
         "parts": null,
         "tag": "div",
-        "line": 1909,
+        "line": 1870,
         "text": "",
         "values": {
           "height": "40px",
@@ -3339,7 +3339,7 @@
             "part": "sidebarLogoHit",
             "parts": null,
             "tag": "a",
-            "line": 1920,
+            "line": 1881,
             "text": "",
             "values": {
               "height": "40px",
@@ -3387,7 +3387,7 @@
                 "part": "sidebarLogoRail",
                 "parts": null,
                 "tag": "div",
-                "line": 1959,
+                "line": 1920,
                 "text": "",
                 "values": {
                   "height": "28px",
@@ -3435,7 +3435,7 @@
                     "part": "sidebarBrandCrop",
                     "parts": null,
                     "tag": "div",
-                    "line": 1887,
+                    "line": 1848,
                     "text": "",
                     "values": {
                       "height": "28px",
@@ -3483,7 +3483,7 @@
                         "part": "logo",
                         "parts": null,
                         "tag": "img",
-                        "line": 272,
+                        "line": 277,
                         "text": "",
                         "values": {
                           "height": "28px",
@@ -3540,14 +3540,14 @@
     {
       "id": "gnb-sidebar/createCompoundRow",
       "kind": "gnb-sidebar",
-      "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4633-4691",
+      "label": "사이드바 만들기 복합 항목 — 메뉴 줄(「+」는 제품 658ece13 에서 걷혔다)",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4717-4749",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "tree": {
         "part": "menuLink",
         "parts": null,
         "tag": "div",
-        "line": 522,
+        "line": 527,
         "text": "",
         "values": {
           "height": "32px",
@@ -3595,12 +3595,12 @@
             "part": "menuSidebarCreateNavPart",
             "parts": null,
             "tag": "button",
-            "line": 835,
+            "line": 815,
             "text": "",
             "values": {
               "height": "32px",
               "minHeight": "auto",
-              "width": "220px",
+              "width": "244px",
               "minWidth": "0px",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3633,7 +3633,7 @@
               "flexDirection": "row",
               "display": "flex",
               "position": "static",
-              "$width": 220,
+              "$width": 244,
               "$height": 32,
               "$x": 8,
               "$y": 0
@@ -3643,12 +3643,12 @@
                 "part": "menuLinkInner",
                 "parts": null,
                 "tag": "span",
-                "line": 654,
+                "line": 659,
                 "text": "",
                 "values": {
                   "height": "21px",
                   "minHeight": "auto",
-                  "width": "220px",
+                  "width": "244px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3681,7 +3681,7 @@
                   "flexDirection": "row",
                   "display": "flex",
                   "position": "static",
-                  "$width": 220,
+                  "$width": 244,
                   "$height": 21,
                   "$x": 0,
                   "$y": 5.5
@@ -3691,7 +3691,7 @@
                     "part": "menuLinkIconMask",
                     "parts": null,
                     "tag": "span",
-                    "line": 638,
+                    "line": 643,
                     "text": "",
                     "values": {
                       "height": "20px",
@@ -3740,7 +3740,7 @@
                     "part": "menuLinkLabel",
                     "parts": null,
                     "tag": "span",
-                    "line": 678,
+                    "line": 683,
                     "text": "노드 캔버스",
                     "values": {
                       "height": "21px",
@@ -3788,55 +3788,6 @@
                 ]
               }
             ]
-          },
-          {
-            "part": "menuSidebarCreateAddonInset",
-            "parts": null,
-            "tag": "button",
-            "line": 801,
-            "text": "",
-            "values": {
-              "height": "24px",
-              "minHeight": "auto",
-              "width": "24px",
-              "minWidth": "auto",
-              "maxWidth": "none",
-              "paddingTop": "0px",
-              "paddingRight": "0px",
-              "paddingBottom": "0px",
-              "paddingLeft": "0px",
-              "borderTopLeftRadius": "6px",
-              "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
-              "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.254902 0.270588 0.298039)",
-              "backgroundImage": "none",
-              "color": "color(srgb 0.647059 0.658824 0.678431)",
-              "boxShadow": "none",
-              "backdropFilter": "none",
-              "columnGap": "normal",
-              "fontSize": "17px",
-              "fontWeight": "600",
-              "lineHeight": "17px",
-              "opacity": "1",
-              "letterSpacing": "normal",
-              "fontFamily": "PretendardHarness",
-              "marginTop": "0px",
-              "marginRight": "0px",
-              "marginBottom": "0px",
-              "marginLeft": "0px",
-              "rowGap": "normal",
-              "textAlign": "center",
-              "justifyContent": "center",
-              "flexDirection": "row",
-              "display": "flex",
-              "position": "static",
-              "$width": 24,
-              "$height": 24,
-              "$x": 228,
-              "$y": 4
-            },
-            "children": []
           }
         ]
       }
@@ -3851,7 +3802,7 @@
         "part": "menuLink",
         "parts": null,
         "tag": "a",
-        "line": 522,
+        "line": 527,
         "text": "",
         "values": {
           "height": "32px",
@@ -3899,7 +3850,7 @@
             "part": "menuLinkInner",
             "parts": null,
             "tag": "span",
-            "line": 654,
+            "line": 659,
             "text": "",
             "values": {
               "height": "21px",
@@ -3947,7 +3898,7 @@
                 "part": "menuLinkIconMask",
                 "parts": null,
                 "tag": "span",
-                "line": 638,
+                "line": 643,
                 "text": "",
                 "values": {
                   "height": "20px",
@@ -3996,7 +3947,7 @@
                 "part": "menuLinkLabel",
                 "parts": null,
                 "tag": "span",
-                "line": 678,
+                "line": 683,
                 "text": "홈",
                 "values": {
                   "height": "21px",
@@ -4056,7 +4007,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1504,
+        "line": 1465,
         "text": "",
         "values": {
           "height": "36px",
@@ -4104,7 +4055,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1092,
+            "line": 1053,
             "text": "",
             "values": {
               "height": "28px",
@@ -4162,7 +4113,7 @@
         "part": "menuSidebarOuter",
         "parts": null,
         "tag": "div",
-        "line": 882,
+        "line": 862,
         "text": "",
         "values": {
           "height": "34px",
@@ -4210,7 +4161,7 @@
             "part": "menuSidebar",
             "parts": null,
             "tag": "ul",
-            "line": 742,
+            "line": 747,
             "text": "",
             "values": {
               "height": "34px",
@@ -4258,7 +4209,7 @@
                 "part": "menuSidebarEyebrowRow",
                 "parts": null,
                 "tag": "li",
-                "line": 862,
+                "line": 842,
                 "text": "",
                 "values": {
                   "height": "34px",
@@ -4306,7 +4257,7 @@
                     "part": "menuSidebarEyebrow",
                     "parts": null,
                     "tag": "span",
-                    "line": 855,
+                    "line": 835,
                     "text": "분석",
                     "values": {
                       "height": "18px",
@@ -4424,7 +4375,7 @@
         "part": "iconButton",
         "parts": null,
         "tag": "button",
-        "line": 198,
+        "line": 203,
         "text": "",
         "values": {
           "height": "32px",
@@ -4480,7 +4431,7 @@
         "part": "historyMoreButton",
         "parts": null,
         "tag": "button",
-        "line": 879,
+        "line": 802,
         "text": "",
         "values": {
           "height": "32px",
@@ -4748,7 +4699,7 @@
         "part": "overlayDeleteBtn",
         "parts": null,
         "tag": "button",
-        "line": 1916,
+        "line": 1935,
         "text": "",
         "values": {
           "height": "28px",
@@ -4796,7 +4747,7 @@
             "part": "overlayDeleteBtnGlyph",
             "parts": null,
             "tag": "svg",
-            "line": 1946,
+            "line": 1965,
             "text": "",
             "values": {
               "height": "14px",
@@ -8033,7 +7984,7 @@
         "part": "REPORT_KPI_CARD",
         "parts": null,
         "tag": "div",
-        "line": 486,
+        "line": 542,
         "text": "",
         "values": {
           "height": "201.594px",
@@ -8049,7 +8000,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -8081,7 +8032,7 @@
             "part": "KPI_CARD_HEADER",
             "parts": null,
             "tag": "div",
-            "line": 487,
+            "line": 543,
             "text": "",
             "values": {
               "height": "29px",
@@ -8129,7 +8080,7 @@
                 "part": "CONTENT_TITLE",
                 "parts": null,
                 "tag": "span",
-                "line": 492,
+                "line": 548,
                 "text": "조회수",
                 "values": {
                   "height": "21px",
@@ -8180,7 +8131,7 @@
             "part": "KPI_CARD_INNER",
             "parts": null,
             "tag": "div",
-            "line": 488,
+            "line": 544,
             "text": "",
             "values": {
               "height": "152.594px",
@@ -8196,7 +8147,7 @@
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+              "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -8228,7 +8179,7 @@
                 "part": "KPI_CARD_INNER_TEXT",
                 "parts": null,
                 "tag": "div",
-                "line": 489,
+                "line": 545,
                 "text": "",
                 "values": {
                   "height": "72.5938px",
@@ -8276,7 +8227,7 @@
                     "part": "REPORT_KPI_CARD_VALUE",
                     "parts": null,
                     "tag": "span",
-                    "line": 491,
+                    "line": 547,
                     "text": "12.4만",
                     "values": {
                       "height": "48.5938px",
@@ -8325,7 +8276,7 @@
                     "part": "reportChangePill",
                     "parts": null,
                     "tag": "span",
-                    "line": 502,
+                    "line": 558,
                     "text": "+12.5%",
                     "values": {
                       "height": "19px",
@@ -8341,7 +8292,7 @@
                       "borderTopWidth": "0px",
                       "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
                       "borderTopStyle": "none",
-                      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                      "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                       "backgroundImage": "none",
                       "color": "color(srgb 0.545098 0.556863 0.576471)",
                       "boxShadow": "none",
@@ -8376,7 +8327,7 @@
                 "part": "KPI_CARD_SPARK",
                 "parts": null,
                 "tag": "div",
-                "line": 490,
+                "line": 546,
                 "text": "",
                 "values": {
                   "height": "46px",
@@ -8452,7 +8403,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
           "boxShadow": "color(srgb 0 0 0 / 0.48) 0px 12px 32px 0px, color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -8806,7 +8757,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
           "boxShadow": "color(srgb 0 0 0 / 0.48) 0px 12px 32px 0px, color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -9506,7 +9457,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "rgba(250, 250, 250, 0.96)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
           "backgroundImage": "none",
           "color": "rgba(250, 250, 250, 0.96)",
           "boxShadow": "color(srgb 0 0 0 / 0.48) 0px 12px 32px 0px, color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -10439,7 +10390,7 @@
         "part": "compositeProgressBar",
         "parts": null,
         "tag": "div",
-        "line": 527,
+        "line": 450,
         "text": "",
         "values": {
           "height": "20px",
@@ -10487,7 +10438,7 @@
             "part": "compositeProgressTrack",
             "parts": null,
             "tag": "div",
-            "line": 560,
+            "line": 483,
             "text": "",
             "values": {
               "height": "3px",
@@ -10535,7 +10486,7 @@
                 "part": "compositeProgressFill",
                 "parts": null,
                 "tag": "div",
-                "line": 538,
+                "line": 461,
                 "text": "",
                 "values": {
                   "height": "3px",
@@ -10586,7 +10537,7 @@
             "part": "compositeProgressThumb",
             "parts": null,
             "tag": "div",
-            "line": 546,
+            "line": 469,
             "text": "",
             "values": {
               "height": "12px",
@@ -10644,7 +10595,7 @@
         "part": "PROCESSING_PROGRESS",
         "parts": null,
         "tag": "div",
-        "line": 401,
+        "line": 404,
         "text": "",
         "values": {
           "height": "18px",
@@ -10692,7 +10643,7 @@
             "part": "PROCESSING_PROGRESS_TRACK",
             "parts": null,
             "tag": "span",
-            "line": 406,
+            "line": 409,
             "text": "",
             "values": {
               "height": "4px",
@@ -10740,7 +10691,7 @@
                 "part": "PROCESSING_PROGRESS_FILL",
                 "parts": null,
                 "tag": "span",
-                "line": 411,
+                "line": 414,
                 "text": "",
                 "values": {
                   "height": "4px",
@@ -10791,7 +10742,7 @@
             "part": "PROCESSING_PROGRESS_PERCENT",
             "parts": null,
             "tag": "span",
-            "line": 417,
+            "line": 420,
             "text": "62%",
             "values": {
               "height": "18px",
@@ -10849,7 +10800,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1504,
+        "line": 1465,
         "text": "",
         "values": {
           "height": "36px",
@@ -10897,7 +10848,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1092,
+            "line": 1053,
             "text": "",
             "values": {
               "height": "28px",
@@ -10955,7 +10906,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1504,
+        "line": 1465,
         "text": "",
         "values": {
           "height": "32px",
@@ -11003,7 +10954,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1092,
+            "line": 1053,
             "text": "",
             "values": {
               "height": "24px",
@@ -11125,7 +11076,7 @@
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+              "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
@@ -11157,7 +11108,7 @@
                 "part": "archivePreviewClip",
                 "parts": null,
                 "tag": "div",
-                "line": 196,
+                "line": 208,
                 "text": "",
                 "values": {
                   "height": "90px",
@@ -11205,7 +11156,7 @@
                     "part": "archivePreviewPlaceholder",
                     "parts": null,
                     "tag": "div",
-                    "line": 257,
+                    "line": 279,
                     "text": "",
                     "values": {
                       "height": "90px",
@@ -11221,7 +11172,7 @@
                       "borderTopWidth": "0px",
                       "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
                       "borderTopStyle": "none",
-                      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                      "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                       "backgroundImage": "none",
                       "color": "color(srgb 0.545098 0.556863 0.576471)",
                       "boxShadow": "none",
@@ -11253,7 +11204,7 @@
                         "part": "cardDraftThumbnail",
                         "parts": null,
                         "tag": "div",
-                        "line": 581,
+                        "line": 607,
                         "text": "",
                         "values": {
                           "height": "90px",
@@ -11269,7 +11220,7 @@
                           "borderTopWidth": "0px",
                           "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
                           "borderTopStyle": "none",
-                          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                           "backgroundImage": "none",
                           "color": "color(srgb 0.545098 0.556863 0.576471)",
                           "boxShadow": "none",
@@ -11306,7 +11257,7 @@
                 "part": "archivePreviewTitleOverlay",
                 "parts": null,
                 "tag": "div",
-                "line": 304,
+                "line": 330,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -11354,7 +11305,7 @@
                     "part": "archivePreviewTitleOverlayInner",
                     "parts": null,
                     "tag": "div",
-                    "line": 318,
+                    "line": 344,
                     "text": "",
                     "values": {
                       "height": "60.7812px",
@@ -11402,7 +11353,7 @@
                         "part": "archivePreviewEyebrow",
                         "parts": null,
                         "tag": "span",
-                        "line": 211,
+                        "line": 223,
                         "text": "노드 캔버스",
                         "values": {
                           "height": "16.7969px",
@@ -11451,7 +11402,7 @@
                         "part": "archivePreviewTitleOverlayText",
                         "parts": null,
                         "tag": "span",
-                        "line": 328,
+                        "line": 354,
                         "text": "여름 캠페인 키비주얼",
                         "values": {
                           "height": "19.1875px",
@@ -11500,7 +11451,7 @@
                         "part": "archivePreviewLastEdited",
                         "parts": null,
                         "tag": "span",
-                        "line": 236,
+                        "line": 258,
                         "text": "3일 전 편집",
                         "values": {
                           "height": "16.7969px",
@@ -11666,7 +11617,7 @@
                       "borderTopWidth": "0px",
                       "borderTopColor": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
                       "borderTopStyle": "none",
-                      "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+                      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
                       "backgroundImage": "none",
                       "color": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
                       "boxShadow": "color(srgb 0 0 0 / 0.48) 0px 12px 32px 0px, color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -11860,7 +11811,7 @@
         "part": "ARCHIVE_CARD",
         "parts": null,
         "tag": "div",
-        "line": 262,
+        "line": 266,
         "text": "",
         "values": {
           "height": "90px",
@@ -11908,7 +11859,7 @@
             "part": "ARCHIVE_PREVIEW",
             "parts": null,
             "tag": "div",
-            "line": 295,
+            "line": 299,
             "text": "",
             "values": {
               "height": "90px",
@@ -11924,7 +11875,7 @@
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+              "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
@@ -11956,7 +11907,7 @@
                 "part": "ARCHIVE_PREVIEW_CLIP",
                 "parts": null,
                 "tag": "div",
-                "line": 318,
+                "line": 334,
                 "text": "",
                 "values": {
                   "height": "90px",
@@ -12004,7 +11955,7 @@
                     "part": "ARCHIVE_PREVIEW_PLACEHOLDER",
                     "parts": null,
                     "tag": "div",
-                    "line": 326,
+                    "line": 342,
                     "text": "",
                     "values": {
                       "height": "90px",
@@ -12020,7 +11971,7 @@
                       "borderTopWidth": "0px",
                       "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
                       "borderTopStyle": "none",
-                      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                      "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                       "backgroundImage": "none",
                       "color": "color(srgb 0.545098 0.556863 0.576471)",
                       "boxShadow": "none",
@@ -12052,7 +12003,7 @@
                         "part": "CARD_DRAFT_WORDMARK_CANVAS",
                         "parts": null,
                         "tag": "div",
-                        "line": 346,
+                        "line": 390,
                         "text": "",
                         "values": {
                           "height": "90px",
@@ -12068,7 +12019,7 @@
                           "borderTopWidth": "0px",
                           "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
                           "borderTopStyle": "none",
-                          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+                          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
                           "backgroundImage": "none",
                           "color": "color(srgb 0.545098 0.556863 0.576471)",
                           "boxShadow": "none",
@@ -12105,7 +12056,7 @@
                 "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY",
                 "parts": null,
                 "tag": "div",
-                "line": 367,
+                "line": 419,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -12153,7 +12104,7 @@
                     "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_INNER",
                     "parts": null,
                     "tag": "div",
-                    "line": 381,
+                    "line": 433,
                     "text": "",
                     "values": {
                       "height": "39.9844px",
@@ -12201,7 +12152,7 @@
                         "part": "ARCHIVE_PREVIEW_TITLE_OVERLAY_TEXT",
                         "parts": null,
                         "tag": "span",
-                        "line": 385,
+                        "line": 437,
                         "text": "여름 캠페인 키비주얼",
                         "values": {
                           "height": "19.1875px",
@@ -12250,7 +12201,7 @@
                         "part": "ARCHIVE_PREVIEW_LAST_EDITED",
                         "parts": null,
                         "tag": "span",
-                        "line": 417,
+                        "line": 469,
                         "text": "3일 전 편집",
                         "values": {
                           "height": "16.7969px",
@@ -12303,7 +12254,7 @@
                 "part": "ARCHIVE_MENU_ANCHOR_IN_THUMBNAIL",
                 "parts": null,
                 "tag": "div",
-                "line": 432,
+                "line": 484,
                 "text": "",
                 "values": {
                   "height": "39px",
@@ -12351,7 +12302,7 @@
                     "part": "ARCHIVE_MORE_BUTTON",
                     "parts": null,
                     "tag": "button",
-                    "line": 436,
+                    "line": 488,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -12400,7 +12351,7 @@
                     "part": "ARCHIVE_DROPDOWN",
                     "parts": null,
                     "tag": "div",
-                    "line": 459,
+                    "line": 511,
                     "text": "",
                     "values": {
                       "height": "127px",
@@ -12416,7 +12367,7 @@
                       "borderTopWidth": "0px",
                       "borderTopColor": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
                       "borderTopStyle": "none",
-                      "backgroundColor": "color(srgb 0.168627 0.184314 0.211765)",
+                      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
                       "backgroundImage": "none",
                       "color": "color(srgb 0.980392 0.980392 0.980392 / 0.88)",
                       "boxShadow": "color(srgb 0 0 0 / 0.48) 0px 12px 32px 0px, color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -12448,7 +12399,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 485,
+                        "line": 537,
                         "text": "새 탭에서 열기",
                         "values": {
                           "height": "37px",
@@ -12497,7 +12448,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 485,
+                        "line": 537,
                         "text": "이름 바꾸기",
                         "values": {
                           "height": "37px",
@@ -12546,7 +12497,7 @@
                         "part": "ARCHIVE_DROPDOWN_ITEM_BASE",
                         "parts": null,
                         "tag": "button",
-                        "line": 485,
+                        "line": 537,
                         "text": "삭제",
                         "values": {
                           "height": "37px",
@@ -12603,35 +12554,35 @@
     {
       "id": "segmented-control/instagramAnalytics",
       "kind": "segmented-control",
-      "label": "인스타그램 분석 · 기간 선택기 (3구간)",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1824-1845",
+      "label": "인스타그램 분석 · 기간 선택기 (3구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1878-1908",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "tree": {
         "part": "PERIOD_SELECTOR",
         "parts": null,
         "tag": "div",
-        "line": 413,
+        "line": 453,
         "text": "",
         "values": {
-          "height": "34px",
+          "height": "32px",
           "minHeight": "auto",
-          "width": "152.531px",
-          "minWidth": "auto",
-          "maxWidth": "none",
-          "paddingTop": "3px",
-          "paddingRight": "3px",
-          "paddingBottom": "3px",
-          "paddingLeft": "3px",
-          "borderTopLeftRadius": "8px",
+          "width": "126.531px",
+          "minWidth": "0px",
+          "maxWidth": "100%",
+          "paddingTop": "4px",
+          "paddingRight": "4px",
+          "paddingBottom": "4px",
+          "paddingLeft": "4px",
+          "borderTopLeftRadius": "12px",
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundColor": "color(srgb 0.980392 0.980392 0.980392 / 0.08)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
           "backdropFilter": "none",
-          "columnGap": "2px",
+          "columnGap": "normal",
           "fontSize": "16px",
           "fontWeight": "400",
           "lineHeight": "24px",
@@ -12642,26 +12593,29 @@
           "marginRight": "0px",
           "marginBottom": "0px",
           "marginLeft": "0px",
-          "rowGap": "2px",
+          "rowGap": "normal",
           "textAlign": "start",
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "flex",
           "position": "relative",
-          "$width": 152.53,
-          "$height": 34,
+          "$width": 126.53,
+          "$height": 32,
           "$x": 16,
           "$y": 8
         },
         "children": [
           {
-            "part": "PERIOD_SELECTOR_THUMB",
-            "parts": null,
+            "part": "THUMB_BASE",
+            "parts": [
+              "THUMB_BASE",
+              "THUMB_SURFACE"
+            ],
             "tag": "span",
-            "line": 419,
+            "line": 271,
             "text": "",
             "values": {
-              "height": "28px",
+              "height": "0px",
               "minHeight": "0px",
               "width": "0px",
               "minWidth": "0px",
@@ -12670,14 +12624,14 @@
               "paddingRight": "0px",
               "paddingBottom": "0px",
               "paddingLeft": "0px",
-              "borderTopLeftRadius": "6px",
+              "borderTopLeftRadius": "0px",
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "backgroundColor": "color(srgb 0.980392 0.980392 0.980392 / 0.2)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
-              "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
+              "boxShadow": "none",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -12697,38 +12651,38 @@
               "display": "block",
               "position": "absolute",
               "$width": 0,
-              "$height": 28,
-              "$x": 0,
-              "$y": 3
+              "$height": 0,
+              "$x": 4,
+              "$y": 4
             },
             "children": []
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 434,
-            "text": "7일",
+            "line": 489,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "40.8594px",
-              "minWidth": "auto",
+              "width": "32.8594px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -12739,45 +12693,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 40.86,
-              "$height": 28,
-              "$x": 3,
-              "$y": 3
+              "$width": 32.86,
+              "$height": 24,
+              "$x": 4,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 499,
+                "text": "7일",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "16.8594px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 16.86,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN_ACTIVE",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 439,
-            "text": "1개월",
+            "line": 489,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "49.7812px",
-              "minWidth": "auto",
+              "width": "41.7812px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -12788,45 +12792,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 49.78,
-              "$height": 28,
-              "$x": 45.86,
-              "$y": 3
+              "$width": 41.78,
+              "$height": 24,
+              "$x": 36.86,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 499,
+                "text": "1개월",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "25.7812px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.980392 0.980392 0.980392)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 25.78,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 434,
-            "text": "3개월",
+            "line": 489,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "51.8906px",
-              "minWidth": "auto",
+              "width": "43.8906px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -12837,18 +12891,68 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 51.89,
-              "$height": 28,
-              "$x": 97.64,
-              "$y": 3
+              "$width": 43.89,
+              "$height": 24,
+              "$x": 78.64,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 499,
+                "text": "3개월",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "27.8906px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 27.89,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           }
         ]
       }
@@ -12856,35 +12960,35 @@
     {
       "id": "segmented-control/youtubeAnalytics",
       "kind": "segmented-control",
-      "label": "유튜브 분석 · 기간 선택기 (5구간)",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2089-2116",
+      "label": "유튜브 분석 · 기간 선택기 (5구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2189-2219",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "tree": {
         "part": "PERIOD_SELECTOR",
         "parts": null,
         "tag": "div",
-        "line": 965,
+        "line": 1053,
         "text": "",
         "values": {
-          "height": "34px",
+          "height": "32px",
           "minHeight": "auto",
-          "width": "263.891px",
-          "minWidth": "auto",
-          "maxWidth": "none",
-          "paddingTop": "3px",
-          "paddingRight": "3px",
-          "paddingBottom": "3px",
-          "paddingLeft": "3px",
-          "borderTopLeftRadius": "8px",
+          "width": "217.891px",
+          "minWidth": "0px",
+          "maxWidth": "100%",
+          "paddingTop": "4px",
+          "paddingRight": "4px",
+          "paddingBottom": "4px",
+          "paddingLeft": "4px",
+          "borderTopLeftRadius": "12px",
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundColor": "color(srgb 0.980392 0.980392 0.980392 / 0.08)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
           "backdropFilter": "none",
-          "columnGap": "2px",
+          "columnGap": "normal",
           "fontSize": "16px",
           "fontWeight": "400",
           "lineHeight": "24px",
@@ -12895,26 +12999,29 @@
           "marginRight": "0px",
           "marginBottom": "0px",
           "marginLeft": "0px",
-          "rowGap": "2px",
+          "rowGap": "normal",
           "textAlign": "start",
           "justifyContent": "normal",
           "flexDirection": "row",
           "display": "flex",
           "position": "relative",
-          "$width": 263.89,
-          "$height": 34,
+          "$width": 217.89,
+          "$height": 32,
           "$x": 16,
           "$y": 8
         },
         "children": [
           {
-            "part": "PERIOD_SELECTOR_THUMB",
-            "parts": null,
+            "part": "THUMB_BASE",
+            "parts": [
+              "THUMB_BASE",
+              "THUMB_SURFACE"
+            ],
             "tag": "span",
-            "line": 972,
+            "line": 271,
             "text": "",
             "values": {
-              "height": "28px",
+              "height": "0px",
               "minHeight": "0px",
               "width": "0px",
               "minWidth": "0px",
@@ -12923,14 +13030,14 @@
               "paddingRight": "0px",
               "paddingBottom": "0px",
               "paddingLeft": "0px",
-              "borderTopLeftRadius": "6px",
+              "borderTopLeftRadius": "0px",
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "backgroundColor": "color(srgb 0.980392 0.980392 0.980392 / 0.2)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
-              "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
+              "boxShadow": "none",
               "backdropFilter": "none",
               "columnGap": "normal",
               "fontSize": "16px",
@@ -12950,38 +13057,38 @@
               "display": "block",
               "position": "absolute",
               "$width": 0,
-              "$height": 28,
-              "$x": 0,
-              "$y": 3
+              "$height": 0,
+              "$x": 4,
+              "$y": 4
             },
             "children": []
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 988,
-            "text": "7일",
+            "line": 1089,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "40.8594px",
-              "minWidth": "auto",
+              "width": "32.8594px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -12992,45 +13099,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 40.86,
-              "$height": 28,
-              "$x": 3,
-              "$y": 3
+              "$width": 32.86,
+              "$height": 24,
+              "$x": 4,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 1099,
+                "text": "7일",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "16.8594px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 16.86,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN_ACTIVE",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 993,
-            "text": "1개월",
+            "line": 1089,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "49.7812px",
-              "minWidth": "auto",
+              "width": "41.7812px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -13041,45 +13198,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 49.78,
-              "$height": 28,
-              "$x": 45.86,
-              "$y": 3
+              "$width": 41.78,
+              "$height": 24,
+              "$x": 36.86,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 1099,
+                "text": "1개월",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "25.7812px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.980392 0.980392 0.980392)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 25.78,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 988,
-            "text": "3개월",
+            "line": 1089,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "51.8906px",
-              "minWidth": "auto",
+              "width": "43.8906px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -13090,45 +13297,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 51.89,
-              "$height": 28,
-              "$x": 97.64,
-              "$y": 3
+              "$width": 43.89,
+              "$height": 24,
+              "$x": 78.64,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 1099,
+                "text": "3개월",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "27.8906px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 27.89,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 988,
-            "text": "1년",
+            "line": 1089,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "39.5312px",
-              "minWidth": "auto",
+              "width": "31.5312px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -13139,45 +13396,95 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 39.53,
-              "$height": 28,
-              "$x": 151.53,
-              "$y": 3
+              "$width": 31.53,
+              "$height": 24,
+              "$x": 122.53,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 1099,
+                "text": "1년",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "15.5312px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 15.53,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "parts": null,
             "tag": "button",
-            "line": 988,
-            "text": "전체 기간",
+            "line": 1089,
+            "text": "",
             "values": {
-              "height": "28px",
+              "height": "24px",
               "minHeight": "auto",
-              "width": "67.8281px",
-              "minWidth": "auto",
+              "width": "59.8281px",
+              "minWidth": "0px",
               "maxWidth": "none",
-              "paddingTop": "5px",
-              "paddingRight": "12px",
-              "paddingBottom": "5px",
-              "paddingLeft": "12px",
-              "borderTopLeftRadius": "6px",
+              "paddingTop": "0px",
+              "paddingRight": "8px",
+              "paddingBottom": "0px",
+              "paddingLeft": "8px",
+              "borderTopLeftRadius": "8px",
               "borderTopWidth": "0px",
-              "borderTopColor": "rgba(250, 250, 250, 0.56)",
-              "borderTopStyle": "none",
+              "borderTopColor": "rgb(255, 255, 255)",
+              "borderTopStyle": "solid",
               "backgroundColor": "rgba(0, 0, 0, 0)",
               "backgroundImage": "none",
-              "color": "rgba(250, 250, 250, 0.56)",
+              "color": "color(srgb 0.647059 0.658824 0.678431)",
               "boxShadow": "none",
               "backdropFilter": "none",
-              "columnGap": "normal",
+              "columnGap": "8px",
               "fontSize": "12px",
               "fontWeight": "500",
               "lineHeight": "18px",
@@ -13188,18 +13495,68 @@
               "marginRight": "0px",
               "marginBottom": "0px",
               "marginLeft": "0px",
-              "rowGap": "normal",
+              "rowGap": "8px",
               "textAlign": "center",
-              "justifyContent": "normal",
+              "justifyContent": "center",
               "flexDirection": "row",
-              "display": "block",
+              "display": "flex",
               "position": "relative",
-              "$width": 67.83,
-              "$height": 28,
-              "$x": 193.06,
-              "$y": 3
+              "$width": 59.83,
+              "$height": 24,
+              "$x": 154.06,
+              "$y": 4
             },
-            "children": []
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "parts": null,
+                "tag": "span",
+                "line": 1099,
+                "text": "전체 기간",
+                "values": {
+                  "height": "18px",
+                  "minHeight": "auto",
+                  "width": "43.8281px",
+                  "minWidth": "0px",
+                  "maxWidth": "none",
+                  "paddingTop": "0px",
+                  "paddingRight": "0px",
+                  "paddingBottom": "0px",
+                  "paddingLeft": "0px",
+                  "borderTopLeftRadius": "0px",
+                  "borderTopWidth": "0px",
+                  "borderTopColor": "color(srgb 0.647059 0.658824 0.678431)",
+                  "borderTopStyle": "none",
+                  "backgroundColor": "rgba(0, 0, 0, 0)",
+                  "backgroundImage": "none",
+                  "color": "color(srgb 0.647059 0.658824 0.678431)",
+                  "boxShadow": "none",
+                  "backdropFilter": "none",
+                  "columnGap": "normal",
+                  "fontSize": "12px",
+                  "fontWeight": "500",
+                  "lineHeight": "18px",
+                  "opacity": "1",
+                  "letterSpacing": "-0.12px",
+                  "fontFamily": "PretendardHarness",
+                  "marginTop": "0px",
+                  "marginRight": "0px",
+                  "marginBottom": "0px",
+                  "marginLeft": "0px",
+                  "rowGap": "normal",
+                  "textAlign": "center",
+                  "justifyContent": "normal",
+                  "flexDirection": "row",
+                  "display": "block",
+                  "position": "static",
+                  "$width": 43.83,
+                  "$height": 18,
+                  "$x": 8,
+                  "$y": 3
+                },
+                "children": []
+              }
+            ]
           }
         ]
       }
@@ -13214,7 +13571,7 @@
         "part": "clipDetailListItem",
         "parts": null,
         "tag": "button",
-        "line": 162,
+        "line": 160,
         "text": "",
         "values": {
           "height": "66px",
@@ -13262,7 +13619,7 @@
             "part": "clipDetailListThumb",
             "parts": null,
             "tag": "div",
-            "line": 193,
+            "line": 191,
             "text": "",
             "values": {
               "height": "54px",
@@ -13278,7 +13635,7 @@
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+              "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
               "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
@@ -13310,7 +13667,7 @@
                 "part": "clipVideo",
                 "parts": null,
                 "tag": "video",
-                "line": 436,
+                "line": 359,
                 "text": "",
                 "values": {
                   "height": "54px",
@@ -13361,7 +13718,7 @@
             "part": "clipDetailListInfo",
             "parts": null,
             "tag": "div",
-            "line": 143,
+            "line": 141,
             "text": "",
             "values": {
               "height": "41px",
@@ -13409,7 +13766,7 @@
                 "part": "clipDetailListTitle",
                 "parts": null,
                 "tag": "p",
-                "line": 206,
+                "line": 204,
                 "text": "전반 하이라이트 모음",
                 "values": {
                   "height": "21px",
@@ -13458,7 +13815,7 @@
                 "part": "clipDetailListMeta",
                 "parts": null,
                 "tag": "span",
-                "line": 187,
+                "line": 185,
                 "text": "00:00 – 00:15 · 15s",
                 "values": {
                   "height": "18px",
@@ -14416,7 +14773,7 @@
         "part": "CHANNEL_AVATAR_SKELETON",
         "parts": null,
         "tag": "div",
-        "line": 343,
+        "line": 369,
         "text": "",
         "values": {
           "height": "48px",
@@ -14472,7 +14829,7 @@
         "part": "CHANNEL_INFO_SKELETON",
         "parts": null,
         "tag": "div",
-        "line": 352,
+        "line": 378,
         "text": "",
         "values": {
           "height": "74px",
@@ -14520,7 +14877,7 @@
             "part": "SKELETON_CHANNEL_TITLE",
             "parts": null,
             "tag": "div",
-            "line": 363,
+            "line": 389,
             "text": "",
             "values": {
               "height": "48px",
@@ -14569,7 +14926,7 @@
             "part": "SKELETON_CHANNEL_DESC",
             "parts": null,
             "tag": "div",
-            "line": 368,
+            "line": 394,
             "text": "",
             "values": {
               "height": "14px",
@@ -14627,7 +14984,7 @@
         "part": "DASHBOARD_TOP_BAR_LEFT",
         "parts": null,
         "tag": "div",
-        "line": 337,
+        "line": 363,
         "text": "",
         "values": {
           "height": "134px",
@@ -14675,7 +15032,7 @@
             "part": "CHANNEL_AVATAR_SKELETON",
             "parts": null,
             "tag": "div",
-            "line": 343,
+            "line": 369,
             "text": "",
             "values": {
               "height": "48px",
@@ -14724,7 +15081,7 @@
             "part": "CHANNEL_INFO_SKELETON",
             "parts": null,
             "tag": "div",
-            "line": 352,
+            "line": 378,
             "text": "",
             "values": {
               "height": "74px",
@@ -14772,7 +15129,7 @@
                 "part": "SKELETON_CHANNEL_TITLE",
                 "parts": null,
                 "tag": "div",
-                "line": 363,
+                "line": 389,
                 "text": "",
                 "values": {
                   "height": "48px",
@@ -14821,7 +15178,7 @@
                 "part": "SKELETON_CHANNEL_DESC",
                 "parts": null,
                 "tag": "div",
-                "line": 368,
+                "line": 394,
                 "text": "",
                 "values": {
                   "height": "14px",
@@ -14881,7 +15238,7 @@
         "part": "DASHBOARD_TOP_BAR_LEFT",
         "parts": null,
         "tag": "div",
-        "line": 869,
+        "line": 943,
         "text": "",
         "values": {
           "height": "160px",
@@ -14929,7 +15286,7 @@
             "part": "CHANNEL_AVATAR_SKELETON",
             "parts": null,
             "tag": "div",
-            "line": 876,
+            "line": 950,
             "text": "",
             "values": {
               "height": "48px",
@@ -14978,7 +15335,7 @@
             "part": "CHANNEL_INFO_SKELETON",
             "parts": null,
             "tag": "div",
-            "line": 886,
+            "line": 960,
             "text": "",
             "values": {
               "height": "100px",
@@ -15026,7 +15383,7 @@
                 "part": "SKELETON_CHANNEL_TITLE",
                 "parts": null,
                 "tag": "div",
-                "line": 900,
+                "line": 974,
                 "text": "",
                 "values": {
                   "height": "48px",
@@ -15075,7 +15432,7 @@
                 "part": "SKELETON_CHANNEL_DESC",
                 "parts": null,
                 "tag": "div",
-                "line": 905,
+                "line": 979,
                 "text": "",
                 "values": {
                   "height": "14px",
@@ -15124,7 +15481,7 @@
                 "part": "SKELETON_CHANNEL_DESC_SHORT",
                 "parts": null,
                 "tag": "div",
-                "line": 910,
+                "line": 984,
                 "text": "",
                 "values": {
                   "height": "14px",
@@ -15489,7 +15846,7 @@
         "part": "FIELD_CONTROL",
         "parts": null,
         "tag": "input",
-        "line": 237,
+        "line": 249,
         "text": "",
         "values": {
           "height": "21px",
@@ -15798,7 +16155,7 @@
         "part": "refinementInput",
         "parts": null,
         "tag": "input",
-        "line": 1639,
+        "line": 1562,
         "text": "",
         "values": {
           "height": "39px",
@@ -15854,7 +16211,7 @@
         "part": "settingsRowNameInput",
         "parts": null,
         "tag": "input",
-        "line": 1166,
+        "line": 1171,
         "text": "",
         "values": {
           "height": "34px",
@@ -15870,7 +16227,7 @@
           "borderTopWidth": "0px",
           "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
           "borderTopStyle": "none",
-          "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+          "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
           "backgroundImage": "none",
           "color": "color(srgb 0.980392 0.980392 0.980392)",
           "boxShadow": "none",
@@ -15910,7 +16267,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 905,
+        "line": 982,
         "text": "",
         "values": {
           "height": "48px",
@@ -15951,14 +16308,14 @@
           "$width": 108.34,
           "$height": 48,
           "$x": 665.83,
-          "$y": -22692.59
+          "$y": -22888.59
         },
         "children": [
           {
             "part": "toastText",
             "parts": null,
             "tag": "span",
-            "line": 930,
+            "line": 1007,
             "text": "저장했어요",
             "values": {
               "height": "auto",
@@ -16016,7 +16373,7 @@
         "part": "toast",
         "parts": null,
         "tag": "div",
-        "line": 1475,
+        "line": 1480,
         "text": "저장했어요",
         "values": {
           "height": "50px",
@@ -16057,7 +16414,7 @@
           "$width": 118.34,
           "$height": 50,
           "$x": 660.83,
-          "$y": -22742.59
+          "$y": -22938.59
         },
         "children": []
       }
@@ -16284,7 +16641,7 @@
         "part": "SHOT_MODE_TOOLTIP",
         "parts": null,
         "tag": "span",
-        "line": 59,
+        "line": 67,
         "text": "한 장면으로 만들어요",
         "values": {
           "height": "26px",
@@ -16340,7 +16697,7 @@
         "part": "TIER_FEATURE_TIP",
         "parts": null,
         "tag": "span",
-        "line": 293,
+        "line": 304,
         "text": "매달 크레딧 1,200개가 충전됩니다",
         "values": {
           "height": "26px",
@@ -16396,7 +16753,7 @@
         "part": "projectHeader",
         "parts": null,
         "tag": "div",
-        "line": 1703,
+        "line": 1664,
         "text": "",
         "values": {
           "height": "72px",
@@ -16444,7 +16801,7 @@
             "part": "iconButton",
             "parts": null,
             "tag": "button",
-            "line": 198,
+            "line": 203,
             "text": "",
             "values": {
               "height": "32px",
@@ -16493,7 +16850,7 @@
             "part": "projectTitle",
             "parts": null,
             "tag": "span",
-            "line": 1836,
+            "line": 1797,
             "text": "프로젝트 이름",
             "values": {
               "height": "24px",
@@ -16542,7 +16899,7 @@
             "part": "projectActions",
             "parts": null,
             "tag": "div",
-            "line": 1545,
+            "line": 1506,
             "text": "",
             "values": {
               "height": "32px",
@@ -16590,7 +16947,7 @@
                 "part": "projectHeaderActionsShell",
                 "parts": null,
                 "tag": "div",
-                "line": 1717,
+                "line": 1678,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -16638,7 +16995,7 @@
                     "part": "projectMenuAnchor",
                     "parts": null,
                     "tag": "div",
-                    "line": 1763,
+                    "line": 1724,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -16686,7 +17043,7 @@
                         "part": "iconButton",
                         "parts": null,
                         "tag": "button",
-                        "line": 198,
+                        "line": 203,
                         "text": "",
                         "values": {
                           "height": "32px",
@@ -16737,7 +17094,7 @@
                     "part": "iconButton",
                     "parts": null,
                     "tag": "button",
-                    "line": 198,
+                    "line": 203,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -16799,7 +17156,7 @@
         "part": "DASHBOARD_TOP_BAR",
         "parts": null,
         "tag": "header",
-        "line": 325,
+        "line": 351,
         "text": "",
         "values": {
           "height": "360px",
@@ -16847,7 +17204,7 @@
             "part": "DASHBOARD_TOP_BAR_LEFT",
             "parts": null,
             "tag": "div",
-            "line": 337,
+            "line": 363,
             "text": "",
             "values": {
               "height": "124.797px",
@@ -16895,7 +17252,7 @@
                 "part": "CHANNEL_AVATAR",
                 "parts": null,
                 "tag": "div",
-                "line": 341,
+                "line": 367,
                 "text": "",
                 "values": {
                   "height": "48px",
@@ -16943,7 +17300,7 @@
                     "part": "CHANNEL_AVATAR_PLACEHOLDER",
                     "parts": null,
                     "tag": "div",
-                    "line": 351,
+                    "line": 377,
                     "text": "",
                     "values": {
                       "height": "48px",
@@ -16994,7 +17351,7 @@
                 "part": "CHANNEL_INFO",
                 "parts": null,
                 "tag": "div",
-                "line": 353,
+                "line": 379,
                 "text": "",
                 "values": {
                   "height": "64.7969px",
@@ -17042,7 +17399,7 @@
                     "part": "CHANNEL_NAME",
                     "parts": null,
                     "tag": "span",
-                    "line": 355,
+                    "line": 381,
                     "text": "@instagram",
                     "values": {
                       "height": "64.7969px",
@@ -17104,7 +17461,7 @@
         "part": "DASHBOARD_TOP_BAR_CARD",
         "parts": null,
         "tag": "header",
-        "line": 853,
+        "line": 884,
         "text": "",
         "values": {
           "height": "360px",
@@ -17152,7 +17509,7 @@
             "part": "DASHBOARD_TOP_BAR_OVERLAY",
             "parts": null,
             "tag": "div",
-            "line": 860,
+            "line": 935,
             "text": "",
             "values": {
               "height": "360px",
@@ -17168,8 +17525,8 @@
               "borderTopWidth": "0px",
               "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
               "borderTopStyle": "none",
-              "backgroundColor": "rgba(0, 0, 0, 0)",
-              "backgroundImage": "linear-gradient(rgba(43, 47, 54, 0.48) 0%, rgba(43, 47, 54, 0.48) 10%, rgba(43, 47, 54, 0.56) 20%, rgba(43, 47, 54, 0.64) 30%, rgba(43, 47, 54, 0.64) 40%, rgba(43, 47, 54, 0.72) 50%, rgba(43, 47, 54, 0.8) 60%, rgba(43, 47, 54, 0.88) 70%, rgba(43, 47, 54, 0.96) 80%, rgba(43, 47, 54, 0.96) 90%, color(srgb 0.168627 0.184314 0.211765) 100%)",
+              "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+              "backgroundImage": "none",
               "color": "color(srgb 0.980392 0.980392 0.980392)",
               "boxShadow": "none",
               "backdropFilter": "none",
@@ -17201,7 +17558,7 @@
             "part": "DASHBOARD_TOP_BAR_LEFT",
             "parts": null,
             "tag": "div",
-            "line": 869,
+            "line": 943,
             "text": "",
             "values": {
               "height": "160.797px",
@@ -17249,7 +17606,7 @@
                 "part": "CHANNEL_AVATAR",
                 "parts": null,
                 "tag": "div",
-                "line": 873,
+                "line": 947,
                 "text": "",
                 "values": {
                   "height": "48px",
@@ -17297,7 +17654,7 @@
                     "part": "CHANNEL_AVATAR_PLACEHOLDER",
                     "parts": null,
                     "tag": "div",
-                    "line": 885,
+                    "line": 959,
                     "text": "",
                     "values": {
                       "height": "48px",
@@ -17348,7 +17705,7 @@
                 "part": "CHANNEL_INFO",
                 "parts": null,
                 "tag": "div",
-                "line": 888,
+                "line": 962,
                 "text": "",
                 "values": {
                   "height": "100.797px",
@@ -17396,7 +17753,7 @@
                     "part": "CHANNEL_NAME",
                     "parts": null,
                     "tag": "span",
-                    "line": 890,
+                    "line": 964,
                     "text": "채널 이름",
                     "values": {
                       "height": "64.7969px",
@@ -17445,7 +17802,7 @@
                     "part": "CHANNEL_DESC_BUTTON",
                     "parts": null,
                     "tag": "button",
-                    "line": 809,
+                    "line": 824,
                     "text": "채널 소개 문구가 여기에 표시됩니다.",
                     "values": {
                       "height": "24px",
@@ -17506,7 +17863,7 @@
         {
           "rank": 1,
           "members": 2,
-          "uses": 202,
+          "uses": 204,
           "values": {
             "height": "45px",
             "minHeight": "0px",
@@ -17538,23 +17895,23 @@
             {
               "id": "toast/apps/web/components/scenes/appHomeSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 905,
+              "line": 982,
               "name": "toast",
-              "uses": 101
+              "uses": 102
             },
             {
               "id": "toast/apps/web/components/scenes/highlightSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 2074,
+              "line": 1997,
               "name": "toast",
-              "uses": 101
+              "uses": 102
             }
           ]
         },
         {
           "rank": 2,
           "members": 1,
-          "uses": 101,
+          "uses": 102,
           "values": {
             "height": "50px",
             "minHeight": "0px",
@@ -17586,9 +17943,9 @@
             {
               "id": "toast/apps/web/components/scenes/myPageSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 1475,
+              "line": 1480,
               "name": "toast",
-              "uses": 101
+              "uses": 102
             }
           ]
         },
@@ -17657,7 +18014,7 @@
             "borderTopWidth": "0px",
             "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
             "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
             "backgroundImage": "none",
             "color": "color(srgb 0.980392 0.980392 0.980392)",
             "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -17674,7 +18031,7 @@
             {
               "id": "dialog/apps/web/components/scenes/appHomeSceneStyles.ts.modalCard",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 803,
+              "line": 876,
               "name": "modalCard",
               "uses": 5
             }
@@ -17698,7 +18055,7 @@
             "borderTopWidth": "0px",
             "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
             "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
             "backgroundImage": "none",
             "color": "color(srgb 0.980392 0.980392 0.980392)",
             "boxShadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
@@ -17762,7 +18119,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.iconButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 198,
+              "line": 203,
               "name": "iconButton",
               "uses": 11
             }
@@ -17810,7 +18167,7 @@
             {
               "id": "icon-button/apps/web/components/scenes/highlightSceneStyles.ts.historyMoreButton",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 879,
+              "line": 802,
               "name": "historyMoreButton",
               "uses": 1
             }
@@ -17851,7 +18208,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.mobileMenuCloseButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 915,
+              "line": 895,
               "name": "mobileMenuCloseButton",
               "uses": 2
             }
@@ -17898,7 +18255,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectInlineRenameInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1745,
+              "line": 1706,
               "name": "projectInlineRenameInput",
               "uses": 3
             }
@@ -17939,7 +18296,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1609,
+              "line": 1570,
               "name": "projectGnbTitleInput",
               "uses": 2
             },
@@ -17994,7 +18351,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.hiddenFileInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 718,
+              "line": 641,
               "name": "hiddenFileInput",
               "uses": 2
             },
@@ -18042,7 +18399,7 @@
             {
               "id": "text-field/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.propertiesValueNumInput",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 3510,
+              "line": 3548,
               "name": "propertiesValueNumInput",
               "uses": 1
             }
@@ -18083,7 +18440,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.refinementInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1639,
+              "line": 1562,
               "name": "refinementInput",
               "uses": 1
             }
@@ -18124,7 +18481,7 @@
             {
               "id": "text-field/apps/web/components/scenes/appHomeSceneStyles.ts.archivePreviewTitleRenameInput",
               "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
-              "line": 354,
+              "line": 380,
               "name": "archivePreviewTitleRenameInput",
               "uses": 0
             }
@@ -18206,7 +18563,7 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.historyRenameInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1042,
+              "line": 965,
               "name": "historyRenameInput",
               "uses": 0
             }
@@ -18271,7 +18628,7 @@
             "borderTopWidth": "0px",
             "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
             "borderTopStyle": "none",
-            "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+            "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
             "backgroundImage": "none",
             "color": "color(srgb 0.980392 0.980392 0.980392)",
             "boxShadow": "none",
@@ -18288,7 +18645,7 @@
             {
               "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.settingsRowNameInput",
               "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 1166,
+              "line": 1171,
               "name": "settingsRowNameInput",
               "uses": 0
             }
@@ -18298,10 +18655,51 @@
     },
     "slider": {
       "pattern": "/(SLIDER|Slider)(_?(ROOT|Root|TRACK|Track|RANGE|Range|THUMB|Thumb))?$|overlayRadix(RootFull|Range|Thumb)$|timelineZoomRadix(Root|Range|Thumb)$/",
-      "definitions": 17,
+      "definitions": 18,
       "groups": [
         {
           "rank": 1,
+          "members": 1,
+          "uses": 2,
+          "values": {
+            "height": "12px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "color(srgb 0.980392 0.980392 0.980392)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx.SLIDER",
+              "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx",
+              "line": 68,
+              "name": "SLIDER",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 2,
           "members": 2,
           "uses": 1,
           "values": {
@@ -18335,21 +18733,21 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRange",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 2145,
+              "line": 2178,
               "name": "overlayRadixRange",
               "uses": 0
             },
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixThumb",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 2210,
+              "line": 2243,
               "name": "overlayRadixThumb",
               "uses": 1
             }
           ]
         },
         {
-          "rank": 2,
+          "rank": 3,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18390,7 +18788,7 @@
           ]
         },
         {
-          "rank": 3,
+          "rank": 4,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18431,7 +18829,7 @@
           ]
         },
         {
-          "rank": 4,
+          "rank": 5,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18465,14 +18863,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 552,
+              "line": 561,
               "name": "DURATION_SLIDER",
               "uses": 1
             }
           ]
         },
         {
-          "rank": 5,
+          "rank": 6,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18506,14 +18904,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_TRACK",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 554,
+              "line": 563,
               "name": "DURATION_SLIDER_TRACK",
               "uses": 1
             }
           ]
         },
         {
-          "rank": 6,
+          "rank": 7,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18547,14 +18945,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_RANGE",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 560,
+              "line": 569,
               "name": "DURATION_SLIDER_RANGE",
               "uses": 1
             }
           ]
         },
         {
-          "rank": 7,
+          "rank": 8,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18588,14 +18986,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_THUMB",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 566,
+              "line": 575,
               "name": "DURATION_SLIDER_THUMB",
               "uses": 1
             }
           ]
         },
         {
-          "rank": 8,
+          "rank": 9,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18636,7 +19034,7 @@
           ]
         },
         {
-          "rank": 9,
+          "rank": 10,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18677,7 +19075,7 @@
           ]
         },
         {
-          "rank": 10,
+          "rank": 11,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18718,7 +19116,7 @@
           ]
         },
         {
-          "rank": 11,
+          "rank": 12,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18759,7 +19157,7 @@
           ]
         },
         {
-          "rank": 12,
+          "rank": 13,
           "members": 1,
           "uses": 1,
           "values": {
@@ -18800,7 +19198,7 @@
           ]
         },
         {
-          "rank": 13,
+          "rank": 14,
           "members": 1,
           "uses": 0,
           "values": {
@@ -18834,14 +19232,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.overlayRadixRootFull",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 2171,
+              "line": 2204,
               "name": "overlayRadixRootFull",
               "uses": 0
             }
           ]
         },
         {
-          "rank": 14,
+          "rank": 15,
           "members": 1,
           "uses": 0,
           "values": {
@@ -18875,14 +19273,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRange",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4538,
+              "line": 4578,
               "name": "timelineZoomRadixRange",
               "uses": 0
             }
           ]
         },
         {
-          "rank": 15,
+          "rank": 16,
           "members": 1,
           "uses": 0,
           "values": {
@@ -18916,14 +19314,14 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixRoot",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4553,
+              "line": 4593,
               "name": "timelineZoomRadixRoot",
               "uses": 0
             }
           ]
         },
         {
-          "rank": 16,
+          "rank": 17,
           "members": 1,
           "uses": 0,
           "values": {
@@ -18957,7 +19355,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.timelineZoomRadixThumb",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4566,
+              "line": 4606,
               "name": "timelineZoomRadixThumb",
               "uses": 0
             }
@@ -19004,7 +19402,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.profileMenuItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1198,
+              "line": 1159,
               "name": "profileMenuItem",
               "uses": 9
             }
@@ -19045,7 +19443,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.projectDropdownItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1583,
+              "line": 1544,
               "name": "projectDropdownItem",
               "uses": 6
             }
@@ -19086,7 +19484,7 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.clipDetailListItem",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 162,
+              "line": 160,
               "name": "clipDetailListItem",
               "uses": 2
             }
@@ -19134,7 +19532,7 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.historyDropdownItem",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 813,
+              "line": 736,
               "name": "historyDropdownItem",
               "uses": 0
             }
@@ -19175,7 +19573,7 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionMenuItem",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4777,
+              "line": 4817,
               "name": "transitionMenuItem",
               "uses": 0
             }
@@ -19246,7 +19644,7 @@
             "borderTopWidth": "0px",
             "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
             "borderTopStyle": "none",
-            "backgroundColor": "color(srgb 0.090196 0.105882 0.133333)",
+            "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
             "backgroundImage": "none",
             "color": "color(srgb 0.545098 0.556863 0.576471)",
             "boxShadow": "none",
@@ -19263,7 +19661,7 @@
             {
               "id": "badge/apps/web/components/scenes/InstagramAnalyticsScene.tsx.reportChangePill",
               "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-              "line": 502,
+              "line": 558,
               "name": "reportChangePill",
               "uses": 7
             }
@@ -19345,7 +19743,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.compositeBottomPill",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 459,
+              "line": 382,
               "name": "compositeBottomPill",
               "uses": 1
             }
@@ -19386,7 +19784,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.refinementChip",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1279,
+              "line": 1202,
               "name": "refinementChip",
               "uses": 1
             }
@@ -19427,7 +19825,7 @@
             {
               "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.themeChip",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1917,
+              "line": 1840,
               "name": "themeChip",
               "uses": 1
             }
@@ -19550,7 +19948,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.previewZoomBadge",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 2973,
+              "line": 3011,
               "name": "previewZoomBadge",
               "uses": 0
             }
@@ -19591,7 +19989,7 @@
             {
               "id": "badge/apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts.transitionDurationChip",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
-              "line": 4669,
+              "line": 4709,
               "name": "transitionDurationChip",
               "uses": 0
             }

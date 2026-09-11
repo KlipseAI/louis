@@ -412,21 +412,23 @@ withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
-    const id = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].icon);
-    // 아이콘을 가진 노드가 하나도 없으면 이 canary 는 «세울 수 없다». TypeError 로 죽으면
-    // 「게이트가 깨졌다」로 읽히는데, 실제로는 **재는 대상이 사라진 것**이라 뜻이 다르다.
-    // 보드가 아이콘을 전부 인스턴스로 물면 bespokeByIcon 이 비고 이 자리가 그렇게 된다.
+    // **기존 아이콘에 기대지 않는다.** 이 canary 가 증명하는 것은 「사전 밖 이름을 잡는가」이고,
+    // 그 이름은 어차피 합성이다. 그런데 옛 코드는 이미 `icon` 을 «가진» 노드를 찾아 그 이름을
+    // 바꿨다 — 보드에 그런 노드가 0 이 되면 세울 수 없다. 실제로 그렇게 됐다: 유일한 대상이던
+    // `/subscription` 정렬 드롭다운의 꺾쇠가 제품 화면 개편으로 사라졌다(글리프 판정 자체는
+    // 살아 있다 — svg 둘이 `glyph-missing` 으로 잡힌다). 대상이 사라졌다고 계약까지 조용히
+    // 검사되지 않으면 안 되므로, 글리프 노드에 이름을 **얹어서** 세운다.
+    const withIcon = Object.keys(ledger.nodes).find((key) => ledger.nodes[key].icon);
+    const id = withIcon
+      ?? Object.keys(ledger.nodes).find((key) => ledger.nodes[key].glyph)
+      ?? Object.keys(ledger.nodes)[0];
     if (id === undefined) {
-      throw new Error(
-        "migration/figma-board-composition.json 에 icon 을 가진 노드가 없어 이 canary 를 세울 수 없습니다. " +
-          "보드가 아이콘을 전부 인스턴스로 물었다면 이 canary 는 대상을 잃은 것이니 사유와 함께 내리고, " +
-          "그렇지 않다면 보드 재생성이 아이콘 판정을 잃은 것이니 그쪽을 보세요.",
-      );
+      throw new Error("migration/figma-board-composition.json 의 nodes 가 비어 이 canary 를 세울 수 없습니다.");
     }
     const name = ledger.nodes[id].icon;
     ledger.nodes[id] = { ...ledger.nodes[id], icon: "icon/chevron-left" };
-    ledger.bespokeByIcon["icon/chevron-left"] = ledger.bespokeByIcon[name];
-    delete ledger.bespokeByIcon[name];
+    ledger.bespokeByIcon["icon/chevron-left"] = name ? ledger.bespokeByIcon[name] : 1;
+    if (name) delete ledger.bespokeByIcon[name];
     return JSON.stringify(ledger, null, 2) + "\n";
   },
   "board composition icon name outside the readback dictionary",

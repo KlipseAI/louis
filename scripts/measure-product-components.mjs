@@ -488,18 +488,16 @@ const PROBES = [
   },
   {
     id: "nav-row",
-    source: "Gnb.tsx menuSidebarCreateCompound — 내비 항목과 「+」가 한 줄을 나눠 쓰는 행",
+    source: "Gnb.tsx menuSidebarCreateCompound — 내비 항목이 선 행(「+」는 658ece13 에서 걷혔다)",
     from: ["gnb", "menuLink", "menuSidebarCreateCompound"],
     wrapper: ["gnb-menu gnb-menuSidebar"],
     read: ["columnGap", "paddingLeft", "paddingRight"],
   },
-  {
-    id: "nav-row-action",
-    source: "Gnb.tsx menuSidebarCreateAddonInset — 행 안쪽 끝의 「+」",
-    from: ["gnb", "menuSidebarCreateAddonInset"],
-    tag: "button",
-    read: ["width", "height", "borderTopLeftRadius"],
-  },
+  // **`nav-row-action` 탐침을 내렸다 — 제품이 그 자리를 걷었다.**
+  // `658ece13 feat(nav): 사이드바에서 + 버튼을 걷고 베타 딱지를 라벨 옆으로 옮긴다` 가
+  // `menuSidebarCreateAddonInset` 상수를 지웠다. 대조 행은 처음부터 없었고(재기만 했다)
+  // 표면 원장의 `Gnb.tsx#NavPlusGlyph` 도 같은 회차에 사라졌다. 없어진 것을 계속 가리키면
+  // 「측정이 축을 잃었다」가 아니라 「스크립트가 죽는다」가 된다.
   {
     id: "sidebar-header-row",
     source: "Gnb.tsx sidebarHeaderRow",

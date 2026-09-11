@@ -650,8 +650,8 @@
     {
       "id": "gnb-sidebar/createCompoundRow",
       "kind": "gnb-sidebar",
-      "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4633-4691",
+      "label": "사이드바 만들기 복합 항목 — 메뉴 줄(「+」는 제품 658ece13 에서 걷혔다)",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4717-4749",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "node": {
         "part": "menuLink",
@@ -677,10 +677,6 @@
                 ]
               }
             ]
-          },
-          {
-            "part": "menuSidebarCreateAddonInset",
-            "tag": "button"
           }
         ]
       },
@@ -2034,7 +2030,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1514"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1563"
           }
         ]
       },
@@ -2048,35 +2044,75 @@
     {
       "id": "segmented-control/instagramAnalytics",
       "kind": "segmented-control",
-      "label": "인스타그램 분석 · 기간 선택기 (3구간)",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1824-1845",
-      "jsxQuote": "            <div ref={periodThumb.containerRef} className={PERIOD_SELECTOR}>",
+      "label": "인스타그램 분석 · 기간 선택기 (3구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1878-1908",
+      "jsxQuote": "              className={PERIOD_SELECTOR}",
       "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
       "node": {
         "part": "PERIOD_SELECTOR",
         "tag": "div",
+        "attrs": {
+          "data-size": "md",
+          "role": "group"
+        },
         "children": [
           {
-            "part": "PERIOD_SELECTOR_THUMB",
-            "tag": "span"
+            "file": "apps/web/components/ui/SegmentedThumb.tsx",
+            "part": "THUMB_BASE",
+            "parts": [
+              "THUMB_BASE",
+              "THUMB_SURFACE"
+            ],
+            "tag": "span",
+            "attrs": {
+              "aria-hidden": "true"
+            }
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "7일"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "7d"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "7일"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN_ACTIVE",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "1개월"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "28d",
+              "data-selected": "true"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "1개월"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "3개월"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "90d"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "3개월"
+              }
+            ]
           }
         ]
       },
@@ -2090,47 +2126,105 @@
     {
       "id": "segmented-control/youtubeAnalytics",
       "kind": "segmented-control",
-      "label": "유튜브 분석 · 기간 선택기 (5구간)",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2089-2116",
+      "label": "유튜브 분석 · 기간 선택기 (5구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:2189-2219",
       "jsxQuote": "                className={PERIOD_SELECTOR}",
       "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
       "node": {
         "part": "PERIOD_SELECTOR",
         "tag": "div",
+        "attrs": {
+          "data-size": "md",
+          "role": "group"
+        },
         "children": [
           {
-            "part": "PERIOD_SELECTOR_THUMB",
-            "tag": "span"
+            "file": "apps/web/components/ui/SegmentedThumb.tsx",
+            "part": "THUMB_BASE",
+            "parts": [
+              "THUMB_BASE",
+              "THUMB_SURFACE"
+            ],
+            "tag": "span",
+            "attrs": {
+              "aria-hidden": "true"
+            }
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "7일"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "7d"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "7일"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN_ACTIVE",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "1개월"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "28d",
+              "data-selected": "true"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "1개월"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "3개월"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "90d"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "3개월"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "1년"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "365d"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "1년"
+              }
+            ]
           },
           {
-            "part": "PERIOD_BTN",
+            "part": "PERIOD_SEGMENT",
             "tag": "button",
-            "typography": "type-caption-12-medium",
-            "text": "전체 기간"
+            "attrs": {
+              "type": "button",
+              "data-segment-key": "lifetime"
+            },
+            "children": [
+              {
+                "part": "PERIOD_SEGMENT_LABEL",
+                "tag": "span",
+                "text": "전체 기간"
+              }
+            ]
           }
         ]
       },

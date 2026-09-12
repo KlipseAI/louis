@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
-  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productRef": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "axes": [
     "height",
     "minHeight",

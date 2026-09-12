@@ -10,17 +10,17 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 232,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 233,
         "quote": "  \"[outline-offset:-2px]\","

@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
     "id": "subtree-7eb3e2833a3e",
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
       },
       {
         "current": "Composition",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
       }
     ],
     "rows": [
@@ -709,19 +709,19 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 592,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 598,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 602,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]\","
@@ -1377,7 +1377,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""

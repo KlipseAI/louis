@@ -446,12 +446,12 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
 // 1452 → 1452).
 const ringSourceLines = [
-  [1506, '    "[--profile-avatar-size:28px]",'],
-  [1509, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1510, '    "[--profile-ring-gap:2px]",'],
-  [1511, '    "[--profile-ring-width:2px]",'],
-  [1538, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1540, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1467, '    "[--profile-avatar-size:28px]",'],
+  [1470, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1471, '    "[--profile-ring-gap:2px]",'],
+  [1472, '    "[--profile-ring-width:2px]",'],
+  [1499, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1501, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 const plan = {
@@ -492,7 +492,7 @@ const plan = {
       surface: { collection: "2 · Semantic", name: "bg/surface" },
       $darkSurfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        484,
+        489,
         '    "[background:var(--louis-color-bg-surface)]",',
       ),
       divider: { collection: "2 · Semantic", name: "gray/000" },

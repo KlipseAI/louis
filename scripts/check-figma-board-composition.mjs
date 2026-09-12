@@ -166,7 +166,22 @@ const REPLACEABLE_BASELINE = 0;
 // 2026-09-10: 53 → 52. **판정을 푼 것이 아니라 화면이 움직였다** — 유일한 bespoke 아이콘이던
 // `/subscription` 정렬 드롭다운 꺾쇠가 제품 화면 개편으로 사라졌다(보드의 svg 3 → 2).
 // 그 화면이 돌아오면 이 수도 함께 돌아와야 한다.
-const BESPOKE_BASELINE = 52; // 하락만 잠근다(상승은 발견)
+// 2026-09-11: 52 → 45. **이 게이트가 제시하는 두 길 중 어느 것도 아니다.** 순 -7 은 반대
+// 방향 둘의 합이다.
+//   -12  highlight `?__phase=` 여섯 보드의 **모바일**이 상단바를 날노드로 다시 그리던 것을
+//        멈추고 인스턴스를 문다 — `Product/Mobile App Top Bar`
+//        (`Width=Inset, Breadcrumb=Trail, Back=True, Divider=On`). 전에는 32x32 버튼 둘
+//        (`Gnb.tsx iconButton`) + nav 브레드크럼 + 아바타를 손으로 조립했고, 그 버튼 둘이
+//        보드마다 bespoke 였다. **이 저장소가 목표로 하는 이득이다.**
+//    +5  archive desktop·mobile, settings desktop·mobile, subscription mobile 이 각각 날
+//        32x32 아이콘 버튼 하나를 bespoke 로 새로 얻었다(`Gnb.tsx iconButton`, archive 는
+//        `appHomeSceneStyles.ts archiveMoreButton`).
+// **이 기준선은 합계 하나만 잠그므로 그 +5 를 볼 수 없다.** 12 의 이득 뒤에 5 의 후퇴가
+// 숨어 통과한다 — `migration/palette-ladder-baseline.json` 이 per file 로 얼린 것과 같은
+// 이유로 여기도 보드별로 갈라야 한다. 그 전까지는 이 주석이 유일한 그물이다.
+// 검산: instance 84 · missing 83 · blocked 3 이 셋 다 그대로다 — 다른 칸으로 흘러간 것이
+// 없다는 뜻이고, 그래서 「판정을 느슨하게 풀었다」는 길은 배제된다.
+const BESPOKE_BASELINE = 45; // 하락만 잠근다(상승은 발견)
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서

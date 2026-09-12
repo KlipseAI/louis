@@ -1,12 +1,12 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-ed47f43c48b1",
-      "nodeCount": 87,
+      "id": "subtree-6dff099f5193",
+      "nodeCount": 83,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-fail",
@@ -33,11 +33,11 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 174
+      "score": 166
     },
     {
-      "id": "subtree-6ba92d715b72",
-      "nodeCount": 83,
+      "id": "subtree-11c231002ba4",
+      "nodeCount": 79,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-success",
@@ -64,7 +64,7 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 166
+      "score": 158
     },
     {
       "id": "subtree-ea6c9f0dfd59",

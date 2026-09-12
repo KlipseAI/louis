@@ -255,10 +255,21 @@ const sectionRowStyle = style(rowNodes[5]);
    `--app-gnb-safe-top` 이 `max(12px, env(safe-area-inset-top))` 에서 `max(8px, …)` 로
    내려가 메뉴가 4px 올라왔다. 구조가 아니라 위치 하나가 움직인 것이므로 47/10 은 그대로
    두고 id 만 못박는다. */
+/* 다섯 번째로 갈렸다(4a764af3ad4d → 7eb3e2833a3e, 2026-09-11 재고정 f19cc41c → 38a7d5a4).
+   **예고대로 진짜 변경이고, 이번엔 노드가 줄었다 — 47 → 43.** 판정은 서명 전수 대조다:
+   routeCount 10 · occurrenceCount 10 · `roots` 의 route·path·tag·rect 가 **바이트 동일**하고
+   (`body.1.0.0.0.0.1` · div · 12,60,256x250, 10개 route 전부), nodeCount 와 그에 딸린
+   score(470 → 430 = 43x10)만 움직였다. 같은 routeCount 10 의 다른 후보
+   `subtree-d5c53265893d`(42)는 path 가 `body.1.0.0.0.0.1.0` · tag `ul` 로 **안쪽 목록**이며
+   사이드바가 아니다 — nodeCount 만으로 고르면 그것을 집는다.
+   원인은 제품 `658ece13`「사이드바에서 + 버튼을 걷고 베타 딱지를 라벨 옆으로 옮긴다」다.
+   걷힌 것은 `NavPlusGlyph`(svg + path 2)와 그 `<button>` 래퍼 = **정확히 4노드**이고,
+   사이드바를 자식으로 품는 헤더 둘(59 → 55)과 그 헤더를 품는 결제 장면 둘(87 → 83 · 83 → 79)도
+   전부 같은 -4 다. 하나의 원인이 중첩 서브트리를 타고 올라간 것이다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-4a764af3ad4d",
+  (entry) => entry.id === "subtree-7eb3e2833a3e",
 );
-if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
+if (!candidate || candidate.nodeCount !== 43 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
 }
 
@@ -289,15 +300,15 @@ if (!candidate || candidate.nodeCount !== 47 || candidate.routeCount !== 10) {
    아니라 `/highlight/[projectId]` 여섯 단계(loading·uploading·upload·analyzing·extracting·
    failed)가 공유하는 `body.1.0.0.0.0` 셸이다 — 같은 수치를 갖지만 다른 것이므로 nodeCount
    만으로 고르면 엉뚱한 것을 집는다. 그래서 여기서는 **id 로** 집는다(아래). */
-const headerCandidates = ["subtree-79b78b9dcc94", "subtree-30c5289f8743"].map((id) =>
+const headerCandidates = ["subtree-010a934d5c3b", "subtree-5975d39c8e46"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
   !headerCandidates[0] ||
-  headerCandidates[0].nodeCount !== 59 ||
+  headerCandidates[0].nodeCount !== 55 ||
   headerCandidates[0].routeCount !== 6 ||
   !headerCandidates[1] ||
-  headerCandidates[1].nodeCount !== 59 ||
+  headerCandidates[1].nodeCount !== 55 ||
   headerCandidates[1].routeCount !== 4
 ) {
   fail("measured Gnb header variant candidates changed; inspect before regenerating Figma");
@@ -307,7 +318,7 @@ const headerNodes = (route) =>
   screen(route).tree.filter((entry) => entry.path === headerPath || entry.path.startsWith(`${headerPath}.`));
 const headerDefault = headerNodes("/settings");
 const headerCurrent = headerNodes("/mypage/upgrade");
-if (headerDefault.length !== 59 || headerCurrent.length !== 59) fail("expected two 59-node Gnb headers");
+if (headerDefault.length !== 55 || headerCurrent.length !== 55) fail("expected two 55-node Gnb headers");
 const headerDiffs = [];
 for (let index = 0; index < headerDefault.length; index += 1) {
   const left = headerDefault[index];
@@ -629,8 +640,15 @@ const plan = {
     rows: [
       simpleRow("search", 0, "Search"),
       simpleRow("home", 1, "Home"),
-      compoundRow("canvas", 2, "Canvas", "New project (open canvas)"),
-      compoundRow("composition", 3, "Composition", "New project (Composition)"),
+      /* **2026-09-11: 이 둘이 compound 에서 simple 로 내려왔다.** 제품 `658ece13` 이 사이드바
+         행의 + 버튼을 걷었다 — `NavPlusGlyph`(svg + path 2)와 그 `<button>` 래퍼다.
+         확인: `git grep -c createNewCanvasProject f19cc41c -- apps/web/components/navigation/Gnb.tsx`
+         는 4, 같은 명령이 `38a7d5a4` 에서는 0 이다. 문구는 `messages/en.ts` 에 남아 있으나
+         부르는 자리가 없는 죽은 키이므로 `byAria` 로는 찾을 수 없다.
+         그래서 `compoundRow` 의 addRect·addRadius·addBackground 는 **측정할 대상이 없다** —
+         걷지 않고 두면 없는 버튼을 그리게 된다. */
+      simpleRow("canvas", 2, "Canvas"),
+      simpleRow("composition", 3, "Composition"),
       {
         ...simpleRow("highlight", 4, "Highlight"),
         kind: "highlight",
@@ -706,7 +724,11 @@ const plan = {
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
       "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
-      plus: ".glyph/NavPlusGlyph",
+      // `plus: ".glyph/NavPlusGlyph"` 를 걷었다(2026-09-11). 제품 `658ece13` 이 + 버튼을
+      // 걷어 `NavPlusGlyph` 가 새 앵커에 0곳이고, 그것을 그리던 compound 행 둘도 simple 로
+      // 내려갔다. 매핑만 남기면 생성물이 없는 버튼을 계속 가리켜, 다음 사람이 아직 있다고 읽는다.
+      // **라이브 Figma 의 `.glyph/NavPlusGlyph` 컴포넌트는 이 변경이 지우지 않는다** —
+      // 보드에서 걷는 것은 별건이고 사용자 자산이라 여기서 손대지 않았다.
     },
     /* 세 줄 다 인용문은 한 글자도 안 바뀌었고 **줄번호만 +1** 이다(563/569/573 → 564/570/574).
        ae8fd627..5a67d692 에서 Gnb.tsx 파일 앞쪽에 import 한 줄이 늘었을 뿐이다 —
@@ -716,18 +738,24 @@ const plan = {
     darkThemeSource: {
       inactive: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        587,
+        592,
         '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
       ),
       active: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        593,
+        598,
         '    "[color:var(--gray-000)]",',
       ),
       activeIndicator: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        597,
-        '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]",',
+        // **이 인용만 값이 바뀌었다 — 위치 밀림이 아니다.** `--palette-gray-800` →
+        // `--palette-gray-900` 이며, **DS 자신의 변경이 제품을 거쳐 돌아온 것**이다:
+        // DS `021c2b6`「pg-850 칸을 비우고 그 위 여섯을 pg-900 으로 내린다」를 제품이
+        // `1093e53d`「LOUIS 핀을 021c2b6 으로 올리고 pg-850 자리를 정리한다」와
+        // `dc85080e`「다크 면 사다리를 한 칸 내리고…」로 채택했다. 선택자는 그대로이고
+        // 팔레트 칸만 한 단 내려갔다.
+        602,
+        '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]",',
       ),
     },
     upgradeCta: {

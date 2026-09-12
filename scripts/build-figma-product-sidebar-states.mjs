@@ -94,8 +94,8 @@ const plan = {
     // `MAIN` 위 주석: 「여기서 또 주면 그 위에 더해져 좌우가 갈린다 — 실측 왼 28 · 오른 16」).
     // 그래서 위 파생이 쓰는 16/8 의 근거를 **값이 선언된 자리**로 옮긴다. 같은 주석이
     // 「2026-09-09 에 그 토큰이 8px 로 내려갔다」고 이 회차를 직접 적어 두었다.
-    sourceQuote("apps/web/app/globals.css", 138, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
-    sourceQuote("apps/web/app/globals.css", 147, "  --app-gnb-main-inline-padding-end: 8px;"),
+    sourceQuote("apps/web/app/globals.css", 155, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
+    sourceQuote("apps/web/app/globals.css", 164, "  --app-gnb-main-inline-padding-end: 8px;"),
     sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 153, '  "[padding:0]",'),
     // **네 줄은 값이 아니라 스코프가 바뀌었다.** 제품 8a90e3f6 「모바일에서 무너져 있던
     // 격자를 한 열로 세운다」가 데스크톱 격자를 `[@media(min-width:720px)]:` 안으로 넣었다 —
@@ -109,14 +109,14 @@ const plan = {
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
     // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
     // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 314, '    "louis-app-top-bar__leading",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 478, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1090, '        <path'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1091, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2022, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2023, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2062, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2063, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 319, '    "louis-app-top-bar__leading",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 483, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1105, '        <path'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1106, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1983, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1984, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2023, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2024, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",

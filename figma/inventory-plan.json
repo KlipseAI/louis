@@ -8,8 +8,8 @@
     "간격이 제각각이면 중첩 오토레이아웃으로 묶는다. spacer 프레임은 쓰지 않는다.",
     "음수 마진은 여백을 바깥·안쪽으로 나눠 만든다."
   ],
-  "productRef": "origin/design",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productRef": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "sections": [
     {
       "kind": "input-form",
@@ -2754,8 +2754,8 @@
         },
         {
           "id": "gnb-sidebar/createCompoundRow",
-          "label": "사이드바 만들기 복합 항목 — 메뉴 줄 + 새 프로젝트 추가 버튼",
-          "jsx": "Gnb.tsx:4633-4691",
+          "label": "사이드바 만들기 복합 항목 — 메뉴 줄(「+」는 제품 658ece13 에서 걷혔다)",
+          "jsx": "Gnb.tsx:4717-4749",
           "hosted": true,
           "hostNone": "",
           "tree": {
@@ -2824,7 +2824,7 @@
                 "part": "menuSidebarCreateNavPart",
                 "slot": false,
                 "text": "",
-                "w": 220,
+                "w": 244,
                 "h": 32,
                 "abs": false,
                 "x": 8,
@@ -2886,7 +2886,7 @@
                     "part": "menuLinkInner",
                     "slot": false,
                     "text": "",
-                    "w": 220,
+                    "w": 244,
                     "h": 21,
                     "abs": false,
                     "x": 0,
@@ -3077,70 +3077,6 @@
                   }
                 ],
                 "ci": 0
-              },
-              {
-                "part": "menuSidebarCreateAddonInset",
-                "slot": false,
-                "text": "",
-                "w": 24,
-                "h": 24,
-                "abs": false,
-                "x": 228,
-                "y": 4,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "center",
-                "align": "stretch",
-                "bg": [
-                  0.255,
-                  0.271,
-                  0.298,
-                  1
-                ],
-                "gradient": null,
-                "fg": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "radius": 6,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 17,
-                "lineHeightPct": 100,
-                "weight": 600,
-                "letterSpacing": 0,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "선언",
-                "hx": "FIX",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 4
               }
             ]
           }
@@ -6961,9 +6897,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.09,
-              0.106,
-              0.133,
+              0.051,
+              0.067,
+              0.094,
               1
             ],
             "gradient": null,
@@ -7672,9 +7608,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.09,
-              0.106,
-              0.133,
+              0.051,
+              0.067,
+              0.094,
               1
             ],
             "gradient": null,
@@ -7796,9 +7732,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0.09,
-                      0.106,
-                      0.133,
+                      0.051,
+                      0.067,
+                      0.094,
                       1
                     ],
                     "gradient": null,
@@ -8714,9 +8650,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.09,
-              0.106,
-              0.133,
+              0.051,
+              0.067,
+              0.094,
               1
             ],
             "gradient": null,
@@ -11882,9 +11818,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.09,
-              0.106,
-              0.133,
+              0.051,
+              0.067,
+              0.094,
               1
             ],
             "gradient": null,
@@ -12073,9 +12009,9 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.169,
-                  0.184,
-                  0.212,
+                  0.09,
+                  0.106,
+                  0.133,
                   1
                 ],
                 "gradient": null,
@@ -12261,9 +12197,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.09,
-                          0.106,
-                          0.133,
+                          0.051,
+                          0.067,
+                          0.094,
                           1
                         ],
                         "gradient": null,
@@ -12411,9 +12347,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.169,
-              0.184,
-              0.212,
+              0.09,
+              0.106,
+              0.133,
               1
             ],
             "gradient": null,
@@ -12873,9 +12809,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.169,
-              0.184,
-              0.212,
+              0.09,
+              0.106,
+              0.133,
               1
             ],
             "gradient": null,
@@ -13782,9 +13718,9 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0.169,
-              0.184,
-              0.212,
+              0.09,
+              0.106,
+              0.133,
               1
             ],
             "gradient": null,
@@ -16003,126 +15939,12 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0,
-                  0,
-                  0,
-                  0
+                  0.09,
+                  0.106,
+                  0.133,
+                  1
                 ],
-                "gradient": {
-                  "t": [
-                    [
-                      0,
-                      -1,
-                      1
-                    ],
-                    [
-                      1,
-                      0,
-                      0
-                    ]
-                  ],
-                  "s": [
-                    [
-                      0,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.48
-                      ]
-                    ],
-                    [
-                      0.1,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.48
-                      ]
-                    ],
-                    [
-                      0.2,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.56
-                      ]
-                    ],
-                    [
-                      0.3,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.64
-                      ]
-                    ],
-                    [
-                      0.4,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.64
-                      ]
-                    ],
-                    [
-                      0.5,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.72
-                      ]
-                    ],
-                    [
-                      0.6,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.8
-                      ]
-                    ],
-                    [
-                      0.7,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.88
-                      ]
-                    ],
-                    [
-                      0.8,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.96
-                      ]
-                    ],
-                    [
-                      0.9,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        0.96
-                      ]
-                    ],
-                    [
-                      1,
-                      [
-                        0.169,
-                        0.184,
-                        0.212,
-                        1
-                      ]
-                    ]
-                  ]
-                },
+                "gradient": null,
                 "fg": [
                   0.98,
                   0.98,
@@ -18114,9 +17936,9 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.09,
-                  0.106,
-                  0.133,
+                  0.051,
+                  0.067,
+                  0.094,
                   1
                 ],
                 "gradient": null,
@@ -18238,9 +18060,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.09,
-                          0.106,
-                          0.133,
+                          0.051,
+                          0.067,
+                          0.094,
                           1
                         ],
                         "gradient": null,
@@ -18300,9 +18122,9 @@
                             "justify": "normal",
                             "align": "stretch",
                             "bg": [
-                              0.09,
-                              0.106,
-                              0.133,
+                              0.051,
+                              0.067,
+                              0.094,
                               1
                             ],
                             "gradient": null,
@@ -18814,9 +18636,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.169,
-                          0.184,
-                          0.212,
+                          0.09,
+                          0.106,
+                          0.133,
                           1
                         ],
                         "gradient": null,
@@ -19146,9 +18968,9 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0.09,
-                  0.106,
-                  0.133,
+                  0.051,
+                  0.067,
+                  0.094,
                   1
                 ],
                 "gradient": null,
@@ -19270,9 +19092,9 @@
                         "justify": "center",
                         "align": "stretch",
                         "bg": [
-                          0.09,
-                          0.106,
-                          0.133,
+                          0.051,
+                          0.067,
+                          0.094,
                           1
                         ],
                         "gradient": null,
@@ -19332,9 +19154,9 @@
                             "justify": "center",
                             "align": "stretch",
                             "bg": [
-                              0.09,
-                              0.106,
-                              0.133,
+                              0.051,
+                              0.067,
+                              0.094,
                               1
                             ],
                             "gradient": null,
@@ -19359,8 +19181,8 @@
                             "letterSpacing": -0.16,
                             "isText": false,
                             "textFill": false,
-                            "wx": "FILL",
-                            "wy": "덮음",
+                            "wx": "FIX",
+                            "wy": "선언",
                             "hy": "덮음",
                             "hx": "FILL",
                             "minW": 0,
@@ -19782,9 +19604,9 @@
                         "justify": "normal",
                         "align": "stretch",
                         "bg": [
-                          0.169,
-                          0.184,
-                          0.212,
+                          0.09,
+                          0.106,
+                          0.133,
                           1
                         ],
                         "gradient": null,
@@ -20028,24 +19850,24 @@
       "specimens": [
         {
           "id": "segmented-control/instagramAnalytics",
-          "label": "인스타그램 분석 · 기간 선택기 (3구간)",
-          "jsx": "InstagramAnalyticsScene.tsx:1824-1845",
+          "label": "인스타그램 분석 · 기간 선택기 (3구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+          "jsx": "InstagramAnalyticsScene.tsx:1878-1908",
           "hosted": true,
           "hostNone": "",
           "tree": {
             "part": "PERIOD_SELECTOR",
             "slot": false,
             "text": "",
-            "w": 152.53,
-            "h": 34,
+            "w": 126.53,
+            "h": 32,
             "abs": false,
             "x": 0,
             "y": 0,
             "pad": [
-              3,
-              3,
-              3,
-              3
+              4,
+              4,
+              4,
+              4
             ],
             "inset": [
               0,
@@ -20053,16 +19875,16 @@
               0,
               0
             ],
-            "gap": 2,
+            "gap": 0,
             "gaps": [],
             "dir": "H",
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0,
-              0,
-              0,
-              0
+              0.98,
+              0.98,
+              0.98,
+              0.08
             ],
             "gradient": null,
             "fg": [
@@ -20071,7 +19893,7 @@
               0.98,
               1
             ],
-            "radius": 8,
+            "radius": 12,
             "borderWidth": 0,
             "borderColor": [
               0.98,
@@ -20095,14 +19917,14 @@
             "maxW": 0,
             "children": [
               {
-                "part": "PERIOD_SELECTOR_THUMB",
+                "part": "THUMB_BASE",
                 "slot": true,
                 "text": "",
                 "w": 0,
-                "h": 28,
+                "h": 0,
                 "abs": true,
-                "x": 0,
-                "y": 3,
+                "x": 4,
+                "y": 4,
                 "pad": [
                   0,
                   0,
@@ -20121,10 +19943,10 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0,
-                  0,
-                  0,
-                  0
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.2
                 ],
                 "gradient": null,
                 "fg": [
@@ -20133,7 +19955,7 @@
                   0.98,
                   1
                 ],
-                "radius": 6,
+                "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
                   0.98,
@@ -20150,27 +19972,27 @@
                 "textFill": true,
                 "wx": "HUG",
                 "wy": "슬롯",
-                "hy": "부모높이",
-                "hx": "FILL",
+                "hy": "슬롯",
+                "hx": "HUG",
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
                 "children": []
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "7일",
-                "w": 40.86,
-                "h": 28,
+                "text": "",
+                "w": 32.86,
+                "h": 24,
                 "abs": false,
-                "x": 3,
-                "y": 3,
+                "x": 4,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20180,8 +20002,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20191,18 +20013,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20210,7 +20032,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20218,23 +20040,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "7일",
+                    "w": 16.86,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN_ACTIVE",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "1개월",
-                "w": 49.78,
-                "h": 28,
+                "text": "",
+                "w": 41.78,
+                "h": 24,
                 "abs": false,
-                "x": 45.86,
-                "y": 3,
+                "x": 36.86,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20244,8 +20131,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20260,12 +20147,12 @@
                   0.98,
                   1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
+                  1,
+                  1,
+                  1,
                   1
                 ],
                 "shadow": null,
@@ -20274,7 +20161,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20282,23 +20169,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "1개월",
+                    "w": 25.78,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "3개월",
-                "w": 51.89,
-                "h": 28,
+                "text": "",
+                "w": 43.89,
+                "h": 24,
                 "abs": false,
-                "x": 97.64,
-                "y": 3,
+                "x": 78.64,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20308,8 +20260,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20319,18 +20271,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20338,7 +20290,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20346,7 +20298,72 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "3개월",
+                    "w": 27.89,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               }
             ]
@@ -20354,24 +20371,24 @@
         },
         {
           "id": "segmented-control/youtubeAnalytics",
-          "label": "유튜브 분석 · 기간 선택기 (5구간)",
-          "jsx": "YoutubeAnalyticsScene.tsx:2089-2116",
+          "label": "유튜브 분석 · 기간 선택기 (5구간) — 제품이 정본 `.louis-segmented-control` 을 채택했다",
+          "jsx": "YoutubeAnalyticsScene.tsx:2189-2219",
           "hosted": true,
           "hostNone": "",
           "tree": {
             "part": "PERIOD_SELECTOR",
             "slot": false,
             "text": "",
-            "w": 263.89,
-            "h": 34,
+            "w": 217.89,
+            "h": 32,
             "abs": false,
             "x": 0,
             "y": 0,
             "pad": [
-              3,
-              3,
-              3,
-              3
+              4,
+              4,
+              4,
+              4
             ],
             "inset": [
               0,
@@ -20379,16 +20396,16 @@
               0,
               0
             ],
-            "gap": 2,
+            "gap": 0,
             "gaps": [],
             "dir": "H",
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0,
-              0,
-              0,
-              0
+              0.98,
+              0.98,
+              0.98,
+              0.08
             ],
             "gradient": null,
             "fg": [
@@ -20397,7 +20414,7 @@
               0.98,
               1
             ],
-            "radius": 8,
+            "radius": 12,
             "borderWidth": 0,
             "borderColor": [
               0.98,
@@ -20421,14 +20438,14 @@
             "maxW": 0,
             "children": [
               {
-                "part": "PERIOD_SELECTOR_THUMB",
+                "part": "THUMB_BASE",
                 "slot": true,
                 "text": "",
                 "w": 0,
-                "h": 28,
+                "h": 0,
                 "abs": true,
-                "x": 0,
-                "y": 3,
+                "x": 4,
+                "y": 4,
                 "pad": [
                   0,
                   0,
@@ -20447,10 +20464,10 @@
                 "justify": "normal",
                 "align": "stretch",
                 "bg": [
-                  0,
-                  0,
-                  0,
-                  0
+                  0.98,
+                  0.98,
+                  0.98,
+                  0.2
                 ],
                 "gradient": null,
                 "fg": [
@@ -20459,7 +20476,7 @@
                   0.98,
                   1
                 ],
-                "radius": 6,
+                "radius": 0,
                 "borderWidth": 0,
                 "borderColor": [
                   0.98,
@@ -20476,27 +20493,27 @@
                 "textFill": true,
                 "wx": "HUG",
                 "wy": "슬롯",
-                "hy": "부모높이",
-                "hx": "FILL",
+                "hy": "슬롯",
+                "hx": "HUG",
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
                 "children": []
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "7일",
-                "w": 40.86,
-                "h": 28,
+                "text": "",
+                "w": 32.86,
+                "h": 24,
                 "abs": false,
-                "x": 3,
-                "y": 3,
+                "x": 4,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20506,8 +20523,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20517,18 +20534,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20536,7 +20553,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20544,23 +20561,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "7일",
+                    "w": 16.86,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN_ACTIVE",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "1개월",
-                "w": 49.78,
-                "h": 28,
+                "text": "",
+                "w": 41.78,
+                "h": 24,
                 "abs": false,
-                "x": 45.86,
-                "y": 3,
+                "x": 36.86,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20570,8 +20652,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20586,12 +20668,12 @@
                   0.98,
                   1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
+                  1,
+                  1,
+                  1,
                   1
                 ],
                 "shadow": null,
@@ -20600,7 +20682,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20608,23 +20690,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "1개월",
+                    "w": 25.78,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "3개월",
-                "w": 51.89,
-                "h": 28,
+                "text": "",
+                "w": 43.89,
+                "h": 24,
                 "abs": false,
-                "x": 97.64,
-                "y": 3,
+                "x": 78.64,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20634,8 +20781,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20645,18 +20792,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20664,7 +20811,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20672,23 +20819,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "3개월",
+                    "w": 27.89,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "1년",
-                "w": 39.53,
-                "h": 28,
+                "text": "",
+                "w": 31.53,
+                "h": 24,
                 "abs": false,
-                "x": 151.53,
-                "y": 3,
+                "x": 122.53,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20698,8 +20910,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20709,18 +20921,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20728,7 +20940,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20736,23 +20948,88 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "1년",
+                    "w": 15.53,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               },
               {
-                "part": "PERIOD_BTN",
+                "part": "PERIOD_SEGMENT",
                 "slot": false,
-                "text": "전체 기간",
-                "w": 67.83,
-                "h": 28,
+                "text": "",
+                "w": 59.83,
+                "h": 24,
                 "abs": false,
-                "x": 193.06,
-                "y": 3,
+                "x": 154.06,
+                "y": 4,
                 "pad": [
-                  5,
-                  12,
-                  5,
-                  12
+                  0,
+                  8,
+                  0,
+                  8
                 ],
                 "inset": [
                   0,
@@ -20762,8 +21039,8 @@
                 ],
                 "gap": 0,
                 "gaps": [],
-                "dir": "V",
-                "justify": "normal",
+                "dir": "H",
+                "justify": "center",
                 "align": "stretch",
                 "bg": [
                   0,
@@ -20773,18 +21050,18 @@
                 ],
                 "gradient": null,
                 "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
                 ],
-                "radius": 6,
+                "radius": 8,
                 "borderWidth": 0,
                 "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  0.56
+                  1,
+                  1,
+                  1,
+                  1
                 ],
                 "shadow": null,
                 "fontSize": 12,
@@ -20792,7 +21069,7 @@
                 "weight": 500,
                 "letterSpacing": -0.12,
                 "isText": false,
-                "textFill": true,
+                "textFill": false,
                 "wx": "HUG",
                 "wy": "주축",
                 "hy": "내용",
@@ -20800,7 +21077,72 @@
                 "minW": 0,
                 "minH": 0,
                 "maxW": 0,
-                "children": [],
+                "children": [
+                  {
+                    "part": "PERIOD_SEGMENT_LABEL",
+                    "slot": false,
+                    "text": "전체 기간",
+                    "w": 43.83,
+                    "h": 18,
+                    "abs": false,
+                    "x": 8,
+                    "y": 3,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 12,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.12,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 3
+                  }
+                ],
                 "ci": 0
               }
             ]
@@ -21428,17 +21770,17 @@
                     ],
                     "gradient": null,
                     "fg": [
-                      0.447,
-                      0.459,
-                      0.482,
+                      0.545,
+                      0.557,
+                      0.576,
                       1
                     ],
                     "radius": 0,
                     "borderWidth": 0,
                     "borderColor": [
-                      0.447,
-                      0.459,
-                      0.482,
+                      0.545,
+                      0.557,
+                      0.576,
                       1
                     ],
                     "shadow": null,
@@ -21490,17 +21832,17 @@
                         ],
                         "gradient": null,
                         "fg": [
-                          0.447,
-                          0.459,
-                          0.482,
+                          0.545,
+                          0.557,
+                          0.576,
                           1
                         ],
                         "radius": 0,
                         "borderWidth": 0,
                         "borderColor": [
-                          0.447,
-                          0.459,
-                          0.482,
+                          0.545,
+                          0.557,
+                          0.576,
                           1
                         ],
                         "shadow": null,
@@ -21552,17 +21894,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.447,
-                              0.459,
-                              0.482,
+                              0.545,
+                              0.557,
+                              0.576,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.447,
-                              0.459,
-                              0.482,
+                              0.545,
+                              0.557,
+                              0.576,
                               1
                             ],
                             "shadow": null,
@@ -21616,17 +21958,17 @@
                             ],
                             "gradient": null,
                             "fg": [
-                              0.447,
-                              0.459,
-                              0.482,
+                              0.545,
+                              0.557,
+                              0.576,
                               1
                             ],
                             "radius": 0,
                             "borderWidth": 0,
                             "borderColor": [
-                              0.447,
-                              0.459,
-                              0.482,
+                              0.545,
+                              0.557,
+                              0.576,
                               1
                             ],
                             "shadow": null,
@@ -21808,9 +22150,9 @@
                     "justify": "normal",
                     "align": "stretch",
                     "bg": [
-                      0.169,
-                      0.184,
-                      0.212,
+                      0.09,
+                      0.106,
+                      0.133,
                       1
                     ],
                     "gradient": null,
@@ -21894,10 +22236,10 @@
             "justify": "normal",
             "align": "stretch",
             "bg": [
-              0,
-              0,
-              0,
-              0
+              0.09,
+              0.106,
+              0.133,
+              1
             ],
             "gradient": null,
             "fg": [
@@ -22355,9 +22697,9 @@
                 "justify": "center",
                 "align": "stretch",
                 "bg": [
-                  0.09,
-                  0.106,
-                  0.133,
+                  0.051,
+                  0.067,
+                  0.094,
                   1
                 ],
                 "gradient": null,

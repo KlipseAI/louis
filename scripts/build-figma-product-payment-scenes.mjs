@@ -114,9 +114,17 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-d843ea7725e7(83, body.1, success 짝)     → subtree-4f5aa4e9cf22
 //   subtree-48b751ac1e30(25, body.1.0.0.1, fail)     → subtree-0f24f9093a95
 //   subtree-6dd1be31e112(21, body.1.0.0.1, success)  → subtree-71e9f8d4cba7
+// 2026-09-11 재고정(f19cc41c → 38a7d5a4). 앞의 예고대로 **진짜 변경**이고 원인은 제품
+// `658ece13`「사이드바에서 + 버튼을 걷고…」의 -4 노드다(NavPlusGlyph svg+path2 와 button).
+// 결제 장면은 헤더를, 헤더는 사이드바를 품으므로 같은 -4 가 여기까지 올라온다.
+// 판정은 `roots`(route·path·tag·rect) 바이트 동일 + nodeCount/score 만 이동으로 했다:
+//   subtree-ed47f43c48b1(87, body.1, fail 짝)    → subtree-6dff099f5193(83)
+//   subtree-6ba92d715b72(83, body.1, success 짝) → subtree-11c231002ba4(79)
+// **nodeCount 로 고르면 틀린다** — 새 83 은 옛 83 이 아니라 옛 87 이 줄어든 것이다.
+// 기하 가드(아래)는 rect 가 전부 그대로여서 건드리지 않는다.
 const candidateContracts = [
-  ["subtree-ed47f43c48b1", 87, 2],
-  ["subtree-6ba92d715b72", 83, 2],
+  ["subtree-6dff099f5193", 83, 2],
+  ["subtree-11c231002ba4", 79, 2],
   ["subtree-ea6c9f0dfd59", 25, 2],
   ["subtree-f034cc084ea1", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {

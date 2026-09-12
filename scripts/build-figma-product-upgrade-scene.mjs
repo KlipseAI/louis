@@ -369,8 +369,8 @@ const upgradeSourcePath = "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx
 // 안에서 서로 붙어 있다(`git show 5a67d692:…UpgradePlanPageClient.tsx | grep -n outline`
 // 이 219·220 만 준다). 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
 const currentPlanOutlineSource = [
-  sourceQuote(upgradeSourcePath, 221, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
-  sourceQuote(upgradeSourcePath, 222, '  "[outline-offset:-2px]",'),
+  sourceQuote(upgradeSourcePath, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
+  sourceQuote(upgradeSourcePath, 233, '  "[outline-offset:-2px]",'),
 ];
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",

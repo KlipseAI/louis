@@ -2,49 +2,49 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
   "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Product rects remain authoritative for placement and containers.",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "profileVisualSource": {
     "avatar": {
-      "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "path": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "line": 22,
       "quote": "  \"text-palette-gray-400\","
     },
     "ring": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1506,
+        "line": 1467,
         "quote": "    \"[--profile-avatar-size:28px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1509,
+        "line": 1470,
         "quote": "    \"[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1510,
+        "line": 1471,
         "quote": "    \"[--profile-ring-gap:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1511,
+        "line": 1472,
         "quote": "    \"[--profile-ring-width:2px]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1538,
+        "line": 1499,
         "quote": "    \"[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1540,
+        "line": 1501,
         "quote": "    \"[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]\","
       }
     ]
@@ -386,9 +386,9 @@
         "name": "bg/surface"
       },
       "$darkSurfaceSource": {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 484,
+        "line": 489,
         "quote": "    \"[background:var(--louis-color-bg-surface)]\","
       },
       "divider": {
@@ -463,10 +463,10 @@
           1
         ],
         "dividerColor": [
-          0,
-          0,
-          0,
-          0
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
         ],
         "leading": {
           "x": 6,
@@ -1857,10 +1857,10 @@
             1
           ],
           "dividerColor": [
-            0,
-            0,
-            0,
-            0
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
           ],
           "leading": {
             "x": 8,

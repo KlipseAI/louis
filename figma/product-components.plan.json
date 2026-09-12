@@ -1,11 +1,11 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "f19cc41c7c50053e89f30e622fc14f53feb5b269",
+  "productCommit": "38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-4a764af3ad4d",
-    "nodeCount": 47,
+    "id": "subtree-7eb3e2833a3e",
+    "nodeCount": 43,
     "roots": [
       {
         "route": "/settings",
@@ -120,7 +120,7 @@
     ],
     "routeCount": 10,
     "occurrenceCount": 10,
-    "score": 470
+    "score": 430
   },
   "component": {
     "id": "product/gnb-sidebar-menu",
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit f19cc41c7c50053e89f30e622fc14f53feb5b269."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
       },
       {
         "current": "Composition",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit f19cc41c7c50053e89f30e622fc14f53feb5b269."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit f19cc41c7c50053e89f30e622fc14f53feb5b269."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a."
       }
     ],
     "rows": [
@@ -317,7 +317,7 @@
         }
       },
       {
-        "kind": "compound",
+        "kind": "simple",
         "key": "canvas",
         "rect": {
           "x": 0,
@@ -361,37 +361,16 @@
           ],
           "opacity": 0.92
         },
-        "mainRect": {
-          "x": 8,
-          "y": 72,
-          "width": 216,
-          "height": 32
-        },
-        "addRect": {
-          "x": 228,
-          "y": 76,
-          "width": 24,
-          "height": 24
-        },
-        "addRadius": 6,
-        "addBackground": [
-          0.862745,
-          0.870588,
-          0.882353,
-          1
-        ],
         "radius": 10,
-        "gap": 4,
         "padding": {
           "top": 0,
           "right": 4,
           "bottom": 0,
           "left": 8
-        },
-        "ariaLabel": "New project (open canvas)"
+        }
       },
       {
-        "kind": "compound",
+        "kind": "simple",
         "key": "composition",
         "rect": {
           "x": 0,
@@ -435,34 +414,13 @@
           ],
           "opacity": 0.92
         },
-        "mainRect": {
-          "x": 8,
-          "y": 108,
-          "width": 216,
-          "height": 32
-        },
-        "addRect": {
-          "x": 228,
-          "y": 112,
-          "width": 24,
-          "height": 24
-        },
-        "addRadius": 6,
-        "addBackground": [
-          0.862745,
-          0.870588,
-          0.882353,
-          1
-        ],
         "radius": 10,
-        "gap": 4,
         "padding": {
           "top": 0,
           "right": 4,
           "bottom": 0,
           "left": 8
-        },
-        "ariaLabel": "New project (Composition)"
+        }
       },
       {
         "kind": "highlight",
@@ -518,7 +476,7 @@
         },
         "beta": {
           "rect": {
-            "x": 207.5938,
+            "x": 101.8906,
             "y": 148,
             "width": 44.4063,
             "height": 24
@@ -526,7 +484,7 @@
           "label": {
             "text": "BETA",
             "rect": {
-              "x": 215.5938,
+              "x": 109.8906,
               "y": 151,
               "width": 28.4063,
               "height": 18
@@ -747,27 +705,26 @@
       "/highlight_symbol.svg": "root/highlight_symbol",
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
-      "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
-      "plus": ".glyph/NavPlusGlyph"
+      "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)"
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 587,
+        "line": 592,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 593,
+        "line": 598,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 597,
-        "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-800)]\","
+        "line": 602,
+        "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]\","
       }
     },
     "upgradeCta": {
@@ -775,8 +732,8 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-79b78b9dcc94",
-          "nodeCount": 59,
+          "id": "subtree-010a934d5c3b",
+          "nodeCount": 55,
           "roots": [
             {
               "route": "/settings",
@@ -847,11 +804,11 @@
           ],
           "routeCount": 6,
           "occurrenceCount": 6,
-          "score": 354
+          "score": 330
         },
         {
-          "id": "subtree-30c5289f8743",
-          "nodeCount": 59,
+          "id": "subtree-5975d39c8e46",
+          "nodeCount": 55,
           "roots": [
             {
               "route": "/mypage/upgrade",
@@ -900,7 +857,7 @@
           ],
           "routeCount": 4,
           "occurrenceCount": 4,
-          "score": 236
+          "score": 220
         }
       ],
       "variants": [
@@ -1251,8 +1208,8 @@
           "score": 108
         },
         {
-          "id": "subtree-79b78b9dcc94",
-          "nodeCount": 59,
+          "id": "subtree-010a934d5c3b",
+          "nodeCount": 55,
           "roots": [
             {
               "route": "/settings",
@@ -1323,11 +1280,11 @@
           ],
           "routeCount": 6,
           "occurrenceCount": 6,
-          "score": 354
+          "score": 330
         },
         {
-          "id": "subtree-30c5289f8743",
-          "nodeCount": 59,
+          "id": "subtree-5975d39c8e46",
+          "nodeCount": 55,
           "roots": [
             {
               "route": "/mypage/upgrade",
@@ -1376,7 +1333,7 @@
           ],
           "routeCount": 4,
           "occurrenceCount": 4,
-          "score": 236
+          "score": 220
         }
       ],
       "root": {
@@ -1420,7 +1377,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show f19cc41c7c50053e89f30e622fc14f53feb5b269:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C /Users/sejunki/klipse-web show 38a7d5a4e69c6237a8baa82f3cbf0f1668e58e7a:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""

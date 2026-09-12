@@ -106,7 +106,12 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // `videoEditParts/inspectorPrimitives.tsx#InspectorPill` 이 앵커를 5a67d692 에서 옮기는
 // 사이에 없어졌다(앵커 재고정 e3242aa 가 그 사실을 먼저 적었다). 세 갈래 중 어느 것도
 // 아니므로 네 번째를 적는다: **소비처가 없어졌다.** 그 자리가 돌아오면 이 수도 돌아와야 한다.
-const NEEDED_BASELINE = 175; // 하락만 잠근다(상승은 발견)
+// 2026-09-11: 175 → 202. **27칸이 늘어져 있었다.** 원장의 needed 는 175 → 197(`be3c422`)
+// → 202(`7f41d5a`, 앵커 38a7d5a4) 로 올랐는데 이 기준선은 175 에 멈춰 있었다. 상승은
+// 발견이라 에러가 안 나지만, 그만큼 **하락 그물이 헐거워진다** — 202 에서 176 까지 조용히
+// 되돌아가도 이 검사는 아무 말도 하지 않았고, 그래서 `coverage targets needed fell without
+// locking` 카나리아가 물지 못했다(checker 가 주입을 통과시켰다). 상승도 그때그때 잠근다.
+const NEEDED_BASELINE = 202; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -135,12 +140,28 @@ const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있�
 // 컴포넌트 축에 또 세울 일이 아니다 — ChevronGlyph·CloseGlyph 판례와 같은 자리다.
 // 나머지 스물둘은 needed 로 갔고(사전에 없는 그림 열다섯 · 화면 넷 · 한자리 하나 · 부품 둘),
 // 하나는 figma(AdminSelect → SelectTrigger)다.
-const SCOPED_BASELINE = 239; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-09-11: 239 → 238. **분모가 넓어진 것이 아니라 표면 하나가 사라졌다** — 게이트 메시지가
+// 추측하는 사유와 다르므로 그대로 베끼지 마라. 빠진 것은
+// `apps/web/components/navigation/Gnb.tsx#NavPlusGlyph`(scoped) 하나이고, 제품 `658ece13`
+// 「사이드바에서 + 버튼을 걷고 베타 딱지를 라벨 옆으로 옮긴다」가 그 컴포넌트를 삭제했다.
+// 같은 회차에 needed 다섯이 새로 섰다 — `CropModal#ImageEditModal` ·
+// `imageEditParts/ExampleGallery` · `StickerCanvas` · `StickerPalette` · `ui/SegmentedThumb`
+// (앵커 사이 이미지 편집·스티커 기능). 수가 정확히 맞는다: total 468 + 5 - 1 = 472 ·
+// needed 197 + 5 = 202 · scoped 239 - 1 = 238.
+// **원장은 `7f41d5a`(앵커 38a7d5a4 이동)가 이미 갱신했고 이 기준선만 안 따라왔다** —
+// 그래서 이 게이트는 그 커밋 이후로 계속 빨갰다.
+const SCOPED_BASELINE = 238; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
 // 물지 못했다. 범위 밖은 227 그대로이므로 허용치를 지금 총수에 다시 맞춘다.
-const SURFACE_TOTAL_BASELINE = 468; // 위 천장의 기준점
+// 2026-09-11: 468 → 472. **위 주석이 예고한 일이 그대로 재발했다.** 앵커가
+// f19cc41c → 38a7d5a4 로 옮기며 표면 총수가 468 → 472 로 올랐는데(신규 5 · 소멸 1) 기준점이
+// 안 따라와, `allowedScoped = 238 + (472 - 468) = 242` 로 **범위 밖 허용치에 4칸이 벌어졌다.**
+// 실제 scoped 는 238 이므로 카나리아가 표면 하나를 needed → scoped 로 옮겨도 239 ≤ 242 여서
+// 통과했다 — `needed reclassified as out of scope` 가 또 물지 못한 이유다.
+// **앵커를 옮길 때는 이 기준점도 같은 커밋에서 옮긴다.** 두 회차 연속 잊었다.
+const SURFACE_TOTAL_BASELINE = 472; // 위 천장의 기준점
 // 17 → 18 (2026-09-06): `alert` 가 partial 에서 done 으로 올라갔다. 레이아웃 축(block·inline·
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가

@@ -81,5 +81,14 @@ pnpm verify
 ```
 
 `verify`는 정상 입력 검사뿐 아니라 고의로 오류를 주입해 게이트가 실제로 실패하는지도 확인한다.
-제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci`가 13단계를 돌고,
-남은 16단계와 인용 좌표 카나리아 3개는 `pnpm verify:product`로 여기서만 증명된다.
+제품 저장소가 있는 곳에서만 전량이 돈다. 없는 곳(hosted CI)에서는 `pnpm verify:ci` 갈래만 돌고,
+나머지 `pnpm verify:product` 갈래는 제품 저장소가 있는 곳에서만 증명된다. `verify-gates:ci`가
+건너뛰며 이름으로 찍는 인용 좌표 카나리아도 그 갈래의 `verify-gates`에서 돈다.
+
+게이트 수와 카나리아 수는 여기에 적지 않는다 — 게이트 수의 정본은 `package.json`의 `verify:ci`·
+`verify:product` 두 스크립트이고, 이 자리에 적혀 있던 「13단계」「16단계」도 게이트가 늘며 낡았다.
+건너뛰는 카나리아는 `verify-gates:ci` 출력이 이름과 수를 찍는다. 게이트 수를 셀 때는 다음을 돈다.
+
+```sh
+node -e 'const p=require("./package.json").scripts;const c=s=>(s.match(/pnpm run /g)||[]).length;console.log(c(p["verify:ci"]),c(p["verify:product"]))'
+```

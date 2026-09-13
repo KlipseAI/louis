@@ -37,10 +37,18 @@ P3부터 devDependencies가 생겼다 — `pnpm install` 없이는 `pnpm build`�
 죽고, 브라우저 바이너리 없이는 `verify-test-harness`가 죽는다. 브라우저 바이너리는 lockfile에
 없으므로 별도로 받아야 한다.
 
-`pnpm verify`는 게이트 27단계 전량이고, 그중 **14단계**는 제품 저장소(`klipse-web`)를 읽는다.
-제품 저장소가 없는 환경에서는 `pnpm verify:ci`(13단계)만 돈다 — hosted CI가 그렇게 돈다.
-**따라서 CI 초록은 게이트 13개가 통과했다는 뜻이다.** 배분은 `scripts/verify-gate-split.mjs`가
-지키고, 푸시 전 러너 재현은 `pnpm clean-room`으로 한다.
+`pnpm verify`는 `verify:ci`와 `verify:product` 두 갈래의 합이고, `verify:product` 갈래는 제품
+저장소(`klipse-web`)를 읽는다. 제품 저장소가 없는 환경에서는 `pnpm verify:ci`만 돈다 — hosted CI가
+그렇게 돈다. **따라서 CI 초록은 `verify:ci` 갈래가 통과했다는 뜻이지 전량 통과가 아니다.** 배분은
+`scripts/verify-gate-split.mjs`가 지키고, 푸시 전 러너 재현은 `pnpm clean-room`으로 한다.
+
+게이트 수는 여기에 적지 않는다 — 정본은 `package.json`의 `verify:ci`·`verify:product` 두 스크립트이고,
+게이트가 늘 때마다 산문의 수가 낡는다(이 자리에 적혀 있던 「27단계 중 14단계」도 그렇게 낡았다).
+셀 때는 다음을 돈다.
+
+```sh
+node -e 'const p=require("./package.json").scripts;const c=s=>(s.match(/pnpm run /g)||[]).length;console.log(c(p["verify:ci"]),c(p["verify:product"]))'
+```
 
 ## 운영 원칙
 

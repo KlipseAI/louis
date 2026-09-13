@@ -68,17 +68,27 @@ machine judges the value; here the machine judges whether the value was ever loo
 ## Workflow
 
 - Update the manifest, normative document, implementation, tests, and release note together.
-- Run `pnpm build`, `pnpm check`, and `pnpm verify` before handoff.
-- Run `pnpm clean-room` before pushing. A green `pnpm verify` only proves this machine passes:
+- Before committing, run the list in
+  [`design/governance/execution-handoff.md`](design/governance/execution-handoff.md) section 6
+  「세션 종료」, which owns it: `export KLIPSE_PRODUCT_REPO=<path to klipse-web>`, `pnpm build`,
+  `pnpm check`, `pnpm verify`, `pnpm test`, `git diff --check`. Without `KLIPSE_PRODUCT_REPO` the
+  first `verify:product` gate dies on any machine where the product repository is not at the
+  scripts' hard-coded default (`/Users/sejunki/klipse-web`), and passes there only by accident.
+  `pnpm test` is not part of `verify`.
+- Run `pnpm clean-room` after committing, before pushing — it refuses a dirty working tree.
+  A green `pnpm verify` only proves this machine passes:
   it reuses the existing `node_modules`, sees uncommitted files, and finds the product
   repository at its default path. CI has none of those. Both of the failures that kept CI red
   for 46 consecutive runs (2026-08-18 to 08-22) were invisible to a local `pnpm verify` — see Updates (93)
   and (94). `pnpm clean-room` clones the committed HEAD, installs from the lockfile, and pins the
   product repository to a path that does not exist.
-- CI runs `pnpm verify:ci`, not `pnpm verify`. Fourteen of the twenty-seven gates read the product
-  repository and cannot run on the runner, so **a green CI means thirteen gates passed**, not all
-  of them. Seven of those thirteen used to sit in `verify:ci` and printed `SKIPPED` with exit 0,
-  which made a green run look like full coverage — see Updates (95). A gate that disables itself
-  silently is worse than a red one.
+- CI runs `pnpm verify:ci`, not `pnpm verify`. The `verify:product` gates read the product
+  repository and cannot run on the runner, so **a green CI means the `verify:ci` gates passed**,
+  not all of them. Seven gates that read the product used to sit in `verify:ci` and printed
+  `SKIPPED` with exit 0, which made a green run look like full coverage — see Updates (95).
+  A gate that disables itself silently is worse than a red one.
+- **Do not write gate counts in prose.** The two scripts in `package.json` are the only source;
+  every count written here went stale as gates were added (this bullet used to say "fourteen of
+  the twenty-seven"). Count them at the moment you need the number.
 - Do not mark Web or Figma as done without a shipped artifact and verification evidence.
 - Do not copy product-repository debt into the normative catalog.

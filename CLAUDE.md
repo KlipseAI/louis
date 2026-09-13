@@ -27,10 +27,13 @@ Klipse Design을 SEED Design처럼 제품 저장소와 분리된, 버전이 지�
 
 - `execution-handoff.md`의 작업 큐에서 의존성이 충족된 가장 앞의 항목을 선택한다.
 - 원격 저장소와 hosted CI는 2026-08-18에 생겼다(`.github/workflows/ci.yml`, push·PR 트리거).
-  **CI가 도는 것은 `pnpm verify:ci` 이지 `pnpm verify` 가 아니다** — 게이트 27개 중 **14개**는
+  **CI가 도는 것은 `pnpm verify:ci` 이지 `pnpm verify` 가 아니다** — `verify:product` 갈래는
   제품 저장소를 읽어야 해서 러너에서 돌 수 없다. 배분은 `scripts/verify-gate-split.mjs` 가
-  지킨다. 그러므로 **CI 초록은 게이트 13개가 통과했다는 뜻이지 전량 통과가 아니다.**
-  나머지 14개는 제품 저장소가 있는 로컬에서 `pnpm verify` 로만 증명된다.
+  지킨다. 그러므로 **CI 초록은 `verify:ci` 갈래가 통과했다는 뜻이지 전량 통과가 아니다.**
+  `verify:product` 갈래는 제품 저장소가 있는 로컬에서 `pnpm verify` 로만 증명된다.
+  **게이트 수를 여기에 적지 않는다** — 정본은 `package.json` 의 두 스크립트이고 게이트가 늘
+  때마다 산문의 수가 낡는다(이 자리에 적혀 있던 「27개 중 14개」도 그렇게 낡았다). 셀 때는
+  `node -e 'const p=require("./package.json").scripts;const c=s=>(s.match(/pnpm run /g)||[]).length;console.log(c(p["verify:ci"]),c(p["verify:product"]))'`.
   푸시 전에 로컬 `pnpm verify` 와 `pnpm clean-room` 을 돈다.
 - 외부 권한이 필요한 publish와 Figma library 공개는 `not-ready`로 남기고 다음 독립 작업을 진행한다.
 - 구현 상태는 추측하지 않는다. 실제 상태는 항상 manifest와 검증 근거로 판정한다.
@@ -47,11 +50,27 @@ Klipse Design을 SEED Design처럼 제품 저장소와 분리된, 버전이 지�
 
 ## 인계 전 검증
 
+정본은 [`execution-handoff.md`](design/governance/execution-handoff.md) 6절 「세션 종료」다. 이 목록이
+그쪽과 어긋나면 그쪽을 따른다.
+
+**커밋 전**:
+
 ```sh
+export KLIPSE_PRODUCT_REPO=<klipse-web 경로>
 pnpm build
 pnpm check
 pnpm verify
+pnpm test
 git diff --check
 ```
+
+**커밋 뒤, 푸시 전**:
+
+```sh
+pnpm clean-room
+```
+
+`KLIPSE_PRODUCT_REPO` 를 세우지 않으면 제품 저장소가 스크립트의 기본 경로(원저자 맥의 `/Users/sejunki/klipse-web`)에 없는 기계에서는 `verify:product` 첫 게이트가 죽고, 그 맥에서는 우연히 통과한다. `pnpm test` 는 `verify`
+안에 없다. `pnpm clean-room` 은 워킹트리가 더러우면 거부하므로 커밋 전 목록에 넣지 않는다.
 
 마지막 보고에는 변경 파일, 사용자에게 달라진 계약, 실행한 검증, 남은 위험과 다음 작업 ID를 포함한다.

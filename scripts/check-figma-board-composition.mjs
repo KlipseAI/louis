@@ -166,22 +166,34 @@ const REPLACEABLE_BASELINE = 0;
 // 2026-09-10: 53 → 52. **판정을 푼 것이 아니라 화면이 움직였다** — 유일한 bespoke 아이콘이던
 // `/subscription` 정렬 드롭다운 꺾쇠가 제품 화면 개편으로 사라졌다(보드의 svg 3 → 2).
 // 그 화면이 돌아오면 이 수도 함께 돌아와야 한다.
-// 2026-09-11: 52 → 45. **이 게이트가 제시하는 두 길 중 어느 것도 아니다.** 순 -7 은 반대
-// 방향 둘의 합이다.
-//   -12  highlight `?__phase=` 여섯 보드의 **모바일**이 상단바를 날노드로 다시 그리던 것을
-//        멈추고 인스턴스를 문다 — `Product/Mobile App Top Bar`
-//        (`Width=Inset, Breadcrumb=Trail, Back=True, Divider=On`). 전에는 32x32 버튼 둘
-//        (`Gnb.tsx iconButton`) + nav 브레드크럼 + 아바타를 손으로 조립했고, 그 버튼 둘이
-//        보드마다 bespoke 였다. **이 저장소가 목표로 하는 이득이다.**
-//    +5  archive desktop·mobile, settings desktop·mobile, subscription mobile 이 각각 날
-//        32x32 아이콘 버튼 하나를 bespoke 로 새로 얻었다(`Gnb.tsx iconButton`, archive 는
-//        `appHomeSceneStyles.ts archiveMoreButton`).
-// **이 기준선은 합계 하나만 잠그므로 그 +5 를 볼 수 없다.** 12 의 이득 뒤에 5 의 후퇴가
-// 숨어 통과한다 — `migration/palette-ladder-baseline.json` 이 per file 로 얼린 것과 같은
-// 이유로 여기도 보드별로 갈라야 한다. 그 전까지는 이 주석이 유일한 그물이다.
-// 검산: instance 84 · missing 83 · blocked 3 이 셋 다 그대로다 — 다른 칸으로 흘러간 것이
-// 없다는 뜻이고, 그래서 「판정을 느슨하게 풀었다」는 길은 배제된다.
-const BESPOKE_BASELINE = 45; // 하락만 잠근다(상승은 발견)
+// 2026-09-11 · 09-13: 52 → 45 → **50.** 45 는 **회귀를 잠근 수였고** 되돌렸다. 이 문단은 두 번
+// 틀린 뒤 실측으로 닫은 것이다 — 다음 사람이 같은 길을 되밟지 않게 틀린 두 판단을 함께 적는다.
+//
+// 원인은 제품이 상단 바를 감싸는 래퍼에 준 여백이다 — `margin-bottom: 0 → var(--app-gnb-main-card-padding-block-start)`(데스크톱 16px · 모바일 6px — 제품 `b6b4e245` · `e95e1fb3`)
+// (f19cc41c → 38a7d5a4, DOM 은 그대로). `collapseWrappers` 는 margin 이 있는 래퍼를 접지 않으므로
+// (옳다) 스펙에 모바일 390×53 · 데스크톱 1600/1608×53 래퍼가 남았고, 상단 바 매처(`figma-component-substitution.mjs`)가
+// 그 래퍼를 바로 착각해 **치환 성공 전에 슬롯을 닫았다.** 그 결과가 둘이었다.
+//   · archive · settings · subscription 다섯 보드가 `Product/*App Top Bar` 인스턴스를 **잃었다.**
+//     래퍼 기준으로 판정한 조합이 세트에 없어 보류됐고 진짜 바는 시도조차 되지 않았다.
+//     그 자리에 바 앞머리의 32×32 버튼이 날노드로 드러나 bespoke 가 +5 였다.
+//   · highlight `?__phase=` 여섯 보드의 모바일에 `Width=Inset, Breadcrumb=Trail, Back=True` 가
+//     **틀리게** 붙었다. 390 래퍼에서 판정한 조합이 우연히 세트에 있었을 뿐이고, 진짜 바는 402 폭
+//     `Full · Trail · Back=True` 로 세트에 없는 조합이다. bespoke -12 는 이득이 아니라 오치환이었다.
+// INSTANCE 합계는 84 로 그대로여서 아무 게이트도 울리지 않았다 — 잃은 바 안의 Avatar 가 따로
+// 인스턴스로 세어져 상쇄했다.
+//
+// 틀린 판단 둘. (1) 4ebbe46 은 +5 를 「합계 뒤에 숨은 bespoke 후퇴」로 적었다 — 후퇴는 맞았지만
+// bespoke 가 아니라 **instance** 의 후퇴였다. (2) 그 뒤 「+5 는 발견이고 -12 는 이득」으로 정정했다 —
+// **둘 다 틀렸다.** 다른 칸이 대가를 치르지 않았다는 근거로 발견이라 했지만, 대가를 치른 것은
+// 셸 인스턴스였고 Avatar 가 그것을 가렸다. 합계로만 보면 이 교환은 영원히 보이지 않는다.
+//
+// 매처를 고쳐(자식 하나가 곧 바인 래퍼는 내려간다) 36 화면 중 34 가 회귀 전 cb1907e 와 같은 상단 바
+// 판정으로 돌아왔고, 둘(`/analytics/youtube` desktop·mobile)은 **같은 버그에 가려져 있던 바를
+// 새로 얻었다** — 1632×53 래퍼 → 같은 크기의 바이며, 안쪽 바의 자식이 settings 의 바와 같은
+// 32×32 · nav · 36×36 이다. 회귀 전 대비 모든 차이가 설명된다: analytics 두 보드 bespoke -1 ·
+// missing -1 · structural -8 씩, 래퍼가 프레임으로 남은 18 보드 structural +1 씩(합 +2).
+// 이 사고를 다시 조용히 지나가지 않게 아래 `SHELL_INSTANCES_BY_BOARD` 를 세웠다.
+const BESPOKE_BASELINE = 50; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -189,8 +201,55 @@ const UNCLASSIFIED_BASELINE = 0;
 // (`button-secondary-light`)을 세우고 실측 두 면으로 판정하게 고쳤고, 면도 헤어라인도 없는
 // `ghost` 도 같은 이유로 자리를 잃고 있어 함께 열었다. 대체가능 22 → 0.
 const INSTANCE_FLOOR = 84;
-const CANDIDATE_FLOOR = 198;
+// 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
+// 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
+// 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
+// 앵커를 옮겨 후보가 오르면 같은 커밋에서 이 수도 올린다(scripts/regen-figma-at-anchor.sh 머리말).
+const CANDIDATE_FLOOR = 218;
 const BOARD_FLOOR = 36;
+const SHELL_COMPONENTS = new Set([
+  "Product/Gnb Desktop Shell",
+  "Product/Desktop App Top Bar",
+  "Product/Mobile App Top Bar",
+]);
+// **보드마다 어떤 셸 인스턴스를 갖는지 정확히 잠근다(2026-09-13).** 합계 `INSTANCE_FLOOR` 는
+// 한 보드에서 상단 바를 잃고 그 안의 Avatar 가 따로 세어지면 같은 수로 남는다 — 위 BESPOKE
+// 문단의 회귀가 정확히 그렇게 지나갔다. 셸은 보드의 뼈대라 어느 보드가 무엇을 갖는지가 곧
+// 사실이고, 그것이 바뀌는 것은 늘든 줄든 누군가 보고 적어야 하는 일이다. 그래서 양방향이다.
+// 셸이 없는 보드는 적지 않는다(highlight 모바일 여섯은 진짜 바가 세트에 없는
+// `Full · Trail · Back=True` 라 날노드가 옳다). 키는 `figma/app-screens.<키>.00.draw.js` 다.
+const SHELL_INSTANCES_BY_BOARD = {
+  "analytics-youtube.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
+  "analytics-youtube.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
+  "archive.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=Off", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "highlight--projectId-__phase-analyzing.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-extracting.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-failed.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-loading.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-upload.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-uploading.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-topup-fail.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-topup-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-topup-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-topup-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-billing-change-fail.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-change-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-billing-change-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-change-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-billing-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  "mypage-upgrade-billing-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  "mypage-upgrade-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  "mypage-upgrade.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
+  "mypage-upgrade.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"],
+  "settings.desktop": ["Product/Desktop App Top Bar · Content=Settings, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "settings.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "subscription.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+};
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.
 const VERDICTS = new Set([
@@ -462,6 +521,39 @@ if (recounted.instance < INSTANCE_FLOOR) {
       "(" + INSTANCE_FLOOR + " → " + recounted.instance + "). 이 파일의 INSTANCE_FLOOR 를 " +
       recounted.instance + " 로 올려 이득을 잠그세요.",
   );
+}
+
+// **보드별 셸 인스턴스 래칫** — 머리의 `SHELL_INSTANCES_BY_BOARD` 주석 참조.
+{
+  const live = {};
+  for (const node of Object.values(ledger.nodes ?? {})) {
+    if (node?.verdict !== "instance" || !SHELL_COMPONENTS.has(node.component)) continue;
+    const key = String(node.board ?? "").replace(/^figma\/app-screens\./, "").replace(/\.00\.draw\.js$/, "");
+    (live[key] ??= []).push(node.component + " · " + node.variant);
+  }
+  for (const board of new Set([...Object.keys(live), ...Object.keys(SHELL_INSTANCES_BY_BOARD)])) {
+    const was = [...(SHELL_INSTANCES_BY_BOARD[board] ?? [])].sort();
+    const now = [...(live[board] ?? [])].sort();
+    const lost = was.filter((item, i) => was.indexOf(item) === i &&
+      was.filter((x) => x === item).length > now.filter((x) => x === item).length);
+    const gained = now.filter((item, i) => now.indexOf(item) === i &&
+      now.filter((x) => x === item).length > was.filter((x) => x === item).length);
+    if (lost.length > 0) {
+      errors.push(
+        board + " 보드가 셸 인스턴스를 잃었습니다: " + lost.join(" / ") + ". 셸이 날노드로 돌아가도 " +
+          "INSTANCE 합계는 그 안의 부품이 따로 세어져 그대로일 수 있습니다 — 매처가 이 보드의 바나 " +
+          "사이드바를 놓친 이유를 먼저 찾으세요. 제품이 정말 그 셸을 걷었다면 " +
+          "SHELL_INSTANCES_BY_BOARD 를 고치고 사유를 적으세요.",
+      );
+    }
+    if (gained.length > 0) {
+      errors.push(
+        board + " 보드가 셸 인스턴스를 새로 얻었습니다: " + gained.join(" / ") + ". 옳은 바에 붙었는지 " +
+          "(래퍼가 아니라 자식이 앞머리·nav·뒷머리인 노드인지) 확인한 뒤 SHELL_INSTANCES_BY_BOARD 에 " +
+          "넣고 사유를 적으세요 — 세트에 없는 조합이 우연히 맞아 붙는 오치환도 이 길로 들어옵니다.",
+      );
+    }
+  }
 }
 
 // **분모를 지워서 비율을 올리는 길을 막는 그물.** 후보를 구조로 재분류하면 대체 가능도 줄고

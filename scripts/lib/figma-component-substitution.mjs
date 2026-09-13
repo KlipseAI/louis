@@ -700,14 +700,31 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   };
 
   let barDone = false;
+  // **상단 바는 「높이 53 + breadcrumb nav」인 노드 중 가장 안쪽의 것이다.**
+  // 제품이 바를 감싸는 래퍼에 `margin-bottom: 0 → var(--app-gnb-main-card-padding-block-start)`(데스크톱 16px · 모바일 6px — 제품 `b6b4e245` · `e95e1fb3`) 를 주자
+  // (f19cc41c → 38a7d5a4, DOM 은 그대로)
+  // `collapseWrappers` 가 그 래퍼를 접지 않게 됐다 — margin 이 있으면 남기는 것이 옳다. 그런데
+  // 래퍼(모바일 390×53 · 데스크톱 1600/1608×53)도 높이 53 이고 nav 를 품으므로 이 매처가 먼저 만났고,
+  // 래퍼 기준으로 폭(390 → Inset)과
+  // 앞머리 버튼 수(바 전체를 세서 Back=True)를 잘못 판정한 뒤 **치환 성공 전에 슬롯을 닫았다.**
+  // 결과는 둘이었다: archive · settings · subscription 다섯 보드는 없는 조합이라 보류돼 진짜 바가
+  // 시도조차 안 됐고(인스턴스 소실), highlight 모바일 여섯은 `Inset · Trail · Back=True` 가 우연히
+  // 목록에 있어 390 래퍼에 **틀린 인스턴스**가 붙었다 — 진짜 바는 402 폭 `Full · Trail · Back=True`
+  // 이고 그 조합은 세트에 없다. INSTANCE 합계는 잃은 바 안의 Avatar 가 따로 세어져 84 로 가려졌다.
+  // 그래서 **자식 중 하나라도 후보인 노드는 바로 보지 않고 내려간다**(자식이 하나뿐인 래퍼만이
+  // 아니다 — 바 옆에 절대 배치 헤어라인 같은 형제가 붙어도 같은 함정이다). 진짜 바의 자식은 앞머리 ·
+  // nav · 뒷머리이고 그중 높이 53 인 것은 없다. 진짜 바를 만나면 변형이 없어도
+  // 슬롯을 닫는다 — 화면마다 바는 하나이고, 그 아래 노드가 바를 가로채면 안 된다.
+  const isTopBarCandidate = (candidate) => Math.round(candidate.rect.height) === 53
+    && Boolean(findDescendant(candidate, (child) => child.tag === "nav"));
   const walk = (node) => {
     if (desktop && node.tag === "header" && node.positioning === "ABSOLUTE"
         && Math.round(node.rect.width) === 280) {
       if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
         "position:fixed 280×1080 header — 앱 데스크톱 사이드바")) return;
     }
-    if (!barDone && Math.round(node.rect.height) === 53
-        && findDescendant(node, (child) => child.tag === "nav")) {
+    if (!barDone && isTopBarCandidate(node)
+        && !(node.children ?? []).some(isTopBarCandidate)) {
       barDone = true;
       const set = desktop ? COMPONENT_SETS.desktopTopBar : COMPONENT_SETS.mobileTopBar;
       const variant = desktop ? desktopTopBarVariant(node) : mobileTopBarVariant(node, viewport.width);

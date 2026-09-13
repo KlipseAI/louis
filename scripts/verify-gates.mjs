@@ -180,6 +180,71 @@ withCanary(
   "보드의 인스턴스가",
 );
 
+// ②′ **보드가 셸을 잃었는데 INSTANCE 합계는 그대로다(2026-09-13).** 2026-09-11 앵커 이동에서 실제로
+// 일어난 모양 그대로다 — 상단 바 매처가 margin 을 가진 래퍼를 바로 착각해 다섯 보드가
+// `Product/*App Top Bar` 를 잃었고, 잃은 바 안의 Avatar 가 따로 인스턴스로 세어져 합계가 84 로
+// 남았다. ② 는 합계가 줄어 잡히지만 이 교환은 합계로는 영원히 안 보인다. 그래서 셸 하나를 면으로
+// 되돌리면서 **같은 보드의 구조 노드 하나를 Avatar 인스턴스로 바꿔** 합계를 맞춘다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const shell = Object.keys(ledger.nodes).find((key) =>
+      ledger.nodes[key].verdict === "instance" && /App Top Bar$/.test(ledger.nodes[key].component ?? ""));
+    const board = ledger.nodes[shell].board;
+    const filler = Object.keys(ledger.nodes).find((key) =>
+      key !== shell && ledger.nodes[key].board === board && ledger.nodes[key].verdict === "structural");
+    ledger.nodes[shell] = {
+      board,
+      tag: ledger.nodes[shell].tag,
+      rect: ledger.nodes[shell].rect,
+      verdict: "structural",
+      rule: "surface",
+      reason: "카나리아 — 상단 바 인스턴스를 손으로 그린 면으로 되돌려 놓았다.",
+    };
+    ledger.nodes[filler] = {
+      ...ledger.nodes[filler],
+      verdict: "instance",
+      rule: "instance",
+      component: "Avatar",
+      variant: "Size=md",
+      reason: "카나리아 — 잃은 바 안의 부품이 따로 세어져 인스턴스 합계를 메운다.",
+    };
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition shell lost while instance total held",
+  "scripts/check-figma-board-composition.mjs",
+  "셸 인스턴스를 잃었습니다",
+);
+
+// ②″ **셸이 없던 보드에 셸이 붙었는데 합계는 그대로다(2026-09-13).** 같은 사고의 다른 절반이다 —
+// highlight 모바일 여섯은 바 안의 Avatar 인스턴스가 있던 자리에 래퍼 기준으로 판정한 틀린
+// `Width=Inset` 상단 바가 붙어 인스턴스 수가 변하지 않았다. ②′ 는 「잃음」만 시험하므로 이
+// 「얻음」 쪽이 조용히 풀려도 모른다. 셸이 하나도 없는 보드의 Avatar 를 상단 바로 바꿔 합계를 맞춘다.
+withCanary(
+  "migration/figma-board-composition.json",
+  (source) => {
+    const ledger = JSON.parse(source);
+    const shellSet = /^Product\/(Gnb Desktop Shell|Desktop App Top Bar|Mobile App Top Bar)$/;
+    const boardsWithShell = new Set(Object.values(ledger.nodes)
+      .filter((node) => node.verdict === "instance" && shellSet.test(node.component ?? ""))
+      .map((node) => node.board));
+    const id = Object.keys(ledger.nodes).find((key) =>
+      ledger.nodes[key].verdict === "instance" && ledger.nodes[key].component === "Avatar"
+      && !boardsWithShell.has(ledger.nodes[key].board));
+    ledger.nodes[id] = {
+      ...ledger.nodes[id],
+      component: "Product/Mobile App Top Bar",
+      variant: "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
+      reason: "카나리아 — 래퍼 기준으로 판정한 틀린 상단 바가 Avatar 자리에 붙었다.",
+    };
+    return JSON.stringify(ledger, null, 2) + "\n";
+  },
+  "board composition shell gained while instance total held",
+  "scripts/check-figma-board-composition.mjs",
+  "셸 인스턴스를 새로 얻었습니다",
+);
+
 // ③ 후보를 구조로 재분류해 분모를 줄였다. 비율은 오르는데 그림은 한 장도 안 바뀐 경우다.
 withCanary(
   "migration/figma-board-composition.json",

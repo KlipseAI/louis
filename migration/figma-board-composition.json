@@ -14,46 +14,46 @@
   "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 952,
+  "rawNodesBeforePruning": 969,
   "counts": {
-    "total": 981,
+    "total": 993,
     "instance": 84,
     "replaceable": 0,
-    "bespoke": 45,
+    "bespoke": 50,
     "blocked": 3,
-    "missing": 83,
-    "structural": 766,
+    "missing": 81,
+    "structural": 775,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 39.1,
+    "instanceOverCandidates": 38.5,
     "target": 84,
-    "candidates": 215
+    "candidates": 218
   },
   "byInstanceSet": {
     "Product/Gnb Desktop Shell": 18,
-    "Avatar": 14,
-    "Product/Mobile App Top Bar": 14,
-    "Button": 30,
-    "Product/Desktop App Top Bar": 8
+    "Product/Desktop App Top Bar": 11,
+    "Product/Mobile App Top Bar": 12,
+    "Avatar": 13,
+    "Button": 30
   },
   "byComponent": {},
   "bespokeByComponent": {
-    "IconButton/md": 20,
+    "IconButton/md": 25,
     "Button/md": 21,
     "SegmentedControl/settings": 4
   },
   "bespokeByIcon": {},
   "structuralByKind": {
     "surface": 172,
-    "frame": 327,
-    "text": 265,
-    "image": 2
+    "frame": 329,
+    "image": 2,
+    "text": 272
   },
   "missingByCandidateClause": {
-    "a-interactive": 30,
-    "c-painted-mark": 51,
+    "a-interactive": 29,
+    "c-painted-mark": 50,
     "b-vector": 2
   },
   "matchRules": [
@@ -155,13 +155,13 @@
         "figma/app-screens.analytics-youtube.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 26,
+        "total": 16,
         "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
-        "structural": 21,
+        "missing": 1,
+        "structural": 13,
         "unclassified": 0
       }
     },
@@ -174,13 +174,13 @@
         "figma/app-screens.analytics-youtube.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 25,
+        "total": 15,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
-        "structural": 21,
+        "missing": 1,
+        "structural": 13,
         "unclassified": 0
       }
     },
@@ -193,13 +193,13 @@
         "figma/app-screens.archive.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 20,
+        "total": 12,
         "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 16,
+        "missing": 0,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -212,13 +212,13 @@
         "figma/app-screens.archive.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 19,
+        "total": 11,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 16,
+        "missing": 0,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -250,13 +250,13 @@
         "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 8,
+        "total": 20,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 0,
-        "missing": 0,
-        "structural": 7,
+        "missing": 1,
+        "structural": 16,
         "unclassified": 0
       }
     },
@@ -288,13 +288,13 @@
         "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 8,
+        "total": 20,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 0,
-        "missing": 0,
-        "structural": 7,
+        "missing": 1,
+        "structural": 16,
         "unclassified": 0
       }
     },
@@ -326,13 +326,13 @@
         "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 11,
+        "total": 23,
         "instance": 3,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 0,
-        "missing": 0,
-        "structural": 8,
+        "missing": 1,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -364,13 +364,13 @@
         "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 5,
+        "total": 17,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 0,
         "missing": 1,
-        "structural": 3,
+        "structural": 13,
         "unclassified": 0
       }
     },
@@ -402,13 +402,13 @@
         "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 19,
+        "total": 31,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 0,
-        "missing": 7,
-        "structural": 11,
+        "missing": 8,
+        "structural": 20,
         "unclassified": 0
       }
     },
@@ -440,13 +440,13 @@
         "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 10,
+        "total": 22,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 2,
         "blocked": 1,
-        "missing": 0,
-        "structural": 8,
+        "missing": 1,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -766,13 +766,13 @@
         "figma/app-screens.settings.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 67,
+        "total": 59,
         "instance": 9,
         "replaceable": 0,
-        "bespoke": 4,
+        "bespoke": 3,
         "blocked": 0,
-        "missing": 3,
-        "structural": 51,
+        "missing": 2,
+        "structural": 45,
         "unclassified": 0
       }
     },
@@ -785,13 +785,13 @@
         "figma/app-screens.settings.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 63,
+        "total": 55,
         "instance": 7,
         "replaceable": 0,
-        "bespoke": 3,
+        "bespoke": 2,
         "blocked": 0,
-        "missing": 3,
-        "structural": 50,
+        "missing": 2,
+        "structural": 44,
         "unclassified": 0
       }
     },
@@ -823,13 +823,13 @@
         "figma/app-screens.subscription.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 54,
+        "total": 46,
         "instance": 4,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 48,
+        "missing": 0,
+        "structural": 42,
         "unclassified": 0
       }
     }
@@ -932,126 +932,11 @@
         1632,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.0.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.1": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        1532,
-        24.75
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.1.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        1532,
-        24.75
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        66.42,
-        19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        5.39,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.1.0.2": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        130.86,
-        19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.2": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.2.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Desktop App Top Bar",
+      "variant": "Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Desktop App Top Bar(Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On)."
     },
     "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
@@ -1215,126 +1100,11 @@
         402,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.1": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        306,
-        21.78
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.1.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        306,
-        21.78
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        58.13,
-        16
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.1.0.1": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        4.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.1.0.2": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        114.5,
-        16
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.2": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.2.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Mobile App Top Bar",
+      "variant": "Width=Full, Breadcrumb=Trail, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Full, Breadcrumb=Trail, Back=False, Divider=On)."
     },
     "/analytics/youtube@mobile-402x874#0.0.0.0.0.1": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
@@ -1511,104 +1281,11 @@
         1632,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.0.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.1": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        1532,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.1.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        1532,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        42.48,
-        19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.2": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.2.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.archive.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Desktop App Top Bar",
+      "variant": "Content=Home, Breadcrumb=Single, Back=False, Divider=Off",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Desktop App Top Bar(Content=Home, Breadcrumb=Single, Back=False, Divider=Off)."
     },
     "/archive@desktop-1920x1080#0.0.1.0.0.1": {
       "board": "figma/app-screens.archive.desktop.00.draw.js",
@@ -1727,104 +1404,11 @@
         402,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.1": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.1.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        37.17,
-        16
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.2": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.2.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.archive.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Mobile App Top Bar",
+      "variant": "Width=Full, Breadcrumb=Single, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Full, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/archive@mobile-402x874#0.0.0.0.0.1": {
       "board": "figma/app-screens.archive.mobile.00.draw.js",
@@ -2165,11 +1749,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
@@ -2510,11 +2235,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
@@ -2892,11 +2758,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
@@ -3219,10 +3226,9 @@
         402,
         874
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
@@ -3242,11 +3248,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=upload@desktop-1920x1080#root": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
@@ -3682,11 +3829,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
@@ -4181,11 +4469,152 @@
         390,
         53
       ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        53
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        68,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "nav",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        270,
+        21.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        55.89,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        4.72,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        31.02,
+        16
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.2.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        28,
+        28
+      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Product/Mobile App Top Bar",
-      "variant": "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=True, Divider=On)."
+      "component": "Avatar",
+      "variant": "Size=md",
+      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
     },
     "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
@@ -9397,104 +9826,11 @@
         1632,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.1": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        1532,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.1.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        1532,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.1.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        59.14,
-        19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.2": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.2.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0.2.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Desktop App Top Bar",
+      "variant": "Content=Settings, Breadcrumb=Single, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Desktop App Top Bar(Content=Settings, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -10149,104 +10485,11 @@
         402,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.1": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.1.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        51.75,
-        16
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.2": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.2.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/settings@mobile-402x874#0.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Mobile App Top Bar",
+      "variant": "Width=Full, Breadcrumb=Single, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Full, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/settings@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
@@ -11527,104 +11770,11 @@
         402,
         53
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.0.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        32,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-excluded",
-      "probe": "icon-button/icon-button-card",
-      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
-      "component": "IconButton",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.1": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "nav",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.1.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        306,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        78.69,
-        16
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.2": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.2.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "button",
-      "rect": [
-        36,
-        36
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/subscription@mobile-402x874#0.0.0.0.0.2.0.0": {
-      "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        28,
-        28
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Avatar",
-      "variant": "Size=md",
-      "reason": "이미 컴포넌트 인스턴스다 — Avatar(Size=md)."
+      "component": "Product/Mobile App Top Bar",
+      "variant": "Width=Full, Breadcrumb=Single, Back=False, Divider=On",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Full, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/subscription@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",

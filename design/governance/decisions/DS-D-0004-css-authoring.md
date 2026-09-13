@@ -203,6 +203,23 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
   함께 적었다.
 - `theme.css` 는 제품 `@theme inline` 블록 뒤에서 부른다(DS-D-0020).
 
+### 저작 규칙 「`layers.css` 를 최초로」와 소비 제품의 순서가 어긋난다 — 고치지 않았다
+
+저작 규칙 다섯째 줄은 소비자가 `layers.css` 를 root layout 최상단에서 **최초로** import 한다고 적는다.
+`packages/css/README.md` 「배포 파일」 표의 `./layers.css` 행도 「가장 먼저」라고 적는다.
+
+| 축 | 사실 |
+| --- | --- |
+| 소비 제품의 순서 | 진입 CSS 는 자기 층 `theme, base, components` 를 **먼저 선언**하고, Tailwind theme 를 `theme` 층으로 부르고 레이어 밖 `@keyframes` 파일을 부른 **뒤에** `layers.css` · `tokens.css`(`layer(louis.tokens)`) · `styles.layer.css` 를 부른다. `utilities` 층은 그 뒤에 선언한다. 층의 우열은 처음 등장한 순서로 정해지므로 결과는 `theme < base < components < louis.reset < louis.tokens < louis.base < louis.component < louis.override < utilities` 다. 실측 위치는 비규범 기록 [`migration/klipse-web-adoption.md`](../../../migration/klipse-web-adoption.md) 의 「층 순서」 행이다. 이 저장소의 제품 실측 스크립트(`scripts/measure-product-components.mjs` 의 `layerOrder`)도 같은 순서를 재현해 잰다 |
+| 제품이 그렇게 두는 이유 | 제품의 최소 reset(`* { box-sizing: border-box; padding: 0; margin: 0 }`)이 제품 `base` 층에 있다(같은 기록 같은 행). 문장대로 `layers.css` 를 맨 앞에 두면 `base` 가 `louis.component` 보다 **뒤 층**이 되어, 특이도와 무관하게 리셋이 컴포넌트 선언을 이긴다. 2026-09-13 Chromium 확인 — 생성된 `layers.css` · `tokens.css`(`louis.tokens` 층) · `styles.layer.css` 와 제품 층 선언 · 그 리셋 선언으로 두 순서를 만들어 `.louis-button[data-size="md"]` 의 `padding-inline-start` 를 재면, 제품 순서에서 **12px**, `layers.css` 를 맨 앞에 두면 **0px** 이다. 결정 4 의 「컴포넌트 클래스 스코프 안에서 선언해 자족성을 확보한다」는 뒤 층의 전역 리셋 앞에서는 성립하지 않는다 |
+| 어긋나지 않는 것 | LOUIS 층끼리의 순서(`reset < tokens < base < component < override`)는 두 순서에서 같다. 어긋나는 것은 LOUIS 층과 **소비자 층 사이**의 상대 순서뿐이다 |
+| 지키는 장치 | 없다. `verify-tailwind-interop` 은 `theme.css` 를 부르는 순서만 보고, 층 순서를 재는 게이트는 없다 |
+
+**고치지 않았다.** 제품이 규칙을 어긴 것(제품이 고칠 것)으로 볼지, 규칙 문장을 「LOUIS 층 가운데 최초로 —
+소비자 층과의 상대 순서는 소비자가 정한다」로 고칠지는 owner 판정으로 남긴다
+([Updates (129)](../../updates/README.md) 「owner 확인 요청」). 판정 전까지 규칙 문장과 README 문구는
+그대로 둔다.
+
 ### 발동한 재검토 조건의 판정 (2026-09-13 실측)
 
 | 조건 | 실측 | 판정 (owner 확인 대기) |

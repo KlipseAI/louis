@@ -789,7 +789,7 @@ manifest/status가 서로 모순되지 않는다.
 | public export 초안 | `packages/react/api-surface.json`(verify-consumer 가 대조) · 세 패키지 `package.json` exports(verify-gates 가 대조) |
 | test matrix | DS-D-0005 「검증 수단 매트릭스」 |
 | migration/rollback | 각 Decision 의 Rollback 절 |
-| 서로 모순되지 않는다 | Updates (129) 「Changed」 — 모순을 걷은 내역과 남은 미구현(DS-D-0009 결정 1~5 · RSC/hydration 검증 · 2단계 시각 회귀)을 미구현으로 적었다 |
+| 서로 모순되지 않는다 | Updates (129) 「Changed」 — 모순을 걷은 내역과 남은 미구현(DS-D-0009 결정 1~5 · RSC/hydration 검증 · 2단계 시각 회귀)을 미구현으로 적었다. **걷지 않고 owner 판정으로 넘긴 어긋남이 둘 있다** — DS-D-0004 저작 규칙에 대한 `table.css` 요소 선택자 사슬, 그리고 「`layers.css` 를 최초로 import」와 소비 제품의 층 순서(제품은 자기 층을 먼저 선언한다). 둘 다 DS-D-0004 구현 대조와 Updates (129) owner 표에 있다 |
 
 #### DS-P3-002a — 게이트 전환
 

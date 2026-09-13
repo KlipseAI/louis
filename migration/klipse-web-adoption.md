@@ -54,6 +54,7 @@ klipse-web `design` 브랜치 실측. **기준 커밋을 이 문장에 박지 �
 | 고정된 DS 커밋 | 위 선언의 SHA 그 자체다. 2026-08-30 기준 `425a9c3d` 「헤더 띠의 흐림 반경에 이름을 준다」 |
 | 진입 CSS가 부르는 것 | 제품 `apps/web/app/tailwind.css`가 정본이다 — `layers.css` · `tokens.css`(`layer(louis.tokens)`) · `styles.layer.css` · `theme.css`(`layer(theme)`). `globals.css`는 DS를 부르지 않는다(주석으로만 언급한다) |
 | 순서 | theme import가 제품 자신의 `@theme inline` 블록 **뒤**에 온다 — 앞에 두면 `--color-*: initial`이 DS 색을 지운다(아래 실측과 같은 함정) |
+| 층 순서 | `tailwind.css`가 제품 층 `@layer theme, base, components;`를 **먼저 선언**하고 `tailwindcss/theme.css`(`layer(theme)`)와 레이어 밖 `./keyframes.css`를 부른 **뒤에** `layers.css` · `tokens.css` · `styles.layer.css`를 부른다. `@layer utilities;`는 그 뒤에 선언한다. 결과는 `theme < base < components < louis.* 다섯 < utilities`다. `layout.tsx`는 `tailwind.css`를 `globals.css`보다 먼저 import하고, 제품 최소 reset(`* { box-sizing: border-box; padding: 0; margin: 0 }`)은 `globals.css`의 `@layer base` 안에 있어 LOUIS 층에 진다. DS-D-0004 저작 규칙 「`layers.css`를 최초로 import」와 어긋난다 — 판정은 [DS-D-0004](../design/governance/decisions/DS-D-0004-css-authoring.md) 구현 대조 |
 | 이름 충돌 | **0건이 아니다** — `--color-gray-000`~`-1000` 램프가 양쪽 `@theme`에 같은 이름으로 있다(아래 「이름 충돌은 0건이 아니다」) |
 
 위 표의 **의존성 선언도 진입 CSS의 DS import도 `origin/main`에는 하나도 없다** —

@@ -30,6 +30,7 @@
     "verify-figma-parity": "node ./scripts/verify-figma-parity.mjs",
     "verify-figma-done": "node ./scripts/verify-figma-done.mjs",
     "figma-live-check": "node ./scripts/figma-live-check.mjs",
+    "figma-screens-live-check": "node ./scripts/figma-screens-live-check.mjs",
     "build-figma-variables": "node ./scripts/build-figma-variables.mjs",
     "verify-figma-variables": "node ./scripts/build-figma-variables.mjs --check",
     "build-figma-styles": "node ./scripts/build-figma-styles.mjs",

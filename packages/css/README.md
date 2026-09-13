@@ -42,7 +42,7 @@ CSS로 덮는다.
 
 | 서브패스 | 내용 |
 | --- | --- |
-| `./layers.css` | `@layer` 순서 선언만. **root layout 최상단에서 가장 먼저** import한다 |
+| `./layers.css` | `@layer` 순서 선언만. **LOUIS CSS 가운데 가장 먼저**(`tokens.css` · `styles.layer.css` 보다 앞) import한다. 소비자 자신의 층과의 상대 순서는 소비자가 정한다(DS-D-0004) |
 | `./tokens.css` | 토큰 CSS 재export |
 | `./styles.css` | base + 컴포넌트, 언레이어드 |
 | `./styles.layer.css` | 같은 내용, `@layer louis.base`/`louis.component` 래핑 |

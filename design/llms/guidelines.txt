@@ -3583,7 +3583,7 @@ manifest/status가 서로 모순되지 않는다.
 | public export 초안 | `packages/react/api-surface.json`(verify-consumer 가 대조) · 세 패키지 `package.json` exports(verify-gates 가 대조) |
 | test matrix | DS-D-0005 「검증 수단 매트릭스」 |
 | migration/rollback | 각 Decision 의 Rollback 절 |
-| 서로 모순되지 않는다 | Updates (129) 「Changed」 — 모순을 걷은 내역과 남은 미구현(DS-D-0009 결정 1~5 · RSC/hydration 검증 · 2단계 시각 회귀)을 미구현으로 적었다. **걷지 않고 owner 판정으로 넘긴 어긋남이 둘 있다** — DS-D-0004 저작 규칙에 대한 `table.css` 요소 선택자 사슬, 그리고 「`layers.css` 를 최초로 import」와 소비 제품의 층 순서(제품은 자기 층을 먼저 선언한다). 둘 다 DS-D-0004 구현 대조와 Updates (129) owner 표에 있다 |
+| 서로 모순되지 않는다 | Updates (129) 「Changed」 — 모순을 걷은 내역과 남은 미구현(DS-D-0009 결정 1~5 · RSC/hydration 검증 · 2단계 시각 회귀)을 미구현으로 적었다. **걷지 않고 owner 판정으로 넘긴 어긋남이 둘이었다** — DS-D-0004 저작 규칙에 대한 `table.css` 요소 선택자 사슬(판정 대기), 그리고 「`layers.css` 를 최초로 import」와 소비 제품의 층 순서. 뒤의 것은 2026-09-14 owner 판정으로 규칙 문장을 고쳐 닫았다. 둘 다 DS-D-0004 구현 대조와 Updates (129) 에 있다 |
 
 ###### DS-P3-002a — 게이트 전환
 
@@ -6178,7 +6178,9 @@ lifecycle)은 스타일이 아니라 **상호작용 가능성**을 좌우하므�
    - 요소·ID 선택자 금지. 상태는 `data-*`, 값은 `--louis-*`로만 표현한다.
    - 컴포넌트 루트 클래스 1개 + `:where()`로 내부 특이도 0.
    - 전역 선택자(`html`/`body`/`*`)는 `reset.css` 안에서만 쓴다.
-   - 소비자는 `layers.css`를 root layout 최상단에서 **최초로** import한다.
+   - 소비자는 `layers.css`를 **LOUIS CSS 가운데 최초로** import한다(`tokens.css` · `styles.layer.css` 보다 앞).
+     소비자 자신의 층과의 상대 순서는 소비자가 정한다. (2026-09-14 owner 판정으로 「root layout 최상단에서
+     최초로」를 고쳤다 — 아래 구현 대조 「`layers.css` 순서」 절)
    - Tailwind 소비자의 기본 경로는 `styles.layer.css`다. 언레이어드 CSS는 Tailwind 유틸리티를 이긴다.
    - `styles.css`와 `styles.layer.css`를 동시에 import하지 않는다.
 4. **reset 정책:** 전역 reset을 기본 배포에 포함하지 않는다. `box-sizing`, `appearance`, `font`,
@@ -6333,10 +6335,11 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
   함께 적었다.
 - `theme.css` 는 제품 `@theme inline` 블록 뒤에서 부른다(DS-D-0020).
 
-##### 저작 규칙 「`layers.css` 를 최초로」와 소비 제품의 순서가 어긋난다 — 고치지 않았다
+##### 저작 규칙 「`layers.css` 를 최초로」와 소비 제품의 순서가 어긋났다 — 2026-09-14 owner 판정으로 규칙 문장을 고쳤다
 
-저작 규칙 다섯째 줄은 소비자가 `layers.css` 를 root layout 최상단에서 **최초로** import 한다고 적는다.
-`packages/css/README.md` 「배포 파일」 표의 `./layers.css` 행도 「가장 먼저」라고 적는다.
+저작 규칙 다섯째 줄은 소비자가 `layers.css` 를 root layout 최상단에서 **최초로** import 한다고 적었다.
+`packages/css/README.md` 「배포 파일」 표의 `./layers.css` 행도 「가장 먼저」라고 적었다. 아래 표는 그 문장과
+소비 제품이 어긋난 사실이고, 표 아래가 판정이다.
 
 | 축 | 사실 |
 | --- | --- |
@@ -6345,10 +6348,11 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
 | 어긋나지 않는 것 | LOUIS 층끼리의 순서(`reset < tokens < base < component < override`)는 두 순서에서 같다. 어긋나는 것은 LOUIS 층과 **소비자 층 사이**의 상대 순서뿐이다 |
 | 지키는 장치 | 없다. `verify-tailwind-interop` 은 `theme.css` 를 부르는 순서만 보고, 층 순서를 재는 게이트는 없다 |
 
-**고치지 않았다.** 제품이 규칙을 어긴 것(제품이 고칠 것)으로 볼지, 규칙 문장을 「LOUIS 층 가운데 최초로 —
-소비자 층과의 상대 순서는 소비자가 정한다」로 고칠지는 owner 판정으로 남긴다
-([Updates (129)](../updates/README.md) 「owner 확인 요청」). 판정 전까지 규칙 문장과 README 문구는
-그대로 둔다.
+**판정 (owner, 2026-09-14): 규칙 문장을 고친다.** 제품의 순서는 위반이 아니다 — 제품 `base` 층의 전역
+reset 이 LOUIS 컴포넌트 선언을 지우지 않게 하려면 소비자 층이 LOUIS 층보다 앞에 서야 하고, 그 순서는
+소비자만 안다. 그래서 저작 규칙은 「`layers.css` 를 LOUIS CSS 가운데 최초로 — 소비자 층과의 상대 순서는
+소비자가 정한다」로, `packages/css/README.md` 행도 같은 뜻으로 고쳤다. LOUIS 층끼리의 순서 계약은 그대로다.
+층 순서를 재는 게이트는 여전히 없다(위 표 「지키는 장치」).
 
 ##### 발동한 재검토 조건의 판정 (2026-09-13 실측)
 
@@ -13711,7 +13715,7 @@ API·마크업·스타일은 바뀌지 않는다. 제품은 아직 이 패키지
 | --- | --- |
 | DS-D-0002 | Rollout 1 의 「TypeScript 7.0.2」→ 저장소가 고정한 `~5.9.3`(lockfile 5.9.3). 「pnpm `auto-install-peers` 기본값 `false` 라 React 19 가 아닌 소비자는 설치에서 막힌다」→ **틀렸다**: pnpm 공식 문서 기본값은 `true`, 실측(pnpm 10.30.2)에서 범위 밖 peer 는 경고 · exit 0 이고 `strict-peer-dependencies=true` 에서만 exit 1. `./icons` 서브패스로 발동한 tsdown 재검토 → `tsc` 유지(파일 단위 방출이 leaf `"use client"` 를 보존) |
 | DS-D-0003 | 「미확인」에 남아 있던 nested Escape·scroll lock 을 확인됨으로(`overlay-stacking.browser.test.tsx` 138·153·239·260·279행). 「런타임 의존성 4개」는 직접 의존성 수이고 설치하면 `@radix-ui`·`@floating-ui` 20개라고 적었다 |
-| DS-D-0004 | DS-D-0013(Tailwind 4)·DS-D-0020(theme.css 순서)이 바꾼 전제, 패키지 표의 `theme.css`, 실제 속성 이름(`data-louis-state` · `data-louis-overlay-mode`), **`tokens.css` 는 레이어 없는 `:root` 이고 `layer(louis.tokens)` 로 감싸는 것은 소비자의 CSS `@import` 문**이라는 계약(`packages/css/README.md` 「최소 import」에 예시를 더했다 — JS `import` 는 `layer()` 를 쓸 수 없다). 발동한 재검토 조건 판정 — 아래 표. **고치지 않고 기록만 한 모순** — 저작 규칙은 「소비자는 `layers.css` 를 **최초로** import」인데, 소비 제품은 자기 층 `theme, base, components` 를 먼저 선언하고 Tailwind theme 를 부른 뒤 `layers.css` 를 부른다. 그래서 LOUIS 층이 제품 `base` 층의 전역 reset 을 이긴다(Chromium: 제품 순서에서 Button `padding-inline-start` 12px, `layers.css` 를 맨 앞에 두면 0px). 사실은 `migration/klipse-web-adoption.md` 「층 순서」 행, 판정 대기는 아래 owner 표 |
+| DS-D-0004 | DS-D-0013(Tailwind 4)·DS-D-0020(theme.css 순서)이 바꾼 전제, 패키지 표의 `theme.css`, 실제 속성 이름(`data-louis-state` · `data-louis-overlay-mode`), **`tokens.css` 는 레이어 없는 `:root` 이고 `layer(louis.tokens)` 로 감싸는 것은 소비자의 CSS `@import` 문**이라는 계약(`packages/css/README.md` 「최소 import」에 예시를 더했다 — JS `import` 는 `layer()` 를 쓸 수 없다). 발동한 재검토 조건 판정 — 아래 표. **고치지 않고 기록만 한 모순** — 저작 규칙은 「소비자는 `layers.css` 를 **최초로** import」인데, 소비 제품은 자기 층 `theme, base, components` 를 먼저 선언하고 Tailwind theme 를 부른 뒤 `layers.css` 를 부른다. 그래서 LOUIS 층이 제품 `base` 층의 전역 reset 을 이긴다(Chromium: 제품 순서에서 Button `padding-inline-start` 12px, `layers.css` 를 맨 앞에 두면 0px). 사실은 `migration/klipse-web-adoption.md` 「층 순서」 행. 2026-09-14 owner 판정으로 규칙 문장을 고쳤다(아래 owner 표) |
 | DS-D-0005 | 「axe-core 버전 고정」은 lockfile 고정이다(specifier `^4.13.0` → 4.13.0, CI `--frozen-lockfile`). hosted CI 로 발동한 2단계를 미룬 사유 — 발동 직후 46회 연속 빨강을 푸는 데 러너를 썼고 2026-08-22 부터 결제로 멈췄다. baseline 은 CI 에서만 만든다는 조건이라 로컬로 대신할 수 없다. SSR/hydration Rollout 은 절반(문자열 렌더만) |
 | DS-D-0006 | accepted 된 DS-D-0036 과의 관계 절 — git 채널에서는 **sha 고정이 `fixed` 와 peer 범위의 설치 단계 역할을 대신**하고, changesets · `engines.node` 좁히기 · peer semver 복귀는 「첫 레지스트리 게시」로 이연 |
 | DS-D-0009 | 결정과 구현 상태를 나눴다 — 바이너리 미동봉만 지켜지고 번호 붙은 결정 1~5 는 미구현. 후속은 DS-P3-014 소관 |
@@ -13738,7 +13742,7 @@ fallback 이 필요할 때만(비핵심) · S3 완료**로 고쳤다. manifest `
 | --- | --- | --- |
 | [DS-D-0002](../governance/decisions/DS-D-0002-web-support-scope.md) Web 지원 범위 | React 19 단일 major · ESM 전용 · leaf `"use client"` · `tsc`. peer 범위는 설치를 **막지 않고 경고만** 한다는 사실(pnpm 10 실측)과, 선언한 Firefox·Safari 하한이 테스트로 뒷받침되지 않고 RSC·hydration 검증이 아직 없다는 사실을 함께 받는다 | 두 번째 소비자가 React 18 을 요구하면 matrix CI 와 함께 범위를 넓힌다(넓히는 쪽은 minor). 번들 빌드가 필요해지면 client boundary 게이트를 먼저 통과시킨 뒤 전환한다 |
 | [DS-D-0003](../governance/decisions/DS-D-0003-behavior-dependency.md) behavior dependency | Radix 하부 유틸 4종(설치 시 `@radix-ui`·`@floating-ui` 20개)과 그 유지보수 위험, Menu 선택 순서·Dialog mode·Escape·scroll lock 테스트를 우리가 소유하는 비용. fallback(React Aria 저수준 훅)의 RSC 호환(S2)은 확인하지 않은 채다 | 하부 유틸 유지보수가 끊기면 fallback 으로 옮긴다(public API 불변). 완제품 Menu·Dialog 로 돌아가는 것은 이 결정을 supersede 하는 ADR 이 필요하다 |
-| [DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md) CSS 저작 방식 | authored plain CSS 두 벌 배포, `layer(louis.tokens)` import 계약, 요소 선택자 금지를 게이트 없이 리뷰로 지키는 상태(`table.css` 는 아직 위반). 발동한 재검토 조건 판정(생성기 불도입 · 컴포넌트별 import 미강제)도 함께 수락하는 것이다 — **gzip 40KB 를 주석 포함으로 볼지 제외로 볼지 정해 달라.** 그리고 **저작 규칙 「소비자는 `layers.css` 를 root layout 최상단에서 최초로 import」를 어떻게 볼지 정해 달라** — 소비 제품은 자기 층을 먼저 선언한 뒤 `layers.css` 를 불러 LOUIS 층이 제품 전역 reset 을 이기게 둔다. 이것을 규칙 위반(제품이 고칠 것)으로 볼지, 문장을 「LOUIS 층 가운데 최초로 — 소비자 층과의 상대 순서는 소비자가 정한다」로 고칠지다. 같은 문구가 `packages/css/README.md` 「배포 파일」 표에도 있고, 판정 전까지 둘 다 그대로 둔다 | 두 벌에서 한 벌로 줄이는 것은 minor. 멀티 브랜드·iOS/Android 요구가 생기면 recipe 소스 분리를 다시 연다 |
+| [DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md) CSS 저작 방식 | authored plain CSS 두 벌 배포, `layer(louis.tokens)` import 계약, 요소 선택자 금지를 게이트 없이 리뷰로 지키는 상태(`table.css` 는 아직 위반). 발동한 재검토 조건 판정(생성기 불도입 · 컴포넌트별 import 미강제)도 함께 수락하는 것이다 — **gzip 40KB 를 주석 포함으로 볼지 제외로 볼지 정해 달라.** 그리고 **저작 규칙 「소비자는 `layers.css` 를 root layout 최상단에서 최초로 import」를 어떻게 볼지 정해 달라** — 소비 제품은 자기 층을 먼저 선언한 뒤 `layers.css` 를 불러 LOUIS 층이 제품 전역 reset 을 이기게 둔다. 이것을 규칙 위반(제품이 고칠 것)으로 볼지, 문장을 「LOUIS 층 가운데 최초로 — 소비자 층과의 상대 순서는 소비자가 정한다」로 고칠지다. **→ 2026-09-14 owner 판정: 문장을 고친다.** DS-D-0004 저작 규칙과 `packages/css/README.md` 「배포 파일」 표를 같은 뜻으로 고쳤다 | 두 벌에서 한 벌로 줄이는 것은 minor. 멀티 브랜드·iOS/Android 요구가 생기면 recipe 소스 분리를 다시 연다 |
 | [DS-D-0005](../governance/decisions/DS-D-0005-test-stack.md) test stack | 실브라우저(Chromium) 러너와 jsdom·happy-dom 배제. **hosted CI 가 결제로 멈춘 동안 2단계(시각 회귀 · 다중 브라우저)가 무기한 미뤄지는 상태**를 받는 것이다 | jsdom 으로 후퇴하면 매트릭스의 실브라우저 전용 7항목을 미검증으로 재분류하고 해당 컴포넌트 Web 상태를 `partial` 이하로 내린다(본문 Rollback) |
 | [DS-D-0006](../governance/decisions/DS-D-0006-versioning-peer-contract.md) versioning·peer | 레지스트리 채널용 결정(changesets `fixed` · required peer)을 **첫 레지스트리 게시까지 이연된 채로** 수락하는 것이다. 그때까지 호환 보증은 DS-D-0036 의 같은-sha 고정이 진다 | 게시가 시작되거나 저장소 밖 소비자가 둘이 되면 이연 항목을 연다. `fixed` 제거·independent 전환은 설정 한 줄로 무손실 |
 | [DS-D-0009](../governance/decisions/DS-D-0009-font-distribution.md) font distribution | 바이너리 미동봉은 지켜지고 있지만 **번호 붙은 결정 1~5 는 미구현**이다. 수락하면 `--louis-font-family-sans` 를 한 번 내보낸 뒤 이름을 바꾸지 못하고(breaking), 폴백 스택 교정이 토큰 값 변경으로 baseline 절차를 탈 수 있음을 받는다. 구현은 DS-P3-014 가 한다 | 폴백 스택 교정과 변수 간접화는 생성기 재실행으로 되돌아간다. 폰트 동봉으로 가는 것은 supersede ADR 이 필요하다 |

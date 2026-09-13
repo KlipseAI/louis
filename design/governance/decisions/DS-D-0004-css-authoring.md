@@ -48,7 +48,9 @@ lifecycle)은 스타일이 아니라 **상호작용 가능성**을 좌우하므�
    - 요소·ID 선택자 금지. 상태는 `data-*`, 값은 `--louis-*`로만 표현한다.
    - 컴포넌트 루트 클래스 1개 + `:where()`로 내부 특이도 0.
    - 전역 선택자(`html`/`body`/`*`)는 `reset.css` 안에서만 쓴다.
-   - 소비자는 `layers.css`를 root layout 최상단에서 **최초로** import한다.
+   - 소비자는 `layers.css`를 **LOUIS CSS 가운데 최초로** import한다(`tokens.css` · `styles.layer.css` 보다 앞).
+     소비자 자신의 층과의 상대 순서는 소비자가 정한다. (2026-09-14 owner 판정으로 「root layout 최상단에서
+     최초로」를 고쳤다 — 아래 구현 대조 「`layers.css` 순서」 절)
    - Tailwind 소비자의 기본 경로는 `styles.layer.css`다. 언레이어드 CSS는 Tailwind 유틸리티를 이긴다.
    - `styles.css`와 `styles.layer.css`를 동시에 import하지 않는다.
 4. **reset 정책:** 전역 reset을 기본 배포에 포함하지 않는다. `box-sizing`, `appearance`, `font`,
@@ -203,10 +205,11 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
   함께 적었다.
 - `theme.css` 는 제품 `@theme inline` 블록 뒤에서 부른다(DS-D-0020).
 
-### 저작 규칙 「`layers.css` 를 최초로」와 소비 제품의 순서가 어긋난다 — 고치지 않았다
+### 저작 규칙 「`layers.css` 를 최초로」와 소비 제품의 순서가 어긋났다 — 2026-09-14 owner 판정으로 규칙 문장을 고쳤다
 
-저작 규칙 다섯째 줄은 소비자가 `layers.css` 를 root layout 최상단에서 **최초로** import 한다고 적는다.
-`packages/css/README.md` 「배포 파일」 표의 `./layers.css` 행도 「가장 먼저」라고 적는다.
+저작 규칙 다섯째 줄은 소비자가 `layers.css` 를 root layout 최상단에서 **최초로** import 한다고 적었다.
+`packages/css/README.md` 「배포 파일」 표의 `./layers.css` 행도 「가장 먼저」라고 적었다. 아래 표는 그 문장과
+소비 제품이 어긋난 사실이고, 표 아래가 판정이다.
 
 | 축 | 사실 |
 | --- | --- |
@@ -215,10 +218,11 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
 | 어긋나지 않는 것 | LOUIS 층끼리의 순서(`reset < tokens < base < component < override`)는 두 순서에서 같다. 어긋나는 것은 LOUIS 층과 **소비자 층 사이**의 상대 순서뿐이다 |
 | 지키는 장치 | 없다. `verify-tailwind-interop` 은 `theme.css` 를 부르는 순서만 보고, 층 순서를 재는 게이트는 없다 |
 
-**고치지 않았다.** 제품이 규칙을 어긴 것(제품이 고칠 것)으로 볼지, 규칙 문장을 「LOUIS 층 가운데 최초로 —
-소비자 층과의 상대 순서는 소비자가 정한다」로 고칠지는 owner 판정으로 남긴다
-([Updates (129)](../../updates/README.md) 「owner 확인 요청」). 판정 전까지 규칙 문장과 README 문구는
-그대로 둔다.
+**판정 (owner, 2026-09-14): 규칙 문장을 고친다.** 제품의 순서는 위반이 아니다 — 제품 `base` 층의 전역
+reset 이 LOUIS 컴포넌트 선언을 지우지 않게 하려면 소비자 층이 LOUIS 층보다 앞에 서야 하고, 그 순서는
+소비자만 안다. 그래서 저작 규칙은 「`layers.css` 를 LOUIS CSS 가운데 최초로 — 소비자 층과의 상대 순서는
+소비자가 정한다」로, `packages/css/README.md` 행도 같은 뜻으로 고쳤다. LOUIS 층끼리의 순서 계약은 그대로다.
+층 순서를 재는 게이트는 여전히 없다(위 표 「지키는 장치」).
 
 ### 발동한 재검토 조건의 판정 (2026-09-13 실측)
 

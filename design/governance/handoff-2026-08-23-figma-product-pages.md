@@ -42,8 +42,28 @@ authority: reference
 > - **새 variant 넷과 라벨 속성(14e2076).** 모바일 `Width=Full, Breadcrumb=Trail, Back=True, Divider=On`,
 >   데스크톱 `Content=Subscription, Breadcrumb=Single` · `Content=Highlight, Breadcrumb=Trail, Back=True` ·
 >   `Content=Home, …, Divider=On`. Divider 는 측정 border 로 판정한다(제품이 헤어라인을 늘 켠다). 옛 Off
->   조합 둘은 legacy 인스턴스가 참조해 `preservedVariants` 로 남겼다. breadcrumb 는 TEXT 속성
->   `Label` · `Parent` · `Current` 다.
+>   조합 둘은 라이브 인스턴스가 참조해 `preservedVariants` 로 남겼다 — 참조처는 legacy 둘만이 아니라 허브
+>   보드의 **보이는** 바 넷(아래 소비처 항목)이다. breadcrumb 는 TEXT 속성 `Label` · `Parent` · `Current` 다.
+> - **상단 바 세트의 소비처는 화면 보드와 결제 장면만이 아니다(2026-09-13 라이브, 리뷰 지적으로 다시 쟀다).**
+>   `figma-screens-live-check --emit --consumers` 로 두 세트의 인스턴스를 전부 뽑았다. Mobile 25 = generated 11 ·
+>   legacy 4(숨김) · 결제 장면 컴포넌트 안 7 · **손 조립 허브 보드 3**, Desktop 29 = generated 10 · legacy 8(숨김) ·
+>   컴포넌트 안 7 · **허브 보드 4**. 허브 일곱은 이 저장소의 어떤 생성기도 다시 채우지 않고 `--check` 도 보지 않는다:
+>
+>   | 인스턴스 | 보드 | variant | 보이는 글자 | 크기·배치 |
+>   | --- | --- | --- | --- | --- |
+>   | `528:2665` | `29:44` mobile `/highlight` | Full · Single · Off | Highlight | 402 FIXED |
+>   | `528:2653` | `219:3701` mobile `/videoeditor` | Full · Single · Off | 비디오 에디터 | 402 FIXED |
+>   | `528:2641` | `219:3209` mobile `/canvas` | Full · Single · On | 캔버스 | 402 FIXED |
+>   | `493:539` | `219:3403` desktop `/videoeditor` | Home · Single · Off | 비디오 에디터 | 1628 FILL |
+>   | `493:816` | `29:3` desktop `/highlight` | Home · Single · Off | Highlight | 1628 FILL |
+>   | `493:262` | `219:2917` desktop `/canvas` | Settings · Single · On | 캔버스 | 1628 FILL |
+>   | `488:779` | `220:3072` desktop `/analytics/instagram` | Analytics · Trail · On | Analytics / YouTube analytics | 1628 FILL |
+>
+>   일곱 모두 루트 면(`#2b2f36`)과 글자 색을 인스턴스에서 덮어써 두었고, `488:779` 를 뺀 여섯은 글자 **내용**도
+>   덮어썼다(`488:779` 는 variant 기본 글자를 그대로 보인다 — instagram 보드인데 「YouTube analytics」). 앱 셸
+>   러너가 마스터를 고칠 때 이 override 가 어떻게 되는지 — 특히 글자 레이어를 TEXT 속성에 묶은 뒤에도 덮어쓴
+>   글자가 남는지 — 는 **적용해 보기 전까지 확인되지 않았다.** 결제 장면 컴포넌트 안의 바 14 는 크기·면·글자
+>   override 가 없어 마스터 변경(기본 라벨, 크기 1628→1632 · 370→390, 면 색)을 그대로 받을 것으로 본다(추론).
 > - **옛 「다음 순서」 1·2 의 결과(c132b46).** subscription 데스크톱과 highlight 열두 보드가 상단 바
 >   인스턴스를 얻었고 archive 데스크톱 바가 `Divider=On` 이 됐다. 치환의 variant 목록은 이제 앱 셸 plan 을
 >   읽는다. 같은 조사에서 사이드바 활성 항목 오류 둘을 찾아 고쳤다 — highlight 여섯은 제품이
@@ -1295,21 +1315,39 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 **2026-09-13(뒤) 기준 순서다.** 이 절 아래 번호 목록은 2026-08-24 기록이며, `/docs` 항목은 무효다.
 옛 1번(subscription 데스크톱 바를 지운다)은 틀린 전제였고, 옛 1·2번의 세트 조합은 더했다(위 체크포인트).
 
-1. **라이브 적용 — 쓰기 승인이 먼저다.** 순서는 [Figma 화면 조립 규칙](figma-screen-assembly.md) 27번을 따른다:
-   이름 붙은 버전 저장 → `figma/product-app-shell.draw.js`(세트에 조합 넷·TEXT 속성을 더하고 크기 드리프트를
-   맞춘다) → `figma-screens-live-check --sets` 로 세트 확인 → 보드 러너 35장(`figma/app-screens.*.00.draw.js`)
-   → `figma-screens-live-check --check <두 페이지 결과 · 세트 결과> --expect-differ 192:1251` 로 **36/36 탐침 ·
-   다름 0** 확인(결과 파일을 빠뜨리면 실패한다). **`/mypage/upgrade` 데스크톱(`192:1251`)은 첫 적용에서
-   뺀다** — 적용하면 옛 요금제 카드 인스턴스 넷이 새 다섯 장의 날노드로 바뀐다. 2번이 끝나거나 소유자가 그
-   교환을 받아들이면 00 → 01 → 02 → 03 을 한 번에 이어 돌린다. 뺀 동안에도 앱 셸 러너가 TEXT 속성을 열면 그
-   보드의 상단 바 인스턴스(2026-09-13 라이브 `1231:9569`)는 기본 라벨을 보이므로, 그 인스턴스 하나에만
-   `Parent=Subscription` · `Current=Change plan` 을 채운다.
+1. **라이브 적용 — 쓰기 승인이 먼저다. 승인 질문에는 허브 보드 일곱의 처리가 함께 들어가야 한다.**
+   순서는 [Figma 화면 조립 규칙](figma-screen-assembly.md) 27번을 따른다:
+   1. 이름 붙은 버전 저장(쓰기).
+   2. **소비처 기준선** — `figma-screens-live-check --emit --consumers` 를 읽기 전용으로 돌려 `consumers-before.json`
+      으로 남긴다. 위 체크포인트의 수(Mobile 25 · Desktop 29, 허브 7)와 다르면 멈추고 다시 센다.
+   3. `figma/product-app-shell.draw.js` — 세트에 조합 넷·TEXT 속성을 더하고 마스터 크기(1628→1632 · 370→390)·
+      면을 맞춘다. 이 러너는 **마스터**를 고치므로 generated 트리뿐 아니라 허브 보드 일곱 · 결제 장면 컴포넌트 안 14 ·
+      숨긴 legacy 12 에 번진다.
+   4. **소비처 대조** — 다시 떠서 `--consumers consumers-before.json consumers-after.json`. 결제 장면 14 의 기본
+      라벨·크기 변화는 아래 「다음 순서」 3번에서 그 러너들이 되돌리므로 `--expect-change` 로 이름을 대고 받는다. 허브 일곱의 변화는
+      소유자가 정한 처리를 따른다 — 무엇이 바뀌었는지 이 대조가 처음으로 확인한다(글자 override 가 TEXT 속성 결합
+      뒤에 남는지는 미확인). 받아들이지 않은 변화가 남으면 여기서 멈춘다.
+   5. `figma-screens-live-check --sets` 로 세트 확인 → 보드 러너 35장(`figma/app-screens.*.00.draw.js`).
+   6. `figma-screens-live-check --check <두 페이지 결과 · 세트 결과> --expect-differ 192:1251` 로 **36/36 탐침 ·
+      다름 0** 확인(결과 파일을 빠뜨리면 실패한다).
+
+   **허브 보드 일곱(소유자 결정):** 이들을 다시 짓는 생성기가 없다. 고를 수 있는 것은 — (가) 적용 뒤 대조가 기본
+   라벨로 바뀐 인스턴스를 보이면 그 인스턴스에 TEXT 속성으로 원래 글자를 채운다(라이브 쓰기, 기준선의 글자가
+   값이다), (나) 허브 보드는 제품 표류 기록으로 두고 변화를 `--expect-change` 로 받아들인다, (다) 허브 보드를 다시
+   짓는 생성기가 서기 전까지 앱 셸 러너 적용 자체를 미룬다. 인스턴스를 분리(detach)하는 것은 사용자 자산을 바꾸므로
+   이 목록에 넣지 않는다.
+
+   **`/mypage/upgrade` 데스크톱(`192:1251`)은 첫 적용에서 뺀다** — 적용하면 옛 요금제 카드 인스턴스 넷이 새 다섯
+   장의 날노드로 바뀐다. 2번이 끝나거나 소유자가 그 교환을 받아들이면 00 → 01 → 02 → 03 을 한 번에 이어 돌린다.
+   뺀 동안에도 앱 셸 러너가 TEXT 속성을 열면 그 보드의 상단 바 인스턴스(2026-09-13 라이브 `1231:9569`)는 기본
+   라벨을 보이므로, 그 인스턴스 하나에만 `Parent=Subscription` · `Current=Change plan` 을 채운다.
 2. `Product/Upgrade Plan Card` 세트를 제품 다섯 요금제로 다시 짓는다 — upgrade-scene 러너의 컬렉션 이전이
    먼저다. 그다음 `scripts/lib/figma-component-substitution.mjs` 의 `CONTENT_COMPONENTS` 카드 항목을 새 측정으로
    바꾼다.
 3. 나머지 컴포넌트 러너 여섯의 컬렉션을 라이브 3컬렉션으로 옮긴다. 결제 장면(payment-scenes · checkout-status ·
-   upgrade-scene)은 상단 바 세트를 인스턴스로 쓰므로, 1번 뒤에는 그 장면들도 TEXT 속성을 채워 다시 적용해야
-   기본 라벨이 사라진다. sidebar-states 는 라이브에 없는 `Current=VideoEditor` 도 찾는다.
+   upgrade-scene)은 상단 바 세트를 인스턴스로 쓰므로(메인 서피스 컴포넌트 안 바 14 — 모바일 `407:1076` · `410:1380` ·
+   `422:2568`, 데스크톱 `406:687` · `410:1294` · `417:2214`), 1번 뒤에는 그 장면들도 TEXT 속성을 채우고 크기를
+   맞춰 다시 적용해야 기본 라벨이 사라진다. sidebar-states 는 라이브에 없는 `Current=VideoEditor` 도 찾는다.
 4. **랜딩 `/` 전용 축은 짓지 않는다(2026-09-13 판정 — 소비자 0).** `migration/product.scenes.json` 의
    `pages.*["/"]` 를 읽는 코드는 측정기 자신의 `--check` 뿐이다 — 증거 로더(`scripts/lib/product-scene-evidence.mjs`)의
    유일한 호출자 `scripts/build-figma-product-pricing-page.mjs` 는 `/pricing` 만 읽고(`:123`), 옛 전용 키

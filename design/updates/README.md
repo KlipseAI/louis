@@ -34,7 +34,9 @@ authority: normative
 **앱 셸 러너(`figma/product-app-shell.draw.js`)가 라이브 변수 체계로 옮겨 갔다.** 은퇴한 `1 · Palette` ·
 `2 · Semantic` 대신 `Klipse Semantic Color`(Light) · `Klipse Primitive` 에 묶는다. 상단 바 면은 측정
 (light fixture 의 `#fafafa`)과 값이 같은 `color/bg-surface` 다. 라이브 세트가 물고 있던 `palette-gray/800`
-(#2b2f36)은 옛 다크 캡처의 값이라, 러너를 적용하면 **상단 바 색이 바뀐다**.
+(#2b2f36)은 옛 다크 캡처의 값이라, 러너를 적용하면 **마스터의 상단 바 색이 바뀐다**. 면을 인스턴스에서 덮어쓰지
+않은 소비처(화면 보드 generated · 결제 장면 컴포넌트)는 그 색을 받는다. 면을 덮어쓴 소비처(허브 보드 일곱 ·
+legacy)에 번지는지는 적용해 보기 전까지 확인되지 않았다 — 아래 소비처 항목.
 
 **상단 바 세트 조합:**
 
@@ -45,14 +47,26 @@ authority: normative
 | `Product/Desktop App Top Bar` | `Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On` | `/highlight/[projectId]?__phase=*` |
 | `Product/Desktop App Top Bar` | `Content=Home, Breadcrumb=Single, Back=False, Divider=On` | `/archive` |
 
-`Divider=Off` 조합 둘은 제품 출처가 없지만(제품이 헤어라인을 늘 켠다) 라이브 legacy 인스턴스가 참조해
-**지우지 않고 보존**한다. 치환은 보존 조합을 쓰지 않는다.
+`Divider=Off` 조합 둘은 제품 출처가 없지만(제품이 헤어라인을 늘 켠다) 라이브 인스턴스가 참조해 **지우지
+않고 보존**한다 — 참조처는 legacy 둘과 허브 보드의 보이는 바 넷이다. 치환은 보존 조합을 쓰지 않는다.
 
 **breadcrumb 는 TEXT 속성이다 — breaking.** 두 세트가 `Label`(Single) · `Parent`·`Current`(Trail)를 연다.
 세트 단위 속성은 기본값이 하나라, 앱 셸 러너를 적용하면 **덮어쓰지 않은 모든 인스턴스가 기본 라벨을
-보인다**(모바일 `Settings` · `Analytics / YouTube analytics`, 데스크톱 `Home` · …). 화면 보드는 새 계획이
-측정 글자로 채운다. 이 세트를 인스턴스로 쓰는 결제 장면(payment-scenes · checkout-status · upgrade-scene)은
-그 러너들의 컬렉션 이전 뒤 다시 적용해야 한다.
+보인다**(모바일 `Settings` · `Analytics / YouTube analytics`, 데스크톱 `Home` · …). 러너는 마스터 크기도
+맞춘다(데스크톱 1628→1632, 모바일 Inset 370→390).
+
+**그 세트의 소비처(2026-09-13 라이브 전수 — `figma-screens-live-check --emit --consumers`):**
+
+| 소비처 | Mobile | Desktop | 누가 다시 채우나 |
+| --- | --- | --- | --- |
+| 화면 보드 generated 트리 | 11 | 10 | 보드 러너 — 새 계획이 측정 글자로 채운다 |
+| 결제 장면 컴포넌트 안 | 7 | 7 | payment-scenes · checkout-status · upgrade-scene — 컬렉션 이전 뒤 다시 적용 |
+| **손으로 조립한 허브 보드(보인다)** | 3 | 4 | **없음** — `/highlight` · `/videoeditor` · `/canvas` 두 뷰포트와 `/analytics/instagram` 데스크톱 |
+| 숨긴 legacy 그룹 | 4 | 8 | 없음(숨김) |
+
+허브 일곱은 루트 면과 글자 색을, 그중 여섯은 글자 내용도 인스턴스에서 덮어써 두었다. 마스터 변경이 이
+override 를 어떻게 다루는지는 미확인이라, 적용 순서에 **적용 전 소비처 기준선과 적용 뒤 대조**가 들어갔고
+허브 일곱의 처리는 소유자 결정으로 올라갔다(인계서 「다음 순서」 1번).
 
 **앱 화면 계획(`figma/app-screens.*`):**
 
@@ -73,7 +87,9 @@ authority: normative
 서브트리 「유형:이름」 해시, 인스턴스(세트·variant·TEXT 값), legacy 그룹, 세트·variant·TEXT 속성 존재.
 읽기 전용 `use_figma` 로 돌리고 CI 에는 넣지 않는다. **계획 보드 전부를 탐침해야 통과한다** — 결과 파일을
 빠뜨리면 빠진 보드를 대고 실패하고, 범위를 줄이는 것은 `--only` · `--allow-partial` · `--sets-only` 명시
-플래그뿐이며, 적용에서 뺀 보드는 `--expect-differ <frameId>` 로 받는다. 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
+플래그뿐이며, 적용에서 뺀 보드는 `--expect-differ <frameId>` 로 받는다. `--consumers` 모드는 상단 바 세트의
+generated 밖 소비처를 기준선으로 뜨고 적용 뒤와 대조한다(보이는 변화가 있으면 실패, 받아들인 변화는
+`--expect-change`). 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
 「화면 보드 라이브 대조」, 규칙은 [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 27번이다.
 2026-09-13 첫 실행: 라이브 36 보드 중 34 가 `9f8483a` 계획과 같고(archive 둘은 h1 글자만 다르다), 새 계획과는
 0 이 같다 — 차이 목록이 곧 적용 결과다.

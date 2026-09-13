@@ -237,7 +237,10 @@ const candidateContracts = [
 // … 모든 화면에서 항상 켜진다」고 적고, fixture 의 측정 바 44개(22 route × 2 뷰포트)가 전부
 // `border-bottom-width: 1px` 다. 옛 입력은 `/archive` 를 `divider:false` 로 두어 제품과 다른
 // `Divider=Off` 조합을 만들었다. 이제 입력의 divider 가 측정 border 와 다르면 생성이 멈춘다.
-// Off 조합 둘은 지우지 않는다 — 라이브 legacy 인스턴스가 참조하므로 아래 `preserved` 로 남긴다.
+// Off 조합 둘은 지우지 않는다 — 라이브 인스턴스가 참조하므로 아래 `preserved` 로 남긴다. 2026-09-13 실측으로
+// 참조처는 legacy 그룹만이 아니다: 손으로 조립한 허브 보드의 **보이는** 바 넷(528:2665 · 528:2653 · 493:539 ·
+// 493:816)과 legacy 둘(521:2592 · 488:262), 그리고 옛 계획의 archive 데스크톱 generated 바 하나다
+// (`figma-screens-live-check --emit --consumers`).
 const BACK_GLYPH_D = "M19 12H5M5 12L11 6M5 12L11 18";
 const THEME_MODE = { light: "Light", dark: "Dark" };
 const CONTEXTS = {
@@ -358,7 +361,7 @@ const variantInputs = [
 ];
 // 모바일 세트에는 Content 축이 없어 `/archive` 는 `/settings` 와 같은 조합(Full·Single·False·On)이다.
 // 그래서 측정 variant 로는 넣지 않고, 보존 variant 의 기하 출처로만 쓴다.
-const PRESERVED_REASON = "보존 · 제품 출처 없음(legacy 인스턴스가 참조)";
+const PRESERVED_REASON = "보존 · 제품 출처 없음(라이브 허브 보드·legacy 인스턴스가 참조)";
 const mobilePreservedInputs = [
   { width: "Full", breadcrumb: "Single", back: false, divider: true, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
 ];

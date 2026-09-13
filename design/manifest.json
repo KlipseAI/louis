@@ -2541,7 +2541,7 @@
     },
     {
       "path": "figma/product-app-shell.plan.json",
-      "purpose": "고정 auth fixture에서 생성한 desktop/mobile 앱 상단 바 실측 조합과 보존 조합(제품 출처 없음, legacy 인스턴스가 참조), TEXT 속성 이름·기본값, SVG transform, 28px 아바타와 36px 0% 링의 geometry·style·binding 계획과 binding 근거. 제품 전용 후보이며 규범이 아니다",
+      "purpose": "고정 auth fixture에서 생성한 desktop/mobile 앱 상단 바 실측 조합과 보존 조합(제품 출처 없음, 라이브 허브 보드·legacy 인스턴스가 참조), TEXT 속성 이름·기본값, SVG transform, 28px 아바타와 36px 0% 링의 geometry·style·binding 계획과 binding 근거. 제품 전용 후보이며 규범이 아니다",
       "authority": "reference"
     },
     {

@@ -80,6 +80,31 @@ API·마크업·스타일은 바뀌지 않는다. 제품은 아직 이 패키지
 `packages/css/test/slot-glyph-specificity.browser.test.ts` 가 두 방향을 고정한다. `table.css` 의 요소
 선택자 사슬은 고치지 않았다 — 표 마크업 계약과 행 규칙 우열을 따로 판정해야 한다(DS-D-0004 구현 대조).
 
+### Changed — Decision 본문과 인계서·manifest 를 구현에 맞췄다
+
+결정 자체는 하나도 바꾸지 않았다. 본문이 사실과 다르거나 서로 어긋나던 자리를 고치고, 각 Decision 에
+대조 절을 붙였다. Status 는 여섯 모두 `proposed` 그대로다.
+
+| Decision | 고친 것 |
+| --- | --- |
+| DS-D-0002 | Rollout 1 의 「TypeScript 7.0.2」→ 저장소가 고정한 `~5.9.3`(lockfile 5.9.3). 「pnpm `auto-install-peers` 기본값 `false` 라 React 19 가 아닌 소비자는 설치에서 막힌다」→ **틀렸다**: pnpm 공식 문서 기본값은 `true`, 실측(pnpm 10.30.2)에서 범위 밖 peer 는 경고 · exit 0 이고 `strict-peer-dependencies=true` 에서만 exit 1. `./icons` 서브패스로 발동한 tsdown 재검토 → `tsc` 유지(파일 단위 방출이 leaf `"use client"` 를 보존) |
+| DS-D-0003 | 「미확인」에 남아 있던 nested Escape·scroll lock 을 확인됨으로(`overlay-stacking.browser.test.tsx` 138·153·239·260·279행). 「런타임 의존성 4개」는 직접 의존성 수이고 설치하면 `@radix-ui`·`@floating-ui` 20개라고 적었다 |
+| DS-D-0004 | DS-D-0013(Tailwind 4)·DS-D-0020(theme.css 순서)이 바꾼 전제, 패키지 표의 `theme.css`, 실제 속성 이름(`data-louis-state` · `data-louis-overlay-mode`), **`tokens.css` 는 레이어 없는 `:root` 이고 `layer(louis.tokens)` 로 감싸는 것은 소비자의 CSS `@import` 문**이라는 계약(`packages/css/README.md` 「최소 import」에 예시를 더했다 — JS `import` 는 `layer()` 를 쓸 수 없다). 발동한 재검토 조건 판정 — 아래 표 |
+| DS-D-0005 | 「axe-core 버전 고정」은 lockfile 고정이다(specifier `^4.13.0` → 4.13.0, CI `--frozen-lockfile`). hosted CI 로 발동한 2단계를 미룬 사유 — 발동 직후 46회 연속 빨강을 푸는 데 러너를 썼고 2026-08-22 부터 결제로 멈췄다. baseline 은 CI 에서만 만든다는 조건이라 로컬로 대신할 수 없다. SSR/hydration Rollout 은 절반(문자열 렌더만) |
+| DS-D-0006 | accepted 된 DS-D-0036 과의 관계 절 — git 채널에서는 **sha 고정이 `fixed` 와 peer 범위의 설치 단계 역할을 대신**하고, changesets · `engines.node` 좁히기 · peer semver 복귀는 「첫 레지스트리 게시」로 이연 |
+| DS-D-0009 | 결정과 구현 상태를 나눴다 — 바이너리 미동봉만 지켜지고 번호 붙은 결정 1~5 는 미구현. 후속은 DS-P3-014 소관 |
+
+DS-D-0004 의 발동한 재검토 조건을 `pnpm build` 산출물로 쟀다.
+
+| 조건 | 실측 | 판정(owner 확인 대기) |
+| --- | --- | --- |
+| 컴포넌트 25종 초과 → 생성기 재검토 | manifest `components` 51 · 저작 CSS 39 + pattern 1 | 발동. 생성기는 들이지 않는다 — 이득이 플랫폼 팬아웃인데 그 조건은 발동하지 않았다 |
+| gzip 40KB 초과 **그리고** 미사용 규칙 절반 초과 | `styles.css` gzip -9 119,269B · **주석을 걷으면 16,972B**. 미사용 규칙 비율은 미실측 | 배포물 그대로면 초과, 규칙만이면 미달. AND 의 뒤 조건이 미실측이라 컴포넌트별 import 를 강제하지 않는다. 기준을 어느 쪽으로 볼지는 owner 판정 |
+
+인계서 DS-P3-001 절은 spike 를 「남은 선행 조건」으로 적고 있었다. Decision 본문대로 **S1 완료 · S2 는
+fallback 이 필요할 때만(비핵심) · S3 완료**로 고쳤다. manifest `webPackages` 의 evidence 에 박혀 있던
+수(「recipe 8종」「아이콘 29개」「서브패스 16개」 등)는 걷고, 수를 내는 정본 파일과 명령을 가리키게 했다.
+
 ## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올리고, DS-P3-014 의 낡은 전제를 걷는다
 
 첫 변경 단위는 DS-P3-014 단위 6이다. **대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로

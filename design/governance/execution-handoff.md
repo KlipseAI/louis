@@ -737,7 +737,7 @@ gap registry 1순위로 추가됐다.
 #### DS-P3-001 — Web architecture Decision과 status model
 
 **상태:** `in-progress` (2026-08-14). Decision 6종을 `proposed`로 작성했다. manifest schema 확장은
-DS-P3-002a가 소유하고, spike 3건은 아래 조건이다.
+DS-P3-002a가 소유한다. spike 3건의 상태는 아래와 같다.
 
 | Decision | 결정 요약 |
 | --- | --- |
@@ -745,19 +745,23 @@ DS-P3-002a가 소유하고, spike 3건은 아래 조건이다.
 | [DS-D-0003](decisions/DS-D-0003-behavior-dependency.md) | 하부 유틸(dismissable layer·focus scope·positioning·portal)만 채택, **순서와 정책은 Klipse 소유**. 완제품 Menu·Dialog 미채택 |
 | [DS-D-0004](decisions/DS-D-0004-css-authoring.md) | authored plain CSS + cascade layer 두 벌 배포 · 상태는 `data-*` · 런타임 스타일 라이브러리 0 · reset은 opt-in |
 | [DS-D-0005](decisions/DS-D-0005-test-stack.md) | 실브라우저 러너를 1단계에 둔다. **jsdom·happy-dom 배제** — Dialog 규범을 거짓 통과시킨다 |
-| [DS-D-0006](decisions/DS-D-0006-versioning-peer-contract.md) | changesets `fixed`로 css·react 동반 버저닝 · css를 required peer로 강제 · `sideEffects` 즉시 명시 |
+| [DS-D-0006](decisions/DS-D-0006-versioning-peer-contract.md) | changesets `fixed`로 css·react 동반 버저닝 · css를 required peer로 강제 · `sideEffects` 즉시 명시. git 채널에서는 sha 고정이 `fixed`·peer 범위의 역할을 대신하고 changesets·`engines.node` 는 첫 레지스트리 게시로 이연([DS-D-0036](decisions/DS-D-0036-git-install-distribution.md)과의 관계 절) |
 | [DS-D-0009](decisions/DS-D-0009-font-distribution.md) | 폰트 바이너리 미동봉 · `--louis-font-family-sans` 방출로 교체 지점 단일화 · 폴백 스택 교정 |
 
-**남은 선행 조건 (spike, 저장소 밖에서 수행):**
+**spike (저장소 밖에서 수행) — Decision 본문 기준 상태 (2026-09-13 대조):**
 
-- **S1** 하부 유틸 조합이 activation exactly-once와 nested Escape 순서를 실제로 만족하는지 실측.
-  실패 시 fallback 경로로 내려가되 public API는 바꾸지 않는다.
-- **S2** fallback 후보의 저수준 훅이 Server Component 경계를 넘는지 확인.
+- **S1** 하부 유틸 조합이 activation exactly-once와 nested Escape 순서를 실제로 만족하는지 실측 —
+  **완료(2026-08-14).** 결과표는 DS-D-0003 Consequences 에 있고, 다섯 검증은 검출력 짝과 함께 저장소
+  회귀 테스트로 옮겨졌다(DS-D-0003 Rollout 2). nested Escape·scroll lock 은 Rollout 4 가
+  `overlay-stacking.browser.test.tsx` 로 고정한다.
+- **S2** fallback 후보의 저수준 훅이 Server Component 경계를 넘는지 확인 — **비핵심.** S1 이 통과해
+  critical path 에서 빠졌다. fallback 경로가 실제로 필요해질 때만 수행한다(DS-D-0003 Rollout 1 · 미확인).
 - **S3** `baseline widely available`의 실제 브라우저 집합과 `inert` 포함 여부, `tsc` declaration emit
-  실측.
+  실측 — **완료(2026-08-14).** 결과는 DS-D-0002 결정 5 와 Rollout 1·2 다. 기록된 TypeScript 버전은
+  저장소가 고정한 `~5.9.3` 으로 정정했다(DS-D-0002 구현 대조).
 
-S1이 통과한 뒤에만 DS-D-0003의 `accepted` 전환을 요청한다. Decision 6종의 `accepted` 전환은
-repository owner의 확인 사항이다.
+S1 이 통과했으므로 DS-D-0003 도 `accepted` 전환을 요청할 선행 조건을 충족한다. Decision 6종의
+`accepted` 전환은 repository owner의 확인 사항이다.
 
 **목표:** 구현 전에 public 경계와 상태 증거를 고정한다.
 

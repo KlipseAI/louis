@@ -116,3 +116,28 @@ acceptance test의 재현성 조건**이다. Menu의 "item height 40px 이상", 
   설계의 목적이다.
 - 소비 제품이 둘 이상이 되어 폰트 로딩이 중복되면 단일 `@font-face` 소유자를 지정하는 규약을 Decision으로
   추가한다.
+
+## 결정과 구현 상태를 나눠 적는다 (2026-09-13)
+
+Status 는 `proposed` 그대로다. owner 가 이 결정을 확인할 때 **결정의 옳고 그름**과 **구현이 어디까지
+왔는가**가 섞이지 않게 둘을 나눈다. 아래 표의 「구현」 열은 2026-09-13 저장소 실측이다.
+
+| 결정 | 구현 | 근거 |
+| --- | --- | --- |
+| 바이너리 미동봉 | **지켜진다** | `git ls-files` 에 `woff`·`woff2`·`ttf`·`otf` 0건 |
+| 1. `--louis-font-family-sans` 방출 + composite 가 `var()` 참조 | **미구현** | `packages/tokens/generated/tokens.css` 에 `--louis-font-family-sans` 0건. typography composite 의 `font-family` 16곳이 스택 리터럴을 그대로 인라인한다(Context 의 「15번」은 그 뒤 composite 가 늘었다) |
+| 2. 폴백 스택에 OS 한글 폰트 | **미구현** | `packages/tokens/src/klipse.tokens.json` 의 `font-family-sans` 는 여전히 `Pretendard Variable, Pretendard, Inter, Noto Sans KR, Noto Sans JP, system-ui, sans-serif` |
+| 3. JA 토큰 분리 | **미구현** | JA 전용 `font-family` 토큰 없음 |
+| 4. `local()` metric 폴백 face(opt-in) | **미구현** | `packages/css/src`·`generated` 에 `@font-face`·`local(` 0건 |
+| 5. 소비자 가이드와 금지 목록 | **미구현** — 이 문서 밖에는 없다 | `design/foundations`·세 패키지 README 에 폰트 로딩 안내 0건 |
+
+**번호 붙은 결정 1~5 는 하나도 구현되지 않았다.** 2026-08-14 Updates 는 구현을 DS-P3-003 과 DS-P3-014 에
+배정했는데, DS-P3-003 은 CSS foundation 으로 `done` 이 됐고 이 항목을 가져가지 않았다. **후속 구현은
+DS-P3-014(Token coverage 확장)의 소관이다** — 결정 2 가 이미 「DS-P3-014 의 변경 단위와 함께」로
+적었고, 1·3·4 도 같은 생성기와 토큰 소스를 건드린다. 5 는 1 이 방출할 변수 이름이 정해진 뒤에
+쓴다. 인계서 DS-P3-014 표에 단위로 올리는 것은 그 작업이 한다.
+
+**accepted 로 전환할 때 알아야 할 것.** 결정 1 의 변수는 한 번 내보내면 이름을 바꾸거나 없애는 것이
+breaking 이다(Consequences). 결정 2 의 스택 교정은 토큰 **값** 변경이라 `diff-tokens` 분류가 먼저이고,
+분류가 breaking 이면 [Releases](../releases.md) 의 baseline 절차를 탄다. 결정을 확인하는 것은 이
+둘을 떠안겠다는 뜻이지, 지금 구현이 그 상태라는 뜻이 아니다.

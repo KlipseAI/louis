@@ -104,7 +104,10 @@ Vitest용 래퍼는 최신 stable이 수년 전이고 현행 axe·Vitest 조합 
 ## Consequences
 
 - 1단계 devDependency는 테스트 러너, 브라우저 provider, Playwright, React 렌더 어댑터, `axe-core`
-  다섯 개다. `axe-core`는 규칙 식별자 변동을 막기 위해 버전을 고정한다.
+  다섯 개다. `axe-core`는 규칙 식별자 변동을 막기 위해 버전을 고정한다. **고정은 lockfile 이 한다**
+  (2026-09-13 정정) — 루트 `package.json` 의 specifier 는 `^4.13.0` 이고 `pnpm-lock.yaml` 이 `4.13.0` 으로
+  해석하며, CI 는 `pnpm install --frozen-lockfile` 로 설치한다. 규칙 식별자가 바뀔 수 있는 새 버전은
+  lockfile 을 갱신하는 의도적 변경으로만 들어온다. specifier 를 exact 로 좁히지는 않았다.
 - **선행 조건:** Playwright Chromium 바이너리 다운로드가 필요하다. 네트워크 접근과 사용자 승인이
   필요한 항목이므로 [플레이북](../execution-playbook.md)의 사용자 차단 해제 목록에 추가한다.
 - **주의 계약:** browser mode는 파일당 단일 페이지를 재사용한다. Menu와 Dialog처럼 전역 상태(top-layer,
@@ -130,12 +133,23 @@ React 렌더 어댑터 교체는 테스트 파일 수준의 국지적 변경이�
 3. reduced-motion 컨텍스트를 별도 instance로 구성해 목킹 없이 검증한다.
 4. Menu·Dialog 회귀 테스트 3건(activation exactly-once, nested Escape 순서, closing 레이어의 hit-test
    차단)을 **컴포넌트 구현 착수 전에** 작성한다.
-5. SSR 문자열 렌더와 hydration 복구 오류 관찰 경로를 확인한다.
+5. SSR 문자열 렌더와 hydration 복구 오류 관찰 경로를 확인한다. — **절반만 섰다(2026-09-13 대조).**
+   문자열 렌더는 `scripts/verify-consumer.mjs` 가 공개 이름으로 import 해 Node 에서
+   `renderToStaticMarkup` 으로 돈다. hydration 복구 오류를 관찰하는 경로(`hydrateRoot` 후 콘솔·
+   `onRecoverableError` 관찰)는 저장소에 없다.
 
 ## 재검토 조건
 
 - hosted CI가 생기면 즉시 2단계를 도입한다. 시각 회귀 baseline은 CI에서만 생성하고 로컬 커밋을
   금지한다. 다중 브라우저 instance 추가도 이때 판정한다.
+  **발동됨(2026-08-18) — 2단계는 도입하지 않았다.** 사유는 둘이고 둘 다 기록에 있다. ① 발동 직후
+  러너는 `verify:ci` 갈래를 초록으로 만드는 데 쓰였다 — 2026-08-18T04:12 부터 08-22T06:55 까지 46회
+  연속 빨강(`scripts/verify-gate-split.mjs` 머리말). ② 2026-08-22 부터 러너가 GitHub 결제 문제로
+  멈춰 있다([인계서](../execution-handoff.md) DS-GOV-000). 이 조건은 baseline 을 **CI 에서만** 만들라고
+  정했으므로 멈춘 러너 앞에서 로컬 baseline 을 대신 커밋하는 것은 이 결정 위반이다. 따라서 2단계는
+  「러너 재개」를 새 선행 조건으로 미룬다 — 그동안 시각 회귀·Firefox·Safari 는 검증되지 않은 상태이고,
+  브라우저 하한([DS-D-0002](DS-D-0002-web-support-scope.md))의 Firefox·Safari 는 테스트가 뒷받침하지
+  않는다.
 - ~~문서 사이트 착수 시 Storybook과 접근성 애드온을 기존 browser 설정 위에 얹는다.~~
   **발동됨(2026-08-14).** 문서 사이트가 아니라 P3 컴포넌트 개발이 먼저 필요로 해서 앞당겼다.
   [DS-D-0012](DS-D-0012-component-workshop.md)가 소유한다. 단 **2단계 시각 회귀 판단은 그대로다**

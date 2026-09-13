@@ -21,6 +21,19 @@ import "@klipse-design/css/styles.css";
 Tailwind를 쓰면 셋째 줄을 `styles.layer.css`로 바꾸고, `theme.css`를 **제품의 Tailwind 진입 CSS
 뒤에** 둔다([DS-D-0020](../../design/governance/decisions/DS-D-0020-tailwind-load-order.md)).
 
+CSS `@import`로 부르는 레이어드 경로는 `tokens.css`를 `louis.tokens` 층에 넣는다. `tokens.css` 자체는
+레이어가 없는 `:root`라, 감싸지 않으면 `louis.override` 층에서 토큰을 다시 선언해도 적용되지 않는다 —
+레이어 밖 선언이 이긴다([DS-D-0004](../../design/governance/decisions/DS-D-0004-css-authoring.md) 구현 대조).
+
+```css
+@import "@klipse-design/css/layers.css";
+@import "@klipse-design/css/tokens.css" layer(louis.tokens);
+@import "@klipse-design/css/styles.layer.css";
+```
+
+JS `import`는 `layer()`를 쓸 수 없어 토큰이 레이어 밖에 남는다. 그 경로에서 토큰을 덮을 때는 레이어 밖
+CSS로 덮는다.
+
 **`tokens.css`를 빼면 아무 오류 없이 색·간격·반경이 전부 무효값이 된다.** `styles.css`에는 semantic
 토큰 정의가 없고 `var(--louis-*)` 참조만 있으며, 생성 CSS끼리는 `@import`하지 않는다. 브라우저는
 정의되지 않은 custom property를 만나면 조용히 초기값으로 떨어뜨린다.

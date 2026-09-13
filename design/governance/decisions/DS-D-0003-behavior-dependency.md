@@ -99,7 +99,9 @@ focus scope의 branch 처리, positioning의 collision/flip, portal은 이미 �
 
 ## Consequences
 
-- 새 런타임 의존성 4개(하부 유틸). 완제품 대비 표면이 작고 각각 독립 교체가 가능하다.
+- 새 런타임 의존성 4개(하부 유틸). 완제품 대비 표면이 작고 각각 독립 교체가 가능하다. **4는 직접
+  의존성 수다** — 설치하면 `@radix-ui/*`·`@floating-ui/*` 패키지가 직접 넷을 포함해 20개 들어온다
+  (2026-09-13, `ls node_modules/.pnpm | grep -iE '^@radix|^@floating'`).
 - Menu의 선택 순서와 Dialog의 mode·Escape·scroll lock·언마운트를 우리가 구현하므로 **그만큼의 테스트를
   우리가 소유**한다. [DS-D-0005](DS-D-0005-test-stack.md)의 회귀 테스트 3건이 이 계약의 증거다.
 - 상류 이슈가 해결돼도 우리 순서 로직은 유지된다. 반대로 상류가 회귀해도 우리 계약은 깨지지 않는다.
@@ -181,6 +183,11 @@ focus scope의 branch 처리, positioning의 collision/flip, portal은 이미 �
 
 ## 미확인
 
-- Dialog의 nested Escape 순서와 scroll lock 복원은 아직 실측하지 않았다. DS-P3-007 착수 전에 검증한다.
+- ~~Dialog의 nested Escape 순서와 scroll lock 복원은 아직 실측하지 않았다. DS-P3-007 착수 전에
+  검증한다.~~ — **확인됨(2026-08-14, 위 Rollout 4).** 이 줄은 Rollout 4 를 적을 때 지우지 않고 남은
+  낡은 문장이었다(2026-09-13 정리). `packages/react/test/overlay-stacking.browser.test.tsx` 가 고정한다 —
+  138행 「Escape는 중첩 modal 중 최상위 하나만 닫는다」, 153행 아래 modal backdrop 이 dismiss 를 받지
+  않음, 239행 owner 인라인 style 복원, 260행 중첩 modal 의 refcount, 279행 잠긴 동안 옮겨진 스크롤
+  위치 복원.
 - fallback 후보의 저수준 훅이 Server Component 경계를 넘는지(S2)는 S1 통과로 critical path에서
   빠졌다. fallback이 필요해질 때 확인한다.

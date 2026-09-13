@@ -15,9 +15,11 @@ authority: normative
 ## Context
 
 P3는 `@klipse-design/css`를 처음 만든다. 소비 제품은 Next.js App Router이고 Tailwind 사용 여부는
-고정할 수 없다. 컴포넌트 규범이 요구하는 상태 계약(Menu의 Closed/Opening/Open/Closing, Dialog의
-6단계 lifecycle)은 스타일이 아니라 **상호작용 가능성**을 좌우하므로, 어떤 계층이 그 계약을 소유하는지
-먼저 정해야 한다.
+고정할 수 없다. (**2026-08-15 에 바뀌었다** — 소비 제품은 Tailwind 4 를 쓴다.
+[DS-D-0013](DS-D-0013-tailwind-interop.md)이 이 결정을 뒤집지 않고 영향 범위만 바꿨다. 아래 구현 대조
+참조.) 컴포넌트 규범이 요구하는 상태 계약(Menu의 Closed/Opening/Open/Closing, Dialog의 6단계
+lifecycle)은 스타일이 아니라 **상호작용 가능성**을 좌우하므로, 어떤 계층이 그 계약을 소유하는지 먼저
+정해야 한다.
 
 [플레이북](../execution-playbook.md)의 게이트 확장 억제 원칙과 인계서의 "새 도구는 소비자·유지
 책임·rollback이 확인될 때만" 규칙이 함께 적용된다.
@@ -39,6 +41,7 @@ P3는 `@klipse-design/css`를 처음 만든다. 소비 제품은 Next.js App Rou
    | `styles.layer.css` | 전체 컴포넌트, `@layer louis.component` 래핑 |
    | `reset.css` | opt-in, `:where()` 기반, `@layer louis.reset` |
    | `component/<name>.css` | 컴포넌트 단위 저작 원본 |
+   | `theme.css` | Tailwind 4 `@theme inline` 토큰 레이어. [DS-D-0013](DS-D-0013-tailwind-interop.md)이 추가했고 불러오는 순서는 [DS-D-0020](DS-D-0020-tailwind-load-order.md)이 소유한다 |
 
 3. **저작 규칙 7개**
    - `!important` 전면 금지. 레이어 우선순위가 역전돼 소비자가 이길 수 없게 된다.
@@ -93,7 +96,8 @@ CSS가 끼면 원인 격리가 느려진다.
 ### 규범 충족 근거
 
 - **Menu/Dialog의 States 표**가 `data-state`/`data-open`/`data-busy`/`data-mode` 속성 계약으로 그대로
-  번역된다. 특히 "Opening: 위치 계산 전 `visibility:hidden`, 클릭 불가"는 CSS 한 줄이 소유해야 하고
+  번역된다(구현 이름은 `data-louis-state` · `data-louis-overlay-mode` 등이다 — 아래 구현 대조의
+  대응표). 특히 "Opening: 위치 계산 전 `visibility:hidden`, 클릭 불가"는 CSS 한 줄이 소유해야 하고
   React 렌더 분기로 흩어지면 안 된다.
 - **"`opacity: 0`과 `aria-hidden`만으로 닫힌 panel을 유지하지 않는다"**와
   [Elevation & Layer](../../foundations/elevation-layer.md)의 "투명하거나 closing 중인 layer가 pointer를
@@ -153,5 +157,61 @@ DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specif
 **고치지 않은 것.** `table.css` 는 `.louis-table > thead > tr > th` 형태의 요소 선택자 사슬을 쓴다.
 표 구조 자체가 요소라 클래스로 옮기면 소비자 마크업 계약이 바뀌고, `:where()` 로 감싸면 사슬 규칙끼리의
 우열(`tr:last-child > td` · `tr[data-interactive="true"]:hover > td`)이 특이도가 아니라 순서로 갈리게
-되어 규칙마다 대조가 필요하다 — 별건으로 판정한다. `verify-css-gates` 의 저작 규칙 게이트는 요소 선택자를 검사하지
-않는다. 그래서 이 위반들이 초록으로 들어왔다.
+되어 규칙마다 대조가 필요하다 — 별건으로 판정한다. `verify-css-gates` 의 저작 규칙 게이트는 요소
+선택자를 검사하지 않는다. 그래서 이 위반들이 초록으로 들어왔다.
+
+### 전제가 바뀌었다 — DS-D-0013 · DS-D-0020
+
+- Context 의 「Tailwind 사용 여부는 고정할 수 없다」는 [DS-D-0013](DS-D-0013-tailwind-interop.md)이
+  뒤집었다 — 소비 제품은 Tailwind 4 를 쓴다. DS-D-0013 은 이 결정의 선택(authored plain CSS · 두 벌
+  배포 · 런타임 스타일 라이브러리 0)을 유지하고, 토큰을 `@theme inline` 으로도 발행하는 범위만 더했다.
+  「Tailwind 를 쓰든 안 쓰든 동작한다」는 제약은 그대로다 — `theme.css` 는 선택 import 다.
+- 패키지 구성 표에 없던 `theme.css` 를 표에 더했다(`packages/css/package.json` exports `./theme.css`).
+  그 파일을 **제품 Tailwind 진입 CSS 의 `@theme` 뒤에** 불러야 한다는 계약은
+  [DS-D-0020](DS-D-0020-tailwind-load-order.md)이 소유한다.
+- 표의 `styles.layer.css` 행은 「`@layer louis.component` 래핑」이지만 실제로는 base 를
+  `louis.base`, 컴포넌트를 `louis.component` 로 감싼다(`scripts/build-css.mjs` 의 `wrapInLayer` 두 호출).
+
+### 상태 속성의 실제 이름
+
+결정 1 과 「규범 충족 근거」가 적은 이름은 구현 이름이 아니다. 라이브러리가 쓰는 lifecycle 속성에는
+`louis-` 접두사가 붙고, 소비자가 고르는 축(`data-variant` · `data-size` · `data-tone` …)에는 붙지 않는다.
+
+| 적힌 이름 | 구현 |
+| --- | --- |
+| `data-state` | `data-louis-state` — `packages/css/src/base.css` 가 `opening` · `closing` · `closed` 를 소유한다 |
+| `data-mode` | `data-louis-overlay-mode` — `packages/react/src/overlay/use-overlay.tsx` 가 달고 `overlay.css` 가 소비한다 |
+| `data-open` | 없다 — 열림은 `data-louis-state` 와 `aria-expanded` 가 표현한다 |
+| `data-busy` | 없다 — Dialog surface·Menu item 은 `aria-busy`, Button 은 `data-loading` 이다 |
+
+### 레이어 import 계약 — `louis.tokens` 에 넣는 것은 소비자다
+
+- `layers.css` 는 다섯 층의 순서만 선언한다(`packages/css/generated/layers.css`).
+- **`tokens.css` 는 레이어 없는 `:root` 다**(`packages/css/generated/tokens.css`). `louis.tokens` 층은
+  선언만 있고 배포물이 그 층에 들어가지 않는다. 층에 넣는 것은 소비자의 import 문
+  `@import "@klipse-design/css/tokens.css" layer(louis.tokens);` 이다. 소비 제품이 그렇게 부른다는 실측은
+  비규범 기록 [`migration/klipse-web-adoption.md`](../../../migration/klipse-web-adoption.md) 의 「진입
+  CSS가 부르는 것」 행이 갖는다(`tokens.css`(`layer(louis.tokens)`) · `styles.layer.css` ·
+  `theme.css`(`layer(theme)`)).
+- 감싸지 않으면 토큰 선언이 레이어 밖에 남는다. 레이어 밖 선언은 어느 레이어의 같은 선언보다 우선하므로
+  `louis.override` 층에서 `--louis-*` 를 다시 선언하는 경로가 막힌다(2026-09-13 Chromium 확인: 레이어 밖
+  `tokens.css` 가 있으면 `@layer louis.override` 의 `--louis-color-bg-upgrade` 재선언이 계산값을 바꾸지
+  못하고, 둘 다 층 안이면 `louis.override` 가 이긴다). **그래서 CSS `@import` 로 부르는
+  레이어드 경로(`styles.layer.css` · Tailwind 소비자)는 `tokens.css` 를 `layer(louis.tokens)` 로 감싸는
+  것을 import 계약으로 둔다.** JS `import` 는 `layer()` 를 쓸 수 없어 토큰이 레이어 밖에 남는다 — 그
+  경로에서 토큰을 덮으려면 레이어 밖 CSS 로 덮는다. `packages/css/README.md` 「최소 import」에 두 경로를
+  함께 적었다.
+- `theme.css` 는 제품 `@theme inline` 블록 뒤에서 부른다(DS-D-0020).
+
+### 발동한 재검토 조건의 판정 (2026-09-13 실측)
+
+| 조건 | 실측 | 판정 (owner 확인 대기) |
+| --- | --- | --- |
+| 컴포넌트 25종 초과 → recipe 생성기 재검토 | `design/manifest.json` `components` 51개(`web` partial 38 · not-ready 12 · not-planned 1). 저작 CSS `packages/css/src/component/*.css` 39개 + pattern 1개 | **발동.** 생성기는 도입하지 않는다 — Alternatives 의 근거(생성기의 이득은 플랫폼 팬아웃)가 그대로이고, 그 팬아웃을 뜻하는 둘째 조건(멀티 브랜드 · iOS/Android)은 발동하지 않았다. 컴포넌트 사이 값 중복의 규모는 재지 않았다 |
+| 단일 컴포넌트 variant 조합 24 초과 | 전수로 재지 않았다. Button 은 6 variant × 3 size = 18(`button.tsx` 의 두 union) | 미판정 |
+| gzip 40KB 초과 **그리고** 미사용 규칙 절반 초과 → 컴포넌트별 import 강제 | `styles.css` 422,563B · gzip -9 **119,269B**. 주석만 걷으면(공백 유지) 160,270B · gzip **16,972B**. `styles.layer.css` 는 120,371B / 주석 제외 17,368B. 미사용 규칙 비율은 재지 않았다 | 앞 조건은 **무엇을 재느냐에 따라 갈린다** — 배포물 그대로면 초과, 규칙만이면 미달이고 차이 약 102KB 는 전부 주석이다. 뒤 조건이 미실측이라 AND 조건의 성립은 확인되지 않았다 → 컴포넌트별 import 를 강제하지 않는다. 기준을 「주석 제외」로 못박을지, 배포 CSS 에서 주석을 걷을지는 owner 판정으로 남긴다 |
+
+측정 방법: `pnpm build` 산출물을 Node `zlib.gzipSync(…, { level: 9 })` 로 쟀고, 주석은
+`/\/\*[\s\S]*?\*\//g` 로 걷었다(공백·개행은 남김). 같은 파일을 macOS `gzip -9 -c | wc -c` 로 재면
+118,556B 로 도구에 따라 1KB 안쪽이 흔들린다. 소비자 번들러의 CSS minify 가 이 주석을 걷는지는 이
+저장소에서 재지 않았다.

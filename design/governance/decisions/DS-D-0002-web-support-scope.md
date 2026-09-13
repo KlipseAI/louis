@@ -73,7 +73,9 @@ Base UI, React Aria는 모두 `||` 나열형 상한을 쓴다.
 
 tsup은 유지보수 중단을 선언했으므로 2026년 신규 채택은 잘못된 기본값이다. tsdown은 `publint`·`attw`를
 빌드 옵션으로 내장해 게이트를 늘리지 않고 패키지 정합성 검증을 얻는 드문 수단이라 **첫 publish 직전
-(DS-P3-012)의 1순위 후보**로 남긴다. 지금은 단일 엔트리에 서브패스가 없어 번들러가 필요 없다.
+(DS-P3-012)의 1순위 후보**로 남긴다. ~~지금은 단일 엔트리에 서브패스가 없어 번들러가 필요 없다.~~
+**2026-09-13 재검토:** `./icons` 서브패스가 생겼지만 진입점마다 소스 파일을 그대로 방출하면 되므로
+여전히 번들러가 필요 없다(아래 구현 대조).
 
 ### 브라우저 하한을 browserslist `defaults`로
 
@@ -84,7 +86,9 @@ tsup은 유지보수 중단을 선언했으므로 2026년 신규 채택은 잘�
 
 - 새 런타임 의존성 0. devDependency는 `typescript` 1개.
 - `peerDependencies`: `react ^19.0.0`, `react-dom ^19.0.0`, `@types/react ^19.0.0`(optional).
-- React 19가 아닌 소비자는 설치 단계에서 막힌다. **의도한 실패**다.
+- ~~React 19가 아닌 소비자는 설치 단계에서 막힌다. **의도한 실패**다.~~ **틀렸다(2026-09-13 pnpm 10
+  실측).** pnpm 기본 설정에서는 경고만 나고 설치가 끝난다. peer 범위는 설치를 막는 계약이 아니라 경고
+  계약이다 — 아래 구현 대조.
 - 브라우저 하한은 자동 검사 게이트를 만들지 않고 Foundation 규범 문장과 리뷰로 판정한다.
 
 ## Rollback
@@ -96,12 +100,14 @@ tsup은 유지보수 중단을 선언했으므로 2026년 신규 채택은 잘�
 
 ## Rollout and verification
 
-1. ~~`tsc` declaration emit 실측~~ — **완료(2026-08-14, S3 spike).** TypeScript 7.0.2에서
-   `declaration: true` + `isolatedDeclarations: true` 조합이 `.d.ts`와 `.js`를 정상 방출했다. 이전
-   major로의 fallback은 필요 없다.
+1. ~~`tsc` declaration emit 실측~~ — **완료(2026-08-14, S3 spike).** `declaration: true` +
+   `isolatedDeclarations: true` 조합이 `.d.ts`와 `.js`를 정상 방출했다. 이전 major로의 fallback은 필요
+   없다. **버전은 저장소가 고정한 TypeScript `~5.9.3`(lockfile 5.9.3)이다** — 처음 적은 「7.0.2」는
+   저장소 밖 spike 환경의 표기로, 원본 로그가 없어 확인할 수 없어 걷었다(아래 구현 대조).
 2. ~~브라우저 하한 확인~~ — **완료(2026-08-14).** 위 Decision 5번에 결과를 기록했다.
-3. peer 범위가 install 단계에서 실제로 막는지 확인한다(pnpm의 `auto-install-peers` 기본값이 `false`라
-   의도한 강제가 작동한다. npm은 자동 설치하므로 문서에 명시한다).
+3. ~~peer 범위가 install 단계에서 실제로 막는지 확인한다~~ — **확인했다(2026-09-13). pnpm 10 기본값에서는
+   막지 않는다.** 처음 적은 「pnpm의 `auto-install-peers` 기본값이 `false`」는 틀렸다(기본값 `true`).
+   npm은 재지 않았다. 아래 구현 대조.
 4. SSR render와 hydration을 첫 컴포넌트 구현 시점에 검증한다.
 
 ## 재검토 조건
@@ -130,3 +136,52 @@ Node SSR(`verify-consumer`)은 React 를 `react-server` 조건으로 풀지 않�
 `verify-gates` 카나리아가 증명한다. **남은 것:** 실제 RSC 번들러로 서버 층을 평가하는 검사와
 hydration 복구 오류 관찰(위 Rollout 4)은 여전히 없다. 이 검사는 문자열 수준이라 다른 모듈에서
 import 한 함수를 핸들러로 넘기는 경우는 보지 않는다.
+
+### Rollout 1 의 TypeScript 버전 표기가 틀렸다
+
+Rollout 1 은 declaration emit 을 「TypeScript 7.0.2 에서」 실측했다고 적었다. 저장소가 고정하고 설치한
+것은 5.9.3 이다 — 루트 `package.json` 의 `"typescript": "~5.9.3"`, `pnpm-lock.yaml` 의 importer
+항목(specifier `~5.9.3` · version `5.9.3`). `git log -G'"typescript": "' -- package.json` 로 보면 이
+줄을 바꾼 커밋은 처음 들어온 `b56909b`(2026-08-15) 하나뿐이고 그때부터 `~5.9.3` 이다. S3 spike 는
+저장소 밖에서 돌았고 원본 로그가 저장소에 없어 7.0.2 가 어느 환경이었는지 확인할 수 없다.
+
+**판정 근거는 spike 가 아니라 지금 저장소다.** `tsc` 5.9.3 과 루트 `tsconfig.build.json` 의
+`isolatedDeclarations: true` 로 `packages/react/dist` 의 `.d.ts`·`.js` 가 나오고, `check-react-dist` 가
+`pnpm check` 마다 재빌드와 바이트 비교한다. 결정(`tsc` 단독 + `isolatedDeclarations`)은 그대로 선다.
+
+### peer 범위가 설치를 막는다는 전제가 틀렸다 (pnpm 10)
+
+Consequences 와 Rollout 3 은 「pnpm 의 `auto-install-peers` 기본값이 `false` 라 React 19 가 아닌 소비자는
+설치 단계에서 막힌다」고 적었다. 둘 다 pnpm 10 에서 사실이 아니다.
+
+- **문서.** pnpm 공식 설정 문서(Peer Dependency Settings)는 `autoInstallPeers` 기본값을 `true`,
+  `strictPeerDependencies` 기본값을 `false` 로 적는다. 이 저장소는 둘 다 설정하지 않는다 —
+  `pnpm config get auto-install-peers` · `strict-peer-dependencies` 가 모두 `undefined` 이고
+  `pnpm-workspace.yaml` 에도 없다.
+- **실측** (2026-09-13 · pnpm 10.30.2 · 저장소 밖 임시 디렉터리 · `--offline` · 전용 store). React 18
+  소비자와 같은 모양을 가짜 패키지 둘로 만들었다 — peer `^2.0.0` 을 요구하는 패키지와, 설치된 1.0.0.
+
+  | 상황 | 결과 |
+  | --- | --- |
+  | 범위 밖 peer 가 설치돼 있음(기본 설정) | `WARN Issues with peer dependencies found` · `unmet peer … found 1.0.0` · **exit 0** |
+  | 같은 조합 + `strict-peer-dependencies=true` | **exit 1** |
+  | peer 를 설치하지 않음(기본 설정) | pnpm 이 peer 를 레지스트리에서 풀려 들었다 — 오프라인이라 `ERR_PNPM_NO_OFFLINE_META` 로 멈췄다. 자동 설치가 켜져 있다는 뜻이다 |
+  | 같은 조합 + `auto-install-peers=false` | `missing peer` 경고 · exit 0 |
+
+**결론.** `peerDependencies: react ^19.0.0` 은 소비자에게 **경고**를 줄 뿐 설치에서 조합을 제거하지
+못한다. 결정(React 19 단일 major)은 그대로 서지만, 그 보증은 설치 단계가 아니라 이 저장소가 React 19
+에서만 테스트한다는 사실에서 온다. 설치에서 막으려면 소비자가 `strictPeerDependencies` 를 켜야 한다.
+npm 의 동작은 재지 않았다.
+[DS-D-0036](DS-D-0036-git-install-distribution.md)이 git 설치에서 관측한 「pnpm 은 경고만 낸다」와 같은
+방향이다.
+
+### 서브패스 export 로 발동한 tsdown 재검토 — `tsc` 를 유지한다
+
+재검토 조건 「서브패스 export 나 CSS 번들링이 필요해지면 tsdown 을 1순위로 검토한다」가 `./icons` ·
+`./icons/manifest.json` 서브패스(`packages/react/package.json` exports)로 발동했다. **검토 결과
+`tsc` 를 유지한다.** 새 진입점 `./icons` 도 소스 파일 하나(`dist/icons/generated/index.js`)를 그대로
+방출한 것이고 manifest 는 복사다 — 합칠 모듈이 없다. 그리고 `tsc` 의 파일 단위 방출이 leaf
+`"use client"` 를 보존한다. 번들 모드는 모듈을 합치므로 파일 단위 지시문이 그대로 남지 않고, 파일 단위
+방출 모드를 쓰면 결과가 `tsc` 와 같아져 전환 이득이 `publint`·`attw` 내장뿐이다. 그 도구의 도입 시점
+(첫 publish 직전)은 바뀌지 않는다. 전환하게 되면 `check-react-client-boundary` 의 dist 보존 판정이
+먼저 결과를 알려 준다.

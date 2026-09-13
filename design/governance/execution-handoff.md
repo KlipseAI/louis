@@ -274,7 +274,7 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 | GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 갈래만 돌고 2026-08-22 부터 결제로 정지.** 두 갈래의 단계 수는 `package.json`의 `verify:ci`·`verify:product`가 소유한다 — 표에 박지 않는다. owner 승인과 publish 권한 남음 |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
-| `DS-P3-001` | `in-progress`. Decision 6종을 다 썼고 owner 확인만 남았다 |
+| `DS-P3-001` | `done` (2026-09-13). Decision 6종은 `proposed` 이고 모순을 걷은 뒤 owner 확인 요청을 Updates (129)에 기록했다 — `accepted` 전환만 owner 몫이다 |
 | Decision | `ls design/governance/decisions/DS-D-*.md \| wc -l` · 대기는 `grep -l '^- Status: proposed' …` |
 | 카탈로그 | gap registry 합산 우선순위 15종이 닫혔다. **화면별 세부 부품은 그 목록에 처음부터 없었다**(아래 정정 참조) |
 | manifest component | [`manifest.json`](../manifest.json)이 정본이다 — `select` 만 `not-planned` 이고 `not-ready` 는 없다 |
@@ -736,8 +736,12 @@ gap registry 1순위로 추가됐다.
 
 #### DS-P3-001 — Web architecture Decision과 status model
 
-**상태:** `in-progress` (2026-08-14). Decision 6종을 `proposed`로 작성했다. manifest schema 확장은
-DS-P3-002a가 소유한다. spike 3건의 상태는 아래와 같다.
+**상태:** `done` (2026-09-13). 2026-08-14 에 Decision 6종을 `proposed`로 작성하며 열었다. 2026-09-13 에
+Decision·구현·manifest 의 모순을 걷고 owner 확인 요청을 [Updates (129)](../updates/README.md)에 기록했다 —
+[플레이북](execution-playbook.md) 「Decision 작성 규칙」에 따라 「proposed + owner 확인 요청 기록」이
+완료 근거의 「accepted Decision」을 충족한다. **본문 Status 는 여섯 모두 `proposed` 그대로이며 `accepted`
+전환은 owner 의 확인 근거가 생길 때만 한다.** manifest schema 확장은 DS-P3-002a가 소유한다. spike 3건의
+상태는 아래와 같다.
 
 | Decision | 결정 요약 |
 | --- | --- |
@@ -761,7 +765,8 @@ DS-P3-002a가 소유한다. spike 3건의 상태는 아래와 같다.
   저장소가 고정한 `~5.9.3` 으로 정정했다(DS-D-0002 구현 대조).
 
 S1 이 통과했으므로 DS-D-0003 도 `accepted` 전환을 요청할 선행 조건을 충족한다. Decision 6종의
-`accepted` 전환은 repository owner의 확인 사항이다.
+`accepted` 전환은 repository owner의 확인 사항이다 — 결정마다 떠안는 것과 되돌리기 조건을 붙인 요청이
+Updates (129) 「owner 확인 요청」 절에 있다.
 
 **목표:** 구현 전에 public 경계와 상태 증거를 고정한다.
 
@@ -774,6 +779,17 @@ S1 이 통과했으므로 DS-D-0003 도 `accepted` 전환을 요청할 선행 �
 
 **완료 근거:** accepted Decision, package dependency graph, public export 초안, test matrix, migration/rollback,
 manifest/status가 서로 모순되지 않는다.
+
+**완료 근거 대조 (2026-09-13).**
+
+| 근거 | 어디에 있는가 |
+| --- | --- |
+| accepted Decision | 플레이북 규칙대로 「proposed + owner 확인 요청 기록」 — Updates (129) |
+| package dependency graph | 5절 표(tokens ← css ← react)와 DS-D-0006 결정 2·「tokens를 react의 peer로」 대안. css 는 tokens 를 선언 의존성이 아니라 빌드 시 `packages/tokens/generated/tokens.css` 재export 로 소비한다(`scripts/build-css.mjs`). 별도 그래프 산출물은 없다 |
+| public export 초안 | `packages/react/api-surface.json`(verify-consumer 가 대조) · 세 패키지 `package.json` exports(verify-gates 가 대조) |
+| test matrix | DS-D-0005 「검증 수단 매트릭스」 |
+| migration/rollback | 각 Decision 의 Rollback 절 |
+| 서로 모순되지 않는다 | Updates (129) 「Changed」 — 모순을 걷은 내역과 남은 미구현(DS-D-0009 결정 1~5 · RSC/hydration 검증 · 2단계 시각 회귀)을 미구현으로 적었다 |
 
 #### DS-P3-002a — 게이트 전환
 

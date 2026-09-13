@@ -105,6 +105,26 @@ DS-D-0004 의 발동한 재검토 조건을 `pnpm build` 산출물로 쟀다.
 fallback 이 필요할 때만(비핵심) · S3 완료**로 고쳤다. manifest `webPackages` 의 evidence 에 박혀 있던
 수(「recipe 8종」「아이콘 29개」「서브패스 16개」 등)는 걷고, 수를 내는 정본 파일과 명령을 가리키게 했다.
 
+### owner 확인 요청 — Decision 6종의 `accepted` 전환
+
+**repository owner 에게 요청한다.** 아래 여섯을 각각 `accepted` 로 전환해도 되는지 확인해 달라. 결정마다
+하나씩 답하면 되고, 조건부 수락(「이 줄을 고친 뒤」)도 받는다. **확인 근거가 생기기 전까지 본문 Status 는
+`proposed` 로 둔다** — 저장소가 스스로 `accepted` 를 쓰지 않는다([플레이북](../governance/execution-playbook.md)
+「Decision 작성 규칙」). 이 요청의 기록으로 DS-P3-001 은 `done` 이 됐다.
+
+| Decision | 수락하면 떠안는 것 | 되돌리기 조건 |
+| --- | --- | --- |
+| [DS-D-0002](../governance/decisions/DS-D-0002-web-support-scope.md) Web 지원 범위 | React 19 단일 major · ESM 전용 · leaf `"use client"` · `tsc`. peer 범위는 설치를 **막지 않고 경고만** 한다는 사실(pnpm 10 실측)과, 선언한 Firefox·Safari 하한이 테스트로 뒷받침되지 않고 RSC·hydration 검증이 아직 없다는 사실을 함께 받는다 | 두 번째 소비자가 React 18 을 요구하면 matrix CI 와 함께 범위를 넓힌다(넓히는 쪽은 minor). 번들 빌드가 필요해지면 client boundary 게이트를 먼저 통과시킨 뒤 전환한다 |
+| [DS-D-0003](../governance/decisions/DS-D-0003-behavior-dependency.md) behavior dependency | Radix 하부 유틸 4종(설치 시 `@radix-ui`·`@floating-ui` 20개)과 그 유지보수 위험, Menu 선택 순서·Dialog mode·Escape·scroll lock 테스트를 우리가 소유하는 비용. fallback(React Aria 저수준 훅)의 RSC 호환(S2)은 확인하지 않은 채다 | 하부 유틸 유지보수가 끊기면 fallback 으로 옮긴다(public API 불변). 완제품 Menu·Dialog 로 돌아가는 것은 이 결정을 supersede 하는 ADR 이 필요하다 |
+| [DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md) CSS 저작 방식 | authored plain CSS 두 벌 배포, `layer(louis.tokens)` import 계약, 요소 선택자 금지를 게이트 없이 리뷰로 지키는 상태(`table.css` 는 아직 위반). 발동한 재검토 조건 판정(생성기 불도입 · 컴포넌트별 import 미강제)도 함께 수락하는 것이다 — **gzip 40KB 를 주석 포함으로 볼지 제외로 볼지 정해 달라** | 두 벌에서 한 벌로 줄이는 것은 minor. 멀티 브랜드·iOS/Android 요구가 생기면 recipe 소스 분리를 다시 연다 |
+| [DS-D-0005](../governance/decisions/DS-D-0005-test-stack.md) test stack | 실브라우저(Chromium) 러너와 jsdom·happy-dom 배제. **hosted CI 가 결제로 멈춘 동안 2단계(시각 회귀 · 다중 브라우저)가 무기한 미뤄지는 상태**를 받는 것이다 | jsdom 으로 후퇴하면 매트릭스의 실브라우저 전용 7항목을 미검증으로 재분류하고 해당 컴포넌트 Web 상태를 `partial` 이하로 내린다(본문 Rollback) |
+| [DS-D-0006](../governance/decisions/DS-D-0006-versioning-peer-contract.md) versioning·peer | 레지스트리 채널용 결정(changesets `fixed` · required peer)을 **첫 레지스트리 게시까지 이연된 채로** 수락하는 것이다. 그때까지 호환 보증은 DS-D-0036 의 같은-sha 고정이 진다 | 게시가 시작되거나 저장소 밖 소비자가 둘이 되면 이연 항목을 연다. `fixed` 제거·independent 전환은 설정 한 줄로 무손실 |
+| [DS-D-0009](../governance/decisions/DS-D-0009-font-distribution.md) font distribution | 바이너리 미동봉은 지켜지고 있지만 **번호 붙은 결정 1~5 는 미구현**이다. 수락하면 `--louis-font-family-sans` 를 한 번 내보낸 뒤 이름을 바꾸지 못하고(breaking), 폴백 스택 교정이 토큰 값 변경으로 baseline 절차를 탈 수 있음을 받는다. 구현은 DS-P3-014 가 한다 | 폴백 스택 교정과 변수 간접화는 생성기 재실행으로 되돌아간다. 폰트 동봉으로 가는 것은 supersede ADR 이 필요하다 |
+
+**Current impact.** 사용자에게 달라진 계약은 위 두 Fixed 절(leaf 7개의 `"use client"` — 정적 판정이고 RSC 번들러
+실측은 없다 · 글리프 슬롯 override)과 CSS README 의 `layer(louis.tokens)` 안내뿐이다. Decision 은 여섯 모두
+`proposed`, package·Web·Figma·제품 adoption 상태는 바뀌지 않았다.
+
 ## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올리고, DS-P3-014 의 낡은 전제를 걷는다
 
 첫 변경 단위는 DS-P3-014 단위 6이다. **대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로

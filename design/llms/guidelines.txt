@@ -853,6 +853,27 @@ node scripts/figma-screens-live-check.mjs --check live-03.json live-04.json sets
   다시 돌려 **36/36 탐침 · 다름 0** 이어야 한다(적용에서 뺀 보드만 `--expect-differ`). CI·verify 목록에는
   넣지 않는다(Figma 접근이 필요하다).
 
+**상단 바 세트의 소비처 — 앱 셸 러너 전후.** 앱 셸 러너는 두 상단 바 세트의 마스터(TEXT 속성 결합 · 크기 ·
+면)를 고치고, 그 변화는 세트의 **모든** 인스턴스에 번진다. `--check` 는 generated 트리 안만 보므로 그 밖의
+소비처 — 손으로 조립한 허브 보드(생성기 없음), 숨긴 legacy 그룹, 결제 장면 컴포넌트 — 는 따로 뜬다:
+
+```
+node scripts/figma-screens-live-check.mjs --emit --consumers > probe-consumers.js     # 페이지 240:3529 에서 세트를 찾는다
+node scripts/figma-screens-live-check.mjs --consumers consumers-before.json          # 기준선 목록
+node scripts/figma-screens-live-check.mjs --consumers consumers-before.json consumers-after.json [--expect-change <id,…>]
+```
+
+- 탐침은 variant 마다 `getInstancesAsync` 로 인스턴스를 모두 뽑는다. 다른 인스턴스 안의 하위 레이어(`I…`)는
+  버리고 호스트 컴포넌트를 따라 올라가 장면이 어디 놓였는지 적는다 — 하위 레이어가 결과에 끼는지는 페이지
+  적재 상태에 따라 달라 열거가 흔들린다(2026-09-13 실측). generated 안은 수만 센다.
+- 인스턴스마다 `where`(legacy · hand · component) · 실효 visible · 보드 · 보이는 글자 · TEXT 속성 값 · 크기 ·
+  면 색 · 적용 영향을 가르는 override(루트 면·획·크기, 글자 내용·색)를 싣는다. 응답이 use_figma 한도를
+  넘으면 탐침이 던진다 — 잘린 기준선을 남기지 않는다.
+- 두 파일을 주면 id 로 짝지어 variant · where · visible · 보이는 글자 · 크기 · 면이 바뀐 것을 찍는다. 보이는
+  소비처의 변화가 하나라도 있으면 실패하고, 받아들인 변화는 `--expect-change` 로 이름을 대야 한다(댄 id 가
+  변하지 않았으면 실패). TEXT 속성 값은 적용 뒤 모든 인스턴스에 새로 생기므로 판정에 넣지 않는다 — 보이는 글자가
+  판정한다. 숨은 소비처의 변화는 따로 찍되 실패로 세지 않는다.
+
 #### 목표는 「제품을 다 표현한다」다
 
 Figma 작업의 목표는 **제품에 있는 디자인을 하나도 빠짐없이 Figma 에 올려 두는 것**이다. 그래야

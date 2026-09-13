@@ -55,6 +55,30 @@
 //
 // 어긋나면 보드 단위로 무엇이 다른지 찍고 종료 코드 1 을 낸다. **적용 전에는 다른 것이 정상이다** —
 // 그때 출력은 「적용하면 무엇이 바뀌는가」의 목록이다. 적용 뒤에 다시 돌려 0 이 되어야 한다.
+//
+// ## 상단 바 세트의 소비처 — `--consumers`
+//
+//   node scripts/figma-screens-live-check.mjs --emit --consumers [--page <PAGE_ID>]
+//   node scripts/figma-screens-live-check.mjs --consumers <before.json>                  # 기준선 목록
+//   node scripts/figma-screens-live-check.mjs --consumers <before.json> <after.json> [--expect-change <id,…>]
+//
+// 앱 셸 러너(`figma/product-app-shell.draw.js`)는 두 상단 바 세트(이름은 앱 셸 plan)의 **마스터**를 고친다 —
+// TEXT 속성 결합 · 크기 · 면. 그 결과는 세트의 모든 인스턴스에 번진다. 그런데 `--check` 는 generated 트리
+// 안만 보고, generated 밖에서 그 세트를 쓰는 곳 — 손으로 조립한 허브 보드, 숨긴 legacy 그룹, 결제 장면
+// 컴포넌트 — 은 다시 채우는 생성기도 대조하는 도구도 없었다(2026-09-13 리뷰: 허브 보드의 **보이는** 바 7개가
+// 적용 범위 기술에서 빠졌다). `--emit --consumers` 는 세트의 variant 마다 `getInstancesAsync` 로 소비처를
+// 모두 뽑는다. 다른 인스턴스 안의 하위 레이어(id 가 `I` 로 시작)는 버리고 **호스트 컴포넌트를 따라 올라가**
+// 그 장면이 캔버스 어디에 놓였는지 적는다 — `getInstancesAsync` 가 하위 레이어를 돌려주는지는 페이지 적재
+// 상태에 따라 달라서(2026-09-13 실측: 모바일 세트가 첫 호출 25, 장면 인스턴스 속을 읽은 뒤 32 — 늘어난 7 은 전부
+// `I…`), 거기에 기대면 열거가 실행마다 바뀐다.
+//
+// 인스턴스마다 `where`(generated · legacy · hand = generated/legacy 밖 보드 · component = 컴포넌트 안),
+// 실효 visible, 보드, 보이는 글자, TEXT 속성 값, 크기, 면 색, override 필드를 적는다. 파일 하나를 주면 기준선
+// 목록을 찍는다(대조가 아니다). 적용 전·후 두 파일을 주면 generated 밖 소비처를 id 로 짝지어 variant ·
+// where · visible · 보이는 글자 · 크기 · 면 색이 달라진 것을 찍고, 보이는 소비처의 변화가 하나라도 있으면
+// 종료 코드 1 이다. 받아들인 변화는 `--expect-change <id,…>` 로 이름을 댄다 — 댄 id 가 변하지 않았으면
+// 목록이 낡았다고 실패한다. generated 트리 안은 보드 러너가 다시 짓고 `--check` 가 보므로 수만 센다.
+// 숨은 소비처(legacy)의 변화는 따로 찍되 실패로 세지 않는다.
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -62,26 +86,31 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PLAN = "figma/app-screens.plan.json";
+const SHELL_PLAN = "figma/product-app-shell.plan.json";
 const args = process.argv.slice(2);
 const fail = (message) => {
   process.stderr.write(`[figma-screens-live] ${message}\n`);
   process.exit(2);
 };
 // 인자를 먼저 전부 검사한다 — 흘린 결과 파일이 조용히 무시되면 부분 탐침이 전량처럼 보인다.
-const VALUE_FLAGS = new Set(["--ref", "--only", "--page", "--expect-differ"]);
-const BOOLEAN_FLAGS = new Set(["--emit", "--sets", "--detail", "--quiet", "--check", "--allow-partial", "--sets-only"]);
+const VALUE_FLAGS = new Set(["--ref", "--only", "--page", "--expect-differ", "--expect-change"]);
+const BOOLEAN_FLAGS = new Set(["--emit", "--sets", "--consumers", "--detail", "--quiet", "--check", "--allow-partial", "--sets-only"]);
+const emitting = args.includes("--emit");
 const checkFiles = [];
+const consumerFiles = [];
 for (let index = 0; index < args.length; index += 1) {
   const arg = args[index];
   if (VALUE_FLAGS.has(arg)) {
     if (!args[index + 1] || args[index + 1].startsWith("--")) fail(`${arg} 에 값이 필요합니다.`);
     index += 1;
-  } else if (arg === "--check") {
-    while (args[index + 1] && !args[index + 1].startsWith("--")) checkFiles.push(args[(index += 1)]);
+  } else if (!emitting && (arg === "--check" || arg === "--consumers")) {
+    const list = arg === "--check" ? checkFiles : consumerFiles;
+    while (args[index + 1] && !args[index + 1].startsWith("--")) list.push(args[(index += 1)]);
   } else if (!BOOLEAN_FLAGS.has(arg)) {
-    fail(`알 수 없는 인자입니다: ${arg} — 결과 파일은 --check 바로 뒤에 둡니다.`);
+    fail(`알 수 없는 인자입니다: ${arg} — 결과 파일은 --check · --consumers 바로 뒤에 둡니다.`);
   }
 }
+if (!emitting && args.includes("--check") && args.includes("--consumers")) fail("--check 와 --consumers 는 따로 돌립니다.");
 const option = (name) => {
   const at = args.indexOf(name);
   return at >= 0 ? args[at + 1] : null;
@@ -176,7 +205,9 @@ const instanceKey = (entry) => `${entry.set} · ${entry.variant}`;
 // 파이프로 받을 때 `process.exit` 가 쓰기를 자르지 않게, 쓰기가 끝난 뒤에 나간다.
 const emitAndExit = (code) => process.stdout.write(code, () => process.exit(0));
 
-if (args.includes("--emit")) {
+if (emitting && args.includes("--consumers")) {
+  emitConsumers();
+} else if (emitting) {
   const boards = expectedBoards();
   const only = option("--only");
   const page = option("--page");
@@ -279,7 +310,214 @@ return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boa
   emitAndExit(code);
 }
 
-if (!args.includes("--emit")) runCheck();
+/** 앱 셸 plan 이 소유하는 상단 바 세트 이름과 그 페이지. */
+function shellSets() {
+  const shell = JSON.parse(readRepo(SHELL_PLAN));
+  const names = [shell.component?.componentSetName, shell.component?.desktopTopBar?.componentSetName];
+  if (names.some((name) => typeof name !== "string")) fail(`${SHELL_PLAN} 에서 상단 바 세트 이름을 찾지 못했습니다.`);
+  return { names, pageId: shell.component.pageId };
+}
+
+function emitConsumers() {
+  const { names, pageId } = shellSets();
+  const page = option("--page") ?? pageId;
+  emitAndExit(`const NAMES=${JSON.stringify(names)};
+// 적용 영향을 가르는 override 만 싣는다 — 루트 면·획·크기와 글자 내용·색. 나머지까지 실으면 응답이 한도를 넘는다.
+const KEEP=["self:fills","self:strokes","self:width","self:height","TEXT:characters","TEXT:fills","FRAME:fills"];
+const LIMIT=19000;
+const page = await figma.getNodeByIdAsync(${JSON.stringify(page)});
+if (!page || page.type !== "PAGE") throw new Error("페이지를 찾지 못했습니다: ${page}");
+await figma.setCurrentPageAsync(page);
+const round = (value) => Math.round(value * 100) / 100;
+const hex = (paints) => { const paint = Array.isArray(paints) ? paints.find((entry) => entry.type === "SOLID" && entry.visible !== false) : null; return paint ? "#" + [paint.color.r, paint.color.g, paint.color.b].map((v) => Math.round(v * 255).toString(16).padStart(2, "0")).join("") : null; };
+const boards = {};
+const boardOf = (node) => { let at = node; while (at.parent && at.parent.type !== "SECTION" && at.parent.type !== "PAGE") at = at.parent; boards[at.id] = at.name.slice(0, 48); return at.id; };
+// 가장 가까운 컴포넌트까지 올라가며 실효 visible 과 generated/legacy 소속을 잰다. 컴포넌트를 만나면 멈춘다.
+const locate = (node) => {
+  let at = node.parent; let visible = node.visible; let where = null; let host = null;
+  while (at && at.type !== "PAGE") {
+    if (at.type === "COMPONENT") { host = at; break; }
+    if (at.visible === false) visible = false;
+    if (!where && at.name.startsWith("generated/")) where = "generated";
+    else if (!where && at.name.startsWith("legacy/")) where = "legacy";
+    at = at.parent;
+  }
+  return { visible, where: host ? "component" : (where || "hand"), host };
+};
+// 호스트 컴포넌트가 캔버스 어디에 놓였는지(「where@board」). 하위 레이어 인스턴스(id "I…")는 세지 않는다.
+const placementsOf = async (component, depth) => {
+  if (depth > 6) return ["truncated"];
+  const out = [];
+  for (const instance of await component.getInstancesAsync()) {
+    if (instance.id.startsWith("I")) continue;
+    const spot = locate(instance);
+    if (spot.host) out.push(...await placementsOf(spot.host, depth + 1));
+    else out.push(spot.where + (spot.visible ? "" : "(숨김)") + "@" + boardOf(instance));
+  }
+  if (out.length === 0) out.push("component-root" + (locate(component).visible ? "" : "(숨김)") + "@" + boardOf(component));
+  return out;
+};
+const sets = {};
+const generated = {};
+const consumers = [];
+for (const name of NAMES) {
+  const found = page.findAllWithCriteria({ types: ["COMPONENT_SET"] }).filter((node) => node.name === name);
+  if (found.length !== 1) throw new Error("세트가 " + found.length + "개입니다: " + name);
+  const [set] = found;
+  const definitions = set.componentPropertyDefinitions || {};
+  sets[name] = { id: set.id, variants: set.children.map((child) => child.name),
+    textProperties: Object.keys(definitions).filter((key) => definitions[key].type === "TEXT").map((key) => key.split("#")[0]) };
+  generated[name] = 0;
+  for (const [v, variant] of set.children.entries()) {
+    for (const instance of await variant.getInstancesAsync()) {
+      if (instance.id.startsWith("I")) continue;
+      const spot = locate(instance);
+      // generated 트리 안은 보드 러너가 다시 짓고 --check 가 본다 — 수만 센다.
+      if (spot.where === "generated") { generated[name] += 1; continue; }
+      const props = {};
+      for (const [key, property] of Object.entries(instance.componentProperties || {})) {
+        if (property.type === "TEXT") props[key.split("#")[0]] = property.value;
+      }
+      const overrides = new Set();
+      for (const entry of instance.overrides || []) {
+        const node = entry.id === instance.id ? null : await figma.getNodeByIdAsync(entry.id);
+        for (const field of entry.overriddenFields) {
+          const key = (node ? node.type : "self") + ":" + field;
+          if (KEEP.includes(key)) overrides.add(key);
+        }
+      }
+      consumers.push({
+        id: instance.id, set: name, v, where: spot.where, visible: spot.visible, board: boardOf(spot.host || instance),
+        host: spot.host ? { id: spot.host.id, name: spot.host.name.slice(0, 40), placements: await placementsOf(spot.host, 1) } : null,
+        texts: instance.findAllWithCriteria({ types: ["TEXT"] }).filter((text) => text.visible).map((text) => text.characters).join(" "),
+        props, size: round(instance.width) + "×" + round(instance.height), fill: hex(instance.fills),
+        sizing: instance.layoutSizingHorizontal, overrides: [...overrides].sort(),
+      });
+    }
+  }
+}
+const result = { kind: "figma-screens-live-consumers", page: { id: page.id, name: page.name }, sets, generated, boards, consumers };
+// 한도는 UTF-8 바이트다 — 보드 이름의 한글은 3 바이트씩 센다.
+const bytes = [...JSON.stringify(result)].reduce((sum, ch) => sum + (ch.codePointAt(0) > 0xffff ? 4 : ch.codePointAt(0) > 0x7ff ? 3 : ch.codePointAt(0) > 0x7f ? 2 : 1), 0);
+if (bytes > LIMIT) throw new Error("응답이 " + bytes + " 바이트다 — use_figma 응답 한도에 잘려 기준선이 불완전해진다. 소비처가 늘었으면 이 탐침을 세트별로 나눠야 한다.");
+return result;
+`);
+}
+
+function loadConsumers(file, names) {
+  const raw = JSON.parse(readFileSync(resolve(process.cwd(), file), "utf8"));
+  const result = raw.kind ? raw : (raw.result ?? raw);
+  if (result.kind !== "figma-screens-live-consumers") fail(`소비처 탐침 결과가 아닙니다: ${file}`);
+  const got = Object.keys(result.sets ?? {}).sort();
+  if (JSON.stringify(got) !== JSON.stringify([...names].sort())) {
+    fail(`${file} 의 세트(${got.join(" · ") || "없음"})가 앱 셸 plan 의 세트(${names.join(" · ")})와 다릅니다.`);
+  }
+  if (!Array.isArray(result.consumers)) fail(`${file} 에 consumers 가 없습니다 — 잘린 응답일 수 있다.`);
+  const total = result.consumers.length + Object.values(result.generated ?? {}).reduce((sum, count) => sum + count, 0);
+  if (total === 0) fail(`${file} 에 소비처가 0 개입니다 — 탐침이 세트를 제대로 읽지 못했다.`);
+  const byId = new Map();
+  for (const entry of result.consumers) {
+    if (byId.has(entry.id)) fail(`${file} 에 같은 인스턴스가 두 번 있습니다: ${entry.id}`);
+    const variant = result.sets[entry.set]?.variants?.[entry.v];
+    if (variant == null) fail(`${file} 의 ${entry.id} variant 번호 ${entry.v} 가 세트 목록에 없습니다.`);
+    byId.set(entry.id, { ...entry, variant, boardName: result.boards?.[entry.board] ?? "" });
+  }
+  return { byId, generated: result.generated ?? {}, sets: result.sets };
+}
+
+const shortVariant = (variant) => variant.replace(/(Width|Content|Breadcrumb|Back|Divider)=/g, "");
+const describeConsumer = (entry) => {
+  const place = entry.host
+    ? `${entry.host.id} ${entry.host.name} → ${entry.host.placements.join(" · ")}`
+    : `${entry.board} ${entry.boardName}`;
+  // 적용 영향을 가르는 override — 루트 면, 글자 내용, 크기.
+  const marks = [["self:fills", "면"], ["TEXT:characters", "글자"], ["self:width", "폭"]]
+    .filter(([key]) => entry.overrides.includes(key)).map(([, label]) => label);
+  const props = Object.keys(entry.props).length ? ` · 속성 ${JSON.stringify(entry.props)}` : "";
+  return `${entry.id} · ${shortVariant(entry.variant)} · «${entry.texts}»${props} · ${entry.size} ${entry.sizing ?? ""}` +
+    ` · ${entry.fill ?? "면 없음"} · override ${marks.join("·") || "—"} · ${place}`;
+};
+
+function runConsumers() {
+  if (consumerFiles.length < 1 || consumerFiles.length > 2) fail("--consumers 바로 뒤에 기준선 파일 하나, 또는 적용 전·후 파일 둘을 줍니다.");
+  const { names } = shellSets();
+  const [before, after] = consumerFiles.map((file) => loadConsumers(file, names));
+  const tally = (probe) => names.map((name) => {
+    const rows = [...probe.byId.values()].filter((entry) => entry.set === name);
+    const count = (where) => rows.filter((entry) => entry.where === where).length;
+    const hidden = rows.filter((entry) => !entry.visible).length;
+    return `${name} = generated ${probe.generated[name] ?? 0} · legacy ${count("legacy")} · hand ${count("hand")} · component ${count("component")} (generated 밖 숨김 ${hidden})`;
+  });
+  if (!after) {
+    if (args.includes("--expect-change")) fail("--expect-change 는 적용 전·후 두 파일을 줄 때만 씁니다.");
+    const write = (line) => process.stdout.write(`${line}\n`);
+    write("[figma-screens-live] 상단 바 소비처 기준선 — 대조가 아니다(적용 뒤 결과와 함께 다시 주면 대조한다)");
+    for (const line of tally(before)) write(`    ${line}`);
+    for (const [where, title] of [
+      ["hand", "손 조립 보드(generated·legacy 밖 — 다시 채우는 생성기 없음, --check 밖)"],
+      ["component", "컴포넌트 안(장면) — 그 장면 러너가 다시 채운다"],
+      ["legacy", "legacy 그룹"],
+    ]) {
+      const rows = [...before.byId.values()].filter((entry) => entry.where === where);
+      if (rows.length === 0) continue;
+      write(`  ${title} ${rows.length}`);
+      for (const entry of rows) write(`    ${entry.visible ? "" : "(숨김) "}${describeConsumer(entry)}`);
+    }
+    return;
+  }
+
+  const expected = new Set(optionList("--expect-change"));
+  for (const id of expected) {
+    if (!before.byId.has(id) && !after.byId.has(id)) fail(`--expect-change ${id} 가 두 결과의 generated 밖 소비처 어디에도 없습니다.`);
+  }
+  // 보이는 것만 비교한다. TEXT 속성 값은 적용 뒤 모든 인스턴스에 새로 생기므로 차이 판정에 넣지 않는다 — 보이는 글자가 판정한다.
+  const FIELDS = [
+    ["variant", (entry) => entry.variant],
+    ["where", (entry) => entry.where],
+    ["visible", (entry) => entry.visible],
+    ["글자", (entry) => entry.texts],
+    ["크기", (entry) => entry.size],
+    ["면", (entry) => entry.fill],
+  ];
+  const changed = [];
+  const accepted = [];
+  const hiddenChanges = [];
+  const stale = [];
+  for (const id of new Set([...before.byId.keys(), ...after.byId.keys()])) {
+    const was = before.byId.get(id);
+    const now = after.byId.get(id);
+    const changes = !now ? ["사라졌다(또는 generated 안으로 옮겨졌다)"] : !was ? ["새로 생겼다"]
+      : FIELDS.filter(([, read]) => read(was) !== read(now)).map(([field, read]) => `${field} ${JSON.stringify(read(was))} → ${JSON.stringify(read(now))}`);
+    if (changes.length === 0) {
+      if (expected.has(id)) stale.push(id);
+      continue;
+    }
+    const line = `${describeConsumer(now ?? was)} — ${changes.join(" · ")}`;
+    if (expected.has(id)) accepted.push(line);
+    else if (!(was?.visible ?? false) && !(now?.visible ?? false)) hiddenChanges.push(line);
+    else changed.push(line);
+  }
+  const section = (title, lines) => {
+    if (lines.length === 0) return;
+    process.stderr.write(`[figma-screens-live] ${title} ${lines.length}\n`);
+    for (const line of lines) process.stderr.write(`    ${line}\n`);
+  };
+  section("받아들인 변화(--expect-change)", accepted);
+  section("숨은 소비처의 변화(실패로 세지 않는다)", hiddenChanges);
+  section("보이는 소비처의 변화", changed);
+  if (stale.length) process.stderr.write(`[figma-screens-live] --expect-change 로 댔지만 변하지 않았다 — 목록에서 뺀다: ${stale.join(", ")}\n`);
+  process.stderr.write(`    적용 전: ${tally(before).join(" | ")}\n    적용 뒤: ${tally(after).join(" | ")}\n`);
+  const summary = `[figma-screens-live] 상단 바 소비처 대조 · generated 밖 적용 전 ${before.byId.size} · 적용 뒤 ${after.byId.size}` +
+    ` · 보이는 변화 ${changed.length} · 받아들인 변화 ${accepted.length} · 숨은 변화 ${hiddenChanges.length}`;
+  if (changed.length || stale.length) {
+    process.stderr.write(`${summary}\n`);
+    process.exit(1);
+  }
+  process.stdout.write(`${summary}\n`);
+}
+
+if (!emitting && args.includes("--consumers")) runConsumers();
+else if (!emitting) runCheck();
 
 function runCheck() {
   if (!args.includes("--check")) fail("--emit 또는 --check <파일…> 이 필요합니다.");

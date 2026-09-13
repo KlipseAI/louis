@@ -1,7 +1,7 @@
 {
-  "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 합성 장면과 공개·문서·법무·인증 22개 concrete route를 잰다. 직접 수정하지 않는다.",
+  "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 공개·법무·인증 18개 concrete route를 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
-  "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
+  "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 랜딩 `/` 만은 prefers-reduced-motion: reduce 로 열어 networkidle 과 도는 애니메이션이 없어질 때까지 기다린다 — 스크롤 리빌의 출발 상태(opacity 0 · translate 32px)로 되감기는 도중을 재지 않기 위해서이고, 제품 renderHarness.mjs 의 --force-prefers-reduced-motion 과 같은 길이다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
   "productRef": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "buildEvidence": {
@@ -1893,9 +1893,289 @@
     "notMeasured": "liveOnly 표본이 0개입니다. 합성 장면 2문맥을 재지 않습니다. 랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다.",
     "StaticHighlightDemo": {}
   },
-  "landingNotMeasured": "랜딩 측정 본문이 지금 랜딩과 맞지 않습니다(page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#capabilities article') to be visible). `#capabilities` 는 제품 8802565e 에서 삭제됐습니다 — 본문을 지금 랜딩의 모양으로 다시 써야 되살아납니다. 나머지 route 는 그대로 쟀습니다.",
   "pages": {
     "desktop-1920x1080": {
+      "/": {
+        "route": "/",
+        "finalPath": "/",
+        "redirected": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 5849,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 5849.1563
+        },
+        "root": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 5849.1563
+        },
+        "landmarks": {
+          "header": [
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 0,
+              "width": 1920,
+              "height": 56
+            },
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 260,
+              "y": 1200,
+              "width": 1400,
+              "height": 161.1875
+            },
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 260,
+              "y": 4579.375,
+              "width": 1400,
+              "height": 48.5938
+            }
+          ],
+          "navigation": [
+            {
+              "tag": "nav",
+              "ariaLabel": "Global navigation",
+              "x": 20,
+              "y": 12,
+              "width": 1888,
+              "height": 32
+            },
+            {
+              "tag": "nav",
+              "ariaLabel": "Product",
+              "x": 970,
+              "y": 5551.1563,
+              "width": 690,
+              "height": 144
+            }
+          ],
+          "main": [
+            {
+              "tag": "main",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 0,
+              "width": 1920,
+              "height": 5849.1563
+            }
+          ],
+          "aside": [],
+          "form": [],
+          "footer": [
+            {
+              "tag": "footer",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 5511.1563,
+              "width": 1920,
+              "height": 338
+            }
+          ]
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace.",
+            "x": 587.2344,
+            "y": 447.2031,
+            "width": 745.5156,
+            "height": 129.5938
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators.",
+            "x": 260,
+            "y": 1200,
+            "width": 1400,
+            "height": 97.1875
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”",
+            "x": 959.5,
+            "y": 2497.1875,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators",
+            "x": 710.6875,
+            "y": 3314.1875,
+            "width": 498.625,
+            "height": 97.1875
+          },
+          {
+            "level": 2,
+            "text": "What’s new",
+            "x": 260,
+            "y": 3924.7813,
+            "width": 1400,
+            "height": 48.5938
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions",
+            "x": 260,
+            "y": 4579.375,
+            "width": 1400,
+            "height": 48.5938
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse",
+            "x": 810.0313,
+            "y": 5237.9688,
+            "width": 299.9375,
+            "height": 97.1875
+          },
+          {
+            "level": 2,
+            "text": "Product",
+            "x": 970,
+            "y": 5551.1563,
+            "width": 56.2813,
+            "height": 24
+          },
+          {
+            "level": 2,
+            "text": "Resources",
+            "x": 1142.375,
+            "y": 5551.1563,
+            "width": 92.2969,
+            "height": 24
+          },
+          {
+            "level": 2,
+            "text": "Social",
+            "x": 1350.7656,
+            "y": 5551.1563,
+            "width": 73.0625,
+            "height": 24
+          },
+          {
+            "level": 2,
+            "text": "Trust",
+            "x": 1539.9219,
+            "y": 5551.1563,
+            "width": 120.0781,
+            "height": 24
+          }
+        ],
+        "images": [
+          {
+            "src": "/klipse-light.svg",
+            "alt": "",
+            "x": 20,
+            "y": 16,
+            "width": 82.1563,
+            "height": 24
+          },
+          {
+            "src": "/Text.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1405.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Image.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1444.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Video.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1483.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Audio.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1522.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/VideoEditor.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1561.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/YouTube.svg",
+            "alt": "",
+            "x": 264,
+            "y": 1600.6875,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Ftestimonials-backdrop.jpg&w=1920&q=75",
+            "alt": "",
+            "x": 0,
+            "y": 2204.7813,
+            "width": 1920,
+            "height": 800
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Favatar-new-pd.png&w=32&q=75",
+            "alt": "",
+            "x": 926.4844,
+            "y": 2617.375,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fcreator-program-backdrop.jpg&w=1920&q=75",
+            "alt": "",
+            "x": 0,
+            "y": 3004.7813,
+            "width": 1920,
+            "height": 800
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fambassador-seal.png&w=64&q=75",
+            "alt": "",
+            "x": 944,
+            "y": 3262.1875,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fnews-featured.webp&w=750&q=75",
+            "alt": "",
+            "x": 260,
+            "y": 4013.375,
+            "width": 698,
+            "height": 326
+          }
+        ],
+        "componentProbe": null
+      },
       "/pricing": {
         "route": "/pricing",
         "viewport": {
@@ -211365,6 +211645,287 @@
       }
     },
     "mobile-402x874": {
+      "/": {
+        "route": "/",
+        "finalPath": "/",
+        "redirected": false,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 5021,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 402,
+          "height": 5021.2656
+        },
+        "root": {
+          "x": 0,
+          "y": 0,
+          "width": 402,
+          "height": 5021.2656
+        },
+        "landmarks": {
+          "header": [
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 0,
+              "width": 402,
+              "height": 62
+            },
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 16,
+              "y": 962,
+              "width": 370,
+              "height": 133
+            },
+            {
+              "tag": "header",
+              "ariaLabel": null,
+              "x": 16,
+              "y": 3606.2656,
+              "width": 370,
+              "height": 27
+            }
+          ],
+          "navigation": [
+            {
+              "tag": "nav",
+              "ariaLabel": "Global navigation",
+              "x": 16,
+              "y": 12,
+              "width": 370,
+              "height": 38
+            },
+            {
+              "tag": "nav",
+              "ariaLabel": "Product",
+              "x": 16,
+              "y": 4607.2656,
+              "width": 370,
+              "height": 304
+            }
+          ],
+          "main": [
+            {
+              "tag": "main",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 0,
+              "width": 402,
+              "height": 5021.2656
+            }
+          ],
+          "aside": [],
+          "form": [],
+          "footer": [
+            {
+              "tag": "footer",
+              "ariaLabel": null,
+              "x": 0,
+              "y": 4359.2656,
+              "width": 402,
+              "height": 662
+            }
+          ]
+        },
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace.",
+            "x": 20,
+            "y": 352.2969,
+            "width": 362,
+            "height": 113.3906
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators.",
+            "x": 16,
+            "y": 962,
+            "width": 370,
+            "height": 54
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”",
+            "x": 200.5,
+            "y": 1862.7656,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators",
+            "x": 16,
+            "y": 2324.2656,
+            "width": 370,
+            "height": 54
+          },
+          {
+            "level": 2,
+            "text": "What’s new",
+            "x": 16,
+            "y": 2705.2656,
+            "width": 370,
+            "height": 27
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions",
+            "x": 16,
+            "y": 3606.2656,
+            "width": 370,
+            "height": 27
+          },
+          {
+            "level": 2,
+            "text": "Your first AI video,\nmake it with Klipse",
+            "x": 115.7813,
+            "y": 4167.2656,
+            "width": 170.4375,
+            "height": 54
+          },
+          {
+            "level": 2,
+            "text": "Product",
+            "x": 16,
+            "y": 4607.2656,
+            "width": 153,
+            "height": 21
+          },
+          {
+            "level": 2,
+            "text": "Resources",
+            "x": 209,
+            "y": 4607.2656,
+            "width": 153,
+            "height": 21
+          },
+          {
+            "level": 2,
+            "text": "Social",
+            "x": 16,
+            "y": 4779.2656,
+            "width": 153,
+            "height": 21
+          },
+          {
+            "level": 2,
+            "text": "Trust",
+            "x": 209,
+            "y": 4779.2656,
+            "width": 153,
+            "height": 21
+          }
+        ],
+        "images": [
+          {
+            "src": "/klipse-light.svg",
+            "alt": "",
+            "x": 16,
+            "y": 19,
+            "width": 82.1563,
+            "height": 24
+          },
+          {
+            "src": "/Text.svg",
+            "alt": "",
+            "x": 20,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Image.svg",
+            "alt": "",
+            "x": 97,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Video.svg",
+            "alt": "",
+            "x": 186.1719,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/Audio.svg",
+            "alt": "",
+            "x": 272.3438,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/VideoEditor.svg",
+            "alt": "",
+            "x": 358.6094,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/YouTube.svg",
+            "alt": "",
+            "x": 487.6875,
+            "y": 1139.5,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Ftestimonials-backdrop.jpg&w=640&q=75",
+            "alt": "",
+            "x": 0,
+            "y": 1764.2656,
+            "width": 402,
+            "height": 420
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Favatar-new-pd.png&w=32&q=75",
+            "alt": "",
+            "x": 170.0469,
+            "y": 1992.2656,
+            "width": 20,
+            "height": 20
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fcreator-program-backdrop.jpg&w=640&q=75",
+            "alt": "",
+            "x": 0,
+            "y": 2184.2656,
+            "width": 402,
+            "height": 433
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fambassador-seal.png&w=64&q=75",
+            "alt": "",
+            "x": 185,
+            "y": 2272.2656,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "src": "/_next/image?url=%2Fimages%2Flanding%2Fnews-featured.webp&w=640&q=75",
+            "alt": "",
+            "x": 16,
+            "y": 2772.2656,
+            "width": 370,
+            "height": 326
+          }
+        ],
+        "componentProbe": null
+      },
       "/pricing": {
         "route": "/pricing",
         "viewport": {

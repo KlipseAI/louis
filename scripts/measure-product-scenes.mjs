@@ -422,7 +422,6 @@ const startPinnedProductServer = async () => {
 const pinnedServer = await startPinnedProductServer();
 let browser = null;
 const rendered = {};
-let landingNotMeasured = null;
 const pageScreens = {};
 const guestOutcomes = {};
 try {
@@ -724,97 +723,6 @@ try {
       });
     };
 
-    const measureLanding = async () => {
-      await openPinnedRoute("/");
-      await page.waitForSelector("#capabilities article");
-      if (contextSpec.width >= 720) {
-        await page.evaluate(() => {
-          const article = document.querySelector("#capabilities article");
-          if (!article) throw new Error("NodeCanvas article이 없습니다.");
-          const rect = article.getBoundingClientRect();
-          window.scrollTo(0, rect.top + window.scrollY - 92);
-        });
-        await page.waitForFunction(() => {
-          const article = document.querySelector("#capabilities article");
-          return article && article.querySelectorAll("*").length > 100 &&
-            article.getBoundingClientRect().height > 700;
-        }, undefined, { timeout: 15_000 });
-      }
-
-      let stableHeight = null;
-      let stableCount = 0;
-      for (let attempt = 0; attempt < 24 && stableCount < 3; attempt += 1) {
-        const nextHeight = await page.evaluate(() => document.documentElement.scrollHeight);
-        if (nextHeight === stableHeight) stableCount += 1;
-        else {
-          stableHeight = nextHeight;
-          stableCount = 0;
-        }
-        await delay(100);
-      }
-      if (stableCount < 3) {
-        throw new Error("[product-scenes] 랜딩 페이지 높이가 안정화되지 않았습니다.");
-      }
-
-      return page.evaluate(() => {
-        const round = (value) => Math.round(value * 10000) / 10000;
-        const rect = (element, relativeTo = null) => {
-          if (!(element instanceof Element)) throw new Error("측정할 랜딩 노드가 없습니다.");
-          const bounds = element.getBoundingClientRect();
-          const base = relativeTo?.getBoundingClientRect();
-          return {
-            x: round(bounds.x - (base?.x ?? 0)),
-            y: round(bounds.y - (base?.y ?? 0) + (base ? 0 : window.scrollY)),
-            width: round(bounds.width),
-            height: round(bounds.height),
-          };
-        };
-        const main = document.querySelector("main[data-page-root]");
-        if (!(main instanceof HTMLElement)) throw new Error("랜딩 main이 없습니다.");
-        const content = [...main.children].find((element) =>
-          element instanceof HTMLDivElement && element.classList.contains("z-2"));
-        if (!(content instanceof HTMLDivElement)) throw new Error("랜딩 content layer가 없습니다.");
-        const sections = [...content.children];
-        if (sections.length !== 8) {
-          throw new Error("랜딩 상위 섹션 수가 8이 아닙니다: " + sections.length);
-        }
-        const wordmarkLabel = [...main.querySelectorAll("span")].find((element) =>
-          element.textContent === "Klipse" && element.getBoundingClientRect().width === 1);
-        const wordmark = wordmarkLabel?.parentElement;
-        const wordmarkSurface = wordmark?.firstElementChild;
-        const nodeCanvasArticle = main.querySelector("#capabilities article");
-        const footer = main.querySelector(":scope > footer");
-        if (!wordmark || !wordmarkSurface || !nodeCanvasArticle || !footer) {
-          throw new Error("랜딩 핵심 노드가 없습니다.");
-        }
-        const surfaceStyle = getComputedStyle(wordmarkSurface);
-        return {
-          route: "/",
-          viewport: { width: innerWidth, height: innerHeight },
-          locale: document.documentElement.lang,
-          theme: document.documentElement.dataset.theme,
-          documentHeight: round(document.documentElement.scrollHeight),
-          main: rect(main),
-          content: rect(content),
-          sections: sections.map((section, index) => ({
-            index,
-            id: section.id || null,
-            ...rect(section, content),
-          })),
-          heroWordmark: {
-            ...rect(wordmark),
-            maskImage: surfaceStyle.maskImage.replaceAll(location.origin, ""),
-            webkitMaskImage: surfaceStyle.webkitMaskImage.replaceAll(location.origin, ""),
-            backgroundColor: surfaceStyle.backgroundColor,
-          },
-          nodeCanvasArticle: {
-            ...rect(nodeCanvasArticle),
-          },
-          footer: rect(footer),
-        };
-      });
-    };
-
     const measureLegal = async (route) => {
       await openPinnedRoute(route);
       await page.waitForSelector("h1");
@@ -1090,9 +998,14 @@ try {
       return measured;
     };
 
-    const measureGenericPage = async (route) => {
+    // `settle` 은 랜딩 `/` 만 켠다(아래 measureLanding). 꺼져 있으면 이 함수의 동작은 그 전과
+    // 한 줄도 다르지 않다 — 나머지 route 의 기록값을 건드리지 않으려고 분기로 가뒀다.
+    const measureGenericPage = async (route, { settle = false } = {}) => {
       await openPinnedRoute(route);
       await page.waitForSelector("body");
+      // 랜딩은 hydration 뒤에 클라이언트가 섹션을 받아 온다(`ModelCarousel` 의
+      // `fetch("/api/models")`). 응답 전에는 `null` 이라, 응답 시점에 따라 아래 섹션이 밀린다.
+      if (settle) await page.waitForLoadState("networkidle");
       await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
       let stableHeight = null;
       let stableCount = 0;
@@ -1112,6 +1025,14 @@ try {
       await page.evaluate(() => new Promise((resolveFrame) =>
         requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
       ));
+      if (settle) {
+        // `getAnimations().length === 0` 을 기다리지 않는다 — `fill: both` 로 끝난 CSS 애니메이션
+        // (예: `Testimonials` 의 `testimonialLineRise … both`)은 끝나도 목록에 남는다.
+        // 기다리는 것은 「아직 도는 것이 없다」다.
+        await page.waitForFunction(() => document.getAnimations().every((animation) =>
+          animation.playState !== "running" && !animation.pending),
+        undefined, { timeout: 15_000 });
+      }
 
       return page.evaluate(({ requestedRoute, axes }) => {
         const round = (value) => Math.round(value * 10000) / 10000;
@@ -1411,25 +1332,48 @@ try {
       }), route);
     };
 
-    // **랜딩 축은 자기 몫만 잃는다.** `measureLanding` 은 `#capabilities article` 과
-    // 「상위 섹션 정확히 8개」를 하드코딩하는데, 그 섹션은 제품 `8802565e`(랜딩 개편)에서
-    // 삭제됐다 — 장면 축이 잴 것을 잃은 것과 **같은 개편**이다. 그대로 두면 던져서
-    // `/pricing` 을 포함한 나머지 21개 route 가 함께 죽고, 그러면 요금제 보드가 옛 제품
-    // 문구를 계속 그린다(이 회차가 고치려던 바로 그 증상).
+    // **랜딩 `/` 은 범용 측정기로 잰다(2026-09-13).** 전에는 전용 측정기가
+    // `#capabilities article` 과 「상위 섹션 정확히 8개」를 박아 두었는데, 그 구조는 제품
+    // `8802565e`「랜딩을 Figma "New Klipse" 구성으로 개편한다」가 통째로 걷었다. 고정 커밋의
+    // `HomePageClient` 가 그리는 섹션 id 는 히어로(id 없음) 뒤로
+    // overview · testimonials · models · templates · creator-program · news · faq · final-cta 다
+    // (`git show 6fbdac16:apps/web/app/HomePageClient.tsx` 의 조립 순서와 각 섹션의
+    // `SectionShell id` · `DEFAULT_ID`. `StepTiles` 는 주석으로 가려져 있다). `pricing` ·
+    // `pricing-faq` 는 `/pricing` 의 id 라 랜딩에 없다. 여덟 중 models · templates 는 데이터가
+    // 비면 통째로 `null` 이고(`ModelCarousel` 의 `cards.length === 0`, `TemplateGrid` 의
+    // `templates.length === 0`), 이 측정의 `/` headings 에는 두 제목이 없다. 전용 측정기는 그래서
+    // 매 실행 문맥마다 30초씩 두 번 기다리다 던지고, `/` 은 원장에서 빠진 채 NOT_MEASURED
+    // 사유 문자열로 초록 안에 섞여 있었다.
     //
-    // 그래서 장면 축과 같은 규칙을 쓴다 — **죽은 자리는 사유를 남기고 비켜난다.**
-    // 랜딩 측정을 되살리려면 지금 랜딩(Hero · OverviewSection · StepTiles · ModelCarousel ·
-    // TemplateGrid · Testimonials · CreatorProgram · FAQ)의 모양으로 본문을 다시 써야 하고,
-    // 그것은 「무엇을 증거로 삼을 것인가」라는 판정이라 이 회차의 몫이 아니다.
-    try {
-      pageScreens[contextSpec.id]["/"] = await measureLanding();
-    } catch (error) {
-      landingNotMeasured =
-        "랜딩 측정 본문이 지금 랜딩과 맞지 않습니다(" + String(error?.message ?? error).slice(0, 120) +
-        "). `#capabilities` 는 제품 8802565e 에서 삭제됐습니다 — 본문을 지금 랜딩의 모양으로 " +
-        "다시 써야 되살아납니다. 나머지 route 는 그대로 쟀습니다.";
-      console.log("[product-scenes] 랜딩 축 NOT_MEASURED — " + landingNotMeasured);
-    }
+    // **랜딩만 `prefers-reduced-motion: reduce` 로 연다.** 범용 측정기를 그대로 돌리면 `--check`
+    // 가 `$.pages.desktop-1920x1080./.headings.1.y recorded=1262.1501 measured=1260.6655` 로
+    // 갈렸다. 원인은 스크롤 리빌이다 — 제품 `globals.css` 의 `[data-reveal]:not(.is-visible)` 은
+    // `opacity: 0` · `translate: 0 32px` 이고, 측정기가 바닥까지 내렸다가 `scrollTo(0, 0)` 으로
+    // 올리면 `SectionInteractions` 가 화면 아래로 나간 섹션의 `.is-visible` 을 떼어 1200ms
+    // 스프링으로 되감는다. 두 rAF 뒤의 측정은 그 도중을 잰다. 그 규칙은
+    // `@media (prefers-reduced-motion: no-preference)` 안에만 있어 reduce 에서는 도착 상태만
+    // 남고, `SmoothScroll`(Lenis)·`Carousel` 드리프트·`Testimonials` 자동 넘김도 reduce 에서는
+    // 걸리지 않는다. 제품 하네스가 같은 이유로 같은 길을 쓴다
+    // (`apps/web/scripts/lib/renderHarness.mjs` 의 `--force-prefers-reduced-motion`).
+    // 에뮬레이션은 `/` 에만 걸고 곧바로 문맥 기본값(`no-preference`)으로 되돌린다 —
+    // 뒤따르는 나머지 route 는 전과 같은 조건에서 잰다.
+    const measureLanding = async () => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      try {
+        return await measureGenericPage("/", { settle: true });
+      } finally {
+        await page.emulateMedia({ reducedMotion: "no-preference" });
+      }
+    };
+    //
+    // 앞 회차는 「무엇을 증거로 삼을 것인가라는 판정이라 이 회차의 몫이 아니다」로 미뤘으나,
+    // **그 판정은 이미 서 있다** — 전용 계약이 없는 route 는 `measureGenericPage` 로 잰다는
+    // 것이 이 파일의 기본값이고 `/blog` · `/templates` · 인증 화면 등 열넷이 그렇게 잰다.
+    // 옛 전용 기록의 키(`heroWordmark` · `nodeCanvasArticle` · `sections`)를 읽는 소비자는
+    // 저장소 전체에 0 이다(`grep -rn heroWordmark scripts design migration`).
+    // 새 랜딩에서 워드마크·섹션 기하가 필요한 보드가 생기면 그때 그 보드가 쓸 축으로
+    // 전용 측정기를 다시 세운다 — 소비자 없이 축을 짓지 않는다. 옛 본문은 git 이력에 있다.
+    pageScreens[contextSpec.id]["/"] = await measureLanding();
     pageScreens[contextSpec.id]["/pricing"] = await measurePricing();
     for (const route of PAGE_ROUTES.slice(2)) {
       pageScreens[contextSpec.id][route] = await measureLegal(route);
@@ -1442,7 +1386,7 @@ try {
     }
     for (const route of MEASURED_ROUTES) {
       const result = pageScreens[contextSpec.id][route];
-      // 비켜난 축의 route 는 결과가 없다(위 landingNotMeasured). 문맥 검사는 **잰 것**에만
+      // 비켜난 축의 route 는 결과가 없을 수 있다. 문맥 검사는 **잰 것**에만
       // 건다 — 없는 결과를 읽으면 「축이 비었다」가 TypeError 로 둔갑해 원인이 가려진다.
       if (!result) continue;
       if (result.theme !== "light" || !result.locale.toLowerCase().startsWith("en")) {
@@ -1492,12 +1436,19 @@ if (!SCENE_AXIS_SKIP) {
 const payload =
   JSON.stringify(
     {
+      // 수는 목록에서 센다. 여기 박혀 있던 「22개」「문서」는 `/docs` 넷이 제품
+      // `ca56540c` 에서 걷힌 뒤에도 남아, 같은 원장의 `routeInventory.measuredConcreteRouteCount`
+      // 가 18 인데 머리말은 22개라고 말하고 있었다.
       $comment:
-        "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 합성 장면과 공개·문서·법무·인증 22개 concrete route를 잰다. 직접 수정하지 않는다.",
+        "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 " + routeInventory.length +
+        "개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 " +
+        CONTEXTS.map((context) => context.width + "×" + context.height).join("·") +
+        "에서 직접 렌더해 " + (SCENE_AXIS_SKIP ? "" : "합성 장면과 ") + "공개·법무·인증 " +
+        MEASURED_ROUTES.length + "개 concrete route를 잰다. 직접 수정하지 않는다.",
       $whyThisExists:
         "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
       $method:
-        "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
+        "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 랜딩 `/` 만은 prefers-reduced-motion: reduce 로 열어 networkidle 과 도는 애니메이션이 없어질 때까지 기다린다 — 스크롤 리빌의 출발 상태(opacity 0 · translate 32px)로 되감기는 도중을 재지 않기 위해서이고, 제품 renderHarness.mjs 의 --force-prefers-reduced-motion 과 같은 길이다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
       productRef,
       productCommit: commit,
       buildEvidence,
@@ -1564,7 +1515,6 @@ const payload =
         ...(SCENE_AXIS_SKIP ? { notMeasured: SCENE_AXIS_SKIP } : {}),
         StaticHighlightDemo: rendered,
       },
-      ...(landingNotMeasured ? { landingNotMeasured } : {}),
       pages: pageScreens,
     },
     null,

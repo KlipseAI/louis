@@ -19,6 +19,45 @@ authority: reference
 
 ## 현재 체크포인트
 
+> **2026-09-13(뒤) — 앱 셸 세트 확장 · 화면 계획 재생성 · 라이브 대조.** 라이브 Figma 에는 쓰지 않았다.
+> 커밋은 `lane/figma-shell` 의 f0f35bf · 14e2076 · a99e81a · c132b46 과 그 뒤 도구·문서 커밋이다.
+>
+> - **라이브 상태를 기계로 쟀다.** 새 도구 `scripts/figma-screens-live-check.mjs`(쓰는 법은
+>   [Figma Sync](figma-sync.md) 「화면 보드 라이브 대조」)로 36 보드를 읽기 전용으로 떴다. 36 보드 모두
+>   generated 트리가 하나이고 pending 자리표시·generated/legacy 밖 직계 자식은 0 이다. 기대값을
+>   `--ref 9f8483a` 로 두면 **34/36 이 같다** — 다른 둘은 archive(`20:2` · `23:2`)이고 노드 수는 같으며
+>   h1 글자만 다르다. 이 갈래 직전 main(`df31396`)의 계획과는 14/36(결제 보드)이다. 셸만 보면
+>   `df31396` 계획과 갈리는 것은 analytics 두 보드(라이브에 상단 바 인스턴스가 없다)뿐이었다.
+> - **`488:658` 은 적용해도 지워지지 않는다.** 그 바는 숨긴 `legacy//subscription`(`586:3949`,
+>   visible=false) > `190:1204` 안에 있다. 렌더러는 이름이 `generated/<route> <문맥>` 인 직계 자식만
+>   지우고(`scripts/templates/figma-app-screens-renderer.js:482-483`), legacy 그룹은 없을 때만 만든다
+>   (`:486-491`) — legacy 를 지우는 줄이 없다. 보이는 subscription 데스크톱 바는 라이브에서도 날노드였다.
+> - **컴포넌트 러너의 컬렉션 문제.** 라이브 LOUIS 의 변수 컬렉션은 `Klipse Primitive` · `Klipse Semantic` ·
+>   `Klipse Semantic Color`(Light/Dark) 셋이고, `1 · Palette` · `2 · Semantic` 을 찾는 러너는 첫머리에서
+>   던진다. 앱 셸 러너는 f0f35bf 에서 옮겼다 — 상단 바 면은 측정(light fixture, 44 바 전부 `#fafafa`)과
+>   값이 같은 `Klipse Semantic Color[Light]/color/bg-surface` 이다. 아래 「top bar 색 수정 — 반드시 유지」
+>   (palette-gray-800)는 앵커 `a3ed8e03` 다크 캡처의 기록이고 이 측정이 대체한다. 나머지 여섯
+>   (components · sidebar-states · payment-scenes · checkout-status · upgrade-scene · pricing)은 아직 옛
+>   이름이라 **지금 돌지 않는다**.
+> - **새 variant 넷과 라벨 속성(14e2076).** 모바일 `Width=Full, Breadcrumb=Trail, Back=True, Divider=On`,
+>   데스크톱 `Content=Subscription, Breadcrumb=Single` · `Content=Highlight, Breadcrumb=Trail, Back=True` ·
+>   `Content=Home, …, Divider=On`. Divider 는 측정 border 로 판정한다(제품이 헤어라인을 늘 켠다). 옛 Off
+>   조합 둘은 legacy 인스턴스가 참조해 `preservedVariants` 로 남겼다. breadcrumb 는 TEXT 속성
+>   `Label` · `Parent` · `Current` 다.
+> - **옛 「다음 순서」 1·2 의 결과(c132b46).** subscription 데스크톱과 highlight 열두 보드가 상단 바
+>   인스턴스를 얻었고 archive 데스크톱 바가 `Divider=On` 이 됐다. 치환의 variant 목록은 이제 앱 셸 plan 을
+>   읽는다. 같은 조사에서 사이드바 활성 항목 오류 둘을 찾아 고쳤다 — highlight 여섯은 제품이
+>   `currentPath="/highlight"` 를 넘기므로 `Current=Highlight`, `/mypage/upgrade/billing-success` ·
+>   `billing-fail` · `fail` 데스크톱은 `currentPath="/mypage/upgrade"` 라 `Current=Upgrade` 다. 생성기의
+>   사이드바 서명 가드가 다시 틀리면 멈춘다.
+> - **`/mypage/upgrade` 데스크톱의 「후퇴」는 치환 결함이 아니다.** 라이브 카드 인스턴스 넷(Trial · Basic ·
+>   Pro · Max, 316×560)은 옛 제품이다. 제품 5258d9b2 가 요금제를 다섯(Trial · Lite · Plus · Pro · Ultra,
+>   256.8×608.19)으로 바꿨고 계획은 그 측정을 그린다. 세트를 다섯으로 다시 짓기(upgrade-scene 러너)
+>   전까지 이 보드는 첫 적용에서 뺀다 — 아래 다음 순서 1.
+> - **archive 의 `Button primary「Start a new project」` 가 계획에서 빠지는 것은 제품 변경이다.** 그 버튼은
+>   홈 배너 CTA 였고 제품 `AppHomeScene.tsx:232` 가 「CTA 버튼은 이 전환과 함께 사라진다」고 적는다
+>   (배너가 DB 행으로 옮겨가며 링크 컬럼이 없다). 계획이 옳다.
+>
 > **2026-09-13 — 앵커 `6fbdac16`.** 검증 결과는 이 절이 아니라 그 회차 커밋 메시지와 명령이 낸다
 > (아래 「검증 기준선」). 이 절 아래의 2026-08-24 항목들은 그 시점의 기록이다. 특히 「다음 화면은
 > `/docs` shell」은 **무효다** — 제품이 `/docs` 트리를 걷어냈고(`ca56540c`) 문서 정본은 별도 저장소로
@@ -52,8 +91,8 @@ authority: reference
 >   합성 장면 축은 새 랜딩에 장면이 없어 표본 0 이 **참인 상태**다.
 > - **라이브 Figma 는 아직 옛 계획이다.** 생성물은 새 앵커로 다시 만들었지만 파일에 적용하지 않았다.
 >   사이드바 compound 행 둘(+ 버튼)이 simple 로 내려갔고 `.glyph/NavPlusGlyph` 매핑이 걷혔다 —
->   라이브 보드의 그 컴포넌트는 사용자 자산이라 지우지 않았다. 적용하면 highlight 모바일 여섯의
->   상단 바는 날노드로 남는다 — 진짜 바가 `Full · Trail · Back=True` 로 세트에 없는 조합이기 때문이다.
+>   라이브 보드의 그 컴포넌트는 사용자 자산이라 지우지 않았다. (이때 「highlight 모바일 여섯의 상단 바는
+>   날노드로 남는다」고 적었지만 같은 날 뒤 절에서 세트에 그 조합을 더해 해소했다.)
 
 - Upgrade desktop/mobile scene 완료: `417:2461`, `422:2696`; mobile visible-slice set `422:2567`.
 - 제품 캡처 대조에서 Trial 2px current-plan outline과 36px profile usage ring 누락을 발견해 측정기부터
@@ -1253,20 +1292,35 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 
 ## 다음 순서
 
-**2026-09-13 기준 순서다.** 이 절 아래 번호 목록은 2026-08-24 기록이며, `/docs` 항목은 무효다.
+**2026-09-13(뒤) 기준 순서다.** 이 절 아래 번호 목록은 2026-08-24 기록이며, `/docs` 항목은 무효다.
+옛 1번(subscription 데스크톱 바를 지운다)은 틀린 전제였고, 옛 1·2번의 세트 조합은 더했다(위 체크포인트).
 
-1. 새 계획을 라이브 Figma 에 적용하기 **전에** 라이브와 계획의 상단 바를 보드별로 대조한다. 회귀된 계획
-   (`4ebbe46` · `e42ebef`)은 적용된 적이 없으므로 라이브의 archive · settings · subscription 상단 바는
-   이미 인스턴스다(2026-08-24 기록의 프레임 표 — archive · settings 는 데스크톱과 모바일, subscription 은 모바일)
-   — 새 계획으로 달라지는 상단 바는 analytics 두 보드뿐이다.
-   **subscription desktop 은 반대로 위험하다.** 라이브에는 바 `488:658` 이 있으나 역대 어느 계획도 그 바를
-   만들지 못했다(`Content=Subscription, Breadcrumb=Single` 이 세트에 없다) — 그대로 적용하면 손으로 놓인 그
-   바를 지운다. 세트에 그 조합을 더할지, 그 보드는 적용에서 뺄지 먼저 정한다. 사이드바 · 헤더 · 결제 장면
-   보드는 「+」 없는 모양으로 바뀐다.
-2. `Product/Mobile App Top Bar` 에 `Width=Full, Breadcrumb=Trail, Back=True` 가 필요한지 판단한다 —
-   highlight 모바일 여섯의 진짜 바가 그 조합이다. 세트에 더하면 `SHELL_INSTANCES_BY_BOARD` 도 옮긴다.
-3. 랜딩 `/` 보드가 필요하면 그 보드가 쓸 축으로 전용 측정기를 다시 세운다 — 소비자 없이 축을 짓지 않는다.
-4. `execution-handoff.md` 의 큐(`DS-P3-001` owner 확인 · `DS-P3-014` 토큰 커버리지)로 돌아간다.
+1. **라이브 적용 — 쓰기 승인이 먼저다.** 순서는 [Figma 화면 조립 규칙](figma-screen-assembly.md) 27번을 따른다:
+   이름 붙은 버전 저장 → `figma/product-app-shell.draw.js`(세트에 조합 넷·TEXT 속성을 더하고 크기 드리프트를
+   맞춘다) → `figma-screens-live-check --sets` 로 세트 확인 → 보드 러너 35장(`figma/app-screens.*.00.draw.js`)
+   → `figma-screens-live-check --check` 로 다름 0 확인. **`/mypage/upgrade` 데스크톱(`192:1251`)은 첫 적용에서
+   뺀다** — 적용하면 옛 요금제 카드 인스턴스 넷이 새 다섯 장의 날노드로 바뀐다. 2번이 끝나거나 소유자가 그
+   교환을 받아들이면 00 → 01 → 02 → 03 을 한 번에 이어 돌린다. 뺀 동안에도 앱 셸 러너가 TEXT 속성을 열면 그
+   보드의 상단 바 인스턴스(2026-09-13 라이브 `1231:9569`)는 기본 라벨을 보이므로, 그 인스턴스 하나에만
+   `Parent=Subscription` · `Current=Change plan` 을 채운다.
+2. `Product/Upgrade Plan Card` 세트를 제품 다섯 요금제로 다시 짓는다 — upgrade-scene 러너의 컬렉션 이전이
+   먼저다. 그다음 `scripts/lib/figma-component-substitution.mjs` 의 `CONTENT_COMPONENTS` 카드 항목을 새 측정으로
+   바꾼다.
+3. 나머지 컴포넌트 러너 여섯의 컬렉션을 라이브 3컬렉션으로 옮긴다. 결제 장면(payment-scenes · checkout-status ·
+   upgrade-scene)은 상단 바 세트를 인스턴스로 쓰므로, 1번 뒤에는 그 장면들도 TEXT 속성을 채워 다시 적용해야
+   기본 라벨이 사라진다. sidebar-states 는 라이브에 없는 `Current=VideoEditor` 도 찾는다.
+4. **랜딩 `/` 전용 축은 짓지 않는다(2026-09-13 판정 — 소비자 0).** `migration/product.scenes.json` 의
+   `pages.*["/"]` 를 읽는 코드는 측정기 자신의 `--check` 뿐이다 — 증거 로더(`scripts/lib/product-scene-evidence.mjs`)의
+   유일한 호출자 `scripts/build-figma-product-pricing-page.mjs` 는 `/pricing` 만 읽고(`:123`), 옛 전용 키
+   (`nodeCanvasArticle` · `sections`)는 이력 전체에서 측정기와 생성물 밖에 나온 적이 없다(`git log --all -S
+   nodeCanvasArticle` 세 커밋). Figma 생성기 중 랜딩 보드를 만드는 것은 없고 앱 화면 계획 36 보드에도 `/` 가
+   없다. 라이브 `/` 보드 `359:2032` · `359:2986` 은 앵커 `a3ed8e03` 의 손 조립이라 생성기도 게이트도 읽지 않고,
+   개편(`8802565e`) 전 랜딩을 그린다. 표면 원장의 소유자 판정(2026-09-03,
+   `migration/product.surfaces.json` 의 `HomePageClient.tsx#LandingContent`)도 「아홉 섹션 조립 자체는 범위 밖」
+   이고 세울 것은 `#final-cta` 밴드다. **다시 여는 조건:** 랜딩 보드를 만드는 생성기나 그 보드를 대조하는
+   게이트가 계획으로 먼저 서고, 그것이 읽을 축을 이름으로 적을 때. 옛 `/` 보드를 어떻게 둘지(표류 표식 ·
+   숨김 · 새 랜딩 재이식)는 소유자 결정이다.
+5. `execution-handoff.md` 의 큐(`DS-P3-001` owner 확인 · `DS-P3-014` 토큰 커버리지)로 돌아간다.
 
 ### 2026-08-24 기록
 

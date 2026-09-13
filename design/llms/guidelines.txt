@@ -817,6 +817,35 @@ Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰�
 적어 왔고, 그 기술을 믿은 작업자가 소유자에게 그 파일을 열어 달라고 반복 요청하는 일이 실제로
 일어났다(2026-08-26). 소유자 기준 LOUIS 는 `OlYKERKOkgbxBEEoXGZW2c` 다.
 
+#### 화면 보드 라이브 대조
+
+`figma-live-check` 는 `DS · Components` 페이지만 본다. **화면 보드(`generated/<route> <문맥>`)가 앱 화면
+계획(`figma/app-screens.*`)을 적용한 결과인지**는 `figma-screens-live-check` 가 본다. 화면 게이트
+셋(`check-figma-app-screens` · `verify-figma-board-composition` · `check-figma-board-composition`)은
+계획 파일만 읽으므로, 초록이어도 라이브 보드는 옛 계획일 수 있다(2026-09-13 실측: 36 보드 중 34 가
+`9f8483a` 계획). 조립 규칙 쪽 조항은 [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 27번이다.
+
+```
+node scripts/figma-screens-live-check.mjs --emit --page 246:3449 > probe-03.js   # 앱 셸 보드
+node scripts/figma-screens-live-check.mjs --emit --page 246:3450 > probe-04.js   # 결제 보드
+node scripts/figma-screens-live-check.mjs --emit --sets --page 240:3529           # Product/* 세트
+node scripts/figma-screens-live-check.mjs --emit --sets --page 659:2              # Button
+node scripts/figma-screens-live-check.mjs --check live-03.json live-04.json sets-240.json sets-659.json
+```
+
+- 낸 코드를 **읽기 전용** `use_figma` 로 실행하고, 돌려받은 JSON 을 그대로 파일로 저장해 `--check` 에
+  모두 준다. 탐침은 페이지를 한 번만 바꾼다 — 다른 페이지의 보드는 `elsewhere` 로 돌려주므로 페이지마다
+  한 번씩 뜬다. 페이지 id 는 위 값이 2026-09-13 기준이고, `--page` 를 빼면 첫 보드의 페이지를 쓴다.
+- 보드마다 대조하는 것: generated 서브트리의 DFS 「유형:이름」 해시와 노드 수(인스턴스 안으로는
+  내려가지 않는다), 인스턴스의 세트·variant·TEXT 속성 값·visible, generated·legacy 밖 직계 자식,
+  `pending` 자리표시, 보이는 legacy 그룹. 기대값은 draw.js payload 를 조각 순서대로 이어 붙여 렌더러
+  이름 규칙으로 계산한다.
+- `--only <부분문자열>` 로 보드를 좁히고, `--detail` 을 붙이면 이름 목록을 통째로 받아 첫 차이 줄을 찍는다
+  (응답이 커지므로 보드 몇 장에만 쓴다). `--ref <커밋>` 은 기대값을 그 커밋의 러너에서 계산한다 — 라이브를
+  어느 계획이 그렸는지 가려낼 때 쓴다.
+- **적용 전에는 다른 것이 정상이다.** 그때 출력은 「적용하면 무엇이 바뀌는가」 목록이고, 적용 뒤에
+  다시 돌려 다름 0 이어야 한다. CI·verify 목록에는 넣지 않는다(Figma 접근이 필요하다).
+
 #### 목표는 「제품을 다 표현한다」다
 
 Figma 작업의 목표는 **제품에 있는 디자인을 하나도 빠짐없이 Figma 에 올려 두는 것**이다. 그래야
@@ -2420,9 +2449,23 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 - **슬롯과 텍스트의 짝이 1:1 이 아니면 짝을 짓지 않는다.** 어느 글자가 어느 슬롯인지는 측정에
   없는 정보다. 짐작해 채우면 화면이 제품과 다른 글자를 말한다.
 
-셸(`Product/Gnb Desktop Shell` 등)과 본문 블록은 이 규칙의 대상이 아니다 — 셸은 라벨을 variant
-축(`Content=Settings`)이 나르고, 본문 블록은 **텍스트가 글자 그대로 같을 때만** 치환하므로
-덮어쓸 차이가 정의상 0 이다.
+본문 블록은 이 규칙의 대상이 아니다 — **텍스트가 글자 그대로 같을 때만** 치환하므로 덮어쓸
+차이가 정의상 0 이다. 사이드바(`Product/Gnb Desktop Shell`)는 TEXT 속성이 없다.
+
+**상단 바 두 세트는 대상이다(2026-09-13).** 예전에는 「셸은 라벨을 variant 축(`Content=Settings`)이
+나른다」고 적었지만 모바일 세트에는 라벨 축이 없어, 라이브 `/archive`·`/subscription` 모바일
+보드가 제품과 다른 「Settings」 를 보이고 있었다. 이제 두 세트는 제품 `mainChromePageNav` 필드
+이름을 딴 TEXT 속성 `Label`(Single) · `Parent`·`Current`(Trail)를 연다(앱 셸 plan 의
+`textProperties`). 속성이 여럿이라 위의 「1:1 이 아니면 짝짓지 않는다」를 **이름**으로 푼다:
+
+- 어느 글자가 어느 속성인지는 그 variant 의 plan `text[].property` 순서가 정한다 — 측정 breadcrumb
+  에서 구분자 「/」를 뺀 순서와 같고, 수가 다르면 생성기가 던진다.
+- payload 의 라벨 칸은 문자열이 아니라 **세트의 속성 이름 전부를 키로 가진 객체**다. 이 variant 가
+  묶지 않은 속성은 null 이다. 렌더러는 파일의 TEXT 속성 이름 집합이 그 키 집합과 다르면 던진다 —
+  속성을 아직 열지 않은 옛 세트에 적용하면 조용히 기본 라벨로 남는 대신 멈춘다.
+- 세트 단위 속성은 기본값이 하나라, 마스터와 **덮어쓰지 않은 인스턴스는 모두 그 기본값을 보인다.**
+  그래서 앱 셸 러너를 적용하면 그 세트를 인스턴스로 쓰는 모든 소비처(화면 보드·결제 장면)가 속성을
+  채워야 끝난다.
 
 #### 26. 아이콘은 크기가 아니라 «서명»으로 부른다
 
@@ -2450,6 +2493,34 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   여섯은 LOUIS 31종에 대응 그림이 아예 없어 `missing` 이다. 4번·16번의 획 규칙을 어긴 글리프를
   Figma 에만 정본으로 심으면 두 축이 어긋난다 — 그 승격 판정은
   [DS-D-0038](../governance/decisions/DS-D-0038-icons-are-an-asset-axis.md)이 아이콘 축의 미결로 남겨 두었다.
+
+#### 27. 라이브에 적용하기 전에 구조를 읽고, 적용한 뒤에 라이브를 계획과 대조한다
+
+화면 보드를 지키는 게이트(`check-figma-app-screens` · `verify-figma-board-composition` ·
+`check-figma-board-composition`)는 **계획 파일만** 읽는다. 초록은 「러너가 생성물과 같다」이지
+「라이브 보드가 러너를 적용한 결과다」가 아니다. 실측(2026-09-13): 라이브 36 보드 중 34 가 열하루 전
+커밋 `9f8483a` 의 계획으로 그려져 있었고 archive 두 보드는 어느 커밋과도 같지 않았는데, 어떤
+게이트도 말하지 않았다. 같은 날 조사는 인계서의 「적용하면 손으로 놓인 바 `488:658` 을 지운다」가
+코드와도 라이브와도 틀렸음을 드러냈다 — 그 바는 이미 숨긴 `legacy/<route>` 그룹 안에 있었다.
+
+**적용 전에 읽는다(읽기 전용):**
+
+- 보드 프레임의 직계 자식이 `generated/<route> <문맥>` 하나와 숨긴 `legacy/<route>` 그룹뿐인지.
+  렌더러는 그 이름의 generated 자식만 지우고, legacy 그룹은 **없을 때만** 만든다 — 그룹이 있으면
+  새로 생긴 직계 자식을 묶지도 지우지도 않아 흐름 자식으로 남는다.
+- 러너가 찾는 **변수 컬렉션 이름**이 파일에 있는지. 라이브 LOUIS 의 컬렉션은 `Klipse Primitive` ·
+  `Klipse Semantic` · `Klipse Semantic Color` 셋이고, 은퇴한 `1 · Palette` · `2 · Semantic` 을 찾는
+  컴포넌트 러너는 첫머리에서 던진다(앱 셸 러너는 2026-09-13 에 옮겼다).
+- 계획이 쓰는 **세트·variant·TEXT 속성**이 파일에 있는지 — `figma-screens-live-check --sets`.
+  세트 러너(앱 셸)가 보드 러너보다 먼저다. 순서를 거꾸로 하면 보드 러너가 「variant 를 찾지 못했다」
+  또는 「TEXT 속성이 계획과 다르다」로 던진다.
+- 적용 직전에 이름 붙은 Figma 버전을 남긴다(`figma.saveVersionHistoryAsync`) — 렌더러는 옛
+  generated 트리를 영구 삭제하므로 버전 기록이 유일한 완전 복구 수단이다. 쓰기이므로 승인이 먼저다.
+
+**적용한 뒤에 대조한다:** `node scripts/figma-screens-live-check.mjs --emit --page <PAGE_ID>` 를 페이지마다
+읽기 전용 `use_figma` 로 돌리고 `--check <결과…>` 로 계획과 대조해 **다름 0** 을 확인한다. 쓰는 법은
+[Figma Sync](../governance/figma-sync.md) 「화면 보드 라이브 대조」 절이 소유한다. 이 검사는 CI 에 넣지 않는다 —
+Figma 접근이 필요하다.
 
 #### Acceptance tests
 
@@ -2491,7 +2562,14 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   없으면 실패하고, `icon` 이 되읽기의 `icons` 사전 밖이면 실패한다. 조인표에서 항목이 사라지면
   열거기가 던진다(카나리아 ⑪⑫⑬).
 - 25번은 `figma/app-screens.plan.json` 의 `shells.applied` 에서 라벨을 세면 잡힌다. TEXT 슬롯을
-  가진 세트(지금은 `Button`)의 인스턴스 중 `label` 이 없는 것은 0 이어야 한다. 지금 20/20 이다.
+  가진 세트(`Button` · 상단 바 두 세트)의 인스턴스 중 `label` 이 없는 것은 0 이어야 한다. 상단 바의
+  `label` 은 앱 셸 plan `textProperties` 이름 전부를 키로 가져야 한다. 라이브에서는
+  `figma-screens-live-check --check` 가 인스턴스별 TEXT 속성 값을 계획과 대조한다.
+- 27번은 `figma-screens-live-check --check` 가 센다 — 보드마다 generated 서브트리 「유형:이름」 해시,
+  인스턴스(세트·variant·TEXT 값·visible), generated·legacy 밖 직계 자식, pending 자리표시, 보이는
+  legacy 그룹. `--sets` 결과를 함께 주면 계획이 쓰는 세트·variant·TEXT 속성의 존재도 본다. 적용 뒤
+  다름 0 이어야 한다. 대조 방법 자체는 `--ref <커밋>` 으로 라이브를 그린 옛 계획과 맞춰 검증한다
+  (2026-09-13: `--ref 9f8483a` 로 34/36 이 같았고 조사의 독립 구현과 일치했다).
 
 ## Product Adoption
 
@@ -13450,6 +13528,60 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-13 (130) — 앱 셸 상단 바에 조합 넷과 라벨 속성을 더하고, 화면 보드를 라이브와 대조하는 도구를 세운다
+
+**Figma 계획만 바뀌었다. 라이브 Figma 에는 아직 쓰지 않았다** — 적용 순서와 승인은
+[인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번이 소유한다. 웹 패키지·토큰은
+바뀌지 않는다.
+
+**앱 셸 러너(`figma/product-app-shell.draw.js`)가 라이브 변수 체계로 옮겨 갔다.** 은퇴한 `1 · Palette` ·
+`2 · Semantic` 대신 `Klipse Semantic Color`(Light) · `Klipse Primitive` 에 묶는다. 상단 바 면은 측정
+(light fixture 의 `#fafafa`)과 값이 같은 `color/bg-surface` 다. 라이브 세트가 물고 있던 `palette-gray/800`
+(#2b2f36)은 옛 다크 캡처의 값이라, 러너를 적용하면 **상단 바 색이 바뀐다**.
+
+**상단 바 세트 조합:**
+
+| 세트 | 더한 조합 | 출처 route |
+| --- | --- | --- |
+| `Product/Mobile App Top Bar` | `Width=Full, Breadcrumb=Trail, Back=True, Divider=On` | `/highlight/[projectId]?__phase=*` |
+| `Product/Desktop App Top Bar` | `Content=Subscription, Breadcrumb=Single, Back=False, Divider=On` | `/subscription` |
+| `Product/Desktop App Top Bar` | `Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On` | `/highlight/[projectId]?__phase=*` |
+| `Product/Desktop App Top Bar` | `Content=Home, Breadcrumb=Single, Back=False, Divider=On` | `/archive` |
+
+`Divider=Off` 조합 둘은 제품 출처가 없지만(제품이 헤어라인을 늘 켠다) 라이브 legacy 인스턴스가 참조해
+**지우지 않고 보존**한다. 치환은 보존 조합을 쓰지 않는다.
+
+**breadcrumb 는 TEXT 속성이다 — breaking.** 두 세트가 `Label`(Single) · `Parent`·`Current`(Trail)를 연다.
+세트 단위 속성은 기본값이 하나라, 앱 셸 러너를 적용하면 **덮어쓰지 않은 모든 인스턴스가 기본 라벨을
+보인다**(모바일 `Settings` · `Analytics / YouTube analytics`, 데스크톱 `Home` · …). 화면 보드는 새 계획이
+측정 글자로 채운다. 이 세트를 인스턴스로 쓰는 결제 장면(payment-scenes · checkout-status · upgrade-scene)은
+그 러너들의 컬렉션 이전 뒤 다시 적용해야 한다.
+
+**앱 화면 계획(`figma/app-screens.*`):**
+
+- 36 보드 모두 셸을 갖는다 — 상단 바를 새로 얻은 보드 13(highlight 12 · `/subscription` 데스크톱).
+  `/archive` 데스크톱 바는 `Divider=On` 이다.
+- 사이드바 활성 항목을 제품 `<Gnb currentPath>` 로 고쳤다 — highlight 여섯은 `Current=Highlight`,
+  `/mypage/upgrade/billing-success` · `billing-fail` · `fail` 데스크톱은 `Current=Upgrade`(옛 계획은 둘 다 Default).
+- 치환의 셸 variant 목록은 손 사본이 아니라 앱 셸·컴포넌트 plan 에서 읽는다. 사이드바 서명 가드가
+  활성 항목이 측정과 어긋나면 생성을 멈춘다.
+- `/mypage/upgrade` 데스크톱의 요금제 카드는 인스턴스가 아니다 — 라이브 `Product/Upgrade Plan Card` 세트는
+  옛 넷(Trial · Basic · Pro · Max)이고 제품은 다섯이다. 세트를 다시 짓기 전까지 이 보드는 첫 적용에서 뺀다.
+- archive 의 `Start a new project` 버튼이 사라진다 — 제품이 홈 배너 CTA 를 걷었다(`AppHomeScene.tsx:232`).
+- 보드 원장 기준선: bespoke · 후보 바닥이 내려갔다(바 안 부품이 인스턴스로 들어갔다). 수와 사유는
+  `scripts/check-figma-board-composition.mjs` 머리말이 소유한다. 대상이 사라진 canary 둘(②″ · ⑩)을 새 원장에서
+  성립하게 다시 짰다.
+
+**새 도구 `pnpm figma-screens-live-check`.** 라이브 화면 보드가 계획을 적용한 결과인지 대조한다 — generated
+서브트리 「유형:이름」 해시, 인스턴스(세트·variant·TEXT 값), legacy 그룹, 세트·variant·TEXT 속성 존재.
+읽기 전용 `use_figma` 로 돌리고 CI 에는 넣지 않는다. 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
+「화면 보드 라이브 대조」, 규칙은 [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 27번이다.
+2026-09-13 첫 실행: 라이브 36 보드 중 34 가 `9f8483a` 계획과 같고(archive 둘은 h1 글자만 다르다), 새 계획과는
+0 이 같다 — 차이 목록이 곧 적용 결과다.
+
+**랜딩 `/` 전용 측정 축은 짓지 않는다.** 소비자가 0 이다. 라이브 `/` 보드 `359:2032` · `359:2986` 은 제품
+`8802565e` 개편 전 랜딩을 그린다. 판정과 다시 여는 조건은 인계서 「다음 순서」 4번.
 
 #### 2026-09-13 (129) — Web 아키텍처 Decision 6종의 모순을 걷고 owner 확인을 요청한다 (DS-P3-001)
 

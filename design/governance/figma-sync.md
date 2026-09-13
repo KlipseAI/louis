@@ -45,6 +45,35 @@ Figma에는 역할이 다른 **파일 셋**이 있다. 섞지 않는다. **쓰�
 적어 왔고, 그 기술을 믿은 작업자가 소유자에게 그 파일을 열어 달라고 반복 요청하는 일이 실제로
 일어났다(2026-08-26). 소유자 기준 LOUIS 는 `OlYKERKOkgbxBEEoXGZW2c` 다.
 
+## 화면 보드 라이브 대조
+
+`figma-live-check` 는 `DS · Components` 페이지만 본다. **화면 보드(`generated/<route> <문맥>`)가 앱 화면
+계획(`figma/app-screens.*`)을 적용한 결과인지**는 `figma-screens-live-check` 가 본다. 화면 게이트
+셋(`check-figma-app-screens` · `verify-figma-board-composition` · `check-figma-board-composition`)은
+계획 파일만 읽으므로, 초록이어도 라이브 보드는 옛 계획일 수 있다(2026-09-13 실측: 36 보드 중 34 가
+`9f8483a` 계획). 조립 규칙 쪽 조항은 [Figma 화면 조립 규칙](figma-screen-assembly.md) 27번이다.
+
+```
+node scripts/figma-screens-live-check.mjs --emit --page 246:3449 > probe-03.js   # 앱 셸 보드
+node scripts/figma-screens-live-check.mjs --emit --page 246:3450 > probe-04.js   # 결제 보드
+node scripts/figma-screens-live-check.mjs --emit --sets --page 240:3529           # Product/* 세트
+node scripts/figma-screens-live-check.mjs --emit --sets --page 659:2              # Button
+node scripts/figma-screens-live-check.mjs --check live-03.json live-04.json sets-240.json sets-659.json
+```
+
+- 낸 코드를 **읽기 전용** `use_figma` 로 실행하고, 돌려받은 JSON 을 그대로 파일로 저장해 `--check` 에
+  모두 준다. 탐침은 페이지를 한 번만 바꾼다 — 다른 페이지의 보드는 `elsewhere` 로 돌려주므로 페이지마다
+  한 번씩 뜬다. 페이지 id 는 위 값이 2026-09-13 기준이고, `--page` 를 빼면 첫 보드의 페이지를 쓴다.
+- 보드마다 대조하는 것: generated 서브트리의 DFS 「유형:이름」 해시와 노드 수(인스턴스 안으로는
+  내려가지 않는다), 인스턴스의 세트·variant·TEXT 속성 값·visible, generated·legacy 밖 직계 자식,
+  `pending` 자리표시, 보이는 legacy 그룹. 기대값은 draw.js payload 를 조각 순서대로 이어 붙여 렌더러
+  이름 규칙으로 계산한다.
+- `--only <부분문자열>` 로 보드를 좁히고, `--detail` 을 붙이면 이름 목록을 통째로 받아 첫 차이 줄을 찍는다
+  (응답이 커지므로 보드 몇 장에만 쓴다). `--ref <커밋>` 은 기대값을 그 커밋의 러너에서 계산한다 — 라이브를
+  어느 계획이 그렸는지 가려낼 때 쓴다.
+- **적용 전에는 다른 것이 정상이다.** 그때 출력은 「적용하면 무엇이 바뀌는가」 목록이고, 적용 뒤에
+  다시 돌려 다름 0 이어야 한다. CI·verify 목록에는 넣지 않는다(Figma 접근이 필요하다).
+
 ## 목표는 「제품을 다 표현한다」다
 
 Figma 작업의 목표는 **제품에 있는 디자인을 하나도 빠짐없이 Figma 에 올려 두는 것**이다. 그래야

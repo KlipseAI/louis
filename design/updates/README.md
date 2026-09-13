@@ -25,6 +25,60 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-13 (130) — 앱 셸 상단 바에 조합 넷과 라벨 속성을 더하고, 화면 보드를 라이브와 대조하는 도구를 세운다
+
+**Figma 계획만 바뀌었다. 라이브 Figma 에는 아직 쓰지 않았다** — 적용 순서와 승인은
+[인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번이 소유한다. 웹 패키지·토큰은
+바뀌지 않는다.
+
+**앱 셸 러너(`figma/product-app-shell.draw.js`)가 라이브 변수 체계로 옮겨 갔다.** 은퇴한 `1 · Palette` ·
+`2 · Semantic` 대신 `Klipse Semantic Color`(Light) · `Klipse Primitive` 에 묶는다. 상단 바 면은 측정
+(light fixture 의 `#fafafa`)과 값이 같은 `color/bg-surface` 다. 라이브 세트가 물고 있던 `palette-gray/800`
+(#2b2f36)은 옛 다크 캡처의 값이라, 러너를 적용하면 **상단 바 색이 바뀐다**.
+
+**상단 바 세트 조합:**
+
+| 세트 | 더한 조합 | 출처 route |
+| --- | --- | --- |
+| `Product/Mobile App Top Bar` | `Width=Full, Breadcrumb=Trail, Back=True, Divider=On` | `/highlight/[projectId]?__phase=*` |
+| `Product/Desktop App Top Bar` | `Content=Subscription, Breadcrumb=Single, Back=False, Divider=On` | `/subscription` |
+| `Product/Desktop App Top Bar` | `Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On` | `/highlight/[projectId]?__phase=*` |
+| `Product/Desktop App Top Bar` | `Content=Home, Breadcrumb=Single, Back=False, Divider=On` | `/archive` |
+
+`Divider=Off` 조합 둘은 제품 출처가 없지만(제품이 헤어라인을 늘 켠다) 라이브 legacy 인스턴스가 참조해
+**지우지 않고 보존**한다. 치환은 보존 조합을 쓰지 않는다.
+
+**breadcrumb 는 TEXT 속성이다 — breaking.** 두 세트가 `Label`(Single) · `Parent`·`Current`(Trail)를 연다.
+세트 단위 속성은 기본값이 하나라, 앱 셸 러너를 적용하면 **덮어쓰지 않은 모든 인스턴스가 기본 라벨을
+보인다**(모바일 `Settings` · `Analytics / YouTube analytics`, 데스크톱 `Home` · …). 화면 보드는 새 계획이
+측정 글자로 채운다. 이 세트를 인스턴스로 쓰는 결제 장면(payment-scenes · checkout-status · upgrade-scene)은
+그 러너들의 컬렉션 이전 뒤 다시 적용해야 한다.
+
+**앱 화면 계획(`figma/app-screens.*`):**
+
+- 36 보드 모두 셸을 갖는다 — 상단 바를 새로 얻은 보드 13(highlight 12 · `/subscription` 데스크톱).
+  `/archive` 데스크톱 바는 `Divider=On` 이다.
+- 사이드바 활성 항목을 제품 `<Gnb currentPath>` 로 고쳤다 — highlight 여섯은 `Current=Highlight`,
+  `/mypage/upgrade/billing-success` · `billing-fail` · `fail` 데스크톱은 `Current=Upgrade`(옛 계획은 둘 다 Default).
+- 치환의 셸 variant 목록은 손 사본이 아니라 앱 셸·컴포넌트 plan 에서 읽는다. 사이드바 서명 가드가
+  활성 항목이 측정과 어긋나면 생성을 멈춘다.
+- `/mypage/upgrade` 데스크톱의 요금제 카드는 인스턴스가 아니다 — 라이브 `Product/Upgrade Plan Card` 세트는
+  옛 넷(Trial · Basic · Pro · Max)이고 제품은 다섯이다. 세트를 다시 짓기 전까지 이 보드는 첫 적용에서 뺀다.
+- archive 의 `Start a new project` 버튼이 사라진다 — 제품이 홈 배너 CTA 를 걷었다(`AppHomeScene.tsx:232`).
+- 보드 원장 기준선: bespoke · 후보 바닥이 내려갔다(바 안 부품이 인스턴스로 들어갔다). 수와 사유는
+  `scripts/check-figma-board-composition.mjs` 머리말이 소유한다. 대상이 사라진 canary 둘(②″ · ⑩)을 새 원장에서
+  성립하게 다시 짰다.
+
+**새 도구 `pnpm figma-screens-live-check`.** 라이브 화면 보드가 계획을 적용한 결과인지 대조한다 — generated
+서브트리 「유형:이름」 해시, 인스턴스(세트·variant·TEXT 값), legacy 그룹, 세트·variant·TEXT 속성 존재.
+읽기 전용 `use_figma` 로 돌리고 CI 에는 넣지 않는다. 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
+「화면 보드 라이브 대조」, 규칙은 [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 27번이다.
+2026-09-13 첫 실행: 라이브 36 보드 중 34 가 `9f8483a` 계획과 같고(archive 둘은 h1 글자만 다르다), 새 계획과는
+0 이 같다 — 차이 목록이 곧 적용 결과다.
+
+**랜딩 `/` 전용 측정 축은 짓지 않는다.** 소비자가 0 이다. 라이브 `/` 보드 `359:2032` · `359:2986` 은 제품
+`8802565e` 개편 전 랜딩을 그린다. 판정과 다시 여는 조건은 인계서 「다음 순서」 4번.
+
 ## 2026-09-13 (129) — Web 아키텍처 Decision 6종의 모순을 걷고 owner 확인을 요청한다 (DS-P3-001)
 
 DS-P3-001 은 2026-08-14 부터 「Decision 6종을 다 썼고 owner 확인만 남았다」로 `in-progress` 였다.

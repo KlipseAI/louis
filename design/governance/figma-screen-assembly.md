@@ -457,9 +457,23 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 - **슬롯과 텍스트의 짝이 1:1 이 아니면 짝을 짓지 않는다.** 어느 글자가 어느 슬롯인지는 측정에
   없는 정보다. 짐작해 채우면 화면이 제품과 다른 글자를 말한다.
 
-셸(`Product/Gnb Desktop Shell` 등)과 본문 블록은 이 규칙의 대상이 아니다 — 셸은 라벨을 variant
-축(`Content=Settings`)이 나르고, 본문 블록은 **텍스트가 글자 그대로 같을 때만** 치환하므로
-덮어쓸 차이가 정의상 0 이다.
+본문 블록은 이 규칙의 대상이 아니다 — **텍스트가 글자 그대로 같을 때만** 치환하므로 덮어쓸
+차이가 정의상 0 이다. 사이드바(`Product/Gnb Desktop Shell`)는 TEXT 속성이 없다.
+
+**상단 바 두 세트는 대상이다(2026-09-13).** 예전에는 「셸은 라벨을 variant 축(`Content=Settings`)이
+나른다」고 적었지만 모바일 세트에는 라벨 축이 없어, 라이브 `/archive`·`/subscription` 모바일
+보드가 제품과 다른 「Settings」 를 보이고 있었다. 이제 두 세트는 제품 `mainChromePageNav` 필드
+이름을 딴 TEXT 속성 `Label`(Single) · `Parent`·`Current`(Trail)를 연다(앱 셸 plan 의
+`textProperties`). 속성이 여럿이라 위의 「1:1 이 아니면 짝짓지 않는다」를 **이름**으로 푼다:
+
+- 어느 글자가 어느 속성인지는 그 variant 의 plan `text[].property` 순서가 정한다 — 측정 breadcrumb
+  에서 구분자 「/」를 뺀 순서와 같고, 수가 다르면 생성기가 던진다.
+- payload 의 라벨 칸은 문자열이 아니라 **세트의 속성 이름 전부를 키로 가진 객체**다. 이 variant 가
+  묶지 않은 속성은 null 이다. 렌더러는 파일의 TEXT 속성 이름 집합이 그 키 집합과 다르면 던진다 —
+  속성을 아직 열지 않은 옛 세트에 적용하면 조용히 기본 라벨로 남는 대신 멈춘다.
+- 세트 단위 속성은 기본값이 하나라, 마스터와 **덮어쓰지 않은 인스턴스는 모두 그 기본값을 보인다.**
+  그래서 앱 셸 러너를 적용하면 그 세트를 인스턴스로 쓰는 모든 소비처(화면 보드·결제 장면)가 속성을
+  채워야 끝난다.
 
 ## 26. 아이콘은 크기가 아니라 «서명»으로 부른다
 
@@ -487,6 +501,34 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   여섯은 LOUIS 31종에 대응 그림이 아예 없어 `missing` 이다. 4번·16번의 획 규칙을 어긴 글리프를
   Figma 에만 정본으로 심으면 두 축이 어긋난다 — 그 승격 판정은
   [DS-D-0038](decisions/DS-D-0038-icons-are-an-asset-axis.md)이 아이콘 축의 미결로 남겨 두었다.
+
+## 27. 라이브에 적용하기 전에 구조를 읽고, 적용한 뒤에 라이브를 계획과 대조한다
+
+화면 보드를 지키는 게이트(`check-figma-app-screens` · `verify-figma-board-composition` ·
+`check-figma-board-composition`)는 **계획 파일만** 읽는다. 초록은 「러너가 생성물과 같다」이지
+「라이브 보드가 러너를 적용한 결과다」가 아니다. 실측(2026-09-13): 라이브 36 보드 중 34 가 열하루 전
+커밋 `9f8483a` 의 계획으로 그려져 있었고 archive 두 보드는 어느 커밋과도 같지 않았는데, 어떤
+게이트도 말하지 않았다. 같은 날 조사는 인계서의 「적용하면 손으로 놓인 바 `488:658` 을 지운다」가
+코드와도 라이브와도 틀렸음을 드러냈다 — 그 바는 이미 숨긴 `legacy/<route>` 그룹 안에 있었다.
+
+**적용 전에 읽는다(읽기 전용):**
+
+- 보드 프레임의 직계 자식이 `generated/<route> <문맥>` 하나와 숨긴 `legacy/<route>` 그룹뿐인지.
+  렌더러는 그 이름의 generated 자식만 지우고, legacy 그룹은 **없을 때만** 만든다 — 그룹이 있으면
+  새로 생긴 직계 자식을 묶지도 지우지도 않아 흐름 자식으로 남는다.
+- 러너가 찾는 **변수 컬렉션 이름**이 파일에 있는지. 라이브 LOUIS 의 컬렉션은 `Klipse Primitive` ·
+  `Klipse Semantic` · `Klipse Semantic Color` 셋이고, 은퇴한 `1 · Palette` · `2 · Semantic` 을 찾는
+  컴포넌트 러너는 첫머리에서 던진다(앱 셸 러너는 2026-09-13 에 옮겼다).
+- 계획이 쓰는 **세트·variant·TEXT 속성**이 파일에 있는지 — `figma-screens-live-check --sets`.
+  세트 러너(앱 셸)가 보드 러너보다 먼저다. 순서를 거꾸로 하면 보드 러너가 「variant 를 찾지 못했다」
+  또는 「TEXT 속성이 계획과 다르다」로 던진다.
+- 적용 직전에 이름 붙은 Figma 버전을 남긴다(`figma.saveVersionHistoryAsync`) — 렌더러는 옛
+  generated 트리를 영구 삭제하므로 버전 기록이 유일한 완전 복구 수단이다. 쓰기이므로 승인이 먼저다.
+
+**적용한 뒤에 대조한다:** `node scripts/figma-screens-live-check.mjs --emit --page <PAGE_ID>` 를 페이지마다
+읽기 전용 `use_figma` 로 돌리고 `--check <결과…>` 로 계획과 대조해 **다름 0** 을 확인한다. 쓰는 법은
+[Figma Sync](figma-sync.md) 「화면 보드 라이브 대조」 절이 소유한다. 이 검사는 CI 에 넣지 않는다 —
+Figma 접근이 필요하다.
 
 ## Acceptance tests
 
@@ -528,4 +570,11 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   없으면 실패하고, `icon` 이 되읽기의 `icons` 사전 밖이면 실패한다. 조인표에서 항목이 사라지면
   열거기가 던진다(카나리아 ⑪⑫⑬).
 - 25번은 `figma/app-screens.plan.json` 의 `shells.applied` 에서 라벨을 세면 잡힌다. TEXT 슬롯을
-  가진 세트(지금은 `Button`)의 인스턴스 중 `label` 이 없는 것은 0 이어야 한다. 지금 20/20 이다.
+  가진 세트(`Button` · 상단 바 두 세트)의 인스턴스 중 `label` 이 없는 것은 0 이어야 한다. 상단 바의
+  `label` 은 앱 셸 plan `textProperties` 이름 전부를 키로 가져야 한다. 라이브에서는
+  `figma-screens-live-check --check` 가 인스턴스별 TEXT 속성 값을 계획과 대조한다.
+- 27번은 `figma-screens-live-check --check` 가 센다 — 보드마다 generated 서브트리 「유형:이름」 해시,
+  인스턴스(세트·variant·TEXT 값·visible), generated·legacy 밖 직계 자식, pending 자리표시, 보이는
+  legacy 그룹. `--sets` 결과를 함께 주면 계획이 쓰는 세트·variant·TEXT 속성의 존재도 본다. 적용 뒤
+  다름 0 이어야 한다. 대조 방법 자체는 `--ref <커밋>` 으로 라이브를 그린 옛 계획과 맞춰 검증한다
+  (2026-09-13: `--ref 9f8483a` 로 34/36 이 같았고 조사의 독립 구현과 일치했다).

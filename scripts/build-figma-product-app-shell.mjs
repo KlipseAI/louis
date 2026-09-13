@@ -430,15 +430,19 @@ if (
 ) {
   fail("measured desktop sidebar SVG transform changed; inspect before regenerating Figma");
 }
-const preservedSpec = (kind) => (input) => ({
+// **variant 이름을 plan 에 싣는다.** 앱 화면 치환(`scripts/lib/figma-component-substitution.mjs`)이
+// 세트에 있는 조합과 TEXT 속성 결합을 이 plan 에서 읽는다 — 이름 공식을 그쪽에 또 적으면 세 벌이 된다.
+// 러너(`runnerVariant`)에는 싣지 않는다. 렌더러는 같은 공식으로 이름을 스스로 짓는다.
+const withName = (spec) => ({ name: variantName(spec), ...spec });
+const preservedSpec = (kind) => (input) => withName({
   ...barSpec(kind)(input),
   divider: false,
   status: "preserved",
   reason: PRESERVED_REASON,
 });
-const measuredMobileVariants = variantInputs.map(barSpec("mobile"));
+const measuredMobileVariants = variantInputs.map(barSpec("mobile")).map(withName);
 const preservedMobileVariants = mobilePreservedInputs.map(preservedSpec("mobile"));
-const measuredDesktopVariants = desktopVariantInputs.map(barSpec("desktop"));
+const measuredDesktopVariants = desktopVariantInputs.map(barSpec("desktop")).map(withName);
 const preservedDesktopVariants = desktopPreservedInputs.map(preservedSpec("desktop"));
 const mobileSets = [...measuredMobileVariants, ...preservedMobileVariants];
 const desktopSets = [...measuredDesktopVariants, ...preservedDesktopVariants];

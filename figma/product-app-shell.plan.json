@@ -365,6 +365,73 @@
       "score": 56
     }
   ],
+  "$bindingPolicy": "Colors bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned mode. bindingEvidence records measured value beside the live resolution; surface, divider and avatar ink must be exact.",
+  "bindingEvidence": {
+    "surface": {
+      "measured": "#fafafa",
+      "measuredAlpha": 1,
+      "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+      "figmaValue": "#fafafa",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "divider": {
+      "measured": "#171b22",
+      "measuredAlpha": 0.12,
+      "figma": "Klipse Semantic Color[Light]/color/stroke-hairline → Klipse Primitive/color/static-black-alpha/12",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.12,
+      "exact": true
+    },
+    "profile": {
+      "measured": "#8b8e93",
+      "measuredAlpha": 1,
+      "figma": "Klipse Semantic Color[Light]/color/app/avatar-default-ink → Klipse Primitive/color/palette-gray/400",
+      "figmaValue": "#8b8e93",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "profileRingTrack": {
+      "measured": "#000000",
+      "measuredAlpha": 0.2,
+      "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/20 → Klipse Primitive/color/static-black-alpha/20",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.2,
+      "exact": false
+    },
+    "current": {
+      "measured": "#000000",
+      "measuredAlpha": 0.8,
+      "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/80 → Klipse Primitive/color/static-black-alpha/80",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.8,
+      "exact": false
+    },
+    "parent": {
+      "measured": "#000000",
+      "measuredAlpha": 0.48,
+      "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/48 → Klipse Primitive/color/static-black-alpha/48",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.48,
+      "exact": false
+    },
+    "separator": {
+      "measured": "#000000",
+      "measuredAlpha": 0.32,
+      "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/32 → Klipse Primitive/color/static-black-alpha/32",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.32,
+      "exact": false
+    },
+    "control": {
+      "measured": "#000000",
+      "measuredAlpha": 0.64,
+      "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/64 → Klipse Primitive/color/static-black-alpha/64",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 0.64,
+      "exact": false
+    }
+  },
   "component": {
     "id": "product/mobile-app-top-bar",
     "pageId": "240:3529",
@@ -377,48 +444,45 @@
       "profile": ".glyph/UserCircleDefaultAvatar"
     },
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "default",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "dark",
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Light",
       "surface": {
-        "collection": "2 · Semantic",
-        "name": "bg/surface"
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
       },
-      "$darkSurfaceSource": {
+      "$surfaceSource": {
         "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 489,
         "quote": "    \"[background:var(--louis-color-bg-surface)]\","
       },
       "divider": {
-        "collection": "2 · Semantic",
-        "name": "gray/000"
+        "collection": "Klipse Semantic Color",
+        "name": "color/stroke-hairline"
       },
-      "dividerOpacity": 0.08,
       "profile": {
-        "collection": "2 · Semantic",
-        "name": "app/avatar-default-ink"
+        "collection": "Klipse Semantic Color",
+        "name": "color/app/avatar-default-ink"
       },
       "profileRingTrack": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a20"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/20"
       },
       "current": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a80"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/80"
       },
       "parent": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a48"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/48"
       },
       "control": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a64"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/64"
       },
       "separator": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a32"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/32"
       },
       "spacing4": {
         "collection": "Klipse Primitive",
@@ -456,6 +520,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -467,6 +532,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -589,6 +660,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -600,6 +672,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -722,6 +800,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -733,6 +812,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -901,6 +986,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -912,6 +998,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -1034,6 +1126,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -1045,6 +1138,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -1213,6 +1312,7 @@
           "bottom": 8,
           "left": 6
         },
+        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -1224,6 +1324,12 @@
           0.105882,
           0.133333,
           0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
         ],
         "leading": {
           "x": 6,
@@ -1850,6 +1956,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -1861,6 +1968,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,
@@ -1983,6 +2096,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -1994,6 +2108,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,
@@ -2116,6 +2236,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2127,6 +2248,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,
@@ -2295,6 +2422,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2306,6 +2434,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,
@@ -2428,6 +2562,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2439,6 +2574,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,
@@ -2607,6 +2748,7 @@
             "bottom": 8,
             "left": 8
           },
+          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2618,6 +2760,12 @@
             0.105882,
             0.133333,
             0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
           ],
           "leading": {
             "x": 8,

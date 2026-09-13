@@ -313,8 +313,10 @@ const topBarSpec = (input) => {
       bottom: px(rootStyle.paddingBottom),
       left: px(rootStyle.paddingLeft),
     },
+    theme: screen(input.route).theme,
     fill: color(rootStyle.backgroundColor),
     dividerColor: color(rootStyle.borderBottomColor),
+    controlColor: color(style(menu).color),
     leading: relRect(leading, root.rect),
     nav: relRect(nav, root.rect),
     profile: relRect(profile, root.rect),
@@ -419,8 +421,10 @@ const desktopTopBarSpec = (input) => {
     rect: { width: root.rect.width, height: root.rect.height },
     gap: px(rootStyle.gap),
     padding: { top: px(rootStyle.paddingTop), right: px(rootStyle.paddingRight), bottom: px(rootStyle.paddingBottom), left: px(rootStyle.paddingLeft) },
+    theme: desktopScreen.theme,
     fill: color(rootStyle.backgroundColor),
     dividerColor: color(rootStyle.borderBottomColor),
+    controlColor: color(style(menu).color),
     leading: relRect(leading, root.rect),
     nav: relRect(nav, root.rect),
     profile: relRect(profile, root.rect),
@@ -433,6 +437,70 @@ const desktopTopBarSpec = (input) => {
 const measuredMobileVariants = variantInputs.map(topBarSpec);
 const measuredDesktopVariants = desktopVariantInputs.map(desktopTopBarSpec);
 for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) assertProfileVisual(spec);
+
+// **색은 제품 토큰 이름으로 묶고, 측정값과 라이브 해석값을 나란히 적는다.**
+// 은퇴한 `1 · Palette`/`2 · Semantic` 대신 라이브 LOUIS 의 `Klipse Semantic Color` 를 쓴다.
+// 아래 해석값은 2026-09-13 OlYKERKOkgbxBEEoXGZW2c 를 읽기 전용 use_figma 로 풀어 적은 것이다
+// (Light 모드 → alias 끝의 `Klipse Primitive`). 면·경계선·아바타 잉크는 **값까지** 측정과 같아야
+// 하고 다르면 생성이 멈춘다. 알파 잉크 넷(글자·아이콘·링 트랙)은 제품 표기
+// `rgb(var(--gray-000-rgb) / N%)` 와 이름이 같은 `color/gray/000-alpha/N` 에 묶는다 — 라이브에
+// 측정과 RGB 까지 같은 변수가 없다(라이브 `static-black-alpha/*` 는 #171b22 기반, 측정은 #000).
+// 그 차이는 `bindingEvidence.*.exact=false` 로 남긴다.
+const FIGMA_COLOR_COLLECTION = "Klipse Semantic Color";
+const FIGMA_COLOR_BINDINGS = {
+  surface: { name: "color/bg-surface", via: "color/palette-gray/000", hex: "fafafa", alpha: 1, requireExact: true },
+  divider: { name: "color/stroke-hairline", via: "color/static-black-alpha/12", hex: "171b22", alpha: 0.12, requireExact: true },
+  profile: { name: "color/app/avatar-default-ink", via: "color/palette-gray/400", hex: "8b8e93", alpha: 1, requireExact: true },
+  profileRingTrack: { name: "color/gray/000-alpha/20", via: "color/static-black-alpha/20", hex: "171b22", alpha: 0.2 },
+  // 알파 넷은 제품 `d673f976`「색 알파를 LOUIS 16단 스케일로 스냅」에서 78→80 · 52→48 · 65→64 · 36→32
+  // 로 옮겨졌고 실측도 따라왔다. 출처는 Gnb.tsx 의 `mainChromePageNavCurrent` · `mainChromePageNavParent`
+  // · `mainChromePageNavSep` 와 아이콘 버튼이다.
+  current: { name: "color/gray/000-alpha/80", via: "color/static-black-alpha/80", hex: "171b22", alpha: 0.8 },
+  parent: { name: "color/gray/000-alpha/48", via: "color/static-black-alpha/48", hex: "171b22", alpha: 0.48 },
+  separator: { name: "color/gray/000-alpha/32", via: "color/static-black-alpha/32", hex: "171b22", alpha: 0.32 },
+  control: { name: "color/gray/000-alpha/64", via: "color/static-black-alpha/64", hex: "171b22", alpha: 0.64 },
+};
+const measuredColors = {};
+const roleOf = (spec, index) => (spec.breadcrumb === "Single" ? "current" : ["parent", "separator", "current"][index]);
+for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) {
+  const ink = {
+    surface: spec.fill,
+    divider: spec.dividerColor,
+    control: spec.controlColor,
+    profile: spec.profileVisual.avatar.color,
+    profileRingTrack: spec.profileVisual.ring.track,
+    ...Object.fromEntries(spec.text.map((entry, index) => [roleOf(spec, index), entry.color])),
+  };
+  for (const [role, value] of Object.entries(ink)) {
+    measuredColors[role] ??= value;
+    if (JSON.stringify(measuredColors[role]) !== JSON.stringify(value)) fail(`measured ${role} color differs on ${spec.route}`);
+  }
+}
+const THEME_MODE = { light: "Light", dark: "Dark" };
+const themes = [...new Set([...measuredMobileVariants, ...measuredDesktopVariants].map((spec) => spec.theme))];
+if (themes.length !== 1) fail(`measured top bars span themes ${themes.join(", ")}`);
+const measuredMode = THEME_MODE[themes[0]];
+if (measuredMode !== "Light") fail(`recorded Figma resolutions are Light-mode; re-read variables for ${measuredMode}`);
+if (JSON.stringify(Object.keys(measuredColors).sort()) !== JSON.stringify(Object.keys(FIGMA_COLOR_BINDINGS).sort())) {
+  fail(`color roles drifted: measured ${Object.keys(measuredColors).sort().join(",")}`);
+}
+const hexOf = (rgba) => rgba.slice(0, 3).map((channel) => Math.round(channel * 255).toString(16).padStart(2, "0")).join("");
+const bindingEvidence = Object.fromEntries(
+  Object.entries(FIGMA_COLOR_BINDINGS).map(([role, live]) => {
+    const measured = measuredColors[role];
+    const exact = hexOf(measured) === live.hex && Math.round(measured[3] * 255) === Math.round(live.alpha * 255);
+    if (live.requireExact && !exact) fail(`measured ${role} #${hexOf(measured)}/${measured[3]} no longer equals ${live.name}`);
+    return [role, {
+      measured: `#${hexOf(measured)}`,
+      measuredAlpha: measured[3],
+      figma: `${FIGMA_COLOR_COLLECTION}[${measuredMode}]/${live.name} → Klipse Primitive/${live.via}`,
+      figmaValue: `#${live.hex}`,
+      figmaAlpha: live.alpha,
+      exact,
+    }];
+  }),
+);
+
 const avatarSourcePath = "apps/web/components/navigation/UserCircleDefaultAvatar.tsx";
 const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
 // 13 → 22. `AVATAR` 배열 머리의 `inline-flex … w-14 h-14` 가 `louis-avatar__fallback`
@@ -455,6 +523,8 @@ const ringSourceLines = [
   [1501, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
+const bindingOf = (role) => ({ collection: FIGMA_COLOR_COLLECTION, name: FIGMA_COLOR_BINDINGS[role].name });
+
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   $evidenceClass: "product-only measured Figma candidate; not a normative design-system contract",
@@ -467,6 +537,10 @@ const plan = {
   },
   context,
   sourceCandidates: candidateContracts,
+  $bindingPolicy:
+    "Colors bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. " +
+    "The measured theme picks the pinned mode. bindingEvidence records measured value beside the live resolution; surface, divider and avatar ink must be exact.",
+  bindingEvidence,
   component: {
     id: "product/mobile-app-top-bar",
     pageId: "240:3529",
@@ -479,37 +553,27 @@ const plan = {
       profile: ".glyph/UserCircleDefaultAvatar",
     },
     bindings: {
-      paletteCollection: "1 · Palette",
-      paletteMode: "default",
-      semanticCollection: "2 · Semantic",
-      semanticMode: "dark",
-      // **팔레트 직행에서 시맨틱으로 옮겼다.** 제품이 테마별 덮개 두 줄
-      // (`light → palette-gray-000` · `dark → palette-gray-800`)을 **일부러 걷고**
-      // `bg-surface` 하나를 읽게 바꿨다 — 그 두 줄이 위 한 줄을 이겨 사다리 이동이 안 닿았기
-      // 때문이다. 소스 주석이 사유를 적는다: 이 띠는 메인 카드 «안»에 포털로 들어가는데 면은
-      // 셸 바닥(`bg-canvas`)을 읽고 있었고, 2026-09-09 에 다크 사다리를 한 칸 내리며 카드가
-      // pg-850 이 되자 카드 상단만 바닥으로 파여 보였다(실측 lab 9.59% 대 14.53%).
-      // 라이트는 값이 그대로이고 다크만 pg-800 → pg-850 으로 내려간다.
-      surface: { collection: "2 · Semantic", name: "bg/surface" },
-      $darkSurfaceSource: sourceQuote(
+      modeCollection: FIGMA_COLOR_COLLECTION,
+      mode: measuredMode,
+      // 제품이 테마별 덮개 두 줄(`light → palette-gray-000` · `dark → palette-gray-800`)을 걷고
+      // `bg-surface` 하나를 읽는다(Gnb.tsx:489-495). fixture 는 light 문맥에서 쟀고, 측정 면
+      // #fafafa 는 `Klipse Semantic Color[Light]/color/bg-surface → palette-gray/000` 과 값이
+      // 같다. 라이브 세트가 물고 있던 `Klipse Primitive/color/palette-gray/800`(#2b2f36)도,
+      // bg-surface 의 Dark 값(palette-gray/900 #171b22)도 측정과 다르다.
+      surface: bindingOf("surface"),
+      $surfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
         489,
         '    "[background:var(--louis-color-bg-surface)]",',
       ),
-      divider: { collection: "2 · Semantic", name: "gray/000" },
-      dividerOpacity: 0.08,
-      profile: { collection: "2 · Semantic", name: "app/avatar-default-ink" },
-      profileRingTrack: { collection: "2 · Semantic", name: "gray/000 · a20" },
-      // 알파 넷이 제품 `d673f976`「색 알파를 LOUIS 16단 스케일로 스냅」에서 옮겨졌다.
-      // 실측이 그대로 따라왔으므로 변수 이름도 따라간다 — 78→80 · 52→48 · 65→64 · 36→32.
-      // 출처는 `Gnb.tsx@ae8fd627` 의 `mainChromePageNavCurrent`(334) ·
-      // `mainChromePageNavParent`(339) · `mainChromePageNavSep`(348) · 아이콘 버튼(387).
-      // 이 이름들이 Figma `2 · Semantic` 에 아직 없다면 러너는 실패한다 — 이 저장소에서
-      // 확인할 방법이 없어 Figma 쪽 확인은 남겨 둔다.
-      current: { collection: "2 · Semantic", name: "gray/000 · a80" },
-      parent: { collection: "2 · Semantic", name: "gray/000 · a48" },
-      control: { collection: "2 · Semantic", name: "gray/000 · a64" },
-      separator: { collection: "2 · Semantic", name: "gray/000 · a32" },
+      // 제품 `border-bottom … var(--louis-color-stroke-hairline)`(Gnb.tsx:497). 알파는 변수가 갖는다.
+      divider: bindingOf("divider"),
+      profile: bindingOf("profile"),
+      profileRingTrack: bindingOf("profileRingTrack"),
+      current: bindingOf("current"),
+      parent: bindingOf("parent"),
+      control: bindingOf("control"),
+      separator: bindingOf("separator"),
       spacing4: { collection: "Klipse Primitive", name: "spacing/4" },
       spacing8: { collection: "Klipse Primitive", name: "spacing/8" },
       spacing16: { collection: "Klipse Primitive", name: "spacing/16" },
@@ -534,12 +598,16 @@ const plan = {
 
 const runnerPlan = structuredClone(plan);
 delete runnerPlan.profileVisualSource;
+delete runnerPlan.bindingEvidence;
+delete runnerPlan.component.bindings.$surfaceSource;
 delete runnerPlan.sourceCandidates;
 delete runnerPlan.component.desktopTopBar.sourceCandidates;
 const compactRunnerVariant = (spec) => {
   delete spec.rootPath;
+  delete spec.theme;
   delete spec.fill;
   delete spec.dividerColor;
+  delete spec.controlColor;
   delete spec.controls.menu;
   delete spec.controls.back;
   spec.profileVisual = {

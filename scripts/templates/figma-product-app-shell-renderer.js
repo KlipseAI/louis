@@ -6,7 +6,6 @@ await figma.setCurrentPageAsync(page);
 
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const collectionById = new Map(collections.map((entry) => [entry.id, entry]));
-const collectionByName = new Map(collections.map((entry) => [entry.name, entry]));
 const variables = await figma.variables.getLocalVariablesAsync();
 const variableById = new Map(variables.map((entry) => [entry.id, entry]));
 const variableByKey = new Map(
@@ -20,28 +19,25 @@ const getVariable = (binding) => {
   if (!variable) throw new Error(`Missing variable ${binding.collection}/${binding.name}`);
   return variable;
 };
-const getMode = (collectionName, modeName) => {
-  const collection = collectionByName.get(collectionName);
-  const mode = collection?.modes.find((entry) => entry.name === modeName);
-  if (!collection || !mode) throw new Error(`Missing mode ${collectionName}/${modeName}`);
-  return { collectionId: collection.id, modeId: mode.modeId };
-};
 const B = C.bindings;
 const V = Object.fromEntries(
   Object.entries(B)
     .filter(([, value]) => value && typeof value === "object" && "collection" in value)
     .map(([key, value]) => [key, getVariable(value)]),
 );
-const paletteMode = getMode(B.paletteCollection, B.paletteMode);
-const semanticMode = getMode(B.semanticCollection, B.semanticMode);
+// 라이브 LOUIS 의 컬렉션은 `Klipse Primitive[Base]` · `Klipse Semantic[Global]` ·
+// `Klipse Semantic Color[Light/Dark]` 셋이다(은퇴한 `1 · Palette`/`2 · Semantic` 은 없다). 모드가
+// 둘 이상인 것은 마지막 하나뿐이므로 측정 문맥의 모드(B.mode)를 그 컬렉션에만 고정하고, 나머지는
+// 기본 모드로 푼다.
+const modeCollection = collections.find((entry) => entry.name === B.modeCollection);
+const pinnedMode = modeCollection?.modes.find((entry) => entry.name === B.mode);
+if (!modeCollection || !pinnedMode) throw new Error(`Missing mode ${B.modeCollection}/${B.mode}`);
+const pin = (node) => node.setExplicitVariableModeForCollection(modeCollection, pinnedMode.modeId);
 const variableColor = (variable, seen = new Set()) => {
   if (seen.has(variable.id)) throw new Error(`Circular color variable ${variable.name}`);
   seen.add(variable.id);
-  const modeId = variable.variableCollectionId === semanticMode.collectionId
-    ? semanticMode.modeId
-    : variable.variableCollectionId === paletteMode.collectionId
-      ? paletteMode.modeId
-      : Object.keys(variable.valuesByMode)[0];
+  const collection = collectionById.get(variable.variableCollectionId);
+  const modeId = collection === modeCollection ? pinnedMode.modeId : collection?.defaultModeId;
   const value = variable.valuesByMode[modeId];
   if (value?.type === "VARIABLE_ALIAS") {
     const target = variableById.get(value.id);
@@ -53,7 +49,8 @@ const variableColor = (variable, seen = new Set()) => {
 };
 const setPaint = (variable, fallback = variableColor(variable)) =>
   figma.variables.setBoundVariableForPaint({ type: "SOLID", color: fallback }, "color", variable);
-const dividerPaint = () => ({ ...setPaint(V.divider), opacity: B.dividerOpacity });
+// 알파는 변수가 갖는다(`color/stroke-hairline` = static-black-alpha/12) — 페인트 불투명도를 따로 걸지 않는다.
+const dividerPaint = () => setPaint(V.divider);
 const bindIconPaints = (instance, variable) => {
   for (const vector of instance.findAllWithCriteria({ types: ["VECTOR"] })) {
     if (Array.isArray(vector.fills)) {
@@ -131,8 +128,7 @@ if (!section) {
   section.y = 0;
   section.resizeWithoutConstraints(2100, 1000);
 }
-section.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-section.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+pin(section);
 section.fills = [setPaint(V.surface, { r: 1, g: 1, b: 1 })];
 
 let docs = section.findOne((entry) => entry.name === `${C.componentSetName} / Documentation`);
@@ -218,8 +214,7 @@ if (!componentSet) {
       component.strokeBottomWeight = 1;
       component.strokeLeftWeight = 0;
     }
-    component.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    component.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(component);
 
     const leading = figma.createFrame();
     leading.name = "leading";
@@ -285,9 +280,8 @@ for (const variant of componentSet.children) {
   if (!spec || !nav || !leading) throw new Error(`Cannot reconcile measured variant ${variant.name}`);
   // Surface + variable modes + ink — parity with the desktop reconcile branch. Without this an
   // existing set built from an older plan (light palette/semantic modes) never adopts the current
-  // measured surface (palette/gray-800) and stays light; the create path alone can't fix live drift.
-  variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-  variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+  // measured surface and stays on stale bindings; the create path alone can't fix live drift.
+  pin(variant);
   variant.fills = [setPaint(V.surface)];
   variant.strokes = spec.divider ? [dividerPaint()] : [];
   if (spec.divider) {
@@ -299,7 +293,7 @@ for (const variant of componentSet.children) {
   for (const control of leading.children) {
     const icon = "children" in control && control.children.find((entry) => entry.type === "INSTANCE" && entry.name === "icon");
     if (icon) {
-      icon.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+      pin(icon);
       bindIconPaints(icon, V.control);
     }
   }
@@ -329,8 +323,7 @@ const ensureDesktopTopBar = () => {
     desktopSection.y = 0;
     desktopSection.resizeWithoutConstraints(5400, 850);
   }
-  desktopSection.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-  desktopSection.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+  pin(desktopSection);
   desktopSection.fills = [setPaint(V.surface, { r: 1, g: 1, b: 1 })];
 
   let desktopDocs = desktopSection.findOne(
@@ -381,7 +374,7 @@ const ensureDesktopTopBar = () => {
     expandedMaster.y = 72;
     desktopSection.appendChild(expandedMaster);
   }
-  expandedMaster.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+  pin(expandedMaster);
   bindIconPaints(expandedMaster, V.control);
 
   let desktopSet = desktopSection.findOne(
@@ -433,8 +426,7 @@ const ensureDesktopTopBar = () => {
         component.strokeTopWeight = component.strokeRightWeight = component.strokeLeftWeight = 0;
         component.strokeBottomWeight = 1;
       }
-      component.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-      component.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+      pin(component);
       const leading = figma.createFrame();
       leading.name = "leading";
       leading.x = spec.leading.x;
@@ -505,8 +497,7 @@ const ensureDesktopTopBar = () => {
       variant.appendChild(divider);
     }
     variant.layoutMode = "VERTICAL";
-    variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(variant);
     variant.primaryAxisSizingMode = variant.counterAxisSizingMode = "FIXED";
     variant.resize(spec.rect.width, spec.rect.height);
     variant.itemSpacing = 0;
@@ -536,7 +527,7 @@ const ensureDesktopTopBar = () => {
     if (spec.back) leading.setBoundVariable("itemSpacing", V.spacing4);
     const toggleIcon = leading.findOne((entry) => entry.type === "INSTANCE" && entry.name === "icon");
     if (!toggleIcon) throw new Error(`Missing measured sidebar toggle icon ${variant.name}`);
-    toggleIcon.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(toggleIcon);
     bindIconPaints(toggleIcon, V.control);
     nav.layoutMode = "HORIZONTAL";
     nav.primaryAxisSizingMode = "FIXED";

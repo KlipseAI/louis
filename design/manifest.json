@@ -2531,17 +2531,17 @@
     },
     {
       "path": "scripts/build-figma-product-app-shell.mjs",
-      "purpose": "보호 route desktop/mobile 실측에서 앱 셸 상단 바의 실제 조합, sidebar SVG transform, 기본 아바타 색과 0% profile 링을 검증하고 product-only Figma 계획과 실행 코드를 생성하는 비규범 생성기",
+      "purpose": "보호 route desktop/mobile 실측에서 앱 셸 상단 바의 실제 조합(divider 는 측정 border 로 판정, 뒤로가기는 앞머리 두 번째 button 으로 판정), sidebar SVG transform, 기본 아바타 색과 0% profile 링을 검증하고, 측정 색과 라이브 LOUIS 변수(Klipse Semantic Color) 해석값을 나란히 기록한 product-only Figma 계획과 실행 코드를 생성하는 비규범 생성기",
       "authority": "reference"
     },
     {
       "path": "scripts/templates/figma-product-app-shell-renderer.js",
-      "purpose": "측정된 desktop/mobile 폭, breadcrumb, back action, divider, expanded sidebar glyph, 기본 아바타와 0% profile 링 조합을 기존 변수와 정확한 제품 글리프로 조립·재조정하는 Figma renderer 템플릿",
+      "purpose": "측정된 desktop/mobile 폭, breadcrumb, back action, divider, expanded sidebar glyph, 기본 아바타와 0% profile 링 조합을 라이브 LOUIS 변수와 정확한 제품 글리프로 조립·재조정하고, 기존 세트에 없는 측정 variant 를 더하며(지우지 않는다) breadcrumb 글자를 Label·Parent·Current TEXT 속성으로 여는 Figma renderer 템플릿",
       "authority": "reference"
     },
     {
       "path": "figma/product-app-shell.plan.json",
-      "purpose": "고정 auth fixture에서 생성한 desktop/mobile 앱 상단 바 12개 실측 조합, SVG transform, 28px 아바타와 36px 0% 링의 geometry·style·binding 계획. 제품 전용 후보이며 규범이 아니다",
+      "purpose": "고정 auth fixture에서 생성한 desktop/mobile 앱 상단 바 실측 조합과 보존 조합(제품 출처 없음, legacy 인스턴스가 참조), TEXT 속성 이름·기본값, SVG transform, 28px 아바타와 36px 0% 링의 geometry·style·binding 계획과 binding 근거. 제품 전용 후보이며 규범이 아니다",
       "authority": "reference"
     },
     {

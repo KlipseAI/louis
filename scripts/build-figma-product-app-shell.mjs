@@ -27,6 +27,9 @@ const figmaGlyphBounds = {
   "My Page": { width: 55, height: 21 },
   Subscription: { width: 79, height: 21 },
   "Change plan": { width: 79, height: 21 },
+  // 2026-09-13 — 읽기만으로 쟀다(아래 `$figmaGlyphMeasurement`). 1248:13051 · 1248:13053.
+  Highlight: { width: 57, height: 21 },
+  Clips: { width: 32, height: 21 },
 };
 const desktopFigmaGlyphBounds = {
   Home: { width: 43, height: 24 },
@@ -37,6 +40,9 @@ const desktopFigmaGlyphBounds = {
   "My Page": { width: 63, height: 24 },
   Subscription: { width: 91, height: 24 },
   "Change plan": { width: 90, height: 24 },
+  // 2026-09-13 — 1247:13150 · 1247:13152.
+  Highlight: { width: 65, height: 24 },
+  Clips: { width: 36, height: 24 },
 };
 
 const fail = (message) => {
@@ -226,85 +232,92 @@ const candidateContracts = [
   return candidate;
 });
 
-const variantInputs = [
-  {
-    width: "Full",
-    breadcrumb: "Single",
-    back: false,
-    divider: false,
-    route: "/archive",
-    rootPath: "body.1.0.0.1.0.0.0.0",
+// **Divider 는 측정이 정한다 — 입력이 아니다.** 제품 6fbdac16 의
+// `useMainChromeHeaderScrollProgress.ts:10-14` 가 「헤더 하단 헤어라인은 여기서 건드리지 않는다
+// … 모든 화면에서 항상 켜진다」고 적고, fixture 의 측정 바 44개(22 route × 2 뷰포트)가 전부
+// `border-bottom-width: 1px` 다. 옛 입력은 `/archive` 를 `divider:false` 로 두어 제품과 다른
+// `Divider=Off` 조합을 만들었다. 이제 입력의 divider 가 측정 border 와 다르면 생성이 멈춘다.
+// Off 조합 둘은 지우지 않는다 — 라이브 legacy 인스턴스가 참조하므로 아래 `preserved` 로 남긴다.
+const BACK_GLYPH_D = "M19 12H5M5 12L11 6M5 12L11 18";
+const THEME_MODE = { light: "Light", dark: "Dark" };
+const CONTEXTS = {
+  mobile: {
+    id: "mobile-402x874",
+    menuLabel: "Open navigation menu",
+    glyphBounds: figmaGlyphBounds,
   },
-  {
-    width: "Full",
-    breadcrumb: "Single",
-    back: false,
-    divider: true,
-    route: "/settings",
-    rootPath: "body.1.0.0.1.0.0.0",
+  desktop: {
+    id: "desktop-1920x1080",
+    menuLabel: "Collapse sidebar",
+    glyphBounds: desktopFigmaGlyphBounds,
   },
-  {
-    width: "Full",
-    breadcrumb: "Trail",
-    back: false,
-    divider: true,
-    route: "/analytics/youtube",
-    rootPath: "body.1.0.0.1.0.0.0.0",
-  },
-  {
-    width: "Inset",
-    breadcrumb: "Single",
-    back: false,
-    divider: true,
-    route: "/mypage/topup/fail",
-    rootPath: "body.1.0.0.1.0.0",
-  },
-  {
-    width: "Inset",
-    breadcrumb: "Trail",
-    back: false,
-    divider: true,
-    route: "/mypage/upgrade/billing-success",
-    rootPath: "body.1.0.0.1.0.0",
-  },
-  {
-    width: "Inset",
-    breadcrumb: "Trail",
-    back: true,
-    divider: true,
-    route: "/mypage/upgrade",
-    rootPath: "body.1.0.0.1.0.0.0.0",
-  },
-];
+};
+// 데스크톱 Content 축 값이 측정 라벨(Single 은 라벨, Trail 은 parent)과 같은지 본다.
+const CONTENT_LABEL = {
+  Home: "Home",
+  Settings: "Settings",
+  Analytics: "Analytics",
+  MyPage: "My Page",
+  Subscription: "Subscription",
+  Highlight: "Highlight",
+};
+// 제품 `mainChromePageNav` 의 필드 이름을 그대로 TEXT component property 이름으로 쓴다
+// (Gnb.tsx `kind === "single"` → `label`, trail → `parent`·`current`). 구분자 「/」는 속성이 아니다.
+const TEXT_ROLES = {
+  Single: [["current", "Label"]],
+  Trail: [["parent", "Parent"], ["separator", null], ["current", "Current"]],
+};
+const variantName = (spec) =>
+  `${spec.content === undefined ? `Width=${spec.width}` : `Content=${spec.content}`}, Breadcrumb=${spec.breadcrumb}, ` +
+  `Back=${spec.back ? "True" : "False"}, Divider=${spec.divider ? "On" : "Off"}`;
 
-const topBarSpec = (input) => {
-  const root = node(input.route, input.rootPath);
+const barSpec = (kind) => (input) => {
+  const ctx = CONTEXTS[kind];
+  const screenRecord = fixture.screens[ctx.id][input.route] ?? fail(`missing ${kind} screen ${input.route}`);
+  const tree = screenRecord.tree;
+  const root = tree.find((entry) => entry.path === input.rootPath) ?? fail(`missing ${kind} root ${input.route} ${input.rootPath}`);
   const rootStyle = style(root);
-  const direct = screen(input.route).tree.filter((entry) => entry.parentPath === input.rootPath);
+  const direct = tree.filter((entry) => entry.parentPath === input.rootPath);
   const nav = direct.find((entry) => entry.tag === "nav" && entry.ariaLabel === "Breadcrumb");
-  const leading = direct.find((entry) => entry.tag === "div" && entry.rect.x < nav.rect.x);
-  const profile = direct.find((entry) => entry.tag === "div" && entry.rect.x > nav.rect.x);
-  if (!nav || !leading || !profile || direct.length !== 3) fail(`unexpected top-bar structure ${input.route}`);
-  const menu = screen(input.route).tree.find(
-    (entry) => entry.ariaLabel === "Open navigation menu" && entry.path.startsWith(`${leading.path}.`),
-  );
-  const profileButton = screen(input.route).tree.find(
+  const leading = nav && direct.find((entry) => entry.tag === "div" && entry.rect.x < nav.rect.x);
+  const profile = nav && direct.find((entry) => entry.tag === "div" && entry.rect.x > nav.rect.x);
+  if (!nav || !leading || !profile || direct.length !== 3) fail(`unexpected ${kind} top-bar structure ${input.route}`);
+  // 뒤로가기는 aria-label 이 아니라 **자리**로 찾는다 — 앞머리 안의 두 번째 button.
+  // `/mypage/upgrade` 는 「Back to subscription」, `/highlight` 는 「Highlight」(HighlightProjectScene.tsx
+  // `aria-label={t.pageTitle}`)라 이름이 화면마다 다르다. 글리프는 둘 다 같은 화살표 path 여야 한다.
+  const buttons = tree.filter((entry) => entry.tag === "button" && entry.path.startsWith(`${leading.path}.`));
+  const [menu, backButton, ...extraButtons] = buttons;
+  if (!menu || menu.ariaLabel !== ctx.menuLabel || extraButtons.length || Boolean(backButton) !== input.back) {
+    fail(`unexpected ${kind} top-bar leading controls ${input.route}`);
+  }
+  if (backButton) {
+    const glyph = tree.filter((entry) => entry.tag === "path" && entry.path.startsWith(`${backButton.path}.`));
+    if (backButton.rect.x <= menu.rect.x || glyph.length !== 1 || glyph[0].vector?.d !== BACK_GLYPH_D) {
+      fail(`unexpected ${kind} back control ${input.route}`);
+    }
+  }
+  const profileButton = tree.find(
     (entry) => entry.ariaLabel === "Open profile" && entry.path.startsWith(`${profile.path}.`),
   );
-  const backButton = screen(input.route).tree.find(
-    (entry) => entry.ariaLabel === "Back to subscription" && entry.path.startsWith(`${leading.path}.`),
-  );
-  if (!menu || !profileButton || Boolean(backButton) !== input.back) {
-    fail(`unexpected top-bar controls ${input.route}`);
+  if (!profileButton || JSON.stringify(profileButton.rect) !== JSON.stringify(profile.rect)) {
+    fail(`unexpected ${kind} profile control ${input.route}`);
   }
-  const textNodes = screen(input.route).tree.filter(
-    (entry) => entry.ownText && entry.path.startsWith(`${nav.path}.`),
-  );
-  if (textNodes.length !== (input.breadcrumb === "Single" ? 1 : 3)) {
-    fail(`unexpected breadcrumb ${input.route}`);
+  const measuredDivider = px(rootStyle.borderBottomWidth) > 0;
+  if (measuredDivider !== input.divider) fail(`${kind} divider input disagrees with measured border ${input.route}`);
+  if (input.width !== undefined) {
+    const viewport = fixture.contexts.find((entry) => entry.id === ctx.id).width;
+    if (input.width !== (root.rect.width === viewport ? "Full" : "Inset")) fail(`mobile width input disagrees ${input.route}`);
   }
+  const textNodes = tree.filter((entry) => entry.ownText && entry.path.startsWith(`${nav.path}.`));
+  const roles = TEXT_ROLES[input.breadcrumb] ?? fail(`unknown breadcrumb ${input.breadcrumb}`);
+  if (textNodes.length !== roles.length) fail(`unexpected ${kind} breadcrumb ${input.route}`);
+  if (input.content !== undefined && textNodes[0].ownText !== CONTENT_LABEL[input.content]) {
+    fail(`desktop Content=${input.content} disagrees with measured label ${textNodes[0].ownText} ${input.route}`);
+  }
+  if (THEME_MODE[screenRecord.theme] === undefined) fail(`unknown measured theme ${screenRecord.theme} ${input.route}`);
   return {
     ...input,
+    theme: screenRecord.theme,
     rect: { width: root.rect.width, height: root.rect.height },
     gap: px(rootStyle.gap),
     padding: {
@@ -313,22 +326,43 @@ const topBarSpec = (input) => {
       bottom: px(rootStyle.paddingBottom),
       left: px(rootStyle.paddingLeft),
     },
-    theme: screen(input.route).theme,
     fill: color(rootStyle.backgroundColor),
     dividerColor: color(rootStyle.borderBottomColor),
     controlColor: color(style(menu).color),
     leading: relRect(leading, root.rect),
     nav: relRect(nav, root.rect),
     profile: relRect(profile, root.rect),
+    labels: { menu: menu.ariaLabel, back: backButton?.ariaLabel ?? null, profile: profileButton.ariaLabel },
     controls: {
       menu: relRect(menu, root.rect),
       back: backButton ? relRect(backButton, root.rect) : null,
       profile: relRect(profileButton, root.rect),
     },
-    profileVisual: profileVisualSpec(screen(input.route), profileButton, root.rect),
-    text: textNodes.map((entry) => textSpec(entry, root.rect)),
+    profileVisual: profileVisualSpec(screenRecord, profileButton, root.rect),
+    text: textNodes.map((entry, index) => ({
+      role: roles[index][0],
+      ...(roles[index][1] ? { property: roles[index][1] } : {}),
+      ...textSpec(entry, root.rect, ctx.glyphBounds),
+    })),
   };
 };
+
+const variantInputs = [
+  { width: "Full", breadcrumb: "Single", back: false, divider: true, route: "/settings", rootPath: "body.1.0.0.1.0.0.0" },
+  { width: "Full", breadcrumb: "Trail", back: false, divider: true, route: "/analytics/youtube", rootPath: "body.1.0.0.1.0.0.0.0" },
+  // 하이라이트 phase 여섯의 바는 서브트리가 바이트까지 같다 — 하나(loading)면 된다.
+  { width: "Full", breadcrumb: "Trail", back: true, divider: true, route: "/highlight/[projectId]?__phase=loading", rootPath: "body.1.0.0.1.0.0.0" },
+  { width: "Inset", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/fail", rootPath: "body.1.0.0.1.0.0" },
+  { width: "Inset", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-success", rootPath: "body.1.0.0.1.0.0" },
+  { width: "Inset", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
+];
+// 모바일 세트에는 Content 축이 없어 `/archive` 는 `/settings` 와 같은 조합(Full·Single·False·On)이다.
+// 그래서 측정 variant 로는 넣지 않고, 보존 variant 의 기하 출처로만 쓴다.
+const PRESERVED_REASON = "보존 · 제품 출처 없음(legacy 인스턴스가 참조)";
+const mobilePreservedInputs = [
+  { width: "Full", breadcrumb: "Single", back: false, divider: true, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
+];
+
 const mobileSidebarProbe = screens["/settings"].vectorControlProbes?.navigationOpen;
 if (
   !mobileSidebarProbe ||
@@ -376,13 +410,17 @@ const desktopCandidateContracts = [
   return candidate;
 });
 const desktopVariantInputs = [
-  { content: "Home", breadcrumb: "Single", back: false, divider: false, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
+  { content: "Home", breadcrumb: "Single", back: false, divider: true, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
   { content: "Settings", breadcrumb: "Single", back: false, divider: true, route: "/settings", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Analytics", breadcrumb: "Trail", back: false, divider: true, route: "/analytics/youtube", rootPath: "body.1.0.0.1.0.0.0.0" },
   { content: "MyPage", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/fail", rootPath: "body.1.0.0.1.0.0" },
+  { content: "Subscription", breadcrumb: "Single", back: false, divider: true, route: "/subscription", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-fail", rootPath: "body.1.0.0.1.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
+  { content: "Highlight", breadcrumb: "Trail", back: true, divider: true, route: "/highlight/[projectId]?__phase=loading", rootPath: "body.1.0.0.1.0.0.0" },
 ];
+const desktopPreservedInputs = [desktopVariantInputs[0]];
+
 const desktopSidebarProbe = fixture.screens["desktop-1920x1080"]["/settings"]
   .vectorControlProbes?.sidebarCollapse;
 if (
@@ -392,51 +430,24 @@ if (
 ) {
   fail("measured desktop sidebar SVG transform changed; inspect before regenerating Figma");
 }
-const desktopTopBarSpec = (input) => {
-  const desktopScreen = fixture.screens["desktop-1920x1080"][input.route];
-  const root = desktopScreen.tree.find((entry) => entry.path === input.rootPath) ??
-    fail(`missing desktop root ${input.route} ${input.rootPath}`);
-  const rootStyle = style(root);
-  const direct = desktopScreen.tree.filter((entry) => entry.parentPath === input.rootPath);
-  const nav = direct.find((entry) => entry.tag === "nav" && entry.ariaLabel === "Breadcrumb");
-  const leading = direct.find((entry) => entry.tag === "div" && entry.rect.x < nav.rect.x);
-  const profile = direct.find((entry) => entry.tag === "div" && entry.rect.x > nav.rect.x);
-  if (!nav || !leading || !profile || direct.length !== 3) fail(`unexpected desktop top-bar ${input.route}`);
-  const menu = desktopScreen.tree.find(
-    (entry) => entry.ariaLabel === "Collapse sidebar" && entry.path.startsWith(`${leading.path}.`),
-  );
-  const profileButton = desktopScreen.tree.find(
-    (entry) => entry.ariaLabel === "Open profile" && entry.path.startsWith(`${profile.path}.`),
-  );
-  const backButton = desktopScreen.tree.find(
-    (entry) => entry.ariaLabel === "Back to subscription" && entry.path.startsWith(`${leading.path}.`),
-  );
-  if (!menu || !profileButton || Boolean(backButton) !== input.back) fail(`unexpected desktop controls ${input.route}`);
-  const textNodes = desktopScreen.tree.filter(
-    (entry) => entry.ownText && entry.path.startsWith(`${nav.path}.`),
-  );
-  if (textNodes.length !== (input.breadcrumb === "Single" ? 1 : 3)) fail(`unexpected desktop breadcrumb ${input.route}`);
-  return {
-    ...input,
-    rect: { width: root.rect.width, height: root.rect.height },
-    gap: px(rootStyle.gap),
-    padding: { top: px(rootStyle.paddingTop), right: px(rootStyle.paddingRight), bottom: px(rootStyle.paddingBottom), left: px(rootStyle.paddingLeft) },
-    theme: desktopScreen.theme,
-    fill: color(rootStyle.backgroundColor),
-    dividerColor: color(rootStyle.borderBottomColor),
-    controlColor: color(style(menu).color),
-    leading: relRect(leading, root.rect),
-    nav: relRect(nav, root.rect),
-    profile: relRect(profile, root.rect),
-    controls: { menu: relRect(menu, root.rect), back: backButton ? relRect(backButton, root.rect) : null, profile: relRect(profileButton, root.rect) },
-    profileVisual: profileVisualSpec(desktopScreen, profileButton, root.rect),
-    text: textNodes.map((entry) => textSpec(entry, root.rect, desktopFigmaGlyphBounds)),
-  };
-};
-
-const measuredMobileVariants = variantInputs.map(topBarSpec);
-const measuredDesktopVariants = desktopVariantInputs.map(desktopTopBarSpec);
-for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) assertProfileVisual(spec);
+const preservedSpec = (kind) => (input) => ({
+  ...barSpec(kind)(input),
+  divider: false,
+  status: "preserved",
+  reason: PRESERVED_REASON,
+});
+const measuredMobileVariants = variantInputs.map(barSpec("mobile"));
+const preservedMobileVariants = mobilePreservedInputs.map(preservedSpec("mobile"));
+const measuredDesktopVariants = desktopVariantInputs.map(barSpec("desktop"));
+const preservedDesktopVariants = desktopPreservedInputs.map(preservedSpec("desktop"));
+const mobileSets = [...measuredMobileVariants, ...preservedMobileVariants];
+const desktopSets = [...measuredDesktopVariants, ...preservedDesktopVariants];
+for (const spec of [...mobileSets, ...desktopSets]) assertProfileVisual(spec);
+for (const [kind, list] of [["mobile", mobileSets], ["desktop", desktopSets]]) {
+  const names = list.map(variantName);
+  const duplicates = names.filter((name, index) => names.indexOf(name) !== index);
+  if (duplicates.length) fail(`duplicate ${kind} top-bar variant ${duplicates.join(" | ")}`);
+}
 
 // **색은 제품 토큰 이름으로 묶고, 측정값과 라이브 해석값을 나란히 적는다.**
 // 은퇴한 `1 · Palette`/`2 · Semantic` 대신 라이브 LOUIS 의 `Klipse Semantic Color` 를 쓴다.
@@ -461,7 +472,6 @@ const FIGMA_COLOR_BINDINGS = {
   control: { name: "color/gray/000-alpha/64", via: "color/static-black-alpha/64", hex: "171b22", alpha: 0.64 },
 };
 const measuredColors = {};
-const roleOf = (spec, index) => (spec.breadcrumb === "Single" ? "current" : ["parent", "separator", "current"][index]);
 for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) {
   const ink = {
     surface: spec.fill,
@@ -469,15 +479,14 @@ for (const spec of [...measuredMobileVariants, ...measuredDesktopVariants]) {
     control: spec.controlColor,
     profile: spec.profileVisual.avatar.color,
     profileRingTrack: spec.profileVisual.ring.track,
-    ...Object.fromEntries(spec.text.map((entry, index) => [roleOf(spec, index), entry.color])),
+    ...Object.fromEntries(spec.text.map((entry) => [entry.role, entry.color])),
   };
   for (const [role, value] of Object.entries(ink)) {
     measuredColors[role] ??= value;
     if (JSON.stringify(measuredColors[role]) !== JSON.stringify(value)) fail(`measured ${role} color differs on ${spec.route}`);
   }
 }
-const THEME_MODE = { light: "Light", dark: "Dark" };
-const themes = [...new Set([...measuredMobileVariants, ...measuredDesktopVariants].map((spec) => spec.theme))];
+const themes = [...new Set([...mobileSets, ...desktopSets].map((spec) => spec.theme))];
 if (themes.length !== 1) fail(`measured top bars span themes ${themes.join(", ")}`);
 const measuredMode = THEME_MODE[themes[0]];
 if (measuredMode !== "Light") fail(`recorded Figma resolutions are Light-mode; re-read variables for ${measuredMode}`);
@@ -501,6 +510,32 @@ const bindingEvidence = Object.fromEntries(
   }),
 );
 
+const typographyOf = (kind, list) => {
+  const keys = ["fontSize", "fontWeight", "lineHeight", "letterSpacing"];
+  const first = list[0].text[0];
+  for (const spec of list) {
+    for (const entry of spec.text) {
+      if (keys.some((key) => entry[key] !== first[key])) fail(`${kind} breadcrumb typography differs ${spec.route} ${entry.text}`);
+    }
+  }
+  return Object.fromEntries(keys.map((key) => [key, first[key]]));
+};
+// 세트 단위 TEXT 속성의 기본값은 하나뿐이다 — 묶인 글자는 모든 variant 에서 그 기본값을 보인다.
+// 기본값은 plan 순서상 그 구조의 첫 측정 variant 글자로 정한다(출처 route 를 함께 적는다).
+const textPropertiesOf = (list) =>
+  Object.entries(TEXT_ROLES).flatMap(([breadcrumb, roles]) => {
+    const source = list.find((spec) => spec.breadcrumb === breadcrumb) ?? fail(`no measured ${breadcrumb} variant`);
+    return roles.flatMap(([role, name], index) =>
+      name ? [{ name, breadcrumb, role, defaultValue: source.text[index].text, defaultSource: source.route }] : [],
+    );
+  });
+const [firstProfile] = measuredMobileVariants;
+const profileVisualConstants = {
+  avatarInset: firstProfile.profileVisual.avatar.rect.x - firstProfile.controls.profile.x,
+  avatarSize: firstProfile.profileVisual.avatar.rect.width,
+  ringWidth: firstProfile.profileVisual.ring.width,
+};
+
 const avatarSourcePath = "apps/web/components/navigation/UserCircleDefaultAvatar.tsx";
 const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
 // 13 → 22. `AVATAR` 배열 머리의 `inline-flex … w-14 h-14` 가 `louis-avatar__fallback`
@@ -523,13 +558,34 @@ const ringSourceLines = [
   [1501, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
+const dividerSources = [
+  sourceQuote(
+    "apps/web/components/navigation/Gnb.tsx",
+    497,
+    '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",',
+  ),
+  sourceQuote(
+    "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+    13,
+    " * 달라 보였다**. CSS 기본값이 `var(--mainchrome-divider-progress, 1)` 이므로 손대지 않으면",
+  ),
+  sourceQuote(
+    "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+    14,
+    " * 모든 화면에서 항상 켜진다 — 그게 통일된 정본이다(소유자 지정).",
+  ),
+];
 const bindingOf = (role) => ({ collection: FIGMA_COLOR_COLLECTION, name: FIGMA_COLOR_BINDINGS[role].name });
 
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   $evidenceClass: "product-only measured Figma candidate; not a normative design-system contract",
   $figmaGlyphMeasurement:
-    "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Product rects remain authoritative for placement and containers.",
+    "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. " +
+    "Highlight and Clips were added 2026-09-13 by a read-only use_figma read of existing auto-sized (WIDTH_AND_HEIGHT) Pretendard Medium TEXT nodes on the generated /highlight/[projectId]?__phase=loading boards: " +
+    "14px (-0.14px, line height 150% = 21px) 1248:13051 Highlight 57x21 and 1248:13053 Clips 32x21; 16px (-0.16px, 150% = 24px) 1247:13150 Highlight 65x24 and 1247:13152 Clips 36x24. " +
+    "Cross-check in the same read: 1227:13358 Subscription 16px is 91x24, equal to the 2026-08-24 value. " +
+    "Product rects remain authoritative for the bar, leading, nav and profile boxes. Breadcrumb text is auto-width inside a horizontal Auto Layout nav spaced by the product separator margin (4px), so a label set through a TEXT property reflows instead of clipping; the runner reports any default label whose Figma width differs from these bounds (glyphDrift).",
   productCommit: fixture.productCommit,
   profileVisualSource: {
     avatar: avatarSource,
@@ -541,6 +597,10 @@ const plan = {
     "Colors bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. " +
     "The measured theme picks the pinned mode. bindingEvidence records measured value beside the live resolution; surface, divider and avatar ink must be exact.",
   bindingEvidence,
+  dividerSources,
+  $labelProperties:
+    "Both sets expose breadcrumb text as TEXT component properties named after the product mainChromePageNav fields: Single binds Label; Trail binds Parent and Current; the separator is not a property. " +
+    "A set-level TEXT property has one default, so every bound master text shows that default and existing instances without an override show it too. Consumers must set these properties from their measured labels.",
   component: {
     id: "product/mobile-app-top-bar",
     pageId: "240:3529",
@@ -579,7 +639,11 @@ const plan = {
       spacing16: { collection: "Klipse Primitive", name: "spacing/16" },
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
     },
+    profileVisual: profileVisualConstants,
+    typography: typographyOf("mobile", mobileSets),
+    textProperties: textPropertiesOf(measuredMobileVariants),
     variants: measuredMobileVariants,
+    preservedVariants: preservedMobileVariants,
     desktopTopBar: {
       id: "product/desktop-app-top-bar",
       sectionName: "L · product/Desktop app top bar · measured component",
@@ -591,39 +655,60 @@ const plan = {
         lineShiftX: -2.5,
         measuredTransform: desktopSidebarProbe.groups[0].transform,
       },
+      typography: typographyOf("desktop", desktopSets),
+      textProperties: textPropertiesOf(measuredDesktopVariants),
       variants: measuredDesktopVariants,
+      preservedVariants: preservedDesktopVariants,
     },
   },
 };
 
-const runnerPlan = structuredClone(plan);
-delete runnerPlan.profileVisualSource;
-delete runnerPlan.bindingEvidence;
-delete runnerPlan.component.bindings.$surfaceSource;
-delete runnerPlan.sourceCandidates;
-delete runnerPlan.component.desktopTopBar.sourceCandidates;
-const compactRunnerVariant = (spec) => {
-  delete spec.rootPath;
-  delete spec.theme;
-  delete spec.fill;
-  delete spec.dividerColor;
-  delete spec.controlColor;
-  delete spec.controls.menu;
-  delete spec.controls.back;
-  spec.profileVisual = {
-    avatar: { rect: spec.profileVisual.avatar.rect },
-    ring: { rect: spec.profileVisual.ring.rect, width: spec.profileVisual.ring.width },
-  };
-  for (const text of spec.text) delete text.color;
+// 러너에는 렌더러가 읽는 것만 싣는다 — 50,000자 실행 한도 안에 variant 를 더 싣기 위해서다.
+// 빠지는 것은 plan.json 이 그대로 갖고 생성기가 이미 검사한 값이다: 색 실측(→ bindingEvidence),
+// 컨트롤·아바타·링 사각형(→ profileVisual 상수, assertProfileVisual 이 고정), 글자별 기하와
+// 타이포(→ 세트 단위 typography, typographyOf 가 균일함을 확인).
+const runnerVariant = (spec) => ({
+  ...(spec.content === undefined ? { width: spec.width } : { content: spec.content }),
+  breadcrumb: spec.breadcrumb,
+  back: spec.back,
+  divider: spec.divider,
+  route: spec.route,
+  ...(spec.status ? { status: spec.status, reason: spec.reason } : {}),
+  rect: spec.rect,
+  gap: spec.gap,
+  padding: spec.padding,
+  leading: spec.leading,
+  nav: spec.nav,
+  profile: spec.profile,
+  labels: spec.labels,
+  text: spec.text.map((entry) => ({ text: entry.text, role: entry.role, ...(entry.property ? { property: entry.property } : {}) })),
+});
+const glyphWidths = (bounds) => Object.fromEntries(Object.entries(bounds).map(([label, box]) => [label, box.width]));
+const runnerPlan = {
+  productCommit: plan.productCommit,
+  context: plan.context,
+  component: {
+    ...plan.component,
+    bindings: Object.fromEntries(Object.entries(plan.component.bindings).filter(([key]) => !key.startsWith("$"))),
+    glyphWidths: glyphWidths(figmaGlyphBounds),
+    variants: measuredMobileVariants.map(runnerVariant),
+    preservedVariants: preservedMobileVariants.map(runnerVariant),
+    desktopTopBar: {
+      ...plan.component.desktopTopBar,
+      sourceCandidates: undefined,
+      glyphWidths: glyphWidths(desktopFigmaGlyphBounds),
+      variants: measuredDesktopVariants.map(runnerVariant),
+      preservedVariants: preservedDesktopVariants.map(runnerVariant),
+    },
+  },
 };
-for (const spec of runnerPlan.component.variants) compactRunnerVariant(spec);
-for (const spec of runnerPlan.component.desktopTopBar.variants) compactRunnerVariant(spec);
 const draw =
   "// Generated by scripts/build-figma-product-app-shell.mjs. Do not edit by hand.\n" +
-  "// Pass this file verbatim to use_figma. It creates or reconciles the measured mobile top bar.\n" +
+  "// Pass this file verbatim to use_figma. It creates or reconciles the measured mobile and desktop top bars.\n" +
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
   readFileSync(templatePath, "utf8");
-if (draw.length > 50_000) fail(`Figma runner exceeds connector limit: ${draw.length}`);
+const RUNNER_LIMIT = 50_000;
+if (draw.length > RUNNER_LIMIT) fail(`Figma runner exceeds connector limit: ${draw.length}`);
 const expected = [
   { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` },
   { absolute: drawPath, expected: draw },
@@ -645,7 +730,8 @@ if (checkOnly) {
 
 console.log(
   `[figma-product-app-shell] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-    `${plan.component.variants.length} mobile + ${plan.component.desktopTopBar.variants.length} desktop top-bar variants · mobile candidates ${candidateContracts
+    `${measuredMobileVariants.length}+${preservedMobileVariants.length} mobile · ${measuredDesktopVariants.length}+${preservedDesktopVariants.length} desktop top-bar variants (measured+preserved) · ` +
+    `runner ${draw.length}/${RUNNER_LIMIT} chars · mobile candidates ${candidateContracts
       .map((entry) => `${entry.nodeCount}/${entry.routeCount}`)
       .join(", ")} · desktop candidates ${desktopCandidateContracts.map((entry) => `${entry.nodeCount}/${entry.routeCount}`).join(", ")} nodes/routes`,
 );

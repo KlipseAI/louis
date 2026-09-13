@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Product rects remain authoritative for placement and containers.",
+  "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Highlight and Clips were added 2026-09-13 by a read-only use_figma read of existing auto-sized (WIDTH_AND_HEIGHT) Pretendard Medium TEXT nodes on the generated /highlight/[projectId]?__phase=loading boards: 14px (-0.14px, line height 150% = 21px) 1248:13051 Highlight 57x21 and 1248:13053 Clips 32x21; 16px (-0.16px, 150% = 24px) 1247:13150 Highlight 65x24 and 1247:13152 Clips 36x24. Cross-check in the same read: 1227:13358 Subscription 16px is 91x24, equal to the 2026-08-24 value. Product rects remain authoritative for the bar, leading, nav and profile boxes. Breadcrumb text is auto-width inside a horizontal Auto Layout nav spaced by the product separator margin (4px), so a label set through a TEXT property reflows instead of clipping; the runner reports any default label whose Figma width differs from these bounds (glyphDrift).",
   "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
   "profileVisualSource": {
     "avatar": {
@@ -432,6 +432,27 @@
       "exact": false
     }
   },
+  "dividerSources": [
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "path": "apps/web/components/navigation/Gnb.tsx",
+      "line": 497,
+      "quote": "    \"[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]\","
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "line": 13,
+      "quote": " * 달라 보였다**. CSS 기본값이 `var(--mainchrome-divider-progress, 1)` 이므로 손대지 않으면"
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "line": 14,
+      "quote": " * 모든 화면에서 항상 켜진다 — 그게 통일된 정본이다(소유자 지정)."
+    }
+  ],
+  "$labelProperties": "Both sets expose breadcrumb text as TEXT component properties named after the product mainChromePageNav fields: Single binds Label; Trail binds Parent and Current; the separator is not a property. A set-level TEXT property has one default, so every bound master text shows that default and existing instances without an override show it too. Consumers must set these properties from their measured labels.",
   "component": {
     "id": "product/mobile-app-top-bar",
     "pageId": "240:3529",
@@ -501,147 +522,41 @@
         "name": "radius/12"
       }
     },
-    "variants": [
+    "profileVisual": {
+      "avatarInset": 4,
+      "avatarSize": 28,
+      "ringWidth": 2
+    },
+    "typography": {
+      "fontSize": 14,
+      "fontWeight": 500,
+      "lineHeight": 21,
+      "letterSpacing": -0.14
+    },
+    "textProperties": [
       {
-        "width": "Full",
+        "name": "Label",
         "breadcrumb": "Single",
-        "back": false,
-        "divider": false,
-        "route": "/archive",
-        "rootPath": "body.1.0.0.1.0.0.0.0",
-        "rect": {
-          "width": 402,
-          "height": 53
-        },
-        "gap": 8,
-        "padding": {
-          "top": 8,
-          "right": 6,
-          "bottom": 8,
-          "left": 6
-        },
-        "theme": "light",
-        "fill": [
-          0.980392,
-          0.980392,
-          0.980392,
-          1
-        ],
-        "dividerColor": [
-          0.090196,
-          0.105882,
-          0.133333,
-          0.12
-        ],
-        "controlColor": [
-          0,
-          0,
-          0,
-          0.64
-        ],
-        "leading": {
-          "x": 6,
-          "y": 10,
-          "width": 32,
-          "height": 32
-        },
-        "nav": {
-          "x": 46,
-          "y": 15.5,
-          "width": 306,
-          "height": 21
-        },
-        "profile": {
-          "x": 360,
-          "y": 8,
-          "width": 36,
-          "height": 36
-        },
-        "controls": {
-          "menu": {
-            "x": 6,
-            "y": 10,
-            "width": 32,
-            "height": 32
-          },
-          "back": null,
-          "profile": {
-            "x": 360,
-            "y": 8,
-            "width": 36,
-            "height": 36
-          }
-        },
-        "profileVisual": {
-          "avatar": {
-            "rect": {
-              "x": 364,
-              "y": 12,
-              "width": 28,
-              "height": 28
-            },
-            "color": [
-              0.545098,
-              0.556863,
-              0.576471,
-              1
-            ],
-            "asset": ".glyph/UserCircleDefaultAvatar"
-          },
-          "ring": {
-            "rect": {
-              "x": 360,
-              "y": 8,
-              "width": 36,
-              "height": 36
-            },
-            "width": 2,
-            "gap": 2,
-            "progress": 0,
-            "fill": [
-              0,
-              0.7764705882352941,
-              0.5568627450980392,
-              1
-            ],
-            "track": [
-              0,
-              0,
-              0,
-              0.2
-            ],
-            "radius": 999,
-            "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
-            "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
-            "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
-          }
-        },
-        "text": [
-          {
-            "text": "Home",
-            "rect": {
-              "x": 46,
-              "y": 17.5,
-              "width": 37.1719,
-              "height": 16
-            },
-            "fontSize": 14,
-            "fontWeight": 500,
-            "lineHeight": 21,
-            "letterSpacing": -0.14,
-            "color": [
-              0,
-              0,
-              0,
-              0.8
-            ],
-            "figmaBounds": {
-              "width": 38,
-              "height": 21
-            }
-          }
-        ]
+        "role": "current",
+        "defaultValue": "Settings",
+        "defaultSource": "/settings"
       },
+      {
+        "name": "Parent",
+        "breadcrumb": "Trail",
+        "role": "parent",
+        "defaultValue": "Analytics",
+        "defaultSource": "/analytics/youtube"
+      },
+      {
+        "name": "Current",
+        "breadcrumb": "Trail",
+        "role": "current",
+        "defaultValue": "YouTube analytics",
+        "defaultSource": "/analytics/youtube"
+      }
+    ],
+    "variants": [
       {
         "width": "Full",
         "breadcrumb": "Single",
@@ -649,6 +564,7 @@
         "divider": true,
         "route": "/settings",
         "rootPath": "body.1.0.0.1.0.0.0",
+        "theme": "light",
         "rect": {
           "width": 402,
           "height": 53
@@ -660,7 +576,6 @@
           "bottom": 8,
           "left": 6
         },
-        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -696,6 +611,11 @@
           "y": 8,
           "width": 36,
           "height": 36
+        },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": null,
+          "profile": "Open profile"
         },
         "controls": {
           "menu": {
@@ -758,6 +678,8 @@
         },
         "text": [
           {
+            "role": "current",
+            "property": "Label",
             "text": "Settings",
             "rect": {
               "x": 46,
@@ -789,6 +711,7 @@
         "divider": true,
         "route": "/analytics/youtube",
         "rootPath": "body.1.0.0.1.0.0.0.0",
+        "theme": "light",
         "rect": {
           "width": 402,
           "height": 53
@@ -800,7 +723,6 @@
           "bottom": 8,
           "left": 6
         },
-        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -836,6 +758,11 @@
           "y": 8,
           "width": 36,
           "height": 36
+        },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": null,
+          "profile": "Open profile"
         },
         "controls": {
           "menu": {
@@ -898,6 +825,8 @@
         },
         "text": [
           {
+            "role": "parent",
+            "property": "Parent",
             "text": "Analytics",
             "rect": {
               "x": 46,
@@ -921,6 +850,7 @@
             }
           },
           {
+            "role": "separator",
             "text": "/",
             "rect": {
               "x": 108.125,
@@ -944,6 +874,8 @@
             }
           },
           {
+            "role": "current",
+            "property": "Current",
             "text": "YouTube analytics",
             "rect": {
               "x": 116.8438,
@@ -969,12 +901,214 @@
         ]
       },
       {
+        "width": "Full",
+        "breadcrumb": "Trail",
+        "back": true,
+        "divider": true,
+        "route": "/highlight/[projectId]?__phase=loading",
+        "rootPath": "body.1.0.0.1.0.0.0",
+        "theme": "light",
+        "rect": {
+          "width": 402,
+          "height": 53
+        },
+        "gap": 8,
+        "padding": {
+          "top": 8,
+          "right": 6,
+          "bottom": 8,
+          "left": 6
+        },
+        "fill": [
+          0.980392,
+          0.980392,
+          0.980392,
+          1
+        ],
+        "dividerColor": [
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
+        ],
+        "leading": {
+          "x": 6,
+          "y": 10,
+          "width": 68,
+          "height": 32
+        },
+        "nav": {
+          "x": 82,
+          "y": 15.1094,
+          "width": 270,
+          "height": 21.7813
+        },
+        "profile": {
+          "x": 360,
+          "y": 8,
+          "width": 36,
+          "height": 36
+        },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": "Highlight",
+          "profile": "Open profile"
+        },
+        "controls": {
+          "menu": {
+            "x": 6,
+            "y": 10,
+            "width": 32,
+            "height": 32
+          },
+          "back": {
+            "x": 42,
+            "y": 10,
+            "width": 32,
+            "height": 32
+          },
+          "profile": {
+            "x": 360,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        "profileVisual": {
+          "avatar": {
+            "rect": {
+              "x": 364,
+              "y": 12,
+              "width": 28,
+              "height": 28
+            },
+            "color": [
+              0.545098,
+              0.556863,
+              0.576471,
+              1
+            ],
+            "asset": ".glyph/UserCircleDefaultAvatar"
+          },
+          "ring": {
+            "rect": {
+              "x": 360,
+              "y": 8,
+              "width": 36,
+              "height": 36
+            },
+            "width": 2,
+            "gap": 2,
+            "progress": 0,
+            "fill": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "track": [
+              0,
+              0,
+              0,
+              0.2
+            ],
+            "radius": 999,
+            "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
+            "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
+            "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
+          }
+        },
+        "text": [
+          {
+            "role": "parent",
+            "property": "Parent",
+            "text": "Highlight",
+            "rect": {
+              "x": 82,
+              "y": 17.1094,
+              "width": 55.8906,
+              "height": 16
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "color": [
+              0,
+              0,
+              0,
+              0.48
+            ],
+            "figmaBounds": {
+              "width": 57,
+              "height": 21
+            }
+          },
+          {
+            "role": "separator",
+            "text": "/",
+            "rect": {
+              "x": 141.8906,
+              "y": 15.8906,
+              "width": 4.7188,
+              "height": 21
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "color": [
+              0,
+              0,
+              0,
+              0.32
+            ],
+            "figmaBounds": {
+              "width": 5,
+              "height": 21
+            }
+          },
+          {
+            "role": "current",
+            "property": "Current",
+            "text": "Clips",
+            "rect": {
+              "x": 150.6094,
+              "y": 17.1094,
+              "width": 31.0156,
+              "height": 16
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "color": [
+              0,
+              0,
+              0,
+              0.8
+            ],
+            "figmaBounds": {
+              "width": 32,
+              "height": 21
+            }
+          }
+        ]
+      },
+      {
         "width": "Inset",
         "breadcrumb": "Single",
         "back": false,
         "divider": true,
         "route": "/mypage/topup/fail",
         "rootPath": "body.1.0.0.1.0.0",
+        "theme": "light",
         "rect": {
           "width": 390,
           "height": 53
@@ -986,7 +1120,6 @@
           "bottom": 8,
           "left": 6
         },
-        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -1023,6 +1156,11 @@
           "width": 36,
           "height": 36
         },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": null,
+          "profile": "Open profile"
+        },
         "controls": {
           "menu": {
             "x": 6,
@@ -1084,6 +1222,8 @@
         },
         "text": [
           {
+            "role": "current",
+            "property": "Label",
             "text": "My Page",
             "rect": {
               "x": 46,
@@ -1115,6 +1255,7 @@
         "divider": true,
         "route": "/mypage/upgrade/billing-success",
         "rootPath": "body.1.0.0.1.0.0",
+        "theme": "light",
         "rect": {
           "width": 390,
           "height": 53
@@ -1126,7 +1267,6 @@
           "bottom": 8,
           "left": 6
         },
-        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -1163,6 +1303,11 @@
           "width": 36,
           "height": 36
         },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": null,
+          "profile": "Open profile"
+        },
         "controls": {
           "menu": {
             "x": 6,
@@ -1224,6 +1369,8 @@
         },
         "text": [
           {
+            "role": "parent",
+            "property": "Parent",
             "text": "Subscription",
             "rect": {
               "x": 46,
@@ -1247,6 +1394,7 @@
             }
           },
           {
+            "role": "separator",
             "text": "/",
             "rect": {
               "x": 128.6875,
@@ -1270,6 +1418,8 @@
             }
           },
           {
+            "role": "current",
+            "property": "Current",
             "text": "Change plan",
             "rect": {
               "x": 137.4063,
@@ -1301,6 +1451,7 @@
         "divider": true,
         "route": "/mypage/upgrade",
         "rootPath": "body.1.0.0.1.0.0.0.0",
+        "theme": "light",
         "rect": {
           "width": 390,
           "height": 53
@@ -1312,7 +1463,6 @@
           "bottom": 8,
           "left": 6
         },
-        "theme": "light",
         "fill": [
           0.980392,
           0.980392,
@@ -1348,6 +1498,11 @@
           "y": 8,
           "width": 36,
           "height": 36
+        },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": "Back to subscription",
+          "profile": "Open profile"
         },
         "controls": {
           "menu": {
@@ -1415,6 +1570,8 @@
         },
         "text": [
           {
+            "role": "parent",
+            "property": "Parent",
             "text": "Subscription",
             "rect": {
               "x": 82,
@@ -1438,6 +1595,7 @@
             }
           },
           {
+            "role": "separator",
             "text": "/",
             "rect": {
               "x": 164.6875,
@@ -1461,6 +1619,8 @@
             }
           },
           {
+            "role": "current",
+            "property": "Current",
             "text": "Change plan",
             "rect": {
               "x": 173.4063,
@@ -1484,6 +1644,157 @@
             }
           }
         ]
+      }
+    ],
+    "preservedVariants": [
+      {
+        "width": "Full",
+        "breadcrumb": "Single",
+        "back": false,
+        "divider": false,
+        "route": "/archive",
+        "rootPath": "body.1.0.0.1.0.0.0.0",
+        "theme": "light",
+        "rect": {
+          "width": 402,
+          "height": 53
+        },
+        "gap": 8,
+        "padding": {
+          "top": 8,
+          "right": 6,
+          "bottom": 8,
+          "left": 6
+        },
+        "fill": [
+          0.980392,
+          0.980392,
+          0.980392,
+          1
+        ],
+        "dividerColor": [
+          0.090196,
+          0.105882,
+          0.133333,
+          0.12
+        ],
+        "controlColor": [
+          0,
+          0,
+          0,
+          0.64
+        ],
+        "leading": {
+          "x": 6,
+          "y": 10,
+          "width": 32,
+          "height": 32
+        },
+        "nav": {
+          "x": 46,
+          "y": 15.5,
+          "width": 306,
+          "height": 21
+        },
+        "profile": {
+          "x": 360,
+          "y": 8,
+          "width": 36,
+          "height": 36
+        },
+        "labels": {
+          "menu": "Open navigation menu",
+          "back": null,
+          "profile": "Open profile"
+        },
+        "controls": {
+          "menu": {
+            "x": 6,
+            "y": 10,
+            "width": 32,
+            "height": 32
+          },
+          "back": null,
+          "profile": {
+            "x": 360,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          }
+        },
+        "profileVisual": {
+          "avatar": {
+            "rect": {
+              "x": 364,
+              "y": 12,
+              "width": 28,
+              "height": 28
+            },
+            "color": [
+              0.545098,
+              0.556863,
+              0.576471,
+              1
+            ],
+            "asset": ".glyph/UserCircleDefaultAvatar"
+          },
+          "ring": {
+            "rect": {
+              "x": 360,
+              "y": 8,
+              "width": 36,
+              "height": 36
+            },
+            "width": 2,
+            "gap": 2,
+            "progress": 0,
+            "fill": [
+              0,
+              0.7764705882352941,
+              0.5568627450980392,
+              1
+            ],
+            "track": [
+              0,
+              0,
+              0,
+              0.2
+            ],
+            "radius": 999,
+            "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
+            "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
+            "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
+          }
+        },
+        "text": [
+          {
+            "role": "current",
+            "property": "Label",
+            "text": "Home",
+            "rect": {
+              "x": 46,
+              "y": 17.5,
+              "width": 37.1719,
+              "height": 16
+            },
+            "fontSize": 14,
+            "fontWeight": 500,
+            "lineHeight": 21,
+            "letterSpacing": -0.14,
+            "color": [
+              0,
+              0,
+              0,
+              0.8
+            ],
+            "figmaBounds": {
+              "width": 38,
+              "height": 21
+            }
+          }
+        ],
+        "status": "preserved",
+        "reason": "보존 · 제품 출처 없음(legacy 인스턴스가 참조)"
       }
     ],
     "desktopTopBar": {
@@ -1937,14 +2248,44 @@
         "lineShiftX": -2.5,
         "measuredTransform": "matrix(1, 0, 0, 1, -2.5, 0)"
       },
+      "typography": {
+        "fontSize": 16,
+        "fontWeight": 500,
+        "lineHeight": 24,
+        "letterSpacing": -0.16
+      },
+      "textProperties": [
+        {
+          "name": "Label",
+          "breadcrumb": "Single",
+          "role": "current",
+          "defaultValue": "Home",
+          "defaultSource": "/archive"
+        },
+        {
+          "name": "Parent",
+          "breadcrumb": "Trail",
+          "role": "parent",
+          "defaultValue": "Analytics",
+          "defaultSource": "/analytics/youtube"
+        },
+        {
+          "name": "Current",
+          "breadcrumb": "Trail",
+          "role": "current",
+          "defaultValue": "YouTube analytics",
+          "defaultSource": "/analytics/youtube"
+        }
+      ],
       "variants": [
         {
           "content": "Home",
           "breadcrumb": "Single",
           "back": false,
-          "divider": false,
+          "divider": true,
           "route": "/archive",
           "rootPath": "body.1.0.0.1.0.0.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -1956,7 +2297,6 @@
             "bottom": 8,
             "left": 8
           },
-          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -1992,6 +2332,11 @@
             "y": 8,
             "width": 36,
             "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
           },
           "controls": {
             "menu": {
@@ -2054,6 +2399,8 @@
           },
           "text": [
             {
+              "role": "current",
+              "property": "Label",
               "text": "Home",
               "rect": {
                 "x": 48,
@@ -2085,6 +2432,7 @@
           "divider": true,
           "route": "/settings",
           "rootPath": "body.1.0.0.1.0.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -2096,7 +2444,6 @@
             "bottom": 8,
             "left": 8
           },
-          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2132,6 +2479,11 @@
             "y": 8,
             "width": 36,
             "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
           },
           "controls": {
             "menu": {
@@ -2194,6 +2546,8 @@
           },
           "text": [
             {
+              "role": "current",
+              "property": "Label",
               "text": "Settings",
               "rect": {
                 "x": 48,
@@ -2225,6 +2579,7 @@
           "divider": true,
           "route": "/analytics/youtube",
           "rootPath": "body.1.0.0.1.0.0.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -2236,7 +2591,6 @@
             "bottom": 8,
             "left": 8
           },
-          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2272,6 +2626,11 @@
             "y": 8,
             "width": 36,
             "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
           },
           "controls": {
             "menu": {
@@ -2334,6 +2693,8 @@
           },
           "text": [
             {
+              "role": "parent",
+              "property": "Parent",
               "text": "Analytics",
               "rect": {
                 "x": 48,
@@ -2357,6 +2718,7 @@
               }
             },
             {
+              "role": "separator",
               "text": "/",
               "rect": {
                 "x": 118.4219,
@@ -2380,6 +2742,8 @@
               }
             },
             {
+              "role": "current",
+              "property": "Current",
               "text": "YouTube analytics",
               "rect": {
                 "x": 127.8125,
@@ -2411,6 +2775,7 @@
           "divider": true,
           "route": "/mypage/topup/fail",
           "rootPath": "body.1.0.0.1.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -2422,7 +2787,6 @@
             "bottom": 8,
             "left": 8
           },
-          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2459,6 +2823,11 @@
             "width": 36,
             "height": 36
           },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
+          },
           "controls": {
             "menu": {
               "x": 8,
@@ -2520,6 +2889,8 @@
           },
           "text": [
             {
+              "role": "current",
+              "property": "Label",
               "text": "My Page",
               "rect": {
                 "x": 48,
@@ -2546,11 +2917,12 @@
         },
         {
           "content": "Subscription",
-          "breadcrumb": "Trail",
+          "breadcrumb": "Single",
           "back": false,
           "divider": true,
-          "route": "/mypage/upgrade/billing-fail",
-          "rootPath": "body.1.0.0.1.0.0",
+          "route": "/subscription",
+          "rootPath": "body.1.0.0.1.0.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -2562,7 +2934,153 @@
             "bottom": 8,
             "left": 8
           },
+          "fill": [
+            0.980392,
+            0.980392,
+            0.980392,
+            1
+          ],
+          "dividerColor": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
+          ],
+          "leading": {
+            "x": 8,
+            "y": 10,
+            "width": 32,
+            "height": 32
+          },
+          "nav": {
+            "x": 48,
+            "y": 14,
+            "width": 1532,
+            "height": 24
+          },
+          "profile": {
+            "x": 1588,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
+          },
+          "controls": {
+            "menu": {
+              "x": 8,
+              "y": 10,
+              "width": 32,
+              "height": 32
+            },
+            "back": null,
+            "profile": {
+              "x": 1588,
+              "y": 8,
+              "width": 36,
+              "height": 36
+            }
+          },
+          "profileVisual": {
+            "avatar": {
+              "rect": {
+                "x": 1592,
+                "y": 12,
+                "width": 28,
+                "height": 28
+              },
+              "color": [
+                0.545098,
+                0.556863,
+                0.576471,
+                1
+              ],
+              "asset": ".glyph/UserCircleDefaultAvatar"
+            },
+            "ring": {
+              "rect": {
+                "x": 1588,
+                "y": 8,
+                "width": 36,
+                "height": 36
+              },
+              "width": 2,
+              "gap": 2,
+              "progress": 0,
+              "fill": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "track": [
+                0,
+                0,
+                0,
+                0.2
+              ],
+              "radius": 999,
+              "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
+              "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
+              "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
+            }
+          },
+          "text": [
+            {
+              "role": "current",
+              "property": "Label",
+              "text": "Subscription",
+              "rect": {
+                "x": 48,
+                "y": 16,
+                "width": 89.9219,
+                "height": 19
+              },
+              "fontSize": 16,
+              "fontWeight": 500,
+              "lineHeight": 24,
+              "letterSpacing": -0.16,
+              "color": [
+                0,
+                0,
+                0,
+                0.8
+              ],
+              "figmaBounds": {
+                "width": 91,
+                "height": 24
+              }
+            }
+          ]
+        },
+        {
+          "content": "Subscription",
+          "breadcrumb": "Trail",
+          "back": false,
+          "divider": true,
+          "route": "/mypage/upgrade/billing-fail",
+          "rootPath": "body.1.0.0.1.0.0",
           "theme": "light",
+          "rect": {
+            "width": 1632,
+            "height": 53
+          },
+          "gap": 8,
+          "padding": {
+            "top": 8,
+            "right": 8,
+            "bottom": 8,
+            "left": 8
+          },
           "fill": [
             0.980392,
             0.980392,
@@ -2599,6 +3117,11 @@
             "width": 36,
             "height": 36
           },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
+          },
           "controls": {
             "menu": {
               "x": 8,
@@ -2660,6 +3183,8 @@
           },
           "text": [
             {
+              "role": "parent",
+              "property": "Parent",
               "text": "Subscription",
               "rect": {
                 "x": 48,
@@ -2683,6 +3208,7 @@
               }
             },
             {
+              "role": "separator",
               "text": "/",
               "rect": {
                 "x": 141.9219,
@@ -2706,6 +3232,8 @@
               }
             },
             {
+              "role": "current",
+              "property": "Current",
               "text": "Change plan",
               "rect": {
                 "x": 151.3125,
@@ -2737,6 +3265,7 @@
           "divider": true,
           "route": "/mypage/upgrade",
           "rootPath": "body.1.0.0.1.0.0.0.0",
+          "theme": "light",
           "rect": {
             "width": 1632,
             "height": 53
@@ -2748,7 +3277,6 @@
             "bottom": 8,
             "left": 8
           },
-          "theme": "light",
           "fill": [
             0.980392,
             0.980392,
@@ -2784,6 +3312,11 @@
             "y": 8,
             "width": 36,
             "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": "Back to subscription",
+            "profile": "Open profile"
           },
           "controls": {
             "menu": {
@@ -2851,6 +3384,8 @@
           },
           "text": [
             {
+              "role": "parent",
+              "property": "Parent",
               "text": "Subscription",
               "rect": {
                 "x": 84,
@@ -2874,6 +3409,7 @@
               }
             },
             {
+              "role": "separator",
               "text": "/",
               "rect": {
                 "x": 177.9219,
@@ -2897,6 +3433,8 @@
               }
             },
             {
+              "role": "current",
+              "property": "Current",
               "text": "Change plan",
               "rect": {
                 "x": 187.3125,
@@ -2920,6 +3458,358 @@
               }
             }
           ]
+        },
+        {
+          "content": "Highlight",
+          "breadcrumb": "Trail",
+          "back": true,
+          "divider": true,
+          "route": "/highlight/[projectId]?__phase=loading",
+          "rootPath": "body.1.0.0.1.0.0.0",
+          "theme": "light",
+          "rect": {
+            "width": 1632,
+            "height": 53
+          },
+          "gap": 8,
+          "padding": {
+            "top": 8,
+            "right": 8,
+            "bottom": 8,
+            "left": 8
+          },
+          "fill": [
+            0.980392,
+            0.980392,
+            0.980392,
+            1
+          ],
+          "dividerColor": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
+          ],
+          "leading": {
+            "x": 8,
+            "y": 10,
+            "width": 68,
+            "height": 32
+          },
+          "nav": {
+            "x": 84,
+            "y": 13.625,
+            "width": 1496,
+            "height": 24.75
+          },
+          "profile": {
+            "x": 1588,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": "Highlight",
+            "profile": "Open profile"
+          },
+          "controls": {
+            "menu": {
+              "x": 8,
+              "y": 10,
+              "width": 32,
+              "height": 32
+            },
+            "back": {
+              "x": 44,
+              "y": 10,
+              "width": 32,
+              "height": 32
+            },
+            "profile": {
+              "x": 1588,
+              "y": 8,
+              "width": 36,
+              "height": 36
+            }
+          },
+          "profileVisual": {
+            "avatar": {
+              "rect": {
+                "x": 1592,
+                "y": 12,
+                "width": 28,
+                "height": 28
+              },
+              "color": [
+                0.545098,
+                0.556863,
+                0.576471,
+                1
+              ],
+              "asset": ".glyph/UserCircleDefaultAvatar"
+            },
+            "ring": {
+              "rect": {
+                "x": 1588,
+                "y": 8,
+                "width": 36,
+                "height": 36
+              },
+              "width": 2,
+              "gap": 2,
+              "progress": 0,
+              "fill": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "track": [
+                0,
+                0,
+                0,
+                0.2
+              ],
+              "radius": 999,
+              "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
+              "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
+              "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
+            }
+          },
+          "text": [
+            {
+              "role": "parent",
+              "property": "Parent",
+              "text": "Highlight",
+              "rect": {
+                "x": 84,
+                "y": 15.625,
+                "width": 63.875,
+                "height": 19
+              },
+              "fontSize": 16,
+              "fontWeight": 500,
+              "lineHeight": 24,
+              "letterSpacing": -0.16,
+              "color": [
+                0,
+                0,
+                0,
+                0.48
+              ],
+              "figmaBounds": {
+                "width": 65,
+                "height": 24
+              }
+            },
+            {
+              "role": "separator",
+              "text": "/",
+              "rect": {
+                "x": 151.875,
+                "y": 14.375,
+                "width": 5.3906,
+                "height": 24
+              },
+              "fontSize": 16,
+              "fontWeight": 500,
+              "lineHeight": 24,
+              "letterSpacing": -0.16,
+              "color": [
+                0,
+                0,
+                0,
+                0.32
+              ],
+              "figmaBounds": {
+                "width": 6,
+                "height": 24
+              }
+            },
+            {
+              "role": "current",
+              "property": "Current",
+              "text": "Clips",
+              "rect": {
+                "x": 161.2656,
+                "y": 15.625,
+                "width": 35.4375,
+                "height": 19
+              },
+              "fontSize": 16,
+              "fontWeight": 500,
+              "lineHeight": 24,
+              "letterSpacing": -0.16,
+              "color": [
+                0,
+                0,
+                0,
+                0.8
+              ],
+              "figmaBounds": {
+                "width": 36,
+                "height": 24
+              }
+            }
+          ]
+        }
+      ],
+      "preservedVariants": [
+        {
+          "content": "Home",
+          "breadcrumb": "Single",
+          "back": false,
+          "divider": false,
+          "route": "/archive",
+          "rootPath": "body.1.0.0.1.0.0.0.0",
+          "theme": "light",
+          "rect": {
+            "width": 1632,
+            "height": 53
+          },
+          "gap": 8,
+          "padding": {
+            "top": 8,
+            "right": 8,
+            "bottom": 8,
+            "left": 8
+          },
+          "fill": [
+            0.980392,
+            0.980392,
+            0.980392,
+            1
+          ],
+          "dividerColor": [
+            0.090196,
+            0.105882,
+            0.133333,
+            0.12
+          ],
+          "controlColor": [
+            0,
+            0,
+            0,
+            0.64
+          ],
+          "leading": {
+            "x": 8,
+            "y": 10,
+            "width": 32,
+            "height": 32
+          },
+          "nav": {
+            "x": 48,
+            "y": 14,
+            "width": 1532,
+            "height": 24
+          },
+          "profile": {
+            "x": 1588,
+            "y": 8,
+            "width": 36,
+            "height": 36
+          },
+          "labels": {
+            "menu": "Collapse sidebar",
+            "back": null,
+            "profile": "Open profile"
+          },
+          "controls": {
+            "menu": {
+              "x": 8,
+              "y": 10,
+              "width": 32,
+              "height": 32
+            },
+            "back": null,
+            "profile": {
+              "x": 1588,
+              "y": 8,
+              "width": 36,
+              "height": 36
+            }
+          },
+          "profileVisual": {
+            "avatar": {
+              "rect": {
+                "x": 1592,
+                "y": 12,
+                "width": 28,
+                "height": 28
+              },
+              "color": [
+                0.545098,
+                0.556863,
+                0.576471,
+                1
+              ],
+              "asset": ".glyph/UserCircleDefaultAvatar"
+            },
+            "ring": {
+              "rect": {
+                "x": 1588,
+                "y": 8,
+                "width": 36,
+                "height": 36
+              },
+              "width": 2,
+              "gap": 2,
+              "progress": 0,
+              "fill": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "track": [
+                0,
+                0,
+                0,
+                0.2
+              ],
+              "radius": 999,
+              "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
+              "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
+              "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
+            }
+          },
+          "text": [
+            {
+              "role": "current",
+              "property": "Label",
+              "text": "Home",
+              "rect": {
+                "x": 48,
+                "y": 16,
+                "width": 42.4844,
+                "height": 19
+              },
+              "fontSize": 16,
+              "fontWeight": 500,
+              "lineHeight": 24,
+              "letterSpacing": -0.16,
+              "color": [
+                0,
+                0,
+                0,
+                0.8
+              ],
+              "figmaBounds": {
+                "width": 43,
+                "height": 24
+              }
+            }
+          ],
+          "status": "preserved",
+          "reason": "보존 · 제품 출처 없음(legacy 인스턴스가 참조)"
         }
       ]
     }

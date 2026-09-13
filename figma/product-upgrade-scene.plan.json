@@ -14,13 +14,13 @@
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 232,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 233,
         "quote": "  \"[outline-offset:-2px]\","

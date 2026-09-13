@@ -709,19 +709,19 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 592,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 598,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 602,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]\","
@@ -1377,7 +1377,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""

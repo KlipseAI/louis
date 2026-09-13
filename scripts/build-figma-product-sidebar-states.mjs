@@ -14,7 +14,8 @@ const checkOnly = process.argv.includes("--check");
 const measurement = JSON.parse(readFileSync(measurementPath, "utf8"));
 const fail = (message) => { throw new Error(`[figma-product-sidebar-states] ${message}`); };
 const sourceQuote = (path, line, expected) => {
-  const command = `git -C ${productRoot} show ${measurement.productCommit}:${path}`;
+  // 근거 문자열에는 기계마다 다른 절대경로를 적지 않는다 — 적으면 check 가 KLIPSE_PRODUCT_REPO 철자에 따라 갈린다.
+  const command = `git -C "$KLIPSE_PRODUCT_REPO" show ${measurement.productCommit}:${path}`;
   const source = execFileSync("git", ["-C", productRoot, "show", `${measurement.productCommit}:${path}`], {
     encoding: "utf8",
     maxBuffer: 32 * 1024 * 1024,

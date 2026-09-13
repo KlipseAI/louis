@@ -19,7 +19,8 @@ const redirectedRoute = "/mypage/upgrade/checkout";
 const styles = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
 const fail = (message) => { throw new Error(`[figma-product-upgrade-scene] ${message}`); };
 const sourceQuote = (path, line, expected) => {
-  const command = `git -C ${productRoot} show ${fixture.productCommit}:${path}`;
+  // 근거 문자열에는 기계마다 다른 절대경로를 적지 않는다 — 적으면 check 가 KLIPSE_PRODUCT_REPO 철자에 따라 갈린다.
+  const command = `git -C "$KLIPSE_PRODUCT_REPO" show ${fixture.productCommit}:${path}`;
   const source = execFileSync("git", ["-C", productRoot, "show", `${fixture.productCommit}:${path}`], {
     encoding: "utf8",
     maxBuffer: 16 * 1024 * 1024,

@@ -48,91 +48,91 @@
       "quote": "    \"[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/globals.css",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/globals.css",
       "path": "apps/web/app/globals.css",
       "line": 155,
       "quote": "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/globals.css",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/globals.css",
       "path": "apps/web/app/globals.css",
       "line": 164,
       "quote": "  --app-gnb-main-inline-padding-end: 8px;"
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "line": 153,
       "quote": "  \"[padding:0]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "line": 1630,
       "quote": "    \"[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "line": 1631,
       "quote": "    \"[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "line": 1633,
       "quote": "    \"[@media(min-width:720px)]:[column-gap:2px]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
       "line": 1634,
       "quote": "    \"[@media(min-width:720px)]:[row-gap:2px]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 319,
       "quote": "    \"louis-app-top-bar__leading\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 483,
       "quote": "    \"[padding:8px_var(--mainchrome-pad-x)]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "line": 1105,
       "quote": "        <path"
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "line": 1106,
       "quote": "          d=\"M19 12H5M5 12L11 6M5 12L11 18\""
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 1983,
       "quote": "    \"[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 1984,
       "quote": "    \"[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 2023,
       "quote": "    \"[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]\","
     },
     {
-      "command": "git -C /Users/sejunki/klipse-web show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 2024,
       "quote": "    \"[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]\","

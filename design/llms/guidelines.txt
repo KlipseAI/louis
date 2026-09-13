@@ -3814,22 +3814,54 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `done` — 실측 39개 (2026-08-21) |
 | 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 (2026-08-21)에 이어 disabled 12종도 `color-node-handle-{bg,icon}-disabled-*` 로 원천에 있다(`8de65bb`, 2026-08-26). 「Open question 3 대기」는 낡았다. 남은 것은 소유자 판정 둘 — 아래 단위 4 절 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
-| 6 | contrastPairs 확장 — 목표 수 「19」는 목록 근거가 없어 지웠다 | `done` — 14 → 26쌍 (2026-09-13). 남은 후보는 게이트 밖 사유가 있다, 아래 참조 |
+| 6 | contrastPairs 확장 — 목표 수 「19」는 목록 근거가 없어 지웠다 | `partial` — 14 → 26쌍 (2026-09-13). 남은 것 둘: 알파가 섞인 조합 여덟을 잴 수단이 없어 [Color & Theme](../foundations/color-theme.md) 의 「alpha가 있는 색은 실제 배경과 함께 contrast pair를 선언한다」가 **미충족**이다 · Alert success · warning 은 소유자 판정 대기다. 아래 단위 6 절 |
 | 7 | elevation / border-width / radius 16개 | `done` — DS 몫인 `border-width-default` 는 원천·Figma 양쪽에 섰다. 남은 결손(radius 홀수 계단 · `14px` · `18px` · border-width `1.5px`)은 제품이 접을 대상이다 — [product-confirmations](../governance/product-confirmations.md) §3 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
 | 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) · sky 는 폐지돼 대상이 사라졌다(2026-08-26) · editor 범주색은 남았다 |
 | 10 | space / surface 보강 13개 | `partial` — surface 는 미채택으로 닫았고 앱 셸 램프는 제품이 LOUIS 별칭으로 바꿔 대상이 사라졌다. space 결손은 실측 결과 아래 |
 | 11 | DS-D-0009 결정 1~4 — `--louis-font-family-sans` 방출 · 폴백 스택에 OS 한글 폰트 · JA 스택 분리 · `local()` 메트릭 폴백 face(opt-in) | `pending` — **넷 다 미구현**(2026-09-13 확인). 아래 단위 11 절 |
 
-**단위 6 — 목표 수가 아니라 실제로 짝지어 쓰는 쌍으로 닫았다 (2026-09-13).**
+**단위 6 — 목표 수가 아니라 실제로 짝지어 쓰는 쌍을 쟀다. 불투명 12쌍은 올렸고 둘이 남았다 (2026-09-13).**
 
 표에 적혀 있던 「7 → 19」의 19쌍 목록은 저장소 어디에도 없다(`git grep` 이 이 표 한 줄만 낸다).
 그래서 수를 맞추지 않고 LOUIS 저작 CSS 를 쟀다 — 한 규칙 안에서 `color:` 와 `background:` 가
 둘 다 `var(--louis-color-*)` 를 직접 읽는데 쌍에 없던 불투명 조합이 17쌍이고, 두 모드 모두 4.5 를
-넘는 12쌍을 `minimum 4.5` 로 올렸다. 게이트 밖에 남긴 다섯은 사유가 있다 — 비활성 핸들 셋은
-WCAG 1.4.3 면제이고, Alert success · warning 은 light 3.90 · 3.43 이라 **소유자 판정**
-([Alert](../components/alert.md) Known deviations 4·5)이다. 알파가 섞인 조합은 게이트가 잴 수
-없어 셈에서 빠진다. 쌍 목록·수치·빠진 이유는 Updates (128) 이 갖는다.
+넘는 12쌍을 `minimum 4.5` 로 올렸다. 비활성 핸들 셋은 WCAG 1.4.3 면제라 올리지 않았다 — 이것은
+남은 일이 아니다. 쌍 목록·수치·빠진 이유는 Updates (128) 이 갖는다.
+
+**남은 것 둘 — 그래서 `partial` 이다.**
+
+1. **알파 조합 여덟이 규범 미충족 상태다.** [Color & Theme](../foundations/color-theme.md) 은
+   「alpha가 있는 색은 실제 배경과 함께 contrast pair를 선언한다」고 규정한다. 그런데 게이트
+   (`scripts/lib/token-model.mjs` 의 `contrastRatio`)는 두 색 중 하나라도 alpha 가 1이 아니면 비를
+   내지 않고, 그 쌍을 선언하면 `contrast 검사는 opaque sRGB color만 지원합니다` 로 **빌드를
+   거절한다** — 규범이 요구하는 선언을 할 수 없다. 오늘 컴포넌트가 한 규칙 안에서 짝지어 쓰는 알파
+   조합은 여덟이다.
+
+   | 전경 / 면 | 알파 | 자리 |
+   | --- | --- | --- |
+   | `fg-menu-item` / `bg-menu` | 전경 0.88 | 메뉴·팝오버 표면의 기본 글자 |
+   | `accent-secondary-foreground` / `accent-secondary` | 면 0.08 | secondary 버튼 |
+   | `alert-danger-foreground` / `alert-danger-surface` | 면 0.12 | Alert 기본 톤 |
+   | `fg-on-inverse` / `bg-inverse-translucent` | 면 0.72 | Toast |
+   | `fg-primary` / `accent-ghost-hover` | 면 0.08 | 사이드바 항목 hover |
+   | `fg-primary` / `accent-secondary-selected` | 면 0.20 (dark 만) | Segmented control 선택 |
+   | `media-control-foreground` / `media-control-surface` | 전경 0.88 · 면 0.28 | 프로젝트 카드 썸네일 위 더보기 |
+   | `accent-danger` / `accent-danger-secondary` | 면 0.12 | danger-secondary 버튼 |
+
+   잴 수단은 두 갈래다. `fg-menu-item` / `bg-menu` 는 면이 불투명해 **쌍 둘만으로 합성이 정해진다.**
+   나머지 일곱은 면이 알파라 **뒤에 비치는 것을 함께 정해야 한다** — 버튼·Alert·사이드바처럼 뒤가
+   페이지 면이면 그 면 토큰을 선언할 수 있지만, 한 컴포넌트가 여러 면 위에 서므로 뒤 면이 하나가
+   아니다. Toast(뒤 콘텐츠)와 썸네일 더보기(뒤 사진)는 선언할 토큰이 없다. 어느 쪽이든
+   `contrastPairs` 항목 모양을 넓히는 token source 스키마 변경이다. **착수 조건:** 일곱의 뒤 면
+   목록을 CSS 소비처에서 뽑고, 토큰으로 선언할 수 없는 둘을 무엇으로 재는지(최악 배경 가정인지,
+   게이트 밖 편차인지) 정한다. **여덟은 하한이다** — 「한 규칙 안」 기준으로 셌으므로 글자와 면이
+   다른 규칙에 있는 알파 조합 후보(배너 캐러셀 pill 컨트롤의 `media-control-*`, Tooltip
+   `coachmark` 레이아웃의 `bg-inverse-translucent` 면과 base 규칙의 `fg-on-inverse`)는 들어 있지
+   않다. 착수할 때 상속까지 따라 다시 센다.
+2. **Alert success · warning 은 소유자 판정 대기다.** light 3.90 · 3.43 이라 그대로 올리면 빌드가
+   죽고, `minimum` 을 낮춰 올리면 수용으로 읽힌다. 전경을 `color-fg-{tone}` 으로 옮길지 사유를 적고
+   수용할지는 [Alert](../components/alert.md) Known deviations 4·5 가 적은 판정이다.
 
 **단위 4 — disabled 12종은 이미 섰고, 「라이트에서 거의 검정」은 제품 화면에서 일어나지 않는다 (2026-09-13).**
 
@@ -13172,13 +13204,21 @@ LOUIS 저작 CSS(`packages/css/src/**/*.css`)를 postcss 로 읽어 **한 규칙
   근거가 확인되지 않았다」고 적고 있어 잠그는 순간 수용으로 읽힌다. **전경을 `color-fg-{tone}` 으로
   옮길지, 사유를 적고 수용할지는 소유자 판정으로 남긴다.**
 
-알파가 섞인 조합은 처음부터 셈에서 빠진다 — 게이트가 불투명 sRGB 만 잰다. 오늘 그런 조합은
+##### 알파가 섞인 여덟은 미충족 규범이다
+
+[Color & Theme](../foundations/color-theme.md) 은 「alpha가 있는 색은 실제 배경과 함께 contrast
+pair를 선언한다」고 규정한다. 그런데 게이트는 불투명 sRGB 만 재고, 알파가 섞인 쌍을 선언하면
+`contrast 검사는 opaque sRGB color만 지원합니다` 로 빌드를 거절한다. **그래서 아래 여덟은 게이트
+밖에 있는 것이 아니라 규범이 요구하는 선언을 할 수 없는 상태다** — 메뉴 표면 글자 · secondary 버튼 ·
+Alert 기본 톤 · Toast 가 여기 든다.
 `fg-menu-item`/`bg-menu` · `accent-secondary-foreground`/`accent-secondary` ·
 `alert-danger-foreground`/`alert-danger-surface` · `fg-on-inverse`/`bg-inverse-translucent` ·
 `fg-primary`/`accent-ghost-hover` · `fg-primary`/`accent-secondary-selected`(dark 만 알파) ·
-`media-control-foreground`/`media-control-surface` · `accent-danger`/`accent-danger-secondary` 여덟이다.
-합성 배경으로 재는 수단은 [Color & Theme](../foundations/color-theme.md) 의 「alpha가 있는 색은
-실제 배경과 함께 contrast pair를 선언한다」 규칙만 있고 아직 없다.
+`media-control-foreground`/`media-control-surface` · `accent-danger`/`accent-danger-secondary`.
+
+이 결손과 Alert success · warning 판정이 남아 **인계서 DS-P3-014 단위 6 은 `partial` 이다**(14 → 26쌍).
+합성 배경을 받는 게이트의 착수 조건은 인계서 단위 6 절이 갖고, Color & Theme 의 그 규칙 옆에도
+미충족을 적었다.
 
 ##### 목표 수 「19」는 근거가 없다
 

@@ -67,13 +67,21 @@ LOUIS 저작 CSS(`packages/css/src/**/*.css`)를 postcss 로 읽어 **한 규칙
   근거가 확인되지 않았다」고 적고 있어 잠그는 순간 수용으로 읽힌다. **전경을 `color-fg-{tone}` 으로
   옮길지, 사유를 적고 수용할지는 소유자 판정으로 남긴다.**
 
-알파가 섞인 조합은 처음부터 셈에서 빠진다 — 게이트가 불투명 sRGB 만 잰다. 오늘 그런 조합은
+### 알파가 섞인 여덟은 미충족 규범이다
+
+[Color & Theme](../foundations/color-theme.md) 은 「alpha가 있는 색은 실제 배경과 함께 contrast
+pair를 선언한다」고 규정한다. 그런데 게이트는 불투명 sRGB 만 재고, 알파가 섞인 쌍을 선언하면
+`contrast 검사는 opaque sRGB color만 지원합니다` 로 빌드를 거절한다. **그래서 아래 여덟은 게이트
+밖에 있는 것이 아니라 규범이 요구하는 선언을 할 수 없는 상태다** — 메뉴 표면 글자 · secondary 버튼 ·
+Alert 기본 톤 · Toast 가 여기 든다.
 `fg-menu-item`/`bg-menu` · `accent-secondary-foreground`/`accent-secondary` ·
 `alert-danger-foreground`/`alert-danger-surface` · `fg-on-inverse`/`bg-inverse-translucent` ·
 `fg-primary`/`accent-ghost-hover` · `fg-primary`/`accent-secondary-selected`(dark 만 알파) ·
-`media-control-foreground`/`media-control-surface` · `accent-danger`/`accent-danger-secondary` 여덟이다.
-합성 배경으로 재는 수단은 [Color & Theme](../foundations/color-theme.md) 의 「alpha가 있는 색은
-실제 배경과 함께 contrast pair를 선언한다」 규칙만 있고 아직 없다.
+`media-control-foreground`/`media-control-surface` · `accent-danger`/`accent-danger-secondary`.
+
+이 결손과 Alert success · warning 판정이 남아 **인계서 DS-P3-014 단위 6 은 `partial` 이다**(14 → 26쌍).
+합성 배경을 받는 게이트의 착수 조건은 인계서 단위 6 절이 갖고, Color & Theme 의 그 규칙 옆에도
+미충족을 적었다.
 
 ### 목표 수 「19」는 근거가 없다
 

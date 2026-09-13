@@ -267,6 +267,11 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 - source ID는 CSS, JavaScript, TypeScript와 Figma 이름이 바뀌어도 추적 가능한 안정 식별자다.
 - 플랫폼 이름 변환 충돌은 build error다.
 - alpha가 있는 색은 실제 배경과 함께 contrast pair를 선언한다.
+  **이 규칙은 아직 충족되지 않는다(2026-09-13 확인).** 대비 게이트(`scripts/lib/token-model.mjs` 의
+  `contrastRatio`)는 불투명 sRGB 만 재고, 알파가 섞인 쌍을 선언하면 빌드를 거절한다. 그래서
+  컴포넌트가 실제로 짝지어 쓰는 알파 조합 — 메뉴 표면 글자 · secondary 버튼 · Alert 기본 톤 ·
+  Toast 등 여덟 — 이 어느 쌍으로도 재어지지 않는다. 합성 배경을 받는 수단을 세우는 일은
+  [인계서](../governance/execution-handoff.md) DS-P3-014 단위 6 의 남은 작업이다.
 
 #### 노드 생성 중 placeholder의 매체별 accent
 

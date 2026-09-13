@@ -7346,7 +7346,8 @@ DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
 - **글자 대비가 light 에서 두 톤 미달이다** — success 3.90 · warning 3.43. 수치는 위 tone 표에
   있고 사유와 해소 경로는 Known deviations 4에 있다. dark 는 네 톤 모두 9.5 이상이다.
 - **위 tone 표(`block`)에서 게이트가 재는 것은 `info` 하나다.** `color-alert-info-foreground` / `-surface` 가
-  `contrastPairs` 에 있다(2026-09-13). 미달하는 두 톤은 올리지 않았다 — 이유는 Known deviations 5.
+  `contrastPairs` 에 있다(2026-09-13). 기본 톤 danger 는 면이 알파라 올릴 수 없고, 미달하는 두 톤은
+  올리지 않았다 — 이유는 둘 다 Known deviations 5.
 - 포커스 계약이 없다 — 루트가 포커스를 받지 않는다. 배너 안에 놓인 대화형 요소가 자기 링을
   갖는다.
 - 배너의 등장·소멸을 알리는 것은 소비처의 라이브 리전이다. 루트는 그 리전 자체가 될 수도 있고
@@ -7522,7 +7523,10 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
    note 를 달면 올릴 수는 있지만 4번이 「700 단계를 고른 근거가 확인되지 않았다」고 적고 있어
    잠그는 순간 수용으로 읽힌다. 그래서 **4의 두 수치는 여전히 게이트 밖이다** — 전경을
    `color-fg-{tone}` 으로 옮길지(값 변경), 사유를 적고 수용할지는 소유자 판정이다.
-   danger 는 면이 알파라 게이트가 잴 수 없다(불투명 sRGB 만 잰다). 배너 레이아웃의 네 톤은
+   **기본 톤인 danger 도 게이트 밖이다** — 면이 알파라 쌍을 선언하면 게이트가 빌드를 거절한다(불투명
+   sRGB 만 잰다). [Color & Theme](../foundations/color-theme.md) 의 「alpha가 있는 색은 실제 배경과
+   함께 contrast pair를 선언한다」가 이 자리에서 미충족이고, 합성 배경을 받는 수단은 인계서
+   DS-P3-014 단위 6 의 남은 작업이다. 배너 레이아웃의 네 톤은
    원래부터 `color-fg-{tone}` / `color-bg-{tone}` 쌍으로 재고 있었다. 기록은 Updates (128).
 
 6. **면 토큰 셋이 이미 있는 토큰과 값이 같다.** `color-alert-info-surface` 는 `color-bg-info` 와

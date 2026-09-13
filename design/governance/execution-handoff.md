@@ -1141,11 +1141,21 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 | 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `done` — 실측 39개 (2026-08-21) |
 | 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 `done`, disabled 12종은 Open question 3 대기 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
-| 6 | contrastPairs 7 → 19 | `partial` — 12 → 14쌍 (2026-08-21) |
+| 6 | contrastPairs 확장 — 목표 수 「19」는 목록 근거가 없어 지웠다 | `done` — 14 → 26쌍 (2026-09-13). 남은 후보는 게이트 밖 사유가 있다, 아래 참조 |
 | 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
 | 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) |
 | 10 | space / surface 보강 13개 | `partial` — blocked 해제, 실측 결과 아래 |
+
+**단위 6 — 목표 수가 아니라 실제로 짝지어 쓰는 쌍으로 닫았다 (2026-09-13).**
+
+표에 적혀 있던 「7 → 19」의 19쌍 목록은 저장소 어디에도 없다(`git grep` 이 이 표 한 줄만 낸다).
+그래서 수를 맞추지 않고 LOUIS 저작 CSS 를 쟀다 — 한 규칙 안에서 `color:` 와 `background:` 가
+둘 다 `var(--louis-color-*)` 를 직접 읽는데 쌍에 없던 불투명 조합이 17쌍이고, 두 모드 모두 4.5 를
+넘는 12쌍을 `minimum 4.5` 로 올렸다. 게이트 밖에 남긴 다섯은 사유가 있다 — 비활성 핸들 셋은
+WCAG 1.4.3 면제이고, Alert success · warning 은 light 3.90 · 3.43 이라 **소유자 판정**
+([Alert](../components/alert.md) Known deviations 4·5)이다. 알파가 섞인 조합은 게이트가 잴 수
+없어 셈에서 빠진다. 쌍 목록·수치·빠진 이유는 Updates (128) 이 갖는다.
 
 **단위 9 — danger foreground 공백은 해소됐다 (2026-08-21).**
 

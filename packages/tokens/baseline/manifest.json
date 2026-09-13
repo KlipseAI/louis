@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "af7fd01b9036ee2c2178ac9b1fcbc4b3ebba5bac91c7955293671b4b3c0f550d"
+      "sha256": "0e921261ae3a88892f8bdbba9d7413ec5e33cae7edc104e045a67da91903075e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,7 +10,7 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "6d63b8a5a7e5187477c7ceed4cb49e3b755d01fb7d7694547870421db1f3f1c6"
+      "sha256": "a18386cda0a65f1b581b41410da0b126486727df446665031c6d3f9877ad4d28"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
@@ -18,7 +18,7 @@
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "7ec8307b9799b860f6b3980442462ef1fd1194c1cffa6e763f58335fbc1e256f"
+      "sha256": "0f064925506f10e7d5a4d239df6fc19f7867fe7c9d661605b087ea937d4099ea"
     }
   ],
   "contrastPairs": [
@@ -95,6 +95,66 @@
     {
       "background": "color-bg-menu",
       "foreground": "color-fg-danger-on-surface",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-alert-info-surface",
+      "foreground": "color-alert-info-foreground",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-accent-inverse",
+      "foreground": "color-fg-on-accent-inverse",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-inset",
+      "foreground": "color-fg-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-raised",
+      "foreground": "color-fg-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-overlay",
+      "foreground": "color-fg-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-node-chip-surface",
+      "foreground": "color-fg-primary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-inset",
+      "foreground": "color-fg-secondary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-table-header-surface",
+      "foreground": "color-fg-secondary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-inset",
+      "foreground": "color-fg-tertiary",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-upgrade",
+      "foreground": "color-fg-upgrade",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-upgrade-hover",
+      "foreground": "color-fg-upgrade-hover",
+      "minimum": 4.5
+    },
+    {
+      "background": "color-bg-upgrade-current",
+      "foreground": "color-fg-upgrade-current",
       "minimum": 4.5
     }
   ],
@@ -419,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "24e08f22e435443590f89d3cfa036dc8967fe28253b0501af00e042aacfa93d7"
+    "sha256": "56707a02d24d7f676434a6459cca4274b02cc3509c6b2dc6a6d03781b902c670"
   },
   "themes": [
     "light",

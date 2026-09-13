@@ -25,6 +25,82 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올린다 (DS-P3-014 단위 6)
+
+**대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로
+같은 자리에 칠하는 조합은 일부뿐이었다 — [Alert](../components/alert.md) Known deviations 5가
+「`color-alert-*` 쌍이 하나도 없어 4의 수치를 아무도 재지 않는다」고 적어 둔 그 결손이다. 쌍이
+없으면 면이나 글자 값이 4.5 아래로 내려가도 `build-tokens` 는 초록이다.
+
+### 무엇을 세었나
+
+LOUIS 저작 CSS(`packages/css/src/**/*.css`)를 postcss 로 읽어 **한 규칙 안에서** `color:` 와
+`background:`/`background-color:` 가 둘 다 `var(--louis-color-*)` 를 직접 읽는 조합을 뽑았다.
+`color-mix()` 로 섞은 값은 그 토큰의 색이 아니므로 뺐다. 이미 쌍에 있는 것을 빼면 **17쌍**이
+남는다. 대비는 `token-model.mjs` 의 `contrastRatio` 와 같은 식으로 generated manifest 의
+`resolvedValue` 에서 잰다.
+
+| 전경 | 면 | light | dark | 규칙 |
+| --- | --- | ---: | ---: | --- |
+| `color-alert-info-foreground` | `color-alert-info-surface` | 5.92 | 10.33 | `.louis-alert[data-tone="info"]` |
+| `color-fg-on-accent-inverse` | `color-accent-inverse` | 20.12 | 20.12 | `.louis-button[data-variant="inverse"]` |
+| `color-fg-primary` | `color-bg-inset` | 14.61 | 18.12 | 사이드바 현재 항목 · 눌린 IconButton · InspectorRow · SelectTrigger · 목록 현재 행 |
+| `color-fg-primary` | `color-bg-raised` | 17.27 | 16.54 | `.louis-inspector-row__number` |
+| `color-fg-primary` | `color-bg-overlay` | 16.54 | 16.54 | `.louis-dialog__surface` |
+| `color-fg-primary` | `color-node-chip-surface` | 14.61 | 6.44 | `.louis-node-chip` |
+| `color-fg-secondary` | `color-bg-inset` | 8.15 | 7.93 | `.louis-badge` |
+| `color-fg-secondary` | `color-table-header-surface` | 7.15 | 7.24 | `.louis-table > thead > tr > th` |
+| `color-fg-tertiary` | `color-bg-inset` | 5.68 | 5.75 | `.louis-avatar` |
+| `color-fg-upgrade` | `color-bg-upgrade` | 14.61 | 12.81 | `.louis-sidebar-cta__button` |
+| `color-fg-upgrade-hover` | `color-bg-upgrade-hover` | 11.37 | 9.77 | 같은 버튼의 `:hover` |
+| `color-fg-upgrade-current` | `color-bg-upgrade-current` | 17.77 | 16.54 | 같은 버튼의 `[aria-current="page"]` |
+
+위 12쌍을 `minimum 4.5`, note 없이 더했다. 두 모드 모두 4.5 를 넘는 불투명 쌍이다.
+
+### 넣지 않은 다섯과 그 이유
+
+- **비활성 핸들 세 쌍**(`color-node-handle-icon-disabled-{image,text,edit}` /
+  `-bg-disabled-*`, 1.77 · 2.45 · 3.16). 비활성 컨트롤은 WCAG 1.4.3 의 대비 요구에서 면제된다.
+  게이트에 올리면 통과시킬 기준도 사유도 없는 쌍이 된다.
+- **Alert success · warning**(light 3.90 · 3.43, dark 9.55 · 10.83). light 에서 4.5 에 못 미친다.
+  `minimum` 을 낮추고 note 를 달면 올릴 수는 있지만, Alert Known deviations 4가 「700 단계를 고른
+  근거가 확인되지 않았다」고 적고 있어 잠그는 순간 수용으로 읽힌다. **전경을 `color-fg-{tone}` 으로
+  옮길지, 사유를 적고 수용할지는 소유자 판정으로 남긴다.**
+
+알파가 섞인 조합은 처음부터 셈에서 빠진다 — 게이트가 불투명 sRGB 만 잰다. 오늘 그런 조합은
+`fg-menu-item`/`bg-menu` · `accent-secondary-foreground`/`accent-secondary` ·
+`alert-danger-foreground`/`alert-danger-surface` · `fg-on-inverse`/`bg-inverse-translucent` ·
+`fg-primary`/`accent-ghost-hover` · `fg-primary`/`accent-secondary-selected`(dark 만 알파) ·
+`media-control-foreground`/`media-control-surface` · `accent-danger`/`accent-danger-secondary` 여덟이다.
+합성 배경으로 재는 수단은 [Color & Theme](../foundations/color-theme.md) 의 「alpha가 있는 색은
+실제 배경과 함께 contrast pair를 선언한다」 규칙만 있고 아직 없다.
+
+### 목표 수 「19」는 근거가 없다
+
+인계서 단위 표가 「contrastPairs 7 → 19」라고 적어 두었지만 그 19쌍의 목록은 저장소 어디에도 없다
+(`git grep` 이 그 표 한 줄만 낸다). 수를 맞추려고 쌍을 고르면 근거 없는 쌍이 된다. 그래서 표를
+실측 결과로 바꾸고 목표 수를 지웠다.
+
+### 의도적 breaking
+
+[Releases](../governance/releases.md) 절차대로 이 항목을 먼저 쓰고 `node scripts/diff-tokens.mjs`
+로 분류를 확인했다 — **`contrastPairs: 1` 하나이고 나머지 분류는 전부 0이다.** 기존 14쌍은 순서와
+값이 그대로이고 뒤에 12쌍이 붙었을 뿐이다. 그 뒤 `packages/tokens/generated/manifest.json` 을
+`packages/tokens/baseline/manifest.json` 으로 복사했다. `contrastPairs` 는 이름이 유지돼도 항상
+breaking 으로 분류되는 공용 root metadata 다.
+
+### Migration
+
+- **토큰 값은 하나도 바뀌지 않았다.** `tokens.css` · 생성 CSS · `index.d.ts` 는 바이트가 같다.
+  바뀐 것은 `manifest.json` · `tokens.json` · `index.js` · `figma.tokens.json` 의
+  `contrastPairs` 배열 길이다. 그 배열을 읽는 소비자는 항목이 늘어난다.
+- **앞으로 위 표의 토큰 값을 옮기는 변경은 그 쌍이 두 모드 모두 4.5 를 지켜야 `build-tokens` 가
+  통과한다.** 예컨대 `color-node-chip-surface` 를 다크에서 한 칸 밝히면(pg-500 은 4.43) 빨간불이다.
+- 제품이 소비하는 `@klipse-design/css` 출력이 그대로이므로 제품 핀을 올릴 이유가 없다.
+- **Figma 에는 쓰지 않았다.** 변수·style 은 그대로이고(`verify-figma-variables` 가 적용 코드
+  불변을 확인한다), `figma/snapshot.json` 은 provenance 의 두 해시(`tokenSourceSha256` ·
+  `proposalSha256`)만 `build-figma-snapshot` 으로 다시 냈다. readback 은 바뀌지 않았다.
+
 ## 2026-09-11 (127) — pg-850 칸을 비우고, 그 위에 서 있던 여섯을 pg-900 으로 내린다
 
 소유자 지정이다. 회색 램프에서 **850 만 반 칸**이었다 — 600 다음이 700 이고 800 다음이 900 인데

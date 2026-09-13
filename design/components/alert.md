@@ -165,8 +165,9 @@ DS 가 소유하는 것은, toast 가 스스로 뜨고 사라져 소비처가 �
 **`banner` 의 면은 알파 틴트가 아니다.** 12% 틴트는 카드 면 위에 얹히는 상자에서 성립하는
 값이고, 전폭 띠는 페이지 바닥 위에 직접 놓여 그 면이 거의 보이지 않는다. 그래서 `color-bg-{tone}`
 · `color-fg-{tone}` — 톤 컨테이너를 위해 이미 서 있는 토큰 — 을 쓴다. 새 토큰을 만들지 않았고,
-그 두 쌍은 token source 의 `contrastPairs` 에 이미 들어 있어 **네 레이아웃 중 글자 대비를 재는
-게이트가 실제로 도는 유일한 자리**가 된다.
+그 쌍들은 token source 의 `contrastPairs` 에 이미 들어 있어 **배너는 네 톤 전부 글자 대비를 게이트가
+잰다.** `block` 은 불투명한 `info` 톤 하나만 게이트에 올라 있고(2026-09-13, Known deviations 5),
+`inline` 은 톤이 없다.
 
 **`banner` 는 위치를 갖지 않는다.** `position: fixed` · `top` · 쌓임 순서는 띠가 **어디에
 붙는가**이지 어떻게 그려지는가가 아니다. 소비처가 자기 레이아웃에서 준다 — 제품 담지자가
@@ -250,9 +251,9 @@ DS 가 골랐다. 그래서 danger 배너만 뒤 표면이 비쳐 보인다.
   면이 되어 구분이 사라진다. 그래서 경계를 `currentColor` 1px 실선으로 남긴다. 아이콘과 제목이
   거기서 의미를 계속 전달한다.
 - **글자 대비가 light 에서 두 톤 미달이다** — success 3.90 · warning 3.43. 수치는 위 tone 표에
-  있고 사유와 해소 경로는 Known deviations 4에 있다. dark 는 네 톤 모두 9.06 이상이다.
-- **이 대비를 재는 게이트가 없다.** token source 의 `contrastPairs` 14쌍 어디에도
-  `color-alert-*` 가 없다.
+  있고 사유와 해소 경로는 Known deviations 4에 있다. dark 는 네 톤 모두 9.5 이상이다.
+- **위 tone 표(`block`)에서 게이트가 재는 것은 `info` 하나다.** `color-alert-info-foreground` / `-surface` 가
+  `contrastPairs` 에 있다(2026-09-13). 미달하는 두 톤은 올리지 않았다 — 이유는 Known deviations 5.
 - 포커스 계약이 없다 — 루트가 포커스를 받지 않는다. 배너 안에 놓인 대화형 요소가 자기 링을
   갖는다.
 - 배너의 등장·소멸을 알리는 것은 소비처의 라이브 리전이다. 루트는 그 리전 자체가 될 수도 있고
@@ -421,9 +422,15 @@ medium 이다. 제품의 `type-*` 클래스는 base 레이어라 LOUIS 컴포넌
    같은 문제가 없다. **700 단계를 고른 근거가 CSS 에도 token source 에도 적혀 있지 않다** —
    확인되지 않았다.
 
-5. **`contrastPairs` 에 `color-alert-*` 쌍이 하나도 없다.** 선언된 14쌍 중 넷이
-   `color-fg-{tone}` / `color-bg-{tone}` 인데 alert 는 그 토큰을 쓰지 않으므로 게이트를 비켜
-   간다. 4의 수치는 아무도 재고 있지 않다.
+5. ~~**`contrastPairs` 에 `color-alert-*` 쌍이 하나도 없다.**~~ **절반 해소됨(2026-09-13).**
+   `info` 톤의 `color-alert-info-foreground` / `color-alert-info-surface`(5.92 / 10.33)를
+   `minimum 4.5` 로 올렸다 — 두 모드 모두 통과하는 불투명 쌍이다. **success · warning 은 올리지
+   않았다.** light 에서 4.5 에 못 미쳐 그대로 올리면 빌드가 죽고, `minimum` 을 3.8 · 3.4 로 낮춰
+   note 를 달면 올릴 수는 있지만 4번이 「700 단계를 고른 근거가 확인되지 않았다」고 적고 있어
+   잠그는 순간 수용으로 읽힌다. 그래서 **4의 두 수치는 여전히 게이트 밖이다** — 전경을
+   `color-fg-{tone}` 으로 옮길지(값 변경), 사유를 적고 수용할지는 소유자 판정이다.
+   danger 는 면이 알파라 게이트가 잴 수 없다(불투명 sRGB 만 잰다). 배너 레이아웃의 네 톤은
+   원래부터 `color-fg-{tone}` / `color-bg-{tone}` 쌍으로 재고 있었다. 기록은 Updates (128).
 
 6. **면 토큰 셋이 이미 있는 토큰과 값이 같다.** `color-alert-info-surface` 는 `color-bg-info` 와
    같은 `blue.050`(dark 는 `blue.900`)이고 success·warning 도 각각 `color-bg-success` ·

@@ -77,6 +77,66 @@ export const metadata = Object.freeze({
       "foreground": "color-fg-danger-on-surface",
       "background": "color-bg-menu",
       "minimum": 4.5
+    },
+    {
+      "foreground": "color-alert-info-foreground",
+      "background": "color-alert-info-surface",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-on-accent-inverse",
+      "background": "color-accent-inverse",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-primary",
+      "background": "color-bg-inset",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-primary",
+      "background": "color-bg-raised",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-primary",
+      "background": "color-bg-overlay",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-primary",
+      "background": "color-node-chip-surface",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-secondary",
+      "background": "color-bg-inset",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-secondary",
+      "background": "color-table-header-surface",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-tertiary",
+      "background": "color-bg-inset",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-upgrade",
+      "background": "color-bg-upgrade",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-upgrade-hover",
+      "background": "color-bg-upgrade-hover",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color-fg-upgrade-current",
+      "background": "color-bg-upgrade-current",
+      "minimum": 4.5
     }
   ],
   "description": "Klipse Design의 DTCG 2025.10 기반 토큰 정본",

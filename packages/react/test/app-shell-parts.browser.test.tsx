@@ -162,7 +162,7 @@ test("복합 행은 버튼 안에 버튼을 넣지 않는다", async () => {
     </div>,
   );
   const row = find(".louis-sidebar-nav-row");
-  // 배포본도 같은 이유로 행을 div로 두고 내비와 액션을 형제로 놓는다.
+  // 배포본도 「+」를 두던 때(제품 658ece13 이전) 같은 이유로 행을 div로 두고 내비와 액션을 형제로 놓았다.
   expect(row.tagName).toBe("DIV");
   expect(row.querySelectorAll("button button")).toHaveLength(0);
   expect(row.querySelectorAll("a button")).toHaveLength(0);

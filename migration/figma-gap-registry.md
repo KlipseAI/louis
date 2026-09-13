@@ -51,7 +51,7 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | **배너 컨트롤 (화살표 + 진행 도트)** — *해소* | 앱 홈 | `components/scenes/appHomeSceneStyles.ts:415`(`bannerControls`) · `:394` · `:436` · `:443` |
 | **업로드 진행바 (determinate)** | 하이라이트 상세 · 숏폼 클립 편집 | `components/scenes/HighlightProjectScene.tsx:2652` |
 | **사이드바 브랜드 워드마크 행** | 앱 홈 · 캔버스 허브 | `components/navigation/Gnb.tsx:4377` |
-| **복합 내비 행 + 인셋 생성(+) 버튼** | 하이라이트 허브 · 비디오에디터 허브 | `components/navigation/Gnb.tsx:4743` |
+| **복합 내비 행 + 인셋 생성(+) 버튼** — **걷힘** | (옛 기록: 하이라이트 허브 · 비디오에디터 허브 — 실제로는 캔버스 · 컴포지션 행이었다) | 제품 `658ece13` 이 「+」 넷을 걷어 대상이 사라졌다(옛 줄 번호는 지금 무관한 코드를 가리켜 지웠다) |
 | **사이드바 하단 '보관함' 버튼** | 앱 홈 · 캔버스 허브 | `components/navigation/Gnb.tsx:5015` |
 
 ### 한 화면 전용 — 42종
@@ -64,7 +64,7 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 앱 셸 사이드바 레일 레이아웃 | 앱 홈 | `components/scenes/AppHomeScene.tsx:822` |
 | 카드 인라인 이름 변경 입력 | 앱 홈 | `components/scenes/AppHomeScene.tsx:1204` |
 | 크레딧 잔량 게이지 바 | 앱 홈 | `components/navigation/Gnb.tsx:3172` |
-| 사이드바 생성 행 인셋 「+」 애드온 버튼 | 앱 홈 | `components/navigation/Gnb.tsx:4678` |
+| 사이드바 생성 행 인셋 「+」 애드온 버튼 — **걷힘** | 앱 홈 | 제품 `658ece13` 이 버튼을 걷어 대상이 사라졌다(옛 줄 번호는 지금 무관한 코드를 가리켜 지웠다) |
 | 브레드크럼 (하이라이트 / 프로젝트명) | 하이라이트 상세 | `components/navigation/Gnb.tsx:5285` |
 | 리뷰 세그먼트 행 (체크박스 + 썸네일 + 2줄 정보) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2926` |
 | 상태 카드 스피너 (로딩·업로드·분석·추출) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2639` |
@@ -84,7 +84,7 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 줌 비율 트리거 알약 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx:145` |
 | 앱 셸 레이아웃(좌측 레일 예약 + 우측 메인 카드 + 카드 안 스크롤 루트) | 캔버스 허브 | `components/scenes/NodeCanvasHomeScene.tsx:86` |
 | 잔여 크레딧 진행 바 | 캔버스 허브 | `components/navigation/Gnb.tsx:3175` |
-| 사이드바 복합 내비 행(내비 + 인셋 생성 버튼) | 캔버스 허브 | `components/navigation/Gnb.tsx:4626` |
+| 사이드바 복합 내비 행(내비 + 인셋 생성 버튼) — **걷힘** | 캔버스 허브 | 제품 `658ece13` 이 「+」를 걷어 일반 내비 행이 됐다(옛 줄 번호는 지금 무관한 코드를 가리켜 지웠다) |
 | 결과 액션 2열 그리드 (YouTube 업로드 primary + 다운로드·다시 편집 soft ghost) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:253` |
 | 레이아웃 프리셋 칩 + 9:16 미니 다이어그램 | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:371` |
 | 결과 메타데이터 정의 목록 (비율/길이/해상도/용량/형식, 행 사이 상단 구분선) | 숏폼 클립 편집 | `app/highlight/[projectId]/shorts/[shortId]/page.tsx:1284` |
@@ -354,7 +354,9 @@ DS는 의도한 값을 채택한다. `color-accent-primary`가 이미 `#0088ff`�
 
 #### 4. 복합 내비 행
 
-감사가 `Gnb.tsx:4626`·`:4743`에서 확인했다. 내비 행 안에 생성(+) 버튼이 인셋으로 들어간다.
+**걷혔다(제품 `658ece13`).** 감사 당시(f19cc41c 이전)에는 내비 행 안에 생성(+) 버튼이 인셋으로 들어가 있었다.
+그 커밋이 「+」 넷(데스크톱 사이드바 캔버스 · 컴포지션 행, 접힌 사이드바, 모바일 드로어)을 지웠고, 감사가 적었던
+줄 번호는 지금 무관한 코드를 가리켜 지웠다. 아래 서술은 그 시점의 기록이다.
 
 #### 여기서 나온 판정 하나 — `motion-layout-change`가 한 값으로 부족하다
 
@@ -819,8 +821,8 @@ CTA가 **같은 클래스 세 개**(`sidebarUpgradeWrap` · `sidebarUpgradeButto
 쓴다 — 바닥 자리는 하나이고 화면에 따라 라벨과 목적지만 바뀐다. 이름이 `SidebarCta`인 것은 그
 자리의 첫 쓰임 때문이지 계약이 업그레이드에 매여 있다는 뜻이 아니다.
 
-`SidebarNavRow`에서 배운 것 하나. 배포본은 이 행을 `<div>`로 두고 내비와 「+」를 **형제 버튼**으로
-놓는다. 행 전체를 버튼으로 만들고 그 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너지기
+`SidebarNavRow`에서 배운 것 하나. 배포본은 「+」를 두던 때 이 행을 `<div>`로 두고 내비와 「+」를
+**형제 버튼**으로 놓았다(「+」는 제품 `658ece13` 에서 걷혔다). 행 전체를 버튼으로 만들고 그 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너지기
 때문이다. DS도 같은 구조를 쓰고 acceptance test가 `button button`과 `a button`이 0건임을 확인한다.
 
 

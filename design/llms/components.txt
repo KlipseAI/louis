@@ -5934,6 +5934,10 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 | 6 | 「분석」 구획 라벨 | — | — | 밖 | `<li role="presentation">` |
 | 7 | YouTube 분석 | `/analytics/youtube` | `/icons/youtube.svg` | 안 | |
 
+이 표는 `a9ead58b` 의 사실이다. 그 뒤 제품이 두 가지를 바꿨다 — 행 4 의 라벨이 「컴포지션」이 됐고
+(위 라벨 대응표), 행 3 · 4 의 「+」가 `658ece13` 에서 걷혀 일반 내비 행이 됐다(아래 「복합 내비 행」).
+같은 커밋이 행 5 의 베타 칩을 라벨 옆으로 옮겼다.
+
 **`/analytics/instagram`은 레일에 서지 않는다.** 라우트도 아이콘(`/icons/InstagramLogo.svg`)도 라벨도
 코드에 있지만 `INSTAGRAM_ANALYTICS_HIDDEN = true`가 그 행을 렌더 직전에 걷어낸다. 위 라벨 표에 한 줄로
 올라 있다고 그리면 배포본에 없는 행이 하나 더 선다. 같은 플래그를 미들웨어가 라우트 차단에도 쓰므로
@@ -5964,62 +5968,79 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 
 #### 복합 내비 행
 
-배포본에는 내비 항목 하나와 「+」 생성 버튼이 한 줄을 나눠 쓰는 형태가 있다(하이라이트 허브 ·
-비디오에디터 허브). 보통 항목은 행 전체가 하나의 히트 영역인데, 여기서는 **두 개의 목적지가 한
-줄을 나눠 쓴다** — 왼쪽은 "그 화면으로", 오른쪽은 "새로 만들기"다.
+**배포본 사이드바에는 지금 복합 행이 없다.** 제품 `658ece13`(2026-09-11, 「사이드바에서 + 버튼을 걷고
+베타 딱지를 라벨 옆으로 옮긴다」)이 「+」 생성 버튼을 걷었다. 커밋 메시지는 넷을 지웠다고 적는다 —
+데스크톱 사이드바의 캔버스·컴포지션 행, 접힌 사이드바, 모바일 드로어. 참조가 0이 된 글리프
+`NavPlusGlyph`와 액션 스타일 상수 둘(`menuSidebarCreateAddonInset` · `mobileMenuLinkAddon`)도 같은
+커밋에서 지워졌다.
 
-`SidebarNavRow`가 그 줄을 소유한다. `SidebarNavItem`을 감쌀 뿐이며 항목을 다시 만들지 않는다 —
-다른 컴포넌트를 만들면 선택 색·높이·반경이 두 곳에서 갈린다.
+배포본 `6fbdac16`에서 「캔버스」와 「컴포지션」은 **목적지 하나짜리 일반 내비 행**이다.
 
-**행 자체는 버튼이 아니다.** 버튼 안에 버튼을 넣으면 HTML이 깨지고 키보드 순회가 무너진다.
-배포본도 같은 이유로 행을 `<div>`로 두고 내비와 액션을 형제로 놓는다.
+| 축 | 배포본 `6fbdac16` |
+| --- | --- |
+| 행 안의 조작 요소 | 내비 `<button>` 하나. 형제 액션이 없다 |
+| 히트 영역 | 행 전체 — 그 화면으로 가는 목적지 하나 |
+| 접근 이름 | 펼침에서는 라벨 `<span>`이 소유한다. 접힘에서 라벨이 `aria-hidden`이 되고 버튼에 `aria-label`이 붙는다 |
+| 남은 래퍼 | `<div role="presentation">` + `menuSidebarCreateCompound`(flex · `gap: 4px`). 커밋이 「아직 쓰이므로 남긴다」고 적은 껍데기다 — 자식이 하나라 `gap`이 만드는 간격이 없다 |
 
-**접히면 액션이 사라진다.** 아이콘 하나가 들어가는 32px 자리에 둘을 넣을 수 없다. 배포본도
-접힘에서 `display: none`으로 지운다.
+그러므로 두 행은 **`SidebarNavItem` 하나로 그린다.** `SidebarNavRow`로 감싸거나 액션 자리를 비워 두면
+배포본에 없는 구조가 선다. 새로 만들기 진입점은 레일에서 빠졌고, 셸 안에서는 커맨드 팔레트의
+`canvas:new` · `videoeditor:new` 두 항목이 같은 생성 함수를 부른다. 「+」가 쓰던 i18n 키 둘
+(`appNav.createNewCanvasProject` · `appNav.createNewVideoEditProject`)은 메시지 파일에 남았지만 소비처가
+없다.
 
-**복합 행은 「캔버스」와 「비디오 에디터」 두 줄이다.** 위 문단의 「하이라이트 허브 ·
-비디오에디터 허브」는 오기다 — **하이라이트 행에는 「+」가 없고** 그 자리에 베타 칩이 온다(trailing).
+근거(제품 저장소에서 실행): `git show --stat 658ece13` · `git grep -n NavPlusGlyph 6fbdac16`(결과 없음) ·
+`git grep -n menuSidebarCreateCompound 6fbdac16`(선언과 두 행의 className뿐) ·
+`git grep -n createVideoEditProject 6fbdac16`(정의와 팔레트 `onSelect`). Figma 보드 생성기도 같은 커밋을
+따라 두 행을 compound에서 simple로 내렸다(`scripts/build-figma-product-components.mjs`의 `rows` 주석).
 
-**두 「+」의 동작이 서로 다르다.** 한 문장으로 뭉뚱그리면 한쪽을 반드시 잘못 그린다.
+##### DS 역량 — `SidebarNavRow`의 액션 슬롯(제품 미사용)
 
-| 행 | 「+」 동작 | 화면 결과 |
-| --- | --- | --- |
-| 캔버스 | `stopPropagation()` 후 트리거 요소를 넘겨 생성 모달을 연다 | **모달이 뜬다.** 복귀 포커스가 그 버튼이다 |
-| 비디오 에디터 | `stopPropagation()` 후 프로젝트를 만들고 `/videoeditor/{id}`로 이동한다 | **모달 없이 즉시 생성 후 이동.** 중간 화면이 없다 |
+> **아래는 DS가 여전히 내보내는 API다. 배포본 `6fbdac16`에는 이것을 쓰는 자리가 없다.** 제품에 복합
+> 행이 다시 서기 전까지 제품 화면을 이 부품으로 그리지 않는다. export를 걷는 것은 이 정정의 범위가
+> 아니다.
 
-두 행이 `stopPropagation()`을 쓰는 이유는 같다 — 액션이 행의 내비 절반을 함께 발화시키면 안 된다.
-접근 이름도 갈린다: "New project (open canvas)" 대 "New project (video edit)".
+`SidebarNavRow`는 `SidebarNavItem` 하나(`children`)와 보조 액션(`action`)을 한 줄에 놓는다. 항목을 감쌀
+뿐 다시 만들지 않는다 — 다른 컴포넌트를 만들면 선택 색·높이·반경이 두 곳에서 갈린다.
 
-**액션 슬롯(「+」 버튼)의 기하.** 32px 행 안에 들어가는 24px 버튼이며 행 높이와 같지 않다.
+- **행 자체는 버튼이 아니다.** `<div>`에 항목과 액션을 형제로 놓는다. 버튼 안에 버튼을 넣으면 HTML이
+  깨지고 키보드 순회가 무너진다.
+- **`collapsed`면 액션을 렌더하지 않는다.** 아이콘 하나가 들어가는 자리에 둘을 넣을 수 없다.
+- 코드가 고정하는 기하는 행의 것뿐이다 — `gap` `space-control-xs`, 항목이 남는 자리를 먹고 액션
+  자리는 줄지 않는다(`flex: none`). **액션의 크기·면·글리프는 넣는 쪽이 소유한다.**
+- Figma component `SidebarNavRow`는 `Action` boolean과 24 × 24 Action 자리를 갖는다
+  (`figma/readback.json`). 지금 제품에는 그 자리에 대응하는 요소가 없다.
 
-| 축 | 값 |
-| --- | ---: |
-| 크기 | 24 × 24 (행 32보다 8 작다) |
-| 반경 | 6px |
-| 테두리 | `0` |
-| 여백 | `margin: 0` · `padding: 0` — 글리프가 flex 가운데 정렬 |
-| `flex-shrink` | `0` — 라벨이 길어도 줄지 않는다 |
-| 전환 | `background 160ms ease` |
-| 접힘 | `display: none` |
+구현과 검증: `packages/react/src/app-shell/app-shell-parts.tsx` · `packages/css/src/component/app-shell.css`
+· `packages/react/test/app-shell-parts.browser.test.tsx`(버튼 안에 버튼 없음 · 접힘에서 액션 사라짐).
 
-| 상태 | light | dark |
-| --- | --- | --- |
-| rest | `--palette-gray-200` = `#eeeef1` | `--palette-gray-700` = `#575d68` |
-| hover | `--palette-gray-300` = `#e4e5e9` | `--palette-gray-600` = `#777d89` |
+##### 이력 — 배포본 `f19cc41c`의 「+」 생성 버튼
 
-글자색은 `inherit`으로 행의 전경을 그대로 받는다. **면은 행 배경 위에서 한 단계 올라온 중립이지
-강조색이 아니다** — 브랜드 파랑이나 accent로 그리면 배포본과 다르다. 행 자체는 `display: flex` ·
-`gap: 4px`이다.
+> **아래는 과거 배포본 `f19cc41c`(2026-09-10)의 사실이다. `6fbdac16`에는 어느 것도 없다.** 지우지 않고
+> 앵커에 묶어 두는 것은, 그 요소가 실재했다는 것과 무엇이 없어졌는지를 함께 남기기 위해서다. 확인:
+> 제품 저장소에서 `git grep -c NavPlusGlyph f19cc41c`는 5(정의 1 · 렌더 4)다.
 
-**글리프는 앱 내비 아이콘과 같은 규격이다** — 표시 20 × 20, `viewBox="0 0 32 32"`, 두 path
-(`M16 9V23`, `M9 16H23`), `stroke="currentColor"`, `stroke-width="2.4"`, `stroke-linecap="round"`,
-`fill="none"`. 텍스트 「+」 글자가 아니므로 폰트를 바꿔도 두께가 따라오지 않는다(버튼에 남아 있는
-`font-size`·`font-weight` 선언은 사문이다).
+복합 행은 「캔버스」와 「컴포지션」 두 줄이었고 하이라이트 행에는 「+」가 없었다. 행은
+`<div role="presentation">`이었고 내비 `<button>`과 「+」 `<button>`이 형제였다. 두 「+」의 동작은 서로
+달랐다.
 
-근거: `Gnb.tsx:765-789`(액션 버튼) · `Gnb.tsx:790-797`(행) · `Gnb.tsx:2198-2223`(글리프) ·
-`Gnb.tsx:2060-2061`(앱 셸 라이트 램프) · `globals.css:35-36`(다크) ·
-`Gnb.tsx:2151-2162`(행 배열) · `Gnb.tsx:4660-4675`(캔버스 모달) ·
-`Gnb.tsx:2706-2720`(비디오 에디터 즉시 생성) · `Gnb.tsx:4749-4791`(하이라이트 = 일반 행 + 베타 칩).
+| 행 | 「+」 동작 | 화면 결과 | 접근 이름(en · ko) |
+| --- | --- | --- | --- |
+| 캔버스 | `stopPropagation()` 후 버튼 자신을 트리거로 넘겨 생성 모달을 연다 | **모달이 뜬다** | "New project (open canvas)" · 「새 프로젝트 (캔버스 열기)」 |
+| 컴포지션 | `stopPropagation()` 후 프로젝트를 만들고 `/videoeditor/{id}`로 이동한다 | **모달 없이 즉시 생성 후 이동** | "New project (Composition)" · 「새 프로젝트 (컴포지션)」 |
+
+`stopPropagation()`은 액션이 행의 내비 절반을 함께 발화시키지 않게 하려는 것이었다. 이 문서의 앞선
+판이 적은 "New project (video edit)"는 개명 커밋 `be5e1db6`(2026-09-10) 이전 문구다.
+
+**액션 기하 — 클래스 선언 그대로.** 24 × 24 · 반경 6px · `border: 0` · `margin: 0` · `padding: 0` ·
+`flex-shrink: 0` · `transition: background 160ms ease` · 접힘 `display: none`. 면은 강조색이 아닌 중립
+팔레트를 선언했다 — 기본(다크) `--palette-gray-700`, hover `--palette-gray-600`, 라이트
+`--palette-gray-100`, hover `--palette-gray-150`. 글자색 `inherit`. 행 래퍼는 `display: flex` ·
+`gap: 4px`.
+
+**글리프 `NavPlusGlyph`.** 표시 20 × 20, `viewBox="0 0 32 32"`, 두 path(`M16 9V23`, `M9 16H23`),
+`stroke="currentColor"`, `stroke-width="2.4"`, `stroke-linecap="round"`, `fill="none"`. 텍스트 「+」가
+아니었으므로 버튼에 선언된 `font-size`·`font-weight`는 사문이었다.
 
 #### Sidebar brand와 CTA
 

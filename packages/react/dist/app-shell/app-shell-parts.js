@@ -29,9 +29,10 @@ export function SidebarNavItem(props) {
 /**
  * 내비 항목 하나와 보조 액션을 한 줄에 놓는다.
  *
- * 배포본에는 이 형태가 두 화면에 있다(하이라이트 허브 · 비디오에디터 허브). 행 전체가 하나의
- * 히트 영역인 보통 항목과 달리, 여기서는 **두 개의 목적지가 한 줄을 나눠 쓴다** — 왼쪽은
- * "그 화면으로", 오른쪽 「+」는 "새로 만들기"다.
+ * 행 전체가 하나의 히트 영역인 보통 항목과 달리, 여기서는 **두 개의 목적지가 한 줄을 나눠
+ * 쓴다** — 왼쪽은 "그 화면으로", 오른쪽 액션은 "새로 만들기" 같은 보조 동작이다. 배포본의
+ * 캔버스 · 컴포지션 행이 「+」로 이 형태를 썼으나 제품 `658ece13` 에서 걷혀, 지금은 쓰는 배포본
+ * 화면이 없다.
  */
 export function SidebarNavRow({ children, action, collapsed = false, className, ...rest }) {
     return (_jsxs("div", { ...rest, className: join("louis-sidebar-nav-row", className), "data-collapsed": collapsed ? "true" : undefined, children: [children, action === undefined || collapsed ? null : (_jsx("span", { className: "louis-sidebar-nav-row__action", children: action }))] }));

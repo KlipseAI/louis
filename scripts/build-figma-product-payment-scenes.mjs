@@ -115,7 +115,14 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-48b751ac1e30(25, body.1.0.0.1, fail)     → subtree-0f24f9093a95
 //   subtree-6dd1be31e112(21, body.1.0.0.1, success)  → subtree-71e9f8d4cba7
 // 2026-09-11 재고정(f19cc41c → 38a7d5a4). 앞의 예고대로 **진짜 변경**이고 원인은 제품
-// `658ece13`「사이드바에서 + 버튼을 걷고…」의 -4 노드다(NavPlusGlyph svg+path2 와 button).
+// `658ece13`「사이드바에서 + 버튼을 걷고…」의 -4 노드다 — Canvas·Composition 두 행의
+// `<button>` + `<svg>`(NavPlusGlyph) **두 쌍**이다. path 자식은 측정 트리에 실려 있지 않았다
+// (2026-09-13 정정: 전에는 「NavPlusGlyph svg+path2 와 button」, 즉 버튼 하나로 적었다. 확인은
+// `git show 7f41d5a^:` 과 `git show 4ebbe46:` 의 migration/product.auth-fixture.json 에서
+// desktop 두 짝의 route 넷(billing-change-fail·topup-fail 87 → 83, billing-change-success·
+// topup-success 83 → 79)의 `body.1` 아래 노드를 path 로 견준 것 — 넷 다 사라진 노드는
+// `body.1.0.0.0.0.1.0.2.0.0.1` button·그 `.0` svg, `body.1.0.0.0.0.1.0.3.0.0.1` button·그 `.0`
+// svg 뿐이고 더해진 노드 0).
 // 결제 장면은 헤더를, 헤더는 사이드바를 품으므로 같은 -4 가 여기까지 올라온다.
 // 판정은 `roots`(route·path·tag·rect) 바이트 동일 + nodeCount/score 만 이동으로 했다:
 //   subtree-ed47f43c48b1(87, body.1, fail 짝)    → subtree-6dff099f5193(83)

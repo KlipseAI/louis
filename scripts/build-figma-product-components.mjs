@@ -264,9 +264,22 @@ const sectionRowStyle = style(rowNodes[5]);
    `subtree-d5c53265893d`(42)는 path 가 `body.1.0.0.0.0.1.0` · tag `ul` 로 **안쪽 목록**이며
    사이드바가 아니다 — nodeCount 만으로 고르면 그것을 집는다.
    원인은 제품 `658ece13`「사이드바에서 + 버튼을 걷고 베타 딱지를 라벨 옆으로 옮긴다」다.
-   걷힌 것은 `NavPlusGlyph`(svg + path 2)와 그 `<button>` 래퍼 = **정확히 4노드**이고,
+   그 커밋은 + 버튼 **넷**을 걷었다(데스크톱 사이드바 Canvas · Composition 행, 접힌 사이드바,
+   모바일 드로어). 이 후보가 재는 데스크톱 사이드바 안에 있던 것은 그중 **둘**이고, -4 는 그 둘의
+   `<button>` + `<svg>`(`NavPlusGlyph`) **두 쌍**이다. desktop `/settings` 의 사이드바 후보 루트
+   `body.1.0.0.0.0.1` **아래**만 path 로 견주면 사라진 노드는 `body.1.0.0.0.0.1.0.2.0.0.1` button "New project (open canvas)" 와 그 `.0` svg,
+   `body.1.0.0.0.0.1.0.3.0.0.1` button "New project (Composition)" 와 그 `.0` svg 넷뿐이고 더해진
+   노드는 0 이다(화면 전체로 견주면 다른 자리도 움직였으므로 이 주장은 사이드바 서브트리에 한정한다).
+   `NavPlusGlyph` 의 path 둘은 옛 트리에도 실려 있지 않았다(두 svg 를 parentPath 로
+   갖는 항목 0, 사이드바 안 path 태그 0 → 0) — 4노드에 path 는 들지 않는다.
+   2026-09-13 정정: 이 자리는 「`NavPlusGlyph`(svg + path 2)와 그 `<button>` 래퍼 = 정확히 4노드」,
+   즉 버튼 하나로 적혀 있었으나 측정 트리와 맞지 않았다. 확인은
+   `git show 7f41d5a^:migration/product.auth-fixture.json` 과 `git show 4ebbe46:…` 의
+   `screens["desktop-1920x1080"][route].tree` 를 path 로 견준 것이다.
    사이드바를 자식으로 품는 헤더 둘(59 → 55)과 그 헤더를 품는 결제 장면 둘(87 → 83 · 83 → 79)도
-   전부 같은 -4 다. 하나의 원인이 중첩 서브트리를 타고 올라간 것이다. */
+   전부 같은 -4 다 — 같은 비교에서 두 헤더 후보의 route 10개 전부, 헤더(`body.1.0.0.0`) 아래
+   사라진 노드가 위 두 쌍과 같고 더해진 노드는 0 이다. 하나의 원인이 중첩 서브트리를 타고
+   올라간 것이다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
   (entry) => entry.id === "subtree-7eb3e2833a3e",
 );
@@ -278,7 +291,9 @@ if (!candidate || candidate.nodeCount !== 43 || candidate.routeCount !== 10) {
    fe34aa819557 은 settings·subscription·billing-change-success/fail·topup-success/fail 6개,
    103b6e563038 은 upgrade·billing-success·billing-fail·upgrade-fail 4개.
    제품이 더한 `?__phase=` 6개는 60노드짜리 별도 후보(subtree-19636a6ae1fa)로 따로 묶였고
-   이 생성기는 그것을 쓰지 않는다. 헤더 두 벌은 여전히 각각 59노드다.
+   이 생성기는 그것을 쓰지 않는다(2026-09-13: 그 id 는 지금 원장에 없다 — 같은 셸이
+   `subtree-6d62a3684fe6` 56/6/336 이고, 60 → 56 도 사이드바 「+」 두 쌍이 걷힌 -4 다). 헤더 두 벌은 여전히 각각 59노드다(당시 기록이다 — 2026-09-11
+   재고정 38a7d5a4 부터는 각각 55노드. 아래 2026-09-13 주석).
 
    ae8fd627 → 5a67d692 에서 다시 갈렸다(fe34aa819557→bd975676e6bb, 103b6e563038→23a203251141).
    판정 근거는 위 사이드바와 **같은 하나**다: 두 헤더 59노드를 순서대로 견줘 path·tag·ownText·
@@ -300,7 +315,21 @@ if (!candidate || candidate.nodeCount !== 43 || candidate.routeCount !== 10) {
    **다만 59/6 후보가 하나 더 생겼다**(`subtree-d6ac743feeba`, score 354). 이것은 헤더가
    아니라 `/highlight/[projectId]` 여섯 단계(loading·uploading·upload·analyzing·extracting·
    failed)가 공유하는 `body.1.0.0.0.0` 셸이다 — 같은 수치를 갖지만 다른 것이므로 nodeCount
-   만으로 고르면 엉뚱한 것을 집는다. 그래서 여기서는 **id 로** 집는다(아래). */
+   만으로 고르면 엉뚱한 것을 집는다. 그래서 여기서는 **id 로** 집는다(아래).
+
+   2026-09-13: 위 문단의 이름과 수치(`subtree-d6ac743feeba` · 59/6 · score 354)는 f19cc41c
+   fixture(`git show 7f41d5a^:`)까지의 것이고 커밋된 fixture 에는 없다. 38a7d5a4 재고정의
+   사이드바 -4(위 사이드바 가드 주석의 button + svg 두 쌍)가 이 셸에도 똑같이 올라와, 지금
+   닮은꼴은 `subtree-3b6cdffb3172` 55/6 ·
+   occurrenceCount 6 · score 330 이다. 첫 헤더 후보 `subtree-010a934d5c3b` 도 55/6 · 6 · 330 —
+   nodeCount·routeCount·occurrenceCount·score 가 **넷 다 같고**, desktop 에서 55/6 인 후보는
+   이 둘뿐이다. 갈리는 것은 roots 다(헤더: `/settings` 등 6개 route 의 `body.1.0.0.0` header,
+   닮은꼴: `/highlight/[projectId]?__phase=` 6개의 `body.1.0.0.0.0` nav). 옛 d6ac743feeba 와
+   roots 의 route·path·tag·rect 가 동일하고, 여섯 phase 모두 사라진 노드가
+   `body.1.0.0.0.0.1.1.2.0.0.1` button·그 `.0` svg, `body.1.0.0.0.0.1.1.3.0.0.1` button·그 `.0` svg
+   넷뿐이다(더해진 노드 0). 확인: `git show HEAD:migration/product.auth-fixture.json`
+   (`productCommit` 6fbdac16)의 `componentCandidateAudit.repeatedSubtreesByContext["desktop-1920x1080"]`,
+   노드 대조는 `git show 7f41d5a^:` 과 `git show 4ebbe46:` 의 같은 파일 `screens` 트리. */
 const headerCandidates = ["subtree-010a934d5c3b", "subtree-5975d39c8e46"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
@@ -642,9 +671,11 @@ const plan = {
       simpleRow("search", 0, "Search"),
       simpleRow("home", 1, "Home"),
       /* **2026-09-11: 이 둘이 compound 에서 simple 로 내려왔다.** 제품 `658ece13` 이 사이드바
-         행의 + 버튼을 걷었다 — `NavPlusGlyph`(svg + path 2)와 그 `<button>` 래퍼다.
-         확인: `git grep -c createNewCanvasProject f19cc41c -- apps/web/components/navigation/Gnb.tsx`
-         는 4, 같은 명령이 `38a7d5a4` 에서는 0 이다. 문구는 `messages/en.ts` 에 남아 있으나
+         Canvas·Composition 두 행의 + 버튼을 걷었다 — 행마다 `<button>` 과 그 안의
+         `NavPlusGlyph` svg 한 쌍, 측정 트리로는 두 쌍 4노드다(path 자식은 트리에 없다. 근거는
+         위 사이드바 후보 가드 주석).
+         확인: `git grep -n NavPlusGlyph 6fbdac16 -- apps/web` 는 아무것도 내지 않는다(f19cc41c 에는
+         Gnb.tsx 에 있다). `createNewCanvasProject` 의 줄 수는 버튼 수가 아니므로 근거로 쓰지 않는다. 문구는 `messages/en.ts` 에 남아 있으나
          부르는 자리가 없는 죽은 키이므로 `byAria` 로는 찾을 수 없다.
          그래서 `compoundRow` 의 addRect·addRadius·addBackground 는 **측정할 대상이 없다** —
          걷지 않고 두면 없는 버튼을 그리게 된다. */

@@ -75,22 +75,22 @@ const plan = {
   productCommit: commit,
   context: { id: "desktop-1920x1080-dark", route: "/highlight", viewport: { width: 1920, height: 1080 } },
   sourceEvidence: [
-    // historyGrid(`styles.historyGrid`, 839~847행) — 같은 문자열이 clipGrid(241~254행)에도 있어
+    // historyGrid(`styles.historyGrid`, 763~771행) — 같은 문자열이 clipGrid(241~254행)에도 있어
     // 블록 시작(`historyGrid: [`)에서 센 오프셋으로 자리를 판정했다.
     sourceQuote(HIGHLIGHT, 765, '    \"[display:grid]\",'),
     sourceQuote(HIGHLIGHT, 767, '    \"gap-layout-project-grid-gap\",'),
     sourceQuote(HIGHLIGHT, 770, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
-    // historySection(1055~1061행) — `"[width:100%]"` 는 파일에 27번 나오지만, 바로 뒤 두 줄
+    // historySection(980~986행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
     // (`margin:40px_auto_0` · `padding-bottom:200px`)이 이 블록에만 있어 셋이 한 덩어리다.
     sourceQuote(HIGHLIGHT, 982, '    \"[width:100%]\",'),
     sourceQuote(HIGHLIGHT, 984, '    \"[margin:40px_auto_0]\",'),
     sourceQuote(HIGHLIGHT, 985, '    \"[padding-bottom:200px]\",'),
-    // historySectionEyebrow(1063~1069행) — viewport Auto Layout 의 itemSpacing 근거.
+    // historySectionEyebrow(988~994행) — viewport Auto Layout 의 itemSpacing 근거.
     sourceQuote(HIGHLIGHT, 990, '    \"[margin:0_0_12px]\",'),
-    // historySectionEyebrowCount(1071~1075행) — clipCountValue(63~67행)에도 같은 줄이 있으나
+    // historySectionEyebrowCount(996~1000행) — clipCountValue(63~67행)에도 같은 줄이 있으나
     // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
     sourceQuote(HIGHLIGHT, 999, '    \"[margin-left:6px]\",'),
-    // uploadCardCompact(2130~2147행).
+    // uploadCardCompact(2058~2075행).
     sourceQuote(HIGHLIGHT, 2065, '    \"[&:not(.tw-hs-188)]:[width:400px]!\",'),
     sourceQuote(HIGHLIGHT, 2067, '    \"[&:not(.tw-hs-188)]:[height:140px]!\",'),
     sourceQuote(HIGHLIGHT, 2069, '    \"[padding:8px]!\",'),

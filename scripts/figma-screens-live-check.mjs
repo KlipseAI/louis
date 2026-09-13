@@ -24,16 +24,34 @@
 //
 //   node scripts/figma-screens-live-check.mjs --emit [--page <PAGE_ID>] [--only <부분문자열>] [--detail]
 //   node scripts/figma-screens-live-check.mjs --emit --sets --page <PAGE_ID>
-//   node scripts/figma-screens-live-check.mjs --check <live.json> [<live2.json> …] [--ref <커밋>]
+//   node scripts/figma-screens-live-check.mjs --check <live.json> [<live2.json> …] [<sets.json> …]
+//        [--ref <커밋>] [--only <부분문자열>] [--expect-differ <frameId>[,<frameId>…]] [--allow-partial]
+//   node scripts/figma-screens-live-check.mjs --check <sets.json> [<sets2.json> …] --sets-only
 //
 // `--emit` 이 낸 코드를 **읽기 전용** `use_figma` 로 실행하고, 돌려받은 JSON 을 파일로 저장해
-// `--check` 에 준다. 탐침은 `setCurrentPageAsync` 를 **한 번만** 부른다(figma-use 규칙) — 보드는
-// 페이지 둘에 흩어져 있으므로 `--page` 를 바꿔 두 번 뜨고, `--check` 에 결과 파일을 모두 준다.
-// `--page` 가 없으면 첫 보드의 페이지를 쓰고, 다른 페이지의 보드는 `elsewhere` 로 돌려준다.
-// `--only` 는 route·문맥·frameId 부분문자열로 보드를 좁혀 응답 크기를 줄인다. `--detail` 은 이름 목록을
-// 통째로 돌려받아 `--check` 가 첫 차이 줄을 찍게 한다(보드 몇 장에만 쓴다 — 응답이 커진다).
+// `--check` 에 준다(파일은 `--check` 바로 뒤에 둔다). 탐침은 `setCurrentPageAsync` 를 **한 번만**
+// 부른다(figma-use 규칙) — 보드는 페이지 둘에 흩어져 있으므로 `--page` 를 바꿔 두 번 뜨고, `--check` 에
+// 결과 파일을 모두 준다. `--page` 가 없으면 첫 보드의 페이지를 쓰고, 다른 페이지의 보드는 `elsewhere` 로
+// 돌려준다. `--only` 는 route·문맥·frameId 부분문자열로 보드를 좁혀 응답 크기를 줄인다. `--detail` 은
+// 이름 목록을 통째로 돌려받아 `--check` 가 첫 차이 줄을 찍게 한다(보드 몇 장에만 쓴다 — 응답이 커진다).
 // `--ref <커밋>` 은 기대값을 작업 트리 대신 그 커밋의 러너에서 계산한다 — 라이브가 어느 계획으로
 // 그려졌는지 가려낼 때 쓴다.
+//
+// ## 합격은 공허하게 나지 않는다
+//
+// `--check` 는 **계획 보드 전부**가 결과 파일에 들어 있어야 통과한다. 페이지 결과 하나를 빠뜨리거나
+// `elsewhere` 만 담긴 결과를 주면, 탐침하지 않은 보드를 이름으로 대고 종료 코드 1 을 낸다(2026-09-13
+// 리뷰: 보드 0/36 을 주고도 초록이 났다). 범위를 줄이는 길은 명시 플래그뿐이다.
+//
+//   - `--only <부분문자열>` — 기대 보드를 그 부분문자열로 좁힌다. 좁힌 범위 안에서는 전부 탐침해야 한다.
+//   - `--allow-partial` — 일부만 떴다는 뜻이다. 탐침한 보드만 판정하고 요약에 「부분」과 빠진 보드를 적는다.
+//     탐침한 보드가 0 이면 이 플래그로도 통과하지 않는다.
+//   - `--expect-differ <frameId,…>` — 차이를 **예상한** 보드(예: 첫 적용에서 뺀 `/mypage/upgrade`
+//     데스크톱). 그 보드의 차이는 따로 찍고 실패로 세지 않는다. 대신 그 보드가 계획과 **같으면** 실패한다 —
+//     예상 목록이 낡았다는 뜻이다.
+//   - `--sets-only` — 세트 결과만 본다. 보드 결과를 함께 주면 거부한다. 요약은 보드를 대조하지 않았다고 적는다.
+//
+// 결과 파일에 계획 밖 보드가 있거나 알 수 없는 인자가 있어도 멈춘다.
 //
 // 어긋나면 보드 단위로 무엇이 다른지 찍고 종료 코드 1 을 낸다. **적용 전에는 다른 것이 정상이다** —
 // 그때 출력은 「적용하면 무엇이 바뀌는가」의 목록이다. 적용 뒤에 다시 돌려 0 이 되어야 한다.
@@ -45,18 +63,38 @@ import { fileURLToPath } from "node:url";
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PLAN = "figma/app-screens.plan.json";
 const args = process.argv.slice(2);
-const option = (name) => {
-  const at = args.indexOf(name);
-  return at >= 0 && args[at + 1] && !args[at + 1].startsWith("--") ? args[at + 1] : null;
-};
-const ref = option("--ref");
-const readRepo = (path) => (ref
-  ? execFileSync("git", ["-C", repoRoot, "show", `${ref}:${path}`], { encoding: "utf8", maxBuffer: 1 << 28 })
-  : readFileSync(resolve(repoRoot, path), "utf8"));
 const fail = (message) => {
   process.stderr.write(`[figma-screens-live] ${message}\n`);
   process.exit(2);
 };
+// 인자를 먼저 전부 검사한다 — 흘린 결과 파일이 조용히 무시되면 부분 탐침이 전량처럼 보인다.
+const VALUE_FLAGS = new Set(["--ref", "--only", "--page", "--expect-differ"]);
+const BOOLEAN_FLAGS = new Set(["--emit", "--sets", "--detail", "--quiet", "--check", "--allow-partial", "--sets-only"]);
+const checkFiles = [];
+for (let index = 0; index < args.length; index += 1) {
+  const arg = args[index];
+  if (VALUE_FLAGS.has(arg)) {
+    if (!args[index + 1] || args[index + 1].startsWith("--")) fail(`${arg} 에 값이 필요합니다.`);
+    index += 1;
+  } else if (arg === "--check") {
+    while (args[index + 1] && !args[index + 1].startsWith("--")) checkFiles.push(args[(index += 1)]);
+  } else if (!BOOLEAN_FLAGS.has(arg)) {
+    fail(`알 수 없는 인자입니다: ${arg} — 결과 파일은 --check 바로 뒤에 둡니다.`);
+  }
+}
+const option = (name) => {
+  const at = args.indexOf(name);
+  return at >= 0 ? args[at + 1] : null;
+};
+/** 여러 번 주거나 쉼표로 이은 값을 모은다. */
+const optionList = (name) => args.flatMap((arg, index) => (arg === name ? args[index + 1].split(",") : []))
+  .map((value) => value.trim()).filter(Boolean);
+const ref = option("--ref");
+const readRepo = (path) => (ref
+  ? execFileSync("git", ["-C", repoRoot, "show", `${ref}:${path}`], { encoding: "utf8", maxBuffer: 1 << 28 })
+  : readFileSync(resolve(repoRoot, path), "utf8"));
+const matchesOnly = (board, only) =>
+  !only || board.route.includes(only) || board.context.includes(only) || board.frameId === only;
 
 const fnv = (text) => {
   let hash = 0x811c9dc5;
@@ -174,8 +212,7 @@ return { kind: "figma-screens-live-sets", page: { id: page.id, name: page.name }
 }
 
 function emitBoards(boards, only, page) {
-  const selected = boards.filter((board) =>
-    !only || board.route.includes(only) || board.context.includes(only) || board.frameId === only);
+  const selected = boards.filter((board) => matchesOnly(board, only));
   if (selected.length === 0) fail(`--only ${only} 에 맞는 보드가 없습니다.`);
   const targets = selected.map((board) => ({ frameId: board.frameId, generated: board.generatedName, legacy: board.legacyName }));
   const code = (`const TARGETS=${JSON.stringify(targets)};
@@ -235,7 +272,8 @@ return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boa
   if (!args.includes("--quiet")) {
     process.stderr.write(
       `\n[figma-screens-live] 보드 ${selected.length}장. 위 코드를 읽기 전용 use_figma 로 실행하고 결과를 파일로 저장한 뒤\n` +
-        "                    node scripts/figma-screens-live-check.mjs --check <파일…> 을 돌리세요.\n",
+        `                    node scripts/figma-screens-live-check.mjs --check <파일…>${only ? ` --only ${only}` : ""} 을 돌리세요.\n` +
+        "                    다른 페이지의 보드는 elsewhere 로 돌아오니, 페이지마다 떠서 결과를 모두 줍니다.\n",
     );
   }
   emitAndExit(code);
@@ -244,34 +282,57 @@ return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boa
 if (!args.includes("--emit")) runCheck();
 
 function runCheck() {
-  const checkAt = args.indexOf("--check");
-  if (checkAt === -1) fail("--emit 또는 --check <파일…> 이 필요합니다.");
-  const files = [];
-  for (let index = checkAt + 1; index < args.length && !args[index].startsWith("--"); index += 1) files.push(args[index]);
-  if (files.length === 0) fail("--check 에 결과 파일이 필요합니다.");
+  if (!args.includes("--check")) fail("--emit 또는 --check <파일…> 이 필요합니다.");
+  const files = checkFiles;
+  if (files.length === 0) fail("--check 바로 뒤에 결과 파일이 필요합니다.");
+  const setsOnly = args.includes("--sets-only");
+  const allowPartial = args.includes("--allow-partial");
+  const only = option("--only");
 
   const boardResults = new Map();
+  const elsewhere = new Map();
   const setResults = {};
+  let boardFiles = 0;
+  let setFiles = 0;
+  const claim = (frameId, record) => {
+    if (boardResults.has(frameId)) fail(`같은 보드가 두 결과에 있습니다: ${frameId}`);
+    boardResults.set(frameId, record);
+  };
   for (const file of files) {
     const raw = JSON.parse(readFileSync(resolve(process.cwd(), file), "utf8"));
     const result = raw.kind ? raw : (raw.result ?? raw);
     if (result.kind === "figma-screens-live-sets") {
+      setFiles += 1;
       for (const [name, entries] of Object.entries(result.sets ?? {})) (setResults[name] ??= []).push(...entries);
       continue;
     }
     if (result.kind !== "figma-screens-live") fail(`탐침 결과가 아닙니다: ${file}`);
-    for (const [frameId, record] of Object.entries(result.boards ?? {})) {
-      if (boardResults.has(frameId)) fail(`같은 보드가 두 결과에 있습니다: ${frameId}`);
-      boardResults.set(frameId, record);
-    }
-    for (const frameId of result.missing ?? []) boardResults.set(frameId, { missingFrame: true });
+    boardFiles += 1;
+    for (const [frameId, record] of Object.entries(result.boards ?? {})) claim(frameId, record);
+    for (const frameId of result.missing ?? []) claim(frameId, { missingFrame: true });
+    for (const [frameId, pageId] of Object.entries(result.elsewhere ?? {})) elsewhere.set(frameId, pageId);
   }
+  if (setsOnly && boardFiles > 0) fail("--sets-only 에는 보드 결과를 주지 않습니다 — 보드까지 보려면 플래그를 뺍니다.");
+  if (setsOnly && setFiles === 0) fail("--sets-only 에 세트 결과(--emit --sets)가 없습니다.");
+  if (!setsOnly && boardFiles === 0) fail("보드 결과(--emit)가 없습니다 — 세트만 보려면 --sets-only 를 붙입니다.");
 
-  const boards = expectedBoards();
+  const allBoards = expectedBoards();
+  const planIds = new Set(allBoards.map((board) => board.frameId));
+  const boards = setsOnly ? [] : allBoards.filter((board) => matchesOnly(board, only));
+  if (!setsOnly && boards.length === 0) fail(`--only ${only} 에 맞는 보드가 없습니다.`);
+  const expectDiffer = new Set(optionList("--expect-differ"));
+  for (const frameId of expectDiffer) {
+    if (!boards.some((board) => board.frameId === frameId)) fail(`--expect-differ ${frameId} 가 대조 범위의 보드가 아닙니다.`);
+  }
   const issues = [];
+  const expectedDiffs = [];
   let same = 0;
   let probed = 0;
   const setsProbed = Object.keys(setResults).length > 0;
+  const outsidePlan = [...boardResults.keys()].filter((frameId) => !planIds.has(frameId));
+  if (outsidePlan.length) {
+    issues.push({ label: "결과 파일", problems: [`계획에 없는 보드 ${outsidePlan.length}개: ${outsidePlan.join(", ")} — 기대값(--ref)과 탐침 시점의 계획이 다르다`] });
+  }
 
   for (const board of boards) {
     const label = `${board.route} · ${board.context.split("-")[0]} (${board.frameId})`;
@@ -334,8 +395,18 @@ function runCheck() {
         }
       }
     }
-    if (problems.length === 0) same += 1;
-    else issues.push({ label, problems });
+    if (expectDiffer.has(board.frameId)) {
+      if (problems.length) {
+        expectedDiffs.push({ label, frameId: board.frameId, problems });
+      } else {
+        same += 1;
+        issues.push({ label, problems: ["--expect-differ 로 차이를 예상했지만 계획과 같다 — 예상 목록에서 뺀다"] });
+      }
+    } else if (problems.length === 0) {
+      same += 1;
+    } else {
+      issues.push({ label, problems });
+    }
   }
 
   if (setsProbed) {
@@ -369,14 +440,34 @@ function runCheck() {
   }
 
   const unprobed = boards.filter((board) => !boardResults.has(board.frameId));
+  const unprobedText = unprobed.map((board) => board.frameId + (elsewhere.has(board.frameId) ? `@${elsewhere.get(board.frameId)}` : "")).join(", ");
+  if (!setsOnly && probed === 0) {
+    issues.push({ label: "탐침 범위", problems: [`탐침한 보드가 0 이다 — 결과가 elsewhere 뿐이면 그 페이지(--page)로 다시 뜬다. ${unprobedText}`] });
+  } else if (unprobed.length && !allowPartial) {
+    issues.push({
+      label: "탐침 범위",
+      problems: [
+        `탐침하지 않은 보드 ${unprobed.length}개(frameId@다른 페이지): ${unprobedText}`,
+        "페이지마다 --emit 결과를 모두 주거나, 범위를 --only 로 좁히거나, 일부만 본다는 뜻으로 --allow-partial 을 붙인다.",
+      ],
+    });
+  }
+  for (const entry of expectedDiffs) {
+    process.stderr.write(`[figma-screens-live] (예상한 차이 · --expect-differ) ${entry.label}\n`);
+    for (const problem of entry.problems) process.stderr.write(`    · ${problem}\n`);
+  }
   for (const issue of issues) {
     process.stderr.write(`[figma-screens-live] ${issue.label}\n`);
     for (const problem of issue.problems) process.stderr.write(`    - ${problem}\n`);
   }
-  const summary =
-    `[figma-screens-live] ${ref ? `기대값 @ ${ref} · ` : ""}탐침한 보드 ${probed}/${boards.length} · 계획과 같음 ${same} · 다름 ${probed - same}` +
-    (unprobed.length ? ` · 탐침하지 않음 ${unprobed.length}(${unprobed.map((board) => board.frameId).join(", ")})` : "") +
-    (setsProbed ? ` · 세트 점검 ${Object.keys(setResults).length}개` : "");
+  const summary = setsOnly
+    ? `[figma-screens-live] ${ref ? `기대값 @ ${ref} · ` : ""}세트 점검만 ${Object.keys(setResults).length}개 — 보드는 대조하지 않았다(--sets-only)`
+    : `[figma-screens-live] ${ref ? `기대값 @ ${ref} · ` : ""}탐침한 보드 ${probed}/${boards.length}` +
+      (only ? `(--only ${only} · 계획 ${allBoards.length})` : "") +
+      ` · 계획과 같음 ${same} · 다름 ${probed - same - expectedDiffs.length}` +
+      (expectedDiffs.length ? ` · 예상한 차이 ${expectedDiffs.length}(${expectedDiffs.map((entry) => entry.frameId).join(", ")})` : "") +
+      (unprobed.length ? ` · 탐침하지 않음 ${unprobed.length}${allowPartial ? " — 부분 대조(--allow-partial)" : ""}` : "") +
+      (setsProbed ? ` · 세트 점검 ${Object.keys(setResults).length}개` : "");
   if (issues.length > 0) {
     process.stderr.write(`${summary}\n[figma-screens-live] 적용 전이면 위 목록이 「적용하면 바뀌는 것」이다. 적용 뒤에는 0 이어야 한다.\n`);
     process.exit(1);

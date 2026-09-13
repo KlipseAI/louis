@@ -71,7 +71,9 @@ authority: normative
 
 **새 도구 `pnpm figma-screens-live-check`.** 라이브 화면 보드가 계획을 적용한 결과인지 대조한다 — generated
 서브트리 「유형:이름」 해시, 인스턴스(세트·variant·TEXT 값), legacy 그룹, 세트·variant·TEXT 속성 존재.
-읽기 전용 `use_figma` 로 돌리고 CI 에는 넣지 않는다. 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
+읽기 전용 `use_figma` 로 돌리고 CI 에는 넣지 않는다. **계획 보드 전부를 탐침해야 통과한다** — 결과 파일을
+빠뜨리면 빠진 보드를 대고 실패하고, 범위를 줄이는 것은 `--only` · `--allow-partial` · `--sets-only` 명시
+플래그뿐이며, 적용에서 뺀 보드는 `--expect-differ <frameId>` 로 받는다. 쓰는 법은 [Figma Sync](../governance/figma-sync.md)
 「화면 보드 라이브 대조」, 규칙은 [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 27번이다.
 2026-09-13 첫 실행: 라이브 36 보드 중 34 가 `9f8483a` 계획과 같고(archive 둘은 h1 글자만 다르다), 새 계획과는
 0 이 같다 — 차이 목록이 곧 적용 결과다.

@@ -1298,7 +1298,8 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 1. **라이브 적용 — 쓰기 승인이 먼저다.** 순서는 [Figma 화면 조립 규칙](figma-screen-assembly.md) 27번을 따른다:
    이름 붙은 버전 저장 → `figma/product-app-shell.draw.js`(세트에 조합 넷·TEXT 속성을 더하고 크기 드리프트를
    맞춘다) → `figma-screens-live-check --sets` 로 세트 확인 → 보드 러너 35장(`figma/app-screens.*.00.draw.js`)
-   → `figma-screens-live-check --check` 로 다름 0 확인. **`/mypage/upgrade` 데스크톱(`192:1251`)은 첫 적용에서
+   → `figma-screens-live-check --check <두 페이지 결과 · 세트 결과> --expect-differ 192:1251` 로 **36/36 탐침 ·
+   다름 0** 확인(결과 파일을 빠뜨리면 실패한다). **`/mypage/upgrade` 데스크톱(`192:1251`)은 첫 적용에서
    뺀다** — 적용하면 옛 요금제 카드 인스턴스 넷이 새 다섯 장의 날노드로 바뀐다. 2번이 끝나거나 소유자가 그
    교환을 받아들이면 00 → 01 → 02 → 03 을 한 번에 이어 돌린다. 뺀 동안에도 앱 셸 러너가 TEXT 속성을 열면 그
    보드의 상단 바 인스턴스(2026-09-13 라이브 `1231:9569`)는 기본 라벨을 보이므로, 그 인스턴스 하나에만

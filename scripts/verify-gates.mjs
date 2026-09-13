@@ -1481,6 +1481,56 @@ withCanary(
   "아직 `pnpm verify` 를 돕니다",
 );
 
+// ── React client boundary 카나리아 (DS-D-0002 leaf `"use client"`) ─────────────
+// 그 규칙은 2026-08-14 에 정해졌고 지키는 기계가 없는 동안 leaf 7개가 지시문 없이 들어왔다
+// (Updates (129)). 판정 경로가 셋이라 카나리아도 경로마다 하나씩 둔다 — 하나만 두면 나머지
+// 둘이 죽어도 초록이다. 대상은 **그 경로 하나로만 걸리는 모듈**을 골랐다.
+//   (a) react-server 에 없는 API import — project-card 는 createContext 만 쓰고 핸들러가 없다
+//   (b) JSX 인라인 함수 — button 은 클라이언트 전용 import 가 없고 onClick 화살표 하나뿐이다
+//   (c) 이 모듈이 만든 함수를 props 로 — anchored/trigger 는 useCallback(서버 허용)만 쓴다
+const dropUseClient = (label) => (source) => {
+  const next = source.replace(/^"use client";\n\n?/, "");
+  if (next === source) errors.push(label + " canary 가 대상 파일에서 \"use client\" 를 찾지 못했습니다.");
+  return next;
+};
+withCanary(
+  "packages/react/src/project-card/project-card.tsx",
+  dropUseClient("client boundary (a)"),
+  "client boundary: react-server 에 없는 API import",
+  "scripts/check-react-client-boundary.mjs",
+  "`createContext` import",
+);
+withCanary(
+  "packages/react/src/button/button.tsx",
+  dropUseClient("client boundary (b)"),
+  "client boundary: JSX 인라인 함수",
+  "scripts/check-react-client-boundary.mjs",
+  "`onClick` 에 인라인 함수",
+);
+withCanary(
+  "packages/react/src/anchored/trigger.tsx",
+  dropUseClient("client boundary (c)"),
+  "client boundary: 모듈이 만든 함수를 props 로",
+  "scripts/check-react-client-boundary.mjs",
+  "`onClick` 에 이 모듈의 함수 `handleClick`",
+);
+// 반대 방향 — 루트에 붙이면 서버 안전 export 까지 클라이언트 참조가 된다.
+withCanary(
+  "packages/react/src/index.ts",
+  (source) => '"use client";\n\n' + source,
+  "client boundary: 패키지 루트에 지시문",
+  "scripts/check-react-client-boundary.mjs",
+  "재export 만 하는 모듈(또는 패키지 루트)에",
+);
+// 빌드 도구가 지시문을 걷는 경우. check-react-dist 는 재빌드와 비교하므로 도구가 바뀌면 함께 초록이다.
+withCanary(
+  "packages/react/dist/project-card/project-card.js",
+  dropUseClient("client boundary (dist)"),
+  "client boundary: dist 가 지시문을 잃음",
+  "scripts/check-react-client-boundary.mjs",
+  "dist 의 \"use client\" 가 소스와 다릅니다",
+);
+
 // ── 팔레트/사다리 충돌 판정 카나리아 ──────────────────────────────────────
 // **이 카나리아가 없으면 `check-palette-ladder-collision` 은 「초록이라 잘 도는 것 같다」로만
 // 남는다.** 그 게이트는 2026-09-08~09 에 손으로 고친 넷을 잡으려고 세웠는데, 그 넷은 전부

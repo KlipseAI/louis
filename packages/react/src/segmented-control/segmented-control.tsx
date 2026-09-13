@@ -1,3 +1,5 @@
+"use client";
+
 import type { JSX, ReactNode, Ref } from "react";
 import { createContext, useContext, useId } from "react";
 

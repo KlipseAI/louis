@@ -1,3 +1,5 @@
+"use client";
+
 import type { InputHTMLAttributes, JSX, ReactNode, Ref } from "react";
 import { useEffect, useRef } from "react";
 

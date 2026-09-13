@@ -25,6 +25,44 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-13 (129) — Web 아키텍처 Decision 6종의 모순을 걷고 owner 확인을 요청한다 (DS-P3-001)
+
+DS-P3-001 은 2026-08-14 부터 「Decision 6종을 다 썼고 owner 확인만 남았다」로 `in-progress` 였다.
+그런데 완료 근거인 「Decision·구현·manifest/status 가 서로 모순되지 않는다」가 성립하지 않았다.
+owner 에게 묻기 전에 저장소가 스스로 고칠 것부터 고쳤다.
+
+### Fixed — leaf 7개에 `"use client"` 가 없었다
+
+[DS-D-0002](../governance/decisions/DS-D-0002-web-support-scope.md) 는 「leaf 모듈에 `"use client"`」를
+정했지만 지키는 기계가 없었고, 그 사이 클라이언트 전용 코드를 쓰는 leaf 일곱이 지시문 없이
+들어왔다. 모듈마다 무엇 때문에 클라이언트 전용인지 소스에서 확인했다.
+
+| 모듈 | 클라이언트 전용인 이유 |
+| --- | --- |
+| `app-shell/app-shell.tsx` | `useEffect` · `useRef` (drawer Escape 를 `document` 에 건다) |
+| `banner-carousel/banner-carousel.tsx` | `useState` · `useEffect` · `useRef` · 인라인 `onClick`·`ref` |
+| `button/button.tsx` | 인라인 `onClick` 화살표 — 서버에서 직렬화할 수 없다 |
+| `checkbox/checkbox.tsx` | `useEffect` · `useRef` · 인라인 `ref`·`onChange` |
+| `project-card/project-card.tsx` | 모듈 최상위 `createContext` · `useContext` |
+| `segmented-control/segmented-control.tsx` | 모듈 최상위 `createContext` · `useContext` · 인라인 `onChange` |
+| `slider/slider.tsx` | `useState` · 인라인 `onChange` |
+
+`text-field.tsx` 는 `useId` 만 쓰고 `app-shell-parts.tsx` 는 받은 핸들러를 넘기기만 해서 서버에서도
+안전하다 — 붙이지 않았다. 판정 기준은 설치된 React 가 `react-server` 조건에서 **내보내지 않는** API
+목록이다(`useId`·`useCallback`·`useMemo` 는 내보내고 `useState`·`createContext` 는 내보내지 않는다).
+
+**소비자에게 달라지는 것.** Server Component 에서 `@klipse-design/react` 루트를 import 해도
+`project-card.js` 가 서버 층에서 평가되지 않는다(전에는 거기서 `createContext` 가 없어 깨질 형태였다).
+API·마크업·스타일은 바뀌지 않는다. 제품은 아직 이 패키지를 의존하지 않는다 — 잠복 위험을 채택 전에
+걷은 것이다.
+
+**다시 못 만들게 한다.** `scripts/check-react-client-boundary.mjs` (`pnpm check-react-client-boundary`,
+`verify:ci`)가 세 가지를 본다 — 클라이언트 전용 코드(react-server 에 없는 API import · JSX 인라인 함수 ·
+모듈이 만든 함수를 `on*`/`ref` 로 넘김)를 가진 모듈의 첫 문장이 `"use client"` 인가, 배럴과 패키지 루트에
+지시문이 **없는가**, `dist` 가 지시문을 보존하는가. 마지막은 `check-react-dist` 가 재빌드와 비교해서
+빌드 도구가 지시문을 걷는 도구로 바뀌면 함께 초록이 되는 자리다. 판정 경로마다 카나리아가
+`verify-gates` 에 있다. 실제 RSC 번들러로 서버 층을 평가하는 검사는 아직 없다(DS-D-0002 Rollout 4).
+
 ## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올리고, DS-P3-014 의 낡은 전제를 걷는다
 
 첫 변경 단위는 DS-P3-014 단위 6이다. **대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로
@@ -133,6 +171,7 @@ DS-P3-004 Known deviations 줄) · `DS-D-0010`(원칙 4 · Open questions 2·3 �
 
 **지운 것은 없다.** 중복 이름 12개와 `color-fg-danger-on-surface` 는 소유자 판정 전까지 원천과
 Figma 에 그대로 둔다 — 둘 다 removal breaking 이고 Figma 변수 삭제가 따라온다.
+
 
 ## 2026-09-11 (127) — pg-850 칸을 비우고, 그 위에 서 있던 여섯을 pg-900 으로 내린다
 

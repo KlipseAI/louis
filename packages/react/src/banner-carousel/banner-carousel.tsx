@@ -1,3 +1,5 @@
+"use client";
+
 import type { CSSProperties, JSX, ReactNode, Ref } from "react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import type { ButtonHTMLAttributes, JSX, ReactNode, Ref } from "react";
 
 import { Spinner } from "../spinner/spinner.js";

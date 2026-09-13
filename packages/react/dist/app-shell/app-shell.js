@@ -1,3 +1,4 @@
+"use client";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useId, useRef } from "react";
 export function AppShell({ rail, chrome, variant = "page", collapsed = false, drawerOpen = false, onDrawerClose, className, children, ref, ...rest }) {

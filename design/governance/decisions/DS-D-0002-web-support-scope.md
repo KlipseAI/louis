@@ -110,3 +110,23 @@ tsup은 유지보수 중단을 선언했으므로 2026년 신규 채택은 잘�
 - 서브패스 export나 CSS 번들링이 필요해지면 tsdown을 1순위로 검토한다.
 - 첫 publish 직전에 `publint`/`attw` 수준의 패키지 정합성 검증을 도입한다.
 - 하한 이동으로 `inert` 판정이 바뀌면 연도 고정 쿼리로 전환하고 갱신 Decision을 남긴다.
+
+## 구현 대조 (2026-09-13)
+
+Status 는 `proposed` 그대로다. 아래는 owner 확인을 요청하기 전에 결정과 구현을 대조해 어긋난 것을
+적고, 저장소 안에서 고칠 수 있는 것은 고친 기록이다([Updates (129)](../../updates/README.md)).
+
+### leaf `"use client"` — 지켜지지 않았고, 이제 게이트가 지킨다
+
+클라이언트 전용 코드를 쓰는 leaf 7개(`app-shell` · `banner-carousel` · `button` · `checkbox` ·
+`project-card` · `segmented-control` · `slider`)에 지시문이 없었다. 규칙을 보는 검사가 하나도 없었고,
+Node SSR(`verify-consumer`)은 React 를 `react-server` 조건으로 풀지 않아 이 누락을 원리적으로 못
+잡는다. 일곱 모두에 지시문을 붙이고 `dist` 를 재빌드했다.
+
+`scripts/check-react-client-boundary.mjs` 가 `verify:ci` 에서 이 결정의 client boundary 행을
+판정한다. 「클라이언트 전용」의 기준은 손으로 적은 목록이 아니라 설치된 React·ReactDOM 이
+`react-server` 조건에서 내보내지 않는 export 의 차집합이다. 판정 경로 셋(API import · JSX 인라인 함수 ·
+모듈이 만든 함수를 props 로)과 「루트·배럴에는 붙이지 않는다」, 「`dist` 가 지시문을 보존한다」를 각각
+`verify-gates` 카나리아가 증명한다. **남은 것:** 실제 RSC 번들러로 서버 층을 평가하는 검사와
+hydration 복구 오류 관찰(위 Rollout 4)은 여전히 없다. 이 검사는 문자열 수준이라 다른 모듈에서
+import 한 함수를 핸들러로 넘기는 경우는 보지 않는다.

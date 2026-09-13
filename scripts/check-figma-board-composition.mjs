@@ -193,7 +193,17 @@ const REPLACEABLE_BASELINE = 0;
 // 32×32 · nav · 36×36 이다. 회귀 전 대비 모든 차이가 설명된다: analytics 두 보드 bespoke -1 ·
 // missing -1 · structural -8 씩, 래퍼가 프레임으로 남은 18 보드 structural +1 씩(합 +2).
 // 이 사고를 다시 조용히 지나가지 않게 아래 `SHELL_INSTANCES_BY_BOARD` 를 세웠다.
-const BESPOKE_BASELINE = 50; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+//
+// 2026-09-13(같은 날 뒤): 50 → **25.** **판정을 푼 것이 아니라 상단 바 13개가 인스턴스가 됐다.**
+// 앱 셸 세트에 측정 조합(모바일 `Full · Trail · Back=True`, 데스크톱 `Highlight · Trail · Back=True`·
+// `Subscription · Single`)을 더하자 highlight 열두 보드와 `/subscription` 데스크톱의 날노드 바가
+// 인스턴스로 치환됐고, `$pruningRule` 에 따라 그 안의 부품은 세지 않는다. 사라진 25 는 전부
+// `IconButton/md`(제품 `Gnb.tsx iconButton` 지역 스타일 — 바 앞머리의 토글·뒤로가기 버튼)다:
+// highlight 보드마다 2 × 12 + `/subscription` 데스크톱 1. `bespokeByComponent` 에서 `IconButton/md`
+// 칸이 통째로 없어졌다(25 → 0). 같은 치환으로 missing 81 → 70(바의 프로필 버튼 — highlight loading
+// 두 보드는 이미 구조로 세어져 있어 11), Avatar 인스턴스 13 → 0 · 상단 바 인스턴스 23 → 36 이다.
+// 바가 날노드로 되돌아가면 이 수도 함께 돌아와야 한다 — 그때는 아래 SHELL_INSTANCES_BY_BOARD 가 먼저 운다.
+const BESPOKE_BASELINE = 25; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -205,7 +215,10 @@ const INSTANCE_FLOOR = 84;
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
 // 앵커를 옮겨 후보가 오르면 같은 커밋에서 이 수도 올린다(scripts/regen-figma-at-anchor.sh 머리말).
-const CANDIDATE_FLOOR = 218;
+// 2026-09-13(같은 날 뒤): 218 → **182.** 보드가 준 것이 아니라 상단 바 13개가 인스턴스가 되어 그 안의
+// 후보가 가지치기된 것이다(BESPOKE 문단): bespoke −25 · missing −11 · instance ±0(바 +13 · Avatar −13).
+// 수는 instance 84 + replaceable 0 + bespoke 25 + blocked 3 + missing 70.
+const CANDIDATE_FLOOR = 182;
 const BOARD_FLOOR = 36;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
@@ -216,19 +229,37 @@ const SHELL_COMPONENTS = new Set([
 // 한 보드에서 상단 바를 잃고 그 안의 Avatar 가 따로 세어지면 같은 수로 남는다 — 위 BESPOKE
 // 문단의 회귀가 정확히 그렇게 지나갔다. 셸은 보드의 뼈대라 어느 보드가 무엇을 갖는지가 곧
 // 사실이고, 그것이 바뀌는 것은 늘든 줄든 누군가 보고 적어야 하는 일이다. 그래서 양방향이다.
-// 셸이 없는 보드는 적지 않는다(highlight 모바일 여섯은 진짜 바가 세트에 없는
-// `Full · Trail · Back=True` 라 날노드가 옳다). 키는 `figma/app-screens.<키>.00.draw.js` 다.
+// 키는 `figma/app-screens.<키>.00.draw.js` 다.
+//
+// **같은 날 뒤이어 바뀐 것(2026-09-13, 앱 셸 세트 확장 뒤 재측정).** 이제 36 보드 모두 셸을 갖는다.
+//   · 상단 바를 새로 얻은 보드 13 — highlight `?__phase=` 모바일 여섯은 `Width=Full, Breadcrumb=Trail,
+//     Back=True`(앱 셸 세트에 측정 조합으로 더했다), 데스크톱 여섯은 `Content=Highlight, …, Back=True`
+//     (치환의 CONTENT_BY_LABEL 에 Highlight 가 없어 「축을 판정하지 못했다」였다), `/subscription`
+//     데스크톱은 `Content=Subscription, Breadcrumb=Single`(세트에 없던 조합). 셋 다 앱 셸 plan 의
+//     측정 variant 이고, 옳은 바(자식이 앞머리·nav·뒷머리)에 붙었다.
+//   · `archive.desktop` 의 바가 `Divider=Off` → `On` — 제품 `useMainChromeHeaderScrollProgress.ts:10-14`
+//     가 헤어라인을 늘 켜고 측정 바가 전부 border 1px 인데, 옛 판정은 Home 을 Off 로 박았다.
+//   · 사이드바 variant 가 바뀐 보드 9 — highlight 데스크톱 여섯 `Default → Highlight`
+//     (`HighlightProjectScene.tsx:2345` `currentPath="/highlight"`), `/mypage/upgrade/billing-success`·
+//     `billing-fail`·`fail` 데스크톱 `Default → Upgrade`(각 page 가 `currentPath="/mypage/upgrade"`).
+//     둘 다 fixture 의 활성 표시(styleRef)와 맞고, 생성기의 사이드바 서명 가드가 다시 틀리지 않게 잡는다.
 const SHELL_INSTANCES_BY_BOARD = {
   "analytics-youtube.desktop": ["Product/Desktop App Top Bar · Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=YouTube"],
   "analytics-youtube.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
-  "archive.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=Off", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
   "archive.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  "highlight--projectId-__phase-analyzing.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
-  "highlight--projectId-__phase-extracting.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
-  "highlight--projectId-__phase-failed.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
-  "highlight--projectId-__phase-loading.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
-  "highlight--projectId-__phase-upload.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
-  "highlight--projectId-__phase-uploading.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "highlight--projectId-__phase-analyzing.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-analyzing.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  "highlight--projectId-__phase-extracting.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-extracting.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  "highlight--projectId-__phase-failed.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-failed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  "highlight--projectId-__phase-loading.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-loading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  "highlight--projectId-__phase-upload.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-upload.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  "highlight--projectId-__phase-uploading.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-__phase-uploading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
   "mypage-topup-fail.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-topup-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-topup-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
@@ -237,17 +268,17 @@ const SHELL_INSTANCES_BY_BOARD = {
   "mypage-upgrade-billing-change-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-billing-change-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-upgrade-billing-change-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
-  "mypage-upgrade-billing-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-billing-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
-  "mypage-upgrade-billing-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-billing-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
-  "mypage-upgrade-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
   "mypage-upgrade.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"],
   "settings.desktop": ["Product/Desktop App Top Bar · Content=Settings, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "settings.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  "subscription.desktop": ["Product/Gnb Desktop Shell · Current=Default"],
+  "subscription.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "subscription.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
 };
 

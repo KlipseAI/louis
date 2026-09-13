@@ -17,6 +17,12 @@
  * 컴포넌트 세트에 없는 조합이 나오면 치환하지 않고 측정 도형을 남기고 `skipped`로 돌린다.
  * 억지로 비슷한 variant를 끼우면 제품과 다른 화면이 된다.
  */
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const readPlan = (relative) => JSON.parse(readFileSync(resolve(repoRoot, relative), "utf8"));
 
 /** 라이브 컴포넌트 세트 이름. 렌더러가 이 이름으로 파일에서 찾는다. */
 export const COMPONENT_SETS = Object.freeze({
@@ -30,30 +36,41 @@ export const COMPONENT_SETS = Object.freeze({
 });
 
 /**
- * 각 세트가 실제로 가진 variant 목록(2026-08-26 LOUIS 실측).
- * 여기 없는 조합은 치환하지 않는다. 라이브와 어긋나면 렌더러가 적용 시점에 던진다.
+ * **셸 세트의 variant 목록은 그 세트를 짓는 생성기의 plan 에서 읽는다(2026-09-13).**
+ *
+ * 예전에는 여기 손 사본(2026-08-26 LOUIS 실측)이 있었다. 앱 셸 생성기가 조합을 넷 더하자 사본은
+ * 그대로 낡았다 — 세트에는 생길 조합을 치환은 「세트에 없다」로 보류했을 것이다. 두 벌은 반드시
+ * 어긋나므로 사본을 걷고 plan 을 읽는다:
+ *   · 상단 바 둘 — `figma/product-app-shell.plan.json` 의 **측정** variant(`variants[].name`).
+ *     `preservedVariants`(Divider=Off 둘)는 넣지 않는다. 라이브 legacy 인스턴스를 위해 세트에
+ *     남겨 둔 것이지 제품 출처가 없어서, 화면이 그 조합으로 치환될 일은 없어야 한다.
+ *   · 사이드바 — `figma/product-components.plan.json` 의 `component.shell.variants[].current`.
+ * 여기 없는 조합은 치환하지 않는다. plan 이 라이브보다 앞서 있으면 렌더러가 적용 시점에 던진다
+ * (앱 셸 러너를 먼저 돌려 세트에 조합을 더해야 한다 — 인계서의 적용 순서).
  */
+const APP_SHELL_PLAN = readPlan("figma/product-app-shell.plan.json");
+const COMPONENTS_PLAN = readPlan("figma/product-components.plan.json");
+const TOP_BAR_PLANS = Object.freeze({
+  [COMPONENT_SETS.mobileTopBar]: APP_SHELL_PLAN.component,
+  [COMPONENT_SETS.desktopTopBar]: APP_SHELL_PLAN.component.desktopTopBar,
+});
+for (const [set, entry] of Object.entries(TOP_BAR_PLANS)) {
+  if (entry?.componentSetName !== set || !Array.isArray(entry.variants) || !Array.isArray(entry.textProperties)) {
+    throw new Error(`[figma-app-screens] figma/product-app-shell.plan.json 에 ${set} 의 variants·textProperties 가 없습니다.`);
+  }
+  for (const variant of entry.variants) {
+    if (typeof variant.name !== "string") {
+      throw new Error(`[figma-app-screens] ${set} 의 variant 에 name 이 없습니다 — build-figma-product-app-shell 을 다시 도세요.`);
+    }
+  }
+}
+if (COMPONENTS_PLAN.component?.shell?.componentSetName !== COMPONENT_SETS.sidebar) {
+  throw new Error(`[figma-app-screens] figma/product-components.plan.json 의 shell 세트 이름이 ${COMPONENT_SETS.sidebar} 가 아닙니다.`);
+}
 const VARIANTS = Object.freeze({
-  [COMPONENT_SETS.sidebar]: [
-    "Current=Default", "Current=Home", "Current=YouTube", "Current=Upgrade",
-    "Current=Canvas", "Current=Composition", "Current=Highlight",
-  ],
-  [COMPONENT_SETS.desktopTopBar]: [
-    "Content=Home, Breadcrumb=Single, Back=False, Divider=Off",
-    "Content=Settings, Breadcrumb=Single, Back=False, Divider=On",
-    "Content=Analytics, Breadcrumb=Trail, Back=False, Divider=On",
-    "Content=MyPage, Breadcrumb=Single, Back=False, Divider=On",
-    "Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On",
-    "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On",
-  ],
-  [COMPONENT_SETS.mobileTopBar]: [
-    "Width=Full, Breadcrumb=Single, Back=False, Divider=Off",
-    "Width=Full, Breadcrumb=Single, Back=False, Divider=On",
-    "Width=Full, Breadcrumb=Trail, Back=False, Divider=On",
-    "Width=Inset, Breadcrumb=Single, Back=False, Divider=On",
-    "Width=Inset, Breadcrumb=Trail, Back=False, Divider=On",
-    "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-  ],
+  [COMPONENT_SETS.sidebar]: COMPONENTS_PLAN.component.shell.variants.map((variant) => `Current=${variant.current}`),
+  [COMPONENT_SETS.desktopTopBar]: TOP_BAR_PLANS[COMPONENT_SETS.desktopTopBar].variants.map((variant) => variant.name),
+  [COMPONENT_SETS.mobileTopBar]: TOP_BAR_PLANS[COMPONENT_SETS.mobileTopBar].variants.map((variant) => variant.name),
 });
 
 /**
@@ -93,6 +110,12 @@ const CONTENT_COMPONENTS = Object.freeze([
   { set: "Product/Checkout Status Content", variant: "Outcome=CheckoutFail, Viewport=Mobile", size: [370, 599],
     texts: ["Payment was not completed.", "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.", "Error code", "UNKNOWN_ERROR", "Message", "Payment request failed", "Order ID", "-", "Back to plans", "Go to archive"] },
 
+  // **아래 요금제 카드 여섯 항목은 앵커 6fbdac16 에서 한 자리도 물지 않는다(2026-09-13 판정).**
+  // 제품 5258d9b2 가 요금제를 넷(Trial·Basic·Pro·Max, 316×560)에서 다섯(Trial·Lite·Plus·Pro·Ultra,
+  // 256.8×608.19)으로 바꿨고(`en.ts:387` `plans: ["Trial", "Lite", "Plus", "Pro", "Ultra"]`), 라이브
+  // `Product/Upgrade Plan Card` 세트는 옛 넷이다. 그래서 `/mypage/upgrade` 데스크톱 계획은 카드를
+  // 날노드 + Button inverse 넷으로 그린다 — 치환 결함이 아니라 세트가 제품보다 낡은 것이다.
+  // 세트를 다섯으로 다시 짓는 일은 upgrade-scene 러너 몫이고, 항목은 그때 함께 바꾼다.
   { set: "Product/Upgrade Plan Card", variant: "Plan=Trial, Viewport=Desktop", size: [316, 560],
     texts: ["Trial", "Free", "200", "credits", "Core features for trying Klipse", "Up to 3 projects", "1 video editor upload, 2 imports", "AI video generation trial", "Basic video cut editing", "Highlight input videos up to 10 min", "Watermark included", "Current plan"] },
   { set: "Product/Upgrade Plan Card", variant: "Plan=Basic, Viewport=Desktop", size: [316, 560],
@@ -108,21 +131,60 @@ const CONTENT_COMPONENTS = Object.freeze([
     texts: ["Basic", "35,900 KRW", "per month", "1,800", "credits", "Everything in Trial", "Up to 12 projects", "5 video editor uploads, 5 imports", "All AI models unlocked", "Text/image overlay, TTS", "YouTube/Instagram upload, schedule & analytics", "AI prompt & caption assist"] },
 ]);
 
-/** breadcrumb 첫 라벨 → 데스크톱 상단 바의 `Content` 축. */
-const CONTENT_BY_LABEL = Object.freeze({
-  "Home": "Home",
-  "Settings": "Settings",
-  "Analytics": "Analytics",
-  "My Page": "MyPage",
-  "Subscription": "Subscription",
-});
+/**
+ * breadcrumb 첫 라벨 → 데스크톱 상단 바의 `Content` 축. 앱 셸 plan 의 측정 variant 에서 읽는다 —
+ * 그 생성기가 `Content` 값과 측정 첫 라벨이 같은지 이미 확인한다(`CONTENT_LABEL`). 손 사본에는
+ * `Highlight` 가 없어 highlight 데스크톱 여섯이 「variant 축을 판정하지 못했다」로 날노드였다.
+ */
+const CONTENT_BY_LABEL = (() => {
+  const table = {};
+  for (const variant of TOP_BAR_PLANS[COMPONENT_SETS.desktopTopBar].variants) {
+    const label = variant.text?.[0]?.text;
+    if (!label || !variant.content) throw new Error(`[figma-app-screens] 데스크톱 상단 바 variant 에 첫 라벨·Content 가 없습니다: ${variant.name}`);
+    if (table[label] && table[label] !== variant.content) {
+      throw new Error(`[figma-app-screens] 라벨 ${label} 이 Content ${table[label]} 와 ${variant.content} 둘로 갈립니다.`);
+    }
+    table[label] = variant.content;
+  }
+  return Object.freeze(table);
+})();
 
-/** 사이드바 활성 항목 — 제품 내비에 있는 라우트만. 나머지는 활성 항목이 없으므로 Default. */
-const SIDEBAR_CURRENT = Object.freeze({
-  "/archive": "Home",
-  "/analytics/youtube": "YouTube",
-  "/mypage/upgrade": "Upgrade",
+/**
+ * **사이드바 활성 항목은 제품이 `<Gnb currentPath>` 로 정한다(앵커 6fbdac16).** 화면 route 가
+ * 아니라 그 화면이 넘기는 `currentPath` 가 기준이라, route 이름만 보고 적은 옛 표는 두 번 틀렸다:
+ *   · highlight `?__phase=` 여섯 — `HighlightProjectScene.tsx:2345` 이 `currentPath="/highlight"`
+ *     를 넘기고, fixture 사이드바의 「Highlight」 버튼 글자색이 활성 잉크(`color(srgb 0 0 0)`,
+ *     나머지 항목은 `0.254902 …`)다. 옛 표는 Default 였다.
+ *   · `/mypage/upgrade/billing-success`·`billing-fail`·`fail` — 각 `page.tsx:423`·`:159`·`:161` 이
+ *     `currentPath="/mypage/upgrade"` 를 넘겨 Upgrade CTA 가 활성(`Gnb.tsx:5074` 의
+ *     `resolvedPath.startsWith("/mypage/upgrade")`)이다. fixture 의 사이드바 서브트리가
+ *     `/mypage/upgrade` 와 styleRef 까지 같다. 옛 표는 Default 였다. 반면 `billing-change-*`·
+ *     `topup/*` 는 `currentPath="/mypage"` 라 Default 가 맞다.
+ * 값(`Current=…`)은 components plan 의 `shell.variants[].route` 로 currentPath 와 잇는다. 표가 또
+ * 틀리는 것은 `build-figma-app-screens.mjs` 의 사이드바 서명 가드가 잡는다 — 서브트리가 같은
+ * 보드는 같은 variant, variant 의 출처 route 가 측정돼 있으면 그 서브트리와 같아야 한다.
+ */
+const PRODUCT_CURRENT_PATH = Object.freeze({
+  "/archive": "/archive", // AppHomeScene.tsx:855 currentPath={gnbCurrentPath}, :131 기본값 "/archive"
+  "/settings": "/settings", // SettingsScene.tsx:967
+  "/subscription": "/subscription", // SubscriptionScene.tsx:891
+  "/analytics/youtube": "/analytics/youtube", // YoutubeAnalyticsScene.tsx:2235
+  "/mypage/upgrade": "/mypage/upgrade", // app/mypage/upgrade/UpgradePlanPageClient.tsx:560
+  "/mypage/upgrade/billing-success": "/mypage/upgrade", // billing-success/page.tsx:423
+  "/mypage/upgrade/billing-fail": "/mypage/upgrade", // billing-fail/page.tsx:159
+  "/mypage/upgrade/billing-change-success": "/mypage", // billing-change-success/page.tsx:274
+  "/mypage/upgrade/billing-change-fail": "/mypage", // billing-change-fail/page.tsx:147
+  "/mypage/upgrade/fail": "/mypage/upgrade", // fail/page.tsx:161
+  "/mypage/topup/success": "/mypage", // topup/success/page.tsx:326
+  "/mypage/topup/fail": "/mypage", // topup/fail/page.tsx:147
 });
+const currentPathOf = (route) =>
+  PRODUCT_CURRENT_PATH[route] ?? (route.startsWith("/highlight/") ? "/highlight" : null);
+
+/** 사이드바 variant → 그 variant 를 잰 출처 route(components plan). 생성기의 서명 가드가 쓴다. */
+export const SIDEBAR_VARIANT_SOURCES = Object.freeze(Object.fromEntries(
+  COMPONENTS_PLAN.component.shell.variants.map((variant) => [`Current=${variant.current}`, variant.route]),
+));
 
 const round = (value) => Math.round((value ?? 0) * 100) / 100;
 
@@ -162,27 +224,84 @@ function leadingButtonCount(bar) {
   return count;
 }
 
+/**
+ * 사이드바 variant. 표에 없는 route 는 **던진다** — 조용히 Default 로 떨어뜨리면 새 화면이 활성
+ * 항목을 잃어도 아무도 모른다(옛 표가 highlight 여섯을 그렇게 잃었다).
+ */
 function sidebarVariant(route) {
-  return `Current=${SIDEBAR_CURRENT[route] ?? "Default"}`;
+  const currentPath = currentPathOf(route);
+  if (!currentPath) {
+    throw new Error(
+      `[figma-app-screens] ${route} 가 넘기는 <Gnb currentPath> 를 모릅니다 — ` +
+      "제품 소스에서 인용해 figma-component-substitution.mjs 의 PRODUCT_CURRENT_PATH 에 적으세요.",
+    );
+  }
+  const variant = COMPONENTS_PLAN.component.shell.variants.find((entry) => entry.route === currentPath);
+  return `Current=${variant?.current ?? "Default"}`;
 }
 
-function desktopTopBarVariant(bar) {
+/**
+ * **Divider 는 측정 border 로 판정한다.** 제품 6fbdac16 `useMainChromeHeaderScrollProgress.ts:10-14`
+ * 가 헤어라인을 모든 화면에서 늘 켠다고 적고, fixture 의 측정 바는 전부 `border-bottom-width: 1px`
+ * 다. 옛 코드는 `Content=Home` 을 `Divider=Off` 로 박아 `/archive` 데스크톱이 제품과 다른 조합을
+ * 받았다. 계산 스타일이 없으면 판정하지 못한 것으로 둔다(지어내지 않는다).
+ */
+function dividerOf(style) {
+  const width = Number.parseFloat(String(style?.borderBottomWidth ?? ""));
+  if (!Number.isFinite(width)) return null;
+  return width > 0 ? "On" : "Off";
+}
+
+function desktopTopBarVariant(bar, style) {
   const labels = breadcrumbLabels(bar);
   const content = CONTENT_BY_LABEL[labels[0]];
-  if (!content) return null;
+  const divider = dividerOf(style);
+  if (!content || !divider) return null;
   const breadcrumb = labels.length > 1 ? "Trail" : "Single";
   const back = leadingButtonCount(bar) >= 2 ? "True" : "False";
-  const divider = content === "Home" ? "Off" : "On";
   return `Content=${content}, Breadcrumb=${breadcrumb}, Back=${back}, Divider=${divider}`;
 }
 
-function mobileTopBarVariant(bar, viewportWidth) {
+function mobileTopBarVariant(bar, viewportWidth, style) {
   const labels = breadcrumbLabels(bar);
-  if (labels.length === 0) return null;
+  const divider = dividerOf(style);
+  if (labels.length === 0 || !divider) return null;
   const width = Math.round(bar.rect.width) >= Math.round(viewportWidth) ? "Full" : "Inset";
   const breadcrumb = labels.length > 1 ? "Trail" : "Single";
   const back = leadingButtonCount(bar) >= 2 ? "True" : "False";
-  return `Width=${width}, Breadcrumb=${breadcrumb}, Back=${back}, Divider=On`;
+  return `Width=${width}, Breadcrumb=${breadcrumb}, Back=${back}, Divider=${divider}`;
+}
+
+/**
+ * **상단 바 인스턴스의 breadcrumb 글자 → 세트의 TEXT 속성(2026-09-13).**
+ *
+ * 앱 셸 생성기가 두 상단 바 세트에 `Label`(Single) · `Parent`·`Current`(Trail) TEXT 속성을 열었다.
+ * 세트 단위 속성은 기본값이 하나라, 채우지 않으면 모든 인스턴스가 기본 라벨을 보인다 — 라이브
+ * `/archive`·`/subscription` 모바일이 이미 「Settings」 를 보이는 결함과 같은 모양이다.
+ *
+ * 어느 글자가 어느 속성인지는 **그 variant 의 plan `text[].property` 순서**가 정한다(측정 breadcrumb
+ * 에서 구분자 「/」를 뺀 순서와 같다). 돌려주는 객체는 세트의 속성 이름 **전부**를 키로 갖는다 —
+ * 이 variant 가 묶지 않은 속성은 null 이다. 렌더러는 키 집합이 세트의 TEXT 속성 집합과 다르면 던진다
+ * (「속성 수가 계획과 다르면 조용히 넘어가지 않는다」).
+ */
+function topBarTextProperties(node, set, variant) {
+  const entry = TOP_BAR_PLANS[set];
+  if (!entry) return null;
+  const spec = entry.variants.find((candidate) => candidate.name === variant);
+  if (!spec) throw new Error(`[figma-app-screens] ${set} plan 에 ${variant} 가 없습니다.`);
+  const bound = spec.text.filter((text) => text.property).map((text) => text.property);
+  const labels = breadcrumbLabels(node);
+  if (labels.length !== bound.length) {
+    throw new Error(
+      `[figma-app-screens] ${set} · ${variant} 는 TEXT 속성 ${bound.length}개(${bound.join("·")})를 묶는데 ` +
+      `측정 breadcrumb 글자는 ${labels.length}개(${labels.join(" | ")})입니다: ${node.path}`,
+    );
+  }
+  const names = entry.textProperties.map((property) => property.name);
+  for (const name of bound) {
+    if (!names.includes(name)) throw new Error(`[figma-app-screens] ${set} 의 textProperties 에 ${name} 이 없습니다.`);
+  }
+  return Object.fromEntries(names.map((name) => [name, bound.includes(name) ? labels[bound.indexOf(name)] : null]));
 }
 
 
@@ -536,9 +655,11 @@ function variantAxesOf(readback, component) {
  * 여는 날 조용히 낡는다.
  *
  * 되읽기에 **없는** 세트(`Product/*` 장면 컴포넌트)는 `null` 이다. 「슬롯이 없다」와 「모른다」는
- * 다르지만 결과는 같아야 한다 — 저 세트들은 라벨을 덮어쓸 일이 애초에 없기 때문이다. 셸은
- * 라벨을 variant 축(`Content=Settings`)이 나르고, 본문 블록은 **텍스트가 글자 그대로 같을 때만**
- * 치환하므로(`CONTENT_COMPONENTS.texts`) 덮어쓸 차이가 정의상 0 이다.
+ * 다르지만 결과는 같아야 한다 — 본문 블록은 **텍스트가 글자 그대로 같을 때만** 치환하므로
+ * (`CONTENT_COMPONENTS.texts`) 덮어쓸 차이가 정의상 0 이다. 상단 바 두 세트는 예외라 이 함수를
+ * 거치지 않는다 — 속성을 앱 셸 plan 이 소유하므로 `topBarTextProperties` 가 그 plan 에서 읽는다
+ * (2026-09-13 전에는 라벨을 variant 축이 나른다고 적었지만 모바일 세트에는 라벨 축이 없어
+ * `/archive`·`/subscription` 모바일이 「Settings」 를 보였다).
  */
 function textSlotsOf(readback, set) {
   const entry = readback.components?.[set];
@@ -680,7 +801,10 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
       return false;
     }
     // **자식을 비우기 «전»에** 라벨을 건진다 — 비운 뒤에는 셀 텍스트가 없다.
-    const label = instanceLabel(node, set, evidence.readback);
+    // 상단 바는 속성이 여럿이라 이름 → 글자 객체다(`topBarTextProperties`).
+    const label = TOP_BAR_PLANS[set]
+      ? topBarTextProperties(node, set, variant)
+      : instanceLabel(node, set, evidence.readback);
     node.instance = { set, variant, why, ...(label == null ? {} : { label }) };
     node.children = [];
     applied.push({ path: node.path, set, variant, ...(label == null ? {} : { label }) });
@@ -727,7 +851,10 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
         && !(node.children ?? []).some(isTopBarCandidate)) {
       barDone = true;
       const set = desktop ? COMPONENT_SETS.desktopTopBar : COMPONENT_SETS.mobileTopBar;
-      const variant = desktop ? desktopTopBarVariant(node) : mobileTopBarVariant(node, viewport.width);
+      const barStyle = styleOf(node.path);
+      const variant = desktop
+        ? desktopTopBarVariant(node, barStyle)
+        : mobileTopBarVariant(node, viewport.width, barStyle);
       if (substitute(node, set, variant, `높이 53 + breadcrumb nav — 앱 상단 바 (${round(node.rect.width)}px)`)) return;
     }
     const content = matchContent(node);

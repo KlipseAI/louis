@@ -26,8 +26,10 @@ import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import {
   applyComponentInstances,
+  COMPONENT_SETS,
   LOUIS_PRIMITIVE_EXCLUSIONS,
   LOUIS_PRIMITIVE_SITES,
+  SIDEBAR_VARIANT_SOURCES,
 } from "./lib/figma-component-substitution.mjs";
 import { glyphBySignature, PRODUCT_GLYPHS } from "./lib/figma-glyph-identity.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
@@ -174,7 +176,8 @@ const slim = (node) => ({
   ...(node.clipsContent ? { c: 1 } : {}),
   // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
   // **세 번째 칸은 라벨이다** — 컴포넌트가 노출한 TEXT 슬롯을 채울 글자. 라벨이 없는 인스턴스
-  // (Gnb Shell · Top Bar · 본문 블록)는 두 칸 그대로라 payload 가 한 바이트도 바뀌지 않는다.
+  // (Gnb Shell · 본문 블록)는 두 칸 그대로라 payload 가 한 바이트도 바뀌지 않는다. 상단 바는
+  // 속성이 여럿이라 문자열이 아니라 `{속성 이름: 글자 | null}` 객체다(2026-09-13, 앱 셸 plan 의 textProperties).
   ...(node.instance ? { i: node.instance.label == null
     ? [node.instance.set, node.instance.variant]
     : [node.instance.set, node.instance.variant, node.instance.label] } : {}),
@@ -351,6 +354,51 @@ for (const screen of SCREENS) {
       },
       spec,
     });
+  }
+}
+
+/**
+ * **사이드바 variant 는 측정 사이드바 서브트리와 어긋날 수 없다(2026-09-13).**
+ *
+ * 사이드바의 `Current` 는 route 표(`PRODUCT_CURRENT_PATH`)가 고른다. 표만 믿으면 틀려도 조용하다 —
+ * 옛 표는 highlight 여섯과 `/mypage/upgrade` 하위 셋을 Default 로 두었고 어느 게이트도 울지 않았다.
+ * 그런데 활성 항목은 측정에 남는다(활성 버튼의 글자색·CTA 면이 다른 styleRef 다). 그래서 사이드바
+ * 서브트리의 [상대 경로·태그·글자·rect·styleRef] 를 서명으로 삼아 두 가지를 확인한다:
+ *   ① 서명이 같은 보드는 같은 variant 다.
+ *   ② variant 의 출처 route(components plan)가 이 fixture 에 측정돼 있으면, 그 variant 를 받은 보드의
+ *      서명은 출처와 같다. (`Current=Highlight` 의 출처 `/highlight` 는 fixture 에 없어 ②를 건너뛰고
+ *      ①만 받는다.)
+ */
+{
+  const desktopContext = CONTEXTS.find((context) => context.key === "desktop").id;
+  const measuredDesktop = fixture.screens[desktopContext] ?? {};
+  const signatureOf = (route, path) => {
+    const nodes = (measuredDesktop[route]?.tree ?? [])
+      .filter((node) => node.path === path || node.path.startsWith(`${path}.`));
+    return nodes.length === 0 ? null : JSON.stringify(nodes.map((node) =>
+      [node.path.slice(path.length), node.tag, node.ownText ?? "", node.rect, node.styleRef]));
+  };
+  const variantBySignature = new Map();
+  for (const entry of screens) {
+    if (entry.context !== desktopContext) continue;
+    const sidebar = entry.shells.applied.find((applied) => applied.set === COMPONENT_SETS.sidebar);
+    if (!sidebar) continue;
+    const signature = signatureOf(entry.route, sidebar.path) ?? fail(`사이드바 측정 서브트리가 없습니다: ${entry.route} ${sidebar.path}`);
+    const seen = variantBySignature.get(signature);
+    if (seen && seen.variant !== sidebar.variant) {
+      fail(
+        `사이드바 서브트리가 같은 두 보드가 다른 variant 를 받았습니다: ${seen.route}(${seen.variant}) · ` +
+        `${entry.route}(${sidebar.variant}). figma-component-substitution.mjs 의 PRODUCT_CURRENT_PATH 를 제품 <Gnb currentPath> 와 대조하세요.`,
+      );
+    }
+    variantBySignature.set(signature, { route: entry.route, variant: sidebar.variant });
+    const source = SIDEBAR_VARIANT_SOURCES[sidebar.variant];
+    if (source && measuredDesktop[source] && signatureOf(source, sidebar.path) !== signature) {
+      fail(
+        `${entry.route} 가 ${sidebar.variant} 를 받았지만 사이드바 서브트리가 그 variant 의 출처 ${source} 와 다릅니다. ` +
+        "활성 항목이 다른 화면입니다 — PRODUCT_CURRENT_PATH 를 제품 <Gnb currentPath> 와 대조하세요.",
+      );
+    }
   }
 }
 

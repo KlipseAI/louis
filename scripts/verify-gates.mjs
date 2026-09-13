@@ -217,26 +217,40 @@ withCanary(
   "셸 인스턴스를 잃었습니다",
 );
 
-// ②″ **셸이 없던 보드에 셸이 붙었는데 합계는 그대로다(2026-09-13).** 같은 사고의 다른 절반이다 —
+// ②″ **보드에 셸이 하나 더 붙었는데 합계는 그대로다(2026-09-13).** 같은 사고의 다른 절반이다 —
 // highlight 모바일 여섯은 바 안의 Avatar 인스턴스가 있던 자리에 래퍼 기준으로 판정한 틀린
 // `Width=Inset` 상단 바가 붙어 인스턴스 수가 변하지 않았다. ②′ 는 「잃음」만 시험하므로 이
-// 「얻음」 쪽이 조용히 풀려도 모른다. 셸이 하나도 없는 보드의 Avatar 를 상단 바로 바꿔 합계를 맞춘다.
+// 「얻음」 쪽이 조용히 풀려도 모른다. **셸이 아닌 인스턴스 하나를 상단 바로 바꿔** 합계를 맞춘다.
+//
+// 대상 선택을 한 번 고쳤다(2026-09-13, 같은 날 뒤). 처음에는 「셸이 하나도 없는 보드의 Avatar」를
+// 골랐는데, 앱 셸 세트가 highlight 모바일 조합을 얻어 **36 보드 모두 셸을 갖게 되자 대상이 0 이
+// 됐다** — 그러면 `nodes["undefined"]` 에 판정 없는 줄이 생기고 checker 는 식별자 오류만 내 기대
+// 진단을 잃는다. 「셸이 없는 보드」는 원장이 움직이면 사라지는 조건이라, 원장 어디에나 있는 모양으로
+// 옮겼다: 셸이 **이미 있는** 보드라도 셸 목록이 하나 늘면 checker 는 「새로 얻었습니다」로 운다
+// (다중집합 비교). Avatar 를 먼저 찾고(사고 그대로의 모양), 없으면 다른 비셸 인스턴스(Button)를 쓴다.
+// 그래도 없으면 조용히 넘어가지 않고 이 canary 의 이름으로 실패한다.
 withCanary(
   "migration/figma-board-composition.json",
   (source) => {
     const ledger = JSON.parse(source);
     const shellSet = /^Product\/(Gnb Desktop Shell|Desktop App Top Bar|Mobile App Top Bar)$/;
-    const boardsWithShell = new Set(Object.values(ledger.nodes)
-      .filter((node) => node.verdict === "instance" && shellSet.test(node.component ?? ""))
-      .map((node) => node.board));
-    const id = Object.keys(ledger.nodes).find((key) =>
-      ledger.nodes[key].verdict === "instance" && ledger.nodes[key].component === "Avatar"
-      && !boardsWithShell.has(ledger.nodes[key].board));
+    const nonShell = (key) =>
+      ledger.nodes[key].verdict === "instance" && !shellSet.test(ledger.nodes[key].component ?? "");
+    const keys = Object.keys(ledger.nodes);
+    const id = keys.find((key) => nonShell(key) && ledger.nodes[key].component === "Avatar")
+      ?? keys.find(nonShell);
+    if (!id) {
+      errors.push(
+        "board composition shell gained while instance total held canary 의 대상이 없습니다 — 원장에 " +
+          "셸이 아닌 인스턴스가 0 입니다. 합계를 상쇄하며 셸을 얻는 모양을 만들 다른 재료를 고르세요.",
+      );
+      return source;
+    }
     ledger.nodes[id] = {
       ...ledger.nodes[id],
       component: "Product/Mobile App Top Bar",
       variant: "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
-      reason: "카나리아 — 래퍼 기준으로 판정한 틀린 상단 바가 Avatar 자리에 붙었다.",
+      reason: "카나리아 — 래퍼 기준으로 판정한 틀린 상단 바가 다른 인스턴스(Avatar 등) 자리에 붙었다.",
     };
     return JSON.stringify(ledger, null, 2) + "\n";
   },
@@ -431,12 +445,29 @@ withCanary(
 // ⑩ **조인표에서 판정이 사라졌다.** 열거기는 정본 자리·제외 목록과 조인해 bespoke 를 낸다.
 //    목록에서 한 항목이 빠지면 「판정 없는 자리」가 생기는데, 그때 조용히 replaceable 로
 //    접히면 다시 바꾸면 안 되는 자리를 바꾸라고 시키게 된다 — 던지는지 확인한다.
+//    **빼는 항목을 원장에서 고른다(2026-09-13).** 처음에는 `IconButton` 을 박아 두었는데, 앱 셸
+//    세트가 조합을 얻어 highlight·subscription 상단 바 13개가 인스턴스가 되자 IconButton 자리
+//    25개가 전부 바 안으로 가지치기되어 **원장에 IconButton 자리가 0** 이 됐다 — 항목을 빼도
+//    판정할 자리가 없어 열거기는 초록이었고 canary 는 대상을 잃었다. 그래서 지금 원장에서
+//    `primitive-site-excluded` 로 판정된 자리가 실제로 있는 컴포넌트를 골라 뺀다.
 withCanary(
   "figma/app-screens.plan.json",
   (source) => {
     const plan = JSON.parse(source);
+    const ledger = JSON.parse(readFileSync(resolve(repoRoot, "migration/figma-board-composition.json"), "utf8"));
+    const excludedInUse = new Set(Object.values(ledger.nodes ?? {})
+      .filter((node) => node.rule === "primitive-site-excluded")
+      .map((node) => node.component));
+    const target = plan.louisPrimitiveExclusions.find((entry) => excludedInUse.has(entry.component))?.component;
+    if (!target) {
+      errors.push(
+        "board composition primitive site table lost a verdict canary 의 대상이 없습니다 — 원장에 " +
+          "제외 목록으로 판정된 자리(`primitive-site-excluded`)가 0 입니다.",
+      );
+      return source;
+    }
     plan.louisPrimitiveExclusions = plan.louisPrimitiveExclusions.filter(
-      (entry) => entry.component !== "IconButton",
+      (entry) => entry.component !== target,
     );
     return JSON.stringify(plan, null, 2) + "\n";
   },

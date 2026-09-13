@@ -10,12 +10,50 @@ authority: reference
 이어가기 위한 살아 있는 인계서다. 대화 요약을 정본으로 삼지 않는다. 진행할 때마다 이 문서의
 `완료`, `진행 중`, `다음 순서`, `검증`을 갱신한다.
 
-> 최근 체크포인트: 2026-08-24. mobile Upgrade와 profile 링에 이어 public `/pricing` 전체 페이지를
+> **최근 체크포인트는 아래 「현재 체크포인트」의 2026-09-13 절이다.** 이 인용 블록은 2026-08-24 기록이다.
+>
+> 2026-08-24. mobile Upgrade와 profile 링에 이어 public `/pricing` 전체 페이지를
 > 883개 측정 subtree와 실제 텍스트 줄 조각에서 생성했다. `get_goal`은 여전히
 > `usageLimited`와 `remainingTokens:null`만 반환해 주간 잔여율을 수치로 확인할 수 없다. 따라서 이 문서는
 > 특정 리셋 시각을 정본으로 삼지 않고, 매 checkpoint의 실제 완료물·검증·다음 순서만 인계한다.
 
 ## 현재 체크포인트
+
+> **2026-09-13 — 앵커 `6fbdac16`.** 검증 결과는 이 절이 아니라 그 회차 커밋 메시지와 명령이 낸다
+> (아래 「검증 기준선」). 이 절 아래의 2026-08-24 항목들은 그 시점의 기록이다. 특히 「다음 화면은
+> `/docs` shell」은 **무효다** — 제품이 `/docs` 트리를 걷어냈고(`ca56540c`) 문서 정본은 별도 저장소로
+> 옮겨졌다.
+>
+> - **앵커 이동을 두 번 끝냈다.** `38a7d5a4`(낙후 핀 13 → 0) 뒤 `6fbdac16`. 두 번째는 인용·서브트리
+>   재고정이 0 건이었고 표면·보드 판정 수가 전후 동일했다 — 앵커 사이 9 커밋은 캔버스 이미지 생성
+>   이어받기와 CI 훅 · 문서이고 DS 가 재는 시각 축과 겹치지 않았다.
+> - **상단 바 매처 회귀를 찾아 고쳤다.** 제품이 상단 바 래퍼에
+>   `margin-bottom: var(--app-gnb-main-card-padding-block-start)`(데스크톱 16px · 모바일 6px — 제품
+>   `b6b4e245` · `e95e1fb3`)를 주자 스펙에
+>   래퍼가 남았고, `scripts/lib/figma-component-substitution.mjs` 의 매처가 래퍼를 바로 착각해 슬롯을
+>   닫았다. archive · settings · subscription 다섯 보드가 `Product/*App Top Bar` 인스턴스를 잃었고,
+>   highlight 모바일 여섯에는 틀린 `Inset` 이 붙었다. INSTANCE 합계는 Avatar 가 따로 세어져 84 로 가려져
+>   **어떤 게이트도 울리지 않았다.** 매처를 고쳐 36 화면 중 34 가 회귀 전과 같고 둘(analytics)은 같은
+>   버그에 가려져 있던 바를 새로 얻었다. `scripts/check-figma-board-composition.mjs` 에 보드별 셸 래칫
+>   `SHELL_INSTANCES_BY_BOARD` 를, `scripts/verify-gates.mjs` 에 합계가 상쇄되는 모양의 canary 를 세웠다.
+> - **앵커를 옮길 때는 `scripts/regen-figma-at-anchor.sh` 를 쓴다.** 전제를 확인하고 `package.json` 의
+>   `verify:product` 순서로 측정 → Figma 생성 → 문서를 돈다. 측정이 실패하거나 SKIPPED 를 내면 생성
+>   전에 멈춘다. fixture 체크아웃과 빌드는 하지 않고 할 일을 인쇄한다. **같은 커밋에서 기준선도
+>   옮긴다** — 목록은 그 스크립트 머리말이 소유한다(`check-coverage-targets.mjs` 의 표면 기준선,
+>   `check-figma-board-composition.mjs` 의 `BESPOKE_BASELINE` · `CANDIDATE_FLOOR` ·
+>   `SHELL_INSTANCES_BY_BOARD`). 두 회차 연속 이것을 잊어 그물이 늘어졌고 canary 가 물지 못했다.
+> - **Figma 생성 check 다섯이 제품 저장소 경로 철자에 묶여 있었다.** product-app-shell · components ·
+>   highlight-hub · sidebar-states · upgrade-scene 생성기가 근거 명령 문자열에 `KLIPSE_PRODUCT_REPO`
+>   절대경로를 적어서, 같은 트리를 `$PWD/../klipse-web` 로 가리키면 check 가 drift 로 죽고 다른 기계에서는
+>   원저자 경로가 아닌 한 늘 죽었다. 이제 `"$KLIPSE_PRODUCT_REPO"` 자리표시를 적고, 런북은 두 루트를
+>   실경로로 굳혀 내보낸다. 두 철자 모두에서 check 가 통과하는 것을 확인했다.
+> - **랜딩 `/` 은 범용 측정기로 잰다.** 제품 `8802565e` 가 랜딩을 개편해 옛 전용 측정기
+>   (`#capabilities article` · 상위 섹션 8개)가 잴 것을 잃었다. 옛 전용 기록을 읽는 소비자는 0 이었다.
+>   합성 장면 축은 새 랜딩에 장면이 없어 표본 0 이 **참인 상태**다.
+> - **라이브 Figma 는 아직 옛 계획이다.** 생성물은 새 앵커로 다시 만들었지만 파일에 적용하지 않았다.
+>   사이드바 compound 행 둘(+ 버튼)이 simple 로 내려갔고 `.glyph/NavPlusGlyph` 매핑이 걷혔다 —
+>   라이브 보드의 그 컴포넌트는 사용자 자산이라 지우지 않았다. 적용하면 highlight 모바일 여섯의
+>   상단 바는 날노드로 남는다 — 진짜 바가 `Full · Trail · Back=True` 로 세트에 없는 조합이기 때문이다.
 
 - Upgrade desktop/mobile scene 완료: `417:2461`, `422:2696`; mobile visible-slice set `422:2567`.
 - 제품 캡처 대조에서 Trial 2px current-plan outline과 36px profile usage ring 누락을 발견해 측정기부터
@@ -1215,6 +1253,23 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 
 ## 다음 순서
 
+**2026-09-13 기준 순서다.** 이 절 아래 번호 목록은 2026-08-24 기록이며, `/docs` 항목은 무효다.
+
+1. 새 계획을 라이브 Figma 에 적용하기 **전에** 라이브와 계획의 상단 바를 보드별로 대조한다. 회귀된 계획
+   (`4ebbe46` · `e42ebef`)은 적용된 적이 없으므로 라이브의 archive · settings · subscription 상단 바는
+   이미 인스턴스다(2026-08-24 기록의 프레임 표 — archive · settings 는 데스크톱과 모바일, subscription 은 모바일)
+   — 새 계획으로 달라지는 상단 바는 analytics 두 보드뿐이다.
+   **subscription desktop 은 반대로 위험하다.** 라이브에는 바 `488:658` 이 있으나 역대 어느 계획도 그 바를
+   만들지 못했다(`Content=Subscription, Breadcrumb=Single` 이 세트에 없다) — 그대로 적용하면 손으로 놓인 그
+   바를 지운다. 세트에 그 조합을 더할지, 그 보드는 적용에서 뺄지 먼저 정한다. 사이드바 · 헤더 · 결제 장면
+   보드는 「+」 없는 모양으로 바뀐다.
+2. `Product/Mobile App Top Bar` 에 `Width=Full, Breadcrumb=Trail, Back=True` 가 필요한지 판단한다 —
+   highlight 모바일 여섯의 진짜 바가 그 조합이다. 세트에 더하면 `SHELL_INSTANCES_BY_BOARD` 도 옮긴다.
+3. 랜딩 `/` 보드가 필요하면 그 보드가 쓸 축으로 전용 측정기를 다시 세운다 — 소비자 없이 축을 짓지 않는다.
+4. `execution-handoff.md` 의 큐(`DS-P3-001` owner 확인 · `DS-P3-014` 토큰 커버리지)로 돌아간다.
+
+### 2026-08-24 기록
+
 1. 새 GNB/topbar master를 page-03의 모든 app screen에 route별 instance로 교체한다. duplicated sidebar/header는
    삭제하지 말고 먼저 숨겨 보존하며, route current state와 breadcrumb를 제품 fixture에서 확인한다.
    사용자는 이 장기 작업 범위의 안전한 Figma/저장소 작업을 사전 승인했다. 제품 저장소 쓰기, publish,
@@ -1233,6 +1288,20 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
    `figma/components.measured.json` 또는 관련 normative spec으로 승격한다.
 
 ## 검증 기준선
+
+**수를 여기 적지 않는다.** 게이트 수·leaf 수·앵커 커밋은 적는 순간부터 낡는다(아래 기록의
+「22개 leaf」·「CI형 게이트 14개 중 13개」·`a3ed8e03` 이 전부 그렇게 낡았다). 지금 기준은 명령이 낸다.
+
+- 앵커: `migration/product-evidence.lock.json` 의 `productCommit`.
+- 게이트 수: `package.json` 의 `verify:ci` · `verify:product`.
+- 커밋 전: `pnpm build` · `pnpm check` · `pnpm verify` · `pnpm test` · `git diff --check`.
+  커밋 뒤 푸시 전: `pnpm clean-room`. 절차의 정본은 `execution-handoff.md` 6절이다.
+- `pnpm verify` 를 `&&` 체인으로만 돌리면 첫 실패 뒤가 가려진다. 원인을 좁힐 때는 두 갈래의
+  게이트를 하나씩 돌려 각자의 종료코드를 본다. 백그라운드로 돌릴 때 `| tail` 로 파이프하면
+  종료코드가 `tail` 의 것이 되고 출력이 끝까지 버퍼링된다.
+
+### 2026-08-24 기준 (기록)
+
 
 - `verify-product-scenes`: clean pinned standalone에서 scene/staticHighlightDemo 2문맥×32노드와
   public/pricing page 측정 `--check` 통과 @ `a3ed8e03`.

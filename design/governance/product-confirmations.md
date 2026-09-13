@@ -15,26 +15,50 @@ authority: normative
 재실측하면 죽은 값을 올리게 된다. 제품이 앞서 나가면 같은 락 파일을 보는
 `verify-product-evidence` 가 잡는다.
 
-## 1 — 노드 비활성 핸들의 라이트 값
+## 1 — 노드 비활성 핸들의 라이트 표현: 필터 연산을 DS 가 값으로 옮길 것인가
 
-**증상.** 라이트에서 **비활성 핸들이 활성보다 훨씬 눈에 띈다.**
+> **질문을 바꿨다(2026-09-13).** 이 절은 「라이트 페이지에서 비활성 면이 `{ramp}-900`(거의 검정)이
+> 된다 → 라이트 값이 정해져야 채널 disabled 12종이 올라간다」고 적고 있었다. 앵커 `6fbdac16` 에서
+> 결론(화면이 거의 검정)도 조건(12종이 대기 중)도 맞지 않는다. 토큰 값 서술만 그대로 맞다.
 
-제품의 라이트 오버라이드는 `--node-handle-bg-{channel}` **하나만** 재정의한다
-(다크 `{ramp}-800` → 라이트 `{ramp}-200`). `icon`과 `disabled` 계열 넷은 재정의가 없어 다크 값을
-그대로 물려받으므로, 라이트 페이지에서 비활성 면이 `{ramp}-900`(거의 검정)이 된다.
+**토큰 값은 그 말대로다.** 제품의 라이트 오버라이드는 여전히 `--node-handle-bg-{channel}` 만
+200 으로 바꾸고(`globals.css:626-627` 등) disabled 계열은 다크 값(`{ramp}-900` · `-700`)을 그대로
+둔다(`globals.css:575-588`).
 
-**정해야 할 것.** `--node-handle-bg-disabled-*`와 `--node-handle-icon-disabled-*`의 라이트 값.
-정해지면 [DS-D-0010](decisions/DS-D-0010-token-coverage.md) Open question 3이 닫히고 채널 semantic
-12종이 올라간다.
+**그러나 제품 화면은 그 값을 라이트에서 칠하지 않는다.** 소비처가 라이트에서 disabled 토큰 대신
+활성 토큰에 필터를 건다 — `light:[filter:brightness(0.78)_saturate(0.95)]!` 와
+`light:[background:var(--node-handle-bg-{channel})]!` 가 한 묶음이다(`NodeSideButtons.tsx:182-214` ·
+`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`). 제품 토큰 주석이 같은 말을 한다 — 「비활성(라이트)은
+소비자 유틸리티에서 필터+채널 토큰 유지」(`globals.css:502`). 그래서 **라이트에서 거의 검정인 비활성
+핸들은 제품에 없다.**
+
+**그리고 채널 disabled 12종은 이미 LOUIS 원천에 있다** — `color-node-handle-{bg,icon}-disabled-{channel}`
+(`8de65bb`, 2026-08-26), 두 모드 값이 같다. LOUIS 레시피는 두 테마 모두 그것을 읽으므로 라이트에서
+제품과 갈린다. 그 편차는 [Node Side Handle](../components/node-side-handle.md) Known deviations 1이
+갖는다.
+
+**정해야 할 것(소유자).** 필터는 연산이라 옮길 토큰 값이 없다. 셋 중 하나다.
+
+1. 지금처럼 두 테마가 같은 disabled 토큰을 읽고 편차로 남긴다.
+2. 필터가 만든 색을 재서 라이트 disabled 값을 따로 세운다 — 토큰 값 변경이라 breaking 이고 Figma
+   변수도 함께 바뀐다.
+3. 레시피가 라이트에서 활성 토큰에 같은 필터를 건다 — 값이 아니라 연산을 옮긴다.
+
+**같이 정할 것.** `color-node-{audio,edit,image,instagram,text,youtube}-{icon,surface}` 12개가 두 모드
+모두 `color-node-handle-icon-*` · `color-node-handle-bg-*` 와 같은 primitive 를 가리키고 소비처가 없다
+([DS-D-0030](decisions/DS-D-0030-no-duplicate-role-tokens.md) 상황). 지우는 것은 removal breaking 이고
+Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.** 지울지는 소유자 판정이다.
+[DS-D-0010](decisions/DS-D-0010-token-coverage.md) Open question 3이 이 두 질문을 가리킨다.
 
 ## 2 — `180ms`가 어느 모션인가
 
-> 이 절의 숫자는 아래 §3 의 **생성 표에서 읽은 것**이다. 표를 다시 재면(`pnpm measure-product-drift`)
-> 여기도 함께 옮겨야 한다 — 마커 바깥이라 재생성이 닿지 않고, 실제로 2026-08-29 재측정에서
-> 한 번 어긋났다.
+> **이 절은 사용 횟수를 옮겨 적지 않는다(2026-09-13).** 수는 아래 §3 생성 표의 `duration` 행과
+> 「모션 길이」 표가 낸다. 이 산문은 마커 바깥이라 재생성이 닿지 않아, 옮겨 적은 수는 재측정마다
+> 어긋난다 — 2026-08-29 에 한 번 어긋났고, 2026-09-13 에는 산문이 「173회 · 43파일 · 53단 중
+> 60.4%」인데 같은 문서의 표는 162회 · 42파일 · 71단 · 59.9% 였다. 그래서 수를 걷고 표를 가리킨다.
 
-**증상.** 배포본에서 **가장 많이 쓰이는 모션 길이 180ms(173회 · 43파일)에 대응하는 DS 모션이 없다.**
-DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
+**증상.** 배포본에서 **가장 많이 쓰이는 모션 길이 180ms에 대응하는 DS 모션이 없다** — §3 생성 표의
+`duration` 행이 그것을 최다값이자 결손 최다로 낸다. DS의 duration·motion이 덮는 비율도 같은 행에 있다.
 
 **첫 실측 입력이 나왔다(2026-08-21).** 확인 모달의 액션 버튼이 `transform` · `filter` ·
 `opacity` 전환을 **셋 다 180ms ease**로 썼다(`GlassConfirmModal.tsx@a3ed8e03:96`).
@@ -51,11 +75,12 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 아니라 「눌리고 밝아지는 길이」라면 이름은 `motion-control-*` 계열이어야 한다.
 자세한 값은 [interaction-states](../foundations/interaction-states.md)의 제품 실측 절에 있다.
 
-**아직 한 자리의 관측이다.** 173회 중 하나이므로 이것만으로 역할을 확정하지 않는다.
+**아직 한 자리의 관측이다.** 생성 표가 세는 180ms 사용처 중 하나이므로 이것만으로 역할을 확정하지
+않는다.
 
 **정해야 할 것.** 180ms가 어떤 동작에 붙는가. 길이만 보고 `motion-*` 이름을 붙이면 근거 없는
-토큰이 되므로, **무엇이 움직이는지**를 알아야 역할이 정해진다. 같은 이유로 `150ms`(23회)와
-`280ms`(40회)도 미정이다.
+토큰이 되므로, **무엇이 움직이는지**를 알아야 역할이 정해진다. 같은 이유로 `150ms`와
+`280ms`도 미정이다(둘 다 생성 표의 「모션 길이」 결손 상위에 있다).
 
 ## 3 — 제품의 자유값 축을 접을 것인가
 
@@ -156,7 +181,14 @@ DS의 duration·motion이 제품의 53단 중 60.4%만 덮는다.
 spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분되지 않으므로 확인할 자리가 없다.
 접는 것은 제품 저장소 변경이므로 이 저장소가 하지 않는다.
 
-## 4 — `--palette-gray-200-rgb` 미러가 hex와 어긋난다
+## 4 — ~~`--palette-gray-200-rgb` 미러가 hex와 어긋난다~~ 대상이 사라졌다
+
+> **해소 — 확인할 대상이 없다(2026-09-13).** 앵커 `6fbdac16` 에서 제품은 hex 와 미러를 둘 다 LOUIS
+> 토큰의 별칭으로 선언한다 — `--palette-gray-200: var(--louis-color-palette-gray-200);`
+> (`globals.css:49`) · `--palette-gray-200-rgb: var(--louis-color-palette-gray-200-rgb);`
+> (`globals.css:66`). 두 경로가 같은 원천을 읽으므로 G 238/239 가 갈릴 자리가 없고, 앱 셸이
+> `body:has(...)` 로 램프를 `#eeeef1` 에 재매핑하던 규칙도 걷혔다(`Gnb.tsx:1391-1396` 주석).
+> 아래는 2026-08-21 의 기록이다. 제품에 미러를 고쳐 달라고 요청하지 마라.
 
 **증상.** 앱 셸 램프에서 **같은 색이 소비 경로에 따라 다르게 렌더된다.**
 
@@ -168,7 +200,15 @@ spacing의 홀수 계단은 **전부 이웃과 1px 차**라 화면에서 구분�
 **정해야 할 것.** 미러를 `238 238 241`로 고칠 것인가. DS는 hex를 정본으로 삼아 **238**을 쓰기로
 했으므로([실행 인계서](execution-handoff.md)의 DS-P3-014 절) 제품이 미러를 맞추면 정합이 선다.
 
-## 5 — 기존 알파 토큰 9개가 사다리와 어긋난다
+## 5 — ~~기존 알파 토큰 9개가 사다리와 어긋난다~~ DS 쪽은 해소됐다
+
+> **해소(2026-09-13 표시).** [DS-D-0026](decisions/DS-D-0026-alpha-scale.md)(accepted, 2026-08-26)이
+> 알파를 **16단 — 32까지 4씩, 그 위 8씩**으로 다시 정하고 LOUIS 알파 패밀리를 그 계단으로 옮겼다.
+> 아래 아홉 이름(`ink-alpha-*` · `paper-alpha-*` · `black-alpha-*`)은 원천에 더 이상 없고, 지금
+> `static-black-alpha` · `static-white-alpha` 는 같은 16단이며 `red-alpha` 는 참조되는 8 · 12 · 24만
+> 갖는다. 아래 예로 든 `color-fg-menu-item` 은 88%, `color-dim-modal` 은 light 56% · dark 72% 로
+> 전부 계단 위다. **남은 것은 제품 쪽 접기이고 그것은 §3 의 alpha 행이 갖는다.** 아래는 2026-08-21
+> 의 기록이다.
 
 `ink-alpha-5` · `paper-alpha-14` · `paper-alpha-45` · `paper-alpha-72` · `paper-alpha-86` ·
 `ink-alpha-86` · `black-alpha-28` · `black-alpha-56` · `black-alpha-72`.

@@ -353,12 +353,13 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
 > 실재했다는 것과 무엇이 없어졌는지를 함께 남기기 위해서다. 값이 사라진 것과 처음부터 없었던 것은
 > 다른 사실이다.
 
-- **`danger` variant가 tonal이다.** solid danger를 표현할 `color-accent-danger*` 토큰이 아직 없어
-  `color-bg-danger`·`color-fg-danger`로 대체했다. `DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다.
-  Button은 foreground와 background를 **쌍으로** 쓰므로 대비가 성립한다. 같은 토큰을 텍스트 색으로만
-  쓰면 중립 표면에서 무너지는데, 그 실측은 [Menu / Popover](menu-popover.md)의 Known deviations에 있다.
-- **고정 높이가 없다.** 높이를 padding과 line-height로 결정하고 44px 타깃은 `louis-hit-target`이
-  보장한다. 제품과 픽셀 단위로 맞추려면 control height 토큰이 필요하다(DS-P3-014).
+- ~~**`danger` variant가 tonal이다.**~~ **해소됨(2026-09-13 확인).** `danger` 는 제품과 같은
+  solid 다 — 면 `color-accent-danger`(#ff4b59) · 글자 `color-fg-on-danger`. tonal 이던
+  `color-bg-danger`·`color-fg-danger` 쌍은 Button 에서 빠졌고, 그 대비 미달(3.14)은 아래 WCAG 항목이
+  갖는다. 「`DS-P3-014` 단위 9가 토큰을 추가하면 갱신한다」는 이 문장이 낡은 채 남아 있던 자리다.
+- ~~**고정 높이가 없다.**~~ **해소됨(2026-09-13 확인).** 높이는 `layout-control-height-*`
+  (lg 40 · md 32 · sm 24)를 `min-block-size` 로 읽는다 — `height` 가 아닌 것은 긴 라벨과 200%
+  확대에서 잘리는 대신 자라게 하려는 것이다. control height 토큰은 DS-P3-014 밖에서 이미 섰다.
 - **네 variant 전부 WCAG AA에 미달한다 — owner 가 받아들인 값이다.** owner 가 제품의 공용
   Button 을 정본으로 채택했고, 그 제품 Button 이 네 variant 모두 4.5 에 못 미친다. axe 실측값이다.
   2026-08-27 에 랜딩 전 요소를 다시 재면서 `primary` 의 수를 특정했다 — 흰 글자(`#fafafa`)가

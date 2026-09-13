@@ -25,9 +25,9 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올린다 (DS-P3-014 단위 6)
+## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올리고, DS-P3-014 의 낡은 전제를 걷는다
 
-**대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로
+첫 변경 단위는 DS-P3-014 단위 6이다. **대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로
 같은 자리에 칠하는 조합은 일부뿐이었다 — [Alert](../components/alert.md) Known deviations 5가
 「`color-alert-*` 쌍이 하나도 없어 4의 수치를 아무도 재지 않는다」고 적어 둔 그 결손이다. 쌍이
 없으면 면이나 글자 값이 4.5 아래로 내려가도 `build-tokens` 는 초록이다.
@@ -100,6 +100,31 @@ breaking 으로 분류되는 공용 root metadata 다.
 - **Figma 에는 쓰지 않았다.** 변수·style 은 그대로이고(`verify-figma-variables` 가 적용 코드
   불변을 확인한다), `figma/snapshot.json` 은 provenance 의 두 해시(`tokenSourceSha256` ·
   `proposalSha256`)만 `build-figma-snapshot` 으로 다시 냈다. readback 은 바뀌지 않았다.
+
+### 이어서 — DS-P3-014 의 낡은 전제를 문서에서 걷는다 (토큰 불변)
+
+같은 날 두 번째 변경 단위다. **토큰·CSS·Figma 는 하나도 바뀌지 않는다.** 인계서와 결정 문서가
+적어 둔 전제 여럿을 제품 앵커 `6fbdac16` 이 이미 뒤집었는데 문서가 그대로여서, 그것을 읽고
+움직이면 없는 일을 하게 되는 자리들이다.
+
+| 자리 | 적혀 있던 것 | 지금 사실 | 남은 것 |
+| --- | --- | --- | --- |
+| 단위 4 · DS-D-0010 OQ3 · product-confirmations §1 | disabled 12종은 라이트 값이 정해질 때까지 올리지 않는다. 라이트에서 비활성 핸들이 거의 검정이다 | 12종은 `8de65bb`(2026-08-26)로 원천에 있다. 제품은 라이트에서 disabled 토큰이 아니라 활성 토큰에 `brightness(0.78) saturate(0.95)` 를 건다 | **소유자:** 필터 연산을 DS 가 값으로 표현할 것인가 · 중복 이름 12개(`color-node-{channel}-{icon,surface}`)를 지울 것인가 |
+| 단위 9 · color-theme 매체별 accent · Menu · Button | sky 램프를 먼저 세운다. Menu danger 는 `fg-danger` 를 글자색으로만 써 1.21/1.14. Button danger 는 tonal, 고정 높이 토큰 없음 | sky 는 LOUIS `80791e9` · 제품 `fec3c3b3` 에서 blue 로 접혔다. Menu danger 는 제품 값 `accent-danger`, Button danger 는 solid, 높이는 `layout-control-height-*` | **소유자:** `color-fg-danger-on-surface` 가 소비처 0이다 — Menu danger(light 2.77)를 그리로 옮길지, 토큰을 걷을지. editor 범주색은 남았다 |
+| 단위 10 · DS-D-0010 OQ2 · product-confirmations §4 | 앱 셸 램프 G 238/239, 제품이 미러를 고쳐야 한다 | 제품이 hex 와 미러를 둘 다 LOUIS 별칭으로 바꿨다 | 없다 — 대상이 사라졌다 |
+| 단위 2 · DS-D-0010 원칙 4 · product-confirmations §5 | 알파 10단 / 14단, 알파 토큰 9개가 사다리 밖 | DS-D-0026 의 16단이 정본이고 LOUIS 알파 패밀리가 전부 그 위다 | 제품 쪽 접기(§3) |
+| product-confirmations §2 산문 | 180ms 173회 · 43파일 · 53단 중 60.4% | 같은 문서 생성 표는 162회 · 42파일 · 71단 · 59.9% | 산문에서 수를 걷고 생성 표를 가리키게 했다 — 다시 어긋날 자리가 없다 |
+| 단위 7 | `partial` | DS 몫인 `border-width-default` 는 원천·Figma 양쪽에 섰다 | `done`. 남은 결손은 제품 접기 대상(§3) |
+| 단위 11(새 행) | 표에 없었다 | DS-D-0009 결정 1~4(`--louis-font-family-sans` 방출 · 폴백 스택 교정 · JA 분리 · `local()` 폴백 face)가 넷 다 미구현 | 착수 조건과 breaking 여부를 인계서 단위 11 절에 적었다 |
+
+**고친 문서.** `design/governance/execution-handoff.md`(DS-P3-014 단위 표와 단위 2·4·9·10·11 절,
+DS-P3-004 Known deviations 줄) · `DS-D-0010`(원칙 4 · Open questions 2·3 · Rollout 6 표시) ·
+`product-confirmations.md`(§1 · §2 · §4 · §5) · `foundations/color-theme.md`(매체별 accent 표를
+앵커로 다시 재고 sky 결손 문단을 걷었다) · `components/menu-popover.md` · `components/button.md`
+(Known deviations). DS-D-0010 의 `Status` 는 그대로 `proposed` 다.
+
+**지운 것은 없다.** 중복 이름 12개와 `color-fg-danger-on-surface` 는 소유자 판정 전까지 원천과
+Figma 에 그대로 둔다 — 둘 다 removal breaking 이고 Figma 변수 삭제가 따라온다.
 
 ## 2026-09-11 (127) — pg-850 칸을 비우고, 그 위에 서 있던 여섯을 pg-900 으로 내린다
 

@@ -185,21 +185,33 @@ DS-D-0010은 `[data-page-root]` 같은 DOM 상태 스코프를 토큰 축이 아
 
 | 매체 | 아이콘 (두 mode 공통) | 캡션 dark | 캡션 light | 근거 |
 | --- | --- | --- | --- | --- |
-| Image | `--accent-mint-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:330` · `ImageNode.tsx:349-350` |
-| Video | `--accent-sky-500` `#0ea5e9` | `#e0f5ff` | `#0369a1` | `VideoNode.tsx:240` · `VideoNode.tsx:261-262` |
-| Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:332` · `TextNode.tsx:346-347` |
-| Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:400` · `EditNode.tsx:416-417` |
+| Image | `--accent-green-500` `#00c68e` | `#e5fff7` | `#008f67` | `ImageNode.tsx:327` · `ImageNode.tsx:346-347` |
+| Video | `--primary-500` `#0088ff` | `#d6ebff` | `#005fb3` | `VideoNode.tsx:245` · `VideoNode.tsx:267-268` |
+| Text | `--accent-yellow-500` `#ffb200` | `#fff5d6` | `#b87600` | `TextNode.tsx:317` · `TextNode.tsx:331-332` |
+| Edit | `--accent-violet-500` `#6055ff` | `#ebe8ff` | `#3528b8` | `EditNode.tsx:368` · `EditNode.tsx:384-385` |
+
+제품의 네 램프는 전부 LOUIS 램프의 별칭이다 — `--primary-*` 는 `color-blue-*`, `--accent-green-*` ·
+`-yellow-*` · `-violet-*` 는 같은 이름의 LOUIS 램프를 읽는다(`globals.css:193-199` ·
+`globals.css:234-240` · `globals.css:253-259` · `globals.css:314-326`). 그래서 위 hex 는 LOUIS
+원천 값과 같다. 이 표는 2026-09-13 에 앵커 `6fbdac16` 으로 다시 쟀다 — 그 전 표는 sky 폐지와
+mint → green 개명 이전의 이름과 줄을 적고 있었다.
 
 - **캡션은 색을 두 곳에 같은 값으로 선언한다.** `color`와 `--caption-tone` 둘 다다. 쉬머가
   `background-clip: text` + `-webkit-text-fill-color: transparent`로 그려져 `color`가 무효화되므로
-  (`ImageNode.tsx:353-355`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
-  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:357`). 네 노드가 같은 패턴이다.
+  (`ImageNode.tsx:348-352`), `color`만 고치면 화면이 바뀌지 않는다. 감속 모션 분기는
+  `-webkit-text-fill-color`를 `--caption-tone`에서 되돌린다(`ImageNode.tsx:354`). 네 노드가 같은 패턴이다.
 - Tts/Bgm(audio) 노드에는 이 생성 중 아이콘·캡션 accent가 없다. audio는 영역 차오름으로 진행을 표시한다.
 
-**토큰 결손 두 건.** LOUIS에 `color-sky-*` 램프가 없다 — `color-blue-500`(`#0088ff`)은 제품 sky-500
-`#0ea5e9`와 다른 색이므로 Video를 blue로 매핑하면 틀린다. 그리고
-`color-node-video-icon`·`color-node-video-surface`가 없다 — video는 `color-node-video-accent` 하나뿐이고
-나머지 매체는 icon·surface·accent 세 벌을 갖는다. Video 노드를 그리려면 sky 램프를 먼저 세운다.
+**sky 결손은 사라졌다(2026-09-13 확인).** 이 자리는 「LOUIS 에 `color-sky-*` 램프가 없어 Video 를
+blue 로 매핑하면 틀린다 — sky 램프를 먼저 세운다」고 적고 있었다. 2026-08-26 에 LOUIS 와 제품이 같은
+작업에서 sky 9단을 blue 로 접었고([figma-sync](../governance/figma-sync.md) 「색 팔레트 — 여섯에서
+여섯으로」), 제품의 비디오 플레이스홀더는 이제 `--primary-*`(= LOUIS blue)를 읽는다. **sky 를
+세우는 것은 할 일이 아니다.**
+
+**남는 사실 하나.** `color-node-video-icon`·`color-node-video-surface` 는 여전히 없다 — video 는
+`color-node-video-accent`(blue.500) 하나뿐이고 나머지 매체는 icon·surface·accent 세 벌을 갖는다.
+위 표의 Video 아이콘 값은 `color-node-video-accent` 와 같다. 이 플레이스홀더를 LOUIS 레시피가 그리게
+되면 그 레시피가 소비처가 되므로, 두 이름이 필요한지는 그때 판정한다 — 소비처 없이 세우면 죽은 토큰이다.
 
 ## Accessibility
 

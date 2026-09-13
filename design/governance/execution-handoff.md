@@ -873,8 +873,10 @@ checkout에서 root 명령이 통과한다.
 - `loading`은 네이티브 `disabled`를 쓰지 않는다(focus가 제거된다). `aria-disabled` + 명시적 차단으로
   하고, actionability와 컴포넌트 두 층에서 검증한다.
 
-**Known deviations:** `danger`가 tonal이고(solid를 표현할 action 토큰 부재) 고정 높이 토큰이 없다.
-둘 다 DS-P3-014가 해소한다.
+**Known deviations:** ~~`danger`가 tonal이고(solid를 표현할 action 토큰 부재) 고정 높이 토큰이 없다.
+둘 다 DS-P3-014가 해소한다.~~ **둘 다 해소됐다(2026-09-13 확인).** `danger` 는 제품과 같은 solid
+(`color-accent-danger` + `color-fg-on-danger`)이고, 높이는 `layout-control-height-*` 를
+`min-block-size` 로 읽는다. 남은 편차는 [Button](../components/button.md) Known deviations 가 갖는다.
 
 **`done` 승격에 남은 것:** visual regression(hosted CI 후), 수동 screen-reader review, SSR/hydration,
 제품 사용처 2곳. ~~published Figma component(DS-F-006)~~ **해소** — Button 은 Figma `done` 이다
@@ -1132,20 +1134,22 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
 
 **상태:** `in-progress` (2026-08-14). 판정 원칙은
 [DS-D-0010](decisions/DS-D-0010-token-coverage.md)이 소유한다. 실측 결과 확장 규모는 약 169개이며 10개
-변경 단위로 나눈다.
+변경 단위로 나눈다. 단위 11은 그 뒤에 더한 것이다 — [DS-D-0009](decisions/DS-D-0009-font-distribution.md)가
+폰트 스택 교정을 이 항목에 배정했는데 표에 행이 없어 미구현이 보이지 않았다.
 
 | 단위 | 내용 | 상태 |
 | --- | --- | --- |
 | 1 | 판정 원칙 Decision | `done` |
-| 2 | 알파 축 26개 (색 사용의 70%) | `done` (2026-08-21) |
+| 2 | 알파 축 26개 (색 사용의 70%) | `done` (2026-08-21). 사다리는 그 뒤 [DS-D-0026](decisions/DS-D-0026-alpha-scale.md)이 16단으로 다시 정했다 — 아래 단위 2 절의 14단은 기록이다 |
 | 3 | 채널 팔레트 primitive 40개 (mint/yellow/pink/violet/red 보강) | `done` — 실측 39개 (2026-08-21) |
-| 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 `done`, disabled 12종은 Open question 3 대기 |
+| 4 | 채널 semantic 24개 (노드 타입 식별자) | `partial` — 19종 (2026-08-21)에 이어 disabled 12종도 `color-node-handle-{bg,icon}-disabled-*` 로 원천에 있다(`8de65bb`, 2026-08-26). 「Open question 3 대기」는 낡았다. 남은 것은 소유자 판정 둘 — 아래 단위 4 절 |
 | 5 | 타이포 15종 재편 — **breaking** | `done` |
 | 6 | contrastPairs 확장 — 목표 수 「19」는 목록 근거가 없어 지웠다 | `done` — 14 → 26쌍 (2026-09-13). 남은 후보는 게이트 밖 사유가 있다, 아래 참조 |
-| 7 | elevation / border-width / radius 16개 | `partial` — 실측 결과 아래 |
+| 7 | elevation / border-width / radius 16개 | `done` — DS 몫인 `border-width-default` 는 원천·Figma 양쪽에 섰다. 남은 결손(radius 홀수 계단 · `14px` · `18px` · border-width `1.5px`)은 제품이 접을 대상이다 — [product-confirmations](product-confirmations.md) §3 |
 | 8 | layer / motion 10개 — layerOrder 배열 변경 | `partial` — 실측 결과 아래 |
-| 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) |
-| 10 | space / surface 보강 13개 | `partial` — blocked 해제, 실측 결과 아래 |
+| 9 | sky / editor / danger action 14개 | `partial` — danger foreground 해소 (2026-08-21) · sky 는 폐지돼 대상이 사라졌다(2026-08-26) · editor 범주색은 남았다 |
+| 10 | space / surface 보강 13개 | `partial` — surface 는 미채택으로 닫았고 앱 셸 램프는 제품이 LOUIS 별칭으로 바꿔 대상이 사라졌다. space 결손은 실측 결과 아래 |
+| 11 | DS-D-0009 결정 1~4 — `--louis-font-family-sans` 방출 · 폴백 스택에 OS 한글 폰트 · JA 스택 분리 · `local()` 메트릭 폴백 face(opt-in) | `pending` — **넷 다 미구현**(2026-09-13 확인). 아래 단위 11 절 |
 
 **단위 6 — 목표 수가 아니라 실제로 짝지어 쓰는 쌍으로 닫았다 (2026-09-13).**
 
@@ -1157,6 +1161,35 @@ WCAG 1.4.3 면제이고, Alert success · warning 은 light 3.90 · 3.43 이라 
 ([Alert](../components/alert.md) Known deviations 4·5)이다. 알파가 섞인 조합은 게이트가 잴 수
 없어 셈에서 빠진다. 쌍 목록·수치·빠진 이유는 Updates (128) 이 갖는다.
 
+**단위 4 — disabled 12종은 이미 섰고, 「라이트에서 거의 검정」은 제품 화면에서 일어나지 않는다 (2026-09-13).**
+
+`color-node-handle-bg-disabled-{audio,edit,image,instagram,text,youtube}` 와
+`color-node-handle-icon-disabled-*` 가 `8de65bb`(2026-08-26)로 원천에 들어왔다. 두 모드 값이 같다 —
+면 `{ramp}.900` · 잉크 `{ramp}.700`. image · text · edit 셋은 `node-side-handle.css` 가 읽는다.
+그래서 표에 적혀 있던 「disabled 12종은 Open question 3 대기」는 낡았다.
+
+Open question 3 의 전제(라이트에서 비활성 핸들이 `{ramp}-900` 이라 거의 검정이 된다)는 **토큰
+값으로는 맞지만 제품 화면으로는 틀렸다.** 제품은 라이트에서 disabled 토큰을 읽지 않는다 — 활성
+토큰(`--node-handle-bg-{channel}` 200 면 · `--node-handle-icon-{channel}`)에
+`brightness(0.78) saturate(0.95)` 필터를 건다(`NodeSideButtons.tsx:182-214` ·
+`VideoNode.tsx:317-350` · `EditNode.tsx:203-230`, 제품 토큰 주석 `globals.css:501-502`).
+LOUIS 레시피는 필터를 옮기지 않고 두 테마 모두 disabled 토큰을 읽으며, 그 차이를
+[Node Side Handle](../components/node-side-handle.md) Known deviations 1이 편차로 적는다.
+
+**남은 것은 소유자 판정 둘이다.**
+
+1. **필터 연산을 DS 가 값으로 표현할 것인가.** 필터는 연산이라 옮길 토큰 값이 없다. 선택지는
+   (a) 지금처럼 두 테마가 같은 disabled 토큰을 읽고 편차로 남긴다, (b) 제품 필터가 만든 색을 재서
+   라이트 disabled 값을 따로 세운다(값 변경 · breaking), (c) 레시피가 라이트에서 활성 토큰에 같은
+   필터를 건다(값이 아니라 연산을 옮긴다) 셋이다.
+2. **중복 이름 12개를 지울 것인가.** `color-node-{audio,edit,image,instagram,text,youtube}-{icon,surface}`
+   (`2997dcc`, 2026-08-21)가 두 모드 모두 `color-node-handle-icon-*` · `color-node-handle-bg-*` 와
+   같은 primitive 를 가리키고, 저작 CSS·React·제품 앵커 어디에도 소비처가 없다.
+   [DS-D-0030](decisions/DS-D-0030-no-duplicate-role-tokens.md) 이 말하는 상황이지만 지우는 것은
+   removal breaking 이고 Figma 변수 삭제가 따라온다. **이 저장소는 지우지 않았다.** 확인되면
+   `figma/remove-variables.js` 와 readback 재캡처를 같은 작업에서 한다
+   ([DS-D-0028](decisions/DS-D-0028-three-in-one-change.md)).
+
 **단위 9 — danger foreground 공백은 해소됐다 (2026-08-21).**
 
 `color-fg-danger-on-surface`를 세웠다. light `red.700`(표면 6.08 · 메뉴 5.62 · 본문색과
@@ -1165,9 +1198,22 @@ WCAG 1.4.3 면제이고, Alert success · warning 은 light 3.90 · 3.43 이라 
 높지만 본문색과 1.77이라 「빨강」으로 읽히지 않는다. contrastPairs 두 쌍(`background-surface` ·
 `background-menu`)을 함께 올려 게이트가 매번 실제 WCAG 계산으로 확인한다.
 
-**남은 sky/editor 계열은 아직이다.** 아래 원래 기록을 남긴다.
+**sky 는 대상이 사라졌다 (2026-09-13 확인).** 2026-08-26 에 색 패밀리를 정리하면서 sky 9단을
+blue 로 접었다 — LOUIS `80791e9` 와 제품 `fec3c3b3` 이 같은 작업이다
+([figma-sync](figma-sync.md) 「색 팔레트 — 여섯에서 여섯으로」). 앵커 `6fbdac16` 의 비디오 노드
+생성 중 아이콘·캡션은 `--primary-*`(= LOUIS blue)를 읽고(`VideoNode.tsx:245` · `VideoNode.tsx:267-268`),
+`accent-sky-` 는 주석에만 남았다. 그래서 「sky 램프를 세운다」는 할 일이 아니다 —
+[Color & Theme](../foundations/color-theme.md) 의 매체별 accent 절을 같은 날 고쳤다.
+**남은 것은 editor 범주색이다.**
 
-**단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):**
+**danger foreground 는 섰는데 소비처가 없다.** `color-fg-danger-on-surface` 를 읽는 저작 CSS·React·
+제품 앵커가 0곳이다. Menu 의 danger item 은 제품 값을 따라 `color-accent-danger`(red.500)를
+쓰고, 그 대비는 `color-bg-menu` 위에서 light **2.77** · dark 5.26 이다. 이 토큰(light 5.37 · dark
+6.43)으로 옮기면 AA 는 맞지만 제품과 갈라진다. **옮길지, 토큰을 걷을지는 소유자 판정이다**
+([Menu / Popover](../components/menu-popover.md) Known deviations).
+
+**단위 9가 반드시 포함해야 하는 것 (2026-08-14 워크샵 실측):** — 아래는 그날의 기록이다. Menu 가
+`color-fg-danger` 를 텍스트 색으로만 쓰던 상태는 그 뒤 없어졌다(위 문단).
 
 중립 표면 위에서 성립하는 **danger foreground**가 없다. 현재 `color-fg-danger`는
 `color-bg-danger`와 **쌍으로** 쓰도록 만들어졌고 두 테마에서 값이 서로 뒤바뀐다. 그래서
@@ -1209,6 +1255,12 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 
 **단위 2 — 실측 결과 (2026-08-21):**
 
+> **이 절과 아래 「제안된 10단 사다리」 절은 기록이다(2026-09-13 표시).** 알파 사다리는
+> [DS-D-0026](decisions/DS-D-0026-alpha-scale.md)(accepted, 2026-08-26)이 **16단 — 32까지 4씩,
+> 그 위 8씩**으로 다시 정했고, 여기 적힌 `ink-alpha` · `paper-alpha` 이름은 원천에 더 이상 없다
+> (지금은 `static-black-alpha` · `static-white-alpha` · `red-alpha`). 현재 계단의 근거로 이 절을
+> 인용하지 마라.
+
 없는 계단을 실사용 근거로 세면 **정확히 26개**다. ADR이 추정한 「알파 축 26개」와 일치한다.
 
     ink-alpha    +9   4 · 16 · 25 · 30 · 40 · 50 · 60 · 70 · 80
@@ -1219,6 +1271,13 @@ property 이름 · 바인딩 **개수** · 기하 요약뿐이고 노드 트리�
 확인한 뒤 되돌렸다. **코드는 준비됐고 Figma 이전만 남았다.**
 
 **단위 10 — blocked가 풀렸고, spacing도 같은 드리프트다 (2026-08-21):**
+
+> **앱 셸 램프는 그 뒤 대상이 사라졌다(2026-09-13 확인).** 제품이 `--palette-gray-200` 과
+> `--palette-gray-200-rgb` 를 LOUIS 토큰의 별칭으로 바꿨다(`globals.css:49` · `globals.css:66`)
+> — 두 경로가 같은 원천을 읽으므로 G 238/239 어긋남이 생길 자리가 없고, 앱 셸의 `body:has(...)`
+> 재매핑도 걷혔다(`Gnb.tsx:1391-1396` 주석, 앵커에서 `#eeeef1` 은 그 주석에만 남았다). 아래
+> 「G 를 238 로 확정」과 blocker 2 는 그날의 기록이다. LOUIS 의 `color-palette-gray-200` 은 회색
+> 램프 재구성을 거쳐 지금 `#c1c3c6` 이다.
 
 `blocked` 사유였던 제품 확인 2건은 (59)와 (63)에서 닫혔다 — 미커밋 `--surface-*` 9개는 어느
 저장소에도 없었고, 앱 셸 램프는 `palette-gray-200`의 G를 238로 확정했다. **surface 보강은 대상이
@@ -1352,6 +1411,10 @@ proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으
 
 **단위 2 — 제안된 10단 사다리가 실사용 최다값을 빠뜨린다 (2026-08-21 실측):**
 
+> **기록이다(2026-09-13 표시).** 이 절이 다시 정한 14단 사다리는 그 뒤
+> [DS-D-0026](decisions/DS-D-0026-alpha-scale.md)의 16단(32까지 4씩, 그 위 8씩)으로 대체됐다.
+> 현재 계단은 그 결정이 소유한다.
+
 [DS-D-0010](decisions/DS-D-0010-token-coverage.md) 원칙 1은 「정의가 아니라 실사용을 승격한다.
 승격 근거에는 사용 화면과 빈도를 남긴다」인데, 그 빈도 데이터가 저장소에 없었다. 배포본에서
 세어 [`migration/product.alpha.json`](../../migration/product.alpha.json)에 넣었다. 생성기는
@@ -1423,7 +1486,12 @@ proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으
    **`origin/main` 으로 재실측하면 죽은 값을 DS 로 올리게 된다.** 측정 기준은 언제나
    `migration/product-evidence.lock.json` 의 `productCommit` 이다.
 
-2. 앱 셸 라이트 램프 — **값 불일치를 정확히 좁혔다.** `body:has(...)` 런타임 DOM 조건이라 light/dark
+2. 앱 셸 라이트 램프 — **대상이 사라졌다(2026-09-13 확인).** 제품이 `--palette-gray-200` 과
+   `-rgb` 미러를 둘 다 LOUIS 토큰의 별칭으로 바꿔(`globals.css:49` · `globals.css:66`) hex 와 미러가
+   같은 원천을 읽고, 앱 셸 재매핑도 걷었다. 아래 표·결정·「제품 쪽 결함은 남는다」는 2026-08-21
+   기록이다 — **제품에 미러를 고치라고 요구할 대상이 없다.**
+
+   (기록) **값 불일치를 정확히 좁혔다.** `body:has(...)` 런타임 DOM 조건이라 light/dark
    축으로 표현되지 않는 것은 그대로다. 다만 「값 자체가 미확정」의 범위는 **한 단계 한 채널**이다.
 
    | 램프 단계 | 앱 셸 hex | 앱 셸 rgb mirror | 판정 |
@@ -1453,6 +1521,25 @@ proposal 에서 생성하고 `verify-figma-variables` 가 드리프트를 잡으
    런타임 DOM 조건(`body:has(...)`) 자체는 여전히 light/dark 축으로 표현되지 않는다 —
    DS-D-0010 원칙 3이 「DOM 상태 스코프는 토큰 축이 아니다」로 이미 정해 두었고, 소비 계층이
    mode를 다시 적용해 해결한다. 값이 확정됐으므로 **앱 셸 라이트 화면 제외는 해제할 수 있다.**
+
+**단위 11 — DS-D-0009 의 결정 1~4 는 하나도 구현되지 않았다 (2026-09-13 확인).**
+
+[DS-D-0009](decisions/DS-D-0009-font-distribution.md)(proposed)가 구현을 DS-P3-003 과 이 항목에
+나눠 맡겼는데 DS-P3-003 은 `done` 이 됐고 이 표에는 행이 없었다. 그래서 미구현이 어디에도 보이지
+않았다. 지켜지고 있는 것은 **바이너리 미동봉**(저장소에 woff·ttf·otf 0건) 하나다.
+
+| 결정 | 지금 | 확인 |
+| --- | --- | --- |
+| 1. `--louis-font-family-sans` 를 CSS 로 방출하고 composite 가 `var()` 로 읽는다 | 없다 — 스택 리터럴이 `--louis-typography-*-font-family` 에 그대로 인라인된다 | `packages/tokens/generated/tokens.css` 에서 `louis-font-family` 0건 |
+| 2. 폴백 스택에 실제 OS 한글 폰트를 넣는다 | 없다 — `Pretendard Variable, Pretendard, Inter, Noto Sans KR, Noto Sans JP, system-ui, sans-serif` | manifest 의 `font-family-sans` |
+| 3. JA 스택을 별도 토큰으로 분리한다 | 없다 — `fontFamily` 토큰은 `font-family-sans` · `font-family-mono` 둘뿐 | 같은 manifest |
+| 4. `local()` 메트릭 폴백 face 를 opt-in 으로 둔다 | 없다 | `packages/css` 의 src·generated 에서 `@font-face` · `local(` 0건 |
+
+**착수 전에 알아야 할 것.** 1은 추가라 되돌리기 쉽지만 한 번 내보낸 이름을 바꾸거나 없애면
+breaking 이다. 2는 토큰 소스 값 변경이라 breaking 으로 분류되고, `font-family/sans` 가 Figma 변수
+(STRING)이므로 변수 적용과 readback 재캡처가 같은 작업에 따라온다
+([DS-D-0028](decisions/DS-D-0028-three-in-one-change.md)). 이 표시 작업은 넷 중 어느 것도 하지
+않았다. Decision 은 `proposed` 이고 accepted 전환은 소유자 몫이다.
 
 **의존성:** DS-P3-009a
 

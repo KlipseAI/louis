@@ -635,10 +635,14 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   증명되지 않은 수정은 이 경로에서 더 나쁜 회귀를 만든다. 재현 절차와 관측 기록을 남기고
   계측 가능한 형태가 될 때 판정한다.
 
-- **`surface-overlay` 대신 `color-bg-overlay`를 쓴다.** Specification 표가 대는 이름의 토큰이
-  소스에 없다. DS-P3-014가 이름을 정리하면 갱신한다.
-- **panel padding이 6px이 아니라 4px이다.** `space-overlay-inset`이 없어 `space-control-xs`로
-  대체했다. DS-P3-014가 토큰을 추가하면 변수 한 줄만 바꾼다.
+- ~~**`surface-overlay` 대신 `color-bg-overlay`를 쓴다.**~~ **해소됨(2026-09-13 확인).** 패널 면은
+  `color-bg-menu` 이고 Specification 표도 같은 이름을 댄다
+  ([menu-popover.css:31](../../packages/css/src/component/menu-popover.css)). `surface-overlay` 라는
+  토큰은 소스에 없고 Specification 표도 더 이상 그 이름을 대지 않는다.
+- ~~**panel padding이 6px이 아니라 4px이다.**~~ **해소됨(2026-09-13 확인).** `space-overlay-inset`
+  (6px)이 섰고 `.louis-popover` 가 그것을 읽는다
+  ([menu-popover.css:13](../../packages/css/src/component/menu-popover.css)·`30`). 위 「제품 계열
+  분기는 사라졌다」 절이 이미 해소를 적었는데 이 목록만 낡은 채 남아 있었다.
 - **panel 경계는 border가 아니라 inset 헤어라인이다.** Specification 표에는 없지만 dark에서
   `elevation-popover` 그림자만으로는 표면 경계가 서지 않아, elevation 뒤에 조합한 inset
   box-shadow(`--louis-hairline-inset`)를 한 겹 더 쓴다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)).
@@ -656,13 +660,17 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   44px 타겟을 시각 박스 밖으로 확장하는데, 패널이 스크롤 컨테이너라 그 초과분이 유령 스크롤바가 된다.
   action menu는 행 자체 높이(37px)로 타깃을 확보해 그 유틸을 쓰지 않으므로 4px을 유지한다 — 거기서 8px을 쓰면
   안쪽 곡률이 item radius보다 작아져 모서리가 뚫린다. 두 값이 다른 것은 실수가 아니다.
-- **danger item의 톤이 일반 item과 거의 구분되지 않는다.** 워크샵에서 실측한 대비는 light
-  **1.21**, dark **1.14**다(danger 텍스트 : 일반 텍스트). `background-danger`·`foreground-danger`는 foreground와
-  background가 **함께 쓰이도록 만들어진 쌍**이고 두 테마에서 서로 값이 뒤바뀐다 — light의
-  `danger-foreground`(짙은 적갈)가 dark에서는 `danger-background`다. 그래서 텍스트 색으로만 쓰면
-  light에서는 hue로 겨우 읽히고 dark에서는 사실상 사라진다. 해소에는 중립 표면 위에서 성립하는
-  danger foreground 토큰이 필요하며 `DS-P3-014`가 소유한다. 그때까지 파괴적 액션의 신호는 규범이
-  이미 요구하는 **명확한 동사 라벨**이 진다.
+- **danger item 글자가 라이트 메뉴 면 위에서 AA에 미달한다.** 전경은 제품 값을 따라
+  `color-accent-danger`(red.500 #ff4b59)이고
+  ([menu-popover.css:137](../../packages/css/src/component/menu-popover.css)), `color-bg-menu` 위 대비가
+  light **2.77** · dark 5.26이다. 파괴적 액션의 신호는 규범이 이미 요구하는 **명확한 동사 라벨**이
+  함께 진다.
+  **이 자리에 적혀 있던 「danger item의 톤이 일반 item과 거의 구분되지 않는다」(light 1.21 · dark
+  1.14)는 낡았다.** 그것은 `color-fg-danger`(면과 짝으로 만든 토큰)를 텍스트 색으로만 쓰던 때의
+  실측이고, 전경을 제품 값으로 바꾸면서 그 상태가 없어졌다(위 Specification 절).
+  **중립 표면용 `color-fg-danger-on-surface`(light 5.37 · dark 6.43, `contrastPairs` 에 `bg-surface` ·
+  `bg-menu` 두 쌍)는 DS-P3-014 단위 9가 세웠지만 읽는 곳이 없다.** 이 항목을 그 토큰으로 옮기면 AA는
+  맞지만 제품 red.500과 갈라지고, 두면 토큰이 죽은 채 남는다. 어느 쪽인지는 소유자 판정이다.
 - **바깥 클릭도 최상위 branch 하나만 닫는다.** submenu가 열려 있으면 두 번 눌러야 전체가 닫힌다.
   외부 이벤트 정책 3을 그대로 따른 결과이며, 실사용에서 어색하다는 근거가 모이면 규범을 먼저 고친다.
 - **`route`로 닫으면 포커스가 body로 떨어질 수 있다.** 포커스를 옮기지 않는 것이 그 reason의 계약이고,

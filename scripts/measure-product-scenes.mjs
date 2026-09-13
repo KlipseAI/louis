@@ -1371,8 +1371,8 @@ try {
     // 것이 이 파일의 기본값이고 `/blog` · `/templates` · 인증 화면 등 열넷이 그렇게 잰다.
     // 옛 전용 기록의 키(`heroWordmark` · `nodeCanvasArticle` · `sections`)를 읽는 소비자는
     // 저장소 전체에 0 이다(`grep -rn heroWordmark scripts design migration`).
-    // 새 랜딩에서 워드마크·섹션 기하가 필요한 보드가 생기면 그때 그 보드가 쓸 축으로
-    // 전용 측정기를 다시 세운다 — 소비자 없이 축을 짓지 않는다. 옛 본문은 git 이력에 있다.
+    // 랜딩 전용 축은 짓지 않는다(2026-09-13 판정 — 소비자 0, 다시 여는 조건은 인계서
+    // handoff-2026-08-23-figma-product-pages.md 「다음 순서」 4번). 옛 본문은 git 이력에 있다.
     pageScreens[contextSpec.id]["/"] = await measureLanding();
     pageScreens[contextSpec.id]["/pricing"] = await measurePricing();
     for (const route of PAGE_ROUTES.slice(2)) {

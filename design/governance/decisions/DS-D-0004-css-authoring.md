@@ -130,3 +130,28 @@ CSS가 끼면 원인 격리가 느려진다.
 - 멀티 브랜드나 iOS/Android 요구가 생기면 recipe 소스 분리를 재검토한다.
 - 정적 CSS 총량이 gzip 40KB를 넘고 미사용 규칙이 절반을 넘으면 컴포넌트별 import를 강제한다.
 - Next.js가 CSS 순서 비결정성을 공식 해결하면 두 벌 배포 축소를 검토한다.
+
+## 구현 대조 (2026-09-13)
+
+Status 는 `proposed` 그대로다. owner 확인을 요청하기 전에 이 결정과 구현을 대조한 기록이다
+([Updates (129)](../../updates/README.md)).
+
+### 저작 규칙 「요소 선택자 금지」 위반 — 글리프 슬롯 세 곳은 고쳤다
+
+`.louis-menu-trigger__icon svg` · `.louis-select-trigger__icon svg` · `.louis-select-trigger__caret svg`
+세 규칙이 요소 선택자를 `:where()` 밖에 두어 특이도가 (0,1,1)이었다. 실제로 문제를 만드는지 브라우저에서
+쟀다 — 언레이어드 `styles.css` 뒤에 소비자가 `.consumer-glyph { inline-size: 7px }` 를 두면 글리프가
+**20 · 20 · 12px 로 남았다**(소비자 클래스 하나가 순서와 무관하게 졌다). 레이어드 배포에서는 레이어가
+특이도보다 먼저 갈라 문제가 드러나지 않지만, 두 벌 배포의 한 벌에서 저작 규칙이 약속한 override 계약이
+깨져 있었다.
+
+세 곳을 `:where(svg)` 로 감쌌다. 같은 요소에 붙는 `.louis-icon`(icon.css, (0,1,0))은 파일 순서상
+앞이라 슬롯의 `100%` 가 그대로 이기고, `.louis-icon[data-size]`(0,2,0)는 전에도 후에도 이긴다 —
+DS 안의 계산값은 바뀌지 않는다. `packages/css/test/slot-glyph-specificity.browser.test.ts` 가 두
+방향(소비자 클래스가 이긴다 · 기본값은 슬롯을 채운다)을 고정한다.
+
+**고치지 않은 것.** `table.css` 는 `.louis-table > thead > tr > th` 형태의 요소 선택자 사슬을 쓴다.
+표 구조 자체가 요소라 클래스로 옮기면 소비자 마크업 계약이 바뀌고, `:where()` 로 감싸면 사슬 규칙끼리의
+우열(`tr:last-child > td` · `tr[data-interactive="true"]:hover > td`)이 특이도가 아니라 순서로 갈리게
+되어 규칙마다 대조가 필요하다 — 별건으로 판정한다. `verify-css-gates` 의 저작 규칙 게이트는 요소 선택자를 검사하지
+않는다. 그래서 이 위반들이 초록으로 들어왔다.

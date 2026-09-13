@@ -63,6 +63,23 @@ API·마크업·스타일은 바뀌지 않는다. 제품은 아직 이 패키지
 빌드 도구가 지시문을 걷는 도구로 바뀌면 함께 초록이 되는 자리다. 판정 경로마다 카나리아가
 `verify-gates` 에 있다. 실제 RSC 번들러로 서버 층을 평가하는 검사는 아직 없다(DS-D-0002 Rollout 4).
 
+### Fixed — 글리프 슬롯의 `svg` 가 소비자 클래스를 이겼다
+
+[DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md) 저작 규칙은 「요소 선택자 금지 · 내부
+특이도 0」이다. `.louis-menu-trigger__icon svg` · `.louis-select-trigger__icon svg` ·
+`.louis-select-trigger__caret svg` 가 그것을 어겨 (0,1,1)이었고, 언레이어드 `styles.css` 뒤에 둔 소비자
+클래스 하나가 **순서와 무관하게 졌다**(브라우저 실측: 7px 을 줬는데 20 · 20 · 12px). 세 곳을
+`:where(svg)` 로 감쌌다.
+
+| 소비자 | 달라지는 것 |
+| --- | --- |
+| `styles.css`(언레이어드) | 슬롯 안 글리프에 준 클래스 하나가 이제 이긴다(뒤에 올 때) |
+| `styles.layer.css`(제품 경로) | 소비자 규칙이 `louis.component` 가 아닌 레이어에 있으면 없다 — 레이어가 특이도보다 먼저 가른다 |
+| 클래스를 주지 않은 글리프 | 없다 — 여전히 슬롯을 채운다. `.louis-icon` 이 붙어도 같다 |
+
+`packages/css/test/slot-glyph-specificity.browser.test.ts` 가 두 방향을 고정한다. `table.css` 의 요소
+선택자 사슬은 고치지 않았다 — 표 마크업 계약과 행 규칙 우열을 따로 판정해야 한다(DS-D-0004 구현 대조).
+
 ## 2026-09-13 (128) — 컴포넌트가 실제로 짝지어 쓰는 글자·면 12쌍을 대비 게이트에 올리고, DS-P3-014 의 낡은 전제를 걷는다
 
 첫 변경 단위는 DS-P3-014 단위 6이다. **대비 게이트는 누군가 적어 둔 쌍만 잰다.** `contrastPairs` 는 14쌍이었고 그중 컴포넌트가 실제로

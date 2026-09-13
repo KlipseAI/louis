@@ -4091,7 +4091,9 @@
   block-size: var(--louis-icon-size-md);
 }
 
-.louis-menu-trigger__icon svg {
+/* 글리프 요소는 `:where()` 안에 둔다. `… svg` 로 쓰면 특이도가 (0,1,1)이 되어 언레이어드
+ * styles.css 소비자가 글리프에 준 클래스 하나를 순서와 무관하게 이긴다(DS-D-0004 저작 규칙). */
+.louis-menu-trigger__icon :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }
@@ -6104,7 +6106,9 @@
   block-size: var(--louis-icon-size-sm);
 }
 
-.louis-select-trigger__icon svg {
+/* 글리프 요소는 `:where()` 안에 둔다. `… svg` 로 쓰면 특이도가 (0,1,1)이 되어 언레이어드
+ * styles.css 소비자가 글리프에 준 클래스 하나를 순서와 무관하게 이긴다(DS-D-0004 저작 규칙). */
+.louis-select-trigger__icon :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }
@@ -6148,7 +6152,7 @@
   transition-duration: var(--louis-motion-control-hover-duration);
 }
 
-.louis-select-trigger__caret svg {
+.louis-select-trigger__caret :where(svg) {
   inline-size: 100%;
   block-size: 100%;
 }

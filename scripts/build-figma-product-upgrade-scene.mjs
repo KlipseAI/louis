@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -304,19 +305,27 @@ const upgradeLayout = (tree, where) => {
   if (headerKids.length !== drawnHeaderKids.length || headerKids.some((entry, index) => entry !== drawnHeaderKids[index])) {
     fail(`${where}: header children ${headerKids.map((entry) => `${entry.path.split(".").at(-1)}:${entry.tag}`).join(" · ")} are not the ones the renderer draws (notice · title · body · gift row) — add the slot`);
   }
-  // 선물 구매 줄: 버튼의 면 · 글자는 아직 그리지 않는다(색이 로컬 변수 표에 없어 페인트 감사를 넓힌다 — Updates (132)).
-  // **자리는 둔다** — 줄의 위 여백(`mt-10`, 칠 없는 감싸개 패딩)과 버튼 높이(Button md 레시피, 카드 CTA 와 같은 출처).
+  // 선물 구매 줄: 줄의 위 여백(`mt-10`, 칠 없는 감싸개 패딩)과 **버튼**(Button secondary md — 2026-09-14 컬렉션 이전부터
+  // 면 · 글자를 라이브 변수로 칠한다). 높이는 Button md 레시피(카드 CTA 와 같은 출처), 폭은 내용 HUG + 좌우 패딩.
   let giftSlot = null;
   if (giftRow) {
     const [button, ...rest] = kids(giftRow.path);
     if (button?.tag !== "button" || rest.length) fail(`${where}: header gift row ${giftRow.path} is no longer a single button — update the gift slot`);
-    if (px(style(button).height) !== buttonMdHeight) fail(`${where}: header gift button height ${style(button).height} is not the Button md recipe`);
+    const buttonStyle = style(button);
+    if (px(buttonStyle.height) !== buttonMdHeight) fail(`${where}: header gift button height ${buttonStyle.height} is not the Button md recipe`);
     const label = button.ownText ? button : kids(button.path).find((entry) => entry.ownText) ?? fail(`${where}: missing header gift button label ${button.path}`);
     giftSlot = {
       paddingTop: px(style(giftRow).marginTop),
       paddingTopDeclared: declaredValue(giftRow, "margin-top", /px\)?$/, where),
       height: buttonMdHeight,
       label: label.ownText,
+      button: {
+        padding: paddingOf(buttonStyle),
+        radius: px(buttonStyle.borderTopLeftRadius),
+        fill: color(buttonStyle.backgroundColor),
+        effects: shadows(buttonStyle.boxShadow),
+        text: textSpec(label, button.rect),
+      },
     };
   }
   const bleed = { left: -px(barStyle.marginLeft), right: -px(barStyle.marginRight) };
@@ -384,12 +393,12 @@ const upgradeLayout = (tree, where) => {
 // **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더 들어가 있었는데
 // (`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다(UpgradePlanPageClient.tsx `<header className={PRICING_HEADER}>`
 // 위 주석). 지금 `<header>` 의 직속 자식은 넷이다: .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span).
-// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)의 면과 글자다. 실측 장면에는 보이는데 러너가 칠하지 않는다.
-// 여기 적어 두는 이유는 적지 않으면 「없는 것」이 되기 때문이다.
+// `.3` 의 선물 구매 버튼(KLI-264)은 2026-09-14 컬렉션 이전까지 면과 글자를 그리지 않았다 — 버튼 색이 옛 로컬 변수 표에
+// 없었다. 이제 Button secondary 레시피의 라이브 변수(`accent-secondary` · `accent-secondary-foreground`)로 칠한다.
 // **자리는 그린다(2026-09-14).** 메인 표면이 흐름이 된 뒤로 헤더 높이가 덱 · 비교 제목의 자리를 정한다. 옛 러너는 카드를
 // 측정 position 에 박아 이 누락이 위치를 흔들지 않았지만, 흐름에서 줄을 통째로 빼면 덱 · 비교 제목이 그 줄(위 여백 + 버튼
 // 높이)만큼 위로 서고 모바일 조각(FIXED 높이 증거 경계)은 관측되지 않은 영역을 드러낸다. 그래서 `upgradeLayout` 이 줄의
-// 위 여백과 Button md 높이를 `layout.header.gift` 로 싣고, 렌더러가 칠 없는 자리로 둔다. 헤더 높이 대조도 측정 header
+// 위 여백과 Button md 높이를 `layout.header.gift` 로 싣고, 렌더러가 그 자리에 버튼을 짓는다. 헤더 높이 대조도 측정 header
 // 높이가 아니라 그리는 자식의 합으로 닫는다 — 그 전 대조는 그리지 않는 자식을 담은 측정값으로 닫혀 공허하게 초록이었다.
 const desktop = upgradeLayout(screen.tree, `${context} ${route}`);
 const cardGrid = desktop.rects.deck;
@@ -533,14 +542,9 @@ const deckSource = [
   sourceQuote(upgradeSourcePath, 212, '  "min-h-[560px] [@media(max-width:788px)]:[min-height:auto]",'),
 ];
 // **간격 · 패딩은 값이 같은 `Klipse Primitive/spacing/<n>` 에 묶는다** — 이름과 값을 되읽기(`figma/readback.json`)에서
-// 확인한다. 토큰이 없는 값(뷰포트 계산값 · 제품 지역 여백)은 숫자로 둔다 — 렌더러는 계획에 `spacing<n>` 이 있을 때만 묶는다.
-const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
-const liveFloat = (collection, name) => {
-  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
-  if (!row || row[1] !== "FLOAT") return null;
-  const [[, alias, raw]] = row[3];
-  return alias ? null : raw;
-};
+// 확인한다(공용 헬퍼 `liveVariables`). 토큰이 없는 값(뷰포트 계산값 · 제품 지역 여백)은 숫자로 둔다 — 렌더러는 계획에
+// `spacing<n>` 이 있을 때만 묶는다.
+const live = liveVariables({ repoRoot, fail });
 const cardSpacing = (spec) => [
   ...Object.values(spec.padding),
   ...spec.sections.flatMap((section) => [section.margin.top, section.margin.bottom, section.gap ?? 0, ...Object.values(section.padding ?? {}),
@@ -551,17 +555,20 @@ const cardSpacing = (spec) => [
 const layoutSpacing = (layout) => [
   ...Object.values(layout.main.padding), layout.main.bleed.left, layout.main.bleed.right, layout.main.barGap,
   layout.container.paddingTop, layout.header.paddingBottom, layout.header.notice.paddingBottom, ...Object.values(layout.header.notice.padding),
-  layout.header.titlePaddingBottom, layout.header.gift?.paddingTop ?? 0, layout.deck.gap, layout.compare?.paddingTop ?? 0,
+  layout.header.titlePaddingBottom, layout.header.gift?.paddingTop ?? 0, ...Object.values(layout.header.gift?.button.padding ?? {}),
+  layout.deck.gap, layout.compare?.paddingTop ?? 0,
 ];
 const spacingBindings = Object.fromEntries([...new Set([
   ...cardSpecs.flatMap(cardSpacing), ...mobileCardSpecs.flatMap(cardSpacing), ...layoutSpacing(desktop.layout), ...layoutSpacing(mobile.layout),
-])].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) =>
-  liveFloat("Klipse Primitive", `spacing/${value}`) === value ? [[`spacing${value}`, { collection: "Klipse Primitive", name: `spacing/${value}` }]] : []));
+])].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) => live.spacingBinding(value)));
 for (const radius of [...cardSpecs, ...mobileCardSpecs].flatMap((spec) => [spec.radius, spec.action?.radius].filter((value) => value !== undefined))) {
-  if (radius !== liveFloat("Klipse Primitive", "radius/12")) fail(`plan card radius ${radius} is not Klipse Primitive/radius/12`);
+  live.radiusBinding(radius, "radius/12", "plan card");
+}
+for (const layout of [desktop.layout, mobile.layout]) {
+  if (layout.header.gift) live.radiusBinding(layout.header.gift.button.radius, "radius/12", "header gift button");
 }
 for (const radius of [px(mainStyle.borderTopLeftRadius), px(mobileMainStyle.borderTopLeftRadius)]) {
-  if (radius !== liveFloat("Klipse Primitive", "radius/16")) fail(`upgrade main radius ${radius} is not Klipse Primitive/radius/16`);
+  live.radiusBinding(radius, "radius/16", "upgrade main");
 }
 
 const plan = {
@@ -579,7 +586,7 @@ const plan = {
   productCommit: fixture.productCommit,
   currentPlanOutlineSource: {
     lines: currentPlanOutlineSource,
-    figmaMapping: "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No exact local Figma color variable exists, so this remains a measured product-only fixed paint.",
+    figmaMapping: "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No live Figma variable resolves to primary-200 at 40%, so the stroke is the unbound colour role primary200Alpha40 (colorEvidence) and the runner reports it in unboundColors.",
   },
   figmaGlyphMeasurements,
   contexts: [context, mobileContext],
@@ -633,38 +640,108 @@ const plan = {
       cards: mobileCardSpecs,
       evidenceBoundary: "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent; the two visible cards keep their measured height and clip.",
     },
+    $bindingPolicy: BINDING_POLICY,
+    // 색 역할(`colors.bindings`)은 아래에서 앞에 합친다.
     bindings: {
-      paletteCollection: "1 · Palette",
-      paletteMode: "sidebar",
-      semanticCollection: "2 · Semantic",
-      semanticMode: "light-sidebar",
-      primitiveCollection: "Klipse Primitive",
-      primitiveMode: "Base",
-      appBackground: { collection: "1 · Palette", name: "palette/gray-200" },
-      surface: { collection: "1 · Palette", name: "palette/gray-50" },
-      cardSurface: { collection: "1 · Palette", name: "palette/gray-000" },
-      black: { collection: "1 · Palette", name: "palette/gray-1000" },
-      gray900: { collection: "1 · Palette", name: "palette/gray-900" },
-      gray800: { collection: "1 · Palette", name: "palette/gray-800" },
-      gray700: { collection: "1 · Palette", name: "palette/gray-700" },
-      gray600: { collection: "1 · Palette", name: "palette/gray-600" },
-      gray500: { collection: "1 · Palette", name: "palette/gray-500" },
-      gray500a90: { collection: "2 · Semantic", name: "palette/gray-500 · a90" },
-      // 아래 둘은 위 $productRegression 이 설명하는 카드 글자색을 받는다. 이름은 형제 계획
-      // (product-checkout-status · product-payment-scenes · product-components)이 같은 컬렉션에서
-      // 이미 쓰고 있는 것만 골랐다 — 이 저장소에는 "1 · Palette" 카탈로그 readback 이 없어
-      // 존재를 확인할 다른 방법이 없다. 확인 못 한 이름은 넣지 않았고, 그 색들은 템플릿에서
-      // 실측 고정 페인트로 떨어진다(palette/gray-150 · gray-300 · primary-500 · gray-500 a88).
-      gray200: { collection: "1 · Palette", name: "palette/gray-200" },
-      gray100: { collection: "1 · Palette", name: "palette/gray-100" },
-      blackA72: { collection: "2 · Semantic", name: "gray/000 · a72" },
-      mint500: { collection: "1 · Palette", name: "accent/mint/500" },
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
       ...spacingBindings,
     },
   },
 };
+/* **색은 라이브 변수에 역할로 묶는다(2026-09-14, 컬렉션 이전).** 옛 계획은 은퇴한 `1 · Palette[sidebar]` ·
+   `2 · Semantic[light-sidebar]` 이름을 실어 라이브에서 첫머리에 던졌고, 렌더러는 측정 색을 **옛 램프 값의 표**
+   (`"65,69,76,1"` 이 없던 `byColor`)로 변수에 대 보다가 못 찾으면 고정 페인트로 떨어뜨린 뒤 스스로 감사에서 던졌다
+   (Updates (132) 전제 2). 이제 역할마다 제품 선언(소스 인용 — 카드 CTA · 선물 구매 버튼은 LOUIS Button 레시피)과 라이브
+   변수를 적고, 칠하는 자리마다 측정 색과 값이 같은 역할을 고른다. 값이 같은 변수가 없는 측정 색(현재 플랜 아웃라인 ·
+   `gray-300` 88% 글자)은 사유와 함께 고정 역할로 싣고, 러너는 `unboundColors` 로 돌려준다. 측정 fixture 는 light 라
+   `Klipse Semantic Color[Light]` 로 푼다. 대조표는 계획의 `colorEvidence` 가 갖는다. */
+{
+  const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
+  const PAGE = upgradeSourcePath;
+  const PRICING = "apps/web/components/landing/sections/PricingSection.tsx";
+  const GLOBALS = "apps/web/app/globals.css";
+  const BUTTON = "packages/css/src/component/button.css";
+  const roles = live.colorRoles({
+    theme: "light",
+    where: "upgrade-scene",
+    roles: {
+      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
+      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")] },
+      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 110, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
+      gray000: {
+        name: "color/gray/000",
+        declared: [quote.product(PRICING, 125, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 360, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
+      },
+      gray000Alpha72: {
+        name: "color/gray/000-alpha/72", mix: { name: "color/gray/000", alpha: 0.72 },
+        declared: [quote.product(PAGE, 177, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
+        reason: "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+      },
+      mediaForegroundDark: { name: "color/media-foreground-dark", declared: [quote.product(PRICING, 90, '  "type-body-14-medium text-[var(--louis-color-media-foreground-dark)]",')] },
+      bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 223, '  "bg-[var(--louis-color-bg-raised)]",')] },
+      gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 215, '  "flex flex-col text-gray-200 overflow-hidden",')] },
+      gray300: {
+        name: "color/gray/300",
+        declared: [quote.product(PAGE, 269, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 279, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
+          quote.product(PAGE, 285, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
+      },
+      gray300Alpha88: {
+        unbound: true, mix: { name: "color/gray/300", alpha: 0.88 },
+        declared: [quote.product(PAGE, 265, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
+        reason: "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
+      },
+      green500: { collection: "Klipse Primitive", name: "color/green/500", declared: [quote.product(PAGE, 299, '  "block w-9 h-9 mt-2 bg-accent-green-500",')] },
+      primary200Alpha40: {
+        unbound: true, mix: { collection: "Klipse Primitive", name: "color/blue/200", alpha: 0.4 },
+        declared: [quote.product(PAGE, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
+        reason: "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
+      },
+      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 716, '                      variant="inverse"'), quote.ds(BUTTON, 170, "  background: var(--louis-color-accent-inverse);")] },
+      fgOnAccentInverse: { name: "color/fg-on-accent-inverse", declared: [quote.ds(BUTTON, 171, "  color: var(--louis-color-fg-on-accent-inverse);")] },
+      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 724, "                      disabled={"), quote.ds(BUTTON, 300, "  background: var(--louis-color-bg-inset);")] },
+      fgDisabled: { name: "color/fg-disabled", declared: [quote.ds(BUTTON, 285, "  color: var(--louis-color-fg-disabled);")] },
+      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 603, '                  variant="secondary"'), quote.ds(BUTTON, 178, "  background: var(--louis-color-accent-secondary);")] },
+      accentSecondaryForeground: { name: "color/accent-secondary-foreground", declared: [quote.ds(BUTTON, 182, "  color: var(--louis-color-accent-secondary-foreground);")] },
+      boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
+      docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
+      docsNote: { name: "color/fg-secondary", annotation: "documentation frame note" },
+    },
+  });
+  const C = plan.component;
+  for (const card of [...C.cards, ...C.mobile.cards]) {
+    const where = `${card.plan} ${card.viewport ?? "Desktop"}`;
+    card.paint = roles.paintFor(["bgRaised"], card.background, `${where} card`);
+    if (card.outline) card.outline.paint = roles.paintFor(["primary200Alpha40"], card.outline.color, `${where} outline`);
+    for (const section of card.sections) {
+      for (const text of section.texts ?? []) text.paint = roles.paintFor(["gray200", "gray300", "gray300Alpha88"], text.color, `${where} ${section.kind} ${text.text}`);
+      for (const item of section.items ?? []) {
+        if (item.icon) item.icon.paint = roles.paintFor(["green500"], item.icon.color, `${where} feature check`);
+        item.text.paint = roles.paintFor(["gray300", "gray200"], item.text.color, `${where} feature ${item.text.text}`);
+      }
+    }
+    if (card.action) {
+      card.action.fillPaint = roles.paintFor(["accentInverse", "bgInset"], card.action.fill, `${where} CTA`);
+      card.action.label.paint = roles.paintFor(["fgOnAccentInverse", "fgDisabled"], card.action.label.color, `${where} CTA label`);
+    }
+  }
+  for (const [surface, name] of [[C, "desktop"], [C.mobile, "mobile"]]) {
+    surface.page.paint = roles.paintFor(["appPageBg", "appPageBgNarrow"], surface.page.background, `${name} page`);
+    surface.main.paint = roles.paintFor(["appMainCardBg"], surface.main.background, `${name} main`);
+    surface.main.headerNotice.paint = roles.paintFor(["mediaForegroundDark"], surface.main.headerNotice.color, `${name} notice`);
+    surface.main.headerTitle.paint = roles.paintFor(["gray000"], surface.main.headerTitle.color, `${name} title`);
+    surface.main.headerBody.paint = roles.paintFor(["gray000Alpha72"], surface.main.headerBody.color, `${name} body`);
+    if (surface.main.compareTitle) surface.main.compareTitle.paint = roles.paintFor(["gray000"], surface.main.compareTitle.color, `${name} compare title`);
+    const gift = surface.main.layout.header.gift;
+    if (gift) {
+      gift.button.fillPaint = roles.paintFor(["accentSecondary"], gift.button.fill, `${name} gift button`);
+      gift.button.text.paint = roles.paintFor(["accentSecondaryForeground"], gift.button.text.color, `${name} gift label`);
+    }
+  }
+  const colors = roles.finish();
+  C.bindings = live.assertBindings({ ...colors.bindings, ...C.bindings }, "upgrade-scene bindings");
+  C.colorEvidence = colors.evidence;
+}
 // **러너에는 러너가 읽는 것만 싣는다.** `use_figma` 의 code 인자는 50,000자가 상한이고,
 // 카드가 넷에서 다섯이 되며 페이로드가 51,555자로 그 벽을 넘었다. 넘긴 것은 산문이다 —
 // `$` 로 시작하는 키(`$comment`·`$evidenceClass`·`$productRegressionResolved`·`$measurement`·
@@ -694,24 +771,26 @@ const runnerPlan = stripAnnotations(plan);
   }
   for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
     for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) dropText(surface[key]);
+    if (surface.layout.header.gift) { dropText(surface.layout.header.gift.button.text); delete surface.layout.header.gift.button.fill; }
     delete surface.layout.container.width.declared;
     delete surface.layout.header.maxWidthDeclared;
     delete surface.layout.header.bodyMaxWidthDeclared;
     delete surface.layout.header.notice.heightDeclared;
-    if (surface.layout.header.gift) { delete surface.layout.header.gift.paddingTopDeclared; delete surface.layout.header.gift.label; }
+    if (surface.layout.header.gift) delete surface.layout.header.gift.paddingTopDeclared;
     delete surface.layout.deck.declared;
   }
   // **글자 스타일은 표 하나로 모은다.** 카드 다섯 · 조각 둘 · 헤더의 글자 97개가 스타일 15벌을 반복해, 각 글자에 크기 ·
-  // 굵기 · 행간 · 자간 · 정렬 · 색을 따로 실으면 러너가 50,000자 벽을 넘는다. 글자는 표의 번호(`s`)만 들고, 렌더러가 펼친다.
-  // 색은 넷째 자리까지 줄인다 — 렌더러는 채널을 255 배 반올림해 변수를 고르므로 k/255 값은 그대로 같은 색으로 돌아온다.
+  // 굵기 · 행간 · 자간 · 정렬 · 색 역할을 따로 실으면 러너가 50,000자 벽을 넘는다. 글자는 표의 번호(`s`)만 들고, 렌더러가 펼친다.
   const typeStyles = [];
-  const keyOf = (text) => JSON.stringify([text.fontSize, text.fontWeight, text.lineHeight, text.letterSpacing, text.textAlign, text.color]);
+  const keyOf = (text) => JSON.stringify([text.fontSize, text.fontWeight, text.lineHeight, text.letterSpacing, text.textAlign, text.paint]);
   const intern = (text) => {
     if (!text) return;
-    const style = { fontSize: text.fontSize, fontWeight: text.fontWeight, lineHeight: text.lineHeight, letterSpacing: text.letterSpacing, textAlign: text.textAlign, color: text.color.map((channel) => Math.round(channel * 10000) / 10000) };
+    // 색은 역할 이름(`paint`)으로 싣는다 — 측정 색은 `colorEvidence` 가 대조를 끝냈다.
+    const style = { fontSize: text.fontSize, fontWeight: text.fontWeight, lineHeight: text.lineHeight, letterSpacing: text.letterSpacing, textAlign: text.textAlign, paint: text.paint };
     let index = typeStyles.findIndex((entry) => keyOf(entry) === keyOf(style));
     if (index < 0) index = typeStyles.push(style) - 1;
     for (const key of Object.keys(style)) delete text[key];
+    delete text.color;
     text.s = index;
   };
   for (const card of [...runnerPlan.component.cards, ...runnerPlan.component.mobile.cards]) {
@@ -723,15 +802,20 @@ const runnerPlan = stripAnnotations(plan);
         if (item.icon) { delete item.icon.color; delete item.icon.asset; }
       }
     }
-    if (card.action) intern(card.action.label);
+    if (card.action) { intern(card.action.label); delete card.action.fill; }
+    if (card.outline) delete card.outline.color;
   }
   for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
     for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) intern(surface[key]);
+    if (surface.layout.header.gift) intern(surface.layout.header.gift.button.text);
     delete surface.background;
   }
   runnerPlan.component.typeStyles = typeStyles;
   delete runnerPlan.component.cardGrid;
   delete runnerPlan.component.mobile.cardGrid;
+  delete runnerPlan.component.colorEvidence;
+  for (const entry of Object.values(runnerPlan.component.bindings.unbound ?? {})) delete entry.reason;
+  for (const surface of [runnerPlan.component, runnerPlan.component.mobile]) delete surface.page.background;
   delete runnerPlan.component.deckSource;
   delete runnerPlan.currentPlanOutlineSource;
   delete runnerPlan.figmaGlyphMeasurements;
@@ -741,6 +825,7 @@ const readableDraw =
   "// Pass this file verbatim to use_figma. It creates only the measured desktop upgrade inventory/scene and mobile visible slice.\n" +
   "// Annotation-only `$` keys live in figma/product-upgrade-scene.plan.json; the runner payload carries only what it reads.\n" +
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
+  readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
   readFileSync(templatePath, "utf8");
 const wrappedDraw = transformSync(`async function __figmaRunner__(){${readableDraw}}`, {
   minify: true,

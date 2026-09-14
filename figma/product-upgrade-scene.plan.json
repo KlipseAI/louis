@@ -26,7 +26,7 @@
         "quote": "  \"[outline-offset:-2px]\","
       }
     ],
-    "figmaMapping": "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No exact local Figma color variable exists, so this remains a measured product-only fixed paint."
+    "figmaMapping": "The measured 2px solid outline with -2px offset is represented losslessly as a 2px INSIDE stroke. No live Figma variable resolves to primary-200 at 40%, so the stroke is the unbound colour role primary200Alpha40 (colorEvidence) and the runner reports it in unboundColors."
   },
   "figmaGlyphMeasurements": {
     "$measurement": "use_figma temporary TextNode natural bounds per wrapped line; exact per-string typography; measured 2026-09-05 and nodes removed",
@@ -113,7 +113,8 @@
         0.952941,
         0.960784,
         1
-      ]
+      ],
+      "paint": "appPageBg"
     },
     "deckSource": [
       {
@@ -196,7 +197,61 @@
             "paddingTop": 20,
             "paddingTopDeclared": "calc(20px)",
             "height": 32,
-            "label": "Gift a plan"
+            "label": "Gift a plan",
+            "button": {
+              "padding": {
+                "top": 0,
+                "right": 12,
+                "bottom": 0,
+                "left": 12
+              },
+              "radius": 12,
+              "fill": [
+                0.090196,
+                0.105882,
+                0.133333,
+                0.08
+              ],
+              "effects": [
+                {
+                  "type": "INNER_SHADOW",
+                  "color": [
+                    0.090196,
+                    0.105882,
+                    0.133333,
+                    0.12
+                  ],
+                  "offset": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "radius": 0,
+                  "spread": 0.5
+                }
+              ],
+              "text": {
+                "text": "Gift a plan",
+                "rect": {
+                  "x": 12,
+                  "y": 5.5,
+                  "width": 65,
+                  "height": 21
+                },
+                "fontSize": 14,
+                "fontWeight": 500,
+                "lineHeight": 21,
+                "letterSpacing": -0.14,
+                "textAlign": "center",
+                "color": [
+                  0.345098,
+                  0.360784,
+                  0.388235,
+                  1
+                ],
+                "paint": "accentSecondaryForeground"
+              },
+              "fillPaint": "accentSecondary"
+            }
           }
         },
         "deck": {
@@ -226,7 +281,8 @@
           0.980392,
           0.980392,
           1
-        ]
+        ],
+        "paint": "mediaForegroundDark"
       },
       "headerTitle": {
         "text": "Start free, upgrade or cancel anytime.",
@@ -246,7 +302,8 @@
           0,
           0,
           1
-        ]
+        ],
+        "paint": "gray000"
       },
       "headerBody": {
         "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
@@ -267,7 +324,8 @@
           0,
           0.72
         ],
-        "maxWidth": 686.25
+        "maxWidth": 686.25,
+        "paint": "gray000Alpha72"
       },
       "compareTitle": {
         "text": "Compare Plans",
@@ -287,8 +345,10 @@
           0,
           0,
           1
-        ]
-      }
+        ],
+        "paint": "gray000"
+      },
+      "paint": "appMainCardBg"
     },
     "cardGrid": {
       "x": 170,
@@ -352,7 +412,8 @@
             0.4
           ],
           "offset": -2,
-          "figmaMapping": "2px INSIDE stroke"
+          "figmaMapping": "2px INSIDE stroke",
+          "paint": "primary200Alpha40"
         },
         "sections": [
           {
@@ -381,7 +442,8 @@
                   0.211765,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray200"
               }
             ]
           },
@@ -425,7 +487,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray200"
               }
             ]
           },
@@ -469,7 +532,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               },
               {
                 "text": "credits",
@@ -496,7 +560,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               }
             ]
           },
@@ -526,7 +591,8 @@
                   0.298039,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray300"
               }
             ]
           },
@@ -550,7 +616,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Up to 3 projects",
@@ -571,7 +638,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -586,7 +654,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "1 Composition upload, 2 imports",
@@ -607,7 +676,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -622,7 +692,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "AI video generation trial",
@@ -643,7 +714,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -658,7 +730,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Basic video cut editing",
@@ -679,7 +752,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -694,7 +768,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Highlight input videos up to 10 min",
@@ -715,7 +790,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -730,7 +806,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Watermark included",
@@ -751,7 +828,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               }
             ]
@@ -798,10 +876,13 @@
               0.458824,
               0.482353,
               1
-            ]
-          }
+            ],
+            "paint": "fgDisabled"
+          },
+          "fillPaint": "bgInset"
         },
-        "deckHeight": "FILL"
+        "deckHeight": "FILL",
+        "paint": "bgRaised"
       },
       {
         "plan": "Lite",
@@ -876,7 +957,8 @@
                   0.211765,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray200"
               }
             ]
           },
@@ -925,7 +1007,8 @@
                 "$lineNaturalWidths": {
                   "12,900": 113,
                   "KRW": 80
-                }
+                },
+                "paint": "gray200"
               },
               {
                 "text": "per month",
@@ -957,7 +1040,8 @@
                 "$lineNaturalWidths": {
                   "per": 24,
                   "month": 46
-                }
+                },
+                "paint": "gray300Alpha88"
               }
             ]
           },
@@ -1001,7 +1085,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               },
               {
                 "text": "credits",
@@ -1028,7 +1113,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               }
             ]
           },
@@ -1058,7 +1144,8 @@
                   0.298039,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray300"
               }
             ]
           },
@@ -1082,7 +1169,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Up to 5 projects",
@@ -1103,7 +1191,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1118,7 +1207,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "3 Composition uploads, 3 imports",
@@ -1139,7 +1229,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1154,7 +1245,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "All AI models unlocked",
@@ -1175,7 +1267,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1190,7 +1283,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Text/image overlay, TTS",
@@ -1211,7 +1305,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1226,7 +1321,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "YouTube/Instagram upload",
@@ -1247,7 +1343,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1262,7 +1359,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Highlight input videos up to 10 min",
@@ -1283,7 +1381,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1298,7 +1397,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Bronze credit top-up",
@@ -1319,7 +1419,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1334,7 +1435,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "No watermark",
@@ -1355,7 +1457,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               }
             ]
@@ -1402,10 +1505,13 @@
               0.980392,
               0.980392,
               1
-            ]
-          }
+            ],
+            "paint": "fgOnAccentInverse"
+          },
+          "fillPaint": "accentInverse"
         },
-        "deckHeight": "FILL"
+        "deckHeight": "FILL",
+        "paint": "bgRaised"
       },
       {
         "plan": "Plus",
@@ -1480,7 +1586,8 @@
                   0.211765,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray200"
               }
             ]
           },
@@ -1529,7 +1636,8 @@
                 "$lineNaturalWidths": {
                   "29,900": 119,
                   "KRW": 80
-                }
+                },
+                "paint": "gray200"
               },
               {
                 "text": "per month",
@@ -1561,7 +1669,8 @@
                 "$lineNaturalWidths": {
                   "per": 24,
                   "month": 46
-                }
+                },
+                "paint": "gray300Alpha88"
               }
             ]
           },
@@ -1605,7 +1714,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               },
               {
                 "text": "credits",
@@ -1632,7 +1742,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               }
             ]
           },
@@ -1662,7 +1773,8 @@
                   0.298039,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray300"
               }
             ]
           },
@@ -1686,7 +1798,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Up to 12 projects",
@@ -1707,7 +1820,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1722,7 +1836,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "5 Composition uploads, 5 imports",
@@ -1743,7 +1858,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1758,7 +1874,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "All AI models unlocked",
@@ -1779,7 +1896,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1794,7 +1912,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Text/image overlay, TTS",
@@ -1815,7 +1934,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1830,7 +1950,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "YouTube/Instagram upload, schedule & analytics",
@@ -1851,7 +1972,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1866,7 +1988,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "AI prompt & caption assist",
@@ -1887,7 +2010,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1902,7 +2026,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Highlight input videos up to 30 min",
@@ -1923,7 +2048,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1938,7 +2064,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Credit top-up available",
@@ -1959,7 +2086,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -1974,7 +2102,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "No watermark",
@@ -1995,7 +2124,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               }
             ]
@@ -2042,10 +2172,13 @@
               0.980392,
               0.980392,
               1
-            ]
-          }
+            ],
+            "paint": "fgOnAccentInverse"
+          },
+          "fillPaint": "accentInverse"
         },
-        "deckHeight": "HUG"
+        "deckHeight": "HUG",
+        "paint": "bgRaised"
       },
       {
         "plan": "Pro",
@@ -2120,7 +2253,8 @@
                   0.211765,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray200"
               }
             ]
           },
@@ -2169,7 +2303,8 @@
                 "$lineNaturalWidths": {
                   "49,900": 120,
                   "KRW": 80
-                }
+                },
+                "paint": "gray200"
               },
               {
                 "text": "per month",
@@ -2201,7 +2336,8 @@
                 "$lineNaturalWidths": {
                   "per": 24,
                   "month": 46
-                }
+                },
+                "paint": "gray300Alpha88"
               }
             ]
           },
@@ -2245,7 +2381,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               },
               {
                 "text": "credits",
@@ -2272,7 +2409,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               }
             ]
           },
@@ -2302,7 +2440,8 @@
                   0.298039,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray300"
               }
             ]
           },
@@ -2326,7 +2465,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Up to 24 projects",
@@ -2347,7 +2487,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2362,7 +2503,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "7 Composition uploads, 7 imports",
@@ -2383,7 +2525,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2398,7 +2541,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Highlight input videos up to 120 min",
@@ -2419,7 +2563,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2434,7 +2579,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "3 concurrent jobs",
@@ -2455,7 +2601,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2470,7 +2617,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Priority queue processing",
@@ -2491,7 +2639,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               }
             ]
@@ -2538,10 +2687,13 @@
               0.980392,
               0.980392,
               1
-            ]
-          }
+            ],
+            "paint": "fgOnAccentInverse"
+          },
+          "fillPaint": "accentInverse"
         },
-        "deckHeight": "FILL"
+        "deckHeight": "FILL",
+        "paint": "bgRaised"
       },
       {
         "plan": "Ultra",
@@ -2616,7 +2768,8 @@
                   0.211765,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray200"
               }
             ]
           },
@@ -2665,7 +2818,8 @@
                 "$lineNaturalWidths": {
                   "74,900": 116,
                   "KRW": 80
-                }
+                },
+                "paint": "gray200"
               },
               {
                 "text": "per month",
@@ -2697,7 +2851,8 @@
                 "$lineNaturalWidths": {
                   "per": 24,
                   "month": 46
-                }
+                },
+                "paint": "gray300Alpha88"
               }
             ]
           },
@@ -2741,7 +2896,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               },
               {
                 "text": "credits",
@@ -2768,7 +2924,8 @@
                   "bottom": 0,
                   "left": 0
                 },
-                "sizing": "HUG"
+                "sizing": "HUG",
+                "paint": "gray300"
               }
             ]
           },
@@ -2798,7 +2955,8 @@
                   0.298039,
                   1
                 ],
-                "sizing": "FILL"
+                "sizing": "FILL",
+                "paint": "gray300"
               }
             ]
           },
@@ -2822,7 +2980,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Unlimited projects",
@@ -2843,7 +3002,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2858,7 +3018,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "10 Composition uploads, 10 imports",
@@ -2879,7 +3040,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2894,7 +3056,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "10 highlight clip selections",
@@ -2915,7 +3078,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               },
               {
@@ -2930,7 +3094,8 @@
                     0.5568627450980392,
                     1
                   ],
-                  "asset": "/icons/CheckCircle.svg"
+                  "asset": "/icons/CheckCircle.svg",
+                  "paint": "green500"
                 },
                 "text": {
                   "text": "Maximum monthly credits",
@@ -2951,7 +3116,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               }
             ]
@@ -2998,10 +3164,13 @@
               0.980392,
               0.980392,
               1
-            ]
-          }
+            ],
+            "paint": "fgOnAccentInverse"
+          },
+          "fillPaint": "accentInverse"
         },
-        "deckHeight": "FILL"
+        "deckHeight": "FILL",
+        "paint": "bgRaised"
       }
     ],
     "mobile": {
@@ -3015,7 +3184,8 @@
           0.980392,
           0.980392,
           1
-        ]
+        ],
+        "paint": "appPageBgNarrow"
       },
       "main": {
         "rect": {
@@ -3084,7 +3254,61 @@
               "paddingTop": 20,
               "paddingTopDeclared": "calc(20px)",
               "height": 32,
-              "label": "Gift a plan"
+              "label": "Gift a plan",
+              "button": {
+                "padding": {
+                  "top": 0,
+                  "right": 12,
+                  "bottom": 0,
+                  "left": 12
+                },
+                "radius": 12,
+                "fill": [
+                  0.090196,
+                  0.105882,
+                  0.133333,
+                  0.08
+                ],
+                "effects": [
+                  {
+                    "type": "INNER_SHADOW",
+                    "color": [
+                      0.090196,
+                      0.105882,
+                      0.133333,
+                      0.12
+                    ],
+                    "offset": {
+                      "x": 0,
+                      "y": 0
+                    },
+                    "radius": 0,
+                    "spread": 0.5
+                  }
+                ],
+                "text": {
+                  "text": "Gift a plan",
+                  "rect": {
+                    "x": 12,
+                    "y": 5.5,
+                    "width": 65,
+                    "height": 21
+                  },
+                  "fontSize": 14,
+                  "fontWeight": 500,
+                  "lineHeight": 21,
+                  "letterSpacing": -0.14,
+                  "textAlign": "center",
+                  "color": [
+                    0.345098,
+                    0.360784,
+                    0.388235,
+                    1
+                  ],
+                  "paint": "accentSecondaryForeground"
+                },
+                "fillPaint": "accentSecondary"
+              }
             }
           },
           "deck": {
@@ -3112,7 +3336,8 @@
             0.980392,
             0.980392,
             1
-          ]
+          ],
+          "paint": "mediaForegroundDark"
         },
         "headerTitle": {
           "text": "Start free, upgrade or cancel anytime.",
@@ -3132,7 +3357,8 @@
             0,
             0,
             1
-          ]
+          ],
+          "paint": "gray000"
         },
         "headerBody": {
           "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
@@ -3153,8 +3379,10 @@
             0,
             0.72
           ],
-          "maxWidth": 600.469
-        }
+          "maxWidth": 600.469,
+          "paint": "gray000Alpha72"
+        },
+        "paint": "appMainCardBg"
       },
       "cardGrid": {
         "x": 6,
@@ -3222,7 +3450,8 @@
               0.4
             ],
             "offset": -2,
-            "figmaMapping": "2px INSIDE stroke"
+            "figmaMapping": "2px INSIDE stroke",
+            "paint": "primary200Alpha40"
           },
           "sections": [
             {
@@ -3251,7 +3480,8 @@
                     0.211765,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray200"
                 }
               ]
             },
@@ -3295,7 +3525,8 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "HUG"
+                  "sizing": "HUG",
+                  "paint": "gray200"
                 }
               ]
             },
@@ -3339,7 +3570,8 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "HUG"
+                  "sizing": "HUG",
+                  "paint": "gray300"
                 },
                 {
                   "text": "credits",
@@ -3366,7 +3598,8 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "HUG"
+                  "sizing": "HUG",
+                  "paint": "gray300"
                 }
               ]
             },
@@ -3396,7 +3629,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               ]
             },
@@ -3420,7 +3654,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Up to 3 projects",
@@ -3441,7 +3676,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3456,7 +3692,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "1 Composition upload, 2 imports",
@@ -3477,7 +3714,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3492,7 +3730,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "AI video generation trial",
@@ -3513,7 +3752,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3528,7 +3768,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Basic video cut editing",
@@ -3549,7 +3790,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3564,7 +3806,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Highlight input videos up to 10 min",
@@ -3585,7 +3828,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3600,7 +3844,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Watermark included",
@@ -3621,14 +3866,16 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 }
               ]
             }
           ],
           "action": null,
-          "actionMeasured": false
+          "actionMeasured": false,
+          "paint": "bgRaised"
         },
         {
           "plan": "Lite",
@@ -3707,7 +3954,8 @@
                     0.211765,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray200"
                 }
               ]
             },
@@ -3756,7 +4004,8 @@
                   "$lineNaturalWidths": {
                     "12,900": 88,
                     "KRW": 62
-                  }
+                  },
+                  "paint": "gray200"
                 },
                 {
                   "text": "per month",
@@ -3788,7 +4037,8 @@
                   "$lineNaturalWidths": {
                     "per": 21,
                     "month": 40
-                  }
+                  },
+                  "paint": "gray300Alpha88"
                 }
               ]
             },
@@ -3832,7 +4082,8 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "HUG"
+                  "sizing": "HUG",
+                  "paint": "gray300"
                 },
                 {
                   "text": "credits",
@@ -3859,7 +4110,8 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "HUG"
+                  "sizing": "HUG",
+                  "paint": "gray300"
                 }
               ]
             },
@@ -3889,7 +4141,8 @@
                     0.298039,
                     1
                   ],
-                  "sizing": "FILL"
+                  "sizing": "FILL",
+                  "paint": "gray300"
                 }
               ]
             },
@@ -3913,7 +4166,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Up to 5 projects",
@@ -3934,7 +4188,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3949,7 +4204,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "3 Composition uploads, 3 imports",
@@ -3970,7 +4226,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -3985,7 +4242,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "All AI models unlocked",
@@ -4006,7 +4264,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -4021,7 +4280,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Text/image overlay, TTS",
@@ -4042,7 +4302,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -4057,7 +4318,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "YouTube/Instagram upload",
@@ -4078,7 +4340,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -4093,7 +4356,8 @@
                       0.5568627450980392,
                       1
                     ],
-                    "asset": "/icons/CheckCircle.svg"
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
                   },
                   "text": {
                     "text": "Highlight input videos up to 10 min",
@@ -4114,7 +4378,8 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 },
                 {
@@ -4140,80 +4405,119 @@
                       0.298039,
                       1
                     ],
-                    "sizing": "FILL"
+                    "sizing": "FILL",
+                    "paint": "gray300"
                   }
                 }
               ]
             }
           ],
           "action": null,
-          "actionMeasured": false
+          "actionMeasured": false,
+          "paint": "bgRaised"
         }
       ],
       "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent; the two visible cards keep their measured height and clip."
     },
+    "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "sidebar",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "light-sidebar",
-      "primitiveCollection": "Klipse Primitive",
-      "primitiveMode": "Base",
-      "appBackground": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-200"
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Light",
+      "appPageBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
       },
-      "surface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-50"
+      "appPageBgNarrow": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
       },
-      "cardSurface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-000"
+      "appMainCardBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
       },
-      "black": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-1000"
+      "gray000": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000"
       },
-      "gray900": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-900"
+      "gray000Alpha72": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/72"
       },
-      "gray800": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-800"
+      "mediaForegroundDark": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/media-foreground-dark"
       },
-      "gray700": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-700"
-      },
-      "gray600": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-600"
-      },
-      "gray500": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-500"
-      },
-      "gray500a90": {
-        "collection": "2 · Semantic",
-        "name": "palette/gray-500 · a90"
+      "bgRaised": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-raised"
       },
       "gray200": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-200"
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/200"
       },
-      "gray100": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-100"
+      "gray300": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/300"
       },
-      "blackA72": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a72"
+      "green500": {
+        "collection": "Klipse Primitive",
+        "name": "color/green/500"
       },
-      "mint500": {
-        "collection": "1 · Palette",
-        "name": "accent/mint/500"
+      "accentInverse": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/accent-inverse"
+      },
+      "fgOnAccentInverse": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-on-accent-inverse"
+      },
+      "bgInset": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-inset"
+      },
+      "fgDisabled": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-disabled"
+      },
+      "accentSecondary": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/accent-secondary"
+      },
+      "accentSecondaryForeground": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/accent-secondary-foreground"
+      },
+      "boardSurface": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
+      },
+      "docsTitle": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-primary"
+      },
+      "docsNote": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-secondary"
+      },
+      "unbound": {
+        "gray300Alpha88": {
+          "color": [
+            0.254902,
+            0.270588,
+            0.298039,
+            0.88
+          ],
+          "reason": "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint."
+        },
+        "primary200Alpha40": {
+          "color": [
+            0.639216,
+            0.835294,
+            1,
+            0.4
+          ],
+          "reason": "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint."
+        }
       },
       "radius12": {
         "collection": "Klipse Primitive",
@@ -4278,6 +4582,391 @@
       "spacing64": {
         "collection": "Klipse Primitive",
         "name": "spacing/64"
+      }
+    },
+    "colorEvidence": {
+      "appPageBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 68,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 791,
+            "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
+          }
+        ],
+        "measured": "#f2f3f5",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appPageBgNarrow": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 68,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 1068,
+            "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appMainCardBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 110,
+            "quote": "  \"bg-[var(--app-main-card-bg)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 792,
+            "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray000": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 125,
+            "quote": "  \"m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!\";"
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 360,
+            "quote": "  \"m-0 mb-16 type-heading-36-semibold text-gray-000 text-center\";"
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 1,
+        "sites": 3,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black",
+        "figmaValue": "#000000",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray000Alpha72": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 177,
+            "quote": "  \"text-[rgb(var(--gray-000-rgb)/72%)]!\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.72,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/72 → Klipse Primitive/color/static-black-alpha/72",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.72,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.72",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "mediaForegroundDark": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 90,
+            "quote": "  \"type-body-14-medium text-[var(--louis-color-media-foreground-dark)]\","
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/media-foreground-dark → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "bgRaised": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 223,
+            "quote": "  \"bg-[var(--louis-color-bg-raised)]\","
+          }
+        ],
+        "measured": "#ffffff",
+        "measuredAlpha": 1,
+        "sites": 7,
+        "figma": "Klipse Semantic Color[Light]/color/bg-raised → Klipse Primitive/color/static/white",
+        "figmaValue": "#ffffff",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray200": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 215,
+            "quote": "  \"flex flex-col text-gray-200 overflow-hidden\","
+          }
+        ],
+        "measured": "#2b2f36",
+        "measuredAlpha": 1,
+        "sites": 14,
+        "figma": "Klipse Semantic Color[Light]/color/gray/200 → Klipse Primitive/color/palette-gray/800",
+        "figmaValue": "#2b2f36",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray300": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 269,
+            "quote": "  \"mt-2 flex w-full pb-12 items-end gap-4 text-gray-300\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 279,
+            "quote": "const TIER_INCLUDES = \"[margin:12px_0_0] p-0 block text-gray-300\";"
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 285,
+            "quote": "  \"[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300\","
+          }
+        ],
+        "measured": "#41454c",
+        "measuredAlpha": 1,
+        "sites": 66,
+        "figma": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray300Alpha88": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 265,
+            "quote": "  \"[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2\","
+          }
+        ],
+        "measured": "#41454c",
+        "measuredAlpha": 0.88,
+        "sites": 5,
+        "figma": null,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700 × 0.88",
+        "exact": false,
+        "reason": "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
+        "liveValueTwins": []
+      },
+      "green500": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 299,
+            "quote": "  \"block w-9 h-9 mt-2 bg-accent-green-500\","
+          }
+        ],
+        "measured": "#00c68e",
+        "measuredAlpha": 1,
+        "sites": 44,
+        "figma": "Klipse Primitive/color/green/500",
+        "figmaValue": "#00c68e",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "primary200Alpha40": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 232,
+            "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
+          }
+        ],
+        "measured": "#a3d5ff",
+        "measuredAlpha": 0.4,
+        "sites": 2,
+        "figma": null,
+        "productMix": "Klipse Primitive/color/blue/200 × 0.4",
+        "exact": false,
+        "reason": "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
+        "liveValueTwins": []
+      },
+      "accentInverse": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 716,
+            "quote": "                      variant=\"inverse\""
+          },
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 170,
+            "quote": "  background: var(--louis-color-accent-inverse);"
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 1,
+        "sites": 4,
+        "figma": "Klipse Semantic Color[Light]/color/accent-inverse → Klipse Primitive/color/static/black",
+        "figmaValue": "#000000",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "fgOnAccentInverse": {
+        "declared": [
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 171,
+            "quote": "  color: var(--louis-color-fg-on-accent-inverse);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 4,
+        "figma": "Klipse Semantic Color[Light]/color/fg-on-accent-inverse → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "bgInset": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 724,
+            "quote": "                      disabled={"
+          },
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 300,
+            "quote": "  background: var(--louis-color-bg-inset);"
+          }
+        ],
+        "measured": "#ebecee",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Semantic Color[Light]/color/bg-inset → Klipse Primitive/color/palette-gray/050",
+        "figmaValue": "#ebecee",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "fgDisabled": {
+        "declared": [
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 285,
+            "quote": "  color: var(--louis-color-fg-disabled);"
+          }
+        ],
+        "measured": "#72757b",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Semantic Color[Light]/color/fg-disabled → Klipse Primitive/color/palette-gray/500",
+        "figmaValue": "#72757b",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "accentSecondary": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "line": 603,
+            "quote": "                  variant=\"secondary\""
+          },
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 178,
+            "quote": "  background: var(--louis-color-accent-secondary);"
+          }
+        ],
+        "measured": "#171b22",
+        "measuredAlpha": 0.08,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/accent-secondary → Klipse Primitive/color/static-black-alpha/08",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.08,
+        "exact": true
+      },
+      "accentSecondaryForeground": {
+        "declared": [
+          {
+            "path": "packages/css/src/component/button.css",
+            "line": 182,
+            "quote": "  color: var(--louis-color-accent-secondary-foreground);"
+          }
+        ],
+        "measured": "#585c63",
+        "measuredAlpha": 1,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/accent-secondary-foreground → Klipse Primitive/color/palette-gray/600",
+        "figmaValue": "#585c63",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "boardSurface": {
+        "declared": null,
+        "annotation": "section fill behind the sets (board canvas, not a product surface)",
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsTitle": {
+        "declared": null,
+        "annotation": "documentation frame title",
+        "figma": "Klipse Semantic Color[Light]/color/fg-primary → Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsNote": {
+        "declared": null,
+        "annotation": "documentation frame note",
+        "figma": "Klipse Semantic Color[Light]/color/fg-secondary → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": null
       }
     }
   }

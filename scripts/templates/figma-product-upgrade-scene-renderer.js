@@ -6,36 +6,12 @@ const page =
 if (!page) throw new Error(`Missing target page ${C.pageName}`);
 await figma.setCurrentPageAsync(page);
 
-const collections = await figma.variables.getLocalVariableCollectionsAsync();
-const collectionById = new Map(collections.map((entry) => [entry.id, entry]));
-const collectionByName = new Map(collections.map((entry) => [entry.name, entry]));
-const variables = await figma.variables.getLocalVariablesAsync();
-const variableByKey = new Map(variables.map((entry) => [`${collectionById.get(entry.variableCollectionId)?.name}\u0000${entry.name}`, entry]));
-const getVariable = (binding) => {
-  const value = variableByKey.get(`${binding.collection}\u0000${binding.name}`);
-  if (!value) throw new Error(`Missing variable ${binding.collection}/${binding.name}`);
-  return value;
-};
-const getMode = (collectionName, modeName) => {
-  const collection = collectionByName.get(collectionName);
-  const mode = collection?.modes.find((entry) => entry.name === modeName);
-  if (!collection || !mode) throw new Error(`Missing mode ${collectionName}/${modeName}`);
-  return { collectionId: collection.id, modeId: mode.modeId };
-};
+// 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 칠하는 자리는
+// 계획이 고른 역할 이름(`paint` · `fillPaint` · 글자 스타일 표의 `paint`)만 읽는다 — 옛 러너의 측정 색 → 변수 표(`byColor`)는
+// 옛 램프 값으로 적혀 있어, 표에 없는 색을 고정 페인트로 떨어뜨린 뒤 감사에서 스스로 던졌다(Updates (132) 전제 2).
 const B = C.bindings;
-const V = Object.fromEntries(Object.entries(B).filter(([, value]) => value && typeof value === "object" && "collection" in value).map(([key, value]) => [key, getVariable(value)]));
-const paletteMode = getMode(B.paletteCollection, B.paletteMode);
-const semanticMode = getMode(B.semanticCollection, B.semanticMode);
-const primitiveMode = getMode(B.primitiveCollection, B.primitiveMode);
-const setModes = (node) => {
-  node.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-  node.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-  node.setExplicitVariableModeForCollection(primitiveMode.collectionId, primitiveMode.modeId);
-};
-const setPaint = (variable, fallback = { r: 0, g: 0, b: 0 }) => figma.variables.setBoundVariableForPaint({ type: "SOLID", color: fallback }, "color", variable);
-const bindCorners = (node, variable) => {
-  for (const field of ["topLeftRadius", "topRightRadius", "bottomRightRadius", "bottomLeftRadius"]) node.setBoundVariable(field, variable);
-};
+const { V, pin, paint, paintIcon, bindCorners, audit, mode: colourMode } = await liveVariables(B);
+const setModes = pin;
 const makeEffects = (specs) => specs.map((effect) => ({
   type: effect.type,
   color: { r: effect.color[0], g: effect.color[1], b: effect.color[2], a: effect.color[3] },
@@ -45,6 +21,7 @@ const makeEffects = (specs) => specs.map((effect) => ({
   visible: true,
   blendMode: "NORMAL",
 }));
+// 현재 플랜의 2px 아웃라인(`outline-offset: -2px`) — 손실 없이 INSIDE 획으로 옮긴다. 색은 역할(`outline.paint`)이다.
 const applyMeasuredOutline = (node, spec) => {
   if (!spec.outline) {
     node.strokes = [];
@@ -57,11 +34,7 @@ const applyMeasuredOutline = (node, spec) => {
   ) throw new Error(`Unsupported measured outline mapping for ${spec.plan}`);
   node.strokeWeight = spec.outline.width;
   node.strokeAlign = "INSIDE";
-  node.strokes = [{
-    type: "SOLID",
-    color: { r: spec.outline.color[0], g: spec.outline.color[1], b: spec.outline.color[2] },
-    opacity: spec.outline.color[3],
-  }];
+  node.strokes = [paint(spec.outline.paint)];
 };
 
 await Promise.all([
@@ -70,41 +43,6 @@ await Promise.all([
   figma.loadFontAsync({ family: "Pretendard", style: "SemiBold" }),
 ]);
 const weightStyle = { 400: "Regular", 500: "Medium", 600: "SemiBold" };
-// 실측 색 → 로컬 Figma 변수. **없으면 던지지 않고 실측 고정 페인트로 떨어진다.**
-// 이 계획이 이미 아웃라인에 대해 쓰는 정책과 같다("No exact local Figma color variable
-// exists, so this remains a measured product-only fixed paint"). 던지게 두면 제품이 색을
-// 하나 바꿀 때마다 러너 전체가 Figma 안에서 죽고, 그걸 피하려면 존재하는지 확인도 못 한
-// 변수 이름을 지어내야 한다 — 둘 다 이 저장소의 규칙(값을 지어내지 않는다)에 어긋난다.
-// 여기 적힌 이름들은 형제 계획(product-checkout-status · product-payment-scenes ·
-// product-components)이 같은 컬렉션에서 이미 쓰고 있는 것만 남긴다.
-const colorPaint = (rgba) => {
-  const key = `${Math.round(rgba[0] * 255)},${Math.round(rgba[1] * 255)},${Math.round(rgba[2] * 255)},${Math.round(rgba[3] * 1000) / 1000}`;
-  const byColor = {
-    "0,0,0,1": V.black,
-    "0,0,0,0.72": V.blackA72,
-    "0,198,142,1": V.mint500,
-    "23,27,34,1": V.gray900,
-    "49,54,64,1": V.gray800,
-    "87,93,104,1": V.gray700,
-    "154,160,171,1": V.gray600,
-    "188,192,201,1": V.gray500,
-    "188,192,201,0.9": V.gray500a90,
-    "227,228,232,1": V.gray200,
-    "241,241,243,1": V.gray100,
-    "248,248,249,1": V.surface,
-    "250,250,250,1": V.cardSurface,
-  };
-  const variable = byColor[key];
-  if (variable) return setPaint(variable);
-  return { type: "SOLID", color: { r: rgba[0], g: rgba[1], b: rgba[2] }, opacity: rgba[3] };
-};
-const bindIconPaints = (instance, variable) => {
-  for (const vector of instance.findAllWithCriteria({ types: ["VECTOR"] })) {
-    if (Array.isArray(vector.fills)) vector.fills = vector.fills.map((paint) => paint.type === "SOLID" ? figma.variables.setBoundVariableForPaint({ ...paint }, "color", variable) : paint);
-    if (Array.isArray(vector.strokes)) vector.strokes = vector.strokes.map((paint) => paint.type === "SOLID" ? figma.variables.setBoundVariableForPaint({ ...paint }, "color", variable) : paint);
-  }
-};
-
 const dependencySets = new Map();
 for (const set of page.findAllWithCriteria({ types: ["COMPONENT_SET"] })) {
   if ([C.dependencies.gnbSet, C.dependencies.topBarSet, C.dependencies.mobileTopBarSet].includes(set.name)) dependencySets.set(set.name, set);
@@ -129,7 +67,7 @@ if (!section) {
   section.y = 0;
 }
 setModes(section);
-section.fills = [setPaint(V.appBackground)];
+section.fills = [paint("boardSurface")];
 const gutter = 40;
 
 let docs = section.findOne((entry) => entry.name === `${C.cardSetName} / Documentation`);
@@ -146,19 +84,22 @@ if (!docs) {
   title.fontName = { family: "Pretendard", style: "Medium" };
   title.fontSize = 28;
   title.characters = C.cardSetName;
-  title.fills = [setPaint(V.gray900)];
+  title.fills = [paint("docsTitle")];
   docs.appendChild(title);
   const note = figma.createText();
   note.fontName = { family: "Pretendard", style: "Regular" };
   note.fontSize = 14;
   note.lineHeight = { unit: "PERCENT", value: 150 };
   note.characters = C.cardSetName;
-  note.fills = [setPaint(V.gray600)];
+  note.fills = [paint("docsNote")];
   docs.appendChild(note);
   section.appendChild(docs);
 }
 const docTexts = docs.children.filter((entry) => entry.type === "TEXT");
 if (docTexts.length !== 2) throw new Error(`Expected two documentation text nodes, got ${docTexts.length}`);
+// 문서 글자 잉크도 매 실행 주석 역할로 다시 건다 — 옛 문서 프레임은 은퇴한 컬렉션 변수에 묶여 있다.
+docTexts[0].fills = [paint("docsTitle")];
+docTexts[1].fills = [paint("docsNote")];
 docTexts[0].characters = C.cardSetName;
 docTexts[1].characters = `${PLAN.productCommit.slice(0, 8)} · ${C.cards.length} desktop cards + ${M.cards.length} viewport-observed mobile slices as Auto Layout · checkout redirect parity · product-only`;
 
@@ -224,7 +165,7 @@ const styleText = (text, raw, alignOverride) => {
   if (text.characters !== spec.text) text.characters = spec.text;
   text.textAlignHorizontal = align === "center" ? "CENTER" : align === "right" ? "RIGHT" : "LEFT";
   text.textAlignVertical = "TOP";
-  text.fills = [colorPaint(spec.color)];
+  text.fills = [paint(spec.paint)];
 };
 // 글자 크기 축: FILL(부모 폭, 높이 자동) · HUG(자기 폭) · FIXED(`flex-shrink` 로 감긴 글자 — 측정 상자 폭, 높이 자동).
 const sizeText = (text, spec) => {
@@ -268,7 +209,7 @@ const reconcileCard = (card, spec, { slice }) => {
   card.minHeight = spec.minHeight || null;
   card.cornerRadius = spec.radius;
   bindCorners(card, V.radius12);
-  card.fills = [setPaint(V.cardSurface)];
+  card.fills = [paint(spec.paint)];
   card.effects = makeEffects(spec.effects);
   applyMeasuredOutline(card, spec);
   card.clipsContent = true;
@@ -335,7 +276,7 @@ const reconcileCard = (card, spec, { slice }) => {
           const icon = insertAt(cell, claimIcon(`feature-check/${index}`), 0);
           icon.name = `feature-check/${index}`;
           icon.resize(item.icon.size, item.icon.size);
-          bindIconPaints(icon, V.mint500);
+          paintIcon(icon, item.icon.paint);
           retireOthers(cell, [icon]);
           cells.push(cell);
         }
@@ -378,7 +319,7 @@ const reconcileCard = (card, spec, { slice }) => {
     action.cornerRadius = A.radius;
     bindCorners(action, V.radius12);
     action.opacity = A.opacity;
-    action.fills = [colorPaint(A.fill)];
+    action.fills = [paint(A.fillPaint)];
     const label = insertAt(action, action.findOne((entry) => entry.type === "TEXT" && entry.name === "label") ?? newText("label"), 0);
     styleText(label, A.label, "center");
     label.textAutoResize = "WIDTH_AND_HEIGHT";
@@ -389,6 +330,8 @@ const reconcileCard = (card, spec, { slice }) => {
 };
 // 세트: 계획의 variant 는 없으면 더하고 전부 reconcile 한다. **계획에 없는 옛 variant(요금제가 넷이던 때의 `Basic` · `Max`)는
 // 지우지 않고 그대로 둔다** — 라이브 인스턴스(옛 보드 · 손 조립 보드)가 참조할 수 있어서다. 설명에 보존 사유만 적는다.
+// 계획에 없는 옛 variant — 칠을 감사하지 않는다(이 러너가 고치지 않는 사용자 자산이다).
+const preservedCards = [];
 const ensureCardSet = (setName, specs, nameOf, options) => {
   let set = section.findOne((entry) => entry.type === "COMPONENT_SET" && entry.name === setName);
   const build = (spec) => {
@@ -410,6 +353,7 @@ const ensureCardSet = (setName, specs, nameOf, options) => {
     const spec = specByName.get(card.name);
     if (!spec) {
       preserved.push(card);
+      preservedCards.push(card);
       card.description = `Preserved legacy variant — not in ${PLAN.productCommit} (the product plans are ${specs.map((entry) => entry.plan).join(", ")}). Kept so live instances keep their main component; the plan does not reconcile it.`;
       continue;
     }
@@ -454,7 +398,7 @@ const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain,
   component.primaryAxisSizingMode = component.counterAxisSizingMode = "FIXED";
   component.cornerRadius = S.main.radius;
   bindCorners(component, V.radius16);
-  component.fills = [setPaint(V.surface)];
+  component.fills = [paint(S.main.paint)];
   component.effects = makeEffects(S.main.effects);
   component.strokes = [];
   component.clipsContent = true;
@@ -518,21 +462,31 @@ const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain,
   sizeText(bodyText, { sizing: "FILL", maxWidth: S.main.headerBody.maxWidth });
   const headerKeep = [noticeBox, titleBox, bodyText];
   if (L.header.gift) {
-    // 선물 구매 줄(KLI-264) — 버튼의 면 · 글자는 그리지 않고 **자리만** 둔다: 줄의 위 여백(칠 없는 감싸개 패딩) + Button md 높이.
-    // 헤더가 흐름이라 이 줄을 빼면 덱 · 비교 제목이 그만큼 위로 서고, 모바일 조각은 관측되지 않은 영역을 드러낸다.
+    // 선물 구매 줄(KLI-264) — 줄의 위 여백(칠 없는 감싸개 패딩) + Button secondary md. 버튼은 가로 Auto Layout 이고 폭은 라벨 HUG +
+    // 좌우 패딩, 높이는 Button md 레시피(선언). 면 · 글자는 계획의 역할(`accent-secondary` · `-foreground`)로 칠한다. 헤더가 흐름이라
+    // 이 줄을 빼면 덱 · 비교 제목이 그만큼 위로 선다. 2026-09-14 이전 러너가 둔 칠 없는 `gift/button slot` 은 같은 노드를 버튼으로 옮긴다.
+    const G = L.header.gift;
     const giftRow = insertAt(header, find("FRAME", "gift") ?? newFrame("gift"), 3);
     plain(giftRow);
-    flow(giftRow, "VERTICAL", { padding: { top: L.header.gift.paddingTop } });
+    flow(giftRow, "VERTICAL", { padding: { top: G.paddingTop } });
     giftRow.layoutSizingHorizontal = "FILL";
     giftRow.layoutSizingVertical = "HUG";
-    const giftSlot = insertAt(giftRow, find("FRAME", "gift/button slot") ?? newFrame("gift/button slot"), 0);
-    plain(giftSlot);
-    giftSlot.layoutMode = "NONE";
-    giftSlot.resize(giftSlot.width, L.header.gift.height);
-    giftSlot.layoutSizingHorizontal = "FILL";
-    giftSlot.layoutSizingVertical = "FIXED";
-    retireOthers(giftSlot, []);
-    retireOthers(giftRow, [giftSlot]);
+    const giftButton = insertAt(giftRow, find("FRAME", "gift/button") ?? find("FRAME", "gift/button slot") ?? newFrame("gift/button"), 0);
+    giftButton.name = "gift/button";
+    plain(giftButton);
+    flow(giftButton, "HORIZONTAL", { padding: G.button.padding, counter: "CENTER", primary: "CENTER" });
+    giftButton.resize(giftButton.width, G.height);
+    giftButton.layoutSizingHorizontal = "HUG";
+    giftButton.layoutSizingVertical = "FIXED";
+    giftButton.cornerRadius = G.button.radius;
+    bindCorners(giftButton, V.radius12);
+    giftButton.fills = [paint(G.button.fillPaint)];
+    giftButton.effects = makeEffects(G.button.effects);
+    const giftLabel = insertAt(giftButton, giftButton.findOne((entry) => entry.type === "TEXT" && entry.name === "label") ?? newText("label"), 0);
+    styleText(giftLabel, { ...G.button.text, text: G.label }, "center");
+    giftLabel.textAutoResize = "WIDTH_AND_HEIGHT";
+    retireOthers(giftButton, [giftLabel]);
+    retireOthers(giftRow, [giftButton]);
     headerKeep.push(giftRow);
   }
   retireOthers(header, headerKeep);
@@ -613,7 +567,7 @@ const reconcileScene = (component, S, mainMaster, mainName, gnbName) => {
     component.setBoundVariable(field, null);
   }
   component.itemSpacing = 0;
-  component.fills = [setPaint(V.appBackground)];
+  component.fills = [paint(S.page.paint)];
   component.clipsContent = true;
   setModes(component);
   let main = component.findOne((entry) => entry.type === "INSTANCE" && entry.name === mainName);
@@ -666,42 +620,17 @@ mobileSceneComponent.description = `Measured ${M.page.rect.width}×${M.page.rect
   section.resizeWithoutConstraints(Math.max(section.width, right), Math.max(section.height, cursor));
 }
 
-const paints = [];
-// 허용 기준을 계획의 실측 아웃라인에서 읽는다. 손으로 박은 값(185/225/247 @0.42)은 제품이
-// `--primary-200` 40% 로 옮긴 뒤로 어떤 획과도 안 맞아, 이 가드는 「모든 획을 거부」가 돼 있었다.
-const CURRENT_PLAN_OUTLINE = C.cards.find((spec) => spec.outline)?.outline;
-if (!CURRENT_PLAN_OUTLINE) throw new Error("No measured current-plan outline in the plan");
-const measuredOutlineNames = new Set([
-  "Plan=Trial, Viewport=Desktop",
-  "Plan=Trial, Evidence=VisibleSlice",
-  "plan-card/Trial",
-  "plan-card-visible-slice/Trial",
-]);
-const near = (left, right) => Math.abs(left - right) < 0.000001;
-for (const root of [cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent]) {
-  for (const node of [root, ...root.findAll(() => true)]) {
-    for (const field of ["fills", "strokes"]) {
-      if (!Array.isArray(node[field])) continue;
-      for (const paint of node[field]) {
-        if (paint.type !== "SOLID" || paint.visible === false || paint.opacity === 0) continue;
-        let ancestor = node;
-        let brandFixed = false;
-        while (ancestor && ancestor !== section) {
-          if (/logo\/klipse-light/.test(ancestor.name)) brandFixed = true;
-          ancestor = ancestor.parent;
-        }
-        const measuredOutlineFixed =
-          field === "strokes" && measuredOutlineNames.has(node.name) &&
-          node.strokeWeight === CURRENT_PLAN_OUTLINE.width && node.strokeAlign === "INSIDE" &&
-          near(paint.color.r, CURRENT_PLAN_OUTLINE.color[0]) && near(paint.color.g, CURRENT_PLAN_OUTLINE.color[1]) &&
-          near(paint.color.b, CURRENT_PLAN_OUTLINE.color[2]) && near(paint.opacity ?? 1, CURRENT_PLAN_OUTLINE.color[3]);
-        paints.push({ node: node.name, field, bound: Boolean(paint.boundVariables?.color), brandFixed, measuredOutlineFixed });
-      }
+// 보이는 페인트 감사 — 변수에 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors` — 현재 플랜 아웃라인 · `gray-300` 88% 글자)이거나
+// 브랜드 로고 자산이어야 한다. 보존한 옛 variant(`Plan=Basic` · `Plan=Max`)는 이 러너가 칠하지 않으므로 세지 않는다.
+const paintAudit = audit([cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent], {
+  skip: preservedCards,
+  allow: (node) => {
+    for (let ancestor = node; ancestor && ancestor !== section; ancestor = ancestor.parent) {
+      if (/^logo\/klipse-(light|dark)\b/.test(ancestor.name)) return "brandLogo";
     }
-  }
-}
-const unexpected = paints.filter((entry) => !entry.bound && !entry.brandFixed && !entry.measuredOutlineFixed);
-if (unexpected.length) throw new Error(`Unexpected unbound visible paints ${JSON.stringify(unexpected)}`);
+    return null;
+  },
+});
 const auditedRoots = [section, docs, cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent];
 const mutatedNodeIds = [...new Set(auditedRoots.flatMap((root) => [root, ...root.findAll(() => true)].map((entry) => entry.id)))];
 return {
@@ -715,9 +644,8 @@ return {
   mobileVisibleCardVariantIds: mobileCardSet.children.map((entry) => entry.id),
   mobileMainComponentId: mobileMainComponent.id,
   mobileSceneComponentId: mobileSceneComponent.id,
-  visiblePaintCount: paints.length,
-  boundVisiblePaintCount: paints.filter((entry) => entry.bound).length,
-  allowedFixedBrandPaintCount: paints.filter((entry) => !entry.bound && entry.brandFixed).length,
-  allowedFixedMeasuredOutlinePaintCount: paints.filter((entry) => !entry.bound && entry.measuredOutlineFixed).length,
+  preservedVariantIds: preservedCards.map((entry) => entry.id),
+  colourMode,
+  ...paintAudit,
   mutatedNodeIds,
 };

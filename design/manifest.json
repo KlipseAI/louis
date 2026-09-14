@@ -2516,7 +2516,7 @@
     },
     {
       "path": "scripts/templates/figma-product-components-renderer.js",
-      "purpose": "측정 계획을 Figma component set과 variant로 재현하는 생성 코드 템플릿. 제품 수치를 저작하지 않고 계획의 측정값과 기존 변수·아이콘 자산만 소비한다",
+      "purpose": "측정 계획을 Figma component set과 variant로 재현하는 생성 코드 템플릿. 제품 수치를 저작하지 않고 계획의 측정값과 라이브 LOUIS 변수 역할 · 아이콘 자산만 소비하며, 사이드바 행 · CTA · 결과 본문의 칠을 매 실행 역할로 다시 걸고 보이는 페인트를 감사한다",
       "authority": "reference"
     },
     {
@@ -2550,13 +2550,23 @@
       "authority": "reference"
     },
     {
+      "path": "scripts/lib/figma-live-variables.mjs",
+      "purpose": "제품 컴포넌트 생성기 공용 헬퍼. figma/readback.json 에서 라이브 LOUIS 세 컬렉션의 변수 이름 · 값 · 별칭을 풀고, 역할마다 제품 선언(소스 인용)과 라이브 변수를 적어 칠하는 자리마다 측정 색과 값이 같은 역할을 고르며(근사 결합 · 고정 페인트는 사유와 함께), 계획의 bindings 와 colorEvidence 를 만든다. 은퇴한 컬렉션이 계획에 새면 멈춘다",
+      "authority": "reference"
+    },
+    {
+      "path": "scripts/templates/lib/figma-live-variables.js",
+      "purpose": "생성기가 렌더러 앞에 붙이는 Figma 샌드박스 조각. 계획 bindings 의 라이브 변수를 찾고 측정 테마 모드를 고정하며, 역할 이름으로 페인트를 만들고(저장색은 변수 해석값) 보이는 페인트를 감사해 unboundColors 를 돌려준다",
+      "authority": "reference"
+    },
+    {
       "path": "scripts/build-figma-product-payment-scenes.mjs",
       "purpose": "auth fixture의 desktop/mobile 반복 full-page/main-surface 후보를 검증하고 기존 측정 Gnb·top bar·result set의 전체 결제 결과 scene 합성 계획을 생성한다",
       "authority": "reference"
     },
     {
       "path": "scripts/templates/figma-product-payment-scenes-renderer.js",
-      "purpose": "기존 product-only component set을 중첩해 desktop 1628×1004/1920×1080과 mobile 402×810/402×874 결제 결과 surface·scene variant를 만드는 Figma renderer",
+      "purpose": "기존 product-only component set(사이드바 셸 · 상단 바 · 결제 결과 본문)을 중첩해 desktop/mobile 결제 결과 main surface와 뷰포트 장면을 Auto Layout 흐름으로 제자리 reconcile 하고, 면을 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사하는 Figma renderer",
       "authority": "reference"
     },
     {
@@ -2576,7 +2586,7 @@
     },
     {
       "path": "scripts/templates/figma-product-checkout-status-renderer.js",
-      "purpose": "측정된 checkout status 6개 콘텐츠 variant와 desktop/mobile 전체 scene을 기존 Gnb·top bar 및 변수로 조립하는 Figma renderer",
+      "purpose": "측정된 checkout status 6개 콘텐츠 variant와 desktop/mobile 전체 scene을 기존 Gnb·top bar 인스턴스와 라이브 LOUIS 변수 역할로 제자리 reconcile 하고 보이는 페인트를 감사하는 Figma renderer",
       "authority": "reference"
     },
     {
@@ -2591,22 +2601,22 @@
     },
     {
       "path": "scripts/build-figma-product-upgrade-scene.mjs",
-      "purpose": "auth fixture의 canonical upgrade 화면과 plan 없는 checkout redirect 동일성을 검증하고, 4개 desktop plan card와 mobile viewport에 관측된 Trial/Basic slice 및 desktop/mobile scene 계획을 직접 측정해 생성한다",
+      "purpose": "auth fixture의 canonical upgrade 화면과 plan 없는 checkout redirect 동일성을 검증하고, 제품 요금제 다섯(Trial·Lite·Plus·Pro·Ultra) desktop card와 mobile viewport에 관측된 Trial/Lite slice, 헤더(알림 · 제목 · 본문 · 선물 구매 버튼)와 desktop/mobile 장면을 제품 구획과 선언값(간격 · 최소 높이 · Button md 높이 · 셸 패딩)으로 싣고 측정 rect 가 그 값으로 닫히는지만 대조한다. 칠은 자리마다 측정 색과 값이 같은 라이브 LOUIS 변수 역할(scripts/lib/figma-live-variables.mjs)로 고르고 대조표를 colorEvidence 로 남긴다",
       "authority": "reference"
     },
     {
       "path": "scripts/templates/figma-product-upgrade-scene-renderer.js",
-      "purpose": "측정된 desktop upgrade card 4개와 mobile visible-slice 2개를 variant set으로 만들고 기존 Upgrade Gnb·back=true Subscription top bar와 1920×1080/402×874 장면으로 조립하는 Figma renderer",
+      "purpose": "요금제 card set과 mobile visible-slice set, 헤더 · 덱 · 비교 제목의 main surface, 사이드바(절대 배치) · 상단 바 인스턴스를 품은 장면을 Auto Layout 흐름으로 제자리 reconcile 하는 Figma renderer. 지우지 않고(계획에 없는 노드는 retired/, 옛 Plan=Basic·Max variant 는 보존), 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사해 unboundColors 를 돌려준다",
       "authority": "reference"
     },
     {
       "path": "figma/product-upgrade-scene.plan.json",
-      "purpose": "Trial·Basic·Pro·Max desktop card와 mobile Trial/Basic visible slice의 텍스트·feature·button·shadow·현재 플랜 outline, desktop/mobile scene 상대 geometry, checkout redirect 계약, Figma 자연 글자 폭 측정을 보존한 제품 전용 계획",
+      "purpose": "Trial·Lite·Plus·Pro·Ultra desktop card와 mobile Trial/Lite visible slice의 구획 · 글자 · feature · button · shadow · 현재 플랜 outline, 헤더 선물 구매 버튼, 장면 선언값과 증거 rect, checkout redirect 계약, 가격 행의 줄별 Figma 자연 폭, 색 역할의 라이브 변수 결합(bindings)과 측정 대조표(colorEvidence)를 보존한 제품 전용 계획",
       "authority": "reference"
     },
     {
       "path": "figma/product-upgrade-scene.draw.js",
-      "purpose": "upgrade card component set, mobile visible-slice set, desktop/mobile main/full scene을 생성하는 재실행 가능 Figma Plugin API 코드. 모바일 viewport 밖 값을 포함하지 않으며 직접 편집하지 않는다",
+      "purpose": "upgrade card component set, mobile visible-slice set, desktop/mobile main/full scene을 제자리 reconcile 하는 재실행 가능 Figma Plugin API 코드(esbuild 로 줄여 50,000자 한도 안). 모바일 viewport 밖 값을 포함하지 않으며 직접 편집하지 않는다",
       "authority": "reference"
     },
     {

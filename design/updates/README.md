@@ -25,6 +25,75 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-14 (133) — 제품 컴포넌트 러너 다섯의 색을 라이브 LOUIS 변수 역할로 옮기고, 업그레이드 러너의 페인트 감사를 푼다
+
+**Figma 계획과 러너만 바뀌었다. 라이브 Figma 에는 쓰지 않았다.** 웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다.
+(132) 의 「라이브 적용 — 아직 할 수 없다」 전제 둘(은퇴한 컬렉션 · 업그레이드 페인트 감사)을 푼다.
+
+**뿌리.** components · checkout-status · payment-scenes · upgrade-scene · sidebar-states 러너가 은퇴한 `1 · Palette` ·
+`2 · Semantic` 을 찾아 라이브에서 첫머리에 던졌다(조립 규칙 27번). 렌더러는 칠하는 자리마다 변수를 손으로 골랐다 — 체크아웃
+본문 버튼은 「면이 검정이면 primary」로 추측했고, 체크아웃 알림은 라이브에 없는 `Klipse Primitive/color/red-alpha/8` · `/16` 을
+찾았고, 업그레이드는 측정 색을 옛 회색 램프 값으로 적힌 표(`byColor`)에 대 보다가 없으면 고정 페인트로 떨어뜨린 뒤 **자기
+감사에서 던졌다** — 모의 Figma 에서 HEAD 러너가 `Unexpected unbound visible paints [head/0 · price/0 …]` 로 재현된다. 결제 장면은
+모바일 바닥도 데스크톱과 같은 변수로 칠했고(측정은 다르다), 컴포넌트 러너는 **light fixture 로 잰 사이드바를 다크 선언**
+(`[html[data-theme=dark]_&]` 줄)으로 칠했다. sidebar-states 는 제품 개명(Canvas · Composition)을 따라가지 못해 아이콘 키
+`NodeCanvas` · `VideoEditor` 와 라이브에 없는 `Current=VideoEditor` 를 찾았다.
+
+**무엇이 바뀌나:**
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 공용 헬퍼 | 생성기마다 되읽기 `liveFloat` 사본, 렌더러마다 변수 · 모드 블록 사본 | 생성기 `scripts/lib/figma-live-variables.mjs` + 렌더러 조각 `scripts/templates/lib/figma-live-variables.js`(생성기가 `PLAN` 뒤 · 템플릿 앞에 붙인다). 앱 셸 러너(130)의 방식 — 되읽기에서 이름 · 값 확인, 측정 테마의 모드를 `Klipse Semantic Color` 에만 고정, 저장색 = 변수 해석값(조립 규칙 1번), 알파는 변수가 갖는다(2번) — 을 뽑았다. **앱 셸 생성기는 옮기지 않았다** — 라이브 적용 첫 단계로 포장 · 해시가 떠 있어 생성물 바이트를 바꾸지 않는다 |
+| 색 매핑 | 이름 추측 · 손 표 | 역할 = 제품 선언(소스 인용 — 제품 파일은 앵커 커밋에서, LOUIS Button 레시피는 이 저장소 `packages/css/src/component/button.css` 에서 문자 그대로 확인) + 라이브 변수. 칠하는 자리마다 **측정 색과 기대 색이 같은 역할 하나**를 고르고(없거나 둘이면 생성기가 멈춘다), 쓰이지 않은 역할이 남아도 멈춘다. 계획 `colorEvidence` 가 선언 · 측정 · 라이브 해석 경로 · `exact` 를 갖고, `--check` 가 되읽기 · 측정 · 소스와 함께 다시 대조한다 |
+| 값이 같은 변수가 없는 측정 색 | 조용히 고정 페인트(업그레이드) · 없는 변수 이름(체크아웃) | 두 꼴만 — **근사 결합**(제품 `rgb(var(--gray-000-rgb) / N%)` 는 light 에서 순검정 N% 인데 라이브 `color/gray/000-alpha/N` 은 `static-black-alpha`(#171b22) 라, 같은 이름의 라이브 단계에 묶고 RGB 차이를 `exact: false` 로 — 앱 셸 계획의 알파 잉크와 같은 처리)과 **고정 역할**(`bindings.unbound` 에 측정 색 + 사유. 값이 같은 라이브 변수가 하나라도 있으면 생성기가 멈춘다 — 묶을 수 있는 색을 고정하지 않는다) |
+| 러너 감사 · 반환 | 러너마다 로고 이름 정규식 · 이름 목록(업그레이드 아웃라인) | 공용 `audit` — 숨은 노드(`retired/`)와 보존한 옛 variant(업그레이드 `Plan=Basic` · `Plan=Max`)는 세지 않고, 묶이지 않은 보이는 페인트는 고정 역할 색이거나 브랜드 로고 자산(`logo/klipse-light` · `-dark`)이어야 한다. 반환에 `colourMode` · `visiblePaintCount` · `boundVisiblePaintCount` · `allowedFixedPaintCounts` · **`unboundColors`**(역할 · 색 · 알파 · 페인트 수). 업그레이드는 `preservedVariantIds` 도 |
+| 없을 때만 칠하던 자리 | 컴포넌트 CTA 세트 · 결과 섹션 면, 네 러너의 문서 글자, sidebar-states CTA 마스터 · 레일 행 아이콘 · 편집기 상단 바 선 | 기하는 그대로 두고 **칠만 매 실행 역할로 다시 건다** — 옛 노드가 은퇴한 컬렉션 변수에 묶인 채 남지 않게 |
+| 러너 페이로드 | 측정 색 배열 · 옛 컬렉션 이름 | 역할 이름만(`paint` · `fillPaint` · `labelPaint` · 업그레이드 글자 스타일 표의 `paint`). 측정 색 · 사유 · 인용 · 대조표는 계획에만 |
+
+**러너별 역할(측정 테마 → 모드):**
+
+| 러너 | 모드 | 정확히 같은 값 | 근사 결합 | 고정 역할(`unboundColors`) | 보이는 변화 |
+| --- | --- | --- | --- | --- | --- |
+| components | Light | `color/gray/300` · `gray/000` · `gray/900`, `Klipse Primitive/color/palette-gray/600` · `/900` · `/100` · `/000` | `gray/000-alpha/56` · `/48` | BETA 칩 `rgb(var(--palette-gray-500-rgb) / 12%)` | **사이드바 메뉴 · 셸 · CTA 가 다크에서 light 로** — 행 글자 · 아이콘 #41454c(아이콘 불투명도 0.92), 활성 #000 · 면 없음(`Gnb.tsx:604`, 옛 러너는 다크 비사이드바 인디케이터 면을 칠했다), 로고 `klipse-light`(측정 `brand.image.asset`), CTA Default #171b22 / #dcdee1 · Current #fafafa / #000 |
+| checkout-status | Light | `gray/000` · `gray/900` · `bg-raised` · `bg-canvas` · `bg-surface`, `color/red/500` · `color/red-alpha/08` | `gray/000-alpha/56` · `/48` · `/08` | 알림 선 `rgb(var(--accent-red-500-rgb) / 16%)`(라이브 red 알파는 08 · 12 · 24 뿐) | 보조 버튼 면이 `bg-raised`(흰색), 모바일 장면 바닥이 `bg-surface`(≤719 `--app-page-bg`) |
+| payment-scenes | Light | `bg-canvas`(데스크톱 바닥) · `bg-surface`(모바일 바닥 · 메인 면) | — | — | 모바일 장면 바닥이 `bg-surface` |
+| upgrade-scene | Light | `gray/000` · `gray/200` · `gray/300` · `bg-raised` · `bg-canvas` · `bg-surface` · `media-foreground-dark` · `accent-inverse` · `fg-on-accent-inverse` · `bg-inset` · `fg-disabled` · `accent-secondary` · `accent-secondary-foreground`, `color/green/500` | `gray/000-alpha/72` | 가격 단위 `rgb(var(--gray-300-rgb) / 88%)`, 현재 플랜 아웃라인 `rgb(var(--primary-200-rgb) / 40%)` | **헤더의 선물 구매 버튼이 그려진다**(아래) |
+| sidebar-states | Dark(측정 `desktop-1920x1080-dark`) | `gray/300` · `gray/000`, `palette-gray/100` · `/900` | — | — | 편집기 상단 바 아래 선이 `color/stroke-hairline`(Dark → white 8% — 옛 `gray/000` + 페인트 불투명도 0.08 과 같은 색, 알파가 변수로 옮겼다) |
+
+문서 프레임 글자와 섹션 면은 측정 자리가 아니라 주석 역할(`fg-primary` · `fg-secondary` · `bg-canvas`)이다.
+
+**선물 구매 버튼(KLI-264).** (132) 는 이 버튼의 면 · 글자를 그리지 않고 칠 없는 자리(`gift/button slot`)만 두었다 — 색이 옛 로컬
+변수 표에 없었다. 측정(면 `#171b22` 8% · 글자 `rgb(88, 92, 99)` · `inset 0 0 0 0.5px` 헤어라인)은 제품 `<Button variant="secondary">`
+(`UpgradePlanPageClient.tsx:603`)의 LOUIS 레시피(`button.css:178` · `:182`)가 라이트에서 푸는 `accent-secondary` ·
+`accent-secondary-foreground` 와 값이 같다. 그래서 같은 노드를 `gift/button` 으로 옮겨 가로 Auto Layout 버튼으로 짓는다 — 폭은 라벨
+HUG + 좌우 패딩(`spacing/12`), 높이는 Button md 레시피(선언), 반경 `radius/12`, 헤어라인 그림자는 측정 효과. 헤더 높이 대조(그리는
+자식의 합)는 그대로 닫힌다.
+
+**sidebar-states 개명 추종.** 아이콘 키 · 메뉴 라벨 · 레일 variant 를 계획 이름(Canvas · Composition)으로 고쳤다. 레일 세트에
+계획 variant 가 없으면 지어 더하고(지우지 않는다, 있는 variant 는 모드와 행 아이콘 잉크만 다시 건다), 편집 화면의 옛 인스턴스
+`gnb/Current=VideoEditor · measured collapsed` 는 **같은 노드**를 `Current=Composition` 으로 바꿔 쓴다.
+
+**모의 Figma 확인.** 되읽기의 세 컬렉션을 모드 · 기본 모드 · 별칭까지 그대로 세운 모의에서, 옛 계획의 은퇴 컬렉션을 합성해 HEAD
+러너(업그레이드는 요금제 넷이던 `db94a2f` → HEAD 사슬도, sidebar-states 는 옛 레일 세트 · 인스턴스가 있는 상태)를 먼저 돌리고 새
+러너를 두 번 돌렸다. 다섯 모두 **잃은 노드 0 · 두 번째 실행 스냅숏 동일(멱등) · `remove()` 0**, 보이는 노드의 은퇴 컬렉션 결합 0
+(업그레이드 보존 variant 안에만 남는다). 감사(모의 — 중첩 인스턴스 속은 비어 있어 라이브 수가 더 크다): components 보이는
+페인트 86 = 묶임 80 + BETA 칩 6, checkout 80 = 78 + 알림 선 2, payment-scenes 12 = 12, upgrade 119 = 112 + 88% 글자 5 + 아웃라인 2.
+은퇴한 이름은 다섯 러너(`figma/product-*.draw.js`) · 렌더러 · 공용 조각에서 grep 0 이다(계획에는 `$bindingPolicy` 산문 한 줄).
+
+**보드 계획 · 원장은 바뀌지 않는다.** 치환 매처는 계획의 글자와 구조만 읽는다 — `check-figma-app-screens` · 보드 구성 원장이 그대로다.
+러너 크기(50,000자 한도): components 38,395 · checkout-status 32,371 · payment-scenes 28,023 · upgrade-scene 42,267 · sidebar-states
+37,776.
+
+**라이브 적용 순서.** 앱 셸 러너 → `--consumers` → **컴포넌트 러너**(결제 장면 세 러너가 그 사이드바 셸 · 결과 본문 세트를 품는다)
+→ 체크아웃 · 결제 장면 · 업그레이드 → sidebar-states · highlight-hub → `--sets` → 보드 36 → `--check`. 컴포넌트 러너의 사이드바
+light 전환은 그 세트를 인스턴스로 쓰는 데스크톱 보드 · 결제 장면 · 손 조립 허브에 번지는데 `--consumers` 는 상단 바 두 세트만
+본다 — 승인 질문에 넣고 전후 스크린숏으로 본다. 순서와 노드 id 는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md)
+「다음 순서」 1번이 갖는다.
+
+**남은 것.** `/pricing` 러너(아직 옛 컬렉션), 앱 화면 보드 렌더러의 `APP_MODES`(옛 이름이라 기본 모드로 떨어지고 던지지는 않는다),
+그림자 효과 색의 변수 결합, 업그레이드 알림 알약의 면 · 점(면 `media-scrim-dark` 48% 는 값이 같은 라이브 변수가 없다), 은퇴한
+컬렉션 이름을 저장소 전체에서 세는 게이트(위 둘이 옮겨진 날 함께 선다 — 조립 규칙 27번 Acceptance).
+
 ## 2026-09-14 (132) — 결제 결과 · 체크아웃 본문과 메인 표면 · 장면, 요금제 카드를 흐름으로 짓고 본문 치환을 크기에서 뗀다
 
 **Figma 계획과 러너만 바뀌었다. 라이브 Figma 에는 쓰지 않았다.** 웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다.

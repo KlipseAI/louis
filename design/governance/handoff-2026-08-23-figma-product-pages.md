@@ -49,6 +49,9 @@ authority: reference
 >   (상단 바 세트 hug 재구성 · 구조 매처 · 편집기 · 하이라이트 허브 · 업그레이드 가드의 파생 리터럴 · 세로 wrap 결함 ·
 >   크기 굳힘 게이트 · 계약과 문서의 계산값)과 묶음 2 · 3(결제 결과 · 체크아웃 본문 · 메인 표면 · 장면, 요금제 카드를 흐름으로 ·
 >   본문 치환을 크기에서 뗌 — (132))을 고쳤고, 규칙은 [Figma 화면 조립 규칙](figma-screen-assembly.md) 28번으로 세웠다.
+> - **컬렉션 이전(같은 날, 라이브 미적용).** 컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드 · sidebar-states 러너가 라이브 3컬렉션의
+>   변수에 역할로 묶는다([Updates](../updates/README.md) (133)) — 위 「적용하지 않았다(은퇴한 컬렉션을 찾는다)」의 막힘이 풀렸고,
+>   남은 순서는 「다음 순서」 1번이다. 컴포넌트 러너는 사이드바 세트를 light 측정으로 옮긴다(보드 사이드바 색이 바뀐다).
 > - **푸시 전 막힌 것 하나.** `verify-figma-parity`(verify:ci)가 빨갛다 — 라이브 `ProgressRing` 마스터(36)와 AppTopBar
 >   후행 슬롯 표본(36)이 기록의 32 와 어긋난다. 소유자 승인으로 마스터를 옮기고 되읽기를 다시 뜨기 전에는 앵커 이동을
 >   푸시하지 않는다((131) 「ProgressRing」 · 「계약과 문서의 계산값」 절).
@@ -1360,9 +1363,14 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
       override 는 2026-09-14 에 TEXT 속성 결합 뒤에도 남았다.
    4. **소비처 대조** — `--consumers <전> <후>`. 받아들인 높이 변화는 `--expect-change` 로 이름을 댄다. 받아들이지 않은 보이는
       변화가 남으면 여기서 멈춘다.
-   5. 아래 3번의 컬렉션 이전 뒤 컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드 · sidebar-states 러너와 highlight-hub 러너. 러너마다
+   5. 컴포넌트 러너 → 체크아웃 · 결제 장면 · 업그레이드 러너 → sidebar-states · highlight-hub 러너. **컬렉션 이전은 끝났다
+      ([Updates](../updates/README.md) (133))** — 다섯 러너가 라이브 3컬렉션의 변수에 역할로 묶고, 업그레이드 러너의 페인트 감사도
+      풀렸다. 컴포넌트 러너가 먼저다 — 결제 장면 세 러너가 그 러너의 사이드바 셸 · 결과 본문 세트를 인스턴스로 품는다. 러너마다
       전후 `--consumers`. 결제 장면 러너들은 컴포넌트 안 바 인스턴스를 그 자리에서 다시 쓰고(없을 때만 새로 만든다) TEXT
-      속성은 채우지 않는다 — 2026-09-14 에 되채운 글자가 남았는지 그 대조로 본다.
+      속성은 채우지 않는다 — 2026-09-14 에 되채운 글자가 남았는지 그 대조로 본다. **컴포넌트 러너는 사이드바 메뉴 · 셸 · CTA
+      세트의 색을 다크에서 light 측정으로 옮기고 로고를 `klipse-light` 로 바꾼다** — 그 세트를 인스턴스로 쓰는 데스크톱 보드 ·
+      결제 장면 · 손 조립 허브의 사이드바가 함께 바뀌는데 `--consumers` 는 상단 바 두 세트만 본다. 적용 승인 질문에 이 변화를 넣고
+      전후 스크린숏으로 본다. 러너마다 반환의 `unboundColors`(고정 역할과 페인트 수)가 (133) 표와 같은지 본다.
    6. `figma-screens-live-check --sets` 로 세트 확인(상단 바 두 세트의 `layoutContract` 포함) → 보드 러너 전량
       (`figma/app-screens.*.00.draw.js` — 세트 러너가 끝났으면 `192:1251` 을 포함한 36 장).
    7. `figma-screens-live-check --check <두 페이지 결과 · 세트 결과>` 로 **36/36 탐침 · 다름 0**(결과 파일을 빠뜨리면 실패한다).
@@ -1374,7 +1382,7 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 
    **2026-09-14(Updates 132) 뒤로 보드 러너는 세트 러너 뒤에만 돈다.** 치환 매처가 결과 · 체크아웃 본문 14 보드와
    `/mypage/upgrade` 두 보드의 요금제 카드를 인스턴스로 치환하게 되어, 세트 러너(컴포넌트 · 체크아웃 · 결제 장면 ·
-   업그레이드 — 아래 3번의 컬렉션 이전이 먼저다)를 적용하기 전에 보드 러너를 돌리면 옛 절대배치 variant 가 보드에 심기고
+   업그레이드 — 컬렉션 이전은 (133) 에서 끝났다)를 적용하기 전에 보드 러너를 돌리면 옛 절대배치 variant 가 보드에 심기고
    `/mypage/upgrade` 두 보드는 `Plan=Lite` 를 찾지 못해 던진다. 세트 러너가 막힌 채 보드부터 가야 한다면 그 16 보드를 미루고,
    미룬 동안의 대조는 `--expect-differ` 로 그 프레임을 이름으로 댄다.
    **`/mypage/upgrade` 데스크톱(`192:1251`)** 러너는 카드가 인스턴스가 되며 조각 하나(`00`)로 줄었다.
@@ -1383,13 +1391,18 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
 2. `Product/Upgrade Plan Card` 세트를 제품 다섯 요금제로 — **러너와 매처는 2026-09-14 에 섰다(Updates 132).**
    upgrade-scene 러너가 세트를 제자리에서 reconcile 해 `Lite` · `Plus` · `Ultra` 를 더하고 `Trial` · `Pro` 를 다섯 요금제
    구조로 옮기며, 옛 `Plan=Basic` · `Plan=Max` 는 지우지 않고 보존한다. `CONTENT_COMPONENTS` 는 이제 upgrade-scene ·
-   components · checkout-status plan 에서 읽는다(손 사본 없음). 남은 것은 적용이다 — 그 러너의 컬렉션 이전(3번)과
-   페인트 감사(측정 색 일부가 로컬 변수 표에 없어 러너가 스스로 던진다)가 먼저다.
-3. 나머지 컴포넌트 러너 여섯의 컬렉션을 라이브 3컬렉션으로 옮긴다. 결제 장면(payment-scenes · checkout-status ·
-   upgrade-scene)은 상단 바 세트를 인스턴스로 쓰므로(메인 서피스 컴포넌트 안 바 14 — 모바일 `407:1076` · `410:1380` ·
-   `422:2568`, 데스크톱 `406:687` · `410:1294` · `417:2214`). 2026-09-14 에 앱 셸 러너(옛 계획)를 적용하며 그 바 14 가 기본
-   라벨로 바뀌어 손으로 되채웠다(위 체크포인트) — 러너들은 TEXT 속성을 채우지 않으므로 다시 적용한 뒤에도 그 글자가 남는지
-   `--consumers` 로 본다. sidebar-states 는 라이브에 없는 `Current=VideoEditor` 도 찾는다.
+   components · checkout-status plan 에서 읽는다(손 사본 없음). 컬렉션 이전과 페인트 감사도 (133) 에서 풀렸고, 헤더의 선물 구매
+   버튼 면 · 글자를 Button secondary 레시피 변수로 칠한다. **남은 것은 적용이다**(1번 5단계).
+3. **컬렉션 이전 — 다섯은 끝났다(2026-09-14, [Updates](../updates/README.md) (133)).** components · checkout-status ·
+   payment-scenes · upgrade-scene · sidebar-states 생성기가 공용 헬퍼(`scripts/lib/figma-live-variables.mjs` · 렌더러 조각
+   `scripts/templates/lib/figma-live-variables.js`)로 칠하는 자리마다 측정 색과 값이 같은 라이브 변수 역할을 고르고, 대조표를
+   계획 `colorEvidence` 에 싣는다. sidebar-states 는 제품 개명을 따라 `Current=Composition` 을 쓰고(라이브에 없으면 지어 더한다),
+   옛 `gnb/Current=VideoEditor · …` 인스턴스는 같은 노드를 바꿔 쓴다. **남은 것:** `/pricing` 러너(`product-pricing-page` —
+   아직 옛 컬렉션을 찾는다)와 앱 화면 보드 렌더러의 `APP_MODES`(옛 이름이라 기본 모드로 떨어지고 던지지는 않는다), 효과(그림자)
+   색의 변수 결합, 업그레이드 알림 알약의 면 · 점(면 `media-scrim-dark` 48% 는 값이 같은 라이브 변수가 없어 고정 역할이 된다).
+   결제 장면(payment-scenes · checkout-status · upgrade-scene)의 메인 서피스 컴포넌트 안 바 14(모바일 `407:1076` · `410:1380` ·
+   `422:2568`, 데스크톱 `406:687` · `410:1294` · `417:2214`)는 2026-09-14 앱 셸 러너(옛 계획) 적용에서 기본 라벨로 바뀌어 손으로
+   되채웠다 — 러너들은 TEXT 속성을 채우지 않으므로 다시 적용한 뒤에도 그 글자가 남는지 `--consumers` 로 본다.
 4. **랜딩 `/` 전용 축은 짓지 않는다(2026-09-13 판정 — 소비자 0).** `migration/product.scenes.json` 의
    `pages.*["/"]` 를 읽는 코드는 측정기 자신의 `--check` 뿐이다 — 증거 로더(`scripts/lib/product-scene-evidence.mjs`)의
    유일한 호출자 `scripts/build-figma-product-pricing-page.mjs` 는 `/pricing` 만 읽고(`:123`), 옛 전용 키

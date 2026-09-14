@@ -525,7 +525,13 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
   새로 생긴 직계 자식을 묶지도 지우지도 않아 흐름 자식으로 남는다.
 - 러너가 찾는 **변수 컬렉션 이름**이 파일에 있는지. 라이브 LOUIS 의 컬렉션은 `Klipse Primitive` ·
   `Klipse Semantic` · `Klipse Semantic Color` 셋이고, 은퇴한 `1 · Palette` · `2 · Semantic` 을 찾는
-  컴포넌트 러너는 첫머리에서 던진다(앱 셸 러너는 2026-09-13 에 옮겼다).
+  러너는 첫머리에서 던진다. 앱 셸 러너가 2026-09-13 에, 컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드 ·
+  sidebar-states 러너가 2026-09-14 에 옮겼다([Updates](../updates/README.md) (133)) — 남은 것은 `/pricing` 러너와 앱 화면
+  보드 렌더러의 모드 표(`APP_MODES`, 찾지 못하면 기본 모드로 떨어져 던지지는 않는다)다. 옮긴 생성기는 계획의 `bindings`
+  를 되읽기(`figma/readback.json`)의 라이브 변수와 대조해 없는 컬렉션 · 변수가 새면 멈추고(`scripts/lib/figma-live-variables.mjs`
+  의 `assertBindings`), 칠하는 자리마다 **측정 색과 값이 같은 역할**을 고른다 — 역할 · 선언 · 라이브 해석값 대조표는 계획의
+  `colorEvidence` 가, 값이 같은 변수가 없어 고정 페인트로 칠하는 역할은 사유와 함께 `bindings.unbound` 가 갖고, 러너는 그
+  역할을 `unboundColors` 로 돌려준다.
 - 계획이 쓰는 **세트·variant·TEXT 속성**이 파일에 있는지 — `figma-screens-live-check --sets`. 상단 바 두 세트는
   variant 마다 Auto Layout 축(layoutMode · 축 sizing · 헤어라인 레이아웃 포함)까지 앱 셸 계획의
   `layoutContract` 와 대조한다 — 계산된 높이를 FIXED 로 굳힌 옛 세트가 라이브에 남아 있으면 여기서 보인다.
@@ -652,7 +658,10 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
   라이브를 그린 옛 계획과 맞춰 검증한다(2026-09-13: `--ref 9f8483a` 로 34/36 이 같았고 조사의 독립 구현과
   일치했다 — `--expect-differ 20:2,23:2` 를 주면 초록, 결과 파일 하나를 빼면 빨강). 세트 러너 전후의 generated
   밖 소비처는 `figma-screens-live-check --consumers <전> <후>` 가 센다 — 받아들이지 않은 보이는 변화 0 이어야 하고,
-  받아들인 변화는 `--expect-change` 로 이름이 대져 있어야 한다.
+  받아들인 변화는 `--expect-change` 로 이름이 대져 있어야 한다. 러너가 찾는 컬렉션 이름은 **생성 시점에** 센다 — 옮긴 제품
+  컴포넌트 생성기(앱 셸 제외 다섯)가 계획 `bindings` 를 되읽기의 라이브 변수와 대조하고(`check-figma-product-*`, verify:product),
+  은퇴한 컬렉션을 찾는 코드가 남지 않았음은 그 러너 · 렌더러 · 공용 조각에서 이름을 grep 해 0 인지로 본다. 저장소 전체를 도는
+  게이트는 아직 없다 — `/pricing` 러너와 앱 화면 보드 렌더러가 옛 이름을 들고 있어, 그 둘을 옮기는 날 함께 선다.
 - 28번은 넷이 센다. (a) `check-derived-size-literals`(verify:ci)가 Figma 생성기 · `lib/figma-*` · 렌더러 템플릿 ·
   `figma-screens-live-check.mjs` 에서 선언 인용(`// 선언: <경로>:<줄>`)이 붙지 않은 크기 리터럴을 꼴별(비교 · 대입 ·
   객체 · 크기 호출 · abs · 템플릿의 설명 수치)로 파일마다 세고, 기준선보다 늘어도 줄어도 실패한다 — 0 을 향해

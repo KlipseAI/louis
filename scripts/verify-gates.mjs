@@ -31,7 +31,9 @@ import {
 //
 // `--no-product` 를 주면 그 셋만 건너뛴다. **건너뛴 것은 반드시 이름으로 찍는다** — 조용히
 // 줄어든 카나리아 수는 「통과」로 읽히고, 그게 게이트를 가진 이유를 없앤다.
-const PRODUCT_DEPENDENT_GATES = new Set(["scripts/verify-citations.mjs"]);
+// 2026-09-15: sidebar-states 생성기가 더해졌다 — 찾기 구간 카나리아가 그 생성기를 부르고, 생성기는 근거 인용을
+// `git -C <제품 저장소> show` 로 확인한다(`check-figma-product-sidebar-states` 가 verify:product 에 있는 이유와 같다).
+const PRODUCT_DEPENDENT_GATES = new Set(["scripts/verify-citations.mjs", "scripts/build-figma-product-sidebar-states.mjs"]);
 const skipProduct = process.argv.includes("--no-product");
 const skippedCanaries = [];
 
@@ -1651,6 +1653,19 @@ withCanary(
   "sizing reconcile: 풀지 못한 HUG·FILL 을 조용히 넘기는 생성기",
   "scripts/build-figma-app-screens.mjs",
   "풀지 못한 HUG 부모 · FILL 자식이 기준과 다릅니다",
+  "--check",
+);
+
+// ── sidebar-states 찾기 구간 카나리아(2026-09-15) ───────────────────────────
+// sidebar-states 러너는 필요한 대상을 전부 찾은 뒤에만 쓴다. 옛 러너는 세트 칠을 쓰고 나서 라이브에 없는 id 를 찾다 던질
+// 자리였다(부분 적용). 생성기가 템플릿의 「── 1. 찾기」 구간에 쓰기가 섞였는지 글자로 보는데, 그 확인이 실제로 무는지
+// 찾기 구간 첫머리에 노드 속성 대입 한 줄을 넣어 본다.
+withCanary(
+  "scripts/templates/figma-product-sidebar-states-renderer.js",
+  (source) => source.replace(/(\/\/ ── 1\. 찾기[^\n]*\n)/, "$1page.name = page.name;\n"),
+  "sidebar-states: 찾기 구간에 쓰기가 섞인 렌더러",
+  "scripts/build-figma-product-sidebar-states.mjs",
+  "renderer writes before its find phase ends",
   "--check",
 );
 

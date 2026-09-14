@@ -166,7 +166,7 @@
     "pageId": "240:3529",
     "componentSetName": "Product/Gnb Desktop Rail",
     "collapsedUpgradeMasterName": "Product/Gnb Collapsed Upgrade CTA",
-    "topBarName": "Product/Desktop Video Editor Top Bar · Sidebar=Collapsed",
+    "topBarName": "Product/Desktop Composition Top Bar · Sidebar=Collapsed",
     "sectionName": "M · product/Desktop collapsed shell · measured component",
     "iconComponents": {
       "Search": "icon/MagnifyingGlass",
@@ -211,21 +211,23 @@
       "labelPaint": "paletteGray900"
     },
     "install": {
-      "videoFrameId": "39:3",
-      "oldRailId": "39:4",
-      "mainId": "39:10",
-      "oldHeaderId": "39:11",
-      "backSourceId": "39:12",
-      "breadcrumbSourceId": "39:13",
-      "actionsSourceId": "75:525",
-      "profileSourceId": "39:14",
-      "assetsId": "39:15",
-      "assetsGripId": "39:29",
-      "previewId": "39:30",
-      "timelineGripId": "39:1385",
-      "propertiesGripId": "39:1360",
-      "propertiesId": "39:1361",
-      "timelineId": "39:1386"
+      "$why": "One board frame anchors the scene (checked by its name prefix); everything below it is found by the names this generator gives and by position. The runner finds every target before its first write and throws if one is missing or ambiguous.",
+      "sceneFrameId": "39:3",
+      "sceneFramePrefix": "desktop 1920×1080 — /videoeditor/[projectId] (",
+      "editorCurrent": "Composition",
+      "railInstanceNames": [
+        "gnb/Current=Composition · measured collapsed",
+        "gnb/Current=VideoEditor · measured collapsed"
+      ],
+      "topBarInstanceNames": [
+        "topbar/Composition · Sidebar=Collapsed",
+        "topbar/VideoEditor · Sidebar=Collapsed"
+      ],
+      "bodyName": "modalBody · product CSS grid",
+      "upperRowName": "grid row / assets + preview + properties",
+      "assetsDividerName": "assets-divider · 4px column",
+      "propertiesDividerName": "properties-divider · 4px column",
+      "timelineDividerName": "timeline-divider · 4px row"
     }
   },
   "measurements": {

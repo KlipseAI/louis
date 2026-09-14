@@ -4744,6 +4744,8 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-xs)",
+              "height": "var(--louis-layout-control-height-md)",
+              "block-size": "var(--louis-layout-control-height-md)",
               "flex": "none",
               "row-gap": "",
               "column-gap": "",
@@ -4877,6 +4879,10 @@
               "margin-right": "0px",
               "margin-bottom": "0px",
               "margin-left": "0px",
+              "width": "var(--louis-icon-size-md)",
+              "inline-size": "var(--louis-icon-size-md)",
+              "height": "var(--louis-icon-size-md)",
+              "block-size": "var(--louis-icon-size-md)",
               "flex": "none",
               "flex-grow": "0",
               "flex-shrink": "0",
@@ -5010,7 +5016,11 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "height": "100%",
+              "block-size": "100%",
+              "width": "100%",
+              "inline-size": "100%"
             }
           },
           {
@@ -5532,6 +5542,8 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-xs)",
+              "height": "var(--louis-layout-control-height-md)",
+              "block-size": "var(--louis-layout-control-height-md)",
               "flex": "none",
               "row-gap": "",
               "column-gap": "",
@@ -5665,6 +5677,10 @@
               "margin-right": "0px",
               "margin-bottom": "0px",
               "margin-left": "0px",
+              "width": "var(--louis-icon-size-md)",
+              "inline-size": "var(--louis-icon-size-md)",
+              "height": "var(--louis-icon-size-md)",
+              "block-size": "var(--louis-icon-size-md)",
               "flex": "none",
               "flex-grow": "0",
               "flex-shrink": "0",
@@ -5798,7 +5814,11 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "height": "100%",
+              "block-size": "100%",
+              "width": "100%",
+              "inline-size": "100%"
             }
           },
           {
@@ -6455,10 +6475,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
-              "column-gap": "var(--louis-space-control-xs)"
+              "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)"
             }
           },
           {
@@ -8785,10 +8808,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -13794,10 +13820,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -18707,10 +18736,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -24022,10 +24054,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -27750,10 +27785,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -31076,10 +31114,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -214462,6 +214503,8 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-xs)",
+              "height": "var(--louis-layout-control-height-md)",
+              "block-size": "var(--louis-layout-control-height-md)",
               "flex": "none",
               "row-gap": "",
               "column-gap": "",
@@ -214595,6 +214638,10 @@
               "margin-right": "0px",
               "margin-bottom": "0px",
               "margin-left": "0px",
+              "width": "var(--louis-icon-size-md)",
+              "inline-size": "var(--louis-icon-size-md)",
+              "height": "var(--louis-icon-size-md)",
+              "block-size": "var(--louis-icon-size-md)",
               "flex": "none",
               "flex-grow": "0",
               "flex-shrink": "0",
@@ -214728,7 +214775,11 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "height": "100%",
+              "block-size": "100%",
+              "width": "100%",
+              "inline-size": "100%"
             }
           },
           {
@@ -215250,6 +215301,8 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-xs)",
+              "height": "var(--louis-layout-control-height-md)",
+              "block-size": "var(--louis-layout-control-height-md)",
               "flex": "none",
               "row-gap": "",
               "column-gap": "",
@@ -215383,6 +215436,10 @@
               "margin-right": "0px",
               "margin-bottom": "0px",
               "margin-left": "0px",
+              "width": "var(--louis-icon-size-md)",
+              "inline-size": "var(--louis-icon-size-md)",
+              "height": "var(--louis-icon-size-md)",
+              "block-size": "var(--louis-icon-size-md)",
               "flex": "none",
               "flex-grow": "0",
               "flex-shrink": "0",
@@ -215516,7 +215573,11 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "height": "100%",
+              "block-size": "100%",
+              "width": "100%",
+              "inline-size": "100%"
             }
           },
           {
@@ -216173,10 +216234,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
-              "column-gap": "var(--louis-space-control-xs)"
+              "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)"
             }
           },
           {
@@ -218567,10 +218631,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -223619,10 +223686,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -228553,10 +228623,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -233903,10 +233976,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -237638,10 +237714,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },
@@ -240978,10 +241057,13 @@
               "padding": "0",
               "margin": "0",
               "gap": "var(--louis-space-control-sm)",
-              "min-width": "0px",
+              "min-width": "var(--louis-layout-control-minimum-width-md)",
+              "min-height": "var(--louis-layout-control-height-md)",
+              "min-block-size": "var(--louis-layout-control-height-md)",
               "position": "relative",
               "row-gap": "",
               "column-gap": "var(--louis-space-control-xs)",
+              "min-inline-size": "var(--louis-layout-control-minimum-width-md)",
               "width": "100%"
             }
           },

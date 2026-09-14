@@ -24,16 +24,68 @@
 export const DECLARED_PROPERTIES = Object.freeze([
   "width", "height",
   "min-width", "min-height", "max-width", "max-height",
+  // **논리 크기 속성(2026-09-15).** LOUIS 레시피는 크기를 `block-size` · `inline-size` 로 선언한다 — 제품 설정 토글의 칸
+  // (`.louis-segmented-control[data-size=settings] .louis-segmented-control__segment { block-size: … }`)이 그렇다. 이 목록에
+  // 없으면 판정기가 선언 없음으로 보고 교차축 stretch(FILL)로 떨어져, 보드에서 트랙이 칸 선언 높이가 아니라 내용으로 섰다.
+  // 수집할 때 물리 칸(`width` · `height` …)으로 합친다 — 아래 `LOGICAL_SIZE_PROPERTIES`.
+  "inline-size", "block-size",
+  "min-inline-size", "min-block-size", "max-inline-size", "max-block-size",
   "flex", "flex-grow", "flex-shrink", "flex-basis",
   "align-self", "justify-self",
   "grid-template-columns", "grid-template-rows", "grid-column", "grid-row",
+  // grid 자동 배치 판정(`sizing-provenance.mjs` 의 `gridAutoPlacementColumn`)이 명시 배치를 알아보려면 긴 이름도 있어야 한다 —
+  // Tailwind `col-start-2` 는 `grid-column-start` 만 선언한다.
+  "grid-column-start", "grid-column-end", "grid-row-start", "grid-row-end", "grid-area",
   "margin", "margin-left", "margin-right", "margin-top", "margin-bottom",
   "padding", "gap", "row-gap", "column-gap",
   "position", "inset", "top", "right", "bottom", "left",
   "aspect-ratio", "flex-wrap", "overflow",
 ]);
 
+/**
+ * **논리 크기 속성 → 물리 칸.** CSS 는 논리 속성과 그 짝 물리 속성을 한 칸(logical property group)으로 캐스케이드한다 — 나중에
+ * 온 선언이 이긴다. 그래서 따로 모으면 `height: auto` 뒤의 `block-size: 28px` 같은 승부를 잃는다. 수집하며 같은 칸에 덮고,
+ * 이긴 선언이 논리 이름이면 그 이름도 함께 남겨 근거가 「height 가 아니라 block-size 였다」를 잃지 않게 한다(물리 이름이 뒤에
+ * 이기면 논리 이름을 걷는다). 쓰기 방향은 가로(`horizontal-tb`)로 본다 — 제품은 세로 쓰기를 쓰지 않는다.
+ */
+export const LOGICAL_SIZE_PROPERTIES = Object.freeze({
+  "inline-size": "width",
+  "block-size": "height",
+  "min-inline-size": "min-width",
+  "min-block-size": "min-height",
+  "max-inline-size": "max-width",
+  "max-block-size": "max-height",
+});
+const LOGICAL_OF_PHYSICAL = Object.freeze(Object.fromEntries(Object.entries(LOGICAL_SIZE_PROPERTIES).map(([logical, physical]) => [physical, logical])));
+
 const ELEMENT_NODE = 1;
+
+/**
+ * **모듈을 읽을 때 논리 크기 캐스케이드를 한 번 풀어 본다(2026-09-15).** fixture 재측정 없이는 생성물 대조가 이 축을 보지 못한다 —
+ * 합치기를 잃어도 다음 측정 전까지 모든 게이트가 초록이다. 그래서 가짜 CDP 응답 넷으로 (1) 물리 뒤 논리가 이긴다 · 논리 이름이 남는다,
+ * (2) 논리 뒤 물리가 이긴다 · 논리 이름을 걷는다, (3) `!important` 물리를 뒤의 논리가 덮지 못한다, (4) 긴 grid 배치 이름을 싣는다를 확인하고,
+ * 어긋나면 이 모듈을 쓰는 측정기가 첫머리에서 멈춘다. `verify-gates` canary 가 합치기를 잃은 수집기로 이 확인이 무는지 본다.
+ */
+async function assertLogicalSizeCascade() {
+  const rule = (...properties) => ({ rule: { style: { cssProperties: properties } } });
+  const responses = {
+    1: { matchedCSSRules: [rule({ name: "height", value: "auto" }), rule({ name: "block-size", value: "var(--x)" })] },
+    2: { matchedCSSRules: [rule({ name: "block-size", value: "28px" }), rule({ name: "height", value: "40px" })] },
+    3: { matchedCSSRules: [rule({ name: "height", value: "40px", important: true }), rule({ name: "block-size", value: "28px" })] },
+    4: { matchedCSSRules: [rule({ name: "grid-column-start", value: "2" }, { name: "inline-size", value: "100%" })] },
+  };
+  const cdp = { send: async (_method, { nodeId }) => responses[nodeId] };
+  const got = Object.fromEntries(await collectDeclaredStyles(cdp, new Map([["a", 1], ["b", 2], ["c", 3], ["d", 4]])));
+  const want = {
+    a: { height: "var(--x)", "block-size": "var(--x)" },
+    b: { height: "40px" },
+    c: { height: "40px" },
+    d: { "grid-column-start": "2", width: "100%", "inline-size": "100%" },
+  };
+  if (JSON.stringify(got) !== JSON.stringify(want)) {
+    throw new Error(`[declared-styles] 논리 크기 캐스케이드 단위 확인 실패: ${JSON.stringify(got)} ≠ ${JSON.stringify(want)}`);
+  }
+}
 
 /**
  * 측정 트리와 **동일한 경로 스킴**으로 CDP DOM 트리를 걸어 `path → nodeId` 지도를 만든다.
@@ -101,10 +153,17 @@ export async function collectDeclaredStyles(cdp, pathToNodeId, options = {}) {
       const apply = (properties) => {
         for (const property of properties || []) {
           if (!wanted.has(property.name) || property.disabled) continue;
+          // 논리 크기 속성은 짝 물리 칸에서 승부한다(`LOGICAL_SIZE_PROPERTIES`).
+          const slot = LOGICAL_SIZE_PROPERTIES[property.name] ?? property.name;
           // important로 굳은 선언은 일반 선언이 덮지 못한다.
-          if (important.has(property.name) && !property.important) continue;
-          out[property.name] = property.value;
-          if (property.important) important.add(property.name);
+          if (important.has(slot) && !property.important) continue;
+          out[slot] = property.value;
+          const logical = LOGICAL_OF_PHYSICAL[slot];
+          if (logical) {
+            if (property.name === logical) out[logical] = property.value;
+            else delete out[logical];
+          }
+          if (property.important) important.add(slot);
         }
       };
       for (const rule of matched.matchedCSSRules || []) apply(rule.rule?.style?.cssProperties);
@@ -123,6 +182,8 @@ export async function collectDeclaredStyles(cdp, pathToNodeId, options = {}) {
  * @param {(node: object, attributes: Record<string,string>) => boolean} rootPredicate 루트 요소 판정
  * @param {{rootPath?: string, properties?: readonly string[]}} [options]
  */
+await assertLogicalSizeCascade();
+
 export async function captureDeclaredStyles(context, page, rootPredicate, options = {}) {
   const cdp = await context.newCDPSession(page);
   try {

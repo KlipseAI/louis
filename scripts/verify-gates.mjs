@@ -1656,6 +1656,18 @@ withCanary(
   "--check",
 );
 
+// ── 논리 크기 캐스케이드 카나리아(2026-09-15) ──────────────────────────────
+// 측정기 선언 수집은 `block-size` · `inline-size` 를 짝 물리 칸으로 합쳐 캐스케이드한다(`/settings` 세그먼트 칸 · `/pricing` 컨트롤의
+// `min-inline-size` 가 앞의 `min-width: 0px` 을 덮는 자리). 생성물 대조는 다음 재측정 전까지 이 축을 보지 못하므로 모듈이 읽힐 때 단위
+// 확인을 돈다 — 합치기를 잃은 수집기(속성 이름 그대로 덮기)를 먹여 그 확인이 무는지 본다.
+withCanary(
+  "scripts/lib/declared-styles.mjs",
+  (source) => source.replace("const slot = LOGICAL_SIZE_PROPERTIES[property.name] ?? property.name;", "const slot = property.name;"),
+  "declared styles: 논리 크기를 물리 칸으로 합치지 않는 수집기",
+  "scripts/lib/declared-styles.mjs",
+  "논리 크기 캐스케이드 단위 확인 실패",
+);
+
 // ── grid 자동 배치 열 카나리아(2026-09-15) ──────────────────────────────────
 // 판정기가 grid 자식의 트랙을 자식 순번으로 집으면 한 열 grid 의 둘째 · 셋째 자식이 트랙을 못 찾고 HUG 로 접힌다(`/subscription`
 // 크레딧 이력 블록). 열 번호를 자동 배치로 푼 뒤 그 자리가 풀지 못한 HUG·FILL 래칫에서 빠졌다 — 순번으로 되돌리면 래칫이 무는지 본다.

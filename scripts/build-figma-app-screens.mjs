@@ -614,11 +614,11 @@ if (contentSkipped.length > 0) fail(`본문 세트 치환이 사유와 함께 �
  * 고치며 사유를 적는다. 키는 fixture 경로라 재측정이 경로를 옮기면 여기서 멈춘다 — 조용히 다른 자리에 붙지 않는다.
  * 사유가 같은 자리는 `why` 를 나눠 쓴다.
  */
-const SEGMENT_HEIGHT_WHY =
-  "세그먼트 칸 높이. 제품(SegmentedToggle)은 LOUIS `.louis-segmented-control[data-size=settings] .louis-segmented-control__segment` 의 " +
-  "`block-size: var(--louis-layout-settings-segment-height)` 로 칸을 세우는데, auth fixture 측정기의 선언 수집(`DECLARED_PROPERTIES`)에 " +
-  "논리 크기 속성이 없어 판정이 교차축 stretch(FILL)다. Figma 는 트랙을 패딩 + 칸 내용으로 세워 제품보다 낮고, 절대 배치 선택 알약이 " +
-  "트랙 아래로 나온다(라이브 적용 뒤 스크린숏으로 본다). 측정기에 논리 크기 속성을 더해 다시 재야 풀린다";
+// 2026-09-15: `/settings` 두 뷰포트 테마 · 언어 트랙의 칸 세로(`body.1.0.0.1.0.1.7.1.0` · `…8.1.0` 세로 3 · 3 · 3 · 3)가 빠졌다 —
+// 제품 칸은 LOUIS `.louis-segmented-control[data-size=settings] .louis-segmented-control__segment` 의
+// `block-size: var(--louis-layout-settings-segment-height)` 로 서는데 측정기 선언 수집(`DECLARED_PROPERTIES`)에 논리 크기 속성이 없어
+// 판정이 교차축 stretch 였다. 속성을 더하고(`scripts/lib/declared-styles.mjs` — 물리 칸으로 합친다) auth fixture 를 앵커에서 다시 재자
+// 칸 세로가 선언 FIXED 가 되어 트랙이 패딩 + 칸 선언 높이로 선다.
 const ROW_ACTION_BUTTON_WHY =
   "행 액션 칸의 LOUIS Button 인스턴스 grow. 부모(행의 액션 칸)가 내용 크기라 CSS 의 grow 는 no-op 인데, 인스턴스의 내용 크기는 " +
   "컴포넌트가 가져 계획이 대조할 수 없다. Figma 는 인스턴스를 자기 내용(라벨 + 패딩)으로 세운다 — 라이브 `28:44` 읽기 전용 탐침(2026-09-14)에서 " +
@@ -630,10 +630,6 @@ const TEXT_DETERMINED_WHY =
 // grid 의 셋째 자식 트랙을 자식 순번으로 집어 못 찾던 것을 자동 배치 열 번호로 풀었다(`sizing-provenance.mjs` 의
 // `gridAutoPlacementColumn`). 블록이 트랙 `1fr` 의 FILL 이 되어 그 안의 FILL 자식이 더는 HUG 부모 안에 있지 않다.
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
-  "/settings @ desktop-1920x1080 · body.1.0.0.1.0.1.7.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
-  "/settings @ desktop-1920x1080 · body.1.0.0.1.0.1.8.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
-  "/settings @ mobile-402x874 · body.1.0.0.1.0.1.7.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
-  "/settings @ mobile-402x874 · body.1.0.0.1.0.1.8.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

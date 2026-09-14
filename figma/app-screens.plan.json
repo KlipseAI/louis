@@ -10,7 +10,7 @@
   "totalShellInstances": 101,
   "totalShellGaps": 0,
   "totalSizingReconciled": 19,
-  "totalUnresolvedFillInHug": 24,
+  "totalUnresolvedFillInHug": 12,
   "contentInstancesBySet": {
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
@@ -1060,8 +1060,8 @@
                                 "why": {
                                   "horizontal": {
                                     "verdict": "FILL",
-                                    "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                    "source": "align-items:stretch",
+                                    "reason": "horizontal 100% 선언 — 부모를 채운다",
+                                    "source": "width:100%",
                                     "value": null
                                   },
                                   "vertical": {
@@ -1895,8 +1895,8 @@
                                 "why": {
                                   "horizontal": {
                                     "verdict": "FILL",
-                                    "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                    "source": "align-items:stretch",
+                                    "reason": "horizontal 100% 선언 — 부모를 채운다",
+                                    "source": "width:100%",
                                     "value": null
                                   },
                                   "vertical": {
@@ -2191,68 +2191,6 @@
             "from": "FILL",
             "to": "HUG",
             "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
-          }
-        ],
-        "unresolvedFillInHug": [
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.1",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.2",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.3",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.1",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.2",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.3",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           }
         ]
       },
@@ -5079,8 +5017,8 @@
                                       },
                                       "vertical": {
                                         "verdict": "HUG",
-                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(flex item)",
+                                        "reason": "vertical auto — 콘텐츠가 결정한다",
+                                        "source": "height:auto",
                                         "value": null
                                       }
                                     },
@@ -5190,7 +5128,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -5235,10 +5173,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -5409,7 +5347,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -5454,10 +5392,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -5628,7 +5566,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -5673,10 +5611,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -6020,8 +5958,8 @@
                                       },
                                       "vertical": {
                                         "verdict": "HUG",
-                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(flex item)",
+                                        "reason": "vertical auto — 콘텐츠가 결정한다",
+                                        "source": "height:auto",
                                         "value": null
                                       }
                                     },
@@ -6131,7 +6069,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -6176,10 +6114,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -6280,7 +6218,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -6325,10 +6263,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -6429,7 +6367,7 @@
                                         "glyph": null,
                                         "sizing": {
                                           "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "FILL",
+                                          "layoutSizingVertical": "FIXED",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
                                           "maxWidth": null,
@@ -6474,10 +6412,10 @@
                                             }
                                           },
                                           "vertical": {
-                                            "verdict": "FILL",
-                                            "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
-                                            "value": null
+                                            "verdict": "FIXED",
+                                            "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                            "source": "height:var(--louis-layout-settings-segment-height)",
+                                            "value": 28
                                           }
                                         },
                                         "layout": {
@@ -7875,66 +7813,6 @@
             "content": null,
             "kind": "instance",
             "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.1",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.2",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.7.1.0.3",
-            "parent": "body.1.0.0.1.0.1.7.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.1",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.2",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.8.1.0.3",
-            "parent": "body.1.0.0.1.0.1.8.1.0",
-            "axis": "vertical",
-            "stretch": "stretch",
-            "measured": 28,
-            "content": 21,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           },
           {
             "path": "body.1.0.0.1.0.1.10.1.0",
@@ -10891,8 +10769,8 @@
                                   },
                                   "vertical": {
                                     "verdict": "HUG",
-                                    "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                    "source": "기본(flex item)",
+                                    "reason": "vertical auto — 콘텐츠가 결정한다",
+                                    "source": "height:auto",
                                     "value": null
                                   }
                                 },
@@ -11002,7 +10880,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -11047,10 +10925,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -11221,7 +11099,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -11266,10 +11144,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -11440,7 +11318,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -11485,10 +11363,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -11832,8 +11710,8 @@
                                   },
                                   "vertical": {
                                     "verdict": "HUG",
-                                    "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                    "source": "기본(flex item)",
+                                    "reason": "vertical auto — 콘텐츠가 결정한다",
+                                    "source": "height:auto",
                                     "value": null
                                   }
                                 },
@@ -11943,7 +11821,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -11988,10 +11866,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -12092,7 +11970,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -12137,10 +12015,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -12241,7 +12119,7 @@
                                     "glyph": null,
                                     "sizing": {
                                       "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
                                       "maxWidth": null,
@@ -12286,10 +12164,10 @@
                                         }
                                       },
                                       "vertical": {
-                                        "verdict": "FILL",
-                                        "reason": "부모 flex의 교차축 + align:stretch — 교차축을 채운다",
-                                        "source": "align-items:stretch",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-settings-segment-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(28px)",
+                                        "source": "height:var(--louis-layout-settings-segment-height)",
+                                        "value": 28
                                       }
                                     },
                                     "layout": {
@@ -35727,8 +35605,8 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "HUG",
-                                      "layoutSizingVertical": "HUG",
+                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingVertical": "FIXED",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": null,
                                       "maxWidth": 320,
@@ -35761,16 +35639,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "HUG",
-                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(flex item)",
+                                        "verdict": "FILL",
+                                        "reason": "horizontal 100% 선언 — 부모를 채운다",
+                                        "source": "width:100%",
                                         "value": null
                                       },
                                       "vertical": {
-                                        "verdict": "HUG",
-                                        "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "flex-grow:0 · width:auto",
-                                        "value": null
+                                        "verdict": "FIXED",
+                                        "reason": "var(--louis-layout-progress-bar-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(6px)",
+                                        "source": "height:var(--louis-layout-progress-bar-height)",
+                                        "value": 6
                                       }
                                     },
                                     "layout": null,
@@ -36552,8 +36430,8 @@
                                 },
                                 "glyph": null,
                                 "sizing": {
-                                  "layoutSizingHorizontal": "HUG",
-                                  "layoutSizingVertical": "HUG",
+                                  "layoutSizingHorizontal": "FILL",
+                                  "layoutSizingVertical": "FIXED",
                                   "layoutPositioning": "AUTO",
                                   "minWidth": null,
                                   "maxWidth": 320,
@@ -36586,16 +36464,16 @@
                                 "constraints": null,
                                 "why": {
                                   "horizontal": {
-                                    "verdict": "HUG",
-                                    "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                    "source": "기본(flex item)",
+                                    "verdict": "FILL",
+                                    "reason": "horizontal 100% 선언 — 부모를 채운다",
+                                    "source": "width:100%",
                                     "value": null
                                   },
                                   "vertical": {
-                                    "verdict": "HUG",
-                                    "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                    "source": "flex-grow:0 · width:auto",
-                                    "value": null
+                                    "verdict": "FIXED",
+                                    "reason": "var(--louis-layout-progress-bar-height) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(6px)",
+                                    "source": "height:var(--louis-layout-progress-bar-height)",
+                                    "value": 6
                                   }
                                 },
                                 "layout": null,

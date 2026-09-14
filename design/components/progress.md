@@ -160,7 +160,10 @@ DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 �
   `components.ProgressRing.geometry.base`). Figma 쓰기는 소유자 승인이 필요해 앵커 이동에서 하지
   않았고, 그래서 위 Availability 의 Figma 가 `partial` 이다. 닫는 길은 마스터를 32 · 24 로 옮기고
   `figma-readback-emit --components --only ProgressRing` 과 `build-figma-snapshot` 으로 되읽기를 다시
-  뜨는 것이다 — `verify-figma-parity` 가 초록이 되면 `done` 으로 되올린다.
+  뜨는 것이다 — `verify-figma-parity` 가 초록이 되면 `done` 으로 되올린다. **같은 원인이 AppTopBar 에도
+  번진다** — 그 계약은 후행 슬롯 높이를 이 기록의 `progress-ring.sizes.base.size` 에서 읽고(슬롯은 링을
+  hug 한다, [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번), 라이브 표본은 아직 36 이다.
+  마스터를 옮길 때 AppTopBar 의 되읽기도 함께 다시 뜬다.
 
 ## Acceptance tests
 

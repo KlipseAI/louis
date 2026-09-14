@@ -476,6 +476,14 @@ Dialog(790) · BannerCarousel(840) 같은 큰 것이 들어가면 다음 것을 
 - HUG/FILL 은 CSS 를 따른다 — `inline-size: 100%` → FILL, 선언 없음 → HUG.
 - **CSS 에 없는 고정 폭을 지어내지 않는다.** 근거가 없으면 비워 두고
   `figma/components.measured.json` 의 `$whyNotTextWidth` 방침을 따른다.
+- **계산된 크기를 FIXED 수로 두지 않는다.** 패딩 + 자식으로 정해지는 높이, `min-*` 가 하한만 정하는 실효 높이,
+  담긴 컴포넌트를 hug 하는 슬롯은 그 식대로 HUG · 최소값으로 짓는다. 원칙과 고정을 허용하는 자리는
+  [Figma 화면 조립 규칙](figma-screen-assembly.md) 28번이 소유하고, 이 절은 DS 컴포넌트 저작에서 그것을 따른다.
+  계약도 같다 — 계산된 크기를 두 기록에 사본으로 두지 않는다. AppTopBar 후행 슬롯은 높이를 선언하지 않고 링을
+  hug 하므로 `verify-figma-parity` 계약이 그 높이를 ProgressRing 기록에서 `from` 으로 읽는다(2026-09-14 — 사본
+  `trailingSlotHeight` 가 ProgressRing 기록이 옮긴 뒤에도 옛 수로 남아 있었다). 「패딩 + 한 줄」 산수를 고정 높이로
+  적은 기록 칸(사이드바 CTA · 툴팁 · 알림)은 아직 남아 있다 — 계약이 hug 를 표현하지 못하는 동안은 Figma 와 같은
+  변경 단위에서 최소값이나 조건 키로 옮긴다.
 
 ## 9. 작업 순서 — 부품 먼저, 조립은 그다음
 

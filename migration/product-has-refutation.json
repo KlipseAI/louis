@@ -118,11 +118,11 @@
       "productLine": 1367,
       "quotedLine": "\"[height:var(--profile-ring-size)]\",",
       "productValue": "36px — 1370행 --profile-ring-size: calc(var(--profile-avatar-size) + (var(--profile-ring-gap) + var(--profile-ring-width)) * 2) = 28 + (2 + 2) × 2 = 36",
-      "dsFile": "figma/components.measured.json",
-      "dsLine": 1070,
-      "dsQuotedLine": "\"trailingSlotHeight\": 36,",
-      "dsValue": "36px. CSS에는 대응 선언이 없다 — packages/css/src/component/app-shell.css:143–149의 .louis-app-top-bar__trailing는 display/flex/align-items/gap만 두고 block-size를 선언하지 않는다",
-      "matches": "같음",
+      "dsFile": "scripts/verify-figma-parity.mjs",
+      "dsLine": 1809,
+      "dsQuotedLine": "Trailing: { fields: { height: { from: [\"progress-ring\", \"base\", \"size\"] } } },",
+      "dsValue": "기록에 수가 없다(2026-09-14). 후행 슬롯은 높이를 선언하지 않고 담은 것을 hug 하므로 AppTopBar 계약이 Trailing 높이를 progress-ring.sizes.base.size 에서 읽는다 — 지금 32(제품 앵커 6f6282c1 의 아바타 24 + (2 + 2) × 2). CSS에는 여전히 대응 선언이 없다 — .louis-app-top-bar__trailing 은 display/flex/align-items/gap만 둔다",
+      "matches": "다름",
       "mapClaimWrong": "틀린 곳은 없다. 덧붙일 것 하나 — 후행 클러스터도 소비처 슬롯 {mainChromeProfileLeading}(5311행)을 함께 렌더하므로, 그 슬롯에 36보다 큰 노드가 들어오면 클러스터 높이는 그쪽이 정한다.",
       "reason": "(2) 상수·줄이 그대로 있다 — profileTrigger 배열(1362–1402행)의 1373행이 [height:var(--profile-ring-size)]다. (3) 적용을 건다: 5310행 <div className={gnbStyles.mainChromeProfileCluster}> 안의 5312–5337행 button이 `${gnbStyles.rightControls} ${gnbStyles.profileTrigger}`를 달고, 클러스터 자신(343–349행)은 높이를 선언하지 않는다. 함정 2 — 그 button의 인라인 style(5320–5324행)은 --profile-ring-progress 하나뿐이라 높이를 이기지 않는다. 함정 3 — 같은 요소에 얹히는 rightControls(1717–1739행)에는 width/height 선언이 아예 없어 Tailwind 정렬 승부가 생기지 않고, 1374–1377행의 min/max-height가 같은 값으로 못박는다. 함정 4 — --profile-avatar-size를 다른 값으로 덮는 곳은 ProjectHeader.tsx:334의 24px 하나인데 그건 캔버스 create 헤더(.gnb-navCreate .gnb-projectHeader) 문맥이라 이 상단 크롬과 다른 요소다. 1401행의 @media(max-width:480px)는 28px를 다시 못박는 같은 값이다. 이름이 비슷한 landing/demo-snapshots/StaticGnb.tsx의 값도 28/2/2로 같다. (4) 계산: 28 + (2+2)×2 = 36. 모두 임의값 리터럴 px라 --spacing: 2px와 무관하다. (5) 테마 무관. DS 36 = 제품 36.",
       "commands": [
@@ -8037,6 +8037,13 @@
       "axes": [
         "input.states.base.Default.background (다름 유지 · text-field.css:51 그대로, bg-canvas → bg-inset · 라이트 #dddee1 → #ebecee)",
         "input.states.base.Disabled.background (다름 유지 · Default 와 같은 한 줄 · disabled 면 재정의 없음은 그대로)"
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "why": "기록 figma/components.measured.json 에서 app-shell-parts.sizes.topBar.trailingSlotHeight 가 사라져 dsQuotedLine 1건이 무효가 됐다. 그 36 은 슬롯이 선언한 값이 아니라 제품 --profile-ring-size calc 의 결과를 옮긴 사본이었고, 제품 앵커 6f6282c1(프로필 버튼 36 → 32)에서 ProgressRing 기록이 32 로 옮긴 뒤에도 사본만 36 으로 남았다. 계산된 크기를 두 곳에 두지 않도록 verify-figma-parity 의 AppTopBar 계약이 Trailing 높이를 progress-ring.sizes.base.size 에서 읽게 했다(figma-screen-assembly.md §28). 앞 선례와 같게 제품 인용(productFile · productLine · quotedLine · productValue)과 판정 근거(reason · commands)는 손대지 않고 DS 쪽 좌표 · 값 · matches 만 현재 사실로 갱신했다. 이 원장의 고정 커밋(a89fc0d5)에서 제품 값은 36 이라 matches 는 다름이다 — DS 가 갈라진 것이 아니라 더 새 제품 앵커를 따라간 결과이며, 수렴 판정은 앵커가 소유한다.",
+      "axes": [
+        "app-shell-parts.sizes.topBar.trailingSlotHeight (같음→다름 · figma/components.measured.json:1070 → scripts/verify-figma-parity.mjs:1809, 36 → progress-ring.sizes.base.size 32)"
       ]
     }
   ]

@@ -1169,7 +1169,7 @@
     "avatar": {
       "$doc": "design/components/avatar.md",
       "$source": "packages/react/src/avatar/avatar.tsx, packages/css/src/component/avatar.css",
-      "$note": "제품에 공용 구현이 **부분만** 있다 — UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 가 두 값이던 때(기본 28 · ProjectHeader 슬롯 24) 옮겼다. 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 profileTrigger 한 곳의 24 한 값이라, 프로필 트리거에 맞는 칸은 sm 이고 md 28 은 프로필 트리거 근거를 잃었다.",
+      "$note": "제품 앵커 6f6282c1 에서 제품은 프로필 아바타 박스에 .louis-avatar 를 물고(Gnb.tsx profileImage — 크기는 --profile-avatar-size, 면은 투명으로 호출부가 덮는다) UserCircleDefaultAvatar.tsx 는 크기를 갖지 않는 louis-avatar__fallback 슬롯이다. 예전에 여기 적힌 「공용 구현이 부분만 있다 — 기본 아바타 SVG 하나(28×28)를 소유하고 본체는 Gnb.tsx에 인라인」은 제품이 루트의 w-14 h-14 를 걷고 박스를 LOUIS 로 넘기며 낡았다. 크기 24·28은 제품의 --profile-avatar-size 가 두 값이던 때(기본 28 · ProjectHeader 슬롯 24) 옮겼다. 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 profileTrigger 한 곳의 24 한 값이라, 프로필 트리거에 맞는 칸은 sm 이고 md 28 은 프로필 트리거 근거를 잃었다.",
       "$noRing": "**링을 소유하지 않는다.** 제품은 프로필 트리거에 진행률 링을 겹치지만(--profile-ring-width/gap 2px) 아바타는 신원 표식이고 링은 사용량이다. 흡수하면 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다.",
       "$noControlLadder": "크기가 control 계단(40/32)을 따르지 않는다. 아바타는 컨트롤이 아니라 표식이라 나란히 서도 줄이 어긋나지 않는다.",
       "sizes": {
@@ -2222,7 +2222,7 @@
           "paddingInline": 16,
           "gap": 8,
           "borderWidth": 0,
-          "$height": "layout-app-shell-top-bar-height 40 (DS-D-0018). 제품에 52/36/40 셋이 있고 정렬의 기준이 40이다",
+          "$height": "layout-app-shell-top-bar-height 40 (DS-D-0018). 정렬의 기준이 40이다. 제품의 카드 안 바는 높이를 선언하지 않아(Gnb.tsx:460 `[min-block-size:0]` · :483 `[padding:8px_var(--mainchrome-pad-x)]`) 세로 패딩 + 가장 큰 자식 + 세로 패딩 + 아래 헤어라인으로 계산된다 — 그 결과는 가장 큰 자식을 따라 움직이므로(제품 6f6282c1 이 프로필 버튼을 줄이자 함께 낮아졌다) 이 기록에 수로 두지 않는다. 측정은 figma/product-app-shell.plan.json 의 component.variants[].rect 가 갖는다",
           "$paddingInline": "layout-app-shell-content-inset 16. 본문과 같은 원천을 읽는다",
           "$borderWidth": "0. 경계선은 기본이 아니다 — 제품의 것은 스크롤 진행률에 따라 색이 변하는 런타임 계약이다",
           "titleFontSize": 16,
@@ -2231,9 +2231,8 @@
           "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다.",
           "leadingSlotHeight": 32,
           "$leadingSlotHeight": "32px 선행 슬롯 높이",
-          "trailingSlotHeight": 36,
-          "$trailingSlotHeight": "36px 후행 슬롯 높이",
-          "$slots": "선행 슬롯은 사이드바 토글(IconButton sm 32), 후행은 프로필 사용량 링(36)이다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
+          "$trailingSlot": "**후행 슬롯의 높이는 이 기록에 없다(2026-09-14).** 슬롯은 높이를 선언하지 않는다 — app-shell.css 의 .louis-app-top-bar__trailing 은 display · flex · align-items · gap 뿐이라 담은 것의 높이를 hug 한다. 제품도 같다: 후행 클러스터는 높이를 선언하지 않고 프로필 버튼의 --profile-ring-size(Gnb.tsx:1476, 아바타 + (링 간격 + 링 두께) × 2)를 받는다. 그래서 verify-figma-parity 의 AppTopBar 계약은 Trailing 자손 높이를 progress-ring.sizes.base.size 에서 읽는다. 여기 있던 `trailingSlotHeight` 36 은 그 계산 결과의 사본이었고, 제품 6f6282c1 에서 ProgressRing 기록이 32 로 옮긴 뒤에도 사본만 36 으로 남았다 — 계산된 크기를 두 곳에 숫자로 두면 한쪽만 낡는다.",
+          "$slots": "선행 슬롯은 사이드바 토글(제품 선언 `[height:32px]` — IconButton md 칸), 후행은 프로필 사용량 링(ProgressRing 이 아바타를 감싼 크기, 위 $trailingSlot)이다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
         },
         "navRow": {
           "gap": 4,

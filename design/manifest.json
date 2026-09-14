@@ -1747,7 +1747,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "public export 2종, Figma component 둘(SidebarNavItem 6 variant · AppTopBar), parity 게이트가 Icon을 자손으로 대조한다. 실브라우저 acceptance test 10건. 셸의 레이아웃 계약은 app-shell 패턴이 소유하고 여기는 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이긴다. 셸 composition과 compact 드로어는 아직 없다 2026-08-19: SidebarNavRow가 서고 AppTopBar에 leading·trailing 슬롯이 생겼다 — 코드 API에는 처음부터 있었는데 Figma에는 제목 하나뿐이라 조립하면 화면이 비어 보였다. 표현하지 못하는 API는 없는 것과 같다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 SidebarBrand·SidebarCta 의 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다.",
+      "note": "public export 2종, Figma component 둘(SidebarNavItem 6 variant · AppTopBar), parity 게이트가 Icon을 자손으로 대조한다. 실브라우저 acceptance test 10건. 셸의 레이아웃 계약은 app-shell 패턴이 소유하고 여기는 그 안의 부품 둘이다. 제품 실측에서 사이드바 항목에 포커스 표시가 아예 없다는 것을 찾았다 — 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이긴다. 셸 composition과 compact 드로어는 아직 없다 2026-08-19: SidebarNavRow가 서고 AppTopBar에 leading·trailing 슬롯이 생겼다 — 코드 API에는 처음부터 있었는데 Figma에는 제목 하나뿐이라 조립하면 화면이 비어 보였다. 표현하지 못하는 API는 없는 것과 같다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 SidebarBrand·SidebarCta 의 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. 2026-09-14 제품 앵커 6f6282c1: AppTopBar 계약이 후행 슬롯 높이를 기록의 사본(trailingSlotHeight 36)이 아니라 ProgressRing 기록(progress-ring.sizes.base.size)에서 읽는다 — 슬롯은 높이를 선언하지 않고 링을 hug 하며, 사본은 ProgressRing 이 32 로 옮긴 뒤에도 36 으로 남아 있었다(figma-screen-assembly.md 28번). 라이브 표본은 아직 36 이라 verify-figma-parity 가 AppTopBar Trailing.height 한 축에서 실패한다 — ProgressRing 마스터를 옮길 때 함께 되읽는다.",
       "doc": "design/components/app-shell-parts.md",
       "figmaNames": [
         "SidebarNavItem",
@@ -1764,7 +1764,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 가 두 값이던 때 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 24 한 값이라 프로필 트리거에 맞는 칸은 sm 이다. **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(avatar · avatar.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품은 프로필 아바타 박스에 `.louis-avatar` 를 물고(크기 · 면만 호출부가 덮는다) 기본 아바타는 크기를 갖지 않는 `louis-avatar__fallback` 슬롯이다(제품 앵커 6f6282c1 기준 — 예전의 「공용 구현이 부분만 있다 · 기본 아바타 SVG 28×28 하나만 분리 · 본체는 셸 파일에 인라인」은 낡았다). 크기 28/24는 제품의 --profile-avatar-size 가 두 값이던 때 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 24 한 값이라 프로필 트리거에 맞는 칸은 sm 이다. **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(avatar · avatar.browser.test.tsx).",
       "doc": "design/components/avatar.md",
       "figmaName": "Avatar"
     },

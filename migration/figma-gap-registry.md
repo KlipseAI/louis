@@ -94,7 +94,7 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | YouTube 업로드 모달 (유튜브 플레이어 모사 + 제목·설명·태그 폼 + 예약 선택기) | 숏폼 클립 편집 | `components/youtube/YoutubeUploadModal.tsx:978` |
 | 크레딧 카드(플랜 배지 + 잔여 수치 + 4px 잔량 바) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:3147` |
 | 메인 카드 표면 크롬(16px 곡률 + glass 프레임 + 베벨, ≤719px 전폭 되돌림) | 비디오에디터 허브 | `components/scenes/VideoEditScene.tsx:83` |
-| 프로필 트리거(24px 아바타 + conic 사용량 링 = 32px — 제품 `6f6282c1` 전에는 28px · 36px) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:5349` |
+| 프로필 트리거(24px 아바타 + conic 사용량 링 — 한 변은 `아바타 + (간격 + 두께) × 2` 로 계산된다, `Gnb.tsx:1476`. 제품 `6f6282c1` 전 아바타는 28px) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:5349` |
 | 사이드바 브랜드 헤더(로고 레일 + 워드마크 크롭) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:4378` |
 | 사이드바 하단 업그레이드 CTA(mint 알약) | 비디오에디터 허브 | `components/navigation/Gnb.tsx:5033` |
 | 접이식 소스 섹션 헤더(chevron + 라벨 + 개수 + 추가) | 비디오에디터 워크스페이스 | `components/scenes/create/node-canvas-v2/nodes/VideoEditModal.tsx:16274` |
@@ -156,8 +156,8 @@ Home의 남은 구멍 둘 중 하나다. **착수 전 census를 여기 남긴다
 
 | 축 | 제품 |
 | --- | --- |
-| 공용 구현 | **부분만 있다.** `navigation/UserCircleDefaultAvatar.tsx`가 **기본 아바타 SVG 하나**를 소유한다 — 28×28(`w-14 h-14`), `currentColor`, `aria-hidden role="presentation"` |
-| 아바타 본체 | **셸 파일에 인라인.** `Gnb.tsx`가 이미지/폴백 분기와 크기를 갖는다. 기본 이미지 센티넬 `DEFAULT_PROFILE_IMAGE_SRC = "__default_avatar__"`가 4곳 |
+| 공용 구현 | **LOUIS 박스를 문다(제품 `6f6282c1`).** 프로필 아바타 박스 `profileImage`가 `.louis-avatar`이고(`Gnb.tsx:1053-1055`) 크기 · 면만 덮는다. `navigation/UserCircleDefaultAvatar.tsx`는 크기를 갖지 않는 `louis-avatar__fallback` 슬롯이다 — `currentColor`, `aria-hidden role="presentation"`. 이 census 당시에는 **부분만 있었다** — 그 파일이 기본 아바타 SVG 하나를 28×28(`w-14 h-14`)로 소유했고 본체는 셸 파일에 인라인이었다 |
+| 아바타 본체 | **셸 파일에 인라인**(census 당시 — 지금 박스는 위 LOUIS 레시피이고, `Gnb.tsx:2288-2311` 의 `GnbProfileAvatar`가 이미지/폴백 분기만 갖는다). `Gnb.tsx`가 이미지/폴백 분기와 크기를 갖는다. 기본 이미지 센티넬 `DEFAULT_PROFILE_IMAGE_SRC = "__default_avatar__"`가 4곳 |
 | 크기 | **24 한 값(제품 `6f6282c1`, 2026-09-14 소유자 요청).** `--profile-avatar-size`를 `profileTrigger` 한 곳이 24px로 갖고(`Gnb.tsx:1470`) ≤480px 재고정도 24px다(`:1507`). ProjectHeader 슬롯의 24px 덮어쓰기는 걷혔다(`ProjectHeader.tsx:332-338`의 주석과 `PROFILE_SLOT`). 이 census 당시에는 **24 · 28 둘**이었다 — 28px 기본, ProjectHeader 슬롯에서 24px |
 | 색 | 기본 아바타만 해당 — light `palette-gray-400` · dark `palette-gray-600`. 다크 면 위에서 한 단계 밝게 |
 | 링 | **진행률 링이 붙어 있다.** `--profile-ring-width: 2px` · `--profile-ring-gap: 2px` · `--profile-ring-progress`(0%)를 `::after`(`border-radius: 999px`)로 그린다 |
@@ -351,7 +351,7 @@ DS는 의도한 값을 채택한다. `color-accent-primary`가 이미 `#0088ff`�
 | --- | --- |
 | 아바타 | `--profile-avatar-size: 24px`(제품 `6f6282c1` `Gnb.tsx:1470` — 그 전 28px) · `border-radius:999px` · `object-fit:cover` |
 | 링 | 두께 `2px` · 간격 `2px` · 색 `var(--accent-mint-500)` · 트랙 `gray-000 / 20%` |
-| 링 지름 | `avatar + (gap + width) × 2` = **32px**(그 전 36px) |
+| 링 지름 | `avatar + (gap + width) × 2`(`Gnb.tsx:1476` 의 calc) — **선언이 아니라 계산값이라 여기 수로 적지 않는다.** 수는 `figma/components.measured.json` 의 `progress-ring.sizes.base.size` 가 갖는다(아바타가 28이던 앵커에서는 36이었다) |
 | 진행률 | `--profile-ring-progress: 0%` — 런타임 값 |
 
 #### 4. 복합 내비 행

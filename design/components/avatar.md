@@ -9,18 +9,22 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
 
 사람을 나타내는 작은 원형 표식이다.
 
-**제품에 공용 구현이 부분만 있다.** `UserCircleDefaultAvatar.tsx`가 기본 아바타 SVG 하나를
-소유하고(28×28 · `currentColor` · `aria-hidden`), 아바타 본체 — 이미지/폴백 분기와 크기 — 는
-셸 파일(`Gnb.tsx`)에 인라인이다. 크기 24·28은 제품의 `--profile-avatar-size`가 두 값이던 때(기본 28 ·
-ProjectHeader 슬롯 24) 그대로 옮겼다. **제품 앵커 `6f6282c1`(2026-09-14)부터 그 변수는 한 값이다** —
-`profileTrigger` 한 곳이 24px로 갖고(`Gnb.tsx:1470`) 슬롯의 덮어쓰기는 걷혔다. 그래서 프로필 트리거에
-맞는 칸은 `sm`이다(아래 Known deviations). 판정은 [`product.measured.json`](../../migration/product.measured.json)이 갖는다.
+**제품은 이제 이 레시피의 박스를 문다(제품 앵커 `6f6282c1` 기준).** 프로필 아바타 박스 `profileImage`가
+`.louis-avatar`를 달고(`Gnb.tsx:1053-1055`) 크기만 `--profile-avatar-size`로 덮으며(`:1056-1057`) 면은
+투명으로 둔다(`:1058`). 기본 아바타 `UserCircleDefaultAvatar.tsx`는 **자기 크기를 갖지 않는 폴백 슬롯**이다
+— `louis-avatar__fallback`에 제품 색 유틸리티만 얹고(`UserCircleDefaultAvatar.tsx:20-26`) SVG는 `currentColor` ·
+`aria-hidden`이다. 이 문서가 예전에 적은 「공용 구현이 부분만 있다 — 기본 아바타 SVG 하나(28×28)만 분리돼 있고
+본체는 셸 파일에 인라인」은 그 뒤 제품이 루트의 `w-14 h-14`를 걷고 박스를 LOUIS로 넘기면서 낡았다
+(`Gnb.tsx:1042-1045`의 주석이 그 경위를 적는다). 크기 24·28은 제품의 `--profile-avatar-size`가 두 값이던 때
+(기본 28 · ProjectHeader 슬롯 24) 그대로 옮겼다. **그 변수는 이제 한 값이다** — `profileTrigger` 한 곳이
+24px로 갖고(`Gnb.tsx:1470`) 슬롯의 덮어쓰기는 걷혔다. 그래서 프로필 트리거에 맞는 칸은 `sm`이다(아래 Known
+deviations). 판정은 [`product.measured.json`](../../migration/product.measured.json)이 갖는다.
 
 ## Availability
 
 | Surface       | 상태           | 근거                                                                     |
 | ------------- | -------------- | ------------------------------------------------------------------------ |
-| Web           | `partial`      | public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다; visual regression 없음. 제품은 박스(`.louis-avatar`)와 폴백 슬롯을 물지만 크기 · 면 · 폴백 색을 호출부에서 덮는다(위) |
 | Figma         | `done`      | component set(Size). 계약이 모든 property 를 pin 하고 Fallback 을 자손으로 대조하며 **stroke·effect 0 을 요구한다** — 링이 새어 들어오면 잡힌다. 기하는 양방향이다 — `avatar.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                  |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                               |

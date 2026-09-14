@@ -1804,7 +1804,9 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [],
       parts: {
         Leading: { fields: { height: "leadingSlotHeight" } },
-        Trailing: { fields: { height: "trailingSlotHeight" } },
+        // 후행 슬롯은 높이를 선언하지 않고 담은 ProgressRing 을 hug 한다 — 수를 이 기록에 사본으로 두지 않고
+        // ProgressRing 기록에서 읽는다(components.measured.json 의 app-shell-parts.sizes.topBar.$trailingSlot).
+        Trailing: { fields: { height: { from: ["progress-ring", "base", "size"] } } },
       },
     },
   },
@@ -3924,6 +3926,14 @@ function unionMembers(declarationSource, typeName) {
  * 차이를 실패로 읽으면 게이트를 끄게 된다. 라벨 폭을 뺀 나머지가 전부 여기 있으므로 폭이
  * 틀리면 이 중 하나가 틀린 것이다.
  */
+// **다른 컴포넌트 기록의 값을 읽는 규칙 `{ from: [컴포넌트, size, 필드] }`.** 스스로 크기를 선언하지 않는 자손
+// (hug 슬롯)은 담은 컴포넌트의 크기를 따른다. 그 수를 담는 쪽 기록에 한 번 더 적으면 담긴 컴포넌트가 움직일 때
+// 사본만 낡는다 — 실측(2026-09-14): AppTopBar 의 `trailingSlotHeight` 36 이, 제품 앵커 6f6282c1 에서 ProgressRing
+// 기록이 32 로 옮긴 뒤에도 남아 있었다. 없는 경로는 undefined 가 되어 아래 「근거 값이 없습니다」로 걸린다.
+function fromMeasured([componentId, sizeKey, field]) {
+  return componentsMeasured.components?.[componentId]?.sizes?.[sizeKey]?.[field];
+}
+
 function compareComponentGeometry(contract, got) {
   const issues = [];
   const plan = contract.geometry;
@@ -3974,6 +3984,8 @@ function compareComponentGeometry(contract, got) {
         // 코드 값은 undefined 가 되어 아래 "근거 값이 없습니다" 로 걸린다 — 조용히 통과하는
         // 길이 없다.
         expected[field] = rule.table[spec[rule.enum]];
+      } else if (Array.isArray(rule?.from)) {
+        expected[field] = fromMeasured(rule.from);
       } else if (Array.isArray(rule?.set)) {
         // 한 축이 이 필드를 바꾸는 것이 계약인 경우. 대조는 **집합 상등**이다 — 선언한 값이
         // 전부 나타나야 하고 그 밖의 값은 없어야 한다. **어느 칸이 어느 값을 갖는지는 보지
@@ -4061,8 +4073,8 @@ function compareComponentGeometry(contract, got) {
     // 자손이 소유하는 값을 대조하지 못한다. ProjectCard가 그 경우다 — 계약값이 전부 `Title
     // overlay` 프레임에 있어서 root만 보면 아무것도 검증되지 않는다.
     //
-    // 규칙은 root의 `fields`와 **같다**(문자열=measured 키, 배열=합, 객체=literal). 새 어휘를
-    // 만들지 않아야 계약을 읽는 사람이 두 규칙을 외우지 않는다.
+    // 규칙은 root의 `fields`와 **같다**(문자열=measured 키, 배열=합, `enum`·`set`·`from`, 그 밖의 객체=literal).
+    // 새 어휘를 만들지 않아야 계약을 읽는 사람이 두 규칙을 외우지 않는다 — `from` 을 더할 때도 두 자리에 함께 넣었다.
     for (const [partName, partPlan] of Object.entries(plan.parts ?? {})) {
       const part = actual.parts?.[partName];
       if (part === undefined) {
@@ -4087,6 +4099,8 @@ function compareComponentGeometry(contract, got) {
           // 선례가 있다. 표에 없는 코드 값은 undefined 가 되어 아래에서 걸린다 —
           // 조용히 통과하는 길이 없다.
           want = rule.table[spec[rule.enum]];
+        } else if (Array.isArray(rule?.from)) {
+          want = fromMeasured(rule.from);
         } else if (Array.isArray(rule?.set)) {
           // **root와 같은 `set` 규칙.** 위 주석이 「규칙은 root의 fields와 같다」고 적는데
           // 실제로는 여기에 `set`이 없었다 — root에만 나중에 붙었고 이 자리는 따라오지

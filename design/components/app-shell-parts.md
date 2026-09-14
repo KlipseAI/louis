@@ -343,8 +343,9 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 `#fafafa`). 그 상태는 "이 버튼의 목적지에 이미 와 있다"는 뜻이고, 선택을 `aria-current`가 소유하는
 것은 `SidebarNavItem`과 같은 규칙이다.
 
-**접히면 높이와 여백이 함께 줄어든다.** 40 → 32, 좌우 14 → 10, 상하 10 → 0, 간격 8 → 0. 폭만 줄이면
-접힌 레일에서 버튼이 혼자 커 보인다.
+**접히면 높이와 여백이 함께 줄어든다.** 최소 높이 40 → 높이 32, 좌우 14 → 10, 상하 10 → 0, 간격 8 → 0.
+펼친 버튼의 높이는 최소 40이지 40 고정이 아니다 — 세로 패딩과 라벨 줄 높이의 합이 최소를 넘으면 그 합을
+따른다(아래 Specification). 폭만 줄이면 접힌 레일에서 버튼이 혼자 커 보인다.
 
 **접힘은 폭이다.** 워드마크와 라벨의 `max-inline-size`가 0으로 줄어들며 잘린다 — 폭이 상태이므로
 `layout-change` lifecycle이고([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md))
@@ -382,12 +383,17 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 레일 패딩 | 12px 사방 | `space-control-md` — 배포본 실측(**하단도 12다**) |
 | 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
-| 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
-| 상단 바 후행 슬롯 | 아바타 + (링 간격 + 링 두께) × 2 — 계산값(아래 각주) | `ProgressRing`이 아바타를 감싼 크기 |
-| CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-lg` → `-md` |
+| 상단 바 선행 슬롯 | 32px — 제품 토글의 선언(`Gnb.tsx:386` `[height:32px]`) | `IconButton` md가 들어가는 자리 |
+| 상단 바 후행 슬롯 | **선언 없음** — 담은 링을 hug 한다. 한 변은 아바타(`Gnb.tsx:1470`) + (링 간격 `:1474` + 링 두께 `:1475`) × 2(`:1476`)로 계산된다 | `ProgressRing`이 아바타를 감싼 크기 — 수는 `figma/components.measured.json` 의 `progress-ring.sizes.base.size` 한 곳이 갖는다 |
+| CTA 버튼 높이 | **최소** 40px — 실효 높이는 세로 패딩 10 + 라벨 줄 높이 + 세로 패딩 10 과 최소 중 큰 쪽이다 → 접힘 32px(제품 선언 `Gnb.tsx:1986` `[height:32px]`) | `layout-control-height-lg`(`min-block-size`) → `-md` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
+| CTA 현재 위치 | 한 단계 더 반전 | `background-upgrade-current` · `foreground-upgrade-current` |
+| CTA 접힘 라벨 | 54px 말줄임 · 12px | 제품 실측 |
+| 브랜드 좌측 여백 | 4px → 접힘 0 | `space-control-xs` |
+| 상단 바 제목 | 16px | `typography-body-md-medium` |
+| 상단 바 선행 슬롯 간격 | 4px | `space-control-xs` |
 
 **상단 바 40px은 DS 계약이지 제품 실측이 아니다(2026-08-21 조립 검증).** 제품의 카드 안(in-panel)
 바는 **높이를 선언하지 않는다** — `Gnb.tsx:460` 이 레시피의 하한을 `[min-block-size:0]` 으로 끄고
@@ -402,11 +408,6 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 
 위 「없음」 세 행은 **§10.1을 실제로 Figma에 조립하면서 이 문서만으로 부족했던 값**이다. 셋 다
 `migration/`에는 있었지만 규범에 없어서 조립자가 제품 코드를 열어야 했다.
-| CTA 현재 위치 | 한 단계 더 반전 | `background-upgrade-current` · `foreground-upgrade-current` |
-| CTA 접힘 라벨 | 54px 말줄임 · 12px | 제품 실측 |
-| 브랜드 좌측 여백 | 4px → 접힘 0 | `space-control-xs` |
-| 상단 바 제목 | 16px | `typography-body-md-medium` |
-| 상단 바 선행 슬롯 간격 | 4px | `space-control-xs` |
 
 **행 좌우 여백이 4px인 근거.** 배포본은 `main-inline-padding − sidebar-padding-x` = 16 − 12 = 4를 쓴다.
 행만 떼어 보면 좁지만 **행과 레일의 합이 계약이다** — 레일 12 + 행 4 = 16이 본문 좌측선과 맞는다.
@@ -484,7 +485,7 @@ badge.md가 적은 제품 높이 분포(19·22·26)에 24가 없다는 것이 �
 | `width` | `calc(100% + var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) + var(--mainchrome-bleed-right, var(--app-gnb-main-inline-padding)))` |
 | `margin-left` / `margin-right` | 각 bleed 변수의 음수 |
 | `padding` | `8px var(--mainchrome-pad-x)` → **8px 8px** |
-| divider box-shadow | 켜지면 방향성 inset 헤어라인(`--louis-hairline-inset-block-end`)이 풀블리드 폭 전체를 가로지른다. border가 아니므로 레이아웃 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
+| divider | `border-bottom: var(--louis-border-width-hairline)`(`Gnb.tsx:497`) — 풀블리드 폭 전체를 가로지르고, **border 라 그 두께만큼 레이아웃 높이에 더해진다.** 그래서 바 높이 식의 마지막 항이 헤어라인이다. DS 레시피의 `data-divider`는 방향성 inset 헤어라인(box-shadow)이라 높이를 늘리지 않는다([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) — 제품 화면을 그리는 Figma 세트는 선을 레이아웃에 포함한다 |
 
 bleed 폴백은 좌우 모두 `--app-gnb-main-inline-padding`(16px)이고 짝 토큰
 `--app-gnb-main-inline-padding-end`는 12px이다. 앱 셸 본문 카드 두 곳은 자기 카드의 좌우 패딩과 **같은

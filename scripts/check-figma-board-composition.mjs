@@ -211,7 +211,14 @@ const REPLACEABLE_BASELINE = 0;
 // `$pruningRule` 에 따라 그 안의 부품은 세지 않는다. 사라진 20 은 전부 `Button/md`(제품 `STATUS_BUTTON_*` 지역 레시피 —
 // 본문의 링크 버튼)다: topup-fail · topup-success · billing-change-fail · billing-change-success 2씩, billing-fail ·
 // billing-success · upgrade/fail 4씩. 본문이 날노드로 되돌아가면 이 수도 함께 돌아와야 한다.
-const BESPOKE_BASELINE = 5; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+//
+// 2026-09-15: 5 → **1.** **판정을 느슨하게 푼 것이 아니라 사유가 사실이 아니었다.** 남아 있던 `SegmentedControl/settings` 넷
+// (`/settings` 두 뷰포트의 테마 · 언어 트랙)은 「제품 `settingsToggleWrap` 이 `.louis-segmented-control` 을 물지 않는다」로
+// bespoke 였는데, 앵커 6f6282c1 의 `SegmentedToggle.tsx`(:76 · :102 · :137)가 정본 레시피를 문다. 막힌 것은 제품이 아니라
+// 레시피 원장 probe 다 — `segmented-track` · `segmented-segment` 가 쓰이지 않는 `myPageSceneStyles.ts` 상수를 잰다. 그래서 생성기의
+// `LOUIS_PRIMITIVE_EXCLUSIONS` 판정을 blocked 로 옮겼고(사유 · 인용은 그 목록에), 넷이 막힘 2 → 6 으로 갔다. 남은 bespoke 1 은
+// `Button/md`(제품 지역 레시피)다. 원장 probe 가 `SegmentedToggle` 마크업을 재고 정본 자리가 서면 넷은 replaceable 로 간다.
+const BESPOKE_BASELINE = 1; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -420,7 +427,7 @@ for (const id of ids) {
   if (NAMES_A_LOUIS_COMPONENT.has(node.verdict) || node.verdict === "instance") {
     // 이름 없이 통과하는 자리는 하나다 — `blocked` 중 **어느 것인지 모르는 것 자체가 판정의
     // 내용**인 자리. 아이콘 여섯이 여기 있었지만 서명을 이어 닫혔고(2026-09-02), 지금 남은
-    // blocked 둘은 ProgressBar 라 이름이 있다. 예외를 지우지 않는 이유는 그 길이 다시 열릴 수
+    // blocked 여섯(ProgressBar 2 · SegmentedControl/settings 4, 2026-09-15)은 이름이 있다. 예외를 지우지 않는 이유는 그 길이 다시 열릴 수
     // 있어서다 — 측정이 축을 잃는 방식은 아이콘 말고도 있다(ProgressBar 의 State 가 그렇다).
     const mayLackName = node.verdict === "blocked" && !hasComponent && !hasIcon;
     if (!mayLackName && !hasComponent && !hasIcon) {
@@ -676,7 +683,8 @@ console.log(
 );
 console.log(
   "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
-    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 ProgressBar 의 State 축 2 다. " +
+    "(대응은 있는데 측정이 고를 정보를 잃었다 — ProgressBar 의 State 축 2 와, 제품은 정본을 무는데 레시피 원장 probe 가 " +
+    "쓰이지 않는 상수를 재는 SegmentedControl/settings 4(2026-09-15 bespoke 에서 옮겼다). " +
     "`/mypage/upgrade` 의 disabled 요금제 CTA 는 2026-09-14 부터 요금제 카드 인스턴스 안이라 세지 않는다). " +
     "아이콘 정체 여섯은 서명을 이어 닫혔고 bespoke 4 · 미보유 2 로 갈렸다) · " +
     "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +

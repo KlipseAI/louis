@@ -404,8 +404,9 @@ function topBarTextProperties(node, set, variant) {
  * **정본 프리미티브 자리 목록.**
  *
  * `probe` 는 제품 레시피 원장의 항목 id 다. `canonical` 이 아닌 probe 는 여기 없다 — 예를 들어
- * `icon-button`(출처 `Gnb.tsx iconButton`)과 `segmented-segment`(출처
- * `myPageSceneStyles.ts settingsToggleBtn`)는 제품 지역 스타일이라 대응을 만들지 않는다.
+ * `icon-button`(출처 `Gnb.tsx iconButton`)은 제품 지역 스타일이라 대응을 만들지 않는다. `segmented-segment` 는
+ * 2026-09-15 에 사정이 달라졌다 — 제품은 정본을 무는데 원장 probe 가 쓰이지 않는 상수를 재어 자리를 세울 상자가 없다
+ * (아래 제외 목록의 blocked).
  * 그 자리들이 **정본이 되어야 하는가**는 Figma 축이 아니라 제품 축의 질문이고, 표면 원장이 센다.
  *
  * `element` 는 probe 의 html 이 실제로 쓰는 태그다. 기하만 보면 28×28 원형 자리에 사이드바의
@@ -450,10 +451,11 @@ export const LOUIS_PRIMITIVE_SITES = Object.freeze([
  * 원장은 도형을 «어느 LOUIS 컴포넌트의 어느 size 자리인가»로 부르고 probe 이름을 모른다.
  * 조인할 칸이 없으면 원장은 목록을 **다시 손으로** 적게 되고, 두 벌이 된 목록은 반드시 어긋난다.
  *
- * `verdict` 는 **제외 사유가 한 종류가 아니기 때문에** 필요하다. 넷은 「제품이 정본을 물지
- * 않는다」(지역 스타일)이지만 `progress-bar-track` 하나는 「제품은 무는데 측정이 variant 축을
- * 고를 정보를 잃었다」다. 둘을 같은 낱말로 적으면 읽는 사람이 틀린 일을 하러 간다 — 앞의 것은
+ * `verdict` 는 **제외 사유가 한 종류가 아니기 때문에** 필요하다. 처음에 넷은 「제품이 정본을 물지
+ * 않는다」(지역 스타일)였고 `progress-bar-track` 하나는 「제품은 무는데 측정이 variant 축을
+ * 고를 정보를 잃었다」였다. 둘을 같은 낱말로 적으면 읽는 사람이 틀린 일을 하러 간다 — 앞의 것은
  * 제품이 바뀌어야 열리고, 뒤의 것은 측정이 바뀌어야 열린다. (`blocked` 를 연 것과 같은 근거다.)
+ * 2026-09-15 에 세그먼트 둘이 앞에서 뒤로 옮겼다 — 제품이 `SegmentedToggle` 로 정본을 물게 됐고 남은 막힘은 원장 probe 다.
  *
  * `sizes: "*"` 는 「그 컴포넌트의 어느 size 도 이 판정을 받는다」다. size 를 좁혀 적으면
  * 나머지 size 는 자리도 제외도 아닌 «판정 없는» 상태가 되고, 보드 원장은 그것을 만나면 던진다.
@@ -477,19 +479,33 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
       "**ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 " +
       "`louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
   },
+  // **2026-09-15 다시 판정 — bespoke → blocked.** 옛 사유(「`/settings` 토글은 `.louis-segmented-control` 을 물지 않는다」)는
+  // 앵커 6f6282c1 에서 사실이 아니다. 설정 두 토글 · 구독 크레딧 이력 필터가 쓰는 `SegmentedToggle` 이 정본 레시피를 문다
+  // (`git -C "$KLIPSE_PRODUCT_REPO" show 6f6282c1:apps/web/components/scenes/SegmentedToggle.tsx` —
+  //  :76 `const TOGGLE_TRACK = ["louis-segmented-control", SEGMENTED_THUMB_TRACK].join(` ·
+  //  :102 `  "louis-segmented-control__segment louis-focus-ring",` · :137 `      data-size="settings"`).
+  // 레시피 원장 probe 둘은 여전히 `myPageSceneStyles.ts` 의 `settingsToggleWrap`(:1250) · `settingsToggleBtn`(:1209)을 재는데,
+  // `git grep -n "settingsToggleWrap\|settingsToggleBtn\b" 6f6282c1 -- apps/web` 에서 두 이름은 정의 줄과 주석 한 줄(:317)
+  // 밖에 나오지 않는다 — 원장이 쓰이지 않는 상수를 잰다. 제품은 정본을 무는데 측정이 그 자리의 상자를 잴 probe 를 잃었으니
+  // 「blocked(고칠 곳은 측정)」다. 열리는 조건: 레시피 원장 probe 를 `SegmentedToggle` 의 레시피 클래스 마크업으로 옮기고
+  // `LOUIS_PRIMITIVE_SITES` 에 자리를 세운다.
   {
     probe: "segmented-track",
     component: "SegmentedControl",
     sizes: "*",
-    verdict: "bespoke",
-    reason: "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+    verdict: "blocked",
+    reason:
+      "제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe " +
+      "`segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다.",
   },
   {
     probe: "segmented-segment",
     component: "SegmentedControlItem",
     sizes: "*",
-    verdict: "bespoke",
-    reason: "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다.",
+    verdict: "blocked",
+    reason:
+      "제품은 `SegmentedToggle.tsx`(:102)에서 `.louis-segmented-control__segment` 를 무는데, 레시피 원장 probe `segmented-segment` 는 " +
+      "쓰이지 않는 `myPageSceneStyles.ts settingsToggleBtn`(:1209)을 잰다 — 같은 이유로 blocked 다.",
   },
   {
     probe: "progress-bar-track",

@@ -19,8 +19,8 @@
     "total": 545,
     "instance": 101,
     "replaceable": 0,
-    "bespoke": 5,
-    "blocked": 2,
+    "bespoke": 1,
+    "blocked": 6,
     "missing": 22,
     "structural": 415,
     "unclassified": 0
@@ -43,7 +43,6 @@
   },
   "byComponent": {},
   "bespokeByComponent": {
-    "SegmentedControl/settings": 4,
     "Button/md": 1
   },
   "bespokeByIcon": {},
@@ -768,8 +767,8 @@
         "total": 59,
         "instance": 9,
         "replaceable": 0,
-        "bespoke": 3,
-        "blocked": 0,
+        "bespoke": 1,
+        "blocked": 2,
         "missing": 2,
         "structural": 45,
         "unclassified": 0
@@ -787,8 +786,8 @@
         "total": 55,
         "instance": 7,
         "replaceable": 0,
-        "bespoke": 2,
-        "blocked": 0,
+        "bespoke": 0,
+        "blocked": 2,
         "missing": 2,
         "structural": 44,
         "unclassified": 0
@@ -5146,10 +5145,10 @@
         242.31,
         36
       ],
-      "verdict": "bespoke",
+      "verdict": "blocked",
       "rule": "primitive-site-excluded",
       "probe": "segmented-track",
-      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe `segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다.",
       "component": "SegmentedControl",
       "size": "settings",
       "candidateClause": "d-control-group"
@@ -5183,10 +5182,10 @@
         160.08,
         36
       ],
-      "verdict": "bespoke",
+      "verdict": "blocked",
       "rule": "primitive-site-excluded",
       "probe": "segmented-track",
-      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe `segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다.",
       "component": "SegmentedControl",
       "size": "settings",
       "candidateClause": "d-control-group"
@@ -5849,10 +5848,10 @@
         242.31,
         36
       ],
-      "verdict": "bespoke",
+      "verdict": "blocked",
       "rule": "primitive-site-excluded",
       "probe": "segmented-track",
-      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe `segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다.",
       "component": "SegmentedControl",
       "size": "settings",
       "candidateClause": "d-control-group"
@@ -5886,10 +5885,10 @@
         160.08,
         36
       ],
-      "verdict": "bespoke",
+      "verdict": "blocked",
       "rule": "primitive-site-excluded",
       "probe": "segmented-track",
-      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다.",
+      "reason": "SegmentedControl/settings 기하를 재는 probe 는 `segmented-track` 이고 정본 자리 목록에 없다. 제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe `segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다.",
       "component": "SegmentedControl",
       "size": "settings",
       "candidateClause": "d-control-group"

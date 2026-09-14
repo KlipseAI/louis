@@ -208,15 +208,15 @@
       "probe": "segmented-track",
       "component": "SegmentedControl",
       "sizes": "*",
-      "verdict": "bespoke",
-      "reason": "출처가 `myPageSceneStyles.ts settingsToggleWrap` 이다 — `/settings` 토글은 `.louis-segmented-control` 을 물지 않는다."
+      "verdict": "blocked",
+      "reason": "제품은 `SegmentedToggle.tsx`(:76 · :137)에서 `.louis-segmented-control[data-size=settings]` 를 무는데, 레시피 원장 probe `segmented-track` 은 쓰이지 않는 `myPageSceneStyles.ts settingsToggleWrap`(:1250)을 잰다 — 측정이 정본 상자를 잴 probe 를 잃었다."
     },
     {
       "probe": "segmented-segment",
       "component": "SegmentedControlItem",
       "sizes": "*",
-      "verdict": "bespoke",
-      "reason": "출처가 `myPageSceneStyles.ts settingsToggleBtn` 이다 — 같은 이유로 SegmentedControlItem 자리가 아니다."
+      "verdict": "blocked",
+      "reason": "제품은 `SegmentedToggle.tsx`(:102)에서 `.louis-segmented-control__segment` 를 무는데, 레시피 원장 probe `segmented-segment` 는 쓰이지 않는 `myPageSceneStyles.ts settingsToggleBtn`(:1209)을 잰다 — 같은 이유로 blocked 다."
     },
     {
       "probe": "progress-bar-track",

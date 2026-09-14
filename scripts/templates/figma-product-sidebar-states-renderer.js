@@ -2,39 +2,16 @@ const F = PLAN.figma;
 const page = await figma.getNodeByIdAsync(F.pageId);
 if (!page || page.type !== "PAGE") throw new Error("Missing product assets page");
 await figma.setCurrentPageAsync(page);
-const collections = await figma.variables.getLocalVariableCollectionsAsync();
-const variables = await figma.variables.getLocalVariablesAsync();
-const collectionByName = new Map(collections.map((entry) => [entry.name, entry]));
-const collectionById = new Map(collections.map((entry) => [entry.id, entry]));
-const variableByKey = new Map(variables.map((entry) => [`${collectionById.get(entry.variableCollectionId)?.name}\0${entry.name}`, entry]));
-const mode = (collection, name) => {
-  const target = collectionByName.get(collection);
-  const match = target?.modes.find((entry) => entry.name === name);
-  if (!target || !match) throw new Error(`Missing mode ${collection}/${name}`);
-  return { collectionId: target.id, modeId: match.modeId };
-};
-const variable = (binding) => {
-  const result = variableByKey.get(`${binding.collection}\0${binding.name}`);
-  if (!result) throw new Error(`Missing variable ${binding.collection}/${binding.name}`);
-  return result;
-};
-const paletteMode = mode(F.bindings.paletteCollection, F.bindings.paletteMode);
-const ctaPaletteMode = mode(F.bindings.paletteCollection, F.bindings.ctaPaletteMode);
-const semanticMode = mode(F.bindings.semanticCollection, F.bindings.semanticMode);
-const inactive = variable(F.bindings.inactive);
-const active = variable(F.bindings.active);
-const inactiveFallback = { r: 213 / 255, g: 215 / 255, b: 221 / 255 };
-const activeFallback = { r: 250 / 255, g: 250 / 255, b: 250 / 255 };
-const bound = (paint, target, fallback) =>
-  figma.variables.setBoundVariableForPaint({ ...paint, color: fallback }, "color", target);
-const recolor = (node, target, fallback) => {
-  if ("fills" in node && Array.isArray(node.fills)) {
-    node.fills = node.fills.map((paint) => paint.type === "SOLID" ? bound(paint, target, fallback) : paint);
+// 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 이 측정은 다크
+// 문맥이라 계획의 `bindings.mode` 가 `Dark` 다. 칠하는 자리는 역할 이름(`F.paints`)만 읽는다.
+const { pin, paint } = await liveVariables(F.bindings);
+const recolor = (node, role) => {
+  for (const field of ["fills", "strokes"]) {
+    if (field in node && Array.isArray(node[field])) {
+      node[field] = node[field].map((entry) => (entry.type === "SOLID" ? { ...paint(role), visible: entry.visible !== false } : entry));
+    }
   }
-  if ("strokes" in node && Array.isArray(node.strokes)) {
-    node.strokes = node.strokes.map((paint) => paint.type === "SOLID" ? bound(paint, target, fallback) : paint);
-  }
-  if ("children" in node) for (const child of node.children) recolor(child, target, fallback);
+  if ("children" in node) for (const child of node.children) recolor(child, role);
 };
 const fixed = (node, width, height) => {
   node.resize(width, height);
@@ -46,7 +23,9 @@ for (const component of page.findAllWithCriteria({ types: ["COMPONENT"] })) {
   if (!componentByName.has(component.name)) componentByName.set(component.name, component);
 }
 const icons = {};
-for (const key of ["Search", "Home", "NodeCanvas", "VideoEditor", "Highlight", "YouTube", "logo", "expand"]) {
+// 키는 계획의 `iconComponents` 이름이다 — 제품이 NodeCanvas · VideoEditor 를 Canvas · Composition 으로 개명한 뒤(2026-09-10
+// 재고정) 렌더러가 옛 키를 찾아 첫머리에서 던지고 있었다.
+for (const key of ["Search", "Home", "Canvas", "Composition", "Highlight", "YouTube", "logo", "expand"]) {
   icons[key] = componentByName.get(F.iconComponents[key]);
   if (!icons[key]) throw new Error(`Missing component ${F.iconComponents[key]}`);
 }
@@ -57,12 +36,15 @@ if (!upgrade) throw new Error("Missing measured white Upgrade CTA");
 // collapsed Upgrade CTA는 expanded CTA를 32×32로 resize하면 내부 text가 왜곡된다(라이브 QA에서
 // rail 하단에 `pgra...`가 튀어나온 원인). 제품 실측대로 전용 32×32 master를 만들어 그 인스턴스를 쓴다.
 // 라벨은 12px viewport로 clip되고 안의 text는 실제 폭(WIDTH_AND_HEIGHT)이라 ellipsis 없이 잘린다.
-const ctaSurface = variable(F.bindings.ctaSurface);
-const ctaLabel = variable(F.bindings.ctaLabel);
 await figma.loadFontAsync({ family: "Pretendard", style: "Medium" });
 const collapsedUpgradeMaster = await (async () => {
   const existing = page.findOne((entry) => entry.type === "COMPONENT" && entry.name === F.collapsedUpgradeMasterName);
-  if (existing) return existing;
+  if (existing) {
+    // 기하는 그대로 두고 칠만 역할로 다시 건다 — 옛 마스터는 은퇴한 컬렉션 변수에 묶여 있다.
+    existing.fills = [paint(F.paints.fillPaint)];
+    for (const text of existing.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(F.paints.labelPaint)];
+    return existing;
+  }
   const label = PLAN.measurements.collapsed.upgrade.label;
   const button = figma.createComponent();
   button.name = F.collapsedUpgradeMasterName;
@@ -73,7 +55,7 @@ const collapsedUpgradeMaster = await (async () => {
   button.cornerRadius = Number.parseFloat(PLAN.measurements.collapsed.upgrade.style.borderTopLeftRadius);
   button.clipsContent = false;
   fixed(button, PLAN.measurements.collapsed.upgrade.rect.width, PLAN.measurements.collapsed.upgrade.rect.height);
-  button.fills = [figma.variables.setBoundVariableForPaint({ type: "SOLID", color: { r: 241 / 255, g: 241 / 255, b: 243 / 255 } }, "color", ctaSurface)];
+  button.fills = [paint(F.paints.fillPaint)];
   const clip = figma.createFrame();
   clip.name = "label clip · measured 12×18";
   clip.layoutMode = "NONE";
@@ -89,7 +71,7 @@ const collapsedUpgradeMaster = await (async () => {
   text.letterSpacing = { unit: "PIXELS", value: Number.parseFloat(label.style.letterSpacing) };
   text.textAutoResize = "WIDTH_AND_HEIGHT";
   text.textTruncation = "DISABLED";
-  text.fills = [figma.variables.setBoundVariableForPaint({ type: "SOLID", color: { r: 23 / 255, g: 27 / 255, b: 34 / 255 } }, "color", ctaLabel)];
+  text.fills = [paint(F.paints.labelPaint)];
   clip.appendChild(text);
   text.x = 0;
   text.y = 0;
@@ -100,84 +82,100 @@ const collapsedUpgradeMaster = await (async () => {
   return button;
 })();
 
+// 레일 variant 하나를 짓는다(세트가 없을 때, 또는 세트에 그 variant 가 없을 때 — 있는 variant 는 지우지도 다시 짓지도 않는다).
+// 편집 화면 레일은 제품 개명대로 `Current=Composition` 이다(옛 러너는 라이브에 없는 `Current=VideoEditor` 를 찾았다).
+const RAIL_CURRENTS = ["Default", "Home", "Composition", "YouTube", "Upgrade"];
+const EDITOR_CURRENT = "Composition";
+const menuItems = [
+  ["Search", "Search"], ["Home", "Home"], ["Canvas", "Canvas"],
+  ["Composition", "Composition"], ["Highlight", "Highlight"], ["YouTube analytics", "YouTube"],
+];
+const buildRailVariant = (current) => {
+  const root = figma.createComponent();
+  root.name = `Current=${current}`;
+  root.layoutMode = "VERTICAL";
+  root.primaryAxisAlignItems = "SPACE_BETWEEN";
+  root.counterAxisAlignItems = "MIN";
+  root.paddingTop = root.paddingRight = root.paddingBottom = root.paddingLeft = 12;
+  root.fills = [];
+  fixed(root, PLAN.measurements.collapsed.sidebar.width, PLAN.measurements.collapsed.sidebar.height);
+  pin(root);
+  const top = figma.createFrame();
+  top.name = "flow/brand-and-menu";
+  top.layoutMode = "VERTICAL";
+  top.itemSpacing = 12;
+  top.fills = [];
+  fixed(top, 32, 264);
+  const brand = figma.createFrame();
+  brand.name = "brand/Klipse · collapsed crop";
+  brand.layoutMode = "HORIZONTAL";
+  brand.primaryAxisAlignItems = brand.counterAxisAlignItems = "CENTER";
+  brand.fills = [];
+  fixed(brand, 32, 40);
+  const crop = figma.createFrame();
+  crop.name = "crop/logo symbol · measured";
+  crop.fills = [];
+  crop.clipsContent = true;
+  fixed(crop, 32, 28);
+  const logo = icons.logo.createInstance();
+  logo.name = "logo/klipse-dark · 96×28 clipped";
+  logo.resize(96, 28);
+  logo.x = 4.1406;
+  crop.appendChild(logo);
+  brand.appendChild(crop);
+  const menu = figma.createFrame();
+  menu.name = `menu · Current=${current}`;
+  menu.layoutMode = "VERTICAL";
+  menu.itemSpacing = 4;
+  menu.fills = [];
+  fixed(menu, 32, 212);
+  for (const [label, key] of menuItems) {
+    const measured = PLAN.measurements.collapsed.menu.find((entry) => entry.label === label);
+    const row = figma.createFrame();
+    row.name = `row/${label}`;
+    row.layoutMode = "HORIZONTAL";
+    row.primaryAxisAlignItems = row.counterAxisAlignItems = "CENTER";
+    row.cornerRadius = measured.radius;
+    row.fills = [];
+    fixed(row, 32, 32);
+    const icon = icons[key].createInstance();
+    icon.name = `icon/${key}`;
+    icon.resize(20, 20);
+    const selected = current === key || (current === "YouTube" && key === "YouTube");
+    recolor(icon, selected ? F.paints.active : F.paints.inactive);
+    row.appendChild(icon);
+    menu.appendChild(row);
+  }
+  top.appendChild(brand);
+  top.appendChild(menu);
+  root.appendChild(top);
+  // expanded CTA를 resize하지 않는다. 제품 실측 32×32 collapsed master의 인스턴스를 놓는다.
+  const cta = collapsedUpgradeMaster.createInstance();
+  cta.name = "upgrade-cta · measured collapsed";
+  pin(cta);
+  root.appendChild(cta);
+  page.appendChild(root);
+  return root;
+};
 let railSet = page.findOne((entry) => entry.type === "COMPONENT_SET" && entry.name === F.componentSetName);
 if (!railSet) {
-  const components = [];
-  const menuItems = [
-    ["Search", "Search"], ["Home", "Home"], ["NodeCanvas", "NodeCanvas"],
-    ["VideoEditor", "VideoEditor"], ["Highlight", "Highlight"], ["YouTube analytics", "YouTube"],
-  ];
-  for (const current of ["Default", "Home", "VideoEditor", "YouTube", "Upgrade"]) {
-    const root = figma.createComponent();
-    root.name = `Current=${current}`;
-    root.layoutMode = "VERTICAL";
-    root.primaryAxisAlignItems = "SPACE_BETWEEN";
-    root.counterAxisAlignItems = "MIN";
-    root.paddingTop = root.paddingRight = root.paddingBottom = root.paddingLeft = 12;
-    root.fills = [];
-    fixed(root, PLAN.measurements.collapsed.sidebar.width, PLAN.measurements.collapsed.sidebar.height);
-    root.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    root.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-    const top = figma.createFrame();
-    top.name = "flow/brand-and-menu";
-    top.layoutMode = "VERTICAL";
-    top.itemSpacing = 12;
-    top.fills = [];
-    fixed(top, 32, 264);
-    const brand = figma.createFrame();
-    brand.name = "brand/Klipse · collapsed crop";
-    brand.layoutMode = "HORIZONTAL";
-    brand.primaryAxisAlignItems = brand.counterAxisAlignItems = "CENTER";
-    brand.fills = [];
-    fixed(brand, 32, 40);
-    const crop = figma.createFrame();
-    crop.name = "crop/logo symbol · measured";
-    crop.fills = [];
-    crop.clipsContent = true;
-    fixed(crop, 32, 28);
-    const logo = icons.logo.createInstance();
-    logo.name = "logo/klipse-dark · 96×28 clipped";
-    logo.resize(96, 28);
-    logo.x = 4.1406;
-    crop.appendChild(logo);
-    brand.appendChild(crop);
-    const menu = figma.createFrame();
-    menu.name = `menu · Current=${current}`;
-    menu.layoutMode = "VERTICAL";
-    menu.itemSpacing = 4;
-    menu.fills = [];
-    fixed(menu, 32, 212);
-    for (const [label, key] of menuItems) {
-      const measured = PLAN.measurements.collapsed.menu.find((entry) => entry.label === label);
-      const row = figma.createFrame();
-      row.name = `row/${label}`;
-      row.layoutMode = "HORIZONTAL";
-      row.primaryAxisAlignItems = row.counterAxisAlignItems = "CENTER";
-      row.cornerRadius = measured.radius;
-      row.fills = [];
-      fixed(row, 32, 32);
-      const icon = icons[key].createInstance();
-      icon.name = `icon/${key}`;
-      icon.resize(20, 20);
-      const selected = current === key || (current === "YouTube" && key === "YouTube");
-      recolor(icon, selected ? active : inactive, selected ? activeFallback : inactiveFallback);
-      row.appendChild(icon);
-      menu.appendChild(row);
-    }
-    top.appendChild(brand);
-    top.appendChild(menu);
-    root.appendChild(top);
-    // expanded CTA를 resize하지 않는다. 제품 실측 32×32 collapsed master의 인스턴스를 놓는다.
-    const cta = collapsedUpgradeMaster.createInstance();
-    cta.name = "upgrade-cta · measured collapsed";
-    cta.setExplicitVariableModeForCollection(ctaPaletteMode.collectionId, ctaPaletteMode.modeId);
-    root.appendChild(cta);
-    page.appendChild(root);
-    components.push(root);
-  }
-  railSet = figma.combineAsVariants(components, page);
+  railSet = figma.combineAsVariants(RAIL_CURRENTS.map(buildRailVariant), page);
   railSet.name = F.componentSetName;
   railSet.description = `Measured collapsed desktop Gnb · ${PLAN.productCommit}`;
+} else {
+  for (const current of RAIL_CURRENTS) {
+    const variant = railSet.children.find((entry) => entry.type === "COMPONENT" && entry.name === `Current=${current}`);
+    if (!variant) {
+      railSet.appendChild(buildRailVariant(current));
+      continue;
+    }
+    // 있는 variant 는 기하를 두고 모드와 행 아이콘 잉크만 역할로 다시 건다(계획의 행 이름이 아닌 옛 행은 비활성 잉크).
+    pin(variant);
+    for (const row of variant.findAll((entry) => entry.type === "FRAME" && entry.name.startsWith("row/"))) {
+      const key = menuItems.find(([label]) => row.name === `row/${label}`)?.[1];
+      for (const icon of row.findAllWithCriteria({ types: ["INSTANCE"] })) recolor(icon, key === current ? F.paints.active : F.paints.inactive);
+    }
+  }
 }
 
 const I = F.install;
@@ -189,13 +187,15 @@ if (!video || video.type !== "FRAME" || !main || main.type !== "FRAME" || !oldRa
   throw new Error("Missing video editor scene targets");
 }
 oldRail.visible = false;
-const railMaster = railSet.children.find((entry) => entry.type === "COMPONENT" && entry.name === "Current=VideoEditor");
-let rail = video.findOne((entry) => entry.type === "INSTANCE" && entry.name === "gnb/Current=VideoEditor · measured collapsed");
+const railMaster = railSet.children.find((entry) => entry.type === "COMPONENT" && entry.name === `Current=${EDITOR_CURRENT}`);
+const railName = `gnb/Current=${EDITOR_CURRENT} · measured collapsed`;
+// 옛 러너가 놓은 인스턴스(`gnb/Current=VideoEditor · …`)는 같은 노드를 새 variant 로 바꿔 쓴다 — 새로 하나 더 놓지 않는다.
+let rail = video.findOne((entry) => entry.type === "INSTANCE" && (entry.name === railName || entry.name === "gnb/Current=VideoEditor · measured collapsed"));
 if (!rail) {
   rail = railMaster.createInstance();
-  rail.name = "gnb/Current=VideoEditor · measured collapsed";
   video.insertChild(0, rail);
-}
+} else if (rail.mainComponent?.id !== railMaster.id) rail.swapComponent(railMaster);
+rail.name = railName;
 rail.resize(56, 1080);
 video.layoutMode = "HORIZONTAL";
 video.itemSpacing = 0;
@@ -222,11 +222,10 @@ if (!topBar) {
   topBar = figma.createComponent();
   topBar.name = F.topBarName;
   topBar.fills = Array.isArray(oldHeader.fills) ? oldHeader.fills : [];
-  topBar.strokes = [bound({ type: "SOLID", color: activeFallback, opacity: 0.08 }, active, activeFallback)];
+  topBar.strokes = [paint("topBarDivider")];
   topBar.strokeTopWeight = topBar.strokeLeftWeight = topBar.strokeRightWeight = 0;
   topBar.strokeBottomWeight = 1;
-  topBar.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-  topBar.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+  pin(topBar);
   const leading = figma.createFrame();
   leading.name = "mainChromeLeadingCluster";
   leading.fills = [];
@@ -260,6 +259,9 @@ if (!topBar) {
   topBar.appendChild(profile);
   page.appendChild(topBar);
 }
+// 아래 선은 매 실행 역할로 다시 건다(두께 · 변 설정은 지을 때만 — 옛 획은 은퇴한 컬렉션 변수 + 페인트 불투명도 0.08 이었다).
+topBar.strokes = [paint("topBarDivider")];
+pin(topBar);
 const child = (parent, predicate, label) => {
   const found = parent.children.find(predicate);
   if (!found) throw new Error(`Missing ${label} in ${parent.name}`);

@@ -179,28 +179,36 @@
       "upgrade": "State=Current",
       "expand": ".glyph/SidebarToggle"
     },
+    "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "default",
-      "ctaPaletteMode": "sidebar",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "dark",
-      "inactive": {
-        "collection": "2 · Semantic",
-        "name": "gray/300"
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Dark",
+      "gray300": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/300"
       },
-      "active": {
-        "collection": "2 · Semantic",
-        "name": "gray/000"
+      "gray000": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000"
       },
-      "ctaSurface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-100"
+      "paletteGray100": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/100"
       },
-      "ctaLabel": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-900"
+      "paletteGray900": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/900"
+      },
+      "topBarDivider": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/stroke-hairline"
       }
+    },
+    "paints": {
+      "inactive": "gray300",
+      "active": "gray000",
+      "fillPaint": "paletteGray100",
+      "labelPaint": "paletteGray900"
     },
     "install": {
       "videoFrameId": "39:3",
@@ -385,7 +393,8 @@
             "height": 32
           },
           "radius": 10,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         },
         {
           "label": "Home",
@@ -396,7 +405,8 @@
             "height": 32
           },
           "radius": 10,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         },
         {
           "label": "Canvas",
@@ -407,7 +417,8 @@
             "height": 32
           },
           "radius": 0,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         },
         {
           "label": "Composition",
@@ -418,7 +429,8 @@
             "height": 32
           },
           "radius": 0,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         },
         {
           "label": "Highlight",
@@ -429,7 +441,8 @@
             "height": 32
           },
           "radius": 10,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         },
         {
           "label": "YouTube analytics",
@@ -440,7 +453,8 @@
             "height": 32
           },
           "radius": 10,
-          "color": "color(srgb 0.647059 0.658824 0.678431)"
+          "color": "color(srgb 0.647059 0.658824 0.678431)",
+          "paint": "gray300"
         }
       ]
     },
@@ -479,7 +493,8 @@
         "letterSpacing": "-0.14px",
         "textOverflow": "clip",
         "whiteSpace": "normal"
-      }
+      },
+      "paint": "gray000"
     },
     "editor": {
       "$why": "Declared tracks only; the 1fr preview column, the 1fr upper row and the body size are FILL in Figma. The shell inset is the measured --app-gnb-main-inline-padding on all four sides (vemClass modalShellDocked margin + calc(100% - inset * 2)). The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan).",
@@ -511,6 +526,84 @@
         "iconSize": 20,
         "profileSize": 32
       }
+    }
+  },
+  "colorEvidence": {
+    "gray300": {
+      "declared": [
+        {
+          "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+          "path": "apps/web/components/navigation/Gnb.tsx",
+          "line": 592,
+          "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
+        }
+      ],
+      "measured": "#a5a8ad",
+      "measuredAlpha": 1,
+      "sites": 6,
+      "figma": "Klipse Semantic Color[Dark]/color/gray/300 → Klipse Primitive/color/palette-gray/300",
+      "figmaValue": "#a5a8ad",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "gray000": {
+      "declared": [
+        {
+          "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+          "path": "apps/web/components/navigation/Gnb.tsx",
+          "line": 598,
+          "quote": "    \"[color:var(--gray-000)]\","
+        }
+      ],
+      "measured": "#fafafa",
+      "measuredAlpha": 1,
+      "sites": 1,
+      "figma": "Klipse Semantic Color[Dark]/color/gray/000 → Klipse Primitive/color/palette-gray/000",
+      "figmaValue": "#fafafa",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "paletteGray100": {
+      "declared": [
+        {
+          "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+          "path": "apps/web/components/navigation/Gnb.tsx",
+          "line": 2000,
+          "quote": "    \"[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]\","
+        }
+      ],
+      "measured": "#dcdee1",
+      "measuredAlpha": 1,
+      "sites": 1,
+      "figma": "Klipse Primitive/color/palette-gray/100",
+      "figmaValue": "#dcdee1",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "paletteGray900": {
+      "declared": [
+        {
+          "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+          "path": "apps/web/components/navigation/Gnb.tsx",
+          "line": 2001,
+          "quote": "    \"[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]\","
+        }
+      ],
+      "measured": "#171b22",
+      "measuredAlpha": 1,
+      "sites": 1,
+      "figma": "Klipse Primitive/color/palette-gray/900",
+      "figmaValue": "#171b22",
+      "figmaAlpha": 1,
+      "exact": true
+    },
+    "topBarDivider": {
+      "declared": null,
+      "annotation": "editor top bar bottom line — not measured by this fixture (creation-only path); Gnb.tsx:497 declares var(--louis-color-stroke-hairline), the same token the app-shell plan binds",
+      "figma": "Klipse Semantic Color[Dark]/color/stroke-hairline → Klipse Primitive/color/static-white-alpha/08",
+      "figmaValue": "#fafafa",
+      "figmaAlpha": 0.08,
+      "exact": null
     }
   }
 }

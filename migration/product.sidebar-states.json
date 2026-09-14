@@ -71,7 +71,8 @@
         "height": 1064
       },
       "customProperties": {
-        "--app-gnb-main-inline-padding": "16px"
+        "--app-gnb-main-inline-padding": "16px",
+        "--app-gnb-main-inline-padding-end": "8px"
       },
       "toggle": {
         "ariaLabel": "Collapse sidebar",
@@ -2264,7 +2265,8 @@
         "height": 1064
       },
       "customProperties": {
-        "--app-gnb-main-inline-padding": "16px"
+        "--app-gnb-main-inline-padding": "16px",
+        "--app-gnb-main-inline-padding-end": "8px"
       },
       "toggle": {
         "ariaLabel": "Expand sidebar",

@@ -133,10 +133,12 @@ const measure = async (page) => page.evaluate((axes) => {
   // **본문 카드 안쪽 인셋 토큰의 계산값.** 편집기 셸(`vemClass.ts` `modalShellDocked`)이 사방 margin 과
   // `calc(100% − 인셋 × 2)` 로 이 값을 쓰는데, 그 값은 LOUIS 토큰 사슬(`globals.css` → `--louis-layout-
   // app-shell-content-inset`) 끝에 있어 소스 인용만으로는 px 이 나오지 않는다. 생성기가 16 을 리터럴로
-  // 적던 자리를 이 측정으로 바꾼다(build-figma-product-sidebar-states). main 에서 읽는다 — 셸이 그 안에 앉는다.
+  // 적던 자리를 이 측정으로 바꾼다(build-figma-product-sidebar-states). `-end` 는 본문 카드 안쪽 우 패딩으로도
+  // 읽히는 짝이다(globals.css 주석 — 하이라이트 허브 `main` 이 좌 인셋 / 우 `-end` 를 쓴다, build-figma-product-
+  // highlight-hub). main 에서 읽는다 — 셸과 허브 스크롤 영역이 그 안에 앉는다.
   const mainStyle = getComputedStyle(main);
   const customProperties = Object.fromEntries(
-    ["--app-gnb-main-inline-padding"].map((name) => [name, mainStyle.getPropertyValue(name).trim()]),
+    ["--app-gnb-main-inline-padding", "--app-gnb-main-inline-padding-end"].map((name) => [name, mainStyle.getPropertyValue(name).trim()]),
   );
   return {
     theme: document.documentElement.dataset.theme,

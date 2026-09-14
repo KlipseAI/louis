@@ -1427,7 +1427,11 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
    - 7 — 인벤토리 선언 판정 정규식(`w-full` 이 `max-w-full` 안에서도 걸리는 류)과 absolute 고정.
    - 8 — DS · Components 세트의 hug 축 FIXED(SidebarCta · Dialog sheet · Segmented · Tab · NodeChip · Keycap · Tooltip ·
      FormMessage · InspectorRow)와 `figma/components.measured.json` 의 「패딩 + 한 줄」 높이. 기록 · parity 계약 · Figma 를
-     같은 변경 단위에서 옮긴다.
+     같은 변경 단위에서 옮긴다. SidebarCta 는 2026-09-14 읽기 전용으로 확인했다 — `Collapsed=false` variant 가 세로 FIXED 40 ·
+     라벨 `TRUNCATE` 라 줄 높이가 최소를 넘기는 코드 · 제품과 갈리고, 기록 칸도 최소값이라 parity 는 초록이다
+     ([App Shell Parts](../components/app-shell-parts.md) Known deviations, [Updates](../updates/README.md) (134)). 같은 읽기에서
+     `Collapsed=true` variant 의 폭이 74(가로 AUTO)로 나와 되읽기(2026-09-07)의 32 와 달랐다 — 같은 시간에 다른 워크플로가
+     DS · Components 에 쓰고 있었으므로, 이 묶음에 들어갈 때 되읽기를 다시 떠서 확인한다.
    - 9 — NONE 루트 안 겹침 레이어의 constraints 와 비율(BannerCarousel · VideoPlayer · TransformFrame · ProjectCard 띠 ·
      StepTile), project-card 문서의 조건 없는 불변식.
    - 10 — news-card · media-card 문서의 계산값 사실 서술.

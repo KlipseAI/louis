@@ -1146,11 +1146,11 @@
           "size": 32,
           "width": 2,
           "gap": 2,
-          "$size": "제품 식 avatar + (gap + width) × 2 = 24 + 8. 제품 앵커 6f6282c1(2026-09-14 소유자 요청)이 모든 페이지의 프로필 버튼을 캔버스 에디터 헤더와 같은 32 로 줄였다 — 그 전 기본값은 아바타 28 · 버튼 36 이었다. DS는 padding으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.",
+          "$size": "제품 식 avatar + (gap + width) × 2(Gnb.tsx:1476 --profile-ring-size). 선언이 아니라 그 식을 contentSize 에서 푼 계산값이고, **수는 이 칸 한 곳에만 둔다** — AppTopBar 계약도 후행 슬롯 높이를 여기서 읽는다. 제품 앵커 6f6282c1(2026-09-14 소유자 요청)이 모든 페이지의 프로필 아바타를 캔버스 에디터 헤더와 같은 24(선언, Gnb.tsx:1470)로 맞추면서 이 값도 따라 옮겼다 — 그 전 기본 아바타는 28 이었다. DS는 padding으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.",
           "contentSize": 24,
           "radius": 0,
           "$radius": "0 (직접 원형 패딩 래퍼)",
-          "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 24이고(`--profile-avatar-size` 를 profileTrigger 한 곳이 갖는다) 지름 32가 거기서 나온다. DS Avatar 로는 sm 칸이다.",
+          "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 24이고(`--profile-avatar-size` 를 profileTrigger 한 곳이 선언한다) 지름(위 size)이 거기서 나온다. DS Avatar 로는 sm 칸이다.",
           "gap-plus-width": 4,
           "$gap-plus-width": "padding으로 만드는 링 두께다 — 두께 2 + 간격 2. 제품이 지름을 직접 계산하는 자리를 여기서는 padding이 대신한다."
         }
@@ -2229,10 +2229,9 @@
           "$titleFontSize": "body-md 16. 배포본 mainChromePageNavTitle이 --type-body-16-*를 쓴다(16/24/500).",
           "leadingGap": 4,
           "$leadingGap": "배포본 mainChromeLeadingCluster의 gap:4px. 바 자신의 gap 8과 다르다 — 뒤로가기·구분자·제목이 한 덩어리로 붙는다.",
-          "leadingSlotHeight": 32,
-          "$leadingSlotHeight": "32px 선행 슬롯 높이",
+          "$leadingSlot": "**선행 슬롯의 높이도 이 기록에 없다(2026-09-14).** 후행과 같은 CSS 규칙이다 — app-shell.css 의 .louis-app-top-bar__leading, .louis-app-top-bar__trailing 은 display · flex · align-items · gap 뿐이고, .louis-app-top-bar__leading 은 gap 만 다시 선언한다. 제품의 선행 클러스터(Gnb.tsx:317-320 mainChromeLeadingCluster)도 그 클래스만 달고 높이를 선언하지 않아, 담은 사이드바 토글의 선언(Gnb.tsx:386 `[height:32px]`)을 받는다. 그 토글은 IconButton md 칸이므로 verify-figma-parity 의 AppTopBar 계약은 Leading 자손 높이를 icon-button.sizes.md.height 에서 읽는다. 여기 있던 `leadingSlotHeight` 32 는 그 선언의 사본이었다 — 값은 지금 IconButton 기록과 같지만, 후행 슬롯의 사본이 ProgressRing 이 옮긴 뒤에도 남았던 것과 같은 자리라 함께 걷었다(figma-screen-assembly.md 28번 「기록 사이의 사본」).",
           "$trailingSlot": "**후행 슬롯의 높이는 이 기록에 없다(2026-09-14).** 슬롯은 높이를 선언하지 않는다 — app-shell.css 의 .louis-app-top-bar__trailing 은 display · flex · align-items · gap 뿐이라 담은 것의 높이를 hug 한다. 제품도 같다: 후행 클러스터는 높이를 선언하지 않고 프로필 버튼의 --profile-ring-size(Gnb.tsx:1476, 아바타 + (링 간격 + 링 두께) × 2)를 받는다. 그래서 verify-figma-parity 의 AppTopBar 계약은 Trailing 자손 높이를 progress-ring.sizes.base.size 에서 읽는다. 여기 있던 `trailingSlotHeight` 36 은 그 계산 결과의 사본이었고, 제품 6f6282c1 에서 ProgressRing 기록이 32 로 옮긴 뒤에도 사본만 36 으로 남았다 — 계산된 크기를 두 곳에 숫자로 두면 한쪽만 낡는다.",
-          "$slots": "선행 슬롯은 사이드바 토글(제품 선언 `[height:32px]` — IconButton md 칸), 후행은 프로필 사용량 링(ProgressRing 이 아바타를 감싼 크기, 위 $trailingSlot)이다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
+          "$slots": "선행 슬롯은 사이드바 토글(제품 선언 `[height:32px]` — IconButton md 칸, 위 $leadingSlot), 후행은 프로필 사용량 링(ProgressRing 이 아바타를 감싼 크기, 위 $trailingSlot)이다. 두 슬롯 모두 높이를 선언하지 않고 담은 것을 hug 한다. 코드 API에는 leading·trailing이 처음부터 있었는데 Figma에는 제목 하나뿐이었다 — 표현하지 못하는 API는 없는 것과 같아 조립할 때 화면이 비어 보였다."
         },
         "navRow": {
           "gap": 4,
@@ -2372,6 +2371,7 @@
         "false": {
           "width": 256,
           "height": 40,
+          "$height": "**최소 높이다 — 실효 높이가 아니다(2026-09-14).** 코드는 min-block-size: layout-control-height-lg(40)에 세로 패딩 10 · 10 과 body-sm-medium 줄 높이(150%)를 두고, 제품(Gnb.tsx:1973-1974 sidebarUpgradeButton 이 .louis-sidebar-cta__button 을 문다)도 같다. 그래서 라벨이 한 줄일 때 버튼은 패딩 + 줄 높이 + 패딩과 이 최소 중 큰 쪽이고, 그 합이 최소를 넘는다 — 제품 측정은 figma/product-components.plan.json 의 component.upgradeCta.variants[].rect 가 갖는다. 이 칸과 Figma SidebarCta Collapsed=false 는 둘 다 최소값이고 verify-figma-parity 는 둘을 서로 대조하므로 초록이다. Figma variant 는 높이를 FIXED 로 두고 라벨을 TRUNCATE 로 줄여 그 안에 넣는다(2026-09-14 읽기 전용 확인) — 실효 높이와 갈리는 사정은 design/components/app-shell-parts.md Known deviations 가 갖는다.",
           "radius": 12,
           "paddingInline": 14,
           "paddingBlock": 10,

@@ -345,7 +345,8 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 
 **접히면 높이와 여백이 함께 줄어든다.** 최소 높이 40 → 높이 32, 좌우 14 → 10, 상하 10 → 0, 간격 8 → 0.
 펼친 버튼의 높이는 최소 40이지 40 고정이 아니다 — 세로 패딩과 라벨 줄 높이의 합이 최소를 넘으면 그 합을
-따른다(아래 Specification). 폭만 줄이면 접힌 레일에서 버튼이 혼자 커 보인다.
+따른다(아래 Specification — 기록 칸과 Figma variant 가 최소값 40 에 머문 사정은 Known deviations). 폭만 줄이면 접힌
+레일에서 버튼이 혼자 커 보인다.
 
 **접힘은 폭이다.** 워드마크와 라벨의 `max-inline-size`가 0으로 줄어들며 잘린다 — 폭이 상태이므로
 `layout-change` lifecycle이고([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md))
@@ -383,9 +384,9 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 레일 패딩 | 12px 사방 | `space-control-md` — 배포본 실측(**하단도 12다**) |
 | 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
-| 상단 바 선행 슬롯 | 32px — 제품 토글의 선언(`Gnb.tsx:386` `[height:32px]`) | `IconButton` md가 들어가는 자리 |
+| 상단 바 선행 슬롯 | **선언 없음** — 담은 사이드바 토글을 hug 한다. 토글이 높이를 선언한다(`Gnb.tsx:386` `[height:32px]`) | `IconButton` md가 들어가는 자리 — 수는 `figma/components.measured.json` 의 `icon-button.sizes.md.height` 한 곳이 갖는다 |
 | 상단 바 후행 슬롯 | **선언 없음** — 담은 링을 hug 한다. 한 변은 아바타(`Gnb.tsx:1470`) + (링 간격 `:1474` + 링 두께 `:1475`) × 2(`:1476`)로 계산된다 | `ProgressRing`이 아바타를 감싼 크기 — 수는 `figma/components.measured.json` 의 `progress-ring.sizes.base.size` 한 곳이 갖는다 |
-| CTA 버튼 높이 | **최소** 40px — 실효 높이는 세로 패딩 10 + 라벨 줄 높이 + 세로 패딩 10 과 최소 중 큰 쪽이다 → 접힘 32px(제품 선언 `Gnb.tsx:1986` `[height:32px]`) | `layout-control-height-lg`(`min-block-size`) → `-md` |
+| CTA 버튼 높이 | **최소** 40px — 실효 높이는 세로 패딩 10 + 라벨 줄 높이 + 세로 패딩 10 과 최소 중 큰 쪽이고, `body-sm` 한 줄이면 합이 최소를 넘는다(측정은 `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 기록 칸과 Figma variant 는 최소값이다 — 아래 Known deviations → 접힘 32px(제품 선언 `Gnb.tsx:1986` `[height:32px]`) | `layout-control-height-lg`(`min-block-size`) → `-md` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
@@ -627,6 +628,17 @@ style이다.
   ≤719px 블록에는 면 선언이 따로 없어서 base에서 빼면 드로어가 scrim 위에서 비친다. 드로어 면을
   제품처럼 칠하려면 라이트에서 `#eeeef1`이 필요한데 그 값에 이름이 없다(아래). 그 토큰이 서는 날
   base의 면을 걷고 드로어 블록으로 옮긴다.
+- **펼친 CTA 의 높이가 코드 · 제품과 기록 · Figma 사이에서 갈린다.** 코드(`.louis-sidebar-cta__button`)와
+  제품(`Gnb.tsx:1973-1974` 가 같은 클래스를 문다)은 높이를 **최소** 40 으로만 두고 세로 패딩 10 · 10 과 라벨 줄 높이
+  (`typography-body-sm-medium`, 150%)로 계산하므로, 라벨 한 줄에서 합이 최소를 넘어 버튼이 그 합이 된다(제품 측정은
+  `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 그런데 기록
+  `sidebar-cta.sizes.false.height` 는 최소값 40 을 높이로 적고, Figma `SidebarCta` 의 `Collapsed=false` variant 는
+  높이를 그 40 으로 **FIXED** 에 두고 라벨을 `TRUNCATE` 로 줄 높이보다 낮게 잘라 넣는다(2026-09-14 읽기 전용 확인 —
+  세로 축 `counterAxisSizingMode FIXED`, 최소 높이 없음). `verify-figma-parity` 는 기록과 Figma 를 서로 대조하므로
+  이 축이 초록이고, 코드 쪽 브라우저 테스트는 펼친 높이를 재지 않는다(접힘의 최소 32 만 본다) — 그래서 어느 게이트도
+  이 차이를 말하지 않는다. **Figma 고정은 이번에 바꾸지 않았다.** 닫는 길은 variant 를 높이 HUG + 최소 높이 40 ·
+  라벨 줄 높이 그대로로 짓고, 기록 칸을 최소 키로 옮겨 계약이 최소를 대조하게 하는 것이다(조립 규칙 28번의
+  `min-*` 행, [Figma Component Authoring](../governance/figma-component-authoring.md) §8).
 - **시프트된 라이트 램프의 셸 바닥 `#eeeef1`에 토큰이 없다.** 위 「라이트 팔레트가 한 단계
   밝아진다」의 결과로 배포본 셸 바닥과 ≤719px 드로어 면이 `#eeeef1`이 되는데, LOUIS primitive
   램프에 그 값이 없다(`packages/css/generated/tokens.css`에 `#eeeef1`(238 238 241)이 0건이고,

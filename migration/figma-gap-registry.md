@@ -139,8 +139,8 @@ Button component set 하나와 아이콘 26개뿐"이라 적었던 상태가 바
 | **Avatar** | 없음 | **여전히 없음** |
 | **BannerCarousel · HomeBannerSlide** | 없음 | **여전히 없음** |
 
-남은 둘의 근거는 [screen-inventory.md](screen-inventory.md)에 있다 — 아바타는 셸 파일에 인라인이고
-기본 아바타 SVG만 분리돼 있으며(133·340행), 배너 캐러셀은 **허브 3곳이 공유**한다(150·168·236·279행).
+남은 둘의 근거는 [screen-inventory.md](screen-inventory.md)에 있다 — 아바타는 (그 인벤토리 당시) 셸 파일에 인라인이고
+기본 아바타 SVG만 분리돼 있으며(133·340행 — 지금은 아래 Avatar census 표의 「지금」), 배너 캐러셀은 **허브 3곳이 공유**한다(150·168·236·279행).
 연체 배너(`PastDueBanner`)도 카탈로그에 없는 banner/alert 계열이며 루트 레이아웃 전역이다.
 
 ### 아이콘 26개 → 29개
@@ -156,8 +156,9 @@ Home의 남은 구멍 둘 중 하나다. **착수 전 census를 여기 남긴다
 
 | 축 | 제품 |
 | --- | --- |
-| 공용 구현 | **LOUIS 박스를 문다(제품 `6f6282c1`).** 프로필 아바타 박스 `profileImage`가 `.louis-avatar`이고(`Gnb.tsx:1053-1055`) 크기 · 면만 덮는다. `navigation/UserCircleDefaultAvatar.tsx`는 크기를 갖지 않는 `louis-avatar__fallback` 슬롯이다 — `currentColor`, `aria-hidden role="presentation"`. 이 census 당시에는 **부분만 있었다** — 그 파일이 기본 아바타 SVG 하나를 28×28(`w-14 h-14`)로 소유했고 본체는 셸 파일에 인라인이었다 |
-| 아바타 본체 | **셸 파일에 인라인**(census 당시 — 지금 박스는 위 LOUIS 레시피이고, `Gnb.tsx:2288-2311` 의 `GnbProfileAvatar`가 이미지/폴백 분기만 갖는다). `Gnb.tsx`가 이미지/폴백 분기와 크기를 갖는다. 기본 이미지 센티넬 `DEFAULT_PROFILE_IMAGE_SRC = "__default_avatar__"`가 4곳 |
+| 공용 구현 | **지금(제품 `6f6282c1`) — LOUIS 박스를 문다.** 프로필 아바타 박스 `profileImage`가 `.louis-avatar`이고(`Gnb.tsx:1053-1055`) 크기 · 면만 덮는다. 같은 박스를 설정 아바타(`myPageSceneStyles.ts:1013`) · 분석 채널 아바타(`InstagramAnalyticsScene.tsx:367` · `YoutubeAnalyticsScene.tsx:947` · `:1157`) · 업로드 모달 watch 미리보기(`YoutubeUploadModal.tsx:248`) · 관리자 사용자 상세 이니셜 아바타(`AdminClient.tsx:260`)도 달고, 모두 크기 · 면을 호출부가 덮는다. `navigation/UserCircleDefaultAvatar.tsx`는 크기를 갖지 않는 `louis-avatar__fallback` 슬롯이다 — `currentColor`, `aria-hidden role="presentation"`. **census 당시 — 부분만 있었다.** 그 파일이 기본 아바타 SVG 하나를 28×28(`w-14 h-14`)로 소유했고 본체는 셸 파일에 인라인이었다 |
+| 아바타 본체 | **지금 — 박스는 위 LOUIS 레시피다.** `Gnb.tsx:2288-2311` 의 `GnbProfileAvatar`는 이미지/폴백 분기만 갖고, 크기는 `profileImage` 가 `--profile-avatar-size` 로 덮는다(`Gnb.tsx:1056-1057`). **census 당시 — 셸 파일에 인라인이었다.** `Gnb.tsx`가 이미지/폴백 분기와 크기를 함께 가졌다. 기본 이미지 센티넬 `DEFAULT_PROFILE_IMAGE_SRC = "__default_avatar__"`는 지금도 4곳이다(`Gnb.tsx:2286` · `:2297` · `:2585` · `:2586`) |
+| 폴백 | **지금 — 두 꼴이다.** 기본 아바타 SVG(위 폴백 슬롯)와 **이니셜 1벌** — 관리자 사용자 상세 머리가 `.louis-avatar` 루트에 이름 첫 글자를 직접 담는다(`AdminClient.tsx:255-265` 레시피 · `:1083` 첫 글자 · `:1576` 렌더). census 는 이니셜 자리를 적지 않았다 — DS Avatar 의 「이니셜 폴백 0벌」 서술은 이 행으로 고쳤다([avatar.md](../design/components/avatar.md) Known deviations) |
 | 크기 | **24 한 값(제품 `6f6282c1`, 2026-09-14 소유자 요청).** `--profile-avatar-size`를 `profileTrigger` 한 곳이 24px로 갖고(`Gnb.tsx:1470`) ≤480px 재고정도 24px다(`:1507`). ProjectHeader 슬롯의 24px 덮어쓰기는 걷혔다(`ProjectHeader.tsx:332-338`의 주석과 `PROFILE_SLOT`). 이 census 당시에는 **24 · 28 둘**이었다 — 28px 기본, ProjectHeader 슬롯에서 24px |
 | 색 | 기본 아바타만 해당 — light `palette-gray-400` · dark `palette-gray-600`. 다크 면 위에서 한 단계 밝게 |
 | 링 | **진행률 링이 붙어 있다.** `--profile-ring-width: 2px` · `--profile-ring-gap: 2px` · `--profile-ring-progress`(0%)를 `::after`(`border-radius: 999px`)로 그린다 |

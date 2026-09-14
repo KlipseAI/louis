@@ -25,6 +25,27 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-14 (134) — 선행 슬롯의 사본도 걷고, 이니셜 아바타 · CTA 최소 높이 · 링 지름 서술을 사실로 고친다
+
+**기록 · 계약 · 문서만 바뀌었다. 라이브 Figma 에는 쓰지 않았다**(SidebarCta variant 의 축을 읽기 전용으로 한 번 읽었다).
+웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다. (131) 「계약과 문서의 계산값」 절과 조립 규칙 28번을 다시 읽은 문서
+리뷰가 남긴 minor 여섯을 제품 코드 · 되읽기로 확인하고 고쳤다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `figma/components.measured.json` `app-shell-parts.sizes.topBar.leadingSlotHeight` | 32 — (131) 이 후행 슬롯의 사본을 걷을 때 남았다. 선행 · 후행 슬롯은 `app-shell.css` 의 같은 규칙이라 둘 다 높이를 선언하지 않는다 | **지웠다.** `$leadingSlot` 이 이유를 적는다 — 제품 선행 클러스터(`mainChromeLeadingCluster`)도 레시피 클래스만 달고, 높이는 담은 사이드바 토글의 선언 `[height:32px]` 에서 온다 |
+| `scripts/verify-figma-parity.mjs` AppTopBar 계약 | `Leading.height ← leadingSlotHeight` | `Leading.height ← { from: ["icon-button", "md", "height"] }` — 토글은 IconButton md 칸이다. 값이 같아 게이트 결과는 그대로다(빨간 줄은 여전히 ProgressRing 여섯 · AppTopBar `Trailing.height` 하나) |
+| `migration/product-has-refutation.json` 의 `leadingSlotHeight` 축 | DS 인용 `"leadingSlotHeight": 32,` | DS 쪽 좌표 · 값만 계약의 `from` 줄로(같음 그대로), 같은 편집으로 밀린 후행 축의 줄도. `$dsSideUpdates` 에 항목 |
+| `scripts/verify-gates.mjs` | `from` 규칙의 없는 경로를 무는 canary 없음 | canary `figma parity from rule missing record path` — 선행 슬롯의 경로를 기록에 없는 size 키로 바꾸면 `Leading.height의 근거 값이 없습니다` 가 오염 때문에 난다 |
+| [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번 | 「하지 않는 것」에 「기하를 다시 박지 않기」(금지 목록 안의 부정이라 무엇이 금지인지 거꾸로 읽혔다) · 사본 예시는 후행 슬롯 하나 · Acceptance (d) 에 canary 없음 | 「기하 reconcile 을 건너뛰기」 · 두 슬롯과 「값이 지금 같아도 걷는다」 · (d) 에 위 canary |
+| [Avatar](../components/avatar.md) Known deviations · `migration/figma-gap-registry.md` Avatar census | 「이니셜 폴백이 없다 — 제품에 0벌」 · census 「아바타 본체」 칸이 「census 당시 인라인」과 「지금 분기만 갖는다」「분기와 크기를 갖는다」를 한 칸에 섞었다 | 제품에 **1벌** — 관리자 사용자 상세 머리가 `.louis-avatar` 루트에 이름 첫 글자를 담는다(`AdminClient.tsx:255-265` · `:1083` · `:1576`). census 칸은 「지금」과 「census 당시」를 갈라 적고, `.louis-avatar` 를 다는 제품 자리 전부와 폴백 두 꼴을 행으로 더했다 |
+| [Progress](../components/progress.md) · manifest `progress` note · 기록 `progress-ring` 주석 · [Avatar](../components/avatar.md) | 링 지름 「내용 + 8 — 기준 32px」 · 「기준 지름은 32px이다」 · 「감싸면 36이 된다」 · 마스터 「32 · 24 로 옮기고」 · acceptance 「24px 내용에서 32px」 · 「감싼다(32px)」 | 식 `내용 + (간격 + 두께) × 2` 와 원장 키(`progress-ring.sizes.base` 의 `size` · `contentSize`, 라이브는 `components.ProgressRing.geometry.base`). gap-registry 가 먼저 옮긴 것과 같은 규칙(28번 「조건 없는 산문」)이다 |
+| [App Shell Parts](../components/app-shell-parts.md) · 기록 `sidebar-cta.sizes.false.$height` · [Figma Component Authoring](../governance/figma-component-authoring.md) §8 | CTA 「**최소** 40」만 적어, 기록 칸 40 과 Figma 40 이 무엇인지 말하지 않았다 | 코드 · 제품은 최소 40 에 패딩 + 라벨 줄 높이로 계산돼 라벨 한 줄에서 최소를 넘는다(측정 `component.upgradeCta.variants[].rect`). 기록 칸은 그 최소값이고, Figma `SidebarCta` `Collapsed=false` 는 세로 **FIXED** 40 에 라벨을 `TRUNCATE` 로 잘라 넣는다(읽기 전용 확인). parity 는 둘을 서로 대조해 초록이고 브라우저 테스트는 펼친 높이를 재지 않아 어느 게이트도 말하지 않는다 — Known deviations 에 적었다. **Figma 고정은 이번에 바꾸지 않았다** — 크기 굳힘 감사 묶음 8(인계서 「다음 순서」 6번)이 기록 · 계약 · Figma 를 함께 옮긴다 |
+
+**남은 것.** `migration/unverified-value-map.json` 의 두 슬롯 경로(`leadingSlotHeight` · `trailingSlotHeight`)는 역사 원장이라
+그대로 두었다 — 어느 게이트도 그 경로를 기록에서 찾지 않는다. `packages/css/src/component/avatar.css` 머리 주석의 「공용 구현이
+부분만 있다」도 낡았지만 CSS 소스를 바꾸면 생성 CSS 가 따라 움직여 이 문서 정리의 범위 밖에 두었다.
+
 ## 2026-09-14 (133) — 제품 컴포넌트 러너 다섯의 색을 라이브 LOUIS 변수 역할로 옮기고, 업그레이드 러너의 페인트 감사를 푼다
 
 **Figma 계획과 러너만 바뀌었다. 라이브 Figma 에는 쓰지 않았다.** 웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다.

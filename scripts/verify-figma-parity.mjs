@@ -1803,7 +1803,9 @@ const COMPONENT_CONTRACTS = [
       slots: { LeadingSlot: true, TrailingSlot: true },
       extraStrokeWeights: [],
       parts: {
-        Leading: { fields: { height: "leadingSlotHeight" } },
+        // 두 슬롯 모두 높이를 선언하지 않고 담은 것을 hug 한다(app-shell.css 의 같은 규칙). 선행은 사이드바 토글 —
+        // IconButton md 칸이라 그 기록에서 읽는다(components.measured.json 의 app-shell-parts.sizes.topBar.$leadingSlot).
+        Leading: { fields: { height: { from: ["icon-button", "md", "height"] } } },
         // 후행 슬롯은 높이를 선언하지 않고 담은 ProgressRing 을 hug 한다 — 수를 이 기록에 사본으로 두지 않고
         // ProgressRing 기록에서 읽는다(components.measured.json 의 app-shell-parts.sizes.topBar.$trailingSlot).
         Trailing: { fields: { height: { from: ["progress-ring", "base", "size"] } } },
@@ -3929,7 +3931,8 @@ function unionMembers(declarationSource, typeName) {
 // **다른 컴포넌트 기록의 값을 읽는 규칙 `{ from: [컴포넌트, size, 필드] }`.** 스스로 크기를 선언하지 않는 자손
 // (hug 슬롯)은 담은 컴포넌트의 크기를 따른다. 그 수를 담는 쪽 기록에 한 번 더 적으면 담긴 컴포넌트가 움직일 때
 // 사본만 낡는다 — 실측(2026-09-14): AppTopBar 의 `trailingSlotHeight` 36 이, 제품 앵커 6f6282c1 에서 ProgressRing
-// 기록이 32 로 옮긴 뒤에도 남아 있었다. 없는 경로는 undefined 가 되어 아래 「근거 값이 없습니다」로 걸린다.
+// 기록이 32 로 옮긴 뒤에도 남아 있었다. 같은 날 선행 슬롯의 `leadingSlotHeight` 사본도 IconButton 기록으로 옮겼다.
+// 없는 경로는 undefined 가 되어 아래 「근거 값이 없습니다」로 걸린다 — verify-gates 의 canary 가 그 길을 문다.
 function fromMeasured([componentId, sizeKey, field]) {
   return componentsMeasured.components?.[componentId]?.sizes?.[sizeKey]?.[field];
 }

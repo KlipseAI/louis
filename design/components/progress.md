@@ -17,7 +17,7 @@ authority: normative
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | --- |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건이 두 motion context에서 각각 돈다; visual regression과 제품 소비 증거 없음 |
-| Figma         | `partial`      | component set 둘 — ProgressBar(State) · ProgressRing. Figma 는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다. 기하는 양방향이다 — `progress.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. **2026-09-14 `done` 에서 내렸다** — 제품 앵커 `6f6282c1` 에서 링 기준 지름이 32(내용 24)로 옮겨졌는데 라이브 `ProgressRing` 마스터는 아직 36(내용 28)이라 `verify-figma-parity` 가 실패한다. 마스터를 옮기고 되읽기를 다시 뜨면 되올린다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md), 아래 Known deviations) |
+| Figma         | `partial`      | component set 둘 — ProgressBar(State) · ProgressRing. Figma 는 conic 각도의 런타임 값을 표현하지 못해 한 지점만 그린다. 기하는 양방향이다 — `progress.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. **2026-09-14 `done` 에서 내렸다** — 제품 앵커 `6f6282c1` 이 프로필 아바타(링의 기준 내용)를 줄여 기록의 지름 · 내용(`figma/components.measured.json` 의 `progress-ring.sizes.base` `size` · `contentSize`)이 따라 옮겨졌는데, 라이브 `ProgressRing` 마스터(`figma/readback.json` 의 `components.ProgressRing.geometry.base`)는 옛 아바타 기준 그대로라 `verify-figma-parity` 가 실패한다. 마스터를 옮기고 되읽기를 다시 뜨면 되올린다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md), 아래 Known deviations) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다 |
 
@@ -109,7 +109,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 | 바 반경 | 알약 | `radius-pill` |
 | 바 트랙 | — | `color-progress-track` |
 | 바 채움 | — | `color-progress-fill` |
-| 링 지름 | 내용 + 8 — 기준 32px(내용 24) | padding으로 만든다 |
+| 링 지름 | 내용 + (링 간격 + 링 두께) × 2 — **계산값이라 수로 적지 않는다.** 기준 내용과 지름은 기록 `progress-ring.sizes.base` 의 `contentSize` · `size` 가 갖는다 | padding으로 만든다 |
 | 링 두께 | 2px | `border-width-ring` |
 | 링 간격 | 2px | `space-progress-ring-gap` |
 | 링 트랙 · 채움 | — | `color-progress-ring-track` · `color-progress-ring-fill` |
@@ -118,11 +118,13 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 반경 · 최대 폭 셋뿐이다. 그 셋만 옮기고 색은 DS가 골랐다. 링은 다르다 — 제품 정본이 하나뿐이라
 (`profileTrigger`) 두께·간격·지름 식·색을 그대로 옮겼다.
 
-**기준 지름은 32px이다.** 제품 프로필 트리거가 아바타 24에 링 8을 더한다 — `--profile-avatar-size`를
-`profileTrigger` 한 곳이 24px로 갖는다(`Gnb.tsx:1470`, ≤480px 재고정도 24px `:1507`). 제품 앵커
-`6f6282c1`(2026-09-14 소유자 요청)이 모든 페이지의 프로필 버튼을 캔버스 에디터 헤더와 같은 크기로
-맞추기 전에는 기본값이 아바타 28 · 버튼 36이었고 ProjectHeader 슬롯만 24로 덮어 썼다. 그래서
-DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 — 기본 `md`(28)를 감싸면 36이 된다.
+**기준 내용은 제품 프로필 아바타다.** 제품 프로필 트리거의 한 변은 아바타 + (링 간격 + 링 두께) × 2 로
+계산되고(`Gnb.tsx:1476`), 선언은 아바타 · 간격 · 두께 셋이다 — `--profile-avatar-size`를 `profileTrigger` 한 곳이
+24px로 갖는다(`Gnb.tsx:1470`, ≤480px 재고정도 24px `:1507`). 기록은 그 아바타를 `contentSize` 로, 식을 푼 지름을
+`size` 로 두고 이 문서는 지름을 수로 적지 않는다. 제품 앵커 `6f6282c1`(2026-09-14 소유자 요청)이 모든 페이지의
+프로필 버튼을 캔버스 에디터 헤더와 같은 크기로 맞추기 전에는 기본 아바타가 28이었고 ProjectHeader 슬롯만 24로 덮어
+썼다. 그래서 DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 — 기본 `md`(28)를 감싸면 지름도 두
+칸의 차이만큼 커진다.
 
 **링 지름을 계산하지 않는다.** 제품은 `avatar + (gap + width) × 2`를 직접 적는데, 그러면 아바타
 크기를 두 곳에 적게 된다. DS는 `padding`으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.
@@ -155,15 +157,15 @@ DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 �
   비율이 반드시 어긋난다.** 오늘의 규약은 「인스턴스는 폭 320에서만 쓴다」이며, 그 제약을 풀려면
   `value`를 컴포넌트 프로퍼티로 세워 채움을 값에서 계산해야 한다. CSS 쪽에는 이 문제가 없다 —
   채움이 `inline-size: %`라 트랙을 따라간다.
-- **Figma `ProgressRing` 마스터가 기준 지름을 따라오지 않았다(2026-09-14).** 기록은 32(내용 24)로
-  옮겼는데 라이브 마스터는 Track 36 · Content 28 이다(`figma/readback.json` 의
-  `components.ProgressRing.geometry.base`). Figma 쓰기는 소유자 승인이 필요해 앵커 이동에서 하지
-  않았고, 그래서 위 Availability 의 Figma 가 `partial` 이다. 닫는 길은 마스터를 32 · 24 로 옮기고
-  `figma-readback-emit --components --only ProgressRing` 과 `build-figma-snapshot` 으로 되읽기를 다시
-  뜨는 것이다 — `verify-figma-parity` 가 초록이 되면 `done` 으로 되올린다. **같은 원인이 AppTopBar 에도
+- **Figma `ProgressRing` 마스터가 기준 지름을 따라오지 않았다(2026-09-14).** 기록(`progress-ring.sizes.base`
+  의 `size` · `contentSize`)은 아바타 24 기준으로 옮겼는데 라이브 마스터의 Track · Content 는 아바타 28 기준 그대로다
+  (`figma/readback.json` 의 `components.ProgressRing.geometry.base`). Figma 쓰기는 소유자 승인이 필요해 앵커
+  이동에서 하지 않았고, 그래서 위 Availability 의 Figma 가 `partial` 이다. 닫는 길은 마스터의 Track · Content 를
+  기록 값으로 옮기고 `figma-readback-emit --components --only ProgressRing` 과 `build-figma-snapshot` 으로 되읽기를
+  다시 뜨는 것이다 — `verify-figma-parity` 가 초록이 되면 `done` 으로 되올린다. **같은 원인이 AppTopBar 에도
   번진다** — 그 계약은 후행 슬롯 높이를 이 기록의 `progress-ring.sizes.base.size` 에서 읽고(슬롯은 링을
-  hug 한다, [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번), 라이브 표본은 아직 36 이다.
-  마스터를 옮길 때 AppTopBar 의 되읽기도 함께 다시 뜬다.
+  hug 한다, [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번), 라이브 표본(`components.AppTopBar.geometry.topBar.parts.Trailing`)은
+  아직 옛 링 크기다. 마스터를 옮길 때 AppTopBar 의 되읽기도 함께 다시 뜬다.
 
 ## Acceptance tests
 
@@ -174,5 +176,6 @@ DS에서 그 모습을 내려면 [Avatar](avatar.md)의 `sm`(24)을 감싼다 �
 5. `valueText`가 `aria-valuetext`로 나간다.
 6. 이름이 없으면 개발 중에 경고한다.
 7. 바의 높이·최대 폭·반경이 계약과 같다.
-8. 링의 지름이 내용에서 나온다 — 24px 내용에서 32px이다.
+8. 링의 지름이 내용에서 나온다 — 기록의 `contentSize` 내용에서 지름이 `contentSize + gap-plus-width × 2` 이고,
+   그 값이 기록의 `size` 와 같다.
 9. 면과 채움 색이 states 표의 토큰과 같다. 링은 conic-gradient 안에 두 색이 모두 들어간다.

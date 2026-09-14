@@ -806,6 +806,23 @@ withCanary(
   "계약의 대조 범위 밖입니다",
 );
 
+// **다른 기록을 읽는 `from` 규칙이 없는 경로로 조용히 통과하지 않는다** (figma-screen-assembly.md 28번 Acceptance (d)).
+// hug 슬롯의 높이는 담긴 컴포넌트 기록에서 읽는다 — 그 경로가 틀리면 기대값이 undefined 가 되는데, 그것이
+// 「비교할 것 없음」으로 넘어가면 사본을 걷은 자리가 대조 밖으로 빠진다. AppTopBar 선행 슬롯의 경로를 기록에 없는
+// size 키로 바꿔 「근거 값이 없습니다」가 그 자손 이름으로 나는지 본다. 이 게이트는 라이브 ProgressRing 낙후로 이미
+// 빨갛지만 withCanary 가 진단 줄이 오염 때문에 생겼는지를 따로 본다.
+withCanary(
+  "scripts/verify-figma-parity.mjs",
+  (source) =>
+    source.replace(
+      'Leading: { fields: { height: { from: ["icon-button", "md", "height"] } } },',
+      'Leading: { fields: { height: { from: ["icon-button", "no-such-size", "height"] } } },',
+    ),
+  "figma parity from rule missing record path",
+  "scripts/verify-figma-parity.mjs",
+  "Leading.height의 근거 값이 없습니다",
+);
+
 // ── 표면 커버리지 래칫 ────────────────────────────────────────────────────
 // `verify-figma-parity` 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 **닫힌 집합**이라 계약
 // 밖의 제품 표면은 아무리 빠져 있어도 초록이다. 그 바깥을 세는 게이트가 실제로 빨개지는지

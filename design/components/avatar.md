@@ -133,10 +133,17 @@ deviations). 판정은 [`product.measured.json`](../../migration/product.measure
   버튼을 캔버스 에디터 헤더와 같은 크기로 맞추면서 아바타가 24 한 값이 됐다(`Gnb.tsx:1470`, 그 전 기본
   28). `--profile-avatar-size`에서 옮겨 온 두 칸 중 지금 프로필 트리거에 남은 것은 `sm`뿐이다. 기본을
   `sm`으로 옮기면 크기를 적지 않은 모든 소비처가 줄어드는 breaking이라 앵커 이동에서 하지 않는다 —
-  프로필 트리거를 그릴 때는 `size="sm"`을 주고 [Progress](progress.md)의 `ProgressRing`으로 감싼다(32px).
+  프로필 트리거를 그릴 때는 `size="sm"`을 주고 [Progress](progress.md)의 `ProgressRing`으로 감싼다 — 지름은
+  `sm` 에 (링 간격 + 링 두께) × 2 가 더해진 값이고 수는 `figma/components.measured.json` 의
+  `progress-ring.sizes.base.size` 가 갖는다.
 - **폴백 글리프가 제품과 같은 그림이 아니다.** 제품 SVG를 그대로 옮기지 않고 같은 뜻의 글리프를
   저장소에서 그렸다 — 아이콘 세트의 `origin: original`과 같은 판단이다.
-- **이니셜 폴백이 없다.** 제품에 0벌이라 이번 범위가 아니다.
+- **이니셜 폴백이 없다.** 제품에는 1벌 있다(앵커 `6f6282c1`) — 관리자 사용자 상세 머리의 아바타가 `.louis-avatar`
+  루트에 이름 첫 글자를 직접 담는다. 레시피는 `AdminClient.tsx:255-265`(크기 · 글자 크기 · 관리자 전용 면과 글자색을
+  호출부가 덮는다), 글자는 `AdminClient.tsx:1083`(사용자 이름 첫 글자를 대문자로, 없으면 「?」), 렌더는
+  `AdminClient.tsx:1576` 이다. 제품 주석이 「이니셜 글자가 곧 폴백이라 별도 슬롯 없이 루트에 담는다」고 적는다.
+  소비처가 내부 관리자 화면 한 곳이라 이번 범위가 아니다 — DS `Avatar` 는 `children` 을 받지 않으므로 그 자리는
+  컴포넌트가 아니라 레시피 클래스를 직접 문다.
 - **그룹(겹친 아바타)이 없다.** 제품에 0벌이다.
 
 ## Acceptance tests

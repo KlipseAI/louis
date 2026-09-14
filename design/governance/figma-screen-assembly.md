@@ -574,16 +574,18 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 - 측정 rect 로 `resize()` 한 축을 FIXED 로 남기기 — 그 축에 선언 근거가 없으면 계산값을 굳힌 것이다.
 - 제품이 흐름(`position: static`)인 자식을 `layoutMode = "NONE"` 에 x/y 로 놓기(7번의 연장).
 - TEXT 를 `textAutoResize = "NONE"` 과 측정 폭 · 높이로 고정하기.
-- 세트가 이미 있다는 이유로 기하를 다시 박지 않기 — 세트 러너는 매 실행 레이아웃을 **제자리에서** reconcile 한다.
+- 세트가 이미 있다는 이유로 기하 reconcile 을 건너뛰기 — 세트 러너는 매 실행 레이아웃을 **제자리에서** reconcile 한다.
   기존 variant 와 노드는 지우지 않는다(같은 id 로 새 자리에 옮기거나, 계획에 없으면 숨겨 `retired/` 로 둔다) —
   인스턴스의 TEXT 속성 값과 override 가 그 노드 id 에 걸려 있다.
 - 생성기 가드 · 치환 매처가 계산 결과를 `=== N` 이나 `|Δ| ≤ 1` 로 비교하기 — 가드는 선언이 있는지와 측정이 그
   선언의 식으로 **닫히는지**를 보고(앱 셸 생성기: 바 높이 = 패딩 + 가장 큰 자식 + 헤어라인, 업그레이드 생성기: 헤더
   높이 = 렌더러가 그리는 자식의 합), 매처는 구조 서명과 글자 서열로 판정한다.
 - 노드 이름 · 컴포넌트 설명에 측정 수(`Measured 1628×1004`)를 리터럴로 박기 — 계획 rect 에서 조립한다.
-- 계산된 크기를 두 기록에 사본으로 두기 — 담긴 쪽 기록에서 읽는다. 예: AppTopBar 후행 슬롯은 높이를 선언하지 않고
-  링을 hug 하므로, `verify-figma-parity` 계약이 그 높이를 ProgressRing 기록(`progress-ring.sizes.base.size`)에서
-  `from` 으로 읽는다.
+- 계산된 크기를 두 기록에 사본으로 두기 — 담긴 쪽 기록에서 읽는다. 예: AppTopBar 의 두 슬롯은 같은 CSS 규칙이라
+  둘 다 높이를 선언하지 않고 담은 것을 hug 하므로, `verify-figma-parity` 계약이 후행 슬롯 높이를 ProgressRing
+  기록(`progress-ring.sizes.base.size`)에서, 선행 슬롯 높이를 사이드바 토글이 든 IconButton 기록
+  (`icon-button.sizes.md.height`)에서 `from` 으로 읽는다. 사본의 값이 지금 담긴 쪽과 같아도 걷는다 — 후행 슬롯의
+  사본도 ProgressRing 이 옮기기 전까지는 같았다.
 - 규범 문서 · 결정 · 기록 주석이 계산 결과를 조건 없이 사실로 적기 — 산식과 조건(뷰포트 · 줄 수 · 담은 것)을 적고
   수치는 원장 키로 인용한다.
 
@@ -670,7 +672,9 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
   상단 바 두 세트의 variant 마다 Auto Layout 축을 앱 셸 계획의 `layoutContract` 와 대조하고, 앱 셸 러너도 적용 뒤 같은
   계약을 스스로 대조해 어긋나면 던진다. (c) `check-figma-app-screens` 가 본문 세트별 인스턴스 수를 양방향으로 잠그고
   본문 세트의 `skipped` 가 생기면 실패한다 — 크기 매처가 조용히 놓치던 자리다. (d) `verify-figma-parity` 의 `from` 규칙이
-  hug 슬롯의 높이를 담긴 컴포넌트 기록에서 읽는다 — 없는 경로는 「근거 값이 없습니다」로 실패한다. **아직 기계가 세지
+  hug 슬롯의 높이를 담긴 컴포넌트 기록에서 읽는다 — 없는 경로는 「근거 값이 없습니다」로 실패하고, `verify-gates` 의
+  canary(`figma parity from rule missing record path`)가 AppTopBar 선행 슬롯의 경로를 기록에 없는 size 키로 바꿔 그
+  진단이 자손 이름(`Leading.height`)으로 나는지 문다. **아직 기계가 세지
   않는 것:** 계획의 FIXED 축마다 선언 근거나 위 허용 사유가 붙었는지, 렌더러가 HUG · FILL 을 걸지 못하고 측정 크기로
   떨어진 수, 흐름 자식이 있는 `layoutMode NONE` 과 `textAutoResize NONE` 인 글자, 규범 문서 acceptance 의 크기 수치가
   원장 키를 인용하는지. 이 넷은 앱 화면 보드 판정기 · 사이드바 세트 · DS 컴포넌트 계약을 고치는 감사 묶음과 함께 선다.

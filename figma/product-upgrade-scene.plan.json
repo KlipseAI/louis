@@ -191,7 +191,13 @@
           },
           "titlePaddingBottom": 18,
           "bodyMaxWidth": 686.25,
-          "bodyMaxWidthDeclared": "72ch"
+          "bodyMaxWidthDeclared": "72ch",
+          "gift": {
+            "paddingTop": 20,
+            "paddingTopDeclared": "calc(20px)",
+            "height": 32,
+            "label": "Gift a plan"
+          }
         },
         "deck": {
           "columns": 5,
@@ -3073,7 +3079,13 @@
             },
             "titlePaddingBottom": 18,
             "bodyMaxWidth": 600.469,
-            "bodyMaxWidthDeclared": "72ch"
+            "bodyMaxWidthDeclared": "72ch",
+            "gift": {
+              "paddingTop": 20,
+              "paddingTopDeclared": "calc(20px)",
+              "height": 32,
+              "label": "Gift a plan"
+            }
           },
           "deck": {
             "columns": 2,
@@ -4238,6 +4250,10 @@
       "spacing18": {
         "collection": "Klipse Primitive",
         "name": "spacing/18"
+      },
+      "spacing20": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/20"
       },
       "spacing24": {
         "collection": "Klipse Primitive",

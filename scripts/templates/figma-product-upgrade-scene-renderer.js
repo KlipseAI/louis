@@ -446,7 +446,7 @@ mobileCardSet.description = `${M.cards.length} viewport-observed mobile Upgrade 
 // 가격 섹션(뷰포트 크롭) = 세로 Auto Layout. 크기는 마스터의 뷰포트 기본값(셸이 `h-[100dvh]` 이고 섹션이 `flex: 1 1 0%`)이고
 // 넘치는 것은 자른다. 좌우 패딩은 스크롤 칸 패딩에서 상단 바 bleed 를 뺀 값이라 바는 FILL 로 끝까지 닿고, `body` 가 bleed 만큼
 // 되돌려 컨테이너(`max-width: min(1300px, 100%)`, `margin-inline: auto`)를 가운데 둔다. 컨테이너 안은 헤더(`max-width: 820px`,
-// 알림 알약 · 제목 · 본문) → 덱(`repeat(N, minmax(0px, 1fr))`, 가장 긴 카드 하나만 HUG · 나머지 FILL) → 비교 제목이다.
+// 알림 알약 · 제목 · 본문 · 선물 구매 줄의 칠 없는 자리) → 덱(`repeat(N, minmax(0px, 1fr))`, 가장 긴 카드 하나만 HUG · 나머지 FILL) → 비교 제목이다.
 const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain, cardNameOf, cardPrefix }) => {
   const L = S.main.layout;
   flow(component, "VERTICAL", { padding: L.main.padding, gap: L.main.barGap });
@@ -516,7 +516,26 @@ const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain,
   const bodyText = insertAt(header, find("TEXT", "header/body") ?? newText("header/body"), 2);
   styleText(bodyText, S.main.headerBody);
   sizeText(bodyText, { sizing: "FILL", maxWidth: S.main.headerBody.maxWidth });
-  retireOthers(header, [noticeBox, titleBox, bodyText]);
+  const headerKeep = [noticeBox, titleBox, bodyText];
+  if (L.header.gift) {
+    // 선물 구매 줄(KLI-264) — 버튼의 면 · 글자는 그리지 않고 **자리만** 둔다: 줄의 위 여백(칠 없는 감싸개 패딩) + Button md 높이.
+    // 헤더가 흐름이라 이 줄을 빼면 덱 · 비교 제목이 그만큼 위로 서고, 모바일 조각은 관측되지 않은 영역을 드러낸다.
+    const giftRow = insertAt(header, find("FRAME", "gift") ?? newFrame("gift"), 3);
+    plain(giftRow);
+    flow(giftRow, "VERTICAL", { padding: { top: L.header.gift.paddingTop } });
+    giftRow.layoutSizingHorizontal = "FILL";
+    giftRow.layoutSizingVertical = "HUG";
+    const giftSlot = insertAt(giftRow, find("FRAME", "gift/button slot") ?? newFrame("gift/button slot"), 0);
+    plain(giftSlot);
+    giftSlot.layoutMode = "NONE";
+    giftSlot.resize(giftSlot.width, L.header.gift.height);
+    giftSlot.layoutSizingHorizontal = "FILL";
+    giftSlot.layoutSizingVertical = "FIXED";
+    retireOthers(giftSlot, []);
+    retireOthers(giftRow, [giftSlot]);
+    headerKeep.push(giftRow);
+  }
+  retireOthers(header, headerKeep);
   // 덱
   const deck = insertAt(container, find("FRAME", "deck") ?? newFrame("deck"), 1);
   plain(deck);

@@ -258,8 +258,10 @@ const cardStructure = (tree, root, lines, where) => {
        `pr-[var(--app-gnb-main-inline-padding-end)]`(계산값). 셸은 `h-[100dvh]` 라 main 이 위아래를 채운다.
      · 메인 표면(가격 섹션 · 뷰포트 크롭): 스크롤 칸 패딩, 상단 바 bleed, 컨테이너 `max-width: min(1300px, 100%)` 와 위 패딩,
        헤더 `max-width: 820px` · 아래 여백, 알림 알약 높이(`height: calc(32px)`) · 아래 여백, 제목 아래 여백, 본문 `max-width: 72ch`,
+       선물 구매 줄의 위 여백(`mt-10`)과 버튼 높이(Button md 레시피 — 면 · 글자는 그리지 않고 자리만),
        덱 `repeat(N, minmax(0px, 1fr))` · gap, 비교 블록 위 여백(블록 margin 이 겹쳐 큰 쪽 하나만 남는다).
-   숫자 가드는 없다 — 선언이 있는지와 rect 가 그 값들로 **닫히는지**(원장 대조)만 본다. */
+   숫자 가드는 없다 — 선언이 있는지와 rect 가 그 값들로 **닫히는지**(원장 대조)만 본다. 헤더는 렌더러가 그리는 자식의 합으로
+   닫혀야 하고, 헤더 직계 자식이 렌더러가 그리는 목록과 다르면 멈춘다. */
 const cappedWidth = (entry, available, where) => {
   const declared = declaredValue(entry, "max-width", /^min\(\d+(?:\.\d+)?px, 100%\)$/, where);
   const cap = Number(/^min\(([\d.]+)px/.exec(declared)[1]);
@@ -282,6 +284,9 @@ const upgradeLayout = (tree, where) => {
   const deck = at("body.1.0.0.1.0.0.1.1");
   // 비교 블록은 뷰포트(모바일 402×874) 밖이면 측정 트리에 없다 — 없으면 그리지 않는다.
   const optional = (path) => tree.find((entry) => entry.path === path) ?? null;
+  const kids = (path) => tree.filter((entry) => entry.parentPath === path);
+  // 선물 구매 줄(KLI-264, `<div className="mt-10"><Button variant="secondary">`) — 아래 `giftSlot` 이 자리를 싣는다.
+  const giftRow = optional("body.1.0.0.1.0.0.1.0.3");
   const compare = optional("body.1.0.0.1.0.0.1.2");
   const compareInner = optional("body.1.0.0.1.0.0.1.2.0");
   const compareTitle = optional("body.1.0.0.1.0.0.1.2.0.0");
@@ -292,6 +297,28 @@ const upgradeLayout = (tree, where) => {
   declaredValue(section, "flex", /^1 1 0%$/, where);
   declaredValue(bar, "margin-left", /--mainchrome-bleed-left/, where);
   const deckColumns = declaredValue(deck, "grid-template-columns", /^repeat\(\d+, minmax\(0px, 1fr\)\)$/, where);
+  // **헤더의 직계 자식은 렌더러가 그리는 것과 같아야 한다.** 헤더는 흐름이라 그 높이가 덱 · 비교 제목의 자리를 정한다 —
+  // 렌더러가 모르는 자식이 끼면 Figma 헤더가 그만큼 짧아져 아래가 전부 위로 선다. 모르는 자식이 나오면 슬롯을 더한다.
+  const drawnHeaderKids = [notice, title, body, ...(giftRow ? [giftRow] : [])];
+  const headerKids = kids(header.path);
+  if (headerKids.length !== drawnHeaderKids.length || headerKids.some((entry, index) => entry !== drawnHeaderKids[index])) {
+    fail(`${where}: header children ${headerKids.map((entry) => `${entry.path.split(".").at(-1)}:${entry.tag}`).join(" · ")} are not the ones the renderer draws (notice · title · body · gift row) — add the slot`);
+  }
+  // 선물 구매 줄: 버튼의 면 · 글자는 아직 그리지 않는다(색이 로컬 변수 표에 없어 페인트 감사를 넓힌다 — Updates (132)).
+  // **자리는 둔다** — 줄의 위 여백(`mt-10`, 칠 없는 감싸개 패딩)과 버튼 높이(Button md 레시피, 카드 CTA 와 같은 출처).
+  let giftSlot = null;
+  if (giftRow) {
+    const [button, ...rest] = kids(giftRow.path);
+    if (button?.tag !== "button" || rest.length) fail(`${where}: header gift row ${giftRow.path} is no longer a single button — update the gift slot`);
+    if (px(style(button).height) !== buttonMdHeight) fail(`${where}: header gift button height ${style(button).height} is not the Button md recipe`);
+    const label = button.ownText ? button : kids(button.path).find((entry) => entry.ownText) ?? fail(`${where}: missing header gift button label ${button.path}`);
+    giftSlot = {
+      paddingTop: px(style(giftRow).marginTop),
+      paddingTopDeclared: declaredValue(giftRow, "margin-top", /px\)?$/, where),
+      height: buttonMdHeight,
+      label: label.ownText,
+    };
+  }
   const bleed = { left: -px(barStyle.marginLeft), right: -px(barStyle.marginRight) };
   const scrollPadding = paddingOf(scrollStyle);
   const contentWidth = section.rect.width - scrollPadding.left - scrollPadding.right;
@@ -316,11 +343,19 @@ const upgradeLayout = (tree, where) => {
       titlePaddingBottom: px(titleStyle.marginBottom),
       bodyMaxWidth: px(bodyStyle.maxWidth),
       bodyMaxWidthDeclared: declaredValue(body, "max-width", /ch$/, where),
+      gift: giftSlot,
     },
     deck: { columns: Number(/^repeat\((\d+),/.exec(deckColumns)[1]), gap: px(deckStyle.columnGap), declared: deckColumns },
     compare: compare && compareInner && compareTitle ? { paddingTop: Math.max(px(style(compare).marginTop), px(style(compareInner).marginTop)) } : null,
   };
   const deckBottom = deck.rect.y + deck.rect.height;
+  // 헤더 높이는 **렌더러가 그리는 자식**(알약 높이 + 아래 여백 · 제목 + 아래 여백 · 본문 · 선물 구매 줄의 위 여백 + 버튼 높이)으로
+  // 닫혀야 한다. 측정 header 높이만으로 덱 자리를 대조하면 그리지 않는 자식이 끼어도 초록이다 — 선물 구매 줄이 그랬다.
+  const drawnHeaderHeight =
+    layout.header.notice.height + layout.header.notice.paddingBottom +
+    title.rect.height + layout.header.titlePaddingBottom +
+    body.rect.height +
+    (layout.header.gift ? layout.header.gift.paddingTop + layout.header.gift.height : 0);
   const closes =
     section.rect.x === page.rect.x + layout.page.padding.left &&
     section.rect.y === page.rect.y + layout.page.padding.top &&
@@ -330,6 +365,7 @@ const upgradeLayout = (tree, where) => {
     container.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap &&
     header.rect.y === container.rect.y + layout.container.paddingTop &&
     notice.rect.height === layout.header.notice.height &&
+    header.rect.height === drawnHeaderHeight &&
     deck.rect.y === header.rect.y + header.rect.height + layout.header.paddingBottom &&
     (!layout.compare || compare.rect.y === deckBottom + layout.compare.paddingTop);
   if (!closes) fail(`${where}: measured upgrade rects no longer close over the declared layout values`);
@@ -348,8 +384,13 @@ const upgradeLayout = (tree, where) => {
 // **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더 들어가 있었는데
 // (`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다(UpgradePlanPageClient.tsx `<header className={PRICING_HEADER}>`
 // 위 주석). 지금 `<header>` 의 직속 자식은 넷이다: .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span).
-// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)이다. 실측 장면에는 보이는데 이 생성기의 계획에 슬롯이 없다.
+// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)의 면과 글자다. 실측 장면에는 보이는데 러너가 칠하지 않는다.
 // 여기 적어 두는 이유는 적지 않으면 「없는 것」이 되기 때문이다.
+// **자리는 그린다(2026-09-14).** 메인 표면이 흐름이 된 뒤로 헤더 높이가 덱 · 비교 제목의 자리를 정한다. 옛 러너는 카드를
+// 측정 position 에 박아 이 누락이 위치를 흔들지 않았지만, 흐름에서 줄을 통째로 빼면 덱 · 비교 제목이 그 줄(위 여백 + 버튼
+// 높이)만큼 위로 서고 모바일 조각(FIXED 높이 증거 경계)은 관측되지 않은 영역을 드러낸다. 그래서 `upgradeLayout` 이 줄의
+// 위 여백과 Button md 높이를 `layout.header.gift` 로 싣고, 렌더러가 칠 없는 자리로 둔다. 헤더 높이 대조도 측정 header
+// 높이가 아니라 그리는 자식의 합으로 닫는다 — 그 전 대조는 그리지 않는 자식을 담은 측정값으로 닫혀 공허하게 초록이었다.
 const desktop = upgradeLayout(screen.tree, `${context} ${route}`);
 const cardGrid = desktop.rects.deck;
 const main = desktop.rects.section;
@@ -510,7 +551,7 @@ const cardSpacing = (spec) => [
 const layoutSpacing = (layout) => [
   ...Object.values(layout.main.padding), layout.main.bleed.left, layout.main.bleed.right, layout.main.barGap,
   layout.container.paddingTop, layout.header.paddingBottom, layout.header.notice.paddingBottom, ...Object.values(layout.header.notice.padding),
-  layout.header.titlePaddingBottom, layout.deck.gap, layout.compare?.paddingTop ?? 0,
+  layout.header.titlePaddingBottom, layout.header.gift?.paddingTop ?? 0, layout.deck.gap, layout.compare?.paddingTop ?? 0,
 ];
 const spacingBindings = Object.fromEntries([...new Set([
   ...cardSpecs.flatMap(cardSpacing), ...mobileCardSpecs.flatMap(cardSpacing), ...layoutSpacing(desktop.layout), ...layoutSpacing(mobile.layout),
@@ -657,6 +698,7 @@ const runnerPlan = stripAnnotations(plan);
     delete surface.layout.header.maxWidthDeclared;
     delete surface.layout.header.bodyMaxWidthDeclared;
     delete surface.layout.header.notice.heightDeclared;
+    if (surface.layout.header.gift) { delete surface.layout.header.gift.paddingTopDeclared; delete surface.layout.header.gift.label; }
     delete surface.layout.deck.declared;
   }
   // **글자 스타일은 표 하나로 모은다.** 카드 다섯 · 조각 둘 · 헤더의 글자 97개가 스타일 15벌을 반복해, 각 글자에 크기 ·

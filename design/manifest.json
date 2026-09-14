@@ -2516,7 +2516,7 @@
     },
     {
       "path": "scripts/templates/figma-product-components-renderer.js",
-      "purpose": "측정 계획을 Figma component set과 variant로 재현하는 생성 코드 템플릿. 제품 수치를 저작하지 않고 계획의 측정값과 라이브 LOUIS 변수 역할 · 아이콘 자산만 소비하며, 사이드바 행 · CTA · 결과 본문의 칠을 매 실행 역할로 다시 걸고 보이는 페인트를 감사한다",
+      "purpose": "측정 계획을 Figma component set과 variant로 재현하는 생성 코드 템플릿. 제품 수치를 저작하지 않고 계획의 측정값과 라이브 LOUIS 변수 역할 · 아이콘 자산만 소비하며, 사이드바 메뉴 행의 구조를 계획에 맞추고(계획에 없는 옛 + 버튼 · 감싸개는 지우지 않고 숨겨 retired/ 로) 사이드바 행 · CTA · 결과 본문의 칠을 매 실행 역할로 다시 걸고 보이는 페인트를 감사한다",
       "authority": "reference"
     },
     {

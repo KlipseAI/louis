@@ -542,6 +542,47 @@ const ensurePaymentResult = () => {
   return resultSet;
 };
 
+// **행 구조도 매 실행 계획에 맞춘다(2026-09-14, 조립 규칙 28번).** 제품 `658ece13` 이 Canvas · Composition 행의 + 버튼을
+// 걷어 계획은 두 행을 simple(아이콘 · 라벨)로 싣는데, 그 전에 지은 라이브 세트의 두 행은 여전히
+// `main-action`(아이콘 · 라벨 감싸개) + `add-action · …`(+ 버튼) 이다. 칠만 다시 걸면 제품에 없는 + 버튼이 variant 마다
+// 둘씩 보인 채 남는다(칠이 묶여 있어 감사도 통과한다). 그래서 계획 행의 자식(아이콘 · 라벨 · 스페이서 · BETA 칩)을 같은 id 로
+// 행의 직계 제자리에 옮기고, 계획에 없는 자식(`main-action` · `add-action · …`)과 계획에 없는 행은 **지우지 않고** 숨겨
+// `retired/` 로 이름만 바꾼다 — 인스턴스의 override 가 그 노드 id 에 걸려 있다. 감싸개에서 꺼낸 행은 간격이 + 버튼과의
+// 간격이었으므로 계획의 아이콘–라벨 간격으로 되돌린다(자리가 그대로다). 그 밖의 행 기하는 여기서 건드리지 않는다(묶음 4).
+const menuRowName = (spec) => `${spec.kind === "section-label" ? "section" : "row"}/${spec.label.text}`;
+const retire = (node) => {
+  if (!node.name.startsWith("retired/")) node.name = `retired/${node.name}`;
+  node.visible = false;
+};
+const reconcileMenuRow = (row, spec) => {
+  const wrapper = row.children.find((entry) => entry.type === "FRAME" && entry.name === "main-action");
+  let lifted = false;
+  const placeChild = (type, name, index) => {
+    const node =
+      row.children.find((entry) => entry.type === type && entry.name === name) ??
+      wrapper?.children.find((entry) => entry.type === type && entry.name === name);
+    if (!node) throw new Error(`Missing ${type} ${name} in Gnb menu ${row.name}`);
+    if (node.parent?.id !== row.id) lifted = true;
+    if (node.parent?.id !== row.id || row.children.findIndex((entry) => entry.id === node.id) !== index) row.insertChild(index, node);
+    node.visible = true;
+    return node;
+  };
+  const keep =
+    spec.kind === "section-label"
+      ? [placeChild("TEXT", "label", 0)]
+      : [placeChild("INSTANCE", "icon", 0), placeChild("TEXT", "label", 1)];
+  if (spec.kind === "highlight") keep.push(placeChild("FRAME", "spacer", 2), placeChild("FRAME", "badge/BETA", 3));
+  if (lifted) {
+    const gap = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
+    const variable = V[`spacing${gap}`];
+    if (!variable) throw new Error(`Missing spacing binding for Gnb menu gap ${gap}`);
+    row.itemSpacing = gap;
+    row.setBoundVariable("itemSpacing", variable);
+  }
+  const keepIds = new Set(keep.map((node) => node.id));
+  for (const child of [...row.children]) if (!keepIds.has(child.id)) retire(child);
+};
+
 const reconcileMenuVariants = (menuSet) => {
   const defaultVariant = menuSet.children.find((entry) => entry.name === "Current=Default");
   if (!defaultVariant) throw new Error("Missing default Gnb menu variant");
@@ -552,10 +593,17 @@ const reconcileMenuVariants = (menuSet) => {
     menuSet.appendChild(clone);
   }
   const specByName = new Map(P.variants.map((spec) => [`Current=${spec.current}`, spec]));
+  const rowSpecByName = new Map(P.rows.map((spec) => [menuRowName(spec), spec]));
   for (const [index, variant] of menuSet.children.entries()) {
     const spec = specByName.get(variant.name);
     if (!spec) throw new Error(`Unexpected Gnb menu variant ${variant.name}`);
     pin(variant);
+    for (const row of [...variant.children]) {
+      if (row.name.startsWith("retired/")) continue;
+      const rowSpec = row.type === "FRAME" ? rowSpecByName.get(row.name) : null;
+      if (rowSpec) reconcileMenuRow(row, rowSpec);
+      else retire(row);
+    }
     // 행 · 칩 · 섹션 라벨은 매 실행 계획의 역할로 다시 칠한다. 제품 사이드바의 활성 행은 면이 없다(`menuRowPaint.activeSurface`).
     const R = P.menuRowPaint;
     for (const row of variant.children.filter((entry) => entry.type === "FRAME" && entry.name.startsWith("row/"))) {
@@ -648,67 +696,38 @@ for (const spec of P.rows) {
     root.appendChild(row);
     continue;
   }
-  const gap = spec.kind === "compound" ? spec.gap : spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
+  // compound 행(+ 버튼 감싸개)은 짓지 않는다 — 제품 `658ece13` 이 + 버튼을 걷어 계획이 simple 로 싣는다. 그 전에 지은
+  // 라이브 세트의 옛 compound 행은 `reconcileMenuRow` 가 같은 id 로 풀고 + 버튼을 `retired/` 로 숨긴다.
+  if (spec.kind !== "simple" && spec.kind !== "highlight") throw new Error(`Unexpected Gnb menu row kind ${spec.kind}`);
+  const gap = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
   const row = figma.createFrame();
   row.name = `row/${spec.label.text}`;
   applyMeasuredFrame(row, spec, gap);
-  if (spec.kind === "compound") {
-    const main = figma.createFrame();
-    main.name = "main-action";
-    main.layoutMode = "HORIZONTAL";
-    main.primaryAxisSizingMode = main.counterAxisSizingMode = "FIXED";
-    main.resize(spec.mainRect.width, spec.mainRect.height);
-    main.counterAxisAlignItems = "CENTER";
-    main.itemSpacing = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
-    main.setBoundVariable("itemSpacing", V.spacing10);
-    main.fills = [];
-    main.appendChild(makeIcon(spec.icon, spec.icon.paint));
-    main.appendChild(makeText(spec.label, spec.label.paint));
-    const add = figma.createFrame();
-    add.name = `add-action · ${spec.ariaLabel}`;
-    add.layoutMode = "HORIZONTAL";
-    add.primaryAxisSizingMode = add.counterAxisSizingMode = "FIXED";
-    add.resize(spec.addRect.width, spec.addRect.height);
-    add.primaryAxisAlignItems = add.counterAxisAlignItems = "CENTER";
-    add.cornerRadius = spec.addRadius;
-    bindCorners(add, V.radius6);
-    // compound 행(+ 버튼)은 제품 `658ece13` 이 걷어 계획이 더는 싣지 않는다 — 측정 면이 없어 칠하지 않는다.
-    add.fills = [];
-    const plus = componentByName.get(P.iconComponents.plus).createInstance();
-    plus.name = "icon/plus";
-    plus.resize(20, 20);
-    plus.fills = [];
-    paintIcon(plus, spec.icon.paint);
-    add.appendChild(plus);
-    row.appendChild(main);
-    row.appendChild(add);
-  } else {
-    row.appendChild(makeIcon(spec.icon, spec.icon.paint));
-    row.appendChild(makeText(spec.label, spec.label.paint));
-    if (spec.kind === "highlight") {
-      const spacer = figma.createFrame();
-      spacer.name = "spacer";
-      spacer.resize(1, 1);
-      spacer.fills = [];
-      spacer.layoutGrow = 1;
-      row.appendChild(spacer);
-      const badge = figma.createFrame();
-      badge.name = "badge/BETA";
-      badge.layoutMode = "HORIZONTAL";
-      badge.primaryAxisSizingMode = "FIXED";
-      badge.counterAxisSizingMode = "FIXED";
-      badge.resize(spec.beta.rect.width, spec.beta.rect.height);
-      badge.primaryAxisAlignItems = badge.counterAxisAlignItems = "CENTER";
-      badge.paddingLeft = spec.beta.padding.left;
-      badge.paddingRight = spec.beta.padding.right;
-      badge.setBoundVariable("paddingLeft", V.spacing8);
-      badge.setBoundVariable("paddingRight", V.spacing8);
-      badge.cornerRadius = spec.beta.radius;
-      bindCorners(badge, V.radius6);
-      badge.fills = [paint(spec.beta.paint)];
-      badge.appendChild(makeText(spec.beta.label, spec.beta.label.paint));
-      row.appendChild(badge);
-    }
+  row.appendChild(makeIcon(spec.icon, spec.icon.paint));
+  row.appendChild(makeText(spec.label, spec.label.paint));
+  if (spec.kind === "highlight") {
+    const spacer = figma.createFrame();
+    spacer.name = "spacer";
+    spacer.resize(1, 1);
+    spacer.fills = [];
+    spacer.layoutGrow = 1;
+    row.appendChild(spacer);
+    const badge = figma.createFrame();
+    badge.name = "badge/BETA";
+    badge.layoutMode = "HORIZONTAL";
+    badge.primaryAxisSizingMode = "FIXED";
+    badge.counterAxisSizingMode = "FIXED";
+    badge.resize(spec.beta.rect.width, spec.beta.rect.height);
+    badge.primaryAxisAlignItems = badge.counterAxisAlignItems = "CENTER";
+    badge.paddingLeft = spec.beta.padding.left;
+    badge.paddingRight = spec.beta.padding.right;
+    badge.setBoundVariable("paddingLeft", V.spacing8);
+    badge.setBoundVariable("paddingRight", V.spacing8);
+    badge.cornerRadius = spec.beta.radius;
+    bindCorners(badge, V.radius6);
+    badge.fills = [paint(spec.beta.paint)];
+    badge.appendChild(makeText(spec.beta.label, spec.beta.label.paint));
+    row.appendChild(badge);
   }
   root.appendChild(row);
 }

@@ -75,7 +75,7 @@ authority: normative
 
 | 러너 | 모드 | 정확히 같은 값 | 근사 결합 | 고정 역할(`unboundColors`) | 보이는 변화 |
 | --- | --- | --- | --- | --- | --- |
-| components | Light | `color/gray/300` · `gray/000` · `gray/900`, `Klipse Primitive/color/palette-gray/600` · `/900` · `/100` · `/000` | `gray/000-alpha/56` · `/48` | BETA 칩 `rgb(var(--palette-gray-500-rgb) / 12%)` | **사이드바 메뉴 · 셸 · CTA 가 다크에서 light 로** — 행 글자 · 아이콘 #41454c(아이콘 불투명도 0.92), 활성 #000 · 면 없음(`Gnb.tsx:604`, 옛 러너는 다크 비사이드바 인디케이터 면을 칠했다), 로고 `klipse-light`(측정 `brand.image.asset`), CTA Default #171b22 / #dcdee1 · Current #fafafa / #000 |
+| components | Light | `color/gray/300` · `gray/000` · `gray/900`, `Klipse Primitive/color/palette-gray/600` · `/900` · `/100` · `/000` | `gray/000-alpha/56` · `/48` | BETA 칩 `rgb(var(--palette-gray-500-rgb) / 12%)` | **사이드바 메뉴 · 셸 · CTA 가 다크에서 light 로** — 행 글자 · 아이콘 #41454c(아이콘 불투명도 0.92), 활성 #000 · 면 없음(`Gnb.tsx:604`, 옛 러너는 다크 비사이드바 인디케이터 면을 칠했다), 로고 `klipse-light`(측정 `brand.image.asset`), CTA Default #171b22 / #dcdee1 · Current #fafafa / #000. **옛 compound 행의 + 버튼이 숨는다** — 아래 「옛 compound 행」 |
 | checkout-status | Light | `gray/000` · `gray/900` · `bg-raised` · `bg-canvas` · `bg-surface`, `color/red/500` · `color/red-alpha/08` | `gray/000-alpha/56` · `/48` · `/08` | 알림 선 `rgb(var(--accent-red-500-rgb) / 16%)`(라이브 red 알파는 08 · 12 · 24 뿐) | 보조 버튼 면이 `bg-raised`(흰색), 모바일 장면 바닥이 `bg-surface`(≤719 `--app-page-bg`) |
 | payment-scenes | Light | `bg-canvas`(데스크톱 바닥) · `bg-surface`(모바일 바닥 · 메인 면) | — | — | 모바일 장면 바닥이 `bg-surface` |
 | upgrade-scene | Light | `gray/000` · `gray/200` · `gray/300` · `bg-raised` · `bg-canvas` · `bg-surface` · `media-foreground-dark` · `accent-inverse` · `fg-on-accent-inverse` · `bg-inset` · `fg-disabled` · `accent-secondary` · `accent-secondary-foreground`, `color/green/500` | `gray/000-alpha/72` | 가격 단위 `rgb(var(--gray-300-rgb) / 88%)`, 현재 플랜 아웃라인 `rgb(var(--primary-200-rgb) / 40%)` | **헤더의 선물 구매 버튼이 그려진다**(아래) |
@@ -94,6 +94,16 @@ HUG + 좌우 패딩(`spacing/12`), 높이는 Button md 레시피(선언), 반경
 계획 variant 가 없으면 지어 더하고(지우지 않는다, 있는 variant 는 모드와 행 아이콘 잉크만 다시 건다), 편집 화면의 옛 인스턴스
 `gnb/Current=VideoEditor · measured collapsed` 는 **같은 노드**를 `Current=Composition` 으로 바꿔 쓴다.
 
+**옛 compound 행(컴포넌트 러너).** 라이브 사이드바 메뉴 세트(`384:215`)는 제품 `658ece13`(사이드바 + 버튼을 걷었다) 전에 지어져
+Canvas · Composition 행이 아직 `main-action`(아이콘 · 라벨 감싸개) + `add-action · New project (…)`(+ 버튼 — 칠
+`Klipse Primitive/color/palette-gray/200`, 자식 `icon/plus` = `.glyph/NavPlusGlyph`)다. 2026-09-14 읽기 전용 확인에서 variant 여섯
+모두 + 버튼이 둘씩 보였고, 같은 페이지의 메뉴 인스턴스 14개(셸 variant · 결제 결과 · 체크아웃 · 업그레이드 장면 안)에서도 모두 보였다. 계획은 두
+행을 simple 로 싣는데 기존 세트 경로는 칠만 다시 걸어, 적용하면 사이드바만 light 로 바뀌고 제품에 없는 버튼이 남을 뻔했다(칠이 묶여
+있어 감사도 통과한다). 이제 러너가 행 구조를 계획에 맞춘다 — 아이콘 · 라벨을 **같은 id** 로 행 직계로 옮기고, 행 간격을 + 버튼과의
+간격에서 계획의 아이콘–라벨 간격(`spacing/10`)으로 되돌려 자리를 지키고, `main-action` · `add-action · …` 과 계획에 없는 행은
+지우지 않고 숨겨 `retired/` 로 둔다(조립 규칙 28번). 새로 짓는 경로에 남아 있던 compound 가지(계획이 싣지 않는 + 버튼을 짓던 코드)는
+걷었다. 행의 나머지 기하는 여기서 건드리지 않는다 — 라이브 행 왼쪽 패딩은 4, 계획은 8 이고 이것은 크기 굳힘 감사 묶음 4 몫이다.
+
 **모의 Figma 확인.** 되읽기의 세 컬렉션을 모드 · 기본 모드 · 별칭까지 그대로 세우고 인스턴스 속이 마스터의 현재 자식을 비추는
 모의에서, 옛 계획의 은퇴 컬렉션을 합성해 HEAD 러너(업그레이드는 요금제 넷이던 `db94a2f` → HEAD 사슬도, sidebar-states 는 옛 레일
 세트 · 인스턴스가 있는 상태)를 먼저 돌리고 새 러너를 두 번 돌렸다. 다섯 모두 **잃은 노드 0 · 두 번째 실행 스냅숏 동일(멱등) ·
@@ -102,10 +112,13 @@ HUG + 좌우 패딩(`spacing/12`), 높이는 Button md 레시피(선언), 반경
 보이는 페인트 156 = 묶임 143 + BETA 칩 13, checkout-status 246 = 237 + 알림 선 6 + 품은 BETA 3, payment-scenes 98 = 95 + 품은 BETA 3,
 upgrade-scene 330 = 312 + 88% 글자 15 + 아웃라인 2 + 품은 BETA 1. **품은 고정 역할을 받기 전에는 결제 장면 세 러너가 사이드바 셸의
 BETA 칩에서 감사로 던졌다** — 인스턴스 속이 빈 첫 모의는 이것을 보지 못했다. 은퇴한 이름은 다섯 러너(`figma/product-*.draw.js`) ·
-렌더러 · 공용 조각에서 grep 0 이다(계획에는 `$bindingPolicy` 산문 한 줄).
+렌더러 · 공용 조각에서 grep 0 이다(계획에는 `$bindingPolicy` 산문 한 줄). 옛 compound 행 상태(계획이 아직 compound 를 싣던 `4ebbe46^` 러너로 지은
+세트)에서는 고치기 전 러너가 + 버튼을 세트에 12개 · 셸 인스턴스 속에 14개 보인 채 두고 감사 182 = 묶임 169 + BETA 13 으로 통과했다(그
+26 이 + 버튼 칠이다). 고친 러너는 보이는 + 버튼 · 감싸개 0, 아이콘 · 라벨 24개 id 보존, 잃은 노드 0 · 멱등, 감사 156 = 143 + 13 으로
+새로 지은 세트와 같고, 같은 세계에서 체크아웃 · 결제 장면 · 업그레이드 러너의 수도 위와 같다.
 
 **보드 계획 · 원장은 바뀌지 않는다.** 치환 매처는 계획의 글자와 구조만 읽는다 — `check-figma-app-screens` · 보드 구성 원장이 그대로다.
-러너 크기(50,000자 한도): components 38,579 · checkout-status 32,697 · payment-scenes 28,812 · upgrade-scene 42,594 · sidebar-states
+러너 크기(50,000자 한도): components 38,924 · checkout-status 32,697 · payment-scenes 28,812 · upgrade-scene 42,594 · sidebar-states
 38,407.
 
 **라이브 적용 순서.** 앱 셸 러너 → `--consumers` → **컴포넌트 러너**(결제 장면 세 러너가 그 사이드바 셸 · 결과 본문 세트를 품는다)

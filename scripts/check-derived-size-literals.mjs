@@ -73,6 +73,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // 같은 날 묶음 2 · 3(결제 결과 · 체크아웃 본문과 메인 표면 · 장면, 요금제 카드) 뒤 다시 내렸다 — 결제 장면 생성기 8 → 0,
 // 업그레이드 장면 생성기 27 → 0, 체크아웃 렌더러 10 → 0, 업그레이드 렌더러 12 → 0, 결제 장면 렌더러 8 → 2, 컴포넌트 렌더러
 // 16 → 14. 0 이 된 파일은 기준선에서 뺐다(기준선에 없는 파일은 0 이어야 한다).
+// 같은 날 컴포넌트 렌더러 14 → 12 — 계획이 더는 싣지 않는 compound 행(+ 버튼)을 짓던 가지와 그 `plus.resize(20, 20)` 을 걷었다.
 // 키는 `scripts/` 아래 경로다. **`scripts/` 를 붙여 따옴표로 적지 않는다** — verify-gate-split 이 그 꼴의
 // 문자열을 이 게이트가 부르는 스크립트로 읽고, 생성기에는 제품 저장소 표지가 있어 CI 배분이 거부된다.
 const BASELINE = {
@@ -90,10 +91,10 @@ const BASELINE = {
   // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(1800, 980)` 류와 그 최소 크기 비교) ·
   // 문서 프레임 · 세트 크기 · 열 폭이다. 캔버스가 아닌 것: 사이드바 상태 렌더러의 접힌 레일 조각
   // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` · `rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` 등 18),
-  // 컴포넌트 렌더러의 `plus.resize(20, 20)` 과 패딩 4 → spacing4 바인딩 비교 둘(묶음 4 의 사이드바 메뉴 몫).
+  // 컴포넌트 렌더러의 패딩 4 → spacing4 바인딩 비교 둘(묶음 4 의 사이드바 메뉴 몫).
   // 결제 장면 렌더러의 둘은 문서 프레임(`docs.resize(840, 156)`)이다.
   "templates/figma-product-app-shell-renderer.js": 3,
-  "templates/figma-product-components-renderer.js": 14,
+  "templates/figma-product-components-renderer.js": 12,
   "templates/figma-product-payment-scenes-renderer.js": 2,
   "templates/figma-product-pricing-renderer.js": 6,
   // 사이드바 상태 렌더러에는 [설명 수치] 둘도 들어 있다 — 노드 이름 「label clip · measured 12×18」 · 「96×28 clipped」(묶음 4).

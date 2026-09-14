@@ -51,7 +51,7 @@ authority: reference
 >   본문 치환을 크기에서 뗌 — (132))을 고쳤고, 규칙은 [Figma 화면 조립 규칙](figma-screen-assembly.md) 28번으로 세웠다.
 > - **컬렉션 이전(같은 날, 라이브 미적용).** 컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드 · sidebar-states 러너가 라이브 3컬렉션의
 >   변수에 역할로 묶는다([Updates](../updates/README.md) (133)) — 위 「적용하지 않았다(은퇴한 컬렉션을 찾는다)」의 막힘이 풀렸고,
->   남은 순서는 「다음 순서」 1번이다. 컴포넌트 러너는 사이드바 세트를 light 측정으로 옮긴다(보드 사이드바 색이 바뀐다).
+>   남은 순서는 「다음 순서」 1번이다. 컴포넌트 러너는 사이드바 세트를 light 측정으로 옮기고(보드 사이드바 색이 바뀐다), 옛 compound 행의 + 버튼을 숨긴다.
 > - **푸시 전 막힌 것 하나.** `verify-figma-parity`(verify:ci)가 빨갛다 — 라이브 `ProgressRing` 마스터(36)와 AppTopBar
 >   후행 슬롯 표본(36)이 기록의 32 와 어긋난다. 소유자 승인으로 마스터를 옮기고 되읽기를 다시 뜨기 전에는 앵커 이동을
 >   푸시하지 않는다((131) 「ProgressRing」 · 「계약과 문서의 계산값」 절).
@@ -1369,8 +1369,10 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
       전후 `--consumers`. 결제 장면 러너들은 컴포넌트 안 바 인스턴스를 그 자리에서 다시 쓰고(없을 때만 새로 만든다) TEXT
       속성은 채우지 않는다 — 2026-09-14 에 되채운 글자가 남았는지 그 대조로 본다. **컴포넌트 러너는 사이드바 메뉴 · 셸 · CTA
       세트의 색을 다크에서 light 측정으로 옮기고 로고를 `klipse-light` 로 바꾼다** — 그 세트를 인스턴스로 쓰는 데스크톱 보드 ·
-      결제 장면 · 손 조립 허브의 사이드바가 함께 바뀌는데 `--consumers` 는 상단 바 두 세트만 본다. 적용 승인 질문에 이 변화를 넣고
-      전후 스크린숏으로 본다. 러너마다 반환의 `unboundColors`(고정 역할과 페인트 수)와 `allowedFixedPaintCounts`(`brandLogo` · 품은 세트의
+      결제 장면 · 손 조립 허브의 사이드바가 함께 바뀌는데 `--consumers` 는 상단 바 두 세트만 본다. **같은 적용이 Canvas · Composition
+      행의 + 버튼(`add-action · New project (…)`, 메뉴 variant 마다 둘 — 제품 `658ece13` 이 걷었다)을 숨겨 `retired/` 로 두고 아이콘 ·
+      라벨을 같은 id 로 행 직계로 옮긴다**(Updates (133) 「옛 compound 행」). 적용 승인 질문에 이 두 변화를 넣고 전후 스크린숏으로 본다 —
+      적용 뒤 메뉴 세트 `384:215` 와 그 인스턴스에 보이는 `add-action` 이 0 인지도 센다. 러너마다 반환의 `unboundColors`(고정 역할과 페인트 수)와 `allowedFixedPaintCounts`(`brandLogo` · 품은 세트의
       고정 역할 `nested …`)가 (133) 표의 역할과 같은지 본다 — 역할이 다르거나 `Unexpected unbound visible paints` 로 던지면 거기서 멈춘다.
    6. `figma-screens-live-check --sets` 로 세트 확인(상단 바 두 세트의 `layoutContract` 포함) → 보드 러너 전량
       (`figma/app-screens.*.00.draw.js` — 세트 러너가 끝났으면 `192:1251` 을 포함한 36 장).

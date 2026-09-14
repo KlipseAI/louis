@@ -74,13 +74,15 @@ const liveVariables = async (B) => {
   const audit = (roots, { allow = () => null, skip = [], nested = [] } = {}) => {
     const fixedRoles = new Map(Object.entries(unbound).map(([role, entry]) => [keyOf(...entry.color), role]));
     const nestedRoles = new Map(nested.map((entry) => [keyOf(...entry.color), `nested ${entry.source}/${entry.role}`]));
+    // 노드는 id 로 가린다 — 플러그인 API 의 노드 객체가 조회마다 같은 참조라고 기대하지 않는다.
+    const skipIds = new Set(skip.map((node) => node.id));
     const counts = {};
     const allowed = {};
     const unexpected = [];
     let visible = 0;
     let bound = 0;
     const walk = (node, inInstance) => {
-      if (node.visible === false || skip.includes(node)) return;
+      if (node.visible === false || skipIds.has(node.id)) return;
       const inside = inInstance || node.type === "INSTANCE";
       for (const field of ["fills", "strokes"]) {
         if (!Array.isArray(node[field])) continue;

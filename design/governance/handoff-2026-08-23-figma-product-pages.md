@@ -55,6 +55,9 @@ authority: reference
 > - **보드 생성물 · 렌더러 · 결제 장면 러너(같은 날 뒤, 라이브 미적용).** 보드 두 장(`30:33` 제목 잘림 · `28:3` 세그먼트 겹침)을 깨던
 >   크기 조합을 보드 생성기가 측정으로 풀고(전수 19 자리 · 조각 8), 보드 렌더러를 라이브 컬렉션 · Light 모드로 옮겼으며, 결제 장면
 >   세 러너가 바 폭 FILL 을 측정으로 닫고 바 TEXT 속성을 route 측정 글자로 채운다([Updates](../updates/README.md) (135)).
+>   `28:3` 은 **가로** 겹침만 풀렸다 — 세그먼트 칸의 세로(LOUIS `block-size` 를 측정기가 싣지 않았다)와 `/subscription` 크레딧 이력
+>   블록(grid 트랙 순번)은 여전히 Figma 가 접는다. 보드 생성기가 그런 자리 28 을 계획 `stats.unresolvedFillInHug` 에 싣고 부모 · 축마다
+>   수를 잠근다((136)) — 보드 러너 바이트는 그대로다.
 > - **푸시 전 막힌 것 하나.** `verify-figma-parity`(verify:ci)가 빨갛다 — 라이브 `ProgressRing` 마스터(36)와 AppTopBar
 >   후행 슬롯 표본(36)이 기록의 32 와 어긋난다. 소유자 승인으로 마스터를 옮기고 되읽기를 다시 뜨기 전에는 앵커 이동을
 >   푸시하지 않는다((131) 「ProgressRing」 · 「계약과 문서의 계산값」 절).
@@ -1382,6 +1385,10 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
       (`figma/app-screens.*.00.draw.js` — 세트 러너가 끝났으면 `192:1251` 을 포함한 36 장). 보드 러너는 루트에 `Klipse Semantic
       Color` Light 를 고정하고, 반환의 `unboundColors` 는 계획 `colourBinding.unbound` 안에 있어야 한다((135)).
    7. `figma-screens-live-check --check <두 페이지 결과 · 세트 결과>` 로 **36/36 탐침 · 다름 0**(결과 파일을 빠뜨리면 실패한다).
+      이 대조는 크기를 보지 않으므로 **적용 완료 조건이 하나 더 있다((136))** — `28:3` · `28:44` 스크린숏에서 선택 알약이 트랙
+      아래로 나오는지, `190:1172` · `190:1497` 에서 크레딧 이력 블록이 트랙 폭을 채우지 못하는지 보고, 접힌 모양이 계획
+      `stats.unresolvedFillInHug` 의 자리 그대로인지 확인한다. 기준선에 없는 접힘이 보이면 멈춘다. 이 둘은 제품과 다르게 적용되므로
+      적용 승인 질문에 넣는다(풀리기 전에 적용할지, 그 보드를 미룰지).
 
    **허브 보드 일곱(소유자 결정):** 이들을 다시 짓는 생성기가 없다. 2026-09-14 적용은 글자 · 면 override 가 속성 결합 뒤에도
    남는다는 것을 보였으므로 (가)의 글자 되채우기는 필요 없었다. 남는 결정은 3단계의 **높이 변화**를 받아들일지다 — (나) 제품
@@ -1431,6 +1438,9 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
      sidebar-states 렌더러를 만지므로 그 뒤다.
    - 6 — 앱 화면 보드 판정기(`sizing-provenance` · `figma-tree-spec` · 렌더러): 뷰포트 단위를 치환된 입력으로 판정, 글자 + 면 잎의
      HUG 누락, 줄바꿈 텍스트를 한 줄로 폄, 논리 크기 속성 미수집, 부분 % 가 조용히 FIXED. 36 보드 재적용이 따른다.
+     논리 크기 속성(`/settings` 세그먼트 칸 세로 12)과 한 열 grid 의 트랙 순번(`trackForChild`, 크레딧 이력 블록 4)을 풀면 보드
+     생성기의 `UNRESOLVED_FILL_IN_HUG_BY_PARENT` 가 그만큼 줄어야 한다((136)). 같은 묶음에서 `LOUIS_PRIMITIVE_EXCLUSIONS` 의
+     세그먼트 두 사유(제품 `SegmentedToggle.tsx` 는 이미 `.louis-segmented-control` 을 문다)를 레시피 원장 probe 와 함께 다시 판정한다.
    - 7 — 인벤토리 선언 판정 정규식(`w-full` 이 `max-w-full` 안에서도 걸리는 류)과 absolute 고정.
    - 8 — DS · Components 세트의 hug 축 FIXED(SidebarCta · Dialog sheet · Segmented · Tab · NodeChip · Keycap · Tooltip ·
      FormMessage · InspectorRow)와 `figma/components.measured.json` 의 「패딩 + 한 줄」 높이. 기록 · parity 계약 · Figma 를

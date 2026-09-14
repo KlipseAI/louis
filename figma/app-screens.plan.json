@@ -10,6 +10,7 @@
   "totalShellInstances": 101,
   "totalShellGaps": 0,
   "totalSizingReconciled": 19,
+  "totalUnresolvedFillInHug": 28,
   "contentInstancesBySet": {
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
@@ -2190,6 +2191,68 @@
             "from": "FILL",
             "to": "HUG",
             "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          }
+        ],
+        "unresolvedFillInHug": [
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.1",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.2",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.3",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.1",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.2",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.3",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           }
         ]
       },
@@ -7771,6 +7834,118 @@
             "to": "HUG",
             "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
           }
+        ],
+        "unresolvedFillInHug": [
+          {
+            "path": "body.1.0.0.1.0.1.1.1.0",
+            "parent": "body.1.0.0.1.0.1.1.1",
+            "axis": "horizontal",
+            "stretch": "grow",
+            "measured": 113.2969,
+            "content": null,
+            "kind": "instance",
+            "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.4.1.0",
+            "parent": "body.1.0.0.1.0.1.4.1",
+            "axis": "horizontal",
+            "stretch": "grow",
+            "measured": 136.9531,
+            "content": null,
+            "kind": "instance",
+            "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.5.1.0",
+            "parent": "body.1.0.0.1.0.1.5.1",
+            "axis": "horizontal",
+            "stretch": "grow",
+            "measured": 156.5469,
+            "content": null,
+            "kind": "instance",
+            "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.6.1.0",
+            "parent": "body.1.0.0.1.0.1.6.1",
+            "axis": "horizontal",
+            "stretch": "grow",
+            "measured": 184.2969,
+            "content": null,
+            "kind": "instance",
+            "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.1",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.2",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.3",
+            "parent": "body.1.0.0.1.0.1.7.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.1",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.2",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.3",
+            "parent": "body.1.0.0.1.0.1.8.1.0",
+            "axis": "vertical",
+            "stretch": "stretch",
+            "measured": 28,
+            "content": 21,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.10.1.0",
+            "parent": "body.1.0.0.1.0.1.10.1",
+            "axis": "horizontal",
+            "stretch": "grow",
+            "measured": 138.6719,
+            "content": null,
+            "kind": "instance",
+            "reason": "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다"
+          }
         ]
       },
       "spec": {
@@ -12987,6 +13162,78 @@
             "to": "FILL",
             "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
           }
+        ],
+        "unresolvedFillInHug": [
+          {
+            "path": "body.1.0.0.1.0.1.1",
+            "parent": "body.1.0.0.1.0.1",
+            "axis": "vertical",
+            "stretch": "grow",
+            "measured": 965.4063,
+            "content": 574.59,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.0.0.0",
+            "parent": "body.1.0.0.1.0.1.1.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 413.4219,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.0.0.1",
+            "parent": "body.1.0.0.1.0.1.1.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 413.4219,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.0.0.0.0.0",
+            "parent": "body.1.0.0.1.0.1.1.0.1.0.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 68.0313,
+            "content": 66.88,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.0.0.0.0.1",
+            "parent": "body.1.0.0.1.0.1.1.0.1.0.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 68.0313,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.2.0",
+            "parent": "body.1.0.0.1.0.1.1.0.2",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 1400,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.2.1",
+            "parent": "body.1.0.0.1.0.1.1.0.2",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 1400,
+            "content": 407.41,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          }
         ]
       },
       "spec": {
@@ -16583,6 +16830,48 @@
             "from": "FILL",
             "to": "HUG",
             "reason": "HUG 부모(body.1.0.0.1.0.1)의 주축 grow 가 아무 일도 하지 않았다 — 측정 843.1875 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          }
+        ],
+        "unresolvedFillInHug": [
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.0.0.0.0.0",
+            "parent": "body.1.0.0.1.0.1.1.0.1.0.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 68.0313,
+            "content": 66.88,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.0.0.0.0.1",
+            "parent": "body.1.0.0.1.0.1.1.0.1.0.0.0.0",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 68.0313,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.2.0",
+            "parent": "body.1.0.0.1.0.1.1.0.2",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 390,
+            "content": null,
+            "kind": "text",
+            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.2.1",
+            "parent": "body.1.0.0.1.0.1.1.0.2",
+            "axis": "horizontal",
+            "stretch": "stretch",
+            "measured": 390,
+            "content": 272.8,
+            "kind": "larger",
+            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           }
         ]
       },

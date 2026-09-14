@@ -1641,6 +1641,19 @@ withCanary(
   "--check",
 );
 
+// ── 풀지 못한 HUG 부모 · FILL 자식 래칫 카나리아(2026-09-14) ─────────────────
+// 보드 생성기의 크기 조합 풀이 첫 판은 측정이 내용과 다른 HUG 부모 · FILL 자식을 `continue` 로 조용히 넘겼다 — `/settings`
+// 세그먼트 칸의 세로가 계획 · 게이트로는 초록인 채 라이브에서 트랙이 낮아지고 알약이 넘친다. 이제 그 자리를 계획에 싣고 부모 · 축마다
+// 수를 잠근다. 생성기를 첫 판처럼 조용히 넘기게 되돌리면(자리를 싣지 않으면) 그 래칫이 물어야 한다.
+withCanary(
+  "scripts/build-figma-app-screens.mjs",
+  (source) => source.replace("unresolvedFillInHug.push({", "void ({"),
+  "sizing reconcile: 풀지 못한 HUG·FILL 을 조용히 넘기는 생성기",
+  "scripts/build-figma-app-screens.mjs",
+  "풀지 못한 HUG 부모 · FILL 자식이 기준과 다릅니다",
+  "--check",
+);
+
 // ── 색 파서 단위 확인 카나리아(2026-09-14) ─────────────────────────────────
 // 제품 컴포넌트 러너 · 보드 생성기가 함께 쓰는 `parseCssColor` 는 모듈을 읽을 때 두 직렬화(`rgb()` · `color(srgb …)`)와 두 알파
 // 표기(수 · 백분율)를 한 번씩 풀어 본다. fixture 에는 아직 백분율 알파가 없어 생성물 대조로는 이 축이 절대 울지 않는다 — 그래서

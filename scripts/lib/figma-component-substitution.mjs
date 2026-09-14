@@ -11,8 +11,8 @@
  * ## 판정은 측정값으로 한다 — 라우트 이름으로 찍지 않는다
  * - 셸: 구조(절대 배치 280×1080 header / 앞머리 버튼 · breadcrumb nav · 프로필 버튼을 직접 품은 행)로
  *   찾는다. 상단 바 높이는 제품이 선언하지 않은 계산값이라 판정에 쓰지 않는다(`isTopBarRow`).
- * - 본문 블록: **정렬된 텍스트 목록이 완전히 같고 rect가 1px 이내로 같을 때만** 치환한다.
- *   텍스트 하나만 달라도 다른 화면이므로 치환하지 않는다.
+ * - 본문 블록: **글자 서열 · 구조 서명(직계 자식별 글자 수) · 뷰포트가 모두 같을 때만** 치환한다(크기는 보지 않는다 —
+ *   `CONTENT_COMPONENTS` 주석). 글자 하나만 달라도 다른 화면이므로 치환하지 않는다.
  *
  * ## 없는 variant는 만들지 않는다
  * 컴포넌트 세트에 없는 조합이 나오면 치환하지 않고 측정 도형을 남기고 `skipped`로 돌린다.
@@ -75,62 +75,79 @@ const VARIANTS = Object.freeze({
 });
 
 /**
- * **본문 블록 컴포넌트 색인 (2026-08-26 LOUIS 실측).**
+ * **본문 블록 컴포넌트 색인 — 그 세트를 짓는 생성기의 plan 에서 읽는다(2026-09-14, 크기 굳힘 감사 묶음 2).**
  *
- * 결제 결과·체크아웃 상태 본문과 요금제 카드는 **이미 완성된 컴포넌트**다. 크기가 측정값과
- * 0.5px 이내로 일치하고 텍스트가 글자 그대로 같다 — 즉 이 컴포넌트들이 곧 실측 정본이다.
- * 다시 그리지 않고 인스턴스를 심는다.
+ * 결제 결과 · 체크아웃 상태 본문과 요금제 카드는 이미 컴포넌트다. 다시 그리지 않고 인스턴스를 심는다.
  *
- * `texts`는 컴포넌트 안의 TEXT 노드를 **문서 순서대로** 모은 것이다. 측정 서브트리의 텍스트가
- * 이 목록과 완전히 같고 rect가 1px 이내일 때만 치환한다. 한 글자라도 다르면 다른 화면이다.
+ * 예전에는 여기 손 사본(2026-08-26 LOUIS 실측)이 있었다 — variant 마다 **크기**와 글자 목록을 적고, 측정 서브트리가
+ * 「글자가 같고 rect 가 1px 이내」일 때만 치환했다. 크기는 제품이 선언한 값이 아니라 레이아웃이 계산한 값이라(본문
+ * 높이는 줄 수가, 모바일 폭은 셸 인셋이 정한다) 앵커가 움직일 때마다 조용히 낡았고, 실패는 `skipped` 에도 남지 않았다.
+ * 2026-09-14 감사 시점에 결과 · 체크아웃 보드 14장이 한 장도 인스턴스를 받지 못하고 날노드로 그려지고 있었다(모바일
+ * 폭 370 → 390, 본문 높이 238 → 229.59 …). 요금제 카드 여섯 항목도 넷이던 때의 사본이라 한 자리도 물지 않았다.
+ *
+ * 그래서 사본을 걷고 세트를 짓는 plan 을 읽는다. 판정은 크기가 아니라 **글자 서열 + 구조 서명 + 뷰포트**다:
+ *   · 글자 서열 — 서브트리의 글자를 문서 순서대로 모은 목록이 variant 의 목록과 글자 그대로 같다.
+ *   · 구조 서명 — 직계 자식마다 품은 글자 수의 목록(글자 없는 자식은 뺀다). 제목 · 본문 · 목록 · 버튼 줄처럼 plan 의
+ *     구획과 1:1 이라, 글자가 같아도 구획이 다르면(래퍼 · 조상 · 다른 배치) 치환하지 않는다. 한 자식짜리 래퍼가 접혀도
+ *     글자 수는 그대로라 측정 트리의 접힘에 흔들리지 않는다.
+ *   · 뷰포트 — 데스크톱 · 모바일 variant 는 글자가 같다. 화면 문맥이 고른다.
+ * 글자는 같은데 구조나 뷰포트가 맞지 않고, 그 아래 어디에서도 같은 세트가 치환되지 않았으면 `skipped` 에 사유를 남긴다 —
+ * 「조용히 날노드」가 다시 생기지 않게 한다.
  */
-const CONTENT_COMPONENTS = Object.freeze([
-  { set: "Product/Payment Result Content", variant: "Outcome=Failure, Viewport=Desktop", size: [520, 238],
-    texts: ["Payment was not completed.", "Payment request failed", "Error code", "UNKNOWN_ERROR", "Go to My Page"] },
-  { set: "Product/Payment Result Content", variant: "Outcome=Failure, Viewport=Mobile", size: [370, 320],
-    texts: ["Payment was not completed.", "Payment request failed", "Error code", "UNKNOWN_ERROR", "Go to My Page"] },
-  { set: "Product/Payment Result Content", variant: "Outcome=PlanDelayed, Viewport=Desktop", size: [520, 217],
-    texts: ["Payment confirmed, but plan update delayed", "Billing authorization information is missing from the success URL.", "Go to My Page"] },
-  { set: "Product/Payment Result Content", variant: "Outcome=PlanDelayed, Viewport=Mobile", size: [370, 284],
-    texts: ["Payment confirmed, but plan update delayed", "Billing authorization information is missing from the success URL.", "Go to My Page"] },
-  { set: "Product/Payment Result Content", variant: "Outcome=TopupDelayed, Viewport=Desktop", size: [520, 217],
-    texts: ["Payment confirmed, but credit top-up delayed", "Payment information is missing from the success URL.", "Go to My Page"] },
-  { set: "Product/Payment Result Content", variant: "Outcome=TopupDelayed, Viewport=Mobile", size: [370, 263],
-    texts: ["Payment confirmed, but credit top-up delayed", "Payment information is missing from the success URL.", "Go to My Page"] },
-
-  { set: "Product/Checkout Status Content", variant: "Outcome=BillingSuccess, Viewport=Desktop", size: [520, 338],
-    texts: ["Payment confirmed, but plan update delayed", "Billing authorization information is missing from the success URL.", "Billing authorization information is missing from the success URL.", "Back to plans", "Try again"] },
-  { set: "Product/Checkout Status Content", variant: "Outcome=BillingSuccess, Viewport=Mobile", size: [370, 426],
-    texts: ["Payment confirmed, but plan update delayed", "Billing authorization information is missing from the success URL.", "Billing authorization information is missing from the success URL.", "Back to plans", "Try again"] },
-  { set: "Product/Checkout Status Content", variant: "Outcome=BillingFail, Viewport=Desktop", size: [520, 382],
-    texts: ["Payment was not completed.", "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.", "Error code", "UNKNOWN_ERROR", "Message", "Payment request failed", "Back to plans", "Go to archive"] },
-  { set: "Product/Checkout Status Content", variant: "Outcome=BillingFail, Viewport=Mobile", size: [370, 516],
-    texts: ["Payment was not completed.", "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.", "Error code", "UNKNOWN_ERROR", "Message", "Payment request failed", "Back to plans", "Go to archive"] },
-  { set: "Product/Checkout Status Content", variant: "Outcome=CheckoutFail, Viewport=Desktop", size: [520, 428],
-    texts: ["Payment was not completed.", "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.", "Error code", "UNKNOWN_ERROR", "Message", "Payment request failed", "Order ID", "-", "Back to plans", "Go to archive"] },
-  { set: "Product/Checkout Status Content", variant: "Outcome=CheckoutFail, Viewport=Mobile", size: [370, 599],
-    texts: ["Payment was not completed.", "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.", "Error code", "UNKNOWN_ERROR", "Message", "Payment request failed", "Order ID", "-", "Back to plans", "Go to archive"] },
-
-  // **아래 요금제 카드 여섯 항목은 앵커 6fbdac16 에서 한 자리도 물지 않는다(2026-09-13 판정).**
-  // 제품 5258d9b2 가 요금제를 넷(Trial·Basic·Pro·Max, 316×560)에서 다섯(Trial·Lite·Plus·Pro·Ultra,
-  // 256.8×608.19)으로 바꿨고(`en.ts:387` `plans: ["Trial", "Lite", "Plus", "Pro", "Ultra"]`), 라이브
-  // `Product/Upgrade Plan Card` 세트는 옛 넷이다. 그래서 `/mypage/upgrade` 데스크톱 계획은 카드를
-  // 날노드 + Button inverse 넷으로 그린다 — 치환 결함이 아니라 세트가 제품보다 낡은 것이다.
-  // 세트를 다섯으로 다시 짓는 일은 upgrade-scene 러너 몫이고, 항목은 그때 함께 바꾼다.
-  { set: "Product/Upgrade Plan Card", variant: "Plan=Trial, Viewport=Desktop", size: [316, 560],
-    texts: ["Trial", "Free", "200", "credits", "Core features for trying Klipse", "Up to 3 projects", "1 video editor upload, 2 imports", "AI video generation trial", "Basic video cut editing", "Highlight input videos up to 10 min", "Watermark included", "Current plan"] },
-  { set: "Product/Upgrade Plan Card", variant: "Plan=Basic, Viewport=Desktop", size: [316, 560],
-    texts: ["Basic", "35,900 KRW", "per month", "1,800", "credits", "Everything in Trial", "Up to 12 projects", "5 video editor uploads, 5 imports", "All AI models unlocked", "Text/image overlay, TTS", "YouTube/Instagram upload, schedule & analytics", "AI prompt & caption assist", "Highlight input videos up to 30 min", "Credit top-up available", "No watermark", "Choose Basic"] },
-  { set: "Product/Upgrade Plan Card", variant: "Plan=Pro, Viewport=Desktop", size: [316, 560],
-    texts: ["Pro", "59,900 KRW", "per month", "3,000", "credits", "Everything in Basic", "Up to 24 projects", "7 video editor uploads, 7 imports", "Highlight input videos up to 120 min", "3 concurrent jobs", "Priority queue processing", "Choose Pro"] },
-  { set: "Product/Upgrade Plan Card", variant: "Plan=Max, Viewport=Desktop", size: [316, 560],
-    texts: ["Max", "89,900 KRW", "per month", "4,500", "credits", "Everything in Pro", "Unlimited projects", "10 video editor uploads, 10 imports", "10 highlight clip selections", "Maximum monthly credits", "Choose Max"] },
-
-  { set: "Product/Upgrade Plan Card Visible Slice", variant: "Plan=Trial, Evidence=VisibleSlice", size: [179, 693.59],
-    texts: ["Trial", "Free", "200", "credits", "Core features for trying Klipse", "Up to 3 projects", "1 video editor upload, 2 imports", "AI video generation trial", "Basic video cut editing", "Highlight input videos up to 10 min", "Watermark included"] },
-  { set: "Product/Upgrade Plan Card Visible Slice", variant: "Plan=Basic, Evidence=VisibleSlice", size: [179, 693.59],
-    texts: ["Basic", "35,900 KRW", "per month", "1,800", "credits", "Everything in Trial", "Up to 12 projects", "5 video editor uploads, 5 imports", "All AI models unlocked", "Text/image overlay, TTS", "YouTube/Instagram upload, schedule & analytics", "AI prompt & caption assist"] },
+const PAYMENT_PLAN = COMPONENTS_PLAN.component.paymentResult;
+const CHECKOUT_PLAN = readPlan("figma/product-checkout-status.plan.json");
+const UPGRADE_PLAN = readPlan("figma/product-upgrade-scene.plan.json");
+const cardTexts = (card) => card.sections.flatMap((section) => [
+  ...(section.texts ?? []).map((text) => text.text),
+  ...(section.items ?? []).map((item) => item.text.text),
 ]);
+const cardStructure = (card) => [
+  ...card.sections.map((section) => (section.texts ?? section.items).length),
+  ...(card.action ? [1] : []),
+];
+export const CONTENT_COMPONENTS = Object.freeze([
+  ...PAYMENT_PLAN.variants.map((variant) => ({
+    set: PAYMENT_PLAN.componentSetName,
+    variant: `Outcome=${variant.outcome}, Viewport=${variant.viewport}`,
+    viewport: variant.viewport,
+    texts: [variant.title.text, variant.body.text, ...(variant.detail ? [variant.detail.term.text, variant.detail.value.text] : []), variant.action.label.text],
+    structure: [1, 1, ...(variant.detail ? [2] : []), 1],
+  })),
+  ...CHECKOUT_PLAN.component.variants.map((variant) => ({
+    set: CHECKOUT_PLAN.component.contentSetName,
+    variant: `Outcome=${variant.outcome}, Viewport=${variant.viewport}`,
+    viewport: variant.viewport,
+    texts: [
+      variant.title.text, variant.body.text,
+      ...(variant.alert ? [variant.alert.text] : variant.details.rows.flatMap((row) => [row.term.text, row.value.text])),
+      ...variant.actionGroup.actions.map((action) => action.text),
+    ],
+    structure: [1, 1, variant.alert ? 1 : variant.details.rows.length * 2, variant.actionGroup.actions.length],
+  })),
+  ...UPGRADE_PLAN.component.cards.map((card) => ({
+    set: UPGRADE_PLAN.component.cardSetName,
+    variant: `Plan=${card.plan}, Viewport=Desktop`,
+    viewport: "Desktop",
+    texts: [...cardTexts(card), ...(card.action ? [card.action.label.text] : [])],
+    structure: cardStructure(card),
+  })),
+  ...UPGRADE_PLAN.component.mobile.cards.map((card) => ({
+    set: UPGRADE_PLAN.component.mobileVisibleCardSetName,
+    variant: `Plan=${card.plan}, Evidence=VisibleSlice`,
+    viewport: "Mobile",
+    texts: [...cardTexts(card), ...(card.action ? [card.action.label.text] : [])],
+    structure: cardStructure(card),
+  })),
+].map((entry) => Object.freeze({ ...entry, texts: entry.texts.map((text) => String(text ?? "").trim()) })));
+for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
+  if (plan.productCommit !== APP_SHELL_PLAN.productCommit) {
+    throw new Error(`[figma-app-screens] 본문 세트 plan 의 앵커(${String(plan.productCommit).slice(0, 8)})가 앱 셸 plan 과 다릅니다 — 생성기를 같은 앵커에서 다시 도세요.`);
+  }
+}
+if (COMPONENT_SETS.paymentResult !== PAYMENT_PLAN.componentSetName || COMPONENT_SETS.checkoutStatus !== CHECKOUT_PLAN.component.contentSetName ||
+  COMPONENT_SETS.upgradePlanCard !== UPGRADE_PLAN.component.cardSetName || COMPONENT_SETS.upgradePlanCardSlice !== UPGRADE_PLAN.component.mobileVisibleCardSetName) {
+  throw new Error("[figma-app-screens] COMPONENT_SETS 의 본문 세트 이름이 생성기 plan 과 다릅니다.");
+}
 
 /**
  * breadcrumb 첫 라벨 → 데스크톱 상단 바의 `Content` 축. 앱 셸 plan 의 측정 variant 에서 읽는다 —
@@ -848,17 +865,32 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     return true;
   };
 
-  // 본문 블록 — **정렬된 텍스트가 완전히 같고 rect가 1px 이내**일 때만 이미 있는 컴포넌트로 바꾼다.
+  // 본문 블록 — **글자 서열 + 구조 서명 + 뷰포트**가 모두 맞을 때만 이미 있는 컴포넌트로 바꾼다(위 CONTENT_COMPONENTS 주석).
+  const viewportName = desktop ? "Desktop" : "Mobile";
+  const structureOf = (node) => (node.children ?? []).map((child) => textsOf(child).filter(Boolean).length).filter((count) => count > 0);
   const matchContent = (node) => {
     if (!node.children?.length) return null;
     const texts = textsOf(node).filter(Boolean);
     if (texts.length === 0) return null;
-    return CONTENT_COMPONENTS.find((candidate) =>
-      Math.abs(candidate.size[0] - node.rect.width) <= 1
-      && Math.abs(candidate.size[1] - node.rect.height) <= 1
-      && candidate.texts.length === texts.length
-      && candidate.texts.every((text, index) => text === texts[index])) ?? null;
+    const sameTexts = CONTENT_COMPONENTS.filter((candidate) =>
+      candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
+    if (sameTexts.length === 0) return null;
+    const structure = structureOf(node);
+    const hit = sameTexts.find((candidate) => candidate.viewport === viewportName
+      && candidate.structure.length === structure.length && candidate.structure.every((count, index) => count === structure[index]));
+    if (hit) return { hit };
+    const inViewport = sameTexts.filter((candidate) => candidate.viewport === viewportName);
+    return {
+      miss: {
+        set: sameTexts[0].set,
+        reason: inViewport.length === 0
+          ? `글자 서열은 ${sameTexts.map((candidate) => candidate.variant).join(" | ")} 와 같지만 ${viewportName} variant 가 세트에 없다`
+          : `글자 서열은 ${inViewport[0].variant} 와 같지만 구조 서명이 다르다(측정 [${structure.join(",")}] · 세트 [${inViewport[0].structure.join(",")}])`,
+      },
+    };
   };
+  // 글자는 같은데 이 노드에서는 맞지 않은 자리. 그 아래에서 같은 세트가 치환되면(래퍼 · 조상이었다) 버리고, 아니면 사유로 남긴다.
+  const contentMisses = [];
 
   let barDone = false;
   const walk = (node) => {
@@ -877,9 +909,12 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
       if (substitute(node, set, variant, `앞머리 버튼 · breadcrumb nav · 뒷머리 버튼을 직접 품은 행 — 앱 상단 바 (${round(node.rect.width)}px)`)) return;
     }
     const content = matchContent(node);
-    if (content) {
-      if (substitute(node, content.set, content.variant,
-        `텍스트 ${content.texts.length}개 일치 + rect ${round(node.rect.width)}×${round(node.rect.height)} — 기존 본문 컴포넌트`)) return;
+    if (content?.hit) {
+      const { hit } = content;
+      if (substitute(node, hit.set, hit.variant,
+        `글자 ${hit.texts.length}개 서열 · 구조 서명 [${hit.structure.join(",")}] · ${hit.viewport} 일치 — 기존 본문 컴포넌트(측정 ${round(node.rect.width)}×${round(node.rect.height)})`)) return;
+    } else if (content?.miss) {
+      contentMisses.push({ path: node.path, ...content.miss });
     }
     // 낱개 정본 프리미티브. 셸·본문보다 **뒤에** 본다 — 셸 안의 버튼은 셸 컴포넌트가 이미
     // 소유하고 있어서, 먼저 보면 같은 픽셀을 두 겹으로 인스턴스화하게 된다.
@@ -896,6 +931,11 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     for (const child of node.children ?? []) walk(child);
   };
   walk(spec);
+  // 가장 안쪽 자리 하나만 남긴다 — 그 아래에서 치환됐거나 더 안쪽에서 같은 이유로 못 맞춘 자리가 있으면 이 노드는 감싸개다.
+  for (const miss of contentMisses) {
+    const below = (entry) => entry !== miss && entry.set === miss.set && entry.path.startsWith(`${miss.path}.`);
+    if (!applied.some(below) && !contentMisses.some(below)) skipped.push({ path: miss.path, set: miss.set, reason: miss.reason });
+  }
 
   return { applied, skipped };
 }

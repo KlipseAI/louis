@@ -274,7 +274,10 @@ const paintsNoContent = (node) => {
   let painted = false;
   const walk = (n) => {
     for (const c of childrenOf(n)) {
-      if (isPainted(c)) { painted = true; return; }
+      // **인스턴스는 내용이다(2026-09-14).** payload 는 인스턴스의 자손을 싣지 않아 글자도 칠도 보이지 않는다. 그걸
+      // 「담은 것이 없다」로 읽으면 본문 블록을 인스턴스로 바꾼 결제 결과 · 체크아웃 보드 14장의 메인 카드(상단 바 +
+      // 본문 인스턴스를 칠해 감싸는 면)가 「칠해진 마크」로 뒤집혀 미보유로 세어진다 — 보드는 한 장도 나빠지지 않았는데.
+      if (isPainted(c) || c.i) { painted = true; return; }
       walk(c);
     }
   };

@@ -1604,6 +1604,19 @@ withCanary(
   "보다 줄었다",
 );
 
+// ── 본문 블록 치환 래칫 카나리아(2026-09-14) ───────────────────────────────
+// 감사 시점에 결과 · 체크아웃 보드 14장의 본문이 인스턴스가 못 되고 날노드였는데 어떤 게이트도 말하지 않았다(치환 매처가
+// 크기 손 사본을 1px 창으로 비교했고 실패는 `skipped` 에도 없었다). `check-figma-app-screens` 는 이제 본문 세트별 인스턴스
+// 수를 양방향으로 잠근다. 매처의 구조 서명을 한 칸 틀리게 해 결제 결과 Failure 넷이 치환을 잃으면 그 래칫이 물어야 한다.
+withCanary(
+  "scripts/lib/figma-component-substitution.mjs",
+  (source) => source.replace("structure: [1, 1, ...(variant.detail ? [2] : []), 1],", "structure: [1, 1, ...(variant.detail ? [1, 1] : []), 1],"),
+  "content substitution: 본문 인스턴스를 잃은 매처",
+  "scripts/build-figma-app-screens.mjs",
+  "본문 세트 Product/Payment Result Content 의 인스턴스가",
+  "--check",
+);
+
 // ── 팔레트/사다리 충돌 판정 카나리아 ──────────────────────────────────────
 // **이 카나리아가 없으면 `check-palette-ladder-collision` 은 「초록이라 잘 도는 것 같다」로만
 // 남는다.** 그 게이트는 2026-09-08~09 에 손으로 고친 넷을 잡으려고 세웠는데, 그 넷은 전부

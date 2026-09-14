@@ -14,44 +14,48 @@
   "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 806,
+  "rawNodesBeforePruning": 478,
   "counts": {
-    "total": 855,
-    "instance": 84,
+    "total": 545,
+    "instance": 101,
     "replaceable": 0,
-    "bespoke": 25,
-    "blocked": 3,
-    "missing": 70,
-    "structural": 673,
+    "bespoke": 5,
+    "blocked": 2,
+    "missing": 22,
+    "structural": 415,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 46.2,
-    "target": 84,
-    "candidates": 182
+    "instanceOverCandidates": 77.7,
+    "target": 101,
+    "candidates": 130
   },
   "byInstanceSet": {
     "Product/Gnb Desktop Shell": 18,
     "Product/Desktop App Top Bar": 18,
     "Product/Mobile App Top Bar": 18,
-    "Button": 30
+    "Button": 26,
+    "Product/Payment Result Content": 8,
+    "Product/Checkout Status Content": 6,
+    "Product/Upgrade Plan Card": 5,
+    "Product/Upgrade Plan Card Visible Slice": 2
   },
   "byComponent": {},
   "bespokeByComponent": {
-    "Button/md": 21,
-    "SegmentedControl/settings": 4
+    "SegmentedControl/settings": 4,
+    "Button/md": 1
   },
   "bespokeByIcon": {},
   "structuralByKind": {
-    "surface": 157,
-    "frame": 278,
+    "surface": 146,
+    "frame": 172,
     "image": 2,
-    "text": 236
+    "text": 95
   },
   "missingByCandidateClause": {
     "a-interactive": 16,
-    "c-painted-mark": 52,
+    "c-painted-mark": 4,
     "b-vector": 2
   },
   "matchRules": [
@@ -348,8 +352,8 @@
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 5,
+        "missing": 0,
+        "structural": 6,
         "unclassified": 0
       }
     },
@@ -367,8 +371,8 @@
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 4,
+        "missing": 0,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -457,13 +461,13 @@
         "figma/app-screens.mypage-topup-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 14,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 11,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -476,13 +480,13 @@
         "figma/app-screens.mypage-topup-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 13,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 11,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -495,13 +499,13 @@
         "figma/app-screens.mypage-topup-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 11,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -514,13 +518,13 @@
         "figma/app-screens.mypage-topup-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 10,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -533,13 +537,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 14,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 11,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -552,13 +556,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 13,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 11,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -571,13 +575,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 11,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -590,13 +594,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 10,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -609,13 +613,13 @@
         "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 19,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 15,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -628,13 +632,13 @@
         "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 18,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 15,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -647,13 +651,13 @@
         "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 13,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 8,
+        "missing": 0,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -666,13 +670,13 @@
         "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 12,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 8,
+        "missing": 0,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -685,13 +689,13 @@
         "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 22,
-        "instance": 2,
+        "total": 7,
+        "instance": 3,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 18,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -704,13 +708,13 @@
         "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 21,
-        "instance": 1,
+        "total": 6,
+        "instance": 2,
         "replaceable": 0,
-        "bespoke": 2,
+        "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 18,
+        "structural": 4,
         "unclassified": 0
       }
     },
@@ -720,19 +724,16 @@
       "frameId": "192:1251",
       "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "files": [
-        "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-        "figma/app-screens.mypage-upgrade.desktop.01.draw.js",
-        "figma/app-screens.mypage-upgrade.desktop.02.draw.js",
-        "figma/app-screens.mypage-upgrade.desktop.03.draw.js"
+        "figma/app-screens.mypage-upgrade.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 171,
-        "instance": 7,
+        "total": 26,
+        "instance": 8,
         "replaceable": 0,
         "bespoke": 0,
-        "blocked": 1,
-        "missing": 33,
-        "structural": 130,
+        "blocked": 0,
+        "missing": 1,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -745,13 +746,13 @@
         "figma/app-screens.mypage-upgrade.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 73,
-        "instance": 2,
+        "total": 18,
+        "instance": 4,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 13,
-        "structural": 58,
+        "missing": 1,
+        "structural": 13,
         "unclassified": 0
       }
     },
@@ -2246,10 +2247,9 @@
         1632,
         1064
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/highlight/[projectId]?__phase=loading@desktop-1920x1080#0.0.1.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
@@ -2315,10 +2315,9 @@
         402,
         874
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/highlight/[projectId]?__phase=loading@mobile-402x874#0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
@@ -3192,90 +3191,11 @@
         520,
         229.59
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        45
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.61,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.2.1": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.3": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=Failure, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=Failure, Viewport=Desktop)."
     },
     "/mypage/topup/fail@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
@@ -3341,90 +3261,11 @@
         390,
         312.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        82
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.81,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.2.1": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.98,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.3": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/fail@mobile-402x874#0.0.0.1.3.0": {
-      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=Failure, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=Failure, Viewport=Mobile)."
     },
     "/mypage/topup/success@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
@@ -3503,57 +3344,11 @@
         520,
         209.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/success@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/success@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/success@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/success@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=TopupDelayed, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=TopupDelayed, Viewport=Desktop)."
     },
     "/mypage/topup/success@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
@@ -3619,57 +3414,11 @@
         390,
         254.78
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/success@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        145.78
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/success@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/topup/success@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/topup/success@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=TopupDelayed, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=TopupDelayed, Viewport=Mobile)."
     },
     "/mypage/upgrade/billing-change-fail@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
@@ -3748,90 +3497,11 @@
         520,
         229.59
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        45
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.61,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=Failure, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=Failure, Viewport=Desktop)."
     },
     "/mypage/upgrade/billing-change-fail@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
@@ -3897,90 +3567,11 @@
         390,
         312.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        82
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.81,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.98,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=Failure, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=Failure, Viewport=Mobile)."
     },
     "/mypage/upgrade/billing-change-success@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
@@ -4059,57 +3650,11 @@
         520,
         209.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=PlanDelayed, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=PlanDelayed, Viewport=Desktop)."
     },
     "/mypage/upgrade/billing-change-success@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
@@ -4175,57 +3720,11 @@
         390,
         275.78
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        145.78
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Payment Result Content",
+      "variant": "Outcome=PlanDelayed, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Payment Result Content(Outcome=PlanDelayed, Viewport=Mobile)."
     },
     "/mypage/upgrade/billing-fail@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
@@ -4304,149 +3803,11 @@
         520,
         365.59
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        72
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "dl",
-      "rect": [
-        520,
-        91
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        46
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.0.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.61,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.0.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        45
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        56.56,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.2.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        142.02,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=BillingFail, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=BillingFail, Viewport=Desktop)."
     },
     "/mypage/upgrade/billing-fail@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
@@ -4512,149 +3873,11 @@
         390,
         500.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        84
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "dl",
-      "rect": [
-        390,
-        165
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        83
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.0.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.81,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.0.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.98,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        82
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        56.7,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.2.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        142.45,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=BillingFail, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=BillingFail, Viewport=Mobile)."
     },
     "/mypage/upgrade/billing-success@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
@@ -4733,84 +3956,11 @@
         520,
         322.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        47
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=BillingSuccess, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=BillingSuccess, Viewport=Desktop)."
     },
     "/mypage/upgrade/billing-success@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
@@ -4876,84 +4026,11 @@
         390,
         409.78
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        145.78
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        68
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=BillingSuccess, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=BillingSuccess, Viewport=Mobile)."
     },
     "/mypage/upgrade/fail@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
@@ -5032,182 +4109,11 @@
         520,
         411.59
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        520,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        520,
-        72
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dl",
-      "rect": [
-        520,
-        137
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        46
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.0.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.61,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.0.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        46
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        56.56,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        142.02,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.2": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        45
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        50.98,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.2.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        5.91,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        520,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        520,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=CheckoutFail, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=CheckoutFail, Viewport=Desktop)."
     },
     "/mypage/upgrade/fail@mobile-402x874#root": {
       "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
@@ -5273,182 +4179,11 @@
         390,
         583.19
       ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "h1",
-      "rect": [
-        390,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        390,
-        84
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dl",
-      "rect": [
-        390,
-        248
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        83
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.0.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        63.81,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.0.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        119.98,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        83
-      ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.1.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        56.7,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.1.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        142.45,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.2": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        82
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.2.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dt",
-      "rect": [
-        51.16,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.2.2.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "dd",
-      "rect": [
-        5.92,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.3": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        390,
-        74
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
-    },
-    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        390,
-        32
-      ],
-      "verdict": "bespoke",
-      "rule": "primitive-site-element-mismatch",
-      "site": "button-md",
-      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Checkout Status Content",
+      "variant": "Outcome=CheckoutFail, Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Checkout Status Content(Outcome=CheckoutFail, Viewport=Mobile)."
     },
     "/mypage/upgrade@desktop-1920x1080#root": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -5662,316 +4397,11 @@
         256.8,
         608.19
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        224.8,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        70.8,
-        48.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        36.47,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        224.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        224.8,
-        172
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.5.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.4.5.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.0.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        224.8,
-        32
-      ],
-      "verdict": "blocked",
-      "rule": "primitive-variant-folded-by-disabled",
-      "probe": "button-disabled",
-      "reason": "Button/md 의 상자는 맞고 제품도 정본 자리 `button-md` 를 무는데, 면이 disabled 면(`bg-inset` + `fg-disabled`, 원장 probe `button-disabled`) 이라 Variant 축을 고를 수 없다 — button.css 가 primary·danger·danger-secondary·inverse 넷을 같은 면·같은 글자로 접고, 측정 트리에 `disabled` 칸이 없다. 고칠 곳은 Figma 가 아니라 측정 쪽이다.",
-      "component": "Button",
-      "size": "md",
-      "candidateClause": "a-interactive"
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Upgrade Plan Card",
+      "variant": "Plan=Trial, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card(Plan=Trial, Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -5980,393 +4410,11 @@
         256.8,
         608.19
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        224.8,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        159,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        57.8,
-        52
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        52.5,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        224.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        224.8,
-        244
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.5.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.5.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.6": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.6.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.6.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.7": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.7.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.4.7.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.1.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        224.8,
-        32
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Button",
-      "variant": "Variant=inverse, Size=md, State=Default, Icon=none",
-      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=inverse, Size=md, State=Default, Icon=none)."
+      "component": "Product/Upgrade Plan Card",
+      "variant": "Plan=Lite, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card(Plan=Lite, Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -6375,427 +4423,11 @@
         256.8,
         608.19
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        224.8,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        160.11,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        56.69,
-        52
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        61.56,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        224.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        224.8,
-        290
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.5.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.5.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.6": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.6.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.6.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.7": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.7.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.7.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.8": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.8.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.4.8.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.2.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        224.8,
-        32
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Button",
-      "variant": "Variant=inverse, Size=md, State=Default, Icon=none",
-      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=inverse, Size=md, State=Default, Icon=none)."
+      "component": "Product/Upgrade Plan Card",
+      "variant": "Plan=Plus, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card(Plan=Plus, Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -6804,291 +4436,11 @@
         256.8,
         608.19
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        224.8,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        160.44,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        56.36,
-        52
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        64.98,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        224.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        224.8,
-        166
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.3.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        224.8,
-        32
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Button",
-      "variant": "Variant=inverse, Size=md, State=Default, Icon=none",
-      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=inverse, Size=md, State=Default, Icon=none)."
+      "component": "Product/Upgrade Plan Card",
+      "variant": "Plan=Pro, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card(Plan=Pro, Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -7097,257 +4449,11 @@
         256.8,
         608.19
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        224.8,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        159.58,
-        97.19
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        57.22,
-        52
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
-      "rect": [
-        224.8,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        65.31,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "p",
-      "rect": [
-        224.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        224.8,
-        120
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "li",
-      "rect": [
-        224.8,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        198.8,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.1.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "button",
-      "rect": [
-        224.8,
-        32
-      ],
       "verdict": "instance",
       "rule": "instance",
-      "component": "Button",
-      "variant": "Variant=inverse, Size=md, State=Default, Icon=none",
-      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=inverse, Size=md, State=Default, Icon=none)."
+      "component": "Product/Upgrade Plan Card",
+      "variant": "Plan=Ultra, Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card(Plan=Ultra, Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.2": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -7570,301 +4676,11 @@
         193,
         572.59
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        169,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        169,
-        37.8
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        55.06,
-        37.8
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.2": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        169,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        36.47,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.3": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        169,
-        212
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.5.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.0.4.5.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Upgrade Plan Card Visible Slice",
+      "variant": "Plan=Trial, Evidence=VisibleSlice",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card Visible Slice(Plan=Trial, Evidence=VisibleSlice)."
     },
     "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
@@ -7873,334 +4689,11 @@
         193,
         572.59
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "h3",
-      "rect": [
-        169,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        169,
-        75.59
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        114.28,
-        75.59
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        46.72,
-        46
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.2": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        169,
-        54
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "strong",
-      "rect": [
-        52.5,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        61.14,
-        30
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.3": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "p",
-      "rect": [
-        169,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "ul",
-      "rect": [
-        169,
-        284
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.1.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.1.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.2": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.2.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.2.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.3": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.3.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.3.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.4": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.4.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.4.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.5": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.5.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        18,
-        18
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.5.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.6": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "li",
-      "rect": [
-        169,
-        22
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.6.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        143,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Upgrade Plan Card Visible Slice",
+      "variant": "Plan=Lite, Evidence=VisibleSlice",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Upgrade Plan Card Visible Slice(Plan=Lite, Evidence=VisibleSlice)."
     },
     "/settings@desktop-1920x1080#root": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",

@@ -203,14 +203,24 @@ const REPLACEABLE_BASELINE = 0;
 // 칸이 통째로 없어졌다(25 → 0). 같은 치환으로 missing 81 → 70(바의 프로필 버튼 — highlight loading
 // 두 보드는 이미 구조로 세어져 있어 11), Avatar 인스턴스 13 → 0 · 상단 바 인스턴스 23 → 36 이다.
 // 바가 날노드로 되돌아가면 이 수도 함께 돌아와야 한다 — 그때는 아래 SHELL_INSTANCES_BY_BOARD 가 먼저 운다.
-const BESPOKE_BASELINE = 25; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+//
+// 2026-09-14: 25 → **5.** **판정을 푼 것이 아니라 본문 블록 21개가 인스턴스가 됐다.** 치환 매처가 결과 · 체크아웃 본문을
+// 크기 손 사본(1px 창)이 아니라 세트 plan 의 글자 서열 + 구조 서명 + 뷰포트로 알아보게 되자(크기 굳힘 감사 묶음 2),
+// 결과 · 체크아웃 보드 14장의 본문(`Product/Payment Result Content` 8 · `Product/Checkout Status Content` 6)과
+// `/mypage/upgrade` 의 요금제 카드(`Product/Upgrade Plan Card` 5 · `… Visible Slice` 2)가 인스턴스로 치환됐고,
+// `$pruningRule` 에 따라 그 안의 부품은 세지 않는다. 사라진 20 은 전부 `Button/md`(제품 `STATUS_BUTTON_*` 지역 레시피 —
+// 본문의 링크 버튼)다: topup-fail · topup-success · billing-change-fail · billing-change-success 2씩, billing-fail ·
+// billing-success · upgrade/fail 4씩. 본문이 날노드로 되돌아가면 이 수도 함께 돌아와야 한다.
+const BESPOKE_BASELINE = 5; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
 // 라이트 화면의 secondary 버튼이 한 자리도 인스턴스가 되지 못했다. 원장에 라이트 벌
 // (`button-secondary-light`)을 세우고 실측 두 면으로 판정하게 고쳤고, 면도 헤어라인도 없는
 // `ghost` 도 같은 이유로 자리를 잃고 있어 함께 열었다. 대체가능 22 → 0.
-const INSTANCE_FLOOR = 84;
+// 2026-09-14: 84 → **101.** **이득이다.** 본문 블록 21개(결과 8 · 체크아웃 6 · 요금제 카드 5 · 보이는 조각 2)가 인스턴스가
+// 됐고, 요금제 카드 안의 `Button` inverse 인스턴스 4 가 카드 인스턴스 안으로 들어가 세어지지 않는다: 84 + 21 − 4.
+const INSTANCE_FLOOR = 101;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -218,7 +228,13 @@ const INSTANCE_FLOOR = 84;
 // 2026-09-13(같은 날 뒤): 218 → **182.** 보드가 준 것이 아니라 상단 바 13개가 인스턴스가 되어 그 안의
 // 후보가 가지치기된 것이다(BESPOKE 문단): bespoke −25 · missing −11 · instance ±0(바 +13 · Avatar −13).
 // 수는 instance 84 + replaceable 0 + bespoke 25 + blocked 3 + missing 70.
-const CANDIDATE_FLOOR = 182;
+// 2026-09-14: 182 → **130.** 보드가 준 것이 아니라 본문 블록 21개가 인스턴스가 되어 그 안의 후보가 가지치기됐고
+// (bespoke −20 · blocked −1 · missing −46 · instance +17), 원장의 「칠해진 마크」 판정이 인스턴스를 내용으로 보게
+// 고쳐져(`measure-figma-board-composition.mjs` 의 `paintsNoContent`) highlight loading 두 보드의 메인 카드 면이
+// missing → structural 로 제자리를 찾았다(−2). blocked −1 은 `/mypage/upgrade` 의 disabled 요금제 CTA 로, 이제
+// `Plan=Trial` 카드 인스턴스 안이다. missing −46 은 요금제 카드의 체크 마크(18×18 `span` mask — 데스크톱 32 · 모바일 12) 44 와 billing-success 본문 알림 2 다.
+// 수는 instance 101 + replaceable 0 + bespoke 5 + blocked 2 + missing 22.
+const CANDIDATE_FLOOR = 130;
 const BOARD_FLOOR = 36;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
@@ -660,9 +676,8 @@ console.log(
 );
 console.log(
   "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
-    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 축을 잃은 자리 둘이다: ProgressBar 의 " +
-    "State 축 2, 그리고 `/mypage/upgrade` 의 disabled 요금제 CTA 1(`:disabled` 가 " +
-    "primary·danger·danger-secondary·inverse 넷을 같은 면·같은 글자로 접는다). " +
+    "(대응은 있는데 측정이 고를 정보를 잃었다 — 남은 것은 ProgressBar 의 State 축 2 다. " +
+    "`/mypage/upgrade` 의 disabled 요금제 CTA 는 2026-09-14 부터 요금제 카드 인스턴스 안이라 세지 않는다). " +
     "아이콘 정체 여섯은 서명을 이어 닫혔고 bespoke 4 · 미보유 2 로 갈렸다) · " +
     "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +
     "bespoke 는 «줄 때» 잠근다(BESPOKE_BASELINE).",

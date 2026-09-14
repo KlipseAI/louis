@@ -1597,6 +1597,13 @@ withCanary(
   "[크기 호출] fixed(leading, 68, 36);",
 );
 withCanary(
+  "scripts/templates/figma-product-payment-scenes-renderer.js",
+  (source) => source + "\nconst canaryDescription = `Measured 1628×1004 result main surface`;\n",
+  "derived size literal: 새 굳힘 · 렌더러 설명문의 수치",
+  "scripts/check-derived-size-literals.mjs",
+  "[설명 수치] const canaryDescription",
+);
+withCanary(
   "scripts/check-derived-size-literals.mjs",
   (source) => source.replace(/(\n {2}"[^"\n]+\.mjs": )(\d+),/, (_, head, count) => head + (Number(count) + 1) + ","),
   "derived size literal: 내리지 않은 기준선",

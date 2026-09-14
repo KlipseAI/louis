@@ -35,6 +35,11 @@
 // - `[크기 호출]` `resize` · `resizeWithoutConstraints` · `fixed` · `setFixed` 의 인자 가운데 수 하나로만 된
 //   인자(`fixed(leading, 68, 36)`, `profile.resize(profile.width, 36)`).
 // - `[abs]` `Math.abs(…)` 안에 크기 식이 있을 때 그 안에서 더하고 빼는 수(`Math.abs(bar.height - 53) <= 1`).
+// - `[설명 수치]` **렌더러 템플릿에서만** — 코드 줄의 `<수>×<수>`(노드 이름 · 설명문 문자열). 묶음 3 의 발단 하나가
+//   이 꼴이었다: 결제 장면 러너가 매 실행 다시 짓는 노드의 설명에 「Measured 1628×1004」 · 「402×810」, 업그레이드 러너가
+//   「1628×1056」을 박아 두어, 셸이 움직인 뒤에도 틀린 수를 「측정」이라고 주장했다. 수는 계획 rect 에서 조립한다
+//   (`${spec.page.rect.width}×${spec.page.rect.height}`). 생성기 · 라이브러리는 세지 않는다 — 자산 이름
+//   (`logo/klipse-dark (291×85 · …)`)과 블록 주석 안의 기록이 섞여 신호가 묻힌다.
 //
 // **이 수는 하한이다.** 세지 못하는 꼴: 크기 이름이 아닌 이름(`rows.upper !== 656`), 간접 비교
 // (`expected.page[0]`), 계산식 인자(`resize(40 + i * 560, …)`), 노드 위치 대입(`node.x = 868` — 보드
@@ -65,15 +70,15 @@ import { fileURLToPath } from "node:url";
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 // 2026-09-14 — 묶음 1(상단 바 사슬) 뒤, 꼴을 넓혀 다시 잰 수. 줄면 여기를 같은 수로 내린다.
+// 같은 날 묶음 2 · 3(결제 결과 · 체크아웃 본문과 메인 표면 · 장면, 요금제 카드) 뒤 다시 내렸다 — 결제 장면 생성기 8 → 0,
+// 업그레이드 장면 생성기 27 → 0, 체크아웃 렌더러 10 → 0, 업그레이드 렌더러 12 → 0, 결제 장면 렌더러 8 → 2, 컴포넌트 렌더러
+// 16 → 14. 0 이 된 파일은 기준선에서 뺐다(기준선에 없는 파일은 0 이어야 한다).
 // 키는 `scripts/` 아래 경로다. **`scripts/` 를 붙여 따옴표로 적지 않는다** — verify-gate-split 이 그 꼴의
 // 문자열을 이 게이트가 부르는 스크립트로 읽고, 생성기에는 제품 저장소 표지가 있어 CI 배분이 거부된다.
 const BASELINE = {
-  // 결제 · 업그레이드 · 요금제 장면의 뷰포트 · 메인 카드 · 카드 크기 가드(묶음 2 · 3 · 5), 컴포넌트 생성기의
-  // 글리프 20 가드. 업그레이드의 27 에는 카드 패딩 `padding.left !== 12` 와 아웃라인 `width: 2` 가 들어 있다.
+  // 컴포넌트 생성기의 글리프 20 가드, 요금제 장면(묶음 5)의 뷰포트 · 카드 크기 가드.
   "build-figma-product-components.mjs": 2,
-  "build-figma-product-payment-scenes.mjs": 8,
   "build-figma-product-pricing-page.mjs": 4,
-  "build-figma-product-upgrade-scene.mjs": 27,
   // 앱 셸 생성기의 Figma 글리프 실측표(`figmaGlyphBounds` · `desktopFigmaGlyphBounds`, 라벨 열 개 × 폭 · 높이 ×
   // 두 뷰포트)와 `lineShiftX`. 제품 rect 가 아니라 Figma 글꼴 메트릭이지만 라벨 · 글꼴이 바뀌면 낡는 계산값이다.
   "build-figma-product-app-shell.mjs": 41,
@@ -82,17 +87,17 @@ const BASELINE = {
   "build-figma-ds-library.mjs": 13,
   "build-figma-inventory.mjs": 2,
   "build-figma-variable-source.mjs": 2,
-  // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(6100, 6000)` 과 그 최소 크기 비교) ·
+  // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(1800, 980)` 류와 그 최소 크기 비교) ·
   // 문서 프레임 · 세트 크기 · 열 폭이다. 캔버스가 아닌 것: 사이드바 상태 렌더러의 접힌 레일 조각
   // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` · `rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` 등 18),
-  // 컴포넌트 렌더러의 `plus.resize(20, 20)` 과 패딩 4 → spacing4 바인딩 비교 둘.
+  // 컴포넌트 렌더러의 `plus.resize(20, 20)` 과 패딩 4 → spacing4 바인딩 비교 둘(묶음 4 의 사이드바 메뉴 몫).
+  // 결제 장면 렌더러의 둘은 문서 프레임(`docs.resize(840, 156)`)이다.
   "templates/figma-product-app-shell-renderer.js": 3,
-  "templates/figma-product-checkout-status-renderer.js": 10,
-  "templates/figma-product-components-renderer.js": 16,
-  "templates/figma-product-payment-scenes-renderer.js": 8,
+  "templates/figma-product-components-renderer.js": 14,
+  "templates/figma-product-payment-scenes-renderer.js": 2,
   "templates/figma-product-pricing-renderer.js": 6,
-  "templates/figma-product-sidebar-states-renderer.js": 18,
-  "templates/figma-product-upgrade-scene-renderer.js": 12,
+  // 사이드바 상태 렌더러에는 [설명 수치] 둘도 들어 있다 — 노드 이름 「label clip · measured 12×18」 · 「96×28 clipped」(묶음 4).
+  "templates/figma-product-sidebar-states-renderer.js": 20,
 };
 
 const NUMBER = String.raw`-?\d+(?:\.\d+)?`;
@@ -168,13 +173,15 @@ function sizeLiterals(code) {
   return [...found.entries()].sort(([a], [b]) => a - b).map(([column, form]) => ({ column, form }));
 }
 
+const DESCRIBED_SIZE = /(?<![\w.])\d+(?:\.\d+)?\s*×\s*\d+(?:\.\d+)?/g;
 /** 소스 한 벌에서 인용 없는 크기 리터럴을 센다. 줄 번호 · 꼴 · 줄을 함께 돌려준다. */
-function countSizeLiterals(source) {
+function countSizeLiterals(source, { template = false } = {}) {
   const hits = [];
   source.split("\n").forEach((line, index) => {
     if (COMMENT_LINE.test(line) || DECLARED.test(line)) return;
     const code = line.replace(/\/\/.*$/, "");
     for (const { form } of sizeLiterals(code)) hits.push({ line: index + 1, form, text: line.trim() });
+    if (template) for (const _ of code.matchAll(DESCRIBED_SIZE)) hits.push({ line: index + 1, form: "설명 수치", text: line.trim() });
   });
   return hits;
 }
@@ -206,7 +213,7 @@ const errors = [];
 let total = 0;
 const counted = {};
 for (const path of targets) {
-  const hits = countSizeLiterals(readFileSync(join(repoRoot, path), "utf8"));
+  const hits = countSizeLiterals(readFileSync(join(repoRoot, path), "utf8"), { template: path.startsWith(join("scripts", "templates")) });
   const key = relative(join(repoRoot, "scripts"), join(repoRoot, path)).split("\\").join("/");
   const baseline = BASELINE[key] ?? 0;
   total += hits.length;

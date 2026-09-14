@@ -526,7 +526,9 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 - 러너가 찾는 **변수 컬렉션 이름**이 파일에 있는지. 라이브 LOUIS 의 컬렉션은 `Klipse Primitive` ·
   `Klipse Semantic` · `Klipse Semantic Color` 셋이고, 은퇴한 `1 · Palette` · `2 · Semantic` 을 찾는
   컴포넌트 러너는 첫머리에서 던진다(앱 셸 러너는 2026-09-13 에 옮겼다).
-- 계획이 쓰는 **세트·variant·TEXT 속성**이 파일에 있는지 — `figma-screens-live-check --sets`.
+- 계획이 쓰는 **세트·variant·TEXT 속성**이 파일에 있는지 — `figma-screens-live-check --sets`. 상단 바 두 세트는
+  variant 마다 Auto Layout 축(layoutMode · 축 sizing · 헤어라인 레이아웃 포함)까지 앱 셸 계획의
+  `layoutContract` 와 대조한다 — 계산된 높이를 FIXED 로 굳힌 옛 세트가 라이브에 남아 있으면 여기서 보인다.
   세트 러너(앱 셸)가 보드 러너보다 먼저다. 순서를 거꾸로 하면 보드 러너가 「variant 를 찾지 못했다」
   또는 「TEXT 속성이 계획과 다르다」로 던진다.
 - 세트 러너가 고칠 **세트의 소비처 전부** — `figma-screens-live-check --emit --consumers` 의 기준선. 세트 러너는
@@ -587,7 +589,8 @@ Figma 접근이 필요하다.
   `figma-screens-live-check --check` 가 인스턴스별 TEXT 속성 값을 계획과 대조한다.
 - 27번은 `figma-screens-live-check --check` 가 센다 — 보드마다 generated 서브트리 「유형:이름」 해시,
   인스턴스(세트·variant·TEXT 값·visible), generated·legacy 밖 직계 자식, pending 자리표시, 보이는
-  legacy 그룹. `--sets` 결과를 함께 주면 계획이 쓰는 세트·variant·TEXT 속성의 존재도 본다. 적용 뒤
+  legacy 그룹. `--sets` 결과를 함께 주면 계획이 쓰는 세트·variant·TEXT 속성의 존재와 상단 바 세트의 Auto Layout
+  축(`layoutContract`)도 본다. 적용 뒤
   **계획 보드 전부 탐침 · 다름 0** 이어야 한다 — 탐침하지 않은 보드가 하나라도 있으면 실패하고, 부분 대조는
   `--only` · `--allow-partial` 을 붙였을 때만 나며 요약이 그렇게 적는다. 적용에서 뺀 보드는
   `--expect-differ` 로만 합격 밖에 둔다(그 보드가 같아지면 실패). 대조 방법 자체는 `--ref <커밋>` 으로

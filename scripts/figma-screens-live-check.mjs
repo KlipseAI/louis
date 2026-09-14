@@ -18,7 +18,9 @@
 //   2. 인스턴스 — 세트 · variant · TEXT 속성 값 · visible. 기대값은 payload 의 `i` 칸이다.
 //   3. 보드 프레임의 직계 자식 — `generated/<route> <문맥>` 하나와 숨긴 `legacy/<route>` 그룹(있으면)
 //      밖의 자식, 반쯤 적용된 `pending` 자리표시, 보이는 legacy 그룹.
-//   `--sets` 는 계획이 쓰는 세트·variant·TEXT 속성이 파일에 있는지(적용 전 점검)를 본다.
+//   `--sets` 는 계획이 쓰는 세트·variant·TEXT 속성이 파일에 있는지(적용 전 점검)를 본다. 상단 바 두 세트는
+//   variant 마다 Auto Layout 축(layoutMode · 축 sizing · 헤어라인 레이아웃 포함)도 떠서 앱 셸 plan 의
+//   `layoutContract` 와 대조한다 — 계산된 높이를 FIXED 로 굳힌 세트가 라이브에 남아 있으면 여기서 보인다.
 //
 // ## 쓰는 법 — CI 에 넣지 않는다(Figma 접근이 필요하다). verify 목록에도 넣지 않는다.
 //
@@ -218,7 +220,12 @@ if (emitting && args.includes("--consumers")) {
       for (const entry of board.instances) (wanted[entry.set] ??= new Set()).add(entry.variant);
     }
     const payload = Object.fromEntries(Object.entries(wanted).map(([set, variants]) => [set, [...variants].sort()]));
+    // 상단 바 두 세트는 variant 마다 Auto Layout 축도 뜬다 — 앱 셸 plan 의 `layoutContract` 와 대조한다(L-8).
+    const contract = shellLayoutContract() ?? { sets: [], parts: {}, fields: [] };
     emitAndExit(`const WANT=${JSON.stringify(payload)};
+const LAYOUT_SETS=${JSON.stringify(contract.sets)};
+const LAYOUT_PARTS=${JSON.stringify(Object.keys(contract.parts))};
+const LAYOUT_FIELDS=${JSON.stringify(contract.fields)};
 const page = await figma.getNodeByIdAsync(${JSON.stringify(page)});
 if (!page || page.type !== "PAGE") throw new Error("페이지를 찾지 못했습니다: ${page}");
 await figma.setCurrentPageAsync(page);
@@ -233,6 +240,19 @@ for (const node of page.findAllWithCriteria({ types: ["COMPONENT_SET"] })) {
     variants: node.children.map((child) => child.name).filter((name) => WANT[node.name].includes(name)),
     textProperties: Object.keys(definitions).filter((key) => definitions[key].type === "TEXT")
       .map((key) => key.includes("#") ? key.slice(0, key.indexOf("#")) : key),
+    ...(LAYOUT_SETS.includes(node.name) ? {
+      layouts: Object.fromEntries(node.children.map((variant) => {
+        const partOf = {
+          root: variant,
+          leading: variant.children.find((child) => child.type === "FRAME" && child.name === "leading"),
+          breadcrumb: variant.children.find((child) => child.type === "FRAME" && child.name === "breadcrumb"),
+          profile: variant.children.find((child) => child.type === "FRAME" && child.name.startsWith("profile/")),
+        };
+        return [variant.name, Object.fromEntries(LAYOUT_PARTS.map((part) => [part, partOf[part]
+          ? Object.fromEntries(LAYOUT_FIELDS.map((field) => [field, field in partOf[part] ? partOf[part][field] : null]))
+          : null]))];
+      })),
+    } : {}),
   });
 }
 return { kind: "figma-screens-live-sets", page: { id: page.id, name: page.name }, sets };
@@ -308,6 +328,17 @@ return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boa
     );
   }
   emitAndExit(code);
+}
+
+/** 앱 셸 plan 의 상단 바 Auto Layout 계약 — 세트 이름 · 부위 · 필드. */
+function shellLayoutContract() {
+  const shell = JSON.parse(readRepo(SHELL_PLAN));
+  const contract = shell.component?.layoutContract;
+  // `--ref` 로 계약이 생기기 전(2026-09-14 전) 계획을 읽으면 없다 — 그때는 축 대조를 하지 않고 그렇게 적는다.
+  if (!contract) return null;
+  const parts = Object.fromEntries(Object.entries(contract).filter(([key]) => !key.startsWith("$")));
+  const fields = [...new Set(Object.values(parts).flatMap((expected) => Object.keys(expected)))].sort();
+  return { sets: shellSets().names, parts, fields };
 }
 
 /** 앱 셸 plan 이 소유하는 상단 바 세트 이름과 그 페이지. */
@@ -671,6 +702,24 @@ function runCheck() {
           if (entry.textProperties.length !== 1) setProblems.push(`${set} 의 TEXT 속성이 ${entry.textProperties.length}개다(라벨 하나를 넣을 자리가 모호하다)`);
         } else if (JSON.stringify([...names].sort()) !== JSON.stringify([...entry.textProperties].sort())) {
           setProblems.push(`${set} 의 TEXT 속성(${entry.textProperties.join("·") || "없음"})이 계획(${names.join("·")})과 다르다 — 앱 셸 러너를 먼저 돌려야 한다`);
+        }
+      }
+    }
+    // 상단 바 세트의 Auto Layout 축(L-8) — 탐침에 `layouts` 가 있으면 variant 마다 계약과 대조한다.
+    // 옛 탐침(layouts 없음)을 주면 대조하지 않은 것을 따로 적는다 — 조용히 통과로 세지 않는다.
+    const contract = shellLayoutContract();
+    if (!contract) process.stderr.write(`[figma-screens-live] ${SHELL_PLAN}${ref ? ` @ ${ref}` : ""} 에 layoutContract 가 없어 상단 바 Auto Layout 축은 대조하지 않았다\n`);
+    for (const set of contract?.sets ?? []) {
+      const [entry] = setResults[set] ?? [];
+      if (!entry) continue;
+      if (!entry.layouts) { setProblems.push(`${set} 의 Auto Layout 축을 뜨지 않았다 — 이 도구로 --emit --sets 를 다시 뜬다`); continue; }
+      for (const [variant, parts] of Object.entries(entry.layouts)) {
+        for (const [part, expected] of Object.entries(contract.parts)) {
+          const actual = parts[part];
+          if (!actual) { setProblems.push(`${set} · ${variant} 에 ${part} 가 없다`); continue; }
+          const wrong = Object.entries(expected).filter(([field, value]) => actual[field] !== value)
+            .map(([field, value]) => `${field} ${actual[field]} (계약 ${value})`);
+          if (wrong.length) setProblems.push(`${set} · ${variant} · ${part}: ${wrong.join(", ")} — 앱 셸 러너를 적용해야 한다`);
         }
       }
     }

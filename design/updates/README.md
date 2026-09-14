@@ -25,6 +25,120 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-15 (137) — sidebar-states 러너가 대상을 전부 찾은 뒤에 쓰고, 보드 판정기가 논리 크기 · grid 열을 읽는다
+
+**Figma 계획 · 러너 · 측정 원장 · 게이트만 바뀌었다. 라이브 Figma 에는 쓰지 않았다**(읽기 전용 탐침만 — sidebar-states 찾기 단계,
+세트 · 섹션 크기, 허브 활성 행, highlight-hub install id). 웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다.
+
+2026-09-15 라이브 적용이 세트 러너 넷(컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드, (133) · (135) 러너) 뒤 sidebar-states 사전 점검에서
+멈췄다. 그 점검 · 적용 응답 · 적용 뒤 스크린숏이 남긴 것 다섯(하나 — 허브 활성 행 면 — 은 러너 범위 밖이라 인계서로 넘겼다)과
+(135) · (136) 이 「고치지 않았다」로 남긴 셋을 다뤘다. 라이브 상태는
+[인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「현재 체크포인트」 2026-09-15 절이 갖는다.
+
+### sidebar-states — 찾기가 먼저, 쓰기는 그 뒤
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 계획 `install` | 편집 장면 노드 id 열다섯. 옛 레일 · 옛 헤더 · breadcrumb · 액션 · 프로필 원본(`39:4` · `39:11` · `39:12` · `39:13` · `75:525` · `39:14`)은 2026-08-24 라이브 교체 뒤로 파일에 없다 | 보드 프레임 하나(`sceneFrameId` `39:3` — 앱 화면 계획의 `frameId` 와 같은 닻)와 그 이름 머리(측정 문맥 뷰포트 · 편집기 route 에서 조립한 `desktop 1920×1080 — /videoeditor/[projectId] (`), 생성기가 지은 이름 다섯(본문 · 위 줄 · 디바이더 셋). 편집기 판 셋은 디바이더 사이 **자리**로, 그립은 디바이더의 유일한 자식으로 찾는다(판 이름은 손 조립 주석이다) |
+| 렌더러 순서 | 접힌 CTA 마스터 · 레일 세트 칠을 쓴 뒤 편집 장면 id 를 찾고 `Missing video editor scene targets` 로 던진다 — 모의 Figma 의 라이브 유사 세계에서 HEAD 러너가 깊은 상태를 바꾼 채 던지는 것을 재현했다 | 「── 1. 찾기」에서 쓰기 없이 전부 찾는다. 없거나 둘이거나, 장면 · 메인에 보이는 낯선 자식이 있거나, 판 순서가 다르면 여기서 던진다. 「── 2. 쓰기」부터 칠 · 짓기 · 옮기기 |
+| 편집기 상단 바 컴포넌트 | 없으면 옛 헤더 · 원본 셋을 복제해 짓는다(원본이 없어 고아 노드를 남기고 던질 자리) | 원본이 사라져 새로 짓지 않는다 — 없으면 던진다. 이름은 제품 개명대로 `Product/Desktop Composition Top Bar · Sidebar=Collapsed`(라이브 `477:4999`) |
+| 인스턴스 이름 | `gnb/Current=VideoEditor · …` 을 찾되 이름은 둔다, 상단 바 인스턴스는 `topbar/VideoEditor · …` | 옛 이름으로도 찾고 `gnb/Current=Composition · measured collapsed` · `topbar/Composition · Sidebar=Collapsed` 로 바꾼다 |
+| 글꼴 · 숨은 자리 | Pretendard Medium 만 싣고 breadcrumb 크기 속성을 쓴다, 앞머리의 숨은 옛 뒤로가기 자리까지 크기를 다시 박는다 | 찾기 단계에서 breadcrumb 의 현재 글꼴을 싣는다, 숨은 자식은 건너뛴다 |
+| 게이트 | 없음 | 생성기가 템플릿 찾기 구간의 쓰기(속성 대입 · 트리 변경 · 생성 호출)를 글자로 막는다. `verify-gates` canary 가 그 확인이 무는지 본다 — 생성기가 제품 저장소를 읽어 `PRODUCT_DEPENDENT_GATES` 에 들었다(`verify:ci` 는 건너뜀을 이름으로 찍는다) |
+
+**라이브 읽기 전용 확인.** 새 러너의 찾기 단계만(쓰기 0) 돌려 대상 전부를 찾았다 — 레일 세트 `476:4956` · 접힌 CTA `500:5344` · 레일
+인스턴스 `477:4918` · 메인 `39:10` · 상단 바 `477:4999` / 인스턴스 `477:5015` · 본문 `479:4941` · 판 `39:15` · `39:30` · `39:1361` · 타임라인
+`39:1386` · 그립 `39:29` · `39:1360` · `39:1385`. **모의**: 라이브 유사 세계에서 두 번 실행 — 잃은 노드 0 · 새 노드 0 · 트리와 깊은 상태
+멱등 · `remove()` 0. 대상 없음 · 모호 여섯 세계(타임라인 디바이더 없음 · 상단 바 없음 · 옛 상단 바 이름 · 장면에 보이는 옛 자식 · 접힌 CTA
+둘 · 판 순서 뒤바뀜)는 모두 첫 쓰기 전에 던지고 깊은 상태가 그대로다.
+
+### 컴포넌트 러너 — 메뉴 라벨 글자 · 세트 크기
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 기존 메뉴 세트의 행 라벨 | 행 이름(`row/Composition`)만 따라가고 글자는 둔다 — 라이브 `384:215` variant 여섯이 「VideoEditor」 | 계획 글자와 다를 때만 그 라벨의 **현재** 글꼴을 싣고 바꾼다. 반환 `menuLabelChanges`(variant · 행 · 전 · 후) |
+| 세트 크기 | 메뉴 「폭 × 수 + 160」 · 셸 「+ 200」 — variant 를 x = 40 + 순번 × (폭 + 40) 에 놓으면 간격 (수 − 1) × 40 과 오른쪽 여백을 담지 못한다. 라이브 메뉴 1696 폭에 variant 끝 1776, 셸 2160 에 2240 | 놓인 variant 의 오른쪽 · 아래 끝 + 40(`placeVariantRow` · `fitSetToVariants`, 세 세트 공통). CTA 세트는 식이 맞아 그대로 |
+
+모의: HEAD 러너로 지은 세계(메뉴 1696×330 · 셸 2160×1160 — 라이브와 같은 넘침 80)에서 라벨을 되돌리고 새 러너를 두 번 — 첫 실행
+라벨 6 · 메뉴 1816 · 셸 2280, 두 번째 0 · 멱등 · 잃은 노드 0, 감사 156 = 143 + BETA 13 그대로. 품는 세 러너의 감사 · 바 글자 보고는
+2026-09-14 모의와 같다. **섹션 `381:22`(2200 폭)은 두 세트를 이미 담지 못했고**, 넓히면 오른쪽 섹션 `400:591` 과 겹쳐 건드리지 않았다.
+
+**허브 활성 행 면은 러너 범위 밖이다.** 손 조립 허브 데스크톱 셋(`219:3403` · `29:3` · `219:2917`)의 셸 인스턴스 활성 행에 남은 옛 다크
+면 override(`#2b2f36`, 묶임)는 인스턴스 override 라 세트 러너가 고칠 자리가 아니다. 2026-09-15 적용 워크플로의 결정대로 세트 단계에서 한 번 `fills` 를 `[]` 로
+걷는다(제품 light 활성 행은 면이 없다 — `Gnb.tsx:604`). 순서 · 대상 id 는 인계서 「다음 순서」 1번 5단계 (나).
+
+### 업그레이드 러너 반환
+
+`mutatedNodeIds`(여덟 뿌리의 서브트리 id 전부)가 2026-09-15 적용 응답을 `use_figma` 20KB 에서 잘랐다. 필요한 id(섹션 · 문서 · 세트 ·
+variant · 메인 · 장면 · 보존 variant)는 이미 이름으로 싣고 있어, 서브트리는 `mutatedNodes`(`total` · 뿌리별 id · 이름 · 노드 수)로 줄였다.
+모의 같은 세계에서 3,810자(id 361) → 1,555자, 감사 수 그대로.
+
+### grid 자동 배치 열 — `/subscription` 크레딧 이력 블록
+
+(135) 「고치지 않았다」 셋째 항목이다. `trackForChild` 가 받던 자식 순번은 자동 배치 grid 의 열 번호가 아니다 — 한 열 grid
+(`grid-template-columns: 1fr`)의 둘째 · 셋째 자식이 트랙을 못 찾고 `align-items` 규칙으로 떨어졌다. 두 번째 인자를 열 번호로 바꾸고
+`gridAutoPlacementColumn`(`scripts/lib/sizing-provenance.mjs`)이 푼다 — `grid-auto-flow: row` 에서 열 = 앞선 흐름 자식 수 mod 트랙 수,
+absolute · fixed 형제는 칸을 차지하지 않는다. column · dense 흐름, 명시 배치(`grid-column` · `grid-row` · `grid-area` · span), 측정되지
+않은 앞 형제(경로 순번이 끊긴다 — 뷰포트 밖 요소는 칸을 차지하는데 측정기가 싣지 않는다)는 추측하지 않고 다른 규칙에 맡긴다.
+
+보드: `/subscription` 데스크톱 가격 블록 · 이력 블록 HUG → FILL, 모바일 이력 블록 HUG → FILL(가격 블록은 FILL 그대로, 근거가 트랙으로).
+`UNRESOLVED_FILL_IN_HUG_BY_PARENT` 에서 두 부모 · 축(2 · 2)을 걷었다(양방향 잠금 그대로). `verify-gates` canary 가 열을 자식 순번으로
+되돌리면 래칫이 무는지 본다. 모의 보드 36 두 번 실행 같은 트리.
+
+### 세그먼트 제외 판정 — bespoke 에서 blocked 로
+
+`LOUIS_PRIMITIVE_EXCLUSIONS` 의 `segmented-track` · `segmented-segment` 사유(「`/settings` 토글은 `.louis-segmented-control` 을 물지
+않는다」)는 앵커에서 사실이 아니다. 제품 앵커 `6f6282c1` 의 장면 컴포넌트 `components/scenes/SegmentedToggle.tsx`(`git show` 로 읽었다)의
+`:76` `const TOGGLE_TRACK = ["louis-segmented-control", SEGMENTED_THUMB_TRACK].join(` · `:102` `  "louis-segmented-control__segment louis-focus-ring",` ·
+`:137` `      data-size="settings"` — 설정 두 토글(`SettingsScene.tsx:68`)과 구독 필터(`SubscriptionScene.tsx:1270`)가 쓴다. 레시피 원장 probe 둘은
+여전히 `myPageSceneStyles.ts` 의 `settingsToggleWrap`(`:1250`) · `settingsToggleBtn`(`:1209`)을 재는데, 앵커에서 `git grep -n
+"settingsToggleWrap\|settingsToggleBtn\b"` 로 찾으면 두 이름은 정의 줄과 주석(`:317`) 밖에 나오지 않는다. 제품은 정본을
+무는데 측정이 그 상자를 잴 probe 를 잃었으므로 `blocked`(고칠 곳은 측정)다. 보드 구성 원장 bespoke 5 → 1(`Button/md`) · 막힘 2 → 6,
+`BESPOKE_BASELINE` 5 → 1. 치환은 두 판정 모두 하지 않아 보드 러너는 그대로다. **probe 는 옮기지 않았다** — 원장 재측정과 정본 자리
+(`LOUIS_PRIMITIVE_SITES`) 세우기가 따른다.
+
+### 세그먼트 칸 높이 — 측정기가 논리 크기 속성을 싣는다
+
+(135) 「고치지 않았다」 첫째 항목이자 (136) 의 `/settings` 세그먼트 칸 세로 12 자리다. 제품 칸은 LOUIS
+`.louis-segmented-control[data-size=settings] .louis-segmented-control__segment` 의 `block-size: var(--louis-layout-settings-segment-height)`
+(`packages/css/src/component/segmented-control.css:134`)로 서는데, 측정기 선언 수집(`scripts/lib/declared-styles.mjs` 의 `DECLARED_PROPERTIES`)에
+논리 크기 속성이 없어 판정기가 선언 없음 → 교차축 stretch(FILL)로 떨어졌다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `DECLARED_PROPERTIES` | `width` · `height` 와 그 min · max 만 | `inline-size` · `block-size` · `min-/max-inline-size` · `min-/max-block-size` 를 더하고, grid 자동 배치 판정이 명시 배치를 알아보도록 `grid-column-start` · `-end` · `grid-row-start` · `-end` · `grid-area` 도 싣는다 |
+| 캐스케이드 | 속성 이름마다 따로 덮는다 | 논리 속성은 짝 물리 칸(`LOGICAL_SIZE_PROPERTIES` — 가로 쓰기)에서 승부한다. CSS 가 논리 · 물리 속성을 한 칸으로 캐스케이드하므로(나중 선언이 이긴다) 따로 모으면 승부를 잃는다. 이긴 선언이 논리 이름이면 그 이름도 남겨 근거가 「`block-size` 였다」를 잃지 않고, 물리 이름이 뒤에 이기면 논리 이름을 걷는다. `!important` 도 칸 단위다 |
+| `migration/product.auth-fixture.json` | — | 앵커 `6f6282c1` fixture(`KLIPSE_PRODUCT_FIXTURE_ROOT` = `KLIPSE_PRODUCT_BUILD_ROOT`, `regen-figma-at-anchor.sh --preflight` 충족)에서 다시 쟀다. 바뀐 것은 노드 `declared` 뿐이다 — rect · 계산 스타일 · 노드 수는 그대로이고, 선언이 새로 붙은 노드 항목은 `width` 256 · `height` 218 · `min-width` 459 · `min-height` 139 · `max-width` 32(같은 수의 논리 이름). 다시 잰 뒤 `--check` 로 재현을 확인했다 |
+
+**판정이 바뀐 자리는 14 다.** `/settings` 두 뷰포트 테마 · 언어 트랙의 칸 세로 12 가 FILL → 선언 FIXED(`height:var(--louis-layout-settings-segment-height)`,
+28) — 트랙이 패딩 4 + 칸 28 + 4 = 36 으로 서고(제품 36) 절대 배치 선택 알약이 트랙 안에 든다. highlight `?__phase=uploading` 두 뷰포트의
+진행 막대 트랙이 HUG → 폭 FILL(`width: 100%`, 최대 320) · 높이 선언 FIXED(`var(--louis-layout-progress-bar-height)`) — 그리는 크기는 같다(320 × 6).
+나머지 새 선언은 판정을 바꾸지 않았다(대부분 `min-width: 0px` · 아이콘 `var(--louis-icon-size-md)` 처럼 이미 같은 판정). 조각 넷(`settings` ·
+highlight uploading 두 뷰포트)의 크기 코드만 바뀐다. `UNRESOLVED_FILL_IN_HUG_BY_PARENT` 에서 네 부모 · 축(3 × 4)을 걷었다 — grid 열과 합쳐
+28 → **12**(설정 모바일 Button 인스턴스 5 · 구독 데스크톱 본문 section 1 · 글자가 폭을 정하는 stretch 6). 제품 컴포넌트 생성기 여덟 · 인벤토리 ·
+표면 원장 · 앵커 핀 게이트는 새 fixture 에서 그대로 초록이다.
+
+**`/pricing` 측정 원장도 다시 쟀다.** 같은 선언 수집을 쓰는 `measure-product-scenes` 가 새 목록에서 `--check` 로 빨갰다(`/pricing` 트리 124 의
+`min-block-size` 가 새로 잡혔다 — 기대한 드리프트). 다시 잰 `migration/product.scenes.json` 도 노드 `declared` 만 바뀌었고, 그중 LOUIS 컨트롤
+열넷의 `min-width: 0px` 이 뒤에 온 `min-inline-size: var(--louis-layout-control-minimum-width-md)` 로 덮였다 — 논리 · 물리 속성을 한 칸으로 합치지
+않았다면 틀린 값이 남았을 자리다. `/pricing` 러너 계획은 이 원장의 선언을 읽지 않아 그대로다(`check-figma-product-pricing-page` 초록). 두 측정기
+모두 다시 잰 뒤 `--check`(verify-product-auth-fixture · verify-product-scenes)가 초록이다.
+
+**단위 확인 · canary.** 생성물 대조는 다음 재측정 전까지 합치기를 보지 못하므로 `declared-styles.mjs` 가 모듈을 읽을 때 가짜 CDP 응답 넷(물리 뒤
+논리 · 논리 뒤 물리 · `!important` 물리 · grid 긴 이름)으로 캐스케이드를 풀어 보고 어긋나면 측정기 첫머리에서 멈춘다. `verify-gates` canary 가 합치기를
+잃은 수집기로 그 확인이 무는지 본다(125 canary, `verify:ci` 에서도 돈다).
+
+### 라이브 적용에서 달라지는 것
+
+순서와 대상 id 는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 5단계가 갖는다.
+
+- **컴포넌트 러너를 다시 적용한다** — 반환 `menuLabelChanges` 여섯(variant 마다 `row/Composition` 「VideoEditor」→「Composition」), 메뉴 세트
+  `384:215` 1816 폭 · 셸 세트 `392:611` 2280 폭. 감사 수와 variant id 는 2026-09-15 적용 뒤와 같아야 한다. 섹션 `381:22` 는 그대로다.
+- 허브 활성 행 면 셋의 일회성 쓰기(`fills` → `[]`) 뒤 **sidebar-states 가 돌 수 있다** — 찾기 단계가 대상을 전부 찾으면 레일 세트 · 접힌 CTA
+  칠, 레일 · 상단 바 인스턴스 이름(Composition), 편집기 상단 바 · 본문 격자 reconcile 을 쓴다.
+- 보드: `/subscription` 두 보드의 크레딧 이력 블록(데스크톱은 가격 블록도)이 트랙 폭을 채우고, `/settings` 두 보드의 세그먼트 트랙이 36 으로
+  서며, highlight uploading 두 보드의 진행 막대가 폭 FILL(최대 320)이 된다. 적용 완료 조건의 스크린숏 확인 자리는 남은 12 다.
+
 ## 2026-09-14 (136) — 보드 생성기가 풀지 못한 HUG 부모 · FILL 자식을 계획에 싣고 부모 · 축마다 수를 잠근다
 
 **계획 감사본 · 생성기 게이트 · 문서만 바뀌었다. 라이브 Figma 에는 쓰지 않았다**(보드 `28:44` · `190:1172` 를 읽기 전용으로

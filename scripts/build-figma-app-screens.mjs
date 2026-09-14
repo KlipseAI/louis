@@ -626,10 +626,9 @@ const ROW_ACTION_BUTTON_WHY =
 const TEXT_DETERMINED_WHY =
   "글자가 부모 폭을 정하는 stretch. 부모가 내용 크기라 폭은 가장 긴 글자의 내용 폭이고, Figma 도 글자 내용 폭으로 선다 — 라이브 `190:1172` " +
   "읽기 전용 탐침(2026-09-14)에서 부모 폭이 측정과 글리프 폭 차이만큼만 달랐다";
-const GRID_TRACK_WHY =
-  "부모 판정이 틀렸다. 한 열 grid(`grid-template-columns: 1fr`)의 셋째 자식이라 판정기가 트랙을 자식 순번으로 집어(`trackForChild`) " +
-  "찾지 못하고 HUG 가 됐다 — 제품에서 이 블록은 트랙 폭을 채운다. 라이브 `190:1172` 에서 `Credit usage history` 블록이 접혀 있다. " +
-  "Updates (135) 「고치지 않았다」의 셋째 항목이다";
+// 2026-09-15: `/subscription` 두 뷰포트 `Credit usage history` 블록(`body.1.0.0.1.0.1.1.0.2` 가로 2 · 2)이 빠졌다 — 판정기가 한 열
+// grid 의 셋째 자식 트랙을 자식 순번으로 집어 못 찾던 것을 자동 배치 열 번호로 풀었다(`sizing-provenance.mjs` 의
+// `gridAutoPlacementColumn`). 블록이 트랙 `1fr` 의 FILL 이 되어 그 안의 FILL 자식이 더는 HUG 부모 안에 있지 않다.
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
   "/settings @ desktop-1920x1080 · body.1.0.0.1.0.1.7.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
   "/settings @ desktop-1920x1080 · body.1.0.0.1.0.1.8.1.0 · vertical": { count: 3, why: SEGMENT_HEIGHT_WHY },
@@ -648,8 +647,6 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
   "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
   "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
   "/subscription @ mobile-402x874 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
-  "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.2 · horizontal": { count: 2, why: GRID_TRACK_WHY },
-  "/subscription @ mobile-402x874 · body.1.0.0.1.0.1.1.0.2 · horizontal": { count: 2, why: GRID_TRACK_WHY },
 };
 {
   const actual = {};

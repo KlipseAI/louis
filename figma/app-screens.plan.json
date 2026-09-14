@@ -10,7 +10,7 @@
   "totalShellInstances": 101,
   "totalShellGaps": 0,
   "totalSizingReconciled": 19,
-  "totalUnresolvedFillInHug": 28,
+  "totalUnresolvedFillInHug": 24,
   "contentInstancesBySet": {
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
@@ -13213,26 +13213,6 @@
             "content": null,
             "kind": "text",
             "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.1.0.2.0",
-            "parent": "body.1.0.0.1.0.1.1.0.2",
-            "axis": "horizontal",
-            "stretch": "stretch",
-            "measured": 1400,
-            "content": null,
-            "kind": "text",
-            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.1.0.2.1",
-            "parent": "body.1.0.0.1.0.1.1.0.2",
-            "axis": "horizontal",
-            "stretch": "stretch",
-            "measured": 1400,
-            "content": 407.41,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           }
         ]
       },
@@ -14564,7 +14544,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -14598,9 +14578,9 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 grid의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(grid item)",
+                                            "verdict": "FILL",
+                                            "reason": "grid 트랙 1fr — 남는 공간을 나눠 갖는다",
+                                            "source": "grid-template: 1fr",
                                             "value": null
                                           },
                                           "vertical": {
@@ -16346,7 +16326,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -16368,9 +16348,9 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 grid의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(grid item)",
+                                            "verdict": "FILL",
+                                            "reason": "grid 트랙 1fr — 남는 공간을 나눠 갖는다",
+                                            "source": "grid-template: 1fr",
                                             "value": null
                                           },
                                           "vertical": {
@@ -16852,26 +16832,6 @@
             "content": null,
             "kind": "text",
             "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.1.0.2.0",
-            "parent": "body.1.0.0.1.0.1.1.0.2",
-            "axis": "horizontal",
-            "stretch": "stretch",
-            "measured": 390,
-            "content": null,
-            "kind": "text",
-            "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
-          },
-          {
-            "path": "body.1.0.0.1.0.1.1.0.2.1",
-            "parent": "body.1.0.0.1.0.1.1.0.2",
-            "axis": "horizontal",
-            "stretch": "stretch",
-            "measured": 390,
-            "content": 272.8,
-            "kind": "larger",
-            "reason": "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다"
           }
         ]
       },
@@ -18049,7 +18009,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "HUG",
+                                      "layoutSizingHorizontal": "FILL",
                                       "layoutSizingVertical": "HUG",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": null,
@@ -18083,9 +18043,9 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "HUG",
-                                        "reason": "부모 grid의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(grid item)",
+                                        "verdict": "FILL",
+                                        "reason": "grid 트랙 1fr — 남는 공간을 나눠 갖는다",
+                                        "source": "grid-template: 1fr",
                                         "value": null
                                       },
                                       "vertical": {
@@ -18973,8 +18933,8 @@
                                         "why": {
                                           "horizontal": {
                                             "verdict": "FILL",
-                                            "reason": "부모 grid의 교차축 + align:stretch — 교차축을 채운다",
-                                            "source": "align-items:stretch",
+                                            "reason": "grid 트랙 1fr — 남는 공간을 나눠 갖는다",
+                                            "source": "grid-template: 1fr",
                                             "value": null
                                           },
                                           "vertical": {
@@ -19825,7 +19785,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "HUG",
+                                      "layoutSizingHorizontal": "FILL",
                                       "layoutSizingVertical": "HUG",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": null,
@@ -19847,9 +19807,9 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "HUG",
-                                        "reason": "부모 grid의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(grid item)",
+                                        "verdict": "FILL",
+                                        "reason": "grid 트랙 1fr — 남는 공간을 나눠 갖는다",
+                                        "source": "grid-template: 1fr",
                                         "value": null
                                       },
                                       "vertical": {

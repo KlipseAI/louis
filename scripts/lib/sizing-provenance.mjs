@@ -302,14 +302,76 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
 }
 
 /**
- * `grid-template-columns` 선언에서 n번째 자식의 트랙을 집는다.
+ * `grid-template-columns` 선언에서 **n번째 열**의 트랙을 집는다.
  * `repeat(N, X)`는 펼치고, `minmax(a,b)`처럼 괄호 안의 공백은 트랙 구분이 아니므로 깊이를 세며 자른다.
- * 트랙 수보다 자식이 많으면(암시적 트랙) null을 돌려 판정을 다른 규칙에 맡긴다.
+ * 열 번호가 트랙 수를 넘으면(암시적 열) null을 돌려 판정을 다른 규칙에 맡긴다.
+ *
+ * **두 번째 인자는 자식 순번이 아니라 열 번호다(2026-09-15).** 예전 호출자는 DOM 순번을 넘겼고, 자동 배치 grid 에서 열
+ * 번호는 순번이 아니다 — `/subscription` 의 한 열 grid(`grid-template-columns: 1fr`)에서 둘째 · 셋째 자식이 트랙을 못 찾고
+ * `align-items: start` 로 HUG 가 되어 `Credit usage history` 블록이 라이브 `190:1172` 에서 402 폭으로 접혔다. 열 번호는
+ * `gridAutoPlacementColumn` 이 푼다.
  */
-export function trackForChild(declaration, childIndex) {
+export function trackForChild(declaration, columnIndex) {
   const tracks = parseTracks(declaration);
-  if (!tracks || childIndex == null) return null;
-  return tracks[childIndex] ?? null;
+  if (!tracks || columnIndex == null) return null;
+  return tracks[columnIndex] ?? null;
+}
+
+/** 자동 배치가 아닌 배치 선언(`auto` · `auto / auto` 가 아닌 값)인가. */
+const EXPLICIT_PLACEMENT = ["grid-column", "grid-column-start", "grid-column-end", "grid-row", "grid-row-start", "grid-row-end", "grid-area"];
+function hasExplicitPlacement(declared) {
+  return EXPLICIT_PLACEMENT.some((name) => {
+    const value = String(declared?.[name] ?? "").replace(/\s*!\s*important\s*$/i, "").trim();
+    return value !== "" && !/^auto(\s*\/\s*auto)*$/.test(value);
+  });
+}
+
+/**
+ * **자동 배치 grid 에서 흐름 자식이 놓이는 열(0부터).** CSS Grid 자동 배치(`grid-auto-flow: row`, dense 아님)는 명시 배치가
+ * 없는 span 1 아이템을 문서 순서로 한 칸씩 채우고, 열이 끝나면 다음 행 첫 열로 간다 — 열 = (앞선 흐름 자식 수) mod 트랙 수.
+ * 흐름 밖(`position: absolute/fixed`) 형제는 칸을 차지하지 않는다.
+ *
+ * 추측하지 않는 자리는 null 이다(판정은 다른 규칙으로 간다):
+ *   · 부모 흐름이 `row` 가 아니다(column · dense 는 순서를 다시 짠다).
+ *   · 이 자식이나 앞선 형제에 명시 배치(`grid-column` · `grid-row` · `grid-area` · span)가 있다.
+ *   · 앞선 형제 중 측정되지 않은 것이 있다 — 측정기는 보이지 않거나 뷰포트 밖인 요소를 싣지 않고, 그것이 칸을 차지했는지
+ *     (`display: none` 은 아니고 뷰포트 밖이면 차지한다) 알 수 없다. 경로의 순번이 이어지지 않으면 이 경우다.
+ *
+ * @param {object} input
+ * @param {number} input.trackCount    `grid-template-columns` 트랙 수
+ * @param {object|null} input.parentComputed 부모 computed style(`gridAutoFlow`)
+ * @param {string} input.parentPath    부모 경로
+ * @param {Array<{path:string, style?:object, declared?:object}>} input.siblings 부모의 측정 자식(문서 순)
+ * @param {string} input.path          이 자식의 경로
+ * @returns {number|null}
+ */
+export function gridAutoPlacementColumn({ trackCount, parentComputed, parentPath, siblings, path }) {
+  if (!trackCount || !Array.isArray(siblings) || !path) return null;
+  const flow = String(parentComputed?.gridAutoFlow ?? "row").trim();
+  if (flow !== "row") return null;
+  const indexOf = (candidate) => {
+    const prefix = `${parentPath}.`;
+    if (!candidate.startsWith(prefix)) return null;
+    const rest = candidate.slice(prefix.length);
+    return /^\d+$/.test(rest) ? Number(rest) : null;
+  };
+  const target = indexOf(path);
+  if (target == null) return null;
+  const ordered = siblings.map((sibling) => ({ sibling, index: indexOf(sibling.path) }));
+  if (ordered.some((entry) => entry.index == null)) return null;
+  ordered.sort((a, b) => a.index - b.index);
+  let expected = 0;
+  let cursor = 0;
+  for (const { sibling, index } of ordered) {
+    if (index > target) break;
+    if (index !== expected) return null;
+    expected += 1;
+    const out = /^(absolute|fixed)$/.test(sibling.style?.position ?? "");
+    if (hasExplicitPlacement(sibling.declared)) return null;
+    if (index === target) return out ? null : cursor % trackCount;
+    if (!out) cursor += 1;
+  }
+  return null;
 }
 
 /**
@@ -372,14 +434,15 @@ function tighter(kind, a, b) {
  * 노드 하나의 크기 출처를 판정한다.
  * @returns {{h:object, v:object, absolute:boolean, minMax:object}}
  */
-export function decideNode({ declared = {}, computed = {}, parentComputed = null, parentDeclared = null, childIndex = null, tag = "", contextId = null }) {
+export function decideNode({ declared = {}, computed = {}, parentComputed = null, parentDeclared = null, gridColumn = null, tag = "", contextId = null }) {
   const isReplaced = /^(img|svg|video|canvas|iframe|input|textarea|select)$/.test(tag);
   const sub = (value) => (contextId ? substituteViewportUnits(value, contextId) : value);
-  // 부모가 grid면 **선언된** 트랙 목록에서 이 자식의 트랙을 집는다. computed의 트랙은 이미 px로
-  // 해결돼 `1fr`인지 고정인지 구분할 수 없으므로 반드시 선언값을 써야 한다.
+  // 부모가 grid면 **선언된** 트랙 목록에서 이 자식이 놓인 열의 트랙을 집는다. computed의 트랙은 이미 px로
+  // 해결돼 `1fr`인지 고정인지 구분할 수 없으므로 반드시 선언값을 써야 한다. 열 번호는 자식 순번이 아니라
+  // 자동 배치로 푼 값이다(`gridAutoPlacementColumn` — 호출자가 형제를 보고 넘긴다).
   const gridTrack = trackForChild(
     parentDeclared?.["grid-template-columns"],
-    childIndex,
+    gridColumn,
   );
   // 선언된 justify-self/align-self 는 computed보다 정확하다(computed는 `auto`를 부모 값으로 해결해 준다).
   const selfAlign = {

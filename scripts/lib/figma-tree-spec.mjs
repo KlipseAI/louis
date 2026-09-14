@@ -16,7 +16,7 @@
 // rect는 **FIXED 축의 크기**와 **검증**에만 쓴다. FILL/HUG 축의 크기는 Figma가 계산하게 둔다.
 
 import { matchTextStyle } from "./figma-louis-styles.mjs";
-import { decideNode, toFigmaSizing, toLayoutMode, parseTracks, px } from "./sizing-provenance.mjs";
+import { decideNode, gridAutoPlacementColumn, toFigmaSizing, toLayoutMode, parseTracks, px } from "./sizing-provenance.mjs";
 
 const TRANSPARENT = /^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/;
 
@@ -209,15 +209,22 @@ export function toFigmaTreeSpec(tree, options = {}) {
   const convert = (node, parent) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
 
-    const childIndex = node.path === rootPath
-      ? null
-      : Number(node.path.slice(node.path.lastIndexOf(".") + 1));
+    // grid 부모 안에서 이 자식이 놓인 열 — 자식 순번이 아니라 자동 배치로 푼다(형제 · 흐름 · 명시 배치를 본다).
+    const gridColumn = parent && /grid/.test(parent.style?.display ?? "")
+      ? gridAutoPlacementColumn({
+        trackCount: parseTracks(parent.declared?.["grid-template-columns"])?.length ?? 0,
+        parentComputed: parent.style ?? null,
+        parentPath: parent.path,
+        siblings: childrenOf.get(parent.path) ?? [],
+        path: node.path,
+      })
+      : null;
     const decision = decideNode({
       declared: node.declared ?? {},
       computed: node.style ?? {},
       parentComputed: parent?.style ?? null,
       parentDeclared: parent?.declared ?? null,
-      childIndex,
+      gridColumn,
       tag: node.tag,
       contextId,
     });

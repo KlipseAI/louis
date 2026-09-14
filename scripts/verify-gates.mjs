@@ -1656,6 +1656,18 @@ withCanary(
   "--check",
 );
 
+// ── grid 자동 배치 열 카나리아(2026-09-15) ──────────────────────────────────
+// 판정기가 grid 자식의 트랙을 자식 순번으로 집으면 한 열 grid 의 둘째 · 셋째 자식이 트랙을 못 찾고 HUG 로 접힌다(`/subscription`
+// 크레딧 이력 블록). 열 번호를 자동 배치로 푼 뒤 그 자리가 풀지 못한 HUG·FILL 래칫에서 빠졌다 — 순번으로 되돌리면 래칫이 무는지 본다.
+withCanary(
+  "scripts/lib/sizing-provenance.mjs",
+  (source) => source.replace("return out ? null : cursor % trackCount;", "return out ? null : index;"),
+  "sizing provenance: grid 열을 자식 순번으로 집는 판정기",
+  "scripts/build-figma-app-screens.mjs",
+  "풀지 못한 HUG 부모 · FILL 자식이 기준과 다릅니다",
+  "--check",
+);
+
 // ── sidebar-states 찾기 구간 카나리아(2026-09-15) ───────────────────────────
 // sidebar-states 러너는 필요한 대상을 전부 찾은 뒤에만 쓴다. 옛 러너는 세트 칠을 쓰고 나서 라이브에 없는 id 를 찾다 던질
 // 자리였다(부분 적용). 생성기가 템플릿의 「── 1. 찾기」 구간에 쓰기가 섞였는지 글자로 보는데, 그 확인이 실제로 무는지

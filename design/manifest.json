@@ -2551,12 +2551,22 @@
     },
     {
       "path": "scripts/lib/figma-live-variables.mjs",
-      "purpose": "제품 컴포넌트 생성기 공용 헬퍼. figma/readback.json 에서 라이브 LOUIS 세 컬렉션의 변수 이름 · 값 · 별칭을 풀고, 역할마다 제품 선언(소스 인용)과 라이브 변수를 적어 칠하는 자리마다 측정 색과 값이 같은 역할을 고르며(근사 결합 · 고정 페인트는 사유와 함께), 계획의 bindings 와 colorEvidence 를 만든다. 은퇴한 컬렉션이 계획에 새면 멈춘다",
+      "purpose": "제품 컴포넌트 생성기 공용 헬퍼. figma/readback.json 에서 라이브 LOUIS 세 컬렉션의 변수 이름 · 값 · 별칭을 풀고, 역할마다 제품 선언(소스 인용)과 라이브 변수를 적어 칠하는 자리마다 측정 색과 값이 같은 역할을 고르며(근사 결합 · 고정 페인트는 사유와 함께), 계획의 bindings 와 colorEvidence 를 만든다(선언했지만 측정 자리가 없는 칠은 unmeasured 역할로 주석 잉크와 가른다). 앱 화면 보드 생성기에는 컬렉션의 색 변수를 한 모드에서 푼 값(colorVariables)을 내주고, 브라우저 색 직렬화 파서(parseCssColor, 백분율 알파 포함)는 모듈을 읽을 때 단위 확인을 돈다. 은퇴한 컬렉션이 계획에 새면 멈춘다",
       "authority": "reference"
     },
     {
       "path": "scripts/templates/lib/figma-live-variables.js",
-      "purpose": "생성기가 렌더러 앞에 붙이는 Figma 샌드박스 조각. 계획 bindings 의 라이브 변수를 찾고 측정 테마 모드를 고정하며, 역할 이름으로 페인트를 만들고(저장색은 변수 해석값) 보이는 페인트를 감사해 unboundColors 를 돌려준다",
+      "purpose": "생성기가 렌더러 앞에 붙이는 Figma 샌드박스 조각. 계획 bindings 의 라이브 변수를 찾고 측정 테마 모드를 고정하며, 역할 이름으로 페인트를 만들고(저장색은 변수 해석값) 보이는 페인트를 감사해 unboundColors 를 돌려준다. 역할 이름 없이 값으로 변수를 찾는 앱 화면 보드 렌더러에는 컬렉션 · 변수 색인과 모드 해석(resolve)을 내준다",
+      "authority": "reference"
+    },
+    {
+      "path": "scripts/lib/figma-top-bar-text.mjs",
+      "purpose": "결제 결과 · 체크아웃 · 업그레이드 장면 생성기 공용 헬퍼. 자기 route 의 측정 상단 바 breadcrumb 글자를 앱 셸 계획 variant 의 TEXT 속성 순서(Label · Parent · Current)로 옮겨 계획 topBarText 를 만든다. 속성 수가 측정 글자 수와 다르면 멈춘다",
+      "authority": "reference"
+    },
+    {
+      "path": "scripts/templates/lib/figma-instance-text.js",
+      "purpose": "생성기가 렌더러 앞에 붙이는 Figma 샌드박스 조각. 인스턴스의 TEXT 속성을 파일 키(이름#id)와 계획 이름으로 짝지어 다른 값만 채우고 바꾼 속성 이름을 돌려준다. 속성 이름 집합이 계획과 다르면 던진다",
       "authority": "reference"
     },
     {
@@ -2566,7 +2576,7 @@
     },
     {
       "path": "scripts/templates/figma-product-payment-scenes-renderer.js",
-      "purpose": "기존 product-only component set(사이드바 셸 · 상단 바 · 결제 결과 본문)을 중첩해 desktop/mobile 결제 결과 main surface와 뷰포트 장면을 Auto Layout 흐름으로 제자리 reconcile 하고, 면을 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사하는 Figma renderer",
+      "purpose": "기존 product-only component set(사이드바 셸 · 상단 바 · 결제 결과 본문)을 중첩해 desktop/mobile 결제 결과 main surface와 뷰포트 장면을 Auto Layout 흐름으로 제자리 reconcile 하고(상단 바는 폭 FILL, TEXT 속성은 계획의 route 측정 글자로 채워 바꾼 속성을 topBarTextChanges 로 돌려준다), 면을 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사하는 Figma renderer",
       "authority": "reference"
     },
     {
@@ -2586,7 +2596,7 @@
     },
     {
       "path": "scripts/templates/figma-product-checkout-status-renderer.js",
-      "purpose": "측정된 checkout status 6개 콘텐츠 variant와 desktop/mobile 전체 scene을 기존 Gnb·top bar 인스턴스와 라이브 LOUIS 변수 역할로 제자리 reconcile 하고 보이는 페인트를 감사하는 Figma renderer",
+      "purpose": "측정된 checkout status 6개 콘텐츠 variant와 desktop/mobile 전체 scene을 기존 Gnb·top bar 인스턴스(폭 FILL · TEXT 속성은 계획의 route 측정 글자)와 라이브 LOUIS 변수 역할로 제자리 reconcile 하고 보이는 페인트를 감사하는 Figma renderer",
       "authority": "reference"
     },
     {
@@ -2606,7 +2616,7 @@
     },
     {
       "path": "scripts/templates/figma-product-upgrade-scene-renderer.js",
-      "purpose": "요금제 card set과 mobile visible-slice set, 헤더 · 덱 · 비교 제목의 main surface, 사이드바(절대 배치) · 상단 바 인스턴스를 품은 장면을 Auto Layout 흐름으로 제자리 reconcile 하는 Figma renderer. 지우지 않고(계획에 없는 노드는 retired/, 옛 Plan=Basic·Max variant 는 보존), 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사해 unboundColors 를 돌려준다",
+      "purpose": "요금제 card set과 mobile visible-slice set, 헤더 · 덱 · 비교 제목의 main surface, 사이드바(절대 배치) · 상단 바 인스턴스(폭 FILL · TEXT 속성은 계획의 route 측정 글자)를 품은 장면을 Auto Layout 흐름으로 제자리 reconcile 하는 Figma renderer. 지우지 않고(계획에 없는 노드는 retired/, 옛 Plan=Basic·Max variant 는 보존), 라이브 LOUIS 변수 역할로 칠한 뒤 보이는 페인트를 감사해 unboundColors 를 돌려준다",
       "authority": "reference"
     },
     {

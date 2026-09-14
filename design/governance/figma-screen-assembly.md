@@ -526,8 +526,9 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 - 러너가 찾는 **변수 컬렉션 이름**이 파일에 있는지. 라이브 LOUIS 의 컬렉션은 `Klipse Primitive` ·
   `Klipse Semantic` · `Klipse Semantic Color` 셋이고, 은퇴한 `1 · Palette` · `2 · Semantic` 을 찾는
   러너는 첫머리에서 던진다. 앱 셸 러너가 2026-09-13 에, 컴포넌트 · 체크아웃 · 결제 장면 · 업그레이드 ·
-  sidebar-states 러너가 2026-09-14 에 옮겼다([Updates](../updates/README.md) (133)) — 남은 것은 `/pricing` 러너와 앱 화면
-  보드 렌더러의 모드 표(`APP_MODES`, 찾지 못하면 기본 모드로 떨어져 던지지는 않는다)다. 옮긴 생성기는 계획의 `bindings`
+  sidebar-states 러너가 2026-09-14 에, 앱 화면 보드 렌더러가 같은 날 뒤에 옮겼다([Updates](../updates/README.md) (133) · (135) —
+  보드는 역할 이름 없이 값으로 찾되 컬렉션 · 측정 테마의 모드를 계획 `colour` 가 정하고 없으면 던진다) — 남은 것은 `/pricing`
+  러너다. 옮긴 생성기는 계획의 `bindings`
   를 되읽기(`figma/readback.json`)의 라이브 변수와 대조해 없는 컬렉션 · 변수가 새면 멈추고(`scripts/lib/figma-live-variables.mjs`
   의 `assertBindings`), 칠하는 자리마다 **측정 색과 값이 같은 역할**을 고른다 — 역할 · 선언 · 라이브 해석값 대조표는 계획의
   `colorEvidence` 가, 값이 같은 변수가 없어 고정 페인트로 칠하는 역할은 사유와 함께 `bindings.unbound` 가 갖고, 러너는 그
@@ -565,7 +566,7 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | `flex: 1` · `width: 100%` · `1fr` 트랙 · stretch | FILL | 상단 바 breadcrumb nav, 요금제 덱의 카드(`repeat(N, 1fr)`), 결제 결과 본문 글자 |
 | `min-*` · `max-*` | HUG · FILL + 최소 · 최대 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)` |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
-| 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행 |
+| 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
 | `%` 비율 · `aspect-ratio` | constraints `SCALE` · `lockAspectRatio` | — |
 | `position: absolute` · `fixed` + `inset` | 절대 배치 + constraints. 자기 크기는 위 규칙을 따른다 | 결제 장면의 사이드바(`position: fixed`, 15번대로 마지막 자식) |
 
@@ -600,7 +601,10 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 3. **`flex-shrink` 로 감긴 글자.** Figma 에는 수축으로 줄이 감기는 흐름이 없어 측정 상자 폭을 둔다(요금제 가격 행 —
    Figma 자연 폭 줄별 증거로 같은 자리에서 접히는지 확인한다).
 4. **관측 크롭.** 뷰포트 밖 내용이 높이를 정하는 조각(`Product/Upgrade Plan Card Visible Slice`)은 측정 높이로 자른다.
-5. **HUG 부모 아래 FILL 자식 · hug 할 내용이 없는 빈 잎.** Figma 가 순환 크기를 풀지 않아 부모나 잎을 측정 크기로 둔다.
+5. **HUG 부모 아래 FILL 자식 · hug 할 내용이 없는 빈 잎.** Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다. **먼저 수 없이
+   푼다** — 자식의 측정 크기가 자기 내용 크기(패딩 + 자식 측정 크기 + 간격)와 같으면 CSS 의 grow · stretch 가 아무 일도 하지 않은
+   것이라 자식을 HUG 로 옮긴다(`/settings` 세그먼트 버튼 — (135)). 내용보다 커서 그렇게 풀리지 않을 때만 부모나 잎을 측정 크기로
+   두고 사유를 남긴다.
 
 실측(2026-09-14 크기 굳힘 감사): 제품 한 커밋(`6f6282c1`, 프로필 버튼을 줄였다)에 상단 바 높이와 거기서 나온 수 —
 본문 y · 하이라이트 허브 뷰포트 · 편집기 본문 · AppTopBar 후행 슬롯 — 가 한꺼번에 낡았는데, 그중 절반은 가드가

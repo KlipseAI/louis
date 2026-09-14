@@ -25,6 +25,91 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-14 (135) — 보드 두 장의 크기 조합을 측정으로 풀고, 보드 렌더러를 라이브 컬렉션으로 옮기고, 결제 장면 러너가 바 글자를 채운다
+
+**Figma 계획과 러너만 바뀌었다. 라이브 Figma 에는 쓰지 않았다**(보드 `30:33` · `28:3` · `190:1172` 를 읽기 전용으로 탐침하고
+스크린숏을 떴다). 웹 패키지 · 토큰 · 제품 앵커(`6f6282c1`)는 그대로다. 라이브 적용 전 검증이 minor 로 남긴 셋(보드 생성물 결함 둘 ·
+결제 장면 안 상단 바 넘침)과 (133) 「남은 것」의 보드 렌더러 모드 표, (133) 리뷰의 minor 다섯을 고쳤다.
+
+### 보드 두 장 — Figma 가 CSS 와 다르게 푸는 크기 조합
+
+판정기(`scripts/lib/sizing-provenance.mjs`)는 노드 하나의 선언만 본다. 그 판정을 부모와 나란히 두면 Figma 가 CSS 와 다르게 푸는
+조합이 둘 있고, 보드 두 장이 그 모양으로 깨져 있었다.
+
+| 보드 | 보인 것 | 라이브 탐침 | 원인 | 생성기가 하는 일 |
+| --- | --- | --- | --- | --- |
+| `30:33` `/analytics/youtube` 모바일 | 본문 제목이 카드 좌우로 잘린다 | 제목 TEXT 1172×49 · `WIDTH_AND_HEIGHT` · x −391(측정 350×243, 다섯 줄) | 선언 없는 흐름 글자는 CSS 에서 `min(max-content, 가용 폭)` 이라 감기는데, Figma 의 HUG 글자에는 가용 폭이 없어 한 줄로 늘어난다 | 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이다 — 세로 흐름 부모의 폭이 정해져 있으면 폭 FILL(렌더러가 `textAutoResize = "HEIGHT"`) |
+| `28:3` `/settings` 데스크톱 | 테마 · 언어 세그먼트 라벨이 겹친다 | 트랙 97.05×29 HUG · 버튼 셋 29.68×21 FILL(측정 트랙 242.31×36 · 버튼 89.05 · 73.27 · 72) | 버튼이 `flex: 1 1 auto`(판정 FILL)인데 트랙은 내용 크기(HUG)다. CSS 의 shrink-to-fit 트랙에서 grow 는 아무 일도 하지 않지만, Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다 | 측정 크기가 **자기 내용 크기**(패딩 + 자식 측정 크기 + 간격, 0.5px 안)와 같으면 grow · stretch 가 no-op 이었으므로 HUG. 내용보다 크면 판정을 바꾸지 않는다(부모 밖에서 온 크기이거나 측정기가 싣지 않은 선언이다) |
+
+**전수(36 보드).** 풀이 19 — 세그먼트 버튼 가로 12(`/settings` 두 뷰포트 × 테마 셋 · 언어 셋), 감긴 글자 6(`/analytics/youtube`
+데스크톱 제목 · 모바일 제목과 안내, `/subscription` 데스크톱 크레딧 안내, highlight `upload` 두 뷰포트 안내), `/subscription` 모바일
+본문 `section` 세로 1(측정 = 내용). 바뀐 조각은 8 이고 payload 에서 바뀐 것은 그 노드의 크기 코드(`s`)뿐이다. 계획의
+`screens[].stats.sizingReconciled` 가 자리와 사유를, 노드 `why` 가 전 판정(`previous`)을 갖는다. 부모 폭이 정해지지 않아 풀지 못한
+감긴 글자는 `stats.wrappedHugText` 에 남는다(지금 0). [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번의
+「줄바꿈 텍스트」 행과 「고정을 허용하는 자리」 5번을 이 순서(no-op 이면 HUG, 아니면 고정 사유)로 고쳤다.
+
+**같은 스윕에서 본 다른 원인 — 고치지 않았다.**
+
+- 세그먼트 버튼의 **높이**. 제품은 `block-size: var(--louis-layout-settings-segment-height)` 로 선언하는데 auth fixture 측정기의 선언
+  수집에 `block-size` 가 없어 판정이 stretch(FILL)다. 내용(21)보다 측정(28)이 커서 위 규칙이 바꾸지 않고, Figma 는 트랙을 29 로
+  세운다(제품 36) — 선택 알약(절대 배치 28)이 트랙 아래로 조금 나온다. 측정기에 논리 크기 속성을 더해 다시 재야 풀린다.
+- `/analytics/youtube` 데스크톱 제목(`connectTitleLine1` · `connectTitleLine2` 두 줄)과 highlight `upload` 안내(`\n` + `pre-line`)는
+  제품 줄바꿈이 fixture 의 `ownText` 에서 공백으로 사라져 Figma 가 한 줄로 그린다. 폭 FILL 이라 잘리지는 않는다.
+- `/subscription` 의 한 열 grid(`grid-template-columns: 1fr`, 자식 셋이 행으로 흐른다)에서 판정기가 트랙을 **자식 순번**으로 집어
+  둘째 · 셋째 자식이 트랙을 못 찾고 `align-items: start` 로 HUG 가 된다. 데스크톱 `Credit usage history` 블록이 라이브 `190:1172` 에서
+  402 폭으로 접혀 있다 — 자동 배치 grid 의 열 번호는 순번이 아니다(`sizing-provenance.mjs` 의 `trackForChild`).
+
+### 보드 렌더러 — 라이브 컬렉션 · 측정 테마의 모드
+
+(133) 이 남긴 것이다. 렌더러가 은퇴한 팔레트 · 시맨틱 컬렉션의 사이드바 모드를 먼저 찾고, 없으니 던지지 않고 이름이 light 인 모드로
+떨어졌으며 화면 루트에 모드를 하나도 고정하지 못했다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 컬렉션 · 모드 | 렌더러 상수(은퇴한 이름 둘 + 라이브 둘), 없으면 기본 모드 | 생성기가 fixture 테마(`light`, 화면마다 대조)로 `Klipse Semantic Color[Light]` 를 정하고 되읽기에서 컬렉션 · 모드를 확인해 payload `colour` 에 싣는다. 렌더러는 제품 컴포넌트 러너와 같은 공용 조각(`scripts/templates/lib/figma-live-variables.js`)으로 푼다 — 없으면 던진다 |
+| 화면 루트 | 모드 고정 없음 | `Klipse Semantic Color` 를 Light 로 고정 |
+| 색 찾기 | 값(hex)으로 — 그대로 | 값으로 — 그대로. `Klipse Semantic Color` 가 `Klipse Primitive` 보다 먼저다 |
+| 증거 | 없음(실행 반환 `unboundColors` 뿐) | 계획 `colourBinding` — 칠하는 측정 hex 마다 되읽기에서 같은 규칙으로 푼 라이브 변수 후보(18)와 묶이지 않을 색(7: 제품 `rgb(var(--gray-000-rgb) / N%)` 이 light 에서 순검정 N% 인 여섯 — 라이브 알파 램프는 `#171b22` — 과 `#efefef`). 라이브 실행의 `unboundColors` 가 이 목록과 같아야 한다 |
+
+조각이 앞에 붙어 36 조각이 모두 바뀌었다(가장 큰 `settings` 데스크톱 37,036자). 공용 조각은 값 색인용으로 `collections` ·
+`variableById` · `resolve` 를, 헬퍼는 `colorVariables` 를 더했다. 은퇴한 이름은 보드 렌더러 · 조각에서 grep 0 이다 — 남은 것은
+`/pricing` 러너뿐이라 은퇴한 이름을 세는 게이트는 아직 세우지 않는다(조립 규칙 27번 Acceptance).
+
+### 결제 장면 세 러너 — 바 폭은 측정으로 닫고, 글자는 route 측정으로 채운다
+
+검증이 본 「결제 장면 컴포넌트 안 바 14 가 4px 넘친다」(모바일 Inset 390 이 x16 에 놓여 카드 402 를 넘고, 데스크톱 1632 가 1628 을
+넘는다)는 (132) 전 러너가 지은 옛 노드다. HEAD 러너는 바를 FILL 로 두고 메인 패딩에서 bleed 를 뺀다(모바일 패딩 6 · bleed 0, 데스크톱
+패딩 24 · bleed 24). 그 FILL 이 제품 규칙인지를 생성기가 증명하게 했고, 러너가 비워 두던 TEXT 속성을 채우게 했다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 닫힘 대조(payment-scenes · checkout-status · upgrade-scene) | 바의 x 만 | x 와 **폭** — 바 폭 = 메인(업그레이드는 스크롤 칸) 폭 − (패딩 − bleed) 좌우. 선언 `width: calc(100% + bleed…)` 이 이것이다 |
+| 바 인스턴스 글자 | 채우지 않음 — 앱 셸 적용이 기본 라벨로 바꾼 글자를 손으로 되채웠고, 다시 적용해도 남는지는 대조로만 볼 수 있었다 | 생성기가 자기 route 의 측정 breadcrumb 을 앱 셸 계획 variant 의 속성 순서로 옮겨 계획 `topBarText` 에 싣고(`scripts/lib/figma-top-bar-text.mjs` — 보드 매처의 같은 규칙을 평탄한 측정 트리 위에서), 렌더러 조각(`scripts/templates/lib/figma-instance-text.js`)이 속성 이름으로 짝지어 **다른 값만** 채운다. 파일의 TEXT 속성 이름 집합이 계획과 다르면 던진다 |
+| 러너 반환 | — | `topBarTextChanges` — 인스턴스마다 바꾼 속성 이름 |
+
+계획 라벨은 결제 결과 `Label=My Page`, 체크아웃 · 업그레이드 `Parent=Subscription` · `Current=Change plan` 이다 — 2026-09-14 에 되채운 라이브
+바 14 의 글자와 같아, 라이브 적용에서 `topBarTextChanges` 는 전부 빈 배열이어야 한다. 모의 Figma(되읽기 세 컬렉션 + 속성 기본값만 가진
+바 세트)에서 컴포넌트 러너 → 세 러너를 두 번씩 돌렸다: 첫 실행이 바 14 를 계획 라벨로 채우고, 두 번째 실행은 바꾼 것 0 · 스냅숏
+동일 · 잃은 노드 0, 바 14 모두 폭 FILL, 감사 수는 (133) 과 같다.
+
+### (133) 리뷰 minor 다섯
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| (133) 「모의 Figma 확인」 | 다섯 러너 모두 「보이는 노드의 은퇴 컬렉션 결합 0」 | sidebar-states 는 구조만 확인했고 칠 결합은 판정하지 않았다(이 러너는 페인트 감사를 돌려주지 않는다) |
+| sidebar-states `topBarDivider` | 주석 잉크(`annotation`) 산문 안에 `Gnb.tsx:497` | 제품 선언 인용(`quote.product(Gnb.tsx:497)`)을 붙이고, 공용 헬퍼에 **선언했지만 이 측정이 재지 않는 칠**(`unmeasured` — `exact: null`, 측정 자리에 쓸 수 없다) 역할 종류를 더해 주석 잉크와 가른다. 주석 잉크에 선언을 달면 멈춘다 |
+| (133) 러너 크기 · 생성기 가드 | 크기 셋이 한글 주석이 든 러너의 바이트 수, payment-scenes · sidebar-states 생성기에 한도 가드 없음 | `String.length` 로 고쳤고(`use_figma` 한도가 문자 수다), 두 생성기에 50,000자 가드 |
+| `parseCssColor` | `color(srgb … / N%)` · `rgb(… / N%)` 의 백분율 알파를 받지 못함 | 받는다. 모듈을 읽을 때 두 꼴 · 두 알파 표기를 한 번씩 푸는 단위 확인이 돌고, `verify-gates` 카나리아(백분율을 잃은 파서)가 그 확인이 무는지 본다 — fixture 에 아직 백분율 알파가 없어 생성물 대조로는 이 축이 울지 않는다 |
+| 컴포넌트 생성기 | 쓰는 곳 없는 `compoundRow` 와 그만 쓰던 aria 조회 헬퍼 | 걷었다(생성물 불변) |
+
+러너 크기(`String.length`): components 38,963 · checkout-status 33,877 · payment-scenes 28,820 · upgrade-scene 43,438 ·
+sidebar-states 36,044 · highlight-hub 8,618 · 보드 조각 최대 37,036.
+
+**라이브 적용에서 달라지는 것.** 순서는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 그대로다. 결제
+장면 세 러너가 바 14 의 폭을 FILL(모바일 390 · x 6, 데스크톱 1632 · x 0)로 옮기고 반환에 `topBarTextChanges` 를 싣는다. 보드 러너는 여덟
+조각의 크기 코드가 바뀌어 그 보드의 generated 이름 목록(`figma-screens-live-check` 기대값)이 달라지고, 모든 보드 루트에 Light 모드가
+고정된다.
+
 ## 2026-09-14 (134) — 선행 슬롯의 사본도 걷고, 이니셜 아바타 · CTA 최소 높이 · 링 지름 서술을 사실로 고친다
 
 **기록 · 계약 · 문서만 바뀌었다. 라이브 Figma 에는 쓰지 않았다**(SidebarCta variant 의 축을 읽기 전용으로 한 번 읽었다).

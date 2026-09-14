@@ -76,6 +76,24 @@ const applyMeasuredFrame = (frame, spec, gap) => {
   if (spec.radius === 10) bindCorners(frame, V.radius10);
 };
 
+// **세트 크기는 variant 배치에서 도출한다(2026-09-15).** 세 세트 모두 variant 를 x = 여백 + 순번 × (폭 + 간격)에 놓는데,
+// 세트 크기를 「폭 × 수 + 상수」로 따로 적어 두었다. 메뉴는 + 160, 셸은 + 200 이라 간격 (수 − 1) × 40 과 좌우 여백을 담지
+// 못했다 — 라이브 메뉴 세트 `384:215`(variant 여섯)의 여섯째 variant 가 세트 오른쪽 밖으로 80 나가고 여백 40 이 없었고,
+// 셸 세트 `392:611`(일곱)도 같았다. 세트는 놓인 variant 의 오른쪽 · 아래 끝에 같은 여백을 더한 크기다 — 식을 두 벌 두지 않는다.
+const VARIANT_GUTTER = 40;
+const placeVariantRow = (set, cellWidth) => {
+  for (const [index, variant] of set.children.entries()) {
+    variant.x = VARIANT_GUTTER + index * (cellWidth + VARIANT_GUTTER);
+    variant.y = VARIANT_GUTTER;
+  }
+  fitSetToVariants(set);
+};
+const fitSetToVariants = (set) => {
+  const right = Math.max(...set.children.map((variant) => variant.x + variant.width));
+  const bottom = Math.max(...set.children.map((variant) => variant.y + variant.height));
+  set.resizeWithoutConstraints(right + VARIANT_GUTTER, bottom + VARIANT_GUTTER);
+};
+
 if (!section) {
   const maxRight = Math.max(...page.children.map((entry) => entry.x + entry.width), 0);
   section = figma.createSection();
@@ -177,11 +195,7 @@ if (!upgradeSet) {
   upgradeSet.name = C.componentSetName;
   upgradeSet.description = `Measured Gnb CTA states · ${PLAN.productCommit}`;
   upgradeSet.fills = [];
-  for (const [index, variant] of upgradeSet.children.entries()) {
-    variant.x = 40 + index * (defaultSpec.rect.width + 40);
-    variant.y = 40;
-  }
-  upgradeSet.resizeWithoutConstraints(defaultSpec.rect.width * C.variants.length + 120, defaultSpec.rect.height + 80);
+  placeVariantRow(upgradeSet, defaultSpec.rect.width);
   upgradeSet.x = 720;
   upgradeSet.y = 680;
 }
@@ -252,11 +266,7 @@ const ensureShell = (menuSet, ctaSet) => {
     shellSet.name = S.componentSetName;
     shellSet.description = `Measured desktop Gnb composition · ${PLAN.productCommit}`;
     shellSet.fills = [];
-    for (const [index, variant] of shellSet.children.entries()) {
-      variant.x = 40 + index * (S.root.width + 40);
-      variant.y = 40;
-    }
-    shellSet.resizeWithoutConstraints(S.root.width * S.variants.length + 200, S.root.height + 80);
+    placeVariantRow(shellSet, S.root.width);
     shellSet.x = 720;
     shellSet.y = 900;
   }
@@ -331,10 +341,10 @@ const ensureShell = (menuSet, ctaSet) => {
     shell.setBoundVariable("paddingLeft", V.spacing12);
     shell.fills = [];
     shell.description = `Measured ${spec.route} Gnb Auto Layout · ${PLAN.productCommit}`;
-    shell.x = 40 + index * (S.root.width + 40);
-    shell.y = 40;
+    shell.x = VARIANT_GUTTER + index * (S.root.width + VARIANT_GUTTER);
+    shell.y = VARIANT_GUTTER;
   }
-  shellSet.resizeWithoutConstraints(S.root.width * S.variants.length + 200, S.root.height + 80);
+  fitSetToVariants(shellSet);
   if (section.width < 2200 || section.height < 2100) section.resizeWithoutConstraints(2200, 2100);
   return shellSet;
 };
@@ -554,7 +564,19 @@ const retire = (node) => {
   if (!node.name.startsWith("retired/")) node.name = `retired/${node.name}`;
   node.visible = false;
 };
-const reconcileMenuRow = (row, spec) => {
+// **행 라벨 글자도 계획에 맞춘다(2026-09-15).** 제품 개명(VideoEditor → Composition) 뒤 행 이름은 `row/Composition` 으로 바뀌었지만
+// 이 경로는 라벨 노드를 옮기고 칠만 다시 걸어, 라이브 메뉴 세트 `384:215` 의 variant 여섯이 모두 「VideoEditor」를 보이고 있었다.
+// 글자가 계획과 다를 때만 그 노드의 **현재** 글꼴을 싣고 바꾼다(같으면 쓰지 않는다 — 멱등). 바꾼 자리는 `menuLabelChanges` 로 돌려준다.
+const menuLabelChanges = [];
+const reconcileLabel = async (variant, row, text, want) => {
+  if (text.characters === want) return;
+  const segments = text.characters.length > 0 ? text.getStyledTextSegments(["fontName"]).map((segment) => segment.fontName) : [text.fontName];
+  const fonts = new Map(segments.map((font) => [`${font.family} · ${font.style}`, font]));
+  await Promise.all([...fonts.values()].map((font) => figma.loadFontAsync(font)));
+  menuLabelChanges.push({ variant: variant.name, row: row.name, from: text.characters, to: want });
+  text.characters = want;
+};
+const reconcileMenuRow = async (variant, row, spec) => {
   const wrapper = row.children.find((entry) => entry.type === "FRAME" && entry.name === "main-action");
   let lifted = false;
   const placeChild = (type, name, index) => {
@@ -581,9 +603,10 @@ const reconcileMenuRow = (row, spec) => {
   }
   const keepIds = new Set(keep.map((node) => node.id));
   for (const child of [...row.children]) if (!keepIds.has(child.id)) retire(child);
+  await reconcileLabel(variant, row, keep.find((node) => node.type === "TEXT"), spec.label.text);
 };
 
-const reconcileMenuVariants = (menuSet) => {
+const reconcileMenuVariants = async (menuSet) => {
   const defaultVariant = menuSet.children.find((entry) => entry.name === "Current=Default");
   if (!defaultVariant) throw new Error("Missing default Gnb menu variant");
   for (const spec of P.variants) {
@@ -601,7 +624,7 @@ const reconcileMenuVariants = (menuSet) => {
     for (const row of [...variant.children]) {
       if (row.name.startsWith("retired/")) continue;
       const rowSpec = row.type === "FRAME" ? rowSpecByName.get(row.name) : null;
-      if (rowSpec) reconcileMenuRow(row, rowSpec);
+      if (rowSpec) await reconcileMenuRow(variant, row, rowSpec);
       else retire(row);
     }
     // 행 · 칩 · 섹션 라벨은 매 실행 계획의 역할로 다시 칠한다. 제품 사이드바의 활성 행은 면이 없다(`menuRowPaint.activeSurface`).
@@ -628,10 +651,10 @@ const reconcileMenuVariants = (menuSet) => {
       if (!sectionSpec) continue;
       for (const text of section.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(sectionSpec.label.paint)];
     }
-    variant.x = 40 + index * (P.root.width + 40);
-    variant.y = 40;
+    variant.x = VARIANT_GUTTER + index * (P.root.width + VARIANT_GUTTER);
+    variant.y = VARIANT_GUTTER;
   }
-  menuSet.resizeWithoutConstraints(P.root.width * P.variants.length + 160, P.root.height + 80);
+  fitSetToVariants(menuSet);
 };
 
 // 보이는 페인트 감사 — 네 세트의 칠은 전부 역할로 칠했다. 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors`)이거나
@@ -648,7 +671,7 @@ const auditSets = (sets) => ({
   }),
 });
 if (existingSet) {
-  reconcileMenuVariants(existingSet);
+  await reconcileMenuVariants(existingSet);
   const shellSet = ensureShell(existingSet, upgradeSet);
   const resultSet = ensurePaymentResult();
   return {
@@ -661,6 +684,7 @@ if (existingSet) {
     paymentResultComponentSetId: resultSet.id,
     paymentResultVariantIds: resultSet.children.map((entry) => entry.id),
     alreadyExisted: true,
+    menuLabelChanges,
     ...auditSets([existingSet, upgradeSet, shellSet, resultSet]),
   };
 }
@@ -754,14 +778,10 @@ const componentSet = figma.combineAsVariants(variants, section);
 componentSet.name = P.componentSetName;
 componentSet.description = `Measured composite · ${PLAN.productCommit} · ${PLAN.sourceCandidate.id}`;
 componentSet.fills = [];
-for (const [index, variant] of componentSet.children.entries()) {
-  variant.x = 40 + index * (P.root.width + 40);
-  variant.y = 40;
-}
-componentSet.resizeWithoutConstraints(P.root.width * P.variants.length + 160, P.root.height + 80);
+placeVariantRow(componentSet, P.root.width);
 componentSet.x = 720;
 componentSet.y = 270;
-reconcileMenuVariants(componentSet);
+await reconcileMenuVariants(componentSet);
 const shellSet = ensureShell(componentSet, upgradeSet);
 const resultSet = ensurePaymentResult();
 return {
@@ -776,5 +796,6 @@ return {
   paymentResultComponentSetId: resultSet.id,
   paymentResultVariantIds: resultSet.children.map((entry) => entry.id),
   alreadyExisted: false,
+  menuLabelChanges,
   ...auditSets([componentSet, upgradeSet, shellSet, resultSet]),
 };

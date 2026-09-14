@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -9,6 +10,7 @@ const planPath = resolve(repoRoot, "figma/product-payment-scenes.plan.json");
 const drawPath = resolve(repoRoot, "figma/product-payment-scenes.draw.js");
 const templatePath = resolve(repoRoot, "scripts/templates/figma-product-payment-scenes-renderer.js");
 const checkOnly = process.argv.includes("--check");
+const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const context = "desktop-1920x1080";
 const screens = fixture.screens[context];
 const styles = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
@@ -17,25 +19,9 @@ const screen = (route) => screens[route] ?? fail(`missing screen ${route}`);
 const node = (route, path) => screen(route).tree.find((entry) => entry.path === path) ?? fail(`missing node ${route} ${path}`);
 const style = (entry) => styles.get(entry.styleRef) ?? fail(`missing style ${entry.styleRef}`);
 const px = (value) => Number(/^(-?[\d.]+)px$/.exec(value ?? "")?.[1] ?? 0);
-const color = (value) => {
-  const match = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(value ?? "");
-  if (match) {
-    return [Number(match[1]) / 255, Number(match[2]) / 255, Number(match[3]) / 255, match[4] === undefined ? 1 : Number(match[4])];
-  }
-  // **`color(srgb …)` 도 읽는다.** LOUIS 토큰이 그 표기로 서면서 브라우저 계산값도 그대로
-  // 돌아온다 — 값이 바뀐 것이 아니라 표기가 바뀐 것이다. 채널이 이미 0..1 이라 255 로 나누지
-  // 않는다. 형제 생성기 build-figma-product-app-shell.mjs:79-93 이 같은 파서를 먼저 세웠고,
-  // build-figma-app-screens.mjs:303 이 「이 표기를 못 읽으면 헤어라인이 통째로 없어진다」고
-  // 같은 함정을 적어 두었다.
-  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\)$/.exec(value ?? "");
-  if (srgb) {
-    const alpha = srgb[4] === undefined
-      ? 1
-      : srgb[4].endsWith("%") ? Number(srgb[4].slice(0, -1)) / 100 : Number(srgb[4]);
-    return [Number(srgb[1]), Number(srgb[2]), Number(srgb[3]), alpha];
-  }
-  fail(`unsupported color ${value}`);
-};
+// 색은 두 표기(`rgb()` 0~255 · `color(srgb …)` 0~1)로 온다 — 공용 헬퍼의 `parseCssColor` 가 둘을 가른다
+// (형제 생성기 build-figma-product-app-shell.mjs 가 먼저 세운 파서를 옮긴 것).
+const color = (value) => parseCssColor(value, fail);
 const relRect = (entry, rootRect) => ({
   x: entry.rect.x - rootRect.x,
   y: entry.rect.y - rootRect.y,
@@ -306,20 +292,61 @@ const resultWidthMode = (outcome, viewport) =>
   fail(`components plan has no payment result ${outcome}/${viewport}`);
 for (const entry of variants) entry.contentWidth = resultWidthMode(entry.outcome, "Desktop");
 for (const entry of mobileVariants) entry.contentWidth = resultWidthMode(entry.outcome, "Mobile");
-const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
-const liveFloat = (collection, name) => {
-  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
-  if (!row || row[1] !== "FLOAT") return null;
-  const [[, alias, raw]] = row[3];
-  return alias ? null : raw;
-};
+const live = liveVariables({ repoRoot, fail });
 for (const radius of [px(mainStyle.borderTopLeftRadius), px(mobileMainStyle.borderTopLeftRadius)]) {
-  if (radius !== liveFloat("Klipse Primitive", "radius/16")) fail(`measured payment main radius ${radius} is not Klipse Primitive/radius/16`);
+  live.radiusBinding(radius, "radius/16", "measured payment main");
 }
 const spacingBindings = Object.fromEntries([...new Set([layout, mobileLayout].flatMap(({ main: L }) => [
   L.padding.left - L.bleed.left, L.padding.right - L.bleed.right, L.padding.bottom, L.bleed.left, L.bleed.right, L.barGap,
-]))].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) =>
-  liveFloat("Klipse Primitive", `spacing/${value}`) === value ? [[`spacing${value}`, { collection: "Klipse Primitive", name: `spacing/${value}` }]] : []));
+]))].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) => live.spacingBinding(value)));
+
+/* **색은 라이브 변수에 역할로 묶는다(2026-09-14, 컬렉션 이전).** 옛 계획은 은퇴한 `1 · Palette[sidebar]` 의
+   `palette/gray-200`(장면) · `palette/gray-100`(메인) 과 `2 · Semantic[light-sidebar]` 의 `gray/000 · a78` · `a52`(문서
+   글자)를 실어 라이브에서 첫머리에 던졌고, 모바일 장면도 데스크톱과 같은 바닥 변수로 칠했다 — 측정은 둘이 다르다
+   (≤719 에서 `--app-page-bg` 가 `bg-surface` 로 올라간다). 이제 자리마다 측정 색과 값이 같은 역할을 고르고 대조표를
+   `colorEvidence` 에 싣는다. 측정 fixture 는 light 라 `Klipse Semantic Color[Light]` 로 푼다. */
+const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
+const PAGE = "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx";
+const GLOBALS = "apps/web/app/globals.css";
+const roles = live.colorRoles({
+  theme: "light",
+  where: "payment-scenes",
+  roles: {
+    appPageBg: {
+      name: "color/bg-canvas",
+      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+    },
+    appPageBgNarrow: {
+      name: "color/bg-surface",
+      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")],
+    },
+    appMainCardBg: {
+      name: "color/bg-surface",
+      declared: [quote.product(PAGE, 53, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+    },
+    boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
+    docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
+    docsNote: { name: "color/fg-secondary", annotation: "documentation frame note" },
+  },
+});
+const pagePaint = roles.paintFor(["appPageBg", "appPageBgNarrow"], color(pageStyle.backgroundColor), "desktop page");
+const mainPaint = roles.paintFor(["appMainCardBg"], color(mainStyle.backgroundColor), "desktop main");
+const mobilePagePaint = roles.paintFor(["appPageBg", "appPageBgNarrow"], color(style(mobileRoot).backgroundColor), "mobile page");
+const mobileMainPaint = roles.paintFor(["appMainCardBg"], color(mobileMainStyle.backgroundColor), "mobile main");
+// 결과 route 셋이 같은 면을 쓰는지 — 대표 route 로 칠하므로 나머지가 다르면 멈춘다.
+for (const [contextName, entries] of [[context, variants], ["mobile-402x874", mobileVariants]]) {
+  for (const entry of entries) {
+    const tree = fixture.screens[contextName][entry.route].tree;
+    const at = (path) => tree.find((item) => item.path === path) ?? fail(`missing ${contextName} ${entry.route} ${path}`);
+    const where = `${contextName} ${entry.route}`;
+    const expected = contextName === context ? [pagePaint, mainPaint] : [mobilePagePaint, mobileMainPaint];
+    if (roles.paintFor(["appPageBg", "appPageBgNarrow"], color(style(at("body.1")).backgroundColor), `${where} page`) !== expected[0] ||
+      roles.paintFor(["appMainCardBg"], color(style(at("body.1.0.0.1")).backgroundColor), `${where} main`) !== expected[1]) {
+      fail(`${where}: page or main surface role differs from ${representativeRoute}`);
+    }
+  }
+}
+const colors = roles.finish();
 
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
@@ -346,10 +373,12 @@ const plan = {
     page: {
       rect: { width: pageRoot.rect.width, height: pageRoot.rect.height },
       background: color(pageStyle.backgroundColor),
+      paint: pagePaint,
     },
     main: {
       rect: { width: main.rect.width, height: main.rect.height },
       background: color(mainStyle.backgroundColor),
+      paint: mainPaint,
       radius: px(mainStyle.borderTopLeftRadius),
       padding: padding(mainStyle),
     },
@@ -362,28 +391,25 @@ const plan = {
       page: {
         rect: { width: mobileRoot.rect.width, height: mobileRoot.rect.height },
         background: color(style(mobileRoot).backgroundColor),
+        paint: mobilePagePaint,
       },
       main: {
         rect: { width: mobileMain.rect.width, height: mobileMain.rect.height },
         background: color(mobileMainStyle.backgroundColor),
+        paint: mobileMainPaint,
         radius: px(mobileMainStyle.borderTopLeftRadius),
         padding: padding(mobileMainStyle),
       },
       layout: mobileLayout,
       variants: mobileVariants,
     },
-    bindings: {
-      paletteCollection: "1 · Palette",
-      paletteMode: "sidebar",
-      semanticCollection: "2 · Semantic",
-      semanticMode: "light-sidebar",
-      appBackground: { collection: "1 · Palette", name: "palette/gray-200" },
-      surface: { collection: "1 · Palette", name: "palette/gray-100" },
-      current: { collection: "2 · Semantic", name: "gray/000 · a78" },
-      parent: { collection: "2 · Semantic", name: "gray/000 · a52" },
+    $bindingPolicy: BINDING_POLICY,
+    bindings: live.assertBindings({
+      ...colors.bindings,
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
       ...spacingBindings,
-    },
+    }, "payment-scenes bindings"),
+    colorEvidence: colors.evidence,
   },
 };
 const summary = ({ id, nodeCount, routeCount, occurrenceCount, score }) => ({ id, nodeCount, routeCount, occurrenceCount, score });
@@ -393,10 +419,18 @@ runnerPlan.component.mobile.sourceCandidates = plan.component.mobile.sourceCandi
 // 선언 문자열은 계획(감사본)에만 남긴다 — 러너는 값만 읽는다.
 delete runnerPlan.component.layout.main.declared;
 delete runnerPlan.component.mobile.layout.main.declared;
+// 색은 역할 이름(`paint`)으로만 싣는다 — 측정 색 · 대조표 · 사유는 계획에 남는다.
+delete runnerPlan.component.$bindingPolicy;
+delete runnerPlan.component.colorEvidence;
+for (const surface of [runnerPlan.component, runnerPlan.component.mobile]) {
+  delete surface.page.background;
+  delete surface.main.background;
+}
 const draw =
   "// Generated by scripts/build-figma-product-payment-scenes.mjs. Do not edit by hand.\n" +
   "// Pass this file verbatim to use_figma. It composes only measured existing product components.\n" +
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
+  readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
   readFileSync(templatePath, "utf8");
 const expected = [
   { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` },

@@ -155,7 +155,8 @@
         0.952941,
         0.960784,
         1
-      ]
+      ],
+      "paint": "appPageBg"
     },
     "main": {
       "rect": {
@@ -168,6 +169,7 @@
         0.980392,
         1
       ],
+      "paint": "appMainCardBg",
       "radius": 16,
       "padding": {
         "top": 0,
@@ -417,7 +419,8 @@
           0.980392,
           0.980392,
           1
-        ]
+        ],
+        "paint": "appPageBgNarrow"
       },
       "main": {
         "rect": {
@@ -430,6 +433,7 @@
           0.980392,
           1
         ],
+        "paint": "appMainCardBg",
         "radius": 16,
         "padding": {
           "top": 0,
@@ -541,26 +545,33 @@
         }
       ]
     },
+    "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "sidebar",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "light-sidebar",
-      "appBackground": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-200"
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Light",
+      "appPageBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
       },
-      "surface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-100"
+      "appPageBgNarrow": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
       },
-      "current": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a78"
+      "appMainCardBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
       },
-      "parent": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a52"
+      "boardSurface": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
+      },
+      "docsTitle": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-primary"
+      },
+      "docsNote": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-secondary"
       },
       "radius16": {
         "collection": "Klipse Primitive",
@@ -581,6 +592,101 @@
       "spacing56": {
         "collection": "Klipse Primitive",
         "name": "spacing/56"
+      }
+    },
+    "colorEvidence": {
+      "appPageBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 32,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 791,
+            "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
+          }
+        ],
+        "measured": "#f2f3f5",
+        "measuredAlpha": 1,
+        "sites": 4,
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appPageBgNarrow": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 32,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 1068,
+            "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 4,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appMainCardBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 53,
+            "quote": "  \"bg-[var(--app-main-card-bg)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 792,
+            "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 8,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "boardSurface": {
+        "declared": null,
+        "annotation": "section fill behind the sets (board canvas, not a product surface)",
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsTitle": {
+        "declared": null,
+        "annotation": "documentation frame title",
+        "figma": "Klipse Semantic Color[Light]/color/fg-primary → Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsNote": {
+        "declared": null,
+        "annotation": "documentation frame note",
+        "figma": "Klipse Semantic Color[Light]/color/fg-secondary → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": null
       }
     }
   }

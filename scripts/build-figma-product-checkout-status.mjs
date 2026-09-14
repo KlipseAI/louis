@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -10,26 +11,13 @@ const planPath = resolve(repoRoot, "figma/product-checkout-status.plan.json");
 const drawPath = resolve(repoRoot, "figma/product-checkout-status.draw.js");
 const templatePath = resolve(repoRoot, "scripts/templates/figma-product-checkout-status-renderer.js");
 const checkOnly = process.argv.includes("--check");
+const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const styles = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
 const fail = (message) => { throw new Error(`[figma-product-checkout-status] ${message}`); };
 const px = (value) => Number(/^(-?[\d.]+)px$/.exec(value ?? "")?.[1] ?? 0);
-// **브라우저는 색을 두 표기로 직렬화한다.** 배경·글자는 `rgb()`/`rgba()`(0~255)로 나오지만
-// 테두리와 일부 색은 `color(srgb 0.341176 0.364706 0.407843)`(0~1 정규화 + 슬래시 알파)로 나온다.
-// 값 범위가 다르므로 255로 나누는 경로와 **분기**해야 한다 — 나누면 1/255 로 뭉개진다.
-// 같은 처방을 scripts/build-figma-inventory.mjs 의 colorOf() 와
-// scripts/lib/figma-tree-spec.mjs 의 cssColorToHex() 가 이미 쓴다.
-const color = (value) => {
-  const raw = String(value ?? "").trim();
-  const legacy = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(raw);
-  if (legacy) {
-    return [Number(legacy[1]) / 255, Number(legacy[2]) / 255, Number(legacy[3]) / 255, legacy[4] === undefined ? 1 : Number(legacy[4])];
-  }
-  const modern = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)$/.exec(raw);
-  if (modern) {
-    return [Number(modern[1]), Number(modern[2]), Number(modern[3]), modern[4] === undefined ? 1 : Number(modern[4])];
-  }
-  return fail(`unsupported color ${value}`);
-};
+// **브라우저는 색을 두 표기로 직렬화한다**(`rgb()` 0~255 · `color(srgb …)` 0~1). 두 표기를 가르는 파서는 공용 헬퍼
+// `scripts/lib/figma-live-variables.mjs` 의 `parseCssColor` 가 갖는다 — 형제 생성기와 같은 처방이다.
+const color = (value) => parseCssColor(value, fail);
 const screen = (context, route) => fixture.screens[context]?.[route] ?? fail(`missing screen ${context} ${route}`);
 const node = (context, route, path) => screen(context, route).tree.find((entry) => entry.path === path) ?? fail(`missing node ${context} ${route} ${path}`);
 const style = (entry) => styles.get(entry.styleRef) ?? fail(`missing style ${entry.styleRef}`);
@@ -261,15 +249,9 @@ const sceneSpec = ({ context, viewport }, { outcome, route }) => {
 const sceneVariants = contexts.flatMap((context) => outcomeRoutes.map((route) => sceneSpec(context, route)));
 
 // **간격 · 패딩은 값이 같은 `Klipse Primitive/spacing/<n>` 에 묶는다** — 이름과 값을 되읽기(`figma/readback.json`)에서
-// 확인한다(형제 생성기 build-figma-product-app-shell 과 같은 규칙). 토큰이 없는 값(본문 위 여백 같은 뷰포트 계산값)은
-// 묶지 않는다 — 렌더러는 계획의 `spacing<n>` 이 있을 때만 묶는다.
-const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
-const liveFloat = (collection, name) => {
-  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
-  if (!row || row[1] !== "FLOAT") return null;
-  const [[, alias, raw]] = row[3];
-  return alias ? null : raw;
-};
+// 확인한다(형제 생성기 build-figma-product-app-shell 과 같은 규칙, 공용 헬퍼 `liveVariables`). 토큰이 없는 값(본문 위 여백
+// 같은 뷰포트 계산값)은 묶지 않는다 — 렌더러는 계획의 `spacing<n>` 이 있을 때만 묶는다.
+const live = liveVariables({ repoRoot, fail });
 const spacingValues = new Set();
 for (const spec of variants) {
   const alertPadding = spec.alert ? Object.values(spec.alert.padding) : [];
@@ -279,7 +261,7 @@ for (const spec of variants) {
     if (value > 0) spacingValues.add(value);
   }
   for (const radius of [spec.alert?.radius, ...spec.actionGroup.actions.map((action) => action.radius)].filter((value) => value !== undefined)) {
-    if (radius !== liveFloat("Klipse Primitive", "radius/12")) fail(`${spec.route} ${spec.viewport}: radius ${radius} is not Klipse Primitive/radius/12`);
+    live.radiusBinding(radius, "radius/12", `${spec.route} ${spec.viewport}`);
   }
 }
 for (const scene of sceneVariants) {
@@ -287,16 +269,109 @@ for (const scene of sceneVariants) {
   for (const value of [mainPadding.left - bleed.left, mainPadding.right - bleed.right, mainPadding.bottom, bleed.left, bleed.right]) {
     if (value > 0) spacingValues.add(value);
   }
-  if (scene.main.radius !== liveFloat("Klipse Primitive", "radius/16")) fail(`${scene.route} ${scene.viewport}: main radius is not Klipse Primitive/radius/16`);
+  live.radiusBinding(scene.main.radius, "radius/16", `${scene.route} ${scene.viewport} main`);
 }
-const spacingBindings = Object.fromEntries([...spacingValues].sort((a, b) => a - b).flatMap((value) => {
-  const name = `spacing/${value}`;
-  return liveFloat("Klipse Primitive", name) === value ? [[`spacing${value}`, { collection: "Klipse Primitive", name }]] : [];
-}));
+const spacingBindings = Object.fromEntries([...spacingValues].sort((a, b) => a - b).flatMap((value) => live.spacingBinding(value)));
 for (const spec of variants) {
   const required = [spec.gap, spec.actionGroup.gap, spec.actionGroup.paddingTop];
   for (const value of required) if (value > 0 && !spacingBindings[`spacing${value}`]) fail(`${spec.route}: no Klipse Primitive/spacing/${value} to bind`);
 }
+
+/* **색은 라이브 변수에 역할로 묶는다(2026-09-14, 컬렉션 이전).** 옛 계획은 은퇴한 `1 · Palette[sidebar]` ·
+   `2 · Semantic[light-sidebar]` 의 이름(`palette/gray-1000` · `gray/000 · a56` …)을 실어 러너가 라이브에서 첫머리에
+   던졌고, 렌더러는 자리마다 변수를 손으로 골랐다(본문 버튼은 「검정이면 primary」로 추측했다). 이제 역할마다 제품 선언
+   (소스 인용)과 라이브 변수를 적고, 칠하는 자리마다 **측정 색이 그 역할의 기대 색과 같은 하나**를 고른다
+   (`colorRoles().paintFor`). 측정 fixture 는 light 라 `Klipse Semantic Color[Light]` 로 푼다. 대조표는 계획의
+   `colorEvidence` 가 갖는다. */
+const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
+const SUCCESS = "apps/web/app/mypage/upgrade/billing-success/page.tsx";
+const FAIL = "apps/web/app/mypage/upgrade/billing-fail/page.tsx";
+const GLOBALS = "apps/web/app/globals.css";
+const alphaReason = (token, step) =>
+  `Product paints rgb(var(${token}) / ${step}%) — pure black at ${step}% in light. The live alpha ramp with that step resolves to ` +
+  "static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).";
+const roles = live.colorRoles({
+  theme: "light",
+  where: "checkout-status",
+  roles: {
+    gray000: {
+      name: "color/gray/000",
+      declared: [quote.product(SUCCESS, 110, '  "m-0 text-gray-000",'), quote.product(SUCCESS, 157, '  "[border:none] bg-gray-000 text-gray-900!",'),
+        quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",'), quote.product(FAIL, 113, '  "[&_dd]:text-gray-000",')],
+    },
+    gray000Alpha56: {
+      name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
+      declared: [quote.product(SUCCESS, 118, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),
+    },
+    gray000Alpha48: {
+      name: "color/gray/000-alpha/48", mix: { name: "color/gray/000", alpha: 0.48 },
+      declared: [quote.product(FAIL, 110, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
+    },
+    gray000Alpha08: {
+      name: "color/gray/000-alpha/08", mix: { name: "color/gray/000", alpha: 0.08 },
+      declared: [quote.product(FAIL, 105, '  "[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]",')], reason: alphaReason("--gray-000-rgb", 8),
+    },
+    gray900: { name: "color/gray/900", declared: [quote.product(SUCCESS, 157, '  "[border:none] bg-gray-000 text-gray-900!",')] },
+    bgRaised: { name: "color/bg-raised", declared: [quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",')] },
+    red500: {
+      collection: "Klipse Primitive", name: "color/red/500",
+      declared: [quote.product(SUCCESS, 126, '  "rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500",')],
+    },
+    red500Alpha08: {
+      collection: "Klipse Primitive", name: "color/red-alpha/08",
+      declared: [quote.product(SUCCESS, 126, '  "rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500",')],
+    },
+    red500Alpha16: {
+      unbound: true, mix: { collection: "Klipse Primitive", name: "color/red/500", alpha: 0.16 },
+      declared: [quote.product(SUCCESS, 125, '  "[border:1px_solid_rgb(var(--accent-red-500-rgb)/16%)]",')],
+      reason: "Product strokes the alert with rgb(var(--accent-red-500-rgb) / 16%). The live red alpha ramp has 08 · 12 · 24 only and no live variable resolves to red-500 at 16%, so the stroke keeps the measured colour as a fixed paint.",
+    },
+    appPageBg: {
+      name: "color/bg-canvas",
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+    },
+    appPageBgNarrow: {
+      name: "color/bg-surface",
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")],
+    },
+    appMainCardBg: {
+      name: "color/bg-surface",
+      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+    },
+    boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
+    docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
+    docsNote: { name: "color/fg-secondary", annotation: "documentation frame note" },
+  },
+});
+const paint = (target, key, candidates, measured, where) => {
+  target[key] = roles.paintFor(candidates, measured, where);
+  return target;
+};
+for (const spec of variants) {
+  const where = `${spec.route} ${spec.viewport}`;
+  paint(spec.title, "paint", ["gray000"], spec.title.color, `${where} title`);
+  paint(spec.body, "paint", ["gray000Alpha56"], spec.body.color, `${where} body`);
+  if (spec.alert) {
+    paint(spec.alert, "fillPaint", ["red500Alpha08"], spec.alert.fill, `${where} alert fill`);
+    paint(spec.alert, "strokePaint", ["red500Alpha16"], spec.alert.stroke, `${where} alert stroke`);
+    paint(spec.alert.textStyle, "paint", ["red500"], spec.alert.textStyle.color, `${where} alert text`);
+  }
+  for (const row of spec.details?.rows ?? []) {
+    if (row.borderBottom) paint(row.borderBottom, "paint", ["gray000Alpha08"], row.borderBottom.color, `${where} row border`);
+    paint(row.term, "paint", ["gray000Alpha48"], row.term.color, `${where} term`);
+    paint(row.value, "paint", ["gray000"], row.value.color, `${where} value`);
+  }
+  for (const action of spec.actionGroup.actions) {
+    paint(action, "fillPaint", ["gray000", "bgRaised"], action.fill, `${where} action ${action.text}`);
+    paint(action.textStyle, "paint", ["gray900", "gray000"], action.textStyle.color, `${where} action label ${action.text}`);
+  }
+}
+for (const scene of sceneVariants) {
+  const where = `${scene.route} ${scene.viewport}`;
+  paint(scene.page, "paint", ["appPageBg", "appPageBgNarrow"], scene.page.background, `${where} page`);
+  paint(scene.main, "paint", ["appMainCardBg"], scene.main.background, `${where} main`);
+}
+const colors = roles.finish();
 
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
@@ -322,28 +397,15 @@ const plan = {
     },
     variants,
     scenes: sceneVariants,
-    bindings: {
-      paletteCollection: "1 · Palette",
-      paletteMode: "sidebar",
-      semanticCollection: "2 · Semantic",
-      semanticMode: "light-sidebar",
-      primitiveCollection: "Klipse Primitive",
-      primitiveMode: "Base",
-      current: { collection: "1 · Palette", name: "palette/gray-1000" },
-      surface: { collection: "1 · Palette", name: "palette/gray-100" },
-      appBackground: { collection: "1 · Palette", name: "palette/gray-200" },
-      secondary: { collection: "2 · Semantic", name: "gray/000 · a56" },
-      tertiary: { collection: "2 · Semantic", name: "gray/000 · a48" },
-      secondaryButton: { collection: "2 · Semantic", name: "palette/gray-000 · a8" },
-      error: { collection: "1 · Palette", name: "accent/red/500" },
-      errorSurface: { collection: "Klipse Primitive", name: "color/red-alpha/8" },
-      errorBorder: { collection: "Klipse Primitive", name: "color/red-alpha/16" },
-      // 본문 · 행 · 알림을 선이 있는 흐름으로 그리면서 행 구분선이 들어왔다 — 제품 `rgb(var(--gray-000-rgb)/8%)`.
-      divider: { collection: "2 · Semantic", name: "palette/gray-000 · a8" },
+    $bindingPolicy: BINDING_POLICY,
+    bindings: live.assertBindings({
+      ...colors.bindings,
       ...spacingBindings,
+      // 반경은 위에서 자리마다 되읽기 값과 대조했다(`radiusBinding`).
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
-    },
+    }, "checkout-status bindings"),
+    colorEvidence: colors.evidence,
   },
 };
 
@@ -365,8 +427,25 @@ for (const scene of runnerPlan.component.scenes) {
   delete scene.layout.main.declared;
   delete scene.topBar;
   delete scene.content;
+  // 색은 역할 이름(`paint`)으로 싣는다 — 측정 색은 계획의 `colorEvidence` 가 대조를 끝냈다.
+  delete scene.page.background;
+  delete scene.main.background;
 }
-const readableDraw = `const PLAN=${JSON.stringify(runnerPlan)};\n` + readFileSync(templatePath, "utf8");
+// 색 · 사유 산문은 계획에만 — 러너는 역할 이름과 고정 페인트 색만 읽는다.
+{
+  const C = runnerPlan.component;
+  delete C.$bindingPolicy;
+  delete C.colorEvidence;
+  for (const entry of Object.values(C.bindings.unbound ?? {})) delete entry.reason;
+  for (const variant of C.variants) {
+    for (const text of [variant.title, variant.body, variant.alert?.textStyle, ...variant.actionGroup.actions.map((action) => action.textStyle),
+      ...(variant.details?.rows ?? []).flatMap((row) => [row.term, row.value])].filter(Boolean)) delete text.color;
+    for (const action of variant.actionGroup.actions) delete action.fill;
+    for (const row of variant.details?.rows ?? []) if (row.borderBottom) delete row.borderBottom.color;
+    if (variant.alert) { delete variant.alert.fill; delete variant.alert.stroke; }
+  }
+}
+const readableDraw = `const PLAN=${JSON.stringify(runnerPlan)};\n` + readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") + readFileSync(templatePath, "utf8");
 const wrapperPrefix = "async function __figmaRunner__(){";
 const wrappedDraw = transformSync(`${wrapperPrefix}${readableDraw}}`, { minify: true, target: "es2022" }).code.trim();
 if (!wrappedDraw.startsWith(wrapperPrefix) || !wrappedDraw.endsWith("}")) fail("unexpected esbuild wrapper output");

@@ -56,7 +56,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "Billing authorization information is missing from the success URL.",
@@ -77,7 +78,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -137,8 +139,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             },
             {
               "text": "Try again",
@@ -182,8 +186,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             }
           ]
         },
@@ -234,8 +240,11 @@
               0.34901960784313724,
               1
             ],
-            "textAlign": "start"
-          }
+            "textAlign": "start",
+            "paint": "red500"
+          },
+          "fillPaint": "red500Alpha08",
+          "strokePaint": "red500Alpha16"
         }
       },
       {
@@ -273,7 +282,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
@@ -294,7 +304,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -354,8 +365,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             },
             {
               "text": "Go to archive",
@@ -399,8 +412,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             }
           ]
         },
@@ -437,7 +452,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Error code",
@@ -458,7 +474,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -479,7 +496,8 @@
                   0,
                   1
                 ],
-                "textAlign": "right"
+                "textAlign": "right",
+                "paint": "gray000"
               }
             },
             {
@@ -519,7 +537,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "Payment request failed",
@@ -540,7 +559,8 @@
                   0,
                   1
                 ],
-                "textAlign": "right"
+                "textAlign": "right",
+                "paint": "gray000"
               }
             }
           ]
@@ -581,7 +601,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
@@ -602,7 +623,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -662,8 +684,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             },
             {
               "text": "Go to archive",
@@ -707,8 +731,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             }
           ]
         },
@@ -745,7 +771,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Error code",
@@ -766,7 +793,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -787,7 +815,8 @@
                   0,
                   1
                 ],
-                "textAlign": "right"
+                "textAlign": "right",
+                "paint": "gray000"
               }
             },
             {
@@ -814,7 +843,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Message",
@@ -835,7 +865,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "Payment request failed",
@@ -856,7 +887,8 @@
                   0,
                   1
                 ],
-                "textAlign": "right"
+                "textAlign": "right",
+                "paint": "gray000"
               }
             },
             {
@@ -896,7 +928,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "-",
@@ -917,7 +950,8 @@
                   0,
                   1
                 ],
-                "textAlign": "right"
+                "textAlign": "right",
+                "paint": "gray000"
               }
             }
           ]
@@ -958,7 +992,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "Billing authorization information is missing from the success URL.",
@@ -979,7 +1014,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -1039,8 +1075,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             },
             {
               "text": "Try again",
@@ -1084,8 +1122,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             }
           ]
         },
@@ -1136,8 +1176,11 @@
               0.34901960784313724,
               1
             ],
-            "textAlign": "start"
-          }
+            "textAlign": "start",
+            "paint": "red500"
+          },
+          "fillPaint": "red500Alpha08",
+          "strokePaint": "red500Alpha16"
         }
       },
       {
@@ -1175,7 +1218,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
@@ -1196,7 +1240,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -1256,8 +1301,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             },
             {
               "text": "Go to archive",
@@ -1301,8 +1348,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             }
           ]
         },
@@ -1339,7 +1388,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Error code",
@@ -1360,7 +1410,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -1381,7 +1432,8 @@
                   0,
                   1
                 ],
-                "textAlign": "left"
+                "textAlign": "left",
+                "paint": "gray000"
               }
             },
             {
@@ -1421,7 +1473,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "Payment request failed",
@@ -1442,7 +1495,8 @@
                   0,
                   1
                 ],
-                "textAlign": "left"
+                "textAlign": "left",
+                "paint": "gray000"
               }
             }
           ]
@@ -1483,7 +1537,8 @@
             0,
             1
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000"
         },
         "body": {
           "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
@@ -1504,7 +1559,8 @@
             0,
             0.56
           ],
-          "textAlign": "start"
+          "textAlign": "start",
+          "paint": "gray000Alpha56"
         },
         "actionGroup": {
           "rect": {
@@ -1564,8 +1620,10 @@
                   0.882353,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray900"
+              },
+              "fillPaint": "gray000"
             },
             {
               "text": "Go to archive",
@@ -1609,8 +1667,10 @@
                   0,
                   1
                 ],
-                "textAlign": "start"
-              }
+                "textAlign": "start",
+                "paint": "gray000"
+              },
+              "fillPaint": "bgRaised"
             }
           ]
         },
@@ -1647,7 +1707,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Error code",
@@ -1668,7 +1729,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -1689,7 +1751,8 @@
                   0,
                   1
                 ],
-                "textAlign": "left"
+                "textAlign": "left",
+                "paint": "gray000"
               }
             },
             {
@@ -1716,7 +1779,8 @@
                   0,
                   0,
                   0.08
-                ]
+                ],
+                "paint": "gray000Alpha08"
               },
               "term": {
                 "text": "Message",
@@ -1737,7 +1801,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "Payment request failed",
@@ -1758,7 +1823,8 @@
                   0,
                   1
                 ],
-                "textAlign": "left"
+                "textAlign": "left",
+                "paint": "gray000"
               }
             },
             {
@@ -1798,7 +1864,8 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start"
+                "textAlign": "start",
+                "paint": "gray000Alpha48"
               },
               "value": {
                 "text": "-",
@@ -1819,7 +1886,8 @@
                   0,
                   1
                 ],
-                "textAlign": "left"
+                "textAlign": "left",
+                "paint": "gray000"
               }
             }
           ]
@@ -1841,7 +1909,8 @@
             0.952941,
             0.960784,
             1
-          ]
+          ],
+          "paint": "appPageBg"
         },
         "main": {
           "rect": {
@@ -1856,7 +1925,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -1914,7 +1984,8 @@
             0.952941,
             0.960784,
             1
-          ]
+          ],
+          "paint": "appPageBg"
         },
         "main": {
           "rect": {
@@ -1929,7 +2000,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -1987,7 +2059,8 @@
             0.952941,
             0.960784,
             1
-          ]
+          ],
+          "paint": "appPageBg"
         },
         "main": {
           "rect": {
@@ -2002,7 +2075,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -2060,7 +2134,8 @@
             0.980392,
             0.980392,
             1
-          ]
+          ],
+          "paint": "appPageBgNarrow"
         },
         "main": {
           "rect": {
@@ -2075,7 +2150,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -2133,7 +2209,8 @@
             0.980392,
             0.980392,
             1
-          ]
+          ],
+          "paint": "appPageBgNarrow"
         },
         "main": {
           "rect": {
@@ -2148,7 +2225,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -2206,7 +2284,8 @@
             0.980392,
             0.980392,
             1
-          ]
+          ],
+          "paint": "appPageBgNarrow"
         },
         "main": {
           "rect": {
@@ -2221,7 +2300,8 @@
             0.980392,
             1
           ],
-          "radius": 16
+          "radius": 16,
+          "paint": "appMainCardBg"
         },
         "layout": {
           "page": {
@@ -2266,52 +2346,76 @@
         }
       }
     ],
+    "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "sidebar",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "light-sidebar",
-      "primitiveCollection": "Klipse Primitive",
-      "primitiveMode": "Base",
-      "current": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-1000"
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Light",
+      "gray000": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000"
       },
-      "surface": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-100"
+      "gray000Alpha56": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/56"
       },
-      "appBackground": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-200"
+      "gray000Alpha48": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/48"
       },
-      "secondary": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a56"
+      "gray000Alpha08": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/08"
       },
-      "tertiary": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a48"
+      "gray900": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/900"
       },
-      "secondaryButton": {
-        "collection": "2 · Semantic",
-        "name": "palette/gray-000 · a8"
+      "bgRaised": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-raised"
       },
-      "error": {
-        "collection": "1 · Palette",
-        "name": "accent/red/500"
-      },
-      "errorSurface": {
+      "red500": {
         "collection": "Klipse Primitive",
-        "name": "color/red-alpha/8"
+        "name": "color/red/500"
       },
-      "errorBorder": {
+      "red500Alpha08": {
         "collection": "Klipse Primitive",
-        "name": "color/red-alpha/16"
+        "name": "color/red-alpha/08"
       },
-      "divider": {
-        "collection": "2 · Semantic",
-        "name": "palette/gray-000 · a8"
+      "appPageBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
+      },
+      "appPageBgNarrow": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
+      },
+      "appMainCardBg": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-surface"
+      },
+      "boardSurface": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
+      },
+      "docsTitle": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-primary"
+      },
+      "docsNote": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-secondary"
+      },
+      "unbound": {
+        "red500Alpha16": {
+          "color": [
+            1,
+            0.294118,
+            0.34902,
+            0.16
+          ],
+          "reason": "Product strokes the alert with rgb(var(--accent-red-500-rgb) / 16%). The live red alpha ramp has 08 · 12 · 24 only and no live variable resolves to red-500 at 16%, so the stroke keeps the measured colour as a fixed paint."
+        }
       },
       "spacing6": {
         "collection": "Klipse Primitive",
@@ -2352,6 +2456,282 @@
       "radius16": {
         "collection": "Klipse Primitive",
         "name": "radius/16"
+      }
+    },
+    "colorEvidence": {
+      "gray000": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 110,
+            "quote": "  \"m-0 text-gray-000\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 157,
+            "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 169,
+            "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "line": 113,
+            "quote": "  \"[&_dd]:text-gray-000\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 1,
+        "sites": 28,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black",
+        "figmaValue": "#000000",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray000Alpha56": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 118,
+            "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.56,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/56 → Klipse Primitive/color/static-black-alpha/56",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.56,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.56",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 56%) — pure black at 56% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "gray000Alpha48": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "line": 110,
+            "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.48,
+        "sites": 10,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/48 → Klipse Primitive/color/static-black-alpha/48",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.48,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.48",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 48%) — pure black at 48% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "gray000Alpha08": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "line": 105,
+            "quote": "  \"[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.08,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/08 → Klipse Primitive/color/static-black-alpha/08",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.08,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.08",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 8%) — pure black at 8% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "gray900": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 157,
+            "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
+          }
+        ],
+        "measured": "#dcdee1",
+        "measuredAlpha": 1,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/gray/900 → Klipse Primitive/color/palette-gray/100",
+        "figmaValue": "#dcdee1",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "bgRaised": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 169,
+            "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
+          }
+        ],
+        "measured": "#ffffff",
+        "measuredAlpha": 1,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/bg-raised → Klipse Primitive/color/static/white",
+        "figmaValue": "#ffffff",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "red500": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 126,
+            "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
+          }
+        ],
+        "measured": "#ff4b59",
+        "measuredAlpha": 1,
+        "sites": 2,
+        "figma": "Klipse Primitive/color/red/500",
+        "figmaValue": "#ff4b59",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "red500Alpha08": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 126,
+            "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
+          }
+        ],
+        "measured": "#ff4b59",
+        "measuredAlpha": 0.08,
+        "sites": 2,
+        "figma": "Klipse Primitive/color/red-alpha/08",
+        "figmaValue": "#ff4b59",
+        "figmaAlpha": 0.08,
+        "exact": true
+      },
+      "red500Alpha16": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 125,
+            "quote": "  \"[border:1px_solid_rgb(var(--accent-red-500-rgb)/16%)]\","
+          }
+        ],
+        "measured": "#ff4b59",
+        "measuredAlpha": 0.16,
+        "sites": 2,
+        "figma": null,
+        "productMix": "Klipse Primitive/color/red/500 × 0.16",
+        "exact": false,
+        "reason": "Product strokes the alert with rgb(var(--accent-red-500-rgb) / 16%). The live red alpha ramp has 08 · 12 · 24 only and no live variable resolves to red-500 at 16%, so the stroke keeps the measured colour as a fixed paint.",
+        "liveValueTwins": []
+      },
+      "appPageBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 37,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 791,
+            "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
+          }
+        ],
+        "measured": "#f2f3f5",
+        "measuredAlpha": 1,
+        "sites": 3,
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appPageBgNarrow": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 37,
+            "quote": "  \"bg-[var(--app-page-bg)]!\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 1068,
+            "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 3,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "appMainCardBg": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "line": 59,
+            "quote": "  \"bg-[var(--app-main-card-bg)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "path": "apps/web/app/globals.css",
+            "line": 792,
+            "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/bg-surface → Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "boardSurface": {
+        "declared": null,
+        "annotation": "section fill behind the sets (board canvas, not a product surface)",
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsTitle": {
+        "declared": null,
+        "annotation": "documentation frame title",
+        "figma": "Klipse Semantic Color[Light]/color/fg-primary → Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsNote": {
+        "declared": null,
+        "annotation": "documentation frame note",
+        "figma": "Klipse Semantic Color[Light]/color/fg-secondary → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": null
       }
     }
   }

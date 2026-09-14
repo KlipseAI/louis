@@ -4,39 +4,10 @@ const page =
 if (!page) throw new Error(`Missing target page ${C.pageName}`);
 await figma.setCurrentPageAsync(page);
 
-const collections = await figma.variables.getLocalVariableCollectionsAsync();
-const collectionById = new Map(collections.map((entry) => [entry.id, entry]));
-const collectionByName = new Map(collections.map((entry) => [entry.name, entry]));
-const variables = await figma.variables.getLocalVariablesAsync();
-const variableByKey = new Map(
-  variables.map((entry) => [`${collectionById.get(entry.variableCollectionId)?.name}\u0000${entry.name}`, entry]),
-);
-const getVariable = (binding) => {
-  const variable = variableByKey.get(`${binding.collection}\u0000${binding.name}`);
-  if (!variable) throw new Error(`Missing variable ${binding.collection}/${binding.name}`);
-  return variable;
-};
-const getMode = (collectionName, modeName) => {
-  const collection = collectionByName.get(collectionName);
-  const mode = collection?.modes.find((entry) => entry.name === modeName);
-  if (!collection || !mode) throw new Error(`Missing mode ${collectionName}/${modeName}`);
-  return { collectionId: collection.id, modeId: mode.modeId };
-};
+// 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 면은 계획이
+// 고른 역할 이름(`page.paint` · `main.paint`)으로만 칠한다.
 const B = C.bindings;
-const V = Object.fromEntries(
-  Object.entries(B)
-    .filter(([, value]) => value && typeof value === "object" && "collection" in value)
-    .map(([key, value]) => [key, getVariable(value)]),
-);
-const paletteMode = getMode(B.paletteCollection, B.paletteMode);
-const semanticMode = getMode(B.semanticCollection, B.semanticMode);
-const setPaint = (variable, fallback = { r: 0, g: 0, b: 0 }) =>
-  figma.variables.setBoundVariableForPaint({ type: "SOLID", color: fallback }, "color", variable);
-const bindCorners = (node, variable) => {
-  for (const field of ["topLeftRadius", "topRightRadius", "bottomRightRadius", "bottomLeftRadius"]) {
-    node.setBoundVariable(field, variable);
-  }
-};
+const { V, pin, paint, bindCorners, audit, mode: colourMode } = await liveVariables(B);
 
 const sets = new Map();
 for (const set of page.findAllWithCriteria({ types: ["COMPONENT_SET"] })) {
@@ -80,9 +51,8 @@ if (!section) {
   section.x = Math.max(...page.children.filter((entry) => entry !== section).map((entry) => entry.x + entry.width), 0) + 182;
   section.y = 0;
 }
-section.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-section.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-section.fills = [setPaint(V.appBackground)];
+pin(section);
+section.fills = [paint("boardSurface")];
 
 let docs = section.findOne((entry) => entry.name === `${C.sceneSetName} / Documentation`);
 if (!docs) {
@@ -100,16 +70,22 @@ if (!docs) {
   title.fontName = { family: "Pretendard", style: "Medium" };
   title.fontSize = 28;
   title.characters = C.sceneSetName;
-  title.fills = [setPaint(V.current)];
+  title.fills = [paint("docsTitle")];
   docs.appendChild(title);
   const note = figma.createText();
   note.fontName = { family: "Pretendard", style: "Regular" };
   note.fontSize = 14;
   note.lineHeight = { unit: "PERCENT", value: 150 };
   note.characters = `${PLAN.productCommit.slice(0, 8)} · ${PLAN.context} · nested measured Gnb/top bar/result components · product-only composition`;
-  note.fills = [setPaint(V.parent)];
+  note.fills = [paint("docsNote")];
   docs.appendChild(note);
   section.appendChild(docs);
+}
+// 문서 글자 잉크도 매 실행 주석 역할로 다시 건다 — 옛 문서 프레임은 은퇴한 컬렉션 변수에 묶여 있다.
+{
+  const texts = docs.findAllWithCriteria({ types: ["TEXT"] });
+  if (texts[0]) texts[0].fills = [paint("docsTitle")];
+  if (texts[1]) texts[1].fills = [paint("docsNote")];
 }
 
 // ── reconcile 공통 ───────────────────────────────────────────────────────
@@ -156,10 +132,7 @@ const autoLayout = (frame, mode) => {
   frame.counterAxisAlignItems = "MIN";
   frame.strokes = [];
 };
-const setModes = (node) => {
-  node.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-  node.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-};
+const setModes = pin;
 const gutter = 40;
 const ensureSet = (setName, specs, build, reconcile) => {
   const nameOf = (spec) => `Outcome=${spec.outcome}`;
@@ -217,7 +190,7 @@ const reconcileMain = (component, spec, S, topBarMaster, topBarName, resultMaste
   bindSpacing(component, "paddingBottom", L.padding.bottom);
   bindSpacing(component, "paddingLeft", L.padding.left - L.bleed.left);
   bindSpacing(component, "itemSpacing", L.barGap);
-  component.fills = [setPaint(V.surface)];
+  component.fills = [paint(S.main.paint)];
   component.cornerRadius = S.main.radius;
   bindCorners(component, V.radius16);
   component.clipsContent = true;
@@ -262,7 +235,7 @@ const reconcileScene = (component, spec, S, mainSet, gnb) => {
     component.setBoundVariable(field, null);
   }
   component.itemSpacing = 0;
-  component.fills = [setPaint(V.appBackground)];
+  component.fills = [paint(S.page.paint)];
   setModes(component);
   const main = placeInstance(component, component, `main/Outcome=${spec.outcome}`, mainMaster, 0);
   main.layoutSizingHorizontal = "FILL";
@@ -308,27 +281,16 @@ mobileSceneSet.description = `Full mobile payment-result scenes composed from ne
   section.resizeWithoutConstraints(Math.max(section.width, right), Math.max(section.height, cursor));
 }
 
-const paints = [];
-for (const node of [
-  mainSet, ...mainSet.findAll(() => true), sceneSet, ...sceneSet.findAll(() => true),
-  mobileMainSet, ...mobileMainSet.findAll(() => true), mobileSceneSet, ...mobileSceneSet.findAll(() => true),
-]) {
-  for (const field of ["fills", "strokes"]) {
-    if (!Array.isArray(node[field])) continue;
-    for (const paint of node[field]) {
-      if (paint.type !== "SOLID" || paint.visible === false || paint.opacity === 0) continue;
-      let ancestor = node;
-      let brandFixed = false;
-      while (ancestor && ancestor !== section) {
-        if (/logo\/klipse-light/.test(ancestor.name)) brandFixed = true;
-        ancestor = ancestor.parent;
-      }
-      paints.push({ node: node.name, field, bound: Boolean(paint.boundVariables?.color), brandFixed });
+// 보이는 페인트 감사 — 변수에 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors`)이거나 브랜드 로고 자산이어야 한다.
+// 사이드바 셸(컴포넌트 러너)은 제품 로고 SVG 를 인스턴스로 품는다 — 워드마크 잉크는 자산의 칠이다.
+const paintAudit = audit([mainSet, sceneSet, mobileMainSet, mobileSceneSet], {
+  allow: (node) => {
+    for (let ancestor = node; ancestor && ancestor !== section; ancestor = ancestor.parent) {
+      if (/^logo\/klipse-(light|dark)\b/.test(ancestor.name)) return "brandLogo";
     }
-  }
-}
-const unexpected = paints.filter((entry) => !entry.bound && !entry.brandFixed);
-if (unexpected.length) throw new Error(`Unexpected unbound visible paints ${JSON.stringify(unexpected)}`);
+    return null;
+  },
+});
 return {
   sectionId: section.id,
   docFrameId: docs.id,
@@ -340,7 +302,6 @@ return {
   mobileMainVariantIds: mobileMainSet.children.map((entry) => entry.id),
   mobileSceneComponentSetId: mobileSceneSet.id,
   mobileSceneVariantIds: mobileSceneSet.children.map((entry) => entry.id),
-  visiblePaintCount: paints.length,
-  boundVisiblePaintCount: paints.filter((entry) => entry.bound).length,
-  allowedFixedBrandPaintCount: paints.filter((entry) => !entry.bound && entry.brandFixed).length,
+  colourMode,
+  ...paintAudit,
 };

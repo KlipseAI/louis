@@ -1549,7 +1549,13 @@
             "width": 520,
             "height": 229.5938
           },
+          "width": {
+            "mode": "FIXED",
+            "value": 520,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -1598,6 +1604,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -1605,6 +1621,8 @@
               "width": 520,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,
@@ -1657,6 +1675,7 @@
               "bottom": 12,
               "left": 0
             },
+            "borderBottomWidth": 0,
             "term": {
               "text": "Error code",
               "rect": {
@@ -1709,7 +1728,13 @@
             "width": 390,
             "height": 312.1875
           },
+          "width": {
+            "mode": "FILL",
+            "value": 390,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -1758,6 +1783,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -1765,6 +1800,8 @@
               "width": 390,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,
@@ -1817,6 +1854,7 @@
               "bottom": 12,
               "left": 0
             },
+            "borderBottomWidth": 0,
             "term": {
               "text": "Error code",
               "rect": {
@@ -1869,7 +1907,13 @@
             "width": 520,
             "height": 209.1875
           },
+          "width": {
+            "mode": "FIXED",
+            "value": 520,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -1918,6 +1962,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -1925,6 +1979,8 @@
               "width": 520,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,
@@ -1969,7 +2025,13 @@
             "width": 390,
             "height": 275.7813
           },
+          "width": {
+            "mode": "FILL",
+            "value": 390,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -2018,6 +2080,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -2025,6 +2097,8 @@
               "width": 390,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,
@@ -2069,7 +2143,13 @@
             "width": 520,
             "height": 209.1875
           },
+          "width": {
+            "mode": "FIXED",
+            "value": 520,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -2118,6 +2198,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -2125,6 +2215,8 @@
               "width": 520,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,
@@ -2169,7 +2261,13 @@
             "width": 390,
             "height": 254.7813
           },
+          "width": {
+            "mode": "FILL",
+            "value": 390,
+            "declared": "min(520px, 100%)"
+          },
           "gap": 24,
+          "gapDeclared": "calc(2px * 12)",
           "background": [
             0,
             0,
@@ -2218,6 +2316,16 @@
             ],
             "textAlign": "start"
           },
+          "actions": {
+            "direction": "VERTICAL",
+            "gap": 10,
+            "paddingTop": 8,
+            "declared": {
+              "flexWrap": "wrap",
+              "gap": "calc(2px * 5)",
+              "marginTop": "calc(8px)"
+            }
+          },
           "action": {
             "rect": {
               "x": 0,
@@ -2225,6 +2333,8 @@
               "width": 390,
               "height": 32
             },
+            "height": 32,
+            "heightDeclared": "calc(32px)",
             "radius": 12,
             "padding": {
               "top": 0,

@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -486,24 +487,70 @@ const resultText = (entry, rootRect) => {
     textAlign: computed.textAlign,
   };
 };
+/* **결제 결과 본문은 흐름이다 — 측정 rect 로 절대배치하지 않는다(2026-09-14, 크기 굳힘 감사 묶음 2).**
+   제품(`billing-change-fail/page.tsx` 등 세 화면의 `STATUS_CARD` · `STATUS_META_LIST` · `STATUS_ACTIONS` ·
+   `STATUS_BUTTON_PRIMARY`)은 세로 flex 이고, 높이를 선언하는 자리는 버튼 하나(`h-16`)뿐이다. 옛 계획은 글자 ·
+   행 · 버튼의 측정 rect 를 실어 렌더러가 `textAutoResize NONE` + x/y 로 박았다 — 줄 수나 앵커가 바뀌면 조용히
+   겹치거나 빈다. 이제 계획은 **선언이 정한 축만 값으로** 싣는다: 폭(`width: min(520px, 100%)`), 간격 · 패딩
+   (계산 스타일), 버튼 높이(`height`). 나머지는 렌더러가 HUG · FILL 로 둔다.
+   선언은 측정 원장의 노드별 `declared` 칸에서 읽는다 — 그 칸이 없거나 꼴이 다르면 던진다(값을 지어내지 않는다).
+   rect 는 설명문 · 감사용 증거로만 남기고 러너에는 싣지 않는다. */
+const declaredValue = (entry, property, pattern, where) => {
+  const value = entry.declared?.[property];
+  if (typeof value !== "string" || !pattern.test(value)) {
+    fail(`${where} ${entry.path}: declared ${property} ${JSON.stringify(value)} does not match ${pattern}`);
+  }
+  return value;
+};
+// 폭 선언 `min(<상한>px, 100%)`. 부모가 상한보다 넓으면 상한(선택값)에 물려 FIXED, 좁으면 100% 라 소비처가
+// FILL 로 늘린다 — 판정은 측정 폭과 선언 상한의 대조다. 마스터에는 부모가 없어 FILL 을 걸 수 없으므로 FILL
+// 쪽 마스터의 기본 폭은 그 뷰포트의 측정 부모 폭이다.
+const cappedWidth = (entry, where) => {
+  const declared = declaredValue(entry, "width", /^min\(\d+(?:\.\d+)?px, 100%\)$/, where);
+  const cap = Number(/^min\(([\d.]+)px/.exec(declared)[1]);
+  return entry.rect.width === cap
+    ? { mode: "FIXED", value: cap, declared }
+    : { mode: "FILL", value: entry.rect.width, declared };
+};
 const paymentResultSpec = (context, route, outcome, viewport) => {
   const root = resultNode(context, route, resultSectionPath);
   const rootStyle = style(root);
   const failure = outcome === "Failure";
-  const buttonPath = `${resultSectionPath}.${failure ? 3 : 2}.0`;
-  const button = resultNode(context, route, buttonPath);
+  const where = `${context} ${route}`;
+  const actionsNode = resultNode(context, route, `${resultSectionPath}.${failure ? 3 : 2}`);
+  const actionsStyle = style(actionsNode);
+  const button = resultNode(context, route, `${actionsNode.path}.0`);
   const buttonStyle = style(button);
+  // 버튼 줄은 `flex-wrap` 인데 버튼마다 `width: 100%` 라 한 줄에 하나씩 선다 — 세로 쌓임과 같다.
+  // Figma 의 wrap 에서 FILL 자식은 줄을 나눠 가지므로 가로 wrap 으로 옮기면 제품과 다른 배치가 된다.
+  declaredValue(actionsNode, "flex-wrap", /^wrap$/, where);
+  declaredValue(button, "width", /^100%$/, where);
   const spec = {
     outcome,
     viewport,
     route,
     rect: { width: root.rect.width, height: root.rect.height },
-    gap: px(rootStyle.gap),
+    width: cappedWidth(root, where),
+    gap: px(rootStyle.rowGap),
+    gapDeclared: declaredValue(root, "gap", /\S/, where),
     background: rgba(rootStyle.backgroundColor),
     title: resultText(resultNode(context, route, `${resultSectionPath}.0`), root.rect),
     body: resultText(resultNode(context, route, `${resultSectionPath}.1`), root.rect),
+    actions: {
+      direction: "VERTICAL",
+      gap: px(actionsStyle.rowGap),
+      paddingTop: px(actionsStyle.marginTop),
+      declared: {
+        flexWrap: declaredValue(actionsNode, "flex-wrap", /^wrap$/, where),
+        gap: declaredValue(actionsNode, "gap", /\S/, where),
+        marginTop: declaredValue(actionsNode, "margin-top", /\S/, where),
+      },
+    },
     action: {
       rect: relRect(button, root.rect),
+      // 높이는 선언(`h-16` → `height: calc(32px)`)이라 FIXED, 폭은 `width: 100%` 라 FILL 이다.
+      height: px(buttonStyle.height),
+      heightDeclared: declaredValue(button, "height", /px\)?$/, where),
       radius: px(buttonStyle.borderTopLeftRadius),
       padding: {
         top: px(buttonStyle.paddingTop),
@@ -523,16 +570,19 @@ const paymentResultSpec = (context, route, outcome, viewport) => {
       direction: detailStyle.flexDirection,
       alignItems: detailStyle.alignItems,
       justifyContent: detailStyle.justifyContent,
-      gap: px(detailStyle.gap),
+      gap: px(detailStyle.rowGap),
       padding: {
         top: px(detailStyle.paddingTop),
         right: px(detailStyle.paddingRight),
         bottom: px(detailStyle.paddingBottom),
         left: px(detailStyle.paddingLeft),
       },
+      // 결과 화면의 목록 행은 하나라 `[&>div:last-child]:[border-bottom:none]` 로 선이 없다.
+      borderBottomWidth: px(detailStyle.borderBottomWidth),
       term: resultText(resultNode(context, route, `${resultSectionPath}.2.0.0`), root.rect),
       value: resultText(resultNode(context, route, `${resultSectionPath}.2.0.1`), root.rect),
     };
+    if (spec.detail.borderBottomWidth !== 0) fail(`${where}: payment result detail row gained a border — the renderer draws none`);
   }
   return spec;
 };
@@ -822,18 +872,50 @@ runnerPlan.sourceCandidate = candidateSummary(plan.sourceCandidate);
 delete runnerPlan.component.upgradeCta.sourceCandidates;
 delete runnerPlan.component.shell.sourceCandidates;
 delete runnerPlan.component.paymentResult.sourceCandidates;
-const runnerSource = readFileSync(
-  resolve(repoRoot, "scripts/templates/figma-product-components-renderer.js"),
-  "utf8",
-)
-  .split("\n")
-  .map((line) => line.trimStart())
-  .filter((line) => line.length > 0)
-  .join("\n");
-const draw = `// Generated by scripts/build-figma-product-components.mjs. Do not edit by hand.\n` +
-  `// Pass this file verbatim to use_figma. It creates only missing measured product components.\n` +
+// 결제 결과 러너에는 렌더러가 읽는 값만 싣는다 — 글자 · 행 · 버튼 rect 와 선언 문자열은 계획(감사본)에만 남는다.
+for (const variant of runnerPlan.component.paymentResult.variants) {
+  for (const text of [variant.title, variant.body, variant.action.label, variant.detail?.term, variant.detail?.value]) {
+    if (text) delete text.rect;
+  }
+  delete variant.action.rect;
+  delete variant.action.heightDeclared;
+  delete variant.actions.declared;
+  delete variant.gapDeclared;
+  delete variant.width.declared;
+  if (variant.detail) delete variant.detail.rect;
+}
+// 렌더러는 간격 · 패딩을 값이 같은 `spacing/<n>` 에, 버튼 반경을 `radius/12` 에 묶는다. 계획에 묶을 변수가 없는
+// 값이 들어오면 러너가 라이브에서 던지기 전에 여기서 멈춘다.
+{
+  const bindings = plan.component.bindings;
+  for (const variant of plan.component.paymentResult.variants) {
+    const spacing = [
+      variant.gap, variant.actions.gap, variant.actions.paddingTop,
+      variant.action.padding.left, variant.action.padding.right,
+      ...(variant.detail ? [variant.detail.gap, variant.detail.padding.top, variant.detail.padding.bottom] : []),
+    ];
+    for (const value of spacing) {
+      if (value && !bindings[`spacing${value}`]) fail(`payment result ${variant.route} needs a spacing/${value} binding`);
+    }
+    if (variant.action.radius !== Number(bindings.radius12.name.split("/").pop())) {
+      fail(`payment result ${variant.route} action radius ${variant.action.radius} is not radius/12`);
+    }
+  }
+}
+// **러너는 압축해 싣는다(2026-09-14).** 결제 결과 세트를 매 실행 reconcile 하게 되면서 템플릿이 자라, 주석을
+// 그대로 실은 러너가 `use_figma` 의 50,000자 벽을 넘었다. 형제 생성기 build-figma-product-upgrade-scene 과 같은
+// 방법으로 esbuild 로 줄인다 — 템플릿의 주석은 저장소(scripts/templates)에 그대로 남고, 계획은 plan.json 이 든다.
+const readableDraw =
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
-  runnerSource;
+  readFileSync(resolve(repoRoot, "scripts/templates/figma-product-components-renderer.js"), "utf8");
+const wrapperPrefix = "async function __figmaRunner__(){";
+const wrappedDraw = transformSync(`${wrapperPrefix}${readableDraw}}`, { minify: true, target: "es2022" }).code.trim();
+if (!wrappedDraw.startsWith(wrapperPrefix) || !wrappedDraw.endsWith("}")) fail("unexpected esbuild wrapper output");
+const draw = `// Generated and minified by scripts/build-figma-product-components.mjs. Do not edit by hand.\n` +
+  `// Pass this file verbatim to use_figma. It creates missing measured product components and reconciles the payment result set in place.\n` +
+  wrappedDraw.slice(wrapperPrefix.length, -1);
+// `use_figma` 의 code 인자는 50,000자가 상한이다(형제 생성기 build-figma-product-upgrade-scene 과 같은 벽).
+if (draw.length > 50_000) fail(`Figma runner exceeds connector limit: ${draw.length}`);
 const payload = `${JSON.stringify(plan, null, 2)}\n`;
 const expected = [
   { absolute: planPath, expected: payload },

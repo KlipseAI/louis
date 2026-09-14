@@ -403,111 +403,194 @@ const ensurePaymentResult = () => {
     resultSection.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
     resultSection.fills = [setPaint(V.surfaceInverse, { r: 1, g: 1, b: 1 })];
   }
-  let resultSet = resultSection.findOne(
-    (entry) => entry.type === "COMPONENT_SET" && entry.name === R.componentSetName,
-  );
-  const applyDetailLayout = (detail, spec) => {
-    detail.layoutMode = spec.direction === "column" ? "VERTICAL" : "HORIZONTAL";
-    detail.primaryAxisSizingMode = detail.counterAxisSizingMode = "FIXED";
-    detail.resize(spec.rect.width, spec.rect.height);
-    detail.primaryAxisAlignItems = "SPACE_BETWEEN";
-    detail.counterAxisAlignItems = "CENTER";
-    detail.itemSpacing = spec.gap;
-    detail.paddingTop = spec.padding.top;
-    detail.paddingRight = spec.padding.right;
-    detail.paddingBottom = spec.padding.bottom;
-    detail.paddingLeft = spec.padding.left;
-    detail.setBoundVariable("itemSpacing", V.spacing16);
-    detail.setBoundVariable("paddingTop", V.spacing12);
-    detail.setBoundVariable("paddingBottom", V.spacing12);
-    for (const text of detail.findAllWithCriteria({ types: ["TEXT"] })) {
-      text.textAutoResize = "WIDTH_AND_HEIGHT";
-    }
+  // **세트가 있어도 매 실행 제자리에서 reconcile 한다(2026-09-14, 크기 굳힘 감사 묶음 2).** 옛 러너는 세트가 있으면
+  // 행 하나만 손보고 돌아가, 처음 지을 때 박은 절대배치(`textAutoResize NONE` + 측정 rect + x/y)가 영영 남았다.
+  // 이제 variant 는 세로 Auto Layout 이다 — 높이 HUG, 폭은 계획의 `width`(데스크톱은 선언 상한 520 FIXED,
+  // 모바일은 `100%` 라 기본값만 측정 부모 폭이고 소비처가 FILL), 글자는 FILL + 높이 자동, 버튼 줄은 세로 쌓임
+  // (`flex-wrap` + 버튼마다 `width: 100%`), 버튼은 폭 FILL · 높이 선언값 FIXED. **지우지 않는다** — 옛 노드
+  // (`title` · `body` · `detail/error-code` · `action/…` · `label`)를 같은 id 로 새 자리에 옮기고, 계획에 없는
+  // 자식은 숨겨 `retired/` 로 이름만 바꾼다. 인스턴스가 그 노드에 건 override 가 끊기지 않게 하기 위해서다.
+  const variantName = (spec) => `Outcome=${spec.outcome}, Viewport=${spec.viewport}`;
+  const newNode = (type, name) => {
+    const node = type === "TEXT" ? figma.createText() : figma.createFrame();
+    node.name = name;
+    if (type === "TEXT") node.fontName = { family: "Pretendard", style: "Regular" };
+    else node.fills = [];
+    return node;
   };
-  if (resultSet) {
-    for (const spec of R.variants.filter((entry) => entry.detail)) {
-      const variant = resultSet.children.find(
-        (entry) => entry.name === `Outcome=${spec.outcome}, Viewport=${spec.viewport}`,
-      );
-      const detail = variant?.findOne((entry) => entry.type === "FRAME" && entry.name === "detail/error-code");
-      if (!detail) throw new Error(`Missing result detail ${spec.outcome}/${spec.viewport}`);
-      applyDetailLayout(detail, spec.detail);
-    }
-    return resultSet;
-  }
-  const makeFixedText = (spec, variable, name) => {
-    const text = makeText(spec, variable);
-    text.name = name;
-    text.textAutoResize = "NONE";
-    text.resize(spec.rect.width, spec.rect.height);
-    text.x = spec.rect.x;
-    text.y = spec.rect.y;
-    text.textAlignHorizontal = spec.textAlign === "right" ? "RIGHT" : spec.textAlign === "center" ? "CENTER" : "LEFT";
-    return text;
-  };
-  const variants = [];
-  for (const spec of R.variants) {
+  const buildResult = (spec) => {
     const component = figma.createComponent();
-    component.name = `Outcome=${spec.outcome}, Viewport=${spec.viewport}`;
-    component.resize(spec.rect.width, spec.rect.height);
-    component.fills = [];
-    component.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    component.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-    component.appendChild(makeFixedText(spec.title, V.active, "title"));
-    component.appendChild(makeFixedText(spec.body, V.textSecondary, "body"));
+    component.name = variantName(spec);
+    component.appendChild(newNode("TEXT", "title"));
+    component.appendChild(newNode("TEXT", "body"));
     if (spec.detail) {
-      const detail = figma.createFrame();
-      detail.name = "detail/error-code";
-      detail.x = spec.detail.rect.x;
-      detail.y = spec.detail.rect.y;
-      detail.resize(spec.detail.rect.width, spec.detail.rect.height);
-      detail.fills = [];
-      const term = makeText(spec.detail.term, V.textTertiary);
-      term.name = "term";
-      const value = makeText(spec.detail.value, V.active);
-      value.name = "value";
-      detail.appendChild(term);
-      detail.appendChild(value);
-      applyDetailLayout(detail, spec.detail);
+      const detail = newNode("FRAME", "detail/error-code");
+      detail.appendChild(newNode("TEXT", "term"));
+      detail.appendChild(newNode("TEXT", "value"));
       component.appendChild(detail);
     }
-    const action = figma.createFrame();
-    action.name = "action/Go to My Page";
-    action.x = spec.action.rect.x;
-    action.y = spec.action.rect.y;
-    action.resize(spec.action.rect.width, spec.action.rect.height);
-    action.layoutMode = "HORIZONTAL";
-    action.primaryAxisSizingMode = action.counterAxisSizingMode = "FIXED";
+    const actions = newNode("FRAME", "actions");
+    const action = newNode("FRAME", `action/${spec.action.label.text}`);
+    action.appendChild(newNode("TEXT", "label"));
+    actions.appendChild(action);
+    component.appendChild(actions);
+    return component;
+  };
+  const spacingVariable = (value) => {
+    const variable = V[`spacing${value}`];
+    if (!variable) throw new Error(`Missing spacing binding for ${value}`);
+    return variable;
+  };
+  const bindSpacing = (node, field, value) => {
+    node[field] = value;
+    node.setBoundVariable(field, value ? spacingVariable(value) : null);
+  };
+  const bindPadding = (node, padding) => {
+    for (const side of ["Top", "Right", "Bottom", "Left"]) bindSpacing(node, `padding${side}`, padding[side.toLowerCase()]);
+  };
+  // 같은 이름의 노드를 **그 variant 어디에서든** 찾아(옛 구조에서는 버튼이 variant 직계였다) 새 부모의 제자리로 옮긴다.
+  const place = (scope, parent, type, name, index) => {
+    const node = scope.findOne((entry) => entry.type === type && entry.name === name) ?? newNode(type, name);
+    if (node.parent !== parent || parent.children.indexOf(node) !== index) parent.insertChild(index, node);
+    node.visible = true;
+    return node;
+  };
+  const retireOthers = (parent, keep) => {
+    for (const child of parent.children) {
+      if (keep.includes(child)) continue;
+      if (!child.name.startsWith("retired/")) child.name = `retired/${child.name}`;
+      child.visible = false;
+    }
+  };
+  const styleText = (text, spec, variable) => {
+    text.fontName = { family: "Pretendard", style: weightStyle[spec.fontWeight] ?? "Regular" };
+    text.fontSize = spec.fontSize;
+    text.lineHeight = { unit: "PIXELS", value: spec.lineHeight };
+    text.letterSpacing = { unit: "PIXELS", value: spec.letterSpacing };
+    if (text.characters !== spec.text) text.characters = spec.text;
+    text.textAlignHorizontal = spec.textAlign === "right" ? "RIGHT" : spec.textAlign === "center" ? "CENTER" : "LEFT";
+    text.fills = [setPaint(variable)];
+  };
+  const autoLayout = (frame, mode) => {
+    frame.layoutMode = mode;
+    frame.layoutWrap = "NO_WRAP";
+    frame.primaryAxisAlignItems = "MIN";
+    frame.counterAxisAlignItems = "MIN";
+    frame.fills = [];
+    frame.strokes = [];
+    frame.clipsContent = false;
+  };
+  const reconcileResult = (variant, spec) => {
+    autoLayout(variant, "VERTICAL");
+    variant.resize(spec.width.value, variant.height);
+    variant.counterAxisSizingMode = "FIXED";
+    variant.primaryAxisSizingMode = "AUTO";
+    bindPadding(variant, { top: 0, right: 0, bottom: 0, left: 0 });
+    bindSpacing(variant, "itemSpacing", spec.gap);
+    variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
+    variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    const keep = [];
+    const title = place(variant, variant, "TEXT", "title", keep.length);
+    keep.push(title);
+    styleText(title, spec.title, V.active);
+    title.layoutSizingHorizontal = "FILL";
+    title.textAutoResize = "HEIGHT";
+    const body = place(variant, variant, "TEXT", "body", keep.length);
+    keep.push(body);
+    styleText(body, spec.body, V.textSecondary);
+    body.layoutSizingHorizontal = "FILL";
+    body.textAutoResize = "HEIGHT";
+    if (spec.detail) {
+      const D = spec.detail;
+      const detail = place(variant, variant, "FRAME", "detail/error-code", keep.length);
+      keep.push(detail);
+      // 제품 행: 데스크톱 `flex justify-between items-center`, ≤900 은 `flex-col` 로 가운데 정렬한 두 줄.
+      // Figma 의 SPACE_BETWEEN 은 itemSpacing 을 버린다(남는 자리가 없는 HUG 축에서는 간격이 0 이 된다). 세로 행은
+      // 높이가 HUG 라 남는 자리가 없으므로 CSS `gap` 을 itemSpacing 으로 살리고, 폭을 채우는 가로 행만 양끝 정렬한다.
+      autoLayout(detail, D.direction === "column" ? "VERTICAL" : "HORIZONTAL");
+      detail.primaryAxisAlignItems = D.justifyContent === "space-between" && D.direction !== "column" ? "SPACE_BETWEEN" : "MIN";
+      detail.counterAxisAlignItems = D.alignItems === "center" ? "CENTER" : "MIN";
+      bindPadding(detail, D.padding);
+      bindSpacing(detail, "itemSpacing", D.gap);
+      detail.layoutSizingHorizontal = "FILL";
+      detail.layoutSizingVertical = "HUG";
+      const term = place(detail, detail, "TEXT", "term", 0);
+      const value = place(detail, detail, "TEXT", "value", 1);
+      styleText(term, D.term, V.textTertiary);
+      styleText(value, D.value, V.active);
+      for (const text of [term, value]) text.textAutoResize = "WIDTH_AND_HEIGHT";
+      retireOthers(detail, [term, value]);
+    }
+    const actions = place(variant, variant, "FRAME", "actions", keep.length);
+    keep.push(actions);
+    autoLayout(actions, spec.actions.direction);
+    bindPadding(actions, { top: spec.actions.paddingTop, right: 0, bottom: 0, left: 0 });
+    bindSpacing(actions, "itemSpacing", spec.actions.gap);
+    actions.layoutSizingHorizontal = "FILL";
+    actions.layoutSizingVertical = "HUG";
+    const action = place(variant, actions, "FRAME", `action/${spec.action.label.text}`, 0);
+    autoLayout(action, "HORIZONTAL");
+    action.resize(action.width, spec.action.height);
+    action.layoutSizingHorizontal = "FILL";
+    action.layoutSizingVertical = "FIXED";
     action.primaryAxisAlignItems = action.counterAxisAlignItems = "CENTER";
-    action.paddingRight = spec.action.padding.right;
-    action.paddingLeft = spec.action.padding.left;
-    action.setBoundVariable("paddingRight", V.spacing20);
-    action.setBoundVariable("paddingLeft", V.spacing20);
+    bindPadding(action, spec.action.padding);
     action.cornerRadius = spec.action.radius;
     bindCorners(action, V.radius12);
     action.fills = [setPaint(V.active)];
-    const actionLabel = makeText(spec.action.label, V.surfaceInverse);
-    actionLabel.name = "label";
-    action.appendChild(actionLabel);
-    component.appendChild(action);
-    component.description = `Measured ${spec.route} ${spec.viewport} · ${PLAN.productCommit}`;
-    resultSection.appendChild(component);
-    variants.push(component);
+    const label = place(action, action, "TEXT", "label", 0);
+    styleText(label, spec.action.label, V.surfaceInverse);
+    label.textAutoResize = "WIDTH_AND_HEIGHT";
+    retireOthers(action, [label]);
+    retireOthers(actions, [action]);
+    retireOthers(variant, keep);
+    variant.description =
+      `Measured ${spec.route} ${spec.viewport} result content — measured box ${spec.rect.width}×${spec.rect.height}; ` +
+      `Auto Layout: width ${spec.width.mode === "FIXED" ? `declared cap ${spec.width.value}` : "fills the consumer"}, height hugs · ${PLAN.productCommit}`;
+  };
+  let resultSet = resultSection.findOne(
+    (entry) => entry.type === "COMPONENT_SET" && entry.name === R.componentSetName,
+  );
+  if (!resultSet) {
+    const built = R.variants.map(buildResult);
+    for (const component of built) resultSection.appendChild(component);
+    resultSet = figma.combineAsVariants(built, resultSection);
+    resultSet.name = R.componentSetName;
+  } else {
+    for (const spec of R.variants) {
+      if (!resultSet.children.some((entry) => entry.name === variantName(spec))) resultSet.appendChild(buildResult(spec));
+    }
   }
-  resultSet = figma.combineAsVariants(variants, resultSection);
-  resultSet.name = R.componentSetName;
-  resultSet.description = `Measured result content · ${PLAN.productCommit}`;
-  resultSet.fills = [];
-  const outcomeOrder = new Map([["Failure", 0], ["PlanDelayed", 1], ["TopupDelayed", 2]]);
+  const specByName = new Map(R.variants.map((spec) => [variantName(spec), spec]));
   for (const variant of resultSet.children) {
-    const outcome = variant.name.match(/Outcome=([^,]+)/)?.[1];
-    const viewport = variant.name.match(/Viewport=(.+)$/)?.[1];
-    variant.x = 40 + (outcomeOrder.get(outcome) ?? 0) * 560;
-    variant.y = viewport === "Desktop" ? 40 : 390;
+    const spec = specByName.get(variant.name);
+    if (!spec) throw new Error(`Unexpected payment result variant ${variant.name}`);
+    reconcileResult(variant, spec);
   }
-  resultSet.resizeWithoutConstraints(1720, 780);
-  resultSet.x = 40;
-  resultSet.y = 80;
+  resultSet.description = `Measured result content · Auto Layout (hug height) · ${PLAN.productCommit}`;
+  resultSet.fills = [];
+  // 캔버스 배치 — 열은 결과, 행은 뷰포트. 높이가 HUG 라 칸 크기는 reconcile 뒤의 실제 크기에서 잰다.
+  const gutter = 40;
+  const columns = [...new Set(R.variants.map((spec) => spec.outcome))];
+  const rows = [...new Set(R.variants.map((spec) => spec.viewport))];
+  const cell = (spec) => resultSet.children.find((entry) => entry.name === variantName(spec));
+  const columnSpan = columns.map((column) => Math.max(...R.variants.filter((spec) => spec.outcome === column).map((spec) => cell(spec).width)));
+  const rowSpan = rows.map((row) => Math.max(...R.variants.filter((spec) => spec.viewport === row).map((spec) => cell(spec).height)));
+  const offset = (spans, index) => gutter + spans.slice(0, index).reduce((sum, span) => sum + span + gutter, 0);
+  for (const spec of R.variants) {
+    const variant = cell(spec);
+    variant.x = offset(columnSpan, columns.indexOf(spec.outcome));
+    variant.y = offset(rowSpan, rows.indexOf(spec.viewport));
+  }
+  resultSet.resizeWithoutConstraints(offset(columnSpan, columns.length), offset(rowSpan, rows.length));
+  resultSet.x = gutter;
+  resultSet.y = gutter * 2;
+  if (resultSection.width < resultSet.x + resultSet.width + gutter || resultSection.height < resultSet.y + resultSet.height + gutter) {
+    resultSection.resizeWithoutConstraints(
+      Math.max(resultSection.width, resultSet.x + resultSet.width + gutter),
+      Math.max(resultSection.height, resultSet.y + resultSet.height + gutter),
+    );
+  }
   return resultSet;
 };
 

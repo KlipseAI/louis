@@ -99,30 +99,17 @@ const textSpec = (entry, rootRect) => {
     color: color(computed.color),
   };
 };
-// use_figma 에서 각 실제 Pretendard font/style/size/line-height/letter-spacing 으로
-// WIDTH_AND_HEIGHT 임시 TextNode 를 세워 자연 폭을 읽고 모두 삭제했다. 브라우저의 left anchor 를
-// 보존하면서 Figma font engine 에서만 생기는 가격·credit 줄바꿈을 막는 Figma 측 자연 폭이다.
+// **자연 폭 표는 접힌 글자에만 남긴다(2026-09-14, 크기 굳힘 감사 묶음 3).**
+// 옛 계획은 한 줄 글자에도 `figmaWidth`(Figma 글꼴의 자연 폭, 2026-09-05 임시 TextNode 실측)를 실어 렌더러가
+// `textAutoResize NONE` 상자를 그 폭으로 넓혔다. 카드가 Auto Layout 이 된 뒤로 한 줄 글자는 HUG(`WIDTH_AND_HEIGHT`)라
+// Figma 가 스스로 폭을 잰다 — 표가 필요 없다.
 //
-// **2026-09-05 전량 재측정.** 옛 표를 한 줄도 물려받지 못한 이유가 둘이다 —
-// ① `58a85b13 feat(payments): Lite 티어를 추가하고 Basic·Max 를 Plus·Ultra 로 개명한다` 가
-//    티어를 넷에서 다섯으로 늘리며 가격·크레딧 문자열을 통째로 바꿨다(35,900 → 12,900 …).
-// ② 가격과 "Free" 의 굵기가 medium(500) → semibold(600) 으로 올라가, 글자가 같은 "Free" 조차
-//    폭이 달라졌다(데스크톱 71 → 72 · 모바일 55 → 56).
-//
-// 표가 두 벌인 것도 이번 앵커에서 생긴 차이다. 카드가 316 → 256.8 로 좁아지면서 **데스크톱에서도**
-// 가격 행과 "per month" 가 브라우저에서 이미 두 줄로 접힌다(가격 상자 159 · 높이 48.6×2).
-//   · 한 줄로 놓이는 글자 → `figmaWidth`. 상자를 자연 폭까지 넓혀 Figma 에서만 생기는 접힘을 막는다.
-//   · 이미 접힌 글자 → 넓히면 **접힘이 사라져** 브라우저와 달라진다. 폭은 실측 상자 그대로 두고,
-//     줄별 자연 폭만 증거로 남겨 같은 자리에서 같은 두 줄이 되는지 아래 assertLineFit 이 확인한다.
-const desktopFigmaGlyphMeasurements = {
-  Free: 72,
-  "800": 37,
-  "5,000": 53,
-  "16,500": 62,
-  "30,000": 66,
-  "48,000": 66,
-  credits: 62,
-};
+// **이미 접힌 글자는 다르다.** 가격 행(`inline-flex items-end gap-4`)의 가격과 "per month" 는 좁은 카드에서
+// `flex-shrink` 로 줄어 브라우저가 두 줄로 접는다. Figma 에는 flex-shrink 가 없어 HUG 로 두면 한 줄로 펴지므로,
+// 그 폭만은 측정 상자로 고정한다(조립 규칙 28 초안의 허용 사유 ③ 「flex-shrink 로 감긴 텍스트」). 그 고정이 브라우저와
+// 같은 자리에서 접히려면 **줄마다** Figma 자연 폭이 상자 안에 들어가야 하므로, 줄별 자연 폭을 증거로 남겨
+// `assertLineFit` 이 확인한다. 한 줄이라도 넘치면 Figma 는 다른 곳에서 접거나 세 줄이 되니 값을 옮기지 말고 다시 잰다.
+//   2026-09-05 전량 재측정: `58a85b13`(티어 넷 → 다섯, 가격 문자열 전면 교체)과 가격 굵기 500 → 600.
 const desktopFigmaLineMeasurements = {
   "12,900 KRW": { "12,900": 113, KRW: 80 },
   "29,900 KRW": { "29,900": 119, KRW: 80 },
@@ -130,27 +117,26 @@ const desktopFigmaLineMeasurements = {
   "74,900 KRW": { "74,900": 116, KRW: 80 },
   "per month": { per: 24, month: 46 },
 };
-const mobileFigmaGlyphMeasurements = {
-  Free: 56,
-};
 const mobileFigmaLineMeasurements = {
   "12,900 KRW": { "12,900": 88, KRW: 62 },
   "per month": { per: 21, month: 40 },
 };
 const figmaGlyphMeasurements = {
-  $measurement: "use_figma temporary TextNode natural bounds; exact per-string typography; measured 2026-09-05 and nodes removed",
-  desktop: desktopFigmaGlyphMeasurements,
+  $measurement: "use_figma temporary TextNode natural bounds per wrapped line; exact per-string typography; measured 2026-09-05 and nodes removed",
   desktopLines: desktopFigmaLineMeasurements,
-  mobile: mobileFigmaGlyphMeasurements,
   mobileLines: mobileFigmaLineMeasurements,
 };
-// 접힌 글자는 **줄마다** 실측 상자 안에 들어가야 브라우저와 같은 지점에서 접힌다. 한 줄이라도
-// 넘치면 Figma 는 다른 곳에서 접거나 세 줄이 되므로, 그때는 값을 옮기지 말고 다시 재야 한다.
 const assertLineFit = (spec, lines, where) => {
   for (const [line, width] of Object.entries(lines)) {
-    if (width > spec.rect.width + 0.5) fail(`${where}: line ${JSON.stringify(line)} natural width ${width} overflows measured box ${spec.rect.width}`);
+    if (width > spec.box + 0.5) fail(`${where}: line ${JSON.stringify(line)} natural width ${width} overflows measured box ${spec.box}`);
   }
 };
+const renderedComponents = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.rendered-components.json"), "utf8"));
+if (renderedComponents.productCommit !== fixture.productCommit) fail("migration/product.rendered-components.json is not at this fixture anchor");
+// 카드 CTA 는 제품 `Button`(LOUIS `.louis-button[data-size=md]`)이다 — 높이는 그 레시피가 선언한다. 측정 원장의
+// `declared` 에는 LOUIS 클래스 규칙이 실리지 않아, 제품 레시피 원장(`button-md` probe)의 높이를 선언 출처로 쓴다.
+const buttonMdHeight = px(renderedComponents.rendered?.["button-md"]?.height);
+if (!buttonMdHeight) fail("product.rendered-components.json has no button-md height");
 
 if (redirected.finalPath !== route || !redirected.redirected || JSON.stringify(redirected.tree) !== JSON.stringify(screen.tree)) {
   fail(`${redirectedRoute} no-query redirect no longer matches ${route}`);
@@ -159,99 +145,261 @@ if (
   mobileRedirected.finalPath !== route || !mobileRedirected.redirected ||
   JSON.stringify(mobileRedirected.tree) !== JSON.stringify(mobileScreen.tree)
 ) fail(`${mobileContext} ${redirectedRoute} no-query redirect no longer matches ${route}`);
-const pageRoot = node("body.1");
-const mainOuter = node("body.1.0.0.1");
-const main = node("body.1.0.0.1.0");
-const topBar = node("body.1.0.0.1.0.0.0.0");
-const content = node("body.1.0.0.1.0.0.1");
-const cardGrid = node("body.1.0.0.1.0.0.1.1");
-const mainStyle = style(main);
-if (
-  pageRoot.rect.width !== 1920 || pageRoot.rect.height !== 1080 ||
-  // **1628×1056 → 1632×1064 (2026-09-10 재고정).** 앱 셸 링 패딩이 12 → 8 로 줄어
-  // 메인 카드가 가로 +4 · 세로 +8 만큼 자랐다(`--app-gnb-main-inline-padding-end` ·
-  // `--app-gnb-safe-top` · `--app-gnb-rail-padding-bottom`). 바깥(1640)과 카드 격자
-  // (1300×608.1875)는 그대로다 — 자란 것은 카드 안쪽 하나뿐이고, 그것이 이 변경의 전부다.
-  mainOuter.rect.width !== 1640 || main.rect.width !== 1632 || main.rect.height !== 1064 ||
-  // 카드 덱이 넷에서 **다섯**으로 늘며 높이가 560 → 608.1875 로 자랐다.
-  // `58a85b13` 이 Lite 티어를 넣고 Basic·Max 를 Plus·Ultra 로 개명했고, PRICING_DECK 의
-  // 격자가 `repeat(5,minmax(0,1fr))` 라 폭 1300 은 그대로인 채 칸이 다섯으로 쪼개졌다.
-  // 높이는 `min-h-[560px]` 을 내용이 넘어선 결과다 — 칸이 좁아져 가격·특징 줄이 더 접힌다.
-  cardGrid.rect.width !== 1300 || cardGrid.rect.height !== 608.1875
-) fail("desktop upgrade scene geometry changed");
 
+const declaredValue = (entry, property, pattern, where) => {
+  const value = entry.declared?.[property];
+  if (typeof value !== "string" || !pattern.test(value)) {
+    fail(`${where} ${entry.path}: declared ${property} ${JSON.stringify(value)} does not match ${pattern}`);
+  }
+  return value;
+};
+const paddingOf = (computed) => ({ top: px(computed.paddingTop), right: px(computed.paddingRight), bottom: px(computed.paddingBottom), left: px(computed.paddingLeft) });
+
+/* **요금제 카드는 흐름이다 — 글자 · 아이콘 · 버튼을 측정 좌표에 박지 않는다(2026-09-14, 크기 굳힘 감사 묶음 3).**
+   옛 계획은 카드 안의 모든 글자와 체크 아이콘 · 버튼을 카드 기준 rect 로 실었고, 렌더러가 `textAutoResize NONE` +
+   x/y 로 박았다. 카드 폭이 316 → 256.8 로 바뀐 날(`58a85b13`) 그 좌표가 통째로 낡았다. 이제 계획은 **제품 JSX 의 구획**
+   (`UpgradePlanPageClient.tsx` 의 `TIER_HEAD` · `TIER_PRICE_ROW` · `TIER_CREDITS_ROW` · `TIER_INCLUDES` ·
+   `TIER_FEATURE_LIST` · `Button`)을 싣고, 값은 **선언이 정한 것만** 싣는다: 간격 · 패딩 · 여백(계산 스타일), 최소 높이
+   (`min-h-[560px]`), 체크 아이콘 크기(`w-9 h-9`), 기능 행의 아이콘 트랙(`grid-template-columns: 18px 1fr`), 버튼 높이
+   (Button md 레시피). 흐름 자식의 margin 은 Figma 에 없으므로 칠 없는 감싸개의 패딩으로 옮긴다(조립 규칙 7번).
+   구획을 알아보지 못하면 던진다 — 원가 줄(`TIER_ORIGINAL_PRICE`)이나 비고(`TIER_NOTE`)가 화면에 나오면 여기서 멈춰
+   슬롯을 더해야 한다. */
+const cardStructure = (tree, root, lines, where) => {
+  const kids = (path) => tree.filter((entry) => entry.parentPath === path);
+  const isCheck = (entry) => style(entry).maskImage.includes("/icons/CheckCircle.svg");
+  const margin = (computed) => ({ top: px(computed.marginTop), bottom: px(computed.marginBottom) });
+  const sections = [];
+  let rows = 0;
+  let action = null;
+  for (const child of kids(root.path)) {
+    const computed = style(child);
+    const inner = kids(child.path);
+    if (child.tag === "button") {
+      declaredValue(child, "margin-top", /^auto$/, where);
+      declaredValue(child, "width", /^100%$/, where);
+      if (px(computed.height) !== buttonMdHeight) fail(`${where}: plan card CTA height ${computed.height} is not the Button md recipe`);
+      const label = child.ownText ? child : inner.find((entry) => entry.ownText) ?? fail(`${where}: missing card button label ${child.path}`);
+      action = {
+        text: label.ownText,
+        rect: relRect(child, root.rect),
+        height: buttonMdHeight,
+        radius: px(computed.borderTopLeftRadius),
+        padding: paddingOf(computed),
+        fill: color(computed.backgroundColor),
+        opacity: Number(computed.opacity),
+        label: textSpec(label, root.rect),
+      };
+      continue;
+    }
+    if (child.tag === "div" && inner[0]?.tag === "h3") {
+      if (inner.length !== 1) fail(`${where}: plan card head gained a description — add the slot`);
+      sections.push({ kind: "head", margin: margin(computed), texts: [{ ...textSpec(inner[0], root.rect), sizing: "FILL" }] });
+      continue;
+    }
+    if (child.tag === "div" && computed.display === "flex" && inner[0]?.tag === "strong") {
+      const kind = rows === 0 ? "price" : "credits";
+      rows += 1;
+      sections.push({
+        kind,
+        margin: margin(computed),
+        padding: paddingOf(computed),
+        gap: px(computed.columnGap),
+        alignItems: computed.alignItems,
+        texts: inner.map((entry) => {
+          const spec = textSpec(entry, root.rect);
+          const textPadding = paddingOf(style(entry));
+          const box = entry.rect.width - textPadding.left - textPadding.right;
+          const wrapped = entry.rect.height - textPadding.top - textPadding.bottom > spec.lineHeight * 1.5;
+          if (!wrapped) return { ...spec, padding: textPadding, sizing: "HUG" };
+          const lineWidths = lines[spec.text] ?? fail(`${where}: wrapped row text ${JSON.stringify(spec.text)} has no Figma line measurement`);
+          const fixed = { ...spec, padding: textPadding, sizing: "FIXED", box, $lineNaturalWidths: lineWidths };
+          assertLineFit(fixed, lineWidths, `${where} ${JSON.stringify(spec.text)}`);
+          return fixed;
+        }),
+      });
+      continue;
+    }
+    if (child.tag === "p" && child.ownText) {
+      sections.push({ kind: "includes", margin: margin(computed), texts: [{ ...textSpec(child, root.rect), sizing: "FILL" }] });
+      continue;
+    }
+    if (child.tag === "ul") {
+      sections.push({
+        kind: "features",
+        margin: margin(computed),
+        gap: px(computed.rowGap),
+        items: inner.map((li) => {
+          const liStyle = style(li);
+          declaredValue(li, "grid-template-columns", /^\d+(?:\.\d+)?px 1fr$/, where);
+          const [first, second] = kids(li.path);
+          const icon = first && isCheck(first) ? first : null;
+          const text = icon ? second : first;
+          if (!text?.ownText) fail(`${where}: feature row without text ${li.path}`);
+          if (icon) declaredValue(icon, "width", /px\)?$/, where);
+          return {
+            gap: px(liStyle.columnGap),
+            iconTrack: px(liStyle.gridTemplateColumns.split(" ")[0]),
+            icon: icon ? { size: px(style(icon).width), marginTop: px(style(icon).marginTop), color: color(style(icon).backgroundColor), asset: "/icons/CheckCircle.svg" } : null,
+            text: { ...textSpec(text, root.rect), sizing: "FILL" },
+          };
+        }),
+      });
+      continue;
+    }
+    fail(`${where}: unexpected plan card child ${child.tag} ${child.path}`);
+  }
+  return { sections, action };
+};
+
+/* **메인 표면 · 장면은 흐름이다(2026-09-14, 크기 굳힘 감사 묶음 3).** 옛 가드는 page · 바깥 · main · 카드 격자 rect 를
+   `!== 1920/1080 · 1640 · 1632/1064 · 1300/608.1875`, 모바일 `!== 402/874 · 6/390 · 5651.75 · 359.1875 · 1668.7813` 로
+   물었고, 렌더러가 그 rect 로 resize 하고 헤더 글자 · 카드 · 비교 제목을 측정 x/y 에 박았다. 이제 계획은 제품 선언을 싣는다:
+     · 장면: 셸 패딩(`pt-[var(--app-gnb-safe-top)]` · `pb-[…rail-padding-bottom]`), main 의 `ml-[var(--app-gnb-sidebar-width)]` ·
+       `pr-[var(--app-gnb-main-inline-padding-end)]`(계산값). 셸은 `h-[100dvh]` 라 main 이 위아래를 채운다.
+     · 메인 표면(가격 섹션 · 뷰포트 크롭): 스크롤 칸 패딩, 상단 바 bleed, 컨테이너 `max-width: min(1300px, 100%)` 와 위 패딩,
+       헤더 `max-width: 820px` · 아래 여백, 알림 알약 높이(`height: calc(32px)`) · 아래 여백, 제목 아래 여백, 본문 `max-width: 72ch`,
+       덱 `repeat(N, minmax(0px, 1fr))` · gap, 비교 블록 위 여백(블록 margin 이 겹쳐 큰 쪽 하나만 남는다).
+   숫자 가드는 없다 — 선언이 있는지와 rect 가 그 값들로 **닫히는지**(원장 대조)만 본다. */
+const cappedWidth = (entry, available, where) => {
+  const declared = declaredValue(entry, "max-width", /^min\(\d+(?:\.\d+)?px, 100%\)$/, where);
+  const cap = Number(/^min\(([\d.]+)px/.exec(declared)[1]);
+  return available >= cap ? { mode: "FIXED", value: cap, declared } : { mode: "FILL", value: entry.rect.width, declared };
+};
+const upgradeLayout = (tree, where) => {
+  const at = (path) => tree.find((entry) => entry.path === path) ?? fail(`${where}: missing node ${path}`);
+  const page = at("body.1");
+  const shell = at("body.1.0.0");
+  const outer = at("body.1.0.0.1");
+  const section = at("body.1.0.0.1.0");
+  const scroll = at("body.1.0.0.1.0.0");
+  const slot = at("body.1.0.0.1.0.0.0");
+  const bar = at("body.1.0.0.1.0.0.0.0");
+  const container = at("body.1.0.0.1.0.0.1");
+  const header = at("body.1.0.0.1.0.0.1.0");
+  const notice = at("body.1.0.0.1.0.0.1.0.0");
+  const title = at("body.1.0.0.1.0.0.1.0.1");
+  const body = at("body.1.0.0.1.0.0.1.0.2");
+  const deck = at("body.1.0.0.1.0.0.1.1");
+  // 비교 블록은 뷰포트(모바일 402×874) 밖이면 측정 트리에 없다 — 없으면 그리지 않는다.
+  const optional = (path) => tree.find((entry) => entry.path === path) ?? null;
+  const compare = optional("body.1.0.0.1.0.0.1.2");
+  const compareInner = optional("body.1.0.0.1.0.0.1.2.0");
+  const compareTitle = optional("body.1.0.0.1.0.0.1.2.0.0");
+  const [shellStyle, outerStyle, scrollStyle, barStyle, containerStyle, headerStyle, noticeStyle, titleStyle, bodyStyle, deckStyle] =
+    [shell, outer, scroll, bar, container, header, notice, title, body, deck].map(style);
+  declaredValue(shell, "height", /^100dvh$/, where);
+  declaredValue(outer, "margin-left", /--app-gnb-sidebar-width/, where);
+  declaredValue(section, "flex", /^1 1 0%$/, where);
+  declaredValue(bar, "margin-left", /--mainchrome-bleed-left/, where);
+  const deckColumns = declaredValue(deck, "grid-template-columns", /^repeat\(\d+, minmax\(0px, 1fr\)\)$/, where);
+  const bleed = { left: -px(barStyle.marginLeft), right: -px(barStyle.marginRight) };
+  const scrollPadding = paddingOf(scrollStyle);
+  const contentWidth = section.rect.width - scrollPadding.left - scrollPadding.right;
+  const layout = {
+    page: { padding: { top: px(shellStyle.paddingTop), right: px(outerStyle.paddingRight), bottom: px(shellStyle.paddingBottom), left: px(outerStyle.marginLeft) } },
+    main: {
+      padding: { top: scrollPadding.top, right: scrollPadding.right - bleed.right, bottom: scrollPadding.bottom, left: scrollPadding.left - bleed.left },
+      bleed,
+      barGap: px(style(slot).marginBottom),
+    },
+    container: { width: cappedWidth(container, contentWidth, where), paddingTop: px(containerStyle.paddingTop) },
+    header: {
+      maxWidth: px(headerStyle.maxWidth),
+      maxWidthDeclared: declaredValue(header, "max-width", /^\d+px$/, where),
+      paddingBottom: px(headerStyle.marginBottom),
+      notice: {
+        height: px(noticeStyle.height),
+        heightDeclared: declaredValue(notice, "height", /px\)?$/, where),
+        padding: paddingOf(noticeStyle),
+        paddingBottom: px(noticeStyle.marginBottom),
+      },
+      titlePaddingBottom: px(titleStyle.marginBottom),
+      bodyMaxWidth: px(bodyStyle.maxWidth),
+      bodyMaxWidthDeclared: declaredValue(body, "max-width", /ch$/, where),
+    },
+    deck: { columns: Number(/^repeat\((\d+),/.exec(deckColumns)[1]), gap: px(deckStyle.columnGap), declared: deckColumns },
+    compare: compare && compareInner && compareTitle ? { paddingTop: Math.max(px(style(compare).marginTop), px(style(compareInner).marginTop)) } : null,
+  };
+  const deckBottom = deck.rect.y + deck.rect.height;
+  const closes =
+    section.rect.x === page.rect.x + layout.page.padding.left &&
+    section.rect.y === page.rect.y + layout.page.padding.top &&
+    section.rect.width === page.rect.width - layout.page.padding.left - layout.page.padding.right &&
+    section.rect.height === page.rect.height - layout.page.padding.top - layout.page.padding.bottom &&
+    bar.rect.x === section.rect.x + scrollPadding.left - bleed.left &&
+    container.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap &&
+    header.rect.y === container.rect.y + layout.container.paddingTop &&
+    notice.rect.height === layout.header.notice.height &&
+    deck.rect.y === header.rect.y + header.rect.height + layout.header.paddingBottom &&
+    (!layout.compare || compare.rect.y === deckBottom + layout.compare.paddingTop);
+  if (!closes) fail(`${where}: measured upgrade rects no longer close over the declared layout values`);
+  return {
+    layout,
+    rects: { page, section, bar, deck },
+    texts: {
+      headerNotice: textSpec(notice, section.rect),
+      headerTitle: textSpec(title, section.rect),
+      headerBody: { ...textSpec(body, section.rect), maxWidth: layout.header.bodyMaxWidth },
+      ...(layout.compare ? { compareTitle: textSpec(compareTitle, section.rect) } : {}),
+    },
+  };
+};
+
+// **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더 들어가 있었는데
+// (`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다(UpgradePlanPageClient.tsx `<header className={PRICING_HEADER}>`
+// 위 주석). 지금 `<header>` 의 직속 자식은 넷이다: .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span).
+// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)이다. 실측 장면에는 보이는데 이 생성기의 계획에 슬롯이 없다.
+// 여기 적어 두는 이유는 적지 않으면 「없는 것」이 되기 때문이다.
+const desktop = upgradeLayout(screen.tree, `${context} ${route}`);
+const cardGrid = desktop.rects.deck;
+const main = desktop.rects.section;
+const pageRoot = desktop.rects.page;
+const mainStyle = style(main);
 const cardRoots = screen.tree.filter((entry) => entry.parentPath === cardGrid.path && entry.tag === "article");
-if (cardRoots.length !== 5) fail(`expected five measured plan cards, got ${cardRoots.length}`);
+if (cardRoots.length !== desktop.layout.deck.columns) fail(`expected ${desktop.layout.deck.columns} measured plan cards (deck columns), got ${cardRoots.length}`);
 const cardSpecs = cardRoots.map((root) => {
+  const where = `${context} ${root.path}`;
   const rootStyle = style(root);
-  const descendants = screen.tree.filter((entry) => entry.path.startsWith(`${root.path}.`));
-  // 카드의 CTA 는 **역할**로 찾는다 — 카드 안에 button 은 이것 하나뿐이다.
-  // 예전엔 `tag === "button" && entry.ownText` 로 찾았는데, 제품이 이 CTA 를 LOUIS
-  // `Button` 컴포넌트로 바꾸면서(apps/web/components/ui/Button.tsx) 글자가 button 자신이
-  // 아니라 `<span class="louis-button__label">` 자식으로 내려갔다. 그래서 「글자를 가진
-  // button」이 사라져 경로 탐색이 실패했다. 인덱스 경로를 새로 못박는 대신 조건에서
-  // ownText 를 떼고, 글자는 button 서브트리에서 읽는다 — 라벨이 다시 button 자신으로
-  // 돌아오든 또 한 겹 감싸이든 같은 코드가 견딘다.
-  const button = descendants.find((entry) => entry.tag === "button") ?? fail(`missing card button ${root.path}`);
-  const buttonStyle = style(button);
-  const buttonLabel = button.ownText
-    ? button
-    : descendants.find((entry) => entry.path.startsWith(`${button.path}.`) && entry.ownText) ?? fail(`missing card button label ${root.path}`);
-  const texts = descendants
-    // 경계에 `.` 을 붙여 비교한다 — 형제가 10 개를 넘으면 `…0.5` 가 `…0.50` 의 접두사가 된다.
-    .filter((entry) => entry.ownText && entry.path !== button.path && !entry.path.startsWith(`${button.path}.`))
-    .map((entry) => {
-      const spec = textSpec(entry, root.rect);
-      const lines = desktopFigmaLineMeasurements[spec.text];
-      if (lines) {
-        assertLineFit(spec, lines, `desktop ${root.path} ${JSON.stringify(spec.text)}`);
-        return { ...spec, $lineNaturalWidths: lines };
-      }
-      return desktopFigmaGlyphMeasurements[spec.text] ? { ...spec, figmaWidth: desktopFigmaGlyphMeasurements[spec.text] } : spec;
-    });
-  const icons = descendants
-    .filter((entry) => style(entry).maskImage.includes("/icons/CheckCircle.svg"))
-    .map((entry) => ({ rect: relRect(entry, root.rect), color: color(style(entry).backgroundColor), asset: "/icons/CheckCircle.svg" }));
-  // 제품 정본은 `app/lib/payments/toss/plans.ts` 의 `UpgradePlanCode`
-  // = "trial" | "lite" | "plus" | "pro" | "ultra" 이고, `max` 는 LegacyUpgradePlanCode 로
-  // 내려가 `ultra` 로 매핑된다. 화면에 찍히는 것은 그 `tierName` 이다(58a85b13).
-  const title = texts.find((entry) => ["Trial", "Lite", "Plus", "Pro", "Ultra"].includes(entry.text))?.text ?? fail(`missing plan title ${root.path}`);
+  const structure = cardStructure(screen.tree, root, desktopFigmaLineMeasurements, where);
+  if (!structure.action) fail(`${where}: desktop plan card has no CTA`);
+  // 제품 정본은 `app/lib/payments/toss/plans.ts` 의 `UpgradePlanCode` = "trial" | "lite" | "plus" | "pro" | "ultra" 이고,
+  // 화면에 찍히는 것은 그 `tierName` 이다(58a85b13).
+  const title = structure.sections[0]?.kind === "head" ? structure.sections[0].texts[0].text : fail(`${where}: missing plan title`);
+  if (!["Trial", "Lite", "Plus", "Pro", "Ultra"].includes(title)) fail(`${where}: unknown plan title ${title}`);
   return {
     plan: title,
     route,
     rect: { width: root.rect.width, height: root.rect.height },
     position: relRect(root, main.rect),
-    padding: { top: px(rootStyle.paddingTop), right: px(rootStyle.paddingRight), bottom: px(rootStyle.paddingBottom), left: px(rootStyle.paddingLeft) },
+    padding: paddingOf(rootStyle),
+    // `min-h-[560px]` — 선택값. 높이는 HUG 이고 최소만 선언이다(카드가 그보다 길면 내용이 정한다).
+    minHeight: px(rootStyle.minHeight),
+    minHeightDeclared: declaredValue(root, "min-height", /^\d+px$/, where),
     radius: px(rootStyle.borderTopLeftRadius),
     background: color(rootStyle.backgroundColor),
     effects: shadows(rootStyle.boxShadow),
     outline: outline(rootStyle),
-    texts,
-    icons,
-    action: {
-      text: buttonLabel.ownText,
-      rect: relRect(button, root.rect),
-      radius: px(buttonStyle.borderTopLeftRadius),
-      fill: color(buttonStyle.backgroundColor),
-      opacity: Number(buttonStyle.opacity),
-      // 라벨의 타이포·색은 글자를 실제로 가진 노드에서 읽는다. 렌더러는 이 spec 의 rect 를
-      // 쓰지 않고 action 프레임 박스로 덮어 세로 가운데 정렬하므로(템플릿 makeFixedText),
-      // button 이든 label span 이든 배치 결과는 같다.
-      label: textSpec(buttonLabel, root.rect),
-    },
+    ...structure,
   };
 });
-// 다섯 칸 격자의 한 칸 — 1300 = 256.7969×5 + 4×4. `gap-6`(12px)에서 `gap-2`(4px)로 좁힌 것은
-// `13e5f570 feat(pricing): 플랜 카드를 디자인 시스템 값으로 맞추고 할인가를 표시한다` 이고,
-// 같은 커밋이 반경도 `rounded-24` → `rounded-12` 로 내렸다(실측 12px 이 그 결과다).
-// 높이 608.1875 는 가장 긴 카드(Plus)의 내용 높이이고 `items-stretch` 로 다섯이 함께 늘어난다.
-if (cardSpecs.some((entry) => entry.rect.width !== 256.7969 || entry.rect.height !== 608.1875)) fail("plan card size drift");
+// 덱은 `items-stretch` 라 다섯 카드가 가장 긴 카드의 높이로 늘어난다. Figma 에서 형제 모두를 세로 FILL 로 두면 높이를
+// 정할 주체가 사라져 줄이 접히므로(조립 규칙 19번), **내용이 가장 긴 카드 하나만 HUG** 로 두고 나머지를 FILL 로 늘린다.
+// 내용 높이는 버튼(`mt-auto`) 앞 마지막 구획의 끝 + 그 아래 여백 + 버튼 + 아래 패딩이다 — 측정 rect 의 원장 계산이다.
+{
+  const natural = cardRoots.map((root, index) => {
+    const spec = cardSpecs[index];
+    const last = screen.tree.filter((entry) => entry.parentPath === root.path && entry.tag !== "button").at(-1);
+    return last.rect.y + last.rect.height + px(style(last).marginBottom) - root.rect.y + spec.action.height + spec.padding.bottom;
+  });
+  const tallest = natural.indexOf(Math.max(...natural));
+  for (const [index, spec] of cardSpecs.entries()) spec.deckHeight = index === tallest ? "HUG" : "FILL";
+}
 // 현재 플랜 카드의 2px 아웃라인. 제품이 폐지된 accent-ultra 램프를 떠나 `--primary-200`
 // (= LOUIS blue-200, rgb 163 213 255)으로, 알파도 LOUIS 16단 스케일에 맞춰 42% → 40% 로
 // 스냅했다. 값이 바뀐 것은 제품 쪽 결정이므로 여기서는 실측을 따라간다.
 // 근거 인용은 아래 currentPlanOutlineSource 가 같은 커밋의 소스 줄로 다시 확인한다.
 const expectedCurrentPlanOutline = {
-  width: 2,
+  width: 2, // 선언: apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:232
   style: "solid",
   color: [163 / 255, 213 / 255, 255 / 255, 0.4],
   offset: -2,
@@ -262,137 +410,119 @@ if (
   cardSpecs.slice(1).some((entry) => entry.outline !== null)
 ) fail("desktop current-plan outline drift");
 
-// **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더
-// 들어가 있었는데(`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다. 소스가
-// 사유를 적는다 — 알약과 제목이 한 행을 다투다 `flex-wrap` 으로 알약이 다음 줄로 내려가면
-// 헤더 아래 여백이 알약 위에 남아 요금제 카드 상단을 파고들었다(UpgradePlanPageClient.tsx
-// `<header className={PRICING_HEADER}>` 위 주석). 지금 `<header>` 의 직속 자식은 넷이다:
-//   .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span)
-// **자리번호만 옮기면 안 된다** — 옛 코드는 «글자 없는 header» 를 텍스트로 읽어 조용히 빈
-// 문자열을 냈다. 그래서 태그로 확인하고 옮긴다(실측: desktop p·h2·p·div, mobile 같음).
-//
-// **아직 안 그리는 것 하나** — `.3` 의 선물 구매 버튼(KLI-264)이다. 실측 장면에는 보이는데
-// 이 생성기의 계획에 슬롯이 없다. 텍스트 셋만 옮겨 생성기를 되살리고, 버튼은 다음 회차에서
-// 슬롯과 함께 넣는다. 여기 적어 두는 이유는 적지 않으면 「없는 것」이 되기 때문이다.
-const headerNotice = textSpec(node("body.1.0.0.1.0.0.1.0.0"), main.rect);
-const headerTitle = textSpec(node("body.1.0.0.1.0.0.1.0.1"), main.rect);
-const headerBody = textSpec(node("body.1.0.0.1.0.0.1.0.2"), main.rect);
-const compareTitle = textSpec(node("body.1.0.0.1.0.0.1.2.0.0"), main.rect);
-
-const mobilePageRoot = mobileNode("body.1");
-const mobileMainOuter = mobileNode("body.1.0.0.1");
-const mobileMain = mobileNode("body.1.0.0.1.0");
-const mobileTopBar = mobileNode("body.1.0.0.1.0.0.0.0");
-const mobileContent = mobileNode("body.1.0.0.1.0.0.1");
-const mobileCardGrid = mobileNode("body.1.0.0.1.0.0.1.1");
+const mobile = upgradeLayout(mobileScreen.tree, `${mobileContext} ${route}`);
+const mobileMain = mobile.rects.section;
+const mobilePageRoot = mobile.rects.page;
+const mobileTopBar = mobile.rects.bar;
+const mobileCardGrid = mobile.rects.deck;
 const mobileMainStyle = style(mobileMain);
-if (
-  mobilePageRoot.rect.width !== 402 || mobilePageRoot.rect.height !== 874 ||
-  mobileMainOuter.rect.width !== 402 || mobileMain.rect.width !== 402 || mobileMain.rect.height !== 874 ||
-  // **좌우가 16 → 6 으로, 폭이 370 → 390 으로 넓어졌다 (제품 094c336b, 2026-09-09).**
-  // 앱 셸 링을 12 에서 8 로 내리며 ≤719 의 `--app-gnb-main-inline-padding` 도 12 → 6 이 됐다:
-  // 402 − 6 − 6 = 390. 형제 생성기 checkout-status·payment-scenes 가 같은 회차를 이미 옮겼다.
-  //
-  // 높이는 **넓어진 결과**다. 폭이 20 늘어 같은 글이 덜 접히므로 문서가 5748.9531 → 5651.75
-  // 로 «줄었다». 격자도 1728.7813 → 1668.7813 이고, 시작이 449.3906 → 412.1875 로 37.2 올라온
-  // 것은 그 위 헤더가 덜 접힌 만큼이다(알약은 여전히 제목 위 한 줄을 차지한다).
-  mobileTopBar.rect.x !== 6 || mobileTopBar.rect.width !== 390 ||
-  mobileContent.rect.x !== 6 || mobileContent.rect.width !== 390 || mobileContent.rect.height !== 5651.75 ||
-  // 격자 시작은 본문 기준으로 본다 — 절대 y(412.1875 → 408.1875)는 위 상단 바 높이를 따라 움직인다.
-  mobileCardGrid.rect.x !== 6 || mobileCardGrid.rect.y - mobileContent.rect.y !== 359.1875 || mobileCardGrid.rect.width !== 390 || mobileCardGrid.rect.height !== 1668.7813
-) fail("mobile upgrade visible-scene geometry changed");
+const topBar = desktop.rects.bar;
 // **상단 바 높이는 여기서 숫자로 받지 않는다(2026-09-14).** 예전 가드는 `height !== 53` · `content.y !== 53` 을
 // 물었는데, 제품 바는 높이를 선언하지 않는다(패딩 + 가장 큰 자식 + 헤어라인) — `6f6282c1` 이 프로필을 36 → 32
 // 로 줄이자 49 가 됐다. 바 기하의 판정은 앱 셸 계획이 소유한다(`build-figma-product-app-shell` 이 같은 route ·
-// 같은 노드를 재고 제품 식으로 닫히는지 본다). 여기서는 두 가지만 본다: 이 장면의 바가 그 계획의 variant 와
-// 같은 상자인지, 그리고 본문이 바 바로 아래에서 시작하는지.
+// 같은 노드를 재고 제품 식으로 닫히는지 본다). 여기서는 이 장면의 바가 그 계획의 variant 와 같은 상자인지만 본다
+// (본문이 바 바로 아래에서 시작하는지는 위 `upgradeLayout` 의 닫힘 대조가 본다).
 {
   const appShell = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-app-shell.plan.json"), "utf8"));
   if (appShell.productCommit !== fixture.productCommit) fail("figma/product-app-shell.plan.json is not at this fixture anchor — run build-figma-product-app-shell first");
   const barOf = (set, name) => set.variants.find((entry) => entry.route === route && entry.name === name)
     ?? fail(`app-shell plan has no ${name} measured on ${route}`);
   const pairs = [
-    [topBar, content, barOf(appShell.component.desktopTopBar, "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On"), "desktop"],
-    [mobileTopBar, mobileContent, barOf(appShell.component, "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"), "mobile"],
+    [topBar, barOf(appShell.component.desktopTopBar, "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On"), "desktop"],
+    [mobileTopBar, barOf(appShell.component, "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"), "mobile"],
   ];
-  for (const [bar, body, planned, where] of pairs) {
+  for (const [bar, planned, where] of pairs) {
     if (bar.rect.width !== planned.rect.width || bar.rect.height !== planned.rect.height) fail(`${where} upgrade top bar is not the app-shell plan bar`);
-    if (body.rect.y !== bar.rect.y + bar.rect.height) fail(`${where} upgrade content no longer starts under the top bar`);
   }
 }
 
 const mobileCardRoots = mobileScreen.tree.filter((entry) => entry.parentPath === mobileCardGrid.path && entry.tag === "article");
 if (mobileCardRoots.length !== 2) fail(`expected exactly two viewport-observed mobile plan cards, got ${mobileCardRoots.length}`);
 const mobileCardSpecs = mobileCardRoots.map((root) => {
+  const where = `${mobileContext} ${root.path}`;
   const rootStyle = style(root);
-  const descendants = mobileScreen.tree.filter((entry) => entry.path.startsWith(`${root.path}.`));
-  if (descendants.some((entry) => entry.tag === "button")) fail(`mobile fixture unexpectedly contains an action ${root.path}`);
-  const texts = descendants.filter((entry) => entry.ownText).map((entry) => {
-    const spec = textSpec(entry, root.rect);
-    // "Free" 는 모바일이 heading-28 이라 데스크톱(36)과 폭이 다르다 — **먼저** 걸러낸다.
-    if (spec.text === "Free") return { ...spec, figmaWidth: mobileFigmaGlyphMeasurements.Free };
-    // 크레딧 행은 모바일도 body-20 medium 그대로라 데스크톱 측정을 함께 쓴다(같은 타이포).
-    if (desktopFigmaGlyphMeasurements[spec.text]) return { ...spec, figmaWidth: desktopFigmaGlyphMeasurements[spec.text] };
-    const lines = mobileFigmaLineMeasurements[spec.text];
-    if (lines) {
-      assertLineFit(spec, lines, `mobile ${root.path} ${JSON.stringify(spec.text)}`);
-      return { ...spec, $lineNaturalWidths: lines };
-    }
-    return spec;
-  });
-  const icons = descendants
-    .filter((entry) => style(entry).maskImage.includes("/icons/CheckCircle.svg"))
-    .map((entry) => ({ rect: relRect(entry, root.rect), color: color(style(entry).backgroundColor), asset: "/icons/CheckCircle.svg" }));
-  const title = texts.find((entry) => ["Trial", "Lite"].includes(entry.text))?.text ?? fail(`missing mobile plan title ${root.path}`);
+  const structure = cardStructure(mobileScreen.tree, root, mobileFigmaLineMeasurements, where);
+  if (structure.action) fail(`mobile fixture unexpectedly contains an action ${root.path}`);
+  const title = structure.sections[0]?.kind === "head" ? structure.sections[0].texts[0].text : fail(`${where}: missing mobile plan title`);
   return {
     plan: title,
     route,
     viewport: "MobileVisibleSlice",
+    // **보이는 조각이다.** 뷰포트(402×874) 밖의 기능 줄 · 버튼은 측정 트리에 없어 카드의 높이를 정한 내용 일부가 관측되지
+    // 않았다. ≤788 은 `min-height: auto` 라 선언된 높이도 없다. 그래서 이 카드만 높이를 **측정 상자로 고정**하고(증거 경계)
+    // 넘치는 것은 자른다 — 완전한 모바일 카드 계약이 아니다.
     rect: { width: root.rect.width, height: root.rect.height },
     position: relRect(root, mobileMain.rect),
     visibleIntersection: {
       top: Math.max(0, mobilePageRoot.rect.y - root.rect.y),
       bottom: Math.min(root.rect.height, mobilePageRoot.rect.y + mobilePageRoot.rect.height - root.rect.y),
     },
-    padding: { top: px(rootStyle.paddingTop), right: px(rootStyle.paddingRight), bottom: px(rootStyle.paddingBottom), left: px(rootStyle.paddingLeft) },
+    padding: paddingOf(rootStyle),
+    minHeightDeclared: declaredValue(root, "min-height", /^auto$/, where),
     radius: px(rootStyle.borderTopLeftRadius),
     background: color(rootStyle.backgroundColor),
     effects: shadows(rootStyle.boxShadow),
     outline: outline(rootStyle),
-    texts,
-    icons,
+    ...structure,
     actionMeasured: false,
   };
 });
 if (
   // 두 번째 카드가 Basic → **Lite** 다. 개명이 아니라 **새 티어가 2번 자리에 끼어든 것**이다
   // — 옛 Basic 은 Plus 로 이름이 바뀌어 3번으로 밀렸고, 모바일 뷰포트에는 안 잡힌다(58a85b13).
-  // 카드 상자 179×679.5938 → 183×592.5938: 폭은 격자 2열의 gap 이 좁아진 만큼 늘고,
-  // 높이는 다섯 티어로 특징 목록이 짧아진 만큼 줄었다.
   mobileCardSpecs.map((entry) => entry.plan).join(",") !== "Trial,Lite" ||
-  // 카드 상자 183×592.5938 → **193×572.5938** (제품 094c336b). 격자 폭이 370 → 390 으로
-  // 20 넓어졌고 2열이라 카드마다 +10, 그만큼 특징 줄이 덜 접혀 높이가 20 줄었다.
-  mobileCardSpecs.some((entry) => entry.rect.width !== 193 || entry.rect.height !== 572.5938 || entry.padding.left !== 12) ||
   JSON.stringify(mobileCardSpecs[0].outline) !== JSON.stringify(expectedCurrentPlanOutline) ||
   mobileCardSpecs[1].outline !== null
 ) fail("mobile upgrade card visible-slice drift");
 
-// 모바일도 같은 구조다(위 주석 참조).
-const mobileHeaderNotice = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.0"), mobileMain.rect);
-const mobileHeaderTitle = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.1"), mobileMain.rect);
-const mobileHeaderBody = textSpec(mobileNode("body.1.0.0.1.0.0.1.0.2"), mobileMain.rect);
 // 화면 본체가 `page.tsx` 에서 이 파일로 통째로 옮겨 갔다 —
 // `bdd47792 fix(pricing): 가격 조회가 실패해도 페이지가 죽지 않게 한다` 가 서버 껍데기만
 // page.tsx 에 남기고 783줄을 새 파일로 뽑았다(`git log --diff-filter=A` 로 이 파일의 추가
 // 커밋이 bdd47792 하나임을 확인했다). 남은 page.tsx 는 getPlanPricing() 을 부르는 17줄이다.
 const upgradeSourcePath = "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx";
 // 좌표는 내용으로 다시 찾았다 — 두 문자열 모두 이 파일에서 유일하고 `TIER_CARD_CURRENT`
-// 안에서 서로 붙어 있다(`git show 5a67d692:…UpgradePlanPageClient.tsx | grep -n outline`
-// 이 219·220 만 준다). 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
+// 안에서 서로 붙어 있다. 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
 const currentPlanOutlineSource = [
   sourceQuote(upgradeSourcePath, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
   sourceQuote(upgradeSourcePath, 233, '  "[outline-offset:-2px]",'),
 ];
+// 덱 · 카드 크기 축의 선언 원문 — 측정 원장의 `declared` 칸과 같은 뜻을 소스 줄로 한 번 더 못박는다.
+const deckSource = [
+  sourceQuote(upgradeSourcePath, 206, '  "grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch",'),
+  sourceQuote(upgradeSourcePath, 212, '  "min-h-[560px] [@media(max-width:788px)]:[min-height:auto]",'),
+];
+// **간격 · 패딩은 값이 같은 `Klipse Primitive/spacing/<n>` 에 묶는다** — 이름과 값을 되읽기(`figma/readback.json`)에서
+// 확인한다. 토큰이 없는 값(뷰포트 계산값 · 제품 지역 여백)은 숫자로 둔다 — 렌더러는 계획에 `spacing<n>` 이 있을 때만 묶는다.
+const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
+const liveFloat = (collection, name) => {
+  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
+  if (!row || row[1] !== "FLOAT") return null;
+  const [[, alias, raw]] = row[3];
+  return alias ? null : raw;
+};
+const cardSpacing = (spec) => [
+  ...Object.values(spec.padding),
+  ...spec.sections.flatMap((section) => [section.margin.top, section.margin.bottom, section.gap ?? 0, ...Object.values(section.padding ?? {}),
+    ...(section.texts ?? []).flatMap((text) => Object.values(text.padding ?? {})),
+    ...(section.items ?? []).flatMap((item) => [item.gap, item.icon?.marginTop ?? 0, item.icon ? 0 : item.iconTrack + item.gap])]),
+  ...(spec.action ? Object.values(spec.action.padding) : []),
+];
+const layoutSpacing = (layout) => [
+  ...Object.values(layout.main.padding), layout.main.bleed.left, layout.main.bleed.right, layout.main.barGap,
+  layout.container.paddingTop, layout.header.paddingBottom, layout.header.notice.paddingBottom, ...Object.values(layout.header.notice.padding),
+  layout.header.titlePaddingBottom, layout.deck.gap, layout.compare?.paddingTop ?? 0,
+];
+const spacingBindings = Object.fromEntries([...new Set([
+  ...cardSpecs.flatMap(cardSpacing), ...mobileCardSpecs.flatMap(cardSpacing), ...layoutSpacing(desktop.layout), ...layoutSpacing(mobile.layout),
+])].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) =>
+  liveFloat("Klipse Primitive", `spacing/${value}`) === value ? [[`spacing${value}`, { collection: "Klipse Primitive", name: `spacing/${value}` }]] : []));
+for (const radius of [...cardSpecs, ...mobileCardSpecs].flatMap((spec) => [spec.radius, spec.action?.radius].filter((value) => value !== undefined))) {
+  if (radius !== liveFloat("Klipse Primitive", "radius/12")) fail(`plan card radius ${radius} is not Klipse Primitive/radius/12`);
+}
+for (const radius of [px(mainStyle.borderTopLeftRadius), px(mobileMainStyle.borderTopLeftRadius)]) {
+  if (radius !== liveFloat("Klipse Primitive", "radius/16")) fail(`upgrade main radius ${radius} is not Klipse Primitive/radius/16`);
+}
+
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   $evidenceClass: "product-only measured upgrade card inventory plus desktop scene and mobile visible slice; not a normative design-system contract",
@@ -437,19 +567,14 @@ const plan = {
       checkIcon: "icon/CheckCircle",
     },
     page: { rect: { width: pageRoot.rect.width, height: pageRoot.rect.height }, background: color(style(pageRoot).backgroundColor) },
+    deckSource,
     main: {
       rect: relRect(main, pageRoot.rect),
-      width: main.rect.width,
-      height: main.rect.height,
       background: color(mainStyle.backgroundColor),
       radius: px(mainStyle.borderTopLeftRadius),
       effects: shadows(mainStyle.boxShadow),
-      topBar: relRect(topBar, main.rect),
-      content: relRect(content, main.rect),
-      headerTitle,
-      headerBody,
-      headerNotice,
-      compareTitle,
+      layout: desktop.layout,
+      ...desktop.texts,
     },
     cardGrid: relRect(cardGrid, main.rect),
     cards: cardSpecs,
@@ -457,20 +582,15 @@ const plan = {
       page: { rect: { width: mobilePageRoot.rect.width, height: mobilePageRoot.rect.height }, background: color(style(mobilePageRoot).backgroundColor) },
       main: {
         rect: relRect(mobileMain, mobilePageRoot.rect),
-        width: mobileMain.rect.width,
-        height: mobileMain.rect.height,
         background: color(mobileMainStyle.backgroundColor),
         radius: px(mobileMainStyle.borderTopLeftRadius),
         effects: shadows(mobileMainStyle.boxShadow),
-        topBar: relRect(mobileTopBar, mobileMain.rect),
-        content: relRect(mobileContent, mobileMain.rect),
-        headerTitle: mobileHeaderTitle,
-        headerBody: mobileHeaderBody,
-        headerNotice: mobileHeaderNotice,
+        layout: mobile.layout,
+        ...mobile.texts,
       },
       cardGrid: relRect(mobileCardGrid, mobileMain.rect),
       cards: mobileCardSpecs,
-      evidenceBoundary: "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent.",
+      evidenceBoundary: "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent; the two visible cards keep their measured height and clip.",
     },
     bindings: {
       paletteCollection: "1 · Palette",
@@ -500,6 +620,7 @@ const plan = {
       mint500: { collection: "1 · Palette", name: "accent/mint/500" },
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
+      ...spacingBindings,
     },
   },
 };
@@ -518,11 +639,66 @@ const stripAnnotations = (value) => {
   }
   return value;
 };
+// 증거 칸(rect · position · 선언 원문 · 보이는 교차)은 계획에만 남기고 러너에는 싣지 않는다 — 렌더러는 흐름으로 짓는다.
+const runnerPlan = stripAnnotations(plan);
+{
+  const dropText = (text) => { if (text) delete text.rect; };
+  for (const card of [...runnerPlan.component.cards, ...runnerPlan.component.mobile.cards]) {
+    delete card.position; delete card.visibleIntersection; delete card.minHeightDeclared; delete card.route;
+    for (const section of card.sections) {
+      for (const text of section.texts ?? []) dropText(text);
+      for (const item of section.items ?? []) dropText(item.text);
+    }
+    if (card.action) { delete card.action.rect; dropText(card.action.label); }
+  }
+  for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
+    for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) dropText(surface[key]);
+    delete surface.layout.container.width.declared;
+    delete surface.layout.header.maxWidthDeclared;
+    delete surface.layout.header.bodyMaxWidthDeclared;
+    delete surface.layout.header.notice.heightDeclared;
+    delete surface.layout.deck.declared;
+  }
+  // **글자 스타일은 표 하나로 모은다.** 카드 다섯 · 조각 둘 · 헤더의 글자 97개가 스타일 15벌을 반복해, 각 글자에 크기 ·
+  // 굵기 · 행간 · 자간 · 정렬 · 색을 따로 실으면 러너가 50,000자 벽을 넘는다. 글자는 표의 번호(`s`)만 들고, 렌더러가 펼친다.
+  // 색은 넷째 자리까지 줄인다 — 렌더러는 채널을 255 배 반올림해 변수를 고르므로 k/255 값은 그대로 같은 색으로 돌아온다.
+  const typeStyles = [];
+  const keyOf = (text) => JSON.stringify([text.fontSize, text.fontWeight, text.lineHeight, text.letterSpacing, text.textAlign, text.color]);
+  const intern = (text) => {
+    if (!text) return;
+    const style = { fontSize: text.fontSize, fontWeight: text.fontWeight, lineHeight: text.lineHeight, letterSpacing: text.letterSpacing, textAlign: text.textAlign, color: text.color.map((channel) => Math.round(channel * 10000) / 10000) };
+    let index = typeStyles.findIndex((entry) => keyOf(entry) === keyOf(style));
+    if (index < 0) index = typeStyles.push(style) - 1;
+    for (const key of Object.keys(style)) delete text[key];
+    text.s = index;
+  };
+  for (const card of [...runnerPlan.component.cards, ...runnerPlan.component.mobile.cards]) {
+    delete card.background;
+    for (const section of card.sections) {
+      for (const text of section.texts ?? []) intern(text);
+      for (const item of section.items ?? []) {
+        intern(item.text);
+        if (item.icon) { delete item.icon.color; delete item.icon.asset; }
+      }
+    }
+    if (card.action) intern(card.action.label);
+  }
+  for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
+    for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) intern(surface[key]);
+    delete surface.background;
+  }
+  runnerPlan.component.typeStyles = typeStyles;
+  delete runnerPlan.component.cardGrid;
+  delete runnerPlan.component.mobile.cardGrid;
+  delete runnerPlan.component.deckSource;
+  delete runnerPlan.currentPlanOutlineSource;
+  delete runnerPlan.figmaGlyphMeasurements;
+}
 const readableDraw =
   "// Generated by scripts/build-figma-product-upgrade-scene.mjs. Do not edit by hand.\n" +
   "// Pass this file verbatim to use_figma. It creates only the measured desktop upgrade inventory/scene and mobile visible slice.\n" +
   "// Annotation-only `$` keys live in figma/product-upgrade-scene.plan.json; the runner payload carries only what it reads.\n" +
-  `const PLAN=${JSON.stringify(stripAnnotations(plan))};\n` +
+  `const PLAN=${JSON.stringify(runnerPlan)};\n` +
   readFileSync(templatePath, "utf8");
 const wrappedDraw = transformSync(`async function __figmaRunner__(){${readableDraw}}`, {
   minify: true,

@@ -1562,6 +1562,26 @@ withCanary(
   "dist 의 \"use client\" 가 소스와 다릅니다",
 );
 
+// ── 계산된 크기를 숫자로 굳힌 가드 카나리아(2026-09-14) ─────────────────────
+// `check-derived-size-literals` 는 생성기 · Figma 라이브러리의 `rect.height !== 53` 꼴을 센다. 두 방향을 다
+// 물어야 래칫이다: (1) 굳힌 가드가 새로 생기면 울고, (2) 고친 뒤 기준선을 내리지 않으면 운다. 두 번째가
+// 없으면 줄어든 여유만큼 다음 굳힘이 조용히 들어온다. 오염 대상은 제품 저장소 표지가 없는 라이브러리
+// 파일이다 — 생성기 파일을 따옴표로 적으면 verify-gate-split 이 그 파일을 이 게이트의 도달 범위로 읽는다.
+withCanary(
+  "scripts/lib/figma-glyph-identity.mjs",
+  (source) => source + "\nif (probe.rect.height !== 53) throw new Error(\"canary\");\n",
+  "derived size literal: 새 굳힌 가드",
+  "scripts/check-derived-size-literals.mjs",
+  "계산된 크기를 숫자로 비교하는 가드가",
+);
+withCanary(
+  "scripts/check-derived-size-literals.mjs",
+  (source) => source.replace(/(\n {2}"[^"\n]+\.mjs": )(\d+),/, (_, head, count) => head + (Number(count) + 1) + ","),
+  "derived size literal: 내리지 않은 기준선",
+  "scripts/check-derived-size-literals.mjs",
+  "보다 줄었다",
+);
+
 // ── 팔레트/사다리 충돌 판정 카나리아 ──────────────────────────────────────
 // **이 카나리아가 없으면 `check-palette-ladder-collision` 은 「초록이라 잘 도는 것 같다」로만
 // 남는다.** 그 게이트는 2026-09-08~09 에 손으로 고친 넷을 잡으려고 세웠는데, 그 넷은 전부

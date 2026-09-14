@@ -863,7 +863,7 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   let barDone = false;
   const walk = (node) => {
     if (desktop && node.tag === "header" && node.positioning === "ABSOLUTE"
-        && Math.round(node.rect.width) === 280) {
+        && Math.round(node.rect.width) === 280) { // 선언: apps/web/app/globals.css:179 `--app-gnb-sidebar-width: min(280px, …)`
       if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
         "position:fixed 280×1080 header — 앱 데스크톱 사이드바")) return;
     }

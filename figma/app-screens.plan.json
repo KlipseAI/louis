@@ -9,6 +9,7 @@
   "totalUnresolved": 4,
   "totalShellInstances": 101,
   "totalShellGaps": 0,
+  "totalSizingReconciled": 19,
   "contentInstancesBySet": {
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
@@ -1999,6 +2000,50 @@
             "path": "body.1.0.0.1.0.1.1.0.0.0",
             "tag": "span",
             "reason": "v: 78% 선언 — Figma에 부분 퍼센트 대응이 없다"
+          }
+        ],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.1",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 89.0469 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.2",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 73.2656 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.3",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 72 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.1",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 50.8906 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.2",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 51.6719 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.3",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
           }
         ]
       },
@@ -4935,7 +4980,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -4969,10 +5014,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 89.0469 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 89.05",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -5148,7 +5199,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -5182,10 +5233,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 73.2656 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 73.27",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -5361,7 +5418,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -5395,10 +5452,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 72 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 72",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -5858,7 +5921,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -5892,10 +5955,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 50.8906 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 50.89",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -6001,7 +6070,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -6035,10 +6104,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 51.6719 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 51.67",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -6144,7 +6219,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "FILL",
+                                          "layoutSizingHorizontal": "HUG",
                                           "layoutSizingVertical": "FILL",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": 0,
@@ -6178,10 +6253,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "FILL",
-                                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                            "source": "flex-grow:1",
-                                            "value": null
+                                            "verdict": "HUG",
+                                            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                            "source": "content 49.52",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "FILL",
+                                              "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                              "source": "flex-grow:1",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "FILL",
@@ -7499,6 +7580,50 @@
             "path": "body.1.0.0.1.0.1.1.0.0.0",
             "tag": "span",
             "reason": "v: 78% 선언 — Figma에 부분 퍼센트 대응이 없다"
+          }
+        ],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.1",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 89.0469 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.2",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 73.2656 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.7.1.0.3",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 72 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.1",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 50.8906 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.2",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 51.6719 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.8.1.0.3",
+            "axis": "horizontal",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
           }
         ]
       },
@@ -10555,7 +10680,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -10589,10 +10714,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 89.0469 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 89.05",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -10768,7 +10899,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -10802,10 +10933,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 73.2656 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 73.27",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -10981,7 +11118,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -11015,10 +11152,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.7.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 72 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 72",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -11478,7 +11621,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -11512,10 +11655,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 50.8906 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 50.89",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -11621,7 +11770,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -11655,10 +11804,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 51.6719 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 51.67",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -11764,7 +11919,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "FILL",
+                                      "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "FILL",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": 0,
@@ -11798,10 +11953,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "FILL",
-                                        "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                        "source": "flex-grow:1",
-                                        "value": null
+                                        "verdict": "HUG",
+                                        "reason": "HUG 부모(body.1.0.0.1.0.1.8.1.0)의 주축 grow 가 아무 일도 하지 않았다 — 측정 49.5156 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                        "source": "content 49.52",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "FILL",
+                                          "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                          "source": "flex-grow:1",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "FILL",
@@ -12671,7 +12832,16 @@
         "kept": 120,
         "droppedInvisible": 0,
         "droppedEmpty": 2,
-        "unresolved": []
+        "unresolved": [],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.1.0.3",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -15422,7 +15592,7 @@
                                                     },
                                                     "glyph": null,
                                                     "sizing": {
-                                                      "layoutSizingHorizontal": "HUG",
+                                                      "layoutSizingHorizontal": "FILL",
                                                       "layoutSizingVertical": "FILL",
                                                       "layoutPositioning": "AUTO",
                                                       "minWidth": null,
@@ -15452,10 +15622,16 @@
                                                     "constraints": null,
                                                     "why": {
                                                       "horizontal": {
-                                                        "verdict": "HUG",
-                                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                                        "source": "기본(flex item)",
-                                                        "value": null
+                                                        "verdict": "FILL",
+                                                        "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                                        "source": "height 36 / line-height 18",
+                                                        "value": null,
+                                                        "previous": {
+                                                          "verdict": "HUG",
+                                                          "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                                          "source": "기본(flex item)",
+                                                          "value": null
+                                                        }
                                                       },
                                                       "vertical": {
                                                         "verdict": "FILL",
@@ -16253,6 +16429,15 @@
             "path": "body.1.0.0.1.0.1.1.0.1.1.0.4",
             "layoutMode": "VERTICAL"
           }
+        ],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.1",
+            "axis": "vertical",
+            "from": "FILL",
+            "to": "HUG",
+            "reason": "HUG 부모(body.1.0.0.1.0.1)의 주축 grow 가 아무 일도 하지 않았다 — 측정 843.1875 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다"
+          }
         ]
       },
       "spec": {
@@ -16927,7 +17112,7 @@
                             "glyph": null,
                             "sizing": {
                               "layoutSizingHorizontal": "FILL",
-                              "layoutSizingVertical": "FILL",
+                              "layoutSizingVertical": "HUG",
                               "layoutPositioning": "AUTO",
                               "minWidth": null,
                               "maxWidth": null,
@@ -16954,10 +17139,16 @@
                                 "value": null
                               },
                               "vertical": {
-                                "verdict": "FILL",
-                                "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
-                                "source": "flex-grow:1",
-                                "value": null
+                                "verdict": "HUG",
+                                "reason": "HUG 부모(body.1.0.0.1.0.1)의 주축 grow 가 아무 일도 하지 않았다 — 측정 843.1875 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다",
+                                "source": "content 843.19",
+                                "value": null,
+                                "previous": {
+                                  "verdict": "FILL",
+                                  "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                                  "source": "flex-grow:1",
+                                  "value": null
+                                }
                               }
                             },
                             "layout": {
@@ -19506,7 +19697,16 @@
         "kept": 84,
         "droppedInvisible": 0,
         "droppedEmpty": 3,
-        "unresolved": []
+        "unresolved": [],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.0.2.0.1",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -20467,7 +20667,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -20497,10 +20697,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(flex item)",
-                                            "value": null
+                                            "verdict": "FILL",
+                                            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                            "source": "height 97.1875 / line-height 48.6",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "HUG",
+                                              "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                              "source": "기본(flex item)",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "HUG",
@@ -20708,7 +20914,23 @@
         "kept": 28,
         "droppedInvisible": 0,
         "droppedEmpty": 3,
-        "unresolved": []
+        "unresolved": [],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.0.2.0.1",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 5줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          },
+          {
+            "path": "body.1.0.0.1.0.0.2.0.2",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -21584,7 +21806,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -21614,10 +21836,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(flex item)",
-                                            "value": null
+                                            "verdict": "FILL",
+                                            "reason": "측정 글자가 5줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                            "source": "height 242.9688 / line-height 48.6",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "HUG",
+                                              "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                              "source": "기본(flex item)",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "HUG",
@@ -21645,7 +21873,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -21675,10 +21903,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(flex item)",
-                                            "value": null
+                                            "verdict": "FILL",
+                                            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                            "source": "height 42 / line-height 21",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "HUG",
+                                              "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                              "source": "기본(flex item)",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "HUG",
@@ -36080,7 +36314,16 @@
         "kept": 93,
         "droppedInvisible": 0,
         "droppedEmpty": 3,
-        "unresolved": []
+        "unresolved": [],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.0.1.1.1",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -37003,7 +37246,7 @@
                                         },
                                         "glyph": null,
                                         "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingHorizontal": "FILL",
                                           "layoutSizingVertical": "HUG",
                                           "layoutPositioning": "AUTO",
                                           "minWidth": null,
@@ -37033,10 +37276,16 @@
                                         "constraints": null,
                                         "why": {
                                           "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                            "source": "기본(flex item)",
-                                            "value": null
+                                            "verdict": "FILL",
+                                            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                            "source": "height 36 / line-height 18",
+                                            "value": null,
+                                            "previous": {
+                                              "verdict": "HUG",
+                                              "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                              "source": "기본(flex item)",
+                                              "value": null
+                                            }
                                           },
                                           "vertical": {
                                             "verdict": "HUG",
@@ -37703,7 +37952,16 @@
         "kept": 37,
         "droppedInvisible": 0,
         "droppedEmpty": 3,
-        "unresolved": []
+        "unresolved": [],
+        "sizingReconciled": [
+          {
+            "path": "body.1.0.0.1.0.1.0.1.1.1",
+            "axis": "horizontal",
+            "from": "HUG",
+            "to": "FILL",
+            "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다"
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -38466,7 +38724,7 @@
                                     },
                                     "glyph": null,
                                     "sizing": {
-                                      "layoutSizingHorizontal": "HUG",
+                                      "layoutSizingHorizontal": "FILL",
                                       "layoutSizingVertical": "HUG",
                                       "layoutPositioning": "AUTO",
                                       "minWidth": null,
@@ -38496,10 +38754,16 @@
                                     "constraints": null,
                                     "why": {
                                       "horizontal": {
-                                        "verdict": "HUG",
-                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                        "source": "기본(flex item)",
-                                        "value": null
+                                        "verdict": "FILL",
+                                        "reason": "측정 글자가 2줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 FILL)가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다",
+                                        "source": "height 36 / line-height 18",
+                                        "value": null,
+                                        "previous": {
+                                          "verdict": "HUG",
+                                          "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                          "source": "기본(flex item)",
+                                          "value": null
+                                        }
                                       },
                                       "vertical": {
                                         "verdict": "HUG",

@@ -265,6 +265,7 @@ let totalUnresolved = 0;
 let totalShells = 0;
 let totalShellGaps = 0;
 let totalGlyphs = 0;
+let totalSizingReconciled = 0;
 
 /**
  * **`<svg>` 자리에 이름을 붙인다.** 서명은 `glyphSignature`(figma-tree-spec.mjs)가 측정에서
@@ -295,6 +296,93 @@ function applyGlyphIdentity(spec, where) {
   walk(spec);
   return count;
 }
+/**
+ * **Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 풀어 둔다(2026-09-14).**
+ *
+ * 판정기(`sizing-provenance.mjs`)는 노드 하나의 선언만 본다. 그 판정을 부모와 나란히 두면 Figma 가 CSS 와 다르게
+ * 푸는 조합이 둘 생긴다 — 보드 두 장이 그 모양으로 깨져 있었다(2026-09-14 verify-r3 스크린숏, 라이브 탐침):
+ *
+ *   · **감긴 글자가 HUG 다.** 선언 없는 흐름 글자는 CSS 에서 `min(max-content, 가용 폭)` 이라, 가용 폭보다 길면 그 폭에서
+ *     감긴다. Figma 의 HUG 글자(`WIDTH_AND_HEIGHT`)에는 가용 폭이 없어 한 줄로 늘어난다. `/analytics/youtube` 모바일
+ *     본문 제목(측정 350 폭 · 5줄)이 폭 1172 한 줄이 되어 카드 좌우로 잘렸다(`30:33`). 측정 높이가 줄 높이의 두 배
+ *     이상이면 **감긴 것**이고, 폭을 정한 것은 부모다 — 세로 흐름 부모(글자의 가로가 교차축)의 폭이 정해져 있으면
+ *     FILL 로 옮긴다(렌더러가 `textAutoResize = "HEIGHT"` 를 건다, 조립 규칙 28번 「줄바꿈 텍스트」).
+ *   · **HUG 부모 안의 FILL 자식.** CSS 에서 내용 크기로 서는(shrink-to-fit) 부모 안의 `flex-grow` · stretch 는 남는
+ *     공간이 없어 아무 일도 하지 않는다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다. `/settings` 의 테마 ·
+ *     언어 세그먼트(`flex: 1 1 auto` 버튼 셋)가 트랙 97 · 버튼 29.68 로 접혀 라벨이 서로 겹쳤다(`28:3`). 측정 크기가
+ *     **자기 내용 크기와 같으면**(패딩 + 자식 측정 크기 + 간격, 0.5px 안) grow · stretch 가 아무 일도 하지 않은
+ *     것이므로 HUG 로 옮긴다. 내용보다 크면 부모 밖에서 온 크기이거나 측정기가 싣지 않은 선언이라 판정을 바꾸지 않는다.
+ *
+ * 바꾼 자리는 `why` 에 전 판정과 함께 남기고 화면의 `stats.sizingReconciled` 에 센다. 여기서 풀지 못한(부모 폭이
+ * 정해지지 않은) 감긴 글자는 `stats.wrappedHugText` 에 남긴다 — 조용히 한 줄로 두지 않는다.
+ */
+const HALF_PIXEL = 0.5;
+const AXIS_OF = {
+  horizontal: { sizing: "layoutSizingHorizontal", extent: "width", min: "minWidth", start: "left", end: "right", mode: "HORIZONTAL" },
+  vertical: { sizing: "layoutSizingVertical", extent: "height", min: "minHeight", start: "top", end: "bottom", mode: "VERTICAL" },
+};
+const flowChildren = (node) => (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+/** 자동 배치 노드가 한 축에서 자기 내용으로 서면 가질 크기(측정 자식 · 간격 · 패딩). 잴 수 없으면 null. */
+function contentExtent(node, axisName) {
+  const axis = AXIS_OF[axisName];
+  const layout = node.layout;
+  const children = flowChildren(node);
+  if (node.instance || !layout || layout.layoutMode === "GRID" || children.length === 0) return null;
+  const outer = (child) => child.rect[axis.extent] + (child.margin?.[axis.start] ?? 0) + (child.margin?.[axis.end] ?? 0);
+  const padding = layout.padding[axis.start] + layout.padding[axis.end];
+  return layout.layoutMode === axis.mode
+    ? padding + children.reduce((sum, child) => sum + outer(child), 0) + layout.itemSpacing * (children.length - 1)
+    : padding + Math.max(...children.map(outer));
+}
+function reconcileFigmaSizing(spec) {
+  const reconciled = [];
+  const unresolvedWraps = [];
+  const change = (node, axisName, to, reason, source) => {
+    const axis = AXIS_OF[axisName];
+    reconciled.push({ path: node.path, axis: axisName, from: node.sizing[axis.sizing], to, reason });
+    node.why = { ...node.why, [axisName]: { verdict: to, reason, source, value: null, previous: node.why?.[axisName] ?? null } };
+    node.sizing = { ...node.sizing, [axis.sizing]: to };
+  };
+  const walk = (node, parent) => {
+    if (node.instance) return;
+    const lineHeight = node.typography?.lineHeight;
+    if (node.text && !node.paint && !node.layout && node.positioning !== "ABSOLUTE" && lineHeight
+      && node.sizing.layoutSizingHorizontal === "HUG" && node.rect.height >= lineHeight * 2 - HALF_PIXEL) {
+      const lines = Math.round((node.rect.height / lineHeight) * 100) / 100;
+      const definite = parent?.layout?.layoutMode === "VERTICAL" && parent.sizing.layoutSizingHorizontal !== "HUG";
+      const room = parent?.layout ? parent.rect.width - parent.layout.padding.left - parent.layout.padding.right : null;
+      if (definite && node.rect.width <= room + HALF_PIXEL) {
+        change(node, "horizontal", "FILL",
+          `측정 글자가 ${lines}줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 ${parent.sizing.layoutSizingHorizontal})가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
+          `height ${node.rect.height} / line-height ${lineHeight}`);
+      } else {
+        unresolvedWraps.push({ path: node.path, lines, parent: parent?.path ?? null });
+      }
+    }
+    if (node.layout && node.layout.layoutMode !== "GRID") {
+      const children = flowChildren(node);
+      for (const axisName of ["horizontal", "vertical"]) {
+        const axis = AXIS_OF[axisName];
+        if (node.sizing[axis.sizing] !== "HUG" || node.sizing[axis.min]) continue;
+        const primary = node.layout.layoutMode === axis.mode;
+        const fills = children.filter((child) => child.sizing[axis.sizing] === "FILL");
+        // 교차축은 FILL 이 아닌 형제가 하나라도 있으면 Figma 가 그 형제로 부모를 세우고 나머지를 늘인다 — CSS 와 같다.
+        if (fills.length === 0 || (!primary && fills.length !== children.length)) continue;
+        for (const child of fills) {
+          const content = contentExtent(child, axisName);
+          if (content == null || Math.abs(child.rect[axis.extent] - content) > HALF_PIXEL) continue;
+          change(child, axisName, "HUG",
+            `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 가 아무 일도 하지 않았다 — 측정 ${child.rect[axis.extent]} 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다`,
+            `content ${Math.round(content * 100) / 100}`);
+        }
+      }
+    }
+    for (const child of node.children ?? []) walk(child, node);
+  };
+  walk(spec, null);
+  return { reconciled, unresolvedWraps };
+}
+
 const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
 for (const screen of SCREENS) {
@@ -327,6 +415,9 @@ for (const screen of SCREENS) {
     // 사라진 글리프는 payload 에 나오지 않으므로 이름을 붙일 일도 없다.
     const glyphs = applyGlyphIdentity(spec, `${screen.route} @ ${context.id}`);
     totalGlyphs += glyphs;
+    // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
+    const sizingFix = reconcileFigmaSizing(spec);
+    totalSizingReconciled += sizingFix.reconciled.length;
     totalNodes += stats.kept;
     totalUnresolved += stats.unresolved.length;
     totalShells += shells.applied.length;
@@ -362,6 +453,9 @@ for (const screen of SCREENS) {
         unresolved: stats.unresolved,
         // 제품은 세로 flex 에 wrap 을 걸었지만 Figma 는 HORIZONTAL 에만 wrap 이 있어 NO_WRAP 으로 옮긴 자리.
         ...(stats.verticalWrap.length ? { verticalWrap: stats.verticalWrap } : {}),
+        // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자.
+        ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
+        ...(sizingFix.unresolvedWraps.length ? { wrappedHugText: sizingFix.unresolvedWraps } : {}),
       },
       spec,
     });
@@ -461,6 +555,7 @@ const plan = {
   totalUnresolved,
   totalShellInstances: totalShells,
   totalShellGaps,
+  totalSizingReconciled,
   contentInstancesBySet: contentInstances,
   // **낱개 정본 프리미티브의 판정 근거를 생성물에 남긴다.** 목록에 «없는» 것이 곧 판정이라
   // (「제품이 그 자리에서 정본을 물지 않는다」), 사유가 코드에만 있으면 보드를 읽는 사람은
@@ -556,5 +651,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

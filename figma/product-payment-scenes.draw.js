@@ -115,7 +115,8 @@ const liveVariables = async (B) => {
       unboundColors: Object.entries(unbound).map(([role, entry]) => ({ role, color: hex(entry.color), alpha: entry.color[3], paints: counts[role] ?? 0 })),
     };
   };
-  return { V, pin, paint, paintIcon, bindCorners, audit, mode: `${B.modeCollection}/${B.mode}` };
+  // `collections` · `variableById` · `resolve` 는 값으로 변수를 찾는 앱 화면 보드 렌더러가 쓴다(역할 이름이 없는 칠).
+  return { V, pin, paint, paintIcon, bindCorners, audit, collections, variableById, resolve, mode: `${B.modeCollection}/${B.mode}` };
 };
 const C = PLAN.component;
 const page =

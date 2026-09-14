@@ -37,78 +37,34 @@ for (const style of ["Regular", "Medium", "SemiBold", "Bold"]) {
 }
 
 // ── 파일에 이미 있는 것 색인 ──────────────────────────────────────────────
-// 색 변수는 **값(hex)** 으로 찾는다 — 이름 규칙을 짐작하지 않기 위해서다.
+// 색 변수는 **값(hex)** 으로 찾는다 — 이름 규칙을 짐작하지 않기 위해서다(측정 트리에는 역할 이름이 없다).
 //
-// **모드는 측정을 따른다.** 화면 전체에 앱 모드 하나를 건다.
-// `1 · Palette=sidebar`, `2 · Semantic=light-sidebar` 에서 측정값이 정확히 잡힌다:
-//   `#eeeef1` → `1 · Palette[sidebar]::palette/gray-200` (페이지 배경)
-//   `#f8f8f9` → `2 · Semantic[light-sidebar]::app/page-bg` (메인 카드)
-//   `#575d68` → `2 · Semantic[light-sidebar]::gray/300` (사이드바 라벨)
+// **컬렉션과 모드는 계획이 정한다(`P.colour`, 2026-09-14).** 라이브 LOUIS(`OlYKERKOkgbxBEEoXGZW2c`)의 컬렉션은
+// `Klipse Primitive[Base]` · `Klipse Semantic[Global]` · `Klipse Semantic Color[Light/Dark]` 셋이다. 이 렌더러는 전에
+// 은퇴한 팔레트 · 시맨틱 컬렉션의 사이드바 모드를 먼저 찾았고, 없으니 던지지 않고 이름이 light 인 모드로 떨어졌으며
+// 화면 루트에 모드를 하나도 고정하지 못했다(조립 규칙 27번 — 은퇴한 이름은 러너에 남기지 않는다). 이제 제품 컴포넌트 러너와 같은 공용 조각
+// (`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다 — 측정 테마의 모드(fixture 가 light 라
+// `Klipse Semantic Color[Light]`)를 그 컬렉션에만 고정하고, 나머지는 기본 모드로 푼다. 컬렉션이나 모드가 없으면 던진다.
+// 생성기는 되읽기에서 같은 규칙으로 풀어, 측정 색마다 값이 같은 라이브 변수를 계획 `colourBinding` 에 적는다.
 //
-// **셸 인스턴스를 dark로 되돌리지 않는다.** 기존 `Desktop Payment Result Scene` 은 gnb·top-bar에
-// `2 · Semantic=dark` 를 못박아 두었지만, 그러면 사이드바 라벨이 `#d5d7dd` 로 나와 밝은 페이지 위에서
-// 읽히지 않는다. 제품 실측은 사이드바 **배경 투명 + 라벨 `#575d68`** 이다(light 테마).
-// 장면 컴포넌트 쪽이 현재 측정과 어긋나 있는 것이므로 측정을 따른다.
-// ⚠ **아래 두 줄이 가리키는 컬렉션은 이 파일에 존재하지 않는다 (2026-08-31 실측).**
-//
-// 살아 있는 LOUIS Figma(`OlYKERKOkgbxBEEoXGZW2c`)의 변수 컬렉션은 셋뿐이다 —
-// `Klipse Primitive[Base]` · `Klipse Semantic[Global]` · `Klipse Semantic Color[Light/Dark]`.
-// `1 · Palette` 도 `2 · Semantic` 도 없다. 위 주석의 매핑은 **다른 파일**(은퇴 중인 옛
-// 라이브러리로 추정) 기준으로 쓰인 것이다. 그래서 `APP_MODES` 의 모드 고정은 **아무 일도 하지
-// 않고**, 색 탐색은 `Klipse Semantic Color` 의 첫 모드로 떨어진다.
-//
-// 드러난 방식: `?__phase=` 화면 12장을 그릴 때 두 프레임이 `unboundColors: ["eeeef1"]` 을
-// 돌려줬다. `#eeeef1` 은 사이드바가 있는 화면의 페이지 배경인데 **LOUIS 어디에도 그 값이 없다** —
-// `tokens.css` 에도, Figma 변수 전 컬렉션·전 모드에도 0건이다(가장 가까운
-// `palette-gray-150` = `#eaebee` 로 값이 다르다). 즉 앱 셸 화면 36장이 그 면을 리터럴로 칠하고
-// 있고 테마를 따라가지 않는다.
-//
-// 근본 원인은 값 하나가 빠진 것이 아니라 **구조**다. 제품은 사이드바가 있는 화면에서 회색 램프를
-// 통째로 재매핑하는데(`product-reading-traps.md` 「라이트 회색 램프가 두 벌」), 지금 Figma 변수에는
-// 그 램프를 담을 모드가 없다 — `Klipse Semantic Color` 는 Light/Dark 둘뿐이다.
-// **고치려면 모드 구조를 정해야 한다.** 값을 하나 끼워 넣는 것으로는 닫히지 않으므로 여기서
-// 하지 않고 사실만 적는다. 이 주석을 지우기 전에 그 판정이 먼저다.
-const APP_MODES = { "2 · Semantic": "light-sidebar", "1 · Palette": "sidebar" };
-// 앱 토큰(2 · Semantic / 1 · Palette)을 먼저 본다 — 앱 화면이 실제로 쓰는 층이다.
-const PREFERRED_COLLECTIONS = ["2 · Semantic", "1 · Palette", "Klipse Semantic Color", "Klipse Primitive"];
-const collections = await figma.variables.getLocalVariableCollectionsAsync();
-const allVariables = await figma.variables.getLocalVariablesAsync();
-const variableById = new Map(allVariables.map((variable) => [variable.id, variable]));
-
+// **값이 같은 변수가 없는 측정 색은 리터럴로 칠하고 `unboundColors` 로 돌려준다.** 사이드바가 있는 화면의 페이지 배경
+// `#eeeef1` 이 그랬다(2026-08-31) — 제품은 사이드바 화면에서 회색 램프를 통째로 재매핑하는데(`product-reading-traps.md`
+// 「라이트 회색 램프가 두 벌」) 라이브 변수에는 그 램프를 담을 모드가 없다. 모드 구조를 정하는 것은 이 렌더러의 몫이 아니다.
+const live = await liveVariables(P.colour);
 const channelHex = (channel) => Math.round(channel * 255).toString(16).padStart(2, "0");
 const colorToHex = (color) => {
   if (!color || typeof color !== "object" || !("r" in color)) return null;
   const alpha = color.a === undefined || color.a >= 0.999 ? "" : channelHex(color.a);
   return `${channelHex(color.r)}${channelHex(color.g)}${channelHex(color.b)}${alpha}`;
 };
-const resolveVariable = (variable, modeId, depth) => {
-  const value = variable.valuesByMode[modeId];
-  if (value && value.type === "VARIABLE_ALIAS") {
-    if (depth > 6) return null;
-    const target = variableById.get(value.id);
-    if (!target) return null;
-    const collection = collections.find((entry) => entry.id === target.variableCollectionId);
-    return resolveVariable(target, collection.modes[0].modeId, depth + 1);
-  }
-  return value;
-};
-
-const modeOf = (collection, table) => {
-  const wanted = table[collection.name];
-  return (wanted && collection.modes.find((mode) => mode.name === wanted))
-    ?? collection.modes.find((mode) => /^(light|base|default|global)$/i.test(mode.name))
-    ?? collection.modes[0];
-};
-
 const variableByHex = new Map();
-for (const name of PREFERRED_COLLECTIONS) {
-  const collection = collections.find((entry) => entry.name === name);
-  if (!collection) continue;
-  const mode = modeOf(collection, APP_MODES);
+for (const name of P.colour.collections) {
+  const collection = live.collections.find((entry) => entry.name === name);
+  if (!collection) throw new Error(`변수 컬렉션을 찾지 못했습니다: ${name}`);
   for (const id of collection.variableIds) {
-    const variable = variableById.get(id);
+    const variable = live.variableById.get(id);
     if (!variable || variable.resolvedType !== "COLOR") continue;
-    const hex = colorToHex(resolveVariable(variable, mode.modeId, 0));
+    const hex = colorToHex(live.resolve(variable));
     if (hex && !variableByHex.has(hex)) variableByHex.set(hex, variable);
   }
 }
@@ -456,20 +412,6 @@ const flushTextStyles = async () => {
   pendingTextStyles.length = 0;
 };
 
-/**
- * 변수 모드를 건다 — 완성된 장면 컴포넌트가 쓰는 규약 그대로.
- * 화면 전체는 앱 모드(light-sidebar/sidebar), 셸 인스턴스만 어두운 모드(dark/default).
- */
-const pinModes = (node, table) => {
-  for (const collection of collections) {
-    if (!(collection.name in table)) continue;
-    const mode = collection.modes.find((entry) => entry.name === table[collection.name]);
-    if (!mode) continue;
-    try { node.setExplicitVariableModeForCollection(collection, mode.modeId); } catch (error) {}
-  }
-};
-
-
 const frame = await figma.getNodeByIdAsync(P.frameId);
 if (!frame) throw new Error(`대상 프레임을 찾지 못했습니다: ${P.frameId} (${P.route})`);
 await figma.setCurrentPageAsync(
@@ -503,7 +445,8 @@ if (P.head) {
   await preloadVariants(P.head);
   const root = buildNode(P.head, frame);
   root.name = generatedName;
-  pinModes(root, APP_MODES);
+  // 측정 테마의 모드를 화면 루트에 고정한다 — 파일 기본 모드가 바뀌어도 보드가 측정과 같은 색으로 풀린다.
+  live.pin(root);
   await flushTextStyles();
   result = { chunk: 0, built: [Math.round(root.width), Math.round(root.height)], legacy: Boolean(legacy) };
 } else {

@@ -208,7 +208,15 @@ export const liveVariables = ({ repoRoot, fail }) => {
     return bindings;
   };
 
-  return { readback, float, floatOrNull, spacingBinding, radiusBinding, colorRoles, assertBindings };
+  // 컬렉션의 색 변수 전부를 한 모드에서 푼 값 — 역할 이름 없이 **값으로** 변수를 찾는 앱 화면 보드 렌더러의 짝이다.
+  // 렌더러 조각의 `resolve` 와 같은 규칙(여러 모드 컬렉션만 요청 모드, 나머지는 기본 모드)으로 되읽기에서 푼다.
+  const colorVariables = (collectionNames, mode) => collectionNames.flatMap((collection) => {
+    if (!LIVE_COLLECTIONS.includes(collection)) fail(`${collection} is not a live collection (${LIVE_COLLECTIONS.join(" · ")})`);
+    return collections[collection].rows.filter((row) => row[1] === "COLOR")
+      .map((row) => ({ collection, name: row[0], value: resolveValue(collection, row[0], mode, "COLOR").value }));
+  });
+
+  return { readback, float, floatOrNull, spacingBinding, radiusBinding, colorRoles, assertBindings, colorVariables };
 };
 
 // **중첩 세트의 고정 역할.** 장면 러너의 감사는 품은 인스턴스 속 칠까지 센다 — 사이드바 셸(컴포넌트 러너)의 BETA 칩처럼

@@ -16,6 +16,152 @@
     "Product/Upgrade Plan Card": 5,
     "Product/Upgrade Plan Card Visible Slice": 2
   },
+  "colourBinding": {
+    "modeCollection": "Klipse Semantic Color",
+    "mode": "Light",
+    "collections": [
+      "Klipse Semantic Color",
+      "Klipse Primitive"
+    ],
+    "bound": {
+      "000000": [
+        "Klipse Semantic Color/color/accent-inverse",
+        "Klipse Semantic Color/color/brand/logo-ink",
+        "Klipse Semantic Color/color/fg-upgrade-current",
+        "Klipse Semantic Color/color/gray/000",
+        "Klipse Semantic Color/color/media-scrim-dark",
+        "Klipse Primitive/color/static/black"
+      ],
+      "00c68e": [
+        "Klipse Semantic Color/color/alert-success-stroke",
+        "Klipse Semantic Color/color/node-image-accent",
+        "Klipse Semantic Color/color/node-image-icon",
+        "Klipse Semantic Color/color/node/handle-icon-image",
+        "Klipse Semantic Color/color/progress-ring-fill",
+        "Klipse Semantic Color/color/switch-on-track",
+        "Klipse Primitive/color/green/500"
+      ],
+      "171b22": [
+        "Klipse Semantic Color/color/bg-upgrade",
+        "Klipse Semantic Color/color/fg-primary",
+        "Klipse Semantic Color/color/gray/100",
+        "Klipse Semantic Color/color/media-foreground-bright",
+        "Klipse Primitive/color/palette-gray/900"
+      ],
+      "171b2214": [
+        "Klipse Semantic Color/color/accent-ghost-hover",
+        "Klipse Semantic Color/color/accent-secondary",
+        "Klipse Semantic Color/color/app/tooltip-kbd-bg",
+        "Klipse Semantic Color/color/gray/000-alpha/08",
+        "Klipse Semantic Color/color/progress-track",
+        "Klipse Primitive/color/static-black-alpha/08"
+      ],
+      "171b228f": [
+        "Klipse Semantic Color/color/dim-modal",
+        "Klipse Semantic Color/color/gray/000-alpha/56",
+        "Klipse Primitive/color/static-black-alpha/56"
+      ],
+      "2b2f36": [
+        "Klipse Semantic Color/color/app/tooltip-bg",
+        "Klipse Semantic Color/color/bg-inverse",
+        "Klipse Semantic Color/color/bg-upgrade-hover",
+        "Klipse Semantic Color/color/gray/200",
+        "Klipse Primitive/color/palette-gray/800"
+      ],
+      "41454c": [
+        "Klipse Semantic Color/color/fg-secondary",
+        "Klipse Semantic Color/color/gray/300",
+        "Klipse Primitive/color/palette-gray/700"
+      ],
+      "585c63": [
+        "Klipse Semantic Color/color/accent-secondary-foreground",
+        "Klipse Semantic Color/color/fg-tertiary",
+        "Klipse Semantic Color/color/gray/400",
+        "Klipse Primitive/color/palette-gray/600"
+      ],
+      "72757b": [
+        "Klipse Semantic Color/color/fg-disabled",
+        "Klipse Semantic Color/color/gray/500",
+        "Klipse Semantic Color/color/node-chip-fg-disabled",
+        "Klipse Semantic Color/color/stroke-strong",
+        "Klipse Primitive/color/palette-gray/500"
+      ],
+      "8b8e93": [
+        "Klipse Semantic Color/color/app/avatar-default-ink",
+        "Klipse Semantic Color/color/gray/600",
+        "Klipse Semantic Color/color/stroke-underline",
+        "Klipse Primitive/color/palette-gray/400"
+      ],
+      "b72431": [
+        "Klipse Semantic Color/color/alert-danger-foreground",
+        "Klipse Semantic Color/color/fg-danger-on-surface",
+        "Klipse Semantic Color/color/node/handle-icon-disabled-instagram",
+        "Klipse Semantic Color/color/node/handle-icon-disabled-youtube",
+        "Klipse Primitive/color/red/700"
+      ],
+      "dcdee1": [
+        "Klipse Semantic Color/color/app/page-bg",
+        "Klipse Semantic Color/color/gray/900",
+        "Klipse Semantic Color/color/node-chip-surface-hover",
+        "Klipse Semantic Color/color/table-header-surface",
+        "Klipse Primitive/color/palette-gray/100"
+      ],
+      "ebecee": [
+        "Klipse Semantic Color/color/bg-inset",
+        "Klipse Semantic Color/color/bg-menu",
+        "Klipse Semantic Color/color/bg-upgrade-current",
+        "Klipse Semantic Color/color/fg-upgrade",
+        "Klipse Semantic Color/color/fg-upgrade-hover",
+        "Klipse Semantic Color/color/landing/panel-strong",
+        "Klipse Semantic Color/color/node-chip-surface",
+        "Klipse Semantic Color/color/node/chrome-btn-bg",
+        "Klipse Semantic Color/color/table-row-hover",
+        "Klipse Primitive/color/palette-gray/050"
+      ],
+      "f2f3f5": [
+        "Klipse Semantic Color/color/bg-canvas",
+        "Klipse Primitive/color/palette-gray/025"
+      ],
+      "fafafa": [
+        "Klipse Semantic Color/color/app/tooltip-text",
+        "Klipse Semantic Color/color/bg-overlay",
+        "Klipse Semantic Color/color/bg-surface",
+        "Klipse Semantic Color/color/fg-inverse",
+        "Klipse Semantic Color/color/fg-on-accent-inverse",
+        "Klipse Semantic Color/color/fg-on-danger",
+        "Klipse Semantic Color/color/fg-on-inverse",
+        "Klipse Semantic Color/color/gray/1000",
+        "Klipse Semantic Color/color/landing/page-bg",
+        "Klipse Semantic Color/color/media-foreground-dark",
+        "Klipse Semantic Color/color/media-indicator-active",
+        "Klipse Semantic Color/color/media-scrim-bright",
+        "Klipse Semantic Color/color/switch-thumb",
+        "Klipse Primitive/color/palette-gray/000"
+      ],
+      "ff4b591f": [
+        "Klipse Semantic Color/color/accent-danger-secondary",
+        "Klipse Semantic Color/color/alert-danger-surface",
+        "Klipse Primitive/color/red-alpha/12"
+      ],
+      "ff6f7c": [
+        "Klipse Primitive/color/red/400"
+      ],
+      "ffffff": [
+        "Klipse Semantic Color/color/accent-secondary-selected",
+        "Klipse Semantic Color/color/bg-raised",
+        "Klipse Primitive/color/static/white"
+      ]
+    },
+    "unbound": [
+      "0000001f",
+      "00000066",
+      "0000007a",
+      "0000008f",
+      "000000b8",
+      "000000f5",
+      "efefef"
+    ]
+  },
   "louisPrimitiveSites": [
     {
       "id": "button-md",
@@ -44605,7 +44751,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 31259
+          "bytes": 36855
         }
       ]
     },
@@ -44617,7 +44763,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 31052
+          "bytes": 36648
         }
       ]
     },
@@ -44629,7 +44775,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 38188
+          "bytes": 43784
         }
       ]
     },
@@ -44641,7 +44787,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 37336
+          "bytes": 42932
         }
       ]
     },
@@ -44653,7 +44799,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 35481
+          "bytes": 41077
         }
       ]
     },
@@ -44665,7 +44811,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 34748
+          "bytes": 40344
         }
       ]
     },
@@ -44677,7 +44823,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 31778
+          "bytes": 37374
         }
       ]
     },
@@ -44689,7 +44835,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 31560
+          "bytes": 37156
         }
       ]
     },
@@ -44701,7 +44847,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 33220
+          "bytes": 38816
         }
       ]
     },
@@ -44713,7 +44859,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 32123
+          "bytes": 37719
         }
       ]
     },
@@ -44725,7 +44871,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 30923
+          "bytes": 36519
         }
       ]
     },
@@ -44737,7 +44883,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 30708
+          "bytes": 36304
         }
       ]
     },
@@ -44749,7 +44895,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 30917
+          "bytes": 36513
         }
       ]
     },
@@ -44761,7 +44907,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 30702
+          "bytes": 36298
         }
       ]
     },
@@ -44773,7 +44919,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 30918
+          "bytes": 36514
         }
       ]
     },
@@ -44785,7 +44931,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 30708
+          "bytes": 36304
         }
       ]
     },
@@ -44797,7 +44943,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 30908
+          "bytes": 36504
         }
       ]
     },
@@ -44809,7 +44955,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 30698
+          "bytes": 36294
         }
       ]
     },
@@ -44821,7 +44967,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 30902
+          "bytes": 36498
         }
       ]
     },
@@ -44833,7 +44979,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 30686
+          "bytes": 36282
         }
       ]
     },
@@ -44845,7 +44991,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 30885
+          "bytes": 36481
         }
       ]
     },
@@ -44857,7 +45003,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 30675
+          "bytes": 36271
         }
       ]
     },
@@ -44869,7 +45015,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 30874
+          "bytes": 36470
         }
       ]
     },
@@ -44881,7 +45027,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 30664
+          "bytes": 36260
         }
       ]
     },
@@ -44893,7 +45039,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
-          "bytes": 30903
+          "bytes": 36499
         }
       ]
     },
@@ -44905,7 +45051,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
-          "bytes": 30606
+          "bytes": 36202
         }
       ]
     },
@@ -44917,7 +45063,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
-          "bytes": 31436
+          "bytes": 37032
         }
       ]
     },
@@ -44929,7 +45075,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-          "bytes": 31137
+          "bytes": 36733
         }
       ]
     },
@@ -44941,7 +45087,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-          "bytes": 32559
+          "bytes": 38155
         }
       ]
     },
@@ -44953,7 +45099,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-          "bytes": 32258
+          "bytes": 37854
         }
       ]
     },
@@ -44965,7 +45111,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
-          "bytes": 31205
+          "bytes": 36801
         }
       ]
     },
@@ -44977,7 +45123,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-          "bytes": 30906
+          "bytes": 36502
         }
       ]
     },
@@ -44989,7 +45135,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
-          "bytes": 31197
+          "bytes": 36793
         }
       ]
     },
@@ -45001,7 +45147,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
-          "bytes": 30898
+          "bytes": 36494
         }
       ]
     },
@@ -45013,7 +45159,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
-          "bytes": 31627
+          "bytes": 37223
         }
       ]
     },
@@ -45025,7 +45171,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
-          "bytes": 31329
+          "bytes": 36925
         }
       ]
     }

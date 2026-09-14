@@ -186,22 +186,75 @@ const mobileCandidateContracts = [
   return candidate;
 });
 
+/* **메인 표면과 장면은 흐름이다(2026-09-14, 크기 굳힘 감사 묶음 3).** 옛 가드는 page · main 의 측정 rect 를
+   `!== 1920/1080 · 1632/1012 · 402/874 · 402/814` 로 물었고, 렌더러가 그 rect 로 resize 하고 상단 바 · 본문을 측정
+   x/y 에 박았다 — 셸 토큰 한 칸(2026-09-09 링 12 → 8)이나 상단 바 높이(2026-09-14 프로필 36 → 32)가 움직일 때마다
+   가드 숫자와 라이브 캔버스가 함께 낡았다. 이제 계획은 **선언이 정한 값**을 싣는다(형제 생성기
+   build-figma-product-checkout-status 의 `sceneSpec` 과 같은 규칙):
+     · 장면: 셸 패딩(`pt-[var(--app-gnb-safe-top)]` · `pb-[…rail-padding-bottom]` 계산값)과 main 의 좌우 margin
+       (`ml-[var(--app-gnb-sidebar-width)]` · `mr-[var(--app-gnb-main-inline-padding-end)]` 계산값). 사이드바는
+       `position: fixed` 라 흐름 밖이다.
+     · 메인 표면: 패딩, 최소 높이(`min-height: calc(100dvh − …)` 을 이 뷰포트에서 푼 값 — 마스터의 뷰포트 기본 높이),
+       상단 바 bleed(`margin-left: calc(-1 * var(--mainchrome-bleed-left, …))` 계산값), 본문 위 여백
+       (`margin-top: clamp(56px, 10vh, 120px)` · ≤900 `calc(56px)` 계산값).
+   숫자 가드는 없다 — 선언이 있는지와, 측정 rect 가 그 값들로 **닫히는지**(원장 대조)만 본다. */
+const declaredValue = (entry, property, pattern, where) => {
+  const value = entry.declared?.[property];
+  if (typeof value !== "string" || !pattern.test(value)) {
+    fail(`${where} ${entry.path}: declared ${property} ${JSON.stringify(value)} does not match ${pattern}`);
+  }
+  return value;
+};
+const padding = (computed) => ({
+  top: px(computed.paddingTop), right: px(computed.paddingRight),
+  bottom: px(computed.paddingBottom), left: px(computed.paddingLeft),
+});
+const sceneLayout = (contextName, route) => {
+  const where = `${contextName} ${route}`;
+  const tree = fixture.screens[contextName]?.[route]?.tree ?? fail(`missing screen ${where}`);
+  const at = (path) => tree.find((entry) => entry.path === path) ?? fail(`missing node ${where} ${path}`);
+  const page = at("body.1");
+  const shell = at("body.1.0.0");
+  const main = at("body.1.0.0.1");
+  const slot = at("body.1.0.0.1.0");
+  const bar = at("body.1.0.0.1.0.0");
+  const content = at("body.1.0.0.1.1");
+  const shellStyle = style(shell);
+  const mainStyle = style(main);
+  const barStyle = style(bar);
+  const layout = {
+    page: { padding: { top: px(shellStyle.paddingTop), right: px(mainStyle.marginRight), bottom: px(shellStyle.paddingBottom), left: px(mainStyle.marginLeft) } },
+    main: {
+      padding: padding(mainStyle),
+      minHeight: px(mainStyle.minHeight),
+      bleed: { left: -px(barStyle.marginLeft), right: -px(barStyle.marginRight) },
+      barGap: px(style(slot).marginBottom),
+      contentTop: px(style(content).marginTop),
+      declared: {
+        minHeight: declaredValue(main, "min-height", /^calc\(100dvh - /, where),
+        marginLeft: declaredValue(main, "margin-left", /--app-gnb-sidebar-width/, where),
+        barMarginLeft: declaredValue(bar, "margin-left", /--mainchrome-bleed-left/, where),
+        contentMarginTop: declaredValue(content, "margin-top", /^(clamp|calc)\(/, where),
+      },
+    },
+  };
+  const closes =
+    main.rect.x === page.rect.x + layout.page.padding.left &&
+    main.rect.y === page.rect.y + layout.page.padding.top &&
+    main.rect.width === page.rect.width - layout.page.padding.left - layout.page.padding.right &&
+    main.rect.height === layout.main.minHeight &&
+    bar.rect.x === main.rect.x + layout.main.padding.left - layout.main.bleed.left &&
+    content.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap + layout.main.contentTop;
+  if (!closes) fail(`${where}: measured scene rects no longer close over the declared shell values`);
+  return layout;
+};
+
 const representativeRoute = "/mypage/upgrade/billing-change-fail";
 const pageRoot = node(representativeRoute, "body.1");
 const main = node(representativeRoute, "body.1.0.0.1");
-const topBar = node(representativeRoute, "body.1.0.0.1.0.0");
-const content = node(representativeRoute, "body.1.0.0.1.1");
 const pageStyle = style(pageRoot);
 const mainStyle = style(main);
-// **main 이 1628×1004 → 1632×1012 로 움직였다 (제품 094c336b, 2026-09-09).** 앱 셸 링이
-// 12 → 8 로 줄었다 — 가로 +4 는 우측 여백(1920 − 280 − 8), 세로 +8 은
-// `calc(100dvh − align-main-margin-top 48 − rail-below-chrome-gap 12 − rail-padding-bottom 8)`.
-// 형제 생성기 build-figma-product-checkout-status 가 같은 사유로 같은 값을 옮겼다.
-if (
-  pageRoot.rect.width !== 1920 || pageRoot.rect.height !== 1080 ||
-  main.rect.width !== 1632 || main.rect.height !== 1012 ||
-  px(mainStyle.borderTopLeftRadius) !== 16
-) fail("measured payment scene geometry changed; inspect before regenerating Figma");
+const layout = sceneLayout(context, representativeRoute);
 
 const variants = [
   { outcome: "Failure", route: "/mypage/upgrade/billing-change-fail" },
@@ -212,6 +265,7 @@ const variants = [
   const routeTopBar = node(entry.route, "body.1.0.0.1.0.0");
   const routeContent = node(entry.route, "body.1.0.0.1.1");
   if (JSON.stringify(routeMain.rect) !== JSON.stringify(main.rect)) fail(`main rect drift ${entry.route}`);
+  if (JSON.stringify(sceneLayout(context, entry.route)) !== JSON.stringify(layout)) fail(`scene layout drift ${entry.route}`);
   return {
     ...entry,
     mainRect: relRect(routeMain, pageRoot.rect),
@@ -224,11 +278,7 @@ const mobileRoot = fixture.screens["mobile-402x874"][representativeRoute].tree.f
 const mobileMain = fixture.screens["mobile-402x874"][representativeRoute].tree.find((entry) => entry.path === "body.1.0.0.1") ??
   fail("missing mobile payment main");
 const mobileMainStyle = style(mobileMain);
-// 모바일도 같은 회차다 — 810 → 814. ≤719 에서 `--app-gnb-rail-padding-bottom` 이 0 이라
-// 세로에서 움직인 항이 하나(48 + 12)뿐이다: 874 − 48 − 12 = 814. 가로는 그대로 402.
-if (mobileRoot.rect.width !== 402 || mobileRoot.rect.height !== 874 || mobileMain.rect.width !== 402 || mobileMain.rect.height !== 814) {
-  fail("measured mobile payment scene geometry changed; inspect before regenerating Figma");
-}
+const mobileLayout = sceneLayout("mobile-402x874", representativeRoute);
 const mobileVariants = [
   { outcome: "Failure", route: "/mypage/upgrade/billing-change-fail" },
   { outcome: "PlanDelayed", route: "/mypage/upgrade/billing-change-success" },
@@ -239,6 +289,7 @@ const mobileVariants = [
   const routeTopBar = mobileScreen.tree.find((node) => node.path === "body.1.0.0.1.0.0") ?? fail(`missing mobile top bar ${entry.route}`);
   const routeContent = mobileScreen.tree.find((node) => node.path === "body.1.0.0.1.1") ?? fail(`missing mobile content ${entry.route}`);
   if (JSON.stringify(routeMain.rect) !== JSON.stringify(mobileMain.rect)) fail(`mobile main rect drift ${entry.route}`);
+  if (JSON.stringify(sceneLayout("mobile-402x874", entry.route)) !== JSON.stringify(mobileLayout)) fail(`mobile scene layout drift ${entry.route}`);
   return {
     ...entry,
     mainRect: relRect(routeMain, mobileRoot.rect),
@@ -246,6 +297,29 @@ const mobileVariants = [
     contentRect: relRect(routeContent, routeMain.rect),
   };
 });
+
+// 본문 인스턴스의 폭 축은 결제 결과 세트의 계획이 소유한다(`width.mode` — 데스크톱 선언 상한 FIXED · 모바일 FILL).
+const componentsPlan = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-components.plan.json"), "utf8"));
+if (componentsPlan.productCommit !== fixture.productCommit) fail("figma/product-components.plan.json is not at this fixture anchor — run build-figma-product-components first");
+const resultWidthMode = (outcome, viewport) =>
+  componentsPlan.component.paymentResult.variants.find((entry) => entry.outcome === outcome && entry.viewport === viewport)?.width.mode ??
+  fail(`components plan has no payment result ${outcome}/${viewport}`);
+for (const entry of variants) entry.contentWidth = resultWidthMode(entry.outcome, "Desktop");
+for (const entry of mobileVariants) entry.contentWidth = resultWidthMode(entry.outcome, "Mobile");
+const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
+const liveFloat = (collection, name) => {
+  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
+  if (!row || row[1] !== "FLOAT") return null;
+  const [[, alias, raw]] = row[3];
+  return alias ? null : raw;
+};
+for (const radius of [px(mainStyle.borderTopLeftRadius), px(mobileMainStyle.borderTopLeftRadius)]) {
+  if (radius !== liveFloat("Klipse Primitive", "radius/16")) fail(`measured payment main radius ${radius} is not Klipse Primitive/radius/16`);
+}
+const spacingBindings = Object.fromEntries([...new Set([layout, mobileLayout].flatMap(({ main: L }) => [
+  L.padding.left - L.bleed.left, L.padding.right - L.bleed.right, L.padding.bottom, L.bleed.left, L.bleed.right, L.barGap,
+]))].filter((value) => value > 0).sort((a, b) => a - b).flatMap((value) =>
+  liveFloat("Klipse Primitive", `spacing/${value}`) === value ? [[`spacing${value}`, { collection: "Klipse Primitive", name: `spacing/${value}` }]] : []));
 
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
@@ -277,11 +351,9 @@ const plan = {
       rect: { width: main.rect.width, height: main.rect.height },
       background: color(mainStyle.backgroundColor),
       radius: px(mainStyle.borderTopLeftRadius),
-      padding: {
-        top: px(mainStyle.paddingTop), right: px(mainStyle.paddingRight),
-        bottom: px(mainStyle.paddingBottom), left: px(mainStyle.paddingLeft),
-      },
+      padding: padding(mainStyle),
     },
+    layout,
     variants,
     mobile: {
       mainSetName: "Product/Mobile Payment Result Main Surface",
@@ -295,11 +367,9 @@ const plan = {
         rect: { width: mobileMain.rect.width, height: mobileMain.rect.height },
         background: color(mobileMainStyle.backgroundColor),
         radius: px(mobileMainStyle.borderTopLeftRadius),
-        padding: {
-          top: px(mobileMainStyle.paddingTop), right: px(mobileMainStyle.paddingRight),
-          bottom: px(mobileMainStyle.paddingBottom), left: px(mobileMainStyle.paddingLeft),
-        },
+        padding: padding(mobileMainStyle),
       },
+      layout: mobileLayout,
       variants: mobileVariants,
     },
     bindings: {
@@ -312,6 +382,7 @@ const plan = {
       current: { collection: "2 · Semantic", name: "gray/000 · a78" },
       parent: { collection: "2 · Semantic", name: "gray/000 · a52" },
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
+      ...spacingBindings,
     },
   },
 };
@@ -319,6 +390,9 @@ const summary = ({ id, nodeCount, routeCount, occurrenceCount, score }) => ({ id
 const runnerPlan = structuredClone(plan);
 runnerPlan.sourceCandidates = plan.sourceCandidates.map(summary);
 runnerPlan.component.mobile.sourceCandidates = plan.component.mobile.sourceCandidates.map(summary);
+// 선언 문자열은 계획(감사본)에만 남긴다 — 러너는 값만 읽는다.
+delete runnerPlan.component.layout.main.declared;
+delete runnerPlan.component.mobile.layout.main.declared;
 const draw =
   "// Generated by scripts/build-figma-product-payment-scenes.mjs. Do not edit by hand.\n" +
   "// Pass this file verbatim to use_figma. It composes only measured existing product components.\n" +

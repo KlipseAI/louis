@@ -176,6 +176,37 @@
         "left": 24
       }
     },
+    "layout": {
+      "page": {
+        "padding": {
+          "top": 8,
+          "right": 8,
+          "bottom": 8,
+          "left": 280
+        }
+      },
+      "main": {
+        "padding": {
+          "top": 0,
+          "right": 24,
+          "bottom": 56,
+          "left": 24
+        },
+        "minHeight": 1012,
+        "bleed": {
+          "left": 24,
+          "right": 24
+        },
+        "barGap": 0,
+        "contentTop": 108,
+        "declared": {
+          "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+          "marginLeft": "var(--app-gnb-sidebar-width)",
+          "barMarginLeft": "calc( -1 * var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) )",
+          "contentMarginTop": "clamp(56px, 10vh, 120px)"
+        }
+      }
+    },
     "variants": [
       {
         "outcome": "Failure",
@@ -197,7 +228,8 @@
           "y": 157,
           "width": 520,
           "height": 229.5938
-        }
+        },
+        "contentWidth": "FIXED"
       },
       {
         "outcome": "PlanDelayed",
@@ -219,7 +251,8 @@
           "y": 157,
           "width": 520,
           "height": 209.1875
-        }
+        },
+        "contentWidth": "FIXED"
       },
       {
         "outcome": "TopupDelayed",
@@ -241,7 +274,8 @@
           "y": 157,
           "width": 520,
           "height": 209.1875
-        }
+        },
+        "contentWidth": "FIXED"
       }
     ],
     "mobile": {
@@ -404,6 +438,37 @@
           "left": 6
         }
       },
+      "layout": {
+        "page": {
+          "padding": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        },
+        "main": {
+          "padding": {
+            "top": 0,
+            "right": 6,
+            "bottom": 40,
+            "left": 6
+          },
+          "minHeight": 814,
+          "bleed": {
+            "left": 0,
+            "right": 0
+          },
+          "barGap": 0,
+          "contentTop": 56,
+          "declared": {
+            "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+            "marginLeft": "var(--app-gnb-sidebar-width)",
+            "barMarginLeft": "calc( -1 * var(--mainchrome-bleed-left, var(--app-gnb-main-inline-padding)) )",
+            "contentMarginTop": "calc(56px)"
+          }
+        }
+      },
       "variants": [
         {
           "outcome": "Failure",
@@ -425,7 +490,8 @@
             "y": 105,
             "width": 390,
             "height": 312.1875
-          }
+          },
+          "contentWidth": "FILL"
         },
         {
           "outcome": "PlanDelayed",
@@ -447,7 +513,8 @@
             "y": 105,
             "width": 390,
             "height": 275.7813
-          }
+          },
+          "contentWidth": "FILL"
         },
         {
           "outcome": "TopupDelayed",
@@ -469,7 +536,8 @@
             "y": 105,
             "width": 390,
             "height": 254.7813
-          }
+          },
+          "contentWidth": "FILL"
         }
       ]
     },
@@ -497,6 +565,22 @@
       "radius16": {
         "collection": "Klipse Primitive",
         "name": "radius/16"
+      },
+      "spacing6": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/6"
+      },
+      "spacing24": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/24"
+      },
+      "spacing40": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/40"
+      },
+      "spacing56": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/56"
       }
     }
   }

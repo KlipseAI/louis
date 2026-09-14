@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { INSTANCE_TEXT_LIB, topBarTextProperties } from "./lib/figma-top-bar-text.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -230,6 +231,8 @@ const sceneLayout = (contextName, route) => {
     main.rect.width === page.rect.width - layout.page.padding.left - layout.page.padding.right &&
     main.rect.height === layout.main.minHeight &&
     bar.rect.x === main.rect.x + layout.main.padding.left - layout.main.bleed.left &&
+    // 바 폭은 선언(`width: calc(100% + bleed…)`)이 정한다 — 메인 패딩에서 bleed 를 뺀 안쪽을 채운다. 렌더러의 FILL 이 이것이다.
+    bar.rect.width === main.rect.width - (layout.main.padding.left - layout.main.bleed.left) - (layout.main.padding.right - layout.main.bleed.right) &&
     content.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap + layout.main.contentTop;
   if (!closes) fail(`${where}: measured scene rects no longer close over the declared shell values`);
   return layout;
@@ -241,6 +244,19 @@ const main = node(representativeRoute, "body.1.0.0.1");
 const pageStyle = style(pageRoot);
 const mainStyle = style(main);
 const layout = sceneLayout(context, representativeRoute);
+
+const dependencies = {
+  gnbSet: "Product/Gnb Desktop Shell",
+  gnbVariant: "Current=Default",
+  topBarSet: "Product/Desktop App Top Bar",
+  topBarVariant: "Content=MyPage, Breadcrumb=Single, Back=False, Divider=On",
+  mobileTopBarSet: "Product/Mobile App Top Bar",
+  mobileTopBarVariant: "Width=Inset, Breadcrumb=Single, Back=False, Divider=On",
+  resultSet: "Product/Payment Result Content",
+};
+// 상단 바 인스턴스의 TEXT 속성은 그 route 의 측정 바 글자로 채운다(`scripts/lib/figma-top-bar-text.mjs`).
+const appShellPlan = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-app-shell.plan.json"), "utf8"));
+if (appShellPlan.productCommit !== fixture.productCommit) fail("figma/product-app-shell.plan.json is not at this fixture anchor — run build-figma-product-app-shell first");
 
 const variants = [
   { outcome: "Failure", route: "/mypage/upgrade/billing-change-fail" },
@@ -257,6 +273,7 @@ const variants = [
     mainRect: relRect(routeMain, pageRoot.rect),
     topBarRect: relRect(routeTopBar, routeMain.rect),
     contentRect: relRect(routeContent, routeMain.rect),
+    topBarText: topBarTextProperties({ tree: screen(entry.route).tree, bar: routeTopBar, appShellPlan, set: dependencies.topBarSet, variant: dependencies.topBarVariant, fail, where: `${context} ${entry.route}` }),
   };
 });
 const mobileRoot = fixture.screens["mobile-402x874"][representativeRoute].tree.find((entry) => entry.path === "body.1") ??
@@ -281,6 +298,7 @@ const mobileVariants = [
     mainRect: relRect(routeMain, mobileRoot.rect),
     topBarRect: relRect(routeTopBar, routeMain.rect),
     contentRect: relRect(routeContent, routeMain.rect),
+    topBarText: topBarTextProperties({ tree: mobileScreen.tree, bar: routeTopBar, appShellPlan, set: dependencies.mobileTopBarSet, variant: dependencies.mobileTopBarVariant, fail, where: `mobile-402x874 ${entry.route}` }),
   };
 });
 
@@ -361,15 +379,7 @@ const plan = {
     sectionName: "M · product/Desktop payment result scenes · measured composition",
     mainSetName: "Product/Desktop Payment Result Main Surface",
     sceneSetName: "Product/Desktop Payment Result Scene",
-    dependencies: {
-      gnbSet: "Product/Gnb Desktop Shell",
-      gnbVariant: "Current=Default",
-      topBarSet: "Product/Desktop App Top Bar",
-      topBarVariant: "Content=MyPage, Breadcrumb=Single, Back=False, Divider=On",
-      mobileTopBarSet: "Product/Mobile App Top Bar",
-      mobileTopBarVariant: "Width=Inset, Breadcrumb=Single, Back=False, Divider=On",
-      resultSet: "Product/Payment Result Content",
-    },
+    dependencies,
     page: {
       rect: { width: pageRoot.rect.width, height: pageRoot.rect.height },
       background: color(pageStyle.backgroundColor),
@@ -433,6 +443,7 @@ const draw =
   "// Pass this file verbatim to use_figma. It composes only measured existing product components.\n" +
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
   readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
+  readFileSync(resolve(repoRoot, INSTANCE_TEXT_LIB), "utf8") +
   readFileSync(templatePath, "utf8");
 const expected = [
   { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` },

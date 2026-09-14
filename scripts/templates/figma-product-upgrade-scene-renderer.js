@@ -391,6 +391,7 @@ mobileCardSet.description = `${M.cards.length} viewport-observed mobile Upgrade 
 // 넘치는 것은 자른다. 좌우 패딩은 스크롤 칸 패딩에서 상단 바 bleed 를 뺀 값이라 바는 FILL 로 끝까지 닿고, `body` 가 bleed 만큼
 // 되돌려 컨테이너(`max-width: min(1300px, 100%)`, `margin-inline: auto`)를 가운데 둔다. 컨테이너 안은 헤더(`max-width: 820px`,
 // 알림 알약 · 제목 · 본문 · 선물 구매 줄의 칠 없는 자리) → 덱(`repeat(N, minmax(0px, 1fr))`, 가장 긴 카드 하나만 HUG · 나머지 FILL) → 비교 제목이다.
+const topBarTextChanges = [];
 const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain, cardNameOf, cardPrefix }) => {
   const L = S.main.layout;
   flow(component, "VERTICAL", { padding: L.main.padding, gap: L.main.barGap });
@@ -411,6 +412,8 @@ const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain,
   insertAt(component, topBar, 0);
   topBar.layoutSizingHorizontal = "FILL";
   if (topBar.layoutMode !== "NONE") topBar.layoutSizingVertical = "HUG";
+  // 바 글자는 이 route 의 측정 breadcrumb 이다(계획 `main.topBarText`). 이미 같으면 건드리지 않고, 바꾼 속성만 돌려준다.
+  topBarTextChanges.push({ component: component.name, instanceId: topBar.id, changed: setTextProperties(topBar, S.main.topBarText, `${component.name} ${topBarName}`) });
   const body = insertAt(component, component.findOne((entry) => entry.type === "FRAME" && entry.name === "body") ?? newFrame("body"), 1);
   plain(body);
   flow(body, "VERTICAL", { padding: { left: L.main.bleed.left, right: L.main.bleed.right }, counter: "CENTER" });
@@ -647,6 +650,7 @@ return {
   mobileSceneComponentId: mobileSceneComponent.id,
   preservedVariantIds: preservedCards.map((entry) => entry.id),
   colourMode,
+  topBarTextChanges,
   ...paintAudit,
   mutatedNodeIds,
 };

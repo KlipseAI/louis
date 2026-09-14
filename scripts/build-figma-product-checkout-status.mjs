@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { INSTANCE_TEXT_LIB, topBarTextProperties } from "./lib/figma-top-bar-text.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -84,6 +85,17 @@ const contexts = [
   { context: "desktop-1920x1080", viewport: "Desktop" },
   { context: "mobile-402x874", viewport: "Mobile" },
 ];
+const dependencies = {
+  gnbSet: "Product/Gnb Desktop Shell",
+  gnbVariant: "Current=Upgrade",
+  desktopTopBarSet: "Product/Desktop App Top Bar",
+  desktopTopBarVariant: "Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On",
+  mobileTopBarSet: "Product/Mobile App Top Bar",
+  mobileTopBarVariant: "Width=Inset, Breadcrumb=Trail, Back=False, Divider=On",
+};
+// 상단 바 인스턴스의 TEXT 속성은 그 route 의 측정 바 글자로 채운다(`scripts/lib/figma-top-bar-text.mjs`).
+const appShellPlan = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-app-shell.plan.json"), "utf8"));
+if (appShellPlan.productCommit !== fixture.productCommit) fail("figma/product-app-shell.plan.json is not at this fixture anchor — run build-figma-product-app-shell first");
 
 const contentSpec = ({ context, viewport }, { outcome, route, kind }) => {
   const where = `${context} ${route}`;
@@ -229,6 +241,8 @@ const sceneSpec = ({ context, viewport }, { outcome, route }) => {
     main.rect.width === page.rect.width - layout.page.padding.left - layout.page.padding.right &&
     main.rect.height === layout.main.minHeight &&
     topBar.rect.x === main.rect.x + layout.main.padding.left - layout.main.bleed.left &&
+    // 바 폭은 선언(`width: calc(100% + bleed…)`)이 정한다 — 메인 패딩에서 bleed 를 뺀 안쪽을 채운다. 렌더러의 FILL 이 이것이다.
+    topBar.rect.width === main.rect.width - (layout.main.padding.left - layout.main.bleed.left) - (layout.main.padding.right - layout.main.bleed.right) &&
     content.rect.y === topBar.rect.y + topBar.rect.height + layout.main.barGap + layout.main.contentTop;
   if (!closes) fail(`${where}: measured scene rects no longer close over the declared shell values`);
   return {
@@ -243,6 +257,11 @@ const sceneSpec = ({ context, viewport }, { outcome, route }) => {
     },
     layout,
     topBar: relRect(topBar, main.rect),
+    topBarText: topBarTextProperties({
+      tree: fixture.screens[context][route].tree, bar: topBar, appShellPlan, fail, where,
+      set: dependencies[viewport === "Desktop" ? "desktopTopBarSet" : "mobileTopBarSet"],
+      variant: dependencies[viewport === "Desktop" ? "desktopTopBarVariant" : "mobileTopBarVariant"],
+    }),
     content: relRect(content, main.rect),
   };
 };
@@ -387,14 +406,7 @@ const plan = {
     desktopSceneSetName: "Product/Desktop Checkout Status Scene",
     mobileMainSetName: "Product/Mobile Checkout Status Main Surface",
     mobileSceneSetName: "Product/Mobile Checkout Status Scene",
-    dependencies: {
-      gnbSet: "Product/Gnb Desktop Shell",
-      gnbVariant: "Current=Upgrade",
-      desktopTopBarSet: "Product/Desktop App Top Bar",
-      desktopTopBarVariant: "Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On",
-      mobileTopBarSet: "Product/Mobile App Top Bar",
-      mobileTopBarVariant: "Width=Inset, Breadcrumb=Trail, Back=False, Divider=On",
-    },
+    dependencies,
     variants,
     scenes: sceneVariants,
     $bindingPolicy: BINDING_POLICY,
@@ -447,7 +459,8 @@ for (const scene of runnerPlan.component.scenes) {
     if (variant.alert) { delete variant.alert.fill; delete variant.alert.stroke; }
   }
 }
-const readableDraw = `const PLAN=${JSON.stringify(runnerPlan)};\n` + readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") + readFileSync(templatePath, "utf8");
+const readableDraw = `const PLAN=${JSON.stringify(runnerPlan)};\n` + readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
+  readFileSync(resolve(repoRoot, INSTANCE_TEXT_LIB), "utf8") + readFileSync(templatePath, "utf8");
 const wrapperPrefix = "async function __figmaRunner__(){";
 const wrappedDraw = transformSync(`${wrapperPrefix}${readableDraw}}`, { minify: true, target: "es2022" }).code.trim();
 if (!wrappedDraw.startsWith(wrapperPrefix) || !wrappedDraw.endsWith("}")) fail("unexpected esbuild wrapper output");

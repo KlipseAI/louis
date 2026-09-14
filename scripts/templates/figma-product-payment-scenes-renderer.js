@@ -178,6 +178,7 @@ const ensureSet = (setName, specs, build, reconcile) => {
 // (`min-height: calc(100dvh − …)` 를 이 뷰포트에서 푼 값 — 마스터의 뷰포트 기본 높이). 좌우 패딩은 main 패딩에서 상단 바
 // bleed 를 뺀 값이라 상단 바는 FILL 로 카드 끝까지 닿고, 본문 칸(`body`)이 bleed 만큼 되돌려 가운데 정렬(`self-center`)한다.
 // 본문 칸의 위 패딩은 본문 `margin-top`(`clamp(56px, 10vh, 120px)` 을 이 뷰포트에서 푼 값)이다.
+const topBarTextChanges = [];
 const reconcileMain = (component, spec, S, topBarMaster, topBarName, resultMaster) => {
   const L = S.layout.main;
   autoLayout(component, "VERTICAL");
@@ -198,6 +199,9 @@ const reconcileMain = (component, spec, S, topBarMaster, topBarName, resultMaste
   const topBar = placeInstance(component, component, topBarName, topBarMaster, 0);
   topBar.layoutSizingHorizontal = "FILL";
   if (topBar.layoutMode !== "NONE") topBar.layoutSizingVertical = "HUG";
+  // 바 글자는 그 route 의 측정 breadcrumb 이다(계획 `topBarText`). 이미 같으면 건드리지 않고, 바꾼 속성만 돌려준다.
+  const changed = setTextProperties(topBar, spec.topBarText, `${component.parent?.name ?? "main"}/${component.name} ${topBarName}`);
+  topBarTextChanges.push({ component: `${S === C ? "desktop" : "mobile"} Outcome=${spec.outcome}`, instanceId: topBar.id, changed });
   const body = placeFrame(component, component, "body", 1);
   autoLayout(body, "VERTICAL");
   body.counterAxisAlignItems = "CENTER";
@@ -304,5 +308,6 @@ return {
   mobileSceneComponentSetId: mobileSceneSet.id,
   mobileSceneVariantIds: mobileSceneSet.children.map((entry) => entry.id),
   colourMode,
+  topBarTextChanges,
   ...paintAudit,
 };

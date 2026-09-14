@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { INSTANCE_TEXT_LIB, topBarTextProperties } from "./lib/figma-top-bar-text.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -371,6 +372,8 @@ const upgradeLayout = (tree, where) => {
     section.rect.width === page.rect.width - layout.page.padding.left - layout.page.padding.right &&
     section.rect.height === page.rect.height - layout.page.padding.top - layout.page.padding.bottom &&
     bar.rect.x === section.rect.x + scrollPadding.left - bleed.left &&
+    // 바 폭은 선언(`width: calc(100% + bleed…)`)이 정한다 — 스크롤 칸 패딩에서 bleed 를 뺀 안쪽을 채운다. 렌더러의 FILL 이 이것이다.
+    bar.rect.width === section.rect.width - layout.main.padding.left - layout.main.padding.right &&
     container.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap &&
     header.rect.y === container.rect.y + layout.container.paddingTop &&
     notice.rect.height === layout.header.notice.height &&
@@ -467,6 +470,12 @@ const mobileTopBar = mobile.rects.bar;
 const mobileCardGrid = mobile.rects.deck;
 const mobileMainStyle = style(mobileMain);
 const topBar = desktop.rects.bar;
+const topBarVariants = {
+  desktop: { set: "Product/Desktop App Top Bar", variant: "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On" },
+  mobile: { set: "Product/Mobile App Top Bar", variant: "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On" },
+};
+// 상단 바 인스턴스의 TEXT 속성은 이 route 의 측정 바 글자로 채운다(`scripts/lib/figma-top-bar-text.mjs`).
+const topBarText = {};
 // **상단 바 높이는 여기서 숫자로 받지 않는다(2026-09-14).** 예전 가드는 `height !== 53` · `content.y !== 53` 을
 // 물었는데, 제품 바는 높이를 선언하지 않는다(패딩 + 가장 큰 자식 + 헤어라인) — `6f6282c1` 이 프로필을 36 → 32
 // 로 줄이자 49 가 됐다. 바 기하의 판정은 앱 셸 계획이 소유한다(`build-figma-product-app-shell` 이 같은 route ·
@@ -478,11 +487,12 @@ const topBar = desktop.rects.bar;
   const barOf = (set, name) => set.variants.find((entry) => entry.route === route && entry.name === name)
     ?? fail(`app-shell plan has no ${name} measured on ${route}`);
   const pairs = [
-    [topBar, barOf(appShell.component.desktopTopBar, "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On"), "desktop"],
-    [mobileTopBar, barOf(appShell.component, "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"), "mobile"],
+    [topBar, barOf(appShell.component.desktopTopBar, topBarVariants.desktop.variant), "desktop", screen.tree],
+    [mobileTopBar, barOf(appShell.component, topBarVariants.mobile.variant), "mobile", mobileScreen.tree],
   ];
-  for (const [bar, planned, where] of pairs) {
+  for (const [bar, planned, where, tree] of pairs) {
     if (bar.rect.width !== planned.rect.width || bar.rect.height !== planned.rect.height) fail(`${where} upgrade top bar is not the app-shell plan bar`);
+    topBarText[where] = topBarTextProperties({ tree, bar, appShellPlan: appShell, ...topBarVariants[where], fail, where: `${where} ${route}` });
   }
 }
 
@@ -608,10 +618,10 @@ const plan = {
     dependencies: {
       gnbSet: "Product/Gnb Desktop Shell",
       gnbVariant: "Current=Upgrade",
-      topBarSet: "Product/Desktop App Top Bar",
-      topBarVariant: "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On",
-      mobileTopBarSet: "Product/Mobile App Top Bar",
-      mobileTopBarVariant: "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On",
+      topBarSet: topBarVariants.desktop.set,
+      topBarVariant: topBarVariants.desktop.variant,
+      mobileTopBarSet: topBarVariants.mobile.set,
+      mobileTopBarVariant: topBarVariants.mobile.variant,
       checkIcon: "icon/CheckCircle",
     },
     page: { rect: { width: pageRoot.rect.width, height: pageRoot.rect.height }, background: color(style(pageRoot).backgroundColor) },
@@ -622,6 +632,7 @@ const plan = {
       radius: px(mainStyle.borderTopLeftRadius),
       effects: shadows(mainStyle.boxShadow),
       layout: desktop.layout,
+      topBarText: topBarText.desktop,
       ...desktop.texts,
     },
     cardGrid: relRect(cardGrid, main.rect),
@@ -634,6 +645,7 @@ const plan = {
         radius: px(mobileMainStyle.borderTopLeftRadius),
         effects: shadows(mobileMainStyle.boxShadow),
         layout: mobile.layout,
+        topBarText: topBarText.mobile,
         ...mobile.texts,
       },
       cardGrid: relRect(mobileCardGrid, mobileMain.rect),
@@ -828,6 +840,7 @@ const readableDraw =
   "// Annotation-only `$` keys live in figma/product-upgrade-scene.plan.json; the runner payload carries only what it reads.\n" +
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
   readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
+  readFileSync(resolve(repoRoot, INSTANCE_TEXT_LIB), "utf8") +
   readFileSync(templatePath, "utf8");
 const wrappedDraw = transformSync(`async function __figmaRunner__(){${readableDraw}}`, {
   minify: true,

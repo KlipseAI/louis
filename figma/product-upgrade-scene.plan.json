@@ -263,6 +263,11 @@
           "paddingTop": 64
         }
       },
+      "topBarText": {
+        "Label": null,
+        "Parent": "Subscription",
+        "Current": "Change plan"
+      },
       "headerNotice": {
         "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
         "rect": {
@@ -3317,6 +3322,11 @@
             "declared": "repeat(2, minmax(0px, 1fr))"
           },
           "compare": null
+        },
+        "topBarText": {
+          "Label": null,
+          "Parent": "Subscription",
+          "Current": "Change plan"
         },
         "headerNotice": {
           "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",

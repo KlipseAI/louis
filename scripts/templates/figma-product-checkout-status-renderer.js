@@ -341,6 +341,7 @@ const buildMain = (spec) => {
   component.name = mainName(spec);
   return component;
 };
+const topBarTextChanges = [];
 const reconcileMain = (component, spec) => {
   const L = spec.layout.main;
   autoLayout(component, "VERTICAL");
@@ -358,6 +359,9 @@ const reconcileMain = (component, spec) => {
   const topBar = placeInstance(component, component, `top-bar/${spec.viewport}`, spec.viewport === "Desktop" ? desktopTopBarMaster : mobileTopBarMaster, 0);
   topBar.layoutSizingHorizontal = "FILL";
   if (topBar.layoutMode !== "NONE") topBar.layoutSizingVertical = "HUG";
+  // 바 글자는 그 route 의 측정 breadcrumb 이다(계획 `topBarText`). 이미 같으면 건드리지 않고, 바꾼 속성만 돌려준다.
+  const changed = setTextProperties(topBar, spec.topBarText, `${spec.viewport} Outcome=${spec.outcome} top-bar`);
+  topBarTextChanges.push({ component: `${spec.viewport} Outcome=${spec.outcome}`, instanceId: topBar.id, changed });
   const body = place(component, component, "FRAME", "body", 1);
   autoLayout(body, "VERTICAL");
   body.counterAxisAlignItems = "CENTER";
@@ -473,5 +477,6 @@ return {
   mobileMainComponentSetId: mobileMainSet.id,
   mobileSceneComponentSetId: mobileSceneSet.id,
   colourMode,
+  topBarTextChanges,
   ...paintAudit,
 };

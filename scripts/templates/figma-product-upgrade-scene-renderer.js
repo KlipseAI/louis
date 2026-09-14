@@ -635,8 +635,15 @@ const paintAudit = audit([cardSet, mainComponent, sceneComponent, mobileCardSet,
     return null;
   },
 });
+// **반환은 수와 요약만 싣는다(2026-09-15).** 예전에는 여덟 뿌리의 서브트리 id 전부(`mutatedNodeIds`)를 실어 라이브 적용 응답이
+// `use_figma` 의 20KB 에서 잘렸다(2026-09-14 적용 — 앞 필드는 온전했지만 뒤의 감사 필드가 잘릴 수 있는 자리였다). 필요한 id 는
+// 뿌리 · 세트 · variant · 보존 variant 가 이미 이름으로 싣고, 서브트리는 뿌리마다 노드 수만 돌려준다.
 const auditedRoots = [section, docs, cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent];
-const mutatedNodeIds = [...new Set(auditedRoots.flatMap((root) => [root, ...root.findAll(() => true)].map((entry) => entry.id)))];
+const subtreeIds = new Set(auditedRoots.flatMap((root) => [root, ...root.findAll(() => true)].map((entry) => entry.id)));
+const mutatedNodes = {
+  total: subtreeIds.size,
+  byRoot: auditedRoots.map((root) => ({ id: root.id, name: root.name, nodes: 1 + root.findAll(() => true).length })),
+};
 return {
   sectionId: section.id,
   docFrameId: docs.id,
@@ -652,5 +659,5 @@ return {
   colourMode,
   topBarTextChanges,
   ...paintAudit,
-  mutatedNodeIds,
+  mutatedNodes,
 };

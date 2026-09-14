@@ -11,8 +11,10 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
 
 **제품에 공용 구현이 부분만 있다.** `UserCircleDefaultAvatar.tsx`가 기본 아바타 SVG 하나를
 소유하고(28×28 · `currentColor` · `aria-hidden`), 아바타 본체 — 이미지/폴백 분기와 크기 — 는
-셸 파일(`Gnb.tsx`)에 인라인이다. 크기 24·28은 제품의 `--profile-avatar-size` 두 값을 그대로
-옮겼다. 판정은 [`product.measured.json`](../../migration/product.measured.json)이 갖는다.
+셸 파일(`Gnb.tsx`)에 인라인이다. 크기 24·28은 제품의 `--profile-avatar-size`가 두 값이던 때(기본 28 ·
+ProjectHeader 슬롯 24) 그대로 옮겼다. **제품 앵커 `6f6282c1`(2026-09-14)부터 그 변수는 한 값이다** —
+`profileTrigger` 한 곳이 24px로 갖고(`Gnb.tsx:1470`) 슬롯의 덮어쓰기는 걷혔다. 그래서 프로필 트리거에
+맞는 칸은 `sm`이다(아래 Known deviations). 판정은 [`product.measured.json`](../../migration/product.measured.json)이 갖는다.
 
 ## Availability
 
@@ -123,6 +125,11 @@ summary: 사람을 나타내는 작은 원형 표식입니다.
   새어 들어온다. **링은 이미 별개 컴포넌트로 섰다** — `Progress` 의 `ProgressRing` 이고 접근성
   계약은 [DS-D-0022](../governance/decisions/DS-D-0022-determinate-progress-a11y.md)가 소유한다.
   Avatar 는 링을 감싸지 않는다.
+- **기본 `md`(28)가 제품 프로필 트리거와 다르다.** 제품 앵커 `6f6282c1`이 모든 페이지의 프로필
+  버튼을 캔버스 에디터 헤더와 같은 크기로 맞추면서 아바타가 24 한 값이 됐다(`Gnb.tsx:1470`, 그 전 기본
+  28). `--profile-avatar-size`에서 옮겨 온 두 칸 중 지금 프로필 트리거에 남은 것은 `sm`뿐이다. 기본을
+  `sm`으로 옮기면 크기를 적지 않은 모든 소비처가 줄어드는 breaking이라 앵커 이동에서 하지 않는다 —
+  프로필 트리거를 그릴 때는 `size="sm"`을 주고 [Progress](progress.md)의 `ProgressRing`으로 감싼다(32px).
 - **폴백 글리프가 제품과 같은 그림이 아니다.** 제품 SVG를 그대로 옮기지 않고 같은 뜻의 글리프를
   저장소에서 그렸다 — 아이콘 세트의 `origin: original`과 같은 판단이다.
 - **이니셜 폴백이 없다.** 제품에 0벌이라 이번 범위가 아니다.

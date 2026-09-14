@@ -122,7 +122,13 @@ test("면과 채움 색이 states 표와 같다", async () => {
     <div data-louis-fixture>
       <ProgressBar aria-label="업로드" value={50} />
       <ProgressRing aria-label="사용량" value={50}>
-        <span style={{ inlineSize: "28px", blockSize: "28px", display: "block" }} />
+        <span
+          style={{
+            inlineSize: `${ringSpec.contentSize}px`,
+            blockSize: `${ringSpec.contentSize}px`,
+            display: "block",
+          }}
+        />
       </ProgressRing>
     </div>,
   );
@@ -150,14 +156,21 @@ test("링은 지름을 내용에서 얻는다 — 소비처가 크기를 두 번
       <ProgressRing aria-label="사용량" value={30}>
         <span
           data-avatar
-          style={{ inlineSize: "28px", blockSize: "28px", display: "block" }}
+          style={{
+            inlineSize: `${ringSpec.contentSize}px`,
+            blockSize: `${ringSpec.contentSize}px`,
+            display: "block",
+          }}
         />
       </ProgressRing>
     </div>,
   );
   const ring = scope().querySelector<HTMLElement>(".louis-progress-ring")!;
-  // 제품 식: avatar + (gap + width) × 2 = 28 + (2 + 2) × 2 = 36
+  // 제품 식: avatar + (gap + width) × 2 = 24 + (2 + 2) × 2 = 32 (제품 앵커 6f6282c1).
+  // 내용 크기를 리터럴로 적지 않는다 — 기록의 contentSize 가 움직이면 여기도 따라와야
+  // 「내용에서 지름이 나온다」를 재는 것이지 옛 숫자 둘을 재는 것이 아니게 된다.
   expect(Math.round(ring.getBoundingClientRect().width)).toBe(ringSpec.size);
+  expect(ringSpec.size).toBe(ringSpec.contentSize + ringSpec["gap-plus-width"] * 2);
   expect(ring.getAttribute("role")).toBe("progressbar");
   expect(ring.getAttribute("aria-valuenow")).toBe("30");
 });

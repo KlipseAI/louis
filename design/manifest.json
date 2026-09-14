@@ -1764,7 +1764,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 두 값을 그대로 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(avatar · avatar.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 9건이 두 motion context에서 각각 돈다. 제품에 공용 구현이 **부분만** 있다 — 기본 아바타 SVG 하나만 분리돼 있고 본체는 셸 파일에 인라인이다. 크기 28/24는 제품의 --profile-avatar-size 가 두 값이던 때 옮겼고 control 계단을 따르지 않는다(아바타는 컨트롤이 아니라 표식이다). 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 24 한 값이라 프로필 트리거에 맞는 칸은 sm 이다. **진행률 링을 소유하지 않는다** — 흡수하면 인계서 (1c)의 미결 판정이 API로 새어 들어온다. 테스트가 테두리·그림자·::after 층이 0인지 확인한다. Figma component set 2 variant(Size)가 섰고 parity 게이트가 Fallback을 자손으로 대조한다 — raw fill 0. **계약이 stroke·effect 0을 요구하므로 링이 새어 들어오면 게이트가 잡는다.** publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(avatar · avatar.browser.test.tsx).",
       "doc": "design/components/avatar.md",
       "figmaName": "Avatar"
     },
@@ -2026,10 +2026,10 @@
       "id": "progress",
       "name": "Progress",
       "maturity": "experimental",
-      "figma": "done",
+      "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role=\"progressbar\"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(progress-bar/progress-ring · progress.browser.test.tsx).",
+      "note": "determinate 진행률. **제품에 정본이 없어 접근성 계약부터 DS가 정했다**(DS-D-0022) — 배포본에 role=\"progressbar\"가 1곳, <progress>가 0곳이다. 값을 갖는 것은 트랙이고 채움은 장식이다. 기하는 제품 셋이 합의하는 축(높이 6 · 알약 · 최대 폭 320)만 옮기고 색은 DS가 골랐다. 링은 제품 정본이 하나뿐이라 두께·간격·지름 식을 그대로 옮겼고, 지름을 계산하는 대신 padding으로 만들어 내용이 커지면 따라온다. indeterminate는 폭이 아니라 면 그라디언트를 흘린다 — loop 허용 property가 그렇다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(progress-bar/progress-ring · progress.browser.test.tsx). 2026-09-14 제품 앵커 6f6282c1: Figma 를 `partial` 로 내린다. 제품 프로필 버튼이 36 → 32 로 줄어 기록(figma/components.measured.json 의 progress-ring.sizes.base)이 size 32 · contentSize 24 로 옮겨졌는데, 라이브 ProgressRing 마스터는 Track 36 · Content 28 그대로라 verify-figma-parity 가 width · height · Track · Content 여섯 축에서 실패한다 — DS-D-0035 의 parity 가 서지 않는다. Figma 쓰기는 소유자 승인이 필요한 단계라 앵커 이동 안에서 하지 않았다. 마스터를 Track 32 · Content 24 로 옮기고 figma-readback-emit --components --only ProgressRing · build-figma-snapshot 으로 되읽기를 다시 떠 parity 가 초록이 되면 done 으로 되올리고 check-coverage-targets 의 MANIFEST_DONE_FLOOR 도 되올린다. ProgressBar 는 이 어긋남과 무관하다.",
       "doc": "design/components/progress.md",
       "figmaNames": [
         "ProgressBar",

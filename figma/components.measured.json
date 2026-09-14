@@ -1143,14 +1143,14 @@
       "$note": "제품 정본이 하나다(Gnb.tsx profileTrigger). 두께·간격·지름 식·색을 그대로 옮겼다.",
       "sizes": {
         "base": {
-          "size": 36,
+          "size": 32,
           "width": 2,
           "gap": 2,
-          "$size": "제품 식 avatar + (gap + width) × 2 = 28 + 8. DS는 padding으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.",
-          "contentSize": 28,
+          "$size": "제품 식 avatar + (gap + width) × 2 = 24 + 8. 제품 앵커 6f6282c1(2026-09-14 소유자 요청)이 모든 페이지의 프로필 버튼을 캔버스 에디터 헤더와 같은 32 로 줄였다 — 그 전 기본값은 아바타 28 · 버튼 36 이었다. DS는 padding으로 같은 값을 만들어 내용이 커지면 지름이 따라온다.",
+          "contentSize": 24,
           "radius": 0,
           "$radius": "0 (직접 원형 패딩 래퍼)",
-          "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 28이고 지름 36이 거기서 나온다.",
+          "$contentSize": "측정용 내용 크기다. 배포본의 아바타가 24이고(`--profile-avatar-size` 를 profileTrigger 한 곳이 갖는다) 지름 32가 거기서 나온다. DS Avatar 로는 sm 칸이다.",
           "gap-plus-width": 4,
           "$gap-plus-width": "padding으로 만드는 링 두께다 — 두께 2 + 간격 2. 제품이 지름을 직접 계산하는 자리를 여기서는 padding이 대신한다."
         }
@@ -1169,7 +1169,7 @@
     "avatar": {
       "$doc": "design/components/avatar.md",
       "$source": "packages/react/src/avatar/avatar.tsx, packages/css/src/component/avatar.css",
-      "$note": "제품에 공용 구현이 **부분만** 있다 — UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 두 값을 그대로 옮겼다.",
+      "$note": "제품에 공용 구현이 **부분만** 있다 — UserCircleDefaultAvatar.tsx가 기본 아바타 SVG 하나(28×28 · currentColor · aria-hidden)를 소유하고 본체는 Gnb.tsx에 인라인이다. 크기 24·28은 제품의 --profile-avatar-size 가 두 값이던 때(기본 28 · ProjectHeader 슬롯 24) 옮겼다. 제품 앵커 6f6282c1(2026-09-14)부터 그 변수는 profileTrigger 한 곳의 24 한 값이라, 프로필 트리거에 맞는 칸은 sm 이고 md 28 은 프로필 트리거 근거를 잃었다.",
       "$noRing": "**링을 소유하지 않는다.** 제품은 프로필 트리거에 진행률 링을 겹치지만(--profile-ring-width/gap 2px) 아바타는 신원 표식이고 링은 사용량이다. 흡수하면 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다.",
       "$noControlLadder": "크기가 control 계단(40/32)을 따르지 않는다. 아바타는 컨트롤이 아니라 표식이라 나란히 서도 줄이 어긋나지 않는다.",
       "sizes": {

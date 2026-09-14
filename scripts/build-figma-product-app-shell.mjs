@@ -166,10 +166,12 @@ const profileVisualSpec = (screenRecord, profileButton, rootRect) => {
 const assertProfileVisual = (spec) => {
   const visual = spec.profileVisual;
   const control = spec.controls.profile;
+  // 32 · 24 — 제품 6f6282c1(2026-09-14 소유자 요청)이 모든 페이지의 프로필 버튼을 캔버스 에디터
+  // 헤더와 같게 줄였다(그 전 36 · 28). 링 두께 2 · 간격 2 는 그대로라 아바타 인셋 4 도 그대로다.
   if (
-    control.width !== 36 || control.height !== 36 ||
+    control.width !== 32 || control.height !== 32 ||
     visual.avatar.rect.x - control.x !== 4 || visual.avatar.rect.y - control.y !== 4 ||
-    visual.avatar.rect.width !== 28 || visual.avatar.rect.height !== 28 ||
+    visual.avatar.rect.width !== 24 || visual.avatar.rect.height !== 24 ||
     // **#D5D7DD → #8B8E93.** 정체는 그대로다 — 제품 UserCircleDefaultAvatar 는 예나 지금이나
     // `text-palette-gray-400` 이고, 제품 globals.css 의 그 이름은 두 앵커 모두
     // `var(--louis-color-palette-gray-400)` 를 가리킨다(값이 아니라 이름을 소비한다).
@@ -177,7 +179,7 @@ const assertProfileVisual = (spec) => {
     // 같은 색에 역할 이름도 서 있다 — `app-avatar-default-ink`(tokens.css:284).
     JSON.stringify(visual.avatar.color) !== JSON.stringify([0.545098, 0.556863, 0.576471, 1]) ||
     visual.ring.rect.x !== control.x || visual.ring.rect.y !== control.y ||
-    visual.ring.rect.width !== 36 || visual.ring.rect.height !== 36 ||
+    visual.ring.rect.width !== 32 || visual.ring.rect.height !== 32 ||
     visual.ring.width !== 2 || visual.ring.gap !== 2 || visual.ring.progress !== 0 ||
     JSON.stringify(visual.ring.fill) !== JSON.stringify([0, 198 / 255, 142 / 255, 1]) ||
     JSON.stringify(visual.ring.track) !== JSON.stringify([0, 0, 0, 0.2]) ||
@@ -556,13 +558,16 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // Gnb.tsx 를 건드린 커밋은 그 둘과 ff4138a8 · 0524cd49 · 3d604624 뿐이고, 뒤 셋은 이
 // 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
 // 1452 → 1452).
+// 6f6282c1 에서 값 하나와 줄 셋이 움직였다. `[--profile-avatar-size:28px]` 가 `24px` 가 됐고, 바로 위에
+// 세 줄짜리 주석(「프로필 버튼 크기는 여기 한 곳이 정한다」)이 붙어 블록이 +3 밀렸다(1467 → 1470).
+// 나머지 문자열 다섯은 글자 그대로다.
 const ringSourceLines = [
-  [1467, '    "[--profile-avatar-size:28px]",'],
-  [1470, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1471, '    "[--profile-ring-gap:2px]",'],
-  [1472, '    "[--profile-ring-width:2px]",'],
-  [1499, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1501, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1470, '    "[--profile-avatar-size:24px]",'],
+  [1473, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1474, '    "[--profile-ring-gap:2px]",'],
+  [1475, '    "[--profile-ring-width:2px]",'],
+  [1502, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1504, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 const dividerSources = [

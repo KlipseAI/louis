@@ -25,6 +25,78 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-14 (131) — 제품 앵커 6f6282c1 — 프로필 버튼 32px · 상단 바 48.5px 을 따라간다
+
+제품 앵커를 `6fbdac16` 에서 `6f6282c1` 로 옮긴다. 그 사이의 제품 커밋 하나가 **모든 페이지의 프로필
+버튼을 캔버스 에디터 헤더와 같은 크기로 줄였다**(소유자 요청) — 아바타 28 → 24, 링을 두른 버튼
+36 → 32. 그 버튼이 앱 상단 바에서 가장 큰 자식이라 바의 실효 높이도 52.5 → 48.5 로 낮아졌고,
+**소유자가 낮아진 바를 새 기준으로 받아들였다(2026-09-14).** 앵커 이동 스크립트는
+`measure-product-components` 에서 「제품이 렌더한 값은 32인데 DS는 36입니다
+(progress-ring.sizes.base.size)」로 멈췄다. 이 항목은 앵커 이동의 단계마다 절을 더한다 — 상단 바 높이가
+번지는 자리(앱 셸 계약 · Figma 셸 매처 · DS-D-0048)는 긴 재측정 뒤의 절이 적는다.
+
+### ProgressRing 의 기준 지름을 32 로 옮긴다
+
+**제품 선언**(명령 `git -C "$KLIPSE_PRODUCT_REPO" show "6f6282c1:$(node -p 'require("./migration/citation-aliases.json").aliases["Gnb.tsx"]')" | nl -ba` — 앱 셸 `Gnb.tsx`):
+
+- 1470행: `    "[--profile-avatar-size:24px]",`
+- 1474행: `    "[--profile-ring-gap:2px]",`
+- 1475행: `    "[--profile-ring-width:2px]",`
+- 1476행: `    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",`
+- 1507행: `    "[@media(max-width:480px)]:[--profile-avatar-size:24px]!",`
+
+같은 커밋이 `scenes/create/ProjectHeader.tsx` 의 `PROFILE_SLOT`(336–338행)에서
+`[&_[class*=profileTrigger]]:[--profile-avatar-size:24px]!` 줄을 걷었다 — 크기를 두 곳이 쥐지 않게 한 것이다.
+**링 두께 2 · 간격 2 는 그대로다.** 바뀐 것은 아바타 한 값이고 버튼은 식대로 `24 + (2 + 2) × 2 = 32` 다.
+
+**무엇이 바뀌나:**
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `figma/components.measured.json` `progress-ring.sizes.base.size` | 36 | **32** |
+| 같은 자리 `contentSize` | 28 | **24** |
+| `progress.browser.test.tsx` 의 링 내용 | 리터럴 28px | 기록의 `contentSize` 를 읽는다 — 지름이 `contentSize + gap-plus-width × 2` 인지도 본다 |
+| Storybook `Components/Progress` Ring 내용 | 28 | 24 |
+| 표본 `progress-ring/projectHeaderSlot` | 「슬롯 훅이 아바타를 줄인다」 | 슬롯이 크기를 덮지 않는다 — 두 표본(`gnbTopBar` · `projectHeaderSlot`)이 이제 같은 32 · 24 를 잰다. `jsx` 좌표도 `6f6282c1` 로 옮겼다 |
+| 앱 셸 생성기 `build-figma-product-app-shell.mjs` 의 프로필 가드 | 버튼 · 링 36 · 아바타 28, 인용 줄 1467–1501 | 32 · 24, 인용 줄 1470–1504(아바타 줄은 `24px`) — 인증 fixture 를 새 앵커로 다시 잰 뒤에야 돈다 |
+
+**웹 소비처의 렌더는 바뀌지 않는다.** `.louis-progress-ring` 은 지름을 계산하지 않고 padding(두께 + 간격)으로
+내용에서 얻는다 — 토큰도 CSS 도 React 도 그대로다. 바뀐 것은 **기준 모습**이다. 제품 프로필 버튼과 같은
+32 를 내려면 `Avatar` 의 `size="sm"`(24)을 감싼다. 기본 `md`(28)를 감싸면 예전 36 이 나온다.
+
+**Avatar 의 크기 칸은 그대로다(md 28 · sm 24).** 두 칸은 제품 `--profile-avatar-size` 가 두 값이던 때
+옮겼는데, 이제 프로필 트리거에 남은 것은 sm 뿐이다. 기본을 sm 으로 옮기면 크기를 적지 않은 모든
+소비처가 줄어드는 breaking 이라 앵커 이동에서 하지 않았고, 그 사실을 [Avatar](../components/avatar.md)
+Known deviations 에 적었다. 문서 [Progress](../components/progress.md) · [Avatar](../components/avatar.md) ·
+`migration/figma-gap-registry.md` 의 프로필 트리거 크기 서술(28px 기본 · ProjectHeader 24px 덮어쓰기)을
+새 사실로 고쳤다.
+
+**재측정.** `measure-product-components` 가 어긋난 축 2 → 0 으로 초록이 됐고
+(`product.rendered-components.json`), `measure-product-variants` 가 두 링 표본을 32 · 24 로 다시 쟀다
+(`product.variants.json`).
+
+**Figma 마스터는 아직 36 이다 — 그래서 Progress 의 Figma 상태를 `done` 에서 `partial` 로 내린다.**
+라이브 `ProgressRing`(Track 36 · Content 28, `figma/readback.json` 의
+`components.ProgressRing.geometry.base`)이 새 기록(32 · 24)과 어긋나 `verify-figma-parity` 가
+ProgressRing 의 width · height · Track · Content 여섯 축으로 빨갛다. DS-D-0035 의 `done` 은 그 parity 가
+서 있다는 주장이므로 지금 `done` 으로 두면 거짓이다. Figma 쓰기는 소유자 승인이 필요한 단계라 이 앵커
+이동 안에서 하지 않았고, 상태를 사실에 맞춰 내렸다:
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `design/manifest.json` `progress.figma` | `done` | **`partial`** — note 에 사유와 되올리는 조건 |
+| [Progress](../components/progress.md) Availability Figma 행 | `done` | **`partial`** — Known deviations 에 마스터 낙후 한 줄 |
+| `scripts/check-coverage-targets.mjs` `MANIFEST_DONE_FLOOR` | 24 | **23** — 강등이 어디서 왔는지 주석으로 적었다 |
+
+**상태를 내려도 `verify-figma-parity` 는 초록이 되지 않는다.** 그 게이트는 manifest 상태가 아니라
+기록과 되읽기를 대조하므로, 이 변경은 거짓 `done` 을 걷을 뿐 빨간 게이트를 끄지 않는다 — 그리고 그
+게이트는 `verify:ci` 갈래에 있다. **라이브 마스터를 옮기기 전에는 앵커 이동을 푸시하지 않는다** — 작업
+브랜치에 커밋은 하되, 그 커밋들만으로는 `verify:ci` 가 초록이 아니다.
+닫는 길은 하나다: 승인을 받아 `ProgressRing` 마스터를 Track 32 · Content 24 로 옮기고,
+`figma-readback-emit --components --only ProgressRing` 과 `build-figma-snapshot` 으로 되읽기를 다시 뜬 뒤
+`verify-figma-parity` 가 초록이면 `progress.figma` 를 `done` 으로, `MANIFEST_DONE_FLOOR` 를 24 로
+되올린다. ProgressBar 는 이 어긋남과 무관하다.
+
 ## 2026-09-13 (130) — 앱 셸 상단 바에 조합 넷과 라벨 속성을 더하고, 화면 보드를 라이브와 대조하는 도구를 세운다
 
 **Figma 계획만 바뀌었다. 라이브 Figma 에는 아직 쓰지 않았다** — 적용 순서와 승인은

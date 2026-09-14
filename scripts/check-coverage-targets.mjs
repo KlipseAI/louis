@@ -166,7 +166,13 @@ const SURFACE_TOTAL_BASELINE = 472; // 위 천장의 기준점
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가
 // 전부 선다 — verify-figma-done 이 「조건은 서는데 partial 로 남은 항목: alert」로 먼저 지목했다.
-const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
+// 24 → 23 (2026-09-14): `progress` 가 done 에서 partial 로 내려갔다. **Figma 에 세운 것도, 판단
+// 대기로 미룬 것도 아니다 — Figma 가 기록을 못 따라온 것이다.** 제품 앵커 6f6282c1 에서 프로필
+// 버튼이 36 → 32 로 줄어 `progress-ring.sizes.base` 가 size 32 · contentSize 24 로 옮겨졌는데,
+// 라이브 ProgressRing 마스터는 Track 36 · Content 28 그대로라 verify-figma-parity 가 여섯 축에서
+// 실패한다. Figma 쓰기는 소유자 승인 단계라 앵커 이동 안에서 하지 않았다. 마스터를 옮기고
+// 되읽기를 다시 떠 parity 가 초록이 되면 progress 를 done 으로 되올리고 이 바닥도 24 로 되올린다.
+const MANIFEST_DONE_FLOOR = 23; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

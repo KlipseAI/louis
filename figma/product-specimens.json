@@ -1791,7 +1791,7 @@
       "id": "progress-ring/gnbTopBar",
       "kind": "progress-ring",
       "label": "GNB 상단 바 프로필 크레딧 링 — 버튼의 ::after가 링을 그린다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:5302-5327",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:5349-5374",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "node": {
         "part": "profileTrigger",
@@ -1813,8 +1813,8 @@
     {
       "id": "progress-ring/projectHeaderSlot",
       "kind": "progress-ring",
-      "label": "프로젝트 헤더 프로필 링 — 슬롯 훅이 아바타를 줄인다",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:3974-3999",
+      "label": "프로젝트 헤더 프로필 링 — 슬롯은 크기를 덮지 않는다(6f6282c1 이 훅을 걷어 GNB 와 같은 32)",
+      "jsx": "apps/web/components/navigation/Gnb.tsx:4058-4083",
       "file": "apps/web/components/navigation/Gnb.tsx",
       "node": {
         "part": "profileTrigger",

@@ -155,7 +155,8 @@
           0,
           1
         ],
-        "activeIconOpacity": 1
+        "activeIconOpacity": 1,
+        "activePaint": "gray000"
       },
       {
         "current": "YouTube",
@@ -167,7 +168,8 @@
           0,
           1
         ],
-        "activeIconOpacity": 1
+        "activeIconOpacity": 1,
+        "activePaint": "gray000"
       },
       {
         "current": "Canvas",
@@ -180,7 +182,8 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
+        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "activePaint": "gray000"
       },
       {
         "current": "Composition",
@@ -193,7 +196,8 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
+        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "activePaint": "gray000"
       },
       {
         "current": "Highlight",
@@ -206,7 +210,8 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
+        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "activePaint": "gray000"
       }
     ],
     "rows": [
@@ -237,7 +242,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -253,7 +259,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -290,7 +297,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -306,7 +314,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -343,7 +352,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -359,7 +369,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -396,7 +407,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -412,7 +424,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -449,7 +462,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -465,7 +479,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -499,7 +514,8 @@
               0.360784,
               0.388235,
               1
-            ]
+            ],
+            "paint": "paletteGray600"
           },
           "radius": 6,
           "background": [
@@ -513,7 +529,8 @@
             "right": 8,
             "bottom": 3,
             "left": 8
-          }
+          },
+          "paint": "paletteGray500Alpha12"
         }
       },
       {
@@ -543,7 +560,8 @@
             0.360784,
             0.388235,
             1
-          ]
+          ],
+          "paint": "paletteGray600"
         },
         "padding": {
           "top": 12,
@@ -579,7 +597,8 @@
             0.270588,
             0.298039,
             1
-          ]
+          ],
+          "paint": "gray300"
         },
         "icon": {
           "rect": {
@@ -595,7 +614,8 @@
             0.298039,
             1
           ],
-          "opacity": 0.92
+          "opacity": 0.92,
+          "paint": "gray300"
         },
         "radius": 10,
         "padding": {
@@ -606,35 +626,68 @@
         }
       }
     ],
+    "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
-      "paletteCollection": "1 · Palette",
-      "paletteMode": "default",
-      "ctaPaletteMode": "sidebar",
-      "semanticCollection": "2 · Semantic",
-      "semanticMode": "dark",
-      "inactive": {
-        "collection": "2 · Semantic",
-        "name": "gray/300"
+      "modeCollection": "Klipse Semantic Color",
+      "mode": "Light",
+      "gray300": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/300"
       },
-      "active": {
-        "collection": "2 · Semantic",
-        "name": "gray/000"
+      "gray000": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000"
       },
-      "activeIndicator": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-800"
+      "paletteGray600": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/600"
       },
-      "createButtonBackground": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-200"
+      "paletteGray900": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/900"
       },
-      "betaBackground": {
-        "collection": "2 · Semantic",
-        "name": "app/nav-chip-tint"
+      "paletteGray100": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/100"
       },
-      "muted": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-600"
+      "paletteGray000": {
+        "collection": "Klipse Primitive",
+        "name": "color/palette-gray/000"
+      },
+      "gray000Alpha56": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/56"
+      },
+      "gray000Alpha48": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/000-alpha/48"
+      },
+      "gray900": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/gray/900"
+      },
+      "boardSurface": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
+      },
+      "docsTitle": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-primary"
+      },
+      "docsNote": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/fg-secondary"
+      },
+      "unbound": {
+        "paletteGray500Alpha12": {
+          "color": [
+            0.447059,
+            0.458824,
+            0.482353,
+            0.12
+          ],
+          "reason": "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint."
+        }
       },
       "spacing4": {
         "collection": "Klipse Primitive",
@@ -679,22 +732,6 @@
       "spacing24": {
         "collection": "Klipse Primitive",
         "name": "spacing/24"
-      },
-      "surfaceStrong": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-900"
-      },
-      "surfaceInverse": {
-        "collection": "1 · Palette",
-        "name": "palette/gray-100"
-      },
-      "textSecondary": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a56"
-      },
-      "textTertiary": {
-        "collection": "2 · Semantic",
-        "name": "gray/000 · a48"
       }
     },
     "iconComponents": {
@@ -706,26 +743,6 @@
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
       "/klipse-dark.svg": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)"
-    },
-    "darkThemeSource": {
-      "inactive": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
-        "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 592,
-        "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
-      },
-      "active": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
-        "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 598,
-        "quote": "    \"[color:var(--gray-000)]\","
-      },
-      "activeIndicator": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
-        "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 602,
-        "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]\","
-      }
     },
     "upgradeCta": {
       "id": "product/gnb-upgrade-cta",
@@ -933,7 +950,9 @@
             "fontWeight": 500,
             "lineHeight": 21,
             "letterSpacing": -0.14
-          }
+          },
+          "fillPaint": "paletteGray900",
+          "labelPaint": "paletteGray100"
         },
         {
           "state": "Current",
@@ -992,7 +1011,9 @@
             "fontWeight": 500,
             "lineHeight": 21,
             "letterSpacing": -0.14
-          }
+          },
+          "fillPaint": "paletteGray000",
+          "labelPaint": "gray000"
         }
       ]
     },
@@ -1381,7 +1402,8 @@
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
-          }
+          },
+          "logoAsset": "/klipse-light.svg"
         }
       },
       "menu": {
@@ -1581,7 +1603,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Payment request failed",
@@ -1602,7 +1625,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -1655,8 +1679,10 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           },
           "detail": {
             "rect": {
@@ -1695,7 +1721,8 @@
                 0,
                 0.48
               ],
-              "textAlign": "start"
+              "textAlign": "start",
+              "paint": "gray000Alpha48"
             },
             "value": {
               "text": "UNKNOWN_ERROR",
@@ -1716,7 +1743,8 @@
                 0,
                 1
               ],
-              "textAlign": "right"
+              "textAlign": "right",
+              "paint": "gray000"
             }
           }
         },
@@ -1760,7 +1788,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Payment request failed",
@@ -1781,7 +1810,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -1834,8 +1864,10 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           },
           "detail": {
             "rect": {
@@ -1874,7 +1906,8 @@
                 0,
                 0.48
               ],
-              "textAlign": "start"
+              "textAlign": "start",
+              "paint": "gray000Alpha48"
             },
             "value": {
               "text": "UNKNOWN_ERROR",
@@ -1895,7 +1928,8 @@
                 0,
                 1
               ],
-              "textAlign": "left"
+              "textAlign": "left",
+              "paint": "gray000"
             }
           }
         },
@@ -1939,7 +1973,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Billing authorization information is missing from the success URL.",
@@ -1960,7 +1995,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -2013,8 +2049,10 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           }
         },
         {
@@ -2057,7 +2095,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Billing authorization information is missing from the success URL.",
@@ -2078,7 +2117,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -2131,8 +2171,10 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           }
         },
         {
@@ -2175,7 +2217,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Payment information is missing from the success URL.",
@@ -2196,7 +2239,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -2249,8 +2293,10 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           }
         },
         {
@@ -2293,7 +2339,8 @@
               0,
               1
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000"
           },
           "body": {
             "text": "Payment information is missing from the success URL.",
@@ -2314,7 +2361,8 @@
               0,
               0.56
             ],
-            "textAlign": "start"
+            "textAlign": "start",
+            "paint": "gray000Alpha56"
           },
           "actions": {
             "direction": "VERTICAL",
@@ -2367,11 +2415,258 @@
                 0.882353,
                 1
               ],
-              "textAlign": "start"
-            }
+              "textAlign": "start",
+              "paint": "gray900"
+            },
+            "fillPaint": "gray000"
           }
         }
       ]
+    },
+    "menuRowPaint": {
+      "label": "gray300",
+      "icon": "gray300",
+      "iconOpacity": 0.92,
+      "activeSurface": null,
+      "activeSurfaceSource": {
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "path": "apps/web/components/navigation/Gnb.tsx",
+        "line": 604,
+        "quote": "    \"[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]\","
+      }
+    },
+    "colorEvidence": {
+      "gray300": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 592,
+            "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
+          }
+        ],
+        "measured": "#41454c",
+        "measuredAlpha": 1,
+        "sites": 12,
+        "figma": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray000": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 598,
+            "quote": "    \"[color:var(--gray-000)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 2006,
+            "quote": "    \"[color:var(--gray-000)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 88,
+            "quote": "  \"m-0 text-gray-000\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 113,
+            "quote": "  \"[&_dd]:text-gray-000\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 128,
+            "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 1,
+        "sites": 20,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black",
+        "figmaValue": "#000000",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "paletteGray600": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 190,
+            "quote": "    \"[color:var(--palette-gray-600)]\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 839,
+            "quote": "    \"[color:var(--palette-gray-600)]\","
+          }
+        ],
+        "measured": "#585c63",
+        "measuredAlpha": 1,
+        "sites": 2,
+        "figma": "Klipse Primitive/color/palette-gray/600",
+        "figmaValue": "#585c63",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "paletteGray500Alpha12": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 191,
+            "quote": "    \"[background:rgb(var(--palette-gray-500-rgb)_/_12%)]\","
+          }
+        ],
+        "measured": "#72757b",
+        "measuredAlpha": 0.12,
+        "sites": 1,
+        "figma": null,
+        "productMix": "Klipse Primitive/color/palette-gray/500 × 0.12",
+        "exact": false,
+        "reason": "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint.",
+        "liveValueTwins": []
+      },
+      "paletteGray900": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 1995,
+            "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]\","
+          }
+        ],
+        "measured": "#171b22",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "paletteGray100": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 1996,
+            "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]\","
+          }
+        ],
+        "measured": "#dcdee1",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Primitive/color/palette-gray/100",
+        "figmaValue": "#dcdee1",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "paletteGray000": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 2005,
+            "quote": "    \"[background:var(--palette-gray-000)]\","
+          }
+        ],
+        "measured": "#fafafa",
+        "measuredAlpha": 1,
+        "sites": 1,
+        "figma": "Klipse Primitive/color/palette-gray/000",
+        "figmaValue": "#fafafa",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "gray000Alpha56": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 96,
+            "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.56,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/56 → Klipse Primitive/color/static-black-alpha/56",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.56,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.56",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 56%) — pure black at 56% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "gray000Alpha48": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 110,
+            "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.48,
+        "sites": 2,
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/48 → Klipse Primitive/color/static-black-alpha/48",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.48,
+        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.48",
+        "exact": false,
+        "reason": "Product paints rgb(var(--gray-000-rgb) / 48%) — pure black at 48% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
+        "liveValueTwins": []
+      },
+      "gray900": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "line": 128,
+            "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
+          }
+        ],
+        "measured": "#dcdee1",
+        "measuredAlpha": 1,
+        "sites": 6,
+        "figma": "Klipse Semantic Color[Light]/color/gray/900 → Klipse Primitive/color/palette-gray/100",
+        "figmaValue": "#dcdee1",
+        "figmaAlpha": 1,
+        "exact": true
+      },
+      "boardSurface": {
+        "declared": null,
+        "annotation": "section fills behind the sets (board canvas, not a product surface)",
+        "figma": "Klipse Semantic Color[Light]/color/bg-canvas → Klipse Primitive/color/palette-gray/025",
+        "figmaValue": "#f2f3f5",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsTitle": {
+        "declared": null,
+        "annotation": "documentation frame title",
+        "figma": "Klipse Semantic Color[Light]/color/fg-primary → Klipse Primitive/color/palette-gray/900",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 1,
+        "exact": null
+      },
+      "docsNote": {
+        "declared": null,
+        "annotation": "documentation frame note",
+        "figma": "Klipse Semantic Color[Light]/color/fg-secondary → Klipse Primitive/color/palette-gray/700",
+        "figmaValue": "#41454c",
+        "figmaAlpha": 1,
+        "exact": null
+      }
     }
   }
 }

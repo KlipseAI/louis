@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
@@ -647,17 +648,70 @@ const paymentResult = {
   ],
 };
 
-/* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다. 커밋은 fixture 에서
-   읽어 **고정 문자열이 아니게** 만든다 — 이 note 가 말하는 「고정 커밋」은 언제나 이 생성물이
-   읽은 fixture 의 커밋이다. 줄번호 4691-4692 → 4614-4615, 563/569 → 564/570 은 실측이다:
-   ae8fd627..5a67d692 에서 인용 대상 세 줄의 **내용은 그대로**고 위치만 옮겼다(위 darkThemeSource
-   주석 참고. 4614-4615 는 `const href = row.href;` / `const isActive = isSidebarMenuHrefActive(href);`
-   로 두 앵커에서 문자 그대로 같다). */
+/* **색은 라이브 변수에 역할로 묶는다(2026-09-14, 컬렉션 이전).** 옛 계획은 은퇴한 `1 · Palette[default/sidebar]` ·
+   `2 · Semantic[dark]` 의 이름을 실어 라이브에서 첫머리에 던졌고, 사이드바를 **다크 선언**(`[html[data-theme=dark]_&]` 줄)으로
+   칠했다 — 이 생성기가 재는 fixture 는 light 인데도 그랬다(행 글자 측정 #41454c 를 다크 `gray/300` #a5a8ad 로, 활성 행에
+   제품 사이드바에는 없는 `palette-gray-800/900` 면을). 이제 역할마다 제품 선언(소스 인용)과 라이브 변수를 적고, 칠하는
+   자리마다 **측정 색과 값이 같은 역할**을 고른다. 측정 테마가 light 라 `Klipse Semantic Color[Light]` 로 풀고, 사이드바
+   셸의 로고도 측정한 자산(`brand.image.asset`)을 쓴다. 앱 셸 러너(2026-09-13)가 상단 바를 옛 다크 캡처 값에서 light 측정
+   으로 옮긴 것과 같은 이동이다. 대조표는 계획의 `colorEvidence` 가 갖는다. */
+const live = liveVariables({ repoRoot, fail });
+const quote = sourceQuotes({ repoRoot, productRoot, productCommit: fixture.productCommit, fail });
+const GNB = "apps/web/components/navigation/Gnb.tsx";
+/* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다(4614-4615 · 564/570 이 `6f6282c1` 에서 4694-4695 ·
+   592/598 로 옮겨 있었다). 이제 활성 판정 두 줄은 소스 인용으로 확인하고, 색 줄은 `colorEvidence` 의 역할을 가리킨다. */
+const activeRuleSource = [
+  quote.product(GNB, 4694, "                    const href = row.href;"),
+  quote.product(GNB, 4695, "                    const isActive = isSidebarMenuHrefActive(href);"),
+];
 const sharedActiveColourNote =
-  `No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result ` +
-  `and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit ` +
-  `${fixture.productCommit}.`;
-
+  `No new visual value: Gnb.tsx:${activeRuleSource[0].line}-${activeRuleSource[1].line} applies the common isSidebarMenuHrefActive result ` +
+  `and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit ${fixture.productCommit}.`;
+const RESULT = "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx";
+const alphaReason = (token, step) =>
+  `Product paints rgb(var(${token}) / ${step}%) — pure black at ${step}% in light. The live alpha ramp with that step resolves to ` +
+  "static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).";
+const roles = live.colorRoles({
+  theme: "light",
+  where: "components",
+  roles: {
+    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 592, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
+    gray000: {
+      name: "color/gray/000",
+      declared: [
+        quote.product(GNB, 598, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 2006, '    "[color:var(--gray-000)]",'),
+        quote.product(RESULT, 88, '  "m-0 text-gray-000",'),
+        quote.product(RESULT, 113, '  "[&_dd]:text-gray-000",'),
+        quote.product(RESULT, 128, '  "[border:none] bg-gray-000 text-gray-900!",'),
+      ],
+    },
+    paletteGray600: {
+      collection: "Klipse Primitive", name: "color/palette-gray/600",
+      declared: [quote.product(GNB, 190, '    "[color:var(--palette-gray-600)]",'), quote.product(GNB, 839, '    "[color:var(--palette-gray-600)]",')],
+    },
+    paletteGray500Alpha12: {
+      unbound: true, mix: { collection: "Klipse Primitive", name: "color/palette-gray/500", alpha: 0.12 },
+      declared: [quote.product(GNB, 191, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
+      reason: "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint.",
+    },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1995, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1996, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
+    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 2005, '    "[background:var(--palette-gray-000)]",')] },
+    gray000Alpha56: {
+      name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
+      declared: [quote.product(RESULT, 96, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),
+    },
+    gray000Alpha48: {
+      name: "color/gray/000-alpha/48", mix: { name: "color/gray/000", alpha: 0.48 },
+      declared: [quote.product(RESULT, 110, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
+    },
+    gray900: { name: "color/gray/900", declared: [quote.product(RESULT, 128, '  "[border:none] bg-gray-000 text-gray-900!",')] },
+    boardSurface: { name: "color/bg-canvas", annotation: "section fills behind the sets (board canvas, not a product surface)" },
+    docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
+    docsNote: { name: "color/fg-secondary", annotation: "documentation frame note" },
+  },
+});
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   $evidenceClass: "product-only measured Figma candidate; not a normative design-system contract",
@@ -769,18 +823,9 @@ const plan = {
       },
       simpleRow("youtube", 6, "YouTube analytics"),
     ],
+    $bindingPolicy: BINDING_POLICY,
+    // 색 역할(`colors.bindings`)은 아래에서 앞에 합친다. 간격 · 반경은 되읽기에서 이름을 확인한다(`assertBindings`).
     bindings: {
-      paletteCollection: "1 · Palette",
-      paletteMode: "default",
-      ctaPaletteMode: "sidebar",
-      semanticCollection: "2 · Semantic",
-      semanticMode: "dark",
-      inactive: { collection: "2 · Semantic", name: "gray/300" },
-      active: { collection: "2 · Semantic", name: "gray/000" },
-      activeIndicator: { collection: "1 · Palette", name: "palette/gray-800" },
-      createButtonBackground: { collection: "1 · Palette", name: "palette/gray-200" },
-      betaBackground: { collection: "2 · Semantic", name: "app/nav-chip-tint" },
-      muted: { collection: "1 · Palette", name: "palette/gray-600" },
       spacing4: { collection: "Klipse Primitive", name: "spacing/4" },
       spacing8: { collection: "Klipse Primitive", name: "spacing/8" },
       spacing10: { collection: "Klipse Primitive", name: "spacing/10" },
@@ -792,10 +837,6 @@ const plan = {
       spacing16: { collection: "Klipse Primitive", name: "spacing/16" },
       spacing20: { collection: "Klipse Primitive", name: "spacing/20" },
       spacing24: { collection: "Klipse Primitive", name: "spacing/24" },
-      surfaceStrong: { collection: "1 · Palette", name: "palette/gray-900" },
-      surfaceInverse: { collection: "1 · Palette", name: "palette/gray-100" },
-      textSecondary: { collection: "2 · Semantic", name: "gray/000 · a56" },
-      textTertiary: { collection: "2 · Semantic", name: "gray/000 · a48" },
     },
     iconComponents: {
       "/icons/MagnifyingGlass.svg": "icon/MagnifyingGlass",
@@ -812,34 +853,6 @@ const plan = {
       // **라이브 Figma 의 `.glyph/NavPlusGlyph` 컴포넌트는 이 변경이 지우지 않는다** —
       // 보드에서 걷는 것은 별건이고 사용자 자산이라 여기서 손대지 않았다.
     },
-    /* 세 줄 다 인용문은 한 글자도 안 바뀌었고 **줄번호만 +1** 이다(563/569/573 → 564/570/574).
-       ae8fd627..5a67d692 에서 Gnb.tsx 파일 앞쪽에 import 한 줄이 늘었을 뿐이다 —
-       `41ea8099 feat(landing): GNB 언어 버튼 옆에 현재 테마 버튼을 둔다` 가 더한
-       `import { ThemeDarkIcon, … } from "@/components/theme/ThemeIcons";`(28행). 그 위아래로
-       600행까지 다른 차이는 없다. `menuLinkActive` 블록 자체는 그대로이므로 인용을 옮긴다. */
-    darkThemeSource: {
-      inactive: sourceQuote(
-        "apps/web/components/navigation/Gnb.tsx",
-        592,
-        '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",',
-      ),
-      active: sourceQuote(
-        "apps/web/components/navigation/Gnb.tsx",
-        598,
-        '    "[color:var(--gray-000)]",',
-      ),
-      activeIndicator: sourceQuote(
-        "apps/web/components/navigation/Gnb.tsx",
-        // **이 인용만 값이 바뀌었다 — 위치 밀림이 아니다.** `--palette-gray-800` →
-        // `--palette-gray-900` 이며, **DS 자신의 변경이 제품을 거쳐 돌아온 것**이다:
-        // DS `021c2b6`「pg-850 칸을 비우고 그 위 여섯을 pg-900 으로 내린다」를 제품이
-        // `1093e53d`「LOUIS 핀을 021c2b6 으로 올리고 pg-850 자리를 정리한다」와
-        // `dc85080e`「다크 면 사다리를 한 칸 내리고…」로 채택했다. 선택자는 그대로이고
-        // 팔레트 칸만 한 단 내려갔다.
-        602,
-        '    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]",',
-      ),
-    },
     upgradeCta: {
       id: "product/gnb-upgrade-cta",
       componentSetName: "Product/Gnb Upgrade CTA",
@@ -851,6 +864,64 @@ const plan = {
   },
 };
 
+const paintOf = (candidates, measured, where) => roles.paintFor(candidates, measured, where);
+// 사이드바 행 — 비활성 글자 · 아이콘 잉크, BETA 칩, 섹션 라벨. 활성 행은 variant 마다 측정 route 의 글자 색.
+const rowPaints = {};
+for (const row of plan.component.rows) {
+  if (row.kind === "section-label") {
+    row.label.paint = paintOf(["paletteGray600", "gray300"], row.label.color, `menu section ${row.label.text}`);
+    continue;
+  }
+  row.label.paint = paintOf(["gray300", "gray000"], row.label.color, `menu row ${row.label.text}`);
+  row.icon.paint = paintOf(["gray300", "gray000"], row.icon.color, `menu icon ${row.label.text}`);
+  rowPaints[`${row.label.paint}/${row.icon.paint}/${row.icon.opacity}`] = true;
+  if (row.beta) {
+    row.beta.paint = paintOf(["paletteGray500Alpha12"], row.beta.background, "menu BETA chip");
+    row.beta.label.paint = paintOf(["paletteGray600", "gray300"], row.beta.label.color, "menu BETA label");
+  }
+}
+// 비활성 행은 모두 같은 역할 · 같은 아이콘 불투명도여야 한다 — 러너는 라이브 variant 의 행을 이 한 값으로 다시 칠한다.
+if (Object.keys(rowPaints).length !== 1) fail(`inactive sidebar rows disagree on paint: ${Object.keys(rowPaints).join(" | ")}`);
+const [inactiveLabelPaint, inactiveIconPaint, inactiveIconOpacity] = Object.keys(rowPaints)[0].split("/");
+// 제품 사이드바의 활성 행은 면이 없다(`.gnb-menuSidebar` 안에서 투명) — 옛 러너가 칠하던 인디케이터 면은 다크 비사이드바 선언이었다.
+const sidebarActiveTransparent = quote.product(GNB, 604, '    "[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]",');
+const activeRowButton = (route, text) => {
+  let entry = byText(route, text);
+  while (entry && entry.tag !== "button") entry = screen(route).tree.find((item) => item.path === entry.parentPath);
+  return entry ?? fail(`no button around active row ${text} on ${route}`);
+};
+for (const [route, text] of [[routes.home.route, "Home"], [routes.youtube.route, "YouTube analytics"]]) {
+  const background = rgba(style(activeRowButton(route, text)).backgroundColor);
+  if (background[3] !== 0) fail(`active sidebar row ${text} on ${route} is no longer transparent — add an active row surface role`);
+}
+
+for (const variant of plan.component.variants) {
+  if (!variant.activeRow) continue;
+  variant.activePaint = paintOf(["gray000", "gray300"], variant.activeColor, `menu active ${variant.current}`);
+}
+for (const cta of plan.component.upgradeCta.variants) {
+  cta.fillPaint = paintOf(["paletteGray900", "paletteGray000"], cta.fill, `upgrade CTA ${cta.state} fill`);
+  cta.labelPaint = paintOf(["paletteGray100", "gray000"], cta.color, `upgrade CTA ${cta.state} label`);
+}
+for (const variant of plan.component.paymentResult.variants) {
+  const where = `payment result ${variant.route} ${variant.viewport}`;
+  if (variant.background[3] !== 0) fail(`${where}: result section gained a surface — the renderer draws none`);
+  variant.title.paint = paintOf(["gray000"], variant.title.color, `${where} title`);
+  variant.body.paint = paintOf(["gray000Alpha56"], variant.body.color, `${where} body`);
+  if (variant.detail) {
+    variant.detail.term.paint = paintOf(["gray000Alpha48"], variant.detail.term.color, `${where} term`);
+    variant.detail.value.paint = paintOf(["gray000"], variant.detail.value.color, `${where} value`);
+  }
+  variant.action.fillPaint = paintOf(["gray000"], variant.action.fill, `${where} action`);
+  variant.action.label.paint = paintOf(["gray900"], variant.action.label.color, `${where} action label`);
+}
+const colors = roles.finish();
+plan.component.menuRowPaint = { label: inactiveLabelPaint, icon: inactiveIconPaint, iconOpacity: Number(inactiveIconOpacity), activeSurface: null, activeSurfaceSource: sidebarActiveTransparent };
+plan.component.bindings = live.assertBindings({ ...colors.bindings, ...plan.component.bindings }, "components bindings");
+plan.component.colorEvidence = colors.evidence;
+// 사이드바 셸 로고는 측정 테마의 자산이다(light fixture → `/klipse-light.svg`).
+plan.component.shell.brand.image.logoAsset = plan.component.shell.brand.image.asset;
+
 const candidateSummary = ({ id, nodeCount, routeCount, occurrenceCount, score }) => ({
   id,
   nodeCount,
@@ -861,7 +932,6 @@ const candidateSummary = ({ id, nodeCount, routeCount, occurrenceCount, score })
 const runnerPlan = structuredClone(plan);
 delete runnerPlan.$comment;
 delete runnerPlan.$evidenceClass;
-delete runnerPlan.component.darkThemeSource;
 delete runnerPlan.component.shell.brand.image.darkAssetSource;
 for (const variant of runnerPlan.component.variants) {
   delete variant.$note;
@@ -905,8 +975,30 @@ for (const variant of runnerPlan.component.paymentResult.variants) {
 // **러너는 압축해 싣는다(2026-09-14).** 결제 결과 세트를 매 실행 reconcile 하게 되면서 템플릿이 자라, 주석을
 // 그대로 실은 러너가 `use_figma` 의 50,000자 벽을 넘었다. 형제 생성기 build-figma-product-upgrade-scene 과 같은
 // 방법으로 esbuild 로 줄인다 — 템플릿의 주석은 저장소(scripts/templates)에 그대로 남고, 계획은 plan.json 이 든다.
+// 색은 역할 이름으로만 싣는다 — 측정 색 · 대조표 · 사유 · 인용은 계획에 남는다.
+{
+  const C = runnerPlan.component;
+  delete C.$bindingPolicy;
+  delete C.colorEvidence;
+  delete C.menuRowPaint.activeSurfaceSource;
+  for (const entry of Object.values(C.bindings.unbound ?? {})) delete entry.reason;
+  for (const row of C.rows) {
+    delete row.label.color;
+    if (row.icon) delete row.icon.color;
+    if (row.beta) { delete row.beta.background; delete row.beta.label.color; }
+  }
+  for (const cta of C.upgradeCta.variants) { delete cta.fill; delete cta.color; }
+  for (const variant of C.paymentResult.variants) {
+    delete variant.background;
+    for (const text of [variant.title, variant.body, variant.action.label, variant.detail?.term, variant.detail?.value]) if (text) delete text.color;
+    delete variant.action.fill;
+  }
+  delete C.shell.brand.image.darkAsset;
+  delete C.shell.root.background;
+}
 const readableDraw =
   `const PLAN=${JSON.stringify(runnerPlan)};\n` +
+  readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
   readFileSync(resolve(repoRoot, "scripts/templates/figma-product-components-renderer.js"), "utf8");
 const wrapperPrefix = "async function __figmaRunner__(){";
 const wrappedDraw = transformSync(`${wrapperPrefix}${readableDraw}}`, { minify: true, target: "es2022" }).code.trim();

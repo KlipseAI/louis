@@ -5,37 +5,10 @@ const page =
 if (!page) throw new Error(`Missing target page ${P.pageName}`);
 await figma.setCurrentPageAsync(page);
 
-const collections = await figma.variables.getLocalVariableCollectionsAsync();
-const collectionByName = new Map(collections.map((entry) => [entry.name, entry]));
-const collectionById = new Map(collections.map((entry) => [entry.id, entry]));
-const variables = await figma.variables.getLocalVariablesAsync();
-const variableById = new Map(variables.map((entry) => [entry.id, entry]));
-const variableByKey = new Map(
-  variables.map((entry) => [
-    `${collectionById.get(entry.variableCollectionId)?.name}\u0000${entry.name}`,
-    entry,
-  ]),
-);
-const getVariable = (binding) => {
-  const value = variableByKey.get(`${binding.collection}\u0000${binding.name}`);
-  if (!value) throw new Error(`Missing variable ${binding.collection}/${binding.name}`);
-  return value;
-};
-const getMode = (collectionName, modeName) => {
-  const collection = collectionByName.get(collectionName);
-  const mode = collection?.modes.find((entry) => entry.name === modeName);
-  if (!collection || !mode) throw new Error(`Missing mode ${collectionName}/${modeName}`);
-  return { collectionId: collection.id, modeId: mode.modeId };
-};
+// 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 칠하는 자리는
+// 계획이 고른 역할 이름(`paint` · `fillPaint` · `labelPaint` · `activePaint` · `menuRowPaint`)만 읽는다.
 const B = P.bindings;
-const V = Object.fromEntries(
-  Object.entries(B)
-    .filter(([, value]) => value && typeof value === "object" && "collection" in value)
-    .map(([key, value]) => [key, getVariable(value)]),
-);
-const paletteMode = getMode(B.paletteCollection, B.paletteMode);
-const ctaPaletteMode = getMode(B.paletteCollection, B.ctaPaletteMode);
-const semanticMode = getMode(B.semanticCollection, B.semanticMode);
+const { V, pin, paint, paintIcon, bindCorners, audit, mode: colourMode } = await liveVariables(B);
 
 const allComponents = page.findAllWithCriteria({ types: ["COMPONENT"] });
 const componentByName = new Map();
@@ -61,46 +34,8 @@ await Promise.all([
   figma.loadFontAsync({ family: "Pretendard", style: "Medium" }),
   figma.loadFontAsync({ family: "Pretendard", style: "SemiBold" }),
 ]);
-const variableColor = (variable, seen = new Set()) => {
-  if (seen.has(variable.id)) throw new Error(`Circular color variable ${variable.name}`);
-  seen.add(variable.id);
-  const modeId = variable.variableCollectionId === semanticMode.collectionId
-    ? semanticMode.modeId
-    : variable.variableCollectionId === paletteMode.collectionId
-      ? paletteMode.modeId
-      : Object.keys(variable.valuesByMode)[0];
-  const value = variable.valuesByMode[modeId];
-  if (value?.type === "VARIABLE_ALIAS") {
-    const target = variableById.get(value.id);
-    if (!target) throw new Error(`Missing color alias ${value.id}`);
-    return variableColor(target, seen);
-  }
-  if (!value || typeof value !== "object" || !("r" in value)) throw new Error(`Missing color mode ${variable.name}`);
-  return { r: value.r, g: value.g, b: value.b };
-};
-const setPaint = (variable, fallback = variableColor(variable)) =>
-  figma.variables.setBoundVariableForPaint({ type: "SOLID", color: fallback }, "color", variable);
-const bindCorners = (node, variable) => {
-  for (const field of ["topLeftRadius", "topRightRadius", "bottomRightRadius", "bottomLeftRadius"]) {
-    node.setBoundVariable(field, variable);
-  }
-};
-const bindIconPaints = (instance, variable) => {
-  for (const vector of instance.findAllWithCriteria({ types: ["VECTOR"] })) {
-    if (Array.isArray(vector.fills)) {
-      vector.fills = vector.fills.map((paint) =>
-        paint.type === "SOLID" ? figma.variables.setBoundVariableForPaint({ ...paint, color: variableColor(variable) }, "color", variable) : paint,
-      );
-    }
-    if (Array.isArray(vector.strokes)) {
-      vector.strokes = vector.strokes.map((paint) =>
-        paint.type === "SOLID" ? figma.variables.setBoundVariableForPaint({ ...paint, color: variableColor(variable) }, "color", variable) : paint,
-      );
-    }
-  }
-};
 const weightStyle = { 400: "Regular", 500: "Medium", 600: "SemiBold" };
-const makeText = (spec, variable) => {
+const makeText = (spec, role) => {
   const text = figma.createText();
   text.name = "label";
   text.fontName = { family: "Pretendard", style: weightStyle[spec.fontWeight] ?? "Regular" };
@@ -109,15 +44,15 @@ const makeText = (spec, variable) => {
   text.letterSpacing = { unit: "PIXELS", value: spec.letterSpacing };
   text.characters = spec.text;
   text.textAutoResize = "WIDTH_AND_HEIGHT";
-  text.fills = [setPaint(variable)];
+  text.fills = [paint(role)];
   return text;
 };
-const makeIcon = (spec, variable, active = false) => {
+const makeIcon = (spec, role, active = false) => {
   const masterName = P.iconComponents[spec.asset];
   const instance = componentByName.get(masterName).createInstance();
   instance.name = "icon";
   instance.resize(spec.rect.width, spec.rect.height);
-  bindIconPaints(instance, variable);
+  paintIcon(instance, role);
   instance.opacity = active ? 1 : spec.opacity;
   return instance;
 };
@@ -149,8 +84,8 @@ if (!section) {
   section.y = 0;
   section.resizeWithoutConstraints(1800, 980);
 }
-section.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-section.fills = [setPaint(V.createButtonBackground, { r: 1, g: 1, b: 1 })];
+pin(section);
+section.fills = [paint("boardSurface")];
 
 let docs = section.findOne((entry) => entry.name === `${P.componentSetName} / Documentation`);
 if (!docs) {
@@ -171,7 +106,7 @@ if (!docs) {
   title.fontName = { family: "Pretendard", style: "SemiBold" };
   title.fontSize = 28;
   title.characters = P.componentSetName;
-  title.fills = [setPaint(V.inactive)];
+  title.fills = [paint("docsTitle")];
   docs.appendChild(title);
   const note = figma.createText();
   note.name = "measurement-note";
@@ -180,8 +115,14 @@ if (!docs) {
   note.lineHeight = { unit: "PERCENT", value: 150 };
   note.characters = `${PLAN.productCommit.slice(0, 8)} · ${PLAN.context} · ${PLAN.sourceCandidate.nodeCount} nodes · ${PLAN.sourceCandidate.routeCount} routes · product-only candidate`;
   note.textAutoResize = "WIDTH_AND_HEIGHT";
-  note.fills = [setPaint(V.muted)];
+  note.fills = [paint("docsNote")];
   docs.appendChild(note);
+}
+// 문서 글자 잉크도 매 실행 주석 역할로 다시 건다 — 옛 문서 프레임은 은퇴한 컬렉션 변수에 묶여 있다.
+{
+  const texts = docs.findAllWithCriteria({ types: ["TEXT"] });
+  if (texts[0]) texts[0].fills = [paint("docsTitle")];
+  if (texts[1]) texts[1].fills = [paint("docsNote")];
 }
 
 const makeEffects = (specs) =>
@@ -199,7 +140,7 @@ let upgradeSet = section.findOne(
   (entry) => entry.type === "COMPONENT_SET" && entry.name === C.componentSetName,
 );
 if (!upgradeSet) {
-  const makeUpgrade = (spec, fillVariable, textVariable) => {
+  const makeUpgrade = (spec) => {
     const component = figma.createComponent();
     component.name = `State=${spec.state}`;
     component.layoutMode = "HORIZONTAL";
@@ -218,18 +159,18 @@ if (!upgradeSet) {
     component.setBoundVariable("paddingLeft", V.spacing14);
     component.setBoundVariable("paddingRight", V.spacing14);
     bindCorners(component, V.radius12);
-    component.fills = [setPaint(fillVariable)];
+    component.fills = [paint(spec.fillPaint)];
     component.effects = makeEffects(spec.effects);
-    component.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    component.appendChild(makeText(spec.label, textVariable));
+    pin(component);
+    component.appendChild(makeText(spec.label, spec.labelPaint));
     component.description = `Measured ${spec.route} · ${PLAN.productCommit}`;
     return component;
   };
   const defaultSpec = C.variants.find((entry) => entry.state === "Default");
   const currentSpec = C.variants.find((entry) => entry.state === "Current");
   if (!defaultSpec || !currentSpec) throw new Error("Missing measured Upgrade CTA variants");
-  const defaultCta = makeUpgrade(defaultSpec, V.surfaceStrong, V.surfaceInverse);
-  const currentCta = makeUpgrade(currentSpec, V.surfaceInverse, V.active);
+  const defaultCta = makeUpgrade(defaultSpec);
+  const currentCta = makeUpgrade(currentSpec);
   section.appendChild(defaultCta);
   section.appendChild(currentCta);
   upgradeSet = figma.combineAsVariants([defaultCta, currentCta], section);
@@ -244,6 +185,15 @@ if (!upgradeSet) {
   upgradeSet.x = 720;
   upgradeSet.y = 680;
 }
+// CTA 면 · 글자는 세트가 있어도 매 실행 계획의 역할로 다시 칠한다 — 옛 세트는 은퇴한 컬렉션 변수에 묶여 있다.
+// 기하는 건드리지 않는다(없을 때만 짓는 옛 경로 그대로). 계획에 없는 variant 는 손대지 않는다.
+for (const variant of upgradeSet.children) {
+  const spec = C.variants.find((entry) => variant.name === `State=${entry.state}`);
+  if (!spec) continue;
+  pin(variant);
+  variant.fills = [paint(spec.fillPaint)];
+  for (const text of variant.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(spec.labelPaint)];
+}
 
 const ensureShell = (menuSet, ctaSet) => {
   const S = P.shell;
@@ -252,8 +202,10 @@ const ensureShell = (menuSet, ctaSet) => {
   );
   const menuByCurrent = new Map(menuSet.children.map((entry) => [entry.name.replace(/^Current=/, ""), entry]));
   const ctaByState = new Map(ctaSet.children.map((entry) => [entry.name.replace(/^State=/, ""), entry]));
-  const logoMaster = componentByName.get(P.iconComponents[S.brand.image.darkAsset]);
-  if (!logoMaster) throw new Error(`Missing Gnb dark brand master ${S.brand.image.darkAsset}`);
+  // 로고는 측정 테마의 자산이다(`logoAsset` — light fixture 는 `/klipse-light.svg`). 옛 러너는 다크 자산으로 고정했다.
+  const logoMaster = componentByName.get(P.iconComponents[S.brand.image.logoAsset]);
+  if (!logoMaster) throw new Error(`Missing Gnb brand master ${S.brand.image.logoAsset}`);
+  const logoName = P.iconComponents[S.brand.image.logoAsset].split(" ")[0];
   if (!shellSet) {
     const variants = [];
     for (const spec of S.variants) {
@@ -264,8 +216,7 @@ const ensureShell = (menuSet, ctaSet) => {
       shell.name = `Current=${spec.current}`;
       shell.resize(S.root.width, S.root.height);
       shell.fills = [];
-      shell.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-      shell.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+      pin(shell);
       const brand = figma.createFrame();
       brand.name = "brand/Klipse";
       brand.resize(S.brand.rect.width, S.brand.rect.height);
@@ -278,7 +229,7 @@ const ensureShell = (menuSet, ctaSet) => {
       brand.setBoundVariable("itemSpacing", V.spacing8);
       brand.fills = [];
       const logo = logoMaster.createInstance();
-      logo.name = "logo/klipse-dark";
+      logo.name = logoName;
       logo.resize(S.brand.image.rect.width, S.brand.image.rect.height);
       brand.appendChild(logo);
       const menu = menuMaster.createInstance();
@@ -291,7 +242,7 @@ const ensureShell = (menuSet, ctaSet) => {
       shell.appendChild(top);
       const cta = ctaMaster.createInstance();
       cta.name = `upgrade-cta · State=${spec.ctaState}`;
-      cta.setExplicitVariableModeForCollection(ctaPaletteMode.collectionId, ctaPaletteMode.modeId);
+      pin(cta);
       shell.appendChild(cta);
       shell.description = `Measured ${spec.route} Gnb · ${PLAN.productCommit}`;
       section.appendChild(shell);
@@ -335,7 +286,7 @@ const ensureShell = (menuSet, ctaSet) => {
     const cta = shell.findOne((entry) => entry.type === "INSTANCE" && entry.name.startsWith("upgrade-cta ·"));
     if (!brand || !logo || !menu || !cta) throw new Error(`Missing measured Gnb children ${shell.name}`);
     if (logo.mainComponent?.id !== logoMaster.id) logo.swapComponent(logoMaster);
-    logo.name = "logo/klipse-dark";
+    logo.name = logoName;
     logo.resize(S.brand.image.rect.width, S.brand.image.rect.height);
     let top = shell.children.find((entry) => entry.type === "FRAME" && entry.name === "flow/brand-and-menu");
     if (!top) {
@@ -363,10 +314,9 @@ const ensureShell = (menuSet, ctaSet) => {
     if (!expectedCtaMaster) throw new Error(`Missing measured CTA state ${spec.ctaState}`);
     if (cta.mainComponent?.id !== expectedCtaMaster.id) cta.swapComponent(expectedCtaMaster);
     cta.name = `upgrade-cta · State=${spec.ctaState}`;
-    cta.setExplicitVariableModeForCollection(ctaPaletteMode.collectionId, ctaPaletteMode.modeId);
+    pin(cta);
     shell.layoutMode = "VERTICAL";
-    shell.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    shell.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(shell);
     shell.primaryAxisSizingMode = shell.counterAxisSizingMode = "FIXED";
     shell.resize(S.root.width, S.root.height);
     shell.primaryAxisAlignItems = "SPACE_BETWEEN";
@@ -399,10 +349,9 @@ const ensurePaymentResult = () => {
     resultSection.x = section.x;
     resultSection.y = section.y + section.height + 182;
     resultSection.resizeWithoutConstraints(1900, 900);
-    resultSection.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    resultSection.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
-    resultSection.fills = [setPaint(V.surfaceInverse, { r: 1, g: 1, b: 1 })];
   }
+  pin(resultSection);
+  resultSection.fills = [paint("boardSurface")];
   // **세트가 있어도 매 실행 제자리에서 reconcile 한다(2026-09-14, 크기 굳힘 감사 묶음 2).** 옛 러너는 세트가 있으면
   // 행 하나만 손보고 돌아가, 처음 지을 때 박은 절대배치(`textAutoResize NONE` + 측정 rect + x/y)가 영영 남았다.
   // 이제 variant 는 세로 Auto Layout 이다 — 높이 HUG, 폭은 계획의 `width`(데스크톱은 선언 상한 520 FIXED,
@@ -462,14 +411,14 @@ const ensurePaymentResult = () => {
       child.visible = false;
     }
   };
-  const styleText = (text, spec, variable) => {
+  const styleText = (text, spec) => {
     text.fontName = { family: "Pretendard", style: weightStyle[spec.fontWeight] ?? "Regular" };
     text.fontSize = spec.fontSize;
     text.lineHeight = { unit: "PIXELS", value: spec.lineHeight };
     text.letterSpacing = { unit: "PIXELS", value: spec.letterSpacing };
     if (text.characters !== spec.text) text.characters = spec.text;
     text.textAlignHorizontal = spec.textAlign === "right" ? "RIGHT" : spec.textAlign === "center" ? "CENTER" : "LEFT";
-    text.fills = [setPaint(variable)];
+    text.fills = [paint(spec.paint)];
   };
   const autoLayout = (frame, mode) => {
     frame.layoutMode = mode;
@@ -487,17 +436,16 @@ const ensurePaymentResult = () => {
     variant.primaryAxisSizingMode = "AUTO";
     bindPadding(variant, { top: 0, right: 0, bottom: 0, left: 0 });
     bindSpacing(variant, "itemSpacing", spec.gap);
-    variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(variant);
     const keep = [];
     const title = place(variant, variant, "TEXT", "title", keep.length);
     keep.push(title);
-    styleText(title, spec.title, V.active);
+    styleText(title, spec.title);
     title.layoutSizingHorizontal = "FILL";
     title.textAutoResize = "HEIGHT";
     const body = place(variant, variant, "TEXT", "body", keep.length);
     keep.push(body);
-    styleText(body, spec.body, V.textSecondary);
+    styleText(body, spec.body);
     body.layoutSizingHorizontal = "FILL";
     body.textAutoResize = "HEIGHT";
     if (spec.detail) {
@@ -516,8 +464,8 @@ const ensurePaymentResult = () => {
       detail.layoutSizingVertical = "HUG";
       const term = place(detail, detail, "TEXT", "term", 0);
       const value = place(detail, detail, "TEXT", "value", 1);
-      styleText(term, D.term, V.textTertiary);
-      styleText(value, D.value, V.active);
+      styleText(term, D.term);
+      styleText(value, D.value);
       for (const text of [term, value]) text.textAutoResize = "WIDTH_AND_HEIGHT";
       retireOthers(detail, [term, value]);
     }
@@ -537,9 +485,9 @@ const ensurePaymentResult = () => {
     bindPadding(action, spec.action.padding);
     action.cornerRadius = spec.action.radius;
     bindCorners(action, V.radius12);
-    action.fills = [setPaint(V.active)];
+    action.fills = [paint(spec.action.fillPaint)];
     const label = place(action, action, "TEXT", "label", 0);
-    styleText(label, spec.action.label, V.surfaceInverse);
+    styleText(label, spec.action.label);
     label.textAutoResize = "WIDTH_AND_HEIGHT";
     retireOthers(action, [label]);
     retireOthers(actions, [action]);
@@ -607,18 +555,30 @@ const reconcileMenuVariants = (menuSet) => {
   for (const [index, variant] of menuSet.children.entries()) {
     const spec = specByName.get(variant.name);
     if (!spec) throw new Error(`Unexpected Gnb menu variant ${variant.name}`);
-    variant.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-    variant.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+    pin(variant);
+    // 행 · 칩 · 섹션 라벨은 매 실행 계획의 역할로 다시 칠한다. 제품 사이드바의 활성 행은 면이 없다(`menuRowPaint.activeSurface`).
+    const R = P.menuRowPaint;
     for (const row of variant.children.filter((entry) => entry.type === "FRAME" && entry.name.startsWith("row/"))) {
       const active = spec.activeRow && row.name === `row/${spec.activeRow}`;
-      row.fills = active ? [setPaint(V.activeIndicator)] : [];
+      row.fills = [];
       const label = row.findOne((entry) => entry.type === "TEXT" && entry.name === "label");
       const icon = row.findOne((entry) => entry.type === "INSTANCE" && entry.name === "icon");
-      if (label) label.fills = [setPaint(active ? V.active : V.inactive)];
+      if (label) label.fills = [paint(active ? spec.activePaint : R.label)];
       if (icon) {
-        bindIconPaints(icon, active ? V.active : V.inactive);
-        icon.opacity = active ? (spec.activeIconOpacity ?? 1) : 0.92;
+        paintIcon(icon, active ? spec.activePaint : R.icon);
+        icon.opacity = active ? (spec.activeIconOpacity ?? 1) : R.iconOpacity;
       }
+      const badge = row.findOne((entry) => entry.type === "FRAME" && entry.name.startsWith("badge/"));
+      const beta = P.rows.find((entry) => entry.beta)?.beta;
+      if (badge && beta) {
+        badge.fills = [paint(beta.paint)];
+        for (const text of badge.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(beta.label.paint)];
+      }
+    }
+    for (const section of variant.children.filter((entry) => entry.type === "FRAME" && entry.name.startsWith("section/"))) {
+      const sectionSpec = P.rows.find((entry) => entry.kind === "section-label" && section.name === `section/${entry.label.text}`);
+      if (!sectionSpec) continue;
+      for (const text of section.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(sectionSpec.label.paint)];
     }
     variant.x = 40 + index * (P.root.width + 40);
     variant.y = 40;
@@ -626,6 +586,19 @@ const reconcileMenuVariants = (menuSet) => {
   menuSet.resizeWithoutConstraints(P.root.width * P.variants.length + 160, P.root.height + 80);
 };
 
+// 보이는 페인트 감사 — 네 세트의 칠은 전부 역할로 칠했다. 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors`)이거나
+// 브랜드 로고 자산(워드마크 잉크는 자산의 칠이다)이어야 한다.
+const auditSets = (sets) => ({
+  colourMode,
+  ...audit(sets, {
+    allow: (node) => {
+      for (let ancestor = node; ancestor && ancestor.type !== "SECTION"; ancestor = ancestor.parent) {
+        if (/^logo\/klipse-(light|dark)\b/.test(ancestor.name)) return "brandLogo";
+      }
+      return null;
+    },
+  }),
+});
 if (existingSet) {
   reconcileMenuVariants(existingSet);
   const shellSet = ensureShell(existingSet, upgradeSet);
@@ -640,6 +613,7 @@ if (existingSet) {
     paymentResultComponentSetId: resultSet.id,
     paymentResultVariantIds: resultSet.children.map((entry) => entry.id),
     alreadyExisted: true,
+    ...auditSets([existingSet, upgradeSet, shellSet, resultSet]),
   };
 }
 
@@ -652,8 +626,7 @@ root.resize(P.root.width, P.root.height);
 root.itemSpacing = P.root.gap;
 root.setBoundVariable("itemSpacing", V.spacing4);
 root.fills = [];
-root.setExplicitVariableModeForCollection(paletteMode.collectionId, paletteMode.modeId);
-root.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
+pin(root);
 
 for (const spec of P.rows) {
   if (spec.kind === "section-label") {
@@ -671,7 +644,7 @@ for (const spec of P.rows) {
     row.setBoundVariable("paddingBottom", V.spacing4);
     row.setBoundVariable("paddingLeft", V.spacing4);
     row.fills = [];
-    row.appendChild(makeText(spec.label, V.muted));
+    row.appendChild(makeText(spec.label, spec.label.paint));
     root.appendChild(row);
     continue;
   }
@@ -689,8 +662,8 @@ for (const spec of P.rows) {
     main.itemSpacing = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
     main.setBoundVariable("itemSpacing", V.spacing10);
     main.fills = [];
-    main.appendChild(makeIcon(spec.icon, V.inactive));
-    main.appendChild(makeText(spec.label, V.inactive));
+    main.appendChild(makeIcon(spec.icon, spec.icon.paint));
+    main.appendChild(makeText(spec.label, spec.label.paint));
     const add = figma.createFrame();
     add.name = `add-action · ${spec.ariaLabel}`;
     add.layoutMode = "HORIZONTAL";
@@ -699,18 +672,19 @@ for (const spec of P.rows) {
     add.primaryAxisAlignItems = add.counterAxisAlignItems = "CENTER";
     add.cornerRadius = spec.addRadius;
     bindCorners(add, V.radius6);
-    add.fills = [setPaint(V.createButtonBackground, { r: 1, g: 1, b: 1 })];
+    // compound 행(+ 버튼)은 제품 `658ece13` 이 걷어 계획이 더는 싣지 않는다 — 측정 면이 없어 칠하지 않는다.
+    add.fills = [];
     const plus = componentByName.get(P.iconComponents.plus).createInstance();
     plus.name = "icon/plus";
     plus.resize(20, 20);
     plus.fills = [];
-    bindIconPaints(plus, V.inactive);
+    paintIcon(plus, spec.icon.paint);
     add.appendChild(plus);
     row.appendChild(main);
     row.appendChild(add);
   } else {
-    row.appendChild(makeIcon(spec.icon, V.inactive));
-    row.appendChild(makeText(spec.label, V.inactive));
+    row.appendChild(makeIcon(spec.icon, spec.icon.paint));
+    row.appendChild(makeText(spec.label, spec.label.paint));
     if (spec.kind === "highlight") {
       const spacer = figma.createFrame();
       spacer.name = "spacer";
@@ -731,8 +705,8 @@ for (const spec of P.rows) {
       badge.setBoundVariable("paddingRight", V.spacing8);
       badge.cornerRadius = spec.beta.radius;
       bindCorners(badge, V.radius6);
-      badge.fills = [setPaint(V.betaBackground, { r: 1, g: 1, b: 1 })];
-      badge.appendChild(makeText(spec.beta.label, V.muted));
+      badge.fills = [paint(spec.beta.paint)];
+      badge.appendChild(makeText(spec.beta.label, spec.beta.label.paint));
       row.appendChild(badge);
     }
   }
@@ -746,8 +720,8 @@ const activate = (variant, variantSpec) => {
   const text = row?.findOne((entry) => entry.type === "TEXT" && entry.name === "label");
   const icon = row?.findOne((entry) => entry.type === "INSTANCE" && entry.name === "icon");
   if (!row || !text || !icon) throw new Error(`Cannot activate ${variantSpec.activeRow}`);
-  text.fills = [setPaint(V.active)];
-  bindIconPaints(icon, V.active);
+  text.fills = [paint(variantSpec.activePaint)];
+  paintIcon(icon, variantSpec.activePaint);
   icon.opacity = variantSpec.activeIconOpacity;
 };
 const variants = [root];
@@ -783,4 +757,5 @@ return {
   paymentResultComponentSetId: resultSet.id,
   paymentResultVariantIds: resultSet.children.map((entry) => entry.id),
   alreadyExisted: false,
+  ...auditSets([componentSet, upgradeSet, shellSet, resultSet]),
 };

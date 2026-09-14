@@ -129,11 +129,19 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-6ba92d715b72(83, body.1, success 짝) → subtree-11c231002ba4(79)
 // **nodeCount 로 고르면 틀린다** — 새 83 은 옛 83 이 아니라 옛 87 이 줄어든 것이다.
 // 기하 가드(아래)는 rect 가 전부 그대로여서 건드리지 않는다.
+// 2026-09-14 재고정(6fbdac16 → 6f6282c1). 넷 다 nodeCount · routeCount · score 와 `roots`(route · path · tag ·
+// rect)가 옛 fixture(`918c42d:`)와 **바이트까지 같고** id 만 갈렸다. 네 후보 모두 상단 바를 품는데, 바 안의
+// 프로필 버튼이 36 → 32(제품 `profileTrigger`)로 줄고 바가 그만큼 낮아져 서브트리 내용 해시가 움직였다 — 루트
+// 상자는 main 카드 · 페이지 루트라 그대로다:
+//   subtree-6dff099f5193(83, body.1, fail 짝)        → subtree-089233c2f2ee
+//   subtree-11c231002ba4(79, body.1, success 짝)     → subtree-dbfe1829e8a7
+//   subtree-ea6c9f0dfd59(25, body.1.0.0.1, fail)     → subtree-1ae30fbe2788
+//   subtree-f034cc084ea1(21, body.1.0.0.1, success)  → subtree-ffbed6e9546f
 const candidateContracts = [
-  ["subtree-6dff099f5193", 83, 2],
-  ["subtree-11c231002ba4", 79, 2],
-  ["subtree-ea6c9f0dfd59", 25, 2],
-  ["subtree-f034cc084ea1", 21, 2],
+  ["subtree-089233c2f2ee", 83, 2],
+  ["subtree-dbfe1829e8a7", 79, 2],
+  ["subtree-1ae30fbe2788", 25, 2],
+  ["subtree-ffbed6e9546f", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -160,11 +168,16 @@ const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByConte
 //   subtree-124ec1ebd803(27, body.1.0)     → subtree-138bcfafd15b
 //   subtree-25acb8040b2f(26, body.1.0.0)   → subtree-ba57b7970eb9
 //   subtree-918343b944e5(25, body.1.0.0.1) → subtree-43750710c66c
+// 모바일도 같은 회차 · 같은 이유다 — 서명과 roots 가 옛 fixture 와 바이트까지 같고 id 만 갈렸다:
+//   subtree-2425ad25b02e(28, body.1)       → subtree-c3e5d0ca4f18
+//   subtree-50076969733f(27, body.1.0)     → subtree-54960c3c0d87
+//   subtree-a6ba0dac2ab4(26, body.1.0.0)   → subtree-20e63d295b79
+//   subtree-60ed0dd6bac4(25, body.1.0.0.1) → subtree-cbbe72fde43b
 const mobileCandidateContracts = [
-  ["subtree-2425ad25b02e", 28, 2],
-  ["subtree-50076969733f", 27, 2],
-  ["subtree-a6ba0dac2ab4", 26, 2],
-  ["subtree-60ed0dd6bac4", 25, 2],
+  ["subtree-c3e5d0ca4f18", 28, 2],
+  ["subtree-54960c3c0d87", 27, 2],
+  ["subtree-20e63d295b79", 26, 2],
+  ["subtree-cbbe72fde43b", 25, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = mobileCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

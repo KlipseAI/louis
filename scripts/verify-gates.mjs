@@ -1562,17 +1562,39 @@ withCanary(
   "dist 의 \"use client\" 가 소스와 다릅니다",
 );
 
-// ── 계산된 크기를 숫자로 굳힌 가드 카나리아(2026-09-14) ─────────────────────
-// `check-derived-size-literals` 는 생성기 · Figma 라이브러리의 `rect.height !== 53` 꼴을 센다. 두 방향을 다
-// 물어야 래칫이다: (1) 굳힌 가드가 새로 생기면 울고, (2) 고친 뒤 기준선을 내리지 않으면 운다. 두 번째가
-// 없으면 줄어든 여유만큼 다음 굳힘이 조용히 들어온다. 오염 대상은 제품 저장소 표지가 없는 라이브러리
-// 파일이다 — 생성기 파일을 따옴표로 적으면 verify-gate-split 이 그 파일을 이 게이트의 도달 범위로 읽는다.
+// ── 계산된 크기를 숫자로 굳힌 리터럴 카나리아(2026-09-14) ───────────────────
+// `check-derived-size-literals` 는 생성기 · Figma 라이브러리 · 렌더러 템플릿의 인용 없는 크기 리터럴을 센다.
+// 두 방향을 다 물어야 래칫이다: (1) 굳힌 리터럴이 새로 생기면 울고, (2) 고친 뒤 기준선을 내리지 않으면 운다.
+// 두 번째가 없으면 줄어든 여유만큼 다음 굳힘이 조용히 들어온다.
+//
+// (1) 은 **꼴마다 따로** 문다. 첫 판 게이트는 `rect.height !== 53` 한 꼴만 시험했고, 그래서 묶음 1 의 발단인
+// `const headerHeight = 52` · `bodyWidth !== 1832` · `viewport: { height: 1003, y: 53 }` ·
+// `fixed(leading, 68, 36)` 을 하나도 세지 못한다는 사실이 초록 뒤에 숨어 있었다. 오염 한 벌에 꼴 하나만 넣고,
+// 기대 진단에 꼴 이름과 그 줄을 함께 적어 「다른 꼴이 대신 울었다」도 통과시키지 않는다. 마지막 하나는
+// 렌더러 템플릿을 오염시켜 범위가 템플릿까지 닿는지를 문다. 라이브러리 오염 대상은 제품 저장소 표지가
+// 없는 파일이다 — 생성기 파일을 따옴표로 적으면 verify-gate-split 이 그 파일을 이 게이트의 도달 범위로 읽는다.
+for (const [label, line, diagnostic] of [
+  ["멤버 비교", "if (probe.rect.height !== 53) throw new Error(\"canary\");", "[비교] if (probe.rect.height !== 53)"],
+  ["부등호 비교", "if (probe.rect.height > 52) throw new Error(\"canary\");", "[비교] if (probe.rect.height > 52)"],
+  ["크기 이름 식별자 비교", "if (bodyWidth !== 1832) throw new Error(\"canary\");", "[비교] if (bodyWidth !== 1832)"],
+  ["리터럴 대입", "const headerHeight = 52;", "[대입] const headerHeight = 52;"],
+  ["객체 리터럴", "const canaryLayout = { viewport: { height: 1003, y: 53 } };", "[객체] const canaryLayout"],
+  ["Math.abs 허용치 비교", "if (Math.abs(probe.rect.height - 53) > 1) throw new Error(\"canary\");", "[abs] if (Math.abs(probe.rect.height - 53)"],
+]) {
+  withCanary(
+    "scripts/lib/figma-glyph-identity.mjs",
+    (source) => source + "\n" + line + "\n",
+    "derived size literal: 새 굳힘 · " + label,
+    "scripts/check-derived-size-literals.mjs",
+    diagnostic,
+  );
+}
 withCanary(
-  "scripts/lib/figma-glyph-identity.mjs",
-  (source) => source + "\nif (probe.rect.height !== 53) throw new Error(\"canary\");\n",
-  "derived size literal: 새 굳힌 가드",
+  "scripts/templates/figma-product-sidebar-states-renderer.js",
+  (source) => source + "\nfixed(leading, 68, 36);\n",
+  "derived size literal: 새 굳힘 · 렌더러 템플릿의 크기 호출",
   "scripts/check-derived-size-literals.mjs",
-  "계산된 크기를 숫자로 비교하는 가드가",
+  "[크기 호출] fixed(leading, 68, 36);",
 );
 withCanary(
   "scripts/check-derived-size-literals.mjs",

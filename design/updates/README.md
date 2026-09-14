@@ -123,10 +123,23 @@ ProgressRing 의 width · height · Track · Content 여섯 축으로 빨갛다.
 
 **재발 방지.**
 
-- `scripts/check-derived-size-literals.mjs`(verify:ci) — `build-figma-*.mjs` · `lib/figma-*.mjs` 의
-  `…width|height|x|y === / !== <수>` 를 파일별로 센다. 선언 줄(`// 선언: <경로>:<줄>`)은 세지 않는다.
-  기준선보다 늘어도, **줄어도** 실패한다(고친 만큼 내려 잠근다). 남은 수는 결제 · 업그레이드 · 요금제
-  장면의 뷰포트 · 카드 가드이고 묶음 2 · 3 · 5 가 옮긴다. 두 방향 canary 를 `verify-gates` 에 더했다.
+- `scripts/check-derived-size-literals.mjs`(verify:ci) — Figma 생성기(`build-figma-*.mjs`) · 라이브러리
+  (`lib/figma-*.mjs`) · **렌더러 템플릿(`scripts/templates/`)** · `figma-screens-live-check.mjs` 에서 선언 인용이
+  붙지 않은 크기 리터럴을 파일별로 센다. 꼴은 다섯이다 — 크기 식과 수의 비교(`===` · `!==` · 부등호, 멤버와
+  `bodyWidth` 같은 크기 이름 식별자 둘 다), 크기 이름 리터럴 대입(`const headerHeight = 52`), 객체 리터럴의
+  `width|height|x|y: <수>`, `resize` · `fixed` 류 호출의 수 인자, `Math.abs(…)` 안의 크기 오프셋. 선언 줄
+  (`// 선언: <경로>:<줄>`)은 세지 않는다. 기준선보다 늘어도, **줄어도** 실패한다(고친 만큼 내려 잠근다).
+  **첫 판은 이 사슬을 잡지 못했다.** 비교 한 꼴(`rect.height !== 53`)만, 생성기 · 라이브러리에서만 셌기
+  때문에, 그 규칙을 이 묶음의 수정 전 트리(`3e56bec`)에 돌리면 `headerHeight = 52` · `bodyWidth !== 1832` ·
+  `mainCardWidth = 1628` · `viewport: { height: 1003, y: 53 }` 이 있던 생성기가 0 이었고, `fixed(leading, 68, 36)`
+  이 있던 렌더러는 범위 밖이었다(규칙을 그대로 대 봐도 0). 지금 규칙은 같은 트리에서 그 줄들을 모두 센다. `verify-gates` 의 canary 는 꼴마다
+  하나씩 오염을 넣고 꼴 이름과 그 줄을 기대 진단으로 물며(템플릿 오염 하나로 범위도), 기준선을 내리지 않는
+  방향도 문다.
+  기준선의 수는 「파생값」이 아니라 **「인용 없는 크기 리터럴」**이다. 결제 · 업그레이드 · 요금제 장면의 뷰포트 ·
+  카드 가드(묶음 2 · 3 · 5)에 더해, 보드 캔버스 배치값(섹션 · 문서 프레임 · 세트 크기), 앱 셸 생성기의 Figma
+  글리프 실측표, 사이드바 상태 렌더러의 접힌 레일 조각이 들어 있다. 파일별 내역은 게이트의 `BASELINE` 주석이
+  갖는다. **여전히 하한이다** — 크기 이름이 아닌 이름(`rows.upper !== 656`), 간접 비교, 계산식 인자
+  (`resize(40 + i * 560, …)`), 노드 위치 대입(`node.x = 868`), 줄을 넘는 식은 세지 못한다.
 - `figma-screens-live-check --emit --sets` 가 상단 바 두 세트의 variant 마다 Auto Layout 축(layoutMode ·
   축 sizing · 헤어라인 레이아웃 포함)을 뜨고, `--check` 가 앱 셸 계획의 `layoutContract` 와 대조한다.
 

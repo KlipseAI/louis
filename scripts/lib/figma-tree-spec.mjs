@@ -204,7 +204,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [] };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [] };
 
   const convert = (node, parent) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
@@ -238,6 +238,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
     const style = node.style ?? {};
     // 흐름 방향은 자식의 display가 결정한다(inline 형제는 가로로 흐른다).
     const layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
+    if (style.flexWrap === "wrap" && layoutMode !== "HORIZONTAL" && layoutMode !== "NONE") {
+      stats.verticalWrap.push({ path: node.path, layoutMode });
+    }
     stats.kept += 1;
     return {
       path: node.path,
@@ -288,7 +291,13 @@ export function toFigmaTreeSpec(tree, options = {}) {
         counterAxisSpacing: (layoutMode === "VERTICAL"
           ? px(style.columnGap)
           : px(style.rowGap)) ?? null,
-        wrap: style.flexWrap === "wrap",
+        // **wrap 은 가로 배치에만 싣는다.** Figma 의 `layoutWrap = "WRAP"` 은 HORIZONTAL 자동 배치에만
+        // 걸리고, 세로 프레임에 걸면 플러그인 API 가 던져 보드 러너가 그 자리에서 멈춘다. 실측
+        // (2026-09-14): `/subscription` 모바일 크레딧 카드의 promo 줄 `body.1.0.0.1.0.1.1.0.1.1.0.4` 가
+        // `flex-direction: column; flex-wrap: wrap` 이라 VERTICAL + wrap 1 로 실려 있었다. 세로 flex 는
+        // 높이가 정해져야 감기는데 그 줄은 높이 선언이 없고 자식이 하나라, 제품에서도 감기지 않는다 —
+        // NO_WRAP 이 같은 그림이다. 표현하지 못한 자리는 `stats.verticalWrap` 에 남긴다.
+        wrap: layoutMode === "HORIZONTAL" && style.flexWrap === "wrap",
         padding: {
           top: px(style.paddingTop) ?? 0,
           right: px(style.paddingRight) ?? 0,

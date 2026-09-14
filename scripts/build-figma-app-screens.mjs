@@ -147,7 +147,15 @@ const typographyKeys = (node) => {
   };
 };
 
-const slim = (node) => ({
+const slim = (node) => {
+  // 세로 배치에 wrap 칸이 서면 렌더러가 `layoutWrap = "WRAP"` 을 세로 프레임에 걸려다 던진다(2026-09-14
+  // `/subscription` 모바일). 원천은 figma-tree-spec 이 막지만, payload 로 새어 나오면 여기서 멈춘다.
+  if (node.layout?.wrap && node.layout.layoutMode !== "HORIZONTAL") {
+    fail(`wrap 은 HORIZONTAL 에만 실을 수 있습니다: ${node.path} (${node.layout.layoutMode})`);
+  }
+  return slimNode(node);
+};
+const slimNode = (node) => ({
   t: node.tag,
   ...(node.text ? { x: node.text } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
@@ -351,6 +359,8 @@ for (const screen of SCREENS) {
         droppedInvisible: stats.droppedInvisible,
         droppedEmpty: stats.droppedEmpty,
         unresolved: stats.unresolved,
+        // 제품은 세로 flex 에 wrap 을 걸었지만 Figma 는 HORIZONTAL 에만 wrap 이 있어 NO_WRAP 으로 옮긴 자리.
+        ...(stats.verticalWrap.length ? { verticalWrap: stats.verticalWrap } : {}),
       },
       spec,
     });

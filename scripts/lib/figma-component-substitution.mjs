@@ -9,7 +9,8 @@
  * 셸(사이드바·상단 바)뿐 아니라 결제 결과/체크아웃 상태 본문과 요금제 카드까지 이미 컴포넌트다.
  *
  * ## 판정은 측정값으로 한다 — 라우트 이름으로 찍지 않는다
- * - 셸: 구조(절대 배치 280×1080 header / 높이 53 + breadcrumb nav)로 찾는다.
+ * - 셸: 구조(절대 배치 280×1080 header / 앞머리 버튼 · breadcrumb nav · 프로필 버튼을 직접 품은 행)로
+ *   찾는다. 상단 바 높이는 제품이 선언하지 않은 계산값이라 판정에 쓰지 않는다(`isTopBarRow`).
  * - 본문 블록: **정렬된 텍스트 목록이 완전히 같고 rect가 1px 이내로 같을 때만** 치환한다.
  *   텍스트 하나만 달라도 다른 화면이므로 치환하지 않는다.
  *
@@ -209,6 +210,42 @@ function breadcrumbLabels(bar) {
   const nav = findDescendant(bar, (node) => node.tag === "nav");
   if (!nav) return [];
   return textsOf(nav).filter((text) => text && text !== "/");
+}
+
+/** 서브트리의 `<button>` 수. */
+function buttonCount(node) {
+  let count = node.tag === "button" ? 1 : 0;
+  for (const child of node.children ?? []) count += buttonCount(child);
+  return count;
+}
+
+/**
+ * **상단 바는 기하가 아니라 구조로 알아본다(2026-09-14).**
+ *
+ * 제품 바(`mainChromeTopBar` + `mainChromeTopBarInPanel`, Gnb.tsx)는 높이를 선언하지 않는다 —
+ * `[min-block-size:0]`(Gnb.tsx:460) 과 `[padding:8px_var(--mainchrome-pad-x)]`(:483) 뿐이라 높이는
+ * 「패딩 + 가장 큰 자식 + 헤어라인」으로 **계산된다.** 옛 매처는 그 계산 결과 53 을 `=== 53` 으로 물었고,
+ * 제품 `6f6282c1` 이 프로필 버튼을 36 → 32 로 줄이자 바가 49 가 되어 36 보드의 상단 바가 한꺼번에
+ * 날노드로 떨어질 자리였다. 크기는 판정 입력이 아니다.
+ *
+ * 구조는 제품 JSX 가 정한다(Gnb.tsx 의 `mainChromeLeadingCluster` · `mainChromePageNav` ·
+ * `mainChromeProfileCluster` 순서): **자식 가운데 `<nav>` 가 있고, 그 앞 형제들이 버튼(사이드바 토글 ·
+ * 뒤로가기)을, 그 뒤 형제들이 버튼(프로필 트리거)을 품는 흐름 노드.** 이 조건은 가장 안쪽 행에서만
+ * 선다 — nav 를 **직접** 자식으로 두는 노드는 바 자신뿐이라, 바를 감싼 margin 래퍼(f19cc41c → 38a7d5a4
+ * 에서 `collapseWrappers` 가 접지 않게 된 모바일 390 · 데스크톱 1600/1608 폭 래퍼)가 먼저 걸려 폭 ·
+ * 앞머리 버튼 수를 틀리게 판정하던 함정이 구조상 사라진다. 데스크톱 사이드바 `<header>` 의 nav 는
+ * 앞뒤 형제가 없어 걸리지 않는다(그리고 사이드바 치환이 먼저 돈다).
+ *
+ * 앵커 두 벌(`6fbdac16` 의 53 · `6f6282c1` 의 49)에서 36 보드 모두 옛 매처와 같은 경로를 집는다.
+ */
+function isTopBarRow(node) {
+  if (node.positioning === "ABSOLUTE") return false;
+  const children = node.children ?? [];
+  const navIndex = children.findIndex((child) => child.tag === "nav");
+  if (navIndex <= 0 || navIndex === children.length - 1) return false;
+  const before = children.slice(0, navIndex).reduce((sum, child) => sum + buttonCount(child), 0);
+  const after = children.slice(navIndex + 1).reduce((sum, child) => sum + buttonCount(child), 0);
+  return before >= 1 && after >= 1;
 }
 
 /** 상단 바 앞머리의 버튼 수 — 2개면 뒤로가기가 붙은 것이다(토글 + 뒤로). */
@@ -824,38 +861,20 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   };
 
   let barDone = false;
-  // **상단 바는 「높이 53 + breadcrumb nav」인 노드 중 가장 안쪽의 것이다.**
-  // 제품이 바를 감싸는 래퍼에 `margin-bottom: 0 → var(--app-gnb-main-card-padding-block-start)`(데스크톱 16px · 모바일 6px — 제품 `b6b4e245` · `e95e1fb3`) 를 주자
-  // (f19cc41c → 38a7d5a4, DOM 은 그대로)
-  // `collapseWrappers` 가 그 래퍼를 접지 않게 됐다 — margin 이 있으면 남기는 것이 옳다. 그런데
-  // 래퍼(모바일 390×53 · 데스크톱 1600/1608×53)도 높이 53 이고 nav 를 품으므로 이 매처가 먼저 만났고,
-  // 래퍼 기준으로 폭(390 → Inset)과
-  // 앞머리 버튼 수(바 전체를 세서 Back=True)를 잘못 판정한 뒤 **치환 성공 전에 슬롯을 닫았다.**
-  // 결과는 둘이었다: archive · settings · subscription 다섯 보드는 없는 조합이라 보류돼 진짜 바가
-  // 시도조차 안 됐고(인스턴스 소실), highlight 모바일 여섯은 `Inset · Trail · Back=True` 가 우연히
-  // 목록에 있어 390 래퍼에 **틀린 인스턴스**가 붙었다 — 진짜 바는 402 폭 `Full · Trail · Back=True`
-  // 이고 그 조합은 세트에 없다. INSTANCE 합계는 잃은 바 안의 Avatar 가 따로 세어져 84 로 가려졌다.
-  // 그래서 **자식 중 하나라도 후보인 노드는 바로 보지 않고 내려간다**(자식이 하나뿐인 래퍼만이
-  // 아니다 — 바 옆에 절대 배치 헤어라인 같은 형제가 붙어도 같은 함정이다). 진짜 바의 자식은 앞머리 ·
-  // nav · 뒷머리이고 그중 높이 53 인 것은 없다. 진짜 바를 만나면 변형이 없어도
-  // 슬롯을 닫는다 — 화면마다 바는 하나이고, 그 아래 노드가 바를 가로채면 안 된다.
-  const isTopBarCandidate = (candidate) => Math.round(candidate.rect.height) === 53
-    && Boolean(findDescendant(candidate, (child) => child.tag === "nav"));
   const walk = (node) => {
     if (desktop && node.tag === "header" && node.positioning === "ABSOLUTE"
         && Math.round(node.rect.width) === 280) {
       if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
         "position:fixed 280×1080 header — 앱 데스크톱 사이드바")) return;
     }
-    if (!barDone && isTopBarCandidate(node)
-        && !(node.children ?? []).some(isTopBarCandidate)) {
+    if (!barDone && isTopBarRow(node)) {
       barDone = true;
       const set = desktop ? COMPONENT_SETS.desktopTopBar : COMPONENT_SETS.mobileTopBar;
       const barStyle = styleOf(node.path);
       const variant = desktop
         ? desktopTopBarVariant(node, barStyle)
         : mobileTopBarVariant(node, viewport.width, barStyle);
-      if (substitute(node, set, variant, `높이 53 + breadcrumb nav — 앱 상단 바 (${round(node.rect.width)}px)`)) return;
+      if (substitute(node, set, variant, `앞머리 버튼 · breadcrumb nav · 뒷머리 버튼을 직접 품은 행 — 앱 상단 바 (${round(node.rect.width)}px)`)) return;
     }
     const content = matchContent(node);
     if (content) {

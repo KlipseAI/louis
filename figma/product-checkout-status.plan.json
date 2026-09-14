@@ -2,25 +2,6 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma component and composition; not a normative design-system contract",
   "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
-  "figmaGlyphMeasurements": {
-    "$measurement": "use_figma temporary TextNode natural bounds; measured 2026-08-24 and nodes removed",
-    "-0.16": {
-      "Error code": 64,
-      "Message": 56,
-      "Order ID": 52,
-      "UNKNOWN_ERROR": 120,
-      "Payment request failed": 141,
-      "-": 7
-    },
-    "-0.14": {
-      "Error code": 64,
-      "Message": 57,
-      "Order ID": 52,
-      "UNKNOWN_ERROR": 121,
-      "Payment request failed": 141,
-      "-": 7
-    }
-  },
   "component": {
     "id": "product/checkout-status-content-and-scenes",
     "pageId": "240:3529",
@@ -49,7 +30,13 @@
           "width": 520,
           "height": 322.1875
         },
+        "width": {
+          "mode": "FIXED",
+          "value": 520,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment confirmed, but plan update delayed",
           "rect": {
@@ -99,8 +86,14 @@
             "width": 520,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -110,6 +103,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -153,6 +148,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -197,12 +194,6 @@
             "y": 169.1875,
             "width": 520,
             "height": 47
-          },
-          "textRect": {
-            "x": 16,
-            "y": 181.1875,
-            "width": 488,
-            "height": 23
           },
           "padding": {
             "top": 12,
@@ -256,7 +247,13 @@
           "width": 520,
           "height": 365.5938
         },
+        "width": {
+          "mode": "FIXED",
+          "value": 520,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment was not completed.",
           "rect": {
@@ -306,8 +303,14 @@
             "width": 520,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -317,6 +320,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -360,6 +365,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -404,6 +411,7 @@
             "width": 520,
             "height": 91
           },
+          "gap": 0,
           "rows": [
             {
               "rect": {
@@ -413,12 +421,23 @@
                 "height": 46
               },
               "direction": "row",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Error code",
@@ -439,8 +458,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 64
+                "textAlign": "start"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -461,8 +479,7 @@
                   0,
                   1
                 ],
-                "textAlign": "right",
-                "figmaWidth": 120
+                "textAlign": "right"
               }
             },
             {
@@ -473,6 +490,8 @@
                 "height": 45
               },
               "direction": "row",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
@@ -480,6 +499,7 @@
                 "bottom": 12,
                 "left": 0
               },
+              "borderBottom": null,
               "term": {
                 "text": "Message",
                 "rect": {
@@ -499,8 +519,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 56
+                "textAlign": "start"
               },
               "value": {
                 "text": "Payment request failed",
@@ -521,8 +540,7 @@
                   0,
                   1
                 ],
-                "textAlign": "right",
-                "figmaWidth": 141
+                "textAlign": "right"
               }
             }
           ]
@@ -537,7 +555,13 @@
           "width": 520,
           "height": 411.5938
         },
+        "width": {
+          "mode": "FIXED",
+          "value": 520,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment was not completed.",
           "rect": {
@@ -587,8 +611,14 @@
             "width": 520,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -598,6 +628,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -641,6 +673,8 @@
                 "width": 520,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -685,6 +719,7 @@
             "width": 520,
             "height": 137
           },
+          "gap": 0,
           "rows": [
             {
               "rect": {
@@ -694,12 +729,23 @@
                 "height": 46
               },
               "direction": "row",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Error code",
@@ -720,8 +766,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 64
+                "textAlign": "start"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -742,8 +787,7 @@
                   0,
                   1
                 ],
-                "textAlign": "right",
-                "figmaWidth": 120
+                "textAlign": "right"
               }
             },
             {
@@ -754,12 +798,23 @@
                 "height": 46
               },
               "direction": "row",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Message",
@@ -780,8 +835,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 56
+                "textAlign": "start"
               },
               "value": {
                 "text": "Payment request failed",
@@ -802,8 +856,7 @@
                   0,
                   1
                 ],
-                "textAlign": "right",
-                "figmaWidth": 141
+                "textAlign": "right"
               }
             },
             {
@@ -814,6 +867,8 @@
                 "height": 45
               },
               "direction": "row",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
@@ -821,6 +876,7 @@
                 "bottom": 12,
                 "left": 0
               },
+              "borderBottom": null,
               "term": {
                 "text": "Order ID",
                 "rect": {
@@ -840,8 +896,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 52
+                "textAlign": "start"
               },
               "value": {
                 "text": "-",
@@ -862,8 +917,7 @@
                   0,
                   1
                 ],
-                "textAlign": "right",
-                "figmaWidth": 7
+                "textAlign": "right"
               }
             }
           ]
@@ -878,7 +932,13 @@
           "width": 390,
           "height": 409.7813
         },
+        "width": {
+          "mode": "FILL",
+          "value": 390,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment confirmed, but plan update delayed",
           "rect": {
@@ -928,8 +988,14 @@
             "width": 390,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -939,6 +1005,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -982,6 +1050,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -1026,12 +1096,6 @@
             "y": 235.7813,
             "width": 390,
             "height": 68
-          },
-          "textRect": {
-            "x": 16,
-            "y": 247.7813,
-            "width": 358,
-            "height": 44
           },
           "padding": {
             "top": 12,
@@ -1085,7 +1149,13 @@
           "width": 390,
           "height": 500.1875
         },
+        "width": {
+          "mode": "FILL",
+          "value": 390,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment was not completed.",
           "rect": {
@@ -1135,8 +1205,14 @@
             "width": 390,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -1146,6 +1222,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -1189,6 +1267,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -1233,6 +1313,7 @@
             "width": 390,
             "height": 165
           },
+          "gap": 0,
           "rows": [
             {
               "rect": {
@@ -1242,12 +1323,23 @@
                 "height": 83
               },
               "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Error code",
@@ -1268,8 +1360,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 64
+                "textAlign": "start"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -1290,8 +1381,7 @@
                   0,
                   1
                 ],
-                "textAlign": "left",
-                "figmaWidth": 121
+                "textAlign": "left"
               }
             },
             {
@@ -1302,6 +1392,8 @@
                 "height": 82
               },
               "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
@@ -1309,6 +1401,7 @@
                 "bottom": 12,
                 "left": 0
               },
+              "borderBottom": null,
               "term": {
                 "text": "Message",
                 "rect": {
@@ -1328,8 +1421,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 57
+                "textAlign": "start"
               },
               "value": {
                 "text": "Payment request failed",
@@ -1350,8 +1442,7 @@
                   0,
                   1
                 ],
-                "textAlign": "left",
-                "figmaWidth": 141
+                "textAlign": "left"
               }
             }
           ]
@@ -1366,7 +1457,13 @@
           "width": 390,
           "height": 583.1875
         },
+        "width": {
+          "mode": "FILL",
+          "value": 390,
+          "declared": "min(520px, 100%)"
+        },
         "gap": 24,
+        "gapDeclared": "calc(2px * 12)",
         "title": {
           "text": "Payment was not completed.",
           "rect": {
@@ -1416,8 +1513,14 @@
             "width": 390,
             "height": 74
           },
+          "direction": "VERTICAL",
           "gap": 10,
-          "marginTop": 8,
+          "paddingTop": 8,
+          "declared": {
+            "flexWrap": "wrap",
+            "gap": "calc(2px * 5)",
+            "marginTop": "calc(8px)"
+          },
           "actions": [
             {
               "text": "Back to plans",
@@ -1427,6 +1530,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -1470,6 +1575,8 @@
                 "width": 390,
                 "height": 32
               },
+              "height": 32,
+              "heightDeclared": "calc(32px)",
               "radius": 12,
               "padding": {
                 "top": 0,
@@ -1514,6 +1621,7 @@
             "width": 390,
             "height": 248
           },
+          "gap": 0,
           "rows": [
             {
               "rect": {
@@ -1523,12 +1631,23 @@
                 "height": 83
               },
               "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Error code",
@@ -1549,8 +1668,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 64
+                "textAlign": "start"
               },
               "value": {
                 "text": "UNKNOWN_ERROR",
@@ -1571,8 +1689,7 @@
                   0,
                   1
                 ],
-                "textAlign": "left",
-                "figmaWidth": 121
+                "textAlign": "left"
               }
             },
             {
@@ -1583,12 +1700,23 @@
                 "height": 83
               },
               "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
                 "right": 0,
                 "bottom": 12,
                 "left": 0
+              },
+              "borderBottom": {
+                "width": 1,
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.08
+                ]
               },
               "term": {
                 "text": "Message",
@@ -1609,8 +1737,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 57
+                "textAlign": "start"
               },
               "value": {
                 "text": "Payment request failed",
@@ -1631,8 +1758,7 @@
                   0,
                   1
                 ],
-                "textAlign": "left",
-                "figmaWidth": 141
+                "textAlign": "left"
               }
             },
             {
@@ -1643,6 +1769,8 @@
                 "height": 82
               },
               "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "space-between",
               "gap": 16,
               "padding": {
                 "top": 12,
@@ -1650,6 +1778,7 @@
                 "bottom": 12,
                 "left": 0
               },
+              "borderBottom": null,
               "term": {
                 "text": "Order ID",
                 "rect": {
@@ -1669,8 +1798,7 @@
                   0,
                   0.48
                 ],
-                "textAlign": "start",
-                "figmaWidth": 52
+                "textAlign": "start"
               },
               "value": {
                 "text": "-",
@@ -1691,8 +1819,7 @@
                   0,
                   1
                 ],
-                "textAlign": "left",
-                "figmaWidth": 7
+                "textAlign": "left"
               }
             }
           ]
@@ -1730,6 +1857,35 @@
             1
           ],
           "radius": 16
+        },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 8,
+              "right": 8,
+              "bottom": 8,
+              "left": 280
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 24,
+              "bottom": 56,
+              "left": 24
+            },
+            "minHeight": 1012,
+            "bleed": {
+              "left": 24,
+              "right": 24
+            },
+            "barGap": 0,
+            "contentTop": 108,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "clamp(56px, 10vh, 120px)"
+            }
+          }
         },
         "topBar": {
           "x": 0,
@@ -1775,6 +1931,35 @@
           ],
           "radius": 16
         },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 8,
+              "right": 8,
+              "bottom": 8,
+              "left": 280
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 24,
+              "bottom": 56,
+              "left": 24
+            },
+            "minHeight": 1012,
+            "bleed": {
+              "left": 24,
+              "right": 24
+            },
+            "barGap": 0,
+            "contentTop": 108,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "clamp(56px, 10vh, 120px)"
+            }
+          }
+        },
         "topBar": {
           "x": 0,
           "y": 0,
@@ -1818,6 +2003,35 @@
             1
           ],
           "radius": 16
+        },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 8,
+              "right": 8,
+              "bottom": 8,
+              "left": 280
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 24,
+              "bottom": 56,
+              "left": 24
+            },
+            "minHeight": 1012,
+            "bleed": {
+              "left": 24,
+              "right": 24
+            },
+            "barGap": 0,
+            "contentTop": 108,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "clamp(56px, 10vh, 120px)"
+            }
+          }
         },
         "topBar": {
           "x": 0,
@@ -1863,6 +2077,35 @@
           ],
           "radius": 16
         },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 6,
+              "bottom": 40,
+              "left": 6
+            },
+            "minHeight": 814,
+            "bleed": {
+              "left": 0,
+              "right": 0
+            },
+            "barGap": 0,
+            "contentTop": 56,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "calc(56px)"
+            }
+          }
+        },
         "topBar": {
           "x": 6,
           "y": 0,
@@ -1907,6 +2150,35 @@
           ],
           "radius": 16
         },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 6,
+              "bottom": 40,
+              "left": 6
+            },
+            "minHeight": 814,
+            "bleed": {
+              "left": 0,
+              "right": 0
+            },
+            "barGap": 0,
+            "contentTop": 56,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "calc(56px)"
+            }
+          }
+        },
         "topBar": {
           "x": 6,
           "y": 0,
@@ -1950,6 +2222,35 @@
             1
           ],
           "radius": 16
+        },
+        "layout": {
+          "page": {
+            "padding": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          "main": {
+            "padding": {
+              "top": 0,
+              "right": 6,
+              "bottom": 40,
+              "left": 6
+            },
+            "minHeight": 814,
+            "bleed": {
+              "left": 0,
+              "right": 0
+            },
+            "barGap": 0,
+            "contentTop": 56,
+            "declared": {
+              "minHeight": "calc(100dvh - var(--app-gnb-sidebar-align-main-margin-top) - var(--app-gnb-rail-below-chrome-gap) - var(--app-gnb-rail-padding-bottom))",
+              "contentMarginTop": "calc(56px)"
+            }
+          }
         },
         "topBar": {
           "x": 6,
@@ -2008,9 +2309,41 @@
         "collection": "Klipse Primitive",
         "name": "color/red-alpha/16"
       },
-      "spacing20": {
+      "divider": {
+        "collection": "2 · Semantic",
+        "name": "palette/gray-000 · a8"
+      },
+      "spacing6": {
         "collection": "Klipse Primitive",
-        "name": "spacing/20"
+        "name": "spacing/6"
+      },
+      "spacing8": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/8"
+      },
+      "spacing10": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/10"
+      },
+      "spacing12": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/12"
+      },
+      "spacing16": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/16"
+      },
+      "spacing24": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/24"
+      },
+      "spacing40": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/40"
+      },
+      "spacing56": {
+        "collection": "Klipse Primitive",
+        "name": "spacing/56"
       },
       "radius12": {
         "collection": "Klipse Primitive",

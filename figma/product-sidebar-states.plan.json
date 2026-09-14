@@ -598,8 +598,15 @@
       "exact": true
     },
     "topBarDivider": {
-      "declared": null,
-      "annotation": "editor top bar bottom line — not measured by this fixture (creation-only path); Gnb.tsx:497 declares var(--louis-color-stroke-hairline), the same token the app-shell plan binds",
+      "declared": [
+        {
+          "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+          "path": "apps/web/components/navigation/Gnb.tsx",
+          "line": 497,
+          "quote": "    \"[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]\","
+        }
+      ],
+      "unmeasured": "editor top bar bottom line — not measured by this fixture (creation-only path); the same token the app-shell plan binds",
       "figma": "Klipse Semantic Color[Dark]/color/stroke-hairline → Klipse Primitive/color/static-white-alpha/08",
       "figmaValue": "#fafafa",
       "figmaAlpha": 0.08,

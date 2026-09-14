@@ -60,15 +60,31 @@ export const colorKey = (rgba) => `${channel(rgba[0])},${channel(rgba[1])},${cha
 const sameColor = (left, right) =>
   [0, 1, 2].every((index) => channel(left[index]) === channel(right[index])) && channel(left[3] ?? 1) === channel(right[3] ?? 1);
 
-// 브라우저 계산 색의 두 직렬화(legacy `rgb()` 0–255 · `color(srgb …)` 0–1)를 함께 읽는다.
+// 브라우저 계산 색의 두 직렬화(legacy `rgb()` 0–255 · `color(srgb …)` 0–1)를 함께 읽는다. 알파는 두 꼴 모두 수(`0.08`)나
+// 백분율(`/ 8%`)로 올 수 있다 — 백분율을 받지 않으면 `unsupported color` 로 멈추거나(여기), 다른 파서처럼 알파를 잃고 1 로
+// 떨어진다. 아래 단위 확인이 모듈을 읽을 때 두 꼴 · 두 알파 표기를 한 번씩 푼다(verify-gates 카나리아가 그 확인을 문다).
+const alphaOf = (raw) => (raw === undefined ? 1 : raw.endsWith("%") ? Number(raw.slice(0, -1)) / 100 : Number(raw));
 export const parseCssColor = (value, fail) => {
   const raw = String(value ?? "").trim();
-  const legacy = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+))?\s*\)$/.exec(raw);
-  if (legacy) return [Number(legacy[1]) / 255, Number(legacy[2]) / 255, Number(legacy[3]) / 255, legacy[4] === undefined ? 1 : Number(legacy[4])];
-  const modern = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\s*\)$/.exec(raw);
-  if (modern) return [Number(modern[1]), Number(modern[2]), Number(modern[3]), modern[4] === undefined ? 1 : Number(modern[4])];
+  const legacy = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,/\s]+([\d.]+%?))?\s*\)$/.exec(raw);
+  if (legacy) return [Number(legacy[1]) / 255, Number(legacy[2]) / 255, Number(legacy[3]) / 255, alphaOf(legacy[4])];
+  const modern = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+%?))?\s*\)$/.exec(raw);
+  if (modern) return [Number(modern[1]), Number(modern[2]), Number(modern[3]), alphaOf(modern[4])];
   return fail(`unsupported color ${value}`);
 };
+for (const [input, expected] of [
+  ["rgb(23, 27, 34)", [23 / 255, 27 / 255, 34 / 255, 1]],
+  ["rgba(0, 0, 0, 0.48)", [0, 0, 0, 0.48]],
+  ["rgb(23 27 34 / 56%)", [23 / 255, 27 / 255, 34 / 255, 0.56]],
+  ["color(srgb 0.25 0.5 1)", [0.25, 0.5, 1, 1]],
+  ["color(srgb 0.25 0.5 1 / 0.08)", [0.25, 0.5, 1, 0.08]],
+  ["color(srgb 0.25 0.5 1 / 8%)", [0.25, 0.5, 1, 0.08]],
+]) {
+  const actual = parseCssColor(input, (message) => { throw new Error(`parseCssColor 단위 확인: ${message}`); });
+  if (actual.length !== 4 || actual.some((channel, index) => !(Math.abs(channel - expected[index]) <= 1e-9))) {
+    throw new Error(`parseCssColor 단위 확인: ${input} → ${JSON.stringify(actual)} (기대 ${JSON.stringify(expected)})`);
+  }
+}
 
 export const liveVariables = ({ repoRoot, fail }) => {
   const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
@@ -120,6 +136,8 @@ export const liveVariables = ({ repoRoot, fail }) => {
   //   { name, collection?, declared, mix: { name, collection?, alpha }, reason } — 근사 결합(위 머리말)
   //   { unbound: true, declared, mix: { name, collection?, alpha }, reason }     — 고정 페인트(위 머리말)
   //   { name, collection?, annotation }                                — 보드 주석(문서 프레임) 잉크. 측정 자리 없음
+  //   { name, collection?, declared, unmeasured }                      — 제품이 선언한 칠이지만 이 측정이 재지 않는 자리.
+  //                                                                       선언 인용은 있고 측정 대조는 없다(`exact: null`) — 주석 잉크와 다른 종류다
   const colorRoles = ({ theme, roles, where: planName }) => {
     const mode = THEME_MODE[theme] ?? fail(`${planName}: unknown measured theme ${theme}`);
     const colorOf = (binding, label) => {
@@ -129,6 +147,8 @@ export const liveVariables = ({ repoRoot, fail }) => {
     };
     const table = Object.fromEntries(Object.entries(roles).map(([key, role]) => {
       if (!role.declared && !role.annotation) fail(`${planName} colour role ${key} has no product declaration`);
+      if (role.annotation && role.declared) fail(`${planName} colour role ${key}: an annotation ink has no product declaration — use unmeasured for a declared paint without a measured site`);
+      if (role.unmeasured && (!role.declared || role.unbound || role.mix)) fail(`${planName} colour role ${key}: unmeasured needs a product declaration and a live variable`);
       if ((role.unbound || role.mix) && !role.reason) fail(`${planName} colour role ${key} needs a reason`);
       const live = role.unbound ? null : colorOf(role, key);
       const base = role.mix ? colorOf(role.mix, `${key} mix`) : null;
@@ -153,6 +173,7 @@ export const liveVariables = ({ repoRoot, fail }) => {
       const matches = candidates.filter((key) => {
         const entry = table[key] ?? fail(`${planName} ${where}: unknown colour role ${key}`);
         if (entry.role.annotation) fail(`${planName} ${where}: ${key} is an annotation ink, not a measured paint`);
+        if (entry.role.unmeasured) fail(`${planName} ${where}: ${key} is declared without a measured site — it cannot match a measured paint`);
         return sameColor(entry.expected, measured);
       });
       if (matches.length !== 1) {
@@ -163,7 +184,7 @@ export const liveVariables = ({ repoRoot, fail }) => {
     };
     // 생성이 끝난 뒤 부른다 — 쓰이지 않은 역할이 남으면 표가 낡은 것이다.
     const finish = () => {
-      const unused = Object.entries(table).filter(([, entry]) => !entry.role.annotation && entry.sites === 0).map(([key]) => key);
+      const unused = Object.entries(table).filter(([, entry]) => !entry.role.annotation && !entry.role.unmeasured && entry.sites === 0).map(([key]) => key);
       if (unused.length) fail(`${planName}: colour roles without a measured site ${unused.join(", ")}`);
       const bindings = {
         modeCollection: COLOR_COLLECTION,
@@ -184,11 +205,13 @@ export const liveVariables = ({ repoRoot, fail }) => {
           .join(" → ");
         return [key, {
           declared: role.declared ?? null,
-          ...(role.annotation ? { annotation: role.annotation } : { measured: hexOf(entry.expected), measuredAlpha: entry.expected[3] ?? 1, sites: entry.sites }),
+          ...(role.annotation ? { annotation: role.annotation }
+            : role.unmeasured ? { unmeasured: role.unmeasured }
+              : { measured: hexOf(entry.expected), measuredAlpha: entry.expected[3] ?? 1, sites: entry.sites }),
           figma: live ? via(live) : null,
           ...(live ? { figmaValue: hexOf(live.value), figmaAlpha: live.value[3] ?? 1 } : {}),
           ...(base ? { productMix: `${via(base)} × ${role.mix.alpha}` } : {}),
-          exact: role.annotation ? null : Boolean(live) && !role.mix,
+          exact: role.annotation || role.unmeasured ? null : Boolean(live) && !role.mix,
           ...(role.reason ? { reason: role.reason, liveValueTwins: entry.twins } : {}),
         }];
       }));

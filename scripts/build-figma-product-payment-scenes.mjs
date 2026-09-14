@@ -445,6 +445,8 @@ const draw =
   readFileSync(resolve(repoRoot, RENDERER_LIB), "utf8") +
   readFileSync(resolve(repoRoot, INSTANCE_TEXT_LIB), "utf8") +
   readFileSync(templatePath, "utf8");
+// `use_figma` 의 code 인자는 50,000자(String.length — 바이트가 아니다)가 상한이다(형제 생성기와 같은 벽).
+if (draw.length > 50_000) fail(`Figma runner exceeds connector limit: ${draw.length}`);
 const expected = [
   { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` },
   { absolute: drawPath, expected: draw },

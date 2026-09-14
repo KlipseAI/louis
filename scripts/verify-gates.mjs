@@ -1641,6 +1641,19 @@ withCanary(
   "--check",
 );
 
+// ── 색 파서 단위 확인 카나리아(2026-09-14) ─────────────────────────────────
+// 제품 컴포넌트 러너 · 보드 생성기가 함께 쓰는 `parseCssColor` 는 모듈을 읽을 때 두 직렬화(`rgb()` · `color(srgb …)`)와 두 알파
+// 표기(수 · 백분율)를 한 번씩 풀어 본다. fixture 에는 아직 백분율 알파가 없어 생성물 대조로는 이 축이 절대 울지 않는다 — 그래서
+// 백분율을 잃은 파서(`/ 8%` 가 NaN 이 된다)를 먹여 그 확인이 실제로 무는지 본다.
+withCanary(
+  "scripts/lib/figma-live-variables.mjs",
+  (source) => source.replace('raw.endsWith("%") ? Number(raw.slice(0, -1)) / 100 : Number(raw)', "Number(raw)"),
+  "colour parser: 백분율 알파를 잃은 파서",
+  "scripts/build-figma-app-screens.mjs",
+  "parseCssColor 단위 확인",
+  "--check",
+);
+
 // ── 팔레트/사다리 충돌 판정 카나리아 ──────────────────────────────────────
 // **이 카나리아가 없으면 `check-palette-ladder-collision` 은 「초록이라 잘 도는 것 같다」로만
 // 남는다.** 그 게이트는 2026-09-08~09 에 손으로 고친 넷을 잡으려고 세웠는데, 그 넷은 전부

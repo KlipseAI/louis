@@ -37,9 +37,6 @@ const node = (route, path) =>
 const style = (entry) => styles.get(entry.styleRef) ?? fail(`missing style ${entry.styleRef}`);
 const byText = (route, text) =>
   screen(route).tree.find((entry) => entry.ownText === text) ?? fail(`missing text ${route} ${text}`);
-const byAria = (route, ariaLabel) =>
-  screen(route).tree.find((entry) => entry.ariaLabel === ariaLabel) ??
-  fail(`missing aria label ${route} ${ariaLabel}`);
 const px = (value) => {
   const match = /^(-?[\d.]+)px$/.exec(value ?? "");
   return match ? Number(match[1]) : 0;
@@ -154,43 +151,6 @@ const simpleRow = (key, index, text) => {
     },
   };
 };
-/* `text` 는 **앵커 트리에서 노드를 찾는 열쇠**다. `displayText` 는 그 위에 얹는 표시 이름이고,
-   기본값이 `text` 라 보통은 넘기지 않는다.
-
-   **2026-09-09 에 이 인자를 쓰던 이유는 2026-09-10 재고정으로 사라졌다.** 그때 앵커
-   `5a67d692` 는 개명 이전 트리라 사이드바 행 글자가 아직 "NodeCanvas"·"VideoEditor" 였고,
-   열쇠를 바꾸면 측정이 못 찾아 죽고 표시를 안 바꾸면 draw.js 가 라이브 개명을 되돌렸다.
-   앵커가 `91e5ea2a` 로 옮겨간 지금은 **앵커 자신이 "Canvas"·"Composition" 을 갖는다** —
-   열쇠와 표시가 같아졌으므로 우회를 걷었다. 인자는 다음 개명을 위해 남겨 둔다. */
-const compoundRow = (key, index, text, ariaLabel, displayText = text) => {
-  const label = byText(routes.default.route, text);
-  const icon = iconForText(routes.default.route, text);
-  const main = node(routes.default.route, label.parentPath.replace(/\.\d+$/, ""));
-  const add = byAria(routes.default.route, ariaLabel);
-  const addStyle = style(add);
-  const outerStyle = style(node(routes.default.route, `${routes.default.menuPath}.${index}.0.0`));
-  return {
-    kind: "compound",
-    key,
-    rect: rowRect(index),
-    label: { ...textSpec(routes.default.route, text, rootRect), text: displayText },
-    icon,
-    mainRect: relRect(main, rootRect),
-    addRect: relRect(add, rootRect),
-    addRadius: px(addStyle.borderTopLeftRadius),
-    addBackground: rgba(addStyle.backgroundColor),
-    radius: px(outerStyle.borderTopLeftRadius),
-    gap: px(outerStyle.gap),
-    padding: {
-      top: px(outerStyle.paddingTop),
-      right: px(outerStyle.paddingRight),
-      bottom: px(outerStyle.paddingBottom),
-      left: px(outerStyle.paddingLeft),
-    },
-    ariaLabel,
-  };
-};
-
 const betaNode = byText(routes.default.route, "BETA");
 const betaStyle = style(betaNode);
 const sectionNode = byText(routes.default.route, "Analytics");
@@ -780,9 +740,10 @@ const plan = {
          위 사이드바 후보 가드 주석).
          확인: `git grep -n NavPlusGlyph 6fbdac16 -- apps/web` 는 아무것도 내지 않는다(f19cc41c 에는
          Gnb.tsx 에 있다). `createNewCanvasProject` 의 줄 수는 버튼 수가 아니므로 근거로 쓰지 않는다. 문구는 `messages/en.ts` 에 남아 있으나
-         부르는 자리가 없는 죽은 키이므로 `byAria` 로는 찾을 수 없다.
-         그래서 `compoundRow` 의 addRect·addRadius·addBackground 는 **측정할 대상이 없다** —
-         걷지 않고 두면 없는 버튼을 그리게 된다. */
+         부르는 자리가 없는 죽은 키이므로 aria 라벨로는 찾을 수 없다.
+         그래서 옛 compound 행 빌더의 addRect·addRadius·addBackground 는 **측정할 대상이 없었다** —
+         걷지 않고 두면 없는 버튼을 그리게 된다. 쓰는 곳이 사라진 그 빌더(`compoundRow`)와 aria 조회
+         헬퍼는 2026-09-14 에 걷었다(계획이 싣지 않는 행 모양이다 — Updates (133) 「옛 compound 행」). */
       simpleRow("canvas", 2, "Canvas"),
       simpleRow("composition", 3, "Composition"),
       {

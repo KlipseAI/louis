@@ -296,10 +296,30 @@ if (
   // 높이는 **넓어진 결과**다. 폭이 20 늘어 같은 글이 덜 접히므로 문서가 5748.9531 → 5651.75
   // 로 «줄었다». 격자도 1728.7813 → 1668.7813 이고, 시작이 449.3906 → 412.1875 로 37.2 올라온
   // 것은 그 위 헤더가 덜 접힌 만큼이다(알약은 여전히 제목 위 한 줄을 차지한다).
-  mobileTopBar.rect.x !== 6 || mobileTopBar.rect.width !== 390 || mobileTopBar.rect.height !== 53 ||
-  mobileContent.rect.x !== 6 || mobileContent.rect.y !== 53 || mobileContent.rect.width !== 390 || mobileContent.rect.height !== 5651.75 ||
-  mobileCardGrid.rect.x !== 6 || mobileCardGrid.rect.y !== 412.1875 || mobileCardGrid.rect.width !== 390 || mobileCardGrid.rect.height !== 1668.7813
+  mobileTopBar.rect.x !== 6 || mobileTopBar.rect.width !== 390 ||
+  mobileContent.rect.x !== 6 || mobileContent.rect.width !== 390 || mobileContent.rect.height !== 5651.75 ||
+  // 격자 시작은 본문 기준으로 본다 — 절대 y(412.1875 → 408.1875)는 위 상단 바 높이를 따라 움직인다.
+  mobileCardGrid.rect.x !== 6 || mobileCardGrid.rect.y - mobileContent.rect.y !== 359.1875 || mobileCardGrid.rect.width !== 390 || mobileCardGrid.rect.height !== 1668.7813
 ) fail("mobile upgrade visible-scene geometry changed");
+// **상단 바 높이는 여기서 숫자로 받지 않는다(2026-09-14).** 예전 가드는 `height !== 53` · `content.y !== 53` 을
+// 물었는데, 제품 바는 높이를 선언하지 않는다(패딩 + 가장 큰 자식 + 헤어라인) — `6f6282c1` 이 프로필을 36 → 32
+// 로 줄이자 49 가 됐다. 바 기하의 판정은 앱 셸 계획이 소유한다(`build-figma-product-app-shell` 이 같은 route ·
+// 같은 노드를 재고 제품 식으로 닫히는지 본다). 여기서는 두 가지만 본다: 이 장면의 바가 그 계획의 variant 와
+// 같은 상자인지, 그리고 본문이 바 바로 아래에서 시작하는지.
+{
+  const appShell = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-app-shell.plan.json"), "utf8"));
+  if (appShell.productCommit !== fixture.productCommit) fail("figma/product-app-shell.plan.json is not at this fixture anchor — run build-figma-product-app-shell first");
+  const barOf = (set, name) => set.variants.find((entry) => entry.route === route && entry.name === name)
+    ?? fail(`app-shell plan has no ${name} measured on ${route}`);
+  const pairs = [
+    [topBar, content, barOf(appShell.component.desktopTopBar, "Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On"), "desktop"],
+    [mobileTopBar, mobileContent, barOf(appShell.component, "Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"), "mobile"],
+  ];
+  for (const [bar, body, planned, where] of pairs) {
+    if (bar.rect.width !== planned.rect.width || bar.rect.height !== planned.rect.height) fail(`${where} upgrade top bar is not the app-shell plan bar`);
+    if (body.rect.y !== bar.rect.y + bar.rect.height) fail(`${where} upgrade content no longer starts under the top bar`);
+  }
+}
 
 const mobileCardRoots = mobileScreen.tree.filter((entry) => entry.parentPath === mobileCardGrid.path && entry.tag === "article");
 if (mobileCardRoots.length !== 2) fail(`expected exactly two viewport-observed mobile plan cards, got ${mobileCardRoots.length}`);

@@ -205,15 +205,22 @@ main.itemSpacing = 0;
 main.counterAxisAlignItems = "CENTER";
 fixed(main, PLAN.measurements.collapsed.main.width, PLAN.measurements.collapsed.main.height);
 
+// ── 상단 바 · 편집기 본문: 계산된 크기를 굳히지 않는다(2026-09-14) ─────────────────────────
+// 예전에는 바를 FIXED main 폭 × 52, 앞머리를 FIXED 68×36, 프로필을 36 으로, 본문 격자를 1832×996 · 미리보기 1259 ·
+// 위 칸 656 으로 박았다. 제품 바는 높이를 선언하지 않고(패딩 + 가장 큰 자식), 격자의 1fr 칸은 남는 자리다.
+// 그래서 바는 가로 Auto Layout HUG, 앞머리 · 프로필 묶음은 HUG 에 선언 크기 컨트롤, 본문은 main 을 채우고
+// 셸 인셋(사방)을 패딩으로, 트랙은 선언 기본값만 FIXED 로 두고 1fr 칸은 FILL 이다. 매 실행 다시 박는다 —
+// 없을 때만 짓던 옛 경로는 한 번 틀린 기하를 영영 고치지 못했다.
+const E = PLAN.measurements.editor;
+const T = E.topBar;
+const hug = (node) => {
+  node.primaryAxisSizingMode = "AUTO";
+  node.counterAxisSizingMode = "AUTO";
+};
 let topBar = page.findOne((entry) => entry.type === "COMPONENT" && entry.name === F.topBarName);
 if (!topBar) {
   topBar = figma.createComponent();
   topBar.name = F.topBarName;
-  topBar.layoutMode = "HORIZONTAL";
-  topBar.counterAxisAlignItems = "CENTER";
-  topBar.paddingTop = topBar.paddingBottom = topBar.paddingLeft = topBar.paddingRight = 8;
-  topBar.itemSpacing = 8;
-  fixed(topBar, PLAN.measurements.collapsed.main.width, PLAN.measurements.editor.headerHeight);
   topBar.fills = Array.isArray(oldHeader.fills) ? oldHeader.fills : [];
   topBar.strokes = [bound({ type: "SOLID", color: activeFallback, opacity: 0.08 }, active, activeFallback)];
   topBar.strokeTopWeight = topBar.strokeLeftWeight = topBar.strokeRightWeight = 0;
@@ -222,23 +229,15 @@ if (!topBar) {
   topBar.setExplicitVariableModeForCollection(semanticMode.collectionId, semanticMode.modeId);
   const leading = figma.createFrame();
   leading.name = "mainChromeLeadingCluster";
-  leading.layoutMode = "HORIZONTAL";
-  leading.counterAxisAlignItems = "CENTER";
-  leading.itemSpacing = 4;
   leading.fills = [];
-  fixed(leading, 68, 36);
   const expand = icons.expand.createInstance();
   expand.name = "navigation/Expand sidebar";
-  expand.resize(32, 32);
   leading.appendChild(expand);
   const back = figma.createFrame();
   back.name = "navigation/Back to video list · source SVG";
-  back.layoutMode = "HORIZONTAL";
-  back.primaryAxisAlignItems = back.counterAxisAlignItems = "CENTER";
   back.fills = [];
-  fixed(back, 32, 32);
   const arrow = figma.createNodeFromSvg('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#FAFAFA" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-  arrow.resize(20, 20);
+  arrow.name = "glyph/arrow";
   back.appendChild(arrow);
   leading.appendChild(back);
   const breadcrumbSource = await figma.getNodeByIdAsync(I.breadcrumbSourceId);
@@ -247,92 +246,144 @@ if (!topBar) {
   if (!breadcrumbSource || breadcrumbSource.type !== "TEXT" || !actionsSource || !profileSource) throw new Error("Missing top-bar sources");
   const breadcrumb = breadcrumbSource.clone();
   breadcrumb.name = "breadcrumb/Video Editor / project";
-  breadcrumb.layoutGrow = 1;
   const profile = figma.createFrame();
   profile.name = "mainChromeProfileCluster";
-  profile.layoutMode = "HORIZONTAL";
-  profile.counterAxisAlignItems = "CENTER";
-  profile.itemSpacing = 8;
   profile.fills = [];
   const actions = actionsSource.clone();
-  actions.resize(229, 32);
+  actions.name = "mainChromeProfileActionsSlot";
   const avatar = profileSource.clone();
-  avatar.resize(36, 36);
+  avatar.name = "profile/Open profile";
   profile.appendChild(actions);
   profile.appendChild(avatar);
-  profile.primaryAxisSizingMode = "AUTO";
-  profile.counterAxisSizingMode = "FIXED";
-  profile.resize(profile.width, 36);
   topBar.appendChild(leading);
   topBar.appendChild(breadcrumb);
   topBar.appendChild(profile);
   page.appendChild(topBar);
 }
-fixed(topBar, PLAN.measurements.collapsed.main.width, PLAN.measurements.editor.headerHeight);
+const child = (parent, predicate, label) => {
+  const found = parent.children.find(predicate);
+  if (!found) throw new Error(`Missing ${label} in ${parent.name}`);
+  return found;
+};
+topBar.layoutMode = "HORIZONTAL";
+topBar.resize(PLAN.measurements.collapsed.main.width, topBar.height);
+topBar.primaryAxisSizingMode = "FIXED";
+topBar.counterAxisSizingMode = "AUTO";
+topBar.counterAxisAlignItems = "CENTER";
+topBar.paddingTop = T.padding.top;
+topBar.paddingRight = T.padding.right;
+topBar.paddingBottom = T.padding.bottom;
+topBar.paddingLeft = T.padding.left;
+topBar.itemSpacing = T.gap;
+topBar.strokesIncludedInLayout = true;
+const leadingCluster = child(topBar, (entry) => entry.type === "FRAME" && entry.name === "mainChromeLeadingCluster", "leading cluster");
+leadingCluster.layoutMode = "HORIZONTAL";
+hug(leadingCluster);
+leadingCluster.counterAxisAlignItems = "CENTER";
+leadingCluster.itemSpacing = T.leadingGap;
+for (const control of leadingCluster.children) {
+  // 앞머리 컨트롤 한 변은 선언 크기다(앱 셸 계획 `controlSize`). 뒤로가기 프레임은 글리프를 가운데 둔다.
+  control.resize(T.controlSize, T.controlSize);
+  if (control.type === "FRAME") {
+    control.layoutMode = "HORIZONTAL";
+    control.primaryAxisSizingMode = control.counterAxisSizingMode = "FIXED";
+    control.primaryAxisAlignItems = control.counterAxisAlignItems = "CENTER";
+    for (const glyph of control.children) glyph.resize(T.iconSize, T.iconSize);
+  }
+}
+const breadcrumbNode = child(topBar, (entry) => entry.name.startsWith("breadcrumb/"), "breadcrumb");
+breadcrumbNode.layoutGrow = 1;
+if (breadcrumbNode.type === "TEXT") {
+  breadcrumbNode.textAutoResize = "HEIGHT";
+  breadcrumbNode.textTruncation = "ENDING";
+  breadcrumbNode.maxLines = 1;
+}
+const profileCluster = child(topBar, (entry) => entry.type === "FRAME" && entry.name === "mainChromeProfileCluster", "profile cluster");
+profileCluster.layoutMode = "HORIZONTAL";
+hug(profileCluster);
+profileCluster.counterAxisAlignItems = "CENTER";
+profileCluster.itemSpacing = T.gap;
+for (const entry of profileCluster.children) {
+  // 액션 슬롯은 제 내용으로 HUG 한다(측정이 없는 229 를 박지 않는다). 프로필은 선언 한 변이다.
+  if (entry.name === "profile/Open profile" || entry === profileCluster.children[profileCluster.children.length - 1]) {
+    entry.resize(T.profileSize, T.profileSize);
+  } else if ("layoutMode" in entry && entry.layoutMode !== "NONE") {
+    hug(entry);
+  }
+}
 oldHeader.visible = false;
 let topBarInstance = main.findOne((entry) => entry.type === "INSTANCE" && entry.name === "topbar/VideoEditor · Sidebar=Collapsed");
 if (!topBarInstance) {
   topBarInstance = topBar.createInstance();
   topBarInstance.name = "topbar/VideoEditor · Sidebar=Collapsed";
 }
-topBarInstance.resize(PLAN.measurements.collapsed.main.width, PLAN.measurements.editor.headerHeight);
 
 const nodes = {};
 for (const [key, id] of Object.entries({ assets: I.assetsId, assetsGrip: I.assetsGripId, preview: I.previewId, timelineGrip: I.timelineGripId, propertiesGrip: I.propertiesGripId, properties: I.propertiesId, timeline: I.timelineId })) {
   nodes[key] = await figma.getNodeByIdAsync(id);
   if (!nodes[key]) throw new Error(`Missing editor node ${key}`);
 }
+const ensureFrame = (parent, name) => {
+  let frame = parent.children.find((entry) => entry.type === "FRAME" && entry.name === name);
+  if (!frame) {
+    frame = figma.createFrame();
+    frame.name = name;
+    frame.fills = [];
+    parent.appendChild(frame);
+  }
+  return frame;
+};
 let body = main.findOne((entry) => entry.type === "FRAME" && entry.name === "modalBody · product CSS grid");
 if (!body) {
-  const E = PLAN.measurements.editor;
   body = figma.createFrame();
   body.name = "modalBody · product CSS grid";
-  body.layoutMode = "VERTICAL";
-  body.itemSpacing = E.rowGap;
   body.fills = [];
-  body.clipsContent = true;
-  fixed(body, E.body.width, E.body.height);
-  const upper = figma.createFrame();
-  upper.name = "grid row / assets + preview + properties";
-  upper.layoutMode = "HORIZONTAL";
-  upper.itemSpacing = E.columnGap;
-  upper.fills = [];
-  fixed(upper, E.body.width, E.rows.upper);
-  nodes.assets.resize(E.columns.assets, E.rows.upper);
-  upper.appendChild(nodes.assets);
-  const assetsDivider = figma.createFrame();
-  assetsDivider.name = "assets-divider · 4px column";
-  assetsDivider.fills = [];
-  fixed(assetsDivider, E.columns.assetsDivider, E.rows.upper);
-  assetsDivider.appendChild(nodes.assetsGrip);
-  upper.appendChild(assetsDivider);
-  nodes.preview.resize(E.columns.preview, E.rows.upper);
-  upper.appendChild(nodes.preview);
-  const propertiesDivider = figma.createFrame();
-  propertiesDivider.name = "properties-divider · 4px column";
-  propertiesDivider.fills = [];
-  fixed(propertiesDivider, E.columns.propertiesDivider, E.rows.upper);
-  propertiesDivider.appendChild(nodes.propertiesGrip);
-  upper.appendChild(propertiesDivider);
-  nodes.properties.resize(E.columns.properties, E.rows.upper);
-  upper.appendChild(nodes.properties);
-  const timelineDivider = figma.createFrame();
-  timelineDivider.name = "timeline-divider · 4px row";
-  timelineDivider.fills = [];
-  fixed(timelineDivider, E.body.width, E.rows.timelineDivider);
-  timelineDivider.appendChild(nodes.timelineGrip);
-  nodes.timeline.resize(E.body.width, E.rows.timeline);
-  body.appendChild(upper);
-  body.appendChild(timelineDivider);
-  body.appendChild(nodes.timeline);
   main.appendChild(body);
 }
+main.insertChild(0, topBarInstance);
+main.insertChild(1, body);
+topBarInstance.layoutSizingHorizontal = "FILL";
+topBarInstance.layoutSizingVertical = "HUG";
+body.layoutMode = "VERTICAL";
+body.clipsContent = true;
+body.paddingTop = body.paddingRight = body.paddingBottom = body.paddingLeft = E.shellInset;
+body.itemSpacing = E.rowGap;
+body.layoutSizingHorizontal = "FILL";
+body.layoutSizingVertical = "FILL";
+const upper = ensureFrame(body, "grid row / assets + preview + properties");
+const assetsDivider = ensureFrame(upper, "assets-divider · 4px column");
+const propertiesDivider = ensureFrame(upper, "properties-divider · 4px column");
+const timelineDivider = ensureFrame(body, "timeline-divider · 4px row");
+upper.layoutMode = "HORIZONTAL";
+upper.itemSpacing = E.columnGap;
+for (const entry of [nodes.assets, assetsDivider, nodes.preview, propertiesDivider, nodes.properties]) upper.appendChild(entry);
+assetsDivider.appendChild(nodes.assetsGrip);
+propertiesDivider.appendChild(nodes.propertiesGrip);
+timelineDivider.appendChild(nodes.timelineGrip);
+for (const entry of [upper, timelineDivider, nodes.timeline]) body.appendChild(entry);
+upper.layoutSizingHorizontal = "FILL";
+upper.layoutSizingVertical = "FILL";
+const track = (node, width) => {
+  node.resize(width, node.height);
+  node.layoutSizingHorizontal = "FIXED";
+  node.layoutSizingVertical = "FILL";
+};
+track(nodes.assets, E.columns.assets);
+track(assetsDivider, E.columns.assetsDivider);
+nodes.preview.layoutSizingHorizontal = "FILL";
+nodes.preview.layoutSizingVertical = "FILL";
+track(propertiesDivider, E.columns.propertiesDivider);
+track(nodes.properties, E.columns.properties);
+timelineDivider.resize(timelineDivider.width, E.rows.timelineDivider);
+timelineDivider.layoutSizingHorizontal = "FILL";
+timelineDivider.layoutSizingVertical = "FIXED";
+nodes.timeline.resize(nodes.timeline.width, E.rows.timeline);
+nodes.timeline.layoutSizingHorizontal = "FILL";
+nodes.timeline.layoutSizingVertical = "FIXED";
 nodes.assetsGrip.x = 0;
 nodes.assetsGrip.y = 260;
 nodes.propertiesGrip.x = 0;
 nodes.propertiesGrip.y = 260;
 nodes.timelineGrip.x = 868;
 nodes.timelineGrip.y = -0.5;
-main.insertChild(0, topBarInstance);
-main.insertChild(1, body);
 return { railSetId: railSet.id, railVariantIds: railSet.children.map((entry) => entry.id), topBarId: topBar.id, bodyId: body.id, videoFrameId: video.id };

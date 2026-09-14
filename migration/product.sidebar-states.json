@@ -70,6 +70,9 @@
         "width": 1632,
         "height": 1064
       },
+      "customProperties": {
+        "--app-gnb-main-inline-padding": "16px"
+      },
       "toggle": {
         "ariaLabel": "Collapse sidebar",
         "rect": {
@@ -2259,6 +2262,9 @@
         "y": 8,
         "width": 1856,
         "height": 1064
+      },
+      "customProperties": {
+        "--app-gnb-main-inline-padding": "16px"
       },
       "toggle": {
         "ariaLabel": "Expand sidebar",

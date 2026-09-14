@@ -130,10 +130,19 @@ const measure = async (page) => page.evaluate((axes) => {
     return [...current, ...[...node.children].flatMap((child, index) => describe(child, `${path}.${index}`, visible ? path : parentPath))];
   };
   const toggle = document.querySelector('button[aria-label="Collapse sidebar"],button[aria-label="Expand sidebar"]');
+  // **본문 카드 안쪽 인셋 토큰의 계산값.** 편집기 셸(`vemClass.ts` `modalShellDocked`)이 사방 margin 과
+  // `calc(100% − 인셋 × 2)` 로 이 값을 쓰는데, 그 값은 LOUIS 토큰 사슬(`globals.css` → `--louis-layout-
+  // app-shell-content-inset`) 끝에 있어 소스 인용만으로는 px 이 나오지 않는다. 생성기가 16 을 리터럴로
+  // 적던 자리를 이 측정으로 바꾼다(build-figma-product-sidebar-states). main 에서 읽는다 — 셸이 그 안에 앉는다.
+  const mainStyle = getComputedStyle(main);
+  const customProperties = Object.fromEntries(
+    ["--app-gnb-main-inline-padding"].map((name) => [name, mainStyle.getPropertyValue(name).trim()]),
+  );
   return {
     theme: document.documentElement.dataset.theme,
     collapsed: document.documentElement.dataset.appGnbSidebarCollapsed === "true",
     rootRect: rect(root), sidebarRect: rect(sidebar), mainRect: rect(main),
+    customProperties,
     toggle: toggle ? { ariaLabel: toggle.getAttribute("aria-label"), rect: rect(toggle) } : null,
     tree: describe(sidebar, "sidebar"),
   };

@@ -48,41 +48,82 @@ const menu = ["Search", "Home", "Canvas", "Composition", "Highlight", "YouTube a
   },
 );
 const mainRect = measurement.states.collapsed.mainRect;
-const headerHeight = 52;
-// **좌우 패딩이 더는 대칭이 아니다.** `ae8fd627` 의 `MAIN` 은 `[padding:0_16px_16px]` 이라
-// 좌우가 같은 16 이었다. `5a67d692` 는 그 자리를 토큰 두 개로 갈랐다 —
-// `[padding:0_var(--app-gnb-main-inline-padding-end)_16px_var(--app-gnb-main-inline-padding)]`
-// (EditorProjectWorkspace.tsx:123). 데스크톱(>719px)에서 좌는
-// `--app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset)` = **16px**
-// (globals.css:99 → packages/css/generated/tokens.css:457), 우는
-// `--app-gnb-main-inline-padding-end: 12px` (globals.css:102) 다. 16/16 을 그대로 두면
-// bodyWidth 가 4px 넓게 잡혀 열이 닫히지 않는다 — 대칭 상수 하나로는 담기지 않으므로 둘로 나눈다.
-// (globals.css:362-363 의 16/16 은 `@media (max-width: 719px)` 안이라 이 문맥에 닿지 않는다.)
-const mainPaddingLeft = 16;
-// **우측 인셋이 12 → 8 로 내려왔다 (제품 094c336b, 2026-09-09 「메인 카드를 두르는 앱 셸 링을
-// 12 에서 8 로 내린다」).** globals.css 의 `--app-gnb-main-inline-padding-end: 8px`.
-// 좌는 그대로 16 이다(`--louis-layout-app-shell-content-inset`).
-const mainPaddingRight = 8;
-const mainPaddingBottom = 16;
-const bodyWidth = mainRect.width - mainPaddingLeft - mainPaddingRight;
-const bodyHeight = mainRect.height - headerHeight - mainPaddingBottom;
-// 에디터 격자 기본값도 제품에서 움직였다(vemClass.ts:1449-1450) —
-// assets 236 → 317 · properties 324 → 240 · timeline 400 → 332.
-// preview 는 파생이다: bodyWidth - assets - properties - 디바이더 2×4 - 칸 사이 4×2.
-// preview 1251 → **1259**. 파생이라 bodyWidth 가 넓어진 만큼 그대로 따라온다:
-// 1832 − 317 − 240 − 디바이더 2×4 − 칸 사이 4×2 = 1259.
-const columns = { assets: 317, assetsDivider: 4, preview: 1259, propertiesDivider: 4, properties: 240 };
-const rows = { upper: bodyHeight - 332 - 4 - 2 * 2, timelineDivider: 4, timeline: 332 };
-// 이 자물쇠는 「제품 격자가 움직였으니 사람이 보라」로 세워 둔 것이다. 이번에 움직인 것은
-// **격자 자체가 아니라 그것을 담은 상자**다 — 앱 셸 링이 12 → 8 로 줄어 main 이 1852×1056 에서
-// 1856×1064 로 커졌고(094c336b), 우측 인셋도 12 → 8 이라 bodyWidth 가 1824 → 1832,
-// bodyHeight 가 988 → 996, 위 칸이 648 → 656 이 됐다. 에디터 격자의 기본값 넷
-// (assets 317 · properties 240 · timeline 332 · 간격)은 한 픽셀도 안 움직였다.
-if (bodyWidth !== 1832 || bodyHeight !== 996 || rows.upper !== 656) fail("derived video editor grid changed");
-if (Object.values(columns).reduce((sum, value) => sum + value, 0) + 2 * 4 !== bodyWidth) {
-  fail("video editor columns do not close over measured body width");
+// **편집기 격자는 숫자로 굳히지 않는다(2026-09-14, 크기 굳힘 감사 G1).** 예전 이 자리는 상단 바 높이 52 ·
+// 본문 1832×996 · 미리보기 1259 · 위 칸 656 을 리터럴과 파생식으로 들고 있었고, 가드는 **같은 파생식끼리**
+// 비교해 절대 울리지 않았다(`bodyWidth !== 1832` 는 바로 위 식의 결과다). 게다가 식 자체가 이미 틀렸다 —
+// 좌 16 / 우 8 / 아래 16 / 위 0 으로 뺐는데, 제품 편집기 셸은 `MAIN` 이 `[padding:0]` 이고
+// (EditorProjectWorkspace.tsx:153) `modalShellDocked` 가 **사방** margin 과 `calc(100% − 인셋 × 2)` 를
+// 준다(vemClass.ts:1836 · :1839 · :1853). 그래서 계획은 제품이 고른 값만 싣는다:
+//   셸 인셋   — 측정(`--app-gnb-main-inline-padding` 의 계산값, measure-product-sidebar-states)
+//   격자 트랙 — 선언 기본값 assets 317 · 디바이더 4 · 미리보기 1fr · 디바이더 4 · properties 240,
+//               행 1fr · 4 · timeline 332, 간격 2 · 2 (vemClass.ts:1630–1634)
+//   상단 바   — 앱 셸 계획의 선언 크기(컨트롤 · 프로필)와 측정 패딩 · gap. 높이는 HUG 다.
+// 1fr 칸(미리보기 · 위 칸)과 본문 크기는 Figma 가 FILL 로 계산한다 — 여기서 빼지 않는다.
+const appShell = JSON.parse(readFileSync(resolve(repoRoot, "figma/product-app-shell.plan.json"), "utf8"));
+if (appShell.productCommit !== measurement.productCommit) {
+  fail(`figma/product-app-shell.plan.json (${appShell.productCommit.slice(0, 8)}) is not at the sidebar measurement anchor — run build-figma-product-app-shell first`);
 }
-
+const shellInsetRaw = measurement.states.collapsed.customProperties?.["--app-gnb-main-inline-padding"];
+const shellInset = /^(\d+(?:\.\d+)?)px$/.exec(shellInsetRaw ?? "")?.[1];
+if (shellInset === undefined) fail(`measured --app-gnb-main-inline-padding is not a px length: ${JSON.stringify(shellInsetRaw)}`);
+const declaredTrack = (quote, pattern, what) => {
+  const match = pattern.exec(quote.quote);
+  if (!match) fail(`declared ${what} not found in ${quote.path}:${quote.line}`);
+  return match.slice(1).map(Number);
+};
+const [desktopTopBar] = appShell.component.desktopTopBar.variants;
+const VEM = "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts";
+const EDITOR = "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx";
+// 셸 인셋이 사방이라는 선언 — margin 과 그 짝인 폭 · 높이 뺄셈. `MAIN` 은 여백을 내지 않는다.
+const shellSources = [
+  sourceQuote("apps/web/app/globals.css", 155, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
+  sourceQuote(EDITOR, 153, '  "[padding:0]",'),
+  sourceQuote(VEM, 1836, '    "[.vem-modal&]:[width:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
+  sourceQuote(VEM, 1839, '    "[.vem-modal&]:[height:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
+  sourceQuote(VEM, 1853, '    "[.vem-modal&]:[margin:var(--app-gnb-main-inline-padding)]",'),
+];
+// **네 줄은 값이 아니라 스코프가 바뀌었다.** 제품 8a90e3f6 「모바일에서 무너져 있던 격자를 한 열로
+// 세운다」가 데스크톱 격자를 `[@media(min-width:720px)]:` 안으로 넣었다 — 같은 레이어·같은 특이도라
+// Tailwind 정렬 순서로 승패가 갈려 375px 에서 5트랙 격자가 이기던 것을 상호배타 변형으로 가른 것이다.
+const gridSources = [
+  sourceQuote(VEM, 1630, '    "[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
+  sourceQuote(VEM, 1631, '    "[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
+  sourceQuote(VEM, 1633, '    "[@media(min-width:720px)]:[column-gap:2px]",'),
+  sourceQuote(VEM, 1634, '    "[@media(min-width:720px)]:[row-gap:2px]",'),
+];
+const [assets, assetsDivider, propertiesDivider, properties] = declaredTrack(
+  gridSources[0], /\(--video-edit-assets-width,_(\d+)px\)_(\d+)px_minmax\(0,_1fr\)_(\d+)px_var\(--video-edit-properties-width,_(\d+)px\)/, "grid columns");
+const [timelineDivider, timeline] = declaredTrack(
+  gridSources[1], /minmax\(0,_1fr\)_(\d+)px_var\(--video-edit-timeline-height,_(\d+)px\)/, "grid rows");
+const [columnGap] = declaredTrack(gridSources[2], /\[column-gap:(\d+)px\]/, "column gap");
+const [rowGap] = declaredTrack(gridSources[3], /\[row-gap:(\d+)px\]/, "row gap");
+// **이 장면은 앵커에서 제품 상태가 아니다 — 기록한다.** 편집 화면은 이제 노드 캔버스처럼 풀화면이라
+// `variant="create"` 가 사이드바를 끈다(EditorProjectWorkspace.tsx:1120–1124). 접힌 레일 + 편집기 조합은
+// 옛 앵커의 장면이다. 격자 트랙과 셸 인셋은 그대로 제품 값이라 옮기지만, 장면 구성을 풀화면으로 다시 짓는
+// 일은 이 생성기의 레일 측정(`/settings` 접힘)으로는 닿지 않는다 — 편집기 경로를 재는 측정이 먼저다.
+const compositionSources = [
+  sourceQuote(EDITOR, 1120, "        /* 프로젝트를 연 편집 화면은 노드 캔버스와 같이 **풀화면**이다. 사이드바가 차지하던"),
+  sourceQuote(EDITOR, 1124, '        variant="create"'),
+];
+const editor = {
+  $why:
+    "Declared tracks only; the 1fr preview column, the 1fr upper row and the body size are FILL in Figma. " +
+    "The shell inset is the measured --app-gnb-main-inline-padding on all four sides (vemClass modalShellDocked margin + calc(100% - inset * 2)). " +
+    "The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan).",
+  shellInset: Number(shellInset),
+  columns: { assets, assetsDivider, preview: "FILL", propertiesDivider, properties },
+  rows: { upper: "FILL", timelineDivider, timeline },
+  columnGap,
+  rowGap,
+  topBar: {
+    padding: desktopTopBar.padding,
+    gap: desktopTopBar.gap,
+    leadingGap: desktopTopBar.leadingGap,
+    controlSize: appShell.component.controlSize,
+    iconSize: appShell.component.iconSize,
+    profileSize: appShell.component.profileVisual.controlSize,
+  },
+};
 const plan = {
   $comment: "Generated by scripts/build-figma-product-sidebar-states.mjs. Do not edit by hand.",
   $evidenceClass: "product-only measured Figma component and scene repair",
@@ -90,22 +131,10 @@ const plan = {
   context: measurement.context,
   sourceEvidence: [
     ...measurement.sourceEvidence,
-    // **이 선언은 제품에 없다 — 소유자가 바뀌었다.** `MAIN` 은 이제 `"[padding:0]"` 이고
-    // 카드 안쪽 여백은 `modalShellDocked` 의 margin 하나가 갖는다(EditorProjectWorkspace.tsx
-    // `MAIN` 위 주석: 「여기서 또 주면 그 위에 더해져 좌우가 갈린다 — 실측 왼 28 · 오른 16」).
-    // 그래서 위 파생이 쓰는 16/8 의 근거를 **값이 선언된 자리**로 옮긴다. 같은 주석이
-    // 「2026-09-09 에 그 토큰이 8px 로 내려갔다」고 이 회차를 직접 적어 두었다.
-    sourceQuote("apps/web/app/globals.css", 155, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
-    sourceQuote("apps/web/app/globals.css", 164, "  --app-gnb-main-inline-padding-end: 8px;"),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 153, '  "[padding:0]",'),
-    // **네 줄은 값이 아니라 스코프가 바뀌었다.** 제품 8a90e3f6 「모바일에서 무너져 있던
-    // 격자를 한 열로 세운다」가 데스크톱 격자를 `[@media(min-width:720px)]:` 안으로 넣었다 —
-    // 같은 레이어·같은 특이도라 Tailwind 정렬 순서로 승패가 갈려 375px 에서 5트랙 격자가
-    // 이기던 것을 상호배타 변형으로 가른 것이다(vemClass.ts 그 위 주석). 값은 그대로다.
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1630, '    "[@media(min-width:720px)]:[grid-template-columns:var(--video-edit-assets-width,_317px)_4px_minmax(0,_1fr)_4px_var(--video-edit-properties-width,_240px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1631, '    "[@media(min-width:720px)]:[grid-template-rows:minmax(0,_1fr)_4px_var(--video-edit-timeline-height,_332px)]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1633, '    "[@media(min-width:720px)]:[column-gap:2px]",'),
-    sourceQuote("apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts", 1634, '    "[@media(min-width:720px)]:[row-gap:2px]",'),
+    // 편집기 셸의 사방 인셋(G1) · 격자 트랙 · 장면 구성의 근거. 값은 위 `editor` 가 인용에서 푼다.
+    ...shellSources,
+    ...gridSources,
+    ...compositionSources,
     // 제품이 `mainChromeLeadingCluster` 의 인라인 선언을 걷고 LOUIS 레시피로 넘겼다(e5d49507).
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
     // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
@@ -169,7 +198,7 @@ const plan = {
     expanded: { sidebar: measurement.states.expanded.sidebarRect, main: measurement.states.expanded.mainRect, toggle: measurement.states.expanded.toggle, upgrade: { rect: expandedUpgrade.rect, style: expandedUpgrade.style } },
     collapsed: { sidebar: measurement.states.collapsed.sidebarRect, main: mainRect, toggle: measurement.states.collapsed.toggle, upgrade: { rect: collapsedUpgrade.rect, style: collapsedUpgrade.style, label: { rect: collapsedUpgradeLabel.rect, style: collapsedUpgradeLabel.style, text: collapsedUpgradeLabel.ownText } }, menu },
     activeCollapsedHome: measurement.states.activeCollapsedHome,
-    editor: { headerHeight, mainPaddingLeft, mainPaddingRight, mainPaddingBottom, body: { width: bodyWidth, height: bodyHeight }, columnGap: 2, rowGap: 2, columns, rows },
+    editor,
   },
 };
 const runnerPlan = structuredClone(plan);
@@ -186,4 +215,4 @@ if (checkOnly) {
 } else {
   atomicWriteBatch(outputs);
 }
-console.log(`[figma-product-sidebar-states] ${checkOnly ? "checked" : "built"} @ ${plan.productCommit.slice(0, 8)}: 5 rail variants · ${bodyWidth}×${bodyHeight} editor grid`);
+console.log(`[figma-product-sidebar-states] ${checkOnly ? "checked" : "built"} @ ${plan.productCommit.slice(0, 8)}: 5 rail variants · editor grid ${assets}/${assetsDivider}/FILL/${propertiesDivider}/${properties} × FILL/${timelineDivider}/${timeline} · shell inset ${shellInset}`);

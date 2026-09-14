@@ -44,6 +44,21 @@ const variableColor = (variable, seen = new Set()) => {
   if (!value || typeof value !== "object" || !("r" in value)) throw new Error(`Missing color mode ${variable.name}`);
   return { r: value.r, g: value.g, b: value.b };
 };
+// 두께 같은 수 변수도 모드를 따라 푼다(헤어라인 `border-width/hairline` → Primitive 별칭).
+const variableFloat = (variable, seen = new Set()) => {
+  if (seen.has(variable.id)) throw new Error(`Circular float variable ${variable.name}`);
+  seen.add(variable.id);
+  const collection = collectionById.get(variable.variableCollectionId);
+  const modeId = collection === modeCollection ? pinnedMode.modeId : collection?.defaultModeId;
+  const value = variable.valuesByMode[modeId];
+  if (value?.type === "VARIABLE_ALIAS") {
+    const target = variableById.get(value.id);
+    if (!target) throw new Error(`Missing float alias ${value.id}`);
+    return variableFloat(target, seen);
+  }
+  if (typeof value !== "number") throw new Error(`Missing float mode ${variable.name}`);
+  return value;
+};
 // 알파는 변수가 갖는다(`stroke-hairline` · `gray/000-alpha/*`) — 페인트 불투명도를 따로 걸지 않는다.
 const setPaint = (variable, fallback = variableColor(variable)) =>
   figma.variables.setBoundVariableForPaint({ type: "SOLID", color: fallback }, "color", variable);
@@ -86,7 +101,9 @@ const variantName = (spec) =>
 
 // ── 조립(구조만) ─────────────────────────────────────────────────────────
 // 새 variant 는 구조만 짓고 기하·색·속성은 아래 reconcile 이 기존 variant 와 **같은 경로**로 박는다.
-// 그래야 세트가 없을 때 만든 것과 세트에 나중에 더한 것이 갈라지지 않는다.
+// 그래야 세트가 없을 때 만든 것과 세트에 나중에 더한 것이 갈라지지 않는다. 크기는 리터럴이 아니라
+// 계획의 선언값이다 — 앞머리 컨트롤은 `controlSize`(Gnb.tsx mainChromeSidebarToggle), 프로필은
+// `profileVisual.controlSize`(아바타 + (간격 + 두께) × 2).
 const makeControl = (name, master, iconSize, size) => {
   const control = figma.createFrame();
   control.name = name;
@@ -100,42 +117,47 @@ const makeControl = (name, master, iconSize, size) => {
   control.appendChild(icon);
   return control;
 };
-const buildVariant = (spec, menuMaster, T) => {
+const buildVariant = (spec, menuMaster, S) => {
   const component = figma.createComponent();
   component.name = variantName(spec);
-  component.resizeWithoutConstraints(spec.rect.width, spec.rect.height);
   const leading = figma.createFrame();
   leading.name = "leading";
-  leading.appendChild(makeControl(`navigation/${spec.labels.menu}`, menuMaster, 20, 32));
-  if (spec.back) leading.appendChild(makeControl(`navigation/${spec.labels.back}`, masters.get(C.iconComponents.back), 20, 32));
+  leading.appendChild(makeControl(`navigation/${spec.labels.menu}`, menuMaster, S.iconSize, C.controlSize));
+  if (spec.back) leading.appendChild(makeControl(`navigation/${spec.labels.back}`, masters.get(C.iconComponents.back), S.iconSize, C.controlSize));
   component.appendChild(leading);
   const nav = figma.createFrame();
   nav.name = "breadcrumb";
   for (const measured of spec.text) {
     const text = figma.createText();
     text.name = measured.role;
-    text.fontName = { family: "Pretendard", style: T.fontWeight >= 500 ? "Medium" : "Regular" };
+    text.fontName = { family: "Pretendard", style: S.typography.fontWeight >= 500 ? "Medium" : "Regular" };
     text.characters = measured.text;
     nav.appendChild(text);
   }
   component.appendChild(nav);
-  component.appendChild(makeControl(`profile/${spec.labels.profile}`, masters.get(C.iconComponents.profile), 28, 36));
+  const P = C.profileVisual;
+  component.appendChild(makeControl(`profile/${spec.labels.profile}`, masters.get(C.iconComponents.profile), P.avatarSize, P.controlSize));
   return component;
 };
 
 // ── reconcile 공통 ───────────────────────────────────────────────────────
-const directFrame = (parent, name, owner) => {
-  const found = parent.children.find((entry) => entry.type === "FRAME" && entry.name === name);
-  if (!found) throw new Error(`Missing ${name} in ${owner.name}`);
-  return found;
+// **간격은 측정 px 과 값이 같은 `spacing/<n>` 변수에 묶는다**(생성기가 되읽기에서 이름·값을 확인했다).
+const spacingVar = (value) => {
+  if (!value) return null;
+  const variable = V[`spacing${value}`];
+  if (!variable) throw new Error(`Missing spacing binding for ${value}`);
+  return variable;
+};
+const bindSpacing = (node, field, value) => {
+  node[field] = value;
+  node.setBoundVariable(field, spacingVar(value));
 };
 const reconcileLeading = (variant, leading, spec) => {
   leading.layoutMode = "HORIZONTAL";
-  leading.primaryAxisSizingMode = leading.counterAxisSizingMode = "FIXED";
-  leading.resize(spec.leading.width, spec.leading.height);
+  leading.primaryAxisSizingMode = leading.counterAxisSizingMode = "AUTO";
   leading.counterAxisAlignItems = "CENTER";
-  leading.itemSpacing = spec.back ? 4 : 0;
-  leading.setBoundVariable("itemSpacing", spec.back ? V.spacing4 : null);
+  leading.paddingTop = leading.paddingRight = leading.paddingBottom = leading.paddingLeft = 0;
+  bindSpacing(leading, "itemSpacing", spec.leadingGap);
   leading.fills = [];
   const controls = leading.children.filter((entry) => entry.type === "FRAME");
   if (controls.length !== (spec.back ? 2 : 1)) throw new Error(`Leading control count changed ${variant.name}`);
@@ -143,6 +165,8 @@ const reconcileLeading = (variant, leading, spec) => {
   controls[0].name = `navigation/${spec.labels.menu}`;
   if (spec.back) controls[1].name = `navigation/${spec.labels.back}`;
   for (const control of controls) {
+    // 컨트롤 한 변은 선언 32(Gnb.tsx mainChromeSidebarToggle `[width:32px]` · `[height:32px]`) — 계산값이 아니다.
+    control.resize(C.controlSize, C.controlSize);
     control.fills = [];
     bindCorners(control, V.radius12);
     const icon = control.children.find((entry) => entry.type === "INSTANCE" && entry.name === "icon");
@@ -151,28 +175,25 @@ const reconcileLeading = (variant, leading, spec) => {
     bindIconPaints(icon, V.control);
   }
 };
-const reconcileProfileVisual = (variant, spec) => {
-  const control = variant.findOne((entry) => entry.type === "FRAME" && entry.name === `profile/${spec.labels.profile}`);
-  if (!control) throw new Error(`Missing measured profile control ${variant.name}`);
+const reconcileProfileVisual = (variant, profile) => {
   const P = C.profileVisual;
-  control.x = spec.profile.x;
-  control.y = spec.profile.y;
-  control.resize(spec.profile.width, spec.profile.height);
-  control.fills = [];
-  const icon = control.children.find((entry) => entry.type === "INSTANCE" && entry.name === "icon");
+  // 프로필 버튼 한 변도 선언 식이다 — 아바타 + (링 간격 + 링 두께) × 2(Gnb.tsx `--profile-ring-size`).
+  profile.resize(P.controlSize, P.controlSize);
+  profile.fills = [];
+  const icon = profile.children.find((entry) => entry.type === "INSTANCE" && entry.name === "icon");
   if (!icon) throw new Error(`Missing measured profile icon ${variant.name}`);
   icon.resize(P.avatarSize, P.avatarSize);
   icon.x = P.avatarInset;
   icon.y = P.avatarInset;
   pin(icon);
   bindIconPaints(icon, V.profile);
-  let ring = control.children.find((entry) => entry.type === "ELLIPSE" && entry.name === "usage-ring/Progress=0 measured");
+  let ring = profile.children.find((entry) => entry.type === "ELLIPSE" && entry.name === "usage-ring/Progress=0 measured");
   if (!ring) {
     ring = figma.createEllipse();
     ring.name = "usage-ring/Progress=0 measured";
-    control.insertChild(0, ring);
+    profile.insertChild(0, ring);
   }
-  ring.resize(spec.profile.width, spec.profile.height);
+  ring.resize(P.controlSize, P.controlSize);
   ring.x = 0;
   ring.y = 0;
   ring.fills = [];
@@ -180,16 +201,16 @@ const reconcileProfileVisual = (variant, spec) => {
   ring.strokeWeight = P.ringWidth;
   ring.strokeAlign = "INSIDE";
 };
-// 글자는 자동 폭이다 — TEXT 속성으로 라벨을 바꾸면 자리가 따라 늘어야 하기 때문이다. 그래서 nav 는
-// 가로 Auto Layout 이고 간격은 제품 구분자 여백(`margin: 0 4px`)이다.
+// 앞 글자들은 자동 폭이고 **마지막 글자가 남는 폭을 채우며 끝을 말줄임한다** — 제품 제목은 `flex:1` 로
+// 남는 자리를 차지하고 넘치면 `text-overflow: ellipsis` 다(Gnb.tsx:336 · :367). TEXT 속성으로 라벨을
+// 바꾸면 앞 글자는 자리가 따라 늘고, 긴 마지막 글자는 잘리는 대신 말줄임표가 된다. 간격은 구분자 여백이다.
 const reconcileBreadcrumb = (variant, nav, spec, T, keys) => {
   nav.layoutMode = "HORIZONTAL";
-  nav.primaryAxisSizingMode = nav.counterAxisSizingMode = "FIXED";
-  nav.resize(spec.nav.width, spec.nav.height);
+  nav.layoutSizingHorizontal = "FILL";
+  nav.layoutSizingVertical = "HUG";
   nav.counterAxisAlignItems = "CENTER";
-  const trail = spec.breadcrumb === "Trail";
-  nav.itemSpacing = trail ? 4 : 0;
-  nav.setBoundVariable("itemSpacing", trail ? V.spacing4 : null);
+  nav.paddingTop = nav.paddingRight = nav.paddingBottom = nav.paddingLeft = 0;
+  bindSpacing(nav, "itemSpacing", spec.navGap);
   nav.clipsContent = true;
   nav.fills = [];
   const texts = nav.findAllWithCriteria({ types: ["TEXT"] });
@@ -204,7 +225,92 @@ const reconcileBreadcrumb = (variant, nav, spec, T, keys) => {
     text.fills = [setPaint(V[measured.role])];
     if (measured.property) text.componentPropertyReferences = { characters: keys[measured.property] };
     else if (text.componentPropertyReferences?.characters) text.componentPropertyReferences = {};
-    text.textAutoResize = "WIDTH_AND_HEIGHT";
+    if (index === texts.length - 1) {
+      text.textAutoResize = "HEIGHT";
+      text.layoutSizingHorizontal = "FILL";
+      text.textTruncation = "ENDING";
+      text.maxLines = 1;
+    } else {
+      text.textTruncation = "DISABLED";
+      text.maxLines = null;
+      text.layoutSizingHorizontal = "HUG";
+      text.textAutoResize = "WIDTH_AND_HEIGHT";
+    }
+  }
+};
+// **데스크톱 옛 variant 는 제자리에서 풀어 올린다 — 지우지 않는다.** 2026-09-14 전 러너는 데스크톱 variant 를
+// 세로 배치 + 높이 FIXED 53 행(`flow/header-row`) + 1px 선 프레임(`divider/measured`)으로 지었다. 이제 바는
+// 모바일과 같은 가로 행 하나이고 선은 아래 헤어라인 획이다. 앞머리 · breadcrumb · 프로필은 **같은 노드를**
+// variant 로 옮기고(노드 id 가 그대로라 인스턴스의 TEXT 속성 값과 override 가 남는다), 비게 된 두 프레임은
+// 숨겨 `retired/` 로 이름만 바꾼다 — 인스턴스가 그 노드에 건 override 를 끊지 않기 위해서다.
+const RETIRED = { "flow/header-row": "retired/flow/header-row", "divider/measured": "retired/divider/measured" };
+const liftBarParts = (variant, spec) => {
+  const find = (predicate, label) => {
+    const found = variant.findOne(predicate);
+    if (!found) throw new Error(`Missing ${label} in ${variant.name}`);
+    return found;
+  };
+  const leading = find((entry) => entry.type === "FRAME" && entry.name === "leading", "leading");
+  const nav = find((entry) => entry.type === "FRAME" && entry.name === "breadcrumb", "breadcrumb");
+  const profile = find((entry) => entry.type === "FRAME" && entry.name === `profile/${spec.labels.profile}`, "profile control");
+  const retired = variant.children.filter((entry) => entry.type === "FRAME" && (entry.name in RETIRED || Object.values(RETIRED).includes(entry.name)));
+  for (const part of [leading, nav, profile]) variant.appendChild(part);
+  for (const frame of retired) {
+    if (frame.findAll(() => true).some((entry) => entry.type !== "FRAME" || entry.children?.length)) {
+      throw new Error(`Retired frame ${frame.name} is not empty in ${variant.name}`);
+    }
+    frame.name = RETIRED[frame.name] ?? frame.name;
+    frame.visible = false;
+  }
+  return { leading, nav, profile };
+};
+// **바 하나의 규칙 — 모바일 · 데스크톱 공통(`PLAN.component.layoutContract`).** 제품 바는 높이를 선언하지 않는다:
+// 세로 패딩 + 가장 큰 자식 + 아래 헤어라인. 그래서 variant 는 가로 Auto Layout 이고 높이는 HUG, 폭은 세트의
+// 기본값(측정 바 폭)만 FIXED 로 두고 소비처가 FILL 로 늘린다. 헤어라인은 제품이 고른 토큰 두께
+// (`Klipse Semantic/border-width/hairline`)의 아래 획이고 레이아웃에 포함한다(CSS border-box 와 같다).
+const reconcileBar = (variant, spec, S, keys) => {
+  const { leading, nav, profile } = liftBarParts(variant, spec);
+  variant.layoutMode = "HORIZONTAL";
+  variant.resize(spec.barWidth, variant.height);
+  variant.layoutSizingHorizontal = "FIXED";
+  variant.layoutSizingVertical = "HUG";
+  variant.primaryAxisAlignItems = "MIN";
+  variant.counterAxisAlignItems = "CENTER";
+  for (const side of ["Top", "Right", "Bottom", "Left"]) bindSpacing(variant, `padding${side}`, spec.padding[side.toLowerCase()]);
+  bindSpacing(variant, "itemSpacing", spec.gap);
+  variant.fills = [setPaint(V.surface)];
+  variant.strokes = spec.divider ? [setPaint(V.divider)] : [];
+  variant.strokeAlign = "INSIDE";
+  variant.strokeTopWeight = variant.strokeRightWeight = variant.strokeLeftWeight = 0;
+  variant.strokeBottomWeight = variableFloat(V.hairline);
+  variant.setBoundVariable("strokeBottomWeight", V.hairline);
+  variant.strokesIncludedInLayout = true;
+  reconcileLeading(variant, leading, spec);
+  reconcileBreadcrumb(variant, nav, spec, S.typography, keys);
+  reconcileProfileVisual(variant, profile);
+  for (const part of [leading, profile]) {
+    part.layoutSizingHorizontal = part === leading ? "HUG" : "FIXED";
+    part.layoutSizingVertical = part === leading ? "HUG" : "FIXED";
+  }
+  return nav;
+};
+// 적용 뒤 계약을 스스로 대조한다. 어긋나면 던진다 — 반쯤 적용된 세트를 「성공」으로 돌려주지 않는다.
+const layoutViolations = [];
+const checkLayout = (variant) => {
+  const L = C.layoutContract;
+  const parts = {
+    root: variant,
+    leading: variant.children.find((entry) => entry.type === "FRAME" && entry.name === "leading"),
+    breadcrumb: variant.children.find((entry) => entry.type === "FRAME" && entry.name === "breadcrumb"),
+    profile: variant.children.find((entry) => entry.type === "FRAME" && entry.name.startsWith("profile/")),
+  };
+  for (const [part, expected] of Object.entries(L)) {
+    if (part.startsWith("$")) continue;
+    const node = parts[part];
+    if (!node) { layoutViolations.push({ variant: variant.name, part, missing: true }); continue; }
+    for (const [field, value] of Object.entries(expected)) {
+      if (node[field] !== value) layoutViolations.push({ variant: variant.name, part, field, expected: value, actual: node[field] });
+    }
   }
 };
 // 세트 단위 TEXT 속성은 기본값이 하나다. 이름으로 찾고, 없으면 만들고, 기본값이 다르면 맞춘다.
@@ -229,6 +335,8 @@ const ensureTextProperties = (set, list) => {
 const glyphDrift = [];
 const recordGlyphDrift = (variant, nav, widths) => {
   for (const text of nav.findAllWithCriteria({ types: ["TEXT"] })) {
+    // 마지막 글자는 남는 폭을 채우므로 폭이 글리프 폭이 아니다 — 자동 폭 글자만 잰다.
+    if (text.layoutSizingHorizontal === "FILL") continue;
     const expected = widths[text.characters];
     if (expected !== undefined && Math.abs(text.width - expected) > 0.5) {
       glyphDrift.push({ variant: variant.name, text: text.characters, width: text.width, expected });
@@ -284,12 +392,13 @@ const ensureSection = (name, width, height) => {
 };
 // 세트가 없으면 측정 variant 로 세트를 만들고, 있으면 **없는 측정 variant 만 더한다**(지우지 않는다).
 // 계획의 측정·보존 어느 쪽에도 없는 이름이 세트에 있으면 던진다. 격자는 3열이고 칸 간격이
-// variant 폭보다 넓어 겹치지 않는다(figma-live-check 의 겹침 규칙).
-const ensureSet = ({ section, name, S, menuMaster, reconcile, columnWidth, description }) => {
+// variant 폭보다 넓어 겹치지 않는다(figma-live-check 의 겹침 규칙). 행 간격은 칸의 실제 높이에서 잰다 —
+// 바 높이는 HUG 라 러너가 미리 알지 못한다.
+const ensureSet = ({ section, name, S, menuMaster, columnWidth, description }) => {
   let set = section.findOne((entry) => entry.type === "COMPONENT_SET" && entry.name === name);
   const added = [];
   if (!set) {
-    const built = S.variants.map((spec) => buildVariant(spec, menuMaster, S.typography));
+    const built = S.variants.map((spec) => buildVariant(spec, menuMaster, S));
     for (const component of built) section.appendChild(component);
     set = figma.combineAsVariants(built, section);
     set.name = name;
@@ -299,7 +408,7 @@ const ensureSet = ({ section, name, S, menuMaster, reconcile, columnWidth, descr
   } else {
     for (const spec of S.variants) {
       if (set.children.some((entry) => entry.name === variantName(spec))) continue;
-      const component = buildVariant(spec, menuMaster, S.typography);
+      const component = buildVariant(spec, menuMaster, S);
       set.appendChild(component);
       added.push(component.id);
     }
@@ -308,17 +417,21 @@ const ensureSet = ({ section, name, S, menuMaster, reconcile, columnWidth, descr
   set.fills = [];
   const keys = ensureTextProperties(set, S.textProperties);
   const specByName = new Map([...S.variants, ...S.preservedVariants].map((spec) => [variantName(spec), spec]));
-  for (const [index, variant] of set.children.entries()) {
+  for (const variant of set.children) {
     const spec = specByName.get(variant.name);
     if (!spec) throw new Error(`Cannot reconcile ${name} variant ${variant.name}`);
     pin(variant);
-    const nav = reconcile(variant, spec, keys);
+    const nav = reconcileBar(variant, spec, S, keys);
+    checkLayout(variant);
     recordGlyphDrift(variant, nav, S.glyphWidths);
     variant.description = spec.status === "preserved"
       ? `${spec.reason} · Divider=Off · geometry from ${spec.route} · ${PLAN.productCommit}`
       : `Measured ${spec.route} app top bar · ${PLAN.productCommit} · product-only candidate`;
+  }
+  const rowHeight = Math.max(...set.children.map((entry) => entry.height)) + 80;
+  for (const [index, variant] of set.children.entries()) {
     variant.x = 40 + (index % 3) * columnWidth;
-    variant.y = 40 + Math.floor(index / 3) * 150;
+    variant.y = 40 + Math.floor(index / 3) * rowHeight;
   }
   set.resizeWithoutConstraints(
     Math.max(...set.children.map((entry) => entry.x + entry.width)) + 40,
@@ -332,6 +445,7 @@ const ensureSet = ({ section, name, S, menuMaster, reconcile, columnWidth, descr
 };
 const note = (S, viewport) =>
   `${PLAN.productCommit.slice(0, 8)} · ${viewport} · ${S.variants.length} measured + ${S.preservedVariants.length} preserved combinations · product-only candidate`;
+const layoutNote = "The bar hugs its height (padding + tallest child + hairline); its width is a default — consumers set FILL.";
 
 // ── 모바일 ───────────────────────────────────────────────────────────────
 const section = ensureSection(C.sectionName, 2100, 1000);
@@ -343,26 +457,7 @@ const mobile = ensureSet({
   S: C,
   menuMaster: masters.get(C.iconComponents.sidebar),
   columnWidth: 450,
-  description: `Measured mobile app top-bar combinations: full/inset width, single/trail breadcrumb, optional back action, divider. Breadcrumb text is the Label / Parent / Current TEXT properties. ${PLAN.productCommit}. Not normative.`,
-  reconcile: (variant, spec, keys) => {
-    variant.resizeWithoutConstraints(spec.rect.width, spec.rect.height);
-    variant.fills = [setPaint(V.surface)];
-    variant.strokes = spec.divider ? [setPaint(V.divider)] : [];
-    if (spec.divider) {
-      variant.strokeTopWeight = variant.strokeRightWeight = variant.strokeLeftWeight = 0;
-      variant.strokeBottomWeight = 1;
-    }
-    const leading = directFrame(variant, "leading", variant);
-    leading.x = spec.leading.x;
-    leading.y = spec.leading.y;
-    reconcileLeading(variant, leading, spec);
-    const nav = directFrame(variant, "breadcrumb", variant);
-    nav.x = spec.nav.x;
-    nav.y = spec.nav.y;
-    reconcileBreadcrumb(variant, nav, spec, C.typography, keys);
-    reconcileProfileVisual(variant, spec);
-    return nav;
-  },
+  description: `Measured mobile app top-bar combinations: full/inset width, single/trail breadcrumb, optional back action, divider. Breadcrumb text is the Label / Parent / Current TEXT properties. ${layoutNote} ${PLAN.productCommit}. Not normative.`,
 });
 
 // ── 데스크톱 ─────────────────────────────────────────────────────────────
@@ -390,52 +485,9 @@ const desktop = ensureSet({
   S: D,
   menuMaster: expandedMaster,
   columnWidth: 1678,
-  description: `Measured desktop top-bar combinations. The ${D.variants[0].rect.width}×${D.variants[0].rect.height} bar is distinct from its route-specific sticky slot. Breadcrumb text is the Label / Parent / Current TEXT properties. ${PLAN.productCommit}. Not normative.`,
-  reconcile: (variant, spec, keys) => {
-    const leading = variant.findOne((entry) => entry.type === "FRAME" && entry.name === "leading");
-    const nav = variant.findOne((entry) => entry.type === "FRAME" && entry.name === "breadcrumb");
-    const profile = variant.findOne((entry) => entry.type === "FRAME" && entry.name === `profile/${spec.labels.profile}`);
-    if (!leading || !nav || !profile) throw new Error(`Cannot reconcile desktop variant ${variant.name}`);
-    let row = variant.children.find((entry) => entry.type === "FRAME" && entry.name === "flow/header-row");
-    if (!row) {
-      row = figma.createFrame();
-      row.name = "flow/header-row";
-      variant.insertChild(0, row);
-      row.appendChild(leading);
-      row.appendChild(nav);
-      row.appendChild(profile);
-    }
-    let divider = variant.children.find((entry) => entry.type === "FRAME" && entry.name === "divider/measured");
-    if (!divider) {
-      divider = figma.createFrame();
-      divider.name = "divider/measured";
-      variant.appendChild(divider);
-    }
-    variant.layoutMode = "VERTICAL";
-    variant.primaryAxisSizingMode = variant.counterAxisSizingMode = "FIXED";
-    variant.resize(spec.rect.width, spec.rect.height);
-    variant.itemSpacing = 0;
-    variant.paddingTop = variant.paddingRight = variant.paddingBottom = variant.paddingLeft = 0;
-    variant.fills = [setPaint(V.surface)];
-    variant.strokes = [];
-    row.layoutMode = "HORIZONTAL";
-    row.primaryAxisSizingMode = row.counterAxisSizingMode = "FIXED";
-    row.resize(spec.rect.width, spec.rect.height - 1);
-    row.counterAxisAlignItems = "CENTER";
-    for (const field of ["itemSpacing", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft"]) {
-      row[field] = field === "itemSpacing" ? spec.gap : spec.padding[field.slice(7).toLowerCase()];
-      row.setBoundVariable(field, V.spacing8);
-    }
-    row.fills = [];
-    reconcileLeading(variant, leading, spec);
-    reconcileBreadcrumb(variant, nav, spec, D.typography, keys);
-    nav.layoutGrow = 1;
-    divider.resize(spec.rect.width, 1);
-    divider.fills = spec.divider ? [setPaint(V.divider)] : [];
-    reconcileProfileVisual(variant, spec);
-    return nav;
-  },
+  description: `Measured desktop top-bar combinations. The bar is distinct from its route-specific sticky slot. Breadcrumb text is the Label / Parent / Current TEXT properties. ${layoutNote} ${PLAN.productCommit}. Not normative.`,
 });
+if (layoutViolations.length) throw new Error(`Top-bar layout contract violated: ${JSON.stringify(layoutViolations.slice(0, 8))}`);
 
 const visiblePaints = [];
 for (const node of [mobile.set, desktop.set, expandedMaster].flatMap((root) => [root, ...root.findAll(() => true)])) {

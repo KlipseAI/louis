@@ -163,15 +163,88 @@ const profileVisualSpec = (screenRecord, profileButton, rootRect) => {
     },
   };
 };
+const avatarSourcePath = "apps/web/components/navigation/UserCircleDefaultAvatar.tsx";
+const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
+// 13 → 22. `AVATAR` 배열 머리의 `inline-flex … w-14 h-14` 가 `louis-avatar__fallback`
+// 한 줄로 바뀌고 그 위에 9줄짜리 주석이 붙으면서 밀렸다. 인용 줄 자체는 그대로다.
+const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400",');
+// `profileTrigger` 블록이 통째로 82줄 아래로 밀렸다(1358 → 1440). 인용 문자열은 여섯 줄
+// 모두 ae8fd627 에서 글자 하나 안 바뀌었다.
+// 5a67d692 에서 다시 12줄(1440 → 1452). 문자열 여섯 개는 또 한 글자도 안 바뀌었고 줄만
+// 밀렸다 — 제품 52f70bac「면을 … 사다리로 모은다」가 이 블록 위에서 +11(20 insert / 9
+// delete), 41ea8099「GNB … 테마 버튼을 둔다」가 +1 을 냈다. 이 파일에서 두 앵커 사이에
+// Gnb.tsx 를 건드린 커밋은 그 둘과 ff4138a8 · 0524cd49 · 3d604624 뿐이고, 뒤 셋은 이
+// 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
+// 1452 → 1452).
+// 6f6282c1 에서 값 하나와 줄 셋이 움직였다. `[--profile-avatar-size:28px]` 가 `24px` 가 됐고, 바로 위에
+// 세 줄짜리 주석(「프로필 버튼 크기는 여기 한 곳이 정한다」)이 붙어 블록이 +3 밀렸다(1467 → 1470).
+// 나머지 문자열 다섯은 글자 그대로다.
+const ringSourceLines = [
+  [1470, '    "[--profile-avatar-size:24px]",'],
+  [1473, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1474, '    "[--profile-ring-gap:2px]",'],
+  [1475, '    "[--profile-ring-width:2px]",'],
+  [1502, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1504, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
+// 버튼 한 변이 식이라는 선언 셋 — `--profile-ring-size` calc 와 그것을 폭·높이로 쓰는 두 줄.
+const profileSizeSourceLines = [
+  [1476, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
+  [1478, '    "[width:var(--profile-ring-size)]",'],
+  [1479, '    "[height:var(--profile-ring-size)]",'],
+].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
+// **앞머리 컨트롤 한 변도 선언이다.** `mainChromeSidebarToggle`(Gnb.tsx:378) 의 `[width:32px]` ·
+// `[height:32px]`. 두 문자열은 파일에 네 번씩 나오므로 블록 머리(:378–379)를 함께 인용해 자리를 고정한다.
+// 뒤로가기 버튼은 화면마다 다른 상수(`CHROME_BACK_BUTTON` · `HIGHLIGHT_BACK_BUTTON`)가 크기를 쥐므로
+// 선언을 여기 다시 옮기지 않고, 측정 크기가 토글과 같은지만 본다(`barSpec`).
+const toggleSourceLines = [
+  [378, "  mainChromeSidebarToggle: ["],
+  [379, '    "gnb-mainChromeSidebarToggle",'],
+  [385, '    "[width:32px]",'],
+  [386, '    "[height:32px]",'],
+].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
+
+// **프로필 크기는 리터럴이 아니라 제품 선언에서 읽는다(2026-09-14).** 이 가드는 전에 `32` · `24`
+// (그 전에는 `36` · `28`)를 숫자로 물었고, 제품이 아바타 한 값을 바꿀 때마다 가드가 먼저 낡았다.
+// 제품 `profileTrigger` 가 크기를 한 곳에서 정한다 — 아바타(`--profile-avatar-size`) + (간격 + 두께) × 2
+// (Gnb.tsx 의 `--profile-ring-size` calc 와 `width/height: var(--profile-ring-size)`). 그 식을 인용 줄에서
+// 풀어 측정과 대조한다. 값이 옮겨지면 인용 대조가 먼저 울리고, 식이 닫히지 않으면 여기서 울린다.
+const declaredPx = (quote, property) => {
+  const match = new RegExp(`\\[${property}:(\\d+(?:\\.\\d+)?)px\\]`).exec(quote.quote);
+  if (!match) fail(`declared ${property} not found in ${quote.path}:${quote.line}`);
+  return Number(match[1]);
+};
+const DECLARED_PROFILE = (() => {
+  const avatar = declaredPx(ringSourceLines[0], "--profile-avatar-size");
+  const gap = declaredPx(ringSourceLines[2], "--profile-ring-gap");
+  const width = declaredPx(ringSourceLines[3], "--profile-ring-width");
+  return { avatar, gap, width, ringSize: avatar + (gap + width) * 2 };
+})();
+// 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5282–5284 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
+const toggleSvgSourceLines = [
+  [5282, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
+  [5283, "                      width={20}"],
+  [5284, "                      height={20}"],
+].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
+const DECLARED_TOGGLE_SVG = (() => {
+  const [width, height] = [toggleSvgSourceLines[1], toggleSvgSourceLines[2]].map((entry) => Number(/=\{(\d+)\}/.exec(entry.quote)?.[1]));
+  if (!(width > 0) || width !== height) fail(`declared sidebar toggle svg is not a square: ${width}×${height}`);
+  return width;
+})();
+const DECLARED_CONTROL = (() => {
+  const width = declaredPx(toggleSourceLines[2], "width");
+  const height = declaredPx(toggleSourceLines[3], "height");
+  if (width !== height) fail(`declared sidebar toggle is not square: ${width}×${height}`);
+  return width;
+})();
 const assertProfileVisual = (spec) => {
   const visual = spec.profileVisual;
   const control = spec.controls.profile;
-  // 32 · 24 — 제품 6f6282c1(2026-09-14 소유자 요청)이 모든 페이지의 프로필 버튼을 캔버스 에디터
-  // 헤더와 같게 줄였다(그 전 36 · 28). 링 두께 2 · 간격 2 는 그대로라 아바타 인셋 4 도 그대로다.
+  const { avatar, gap, width, ringSize } = DECLARED_PROFILE;
   if (
-    control.width !== 32 || control.height !== 32 ||
-    visual.avatar.rect.x - control.x !== 4 || visual.avatar.rect.y - control.y !== 4 ||
-    visual.avatar.rect.width !== 24 || visual.avatar.rect.height !== 24 ||
+    control.width !== ringSize || control.height !== ringSize ||
+    visual.avatar.rect.x - control.x !== gap + width || visual.avatar.rect.y - control.y !== gap + width ||
+    visual.avatar.rect.width !== avatar || visual.avatar.rect.height !== avatar ||
     // **#D5D7DD → #8B8E93.** 정체는 그대로다 — 제품 UserCircleDefaultAvatar 는 예나 지금이나
     // `text-palette-gray-400` 이고, 제품 globals.css 의 그 이름은 두 앵커 모두
     // `var(--louis-color-palette-gray-400)` 를 가리킨다(값이 아니라 이름을 소비한다).
@@ -179,8 +252,8 @@ const assertProfileVisual = (spec) => {
     // 같은 색에 역할 이름도 서 있다 — `app-avatar-default-ink`(tokens.css:284).
     JSON.stringify(visual.avatar.color) !== JSON.stringify([0.545098, 0.556863, 0.576471, 1]) ||
     visual.ring.rect.x !== control.x || visual.ring.rect.y !== control.y ||
-    visual.ring.rect.width !== 32 || visual.ring.rect.height !== 32 ||
-    visual.ring.width !== 2 || visual.ring.gap !== 2 || visual.ring.progress !== 0 ||
+    visual.ring.rect.width !== ringSize || visual.ring.rect.height !== ringSize ||
+    visual.ring.width !== width || visual.ring.gap !== gap || visual.ring.progress !== 0 ||
     JSON.stringify(visual.ring.fill) !== JSON.stringify([0, 198 / 255, 142 / 255, 1]) ||
     JSON.stringify(visual.ring.track) !== JSON.stringify([0, 0, 0, 0.2]) ||
     visual.ring.figmaMapping !== "0% conic ring as a 2px INSIDE ellipse stroke"
@@ -223,9 +296,19 @@ const candidateContracts = [
   //   subtree-4f8ad570cbbb(14/4) → subtree-3b91f2c79326
   // **이것이 마지막 일괄 이동이다.** styleRef 가 더는 자리번호가 아니므로 앞으로 id 는 값이
   // 실제로 바뀐 자리에서만 움직인다 — 다음에 이 가드가 물면 이름 갈림이 아니라 진짜 변경이다.
-  ["subtree-70d030923c4b", 6, 18],
-  ["subtree-e7d2c976fc2b", 15, 4],
-  ["subtree-19866f2fb6c4", 14, 4],
+  //
+  // 6fbdac16 → 6f6282c1(2026-09-14) 에서 셋 다 물었고, 위 예고대로 **진짜 변경**이다. 제품이 프로필
+  // 버튼을 36 → 32 로 줄여(`profileTrigger` 의 `--profile-avatar-size` 28 → 24) 바 안의 프로필 rect 와
+  // 바 자신의 높이(패딩 + 가장 큰 자식 + 헤어라인)가 함께 움직였다. 옛 fixture(`918c42d:`)와 새 fixture 를
+  // 견주면 nodeCount/routeCount 는 셋 다 그대로이고, roots 의 (route, path, tag) 가 바이트까지 같으며
+  // 달라진 것은 roots 의 rect 뿐이다 — 6/18 은 프로필 묶음(36 → 32, x +4), 15/4 · 14/4 는 바(높이
+  // 53 → 49). 그 (route, path) 집합으로 1:1 이었다:
+  //   subtree-70d030923c4b(6/18) → subtree-7afea61e7dab
+  //   subtree-e7d2c976fc2b(15/4) → subtree-9a75e0bd18d2
+  //   subtree-19866f2fb6c4(14/4) → subtree-8a8ec102efb8
+  ["subtree-7afea61e7dab", 6, 18],
+  ["subtree-9a75e0bd18d2", 15, 4],
+  ["subtree-8a8ec102efb8", 14, 4],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -320,17 +403,50 @@ const barSpec = (kind) => (input) => {
     fail(`desktop Content=${input.content} disagrees with measured label ${textNodes[0].ownText} ${input.route}`);
   }
   if (THEME_MODE[screenRecord.theme] === undefined) fail(`unknown measured theme ${screenRecord.theme} ${input.route}`);
+  const padding = {
+    top: px(rootStyle.paddingTop),
+    right: px(rootStyle.paddingRight),
+    bottom: px(rootStyle.paddingBottom),
+    left: px(rootStyle.paddingLeft),
+  };
+  const gap = px(rootStyle.gap);
+  const leadingGap = px(style(leading).gap);
+  const dividerWidth = px(rootStyle.borderBottomWidth);
+  // **바의 크기는 계산값이다 — 숫자로 받지 않고, 측정이 제품 식으로 닫히는지만 본다(2026-09-14).**
+  // 제품 바는 높이를 선언하지 않는다(`[min-block-size:0]` · `[padding:8px_var(--mainchrome-pad-x)]`,
+  // 아래 `layoutSources`). Figma 세트는 같은 식을 Auto Layout 으로 옮긴다 — 높이 HUG · 폭 FIXED(기본값만,
+  // 소비처는 FILL) · 가운데 nav FILL. 그래서 측정이 그 식과 닫혀야 옮긴 그림이 제품과 같다:
+  //   높이 = 패딩 위 + 가장 큰 자식 + 패딩 아래 + 아래 헤어라인(측정 border-bottom)
+  //   폭   = 패딩 좌 + 앞머리 + gap + nav + gap + 뒷머리 + 패딩 우
+  //   앞머리 = 컨트롤들 + 앞머리 gap × (개수 − 1),  뒷머리 = 프로필 버튼
+  // 식이 닫히지 않으면 제품에 새 자식·margin·최소 높이가 생긴 것이므로 Figma 를 짓기 전에 멈춘다.
+  const close = (actual, expected, what) => {
+    if (Math.abs(actual - expected) > 0.01) fail(`${kind} top-bar ${what} no longer closes (${actual} ≠ ${expected}) ${input.route}`);
+  };
+  close(root.rect.height, padding.top + Math.max(leading.rect.height, nav.rect.height, profile.rect.height) + padding.bottom + dividerWidth, "height = padding + tallest child + hairline");
+  close(root.rect.width, padding.left + leading.rect.width + gap + nav.rect.width + gap + profile.rect.width + padding.right, "width = padding + leading + nav + profile + gaps");
+  const leadingControls = [menu, backButton].filter(Boolean);
+  close(leading.rect.width, leadingControls.reduce((sum, entry) => sum + entry.rect.width, 0) + leadingGap * (leadingControls.length - 1), "leading width = controls + gap");
+  for (const control of leadingControls) {
+    if (control.rect.width !== DECLARED_CONTROL || control.rect.height !== DECLARED_CONTROL) {
+      fail(`${kind} leading control ${control.ariaLabel} is not the declared ${DECLARED_CONTROL} square (Gnb.tsx mainChromeSidebarToggle) ${input.route}`);
+    }
+  }
+  close(profile.rect.width, profileButton.rect.width, "trailing width = profile button");
+  // breadcrumb 간격은 구분자 `mainChromePageNavSep` 의 `[margin:0_4px]` 이다 — 좌우가 같아야 itemSpacing 하나로 옮긴다.
+  const separatorIndex = roles.findIndex(([role]) => role === "separator");
+  const separatorStyle = separatorIndex >= 0 ? style(textNodes[separatorIndex]) : null;
+  const navGap = separatorStyle ? px(separatorStyle.marginLeft) : 0;
+  if (separatorStyle && px(separatorStyle.marginRight) !== navGap) fail(`${kind} breadcrumb separator margin is not symmetric ${input.route}`);
   return {
     ...input,
     theme: screenRecord.theme,
     rect: { width: root.rect.width, height: root.rect.height },
-    gap: px(rootStyle.gap),
-    padding: {
-      top: px(rootStyle.paddingTop),
-      right: px(rootStyle.paddingRight),
-      bottom: px(rootStyle.paddingBottom),
-      left: px(rootStyle.paddingLeft),
-    },
+    gap,
+    leadingGap,
+    navGap,
+    dividerWidth,
+    padding,
     fill: color(rootStyle.backgroundColor),
     dividerColor: color(rootStyle.borderBottomColor),
     controlColor: color(style(menu).color),
@@ -371,7 +487,7 @@ const mobilePreservedInputs = [
 const mobileSidebarProbe = screens["/settings"].vectorControlProbes?.navigationOpen;
 if (
   !mobileSidebarProbe ||
-  mobileSidebarProbe.svgRect.width !== 20 ||
+  mobileSidebarProbe.svgRect.width !== DECLARED_TOGGLE_SVG ||
   mobileSidebarProbe.groups?.[0]?.transform !== "matrix(1, 0, 0, 1, 0, 0)"
 ) {
   fail("measured mobile sidebar SVG transform changed; inspect before regenerating Figma");
@@ -401,12 +517,23 @@ const desktopCandidateContracts = [
   //   subtree-e4077e3527d7(5/3)   → subtree-beece6df8949
   // 위 문단이 「값 차이가 하나도 없는데도 id 가 바뀐 증거」로 든 5/3 후보는 이번에도 값이
   // 그대로인 채 이름만 갈렸다 — 그 증거가 한 번 더 재현된 셈이고, 이번이 그 마지막이다.
-  ["subtree-e1fe7ee1d038", 6, 18],
-  ["subtree-685a4a4bfa2e", 15, 4],
-  ["subtree-caedd8a1445d", 14, 4],
-  ["subtree-be0ca032e800", 17, 3],
-  ["subtree-0733666e63fc", 16, 3],
-  ["subtree-a36ea3231cff", 5, 3],
+  //
+  // 6fbdac16 → 6f6282c1(2026-09-14) 은 모바일과 같은 진짜 변경이다 — 프로필 버튼 36 → 32 와 그만큼 낮아진
+  // 바. 여섯 다 nodeCount/routeCount 와 roots 의 (route, path, tag) 가 옛 fixture 와 같고 rect 만 다르다 —
+  // 6/18 은 프로필 묶음(36 → 32), 15/4 · 14/4 · 17/3 · 16/3 은 바(높이 53 → 49), 5/3 은 바 가운데 줄
+  // (y −2 · 폭 +4 — 프로필이 줄어든 만큼 넓어졌다):
+  //   subtree-e1fe7ee1d038(6/18) → subtree-11bba9db9ef0
+  //   subtree-685a4a4bfa2e(15/4) → subtree-ba7cbd8a0ce2
+  //   subtree-caedd8a1445d(14/4) → subtree-fd281c1bcbbc
+  //   subtree-be0ca032e800(17/3) → subtree-8a6691461153
+  //   subtree-0733666e63fc(16/3) → subtree-8ac04d3f1453
+  //   subtree-a36ea3231cff(5/3)  → subtree-8e576a12733a
+  ["subtree-11bba9db9ef0", 6, 18],
+  ["subtree-ba7cbd8a0ce2", 15, 4],
+  ["subtree-fd281c1bcbbc", 14, 4],
+  ["subtree-8a6691461153", 17, 3],
+  ["subtree-8ac04d3f1453", 16, 3],
+  ["subtree-8e576a12733a", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -430,7 +557,7 @@ const desktopSidebarProbe = fixture.screens["desktop-1920x1080"]["/settings"]
   .vectorControlProbes?.sidebarCollapse;
 if (
   !desktopSidebarProbe ||
-  desktopSidebarProbe.svgRect.width !== 20 ||
+  desktopSidebarProbe.svgRect.width !== DECLARED_TOGGLE_SVG ||
   desktopSidebarProbe.groups?.[0]?.transform !== "matrix(1, 0, 0, 1, -2.5, 0)"
 ) {
   fail("measured desktop sidebar SVG transform changed; inspect before regenerating Figma");
@@ -545,31 +672,6 @@ const profileVisualConstants = {
   ringWidth: firstProfile.profileVisual.ring.width,
 };
 
-const avatarSourcePath = "apps/web/components/navigation/UserCircleDefaultAvatar.tsx";
-const ringSourcePath = "apps/web/components/navigation/Gnb.tsx";
-// 13 → 22. `AVATAR` 배열 머리의 `inline-flex … w-14 h-14` 가 `louis-avatar__fallback`
-// 한 줄로 바뀌고 그 위에 9줄짜리 주석이 붙으면서 밀렸다. 인용 줄 자체는 그대로다.
-const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400",');
-// `profileTrigger` 블록이 통째로 82줄 아래로 밀렸다(1358 → 1440). 인용 문자열은 여섯 줄
-// 모두 ae8fd627 에서 글자 하나 안 바뀌었다.
-// 5a67d692 에서 다시 12줄(1440 → 1452). 문자열 여섯 개는 또 한 글자도 안 바뀌었고 줄만
-// 밀렸다 — 제품 52f70bac「면을 … 사다리로 모은다」가 이 블록 위에서 +11(20 insert / 9
-// delete), 41ea8099「GNB … 테마 버튼을 둔다」가 +1 을 냈다. 이 파일에서 두 앵커 사이에
-// Gnb.tsx 를 건드린 커밋은 그 둘과 ff4138a8 · 0524cd49 · 3d604624 뿐이고, 뒤 셋은 이
-// 블록 위 줄 수를 바꾸지 않았다(실측: avatar-size 줄이 커밋별로 1451 → 1451 → 1452 →
-// 1452 → 1452).
-// 6f6282c1 에서 값 하나와 줄 셋이 움직였다. `[--profile-avatar-size:28px]` 가 `24px` 가 됐고, 바로 위에
-// 세 줄짜리 주석(「프로필 버튼 크기는 여기 한 곳이 정한다」)이 붙어 블록이 +3 밀렸다(1467 → 1470).
-// 나머지 문자열 다섯은 글자 그대로다.
-const ringSourceLines = [
-  [1470, '    "[--profile-avatar-size:24px]",'],
-  [1473, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1474, '    "[--profile-ring-gap:2px]",'],
-  [1475, '    "[--profile-ring-width:2px]",'],
-  [1502, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1504, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
-].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
-
 const dividerSources = [
   sourceQuote(
     "apps/web/components/navigation/Gnb.tsx",
@@ -589,6 +691,62 @@ const dividerSources = [
 ];
 const bindingOf = (role) => ({ collection: FIGMA_COLOR_COLLECTION, name: FIGMA_COLOR_BINDINGS[role].name });
 
+// **바의 Auto Layout 은 제품 선언이 정한다(2026-09-14).** 인용 여섯이 식의 출처다: 높이 하한을 끄고
+// (`min-block-size:0`) 세로 패딩 8 을 주는 바, 남는 폭을 차지하고(`flex:1`) 넘치면 말줄임하는 제목.
+const layoutSources = [
+  [460, '    "[min-block-size:0]",'],
+  [483, '    "[padding:8px_var(--mainchrome-pad-x)]",'],
+  [334, '    "louis-app-top-bar__title",'],
+  [336, '    "[flex:1]",'],
+  [366, '    "[overflow:hidden]",'],
+  [367, '    "[text-overflow:ellipsis]",'],
+].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
+// 세트 variant 가 지켜야 할 축. 렌더러가 적용 뒤 스스로 대조하고(`layoutViolations`), 라이브는
+// `figma-screens-live-check --sets` 가 같은 값을 읽어 대조한다 — 값을 세 곳에 따로 적지 않는다.
+const layoutContract = {
+  $why:
+    "Product top bar declares no height: min-block-size 0 + padding 8 + tallest child + bottom hairline (layoutSources). " +
+    "So the variant hugs vertically; its default width is the measured bar and consumers set FILL. Leading and trailing clusters hug their declared controls; the breadcrumb nav fills the rest and truncates the last label.",
+  root: { layoutMode: "HORIZONTAL", layoutSizingHorizontal: "FIXED", layoutSizingVertical: "HUG", strokesIncludedInLayout: true },
+  leading: { layoutMode: "HORIZONTAL", layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" },
+  breadcrumb: { layoutMode: "HORIZONTAL", layoutSizingHorizontal: "FILL", layoutSizingVertical: "HUG" },
+  profile: { layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED" },
+};
+
+// **간격 · 헤어라인 변수는 되읽기(`figma/readback.json`)에서 이름과 값을 확인하고 묶는다.** 패딩 · gap 은
+// 측정 px 과 값이 같은 `Klipse Primitive/spacing/<n>` 에, 아래 헤어라인은 제품 선언
+// `var(--louis-border-width-hairline)`(Gnb.tsx:497)과 이름이 같은 `Klipse Semantic/border-width/hairline` 에 묶는다.
+// 헤어라인은 **선택 두께**다 — 제품이 고른 토큰이 0.5 이고, 측정 border 1px 은 DPR 1 에서 브라우저가 올려
+// 그린 결과다(`$hairline`). 그래서 Figma 의 HUG 높이는 측정 rect 가 아니라 선언 식을 따른다.
+const readback = JSON.parse(readFileSync(resolve(repoRoot, "figma/readback.json"), "utf8"));
+const liveFloat = (collection, name, seen = new Set()) => {
+  const key = `${collection}::${name}`;
+  if (seen.has(key)) fail(`circular Figma variable ${key}`);
+  seen.add(key);
+  const row = readback.collections?.[collection]?.rows?.find((entry) => entry[0] === name);
+  if (!row || row[1] !== "FLOAT") fail(`figma/readback.json has no FLOAT variable ${key}`);
+  const [[, alias, raw]] = row[3];
+  if (alias) {
+    const at = alias.indexOf("::");
+    return liveFloat(alias.slice(0, at), alias.slice(at + 2), seen);
+  }
+  return raw;
+};
+const spacingValues = [...new Set([...mobileSets, ...desktopSets].flatMap((spec) => [
+  spec.gap, spec.leadingGap, spec.navGap, spec.padding.top, spec.padding.right, spec.padding.bottom, spec.padding.left,
+]))].filter((value) => value > 0).sort((a, b) => a - b);
+const spacingBindings = Object.fromEntries(spacingValues.map((value) => {
+  const name = `spacing/${value}`;
+  if (liveFloat("Klipse Primitive", name) !== value) fail(`Klipse Primitive/${name} does not resolve to ${value}`);
+  return [`spacing${value}`, { collection: "Klipse Primitive", name }];
+}));
+const hairlineBinding = { collection: "Klipse Semantic", name: "border-width/hairline" };
+const hairlineFigmaValue = liveFloat(hairlineBinding.collection, hairlineBinding.name);
+const measuredHairlines = [...new Set([...mobileSets, ...desktopSets].map((spec) => spec.dividerWidth))];
+if (measuredHairlines.length !== 1 || !(hairlineFigmaValue > 0) || hairlineFigmaValue > measuredHairlines[0]) {
+  fail(`hairline evidence no longer lines up: measured ${measuredHairlines.join("/")} · Figma ${hairlineFigmaValue}`);
+}
+
 const plan = {
   $comment: "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   $evidenceClass: "product-only measured Figma candidate; not a normative design-system contract",
@@ -597,11 +755,22 @@ const plan = {
     "Highlight and Clips were added 2026-09-13 by a read-only use_figma read of existing auto-sized (WIDTH_AND_HEIGHT) Pretendard Medium TEXT nodes on the generated /highlight/[projectId]?__phase=loading boards: " +
     "14px (-0.14px, line height 150% = 21px) 1248:13051 Highlight 57x21 and 1248:13053 Clips 32x21; 16px (-0.16px, 150% = 24px) 1247:13150 Highlight 65x24 and 1247:13152 Clips 36x24. " +
     "Cross-check in the same read: 1227:13358 Subscription 16px is 91x24, equal to the 2026-08-24 value. " +
-    "Product rects remain authoritative for the bar, leading, nav and profile boxes. Breadcrumb text is auto-width inside a horizontal Auto Layout nav spaced by the product separator margin (4px), so a label set through a TEXT property reflows instead of clipping; the runner reports any default label whose Figma width differs from these bounds (glyphDrift).",
+    "The bar is an Auto Layout row that hugs its declared controls (layoutContract); measured rects only check that the product formula closes. Breadcrumb labels before the last are auto-width inside a horizontal nav spaced by the product separator margin (4px); the last label fills the nav and truncates at the end, so a label set through a TEXT property reflows instead of clipping. The runner reports any auto-width default label whose Figma width differs from these bounds (glyphDrift).",
   productCommit: fixture.productCommit,
   profileVisualSource: {
     avatar: avatarSource,
     ring: ringSourceLines,
+    size: profileSizeSourceLines,
+  },
+  controlSource: toggleSourceLines,
+  controlGlyphSource: toggleSvgSourceLines,
+  layoutSources,
+  $hairline: {
+    declared: "var(--louis-border-width-hairline) — dividerSources[0]",
+    figma: `${hairlineBinding.collection}/${hairlineBinding.name}`,
+    figmaValue: hairlineFigmaValue,
+    measuredBorderBottomWidth: measuredHairlines[0],
+    note: "The measured border is the hairline as rasterized at device pixel ratio 1; Figma binds the declared token, so a hugging bar is padding + tallest child + the token value.",
   },
   context,
   sourceCandidates: candidateContracts,
@@ -646,12 +815,16 @@ const plan = {
       parent: bindingOf("parent"),
       control: bindingOf("control"),
       separator: bindingOf("separator"),
-      spacing4: { collection: "Klipse Primitive", name: "spacing/4" },
-      spacing8: { collection: "Klipse Primitive", name: "spacing/8" },
-      spacing16: { collection: "Klipse Primitive", name: "spacing/16" },
+      // 패딩 · gap · 구분자 여백으로 측정된 값마다 하나(`spacingBindings`, 되읽기에서 값 확인).
+      ...spacingBindings,
+      // 아래 헤어라인 두께 — 제품 `var(--louis-border-width-hairline)` 과 같은 이름(`$hairline`).
+      hairline: hairlineBinding,
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
     },
-    profileVisual: profileVisualConstants,
+    layoutContract,
+    controlSize: DECLARED_CONTROL,
+    iconSize: DECLARED_TOGGLE_SVG,
+    profileVisual: { ...profileVisualConstants, controlSize: DECLARED_PROFILE.ringSize },
     typography: typographyOf("mobile", mobileSets),
     textProperties: textPropertiesOf(measuredMobileVariants),
     variants: measuredMobileVariants,
@@ -661,6 +834,7 @@ const plan = {
       sectionName: "L · product/Desktop app top bar · measured component",
       componentSetName: "Product/Desktop App Top Bar",
       sourceCandidates: desktopCandidateContracts,
+      iconSize: DECLARED_TOGGLE_SVG,
       sidebarGlyph: {
         sourceRoute: "/settings",
         displaySize: desktopSidebarProbe.svgRect.width,
@@ -686,12 +860,12 @@ const runnerVariant = (spec) => ({
   divider: spec.divider,
   route: spec.route,
   ...(spec.status ? { status: spec.status, reason: spec.reason } : {}),
-  rect: spec.rect,
+  // 폭은 세트의 기본값으로만 쓴다(소비처는 FILL). 높이는 싣지 않는다 — 렌더러가 HUG 로 두고 계산하게 한다.
+  barWidth: spec.rect.width,
   gap: spec.gap,
+  leadingGap: spec.leadingGap,
+  navGap: spec.navGap,
   padding: spec.padding,
-  leading: spec.leading,
-  nav: spec.nav,
-  profile: spec.profile,
   labels: spec.labels,
   text: spec.text.map((entry) => ({ text: entry.text, role: entry.role, ...(entry.property ? { property: entry.property } : {}) })),
 });

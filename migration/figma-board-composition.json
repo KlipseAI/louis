@@ -11,18 +11,18 @@
   "$upperBound": "이 수는 하한이다. 대응 규칙 6개가 보는 것은 LOUIS 51종 중 6종(Button·IconButton·SegmentedControl·SegmentedControlItem·Avatar·ProgressBar)뿐이다 — 나머지 45종의 대응은 아직 규칙이 없어서 missing 이나 structural 로 앉아 있을 수 있다. 규칙을 더하면 replaceable 이나 bespoke 가 올라가고, 그때 게이트가 baseline 을 움직이라고 요구한다.",
   "$glyphRule": "svg 자리는 이름으로 판정한다. 측정 fixture 는 `<svg>` 의 viewBox 와 자손 도형의 기하 속성(d·points·cx…)을 담는데, 트리 변환이 `<path>` 를 「스스로 그릴 것이 없는 노드」로 보아 지워서 Figma 로 가는 spec 에는 크기만 남았다. 그래서 서명을 뜨는 곳을 그 지우기 «앞»으로 옮겼고(figma-tree-spec.mjs 의 glyphSignature), 서명 ↔ 이름 조인표는 scripts/lib/figma-glyph-identity.mjs 가 소유해 figma/app-screens.plan.json 의 productGlyphs 로 실린다. 이름 붙이기는 손으로 읽는다 — LOUIS 아이콘 31종은 line·polyline·circle·rect 로 그려져 있고 제품 글리프는 전부 path 라 문자열이 같은 기하가 0 건이고, 측정 트리에 아이콘 이름·클래스가 없으며, 24 상자 1.8 획인 글리프가 여덟 중 넷이라 크기+획으로도 갈리지 않는다. 서명이 표에 없으면 생성기가 던진다. 판정은 이 표를 인용한다 — 여덟 중 replaceable 은 0 이다: 둘(chevron-left·chevron-right)은 LOUIS 에 같은 뜻의 아이콘이 있지만 제품이 그것을 물지 않고 24 상자 1.8 획의 인라인 글리프를 그려 bespoke 이고(정본은 24 상자 1.5 획 — DS-D-0021), 나머지 여섯은 LOUIS 31종에 대응 그림이 없어 missing 이다. 이 갈림은 DS-D-0038 이 아이콘 축의 미결로 남겨 둔 「제품 글리프의 상자·획 정리」와 「.glyph/ 의 icon/ 승격」에 매달려 있다.",
   "$primitiveSiteSource": "정본 자리·제외 목록은 figma/app-screens.plan.json 의 louisPrimitiveSites · louisPrimitiveExclusions 에서 읽고, 제품 레시피 상자는 migration/product.rendered-components.json 의 rendered[probe] 에서 읽는다. 어느 값도 이 열거기에 베끼지 않는다 — 베낀 목록은 제품이나 LOUIS 가 움직인 날 조용히 낡고, 그때부터 이 원장은 「제품이 문다」를 근거 없이 말하게 된다.",
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 804,
+  "rawNodesBeforePruning": 806,
   "counts": {
-    "total": 853,
+    "total": 855,
     "instance": 84,
     "replaceable": 0,
     "bespoke": 25,
     "blocked": 3,
     "missing": 70,
-    "structural": 671,
+    "structural": 673,
     "unclassified": 0
   },
   "ratio": {
@@ -45,9 +45,9 @@
   "bespokeByIcon": {},
   "structuralByKind": {
     "surface": 157,
-    "frame": 277,
+    "frame": 278,
     "image": 2,
-    "text": 235
+    "text": 236
   },
   "missingByCandidateClause": {
     "a-interactive": 16,
@@ -745,13 +745,13 @@
         "figma/app-screens.mypage-upgrade.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 71,
+        "total": 73,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 13,
-        "structural": 56,
+        "structural": 58,
         "unclassified": 0
       }
     },
@@ -906,7 +906,7 @@
       "tag": "div",
       "rect": [
         1632,
-        997
+        993
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -917,7 +917,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -928,7 +928,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1074,7 +1074,7 @@
       "tag": "div",
       "rect": [
         402,
-        771
+        767
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1085,7 +1085,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1096,7 +1096,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1255,7 +1255,7 @@
       "tag": "div",
       "rect": [
         1600,
-        311
+        307
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1266,7 +1266,7 @@
       "tag": "div",
       "rect": [
         1600,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1277,7 +1277,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1378,7 +1378,7 @@
       "tag": "div",
       "rect": [
         390,
-        298
+        294
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1389,7 +1389,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1400,7 +1400,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1514,7 +1514,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1525,7 +1525,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1538,7 +1538,7 @@
       "tag": "div",
       "rect": [
         1608,
-        975
+        979
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1615,7 +1615,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1626,7 +1626,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1639,7 +1639,7 @@
       "tag": "div",
       "rect": [
         390,
-        815
+        819
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1740,7 +1740,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1751,7 +1751,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1764,7 +1764,7 @@
       "tag": "div",
       "rect": [
         1608,
-        975
+        979
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1841,7 +1841,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1852,7 +1852,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1865,7 +1865,7 @@
       "tag": "div",
       "rect": [
         390,
-        815
+        819
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1966,7 +1966,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -1977,7 +1977,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -1990,7 +1990,7 @@
       "tag": "div",
       "rect": [
         1608,
-        975
+        979
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2104,7 +2104,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2115,7 +2115,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2128,7 +2128,7 @@
       "tag": "div",
       "rect": [
         390,
-        815
+        819
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2267,7 +2267,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2278,7 +2278,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2336,7 +2336,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2347,7 +2347,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2428,7 +2428,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2439,7 +2439,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2452,7 +2452,7 @@
       "tag": "div",
       "rect": [
         1608,
-        975
+        979
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2657,7 +2657,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2668,7 +2668,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2681,7 +2681,7 @@
       "tag": "div",
       "rect": [
         390,
-        815
+        819
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2910,7 +2910,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -2921,7 +2921,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -2934,7 +2934,7 @@
       "tag": "div",
       "rect": [
         1608,
-        975
+        979
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -3037,7 +3037,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -3048,7 +3048,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3061,7 +3061,7 @@
       "tag": "div",
       "rect": [
         390,
-        815
+        819
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -3177,7 +3177,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3326,7 +3326,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3488,7 +3488,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3604,7 +3604,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3733,7 +3733,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -3882,7 +3882,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4044,7 +4044,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4160,7 +4160,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4289,7 +4289,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4497,7 +4497,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4718,7 +4718,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -4861,7 +4861,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -5017,7 +5017,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -5258,7 +5258,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -5534,7 +5534,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -7442,7 +7442,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -8180,6 +8180,28 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.6": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "li",
+      "rect": [
+        169,
+        22
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.1.1.4.6.0": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        143,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
     "/settings@desktop-1920x1080#root": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "div",
@@ -8253,7 +8275,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -8264,7 +8286,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -8912,7 +8934,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -8923,7 +8945,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -9566,7 +9588,7 @@
       "tag": "div",
       "rect": [
         1608,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -9577,7 +9599,7 @@
       "tag": "div",
       "rect": [
         1632,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",
@@ -10104,7 +10126,7 @@
       "tag": "div",
       "rect": [
         390,
-        53
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -10115,7 +10137,7 @@
       "tag": "div",
       "rect": [
         402,
-        53
+        49
       ],
       "verdict": "instance",
       "rule": "instance",

@@ -10,17 +10,17 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 232,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 233,
         "quote": "  \"[outline-offset:-2px]\","
@@ -148,11 +148,11 @@
         "x": 0,
         "y": 0,
         "width": 1632,
-        "height": 53
+        "height": 49
       },
       "content": {
         "x": 170,
-        "y": 53,
+        "y": 49,
         "width": 1300,
         "height": 3453.9688
       },
@@ -160,7 +160,7 @@
         "text": "Start free, upgrade or cancel anytime.",
         "rect": {
           "x": 170,
-          "y": 149,
+          "y": 145,
           "width": 820,
           "height": 48.5938
         },
@@ -180,7 +180,7 @@
         "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
         "rect": {
           "x": 170,
-          "y": 215.5938,
+          "y": 211.5938,
           "width": 686.25,
           "height": 48
         },
@@ -200,7 +200,7 @@
         "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
         "rect": {
           "x": 170,
-          "y": 93,
+          "y": 89,
           "width": 419.5,
           "height": 32
         },
@@ -220,7 +220,7 @@
         "text": "Compare Plans",
         "rect": {
           "x": 170,
-          "y": 1015.7813,
+          "y": 1011.7813,
           "width": 1300,
           "height": 48.5938
         },
@@ -239,7 +239,7 @@
     },
     "cardGrid": {
       "x": 170,
-      "y": 343.5938,
+      "y": 339.5938,
       "width": 1300,
       "height": 608.1875
     },
@@ -253,7 +253,7 @@
         },
         "position": {
           "x": 170,
-          "y": 343.5938,
+          "y": 339.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -663,7 +663,7 @@
         },
         "position": {
           "x": 430.79690000000005,
-          "y": 343.5938,
+          "y": 339.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -1159,7 +1159,7 @@
         },
         "position": {
           "x": 691.5938,
-          "y": 343.5938,
+          "y": 339.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -1690,7 +1690,7 @@
         },
         "position": {
           "x": 952.3906,
-          "y": 343.5938,
+          "y": 339.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -2081,7 +2081,7 @@
         },
         "position": {
           "x": 1213.1875,
-          "y": 343.5938,
+          "y": 339.5938,
           "width": 256.7969,
           "height": 608.1875
         },
@@ -2463,11 +2463,11 @@
           "x": 6,
           "y": 0,
           "width": 390,
-          "height": 53
+          "height": 49
         },
         "content": {
           "x": 6,
-          "y": 53,
+          "y": 49,
           "width": 390,
           "height": 5651.75
         },
@@ -2475,7 +2475,7 @@
           "text": "Start free, upgrade or cancel anytime.",
           "rect": {
             "x": 6,
-            "y": 133,
+            "y": 129,
             "width": 390,
             "height": 97.1875
           },
@@ -2495,7 +2495,7 @@
           "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
           "rect": {
             "x": 6,
-            "y": 248.1875,
+            "y": 244.1875,
             "width": 390,
             "height": 84
           },
@@ -2515,7 +2515,7 @@
           "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
           "rect": {
             "x": 6,
-            "y": 77,
+            "y": 73,
             "width": 390,
             "height": 32
           },
@@ -2534,7 +2534,7 @@
       },
       "cardGrid": {
         "x": 6,
-        "y": 412.1875,
+        "y": 408.1875,
         "width": 390,
         "height": 1668.7813
       },
@@ -2549,13 +2549,13 @@
           },
           "position": {
             "x": 6,
-            "y": 412.1875,
+            "y": 408.1875,
             "width": 193,
             "height": 572.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 461.8125
+            "bottom": 465.8125
           },
           "padding": {
             "top": 12,
@@ -2928,13 +2928,13 @@
           },
           "position": {
             "x": 203,
-            "y": 412.1875,
+            "y": 408.1875,
             "width": 193,
             "height": 572.5938
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 461.8125
+            "bottom": 465.8125
           },
           "padding": {
             "top": 12,
@@ -3205,6 +3205,26 @@
                 "y": 416.5938,
                 "width": 143,
                 "height": 42
+              },
+              "fontSize": 14,
+              "fontWeight": 400,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "start",
+              "color": [
+                0.254902,
+                0.270588,
+                0.298039,
+                1
+              ]
+            },
+            {
+              "text": "Bronze credit top-up",
+              "rect": {
+                "x": 38,
+                "y": 462.5938,
+                "width": 143,
+                "height": 21
               },
               "fontSize": 14,
               "fontWeight": 400,

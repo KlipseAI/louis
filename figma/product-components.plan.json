@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
     "id": "subtree-7eb3e2833a3e",
@@ -180,7 +180,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
       },
       {
         "current": "Composition",
@@ -193,7 +193,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
       },
       {
         "current": "Highlight",
@@ -206,7 +206,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6fbdac16f76ff34dfff832490779ac8389748f55."
+        "$note": "No new visual value: Gnb.tsx:4614-4615 applies the common isSidebarMenuHrefActive result and Gnb.tsx:564/570 supplies the shared inactive/active colours at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd."
       }
     ],
     "rows": [
@@ -709,19 +709,19 @@
     },
     "darkThemeSource": {
       "inactive": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 592,
         "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
       },
       "active": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 598,
         "quote": "    \"[color:var(--gray-000)]\","
       },
       "activeIndicator": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 602,
         "quote": "    \"[html[data-theme=dark]_&]:[background-color:var(--palette-gray-900)]\","
@@ -1377,7 +1377,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6fbdac16f76ff34dfff832490779ac8389748f55:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1456,7 +1456,7 @@
               "tag": "section",
               "rect": {
                 "x": 836,
-                "y": 169,
+                "y": 165,
                 "width": 520,
                 "height": 229.5938
               }
@@ -1467,7 +1467,7 @@
               "tag": "section",
               "rect": {
                 "x": 836,
-                "y": 169,
+                "y": 165,
                 "width": 520,
                 "height": 229.5938
               }
@@ -1487,7 +1487,7 @@
               "tag": "section",
               "rect": {
                 "x": 6,
-                "y": 109,
+                "y": 105,
                 "width": 390,
                 "height": 312.1875
               }
@@ -1498,7 +1498,7 @@
               "tag": "section",
               "rect": {
                 "x": 6,
-                "y": 109,
+                "y": 105,
                 "width": 390,
                 "height": 312.1875
               }
@@ -1518,7 +1518,7 @@
               "tag": "section",
               "rect": {
                 "x": 836,
-                "y": 169,
+                "y": 165,
                 "width": 520,
                 "height": 209.1875
               }
@@ -1529,7 +1529,7 @@
               "tag": "section",
               "rect": {
                 "x": 836,
-                "y": 169,
+                "y": 165,
                 "width": 520,
                 "height": 209.1875
               }

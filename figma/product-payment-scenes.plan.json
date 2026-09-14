@@ -1,11 +1,11 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-6dff099f5193",
+      "id": "subtree-089233c2f2ee",
       "nodeCount": 83,
       "roots": [
         {
@@ -36,7 +36,7 @@
       "score": 166
     },
     {
-      "id": "subtree-11c231002ba4",
+      "id": "subtree-dbfe1829e8a7",
       "nodeCount": 79,
       "roots": [
         {
@@ -67,7 +67,7 @@
       "score": 158
     },
     {
-      "id": "subtree-ea6c9f0dfd59",
+      "id": "subtree-1ae30fbe2788",
       "nodeCount": 25,
       "roots": [
         {
@@ -98,7 +98,7 @@
       "score": 50
     },
     {
-      "id": "subtree-f034cc084ea1",
+      "id": "subtree-ffbed6e9546f",
       "nodeCount": 21,
       "roots": [
         {
@@ -190,11 +190,11 @@
           "x": 0,
           "y": 0,
           "width": 1632,
-          "height": 53
+          "height": 49
         },
         "contentRect": {
           "x": 556,
-          "y": 161,
+          "y": 157,
           "width": 520,
           "height": 229.5938
         }
@@ -212,11 +212,11 @@
           "x": 0,
           "y": 0,
           "width": 1632,
-          "height": 53
+          "height": 49
         },
         "contentRect": {
           "x": 556,
-          "y": 161,
+          "y": 157,
           "width": 520,
           "height": 209.1875
         }
@@ -234,11 +234,11 @@
           "x": 0,
           "y": 0,
           "width": 1632,
-          "height": 53
+          "height": 49
         },
         "contentRect": {
           "x": 556,
-          "y": 161,
+          "y": 157,
           "width": 520,
           "height": 209.1875
         }
@@ -249,7 +249,7 @@
       "sceneSetName": "Product/Mobile Payment Result Scene",
       "sourceCandidates": [
         {
-          "id": "subtree-2425ad25b02e",
+          "id": "subtree-c3e5d0ca4f18",
           "nodeCount": 28,
           "roots": [
             {
@@ -280,7 +280,7 @@
           "score": 56
         },
         {
-          "id": "subtree-50076969733f",
+          "id": "subtree-54960c3c0d87",
           "nodeCount": 27,
           "roots": [
             {
@@ -311,7 +311,7 @@
           "score": 54
         },
         {
-          "id": "subtree-a6ba0dac2ab4",
+          "id": "subtree-20e63d295b79",
           "nodeCount": 26,
           "roots": [
             {
@@ -342,7 +342,7 @@
           "score": 52
         },
         {
-          "id": "subtree-60ed0dd6bac4",
+          "id": "subtree-cbbe72fde43b",
           "nodeCount": 25,
           "roots": [
             {
@@ -418,11 +418,11 @@
             "x": 6,
             "y": 0,
             "width": 390,
-            "height": 53
+            "height": 49
           },
           "contentRect": {
             "x": 6,
-            "y": 109,
+            "y": 105,
             "width": 390,
             "height": 312.1875
           }
@@ -440,11 +440,11 @@
             "x": 6,
             "y": 0,
             "width": 390,
-            "height": 53
+            "height": 49
           },
           "contentRect": {
             "x": 6,
-            "y": 109,
+            "y": 105,
             "width": 390,
             "height": 275.7813
           }
@@ -462,11 +462,11 @@
             "x": 6,
             "y": 0,
             "width": 390,
-            "height": 53
+            "height": 49
           },
           "contentRect": {
             "x": 6,
-            "y": 109,
+            "y": 105,
             "width": 390,
             "height": 254.7813
           }

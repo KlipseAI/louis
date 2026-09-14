@@ -49,8 +49,10 @@ SidebarNavItem과 AppTopBar를 지을 수 없다.
 
 ## 상단 바 높이가 40px인 근거
 
-제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종 52px(8+36+8), fixed 변종 36px, 사이드바 헤더
-행 `min-height: 40px`. **40을 고른다.** `globals.css`의 주석이 `--app-gnb-sidebar-align-main-margin-top`을
+제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종은 높이를 선언하지 않아 패딩 8 + 가장 큰 자식(프로필
+링) + 패딩 8 로 계산되고, fixed 변종은 가장 큰 자식 그대로이며, 사이드바 헤더 행만 `min-height: 40px` 을
+선언한다. 앞의 둘은 링 크기를 따라 움직이는 계산값이라 수로 적지 않는다(2026-09-14 — 제품 `6f6282c1` 이
+프로필 버튼을 줄이자 둘 다 낮아졌다). **40을 고른다.** `globals.css`의 주석이 `--app-gnb-sidebar-align-main-margin-top`을
 40px 전제로 계산하고 있어 **정렬의 기준이 40**이며, 나머지 둘은 그 안에 담기는 내용의 결과다.
 
 **`layout-control-height-md`(40px)를 쓰지 않는다.** 값이 같지만 뜻이 다르다 — 버튼 높이를 바꾸는 날

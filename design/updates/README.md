@@ -25,12 +25,13 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-## 2026-09-14 (131) — 제품 앵커 6f6282c1 — 프로필 버튼 32px · 상단 바 48.5px 을 따라간다
+## 2026-09-14 (131) — 제품 앵커 6f6282c1 — 프로필 버튼 32px 과 그만큼 낮아진 상단 바를 따라간다
 
 제품 앵커를 `6fbdac16` 에서 `6f6282c1` 로 옮긴다. 그 사이의 제품 커밋 하나가 **모든 페이지의 프로필
 버튼을 캔버스 에디터 헤더와 같은 크기로 줄였다**(소유자 요청) — 아바타 28 → 24, 링을 두른 버튼
-36 → 32. 그 버튼이 앱 상단 바에서 가장 큰 자식이라 바의 실효 높이도 52.5 → 48.5 로 낮아졌고,
-**소유자가 낮아진 바를 새 기준으로 받아들였다(2026-09-14).** 앵커 이동 스크립트는
+36 → 32. 그 버튼이 앱 상단 바에서 가장 큰 자식이라 바도 함께 낮아졌고 — 바는 높이를 선언하지 않고
+패딩 8 + 가장 큰 자식 + 패딩 8 + 헤어라인으로 계산된다 — **소유자가 낮아진 바를 새 기준으로 받아들였다
+(2026-09-14).** 계산된 높이는 수로 적지 않는다(소유자 지적, 아래 「상단 바 사슬」 절). 앵커 이동 스크립트는
 `measure-product-components` 에서 「제품이 렌더한 값은 32인데 DS는 36입니다
 (progress-ring.sizes.base.size)」로 멈췄다. 이 항목은 앵커 이동의 단계마다 절을 더한다 — 상단 바 높이가
 번지는 자리(앱 셸 계약 · Figma 셸 매처 · DS-D-0048)는 긴 재측정 뒤의 절이 적는다.
@@ -96,6 +97,47 @@ ProgressRing 의 width · height · Track · Content 여섯 축으로 빨갛다.
 `figma-readback-emit --components --only ProgressRing` 과 `build-figma-snapshot` 으로 되읽기를 다시 뜬 뒤
 `verify-figma-parity` 가 초록이면 `progress.figma` 를 `done` 으로, `MANIFEST_DONE_FLOOR` 를 24 로
 되올린다. ProgressBar 는 이 어긋남과 무관하다.
+
+### 상단 바 사슬 — 계산된 높이를 숫자로 굳힌 자리를 걷는다
+
+**뿌리.** 제품 바(`mainChromeTopBar` + `mainChromeTopBarInPanel`)는 높이를 선언하지 않는다 — `Gnb.tsx:460`
+`[min-block-size:0]` 과 `Gnb.tsx:483` `[padding:8px_var(--mainchrome-pad-x)]` 뿐이라 높이는 가장 큰 자식이
+정한다. 그런데 그 **계산 결과**가 Figma 세트의 FIXED 높이 · 치환 매처의 `=== 53` · 생성기 가드와 파생
+리터럴(편집기 본문 · 하이라이트 허브 뷰포트 · 업로드 좌표)로 흩어져 있었고, 절반은 리터럴끼리 비교해
+초록인 채 틀렸다(크기 굳힘 감사 묶음 1). 이번 앵커가 그 사슬을 한꺼번에 낡게 했다.
+
+**무엇이 바뀌나:**
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| Figma `Product/Mobile App Top Bar` variant | `layoutMode NONE` 절대배치, nav FIXED 폭 + clip | 가로 Auto Layout · 높이 HUG · 폭은 세트 기본값만 FIXED(소비처 FILL) · 앞머리 HUG · 프로필 선언 크기 · nav FILL, 마지막 글자 FILL + 끝 말줄임 |
+| Figma `Product/Desktop App Top Bar` variant | 세로 FIXED 바 + FIXED 행(`flow/header-row`) + 1px 프레임 | 모바일과 같은 가로 행 하나. 아래 선은 `Klipse Semantic/border-width/hairline` 획을 레이아웃에 포함. 옛 두 프레임은 **지우지 않고** 비워 `retired/` 로 숨긴다 |
+| 앱 셸 러너의 기존 variant | — | 앞머리 · breadcrumb · 프로필은 **같은 노드를 옮긴다**(노드 id 보존 → 인스턴스 TEXT 속성 값 · override 유지). 적용 뒤 `layoutContract` 를 스스로 대조해 어긋나면 던진다 |
+| 앱 셸 생성기 가드 | 프로필 32 · 24, 컨트롤 32, 글리프 20 리터럴 | 제품 선언(`--profile-ring-size` calc · 토글 `[width:32px]` · 토글 svg)에서 푼 값. 바 높이 · 폭 · 앞머리 폭이 제품 식으로 닫히는지 대조 |
+| 치환 매처 `figma-component-substitution.mjs` | `Math.round(rect.height) === 53` + nav 자손 | 구조 — nav 를 직접 자식으로 두고 앞 형제가 버튼을, 뒤 형제가 버튼을 품는 흐름 노드. 옛 앵커 fixture 에서 36보드 applied 목록이 커밋된 계획과 전부 같다 |
+| `build-figma-product-sidebar-states` | 바 52 · 본문 1832×996 · 미리보기 1259 · 위 칸 656, 좌 16 / 우 8 / 위 0 식(감사 G1) | 셸 인셋은 측정(`--app-gnb-main-inline-padding`, 원장에 새로 실음) 사방, 격자 트랙은 선언 기본값만, 1fr 칸은 FILL. 편집 화면이 이제 풀화면(`variant="create"`)이라는 사실을 근거와 함께 계획에 남겼다 |
+| `build-figma-product-highlight-hub` | main 1628 · 뷰포트 1003 · y 53 · 업로드 y 908 · 좌우 인셋 16/16 | main 카드 · 인셋 좌 16 / 우 `-end`(원장 측정) · 열 수 · 여백 · 업로드 400×140 · bottom 20(인용). 렌더러는 격자 폭 · 카드 한 변 · 뷰포트를 라이브 프레임에서 계산 |
+| `build-figma-product-upgrade-scene` | `topBar.height !== 53` · `content.y !== 53` | 앱 셸 계획의 같은 바와 같은 상자인지, 본문이 바 바로 아래인지 |
+| 앱 화면 보드(`figma-tree-spec` · 렌더러) | 세로 flex 의 `flex-wrap` 을 WRAP 으로 실어 러너가 멈출 자리(`/subscription` 모바일) | wrap 은 HORIZONTAL 에만. 표현하지 못한 자리는 `stats.verticalWrap` |
+| 문서 | `app-shell-parts.md` 「실효 높이 52px」 · 후행 슬롯 36 · portal 52 = 8+36+8, DS-D-0018 「52px(8+36+8)」, `icon-button.md` 36 행 | 산식(패딩 8 + 가장 큰 자식 + 패딩 8 + 헤어라인)과 선언 좌표. 측정값은 `figma/product-app-shell.plan.json` 이 갖는다. DS-D-0048 에 앵커 이동 절 |
+
+**재발 방지.**
+
+- `scripts/check-derived-size-literals.mjs`(verify:ci) — `build-figma-*.mjs` · `lib/figma-*.mjs` 의
+  `…width|height|x|y === / !== <수>` 를 파일별로 센다. 선언 줄(`// 선언: <경로>:<줄>`)은 세지 않는다.
+  기준선보다 늘어도, **줄어도** 실패한다(고친 만큼 내려 잠근다). 남은 수는 결제 · 업그레이드 · 요금제
+  장면의 뷰포트 · 카드 가드이고 묶음 2 · 3 · 5 가 옮긴다. 두 방향 canary 를 `verify-gates` 에 더했다.
+- `figma-screens-live-check --emit --sets` 가 상단 바 두 세트의 variant 마다 Auto Layout 축(layoutMode ·
+  축 sizing · 헤어라인 레이아웃 포함)을 뜨고, `--check` 가 앱 셸 계획의 `layoutContract` 와 대조한다.
+
+**재생성.** `scripts/regen-figma-at-anchor.sh --figma-only` 가 끝까지 초록이었다(낡은 생성물 핀 0).
+36보드의 셸 치환 목록 · 인스턴스 84 · bespoke 25 · 후보 182 가 그대로라 보드 구성 기준선은 옮기지 않았다.
+
+**라이브 적용은 하지 않았다.** 순서: 앱 셸 세트 러너 → `figma-screens-live-check --consumers <전> <후>` →
+sidebar-states · highlight-hub · upgrade-scene 러너 → 보드 러너. 앱 셸 러너를 적용하면 **바를 인스턴스로 쓰는
+모든 소비처의 높이가 식을 따라 낮아진다** — `--consumers` 가 그 크기 변화를 찍으므로 받아들인 소비처를
+`--expect-change` 로 댄다. sidebar-states 러너는 옛 컬렉션(`1 · Palette` · `2 · Semantic`)을 찾아 라이브에서
+돌지 않는 상태 그대로다.
 
 ## 2026-09-13 (130) — 앱 셸 상단 바에 조합 넷과 라벨 속성을 더하고, 화면 보드를 라이브와 대조하는 도구를 세운다
 

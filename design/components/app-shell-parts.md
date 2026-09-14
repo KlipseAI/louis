@@ -383,16 +383,22 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 상단 바 높이 | 40px — **아래 각주** | `layout-app-shell-top-bar-height` |
 | 상단 바 좌우 여백 | 16px | `layout-app-shell-content-inset` |
 | 상단 바 선행 슬롯 | 32px | `IconButton` sm이 들어가는 자리 |
-| 상단 바 후행 슬롯 | 36px | `ProgressRing`이 아바타를 감싼 크기 |
+| 상단 바 후행 슬롯 | 아바타 + (링 간격 + 링 두께) × 2 — 계산값(아래 각주) | `ProgressRing`이 아바타를 감싼 크기 |
 | CTA 버튼 높이 | 40px → 접힘 32px | `layout-control-height-lg` → `-md` |
 | CTA 좌우 여백 | 14px → 접힘 10px | 제품 실측 |
 | CTA 반경 | 12px | `radius-control` |
 | CTA 면 · 글자 | 반전 solid | `background-upgrade` · `foreground-upgrade` |
 
 **상단 바 40px은 DS 계약이지 제품 실측이 아니다(2026-08-21 조립 검증).** 제품의 카드 안(in-panel)
-바는 세로 패딩 8px에 가장 큰 자식이 프로필 링(36px)이라 **실효 높이 52px**이다. 토큰 40의 선정
-근거(제품에 52/36/40 셋이 있고 정렬 주석이 40을 전제)는 유효하지만, **`/archive`를 40으로
-조립하면 12px 어긋난다.** 제품 화면을 그릴 때는 52를 쓰고, DS 컴포넌트를 새로 세울 때 40을 쓴다.
+바는 **높이를 선언하지 않는다** — `Gnb.tsx:460` 이 레시피의 하한을 `[min-block-size:0]` 으로 끄고
+`Gnb.tsx:483` 이 세로 패딩 8을 준다. 그래서 바의 높이는 **세로 패딩 8 + 가장 큰 자식(프로필 링) + 세로
+패딩 8 + 아래 헤어라인**으로 계산되고, 가장 큰 자식이 바뀌면 바도 따라 바뀐다(제품 `6f6282c1` 이 프로필
+버튼을 줄이자 함께 낮아졌다). 이 문서는 그 결과를 수로 적지 않는다 — 측정값은
+`figma/product-app-shell.plan.json` 의 `component.variants[].rect` 가 갖고, 그 생성기가 측정이 이 식으로
+닫히는지 대조한다. 토큰 40의 선정 근거(정렬 주석이 40을 전제)는 유효하지만 **`/archive`를 40으로
+조립하면 제품과 어긋난다.** 제품 화면을 그릴 때는 높이를 고정하지 않고 패딩 8 · 가장 큰 자식으로 hug
+하고(Figma 세트 `Product/Desktop App Top Bar` · `Mobile App Top Bar` 가 그렇게 짓는다), DS 컴포넌트를 새로
+세울 때 40을 쓴다.
 
 위 「없음」 세 행은 **§10.1을 실제로 Figma에 조립하면서 이 문서만으로 부족했던 값**이다. 셋 다
 `migration/`에는 있었지만 규범에 없어서 조립자가 제품 코드를 열어야 했다.
@@ -429,8 +435,9 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 로고 레일이 `--app-gnb-sidebar-logo-h: 28`이다. 브랜드 행이 상단 바와 같은 40이라 좌우가 한 줄에서
 만난다 — [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md)이 그 40을 소유한다.
 
-**상단 바 높이가 40px인 근거.** 제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종 52px,
-fixed 변종 36px, 사이드바 헤더 행 `min-height: 40px`. `globals.css`의 주석이 정렬을 40px 전제로
+**상단 바 높이가 40px인 근거.** 제품에는 세 값이 있고 서로 맞지 않는다 — portal 변종은 선언이 없어
+패딩 8 + 가장 큰 자식 + 패딩 8(+ 헤어라인)로 계산되고, fixed 변종은 가장 큰 자식 그대로이며, 사이드바 헤더
+행만 `min-height: 40px` 을 선언한다. `globals.css`의 주석이 정렬을 40px 전제로
 계산하므로 **정렬의 기준이 40**이고 나머지 둘은 그 안에 담기는 내용의 결과다.
 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md)이 이 판정을 소유한다.
 
@@ -497,7 +504,8 @@ bleed가 패딩보다 크다. 그 화면들은 이 문서의 범위 밖이다.
 **≤719px에서만 어긋남이 사라진다.** 이 폭에서 `--mainchrome-pad-x`가 `--app-gnb-main-inline-padding`으로
 갈아타고 두 인셋 토큰이 **둘 다 16px**로 재정의되어 바 콘텐츠 시작선 = 본문 시작선 = 16px이 된다.
 bleed와 음수 마진 자체는 이 폭에서도 계속 걸려 있으므로 배경·구분선은 여전히 풀블리드다. **세로
-패딩은 폭과 무관하게 8px 고정**이고, 이것이 DS-D-0018이 적은 portal 변종 52px = 8+36+8의 그 8이다.
+패딩은 폭과 무관하게 8px 고정**이고, 이것이 DS-D-0018이 적은 portal 변종 높이(패딩 8 + 가장 큰 자식 + 패딩 8)의
+그 8이다.
 
 **16px 하나로 본문과 상단 바 두 자리를 겸하게 두지 않는다.** 위 표의
 `layout-app-shell-content-inset`은 본문 인셋이고 카드 안 상단 바의 8px은 다른 축이다 — 이 편차를 계약

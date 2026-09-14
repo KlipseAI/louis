@@ -46,7 +46,7 @@ authority: normative
 | 공용 헬퍼 | 생성기마다 되읽기 `liveFloat` 사본, 렌더러마다 변수 · 모드 블록 사본 | 생성기 `scripts/lib/figma-live-variables.mjs` + 렌더러 조각 `scripts/templates/lib/figma-live-variables.js`(생성기가 `PLAN` 뒤 · 템플릿 앞에 붙인다). 앱 셸 러너(130)의 방식 — 되읽기에서 이름 · 값 확인, 측정 테마의 모드를 `Klipse Semantic Color` 에만 고정, 저장색 = 변수 해석값(조립 규칙 1번), 알파는 변수가 갖는다(2번) — 을 뽑았다. **앱 셸 생성기는 옮기지 않았다** — 라이브 적용 첫 단계로 포장 · 해시가 떠 있어 생성물 바이트를 바꾸지 않는다 |
 | 색 매핑 | 이름 추측 · 손 표 | 역할 = 제품 선언(소스 인용 — 제품 파일은 앵커 커밋에서, LOUIS Button 레시피는 이 저장소 `packages/css/src/component/button.css` 에서 문자 그대로 확인) + 라이브 변수. 칠하는 자리마다 **측정 색과 기대 색이 같은 역할 하나**를 고르고(없거나 둘이면 생성기가 멈춘다), 쓰이지 않은 역할이 남아도 멈춘다. 계획 `colorEvidence` 가 선언 · 측정 · 라이브 해석 경로 · `exact` 를 갖고, `--check` 가 되읽기 · 측정 · 소스와 함께 다시 대조한다 |
 | 값이 같은 변수가 없는 측정 색 | 조용히 고정 페인트(업그레이드) · 없는 변수 이름(체크아웃) | 두 꼴만 — **근사 결합**(제품 `rgb(var(--gray-000-rgb) / N%)` 는 light 에서 순검정 N% 인데 라이브 `color/gray/000-alpha/N` 은 `static-black-alpha`(#171b22) 라, 같은 이름의 라이브 단계에 묶고 RGB 차이를 `exact: false` 로 — 앱 셸 계획의 알파 잉크와 같은 처리)과 **고정 역할**(`bindings.unbound` 에 측정 색 + 사유. 값이 같은 라이브 변수가 하나라도 있으면 생성기가 멈춘다 — 묶을 수 있는 색을 고정하지 않는다) |
-| 러너 감사 · 반환 | 러너마다 로고 이름 정규식 · 이름 목록(업그레이드 아웃라인) | 공용 `audit` — 숨은 노드(`retired/`)와 보존한 옛 variant(업그레이드 `Plan=Basic` · `Plan=Max`)는 세지 않고, 묶이지 않은 보이는 페인트는 고정 역할 색이거나 브랜드 로고 자산(`logo/klipse-light` · `-dark`)이어야 한다. 반환에 `colourMode` · `visiblePaintCount` · `boundVisiblePaintCount` · `allowedFixedPaintCounts` · **`unboundColors`**(역할 · 색 · 알파 · 페인트 수). 업그레이드는 `preservedVariantIds` 도 |
+| 러너 감사 · 반환 | 러너마다 로고 이름 정규식 · 이름 목록(업그레이드 아웃라인) | 공용 `audit` — 숨은 노드(`retired/`)와 보존한 옛 variant(업그레이드 `Plan=Basic` · `Plan=Max`)는 세지 않고, 묶이지 않은 보이는 페인트는 이 러너의 고정 역할 색, **인스턴스 안에서만** 품은 세트의 고정 역할 색(계획 `nestedFixedPaints` — 컴포넌트 · 앱 셸 계획의 `bindings.unbound` 에서 읽는다. 결제 장면 세 러너가 사이드바 셸의 BETA 칩을 품는다), 브랜드 로고 자산(`logo/klipse-light` · `-dark`) 중 하나여야 한다. 반환에 `colourMode` · `visiblePaintCount` · `boundVisiblePaintCount` · `allowedFixedPaintCounts`(`brandLogo` · `nested <계획>/<역할>`) · **`unboundColors`**(역할 · 색 · 알파 · 페인트 수). 업그레이드는 `preservedVariantIds` 도 |
 | 없을 때만 칠하던 자리 | 컴포넌트 CTA 세트 · 결과 섹션 면, 네 러너의 문서 글자, sidebar-states CTA 마스터 · 레일 행 아이콘 · 편집기 상단 바 선 | 기하는 그대로 두고 **칠만 매 실행 역할로 다시 건다** — 옛 노드가 은퇴한 컬렉션 변수에 묶인 채 남지 않게 |
 | 러너 페이로드 | 측정 색 배열 · 옛 컬렉션 이름 | 역할 이름만(`paint` · `fillPaint` · `labelPaint` · 업그레이드 글자 스타일 표의 `paint`). 측정 색 · 사유 · 인용 · 대조표는 계획에만 |
 
@@ -73,16 +73,19 @@ HUG + 좌우 패딩(`spacing/12`), 높이는 Button md 레시피(선언), 반경
 계획 variant 가 없으면 지어 더하고(지우지 않는다, 있는 variant 는 모드와 행 아이콘 잉크만 다시 건다), 편집 화면의 옛 인스턴스
 `gnb/Current=VideoEditor · measured collapsed` 는 **같은 노드**를 `Current=Composition` 으로 바꿔 쓴다.
 
-**모의 Figma 확인.** 되읽기의 세 컬렉션을 모드 · 기본 모드 · 별칭까지 그대로 세운 모의에서, 옛 계획의 은퇴 컬렉션을 합성해 HEAD
-러너(업그레이드는 요금제 넷이던 `db94a2f` → HEAD 사슬도, sidebar-states 는 옛 레일 세트 · 인스턴스가 있는 상태)를 먼저 돌리고 새
-러너를 두 번 돌렸다. 다섯 모두 **잃은 노드 0 · 두 번째 실행 스냅숏 동일(멱등) · `remove()` 0**, 보이는 노드의 은퇴 컬렉션 결합 0
-(업그레이드 보존 variant 안에만 남는다). 감사(모의 — 중첩 인스턴스 속은 비어 있어 라이브 수가 더 크다): components 보이는
-페인트 86 = 묶임 80 + BETA 칩 6, checkout 80 = 78 + 알림 선 2, payment-scenes 12 = 12, upgrade 119 = 112 + 88% 글자 5 + 아웃라인 2.
-은퇴한 이름은 다섯 러너(`figma/product-*.draw.js`) · 렌더러 · 공용 조각에서 grep 0 이다(계획에는 `$bindingPolicy` 산문 한 줄).
+**모의 Figma 확인.** 되읽기의 세 컬렉션을 모드 · 기본 모드 · 별칭까지 그대로 세우고 인스턴스 속이 마스터의 현재 자식을 비추는
+모의에서, 옛 계획의 은퇴 컬렉션을 합성해 HEAD 러너(업그레이드는 요금제 넷이던 `db94a2f` → HEAD 사슬도, sidebar-states 는 옛 레일
+세트 · 인스턴스가 있는 상태)를 먼저 돌리고 새 러너를 두 번 돌렸다. 다섯 모두 **잃은 노드 0 · 두 번째 실행 스냅숏 동일(멱등) ·
+`remove()` 0**, 보이는 노드의 은퇴 컬렉션 결합 0(업그레이드 보존 variant 안에만 남는다). 한 세계에서 컴포넌트 러너 → 체크아웃 ·
+결제 장면 · 업그레이드를 차례로 돌린 감사(모의 수 — 인스턴스 루트의 칠 상속은 흉내 내지 않아 라이브 수가 더 크다): components
+보이는 페인트 156 = 묶임 143 + BETA 칩 13, checkout-status 246 = 237 + 알림 선 6 + 품은 BETA 3, payment-scenes 98 = 95 + 품은 BETA 3,
+upgrade-scene 330 = 312 + 88% 글자 15 + 아웃라인 2 + 품은 BETA 1. **품은 고정 역할을 받기 전에는 결제 장면 세 러너가 사이드바 셸의
+BETA 칩에서 감사로 던졌다** — 인스턴스 속이 빈 첫 모의는 이것을 보지 못했다. 은퇴한 이름은 다섯 러너(`figma/product-*.draw.js`) ·
+렌더러 · 공용 조각에서 grep 0 이다(계획에는 `$bindingPolicy` 산문 한 줄).
 
 **보드 계획 · 원장은 바뀌지 않는다.** 치환 매처는 계획의 글자와 구조만 읽는다 — `check-figma-app-screens` · 보드 구성 원장이 그대로다.
-러너 크기(50,000자 한도): components 38,395 · checkout-status 32,371 · payment-scenes 28,023 · upgrade-scene 42,267 · sidebar-states
-37,776.
+러너 크기(50,000자 한도): components 38,550 · checkout-status 32,669 · payment-scenes 28,620 · upgrade-scene 42,567 · sidebar-states
+38,215.
 
 **라이브 적용 순서.** 앱 셸 러너 → `--consumers` → **컴포넌트 러너**(결제 장면 세 러너가 그 사이드바 셸 · 결과 본문 세트를 품는다)
 → 체크아웃 · 결제 장면 · 업그레이드 → sidebar-states · highlight-hub → `--sets` → 보드 36 → `--check`. 컴포넌트 러너의 사이드바

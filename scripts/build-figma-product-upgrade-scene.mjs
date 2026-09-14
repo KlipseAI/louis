@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { BINDING_POLICY, RENDERER_LIB, liveVariables, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -741,6 +741,8 @@ const plan = {
   const colors = roles.finish();
   C.bindings = live.assertBindings({ ...colors.bindings, ...C.bindings }, "upgrade-scene bindings");
   C.colorEvidence = colors.evidence;
+  // 품은 사이드바 셸 · 상단 바 인스턴스 속의 고정 역할(그 러너 계획의 `bindings.unbound`) — 감사가 인스턴스 안에서만 받는다.
+  C.nestedFixedPaints = nestedFixedPaints({ repoRoot, fail, productCommit: fixture.productCommit, plans: ["figma/product-components.plan.json", "figma/product-app-shell.plan.json"] });
 }
 // **러너에는 러너가 읽는 것만 싣는다.** `use_figma` 의 code 인자는 50,000자가 상한이고,
 // 카드가 넷에서 다섯이 되며 페이로드가 51,555자로 그 벽을 넘었다. 넘긴 것은 산문이다 —

@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { BINDING_POLICY, RENDERER_LIB, liveVariables, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -406,6 +406,8 @@ const plan = {
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
     }, "checkout-status bindings"),
     colorEvidence: colors.evidence,
+    // 품은 사이드바 셸 · 상단 바 인스턴스 속의 고정 역할(그 러너 계획의 `bindings.unbound`) — 감사가 인스턴스 안에서만 받는다.
+    nestedFixedPaints: nestedFixedPaints({ repoRoot, fail, productCommit: fixture.productCommit, plans: ["figma/product-components.plan.json", "figma/product-app-shell.plan.json"] }),
   },
 };
 

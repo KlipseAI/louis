@@ -211,6 +211,16 @@ export const liveVariables = ({ repoRoot, fail }) => {
   return { readback, float, floatOrNull, spacingBinding, radiusBinding, colorRoles, assertBindings };
 };
 
+// **중첩 세트의 고정 역할.** 장면 러너의 감사는 품은 인스턴스 속 칠까지 센다 — 사이드바 셸(컴포넌트 러너)의 BETA 칩처럼
+// 다른 러너가 사유와 함께 고정 역할로 칠한 색은 그 러너의 계획에서 읽어 인스턴스 안에서만 받는다. 계획이 이 앵커가
+// 아니면 멈춘다(그 생성기를 먼저 돈다). 사유는 원래 계획의 `colorEvidence` 가 갖는다.
+export const nestedFixedPaints = ({ repoRoot, fail, productCommit, plans }) => plans.flatMap((path) => {
+  const plan = JSON.parse(readFileSync(resolve(repoRoot, path), "utf8"));
+  if (plan.productCommit !== productCommit) fail(`${path} (${String(plan.productCommit).slice(0, 8)}) is not at this anchor — run its generator first`);
+  const bindings = plan.component?.bindings ?? plan.figma?.bindings ?? {};
+  return Object.entries(bindings.unbound ?? {}).map(([role, entry]) => ({ source: path.replace(/^figma\/|\.plan\.json$/g, ""), role, color: entry.color }));
+});
+
 export const BINDING_POLICY =
   "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. " +
   "The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). " +

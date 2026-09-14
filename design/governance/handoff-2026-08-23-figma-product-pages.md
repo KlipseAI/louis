@@ -1370,7 +1370,8 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
       속성은 채우지 않는다 — 2026-09-14 에 되채운 글자가 남았는지 그 대조로 본다. **컴포넌트 러너는 사이드바 메뉴 · 셸 · CTA
       세트의 색을 다크에서 light 측정으로 옮기고 로고를 `klipse-light` 로 바꾼다** — 그 세트를 인스턴스로 쓰는 데스크톱 보드 ·
       결제 장면 · 손 조립 허브의 사이드바가 함께 바뀌는데 `--consumers` 는 상단 바 두 세트만 본다. 적용 승인 질문에 이 변화를 넣고
-      전후 스크린숏으로 본다. 러너마다 반환의 `unboundColors`(고정 역할과 페인트 수)가 (133) 표와 같은지 본다.
+      전후 스크린숏으로 본다. 러너마다 반환의 `unboundColors`(고정 역할과 페인트 수)와 `allowedFixedPaintCounts`(`brandLogo` · 품은 세트의
+      고정 역할 `nested …`)가 (133) 표의 역할과 같은지 본다 — 역할이 다르거나 `Unexpected unbound visible paints` 로 던지면 거기서 멈춘다.
    6. `figma-screens-live-check --sets` 로 세트 확인(상단 바 두 세트의 `layoutContract` 포함) → 보드 러너 전량
       (`figma/app-screens.*.00.draw.js` — 세트 러너가 끝났으면 `192:1251` 을 포함한 36 장).
    7. `figma-screens-live-check --check <두 페이지 결과 · 세트 결과>` 로 **36/36 탐침 · 다름 0**(결과 파일을 빠뜨리면 실패한다).

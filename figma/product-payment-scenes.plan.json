@@ -688,6 +688,18 @@
         "figmaAlpha": 1,
         "exact": null
       }
-    }
+    },
+    "nestedFixedPaints": [
+      {
+        "source": "product-components",
+        "role": "paletteGray500Alpha12",
+        "color": [
+          0.447059,
+          0.458824,
+          0.482353,
+          0.12
+        ]
+      }
+    ]
   }
 }

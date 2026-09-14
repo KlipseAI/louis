@@ -455,6 +455,7 @@ const mobileSceneSet = sceneSetFor("Mobile", C.mobileSceneSetName, mobileMainSet
 // 보이는 페인트 감사 — 변수에 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors`)이거나 브랜드 로고 자산이어야 한다.
 // 사이드바 셸(컴포넌트 러너)은 제품 로고 SVG 를 인스턴스로 품는다 — 워드마크 잉크는 자산의 칠이다.
 const paintAudit = audit([contentSet, desktopMainSet, desktopSceneSet, mobileMainSet, mobileSceneSet], {
+  nested: C.nestedFixedPaints,
   allow: (node) => {
     for (let ancestor = node; ancestor && ancestor !== section; ancestor = ancestor.parent) {
       if (/^logo\/klipse-(light|dark)\b/.test(ancestor.name)) return "brandLogo";

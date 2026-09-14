@@ -623,6 +623,7 @@ mobileSceneComponent.description = `Measured ${M.page.rect.width}×${M.page.rect
 // 보이는 페인트 감사 — 변수에 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors` — 현재 플랜 아웃라인 · `gray-300` 88% 글자)이거나
 // 브랜드 로고 자산이어야 한다. 보존한 옛 variant(`Plan=Basic` · `Plan=Max`)는 이 러너가 칠하지 않으므로 세지 않는다.
 const paintAudit = audit([cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent], {
+  nested: C.nestedFixedPaints,
   skip: preservedCards,
   allow: (node) => {
     for (let ancestor = node; ancestor && ancestor !== section; ancestor = ancestor.parent) {

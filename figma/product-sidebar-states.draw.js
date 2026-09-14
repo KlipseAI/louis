@@ -70,17 +70,20 @@ const liveVariables = async (B) => {
     }
   };
   // **보이는 페인트 감사.** 숨은 노드(자기 또는 조상이 visible=false — `retired/` 가 그렇다)와 `skip` 노드는 세지 않는다.
-  // 변수에 묶이지 않은 보이는 페인트는 계획의 고정 역할(`B.unbound`) 색이거나 `allow(node)` 가 이름을 댄 것이어야 한다.
-  // 돌려주는 `unboundColors` 는 앱 화면 러너의 같은 이름 보고와 같은 뜻이다 — 고정 페인트로 칠한 역할과 그 수.
-  const audit = (roots, { allow = () => null, skip = [] } = {}) => {
+  // 변수에 묶이지 않은 보이는 페인트는 계획의 고정 역할(`B.unbound`) 색이거나, 인스턴스 안에서 품은 세트의 고정 역할
+  // (`nested` — 다른 러너 계획이 사유와 함께 고정한 색)이거나, `allow(node)` 가 이름을 댄 것이어야 한다.
+  // 돌려주는 `unboundColors` 는 앱 화면 러너의 같은 이름 보고와 같은 뜻이다 — 이 러너가 고정 페인트로 칠한 역할과 그 수.
+  const audit = (roots, { allow = () => null, skip = [], nested = [] } = {}) => {
     const fixedRoles = new Map(Object.entries(unbound).map(([role, entry]) => [keyOf(...entry.color), role]));
+    const nestedRoles = new Map(nested.map((entry) => [keyOf(...entry.color), `nested ${entry.source}/${entry.role}`]));
     const counts = {};
     const allowed = {};
     const unexpected = [];
     let visible = 0;
     let bound = 0;
-    const walk = (node) => {
+    const walk = (node, inInstance) => {
       if (node.visible === false || skip.includes(node)) return;
+      const inside = inInstance || node.type === "INSTANCE";
       for (const field of ["fills", "strokes"]) {
         if (!Array.isArray(node[field])) continue;
         for (const entry of node[field]) {
@@ -90,16 +93,17 @@ const liveVariables = async (B) => {
             bound += 1;
             continue;
           }
-          const role = fixedRoles.get(keyOf(entry.color.r, entry.color.g, entry.color.b, entry.opacity ?? 1));
-          const reason = role ? null : allow(node, field);
+          const key = keyOf(entry.color.r, entry.color.g, entry.color.b, entry.opacity ?? 1);
+          const role = fixedRoles.get(key);
+          const reason = role ? null : (inside && nestedRoles.get(key)) || allow(node, field);
           if (role) counts[role] = (counts[role] ?? 0) + 1;
           else if (reason) allowed[reason] = (allowed[reason] ?? 0) + 1;
           else unexpected.push({ node: node.name, id: node.id, field, color: hex([entry.color.r, entry.color.g, entry.color.b]), opacity: entry.opacity ?? 1 });
         }
       }
-      if ("children" in node) for (const child of node.children) walk(child);
+      if ("children" in node) for (const child of node.children) walk(child, inside);
     };
-    for (const root of roots) walk(root);
+    for (const root of roots) walk(root, false);
     if (unexpected.length) throw new Error(`Unexpected unbound visible paints ${JSON.stringify(unexpected.slice(0, 12))}`);
     return {
       visiblePaintCount: visible,

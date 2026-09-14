@@ -6195,7 +6195,8 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 `figma/product-app-shell.plan.json` 의 `component.variants[].rect` 가 갖고, 그 생성기가 측정이 이 식으로
 닫히는지 대조한다. 토큰 40의 선정 근거(정렬 주석이 40을 전제)는 유효하지만 **`/archive`를 40으로
 조립하면 제품과 어긋난다.** 제품 화면을 그릴 때는 높이를 고정하지 않고 패딩 8 · 가장 큰 자식으로 hug
-하고(Figma 세트 `Product/Desktop App Top Bar` · `Mobile App Top Bar` 가 그렇게 짓는다), DS 컴포넌트를 새로
+하고(앱 셸 러너가 Figma 세트 `Product/Desktop App Top Bar` · `Mobile App Top Bar` 를 그렇게 짓는다 — 라이브
+반영 여부는 [Updates](../updates/README.md) (131) 「라이브 적용 — 현황」), DS 컴포넌트를 새로
 세울 때 40을 쓴다.
 
 위 「없음」 세 행은 **§10.1을 실제로 Figma에 조립하면서 이 문서만으로 부족했던 값**이다. 셋 다

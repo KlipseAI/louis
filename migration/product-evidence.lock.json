@@ -3,7 +3,7 @@
   "$whyThisExists": "migration/product.measured.json의 축들은 제품 파일을 인용한다. 그 파일이 제품에서 바뀌어도 이 저장소는 알 방법이 없었다 — 모든 게이트가 초록인 채로 실측이 낡는다. 여기에 인용 파일의 blob 해시를 고정해, 제품 저장소가 있을 때 어긋남을 실패로 만든다.",
   "productRemote": "git@github.com:KlipseAI/klipse-web.git",
   "productRef": "design",
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "evidence": {
     "apps/web/app/admin/AdminClient.tsx": "4e68b75302ac628f61c6c5fb7fdff6b421d4b6b2",
     "apps/web/app/admin/AdminSection.tsx": "f60d525d6bbddbb76ee8bd531589d428ee2ab402",
@@ -40,7 +40,7 @@
     "apps/web/components/landing/system/messages/en.ts": "62468e2565e8589930f25d11b60992fd44cc71a7",
     "apps/web/components/landing/system/messages/ko.ts": "008e4af79632c102a40509b74b8f26c032b22e5f",
     "apps/web/components/navigation/CommandPalette.tsx": "747772fb6fa6e5dadcb61cc1c0532dc34e064208",
-    "apps/web/components/navigation/Gnb.tsx": "12d652694aee4c4ea08c86f50d7b883ebf7ef2a5",
+    "apps/web/components/navigation/Gnb.tsx": "7223fda8d4a46ebf16e956de2974dc451e78a681",
     "apps/web/components/navigation/UserCircleDefaultAvatar.tsx": "8d80d7f932a5dcc3d64b191a45daffd1ec0f2a5f",
     "apps/web/components/projects/CreateProjectModal.tsx": "29fb9312d3225d8bce511a78cf0102cd699ff81a",
     "apps/web/components/scenes/AppHomeScene.tsx": "adaa331ebf153b9a846585498aa38b0b233633d3",

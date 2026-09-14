@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "6fbdac16f76ff34dfff832490779ac8389748f55",
-  "productCommit": "6fbdac16f76ff34dfff832490779ac8389748f55",
+  "productRef": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
   "probes": [
     {
       "id": "button-lg",
@@ -755,7 +755,7 @@
       "from": "apps/web/components/navigation/Gnb.tsx → profileTrigger",
       "doc": "default",
       "wrapper": null,
-      "html": "<button class=\"gnb-profileTrigger [--profile-avatar-size:28px] [--profile-ring-progress:0%] [--profile-ring-fill:var(--accent-green-500)] [--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)] [--profile-ring-gap:2px] [--profile-ring-width:2px] [--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)] [position:relative] [width:var(--profile-ring-size)] [height:var(--profile-ring-size)] [min-width:var(--profile-ring-size)] [min-height:var(--profile-ring-size)] [max-width:var(--profile-ring-size)] [max-height:var(--profile-ring-size)] [flex:none] [justify-content:center] [align-items:center] [line-height:0] [font-size:0] [padding:0] [gap:0] [border-radius:0] [background:transparent] [box-shadow:none] [backdrop-filter:none] [transition:transform_140ms_var(--ease-out-strong)] [&:active]:[transform:scale(0.94)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[inset:0] [&::after]:[border-radius:var(--louis-radius-pill)] [&::after]:[pointer-events:none] [&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)] [&::after]:[-webkit-mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [@media(max-width:480px)]:[gap:0]! [@media(max-width:480px)]:[padding:0]! [@media(max-width:480px)]:[--profile-avatar-size:28px]!\"></button>"
+      "html": "<button class=\"gnb-profileTrigger [--profile-avatar-size:24px] [--profile-ring-progress:0%] [--profile-ring-fill:var(--accent-green-500)] [--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)] [--profile-ring-gap:2px] [--profile-ring-width:2px] [--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)] [position:relative] [width:var(--profile-ring-size)] [height:var(--profile-ring-size)] [min-width:var(--profile-ring-size)] [min-height:var(--profile-ring-size)] [max-width:var(--profile-ring-size)] [max-height:var(--profile-ring-size)] [flex:none] [justify-content:center] [align-items:center] [line-height:0] [font-size:0] [padding:0] [gap:0] [border-radius:0] [background:transparent] [box-shadow:none] [backdrop-filter:none] [transition:transform_140ms_var(--ease-out-strong)] [&:active]:[transform:scale(0.94)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[inset:0] [&::after]:[border-radius:var(--louis-radius-pill)] [&::after]:[pointer-events:none] [&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)] [&::after]:[-webkit-mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)] [@media(max-width:480px)]:[gap:0]! [@media(max-width:480px)]:[padding:0]! [@media(max-width:480px)]:[--profile-avatar-size:24px]!\"></button>"
     },
     {
       "id": "carousel",
@@ -1860,8 +1860,8 @@
       "borderTopLeftRadius": "999px"
     },
     "progress-ring": {
-      "width": "36px",
-      "height": "36px",
+      "width": "32px",
+      "height": "32px",
       "--profile-ring-width": "2px",
       "--profile-ring-gap": "2px"
     },
@@ -5124,11 +5124,11 @@
       "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
     },
     "progress-ring": {
-      "--profile-avatar-size": "28px",
+      "--profile-avatar-size": "24px",
       "--profile-ring-fill": "rgb(0 198 142)",
       "--profile-ring-gap": "2px",
       "--profile-ring-progress": "0%",
-      "--profile-ring-size": "calc( 28px + (2px + 2px) * 2 )",
+      "--profile-ring-size": "calc( 24px + (2px + 2px) * 2 )",
       "--profile-ring-track": "rgb(250 250 250 / 20%)",
       "--profile-ring-width": "2px",
       "::after border-bottom-left-radius": "999px",
@@ -5164,13 +5164,13 @@
       "flex-grow": "0",
       "flex-shrink": "0",
       "font-size": "0px",
-      "height": "36px",
+      "height": "32px",
       "justify-content": "center",
       "line-height": "0px",
-      "max-height": "36px",
-      "max-width": "36px",
-      "min-height": "36px",
-      "min-width": "36px",
+      "max-height": "32px",
+      "max-width": "32px",
+      "min-height": "32px",
+      "min-width": "32px",
       "padding-bottom": "0px",
       "padding-left": "0px",
       "padding-right": "0px",
@@ -5182,7 +5182,7 @@
       "transition-duration": "0.14s",
       "transition-property": "transform",
       "transition-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)",
-      "width": "36px"
+      "width": "32px"
     },
     "carousel": {
       "background-color": "color(srgb 0.05098 0.066666 0.094117)",

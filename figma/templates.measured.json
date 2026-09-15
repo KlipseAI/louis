@@ -70,8 +70,9 @@
         "evidence": "재조립 뷰포트 선택값. 제품 데스크톱 하한은 globals.css:130 --app-shell-min-width(= --louis-app-shell-min-width, 960px)이고 1440 은 그 위 임의 지점이다. templates.home 과 같은 폭을 일부러 쓴다 — 폭이 다르면 본문 1148 을 home 의 그리드 폭 1116 과 맞대 볼 수 없다."
       },
       "railWidth": {
-        "value": 280,
-        "evidence": "globals.css:123 --app-gnb-sidebar-width: min(280px, calc(100vw - 120px)). :130 의 하한 960 때문에 데스크톱에서는 상수 280 이다. LOUIS layout-app-shell-sidebar-width 와 같은 값."
+        "value": 240,
+        "evidence": "앵커 2c6bdacf apps/web/app/globals.css:181 `--app-gnb-sidebar-width: min(240px, calc(100vw - 120px));`(주석 :178-180 — 소유자 지정 2026-09-14, 280 → 240, 캔버스 레이어 패널 폭). :189 `--app-shell-min-width: var(--louis-app-shell-min-width)`(960) 때문에 데스크톱에서는 상수 240 이다. 제품 커밋 `bc3e6fa3`. **LOUIS `layout-app-shell-sidebar-width` 는 아직 280 이다** — 토큰 이동은 판정 (b)로 준비 단계의 몫이고(Updates (138) 「남은 것」), 이 칸은 제품 실측이라 먼저 옮겼다.",
+        "$was": 280
       },
       "railWidthCollapsed": {
         "value": 56,
@@ -83,7 +84,8 @@
       },
       "railPaddingTop": {
         "value": 12,
-        "evidence": "Gnb.tsx:2042 wrapperSidebar padding-top: var(--app-gnb-safe-top). globals.css:80 에서 max(12px, env(safe-area-inset-top, 0px)) 이고 노치 없는 데스크톱에서 12."
+        "evidence": "Gnb.tsx:2042 wrapperSidebar padding-top: var(--app-gnb-safe-top). globals.css:80 에서 max(12px, env(safe-area-inset-top, 0px)) 이고 노치 없는 데스크톱에서 12.",
+        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` 을 레일 `wrapperSidebar` 의 `[padding-top:var(--app-gnb-safe-top)]` 이 읽는다. DS 레일 `.louis-app-shell__rail` 의 `padding: var(--louis-space-control-md)` 12 · Figma 12 와 갈리는 판정(소유자)이 먼저라 옮기지 않았다. Updates (138) 「남은 것」."
       },
       "railPaddingBottom": {
         "value": 0,
@@ -98,24 +100,29 @@
         "evidence": "Gnb.tsx:857 menuSidebarOuter 의 margin-top: var(--app-gnb-rail-below-chrome-gap) — globals.css:95 에서 12px. 브랜드 행 아래와 첫 항목 위 사이의 실효 간격이며 레일의 항목 간격 4 와 **다른 값**이다. Figma 는 이 12 를 레일 gap 4 + BrandGap 프레임 4 + gap 4 로 만든다 — 그래서 계약은 간격의 합을 재고 부품 구성은 묻지 않는다."
       },
       "mainWidth": {
-        "value": 1148,
-        "evidence": "appHomeSceneStyles.ts:849-850 — margin-left: var(--app-gnb-sidebar-width); width: calc(100% − var(--app-gnb-sidebar-width)) 이므로 트랙은 1440 − 280 = 1160 이고, :854 padding-right: var(--app-gnb-main-inline-padding-end) 12 를 빼면 카드가 1148 이다. templates.home 의 카드 폭 계산이 쓰는 본문 폭 1116 과도 맞는다 — 1148 − 2 × 16(안쪽 인셋) = 1116."
+        "rule": "sceneWidth - railWidth - mainOuterGapRight",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** appHomeSceneStyles.ts:947-948(앵커 2c6bdacf) — `[margin-left:var(--app-gnb-sidebar-width)]` · `[width:calc(100%_-_var(--app-gnb-sidebar-width))]` 이므로 트랙은 씬 폭 − 레일 폭이고, :952 `[padding-right:var(--app-gnb-main-inline-padding-end)]` 를 빼면 카드 폭이다. 이 칸은 1148(= 1440 − 280 − 12)을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다. 본문 끝 여백 칸(mainOuterGapRight)은 아직 옮기지 않았다 — 그 칸의 `$pending`.",
+        "$was": 1148
       },
       "mainWidthCollapsed": {
-        "value": 1372,
-        "evidence": "같은 두 줄(appHomeSceneStyles.ts:849-850)이 접힘에서는 56 을 뺀다 — 1440 − 56 − 12 = 1372. offset 과 폭이 **한 변수**를 읽는다는 것이 이 축의 요점이다(패턴 문서 「sidebar 폭 변경 중 main offset과 main width를 따로 지연시키지 않는다」)."
+        "rule": "sceneWidth - railWidthCollapsed - mainOuterGapRight",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** 같은 두 줄(appHomeSceneStyles.ts:947-948)이 접힘에서는 접힌 레일 폭을 뺀다. offset 과 폭이 **한 변수**를 읽는다는 것이 이 축의 요점이다(패턴 문서 「sidebar 폭 변경 중 main offset과 main width를 따로 지연시키지 않는다」). 옛 수 1372 는 1440 − 56 − 12 의 사본이었다.",
+        "$was": 1372
       },
       "mainOuterGapTop": {
         "value": 12,
-        "evidence": "appHomeSceneStyles.ts:852 padding-top: var(--app-gnb-safe-top) → globals.css:80 max(12px, env(...)) = 12."
+        "evidence": "appHomeSceneStyles.ts:852 padding-top: var(--app-gnb-safe-top) → globals.css:80 max(12px, env(...)) = 12.",
+        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` · appHomeSceneStyles.ts:950. DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
       },
       "mainOuterGapRight": {
         "value": 12,
-        "evidence": "appHomeSceneStyles.ts:854 padding-right: var(--app-gnb-main-inline-padding-end) → globals.css:108 12px."
+        "evidence": "appHomeSceneStyles.ts:854 padding-right: var(--app-gnb-main-inline-padding-end) → globals.css:108 12px.",
+        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:164 `--app-gnb-main-inline-padding-end: 8px;` · appHomeSceneStyles.ts:952, 원장 migration/product.sidebar-states.json `states.expanded.customProperties`, 앱 셸 계획 데스크톱 본문 카드(뷰포트 1920 에서 x 240 · 폭 1672 → 오른쪽 8). DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
       },
       "mainOuterGapBottom": {
         "value": 12,
-        "evidence": "appHomeSceneStyles.ts:855 padding-bottom: var(--app-gnb-rail-padding-bottom) → globals.css:98 12px. 셋이 같은 12 지만 **서로 다른 변수를 문다** — 패턴 문서가 outer-gap 토큰이 「부분만 대응한다」고 적은 이유다."
+        "evidence": "appHomeSceneStyles.ts:855 padding-bottom: var(--app-gnb-rail-padding-bottom) → globals.css:98 12px. 셋이 같은 12 지만 **서로 다른 변수를 문다** — 패턴 문서가 outer-gap 토큰이 「부분만 대응한다」고 적은 이유다.",
+        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:131 `--app-gnb-rail-padding-bottom: 8px;` · appHomeSceneStyles.ts:953. DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
       },
       "mainCardRadius": {
         "value": 16,
@@ -138,8 +145,9 @@
         "evidence": "appHomeSceneStyles.ts:857-859 — ≤719px 에서 씬 루트가 padding-top/right/bottom 을 하드 0 으로 덮는다. globals.css:368-370 의 토큰 값(16 · 0)이 아니라 **이 세 줄**이 이긴다. 데스크톱의 12 를 모바일 시안에 그대로 그리면 틀린다."
       },
       "compactDrawerWidth": {
-        "value": 280,
-        "evidence": "Gnb.tsx:2076-2077 — @media (max-width:719px) 에서 wrapperSidebar 의 width/max-width 가 min(280px, calc(100vw − 40px)). 375 뷰포트에서 min(280, 335) = 280 이다. 드로어는 접힘 선호와 무관하게 라벨을 가진 펼침 내비다(패턴 문서 「Compact navigation」)."
+        "value": 240,
+        "evidence": "앵커 2c6bdacf apps/web/components/navigation/Gnb.tsx:2053-2054 — `wrapperSidebar` 의 `[@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))]` · `[@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))]`. 375 뷰포트에서 min(240, 335) = 240 이다. 제품 커밋 `bc3e6fa3` 가 280 → 240 으로 줄이고 서랍 표면을 레이어 패널(프로그레시브 블러 · 막 투명)로 바꿨다 — 표면은 DS · Figma 에 표본이 없어 이 계약 밖이다(App Shell Parts Known deviations). 드로어는 접힘 선호와 무관하게 라벨을 가진 펼침 내비다(패턴 문서 「Compact navigation」).",
+        "$was": 280
       },
       "compactCardRadius": {
         "value": 0,
@@ -147,7 +155,8 @@
       },
       "compactContentInset": {
         "value": 16,
-        "evidence": "globals.css:368 — ≤719px 에서 --app-gnb-main-inline-padding: 16px. 카드 크롬은 사라지지만 본문 좌우 인셋 16 은 남는다(같은 블록 주석: 「모바일 드로어 셸 — 카드 크롬은 없고 본문 좌우 인셋만 16px 유지」)."
+        "evidence": "globals.css:368 — ≤719px 에서 --app-gnb-main-inline-padding: 16px. 카드 크롬은 사라지지만 본문 좌우 인셋 16 은 남는다(같은 블록 주석: 「모바일 드로어 셸 — 카드 크롬은 없고 본문 좌우 인셋만 16px 유지」).",
+        "$pending": "제품 6 — ≤719 본문 인셋 16 → 6(소유자 지정, 제품 `b23ac6ef` 2026-09-04, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:428 `--app-gnb-main-inline-padding: 6px;`(`@media (max-width: 719px)` 블록). DS `layout-app-shell-content-inset` 16 · Figma 16 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. Updates (138) 「남은 것」."
       },
       "stateFrames": {
         "value": [
@@ -182,8 +191,9 @@
         "evidence": "재조립 뷰포트 선택값. 제품 데스크톱 최소 폭은 apps/web/app/globals.css:140 --app-shell-min-width: 960px이며 1440은 그 위 임의 지점이다"
       },
       "sidebarWidth": {
-        "value": 280,
-        "evidence": "apps/web/app/globals.css:135 --app-gnb-sidebar-width: min(280px, calc(100vw - 120px)). globals.css:140 min-width 960px이므로 데스크톱에서 실질 280"
+        "rule": "app-shell.railWidth",
+        "evidence": "**규칙이다 — 사본을 두지 않는다(2026-09-15).** 같은 제품 변수 `--app-gnb-sidebar-width`(앵커 2c6bdacf globals.css:181 `min(240px, calc(100vw - 120px))`)이고 templates.app-shell.railWidth 가 소유한다. 이 칸은 280 을 따로 적고 있다가 제품 `bc3e6fa3` 에 같이 낡았다.",
+        "$was": 280
       },
       "sidebarPaddingLeft": {
         "value": 12,
@@ -220,9 +230,9 @@
         "$was": 16
       },
       "overlayHeightRatio": {
-        "value": 0.39,
-        "evidence": "2026-08-26 재계산 — 오버레이 높이는 **내용이 정하는 고정값 107.7px** 이다(eyebrow 21 + title 24 + meta 21 + gap 4×2 + padding 16×2). 카드 폭과 무관하다. 비율은 그것을 media 한 변으로 나눈 값이므로 카드가 커지면 비율이 **내려간다** — 270 카드(media 269)에서 107.7/269 = 0.400 이었고, 276 카드(media 275)에서는 107.7/275 = 0.392 → 0.39 다. 같은 날 cardWidth 를 270→276 으로 고치면서 이 값을 재계산하지 않아 계약이 스스로 모순됐다(0.4 와 276 은 양립 불가). 조립 에이전트가 잡았다.",
-        "$was": 0.4
+        "rule": "round2(107.7 / (cardWidth - 1))",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** 오버레이 높이는 **내용이 정하는 고정값 107.7px** 이다(eyebrow · title · meta 세 줄 + gap 4 × 2 + padding 16 × 2, 2026-08-26 재계산). 카드 폭과 무관하므로 비율은 그것을 media 한 변(카드 폭 − 1)으로 나눈 값이고 카드가 커지면 **내려간다** — 270 카드에서 0.40, 276 카드에서 0.39 였다. 두 자리 반올림은 build-figma-snapshot 의 round2 와 같다. 107.7 은 레일과 무관한 내용 높이라 식에 둔다.",
+        "$was": 0.39
       },
       "overlayPadding": {
         "value": 16,
@@ -241,13 +251,22 @@
           "AppTopBar",
           "BannerCarousel",
           "CreateMenu",
-          "NavEyebrow",
           "ProjectCard",
           "ProjectGrid",
           "SectionHeader",
           "Sidebar"
         ],
-        "evidence": "AppHomeScene.tsx 렌더 트리를 다시 읽어 고쳤다. **FloatingCreate를 뺐다** — `floatingCreateButton`은 랜딩 데모(components/landing/demo-snapshots/StaticArchiveDemo.tsx:339-342)에만 있고 실제 앱 홈에는 없다. 앞선 계약이 스타일 모듈에 그 키가 있다는 이유로 넣었고 그것을 그대로 만들었다. 대신 실제로 있는 둘을 넣는다 — 사이드바 그룹 라벨(Gnb.tsx:4605 menuSidebarEyebrowRow)과 섹션 헤더 반대편의 「새로 만들기」 드롭다운(AppHomeScene.tsx:1021 HomeCreateNewMenu)."
+        "evidence": "2026-09-15 갱신 — **NavEyebrow 를 뺐다.** 제품 앵커 2c6bdacf 가 사이드바 · 모바일 서랍의 「분석」 아이브로우 행을 걷어 행 배열이 link 만 싣는다 — Gnb.tsx:2158 `const SIDEBAR_MENU_ROWS: ReadonlyArray<{ type: \"link\"; href: AppNavMenuHref }> = [`(그 전 6f6282c1 :2191 `  { type: \"eyebrow\", id: \"analytics\" },`), 옛 근거였던 `menuSidebarEyebrowRow` 상수도 없다. 상단 바 breadcrumb 「분석 / YouTube 분석」은 그대로다. AppHomeScene.tsx 렌더 트리를 다시 읽어 고쳤다. **FloatingCreate를 뺐다** — `floatingCreateButton`은 랜딩 데모(components/landing/demo-snapshots/StaticArchiveDemo.tsx:339-342)에만 있고 실제 앱 홈에는 없다. 앞선 계약이 스타일 모듈에 그 키가 있다는 이유로 넣었고 그것을 그대로 만들었다. 대신 실제로 있는 둘을 넣는다 — 사이드바 그룹 라벨(Gnb.tsx:4605 menuSidebarEyebrowRow)과 섹션 헤더 반대편의 「새로 만들기」 드롭다운(AppHomeScene.tsx:1021 HomeCreateNewMenu).",
+        "$was": [
+          "AppTopBar",
+          "BannerCarousel",
+          "CreateMenu",
+          "NavEyebrow",
+          "ProjectCard",
+          "ProjectGrid",
+          "SectionHeader",
+          "Sidebar"
+        ]
       },
       "navLabelsDistinct": {
         "value": 6,
@@ -262,14 +281,14 @@
         "evidence": "'배너 제목'·'Label'·'배너 설명 한 줄' 같은 컴포넌트 기본 문자열이 화면 템플릿에 남아 있으면 그것은 조립이 끝나지 않은 것이다"
       },
       "cardWidth": {
-        "value": 276,
-        "evidence": "2026-08-26 갱신 — 본문 폭 1116 을 4열 · gap 4 로 나눈 값이다. (1116 − 3×4) / 4 = 276. gap 이 12→4 로 바뀌어 270→276.",
-        "$was": 270
+        "rule": "(sceneWidth - sidebarWidth - app-shell.mainOuterGapRight - 2 * mainCardPaddingInline - (gridColumns - 1) * gridGap) / gridColumns",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** 본문 카드 폭(씬 − 레일 − 본문 끝 여백, appHomeSceneStyles.ts:947-952) − 카드 안쪽 인셋 × 2 가 격자 폭이고, `repeat(4, 1fr)`(:108) · `gap-2`(4)로 나눈 트랙이 카드 폭이다. 이 칸은 276(= (1116 − 3 × 4) / 4)을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다 — 2026-08-26 에 gap 이 바뀌었을 때 overlayHeightRatio 를 놓친 것과 같은 연쇄다.",
+        "$was": 276
       },
       "cardHeight": {
-        "value": 276,
-        "evidence": "2026-08-26 갱신 — aspect-ratio 1 이라 폭과 같다.",
-        "$was": 270
+        "rule": "cardWidth",
+        "evidence": "**규칙이다(2026-09-15).** aspect-ratio 1 이라 폭과 같다(AppHomeScene.tsx `aspectRatio: \"1 / 1\"`, cardSquare).",
+        "$was": 276
       }
     },
     "project-grid": {
@@ -315,12 +334,14 @@
         "evidence": "archiveGrid 에 max-width 가 없고 트랙이 1fr 뿐이라(appHomeSceneStyles.ts:97-106 전체) 격자는 본문 상자의 가용 폭을 그대로 쓴다. 문서 「Grid 는 shell content box 안의 가용 폭을 모두 사용한다 · max-width 로 전체 grid 를 3열 폭에 가두지 않는다」. 되읽기는 밴드마다 Grid 폭이 밴드 폭과 같은지 본다."
       },
       "containerWidthWide": {
-        "value": 1116,
-        "evidence": "4열 밴드의 컨테이너 폭이며 **제품에서 온 유일한 밴드 폭**이다 — templates.app-shell 의 mainWidth 1148 에서 좌우 인셋 mainContentInset 16 을 빼면 1116 이고, templates.home 의 cardWidth 계산이 쓰는 본문 폭도 같은 1116 이다. 나머지 세 밴드 폭(600 · 850 · 1300)은 Figma 가 고른 임의값이라 계약에 넣지 않았다."
+        "rule": "app-shell.mainWidth - 2 * app-shell.mainContentInset",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** 4열 밴드의 컨테이너 폭이며 **제품에서 온 유일한 밴드 폭**이다 — templates.app-shell 의 본문 카드 폭에서 좌우 인셋을 뺀 값이고, templates.home 의 카드 폭 규칙이 쓰는 격자 폭과 같다(두 template 이 같은 씬 폭 1440 을 쓴다). 이 칸은 1116(= 1148 − 2 × 16)을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다. 나머지 세 밴드 폭(600 · 850 · 1300)은 Figma 가 고른 임의값이라 계약에 넣지 않았다.",
+        "$was": 1116
       },
       "cardWidthWide": {
-        "value": 276,
-        "evidence": "(1116 − 3 × 4) / 4 = 276. templates.home.cardWidth 와 같은 값이고 같은 근거를 쓴다(2026-08-26 에 gap 이 12→4 로 내려가면서 270→276 이 된 그 값). 이 축이 패턴과 화면 템플릿을 잇는 마디다 — gap 이나 본문 폭이 한쪽에서만 바뀌면 여기서 갈린다."
+        "rule": "(containerWidthWide - (columnsWide - 1) * trackGap) / columnsWide",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** 4열 밴드의 트랙 폭 = (컨테이너 − (열 − 1) × 트랙 간격) / 열. templates.home.cardWidth 와 같은 값이 나와야 하는 마디다 — gap 이나 본문 폭이 한쪽에서만 바뀌면 여기서 갈린다. 이 칸은 276 을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다.",
+        "$was": 276
       },
       "requiredParts": {
         "value": [
@@ -936,6 +957,23 @@
     }
   },
   "$updates": [
+    {
+      "date": "2026-09-15",
+      "why": "제품 앵커 2c6bdacf(`bc3e6fa3` 레일 280 → 240 · 서랍 폭 280 → 240, `2c6bdacf` 「분석」 아이브로우 제거)에서 거짓이 된 값을 옮기고, 레일 폭에서 산술로 나오던 사본을 규칙으로 바꾼다. 앵커 이동 커밋은 이 파일을 옮기지도 남은 일로 적지도 않았다 — 기록과 Figma 가 둘 다 옛 값이라 verify-figma-parity 가 초록이었다(상단 바 53 과 같은 「사본이 같이 낡아 초록」, 앵커 검토 지적). 옮긴 칸은 Figma `DS · Templates` 를 적용하기 전까지 parity 에서 빨갛다 — 그것이 옮길 목록이다. 검증하다 찾은 더 오래된 어긋남(링 12 → 8 · compact 인셋 16 → 6)은 DS 토큰 판정이 먼저라 값을 두고 `$pending` 으로 매 실행 인쇄한다.",
+      "fields": [
+        "app-shell.railWidth: 280 → 240 (globals.css:181)",
+        "app-shell.compactDrawerWidth: 280 → 240 (Gnb.tsx:2053-2054)",
+        "app-shell.mainWidth: 1148 → 규칙 sceneWidth - railWidth - mainOuterGapRight",
+        "app-shell.mainWidthCollapsed: 1372 → 규칙 sceneWidth - railWidthCollapsed - mainOuterGapRight",
+        "home.sidebarWidth: 280 → 규칙 app-shell.railWidth",
+        "home.cardWidth · cardHeight: 276 → 규칙(본문 카드 폭 − 인셋 × 2 − gap × 3) / 4 · cardWidth",
+        "home.overlayHeightRatio: 0.39 → 규칙 round2(107.7 / (cardWidth - 1))",
+        "home.requiredParts: NavEyebrow 제거 (Gnb.tsx:2158)",
+        "project-grid.containerWidthWide · cardWidthWide: 1116 · 276 → 규칙",
+        "$pending — app-shell.railPaddingTop · mainOuterGapTop · mainOuterGapRight · mainOuterGapBottom(제품 8), compactContentInset(제품 6)",
+        "compareTemplates: 규칙 칸(`rule`) 계산 · 규칙 칸에 수가 돌아오면 실패 · 계산 과정과 `$pending` 을 매 실행 인쇄"
+      ]
+    },
     {
       "date": "2026-08-31",
       "why": "패턴 계약 넷째. route-boundary 는 라우트가 실패했을 때 나오는 세 화면인데 계약이 0 이라 페이지 여백·콘텐츠 폭·세로 리듬이 갈려도 어떤 게이트도 말하지 않았다. 이 패턴이 소유하는 것은 부품 치수가 아니라 **경계 화면의 뼈대**이므로 여백 세 축과 좁은 화면 분기, 컬럼 폭·정렬·리듬 둘, 404 와 오류가 복제라는 것, 그리고 **최후 경계가 시스템 밖이라는 사실**만 담았다. CTA 의 색·높이·여백·곡률은 components.measured.json 의 button 이 이미 소유하므로 패턴은 어느 칸인가(32 = md)와 그 자리가 INSTANCE 인가만 갖는다. 최후 경계의 인라인 리터럴(420 · 24 · 10/24 · 8 · 24 · 15 · 160%)은 소유자가 아무도 없어 — 제품의 check-louis-literals 도 check-typography 도 인라인 style 객체를 보지 않는다 — 이 계약이 그 값들을 지키는 유일한 자리다. Figma 실물은 24축이 전부 제품과 같아 **고칠 것이 없었다.** 계약이 없었을 뿐이다.",

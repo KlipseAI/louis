@@ -859,6 +859,32 @@ for (const sample of ["SidebarBrand false", "SidebarCta false", "SidebarNavRow n
   );
 }
 
+// **template 규칙 칸(2026-09-15).** `figma/templates.measured.json` 의 본문 · 컨테이너 · 카드 폭은 레일 폭에서 산술로 나오는데
+// 수로 적혀 있어, 제품이 레일을 280 → 240 으로 줄이자 기록과 Figma 가 같이 낡아 초록이었다. 규칙 칸에 수가 돌아오면 물어야 하고
+// (사본이 다시 굳는다), 레일 폭 한 칸을 흔들면 두 template 을 건너 컨테이너 폭까지 기대값이 따라와야 한다.
+withCanary(
+  "figma/templates.measured.json",
+  (source) => {
+    const record = JSON.parse(source);
+    record.templates["app-shell"].mainWidth.value = 1148;
+    return JSON.stringify(record, null, 2) + "\n";
+  },
+  "figma parity template rule slot regained a number",
+  "scripts/verify-figma-parity.mjs",
+  "app-shell.mainWidth 는 규칙 칸",
+);
+withCanary(
+  "figma/templates.measured.json",
+  (source) => {
+    const record = JSON.parse(source);
+    record.templates["app-shell"].railWidth.value += 10;
+    return JSON.stringify(record, null, 2) + "\n";
+  },
+  "figma parity template rule follows the rail width across templates",
+  "scripts/verify-figma-parity.mjs",
+  "project-grid.containerWidthWide: 제품 실측과 다릅니다",
+);
+
 // ── 표면 커버리지 래칫 ────────────────────────────────────────────────────
 // `verify-figma-parity` 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 **닫힌 집합**이라 계약
 // 밖의 제품 표면은 아무리 빠져 있어도 초록이다. 그 바깥을 세는 게이트가 실제로 빨개지는지

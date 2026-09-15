@@ -43,7 +43,7 @@ const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
 const componentsMeasured = readJson(COMPONENTS_MEASURED_PATH);
 
 /**
- * **기대값이 계산에서 나온 칸의 계산 과정.** 채움 칸(`fillIn`)은 기록에 수가 없어,
+ * **기대값이 계산에서 나온 칸의 계산 과정.** 채움 칸(`fillIn`)과 template 규칙 칸(`rule`)은 기록에 수가 없어,
  * 대조가 초록이어도 무엇과 맞댔는지 출력에 남기지 않으면 건너뛴 것과 구별되지 않는다(2026-09-15 — 채움 칸이 출력
  * 한 줄 없이 `continue` 하던 병). 대조할 때마다 라벨 → 계산 한 줄을 담고, 판정과 무관하게 끝에 인쇄한다.
  * 변조 canary 가 같은 대조를 다시 돌려도 라벨이 같아 한 번만 남는다.
@@ -3838,6 +3838,74 @@ function compareFoundations(foundations) {
   return issues;
 }
 
+/**
+ * template 규칙 칸의 식을 계산한다. 문법은 사칙연산 · 괄호 · 수 · `round2(식)` · 칸 참조다 — 칸 참조는 같은 template 의
+ * 칸 이름(`railWidth`)이거나 `<template>.<칸>`(`app-shell.mainWidth`)이다. template 이름에 `-` 가 들어가므로 **뺄셈은
+ * 앞뒤를 띄운다.** 참조한 칸이 또 규칙이면 따라가고, 순환 · 없는 칸 · 수가 아닌 칸은 오류로 돌려준다(조용히 0 이 되지 않는다).
+ * `round2` 는 build-figma-snapshot 이 비율 칸을 접는 자리수와 같다.
+ */
+function evaluateTemplateRule(name, field, stack = []) {
+  const key = `${name}.${field}`;
+  if (stack.includes(key)) return { error: `규칙이 순환합니다 (${[...stack, key].join(" → ")})` };
+  const spec = templateMeasured.templates?.[name]?.[field];
+  if (spec === undefined) return { error: `${key} 칸이 없습니다` };
+  if (spec.rule === undefined) {
+    return Number.isFinite(spec.value) ? { value: spec.value, expanded: String(spec.value) } : { error: `${key} 가 수가 아닙니다 (${JSON.stringify(spec.value)})` };
+  }
+  const source = String(spec.rule);
+  const tokens = source.match(/\s*(round2|[a-z][a-z0-9]*(?:-[a-z0-9]+)*\.[A-Za-z][A-Za-z0-9]*|[A-Za-z][A-Za-z0-9]*|\d+(?:\.\d+)?|[-+*/()])/gy);
+  if (tokens === null || tokens.join("").replace(/\s/g, "") !== source.replace(/\s/g, "")) return { error: `${key} 규칙을 읽지 못했습니다 (${source})` };
+  const list = tokens.map((token) => token.trim());
+  let index = 0;
+  const peek = () => list[index];
+  const fail = (message) => { throw new Error(message); };
+  const factor = () => {
+    const token = list[index++];
+    if (token === undefined) fail(`${key} 규칙이 중간에 끝납니다 (${source})`);
+    if (token === "(") { const inner = expression(); if (list[index++] !== ")") fail(`${key} 규칙의 괄호가 닫히지 않습니다 (${source})`); return { value: inner.value, expanded: `(${inner.expanded})` }; }
+    if (token === "round2") {
+      if (list[index++] !== "(") fail(`${key} 규칙의 round2 뒤에 괄호가 없습니다 (${source})`);
+      const inner = expression();
+      if (list[index++] !== ")") fail(`${key} 규칙의 괄호가 닫히지 않습니다 (${source})`);
+      return { value: Math.round(inner.value * 100) / 100, expanded: `round2(${inner.expanded})` };
+    }
+    if (/^\d/.test(token)) return { value: Number(token), expanded: token };
+    if (/^[A-Za-z]/.test(token)) {
+      const [refName, refField] = token.includes(".") ? token.split(".") : [name, token];
+      const resolved = evaluateTemplateRule(refName, refField, [...stack, key]);
+      if (resolved.error !== undefined) fail(resolved.error);
+      return { value: resolved.value, expanded: String(resolved.value) };
+    }
+    return fail(`${key} 규칙에 뜻밖의 기호 ${token} (${source})`);
+  };
+  const term = () => {
+    let left = factor();
+    while (peek() === "*" || peek() === "/") {
+      const op = list[index++];
+      const right = factor();
+      left = { value: op === "*" ? left.value * right.value : left.value / right.value, expanded: `${left.expanded} ${op === "*" ? "×" : "/"} ${right.expanded}` };
+    }
+    return left;
+  };
+  const expression = () => {
+    let left = term();
+    while (peek() === "+" || peek() === "-") {
+      const op = list[index++];
+      const right = term();
+      left = { value: op === "+" ? left.value + right.value : left.value - right.value, expanded: `${left.expanded} ${op === "+" ? "+" : "−"} ${right.expanded}` };
+    }
+    return left;
+  };
+  try {
+    const result = expression();
+    if (index !== list.length) return { error: `${key} 규칙 끝에 남은 기호가 있습니다 (${list.slice(index).join(" ")})` };
+    if (!Number.isFinite(result.value)) return { error: `${key} 규칙이 수를 내지 않습니다 (${source})` };
+    return result;
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
 /** 제품 실측값(figma/templates.measured.json) ↔ Figma 재조립 template. */
 function compareTemplates(actualTemplates) {
   const issues = [];
@@ -3850,7 +3918,32 @@ function compareTemplates(actualTemplates) {
     }
     for (const [field, spec] of Object.entries(fields)) {
       if (field.startsWith("$")) continue;
-      const want = spec.value;
+      let want = spec.value;
+      if (spec.rule !== undefined) {
+        // **규칙 칸(2026-09-15).** 다른 칸에서 계산되는 크기는 수가 아니라 식으로 적는다 — 레일 폭 하나가 움직이면
+        // 본문 폭 · 컨테이너 폭 · 카드 폭이 따라와야 하는데, 수로 적힌 사본은 같이 낡아 초록이었다(앵커 2c6bdacf).
+        if (Object.hasOwn(spec, "value")) {
+          issues.push(
+            `${TEMPLATE_MEASURED_PATH}의 ${name}.${field} 는 규칙 칸(${spec.rule})인데 수(${JSON.stringify(spec.value)})가 있습니다 — 계산된 크기를 기록에 굳혔습니다.`,
+          );
+          continue;
+        }
+        const derived = evaluateTemplateRule(name, field);
+        if (derived.error !== undefined) {
+          issues.push(`${TEMPLATE_MEASURED_PATH}의 ${name}.${field} 규칙을 계산하지 못했습니다 — ${derived.error}`);
+          continue;
+        }
+        want = derived.value;
+        derivationNotes.set(
+          `규칙 ${name}.${field}`,
+          `${spec.rule} = ${derived.expanded === String(want) ? "" : `${derived.expanded} = `}${want} · Figma ${JSON.stringify(got[field] ?? null)}`,
+        );
+      }
+      if (typeof spec.$pending === "string") {
+        // **옮기지 않은 제품 변화.** 제품이 움직였는데 판정(소유자 · DS 토큰)이 남아 기록을 옮기지 않은 칸이다. 조용히 두면
+        // 사본이 같이 낡은 초록과 구별되지 않으므로 매 실행 인쇄한다.
+        derivationNotes.set(`대기 ${name}.${field}`, `기록 ${JSON.stringify(want)} · ${spec.$pending.split(" — ")[0]} (사유: ${TEMPLATE_MEASURED_PATH} 의 \$pending)`);
+      }
       const actual = got[field];
       // 행간처럼 여러 요소가 같은 값을 가져야 하는 항목은 배열로 되읽고 유일값을 본다.
       const normalized = Array.isArray(actual)

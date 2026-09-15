@@ -112,8 +112,10 @@ SA="$F/apps/web/.next/standalone/apps/web"
 print_rebuild() {
   echo "    할 일 — lock 커밋에서 빌드 산출물을 다시 만든다(체크아웃만으로는 .next 가 이전 빌드로 남는다):"
   echo "      (pnpm-lock.yaml 이 바뀌었으면 \"$F\" 안에서 pnpm install)"
-  echo "      pnpm -C \"$F\" turbo run build --filter=web"
-  echo "      standalone 에 apps/web/.next/static 과 apps/web/public 을 복사"
+  # `exec` 를 뺀 `pnpm -C <dir> turbo …` 는 pnpm 10 에서 디렉터리 자체를 실행하려다
+  # `spawn <dir> EACCES` 로 죽는다(2026-09-15, pnpm 10.30.2). 인쇄한 대로 붙여 넣으면 도는 명령이어야 한다.
+  echo "      pnpm -C \"$F\" exec turbo run build --filter=web"
+  echo "      mkdir -p \"$SA/.next\" && cp -R \"$F/apps/web/.next/static\" \"$SA/.next/\" && cp -R \"$F/apps/web/public\" \"$SA/\""
 }
 
 if [ "$MODE" != "figma-only" ]; then

@@ -59,6 +59,14 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 **SidebarSectionLabel** — 레일은 평평한 목록이 아니다. 「분석」 아래로 항목을 묶는 **비대화형 구획 라벨
 행**이 하나 있다. 이 행을 모르면 YouTube 분석이 하이라이트 바로 아래 붙어 구획이 사라진다.
 
+> **제품 `2c6bdacf`(2026-09-15 앵커)가 이 행을 걷었다** — 소유자 지정으로 YouTube 분석이 다른 메뉴처럼 하이라이트 바로
+> 아래 한 줄로 잇는다. 명령 `git -C "$KLIPSE_PRODUCT_REPO" show "2c6bdacf:$(node -p 'require("./migration/citation-aliases.json").aliases["Gnb.tsx"]')" | nl -ba`
+> (앱 셸 `Gnb.tsx`), 2158행: `const SIDEBAR_MENU_ROWS: ReadonlyArray<{ type: "link"; href: AppNavMenuHref }> = [` — 행 배열이 link 행만 싣고,
+> 행 · 라벨 상수(`menuSidebarEyebrowRow` · `menuSidebarEyebrow` · 모바일 `mobileMenuEyebrow`)도 함께 없어졌다. 상단 바
+> breadcrumb 의 「분석 / YouTube 분석」(`appNav.analyticsEyebrow`)은 그대로다. **아래 표는 그 전 배포본의 기록이다.**
+> 공용 구현(`SidebarSectionLabel`)은 서지 않았으므로 걷을 코드는 없고, Figma 사이드바 메뉴 세트의 `section/Analytics` 행은
+> 컴포넌트 러너가 지우지 않고 `retired/` 로 숨긴다.
+
 행(`<li>`)
 
 | 축 | 값 | 비고 |
@@ -150,7 +158,7 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
   브레드크럼 구조를 소유하지 않는다.
 
 <!-- GENERATED:app-nav-labels START -->
-배포본 `6f6282c1` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
+배포본 `2c6bdacf` 기준. **이 표는 생성물이다** — 경로 대응은 제품이 `appNavItemLabels`로 직접 선언한다.
 
 | 라우트 | 한국어 | English | 경로로 유추 |
 | --- | --- | --- | --- |
@@ -178,9 +186,10 @@ AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 �
 | 6 | 「분석」 구획 라벨 | — | — | 밖 | `<li role="presentation">` |
 | 7 | YouTube 분석 | `/analytics/youtube` | `/icons/youtube.svg` | 안 | |
 
-이 표는 `a9ead58b` 의 사실이다. 그 뒤 제품이 두 가지를 바꿨다 — 행 4 의 라벨이 「컴포지션」이 됐고
+이 표는 `a9ead58b` 의 사실이다. 그 뒤 제품이 세 가지를 바꿨다 — 행 4 의 라벨이 「컴포지션」이 됐고
 (위 라벨 대응표), 행 3 · 4 의 「+」가 `658ece13` 에서 걷혀 일반 내비 행이 됐다(아래 「복합 내비 행」).
-같은 커밋이 행 5 의 베타 칩을 라벨 옆으로 옮겼다.
+같은 커밋이 행 5 의 베타 칩을 라벨 옆으로 옮겼다. 행 6(「분석」 구획 라벨)은 `2c6bdacf` 에서 걷혀 레일은 여섯 행이다
+(위 SidebarSectionLabel).
 
 **`/analytics/instagram`은 레일에 서지 않는다.** 라우트도 아이콘(`/icons/InstagramLogo.svg`)도 라벨도
 코드에 있지만 `INSTAGRAM_ANALYTICS_HIDDEN = true`가 그 행을 렌더 직전에 걷어낸다. 위 라벨 표에 한 줄로
@@ -628,6 +637,12 @@ style이다.
   ≤719px 블록에는 면 선언이 따로 없어서 base에서 빼면 드로어가 scrim 위에서 비친다. 드로어 면을
   제품처럼 칠하려면 라이트에서 `#eeeef1`이 필요한데 그 값에 이름이 없다(아래). 그 토큰이 서는 날
   base의 면을 걷고 드로어 블록으로 옮긴다.
+  **제품 `2c6bdacf`(2026-09-15 앵커)에서 그 전제가 바뀌었다.** ≤719px 드로어가 불투명 면을 버리고 캔버스 레이어 패널과
+  같은 표면이 됐다 — `::before` 가 `--louis-progressive-blur` · `--louis-progressive-blur-mask-inline-start` 로 블러를 깔고
+  오른쪽으로 48 번지며 사라지고, 틴트는 카드 면 채널(`--app-main-card-bg-rgb`)의 48% → 0% 그라디언트다. 화면을 덮던
+  40% 검정 scrim 도 투명해졌다(바깥 탭 닫기는 그대로). 서랍 폭은 `min(240px, calc(100vw - 40px))` 다(소유자 지정). 그래서
+  「드로어 면 토큰이 서면 옮긴다」는 닫는 길이 더는 제품과 맞지 않는다 — DS compact 드로어 composition(아직 없음)을 지을 때
+  블러 표면으로 판정한다.
 - **펼친 CTA 의 높이가 코드 · 제품과 기록 · Figma 사이에서 갈린다.** 코드(`.louis-sidebar-cta__button`)와
   제품(`Gnb.tsx:1973-1974` 가 같은 클래스를 문다)은 높이를 **최소** 40 으로만 두고 세로 패딩 10 · 10 과 라벨 줄 높이
   (`typography-body-sm-medium`, 150%)로 계산하므로, 라벨 한 줄에서 합이 최소를 넘어 버튼이 그 합이 된다(제품 측정은

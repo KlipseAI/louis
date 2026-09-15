@@ -13477,14 +13477,14 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 [product.drift.json](../../migration/product.drift.json)이 매 `verify`마다 다섯 축을 잰다.
 
 <!-- GENERATED:product-drift START -->
-배포본 `6f6282c1` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
+배포본 `2c6bdacf` 기준. **이 표는 생성물이다** — `scripts/measure-product-drift.mjs`가 매 `verify`마다 다시 잰다.
 
 | 축 | 제품 | DS가 덮는 비율 | 최다값 | 결손 최다 |
 | --- | ---: | ---: | --- | --- |
 | alpha | 42단 2420회 | 46.3% | `8%` 322회 | `100%` 275회 / 35파일 |
 | radius | 19단 191회 | 60.7% | `12px` 31회 | `7px` 20회 / 1파일 |
 | border-width | 4단 115회 | 93% | `1px` 85회 | `1.5px` 7회 / 4파일 |
-| spacing | 44단 868회 | 81.2% | `8px` 204회 | `5px` 32회 / 25파일 |
+| spacing | 44단 866회 | 81.2% | `8px` 204회 | `5px` 32회 / 25파일 |
 | duration | 71단 1035회 | 59.9% | `180ms` 162회 **토큰 없음** | `180ms` 162회 / 42파일 |
 
 **투명도 % (`alpha`) — 토큰 없는 값 상위**
@@ -13493,8 +13493,8 @@ Figma 변수 삭제가 따라오므로 이 저장소는 **지우지 않았다.**
 | --- | ---: | ---: |
 | `100%` | 275 | 35 |
 | `88%` | 231 | 81 |
-| `56%` | 154 | 74 |
-| `48%` | 142 | 65 |
+| `56%` | 152 | 74 |
+| `48%` | 143 | 65 |
 | `72%` | 105 | 53 |
 | `96%` | 85 | 28 |
 | `32%` | 78 | 39 |
@@ -13748,6 +13748,71 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-15 (138) — 제품 앵커 2c6bdacf — 사이드바 240 · 「분석」 아이브로우 제거 · 모바일 서랍 블러 표면을 따라간다
+
+제품 앵커를 `6f6282c1` 에서 `2c6bdacf` 로 옮긴다. 사이의 제품 커밋은 셋이고 바뀐 제품 파일은 둘(앱 셸 `Gnb.tsx` · `globals.css`)이며,
+lock 에서 움직인 blob 도 그 둘이다. **소유자 결정: 옛 앵커로 Figma 를 적용하지 않고 새 앵커로 옮긴 뒤 세트 · 보드를 한 번만 적용한다.**
+그래서 이 항목은 원장 · 계획 · 러너 · 게이트만 바꾸고 **라이브 Figma 에는 쓰지 않았다.** 웹 패키지 · 토큰도 그대로다(아래 「남은 것」의
+사이드바 폭 토큰).
+
+| 제품 커밋 | 무엇 | DS 에 닿는 자리 |
+| --- | --- | --- |
+| `9bcf474e` | 어드민 사이드바도 앱과 같은 선택 인디케이터 · 아이콘 클래스(어드민 사본 `customSidebarIconMask` 제거) | 스타일 표 앞머리의 사본 19 줄이 걷혀 그 아래 인용 줄이 움직였다(커밋 순 줄 수는 0). 어드민 화면은 계획에 없다 |
+| `bc3e6fa3` | 펼친 사이드바 `--app-gnb-sidebar-width` 를 `min(280px, …)` → `min(240px, …)`(소유자 지정, 캔버스 레이어 패널 폭). ≤719 서랍을 레이어 패널 표면으로 — `::before` 프로그레시브 블러(`--louis-progressive-blur` · `-mask-inline-start`, 오른쪽 48 번짐), 틴트 `--app-main-card-bg-rgb` 48% → 0%, 서랍 폭 `min(240px, calc(100vw - 40px))`, 막 40% 검정 → 투명 | 데스크톱 레일 · 목록 · 브랜드 · CTA 폭, 본문 카드 x · 폭, 사이드바를 품는 모든 후보 서명. 서랍은 닫힌 상태로만 재어 원장 · 계획 변화 0 |
+| `2c6bdacf` | 사이드바 · 모바일 서랍의 「분석」 아이브로우 행과 상수 셋 제거 — 행 배열이 link 만 싣는다. 상단 바 breadcrumb 「분석 / YouTube 분석」은 그대로 | 사이드바 메뉴 세트의 행(7 → 6), 레일 표본, 후보 노드 수(−2) |
+
+##### 측정 — 앵커 런북이 멈춘 곳과 고친 것
+
+fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 빌드했다(`_sentryRelease` · standalone `BUILD_ID` 가 lock 과 같다,
+`--preflight` 초록). `scripts/regen-figma-at-anchor.sh` 는 `measure-product-components` 에서 멈췄고, 뒤의 측정은 스크립트와 같은
+순서 · 같은 SKIPPED 검사로 손으로 이었다(scenes · auth-fixture · sidebar-states · louis-token-usage, palette ladder 기준선은 스크립트와
+같은 되돌림 규칙 — 파일별 상승 0). 그 뒤 `--figma-only` 가 끝까지 초록이다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `measure-product-components` · `figma/components.measured.json` 의 `sidebar-brand` · `sidebar-cta` 펼친 폭 | 기록이 `width: 256` 을 적고 제품 렌더와 `same` 으로 맞췄다 — 256 은 레일 280 − 레일 패딩 12 × 2 의 **계산값**이라 `bc3e6fa3` 에 「제품 216 · DS 256」 두 축으로 멈췄다(상단 바 53 과 같은 병) | **채움 규칙.** 기록의 그 칸은 수를 지우고 `$width` 에 규칙을 적는다. EXPECT 새 관계 `fill` — 제품 부품 폭이 조상(가장 안쪽 wrapper, 제품 `wrapperSidebar`)의 내용 폭(폭 − 좌우 패딩)과 같은지 같은 하네스에서 보고, 기록 칸에 수가 되돌아오면 실패한다. 게이트 안 변조 확인에 「채움 칸에 계산된 수를 굳힌 경우」를 더했다. 접힌 32 는 제품 선언이라 수로 둔다 |
+| `verify-figma-parity` 의 `SidebarBrand` · `SidebarCta` 계약 | `width ← width` — 기록 256 과 Figma 표본 256 을 맞대 초록 | 새 규칙 `{ field, fillIn: [size…] }` — 채움 size(`false`)는 Figma 표본 폭을 보지 않고, 기록이 수를 되찾거나 `$width` 가 없으면 실패. `verify-gates` canary 가 기록에 256 을 넣어 「채움 칸인데 수」를 문다. 빨간 축은 전과 같은 일곱(ProgressRing · AppTopBar 라이브 되읽기)뿐이다 |
+| `figma/product-specimens.json` `gnb-sidebar/rail` | 레일 안 「분석」 아이브로우 행(`menuSidebarEyebrowRow` > `menuSidebarEyebrow`)을 재는 표본 | `$retiredSpecimens` 로 — 없어진 부품이다. 레일 기둥은 `menuLinkRow` · `createCompoundRow` 의 host 로 이미 선다 |
+| `measure-product-sidebar-states` | 고정 지연 3초 뒤 잰다. 부하가 높을 때 상단 바 토글이 붙기 전을 재 `expanded.toggle: null` 을 쓰고 exit 0 이었다(첫 측정 — 같은 트리 재측정은 x 248). 인용 여섯은 줄만 −19 · −37 | 토글이 보일 때까지 기다리고, 펼침 · 접힘 어느 쪽이든 토글이 없으면 원장을 쓰기 전에 멈춘다. 고친 뒤 재측정이 앞 재측정(토글 x 248)과 바이트 동일했다 |
+| `measure-louis-token-usage` | 제품 주석 「그라디언트라 `var(--louis-color-*)` 직행 금지」의 `--louis-color-` 를 참조로 셌다 → `check-coverage-targets` 「끊어진 참조 1」 | `*` 를 품거나 `-` 로 끝나는 이름은 이름 묶음이지 참조가 아니다. 모듈을 읽을 때 단위 확인을 돈다. 참조 213 · 파일 96 |
+| 인용 줄(생성기 넷 · 측정기 하나) | `Gnb.tsx` · `globals.css` 인용 | `git diff -U0 6f6282c1 2c6bdacf` hunk 로 줄을 옮기고 새 커밋에서 바이트 대조(문자열 불변). 사라진 인용 하나 — 컴포넌트 생성기 `paletteGray600` 의 아이브로우 글자색 줄 — 은 걷었다 |
+| 앵커 런북 인쇄 | `pnpm -C <fixture> turbo run build --filter=web` — pnpm 10.30.2 에서 `spawn <dir> EACCES` | `pnpm -C <fixture> exec turbo …` 와 static · public 복사 명령 |
+
+**판정 수치는 전후 같다** — 표면 total 472 · mapped 31 · scoped 238 · needed 202 · unclear 1, palette 위반 파일 24 · 71, 보드 구성
+인스턴스 101 · bespoke 1 · 막힘 6 · 미보유 22 · 후보 130, 보드별 셸 인스턴스 목록 그대로. 그래서 기준선
+(`SURFACE_TOTAL_BASELINE` · `SCOPED_BASELINE` · `NEEDED_BASELINE` · `BESPOKE_BASELINE` · `CANDIDATE_FLOOR` · `INSTANCE_FLOOR` ·
+`SHELL_INSTANCES_BY_BOARD`)은 옮기지 않았다. 셸 치환 36 보드의 사이드바는 전부 `body.1.0.0.0` header 에 붙었다.
+
+##### 생성 — 폭 수를 물던 매처와 후보 서명
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 데스크톱 사이드바 매처(`figma-component-substitution.mjs`) | `Math.round(rect.width) === 280` + 대조되지 않는 「선언:」 인용 — 앵커를 옮기면 데스크톱 보드 열여덟이 사이드바를 잃을 자리 | `position:fixed` header 가 폭을 `var(--app-gnb-sidebar-width)` 로 **선언**했는지(auth fixture 원장 `declared.width`). 옛 앵커 원장에서 판정 · draw.js 불변을 먼저 확인했다. canary: 선언 이름을 틀리게 한 매처에서 보드 생성 `--check` 가 문다 |
+| 후보 id 가드(컴포넌트 · 앱 셸 · 결제 장면) | `6f6282c1` 서명 | 옛 원장(HEAD)과 서명 전수 대조로 1:1 — 사이드바 43/10 → 41/10(216×212), 헤더 55/6 · 55/4 → 53/6 · 53/4, 브랜드 6/18(폭 216), 데스크톱 상단 바 다섯(x −40 · 폭 +40), 결제 장면 83 · 79 → 81 · 77 과 main 카드 둘(x 240 · 폭 1672). 모바일 후보는 id 까지 그대로다. 헤더 노드 수 `55` 리터럴은 후보 서명에서 읽는다 |
+| 컴포넌트 생성기 · 러너 | 메뉴 직계 행 7(섹션 라벨 `Analytics` 포함). 기존 세트는 칠만 다시 걸고 variant · 행 · CTA 크기는 없을 때만 걸었다 | 행 6, 섹션 라벨 행을 싣지 않는다. 러너는 라이브 `section/Analytics` 행을 계획에 없는 행으로 보고 **지우지 않고** `retired/` 로 숨긴다. 메뉴 variant · 행 · CTA variant 크기를 계획 rect 와 다를 때만 맞추고 배치 · 세트 크기를 다시 도출한다(레일이 줄면 셸 인스턴스만 줄고 안의 행이 넘치던 자리) |
+
+##### Figma 계획이 어떻게 바뀌었나 — 옛 앵커 계획(`da4168e`) 대비
+
+- **화면 보드 36: 같음 18 · 다름 18.** 모바일 18 은 payload 해시까지 같다(서랍은 닫혀 있다). 데스크톱 18 은 사이드바 인스턴스 폭 280 → 240,
+  본문 `margin-left` 280 → 240, 본문 · 카드 · 바 폭 +40 이고, `/mypage/upgrade` 데스크톱은 카드 묶음 좌우 여백 154 → 174 가 더해진다.
+  사이드바 · 상단 바 인스턴스의 세트 · variant 는 전부 같다.
+- **세트 러너:** 컴포넌트(메뉴 216×212 · 행 6 · 셸 240 · 브랜드 · CTA 216), 앱 셸(데스크톱 상단 바 variant 폭 1672 · nav · 프로필 x +40,
+  모바일 불변), sidebar-states(펼침 측정 레일 240 · 토글 x 248 · CTA 216 과 인용 줄), 결제 장면 · 체크아웃(main x 240 · 폭 1672 · 본문
+  x +20), 업그레이드(main 240/1672 · 카드 x +20), highlight-hub(뷰포트 1672 · 격자 1648 · 카드 324.8 · 업로드 x 640 — 러너는 라이브
+  프레임에서 다시 도출한다). `/pricing` 은 핀만. 인벤토리 계획은 레일 표본이 빠지고 GNB 표본 폭이 줄었다(RESET 러너
+  `inventory-draw.*` 는 적용 금지 그대로).
+
+##### 남은 것
+
+- **토큰 `layout-app-shell-sidebar-width` 는 아직 280 이다.** 제품이 240 으로 줄였고 어떤 게이트도 둘을 대조하지 않는다. P2 값 이동은
+  웹 소비처의 레일을 좁히는 계약 변경이라 이 앵커 이동에서 하지 않았다([App Shell](../patterns/app-shell.md) 표에 적었다). Figma
+  `DS · Templates` 의 `Pattern · AppShell`(레일 280)도 같다.
+- **모바일 서랍은 DS 에도 Figma 에도 표본이 없다.** compact 드로어 composition 을 지을 때 블러 표면으로 판정한다
+  ([App Shell Parts](../components/app-shell-parts.md) Known deviations).
+- **라이브 적용은 하지 않았다.** 순서는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 그대로이고,
+  컴포넌트 러너 재적용에서 기대하는 변화에 이 항목의 둘(아이브로우 행 `retired/`, 메뉴 · CTA · 셸 폭)이 더해진다.
+- `SidebarCta` · `SidebarBrand` 의 펼친 Figma 표본 폭(256)은 표본이라 그대로 두었다 — parity 가 보지 않는다.
 
 #### 2026-09-15 (137) — sidebar-states 러너가 대상을 전부 찾은 뒤에 쓰고, 보드 판정기가 논리 크기 · grid 열을 읽는다
 

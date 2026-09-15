@@ -1,11 +1,11 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-7eb3e2833a3e",
-    "nodeCount": 43,
+    "id": "subtree-9c4c0327c2b0",
+    "nodeCount": 41,
     "roots": [
       {
         "route": "/settings",
@@ -14,8 +14,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -25,8 +25,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -36,8 +36,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -47,8 +47,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -58,8 +58,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -69,8 +69,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -80,8 +80,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -91,8 +91,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -102,8 +102,8 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       },
       {
@@ -113,14 +113,14 @@
         "rect": {
           "x": 12,
           "y": 60,
-          "width": 256,
-          "height": 250
+          "width": 216,
+          "height": 212
         }
       }
     ],
     "routeCount": 10,
     "occurrenceCount": 10,
-    "score": 430
+    "score": 410
   },
   "component": {
     "id": "product/gnb-sidebar-menu",
@@ -129,8 +129,8 @@
     "sectionName": "I · product/Gnb sidebar · measured component",
     "componentSetName": "Product/Gnb Sidebar Menu",
     "root": {
-      "width": 256,
-      "height": 250,
+      "width": 216,
+      "height": 212,
       "gap": 4,
       "background": [
         0,
@@ -182,7 +182,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
         "activePaint": "gray000"
       },
       {
@@ -196,7 +196,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
         "activePaint": "gray000"
       },
       {
@@ -210,7 +210,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4694-4695 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd.",
+        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
         "activePaint": "gray000"
       }
     ],
@@ -221,7 +221,7 @@
         "rect": {
           "x": 0,
           "y": 0,
-          "width": 256,
+          "width": 216,
           "height": 32
         },
         "label": {
@@ -276,7 +276,7 @@
         "rect": {
           "x": 0,
           "y": 36,
-          "width": 256,
+          "width": 216,
           "height": 32
         },
         "label": {
@@ -331,7 +331,7 @@
         "rect": {
           "x": 0,
           "y": 72,
-          "width": 256,
+          "width": 216,
           "height": 32
         },
         "label": {
@@ -386,7 +386,7 @@
         "rect": {
           "x": 0,
           "y": 108,
-          "width": 256,
+          "width": 216,
           "height": 32
         },
         "label": {
@@ -441,7 +441,7 @@
         "rect": {
           "x": 0,
           "y": 144,
-          "width": 256,
+          "width": 216,
           "height": 32
         },
         "label": {
@@ -534,56 +534,19 @@
         }
       },
       {
-        "kind": "section-label",
-        "key": "analytics",
-        "rect": {
-          "x": 0,
-          "y": 180,
-          "width": 256,
-          "height": 34
-        },
-        "label": {
-          "text": "Analytics",
-          "rect": {
-            "x": 0,
-            "y": 192,
-            "width": 256,
-            "height": 18
-          },
-          "fontFamily": "pretendard",
-          "fontSize": 12,
-          "fontWeight": 500,
-          "lineHeight": 18,
-          "letterSpacing": -0.12,
-          "color": [
-            0.345098,
-            0.360784,
-            0.388235,
-            1
-          ],
-          "paint": "paletteGray600"
-        },
-        "padding": {
-          "top": 12,
-          "right": 0,
-          "bottom": 4,
-          "left": 4
-        }
-      },
-      {
         "kind": "simple",
         "key": "youtube",
         "rect": {
           "x": 0,
-          "y": 218,
-          "width": 256,
+          "y": 180,
+          "width": 216,
           "height": 32
         },
         "label": {
           "text": "YouTube analytics",
           "rect": {
             "x": 38,
-            "y": 223.5,
+            "y": 185.5,
             "width": 114.5,
             "height": 21
           },
@@ -603,7 +566,7 @@
         "icon": {
           "rect": {
             "x": 8,
-            "y": 224,
+            "y": 186,
             "width": 20,
             "height": 20
           },
@@ -749,8 +712,8 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-010a934d5c3b",
-          "nodeCount": 55,
+          "id": "subtree-aa1c1412d5c4",
+          "nodeCount": 53,
           "roots": [
             {
               "route": "/settings",
@@ -759,7 +722,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -770,7 +733,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -781,7 +744,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -792,7 +755,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -803,7 +766,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -814,18 +777,18 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             }
           ],
           "routeCount": 6,
           "occurrenceCount": 6,
-          "score": 330
+          "score": 318
         },
         {
-          "id": "subtree-5975d39c8e46",
-          "nodeCount": 55,
+          "id": "subtree-31a49ffcdd32",
+          "nodeCount": 53,
           "roots": [
             {
               "route": "/mypage/upgrade",
@@ -834,7 +797,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -845,7 +808,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -856,7 +819,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -867,14 +830,14 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             }
           ],
           "routeCount": 4,
           "occurrenceCount": 4,
-          "score": 220
+          "score": 212
         }
       ],
       "variants": [
@@ -882,7 +845,7 @@
           "state": "Default",
           "route": "/settings",
           "rect": {
-            "width": 256,
+            "width": 216,
             "height": 41
           },
           "padding": {
@@ -940,7 +903,7 @@
           "label": {
             "text": "Upgrade",
             "rect": {
-              "x": 100.5781,
+              "x": 80.5781,
               "y": 10,
               "width": 54.8281,
               "height": 21
@@ -958,7 +921,7 @@
           "state": "Current",
           "route": "/mypage/upgrade",
           "rect": {
-            "width": 256,
+            "width": 216,
             "height": 41
           },
           "padding": {
@@ -1001,7 +964,7 @@
           "label": {
             "text": "Upgrade",
             "rect": {
-              "x": 100.5781,
+              "x": 80.5781,
               "y": 10,
               "width": 54.8281,
               "height": 21
@@ -1022,7 +985,7 @@
       "componentSetName": "Product/Gnb Desktop Shell",
       "sourceCandidates": [
         {
-          "id": "subtree-ffebd1510282",
+          "id": "subtree-62c4e4642ab9",
           "nodeCount": 6,
           "roots": [
             {
@@ -1032,7 +995,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1043,7 +1006,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1054,7 +1017,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1065,7 +1028,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1076,7 +1039,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1087,7 +1050,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1098,7 +1061,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1109,7 +1072,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1120,7 +1083,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1131,7 +1094,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1142,7 +1105,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1153,7 +1116,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1164,7 +1127,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1175,7 +1138,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1186,7 +1149,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1197,7 +1160,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1208,7 +1171,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             },
@@ -1219,7 +1182,7 @@
               "rect": {
                 "x": 12,
                 "y": 8,
-                "width": 256,
+                "width": 216,
                 "height": 40
               }
             }
@@ -1229,8 +1192,8 @@
           "score": 108
         },
         {
-          "id": "subtree-010a934d5c3b",
-          "nodeCount": 55,
+          "id": "subtree-aa1c1412d5c4",
+          "nodeCount": 53,
           "roots": [
             {
               "route": "/settings",
@@ -1239,7 +1202,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1250,7 +1213,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1261,7 +1224,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1272,7 +1235,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1283,7 +1246,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1294,18 +1257,18 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             }
           ],
           "routeCount": 6,
           "occurrenceCount": 6,
-          "score": 330
+          "score": 318
         },
         {
-          "id": "subtree-5975d39c8e46",
-          "nodeCount": 55,
+          "id": "subtree-31a49ffcdd32",
+          "nodeCount": 53,
           "roots": [
             {
               "route": "/mypage/upgrade",
@@ -1314,7 +1277,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1325,7 +1288,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1336,7 +1299,7 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             },
@@ -1347,18 +1310,18 @@
               "rect": {
                 "x": 0,
                 "y": 0,
-                "width": 280,
+                "width": 240,
                 "height": 1080
               }
             }
           ],
           "routeCount": 4,
           "occurrenceCount": 4,
-          "score": 220
+          "score": 212
         }
       ],
       "root": {
-        "width": 280,
+        "width": 240,
         "height": 1080,
         "padding": {
           "top": 8,
@@ -1376,14 +1339,14 @@
       "nav": {
         "x": 12,
         "y": 8,
-        "width": 256,
+        "width": 216,
         "height": 1072
       },
       "brand": {
         "rect": {
           "x": 12,
           "y": 8,
-          "width": 256,
+          "width": 216,
           "height": 40
         },
         "paddingLeft": 4,
@@ -1398,7 +1361,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1409,13 +1372,13 @@
       "menu": {
         "x": 12,
         "y": 60,
-        "width": 256,
-        "height": 250
+        "width": 216,
+        "height": 212
       },
       "upgradeCta": {
         "x": 12,
         "y": 1039,
-        "width": 256,
+        "width": 216,
         "height": 41
       },
       "variants": [
@@ -1477,7 +1440,7 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 836,
+                "x": 816,
                 "y": 165,
                 "width": 520,
                 "height": 229.5938
@@ -1488,7 +1451,7 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 836,
+                "x": 816,
                 "y": 165,
                 "width": 520,
                 "height": 229.5938
@@ -1539,7 +1502,7 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 836,
+                "x": 816,
                 "y": 165,
                 "width": 520,
                 "height": 209.1875
@@ -1550,7 +1513,7 @@
               "path": "body.1.0.0.1.1",
               "tag": "section",
               "rect": {
-                "x": 836,
+                "x": 816,
                 "y": 165,
                 "width": 520,
                 "height": 209.1875
@@ -2429,9 +2392,9 @@
       "iconOpacity": 0.92,
       "activeSurface": null,
       "activeSurfaceSource": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 604,
+        "line": 585,
         "quote": "    \"[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]\","
       }
     },
@@ -2439,9 +2402,9 @@
       "gray300": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 592,
+            "line": 573,
             "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
           }
         ],
@@ -2456,31 +2419,31 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 598,
+            "line": 579,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 2006,
+            "line": 1971,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 88,
             "quote": "  \"m-0 text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 113,
             "quote": "  \"[&_dd]:text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 128,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
@@ -2497,21 +2460,15 @@
       "paletteGray600": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 190,
-            "quote": "    \"[color:var(--palette-gray-600)]\","
-          },
-          {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
-            "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 839,
+            "line": 171,
             "quote": "    \"[color:var(--palette-gray-600)]\","
           }
         ],
         "measured": "#585c63",
         "measuredAlpha": 1,
-        "sites": 2,
+        "sites": 1,
         "figma": "Klipse Primitive/color/palette-gray/600",
         "figmaValue": "#585c63",
         "figmaAlpha": 1,
@@ -2520,9 +2477,9 @@
       "paletteGray500Alpha12": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 191,
+            "line": 172,
             "quote": "    \"[background:rgb(var(--palette-gray-500-rgb)_/_12%)]\","
           }
         ],
@@ -2538,9 +2495,9 @@
       "paletteGray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1995,
+            "line": 1960,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]\","
           }
         ],
@@ -2555,9 +2512,9 @@
       "paletteGray100": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1996,
+            "line": 1961,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]\","
           }
         ],
@@ -2572,9 +2529,9 @@
       "paletteGray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 2005,
+            "line": 1970,
             "quote": "    \"[background:var(--palette-gray-000)]\","
           }
         ],
@@ -2589,7 +2546,7 @@
       "gray000Alpha56": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 96,
             "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
@@ -2609,7 +2566,7 @@
       "gray000Alpha48": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 110,
             "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
@@ -2629,7 +2586,7 @@
       "gray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 128,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","

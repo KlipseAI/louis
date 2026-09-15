@@ -2,154 +2,154 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
   "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Highlight and Clips were added 2026-09-13 by a read-only use_figma read of existing auto-sized (WIDTH_AND_HEIGHT) Pretendard Medium TEXT nodes on the generated /highlight/[projectId]?__phase=loading boards: 14px (-0.14px, line height 150% = 21px) 1248:13051 Highlight 57x21 and 1248:13053 Clips 32x21; 16px (-0.16px, 150% = 24px) 1247:13150 Highlight 65x24 and 1247:13152 Clips 36x24. Cross-check in the same read: 1227:13358 Subscription 16px is 91x24, equal to the 2026-08-24 value. The bar is an Auto Layout row that hugs its declared controls (layoutContract); measured rects only check that the product formula closes. Breadcrumb labels before the last are auto-width inside a horizontal nav spaced by the product separator margin (4px); the last label fills the nav and truncates at the end, so a label set through a TEXT property reflows instead of clipping. The runner reports any auto-width default label whose Figma width differs from these bounds (glyphDrift).",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "profileVisualSource": {
     "avatar": {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "path": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "line": 22,
       "quote": "  \"text-palette-gray-400\","
     },
     "ring": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1470,
+        "line": 1433,
         "quote": "    \"[--profile-avatar-size:24px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1473,
+        "line": 1436,
         "quote": "    \"[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1474,
+        "line": 1437,
         "quote": "    \"[--profile-ring-gap:2px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1475,
+        "line": 1438,
         "quote": "    \"[--profile-ring-width:2px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1502,
+        "line": 1465,
         "quote": "    \"[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1504,
+        "line": 1467,
         "quote": "    \"[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]\","
       }
     ],
     "size": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1476,
+        "line": 1439,
         "quote": "    \"[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1478,
+        "line": 1441,
         "quote": "    \"[width:var(--profile-ring-size)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 1479,
+        "line": 1442,
         "quote": "    \"[height:var(--profile-ring-size)]\","
       }
     ]
   },
   "controlSource": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 378,
+      "line": 359,
       "quote": "  mainChromeSidebarToggle: ["
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 379,
+      "line": 360,
       "quote": "    \"gnb-mainChromeSidebarToggle\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 385,
+      "line": 366,
       "quote": "    \"[width:32px]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 386,
+      "line": 367,
       "quote": "    \"[height:32px]\","
     }
   ],
   "controlGlyphSource": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5282,
+      "line": 5252,
       "quote": "                      className={gnbStyles.mainChromeSidebarToggleSvg}"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5283,
+      "line": 5253,
       "quote": "                      width={20}"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5284,
+      "line": 5254,
       "quote": "                      height={20}"
     }
   ],
   "layoutSources": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 460,
+      "line": 441,
       "quote": "    \"[min-block-size:0]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 483,
+      "line": 464,
       "quote": "    \"[padding:8px_var(--mainchrome-pad-x)]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 334,
+      "line": 315,
       "quote": "    \"louis-app-top-bar__title\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 336,
+      "line": 317,
       "quote": "    \"[flex:1]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 366,
+      "line": 347,
       "quote": "    \"[overflow:hidden]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 367,
+      "line": 348,
       "quote": "    \"[text-overflow:ellipsis]\","
     }
   ],
@@ -545,19 +545,19 @@
   },
   "dividerSources": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 497,
+      "line": 478,
       "quote": "    \"[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "line": 13,
       "quote": " * 달라 보였다**. CSS 기본값이 `var(--mainchrome-divider-progress, 1)` 이므로 손대지 않으면"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "line": 14,
       "quote": " * 모든 화면에서 항상 켜진다 — 그게 통일된 정본이다(소유자 지정)."
@@ -583,9 +583,9 @@
         "name": "color/bg-surface"
       },
       "$surfaceSource": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 489,
+        "line": 470,
         "quote": "    \"[background:var(--louis-color-bg-surface)]\","
       },
       "divider": {
@@ -2179,7 +2179,7 @@
           "score": 108
         },
         {
-          "id": "subtree-ba7cbd8a0ce2",
+          "id": "subtree-9650ff03cd07",
           "nodeCount": 15,
           "roots": [
             {
@@ -2187,9 +2187,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             },
@@ -2198,9 +2198,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             },
@@ -2209,9 +2209,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             },
@@ -2220,9 +2220,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             }
@@ -2232,7 +2232,7 @@
           "score": 60
         },
         {
-          "id": "subtree-fd281c1bcbbc",
+          "id": "subtree-bab0168c7bfe",
           "nodeCount": 14,
           "roots": [
             {
@@ -2240,9 +2240,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             },
@@ -2251,9 +2251,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             },
@@ -2262,9 +2262,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             },
@@ -2273,9 +2273,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             }
@@ -2285,7 +2285,7 @@
           "score": 56
         },
         {
-          "id": "subtree-8a6691461153",
+          "id": "subtree-ee83e5ff8b7f",
           "nodeCount": 17,
           "roots": [
             {
@@ -2293,9 +2293,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             },
@@ -2304,9 +2304,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             },
@@ -2315,9 +2315,9 @@
               "path": "body.1.0.0.1.0",
               "tag": "div",
               "rect": {
-                "x": 304,
+                "x": 264,
                 "y": 8,
-                "width": 1584,
+                "width": 1624,
                 "height": 49
               }
             }
@@ -2327,7 +2327,7 @@
           "score": 51
         },
         {
-          "id": "subtree-8ac04d3f1453",
+          "id": "subtree-b92008e236c0",
           "nodeCount": 16,
           "roots": [
             {
@@ -2335,9 +2335,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             },
@@ -2346,9 +2346,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             },
@@ -2357,9 +2357,9 @@
               "path": "body.1.0.0.1.0.0",
               "tag": "div",
               "rect": {
-                "x": 280,
+                "x": 240,
                 "y": 8,
-                "width": 1632,
+                "width": 1672,
                 "height": 49
               }
             }
@@ -2369,7 +2369,7 @@
           "score": 48
         },
         {
-          "id": "subtree-8e576a12733a",
+          "id": "subtree-869dcbe1a654",
           "nodeCount": 5,
           "roots": [
             {
@@ -2377,9 +2377,9 @@
               "path": "body.1.0.0.1.0.0.1",
               "tag": "nav",
               "rect": {
-                "x": 328,
+                "x": 288,
                 "y": 19.625,
-                "width": 1536,
+                "width": 1576,
                 "height": 24.75
               }
             },
@@ -2388,9 +2388,9 @@
               "path": "body.1.0.0.1.0.0.1",
               "tag": "nav",
               "rect": {
-                "x": 328,
+                "x": 288,
                 "y": 19.625,
-                "width": 1536,
+                "width": 1576,
                 "height": 24.75
               }
             },
@@ -2399,9 +2399,9 @@
               "path": "body.1.0.0.1.0.0.1",
               "tag": "nav",
               "rect": {
-                "x": 328,
+                "x": 288,
                 "y": 19.625,
-                "width": 1536,
+                "width": 1576,
                 "height": 24.75
               }
             }
@@ -2458,7 +2458,7 @@
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -2498,11 +2498,11 @@
           "nav": {
             "x": 48,
             "y": 12,
-            "width": 1536,
+            "width": 1576,
             "height": 24
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -2521,7 +2521,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -2530,7 +2530,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -2545,7 +2545,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -2609,7 +2609,7 @@
           "rootPath": "body.1.0.0.1.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -2649,11 +2649,11 @@
           "nav": {
             "x": 48,
             "y": 12,
-            "width": 1536,
+            "width": 1576,
             "height": 24
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -2672,7 +2672,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -2681,7 +2681,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -2696,7 +2696,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -2760,7 +2760,7 @@
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -2800,11 +2800,11 @@
           "nav": {
             "x": 48,
             "y": 11.625,
-            "width": 1536,
+            "width": 1576,
             "height": 24.75
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -2823,7 +2823,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -2832,7 +2832,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -2847,7 +2847,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -2960,7 +2960,7 @@
           "rootPath": "body.1.0.0.1.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3000,11 +3000,11 @@
           "nav": {
             "x": 48,
             "y": 12,
-            "width": 1536,
+            "width": 1576,
             "height": 24
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3023,7 +3023,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3032,7 +3032,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3047,7 +3047,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -3111,7 +3111,7 @@
           "rootPath": "body.1.0.0.1.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3151,11 +3151,11 @@
           "nav": {
             "x": 48,
             "y": 12,
-            "width": 1536,
+            "width": 1576,
             "height": 24
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3174,7 +3174,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3183,7 +3183,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3198,7 +3198,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -3262,7 +3262,7 @@
           "rootPath": "body.1.0.0.1.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3302,11 +3302,11 @@
           "nav": {
             "x": 48,
             "y": 11.625,
-            "width": 1536,
+            "width": 1576,
             "height": 24.75
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3325,7 +3325,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3334,7 +3334,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3349,7 +3349,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -3462,7 +3462,7 @@
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3502,11 +3502,11 @@
           "nav": {
             "x": 84,
             "y": 11.625,
-            "width": 1500,
+            "width": 1540,
             "height": 24.75
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3530,7 +3530,7 @@
               "height": 32
             },
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3539,7 +3539,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3554,7 +3554,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -3667,7 +3667,7 @@
           "rootPath": "body.1.0.0.1.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3707,11 +3707,11 @@
           "nav": {
             "x": 84,
             "y": 11.625,
-            "width": 1500,
+            "width": 1540,
             "height": 24.75
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3735,7 +3735,7 @@
               "height": 32
             },
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3744,7 +3744,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3759,7 +3759,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32
@@ -3874,7 +3874,7 @@
           "rootPath": "body.1.0.0.1.0.0.0.0",
           "theme": "light",
           "rect": {
-            "width": 1632,
+            "width": 1672,
             "height": 49
           },
           "gap": 8,
@@ -3914,11 +3914,11 @@
           "nav": {
             "x": 48,
             "y": 12,
-            "width": 1536,
+            "width": 1576,
             "height": 24
           },
           "profile": {
-            "x": 1592,
+            "x": 1632,
             "y": 8,
             "width": 32,
             "height": 32
@@ -3937,7 +3937,7 @@
             },
             "back": null,
             "profile": {
-              "x": 1592,
+              "x": 1632,
               "y": 8,
               "width": 32,
               "height": 32
@@ -3946,7 +3946,7 @@
           "profileVisual": {
             "avatar": {
               "rect": {
-                "x": 1596,
+                "x": 1636,
                 "y": 12,
                 "width": 24,
                 "height": 24
@@ -3961,7 +3961,7 @@
             },
             "ring": {
               "rect": {
-                "x": 1592,
+                "x": 1632,
                 "y": 8,
                 "width": 32,
                 "height": 32

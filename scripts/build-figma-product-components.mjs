@@ -242,10 +242,17 @@ const betaStyle = style(betaNode);
    전부 같은 -4 다 — 같은 비교에서 두 헤더 후보의 route 10개 전부, 헤더(`body.1.0.0.0`) 아래
    사라진 노드가 위 두 쌍과 같고 더해진 노드는 0 이다. 하나의 원인이 중첩 서브트리를 타고
    올라간 것이다. */
+/* 여섯 번째로 갈렸다(7eb3e2833a3e → 9c4c0327c2b0, 2026-09-15 재고정 6f6282c1 → 2c6bdacf). **진짜 변경이고 둘이다 — 노드
+   43 → 41, 크기 256×250 → 216×212.** 서명 전수 대조(`git show HEAD:migration/product.auth-fixture.json` 과 새 원장): routeCount 10 ·
+   occurrenceCount 10 · roots 의 route·path·tag 가 바이트 동일(`body.1.0.0.0.0.1` · div, 10개 route)이고, rect 는 10개 모두
+   x 12 · y 60 그대로 폭 · 높이만 줄었다. 원인은 제품 둘이다 — `bc3e6fa3` 가 레일을 280 → 240 으로 줄여 목록 폭이 216(= 240 −
+   레일 패딩 12 × 2)이 됐고, `2c6bdacf` 가 「분석」 아이브로우 행(`<li role="presentation">` + `<span>`)을 걷어 두 노드와 한 행
+   (34 + 간격 4)이 빠졌다. `/settings` 서브트리를 path 로 견주면 옛 `….1.0.5`(li) · `….1.0.5.0`(span 「Analytics」)이 사라지고
+   YouTube 분석 행이 `….1.0.6` 에서 `….1.0.5` 로 한 칸 당겨졌을 뿐 다른 노드는 더해지지도 사라지지도 않았다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-7eb3e2833a3e",
+  (entry) => entry.id === "subtree-9c4c0327c2b0",
 );
-if (!candidate || candidate.nodeCount !== 43 || candidate.routeCount !== 10) {
+if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 10) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
 }
 
@@ -292,15 +299,19 @@ if (!candidate || candidate.nodeCount !== 43 || candidate.routeCount !== 10) {
    넷뿐이다(더해진 노드 0). 확인: `git show HEAD:migration/product.auth-fixture.json`
    (`productCommit` 6fbdac16)의 `componentCandidateAudit.repeatedSubtreesByContext["desktop-1920x1080"]`,
    노드 대조는 `git show 7f41d5a^:` 과 `git show 4ebbe46:` 의 같은 파일 `screens` 트리. */
-const headerCandidates = ["subtree-010a934d5c3b", "subtree-5975d39c8e46"].map((id) =>
+/* 2026-09-15 재고정(6f6282c1 → 2c6bdacf)에서 두 헤더도 사이드바와 같은 하나로 갈렸다(010a934d5c3b → aa1c1412d5c4 · 55/6 → 53/6,
+   5975d39c8e46 → 31a49ffcdd32 · 55/4 → 53/4). roots 의 route·path·tag 가 바이트 동일하고 rect 는 폭만 280 → 240(레일 `bc3e6fa3`)이다.
+   헤더(`body.1.0.0.0`) 아래 사라진 노드는 위 사이드바 가드 주석의 아이브로우 li · span 둘뿐이다. 닮은꼴이던 `/highlight/[projectId]`
+   여섯 phase 셸도 같은 −2 를 받아 여전히 id 로만 갈린다. */
+const headerCandidates = ["subtree-aa1c1412d5c4", "subtree-31a49ffcdd32"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 if (
   !headerCandidates[0] ||
-  headerCandidates[0].nodeCount !== 55 ||
+  headerCandidates[0].nodeCount !== 53 ||
   headerCandidates[0].routeCount !== 6 ||
   !headerCandidates[1] ||
-  headerCandidates[1].nodeCount !== 55 ||
+  headerCandidates[1].nodeCount !== 53 ||
   headerCandidates[1].routeCount !== 4
 ) {
   fail("measured Gnb header variant candidates changed; inspect before regenerating Figma");
@@ -310,7 +321,10 @@ const headerNodes = (route) =>
   screen(route).tree.filter((entry) => entry.path === headerPath || entry.path.startsWith(`${headerPath}.`));
 const headerDefault = headerNodes("/settings");
 const headerCurrent = headerNodes("/mypage/upgrade");
-if (headerDefault.length !== 55 || headerCurrent.length !== 55) fail("expected two 55-node Gnb headers");
+// 두 헤더의 노드 수는 위 후보 서명이 쥔다 — 같은 수를 여기 한 번 더 적으면 앵커가 옮길 때 사본만 낡는다(2026-09-15, 55 → 53).
+if (headerDefault.length !== headerCandidates[0].nodeCount || headerCurrent.length !== headerCandidates[1].nodeCount) {
+  fail(`expected Gnb headers of ${headerCandidates[0].nodeCount} · ${headerCandidates[1].nodeCount} nodes, got ${headerDefault.length} · ${headerCurrent.length}`);
+}
 const headerDiffs = [];
 for (let index = 0; index < headerDefault.length; index += 1) {
   const left = headerDefault[index];
@@ -374,8 +388,11 @@ const upgradeSpec = (route, state) => {
    **자체를 걷어낸** 것이다 — 측정기의 styleRef 가 등장 순서 인덱스에서 스타일 내용의 해시로
    바뀌었고(`content-visibility: auto` 래치도 스크롤 훑기로 풀었다), 앵커는 그대로
    `5a67d692` 다. 서명 전수 대조에서 불일치 0, 6/18 그대로. */
+/* 네 번째로 갈렸다(ffebd1510282 → 62c4e4642ab9, 2026-09-15 재고정 6f6282c1 → 2c6bdacf). 6/18 · roots 의 route·path·tag 그대로,
+   rect 는 18개 모두 폭만 256 → 216 이다 — 브랜드 행이 레일 내용 폭을 채우고(`.louis-sidebar-brand` 의 `inline-size: 100%`) 레일이
+   280 → 240 으로 줄었다(`bc3e6fa3`). 서브트리 6노드는 path · 글자 그대로이고 폭을 채우는 넷의 rect 만 움직였다. */
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-ffebd1510282",
+  (entry) => entry.id === "subtree-62c4e4642ab9",
 );
 if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 18) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
@@ -621,8 +638,8 @@ const GNB = "apps/web/components/navigation/Gnb.tsx";
 /* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다(4614-4615 · 564/570 이 `6f6282c1` 에서 4694-4695 ·
    592/598 로 옮겨 있었다). 이제 활성 판정 두 줄은 소스 인용으로 확인하고, 색 줄은 `colorEvidence` 의 역할을 가리킨다. */
 const activeRuleSource = [
-  quote.product(GNB, 4694, "                    const href = row.href;"),
-  quote.product(GNB, 4695, "                    const isActive = isSidebarMenuHrefActive(href);"),
+  quote.product(GNB, 4664, "                    const href = row.href;"),
+  quote.product(GNB, 4665, "                    const isActive = isSidebarMenuHrefActive(href);"),
 ];
 const sharedActiveColourNote =
   `No new visual value: Gnb.tsx:${activeRuleSource[0].line}-${activeRuleSource[1].line} applies the common isSidebarMenuHrefActive result ` +
@@ -635,12 +652,12 @@ const roles = live.colorRoles({
   theme: "light",
   where: "components",
   roles: {
-    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 592, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
+    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 573, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
     gray000: {
       name: "color/gray/000",
       declared: [
-        quote.product(GNB, 598, '    "[color:var(--gray-000)]",'),
-        quote.product(GNB, 2006, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 579, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 1971, '    "[color:var(--gray-000)]",'),
         quote.product(RESULT, 88, '  "m-0 text-gray-000",'),
         quote.product(RESULT, 113, '  "[&_dd]:text-gray-000",'),
         quote.product(RESULT, 128, '  "[border:none] bg-gray-000 text-gray-900!",'),
@@ -652,12 +669,12 @@ const roles = live.colorRoles({
     },
     paletteGray500Alpha12: {
       unbound: true, mix: { collection: "Klipse Primitive", name: "color/palette-gray/500", alpha: 0.12 },
-      declared: [quote.product(GNB, 191, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
+      declared: [quote.product(GNB, 172, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
       reason: "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint.",
     },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1995, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1996, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
-    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 2005, '    "[background:var(--palette-gray-000)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1960, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1961, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
+    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 1970, '    "[background:var(--palette-gray-000)]",')] },
     gray000Alpha56: {
       name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
       declared: [quote.product(RESULT, 96, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),
@@ -830,7 +847,7 @@ for (const row of plan.component.rows) {
 if (Object.keys(rowPaints).length !== 1) fail(`inactive sidebar rows disagree on paint: ${Object.keys(rowPaints).join(" | ")}`);
 const [inactiveLabelPaint, inactiveIconPaint, inactiveIconOpacity] = Object.keys(rowPaints)[0].split("/");
 // 제품 사이드바의 활성 행은 면이 없다(`.gnb-menuSidebar` 안에서 투명) — 옛 러너가 칠하던 인디케이터 면은 다크 비사이드바 선언이었다.
-const sidebarActiveTransparent = quote.product(GNB, 604, '    "[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]",');
+const sidebarActiveTransparent = quote.product(GNB, 585, '    "[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]",');
 const activeRowButton = (route, text) => {
   let entry = byText(route, text);
   while (entry && entry.tag !== "button") entry = screen(route).tree.find((item) => item.path === entry.parentPath);

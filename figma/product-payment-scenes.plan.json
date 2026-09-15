@@ -1,12 +1,12 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-089233c2f2ee",
-      "nodeCount": 83,
+      "id": "subtree-848f5c9d9c56",
+      "nodeCount": 81,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-fail",
@@ -33,11 +33,11 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 166
+      "score": 162
     },
     {
-      "id": "subtree-dbfe1829e8a7",
-      "nodeCount": 79,
+      "id": "subtree-aee6939b662f",
+      "nodeCount": 77,
       "roots": [
         {
           "route": "/mypage/upgrade/billing-change-success",
@@ -64,10 +64,10 @@
       ],
       "routeCount": 2,
       "occurrenceCount": 2,
-      "score": 158
+      "score": 154
     },
     {
-      "id": "subtree-1ae30fbe2788",
+      "id": "subtree-d5d4fe4d8a34",
       "nodeCount": 25,
       "roots": [
         {
@@ -75,9 +75,9 @@
           "path": "body.1.0.0.1",
           "tag": "main",
           "rect": {
-            "x": 280,
+            "x": 240,
             "y": 8,
-            "width": 1632,
+            "width": 1672,
             "height": 1012
           }
         },
@@ -86,9 +86,9 @@
           "path": "body.1.0.0.1",
           "tag": "main",
           "rect": {
-            "x": 280,
+            "x": 240,
             "y": 8,
-            "width": 1632,
+            "width": 1672,
             "height": 1012
           }
         }
@@ -98,7 +98,7 @@
       "score": 50
     },
     {
-      "id": "subtree-ffbed6e9546f",
+      "id": "subtree-8728712c4402",
       "nodeCount": 21,
       "roots": [
         {
@@ -106,9 +106,9 @@
           "path": "body.1.0.0.1",
           "tag": "main",
           "rect": {
-            "x": 280,
+            "x": 240,
             "y": 8,
-            "width": 1632,
+            "width": 1672,
             "height": 1012
           }
         },
@@ -117,9 +117,9 @@
           "path": "body.1.0.0.1",
           "tag": "main",
           "rect": {
-            "x": 280,
+            "x": 240,
             "y": 8,
-            "width": 1632,
+            "width": 1672,
             "height": 1012
           }
         }
@@ -160,7 +160,7 @@
     },
     "main": {
       "rect": {
-        "width": 1632,
+        "width": 1672,
         "height": 1012
       },
       "background": [
@@ -184,7 +184,7 @@
           "top": 8,
           "right": 8,
           "bottom": 8,
-          "left": 280
+          "left": 240
         }
       },
       "main": {
@@ -214,19 +214,19 @@
         "outcome": "Failure",
         "route": "/mypage/upgrade/billing-change-fail",
         "mainRect": {
-          "x": 280,
+          "x": 240,
           "y": 8,
-          "width": 1632,
+          "width": 1672,
           "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1632,
+          "width": 1672,
           "height": 49
         },
         "contentRect": {
-          "x": 556,
+          "x": 576,
           "y": 157,
           "width": 520,
           "height": 229.5938
@@ -242,19 +242,19 @@
         "outcome": "PlanDelayed",
         "route": "/mypage/upgrade/billing-change-success",
         "mainRect": {
-          "x": 280,
+          "x": 240,
           "y": 8,
-          "width": 1632,
+          "width": 1672,
           "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1632,
+          "width": 1672,
           "height": 49
         },
         "contentRect": {
-          "x": 556,
+          "x": 576,
           "y": 157,
           "width": 520,
           "height": 209.1875
@@ -270,19 +270,19 @@
         "outcome": "TopupDelayed",
         "route": "/mypage/topup/success",
         "mainRect": {
-          "x": 280,
+          "x": 240,
           "y": 8,
-          "width": 1632,
+          "width": 1672,
           "height": 1012
         },
         "topBarRect": {
           "x": 0,
           "y": 0,
-          "width": 1632,
+          "width": 1672,
           "height": 49
         },
         "contentRect": {
-          "x": 556,
+          "x": 576,
           "y": 157,
           "width": 520,
           "height": 209.1875
@@ -628,15 +628,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 32,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 791,
+            "line": 794,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -651,15 +651,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 32,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 1068,
+            "line": 1071,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -674,15 +674,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 53,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 792,
+            "line": 795,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],

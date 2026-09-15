@@ -8,8 +8,8 @@
     "간격이 제각각이면 중첩 오토레이아웃으로 묶는다. spacer 프레임은 쓰지 않는다.",
     "음수 마진은 여백을 바깥·안쪽으로 나눠 만든다."
   ],
-  "productRef": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "sections": [
     {
       "kind": "input-form",
@@ -2411,1336 +2411,6 @@
                 "maxW": 0,
                 "children": [],
                 "ci": 7
-              }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "kind": "gnb-sidebar",
-      "label": "GNB 사이드바",
-      "count": 5,
-      "specimens": [
-        {
-          "id": "gnb-sidebar/brandRow",
-          "label": "사이드바 브랜드 행 — 로고 히트 영역",
-          "jsx": "Gnb.tsx:4368-4414",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "sidebarHeaderRow",
-            "slot": false,
-            "text": "",
-            "w": 256,
-            "h": 40,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              0,
-              0,
-              4
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "flex-start",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": false,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 40,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "sidebarLogoHit",
-                "slot": false,
-                "text": "",
-                "w": 252,
-                "h": 40,
-                "abs": false,
-                "x": 4,
-                "y": 0,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "flex-start",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 40,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "sidebarLogoRail",
-                    "slot": false,
-                    "text": "",
-                    "w": 252,
-                    "h": 28,
-                    "abs": false,
-                    "x": 0,
-                    "y": 6,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "flex-start",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 0,
-                    "weight": 400,
-                    "letterSpacing": -0.16,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 28,
-                    "maxW": 0,
-                    "children": [
-                      {
-                        "part": "sidebarBrandCrop",
-                        "slot": false,
-                        "text": "",
-                        "w": 252,
-                        "h": 28,
-                        "abs": false,
-                        "x": 0,
-                        "y": 0,
-                        "pad": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "inset": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gap": 0,
-                        "gaps": [],
-                        "dir": "H",
-                        "justify": "normal",
-                        "align": "stretch",
-                        "bg": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gradient": null,
-                        "fg": [
-                          0.98,
-                          0.98,
-                          0.98,
-                          1
-                        ],
-                        "radius": 0,
-                        "borderWidth": 0,
-                        "borderColor": [
-                          0.98,
-                          0.98,
-                          0.98,
-                          1
-                        ],
-                        "shadow": null,
-                        "fontSize": 16,
-                        "lineHeightPct": 0,
-                        "weight": 400,
-                        "letterSpacing": -0.16,
-                        "isText": false,
-                        "textFill": false,
-                        "wx": "FIX",
-                        "wy": "선언",
-                        "hy": "내용",
-                        "hx": "HUG",
-                        "minW": 0,
-                        "minH": 0,
-                        "maxW": 0,
-                        "children": [
-                          {
-                            "part": "logo",
-                            "slot": true,
-                            "text": "",
-                            "w": 0,
-                            "h": 28,
-                            "abs": false,
-                            "x": 0,
-                            "y": 0,
-                            "pad": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "inset": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gap": 0,
-                            "gaps": [],
-                            "dir": "V",
-                            "justify": "normal",
-                            "align": "stretch",
-                            "bg": [
-                              0,
-                              0,
-                              0,
-                              0
-                            ],
-                            "gradient": null,
-                            "fg": [
-                              0.98,
-                              0.98,
-                              0.98,
-                              1
-                            ],
-                            "radius": 0,
-                            "borderWidth": 0,
-                            "borderColor": [
-                              0.98,
-                              0.98,
-                              0.98,
-                              1
-                            ],
-                            "shadow": null,
-                            "fontSize": 16,
-                            "lineHeightPct": 0,
-                            "weight": 400,
-                            "letterSpacing": -0.16,
-                            "isText": false,
-                            "textFill": true,
-                            "wx": "HUG",
-                            "wy": "슬롯",
-                            "hy": "선언",
-                            "hx": "FIX",
-                            "minW": 0,
-                            "minH": 0,
-                            "maxW": 0,
-                            "children": [],
-                            "ci": 0
-                          }
-                        ],
-                        "ci": 0
-                      }
-                    ],
-                    "ci": 6
-                  }
-                ],
-                "ci": 0
-              }
-            ]
-          }
-        },
-        {
-          "id": "gnb-sidebar/createCompoundRow",
-          "label": "사이드바 만들기 복합 항목 — 메뉴 줄(「+」는 제품 658ece13 에서 걷혔다)",
-          "jsx": "Gnb.tsx:4717-4749",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "menuLink",
-            "slot": false,
-            "text": "",
-            "w": 256,
-            "h": 32,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              4,
-              0,
-              8
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "flex-start",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.647,
-              0.659,
-              0.678,
-              1
-            ],
-            "radius": 10,
-            "borderWidth": 0,
-            "borderColor": [
-              0.647,
-              0.659,
-              0.678,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": false,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "선언",
-            "hx": "FIX",
-            "minW": 0,
-            "minH": 32,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "menuSidebarCreateNavPart",
-                "slot": false,
-                "text": "",
-                "w": 244,
-                "h": 32,
-                "abs": false,
-                "x": 8,
-                "y": 0,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "flex-start",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 500,
-                "letterSpacing": 0,
-                "isText": false,
-                "textFill": false,
-                "wx": "FILL",
-                "wy": "선언(채움)",
-                "hy": "선언",
-                "hx": "FIX",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "menuLinkInner",
-                    "slot": false,
-                    "text": "",
-                    "w": 244,
-                    "h": 21,
-                    "abs": false,
-                    "x": 0,
-                    "y": 5.5,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 10,
-                    "gaps": [],
-                    "dir": "H",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 14,
-                    "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": 0,
-                    "isText": false,
-                    "textFill": false,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [
-                      {
-                        "part": "menuLinkIconMask",
-                        "slot": false,
-                        "text": "",
-                        "w": 20,
-                        "h": 20,
-                        "abs": false,
-                        "x": 0,
-                        "y": 0.5,
-                        "pad": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "inset": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gap": 0,
-                        "gaps": [],
-                        "dir": "V",
-                        "justify": "normal",
-                        "align": "stretch",
-                        "bg": [
-                          0.647,
-                          0.659,
-                          0.678,
-                          1
-                        ],
-                        "gradient": null,
-                        "fg": [
-                          0.647,
-                          0.659,
-                          0.678,
-                          1
-                        ],
-                        "radius": 0,
-                        "borderWidth": 0,
-                        "borderColor": [
-                          0.647,
-                          0.659,
-                          0.678,
-                          1
-                        ],
-                        "shadow": null,
-                        "fontSize": 14,
-                        "lineHeightPct": 150,
-                        "weight": 500,
-                        "letterSpacing": 0,
-                        "isText": false,
-                        "textFill": true,
-                        "wx": "FIX",
-                        "wy": "빈칸",
-                        "hy": "빈칸",
-                        "hx": "FIX",
-                        "minW": 0,
-                        "minH": 0,
-                        "maxW": 0,
-                        "children": [],
-                        "ci": 0.5
-                      },
-                      {
-                        "part": "menuLinkLabel",
-                        "slot": false,
-                        "text": "노드 캔버스",
-                        "w": 63.92,
-                        "h": 21,
-                        "abs": false,
-                        "x": 30,
-                        "y": 0,
-                        "pad": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "inset": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gap": 0,
-                        "gaps": [],
-                        "dir": "V",
-                        "justify": "normal",
-                        "align": "stretch",
-                        "bg": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gradient": null,
-                        "fg": [
-                          0.647,
-                          0.659,
-                          0.678,
-                          1
-                        ],
-                        "radius": 0,
-                        "borderWidth": 0,
-                        "borderColor": [
-                          0.647,
-                          0.659,
-                          0.678,
-                          1
-                        ],
-                        "shadow": null,
-                        "fontSize": 14,
-                        "lineHeightPct": 150,
-                        "weight": 500,
-                        "letterSpacing": 0,
-                        "isText": true,
-                        "textFill": true,
-                        "wx": "HUG",
-                        "wy": "주축",
-                        "hy": "내용",
-                        "hx": "HUG",
-                        "minW": 0,
-                        "minH": 0,
-                        "maxW": 220,
-                        "children": [],
-                        "ci": 0
-                      }
-                    ],
-                    "ci": 5.5
-                  }
-                ],
-                "ci": 0
-              }
-            ]
-          }
-        },
-        {
-          "id": "gnb-sidebar/menuLinkRow",
-          "label": "사이드바 메뉴 항목 한 줄 — 아이콘·라벨 (쉬는 상태)",
-          "jsx": "Gnb.tsx:4798-4834",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "menuLink",
-            "slot": false,
-            "text": "",
-            "w": 256,
-            "h": 32,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              4,
-              0,
-              8
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "H",
-            "justify": "flex-start",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.647,
-              0.659,
-              0.678,
-              1
-            ],
-            "radius": 10,
-            "borderWidth": 0,
-            "borderColor": [
-              0.647,
-              0.659,
-              0.678,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 14,
-            "lineHeightPct": 150,
-            "weight": 500,
-            "letterSpacing": -0.14,
-            "isText": false,
-            "textFill": false,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "선언",
-            "hx": "FIX",
-            "minW": 0,
-            "minH": 32,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "menuLinkInner",
-                "slot": false,
-                "text": "",
-                "w": 244,
-                "h": 21,
-                "abs": false,
-                "x": 8,
-                "y": 5.5,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 10,
-                "gaps": [],
-                "dir": "H",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.647,
-                  0.659,
-                  0.678,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 14,
-                "lineHeightPct": 150,
-                "weight": 500,
-                "letterSpacing": -0.14,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "menuLinkIconMask",
-                    "slot": false,
-                    "text": "",
-                    "w": 20,
-                    "h": 20,
-                    "abs": false,
-                    "x": 0,
-                    "y": 0.5,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 14,
-                    "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": -0.14,
-                    "isText": false,
-                    "textFill": true,
-                    "wx": "FIX",
-                    "wy": "빈칸",
-                    "hy": "빈칸",
-                    "hx": "FIX",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [],
-                    "ci": 0.5
-                  },
-                  {
-                    "part": "menuLinkLabel",
-                    "slot": false,
-                    "text": "홈",
-                    "w": 11.97,
-                    "h": 21,
-                    "abs": false,
-                    "x": 30,
-                    "y": 0,
-                    "pad": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.647,
-                      0.659,
-                      0.678,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 14,
-                    "lineHeightPct": 150,
-                    "weight": 500,
-                    "letterSpacing": -0.14,
-                    "isText": true,
-                    "textFill": true,
-                    "wx": "HUG",
-                    "wy": "주축",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 220,
-                    "children": [],
-                    "ci": 0
-                  }
-                ],
-                "ci": 5.5
-              }
-            ]
-          }
-        },
-        {
-          "id": "gnb-sidebar/profileTrigger",
-          "label": "프로필 트리거 — 크레딧 링을 두른 아바타 버튼",
-          "jsx": "Gnb.tsx:5302-5327",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "profileTrigger",
-            "slot": false,
-            "text": "",
-            "w": 32,
-            "h": 32,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "center",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              1,
-              1,
-              1,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              1,
-              1,
-              1,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 0,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": 0,
-            "isText": false,
-            "textFill": true,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "선언",
-            "hx": "FIX",
-            "minW": 32,
-            "minH": 32,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "profileImage",
-                "slot": false,
-                "text": "",
-                "w": 24,
-                "h": 24,
-                "abs": false,
-                "x": 4,
-                "y": 4,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "H",
-                "justify": "center",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.545,
-                  0.557,
-                  0.576,
-                  1
-                ],
-                "radius": 999,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.545,
-                  0.557,
-                  0.576,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 0,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": 0,
-                "isText": false,
-                "textFill": false,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "선언",
-                "hx": "FIX",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [],
-                "ci": 4
-              }
-            ]
-          }
-        },
-        {
-          "id": "gnb-sidebar/rail",
-          "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
-          "jsx": "Gnb.tsx:4456-4842",
-          "hosted": true,
-          "hostNone": "",
-          "tree": {
-            "part": "menuSidebarOuter",
-            "slot": false,
-            "text": "",
-            "w": 256,
-            "h": 34,
-            "abs": false,
-            "x": 0,
-            "y": 0,
-            "pad": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "inset": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gap": 0,
-            "gaps": [],
-            "dir": "V",
-            "justify": "normal",
-            "align": "stretch",
-            "bg": [
-              0,
-              0,
-              0,
-              0
-            ],
-            "gradient": null,
-            "fg": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "radius": 0,
-            "borderWidth": 0,
-            "borderColor": [
-              0.98,
-              0.98,
-              0.98,
-              1
-            ],
-            "shadow": null,
-            "fontSize": 16,
-            "lineHeightPct": 150,
-            "weight": 400,
-            "letterSpacing": -0.16,
-            "isText": false,
-            "textFill": true,
-            "wx": "FIX",
-            "wy": "선언",
-            "hy": "내용",
-            "hx": "HUG",
-            "minW": 0,
-            "minH": 0,
-            "maxW": 0,
-            "children": [
-              {
-                "part": "menuSidebar",
-                "slot": false,
-                "text": "",
-                "w": 256,
-                "h": 34,
-                "abs": false,
-                "x": 0,
-                "y": 0,
-                "pad": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "inset": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gap": 0,
-                "gaps": [],
-                "dir": "V",
-                "justify": "normal",
-                "align": "stretch",
-                "bg": [
-                  0,
-                  0,
-                  0,
-                  0
-                ],
-                "gradient": null,
-                "fg": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "radius": 0,
-                "borderWidth": 0,
-                "borderColor": [
-                  0.98,
-                  0.98,
-                  0.98,
-                  1
-                ],
-                "shadow": null,
-                "fontSize": 16,
-                "lineHeightPct": 150,
-                "weight": 400,
-                "letterSpacing": -0.16,
-                "isText": false,
-                "textFill": true,
-                "wx": "FIX",
-                "wy": "선언",
-                "hy": "내용",
-                "hx": "HUG",
-                "minW": 0,
-                "minH": 0,
-                "maxW": 0,
-                "children": [
-                  {
-                    "part": "menuSidebarEyebrowRow",
-                    "slot": false,
-                    "text": "",
-                    "w": 256,
-                    "h": 34,
-                    "abs": false,
-                    "x": 0,
-                    "y": 0,
-                    "pad": [
-                      12,
-                      0,
-                      4,
-                      0
-                    ],
-                    "inset": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gap": 0,
-                    "gaps": [],
-                    "dir": "V",
-                    "justify": "normal",
-                    "align": "stretch",
-                    "bg": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ],
-                    "gradient": null,
-                    "fg": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "radius": 0,
-                    "borderWidth": 0,
-                    "borderColor": [
-                      0.98,
-                      0.98,
-                      0.98,
-                      1
-                    ],
-                    "shadow": null,
-                    "fontSize": 16,
-                    "lineHeightPct": 150,
-                    "weight": 400,
-                    "letterSpacing": -0.16,
-                    "isText": false,
-                    "textFill": true,
-                    "wx": "FIX",
-                    "wy": "선언",
-                    "hy": "내용",
-                    "hx": "HUG",
-                    "minW": 0,
-                    "minH": 0,
-                    "maxW": 0,
-                    "children": [
-                      {
-                        "part": "menuSidebarEyebrow",
-                        "slot": false,
-                        "text": "분석",
-                        "w": 256,
-                        "h": 18,
-                        "abs": false,
-                        "x": 0,
-                        "y": 12,
-                        "pad": [
-                          0,
-                          0,
-                          0,
-                          4
-                        ],
-                        "inset": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gap": 0,
-                        "gaps": [],
-                        "dir": "V",
-                        "justify": "normal",
-                        "align": "stretch",
-                        "bg": [
-                          0,
-                          0,
-                          0,
-                          0
-                        ],
-                        "gradient": null,
-                        "fg": [
-                          0.545,
-                          0.557,
-                          0.576,
-                          1
-                        ],
-                        "radius": 0,
-                        "borderWidth": 0,
-                        "borderColor": [
-                          0.545,
-                          0.557,
-                          0.576,
-                          1
-                        ],
-                        "shadow": null,
-                        "fontSize": 12,
-                        "lineHeightPct": 150,
-                        "weight": 500,
-                        "letterSpacing": -0.12,
-                        "isText": true,
-                        "textFill": true,
-                        "wx": "FILL",
-                        "wy": "교차축",
-                        "hy": "내용",
-                        "hx": "HUG",
-                        "minW": 0,
-                        "minH": 0,
-                        "maxW": 0,
-                        "children": [],
-                        "ci": 0
-                      }
-                    ],
-                    "ci": 0
-                  }
-                ],
-                "ci": 0
               }
             ]
           }
@@ -6386,6 +5056,1071 @@
                 "maxW": 0,
                 "children": [],
                 "ci": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "gnb-sidebar",
+      "label": "GNB 사이드바",
+      "count": 4,
+      "specimens": [
+        {
+          "id": "gnb-sidebar/brandRow",
+          "label": "사이드바 브랜드 행 — 로고 히트 영역",
+          "jsx": "Gnb.tsx:4368-4414",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "sidebarHeaderRow",
+            "slot": false,
+            "text": "",
+            "w": 216,
+            "h": 40,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              0,
+              0,
+              4
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "flex-start",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              0.98,
+              0.98,
+              0.98,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 16,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": -0.16,
+            "isText": false,
+            "textFill": false,
+            "wx": "FIX",
+            "wy": "선언",
+            "hy": "내용",
+            "hx": "HUG",
+            "minW": 0,
+            "minH": 40,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "sidebarLogoHit",
+                "slot": false,
+                "text": "",
+                "w": 212,
+                "h": 40,
+                "abs": false,
+                "x": 4,
+                "y": 0,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "H",
+                "justify": "flex-start",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.98,
+                  0.98,
+                  0.98,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 16,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": -0.16,
+                "isText": false,
+                "textFill": false,
+                "wx": "FIX",
+                "wy": "선언",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 40,
+                "maxW": 0,
+                "children": [
+                  {
+                    "part": "sidebarLogoRail",
+                    "slot": false,
+                    "text": "",
+                    "w": 212,
+                    "h": 28,
+                    "abs": false,
+                    "x": 0,
+                    "y": 6,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "H",
+                    "justify": "flex-start",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.98,
+                      0.98,
+                      0.98,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 16,
+                    "lineHeightPct": 0,
+                    "weight": 400,
+                    "letterSpacing": -0.16,
+                    "isText": false,
+                    "textFill": false,
+                    "wx": "FIX",
+                    "wy": "선언",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 28,
+                    "maxW": 0,
+                    "children": [
+                      {
+                        "part": "sidebarBrandCrop",
+                        "slot": false,
+                        "text": "",
+                        "w": 212,
+                        "h": 28,
+                        "abs": false,
+                        "x": 0,
+                        "y": 0,
+                        "pad": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "inset": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gap": 0,
+                        "gaps": [],
+                        "dir": "H",
+                        "justify": "normal",
+                        "align": "stretch",
+                        "bg": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gradient": null,
+                        "fg": [
+                          0.98,
+                          0.98,
+                          0.98,
+                          1
+                        ],
+                        "radius": 0,
+                        "borderWidth": 0,
+                        "borderColor": [
+                          0.98,
+                          0.98,
+                          0.98,
+                          1
+                        ],
+                        "shadow": null,
+                        "fontSize": 16,
+                        "lineHeightPct": 0,
+                        "weight": 400,
+                        "letterSpacing": -0.16,
+                        "isText": false,
+                        "textFill": false,
+                        "wx": "FIX",
+                        "wy": "선언",
+                        "hy": "내용",
+                        "hx": "HUG",
+                        "minW": 0,
+                        "minH": 0,
+                        "maxW": 0,
+                        "children": [
+                          {
+                            "part": "logo",
+                            "slot": true,
+                            "text": "",
+                            "w": 0,
+                            "h": 28,
+                            "abs": false,
+                            "x": 0,
+                            "y": 0,
+                            "pad": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "inset": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gap": 0,
+                            "gaps": [],
+                            "dir": "V",
+                            "justify": "normal",
+                            "align": "stretch",
+                            "bg": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "gradient": null,
+                            "fg": [
+                              0.98,
+                              0.98,
+                              0.98,
+                              1
+                            ],
+                            "radius": 0,
+                            "borderWidth": 0,
+                            "borderColor": [
+                              0.98,
+                              0.98,
+                              0.98,
+                              1
+                            ],
+                            "shadow": null,
+                            "fontSize": 16,
+                            "lineHeightPct": 0,
+                            "weight": 400,
+                            "letterSpacing": -0.16,
+                            "isText": false,
+                            "textFill": true,
+                            "wx": "HUG",
+                            "wy": "슬롯",
+                            "hy": "선언",
+                            "hx": "FIX",
+                            "minW": 0,
+                            "minH": 0,
+                            "maxW": 0,
+                            "children": [],
+                            "ci": 0
+                          }
+                        ],
+                        "ci": 0
+                      }
+                    ],
+                    "ci": 6
+                  }
+                ],
+                "ci": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "gnb-sidebar/createCompoundRow",
+          "label": "사이드바 만들기 복합 항목 — 메뉴 줄(「+」는 제품 658ece13 에서 걷혔다)",
+          "jsx": "Gnb.tsx:4717-4749",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "menuLink",
+            "slot": false,
+            "text": "",
+            "w": 216,
+            "h": 32,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              4,
+              0,
+              8
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "flex-start",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "radius": 10,
+            "borderWidth": 0,
+            "borderColor": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 14,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.14,
+            "isText": false,
+            "textFill": false,
+            "wx": "FIX",
+            "wy": "선언",
+            "hy": "선언",
+            "hx": "FIX",
+            "minW": 0,
+            "minH": 32,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "menuSidebarCreateNavPart",
+                "slot": false,
+                "text": "",
+                "w": 204,
+                "h": 32,
+                "abs": false,
+                "x": 8,
+                "y": 0,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "H",
+                "justify": "flex-start",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 500,
+                "letterSpacing": 0,
+                "isText": false,
+                "textFill": false,
+                "wx": "FILL",
+                "wy": "선언(채움)",
+                "hy": "선언",
+                "hx": "FIX",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [
+                  {
+                    "part": "menuLinkInner",
+                    "slot": false,
+                    "text": "",
+                    "w": 204,
+                    "h": 21,
+                    "abs": false,
+                    "x": 0,
+                    "y": 5.5,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 10,
+                    "gaps": [],
+                    "dir": "H",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 14,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": 0,
+                    "isText": false,
+                    "textFill": false,
+                    "wx": "FIX",
+                    "wy": "선언",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [
+                      {
+                        "part": "menuLinkIconMask",
+                        "slot": false,
+                        "text": "",
+                        "w": 20,
+                        "h": 20,
+                        "abs": false,
+                        "x": 0,
+                        "y": 0.5,
+                        "pad": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "inset": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gap": 0,
+                        "gaps": [],
+                        "dir": "V",
+                        "justify": "normal",
+                        "align": "stretch",
+                        "bg": [
+                          0.647,
+                          0.659,
+                          0.678,
+                          1
+                        ],
+                        "gradient": null,
+                        "fg": [
+                          0.647,
+                          0.659,
+                          0.678,
+                          1
+                        ],
+                        "radius": 0,
+                        "borderWidth": 0,
+                        "borderColor": [
+                          0.647,
+                          0.659,
+                          0.678,
+                          1
+                        ],
+                        "shadow": null,
+                        "fontSize": 14,
+                        "lineHeightPct": 150,
+                        "weight": 500,
+                        "letterSpacing": 0,
+                        "isText": false,
+                        "textFill": true,
+                        "wx": "FIX",
+                        "wy": "빈칸",
+                        "hy": "빈칸",
+                        "hx": "FIX",
+                        "minW": 0,
+                        "minH": 0,
+                        "maxW": 0,
+                        "children": [],
+                        "ci": 0.5
+                      },
+                      {
+                        "part": "menuLinkLabel",
+                        "slot": false,
+                        "text": "노드 캔버스",
+                        "w": 63.92,
+                        "h": 21,
+                        "abs": false,
+                        "x": 30,
+                        "y": 0,
+                        "pad": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "inset": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gap": 0,
+                        "gaps": [],
+                        "dir": "V",
+                        "justify": "normal",
+                        "align": "stretch",
+                        "bg": [
+                          0,
+                          0,
+                          0,
+                          0
+                        ],
+                        "gradient": null,
+                        "fg": [
+                          0.647,
+                          0.659,
+                          0.678,
+                          1
+                        ],
+                        "radius": 0,
+                        "borderWidth": 0,
+                        "borderColor": [
+                          0.647,
+                          0.659,
+                          0.678,
+                          1
+                        ],
+                        "shadow": null,
+                        "fontSize": 14,
+                        "lineHeightPct": 150,
+                        "weight": 500,
+                        "letterSpacing": 0,
+                        "isText": true,
+                        "textFill": true,
+                        "wx": "HUG",
+                        "wy": "주축",
+                        "hy": "내용",
+                        "hx": "HUG",
+                        "minW": 0,
+                        "minH": 0,
+                        "maxW": 220,
+                        "children": [],
+                        "ci": 0
+                      }
+                    ],
+                    "ci": 5.5
+                  }
+                ],
+                "ci": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "gnb-sidebar/menuLinkRow",
+          "label": "사이드바 메뉴 항목 한 줄 — 아이콘·라벨 (쉬는 상태)",
+          "jsx": "Gnb.tsx:4798-4834",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "menuLink",
+            "slot": false,
+            "text": "",
+            "w": 216,
+            "h": 32,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              4,
+              0,
+              8
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "H",
+            "justify": "flex-start",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "radius": 10,
+            "borderWidth": 0,
+            "borderColor": [
+              0.647,
+              0.659,
+              0.678,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 14,
+            "lineHeightPct": 150,
+            "weight": 500,
+            "letterSpacing": -0.14,
+            "isText": false,
+            "textFill": false,
+            "wx": "FIX",
+            "wy": "선언",
+            "hy": "선언",
+            "hx": "FIX",
+            "minW": 0,
+            "minH": 32,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "menuLinkInner",
+                "slot": false,
+                "text": "",
+                "w": 204,
+                "h": 21,
+                "abs": false,
+                "x": 8,
+                "y": 5.5,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 10,
+                "gaps": [],
+                "dir": "H",
+                "justify": "normal",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
+                ],
+                "radius": 0,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.647,
+                  0.659,
+                  0.678,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 14,
+                "lineHeightPct": 150,
+                "weight": 500,
+                "letterSpacing": -0.14,
+                "isText": false,
+                "textFill": false,
+                "wx": "FIX",
+                "wy": "선언",
+                "hy": "내용",
+                "hx": "HUG",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [
+                  {
+                    "part": "menuLinkIconMask",
+                    "slot": false,
+                    "text": "",
+                    "w": 20,
+                    "h": 20,
+                    "abs": false,
+                    "x": 0,
+                    "y": 0.5,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 14,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.14,
+                    "isText": false,
+                    "textFill": true,
+                    "wx": "FIX",
+                    "wy": "빈칸",
+                    "hy": "빈칸",
+                    "hx": "FIX",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 0,
+                    "children": [],
+                    "ci": 0.5
+                  },
+                  {
+                    "part": "menuLinkLabel",
+                    "slot": false,
+                    "text": "홈",
+                    "w": 11.97,
+                    "h": 21,
+                    "abs": false,
+                    "x": 30,
+                    "y": 0,
+                    "pad": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "inset": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gap": 0,
+                    "gaps": [],
+                    "dir": "V",
+                    "justify": "normal",
+                    "align": "stretch",
+                    "bg": [
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "gradient": null,
+                    "fg": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "radius": 0,
+                    "borderWidth": 0,
+                    "borderColor": [
+                      0.647,
+                      0.659,
+                      0.678,
+                      1
+                    ],
+                    "shadow": null,
+                    "fontSize": 14,
+                    "lineHeightPct": 150,
+                    "weight": 500,
+                    "letterSpacing": -0.14,
+                    "isText": true,
+                    "textFill": true,
+                    "wx": "HUG",
+                    "wy": "주축",
+                    "hy": "내용",
+                    "hx": "HUG",
+                    "minW": 0,
+                    "minH": 0,
+                    "maxW": 220,
+                    "children": [],
+                    "ci": 0
+                  }
+                ],
+                "ci": 5.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "gnb-sidebar/profileTrigger",
+          "label": "프로필 트리거 — 크레딧 링을 두른 아바타 버튼",
+          "jsx": "Gnb.tsx:5302-5327",
+          "hosted": true,
+          "hostNone": "",
+          "tree": {
+            "part": "profileTrigger",
+            "slot": false,
+            "text": "",
+            "w": 32,
+            "h": 32,
+            "abs": false,
+            "x": 0,
+            "y": 0,
+            "pad": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "inset": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gap": 0,
+            "gaps": [],
+            "dir": "V",
+            "justify": "center",
+            "align": "stretch",
+            "bg": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "gradient": null,
+            "fg": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "radius": 0,
+            "borderWidth": 0,
+            "borderColor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "shadow": null,
+            "fontSize": 0,
+            "lineHeightPct": 150,
+            "weight": 400,
+            "letterSpacing": 0,
+            "isText": false,
+            "textFill": true,
+            "wx": "FIX",
+            "wy": "선언",
+            "hy": "선언",
+            "hx": "FIX",
+            "minW": 32,
+            "minH": 32,
+            "maxW": 0,
+            "children": [
+              {
+                "part": "profileImage",
+                "slot": false,
+                "text": "",
+                "w": 24,
+                "h": 24,
+                "abs": false,
+                "x": 4,
+                "y": 4,
+                "pad": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "inset": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gap": 0,
+                "gaps": [],
+                "dir": "H",
+                "justify": "center",
+                "align": "stretch",
+                "bg": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "gradient": null,
+                "fg": [
+                  0.545,
+                  0.557,
+                  0.576,
+                  1
+                ],
+                "radius": 999,
+                "borderWidth": 0,
+                "borderColor": [
+                  0.545,
+                  0.557,
+                  0.576,
+                  1
+                ],
+                "shadow": null,
+                "fontSize": 0,
+                "lineHeightPct": 150,
+                "weight": 400,
+                "letterSpacing": 0,
+                "isText": false,
+                "textFill": false,
+                "wx": "FIX",
+                "wy": "선언",
+                "hy": "선언",
+                "hx": "FIX",
+                "minW": 0,
+                "minH": 0,
+                "maxW": 0,
+                "children": [],
+                "ci": 4
               }
             ]
           }

@@ -124,11 +124,20 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-11c231002ba4(79, body.1, success 짝)     → subtree-dbfe1829e8a7
 //   subtree-ea6c9f0dfd59(25, body.1.0.0.1, fail)     → subtree-1ae30fbe2788
 //   subtree-f034cc084ea1(21, body.1.0.0.1, success)  → subtree-ffbed6e9546f
+// 2026-09-15 재고정(6f6282c1 → 2c6bdacf). 두 가지가 한꺼번에 올라왔다 — 사이드바 「분석」 아이브로우 li · span 이 걷혀(제품
+// `2c6bdacf`) 사이드바를 품는 페이지 루트 둘이 −2(83 → 81 · 79 → 77, roots 의 rect 는 페이지 1920×1080 이라 그대로), 레일이
+// 280 → 240 으로 줄어(`bc3e6fa3`) main 카드 둘의 rect 가 x 280 → 240 · 폭 1632 → 1672 로 넓어졌다(노드 수 그대로). 넷 다
+// routeCount 2 · roots 의 route · path · tag 는 옛 fixture(HEAD)와 바이트 동일하다. 모바일 넷은 id 까지 그대로다(모바일 서랍은 닫힌
+// 상태로 재어 트리에 오르지 않는다):
+//   subtree-089233c2f2ee(83, body.1, fail 짝)        → subtree-848f5c9d9c56(81)
+//   subtree-dbfe1829e8a7(79, body.1, success 짝)     → subtree-aee6939b662f(77)
+//   subtree-1ae30fbe2788(25, body.1.0.0.1, fail)     → subtree-d5d4fe4d8a34
+//   subtree-ffbed6e9546f(21, body.1.0.0.1, success)  → subtree-8728712c4402
 const candidateContracts = [
-  ["subtree-089233c2f2ee", 83, 2],
-  ["subtree-dbfe1829e8a7", 79, 2],
-  ["subtree-1ae30fbe2788", 25, 2],
-  ["subtree-ffbed6e9546f", 21, 2],
+  ["subtree-848f5c9d9c56", 81, 2],
+  ["subtree-aee6939b662f", 77, 2],
+  ["subtree-d5d4fe4d8a34", 25, 2],
+  ["subtree-8728712c4402", 21, 2],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -332,15 +341,15 @@ const roles = live.colorRoles({
   roles: {
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 53, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 53, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

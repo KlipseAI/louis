@@ -140,15 +140,15 @@ const roles = live.colorRoles({
   theme: themes[0],
   where: "sidebar-states",
   roles: {
-    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 592, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
-    gray000: { name: "color/gray/000", declared: [quote.product(GNB, 598, '    "[color:var(--gray-000)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 2000, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 2001, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
+    gray300: { name: "color/gray/300", declared: [quote.product(GNB, 573, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
+    gray000: { name: "color/gray/000", declared: [quote.product(GNB, 579, '    "[color:var(--gray-000)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1965, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1966, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
     // 편집기 상단 바 아래 선은 제품이 **선언한** 칠이지만 이 측정(`desktop-1920x1080-dark` 사이드바 상태)이 재지 않는 자리다 —
     // 주석 잉크(문서 프레임)와 다른 종류라 선언 인용을 붙이고 `unmeasured` 로 둔다(측정 대조 없음, `exact: null`).
     topBarDivider: {
       name: "color/stroke-hairline",
-      declared: [quote.product(GNB, 497, '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",')],
+      declared: [quote.product(GNB, 478, '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",')],
       unmeasured: "editor top bar bottom line — not measured by this fixture (creation-only path); the same token the app-shell plan binds",
     },
   },
@@ -193,14 +193,14 @@ const plan = {
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을
     // `.louis-app-top-bar__leading { gap: var(--louis-space-control-xs) }`(app-shell.css:154-156)이
     // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 319, '    "louis-app-top-bar__leading",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 483, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 300, '    "louis-app-top-bar__leading",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 464, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
     sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1105, '        <path'),
     sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1106, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1986, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1987, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2026, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 2027, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1951, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1952, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1991, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1992, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",

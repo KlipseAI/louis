@@ -347,15 +347,15 @@ const roles = live.colorRoles({
     },
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

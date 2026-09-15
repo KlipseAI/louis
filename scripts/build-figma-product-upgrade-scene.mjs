@@ -678,9 +678,9 @@ const plan = {
     theme: "light",
     where: "upgrade-scene",
     roles: {
-      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 791, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
-      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1068, "    --app-page-bg: var(--louis-color-bg-surface);")] },
-      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 110, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 792, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
+      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
+      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")] },
+      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 110, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
       gray000: {
         name: "color/gray/000",
         declared: [quote.product(PRICING, 125, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 360, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],

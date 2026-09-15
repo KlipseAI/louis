@@ -178,30 +178,32 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // 1452 → 1452).
 // 6f6282c1 에서 값 하나와 줄 셋이 움직였다. `[--profile-avatar-size:28px]` 가 `24px` 가 됐고, 바로 위에
 // 세 줄짜리 주석(「프로필 버튼 크기는 여기 한 곳이 정한다」)이 붙어 블록이 +3 밀렸다(1467 → 1470).
+// 2c6bdacf 에서 줄만 −37 밀렸다(1470 → 1433) — 위쪽 스타일 표에서 어드민 아이콘 사본(`customSidebarIconMask`) · 사이드바와
+// 모바일 「분석」 아이브로우 상수가 걷히고 아이콘 슬롯 주석이 늘었다. 이 파일의 Gnb.tsx 인용 문자열은 모두 글자 그대로이고 줄만 옮겼다.
 // 나머지 문자열 다섯은 글자 그대로다.
 const ringSourceLines = [
-  [1470, '    "[--profile-avatar-size:24px]",'],
-  [1473, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1474, '    "[--profile-ring-gap:2px]",'],
-  [1475, '    "[--profile-ring-width:2px]",'],
-  [1502, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1504, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1433, '    "[--profile-avatar-size:24px]",'],
+  [1436, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1437, '    "[--profile-ring-gap:2px]",'],
+  [1438, '    "[--profile-ring-width:2px]",'],
+  [1465, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1467, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // 버튼 한 변이 식이라는 선언 셋 — `--profile-ring-size` calc 와 그것을 폭·높이로 쓰는 두 줄.
 const profileSizeSourceLines = [
-  [1476, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
-  [1478, '    "[width:var(--profile-ring-size)]",'],
-  [1479, '    "[height:var(--profile-ring-size)]",'],
+  [1439, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
+  [1441, '    "[width:var(--profile-ring-size)]",'],
+  [1442, '    "[height:var(--profile-ring-size)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
-// **앞머리 컨트롤 한 변도 선언이다.** `mainChromeSidebarToggle`(Gnb.tsx:378) 의 `[width:32px]` ·
-// `[height:32px]`. 두 문자열은 파일에 네 번씩 나오므로 블록 머리(:378–379)를 함께 인용해 자리를 고정한다.
+// **앞머리 컨트롤 한 변도 선언이다.** `mainChromeSidebarToggle`(Gnb.tsx:359) 의 `[width:32px]` ·
+// `[height:32px]`. 두 문자열은 파일에 네 번씩 나오므로 블록 머리(:359–360)를 함께 인용해 자리를 고정한다.
 // 뒤로가기 버튼은 화면마다 다른 상수(`CHROME_BACK_BUTTON` · `HIGHLIGHT_BACK_BUTTON`)가 크기를 쥐므로
 // 선언을 여기 다시 옮기지 않고, 측정 크기가 토글과 같은지만 본다(`barSpec`).
 const toggleSourceLines = [
-  [378, "  mainChromeSidebarToggle: ["],
-  [379, '    "gnb-mainChromeSidebarToggle",'],
-  [385, '    "[width:32px]",'],
-  [386, '    "[height:32px]",'],
+  [359, "  mainChromeSidebarToggle: ["],
+  [360, '    "gnb-mainChromeSidebarToggle",'],
+  [366, '    "[width:32px]",'],
+  [367, '    "[height:32px]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 
 // **프로필 크기는 리터럴이 아니라 제품 선언에서 읽는다(2026-09-14).** 이 가드는 전에 `32` · `24`
@@ -220,11 +222,11 @@ const DECLARED_PROFILE = (() => {
   const width = declaredPx(ringSourceLines[3], "--profile-ring-width");
   return { avatar, gap, width, ringSize: avatar + (gap + width) * 2 };
 })();
-// 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5282–5284 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
+// 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5252–5254 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
 const toggleSvgSourceLines = [
-  [5282, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
-  [5283, "                      width={20}"],
-  [5284, "                      height={20}"],
+  [5252, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
+  [5253, "                      width={20}"],
+  [5254, "                      height={20}"],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 const DECLARED_TOGGLE_SVG = (() => {
   const [width, height] = [toggleSvgSourceLines[1], toggleSvgSourceLines[2]].map((entry) => Number(/=\{(\d+)\}/.exec(entry.quote)?.[1]));
@@ -528,12 +530,22 @@ const desktopCandidateContracts = [
   //   subtree-be0ca032e800(17/3) → subtree-8a6691461153
   //   subtree-0733666e63fc(16/3) → subtree-8ac04d3f1453
   //   subtree-a36ea3231cff(5/3)  → subtree-8e576a12733a
+  //
+  // 6f6282c1 → 2c6bdacf(2026-09-15) 은 레일 폭이다 — 제품 `bc3e6fa3` 가 `--app-gnb-sidebar-width` 를 `min(280px, …)` 에서
+  // `min(240px, …)` 로 줄여 카드 안 바가 왼쪽으로 40 넓어졌다. 다섯 다 nodeCount/routeCount 와 roots 의 (route, path, tag) 가 옛
+  // fixture(HEAD)와 같고 rect 는 x −40 · 폭 +40 뿐이다(높이 · y 그대로). 프로필 묶음 6/18 은 오른쪽 끝에 붙어 있어 rect 까지 같아
+  // id 가 그대로다:
+  //   subtree-ba7cbd8a0ce2(15/4) → subtree-9650ff03cd07
+  //   subtree-fd281c1bcbbc(14/4) → subtree-bab0168c7bfe
+  //   subtree-8a6691461153(17/3) → subtree-ee83e5ff8b7f
+  //   subtree-8ac04d3f1453(16/3) → subtree-b92008e236c0
+  //   subtree-8e576a12733a(5/3)  → subtree-869dcbe1a654
   ["subtree-11bba9db9ef0", 6, 18],
-  ["subtree-ba7cbd8a0ce2", 15, 4],
-  ["subtree-fd281c1bcbbc", 14, 4],
-  ["subtree-8a6691461153", 17, 3],
-  ["subtree-8ac04d3f1453", 16, 3],
-  ["subtree-8e576a12733a", 5, 3],
+  ["subtree-9650ff03cd07", 15, 4],
+  ["subtree-bab0168c7bfe", 14, 4],
+  ["subtree-ee83e5ff8b7f", 17, 3],
+  ["subtree-b92008e236c0", 16, 3],
+  ["subtree-869dcbe1a654", 5, 3],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -675,7 +687,7 @@ const profileVisualConstants = {
 const dividerSources = [
   sourceQuote(
     "apps/web/components/navigation/Gnb.tsx",
-    497,
+    478,
     '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",',
   ),
   sourceQuote(
@@ -694,12 +706,12 @@ const bindingOf = (role) => ({ collection: FIGMA_COLOR_COLLECTION, name: FIGMA_C
 // **바의 Auto Layout 은 제품 선언이 정한다(2026-09-14).** 인용 여섯이 식의 출처다: 높이 하한을 끄고
 // (`min-block-size:0`) 세로 패딩 8 을 주는 바, 남는 폭을 차지하고(`flex:1`) 넘치면 말줄임하는 제목.
 const layoutSources = [
-  [460, '    "[min-block-size:0]",'],
-  [483, '    "[padding:8px_var(--mainchrome-pad-x)]",'],
-  [334, '    "louis-app-top-bar__title",'],
-  [336, '    "[flex:1]",'],
-  [366, '    "[overflow:hidden]",'],
-  [367, '    "[text-overflow:ellipsis]",'],
+  [441, '    "[min-block-size:0]",'],
+  [464, '    "[padding:8px_var(--mainchrome-pad-x)]",'],
+  [315, '    "louis-app-top-bar__title",'],
+  [317, '    "[flex:1]",'],
+  [347, '    "[overflow:hidden]",'],
+  [348, '    "[text-overflow:ellipsis]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // 세트 variant 가 지켜야 할 축. 렌더러가 적용 뒤 스스로 대조하고(`layoutViolations`), 라이브는
 // `figma-screens-live-check --sets` 가 같은 값을 읽어 대조한다 — 값을 세 곳에 따로 적지 않는다.
@@ -797,17 +809,17 @@ const plan = {
       modeCollection: FIGMA_COLOR_COLLECTION,
       mode: measuredMode,
       // 제품이 테마별 덮개 두 줄(`light → palette-gray-000` · `dark → palette-gray-800`)을 걷고
-      // `bg-surface` 하나를 읽는다(Gnb.tsx:489-495). fixture 는 light 문맥에서 쟀고, 측정 면
+      // `bg-surface` 하나를 읽는다(Gnb.tsx:470-476). fixture 는 light 문맥에서 쟀고, 측정 면
       // #fafafa 는 `Klipse Semantic Color[Light]/color/bg-surface → palette-gray/000` 과 값이
       // 같다. 라이브 세트가 물고 있던 `Klipse Primitive/color/palette-gray/800`(#2b2f36)도,
       // bg-surface 의 Dark 값(palette-gray/900 #171b22)도 측정과 다르다.
       surface: bindingOf("surface"),
       $surfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        489,
+        470,
         '    "[background:var(--louis-color-bg-surface)]",',
       ),
-      // 제품 `border-bottom … var(--louis-color-stroke-hairline)`(Gnb.tsx:497). 알파는 변수가 갖는다.
+      // 제품 `border-bottom … var(--louis-color-stroke-hairline)`(Gnb.tsx:478). 알파는 변수가 갖는다.
       divider: bindingOf("divider"),
       profile: bindingOf("profile"),
       profileRingTrack: bindingOf("profileRingTrack"),

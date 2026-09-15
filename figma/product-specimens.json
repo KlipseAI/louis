@@ -777,47 +777,6 @@
       ]
     },
     {
-      "id": "gnb-sidebar/rail",
-      "kind": "gnb-sidebar",
-      "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4456-4842",
-      "file": "apps/web/components/navigation/Gnb.tsx",
-      "node": {
-        "part": "menuSidebarOuter",
-        "tag": "div",
-        "children": [
-          {
-            "part": "menuSidebar",
-            "tag": "ul",
-            "children": [
-              {
-                "part": "menuSidebarEyebrowRow",
-                "tag": "li",
-                "children": [
-                  {
-                    "part": "menuSidebarEyebrow",
-                    "tag": "span",
-                    "typography": "type-caption-12-medium",
-                    "text": "분석"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/navigation/Gnb.tsx",
-          "part": "wrapperSidebar"
-        },
-        {
-          "file": "apps/web/components/navigation/Gnb.tsx",
-          "part": "navSidebar"
-        }
-      ]
-    },
-    {
       "id": "icon-button/archiveMore",
       "kind": "icon-button",
       "label": "앱 홈 카드 더보기 버튼",
@@ -3035,6 +2994,11 @@
       "id": "toast/adminSuccess",
       "retired": "2026-09-03",
       "reason": "어드민 토스트 세 상수(`TOAST`·`TOAST_SUCCESS`·`TOAST_ERROR`)가 `AdminClient.tsx` 에서 사라졌다. 그 자리는 공용 `AdminAlert`(`app/admin/AdminSection.tsx`)가 가져갔고, 그 표면은 앵커 재고정으로 `product.surfaces.json` 에 처음 들어와 판단 대기다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽는다."
+    },
+    {
+      "id": "gnb-sidebar/rail",
+      "retired": "2026-09-15",
+      "reason": "재던 것이 레일 안의 「분석」 아이브로우 행(`menuSidebarEyebrowRow` > `menuSidebarEyebrow`)뿐이었는데 제품 2c6bdacf 가 그 행과 두 상수를 걷었다(소유자 지정, `SIDEBAR_MENU_ROWS` 가 link 행만 싣는다). 옮겨 간 것이 아니라 없어진 부품이다. 레일 기둥(`menuSidebarOuter` · `menuSidebar`)은 `gnb-sidebar/menuLinkRow` · `createCompoundRow` 의 host 로 이미 선다 — 빈 `ul` 을 재면 제품에 없는 상자를 그린다."
     }
   ],
   "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다. 2026-09-03 앵커 재고정(ae8fd627 → 5a67d692)에서 셋이 더 내려갔다. 앞의 열여덟과 성격이 다르다 — 저것들은 **LOUIS 채택**으로 옮겨 간 자리이고, 이 셋은 제품이 그 UI 를 **다시 만든** 자리다(어드민 토스트 → AdminAlert · 크레딧 내역 리스트 → 표). 옮겨 간 것은 LOUIS 후크 탐침이 이어서 재지만, 다시 만든 것은 아무도 재지 않는다 — 새 구조를 JSX 에서 읽어 표본을 다시 세워야 열린다."

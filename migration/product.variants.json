@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "axes": [
     "height",
     "minHeight",
@@ -530,7 +530,7 @@
         "part": "exploreSoonChip",
         "parts": null,
         "tag": "span",
-        "line": 185,
+        "line": 166,
         "text": "BETA",
         "values": {
           "height": "24px",
@@ -1554,7 +1554,7 @@
         "part": "sidebarUpgradeButton",
         "parts": null,
         "tag": "button",
-        "line": 1973,
+        "line": 1938,
         "text": "",
         "values": {
           "height": "41px",
@@ -1602,7 +1602,7 @@
             "part": "sidebarUpgradeLabel",
             "parts": null,
             "tag": "span",
-            "line": 2020,
+            "line": 1985,
             "text": "보관함",
             "values": {
               "height": "21px",
@@ -3291,12 +3291,12 @@
         "part": "sidebarHeaderRow",
         "parts": null,
         "tag": "div",
-        "line": 1873,
+        "line": 1836,
         "text": "",
         "values": {
           "height": "40px",
           "minHeight": "40px",
-          "width": "256px",
+          "width": "216px",
           "minWidth": "auto",
           "maxWidth": "none",
           "paddingTop": "0px",
@@ -3329,7 +3329,7 @@
           "flexDirection": "row",
           "display": "flex",
           "position": "static",
-          "$width": 256,
+          "$width": 216,
           "$height": 40,
           "$x": 0,
           "$y": 0
@@ -3339,12 +3339,12 @@
             "part": "sidebarLogoHit",
             "parts": null,
             "tag": "a",
-            "line": 1884,
+            "line": 1847,
             "text": "",
             "values": {
               "height": "40px",
               "minHeight": "40px",
-              "width": "252px",
+              "width": "212px",
               "minWidth": "auto",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3377,7 +3377,7 @@
               "flexDirection": "row",
               "display": "flex",
               "position": "static",
-              "$width": 252,
+              "$width": 212,
               "$height": 40,
               "$x": 4,
               "$y": 0
@@ -3387,12 +3387,12 @@
                 "part": "sidebarLogoRail",
                 "parts": null,
                 "tag": "div",
-                "line": 1923,
+                "line": 1886,
                 "text": "",
                 "values": {
                   "height": "28px",
                   "minHeight": "28px",
-                  "width": "252px",
+                  "width": "212px",
                   "minWidth": "0px",
                   "maxWidth": "100%",
                   "paddingTop": "0px",
@@ -3425,7 +3425,7 @@
                   "flexDirection": "row",
                   "display": "flex",
                   "position": "static",
-                  "$width": 252,
+                  "$width": 212,
                   "$height": 28,
                   "$x": 0,
                   "$y": 6
@@ -3435,12 +3435,12 @@
                     "part": "sidebarBrandCrop",
                     "parts": null,
                     "tag": "div",
-                    "line": 1851,
+                    "line": 1814,
                     "text": "",
                     "values": {
                       "height": "28px",
                       "minHeight": "auto",
-                      "width": "252px",
+                      "width": "212px",
                       "minWidth": "0px",
                       "maxWidth": "100%",
                       "paddingTop": "0px",
@@ -3473,7 +3473,7 @@
                       "flexDirection": "row",
                       "display": "flex",
                       "position": "static",
-                      "$width": 252,
+                      "$width": 212,
                       "$height": 28,
                       "$x": 0,
                       "$y": 0
@@ -3483,7 +3483,7 @@
                         "part": "logo",
                         "parts": null,
                         "tag": "img",
-                        "line": 277,
+                        "line": 258,
                         "text": "",
                         "values": {
                           "height": "28px",
@@ -3547,12 +3547,12 @@
         "part": "menuLink",
         "parts": null,
         "tag": "div",
-        "line": 527,
+        "line": 508,
         "text": "",
         "values": {
           "height": "32px",
           "minHeight": "32px",
-          "width": "256px",
+          "width": "216px",
           "minWidth": "auto",
           "maxWidth": "none",
           "paddingTop": "0px",
@@ -3585,7 +3585,7 @@
           "flexDirection": "row",
           "display": "flex",
           "position": "static",
-          "$width": 256,
+          "$width": 216,
           "$height": 32,
           "$x": 0,
           "$y": 0
@@ -3595,12 +3595,12 @@
             "part": "menuSidebarCreateNavPart",
             "parts": null,
             "tag": "button",
-            "line": 815,
+            "line": 800,
             "text": "",
             "values": {
               "height": "32px",
               "minHeight": "auto",
-              "width": "244px",
+              "width": "204px",
               "minWidth": "0px",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3633,7 +3633,7 @@
               "flexDirection": "row",
               "display": "flex",
               "position": "static",
-              "$width": 244,
+              "$width": 204,
               "$height": 32,
               "$x": 8,
               "$y": 0
@@ -3643,12 +3643,12 @@
                 "part": "menuLinkInner",
                 "parts": null,
                 "tag": "span",
-                "line": 659,
+                "line": 644,
                 "text": "",
                 "values": {
                   "height": "21px",
                   "minHeight": "auto",
-                  "width": "244px",
+                  "width": "204px",
                   "minWidth": "0px",
                   "maxWidth": "none",
                   "paddingTop": "0px",
@@ -3681,7 +3681,7 @@
                   "flexDirection": "row",
                   "display": "flex",
                   "position": "static",
-                  "$width": 244,
+                  "$width": 204,
                   "$height": 21,
                   "$x": 0,
                   "$y": 5.5
@@ -3691,7 +3691,7 @@
                     "part": "menuLinkIconMask",
                     "parts": null,
                     "tag": "span",
-                    "line": 643,
+                    "line": 628,
                     "text": "",
                     "values": {
                       "height": "20px",
@@ -3740,7 +3740,7 @@
                     "part": "menuLinkLabel",
                     "parts": null,
                     "tag": "span",
-                    "line": 683,
+                    "line": 668,
                     "text": "노드 캔버스",
                     "values": {
                       "height": "21px",
@@ -3802,12 +3802,12 @@
         "part": "menuLink",
         "parts": null,
         "tag": "a",
-        "line": 527,
+        "line": 508,
         "text": "",
         "values": {
           "height": "32px",
           "minHeight": "32px",
-          "width": "256px",
+          "width": "216px",
           "minWidth": "auto",
           "maxWidth": "none",
           "paddingTop": "0px",
@@ -3840,7 +3840,7 @@
           "flexDirection": "row",
           "display": "flex",
           "position": "static",
-          "$width": 256,
+          "$width": 216,
           "$height": 32,
           "$x": 0,
           "$y": 0
@@ -3850,12 +3850,12 @@
             "part": "menuLinkInner",
             "parts": null,
             "tag": "span",
-            "line": 659,
+            "line": 644,
             "text": "",
             "values": {
               "height": "21px",
               "minHeight": "auto",
-              "width": "244px",
+              "width": "204px",
               "minWidth": "0px",
               "maxWidth": "none",
               "paddingTop": "0px",
@@ -3888,7 +3888,7 @@
               "flexDirection": "row",
               "display": "flex",
               "position": "static",
-              "$width": 244,
+              "$width": 204,
               "$height": 21,
               "$x": 8,
               "$y": 5.5
@@ -3898,7 +3898,7 @@
                 "part": "menuLinkIconMask",
                 "parts": null,
                 "tag": "span",
-                "line": 643,
+                "line": 628,
                 "text": "",
                 "values": {
                   "height": "20px",
@@ -3947,7 +3947,7 @@
                 "part": "menuLinkLabel",
                 "parts": null,
                 "tag": "span",
-                "line": 683,
+                "line": 668,
                 "text": "홈",
                 "values": {
                   "height": "21px",
@@ -4007,7 +4007,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1468,
+        "line": 1431,
         "text": "",
         "values": {
           "height": "32px",
@@ -4055,7 +4055,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1053,
+            "line": 1016,
             "text": "",
             "values": {
               "height": "24px",
@@ -4099,212 +4099,6 @@
               "$y": 4
             },
             "children": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "gnb-sidebar/rail",
-      "kind": "gnb-sidebar",
-      "label": "GNB 사이드바 레일 — 메뉴 기둥과 분석 아이브로우",
-      "jsx": "apps/web/components/navigation/Gnb.tsx:4456-4842",
-      "file": "apps/web/components/navigation/Gnb.tsx",
-      "tree": {
-        "part": "menuSidebarOuter",
-        "parts": null,
-        "tag": "div",
-        "line": 862,
-        "text": "",
-        "values": {
-          "height": "34px",
-          "minHeight": "auto",
-          "width": "256px",
-          "minWidth": "auto",
-          "maxWidth": "none",
-          "paddingTop": "0px",
-          "paddingRight": "0px",
-          "paddingBottom": "0px",
-          "paddingLeft": "0px",
-          "borderTopLeftRadius": "0px",
-          "borderTopWidth": "0px",
-          "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-          "borderTopStyle": "none",
-          "backgroundColor": "rgba(0, 0, 0, 0)",
-          "backgroundImage": "none",
-          "color": "color(srgb 0.980392 0.980392 0.980392)",
-          "boxShadow": "none",
-          "backdropFilter": "none",
-          "columnGap": "normal",
-          "fontSize": "16px",
-          "fontWeight": "400",
-          "lineHeight": "24px",
-          "opacity": "1",
-          "letterSpacing": "-0.16px",
-          "fontFamily": "PretendardHarness",
-          "marginTop": "12px",
-          "marginRight": "0px",
-          "marginBottom": "0px",
-          "marginLeft": "0px",
-          "rowGap": "normal",
-          "textAlign": "start",
-          "justifyContent": "normal",
-          "flexDirection": "row",
-          "display": "block",
-          "position": "relative",
-          "$width": 256,
-          "$height": 34,
-          "$x": 0,
-          "$y": 12
-        },
-        "children": [
-          {
-            "part": "menuSidebar",
-            "parts": null,
-            "tag": "ul",
-            "line": 747,
-            "text": "",
-            "values": {
-              "height": "34px",
-              "minHeight": "0px",
-              "width": "256px",
-              "minWidth": "0px",
-              "maxWidth": "none",
-              "paddingTop": "0px",
-              "paddingRight": "0px",
-              "paddingBottom": "0px",
-              "paddingLeft": "0px",
-              "borderTopLeftRadius": "0px",
-              "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-              "borderTopStyle": "none",
-              "backgroundColor": "rgba(0, 0, 0, 0)",
-              "backgroundImage": "none",
-              "color": "color(srgb 0.980392 0.980392 0.980392)",
-              "boxShadow": "none",
-              "backdropFilter": "none",
-              "columnGap": "4px",
-              "fontSize": "16px",
-              "fontWeight": "400",
-              "lineHeight": "24px",
-              "opacity": "1",
-              "letterSpacing": "-0.16px",
-              "fontFamily": "PretendardHarness",
-              "marginTop": "0px",
-              "marginRight": "0px",
-              "marginBottom": "0px",
-              "marginLeft": "0px",
-              "rowGap": "4px",
-              "textAlign": "start",
-              "justifyContent": "normal",
-              "flexDirection": "column",
-              "display": "block",
-              "position": "relative",
-              "$width": 256,
-              "$height": 34,
-              "$x": 0,
-              "$y": 0
-            },
-            "children": [
-              {
-                "part": "menuSidebarEyebrowRow",
-                "parts": null,
-                "tag": "li",
-                "line": 842,
-                "text": "",
-                "values": {
-                  "height": "34px",
-                  "minHeight": "0px",
-                  "width": "256px",
-                  "minWidth": "0px",
-                  "maxWidth": "none",
-                  "paddingTop": "12px",
-                  "paddingRight": "0px",
-                  "paddingBottom": "4px",
-                  "paddingLeft": "0px",
-                  "borderTopLeftRadius": "0px",
-                  "borderTopWidth": "0px",
-                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-                  "borderTopStyle": "none",
-                  "backgroundColor": "rgba(0, 0, 0, 0)",
-                  "backgroundImage": "none",
-                  "color": "color(srgb 0.980392 0.980392 0.980392)",
-                  "boxShadow": "none",
-                  "backdropFilter": "none",
-                  "columnGap": "normal",
-                  "fontSize": "16px",
-                  "fontWeight": "400",
-                  "lineHeight": "24px",
-                  "opacity": "1",
-                  "letterSpacing": "-0.16px",
-                  "fontFamily": "PretendardHarness",
-                  "marginTop": "0px",
-                  "marginRight": "0px",
-                  "marginBottom": "0px",
-                  "marginLeft": "0px",
-                  "rowGap": "normal",
-                  "textAlign": "start",
-                  "justifyContent": "normal",
-                  "flexDirection": "row",
-                  "display": "block",
-                  "position": "relative",
-                  "$width": 256,
-                  "$height": 34,
-                  "$x": 0,
-                  "$y": 0
-                },
-                "children": [
-                  {
-                    "part": "menuSidebarEyebrow",
-                    "parts": null,
-                    "tag": "span",
-                    "line": 835,
-                    "text": "분석",
-                    "values": {
-                      "height": "18px",
-                      "minHeight": "0px",
-                      "width": "256px",
-                      "minWidth": "0px",
-                      "maxWidth": "none",
-                      "paddingTop": "0px",
-                      "paddingRight": "0px",
-                      "paddingBottom": "0px",
-                      "paddingLeft": "4px",
-                      "borderTopLeftRadius": "0px",
-                      "borderTopWidth": "0px",
-                      "borderTopColor": "color(srgb 0.545098 0.556863 0.576471)",
-                      "borderTopStyle": "none",
-                      "backgroundColor": "rgba(0, 0, 0, 0)",
-                      "backgroundImage": "none",
-                      "color": "color(srgb 0.545098 0.556863 0.576471)",
-                      "boxShadow": "none",
-                      "backdropFilter": "none",
-                      "columnGap": "normal",
-                      "fontSize": "12px",
-                      "fontWeight": "500",
-                      "lineHeight": "18px",
-                      "opacity": "1",
-                      "letterSpacing": "-0.12px",
-                      "fontFamily": "PretendardHarness",
-                      "marginTop": "0px",
-                      "marginRight": "0px",
-                      "marginBottom": "0px",
-                      "marginLeft": "0px",
-                      "rowGap": "normal",
-                      "textAlign": "start",
-                      "justifyContent": "normal",
-                      "flexDirection": "row",
-                      "display": "block",
-                      "position": "static",
-                      "$width": 256,
-                      "$height": 18,
-                      "$x": 0,
-                      "$y": 12
-                    },
-                    "children": []
-                  }
-                ]
-              }
-            ]
           }
         ]
       }
@@ -4375,7 +4169,7 @@
         "part": "iconButton",
         "parts": null,
         "tag": "button",
-        "line": 203,
+        "line": 184,
         "text": "",
         "values": {
           "height": "32px",
@@ -10800,7 +10594,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1468,
+        "line": 1431,
         "text": "",
         "values": {
           "height": "32px",
@@ -10848,7 +10642,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1053,
+            "line": 1016,
             "text": "",
             "values": {
               "height": "24px",
@@ -10906,7 +10700,7 @@
         "part": "profileTrigger",
         "parts": null,
         "tag": "button",
-        "line": 1468,
+        "line": 1431,
         "text": "",
         "values": {
           "height": "32px",
@@ -10954,7 +10748,7 @@
             "part": "profileImage",
             "parts": null,
             "tag": "img",
-            "line": 1053,
+            "line": 1016,
             "text": "",
             "values": {
               "height": "24px",
@@ -16308,7 +16102,7 @@
           "$width": 108.34,
           "$height": 48,
           "$x": 665.83,
-          "$y": -22880.59
+          "$y": -21932.59
         },
         "children": [
           {
@@ -16414,7 +16208,7 @@
           "$width": 118.34,
           "$height": 50,
           "$x": 660.83,
-          "$y": -22930.59
+          "$y": -21982.59
         },
         "children": []
       }
@@ -16753,7 +16547,7 @@
         "part": "projectHeader",
         "parts": null,
         "tag": "div",
-        "line": 1667,
+        "line": 1630,
         "text": "",
         "values": {
           "height": "72px",
@@ -16801,7 +16595,7 @@
             "part": "iconButton",
             "parts": null,
             "tag": "button",
-            "line": 203,
+            "line": 184,
             "text": "",
             "values": {
               "height": "32px",
@@ -16850,7 +16644,7 @@
             "part": "projectTitle",
             "parts": null,
             "tag": "span",
-            "line": 1800,
+            "line": 1763,
             "text": "프로젝트 이름",
             "values": {
               "height": "24px",
@@ -16899,7 +16693,7 @@
             "part": "projectActions",
             "parts": null,
             "tag": "div",
-            "line": 1509,
+            "line": 1472,
             "text": "",
             "values": {
               "height": "32px",
@@ -16947,7 +16741,7 @@
                 "part": "projectHeaderActionsShell",
                 "parts": null,
                 "tag": "div",
-                "line": 1681,
+                "line": 1644,
                 "text": "",
                 "values": {
                   "height": "32px",
@@ -16995,7 +16789,7 @@
                     "part": "projectMenuAnchor",
                     "parts": null,
                     "tag": "div",
-                    "line": 1727,
+                    "line": 1690,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -17043,7 +16837,7 @@
                         "part": "iconButton",
                         "parts": null,
                         "tag": "button",
-                        "line": 203,
+                        "line": 184,
                         "text": "",
                         "values": {
                           "height": "32px",
@@ -17094,7 +16888,7 @@
                     "part": "iconButton",
                     "parts": null,
                     "tag": "button",
-                    "line": 203,
+                    "line": 184,
                     "text": "",
                     "values": {
                       "height": "32px",
@@ -18119,7 +17913,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.iconButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 203,
+              "line": 184,
               "name": "iconButton",
               "uses": 11
             }
@@ -18208,7 +18002,7 @@
             {
               "id": "icon-button/apps/web/components/navigation/Gnb.tsx.mobileMenuCloseButton",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 895,
+              "line": 864,
               "name": "mobileMenuCloseButton",
               "uses": 2
             }
@@ -18255,7 +18049,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectInlineRenameInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1709,
+              "line": 1672,
               "name": "projectInlineRenameInput",
               "uses": 3
             }
@@ -18296,7 +18090,7 @@
             {
               "id": "text-field/apps/web/components/navigation/Gnb.tsx.projectGnbTitleInput",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1573,
+              "line": 1536,
               "name": "projectGnbTitleInput",
               "uses": 2
             },
@@ -19402,7 +19196,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.profileMenuItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1159,
+              "line": 1122,
               "name": "profileMenuItem",
               "uses": 9
             }
@@ -19443,7 +19237,7 @@
             {
               "id": "selectable-list-row/apps/web/components/navigation/Gnb.tsx.projectDropdownItem",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 1547,
+              "line": 1510,
               "name": "projectDropdownItem",
               "uses": 6
             }
@@ -19620,7 +19414,7 @@
             {
               "id": "badge/apps/web/components/navigation/Gnb.tsx.exploreSoonChip",
               "file": "apps/web/components/navigation/Gnb.tsx",
-              "line": 185,
+              "line": 166,
               "name": "exploreSoonChip",
               "uses": 8
             }

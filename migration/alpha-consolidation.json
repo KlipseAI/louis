@@ -20,20 +20,20 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
-  "productCommit": "6f6282c17afd7adfbe9ea59c00cb4b6557e4aafd",
+  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "totals": {
     "stops": 42,
     "trueAlphaStops": 34,
-    "trueAlphaUses": 1775,
-    "movedUses": 654,
+    "trueAlphaUses": 1774,
+    "movedUses": 653,
     "visibleUses": 2,
     "reviewSites": 2
   },
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 866,
+      "uses": 865,
       "stops": [
         {
           "stop": 4,
@@ -81,7 +81,7 @@
         },
         {
           "stop": 60,
-          "uses": 101
+          "uses": 100
         },
         {
           "stop": 70,
@@ -149,7 +149,7 @@
     },
     {
       "ink": "--palette-gray-900-rgb",
-      "uses": 198,
+      "uses": 197,
       "stops": [
         {
           "stop": 4,
@@ -189,7 +189,7 @@
         },
         {
           "stop": 60,
-          "uses": 12
+          "uses": 11
         },
         {
           "stop": 70,
@@ -477,7 +477,7 @@
     },
     {
       "ink": "--app-main-card-bg-rgb",
-      "uses": 18,
+      "uses": 19,
       "stops": [
         {
           "stop": 8,
@@ -493,7 +493,7 @@
         },
         {
           "stop": 50,
-          "uses": 2
+          "uses": 3
         },
         {
           "stop": 60,
@@ -1112,7 +1112,7 @@
     {
       "from": 0,
       "to": null,
-      "uses": 42,
+      "uses": 43,
       "note": "완전 투명 — 알파 스톱이 아니다. 접지 않는다."
     },
     {
@@ -1304,7 +1304,7 @@
       "to": 50,
       "delta": 2,
       "relative": 0.042,
-      "uses": 142,
+      "uses": 143,
       "visible": false
     },
     {
@@ -1336,7 +1336,7 @@
       "to": 60,
       "delta": 4,
       "relative": 0.071,
-      "uses": 154,
+      "uses": 152,
       "visible": false
     },
     {

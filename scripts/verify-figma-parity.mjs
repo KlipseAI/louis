@@ -43,6 +43,53 @@ const COMPONENTS_MEASURED_PATH = "figma/components.measured.json";
 const componentsMeasured = readJson(COMPONENTS_MEASURED_PATH);
 
 /**
+ * **기대값이 계산에서 나온 칸의 계산 과정.** 채움 칸(`fillIn`)은 기록에 수가 없어,
+ * 대조가 초록이어도 무엇과 맞댔는지 출력에 남기지 않으면 건너뛴 것과 구별되지 않는다(2026-09-15 — 채움 칸이 출력
+ * 한 줄 없이 `continue` 하던 병). 대조할 때마다 라벨 → 계산 한 줄을 담고, 판정과 무관하게 끝에 인쇄한다.
+ * 변조 canary 가 같은 대조를 다시 돌려도 라벨이 같아 한 번만 남는다.
+ */
+const derivationNotes = new Map();
+
+// ── DS 레일 내용 폭 — 사이드바 부품의 펼친 폭(채움 칸)이 따라야 하는 값 ──────────────────────────────
+// 부품(`SidebarBrand` · `SidebarCta` 펼침, `SidebarNavRow`)은 레일 내용 폭을 100% 로 받는다(app-shell.css
+// `.louis-sidebar-brand` · `.louis-sidebar-cta__button` · `.louis-sidebar-nav-row` 의 `inline-size: 100%`). 그 폭은
+// 레일 `.louis-app-shell__rail` 의 `inline-size` 토큰 − 좌우 `padding` 토큰 × 2 다. **토큰 이름을 여기 적지 않고 레일
+// 선언에서 읽는다** — 레일이 다른 토큰을 물면 기대값이 따라가고, 선언 꼴이 바뀌어 읽지 못하면 조용히 넘기지 않고 실패한다.
+// 값은 생성된 토큰 manifest 에서 읽는다. 2026-09-15 전에는 이 칸들이 Figma 표본 폭(256)을 대조하지 않고 넘어가
+// 토큰이 움직여도(`layout-app-shell-sidebar-width` 280 → 240) 표본을 옮길 자리를 아무 게이트도 말하지 않았다.
+const RAIL_CSS_PATH = "packages/css/src/component/app-shell.css";
+let railContentFillCache;
+function railContentFill() {
+  if (railContentFillCache !== undefined) return railContentFillCache;
+  const css = readFileSync(resolve(repoRoot, RAIL_CSS_PATH), "utf8");
+  const block = css.match(/^\.louis-app-shell__rail\s*\{([^}]*)\}/m)?.[1];
+  const widthVar = block?.match(/^\s*inline-size:\s*var\((--louis-[a-z0-9-]+)\);/m)?.[1];
+  const paddingVar = block?.match(/^\s*padding:\s*var\((--louis-[a-z0-9-]+)\);/m)?.[1];
+  const tokenFor = (cssVar) => (manifest.tokens ?? []).find((token) => Object.hasOwn(token.cssProperties ?? {}, cssVar));
+  const width = widthVar && tokenFor(widthVar);
+  const padding = paddingVar && tokenFor(paddingVar);
+  const px = (token) => (token?.resolvedValue?.unit === "px" && Number.isFinite(token.resolvedValue.value) ? token.resolvedValue.value : undefined);
+  if (block === undefined) {
+    railContentFillCache = { error: `${RAIL_CSS_PATH} 에 \`.louis-app-shell__rail\` 선언 블록이 없습니다` };
+  } else if (widthVar === undefined || paddingVar === undefined) {
+    railContentFillCache = {
+      error: `${RAIL_CSS_PATH} \`.louis-app-shell__rail\` 에서 \`inline-size: var(--louis-…)\` · \`padding: var(--louis-…)\` 한 줄씩을 읽지 못했습니다 (inline-size ${widthVar ?? "없음"}, padding ${paddingVar ?? "없음"})`,
+    };
+  } else if (px(width) === undefined || px(padding) === undefined) {
+    railContentFillCache = {
+      error: `${MANIFEST_PATH} 에서 ${widthVar} · ${paddingVar} 의 px 값을 찾지 못했습니다 (${width?.id ?? "토큰 없음"} ${px(width)} · ${padding?.id ?? "토큰 없음"} ${px(padding)})`,
+    };
+  } else {
+    railContentFillCache = {
+      value: px(width) - 2 * px(padding),
+      formula: `${width.id} ${px(width)} − 2 × ${padding.id} ${px(padding)}`,
+    };
+  }
+  return railContentFillCache;
+}
+const FILL_SOURCES = { "rail-content": railContentFill };
+
+/**
  * CSS mask의 정지점에서 Figma PROGRESSIVE 흐림의 기대 문자열을 **유도한다.**
  *
  * 두 매체가 같은 것을 다르게 적는다 — CSS는 아래에서부터의 정지점 다섯 개로 곡선을 그리고,
@@ -2162,7 +2209,9 @@ const COMPONENT_CONTRACTS = [
       measuredId: "app-shell-parts",
       sizeKeys: ["navRow"],
       fields: {
-        width: "width",
+        // 행은 레일 내용 폭을 채운다(app-shell.css `.louis-sidebar-nav-row` `inline-size: 100%`). 기록의 256 은 브랜드 · CTA 와
+        // 같은 계산값 사본이라 수를 지웠다(2026-09-15) — 표본 폭은 DS 레일 내용 폭과 맞댄다.
+        width: { field: "width", fillIn: ["navRow"], fill: "rail-content" },
         height: "height",
         cornerRadius: "radius",
         itemSpacing: "gap",
@@ -2196,8 +2245,9 @@ const COMPONENT_CONTRACTS = [
     geometry: {
       measuredId: "sidebar-brand",
       fields: {
-        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`). Figma 펼친 variant 의 폭은 표본 크기다.
-        width: { field: "width", fillIn: ["false"] }, height: "height", cornerRadius: "radius",
+        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`). Figma 펼친 variant 의 폭은 DS 레일 내용 폭
+        // (레일 폭 토큰 − 레일 패딩 토큰 × 2)과 맞댄다 — 토큰이 움직이면 표본도 옮길 자리로 빨개진다.
+        width: { field: "width", fillIn: ["false"], fill: "rail-content" }, height: "height", cornerRadius: "radius",
         paddingInline: "paddingInlineStart", paddingInlineEnd: { literal: 0 },
         layoutMode: { literal: "HORIZONTAL" },
       },
@@ -2233,8 +2283,9 @@ const COMPONENT_CONTRACTS = [
     geometry: {
       measuredId: "sidebar-cta",
       fields: {
-        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`). 접힌 32 는 제품 선언이라 대조한다.
-        width: { field: "width", fillIn: ["false"] }, height: "height", cornerRadius: "radius",
+        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`) — Figma 표본은 DS 레일 내용 폭과 맞댄다.
+        // 접힌 32 는 제품 선언이라 기록의 수와 대조한다.
+        width: { field: "width", fillIn: ["false"], fill: "rail-content" }, height: "height", cornerRadius: "radius",
         paddingInline: "paddingInline", paddingInlineEnd: "paddingInline",
         paddingBlock: "paddingBlock", paddingBlockEnd: "paddingBlock",
         itemSpacing: "gap",
@@ -3428,6 +3479,8 @@ if (runCanary) {
   }
 }
 
+// 계산에서 나온 기대값은 판정과 무관하게 인쇄한다 — 초록일 때도 무엇과 맞댔는지가 남아야 건너뛴 칸과 구별된다.
+for (const [label, note] of derivationNotes) console.log(`[figma-parity] ${label}: ${note}`);
 for (const warning of warnings) console.warn(`[figma-parity] 경고: ${warning}`);
 if (failures.length > 0) {
   for (const failure of failures) console.error(`[figma-parity] ${failure}`);
@@ -3976,6 +4029,8 @@ function compareComponentGeometry(contract, got) {
     // Figma padding은 CSS padding에 border를 접어 넣은 값이다. 그 접기를 계약이 선언한다.
     const border = spec.borderWidth;
     const expected = {};
+    // 기록 칸이 아니라 계산에서 나온 기대값의 출처(채움 칸). 어긋남 문구가 「코드 실측」이라 거짓말하지 않게 한다.
+    const derivedFrom = {};
     for (const [field, rule] of Object.entries(plan.fields ?? {})) {
       if (typeof rule === "string") {
         expected[field] = spec[rule];
@@ -3992,10 +4047,12 @@ function compareComponentGeometry(contract, got) {
       } else if (Array.isArray(rule?.from)) {
         expected[field] = fromMeasured(rule.from);
       } else if (typeof rule?.field === "string" && Array.isArray(rule.fillIn)) {
-        // **채움 칸 `{ field, fillIn: [size…] }`(2026-09-15).** 부모를 채우는 크기는 계산값이라 기록에 수를 두지 않고
-        // `$<field>` 에 규칙을 적는다(figma-screen-assembly.md 28번). 그 size 에서는 Figma 표본 크기를 대조하지 않는다 —
-        // 대신 기록이 수를 되찾으면(사본이 다시 굳으면) 실패한다. 실측 사고: SidebarBrand · SidebarCta 의 펼친 폭 256 이
-        // 레일 280 − 패딩 24 의 결과였고 제품 bc3e6fa3(레일 240)에 함께 낡았다. 나머지 size 는 평소처럼 `field` 를 읽는다.
+        // **채움 칸 `{ field, fillIn: [size…], fill: <원천> }`(2026-09-15).** 부모를 채우는 크기는 계산값이라 기록에 수를
+        // 두지 않고 `$<field>` 에 규칙을 적는다(figma-screen-assembly.md 28번). 기록이 수를 되찾으면(사본이 다시 굳으면)
+        // 실패한다. 실측 사고: SidebarBrand · SidebarCta 의 펼친 폭 256 이 레일 280 − 패딩 24 의 결과였고 제품
+        // bc3e6fa3(레일 240)에 함께 낡았다. **그 size 의 Figma 표본은 건너뛰지 않는다** — 기대값을 `fill` 원천(DS 토큰)
+        // 에서 계산해 맞대고, 계산 과정을 출력에 남긴다. 첫 판(같은 날)은 여기서 대조 없이 넘어가, 토큰이 움직여도
+        // 표본 폭을 옮길 자리를 아무도 말하지 않았다. 나머지 size 는 평소처럼 `field` 를 읽는다.
         if (rule.fillIn.includes(size)) {
           if (typeof spec[rule.field] === "number") {
             issues.push(
@@ -4004,6 +4061,18 @@ function compareComponentGeometry(contract, got) {
           } else if (typeof spec["$" + rule.field] !== "string") {
             issues.push(`${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 채움 칸 ${rule.field} 의 규칙(\$${rule.field})이 없습니다.`);
           }
+          const source = FILL_SOURCES[rule.fill];
+          const fill = source === undefined ? { error: `알 수 없는 채움 원천 ${JSON.stringify(rule.fill)}` } : source();
+          if (fill.error !== undefined) {
+            issues.push(`${contract.figmaName} ${size}: 채움 칸 ${field} 의 기대값을 계산하지 못했습니다 — ${fill.error}`);
+            continue;
+          }
+          expected[field] = fill.value;
+          derivedFrom[field] = `DS 레일 내용 폭 ${fill.value} (${fill.formula})`;
+          derivationNotes.set(
+            `채움 칸 ${contract.figmaName} ${size}.${field}`,
+            `기대 ${fill.value} (${fill.formula}) · Figma ${JSON.stringify(geometry[size]?.[field] ?? null)}`,
+          );
           continue;
         }
         expected[field] = spec[rule.field];
@@ -4056,7 +4125,7 @@ function compareComponentGeometry(contract, got) {
       }
       if (values[0] !== want) {
         issues.push(
-          `${contract.figmaName} ${size}: ${field}가 다릅니다 — 코드 실측 ${want}, Figma ${values[0]}`,
+          `${contract.figmaName} ${size}: ${field}가 다릅니다 — ${derivedFrom[field] ?? `코드 실측 ${want}`}, Figma ${values[0]}`,
         );
       }
     }

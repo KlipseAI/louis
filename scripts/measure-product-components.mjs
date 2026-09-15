@@ -3024,12 +3024,13 @@ const SELF_MEASURED = {
 const deviations = [];
 const compared = [];
 
-function compare(measured, expect, exempt, collect) {
+// `view` 는 대조할 제품 렌더다. 기본은 이번 실행이 잰 `rendered` 이고, 변조 확인만 제품 쪽을 흔든 사본을 넘긴다.
+function compare(measured, expect, exempt, collect, view = rendered) {
   const failures = [];
   for (const [probeId, property, path, relation, a, b] of expect) {
     const scale = typeof a === "number" ? a : 1;
     const why = typeof a === "string" ? a : b;
-    const raw = rendered[probeId]?.[property];
+    const raw = view[probeId]?.[property];
     let want = measured;
     for (const key of path) want = want?.[key];
     const label = probeId + "." + property;
@@ -3049,10 +3050,10 @@ function compare(measured, expect, exempt, collect) {
         failures.push(path.join(".") + "가 figma/components.measured.json에 없습니다 — 채움 칸은 사유를 적습니다.");
         continue;
       }
-      const [parentWidth, parentLeft, parentRight] = FILL_PARENT_AXES[property].map((axis) => Number.parseFloat(rendered[probeId]?.[axis]));
+      const [parentWidth, parentLeft, parentRight] = FILL_PARENT_AXES[property].map((axis) => Number.parseFloat(view[probeId]?.[axis]));
       const actual = Number.parseFloat(raw);
       if (![parentWidth, parentLeft, parentRight, actual].every(Number.isFinite)) {
-        failures.push(label + ": 채움 판정 재료를 읽지 못했습니다 (" + [raw, ...FILL_PARENT_AXES[property].map((axis) => rendered[probeId]?.[axis])].join(" · ") + ").");
+        failures.push(label + ": 채움 판정 재료를 읽지 못했습니다 (" + [raw, ...FILL_PARENT_AXES[property].map((axis) => view[probeId]?.[axis])].join(" · ") + ").");
         continue;
       }
       const content = parentWidth - parentLeft - parentRight;
@@ -3378,6 +3379,20 @@ const TAMPERS = [
     },
   ],
   [
+    // **채움 행이 제품 쪽 어긋남도 무는가(2026-09-15).** 위 변조는 기록 쪽만 흔든다. 채움 행의 판정은 제품 부품 폭 ↔ 조상
+    // 내용 폭이라, 제품이 부품에 고정 폭을 주거나(레일은 240 인데 부품은 256) 레일 패딩이 바뀌어 부품이 따라가지 않으면
+    // 여기서 걸려야 한다. 제품 렌더 사본의 부품 폭을 조상 내용 폭 + 40 으로 두고 새 실패가 나는지 본다.
+    "채움 칸의 제품 폭이 조상 내용 폭과 다른 경우",
+    (measured, expect, exempt) => {
+      const row = expect.find(([, , , relation]) => relation === "fill");
+      const view = structuredClone(rendered);
+      const probe = view[row[0]];
+      const [width, left, right] = FILL_PARENT_AXES[row[1]].map((axis) => Number.parseFloat(probe[axis]));
+      probe[row[1]] = width - left - right + 40 + "px";
+      return [measured, expect, exempt, view];
+    },
+  ],
+  [
     "대조 없는 컴포넌트를 면제 없이 두는 경우",
     (measured, expect, exempt) => [
       { ...measured, "made-up-component": { sizes: {} } },
@@ -3402,9 +3417,9 @@ if (!process.argv.includes("--no-canary")) {
   const baseline = new Set(mismatches);
   const exempt = measuredFile.$noProductRender ?? {};
   for (const [label, mutate] of TAMPERS) {
-    const [measured, expect, nextExempt] = mutate(measuredFile.components, EXPECT, exempt);
+    const [measured, expect, nextExempt, view] = mutate(measuredFile.components, EXPECT, exempt);
     const cleaned = Object.fromEntries(Object.entries(nextExempt).filter(([, value]) => value));
-    const introduced = compare(measured, expect, cleaned, false).filter((f) => !baseline.has(f));
+    const introduced = compare(measured, expect, cleaned, false, view).filter((f) => !baseline.has(f));
     if (introduced.length === 0) {
       mismatches.push(
         baseline.size === 0

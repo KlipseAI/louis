@@ -840,6 +840,25 @@ withCanary(
   "sidebar-cta.false.width 는 채움 칸인데 수",
 );
 
+// **채움 칸은 건너뛰지 않고 DS 토큰에서 계산한 폭과 맞댄다(2026-09-15).** 첫 판의 `fillIn` 은 그 size 의 Figma 표본을 출력
+// 한 줄 없이 넘겨, 레일 폭 토큰이 움직여도 표본(`SidebarBrand` · `SidebarCta` 펼침, `SidebarNavRow`)을 옮길 자리를 아무
+// 게이트도 말하지 않았다. 레일 폭 토큰을 40 줄이면 세 표본 모두에서 「DS 레일 내용 폭」 어긋남이 나야 한다 — 하나라도
+// 조용하면 그 칸은 다시 건너뛰는 칸이다. 토큰 이름은 게이트가 레일 CSS 선언에서 읽는다(여기서는 변조 대상만 이름으로 댄다).
+for (const sample of ["SidebarBrand false", "SidebarCta false", "SidebarNavRow navRow"]) {
+  withCanary(
+    "packages/tokens/generated/manifest.json",
+    (source) => {
+      const tokenManifest = JSON.parse(source);
+      const token = tokenManifest.tokens.find((entry) => entry.id === "layout-app-shell-sidebar-width");
+      token.resolvedValue.value -= 40;
+      return JSON.stringify(tokenManifest, null, 2) + "\n";
+    },
+    "figma parity rail-content fill follows the sidebar width token (" + sample + ")",
+    "scripts/verify-figma-parity.mjs",
+    sample + ": width가 다릅니다 — DS 레일 내용 폭",
+  );
+}
+
 // ── 표면 커버리지 래칫 ────────────────────────────────────────────────────
 // `verify-figma-parity` 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 **닫힌 집합**이라 계약
 // 밖의 제품 표면은 아무리 빠져 있어도 초록이다. 그 바깥을 세는 게이트가 실제로 빨개지는지

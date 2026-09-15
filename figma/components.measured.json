@@ -2343,7 +2343,7 @@
       "$note": "배포본 Gnb.tsx sidebarHeaderRow(min-height 40) · sidebarLogoRail(min-height 28) 실측. 처음에 행을 24로 둔 것은 아이콘 슬롯 크기를 행 높이로 착각한 것이었다.",
       "sizes": {
         "false": {
-          "width": 256,
+          "$width": "**채움이다 — 수를 적지 않는다(2026-09-15).** 펼친 브랜드 행은 레일 내용 폭을 채운다 — 제품 `sidebarHeaderRow` 가 LOUIS `.louis-sidebar-brand` 를 물고 그 `inline-size: 100%` 가 폭을 정한다(제품은 접힘에서만 `[width:100%]` 를 덧붙인다). 레일 내용 폭 = 레일 `--app-gnb-sidebar-width` − 레일 좌우 패딩(`--app-gnb-sidebar-padding-x`) 이다. 이 칸은 그 결과 256 을 적고 있었는데 제품 bc3e6fa3 가 레일을 280 → 240 으로 줄이자 같이 낡았다. 대조는 measure-product-components 의 `fill` 행이 제품 부품 폭과 조상 레일 내용 폭을 같은 하네스에서 맞춰 본다. Figma `SidebarBrand` 의 펼친 variant 폭은 표본 크기라 verify-figma-parity 가 보지 않는다(`fillIn`).",
           "height": 40,
           "radius": 0,
           "$radius": "0 (직각 모서리)",
@@ -2369,7 +2369,7 @@
       "$note": "배포본 Gnb.tsx sidebarUpgradeButton 실측. **아이콘이 없다.** 색은 반전 solid pill이며 brand blue도 mint도 아니다 — mint는 기본 선언이지만 형제 상수 sidebarUpgradeButtonActive가 `.gnb-sidebarUpgradeButton:not(&)`로 비활성 버튼의 색을 덮는다.",
       "sizes": {
         "false": {
-          "width": 256,
+          "$width": "**채움이다 — 수를 적지 않는다(2026-09-15).** 펼친 CTA 는 레일 내용 폭을 채운다 — 제품 `sidebarUpgradeButton` 이 LOUIS `.louis-sidebar-cta__button` 을 물고 그 `inline-size: 100%` 가 폭을 정한다(접힘은 `[width:fit-content]` 로 덮는다). 레일 내용 폭 = 레일 `--app-gnb-sidebar-width` − 레일 좌우 패딩(`--app-gnb-sidebar-padding-x`) 이다. 이 칸은 그 결과 256 을 적고 있었는데 제품 bc3e6fa3 가 레일을 280 → 240 으로 줄이자 같이 낡았다. 대조는 measure-product-components 의 `fill` 행이 제품 부품 폭과 조상 레일 내용 폭을 같은 하네스에서 맞춰 본다. Figma `SidebarCta` 의 펼친 variant 폭은 표본 크기라 verify-figma-parity 가 보지 않는다(`fillIn`).",
           "height": 40,
           "$height": "**최소 높이다 — 실효 높이가 아니다(2026-09-14).** 코드는 min-block-size: layout-control-height-lg(40)에 세로 패딩 10 · 10 과 body-sm-medium 줄 높이(150%)를 두고, 제품(Gnb.tsx:1973-1974 sidebarUpgradeButton 이 .louis-sidebar-cta__button 을 문다)도 같다. 그래서 라벨이 한 줄일 때 버튼은 패딩 + 줄 높이 + 패딩과 이 최소 중 큰 쪽이고, 그 합이 최소를 넘는다 — 제품 측정은 figma/product-components.plan.json 의 component.upgradeCta.variants[].rect 가 갖는다. 이 칸과 Figma SidebarCta Collapsed=false 는 둘 다 최소값이고 verify-figma-parity 는 둘을 서로 대조하므로 초록이다. Figma variant 는 높이를 FIXED 로 두고 라벨을 TRUNCATE 로 줄여 그 안에 넣는다(2026-09-14 읽기 전용 확인) — 실효 높이와 갈리는 사정은 design/components/app-shell-parts.md Known deviations 가 갖는다.",
           "radius": 12,

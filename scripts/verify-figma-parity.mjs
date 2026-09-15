@@ -2196,7 +2196,8 @@ const COMPONENT_CONTRACTS = [
     geometry: {
       measuredId: "sidebar-brand",
       fields: {
-        width: "width", height: "height", cornerRadius: "radius",
+        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`). Figma 펼친 variant 의 폭은 표본 크기다.
+        width: { field: "width", fillIn: ["false"] }, height: "height", cornerRadius: "radius",
         paddingInline: "paddingInlineStart", paddingInlineEnd: { literal: 0 },
         layoutMode: { literal: "HORIZONTAL" },
       },
@@ -2232,7 +2233,8 @@ const COMPONENT_CONTRACTS = [
     geometry: {
       measuredId: "sidebar-cta",
       fields: {
-        width: "width", height: "height", cornerRadius: "radius",
+        // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`). 접힌 32 는 제품 선언이라 대조한다.
+        width: { field: "width", fillIn: ["false"] }, height: "height", cornerRadius: "radius",
         paddingInline: "paddingInline", paddingInlineEnd: "paddingInline",
         paddingBlock: "paddingBlock", paddingBlockEnd: "paddingBlock",
         itemSpacing: "gap",
@@ -3989,6 +3991,22 @@ function compareComponentGeometry(contract, got) {
         expected[field] = rule.table[spec[rule.enum]];
       } else if (Array.isArray(rule?.from)) {
         expected[field] = fromMeasured(rule.from);
+      } else if (typeof rule?.field === "string" && Array.isArray(rule.fillIn)) {
+        // **채움 칸 `{ field, fillIn: [size…] }`(2026-09-15).** 부모를 채우는 크기는 계산값이라 기록에 수를 두지 않고
+        // `$<field>` 에 규칙을 적는다(figma-screen-assembly.md 28번). 그 size 에서는 Figma 표본 크기를 대조하지 않는다 —
+        // 대신 기록이 수를 되찾으면(사본이 다시 굳으면) 실패한다. 실측 사고: SidebarBrand · SidebarCta 의 펼친 폭 256 이
+        // 레일 280 − 패딩 24 의 결과였고 제품 bc3e6fa3(레일 240)에 함께 낡았다. 나머지 size 는 평소처럼 `field` 를 읽는다.
+        if (rule.fillIn.includes(size)) {
+          if (typeof spec[rule.field] === "number") {
+            issues.push(
+              `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}.${rule.field} 는 채움 칸인데 수(${spec[rule.field]})가 있습니다 — 계산된 크기를 기록에 굳혔습니다.`,
+            );
+          } else if (typeof spec["$" + rule.field] !== "string") {
+            issues.push(`${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 채움 칸 ${rule.field} 의 규칙(\$${rule.field})이 없습니다.`);
+          }
+          continue;
+        }
+        expected[field] = spec[rule.field];
       } else if (Array.isArray(rule?.set)) {
         // 한 축이 이 필드를 바꾸는 것이 계약인 경우. 대조는 **집합 상등**이다 — 선언한 값이
         // 전부 나타나야 하고 그 밖의 값은 없어야 한다. **어느 칸이 어느 값을 갖는지는 보지

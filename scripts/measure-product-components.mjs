@@ -2352,11 +2352,15 @@ const EXPECT = [
   ["sidebar-cta-hover-light", "color", ["sidebar-cta", "states", "base", "Hover", "foreground"], "deviates",
     "위 `sidebar-cta-light.color` 와 같은 한 줄이 원인이다 — 라이트 사이드바 램프의 `--palette-gray-100: #f8f8f9`. hover 글자색도 같은 이름을 읽는다."],
   // 폭 축은 레일이 서야 재진다 — `wrapperFrom` 이 제품 `wrapperSidebar` 를 조상으로 세운다.
-  // 부품은 제품·DS 양쪽에서 폭을 선언하지 않고 100%로 받는다(제품 `[width:100%]`,
-  // DS `inline-size: 100%`). 기록의 256/32 는 레일 폭에서 좌우 여백을 뺀 값이다.
-  ["sidebar-header-row", "width", ["sidebar-brand", "sizes", "false", "width"], "same"],
+  // **펼친 폭은 채움(fill)이다 — 수로 대조하지 않는다(2026-09-15).** 부품은 레일 내용 폭을 100%로 받는다 — 제품이 LOUIS
+  // `.louis-sidebar-brand` · `.louis-sidebar-cta__button` 을 물고 그 `inline-size: 100%` 가 폭을 정한다. 기록은 그 결과를 `256` 으로 적고 `same` 으로 맞췄는데,
+  // 256 은 레일 `--app-gnb-sidebar-width`(당시 `min(280px, …)`)에서 레일 좌우 패딩을 뺀 계산값이라 제품 `bc3e6fa3`
+  // (레일 240)에 두 줄이 함께 낡았다 — 상단 바 높이 53 과 같은 병이다. `fill` 행은 제품 부품 폭이 **조상 레일의 내용
+  // 폭**(폭 − 좌우 패딩, 같은 하네스에서 잰 값)과 같은지 보고, 기록의 그 칸에는 수 대신 `$width` 사유가 있어야 한다.
+  // 접힌 32 는 제품이 선언한 폭이라 수로 둔다.
+  ["sidebar-header-row", "width", ["sidebar-brand", "sizes", "false", "$width"], "fill"],
   ["sidebar-header-row-collapsed", "width", ["sidebar-brand", "sizes", "true", "width"], "same"],
-  ["sidebar-cta", "width", ["sidebar-cta", "sizes", "false", "width"], "same"],
+  ["sidebar-cta", "width", ["sidebar-cta", "sizes", "false", "$width"], "fill"],
   ["sidebar-cta-collapsed", "width", ["sidebar-cta", "sizes", "true", "width"], "same"],
 
   // ── 인증 eyebrow ↔ LOUIS badge — **채택하지 않기로 한 결정을 게이트가 지킨다** ──────────
@@ -2393,12 +2397,20 @@ const EXPECT = [
   ["landing-menu-link-black-product", "borderTopLeftRadius", ["gnb-menu-item", "sizes", "light/Default", "radius"], "same"],
 ];
 
+// 채움(`fill`) 행이 읽는 조상 축. 가로 쓰기 기준 — 내용 폭 = 조상 폭 − 왼쪽 패딩 − 오른쪽 패딩.
+const FILL_PARENT_AXES = { width: ["parent:width", "parent:paddingLeft", "parent:paddingRight"] };
+
 // **대조하기로 한 축은 반드시 읽는다.** EXPECT에 행을 넣고 probe의 read에 넣는 것을 잊으면
 // "읽지 못했습니다"로 죽는다 — 두 곳에 같은 것을 적게 하지 말고 한 곳에서 파생시킨다.
-for (const [probeId, property] of EXPECT) {
+for (const [probeId, property, , relation] of EXPECT) {
   const probe = PROBES.find((candidate) => candidate.id === probeId);
   if (!probe) throw new Error("EXPECT가 없는 탐침을 가리킵니다: " + probeId);
   if (!probe.read.includes(property)) probe.read.push(property);
+  // 채움 행은 조상(가장 안쪽 wrapper)의 폭과 좌우 패딩도 읽는다 — 기대값이 그 내용 폭이다.
+  if (relation === "fill") {
+    if (!probe.wrapper && !probe.wrapperFrom) throw new Error("fill 행의 탐침에 채울 조상(wrapper)이 없습니다: " + probeId);
+    for (const side of FILL_PARENT_AXES[property] ?? []) if (!probe.read.includes(side)) probe.read.push(side);
+  }
 }
 
 if (!existsSync(resolve(productRoot, ".git"))) {
@@ -2845,6 +2857,11 @@ try {
           }
           const values = {};
           for (const property of probe.read) {
+            // `parent:<축>` 은 조상(가장 안쪽 wrapper)의 계산값이다 — 채움(fill) 행의 기대값 재료.
+            if (property.startsWith("parent:")) {
+              values[property] = element.parentElement ? getComputedStyle(element.parentElement)[property.slice(7)] : "";
+              continue;
+            }
             const pseudo = property.startsWith("::") ? property.slice(0, property.indexOf(":", 2)) : null;
             const name = pseudo ? property.slice(pseudo.length + 1) : property;
             const computed = getComputedStyle(element, pseudo);
@@ -3016,6 +3033,39 @@ function compare(measured, expect, exempt, collect) {
     let want = measured;
     for (const key of path) want = want?.[key];
     const label = probeId + "." + property;
+    if (relation === "fill") {
+      // **채움 칸.** 기록에는 수가 아니라 사유(`$<축>`)가 있어야 하고, 제품 값은 조상 내용 폭과 같아야 한다.
+      let slot = measured;
+      for (const key of path.slice(0, -1)) slot = slot?.[key];
+      const field = path.at(-1).replace(/^\$/, "");
+      if (slot !== undefined && typeof slot[field] === "number") {
+        failures.push(
+          label + ": 채움 칸인데 기록에 수가 있습니다 (" + path.slice(0, -1).join(".") + "." + field + " = " + slot[field] + "). " +
+            "계산된 크기를 기록에 굳혔습니다 — 수를 지우고 `$" + field + "` 에 규칙을 적으세요.",
+        );
+        continue;
+      }
+      if (typeof want !== "string" || want.trim() === "") {
+        failures.push(path.join(".") + "가 figma/components.measured.json에 없습니다 — 채움 칸은 사유를 적습니다.");
+        continue;
+      }
+      const [parentWidth, parentLeft, parentRight] = FILL_PARENT_AXES[property].map((axis) => Number.parseFloat(rendered[probeId]?.[axis]));
+      const actual = Number.parseFloat(raw);
+      if (![parentWidth, parentLeft, parentRight, actual].every(Number.isFinite)) {
+        failures.push(label + ": 채움 판정 재료를 읽지 못했습니다 (" + [raw, ...FILL_PARENT_AXES[property].map((axis) => rendered[probeId]?.[axis])].join(" · ") + ").");
+        continue;
+      }
+      const content = parentWidth - parentLeft - parentRight;
+      if (Math.abs(actual - content) > 0.01) {
+        failures.push(
+          label + ": 채움이 아닙니다 — 제품 " + actual + " · 조상 내용 폭 " + content +
+            " (" + parentWidth + " − " + parentLeft + " − " + parentRight + ").",
+        );
+        continue;
+      }
+      if (collect) compared.push(label);
+      continue;
+    }
     if (want === undefined) {
       failures.push(path.join(".") + "가 figma/components.measured.json에 없습니다.");
       continue;
@@ -3313,6 +3363,17 @@ const TAMPERS = [
       let node = clone;
       for (const key of row[2].slice(0, -1)) node = node[key];
       node[row[2].at(-1)] = Number.parseFloat(rendered[row[0]][row[1]]) * scale;
+      return [clone, expect, exempt];
+    },
+  ],
+  [
+    "채움 칸에 계산된 수를 굳힌 경우",
+    (measured, expect, exempt) => {
+      const row = expect.find(([, , , relation]) => relation === "fill");
+      const clone = structuredClone(measured);
+      let node = clone;
+      for (const key of row[2].slice(0, -1)) node = node[key];
+      node[row[2].at(-1).replace(/^\$/, "")] = Number.parseFloat(rendered[row[0]][row[1]]);
       return [clone, expect, exempt];
     },
   ],

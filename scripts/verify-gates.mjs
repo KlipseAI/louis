@@ -825,6 +825,21 @@ withCanary(
   "Leading.height의 근거 값이 없습니다",
 );
 
+// **채움 칸에 계산된 수가 다시 굳으면 문다(2026-09-15).** SidebarCta 의 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에
+// 수가 없고(`$width`), parity 는 그 size 에서 표본 폭을 대조하지 않는다(`fillIn`). 대조를 건너뛰는 규칙이므로, 기록이 사본을
+// 되찾아도(옛 256 처럼) 조용히 넘어가면 사본이 다시 낡는다 — 그 칸에 수를 넣어 「채움 칸인데 수」가 나는지 본다.
+withCanary(
+  "figma/components.measured.json",
+  (source) => {
+    const measured = JSON.parse(source);
+    measured.components["sidebar-cta"].sizes.false.width = 256;
+    return JSON.stringify(measured, null, 2) + "\n";
+  },
+  "figma parity fill slot regained a number",
+  "scripts/verify-figma-parity.mjs",
+  "sidebar-cta.false.width 는 채움 칸인데 수",
+);
+
 // ── 표면 커버리지 래칫 ────────────────────────────────────────────────────
 // `verify-figma-parity` 는 계약 51 ↔ Figma 51 을 양방향으로 잠근 **닫힌 집합**이라 계약
 // 밖의 제품 표면은 아무리 빠져 있어도 초록이다. 그 바깥을 세는 게이트가 실제로 빨개지는지

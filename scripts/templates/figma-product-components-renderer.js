@@ -200,14 +200,18 @@ if (!upgradeSet) {
   upgradeSet.y = 680;
 }
 // CTA 면 · 글자는 세트가 있어도 매 실행 계획의 역할로 다시 칠한다 — 옛 세트는 은퇴한 컬렉션 변수에 묶여 있다.
-// 기하는 건드리지 않는다(없을 때만 짓는 옛 경로 그대로). 계획에 없는 variant 는 손대지 않는다.
+// **크기도 계획에 맞춘다(2026-09-15).** CTA 는 레일 내용 폭을 채우는데(제품 `.louis-sidebar-cta__button` 의 `inline-size: 100%`)
+// 옛 경로는 없을 때만 크기를 걸어, 제품 bc3e6fa3(레일 280 → 240) 뒤에도 라이브 variant 가 옛 폭으로 남을 자리였다. 크기가 다를 때만
+// 쓰고(멱등) 배치와 세트 크기를 다시 도출한다. 계획에 없는 variant 는 칠도 크기도 손대지 않는다.
 for (const variant of upgradeSet.children) {
   const spec = C.variants.find((entry) => variant.name === `State=${entry.state}`);
   if (!spec) continue;
   pin(variant);
+  if (variant.width !== spec.rect.width || variant.height !== spec.rect.height) variant.resize(spec.rect.width, spec.rect.height);
   variant.fills = [paint(spec.fillPaint)];
   for (const text of variant.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(spec.labelPaint)];
 }
+placeVariantRow(upgradeSet, Math.max(...C.variants.map((spec) => spec.rect.width)));
 
 const ensureShell = (menuSet, ctaSet) => {
   const S = P.shell;
@@ -559,7 +563,7 @@ const ensurePaymentResult = () => {
 // 행의 직계 제자리에 옮기고, 계획에 없는 자식(`main-action` · `add-action · …`)과 계획에 없는 행은 **지우지 않고** 숨겨
 // `retired/` 로 이름만 바꾼다 — 인스턴스의 override 가 그 노드 id 에 걸려 있다. 감싸개에서 꺼낸 행은 간격이 + 버튼과의
 // 간격이었으므로 계획의 아이콘–라벨 간격으로 되돌린다(자리가 그대로다). 그 밖의 행 기하는 여기서 건드리지 않는다(묶음 4).
-const menuRowName = (spec) => `${spec.kind === "section-label" ? "section" : "row"}/${spec.label.text}`;
+const menuRowName = (spec) => `row/${spec.label.text}`;
 const retire = (node) => {
   if (!node.name.startsWith("retired/")) node.name = `retired/${node.name}`;
   node.visible = false;
@@ -589,10 +593,7 @@ const reconcileMenuRow = async (variant, row, spec) => {
     node.visible = true;
     return node;
   };
-  const keep =
-    spec.kind === "section-label"
-      ? [placeChild("TEXT", "label", 0)]
-      : [placeChild("INSTANCE", "icon", 0), placeChild("TEXT", "label", 1)];
+  const keep = [placeChild("INSTANCE", "icon", 0), placeChild("TEXT", "label", 1)];
   if (spec.kind === "highlight") keep.push(placeChild("FRAME", "spacer", 2), placeChild("FRAME", "badge/BETA", 3));
   if (lifted) {
     const gap = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
@@ -603,6 +604,8 @@ const reconcileMenuRow = async (variant, row, spec) => {
   }
   const keepIds = new Set(keep.map((node) => node.id));
   for (const child of [...row.children]) if (!keepIds.has(child.id)) retire(child);
+  // 행 크기는 측정 rect 다 — 행은 레일 내용 폭을 채우므로 레일이 줄면(제품 bc3e6fa3, 280 → 240) 함께 준다. 다를 때만 쓴다.
+  if (row.width !== spec.rect.width || row.height !== spec.rect.height) row.resize(spec.rect.width, spec.rect.height);
   await reconcileLabel(variant, row, keep.find((node) => node.type === "TEXT"), spec.label.text);
 };
 
@@ -646,11 +649,8 @@ const reconcileMenuVariants = async (menuSet) => {
         for (const text of badge.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(beta.label.paint)];
       }
     }
-    for (const section of variant.children.filter((entry) => entry.type === "FRAME" && entry.name.startsWith("section/"))) {
-      const sectionSpec = P.rows.find((entry) => entry.kind === "section-label" && section.name === `section/${entry.label.text}`);
-      if (!sectionSpec) continue;
-      for (const text of section.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(sectionSpec.label.paint)];
-    }
+    // variant 크기도 측정 rect 다 — 행 수(제품 2c6bdacf 가 「분석」 아이브로우 행을 걷었다)와 행 폭을 따라간다. 다를 때만 쓴다.
+    if (variant.width !== P.root.width || variant.height !== P.root.height) variant.resize(P.root.width, P.root.height);
     variant.x = VARIANT_GUTTER + index * (P.root.width + VARIANT_GUTTER);
     variant.y = VARIANT_GUTTER;
   }
@@ -701,25 +701,8 @@ root.fills = [];
 pin(root);
 
 for (const spec of P.rows) {
-  if (spec.kind === "section-label") {
-    const row = figma.createFrame();
-    row.name = `section/${spec.label.text}`;
-    row.layoutMode = "HORIZONTAL";
-    row.primaryAxisSizingMode = row.counterAxisSizingMode = "FIXED";
-    row.resize(spec.rect.width, spec.rect.height);
-    row.counterAxisAlignItems = "CENTER";
-    row.paddingTop = spec.padding.top;
-    row.paddingRight = spec.padding.right;
-    row.paddingBottom = spec.padding.bottom;
-    row.paddingLeft = spec.padding.left;
-    row.setBoundVariable("paddingTop", V.spacing12);
-    row.setBoundVariable("paddingBottom", V.spacing4);
-    row.setBoundVariable("paddingLeft", V.spacing4);
-    row.fills = [];
-    row.appendChild(makeText(spec.label, spec.label.paint));
-    root.appendChild(row);
-    continue;
-  }
+  // 섹션 라벨 행(「분석」 아이브로우)은 짓지 않는다 — 제품 `2c6bdacf` 가 걷어 계획이 싣지 않는다. 그 전에 지은 라이브 세트의
+  // `section/Analytics` 행은 `reconcileMenuVariants` 가 계획에 없는 행으로 보고 `retired/` 로 숨긴다(지우지 않는다).
   // compound 행(+ 버튼 감싸개)은 짓지 않는다 — 제품 `658ece13` 이 + 버튼을 걷어 계획이 simple 로 싣는다. 그 전에 지은
   // 라이브 세트의 옛 compound 행은 `reconcileMenuRow` 가 같은 id 로 풀고 + 버튼을 `retired/` 로 숨긴다.
   if (spec.kind !== "simple" && spec.kind !== "highlight") throw new Error(`Unexpected Gnb menu row kind ${spec.kind}`);

@@ -116,7 +116,10 @@ const menuStyle = style(defaultMenu);
 const rowNodes = screen(routes.default.route).tree.filter(
   (entry) => entry.parentPath === routes.default.menuPath,
 );
-if (rowNodes.length !== 7) fail(`expected 7 direct menu rows, got ${rowNodes.length}`);
+/* 직계 행은 여섯이다(검색 · 홈 · 캔버스 · 컴포지션 · 하이라이트 · YouTube 분석). 제품 `2c6bdacf` 가 「분석」 아이브로우 행을 걷었다 —
+   `git show 2c6bdacf:apps/web/components/navigation/Gnb.tsx` :2158 `const SIDEBAR_MENU_ROWS: ReadonlyArray<{ type: "link"; href: AppNavMenuHref }> = [`
+   (그 전 `6f6282c1` :2191 `  { type: "eyebrow", id: "analytics" },`). Instagram 행은 `isNavHrefHidden` 으로 렌더되지 않는다. */
+if (rowNodes.length !== 6) fail(`expected 6 direct menu rows, got ${rowNodes.length}`);
 
 const iconForText = (route, text) => {
   const label = byText(route, text);
@@ -153,9 +156,6 @@ const simpleRow = (key, index, text) => {
 };
 const betaNode = byText(routes.default.route, "BETA");
 const betaStyle = style(betaNode);
-const sectionNode = byText(routes.default.route, "Analytics");
-const sectionStyle = style(sectionNode);
-const sectionRowStyle = style(rowNodes[5]);
 /* **후보 id 의 스타일 축은 이제 내용 주소다 — 아래 두 판정은 그 전의 기록이다.**
    («내용 주소»라고만 적었다가 반증에서 잡혀 좁혔다. 해시 재료에는 `path`/`parentPath` 가
    남아 있고 그것은 **보이지 않는 형제까지 세는** 자식 인덱스 체인이다(`describe` 의
@@ -648,7 +648,7 @@ const roles = live.colorRoles({
     },
     paletteGray600: {
       collection: "Klipse Primitive", name: "color/palette-gray/600",
-      declared: [quote.product(GNB, 190, '    "[color:var(--palette-gray-600)]",'), quote.product(GNB, 839, '    "[color:var(--palette-gray-600)]",')],
+      declared: [quote.product(GNB, 171, '    "[color:var(--palette-gray-600)]",')],
     },
     paletteGray500Alpha12: {
       unbound: true, mix: { collection: "Klipse Primitive", name: "color/palette-gray/500", alpha: 0.12 },
@@ -770,19 +770,7 @@ const plan = {
           },
         },
       },
-      {
-        kind: "section-label",
-        key: "analytics",
-        rect: rowRect(5),
-        label: textSpec(routes.default.route, "Analytics", rootRect),
-        padding: {
-          top: px(sectionRowStyle.paddingTop),
-          right: px(sectionRowStyle.paddingRight),
-          bottom: px(sectionRowStyle.paddingBottom),
-          left: px(sectionStyle.paddingLeft),
-        },
-      },
-      simpleRow("youtube", 6, "YouTube analytics"),
+      simpleRow("youtube", 5, "YouTube analytics"),
     ],
     $bindingPolicy: BINDING_POLICY,
     // 색 역할(`colors.bindings`)은 아래에서 앞에 합친다. 간격 · 반경은 되읽기에서 이름을 확인한다(`assertBindings`).
@@ -826,13 +814,10 @@ const plan = {
 };
 
 const paintOf = (candidates, measured, where) => roles.paintFor(candidates, measured, where);
-// 사이드바 행 — 비활성 글자 · 아이콘 잉크, BETA 칩, 섹션 라벨. 활성 행은 variant 마다 측정 route 의 글자 색.
+// 사이드바 행 — 비활성 글자 · 아이콘 잉크, BETA 칩. 활성 행은 variant 마다 측정 route 의 글자 색.
+// 섹션 라벨(「Analytics」 아이브로우) 행은 제품 `2c6bdacf` 가 걷어 계획이 싣지 않는다 — 라이브 세트의 그 행은 러너가 `retired/` 로 숨긴다.
 const rowPaints = {};
 for (const row of plan.component.rows) {
-  if (row.kind === "section-label") {
-    row.label.paint = paintOf(["paletteGray600", "gray300"], row.label.color, `menu section ${row.label.text}`);
-    continue;
-  }
   row.label.paint = paintOf(["gray300", "gray000"], row.label.color, `menu row ${row.label.text}`);
   row.icon.paint = paintOf(["gray300", "gray000"], row.icon.color, `menu icon ${row.label.text}`);
   rowPaints[`${row.label.paint}/${row.icon.paint}/${row.icon.opacity}`] = true;

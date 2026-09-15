@@ -639,7 +639,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Home",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -2496,7 +2496,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -13396,7 +13396,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -20283,7 +20283,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=YouTube",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -22672,7 +22672,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Upgrade",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -26049,7 +26049,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Upgrade",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -27174,7 +27174,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Upgrade",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -28299,7 +28299,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -29424,7 +29424,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -30549,7 +30549,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Upgrade",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -31674,7 +31674,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -32799,7 +32799,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Default",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -33919,7 +33919,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -35078,7 +35078,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -36900,7 +36900,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -40010,7 +40010,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -41571,7 +41571,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {
@@ -43144,7 +43144,7 @@
                     "instance": {
                       "set": "Product/Gnb Desktop Shell",
                       "variant": "Current=Highlight",
-                      "why": "position:fixed 280×1080 header — 앱 데스크톱 사이드바"
+                      "why": "position:fixed header · width: var(--app-gnb-sidebar-width) (측정 280×1080) — 앱 데스크톱 사이드바"
                     }
                   },
                   {

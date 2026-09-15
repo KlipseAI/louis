@@ -1643,6 +1643,19 @@ withCanary(
   "--check",
 );
 
+// ── 사이드바 셸 매처 카나리아(2026-09-15) ──────────────────────────────────
+// 데스크톱 사이드바 매처는 `rect.width === 280` 을 물다가 제품 `bc3e6fa3`(폭 선언 280 → 240)에 낡을 자리였다. 이제 폭 선언
+// `var(--app-gnb-sidebar-width)` 를 문다. 그 판정이 보드 계획을 실제로 쥐고 있는지 — 선언 이름을 한 글자 틀리게 해 사이드바
+// 열여덟이 인스턴스를 잃으면 생성물 대조가 물어야 한다(셸 수 잠금은 보드 구성 원장이 재측정된 뒤 `SHELL_INSTANCES_BY_BOARD` 가 한다).
+withCanary(
+  "scripts/lib/figma-component-substitution.mjs",
+  (source) => source.replace('const SIDEBAR_WIDTH_DECLARATION = "var(--app-gnb-sidebar-width)";', 'const SIDEBAR_WIDTH_DECLARATION = "var(--app-gnb-sidebar-w)";'),
+  "shell substitution: 사이드바 폭 선언을 놓친 매처",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── 풀지 못한 HUG 부모 · FILL 자식 래칫 카나리아(2026-09-14) ─────────────────
 // 보드 생성기의 크기 조합 풀이 첫 판은 측정이 내용과 다른 HUG 부모 · FILL 자식을 `continue` 로 조용히 넘겼다 — `/settings`
 // 세그먼트 칸의 세로가 계획 · 게이트로는 초록인 채 라이브에서 트랙이 낮아지고 알약이 넘친다. 이제 그 자리를 계획에 싣고 부모 · 축마다

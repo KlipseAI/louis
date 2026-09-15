@@ -9,8 +9,9 @@
  * 셸(사이드바·상단 바)뿐 아니라 결제 결과/체크아웃 상태 본문과 요금제 카드까지 이미 컴포넌트다.
  *
  * ## 판정은 측정값으로 한다 — 라우트 이름으로 찍지 않는다
- * - 셸: 구조(절대 배치 280×1080 header / 앞머리 버튼 · breadcrumb nav · 프로필 버튼을 직접 품은 행)로
- *   찾는다. 상단 바 높이는 제품이 선언하지 않은 계산값이라 판정에 쓰지 않는다(`isTopBarRow`).
+ * - 셸: 구조와 선언(폭을 `var(--app-gnb-sidebar-width)` 로 선언한 절대 배치 header / 앞머리 버튼 · breadcrumb nav ·
+ *   프로필 버튼을 직접 품은 행)으로 찾는다. 사이드바 폭 · 상단 바 높이 수는 판정에 쓰지 않는다(`SIDEBAR_WIDTH_DECLARATION` ·
+ *   `isTopBarRow`).
  * - 본문 블록: **글자 서열 · 구조 서명(직계 자식별 글자 수) · 뷰포트가 모두 같을 때만** 치환한다(크기는 보지 않는다 —
  *   `CONTENT_COMPONENTS` 주석). 글자 하나만 달라도 다른 화면이므로 치환하지 않는다.
  *
@@ -205,6 +206,17 @@ export const SIDEBAR_VARIANT_SOURCES = Object.freeze(Object.fromEntries(
 ));
 
 const round = (value) => Math.round((value ?? 0) * 100) / 100;
+
+/**
+ * **데스크톱 사이드바는 폭 수가 아니라 폭 선언으로 찾는다(2026-09-15).** 이 매처는 `rect.width === 280` 을 물고
+ * 「선언: globals.css:179 `min(280px, …)`」 인용을 달고 있었다. 인용은 이 저장소의 어떤 게이트도 대조하지 않는다
+ * (`check-derived-size-literals` 는 붙어 있는지만 본다). 제품 `bc3e6fa3` 가 그 선언을 `min(240px, …)` 로 옮기자
+ * 데스크톱 보드 열여덟이 사이드바 인스턴스를 잃을 자리였다 — 상단 바 매처가 높이 53 을 물다 프로필 32 에 낡은
+ * 것(2026-09-14)과 같은 모양이다. 제품 사이드바 `header` 는 폭을 `var(--app-gnb-sidebar-width)` 로 선언하고
+ * (fixture 원장의 `declared.width`), 수는 그 변수가 정한다. 그래서 변수 이름을 문다 — 값이 옮겨도 판정이 서고,
+ * 제품이 다른 선언으로 폭을 쥐면 인스턴스가 빠져 `SHELL_INSTANCES_BY_BOARD` 가 운다.
+ */
+const SIDEBAR_WIDTH_DECLARATION = "var(--app-gnb-sidebar-width)";
 
 /** 노드가 품은 모든 텍스트를 순서대로 모은다. */
 function textsOf(node, into = []) {
@@ -835,11 +847,12 @@ function matchLouisPrimitive(site, node, style, evidence) {
 }
 
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
-export function applyComponentInstances(spec, { route, context, viewport, styleOf, evidence }) {
+export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence }) {
   const desktop = context.startsWith("desktop");
   // **증거가 없으면 조용히 넘어가지 않는다.** 낱개 컨트롤 치환이 소리 없이 꺼지면 보드 36장이
   // 도형으로 되돌아가고, `check-figma-app-screens` 는 그 교환을 한 글자도 보지 못한다.
   if (typeof styleOf !== "function") throw new Error("[figma-app-screens] styleOf(path) 가 필요합니다.");
+  if (typeof declaredOf !== "function") throw new Error("[figma-app-screens] declaredOf(path) 가 필요합니다 — 사이드바는 선언으로 찾는다.");
   if (!evidence?.recipes || !evidence?.readback) {
     throw new Error("[figma-app-screens] 제품 레시피 원장과 Figma 되읽기가 모두 필요합니다.");
   }
@@ -911,9 +924,9 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   let barDone = false;
   const walk = (node) => {
     if (desktop && node.tag === "header" && node.positioning === "ABSOLUTE"
-        && Math.round(node.rect.width) === 280) { // 선언: apps/web/app/globals.css:179 `--app-gnb-sidebar-width: min(280px, …)`
+        && declaredOf(node.path)?.width === SIDEBAR_WIDTH_DECLARATION) {
       if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
-        "position:fixed 280×1080 header — 앱 데스크톱 사이드바")) return;
+        `position:fixed header · width: ${SIDEBAR_WIDTH_DECLARATION} (측정 ${round(node.rect.width)}×${round(node.rect.height)}) — 앱 데스크톱 사이드바`)) return;
     }
     if (!barDone && isTopBarRow(node)) {
       barDone = true;

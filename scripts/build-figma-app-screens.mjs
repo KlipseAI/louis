@@ -462,11 +462,14 @@ for (const screen of SCREENS) {
     // 그래서 spec 이 들고 있는 `path` 로 fixture 의 원래 계산 스타일을 다시 본다.
     const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
     const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
+    // 선언(`declared`)도 경로로 되찾는다 — 사이드바는 폭 수가 아니라 폭 선언으로 찾는다(figma-component-substitution.mjs).
+    const declaredByPath = new Map(measured.tree.map((node) => [node.path, node.declared ?? null]));
     const shells = applyComponentInstances(spec, {
       route: screen.route,
       context: context.id,
       viewport: { width: measured.rootRect.width, height: measured.rootRect.height },
       styleOf: (path) => styleByPath.get(path) ?? null,
+      declaredOf: (path) => declaredByPath.get(path) ?? null,
       evidence: { recipes, readback },
     });
     // **아이콘 정체를 서명 ↔ 이름 조인표에 댄다.** 인스턴스 치환 «뒤에» 돌린다 — 셸 안으로

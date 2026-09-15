@@ -79,16 +79,44 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
   프레임에서 다시 도출한다). `/pricing` 은 핀만. 인벤토리 계획은 레일 표본이 빠지고 GNB 표본 폭이 줄었다(RESET 러너
   `inventory-draw.*` 는 적용 금지 그대로).
 
+### 앵커 검토 뒤 — 채움 칸은 DS 토큰과 맞대고, template 기록은 규칙으로
+
+앵커 이동을 따로 검토한 지적 둘(둘 다 major)을 같은 날 고쳤다. 둘 다 「사본이 같이 낡아 초록」이다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| `verify-figma-parity` 채움 칸(`fillIn`) | 위 표의 첫 판은 `SidebarBrand` · `SidebarCta` 펼친 size 에서 Figma 표본 폭을 **대조하지 않고** 넘어갔고 출력에 한 줄도 남기지 않았다. canary 는 기록이 수를 되찾는 경우만 물어, 레일 폭 토큰이 움직여도 표본(지금 256)을 옮길 자리를 아무도 말하지 않았다 | 규칙에 원천 `fill: "rail-content"` — 기대값 = 레일 `.louis-app-shell__rail` 의 `inline-size` 토큰 − `padding` 토큰 × 2(토큰 이름은 `packages/css/src/component/app-shell.css` 선언에서, 값은 생성된 토큰 manifest 에서 읽는다). 세 표본과 맞대고 계산 과정을 매 실행 인쇄한다 — 「채움 칸 SidebarBrand false.width: 기대 256 (layout-app-shell-sidebar-width 280 − 2 × space-control-md 12) · Figma [256]」. `verify-gates` canary 셋이 토큰 manifest 의 레일 폭을 40 줄여 세 표본 모두 무는지 본다 |
+| `app-shell-parts.sizes.navRow.width` | `256`(「256px 사이드바 폭」) — 브랜드 · CTA 와 같은 레일 내용 폭 사본이 수로 남아 Figma `SidebarNavRow` 256 과 맞댔다 | 수를 지우고 `$width` 규칙, parity 는 위 채움 칸(`fillIn: ["navRow"]`) |
+| `measure-product-components` `fill` 행 | 변조 확인이 기록 쪽(채움 칸에 수)만 흔들었다 | 「채움 칸의 제품 폭이 조상 내용 폭과 다른 경우」를 더했다 — 제품 렌더 사본의 부품 폭을 조상 내용 폭 + 40 으로. 변조를 +0 으로 바꾼 사본은 「canary가 변조를 잡지 못했습니다」로 멈춘다 |
+| `figma/templates.measured.json` | 「제품 실측값」인데 앵커에서 거짓이 된 칸 — `app-shell.railWidth` 280 · `compactDrawerWidth` 280 · `home.sidebarWidth` 280, 280 에서 산술로 나온 `app-shell.mainWidth` 1148 · `project-grid.containerWidthWide` 1116 · `home.cardWidth` · `cardHeight` · `project-grid.cardWidthWide` 276 · `home.overlayHeightRatio` 0.39, 제품이 걷은 `home.requiredParts` 의 `NavEyebrow`. 기록과 Figma 가 둘 다 옛 값이라 초록 | 레일 · 서랍 폭은 240(`globals.css:181` · `Gnb.tsx:2053-2054`), `NavEyebrow` 제거(`Gnb.tsx:2158`). 파생 칸은 수를 지우고 **규칙**(`rule`) — `mainWidth = sceneWidth - railWidth - mainOuterGapRight`, `containerWidthWide = app-shell.mainWidth - 2 * app-shell.mainContentInset`, 카드 폭 = (격자 폭 − gap × 3) / 4, `cardHeight = cardWidth`, `overlayHeightRatio = round2(107.7 / (cardWidth - 1))`, `home.sidebarWidth = app-shell.railWidth`. 레일 폭 한 칸을 옮기면 두 template 을 건너 따라온다. parity 가 규칙을 계산하고(순환 · 없는 칸 · 읽지 못한 식은 실패) 규칙 칸에 수가 돌아오면 실패하며 계산 과정을 인쇄한다. canary 둘(규칙 칸에 수 · 레일 폭을 흔들면 컨테이너 폭이 따라온다) |
+| 본문 끝 여백 12 재대조 | 기록 `mainOuterGapRight` · `mainOuterGapTop` · `mainOuterGapBottom` · `railPaddingTop` 12, `compactContentInset` 16 | 제품은 **8 · 8 · 8 · 8 · 6** 이다 — 링 12 → 8(제품 `094c336b` 2026-09-09: `globals.css:100` safe-top `max(8px, …)` · `:131` · `:164`, 원장 `product.sidebar-states.json` customProperties `8px`), compact 인셋 16 → 6(`b23ac6ef` 2026-09-04, `globals.css:428`). **앵커 `6f6282c1` 이전부터 낡은 값이다.** DS 토큰(`layout-app-shell-outer-gap` 12 · 레일 `space-control-md` 12 · `layout-app-shell-content-inset` 16)과 갈리는 판정이 먼저라 값은 두고 칸마다 `$pending` 에 인용을 적었다 — parity 가 매 실행 「대기 app-shell.mainOuterGapRight: 기록 12 · 제품 8」 꼴로 다섯 줄을 인쇄한다 |
+
+**parity 는 옮긴 칸만큼 빨갛다.** 전과 같은 일곱(ProgressRing · AppTopBar)에 template 열이 더해져 열일곱이다 — app-shell `railWidth` 240 ·
+`mainWidth` 1188 · `compactDrawerWidth` 240, home `sidebarWidth` 240 · `cardWidth` · `cardHeight` 286 · `overlayHeightRatio` 0.38 ·
+`requiredParts`(NavEyebrow 없음), project-grid `containerWidthWide` 1156 · `cardWidthWide` 286. 그 열이 Figma 에서 옮길 목록이다(아래).
+
 ### 남은 것
 
-- **토큰 `layout-app-shell-sidebar-width` 는 아직 280 이다.** 제품이 240 으로 줄였고 어떤 게이트도 둘을 대조하지 않는다. P2 값 이동은
-  웹 소비처의 레일을 좁히는 계약 변경이라 이 앵커 이동에서 하지 않았다([App Shell](../patterns/app-shell.md) 표에 적었다). Figma
-  `DS · Templates` 의 `Pattern · AppShell`(레일 280)도 같다.
+- **토큰 `layout-app-shell-sidebar-width` 는 아직 280 이다.** 제품이 240 으로 줄였다. P2 값 이동은 웹 소비처의 레일을 좁히는 계약
+  변경이라 이 앵커 이동에서 하지 않았다([App Shell](../patterns/app-shell.md) 표에 적었다). 토큰을 옮기면(준비 단계 — Decision · 토큰
+  정본 · 생성물 · 문서를 같은 단위로) parity 채움 칸 셋이 「DS 레일 내용 폭 216 …, Figma 256」으로 빨개진다 — 그것이 표본을 옮길 자리다.
+- **Figma 에서 옮길 것(세트 단계 — variant id 보존 · detach 금지 · 지우지 않는다).** DS · Components: `SidebarBrand` · `SidebarCta`
+  `Collapsed=false` 폭과 `SidebarNavRow` 폭(토큰 이동 뒤 216). DS · Templates: `Pattern · AppShell`(`982:175`) Expanded 레일 240 과 본문 폭
+  (규칙), Compact · drawer open 서랍 240, `Template · AppHome`(레일 240 · 카드 286 · 오버레이 비율 · `NavEyebrow` 는 숨김),
+  `Pattern · ProjectGrid`(`991:252`) 4열 밴드 컨테이너 1156 · 카드 286. 순서는 **기록 · 토큰 커밋 → Figma 적용 → 되읽기 →
+  `build-figma-snapshot` → parity 초록**이다.
+- **template 되읽기를 뜨는 스크립트가 없다.** `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에 손으로 떴고
+  `figma-readback-emit` 은 `components` · 변수만 뜬다. 위 Figma 적용 뒤 parity 를 초록으로 만들려면 app-shell · home · project-grid
+  세 블록을 계약 축 그대로 다시 떠야 한다 — emitter 를 세우거나 같은 축을 손으로 뜨고 스크린숏으로 대조한다.
+- **링 12 → 8 · compact 인셋 16 → 6 은 판정 대기다**(위 표 마지막 행, `$pending` 다섯 칸). 옮기려면 `layout-app-shell-outer-gap` ·
+  `app-gnb-main-inline-padding-end` · `app-gnb-rail-padding-bottom` · `layout-app-shell-content-inset` 을 제품에 맞출지 소유자가 먼저
+  정한다. 그 칸이 옮겨지면 `mainWidth` 규칙과 그 사슬이 함께 움직인다. [App Shell](../patterns/app-shell.md) 「제품 변수」 표의 12 행들도
+  그 전 배포본의 기록이다.
 - **모바일 서랍은 DS 에도 Figma 에도 표본이 없다.** compact 드로어 composition 을 지을 때 블러 표면으로 판정한다
   ([App Shell Parts](../components/app-shell-parts.md) Known deviations).
 - **라이브 적용은 하지 않았다.** 순서는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 그대로이고,
   컴포넌트 러너 재적용에서 기대하는 변화에 이 항목의 둘(아이브로우 행 `retired/`, 메뉴 · CTA · 셸 폭)이 더해진다.
-- `SidebarCta` · `SidebarBrand` 의 펼친 Figma 표본 폭(256)은 표본이라 그대로 두었다 — parity 가 보지 않는다.
+- `SidebarCta` · `SidebarBrand` · `SidebarNavRow` 의 Figma 표본 폭(256)은 DS 토큰(280)을 따르므로 토큰이 옮겨지기 전에는 그대로다 — parity 가 DS 레일 내용 폭과 맞댄다(위 「앵커 검토 뒤」).
 
 ## 2026-09-15 (137) — sidebar-states 러너가 대상을 전부 찾은 뒤에 쓰고, 보드 판정기가 논리 크기 · grid 열을 읽는다
 

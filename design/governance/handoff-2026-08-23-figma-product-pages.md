@@ -27,6 +27,16 @@ authority: reference
 > 「다음 순서」 1번 5단계의 (가) 컴포넌트 러너 재적용에 두 변화가 더해진다 — 메뉴 variant 여섯의 `section/Analytics` 행이 `retired/` 로 숨고,
 > 메뉴 · 행 · CTA variant 폭이 레일 내용 폭(216)으로, 셸 variant 가 레일 폭(240)으로 준다. 사이드바를 인스턴스로 쓰는 소비처(데스크톱 보드 ·
 > 결제 장면 · 손 조립 허브)의 사이드바가 함께 좁아지고 옆 본문은 보드 러너가 넓힌다.
+>
+> **앵커 검토 뒤(같은 날, (138) 「앵커 검토 뒤」).** parity 채움 칸이 사이드바 표본 폭을 건너뛰지 않고 DS 레일 내용 폭(레일 폭 토큰 −
+> 레일 패딩 토큰 × 2)과 맞대며 `SidebarNavRow` 폭 사본도 규칙이 됐다. `figma/templates.measured.json` 은 레일 · 서랍 폭 240 과
+> `NavEyebrow` 제거로 옮기고 본문 · 컨테이너 · 카드 폭을 규칙으로 바꿨다 — **parity 가 template 열로 빨갛다**(전과 같은 일곱 + 열).
+> 그래서 「다음 순서」 1번 세트 단계에 **DS · Templates** 가 더해진다: `Pattern · AppShell`(`982:175`) Expanded 레일 240 · 본문 폭 ·
+> Compact 서랍 240, `Template · AppHome`(레일 240 · 카드 286 · 오버레이 비율 · `NavEyebrow` 숨김), `Pattern · ProjectGrid`(`991:252`) 4열
+> 컨테이너 1156 · 카드 286. 토큰 `layout-app-shell-sidebar-width` 를 240 으로 옮기면 DS · Components `SidebarBrand` · `SidebarCta`
+> `Collapsed=false` · `SidebarNavRow` 폭 216 도 더해진다. template 되읽기를 뜨는 스크립트는 아직 없다(`templates` 블록은 손으로 떴다).
+> 본문 끝 여백 · 레일 위 패딩 · 링(제품 8, `094c336b`) · compact 인셋(제품 6, `b23ac6ef`)은 DS 토큰 판정 대기로 기록을 두었다
+> (`$pending`, parity 가 매 실행 인쇄).
 
 > **2026-09-15 — 세트 러너 넷을 라이브에 적용했고, sidebar-states 사전 점검에서 멈춰 러너 · 판정기를 고쳤다.** 앞의 것은 라이브
 > 쓰기(HEAD `c156bae` 포장본), 뒤의 것은 저장소 변경이다(라이브에 쓰지 않았다 — 읽기 전용 탐침만). 적용 기록은 저장소 밖 작업 메모에

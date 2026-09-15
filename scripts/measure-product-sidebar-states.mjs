@@ -183,11 +183,20 @@ try {
   await page.goto(`${server.url}/settings`, { waitUntil: "domcontentloaded", timeout: 60_000 });
   await delay(3_000);
   await page.evaluate(async () => { await document.fonts.ready; });
+  // **토글이 선 뒤에 잰다(2026-09-15).** 고정 지연 3초만 두고 재면, 기계가 바쁠 때 상단 바 토글이 아직 붙지 않은 순간을 재
+  // `toggle: null` 을 원장에 쓰고도 exit 0 이었다(앵커 2c6bdacf 첫 측정, 부하 40 대 — 같은 트리 재측정에서는 x 248 로 섰다).
+  // 바로 아래 클릭은 Playwright 가 기다려 주므로 가려지지 않았다. 토글을 기다리고, 그래도 없으면 원장을 쓰기 전에 멈춘다.
+  const toggleOf = (label) => page.getByRole("button", { name: label });
+  await toggleOf("Collapse sidebar").waitFor({ state: "visible", timeout: 60_000 });
   const expanded = await measure(page);
-  await page.getByRole("button", { name: "Collapse sidebar" }).click();
+  await toggleOf("Collapse sidebar").click();
   await page.waitForFunction(() => document.documentElement.dataset.appGnbSidebarCollapsed === "true");
+  await toggleOf("Expand sidebar").waitFor({ state: "visible", timeout: 60_000 });
   await delay(500);
   const collapsed = await measure(page);
+  for (const [name, state] of [["expanded", expanded], ["collapsed", collapsed]]) {
+    if (!state.toggle) fail(`${name} sidebar toggle was not measured — the top bar toggle was not in the DOM when the state was read`);
+  }
   await page.goto(`${server.url}/archive`, { waitUntil: "domcontentloaded", timeout: 60_000 });
   await delay(3_000);
   await page.evaluate(async () => { await document.fonts.ready; });

@@ -85,14 +85,32 @@ const grep = (args) => {
 };
 
 // POSIX 문자 클래스로 쓴다 — `\s` 는 git 의 기본 정규식 엔진에서 이식성이 없다.
-const PATTERN = "var\\([[:space:]]*--louis-[a-z0-9-]+";
+// `*` 까지 집어 온다 — 산문의 이름 묶음(`var(--louis-color-*)`)을 아래에서 걸러 내려면 그 별표가 출력에 있어야 한다.
+const PATTERN = "var\\([[:space:]]*--louis-[a-z0-9*-]+";
 const hits = grep(["-h", "-o", "-E", "-e", PATTERN, commit, "--", ...TREES]);
-const files = grep(["-l", "-E", "-e", PATTERN, commit, "--", ...TREES])
+// 파일 수는 이름 글자(`*` 없이)가 나오는 파일이다 — 별표를 넣으면 `var(--louis-*)` 만 적은 산문 파일까지 세어진다.
+const files = grep(["-l", "-E", "-e", "var\\([[:space:]]*--louis-[a-z0-9-]+", commit, "--", ...TREES])
   .split("\n")
   .filter(Boolean);
 
-const productRefs = new Set();
-for (const match of hits.matchAll(/var\(\s*(--louis-[a-z0-9-]+)/g)) productRefs.add(match[1]);
+// **이름 묶음은 참조가 아니다(2026-09-15).** 제품 `2c6bdacf` 의 `Gnb.tsx` 주석이 「그라디언트라 `var(--louis-color-*)` 직행 금지」라고
+// 적었고, 옛 수집기는 `--louis-color-` 까지를 이름으로 집어 `check-coverage-targets` 가 「끊어진 참조 1」로 울었다. 토큰 이름은
+// `-` 로 끝나지 않고 `*` 를 품지 않는다 — 그 둘은 「이 이름들 전부」를 말하는 글자이지 브라우저가 푸는 이름이 아니다.
+const collectRefs = (text) => {
+  const refs = new Set();
+  for (const match of text.matchAll(/var\(\s*(--louis-[a-z0-9*-]+)/g)) {
+    if (match[1].includes("*") || match[1].endsWith("-")) continue;
+    refs.add(match[1]);
+  }
+  return refs;
+};
+{
+  const probe = collectRefs("var(--louis-color-*) · var(--louis-space-) · var(--louis-color-bg-surface) · var( --louis-radius-12)");
+  if (probe.size !== 2 || !probe.has("--louis-color-bg-surface") || !probe.has("--louis-radius-12")) {
+    throw new Error("[louis-token-usage] 참조 수집 단위 확인 실패 — 이름 묶음을 참조로 세거나 참조를 놓쳤다: " + [...probe].join(" · "));
+  }
+}
+const productRefs = collectRefs(hits);
 
 if (productRefs.size === 0) {
   notMeasured(

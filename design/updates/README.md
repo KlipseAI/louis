@@ -25,6 +25,43 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-16 (140) — 레일 폭 토큰 280 → 240 — 기록이 옮긴 자리로 토큰이 따라간다
+
+소유자 판정이다([DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md)).
+(138) 이 「남은 것」 첫 줄로 남긴 P2 값 이동이다. 제품은 `bc3e6fa3`(2026-09-14)에 이미 240 이었고
+같은 앵커 이동에서 **기록만** 옮겼으므로, 이 저장소는 그동안 한 값을 두 곳에서 다르게 말하고 있었다.
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| 토큰 `layout-app-shell-sidebar-width` | `{primitive.spacing.280}` | **`{primitive.spacing.240}`** |
+| `--louis-layout-app-shell-sidebar-width` | `280px` | **`240px`** (생성) |
+| `packages/react/test/app-shell.browser.test.tsx` 예약 폭 단언 | `expect(expanded).toBe(280)` | **토큰을 읽어 offset · 레일 폭과 맞댄다** |
+
+**테스트의 수를 240 으로 바꾸지 않았다.** 280 이 낡은 원인이 「토큰의 사본을 테스트에 적었다」이므로
+같은 실수를 240 으로 반복하지 않는다. 그 단언이 소유하는 계약은 값이 아니라 **본문 offset 과 레일 폭이
+한 변수를 읽는다**는 것이다 — 토큰을 읽어 `paddingInlineStart` · 레일 `inlineSize` 셋이 같은지 본다.
+토큰을 못 읽으면(0 이거나 NaN) 그 자리에서 실패한다. 값 자체는 토큰 게이트와
+[App Shell](../patterns/app-shell.md) 「해결된 치수」 생성 표가 소유한다.
+
+**따라 움직이지 않는 것 셋.** `layout-app-shell-sidebar-collapsed` 56(접힘 폭은 레일 폭에서 파생되지
+않는다) · `layout-app-shell-content-reserve` 120(`min(240px, calc(100vw − 120px))` 의 **빼는 값**이지
+레일 폭이 아니다 — 이름 함정은 DS-D-0018) · `app-shell-min-width` 960(제품 주석이 「사이드바가 240 으로
+줄어도 하한은 LOUIS 값을 그대로 둔다」고 적는다, `globals.css:184` · `:189`).
+
+**DS-D-0018 을 고쳤다.** 그 결정이 신설한 값 280 을 산문이 현재형으로 말하고 있어
+`verify-record-citations` 가 「그 토큰의 값은 240px 입니다」로 잡았다. 결정의 기록은 남기고 **지금 값이
+어디 있는지**를 가리키도록 두 줄을 고쳤다 — 낡은 수를 현재형으로 말하는 규범 문장을 남기지 않는다.
+
+**parity 채움 칸 셋이 빨개진다 — 의도한 변화다.** 채움 칸 기대값은 「레일 폭 토큰 − 2 × 레일 패딩 토큰」
+이라 280 − 24 = 256 이던 것이 240 − 24 = **216** 이 되고 Figma 표본은 아직 256 이다
+(`SidebarBrand false.width` · `SidebarCta false.width` · `SidebarNavRow navRow.width`).
+**그 세 줄이 Figma 표본을 옮길 자리다** — (138) 이 「토큰이 옮겨지기 전에는 그대로다」로 예고한 지점이고,
+이 변경의 목적 자체가 「말해 주는 게이트가 없다」를 없애는 것이다.
+
+**baseline 갱신.** `check-token-diff` 가 값 변경을 breaking 으로 분류하므로 절차대로 Decision 을 먼저 적고
+분류를 확인한 뒤(rawValue 1 · value 1 · aliasTarget 1, 의도 밖 항목 없음) generated manifest 를 baseline 으로
+복사했다.
+
 ## 2026-09-16 (139) — 링 여백 12 → 8 · compact 인셋 16 → 6 — 기록 다섯 칸을 제품 값으로 풀고 토큰 셋을 따라 옮긴다
 
 소유자 판정이다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)).
@@ -133,9 +170,9 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
 
 ### 남은 것
 
-- **토큰 `layout-app-shell-sidebar-width` 는 아직 280 이다.** 제품이 240 으로 줄였다. P2 값 이동은 웹 소비처의 레일을 좁히는 계약
-  변경이라 이 앵커 이동에서 하지 않았다([App Shell](../patterns/app-shell.md) 표에 적었다). 토큰을 옮기면(준비 단계 — Decision · 토큰
-  정본 · 생성물 · 문서를 같은 단위로) parity 채움 칸 셋이 「DS 레일 내용 폭 216 …, Figma 256」으로 빨개진다 — 그것이 표본을 옮길 자리다.
+- ~~**토큰 `layout-app-shell-sidebar-width` 는 아직 280 이다.**~~ — **2026-09-16 에 (140) 에서 닫았다**
+  ([DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md)). 예고한 대로 parity 채움 칸 셋이
+  「기대 216 · Figma [256]」으로 빨개졌다 — 그것이 표본을 옮길 자리다.
 - **Figma 에서 옮길 것(세트 단계 — variant id 보존 · detach 금지 · 지우지 않는다).** DS · Components: `SidebarBrand` · `SidebarCta`
   `Collapsed=false` 폭과 `SidebarNavRow` 폭(토큰 이동 뒤 216). DS · Templates: `Pattern · AppShell`(`982:175`) Expanded 레일 240 과 본문 폭
   (규칙), Compact · drawer open 서랍 240, `Template · AppHome`(레일 240 · 카드 286 · 오버레이 비율 · `NavEyebrow` 는 숨김),
@@ -152,7 +189,7 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
   ([App Shell Parts](../components/app-shell-parts.md) Known deviations).
 - **라이브 적용은 하지 않았다.** 순서는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 그대로이고,
   컴포넌트 러너 재적용에서 기대하는 변화에 이 항목의 둘(아이브로우 행 `retired/`, 메뉴 · CTA · 셸 폭)이 더해진다.
-- `SidebarCta` · `SidebarBrand` · `SidebarNavRow` 의 Figma 표본 폭(256)은 DS 토큰(280)을 따르므로 토큰이 옮겨지기 전에는 그대로다 — parity 가 DS 레일 내용 폭과 맞댄다(위 「앵커 검토 뒤」).
+- `SidebarCta` · `SidebarBrand` · `SidebarNavRow` 의 Figma 표본 폭(256)은 DS 레일 내용 폭을 따른다 — **(140) 에서 토큰이 옮겨져 기대값이 216 이 됐고 표본은 아직 256 이다.** parity 가 매 실행 그 계산을 인쇄한다(위 「앵커 검토 뒤」).
 
 ## 2026-09-15 (137) — sidebar-states 러너가 대상을 전부 찾은 뒤에 쓰고, 보드 판정기가 논리 크기 · grid 열을 읽는다
 

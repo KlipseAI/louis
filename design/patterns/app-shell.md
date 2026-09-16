@@ -116,7 +116,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | `layout-app-shell-outer-gap` | `--louis-layout-app-shell-outer-gap` | `8px` |
 | `layout-app-shell-sidebar-collapsed` | `--louis-layout-app-shell-sidebar-collapsed` | `56px` |
 | `layout-app-shell-sidebar-padding` | `--louis-layout-app-shell-sidebar-padding` | `12px` |
-| `layout-app-shell-sidebar-width` | `--louis-layout-app-shell-sidebar-width` | `280px` |
+| `layout-app-shell-sidebar-width` | `--louis-layout-app-shell-sidebar-width` | `240px` |
 | `layout-app-shell-top-bar-height` | `--louis-layout-app-shell-top-bar-height` | `40px` |
 | `motion-shell-collapse` | `--louis-motion-shell-collapse-delay` | `0ms` |
 | `motion-shell-collapse` | `--louis-motion-shell-collapse-duration` | `320ms` |
@@ -127,7 +127,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 | Token | 지배하는 자리 | 근거 |
 | --- | --- | --- |
-| `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:117` — `min(280px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 280. **제품 `2c6bdacf`(2026-09-15 앵커)가 `min(240px, …)` 로 줄였다(소유자 지정 — 캔버스 레이어 패널 폭과 같다). 토큰은 아직 280 이다** — P2 값 이동은 이 앵커 이동에서 하지 않았고 판정이 남았다(Updates (138)) |
+| `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:181` — `min(240px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 240. 제품이 `bc3e6fa3`(2026-09-14)에 280 → 240 으로 줄였고(소유자 지정 — 캔버스 레이어 패널 폭과 같다) **토큰도 2026-09-16 에 240 으로 옮겼다** — [DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md) |
 | `layout-app-shell-sidebar-collapsed` | 접힘 레일 폭 | `globals.css:354-356` — `2 × 레일 패딩 + 메뉴 히트 폭` |
 | `layout-app-shell-content-reserve` | 본문에 **남겨 두는** 최소 공간 | `globals.css:117`의 빼는 값. **레일 폭이 아니다** — 이름 함정의 전말은 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md) |
 | `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:155` — 제품이 데스크톱에서 이 토큰을 그대로 받는다. ≤719px 의 `6px` 은 `:428` 이 덮는 값이라 단일 토큰이 담지 못한다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)) |

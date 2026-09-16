@@ -960,7 +960,7 @@ export declare const tokens: Readonly<{
   readonly "layout-app-shell-outer-gap": TokenRecord<"layout-app-shell-outer-gap", "global", "semantic", { readonly id: "space-8"; readonly mode: "base" }>;
   readonly "layout-app-shell-sidebar-collapsed": TokenRecord<"layout-app-shell-sidebar-collapsed", "global", "semantic", { readonly id: "space-56"; readonly mode: "base" }>;
   readonly "layout-app-shell-sidebar-padding": TokenRecord<"layout-app-shell-sidebar-padding", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
-  readonly "layout-app-shell-sidebar-width": TokenRecord<"layout-app-shell-sidebar-width", "global", "semantic", { readonly id: "space-280"; readonly mode: "base" }>;
+  readonly "layout-app-shell-sidebar-width": TokenRecord<"layout-app-shell-sidebar-width", "global", "semantic", { readonly id: "space-240"; readonly mode: "base" }>;
   readonly "layout-app-shell-top-bar-height": TokenRecord<"layout-app-shell-top-bar-height", "global", "semantic", { readonly id: "space-40"; readonly mode: "base" }>;
   readonly "layout-control-height-lg": TokenRecord<"layout-control-height-lg", "global", "semantic", { readonly id: "space-40"; readonly mode: "base" }>;
   readonly "layout-control-height-md": TokenRecord<"layout-control-height-md", "global", "semantic", { readonly id: "space-32"; readonly mode: "base" }>;

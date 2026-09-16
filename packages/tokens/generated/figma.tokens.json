@@ -11873,14 +11873,14 @@
           ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.spacing.280}",
+              "$value": "{primitive.spacing.240}",
               "aliasTarget": {
-                "id": "space-280",
+                "id": "space-240",
                 "mode": "base"
               },
               "resolvedValue": {
                 "unit": "px",
-                "value": 280
+                "value": 240
               },
               "sourcePath": "semantic.global.layout.app-shell-sidebar-width"
             }

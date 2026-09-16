@@ -39,7 +39,9 @@ SidebarNavItem과 AppTopBar를 지을 수 없다.
 
 1. **`layout-app-shell-sidebar-minimum` → `layout-app-shell-content-reserve`.** 값 120px은 그대로다.
    이름이 "본문에 남기는 최소 공간"이라는 실제 뜻을 말한다.
-2. **`layout-app-shell-sidebar-width` 280px** 신설. 사이드바 펼침 폭.
+2. **`layout-app-shell-sidebar-width`** 신설. 사이드바 펼침 폭 — 이때 정한 값은 280px 이고,
+   2026-09-16 에 제품을 따라 240 으로 옮겼다
+   ([DS-D-0064](DS-D-0064-sidebar-width-follows-the-product.md)).
 3. **`layout-app-shell-sidebar-collapsed` 56px** 신설. 접힘 폭.
 4. **`layout-app-shell-top-bar-height` 40px** 신설. 상단 크롬 행 높이.
 5. **`.louis-layer-sticky` 유틸리티**를 `base.css`에 추가한다. 토큰은 있는데 쓸 클래스가 없어
@@ -87,8 +89,8 @@ popover에 가린다. **이 결정은 드로어를 다루지 않는다** — 드
 
 ## Acceptance tests
 
-1. `layout-app-shell-sidebar-width` 280px, `-sidebar-collapsed` 56px, `-top-bar-height` 40px가
-   생성된다.
+1. `layout-app-shell-sidebar-width`(이때 280px — 지금 값은 위 2번의 주가 가리킨다),
+   `-sidebar-collapsed` 56px, `-top-bar-height` 40px가 생성된다.
 2. `layout-app-shell-sidebar-minimum`이 더 이상 생성되지 않고 `-content-reserve`가 그 자리를 갖는다.
 3. `.louis-layer-sticky`의 `z-index`가 `layer-sticky` 토큰에서 온다.
 4. `diff-tokens.mjs`가 removal 1 · additive 5로 분류하고 baseline 갱신 후 통과한다.

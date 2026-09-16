@@ -69,7 +69,18 @@ test("접히면 예약 폭이 줄어든다", async () => {
     expect(collapsed).toBe(0);
   } else {
     expect(collapsed).toBeLessThan(expanded);
-    expect(expanded).toBe(280);
+    // **수를 적지 않는다(2026-09-16, DS-D-0064).** 여기 있던 280은 토큰의 사본이라
+    // `layout-app-shell-sidebar-width`가 240으로 내려갈 때 함께 낡았다. 이 단언이 소유하는
+    // 계약은 값이 아니라 **본문 offset과 레일 폭이 한 변수를 읽는다**는 것이므로 그 변수를
+    // 읽어 맞댄다. 값 자체는 토큰 게이트와 App Shell 문서의 생성 표가 소유한다.
+    const railToken = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        "--louis-layout-app-shell-sidebar-width",
+      ),
+    );
+    expect(Number.isFinite(railToken) && railToken > 0, "레일 폭 토큰을 읽지 못했다").toBe(true);
+    expect(expanded).toBe(railToken);
+    expect(Number.parseFloat(getComputedStyle(rail()).inlineSize)).toBe(railToken);
   }
 });
 

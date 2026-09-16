@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "db51a355fca40d799f38924cba58c0089e07d73265feff64af6ed5af301e1fe7"
+      "sha256": "abd06e21728cac8c3fff6f906498fddf44ce79b75c3f7fff61b9a3a7349ffda8"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "e2796725501c0bb9ce957f4918c1b9d5b7cca3e37605cad4b167bf83974d7f64"
+      "sha256": "84cab921a8166454352f1d35d59f51e1ccd23e02f54bcbb11f572c7b1a47f927"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "a09a815d312cfc19c64cf14a19c695f2d2c42f0ff7b49859d29afae5728d315b"
+      "sha256": "bd2ac105294e354bbd720d11ef68fbb0793e96f82d942a8bb7a3f7e3ae0a7813"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "105589fe2e20e9ee8373f983b181fc2dc2fc9f0408703808170bfbf2b509179c"
+      "sha256": "52cdc076247279ca12d54c5b323281cec36d1fbbfc10ac48010df1c64e4e152b"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "83bd0edc395a9865181c70487307e9d755765e16e6ac6f658238690f5665db4d"
+      "sha256": "fde2b5f6fd158dcd5d35eb8a8435287b56789befee379ac7a4b8023ab4d120c2"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "73170538f71f09df80d03308ee45afd0c1d31205be49a15027d988c5f1ade7e7"
+    "sha256": "2f051d1ddf21e06b0f60bc254e4793f8158c98d9e6f39f5d02161aff7c31feec"
   },
   "themes": [
     "light",
@@ -15660,20 +15660,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-280",
+        "id": "space-240",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-app-shell-sidebar-width": "280px"
+        "--louis-layout-app-shell-sidebar-width": "240px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-app-shell-sidebar-width",
       "mode": "global",
-      "rawValue": "{primitive.spacing.280}",
+      "rawValue": "{primitive.spacing.240}",
       "resolvedValue": {
         "unit": "px",
-        "value": 280
+        "value": 240
       },
       "sourcePath": "semantic.global.layout.app-shell-sidebar-width",
       "tier": "semantic",

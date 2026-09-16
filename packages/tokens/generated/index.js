@@ -9419,22 +9419,22 @@ export const tokens = {
     },
     "layout-app-shell-sidebar-width": {
       "aliasTarget": {
-        "id": "space-280",
+        "id": "space-240",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-app-shell-sidebar-width": "280px"
+        "--louis-layout-app-shell-sidebar-width": "240px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-app-shell-sidebar-width",
       "mode": "global",
-      "rawValue": "{primitive.spacing.280}",
+      "rawValue": "{primitive.spacing.240}",
       "sourcePath": "semantic.global.layout.app-shell-sidebar-width",
       "tier": "semantic",
       "type": "dimension",
       "value": {
-        "value": 280,
+        "value": 240,
         "unit": "px"
       }
     },

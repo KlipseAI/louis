@@ -122,6 +122,15 @@
       "generated": false
     },
     {
+      "id": "decision-sidebar-width-follows-the-product",
+      "path": "design/governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md",
+      "title": "DS-D-0064 레일 폭의 정본은 제품이다 — layout-app-shell-sidebar-width 를 240 으로 옮긴다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "decision-transform-frame-is-one-set",
       "path": "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
       "title": "DS-D-0060 크롭 창과 선택 상자는 한 벌이다 — 손잡이 위치는 축이 아니다",
@@ -1570,6 +1579,7 @@
         "design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md",
         "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
         "design/governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md",
+        "design/governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",

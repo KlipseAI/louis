@@ -915,9 +915,9 @@ export declare const primitives: Readonly<{
 export declare const tokens: Readonly<{
   readonly global: Readonly<{
   readonly "app-gnb-main-card-padding-block-start": TokenRecord<"app-gnb-main-card-padding-block-start", "global", "semantic", { readonly id: "space-0"; readonly mode: "base" }>;
-  readonly "app-gnb-main-inline-padding-end": TokenRecord<"app-gnb-main-inline-padding-end", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
+  readonly "app-gnb-main-inline-padding-end": TokenRecord<"app-gnb-main-inline-padding-end", "global", "semantic", { readonly id: "space-8"; readonly mode: "base" }>;
   readonly "app-gnb-rail-below-chrome-gap": TokenRecord<"app-gnb-rail-below-chrome-gap", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
-  readonly "app-gnb-rail-padding-bottom": TokenRecord<"app-gnb-rail-padding-bottom", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
+  readonly "app-gnb-rail-padding-bottom": TokenRecord<"app-gnb-rail-padding-bottom", "global", "semantic", { readonly id: "space-8"; readonly mode: "base" }>;
   readonly "app-gnb-sidebar-logo-h": TokenRecord<"app-gnb-sidebar-logo-h", "global", "semantic", { readonly id: "space-28"; readonly mode: "base" }>;
   readonly "app-gnb-sidebar-logo-symbol-w": TokenRecord<"app-gnb-sidebar-logo-symbol-w", "global", "semantic", { readonly id: "space-28"; readonly mode: "base" }>;
   readonly "app-gnb-sidebar-logo-wordmark-w": TokenRecord<"app-gnb-sidebar-logo-wordmark-w", "global", "semantic", { readonly id: "space-96"; readonly mode: "base" }>;
@@ -957,7 +957,7 @@ export declare const tokens: Readonly<{
   readonly "layout-app-shell-brand-mark-height": TokenRecord<"layout-app-shell-brand-mark-height", "global", "semantic", { readonly id: "space-28"; readonly mode: "base" }>;
   readonly "layout-app-shell-content-inset": TokenRecord<"layout-app-shell-content-inset", "global", "semantic", { readonly id: "space-16"; readonly mode: "base" }>;
   readonly "layout-app-shell-content-reserve": TokenRecord<"layout-app-shell-content-reserve", "global", "semantic", { readonly id: "space-120"; readonly mode: "base" }>;
-  readonly "layout-app-shell-outer-gap": TokenRecord<"layout-app-shell-outer-gap", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
+  readonly "layout-app-shell-outer-gap": TokenRecord<"layout-app-shell-outer-gap", "global", "semantic", { readonly id: "space-8"; readonly mode: "base" }>;
   readonly "layout-app-shell-sidebar-collapsed": TokenRecord<"layout-app-shell-sidebar-collapsed", "global", "semantic", { readonly id: "space-56"; readonly mode: "base" }>;
   readonly "layout-app-shell-sidebar-padding": TokenRecord<"layout-app-shell-sidebar-padding", "global", "semantic", { readonly id: "space-12"; readonly mode: "base" }>;
   readonly "layout-app-shell-sidebar-width": TokenRecord<"layout-app-shell-sidebar-width", "global", "semantic", { readonly id: "space-280"; readonly mode: "base" }>;

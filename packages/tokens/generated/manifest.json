@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "0e921261ae3a88892f8bdbba9d7413ec5e33cae7edc104e045a67da91903075e"
+      "sha256": "db51a355fca40d799f38924cba58c0089e07d73265feff64af6ed5af301e1fe7"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "24167df8d290f581ea2a071c3bec59feda73c42f15d9eca668c688f77defd436"
+      "sha256": "e2796725501c0bb9ce957f4918c1b9d5b7cca3e37605cad4b167bf83974d7f64"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "a18386cda0a65f1b581b41410da0b126486727df446665031c6d3f9877ad4d28"
+      "sha256": "a09a815d312cfc19c64cf14a19c695f2d2c42f0ff7b49859d29afae5728d315b"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "f09a0dd49eb6af13984288fe362e28b1f4a402dc0baab0101fc8243be32e6b0f"
+      "sha256": "105589fe2e20e9ee8373f983b181fc2dc2fc9f0408703808170bfbf2b509179c"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "0f064925506f10e7d5a4d239df6fc19f7867fe7c9d661605b087ea937d4099ea"
+      "sha256": "83bd0edc395a9865181c70487307e9d755765e16e6ac6f658238690f5665db4d"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "56707a02d24d7f676434a6459cca4274b02cc3509c6b2dc6a6d03781b902c670"
+    "sha256": "73170538f71f09df80d03308ee45afd0c1d31205be49a15027d988c5f1ade7e7"
   },
   "themes": [
     "light",
@@ -510,20 +510,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-12",
+        "id": "space-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-app-gnb-main-inline-padding-end": "12px"
+        "--louis-app-gnb-main-inline-padding-end": "8px"
       },
       "deprecated": null,
       "description": null,
       "id": "app-gnb-main-inline-padding-end",
       "mode": "global",
-      "rawValue": "{primitive.spacing.12}",
+      "rawValue": "{primitive.spacing.8}",
       "resolvedValue": {
         "unit": "px",
-        "value": 12
+        "value": 8
       },
       "sourcePath": "semantic.global.app.gnb-main-inline-padding-end",
       "tier": "semantic",
@@ -552,20 +552,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-12",
+        "id": "space-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-app-gnb-rail-padding-bottom": "12px"
+        "--louis-app-gnb-rail-padding-bottom": "8px"
       },
       "deprecated": null,
       "description": null,
       "id": "app-gnb-rail-padding-bottom",
       "mode": "global",
-      "rawValue": "{primitive.spacing.12}",
+      "rawValue": "{primitive.spacing.8}",
       "resolvedValue": {
         "unit": "px",
-        "value": 12
+        "value": 8
       },
       "sourcePath": "semantic.global.app.gnb-rail-padding-bottom",
       "tier": "semantic",
@@ -15597,20 +15597,20 @@
     },
     {
       "aliasTarget": {
-        "id": "space-12",
+        "id": "space-8",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layout-app-shell-outer-gap": "12px"
+        "--louis-layout-app-shell-outer-gap": "8px"
       },
       "deprecated": null,
       "description": null,
       "id": "layout-app-shell-outer-gap",
       "mode": "global",
-      "rawValue": "{primitive.spacing.12}",
+      "rawValue": "{primitive.spacing.8}",
       "resolvedValue": {
         "unit": "px",
-        "value": 12
+        "value": 8
       },
       "sourcePath": "semantic.global.layout.app-shell-outer-gap",
       "tier": "semantic",

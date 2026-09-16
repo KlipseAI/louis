@@ -113,6 +113,15 @@
       "generated": false
     },
     {
+      "id": "decision-ring-and-compact-inset-follow-the-product",
+      "path": "design/governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md",
+      "title": "DS-D-0063 링 여백과 compact 인셋은 제품을 따른다 — 기록 다섯 칸을 옮기고 토큰은 하나만 옮긴다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "decision-transform-frame-is-one-set",
       "path": "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
       "title": "DS-D-0060 크롭 창과 선택 상자는 한 벌이다 — 손잡이 위치는 축이 아니다",
@@ -1560,6 +1569,7 @@
         "design/content/README.md",
         "design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md",
         "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
+        "design/governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",

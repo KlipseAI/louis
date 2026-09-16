@@ -426,7 +426,7 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | `layout-app-shell-brand-mark-height` | `--louis-layout-app-shell-brand-mark-height` | `28px` |
 | `layout-app-shell-content-inset` | `--louis-layout-app-shell-content-inset` | `16px` |
 | `layout-app-shell-content-reserve` | `--louis-layout-app-shell-content-reserve` | `120px` |
-| `layout-app-shell-outer-gap` | `--louis-layout-app-shell-outer-gap` | `12px` |
+| `layout-app-shell-outer-gap` | `--louis-layout-app-shell-outer-gap` | `8px` |
 | `layout-app-shell-sidebar-collapsed` | `--louis-layout-app-shell-sidebar-collapsed` | `56px` |
 | `layout-app-shell-sidebar-padding` | `--louis-layout-app-shell-sidebar-padding` | `12px` |
 | `layout-app-shell-sidebar-width` | `--louis-layout-app-shell-sidebar-width` | `280px` |
@@ -443,9 +443,9 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | `layout-app-shell-sidebar-width` | 펼침 레일 폭 | `globals.css:117` — `min(280px, calc(100vw - 120px))`이고 최소폭이 960px이라 데스크톱에서는 상수 280. **제품 `2c6bdacf`(2026-09-15 앵커)가 `min(240px, …)` 로 줄였다(소유자 지정 — 캔버스 레이어 패널 폭과 같다). 토큰은 아직 280 이다** — P2 값 이동은 이 앵커 이동에서 하지 않았고 판정이 남았다(Updates (138)) |
 | `layout-app-shell-sidebar-collapsed` | 접힘 레일 폭 | `globals.css:354-356` — `2 × 레일 패딩 + 메뉴 히트 폭` |
 | `layout-app-shell-content-reserve` | 본문에 **남겨 두는** 최소 공간 | `globals.css:117`의 빼는 값. **레일 폭이 아니다** — 이름 함정의 전말은 [DS-D-0018](../governance/decisions/DS-D-0018-app-shell-geometry.md) |
-| `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:99` |
-| `layout-app-shell-sidebar-padding` | 레일 좌우 패딩 | `globals.css:97` |
-| `layout-app-shell-outer-gap` | 카드 바깥 여백 | 아래 「부분만 대응한다」 참조 |
+| `layout-app-shell-content-inset` | 본문 좌우 안쪽 여백 | `globals.css:155` — 제품이 데스크톱에서 이 토큰을 그대로 받는다. ≤719px 의 `6px` 은 `:428` 이 덮는 값이라 단일 토큰이 담지 못한다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)) |
+| `layout-app-shell-sidebar-padding` | 레일 좌우 패딩 | `globals.css:153` |
+| `layout-app-shell-outer-gap` | 카드 바깥 여백 | 아래 「부분만 대응한다」 참조. 값은 2026-09-16 에 12 → 8 로 옮겼다 — [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md) |
 | `layout-app-shell-top-bar-height` | 상단 크롬 행 높이 | 세 후보 중 이것을 고른 근거는 [App Shell Parts](../components/app-shell-parts.md) |
 | `layout-app-shell-brand-mark-height` | 브랜드 마크 레일 | 같은 문서 |
 | `motion-shell-collapse` | 접힘 전환 — offset과 폭이 **하나를 공유한다** | 따로 지연시키면 겹치는 프레임이 생긴다 |
@@ -454,37 +454,42 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 아래는 **제품이 LOUIS 토큰을 소비하지 않는** 축이다. 「LOUIS 쪽에 값이 없다」는 뜻이 아니다 —
 `--app-gnb-main-inline-padding-end`와 `--app-gnb-rail-padding-bottom`은 LOUIS에 **이름까지 같은
-토큰이 이미 있고**([tokens.css:232](../../packages/tokens/generated/tokens.css) · `234`) 값도 데스크톱 값(둘 다 `12px`)과 같다. 제품이 받지
-않는 이유는 이 두 축이 ≤719px에서 각각 `16px` · `0px`로 갈라지는데 LOUIS 토큰은 단일값이라 그
-관계를 담지 못하기 때문이고, 제품이 바로 그 이유를 주석으로 적어 둔다(`globals.css:91` · `107`).
-「제품 잔류」 주석 자체는 여섯 곳(`globals.css:86` · `97` · `100` · `107` · `114` · `120`)이지만
-반응형 분기를 이유로 드는 것은 이 둘뿐이다 — 나머지 넷은 정렬 관계 · 씬 확장점 · JS 상수 짝 ·
+거울 토큰이 이미 있고** 값도 데스크톱 값(둘 다 `8px`)과 같다. 제품이 받지
+않는 이유는 이 두 축이 ≤719px에서 각각 `6px` · `0px`로 갈라지는데 LOUIS 토큰은 단일값이라 그
+관계를 담지 못하기 때문이고, 제품이 바로 그 이유를 주석으로 적어 둔다(`globals.css:130` · `163`).
+「제품 잔류」 주석 자체는 다섯 곳(`globals.css:124` · `130` · `163` · `170` · `176`)이지만
+반응형 분기를 이유로 드는 것은 이 둘뿐이다 — 나머지 셋은 정렬 관계 · JS 상수 짝 ·
 제품 연출 좌표라는 다른 이유다. 옮기는 쪽에서 **지어내지 말고 제품을 인용한다.**
+
+**거울 토큰 둘의 값은 2026-09-16 에 12 → 8 로 따라 옮겼다.**
+[DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md) —
+소비처가 아니라 기록이므로 옮겨도 렌더가 바뀌지 않고, 12 로 두면 같은 축을 이 저장소가
+세 값으로 말하게 된다. ≤719px 의 `6px` · `0px` 은 여전히 담기지 않는다.
 
 **두 줄은 예외다 — 제품이 실제로 LOUIS에서 값을 받는다.** `--app-shell-min-width`는
 `var(--louis-app-shell-min-width)`(960px)이고, 드로어가 쓰는 `--app-gnb-sidebar-padding-x`는
-`var(--louis-layout-app-shell-sidebar-padding)`이다(`globals.css:124` · `103`). 그래도 표에 남는
+`var(--louis-layout-app-shell-sidebar-padding)`이다(`globals.css:189` · `153`). 그래도 표에 남는
 이유는 둘이 서로 다르다. `--app-shell-min-width`는 **≤719px에 아예 적용되지 않는다** — 선언은
-`:130`이고 적용은 `@media (min-width: 720px)` 안 `:386`뿐이라 compact 쪽 거동이 토큰 바깥이다.
+`:189`이고 적용은 `@media (min-width: 720px)` 안 `:446`뿐이라 compact 쪽 거동이 토큰 바깥이다.
 드로어 패딩은 반응형이 아니다 — `--app-gnb-sidebar-padding-x`는 폭 조건 없이 `:root`에 선언돼
 ≤719px에서도 `12px` 그대로이고(그래서 표의 데스크톱 칸이 `—`인 것은 「값이 없다」가 아니라
 「드로어가 ≤719px 전용 부품」이라는 뜻이다), 그 행이 남는 진짜 이유는 **LOUIS에 오프캔버스
 드로어라는 부품이 없다**는 것이다.
 
-> **이 표의 링 · 인셋 행은 그 전 배포본의 기록이다(2026-09-15 앵커 `2c6bdacf` 에서 다시 대조).** 제품이 카드를 두르는 링을
+> **이 표의 링 · 인셋 행은 2026-09-16 에 앵커 `2c6bdacf` 값으로 옮겼다.** 제품이 카드를 두르는 링을
 > 12 → 8 로(`094c336b` — `--app-gnb-safe-top` `max(8px, …)` · `--app-gnb-main-inline-padding-end` `8px` · `--app-gnb-rail-padding-bottom`
-> `8px`), ≤719px 본문 인셋을 16 → 6 으로(`b23ac6ef`) 내렸다. DS 토큰과 갈리는 판정이 먼저라 `figma/templates.measured.json` 의 해당
-> 칸은 `$pending` 으로 두었다 — [Updates](../updates/README.md) (138) 「남은 것」.
+> `8px`), ≤719px 본문 인셋을 16 → 6 으로(`b23ac6ef`) 내렸다. `figma/templates.measured.json` 의 해당 다섯 칸과 LOUIS 거울 토큰 둘도
+> 같은 날 함께 옮겼다 — [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md).
 
 | 제품 변수 | 데스크톱 | ≤719px | 근거 |
 | --- | --- | --- | --- |
-| `--app-gnb-safe-top` | `max(12px, env(safe-area-inset-top, 0px))` | 동일 | `globals.css:74` |
-| `--app-gnb-main-inline-padding-end` | `12px` | `16px` | `globals.css:102` · `369` — LOUIS에 동명 토큰 `app-gnb-main-inline-padding-end`(12px, [tokens.css:232](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
-| `--app-gnb-rail-padding-bottom` | `12px` | `0px` | `globals.css:92` · `370` — LOUIS에 동명 토큰 `app-gnb-rail-padding-bottom`(12px, [tokens.css:234](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
-| `--app-shell-min-width` | `960px` — **LOUIS `app-shell-min-width` 를 받는다** | 미적용 | `globals.css:124` · 적용 `386` |
-| 레일 폭 (compact) | — | `0px` | `globals.css:372` |
+| `--app-gnb-safe-top` | `max(8px, env(safe-area-inset-top, 0px))` | 동일 | `globals.css:100` — 제품 `094c336b`(2026-09-09)가 12 → 8. LOUIS 에 동명 토큰이 **없다** |
+| `--app-gnb-main-inline-padding-end` | `8px` | `6px` | `globals.css:164` · `429` — LOUIS에 동명 거울 토큰 `app-gnb-main-inline-padding-end`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
+| `--app-gnb-rail-padding-bottom` | `8px` | `0px` | `globals.css:131` · `430` — LOUIS에 동명 거울 토큰 `app-gnb-rail-padding-bottom`(8px, [tokens.css](../../packages/tokens/generated/tokens.css))가 있으나 제품이 받지 않는다 |
+| `--app-shell-min-width` | `960px` — **LOUIS `app-shell-min-width` 를 받는다** | 미적용 | `globals.css:189` · 적용 `446` |
+| 레일 폭 (compact) | — | `0px` | `globals.css:438` |
 | 드로어 폭 | — | `min(240px, 100vw - 40px)` — 제품 `bc3e6fa3`(2026-09-15 앵커 `2c6bdacf`)가 280 → 240 | `Gnb.tsx:2053-2054` |
-| 드로어 좌우 패딩 | — | `--app-gnb-sidebar-padding-x` = `12px` — **LOUIS `layout-app-shell-sidebar-padding` 을 받는다** | `Gnb.tsx:2076-2077` · `globals.css:97` |
+| 드로어 좌우 패딩 | — | `--app-gnb-sidebar-padding-x` = `12px` — **LOUIS `layout-app-shell-sidebar-padding` 을 받는다** | `Gnb.tsx:2076-2077` · `globals.css:153` |
 | 드로어 면 (라이트) | — | `--palette-gray-200` (앱 셸 재매핑 후 `#eeeef1`) | `Gnb.tsx:2087` |
 | 드로어 면 (다크) | — | `--app-page-bg` | `Gnb.tsx:2088` |
 | 드로어 전환 | — | `transform 320ms cubic-bezier(0.4, 0, 0.2, 1)` | `Gnb.tsx:2080` |
@@ -497,12 +502,14 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 | Create 노드 뷰 헤더 상하 인셋 | `8px` — `py-4` 리터럴, safe-area 참조 없음 | 동일 | `CreateScene.tsx:146-147` |
 | Create 노드 뷰 헤더 좌우 인셋 | `12px` — `px-6` 리터럴 | 동일 | `CreateScene.tsx:146-147` |
 
-**`outer-gap`은 부분만 대응한다.** 제품에는 12px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
-갖는다. compact에서 상단만 유지되고 우측은 16으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
-셋을 덮을 수 없다.** DS-D-0018이 이 토큰을 「부분」으로 판정한 이유다.
+**`outer-gap`은 부분만 대응한다.** 제품에는 8px 관계가 셋(상·우·하) 있고 셋이 서로 다른 변수를
+갖는다. compact에서 상단만 유지되고 우측은 6으로, 하단은 0으로 갈라지므로 **하나의 토큰으로
+셋을 덮을 수 없다.** DS-D-0018이 이 토큰을 「부분」으로 판정한 이유다. 값이 12 에서 8 로
+내려가도 이 판정은 그대로다 — 옮긴 것은 「대응하는 그 부분」의 값뿐이다
+([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)).
 
-**≤719px에서 바깥 여백은 토큰 값과 무관하게 0이다(2026-08-21 실측).** 위 표의 `12px → 16px` ·
-`12px → 0px`는 **토큰 값**이고, 그 값을 읽던 **씬 루트가 compact에서 상·우·하 padding을 하드 `0`으로
+**≤719px에서 바깥 여백은 토큰 값과 무관하게 0이다(2026-08-21 실측).** 위 표의 `8px → 6px` ·
+`8px → 0px`는 **토큰 값**이고, 그 값을 읽던 **씬 루트가 compact에서 상·우·하 padding을 하드 `0`으로
 덮는다.** 좌 padding은 데스크톱에서도 `0`이다.
 
 | 씬 루트 | 데스크톱 | ≤719px | 근거 |
@@ -659,8 +666,8 @@ main inset이 우연히 어긋나지 않게** 관계 테스트를 유지한다. 
 
 **형태 B의 아래쪽 20px은 `pb-10`이다.** 제품이 Tailwind의 `--spacing`을 `2px`로 재정의했기
 때문에(`tailwind.css:153`) `pb-10` = 20px이지 40px이 아니다. **Tailwind 기본값(4px 격자)으로
-환산하면 두 배로 나온다.** 실측값: `--app-gnb-main-inline-padding` 16px ·
-`--app-gnb-main-inline-padding-end` 12px(≤719px는 16px) — `globals.css:99`·`108`·`368`·`369`.
+환산하면 두 배로 나온다.** 실측값: `--app-gnb-main-inline-padding` 16px(≤719px는 6px) ·
+`--app-gnb-main-inline-padding-end` 8px(≤719px는 6px) — `globals.css:155`·`164`·`428`·`429`.
 
 **≤780px의 160px은 카드로 옮겨오지 않았다.** 옛 모듈 CSS에서는 `.main`의
 `padding-bottom: 160px`이 `.mainWithAppSidebar`의 padding 단축보다 소스 뒤에 있어 이겼고, 그래서

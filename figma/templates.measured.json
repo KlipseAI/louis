@@ -83,9 +83,9 @@
         "evidence": "globals.css:103 --app-gnb-sidebar-padding-x: var(--louis-layout-app-shell-sidebar-padding) = 12px. 레일이 좌우에 그대로 쓴다 — Gnb.tsx:2043-2044 wrapperSidebar padding-left/right."
       },
       "railPaddingTop": {
-        "value": 12,
-        "evidence": "Gnb.tsx:2042 wrapperSidebar padding-top: var(--app-gnb-safe-top). globals.css:80 에서 max(12px, env(safe-area-inset-top, 0px)) 이고 노치 없는 데스크톱에서 12.",
-        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` 을 레일 `wrapperSidebar` 의 `[padding-top:var(--app-gnb-safe-top)]` 이 읽는다. DS 레일 `.louis-app-shell__rail` 의 `padding: var(--louis-space-control-md)` 12 · Figma 12 와 갈리는 판정(소유자)이 먼저라 옮기지 않았다. Updates (138) 「남은 것」."
+        "value": 8,
+        "evidence": "앵커 2c6bdacf apps/web/components/navigation/Gnb.tsx:2047 `wrapperSidebar` 의 `[padding-top:var(--app-gnb-safe-top)]`. apps/web/app/globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` 이라 노치 없는 데스크톱에서 8 이다. 브라우저 실측도 같다 — migration/product.sidebar-states.json `states.expanded` 의 레일 노드가 paddingTop `8px` · 좌우 `12px` · 하단 `0px` 이다. 제품 `094c336b`(2026-09-09)가 12 → 8 로 내렸고 소유자가 2026-09-16 에 DS 기록을 제품에 맞추기로 정했다(DS-D-0063). DS 레일 `.louis-app-shell__rail` 은 네 변을 같은 값으로 두는 **다른 축**이라 여기 따라오지 않는다 — 그 편차는 앱 셸 패턴 문서가 사유와 함께 소유한다.",
+        "$was": 12
       },
       "railPaddingBottom": {
         "value": 0,
@@ -101,7 +101,7 @@
       },
       "mainWidth": {
         "rule": "sceneWidth - railWidth - mainOuterGapRight",
-        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** appHomeSceneStyles.ts:947-948(앵커 2c6bdacf) — `[margin-left:var(--app-gnb-sidebar-width)]` · `[width:calc(100%_-_var(--app-gnb-sidebar-width))]` 이므로 트랙은 씬 폭 − 레일 폭이고, :952 `[padding-right:var(--app-gnb-main-inline-padding-end)]` 를 빼면 카드 폭이다. 이 칸은 1148(= 1440 − 280 − 12)을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다. 본문 끝 여백 칸(mainOuterGapRight)은 아직 옮기지 않았다 — 그 칸의 `$pending`.",
+        "evidence": "**규칙이다 — 수를 적지 않는다(2026-09-15).** appHomeSceneStyles.ts:947-948(앵커 2c6bdacf) — `[margin-left:var(--app-gnb-sidebar-width)]` · `[width:calc(100%_-_var(--app-gnb-sidebar-width))]` 이므로 트랙은 씬 폭 − 레일 폭이고, :952 `[padding-right:var(--app-gnb-main-inline-padding-end)]` 를 빼면 카드 폭이다. 이 칸은 1148(= 1440 − 280 − 12)을 수로 적고 있다가 제품 `bc3e6fa3`(레일 240)에 같이 낡았다. 2026-09-16 에 본문 끝 여백 칸(mainOuterGapRight)이 8 로 옮겨져 규칙의 해가 1192 가 됐다 — 같은 규칙을 원장의 1920 뷰포트에 넣으면 1920 − 240 − 8 = 1672 이고 migration/product.sidebar-states.json `states.expanded.mainRect.width` 가 그 1672 다.",
         "$was": 1148
       },
       "mainWidthCollapsed": {
@@ -110,19 +110,19 @@
         "$was": 1372
       },
       "mainOuterGapTop": {
-        "value": 12,
-        "evidence": "appHomeSceneStyles.ts:852 padding-top: var(--app-gnb-safe-top) → globals.css:80 max(12px, env(...)) = 12.",
-        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` · appHomeSceneStyles.ts:950. DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
+        "value": 8,
+        "evidence": "앵커 2c6bdacf apps/web/components/scenes/appHomeSceneStyles.ts:950 `sceneAppSidebarRail` 의 `[padding-top:var(--app-gnb-safe-top)]` → globals.css:100 `--app-gnb-safe-top: max(8px, env(safe-area-inset-top, 0px));` = 8. 브라우저 실측도 같다 — migration/product.sidebar-states.json `states.expanded.mainRect.y` 가 8 이다. 제품 `094c336b`(2026-09-09)가 링 12 → 8 로 내렸고 소유자가 2026-09-16 에 DS 를 제품에 맞추기로 정했다(DS-D-0063).",
+        "$was": 12
       },
       "mainOuterGapRight": {
-        "value": 12,
-        "evidence": "appHomeSceneStyles.ts:854 padding-right: var(--app-gnb-main-inline-padding-end) → globals.css:108 12px.",
-        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:164 `--app-gnb-main-inline-padding-end: 8px;` · appHomeSceneStyles.ts:952, 원장 migration/product.sidebar-states.json `states.expanded.customProperties`, 앱 셸 계획 데스크톱 본문 카드(뷰포트 1920 에서 x 240 · 폭 1672 → 오른쪽 8). DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
+        "value": 8,
+        "evidence": "앵커 2c6bdacf apps/web/components/scenes/appHomeSceneStyles.ts:952 `sceneAppSidebarRail` 의 `[padding-right:var(--app-gnb-main-inline-padding-end)]` → globals.css:164 `--app-gnb-main-inline-padding-end: 8px;`. 원장 migration/product.sidebar-states.json `states.expanded.customProperties` 가 `\"--app-gnb-main-inline-padding-end\": \"8px\"` 이고, 같은 원장의 1920 뷰포트에서 본문 카드가 x 240 · 폭 1672 이라 오른쪽 여백이 1920 − 240 − 1672 = 8 로 떨어진다. 제품 `094c336b`(2026-09-09)가 링 12 → 8 로 내렸고 소유자가 2026-09-16 에 DS 를 제품에 맞추기로 정했다(DS-D-0063).",
+        "$was": 12
       },
       "mainOuterGapBottom": {
-        "value": 12,
-        "evidence": "appHomeSceneStyles.ts:855 padding-bottom: var(--app-gnb-rail-padding-bottom) → globals.css:98 12px. 셋이 같은 12 지만 **서로 다른 변수를 문다** — 패턴 문서가 outer-gap 토큰이 「부분만 대응한다」고 적은 이유다.",
-        "$pending": "제품 8 — 링 12 → 8(소유자 지정, 제품 `094c336b` 2026-09-09, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:131 `--app-gnb-rail-padding-bottom: 8px;` · appHomeSceneStyles.ts:953. DS `layout-app-shell-outer-gap` 12 · Figma `Pattern · AppShell` 12 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. 이 칸을 읽는 규칙(mainWidth · mainWidthCollapsed 와 그 사슬)은 이 칸이 옮겨지면 함께 움직인다. Updates (138) 「남은 것」."
+        "value": 8,
+        "evidence": "앵커 2c6bdacf apps/web/components/scenes/appHomeSceneStyles.ts:953 `sceneAppSidebarRail` 의 `[padding-bottom:var(--app-gnb-rail-padding-bottom)]` → globals.css:131 `--app-gnb-rail-padding-bottom: 8px;`. 원장 migration/product.sidebar-states.json 의 1920×1080 에서 본문 카드가 y 8 · 높이 1064 라 아래 여백도 1080 − 8 − 1064 = 8 이다. 셋이 같은 8 이지만 **서로 다른 변수를 문다** — 세 변수가 compact 에서 갈라지므로 토큰 하나가 셋을 덮지 못한다는 판정(DS-D-0018)은 그대로다. 소유자 판정은 DS-D-0063.",
+        "$was": 12
       },
       "mainCardRadius": {
         "value": 16,
@@ -142,7 +142,7 @@
       },
       "compactMainOuterGap": {
         "value": 0,
-        "evidence": "appHomeSceneStyles.ts:857-859 — ≤719px 에서 씬 루트가 padding-top/right/bottom 을 하드 0 으로 덮는다. globals.css:368-370 의 토큰 값(16 · 0)이 아니라 **이 세 줄**이 이긴다. 데스크톱의 12 를 모바일 시안에 그대로 그리면 틀린다."
+        "evidence": "앵커 2c6bdacf appHomeSceneStyles.ts:955-957 — ≤719px 에서 `sceneAppSidebarRail` 이 padding-top/right/bottom 을 하드 0 으로 덮는다. globals.css:428-430 의 토큰 값(6 · 6 · 0)이 아니라 **이 세 줄**이 이긴다. 데스크톱의 링 8 을 모바일 시안에 그대로 그리면 틀린다. 줄 번호는 2026-09-16 에 앵커에서 다시 읽었다(전 기록 857-859 는 옛 앵커의 것이다)."
       },
       "compactDrawerWidth": {
         "value": 240,
@@ -154,9 +154,9 @@
         "evidence": "globals.css:1384-1390 — @media (max-width: 719px) 에서 .appMainCardChrome / .appMainCardChromeSurface 가 border-radius: 0 · box-shadow: none · overflow: visible 이 된다. 패턴 문서가 「모바일 시안에 카드 프레임을 그리면 틀린다」고 명시한 자리다."
       },
       "compactContentInset": {
-        "value": 16,
-        "evidence": "globals.css:368 — ≤719px 에서 --app-gnb-main-inline-padding: 16px. 카드 크롬은 사라지지만 본문 좌우 인셋 16 은 남는다(같은 블록 주석: 「모바일 드로어 셸 — 카드 크롬은 없고 본문 좌우 인셋만 16px 유지」).",
-        "$pending": "제품 6 — ≤719 본문 인셋 16 → 6(소유자 지정, 제품 `b23ac6ef` 2026-09-04, 앵커 6f6282c1 이전). 앵커 2c6bdacf globals.css:428 `--app-gnb-main-inline-padding: 6px;`(`@media (max-width: 719px)` 블록). DS `layout-app-shell-content-inset` 16 · Figma 16 과 갈리는 판정(소유자)이 먼저라 옮기지 않았다. Updates (138) 「남은 것」."
+        "value": 6,
+        "evidence": "앵커 2c6bdacf globals.css:428 `--app-gnb-main-inline-padding: 6px;`(`@media (max-width: 719px)` 블록)이고 같은 블록 :429 가 `--app-gnb-main-inline-padding-end: 6px;` 이다. 카드가 두 변수를 좌·우로 갈라 읽는다 — appHomeSceneStyles.ts:858 `[@media(max-width:719px)]:[padding:0_var(--app-gnb-main-inline-padding-end)_0_var(--app-gnb-main-inline-padding)]!` 이라 ≤719 본문 좌우 인셋이 6 이다. 카드 크롬은 사라져도 이 인셋은 남는다. 제품 `b23ac6ef`(2026-09-04)가 16 → 6 으로 내렸고 소유자가 2026-09-16 에 DS 기록을 제품에 맞추기로 정했다(DS-D-0063) — **DS 토큰 `layout-app-shell-content-inset` 은 옮기지 않는다.** 그 토큰이 지배하는 것은 데스크톱 인셋이고 제품도 데스크톱에서는 여전히 그 토큰을 받는다(globals.css:155).",
+        "$was": 16
       },
       "stateFrames": {
         "value": [

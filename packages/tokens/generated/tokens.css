@@ -233,9 +233,9 @@
 [data-theme="light"] {
   color-scheme: light;
   --louis-app-gnb-main-card-padding-block-start: 0px;
-  --louis-app-gnb-main-inline-padding-end: 12px;
+  --louis-app-gnb-main-inline-padding-end: 8px;
   --louis-app-gnb-rail-below-chrome-gap: 12px;
-  --louis-app-gnb-rail-padding-bottom: 12px;
+  --louis-app-gnb-rail-padding-bottom: 8px;
   --louis-app-gnb-sidebar-logo-h: 28px;
   --louis-app-gnb-sidebar-logo-symbol-w: 28px;
   --louis-app-gnb-sidebar-logo-wordmark-w: 96px;
@@ -461,7 +461,7 @@
   --louis-layout-app-shell-brand-mark-height: 28px;
   --louis-layout-app-shell-content-inset: 16px;
   --louis-layout-app-shell-content-reserve: 120px;
-  --louis-layout-app-shell-outer-gap: 12px;
+  --louis-layout-app-shell-outer-gap: 8px;
   --louis-layout-app-shell-sidebar-collapsed: 56px;
   --louis-layout-app-shell-sidebar-padding: 12px;
   --louis-layout-app-shell-sidebar-width: 280px;

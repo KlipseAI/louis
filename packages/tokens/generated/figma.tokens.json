@@ -10472,14 +10472,14 @@
           ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.spacing.12}",
+              "$value": "{primitive.spacing.8}",
               "aliasTarget": {
-                "id": "space-12",
+                "id": "space-8",
                 "mode": "base"
               },
               "resolvedValue": {
                 "unit": "px",
-                "value": 12
+                "value": 8
               },
               "sourcePath": "semantic.global.app.gnb-main-inline-padding-end"
             }
@@ -10528,14 +10528,14 @@
           ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.spacing.12}",
+              "$value": "{primitive.spacing.8}",
               "aliasTarget": {
-                "id": "space-12",
+                "id": "space-8",
                 "mode": "base"
               },
               "resolvedValue": {
                 "unit": "px",
-                "value": 12
+                "value": 8
               },
               "sourcePath": "semantic.global.app.gnb-rail-padding-bottom"
             }
@@ -11789,14 +11789,14 @@
           ],
           "valuesByMode": {
             "Global": {
-              "$value": "{primitive.spacing.12}",
+              "$value": "{primitive.spacing.8}",
               "aliasTarget": {
-                "id": "space-12",
+                "id": "space-8",
                 "mode": "base"
               },
               "resolvedValue": {
                 "unit": "px",
-                "value": 12
+                "value": 8
               },
               "sourcePath": "semantic.global.layout.app-shell-outer-gap"
             }

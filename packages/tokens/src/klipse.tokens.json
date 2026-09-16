@@ -4943,7 +4943,7 @@
           }
         },
         "gnb-main-inline-padding-end": {
-          "$value": "{primitive.spacing.12}",
+          "$value": "{primitive.spacing.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "app-gnb-main-inline-padding-end",
@@ -4963,7 +4963,7 @@
           }
         },
         "gnb-rail-padding-bottom": {
-          "$value": "{primitive.spacing.12}",
+          "$value": "{primitive.spacing.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "app-gnb-rail-padding-bottom",
@@ -5387,7 +5387,7 @@
           }
         },
         "app-shell-outer-gap": {
-          "$value": "{primitive.spacing.12}",
+          "$value": "{primitive.spacing.8}",
           "$extensions": {
             "com.klipse-design": {
               "id": "layout-app-shell-outer-gap",

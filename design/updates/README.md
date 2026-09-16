@@ -25,6 +25,42 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-16 (139) — 링 여백 12 → 8 · compact 인셋 16 → 6 — 기록 다섯 칸을 제품 값으로 풀고 토큰 셋을 따라 옮긴다
+
+소유자 판정이다([DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)).
+(138) 이 `$pending` 으로 남긴 다섯 칸을 제품 값으로 옮기고, DS 토큰은 **기준을 통과한 셋만** 따라간다.
+
+| 자리 | 전 | 후 | 근거 |
+| --- | --- | --- | --- |
+| `templates.app-shell.railPaddingTop` | 12 | **8** | 앵커 `2c6bdacf` `globals.css:100` safe-top `max(8px, …)` · 원장 `product.sidebar-states.json` 레일 paddingTop `8px` |
+| `templates.app-shell.mainOuterGapTop` | 12 | **8** | 같은 safe-top · 원장 `states.expanded.mainRect.y` = 8 |
+| `templates.app-shell.mainOuterGapRight` | 12 | **8** | `globals.css:164` · 원장 customProperties `"--app-gnb-main-inline-padding-end": "8px"` |
+| `templates.app-shell.mainOuterGapBottom` | 12 | **8** | `globals.css:131` · 원장 1920×1080 에서 카드 y 8 · 높이 1064 |
+| `templates.app-shell.compactContentInset` | 16 | **6** | `globals.css:428` · `:429`(≤719 블록) |
+| 토큰 `layout-app-shell-outer-gap` | 12 | **8** | 이 토큰이 지배하는 자리(카드 바깥 여백)에서 제품 세 변이 전부 8 |
+| 거울 토큰 `app-gnb-main-inline-padding-end` | 12 | **8** | 소비처가 아니라 기록이다. 12 로 두면 같은 축을 저장소가 세 값으로 말한다 |
+| 거울 토큰 `app-gnb-rail-padding-bottom` | 12 | **8** | 같음 |
+
+**옮기지 않은 토큰 둘.** `layout-app-shell-content-inset` 은 그대로다 — 6 은 `@media (max-width: 719px)` 가 덮는 값이고
+제품은 데스크톱에서 **여전히 이 토큰을 받는다**(`globals.css:155`). 내리면 맞던 데스크톱 자리가 틀어진다. 레일 패딩
+`space-control-md` 도 그대로다 — 제품 레일은 좌우 12 · 위 8 · 아래 0 으로 네 변이 다르고 DS 레일은 네 변을 한 값에 묶으므로,
+위 변 하나를 따라 내리면 맞던 좌우 두 변이 틀어진다. 갈라지는 축을 단일 토큰이 못 덮는다는 판정(DS-D-0018)은 그대로다.
+
+**파생 규칙의 해가 움직인다.** `mainWidth = sceneWidth − railWidth − mainOuterGapRight` 는 1440 씬에서 1440 − 240 − 8 = **1192**,
+`mainWidthCollapsed` 는 1440 − 56 − 8 = **1376** 이다. 같은 규칙을 원장의 1920 뷰포트에 넣으면 1920 − 240 − 8 = **1672** 이고
+`migration/product.sidebar-states.json` `states.expanded.mainRect.width` 가 그 1672 다 — 규칙이 실측과 맞는다는 증거는 이 한 줄이다.
+
+**렌더는 바뀌지 않는다.** 옮긴 토큰 셋 중 어느 것도 DS CSS 선언이 물지 않는다(`packages/css/src` 전수 확인 0건).
+그래서 브라우저 테스트와 스크린숏은 이 변경에 반응하지 않는다 — 지키는 것은 토큰 게이트와 생성 표뿐이다.
+
+**baseline 갱신.** `check-token-diff` 는 값 변경을 breaking 으로 분류한다. 절차대로 Decision 을 먼저 적고
+`diff-tokens` 로 분류를 확인한 뒤(rawValue 3 · value 3 · aliasTarget 3, 의도 밖 항목 없음)
+`packages/tokens/generated/manifest.json` 을 baseline 으로 복사했다.
+
+**parity 는 그만큼 빨갛다.** Figma `Pattern · AppShell`(`982:175`) 은 아직 12 · 16 이라 다섯 칸이 어긋난 채로 남는다 —
+라이브 적용 전이므로 정상이다. Figma 변수 `layout/app-shell-outer-gap` 도 아직 `Klipse Primitive::spacing/12` 를 가리킨다.
+거울 토큰 둘은 Figma 변수가 아니라 옮길 것이 없다.
+
 ## 2026-09-15 (138) — 제품 앵커 2c6bdacf — 사이드바 240 · 「분석」 아이브로우 제거 · 모바일 서랍 블러 표면을 따라간다
 
 제품 앵커를 `6f6282c1` 에서 `2c6bdacf` 로 옮긴다. 사이의 제품 커밋은 셋이고 바뀐 제품 파일은 둘(앱 셸 `Gnb.tsx` · `globals.css`)이며,
@@ -108,10 +144,10 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
 - **template 되읽기를 뜨는 스크립트가 없다.** `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에 손으로 떴고
   `figma-readback-emit` 은 `components` · 변수만 뜬다. 위 Figma 적용 뒤 parity 를 초록으로 만들려면 app-shell · home · project-grid
   세 블록을 계약 축 그대로 다시 떠야 한다 — emitter 를 세우거나 같은 축을 손으로 뜨고 스크린숏으로 대조한다.
-- **링 12 → 8 · compact 인셋 16 → 6 은 판정 대기다**(위 표 마지막 행, `$pending` 다섯 칸). 옮기려면 `layout-app-shell-outer-gap` ·
-  `app-gnb-main-inline-padding-end` · `app-gnb-rail-padding-bottom` · `layout-app-shell-content-inset` 을 제품에 맞출지 소유자가 먼저
-  정한다. 그 칸이 옮겨지면 `mainWidth` 규칙과 그 사슬이 함께 움직인다. [App Shell](../patterns/app-shell.md) 「제품 변수」 표의 12 행들도
-  그 전 배포본의 기록이다.
+- ~~**링 12 → 8 · compact 인셋 16 → 6 은 판정 대기다**~~ — **2026-09-16 에 (139) 에서 닫았다**(소유자 판정
+  [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)). `$pending` 다섯 칸을 제품 값으로 풀고
+  `layout-app-shell-outer-gap` 과 거울 토큰 둘을 8 로 옮겼으며, `layout-app-shell-content-inset` 과 레일 패딩은 사유와 함께 남겼다.
+  [App Shell](../patterns/app-shell.md) 「제품 변수」 표도 같은 단위에서 앵커 값으로 옮겼다.
 - **모바일 서랍은 DS 에도 Figma 에도 표본이 없다.** compact 드로어 composition 을 지을 때 블러 표면으로 판정한다
   ([App Shell Parts](../components/app-shell-parts.md) Known deviations).
 - **라이브 적용은 하지 않았다.** 순서는 [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 그대로이고,

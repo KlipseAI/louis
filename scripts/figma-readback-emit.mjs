@@ -314,6 +314,10 @@ function usage(message) {
       "  node scripts/figma-readback-emit.mjs --variables --only color/a,color/b",
       "  node scripts/figma-readback-emit.mjs --merge-variables <결과.json>",
       "  node scripts/figma-readback-emit.mjs --remove-variables 'Klipse Primitive::color/a,…'",
+      "  node scripts/figma-readback-emit.mjs --templates [--only app-shell,home]",
+      "  node scripts/figma-readback-emit.mjs --templates-spec [--only …]",
+      "  node scripts/figma-readback-emit.mjs --templates-selftest",
+      "  node scripts/figma-readback-emit.mjs --merge-templates <결과.json> [--accept-unverified]",
     ].join("\n"),
   );
   process.exit(message ? 1 : 0);
@@ -815,6 +819,607 @@ function removeVariables(spec) {
   console.error(`[readback-emit] 변수 ${removed}개 행을 뺐습니다.`);
 }
 
+
+// ──────────────────────────────────────────────────────────────────────────────
+// template 되읽기 — `DS · Templates` 축을 뜬다.
+//
+// **왜 있는가.** `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에 **손으로**
+// 떴고 그 뒤로 뜨는 길이 없었다. `--components` 와 `--variables` 는 있는데 template 만 없으니,
+// Figma 의 패턴 보드를 고치고 되읽기를 빠뜨리면 parity 가 **초록인 채로** 어긋난다 — 되읽기를
+// 정본으로 읽는 게이트이므로 낡은 되읽기는 낡은 사실을 성실히 검증한다. 2026-09-16 에
+// 레일 폭 토큰(240)과 링 여백(8)을 옮기면서 그 구멍이 다시 드러났다: **기록과 토큰은 옮겼는데
+// 되읽기를 뜰 방법이 없어 parity 를 초록으로 되돌릴 경로가 없었다**(Updates (138) 「남은 것」).
+//
+// 사용법
+//   node scripts/figma-readback-emit.mjs --templates [--only app-shell,home]
+//       Figma 플러그인(`use_figma`)에서 그대로 돌릴 **읽기 전용** JS 를 stdout 으로 낸다.
+//       그 코드의 반환값이 `readback.json` 의 `templates` 블록과 **같은 축 · 같은 형식**이다.
+//   node scripts/figma-readback-emit.mjs --templates-spec [--only …]
+//       채취 명세만 낸다(디버그용).
+//   node scripts/figma-readback-emit.mjs --merge-templates <결과.json>
+//       그 반환 JSON 을 `readback.json` 의 `templates` 에 병합한다. 나머지 블록은 건드리지 않는다.
+//
+// **읽기 전용.** 낸 코드에는 쓰기 API 가 한 글자도 없어야 한다 — `assertTemplateSourceReadOnly`
+// 가 매 실행 낸 문자열을 훑어 금지어(`appendChild` · `detachInstance` · `resetOverrides` ·
+// `remove(` · `create*` · `setPluginData` …)를 찾으면 **출력하지 않고 죽는다.** 사용자 자산을
+// 건드리는 코드가 되읽기 경로로 흘러드는 것을 막는 자리다.
+//
+// **조용한 초록을 세 곳에서 막는다.**
+//   1. 명세에 없는 template 을 `--only` 로 부르면 CLI 가 거절한다. 아홉 중 명세가 있는 것만
+//      뜬다 — 나머지는 「없는 것」이지 「빈 것」이 아니다.
+//   2. 계약(`figma/templates.measured.json`)의 축과 명세의 축이 **한 칸이라도 다르면** 거절한다.
+//      축을 빠뜨린 채 뜨면 parity 는 그 축을 대조하지 않고 넘어간다 — 그게 이 저장소가
+//      채움 칸에서 이미 한 번 겪은 실패다.
+//   3. 낸 코드가 Figma 에서 페이지 · 프레임 · 경로 · 필드를 **하나라도 못 읽으면 throw** 한다.
+//      부분 결과를 반환하지 않는다. 못 읽은 경로와 그 자리에서 실제로 보인 형제 이름을 함께
+//      던져 다음 사람이 명세를 고칠 수 있게 한다.
+//
+// **명세는 아직 라이브로 검증되지 않았다(`$verifiedAgainstLive: false`).** 축의 뜻은 계약의
+// 근거 문장에서 읽었지만 **경로 이름이 라이브와 같은지는 Figma 를 열어야 안다.**
+// 그래서 `--merge-templates` 는 그 표시가 붙은 template 을 기본으로 **거절한다.** 첫 검증 절차는
+// 이렇다 — 보드를 **고치기 전에** `--templates --only <이름>` 을 돌려 나온 값을 지금 되읽기의
+// 같은 블록과 맞댄다. 다르면 드리프트가 아니라 **명세가 틀린 것**이므로 경로를 고친다. 전부
+// 같으면 명세에 `$verifiedAgainstLive: true` 를 적고 그 근거(날짜 · 비교 결과)를 옆에 남긴다.
+// `--components` 가 2026-08-26 에 「알려진 어긋남」으로 밟은 길과 같은 길이다.
+const TEMPLATE_PAGE = "DS · Templates";
+const TEMPLATE_MEASURED_PATH = "figma/templates.measured.json";
+
+// 탐침 문법 — 명세에 **코드를 적지 않는다.** 경로와 필드만 적는다.
+//   {at:"<경로>", field:"<필드>"}            그 노드의 필드 하나
+//   {gapY:["<경로 A>","<경로 B>"]}           A 의 아래 변과 B 의 위 변 사이 거리
+//   {names:{childrenOf:"<경로>", types:[…], exclude:[…]}}   한 겹 자식 이름(정렬 · 중복 제거)
+//   {names:{under:"<경로>", types:[…], exclude:[…]}}        모든 자손 이름(정렬 · 중복 제거)
+//   {samples:{under:"<경로>", named:"<이름>", field:"<필드>"}}  같은 이름 자손들의 값 배열
+//   {count:{under:"<경로>", named:"<이름>"}}  그 이름 자손의 수
+//   {distinctText:{under:"<경로>", named:"<이름>"}}  그 자손들의 서로 다른 글자 수
+//   {equal:{at:"<경로>", fields:["width","height"]}}  두 필드가 같은가(boolean)
+//   {ratio:{numerator:{at,field}, denominator:{at,field}, minus:0, round:2}}
+// 경로는 `상태 프레임/자손/자손` 이며 이름으로 찾는다(깊이 우선, 첫 일치).
+const TEMPLATE_CAPTURE = {
+  "app-shell": {
+    $node: "982:175",
+    $frame: "Pattern · AppShell",
+    $verifiedAgainstLive: false,
+    axes: {
+      sceneWidth: { at: "Expanded", field: "width" },
+      railWidth: { at: "Expanded/Rail", field: "width" },
+      railWidthCollapsed: { at: "Collapsed/Rail", field: "width" },
+      railPaddingInline: { at: "Expanded/Rail", field: "paddingLeft" },
+      railPaddingTop: { at: "Expanded/Rail", field: "paddingTop" },
+      railPaddingBottom: { at: "Expanded/Rail", field: "paddingBottom" },
+      railItemGap: { at: "Expanded/Rail", field: "itemSpacing" },
+      brandToNavGap: { gapY: ["Expanded/SidebarBrand", "Expanded/SidebarNavItem"] },
+      mainWidth: { at: "Expanded/Card", field: "width" },
+      mainWidthCollapsed: { at: "Collapsed/Card", field: "width" },
+      mainOuterGapTop: { at: "Expanded/Main", field: "paddingTop" },
+      mainOuterGapRight: { at: "Expanded/Main", field: "paddingRight" },
+      mainOuterGapBottom: { at: "Expanded/Main", field: "paddingBottom" },
+      mainCardRadius: { at: "Expanded/Card", field: "cornerRadius" },
+      mainContentInset: { at: "Expanded/Content", field: "paddingLeft" },
+      compactSceneWidth: { at: "Compact · drawer open", field: "width" },
+      compactRailReserve: { at: "Compact · drawer open/Main", field: "paddingLeft" },
+      compactMainOuterGap: { at: "Compact · drawer open/Main", field: "paddingTop" },
+      compactDrawerWidth: { at: "Compact · drawer open/Drawer", field: "width" },
+      compactCardRadius: { at: "Compact · drawer open/Card", field: "cornerRadius" },
+      compactContentInset: { at: "Compact · drawer open/Content", field: "paddingLeft" },
+      stateFrames: { names: { childrenOf: "", types: ["FRAME"] } },
+      requiredParts: {
+        names: {
+          under: "",
+          types: ["INSTANCE", "FRAME"],
+          exclude: ["Expanded", "Collapsed", "Compact · drawer open"],
+        },
+      },
+    },
+  },
+  home: {
+    $frame: "Template · AppHome",
+    $verifiedAgainstLive: false,
+    axes: {
+      sceneWidth: { at: "", field: "width" },
+      sidebarWidth: { at: "Sidebar", field: "width" },
+      sidebarPaddingLeft: { at: "Sidebar", field: "paddingLeft" },
+      mainCardRadius: { at: "Card", field: "cornerRadius" },
+      mainCardPaddingInline: { at: "Card", field: "paddingLeft" },
+      gridColumns: { count: { under: "ProjectGrid", named: "ProjectCard", depth: 1 } },
+      gridGap: { at: "ProjectGrid", field: "itemSpacing" },
+      sectionPaddingTop: { at: "SectionHeader", field: "paddingTop" },
+      cardWidth: { at: "ProjectCard", field: "width" },
+      cardHeight: { at: "ProjectCard", field: "height" },
+      cardSquare: { equal: { at: "ProjectCard", fields: ["width", "height"] } },
+      cardRadius: { at: "ProjectCard", field: "cornerRadius" },
+      overlayHeightRatio: {
+        ratio: {
+          numerator: { at: "ProjectCard/Overlay", field: "height" },
+          denominator: { at: "ProjectCard", field: "width" },
+          minus: 1,
+          round: 2,
+        },
+      },
+      overlayPadding: { at: "ProjectCard/Overlay", field: "paddingLeft" },
+      overlayStackGap: { at: "ProjectCard/Overlay", field: "itemSpacing" },
+      overlayLineHeightPercent: {
+        samples: { under: "ProjectCard/Overlay", named: "*", field: "lineHeightPercent" },
+      },
+      requiredParts: { names: { under: "", types: ["INSTANCE"] } },
+      navLabelsDistinct: { distinctText: { under: "Sidebar", named: "SidebarNavItem" } },
+      cardTitlesDistinct: { distinctText: { under: "ProjectGrid", named: "ProjectCard" } },
+      placeholderLabelsAllowed: {
+        placeholders: { under: "", patterns: ["Lorem", "Placeholder", "텍스트", "Label"] },
+      },
+    },
+  },
+  "project-grid": {
+    $node: "991:252",
+    $frame: "Pattern · ProjectGrid",
+    $verifiedAgainstLive: false,
+    axes: {
+      columnBands: { count: { under: "", named: "*", depth: 1, types: ["FRAME"] } },
+      columnsCompact: { count: { under: "Compact/Grid", named: "ProjectCard", depth: 1 } },
+      columnsRegular: { count: { under: "Regular/Grid", named: "ProjectCard", depth: 1 } },
+      columnsWide: { count: { under: "Wide/Grid", named: "ProjectCard", depth: 1 } },
+      columnsExtraWide: { count: { under: "Extra wide/Grid", named: "ProjectCard", depth: 1 } },
+      trackGap: { samples: { under: "", named: "Grid", field: "itemSpacing" } },
+      tracksEqual: { tracksEqual: { under: "", named: "Grid", child: "ProjectCard" } },
+      gridFillsContainer: { fills: { child: "Wide/Grid", parent: "Wide" } },
+      containerWidthWide: { at: "Wide/Grid", field: "width" },
+      cardWidthWide: { at: "Wide/Grid/ProjectCard", field: "width" },
+      requiredParts: { names: { under: "", types: ["INSTANCE", "FRAME"], exclude: ["Compact", "Regular", "Wide", "Extra wide"] } },
+    },
+  },
+};
+
+/** 계약이 소유하는 축 목록. `$` 로 시작하는 주석 키는 축이 아니다. */
+function templateContractAxes(name) {
+  const measured = JSON.parse(
+    readFileSync(resolve(repoRoot, TEMPLATE_MEASURED_PATH), "utf8"),
+  );
+  const entry = measured.templates?.[name];
+  if (entry === undefined) return null;
+  return Object.keys(entry)
+    .filter((key) => !key.startsWith("$"))
+    .sort();
+}
+
+/** 명세와 계약의 축이 **정확히** 같은지. 다르면 뜨지 않는다.
+ *  순수 함수다 — 죽지 않고 사유를 돌려준다. CLI 와 자기시험이 같은 판정을 쓴다. */
+function templateSpecErrors(names, table) {
+  const capture = table ?? TEMPLATE_CAPTURE;
+  const picked = {};
+  const errors = [];
+  for (const name of names) {
+    const spec = capture[name];
+    if (spec === undefined) {
+      const known = Object.keys(capture).sort().join(", ");
+      errors.push(
+        `template 채취 명세가 없습니다: ${name}. 명세가 있는 것은 ${known} 뿐입니다 — ` +
+          "나머지는 아직 손으로 뜹니다. 지어내지 말고 이 파일의 TEMPLATE_CAPTURE 에 항목을 먼저 적습니다.",
+      );
+      continue;
+    }
+    const contract = templateContractAxes(name);
+    if (contract === null) {
+      errors.push(`계약(${TEMPLATE_MEASURED_PATH})에 없는 template 입니다: ${name}`);
+      continue;
+    }
+    const specAxes = Object.keys(spec.axes).sort();
+    const missing = contract.filter((axis) => !specAxes.includes(axis));
+    const extra = specAxes.filter((axis) => !contract.includes(axis));
+    if (missing.length > 0 || extra.length > 0) {
+      errors.push(
+        [
+          `template ${name} 의 채취 명세가 계약의 축과 다릅니다.`,
+          missing.length ? `계약에만 있음(뜨지 못함): ${missing.join(", ")}` : "",
+          extra.length ? `명세에만 있음(계약이 대조하지 않음): ${extra.join(", ")}` : "",
+        ]
+          .filter(Boolean)
+          .join(" "),
+      );
+      continue;
+    }
+    picked[name] = spec;
+  }
+  return { picked, errors };
+}
+
+function selectedTemplateSpec() {
+  const names = only === null ? Object.keys(TEMPLATE_CAPTURE) : only;
+  const { picked, errors } = templateSpecErrors(names);
+  if (errors.length > 0) usage(errors.join(" / "));
+  return picked;
+}
+
+// 낸 코드에 있어서는 안 되는 것. 되읽기는 **읽기만** 한다.
+const FORBIDDEN_IN_TEMPLATE_SOURCE = [
+  "appendChild",
+  "insertChild",
+  "detachInstance",
+  "resetOverrides",
+  "setPluginData",
+  "setSharedPluginData",
+  "createFrame",
+  "createComponent",
+  "createText",
+  "createRectangle",
+  "remove()",
+  ".remove(",
+  "figma.currentPage =",
+  "loadFontAsync",
+];
+
+function readOnlyViolations(source) {
+  return FORBIDDEN_IN_TEMPLATE_SOURCE.filter((needle) => source.includes(needle));
+}
+
+function assertTemplateSourceReadOnly(source) {
+  const hits = readOnlyViolations(source);
+  if (hits.length > 0) {
+    console.error(
+      `[readback-emit] 낸 코드에 쓰기 API 가 있습니다(${hits.join(", ")}). ` +
+        "되읽기 코드는 읽기 전용입니다 — 출력하지 않습니다.",
+    );
+    process.exit(1);
+  }
+}
+
+/** 플러그인에서 돌릴 **읽기 전용** template 채취 코드. 반환값이 readback.templates 와 같은 모양이다. */
+function templatesPluginSource(spec) {
+  return `// 생성물 — \`node scripts/figma-readback-emit.mjs --templates\` 가 낸 코드다. 손으로 고치지 않는다.
+// **읽기 전용이다.** 노드를 만들거나 고치거나 지우지 않는다.
+const SPEC = ${JSON.stringify(spec)};
+const PAGE = ${JSON.stringify(TEMPLATE_PAGE)};
+
+const r1 = (n) => (typeof n === "number" ? Math.round(n * 10) / 10 : n);
+const r2 = (n) => (typeof n === "number" ? Math.round(n * 100) / 100 : n);
+
+const page = figma.root.children.find((p) => p.name === PAGE);
+if (!page) {
+  throw new Error(
+    "되읽기 실패 — 페이지를 찾지 못했습니다: " + PAGE +
+      ". 파일에 있는 페이지: " + figma.root.children.map((p) => p.name).join(" | "),
+  );
+}
+await page.loadAsync();
+
+const childrenOf = (node) => (node && "children" in node ? node.children : []);
+
+// 이름으로 자손을 찾는다(너비 우선, 첫 일치). 못 찾으면 **그 자리에서 죽는다** —
+// 부분 결과를 돌려주면 parity 가 없는 축을 초록으로 넘긴다.
+function child(node, name, path) {
+  const queue = childrenOf(node).slice();
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current.name === name) return current;
+    for (const next of childrenOf(current)) queue.push(next);
+  }
+  throw new Error(
+    "되읽기 실패 — 경로를 찾지 못했습니다: " + path +
+      " (\\"" + name + "\\" 가 없습니다). 그 자리에서 보인 이름: " +
+      childrenOf(node).map((n) => n.name).join(" | "),
+  );
+}
+
+function at(root, path) {
+  if (path === "") return root;
+  let node = root;
+  const parts = path.split("/");
+  for (let i = 0; i < parts.length; i += 1) {
+    node = child(node, parts[i], parts.slice(0, i + 1).join("/"));
+  }
+  return node;
+}
+
+function field(node, name, path) {
+  if (name === "lineHeightPercent") {
+    if (node.type !== "TEXT") {
+      throw new Error("되읽기 실패 — TEXT 가 아닌 노드의 lineHeight 를 물었습니다: " + path);
+    }
+    const lh = node.lineHeight;
+    if (!lh || lh.unit !== "PERCENT") {
+      throw new Error("되읽기 실패 — lineHeight 가 PERCENT 가 아닙니다: " + path);
+    }
+    return r2(lh.value);
+  }
+  const value = node[name];
+  if (value === undefined) {
+    throw new Error(
+      "되읽기 실패 — 필드가 없습니다: " + path + "." + name + " (노드 type " + node.type + ")",
+    );
+  }
+  return typeof value === "number" ? r1(value) : value;
+}
+
+function collect(root, under, types, exclude, deep) {
+  const out = [];
+  const walk = (node, depth) => {
+    for (const kid of childrenOf(node)) {
+      const ok = (!types || types.indexOf(kid.type) !== -1) && (!exclude || exclude.indexOf(kid.name) === -1);
+      if (ok) out.push(kid);
+      if (deep) walk(kid, depth + 1);
+    }
+  };
+  walk(at(root, under), 0);
+  return out;
+}
+
+function named(root, under, name, depth, types) {
+  const scope = at(root, under);
+  const out = [];
+  const walk = (node, level) => {
+    for (const kid of childrenOf(node)) {
+      const nameOk = name === "*" ? true : kid.name === name;
+      const typeOk = !types || types.indexOf(kid.type) !== -1;
+      if (nameOk && typeOk) out.push(kid);
+      if (depth === undefined || level + 1 < depth) walk(kid, level + 1);
+    }
+  };
+  walk(scope, 0);
+  if (out.length === 0) {
+    throw new Error(
+      "되읽기 실패 — \\"" + name + "\\" 를 하나도 찾지 못했습니다(경로 \\"" + under + "\\").",
+    );
+  }
+  return out;
+}
+
+const textOf = (node) => {
+  const stack = [node];
+  const parts = [];
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (current.type === "TEXT") parts.push(current.characters);
+    for (const kid of childrenOf(current)) stack.push(kid);
+  }
+  return parts.join(" ").trim();
+};
+
+function readAxis(root, probe, axisName) {
+  if (probe.at !== undefined) return field(at(root, probe.at), probe.field, probe.at);
+  if (probe.gapY) {
+    const a = at(root, probe.gapY[0]);
+    const b = at(root, probe.gapY[1]);
+    return r1(b.absoluteBoundingBox.y - (a.absoluteBoundingBox.y + a.absoluteBoundingBox.height));
+  }
+  if (probe.names) {
+    const n = probe.names;
+    const nodes = collect(root, n.childrenOf !== undefined ? n.childrenOf : n.under, n.types, n.exclude, n.under !== undefined);
+    const unique = [];
+    for (const node of nodes) if (unique.indexOf(node.name) === -1) unique.push(node.name);
+    return unique.sort();
+  }
+  if (probe.count) {
+    const c = probe.count;
+    return named(root, c.under, c.named, c.depth, c.types).length;
+  }
+  if (probe.samples) {
+    const s = probe.samples;
+    const values = named(root, s.under, s.named, undefined, undefined)
+      .filter((node) => (s.field === "lineHeightPercent" ? node.type === "TEXT" : node[s.field] !== undefined))
+      .map((node) => field(node, s.field, s.under + "/" + node.name));
+    if (values.length === 0) {
+      throw new Error("되읽기 실패 — 표본이 0개입니다: " + axisName);
+    }
+    const unique = [];
+    for (const value of values) if (unique.indexOf(value) === -1) unique.push(value);
+    return unique.sort((x, y) => (x > y ? 1 : x < y ? -1 : 0));
+  }
+  if (probe.distinctText) {
+    const d = probe.distinctText;
+    const texts = named(root, d.under, d.named, undefined, undefined).map(textOf).filter(Boolean);
+    const unique = [];
+    for (const text of texts) if (unique.indexOf(text) === -1) unique.push(text);
+    return unique.length;
+  }
+  if (probe.placeholders) {
+    const p = probe.placeholders;
+    const scope = at(root, p.under);
+    const stack = [scope];
+    let hits = 0;
+    while (stack.length > 0) {
+      const current = stack.pop();
+      if (current.type === "TEXT") {
+        for (const pattern of p.patterns) {
+          if (current.characters.indexOf(pattern) !== -1) { hits += 1; break; }
+        }
+      }
+      for (const kid of childrenOf(current)) stack.push(kid);
+    }
+    return hits;
+  }
+  if (probe.equal) {
+    const node = at(root, probe.equal.at);
+    const values = probe.equal.fields.map((name) => field(node, name, probe.equal.at));
+    return values.every((value) => value === values[0]);
+  }
+  if (probe.ratio) {
+    const r = probe.ratio;
+    const numerator = field(at(root, r.numerator.at), r.numerator.field, r.numerator.at);
+    const denominator = field(at(root, r.denominator.at), r.denominator.field, r.denominator.at) - (r.minus || 0);
+    if (!denominator) throw new Error("되읽기 실패 — 분모가 0 입니다: " + axisName);
+    return r2(numerator / denominator);
+  }
+  if (probe.tracksEqual) {
+    const t = probe.tracksEqual;
+    const grids = named(root, t.under, t.named, undefined, undefined);
+    const widths = [];
+    for (const grid of grids) {
+      for (const kid of childrenOf(grid)) if (kid.name === t.child) widths.push(r1(kid.width));
+    }
+    if (widths.length === 0) throw new Error("되읽기 실패 — 트랙 표본이 0개입니다: " + axisName);
+    return widths.every((width) => width === widths[0]);
+  }
+  if (probe.fills) {
+    const f = probe.fills;
+    const kid = at(root, f.child);
+    const parent = at(root, f.parent);
+    return r1(kid.width) === r1(parent.width - ((parent.paddingLeft || 0) + (parent.paddingRight || 0)));
+  }
+  throw new Error("되읽기 실패 — 뜻을 모르는 탐침입니다: " + axisName + " " + JSON.stringify(probe));
+}
+
+const out = {};
+for (const [templateName, spec] of Object.entries(SPEC)) {
+  let root = null;
+  if (spec.$node) {
+    root = await figma.getNodeByIdAsync(spec.$node);
+    if (root && root.removed) root = null;
+  }
+  if (!root) {
+    root = page.children.find((n) => n.name === spec.$frame) || null;
+  }
+  if (!root) {
+    throw new Error(
+      "되읽기 실패 — 프레임을 찾지 못했습니다: " + templateName +
+        " (node " + (spec.$node || "-") + " / 이름 \\"" + spec.$frame + "\\"). " +
+        "페이지의 최상위 이름: " + page.children.map((n) => n.name).join(" | "),
+    );
+  }
+  const block = {};
+  for (const [axisName, probe] of Object.entries(spec.axes)) {
+    block[axisName] = readAxis(root, probe, templateName + "." + axisName);
+  }
+  out[templateName] = block;
+}
+return out;
+`;
+}
+
+/** 자기시험 — **이 경로가 조용히 초록이 되지 않는다는 것**을 매번 다시 증명한다.
+ *
+ * 네 가지를 canary 로 건다.
+ *   ① 명세에서 축 하나를 빼면 거절한다(빠뜨린 축은 parity 가 대조하지 않고 넘어간다).
+ *   ② 명세에 계약에 없는 축을 더하면 거절한다.
+ *   ③ 낸 코드에 쓰기 API 를 한 글자 섞으면 거절하고, 실제로 내는 코드에는 그것이 없다.
+ *   ④ 낸 코드가 플러그인이 돌리는 형태(async 함수 본문)로 **파싱된다**. 실행하지는 않는다.
+ * 넷 중 하나라도 「통과」하면 그게 실패다. */
+function templatesSelfTest() {
+  const failures = [];
+  const names = Object.keys(TEMPLATE_CAPTURE);
+
+  // ① · ② 축 canary — 명세를 복제해 한 칸 흔든다. 원본은 건드리지 않는다.
+  for (const name of names) {
+    const contract = templateContractAxes(name);
+    if (contract === null) {
+      failures.push(`${name}: 계약에 없습니다.`);
+      continue;
+    }
+    const clonedAxes = { ...TEMPLATE_CAPTURE[name].axes };
+    const dropped = contract[0];
+    delete clonedAxes[dropped];
+    const dropTable = { [name]: { ...TEMPLATE_CAPTURE[name], axes: clonedAxes } };
+    if (templateSpecErrors([name], dropTable).errors.length === 0) {
+      failures.push(`${name}: 축 「${dropped}」 를 빼도 거절하지 않았습니다.`);
+    }
+    const addTable = {
+      [name]: {
+        ...TEMPLATE_CAPTURE[name],
+        axes: { ...TEMPLATE_CAPTURE[name].axes, $canaryAxisThatDoesNotExist: { at: "", field: "width" } },
+      },
+    };
+    if (templateSpecErrors([name], addTable).errors.length === 0) {
+      failures.push(`${name}: 계약에 없는 축을 더해도 거절하지 않았습니다.`);
+    }
+  }
+
+  // ③ 읽기 전용 canary.
+  for (const needle of FORBIDDEN_IN_TEMPLATE_SOURCE) {
+    if (readOnlyViolations(`const x = 1; // ${needle}`).length === 0) {
+      failures.push(`쓰기 API 「${needle}」 를 섞어도 잡지 못했습니다.`);
+    }
+  }
+  const emitted = templatesPluginSource(templateSpecErrors(names).picked);
+  const leaked = readOnlyViolations(emitted);
+  if (leaked.length > 0) failures.push(`실제로 내는 코드에 쓰기 API 가 있습니다: ${leaked.join(", ")}`);
+
+  // ④ 문법 canary. 낸 코드는 **플러그인에서** 처음 돌아가므로, 문법이 깨져도 여기서 보지
+  // 않으면 Figma 콘솔에서야 드러난다. 플러그인이 돌리는 형태(async 함수 본문)로 파싱만 한다 —
+  // **실행하지 않는다.**
+  const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+  try {
+    new AsyncFunction("figma", emitted);
+  } catch (error) {
+    failures.push(`낸 코드의 문법이 깨졌습니다: ${error.message}`);
+  }
+
+  // 명세가 계약의 축을 하나도 빠뜨리지 않았다는 것을 수로 남긴다.
+  const counted = names
+    .map((name) => `${name} ${Object.keys(TEMPLATE_CAPTURE[name].axes).length}축`)
+    .join(" · ");
+  const unverified = names.filter((name) => TEMPLATE_CAPTURE[name].$verifiedAgainstLive !== true);
+
+  if (failures.length > 0) {
+    for (const failure of failures) console.error(`[readback-emit] 자기시험 실패: ${failure}`);
+    process.exit(1);
+  }
+  console.log(
+    `[readback-emit] template 자기시험 OK — 명세 ${names.length}개(${counted}) · ` +
+      `축 canary ${names.length * 2}종 · 쓰기 API canary ${FORBIDDEN_IN_TEMPLATE_SOURCE.length}종 · ` +
+      `낸 코드 ${emitted.split("\n").length}줄 문법 확인.` +
+      (unverified.length > 0
+        ? ` **라이브 검증 전인 명세: ${unverified.join(", ")}** — --merge-templates 는 이들을 거절합니다.`
+        : ""),
+  );
+}
+
+/** `--templates` 결과를 `readback.json` 의 `templates` 에 병합한다. 나머지 블록은 건드리지 않는다. */
+function mergeTemplates(resultPath, acceptUnverified) {
+  const readbackFile = resolve(repoRoot, READBACK_PATH);
+  const readback = JSON.parse(readFileSync(readbackFile, "utf8"));
+  const incomingRaw = JSON.parse(readFileSync(resolve(process.cwd(), resultPath), "utf8"));
+  const incoming = incomingRaw.templates ?? incomingRaw;
+  const names = Object.keys(incoming);
+  if (names.length === 0) {
+    console.error("[readback-emit] 병합할 template 이 결과 파일에 없습니다.");
+    process.exit(1);
+  }
+  const unverified = names.filter(
+    (name) => TEMPLATE_CAPTURE[name]?.$verifiedAgainstLive !== true,
+  );
+  if (unverified.length > 0 && !acceptUnverified) {
+    console.error(
+      [
+        `[readback-emit] 명세가 아직 라이브로 검증되지 않았습니다: ${unverified.join(", ")}.`,
+        "먼저 보드를 고치기 전에 뜬 값을 지금 되읽기와 맞대 명세가 맞는지 확인하고,",
+        "맞으면 TEMPLATE_CAPTURE 의 $verifiedAgainstLive 를 true 로 적으십시오.",
+        "확인했음을 알고 덮어쓰려면 --accept-unverified 를 붙입니다.",
+      ].join(" "),
+    );
+    process.exit(1);
+  }
+  for (const name of names) {
+    const contract = templateContractAxes(name);
+    if (contract === null) {
+      console.error(`[readback-emit] 계약에 없는 template 입니다: ${name}`);
+      process.exit(1);
+    }
+    const got = Object.keys(incoming[name]).sort();
+    const missing = contract.filter((axis) => !got.includes(axis));
+    const extra = got.filter((axis) => !contract.includes(axis));
+    if (missing.length > 0 || extra.length > 0) {
+      console.error(
+        [
+          `[readback-emit] ${name} 의 결과 축이 계약과 다릅니다.`,
+          missing.length ? `없음: ${missing.join(", ")}` : "",
+          extra.length ? `남음: ${extra.join(", ")}` : "",
+        ]
+          .filter(Boolean)
+          .join(" "),
+      );
+      process.exit(1);
+    }
+  }
+  const merged = { ...(readback.templates ?? {}) };
+  for (const name of names) merged[name] = incoming[name];
+  const sorted = {};
+  for (const name of Object.keys(merged).sort()) sorted[name] = merged[name];
+  readback.templates = sorted;
+  writeFileSync(readbackFile, `${JSON.stringify(readback, null, 2)}\n`);
+  console.error(
+    `[readback-emit] template ${names.length}개를 병합했습니다: ${names.sort().join(", ")}` +
+      (unverified.length > 0 ? ` (검증 전 명세를 덮어썼습니다: ${unverified.join(", ")})` : ""),
+  );
+}
+
 if (argv.includes("--components")) {
   process.stdout.write(pluginSource(selectedSpec()));
 } else if (argv.includes("--spec")) {
@@ -833,6 +1438,18 @@ if (argv.includes("--components")) {
   const spec = list.split(",").map((n) => n.trim()).filter(Boolean);
   if (spec.length === 0) usage("--remove-variables 뒤에 '컬렉션::이름' 목록이 필요합니다.");
   removeVariables(spec);
+} else if (argv.includes("--templates")) {
+  const source = templatesPluginSource(selectedTemplateSpec());
+  assertTemplateSourceReadOnly(source);
+  process.stdout.write(source);
+} else if (argv.includes("--templates-selftest")) {
+  templatesSelfTest();
+} else if (argv.includes("--templates-spec")) {
+  process.stdout.write(`${JSON.stringify(selectedTemplateSpec(), null, 2)}\n`);
+} else if (argv.includes("--merge-templates")) {
+  const path = argv[argv.indexOf("--merge-templates") + 1];
+  if (!path || path.startsWith("--")) usage("--merge-templates 뒤에 결과 파일 경로가 필요합니다.");
+  mergeTemplates(path, argv.includes("--accept-unverified"));
 } else if (argv.includes("--merge")) {
   const path = argv[argv.indexOf("--merge") + 1];
   if (!path) usage("--merge 뒤에 결과 파일 경로가 필요합니다.");

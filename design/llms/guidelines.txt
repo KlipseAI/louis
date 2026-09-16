@@ -1431,6 +1431,38 @@ static-alpha 정책 결정이 선행돼야 한다.
    바인딩 수를 담는다. **좌표는 담지 않는다** — Figma vector 왕복 손실을 아직 실측하지 않았기
    때문이며, 대신 요소 분해 보존(코드 `elementCount` ↔ Figma `vectors`)을 대조한다. 도형이
    병합되거나 사라지는 사고는 좌표를 보지 않아도 이것으로 드러난다.
+8. **template 되읽기도 손으로 뜨지 않는다.** `DS · Templates` 의 패턴 보드는 2026-08-31 부터
+   2026-09-16 까지 **손으로만** 떴고, 그래서 보드를 고치고 되읽기를 빠뜨리면 parity 가 초록인
+   채로 어긋났다. 경로는 `scripts/figma-readback-emit.mjs` 의 세 갈래다.
+
+   | 명령 | 하는 일 |
+   | --- | --- |
+   | `--templates [--only …]` | 플러그인에서 그대로 돌릴 **읽기 전용** 채취 코드를 낸다. 반환값이 `figma/readback.json` 의 `templates` 블록과 같은 축·같은 형식이다 |
+   | `--templates-spec [--only …]` | 채취 명세만 낸다(디버그용) |
+   | `--merge-templates <결과.json>` | 그 반환 JSON 을 `templates` 에 병합한다. 나머지 블록은 건드리지 않는다 |
+   | `--templates-selftest` | 게이트 `verify-readback-emit`. 축 canary 와 쓰기 API canary 를 돌린다 |
+
+   네 가지가 이 경로를 **조용한 초록에서 지킨다.**
+
+   - **명세 없는 template 은 거절한다.** 아홉 중 명세가 있는 것만 뜬다 — 나머지는 「빈 것」이
+     아니라 「없는 것」이고, 지어내지 말고 `TEMPLATE_CAPTURE` 에 항목을 먼저 적는다.
+   - **계약의 축과 명세의 축이 한 칸이라도 다르면 거절한다.** 축을 빠뜨린 채 뜨면 parity 는
+     그 축을 대조하지 않고 넘어간다 — 채움 칸에서 이미 한 번 겪은 실패다.
+   - **낸 코드는 못 읽으면 그 자리에서 throw 한다.** 페이지·프레임·경로·필드 중 하나라도
+     못 읽으면 부분 결과를 반환하지 않고, 못 읽은 경로와 그 자리에서 실제로 보인 이름을
+     함께 던진다. 6번 규칙(「없음」과 「안 봄」을 구분하지 못하는 덤프)의 같은 교훈이다.
+   - **읽기 전용이다.** 낸 문자열에 쓰기 API(`appendChild`·`detachInstance`·`resetOverrides`·
+     `create*` 등)가 한 글자라도 있으면 **출력하지 않고 죽는다.** 자기시험이 그 판정을
+     canary 로 다시 확인한다. 낸 코드가 **플러그인이 돌리는 형태로 파싱되는지**도 같은
+     자기시험이 본다(실행하지 않는다) — 문법이 깨지면 Figma 콘솔에서야 드러난다.
+
+   **명세는 라이브로 한 번 검증해야 한다.** 축의 뜻은 계약의 근거 문장에서 읽었지만 경로
+   이름이 라이브와 같은지는 Figma 를 열어야 안다. 그래서 명세마다 `$verifiedAgainstLive`
+   가 있고 `--merge-templates` 는 그것이 `false` 인 template 을 **거절한다.** 첫 검증은
+   **보드를 고치기 전에** 뜬 값을 지금 되읽기의 같은 블록과 맞대는 것이다 — 다르면 드리프트가
+   아니라 **명세가 틀린 것**이므로 경로를 고친다. 전부 같으면 표시를 `true` 로 올리고 근거
+   (날짜·비교 결과)를 옆에 적는다. `--components` 가 2026-08-26 에 「알려진 어긋남」으로 밟은
+   길과 같다.
 
 #### Figma로 그대로 옮길 수 없는 것
 
@@ -13983,6 +14015,46 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-09-16 (141) — template 되읽기를 뜨는 길을 세운다 — `figma-readback-emit --templates`
+
+(138) 이 「남은 것」으로 남긴 셋째다. `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에
+**손으로** 떴고 그 뒤로 뜨는 길이 없었다. `--components` 와 `--variables` 는 있는데 template 만 없으니,
+패턴 보드를 고치고 되읽기를 빠뜨리면 parity 가 **초록인 채로** 어긋난다 — 되읽기를 정본으로 읽는
+게이트라 낡은 되읽기는 낡은 사실을 성실히 검증한다. (139) · (140) 에서 기록과 토큰은 옮겼는데
+**되읽기를 뜰 방법이 없어 parity 를 초록으로 되돌릴 경로 자체가 없었다.**
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `--templates [--only …]` | 플러그인에서 그대로 돌릴 **읽기 전용** 채취 코드를 낸다(app-shell 217줄) |
+| `--templates-spec [--only …]` | 채취 명세만 낸다 |
+| `--merge-templates <결과.json>` | `templates` 에만 병합한다. 나머지 블록은 건드리지 않는다 |
+| `--templates-selftest` | 새 게이트 `verify-readback-emit`(verify:ci) |
+
+**명세는 계약이 소유한 축을 그대로 뜬다** — app-shell 23축 · home 20축 · project-grid 11축. 축 목록을
+`figma/templates.measured.json` 에서 읽어 명세와 **정확히** 맞대므로, 축을 빠뜨리거나 계약에 없는 축을
+더하면 뜨기 전에 거절한다. 나머지 여섯(loading · status-result · route-boundary · auth-two-panel ·
+landing-shell · editor-workspace)은 **명세가 없고, 없다고 말한다** — 부르면 「명세가 있는 것은 셋뿐」이라고
+거절한다. 「빈 것」이 아니라 「없는 것」이다.
+
+**조용한 초록을 네 곳에서 막는다.** ① 명세 없는 template 거절 ② 계약↔명세 축 불일치 거절
+③ 낸 코드가 페이지·프레임·경로·필드를 하나라도 못 읽으면 **부분 결과 대신 throw**(못 읽은 경로와 그
+자리에서 실제로 보인 이름을 함께 던진다 — [Figma Sync](../governance/figma-sync.md) 6번 규칙의 같은 교훈)
+④ 낸 문자열에 쓰기 API 가 한 글자라도 있으면 출력하지 않고 죽는다.
+
+**자기시험이 그 넷을 매 실행 다시 증명한다.** 명세마다 축 하나를 빼 보고 계약에 없는 축을 더해 보며
+(canary 6종), 금지어 14종을 섞어 보고, 실제로 내는 코드에 그것이 없는지 본다. 넷째로 낸 코드 218줄이
+**플러그인이 돌리는 형태(async 함수 본문)로 파싱되는지**만 본다 — 실행하지 않는다. 문법이 깨지면 Figma
+콘솔에서야 드러나므로 여기서 먼저 잡는다. 하나라도 「통과」하면 실패다.
+
+**명세는 아직 라이브로 검증되지 않았다(`$verifiedAgainstLive: false`).** 축의 뜻은 계약의 근거 문장에서
+읽었지만 **경로 이름이 라이브와 같은지는 Figma 를 열어야 안다.** 그래서 `--merge-templates` 는 표시가
+`false` 인 template 을 **거절한다** — 검증 전 명세로 되읽기를 덮어쓰면 낡은 되읽기보다 나쁘다.
+첫 검증 절차는 **보드를 고치기 전에** 뜬 값을 지금 되읽기와 맞대는 것이고, 다르면 드리프트가 아니라
+명세가 틀린 것이다. 그 대조는 Figma 접근이 있는 세션의 몫이며 **이 변경에서는 하지 않았다.**
+
+**게이트 수가 늘었다** — `verify:ci` 25 · `verify:product` 28. `verify-readback-emit` 은 저장소 파일만 읽어
+러너에서 그대로 돈다(`verify-gate-split` 통과).
+
 #### 2026-09-16 (140) — 레일 폭 토큰 280 → 240 — 기록이 옮긴 자리로 토큰이 따라간다
 
 소유자 판정이다([DS-D-0064](../governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md)).
@@ -14136,9 +14208,10 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
   (규칙), Compact · drawer open 서랍 240, `Template · AppHome`(레일 240 · 카드 286 · 오버레이 비율 · `NavEyebrow` 는 숨김),
   `Pattern · ProjectGrid`(`991:252`) 4열 밴드 컨테이너 1156 · 카드 286. 순서는 **기록 · 토큰 커밋 → Figma 적용 → 되읽기 →
   `build-figma-snapshot` → parity 초록**이다.
-- **template 되읽기를 뜨는 스크립트가 없다.** `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에 손으로 떴고
-  `figma-readback-emit` 은 `components` · 변수만 뜬다. 위 Figma 적용 뒤 parity 를 초록으로 만들려면 app-shell · home · project-grid
-  세 블록을 계약 축 그대로 다시 떠야 한다 — emitter 를 세우거나 같은 축을 손으로 뜨고 스크린숏으로 대조한다.
+- ~~**template 되읽기를 뜨는 스크립트가 없다.**~~ — **2026-09-16 에 (141) 에서 세웠다.**
+  `figma-readback-emit --templates` 가 app-shell · home · project-grid 세 블록을 계약 축 그대로 뜬다(읽기 전용 · 못 읽으면 throw).
+  **명세의 라이브 검증은 아직 남았다** — `--merge-templates` 가 검증 전 명세를 거절하므로, Figma 접근이 있는 세션이 보드를 고치기
+  **전에** 한 번 떠서 지금 되읽기와 맞대고 `$verifiedAgainstLive` 를 올려야 한다.
 - ~~**링 12 → 8 · compact 인셋 16 → 6 은 판정 대기다**~~ — **2026-09-16 에 (139) 에서 닫았다**(소유자 판정
   [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)). `$pending` 다섯 칸을 제품 값으로 풀고
   `layout-app-shell-outer-gap` 과 거울 토큰 둘을 8 로 옮겼으며, `layout-app-shell-content-inset` 과 레일 패딩은 사유와 함께 남겼다.

@@ -2188,6 +2188,18 @@ function figmaVariablePath(token) {
   return segments.slice(token.tier === "primitive" ? 1 : 2).join("/");
 }
 
+// 효과(그림자) 색으로 **실제로 물려 있는** 색 토큰 — Figma 선택기의 효과 색 칸에도 띄운다.
+// 2026-09-17 라이브 파일 16 페이지 노드 52,752 개의 `effects[].boundVariables.color` 를 전수로 셌다:
+// `color/app/tooltip-border` 99 · `color/gray/000` 10 · `color/gray/000-alpha/08` 2(효과 스타일 0).
+// 같은 날 소유자 결정 — 라이브 scopes 를 명세로 맞추되, 효과 색으로 쓰이는 이 셋은 명세가 쓰임을
+// 따른다. scope 는 선택기 목록만 정하고 렌더를 바꾸지 않으므로, 새로 효과에 쓰이는 색이 생기면
+// 여기에 더한다(목록이 사실과 갈리면 선택기에서 그 색이 사라질 뿐 그림은 그대로다).
+const FIGMA_EFFECT_COLOR_TOKEN_IDS = new Set([
+  "color-app-tooltip-border",
+  "color-gray-000",
+  "color-gray-000-alpha-08",
+]);
+
 function figmaScopesForToken(token) {
   if (token.type === "color") {
     if (token.id.startsWith("color-background")) {
@@ -2195,6 +2207,9 @@ function figmaScopesForToken(token) {
     }
     if (token.id.startsWith("color-foreground")) return ["TEXT_FILL"];
     if (token.id.startsWith("color-border")) return ["STROKE_COLOR"];
+    if (FIGMA_EFFECT_COLOR_TOKEN_IDS.has(token.id)) {
+      return ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL", "EFFECT_COLOR"];
+    }
     return ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"];
   }
   if (token.type === "dimension") {

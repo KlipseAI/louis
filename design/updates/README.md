@@ -25,6 +25,49 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-17 (143) — Figma 변수 scopes · 숨김을 쓰임에 맞춰 명세와 맞춘다
+
+**2026-09-17 소유자 결정이다.** (142) 와 DS-D-0065 가 「라이브가 명세와 다른 자리」로 남긴 scopes 73 ·
+hidden 3 을 정리했다. 소유자가 라이브 차이 목록을 보고 고른 안은 「쓰임에 맞춰 정리」다 — 효과 색으로
+실제로 쓰이는 색은 명세가 쓰임을 따르고, 나머지는 라이브를 명세로 맞춘다. **값 · 이름 · 설명 · 모드 값은
+건드리지 않았고 그림은 바뀌지 않는다** — scopes 는 Figma 선택기 목록만, 숨김은 라이브러리 게시만 정하는데
+이 파일은 게시하지 않는다(DS-D-0035).
+
+**명세가 쓰임을 따른 셋.** 라이브 16 페이지 노드 52,752 개의 `effects[].boundVariables.color` 를 전수로
+세니 효과 색에 물린 변수는 `color/app/tooltip-border` 99 · `color/gray/000` 10 · `color/gray/000-alpha/08`
+2 곳이었다(효과 스타일 14 개에는 0). 이 셋의 proposal scopes 에 `EFFECT_COLOR` 를 더했다
+(`scripts/lib/token-model.mjs` 의 `FIGMA_EFFECT_COLOR_TOKEN_IDS`). `figma.tokens.json` ·
+`apply-variables.7.js` · `apply-variables.8.js` · manifest 는 build 로 다시 만들었고 baseline manifest 도 같은
+값으로 잠갔다. CSS · JS 산출물은 그대로라 제품 핀은 움직일 일이 없다.
+
+**라이브를 명세로 맞췄다.**
+
+| 항목 | 수 | 달라지는 것 |
+| --- | --- | --- |
+| scopes — `EFFECT_COLOR` 를 뗐다 | 59 | Semantic Color 58 · Primitive `color/green-500-alpha/08`. 효과 색 선택기에서 빠진다. 효과에 물린 곳은 0 이다 |
+| scopes — 선택기에 새로 뜬다 | 5 | `ALL_FILLS` 만 있던 3 에 획 색, `FRAME_FILL,SHAPE_FILL` 만 있던 `accent-danger-secondary` 둘에 글자 · 획 색 |
+| scopes — 표기만 | 9 | `ALL_FILLS` 를 `FRAME_FILL,SHAPE_FILL,TEXT_FILL` 로 풀었다. 뜨는 자리는 같다. 위 효과 색 셋이 여기 든다 |
+| hidden → true | 3 | `color/green-500-alpha/08` · `color/red-alpha/24` · `color/static/white`. Primitive 182 개가 전부 숨김이다 |
+
+적용은 `apply-variables.{1,2,7,8,9}.js` 생성물 그대로에 거르는 블록 하나를 더해 돌렸다 — 라이브 scopes
+(정렬해 비교)나 hidden 이 명세와 다른 변수만 남기고 값 패스는 끈다(`s.v={}`). 대상 수가 사전 대조와 다르면
+쓰지 않고 돌아간다. 파일별 1 · 2 · 14 · 35 · 23 = 75 개를 썼고 created 0 · 값 updated 0 이다. 적용 뒤 510 개를
+다시 대조하니 scopes 0 · hidden 0 이고, 이름 · 키 · 설명 · 타입 · 모드 값 · codeSyntax 지문과 컬렉션 · 모드 ·
+변수 순서 지문은 적용 전과 같다.
+
+**남은 차이는 값 표기 둘이고 일부러 두었다.** `scale/tooltip-rest` 는 Figma 가 float32 로
+0.9700000286102295 를 보관하는데 apply 가 숫자를 `JSON.stringify` 로 비교하므로 몇 번을 써도 다르다고
+나온다. `color/green-500-alpha/08` 은 라이브 (0, 0.7765, 0.5569) 와 명세 (0, 0.776471, 0.556863) 가 8비트로
+같은 (0, 198, 142) 인데 차가 색 허용치 1e-5 를 넘는다. 둘 다 `figma/readback.json` 머리말이 이미 적은
+예외다.
+
+**되읽기.** 바꾼 75 개를 `--variables` 로 다시 떴다. 되읽기 행 내용이 바뀌는 것은 scopes 열이 새 proposal
+값을 받는 효과 색 셋뿐이라 그 셋만 `--remove-variables` 뒤 `--merge-variables` 로 다시 넣었다. 나머지 72 행은
+넣지 않았다 — 6 행은 바이트까지 같고 65 행은 모드 순서만 다르며, `color/green-500-alpha/08` 은 넣으면
+「float 정밀도는 proposal 값」 규약을 깬다. 스냅숏은 다시 만들었다. Figma 는 scopes 를 자기 순서
+(`FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR` · `WIDTH_HEIGHT,GAP`)로 보관하므로 되읽기 scopes 열은 앞으로도
+proposal 표기다.
+
 ## 2026-09-17 (142) — 표 행 hover 를 면 사다리 칸에서 상태 레이어로 옮긴다 (DS-D-0065)
 
 **2026-09-17 소유자 결정이다.** 번호가 (130) 다음 (142) 인 것은 푸시되지 않은 앵커 브랜치가

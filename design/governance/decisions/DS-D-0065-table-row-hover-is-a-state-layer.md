@@ -200,6 +200,8 @@ float 예외로 적어 둔 둘(`scale/tooltip-rest` · `color/green-500-alpha/08
 [Figma Sync](../figma-sync.md) 쓰기 정책 5 — 「Figma 쪽 수동 편집과 충돌하면 덮어쓰지 않고 diff를
 보고한다」 — 가 우선이므로 **생성물 그대로에 `COL.vars` 를 거르는 한 줄만 더해** 돌렸다. 결과는
 `updated 1 · created 0 · missingAlias 0` 이다. 1~8 번은 돌리지 않았다.
+위 scopes 73 · hidden 3 은 같은 날 뒤이어 [Updates (143)](../../updates/README.md) 이 소유자 결정으로 정리했다 —
+이 문단은 그 전 라이브의 기록이다.
 
 되읽기는 `node scripts/figma-readback-emit.mjs --variables --only color/table-row-hover` 가 낸 코드를
 읽기 전용으로 돌려 `--merge-variables` 로 넣었고(행 1 갱신), `build-figma-snapshot` 을 같은 작업에서

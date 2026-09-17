@@ -739,9 +739,11 @@ function mergeVariables(resultPath) {
            행 순서는 세 컬렉션 모두 figmaName 알파벳순이 불변식이라 그 자리에 꽂는다.
 
            **scopes 는 Figma 가 아니라 proposal 에서 가져온다.** 아래 갱신 경로가 기존 행의
-           scopes 를 보존하는 이유와 같은 이유다 — 두 표기가 갈린다. 갈리는 방식이 둘이다:
-           COLOR 는 어휘가 다르고(`ALL_FILLS` ↔ `FRAME_FILL,SHAPE_FILL,…`), FLOAT 는 어휘는
-           같은데 **순서**가 다르다(Figma `WIDTH_HEIGHT,GAP` ↔ proposal `GAP,WIDTH_HEIGHT`).
+           scopes 를 보존하는 이유와 같은 이유다 — 두 표기가 갈린다. Figma 는 받은 scopes 를
+           **자기 순서로** 다시 적는다(COLOR `FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR` ↔
+           proposal `FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL`, FLOAT `WIDTH_HEIGHT,GAP` ↔
+           `GAP,WIDTH_HEIGHT`). 2026-09-17 라이브 scopes 를 명세로 맞추기 전에는 COLOR 어휘도
+           갈렸다(`ALL_FILLS`) — 맞춘 뒤 510 개는 집합이 같고 순서만 다르다.
            새 행에는 보존할 이전 값이 없으므로 Figma 표기를 그대로 쓰면 같은 컬렉션 안에서
            같은 축이 두 표기로 적힌다. proposal 을 읽으면 그 문제가 통째로 사라진다. */
         const proposed = proposalScopes.get(`${collName}::${row[0]}`);
@@ -762,9 +764,9 @@ function mergeVariables(resultPath) {
       }
       /* **scopes 문자열은 덮어쓰지 않는다.** 되읽기의 `capturedBy` 가 「scopes 는 Figma 쪽 저장
          형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다」로 정해 두었다. Figma 는 같은
-         변수를 `ALL_FILLS,STROKE_COLOR,EFFECT_COLOR` 로, proposal 은
-         `FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL` 로 적는다 — 뜻은 같고 표기만 다르다.
-         여기서 덮으면 게이트와 무관한 diff 가 매번 생긴다. 갈아 끼우는 것은 **모드 값**뿐이다. */
+         집합을 `FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR` 로, proposal 은
+         `FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL` 로 적는다 — 뜻은 같고 순서만 다르다(위 삽입
+         분기 주석). 여기서 덮으면 게이트와 무관한 diff 가 매번 생긴다. 갈아 끼우는 것은 **모드 값**뿐이다. */
       const [, type, , modes] = row;
       if (target.rows[at][1] !== type) {
         console.error(`[readback-emit] resolvedType 이 바뀌었습니다: ${collName}::${row[0]} — ${target.rows[at][1]} → ${type}`);

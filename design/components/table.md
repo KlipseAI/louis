@@ -25,7 +25,7 @@ Known deviations 첫 항목이 그 실측이다.
 
 | Surface       | 상태           | 근거                                                                                                          |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
-| Web           | `partial`      | CSS 레시피 하나(`packages/css/src/component/table.css`, `@layer louis.component`)와 제품 소비처 2곳. **React 컴포넌트가 없다** — `packages/react/src/table` 디렉터리가 없고 `packages/react/src/index.ts` 에 export 0이다. acceptance test 0건 |
+| Web           | `partial`      | CSS 레시피 하나(`packages/css/src/component/table.css`, `@layer louis.component`)와 제품 소비처 2곳. **React 컴포넌트가 없다** — `packages/react/src/table` 디렉터리가 없고 `packages/react/src/index.ts` 에 export 0이다. acceptance test 는 행 hover 축 셋(10 · 11 · 17)만 `packages/css/test/table.browser.test.ts` 가 잰다 |
 | Figma         | `partial`      | TableHeaderCell(Align 3) · TableCell(Align × State = 6) · Table(조립 COMPONENT, 머리 행 + 몸 3행)              |
 | Documentation | `done`         | 이 문서                                                                                                       |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 선다 — CSS 가 먼저 있었고 이 문서가 그것을 사후에 규범화한다                             |
@@ -131,7 +131,15 @@ CSS 에 있는 상태는 **하나뿐이다.**
 | state              | 표현                                              | 조건                                  |
 | ------------------ | ------------------------------------------------- | ------------------------------------- |
 | Default            | 행 배경 없음, 잉크 `color-fg-primary`             | —                                     |
-| Row hover          | 셀 배경 `color-table-row-hover`, `cursor: pointer` | `<tr data-interactive="true">` 일 때만 |
+| Row hover          | 셀 배경 `color-table-row-hover`(상태 레이어), `cursor: pointer` | `<tr data-interactive="true">` 일 때만 |
+
+**행 hover 는 면이 아니라 상태 레이어다**
+([DS-D-0065](../governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md)). 쉬는 행에는
+면이 없다 — `td` 배경이 투명이다. 그래서 면 없는 다른 행과 같은 방식으로 잉크 알파 한 겹을 얹는다:
+light 검정 8% · dark 흰색 8%, `color-accent-ghost-hover` 와 같은 칸이다(`Selectable List Row` 의
+Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 놓여도 그 바닥 위에서 같은 정도로
+드러난다. **면 사다리 칸으로 되돌리지 않는다** — 다크에는 `bg-surface` 보다 한 칸 위 면이 없어
+(`bg-raised` 와 같은 값) 카드 위 표에서 hover 가 바닥과 같은 색이 됐다(아래 Known deviations).
 
 **focus 상태가 없다.** 이 레시피는 포커스 링을 세우지 않는다 — 행 자체가 포커스 가능한 요소가
 아니기 때문이다. 아래 Accessibility.
@@ -177,8 +185,9 @@ CSS 에 있는 상태는 **하나뿐이다.**
   사용자에게 도달 불가능한 행**을 만드는 것이다. **이것은 가정이 아니다** — 두 소비처 중 하나가
   이미 그 모양을 배포 중이다. 아래 Known deviations.
 - **행 호버가 색 하나로만 전달된다.** 그래서 호버는 상태를 나르는 신호가 아니라 포인터 위치의
-  피드백이어야 한다 — 선택·활성 같은 의미를 호버 면에 싣지 않는다. 다크에서 그 면이 아예 보이지
-  않는다는 실측은 아래 Known deviations에 있다.
+  피드백이어야 한다 — 선택·활성 같은 의미를 호버 면에 싣지 않는다. 호버 레이어가 바닥 위에서 만드는
+  대비는 사다리 바닥 넷에서 light 1.17 · dark 1.20~1.24 로 얕다(DS-D-0065 실측). 다크에서 그 면이
+  아예 보이지 않던 결함과 해소 기록은 아래 Known deviations에 있다.
 - **forced-colors 에서 헤더 헤어라인을 되살린다.** `box-shadow` 가 사라지므로 `currentColor` 1px
   border 로 다시 세운다([table.css:100-105](../../packages/css/src/component/table.css)). 본문
   구분선은 `border` 라 시스템이 유지하므로 분기가 필요 없다.
@@ -209,7 +218,7 @@ CSS 에 있는 상태는 **하나뿐이다.**
 | 본문 셀 세로 정렬     | `middle`                       | 리터럴                                                |
 | 행 구분선             | 1px                            | `border-width-default` + `color-table-row-line`       |
 | 마지막 행 구분선      | 0                              | 리터럴                                                |
-| 행 호버 면            | —                              | `color-table-row-hover`                               |
+| 행 호버 레이어        | light 검정 8% · dark 흰색 8%   | `color-table-row-hover` (→ `static-black-alpha-08` · `static-white-alpha-08`) |
 | 숫자 열 정렬          | `end` + `tabular-nums`         | 리터럴                                                |
 
 **리터럴인 자리와 그 이유.**
@@ -297,17 +306,21 @@ CSS 에 있는 상태는 **하나뿐이다.**
   맞출지가 이 컴포넌트의 미결 판정이다.
 - **마지막 행 구분선도 두 소비처가 되돌린다.** 레시피는 카드 경계와 겹친다며 지우는데, 두 표는
   마지막 행에도 선을 남긴다. 정본이 그렇다면 레시피의 `:last-child` 규칙이 틀렸을 수 있다.
-- **다크에서 행 호버가 표면에서 갈라졌다 — 전에는 같은 값이었다.**
-  `color-table-row-hover`(dark)는 `palette-gray-800`(`color(srgb 0.168627 0.184314 0.211765)`)에
-  남아 있고, `color-bg-surface`(dark)만 한 칸 내려가 `palette-gray-850` 이 됐다. 표면 위 표에서
-  대비 **1.14** 다. **왜 바뀌었나** — 다크 면 사다리를 한 칸씩 내린 회차가 `bg-surface`(dark)를
-  `palette-gray-800` → `palette-gray-850` 으로 옮겼다. 그 전에는 둘이 바이트 단위로 같아서
-  (대비 1.00) 호버 면이 배경과 전혀 구별되지 않았고, 이 문단은 그것을 결함으로 적은 자리다.
-  이동이 그 결함을 해소했다. 1.14 는 여전히 얕으므로 `Selectable List Row` 가 같은 계열의
-  함정에서 선행 표식을 함께 그린 판단은 그대로 유효하다 — 면 하나에 기대지 않는다.
-- **다크에서 헤더 면도 같은 이동으로 표면에서 갈라졌다.** 헤더 면은 `palette-gray-800` 에
-  남고 표면만 내려갔다 — 대비 **1.14**(전에는 1.00). 그래도 헤더를 세우는 주된 것은 면이 아니라
-  헤어라인 하나다. 라이트에서 헤더 면 대 `color-bg-surface` 는 **1.29**, `color-bg-canvas`
+- **다크에서 행 호버가 표면과 같은 색이었다 — 해소됐다(DS-D-0065, 2026-09-17).** 이 항목은
+  사다리가 움직일 때마다 뒤집혔다. 호버가 면 사다리 칸을 물었기 때문이다. 2026-09-09 이동은
+  `bg-surface`(dark)만 내려 호버와 갈라놓았고, `021c2b6`(2026-09-11) 직전에는 호버 `palette-gray-850`
+  대 `bg-surface` `palette-gray-900` 으로 대비 1.12 였다. `021c2b6` 이 850 칸을 지우며 호버를
+  `palette-gray-900` 으로 내리자 **`bg-surface` · `bg-raised`(dark)와 다시 바이트 단위로 같아졌다**
+  (대비 1.00). 라이트에서도 `bg-inset` 바닥 위 호버는 같은 값(1.00)이었다. 다크에는 `bg-surface`
+  보다 한 칸 위 면이 없으므로 면으로는 풀리지 않는다 — 호버를 상태 레이어로 옮겼다. 제품 고정
+  커밋에서 잰 합성색(카드 `bg-surface` 위 두 표)은 dark 23,27,34 → 41,44,51 (대비 1.00 → 1.24),
+  light 235,236,238 → 232,232,233 (옛 호버와 ΔE2000 1.04)이다 — 측정 명령과 허용 기준은
+  DS-D-0065 가 소유한다. 대비가 여전히 얕으므로 `Selectable List Row` 가 같은 계열의 함정에서
+  선행 표식을 함께 그린 판단은 그대로 유효하다 — 면 하나에 기대지 않는다.
+- **다크에서 헤더 면은 표면과 같은 값이다.** `021c2b6` 이 헤더 면도 `palette-gray-900` 으로 내려
+  `bg-surface`(dark)와 바이트 단위로 같아졌다(대비 1.00, 직전 1.12). DS-D-0065 는 상태(호버)만
+  옮겼고 헤더 면은 건드리지 않았다 — 헤더를 세우는 것은 면이 아니라 헤어라인 하나다.
+  라이트에서 헤더 면 대 `color-bg-surface` 는 **1.29**, `color-bg-canvas`
   위에 놓이면 **1.21** 이다. **라이트에서 헤더 면과 `color-bg-canvas` 가 둘 다
   `palette-gray-100` 이라 1.00 이던 것은 이 회차가 아니라 라이트 면 사다리를 세운
   `0279520`·`fe31e52` 가 `bg-canvas`(light)를 `palette-gray-025` 로 올리며 해소했다.**
@@ -323,15 +336,18 @@ CSS 에 있는 상태는 **하나뿐이다.**
 - **`data-align="center"` 에 소비처가 0이다.** 제품의 `data-align` 12곳이 전부 `end` 다. center 는
   선언돼 있으나 실화면에서 확인되지 않았다. `center` 에는 `tabular-nums` 가 붙지 않는다 — 가운데
   정렬된 숫자 열은 자릿수가 흔들린다.
-- **`data-interactive` 도 소비처가 0이다 — 그런데 이것은 레시피의 유일한 상태다.**
-  `grep -rn 'data-interactive' apps` 가 무는 것은 주석 두 줄뿐이고 속성 사용은 0건이다. 게다가 두
-  소비처가 **명시적으로 거부했다** — Instagram 은 "그 상태는 커서와 행 호버 면을 함께 주는데 이
-  표에는 호버 면이 없다. 커서만 호출부에 남긴다"(`InstagramAnalyticsScene.tsx:597-598`), 정본은
-  "이 표는 행을 눌러 들어가지 않으므로 붙이지 않는다"(`ContentTable.tsx:89-90`). 그래서 States 표의
-  Row hover 와 Acceptance test 10 은 **실화면에서 한 번도 확인된 적이 없는 축**이다(반대쪽인 11 은
-  두 소비처가 늘 밟고 있는 경로다). 위의 다크
-  호버 대비 1.00 이 제품에서 아직 드러나지 않은 이유도 이것이다 — 결함이 없어서가 아니라 그 코드
-  경로를 아무도 밟지 않아서다.
+- **`data-interactive` 에 소비처가 생겼다 — 그래서 다크 호버 결함이 제품에서 드러났다.** 오래
+  소비처가 0이었다. 앵커 `6fbdac16` 에서는 구독 화면의 크레딧 사용 이력 표가 레시피를 물고
+  (`myPageSceneStyles.ts:313`) 이동할 곳이 있는 행에 속성을 붙인다 —
+  `data-interactive={href ? "true" : undefined}`(`SubscriptionScene.tsx:1403`). 그 행은
+  `role={href ? "button" : undefined}` · `tabIndex={href ? 0 : undefined}`
+  (`SubscriptionScene.tsx:1418-1419`)와 Enter · Space 처리를 함께 가져 아래 「키보드로 갈 수 없는
+  클릭 행」의 모양이 아니다. 콘텐츠 표 두 벌은 앵커에서 여전히 붙이지 않는다 — Instagram 은 "그
+  상태는 커서와 행 호버 면을 함께 주는데 이 표에는 호버 면이 없다. 커서만 호출부에 남긴다"
+  (`InstagramAnalyticsScene.tsx:623-624`), 정본은 "이 표는 행을 눌러 들어가지 않으므로 붙이지
+  않는다"(`ContentTable.tsx:89-90`). 다크 호버 대비 1.00 이 오래 드러나지 않은 것은 결함이 없어서가
+  아니라 그 코드 경로를 아무도 밟지 않아서였다. Acceptance test 10 · 11 · 17 은 이제
+  `packages/css/test/table.browser.test.ts` 가 잰다.
 - **키보드로 갈 수 없는 클릭 행이 이미 배포돼 있다.** Instagram 표가 `<tr onClick>` 으로 새 창을
   여는데 행에 `tabIndex` 도 `role` 도 `onKeyDown` 도 없고, 셀 안에 링크·버튼도 없다
   (`InstagramAnalyticsScene.tsx:1687-1692`, 커서는 `TABLE_ROW = "cursor-pointer"` `:599`). 위
@@ -364,7 +380,9 @@ CSS 에 있는 상태는 **하나뿐이다.**
   전부 달라 한 set 으로 묶으면 절반이 거짓 조합이 되기 때문이며(`design/manifest.json` 의 table
   note), CSS 는 그것을 `thead > tr > th` 와 `tbody > tr > td` 라는 **위치**로 가른다. 축 이름이
   양쪽에서 대응하지 않는다.
-- **acceptance test 가 0건이다.** 아래 항목들은 아직 사람이 확인하는 목록이다.
+- **acceptance test 는 행 hover 축 셋만 자동이다.** 10 · 11 · 17 을
+  `packages/css/test/table.browser.test.ts` 가 사다리 바닥 넷 × 테마 둘에서 잰다(DS-D-0065).
+  나머지 항목은 아직 사람이 확인하는 목록이다.
 - **sticky 헤더가 없다.** 소비처가 만들려면 스크롤 래퍼와 함께 스스로 세워야 하고, 그때
   `isolation: isolate` 가 만드는 stacking 문맥과 어떻게 겹치는지 확인되지 않았다.
 - **정렬(sort)·선택 열·페이지네이션·zebra striping·빈 상태가 없다.** 정렬 헤더는 `aria-sort` 와
@@ -412,7 +430,10 @@ CSS 에 있는 상태는 **하나뿐이다.**
 15. `forced-colors: active` 에서 헤더 행의 `box-shadow` 가 `none` 이고 `currentColor` 1px border
     가 대신 선다.
 16. 규칙이 전부 `.louis-table` 후손에만 걸린다 — 클래스 없는 `<table>` 의 계산값이 UA 기본과 같다.
-17. **light·dark 두 테마에서 행 호버 면이 표 배경과 다른 색이다.** 현재 dark 에서 실패한다(Known
+17. **light·dark 두 테마에서 행 호버가 표 바닥과 다른 색이다** — 사다리 바닥 넷(`bg-canvas` ·
+    `bg-inset` · `bg-surface` · `bg-raised`) 모두에서, 바닥과 호버를 캔버스로 합성한 8비트 색으로
+    잰다. 호버 토큰은 알파(0 < a < 1)이고 light 에서는 바닥보다 어둡게, dark 에서는 밝게 얹힌다.
+    면 사다리 칸을 물던 동안 dark `bg-surface` · `bg-raised` 와 light `bg-inset` 에서 실패했다(Known
     deviations) — 그 실패가 이 항목의 존재 이유다.
 18. 한 줄짜리 본문 행의 `getBoundingClientRect().height` 가 **38px** 이고 마지막 행만 37px 이며,
     머리 행이 26px 이다. Figma 조립본 `Table` 의 137 과 어긋나는 139 가 현재의 실측이다 —

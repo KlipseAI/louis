@@ -122,6 +122,15 @@
       "generated": false
     },
     {
+      "id": "decision-table-row-hover-is-a-state-layer",
+      "path": "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
+      "title": "DS-D-0065 표 행 hover 는 면이 아니라 상태 레이어다 — 다크에는 카드 위 한 칸이 없다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1561,6 +1570,7 @@
         "design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md",
         "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
+        "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2196,7 +2206,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다.",
+      "note": "CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. 2026-09-17 DS-D-0065: 행 hover 는 면 사다리 칸이 아니라 상태 레이어다 — `color-table-row-hover` 가 light 검정 8% · dark 흰색 8% 를 물고, `packages/css/test/table.browser.test.ts` 가 사다리 바닥 넷 × 테마 둘에서 합성색으로 잰다(Acceptance 10 · 11 · 17).",
       "doc": "design/components/table.md",
       "figmaNames": [
         "TableHeaderCell",

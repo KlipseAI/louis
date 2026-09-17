@@ -17312,28 +17312,28 @@ export const tokens = {
     },
     "color-table-row-hover": {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-static-black-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-row-hover": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-table-row-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
-      "description": null,
+      "description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 바닥이 무엇이든 그 위에 한 겹 얹힌다. 8% 는 제품 표 바닥(bg-surface) 위에서 옛 합성색(pg-050)에 가장 가까운 16단 칸을 실측으로 고른 값이고, ghost hover 와 같은 칸이다.",
       "id": "color-table-row-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
       "sourcePath": "semantic.light.color.table-row-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.090196,
+          0.105882,
+          0.133333
         ],
-        "alpha": 1
+        "alpha": 0.08
       }
     },
     "color-table-row-line": {
@@ -22239,28 +22239,28 @@ export const tokens = {
     },
     "color-table-row-hover": {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-row-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-table-row-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
-      "description": null,
+      "description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은 값) 면으로는 hover 가 보이지 않는다. 8% 는 ghost hover 와 같은 칸이다.",
       "id": "color-table-row-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "sourcePath": "semantic.dark.color.table-row-hover",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.980392,
+          0.980392,
+          0.980392
         ],
-        "alpha": 1
+        "alpha": 0.08
       }
     },
     "color-table-row-line": {

@@ -1264,7 +1264,7 @@ export declare const tokens: Readonly<{
   readonly "color-switch-on-track": TokenRecord<"color-switch-on-track", "light", "semantic", { readonly id: "color-green-500"; readonly mode: "base" }>;
   readonly "color-switch-thumb": TokenRecord<"color-switch-thumb", "light", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-table-header-surface": TokenRecord<"color-table-header-surface", "light", "semantic", { readonly id: "color-palette-gray-100"; readonly mode: "base" }>;
-  readonly "color-table-row-hover": TokenRecord<"color-table-row-hover", "light", "semantic", { readonly id: "color-palette-gray-050"; readonly mode: "base" }>;
+  readonly "color-table-row-hover": TokenRecord<"color-table-row-hover", "light", "semantic", { readonly id: "color-static-black-alpha-08"; readonly mode: "base" }>;
   readonly "color-table-row-line": TokenRecord<"color-table-row-line", "light", "semantic", { readonly id: "color-palette-gray-150"; readonly mode: "base" }>;
   readonly "elevation-menu": TokenRecord<"elevation-menu", "light", "semantic", { readonly id: "shadow-menu-light"; readonly mode: "base" }>;
   readonly "elevation-tooltip": TokenRecord<"elevation-tooltip", "light", "semantic", { readonly id: "shadow-tooltip-light"; readonly mode: "base" }>;
@@ -1452,7 +1452,7 @@ export declare const tokens: Readonly<{
   readonly "color-switch-on-track": TokenRecord<"color-switch-on-track", "dark", "semantic", { readonly id: "color-green-500"; readonly mode: "base" }>;
   readonly "color-switch-thumb": TokenRecord<"color-switch-thumb", "dark", "semantic", { readonly id: "color-palette-gray-000"; readonly mode: "base" }>;
   readonly "color-table-header-surface": TokenRecord<"color-table-header-surface", "dark", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
-  readonly "color-table-row-hover": TokenRecord<"color-table-row-hover", "dark", "semantic", { readonly id: "color-palette-gray-900"; readonly mode: "base" }>;
+  readonly "color-table-row-hover": TokenRecord<"color-table-row-hover", "dark", "semantic", { readonly id: "color-static-white-alpha-08"; readonly mode: "base" }>;
   readonly "color-table-row-line": TokenRecord<"color-table-row-line", "dark", "semantic", { readonly id: "color-palette-gray-700"; readonly mode: "base" }>;
   readonly "elevation-menu": TokenRecord<"elevation-menu", "dark", "semantic", { readonly id: "shadow-menu-dark"; readonly mode: "base" }>;
   readonly "elevation-tooltip": TokenRecord<"elevation-tooltip", "dark", "semantic", { readonly id: "shadow-tooltip-dark"; readonly mode: "base" }>;

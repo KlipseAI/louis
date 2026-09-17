@@ -7753,7 +7753,8 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.050}",
+          "$value": "{primitive.color.static-black-alpha.08}",
+          "$description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 바닥이 무엇이든 그 위에 한 겹 얹힌다. 8% 는 제품 표 바닥(bg-surface) 위에서 옛 합성색(pg-050)에 가장 가까운 16단 칸을 실측으로 고른 값이고, ghost hover 와 같은 칸이다.",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",
@@ -9643,7 +9644,8 @@
           }
         },
         "table-row-hover": {
-          "$value": "{primitive.color.palette-gray.900}",
+          "$value": "{primitive.color.static-white-alpha.08}",
+          "$description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은 값) 면으로는 hover 가 보이지 않는다. 8% 는 ghost hover 와 같은 칸이다.",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-table-row-hover",

@@ -435,7 +435,7 @@
   --louis-color-switch-on-track: color(srgb 0 0.776471 0.556863 / 1);
   --louis-color-switch-thumb: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-table-header-surface: color(srgb 0.862745 0.870588 0.882353 / 1);
-  --louis-color-table-row-hover: color(srgb 0.921569 0.92549 0.933333 / 1);
+  --louis-color-table-row-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-table-row-line: color(srgb 0.807843 0.815686 0.831373 / 1);
   --louis-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.24);
@@ -884,7 +884,7 @@
   --louis-color-switch-on-track: color(srgb 0 0.776471 0.556863 / 1);
   --louis-color-switch-thumb: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-table-header-surface: color(srgb 0.090196 0.105882 0.133333 / 1);
-  --louis-color-table-row-hover: color(srgb 0.090196 0.105882 0.133333 / 1);
+  --louis-color-table-row-hover: color(srgb 0.980392 0.980392 0.980392 / 0.08);
   --louis-color-table-row-line: color(srgb 0.254902 0.270588 0.298039 / 1);
   --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.48);
   --louis-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12);

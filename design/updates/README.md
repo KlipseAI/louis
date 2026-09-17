@@ -25,6 +25,55 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-17 (142) — 표 행 hover 를 면 사다리 칸에서 상태 레이어로 옮긴다 (DS-D-0065)
+
+**2026-09-17 소유자 결정이다.** 번호가 (130) 다음 (142) 인 것은 푸시되지 않은 앵커 브랜치가
+(131)~(141) 과 DS-D-0063 · 0064 를 이미 쓰고 있어서다 — 합칠 때 번호가 겹치지 않게 건너뛰었다.
+
+다크에서 표 행 hover 가 보이지 않았다. `color-table-row-hover`(dark)가 `palette-gray-900` 이라
+`color-bg-surface` · `color-bg-raised`(dark)와 바이트 단위로 같았고, 레시피 hover 를 켜는 제품 표 두 벌
+(구독 크레딧 사용 이력 · 작업 브랜치의 분석 콘텐츠 표)이 둘 다 카드 `bg-surface` 위에 놓인다.
+(127)이 「면이 아니라 알파로 옮기는 것이 맞고 별건이다」로 남긴 자리다. 다크에는 카드 위 한 칸 면이
+없으므로 면으로 풀지 않고 **버튼처럼 상태 레이어로** 옮긴다.
+
+| 토큰 | before | after |
+| --- | --- | --- |
+| `color-table-row-hover` (light) | `palette-gray.050` (불투명) | **`static-black-alpha.08`** |
+| `color-table-row-hover` (dark) | `palette-gray.900` (불투명) | **`static-white-alpha.08`** |
+
+`color-accent-ghost-hover` 와 같은 칸이지만 이름은 따로 둔다 — 역할이 다르다. `.louis-table` 규칙은
+바뀌지 않았고 `table.css` 에 「사다리 칸으로 되돌리지 않는다」 주석이 붙었다.
+
+**light 모양은 실측으로 유지했다.** 제품 고정 커밋(`3e3765a9` · 앵커 `6fbdac16`)의 CSS 를 제품
+클래스 문자열 그대로 조립해 헤드리스 Chromium 에서 행에 포인터를 올리고 픽셀을 읽었다. 제품 표
+바닥 `bg-surface`(250,250,250) 위에서 옛 hover 235,236,238 → 새 hover 232,232,233 — 8비트 RGB
+유클리드 7.07 · ΔE2000 1.04 로, Figma Sync 의 알파 흡수 기준(11.7/441) 안이다. 16단 칸 가운데
+가장 가깝다(04 는 8.37 · 1.50). dark 는 1.00 이던 대비가 1.24 가 된다. light 에서도 `bg-inset` 바닥
+위 hover 가 바닥과 같았는데(1.00) 이제 바닥 넷 모두에서 1.17 이다. 수치 표와 측정 방법은
+[DS-D-0065](../governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md)가 소유한다.
+
+**breaking.** `check-token-diff` 가 rawValue 2 · value 2 · aliasTarget 2 · description 2 를 낸다 —
+전부 이 토큰의 두 모드다. `packages/tokens/baseline/manifest.json` 을 같은 변경에서 승인해 잠갔다.
+소비자가 할 일은 없다 — 레시피가 hover 를 칠하는 방식은 그대로이고, 제품에서 이 토큰 이름을 직접
+무는 곳은 앵커에서 0 이다.
+
+**구독 크레딧 표의 hover 행이 머리 띠와 같은 색이 된다.** 그 표가 머리 띠를
+`accent-secondary`(검정 8% · 흰색 8%)로 되돌려 칠하기 때문이다 — 잰 머리 띠가 light 232,232,233 ·
+dark 41,45,51 이고 새 hover 가 같은 값이다. 머리 띠와 행은 위치와 머리 행 헤어라인이 가른다.
+
+**테스트가 생겼다.** `packages/css/test/table.browser.test.ts` 가 Acceptance 10 · 11 · 17 을 사다리
+바닥 넷 × 테마 둘에서 캔버스 합성색으로 잰다. 토큰을 옛 사다리 칸으로 되돌리면 두 project 에서 열 개가
+실패한다(음성 시험 출력은 Decision 에).
+
+**Figma 는 같은 변경에서 맞췄다.** `color/table-row-hover` 두 모드를 `color/static-black-alpha/08` ·
+`color/static-white-alpha/08` 로 옮겼다. `apply-variables.9.js` 를 **이 항목 하나로 거른 채** 돌렸다 —
+라이브 510 변수를 명세와 대조하니 scopes 73 · hidden 3 이 명세와 달라, 통째로 돌리면 이 결정과 무관한
+라이브 설정을 덮기 때문이다(figma-sync 쓰기 정책 5). `TableCell` Hover 변형 셋의 저장색은 Figma 가 함께
+옮겼다(검정 · 불투명도 0.08). 되읽기 행 1 을 `--variables`/`--merge-variables` 로 갱신하고 스냅숏을 다시
+만들었다. 게시는 하지 않았다.
+
+**제품은 아직이다.** 핀을 올리는 순간 위 화면 변화가 제품에 들어간다 — 규칙 1 의 세 번째 곳이 남았다.
+
 ## 2026-09-13 (130) — 앱 셸 상단 바에 조합 넷과 라벨 속성을 더하고, 화면 보드를 라이브와 대조하는 도구를 세운다
 
 **Figma 계획만 바뀌었다. 라이브 Figma 에는 아직 쓰지 않았다** — 적용 순서와 승인은

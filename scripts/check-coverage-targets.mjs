@@ -170,8 +170,10 @@ const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.
-const DEAD_TOKEN_BASELINE = 73; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+const DEAD_TOKEN_BASELINE = 72; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
+// 2026-09-21: 73 → 72. Document 패턴(DS-D-0067)의 바닥이 화면 가장자리와 시트 사이를
+// `layout-app-shell-outer-gap` 으로 띄우면서 LOUIS CSS 가 그 토큰을 처음 문다. 이득 방향이라 잠근다.
 
 // ── 앵커가 못 보는 소비자 ─────────────────────────────────────────────────
 // **낡은 앵커 때문에 죽어 «보이는» 토큰.** 원장(`migration/louis-token-usage.json`)은 제품

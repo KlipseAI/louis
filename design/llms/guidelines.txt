@@ -1985,7 +1985,12 @@ static-alpha 정책 결정이 선행돼야 한다.
    **보드를 고치기 전에** 뜬 값을 지금 되읽기의 같은 블록과 맞대는 것이다 — 다르면 드리프트가
    아니라 **명세가 틀린 것**이므로 경로를 고친다. 전부 같으면 표시를 `true` 로 올리고 근거
    (날짜·비교 결과)를 옆에 적는다. `--components` 가 2026-08-26 에 「알려진 어긋남」으로 밟은
-   길과 같다.
+   길과 같다. 근거(`$verifiedEvidence`) 없이 `true` 만 올리면 CLI · 자기시험이 거절한다.
+
+   **세 명세(app-shell · home · project-grid)는 2026-09-22 에 검증했다.** 세트 적용 전(변수 · DS Templates 에
+   쓰기 전) 고친 명세의 `--templates` 를 읽기 전용으로 한 번 돌려, 54축 전부가 `figma/readback.json` 의 2026-08-31
+   손 되읽기와 같았다(블록 문자열까지). 이 대조는 보드를 고치기 전에만 성립한다 — 변수 적용 뒤에는 AppHome 의
+   레일 폭 · 링이 움직인다. 적용 뒤에는 같은 명세로 다시 떠 `--merge-templates` 로 병합한다.
 
 #### Figma로 그대로 옮길 수 없는 것
 
@@ -14538,7 +14543,7 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-#### 2026-09-22 (150) — template 되읽기 명세를 라이브 이름 · 구조로 고친다
+#### 2026-09-22 (150) — template 되읽기 명세를 라이브 이름 · 구조로 고치고 라이브로 검증한다
 
 (141) 이 세운 `figma-readback-emit --templates` 의 명세는 계약(`figma/templates.measured.json`)의 근거 문장에서 경로를
 지었고, **라이브를 한 번도 읽지 못했다.** 2026-09-21 앵커 적용 준비의 읽기 전용 탐침에서 첫 경로 `Expanded/SidebarNavItem`
@@ -14572,6 +14577,27 @@ AppHome 「분석」 아이브로우 행(`NavEyebrow` `683:198`)을 **지우지 
 (한 값으로 접지 않고 밴드별 배열) · 줄바꿈 격자의 첫 줄 · 없는 경로(부분 결과 대신 throw)를 본다. 여기에 후보 · 근거 canary 5종.
 규칙을 하나씩 깨뜨린 사본 아홉 꼴로 돌려 전부 빨갛게 되는 것을 확인했다(처음 canary 는 「밴드 불일치를 첫 값으로 접기」를
 놓쳐 기대를 배열로 고쳤다).
+
+##### 라이브 검증 — 세 명세 모두 `$verifiedAgainstLive: true`
+
+세트 적용 전(앵커 적용 세트 S0 — 변수 · DS Templates 에 쓰기 전), 고친 명세의 `--templates` 를 **읽기 전용으로 한 번** 돌렸다(반환값의
+FNV-1a 를 함께 돌려받는 꼴로 감쌌고, 쓰기 API 는 없다). 결과를 `figma/readback.json` 의 `templates` 블록(2026-08-31 손 되읽기)과 맞댔다.
+
+| template | 축 | 같음 | 다름 |
+| --- | --- | --- | --- |
+| app-shell | 23 | 23 | 0 |
+| home | 20 | 20 | 0 |
+| project-grid | 11 | 11 | 0 |
+
+세 블록은 **문자열까지** 같다(축 순서 포함). 두 가지를 한꺼번에 말한다 — 08-31 손 되읽기가 지금 라이브와 같다(09-14~16 적용이 세
+보드를 건드리지 않았다)는 것, 그리고 고친 명세가 그 값을 재현한다는 것. 그래서 세 명세에 `$verifiedAgainstLive: true` 와 근거
+(`$verifiedEvidence`)를 적었다. 명세의 탐침 · 평가 코드는 대조한 그대로이고, 낸 코드에서 바뀐 것은 그 두 키뿐이다. 같은 결과로
+`--merge-templates` 를 저장소 밖 사본에서 돌려 보니 받아들였고 병합 뒤 값도 같았다 — 이 변경에서 `figma/readback.json` 은 병합하지
+않았다(바이트 불변).
+
+이 대조는 **보드를 고치기 전에만** 성립한다. 변수 적용 뒤에는 AppHome 의 레일 폭 · 링(변수에 묶인 두 칸)이, DS Templates 적용 뒤에는
+AppShell · ProjectGrid 가 움직인다. **남은 것:** 세트 적용(변수 · DS Templates) 뒤 같은 명세로 다시 떠 `--merge-templates` →
+`build-figma-snapshot` → `verify-figma-parity` 에서 template 열이 계약(레일 240 · 링 8 · 규칙 칸)과 맞는지 본다.
 
 #### 2026-09-21 (149) — 앵커 적용 전 리뷰 minor: sidebar-states 찾기 가드를 허용 목록으로 · 적용 조건과 사실 정정
 
@@ -15081,7 +15107,8 @@ fixture(`/Users/sejunki/klipse-web-fixture`)를 `2c6bdacf` 로 체크아웃해 �
 - ~~**template 되읽기를 뜨는 스크립트가 없다.**~~ — **2026-09-16 에 (141) 에서 세웠다.**
   `figma-readback-emit --templates` 가 app-shell · home · project-grid 세 블록을 계약 축 그대로 뜬다(읽기 전용 · 못 읽으면 throw).
   **명세의 라이브 검증은 아직 남았다** — `--merge-templates` 가 검증 전 명세를 거절하므로, Figma 접근이 있는 세션이 보드를 고치기
-  **전에** 한 번 떠서 지금 되읽기와 맞대고 `$verifiedAgainstLive` 를 올려야 한다.
+  **전에** 한 번 떠서 지금 되읽기와 맞대고 `$verifiedAgainstLive` 를 올려야 한다. — **2026-09-22 (150) 에서 끝냈다**(명세를 고치고
+  54축 전부 같음).
 - ~~**링 12 → 8 · compact 인셋 16 → 6 은 판정 대기다**~~ — **2026-09-16 에 (139) 에서 닫았다**(소유자 판정
   [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md)). `$pending` 다섯 칸을 제품 값으로 풀고
   `layout-app-shell-outer-gap` 과 거울 토큰 둘을 8 로 옮겼으며, `layout-app-shell-content-inset` 과 레일 패딩은 사유와 함께 남겼다.

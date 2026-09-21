@@ -860,13 +860,16 @@ function removeVariables(spec) {
 //   5. 이름 · 밴드 규칙(머리 이름 · 숨긴 부품 · 인스턴스 안 · 밴드 정렬 · 첫 줄)은 자기시험이 낸 코드를 가짜 트리
 //      위에서 **실행해** 본다. 문법만 보면 규칙이 느슨해져도 초록이다.
 //
-// **명세는 아직 라이브로 검증되지 않았다(`$verifiedAgainstLive: false`).** 축의 뜻은 계약의
-// 근거 문장에서 읽었지만 **경로 이름이 라이브와 같은지는 Figma 를 열어야 안다.**
-// 그래서 `--merge-templates` 는 그 표시가 붙은 template 을 기본으로 **거절한다.** 첫 검증 절차는
+// **명세는 라이브로 검증한 뒤에만 병합한다(`$verifiedAgainstLive`).** 축의 뜻은 계약의
+// 근거 문장에서 읽지만 **경로 이름이 라이브와 같은지는 Figma 를 열어야 안다.**
+// 그래서 `--merge-templates` 는 그 표시가 `true` 가 아닌 template 을 기본으로 **거절한다.** 첫 검증 절차는
 // 이렇다 — 보드를 **고치기 전에** `--templates --only <이름>` 을 돌려 나온 값을 지금 되읽기의
 // 같은 블록과 맞댄다. 다르면 드리프트가 아니라 **명세가 틀린 것**이므로 경로를 고친다. 전부
 // 같으면 명세에 `$verifiedAgainstLive: true` 를 적고 그 근거(날짜 · 비교 결과)를 옆에 남긴다.
 // `--components` 가 2026-08-26 에 「알려진 어긋남」으로 밟은 길과 같은 길이다.
+// **세 명세(app-shell · home · project-grid)는 2026-09-22 에 이 절차를 밟았다** — 처음 명세는 첫 경로에서 던졌고,
+// 트리를 떠서 경로를 고친 명세의 값이 54축 전부 08-31 손 되읽기와 같았다(각 명세의 `$verifiedEvidence`,
+// Updates (150)). 새로 적는 명세는 `false` 로 시작한다.
 const TEMPLATE_PAGE = "DS · Templates";
 const TEMPLATE_MEASURED_PATH = "figma/templates.measured.json";
 
@@ -901,7 +904,10 @@ const TEMPLATE_CAPTURE = {
   "app-shell": {
     $node: "982:175",
     $frame: "Pattern · AppShell",
-    $verifiedAgainstLive: false,
+    $verifiedAgainstLive: true,
+    $verifiedEvidence:
+      "2026-09-22 세트 적용 전(S0 — 변수 · DS Templates 쓰기 전) 읽기 전용 `--templates` 1회: 23축 전부 " +
+      "figma/readback.json templates.app-shell(2026-08-31 손 되읽기)과 같다(블록 문자열까지). Updates (150).",
     axes: {
       sceneWidth: { at: "Expanded", field: "width" },
       railWidth: { at: "Expanded/Rail", field: "width" },
@@ -941,7 +947,10 @@ const TEMPLATE_CAPTURE = {
   home: {
     $node: "683:171",
     $frame: "Template · AppHome",
-    $verifiedAgainstLive: false,
+    $verifiedAgainstLive: true,
+    $verifiedEvidence:
+      "2026-09-22 세트 적용 전(S0 — 변수 · DS Templates 쓰기 전) 읽기 전용 `--templates` 1회: 20축 전부 " +
+      "figma/readback.json templates.home(2026-08-31 손 되읽기)과 같다(블록 문자열까지). Updates (150).",
     axes: {
       sceneWidth: { at: "", field: "width" },
       sidebarWidth: { at: "Sidebar", field: "width" },
@@ -1003,7 +1012,10 @@ const TEMPLATE_CAPTURE = {
   "project-grid": {
     $node: "991:252",
     $frame: "Pattern · ProjectGrid",
-    $verifiedAgainstLive: false,
+    $verifiedAgainstLive: true,
+    $verifiedEvidence:
+      "2026-09-22 세트 적용 전(S0 — 변수 · DS Templates 쓰기 전) 읽기 전용 `--templates` 1회: 11축 전부 " +
+      "figma/readback.json templates.project-grid(2026-08-31 손 되읽기)과 같다(블록 문자열까지). Updates (150).",
     // **밴드 = 한 겹 아래 FRAME 중 ProjectCard 가 실제로 선 것, Grid 폭 오름차순**(계약 $pattern 그대로). 라이브 밴드 이름은
     // 「container 600 → 2열」 … 처럼 기하를 적은 설명이라 폭이 옮겨지면 낡는다 — 이름으로 찾지 않는다. 상태 프레임
     // (Loading · Error · Empty)은 카드가 없어 저절로 빠진다.

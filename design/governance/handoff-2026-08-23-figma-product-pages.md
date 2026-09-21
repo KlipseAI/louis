@@ -34,7 +34,8 @@ authority: reference
 > 그래서 「다음 순서」 1번 세트 단계에 **DS · Templates** 가 더해진다: `Pattern · AppShell`(`982:175`) Expanded 레일 240 · 본문 폭 ·
 > Compact 서랍 240, `Template · AppHome`(레일 240 · 카드 286 · 오버레이 비율 · `NavEyebrow` 숨김), `Pattern · ProjectGrid`(`991:252`) 4열
 > 컨테이너 1156 · 카드 286. 토큰 `layout-app-shell-sidebar-width` 를 240 으로 옮기면 DS · Components `SidebarBrand` · `SidebarCta`
-> `Collapsed=false` · `SidebarNavRow` 폭 216 도 더해진다. template 되읽기를 뜨는 스크립트는 아직 없다(`templates` 블록은 손으로 떴다).
+> `Collapsed=false` · `SidebarNavRow` 폭 216 도 더해진다. template 되읽기를 뜨는 스크립트는 아직 없다(`templates` 블록은 손으로 떴다) —
+> **(141) 이 `figma-readback-emit --templates` 로 세웠고, 명세는 2026-09-22 (150) 에 라이브로 검증했다**(세트 적용 뒤 이것으로 다시 뜬다).
 > 본문 끝 여백 · 레일 위 패딩 · 링(제품 8, `094c336b`) · compact 인셋(제품 6, `b23ac6ef`)은 DS 토큰 판정 대기로 기록을 두었다
 > (`$pending`, parity 가 매 실행 인쇄).
 

@@ -2198,6 +2198,9 @@ const FIGMA_EFFECT_COLOR_TOKEN_IDS = new Set([
   "color-app-tooltip-border",
   "color-gray-000",
   "color-gray-000-alpha-08",
+  // 2026-09-21 DS-D-0066 — primary 버튼의 위아래 빛(안쪽 그림자 두 겹, 오버레이)이 고정 흰색을 문다.
+  // 테마에 따라 뒤집히는 color-gray-000 이 아니라 palette 쪽이다 — 다크에서도 빛은 흰색이어야 한다.
+  "color-palette-gray-000",
 ]);
 
 function figmaScopesForToken(token) {

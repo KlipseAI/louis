@@ -399,3 +399,53 @@ test("danger-secondary는 danger와 다른 면을 쓰고 hover에서 더 진해�
     host.remove();
   }
 });
+
+test("활성 primary 만 위아래 흰 하이라이트 두 겹을 오버레이로 섞는다 (DS-D-0066)", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  try {
+    await render(
+      <>
+        <Button variant="primary">저장</Button>
+        <Button variant="primary" disabled>
+          저장
+        </Button>
+        <Button variant="primary" loading>
+          저장
+        </Button>
+        <Button variant="secondary">취소</Button>
+      </>,
+      { container: host },
+    );
+    const [enabled, disabled, loading, secondary] = [...host.querySelectorAll("button.louis-button")];
+    if (enabled === undefined || disabled === undefined || loading === undefined || secondary === undefined) {
+      throw new Error("네 버튼을 찾지 못했습니다");
+    }
+
+    const white = tokenColor("color-palette-gray-000");
+    const glow = getComputedStyle(enabled, "::before");
+
+    // 두 겹 — 위(Y+1)와 아래(Y−1), 흐림 1, 퍼짐 −0.5(헤어라인), 흰색. 소유자 스펙 그대로다.
+    expect(glow.content).not.toBe("none");
+    expect(glow.mixBlendMode).toBe("overlay");
+    expect(glow.boxShadow).toBe(`${white} 0px 1px 1px -0.5px inset, ${white} 0px -1px 1px -0.5px inset`);
+    // 섞임이 버튼 면 안에서 끝난다 — 없으면 버튼 뒤의 페이지와도 섞인다.
+    expect(getComputedStyle(enabled).isolation).toBe("isolate");
+    // 반지름을 따라간다 — 모서리에서 빛이 네모로 삐져나오지 않는다.
+    expect(glow.borderRadius).toBe(getComputedStyle(enabled).borderRadius);
+    // 누름을 가로채지 않는다.
+    expect(glow.pointerEvents).toBe("none");
+    // ::after 는 터치 영역(.louis-hit-target)의 자리다 — 빛이 그 자리를 뺏으면 44px 이 사라진다.
+    const hit = getComputedStyle(enabled, "::after");
+    expect(hit.pointerEvents).not.toBe("none");
+    expect(Number.parseFloat(hit.height)).toBeGreaterThanOrEqual(44);
+
+    // 비활성·로딩은 면이 bg-inset(회색)으로 바뀌어 파란 버튼이 아니다 — 빛을 두지 않는다.
+    expect(getComputedStyle(disabled, "::before").content).toBe("none");
+    expect(getComputedStyle(loading, "::before").content).toBe("none");
+    // primary 가 아닌 variant 에는 없다.
+    expect(getComputedStyle(secondary, "::before").content).toBe("none");
+  } finally {
+    host.remove();
+  }
+});

@@ -131,6 +131,15 @@
       "generated": false
     },
     {
+      "id": "decision-primary-button-highlight",
+      "path": "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
+      "title": "DS-D-0066 primary 버튼은 위아래 가장자리에 빛을 갖는다 — 활성 상태에만, ::before 에",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1571,6 +1580,7 @@
         "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
         "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
+        "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -1819,7 +1829,7 @@
       "web": "partial",
       "docs": "done",
       "doc": "design/components/button.md",
-      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(button · component-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(button · component-geometry.browser.test.tsx). 2026-09-21 DS-D-0066: primary 활성 상태(Default · Hover · Active)는 위아래 가장자리에 흰 안쪽 빛 두 겹(Y ±1 · 흐림 1 · 퍼짐 −0.5)을 오버레이로 섞는다 — `::after` 는 hit-target 의 자리라 `::before` 에 싣고, `packages/react/test/button.browser.test.tsx` 가 계산 스타일과 터치 영역 보존을 함께 잰다.",
       "figmaName": "Button"
     },
     {

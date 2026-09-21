@@ -25,6 +25,43 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-21 (144) — primary 버튼에 위아래 빛을 넣는다 (DS-D-0066)
+
+**소유자 스펙이다.** Figma 효과 설정 두 장과 함께 「우리 블루 버튼들에 이 효과를 적용해줘. 두 그림자
+모두 블렌딩 오버레이 적용이야」. 안쪽 그림자 두 겹 — Y +1 · −1, 흐림 1, 퍼짐 −0.5, 흰색 100%, 블렌드
+Overlay. Button set(`672:552`) 의 primary 60 칸에는 효과가 하나도 없었으므로 코드 · Figma 둘 다 처음 받는
+값이다.
+
+**활성 상태에만 둔다.** Default · Hover · Active 다. Disabled · Loading 은 면이 `bg-inset`(회색)으로 바뀌어
+더 이상 파란 버튼이 아니고, 거기 빛을 남기면 누를 수 있는 것처럼 도드라진다.
+
+**`::after` 에 실었다가 `::before` 로 옮겼다.** box-shadow 는 그림자마다 블렌드를 줄 수 없어 가상 요소에
+두 겹을 싣고 `mix-blend-mode: overlay` 를 건다. 처음 고른 `::after` 는 `.louis-hit-target` 의 44px 터치
+영역 상자였다 — 빛 규칙이 `pointer-events: none` 으로 터치 영역을 지우고 위치를 어긋나게 했다. 브라우저
+테스트 두 건이 잡았다. 테스트는 이제 「활성 primary 의 `::after` 는 여전히 터치 영역이다」를 함께
+단언한다.
+
+**흰색은 `color-palette-gray-000`(250)이다.** 테마에 따라 뒤집히지 않아야 해서 palette 쪽이고, LOUIS 에
+#FFFFFF 토큰이 없다. 파란 면 위 오버레이 결과의 차는 G 채널 8비트 약 5단계 · R · B 0 이다. 흰색을
+오버레이로 섞으므로 빛은 **하늘색 테두리**로 보인다.
+
+**Figma.** primary 활성 36 칸에 두 겹을 넣고 색을 `color/palette-gray/000` 에 묶었다. 그 변수의 proposal
+scopes 에 `EFFECT_COLOR` 를 더했고(`FIGMA_EFFECT_COLOR_TOKEN_IDS`, (143) 의 규칙 — 효과 색으로 새로 쓰이면
+더한다) 라이브도 같게 맞췄다. `apply-variables.1.js` · `figma.tokens.json` · manifest 는 build 로 다시 만들고
+baseline manifest 해시를 같은 값으로 잠갔다.
+
+**되읽기.** Button 컴포넌트를 `--components --only Button` 로 다시 떠 `--merge` 했다. 변수 행은 scopes
+열이 새 proposal 값을 받아야 하므로 (143) 과 같이 `--remove-variables` 뒤 `--merge-variables` 로 넣었다.
+스냅숏을 다시 만들었다. **되읽기의 효과 문자열은 블렌드 모드를 적지 않는다** — 오버레이 여부는 브라우저
+테스트가 맡는다.
+
+**parity 계약을 효과 집합으로 넓혔다.** `verify-figma-parity` 는 역할마다 효과 문자열 하나만 받았는데 Button
+`self` 에 두 가지(헤어라인 · 빛)가 서게 됐다. 계약을 배열로 줄 수 있게 했고, 배열이면 「계약한 효과가 전부
+어딘가에 선다」도 함께 본다 — 빛이 Figma 에서 사라지면 막힌다(음성 시험으로 확인). 문자열 계약은 그대로다.
+
+소비처는 LOUIS 핀을 올리면 받는다. 같은 효과를 로컬에 먼저 넣어 둔 소비처는 핀을 올리는 커밋에서 그
+사본을 지워야 한다 — 둘이 겹치면 빛이 두 번 선다.
+
 ## 2026-09-17 (143) — Figma 변수 scopes · 숨김을 쓰임에 맞춰 명세와 맞춘다
 
 **2026-09-17 소유자 결정이다.** (142) 와 DS-D-0065 가 「라이브가 명세와 다른 자리」로 남긴 scopes 73 ·

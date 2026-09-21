@@ -549,7 +549,7 @@
         [
           "color/palette-gray/000",
           "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
           [
             [
               "Base",
@@ -9046,6 +9046,7 @@
       "strokes": {},
       "effects": {
         "self": [
+          "INNER_SHADOW:1:1:-0.5 + INNER_SHADOW:-1:1:-0.5",
           "INNER_SHADOW:0:0:0.5"
         ]
       }

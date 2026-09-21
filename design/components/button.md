@@ -110,6 +110,21 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 
 강조 수준을 색만으로 결정하지 않고, 같은 영역에 경쟁하는 primary를 여러 개 두지 않는다.
 
+### primary 의 빛 (DS-D-0066)
+
+primary 는 위아래 가장자리에 흰 안쪽 빛 두 겹을 **오버레이**로 섞는다 — 소유자 스펙이다.
+
+| 겹 | Y | 흐림 | 퍼짐 | 색 | 블렌드 |
+| --- | --- | --- | --- | --- | --- |
+| 위 | 1 | 1 | −0.5 (`border-width-hairline`) | `color-palette-gray-000` | overlay |
+| 아래 | −1 | 1 | −0.5 | `color-palette-gray-000` | overlay |
+
+- **활성 상태에만** 선다 — Default · Hover · Active. Disabled · Loading 은 면이 `bg-inset` 으로 바뀌어
+  파란 버튼이 아니므로 빛을 두지 않는다.
+- 흰색을 오버레이로 섞으므로 파란 면 위에서는 **하늘색 테두리**로 보인다(R 은 0 에 머물고 G · B 가 오른다).
+- 코드는 `::before` 에 싣는다. **`::after` 는 `.louis-hit-target` 의 44px 터치 영역 자리다** — 빛을 거기
+  얹으면 터치 영역이 사라진다.
+
 ## States
 
 상태 이름의 뜻은 [Interaction states](../foundations/interaction-states.md)가 소유한다.
@@ -236,6 +251,8 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
   주지 않은 버튼의 높이가 같다.
 - **`sm`에서 시각 높이가 24이고 hit target은 44 이상이다.**
 - **타이포가 갈라지는 칸은 `sm` 하나다** — `lg`·`md`는 14/21, `sm`은 12/18.
+- **활성 primary 만 위아래 빛 두 겹을 오버레이로 갖는다.** disabled · loading · 다른 variant 에는 없고,
+  빛이 터치 영역(`::after`, 높이 44 이상)을 뺏지 않는다 (DS-D-0066).
 - 구조값이 [`figma/components.measured.json`](../../figma/components.measured.json)과 일치한다.
 
 ## Implementation

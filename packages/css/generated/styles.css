@@ -1690,6 +1690,39 @@
   color: var(--louis-color-fg-inverse);
 }
 
+/* primary 의 빛 — 위아래 가장자리에 흰 안쪽 하이라이트 두 겹을 오버레이로 섞는다(DS-D-0066).
+ * 소유자 스펙(Figma): 안쪽 그림자 X0 Y1 · X0 Y−1, 흐림 1, 퍼짐 −0.5, 흰색 100%, 둘 다 블렌딩 오버레이.
+ *
+ * **가상 요소에 거는 이유.** box-shadow 는 그림자마다 블렌드 모드를 줄 수 없다. 두 겹을 한 가상
+ * 요소에 싣고 그 요소에 mix-blend-mode 를 걸면 둘 다 오버레이가 된다. isolation 으로 섞임을 버튼 면
+ * 안에서 끝낸다 — 없으면 버튼 뒤의 페이지와도 섞인다.
+ *
+ * **::after 가 아니라 ::before 인 이유.** ::after 는 `.louis-hit-target`(base.css) 이 이미 쓴다 —
+ * 버튼 가운데에 최소 44px 투명 상자를 세워 터치 영역을 넓히는 장치다. 거기에 이 규칙을 얹으면
+ * `pointer-events: none` 이 넓힌 터치 영역을 지우고, 위치 규칙이 섞여 빛이 버튼 가장자리가 아니라
+ * 44px 상자 가장자리(32px 버튼이면 위아래 6px 바깥)에 그려진다. 브라우저 테스트가 잡았다.
+ *
+ * **활성 상태에만.** 비활성·로딩은 면이 bg-inset(회색)으로 바뀌어 더 이상 파란 버튼이 아니다.
+ * 거기에 빛을 남기면 누를 수 있는 것처럼 도드라진다. 소유자 지시도 「파란 버튼들에」였다.
+ *
+ * 흰색은 palette-gray-000(250)이다. LOUIS 에 #FFFFFF 토큰이 없고, 흰 오버레이에서 250 과 255 의
+ * 차이는 파란 면 위에서 한 단계 안쪽이다. 퍼짐 0.5 는 헤어라인과 같은 값이라 그 토큰을 쓴다. */
+.louis-button[data-variant="primary"]:where(:not([aria-disabled="true"]):not(:disabled)) {
+  isolation: isolate;
+}
+
+.louis-button[data-variant="primary"]:where(:not([aria-disabled="true"]):not(:disabled))::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  box-shadow:
+    inset 0 1px 1px calc(0px - var(--louis-border-width-hairline)) var(--louis-color-palette-gray-000),
+    inset 0 -1px 1px calc(0px - var(--louis-border-width-hairline)) var(--louis-color-palette-gray-000);
+}
+
 /* inverse — 인증 플로우(로그인·회원가입·계정복구·비밀번호 재설정)의 제출 CTA다. 제품이 이 자리에
  * primary blue 가 아니라 **페이지와 반전된 면**을 쓴다(라이트에서 순수 검정, 다크에서 흰 면).
  * 브랜드 색을 쓰지 않는 이유는 이 화면들이 좌측 브랜드 그라디언트와 나란히 서기 때문이다 —
@@ -1906,6 +1939,11 @@
   .louis-button {
     box-shadow: none;
     border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  /* primary 의 빛은 장식이다 — 강제 색에서는 면이 시스템 색이라 섞을 대상이 없다. */
+  .louis-button::before {
+    box-shadow: none;
   }
 }
 

@@ -1674,7 +1674,8 @@
             "FRAME_FILL",
             "SHAPE_FILL",
             "STROKE_COLOR",
-            "TEXT_FILL"
+            "TEXT_FILL",
+            "EFFECT_COLOR"
           ],
           "valuesByMode": {
             "Base": {
@@ -17539,7 +17540,8 @@
             "FRAME_FILL",
             "SHAPE_FILL",
             "STROKE_COLOR",
-            "TEXT_FILL"
+            "TEXT_FILL",
+            "EFFECT_COLOR"
           ],
           "valuesByMode": {
             "Dark": {
@@ -19579,7 +19581,8 @@
             "FRAME_FILL",
             "SHAPE_FILL",
             "STROKE_COLOR",
-            "TEXT_FILL"
+            "TEXT_FILL",
+            "EFFECT_COLOR"
           ],
           "valuesByMode": {
             "Dark": {
@@ -19681,7 +19684,8 @@
             "FRAME_FILL",
             "SHAPE_FILL",
             "STROKE_COLOR",
-            "TEXT_FILL"
+            "TEXT_FILL",
+            "EFFECT_COLOR"
           ],
           "valuesByMode": {
             "Dark": {
@@ -25142,35 +25146,37 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.palette-gray.900}",
+              "$description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은 값) 면으로는 hover 가 보이지 않는다. 8% 는 ghost hover 와 같은 칸이다.",
+              "$value": "{primitive.color.static-white-alpha.08}",
               "aliasTarget": {
-                "id": "color-palette-gray-900",
+                "id": "color-static-white-alpha-08",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 1,
+                "alpha": 0.08,
                 "colorSpace": "srgb",
                 "components": [
-                  0.090196,
-                  0.105882,
-                  0.133333
+                  0.980392,
+                  0.980392,
+                  0.980392
                 ]
               },
               "sourcePath": "semantic.dark.color.table-row-hover"
             },
             "Light": {
-              "$value": "{primitive.color.palette-gray.050}",
+              "$description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 바닥이 무엇이든 그 위에 한 겹 얹힌다. 8% 는 제품 표 바닥(bg-surface) 위에서 옛 합성색(pg-050)에 가장 가까운 16단 칸을 실측으로 고른 값이고, ghost hover 와 같은 칸이다.",
+              "$value": "{primitive.color.static-black-alpha.08}",
               "aliasTarget": {
-                "id": "color-palette-gray-050",
+                "id": "color-static-black-alpha-08",
                 "mode": "base"
               },
               "resolvedValue": {
-                "alpha": 1,
+                "alpha": 0.08,
                 "colorSpace": "srgb",
                 "components": [
-                  0.921569,
-                  0.92549,
-                  0.933333
+                  0.090196,
+                  0.105882,
+                  0.133333
                 ]
               },
               "sourcePath": "semantic.light.color.table-row-hover"

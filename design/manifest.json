@@ -140,6 +140,33 @@
       "generated": false
     },
     {
+      "id": "decision-table-row-hover-is-a-state-layer",
+      "path": "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
+      "title": "DS-D-0065 표 행 hover 는 면이 아니라 상태 레이어다 — 다크에는 카드 위 한 칸이 없다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-primary-button-highlight",
+      "path": "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
+      "title": "DS-D-0066 primary 버튼은 위아래 가장자리에 빛을 갖는다 — 활성 상태에만, ::before 에",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-document-is-not-an-app-screen",
+      "path": "design/governance/decisions/DS-D-0067-document-is-not-an-app-screen.md",
+      "title": "DS-D-0067 문서는 앱 화면이 아니다 — 문서 부품을 한 벌 세우고, 표 하나만 변형으로 얹는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -755,6 +782,15 @@
       "id": "pattern-editor-workspace",
       "path": "design/patterns/editor-workspace.md",
       "title": "Editor Workspace",
+      "section": "patterns",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "pattern-document",
+      "path": "design/patterns/document.md",
+      "title": "Document",
       "section": "patterns",
       "authority": "normative",
       "maturity": "experimental",
@@ -1557,7 +1593,8 @@
         "design/patterns/status-result.md",
         "design/patterns/route-boundary.md",
         "design/patterns/project-grid.md",
-        "design/patterns/editor-workspace.md"
+        "design/patterns/editor-workspace.md",
+        "design/patterns/document.md"
       ]
     },
     {
@@ -1581,6 +1618,9 @@
         "design/governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md",
         "design/governance/decisions/DS-D-0064-sidebar-width-follows-the-product.md",
         "design/governance/decisions/DS-D-0060-transform-frame-is-one-set.md",
+        "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
+        "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
+        "design/governance/decisions/DS-D-0067-document-is-not-an-app-screen.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -1829,7 +1869,7 @@
       "web": "partial",
       "docs": "done",
       "doc": "design/components/button.md",
-      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(button · component-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test. Figma component set 40 variant에 아이콘 슬롯과 기하 계약이 붙었다. primary 면이 제품 브랜드 블루라 WCAG AA에 미달하며 owner 결정으로 수용한 상태다 — 규범 Known deviations 참조 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(button · component-geometry.browser.test.tsx). 2026-09-21 DS-D-0066: primary 활성 상태(Default · Hover · Active)는 위아래 가장자리에 흰 안쪽 빛 두 겹(Y ±1 · 흐림 1 · 퍼짐 −0.5)을 오버레이로 섞는다 — `::after` 는 hit-target 의 자리라 `::before` 에 싣고, `packages/react/test/button.browser.test.tsx` 가 계산 스타일과 터치 영역 보존을 함께 잰다.",
       "figmaName": "Button"
     },
     {
@@ -2216,7 +2256,7 @@
       "figma": "partial",
       "web": "partial",
       "docs": "done",
-      "note": "CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다.",
+      "note": "CSS 레시피(.louis-table)는 있고 React 표면은 없다. Figma 는 셋으로 나뉜다 — TableHeaderCell(Align 3) · TableCell(Align × State 6) · 그 둘을 조립하는 Table. 머리 칸과 몸 칸은 패딩·타이포·글자색·테두리가 모두 달라 한 set 으로 묶으면 절반이 거짓 조합이 된다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. 2026-09-17 DS-D-0065: 행 hover 는 면 사다리 칸이 아니라 상태 레이어다 — `color-table-row-hover` 가 light 검정 8% · dark 흰색 8% 를 물고, `packages/css/test/table.browser.test.ts` 가 사다리 바닥 넷 × 테마 둘에서 합성색으로 잰다(Acceptance 10 · 11 · 17). 2026-09-21 DS-D-0067: 문서에서 읽는 표 변형 `data-variant=\"ruled\"`(머리 면 없이 가로 규선만 · 머리 14 · 셀 12 · `table-layout: auto` · 행 머리 `th`)과 셀 강조 `data-emphasis=\"total|lead\"` 가 섰다 — Document 패턴이 소비하고 `packages/css/test/document.browser.test.ts` 가 잰다(Acceptance 19 · 20). 두 축은 Figma 에 없다. `lead` 초록은 라이트 대비 2.12:1 로 delta-pill 과 같은 결함을 진다.",
       "doc": "design/components/table.md",
       "figmaNames": [
         "TableHeaderCell",
@@ -2441,6 +2481,16 @@
       "docs": "done",
       "doc": "design/patterns/editor-workspace.md",
       "note": "Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다."
+    },
+    {
+      "id": "document",
+      "name": "Document",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done",
+      "doc": "design/patterns/document.md",
+      "note": "보고서 · 운영안 · 제안서처럼 스크롤로 끝까지 읽는 문서. 정본은 소유자가 2026-09-21 에 승인한 「Klipse Meta 광고 운영안」이고, LOUIS 앱 부품(Alert · StatTile · 카드마다 테두리)을 얹은 첫 시안이 거절된 뒤 klipse-deck-kit 구성 규칙으로 다시 짠 것이다. **깊이는 시트 헤어라인 한 겹뿐**이고 시트 안의 면은 `fg-primary` 알파(4 · 8%)로만 선다 — 테두리 · 그림자 없음, 강조색 하나, 초록은 앞선 값 · 노랑은 비용 지점에만. 레시피 `packages/css/src/pattern/document.css`(`.louis-document*`)가 셸 · 머리 · 결정 요청 · 절 · 카드 · 수치 · 비교 막대 · 판정 알약 · 타임라인 · 흐름 · 콜아웃 · 맺음을 갖고, 기존 컴포넌트에는 표 하나만 변형으로 얹었다(`.louis-table[data-variant=\"ruled\"]` · `data-emphasis`). 나머지를 얹지 않은 이유는 DS-D-0067 판정표. 예시 `packages/css/examples/document.html` 을 승인 캡처와 데스크톱 · 모바일 · 다크로 나란히 대조했고 실브라우저 테스트 `packages/css/test/document.browser.test.ts` 가 깊이 · 면 합성색 · 간격 · 타이포 · 좁은 화면(카드 여백 20 · 넓은 카드 24/20 · 콜아웃 24)과 목록 롤을 잰다. 레시피는 목록 표식을 모두 지우므로 목록 마크업은 `role=\"list\"` 를 단다(WebKit/VoiceOver 가 롤을 벗기지 않게). **아직 없는 것**: 문서 규칙 값(박스 간격 10 · 카드 여백 24/32 · 시트 폭 · 절 간격)의 토큰 — Figma 변수와 같은 작업에서 세워야 해서(DS-D-0028) 지금은 레시피 루트의 이름이다. Figma 템플릿 보드. 제품 소비처. 강조색 글자(라이트 3.37:1)와 앞선 값 초록(라이트 2.12:1)의 대비. 다른 부품에서 빌린 토큰 셋(`layout-app-shell-outer-gap` · `progress-track` · `alert-warning-stroke` — 루트 이름으로만 읽는다)의 문서 역할 이전과 360 이하에서 4열 수치가 카드를 넘는 것(document.md Known deviations 5 · 6). 그래서 web `partial` · figma `not-ready` 다."
     }
   ],
   "referenceSurfaces": [
@@ -2457,6 +2507,11 @@
     {
       "path": "packages/css/README.md",
       "purpose": "CSS 배포 패키지의 범위와 승격 조건",
+      "authority": "reference"
+    },
+    {
+      "path": "packages/css/examples/document.html",
+      "purpose": "Document 패턴 예시 — 소유자가 승인한 「Klipse Meta 광고 운영안」을 LOUIS 클래스만으로 다시 짠 standalone HTML. packages/css/generated 를 상대 경로로 링크하고 자체 <style> 이 없다(design/patterns/document.md)",
       "authority": "reference"
     },
     {

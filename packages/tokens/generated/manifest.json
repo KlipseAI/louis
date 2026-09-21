@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "abd06e21728cac8c3fff6f906498fddf44ce79b75c3f7fff61b9a3a7349ffda8"
+      "sha256": "3a88aff88719731ea1403795fc27332a094bd980b200457d6fd56c2d83568472"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "84cab921a8166454352f1d35d59f51e1ccd23e02f54bcbb11f572c7b1a47f927"
+      "sha256": "ce73d49af5a8ff0abe75d7460767f32de2ae850a923fb6fce988b41b87bac986"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "bd2ac105294e354bbd720d11ef68fbb0793e96f82d942a8bb7a3f7e3ae0a7813"
+      "sha256": "52429d0439457cf5851155a8ea6b477953371038e1c7863081eb43f51f2622aa"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "52cdc076247279ca12d54c5b323281cec36d1fbbfc10ac48010df1c64e4e152b"
+      "sha256": "47d83b0504f79dc8b519457305f41b873160d40d6e5df2c1a5a079773effd5ca"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "fde2b5f6fd158dcd5d35eb8a8435287b56789befee379ac7a4b8023ab4d120c2"
+      "sha256": "9bdec948b4358553764bf6861c92899d58cefa5bc4bf4d4f5470ab0764cbdce1"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "2f051d1ddf21e06b0f60bc254e4793f8158c98d9e6f39f5d02161aff7c31feec"
+    "sha256": "d95533a36d6ace9a11a7b27581ba0f3ef1ed9b6c943f74f50d985e943309b7b9"
   },
   "themes": [
     "light",
@@ -13554,24 +13554,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-static-black-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-row-hover": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-table-row-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
       },
       "deprecated": null,
-      "description": null,
+      "description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 바닥이 무엇이든 그 위에 한 겹 얹힌다. 8% 는 제품 표 바닥(bg-surface) 위에서 옛 합성색(pg-050)에 가장 가까운 16단 칸을 실측으로 고른 값이고, ghost hover 와 같은 칸이다.",
       "id": "color-table-row-hover",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
       "resolvedValue": {
-        "alpha": 1,
+        "alpha": 0.08,
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.090196,
+          0.105882,
+          0.133333
         ]
       },
       "sourcePath": "semantic.light.color.table-row-hover",
@@ -13580,24 +13580,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-900",
+        "id": "color-static-white-alpha-08",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-table-row-hover": "color(srgb 0.090196 0.105882 0.133333 / 1)"
+        "--louis-color-table-row-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.08)"
       },
       "deprecated": null,
-      "description": null,
+      "description": "표 행 hover 는 면이 아니라 상태 레이어다 — 2026-09-17 소유자 결정: 표 hover 를 상태 레이어로(DS-D-0065). 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은 값) 면으로는 hover 가 보이지 않는다. 8% 는 ghost hover 와 같은 칸이다.",
       "id": "color-table-row-hover",
       "mode": "dark",
-      "rawValue": "{primitive.color.palette-gray.900}",
+      "rawValue": "{primitive.color.static-white-alpha.08}",
       "resolvedValue": {
-        "alpha": 1,
+        "alpha": 0.08,
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.980392,
+          0.980392,
+          0.980392
         ]
       },
       "sourcePath": "semantic.dark.color.table-row-hover",

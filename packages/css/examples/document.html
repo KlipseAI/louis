@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klipse Meta 광고 운영안</title>
+<!--
+  Document 패턴 예시 — design/patterns/document.md
+  LOUIS 클래스만 쓴다. 이 파일 안에 <style> 이 없다: 모양은 전부 packages/css/generated 가 낸다.
+  저장소에서 그대로 열린다(상대 경로). 파일 하나로 열리는 번들은 이 파일에서 만든다 — 링크한
+  CSS 를 인라인하면 된다.
+  로고는 klipse-deck-kit assets/brand/klipse-symbol.png 를 60px 로 줄인 것이다(소유자 승인본과 같다).
+-->
+<script>
+  /* 시스템 다크 설정을 따른다. ?theme=light|dark 로 고정할 수 있다. */
+  (function () {
+    var q = new URLSearchParams(location.search).get("theme");
+    var dark = q ? q === "dark" : window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+  })();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="../generated/layers.css">
+<link rel="stylesheet" href="../generated/reset.css">
+<link rel="stylesheet" href="../generated/tokens.css">
+<link rel="stylesheet" href="../generated/styles.css">
+</head>
+<body>
+<div class="louis-document">
+<main class="louis-document__sheet">
+<article class="louis-document__column">
+
+  <header class="louis-document__head">
+    <p class="louis-document__brand">
+      <img class="louis-document__brand-mark" src="data:image/png;base64,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" alt="" width="20" height="20">
+      Klipse 마케팅
+    </p>
+    <h1 class="louis-document__title">Klipse Meta 광고 운영안</h1>
+    <p class="louis-document__lead">1주 테스트 결과를 바탕으로 광고를 10월 말까지 연장하고, Meta Verified 구독을 함께 검토한다.</p>
+    <p class="louis-document__meta"><time datetime="2026-09">2026년 9월</time></p>
+  </header>
+
+  <section class="louis-document-decision" aria-labelledby="decision-title">
+    <h2 class="louis-document-decision__title" id="decision-title">승인과 확인이 필요한 사항</h2>
+    <ol class="louis-document-decision__list" role="list">
+      <li class="louis-document-decision__item">
+        <span class="louis-document-marker" aria-hidden="true">1</span>
+        <p class="louis-document-decision__label">10월 말까지 Meta 광고 연장</p>
+        <p class="louis-document-decision__detail">9/23~10/31 운영 승인. 9/23~9/29 승자 소재 운영 예산 5만 원, 이후 테스트 예산은 별도 확정</p>
+      </li>
+      <li class="louis-document-decision__item">
+        <span class="louis-document-marker" aria-hidden="true">2</span>
+        <p class="louis-document-decision__label">Instagram Meta Verified 구독 승인</p>
+        <p class="louis-document-decision__detail">결제 시점의 요금·기능을 확인한 뒤 월 운영비에 반영</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s0">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">요약</p>
+      <h2 class="louis-document-section__title" id="s0">승자 소재는 유지하고, 새 소재를 붙여 계속 비교한다</h2>
+    </div>
+    <div class="louis-document-prose">
+      <p>지난 1주간 진행한 Meta 광고 테스트 결과를 바탕으로 광고를 10월 말까지 연장해본다. 성과가 좋은 소재는 유지하고 새로운 소재를 계속 붙여 테스트하면서, 실제 팔로워·서비스 유입·가입·결제로 이어지는지도 함께 확인한다.</p>
+      <p>10월 말까지 운영한 뒤 누적 데이터를 보고 추가 연장 여부를 다시 정한다.</p>
+    </div>
+    <ol class="louis-document-flow" role="list" aria-label="연장 운영 순환">
+      <li class="louis-document-flow__step"><span class="louis-document-flow__label">승자 소재 유지</span></li>
+      <li class="louis-document-flow__step"><span class="louis-document-flow__label">신규 소재 테스트</span></li>
+      <li class="louis-document-flow__step"><span class="louis-document-flow__label">성과 비교</span></li>
+      <li class="louis-document-flow__step"><span class="louis-document-flow__label">반복</span></li>
+    </ol>
+    <ol class="louis-document-grid" role="list" aria-label="이번 운영안의 세 축">
+      <li class="louis-document-card">
+        <div class="louis-document-card__head"><span class="louis-document-marker" aria-hidden="true">01</span><p class="louis-document-card__title">Meta 광고 연장</p></div>
+        <p class="louis-document-card__description">성과가 높은 소재에 예산을 집중하고 서비스 유입·가입 전환까지 확인</p>
+      </li>
+      <li class="louis-document-card">
+        <div class="louis-document-card__head"><span class="louis-document-marker" aria-hidden="true">02</span><p class="louis-document-card__title">비즈니스 접점 확대</p></div>
+        <p class="louis-document-card__description">광고 운영 중 실제 외부 기업의 비즈니스 문의가 발생. 향후 새로운 협업 기회도 기대</p>
+      </li>
+      <li class="louis-document-card">
+        <div class="louis-document-card__head"><span class="louis-document-marker" aria-hidden="true">03</span><p class="louis-document-card__title">Meta Verified</p></div>
+        <p class="louis-document-card__description">공식 Instagram 계정의 인증·보호·지원 기능을 위한 유료 구독 검토</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s1">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">01</p>
+      <h2 class="louis-document-section__title" id="s1">왜 연장하려고 하나</h2>
+    </div>
+    <div class="louis-document-prose">
+      <p>Klipse 인지도와 신규 사용자 유입을 확인하기 위해 약 1주간 Meta 광고 2종을 테스트했다. 광고는 9/22 종료 예정이며, 짧은 테스트 기간이지만 소재별 성과 차이와 프로필 방문 반응을 확인할 수 있었다. 그래서 여기서 바로 종료하기보다 10월 말까지 한 번 더 운영하면서 어떤 소재와 메시지가 실제 성장으로 이어지는지 확인해보려고 한다.</p>
+      <p>운영 기간에는 단순 노출이나 조회수만 보지 않고 <strong>팔로워 확보 → 잠재 고객 확대 → Klipse 유입 → 가입·결제 전환</strong>으로 이어지는 흐름을 단계적으로 확인한다. 또한 광고 운영 기간에 실제 외부 비즈니스 문의가 들어온 만큼, Instagram을 고객뿐 아니라 파트너와도 연결되는 공식 채널로 보고 Meta Verified 구독도 함께 검토한다.</p>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s2">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">02</p>
+      <h2 class="louis-document-section__title" id="s2">기존 Meta 광고 성과</h2>
+      <p class="louis-document-section__source">Meta 광고 관리자 기준, 광고 2종, 약 1주</p>
+    </div>
+    <div class="louis-document-grid" data-columns="4">
+      <div class="louis-document-stat"><p class="louis-document-stat__label">총 광고비</p><p class="louis-document-stat__value">₩110,539</p></div>
+      <div class="louis-document-stat"><p class="louis-document-stat__label">노출</p><p class="louis-document-stat__value">8,983<span class="louis-document-stat__unit">회</span></p></div>
+      <div class="louis-document-stat"><p class="louis-document-stat__label">도달</p><p class="louis-document-stat__value">6,586<span class="louis-document-stat__unit">명</span></p></div>
+      <div class="louis-document-stat"><p class="louis-document-stat__label">프로필 방문</p><p class="louis-document-stat__value">514<span class="louis-document-stat__unit">회</span></p><p class="louis-document-stat__hint">방문당 약 ₩215</p></div>
+    </div>
+
+    <div class="louis-document-grid" data-columns="2">
+      <figure class="louis-document-card">
+        <figcaption class="louis-document-card__head"><span class="louis-document-card__title">프로필 방문</span><span class="louis-document-verdict">+16회</span></figcaption>
+        <ul class="louis-document-bars" role="list">
+          <li class="louis-document-bars__row"><span class="louis-document-bars__label">Klipse 광고</span><span class="louis-document-bars__track" aria-hidden="true"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 94%"></span></span><span class="louis-document-bars__value">249</span></li>
+          <li class="louis-document-bars__row" data-lead="true"><span class="louis-document-bars__label">Seedance 테스트</span><span class="louis-document-bars__track" aria-hidden="true"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 100%"></span></span><span class="louis-document-bars__value">265</span></li>
+        </ul>
+      </figure>
+      <figure class="louis-document-card">
+        <figcaption class="louis-document-card__head"><span class="louis-document-card__title">프로필 방문당 비용</span><span class="louis-document-verdict">약 7% 낮음</span></figcaption>
+        <ul class="louis-document-bars" role="list">
+          <li class="louis-document-bars__row"><span class="louis-document-bars__label">Klipse 광고</span><span class="louis-document-bars__track" aria-hidden="true"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 100%"></span></span><span class="louis-document-bars__value">₩223</span></li>
+          <li class="louis-document-bars__row" data-lead="true"><span class="louis-document-bars__label">Seedance 테스트</span><span class="louis-document-bars__track" aria-hidden="true"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 93%"></span></span><span class="louis-document-bars__value">₩207</span></li>
+        </ul>
+      </figure>
+    </div>
+
+    <div class="louis-document-table">
+      <table class="louis-table" data-variant="ruled">
+        <caption class="louis-visually-hidden">광고 소재별 성과</caption>
+        <thead>
+          <tr><th scope="col">지표</th><th scope="col" data-align="end">Klipse 광고</th><th scope="col" data-align="end">Seedance 테스트</th><th scope="col" data-align="end">전체 / 참고</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">지출 금액</th><td data-align="end">₩55,559</td><td data-align="end">₩54,980</td><td data-align="end" data-emphasis="total">₩110,539</td></tr>
+          <tr><th scope="row">노출</th><td data-align="end">4,451</td><td data-align="end">4,532</td><td data-align="end" data-emphasis="total">8,983회</td></tr>
+          <tr><th scope="row">프로필 방문</th><td data-align="end">249</td><td data-align="end" data-emphasis="lead">265</td><td data-align="end" data-emphasis="total">514회</td></tr>
+          <tr><th scope="row">프로필 방문당 비용</th><td data-align="end">₩223</td><td data-align="end" data-emphasis="lead">₩207</td><td data-align="end">평균 약 ₩215</td></tr>
+          <tr><th scope="row">링크 클릭</th><td data-align="end">272</td><td data-align="end">279</td><td data-align="end" data-emphasis="total">551회</td></tr>
+          <tr><th scope="row">CTR(전체)</th><td data-align="end">5.75%</td><td data-align="end">5.74%</td><td data-align="end">약 5.74%</td></tr>
+          <tr><th scope="row">CPC(전체)</th><td data-align="end">₩217</td><td data-align="end">₩211</td><td data-align="end">약 ₩214</td></tr>
+          <tr><th scope="row">품질 순위</th><td data-align="end">평균</td><td data-align="end" data-emphasis="lead">평균 이상</td><td data-align="end">Seedance 우세</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="louis-document-card" data-accent="rail">
+      <p class="louis-document-card__title">성과 해석</p>
+      <p class="louis-document-card__body">두 소재는 집행 금액이 거의 동일하다. 이 조건에서 Seedance 테스트 광고는 프로필 방문 <strong>265회</strong>로 기존 소재의 249회보다 16회 많았고, 방문당 비용도 <strong>₩223 → ₩207</strong>로 약 7% 낮았다. Meta 품질 순위 역시 기존 소재는 ‘평균’, Seedance 소재는 ‘평균 이상’으로 나타나 향후 연장 시 Seedance 계열 소재를 우선 검증할 근거가 확인됐다.</p>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s3">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">03</p>
+      <h2 class="louis-document-section__title" id="s3">10월 말까지 이렇게 운영</h2>
+    </div>
+    <p class="louis-document-prose">현재 광고는 <strong>9/22 종료 예정</strong>이다. 이번에는 광고를 무기한 이어가기보다 <strong>9/23부터 10/31까지 연장 운영</strong>하고, 그동안 승자 소재와 신규 소재를 반복해서 비교해본다. 10월 말에 누적 성과를 다시 보고 추가 연장 여부를 정한다.</p>
+
+    <div class="louis-document-card" data-inset="lg" data-layout="split">
+      <div class="louis-document-stat">
+        <p class="louis-document-stat__label">이번 연장 기간</p>
+        <p class="louis-document-stat__value">9/23 <span class="louis-document-stat__unit" aria-hidden="true">→</span><span class="louis-visually-hidden">부터</span> 10/31</p>
+      </div>
+      <div>
+        <p class="louis-document-card__title">10월 말에 한 번 더 판단</p>
+        <p class="louis-document-card__description">약 한 달간 소재 테스트와 전환 데이터를 더 쌓은 뒤, 광고를 계속할지, 예산을 늘릴지, 종료할지를 결정한다.</p>
+      </div>
+    </div>
+
+    <ol class="louis-document-timeline" role="list" aria-label="운영 일정">
+      <li class="louis-document-timeline__item" data-state="done">
+        <p class="louis-document-timeline__when">9/22</p>
+        <div class="louis-document-timeline__body"><p class="louis-document-timeline__title">기존 광고 2종 테스트 종료</p><p class="louis-document-timeline__description">Klipse 광고와 Seedance 테스트 광고 성과를 비교해 승자 1종 선정</p></div>
+      </li>
+      <li class="louis-document-timeline__item">
+        <p class="louis-document-timeline__when">9/23–9/29</p>
+        <div class="louis-document-timeline__body"><p class="louis-document-timeline__title">승자 소재 1종 운영</p><p class="louis-document-timeline__description">승자 소재만 1주 운영, <strong>총 예산 50,000원</strong>. 동시에 9/29까지 신규 광고 소재 제작</p></div>
+      </li>
+      <li class="louis-document-timeline__item">
+        <p class="louis-document-timeline__when">9/30–10/13</p>
+        <div class="louis-document-timeline__body"><p class="louis-document-timeline__title">기존 승자 vs 신규 소재</p><p class="louis-document-timeline__description">2종을 14일간 비교 테스트하고 다음 승자 1종 선정</p></div>
+      </li>
+      <li class="louis-document-timeline__item">
+        <p class="louis-document-timeline__when">10/14–10/27</p>
+        <div class="louis-document-timeline__body"><p class="louis-document-timeline__title">직전 승자 vs 신규 소재</p><p class="louis-document-timeline__description">같은 방식으로 14일간 한 번 더 테스트해 소재 효율 개선</p></div>
+      </li>
+    </ol>
+
+    <div class="louis-document-card">
+      <p class="louis-document-card__title">운영 원칙</p>
+      <ol class="louis-document-flow" role="list" aria-label="운영 원칙">
+        <li class="louis-document-flow__step"><span class="louis-document-flow__label">승자 유지</span></li>
+        <li class="louis-document-flow__step"><span class="louis-document-flow__label">신규 소재 추가</span></li>
+        <li class="louis-document-flow__step"><span class="louis-document-flow__label">2주 테스트</span></li>
+        <li class="louis-document-flow__step"><span class="louis-document-flow__label">승자 선정</span></li>
+        <li class="louis-document-flow__step"><span class="louis-document-flow__label">반복</span></li>
+      </ol>
+      <p class="louis-document-card__description">새 소재가 더 좋으면 교체하고, 기존 승자가 더 좋으면 그대로 유지한다. 같은 방식으로 반복하면서 광고 효율을 조금씩 높여간다.</p>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s3b">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">판단 기준</p>
+      <h2 class="louis-document-section__title" id="s3b">무엇을 보고 판단할까</h2>
+    </div>
+    <p class="louis-document-prose">당장은 Instagram 프로필 방문이 캠페인의 직접 목표이기 때문에 <strong>프로필 방문당 비용</strong>을 소재 비교의 1차 기준으로 본다. 다만 10월 말에는 광고 자체 효율뿐 아니라 실제 서비스 성장으로 이어졌는지도 함께 확인한다.</p>
+    <ol class="louis-document-grid" role="list" data-columns="4" aria-label="판단 단계">
+      <li class="louis-document-card"><span class="louis-document-marker" aria-hidden="true">1</span><p class="louis-document-card__title">팔로워 확보</p><p class="louis-document-card__description">프로필 방문이 실제 팔로우로 이어지는지</p></li>
+      <li class="louis-document-card"><span class="louis-document-marker" aria-hidden="true">2</span><p class="louis-document-card__title">잠재 고객 확대</p><p class="louis-document-card__description">계정과 콘텐츠에 관심을 보이는 사용자 증가</p></li>
+      <li class="louis-document-card"><span class="louis-document-marker" aria-hidden="true">3</span><p class="louis-document-card__title">서비스 유입</p><p class="louis-document-card__description">Instagram에서 Klipse로 실제 이동하는지</p></li>
+      <li class="louis-document-card"><span class="louis-document-marker" aria-hidden="true">4</span><p class="louis-document-card__title">가입 · 결제</p><p class="louis-document-card__description">유입이 회원가입과 결제까지 연결되는지</p></li>
+    </ol>
+    <div class="louis-document-callout" role="note">
+      <span class="louis-document-callout__mark" aria-hidden="true"></span>
+      <div class="louis-document-callout__body">
+        <p class="louis-document-callout__title">10/31에 누적 성과를 보고 추가 연장 여부를 정한다</p>
+        <p class="louis-document-callout__text">프로필 방문당 비용과 소재별 성과를 기본으로 보고, 가능하면 팔로워 증가 → Klipse 유입 → 가입 → 결제까지의 데이터를 함께 확인한다. 아직 기준 수치가 없는 항목은 이번 운영 기간에 기준선을 만드는 것을 목표로 한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s4">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">04</p>
+      <h2 class="louis-document-section__title" id="s4">광고를 통해 기대하는 또 다른 효과</h2>
+    </div>
+    <div class="louis-document-prose">
+      <p>이번 광고 운영 기간에는 <strong>ByteDance 측에서 Klipse로 먼저 비즈니스 관련 연락을 주는 사례</strong>도 있었다. 해당 연락이 Meta 광고를 보고 발생한 것인지는 확인되지 않았지만, Instagram과 광고를 통해 Klipse의 노출이 늘어날수록 일반 사용자뿐 아니라 파트너사나 외부 기업과 새로운 접점이 생길 가능성도 있다고 보고 있다.</p>
+      <p>그래서 Meta 광고의 효과를 팔로워나 프로필 방문 수에만 두기보다, <strong>브랜드 노출 확대를 통해 새로운 고객과 비즈니스 기회를 만나는 채널</strong>로도 활용해보려고 한다.</p>
+    </div>
+    <div class="louis-document-card" data-accent="rail">
+      <p class="louis-document-card__title">광고 운영 기간 중 외부 기업의 비즈니스 문의 발생</p>
+      <p class="louis-document-card__description">직접적인 광고 전환으로 단정하지는 않되, 브랜드 노출이 커질수록 새로운 협업·사업 기회가 생길 수 있다는 사례로 본다.</p>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s5">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">05</p>
+      <h2 class="louis-document-section__title" id="s5">Instagram Meta Verified 유료 구독 제안</h2>
+    </div>
+    <p class="louis-document-prose">이번처럼 Instagram을 통해 외부 기업과도 접점이 생길 수 있다면, 계정을 단순 홍보 채널이 아니라 <strong>고객과 파트너가 Klipse를 처음 확인하는 공식 비즈니스 채널</strong>로 관리할 필요가 있다. 이에 공식 계정임을 더 명확하게 보여주고 신뢰도를 높이기 위해 Meta Verified 유료 구독을 함께 제안한다.</p>
+    <ul class="louis-document-grid" role="list" aria-label="구독으로 기대하는 것">
+      <li class="louis-document-card"><p class="louis-document-card__title">공식성 강화</p><p class="louis-document-card__description">광고를 통해 처음 유입된 사용자가 공식 브랜드 계정임을 인지할 수 있는 기반 강화</p></li>
+      <li class="louis-document-card"><p class="louis-document-card__title">계정 보호</p><p class="louis-document-card__description">브랜드 계정 운영 과정에서 제공되는 인증·보호 관련 기능 활용 검토</p></li>
+      <li class="louis-document-card"><p class="louis-document-card__title">지원 채널</p><p class="louis-document-card__description">계정 문제 발생 시 구독에 포함된 지원 기능 활용 가능 여부 확인</p></li>
+    </ul>
+    <div class="louis-document-callout" data-tone="caution" role="note">
+      <span class="louis-document-callout__mark" aria-hidden="true"></span>
+      <div class="louis-document-callout__body">
+        <p class="louis-document-callout__title">구독 전 요금 최종 확인</p>
+        <p class="louis-document-callout__text">실제 구독 가격 및 제공 기능은 계정 유형·지역·결제 시점에 따라 달라질 수 있으므로 구독 전 최종 확인 후 비용 반영.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="louis-document-section" aria-labelledby="s6">
+    <div class="louis-document-section__head">
+      <p class="louis-document-section__kicker">06</p>
+      <h2 class="louis-document-section__title" id="s6">이번에 정할 내용</h2>
+    </div>
+    <p class="louis-document-prose">지난 1주 테스트에서 약 11만 원으로 프로필 방문 514회와 링크 클릭 551회를 확보했고, Seedance 소재가 프로필 방문당 비용과 품질 순위에서 조금 더 좋은 결과를 보였다. 광고는 우선 10월 말까지 연장해 소재 테스트를 반복하고, 10/31에 누적 성과를 보고 추가 연장 여부를 다시 정한다. 광고 운영 과정에서 외부 비즈니스 문의도 발생한 만큼 새로운 사업 접점 가능성도 함께 확인하고, 공식 비즈니스 채널로서의 신뢰도를 높이기 위해 Meta Verified 구독도 검토한다.</p>
+  </section>
+
+  <footer class="louis-document__foot"><span lang="en">Klipse Meta Advertising Operation Plan</span><span>2026.09</span></footer>
+</article>
+</main>
+</div>
+</body>
+</html>

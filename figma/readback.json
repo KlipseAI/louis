@@ -549,7 +549,7 @@
         [
           "color/palette-gray/000",
           "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
           [
             [
               "Base",
@@ -5085,16 +5085,16 @@
         [
           "color/app/tooltip-border",
           "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
           [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-black-alpha/12",
-              null
-            ],
             [
               "Light",
               "Klipse Primitive::color/static-white-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-black-alpha/12",
               null
             ]
           ]
@@ -5765,16 +5765,16 @@
         [
           "color/gray/000",
           "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
           [
-            [
-              "Dark",
-              "Klipse Primitive::color/palette-gray/000",
-              null
-            ],
             [
               "Light",
               "Klipse Primitive::color/static/black",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/000",
               null
             ]
           ]
@@ -5799,16 +5799,16 @@
         [
           "color/gray/000-alpha/08",
           "COLOR",
-          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
           [
-            [
-              "Dark",
-              "Klipse Primitive::color/static-white-alpha/08",
-              null
-            ],
             [
               "Light",
               "Klipse Primitive::color/static-black-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/08",
               null
             ]
           ]
@@ -7622,12 +7622,12 @@
           [
             [
               "Light",
-              "Klipse Primitive::color/palette-gray/050",
+              "Klipse Primitive::color/static-black-alpha/08",
               null
             ],
             [
               "Dark",
-              "Klipse Primitive::color/palette-gray/900",
+              "Klipse Primitive::color/static-white-alpha/08",
               null
             ]
           ]
@@ -9046,6 +9046,7 @@
       "strokes": {},
       "effects": {
         "self": [
+          "INNER_SHADOW:1:1:-0.5 + INNER_SHADOW:-1:1:-0.5",
           "INNER_SHADOW:0:0:0.5"
         ]
       }

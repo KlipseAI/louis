@@ -93,13 +93,142 @@
   cursor: pointer;
 }
 
+/* 호버는 면이 아니라 상태 레이어다(DS-D-0065) — 토큰이 알파라 표가 놓인 바닥 위에 한 겹 얹힌다.
+ * 면 사다리 칸으로 되돌리지 않는다. 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은
+ * 값) 카드 위 표에서 hover 가 바닥과 같은 색이 됐다. */
 .louis-table > tbody > tr[data-interactive="true"]:hover > td {
   background: var(--louis-color-table-row-hover);
+}
+
+/* 셀 강조 — 표 안에서 한 칸만 도드라져야 할 때.
+ *
+ *   total  합계 · 기준값. 잉크를 한 단 올리고 semibold 로 굵힌다.
+ *   lead   비교에서 **앞선 값**. 초록 잉크 + semibold. 초록을 장식으로 쓰지 않는다.
+ *
+ * `lead` 의 잉크는 `alert-success-stroke` 다 — `louis-delta-pill[data-tone="up"]` 과 같은 선택이고
+ * 같은 결함을 진다: 이름은 선이지만 값이 success 강조색 정본이고, 글자로 쓸 semantic 이름이 아직
+ * 없다. 라이트 시트 위 대비가 본문 기준(4.5:1)에 못 미친다 — 그래서 **굵기가 함께 간다**(색만으로
+ * 뜻을 전하지 않는다). 수치와 해소 경로는 table.md Known deviations 가 갖는다. */
+.louis-table [data-emphasis="total"] {
+  color: var(--louis-color-fg-primary);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+}
+
+.louis-table [data-emphasis="lead"] {
+  color: var(--louis-color-alert-success-stroke);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+}
+
+/* 규선 표(`data-variant="ruled"`) — 문서에서 읽는 표.
+ *
+ * 기본 표는 대시보드의 데이터 표다: 머리 행에 면과 헤어라인, 캡션 12 머리 글자, 셀 8. 문서는
+ * 한 번 끝까지 **읽는** 표라 면이 필요 없다 — 가로 규선만 남기고(design/patterns/document.md
+ * 「깊이는 헤어라인 한 겹」), 머리는 14 로, 셀은 12 로 넓힌다. 첫 열과 끝 열의 바깥 여백을 0 으로
+ * 두어 표의 좌우 끝이 본문 열의 글자 끝과 맞는다.
+ *
+ * **열 폭은 내용이 정한다(`table-layout: auto`).** 기본 표의 `fixed` 는 데이터 표가 행을 늘려도
+ * 열이 흔들리지 않게 하려는 것이고, 문서의 표는 행이 고정된 한 장이라 이름 열이 넓고 수치 열이
+ * 좁은 편이 읽힌다. 소비처가 `<col>` 로 폭을 주는 길은 그대로 열려 있다.
+ *
+ * 머리 아래 선은 `table-row-line`, 행 사이 선은 한 단 옅은 `stroke-hairline` 이다 — 머리와 몸을
+ * 가르는 선이 행을 가르는 선보다 진해야 머리가 한 덩어리로 읽힌다. */
+.louis-table[data-variant="ruled"] {
+  table-layout: auto;
+}
+
+.louis-table[data-variant="ruled"] > thead > tr {
+  box-shadow: none;
+}
+
+.louis-table[data-variant="ruled"] > thead > tr > th {
+  padding-block: var(--louis-space-control-md);
+  padding-inline: var(--louis-space-control-md);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-table-row-line);
+  border-radius: 0;
+  background: none;
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 행 머리(`th scope="row"`)도 몸 칸과 같은 칸이다 — 기본 표는 몸에 `th` 를 두지 않아 규칙이 없고,
+ * 브라우저 기본값(굵게 · 가운데)이 새어 나오면 첫 열만 다른 표가 된다. 문서의 표는 첫 열이 행의
+ * 이름이라 `th` 로 두는 편이 읽기 도구에 맞다(document.md Accessibility). */
+.louis-table[data-variant="ruled"] > tbody > tr > :is(th, td) {
+  box-sizing: border-box;
+  padding-block: var(--louis-space-control-md);
+  padding-inline: var(--louis-space-control-md);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
+  color: var(--louis-color-fg-secondary);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.louis-table[data-variant="ruled"] > tbody > tr:last-child > :is(th, td) {
+  border-block-end: 0;
+}
+
+/* 위 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세므로 정렬 값 둘을 여기서 되살린다 —
+ * 하나라도 빠지면 머리 칸만 그 정렬을 받고 몸 칸은 시작에 붙어 한 열이 어긋난다. */
+.louis-table[data-variant="ruled"] > tbody > tr > [data-align="end"] {
+  text-align: end;
+}
+
+.louis-table[data-variant="ruled"] > tbody > tr > [data-align="center"] {
+  text-align: center;
+}
+
+.louis-table[data-variant="ruled"] > tbody > tr > [data-emphasis="total"] {
+  color: var(--louis-color-fg-primary);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+}
+
+.louis-table[data-variant="ruled"] > tbody > tr > [data-emphasis="lead"] {
+  color: var(--louis-color-alert-success-stroke);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+}
+
+.louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :first-child {
+  padding-inline-start: 0;
+}
+
+.louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :last-child {
+  padding-inline-end: 0;
+}
+
+/* 좁은 화면에서는 한 단 작게 — 네 열이 390 폭 안에 들어오게 한다. 그래도 넘치면 소비처의
+ * 스크롤 래퍼가 받는다. 719 는 section-header 가 쓰는 같은 행동 경계다. */
+@media (max-width: 719px) {
+  .louis-table[data-variant="ruled"] {
+    font-size: var(--louis-typography-caption-regular-font-size);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  .louis-table[data-variant="ruled"] > thead > tr > th {
+    font-size: var(--louis-typography-caption-medium-font-size);
+    line-height: var(--louis-typography-caption-medium-line-height);
+    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+  }
+
+  .louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :is(th, td) {
+    padding-block: var(--louis-space-control-sm);
+    padding-inline: var(--louis-space-control-xs);
+  }
 }
 
 @media (forced-colors: active) {
   .louis-table > thead > tr {
     box-shadow: none;
     border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  /* 규선 표는 머리 행에 상자를 두르지 않는다 — 머리 아래 선이 이미 시스템 색으로 남는다. */
+  .louis-table[data-variant="ruled"] > thead > tr {
+    border: 0;
   }
 }

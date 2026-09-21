@@ -25,6 +25,256 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-21 (147) — 문서 패턴 리뷰 후속: 규선 표 가운데 정렬 · 문서 전체 `strong` · 빌린 토큰을 루트 이름으로
+
+**(145) 리뷰의 minor 가운데 바로 고칠 수 있는 것들이다.**
+
+**규선 표의 `data-align="center"`.** 규선 표 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세서, 머리
+칸은 가운데 · 몸 칸은 시작에 붙어 같은 열이 어긋났다. `end` 에만 있던 되살림 규칙을 `center` 에도 둔다.
+[Table](../components/table.md) Acceptance 19 에 두 값이 머리 · 몸 칸에서 같다는 단언을 더했다.
+
+**문서 안의 `strong` 은 어디서나 600 · `fg-primary` 다.** 굵기를 누르는 규칙이 산문 · 카드 · 타임라인 세
+곳에만 있어, 콜아웃 · 결정 항목 · 수치 보조 · 표 칸의 `strong` 은 브라우저 기본값(`bolder` → 700)을 받아
+「굵기는 600 까지」를 넘었다. 규칙을 `.louis-document strong` 하나로 넓혔다 — 승인본도 전역 `strong` 한
+줄이다. 테스트 탐침 다섯 자리에 `strong` 을 넣어 굵기와 잉크를 잰다.
+
+**다른 부품의 토큰을 빌린 셋을 드러낸다.** 바닥과 시트 사이(`layout-app-shell-outer-gap`) · 비교 막대의 빈
+트랙(`progress-track`) · 비용 주의의 노랑(`alert-warning-stroke`)은 문서 역할의 토큰이 없어 빌린 값이다.
+이제 레시피 루트가 `--louis-document-floor-inset` · `--louis-document-bars-track-face` ·
+`--louis-document-caution` 으로 한 번씩만 읽고 규칙 본문은 그 이름만 쓴다. 계산값은 같다.
+[Document](../patterns/document.md) 「값의 출처」가 「빌리지 않는다」를 예외 셋과 함께 고쳐 적고 Known
+deviations 5 가 그 비용을 적는다. DS-D-0067 되돌리기 절에 `DEAD_TOKEN_BASELINE` 72 → 73 복구를 더했다.
+
+**문서 정정.**
+
+- DS-D-0067 — deck-kit 은 이 레시피의 소비처가 아니라 같은 조형의 **형제 구현**이고 실제 소비처는 0 이다.
+  승격 근거는 소유자 요청이다. Consequences 에 번들 증가(`styles.css` +43 KB · gzip +8.3 KB)를 적었다 —
+  제품은 `styles.layer.css` 를 통째로 import 한다.
+- Document 반응형 — 글자 램프는 출처의 네 줄에서 7단계 안의 값만 고른 것이다(32 · 18 제외, 수치 36→28
+  추가). 다크 — caution 표식은 테마로 뒤집히는 `fg-warning` 이고 대비는 라이트 6.53 · 다크 3.43 이다.
+- Document Known deviations 6 — 360 이하에서 4열 격자의 8자 수치가 카드를 넘는다. 승인본에서 물려받은 것이고,
+  새 경계인지 콘텐츠 한도인지는 소유자 판정으로 남긴다.
+- Table — 「문서에서 읽는 표는 ruled」 문단을 「쓰지 않는 자리」 목록 밖으로 옮기고, `table-layout: fixed`
+  항목에 ruled(`auto`)를 가리켰다.
+- 예시 — Pretendard CDN 을 `@latest` 에서 `@v1.3.9` 로 고정했다(`@latest` 경로는 2026-09-21 jsDelivr 가 403 을
+  냈다).
+
+## 2026-09-21 (146) — 문서 패턴: 좁은 화면의 카드 여백을 승인본에 맞추고, 목록에 `role="list"` 를 단다
+
+**(145) 리뷰에서 나온 결함 둘이다.**
+
+**좁은 화면의 카드 여백.** (145) 는 ≤719 에서 `--louis-document-card-inset` 하나만 20 으로 덮어, 넓은
+카드(`data-inset="lg"`, 기간 요약)가 32 로 남았다. 위아래 카드와 글자 시작선이 12 어긋났고 390 에서 설명이
+두 줄에서 세 줄로 늘었다. 콜아웃은 거꾸로 승인본의 24 가 아니라 20 이었다. 이제 승인본 그대로다.
+
+| 박스 | ≥720 | ≤719 |
+| --- | --- | --- |
+| 카드 · 수치 · 결정 항목 | 24 | 20 |
+| 넓은 카드(기간 요약) | 32 | 위아래 24 · 좌우 20 |
+| 콜아웃 | 24 | 24 |
+
+20 은 새 이름 `--louis-document-card-inset-compact` 로 루트에서 한 번 선언하고, ≤719 규칙이 그 이름을 읽는다.
+**`--louis-document-card-inset` 은 이제 좁은 화면에서도 24 다** — 이 이름을 읽어 20 을 기대한 소비처는
+`-compact` 로 옮긴다(아직 소비처는 없다). 390 · 360 · 320 에서 다섯 박스의 여백을 승인본과 계산값으로
+대조했다. 모바일 390 전체 높이는 7056 → 7035(승인 7082)이고, 남은 47 은 한 절의 표 셀 여백 · 수치 격자 ·
+비교 막대 반올림(36 · 6 · 4)과 맺음 1 이다 — 줄 바꿈 차이가 아니다. (145) 의 「레이아웃은 같다」는 모바일에서
+사실이 아니었다.
+
+**목록 롤.** 레시피의 목록 다섯(결정 · 격자 · 막대 · 타임라인 · 흐름)은 전부 `list-style: none` 이다.
+WebKit/VoiceOver 계열은 그런 목록의 롤을 벗기는데 예시에 `role="list"` 가 하나도 없어, 그 환경에서는 결정
+항목의 번호(표식은 `aria-hidden`)도 순서도 읽히지 않았다 — [Step Tile](../components/step-tile.md) Known
+deviations 11 과 같은 결함이다. 규범 Accessibility 와 부품 선택표에 「목록에는 `role="list"` 를 단다」를 넣고
+예시의 목록 아홉에 달았다. **소비처 마크업이 따라야 하는 계약이다** — 레시피 CSS 는 마크업을 바꿀 수 없다.
+
+**테스트.** ≤719 테스트가 박스 여백 셋(20 · 24/20 · 24)과 넓은 카드의 글자 시작선을 잰다. 새 테스트
+「목록 롤」은 탐침의 목록 다섯이 `list-style: none` 이면서 `role="list"` 인지 재고, 예시 파일을 읽어 그 안의
+모든 목록이 같은지 잰다. 예시의 타임라인 하나에서 `role` 을 빼면 실패한다(변조 확인).
+
+## 2026-09-21 (145) — 문서 패턴을 세운다 (Document · DS-D-0067)
+
+**소유자 요청이다.** 「LOUIS 에 문서 패턴으로 옮겨줘」. 옮긴 것은 같은 날 승인한 「Klipse Meta 광고
+운영안」이다 — 보고서 · 운영안 · 제안서처럼 스크롤로 끝까지 읽는 문서. 그 문서에는 **거절된 첫 시안**이
+있었다: LOUIS 앱 부품(결론은 Alert 배너, 지표는 StatTile, 카드마다 테두리)을 그대로 얹은 것이었고 소유자
+말은 「실망스럽다」 · 「난 화려한 걸 원하는 게 아니야」였다. 승인본은 klipse-deck-kit 의 구성 규칙으로 다시
+짠 것이고, 이 패턴의 규칙은 두 시안의 차이에서 나왔다.
+
+**새로 생긴 것.**
+
+- 규범 [`design/patterns/document.md`](../patterns/document.md) — 언제 쓰나(앱 화면 · 랜딩 · 장표와의
+  경계), 구조(바닥 위 시트 한 장 · 머리 · 결정 요청을 머리 바로 아래 · 번호 절 · 맺음), 깊이 · 면 · 색 ·
+  타이포 역할 · 간격 · 반경(근거 문서 인용), 읽기 폭, 반응형(719), 다크, 인쇄, 하지 않는 것, 부품 선택표,
+  접근성.
+- 레시피 `packages/css/src/pattern/document.css` — `.louis-document` 셸과 문서 부품(머리 · 결정 요청 ·
+  번호 표식 · 절 · 산문 · 격자 · 카드(레일 · 넓은 여백 · 둘로 나눔) · 수치 · 비교 막대 · 판정 알약 ·
+  타임라인 · 흐름 · 콜아웃 · 표 래퍼 · 맺음).
+- 표 변형 `.louis-table[data-variant="ruled"]` 와 셀 강조 `data-emphasis="total|lead"` — 문서에서 읽는
+  표. 머리 면 대신 머리 아래 선, 행 사이 헤어라인, 행 머리 `th scope="row"`. **변형이 없는 표는 바뀌지
+  않는다.**
+- 예시 `packages/css/examples/document.html` — 승인본을 LOUIS 클래스만으로 다시 짰다. 자체 `<style>` 이
+  없고 생성 CSS 를 상대 경로로 링크한다.
+
+**앱 부품을 빌리지 않았다.** 기존 컴포넌트에 얹은 것은 표 하나다. Stat Tile(액자가 조형을 가른다는 자기
+규칙 · Figma `done`) · Alert(화면 상태 배너 — 편집 강조가 아니다) · Badge(반경 8 상태 표식) · Section
+Header(액션 묶음 · 28 칸 없음)에 얹지 않은 이유는
+[DS-D-0067](../governance/decisions/DS-D-0067-document-is-not-an-app-screen.md) 판정표가 부품마다 적는다.
+비교의 판정(「약 7% 낮음」)은 `louis-delta-pill` 의 방향 어휘로 칠하면 빨강이 되므로 따로
+`.louis-document-verdict` 다.
+
+**깊이는 시트 헤어라인 한 겹이다.** 시트 안의 면은 `fg-primary` 알파(4 · 8%)로만 선다 — 테두리 · 그림자가
+없다. 면 사다리 칸을 쓰지 않는 이유는 DS-D-0065 와 같다(다크에 시트 위 한 칸이 없다). 글자는 역할
+잉크(`fg-secondary` · `fg-tertiary`)이고 승인본의 잉크 알파 글자는 옮기지 않았다.
+
+**문서 규칙 값은 아직 토큰이 아니다.** 박스 간격 10 · 카드 여백 24/32(`migration/deck/layout-rules.md`) ·
+시트 폭 · 여백 · 절 간격(승인본)을 레시피 루트가 `--louis-document-*` 이름으로 한 번씩만 선언하고, 규칙
+본문은 그 이름만 읽는다. 토큰을 더하면 `verify-figma-parity` 가 「변수가 snapshot 에 없습니다」로 멈추고
+(이 작업 중 한 개를 더해 확인했다) DS-D-0028 이 Figma 변수를 같은 작업에서 적용하라고 하는데, 이 패턴의
+Figma 는 `not-ready` 다. 토큰 원본 · 생성물 · Figma 산출물은 바뀌지 않는다.
+
+**승인본과 나란히 댔다.** 데스크톱 1440 · 모바일 390(배율 2) · 다크 1440 세 판을 Playwright 로 떠서 승인
+캡처와 대조했다. 전체 높이 데스크톱 5190 / 5193, 모바일 7056 / 7082. 차이는 승인본의 6 · 14 · 20 간격을
+LOUIS 간격 계단(4 · 12 · 16)으로 옮긴 데서 오고 레이아웃은 같다.
+<br>**〔2026-09-21 정정〕** 모바일에서는 같지 않았다 — 기간 요약 카드의 여백이 32 로 남아 설명이 한 줄
+늘어 있었다. 고친 뒤 모바일은 7035 다. (146) 참조.
+
+**알고 들인 결함 둘.** 강조색 글자(키커 · 날짜)가 라이트에서 3.37:1, 앞선 값 초록(`data-emphasis="lead"`)이
+라이트에서 2.12:1 이다. 둘 다 승인본의 색이고 글자로 쓸 역할 토큰이 없다는 같은 뿌리다 — `louis-delta-pill`
+이 같은 결함을 이미 적어 두었다. 해소는 역할 토큰 판정이다.
+
+**테스트.** `packages/css/test/document.browser.test.ts` — 깊이(면 열 가지에 테두리 · 그림자 0), 두 테마의
+면 합성색, 박스 간격 10 · 카드 여백 24/32, 반경 역할, 격자 열, 타이포 일곱 단계, 산문이 flex 가 아닐 것,
+막대 · 타임라인 · 흐름 · 콜아웃 · 판정 알약, 규선 표(Table Acceptance 19 · 20), ≤719.
+
+**Figma** 는 `not-ready` 다 — 템플릿 보드가 없다. **제품 소비처**는 아직 없다.
+
+## 2026-09-21 (144) — primary 버튼에 위아래 빛을 넣는다 (DS-D-0066)
+
+**소유자 스펙이다.** Figma 효과 설정 두 장과 함께 「우리 블루 버튼들에 이 효과를 적용해줘. 두 그림자
+모두 블렌딩 오버레이 적용이야」. 안쪽 그림자 두 겹 — Y +1 · −1, 흐림 1, 퍼짐 −0.5, 흰색 100%, 블렌드
+Overlay. Button set(`672:552`) 의 primary 60 칸에는 효과가 하나도 없었으므로 코드 · Figma 둘 다 처음 받는
+값이다.
+
+**활성 상태에만 둔다.** Default · Hover · Active 다. Disabled · Loading 은 면이 `bg-inset`(회색)으로 바뀌어
+더 이상 파란 버튼이 아니고, 거기 빛을 남기면 누를 수 있는 것처럼 도드라진다.
+
+**`::after` 에 실었다가 `::before` 로 옮겼다.** box-shadow 는 그림자마다 블렌드를 줄 수 없어 가상 요소에
+두 겹을 싣고 `mix-blend-mode: overlay` 를 건다. 처음 고른 `::after` 는 `.louis-hit-target` 의 44px 터치
+영역 상자였다 — 빛 규칙이 `pointer-events: none` 으로 터치 영역을 지우고 위치를 어긋나게 했다. 브라우저
+테스트 두 건이 잡았다. 테스트는 이제 「활성 primary 의 `::after` 는 여전히 터치 영역이다」를 함께
+단언한다.
+
+**흰색은 `color-palette-gray-000`(250)이다.** 테마에 따라 뒤집히지 않아야 해서 palette 쪽이고, LOUIS 에
+#FFFFFF 토큰이 없다. 파란 면 위 오버레이 결과의 차는 G 채널 8비트 약 5단계 · R · B 0 이다. 흰색을
+오버레이로 섞으므로 빛은 **하늘색 테두리**로 보인다.
+
+**Figma.** primary 활성 36 칸에 두 겹을 넣고 색을 `color/palette-gray/000` 에 묶었다. 그 변수의 proposal
+scopes 에 `EFFECT_COLOR` 를 더했고(`FIGMA_EFFECT_COLOR_TOKEN_IDS`, (143) 의 규칙 — 효과 색으로 새로 쓰이면
+더한다) 라이브도 같게 맞췄다. `apply-variables.1.js` · `figma.tokens.json` · manifest 는 build 로 다시 만들고
+baseline manifest 해시를 같은 값으로 잠갔다.
+
+**되읽기.** Button 컴포넌트를 `--components --only Button` 로 다시 떠 `--merge` 했다. 변수 행은 scopes
+열이 새 proposal 값을 받아야 하므로 (143) 과 같이 `--remove-variables` 뒤 `--merge-variables` 로 넣었다.
+스냅숏을 다시 만들었다. **되읽기의 효과 문자열은 블렌드 모드를 적지 않는다** — 오버레이 여부는 브라우저
+테스트가 맡는다.
+
+**parity 계약을 효과 집합으로 넓혔다.** `verify-figma-parity` 는 역할마다 효과 문자열 하나만 받았는데 Button
+`self` 에 두 가지(헤어라인 · 빛)가 서게 됐다. 계약을 배열로 줄 수 있게 했고, 배열이면 「계약한 효과가 전부
+어딘가에 선다」도 함께 본다 — 빛이 Figma 에서 사라지면 막힌다(음성 시험으로 확인). 문자열 계약은 그대로다.
+
+소비처는 LOUIS 핀을 올리면 받는다. 같은 효과를 로컬에 먼저 넣어 둔 소비처는 핀을 올리는 커밋에서 그
+사본을 지워야 한다 — 둘이 겹치면 빛이 두 번 선다.
+
+## 2026-09-17 (143) — Figma 변수 scopes · 숨김을 쓰임에 맞춰 명세와 맞춘다
+
+**2026-09-17 소유자 결정이다.** (142) 와 DS-D-0065 가 「라이브가 명세와 다른 자리」로 남긴 scopes 73 ·
+hidden 3 을 정리했다. 소유자가 라이브 차이 목록을 보고 고른 안은 「쓰임에 맞춰 정리」다 — 효과 색으로
+실제로 쓰이는 색은 명세가 쓰임을 따르고, 나머지는 라이브를 명세로 맞춘다. **값 · 이름 · 설명 · 모드 값은
+건드리지 않았고 그림은 바뀌지 않는다** — scopes 는 Figma 선택기 목록만, 숨김은 라이브러리 게시만 정하는데
+이 파일은 게시하지 않는다(DS-D-0035).
+
+**명세가 쓰임을 따른 셋.** 라이브 16 페이지 노드 52,752 개의 `effects[].boundVariables.color` 를 전수로
+세니 효과 색에 물린 변수는 `color/app/tooltip-border` 99 · `color/gray/000` 10 · `color/gray/000-alpha/08`
+2 곳이었다(효과 스타일 14 개에는 0). 이 셋의 proposal scopes 에 `EFFECT_COLOR` 를 더했다
+(`scripts/lib/token-model.mjs` 의 `FIGMA_EFFECT_COLOR_TOKEN_IDS`). `figma.tokens.json` ·
+`apply-variables.7.js` · `apply-variables.8.js` · manifest 는 build 로 다시 만들었고 baseline manifest 도 같은
+값으로 잠갔다. CSS · JS 산출물은 그대로라 제품 핀은 움직일 일이 없다.
+
+**라이브를 명세로 맞췄다.**
+
+| 항목 | 수 | 달라지는 것 |
+| --- | --- | --- |
+| scopes — `EFFECT_COLOR` 를 뗐다 | 59 | Semantic Color 58 · Primitive `color/green-500-alpha/08`. 효과 색 선택기에서 빠진다. 효과에 물린 곳은 0 이다 |
+| scopes — 선택기에 새로 뜬다 | 5 | `ALL_FILLS` 만 있던 3 에 획 색, `FRAME_FILL,SHAPE_FILL` 만 있던 `accent-danger-secondary` 둘에 글자 · 획 색 |
+| scopes — 표기만 | 9 | `ALL_FILLS` 를 `FRAME_FILL,SHAPE_FILL,TEXT_FILL` 로 풀었다. 뜨는 자리는 같다. 위 효과 색 셋이 여기 든다 |
+| hidden → true | 3 | `color/green-500-alpha/08` · `color/red-alpha/24` · `color/static/white`. Primitive 182 개가 전부 숨김이다 |
+
+적용은 `apply-variables.{1,2,7,8,9}.js` 생성물 그대로에 거르는 블록 하나를 더해 돌렸다 — 라이브 scopes
+(정렬해 비교)나 hidden 이 명세와 다른 변수만 남기고 값 패스는 끈다(`s.v={}`). 대상 수가 사전 대조와 다르면
+쓰지 않고 돌아간다. 파일별 1 · 2 · 14 · 35 · 23 = 75 개를 썼고 created 0 · 값 updated 0 이다. 적용 뒤 510 개를
+다시 대조하니 scopes 0 · hidden 0 이고, 이름 · 키 · 설명 · 타입 · 모드 값 · codeSyntax 지문과 컬렉션 · 모드 ·
+변수 순서 지문은 적용 전과 같다.
+
+**남은 차이는 값 표기 둘이고 일부러 두었다.** `scale/tooltip-rest` 는 Figma 가 float32 로
+0.9700000286102295 를 보관하는데 apply 가 숫자를 `JSON.stringify` 로 비교하므로 몇 번을 써도 다르다고
+나온다. `color/green-500-alpha/08` 은 라이브 (0, 0.7765, 0.5569) 와 명세 (0, 0.776471, 0.556863) 가 8비트로
+같은 (0, 198, 142) 인데 차가 색 허용치 1e-5 를 넘는다. 둘 다 `figma/readback.json` 머리말이 이미 적은
+예외다.
+
+**되읽기.** 바꾼 75 개를 `--variables` 로 다시 떴다. 되읽기 행 내용이 바뀌는 것은 scopes 열이 새 proposal
+값을 받는 효과 색 셋뿐이라 그 셋만 `--remove-variables` 뒤 `--merge-variables` 로 다시 넣었다. 나머지 72 행은
+넣지 않았다 — 6 행은 바이트까지 같고 65 행은 모드 순서만 다르며, `color/green-500-alpha/08` 은 넣으면
+「float 정밀도는 proposal 값」 규약을 깬다. 스냅숏은 다시 만들었다. Figma 는 scopes 를 자기 순서
+(`FRAME_FILL,SHAPE_FILL,TEXT_FILL,STROKE_COLOR` · `WIDTH_HEIGHT,GAP`)로 보관하므로 되읽기 scopes 열은 앞으로도
+proposal 표기다.
+
+## 2026-09-17 (142) — 표 행 hover 를 면 사다리 칸에서 상태 레이어로 옮긴다 (DS-D-0065)
+
+**2026-09-17 소유자 결정이다.** 번호가 (130) 다음 (142) 인 것은 푸시되지 않은 앵커 브랜치가
+(131)~(141) 과 DS-D-0063 · 0064 를 이미 쓰고 있어서다 — 합칠 때 번호가 겹치지 않게 건너뛰었다.
+
+다크에서 표 행 hover 가 보이지 않았다. `color-table-row-hover`(dark)가 `palette-gray-900` 이라
+`color-bg-surface` · `color-bg-raised`(dark)와 바이트 단위로 같았고, 레시피 hover 를 켜는 제품 표 두 벌
+(구독 크레딧 사용 이력 · 작업 브랜치의 분석 콘텐츠 표)이 둘 다 카드 `bg-surface` 위에 놓인다.
+(127)이 「면이 아니라 알파로 옮기는 것이 맞고 별건이다」로 남긴 자리다. 다크에는 카드 위 한 칸 면이
+없으므로 면으로 풀지 않고 **버튼처럼 상태 레이어로** 옮긴다.
+
+| 토큰 | before | after |
+| --- | --- | --- |
+| `color-table-row-hover` (light) | `palette-gray.050` (불투명) | **`static-black-alpha.08`** |
+| `color-table-row-hover` (dark) | `palette-gray.900` (불투명) | **`static-white-alpha.08`** |
+
+`color-accent-ghost-hover` 와 같은 칸이지만 이름은 따로 둔다 — 역할이 다르다. `.louis-table` 규칙은
+바뀌지 않았고 `table.css` 에 「사다리 칸으로 되돌리지 않는다」 주석이 붙었다.
+
+**light 모양은 실측으로 유지했다.** 제품 고정 커밋(`3e3765a9` · 앵커 `6fbdac16`)의 CSS 를 제품
+클래스 문자열 그대로 조립해 헤드리스 Chromium 에서 행에 포인터를 올리고 픽셀을 읽었다. 제품 표
+바닥 `bg-surface`(250,250,250) 위에서 옛 hover 235,236,238 → 새 hover 232,232,233 — 8비트 RGB
+유클리드 7.07 · ΔE2000 1.04 로, Figma Sync 의 알파 흡수 기준(11.7/441) 안이다. 16단 칸 가운데
+가장 가깝다(04 는 8.37 · 1.50). dark 는 1.00 이던 대비가 1.24 가 된다. light 에서도 `bg-inset` 바닥
+위 hover 가 바닥과 같았는데(1.00) 이제 바닥 넷 모두에서 1.17 이다. 수치 표와 측정 방법은
+[DS-D-0065](../governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md)가 소유한다.
+
+**breaking.** `check-token-diff` 가 rawValue 2 · value 2 · aliasTarget 2 · description 2 를 낸다 —
+전부 이 토큰의 두 모드다. `packages/tokens/baseline/manifest.json` 을 같은 변경에서 승인해 잠갔다.
+소비자가 할 일은 없다 — 레시피가 hover 를 칠하는 방식은 그대로이고, 제품에서 이 토큰 이름을 직접
+무는 곳은 앵커에서 0 이다.
+
+**구독 크레딧 표의 hover 행이 머리 띠와 같은 색이 된다.** 그 표가 머리 띠를
+`accent-secondary`(검정 8% · 흰색 8%)로 되돌려 칠하기 때문이다 — 잰 머리 띠가 light 232,232,233 ·
+dark 41,45,51 이고 새 hover 가 같은 값이다. 머리 띠와 행은 위치와 머리 행 헤어라인이 가른다.
+
+**테스트가 생겼다.** `packages/css/test/table.browser.test.ts` 가 Acceptance 10 · 11 · 17 을 사다리
+바닥 넷 × 테마 둘에서 캔버스 합성색으로 잰다. 토큰을 옛 사다리 칸으로 되돌리면 두 project 에서 열 개가
+실패한다(음성 시험 출력은 Decision 에).
+
+**Figma 는 같은 변경에서 맞췄다.** `color/table-row-hover` 두 모드를 `color/static-black-alpha/08` ·
+`color/static-white-alpha/08` 로 옮겼다. `apply-variables.9.js` 를 **이 항목 하나로 거른 채** 돌렸다 —
+라이브 510 변수를 명세와 대조하니 scopes 73 · hidden 3 이 명세와 달라, 통째로 돌리면 이 결정과 무관한
+라이브 설정을 덮기 때문이다(figma-sync 쓰기 정책 5). `TableCell` Hover 변형 셋의 저장색은 Figma 가 함께
+옮겼다(검정 · 불투명도 0.08). 되읽기 행 1 을 `--variables`/`--merge-variables` 로 갱신하고 스냅숏을 다시
+만들었다. 게시는 하지 않았다.
+
+**제품은 아직이다.** 핀을 올리는 순간 위 화면 변화가 제품에 들어간다 — 규칙 1 의 세 번째 곳이 남았다.
+
 ## 2026-09-16 (141) — template 되읽기를 뜨는 길을 세운다 — `figma-readback-emit --templates`
 
 (138) 이 「남은 것」으로 남긴 셋째다. `figma/readback.json` 의 `templates` 블록은 2026-08-31(`28331fb`)에

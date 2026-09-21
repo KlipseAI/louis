@@ -146,7 +146,11 @@ const COMPONENT_CONTRACTS = [
     // spread 0.5의 inner shadow다. 라이브 실측이 그렇게 서 있는데 채취 명세에 담는 자리가 없어
     // 계약 밖이었다 — 이너섀도우를 안 쓴다고 적어 둔 옛 `effects: {}`는 폐지된 글래스 섀도우를
     // 가리킨 문장이지 헤어라인을 가리킨 것이 아니다. offsetY 0 · blur 0 · spread 0.5.
-    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    //
+    // 2026-09-21 DS-D-0066 — primary 활성 36변형(Default · Hover · Active)에 위아래 빛 두 겹이 선다.
+    // Y ±1 · blur 1 · spread −0.5, 둘 다 blendMode OVERLAY. 되읽기 문자열은 블렌드를 적지 않으므로
+    // 오버레이 여부와 「어느 변형에 서는가」는 `packages/react/test/button.browser.test.tsx` 가 잰다.
+    effects: { self: ["INNER_SHADOW:0:0:0.5", "INNER_SHADOW:1:1:-0.5 + INNER_SHADOW:-1:1:-0.5"] },
     figmaName: "Button",
     iconSlots: ["LeftIconGlyph", "RightIconGlyph"],
     declaration: "packages/react/dist/button/button.d.ts",
@@ -4559,11 +4563,23 @@ function compareComponentEffects(contract, got) {
       issues.push(`${contract.figmaName}: effect 역할 ${role}이 Figma에 없습니다 — 기대 ${expected}`);
       continue;
     }
-    const wrong = values.filter((value) => value !== expected);
+    // 문자열은 「모든 변형이 이 효과다」, 배열은 「변형마다 이 중 하나이고, 목록의 효과는 전부 어딘가에
+    // 선다」다. 되읽기가 역할별로 변형을 모아 적으므로(`figma-readback-emit` 의 push) 어느 변형이 어느
+    // 효과인지는 여기서 가를 수 없다 — 그 대응은 브라우저 테스트가 맡는다. 뒤 조건이 없으면 계약한
+    // 효과가 Figma 에서 통째로 사라져도 남은 값이 전부 허용이라 초록이 된다.
+    const allowed = Array.isArray(expected) ? expected : [expected];
+    const wrong = values.filter((value) => !allowed.includes(value));
     if (wrong.length > 0) {
+      const shown = Array.isArray(expected) ? `[${expected.join(", ")}] 중 하나` : `"${expected}"`;
       issues.push(
-        `${contract.figmaName}: ${role}의 effect가 다릅니다 — 기대 "${expected}", 실제 [${values.join(", ")}]`,
+        `${contract.figmaName}: ${role}의 effect가 다릅니다 — 기대 ${shown}, 실제 [${values.join(", ")}]`,
       );
+    }
+    if (Array.isArray(expected)) {
+      const absent = allowed.filter((value) => !values.includes(value));
+      if (absent.length > 0) {
+        issues.push(`${contract.figmaName}: ${role}에 계약한 effect가 Figma 에 없습니다 — ${absent.join(", ")}`);
+      }
     }
   }
   for (const role of Object.keys(actual)) {

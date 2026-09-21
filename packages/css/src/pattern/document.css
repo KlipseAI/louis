@@ -47,6 +47,9 @@
   /* 카드 안쪽 여백은 24 또는 32 뿐이다. */
   --louis-document-card-inset: 24px;
   --louis-document-card-inset-lg: 32px;
+  /* 좁은 화면(≤719)에서 나열된 박스(카드 · 수치 · 결정 항목)와 넓은 카드의 좌우가 쓰는 여백.
+   * 「24 또는 32만」의 예외이고 승인본의 값이다. 넓은 화면에서는 아무 규칙도 읽지 않는다. */
+  --louis-document-card-inset-compact: 20px;
   /* 면 — 잉크 알파다. 알파는 DS-D-0026 의 16단 스케일에서 고른다(4 · 8 · 12 · 16 · 24).
    * `fg-primary` 가 두 테마의 잉크(라이트 gray-900 · 다크 gray-000)라 다크에서는 밝은 틴트,
    * 라이트에서는 어두운 틴트가 된다. 면 사다리 칸(`bg-inset` · `bg-raised`)을 쓰지 않는 이유는
@@ -186,7 +189,11 @@
   letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
 }
 
-/* `ol` 이다 — 순서가 곧 의미다. 목록 기본 여백을 소비자의 reset 에 기대지 않는다. */
+/* `ol` 이다 — 순서가 곧 의미다. 목록 기본 여백을 소비자의 reset 에 기대지 않는다.
+ * 이 레시피의 목록(결정 · 격자 · 막대 · 타임라인 · 흐름)은 전부 `list-style: none` 이다.
+ * WebKit/VoiceOver 는 그런 목록의 롤을 벗기므로 **마크업이 `role="list"` 를 단다**
+ * (design/patterns/document.md Accessibility · step-tile.md 와 같은 결함). 번호 표식이
+ * `aria-hidden` 인 것은 이 롤이 「몇 개 중 몇 번째」를 말하기 때문이다. */
 .louis-document-decision__list {
   display: flex;
   flex-direction: column;
@@ -674,7 +681,7 @@
 }
 
 /* ── 흐름 — 칩 사이는 화살표. 점을 찍지 않는다 ─────────────────────────────
- * 화살표는 생성 콘텐츠이고 대체 텍스트를 비운다(`/ ""`) — 순서는 `ol` 이 이미 말한다.
+ * 화살표는 생성 콘텐츠이고 대체 텍스트를 비운다(`/ ""`) — 순서는 `ol role="list"` 가 말한다.
  * 화살표는 **앞 칩 뒤에** 붙는다. 줄이 접힐 때 화살표가 줄 끝에 남아 「다음 줄로 이어진다」를
  * 말하고, 새 줄은 칩으로 시작한다(승인본과 같다). */
 .louis-document-flow {
@@ -826,9 +833,24 @@
     --louis-document-inset-block-start: 40px;
     --louis-document-inset-block-end: 40px;
     --louis-document-flow-gap: 56px;
-    --louis-document-card-inset: 20px;
 
     padding: 0;
+  }
+
+  /* 카드 여백 — 승인본 그대로 셋으로 갈린다.
+   * - 나열된 박스(카드 · 수치 · 결정 항목)는 20 이다.
+   * - 넓은 카드(`data-inset="lg"`, 기간 요약)는 위아래 24 · 좌우 20 이다. 좌우를 20 으로 맞춰야
+   *   바로 위아래 카드와 **글자 시작선이 한 줄**에 선다.
+   * - 콜아웃은 24 그대로다 — 나열이 아니라 홀로 서는 한 줄 결론이다.
+   * 카드 안의 수치(`.louis-document-card > .louis-document-stat`)는 특이도가 더 높아 0 을 지킨다. */
+  .louis-document-card,
+  .louis-document-stat,
+  .louis-document-decision__item {
+    padding: var(--louis-document-card-inset-compact);
+  }
+
+  .louis-document-card[data-inset="lg"] {
+    padding: var(--louis-document-card-inset) var(--louis-document-card-inset-compact);
   }
 
   .louis-document__sheet {

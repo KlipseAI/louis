@@ -51,7 +51,7 @@ const FIXTURE = `
   </header>
   <section class="louis-document-decision" aria-labelledby="t-decision">
     <h2 class="louis-document-decision__title" id="t-decision">승인이 필요한 사항</h2>
-    <ol class="louis-document-decision__list" data-probe="decision-list">
+    <ol class="louis-document-decision__list" role="list" data-probe="decision-list">
       <li class="louis-document-decision__item" data-probe="decision-item">
         <span class="louis-document-marker" aria-hidden="true" data-probe="marker">1</span>
         <p class="louis-document-decision__label">첫 결정</p>
@@ -70,11 +70,11 @@ const FIXTURE = `
       <h2 class="louis-document-section__title" id="t-one" data-probe="section-title">절 제목</h2>
     </div>
     <p class="louis-document-prose" data-probe="prose">문장 <strong data-probe="strong">강조</strong> 문장</p>
-    <ol class="louis-document-flow" aria-label="흐름" data-probe="flow">
+    <ol class="louis-document-flow" role="list" aria-label="흐름" data-probe="flow">
       <li class="louis-document-flow__step" data-probe="flow-first"><span class="louis-document-flow__label" data-probe="flow-label">가</span></li>
       <li class="louis-document-flow__step" data-probe="flow-second"><span class="louis-document-flow__label">나</span></li>
     </ol>
-    <ol class="louis-document-grid" data-probe="grid-3">
+    <ol class="louis-document-grid" role="list" data-probe="grid-3">
       <li class="louis-document-card" data-probe="card"><p class="louis-document-card__title">카드</p><p class="louis-document-card__description">설명</p></li>
       <li class="louis-document-card"><p class="louis-document-card__title">카드</p></li>
       <li class="louis-document-card"><p class="louis-document-card__title">카드</p></li>
@@ -88,7 +88,7 @@ const FIXTURE = `
     <div class="louis-document-grid" data-columns="2" data-probe="grid-2">
       <figure class="louis-document-card">
         <figcaption class="louis-document-card__head"><span class="louis-document-card__title">방문</span><span class="louis-document-verdict" data-probe="verdict">+16회</span></figcaption>
-        <ul class="louis-document-bars">
+        <ul class="louis-document-bars" role="list">
           <li class="louis-document-bars__row"><span class="louis-document-bars__label">A</span><span class="louis-document-bars__track" aria-hidden="true" data-probe="track"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 50%" data-probe="fill"></span></span><span class="louis-document-bars__value" data-probe="bar-value">249</span></li>
           <li class="louis-document-bars__row" data-lead="true"><span class="louis-document-bars__label">B</span><span class="louis-document-bars__track" aria-hidden="true"><span class="louis-document-bars__fill" style="--louis-document-bar-value: 100%" data-probe="lead-fill"></span></span><span class="louis-document-bars__value">265</span></li>
         </ul>
@@ -99,7 +99,7 @@ const FIXTURE = `
       <div class="louis-document-stat" data-probe="nested-stat"><p class="louis-document-stat__label">기간</p><p class="louis-document-stat__value">9/23</p></div>
       <div><p class="louis-document-card__title">판단</p></div>
     </div>
-    <ol class="louis-document-timeline" aria-label="일정">
+    <ol class="louis-document-timeline" role="list" aria-label="일정">
       <li class="louis-document-timeline__item" data-state="done"><p class="louis-document-timeline__when">9/22</p><div class="louis-document-timeline__body" data-probe="tl-done"><p class="louis-document-timeline__title">끝남</p></div></li>
       <li class="louis-document-timeline__item"><p class="louis-document-timeline__when">9/23</p><div class="louis-document-timeline__body" data-probe="tl-next"><p class="louis-document-timeline__title">다음</p></div></li>
       <li class="louis-document-timeline__item"><p class="louis-document-timeline__when">9/30</p><div class="louis-document-timeline__body" data-probe="tl-last"><p class="louis-document-timeline__title">마지막</p></div></li>
@@ -212,6 +212,7 @@ test("박스 사이는 10, 카드 여백은 24 · 32 다", () => {
     expect(getComputedStyle(probe(name)).paddingLeft, name).toBe("24px");
   }
   expect(getComputedStyle(probe("split")).paddingTop).toBe("32px");
+  expect(getComputedStyle(probe("split")).paddingLeft).toBe("32px");
   expect(getComputedStyle(probe("nested-stat")).paddingTop).toBe("0px");
 });
 
@@ -383,10 +384,58 @@ test("좁은 화면(≤719) — 시트가 화면이 되고 글자가 한 단씩 
   expect(getComputedStyle(probe("title")).fontSize).toBe("36px");
   expect(getComputedStyle(probe("section-title")).fontSize).toBe("20px");
   expect(getComputedStyle(probe("stat-value")).fontSize).toBe("28px");
-  expect(getComputedStyle(probe("card")).paddingTop).toBe("20px");
   expect(getComputedStyle(probe("column")).paddingLeft).toBe("20px");
-  expect(getComputedStyle(probe("split")).gridTemplateColumns.split(" ").length).toBe(1);
+  // 카드 여백은 승인본 그대로 셋으로 갈린다 — 나열된 박스 20, 넓은 카드(기간 요약) 위아래 24 ·
+  // 좌우 20, 콜아웃 24. 카드 안의 수치는 0 을 지킨다.
+  for (const name of ["card", "stat", "decision-item", "rail"]) {
+    expect(getComputedStyle(probe(name)).paddingTop, name).toBe("20px");
+    expect(getComputedStyle(probe(name)).paddingLeft, name).toBe("20px");
+  }
+  const split = getComputedStyle(probe("split"));
+  expect(split.paddingTop).toBe("24px");
+  expect(split.paddingBottom).toBe("24px");
+  expect(split.paddingLeft).toBe("20px");
+  expect(split.paddingRight).toBe("20px");
+  expect(getComputedStyle(probe("note")).paddingTop).toBe("24px");
+  expect(getComputedStyle(probe("note")).paddingLeft).toBe("24px");
+  expect(getComputedStyle(probe("nested-stat")).paddingTop).toBe("0px");
+  // 글자 시작선 — 기간 요약 안의 글자가 위 카드의 글자와 같은 x 에서 시작한다.
+  const cardTextStart =
+    probe("card").getBoundingClientRect().left + Number.parseFloat(getComputedStyle(probe("card")).paddingLeft);
+  expect(probe("nested-stat").getBoundingClientRect().left).toBeCloseTo(cardTextStart, 1);
+  expect(split.gridTemplateColumns.split(" ").length).toBe(1);
   expect(getComputedStyle(probe("ruled-head")).fontSize).toBe("12px");
   // 가로 스크롤이 생기지 않는다.
   expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
+});
+
+// WebKit/VoiceOver 는 `list-style: none` 인 목록의 롤을 벗긴다(step-tile.md Accessibility 와 같은 결함).
+// 이 레시피는 목록 표식을 전부 지우므로, 목록 롤은 마크업의 `role="list"` 가 지킨다. 번호 표식이
+// `aria-hidden` 인 것도 이 롤이 순서를 말한다는 전제 위에 있다.
+test('목록 롤 — 표식을 지운 목록은 role="list" 를 달고, 예시도 그렇다', async () => {
+  const lists = [...host.querySelectorAll<HTMLElement>("ol, ul")];
+  const recipeClasses = new Set<string>();
+  for (const list of lists) {
+    expect(getComputedStyle(list).listStyleType, list.className).toBe("none");
+    expect(list.getAttribute("role"), list.className).toBe("list");
+    recipeClasses.add(list.classList[0] ?? "");
+  }
+  // 결정 · 흐름 · 격자 · 막대 · 타임라인 — 레시피의 목록 다섯이 모두 탐침에 있다.
+  expect([...recipeClasses].sort()).toEqual([
+    "louis-document-bars",
+    "louis-document-decision__list",
+    "louis-document-flow",
+    "louis-document-grid",
+    "louis-document-timeline",
+  ]);
+  // 소비자가 베끼는 예시의 목록도 전부 이 다섯 가운데 하나이고 role="list" 를 단다.
+  const response = await fetch(new URL("../examples/document.html", import.meta.url));
+  expect(response.ok).toBe(true);
+  const example = new DOMParser().parseFromString(await response.text(), "text/html");
+  const exampleLists = [...example.querySelectorAll(".louis-document ol, .louis-document ul")];
+  expect(exampleLists.length).toBeGreaterThan(0);
+  for (const list of exampleLists) {
+    expect(recipeClasses.has(list.classList[0] ?? ""), list.className).toBe(true);
+    expect(list.getAttribute("role"), list.className).toBe("list");
+  }
 });

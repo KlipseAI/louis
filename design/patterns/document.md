@@ -139,18 +139,21 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 
 | 무엇을 말하려나 | 부품 | 규칙 |
 | --- | --- | --- |
-| 승인 · 확인이 필요한 것 | `.louis-document-decision` (`ol`) + 번호 표식 | 머리 바로 아래. 항목은 한 줄 제목 + 한 줄 조건 |
+| 승인 · 확인이 필요한 것 | `.louis-document-decision` (`ol role="list"`) + 번호 표식 | 머리 바로 아래. 항목은 한 줄 제목 + 한 줄 조건 |
 | 절의 주장을 풀어 쓰기 | `.louis-document-prose` | 문단 사이 12. 강조는 `strong`(semibold · `fg-primary`)만 |
-| 나란한 항목 셋 · 넷 | `.louis-document-grid` + `.louis-document-card` | 기본 3열, `data-columns="2|4"`. 번호가 있으면 `ol` 과 표식 |
+| 나란한 항목 셋 · 넷 | `.louis-document-grid` + `.louis-document-card` | 기본 3열, `data-columns="2|4"`. 번호가 있으면 `ol` 과 표식, 없으면 `ul` — 어느 쪽이든 `role="list"` |
 | 지표 몇 개 | `.louis-document-grid[data-columns="4"]` + `.louis-document-stat` | 라벨 14 · 수치 36 · 단위 20 · 보조 12. 한 행 넷까지 |
-| 두세 대상의 비교 | `.louis-document-card` 안 `.louis-document-bars` | 앞선 쪽만 `data-lead` 로 강조색, 나머지는 잉크 24%. 막대는 0 에서 시작. 판정은 `.louis-document-verdict` |
+| 두세 대상의 비교 | `.louis-document-card` 안 `.louis-document-bars` (`ul role="list"`) | 앞선 쪽만 `data-lead` 로 강조색, 나머지는 잉크 24%. 막대는 0 에서 시작. 판정은 `.louis-document-verdict` |
 | 전체 수치 | `.louis-table[data-variant="ruled"]` 를 `.louis-document-table` 로 감싼다 | 가로 규선만. 숫자 열 `data-align="end"`, 합계 `data-emphasis="total"`, 앞선 값 `data-emphasis="lead"` |
 | 해석 · 한 대목 짚기 | `.louis-document-card[data-accent="rail"]` | 강조는 좌측 3px 레일로만. 절마다 하나 |
 | 기간 요약 + 설명 | `.louis-document-card[data-layout="split"]` (+ `data-inset="lg"`) | 왼쪽에 수치, 오른쪽에 판단. 좁으면 쌓인다 |
-| 일정 | `.louis-document-timeline` (`ol`) | 끝난 항목만 `data-state="done"`. 넷 넘으면 절을 나눈다 |
-| 순환 · 순서 | `.louis-document-flow` (`ol`) | 칩 사이는 화살표. 다섯 칩까지 |
+| 일정 | `.louis-document-timeline` (`ol role="list"`) | 끝난 항목만 `data-state="done"`. 넷 넘으면 절을 나눈다 |
+| 순환 · 순서 | `.louis-document-flow` (`ol role="list"`) | 칩 사이는 화살표. 다섯 칩까지 |
 | 결론 한 줄 · 비용 주의 | `.louis-document-callout` (`data-tone="caution"`) | 절마다 하나까지. 노랑은 비용 · 되돌리기 어려움에만 |
 | 기간 대비 증감 | `.louis-delta-pill` | 방향(up · down) 어휘다. 비교의 판정에는 쓰지 않는다 |
+
+**목록 부품은 `role="list"` 를 단다.** 레시피가 목록 표식을 전부 지우기 때문이다 — 이유는 아래
+[Accessibility](#accessibility).
 
 **기존 컴포넌트와의 경계.** 위 부품 가운데 기존 LOUIS 컴포넌트에 얹은 것은 표 하나다
 (`data-variant="ruled"` — [Table](../components/table.md)). 나머지를 변형으로 얹지 않은 이유는
@@ -169,15 +172,20 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 시트 | 가장자리 12 · 반경 16 · 헤어라인 | 화면 전체 — 가장자리 0 · 반경 0 · 헤어라인 없음 |
 | 본문 열 여백 | 위 80 · 좌우 40 · 아래 64 | 위 40 · 좌우 20 · 아래 40 |
 | 절 사이 | 72 | 56 |
-| 카드 여백 | 24 · 32 | 20 |
+| 카드 여백 | 24 · 넓은 카드 32 · 콜아웃 24 | 20 · 넓은 카드 위아래 24 좌우 20 · 콜아웃 24 |
 | 제목 · 절 제목 · 수치 · 리드 | 48 · 28 · 36 · 20 | 36 · 20 · 28 · 16 |
 | 격자 | 3 · 2 · 4열 | 1 · 1 · 2열 — 4열만 2열로 남는다 |
 | 기간 요약 카드 | 가로 둘 | 세로로 쌓인다 |
 | 타임라인 | 날짜 열 112 + 본문 | 날짜가 본문 위로 올라간다 |
 | 규선 표 | 14 | 12, 셀 여백을 줄인다. 넘치면 `.louis-document-table` 이 가로로 스크롤한다 |
 
-글자 램프는 `migration/deck/information-hierarchy.md` 의 반응형 칸(48→36 · 28→20 · 20→16)이다. 좁은
-화면의 카드 여백 20 은 「24 또는 32만」 규칙의 예외이고 승인본의 값이다.
+글자 램프는 `migration/deck/information-hierarchy.md` 의 반응형 칸(48→36 · 28→20 · 20→16)이다.
+
+좁은 화면의 카드 여백은 승인본 그대로 셋으로 갈린다. 나열된 박스(카드 · 수치 · 결정 항목)는 20 이고,
+「24 또는 32만」 규칙의 예외다(`--louis-document-card-inset-compact`). 넓은 카드(`data-inset="lg"`,
+기간 요약)는 위아래가 한 단 내려 24, 좌우는 20 이다 — **좌우를 20 으로 맞춰야 위아래 카드와 글자
+시작선이 한 줄에 선다.** 32 로 두면 시작선이 12 어긋나고 390 에서 설명이 한 줄 늘어난다. 콜아웃은
+나열이 아니라 홀로 서는 결론이라 24 를 지킨다.
 
 ## 다크
 
@@ -223,8 +231,14 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
   `th scope="col"`, 첫 열이 행의 이름이면 `th scope="row"` 다 — 규선 표는 행 머리를 몸 칸과 같게 그린다.
 - **비교 막대의 값은 글로 남는다.** 트랙은 `aria-hidden="true"` 이고 막대 옆 수치 텍스트가 값을 갖는다.
   비교 카드는 `figure` 이고 `figcaption` 이 그 이름이다.
-- **목록은 목록이다.** 결정 요청 · 타임라인 · 흐름 · 번호 카드는 `ol`, 순서가 없는 나열은 `ul` 이다.
-  번호 표식은 `aria-hidden="true"` 다 — 순서는 `ol` 이 이미 말하므로 표식을 읽히면 번호가 두 번 들린다.
+- **목록은 목록이다.** 결정 요청 · 타임라인 · 흐름 · 번호 카드는 `ol`, 순서가 없는 나열(막대 · 번호 없는
+  격자)은 `ul` 이다.
+- **목록에는 `role="list"` 를 단다.** 이 레시피의 목록(결정 · 격자 · 막대 · 타임라인 · 흐름)은 전부
+  `list-style: none` 이다. WebKit/VoiceOver 계열은 표식을 지운 목록의 롤을 벗기고, 그러면 「몇 개 중 몇
+  번째」도 순서도 읽히지 않는다 — [Step Tile](../components/step-tile.md) Known deviations 11 과 같은
+  결함이다. 레시피는 소비자의 마크업을 바꿀 수 없으므로 이 규칙은 마크업의 몫이고, 예시가 그대로 따른다.
+- 번호 표식은 `aria-hidden="true"` 다 — 순서는 목록 롤이 말하므로 표식까지 읽히면 번호가 두 번 들린다.
+  이 선택은 위 `role="list"` 를 전제로 한다.
 - 흐름의 화살표 · 콜아웃 표식 글리프는 **대체 텍스트가 빈 생성 콘텐츠**다(`content: "→" / ""`). 콜아웃은
   `role="note"` 를 권한다. 표식의 톤(참고 · 주의)은 색이 아니라 콜아웃 제목이 말한다.
 - 타임라인의 끝난 노드는 장식이다. 끝났다는 사실이 중요하면 글에 적는다.
@@ -244,7 +258,7 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 본문 열 여백 | 80 / 40 / 64 | `--louis-document-inset-block-start` · `-inline` · `-block-end` |
 | 절 사이 · 절 안 | 72 · 24 | `--louis-document-flow-gap` · `space-layout-section` |
 | 박스 사이 | 10 | `--louis-document-box-gap` |
-| 카드 여백 | 24 · 32 | `--louis-document-card-inset` · `-lg` |
+| 카드 여백 | 24 · 32 · 좁은 화면 20 | `--louis-document-card-inset` · `-lg` · `-compact` |
 | 면 · 짙은 면 · 강조 면 | `fg-primary` 4% · 8% · `accent-primary` 12% | `--louis-document-face` · `-face-strong` · `-accent-face` |
 | 막대 트랙 · 채움 · 앞선 채움 | `progress-track` · `fg-primary` 24% · `accent-primary`, 높이 8 | `--louis-document-bars-track-block-size` |
 | 번호 표식 · 콜아웃 표식 · 칩 · 판정 알약 | 26 · 22 · 28 · 24 | 각 부품 루트의 `--louis-document-*` |
@@ -266,10 +280,12 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 3. **문서 규칙 값이 토큰이 아니다** — 위 [값의 출처](#값의-출처). Figma 가 `not-ready` 인 동안의
    상태이고, 토큰으로 올리는 것이 다음 단계다.
 4. **승인본과 몇 px 씩 다른 자리가 있다.** 승인본의 6 · 14 · 20 간격을 LOUIS 간격 계단의 4 · 12 · 16 으로
-   옮겼고(수치 카드 줄 간격 · 막대 행 간격 · 타임라인 열 간격), 기간 범위의 화살표는 SVG 24 대신 단위
-   글자(20)다. 표 머리 아래 선과 맺음 선은 1px 잉크 12% 대신 각각 `table-row-line` 1px · 헤어라인 0.5px 다.
-   판정 알약 면은 초록 14% 대신 `accent-green-500-alpha-08` 이다. 나란히 놓은 캡처에서 레이아웃
-   차이는 보이지 않는다(아래 [예시](#예시)).
+   옮겼고(수치 카드 줄 간격 · 막대 행 간격 · 타임라인 열 간격), 규선 표 셀 여백은 12/14 가 12/12, 좁은
+   화면의 10/6 이 8/4 다. 기간 범위의 화살표는 SVG 24 대신 단위 글자(20)다. 표 머리 아래 선과 맺음 선은
+   1px 잉크 12% 대신 각각 `table-row-line` 1px · 헤어라인 0.5px 다. 판정 알약 면은 초록 14% 대신
+   `accent-green-500-alpha-08` 이다. 390 에서 이 차이는 **줄 바꿈을 바꾸지 않는다** — 절마다 높이를 재어
+   대조하면 한 절(「기존 Meta 광고 성과」)만 46 짧고(표 셀 여백 36 · 수치 격자 6 · 비교 막대 4) 맺음이 1
+   짧다(아래 [예시](#예시)). 박스 여백은 390 · 360 · 320 모두 승인본과 같다.
 
 ## Acceptance tests
 
@@ -295,7 +311,10 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 14. 규선 표 — 머리 면이 없고 머리 아래 `table-row-line` 1px, 행 사이 `stroke-hairline`, 첫 · 끝 열 바깥
     여백 0, 행 머리가 굵어지거나 가운데로 가지 않으며, 셀 강조 둘이 선다. 변형이 없는 표는 그대로다.
 15. ≤719 에서 시트가 화면이 되고(반경 · 헤어라인 · 가장자리 0), 글자가 한 단씩 내려가며, 4열만 2열로
-    남고, 가로 스크롤이 없다.
+    남고, 가로 스크롤이 없다. 카드 여백은 나열된 박스 20 · 넓은 카드 위아래 24 좌우 20 · 콜아웃 24 이고,
+    넓은 카드 안의 글자가 위 카드의 글자와 같은 x 에서 시작한다.
+16. 목록 부품 다섯(결정 · 흐름 · 격자 · 막대 · 타임라인)은 `list-style: none` 이고 `role="list"` 를 단다.
+    예시(`examples/document.html`)의 목록도 전부 그 다섯 가운데 하나이고 `role="list"` 를 단다.
 
 인쇄와 강제 색은 브라우저 테스트가 재지 않는다 — 규칙만 있다.
 
@@ -306,8 +325,9 @@ LOUIS 클래스만으로 다시 짠 것이다. 파일 안에 `<style>` 이 없�
 링크하므로 저장소에서 그대로 열린다. `?theme=light|dark` 로 테마를 고정한다.
 
 2026-09-21 에 데스크톱 1440 · 모바일 390(배율 2) · 다크 1440 세 판을 Playwright 로 떠서 승인 캡처와
-나란히 놓았다. 전체 높이는 데스크톱 5190 / 승인 5193, 모바일 7056 / 승인 7082 이고, 차이는 위 Known
-deviations 4 의 간격 계단 반올림에서 온다.
+나란히 놓았다. 전체 높이는 데스크톱 5190 / 승인 5193, 모바일 7035 / 승인 7082 이고, 차이는 위 Known
+deviations 4 의 간격 계단 반올림에서 온다. 첫 대조에서는 좁은 화면의 기간 요약 카드가 32 여백으로 남아
+설명이 한 줄 늘어난 것을 놓쳤다(모바일 7056) — 그 뒤로 박스 여백을 390 · 360 · 320 에서 계산값으로도 잰다.
 
 ## 남은 것
 

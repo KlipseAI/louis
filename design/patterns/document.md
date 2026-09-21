@@ -122,9 +122,15 @@ klipse-deck-kit `docs/DESIGN-RULES.md` §1 · §3 · §11 을 따른다.
 ([DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md) · `verify-figma-parity`) 이 패턴의
 Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 한 번씩만** 선언하고
 (`--louis-document-box-gap` · `--louis-document-card-inset` …) 모든 규칙이 그 이름을 읽는다. 숫자가
-규칙 본문에 흩어지지 않으므로, 토큰으로 올릴 때 선언 한 줄씩만 바꾸면 된다. 같은 값을 가진 다른
-역할의 토큰(`layout-alert-compact-inset` 10 등)을 빌리지 않는다 — 한 값이 두 뜻을 나르면 한쪽을
-고칠 때 다른 쪽이 따라 움직인다([DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)).
+규칙 본문에 흩어지지 않으므로, 토큰으로 올릴 때 선언 한 줄씩만 바꾸면 된다. 문서 규칙 값을 두고
+같은 값을 가진 다른 역할의 토큰(`layout-alert-compact-inset` 10 등)을 빌리지 않는다 — 한 값이 두 뜻을
+나르면 한쪽을 고칠 때 다른 쪽이 따라 움직인다([DS-D-0029](../governance/decisions/DS-D-0029-token-names-must-be-true.md)).
+
+**예외가 셋 있다 — 알고 빌렸다.** 바닥과 시트 사이(`layout-app-shell-outer-gap`) · 비교 막대의 빈
+트랙(`progress-track`) · 비용 주의의 노랑(`alert-warning-stroke`)은 다른 부품의 토큰을 빌린다. 셋 다
+레시피 루트의 이름(`--louis-document-floor-inset` · `-bars-track-face` · `-caution`)으로 한 번만 읽고
+규칙 본문은 그 이름만 쓴다. 그 부품이 값을 바꾸면 문서도 따라 움직인다는 뜻이고, 그 사실을 아래
+[Known deviations](#known-deviations) 5 가 적는다.
 
 ## 읽기 폭
 
@@ -179,7 +185,10 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 타임라인 | 날짜 열 112 + 본문 | 날짜가 본문 위로 올라간다 |
 | 규선 표 | 14 | 12, 셀 여백을 줄인다. 넘치면 `.louis-document-table` 이 가로로 스크롤한다 |
 
-글자 램프는 `migration/deck/information-hierarchy.md` 의 반응형 칸(48→36 · 28→20 · 20→16)이다.
+글자 램프는 `migration/deck/information-hierarchy.md` 의 반응형 칸에서 **7단계 안의 값만** 골랐다.
+출처는 네 줄(`heading-48 → 36 → 32 → 28` · `heading-36 → 32 → 28 → 20` · `heading-28 → 20 → 18` ·
+`body-20 → 18 → 16`)이고 32 · 18 은 7단계 밖이라 건너뛴다. 그래서 제목 48→36 · 수치 36→28 · 절 제목
+28→20 · 리드 20→16 이다 — 수치와 리드는 출처의 첫 칸(32 · 18)이 아니라 그다음 칸이다.
 
 좁은 화면의 카드 여백은 승인본 그대로 셋으로 갈린다. 나열된 박스(카드 · 수치 · 결정 항목)는 20 이고,
 「24 또는 32만」 규칙의 예외다(`--louis-document-card-inset-compact`). 넓은 카드(`data-inset="lg"`,
@@ -190,9 +199,13 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 ## 다크
 
 테마는 문서 루트가 아니라 `html[data-theme]` 가 정한다. 레시피는 테마로 분기하지 않는다 — 면이
-`fg-primary` 알파라서 라이트에서는 어두운 틴트, 다크에서는 밝은 틴트가 저절로 된다. 채워진 면 위
-글리프(콜아웃 표식)는 테마로 뒤집히지 않는 잉크(`fg-inverse`)를 쓴다(deck-kit §3.2 「가장 흔한
-사고」). 두 테마 모두 승인본과 나란히 캡처로 대조했다(아래 [예시](#예시)).
+`fg-primary` 알파라서 라이트에서는 어두운 틴트, 다크에서는 밝은 틴트가 저절로 된다. note 콜아웃
+표식(파랑 면 위 `i`)은 테마로 뒤집히지 않는 잉크(`fg-inverse`)를 쓴다(deck-kit §3.2 「가장 흔한
+사고」). **caution 표식(노랑 면 위 `!`)만 다르다** — `fg-warning` 을 쓰고, 이 잉크는 테마로 뒤집힌다
+(라이트 짙은 갈색 · 다크 옅은 노랑). 대비는 라이트 6.53:1 · 다크 3.43:1 이다. 표식은 `aria-hidden`
+장식이고 뜻은 제목이 말하지만, 다크의 3.43 은 글자 기준 4.5 에 못 미친다. deck-kit 은 노랑에만 따로
+잉크(`--accent-yellow-ink`)를 두는데 LOUIS 에는 그 역할이 없다. 두 테마 모두 승인본과 나란히 캡처로
+대조했다(아래 [예시](#예시)).
 
 ## 인쇄
 
@@ -253,14 +266,15 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 축 | 값 | 이름 |
 | --- | --- | --- |
 | 바닥 · 시트 | `bg-canvas` · `bg-surface` + `hairline-inset` · 반경 16 | `radius-overlay` |
-| 바닥과 시트 사이 | 12 | `layout-app-shell-outer-gap` |
+| 바닥과 시트 사이 | 12 | `--louis-document-floor-inset` (= `layout-app-shell-outer-gap`, 빌린 값) |
 | 시트 최대 폭 · 측정 폭 · 산문 폭 | 1120 · 920 · 760 | `--louis-document-sheet-max-inline-size` · `-measure` · `-prose-measure` |
 | 본문 열 여백 | 80 / 40 / 64 | `--louis-document-inset-block-start` · `-inline` · `-block-end` |
 | 절 사이 · 절 안 | 72 · 24 | `--louis-document-flow-gap` · `space-layout-section` |
 | 박스 사이 | 10 | `--louis-document-box-gap` |
 | 카드 여백 | 24 · 32 · 좁은 화면 20 | `--louis-document-card-inset` · `-lg` · `-compact` |
 | 면 · 짙은 면 · 강조 면 | `fg-primary` 4% · 8% · `accent-primary` 12% | `--louis-document-face` · `-face-strong` · `-accent-face` |
-| 막대 트랙 · 채움 · 앞선 채움 | `progress-track` · `fg-primary` 24% · `accent-primary`, 높이 8 | `--louis-document-bars-track-block-size` |
+| 비용 주의(노랑) | `alert-warning-stroke` — 콜아웃 면 16% · 표식 면 | `--louis-document-caution` (빌린 값) |
+| 막대 트랙 · 채움 · 앞선 채움 | `progress-track` · `fg-primary` 24% · `accent-primary`, 높이 8 | `--louis-document-bars-track-face` (= `progress-track`, 빌린 값) · `--louis-document-bars-track-block-size` |
 | 번호 표식 · 콜아웃 표식 · 칩 · 판정 알약 | 26 · 22 · 28 · 24 | 각 부품 루트의 `--louis-document-*` |
 | 레일 | 3 · `accent-primary` · 위아래 16 들여 | `--louis-document-card-rail-inline-size` |
 | 타임라인 | 날짜 열 112 · 노드 16 · 이음선 2(`stroke-hairline`) · 들여 30 | `--louis-document-timeline-*` |
@@ -286,6 +300,19 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
    `accent-green-500-alpha-08` 이다. 390 에서 이 차이는 **줄 바꿈을 바꾸지 않는다** — 절마다 높이를 재어
    대조하면 한 절(「기존 Meta 광고 성과」)만 46 짧고(표 셀 여백 36 · 수치 격자 6 · 비교 막대 4) 맺음이 1
    짧다(아래 [예시](#예시)). 박스 여백은 390 · 360 · 320 모두 승인본과 같다.
+5. **다른 부품의 토큰 셋을 빌린다** — 바닥과 시트 사이가 App Shell 의 `layout-app-shell-outer-gap`,
+   비교 막대의 빈 트랙이 Progress 의 `progress-track`, 비용 주의 노랑이 Alert 의
+   `alert-warning-stroke` 다(위 [값의 출처](#값의-출처)). 문서 역할의 토큰이 없어서이고, 그 부품이
+   값을 바꾸면 문서도 따라 움직인다. 루트 이름 셋(`--louis-document-floor-inset` · `-bars-track-face` ·
+   `-caution`)만 이 토큰을 읽으므로, 문서 역할의 토큰이 서면 선언 한 줄씩 바꾼다. 앞의 것은
+   `scripts/check-coverage-targets.mjs` 의 `DEAD_TOKEN_BASELINE` 을 73 → 72 로 내린 원인이다 — 문서가
+   그 토큰을 놓으면 기준선을 73 으로 되돌려야 게이트가 통과한다(DS-D-0067 되돌리기).
+6. **좁은 폰에서 4열 격자의 긴 수치가 카드를 넘는다.** ≤719 에서 수치 격자는 2열이고 수치는 한 줄
+   고정(`nowrap`)이다. 8자 수치(「₩110,539」, 28px 에서 136)가 390 에서는 카드 안쪽 여백 안에 머물지만,
+   360 에서는 카드 경계를 1 넘고 320 에서는 21 넘어 옆 카드 앞까지 번진다. 승인본 CSS 도 같다. 새
+   경계(예: ≤374 에서 1열)는 [Responsive Layout](../foundations/responsive-layout.md) 4절 「breakpoint 는
+   행동 경계다」에 따라 결정 기록이 필요하고, 콘텐츠 한도(한 행 넷의 수치 글자 수)로 막을지와 함께
+   소유자 판정으로 남긴다. 한도의 글자 수는 아직 재지 않았다.
 
 ## Acceptance tests
 
@@ -301,7 +328,8 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 5. 반경이 역할 토큰(`card` · `alert` · `pill`)이다.
 6. 격자가 기본 3열, `data-columns` 2 · 4 열이다.
 7. 제목 48/600 · 절 제목 28/600 · 수치 36 `tabular-nums` 한 줄. 키커는 대문자로 바뀌지 않는다. 어떤
-   글자도 600 을 넘지 않는다.
+   글자도 600 을 넘지 않는다 — 산문 · 결정 항목 · 콜아웃 · 수치 보조 · 표 칸 안의 `strong` 도 600 ·
+   `fg-primary` 다(브라우저 기본 `bolder` 가 새지 않는다).
 8. 산문은 flex 가 아니다 — `p` 에 붙어도 안의 `strong` 이 쪼개지지 않는다.
 9. 비교 막대의 길이가 값이고, 앞선 쪽만 강조색이며, 트랙은 `aria-hidden`, 수치는 글로 남는다.
 10. 타임라인의 끝난 노드만 강조색이고 마지막 항목에는 이음선이 없다.
@@ -309,7 +337,8 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 12. 콜아웃 두 톤의 면이 다르고 표식 글리프는 `i` · `!` 이며 장식이다.
 13. 판정 알약은 `delta-pill` 이 아니고 `fg-success` 잉크 · 높이 24 이며 카드 머리 끝에 붙는다.
 14. 규선 표 — 머리 면이 없고 머리 아래 `table-row-line` 1px, 행 사이 `stroke-hairline`, 첫 · 끝 열 바깥
-    여백 0, 행 머리가 굵어지거나 가운데로 가지 않으며, 셀 강조 둘이 선다. 변형이 없는 표는 그대로다.
+    여백 0, 행 머리가 굵어지거나 가운데로 가지 않으며, 셀 강조 둘이 선다. `data-align` 두 값(`center` ·
+    `end`)이 머리 칸과 몸 칸에서 같다. 변형이 없는 표는 그대로다.
 15. ≤719 에서 시트가 화면이 되고(반경 · 헤어라인 · 가장자리 0), 글자가 한 단씩 내려가며, 4열만 2열로
     남고, 가로 스크롤이 없다. 카드 여백은 나열된 박스 20 · 넓은 카드 위아래 24 좌우 20 · 콜아웃 24 이고,
     넓은 카드 안의 글자가 위 카드의 글자와 같은 x 에서 시작한다.
@@ -322,7 +351,9 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 
 [`packages/css/examples/document.html`](../../packages/css/examples/document.html) — 승인된 운영안을
 LOUIS 클래스만으로 다시 짠 것이다. 파일 안에 `<style>` 이 없고 `packages/css/generated` 를 상대 경로로
-링크하므로 저장소에서 그대로 열린다. `?theme=light|dark` 로 테마를 고정한다.
+링크하므로 저장소에서 그대로 열린다. `?theme=light|dark` 로 테마를 고정한다. 폰트는 Pretendard 를
+버전을 고정해(`@v1.3.9`) CDN 에서 읽는다 — 대조 캡처를 다시 뜰 때 글꼴이 바뀌어 높이가 흔들리지 않게
+하려는 것이다.
 
 2026-09-21 에 데스크톱 1440 · 모바일 390(배율 2) · 다크 1440 세 판을 Playwright 로 떠서 승인 캡처와
 나란히 놓았다. 전체 높이는 데스크톱 5190 / 승인 5193, 모바일 7035 / 승인 7082 이고, 차이는 위 Known
@@ -334,4 +365,6 @@ deviations 4 의 간격 계단 반올림에서 온다. 첫 대조에서는 좁�
 - 문서 규칙 값을 토큰으로 — Decision · 토큰 원본 · Figma 변수 적용 · 되읽기를 한 작업에서.
 - Figma 템플릿 보드(`Pattern · Document`).
 - 강조색 글자 · 초록 글자의 대비(Known deviations 1 · 2) — 역할 토큰 판정.
+- 빌린 토큰 셋(Known deviations 5) — 문서 규칙 값의 토큰 승격과 같은 작업에서 문서 역할로 옮긴다.
+- 좁은 폰의 수치 넘침(Known deviations 6) — 새 경계인지 콘텐츠 한도인지 소유자 판정.
 - 제품 소비처. 문서를 만드는 첫 소비처가 이 레시피를 물면 `web` 을 다시 판정한다.

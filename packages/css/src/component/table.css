@@ -172,8 +172,14 @@
   border-block-end: 0;
 }
 
+/* 위 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세므로 정렬 값 둘을 여기서 되살린다 —
+ * 하나라도 빠지면 머리 칸만 그 정렬을 받고 몸 칸은 시작에 붙어 한 열이 어긋난다. */
 .louis-table[data-variant="ruled"] > tbody > tr > [data-align="end"] {
   text-align: end;
+}
+
+.louis-table[data-variant="ruled"] > tbody > tr > [data-align="center"] {
+  text-align: center;
 }
 
 .louis-table[data-variant="ruled"] > tbody > tr > [data-emphasis="total"] {

@@ -55,7 +55,7 @@ const FIXTURE = `
       <li class="louis-document-decision__item" data-probe="decision-item">
         <span class="louis-document-marker" aria-hidden="true" data-probe="marker">1</span>
         <p class="louis-document-decision__label">첫 결정</p>
-        <p class="louis-document-decision__detail">설명</p>
+        <p class="louis-document-decision__detail"><strong data-probe="decision-strong">설명</strong></p>
       </li>
       <li class="louis-document-decision__item">
         <span class="louis-document-marker" aria-hidden="true">2</span>
@@ -80,7 +80,7 @@ const FIXTURE = `
       <li class="louis-document-card"><p class="louis-document-card__title">카드</p></li>
     </ol>
     <div class="louis-document-grid" data-columns="4" data-probe="grid-4">
-      <div class="louis-document-stat" data-probe="stat"><p class="louis-document-stat__label">노출</p><p class="louis-document-stat__value" data-probe="stat-value">8,983<span class="louis-document-stat__unit">회</span></p></div>
+      <div class="louis-document-stat" data-probe="stat"><p class="louis-document-stat__label">노출</p><p class="louis-document-stat__value" data-probe="stat-value">8,983<span class="louis-document-stat__unit">회</span></p><p class="louis-document-stat__hint"><strong data-probe="hint-strong">보조</strong></p></div>
       <div class="louis-document-stat"><p class="louis-document-stat__label">도달</p><p class="louis-document-stat__value">6,586</p></div>
       <div class="louis-document-stat"><p class="louis-document-stat__label">방문</p><p class="louis-document-stat__value">514</p></div>
       <div class="louis-document-stat"><p class="louis-document-stat__label">비용</p><p class="louis-document-stat__value">₩110,539</p></div>
@@ -104,7 +104,7 @@ const FIXTURE = `
       <li class="louis-document-timeline__item"><p class="louis-document-timeline__when">9/23</p><div class="louis-document-timeline__body" data-probe="tl-next"><p class="louis-document-timeline__title">다음</p></div></li>
       <li class="louis-document-timeline__item"><p class="louis-document-timeline__when">9/30</p><div class="louis-document-timeline__body" data-probe="tl-last"><p class="louis-document-timeline__title">마지막</p></div></li>
     </ol>
-    <div class="louis-document-callout" role="note" data-probe="note"><span class="louis-document-callout__mark" aria-hidden="true" data-probe="note-mark"></span><div class="louis-document-callout__body"><p class="louis-document-callout__title">짚을 것</p></div></div>
+    <div class="louis-document-callout" role="note" data-probe="note"><span class="louis-document-callout__mark" aria-hidden="true" data-probe="note-mark"></span><div class="louis-document-callout__body"><p class="louis-document-callout__title">짚을 것</p><p class="louis-document-callout__text"><strong data-probe="callout-strong">강조</strong></p></div></div>
     <div class="louis-document-callout" data-tone="caution" role="note" data-probe="caution"><span class="louis-document-callout__mark" aria-hidden="true" data-probe="caution-mark"></span><div class="louis-document-callout__body"><p class="louis-document-callout__title">비용 확인</p></div></div>
     <div class="louis-document-table">
       <table class="louis-table" data-variant="ruled" data-probe="ruled">
@@ -112,7 +112,7 @@ const FIXTURE = `
         <thead><tr><th scope="col" data-probe="ruled-head">지표</th><th scope="col" data-align="end">A</th><th scope="col" data-align="end">합계</th></tr></thead>
         <tbody>
           <tr><th scope="row" data-probe="row-head">방문</th><td data-align="end" data-emphasis="lead" data-probe="lead-cell">265</td><td data-align="end" data-emphasis="total" data-probe="total-cell">514</td></tr>
-          <tr><th scope="row">비용</th><td data-align="end" data-probe="plain-cell">₩207</td><td data-align="end">₩215</td></tr>
+          <tr><th scope="row">비용</th><td data-align="end" data-probe="plain-cell">₩207</td><td data-align="end"><strong data-probe="cell-strong">₩215</strong></td></tr>
           <tr><th scope="row">클릭</th><td data-align="end" data-probe="last-cell">279</td><td data-align="end">551</td></tr>
         </tbody>
       </table>
@@ -261,6 +261,14 @@ test("산문은 flex 가 아니다 — 문장 안의 strong 이 쪼개지지 않
   );
 });
 
+test("강조(strong)는 문서 어디서나 semibold · fg-primary 다 — 브라우저 기본 bolder(700)가 새지 않는다", () => {
+  for (const name of ["strong", "decision-strong", "callout-strong", "hint-strong", "cell-strong"]) {
+    const strong = getComputedStyle(probe(name));
+    expect(strong.fontWeight, name).toBe("600");
+    expect(composite(strong.color), name).toEqual(composite(token("--louis-color-fg-primary")));
+  }
+});
+
 test("비교 막대 — 길이는 값이고 앞선 쪽만 강조색이며 수치가 글로 남는다", () => {
   const track = probe("track").getBoundingClientRect().width;
   expect(probe("fill").getBoundingClientRect().width).toBeCloseTo(track / 2, 0);
@@ -354,6 +362,19 @@ test("규선 표 — 머리 면이 없고 가로 규선만 남으며 열 끝이 
   expect(lead.fontWeight).toBe("600");
   expect(composite(lead.color)).toEqual(composite(token("--louis-color-alert-success-stroke")));
   expect(lead.textAlign).toBe("end");
+  // 정렬 값 둘이 몸 칸에서도 머리 칸과 같다 — 몸 칸의 `text-align: start` 가 기본 정렬 규칙을 이긴다.
+  const aligned = document.createElement("table");
+  aligned.className = "louis-table";
+  aligned.dataset.variant = "ruled";
+  aligned.innerHTML =
+    '<thead><tr><th scope="col">이름</th><th scope="col" data-align="center">가운데</th><th scope="col" data-align="end">끝</th></tr></thead>' +
+    '<tbody><tr><th scope="row">가</th><td data-align="center">1</td><td data-align="end">2</td></tr></tbody>';
+  host.append(aligned);
+  for (const align of ["center", "end"]) {
+    for (const cell of aligned.querySelectorAll<HTMLElement>(`[data-align="${align}"]`)) {
+      expect(getComputedStyle(cell).textAlign, `${cell.tagName} ${align}`).toBe(align);
+    }
+  }
 });
 
 test("변형이 없는 표는 그대로다 — 머리 면과 헤어라인을 유지한다", () => {

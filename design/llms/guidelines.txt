@@ -1037,9 +1037,12 @@ Figma 라이브 화면에서도 같다. 스펙이 의도한 모습이다 — 흰
 노랑은 비용 지점만, 라벨 앞 점 · 라벨 사이 가운뎃점 금지, 7단계 타이포, 박스 간격 10, 카드 여백
 24/32, 반경 역할 다섯)으로 다시 짰다. 두 시안의 차이가 이 결정의 재료다.
 
-같은 모양의 부품이 두 번째 소비처에도 있다 — deck-kit `docs/COMPONENTS.md` 의 `k-statcard` ·
-`k-bars` · `k-timeline--v` · `k-callout` · `k-card--accent` · `k-chip` · `k-table` · `k-numlist`.
-`packages/css/README.md` 가 공용 승격에 요구하는 「두 개 이상의 실제 소비처」가 그것이다.
+같은 모양의 **형제 구현**이 deck-kit 에 있다 — `docs/COMPONENTS.md` 의 `k-statcard` · `k-bars` ·
+`k-timeline--v` · `k-callout` · `k-card--accent` · `k-chip` · `k-table` · `k-numlist`. 다만 deck-kit 은
+`.louis-document*` 를 쓰는 소비처가 아니라 같은 조형을 따로 짠 구현이고, **이 레시피의 실제 소비처는
+0 이다.** `packages/css/README.md` 가 공용 승격에 요구하는 「두 개 이상의 실제 소비처」를 이 결정은
+충족하지 않는다. 승격의 근거는 소유자 요청(「LOUIS 에 문서 패턴으로 옮겨줘」)과 형제 구현이 같은
+조형으로 수렴했다는 사실이고, 그래서 manifest 의 `web` 은 `partial` 이다.
 
 #### Decision
 
@@ -1108,6 +1111,15 @@ Figma 라이브 화면에서도 같다. 스펙이 의도한 모습이다 — 흰
 
 - `@klipse-design/css` 의 `styles.css` · `styles.layer.css` 에 `.louis-document*` 규칙과 표 변형이
   더해진다. 기존 클래스의 계산값은 바뀌지 않는다 — 변형이 없는 표는 그대로다(테스트가 잰다).
+- **쓰지 않는 소비처도 이 CSS 를 싣는다.** 제품은 `@klipse-design/css/styles.layer.css` 를 통째로
+  import 하므로(제품 전역 스타일시트, 2026-09-21 확인), 핀을 올리면 문서를 그리지 않는 페이지에도 이
+  규칙이 실린다. `styles.css` 가 425,752 → 468,946 B(+43 KB), gzip 120,040 → 128,373 B(+8.3 KB)다(816eb0b
+  기준 실측). 제품 소비처가 0 인 동안 이 비용은 이득 없이 나간다 — 문서 CSS 를 따로 import 하는
+  진입점은 소비처가 생길 때 package surface Decision 으로 다룬다.
+- **다른 부품의 토큰 셋을 빌린다** — `layout-app-shell-outer-gap` · `progress-track` ·
+  `alert-warning-stroke`(document.md Known deviations 5). 레시피 루트의 이름 셋만 읽는다. 앞의 것은
+  LOUIS CSS 가 처음 무는 토큰이라 `check-coverage-targets` 의 `DEAD_TOKEN_BASELINE` 이 73 → 72 로
+  내려갔다.
 - 셀 강조 `data-emphasis` 는 규선 표가 아니어도 쓸 수 있다.
 - **대비 결함 둘을 알고 들인다** — 강조색 글자(키커 · 날짜) 라이트 3.37:1, 앞선 값 초록 라이트
   2.12:1. 둘 다 승인본의 색이고, 글자로 쓸 역할 토큰이 없다는 같은 뿌리를 가진다
@@ -1123,7 +1135,10 @@ Figma 라이브 화면에서도 같다. 스펙이 의도한 모습이다 — 흰
 - `pnpm build:css` · 저작 게이트(`verify-css-gates`) · `check-design-docs` · `check-llms-docs`.
 
 **되돌리기.** `packages/css/src/pattern/document.css` 를 지우고 `table.css` 의 규선 변형 · 셀 강조
-블록을 빼고 `pnpm build:css` 하면 생성물이 이전과 같아진다. 소비처가 없으므로 제품 쪽 되돌림은 없다.
+블록을 빼고 `pnpm build:css` 하면 생성물이 이전과 같아진다. 그러면 `layout-app-shell-outer-gap` 을
+무는 곳이 다시 없어지므로 `scripts/check-coverage-targets.mjs` 의 `DEAD_TOKEN_BASELINE` 을 72 → 73 으로
+함께 되돌린다 — 양방향 래칫이라 빼먹으면 게이트가 실패한다. 문서가 빌린 토큰을 문서 역할 토큰으로
+옮길 때도 같다. 소비처가 없으므로 제품 쪽 되돌림은 없다.
 
 **다시 볼 때.** 문서 규칙 값을 토큰으로 올릴 때(Figma 변수와 함께), 두 번째 문서가 이 레시피로
 만들어질 때, 강조 잉크 · 성공 잉크 역할 토큰이 설 때.
@@ -14062,6 +14077,40 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-21 (147) — 문서 패턴 리뷰 후속: 규선 표 가운데 정렬 · 문서 전체 `strong` · 빌린 토큰을 루트 이름으로
+
+**(145) 리뷰의 minor 가운데 바로 고칠 수 있는 것들이다.**
+
+**규선 표의 `data-align="center"`.** 규선 표 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세서, 머리
+칸은 가운데 · 몸 칸은 시작에 붙어 같은 열이 어긋났다. `end` 에만 있던 되살림 규칙을 `center` 에도 둔다.
+[Table](../components/table.md) Acceptance 19 에 두 값이 머리 · 몸 칸에서 같다는 단언을 더했다.
+
+**문서 안의 `strong` 은 어디서나 600 · `fg-primary` 다.** 굵기를 누르는 규칙이 산문 · 카드 · 타임라인 세
+곳에만 있어, 콜아웃 · 결정 항목 · 수치 보조 · 표 칸의 `strong` 은 브라우저 기본값(`bolder` → 700)을 받아
+「굵기는 600 까지」를 넘었다. 규칙을 `.louis-document strong` 하나로 넓혔다 — 승인본도 전역 `strong` 한
+줄이다. 테스트 탐침 다섯 자리에 `strong` 을 넣어 굵기와 잉크를 잰다.
+
+**다른 부품의 토큰을 빌린 셋을 드러낸다.** 바닥과 시트 사이(`layout-app-shell-outer-gap`) · 비교 막대의 빈
+트랙(`progress-track`) · 비용 주의의 노랑(`alert-warning-stroke`)은 문서 역할의 토큰이 없어 빌린 값이다.
+이제 레시피 루트가 `--louis-document-floor-inset` · `--louis-document-bars-track-face` ·
+`--louis-document-caution` 으로 한 번씩만 읽고 규칙 본문은 그 이름만 쓴다. 계산값은 같다.
+[Document](../patterns/document.md) 「값의 출처」가 「빌리지 않는다」를 예외 셋과 함께 고쳐 적고 Known
+deviations 5 가 그 비용을 적는다. DS-D-0067 되돌리기 절에 `DEAD_TOKEN_BASELINE` 72 → 73 복구를 더했다.
+
+**문서 정정.**
+
+- DS-D-0067 — deck-kit 은 이 레시피의 소비처가 아니라 같은 조형의 **형제 구현**이고 실제 소비처는 0 이다.
+  승격 근거는 소유자 요청이다. Consequences 에 번들 증가(`styles.css` +43 KB · gzip +8.3 KB)를 적었다 —
+  제품은 `styles.layer.css` 를 통째로 import 한다.
+- Document 반응형 — 글자 램프는 출처의 네 줄에서 7단계 안의 값만 고른 것이다(32 · 18 제외, 수치 36→28
+  추가). 다크 — caution 표식은 테마로 뒤집히는 `fg-warning` 이고 대비는 라이트 6.53 · 다크 3.43 이다.
+- Document Known deviations 6 — 360 이하에서 4열 격자의 8자 수치가 카드를 넘는다. 승인본에서 물려받은 것이고,
+  새 경계인지 콘텐츠 한도인지는 소유자 판정으로 남긴다.
+- Table — 「문서에서 읽는 표는 ruled」 문단을 「쓰지 않는 자리」 목록 밖으로 옮기고, `table-layout: fixed`
+  항목에 ruled(`auto`)를 가리켰다.
+- 예시 — Pretendard CDN 을 `@latest` 에서 `@v1.3.9` 로 고정했다(`@latest` 경로는 2026-09-21 jsDelivr 가 403 을
+  냈다).
 
 #### 2026-09-21 (146) — 문서 패턴: 좁은 화면의 카드 여백을 승인본에 맞추고, 목록에 `role="list"` 를 단다
 

@@ -24,9 +24,12 @@ authority: normative
 노랑은 비용 지점만, 라벨 앞 점 · 라벨 사이 가운뎃점 금지, 7단계 타이포, 박스 간격 10, 카드 여백
 24/32, 반경 역할 다섯)으로 다시 짰다. 두 시안의 차이가 이 결정의 재료다.
 
-같은 모양의 부품이 두 번째 소비처에도 있다 — deck-kit `docs/COMPONENTS.md` 의 `k-statcard` ·
-`k-bars` · `k-timeline--v` · `k-callout` · `k-card--accent` · `k-chip` · `k-table` · `k-numlist`.
-`packages/css/README.md` 가 공용 승격에 요구하는 「두 개 이상의 실제 소비처」가 그것이다.
+같은 모양의 **형제 구현**이 deck-kit 에 있다 — `docs/COMPONENTS.md` 의 `k-statcard` · `k-bars` ·
+`k-timeline--v` · `k-callout` · `k-card--accent` · `k-chip` · `k-table` · `k-numlist`. 다만 deck-kit 은
+`.louis-document*` 를 쓰는 소비처가 아니라 같은 조형을 따로 짠 구현이고, **이 레시피의 실제 소비처는
+0 이다.** `packages/css/README.md` 가 공용 승격에 요구하는 「두 개 이상의 실제 소비처」를 이 결정은
+충족하지 않는다. 승격의 근거는 소유자 요청(「LOUIS 에 문서 패턴으로 옮겨줘」)과 형제 구현이 같은
+조형으로 수렴했다는 사실이고, 그래서 manifest 의 `web` 은 `partial` 이다.
 
 ## Decision
 
@@ -95,6 +98,15 @@ authority: normative
 
 - `@klipse-design/css` 의 `styles.css` · `styles.layer.css` 에 `.louis-document*` 규칙과 표 변형이
   더해진다. 기존 클래스의 계산값은 바뀌지 않는다 — 변형이 없는 표는 그대로다(테스트가 잰다).
+- **쓰지 않는 소비처도 이 CSS 를 싣는다.** 제품은 `@klipse-design/css/styles.layer.css` 를 통째로
+  import 하므로(제품 전역 스타일시트, 2026-09-21 확인), 핀을 올리면 문서를 그리지 않는 페이지에도 이
+  규칙이 실린다. `styles.css` 가 425,752 → 468,946 B(+43 KB), gzip 120,040 → 128,373 B(+8.3 KB)다(816eb0b
+  기준 실측). 제품 소비처가 0 인 동안 이 비용은 이득 없이 나간다 — 문서 CSS 를 따로 import 하는
+  진입점은 소비처가 생길 때 package surface Decision 으로 다룬다.
+- **다른 부품의 토큰 셋을 빌린다** — `layout-app-shell-outer-gap` · `progress-track` ·
+  `alert-warning-stroke`(document.md Known deviations 5). 레시피 루트의 이름 셋만 읽는다. 앞의 것은
+  LOUIS CSS 가 처음 무는 토큰이라 `check-coverage-targets` 의 `DEAD_TOKEN_BASELINE` 이 73 → 72 로
+  내려갔다.
 - 셀 강조 `data-emphasis` 는 규선 표가 아니어도 쓸 수 있다.
 - **대비 결함 둘을 알고 들인다** — 강조색 글자(키커 · 날짜) 라이트 3.37:1, 앞선 값 초록 라이트
   2.12:1. 둘 다 승인본의 색이고, 글자로 쓸 역할 토큰이 없다는 같은 뿌리를 가진다
@@ -110,7 +122,10 @@ authority: normative
 - `pnpm build:css` · 저작 게이트(`verify-css-gates`) · `check-design-docs` · `check-llms-docs`.
 
 **되돌리기.** `packages/css/src/pattern/document.css` 를 지우고 `table.css` 의 규선 변형 · 셀 강조
-블록을 빼고 `pnpm build:css` 하면 생성물이 이전과 같아진다. 소비처가 없으므로 제품 쪽 되돌림은 없다.
+블록을 빼고 `pnpm build:css` 하면 생성물이 이전과 같아진다. 그러면 `layout-app-shell-outer-gap` 을
+무는 곳이 다시 없어지므로 `scripts/check-coverage-targets.mjs` 의 `DEAD_TOKEN_BASELINE` 을 72 → 73 으로
+함께 되돌린다 — 양방향 래칫이라 빼먹으면 게이트가 실패한다. 문서가 빌린 토큰을 문서 역할 토큰으로
+옮길 때도 같다. 소비처가 없으므로 제품 쪽 되돌림은 없다.
 
 **다시 볼 때.** 문서 규칙 값을 토큰으로 올릴 때(Figma 변수와 함께), 두 번째 문서가 이 레시피로
 만들어질 때, 강조 잉크 · 성공 잉크 역할 토큰이 설 때.

@@ -8776,20 +8776,21 @@ Known deviations 첫 항목이 그 실측이다.
 - 열끼리 **세로로 비교**하는 것이 목적일 때. 숫자 열은 `data-align="end"` 로 우측 정렬 +
   tabular-nums 가 된다.
 
+**문서에서 읽는 표는 `data-variant="ruled"` 다** — 보고서 · 운영안처럼 한 번 끝까지 읽는 자리.
+머리 면을 걷고 가로 규선만 남기며, 열 폭을 내용이 정한다(`table-layout: auto`). 규범은
+[Document](../patterns/document.md) 패턴이 갖는다.
+
 쓰지 않는 자리.
 
 - **목록이 표가 아닐 때.** 항목 하나가 값 하나이고 세로 스택으로 나열되는 것은 목록이다. 관리자
   사용자 목록(`app/admin/JobMonitor.tsx:56-63`)이 그 자리이며, 그 파일이 "표가 아니라 div
   스택이라 정본이 요구하는 thead/tbody/tr/td 골격이 없다"고 스스로 적어 두었다.
-- **열 폭을 데이터가 정해야 할 때.** 이 레시피는 `table-layout: fixed` 다. 폭을 주지 않은 열이
-  균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
+- **열 폭을 데이터가 정해야 할 때.** 이 레시피(기본 조판)는 `table-layout: fixed` 다. 폭을 주지 않은
+  열이 균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
   (`components/scenes/create/guide/ModelSpecPanel.tsx:42-51`)가 정확히 그 이유로 채택을 거부했다 —
-  8열에 폭을 주지 않고 내용 폭 + `min-w-[860px]` 으로 가로 스크롤하는 표다.
+  8열에 폭을 주지 않고 내용 폭 + `min-w-[860px]` 으로 가로 스크롤하는 표다. 문서에서 읽는 표라면
+  `ruled`(`auto`)가 그 자리다 — 위 문단.
 - **고정 헤더가 필요할 때.** sticky 헤더 축이 없다. 아래 Known deviations.
-
-**문서에서 읽는 표는 `data-variant="ruled"` 다** — 보고서 · 운영안처럼 한 번 끝까지 읽는 자리.
-머리 면을 걷고 가로 규선만 남기며, 열 폭을 내용이 정한다(`table-layout: auto`). 규범은
-[Document](../patterns/document.md) 패턴이 갖는다.
 - **정렬(sort)·선택(체크박스)·페이지네이션이 필요할 때.** 셋 다 이 레시피에 없다.
 
 #### API
@@ -9199,8 +9200,9 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 19. `data-variant="ruled"` 인 표는 `table-layout: auto` 이고, 머리 셀 배경이 투명 · 머리 행 헤어라인이
     없으며, 머리 아래 선이 1px `color-table-row-line`, 행 사이 선이 `color-stroke-hairline` 이고 마지막
     행 아래에는 선이 없다. 머리가 14, 첫 열 시작 · 끝 열 끝 여백이 0 이고, 행 머리 `th` 가 굵어지거나
-    가운데로 가지 않는다. ≤719 에서 머리가 12 로 내려간다. 변형이 없는 표의 계산값은 그대로다
-    (`packages/css/test/document.browser.test.ts`).
+    가운데로 가지 않는다. `data-align="center"` · `"end"` 가 머리 칸과 몸 칸에서 같은 정렬이다 — 몸 칸의
+    `text-align: start` 가 기본 정렬 규칙보다 세서 두 값을 변형 안에서 되살린다. ≤719 에서 머리가 12 로
+    내려간다. 변형이 없는 표의 계산값은 그대로다(`packages/css/test/document.browser.test.ts`).
 20. `data-emphasis="total"` 칸이 `fg-primary` · 600, `data-emphasis="lead"` 칸이 `alert-success-stroke`
     · 600 이다. 규선 표 안에서도 몸 칸 잉크(`fg-secondary`)를 이긴다.
 

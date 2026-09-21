@@ -25,6 +25,40 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-21 (147) — 문서 패턴 리뷰 후속: 규선 표 가운데 정렬 · 문서 전체 `strong` · 빌린 토큰을 루트 이름으로
+
+**(145) 리뷰의 minor 가운데 바로 고칠 수 있는 것들이다.**
+
+**규선 표의 `data-align="center"`.** 규선 표 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세서, 머리
+칸은 가운데 · 몸 칸은 시작에 붙어 같은 열이 어긋났다. `end` 에만 있던 되살림 규칙을 `center` 에도 둔다.
+[Table](../components/table.md) Acceptance 19 에 두 값이 머리 · 몸 칸에서 같다는 단언을 더했다.
+
+**문서 안의 `strong` 은 어디서나 600 · `fg-primary` 다.** 굵기를 누르는 규칙이 산문 · 카드 · 타임라인 세
+곳에만 있어, 콜아웃 · 결정 항목 · 수치 보조 · 표 칸의 `strong` 은 브라우저 기본값(`bolder` → 700)을 받아
+「굵기는 600 까지」를 넘었다. 규칙을 `.louis-document strong` 하나로 넓혔다 — 승인본도 전역 `strong` 한
+줄이다. 테스트 탐침 다섯 자리에 `strong` 을 넣어 굵기와 잉크를 잰다.
+
+**다른 부품의 토큰을 빌린 셋을 드러낸다.** 바닥과 시트 사이(`layout-app-shell-outer-gap`) · 비교 막대의 빈
+트랙(`progress-track`) · 비용 주의의 노랑(`alert-warning-stroke`)은 문서 역할의 토큰이 없어 빌린 값이다.
+이제 레시피 루트가 `--louis-document-floor-inset` · `--louis-document-bars-track-face` ·
+`--louis-document-caution` 으로 한 번씩만 읽고 규칙 본문은 그 이름만 쓴다. 계산값은 같다.
+[Document](../patterns/document.md) 「값의 출처」가 「빌리지 않는다」를 예외 셋과 함께 고쳐 적고 Known
+deviations 5 가 그 비용을 적는다. DS-D-0067 되돌리기 절에 `DEAD_TOKEN_BASELINE` 72 → 73 복구를 더했다.
+
+**문서 정정.**
+
+- DS-D-0067 — deck-kit 은 이 레시피의 소비처가 아니라 같은 조형의 **형제 구현**이고 실제 소비처는 0 이다.
+  승격 근거는 소유자 요청이다. Consequences 에 번들 증가(`styles.css` +43 KB · gzip +8.3 KB)를 적었다 —
+  제품은 `styles.layer.css` 를 통째로 import 한다.
+- Document 반응형 — 글자 램프는 출처의 네 줄에서 7단계 안의 값만 고른 것이다(32 · 18 제외, 수치 36→28
+  추가). 다크 — caution 표식은 테마로 뒤집히는 `fg-warning` 이고 대비는 라이트 6.53 · 다크 3.43 이다.
+- Document Known deviations 6 — 360 이하에서 4열 격자의 8자 수치가 카드를 넘는다. 승인본에서 물려받은 것이고,
+  새 경계인지 콘텐츠 한도인지는 소유자 판정으로 남긴다.
+- Table — 「문서에서 읽는 표는 ruled」 문단을 「쓰지 않는 자리」 목록 밖으로 옮기고, `table-layout: fixed`
+  항목에 ruled(`auto`)를 가리켰다.
+- 예시 — Pretendard CDN 을 `@latest` 에서 `@v1.3.9` 로 고정했다(`@latest` 경로는 2026-09-21 jsDelivr 가 403 을
+  냈다).
+
 ## 2026-09-21 (146) — 문서 패턴: 좁은 화면의 카드 여백을 승인본에 맞추고, 목록에 `role="list"` 를 단다
 
 **(145) 리뷰에서 나온 결함 둘이다.**

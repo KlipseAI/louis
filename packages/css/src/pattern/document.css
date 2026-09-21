@@ -61,13 +61,23 @@
     var(--louis-color-accent-primary) 12%,
     transparent
   );
+  /* ── 다른 역할에서 **알고 빌린** 값 — 규칙 본문은 이 이름만 읽는다 ─────────── */
+  /* 아래 셋은 문서 역할의 토큰이 없어 다른 부품의 토큰을 빌린다. 빌림을 여기 한 곳에 모아 두는
+   * 것은 그 부품이 값을 바꾸면 문서도 따라 움직인다는 사실을 숨기지 않기 위해서이고, 문서 역할의
+   * 토큰이 서면 이 선언 한 줄씩만 바꾼다(document.md Known deviations 5 · DS-D-0067 되돌리기). */
+  /* 바닥과 시트 사이 — 앱 셸이 메인 카드를 띄우는 관계와 같은 값이라 그 토큰을 빌린다. */
+  --louis-document-floor-inset: var(--louis-layout-app-shell-outer-gap);
+  /* 비교 막대의 빈 트랙 — Progress 의 트랙색을 빌린다. */
+  --louis-document-bars-track-face: var(--louis-color-progress-track);
+  /* 비용 주의(노랑) — Alert warning 의 획색을 빌린다. 콜아웃 면(16%)과 표식이 읽는다. */
+  --louis-document-caution: var(--louis-color-alert-warning-stroke);
 
   box-sizing: border-box;
   display: block;
   min-block-size: 100svh;
   margin: 0;
   /* 화면 가장자리와 시트 사이 — 앱 셸이 메인 카드를 띄우는 바로 그 관계다. */
-  padding: var(--louis-layout-app-shell-outer-gap);
+  padding: var(--louis-document-floor-inset);
   background: var(--louis-color-bg-canvas);
   color: var(--louis-color-fg-primary);
   font-family: var(--louis-typography-body-md-regular-font-family);
@@ -319,9 +329,10 @@
   margin-block-start: var(--louis-space-stack-md);
 }
 
-.louis-document-prose strong,
-.louis-document-card strong,
-.louis-document-timeline strong {
+/* 강조는 문서 어디서나 같다 — semibold · `fg-primary`. 컨테이너마다 나열하면 빠진 자리(콜아웃 ·
+ * 결정 항목 · 수치 보조 · 표 칸)의 `strong` 이 브라우저 기본값(bolder → 700)을 받아 7단계 굵기
+ * 한도(600)를 넘는다. */
+.louis-document strong {
   color: var(--louis-color-fg-primary);
   font-weight: var(--louis-typography-body-md-semibold-font-weight);
 }
@@ -527,7 +538,7 @@
   block-size: var(--louis-document-bars-track-block-size);
   overflow: hidden;
   border-radius: var(--louis-radius-pill);
-  background: var(--louis-color-progress-track);
+  background: var(--louis-document-bars-track-face);
 }
 
 /* 길이는 루트의 `--louis-document-bar-value` 가 정한다. */
@@ -743,11 +754,12 @@
 }
 
 .louis-document-callout[data-tone="caution"] {
-  background: color-mix(in srgb, var(--louis-color-alert-warning-stroke) 16%, transparent);
+  background: color-mix(in srgb, var(--louis-document-caution) 16%, transparent);
 }
 
-/* 표식 — 장식이다(`aria-hidden`). 뜻은 제목이 말한다. 채워진 면 위 글리프는 테마로 뒤집히지
- * 않는 잉크여야 한다(deck-kit §3.2 「가장 흔한 사고」). */
+/* 표식 — 장식이다(`aria-hidden`). 뜻은 제목이 말한다. note 표식의 글리프는 테마로 뒤집히지
+ * 않는 잉크(`fg-inverse`)다(deck-kit §3.2 「가장 흔한 사고」). caution 표식만 노랑 면 위라
+ * `fg-warning` 을 쓰고, 이 잉크는 테마로 뒤집힌다 — 라이트 6.53:1 · 다크 3.43:1(document.md 다크). */
 .louis-document-callout__mark {
   box-sizing: border-box;
   display: inline-grid;
@@ -767,7 +779,7 @@
 }
 
 .louis-document-callout[data-tone="caution"] .louis-document-callout__mark {
-  background: var(--louis-color-alert-warning-stroke);
+  background: var(--louis-document-caution);
   color: var(--louis-color-fg-warning);
 }
 

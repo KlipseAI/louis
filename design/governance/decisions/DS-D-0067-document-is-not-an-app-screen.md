@@ -106,7 +106,9 @@ authority: normative
 - **다른 부품의 토큰 셋을 빌린다** — `layout-app-shell-outer-gap` · `progress-track` ·
   `alert-warning-stroke`(document.md Known deviations 5). 레시피 루트의 이름 셋만 읽는다. 앞의 것은
   LOUIS CSS 가 처음 무는 토큰이라 `check-coverage-targets` 의 `DEAD_TOKEN_BASELINE` 이 73 → 72 로
-  내려갔다.
+  내려갔다. 그 토큰은 앵커 브랜치의 링 여백 결정
+  ([DS-D-0063](DS-D-0063-ring-and-compact-inset-follow-the-product.md))이 12 → 8 로 옮겼으므로, 두 변경이
+  만난 뒤(Updates (148)) 720 이상의 바닥과 시트 사이는 승인본의 12 가 아니라 8 이다.
 - 셀 강조 `data-emphasis` 는 규선 표가 아니어도 쓸 수 있다.
 - **대비 결함 둘을 알고 들인다** — 강조색 글자(키커 · 날짜) 라이트 3.37:1, 앞선 값 초록 라이트
   2.12:1. 둘 다 승인본의 색이고, 글자로 쓸 역할 토큰이 없다는 같은 뿌리를 가진다

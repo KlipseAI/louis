@@ -110,6 +110,11 @@ authority: normative
   거울 토큰 둘(`--louis-app-gnb-main-inline-padding-end` · `--louis-app-gnb-rail-padding-bottom`)도
   같다. 셋 다 렌더가 바뀌지 않으므로 **브라우저 테스트와 스크린숏은 이 변경에 반응하지 않는다** —
   이 변경을 지키는 것은 토큰 게이트와 생성 표뿐이다.
+  **2026-09-21 정정 — 이제 한 곳이 문다.** main 에서 따로 선 Document 패턴
+  ([DS-D-0067](DS-D-0067-document-is-not-an-app-screen.md))이 바닥과 시트 사이를
+  `--louis-document-floor-inset: var(--louis-layout-app-shell-outer-gap)` 으로 빌린다. 이 브랜치가 그
+  패턴을 병합으로 받으면서(Updates (148)) 720 이상의 문서 바닥 여백이 12 → 8 로 움직였다. 문서의
+  브라우저 테스트는 값이 아니라 「토큰과 같다」를 재므로 여전히 반응하지 않는다.
 - Figma 변수 `layout/app-shell-outer-gap` 은 `Klipse Primitive::spacing/12` 를 가리키고 있어
   세트 단계에서 `spacing/8` 로 함께 옮긴다. 거울 토큰 둘은 **Figma 변수가 아니다**(되읽기에
   행이 없다) — 옮길 것이 없다.

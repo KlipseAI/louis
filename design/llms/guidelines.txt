@@ -613,8 +613,12 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
   패턴을 병합으로 받으면서(Updates (148)) 720 이상의 문서 바닥 여백이 12 → 8 로 움직였다. 문서의
   브라우저 테스트는 값이 아니라 「토큰과 같다」를 재므로 여전히 반응하지 않는다.
 - Figma 변수 `layout/app-shell-outer-gap` 은 `Klipse Primitive::spacing/12` 를 가리키고 있어
-  세트 단계에서 `spacing/8` 로 함께 옮긴다. 거울 토큰 둘은 **Figma 변수가 아니다**(되읽기에
-  행이 없다) — 옮길 것이 없다.
+  세트 단계에서 `spacing/8` 로 함께 옮긴다. ~~거울 토큰 둘은 **Figma 변수가 아니다**(되읽기에
+  행이 없다) — 옮길 것이 없다.~~
+  **2026-09-21 정정 — 거울 토큰 둘도 Figma 변수다.** `app/gnb-main-inline-padding-end` ·
+  `app/gnb-rail-padding-bottom` 은 `figma/readback.json` 에 행이 있고, 2026-09-21 읽기 전용 탐침에서도
+  `Klipse Semantic` 컬렉션의 변수로 `Klipse Primitive::spacing/12` 를 가리켰다. 세트 단계에서
+  `layout/app-shell-outer-gap` 과 함께 `spacing/8` 로 옮긴다(Updates (149)).
 
 #### Rollout and verification
 
@@ -14521,7 +14525,7 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-#### 2026-09-21 (149) — 앵커 적용 전 리뷰 minor: sidebar-states 찾기 가드를 허용 목록으로
+#### 2026-09-21 (149) — 앵커 적용 전 리뷰 minor: sidebar-states 찾기 가드를 허용 목록으로 · 적용 조건과 사실 정정
 
 2026-09-15 독립 리뷰가 남긴 minor 가운데 **라이브 적용 전에 고칠 것**을 고친다. 라이브 Figma 에는 쓰지 않았고 러너 ·
 계획 바이트는 그대로다(`check-figma-product-sidebar-states` 초록 — 생성물 드리프트 0).
@@ -14544,6 +14548,19 @@ API)는 소리 없이 지나갔다. 이제 생성기가 찾기 구간을 TypeScr
 setPluginData() — …」. 기존 canary(속성 대입)는 그대로 물고, `verify-gates` 에 canary 하나를 더했다 — 금지 목록이 몰랐던
 `page.setPluginData(…)` 를 찾기 구간에 넣으면 그 이름으로 문다. 손으로 넣어 본 꼴(`pin(page)` · `page["name"] = …` ·
 `figma.createFrame()` · `page.children[0].visible = false` · `I.x++`)도 모두 멈췄고, 로컬 Map 의 `set` 은 지나갔다.
+
+##### 문서 정정 — 적용 조건과 사실
+
+| 자리 | 전 | 후 |
+| --- | --- | --- |
+| (137) `/subscription` 모바일 | 「이력 블록 HUG → FILL(가격 블록은 FILL 그대로, 근거가 트랙으로)」 | 가격 블록도 HUG → FILL 이다 — 모바일 러너 payload 에서 두 블록의 `s` 가 `HH` → `FH`(커밋 `b951fcc` 전후 대조). 근거만 바뀐 것은 가격 블록 안의 자식 하나다. (137) 본문에 정정을 달고, [인계서](../governance/handoff-2026-08-23-figma-product-pages.md) 「다음 순서」 1번 7단계에 `190:1497` 가격 블록 스크린숏 확인을 더했다 |
+| 인계서 「다음 순서」 (가) 완료 조건 | 「그 밖의 변화가 없어야 한다」와 「허브 `219:3403` 활성 행 라벨도 Composition 이 된다」가 한 단락에 같이 있어, 라벨 변화를 되돌릴 대상으로 읽을 수 있었다. 메뉴 · 셸 세트 폭을 (137) 의 수로 기대했다 | 라벨 변화는 **기대한 변화 — 되돌림 대상 아님**으로 예외에 적었다. 세트 크기는 수가 아니라 「variant 끝 + 여백 = 세트 끝」으로 본다(앵커 `2c6bdacf` 에서 variant 폭이 줄어 (137) 의 수는 낡았다) |
+| 섹션 `400:591` · `381:22` | 「넓히면 겹친다 — 소유자 결정」 | **소유자 결정(2026-09-16): 옮기지 않는다, 기록만.** `381:22` 의 크기 리터럴도 그대로 둔다 |
+| 거울 토큰 둘의 Figma 변수 — (139) · [DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md) | 「Figma 변수가 아니다(되읽기에 행이 없다) — 옮길 것이 없다」 | **Figma 변수다.** `app/gnb-main-inline-padding-end` · `app/gnb-rail-padding-bottom` 은 `figma/readback.json` 에 행이 있고, 2026-09-21 읽기 전용 탐침에서도 `Klipse Semantic` 의 변수로 `spacing/12` 를 가리켰다. 세트 단계의 변수 적용 대상은 `layout/app-shell-outer-gap` · `layout/app-shell-sidebar-width` 와 이 둘, 넷이다 |
+
+**남긴 것.** 리뷰 minor 5(grid 열 수정이 치환 안 두 자리의 트랙을 null 로 바꾼 것 — 판정 무영향)는 라이브 적용과 무관한 기록이라
+이번에 옮기지 않았다. 그 두 자리를 이름으로 다시 뽑아 (137) 에 적는 일이 남는다. 리뷰 minor 6(포장 가드가 러너 본문을 보지 않는다)은
+저장소 밖 포장 도구의 일이라 그쪽에서 닫는다 — 포장 manifest 가 보낸 code 의 sha256 을 갖고, 적용 기록이 그 값과 맞대는 절차다.
 
 #### 2026-09-21 (148) — 병합: 문서 패턴의 바닥 여백이 링 여백 결정을 따라 8 이 된다
 
@@ -14930,7 +14947,8 @@ landing-shell · editor-workspace)은 **명세가 없고, 없다고 말한다** 
 
 **parity 는 그만큼 빨갛다.** Figma `Pattern · AppShell`(`982:175`) 은 아직 12 · 16 이라 다섯 칸이 어긋난 채로 남는다 —
 라이브 적용 전이므로 정상이다. Figma 변수 `layout/app-shell-outer-gap` 도 아직 `Klipse Primitive::spacing/12` 를 가리킨다.
-거울 토큰 둘은 Figma 변수가 아니라 옮길 것이 없다.
+~~거울 토큰 둘은 Figma 변수가 아니라 옮길 것이 없다.~~ **(149) 정정: 거울 토큰 둘도 Figma 변수다** — `app/gnb-main-inline-padding-end` ·
+`app/gnb-rail-padding-bottom`(`figma/readback.json` 에 행이 있고 라이브도 `spacing/12` 를 가리킨다). 세트 단계에서 `spacing/8` 로 함께 옮긴다.
 
 #### 2026-09-15 (138) — 제품 앵커 2c6bdacf — 사이드바 240 · 「분석」 아이브로우 제거 · 모바일 서랍 블러 표면을 따라간다
 
@@ -15082,7 +15100,9 @@ variant · 메인 · 장면 · 보존 variant)는 이미 이름으로 싣고 있
 absolute · fixed 형제는 칸을 차지하지 않는다. column · dense 흐름, 명시 배치(`grid-column` · `grid-row` · `grid-area` · span), 측정되지
 않은 앞 형제(경로 순번이 끊긴다 — 뷰포트 밖 요소는 칸을 차지하는데 측정기가 싣지 않는다)는 추측하지 않고 다른 규칙에 맡긴다.
 
-보드: `/subscription` 데스크톱 가격 블록 · 이력 블록 HUG → FILL, 모바일 이력 블록 HUG → FILL(가격 블록은 FILL 그대로, 근거가 트랙으로).
+보드: `/subscription` 데스크톱 가격 블록 · 이력 블록 HUG → FILL, ~~모바일 이력 블록 HUG → FILL(가격 블록은 FILL 그대로, 근거가 트랙으로)~~
+**(149) 정정: 모바일도 가격 블록 · 이력 블록 둘 다 HUG → FILL 이다** — 모바일 러너 payload 에서 두 블록의 `s` 가 `HH` → `FH` 로 바뀌었다.
+「FILL 그대로 · 근거만 트랙으로」인 것은 가격 블록 안의 자식 하나다.
 `UNRESOLVED_FILL_IN_HUG_BY_PARENT` 에서 두 부모 · 축(2 · 2)을 걷었다(양방향 잠금 그대로). `verify-gates` canary 가 열을 자식 순번으로
 되돌리면 래칫이 무는지 본다. 모의 보드 36 두 번 실행 같은 트리.
 
@@ -15137,7 +15157,7 @@ highlight uploading 두 뷰포트)의 크기 코드만 바뀐다. `UNRESOLVED_FI
   `384:215` 1816 폭 · 셸 세트 `392:611` 2280 폭. 감사 수와 variant id 는 2026-09-15 적용 뒤와 같아야 한다. 섹션 `381:22` 는 그대로다.
 - 허브 활성 행 면 셋의 일회성 쓰기(`fills` → `[]`) 뒤 **sidebar-states 가 돌 수 있다** — 찾기 단계가 대상을 전부 찾으면 레일 세트 · 접힌 CTA
   칠, 레일 · 상단 바 인스턴스 이름(Composition), 편집기 상단 바 · 본문 격자 reconcile 을 쓴다.
-- 보드: `/subscription` 두 보드의 크레딧 이력 블록(데스크톱은 가격 블록도)이 트랙 폭을 채우고, `/settings` 두 보드의 세그먼트 트랙이 36 으로
+- 보드: `/subscription` 두 보드의 크레딧 이력 블록과 가격 블록(**(149) 정정** — 모바일도 가격 블록이 HUG → FILL)이 트랙 폭을 채우고, `/settings` 두 보드의 세그먼트 트랙이 36 으로
   서며, highlight uploading 두 보드의 진행 막대가 폭 FILL(최대 320)이 된다. 적용 완료 조건의 스크린숏 확인 자리는 남은 12 다.
 
 #### 2026-09-14 (136) — 보드 생성기가 풀지 못한 HUG 부모 · FILL 자식을 계획에 싣고 부모 · 축마다 수를 잠근다

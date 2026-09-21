@@ -116,8 +116,12 @@ authority: normative
   패턴을 병합으로 받으면서(Updates (148)) 720 이상의 문서 바닥 여백이 12 → 8 로 움직였다. 문서의
   브라우저 테스트는 값이 아니라 「토큰과 같다」를 재므로 여전히 반응하지 않는다.
 - Figma 변수 `layout/app-shell-outer-gap` 은 `Klipse Primitive::spacing/12` 를 가리키고 있어
-  세트 단계에서 `spacing/8` 로 함께 옮긴다. 거울 토큰 둘은 **Figma 변수가 아니다**(되읽기에
-  행이 없다) — 옮길 것이 없다.
+  세트 단계에서 `spacing/8` 로 함께 옮긴다. ~~거울 토큰 둘은 **Figma 변수가 아니다**(되읽기에
+  행이 없다) — 옮길 것이 없다.~~
+  **2026-09-21 정정 — 거울 토큰 둘도 Figma 변수다.** `app/gnb-main-inline-padding-end` ·
+  `app/gnb-rail-padding-bottom` 은 `figma/readback.json` 에 행이 있고, 2026-09-21 읽기 전용 탐침에서도
+  `Klipse Semantic` 컬렉션의 변수로 `Klipse Primitive::spacing/12` 를 가리켰다. 세트 단계에서
+  `layout/app-shell-outer-gap` 과 함께 `spacing/8` 로 옮긴다(Updates (149)).
 
 ## Rollout and verification
 

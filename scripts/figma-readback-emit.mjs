@@ -846,7 +846,7 @@ function removeVariables(spec) {
 // `remove(` · `create*` · `setPluginData` …)를 찾으면 **출력하지 않고 죽는다.** 사용자 자산을
 // 건드리는 코드가 되읽기 경로로 흘러드는 것을 막는 자리다.
 //
-// **조용한 초록을 세 곳에서 막는다.**
+// **조용한 초록을 다섯 곳에서 막는다.**
 //   1. 명세에 없는 template 을 `--only` 로 부르면 CLI 가 거절한다. 아홉 중 명세가 있는 것만
 //      뜬다 — 나머지는 「없는 것」이지 「빈 것」이 아니다.
 //   2. 계약(`figma/templates.measured.json`)의 축과 명세의 축이 **한 칸이라도 다르면** 거절한다.
@@ -855,6 +855,10 @@ function removeVariables(spec) {
 //   3. 낸 코드가 Figma 에서 페이지 · 프레임 · 경로 · 필드를 **하나라도 못 읽으면 throw** 한다.
 //      부분 결과를 반환하지 않는다. 못 읽은 경로와 그 자리에서 실제로 보인 형제 이름을 함께
 //      던져 다음 사람이 명세를 고칠 수 있게 한다.
+//   4. 「있어야 할 부품 · 걷어낸 부품」을 후보 중 보이는 것으로 뜨는 축(`present`)은 후보가 계약 값 ∪ `$was` 를
+//      덮지 않으면 거절한다 — 후보에 없는 부품은 없어져도, 걷어낸 것이 남아도 되읽기에 보이지 않는다.
+//   5. 이름 · 밴드 규칙(머리 이름 · 숨긴 부품 · 인스턴스 안 · 밴드 정렬 · 첫 줄)은 자기시험이 낸 코드를 가짜 트리
+//      위에서 **실행해** 본다. 문법만 보면 규칙이 느슨해져도 초록이다.
 //
 // **명세는 아직 라이브로 검증되지 않았다(`$verifiedAgainstLive: false`).** 축의 뜻은 계약의
 // 근거 문장에서 읽었지만 **경로 이름이 라이브와 같은지는 Figma 를 열어야 안다.**
@@ -869,14 +873,30 @@ const TEMPLATE_MEASURED_PATH = "figma/templates.measured.json";
 // 탐침 문법 — 명세에 **코드를 적지 않는다.** 경로와 필드만 적는다.
 //   {at:"<경로>", field:"<필드>"}            그 노드의 필드 하나
 //   {gapY:["<경로 A>","<경로 B>"]}           A 의 아래 변과 B 의 위 변 사이 거리
-//   {names:{childrenOf:"<경로>", types:[…], exclude:[…]}}   한 겹 자식 이름(정렬 · 중복 제거)
-//   {names:{under:"<경로>", types:[…], exclude:[…]}}        모든 자손 이름(정렬 · 중복 제거)
+//   {names:{childrenOf:"<경로>", types:[…], exclude:[…], head:true}}         한 겹 자식 이름(정렬 · 중복 제거)
+//   {names:{under:"<경로>", types:[…], exclude:[…], depth:2, head:true}}     자손 이름(정렬 · 중복 제거)
+//   {present:{under:"<경로>", candidates:[…]}}  후보 이름 중 그 아래에 실제로 **보이는** 것(정렬)
 //   {samples:{under:"<경로>", named:"<이름>", field:"<필드>"}}  같은 이름 자손들의 값 배열
-//   {count:{under:"<경로>", named:"<이름>"}}  그 이름 자손의 수
+//   {count:{under:"<경로>", named:"<이름>", depth:1, firstRow:true}}  그 이름 자손의 수(firstRow — 첫 줄에 선 것만)
 //   {distinctText:{under:"<경로>", named:"<이름>"}}  그 자손들의 서로 다른 글자 수
 //   {equal:{at:"<경로>", fields:["width","height"]}}  두 필드가 같은가(boolean)
 //   {ratio:{numerator:{at,field}, denominator:{at,field}, minus:0, round:2}}
-// 경로는 `상태 프레임/자손/자손` 이며 이름으로 찾는다(깊이 우선, 첫 일치).
+//   {bandCount:true}                        밴드 수($bands)
+//   {band:<i>, …탐침}                        i 번째 밴드(0 부터, $bands 의 정렬 순)를 뿌리로 그 탐침을 읽는다
+//   {band:"each", …탐침}                     밴드마다 읽는다 — 전부 같으면 그 값, 하나라도 다르면 밴드별 배열(대조가 실패한다)
+//
+// **이름 규칙(2026-09-22 라이브 대조로 고쳤다).** 라이브 보드의 부품 이름은 「SidebarNavItem · 홈」「Card · appMainCardChrome」
+// 처럼 **머리 · 설명** 꼴이다. 경로의 마디와 `named` 는 이름 전체가 같거나 **머리**(첫 「 · 」 앞)가 같은 노드를 찾는다.
+// 경로는 `상태 프레임/자식/자식` 이며 마디마다 그 아래를 너비 우선으로 찾아 첫 일치를 쓴다. 인스턴스 안까지 내려가므로
+// 부품 안에 같은 이름이 있을 수 있는 자리는 **컨테이너를 빠짐없이 적는다**(`Expanded/Main/Card/Content`).
+// `names` · `present` 는 **인스턴스 안으로 내려가지 않고**(부품 안 구조는 components 계약이 소유한다) **숨긴 노드와 그
+// 아래를 세지 않는다** — 보드에서 걷어낸 부품은 지우지 않고 숨기므로, 숨긴 것을 세면 걷어냄이 되읽기에 보이지 않는다.
+// `head:true` 는 이름 대신 머리를 돌려준다(08-31 손 되읽기가 부품을 「Card」 · 「Chrome」 처럼 머리로 적었다).
+//
+// 처음 명세(2026-09-16)는 계약의 근거 문장에서 경로를 지었고 라이브를 읽지 못했다 — 첫 경로 `Expanded/SidebarNavItem` 에서
+// 던졌다. 2026-09-22 에 세 template 의 트리를 읽기 전용으로 떠서 경로 · 이름 규칙을 고쳤다(Updates (150)).
+const HOME_CARD = "Main/GridSection/ProjectGrid/ProjectCard";
+const HOME_OVERLAY = `${HOME_CARD}/Title overlay`;
 const TEMPLATE_CAPTURE = {
   "app-shell": {
     $node: "982:175",
@@ -890,62 +910,91 @@ const TEMPLATE_CAPTURE = {
       railPaddingTop: { at: "Expanded/Rail", field: "paddingTop" },
       railPaddingBottom: { at: "Expanded/Rail", field: "paddingBottom" },
       railItemGap: { at: "Expanded/Rail", field: "itemSpacing" },
-      brandToNavGap: { gapY: ["Expanded/SidebarBrand", "Expanded/SidebarNavItem"] },
-      mainWidth: { at: "Expanded/Card", field: "width" },
-      mainWidthCollapsed: { at: "Collapsed/Card", field: "width" },
+      // 첫 항목(「SidebarNavItem · 홈」)까지. 레일 gap 4 + BrandGap 4 + gap 4 의 합을 잰다.
+      brandToNavGap: { gapY: ["Expanded/Rail/SidebarBrand", "Expanded/Rail/SidebarNavItem"] },
+      mainWidth: { at: "Expanded/Main/Card", field: "width" },
+      mainWidthCollapsed: { at: "Collapsed/Main/Card", field: "width" },
       mainOuterGapTop: { at: "Expanded/Main", field: "paddingTop" },
-      mainOuterGapRight: { at: "Expanded/Main", field: "paddingRight" },
+      // 본문 끝 여백은 Main 이 아니라 **상태 프레임**의 오른쪽 패딩에 있다 — Main 은 가로 FILL · paddingRight 0 이다.
+      mainOuterGapRight: { at: "Expanded", field: "paddingRight" },
       mainOuterGapBottom: { at: "Expanded/Main", field: "paddingBottom" },
-      mainCardRadius: { at: "Expanded/Card", field: "cornerRadius" },
-      mainContentInset: { at: "Expanded/Content", field: "paddingLeft" },
+      mainCardRadius: { at: "Expanded/Main/Card", field: "cornerRadius" },
+      mainContentInset: { at: "Expanded/Main/Card/Content", field: "paddingLeft" },
       compactSceneWidth: { at: "Compact · drawer open", field: "width" },
       compactRailReserve: { at: "Compact · drawer open/Main", field: "paddingLeft" },
       compactMainOuterGap: { at: "Compact · drawer open/Main", field: "paddingTop" },
       compactDrawerWidth: { at: "Compact · drawer open/Drawer", field: "width" },
-      compactCardRadius: { at: "Compact · drawer open/Card", field: "cornerRadius" },
-      compactContentInset: { at: "Compact · drawer open/Content", field: "paddingLeft" },
+      compactCardRadius: { at: "Compact · drawer open/Main/Card", field: "cornerRadius" },
+      compactContentInset: { at: "Compact · drawer open/Main/Card/Content", field: "paddingLeft" },
       stateFrames: { names: { childrenOf: "", types: ["FRAME"] } },
       requiredParts: {
         names: {
           under: "",
-          types: ["INSTANCE", "FRAME"],
+          // Scrim 은 RECTANGLE 이다.
+          types: ["INSTANCE", "FRAME", "RECTANGLE"],
           exclude: ["Expanded", "Collapsed", "Compact · drawer open"],
+          head: true,
         },
       },
     },
   },
   home: {
+    $node: "683:171",
     $frame: "Template · AppHome",
     $verifiedAgainstLive: false,
     axes: {
       sceneWidth: { at: "", field: "width" },
       sidebarWidth: { at: "Sidebar", field: "width" },
       sidebarPaddingLeft: { at: "Sidebar", field: "paddingLeft" },
-      mainCardRadius: { at: "Card", field: "cornerRadius" },
-      mainCardPaddingInline: { at: "Card", field: "paddingLeft" },
-      gridColumns: { count: { under: "ProjectGrid", named: "ProjectCard", depth: 1 } },
-      gridGap: { at: "ProjectGrid", field: "itemSpacing" },
-      sectionPaddingTop: { at: "SectionHeader", field: "paddingTop" },
-      cardWidth: { at: "ProjectCard", field: "width" },
-      cardHeight: { at: "ProjectCard", field: "height" },
-      cardSquare: { equal: { at: "ProjectCard", fields: ["width", "height"] } },
-      cardRadius: { at: "ProjectCard", field: "cornerRadius" },
+      // AppHome 에는 Card 가 없다 — **Main 자체가 카드다**(반경 16 · 좌우 안쪽 16).
+      mainCardRadius: { at: "Main", field: "cornerRadius" },
+      mainCardPaddingInline: { at: "Main", field: "paddingLeft" },
+      // ProjectGrid 는 줄바꿈 auto layout 이고 카드가 여덟(4 × 2)이다 — 열 수는 **첫 줄**에 선 카드 수다.
+      gridColumns: { count: { under: "Main/GridSection/ProjectGrid", named: "ProjectCard", depth: 1, firstRow: true } },
+      gridGap: { at: "Main/GridSection/ProjectGrid", field: "itemSpacing" },
+      // 섹션 위 40 은 SectionHeader 가 아니라 그 부모 GridSection 의 위 패딩이다(제품 archiveSection margin-top).
+      sectionPaddingTop: { at: "Main/GridSection", field: "paddingTop" },
+      cardWidth: { at: HOME_CARD, field: "width" },
+      cardHeight: { at: HOME_CARD, field: "height" },
+      cardSquare: { equal: { at: HOME_CARD, fields: ["width", "height"] } },
+      cardRadius: { at: HOME_CARD, field: "cornerRadius" },
+      // 오버레이는 카드 인스턴스 안 「Media/Title overlay」다.
       overlayHeightRatio: {
         ratio: {
-          numerator: { at: "ProjectCard/Overlay", field: "height" },
-          denominator: { at: "ProjectCard", field: "width" },
+          numerator: { at: HOME_OVERLAY, field: "height" },
+          denominator: { at: HOME_CARD, field: "width" },
           minus: 1,
           round: 2,
         },
       },
-      overlayPadding: { at: "ProjectCard/Overlay", field: "paddingLeft" },
-      overlayStackGap: { at: "ProjectCard/Overlay", field: "itemSpacing" },
+      overlayPadding: { at: HOME_OVERLAY, field: "paddingLeft" },
+      overlayStackGap: { at: HOME_OVERLAY, field: "itemSpacing" },
       overlayLineHeightPercent: {
-        samples: { under: "ProjectCard/Overlay", named: "*", field: "lineHeightPercent" },
+        samples: { under: HOME_OVERLAY, named: "*", field: "lineHeightPercent" },
       },
-      requiredParts: { names: { under: "", types: ["INSTANCE"] } },
+      // **있어야 할 부품이 있는가, 걷어낸 부품이 남았는가.** AppHome 프레임에는 레일 부품(SidebarBrand · SidebarNavItem ·
+      // SidebarCta — app-shell 이 소유한다)과 간격 · 섹션 래퍼(BrandGap · CtaGap · Main · BannerSection · GridSection)도
+      // 있는데, 계약은 그것들을 소유하지 않는다(08-31 손 되읽기도 세지 않았다). 그래서 **후보 중 보이는 것**을 뜬다.
+      // 후보 = 계약 requiredParts 의 값 ∪ 걷어낸 부품($was 의 NavEyebrow · 근거 문장의 FloatingCreate). 계약 값이
+      // 후보에서 빠지면 자기시험 · CLI 가 거절한다 — 후보에 없는 부품은 없어져도 되읽기에 안 보이기 때문이다.
+      requiredParts: {
+        present: {
+          under: "",
+          candidates: [
+            "AppTopBar",
+            "BannerCarousel",
+            "CreateMenu",
+            "FloatingCreate",
+            "NavEyebrow",
+            "ProjectCard",
+            "ProjectGrid",
+            "SectionHeader",
+            "Sidebar",
+          ],
+        },
+      },
       navLabelsDistinct: { distinctText: { under: "Sidebar", named: "SidebarNavItem" } },
-      cardTitlesDistinct: { distinctText: { under: "ProjectGrid", named: "ProjectCard" } },
+      cardTitlesDistinct: { distinctText: { under: "Main/GridSection/ProjectGrid", named: "ProjectCard" } },
       placeholderLabelsAllowed: {
         placeholders: { under: "", patterns: ["Lorem", "Placeholder", "텍스트", "Label"] },
       },
@@ -955,32 +1004,72 @@ const TEMPLATE_CAPTURE = {
     $node: "991:252",
     $frame: "Pattern · ProjectGrid",
     $verifiedAgainstLive: false,
+    // **밴드 = 한 겹 아래 FRAME 중 ProjectCard 가 실제로 선 것, Grid 폭 오름차순**(계약 $pattern 그대로). 라이브 밴드 이름은
+    // 「container 600 → 2열」 … 처럼 기하를 적은 설명이라 폭이 옮겨지면 낡는다 — 이름으로 찾지 않는다. 상태 프레임
+    // (Loading · Error · Empty)은 카드가 없어 저절로 빠진다.
+    $bands: { has: "ProjectCard", sortBy: "Grid" },
     axes: {
-      columnBands: { count: { under: "", named: "*", depth: 1, types: ["FRAME"] } },
-      columnsCompact: { count: { under: "Compact/Grid", named: "ProjectCard", depth: 1 } },
-      columnsRegular: { count: { under: "Regular/Grid", named: "ProjectCard", depth: 1 } },
-      columnsWide: { count: { under: "Wide/Grid", named: "ProjectCard", depth: 1 } },
-      columnsExtraWide: { count: { under: "Extra wide/Grid", named: "ProjectCard", depth: 1 } },
-      trackGap: { samples: { under: "", named: "Grid", field: "itemSpacing" } },
-      tracksEqual: { tracksEqual: { under: "", named: "Grid", child: "ProjectCard" } },
-      gridFillsContainer: { fills: { child: "Wide/Grid", parent: "Wide" } },
-      containerWidthWide: { at: "Wide/Grid", field: "width" },
-      cardWidthWide: { at: "Wide/Grid/ProjectCard", field: "width" },
-      requiredParts: { names: { under: "", types: ["INSTANCE", "FRAME"], exclude: ["Compact", "Regular", "Wide", "Extra wide"] } },
+      columnBands: { bandCount: true },
+      columnsCompact: { band: 0, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+      columnsRegular: { band: 1, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+      columnsWide: { band: 2, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+      columnsExtraWide: { band: 3, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+      trackGap: { band: "each", samples: { under: "", named: "Grid", field: "itemSpacing" } },
+      // 밴드마다 트랙이 같은 폭인가. 밴드끼리는 폭이 다르다(600 밴드 298 · 1116 밴드 276).
+      tracksEqual: { band: "each", tracksEqual: { under: "", named: "Grid", child: "ProjectCard" } },
+      gridFillsContainer: { band: "each", fills: { child: "Grid", parent: "" } },
+      containerWidthWide: { band: 2, at: "Grid", field: "width" },
+      cardWidthWide: { band: 2, at: "Grid/ProjectCard", field: "width" },
+      // 밴드 안쪽 깊이 2까지의 프레임 · 인스턴스(캡션 TEXT 는 세지 않는다).
+      requiredParts: { band: "each", names: { under: "", types: ["INSTANCE", "FRAME"], depth: 2 } },
     },
   },
 };
 
-/** 계약이 소유하는 축 목록. `$` 로 시작하는 주석 키는 축이 아니다. */
-function templateContractAxes(name) {
+/** 계약(`figma/templates.measured.json`)의 template 항목. 없으면 undefined. */
+function templateContractEntry(name) {
   const measured = JSON.parse(
     readFileSync(resolve(repoRoot, TEMPLATE_MEASURED_PATH), "utf8"),
   );
-  const entry = measured.templates?.[name];
+  return measured.templates?.[name];
+}
+
+/** 계약이 소유하는 축 목록. `$` 로 시작하는 주석 키는 축이 아니다. */
+function templateContractAxes(name) {
+  const entry = templateContractEntry(name);
   if (entry === undefined) return null;
   return Object.keys(entry)
     .filter((key) => !key.startsWith("$"))
     .sort();
+}
+
+/** 축 목록 밖의 두 판정. 순수 함수다 — 죽지 않고 사유를 돌려준다.
+ *  ① `present` 후보가 계약의 값 ∪ `$was` 를 덮는가 — 후보에 없는 부품은 없어져도, 걷어낸 부품이 남아도 되읽기에 안 보인다.
+ *  ② `$verifiedAgainstLive: true` 에 근거(`$verifiedEvidence` — 날짜 · 대조 결과)가 붙었는가 — 표시만 올리는 것을 막는다. */
+function templateSpecExtraErrors(name, spec) {
+  const errors = [];
+  const entry = templateContractEntry(name) ?? {};
+  for (const [axis, probe] of Object.entries(spec.axes)) {
+    if (!probe.present) continue;
+    const contract = entry[axis] ?? {};
+    const must = [
+      ...(Array.isArray(contract.value) ? contract.value : []),
+      ...(Array.isArray(contract.$was) ? contract.$was : []),
+    ];
+    const missing = [...new Set(must)].filter((part) => !probe.present.candidates.includes(part)).sort();
+    if (missing.length > 0) {
+      errors.push(
+        `template ${name}.${axis} 의 후보(present.candidates)가 계약의 값 · $was 를 덮지 않습니다: ${missing.join(", ")} — ` +
+          "후보에 없는 부품은 없어져도, 걷어낸 것이 남아도 되읽기에 보이지 않습니다.",
+      );
+    }
+  }
+  if (spec.$verifiedAgainstLive === true && !/\d{4}-\d{2}-\d{2}/.test(String(spec.$verifiedEvidence ?? ""))) {
+    errors.push(
+      `template ${name} 은 $verifiedAgainstLive: true 인데 근거($verifiedEvidence — 날짜 · 대조 결과)가 없습니다.`,
+    );
+  }
+  return errors;
 }
 
 /** 명세와 계약의 축이 **정확히** 같은지. 다르면 뜨지 않는다.
@@ -1017,6 +1106,11 @@ function templateSpecErrors(names, table) {
           .filter(Boolean)
           .join(" "),
       );
+      continue;
+    }
+    const extraErrors = templateSpecExtraErrors(name, spec);
+    if (extraErrors.length > 0) {
+      errors.push(...extraErrors);
       continue;
     }
     picked[name] = spec;
@@ -1085,13 +1179,20 @@ await page.loadAsync();
 
 const childrenOf = (node) => (node && "children" in node ? node.children : []);
 
-// 이름으로 자손을 찾는다(너비 우선, 첫 일치). 못 찾으면 **그 자리에서 죽는다** —
+// 이름 머리 — 「SidebarNavItem · 홈」 의 「SidebarNavItem」. 라이브 부품 이름은 머리 · 설명 꼴이다.
+const headOf = (name) => {
+  const cut = name.indexOf(" · ");
+  return cut === -1 ? name : name.slice(0, cut);
+};
+const nameMatches = (node, name) => node.name === name || headOf(node.name) === name;
+
+// 이름(전체 또는 머리)으로 자손을 찾는다(너비 우선, 첫 일치). 못 찾으면 **그 자리에서 죽는다** —
 // 부분 결과를 돌려주면 parity 가 없는 축을 초록으로 넘긴다.
 function child(node, name, path) {
   const queue = childrenOf(node).slice();
   while (queue.length > 0) {
     const current = queue.shift();
-    if (current.name === name) return current;
+    if (nameMatches(current, name)) return current;
     for (const next of childrenOf(current)) queue.push(next);
   }
   throw new Error(
@@ -1131,13 +1232,16 @@ function field(node, name, path) {
   return typeof value === "number" ? r1(value) : value;
 }
 
-function collect(root, under, types, exclude, deep) {
+// 부품 이름 모으기. **숨긴 노드와 그 아래는 세지 않고, 인스턴스 안으로는 내려가지 않는다** — 걷어낸 부품은
+// 지우지 않고 숨기며, 부품 안 구조는 components 계약이 소유한다. maxDepth 는 under 아래 몇 겹까지(1 = 자식).
+function collect(root, under, types, exclude, deep, maxDepth) {
   const out = [];
   const walk = (node, depth) => {
     for (const kid of childrenOf(node)) {
+      if (kid.visible === false) continue;
       const ok = (!types || types.indexOf(kid.type) !== -1) && (!exclude || exclude.indexOf(kid.name) === -1);
       if (ok) out.push(kid);
-      if (deep) walk(kid, depth + 1);
+      if (deep && kid.type !== "INSTANCE" && (!maxDepth || depth + 1 < maxDepth)) walk(kid, depth + 1);
     }
   };
   walk(at(root, under), 0);
@@ -1149,7 +1253,7 @@ function named(root, under, name, depth, types) {
   const out = [];
   const walk = (node, level) => {
     for (const kid of childrenOf(node)) {
-      const nameOk = name === "*" ? true : kid.name === name;
+      const nameOk = name === "*" ? true : nameMatches(kid, name);
       const typeOk = !types || types.indexOf(kid.type) !== -1;
       if (nameOk && typeOk) out.push(kid);
       if (depth === undefined || level + 1 < depth) walk(kid, level + 1);
@@ -1175,7 +1279,56 @@ const textOf = (node) => {
   return parts.join(" ").trim();
 };
 
-function readAxis(root, probe, axisName) {
+// 밴드 — spec.$bands 가 정한다: 한 겹 아래 FRAME 중 has 가 실제로 선 것, sortBy 자식의 폭 오름차순.
+// 이름으로 찾지 않는다(밴드 이름은 기하를 적은 설명이라 폭이 옮겨지면 낡는다).
+function bandsOf(root, spec, axisName) {
+  const def = spec.$bands;
+  if (!def) {
+    throw new Error("되읽기 실패 — 밴드 정의($bands)가 없는 template 에서 밴드를 물었습니다: " + axisName);
+  }
+  const holds = (node) => {
+    const stack = childrenOf(node).slice();
+    while (stack.length > 0) {
+      const current = stack.pop();
+      if (current.visible === false) continue;
+      if (nameMatches(current, def.has)) return true;
+      if (current.type !== "INSTANCE") for (const kid of childrenOf(current)) stack.push(kid);
+    }
+    return false;
+  };
+  const bands = childrenOf(root).filter((node) => node.type === "FRAME" && node.visible !== false && holds(node));
+  if (bands.length === 0) {
+    throw new Error(
+      "되읽기 실패 — 밴드가 하나도 없습니다(\\"" + def.has + "\\" 가 선 FRAME): " + axisName +
+        ". 한 겹 아래 이름: " + childrenOf(root).map((n) => n.name).join(" | "),
+    );
+  }
+  return bands
+    .map((band) => ({ band, width: field(at(band, def.sortBy), "width", band.name + "/" + def.sortBy) }))
+    .sort((a, b) => a.width - b.width)
+    .map((entry) => entry.band);
+}
+
+function readAxis(root, probe, axisName, spec) {
+  if (probe.bandCount) return bandsOf(root, spec, axisName).length;
+  if (probe.band !== undefined) {
+    const rest = {};
+    for (const key of Object.keys(probe)) if (key !== "band") rest[key] = probe[key];
+    const bands = bandsOf(root, spec, axisName);
+    if (probe.band === "each") {
+      const values = bands.map((band, index) => readAxis(band, rest, axisName + "[밴드 " + index + "]", spec));
+      const first = JSON.stringify(values[0]);
+      return values.every((value) => JSON.stringify(value) === first) ? values[0] : values;
+    }
+    const band = bands[probe.band];
+    if (!band) {
+      throw new Error(
+        "되읽기 실패 — 밴드 " + probe.band + " 이 없습니다(밴드 " + bands.length + "개): " + axisName +
+          ". 밴드: " + bands.map((n) => n.name).join(" | "),
+      );
+    }
+    return readAxis(band, rest, axisName, spec);
+  }
   if (probe.at !== undefined) return field(at(root, probe.at), probe.field, probe.at);
   if (probe.gapY) {
     const a = at(root, probe.gapY[0]);
@@ -1184,14 +1337,32 @@ function readAxis(root, probe, axisName) {
   }
   if (probe.names) {
     const n = probe.names;
-    const nodes = collect(root, n.childrenOf !== undefined ? n.childrenOf : n.under, n.types, n.exclude, n.under !== undefined);
+    const nodes = collect(root, n.childrenOf !== undefined ? n.childrenOf : n.under, n.types, n.exclude, n.under !== undefined, n.depth);
     const unique = [];
-    for (const node of nodes) if (unique.indexOf(node.name) === -1) unique.push(node.name);
+    for (const node of nodes) {
+      const label = n.head ? headOf(node.name) : node.name;
+      if (unique.indexOf(label) === -1) unique.push(label);
+    }
     return unique.sort();
+  }
+  if (probe.present) {
+    // 후보 이름 중 보이는 것. collect 와 같은 규칙(숨김 제외 · 인스턴스 안으로 내려가지 않음)이다.
+    const p = probe.present;
+    const found = [];
+    for (const node of collect(root, p.under, undefined, undefined, true)) {
+      for (const candidate of p.candidates) {
+        if (nameMatches(node, candidate) && found.indexOf(candidate) === -1) found.push(candidate);
+      }
+    }
+    return found.sort();
   }
   if (probe.count) {
     const c = probe.count;
-    return named(root, c.under, c.named, c.depth, c.types).length;
+    const found = named(root, c.under, c.named, c.depth, c.types);
+    if (!c.firstRow) return found.length;
+    // 줄바꿈 격자의 열 수 — 첫 일치와 같은 줄(위 변 y 가 같은 것)만 센다.
+    const top = r1(found[0].absoluteBoundingBox.y);
+    return found.filter((node) => r1(node.absoluteBoundingBox.y) === top).length;
   }
   if (probe.samples) {
     const s = probe.samples;
@@ -1278,7 +1449,7 @@ for (const [templateName, spec] of Object.entries(SPEC)) {
   }
   const block = {};
   for (const [axisName, probe] of Object.entries(spec.axes)) {
-    block[axisName] = readAxis(root, probe, templateName + "." + axisName);
+    block[axisName] = readAxis(root, probe, templateName + "." + axisName, spec);
   }
   out[templateName] = block;
 }
@@ -1286,15 +1457,142 @@ return out;
 `;
 }
 
+/** 실행 canary — 낸 코드를 **가짜 트리**(플러그인 API 가 아닌 평범한 객체) 위에서 돌려 이름 · 밴드 규칙이 뜻대로
+ *  읽는지 본다. 2026-09-22 에 고친 규칙이 조용히 느슨해지는 자리들이다 — 머리 이름, 숨긴 부품, 인스턴스 안,
+ *  밴드 정렬, 밴드끼리 다를 때, 줄바꿈 격자의 첫 줄, 못 읽은 경로. 실패 사유 배열을 돌려준다. */
+async function templateExecutionCanaries() {
+  const failures = [];
+  const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+  const node = (type, name, props, kids) => {
+    const made = { type, name, visible: true, width: 0, height: 0, ...props };
+    if (kids) made.children = kids;
+    return made;
+  };
+  const at = (y) => ({ absoluteBoundingBox: { x: 0, y, width: 10, height: 10 } });
+  const run = (roots, table) =>
+    new AsyncFunction("figma", templatesPluginSource(table))({
+      root: { children: [{ name: TEMPLATE_PAGE, loadAsync: async () => {}, children: roots }] },
+      getNodeByIdAsync: async () => null,
+    });
+  const grid = (width, count) =>
+    node(
+      "FRAME",
+      "Grid",
+      { width, itemSpacing: 4 },
+      Array.from({ length: count }, () => node("INSTANCE", "ProjectCard", { width: (width - 4 * (count - 1)) / count })),
+    );
+  const shell = node("FRAME", "Canary · shell", {}, [
+    node("FRAME", "Main", {}, [
+      node("FRAME", "Card · chrome", { width: 100 }, [
+        node("INSTANCE", "Part · one", {}, [node("FRAME", "Inner")]),
+        node("FRAME", "Content", { paddingLeft: 16 }),
+      ]),
+      node("FRAME", "Retired", { visible: false }, [node("INSTANCE", "RetiredKid")]),
+    ]),
+  ]);
+  const bands = (narrowGrid) =>
+    node("FRAME", "Canary · bands", {}, [
+      node("FRAME", "wide 900", { width: 900 }, [node("TEXT", "caption", { characters: "wide" }), grid(900, 3)]),
+      node("FRAME", "narrow 300", { width: 300 }, [grid(narrowGrid, 1)]),
+      node("FRAME", "Loading", { width: 900 }, [node("FRAME", "Grid", { width: 900 }, [node("INSTANCE", "Skeleton")])]),
+      node("FRAME", "hidden 600", { width: 600, visible: false }, [grid(600, 2)]),
+    ]);
+  const wrap = node("FRAME", "Canary · wrap", {}, [
+    node("FRAME", "ProjectGrid", {}, [0, 0, 0, 10].map((y) => node("INSTANCE", "ProjectCard", at(y)))),
+  ]);
+  const table = {
+    shell: {
+      $frame: "Canary · shell",
+      axes: {
+        headPath: { at: "Main/Card", field: "width" },
+        nestedPath: { at: "Main/Card/Content", field: "paddingLeft" },
+        parts: { names: { under: "", types: ["INSTANCE", "FRAME"], head: true } },
+        present: { present: { under: "", candidates: ["Missing", "Part", "Retired"] } },
+      },
+    },
+    bands: {
+      $frame: "Canary · bands",
+      $bands: { has: "ProjectCard", sortBy: "Grid" },
+      axes: {
+        count: { bandCount: true },
+        first: { band: 0, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+        second: { band: 1, count: { under: "Grid", named: "ProjectCard", depth: 1 } },
+        fills: { band: "each", fills: { child: "Grid", parent: "" } },
+        parts: { band: "each", names: { under: "", types: ["INSTANCE", "FRAME"], depth: 2 } },
+      },
+    },
+    wrap: {
+      $frame: "Canary · wrap",
+      axes: {
+        columns: { count: { under: "ProjectGrid", named: "ProjectCard", depth: 1, firstRow: true } },
+        all: { count: { under: "ProjectGrid", named: "ProjectCard", depth: 1 } },
+      },
+    },
+  };
+  const expected = {
+    shell: { headPath: 100, nestedPath: 16, parts: ["Card", "Content", "Main", "Part"], present: ["Part"] },
+    bands: { count: 2, first: 1, second: 3, fills: true, parts: ["Grid", "ProjectCard"] },
+    wrap: { columns: 3, all: 4 },
+  };
+  const why = {
+    "shell.headPath": "「Card」 가 「Card · chrome」 을 찾지 못했다(이름 머리)",
+    "shell.parts": "숨긴 부품 · 인스턴스 안 · 머리 아닌 이름 중 하나가 섞였다",
+    "shell.present": "숨긴 부품이나 없는 후보를 있다고 했다",
+    "bands.count": "숨긴 밴드 · 카드 없는 상태 프레임을 밴드로 셌다",
+    "bands.first": "밴드를 Grid 폭이 아니라 순서 · 이름으로 정렬했다",
+    "wrap.columns": "줄바꿈 격자의 둘째 줄까지 열로 셌다",
+  };
+  try {
+    const got = await run([shell, bands(300), wrap], table);
+    for (const [template, axes] of Object.entries(expected)) {
+      for (const [axis, want] of Object.entries(axes)) {
+        const actual = got[template]?.[axis];
+        if (JSON.stringify(actual) !== JSON.stringify(want)) {
+          failures.push(
+            `실행 canary ${template}.${axis}: 기대 ${JSON.stringify(want)}, 실제 ${JSON.stringify(actual)}` +
+              (why[`${template}.${axis}`] ? ` — ${why[`${template}.${axis}`]}` : ""),
+          );
+        }
+      }
+    }
+  } catch (error) {
+    failures.push(`실행 canary 가 던졌습니다: ${error.message}`);
+  }
+  // 밴드끼리 다르면 한 값으로 접지 않는다 — 좁은 밴드의 Grid 가 밴드를 채우지 않으면 밴드별 배열이어야 한다.
+  try {
+    const got = await run([bands(280)], { bands: table.bands });
+    if (JSON.stringify(got.bands.fills) !== JSON.stringify([false, true])) {
+      failures.push(
+        `실행 canary: 좁은 밴드만 어긋났는데 band:"each" 가 밴드별 배열 [false,true] 가 아니라 ${JSON.stringify(got.bands.fills)} 를 냈습니다.`,
+      );
+    }
+  } catch (error) {
+    failures.push(`실행 canary(밴드 불일치)가 던졌습니다: ${error.message}`);
+  }
+  // 못 읽은 경로는 부분 결과가 아니라 throw 다.
+  let threw = false;
+  try {
+    await run([shell], { shell: { $frame: "Canary · shell", axes: { missing: { at: "Main/Nope", field: "width" } } } });
+  } catch (error) {
+    threw = /경로를 찾지 못했습니다/.test(error.message);
+  }
+  if (!threw) failures.push("실행 canary: 없는 경로(Main/Nope)를 읽고도 던지지 않았습니다.");
+  return { failures, count: Object.values(expected).reduce((sum, axes) => sum + Object.keys(axes).length, 0) + 2 };
+}
+
 /** 자기시험 — **이 경로가 조용히 초록이 되지 않는다는 것**을 매번 다시 증명한다.
  *
- * 네 가지를 canary 로 건다.
+ * 일곱 가지를 canary 로 건다.
  *   ① 명세에서 축 하나를 빼면 거절한다(빠뜨린 축은 parity 가 대조하지 않고 넘어간다).
  *   ② 명세에 계약에 없는 축을 더하면 거절한다.
  *   ③ 낸 코드에 쓰기 API 를 한 글자 섞으면 거절하고, 실제로 내는 코드에는 그것이 없다.
- *   ④ 낸 코드가 플러그인이 돌리는 형태(async 함수 본문)로 **파싱된다**. 실행하지는 않는다.
- * 넷 중 하나라도 「통과」하면 그게 실패다. */
-function templatesSelfTest() {
+ *   ④ 낸 코드가 플러그인이 돌리는 형태(async 함수 본문)로 **파싱된다**.
+ *   ⑤ 낸 코드를 가짜 트리 위에서 **실행해** 이름 머리 · 숨김 · 인스턴스 안 · 밴드 정렬 · 밴드 불일치 · 첫 줄 · 없는 경로를
+ *      뜻대로 읽는다(templateExecutionCanaries).
+ *   ⑥ `present` 후보에서 계약 값이나 걷어낸 부품($was)을 하나 빼면 거절한다.
+ *   ⑦ `$verifiedAgainstLive: true` 에서 근거를 빼면 거절한다.
+ * 하나라도 「통과」하면 그게 실패다. */
+async function templatesSelfTest() {
   const failures = [];
   const names = Object.keys(TEMPLATE_CAPTURE);
 
@@ -1343,6 +1641,36 @@ function templatesSelfTest() {
     failures.push(`낸 코드의 문법이 깨졌습니다: ${error.message}`);
   }
 
+  // ⑤ 실행 canary.
+  const execution = await templateExecutionCanaries();
+  failures.push(...execution.failures);
+
+  // ⑥ · ⑦ 후보 · 근거 canary — 명세를 복제해 한 칸 흔든다.
+  let extraCanaries = 0;
+  for (const name of names) {
+    const spec = TEMPLATE_CAPTURE[name];
+    for (const [axis, probe] of Object.entries(spec.axes)) {
+      if (!probe.present) continue;
+      const contract = templateContractEntry(name)?.[axis] ?? {};
+      const drops = [contract.value?.[0], (contract.$was ?? []).find((part) => !(contract.value ?? []).includes(part))];
+      for (const drop of drops.filter(Boolean)) {
+        extraCanaries += 1;
+        const shaken = {
+          ...spec,
+          axes: { ...spec.axes, [axis]: { present: { ...probe.present, candidates: probe.present.candidates.filter((c) => c !== drop) } } },
+        };
+        if (templateSpecErrors([name], { [name]: shaken }).errors.length === 0) {
+          failures.push(`${name}.${axis}: 후보에서 「${drop}」 를 빼도 거절하지 않았습니다.`);
+        }
+      }
+    }
+    extraCanaries += 1;
+    const { $verifiedEvidence, ...bare } = spec;
+    if (templateSpecErrors([name], { [name]: { ...bare, $verifiedAgainstLive: true } }).errors.length === 0) {
+      failures.push(`${name}: 근거 없이 $verifiedAgainstLive: true 를 올려도 거절하지 않았습니다.`);
+    }
+  }
+
   // 명세가 계약의 축을 하나도 빠뜨리지 않았다는 것을 수로 남긴다.
   const counted = names
     .map((name) => `${name} ${Object.keys(TEMPLATE_CAPTURE[name].axes).length}축`)
@@ -1356,7 +1684,7 @@ function templatesSelfTest() {
   console.log(
     `[readback-emit] template 자기시험 OK — 명세 ${names.length}개(${counted}) · ` +
       `축 canary ${names.length * 2}종 · 쓰기 API canary ${FORBIDDEN_IN_TEMPLATE_SOURCE.length}종 · ` +
-      `낸 코드 ${emitted.split("\n").length}줄 문법 확인.` +
+      `낸 코드 ${emitted.split("\n").length}줄 문법 확인 · 실행 canary ${execution.count}종 · 후보 · 근거 canary ${extraCanaries}종.` +
       (unverified.length > 0
         ? ` **라이브 검증 전인 명세: ${unverified.join(", ")}** — --merge-templates 는 이들을 거절합니다.`
         : ""),
@@ -1445,7 +1773,7 @@ if (argv.includes("--components")) {
   assertTemplateSourceReadOnly(source);
   process.stdout.write(source);
 } else if (argv.includes("--templates-selftest")) {
-  templatesSelfTest();
+  await templatesSelfTest();
 } else if (argv.includes("--templates-spec")) {
   process.stdout.write(`${JSON.stringify(selectedTemplateSpec(), null, 2)}\n`);
 } else if (argv.includes("--merge-templates")) {

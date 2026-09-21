@@ -25,6 +25,41 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-22 (150) — template 되읽기 명세를 라이브 이름 · 구조로 고친다
+
+(141) 이 세운 `figma-readback-emit --templates` 의 명세는 계약(`figma/templates.measured.json`)의 근거 문장에서 경로를
+지었고, **라이브를 한 번도 읽지 못했다.** 2026-09-21 앵커 적용 준비의 읽기 전용 탐침에서 첫 경로 `Expanded/SidebarNavItem`
+에서 던졌다. 세트 적용(변수 · DS Templates)이 보드를 바꾸기 **전에** 세 template(`982:175` · `683:171` · `991:252`)의 트리를
+읽기 전용으로 떠서 명세의 경로 · 이름 규칙을 고쳤다. 라이브 Figma 에는 쓰지 않았고 계약 · 되읽기(`figma/readback.json`) 바이트는
+그대로다.
+
+| 자리 | 전 | 후 (라이브에서 본 것) |
+| --- | --- | --- |
+| 경로 · `named` 이름 | 이름 전체만 | 이름 전체 또는 **머리**(첫 「 · 」 앞) — 라이브는 「SidebarNavItem · 홈」 · 「Card · appMainCardChrome」 · 「Chrome · AppTopBar」 |
+| 경로의 컨테이너 | `Expanded/Card` · `Expanded/Content` | `Expanded/Main/Card` · `Expanded/Main/Card/Content` — 너비 우선 탐색이 부품 안까지 내려가므로 컨테이너를 빠짐없이 적는다 |
+| app-shell `mainOuterGapRight` | `Expanded/Main` 의 paddingRight(0) | `Expanded` 의 paddingRight(12) — Main 은 가로 FILL 이고 끝 여백은 상태 프레임에 있다 |
+| app-shell `requiredParts` | INSTANCE · FRAME 이름 전체, 인스턴스 안까지 | 머리 이름, RECTANGLE 포함(`Scrim`), 인스턴스 안으로 내려가지 않음 |
+| home `mainCardRadius` · `mainCardPaddingInline` | `Card` | `Main` — AppHome 에는 Card 가 없고 Main 자체가 카드다 |
+| home `gridColumns` | ProjectGrid 한 겹 카드 수(8) | **첫 줄** 카드 수(4) — ProjectGrid 는 줄바꿈 auto layout 에 카드 여덟 |
+| home `sectionPaddingTop` | `SectionHeader` 의 paddingTop(0) | `GridSection` 의 paddingTop(40) — 제품 archiveSection margin-top |
+| home 오버레이 셋 | `ProjectCard/Overlay` | `ProjectCard/Title overlay`(카드 인스턴스 안 `Media/Title overlay`) |
+| home `requiredParts` | 인스턴스 이름 전부(레일 부품 · Trigger · MenuPanel 까지) | 후보 중 **보이는** 것. 후보 = 계약 값 ∪ 걷어낸 부품(`$was` 의 NavEyebrow · 근거 문장의 FloatingCreate). 레일 부품(app-shell 소유)과 래퍼는 계약이 소유하지 않는다 — 08-31 손 되읽기도 세지 않았다 |
+| project-grid 밴드 | 이름 `Compact` · `Regular` · `Wide` · `Extra wide` | **ProjectCard 가 선 한 겹 아래 FRAME, Grid 폭 오름차순**(계약 `$pattern` 문장). 라이브 이름 「container 1116 → 4열」은 기하 설명이라 4열 밴드 Grid 가 1160 으로 옮겨지면 낡는다 |
+| project-grid `columnBands` | 한 겹 FRAME 전부(7 — Loading · Error · Empty 포함) | 밴드 수(4) |
+| project-grid `tracksEqual` | 모든 Grid 의 카드 폭이 한 값인가(밴드끼리 폭이 달라 거짓) | **밴드마다** 같은가 |
+| project-grid `trackGap` · `gridFillsContainer` · `requiredParts` | 패턴 전체의 Grid · `Wide` 이름 · 모든 자손 | 밴드마다(Loading 격자 제외) · 밴드 안쪽 깊이 2 — 계약 문장 그대로 |
+
+**숨긴 노드는 세지 않는다.** 부품 이름을 모으는 축(`names` · `present`)은 숨긴 노드와 그 아래를 건너뛴다. 앵커 적용이
+AppHome 「분석」 아이브로우 행(`NavEyebrow` `683:198`)을 **지우지 않고 숨기므로**, 숨긴 것을 세면 걷어냄이 되읽기에 보이지
+않고 `home.requiredParts` 가 계약과 영영 어긋난다.
+
+**조용한 초록을 두 곳에서 더 막는다.** ① `present` 후보가 계약 값 ∪ `$was` 를 덮지 않으면 CLI · 자기시험이 거절한다.
+② `$verifiedAgainstLive: true` 에 근거(`$verifiedEvidence` — 날짜 · 대조 결과)가 없으면 거절한다. 자기시험(`verify-readback-emit`)에
+**실행 canary 13종**을 더했다 — 낸 코드를 가짜 트리 위에서 돌려 이름 머리 · 숨긴 부품 · 인스턴스 안 · 밴드 정렬 · 밴드끼리 다를 때
+(한 값으로 접지 않고 밴드별 배열) · 줄바꿈 격자의 첫 줄 · 없는 경로(부분 결과 대신 throw)를 본다. 여기에 후보 · 근거 canary 5종.
+규칙을 하나씩 깨뜨린 사본 아홉 꼴로 돌려 전부 빨갛게 되는 것을 확인했다(처음 canary 는 「밴드 불일치를 첫 값으로 접기」를
+놓쳐 기대를 배열로 고쳤다).
+
 ## 2026-09-21 (149) — 앵커 적용 전 리뷰 minor: sidebar-states 찾기 가드를 허용 목록으로 · 적용 조건과 사실 정정
 
 2026-09-15 독립 리뷰가 남긴 minor 가운데 **라이브 적용 전에 고칠 것**을 고친다. 라이브 Figma 에는 쓰지 않았고 러너 ·

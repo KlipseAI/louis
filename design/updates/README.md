@@ -25,6 +25,30 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-21 (149) — 앵커 적용 전 리뷰 minor: sidebar-states 찾기 가드를 허용 목록으로
+
+2026-09-15 독립 리뷰가 남긴 minor 가운데 **라이브 적용 전에 고칠 것**을 고친다. 라이브 Figma 에는 쓰지 않았고 러너 ·
+계획 바이트는 그대로다(`check-figma-product-sidebar-states` 초록 — 생성물 드리프트 0).
+
+### sidebar-states 찾기 구간 — 금지 목록에서 허용 목록으로
+
+(137) 이 세운 「찾기 구간에는 쓰기가 없다」 확인은 쓰기 꼴을 정규식으로 적은 **금지 목록**이었다 — 속성 대입, 트리 ·
+크기 메서드 열 개, `figma.create*`, 렌더러 도우미 넷. 목록에 없는 쓰기(`setPluginData` · `setRangeFontSize` · 앞으로 생길
+API)는 소리 없이 지나갔다. 이제 생성기가 찾기 구간을 TypeScript 파서(`measure-product-surfaces` 가 이미 쓰는 개발 의존성)로
+읽고 **허용한 것만** 통과시킨다.
+
+| 축 | 허용 |
+| --- | --- |
+| 메서드 호출 | 읽기 이름만 — Figma 탐색(`getNodeByIdAsync` · `findAll*` · `findOne` · `getStyledTextSegments` · `loadFontAsync` · 보는 페이지만 옮기는 `setCurrentPageAsync`)과 배열 · 문자열 · Map · Promise · JSON 읽기. `set` · `add` 는 찾기 구간이 `new Map()` · `new Set()` 으로 선언한 로컬에만 |
+| 맨 이름 호출 | 찾기 구간이 스스로 선언한 함수(본문도 같은 검사를 받는다)와 변수 풀이 `liveVariables` 만. 그 반환에서 꺼낸 `pin` · `paint` 는 함수 식 선언이 아니라 막힌다 |
+| 대입 | 속성 대입 · `delete` · 속성 증감 금지. 첨자 대입은 찾기 구간이 객체 · 배열 리터럴로 선언한 로컬에만 |
+| `new` | `Map` · `Set` · `Error` |
+
+진단은 줄마다 이유를 단다 — 「renderer writes before its find phase ends (허용 목록 밖 · 템플릿 줄): 28: 허용 목록 밖 메서드
+setPluginData() — …」. 기존 canary(속성 대입)는 그대로 물고, `verify-gates` 에 canary 하나를 더했다 — 금지 목록이 몰랐던
+`page.setPluginData(…)` 를 찾기 구간에 넣으면 그 이름으로 문다. 손으로 넣어 본 꼴(`pin(page)` · `page["name"] = …` ·
+`figma.createFrame()` · `page.children[0].visible = false` · `I.x++`)도 모두 멈췄고, 로컬 Map 의 `set` 은 지나갔다.
+
 ## 2026-09-21 (148) — 병합: 문서 패턴의 바닥 여백이 링 여백 결정을 따라 8 이 된다
 
 **앵커 브랜치가 origin/main 을 병합으로 받으면서(7c6addf) 두 결정이 처음 만났다.** 충돌 표시가 없는

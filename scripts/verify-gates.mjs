@@ -1765,6 +1765,16 @@ withCanary(
   "renderer writes before its find phase ends",
   "--check",
 );
+// 2026-09-21: 그 확인이 금지 목록(쓰기 꼴 정규식)이던 동안 목록에 없는 쓰기 메서드는 지나갔다 — 허용 목록으로 바꾼 뒤,
+// 금지 목록이 몰랐던 꼴(`setPluginData`)을 찾기 구간에 넣어 그 이름으로 무는지 본다.
+withCanary(
+  "scripts/templates/figma-product-sidebar-states-renderer.js",
+  (source) => source.replace(/(\/\/ ── 1\. 찾기[^\n]*\n)/, "$1page.setPluginData(\"canary\", \"1\");\n"),
+  "sidebar-states: 찾기 구간에 금지 목록이 몰랐던 쓰기 메서드",
+  "scripts/build-figma-product-sidebar-states.mjs",
+  "허용 목록 밖 메서드 setPluginData()",
+  "--check",
+);
 
 // ── 색 파서 단위 확인 카나리아(2026-09-14) ─────────────────────────────────
 // 제품 컴포넌트 러너 · 보드 생성기가 함께 쓰는 `parseCssColor` 는 모듈을 읽을 때 두 직렬화(`rgb()` · `color(srgb …)`)와 두 알파

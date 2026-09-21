@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
 
@@ -250,21 +251,84 @@ const plan = {
 };
 // **찾기 구간에는 쓰기가 없다(2026-09-15).** 렌더러는 「── 1. 찾기」에서 필요한 대상을 전부 찾고 「── 2. 쓰기」부터 쓴다.
 // 그 앞에 노드 속성 대입 · 트리 변경 · 생성 호출이 섞이면, 대상이 없을 때 쓴 채로 던지는 옛 부분 적용이 소리 없이 돌아온다.
-// 모의 Figma 로만 보던 것을 생성기가 템플릿 글자에서 기계로 본다(주석 줄은 뺀다). 공용 조각(변수 풀이)은 템플릿 밖이다.
+// 모의 Figma 로만 보던 것을 생성기가 템플릿 글자에서 기계로 본다(주석은 뺀다). 공용 조각(변수 풀이)은 템플릿 밖이다.
+//
+// **허용 목록이다(2026-09-21, 앵커 리뷰 minor).** 첫 판은 쓰기 꼴을 정규식으로 적은 금지 목록이라, 목록에 없는 쓰기
+// (`setPluginData` · `setRangeFontSize` · 새 API)는 소리 없이 지나갔다. 이제 찾기 구간을 TypeScript 파서로 읽어
+//   · 메서드 호출은 아래 읽기 이름만 — 로컬 `new Map()` 의 `set` 은 그 이름에 묶인 것만,
+//   · 맨 이름 호출은 찾기 구간이 스스로 선언한 함수(본문도 이 검사를 받는다)와 변수 풀이 `liveVariables` 만 — 그 반환에서
+//     꺼낸 `pin` · `paint` 같은 쓰기 도구는 선언이 함수 식이 아니라 막힌다,
+//   · 속성 대입 · `delete` · 속성 증감은 전부 금지, 첨자 대입은 찾기 구간이 객체 · 배열 리터럴로 선언한 로컬에만,
+//   · `new` 는 Map · Set · Error 만
+// 허용한다. 읽기 이름이 하나 더 필요해지면 이 목록에 더하고 그 이름이 노드를 바꾸지 않는다는 근거를 옆에 적는다.
 {
   const template = readFileSync(templatePath, "utf8");
   const findStart = template.indexOf("// ── 1. 찾기");
   const writeStart = template.indexOf("// ── 2. 쓰기");
   if (findStart < 0 || writeStart < findStart) fail("renderer template lost its 「── 1. 찾기」 · 「── 2. 쓰기」 sections");
-  const findPhase = template.slice(0, writeStart).split("\n").map((line, index) => [index + 1, line]).filter(([, line]) => !line.trimStart().startsWith("//"));
-  const WRITES = [
-    /[\w\])]\s*\.\s*[A-Za-z_$][\w$]*\s*[+\-*/]?=(?!=)/,
-    /\.(?:resize|resizeWithoutConstraints|appendChild|insertChild|swapComponent|createInstance|remove|detachInstance|setExplicitVariableModeForCollection|setBoundVariable|setProperties)\s*\(/,
-    /figma\s*\.\s*(?:create\w*|combineAsVariants|group|flatten|ungroup)\s*\(/,
-    /\b(?:pin|recolor|fixed|hug)\s*\(/,
-  ];
-  const writes = findPhase.filter(([, line]) => WRITES.some((pattern) => pattern.test(line)));
-  if (writes.length) fail(`renderer writes before its find phase ends (template lines ${writes.map(([line]) => line).join(", ")}): ${writes.map(([, text]) => text.trim()).join(" | ").slice(0, 300)}`);
+  const findPhase = ts.createSourceFile("find-phase.mjs", template.slice(0, writeStart), ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  if (findPhase.parseDiagnostics?.length) fail(`renderer find phase does not parse: ${findPhase.parseDiagnostics.map((entry) => ts.flattenDiagnosticMessageText(entry.messageText, " ")).join(" | ")}`);
+  const READ_METHODS = new Set([
+    // Figma — 문서를 바꾸지 않는다(`setCurrentPageAsync` 는 보는 페이지만 옮긴다).
+    "getNodeByIdAsync", "setCurrentPageAsync", "loadFontAsync", "findAllWithCriteria", "findAll", "findOne", "findChild", "findChildren",
+    "getStyledTextSegments",
+    // 배열 · 문자열 · Map · Promise · JSON 읽기
+    "filter", "find", "some", "every", "map", "flatMap", "forEach", "join", "includes", "startsWith", "endsWith", "indexOf", "slice",
+    "has", "get", "values", "keys", "entries", "all", "stringify",
+  ]);
+  const READ_CALLEES = new Set(["liveVariables"]);
+  const NEW_ALLOWED = new Set(["Map", "Set", "Error"]);
+  const localMaps = new Set();
+  const localLiterals = new Set();
+  const localFunctions = new Set();
+  const collect = (node) => {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
+      const init = node.initializer;
+      if (ts.isNewExpression(init) && ts.isIdentifier(init.expression) && (init.expression.text === "Map" || init.expression.text === "Set")) localMaps.add(node.name.text);
+      if (ts.isObjectLiteralExpression(init) || ts.isArrayLiteralExpression(init)) localLiterals.add(node.name.text);
+      if (ts.isArrowFunction(init) || ts.isFunctionExpression(init)) localFunctions.add(node.name.text);
+    }
+    if (ts.isFunctionDeclaration(node) && node.name) localFunctions.add(node.name.text);
+    ts.forEachChild(node, collect);
+  };
+  collect(findPhase);
+  const rootName = (expression) => {
+    let node = expression;
+    while (ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node) || ts.isParenthesizedExpression(node) || ts.isNonNullExpression?.(node)) node = node.expression;
+    return ts.isIdentifier(node) ? node.text : null;
+  };
+  const isAssignment = (kind) => kind >= ts.SyntaxKind.FirstAssignment && kind <= ts.SyntaxKind.LastAssignment;
+  const violations = [];
+  const flag = (node, why) => violations.push(`${findPhase.getLineAndCharacterOfPosition(node.getStart(findPhase)).line + 1}: ${why} — ${node.getText(findPhase).replace(/\s+/g, " ").slice(0, 80)}`);
+  const check = (node) => {
+    if (ts.isCallExpression(node)) {
+      const callee = node.expression;
+      if (ts.isPropertyAccessExpression(callee)) {
+        const name = callee.name.text;
+        if (name === "set" || name === "add") {
+          if (!localMaps.has(rootName(callee.expression)) || !ts.isIdentifier(callee.expression)) flag(node, `${name}() 는 찾기 구간의 로컬 Map · Set 에만`);
+        } else if (!READ_METHODS.has(name)) flag(node, `허용 목록 밖 메서드 ${name}()`);
+      } else if (ts.isIdentifier(callee)) {
+        if (!READ_CALLEES.has(callee.text) && !localFunctions.has(callee.text)) flag(node, `허용 목록 밖 호출 ${callee.text}()`);
+      } else if (!ts.isParenthesizedExpression(callee)) {
+        flag(node, "이름으로 가릴 수 없는 호출");
+      }
+    } else if (ts.isNewExpression(node)) {
+      if (!ts.isIdentifier(node.expression) || !NEW_ALLOWED.has(node.expression.text)) flag(node, "허용 목록 밖 new");
+    } else if (ts.isBinaryExpression(node) && isAssignment(node.operatorToken.kind)) {
+      const target = node.left;
+      if (ts.isPropertyAccessExpression(target)) flag(node, "속성 대입");
+      else if (ts.isElementAccessExpression(target) && !(ts.isIdentifier(target.expression) && localLiterals.has(target.expression.text))) flag(node, "로컬 리터럴이 아닌 첨자 대입");
+    } else if (ts.isDeleteExpression(node)) {
+      flag(node, "delete");
+    } else if ((ts.isPrefixUnaryExpression(node) || ts.isPostfixUnaryExpression(node)) &&
+      (node.operator === ts.SyntaxKind.PlusPlusToken || node.operator === ts.SyntaxKind.MinusMinusToken) && !ts.isIdentifier(node.operand)) {
+      flag(node, "속성 증감");
+    }
+    ts.forEachChild(node, check);
+  };
+  check(findPhase);
+  if (violations.length) fail(`renderer writes before its find phase ends (허용 목록 밖 · 템플릿 줄): ${violations.join(" | ").slice(0, 600)}`);
 }
 const runnerPlan = structuredClone(plan);
 runnerPlan.sourceEvidence = plan.sourceEvidence.map(({ path, line, quote }) => ({ path, line, quote }));

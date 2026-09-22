@@ -1,5 +1,5 @@
 {
-  "$comment": "제품 대조도 사유도 없는 DS 값 359건이 제품의 무엇에 대응하는지 찾은 결과다. **검증되지 않았다.**",
+  "$comment": "제품 대조도 사유도 없는 DS 값 358건이 제품의 무엇에 대응하는지 찾은 결과다. **검증되지 않았다.**",
   "$warning": "이 파일은 에이전트가 소스를 읽고 적은 것이며 반증 판정을 거치지 않았다. 시간이 모자라 반증 단계를 떼어 냈다. **여기 적힌 값을 그대로 DS에 옮기지 않는다** — 인계서 (A2)가 반증을, (A3)이 브라우저 실측을 맡는다. 값을 판정하는 것은 사람도 에이전트도 아니고 브라우저다.",
   "$howToUse": "product-has: 제품에 대응 선언이 있다는 주장이다. 상수·파일·줄을 직접 확인한 뒤 탐침과 EXPECT 행을 넣고 브라우저가 판정하게 한다. product-none·derived: 왜 그 값인지를 `$키` 주석과 규범 문서에 적고 명부에서 지운다.",
   "$derivedTrap": "**`derived`를 (A4)로 바로 보내지 않는다.** 게이트는 값을 해소하는 두 길 중 `$키` 주석 쪽의 **내용을 검사하지 않는다** — `$키`가 있기만 하면 통과하고, 그 뒤 게이트가 그 항목을 명부에서 지우라고 요구한다(measure-product-components.mjs:1592-1612). 그래서 \"DS에 그 상태 규칙이 없어 Default와 같다\"는 사유는 **DS 캐스케이드에 대한 참인 진술이지 제품을 확인한 진술이 아닌데도** 빚을 영구히 지운다. 61건을 사유 본문까지 읽어 네 갈래로 나눴다. `route`가 그것이다. **(A4)로 갈 수 있는 것은 `제품-없음` 13건뿐이다.**",
@@ -9,11 +9,11 @@
     "DS-내부만": "DS 캐스케이드나 DS 기하만 말한다 — \"그 상태 규칙이 없어 Default와 같다\". 참이지만 **제품이 그 상태를 어떻게 표현하는지 확인한 적이 없다.** (A2)로 되돌려 제품 선언을 찾는다. 찾지 못하면 그때 `제품-없음`으로 내린다.",
     "충돌-기록됨": "사유 본문이 이미 제품과의 어긋남이나 자기모순을 적고 있다. **해소하면 안 된다** — `$키` 주석으로 지우면 어긋남이 영구히 보이지 않게 된다. (A3) 브라우저 판정과 DS 수정 대상이다."
   },
-  "$productNoneTrap": "`product-none` 54건은 함정이 다르다 — 사유의 질은 `derived`보다 훨씬 낫지만(제품이 대신 무엇을 하는지를 적고 파일·줄이나 탐색 범위를 밝힌다) **전부 부정 존재 명제다.** 인용은 있는 자리를 가리킬 뿐 없음을 증명하지 못한다. 탐침이 가리키는 그 요소에 대한 주장이면 `measure-product-components.mjs`의 선언 열거가 이미 강제하고 있으니 사유를 `figma/product-coverage.json`으로 옮긴다. 제품 정의 전체에 대한 주장(\"29벌을 훑었을 때 하나도 없다\")이면 `measure-product-variants.mjs`에 이름 패턴을 넣어 기계가 다시 세게 한다. 인계서 (A2\")를 본다.",
+  "$productNoneTrap": "`product-none` 53건은 함정이 다르다 — 사유의 질은 `derived`보다 훨씬 낫지만(제품이 대신 무엇을 하는지를 적고 파일·줄이나 탐색 범위를 밝힌다) **전부 부정 존재 명제다.** 인용은 있는 자리를 가리킬 뿐 없음을 증명하지 못한다. 탐침이 가리키는 그 요소에 대한 주장이면 `measure-product-components.mjs`의 선언 열거가 이미 강제하고 있으니 사유를 `figma/product-coverage.json`으로 옮긴다. 제품 정의 전체에 대한 주장(\"29벌을 훑었을 때 하나도 없다\")이면 `measure-product-variants.mjs`에 이름 패턴을 넣어 기계가 다시 세게 한다. 인계서 (A2\")를 본다.",
   "$counts": {
     "product-has": 245,
     "derived": 60,
-    "product-none": 54
+    "product-none": 53
   },
   "$derivedRouteCounts": {
     "제품-없음": 13,
@@ -22,8 +22,8 @@
     "충돌-기록됨": 6
   },
   "$coverage": {
-    "명부": 359,
-    "매핑됨": 359,
+    "명부": 358,
+    "매핑됨": 358,
     "매핑 안 됨": 0,
     "명부에 없는 항목": 0
   },
@@ -2057,12 +2057,6 @@
       "productValue": "var(--primary-400) = #38a4ff (globals.css:158). 786줄이 dark에 같은 값을 다시 선언한다",
       "productSelector": "item.status === \"done\" (HighlightScene.tsx:1267-1268)",
       "reason": "제품의 도메인 값은 '분석 완료'이며 브랜드 primary 색을 쓴다. DS의 info(파랑)와 색으로 대응한다."
-    },
-    {
-      "component": "selectable-list-row",
-      "path": "selectable-list-row.sizes.base.markerInline",
-      "decision": "product-none",
-      "reason": "제품의 선택된 행은 면 하나만 바꾸고 표식도 테두리도 그리지 않는다(clipDetailListItemActive에 background 선언 넷뿐, apps/web/components/scenes/highlightSceneStyles.ts:167-173). DS 다크에서 `color-bg-inset`은 `surface`·`menu`·`overlay`와 같은 색(#313644)이라 표면 위에 놓인 목록에서는 면만으로 선택이 사라지므로, 3px 선행 표식을 두 번째 신호로 함께 그려 선택을 색 하나에 싣지 않는다."
     },
     {
       "component": "selectable-list-row",

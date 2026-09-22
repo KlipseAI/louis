@@ -1851,9 +1851,6 @@
           "padding": 8,
           "gap": 8,
           "radius": 10,
-          "markerInline": 3,
-          "$markerInline": "선택 표식 두께 3px",
-          "$marker": "선택 표식. 다크에서 background-inset이 surface와 같은 색이라 면 하나에 기대면 표면 위에 놓인 목록에서 선택이 사라진다. SidebarNavItem은 사이드바가 캔버스 위에 있어서 면만으로 성립한다",
           "titleFontSize": 14,
           "$titleFontSize": "body-sm 14px",
           "titleLineHeight": 21,
@@ -1894,7 +1891,7 @@
           }
         }
       },
-      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이지만 **면만으로 선택을 전달하지 않는다** — 3px 선행 표식이 color-accent-primary로 함께 그려진다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
+      "$statesNote": "Selected의 면은 SidebarNavItem과 같은 토큰이고 **선택은 면이 갖는다** — 선행 표식은 없다(DS-D-0070, 2026-09-22 소유자 판정). 예전 3px 표식은 다크에서 background-inset이 surface와 같은 색이던 사다리의 보완이었고, 지금 inset은 canvas와 같고 surface·raised·menu·overlay와는 갈린다. 보조 문구는 선택된 행에서도 secondary로 남는다(둘 다 primary가 되면 위계가 사라진다)."
     },
     "segmented-control": {
       "$doc": "design/components/segmented-control.md",

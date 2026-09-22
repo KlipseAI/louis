@@ -18,7 +18,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다; visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(State). 계약이 모든 property 를 pin 하고 Marker·Text·Title·Meta·Media·Trailing 을 자손으로 대조하며 raw fill 0 이다. 기하는 양방향이다 — `selectable-list-row.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(State). 계약이 모든 property 를 pin 하고 Text·Title·Meta·Media·Trailing 을 자손으로 대조하며 raw fill 0 이다. 선행 표식(Marker)은 2026-09-22 에 걷었다([DS-D-0070](../governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md)). 기하는 양방향이다 — `selectable-list-row.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 
@@ -26,6 +26,9 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 - **하나를 고르는** 목록의 행 — 클립 리뷰, 소스 선택, 버전 목록. 고른 것의 상세가 옆이나 아래에 뜬다.
 - 행 전체가 클릭 대상이고, 그 안에 다른 버튼이 없을 때.
+- **목록은 올라온 면 위에 둔다** — `color-bg-surface`, `color-bg-raised`, `color-bg-menu`,
+  `color-bg-overlay` 가운데 하나. 선택은 면(`color-bg-inset`)이 갖는데, 다크에서 그 값이 캔버스와 같아
+  캔버스 바로 위에서는 선택 면이 바닥에 녹는다(아래 Implementation).
 
 쓰지 않는 자리.
 
@@ -59,7 +62,8 @@ master-detail의 좌측 열에서 하나를 고른다.
 2. **Media** — 선행 슬롯. 썸네일이 들어가고 크기는 호출부가 정한다.
 3. **Text** — 제목과 보조 문구를 세로로 담는다.
 4. **Trailing** — 후행 슬롯. 시간·개수 같은 짧은 값.
-5. **Marker** — 선택된 행의 선행 표식.
+
+선행 표식(왼쪽 3px 막대)은 없다. 2026-09-22 에 걷었다([DS-D-0070](../governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md)).
 
 ## Properties
 
@@ -84,7 +88,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | --- | --- |
 | Default | 면 없음, 전경 `color-fg-secondary` |
 | Hover | 면 `color-accent-ghost-hover`, 전경 `color-fg-primary` |
-| Selected | 면 `color-bg-inset` **+ 3px 선행 표식** `color-accent-primary`, 전경 `color-fg-primary` |
+| Selected | 면 `color-bg-inset`, 전경 `color-fg-primary`. 선행 표식은 없다 |
 | Disabled | 전경 `color-fg-disabled`, hover가 면을 칠하지 않는다 |
 | Focus | 행이 공유 링을 받는다 |
 
@@ -110,9 +114,10 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 - **선택을 `aria-current`가 소유한다.** [Sidebar Nav Item](app-shell-parts.md)과 같은 판정이다 —
   시각 전용 속성을 두면 화면에는 선택으로 보이는데 보조기술에는 아무것도 전달되지 않는다.
-- **선택을 면 하나로 전달하지 않는다.** 아래 Implementation의 실측을 보라.
+- 선택은 면과 전경으로 보이고, 보조기술에는 `aria-current`가 전한다. 면이 놓이는 바닥과 갈려야 하므로
+  목록을 올라온 면 위에 둔다(When to use). 두 테마에서 그것을 테스트가 확인한다.
 - 썸네일은 장식이므로 `alt=""`가 기본이다. 썸네일에만 있는 정보가 있으면 제목이 그것을 말해야 한다.
-- forced-colors에서 면과 표식이 모두 시스템 색으로 치환되므로 테두리로 선택을 다시 세운다.
+- forced-colors에서 면이 시스템 색으로 치환되므로 테두리로 선택을 다시 세운다.
 - 행이 버튼이므로 Enter와 Space가 모두 실행한다. 네이티브의 동작이다.
 
 ## Specification
@@ -123,7 +128,6 @@ master-detail의 좌측 열에서 하나를 고른다.
 | 슬롯 간격 | 8px | `space-control-sm` |
 | 반경 | 10px | `radius-overlay-item` |
 | 글자 묶음 간격 | 4px | `space-stack-xs` |
-| 선택 표식 | 3px | 리터럴 |
 | 제목 타이포 | 14/1.5 | `typography-body-sm-medium` |
 | 보조 타이포 | 12/1.5 | `typography-caption-regular` |
 | 미디어 반경 | 8px | `radius-control-sm` |
@@ -139,20 +143,29 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 ## Implementation
 
-**선택 면 하나에 기대면 다크에서 사라진다.** Sidebar Nav Item은 `aria-current` +
-`color-bg-inset`만으로 선택을 표현하는데, 그것이 성립하는 이유는 **사이드바가 캔버스 위에
-있기 때문**이다. 다크에서 `background-inset`은 `surface`·`menu`·`overlay`와 **같은 색**이고,
-목록은 표면 위에도 놓인다.
+**선택은 면이 갖는다.** Sidebar Nav Item과 같은 방식이다 — `aria-current` + `color-bg-inset`.
 
-실측(2026-08-18, 표면 위):
+**예전에는 3px 선행 표식을 함께 그렸다.** 2026-08-18 실측에서 다크의 `background-inset`이 표면과 같은
+색(`#313644`)이라 표면 위 목록에서 선택 면이 사라졌기 때문이다. 2026-09-22 에 걷었다
+([DS-D-0070](../governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md)). 이유는 셋이다.
 
-| 테마 | 표면 | 선택 면 | 구분되는가 |
-| --- | --- | --- | --- |
-| light | `#fafafa` | `#eaebee` | 예 |
-| dark | `#313644` | `#313644` | **아니오** |
+1. **제품은 표식을 한 번도 보이지 않았다.** 이 레시피를 입은 하이라이트 클립 목록은 `before:hidden`
+   으로 표식을 껐고(제품 앵커 `6fbdac16` 의 `highlightSceneStyles.ts` 162줄), 레이어 패널은 면 하나로
+   선택을 그리며, 프로젝트 영상 팝오버는 `aria-current` 를 켜지 않는다.
+2. **소유자가 왼쪽 막대를 거부했다** — 흔한 생성형 화면의 표식으로 읽힌다.
+3. **옛 근거가 더는 성립하지 않는다.** 다크 사다리가 바뀌어 지금 `bg-inset` 은 `bg-canvas` 와 같은
+   값이고, 올라온 면들과는 갈린다.
 
-그래서 3px 선행 표식을 함께 그린다. 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
-테스트가 두 테마에서 표식의 존재와 색을 각각 확인한다.
+실측(2026-09-22, `packages/css/generated/tokens.css`):
+
+| 테마 | 선택 면 `bg-inset` | `bg-surface` | `bg-raised` | `bg-menu` | `bg-overlay` | `bg-canvas` |
+| --- | --- | --- | --- | --- | --- | --- |
+| light | `#ebecee` | `#fafafa` | `#ffffff` | `#f2f3f5` | `#fafafa` | `#f2f3f5` |
+| dark | `#0d1118` | `#171b22` | `#171b22` | `#171b22` | `#171b22` | **`#0d1118`** |
+
+남는 제약은 하나다 — **다크에서 캔버스 바로 위에 둔 목록은 선택 면이 바닥과 같아진다.** 그래서 목록을
+올라온 면 위에 두라고 When to use 가 적는다. 테스트가 네 면 위에서 두 테마 모두 선택 면이 바닥과
+다른지를 확인한다. 사다리가 다시 바뀌어 면이 같아지면 거기서 걸린다.
 
 ## Known deviations
 
@@ -164,7 +177,8 @@ master-detail의 좌측 열에서 하나를 고른다.
   `listbox` 계약을 갖는 별도 컴포넌트가 필요하다.
 - **제품의 반응형 전환을 옮기지 않았다.** 하이라이트의 행은 900px 이하에서 220px 세로 카드로
   바뀌는데, 그것은 행이 아니라 **다른 컴포넌트로의 전환**이라 패턴이 소유할 문제다.
-- **선택 표식 3px에 토큰이 없다.** 소비처가 하나뿐이라 승격하지 않았다.
+- **다크에서 캔버스 위에 둔 목록은 선택이 보이지 않는다.** 선택 면(`bg-inset`)이 캔버스와 같은 값이다.
+  레시피가 막지 않으므로 호출부가 목록을 올라온 면 위에 둔다.
 - **Figma의 State는 코드에 없는 축이다.** 코드에서 `selected`는 boolean prop이고 `disabled`는
   `<button>`의 네이티브 속성인데, Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다.
   parity 계약이 그 사유와 함께 `figmaOnlyProperties`로 선언한다.
@@ -173,8 +187,8 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 1. 안쪽 여백·슬롯 간격·반경·글자 묶음 간격·제목/보조 타이포가 `components.measured.json`과 같다.
 2. Default·Hover·Selected·Disabled의 면과 전경이 states 표와 같다.
-3. **표면 위에서 light·dark 두 테마 모두 선택 표식이 있고 폭과 색이 계약과 같다.**
-4. 선택하지 않은 행에는 표식이 없다.
+3. **올라온 면(surface, raised, menu, overlay) 위에서 light와 dark 두 테마 모두 선택 면이 바닥과 다르다.**
+4. 선택한 행과 선택하지 않은 행 모두 선행 표식이 없다.
 5. 선택을 `aria-current="true"`가 소유하고 목록에 하나만 있다.
 6. 행이 `<button type="button">`이고 보조 문구를 눌러도 클릭이 **한 번만** 실행된다.
 7. 긴 제목이 말줄임으로 줄고 한 줄에 남는다.

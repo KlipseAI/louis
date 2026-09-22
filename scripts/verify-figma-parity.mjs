@@ -1884,7 +1884,7 @@ const COMPONENT_CONTRACTS = [
       State: {
         options: ["Default", "Selected", "Disabled"],
         reason:
-          "코드에서 selected는 boolean prop이고 disabled는 <button>의 네이티브 속성이다. Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다. Default와 Selected를 가르는 것은 면과 선행 표식이며 그 계약은 아래 parts의 Marker가 갖는다.",
+          "코드에서 selected는 boolean prop이고 disabled는 <button>의 네이티브 속성이다. Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다. Default와 Selected를 가르는 것은 면과 전경이다 — 선행 표식은 없다(DS-D-0070).",
       },
     },
     strokes: {},
@@ -1904,9 +1904,7 @@ const COMPONENT_CONTRACTS = [
       slots: {},
       extraStrokeWeights: [],
       parts: {
-        // **선택 표식이 계약이다.** 다크에서 background-inset이 surface와 같은 색이라 면 하나에
-        // 기대면 표면 위 목록에서 선택이 사라진다. 폭이 0이 되거나 사라지면 여기서 걸린다.
-        Marker: { fields: { width: "markerInline" } },
+        // 선행 표식(Marker)은 걷었다(DS-D-0070). 선택은 면이 갖고, 그 값은 states 가 대조한다.
         Text: { fields: { itemSpacing: "textGap" } },
         Title: { fields: { fontSize: "titleFontSize" } },
         Meta: { fields: { fontSize: "metaFontSize" } },

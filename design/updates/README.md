@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-22 (154) — 선택 행의 선택은 면이 갖는다: 3px 선행 표식을 걷었다 (DS-D-0070)
+
+[Selectable List Row](../components/selectable-list-row.md) 의 선택된 행에서 왼쪽 3px 막대(`::before`)를 걷었다.
+선택은 `aria-current` 가 소유하고 화면에는 면(`color-bg-inset`)과 전경(`color-fg-primary`)으로 선다 — Sidebar Nav Item
+과 같은 방식이다. 소유자가 하이라이트 스튜디오 시안에서 그 막대를 「AI 같은 디자인」으로 거부했고, 레시피에서 걷는 것을
+골랐다([DS-D-0070](../governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md)).
+
+- **제품 화면은 바뀌지 않는다.** 제품 앵커 `6fbdac16` 에서 이 레시피를 입은 자리는 셋이고 셋 다 표식을 이미 끈다 —
+  하이라이트 클립 목록(`before:hidden`, `highlightSceneStyles.ts:162`), 캔버스 레이어 패널(면 하나로 선택,
+  `NodeLayersPanel.tsx:255`), 프로젝트 영상 팝오버(`aria-current` 를 켜지 않는다, `ProjectVideosPopover.tsx:108`).
+- **옛 근거가 사라졌다.** 표식은 다크 `bg-inset` 이 표면과 같은 색(`#313644`)이던 사다리의 보완이었다. 지금 다크
+  `bg-inset` 은 캔버스와 같고(`#0d1118`) 표면, 올라온 면, 메뉴, 오버레이(`#171b22`)와 갈린다. 남는 제약은 규범에
+  올렸다 — **목록은 캔버스가 아니라 올라온 면 위에 둔다.**
+- **테스트가 바뀌었다.** 「표식이 있다」 대신 네 면(surface, raised, menu, overlay) 위에서 두 테마 모두 선택 면이
+  바닥과 다른지를 단언하고, 선택한 행에도 표식이 없는지를 본다. acceptance 수는 12 그대로다.
+- **Figma 도 맞췄다.** `SelectableListRow` 세트 Selected 변형의 `Marker` 레이어를 지웠고, 되읽기 명세와 parity 계약의
+  `parts` 에서 `Marker` 를, 측정 기록에서 `markerInline` 과 그 미검증 사유를 뺐다. `--components --only
+  SelectableListRow` 로 다시 떠 `readback.json` 에 병합하고 `snapshot.json` 을 다시 만들었다.
+- **제품은 핀 상향으로 받는다.** 받은 뒤 하이라이트 목록의 `before:hidden` 은 끌 것이 없어진다.
+
 ## 2026-09-22 (153) — 메뉴 면(`color-bg-menu`) 라이트를 한 칸 밝게: `palette-gray-050` → `palette-gray-025` (DS-D-0069)
 
 번호가 (151) 다음 (153) 인 것은 푸시되지 않은 앵커 브랜치가 (148)~(150) · (152) 를 쓰고 있어서다.

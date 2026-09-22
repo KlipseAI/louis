@@ -1603,19 +1603,19 @@
         },
         "선택 소유": {
           "product": "A 2벌은 **행의 면**이 갖는다(palette-gray-200/gray-700). B 1벌은 행 안의 **체크박스**가 갖고 행에는 선택 상태가 없다",
-          "ds": "행의 면 + aria-current + 선행 표식. 여럿 고르기는 이 컴포넌트가 아니라 Checkbox가 소유한다",
+          "ds": "행의 면 + aria-current. 여럿 고르기는 이 컴포넌트가 아니라 Checkbox가 소유한다",
           "match": "partial",
           "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:179",
           "status": "accepted-deviation",
           "reason": "행을 버튼으로 만들면서 안에 체크박스를 넣으면 컨트롤이 중첩된다. 두 선택 모델을 한 컴포넌트에 담는 대신 경계를 규범에 적었다"
         },
         "선택을 무엇으로 보이는가": {
-          "product": "A는 **면 하나**다. 표식도 테두리도 없다",
-          "ds": "면 + 3px 선행 표식(color-accent-primary)",
-          "match": "different",
+          "product": "A는 **면 하나**다. 표식도 테두리도 없다 — 이 레시피를 입고 `before:hidden` 으로 표식을 끈다",
+          "ds": "면 하나(color-bg-inset)와 전경(color-fg-primary). 선행 표식은 없다(DS-D-0070)",
+          "match": "same",
           "evidence": "apps/web/components/scenes/highlightSceneStyles.ts:162",
-          "status": "accepted-deviation",
-          "reason": "DS 다크에서 background-inset이 surface·menu·overlay와 같은 색이라 표면 위 목록에서 선택 면이 사라진다(실측: light #fafafa↔#eaebee 구분됨, dark #313644↔#313644 동일). 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다"
+          "status": "adopted",
+          "reason": "2026-09-22 DS가 제품 쪽으로 맞췄다(DS-D-0070). 증거 줄은 제품 앵커 6fbdac16 의 `\"before:hidden text-inherit\",` 이고(git show 6fbdac16:apps/web/components/scenes/highlightSceneStyles.ts 의 162줄), 제품이 LOUIS 행을 입고도 표식을 끈 자리다. 예전 편차 사유(다크 inset = surface, #313644)는 다크 사다리가 바뀌어 성립하지 않는다 — 지금 inset 은 canvas 와 같고 surface·raised·menu·overlay 와 갈린다(브라우저 테스트가 단언한다)"
         },
         "선택의 보조기술 전달": {
           "product": "A·B 어느 쪽도 aria를 주지 않는다. A는 클래스만 바꾸고 B는 체크박스가 대신한다",

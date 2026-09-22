@@ -250,7 +250,7 @@ const CAPTURE = {
   // `counterAxisAlignItems` 를 담는 이유는 EmptyState 와 같다 — 정렬이 가장 눈에 띄는 값인데
   // 담는 자리가 없으면 Figma 가 가운데 정렬로 그려도 게이트가 초록이다.
   "SectionHeader": {"key":{"by":["Level"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode"],"parts":{"Text":["itemSpacing","layoutMode"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"],"Meta":["fontSize","lineHeightPercent"],"Actions":["itemSpacing","layoutMode"]}},
-  "SelectableListRow": {"key":{"name":"base"},"parts":{"Marker":["width","height","cornerRadius"],"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
+  "SelectableListRow": {"key":{"name":"base"},"parts":{"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
   // Size 축이 키다. 두 칸(sm 24 · md 32)이 모두 제품 실측 자리를 갖는다 — 계약의 select.sizes 와
   // 같은 축이다. `Glyph` 는 MenuTrigger 와 같은 빈 슬롯이고 `Caret` 은 icon/caret-down 인스턴스를
   // 담은 12 정사각이다. 규칙 1 대로 INSTANCE 안으로는 들어가지 않으므로 캐럿 획은 여기 담기지

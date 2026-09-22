@@ -1,9 +1,8 @@
 // design/components/selectable-list-row.md의 Acceptance tests를 실제 브라우저에서 검증한다.
 //
-// **DS에 이미 선택 가능한 행이 있다** — SidebarNavItem은 aria-current + background-inset으로
-// 선택을 표현한다. 그것이 성립하는 이유는 사이드바가 캔버스 위에 있기 때문이고, 다크에서
-// background-inset은 surface와 **같은 색**이다. 목록은 표면 위에도 놓이므로 이 파일에서 가장
-// 중요한 단언은 "표면 위에서도 선택이 보이는가"다.
+// **선택은 면 하나가 갖는다(DS-D-0070)** — SidebarNavItem과 같은 방식이다. 예전에는 다크에서
+// background-inset이 surface와 같은 색이라 3px 선행 표식을 함께 그렸다. 지금 inset은 canvas와 같고
+// 올라온 면들과는 갈리므로, 이 파일에서 가장 중요한 단언은 "올라온 면 위에서 선택 면이 보이는가"다.
 import type { JSX } from "react";
 import { useState } from "react";
 import axe from "axe-core";
@@ -122,32 +121,40 @@ test("states 표가 코드와 같다", async () => {
   await userEvent.unhover(plain!);
 });
 
-test("표면 위에서도 선택이 보인다 — 면이 배경과 같아지는 테마가 있다", async () => {
-  // **다크에서 background-inset은 surface와 같은 색이다.** 면 하나에 기대면 표면 위에 놓인
-  // 목록에서 선택이 통째로 사라진다. 3px 선행 표식이 그 자리를 지킨다.
+test("올라온 면 위에서 선택 면이 배경과 갈린다 — 표면, 올라온 면, 메뉴, 오버레이", async () => {
+  // **선택은 면 하나가 갖는다(DS-D-0070).** 예전에는 다크에서 background-inset이 surface와 같은 색이라
+  // 3px 선행 표식을 함께 그렸다. 다크 사다리가 바뀐 지금 inset은 canvas와 같은 값이고 올라온 면들과는
+  // 갈린다 — 이 단언이 그 사실을 지킨다. 사다리가 다시 바뀌어 면이 같아지면 여기서 걸린다.
+  const floors = ["color-bg-surface", "color-bg-raised", "color-bg-menu", "color-bg-overlay"] as const;
   await render(
-    <div data-louis-fixture style={{ inlineSize: 320, background: "var(--louis-color-bg-surface)" }}>
-      <SelectableListRow selected title="선택됨" />
-      <SelectableListRow title="선택 안 됨" />
+    <div data-louis-fixture>
+      {floors.map((floor) => (
+        <div key={floor} data-floor={floor} style={{ inlineSize: 320, background: `var(--louis-${floor})` }}>
+          <SelectableListRow selected title="선택됨" />
+        </div>
+      ))}
     </div>,
   );
-  const [selected] = all("button.louis-selectable-list-row");
 
   for (const theme of ["light", "dark"] as const) {
     document.documentElement.setAttribute("data-theme", theme);
-    const marker = getComputedStyle(selected!, "::before");
-    expect(marker.content, `${theme}에서 표식이 있다`).not.toBe("none");
-    expect(px(marker.width), `${theme}에서 표식 폭`).toBe(spec.markerInline);
-    expect(marker.backgroundColor, `${theme}에서 표식 색`).toBe(
-      tokenValue("color-accent-primary", "background-color"),
-    );
+    for (const floor of floors) {
+      const host = find(`[data-floor="${floor}"]`);
+      const selected = host.querySelector("button.louis-selectable-list-row") as HTMLElement;
+      expect(getComputedStyle(selected).backgroundColor, `${theme}에서 ${floor} 위 선택 면`).not.toBe(
+        getComputedStyle(host).backgroundColor,
+      );
+    }
   }
   document.documentElement.removeAttribute("data-theme");
 });
 
-test("선택하지 않은 행에는 표식이 없다", async () => {
-  await render(<div data-louis-fixture><SelectableListRow title="선택 안 됨" /></div>);
-  expect(getComputedStyle(row(), "::before").content, "표식 없음").toBe("none");
+test("선행 표식이 없다 — 선택한 행과 선택하지 않은 행 모두", async () => {
+  // 소유자가 왼쪽 막대를 거부했고(DS-D-0070) 제품의 선택 행 셋도 표식을 보이지 않았다.
+  await render(<Fixture selected={0} />);
+  const [selected, plain] = all("button.louis-selectable-list-row");
+  expect(getComputedStyle(selected!, "::before").content, "선택한 행").toBe("none");
+  expect(getComputedStyle(plain!, "::before").content, "선택하지 않은 행").toBe("none");
 });
 
 test("선택을 aria-current가 소유한다", async () => {

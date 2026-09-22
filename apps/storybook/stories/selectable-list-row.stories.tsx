@@ -32,8 +32,8 @@ export const Playground: Story = {
 };
 
 /**
- * **표면 위에서 확인하는 것이 이 화면의 목적이다.** 다크에서 `background-inset`이 `surface`와
- * 같은 색이라 선택 면이 배경에 녹는다 — 3px 선행 표식이 그 자리를 지킨다.
+ * **표면 위에서 확인하는 것이 이 화면의 목적이다.** 선택은 면 하나가 갖는다(DS-D-0070). 다크에서
+ * `background-inset`은 캔버스와 같은 값이고 표면과는 갈린다 — 표면 위에서 선택 면이 보이는지를 본다.
  */
 export const OnSurface: Story = {
   render: () => {

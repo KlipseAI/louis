@@ -8,13 +8,19 @@
  * 안의 **체크박스**가 갖는다. 후자는 이 컴포넌트가 아니다 — 행을 버튼으로 만들면서 안에 체크박스를
  * 넣으면 컨트롤이 중첩된다. 규범이 그 경계를 적는다.
  *
- * ## 선택을 면 하나에 기대지 않는다
+ * ## 선택은 면이 갖는다 — 선행 표식은 없다(DS-D-0070)
  *
- * DS에는 이미 선택 가능한 행이 있다 — `SidebarNavItem`은 `aria-current` + `background-inset`으로
- * 선택을 표현한다. 그것이 성립하는 이유는 **사이드바가 캔버스 위에 있기 때문**이다. 다크에서
- * `background-inset`은 `surface`·`menu`·`overlay`와 **같은 색**이라, 표면 위에 놓인 목록에서는
- * 같은 방식이 통째로 사라진다. 목록은 표면 위에도 놓이므로 면에 더해 선행 표식을 함께 그린다.
- * 색 하나로 상태를 전달하지 않는 것은 그 자체로도 맞다.
+ * 선택은 `aria-current`가 소유하고, 화면에는 면(`color-bg-inset`)과 전경(`color-fg-primary`)으로 선다.
+ * `SidebarNavItem`과 같은 방식이다.
+ *
+ * 예전에는 3px 선행 표식을 함께 그렸다. 다크에서 `bg-inset`이 `surface`와 같은 색(#313644)이라 표면 위
+ * 목록에서 선택 면이 사라졌기 때문이다. 다크 사다리가 바뀐 지금 `bg-inset`은 `bg-canvas`와 같고
+ * `surface`·`raised`·`menu`·`overlay`와는 갈린다. 제품의 선택 행 셋은 어느 것도 표식을 보이지 않았고
+ * (하이라이트 목록은 이 레시피를 입고 `before:hidden`으로 껐다), 소유자가 왼쪽 막대를 거부했다.
+ *
+ * 남는 제약 하나 — 다크에서 선택 면이 캔버스와 같은 값이므로 목록은 캔버스 바로 위가 아니라 올라온 면
+ * 위에 둔다(규범 When to use). `position: relative`는 남긴다 — 소비처가 행의 `::before`로 트리 커넥터를
+ * 그린다(제품 레이어 패널).
  */
 
 .louis-selectable-list-row {
@@ -52,19 +58,8 @@
   color: var(--louis-color-fg-primary);
 }
 
-/* 선행 표식. 면이 배경과 같아지는 테마에서도 선택이 남고, 색 하나에 기대지 않게 한다. */
-.louis-selectable-list-row[aria-current="true"]::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  inset-block: var(--louis-space-control-sm);
-  inline-size: 3px;
-  border-radius: var(--louis-radius-pill);
-  background: var(--louis-color-accent-primary);
-}
-
 @media (forced-colors: active) {
-  /* forced-colors에서 면과 표식이 모두 시스템 색으로 치환된다. 테두리로 다시 세운다. */
+  /* forced-colors에서 면이 시스템 색으로 치환된다. 테두리로 다시 세운다. */
   .louis-selectable-list-row[aria-current="true"] {
     outline: var(--louis-border-width-hairline) solid CanvasText;
   }

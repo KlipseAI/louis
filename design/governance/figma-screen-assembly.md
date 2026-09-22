@@ -573,6 +573,8 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | `min-*` · `max-*` | HUG · FILL + 최소 · 최대 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)` |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
 | 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
+| 한 줄 글자가 폭을 정하는 버튼(폭 선언 없음, 블록 버튼 포함) | 면을 Auto Layout 으로 두고 글자 HUG(`WIDTH_AND_HEIGHT`) · 측정 폭은 최소 폭으로, `text-align` 은 주축 정렬로 | 앱 화면 보드의 업로드 Topic 칩 — 글자 상자를 측정 폭에 가두면 Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾였다(Updates (156)) |
+| CSS grid 의 행(행 템플릿 선언 없음 = `auto`) · `gap` | GRID 행 트랙 `HUG`, 열은 `repeat(N, 1fr)` 면 FLEX. `gap` 은 `gridRowGap` · `gridColumnGap`(`itemSpacing` 은 GRID 에 뜻이 없다). 칸이 전부 세로 FILL(stretch)인 행은 가장 높은 칸만 HUG 로 두고 나머지는 FILL — 칸 안 세로 쌓기의 FILL 자식도 HUG 로 푼다. 인스턴스 칸은 컴포넌트가 안을 정하므로 제품이 잰 칸 높이로 둔다 | 앱 화면 보드의 `/subscription` · `/mypage/upgrade` 격자 — Figma 가 새 행을 FLEX(1fr)로 깔아 HUG 컨테이너 높이를 행 수로 똑같이 나눴고 긴 카드가 다음 행을 덮었다. HUG 행에 FILL 칸만 두면 칸이 패딩만 남기고 접힌다(Updates (156)) |
 | `%` 비율 · `aspect-ratio` | constraints `SCALE` · `lockAspectRatio` | — |
 | `position: absolute` · `fixed` + `inset` | 절대 배치 + constraints. 자기 크기는 위 규칙을 따른다 | 결제 장면의 사이드바(`position: fixed`, 15번대로 마지막 자식) |
 

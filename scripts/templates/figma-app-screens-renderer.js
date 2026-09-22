@@ -289,6 +289,13 @@ const buildNode = (spec, parent) => {
         const cells = (spec.k || []).filter((child) => !child.p).length;
         try { node.gridColumnCount = columns; } catch (error) {}
         try { node.gridRowCount = Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
+        // **행은 내용 높이다.** CSS grid 는 행 템플릿을 선언하지 않으면 행이 auto(내용 높이)인데, Figma 는 새 행을
+        // FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다. 실측 사고: `/subscription` 모바일의 요금제
+        // 카드(456)가 281 짜리 행에 담겨 다음 행(크레딧 이력)을 덮었다. 열은 `repeat(N, 1fr)` 라 FLEX 그대로 둔다.
+        try { for (const track of node.gridRowSizes) track.type = "HUG"; } catch (error) {}
+        // **간격도 격자의 것이다.** 아래 `itemSpacing` 은 GRID 에 뜻이 없어 건너뛰는데, 그 자리를 메우지 않아 격자 칸이 붙어
+        // 그려졌다(`/subscription` 알림과 요금제 카드 사이 24 가 0). 계획의 간격 하나를 행 · 열 간격에 같이 건다(CSS `gap`).
+        try { node.gridRowGap = spec.l[1] || 0; node.gridColumnGap = spec.l[1] || 0; } catch (error) {}
       }
       if (node.layoutMode !== "GRID") {
         node.itemSpacing = spec.l[1];
@@ -385,6 +392,21 @@ const buildNode = (spec, parent) => {
     if (spec.l) {
       // 제품이 auto-layout(flex)으로 가운데 정렬한 버튼 — 부모 정렬을 그대로 쓴다.
       try { label.layoutSizingHorizontal = "HUG"; label.layoutSizingVertical = "HUG"; } catch (error) {}
+    } else if (h === "HUG") {
+      // **폭을 글자가 정하는 블록 버튼**(폭 선언 없음). 아래 갈래처럼 글자 상자를 측정 폭에 가두면, 글자 폭은
+      // 브라우저와 Figma 가 달라 Figma 글꼴이 조금 넓게 그리는 순간 줄이 꺾인다(조립 규칙 28조). 실측 사고: 업로드
+      // 보드의 Topic 칩이 「Spo / rts」 · 「Vlo / g」로 꺾였다. 면을 Auto Layout 으로 두고 글자를 hug 하며, 측정 크기는
+      // 최소로 남기고(패딩이 측정 크기 안에 있다) `text-align` 을 주축 정렬로 옮긴다.
+      node.layoutMode = "HORIZONTAL";
+      node.itemSpacing = 0;
+      node.primaryAxisAlignItems = spec.ta === "right" || spec.ta === "end" ? "MAX"
+        : spec.ta === "left" || spec.ta === "start" ? "MIN" : "CENTER";
+      node.counterAxisAlignItems = "CENTER";
+      node.primaryAxisSizingMode = "AUTO";
+      node.minWidth = Math.max(0.01, spec.r[0]);
+      if (v === "HUG") { node.counterAxisSizingMode = "AUTO"; node.minHeight = Math.max(0.01, spec.r[1]); }
+      else node.counterAxisSizingMode = "FIXED";
+      label.textAutoResize = "WIDTH_AND_HEIGHT";
     } else {
       // **flex가 아닌 블록 버튼**은 `text-align`으로만 글자를 가운데 놓는다. Figma에서 HUG로 두면
       // 글자가 (0,0)에 붙어 면 밖으로 삐져나온다. 실측 사고: `/subscription` 의 `Redeem a coupon`
@@ -398,6 +420,44 @@ const buildNode = (spec, parent) => {
   }
 
   for (const child of (spec.k || [])) buildNode(child, node);
+
+  // **HUG 행에서 칸이 전부 세로 FILL 이면 행이 접힌다.** CSS grid 는 칸 내용이 행 높이를 정하고 칸이 그 높이까지 늘어나는데
+  // (stretch), Figma 의 HUG 행은 FILL 칸에 높이를 주지 못해 칸이 패딩만 남기고 접힌다. 칸 안에서 세로로 쌓는 부모의 FILL
+  // 자식(flex-grow)도 같다 — 부모가 hug 하면 늘 자리가 없어 1px 로 접힌다. 실측 사고: `/subscription` 요금제 카드가 모바일
+  // 64 · 데스크톱 48 로 접혀 내용이 잘렸다. 그래서 행마다 (1) 칸을 모두 HUG 로 두고 칸 안의 세로 FILL 사슬을 HUG 로 풀어
+  // 내용 높이를 재고, (2) 가장 높은 칸만 HUG 로 남기고 나머지는 FILL 로 돌려 그 높이까지 늘인다 — 나란한 카드는 높은 쪽
+  // HUG · 낮은 쪽 FILL. 가로로 쌓는 부모의 세로 FILL 은 늘이기(stretch)라 hug 부모 안에서도 성립하므로 두지 않는다.
+  if (node.type === "FRAME" && node.layoutMode === "GRID" && spec.k) {
+    const columns = Math.max(1, (spec.l && spec.l[9]) || 1);
+    const cells = spec.k.map((childSpec, index) => ({ childSpec, child: node.children[index] }))
+      .filter(({ childSpec, child }) => child && !childSpec.p);
+    const release = (parentNode) => {
+      if (parentNode.type === "INSTANCE" || !("children" in parentNode)) return;
+      const grows = parentNode.layoutMode === "VERTICAL" && parentNode.primaryAxisSizingMode === "AUTO";
+      for (const kid of parentNode.children) {
+        if (kid.layoutPositioning === "ABSOLUTE") continue;
+        if (grows && kid.layoutSizingVertical === "FILL") {
+          try { kid.layoutSizingVertical = "HUG"; } catch (error) { try { kid.layoutSizingVertical = "FIXED"; } catch (ignored) {} }
+        }
+        if (kid.layoutMode !== "GRID") release(kid);
+      }
+    };
+    for (let start = 0; start < cells.length; start += columns) {
+      const row = cells.slice(start, start + columns);
+      if (!row.every(({ child }) => child.layoutSizingVertical === "FILL")) continue;
+      for (const { childSpec, child } of row) {
+        // 인스턴스 칸은 안쪽 배치를 컴포넌트가 정한다 — hug 로 풀지 않고 제품이 잰 칸 높이로 둔다.
+        const measured = () => { child.layoutSizingVertical = "FIXED"; child.resize(child.width, Math.max(0.01, childSpec.r[1])); };
+        if (child.type === "INSTANCE") { try { measured(); } catch (error) {} continue; }
+        try { child.layoutSizingVertical = "HUG"; release(child); }
+        catch (error) { try { measured(); } catch (ignored) {} }
+      }
+      const tallest = row.reduce((best, cell) => (cell.child.height > best.child.height ? cell : best));
+      for (const cell of row) {
+        if (cell !== tallest) { try { cell.child.layoutSizingVertical = "FILL"; } catch (error) {} }
+      }
+    }
+  }
   return node;
 };
 

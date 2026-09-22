@@ -119,9 +119,9 @@ const RECIPES = [
       [".louis-floating-shell__item", "block-size", "shell", "itemSize"],
       [".louis-floating-shell__item", "border-radius", "shell", "itemRadius"],
     ],
-    // 면은 값이 아니라 **이름**이 계약이다. 라이트 palette-gray 050 · 다크 palette-gray 800 은
+    // 면은 값이 아니라 **이름**이 계약이다. 라이트 palette-gray 025 · 다크 palette-gray 900 은
     // `color-bg-menu` 와 바이트로 같아서, 누가 팔레트 칸을 직접 적어도 두 테마 모두 픽셀이
-    // 같다 — 사다리가 움직이는 날에만 조용히 갈린다. 헤어라인도 같은 이유로 이름을 고정한다:
+    // 같다 — 사다리가 움직이는 날에만 조용히 갈린다(2026-09-22 DS-D-0069 가 라이트를 050 → 025 로 움직였다). 헤어라인도 같은 이유로 이름을 고정한다:
     // 컴포넌트마다 shadow 문자열을 베끼지 않는다는 것이 DS-D-0023 의 계약이다.
     surfaces: [
       [".louis-floating-shell", "var(--louis-color-bg-menu)"],

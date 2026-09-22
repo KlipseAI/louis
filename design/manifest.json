@@ -158,6 +158,15 @@
       "generated": false
     },
     {
+      "id": "decision-menu-surface-light-one-step-lighter",
+      "path": "design/governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md",
+      "title": "DS-D-0069 메뉴 면(`color-bg-menu`) 라이트를 사다리 한 칸 밝게 — `palette-gray-050` → `palette-gray-025`",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1611,6 +1620,7 @@
         "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
         "design/governance/decisions/DS-D-0067-document-is-not-an-app-screen.md",
         "design/governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md",
+        "design/governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

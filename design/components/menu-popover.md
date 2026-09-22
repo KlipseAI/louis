@@ -320,8 +320,8 @@ body로 떨어진다. 따라서 exit 모션 동안 화면에는 패널이 보이
   램프가 재매핑하는 것은 **고정 팔레트 `--palette-gray-100…600`과 `--app-page-bg`·`--background`뿐**이다.
 
   패널 표면은 `--louis-color-bg-menu`를 소비한다(`Gnb.tsx:1350`). 그 토큰은 생성된 CSS에서 리터럴
-  `color(srgb 0.945098 0.945098 0.952941)`이라 팔레트 별칭을 밟지 않는다 — **램프가 닿지 않는다.**
-  그러므로 라이트 표면은 사이드바 유무와 무관하게 `#f1f1f3` 하나다.
+  `color(srgb 0.94902 0.952941 0.960784)`(palette-gray-025 — [DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md))이라
+  팔레트 별칭을 밟지 않는다 — **램프가 닿지 않는다.** 그러므로 라이트 표면은 사이드바 유무와 무관하게 `#f2f3f5` 하나다.
 
 **한때 이 자리에 「라이트 표면이 두 값으로 갈리므로 한 값으로 그린 Figma 표면은 반드시 틀린다」고
 적혀 있었다.** 그 판단은 패널이 `--dropdown-surface-bg`를 소비하던 때의 것이고, 그 변수는 제품에
@@ -449,7 +449,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 
 | Part/state     | 목표 token/recipe                                      | 검증                       |
 | -------------- | ------------------------------------------------------ | -------------------------- |
-| Panel surface  | `color-bg-menu` — 라이트 neutral-100 / 다크 neutral-800 | light/dark/high contrast   |
+| Panel surface  | `color-bg-menu` — 라이트 palette-gray-025 / 다크 palette-gray-900 ([DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md)) | light/dark/high contrast   |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
 | Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--louis-hairline-inset`) | 레이아웃 박스 불변 |
@@ -663,7 +663,7 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
 - **danger item 글자가 라이트 메뉴 면 위에서 AA에 미달한다.** 전경은 제품 값을 따라
   `color-accent-danger`(red.500 #ff4b59)이고
   ([menu-popover.css:137](../../packages/css/src/component/menu-popover.css)), `color-bg-menu` 위 대비가
-  light **2.77** · dark 5.26이다. 파괴적 액션의 신호는 규범이 이미 요구하는 **명확한 동사 라벨**이
+  light **2.95**(DS-D-0069 로 면이 한 칸 밝아지기 전 2.77) · dark 5.26이다. 파괴적 액션의 신호는 규범이 이미 요구하는 **명확한 동사 라벨**이
   함께 진다.
   **이 자리에 적혀 있던 「danger item의 톤이 일반 item과 거의 구분되지 않는다」(light 1.21 · dark
   1.14)는 낡았다.** 그것은 `color-fg-danger`(면과 짝으로 만든 토큰)를 텍스트 색으로만 쓰던 때의

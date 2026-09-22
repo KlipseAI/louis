@@ -25,6 +25,28 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-22 (153) — 메뉴 면(`color-bg-menu`) 라이트를 한 칸 밝게: `palette-gray-050` → `palette-gray-025` (DS-D-0069)
+
+번호가 (151) 다음 (153) 인 것은 푸시되지 않은 앵커 브랜치가 (148)~(150) · (152) 를 쓰고 있어서다.
+
+소유자 요청대로 라이트 드롭다운 면을 회색 사다리 한 칸 밝게 했다 — #ebecee → **#f2f3f5**. 다크는 그대로
+`palette-gray-900` 이다. 제품 드롭다운은 거의 모두 이 토큰 하나로 칠해진다 — `.louis-popover` 레시피를 쓰는 CustomDropdown ·
+언어 · 기록 · 캔버스 우클릭 · 노드 메타 드롭다운, 그리고 같은 토큰을 직접 선언한 앱 셸 프로필 팝오버 · 프로젝트
+드롭다운이다. 같은 재료에 묶인 캔버스 하단 툴바(`.louis-floating-shell`)와 확대 알약(`.louis-pill-trigger`)도 함께
+밝아진다 — 소유자가 「재료째 한 칸」을 골랐다([DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md)).
+
+- **라이트 메뉴 면이 `bg-canvas` 와 같은 값이 된다.** 캔버스 색 위의 드롭다운은 그림자와 헤어라인으로 갈린다.
+  danger 항목 글자 대비는 2.77 → 2.95(여전히 AA 미달, 소유자 판정 거리 그대로).
+- **Figma 도 맞췄다.** 변수 `color/bg-menu` 의 Light 별칭을 `palette-gray/025` 로 옮겼다(`build-figma-variables --only
+  color-bg-menu` 조각을 그대로 보냄 — 보낸 code 와 조각 파일 sha256 같음, 갱신 1). 되읽기를 `readback.json` 에 병합하고
+  `snapshot.json` 을 다시 만들었다.
+- **제품은 핀 상향으로 받는다.** 제품이 빌려 쓰는 자리(편집기 · 하이라이트 hover 면, 대시보드 스켈레톤 토글, 편집기 지표
+  행 등)에 생기는 차이와, 토큰을 쓰지 않는 드롭다운 둘(클립 자르기 비율 메뉴 · 명령 팔레트)을 같은 면으로 맞추는 일은
+  결정 문서의 Consequences 가 적는다.
+- **문서 정정.** [Menu / Popover](../components/menu-popover.md) 의 라이트 표면 값(옛 `#f1f1f3`)과 명세 표(옛 이름
+  neutral-100/800), [Floating Shell](../components/floating-shell.md) 라이트 면 이력의 「라이트 050 · 다크 800」,
+  `verify-recipe-record` 주석의 같은 쌍을 지금 값으로 고쳤다.
+
 ## 2026-09-22 (151) — 헤어라인 recipe 가 중첩된 테마 스코프의 색을 따른다 (DS-D-0068)
 
 번호가 (147) 다음 (151) 인 것은 푸시되지 않은 앵커 브랜치가 (148)~(150) 을 이미 쓰고 있어서다 — 합칠 때

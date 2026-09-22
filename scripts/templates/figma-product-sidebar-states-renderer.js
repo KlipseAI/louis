@@ -120,6 +120,13 @@ const [assets, preview, properties] = (() => {
 })();
 const gripOf = (divider) => need(found([...divider.children], `grip in ${divider.name}`), `grip in ${divider.name}`);
 const nodes = { assets, preview, properties, timeline, assetsGrip: gripOf(assetsDivider), propertiesGrip: gripOf(propertiesDivider), timelineGrip: gripOf(timelineDivider) };
+// 속성 판 안의 손 조립 내용 — 보이는 세로 Auto Layout 프레임 하나(제품 `propertiesPanelInner` 흉내)와 그 안의 가로 행(이름 · 값).
+// 이름은 손 조립 주석이라 구조로 찾는다. 트랙 폭이 바뀌어도 이 프레임은 제 폭에 남아 값 열이 잘렸다(S7) — 쓰기 단계에서 판 폭에 맞춘다.
+const propertiesInner = need(
+  found(properties.children.filter((entry) => entry.visible && entry.type === "FRAME" && entry.layoutMode === "VERTICAL"), `inner frame in ${properties.name}`),
+  `inner frame (vertical Auto Layout) in ${properties.name}`,
+);
+const propertiesRows = propertiesInner.children.filter((entry) => entry.visible && entry.type === "FRAME" && entry.layoutMode === "HORIZONTAL");
 
 // ── 2. 쓰기 ──────────────────────────────────────────────────────────────────────────
 const recolor = (node, role) => {
@@ -404,6 +411,16 @@ nodes.preview.layoutSizingHorizontal = "FILL";
 nodes.preview.layoutSizingVertical = "FILL";
 track(propertiesDivider, E.columns.propertiesDivider);
 track(nodes.properties, E.columns.properties);
+// 속성 판 안쪽 — 판 폭을 따르게(가로 STRETCH) 맞추고 제품의 안쪽 여백 · 간격, 행 가로 패딩을 건다. 높이는 내용으로 HUG 한다.
+propertiesInner.x = 0;
+propertiesInner.y = 0;
+propertiesInner.resize(nodes.properties.width, propertiesInner.height);
+propertiesInner.primaryAxisSizingMode = "AUTO";
+propertiesInner.counterAxisSizingMode = "FIXED";
+propertiesInner.constraints = { horizontal: "STRETCH", vertical: "MIN" };
+propertiesInner.paddingTop = propertiesInner.paddingRight = propertiesInner.paddingBottom = propertiesInner.paddingLeft = E.propertiesPanel.innerPadding;
+propertiesInner.itemSpacing = E.propertiesPanel.innerGap;
+for (const row of propertiesRows) row.paddingLeft = row.paddingRight = E.propertiesPanel.rowPaddingInline;
 timelineDivider.resize(timelineDivider.width, E.rows.timelineDivider);
 timelineDivider.layoutSizingHorizontal = "FILL";
 timelineDivider.layoutSizingVertical = "FIXED";
@@ -432,7 +449,7 @@ nodes.timelineGrip.y = -0.5;
   }
   measuredSection.resizeWithoutConstraints(Math.max(measuredSection.width, right), Math.max(measuredSection.height, cursor));
 }
-// 되읽기 — 명시 모드(이 컬렉션). 섹션만 측정 모드여야 한다.
+// 되읽기 — 명시 모드(이 컬렉션)와 잘린 자손. 둘 다 비어 있어야 한다(섹션만 측정 모드 · 속성 판 안에서 잘리는 것 0).
 const modeName = (node) => {
   const modeId = node.explicitVariableModes[modeCollection.id];
   return modeId === undefined ? null : modeCollection.modes.find((entry) => entry.modeId === modeId)?.name ?? modeId;
@@ -440,6 +457,15 @@ const modeName = (node) => {
 const pinned = [measuredSection, railSet, ...railSet.children, ...railSet.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id), collapsedUpgradeMaster, topBar, rail, barInstance]
   .map((node) => [node.id, modeName(node)])
   .filter(([, mode]) => mode !== null);
+// 잘림은 자르는 조상마다 본다 — 판과 그 안의 행이 모두 clipsContent 다. 자손 상자가 가장 가까운 자르는 조상 상자를 넘으면 잘린다.
+const outside = (inner, outer) => inner.x < outer.x - 0.5 || inner.y < outer.y - 0.5 ||
+  inner.x + inner.width > outer.x + outer.width + 0.5 || inner.y + inner.height > outer.y + outer.height + 0.5;
+const propertiesOverflow = nodes.properties.findAll((entry) => {
+  if (!entry.visible || !entry.absoluteBoundingBox) return false;
+  let clip = entry.parent;
+  while (clip && clip.id !== nodes.properties.id && !clip.clipsContent) clip = clip.parent;
+  return outside(entry.absoluteBoundingBox, (clip ?? nodes.properties).absoluteBoundingBox);
+}).map((entry) => `${entry.id} ${entry.name}`);
 return {
   railSetId: railSet.id,
   railVariantIds: railSet.children.map((entry) => entry.id),
@@ -453,4 +479,7 @@ return {
   editorNodeIds: Object.fromEntries(Object.entries(nodes).map(([key, node]) => [key, node.id])),
   sectionId: measuredSection.id,
   explicitModes: Object.fromEntries(pinned),
+  propertiesInnerId: propertiesInner.id,
+  propertiesRowIds: propertiesRows.map((entry) => entry.id),
+  propertiesOverflow,
 };

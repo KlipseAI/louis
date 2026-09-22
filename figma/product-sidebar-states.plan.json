@@ -102,6 +102,36 @@
       "quote": "    \"[@media(min-width:720px)]:[row-gap:2px]\","
     },
     {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "line": 3493,
+      "quote": "    \"vem-propertiesPanel-inner\","
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "line": 3500,
+      "quote": "    \"[padding:8px]\","
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "line": 3505,
+      "quote": "    \"[gap:0]\","
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "line": 1047,
+      "quote": "    \"[justify-content:space-between]\","
+    },
+    {
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts",
+      "line": 1073,
+      "quote": "    \"[.vem-propertiesPanel_&]:[padding:0_8px]\","
+    },
+    {
       "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "path": "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx",
       "line": 1120,
@@ -503,7 +533,7 @@
       "paint": "gray000"
     },
     "editor": {
-      "$why": "Declared tracks only; the 1fr preview column, the 1fr upper row and the body size are FILL in Figma. The shell inset is the measured --app-gnb-main-inline-padding on all four sides (vemClass modalShellDocked margin + calc(100% - inset * 2)). The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan).",
+      "$why": "Declared tracks only; the 1fr preview column, the 1fr upper row and the body size are FILL in Figma. The shell inset is the measured --app-gnb-main-inline-padding on all four sides (vemClass modalShellDocked margin + calc(100% - inset * 2)). The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan). The properties panel's hand-assembled inner frame follows the track width (STRETCH) with the product's inner padding and row inline padding (vemClass propertiesPanelInner · inspectorField).",
       "shellInset": 16,
       "columns": {
         "assets": 317,
@@ -519,6 +549,11 @@
       },
       "columnGap": 2,
       "rowGap": 2,
+      "propertiesPanel": {
+        "innerPadding": 8,
+        "innerGap": 0,
+        "rowPaddingInline": 8
+      },
       "topBar": {
         "padding": {
           "top": 8,

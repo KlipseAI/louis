@@ -99,6 +99,22 @@ const [timelineDivider, timeline] = declaredTrack(
   gridSources[1], /minmax\(0,_1fr\)_(\d+)px_var\(--video-edit-timeline-height,_(\d+)px\)/, "grid rows");
 const [columnGap] = declaredTrack(gridSources[2], /\[column-gap:(\d+)px\]/, "column gap");
 const [rowGap] = declaredTrack(gridSources[3], /\[row-gap:(\d+)px\]/, "row gap");
+// **속성 판 안쪽은 제품 선언을 따른다(2026-09-22, S7 판정 결함 2).** S7 이 속성 트랙을 제품 값 240 으로 옮기자 판 안의 손 조립
+// 내용(`propertiesPanelInner` 흉내 — 세로 Auto Layout, 옛 폭 324 · 패딩 16)이 324 자리 그대로 남아 값 열이 오른쪽에서 잘렸다
+// (「1920 × 1080」 · 「크로스 디졸브」). 러너는 매 실행 그 안쪽 프레임을 판 폭에 맞추고(가로 STRETCH) 제품의 안쪽 여백과 행 가로
+// 패딩을 건다 — 위치 · 폭 · 자동 배치 속성만이다. 행은 이미 이름 왼쪽 · 값 오른쪽(SPACE_BETWEEN)이라 정렬은 그대로 둔다.
+//   판 안쪽 여백 8 · 간격 0 — `propertiesPanelInner`(vemClass.ts:3493 · :3500 · :3505, 「Figma 1087:2491 pad 8 → 행 폭 224」)
+//   행 가로 패딩 8 · 양 끝 정렬 — `inspectorField` 의 속성 판 분기(vemClass.ts:1047 · :1073)
+const propertiesPanelSources = [
+  sourceQuote(VEM, 3493, '    "vem-propertiesPanel-inner",'),
+  sourceQuote(VEM, 3500, '    "[padding:8px]",'),
+  sourceQuote(VEM, 3505, '    "[gap:0]",'),
+  sourceQuote(VEM, 1047, '    "[justify-content:space-between]",'),
+  sourceQuote(VEM, 1073, '    "[.vem-propertiesPanel_&]:[padding:0_8px]",'),
+];
+const [propertiesInnerPadding] = declaredTrack(propertiesPanelSources[1], /^\s*"\[padding:(\d+)px\]",$/, "properties panel inner padding");
+const [propertiesInnerGap] = declaredTrack(propertiesPanelSources[2], /^\s*"\[gap:(\d+)\]",$/, "properties panel inner gap");
+const [propertiesRowPaddingInline] = declaredTrack(propertiesPanelSources[4], /\[padding:0_(\d+)px\]/, "properties row inline padding");
 // **이 장면은 앵커에서 제품 상태가 아니다 — 기록한다.** 편집 화면은 이제 노드 캔버스처럼 풀화면이라
 // `variant="create"` 가 사이드바를 끈다(EditorProjectWorkspace.tsx:1120–1124). 접힌 레일 + 편집기 조합은
 // 옛 앵커의 장면이다. 격자 트랙과 셸 인셋은 그대로 제품 값이라 옮기지만, 장면 구성을 풀화면으로 다시 짓는
@@ -111,12 +127,14 @@ const editor = {
   $why:
     "Declared tracks only; the 1fr preview column, the 1fr upper row and the body size are FILL in Figma. " +
     "The shell inset is the measured --app-gnb-main-inline-padding on all four sides (vemClass modalShellDocked margin + calc(100% - inset * 2)). " +
-    "The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan).",
+    "The top bar hugs: padding and gap from the measured desktop bar, controls and profile at their declared sizes (app-shell plan). " +
+    "The properties panel's hand-assembled inner frame follows the track width (STRETCH) with the product's inner padding and row inline padding (vemClass propertiesPanelInner · inspectorField).",
   shellInset: Number(shellInset),
   columns: { assets, assetsDivider, preview: "FILL", propertiesDivider, properties },
   rows: { upper: "FILL", timelineDivider, timeline },
   columnGap,
   rowGap,
+  propertiesPanel: { innerPadding: propertiesInnerPadding, innerGap: propertiesInnerGap, rowPaddingInline: propertiesRowPaddingInline },
   topBar: {
     padding: desktopTopBar.padding,
     gap: desktopTopBar.gap,
@@ -192,6 +210,7 @@ const plan = {
     // 편집기 셸의 사방 인셋(G1) · 격자 트랙 · 장면 구성의 근거. 값은 위 `editor` 가 인용에서 푼다.
     ...shellSources,
     ...gridSources,
+    ...propertiesPanelSources,
     ...compositionSources,
     // 제품이 `mainChromeLeadingCluster` 의 인라인 선언을 걷고 LOUIS 레시피로 넘겼다(e5d49507).
     // `[gap:4px]` 리터럴은 이제 제품에 없다 — 같은 4px 을

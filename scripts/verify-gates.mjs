@@ -1775,6 +1775,25 @@ withCanary(
   "허용 목록 밖 메서드 setPluginData()",
   "--check",
 );
+// 2026-09-22: S7 에서 러너가 상단 바 마스터에 측정 모드(Dark)를 명시해, 그 모드가 라이트 보드 `39:3` 안 인스턴스로 번졌다(글자
+// #fafafa · 대비 1.69:1). 이제 측정 모드는 측정 섹션에만 걸고 마스터 · variant · 인스턴스는 놓인 자리의 모드를 따른다. 생성기가
+// 템플릿 전체에서 `pin` 과 `setExplicitVariableModeForCollection` 을 보는데, 그 확인이 세 꼴(마스터에 다시 건 pin · 인스턴스에
+// 직접 건 API · pin 별칭)에서 실제로 무는지 본다.
+for (const [label, needle, injected, diagnostic] of [
+  ["마스터에 다시 건 pin", "unpin(topBar);\n", "unpin(topBar);\npin(topBar);\n", "pin() 은 measuredSection 에만"],
+  ["인스턴스에 직접 건 명시 모드", "unpin(barInstance);\n", "unpin(barInstance);\nbarInstance.setExplicitVariableModeForCollection(modeCollection, measuredMode.modeId);\n", "setExplicitVariableModeForCollection 직접 호출"],
+  ["pin 별칭", "pin(measuredSection);\n", "pin(measuredSection);\nconst setModes = pin;\nsetModes(railSet);\n", "pin 을 호출 밖에서 참조"],
+]) {
+  withCanary(
+    "scripts/templates/figma-product-sidebar-states-renderer.js",
+    // 바늘이 템플릿에서 사라지면 replace 가 입력을 바꾸지 못하고, withCanary 가 그 사실을 오류로 찍는다.
+    (source) => source.replace(needle, injected),
+    "sidebar-states: 측정 섹션 밖의 명시 모드 · " + label,
+    "scripts/build-figma-product-sidebar-states.mjs",
+    diagnostic,
+    "--check",
+  );
+}
 
 // ── 색 파서 단위 확인 카나리아(2026-09-14) ─────────────────────────────────
 // 제품 컴포넌트 러너 · 보드 생성기가 함께 쓰는 `parseCssColor` 는 모듈을 읽을 때 두 직렬화(`rgb()` · `color(srgb …)`)와 두 알파

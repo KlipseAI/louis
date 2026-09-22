@@ -167,7 +167,7 @@
     "componentSetName": "Product/Gnb Desktop Rail",
     "collapsedUpgradeMasterName": "Product/Gnb Collapsed Upgrade CTA",
     "topBarName": "Product/Desktop Composition Top Bar · Sidebar=Collapsed",
-    "sectionName": "M · product/Desktop collapsed shell · measured component",
+    "sectionName": "Q · product/Desktop collapsed shell · measured component",
     "iconComponents": {
       "Search": "icon/MagnifyingGlass",
       "Home": "icon/House",
@@ -202,6 +202,10 @@
       "topBarDivider": {
         "collection": "Klipse Semantic Color",
         "name": "color/stroke-hairline"
+      },
+      "boardSurface": {
+        "collection": "Klipse Semantic Color",
+        "name": "color/bg-canvas"
       }
     },
     "paints": {
@@ -612,6 +616,14 @@
       "figma": "Klipse Semantic Color[Dark]/color/stroke-hairline → Klipse Primitive/color/static-white-alpha/08",
       "figmaValue": "#fafafa",
       "figmaAlpha": 0.08,
+      "exact": null
+    },
+    "boardSurface": {
+      "declared": null,
+      "annotation": "section fill behind the measured rail set · CTA · top bar (board canvas, not a product surface)",
+      "figma": "Klipse Semantic Color[Dark]/color/bg-canvas → Klipse Primitive/color/palette-gray/950",
+      "figmaValue": "#0d1118",
+      "figmaAlpha": 1,
       "exact": null
     }
   }

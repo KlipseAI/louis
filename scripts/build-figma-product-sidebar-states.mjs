@@ -152,6 +152,9 @@ const roles = live.colorRoles({
       declared: [quote.product(GNB, 478, '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",')],
       unmeasured: "editor top bar bottom line — not measured by this fixture (creation-only path); the same token the app-shell plan binds",
     },
+    // 측정 섹션의 바닥 — 형제 세트 러너(체크아웃 · 결제 장면 · 업그레이드 · 컴포넌트)와 같은 주석 역할. 섹션이 측정 모드(Dark)를
+    // 가지므로 이 칠도 Dark 로 풀린다 — 마스터 미리보기가 측정 문맥과 같은 바닥 위에 놓인다.
+    boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the measured rail set · CTA · top bar (board canvas, not a product surface)" },
   },
 });
 const cssColor = (value) => parseCssColor(value, fail);
@@ -208,7 +211,15 @@ const plan = {
     componentSetName: "Product/Gnb Desktop Rail",
     collapsedUpgradeMasterName: "Product/Gnb Collapsed Upgrade CTA",
     topBarName: `Product/Desktop ${editorCurrent} Top Bar · Sidebar=Collapsed`,
-    sectionName: "M · product/Desktop collapsed shell · measured component",
+    // **측정 모드는 이 섹션에 한 번만 건다(2026-09-22, S7 판정 결함 1).** 옛 러너는 레일 variant · 접힌 CTA 인스턴스 · 편집기 상단 바
+    // 마스터에 `Klipse Semantic Color=Dark` 를 명시했다. 마스터에 건 모드는 인스턴스로 번지므로, 라이트 보드 `39:3` 안 상단 바
+    // 인스턴스의 글자가 #fafafa 로 풀려 대비가 11.89 → 1.69:1 이 됐다(제품 어느 테마에도 없는 상태). 이제 러너는 이 섹션에만
+    // 측정 모드를 걸고(세트 페이지의 마스터 미리보기 = 측정 문맥), 마스터 · variant · 인스턴스의 명시 모드는 걷어 놓인 자리의
+    // 모드를 따르게 한다. 형제 세트의 섹션(I~P)도 섹션에 측정 모드를 걸지만, 앱 셸 · 컴포넌트 러너는 variant · 마스터에도 건다 —
+    // 그쪽 소비처는 따로 세야 한다(Updates (152) 「남은 것」). 생성기는 아래에서 템플릿의 `pin` 이 이 섹션 밖을 가리키면 멈춘다.
+    // 이름 머리는 **Q** 다 — 옛 계획의 「M · …」 섹션은 라이브에 한 번도 지어지지 않았고(러너가 이 이름을 읽지 않았다), 그 사이
+    // 「M」은 결제 장면 섹션(`406:629`)이 가졌다. 세트 페이지 섹션은 A~P 가 쓰이고 있다(2026-09-22 읽기 전용 탐침).
+    sectionName: "Q · product/Desktop collapsed shell · measured component",
     iconComponents: {
       Search: "icon/MagnifyingGlass",
       Home: "icon/House",
@@ -329,6 +340,40 @@ const plan = {
   };
   check(findPhase);
   if (violations.length) fail(`renderer writes before its find phase ends (허용 목록 밖 · 템플릿 줄): ${violations.join(" | ").slice(0, 600)}`);
+}
+// **측정 모드는 측정 섹션에만 건다(2026-09-22, S7 판정 결함 1).** 마스터 · variant · 인스턴스에 명시 모드를 걸면 그 모드가
+// 인스턴스로 번져, 놓인 자리(라이트 보드)의 모드를 이긴다 — S7 이 상단 바 마스터에 Dark 를 걸어 라이트 보드의 글자를 흰색으로
+// 만든 자리다. 템플릿 전체를 TypeScript 파서로 읽어 다음만 허용한다:
+//   · `pin(measuredSection)` — 공용 조각의 `pin` 을 섹션 하나에만 부른다(인자가 정확히 그 이름 하나),
+//   · 구조 분해로 `pin` 을 받는 자리(`const { pin, … } = await liveVariables(…)`).
+// 그 밖의 `pin` 참조(다른 인자 · 값으로 넘기기 · 별칭)와 `setExplicitVariableModeForCollection` 직접 호출은 전부 멈춘다.
+// 모드를 걷는 `clearExplicitVariableModeForCollection` 은 막지 않는다 — 러너가 전에 걸었던 명시 모드를 걷는 길이다.
+{
+  const template = readFileSync(templatePath, "utf8");
+  const whole = ts.createSourceFile("renderer.mjs", template, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const SECTION = "measuredSection";
+  const offenders = [];
+  const flag = (node, why) => offenders.push(`${whole.getLineAndCharacterOfPosition(node.getStart(whole)).line + 1}: ${why} — ${node.getText(whole).replace(/\s+/g, " ").slice(0, 80)}`);
+  const onlySection = (call) => call.arguments.length === 1 && ts.isIdentifier(call.arguments[0]) && call.arguments[0].text === SECTION;
+  const visit = (node) => {
+    // 멤버 이름 자리(`x.pin`)는 아래 속성 접근 갈래가 본다.
+    if (ts.isIdentifier(node) && node.text === "pin" && !(ts.isPropertyAccessExpression(node.parent) && node.parent.name === node)) {
+      const parent = node.parent;
+      if (ts.isCallExpression(parent) && parent.expression === node) {
+        if (!onlySection(parent)) flag(parent, `pin() 은 ${SECTION} 에만`);
+      } else if (!(ts.isBindingElement(parent) && parent.name === node && ts.isObjectBindingPattern(parent.parent))) {
+        flag(parent, "pin 을 호출 밖에서 참조(값으로 넘기기 · 별칭)");
+      }
+    }
+    if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.name)) {
+      if (node.name.text === "setExplicitVariableModeForCollection") flag(node, "setExplicitVariableModeForCollection 직접 호출");
+      if (node.name.text === "pin" && !(ts.isCallExpression(node.parent) && node.parent.expression === node && onlySection(node.parent))) flag(node, `.pin 은 ${SECTION} 에만`);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(whole);
+  if (!template.includes(`pin(${SECTION})`)) offenders.push(`0: pin(${SECTION}) 이 없다 — 측정 섹션이 측정 모드를 갖지 않으면 마스터 미리보기가 측정 문맥과 다르다`);
+  if (offenders.length) fail(`renderer pins a variable mode outside the measured section (마스터 · variant · 인스턴스는 놓인 자리의 모드를 따른다 · 템플릿 줄): ${offenders.join(" | ").slice(0, 600)}`);
 }
 const runnerPlan = structuredClone(plan);
 runnerPlan.sourceEvidence = plan.sourceEvidence.map(({ path, line, quote }) => ({ path, line, quote }));

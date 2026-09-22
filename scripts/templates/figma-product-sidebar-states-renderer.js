@@ -13,7 +13,11 @@ await figma.setCurrentPageAsync(page);
 //
 // 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 이 측정은 다크
 // 문맥이라 계획의 `bindings.mode` 가 `Dark` 다. 칠하는 자리는 역할 이름(`F.paints`)만 읽는다.
-const { pin, paint } = await liveVariables(F.bindings);
+// **그 모드는 측정 섹션(`F.sectionName`)에만 건다(2026-09-22).** 마스터 · variant · 인스턴스에 건 명시 모드는 인스턴스로 번져
+// 놓인 자리의 모드를 이긴다 — 옛 러너가 상단 바 마스터에 Dark 를 걸자 라이트 보드 `39:3` 안 인스턴스의 글자가 흰색이 됐다.
+// 이제 러너는 전에 자기가 걸었던 명시 모드를 걷고(`unpin` — 이 컬렉션만, 다른 override 는 건드리지 않는다), 마스터는 섹션의
+// 모드로 미리보기되고 인스턴스는 놓인 보드의 모드를 따른다. 생성기가 `pin` 이 섹션 밖을 가리키면 멈춘다.
+const { pin, paint, collections } = await liveVariables(F.bindings);
 const I = F.install;
 const found = (list, label) => {
   if (list.length > 1) throw new Error(`Ambiguous ${label}: ${list.map((entry) => `${entry.id} ${entry.name}`).join(" · ")}`);
@@ -43,6 +47,15 @@ const existingCollapsedMaster = found(
   `component ${F.collapsedUpgradeMasterName}`,
 );
 let railSet = found(page.findAll((entry) => entry.type === "COMPONENT_SET" && entry.name === F.componentSetName), `component set ${F.componentSetName}`);
+// 측정 섹션 — 페이지 직속. 이미 있으면 측정 모드 밖의 명시 모드(다른 컬렉션 · 다른 모드)가 없어야 한다. 있으면 누가 건 것인지
+// 모르므로 덮지 않고 던진다.
+const modeCollection = need(collections.find((entry) => entry.name === F.bindings.modeCollection), `collection ${F.bindings.modeCollection}`);
+const measuredMode = need(modeCollection.modes.find((entry) => entry.name === F.bindings.mode), `mode ${F.bindings.modeCollection}/${F.bindings.mode}`);
+const existingSection = found(page.children.filter((entry) => entry.type === "SECTION" && entry.name === F.sectionName), `section ${F.sectionName}`);
+if (existingSection) {
+  const foreign = Object.entries(existingSection.explicitVariableModes).filter(([collectionId, modeId]) => collectionId !== modeCollection.id || modeId !== measuredMode.modeId);
+  if (foreign.length) throw new Error(`Section ${existingSection.id} ${F.sectionName} already carries another explicit mode: ${foreign.map((entry) => entry.join("=")).join(" · ")}`);
+}
 
 // 편집 장면 — 보드 프레임에서 내려가며 이름 · 구조로 찾는다.
 const video = await figma.getNodeByIdAsync(I.sceneFrameId);
@@ -122,6 +135,21 @@ const fixed = (node, width, height) => {
   if ("primaryAxisSizingMode" in node) node.primaryAxisSizingMode = "FIXED";
   if ("counterAxisSizingMode" in node) node.counterAxisSizingMode = "FIXED";
 };
+// 러너가 전에 건 명시 모드를 걷는다 — 이 컬렉션의 것만, 걸려 있을 때만(resetOverrides 가 아니다 — 다른 override 는 그대로다).
+const unpin = (node) => {
+  if (node.explicitVariableModes[modeCollection.id] !== undefined) node.clearExplicitVariableModeForCollection(modeCollection);
+};
+// 측정 섹션을 찾거나 짓는다 — 자리 규칙은 형제 세트 러너(체크아웃 · 결제 장면 · 업그레이드)와 같다: 페이지 맨 오른쪽 끝 + 182, 위 0.
+// 측정 모드는 여기에만 건다. 칠은 주석 역할(board canvas)이라 섹션의 모드로 풀린다.
+let measuredSection = existingSection;
+if (!measuredSection) {
+  measuredSection = figma.createSection();
+  measuredSection.name = F.sectionName;
+  measuredSection.x = Math.max(...page.children.filter((entry) => entry !== measuredSection).map((entry) => entry.x + entry.width), 0) + 182;
+  measuredSection.y = 0;
+}
+pin(measuredSection);
+measuredSection.fills = [paint("boardSurface")];
 
 // collapsed Upgrade CTA는 expanded CTA를 32×32로 resize하면 내부 text가 왜곡된다(라이브 QA에서
 // rail 하단에 `pgra...`가 튀어나온 원인). 제품 실측대로 전용 32×32 master를 만들어 그 인스턴스를 쓴다.
@@ -164,9 +192,7 @@ const collapsedUpgradeMaster = (() => {
   text.x = 0;
   text.y = 0;
   button.appendChild(clip);
-  page.appendChild(button);
-  button.x = 2120;
-  button.y = 900;
+  measuredSection.appendChild(button);
   return button;
 })();
 
@@ -187,7 +213,6 @@ const buildRailVariant = (current) => {
   root.paddingTop = root.paddingRight = root.paddingBottom = root.paddingLeft = 12;
   root.fills = [];
   fixed(root, PLAN.measurements.collapsed.sidebar.width, PLAN.measurements.collapsed.sidebar.height);
-  pin(root);
   const top = figma.createFrame();
   top.name = "flow/brand-and-menu";
   top.layoutMode = "VERTICAL";
@@ -240,13 +265,12 @@ const buildRailVariant = (current) => {
   // expanded CTA를 resize하지 않는다. 제품 실측 32×32 collapsed master의 인스턴스를 놓는다.
   const cta = collapsedUpgradeMaster.createInstance();
   cta.name = "upgrade-cta · measured collapsed";
-  pin(cta);
   root.appendChild(cta);
-  page.appendChild(root);
+  measuredSection.appendChild(root);
   return root;
 };
 if (!railSet) {
-  railSet = figma.combineAsVariants(RAIL_CURRENTS.map(buildRailVariant), page);
+  railSet = figma.combineAsVariants(RAIL_CURRENTS.map(buildRailVariant), measuredSection);
   railSet.name = F.componentSetName;
   railSet.description = `Measured collapsed desktop Gnb · ${PLAN.productCommit}`;
 } else {
@@ -256,8 +280,10 @@ if (!railSet) {
       railSet.appendChild(buildRailVariant(current));
       continue;
     }
-    // 있는 variant 는 기하를 두고 모드와 행 아이콘 잉크만 역할로 다시 건다(계획의 행 이름이 아닌 옛 행은 비활성 잉크).
-    pin(variant);
+    // 있는 variant 는 기하를 두고 행 아이콘 잉크만 역할로 다시 건다(계획의 행 이름이 아닌 옛 행은 비활성 잉크). 옛 러너가 variant 와
+    // 그 안 접힌 CTA 인스턴스에 건 명시 모드는 걷는다 — 세트 페이지에서는 섹션의 측정 모드로, 보드에서는 놓인 자리의 모드로 풀린다.
+    unpin(variant);
+    for (const cta of variant.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id)) unpin(cta);
     for (const row of variant.findAll((entry) => entry.type === "FRAME" && entry.name.startsWith("row/"))) {
       const key = menuItems.find(([label]) => row.name === `row/${label}`)?.[1];
       for (const icon of row.findAllWithCriteria({ types: ["INSTANCE"] })) recolor(icon, key === current ? F.paints.active : F.paints.inactive);
@@ -295,9 +321,10 @@ const hug = (node) => {
   node.primaryAxisSizingMode = "AUTO";
   node.counterAxisSizingMode = "AUTO";
 };
-// 아래 선은 매 실행 역할로 다시 건다(옛 획은 은퇴한 컬렉션 변수 + 페인트 불투명도 0.08 이었다).
+// 아래 선은 매 실행 역할로 다시 건다(옛 획은 은퇴한 컬렉션 변수 + 페인트 불투명도 0.08 이었다). 마스터의 명시 모드는 걷는다 —
+// 이 마스터의 인스턴스는 라이트 보드(`39:3`)에 놓여 있다.
 topBar.strokes = [paint("topBarDivider")];
-pin(topBar);
+unpin(topBar);
 topBar.layoutMode = "HORIZONTAL";
 topBar.resize(PLAN.measurements.collapsed.main.width, topBar.height);
 topBar.primaryAxisSizingMode = "FIXED";
@@ -346,6 +373,9 @@ for (const entry of profileCluster.children) {
 let barInstance = topBarInstance;
 if (!barInstance) barInstance = topBar.createInstance();
 barInstance.name = I.topBarInstanceNames[0];
+// 마스터에서 걷은 뒤에도 인스턴스 자신에 남은 명시 모드(옛 러너가 인스턴스에 직접 건 것)가 있으면 걷는다.
+unpin(rail);
+unpin(barInstance);
 
 main.insertChild(0, barInstance);
 main.insertChild(1, body);
@@ -386,6 +416,30 @@ nodes.propertiesGrip.x = 0;
 nodes.propertiesGrip.y = 260;
 nodes.timelineGrip.x = 868;
 nodes.timelineGrip.y = -0.5;
+
+// 세트 · 마스터를 측정 섹션 안에 한 줄씩 쌓는다(형제 러너와 같은 여백, 높이는 실제 크기로 잰다). 섹션 밖에 있으면 들인다 —
+// 옮기는 것은 부모와 자리뿐이고 id · 인스턴스 연결은 그대로다.
+{
+  const gutter = 40;
+  let cursor = gutter;
+  let right = 0;
+  for (const node of [railSet, collapsedUpgradeMaster, topBar]) {
+    if (node.parent?.id !== measuredSection.id) measuredSection.appendChild(node);
+    node.x = gutter;
+    node.y = cursor;
+    cursor += node.height + gutter;
+    right = Math.max(right, node.x + node.width + gutter);
+  }
+  measuredSection.resizeWithoutConstraints(Math.max(measuredSection.width, right), Math.max(measuredSection.height, cursor));
+}
+// 되읽기 — 명시 모드(이 컬렉션). 섹션만 측정 모드여야 한다.
+const modeName = (node) => {
+  const modeId = node.explicitVariableModes[modeCollection.id];
+  return modeId === undefined ? null : modeCollection.modes.find((entry) => entry.modeId === modeId)?.name ?? modeId;
+};
+const pinned = [measuredSection, railSet, ...railSet.children, ...railSet.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id), collapsedUpgradeMaster, topBar, rail, barInstance]
+  .map((node) => [node.id, modeName(node)])
+  .filter(([, mode]) => mode !== null);
 return {
   railSetId: railSet.id,
   railVariantIds: railSet.children.map((entry) => entry.id),
@@ -397,4 +451,6 @@ return {
   topBarInstanceId: barInstance.id,
   bodyId: body.id,
   editorNodeIds: Object.fromEntries(Object.entries(nodes).map(([key, node]) => [key, node.id])),
+  sectionId: measuredSection.id,
+  explicitModes: Object.fromEntries(pinned),
 };

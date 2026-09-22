@@ -569,7 +569,7 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | --- | --- | --- |
 | `width` · `height` · `size` 의 px · 토큰 선언, 아이콘 · 아바타 같은 고정 자산 | FIXED(선언값) | 상단 바 사이드바 토글 `[height:32px]` · 프로필 버튼, 결제 결과 버튼 높이 `h-16` |
 | 선언 없음 · `fit-content` — 패딩과 자식이 정한다 | HUG + 패딩 | 앱 상단 바 두 세트 — 패딩 8 + 가장 큰 자식 + 패딩 8 + 헤어라인 |
-| `flex: 1` · `width: 100%` · `1fr` 트랙 · stretch | FILL | 상단 바 breadcrumb nav, 요금제 덱의 카드(`repeat(N, 1fr)`), 결제 결과 본문 글자 |
+| `flex: 1` · `width: 100%` · `1fr` 트랙 · stretch | FILL | 상단 바 breadcrumb nav, 요금제 덱의 카드(`repeat(N, 1fr)`), 결제 결과 본문 글자, 편집 장면 속성 판의 안쪽 프레임(판 폭 · 제약 가로 STRETCH, 행은 FILL — 판 트랙이 324 → 240 으로 옮겨질 때 안쪽이 324 에 남아 값 열이 잘렸다, [Updates](../updates/README.md) (152)) |
 | `min-*` · `max-*` | HUG · FILL + 최소 · 최대 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)` |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
 | 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
@@ -627,6 +627,26 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 비교해 보드 14장의 본문이 인스턴스가 되지 못하고 조용히 날노드로 그려지고 있었다(실패가 `skipped` 에도 남지 않았다).
 고친 경위는 [Updates](../updates/README.md) (131) · (132)가 갖는다. DS 컴포넌트 저작의 같은 원칙은
 [Figma Component Authoring](figma-component-authoring.md) §8 이 소유한다.
+
+## 29. 측정 모드는 측정 섹션에 건다 — 마스터에 건 명시 모드는 인스턴스로 번진다
+
+세트 러너는 측정한 테마로 마스터를 미리보기하려고 `setExplicitVariableModeForCollection` 을 건다. **그 모드를 마스터 ·
+variant 에 걸면 인스턴스가 그대로 물려받아, 놓인 자리(보드)의 모드를 이긴다.** 실측(2026-09-22, 앵커 적용 S7):
+sidebar-states 러너가 편집기 상단 바 마스터 `477:4999` 에 `Klipse Semantic Color=Dark` 를 걸자, 라이트 보드 `39:3` 안
+인스턴스의 글자 넷이 `#fafafa` 로 풀려 대비가 11.89 → 1.69:1 이 됐다. 라이트 보드 위 다크 잉크는 제품 어느 테마에도 없다.
+
+- 측정 모드는 세트를 담는 **측정 섹션**에만 건다. 마스터 · variant · 인스턴스에는 그 컬렉션의 명시 모드를 두지 않는다 —
+  세트 페이지에서는 섹션의 모드로 미리보기되고, 보드에서는 놓인 자리의 모드로 풀린다.
+- 러너가 전에 건 명시 모드는 `clearExplicitVariableModeForCollection` 으로 **그 컬렉션만** 걷는다. `resetOverrides` 가
+  아니다 — 다른 override 는 그대로 둔다.
+- 생성기가 막는다. sidebar-states 생성기는 템플릿 전체를 TypeScript 파서로 읽어 `pin(measuredSection)` 밖의 `pin` 과
+  `setExplicitVariableModeForCollection` 직접 호출을 멈추고, `verify-gates` canary 셋이 그 확인이 무는지 본다.
+- 적용 전에 센다: 마스터 · variant 의 명시 모드와, 그 인스턴스마다 놓인 자리의 유효 모드(조상의 `explicitVariableModes`,
+  없으면 컬렉션 기본값). 둘이 다른 소비처가 있으면 적용 뒤 보이는 값이 바뀐다.
+
+**아직 이 조항을 따르지 않는 러너가 있다.** 앱 셸 · 컴포넌트 러너는 variant · 마스터에도 측정 모드를 건다
+(`figma-product-app-shell-renderer.js` · `figma-product-components-renderer.js` 의 `pin(variant)` 등). 그 소비처 가운데
+놓인 자리의 모드가 다른 곳이 있는지는 아직 세지 않았다 — [Updates](../updates/README.md) (152) 「남은 것」.
 
 ## Acceptance tests
 

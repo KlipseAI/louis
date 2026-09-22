@@ -208,6 +208,10 @@ ProjectCard 의 제목 띠와 같은 점진 블러로 합쳐지면서 반경이 
   cascade 순서를 바꾸지 않는다.
 - forced-colors/high-contrast 환경은 별도 색 mode로 가장하지 않고 system color와 focus visibility
   대체 규칙을 문서화한다.
+- theme-dependent 토큰을 `var()`로 묶어 발행하는 recipe(`--louis-hairline-inset` 등)는 색 토큰과 같은
+  `[data-theme]` 스코프마다 다시 선언한다. custom property 값의 `var()`는 선언한 요소에서 풀리고 자손은
+  풀린 값을 상속하므로, `:root`에만 두면 중첩된 테마 스코프가 바깥 테마의 값을 물려받는다
+  ([DS-D-0068](../governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md)).
 
 ##### 소비 스코프가 mode를 다시 적용하는 자리
 
@@ -642,7 +646,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 | 토큰 | 값 | 좌표 |
 | --- | --- | --- |
-| `--louis-hairline-inset` | `inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline)` | [base.css:21-22](../../packages/css/src/base.css) |
+| `--louis-hairline-inset` | `inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline)` | [base.css:29-30](../../packages/css/src/base.css) |
 | `--louis-elevation-menu` | `0px 8px 15px 0px color(srgb 0 0 0 / 0.04)` | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
 
 **옮기면서 두 가지가 바뀌었다. 옛 서술을 그대로 옮기면 둘 다 틀린다.**
@@ -656,6 +660,9 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   다크 `color(srgb 1 1 1 / 0.08)`로 갈린다
   ([tokens.css:424](../../packages/tokens/generated/tokens.css) · `863`).
   **「테마 무관」으로 읽고 한 값만 그리면 한쪽이 틀린다.**
+  **중첩된 테마 스코프에서도 뒤집힌다** — recipe는 `:root`와 `[data-theme]`마다 다시 선언된다
+  ([DS-D-0068](../governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md)). `:root` 한 곳에만
+  두던 동안에는 다크 `html` 아래 라이트 `main` 같은 스코프가 바깥 테마의 색을 물려받았다.
 
 `--dropdown-frame-on-dark`는 앱 테마와 무관하게 **늘 어두운 표면** 위에 얹는 칩 전용이었다 — 잉크가
 흰색이라 라이트 카드 위에 쓰면 흰 테두리가 떴다. 소비처는 셋뿐이었다(`VideoPlayer` ·
@@ -1635,7 +1642,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 토큰 | 실제 종류 | 근거 |
 | --- | --- | --- |
-| `--louis-hairline-inset` | **드롭섀도우가 아니다.** blur가 `0`인 0.5px `inset` **선**이다 | [base.css:21-22](../../packages/css/src/base.css) |
+| `--louis-hairline-inset` | **드롭섀도우가 아니다.** blur가 `0`인 0.5px `inset` **선**이다 | [base.css:29-30](../../packages/css/src/base.css) |
 | `--louis-elevation-menu` | 드롭섀도우 (`0px 8px 15px 0px color(srgb 0 0 0 / 0.04)`) | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
 | `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:519-520` |
 

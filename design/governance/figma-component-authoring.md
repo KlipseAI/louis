@@ -576,7 +576,7 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 
 ### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
 
-`packages/css/src/base.css:50-54` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
+`packages/css/src/base.css:58-62` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
 outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
 반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
 그건 브라우저가 그리는 것과 다르다.

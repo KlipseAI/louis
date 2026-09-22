@@ -117,6 +117,10 @@ ProjectCard 의 제목 띠와 같은 점진 블러로 합쳐지면서 반경이 
   cascade 순서를 바꾸지 않는다.
 - forced-colors/high-contrast 환경은 별도 색 mode로 가장하지 않고 system color와 focus visibility
   대체 규칙을 문서화한다.
+- theme-dependent 토큰을 `var()`로 묶어 발행하는 recipe(`--louis-hairline-inset` 등)는 색 토큰과 같은
+  `[data-theme]` 스코프마다 다시 선언한다. custom property 값의 `var()`는 선언한 요소에서 풀리고 자손은
+  풀린 값을 상속하므로, `:root`에만 두면 중첩된 테마 스코프가 바깥 테마의 값을 물려받는다
+  ([DS-D-0068](../governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md)).
 
 ### 소비 스코프가 mode를 다시 적용하는 자리
 

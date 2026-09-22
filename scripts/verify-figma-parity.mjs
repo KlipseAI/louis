@@ -95,7 +95,7 @@ const COMPONENT_CONTRACTS = [
     // compareIcons가 아이콘 component 31개에서 1.5를 직접 잰다 — 여기에 두면 정본이 둘이 된다.
     strokes: {},
     // secondary 60변형의 헤어라인. CSS는 `box-shadow: var(--louis-hairline-inset)` =
-    // `inset 0 0 0 0.5px stroke-hairline`이고(`base.css:21-22`), 규범이 요구하는 Figma 대응물이
+    // `inset 0 0 0 0.5px stroke-hairline`이고(`base.css:29-30`), 규범이 요구하는 Figma 대응물이
     // spread 0.5의 inner shadow다. 라이브 실측이 그렇게 서 있는데 채취 명세에 담는 자리가 없어
     // 계약 밖이었다 — 이너섀도우를 안 쓴다고 적어 둔 옛 `effects: {}`는 폐지된 글래스 섀도우를
     // 가리킨 문장이지 헤어라인을 가리킨 것이 아니다. offsetY 0 · blur 0 · spread 0.5.

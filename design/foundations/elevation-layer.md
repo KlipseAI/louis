@@ -56,7 +56,7 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
 
 | 토큰 | 값 | 좌표 |
 | --- | --- | --- |
-| `--louis-hairline-inset` | `inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline)` | [base.css:21-22](../../packages/css/src/base.css) |
+| `--louis-hairline-inset` | `inset 0 0 0 var(--louis-border-width-hairline) var(--louis-color-stroke-hairline)` | [base.css:29-30](../../packages/css/src/base.css) |
 | `--louis-elevation-menu` | `0px 8px 15px 0px color(srgb 0 0 0 / 0.04)` | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
 
 **옮기면서 두 가지가 바뀌었다. 옛 서술을 그대로 옮기면 둘 다 틀린다.**
@@ -70,6 +70,9 @@ Elevation primitive, semantic elevation과 semantic layer는 단일 DTCG source 
   다크 `color(srgb 1 1 1 / 0.08)`로 갈린다
   ([tokens.css:424](../../packages/tokens/generated/tokens.css) · `863`).
   **「테마 무관」으로 읽고 한 값만 그리면 한쪽이 틀린다.**
+  **중첩된 테마 스코프에서도 뒤집힌다** — recipe는 `:root`와 `[data-theme]`마다 다시 선언된다
+  ([DS-D-0068](../governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md)). `:root` 한 곳에만
+  두던 동안에는 다크 `html` 아래 라이트 `main` 같은 스코프가 바깥 테마의 색을 물려받았다.
 
 `--dropdown-frame-on-dark`는 앱 테마와 무관하게 **늘 어두운 표면** 위에 얹는 칩 전용이었다 — 잉크가
 흰색이라 라이트 카드 위에 쓰면 흰 테두리가 떴다. 소비처는 셋뿐이었다(`VideoPlayer` ·

@@ -25,6 +25,48 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-22 (151) — 헤어라인 recipe 가 중첩된 테마 스코프의 색을 따른다 (DS-D-0068)
+
+번호가 (147) 다음 (151) 인 것은 푸시되지 않은 앵커 브랜치가 (148)~(150) 을 이미 쓰고 있어서다 — 합칠 때
+번호가 겹치지 않게 건너뛰었다.
+
+**결함.** `--louis-hairline-inset` · `-block-start` · `-block-end` 는 `:root` 에만 선언돼 있었다. 값이
+`var(--louis-color-stroke-hairline)` 을 묶은 조합값이라 `:root` 에서 한 번 풀리고, 그 아래는 풀린 값을
+상속한다. 그래서 `html[data-theme="dark"]` 아래 `main[data-theme="light"]` 같은 중첩 스코프에서는 헤어라인이
+**다크의 흰색 8%** 로 칠해졌다 — 라이트 면 위에서 보이지 않는다. 제품 홈(작업 브랜치)에서 다크 테마일 때
+`main` 아래 헤어라인 여섯이 전부 그 값이었다. 색 토큰 자체는 `tokens.css` 가 테마 스코프마다 다시 선언하므로
+멀쩡했다.
+
+**고친 것.** 선언 자리를 `:root, [data-theme]` 로 넓혔다. 한 블록 · 한 곳인 것은 그대로다. 같은 제품 홈에
+이 블록을 주입하면 여섯이 모두 라이트 잉크 12% 로 칠해지고, 바깥과 안이 같은 테마인 화면은 바뀌지 않는다.
+점진 블러 recipe(`--louis-progressive-blur*`)는 테마로 갈리는 토큰을 쓰지 않아 `:root` 에 둔다.
+
+| | 전 | 후 |
+| --- | --- | --- |
+| 선언 자리 | `:root` | `:root, [data-theme]` |
+| 다크 안의 라이트 스코프 헤어라인 | `color(srgb 0.980392 0.980392 0.980392 / 0.08)` | `color(srgb 0.090196 0.105882 0.133333 / 0.12)` |
+
+**소비처가 알아야 할 것.** `:root` 에서만 `--louis-hairline-inset*` 을 덮던 소비처는, 이제 중첩된
+`[data-theme]` 요소에서 LOUIS 선언이 다시 이긴다. 덮으려면 `:root, [data-theme]` 을 함께 겨눈다. 제품에는
+그런 선언이 없다.
+
+**일반 규칙.** theme-dependent 토큰을 `var()` 로 묶어 발행하는 recipe 는 색 토큰과 같은 `[data-theme]`
+스코프마다 다시 선언한다 — [Color & Theme](../foundations/color-theme.md) 「Theme modes」에 적었다.
+[DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md) 결정 2 의 「`:root` 에 한 번」에 정정 주를
+달았고, [Elevation & Layer](../foundations/elevation-layer.md) 「프레임」이 중첩 스코프를 함께 적는다.
+
+**게이트.** `verify-consumer` 가 `styles.css` 의 `:root {` 블록만 찾고 있어, 선택자가 바뀐 헤어라인 블록을
+건너뛰고 조용히 통과할 뻔했다. `:root, [data-theme]` 블록도 보게 넓혔다.
+
+**테스트.** `packages/css/test/base.browser.test.ts` 가 다크 안의 라이트 · 라이트 안의 다크 두 경우에서
+recipe 셋이 안쪽 스코프의 색인지 잰다. 이 변경 전 생성물에서 실패하는 것을 먼저 확인했다.
+
+**Figma 는 바뀌지 않는다.** 조합값에 대응하는 변수가 없고, 헤어라인은 노드마다 변수에 물린 inner shadow 라
+모드를 중첩해도 제 모드로 풀린다. **제품은 핀 상향이 남았다.**
+
+**문서 정정.** `base.css` 줄 인용을 새 줄로 옮겼다 — 헤어라인 `21-22` → `29-30`, 포커스 링 `50-54` →
+`58-62`.
+
 ## 2026-09-21 (147) — 문서 패턴 리뷰 후속: 규선 표 가운데 정렬 · 문서 전체 `strong` · 빌린 토큰을 루트 이름으로
 
 **(145) 리뷰의 minor 가운데 바로 고칠 수 있는 것들이다.**

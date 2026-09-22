@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "3a88aff88719731ea1403795fc27332a094bd980b200457d6fd56c2d83568472"
+      "sha256": "f7bd80c6c61859dcd075eba9c8a4983c229328408db632f5179a73c14be1896e"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "ce73d49af5a8ff0abe75d7460767f32de2ae850a923fb6fce988b41b87bac986"
+      "sha256": "b6ff65fcbd6a42e9e06941d1e9893d1cb4da69c064889ee5cdada5ee526d4602"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "52429d0439457cf5851155a8ea6b477953371038e1c7863081eb43f51f2622aa"
+      "sha256": "a61e10695ba1a098d232826351e0c35fcbf532bbf61b10e2e15380f135abe0cf"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "47d83b0504f79dc8b519457305f41b873160d40d6e5df2c1a5a079773effd5ca"
+      "sha256": "1d3783fae2c7fcb6e169cb2d4ae62c188fd240436f6c5b5c912ab9c0e9bbdff3"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "9bdec948b4358553764bf6861c92899d58cefa5bc4bf4d4f5470ab0764cbdce1"
+      "sha256": "bf069fa367d0b523a9310b6d48c89d83929192b8fea3d77a1784dc11d01165d3"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "d95533a36d6ace9a11a7b27581ba0f3ef1ed9b6c943f74f50d985e943309b7b9"
+    "sha256": "a6964c67f2035efac644f7b955b97bb1b1b6f1fbf1613d07ed8fb5bd0af9d235"
   },
   "themes": [
     "light",
@@ -3249,24 +3249,24 @@
     },
     {
       "aliasTarget": {
-        "id": "color-palette-gray-050",
+        "id": "color-palette-gray-025",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-bg-menu": "color(srgb 0.921569 0.92549 0.933333 / 1)"
+        "--louis-color-bg-menu": "color(srgb 0.94902 0.952941 0.960784 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-bg-menu",
       "mode": "light",
-      "rawValue": "{primitive.color.palette-gray.050}",
+      "rawValue": "{primitive.color.palette-gray.025}",
       "resolvedValue": {
         "alpha": 1,
         "colorSpace": "srgb",
         "components": [
-          0.921569,
-          0.92549,
-          0.933333
+          0.94902,
+          0.952941,
+          0.960784
         ]
       },
       "sourcePath": "semantic.light.color.bg-menu",

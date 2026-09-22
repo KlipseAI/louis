@@ -80,6 +80,56 @@ test("focus 링 색이 semantic 토큰에서 온다", () => {
   }
 });
 
+// DS-D-0068 — 헤어라인 recipe 는 토큰을 조합한 값이라 var() 가 **선언한 요소에서** 풀리고 자손은
+// 풀린 값을 상속한다. `:root` 에만 두면 중첩된 테마 스코프가 바깥 테마의 색을 물려받는다 — 제품 홈
+// (`html[data-theme=dark] > main[data-theme=light]`)에서 라이트 면 위 헤어라인이 다크의 흰색 8% 로
+// 칠해져 윤곽이 사라졌다. 색 토큰 자체는 tokens.css 가 테마 스코프마다 다시 선언하므로 멀쩡하다.
+test("헤어라인 recipe 가 중첩된 테마 스코프의 색을 칠한다", () => {
+  const RECIPES = [
+    "--louis-hairline-inset",
+    "--louis-hairline-inset-block-start",
+    "--louis-hairline-inset-block-end",
+  ];
+  // 스코프 안에서 토큰이 푸는 색. box-shadow 의 색과 같은 직렬화로 비교하려고 계산값으로 읽는다.
+  const strokeIn = (parent: Element): string => {
+    const probe = document.createElement("div");
+    probe.style.color = "var(--louis-color-stroke-hairline)";
+    parent.append(probe);
+    const value = getComputedStyle(probe).color;
+    probe.remove();
+    return value;
+  };
+
+  for (const [outer, inner] of [
+    ["dark", "light"],
+    ["light", "dark"],
+  ] as const) {
+    document.documentElement.setAttribute("data-theme", outer);
+    const host = mount(`<main data-theme="${inner}"></main>`);
+    try {
+      const scope = host.querySelector("main") as HTMLElement;
+      const want = strokeIn(scope);
+      const outerStroke = strokeIn(document.body);
+      // 두 테마의 헤어라인 색이 같으면 아래 단언이 무엇도 가르지 못한다. 먼저 고정한다.
+      expect(want, `${outer} 안의 ${inner}: 두 테마의 헤어라인 색이 갈린다`).not.toBe(outerStroke);
+      for (const name of RECIPES) {
+        const probe = document.createElement("div");
+        probe.style.boxShadow = `var(${name})`;
+        scope.append(probe);
+        const shadow = getComputedStyle(probe).boxShadow;
+        expect(shadow, `${outer} 안의 ${inner}: ${name} 이 안쪽이다`).toContain("inset");
+        expect(shadow, `${outer} 안의 ${inner}: ${name} 이 안쪽 테마의 색이다`).toContain(want);
+        expect(shadow, `${outer} 안의 ${inner}: ${name} 이 바깥 테마의 색이 아니다`).not.toContain(
+          outerStroke,
+        );
+      }
+    } finally {
+      host.remove();
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+});
+
 test("layer 유틸이 숫자가 아니라 layer 토큰을 쓴다", () => {
   const host = mount(
     `<div class="louis-layer-popover" data-testid="popover"></div><div class="louis-layer-modal" data-testid="modal"></div>`,

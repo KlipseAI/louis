@@ -62,6 +62,11 @@ Tooltip/ProjectCard는 CSS `border`, SegmentedControl은 바깥 spread box-shado
    두께는 `border-width-hairline`(0.5px), 색은 `color-stroke-hairline`을 참조한다. 컴포넌트마다 shadow
    문자열을 복사하지 않는다.
 
+   > **선언 자리가 넓어졌다(2026-09-22).** 「`:root`에 한 번」은 더 이상 사실이 아니다 — 지금은
+   > `:root, [data-theme]`이다([DS-D-0068](DS-D-0068-hairline-recipe-per-theme-scope.md)). recipe 값의
+   > `var()`는 선언한 요소에서 풀리고 자손은 풀린 값을 상속하므로, `:root` 한 곳에 두면 중첩된 테마
+   > 스코프가 바깥 테마의 헤어라인 색을 물려받았다. 「한 곳에서 선언하고 복사하지 않는다」는 그대로다.
+
 3. **컴포넌트는 recipe를 소비한다.** base `border`를 지우고 secondary Button/IconButton, TextField 박스,
    Checkbox 상자, ProjectCard, SegmentedControl 트랙, Dialog surface, Tooltip, Menu 패널이 inset을 쓴다.
    elevation이 있는 표면은 `box-shadow: var(--louis-elevation-*), var(--louis-hairline-inset)`처럼 ambient/drop

@@ -69,6 +69,9 @@ try {
     // recipe allowlist에 드는지 본다 — 색·간격·반경 같은 토큰이 새어들면 tokens.css 없이
     // styles.css만 import한 소비자에게 조용히 무효가 되므로 실패시킨다.
     //
+    // 헤어라인 블록은 `:root, [data-theme]` 이다(DS-D-0068 — 테마 스코프마다 색을 다시 푼다).
+    // 정규식이 `:root {` 만 찾으면 그 블록을 건너뛰고 **조용히 통과한다** — 그래서 둘 다 본다.
+    //
     // allowlist에 드는 둘.
     //   --louis-hairline-inset*   0.5px inset stroke recipe (DS-D-0023).
     //   --louis-progressive-blur* 점진 블러 recipe. 반경(`blur/surface` 토큰)과 마스크 곡선을
@@ -85,7 +88,7 @@ try {
     // 둘은 카드와 같은 값의 방향 변형이다. 넷 다 같은 recipe 이므로 예외 사유가 그대로 적용된다.
     const ROOT_RECIPE_ALLOW =
       /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-header|-mask(-(header|inline-start|block-start))?)?)$/;
-    for (const block of stylesCss.match(/:root\s*\{[^}]*\}/g) ?? []) {
+    for (const block of stylesCss.match(/:root(?:,\s*\[data-theme\])?\s*\{[^}]*\}/g) ?? []) {
       const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])
         .filter((name) => !ROOT_RECIPE_ALLOW.test(name));

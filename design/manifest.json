@@ -167,6 +167,15 @@
       "generated": false
     },
     {
+      "id": "decision-hairline-recipe-per-theme-scope",
+      "path": "design/governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md",
+      "title": "DS-D-0068 헤어라인 recipe 는 테마 스코프마다 다시 푼다 — `:root` 한 곳이 아니라 `:root, [data-theme]`",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1621,6 +1630,7 @@
         "design/governance/decisions/DS-D-0065-table-row-hover-is-a-state-layer.md",
         "design/governance/decisions/DS-D-0066-primary-button-highlight.md",
         "design/governance/decisions/DS-D-0067-document-is-not-an-app-screen.md",
+        "design/governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

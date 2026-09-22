@@ -60,7 +60,7 @@ Tailwind는 소스 스캔으로 CSS를 내보낸다. 그래서 **어떤 배리�
 
 | 토큰 | 실제 종류 | 근거 |
 | --- | --- | --- |
-| `--louis-hairline-inset` | **드롭섀도우가 아니다.** blur가 `0`인 0.5px `inset` **선**이다 | [base.css:21-22](../../packages/css/src/base.css) |
+| `--louis-hairline-inset` | **드롭섀도우가 아니다.** blur가 `0`인 0.5px `inset` **선**이다 | [base.css:29-30](../../packages/css/src/base.css) |
 | `--louis-elevation-menu` | 드롭섀도우 (`0px 8px 15px 0px color(srgb 0 0 0 / 0.04)`) | [tokens.css:439](../../packages/tokens/generated/tokens.css) |
 | `--node-meta-dropdown-shadow` | **한 이름에 두 종류** — 위 둘의 합이다 | `globals.css:519-520` |
 

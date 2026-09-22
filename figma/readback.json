@@ -2808,7 +2808,7 @@
           [
             [
               "Global",
-              "Klipse Primitive::spacing/12",
+              "Klipse Primitive::spacing/8",
               null
             ]
           ]
@@ -2832,7 +2832,7 @@
           [
             [
               "Global",
-              "Klipse Primitive::spacing/12",
+              "Klipse Primitive::spacing/8",
               null
             ]
           ]
@@ -3240,7 +3240,7 @@
           [
             [
               "Global",
-              "Klipse Primitive::spacing/12",
+              "Klipse Primitive::spacing/8",
               null
             ]
           ]
@@ -3276,7 +3276,7 @@
           [
             [
               "Global",
-              "Klipse Primitive::spacing/280",
+              "Klipse Primitive::spacing/240",
               null
             ]
           ]
@@ -8193,10 +8193,7 @@
       },
       "geometry": {
         "topBar": {
-          "slots": {
-            "LeadingSlot": true,
-            "TrailingSlot": true
-          },
+          "slots": {},
           "parts": {
             "Leading": {
               "height": [
@@ -8205,7 +8202,7 @@
             },
             "Trailing": {
               "height": [
-                36
+                32
               ]
             }
           },
@@ -15891,28 +15888,28 @@
         "base": {
           "slots": {},
           "parts": {
-            "Track": {
-              "width": [
-                36
-              ],
-              "height": [
-                36
-              ]
-            },
             "Content": {
               "width": [
-                28
+                24
               ],
               "height": [
-                28
+                24
+              ]
+            },
+            "Track": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
               ]
             }
           },
           "height": [
-            36
+            32
           ],
           "width": [
-            36
+            32
           ],
           "paddingBlock": [
             4
@@ -17598,7 +17595,7 @@
           },
           "strokeWeight": [],
           "width": [
-            256
+            216
           ],
           "height": [
             40
@@ -17717,7 +17714,7 @@
             40
           ],
           "width": [
-            256
+            216
           ],
           "paddingBlock": [
             10
@@ -17950,7 +17947,7 @@
           },
           "strokeWeight": [],
           "width": [
-            256
+            216
           ],
           "height": [
             32
@@ -22526,50 +22523,28 @@
     }
   },
   "templates": {
-    "loading": {
-      "situationCount": 6,
-      "requiredParts": [
-        "InlineLoadingLabel",
-        "ProgressBar",
-        "Skeleton",
-        "Spinner",
-        "icon/image"
-      ],
-      "genShellParts": [
-        "Icon",
-        "Caption"
-      ],
-      "genShellIconBox": 64,
-      "genShellIconSquare": true,
-      "genShellStackGap": 4,
-      "genShellCentered": true,
-      "genShellCaptionSize": 14,
-      "genShellCaptionWeight": 500,
-      "genShellCaptionLineHeightPercent": 150,
-      "genShellCaptionAlign": "CENTER"
-    },
     "app-shell": {
       "sceneWidth": 1440,
-      "railWidth": 280,
+      "railWidth": 240,
       "railWidthCollapsed": 56,
       "railPaddingInline": 12,
-      "railPaddingTop": 12,
+      "railPaddingTop": 8,
       "railPaddingBottom": 0,
       "railItemGap": 4,
       "brandToNavGap": 12,
-      "mainWidth": 1148,
-      "mainWidthCollapsed": 1372,
-      "mainOuterGapTop": 12,
-      "mainOuterGapRight": 12,
-      "mainOuterGapBottom": 12,
+      "mainWidth": 1192,
+      "mainWidthCollapsed": 1376,
+      "mainOuterGapTop": 8,
+      "mainOuterGapRight": 8,
+      "mainOuterGapBottom": 8,
       "mainCardRadius": 16,
       "mainContentInset": 16,
       "compactSceneWidth": 375,
       "compactRailReserve": 0,
       "compactMainOuterGap": 0,
-      "compactDrawerWidth": 280,
+      "compactDrawerWidth": 240,
       "compactCardRadius": 0,
-      "compactContentInset": 16,
+      "compactContentInset": 6,
       "stateFrames": [
         "Collapsed",
         "Compact · drawer open",
@@ -22588,147 +22563,6 @@
         "SidebarBrand",
         "SidebarCta",
         "SidebarNavItem"
-      ]
-    },
-    "home": {
-      "sceneWidth": 1440,
-      "sidebarWidth": 280,
-      "sidebarPaddingLeft": 12,
-      "mainCardRadius": 16,
-      "mainCardPaddingInline": 16,
-      "gridColumns": 4,
-      "gridGap": 4,
-      "sectionPaddingTop": 40,
-      "cardWidth": 276,
-      "cardHeight": 276,
-      "cardSquare": true,
-      "cardRadius": 12,
-      "overlayHeightRatio": 0.39,
-      "overlayPadding": 16,
-      "overlayStackGap": 4,
-      "overlayLineHeightPercent": [
-        120
-      ],
-      "requiredParts": [
-        "AppTopBar",
-        "BannerCarousel",
-        "CreateMenu",
-        "NavEyebrow",
-        "ProjectCard",
-        "ProjectGrid",
-        "SectionHeader",
-        "Sidebar"
-      ],
-      "navLabelsDistinct": 6,
-      "cardTitlesDistinct": 8,
-      "placeholderLabelsAllowed": 0
-    },
-    "project-grid": {
-      "columnBands": 4,
-      "columnsCompact": 2,
-      "columnsRegular": 3,
-      "columnsWide": 4,
-      "columnsExtraWide": 5,
-      "trackGap": [
-        4
-      ],
-      "tracksEqual": true,
-      "gridFillsContainer": true,
-      "containerWidthWide": 1116,
-      "cardWidthWide": 276,
-      "requiredParts": [
-        "Grid",
-        "ProjectCard"
-      ]
-    },
-    "status-result": {
-      "columnWidth": 520,
-      "columnGap": 24,
-      "columnPadding": 0,
-      "columnPaintCount": 0,
-      "alertPaddingBlock": 12,
-      "alertPaddingInline": 16,
-      "alertRadius": 12,
-      "alertBorderWidth": 1,
-      "metaRowGap": 0,
-      "metaRowPaddingBlock": 12,
-      "metaRowDividerWidth": 1,
-      "metaLastRowDivider": 0,
-      "actionsGap": 10,
-      "actionsGapTop": 8,
-      "actionButtonHeight": 32,
-      "actionButtonFillsColumn": true,
-      "processingCentered": true,
-      "stateFrames": [
-        "Failure",
-        "Processing",
-        "Success"
-      ],
-      "successParts": [
-        "Actions",
-        "Alert",
-        "Meta list"
-      ],
-      "failureParts": [
-        "Actions",
-        "Meta list"
-      ]
-    },
-    "route-boundary": {
-      "pagePaddingTop": [
-        24
-      ],
-      "pagePaddingBottom": [
-        32
-      ],
-      "pagePaddingInline": [
-        20
-      ],
-      "narrowPagePaddingInline": [
-        16
-      ],
-      "pageCentersContent": true,
-      "contentWidth": [
-        440
-      ],
-      "contentPaintCount": [
-        0
-      ],
-      "contentTextAlign": [
-        "CENTER"
-      ],
-      "contentStackGap": [
-        12
-      ],
-      "ctaGapTop": [
-        24
-      ],
-      "ctaIsSharedButton": true,
-      "ctaButtonHeight": [
-        32
-      ],
-      "errorLinkGap": 12,
-      "duplicateSkeletonMatches": true,
-      "lastResortContentWidth": 420,
-      "lastResortPagePadding": [
-        24
-      ],
-      "lastResortSharedButton": false,
-      "lastResortButtonPaddingBlock": [
-        10
-      ],
-      "lastResortButtonPaddingInline": [
-        24
-      ],
-      "lastResortButtonRadius": 8,
-      "lastResortTitleSize": 24,
-      "lastResortDescriptionSize": 15,
-      "lastResortDescriptionLineHeightPercent": 160,
-      "boundaryFrames": [
-        "404",
-        "≤719px — 좌우 패딩 16px",
-        "오류",
-        "최후 경계 · 토큰 밖"
       ]
     },
     "auth-two-panel": {
@@ -22810,6 +22644,72 @@
       ],
       "logoLinkHeight": 56
     },
+    "editor-workspace": {
+      "sceneWidth": 1440,
+      "assetsWidth": 236,
+      "previewWidth": 864,
+      "propertiesWidth": 324,
+      "dividerThickness": [
+        4
+      ],
+      "columnGap": 2,
+      "rowGap": 2,
+      "timelineHeight": 400,
+      "paneRadius": [
+        12
+      ],
+      "topRowOrder": [
+        "Assets",
+        "PaneDivider",
+        "Preview",
+        "PaneDivider",
+        "Properties"
+      ],
+      "requiredParts": [
+        "Assets",
+        "PaneDivider",
+        "Preview",
+        "Properties",
+        "Timeline"
+      ],
+      "regularRowCount": 3,
+      "fullWidthRows": [
+        "PaneDivider",
+        "Timeline"
+      ]
+    },
+    "home": {
+      "sceneWidth": 1440,
+      "sidebarWidth": 240,
+      "sidebarPaddingLeft": 12,
+      "mainCardRadius": 16,
+      "mainCardPaddingInline": 16,
+      "gridColumns": 4,
+      "gridGap": 4,
+      "sectionPaddingTop": 40,
+      "cardWidth": 287,
+      "cardHeight": 287,
+      "cardSquare": true,
+      "cardRadius": 12,
+      "overlayHeightRatio": 0.38,
+      "overlayPadding": 16,
+      "overlayStackGap": 4,
+      "overlayLineHeightPercent": [
+        120
+      ],
+      "requiredParts": [
+        "AppTopBar",
+        "BannerCarousel",
+        "CreateMenu",
+        "ProjectCard",
+        "ProjectGrid",
+        "SectionHeader",
+        "Sidebar"
+      ],
+      "navLabelsDistinct": 6,
+      "cardTitlesDistinct": 8,
+      "placeholderLabelsAllowed": 0
+    },
     "landing-shell": {
       "sceneWidth": 1440,
       "compactSceneWidth": 480,
@@ -22881,38 +22781,134 @@
         "≥720px"
       ]
     },
-    "editor-workspace": {
-      "sceneWidth": 1440,
-      "assetsWidth": 236,
-      "previewWidth": 864,
-      "propertiesWidth": 324,
-      "dividerThickness": [
+    "loading": {
+      "situationCount": 6,
+      "requiredParts": [
+        "InlineLoadingLabel",
+        "ProgressBar",
+        "Skeleton",
+        "Spinner",
+        "icon/image"
+      ],
+      "genShellParts": [
+        "Icon",
+        "Caption"
+      ],
+      "genShellIconBox": 64,
+      "genShellIconSquare": true,
+      "genShellStackGap": 4,
+      "genShellCentered": true,
+      "genShellCaptionSize": 14,
+      "genShellCaptionWeight": 500,
+      "genShellCaptionLineHeightPercent": 150,
+      "genShellCaptionAlign": "CENTER"
+    },
+    "project-grid": {
+      "columnBands": 4,
+      "columnsCompact": 2,
+      "columnsRegular": 3,
+      "columnsWide": 4,
+      "columnsExtraWide": 5,
+      "trackGap": [
         4
       ],
-      "columnGap": 2,
-      "rowGap": 2,
-      "timelineHeight": 400,
-      "paneRadius": [
+      "tracksEqual": true,
+      "gridFillsContainer": true,
+      "containerWidthWide": 1160,
+      "cardWidthWide": 287,
+      "requiredParts": [
+        "Grid",
+        "ProjectCard"
+      ]
+    },
+    "route-boundary": {
+      "pagePaddingTop": [
+        24
+      ],
+      "pagePaddingBottom": [
+        32
+      ],
+      "pagePaddingInline": [
+        20
+      ],
+      "narrowPagePaddingInline": [
+        16
+      ],
+      "pageCentersContent": true,
+      "contentWidth": [
+        440
+      ],
+      "contentPaintCount": [
+        0
+      ],
+      "contentTextAlign": [
+        "CENTER"
+      ],
+      "contentStackGap": [
         12
       ],
-      "topRowOrder": [
-        "Assets",
-        "PaneDivider",
-        "Preview",
-        "PaneDivider",
-        "Properties"
+      "ctaGapTop": [
+        24
       ],
-      "requiredParts": [
-        "Assets",
-        "PaneDivider",
-        "Preview",
-        "Properties",
-        "Timeline"
+      "ctaIsSharedButton": true,
+      "ctaButtonHeight": [
+        32
       ],
-      "regularRowCount": 3,
-      "fullWidthRows": [
-        "PaneDivider",
-        "Timeline"
+      "errorLinkGap": 12,
+      "duplicateSkeletonMatches": true,
+      "lastResortContentWidth": 420,
+      "lastResortPagePadding": [
+        24
+      ],
+      "lastResortSharedButton": false,
+      "lastResortButtonPaddingBlock": [
+        10
+      ],
+      "lastResortButtonPaddingInline": [
+        24
+      ],
+      "lastResortButtonRadius": 8,
+      "lastResortTitleSize": 24,
+      "lastResortDescriptionSize": 15,
+      "lastResortDescriptionLineHeightPercent": 160,
+      "boundaryFrames": [
+        "404",
+        "≤719px — 좌우 패딩 16px",
+        "오류",
+        "최후 경계 · 토큰 밖"
+      ]
+    },
+    "status-result": {
+      "columnWidth": 520,
+      "columnGap": 24,
+      "columnPadding": 0,
+      "columnPaintCount": 0,
+      "alertPaddingBlock": 12,
+      "alertPaddingInline": 16,
+      "alertRadius": 12,
+      "alertBorderWidth": 1,
+      "metaRowGap": 0,
+      "metaRowPaddingBlock": 12,
+      "metaRowDividerWidth": 1,
+      "metaLastRowDivider": 0,
+      "actionsGap": 10,
+      "actionsGapTop": 8,
+      "actionButtonHeight": 32,
+      "actionButtonFillsColumn": true,
+      "processingCentered": true,
+      "stateFrames": [
+        "Failure",
+        "Processing",
+        "Success"
+      ],
+      "successParts": [
+        "Actions",
+        "Alert",
+        "Meta list"
+      ],
+      "failureParts": [
+        "Actions",
+        "Meta list"
       ]
     }
   },

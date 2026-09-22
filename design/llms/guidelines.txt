@@ -604,6 +604,8 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
   1064 = 1080 − 8 − 8.
 - parity 의 「대기」 다섯 줄이 사라진다. 대신 Figma `Pattern · AppShell`(`982:175`) 이 아직
   12 · 16 이라 그 칸들이 **빨개진다** — 라이브 적용 전까지는 그것이 정상이다.
+  **2026-09-22 적용했다** — 앵커 `2c6bdacf` 세트 단계(변수 넷 · DS Templates)로 라이브가 링 8 · compact 인셋 6 ·
+  레일 240 이 됐고, 되읽기를 병합한 뒤 `verify-figma-parity` 가 초록이다(Updates (155)).
 - `packages/css/generated/tokens.css` 의 `--louis-layout-app-shell-outer-gap` 이 8px 이 된다.
   이 토큰을 무는 DS CSS 선언은 현재 **없다** — 값이 움직여도 웹 소비처의 렌더는 바뀌지 않는다.
   거울 토큰 둘(`--louis-app-gnb-main-inline-padding-end` · `--louis-app-gnb-rail-padding-bottom`)도
@@ -631,6 +633,7 @@ wingOpacity · glow)과 `V2_EDGE_SHIMMER_DUR`. 그래서 「레시피가 없다�
    `pnpm run check-css` 가 초록이어야 한다. 기록 파일의 형식은 `verify-figma-parity` 가
    읽으면서 검사한다.
 4. `verify-figma-parity` 는 라이브 적용 전이라 빨갛다. 빨간 줄의 수와 이유를 Updates 에 적는다.
+   → 2026-09-22 라이브 적용 · 되읽기 병합 뒤 초록(Updates (155)).
 
 #### Rollback
 
@@ -13619,6 +13622,9 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 헤어라인). Figma 셸 매처가 그 결과를 수로 물던 자리를 구조 판정으로 바꿨고, 앱 셸 러너 · 계획은 높이를 hug 하도록 다시
 지었다 — **라이브 적용 전이다.** 라이브 세트는 아직 높이를 FIXED 로 굳힌 옛 구조이고, 적용 여부는
 [Updates](../updates/README.md) (131) 「라이브 적용 — 현황」이 갖는다.
+**2026-09-22 확인 — 라이브도 hug 구조다.** 앵커 `2c6bdacf` 적용 전 기준선 탐침(`figma-screens-live-check --emit --sets`)이
+두 상단 바 세트의 variant 전부를 앱 셸 계획의 `layoutContract` 와 대조해 통과했고, 앱 셸 러너를 다시 적용한 뒤에도
+통과했다(Updates (155)).
 
 ## DS-D-0049 라벨의 자리는 TextField 의 축이다 — 플로팅 라벨 필드를 따로 세우지 않는다
 
@@ -14819,6 +14825,63 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-22 (155) — 제품 앵커 `2c6bdacf` 를 LOUIS Figma 에 적용했다: 세트 · 템플릿 · 변수 넷 · 화면 보드 31장, 되읽기 병합
+
+(148)~(152) 이 저장소에 준비한 앵커 `2c6bdacf` 계획을 라이브 LOUIS 파일에 적용했다. 적용 순서는 세트 단계(S0~S14)
+다음 화면 보드다. 레일 280 → 240, 본문 1672, 링 8, compact 인셋 6, 사이드바 부품 216 이 이제 라이브 값이다.
+
+**세트 단계.** 세트 러너 일곱(S1 · S2 · S4~S8)은 포장본 그대로 보냈다(보낸 code sha256 = 포장본). S7 은 (152) 의 수정 뒤
+다시 적용했다. S3 은 허브 활성 행 셋의 면을 비운 일회성 쓰기다. S9~S13 은 허브 본문 카드 · 변수 넷
+(`layout/app-shell-outer-gap` · `layout/app-shell-sidebar-width` · 거울 둘) · DS Templates · 상단 바 인스턴스 넷 ·
+DS Components 채움 칸을 옮겼다. 허브 데스크톱 넷의 본문 카드는 소유자 판정대로
+제품 크기 1672×1064 로 맞췄다. 인계서의 「높이 1056 유지」는 세로 가운데 정렬 보드에서 y 8 과 함께 성립하지 않았다. S14 에서 세트 두 페이지의
+탐침이 기준선과 FNV 까지 같았고(세트 점검 8 통과, variant id 전부 보존), 레일 · 사이드바 기준선 대조의 차이 79 · 68 건은
+전부 기대한 이동이었다.
+
+**보충 쓰기 넷.** 계획 목록 밖이지만 적용이 드러낸 것이다. 가드를 먼저 두고 한 축씩만 썼다.
+
+| 자리 | 전 → 후 | 까닭 |
+| --- | --- | --- |
+| AppTopBar 인스턴스 `683:11940` | 세로 패딩 0 → 8(높이 32 → 48) | 마스터 `674:12286` 의 패딩 0 을 따라 형제 셋 · 제품(8 + 32 + 8)과 갈렸다 |
+| `Template · AppHome` `683:171` | 세로 FIXED 1199 → HUG | 위 +8 로 본문 1207 의 아래 8 이 잘렸다 — 1199 는 내용이 정한 계산값이다(28조) |
+| AppHome 격자 카드 여덟 | 276 → 287 정사각 | 본문 1192 · 격자 1160 을 따라 트랙 폭으로. ProjectGrid 4열 밴드와 같은 방식이고 계약 `templates.home.cardWidth` 규칙의 해다 |
+| `SidebarCta` Focus variant 의 링 `768:753` | 260 → 220 | S13 이 variant 를 216 으로 줄였는데 절대배치 링이 옛 256 + 4 에 남아 오른쪽 40 이 밖으로 나갔다 |
+
+**화면 보드 31장.** 적용 순서의 묶음 여섯을 에이전트 여섯이 나눠 보냈다. 보드마다 `__payloadHash` 가 계획과 같고,
+세션 기록에서 꺼낸 보낸 code 31 건의 sha256 이 포장본과 모두 같다. 적용 뒤 두 페이지를 다시 떠
+`figma-screens-live-check --check` 하니 **36/36 이 계획과 같고 다름 0** 이다. 구조 해시가 보지 않는 크기는 따로 쟀다.
+데스크톱 18장 모두 레일 240 · 본문 1672 · 위 여백 8 이고, 모바일 18장은 넘침이 없다. 「참으로 같음」 모바일 다섯은
+다시 보내지 않았다.
+
+**되읽기.** 컴포넌트 다섯(`SidebarNavRow` · `AppTopBar` · `ProgressRing` 은 emitter 결과 그대로), templates 셋(app-shell ·
+home · project-grid), 변수 넷을 떠 `figma/readback.json` 에 병합하고 `snapshot.json` 을 다시 만들었다. 적용 전 빨갛던
+`verify-figma-parity` 가 초록이다. 템플릿의 제품 실측 칸(레일 · 링 · 본문 · 서랍 · 카드), 변수 별칭 넷, ProgressRing 32,
+AppTopBar 후행 32, 채움 칸 셋이 모두 풀렸다.
+`SidebarBrand` · `SidebarCta` 는 emitter 로 떠 보니 이번 적용과 무관한 어긋남이 여럿 드러났다. 그래서 이번에
+바꾼 펼친 폭(256 → 216) 한 축만 라이브 값으로 옮겼다. 드러난 것은 [App Shell Parts](../components/app-shell-parts.md)
+Known deviations 와 `figma-readback-emit.mjs` 머리말에 적었다.
+
+**같이 고친 문서.** [DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md) 의 제품 표를 제품 PR 결과로 고쳤다.
+프로필 크레딧 카드는 소유자 판정으로 한 칸 따라 올라가 라이트 pg-050 이 됐다. 클립 자르기 비율 메뉴 · 명령 팔레트는 라이트 면을 `bg-menu`
+에 묶었다. [DS-D-0048](../governance/decisions/DS-D-0048-thirty-six-is-not-a-control-height.md) ·
+[DS-D-0063](../governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md) 의 「라이브 적용 전」 자리에 결과를 적었다.
+manifest 의 Figma 상태는 올리지 않았다 — `figma: done` 은 publish(DS-F-008) 뒤에만 된다.
+
+**남은 것(소유자 판정 · 후속).**
+
+1. **업로드 보드의 Topic 칩 글자가 줄바꿈된다**(`1064:3136` · `1064:3137`). 렌더러가 레이아웃이 없는 제품 버튼을 FIXED 틀로 짓고
+   글자 상자를 제품이 잰 글자 폭(예: 「Sports」 34.8)에 고정한다. Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾인다.
+   글자 폭은 브라우저와 Figma 가 원래 다르므로 글자 상자는 hug 여야 한다 — 렌더러 규칙을 고치고 보드를 다시 적용할 일이다.
+2. **구독 모바일 `190:1497` 의 요금제 카드가 크레딧 이력 칸을 덮는다.** 제품 격자를 Figma GRID 로 옮기면서 트랙 높이를 잰
+   값으로 두었는데, Figma 글자 높이로 커진 카드(456)가 다음 행(562 에서 시작)을 넘는다.
+3. 보드 이름이 내용과 어긋난다 — `28:3` 「/settings (다크)」는 라이트로, `190:1172` 「Pro · 이력 있음」은 Trial · 오류 상태로
+   그려진다. 모바일 이름의 높이(402×1261 등)는 프레임 874 와 다르다.
+4. DS `AppTopBar` 마스터 `674:12286` 은 세로 패딩 0 · FIXED 40 이다(제품 8 + 32 + 8). 인스턴스 하나만 고쳤다.
+5. 허브 `29:3` 상단 바의 짙은 면, 레일 세트 variant 다섯의 겹침, ProjectGrid Loading 밴드(1116 · 스켈레톤 276), 허브 활성 행의
+   라이트 인디케이터 면은 기록만 했다.
+6. 보드의 메뉴 면은 앵커 제품(옛 LOUIS 핀)의 `#ebecee` 라 값으로 다른 역할 변수에 묶인다. 제품 PR 이 LOUIS 핀을 (153) 으로 올린
+   뒤 새 앵커에서 다시 판정한다.
 
 #### 2026-09-22 (153) — 메뉴 면(`color-bg-menu`) 라이트를 한 칸 밝게: `palette-gray-050` → `palette-gray-025` (DS-D-0069)
 

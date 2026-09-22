@@ -660,6 +660,12 @@ style이다.
   이웃 계단은 `palette-gray-100` `#f1f1f3`과 `palette-gray-150` `#eaebee`다). 그래서 Figma는 이
   면을 변수 없이 raw hex로 그린다. 선택지는 둘이다 — primitive를 세우거나, `.louis-app-shell`의 면을 `bg-canvas`가 아닌 셸
   전용 역할 토큰으로 가르거나. **어느 쪽도 토큰 계약을 바꾸므로 소유자 판정이 남아 있다.**
+- **`SidebarBrand` · `SidebarCta` 의 되읽기는 emitter 로 다시 뜬 값이 아니다(2026-09-22).** 앵커 `2c6bdacf` 적용 때 두
+  세트를 `figma-readback-emit.mjs --components` 로 떠 보니 기록과 여러 축이 갈렸다. 브랜드 `Mark` 는 28 레일이 아니라 그 안의
+  이미지 23.7 이고, 워드마크 틀은 95.9 다. 접힌 CTA 는 라벨 54 를 품은 HUG 74 다. 위 「Figma의 접힘에는 라벨이 없다」와
+  반대이고, 제품은 `max-width:100%` 로 레일 안 32 에 자른다. Focus variant 의 링은 획 2 로 프레임 밖에 선다. 명세에
+  `outsideParts` 가, 계약에 `extraStrokeWeights` 가 없다. 이번 적용이 바꾼 축은 펼친 폭(256 → 216) 하나라, 되읽기에는 그
+  축만 라이브 값으로 옮겼다. 그 밖의 축을 기록에 맞출지 라이브에 맞출지는 소유자 판정이다.
 
 ## Acceptance tests
 

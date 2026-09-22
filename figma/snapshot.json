@@ -10,8 +10,8 @@
     "proposalSha256": "f7bd80c6c61859dcd075eba9c8a4983c229328408db632f5179a73c14be1896e",
     "readback": {
       "tokens": 510,
-      "canonicalLength": 51606,
-      "fnv1a32": "c96a01c9",
+      "canonicalLength": 51603,
+      "fnv1a32": "d9d74d84",
       "note": "변수는 readback.json의 되읽기 행을 tokenId 공간으로 옮긴 것이고, style과 component는 같은 되읽기의 style/component 절이다. canonical 해시는 컬렉션·이름·타입·mode 값을 정렬해 이은 문자열의 FNV-1a다.",
       "styles": {
         "text": 16,
@@ -64,7 +64,7 @@
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "space-12"
+          "alias": "space-8"
         }
       }
     },
@@ -82,7 +82,7 @@
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "space-12"
+          "alias": "space-8"
         }
       }
     },
@@ -4409,7 +4409,7 @@
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "space-12"
+          "alias": "space-8"
         }
       }
     },
@@ -4436,7 +4436,7 @@
       "resolvedType": "FLOAT",
       "valuesByMode": {
         "Global": {
-          "alias": "space-280"
+          "alias": "space-240"
         }
       }
     },
@@ -6324,10 +6324,7 @@
       },
       "geometry": {
         "topBar": {
-          "slots": {
-            "LeadingSlot": true,
-            "TrailingSlot": true
-          },
+          "slots": {},
           "parts": {
             "Leading": {
               "height": [
@@ -6336,7 +6333,7 @@
             },
             "Trailing": {
               "height": [
-                36
+                32
               ]
             }
           },
@@ -14094,28 +14091,28 @@
         "base": {
           "slots": {},
           "parts": {
-            "Track": {
-              "width": [
-                36
-              ],
-              "height": [
-                36
-              ]
-            },
             "Content": {
               "width": [
-                28
+                24
               ],
               "height": [
-                28
+                24
+              ]
+            },
+            "Track": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
               ]
             }
           },
           "height": [
-            36
+            32
           ],
           "width": [
-            36
+            32
           ],
           "paddingBlock": [
             4
@@ -15816,7 +15813,7 @@
           },
           "strokeWeight": [],
           "width": [
-            256
+            216
           ],
           "height": [
             40
@@ -15937,7 +15934,7 @@
             40
           ],
           "width": [
-            256
+            216
           ],
           "paddingBlock": [
             10
@@ -16174,7 +16171,7 @@
           },
           "strokeWeight": [],
           "width": [
-            256
+            216
           ],
           "height": [
             32
@@ -20823,26 +20820,26 @@
   "templates": {
     "app-shell": {
       "sceneWidth": 1440,
-      "railWidth": 280,
+      "railWidth": 240,
       "railWidthCollapsed": 56,
       "railPaddingInline": 12,
-      "railPaddingTop": 12,
+      "railPaddingTop": 8,
       "railPaddingBottom": 0,
       "railItemGap": 4,
       "brandToNavGap": 12,
-      "mainWidth": 1148,
-      "mainWidthCollapsed": 1372,
-      "mainOuterGapTop": 12,
-      "mainOuterGapRight": 12,
-      "mainOuterGapBottom": 12,
+      "mainWidth": 1192,
+      "mainWidthCollapsed": 1376,
+      "mainOuterGapTop": 8,
+      "mainOuterGapRight": 8,
+      "mainOuterGapBottom": 8,
       "mainCardRadius": 16,
       "mainContentInset": 16,
       "compactSceneWidth": 375,
       "compactRailReserve": 0,
       "compactMainOuterGap": 0,
-      "compactDrawerWidth": 280,
+      "compactDrawerWidth": 240,
       "compactCardRadius": 0,
-      "compactContentInset": 16,
+      "compactContentInset": 6,
       "stateFrames": [
         "Collapsed",
         "Compact · drawer open",
@@ -20984,18 +20981,18 @@
     },
     "home": {
       "sceneWidth": 1440,
-      "sidebarWidth": 280,
+      "sidebarWidth": 240,
       "sidebarPaddingLeft": 12,
       "mainCardRadius": 16,
       "mainCardPaddingInline": 16,
       "gridColumns": 4,
       "gridGap": 4,
       "sectionPaddingTop": 40,
-      "cardWidth": 276,
-      "cardHeight": 276,
+      "cardWidth": 287,
+      "cardHeight": 287,
       "cardSquare": true,
       "cardRadius": 12,
-      "overlayHeightRatio": 0.39,
+      "overlayHeightRatio": 0.38,
       "overlayPadding": 16,
       "overlayStackGap": 4,
       "overlayLineHeightPercent": [
@@ -21005,7 +21002,6 @@
         "AppTopBar",
         "BannerCarousel",
         "CreateMenu",
-        "NavEyebrow",
         "ProjectCard",
         "ProjectGrid",
         "SectionHeader",
@@ -21123,8 +21119,8 @@
       ],
       "tracksEqual": true,
       "gridFillsContainer": true,
-      "containerWidthWide": 1116,
-      "cardWidthWide": 276,
+      "containerWidthWide": 1160,
+      "cardWidthWide": 287,
       "requiredParts": [
         "Grid",
         "ProjectCard"

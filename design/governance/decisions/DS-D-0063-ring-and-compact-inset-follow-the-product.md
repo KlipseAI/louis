@@ -105,6 +105,8 @@ authority: normative
   1064 = 1080 − 8 − 8.
 - parity 의 「대기」 다섯 줄이 사라진다. 대신 Figma `Pattern · AppShell`(`982:175`) 이 아직
   12 · 16 이라 그 칸들이 **빨개진다** — 라이브 적용 전까지는 그것이 정상이다.
+  **2026-09-22 적용했다** — 앵커 `2c6bdacf` 세트 단계(변수 넷 · DS Templates)로 라이브가 링 8 · compact 인셋 6 ·
+  레일 240 이 됐고, 되읽기를 병합한 뒤 `verify-figma-parity` 가 초록이다(Updates (155)).
 - `packages/css/generated/tokens.css` 의 `--louis-layout-app-shell-outer-gap` 이 8px 이 된다.
   이 토큰을 무는 DS CSS 선언은 현재 **없다** — 값이 움직여도 웹 소비처의 렌더는 바뀌지 않는다.
   거울 토큰 둘(`--louis-app-gnb-main-inline-padding-end` · `--louis-app-gnb-rail-padding-bottom`)도
@@ -132,6 +134,7 @@ authority: normative
    `pnpm run check-css` 가 초록이어야 한다. 기록 파일의 형식은 `verify-figma-parity` 가
    읽으면서 검사한다.
 4. `verify-figma-parity` 는 라이브 적용 전이라 빨갛다. 빨간 줄의 수와 이유를 Updates 에 적는다.
+   → 2026-09-22 라이브 적용 · 되읽기 병합 뒤 초록(Updates (155)).
 
 ## Rollback
 

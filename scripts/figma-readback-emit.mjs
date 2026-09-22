@@ -88,6 +88,10 @@
 //     로 어긋나 있었고 계약이 두 이름을 따로 셌다. Figma 를 공개 API 이름 `Adornment` 로
 //     되돌리고 계약을 한 줄로 합쳤다. 비-오토레이아웃 프레임의 padding 을 빈 배열로 담는데
 //     `VideoPlayer` 는 같은 상황에서 0 을 담는 것은 그대로 남아 있다 — 같은 축을 두 규칙으로 잰다.
+//   · `SidebarBrand` · `SidebarCta` — **다시 뜨지 않은 채 남아 있다(2026-09-22).** 앵커 2c6bdacf 적용 때
+//     떠 보니 브랜드 Mark(23.7 이미지) · 워드마크 틀(95.9) · 접힌 CTA(라벨을 품은 HUG 74) · Focus 링(획 2,
+//     프레임 밖)이 기록과 달랐다. 그 적용이 바꾼 펼친 폭(256 → 216) 한 축만 라이브 값으로 옮겼다 —
+//     나머지는 소유자 판정 거리다(app-shell-parts.md Known deviations).
 // 이 스크립트는 그 사실을 **드러내기만** 한다. 되읽기를 고치면 계약도 함께 움직이므로 별도
 // 판단이 필요하다.
 import { readFileSync, writeFileSync } from "node:fs";

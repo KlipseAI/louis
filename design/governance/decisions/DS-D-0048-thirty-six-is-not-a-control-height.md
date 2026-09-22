@@ -300,3 +300,6 @@ Figma 도 같다 — `settings` 트랙만 세로가 hug 이고, 되읽기가 36 
 헤어라인). Figma 셸 매처가 그 결과를 수로 물던 자리를 구조 판정으로 바꿨고, 앱 셸 러너 · 계획은 높이를 hug 하도록 다시
 지었다 — **라이브 적용 전이다.** 라이브 세트는 아직 높이를 FIXED 로 굳힌 옛 구조이고, 적용 여부는
 [Updates](../../updates/README.md) (131) 「라이브 적용 — 현황」이 갖는다.
+**2026-09-22 확인 — 라이브도 hug 구조다.** 앵커 `2c6bdacf` 적용 전 기준선 탐침(`figma-screens-live-check --emit --sets`)이
+두 상단 바 세트의 variant 전부를 앱 셸 계획의 `layoutContract` 와 대조해 통과했고, 앱 셸 러너를 다시 적용한 뒤에도
+통과했다(Updates (155)).

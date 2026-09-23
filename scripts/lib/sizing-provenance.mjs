@@ -423,6 +423,43 @@ export function parseTracks(declaration) {
   return tracks;
 }
 
+/**
+ * min/max 크기의 computed 값을 px 한계로 푼다. 풀 수 없으면 null.
+ *
+ * **computed 는 퍼센트가 섞인 `min()`·`max()`·`clamp()` 를 풀지 않고 식 그대로 둔다** —
+ * `max-width: min(1300px, 100%)` 의 computed `maxWidth` 도 `"min(1300px, 100%)"` 다. `px()` 만 보면
+ * 그 상한이 통째로 사라지고 FILL 이 부모 폭을 다 먹는다. 실측 사례: `/mypage/upgrade` 데스크톱의
+ * 요금 카드 격자가 제품 1300 대신 본문 1672 로 그려져 카드가 256.8 → 331.2 로 넓어졌다.
+ * FILL 이 이미 「부모의 100%」이므로 옮길 수 있는 것은 **px 쪽 한계가 그대로 Figma 한계가 되는
+ * 꼴**뿐이다 — 상한은 `min(L…, 100%)` · `clamp(a, 100%, b)` 의 b, 하한은 `max(L…, 100%)` ·
+ * `clamp(a, 100%, b)` 의 a. `max-width: max(L, 100%)` 처럼 부모보다 넓게 풀리는 한계는 FILL 이 이미
+ * 막으므로 옮기지 않는다. 100% 가 아닌 퍼센트가 섞이면 부모 비례라 풀지 않는다.
+ */
+function limitPx(kind, value) {
+  const plain = px(value);
+  if (plain != null) return plain;
+  const match = /^(min|max|clamp)\(([^]*)\)$/.exec(String(value ?? "").trim());
+  if (!match) return null;
+  const [, fn, inner] = match;
+  const parts = splitTopLevel(inner);
+  const lengths = parts.map((part) => px(part));
+  const full = parts.map((part) => percent(part) === 100);
+  if (parts.some((part, i) => lengths[i] == null && !full[i])) return null;
+  const known = lengths.filter((value) => value != null);
+  if (known.length === 0) return null;
+  if (!full.some(Boolean)) {
+    if (fn === "min") return Math.min(...known);
+    if (fn === "max") return Math.max(...known);
+    return parts.length === 3 ? Math.max(lengths[0], Math.min(lengths[1], lengths[2])) : null;
+  }
+  if (fn === "clamp") {
+    if (parts.length !== 3 || !full[1] || full[0] || full[2]) return null;
+    return kind === "max" ? lengths[2] : lengths[0];
+  }
+  if (kind === "max") return fn === "min" ? Math.min(...known) : null;
+  return fn === "max" ? Math.max(...known) : null;
+}
+
 /** 두 한계 중 더 좁은 쪽을 고른다(없으면 있는 쪽). */
 function tighter(kind, a, b) {
   if (a == null) return b ?? null;
@@ -458,10 +495,10 @@ export function decideNode({ declared = {}, computed = {}, parentComputed = null
     // min/max 는 computed에서도 %가 살아남는 축이라 그대로 Figma로 옮긴다.
     // `min()`/`clamp()` 선언이 만든 한계(`limit`)는 computed의 min/max보다 좁을 때만 이긴다.
     minMax: {
-      minWidth: tighter("min", px(computed.minWidth), h.limit?.min),
-      maxWidth: tighter("max", px(computed.maxWidth), h.limit?.max),
-      minHeight: tighter("min", px(computed.minHeight), v.limit?.min),
-      maxHeight: tighter("max", px(computed.maxHeight), v.limit?.max),
+      minWidth: tighter("min", limitPx("min", computed.minWidth), h.limit?.min),
+      maxWidth: tighter("max", limitPx("max", computed.maxWidth), h.limit?.max),
+      minHeight: tighter("min", limitPx("min", computed.minHeight), v.limit?.min),
+      maxHeight: tighter("max", limitPx("max", computed.maxHeight), v.limit?.max),
     },
   };
 }

@@ -1753,6 +1753,18 @@ withCanary(
   "--check",
 );
 
+// ── min()/clamp() 크기 한계 카나리아(2026-09-23) ─────────────────────────────
+// computed 의 `maxWidth` 는 `min(1300px, 100%)` 처럼 퍼센트가 섞인 식을 풀지 않고 그대로 둔다. 판정기가 px 만 읽으면 그 상한이
+// 사라져 `/mypage/upgrade` 데스크톱의 요금 카드 격자가 1300 대신 본문 1672 로 그려졌다 — 식을 px 로만 읽게 되돌리면 생성물 대조가 무는지 본다.
+withCanary(
+  "scripts/lib/sizing-provenance.mjs",
+  (source) => source.replace('maxWidth: tighter("max", limitPx("max", computed.maxWidth), h.limit?.max),', 'maxWidth: tighter("max", px(computed.maxWidth), h.limit?.max),'),
+  "sizing provenance: min()/clamp() max-width 를 px 로만 읽는 판정기",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── sidebar-states 찾기 구간 카나리아(2026-09-15) ───────────────────────────
 // sidebar-states 러너는 필요한 대상을 전부 찾은 뒤에만 쓴다. 옛 러너는 세트 칠을 쓰고 나서 라이브에 없는 id 를 찾다 던질
 // 자리였다(부분 적용). 생성기가 템플릿의 「── 1. 찾기」 구간에 쓰기가 섞였는지 글자로 보는데, 그 확인이 실제로 무는지

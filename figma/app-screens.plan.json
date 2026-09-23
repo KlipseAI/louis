@@ -3566,12 +3566,12 @@
                                     ]
                                   },
                                   {
-                                    "path": "body.1.0.0.1.0.1.1.1.0",
-                                    "tag": "button",
-                                    "name": "body.1.0.0.1.0.1.1.1.0",
+                                    "path": "body.1.0.0.1.0.1.1.1",
+                                    "tag": "div",
+                                    "name": "body.1.0.0.1.0.1.1.1",
                                     "text": null,
                                     "textLines": null,
-                                    "paints": true,
+                                    "paints": false,
                                     "rect": {
                                       "x": 1666.7031,
                                       "y": 179.5938,
@@ -3583,25 +3583,13 @@
                                       "layoutSizingHorizontal": "HUG",
                                       "layoutSizingVertical": "HUG",
                                       "layoutPositioning": "AUTO",
-                                      "minWidth": 48,
-                                      "maxWidth": null,
-                                      "minHeight": 32,
+                                      "minWidth": null,
+                                      "maxWidth": 560,
+                                      "minHeight": null,
                                       "maxHeight": null,
                                       "unresolved": []
                                     },
-                                    "paint": {
-                                      "fill": "171b2214",
-                                      "gradient": null,
-                                      "stroke": null,
-                                      "radius": [
-                                        12,
-                                        12,
-                                        12,
-                                        12
-                                      ],
-                                      "shadow": null,
-                                      "opacity": null
-                                    },
+                                    "paint": null,
                                     "typography": null,
                                     "positioning": "AUTO",
                                     "margin": {
@@ -3628,29 +3616,111 @@
                                     },
                                     "layout": {
                                       "layoutMode": "HORIZONTAL",
-                                      "itemSpacing": 4,
+                                      "itemSpacing": 8,
                                       "counterAxisSpacing": 8,
-                                      "wrap": false,
+                                      "wrap": true,
                                       "padding": {
                                         "top": 0,
-                                        "right": 12,
+                                        "right": 0,
                                         "bottom": 0,
-                                        "left": 12
+                                        "left": 0
                                       },
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "CENTER"
+                                        "primaryAxis": "MAX"
                                       }
                                     },
                                     "clipsContent": false,
-                                    "children": [],
-                                    "instance": {
-                                      "set": "Button",
-                                      "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
-                                      "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
-                                      "label": "Change photo"
-                                    }
+                                    "children": [
+                                      {
+                                        "path": "body.1.0.0.1.0.1.1.1.0",
+                                        "tag": "button",
+                                        "name": "body.1.0.0.1.0.1.1.1.0",
+                                        "text": null,
+                                        "textLines": null,
+                                        "paints": true,
+                                        "rect": {
+                                          "x": 1666.7031,
+                                          "y": 179.5938,
+                                          "width": 113.2969,
+                                          "height": 32
+                                        },
+                                        "glyph": null,
+                                        "sizing": {
+                                          "layoutSizingHorizontal": "HUG",
+                                          "layoutSizingVertical": "HUG",
+                                          "layoutPositioning": "AUTO",
+                                          "minWidth": 48,
+                                          "maxWidth": null,
+                                          "minHeight": 32,
+                                          "maxHeight": null,
+                                          "unresolved": []
+                                        },
+                                        "paint": {
+                                          "fill": "171b2214",
+                                          "gradient": null,
+                                          "stroke": null,
+                                          "radius": [
+                                            12,
+                                            12,
+                                            12,
+                                            12
+                                          ],
+                                          "shadow": null,
+                                          "opacity": null
+                                        },
+                                        "typography": null,
+                                        "positioning": "AUTO",
+                                        "margin": {
+                                          "top": 0,
+                                          "right": 0,
+                                          "bottom": 0,
+                                          "left": 0
+                                        },
+                                        "offset": null,
+                                        "constraints": null,
+                                        "why": {
+                                          "horizontal": {
+                                            "verdict": "HUG",
+                                            "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                            "source": "flex-grow:0 · width:auto",
+                                            "value": null
+                                          },
+                                          "vertical": {
+                                            "verdict": "HUG",
+                                            "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                            "source": "기본(flex item)",
+                                            "value": null
+                                          }
+                                        },
+                                        "layout": {
+                                          "layoutMode": "HORIZONTAL",
+                                          "itemSpacing": 4,
+                                          "counterAxisSpacing": 8,
+                                          "wrap": false,
+                                          "padding": {
+                                            "top": 0,
+                                            "right": 12,
+                                            "bottom": 0,
+                                            "left": 12
+                                          },
+                                          "columns": null,
+                                          "align": {
+                                            "counterAxis": "CENTER",
+                                            "primaryAxis": "CENTER"
+                                          }
+                                        },
+                                        "clipsContent": false,
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Button",
+                                          "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+                                          "why": "제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값). 제품 레시피 probe `button-md` 의 height·paddingTop·paddingLeft·paddingRight·borderTopLeftRadius·columnGap·minWidth 가 측정과 모두 같고, 되읽기 Button/md 의 기하가 맞는다.",
+                                          "label": "Change photo"
+                                        }
+                                      }
+                                    ]
                                   }
                                 ]
                               },
@@ -9056,7 +9126,7 @@
                                   "layoutSizingVertical": "HUG",
                                   "layoutPositioning": "AUTO",
                                   "minWidth": null,
-                                  "maxWidth": null,
+                                  "maxWidth": 560,
                                   "minHeight": null,
                                   "maxHeight": null,
                                   "unresolved": []
@@ -23004,7 +23074,7 @@
                                   "layoutSizingVertical": "HUG",
                                   "layoutPositioning": "AUTO",
                                   "minWidth": 0,
-                                  "maxWidth": null,
+                                  "maxWidth": 1300,
                                   "minHeight": 0,
                                   "maxHeight": null,
                                   "unresolved": []
@@ -24852,7 +24922,7 @@
                               "layoutSizingVertical": "HUG",
                               "layoutPositioning": "AUTO",
                               "minWidth": 0,
-                              "maxWidth": null,
+                              "maxWidth": 1300,
                               "minHeight": 0,
                               "maxHeight": null,
                               "unresolved": []
@@ -44902,7 +44972,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 48768
+          "bytes": 48858
         }
       ]
     },
@@ -44914,7 +44984,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 47916
+          "bytes": 47925
         }
       ]
     },
@@ -44974,7 +45044,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 43800
+          "bytes": 43810
         }
       ]
     },
@@ -44986,7 +45056,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 42703
+          "bytes": 42713
         }
       ]
     },

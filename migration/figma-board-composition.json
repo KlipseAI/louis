@@ -14,15 +14,15 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 478,
+  "rawNodesBeforePruning": 479,
   "counts": {
-    "total": 545,
+    "total": 546,
     "instance": 101,
     "replaceable": 0,
     "bespoke": 1,
     "blocked": 6,
     "missing": 22,
-    "structural": 415,
+    "structural": 416,
     "unclassified": 0
   },
   "ratio": {
@@ -48,7 +48,7 @@
   "bespokeByIcon": {},
   "structuralByKind": {
     "surface": 146,
-    "frame": 172,
+    "frame": 173,
     "image": 2,
     "text": 95
   },
@@ -764,13 +764,13 @@
         "figma/app-screens.settings.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 59,
+        "total": 60,
         "instance": 9,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 2,
         "missing": 2,
-        "structural": 45,
+        "structural": 46,
         "unclassified": 0
       }
     },
@@ -4911,6 +4911,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.1.1": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        113.3,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.1.1.0": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "button",
       "rect": [

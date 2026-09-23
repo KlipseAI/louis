@@ -199,7 +199,29 @@ function validateLocalLinks(path, source) {
   }
 }
 
+/**
+ * 훑을 Markdown 목록. **git 이 아는 파일만 본다** — 추적 중이거나, 추적 안 되지만 무시되지도 않는 것.
+ *
+ * 러너는 커밋된 상태만 clone 하므로 `.gitignore` 가 걷는 경로(`scratchpad/` · `.omc/`)는 CI 에 존재하지 않는다.
+ * 그 경로까지 훑으면 **로컬에서만 빨간** 게이트가 된다 — 2026-09-23 에 9/14 자 `scratchpad/size-audit-plan.md` 의
+ * 상대 링크 한 줄이 이 저장소의 모든 문서 생성을 막고 있었다(러너는 초록). 게이트가 보는 범위를 러너와 같게 맞춘다.
+ * 검사력은 그대로다 — 규범 문서는 전부 추적 중이고, 깨진 링크 canary 도 추적 문서(`design/content/README.md`)를 쓴다.
+ * git 이 없는 환경에서는 예전처럼 디렉터리를 걷는다.
+ */
 function listMarkdownFiles(directory = repoRoot) {
+  if (directory === repoRoot) {
+    try {
+      const listed = execFileSync(
+        "git",
+        ["-C", repoRoot, "ls-files", "--cached", "--others", "--exclude-standard", "--", "*.md"],
+        { encoding: "utf8" },
+      );
+      const paths = listed.split("\n").map((line) => line.trim()).filter(Boolean);
+      if (paths.length > 0) return paths.filter((path) => existsSync(resolve(repoRoot, path)));
+    } catch (error) {
+      // git 이 없거나 저장소가 아니면 아래 디렉터리 걷기로 떨어진다.
+    }
+  }
   const paths = [];
   const excludedDirectories = new Set([
     ".git",

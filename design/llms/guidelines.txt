@@ -3739,7 +3739,8 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | `width` · `height` · `size` 의 px · 토큰 선언, 아이콘 · 아바타 같은 고정 자산 | FIXED(선언값) | 상단 바 사이드바 토글 `[height:32px]` · 프로필 버튼, 결제 결과 버튼 높이 `h-16` |
 | 선언 없음 · `fit-content` — 패딩과 자식이 정한다 | HUG + 패딩 | 앱 상단 바 두 세트 — 패딩 8 + 가장 큰 자식 + 패딩 8 + 헤어라인 |
 | `flex: 1` · `width: 100%` · `1fr` 트랙 · stretch | FILL | 상단 바 breadcrumb nav, 요금제 덱의 카드(`repeat(N, 1fr)`), 결제 결과 본문 글자, 편집 장면 속성 판의 안쪽 프레임(판 폭 · 제약 가로 STRETCH, 행은 FILL — 판 트랙이 324 → 240 으로 옮겨질 때 안쪽이 324 에 남아 값 열이 잘렸다, [Updates](../updates/README.md) (152)) |
-| `min-*` · `max-*` | HUG · FILL + 최소 · 최대 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)` |
+| `min-*` · `max-*` | HUG · FILL + 최소 · 최대. `max-width: min(Npx, 100%)` 처럼 한계 자체가 식이면 px 쪽이 Figma 한계다 — computed 도 식을 풀지 않고 문자열로 두므로 px 만 읽으면 한계가 사라진다 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)`, 앱 화면 보드 `/mypage/upgrade` 의 카드 격자 컨테이너 `max-width: min(1300px, 100%)` — 한계가 빠져 격자가 본문 1672 를 채웠고 카드가 256.8 → 331.2 로 넓어졌다(Updates (161)) |
+| `margin-inline: auto`(최대 폭에 닿은 FILL 블록의 가운데 정렬) | 부모 교차축 정렬 `CENTER` + 그 여백은 지운다. 형제가 모두 가로 FILL 일 때만 — 교차축 정렬이 형제에게 아무 일도 하지 않는다. 여백이 auto 였다는 것은 좌우 여백이 같고 (부모 안쪽 폭 − 폭) / 2 로 닫히는지로 본다 | 앱 화면 보드 `/mypage/upgrade` · `/subscription` 데스크톱의 본문 컨테이너 — Auto Layout 에 margin 이 없어 형제가 있는 자식의 여백이 버려졌고 본문 왼쪽에 붙었다(Updates (161)) |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
 | 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
 | 한 줄 글자가 폭을 정하는 버튼(폭 선언 없음, 블록 버튼 포함) | 면을 Auto Layout 으로 두고 글자 HUG(`WIDTH_AND_HEIGHT`) · 측정 폭은 최소 폭으로, `text-align` 은 주축 정렬로 | 앱 화면 보드의 업로드 Topic 칩 — 글자 상자를 측정 폭에 가두면 Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾였다(Updates (156)) |
@@ -14916,6 +14917,30 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 **그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 간격을 지어내면 제품에 없는 사실을 정본으로
 굳힌다([Updates](../updates/README.md) (156) 「남은 것」 1 과 같은 판정이다).
 
+#### 11 — 업그레이드 화면 데스크톱의 요금 카드에서 가격이 두 줄로 꺾인다
+
+**증상.** `/mypage/upgrade` 데스크톱(1920)의 유료 요금 카드 넷에서 가격이 「12,900 / KRW」처럼 두 줄로, 옆의 「per
+month」도 「per / month」로 꺾인다. 화면 보드에서 먼저 보였고([Updates](../updates/README.md) (161)), 보드가 틀린 것이
+아니라 제품이 그렇게 그린다.
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의
+`screens["desktop-1920x1080"]["/mypage/upgrade"]` 트리에서
+
+    카드 격자          rect 1300 × 608.19   grid-template-columns repeat(5, minmax(0px, 1fr)) · gap 4
+    카드 article       rect 256.8 × 608.19  padding 16 → 내용 폭 224.8
+    가격 행            rect 224.8 × 97.19   inline-flex · items-end · gap 8
+    strong "12,900 KRW" rect 159 × 97.19    heading-36 · 줄 높이 48.6 → 두 줄
+    span "per month"    rect 57.8 × 52      body-16 · 줄 높이 24 + 아래 패딩 4 → 두 줄
+
+격자가 요금제 다섯(Trial + 유료 넷)을 한 줄에 놓아 카드 내용 폭이 224.8 이다. 한 줄로 서려면 가격 약 200 + 간격 8 +
+「per month」 약 64 = 272 가 필요하다. 행이 `inline-flex` 라 두 글자가 줄어들며 각자 감긴다. 모바일(402)은 한 열이라
+같은 행이 169 폭에서 역시 두 줄이다(가격 28px).
+
+**정해야 할 것(제품).** 가격을 한 줄로 지킬 것인가. 지킨다면 셋 중 하나다 — 가격 `white-space: nowrap` 에 「per
+month」를 가격 아래로 내리기, 데스크톱 격자를 넓은 화면에서만 다섯 열로 두기, 가격 크기를 카드 폭에 맞춰 줄이기.
+
+**그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드는 제품 폭(카드 256.8)에서 같은 자리가 같게 꺾인다.
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -14941,6 +14966,43 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-23 (161) — 보드 렌더러: `min()` 최대 폭과 `margin: auto` 가운데 정렬을 옮긴다, (156) 「남은 것」 3 을 닫는다
+
+**(156) 「남은 것」 3 — 폭이 선언된 블록 버튼의 꺾임 — 은 0 건이다.** 화면 페이지 다섯을 모두 쟀다. 폭이 고정된 글자 가운데
+한 줄 폭이 상자보다 넓은 것이 724 건이었고, 그중 버튼 라벨은 하나도 없었다. 제품 원장에 줄 수가 있는 51 건과 줄 수를
+맞대면 같음이 39 건이다. 나머지 12 건은 Figma 가 제품보다 한 줄 **적다**(Figma 글꼴이 조금 좁다). Figma 가 제품보다 더
+꺾인 자리는 0 이다. 나머지는 제품을 그대로 캡처한 랜딩 · 법무 보드라 원장이 따로 없다.
+
+**그 조사에서 드러난 것.** `/mypage/upgrade` 데스크톱의 가격 「12,900 KRW」와 「per month」가 두 줄로 꺾여 있었다.
+제품도 꺾는다(원장 `strong` 159 × 97.19 = 두 줄). 그런데 Figma 카드는 331.2 였고 제품은 256.8 이다. 넓은 카드 안에서
+측정 폭 159 에 갇힌 가격만 꺾여 보였다. 원인은 렌더러의 두 구멍이었다.
+
+- **`max-width: min(1300px, 100%)` 가 사라졌다.** computed 도 이 식을 풀지 않고 문자열로 둔다. 판정기가 px 만 읽어서
+  카드 격자가 본문 1672 를 다 채웠다. 이제 px 쪽 한계가 Figma 한계가 되는 꼴(`min(L, 100%)` 의 L, `clamp(a, 100%, b)`)을
+  옮긴다. 이 한계가 걸린 러너는 `/mypage/upgrade` · `/settings`(`min(560px, 100%)`) 넷이다. `/settings` 는 상한이 걸린
+  래퍼가 이제 접히지 않고 남는다. HUG 라 폭은 113.3 그대로다.
+- **`margin-inline: auto` 가 버려졌다.** Auto Layout 에는 margin 이 없다. 렌더러는 흐름 자식이 하나일 때만 여백을 부모
+  padding 으로 옮긴다. 본문 컨테이너는 상단 바와 형제라 여백이 버려졌고, 본문 왼쪽에 붙었다. `/mypage/upgrade` 의
+  여백은 174 · 174 이고 `/subscription` 은 1400 에 124 · 124 다. 한계가 없던 때는 FILL 이 이를 가렸다. 이제 좌우 여백이
+  같고 최대 폭에 닿았으며 (부모 안쪽 폭 − 폭) / 2 로 닫히면 auto 로 본다. 형제가 모두 가로 FILL 이면 부모를 교차축
+  `CENTER` 로 두고 그 여백을 지운다. `/mypage/upgrade` 에는 4 가 남는다. 첫 형제인 상단 바가 음수 여백(−16 / −8)으로
+  번지고, 렌더러가 그 번짐을 부모 padding 을 깎아 옮긴다. 그래서 가운데 기준이 1648 이 아니라 1672 가 된다
+  (라이브 426 · 제품 430). Auto Layout 으로는 두 가지를 함께 만들 수 없어 계획 `stats.autoMarginCentred[].residual` 에 수로 남겼다.
+
+[조립 규칙](../governance/figma-screen-assembly.md) 28조 표에 두 칸을 적었다(`min-*` · `max-*` 행, `margin-inline: auto` 행).
+`verify-gates` 에 카나리아 둘을 더했다. 식을 px 로만 읽게 되돌리는 것과, 가운데 정렬 풀이를 지우는 것이다.
+
+**다시 그린 보드는 다섯이다.** `/mypage/upgrade` 데스크톱 · 모바일, `/settings` 데스크톱 · 모바일, `/subscription` 데스크톱이다.
+세션 기록의 보낸 code 는 모두 포장본과 sha256 이 같다. 예외는 `/settings` 데스크톱 하나로, 파일 끝 줄바꿈 한 글자가
+빠졌다. 첫 `/settings` 모바일 전송은 payload 가운데 글자가 바뀌어 구문 오류로 거부됐다. use_figma 는 실패하면 통째로
+적용되지 않는다. 그래서 보낼 문자열을 먼저 파일로 써서 sha256 을 맞춘 뒤 다시 보냈다. 라이브 대조 `--check` 는 36/36 같음 ·
+다름 0 이다. 탐침으로 잰 값은 제품과 같다. 업그레이드 격자는 1300 · 카드 256.8 이다. 구독 본문은 x 380 · 1400 이다.
+설정 560 래퍼는 HUG 113 이다.
+
+**가격 두 줄은 제품 값이다.** 제품 격자는 요금제 다섯을 한 줄에 놓아 카드 내용 폭이 224.8 이다. 한 줄에는 272 가
+필요하다. [제품 확인 대기](../governance/product-confirmations.md) 11 로 올렸다. 보드는 제품 폭에서 같은 자리가 같게
+꺾인다.
 
 #### 2026-09-23 (160) — Figma `SidebarBrand` · `SidebarCta` 를 계약에 맞추고 되읽기를 emitter 로 통째로 다시 떴다
 

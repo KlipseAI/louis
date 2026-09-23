@@ -355,3 +355,27 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 **그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 간격을 지어내면 제품에 없는 사실을 정본으로
 굳힌다([Updates](../updates/README.md) (156) 「남은 것」 1 과 같은 판정이다).
+
+## 11 — 업그레이드 화면 데스크톱의 요금 카드에서 가격이 두 줄로 꺾인다
+
+**증상.** `/mypage/upgrade` 데스크톱(1920)의 유료 요금 카드 넷에서 가격이 「12,900 / KRW」처럼 두 줄로, 옆의 「per
+month」도 「per / month」로 꺾인다. 화면 보드에서 먼저 보였고([Updates](../updates/README.md) (161)), 보드가 틀린 것이
+아니라 제품이 그렇게 그린다.
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의
+`screens["desktop-1920x1080"]["/mypage/upgrade"]` 트리에서
+
+    카드 격자          rect 1300 × 608.19   grid-template-columns repeat(5, minmax(0px, 1fr)) · gap 4
+    카드 article       rect 256.8 × 608.19  padding 16 → 내용 폭 224.8
+    가격 행            rect 224.8 × 97.19   inline-flex · items-end · gap 8
+    strong "12,900 KRW" rect 159 × 97.19    heading-36 · 줄 높이 48.6 → 두 줄
+    span "per month"    rect 57.8 × 52      body-16 · 줄 높이 24 + 아래 패딩 4 → 두 줄
+
+격자가 요금제 다섯(Trial + 유료 넷)을 한 줄에 놓아 카드 내용 폭이 224.8 이다. 한 줄로 서려면 가격 약 200 + 간격 8 +
+「per month」 약 64 = 272 가 필요하다. 행이 `inline-flex` 라 두 글자가 줄어들며 각자 감긴다. 모바일(402)은 한 열이라
+같은 행이 169 폭에서 역시 두 줄이다(가격 28px).
+
+**정해야 할 것(제품).** 가격을 한 줄로 지킬 것인가. 지킨다면 셋 중 하나다 — 가격 `white-space: nowrap` 에 「per
+month」를 가격 아래로 내리기, 데스크톱 격자를 넓은 화면에서만 다섯 열로 두기, 가격 크기를 카드 폭에 맞춰 줄이기.
+
+**그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드는 제품 폭(카드 256.8)에서 같은 자리가 같게 꺾인다.

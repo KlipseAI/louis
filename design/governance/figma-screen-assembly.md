@@ -573,7 +573,8 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | `width` · `height` · `size` 의 px · 토큰 선언, 아이콘 · 아바타 같은 고정 자산 | FIXED(선언값) | 상단 바 사이드바 토글 `[height:32px]` · 프로필 버튼, 결제 결과 버튼 높이 `h-16` |
 | 선언 없음 · `fit-content` — 패딩과 자식이 정한다 | HUG + 패딩 | 앱 상단 바 두 세트 — 패딩 8 + 가장 큰 자식 + 패딩 8 + 헤어라인 |
 | `flex: 1` · `width: 100%` · `1fr` 트랙 · stretch | FILL | 상단 바 breadcrumb nav, 요금제 덱의 카드(`repeat(N, 1fr)`), 결제 결과 본문 글자, 편집 장면 속성 판의 안쪽 프레임(판 폭 · 제약 가로 STRETCH, 행은 FILL — 판 트랙이 324 → 240 으로 옮겨질 때 안쪽이 324 에 남아 값 열이 잘렸다, [Updates](../updates/README.md) (152)) |
-| `min-*` · `max-*` | HUG · FILL + 최소 · 최대 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)` |
+| `min-*` · `max-*` | HUG · FILL + 최소 · 최대. `max-width: min(Npx, 100%)` 처럼 한계 자체가 식이면 px 쪽이 Figma 한계다 — computed 도 식을 풀지 않고 문자열로 두므로 px 만 읽으면 한계가 사라진다 | 요금제 카드 `min-h-[560px]`, 결제 결과 본문 `width: min(520px, 100%)`, 앱 화면 보드 `/mypage/upgrade` 의 카드 격자 컨테이너 `max-width: min(1300px, 100%)` — 한계가 빠져 격자가 본문 1672 를 채웠고 카드가 256.8 → 331.2 로 넓어졌다(Updates (161)) |
+| `margin-inline: auto`(최대 폭에 닿은 FILL 블록의 가운데 정렬) | 부모 교차축 정렬 `CENTER` + 그 여백은 지운다. 형제가 모두 가로 FILL 일 때만 — 교차축 정렬이 형제에게 아무 일도 하지 않는다. 여백이 auto 였다는 것은 좌우 여백이 같고 (부모 안쪽 폭 − 폭) / 2 로 닫히는지로 본다 | 앱 화면 보드 `/mypage/upgrade` · `/subscription` 데스크톱의 본문 컨테이너 — Auto Layout 에 margin 이 없어 형제가 있는 자식의 여백이 버려졌고 본문 왼쪽에 붙었다(Updates (161)) |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
 | 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
 | 한 줄 글자가 폭을 정하는 버튼(폭 선언 없음, 블록 버튼 포함) | 면을 Auto Layout 으로 두고 글자 HUG(`WIDTH_AND_HEIGHT`) · 측정 폭은 최소 폭으로, `text-align` 은 주축 정렬로 | 앱 화면 보드의 업로드 Topic 칩 — 글자 상자를 측정 폭에 가두면 Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾였다(Updates (156)) |

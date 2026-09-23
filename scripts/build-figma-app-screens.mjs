@@ -449,6 +449,11 @@ function reconcileFigmaSizing(spec) {
  * 형제라 여백 174 / 174 가 버려져 본문 왼쪽에 붙었다(제품은 가운데 x 430). 한계가 없던 때는 FILL 1672 가 이를 가렸다.
  * 여백이 auto 에서 왔다는 것은 수로 닫힌다 — 좌우 여백이 같고, 폭이 최대 폭에 닿았고, 여백이 (부모 안쪽 폭 − 폭) / 2 다.
  * 형제가 모두 가로 FILL 이면 교차축 정렬은 그 형제들에 아무 일도 하지 않으므로 부모를 CENTER 로 두고 여백을 지운다.
+ *
+ * **남는 차이를 수로 적는다.** 렌더러는 자식을 붙이는 순간 흐름 자식이 하나뿐이면 그 margin 을 부모 padding 으로 옮긴다.
+ * 첫 자식이 음수 margin 으로 번지면(상단 바 −16 / −8) 부모 padding 이 깎이고, 가운데 기준도 함께 넓어진다. Auto Layout
+ * 으로는 「번진 형제는 넓게, 이 자식은 원래 padding 안에서 가운데」를 함께 만들 수 없으므로 제품과의 가로 차이를
+ * `residual` 로 남긴다(`/mypage/upgrade` 데스크톱 4 = (16 − 8) / 2).
  */
 function centreAutoMargins(spec) {
   const centred = [];
@@ -465,7 +470,15 @@ function centreAutoMargins(spec) {
           && Math.abs(margin.left - (inner - child.rect.width) / 2) <= HALF_PIXEL;
       });
       if (auto.length > 0 && children.every((child) => auto.includes(child) || child.sizing.layoutSizingHorizontal === "FILL")) {
-        centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path), margin: auto.map((child) => child.margin.left) });
+        // 렌더러와 같은 규칙으로 Figma 의 실제 padding 을 낸다 — 첫 흐름 자식의 margin 만 부모 padding 으로 옮겨진다.
+        const lead = children[0];
+        const figmaPadding = (side) => Math.max(0, node.layout.padding[side] + (lead && !auto.includes(lead) ? (lead.margin?.[side] ?? 0) : 0));
+        const residual = auto.map((child) => {
+          const product = node.layout.padding.left + child.margin.left;
+          const figma = figmaPadding("left") + (node.rect.width - figmaPadding("left") - figmaPadding("right") - child.rect.width) / 2;
+          return Math.round((product - figma) * 100) / 100;
+        });
+        centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path), margin: auto.map((child) => child.margin.left), residual });
         node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
         for (const child of auto) child.margin = { ...child.margin, left: 0, right: 0 };
       }

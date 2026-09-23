@@ -333,3 +333,25 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 **어느 쪽이든 Figma에는 지금 이 움직임을 그리면 안 된다.** 배포본에 없는 움직임이다.
 
+
+## 10 — 업로드 화면의 Topic 칩이 패딩 · 간격 0 이라 글자끼리 붙는다
+
+**증상.** `/highlight/[projectId]?__phase=upload` 의 주제 칩 여섯(`Live Commerce` · `Education` ·
+`Gaming` · `Sports` · `Vlog` · `Interview`)이 서로 닿아 「EducationGaming」처럼 읽힌다. 화면 보드에서
+먼저 보였고(Updates (156)), 보드가 틀린 것이 아니라 제품이 그렇게 그린다.
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의
+`screens["desktop-1920x1080"]["/highlight/[projectId]?__phase=upload"]` 트리에서
+
+    button "Live Commerce"  rect 81.97 × 18   declared padding "0" · margin "0"
+    (부모 행)               rect 283.17 × 24  declared padding "0" · margin "0"
+
+칩 폭이 글자 폭과 같고 행에 간격 선언이 없다. 여섯 칩의 폭 합이 행 폭과 같아 사이가 0 이다.
+모바일(402)도 같다.
+
+**정해야 할 것(제품).** 칩 사이 간격과 칩 안 좌우 패딩을 세울 것인가. 세운다면 값은 DS 간격
+계단(`space-control-*`)에서 고른다 — 선택 칩의 면(`#efefef`)은 이미 있으므로 패딩만 서면 알약으로
+읽힌다.
+
+**그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 간격을 지어내면 제품에 없는 사실을 정본으로
+굳힌다([Updates](../updates/README.md) (156) 「남은 것」 1 과 같은 판정이다).

@@ -13162,6 +13162,18 @@
             "kind": "text",
             "reason": "글자 잎 — 계획에 글자의 내용 폭이 없다"
           }
+        ],
+        "autoMarginCentred": [
+          {
+            "path": "body.1.0.0.1.0",
+            "from": null,
+            "children": [
+              "body.1.0.0.1.0.1"
+            ],
+            "margin": [
+              124
+            ]
+          }
         ]
       },
       "spec": {
@@ -13611,7 +13623,7 @@
                           },
                           "columns": null,
                           "align": {
-                            "counterAxis": null,
+                            "counterAxis": "CENTER",
                             "primaryAxis": "MIN"
                           }
                         },
@@ -13810,9 +13822,9 @@
                             "positioning": "AUTO",
                             "margin": {
                               "top": 0,
-                              "right": 124,
+                              "right": 0,
                               "bottom": 0,
-                              "left": 124
+                              "left": 0
                             },
                             "offset": null,
                             "constraints": null,
@@ -22438,7 +22450,19 @@
         "kept": 249,
         "droppedInvisible": 0,
         "droppedEmpty": 3,
-        "unresolved": []
+        "unresolved": [],
+        "autoMarginCentred": [
+          {
+            "path": "body.1.0.0.1.0.0",
+            "from": null,
+            "children": [
+              "body.1.0.0.1.0.0.1"
+            ],
+            "margin": [
+              174
+            ]
+          }
+        ]
       },
       "spec": {
         "path": "body.1",
@@ -22955,7 +22979,7 @@
                               },
                               "columns": null,
                               "align": {
-                                "counterAxis": null,
+                                "counterAxis": "CENTER",
                                 "primaryAxis": null
                               }
                             },
@@ -23084,9 +23108,9 @@
                                 "positioning": "AUTO",
                                 "margin": {
                                   "top": 0,
-                                  "right": 174,
+                                  "right": 0,
                                   "bottom": 0,
-                                  "left": 174
+                                  "left": 0
                                 },
                                 "offset": null,
                                 "constraints": null,
@@ -44996,7 +45020,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 46061
+          "bytes": 46049
         }
       ]
     },
@@ -45044,7 +45068,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 43810
+          "bytes": 43798
         }
       ]
     },

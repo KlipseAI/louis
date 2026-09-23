@@ -1765,6 +1765,18 @@ withCanary(
   "--check",
 );
 
+// ── auto 여백 가운데 정렬 카나리아(2026-09-23) ───────────────────────────────
+// 렌더러는 형제가 있는 자식의 margin 을 버린다. `margin-inline: auto` 로 가운데 선 컨테이너(`/mypage/upgrade` · `/subscription`
+// 데스크톱)는 그래서 본문 왼쪽에 붙었다 — 부모 교차축을 CENTER 로 옮기는 풀이를 지우면 생성물 대조가 무는지 본다.
+withCanary(
+  "scripts/build-figma-app-screens.mjs",
+  (source) => source.replace('align: { ...node.layout.align, counterAxis: "CENTER" } };', 'align: { ...node.layout.align } };'),
+  "figma app screens: auto 여백 가운데 정렬을 버리는 생성기",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── sidebar-states 찾기 구간 카나리아(2026-09-15) ───────────────────────────
 // sidebar-states 러너는 필요한 대상을 전부 찾은 뒤에만 쓴다. 옛 러너는 세트 칠을 쓰고 나서 라이브에 없는 id 를 찾다 던질
 // 자리였다(부분 적용). 생성기가 템플릿의 「── 1. 찾기」 구간에 쓰기가 섞였는지 글자로 보는데, 그 확인이 실제로 무는지

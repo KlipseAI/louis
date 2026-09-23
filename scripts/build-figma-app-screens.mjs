@@ -280,6 +280,7 @@ let totalShells = 0;
 let totalShellGaps = 0;
 let totalGlyphs = 0;
 let totalSizingReconciled = 0;
+let totalAutoMarginCentred = 0;
 let totalUnresolvedFillInHug = 0;
 
 /**
@@ -440,6 +441,41 @@ function reconcileFigmaSizing(spec) {
   return { reconciled, unresolvedWraps, unresolvedFillInHug };
 }
 
+/**
+ * **`margin: auto` 가운데 정렬을 부모의 교차축 정렬로 옮긴다(2026-09-23).**
+ *
+ * Figma Auto Layout 에는 margin 이 없다. 렌더러는 흐름 자식이 하나일 때만 margin 을 부모 padding 으로 옮기고, 형제가 있으면
+ * 버린다. `max-width: min(1300px, 100%)` 에 `margin-inline: auto` 인 `/mypage/upgrade` 데스크톱 카드 격자 컨테이너는 상단 바와
+ * 형제라 여백 174 / 174 가 버려져 본문 왼쪽에 붙었다(제품은 가운데 x 430). 한계가 없던 때는 FILL 1672 가 이를 가렸다.
+ * 여백이 auto 에서 왔다는 것은 수로 닫힌다 — 좌우 여백이 같고, 폭이 최대 폭에 닿았고, 여백이 (부모 안쪽 폭 − 폭) / 2 다.
+ * 형제가 모두 가로 FILL 이면 교차축 정렬은 그 형제들에 아무 일도 하지 않으므로 부모를 CENTER 로 두고 여백을 지운다.
+ */
+function centreAutoMargins(spec) {
+  const centred = [];
+  const walk = (node) => {
+    if (node.instance) return;
+    if (node.layout?.layoutMode === "VERTICAL") {
+      const children = flowChildren(node);
+      const inner = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+      const auto = children.filter((child) => {
+        const margin = child.margin;
+        return margin && margin.left > HALF_PIXEL && Math.abs(margin.left - margin.right) <= HALF_PIXEL
+          && child.sizing.layoutSizingHorizontal === "FILL" && child.sizing.maxWidth != null
+          && Math.abs(child.rect.width - child.sizing.maxWidth) <= HALF_PIXEL
+          && Math.abs(margin.left - (inner - child.rect.width) / 2) <= HALF_PIXEL;
+      });
+      if (auto.length > 0 && children.every((child) => auto.includes(child) || child.sizing.layoutSizingHorizontal === "FILL")) {
+        centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path), margin: auto.map((child) => child.margin.left) });
+        node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
+        for (const child of auto) child.margin = { ...child.margin, left: 0, right: 0 };
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return centred;
+}
+
 const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
 for (const screen of SCREENS) {
@@ -478,6 +514,8 @@ for (const screen of SCREENS) {
     totalGlyphs += glyphs;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
     const sizingFix = reconcileFigmaSizing(spec);
+    const autoMarginCentred = centreAutoMargins(spec);
+    totalAutoMarginCentred += autoMarginCentred.length;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -520,6 +558,8 @@ for (const screen of SCREENS) {
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
         ...(sizingFix.unresolvedWraps.length ? { wrappedHugText: sizingFix.unresolvedWraps } : {}),
         ...(sizingFix.unresolvedFillInHug.length ? { unresolvedFillInHug: sizingFix.unresolvedFillInHug } : {}),
+        // `margin: auto` 가운데 정렬을 부모 교차축 CENTER 로 옮긴 자리(centreAutoMargins 주석).
+        ...(autoMarginCentred.length ? { autoMarginCentred } : {}),
       },
       spec,
     });
@@ -808,5 +848,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

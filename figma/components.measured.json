@@ -2383,6 +2383,8 @@
           "paddingBlock": 0,
           "gap": 0,
           "labelMaxWidth": 54,
+          "labelWidth": 12,
+          "$labelWidth": "접힌 레일 안에서 라벨이 실제로 차지하는 폭이다 — 버튼이 레일 내용 폭 32 를 채우고(`.louis-sidebar-cta__button` inline-size 100%) 좌우 패딩 10 을 빼면 12 가 남는다. `labelMaxWidth` 54 는 레일이 더 넓을 때의 상한이다. 제품 측정 컴포넌트 `Product/Gnb Collapsed Upgrade CTA` 가 같은 자리를 「label clip · measured 12×18」로 잰다(2026-09-23).",
           "labelFontSize": 12
         }
       },

@@ -14942,6 +14942,24 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-09-23 (160) — Figma `SidebarBrand` · `SidebarCta` 를 계약에 맞추고 되읽기를 emitter 로 통째로 다시 떴다
+
+**배경.** 앵커 `2c6bdacf` 적용(2026-09-22) 때 두 세트의 되읽기가 기록과 여러 축에서 갈렸다. 그때는 펼친 폭(256 → 216)만
+라이브 값으로 옮기고 나머지는 손으로 남겨 두었다. 소유자 판정은 「Figma 를 계약에 맞춘다」였다. 겉모습은 그대로 둔다.
+
+| 축 | 전 | 후 |
+| --- | --- | --- |
+| 브랜드 `Mark` | 28 레일 안의 이미지 23.7 이 `Mark` 로 잡혔다 | 28×28 틀이 `Mark`, 그 안의 글리프는 `Glyph` |
+| 워드마크 틀 | 95.9 | 96 |
+| 접힌 CTA | 라벨 54 를 품은 HUG 74 | 제품처럼 32×32, 라벨은 12(32 − 10 × 2)로 자른다 |
+| Focus 링 | 획 2 가 프레임 밖에 서는데 명세에 없었다 | 명세에 `outsideParts: ["FocusRing"]`, parity 계약에 `extraStrokeWeights: [2]` |
+
+- **되읽기를 emitter 로 다시 떴다.** 손으로 남긴 값 가운데 바인딩 수도 틀려 있었다. 브랜드는 `boundFills` 3 → 1 ·
+  `textStyled` 1 → 0 이고, CTA 는 `boundFills` 16 이다. `verify-figma-parity` 는 초록이다.
+- `components.measured.json` 의 `sidebar-cta.sizes.true` 에 `labelWidth: 12` 를 적었다.
+- [App shell parts](../components/app-shell-parts.md) Known deviations 두 줄을 고쳤다. 「Figma의 접힘에는 라벨이 없다」는
+  「라벨을 자르기만 한다」로 바뀌었다. 「되읽기는 emitter 로 다시 뜬 값이 아니다」는 해소로 바뀌었다.
+
 #### 2026-09-23 (159) — 제품 장면 측정을 바깥 네트워크와 끊었다: `verify-product-scenes` 가 날에 따라 빨갛던 것을 멈춘다
 
 **증상.** 제품 커밋 · 빌드가 그대로인데 `verify-product-scenes` 가 어떤 날은 「`/blog.headings.0.y` 기록 115 · 실측 141」로

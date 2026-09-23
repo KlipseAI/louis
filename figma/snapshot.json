@@ -15772,31 +15772,31 @@
         }
       },
       "binding": {
-        "boundFills": 3,
+        "boundFills": 1,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 1,
+        "textStyled": 0,
         "textUnstyled": 0
       },
       "geometry": {
         "false": {
           "slots": {},
           "parts": {
+            "Wordmark": {
+              "width": [
+                96
+              ],
+              "height": [
+                28
+              ]
+            },
             "Mark": {
               "width": [
                 28
               ],
               "height": [
                 28
-              ]
-            },
-            "Wordmark": {
-              "width": [
-                96
-              ],
-              "height": [
-                24
               ]
             }
           },
@@ -15813,8 +15813,6 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "paddingInline": [
             4
           ],
@@ -15829,7 +15827,9 @@
           ],
           "itemSpacing": [
             8
-          ]
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "true": {
           "slots": {},
@@ -15856,8 +15856,6 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "paddingInline": [
             0
           ],
@@ -15872,14 +15870,18 @@
           ],
           "itemSpacing": [
             0
-          ]
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
       "effects": {}
     },
     "SidebarCta": {
-      "outsideParts": [],
+      "outsideParts": [
+        "FocusRing"
+      ],
       "tokenId": "app-shell-parts",
       "variantCount": 8,
       "hasDescription": true,
@@ -15902,11 +15904,11 @@
         }
       },
       "binding": {
-        "boundFills": 3,
+        "boundFills": 16,
         "rawFills": 0,
-        "boundStrokes": 0,
+        "boundStrokes": 2,
         "rawStrokes": 0,
-        "textStyled": 1,
+        "textStyled": 8,
         "textUnstyled": 0
       },
       "geometry": {
@@ -15946,13 +15948,23 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         },
         "true": {
           "slots": {},
-          "parts": {},
+          "parts": {
+            "Label": {
+              "width": [
+                12
+              ]
+            }
+          },
           "height": [
             32
           ],
@@ -15980,8 +15992,12 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [],
-          "overflowingParts": [],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [
+            "FocusRing"
+          ],
           "offCenterMarks": []
         }
       },

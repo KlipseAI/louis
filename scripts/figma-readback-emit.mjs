@@ -88,10 +88,9 @@
 //     로 어긋나 있었고 계약이 두 이름을 따로 셌다. Figma 를 공개 API 이름 `Adornment` 로
 //     되돌리고 계약을 한 줄로 합쳤다. 비-오토레이아웃 프레임의 padding 을 빈 배열로 담는데
 //     `VideoPlayer` 는 같은 상황에서 0 을 담는 것은 그대로 남아 있다 — 같은 축을 두 규칙으로 잰다.
-//   · `SidebarBrand` · `SidebarCta` — **다시 뜨지 않은 채 남아 있다(2026-09-22).** 앵커 2c6bdacf 적용 때
-//     떠 보니 브랜드 Mark(23.7 이미지) · 워드마크 틀(95.9) · 접힌 CTA(라벨을 품은 HUG 74) · Focus 링(획 2,
-//     프레임 밖)이 기록과 달랐다. 그 적용이 바꾼 펼친 폭(256 → 216) 한 축만 라이브 값으로 옮겼다 —
-//     나머지는 소유자 판정 거리다(app-shell-parts.md Known deviations).
+//   · `SidebarBrand` · `SidebarCta` — **해소됐다(2026-09-23).** 앵커 2c6bdacf 적용 때 기록과 갈렸던
+//     축(브랜드 Mark · 워드마크 틀 · 접힌 CTA · Focus 링)을 Figma 쪽에서 계약에 맞추고 통째로 다시 떴다.
+//     Focus 링은 프레임 밖에 서는 것이 의도라 명세에 `outsideParts` 를 적었다(app-shell-parts.md Known deviations).
 // 이 스크립트는 그 사실을 **드러내기만** 한다. 되읽기를 고치면 계약도 함께 움직이므로 별도
 // 판단이 필요하다.
 import { readFileSync, writeFileSync } from "node:fs";
@@ -263,7 +262,7 @@ const CAPTURE = {
   // 정했고(figma-component-authoring.md, DS-D-0023) 여덟 변형이 전부 그것을 갖는다.
   "SelectTrigger": {"key":{"by":["Size"]},"parts":{"Glyph":["width","height"],"Caret":["width","height"]},"effects":["self"]},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
-  "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},
+  "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"],"outsideParts":["FocusRing"]},
   // **Collapsed 축으로 가른다.** 한 바구니에 담으면 펼침(좌 8)과 접힘(좌 0)이 섞여
   // `paddingInline: [8, 0]` 이 되고, parity 는 「variant 마다 다르다」로 죽는다.
   // 원장이 이미 `navItem` · `navItemCollapsed` 로 갈라져 있으므로 `map` 으로 그 이름에 맞춘다

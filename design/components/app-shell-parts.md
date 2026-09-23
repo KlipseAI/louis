@@ -616,8 +616,9 @@ style이다.
   한다.
 - **셸 composition이 없다.** rail·drawer·scroll root·safe area는 패턴이 기술하지만 구현이 없다.
   이 둘은 그 안에 놓일 조각이며, 그 자체로는 셸을 만들지 못한다.
-- **Figma의 접힘에는 라벨이 없다.** 코드는 `clip-path`로 시각에서만 숨기는데 Figma에 그 표현이
-  없어 노드를 뺐다. 접근성 이름이 유지되는지는 코드 테스트가 본다.
+- **Figma의 접힘은 라벨을 자르기만 한다.** 코드는 `clip-path`로 시각에서만 숨기고, Figma는 그 표현이
+  없어 라벨을 레일 안 32의 내용 폭 12(32 − 10 × 2)로 자른다(2026-09-23). 제품 라벨의 클립 상자도
+  12×18이다. 접근성 이름이 유지되는지는 코드 테스트가 본다.
 - **사이드바 토글 아이콘이 제품과 다르다.** 배포본은 전용 토글 글리프를 쓰는데 카탈로그에 없어
   `arrows-left-right`로 대신한다. 아이콘 자산이 서면 바꾼다.
 - **compact 드로어의 layer 자리가 사다리에 없다.** 제품의 드로어(1400)와 scrim(1399)은 프로필
@@ -660,12 +661,12 @@ style이다.
   이웃 계단은 `palette-gray-100` `#f1f1f3`과 `palette-gray-150` `#eaebee`다). 그래서 Figma는 이
   면을 변수 없이 raw hex로 그린다. 선택지는 둘이다 — primitive를 세우거나, `.louis-app-shell`의 면을 `bg-canvas`가 아닌 셸
   전용 역할 토큰으로 가르거나. **어느 쪽도 토큰 계약을 바꾸므로 소유자 판정이 남아 있다.**
-- **`SidebarBrand` · `SidebarCta` 의 되읽기는 emitter 로 다시 뜬 값이 아니다(2026-09-22).** 앵커 `2c6bdacf` 적용 때 두
-  세트를 `figma-readback-emit.mjs --components` 로 떠 보니 기록과 여러 축이 갈렸다. 브랜드 `Mark` 는 28 레일이 아니라 그 안의
-  이미지 23.7 이고, 워드마크 틀은 95.9 다. 접힌 CTA 는 라벨 54 를 품은 HUG 74 다. 위 「Figma의 접힘에는 라벨이 없다」와
-  반대이고, 제품은 `max-width:100%` 로 레일 안 32 에 자른다. Focus variant 의 링은 획 2 로 프레임 밖에 선다. 명세에
-  `outsideParts` 가, 계약에 `extraStrokeWeights` 가 없다. 이번 적용이 바꾼 축은 펼친 폭(256 → 216) 하나라, 되읽기에는 그
-  축만 라이브 값으로 옮겼다. 그 밖의 축을 기록에 맞출지 라이브에 맞출지는 소유자 판정이다.
+- **`SidebarBrand` · `SidebarCta` 의 되읽기는 emitter 로 다시 떴다(2026-09-23).** 앵커 `2c6bdacf` 적용 때
+  두 세트가 기록과 여러 축에서 갈려 펼친 폭만 옮겨 두었던 것을, 소유자 판정 「Figma 를 계약에 맞춘다」에
+  따라 Figma 를 고친 뒤 통째로 다시 떴다. 브랜드는 28 레일을 `Mark` 로 이름 붙이고 그 안의 글리프를
+  `Glyph` 로 불렀으며, 워드마크 틀은 96 이다. 접힌 CTA 는 제품처럼 32×32 에 라벨을 12 로 자른다.
+  Focus variant 의 링(획 2)은 프레임 밖에 서는 것이 의도라서 명세에 `outsideParts: ["FocusRing"]` 를,
+  parity 계약에 `extraStrokeWeights: [2]` 를 적었다. 손으로 남긴 값은 이제 없다.
 
 ## Acceptance tests
 

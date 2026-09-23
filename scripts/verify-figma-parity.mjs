@@ -2294,7 +2294,11 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
-      extraStrokeWeights: [],
+      // Focus variant 의 링 2px. **테두리가 아니다** — CSS 는 `outline: border-width-ring solid` · `outline-offset: 2px`
+      // (`.louis-sidebar-cta__button:focus-visible`)이고 Figma 에 outline 이 없어 바깥으로 나가는 stroke 로 그린다.
+      // 링이 프레임 밖에 서는 것도 그래서 계약이다(채취 명세 `outsideParts`). SegmentedControlItem 과 같은 처리다.
+      // 2026-09-23 에 드러났다 — 이 부품의 되읽기가 emitter 이전 것이라 두께가 빈 배열이었고 게이트가 초록이었다.
+      extraStrokeWeights: [2],
       parts: { Label: { fields: { width: "labelWidth" }, optional: true } },
     },
   },

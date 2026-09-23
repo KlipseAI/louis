@@ -2596,12 +2596,12 @@
     },
     {
       "path": "migration/product.scenes.json",
-      "purpose": "고정 제품 빌드에서 생성한 합성 장면 측정 기록. /pricing desktop/mobile 883개 전체 subtree의 geometry·computed style·asset·SVG·실제 텍스트 줄 조각을 포함하며 Figma 수치·색·자산 입력이지만 구현 완료의 증거는 아니다",
+      "purpose": "고정 제품 빌드에서 생성한 합성 장면 측정 기록(바깥 네트워크를 끊고 잰다 — 원격 데이터가 그리는 자리는 빈 상태로 기록된다, 2026-09-23). /pricing desktop/mobile 883개 전체 subtree의 geometry·computed style·asset·SVG·실제 텍스트 줄 조각을 포함하며 Figma 수치·색·자산 입력이지만 구현 완료의 증거는 아니다",
       "authority": "reference"
     },
     {
       "path": "scripts/measure-product-scenes.mjs",
-      "purpose": "제품 장면 측정 생성기이자 check 게이트. 고정 clean build의 실제 렌더와 기록이 다르거나 전제조건이 없으면 실패하며 /pricing의 보이는/숨은 subtree와 글자별 Range 줄 경계를 기록한다",
+      "purpose": "제품 장면 측정 생성기이자 check 게이트. 서버와 브라우저의 바깥 요청을 끊고(scripts/lib/block-external-network.cjs) 고정 clean build의 실제 렌더와 기록이 다르거나 전제조건이 없으면 실패하며 /pricing의 보이는/숨은 subtree와 글자별 Range 줄 경계를 기록한다",
       "authority": "reference"
     },
     {

@@ -436,6 +436,9 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 현재 구조 원천은 [`figma/product-specimens.json`](../../figma/product-specimens.json), 측정 생성물은
 [`migration/product.scenes.json`](../../migration/product.scenes.json), 생성·검사는
 [`scripts/measure-product-scenes.mjs`](../../scripts/measure-product-scenes.mjs)가 소유한다.
+측정 서버와 브라우저는 **바깥 네트워크를 끊고** 띄운다([`scripts/lib/block-external-network.cjs`](../../scripts/lib/block-external-network.cjs)).
+고정 빌드가 원격 데이터를 불러 `/blog` 가 그날의 게시글을 그렸고, 제품이 그대로인데 게이트가 날에 따라 빨갰다 —
+원격 데이터가 그리는 자리는 빈 상태로 기록한다([Updates](../updates/README.md) (159)).
 
 ## 25. 인스턴스로 바꿀 때 컴포넌트가 «연» TEXT 속성은 반드시 채운다
 

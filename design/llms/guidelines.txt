@@ -3602,6 +3602,9 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 현재 구조 원천은 [`figma/product-specimens.json`](../../figma/product-specimens.json), 측정 생성물은
 [`migration/product.scenes.json`](../../migration/product.scenes.json), 생성·검사는
 [`scripts/measure-product-scenes.mjs`](../../scripts/measure-product-scenes.mjs)가 소유한다.
+측정 서버와 브라우저는 **바깥 네트워크를 끊고** 띄운다([`scripts/lib/block-external-network.cjs`](../../scripts/lib/block-external-network.cjs)).
+고정 빌드가 원격 데이터를 불러 `/blog` 가 그날의 게시글을 그렸고, 제품이 그대로인데 게이트가 날에 따라 빨갰다 —
+원격 데이터가 그리는 자리는 빈 상태로 기록한다([Updates](../updates/README.md) (159)).
 
 #### 25. 인스턴스로 바꿀 때 컴포넌트가 «연» TEXT 속성은 반드시 채운다
 
@@ -14938,6 +14941,33 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-23 (159) — 제품 장면 측정을 바깥 네트워크와 끊었다: `verify-product-scenes` 가 날에 따라 빨갛던 것을 멈춘다
+
+**증상.** 제품 커밋 · 빌드가 그대로인데 `verify-product-scenes` 가 어떤 날은 「`/blog.headings.0.y` 기록 115 · 실측 141」로
+빨갛고 어떤 날은 초록이었다. 측정기는 고정 빌드의 제품 서버를 띄워 재는데, 그 서버가 Supabase 를 실제로 불러 `/blog` ·
+`/templates` 가 **그날의 게시글 · 템플릿 목록**을 그렸다. 원장에 실제 글 제목이 박혀 있었다.
+
+**환경 변수로는 못 막았다.** Next 는 `NEXT_PUBLIC_*` 를 빌드 때 번들에 인라인한다. 고정 빌드를 죽은 Supabase 주소로
+띄워도 `/blog` 는 그대로 실제 글을 그렸다(실측). 그래서 요청 자체를 막는다.
+
+- 서버: `node --require scripts/lib/block-external-network.cjs` 가 localhost 밖으로 나가는 fetch · http(s) 를 거절한다.
+- 브라우저: 두 측정 문맥에서 localhost 밖 요청을 abort 한다.
+
+**원장을 다시 쟀다.** 바뀐 것은 원격 데이터가 그리는 세 화면뿐이다. 나머지 15 경로는 두 문맥 모두 기록이 바이트까지
+같다 — 외부 폰트 · 정적 내용에는 영향이 없다.
+
+| 경로 | 전 | 후(데이터 없는 상태) |
+| --- | --- | --- |
+| `/blog` | 게시글 목록 · 제목 10 · 문서 1777 | 「Coming soon」 · 제목 5 · 1418 |
+| `/templates` | 제목 6 · 1135 | 제목 5 · 1080 |
+| `/templates/filter` | 필터 프롬프트 목록 · 제목 7 · 2292 | 제목 1 · 1080 |
+
+(높이는 데스크톱. 모바일도 같은 방향이다.) 이 원장을 입력으로 쓰는 곳은 `/pricing` 러너뿐이고 `/pricing` 은 바뀌지
+않았다. **원장은 이제 제품 코드가 정하는 화면을 기록한다** — 데이터가 채우는 자리를 재려면 데이터를 고정한 fixture 가
+따로 있어야 한다([조립 규칙 24조](../governance/figma-screen-assembly.md) 끝).
+
+소유자 판정(2026-09-23): 「네트워크 끊고 다시 재기」.
 
 #### 2026-09-23 (158) — 업로드 화면 Topic 칩이 붙어 보이는 것은 보드가 아니라 제품이다 — 확인 목록 10 으로 올렸다
 

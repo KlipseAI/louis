@@ -360,15 +360,32 @@ const reservePort = async () => {
   return port;
 };
 
+// 브라우저가 바깥으로 나가는 것도 막는다 — 서버 쪽 차단(block-external-network.cjs)과 같은 사유다.
+// 잰 화면이 원격 데이터 · 외부 폰트 · 분석 스크립트에 따라 달라지면 그 원장은 제품이 아니라 그날을 기록한다.
+const blockExternalRequests = async (context) => {
+  await context.route("**/*", (route) => {
+    const url = route.request().url();
+    const local = /^https?:\/\/(127\.0\.0\.1|localhost|\[::1\])(:\d+)?(\/|$)/.test(url)
+      || url.startsWith("data:") || url.startsWith("blob:") || url.startsWith("about:");
+    if (local) return route.continue();
+    return route.abort();
+  });
+};
+
 const startPinnedProductServer = async () => {
   const port = await reservePort();
   const url = "http://127.0.0.1:" + port;
+  // **서버를 바깥과 끊고 띄운다.** 이 서버가 Supabase 를 실제로 불러 `/blog` 가 그날의 게시글 목록을 그렸고,
+  // 제품 커밋 · 빌드가 그대로인데도 게이트가 날에 따라 빨갰다. env 로는 못 막는다(Next 가 NEXT_PUBLIC_* 를
+  // 빌드 때 인라인한다) — 사유와 방법은 scripts/lib/block-external-network.cjs 머리말에 있다.
+  const blockerPath = resolve(repoRoot, "scripts/lib/block-external-network.cjs");
   const child = spawn(process.execPath, [serverPath], {
     cwd: standaloneRoot,
     env: {
       ...process.env,
       HOSTNAME: "127.0.0.1",
       PORT: String(port),
+      NODE_OPTIONS: [process.env.NODE_OPTIONS, "--require " + blockerPath].filter(Boolean).join(" "),
     },
     stdio: ["ignore", "pipe", "pipe"],
   });
@@ -435,6 +452,7 @@ try {
       locale: "ko-KR",
       extraHTTPHeaders: { "Accept-Language": "ko-KR,ko;q=0.9" },
     });
+    await blockExternalRequests(context);
     try {
       const page = await context.newPage();
       await page.goto(pinnedServer.url, { waitUntil: "domcontentloaded" });
@@ -700,6 +718,7 @@ try {
       locale: "en-US",
       extraHTTPHeaders: { "Accept-Language": "en-US,en;q=0.9" },
     });
+    await blockExternalRequests(context);
     const page = await context.newPage();
     pageScreens[contextSpec.id] = {};
     guestOutcomes[contextSpec.id] = {};

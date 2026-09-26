@@ -46,7 +46,6 @@ if (!section) {
   const bottom = others.length ? Math.max(...others.map((n) => n.y + n.height)) : 0;
   section.x = 0;
   section.y = Math.ceil((bottom + 800) / 100) * 100;
-  section.resizeWithoutConstraints(2000, 1000);
 }
 
 // SVG 를 풀어 도형을 target(컴포넌트) 안으로 옮기고 칠을 잉크에 묶는다.

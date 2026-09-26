@@ -172,7 +172,8 @@ const SURFACE_TOTAL_BASELINE = 472; // 위 천장의 기준점
 // 라이브 ProgressRing 마스터는 Track 36 · Content 28 그대로라 verify-figma-parity 가 여섯 축에서
 // 실패한다. Figma 쓰기는 소유자 승인 단계라 앵커 이동 안에서 하지 않았다. 마스터를 옮기고
 // 되읽기를 다시 떠 parity 가 초록이 되면 progress 를 done 으로 되올리고 이 바닥도 24 로 되올린다.
-const MANIFEST_DONE_FLOOR = 23; // 바닥. 오르면 올려 이득을 잠근다
+// 2026-09-26: 23 → 24 — DropZone 신설(Figma 세트 · 되읽기 · 계약 · 되재기 테스트, DS-D-0035).
+const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.

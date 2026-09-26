@@ -348,6 +348,15 @@ const PROBES = [
     html: `<span class="louis-avatar"></span>`,
     read: ["width", "height"],
   },
+  // **하이라이트 업로드 면(2026-09-26).** 제품에 공용 구현이 없는 지역 레시피다 — LOUIS DropZone 이 이 기하를 옮겼고
+  // 제품은 아직 그 컴포넌트를 쓰지 않는다(보드 원장이 bespoke 로 판정한다). 여기서는 두 값이 갈라지지 않는지를 잰다.
+  {
+    id: "drop-zone-upload",
+    source: "highlightSceneStyles.ts uploadDropZone — 하이라이트 허브 · 프로젝트 상세의 업로드 면(누르면 파일 입력을 여는 button)",
+    from: ["highlight", "uploadDropZone"],
+    tag: "button",
+    read: ["paddingTop", "paddingLeft", "rowGap", "borderTopLeftRadius", "borderTopWidth"],
+  },
   // **설정 화면 프로필 사진 칸(2026-09-26).** 제품은 여기서도 `.louis-avatar` 를 물지만 호출부가 크기 40 과 면
   // (`gray-000` 12%)을 덮고, 폴백 글리프를 78% 로 안쪽에 앉힌다(`myPageSceneStyles.ts settingsAvatarFigure` ·
   // `settingsAvatarFigureDefault`). 크기는 LOUIS `lg` 가 받고, 면과 글리프 크기는 이 자리만의 값이다.
@@ -1941,6 +1950,11 @@ const EXPECT = [
 
   ["avatar", "width", ["avatar", "sizes", "md", "size"], "same"],
   ["avatar", "height", ["avatar", "sizes", "md", "size"], "same"],
+  ["drop-zone-upload", "paddingTop", ["drop-zone", "sizes", "base", "paddingBlock"], "same"],
+  ["drop-zone-upload", "paddingLeft", ["drop-zone", "sizes", "base", "paddingInline"], "same"],
+  ["drop-zone-upload", "rowGap", ["drop-zone", "sizes", "base", "gap"], "same"],
+  ["drop-zone-upload", "borderTopLeftRadius", ["drop-zone", "sizes", "base", "radius"], "same"],
+  ["drop-zone-upload", "borderTopWidth", ["drop-zone", "sizes", "base", "borderWidth"], "same"],
   ["avatar-settings", "width", ["avatar", "sizes", "lg", "size"], "same"],
   ["avatar-settings", "height", ["avatar", "sizes", "lg", "size"], "same"],
   ["avatar-settings", "borderTopLeftRadius", ["avatar", "sizes", "lg", "radius"], "same"],

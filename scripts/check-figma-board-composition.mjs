@@ -220,7 +220,9 @@ const REPLACEABLE_BASELINE = 0;
 // `Button/md`(제품 지역 레시피)다. 원장 probe 가 `SegmentedToggle` 마크업을 재고 정본 자리가 서면 넷은 replaceable 로 간다.
 // 2026-09-26: 1 → **3.** **발견이다.** 설정 화면 프로필 사진 칸 둘(데스크톱 · 모바일)이 Avatar `lg`(40)로 대응을 얻었고, 제품이
 // 그 자리에서 면과 폴백 글리프 크기를 덮어 bespoke 로 판정됐다(제외 목록 `avatar-settings`). 전에는 LOUIS 에 40 이 없어 missing 이었다.
-const BESPOKE_BASELINE = 3; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 같은 날 뒤: 3 → **5.** **발견이다.** LOUIS DropZone(신설)이 하이라이트 업로드 면 둘(데스크톱 · 모바일)의 대응이 됐고, 제품은 지역
+// 레시피(`highlightSceneStyles.ts uploadDropZone`)라 bespoke 다(제외 목록 `drop-zone-upload`). 전에는 LOUIS 에 대응이 없어 missing 이었다.
+const BESPOKE_BASELINE = 5; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -247,7 +249,8 @@ const INSTANCE_FLOOR = 103;
 // 수는 instance 101 + replaceable 0 + bespoke 5 + blocked 2 + missing 22.
 // 2026-09-26: 130 → **128.** 보드가 준 것이 아니라 설정 화면 아바타 둘이 bespoke 가 되어 그 안의 폴백 글리프(`user-circle-fill`, b-vector)
 // 둘이 가지치기됐다: missing −4(아바타 면 2 · 글리프 2) · bespoke +2. 수는 instance 101 + replaceable 0 + bespoke 3 + blocked 6 + missing 18.
-// 같은 날 뒤: 128 그대로 — 알약 둘이 인스턴스(+2)가 되고 그 안의 점 둘(missing −2)이 빠졌다. 수는 instance 103 + bespoke 3 + blocked 6 + missing 16.
+// 같은 날 뒤: 128 그대로 — 알약 둘이 인스턴스(+2)가 되고 그 안의 점 둘(missing −2)이 빠졌다. 이어서 업로드 면 둘이 missing → bespoke
+// (DropZone)로 옮겼다. 수는 instance 103 + bespoke 5 + blocked 6 + missing 14.
 const CANDIDATE_FLOOR = 128;
 const BOARD_FLOOR = 36;
 const SHELL_COMPONENTS = new Set([

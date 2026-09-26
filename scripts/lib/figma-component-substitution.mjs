@@ -541,6 +541,18 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
       "출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 " +
       "`gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
   },
+  // **2026-09-26 — 하이라이트 업로드 면.** LOUIS DropZone 이 이 기하를 옮겼지만 제품은 지역 레시피(`highlightSceneStyles.ts
+  // uploadDropZone`)를 쓰고, 그 면은 끌어다 놓기 · 포커스 링이 없고 면 색이 LOUIS 눌림 면 역할과 다르다. 제품이 DropZone 으로
+  // 옮기면 이 항목을 걷고 정본 자리를 세운다.
+  {
+    probe: "drop-zone-upload",
+    component: "DropZone",
+    sizes: "*",
+    verdict: "bespoke",
+    reason:
+      "출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 " +
+      "면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+  },
   {
     probe: "progress-bar-track",
     component: "ProgressBar",

@@ -7,6 +7,7 @@ export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem, SidebarNavRow } fr
 export { Avatar } from "./avatar/avatar.js";
 export { Badge } from "./badge/badge.js";
 export { Checkbox } from "./checkbox/checkbox.js";
+export { DropZone } from "./drop-zone/drop-zone.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export { BannerCarousel } from "./banner-carousel/banner-carousel.js";
 export { ProgressBar, ProgressRing } from "./progress/progress.js";

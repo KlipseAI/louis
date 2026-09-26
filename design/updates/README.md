@@ -25,6 +25,38 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-09-26 (163) — 보드 미보유 18 → 14: 이벤트 알약을 제품 컴포넌트로, LOUIS DropZone 신설, 연결 버튼은 제품 확인 대기로
+
+남은 미보유 가운데 셋은 제품이 LOUIS 부품이 아닌 **지역 스타일**로 그리는 자리였다. 소유자가 자리마다 판정했다.
+
+**1. 「진행 중 이벤트 알약」 → 제품 컴포넌트 `Product/Pricing Notice`.** 제품 `PricingNotice`(랜딩 · `/mypage/upgrade` 공용)를
+업그레이드 장면 생성기에서 컴포넌트 세트(Viewport=Desktop|Mobile)로 세웠다. 옛 장면 러너는 글자만 그려 **면(검정 48% · 뒤 흐림 16)과
+초록 점이 빠져 있었다** — 이제 둘 다 측정에서 읽는다. 면은 `static-black-alpha/48` 에 근사로 묶었다(제품은 순검정 48%, 사유 ·
+색 차이는 계획 `colorEvidence`). 모바일은 알약이 컨트롤 폭 390 에 닿아 글자가 감기므로 글자 최대 폭 352 를 싣는다. 보드 생성기는
+그 자리를 본문 세트로 알아본다(글자 서열 · 구조 [1]). 인스턴스 101 → 103, 안의 초록 점 둘은 인스턴스 안으로 들어갔다.
+
+**2. 하이라이트 업로드 면 → LOUIS [DropZone](../components/drop-zone.md) 신설.** 제품 면(`highlightSceneStyles.ts uploadDropZone`)은
+이름과 달리 **끌어다 놓기가 없고**(누르면 숨긴 파일 입력을 여는 버튼), `:focus-visible` 에서 outline 을 지워 **포커스가 보이지 않는다.**
+DropZone 은 그 기하(패딩 56 / 16 · 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)를 옮기고 끌어다 놓기와 포커스 링을 계약으로 더했다.
+면은 LOUIS 눌림 면 역할(`accent-secondary` · `-hover`)이다.
+
+- 코드: `<DropZone prompt caption graphic accept multiple onFiles disabled>` — 선택 창과 끌어다 놓기가 같은 `onFiles` 로 온다.
+  실브라우저 테스트 10건 × 두 motion context.
+- Figma: `DS · Components` 에 `DropZone` 세트(State=Default · Hover · DragOver · Disabled, 속성 Glyph · HasGraphic · Prompt ·
+  Caption · HasCaption). DragOver 의 안쪽 링은 INSIDE 획 2(레이아웃 밖)다. 되읽기 · 계약 · parity 초록, `figma: done`(DS-D-0035).
+- 제품 레시피 원장에 probe `drop-zone-upload` 를 세웠다 — 5축(패딩 · 간격 · 반경 · 테두리)이 DropZone 과 「같음」이다. 제품은 아직
+  이 컴포넌트를 쓰지 않으므로 보드의 두 업로드 면은 bespoke 다(제외 목록). 제품이 옮기면 인스턴스가 된다.
+
+**3. 분석 화면 「Connect Google Account」 → [제품 확인 대기](../governance/product-confirmations.md) 12.** 검정 알약(높이 40 · 반경 999)
+버튼이 두 화면에 지역 상수로 두 벌 적혀 있고 `.louis-button` 을 물지 않는다. LOUIS 는 지역 레시피에 맞춰 모양 축을 열지 않는다
+(DS-D-0043) — 제품이 LOUIS Button 으로 옮길지를 정한다.
+
+**원장.** 미보유 18 → 14 · bespoke 3 → 5 · 인스턴스 101 → 103. 후보 바닥 128 은 그대로다. 게이트: bespoke 기준 5 · 인스턴스
+바닥 103 · 보드 생성기의 본문 세트 잠금표에 `Product/Pricing Notice` 2 · manifest `figma: done` 바닥 24 · API 기준표에 `DropZone`.
+
+**남은 미보유 14.** 업로드 Topic 칩 12(제품 확인 대기 10), YouTube · Instagram 연결 버튼 2(제품 확인 대기 12). 이제 남은 것은 모두 제품
+판정을 기다린다.
+
 ## 2026-09-26 (162) — Avatar 에 `lg`(40)를 더하고 폴백 글리프를 제품 그림으로 바꿨다, 보드 미보유 22 → 18
 
 화면 보드 구성 원장의 「미보유 22」 가운데 넷이 설정 화면 프로필 사진 칸이었다(데스크톱 · 모바일 × 40 원형 면과 그 안의

@@ -69,11 +69,11 @@ DS-F-007의 산출물이다. 배포 화면을 Klipse Design의 component·변수
 | 리뷰 세그먼트 행 (체크박스 + 썸네일 + 2줄 정보) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2926` |
 | 상태 카드 스피너 (로딩·업로드·분석·추출) | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2639` |
 | 테마 선택 칩 그룹 | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2699` |
-| 영상 업로드 드롭존 | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2679` |
+| 영상 업로드 드롭존 — **LOUIS DropZone 이 섰다(2026-09-26, 제품은 아직 지역 레시피)** | 하이라이트 상세 | `components/scenes/HighlightProjectScene.tsx:2679` |
 | 빈 상태 워드마크 hero | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:1200` |
 | 진입 로딩 시머 텍스트 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:1189` |
 | 업로드 카드 셸 (인플로우 960×240 / 하단 고정 400×140 두 변형) | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:885` |
-| 업로드 드롭존 버튼 | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:895` |
+| 업로드 드롭존 버튼 — **LOUIS DropZone 이 섰다(2026-09-26, 제품은 아직 지역 레시피)** | 하이라이트 허브 | `components/scenes/HighlightScene.tsx:895` |
 | 점 격자 배경 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:11` |
 | 도움말 버튼 점 뱃지 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/index.tsx:11136` |
 | 하단 플로팅 툴바 알약 | 캔버스 에디터 | `components/scenes/create/node-canvas-v2/components/Toolbar.tsx:269` |

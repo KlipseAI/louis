@@ -1,0 +1,131 @@
+"use client";
+
+import { useRef, useState } from "react";
+import type { ButtonHTMLAttributes, DragEvent, JSX, ReactNode, Ref } from "react";
+
+export interface DropZoneProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type" | "onDrop" | "onDragOver" | "onDragEnter" | "onDragLeave"> {
+  /** 무엇을 올리는지 한 문장. 면의 접근성 이름이 된다 — "긴 영상을 올리세요". */
+  readonly prompt: ReactNode;
+  /** 올리기 전에 알아야 할 조건(보존 기간 · 용량 · 형식). 없어도 된다. */
+  readonly caption?: ReactNode;
+  /** 56px 글리프. **선택이다** — 안내 문구가 이미 말하는 것을 반복하는 장식이라 보조기술에서 숨긴다. */
+  readonly graphic?: ReactNode;
+  /** 받을 형식. `input[type=file]` 의 `accept` 와 같다 — `"video/*"`. */
+  readonly accept?: string;
+  /** 여러 파일을 한 번에 받는가. 기본은 하나다. */
+  readonly multiple?: boolean;
+  /**
+   * 파일을 받았을 때. 선택 창과 끌어다 놓기가 **같은 콜백**으로 온다 — 호출부가 두 경로를 따로 다루지 않게 한다.
+   *
+   * 끌어다 놓은 파일은 `accept` 로 거르지 않는다. 브라우저가 선택 창에서만 `accept` 를 적용하므로, 형식 검사는
+   * 받은 쪽이 한 곳에서 한다(선택 창이 거른 것도 다시 볼 수 있다).
+   */
+  readonly onFiles: (files: readonly File[]) => void;
+  readonly ref?: Ref<HTMLButtonElement>;
+}
+
+function join(...values: readonly (string | undefined)[]): string {
+  return values.filter(Boolean).join(" ");
+}
+
+const hasFiles = (event: DragEvent<HTMLElement>): boolean => Array.from(event.dataTransfer?.types ?? []).includes("Files");
+
+/**
+ * design/components/drop-zone.md 의 계약을 구현한다.
+ *
+ * **면은 버튼이다.** 누르거나 Enter · Space 로 숨긴 파일 입력을 연다 — 제품의 업로드 면도 그렇게 동작한다.
+ * 끌어다 놓기는 제품에 없던 것을 이 컴포넌트가 더한다. 끌어다 놓기만으로는 키보드 사용자가 닿지 못하므로
+ * 버튼이 늘 먼저다.
+ *
+ * `dragenter` · `dragleave` 는 자식 요소를 지날 때마다 짝을 이뤄 쏟아진다. 깊이를 세어 마지막으로 나갈 때만
+ * 상태를 푼다 — 그렇지 않으면 안내 글자 위를 지나는 순간 면이 깜빡인다.
+ */
+export function DropZone({
+  prompt,
+  caption,
+  graphic,
+  accept,
+  multiple = false,
+  onFiles,
+  disabled,
+  className,
+  onClick,
+  ref,
+  ...rest
+}: DropZoneProps): JSX.Element {
+  const input = useRef<HTMLInputElement>(null);
+  const depth = useRef(0);
+  const [dragOver, setDragOver] = useState(false);
+
+  const receive = (list: FileList | null): void => {
+    const files = Array.from(list ?? []);
+    if (files.length === 0) return;
+    onFiles(multiple ? files : files.slice(0, 1));
+  };
+
+  return (
+    <>
+      <button
+        {...rest}
+        ref={ref}
+        type="button"
+        disabled={disabled}
+        className={join("louis-drop-zone", "louis-focus-ring", className)}
+        // 끌어다 놓는 중이 아닐 때도 속성을 남긴다 — 「없다」와 「false」가 DOM 에서 구분되지 않으면 계약이 한 칸 준다.
+        data-drag-over={dragOver ? "true" : "false"}
+        onClick={(event) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) input.current?.click();
+        }}
+        onDragEnter={(event) => {
+          if (disabled || !hasFiles(event)) return;
+          event.preventDefault();
+          depth.current += 1;
+          setDragOver(true);
+        }}
+        onDragOver={(event) => {
+          if (disabled || !hasFiles(event)) return;
+          // 기본 동작(브라우저가 파일을 열기)을 막아야 drop 이 이 요소로 온다.
+          event.preventDefault();
+          event.dataTransfer.dropEffect = "copy";
+        }}
+        onDragLeave={() => {
+          depth.current = Math.max(0, depth.current - 1);
+          if (depth.current === 0) setDragOver(false);
+        }}
+        onDrop={(event) => {
+          depth.current = 0;
+          setDragOver(false);
+          if (disabled || !hasFiles(event)) return;
+          event.preventDefault();
+          receive(event.dataTransfer.files);
+        }}
+      >
+        {graphic === undefined ? null : (
+          <span className="louis-drop-zone__graphic" aria-hidden="true">
+            {graphic}
+          </span>
+        )}
+        <span className="louis-drop-zone__prompt">{prompt}</span>
+        {caption === undefined ? null : <span className="louis-drop-zone__caption">{caption}</span>}
+      </button>
+      <input
+        ref={input}
+        className="louis-drop-zone__input"
+        type="file"
+        accept={accept}
+        multiple={multiple}
+        disabled={disabled}
+        hidden
+        tabIndex={-1}
+        aria-hidden="true"
+        onChange={(event) => {
+          receive(event.currentTarget.files);
+          // 같은 파일을 다시 골라도 change 가 오도록 비운다.
+          event.currentTarget.value = "";
+        }}
+      />
+    </>
+  );
+}

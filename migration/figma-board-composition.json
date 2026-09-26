@@ -16,13 +16,13 @@
   "boardCount": 36,
   "rawNodesBeforePruning": 473,
   "counts": {
-    "total": 538,
+    "total": 534,
     "instance": 103,
     "replaceable": 0,
-    "bespoke": 3,
+    "bespoke": 5,
     "blocked": 6,
-    "missing": 16,
-    "structural": 410,
+    "missing": 14,
+    "structural": 406,
     "unclassified": 0
   },
   "ratio": {
@@ -44,6 +44,7 @@
   },
   "byComponent": {},
   "bespokeByComponent": {
+    "DropZone/base": 2,
     "Avatar/lg": 2,
     "Button/md": 1
   },
@@ -52,10 +53,10 @@
     "surface": 144,
     "frame": 171,
     "image": 2,
-    "text": 93
+    "text": 89
   },
   "missingByCandidateClause": {
-    "a-interactive": 16
+    "a-interactive": 14
   },
   "matchRules": [
     {
@@ -132,6 +133,17 @@
         "cornerRadius"
       ],
       "why": "정사각 원형 자리 — 사람/채널의 얼굴은 LOUIS Avatar 다."
+    },
+    {
+      "id": "drop-zone",
+      "component": "DropZone",
+      "sizes": [
+        "base"
+      ],
+      "keys": [
+        "cornerRadius"
+      ],
+      "why": "글자를 품은 큰 눌림 면 — 파일을 받는 자리는 LOUIS DropZone 이다(2026-09-26)."
     },
     {
       "id": "progress-bar",
@@ -385,13 +397,13 @@
         "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 22,
+        "total": 20,
         "instance": 2,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 1,
         "blocked": 0,
-        "missing": 7,
-        "structural": 13,
+        "missing": 6,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -404,13 +416,13 @@
         "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 20,
+        "total": 18,
         "instance": 1,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 1,
         "blocked": 0,
-        "missing": 7,
-        "structural": 12,
+        "missing": 6,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -2475,32 +2487,13 @@
         1628,
         190
       ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.1.0.0.0": {
-      "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        205.39,
-        24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.1.0.0.1": {
-      "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        243.58,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
     },
     "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.1.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
@@ -2704,32 +2697,13 @@
         370,
         187
       ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
-    },
-    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.1.0.0.0": {
-      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        179.72,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.1.0.0.1": {
-      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        243.58,
-        36
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "drop-zone-upload",
+      "reason": "DropZone/base 기하를 재는 probe 는 `drop-zone-upload` 이고 정본 자리 목록에 없다. 출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
+      "component": "DropZone",
+      "size": "base",
+      "candidateClause": "a-interactive"
     },
     "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.1.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",

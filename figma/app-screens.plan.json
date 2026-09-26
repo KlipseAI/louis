@@ -220,6 +220,13 @@
       "reason": "출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 `gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다."
     },
     {
+      "probe": "drop-zone-upload",
+      "component": "DropZone",
+      "sizes": "*",
+      "verdict": "bespoke",
+      "reason": "출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다."
+    },
+    {
       "probe": "progress-bar-track",
       "component": "ProgressBar",
       "sizes": "*",

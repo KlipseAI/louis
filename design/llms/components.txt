@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 53
+- Documents: 54
 - Purpose: 컴포넌트 사용·상태·접근성 계약
 
 ## Sources
@@ -20,6 +20,7 @@
 - design/components/project-card.md
 - design/components/progress.md
 - design/components/text-field.md
+- design/components/drop-zone.md
 - design/components/empty-state.md
 - design/components/banner-carousel.md
 - design/components/badge.md
@@ -301,6 +302,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Chart Card](../components/chart-card.md) | `experimental` | `done` | `partial` | `done` | CSS 레시피(.louis-chart-card)만 있고 React 표면은 없다 — 곡선은 소비처의 SVG 다. Figma component set 6 variant(Chart × State). 애널리틱스 대시보드의 KPI 행과 주요 지표 블록이 같은 조형이고 차트가 붙는 자리만 다르다. **Figma 51종에 차트 축이 하나도 없었다** — 그래서 제품에도 같은 그림이 네 벌 있다. 두 겹인 이유가 반경에 적혀 있다: 16(radius-overlay) − 6(space-overlay-inset) = 10(radius-overlay-item) 동심 정렬. 면 두 칸은 bg-canvas·bg-overlay 이고 값이 정본과 바이트 단위로 같다(이름이 뜻과 어긋나는 것은 Known deviations 2). 계획서가 적은 3×3 아홉 칸 중 셋은 제품에 그림이 없어 여섯 칸만 세웠다. DS-D-0035 (a)(b)(c) 를 만족한다 — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(chart-card · chart-card.browser.test.tsx). |
 | [Checkbox](../components/checkbox.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 14건이 두 motion context에서 각각 돈다. **제품에 정본이 있는데 21벌 중 2벌만 쓴다** — 그 전역 클래스가 cascade layer 밖이라 소비처가 이길 수 없었다. 크기 20px은 채택하고 accent-color는 채택하지 않았다(면 색 하나만 주고 표시·링·부분선택 막대를 브라우저가 정한다). indeterminate는 DOM 프로퍼티라 ref로 맞추고 aria-checked=mixed를 함께 준다. **선택 안 한 테두리 대비가 SC 1.4.11(3:1)에 미달하며 테두리 토큰 셋 중 어느 것도 라이트에서 넘지 못한다** — 실측을 규범에 적었고 인계서 (2b) 판정의 입력이다. color-stroke-strong의 첫 소비처다. Figma component set 4 variant(State)가 섰고 parity 게이트가 Box·Check·Dash·Label을 자손으로 대조한다 — raw fill·stroke 0. 체크는 CSS와 같은 구조(5×9 사각형의 두 변 + 45° 회전)라 계약값이 그대로 남는다. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(checkbox · checkbox.browser.test.tsx). |
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(dialog · surface-geometry.browser.test.tsx). |
+| [Drop Zone](../components/drop-zone.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 10건이 두 motion context에서 각각 돈다(2026-09-26 신설). 제품에 공용 구현이 없다 — 하이라이트 두 화면이 highlightSceneStyles.ts uploadDropZone 지역 레시피를 쓰고, 그 면은 끌어다 놓기를 받지 않으며 :focus-visible 에서 outline 을 지워 포커스가 보이지 않는다. 기하(패딩 56/16 · 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)는 그 레시피를 옮겼고 끌어다 놓기 · 포커스 링은 이 컴포넌트가 더한다. 면은 LOUIS 눌림 면 역할(accent-secondary · -hover)이라 제품 면(palette-gray-100 · -150)과 값이 다르다. 제품이 아직 쓰지 않아 화면 보드의 두 업로드 면은 bespoke 로 판정된다. Figma component set 4 variant(State — Default · Hover · DragOver · Disabled, Focus 는 전역 링)가 섰고 parity 게이트가 Graphic · Prompt · Caption 을 자손으로 대조한다. DS-D-0035: 게시 없이 Figma done — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(drop-zone · drop-zone.browser.test.tsx). |
 | [Empty State](../components/empty-state.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma 는 `Layout` 축 3변형의 component set 이고 parity 게이트가 base·compact·canvas 세 칸을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐인데 **그 합의는 집계 안에서만 참이다** — 집계 밖 두 정의(대시보드 AnalyticsStatePanel · 빈 캔버스 CanvasEmptyState)를 2026-09-06 에 compact · canvas 축으로 세웠다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르고, 제품의 tone="error" 분기는 클래스가 빈 문자열이라 배포본에서도 그려지지 않는다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx). |
 | [FAQ Row](../components/faq-row.md) | `experimental` | `done` | `partial` | `done` | 랜딩·가격 두 페이지와 캔버스 가이드 모달이 쓰는 아코디언 행. **2026-09-09 에 LOUIS 레시피가 섰다** (packages/css/src/component/faq-row.css) — 그 전까지 계약과 Figma 는 서 있는데 생성 CSS 에 클래스가 0 이라 제품이 물 수가 없었다. 정본은 여전히 제품 두 벌이다: FAQ.tsx 가 `lg`, guide/FAQPanel.tsx 가 `md` 다. 닫힌 행이 통째로 버튼이고 열리면 질문 줄까지다(답변은 버튼 밖의 형제다. 좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 이나 bg-* 사다리로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 같아져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓰고, verify-recipe-record 의 surfaces 가 그 이름을 고정한다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 그 1.2:1 은 랜딩 바닥 기준이고, 바닥을 고정하는 가격 페이지 다크에서는 1.01:1 이며 방향도 반대다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다 — 그 하나가 얼마인지는 되읽기가 프로토타입 전이를 채취하지 않아 대조되지 않는다. **높이 전개는 레시피가 그리지 않는다**: 정본이 framer-motion 으로 height auto 를 옮기고 grid-template-rows 0fr↔1fr 을 렉 때문에 버렸으므로, CSS 가 그 둘 중 하나를 고르는 대신 여닫이를 소비처에 남기고 글리프 회전만 가진다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. aria-controls 와 제목 요소가 없다. **reduced-motion 결손은 LOUIS 쪽에서 닫혔다** — 정본에 계약이 없지만 레시피가 회전에 prefers-reduced-motion 을 건다(높이 전개는 소비처의 것이라 소비처가 같은 판단을 해야 한다). 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다. 2026-09-09 재판정: figma 를 done 으로 올린다 — DS-D-0035 (a)(b)(c) 를 만족한다. 되읽기에 FaqRow 가 등재됐고, verify-figma-parity 에 계약이 있고, 계약의 geometry 가 figma/components.measured.json 의 faq-row 를 가리키며 packages/react/test/faq-row.browser.test.tsx 가 코드 쪽을 네 칸 전부 되잰다(그 되재기가 없다는 것이 직전까지 partial 의 유일한 사유였다). web 은 partial 이다: CSS 레시피와 브라우저 시험은 섰지만 React 표면이 없고 제품 두 벌이 아직 자기 클래스로 그린다 — alert · section-header · stat-tile 과 같은 형태다. Figma 에 아직 없는 것 둘을 문서가 갖는다: md 가 글리프 문자를 + ↔ − 로 갈아 끼우는 것과 md 질문 버튼의 hover 다. |
 | [FormMessage](../components/form-message.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인. 인증 폼 아래 한 줄 메시지(login/page.tsx:199,537) — caption-12-regular · padding-left 4. error/neutral 두 톤. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
@@ -3329,6 +3331,160 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
     면을 나란히 세워 대조한다 — 이 축이 축인 근거가 그것이다.
 22. 결합하지 않은 필드에 `data-join`이 **붙지 않고** 겹치지도 않는다. 기본값이 `none`이라는
     사실 자체가 계약이다 — 속성이 붙어 버리면 폼 전체가 조용히 1px씩 위로 붙는다.
+
+## Drop Zone
+
+- Source: design/components/drop-zone.md
+- Maturity: experimental
+
+### Drop Zone
+
+파일을 받는 큰 눌림 면이다. 누르면 파일 선택 창이 열리고, 파일을 끌어다 놓아도 받는다.
+
+**제품에 공용 구현이 없다(제품 앵커 `2c6bdacf`).** 하이라이트 두 화면 — 허브(`HighlightScene.tsx`)와 프로젝트 상세의
+업로드 대기(`HighlightProjectScene.tsx`) — 가 `highlightSceneStyles.ts` 의 `uploadDropZone` 지역 레시피를 쓴다. 그 면은
+이름과 달리 **끌어다 놓기를 받지 않는다** — 누르면 숨긴 `input[type=file]` 을 여는 `<button>` 이다. 그리고
+`:focus-visible` 에서 outline 을 지워 **키보드 포커스가 보이지 않는다.** 이 컴포넌트는 그 레시피의 기하(패딩 · 간격 ·
+반경 · 글리프 · 글자 크기)를 옮기고, 끌어다 놓기와 포커스 링을 계약으로 더한다. [gap registry](../../migration/figma-gap-registry.md)의
+「영상 업로드 드롭존」 · 「업로드 드롭존 버튼」 두 줄이 이 자리다.
+
+#### Availability
+
+| Surface       | 상태           | 근거 |
+| ------------- | -------------- | ---- |
+| Web           | `partial`      | public export와 실브라우저 acceptance test 10건이 두 motion context에서 각각 돈다. 제품은 아직 이 컴포넌트를 쓰지 않는다 — 지역 레시피다(Known deviations) |
+| Figma         | `done`         | component set(State 4 — Focus 는 전역 링이 소유해 Button 처럼 variant 로 두지 않는다). 계약이 모든 property 를 pin 하고 Graphic · Prompt · Caption 을 자손으로 대조한다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Documentation | `done`         | 이 문서 |
+| Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다 |
+
+#### When to use
+
+- 화면의 **주된 일이 파일을 올리는 것**일 때 — 업로드 대기 화면, 가져오기 첫 단계.
+- 끌어다 놓기가 자연스러운 큰 파일(영상 · 이미지 묶음).
+
+쓰지 않는 자리.
+
+- 폼 안의 한 칸으로 파일을 붙일 때. 그것은 파일 필드(버튼 + 파일 이름)다 — 큰 면이 폼의 흐름을 끊는다.
+- 편집기 타임라인 · 캔버스처럼 **작업 표면 전체**가 놓는 자리일 때. 그 자리는 표면이 끌어다 놓기를 받고 이 면을 따로
+  두지 않는다.
+
+#### API
+
+```tsx
+<DropZone
+  graphic={<UploadGlyph />}
+  prompt="긴 영상을 올리세요."
+  caption="올린 원본 영상은 30일 동안 보관합니다."
+  accept="video/*"
+  onFiles={(files) => upload(files[0])}
+/>
+```
+
+#### Anatomy
+
+1. **Root** — `<button type="button">`. 면 · 패딩 · 상태를 소유하고, 안의 글자가 접근성 이름이 된다.
+2. **Graphic** — 선택. 56px. 장식이라 `aria-hidden` 이다.
+3. **Prompt** — 무엇을 올리는지 한 문장.
+4. **Caption** — 선택. 올리기 전에 알아야 할 조건.
+5. **Input** — 숨긴 `input[type=file]`. 루트의 형제로 렌더하고 탭 순서 · 접근성 트리에서 빠진다.
+
+#### Properties
+
+| prop | 값 | 기본 | 뜻 |
+| --- | --- | --- | --- |
+| `prompt` | ReactNode | 필수 | 무엇을 올리는지. 면의 접근성 이름이 된다 |
+| `caption` | ReactNode | 없음 | 보존 기간 · 용량 · 형식 같은 조건 |
+| `graphic` | ReactNode | 없음 | 56px 글리프 |
+| `accept` | string | 없음 | 선택 창이 거를 형식 — `input` 의 `accept` 그대로 |
+| `multiple` | boolean | `false` | 여러 파일을 받는가. 아니면 놓은 파일 가운데 첫 것만 준다 |
+| `onFiles` | `(files: readonly File[]) => void` | 필수 | 선택 창과 끌어다 놓기가 **같은 콜백**으로 온다 |
+| `disabled` | boolean | `false` | 누름도 놓기도 받지 않는다 |
+
+**끌어다 놓은 파일은 `accept` 로 거르지 않는다.** 브라우저가 `accept` 를 선택 창에서만 적용하기 때문이다. 형식 검사는
+받은 쪽이 한 곳에서 한다 — 두 경로가 같은 콜백으로 오는 이유가 그것이다.
+
+#### States
+
+| state | 표현 |
+| --- | --- |
+| Default | 면 `color-accent-secondary`, 안내 `color-fg-primary`, 보조 `color-fg-tertiary` |
+| Hover | 면 `color-accent-secondary-hover` |
+| Focus | `louis-focus-ring` 의 링(outline) |
+| DragOver | 면 `color-accent-secondary-hover` + 안쪽 링 `color-stroke-focus`(`border-width-ring` 두께의 안쪽 그림자) |
+| Disabled | 면 `color-bg-inset`, 글자 `color-fg-disabled`, 커서 `not-allowed` |
+
+DragOver 의 링은 테두리가 아니라 **안쪽 그림자**다 — 테두리를 그리면 두께만큼 상자가 커져 끌어다 놓는 순간 화면이 흔들린다.
+
+#### Interaction and responsive behavior
+
+- 누르거나 Enter · Space 로 파일 선택 창이 열린다. **끌어다 놓기만으로는 키보드 사용자가 닿지 못하므로 면은 늘 버튼이다.**
+- 끌어다 놓는 동안 `data-drag-over="true"` 다. 파일이 아닌 것(글자 · 링크)을 끌면 상태가 바뀌지 않는다.
+- 자식 요소를 지날 때 `dragenter` · `dragleave` 가 짝으로 쏟아진다 — 깊이를 세어 마지막으로 나갈 때만 상태를 푼다.
+  그렇지 않으면 안내 글자 위를 지나는 순간 면이 깜빡인다.
+- 폭은 부모를 채운다(`inline-size: 100%`). 높이는 내용과 패딩이 정한다.
+
+#### Content
+
+- 안내는 **무엇을** 올리는지 말한다 — "파일을 끌어다 놓거나 누르세요" 같은 조작 설명은 쓰지 않는다. 면이 버튼이라는 것은
+  모양이 이미 말한다.
+- 보조 문구는 올리기 **전에** 알아야 할 것만 쓴다. 올린 뒤의 안내는 다음 화면의 몫이다.
+
+#### Accessibility
+
+- 루트가 `<button>` 이라 포커스 · 누름 · 이름을 기본으로 갖는다. 이름은 안내 + 보조 문구다.
+- 숨긴 입력은 `hidden` · `tabIndex=-1` · `aria-hidden` 이다 — 두 번 읽히거나 탭이 두 번 멈추지 않는다.
+- 글리프는 장식이다.
+- 포커스 링을 지우지 않는다. 제품 면이 지운 것이 이 컴포넌트를 세운 이유 중 하나다.
+
+#### Specification
+
+| 축 | 값 | 토큰 |
+| --- | ---: | --- |
+| 세로 패딩 | 56px | 리터럴 — 소비처가 하나뿐이라 한 줄에 격리했다 |
+| 가로 패딩 | 16px | `space-layout-gutter` |
+| 간격 | 12px | `space-stack-md` |
+| 반경 | 12px | `radius-card` |
+| 테두리 | 0 | — |
+| 글리프 | 56px | 리터럴 — 아이콘 계단에 56 이 없다 |
+| 안내 | 16 / 24 | `typography-body-md-regular` |
+| 보조 | 12 / 18 | `typography-caption-regular` · 최대 폭 `36ch` |
+
+수는 [`components.measured.json`](../../figma/components.measured.json)의 `drop-zone` 이 갖는다.
+
+#### Effects
+
+DragOver 의 안쪽 링 하나뿐이다. 그림자 · 흐림은 없다.
+
+#### Implementation
+
+- 면 색은 LOUIS 의 **눌림 면 역할**(`accent-secondary` · `-hover`)이다 — Button secondary · 메뉴 항목과 같은 가족이라
+  같은 화면에서 한 벌로 읽힌다.
+- 파일 입력을 같은 파일로 다시 골라도 `change` 가 오도록 받은 뒤 값을 비운다.
+
+#### Known deviations
+
+- **제품은 이 컴포넌트를 쓰지 않는다 — 지역 레시피다.** 그래서 화면 보드의 두 업로드 면은 인스턴스가 아니라 bespoke 로
+  판정된다(`scripts/lib/figma-component-substitution.mjs` 의 제외 목록 `drop-zone-upload`). 제품이 이 컴포넌트로 옮기면
+  보드가 인스턴스가 된다.
+- **면 색이 제품과 다르다.** 제품은 라이트에서 `palette-gray-100`(#DCDEE1) · 호버 `palette-gray-150`(#CED0D4)을 직접 쓴다.
+  LOUIS 에는 그 값과 같은 일반 역할 토큰이 없어 눌림 면 역할을 골랐다(라이트 잉크 8% · 12%). 안내 글자도 제품은
+  `palette-gray-800`(#2B2F36)이고 LOUIS 는 `color-fg-primary` 다. 보조 문구 색(`fg-tertiary`)은 같다.
+- **제품 면은 끌어다 놓기를 받지 않고 포커스가 보이지 않는다.** 이 컴포넌트는 둘 다 한다 — 제품의 결함을 옮기지 않았다.
+- **제품의 썸네일 미리보기 변형(`uploadDropZoneWithThumb`)과 허브 하단 고정 카드의 2열 배치는 옮기지 않았다.** 둘 다 올린
+  **뒤**의 화면(미리보기)이거나 한 화면의 배치라, 면의 계약이 아니다.
+
+#### Acceptance tests
+
+1. 패딩 · 간격 · 반경 · 테두리 · 글리프 · 글자 크기가 `components.measured.json` 과 같다.
+2. Default · Hover 의 면과 글자 색이 States 표와 같다.
+3. 누르면 숨긴 파일 입력의 선택 창이 열린다.
+4. 선택 창에서 고른 파일이 `onFiles` 로 온다.
+5. 끌어다 놓은 파일이 `onFiles` 로 오고, 끄는 동안만 `data-drag-over="true"` 이며 자식을 지나도 깜빡이지 않는다.
+6. `multiple` 이 아니면 첫 파일만, 이면 모두 준다.
+7. `disabled` 면 누름 · 놓기를 받지 않고 Disabled 의 면 · 글자로 보인다.
+8. 키보드 포커스가 링으로 보인다.
+9. 글리프는 `aria-hidden` 이고 안내가 이름이 된다.
+10. 조합 모두 자동 접근성 검사에 위반이 없다.
 
 ## Empty State
 

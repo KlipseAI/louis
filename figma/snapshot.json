@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 65,
-        "variants": 740
+        "sets": 66,
+        "variants": 744
       },
       "icons": 42,
       "templates": 9
@@ -8175,6 +8175,106 @@
           "DROP_SHADOW:16:48:-8"
         ]
       }
+    },
+    "DropZone": {
+      "outsideParts": [],
+      "tokenId": "drop-zone",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "HasGraphic": {
+          "type": "BOOLEAN"
+        },
+        "Prompt": {
+          "type": "TEXT"
+        },
+        "Caption": {
+          "type": "TEXT"
+        },
+        "HasCaption": {
+          "type": "BOOLEAN"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "DragOver",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 12,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 8,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Graphic": {
+              "width": [
+                56
+              ],
+              "height": [
+                56
+              ]
+            },
+            "Prompt": {
+              "fontSize": [
+                16
+              ]
+            },
+            "Caption": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            56
+          ],
+          "paddingBlockEnd": [
+            56
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "2|INSIDE"
+        ]
+      },
+      "effects": {}
     },
     "EmptyState": {
       "outsideParts": [],

@@ -2651,6 +2651,104 @@
 }
 
 @layer louis.component {
+  /* Drop Zone — design/components/drop-zone.md
+   *
+   * 파일을 받는 큰 눌림 면이다. 누르면 파일 선택 창이 열리고, 파일을 끌어다 놓아도 받는다.
+   *
+   * 제품에 공용 구현이 없다. 하이라이트 두 화면(`HighlightScene` · `HighlightProjectScene`)이
+   * `highlightSceneStyles.ts uploadDropZone` 지역 레시피를 쓰는데, **끌어다 놓기는 없고**(누르면 숨긴
+   * `input[type=file]` 을 여는 버튼일 뿐이다) `:focus-visible` 에서 outline 을 지워 키보드 포커스가 보이지
+   * 않는다. 기하(패딩 56 / 16 · 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)는 그 레시피를 옮기고,
+   * 끌어다 놓기와 포커스 링은 이 컴포넌트가 계약으로 더한다.
+   *
+   * 면은 LOUIS 의 눌림 면 역할(`accent-secondary` · `-hover`)을 쓴다 — Button secondary · 메뉴 항목과
+   * 같은 가족이다. 제품 면(`palette-gray-100`, 호버 `-150`)과 값이 다르며 Known deviations 가 적는다.
+   */
+
+  .louis-drop-zone {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--louis-space-stack-md);
+    /* 세로 56. 소비처가 이 컴포넌트 하나뿐이라 토큰으로 만들지 않고 리터럴을 이 한 줄에 격리한다
+     * (Empty State 의 80 과 같은 판정). */
+    padding-block: 56px;
+    padding-inline: var(--louis-space-layout-gutter);
+    inline-size: 100%;
+    border: 0;
+    border-radius: var(--louis-radius-card);
+    background: var(--louis-color-accent-secondary);
+    color: var(--louis-color-fg-primary);
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
+  }
+
+  .louis-drop-zone:where(:not(:disabled)):hover,
+  .louis-drop-zone[data-drag-over="true"] {
+    background: var(--louis-color-accent-secondary-hover);
+  }
+
+  /* 끌어다 놓는 중 — 호버와 같은 면에 포커스 색 테두리를 안쪽으로 둘러 「여기에 놓인다」를 말한다. 레이아웃을
+   * 흔들지 않도록 테두리가 아니라 안쪽 그림자다. */
+  .louis-drop-zone[data-drag-over="true"] {
+    box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-stroke-focus);
+  }
+
+  .louis-drop-zone:disabled {
+    cursor: not-allowed;
+    background: var(--louis-color-bg-inset);
+    color: var(--louis-color-fg-disabled);
+  }
+
+  /* 글리프 슬롯 — 선택이다. 제품 허브는 넣고 프로젝트 상세는 넣지 않는다. */
+  .louis-drop-zone__graphic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 56px;
+    block-size: 56px;
+    color: inherit;
+  }
+
+  .louis-drop-zone__graphic > :where(svg, img) {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .louis-drop-zone__prompt {
+    font-family: var(--louis-typography-body-md-regular-font-family);
+    font-size: var(--louis-typography-body-md-regular-font-size);
+    font-weight: var(--louis-typography-body-md-regular-font-weight);
+    line-height: var(--louis-typography-body-md-regular-line-height);
+    letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  }
+
+  .louis-drop-zone__caption {
+    /* 보조 문구는 두 줄로 감길 만큼 좁게 둔다 — 제품의 보존 기간 안내가 그렇게 감긴다. */
+    max-inline-size: 36ch;
+    color: var(--louis-color-fg-tertiary);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  .louis-drop-zone:disabled .louis-drop-zone__caption {
+    color: inherit;
+  }
+
+  /* 파일 입력은 보이지 않는다 — 누름은 면이 받는다. `hidden` 으로 두어 탭 순서와 접근성 트리에서 빠진다. */
+  .louis-drop-zone__input {
+    display: none;
+  }
+}
+
+@layer louis.component {
   /* Empty State — design/components/empty-state.md
    *
    * 제품에 정의가 **9벌** 있고(앱 홈 2 · 하이라이트 2 · 에디터 5) 그중 하나는 조건상 도달할 수 없는

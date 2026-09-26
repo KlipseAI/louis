@@ -2422,6 +2422,52 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    // **DropZone(2026-09-26 신설).** 제품에 공용 구현이 없고(하이라이트 지역 레시피) 기하만 옮겼다 — design/components/drop-zone.md.
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Hover", "DragOver", "Disabled"],
+        reason:
+          "Hover 는 CSS 상태, DragOver 는 끌어다 놓는 동안의 `data-drag-over`, Disabled 는 prop 이다. Figma 에는 CSS 상태가 없어 " +
+          "Button 의 State 와 같은 이유로 variant 로 둔다. Focus 는 전역 링(`louis-focus-ring`)이 소유해 Button 처럼 variant 로 두지 않는다.",
+      },
+      HasGraphic: { type: "BOOLEAN", reason: "글리프 없는 업로드 면이 있다 — 제품의 프로젝트 상세 업로드 대기는 글리프를 넣지 않는다." },
+      HasCaption: { type: "BOOLEAN", reason: "조건을 적을 것이 없는 업로드 면에는 보조 문구를 두지 않는다." },
+    },
+    id: "drop-zone",
+    figmaName: "DropZone",
+    iconSlots: ["Glyph"],
+    propProperties: { Glyph: "graphic", Prompt: "prompt", Caption: "caption" },
+    declaration: "packages/react/dist/drop-zone/drop-zone.d.ts",
+    variantProperties: {},
+    // **획은 DragOver 한 칸에만 있다.** CSS 는 안쪽 그림자(`inset 0 0 0 border-width-ring stroke-focus`)로 레이아웃을
+    // 흔들지 않고, Figma 는 같은 뜻을 INSIDE 획 2 로 옮기고 `strokesIncludedInLayout = false` 로 둔다. 두께의 정본은
+    // 토큰 `border-width-ring` 이고 measured `states.base.DragOver.ring` 이 그 역할을 적는다.
+    strokes: { self: { weight: 2, align: "INSIDE" } },
+    effects: {},
+    geometry: {
+      measuredId: "drop-zone",
+      sizeKey: "base",
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        counterAxisAlignItems: { literal: "CENTER" },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      // DragOver 의 안쪽 링(`border-width-ring` 2) — 테두리(borderWidth 0)가 아니라 상태 표시라 허용 집합에 따로 둔다(SidebarCta 의 포커스 링과 같다).
+      extraStrokeWeights: [2],
+      parts: {
+        Graphic: { fields: { width: "graphic", height: "graphic" } },
+        Prompt: { fields: { fontSize: "promptFontSize" } },
+        Caption: { fields: { fontSize: "captionFontSize" } },
+      },
+    },
+  },
+  {
     id: "project-card",
     figmaName: "ProjectCard",
     // 합성 컴포넌트라 텍스트가 루트 prop이 아니라 하위 부품(Eyebrow·Title·Meta)의 children이다.

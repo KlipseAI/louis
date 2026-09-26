@@ -1732,6 +1732,73 @@
       },
       "$statesNote": "상태 축이 없다. 제품 9벌 중 hover·focus·disabled를 스스로 갖는 것이 0벌이고, 빈 상태는 대화형 요소가 아니다. 그 안의 CTA가 자기 상태를 갖는다."
     },
+    "drop-zone": {
+      "$doc": "design/components/drop-zone.md",
+      "$source": "packages/react/src/drop-zone/drop-zone.tsx, packages/css/src/component/drop-zone.css",
+      "$note": "제품에 공용 구현이 없다. 하이라이트 두 화면이 highlightSceneStyles.ts uploadDropZone 지역 레시피를 쓰고(허브 · 프로젝트 상세), 기하는 그 레시피를 옮겼다(측정: migration/product.auth-fixture.json /highlight/[projectId]?__phase=upload 의 button 1628×190 · 모바일 370×187). **제품 면은 끌어다 놓기가 없고 포커스가 보이지 않는다** — 누르면 숨긴 input 을 여는 버튼이고 :focus-visible 에서 outline 을 지운다. 끌어다 놓기와 포커스 링은 이 컴포넌트가 더한다. 면 색은 LOUIS 눌림 면 역할(accent-secondary · -hover)이라 제품 면(palette-gray-100 · 호버 -150)과 값이 다르다.",
+      "sizes": {
+        "base": {
+          "paddingBlock": 56,
+          "$paddingBlock": "제품 uploadDropZone padding 56px 16px. 소비처가 하나뿐이라 토큰 없이 리터럴을 한 줄에 격리했다",
+          "paddingInline": 16,
+          "$paddingInline": "space-layout-gutter 16",
+          "gap": 12,
+          "$gap": "space-stack-md 12 — 제품 gap 12px",
+          "radius": 12,
+          "$radius": "radius-card 12 — 제품 border-radius 12px",
+          "borderWidth": 0,
+          "graphic": 56,
+          "$graphic": "제품 uploadGlyphMask 56px(허브). 아이콘 계단에 56 이 없어 리터럴이다",
+          "promptFontSize": 16,
+          "$promptFontSize": "body-md 16 — 제품 type-body-16-regular",
+          "promptLineHeight": 24,
+          "captionFontSize": 12,
+          "$captionFontSize": "caption 12 — 제품 type-caption-12-regular",
+          "captionLineHeight": 18,
+          "$promptLineHeight": "body-md line-height 24 (150%) — 제품 type-body-16-regular 과 같다",
+          "$captionLineHeight": "caption line-height 18 (150%) — 제품 type-caption-12-regular 과 같다"
+        }
+      },
+      "states": {
+        "base": {
+          "Default": {
+            "background": "color-accent-secondary",
+            "foreground": "color-fg-primary",
+            "caption": "color-fg-tertiary",
+            "$background": "눌림 면 역할. 제품 면 palette-gray-100 과 값이 다르다(Known deviations)",
+            "$foreground": "안내 글자 color-fg-primary. 제품 palette-gray-800 과 값이 다르다 — LOUIS 역할을 골랐다 — 제품은 palette 값을 직접 쓰는 지역 레시피라 대조할 공용 정본이 없다(drop-zone.md Known deviations)",
+            "$caption": "보조 문구 color-fg-tertiary — 제품 계산값 #585C63 과 같다"
+          },
+          "Hover": {
+            "background": "color-accent-secondary-hover",
+            "foreground": "color-fg-primary",
+            "caption": "color-fg-tertiary",
+            "$background": "눌림 면 호버 color-accent-secondary-hover. 제품 palette-gray-150 과 값이 다르다 — LOUIS 역할을 골랐다 — 제품은 palette 값을 직접 쓰는 지역 레시피라 대조할 공용 정본이 없다(drop-zone.md Known deviations)",
+            "$foreground": "호버는 글자를 바꾸지 않는다(제품도 면만 바꾼다)",
+            "$caption": "호버는 글자를 바꾸지 않는다"
+          },
+          "DragOver": {
+            "background": "color-accent-secondary-hover",
+            "foreground": "color-fg-primary",
+            "caption": "color-fg-tertiary",
+            "ring": "color-stroke-focus",
+            "$ring": "안쪽 그림자 border-width-ring 2 — 레이아웃을 흔들지 않는다",
+            "$background": "끌어다 놓는 중은 호버와 같은 면이다. 제품에 끌어다 놓기가 없어 대조할 값이 없다",
+            "$foreground": "글자는 바꾸지 않는다",
+            "$caption": "글자는 바꾸지 않는다"
+          },
+          "Disabled": {
+            "background": "color-bg-inset",
+            "foreground": "color-fg-disabled",
+            "caption": "color-fg-disabled",
+            "$background": "Button disabled 와 같은 color-bg-inset. 제품 면의 disabled(생성 중)는 면을 바꾸지 않아 대조할 값이 없다",
+            "$foreground": "Button disabled 와 같은 color-fg-disabled",
+            "$caption": "disabled 는 보조 문구도 같은 잉크로 접는다"
+          }
+        }
+      },
+      "$statesNote": "Focus 는 base.css 의 louis-focus-ring 이 소유한다(outline). 상태 축은 Figma 의 State variant 와 같다."
+    },
     "spinner": {
       "$doc": "design/components/spinner.md",
       "$source": "packages/react/src/spinner/spinner.tsx, packages/css/src/component/spinner.css",

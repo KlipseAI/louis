@@ -366,6 +366,16 @@ const MATCH_RULES = [
     shape: (node) => !isControl(node) && Math.abs(node.r[0] - node.r[1]) <= 1 && uniformRadius(node) === 999,
   },
   {
+    id: "drop-zone",
+    component: "DropZone",
+    sizes: ["base"],
+    keys: ["cornerRadius"],
+    why: "글자를 품은 큰 눌림 면 — 파일을 받는 자리는 LOUIS DropZone 이다(2026-09-26).",
+    // 컨트롤 사다리(40 · 32 · 28)보다 훨씬 높은 칠해진 button 이 글자를 품으면 업로드 면이다. 120 은 사다리 최대(40)의 세 배로,
+    // 두 줄 버튼이 걸리지 않을 만큼 떨어뜨렸다.
+    shape: (node) => node.t === "button" && isPainted(node) && node.r[1] >= 120 && hasText(node),
+  },
+  {
     id: "progress-bar",
     component: "ProgressBar",
     sizes: ["base"],

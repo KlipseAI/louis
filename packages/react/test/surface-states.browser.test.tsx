@@ -252,6 +252,7 @@ test("states 표를 코드가 빠짐없이 읽는다", () => {
     "badge", //           badge.browser.test.tsx
     "spinner", //         spinner.browser.test.tsx
     "empty-state", //     empty-state.browser.test.tsx
+    "drop-zone", //       drop-zone.browser.test.tsx
     "input", //           text-field.browser.test.tsx
     "avatar", //          avatar.browser.test.tsx
     "checkbox", //        checkbox.browser.test.tsx

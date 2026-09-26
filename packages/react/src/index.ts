@@ -51,6 +51,8 @@ export { Badge } from "./badge/badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/badge.js";
 export { Checkbox } from "./checkbox/checkbox.js";
 export type { CheckboxProps } from "./checkbox/checkbox.js";
+export { DropZone } from "./drop-zone/drop-zone.js";
+export type { DropZoneProps } from "./drop-zone/drop-zone.js";
 export { EmptyState } from "./empty-state/empty-state.js";
 export type {
   EmptyStateHeadingLevel,

@@ -294,6 +294,15 @@
       "html": "<span class=\"louis-avatar\"></span>"
     },
     {
+      "id": "avatar-settings",
+      "source": "myPageSceneStyles.ts settingsAvatarFigure — .louis-avatar + 크기 40 · 면 gray-000 12% 덮어쓰기",
+      "hover": false,
+      "from": "apps/web/components/scenes/myPageSceneStyles.ts → settingsAvatarFigure",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"tw-mp-088 louis-avatar [width:40px] [height:40px] [background:rgb(var(--gray-000-rgb)_/_12%)]\"></div>"
+    },
+    {
       "id": "badge",
       "source": "highlightSceneStyles.ts historyCardStatus — 제품 상태 배지",
       "hover": false,
@@ -1664,6 +1673,11 @@
     "avatar": {
       "width": "28px",
       "height": "28px",
+      "borderTopLeftRadius": "999px"
+    },
+    "avatar-settings": {
+      "width": "40px",
+      "height": "40px",
       "borderTopLeftRadius": "999px"
     },
     "badge": {
@@ -3882,6 +3896,34 @@
       "justify-content": "center",
       "overflow-x": "hidden",
       "overflow-y": "hidden"
+    },
+    "avatar-settings": {
+      "align-items": "center",
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "rgba(250, 250, 250, 0.12)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "block-size": "40px",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "color": "color(srgb 0.545098 0.556863 0.576471)",
+      "display": "inline-flex",
+      "flex-basis": "auto",
+      "flex-grow": "0",
+      "flex-shrink": "0",
+      "height": "40px",
+      "inline-size": "40px",
+      "justify-content": "center",
+      "overflow-x": "hidden",
+      "overflow-y": "hidden",
+      "width": "40px"
     },
     "badge": {
       "align-items": "center",

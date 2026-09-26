@@ -1173,6 +1173,12 @@
       "$noRing": "**링을 소유하지 않는다.** 제품은 프로필 트리거에 진행률 링을 겹치지만(--profile-ring-width/gap 2px) 아바타는 신원 표식이고 링은 사용량이다. 흡수하면 인계서 (1c)의 미결 판정(determinate 진행률의 접근성 계약)이 이 컴포넌트의 API로 새어 들어온다.",
       "$noControlLadder": "크기가 control 계단(40/32)을 따르지 않는다. 아바타는 컨트롤이 아니라 표식이라 나란히 서도 줄이 어긋나지 않는다.",
       "sizes": {
+        "lg": {
+          "size": 40,
+          "$size": "제품 설정 화면 프로필 사진 칸 — myPageSceneStyles.ts settingsAvatarFigure [width:40px] · [height:40px](.louis-avatar 를 물고 크기만 덮는다)",
+          "radius": 999,
+          "$radius": "radius-pill 999 (원형 아바타)"
+        },
         "md": {
           "size": 28,
           "radius": 999,

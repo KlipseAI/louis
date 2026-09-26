@@ -1054,10 +1054,9 @@
 @layer louis.component {
   /* Avatar — design/components/avatar.md
    *
-   * 제품에 공용 구현이 **부분만** 있다. `UserCircleDefaultAvatar.tsx`가 기본 아바타 SVG 하나를
-   * 소유하고(28×28 · currentColor · aria-hidden), 아바타 본체 — 이미지/폴백 분기와 크기 — 는
-   * 셸 파일(`Gnb.tsx`)에 인라인이다. 크기는 `--profile-avatar-size`가 28 기본, ProjectHeader
-   * 슬롯에서 24로 덮인다. 그 두 값을 그대로 옮겼다.
+   * 제품은 박스로 `.louis-avatar` 를 물고 크기만 호출부에서 덮는다. 폴백 글리프는
+   * `UserCircleDefaultAvatar.tsx` 의 그림(원을 채운 사람 실루엣, currentColor)을 그대로 옮겼다.
+   * 크기 24·28은 `--profile-avatar-size` 가 두 값이던 때의 것이고, 40은 설정 화면의 프로필 사진 칸이다.
    *
    * ## 링을 소유하지 않는다
    *
@@ -1089,6 +1088,13 @@
   .louis-avatar[data-size="sm"] {
     inline-size: 24px;
     block-size: 24px;
+  }
+
+  /* lg — 제품 설정 화면의 프로필 사진 칸(`myPageSceneStyles.ts` `settingsAvatarFigure` [width:40px] · [height:40px]).
+   * 제품은 `.louis-avatar` 를 물고 크기만 호출부에서 덮는다 — 그 덮어쓰기를 이 칸이 받는다. */
+  .louis-avatar[data-size="lg"] {
+    inline-size: 40px;
+    block-size: 40px;
   }
 
   /* 이미지. 비율이 맞지 않아도 원을 채운다 — 여백이 생기면 원이 깨져 보인다. */

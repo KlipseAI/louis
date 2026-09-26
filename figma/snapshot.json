@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 65,
-        "variants": 739
+        "variants": 740
       },
       "icons": 42,
       "templates": 9
@@ -6375,22 +6375,23 @@
     "Avatar": {
       "outsideParts": [],
       "tokenId": "avatar",
-      "variantCount": 2,
+      "variantCount": 3,
       "hasDescription": true,
       "properties": {
+        "HasImage": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
             "md",
-            "sm"
+            "sm",
+            "lg"
           ]
-        },
-        "HasImage": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 4,
+        "boundFills": 9,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -6398,11 +6399,68 @@
         "textUnstyled": 0
       },
       "geometry": {
+        "lg": {
+          "slots": {
+            "Fallback": [
+              "40x40"
+            ]
+          },
+          "parts": {
+            "Fallback": {
+              "width": [
+                40
+              ],
+              "height": [
+                40
+              ]
+            }
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
         "md": {
           "slots": {
             "Fallback": [
               "28x28"
             ]
+          },
+          "parts": {
+            "Fallback": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
           },
           "height": [
             28
@@ -6433,17 +6491,7 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
-          "offCenterMarks": [],
-          "parts": {
-            "Fallback": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ]
-            }
-          }
+          "offCenterMarks": []
         },
         "sm": {
           "slots": {
@@ -6451,6 +6499,16 @@
               "24x24"
             ]
           },
+          "parts": {
+            "Fallback": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
+          },
           "height": [
             24
           ],
@@ -6480,17 +6538,7 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
-          "offCenterMarks": [],
-          "parts": {
-            "Fallback": {
-              "width": [
-                24
-              ],
-              "height": [
-                24
-              ]
-            }
-          }
+          "offCenterMarks": []
         }
       },
       "strokes": {},

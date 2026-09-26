@@ -3,6 +3,7 @@ import {
   existsSync,
   linkSync,
   lstatSync,
+  readdirSync,
   readFileSync,
   symlinkSync,
   unlinkSync,
@@ -573,19 +574,21 @@ withCanary(
        조인표에서 그 항목을 지워도 열거기가 그것을 찾지 않았다 — 조인은 **쓰이는 이름**에만
        걸리므로 쓰이지 않는 항목을 지우는 것은 조용한 교환이고, canary 는 자기 대상을 잃은
        채 「checker 가 통과시켰습니다」로만 보였다. 위 인용·드리프트 canary 가 같은 사고를
-       겪고 같은 처방을 적어 두었다: 재는 값을 canary 에 박지 말고 그때그때 읽어 온다.
-       원장이 지금 실제로 세고 있는 글리프에서 고른다. */
-    const ledger = JSON.parse(
-      readFileSync(resolve(repoRoot, "migration/figma-board-composition.json"), "utf8"),
-    );
-    const used = new Set(
-      Object.values(ledger.nodes ?? {}).map((node) => node.glyph).filter(Boolean),
-    );
+       겪고 같은 처방을 적어 두었다: 재는 값을 canary 에 박지 말고 그때그때 읽어 온다. */
+    /* **원장이 아니라 payload 에서 고른다(2026-09-26).** 원장은 인스턴스 · bespoke 자리의 자손을 세지 않아, 설정 화면
+       아바타가 bespoke 가 되자 원장에 남은 글리프 자리가 0 이 됐다. 열거기는 이제 가지치기 전에 payload 의 이름을
+       전부 대조하므로, 보드 계획에 실린 이름 하나를 지우면 무는지 본다. */
+    const used = new Set();
+    for (const name of readdirSync(resolve(repoRoot, "figma"))) {
+      if (!/^app-screens\..+\.draw\.js$/.test(name)) continue;
+      const text = readFileSync(resolve(repoRoot, "figma", name), "utf8");
+      for (const match of text.matchAll(/"v":"([a-z0-9-]+)"/g)) used.add(match[1]);
+    }
     const target = plan.productGlyphs.find((glyph) => used.has(glyph.id));
     if (!target) {
       errors.push(
         "board composition glyph join table canary가 보드에 실제로 쓰이는 글리프를 찾지 못했습니다. " +
-          "원장에 아이콘 자리가 하나도 없다면 이 canary 는 잴 것이 없습니다.",
+          "보드 런너에 아이콘 이름이 하나도 없다면 이 canary 는 잴 것이 없습니다.",
       );
       return source;
     }

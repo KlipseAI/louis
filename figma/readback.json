@@ -8242,22 +8242,23 @@
       "effects": {}
     },
     "Avatar": {
-      "variantCount": 2,
+      "variantCount": 3,
       "hasDescription": true,
       "properties": {
+        "HasImage": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
             "md",
-            "sm"
+            "sm",
+            "lg"
           ]
-        },
-        "HasImage": {
-          "type": "BOOLEAN"
         }
       },
       "binding": {
-        "boundFills": 4,
+        "boundFills": 9,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -8271,6 +8272,16 @@
               "28x28"
             ]
           },
+          "parts": {
+            "Fallback": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
           "height": [
             28
           ],
@@ -8300,23 +8311,23 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
-          "offCenterMarks": [],
-          "parts": {
-            "Fallback": {
-              "width": [
-                28
-              ],
-              "height": [
-                28
-              ]
-            }
-          }
+          "offCenterMarks": []
         },
         "sm": {
           "slots": {
             "Fallback": [
               "24x24"
             ]
+          },
+          "parts": {
+            "Fallback": {
+              "width": [
+                24
+              ],
+              "height": [
+                24
+              ]
+            }
           },
           "height": [
             24
@@ -8347,17 +8358,54 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
-          "offCenterMarks": [],
+          "offCenterMarks": []
+        },
+        "lg": {
+          "slots": {
+            "Fallback": [
+              "40x40"
+            ]
+          },
           "parts": {
             "Fallback": {
               "width": [
-                24
+                40
               ],
               "height": [
-                24
+                40
               ]
             }
-          }
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},

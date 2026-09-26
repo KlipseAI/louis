@@ -218,7 +218,9 @@ const REPLACEABLE_BASELINE = 0;
 // 레시피 원장 probe 다 — `segmented-track` · `segmented-segment` 가 쓰이지 않는 `myPageSceneStyles.ts` 상수를 잰다. 그래서 생성기의
 // `LOUIS_PRIMITIVE_EXCLUSIONS` 판정을 blocked 로 옮겼고(사유 · 인용은 그 목록에), 넷이 막힘 2 → 6 으로 갔다. 남은 bespoke 1 은
 // `Button/md`(제품 지역 레시피)다. 원장 probe 가 `SegmentedToggle` 마크업을 재고 정본 자리가 서면 넷은 replaceable 로 간다.
-const BESPOKE_BASELINE = 1; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-09-26: 1 → **3.** **발견이다.** 설정 화면 프로필 사진 칸 둘(데스크톱 · 모바일)이 Avatar `lg`(40)로 대응을 얻었고, 제품이
+// 그 자리에서 면과 폴백 글리프 크기를 덮어 bespoke 로 판정됐다(제외 목록 `avatar-settings`). 전에는 LOUIS 에 40 이 없어 missing 이었다.
+const BESPOKE_BASELINE = 3; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -241,7 +243,9 @@ const INSTANCE_FLOOR = 101;
 // missing → structural 로 제자리를 찾았다(−2). blocked −1 은 `/mypage/upgrade` 의 disabled 요금제 CTA 로, 이제
 // `Plan=Trial` 카드 인스턴스 안이다. missing −46 은 요금제 카드의 체크 마크(18×18 `span` mask — 데스크톱 32 · 모바일 12) 44 와 billing-success 본문 알림 2 다.
 // 수는 instance 101 + replaceable 0 + bespoke 5 + blocked 2 + missing 22.
-const CANDIDATE_FLOOR = 130;
+// 2026-09-26: 130 → **128.** 보드가 준 것이 아니라 설정 화면 아바타 둘이 bespoke 가 되어 그 안의 폴백 글리프(`user-circle-fill`, b-vector)
+// 둘이 가지치기됐다: missing −4(아바타 면 2 · 글리프 2) · bespoke +2. 수는 instance 101 + replaceable 0 + bespoke 3 + blocked 6 + missing 18.
+const CANDIDATE_FLOOR = 128;
 const BOARD_FLOOR = 36;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",

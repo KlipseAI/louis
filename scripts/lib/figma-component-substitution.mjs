@@ -519,6 +519,18 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
       "제품은 `SegmentedToggle.tsx`(:102)에서 `.louis-segmented-control__segment` 를 무는데, 레시피 원장 probe `segmented-segment` 는 " +
       "쓰이지 않는 `myPageSceneStyles.ts settingsToggleBtn`(:1209)을 잰다 — 같은 이유로 blocked 다.",
   },
+  // **2026-09-26 — 설정 화면 프로필 사진 칸.** 제품은 `.louis-avatar` 를 물지만 크기 40(LOUIS `lg`)에 더해 면과 폴백 글리프
+  // 크기를 덮는다. 제품 주석이 그 둘을 「제품이 눈에 보이게 다른 두 값」이라 적는다(`myPageSceneStyles.ts settingsAvatarFigure` ·
+  // `settingsAvatarFigureDefault`). 인스턴스로 바꾸면 보드가 LOUIS 면(`bg-inset`)과 원을 가득 채운 글리프를 그려 제품과 달라진다.
+  {
+    probe: "avatar-settings",
+    component: "Avatar",
+    sizes: ["lg"],
+    verdict: "bespoke",
+    reason:
+      "출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 " +
+      "`gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
+  },
   {
     probe: "progress-bar-track",
     component: "ProgressBar",

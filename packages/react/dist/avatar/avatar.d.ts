@@ -1,5 +1,5 @@
 import type { HTMLAttributes, JSX, Ref } from "react";
-export type AvatarSize = "md" | "sm";
+export type AvatarSize = "lg" | "md" | "sm";
 export interface AvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
     /** 이미지 주소. 없으면 폴백 글리프를 그린다. */
     readonly src?: string;

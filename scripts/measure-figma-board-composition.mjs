@@ -360,7 +360,7 @@ const MATCH_RULES = [
   {
     id: "avatar",
     component: "Avatar",
-    sizes: ["sm", "md"],
+    sizes: ["sm", "md", "lg"],
     keys: ["height", "width", "cornerRadius"],
     why: "정사각 원형 자리 — 사람/채널의 얼굴은 LOUIS Avatar 다.",
     shape: (node) => !isControl(node) && Math.abs(node.r[0] - node.r[1]) <= 1 && uniformRadius(node) === 999,
@@ -619,6 +619,22 @@ for (const [key, parts] of partsByBoard) {
   scan(root, "");
   if (waiting.length > 0) {
     fail(`조각이 빠져 대기표시가 ${waiting.length} 곳 남았습니다: ${key} (${waiting.slice(0, 3).join(" · ")})`);
+  }
+  // **글리프 이름은 가지치기 전에 전부 대조한다(2026-09-26).** 아래 판정은 인스턴스 · bespoke 자리의 자손을 세지 않으므로,
+  // 그 안의 아이콘 이름은 조인표에 없어도 한 번도 걸리지 않는다. 설정 화면 아바타가 bespoke 가 되자 원장에 남은 글리프
+  // 자리가 0 이 되어, 조인표에서 항목이 사라져도 이 파일이 알아챌 곳이 없어졌다. payload 에 실린 이름은 생성기가 조인표에서
+  // 고른 것이므로 가지치기와 무관하게 모두 조인표에 있어야 한다.
+  const unnamed = [];
+  const scanGlyphs = (node, path) => {
+    if (node.v && !glyphById.has(node.v)) unnamed.push(`${path} (${node.v})`);
+    childrenOf(node).forEach((child, index) => scanGlyphs(child, path === "" ? String(index) : `${path}.${index}`));
+  };
+  scanGlyphs(root, "");
+  if (unnamed.length > 0) {
+    fail(
+      `아이콘 이름이 조인표에 없습니다: ${key} ${unnamed.slice(0, 3).join(" · ")}. ` +
+      "`scripts/lib/figma-glyph-identity.mjs` 에 이름·대응·사유를 적고 생성기를 다시 돌리세요.",
+    );
   }
   assembled.push({ payload: head.payload, root, parts });
 }

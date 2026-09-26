@@ -348,6 +348,16 @@ const PROBES = [
     html: `<span class="louis-avatar"></span>`,
     read: ["width", "height"],
   },
+  // **설정 화면 프로필 사진 칸(2026-09-26).** 제품은 여기서도 `.louis-avatar` 를 물지만 호출부가 크기 40 과 면
+  // (`gray-000` 12%)을 덮고, 폴백 글리프를 78% 로 안쪽에 앉힌다(`myPageSceneStyles.ts settingsAvatarFigure` ·
+  // `settingsAvatarFigureDefault`). 크기는 LOUIS `lg` 가 받고, 면과 글리프 크기는 이 자리만의 값이다.
+  {
+    id: "avatar-settings",
+    source: "myPageSceneStyles.ts settingsAvatarFigure — .louis-avatar + 크기 40 · 면 gray-000 12% 덮어쓰기",
+    from: ["myPage", "settingsAvatarFigure"],
+    tag: "div",
+    read: ["width", "height", "borderTopLeftRadius"],
+  },
   {
     id: "badge",
     source: "highlightSceneStyles.ts historyCardStatus — 제품 상태 배지",
@@ -1931,6 +1941,9 @@ const EXPECT = [
 
   ["avatar", "width", ["avatar", "sizes", "md", "size"], "same"],
   ["avatar", "height", ["avatar", "sizes", "md", "size"], "same"],
+  ["avatar-settings", "width", ["avatar", "sizes", "lg", "size"], "same"],
+  ["avatar-settings", "height", ["avatar", "sizes", "lg", "size"], "same"],
+  ["avatar-settings", "borderTopLeftRadius", ["avatar", "sizes", "lg", "radius"], "same"],
 
   ["badge", "paddingTop", ["badge", "sizes", "base", "paddingBlock"], "same"],
   ["badge", "paddingLeft", ["badge", "sizes", "base", "paddingInline"], "same"],

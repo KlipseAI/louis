@@ -16,20 +16,20 @@
   "boardCount": 36,
   "rawNodesBeforePruning": 479,
   "counts": {
-    "total": 546,
+    "total": 542,
     "instance": 101,
     "replaceable": 0,
-    "bespoke": 1,
+    "bespoke": 3,
     "blocked": 6,
-    "missing": 22,
-    "structural": 416,
+    "missing": 18,
+    "structural": 414,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 77.7,
+    "instanceOverCandidates": 78.9,
     "target": 101,
-    "candidates": 130
+    "candidates": 128
   },
   "byInstanceSet": {
     "Product/Gnb Desktop Shell": 18,
@@ -43,19 +43,19 @@
   },
   "byComponent": {},
   "bespokeByComponent": {
+    "Avatar/lg": 2,
     "Button/md": 1
   },
   "bespokeByIcon": {},
   "structuralByKind": {
     "surface": 146,
-    "frame": 173,
+    "frame": 171,
     "image": 2,
     "text": 95
   },
   "missingByCandidateClause": {
     "a-interactive": 16,
-    "c-painted-mark": 4,
-    "b-vector": 2
+    "c-painted-mark": 2
   },
   "matchRules": [
     {
@@ -123,7 +123,8 @@
       "component": "Avatar",
       "sizes": [
         "sm",
-        "md"
+        "md",
+        "lg"
       ],
       "keys": [
         "height",
@@ -764,13 +765,13 @@
         "figma/app-screens.settings.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 60,
+        "total": 58,
         "instance": 9,
         "replaceable": 0,
-        "bespoke": 1,
+        "bespoke": 2,
         "blocked": 2,
-        "missing": 2,
-        "structural": 46,
+        "missing": 0,
+        "structural": 45,
         "unclassified": 0
       }
     },
@@ -783,13 +784,13 @@
         "figma/app-screens.settings.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 55,
+        "total": 53,
         "instance": 7,
         "replaceable": 0,
-        "bespoke": 0,
+        "bespoke": 1,
         "blocked": 2,
-        "missing": 2,
-        "structural": 44,
+        "missing": 0,
+        "structural": 43,
         "unclassified": 0
       }
     },
@@ -4848,34 +4849,13 @@
         40,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.1.1.0.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        31.19,
-        31.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@desktop-1920x1080#0.0.1.0.1.1.0.0.0.0": {
-      "board": "figma/app-screens.settings.desktop.00.draw.js",
-      "tag": "svg",
-      "rect": [
-        31.19,
-        31.19
-      ],
-      "verdict": "missing",
-      "rule": "glyph-missing",
-      "candidateClause": "b-vector",
-      "glyph": "user-circle-fill",
-      "reason": "프로필 사진이 없을 때 나오는 아바타 대체 글리프 — 채워진 원 안의 사람 실루엣이다(선이 아니라 면으로 그려진 유일한 글리프다). LOUIS 31종에 사람 그림은 `user-sound` 하나뿐이고 그것은 사람 옆에 소리 파형이 붙은 다른 아이콘이다. 감싸는 원은 `Avatar` 컴포넌트가 이미 소유하므로, 세워야 할 것은 그 안에 들어갈 대체 글리프다."
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "avatar-settings",
+      "reason": "Avatar/lg 기하를 재는 probe 는 `avatar-settings` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 `gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
+      "component": "Avatar",
+      "size": "lg",
+      "candidateClause": "c-painted-mark"
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.1.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
@@ -5518,34 +5498,13 @@
         40,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/settings@mobile-402x874#0.0.0.1.1.0.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        31.19,
-        31.19
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/settings@mobile-402x874#0.0.0.1.1.0.0.0.0": {
-      "board": "figma/app-screens.settings.mobile.00.draw.js",
-      "tag": "svg",
-      "rect": [
-        31.19,
-        31.19
-      ],
-      "verdict": "missing",
-      "rule": "glyph-missing",
-      "candidateClause": "b-vector",
-      "glyph": "user-circle-fill",
-      "reason": "프로필 사진이 없을 때 나오는 아바타 대체 글리프 — 채워진 원 안의 사람 실루엣이다(선이 아니라 면으로 그려진 유일한 글리프다). LOUIS 31종에 사람 그림은 `user-sound` 하나뿐이고 그것은 사람 옆에 소리 파형이 붙은 다른 아이콘이다. 감싸는 원은 `Avatar` 컴포넌트가 이미 소유하므로, 세워야 할 것은 그 안에 들어갈 대체 글리프다."
+      "verdict": "bespoke",
+      "rule": "primitive-site-excluded",
+      "probe": "avatar-settings",
+      "reason": "Avatar/lg 기하를 재는 probe 는 `avatar-settings` 이고 정본 자리 목록에 없다. 출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 `gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
+      "component": "Avatar",
+      "size": "lg",
+      "candidateClause": "c-painted-mark"
     },
     "/settings@mobile-402x874#0.0.0.1.1.0.1": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",

@@ -39,7 +39,7 @@ function tokenValue(id: string, property: "background-color" | "color"): string 
   return value;
 }
 
-const SIZES: readonly AvatarSize[] = ["md", "sm"];
+const SIZES: readonly AvatarSize[] = ["lg", "md", "sm"];
 
 for (const size of SIZES) {
   const spec = measured.components.avatar.sizes[size];

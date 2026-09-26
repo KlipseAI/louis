@@ -594,7 +594,8 @@ const reconcileMenuRow = async (variant, row, spec) => {
     return node;
   };
   const keep = [placeChild("INSTANCE", "icon", 0), placeChild("TEXT", "label", 1)];
-  if (spec.kind === "highlight") keep.push(placeChild("FRAME", "spacer", 2), placeChild("FRAME", "badge/BETA", 3));
+  // 딱지는 라벨 바로 뒤다(제품 658ece13) — 옛 spacer 는 keep 에 넣지 않아 아래에서 retired/ 로 숨는다.
+  if (spec.kind === "highlight") keep.push(placeChild("FRAME", "badge/BETA", 2));
   if (lifted) {
     const gap = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
     const variable = V[`spacing${gap}`];
@@ -713,12 +714,7 @@ for (const spec of P.rows) {
   row.appendChild(makeIcon(spec.icon, spec.icon.paint));
   row.appendChild(makeText(spec.label, spec.label.paint));
   if (spec.kind === "highlight") {
-    const spacer = figma.createFrame();
-    spacer.name = "spacer";
-    spacer.resize(1, 1);
-    spacer.fills = [];
-    spacer.layoutGrow = 1;
-    row.appendChild(spacer);
+    // 딱지는 라벨 바로 뒤다(제품 658ece13) — 행 끝으로 밀던 spacer 는 짓지 않는다. 간격은 행 간격(10)이라 제품(8)보다 2 넓다.
     const badge = figma.createFrame();
     badge.name = "badge/BETA";
     badge.layoutMode = "HORIZONTAL";

@@ -13,14 +13,14 @@
   "filesScanned": 311,
   "counts": {
     "total": 472,
-    "mapped": 59,
+    "mapped": 60,
     "scoped": 248,
-    "needed": 164,
+    "needed": 163,
     "unclear": 1,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 76,
+    "primitive": 75,
     "screen": 64,
     "oneoff": 23,
     "unclear": 1,
@@ -2036,12 +2036,12 @@
       "file": "apps/web/components/navigation/Gnb.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "네 갈래 별 하나(채움) + 작은 획 넷(선)의 스파클인데 DS·Icons 42종에 sparkle/star 계열이 없다. 실제로 path 를 대조했다 — 이 글리프의 두 d 문자열은 HighlightProjectScene.tsx:508,512 의 GenerateSparkleGlyph 와 «바이트 동일»하고 viewBox 도 32 로 같으며 작은 획 넷은 \"M22 2V8M28 9V13M19 5H25M26 11H30\" · strokeWidth 2 까지 같다. 다른 것은 표시 크기(20 vs 18)와 칠뿐이다: 여기서는 세로 그라디언트(userSpaceOnUse, primary-500 → gray-000)를 fill·stroke 에 같은 좌표계로 건다. 42종 중 어느 것도 이 실루엣이 아니다(check-circle·x-circle·plus 전부 다른 형태다). 그래서 GlobeIcon·ThemeDarkIcon 판례(세트에 없으면 needed)를 그대로 따른다 — 승급 대상은 currentColor 단색 글리프 한 장이고, 그라디언트는 이 자리의 칠이라 아이콘 자산이 지고 갈 것이 아니다. 소비처가 둘(GNB 플랜 배지 · 하이라이트 생성 버튼)이고 외곽선 판(node-canvas SparkleIcon)까지 셋이라 한 정본으로 접히는 자리다. 형제 GenerateSparkleGlyph 가 옛 어휘(「아이콘 축이라 51 컴포넌트에 대응 불필요」)로 scoped 인 것은 이 판정과 어긋나므로 같은 회차에 함께 뒤집는 것이 맞다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "아이콘 축. 글리프는 라우트 수와 무관하게 DS·Icons 축의 대상이다(KeyEnterGlyph·CloudArrowUpSvg 판례). 실측으로 42종 사전에 같은 그림이 없어 그 세트에 올려야 하는 자리다 — 컴포넌트 51종이 아니라 아이콘 세트로 센다."
+      "verdict": "figma",
+      "figma": "Product/Glyph",
+      "reason": "Figma 제품 세트 `Product/Glyph` 의 `Name=Plan Sparkle` 가 이 표면을 통째로 그린다 — 생성기 build-figma-product-glyphs 가 제품 앵커 2c6bdacf 의 인라인 <svg>(apps/web/components/navigation/Gnb.tsx:2218)를 기계로 옮겼다(svg sha256 b4bef0c93c07). DS-D-0071: 제품 세트 대응이지 LOUIS 아이콘이 아니다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/navigation/InfoCircleIcon.tsx#InfoCircleIcon": {
       "file": "apps/web/components/navigation/InfoCircleIcon.tsx",

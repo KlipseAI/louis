@@ -116,11 +116,110 @@
           "width": 216,
           "height": 212
         }
+      },
+      {
+        "route": "/mypage/upgrade/bulk-success",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/bulk-fail",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/subscription/coupons",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/billing-success?preview=success",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/billing-success?preview=partial",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/billing-change-success?preview=success",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/topup/success?preview=success",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/bulk-success?preview=success",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
+      },
+      {
+        "route": "/mypage/upgrade/bulk-success?preview=issue-error",
+        "path": "body.1.0.0.0.0.1",
+        "tag": "div",
+        "rect": {
+          "x": 12,
+          "y": 60,
+          "width": 216,
+          "height": 212
+        }
       }
     ],
-    "routeCount": 10,
-    "occurrenceCount": 10,
-    "score": 410
+    "routeCount": 19,
+    "occurrenceCount": 19,
+    "score": 779
   },
   "component": {
     "id": "product/gnb-sidebar-menu",
@@ -780,11 +879,88 @@
                 "width": 240,
                 "height": 1080
               }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-fail",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/subscription/coupons",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-change-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/topup/success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=issue-error",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
             }
           ],
-          "routeCount": 6,
-          "occurrenceCount": 6,
-          "score": 318
+          "routeCount": 13,
+          "occurrenceCount": 13,
+          "score": 689
         },
         {
           "id": "subtree-31a49ffcdd32",
@@ -833,11 +1009,33 @@
                 "width": 240,
                 "height": 1080
               }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=partial",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
             }
           ],
-          "routeCount": 4,
-          "occurrenceCount": 4,
-          "score": 212
+          "routeCount": 6,
+          "occurrenceCount": 6,
+          "score": 318
         }
       ],
       "variants": [
@@ -1121,6 +1319,105 @@
               }
             },
             {
+              "route": "/mypage/upgrade/bulk-success",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-fail",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/subscription/coupons",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=success",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=partial",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-change-success?preview=success",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/topup/success?preview=success",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=success",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=issue-error",
+              "path": "body.1.0.0.0.0.0",
+              "tag": "div",
+              "rect": {
+                "x": 12,
+                "y": 8,
+                "width": 216,
+                "height": 40
+              }
+            },
+            {
               "route": "/highlight/[projectId]?__phase=loading",
               "path": "body.1.0.0.0.0.0",
               "tag": "div",
@@ -1187,9 +1484,9 @@
               }
             }
           ],
-          "routeCount": 18,
-          "occurrenceCount": 18,
-          "score": 108
+          "routeCount": 27,
+          "occurrenceCount": 27,
+          "score": 162
         },
         {
           "id": "subtree-aa1c1412d5c4",
@@ -1260,11 +1557,88 @@
                 "width": 240,
                 "height": 1080
               }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-fail",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/subscription/coupons",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-change-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/topup/success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/bulk-success?preview=issue-error",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
             }
           ],
-          "routeCount": 6,
-          "occurrenceCount": 6,
-          "score": 318
+          "routeCount": 13,
+          "occurrenceCount": 13,
+          "score": 689
         },
         {
           "id": "subtree-31a49ffcdd32",
@@ -1313,11 +1687,33 @@
                 "width": 240,
                 "height": 1080
               }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=success",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
+            },
+            {
+              "route": "/mypage/upgrade/billing-success?preview=partial",
+              "path": "body.1.0.0.0",
+              "tag": "header",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 240,
+                "height": 1080
+              }
             }
           ],
-          "routeCount": 4,
-          "occurrenceCount": 4,
-          "score": 212
+          "routeCount": 6,
+          "occurrenceCount": 6,
+          "score": 318
         }
       ],
       "root": {

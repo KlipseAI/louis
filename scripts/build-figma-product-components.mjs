@@ -249,10 +249,13 @@ const betaStyle = style(betaNode);
    레일 패딩 12 × 2)이 됐고, `2c6bdacf` 가 「분석」 아이브로우 행(`<li role="presentation">` + `<span>`)을 걷어 두 노드와 한 행
    (34 + 간격 4)이 빠졌다. `/settings` 서브트리를 path 로 견주면 옛 `….1.0.5`(li) · `….1.0.5.0`(span 「Analytics」)이 사라지고
    YouTube 분석 행이 `….1.0.6` 에서 `….1.0.5` 로 한 칸 당겨졌을 뿐 다른 노드는 더해지지도 사라지지도 않았다. */
+/* 2026-09-26: id · nodeCount 41 은 그대로이고 **걸친 라우트 수만** 10 → 19 로 늘었다 — 인증 fixture 에 데스크톱 사이드바를 쓰는
+   화면이 늘어서다(같은 앵커 2c6bdacf). 보드 없던 실제 화면 셋(bulk-success · bulk-fail · coupons)이 10 → 13, 결제 성공 화면 넷의
+   `?preview=` 상태 여섯이 13 → 19. 앱 셸 생성기의 상단 바 후보 가드와 같은 사유다. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
   (entry) => entry.id === "subtree-9c4c0327c2b0",
 );
-if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 10) {
+if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 19) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
 }
 
@@ -306,13 +309,15 @@ if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 10) {
 const headerCandidates = ["subtree-aa1c1412d5c4", "subtree-31a49ffcdd32"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
+// 2026-09-26: 사이드바 가드와 같은 사유로 걸친 라우트 수만 늘었다 — Current=Default 헤더 6 → 13(bulk 둘 · coupons ·
+// 미리보기 넷), Current=Upgrade 헤더 4 → 6(billing-success 미리보기 둘). id · nodeCount 53 은 그대로다.
 if (
   !headerCandidates[0] ||
   headerCandidates[0].nodeCount !== 53 ||
-  headerCandidates[0].routeCount !== 6 ||
+  headerCandidates[0].routeCount !== 13 ||
   !headerCandidates[1] ||
   headerCandidates[1].nodeCount !== 53 ||
-  headerCandidates[1].routeCount !== 4
+  headerCandidates[1].routeCount !== 6
 ) {
   fail("measured Gnb header variant candidates changed; inspect before regenerating Figma");
 }
@@ -394,7 +399,8 @@ const upgradeSpec = (route, state) => {
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
   (entry) => entry.id === "subtree-62c4e4642ab9",
 );
-if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 18) {
+// 2026-09-26: 걸친 라우트 수만 18 → 27(인증 fixture 에 bulk · coupons 셋과 결제 성공 미리보기 여섯이 들어와서). id · 6 노드는 그대로다.
+if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 27) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
 }
 const navNode = node("/settings", `${headerPath}.0`);

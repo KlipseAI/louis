@@ -210,8 +210,11 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/mypage/upgrade/bulk-fail": "/subscription", // bulk-fail/page.tsx:57
   "/subscription/coupons": "/subscription", // components/scenes/PurchasedCouponsScene.tsx:483
 });
-const currentPathOf = (route) =>
-  PRODUCT_CURRENT_PATH[route] ?? (route.startsWith("/highlight/") ? "/highlight" : null);
+// 화면 키에 개발용 후크 쿼리(`?__phase=` · `?preview=`)가 붙어도 GNB 는 같은 페이지의 것이다 — 쿼리를 떼고 찾는다.
+const currentPathOf = (route) => {
+  const page = route.split("?")[0];
+  return PRODUCT_CURRENT_PATH[page] ?? (page.startsWith("/highlight/") ? "/highlight" : null);
+};
 
 /** 사이드바 variant → 그 variant 를 잰 출처 route(components plan). 생성기의 서명 가드가 쓴다. */
 export const SIDEBAR_VARIANT_SOURCES = Object.freeze(Object.fromEntries(

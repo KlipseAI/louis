@@ -58,9 +58,11 @@ const colorToHex = (color) => {
   return `${channelHex(color.r)}${channelHex(color.g)}${channelHex(color.b)}${alpha}`;
 };
 const variableByHex = new Map();
-// 획은 값이 같은 변수 가운데 **획 역할(`color/stroke-*`) 변수를 먼저** 고른다(2026-09-26). 헤어라인 #171B22 12% 는 값이 같은 변수가
-// 여럿이고 컬렉션 순서상 첫째가 `color/accent-secondary-hover` 라, 역할을 보지 않으면 선이 눌림 면 변수에 묶인다.
+// 획은 값이 같은 변수 가운데 **획 역할(`color/stroke-*`) 변수를 먼저** 고르고, 그중에서도 `color/stroke-hairline` 을 맨 먼저 고른다
+// (2026-09-26). 헤어라인 #171B22 12% 는 값이 같은 변수가 여럿이다 — 컬렉션 순서상 첫째가 `color/accent-secondary-hover` 이고,
+// 획 역할 중에서도 `color/stroke-control` 이 먼저다. LOUIS 는 헤어라인을 `--louis-color-stroke-hairline` 으로 정의한다(base.css).
 const strokeVariableByHex = new Map();
+const strokeRank = (name) => (name === "color/stroke-hairline" ? 0 : 1);
 for (const name of P.colour.collections) {
   const collection = live.collections.find((entry) => entry.name === name);
   if (!collection) throw new Error(`변수 컬렉션을 찾지 못했습니다: ${name}`);
@@ -69,7 +71,10 @@ for (const name of P.colour.collections) {
     if (!variable || variable.resolvedType !== "COLOR") continue;
     const hex = colorToHex(live.resolve(variable));
     if (hex && !variableByHex.has(hex)) variableByHex.set(hex, variable);
-    if (hex && variable.name.startsWith("color/stroke-") && !strokeVariableByHex.has(hex)) strokeVariableByHex.set(hex, variable);
+    if (hex && variable.name.startsWith("color/stroke-")) {
+      const held = strokeVariableByHex.get(hex);
+      if (!held || strokeRank(variable.name) < strokeRank(held.name)) strokeVariableByHex.set(hex, variable);
+    }
   }
 }
 

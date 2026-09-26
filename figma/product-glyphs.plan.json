@@ -1,0 +1,570 @@
+{
+  "$comment": "생성물. scripts/build-figma-product-glyphs.mjs 가 제품 앵커의 인라인 <svg> 를 옮겨 만든다. 직접 수정하지 않는다.",
+  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "page": "240:3529",
+  "sectionName": "O · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+  "ink": {
+    "collection": "Klipse Semantic Color",
+    "name": "color/gray/000"
+  },
+  "sets": [
+    {
+      "setName": "Product/Save Cloud Glyph",
+      "axis": "State",
+      "about": "프로젝트 저장 상태 글리프(ProjectSaveCloudGlyph). 소비처 다섯(Gnb · CreateScene · ProjectHeader · VideoEditModal · …)이 같은 셋을 쓴다. 저장 중은 Idle 과 같은 그림에 애니메이션 클래스를 더하고, 오프라인은 Failed 와 같은 그림이다.",
+      "variants": [
+        {
+          "value": "Idle",
+          "surface": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudArrowUpSvg",
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M13.9992 26H8.99918C8.00663 25.9988 7.02568 25.7865 6.12144 25.3772C5.2172 24.9679 4.41033 24.3711 3.75437 23.6262C3.09841 22.8813 2.60837 22.0054 2.31675 21.0566C2.02514 20.1079 1.93862 19.108 2.06294 18.1232C2.18726 17.1385 2.51957 16.1915 3.03783 15.345C3.55609 14.4985 4.24845 13.7718 5.06896 13.2133C5.88946 12.6548 6.81936 12.2772 7.79695 12.1055C8.77454 11.9338 9.77746 11.972 10.7392 12.2175\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M15 20L19 16L23 20\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M19 26V16\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M10 16C10.0004 14.1972 10.4882 12.428 11.4117 10.8797C12.3352 9.33142 13.6601 8.06157 15.2461 7.20455C16.8322 6.34752 18.6205 5.9352 20.4216 6.01121C22.2228 6.08723 23.97 6.64875 25.4782 7.63636C26.9864 8.62398 28.1996 10.0009 28.9894 11.6215C29.7791 13.2421 30.1161 15.0461 29.9646 16.8425C29.8132 18.639 29.1789 20.361 28.1289 21.8265C27.0789 23.292 25.6523 24.4464 24 25.1675\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "48d92df4b9fc3156a70b241b938eed2a95ff71a21b3b685685471d78f68a05a2",
+          "size": [
+            32,
+            32
+          ],
+          "shown": {
+            "width": null,
+            "height": null
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "line": 51,
+            "quote": "    <svg"
+          }
+        },
+        {
+          "value": "Saved",
+          "surface": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudCheckSvg",
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9.99918 16C9.99918 14.0222 10.5857 12.0888 11.6845 10.4443C12.7833 8.79981 14.3451 7.51809 16.1723 6.76121C17.9996 6.00433 20.0103 5.8063 21.9501 6.19215C23.8899 6.578 25.6717 7.53041 27.0702 8.92894C28.4688 10.3275 29.4212 12.1093 29.807 14.0491C30.1929 15.9889 29.9949 17.9996 29.238 19.8268C28.4811 21.6541 27.1994 23.2159 25.5549 24.3147C23.9104 25.4135 21.977 26 19.9992 26H8.99918C8.00663 25.9988 7.02568 25.7865 6.12144 25.3772C5.2172 24.968 4.41033 24.3711 3.75437 23.6262C3.09841 22.8813 2.60837 22.0054 2.31675 21.0566C2.02514 20.1079 1.93862 19.108 2.06294 18.1232C2.18726 17.1385 2.51957 16.1915 3.03783 15.345C3.55609 14.4985 4.24845 13.7719 5.06896 13.2134C5.88946 12.6549 6.81936 12.2772 7.79695 12.1055C8.77454 11.9338 9.77746 11.972 10.7392 12.2175\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M15 17L18 20L24 14\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "c03a40adb940ae68ca82d8ec4f188cf812c08b5246b976a955ec626087fe25a6",
+          "size": [
+            32,
+            32
+          ],
+          "shown": {
+            "width": null,
+            "height": null
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "line": 24,
+            "quote": "    <svg"
+          }
+        },
+        {
+          "value": "Failed",
+          "surface": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx#CloudWarningSvg",
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9.99918 16C9.99918 14.0222 10.5857 12.0888 11.6845 10.4443C12.7833 8.79981 14.3451 7.51809 16.1723 6.76121C17.9996 6.00433 20.0103 5.8063 21.9501 6.19215C23.8899 6.578 25.6717 7.53041 27.0702 8.92894C28.4688 10.3275 29.4212 12.1093 29.807 14.0491C30.1929 15.9889 29.9949 17.9996 29.238 19.8268C28.4811 21.6541 27.1994 23.2159 25.5549 24.3147C23.9104 25.4135 21.977 26 19.9992 26H8.99918C8.00663 25.9988 7.02568 25.7865 6.12144 25.3772C5.2172 24.968 4.41033 24.3711 3.75437 23.6262C3.09841 22.8813 2.60837 22.0054 2.31675 21.0566C2.02514 20.1079 1.93862 19.108 2.06294 18.1232C2.18726 17.1385 2.51957 16.1915 3.03783 15.345C3.55609 14.4985 4.24845 13.7719 5.06896 13.2134C5.88946 12.6549 6.81936 12.2772 7.79695 12.1055C8.77454 11.9338 9.77746 11.972 10.7392 12.2175\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M20 16V11\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M20 22C20.8284 22 21.5 21.3284 21.5 20.5C21.5 19.6716 20.8284 19 20 19C19.1716 19 18.5 19.6716 18.5 20.5C18.5 21.3284 19.1716 22 20 22Z\" fill=\"#000000\"/></svg>",
+          "sha256": "1af4e96aa643a5443d7482910715d43b3432545081ba60cd4079cd411d50b9b5",
+          "size": [
+            32,
+            32
+          ],
+          "shown": {
+            "width": null,
+            "height": null
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "line": 92,
+            "quote": "    <svg"
+          }
+        }
+      ]
+    },
+    {
+      "setName": "Product/Theme Glyph",
+      "axis": "Theme",
+      "about": "테마 선택 글리프 셋(ThemeIcons). 앱 GNB 프로필 팝오버와 랜딩 ThemeSelector 가 쓴다. 획 굵기는 호출부가 정한다 — 원본의 기본값(1, 팝오버)으로 그렸고 랜딩은 1.5 로 덮는다.",
+      "variants": [
+        {
+          "value": "System",
+          "surface": "apps/web/components/theme/ThemeIcons.tsx#ThemeSystemIcon",
+          "svg": "<svg width=\"14\" height=\"14\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M2.625 10.5L11.375 10.5C11.8582 10.5 12.25 10.1082 12.25 9.625V3.5C12.25 3.01675 11.8582 2.625 11.375 2.625L2.625 2.625C2.14175 2.625 1.75 3.01675 1.75 3.5V9.625C1.75 10.1082 2.14175 10.5 2.625 10.5Z\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8.75 12.25H5.25\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M1.75 8.3125H12.25\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7 10.5V12.25\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "c24d456c9c83f5c5f62091ef2301cb342626a0ee63ab3274cddb228537176bb6",
+          "size": [
+            14,
+            14
+          ],
+          "shown": {
+            "width": "14",
+            "height": "14"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "path": "apps/web/components/theme/ThemeIcons.tsx",
+            "line": 20,
+            "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
+          }
+        },
+        {
+          "value": "Light",
+          "surface": "apps/web/components/theme/ThemeIcons.tsx#ThemeLightIcon",
+          "svg": "<svg width=\"14\" height=\"14\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M7 2.1875V0.875\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7 10.0625C8.69137 10.0625 10.0625 8.69137 10.0625 7C10.0625 5.30863 8.69137 3.9375 7 3.9375C5.30863 3.9375 3.9375 5.30863 3.9375 7C3.9375 8.69137 5.30863 10.0625 7 10.0625Z\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M3.5 3.5L2.625 2.625\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M3.5 10.5L2.625 11.375\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M10.5 3.5L11.375 2.625\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M10.5 10.5L11.375 11.375\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M2.1875 7H0.875\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7 11.8125V13.125\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.8125 7H13.125\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "a5b76dd207b17f6edfce71ec8656847a1c91c454c4e91a151d762f7e96fb4081",
+          "size": [
+            14,
+            14
+          ],
+          "shown": {
+            "width": "14",
+            "height": "14"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "path": "apps/web/components/theme/ThemeIcons.tsx",
+            "line": 34,
+            "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
+          }
+        },
+        {
+          "value": "Dark",
+          "surface": "apps/web/components/theme/ThemeIcons.tsx#ThemeDarkIcon",
+          "svg": "<svg width=\"14\" height=\"14\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M5.9123 1.53613C5.63727 2.44617 5.61426 3.41377 5.84573 4.33585C6.0772 5.25793 6.55448 6.09994 7.22672 6.77218C7.89896 7.44442 8.74097 7.9217 9.66305 8.15317C10.5851 8.38464 11.5527 8.36164 12.4628 8.0866C12.1989 8.95405 11.715 9.73839 11.058 10.3632C10.401 10.9881 9.59333 11.4321 8.71374 11.6521C7.83415 11.8721 6.91258 11.8605 6.03878 11.6185C5.16499 11.3766 4.36875 10.9124 3.72763 10.2713C3.08651 9.63015 2.62235 8.83392 2.38037 7.96012C2.13839 7.08633 2.12683 6.16475 2.34681 5.28516C2.5668 4.40557 3.01084 3.59795 3.63568 2.94094C4.26051 2.28394 5.04485 1.79996 5.9123 1.53613Z\" stroke=\"#000000\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "92ec65de7a89f3e1f987db2df0a30206e706c2783a9e2a68bd8643f4ecae1408",
+          "size": [
+            14,
+            14
+          ],
+          "shown": {
+            "width": "14",
+            "height": "14"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "path": "apps/web/components/theme/ThemeIcons.tsx",
+            "line": 53,
+            "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
+          }
+        }
+      ]
+    },
+    {
+      "setName": "Product/Glyph",
+      "axis": "Name",
+      "about": "한 자리씩 쓰이는 제품 인라인 글리프. 각 variant 가 원본 표면 하나다.",
+      "variants": [
+        {
+          "value": "Globe",
+          "surface": "apps/web/components/ui/GlobeIcon.tsx#GlobeIcon",
+          "svg": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#000000\" stroke-width=\"1.5\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18\" stroke-linecap=\"round\"/><ellipse cx=\"12\" cy=\"12\" rx=\"3.5\" ry=\"9\"/></svg>",
+          "sha256": "3944113fd56801e57cacc5aa1eae0669a19773de47b0f26e12bd7149e3a5974c",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": null,
+            "height": null
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/ui/GlobeIcon.tsx",
+            "path": "apps/web/components/ui/GlobeIcon.tsx",
+            "line": 11,
+            "quote": "    <svg"
+          },
+          "callSite": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/creative-media/CreativeMediaClient.tsx",
+            "path": "apps/web/components/creative-media/CreativeMediaClient.tsx",
+            "line": 269,
+            "quote": "          <GlobeIcon className=\"h-10 w-10 [stroke:currentColor] [stroke-width:1.5]\" />"
+          },
+          "attrs": {
+            "stroke": "currentColor",
+            "stroke-width": "1.5"
+          }
+        },
+        {
+          "value": "Key Enter",
+          "surface": "apps/web/components/navigation/CommandPalette.tsx#KeyEnterGlyph",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><g stroke=\"#000000\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6v6a3 3 0 0 1-3 3H5\"/><path d=\"m9 11-4 4 4 4\"/></g></svg>",
+          "sha256": "e31b8487d01df29c654e27cc9fded58e98f2ea266ca3ba8c49005f74a4a949b8",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "12",
+            "height": "12"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/CommandPalette.tsx",
+            "path": "apps/web/components/navigation/CommandPalette.tsx",
+            "line": 921,
+            "quote": "    <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden>"
+          }
+        },
+        {
+          "value": "Pipeline Arrow",
+          "surface": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#PipelineArrow",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M5 12H19M19 12L13 6M19 12L13 18\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "a162d42b2945ae35804ab75d3a544a973457b87a56970c52963a3e8feaa39188",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "24",
+            "height": "24"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+            "path": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+            "line": 121,
+            "quote": "    <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" className={GUIDE_PIPELINE_ARROW}>"
+          }
+        },
+        {
+          "value": "Project Videos",
+          "surface": "apps/web/components/scenes/create/ProjectHeader.tsx#ProjectVideosIcon",
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"6\" y=\"9\" width=\"20\" height=\"14\" rx=\"2.5\" stroke=\"#000000\" stroke-width=\"2\" stroke-linejoin=\"round\"/><path d=\"M14 13.5v5l4.5-2.5L14 13.5z\" fill=\"#000000\"/><path d=\"M9 6h14\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M11 26h10\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>",
+          "sha256": "e9d6dc080bfb98bfae1ec46e0b433afcb47d58b9627753caf1668bf70a00e149",
+          "size": [
+            32,
+            32
+          ],
+          "shown": {
+            "width": null,
+            "height": null
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/ProjectHeader.tsx",
+            "path": "apps/web/components/scenes/create/ProjectHeader.tsx",
+            "line": 640,
+            "quote": "    <svg"
+          }
+        },
+        {
+          "value": "Minus",
+          "surface": "apps/web/components/scenes/create/node-canvas/primitives.tsx#MinusIcon",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M3.75 12H20.25\" stroke=\"#000000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "94a6ba04cee2b0dc2700ad7b5826942b40aef63338147ae266ca414abcb3a3fe",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "24",
+            "height": "24"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas/primitives.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
+            "line": 57,
+            "quote": "    <svg"
+          }
+        }
+      ]
+    },
+    {
+      "setName": "Product/Mobile Action Glyph",
+      "axis": "Name",
+      "about": "캔버스 비디오 편집 모바일 액션 바 글리프(mobileActionGlyphs). 24 viewBox · currentColor · 획 1.75 · 둥근 끝(래퍼 Glyph 의 기본값), 표시 크기 22.",
+      "variants": [
+        {
+          "value": "Edit",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphEdit",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/></svg>",
+          "sha256": "3905cbca3301d871e059cd60b05223172f6dac09b483375806fd3d72d8958c42",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 33,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Ratio",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphRatio",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3\"/></svg>",
+          "sha256": "81b1a2bd81c9d0501b90df3a7a437892549562fab65b28f1242366ec34a45678",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 63,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Split",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphSplit",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3v18\" stroke-dasharray=\"3 2\"/><rect x=\"3\" y=\"7\" width=\"6\" height=\"10\" rx=\"1\"/><rect x=\"15\" y=\"7\" width=\"6\" height=\"10\" rx=\"1\"/></svg>",
+          "sha256": "85e3b8a982085deaec1b791901f82e3d6fc4debef4ced549d2dfcbb87d6102da",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 69,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Speed",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphSpeed",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2a10 10 0 1 0 10 10\"/><path d=\"m16 8-4 4\"/><circle cx=\"12\" cy=\"12\" r=\"1.5\"/></svg>",
+          "sha256": "896191a256811c28daff228f468ac5a3459f9135c001a1252ac82123090394d4",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 77,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Volume",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphVolume",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 5 6 9H2v6h4l5 4V5Z\"/></svg>",
+          "sha256": "e9b3a560f979e8f6d43d0f367d95291194f6d2eeee3255cdd162025aa1b24e43",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 88,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Fade",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphFade",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 20h18\"/><path d=\"M3 17c6 0 10-3 13-13\"/></svg>",
+          "sha256": "f0da5884dc4ae55717921f578a9a975708095301662a84611a6675b9bb6d014e",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 99,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Motion",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphMotion",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><rect x=\"8\" y=\"9\" width=\"8\" height=\"6\" rx=\"1\"/><path d=\"M3 5l5 4M21 5l-5 4M3 19l5-4M21 19l-5-4\"/></svg>",
+          "sha256": "fcb148b41984d46f45fdfc6c28ba17269d33fccb5732c1bec804d0bfa16ecfb9",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 106,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Style",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphStyle",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 18 8.5 5l5.5 13M5 14h7\"/><path d=\"M20 12v6M20 15a2.5 2.5 0 1 0-2.5 2.5\"/></svg>",
+          "sha256": "2277dcc21df11e83e58bdb9b3b28383f0e82e2037fa1b681abefc620cec14ea8",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 114,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Sparkle",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphSparkle",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6\"/></svg>",
+          "sha256": "113c24f747fa83b70479845e85b5a2f56ff18cba02cf767febecc5bce5355292",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 121,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "List",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphList",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 6h13M8 12h13M8 18h13\"/><circle cx=\"4\" cy=\"6\" r=\"1\"/><circle cx=\"4\" cy=\"12\" r=\"1\"/><circle cx=\"4\" cy=\"18\" r=\"1\"/></svg>",
+          "sha256": "dd061933ecf3d8f75d890952d6b80c43348bc9a205d02e61963e7d91ee7ddd85",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 127,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Transition",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphTransition",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"6\" width=\"9\" height=\"12\" rx=\"1.5\"/><rect x=\"13\" y=\"6\" width=\"9\" height=\"12\" rx=\"1.5\"/><path d=\"M9 12h6m-2-2 2 2-2 2\"/></svg>",
+          "sha256": "ade766bb357f9fc45abe9552bdbbbf9b7fd8eeddb7c03eeaf1852e5cf6d037a6",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 149,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Adjust",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphAdjust",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0\"/><circle cx=\"16\" cy=\"6\" r=\"2\"/><circle cx=\"10\" cy=\"12\" r=\"2\"/><circle cx=\"18\" cy=\"18\" r=\"2\"/></svg>",
+          "sha256": "7613399fd1ed4b37b9d486a6cc47c382b7039167422cd9f9d6962d71217d72e8",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 157,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Lock",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphLock",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"11\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 11V7a4 4 0 0 1 8 0v4\"/></svg>",
+          "sha256": "eddb7a5d406a58f2c434bb46e6506a7b1fd15ffc974fe68d72560508fe424961",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 173,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Undo",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphUndo",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 14 4 9l5-5\"/><path d=\"M4 9h10a6 6 0 0 1 0 12h-3\"/></svg>",
+          "sha256": "b9d3a3b06b8a289302e273188ced86193a9c5e28f27018dd39ebc17c924d8ac4",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 180,
+            "quote": "  <Glyph {...p}>"
+          }
+        },
+        {
+          "value": "Redo",
+          "surface": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx#GlyphRedo",
+          "svg": "<svg width=\"24\" height=\"24\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#000000\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m15 14 5-5-5-5\"/><path d=\"M20 9H10a6 6 0 0 0 0 12h3\"/></svg>",
+          "sha256": "16e2d96dd3341a3ee4d41c1c8ddf606a71ad0c1a3b0cec5816275dff709a1d66",
+          "size": [
+            24,
+            24
+          ],
+          "shown": {
+            "width": "22",
+            "height": "22"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "line": 186,
+            "quote": "  <Glyph {...p}>"
+          }
+        }
+      ]
+    }
+  ]
+}

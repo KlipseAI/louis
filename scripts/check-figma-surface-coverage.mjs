@@ -70,7 +70,7 @@
 // 판정하고 64건만 반증해 상한이 불명확한 수를 남겼다. 여기서는 입자도 규칙과 열거기와
 // 래칫만 세우고, 초기 baseline 은 실측값으로 얼렸다. 다음 사람이 할 일은
 // `needed` 를 줄이는 것 하나뿐이다.
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -108,10 +108,19 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 30 → 31 · 27 → 28. **이득이다.** `app/admin/AdminSection.tsx#AdminSelect` 가
 // `.louis-select-trigger` 를 그대로 무는 것이 실측으로 확인돼 Figma SelectTrigger 로 이었다.
 // 사유 없는 표면 35 를 판정하며 드러난 한 건이다(나머지 34 는 scoped 12 · needed 22).
-const MAPPED_BASELINE = 31;
+// 2026-09-26: 31 → 33 — 제품 세트 대응 둘(DS-D-0071): Footer ← Product/Public Footer · PricingNotice ← Product/Pricing Notice.
+// 2026-09-26: 33 → 59 — 글리프 생성기(build-figma-product-glyphs)의 제품 세트 넷이 인라인 <svg> 표면 26 을 통째로 그린다
+// (Save Cloud 3 · Theme 3 · Glyph 5 · Mobile Action 15). 같은 날 「그릴 것이 없는」 칸 10(마크업 0 인 서버 껍데기 1 · 참조 0 인
+// 죽은 수출 9)을 needed 에서 scoped 로 옮겼다 — 대응 수와는 무관하고 needed 200 → 164 의 일부다.
+const MAPPED_BASELINE = 59;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 28;
+// **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
+// 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
+// 제품 세트 대응으로 바꿔치기해도 수가 유지된다.
+// 2026-09-26: 2 → 28 — 글리프 세트 넷이 표면 26 을 그린다(위 MAPPED_BASELINE 주석).
+const MAPPED_PRODUCT_BASELINE = 28;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이
@@ -160,6 +169,23 @@ const readback = readJson(READBACK);
 // 사람이 새로 적을 필드는 없다 — 그 정보는 이미 되읽기가 갖고 있다.
 const componentVocabulary = new Set(Object.keys(readback.components ?? {}));
 const patternVocabulary = new Set(Object.keys(readback.templates ?? {}));
+// 셋째 어휘 — 제품 세트(DS-D-0071). 정본은 제품 세트 생성기의 계획이 선언한 세트 이름이다. 그 계획은 제품 측정에서 생성되고
+// 세트 러너로 라이브에 적용되며 `check-figma-product-*` 가 계획과 러너를 잠근다. 되읽기(`DS · Components`)에는 없다 —
+// 제품 세트는 `90 · ASSETS` 에 산다.
+const productVocabulary = new Set();
+for (const file of readdirSync(resolve(repoRoot, "figma")).filter((name) => /^product-.+\.plan\.json$/.test(name))) {
+  const walk = (value, key) => {
+    if (typeof value === "string") {
+      if (/(^s|S)etName$/.test(key ?? "") && value.startsWith("Product/")) productVocabulary.add(value);
+      return;
+    }
+    if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) walk(v, k);
+  };
+  walk(readJson("figma/" + file));
+}
+if (productVocabulary.size === 0) {
+  errors.push("figma/product-*.plan.json 에서 제품 세트 이름을 하나도 읽지 못했습니다(DS-D-0071).");
+}
 if (componentVocabulary.size === 0) {
   errors.push(READBACK + " 에서 Figma 컴포넌트 이름을 하나도 읽지 못했습니다.");
 }
@@ -220,6 +246,7 @@ if (ids.length === 0) errors.push(LEDGER + " 에 표면이 하나도 없습니�
 let mapped = 0;
 let mappedComponent = 0;
 let mappedPattern = 0;
+let mappedProduct = 0;
 let scoped = 0;
 let needed = 0;
 let unclear = 0;
@@ -340,15 +367,18 @@ for (const id of ids) {
     const name = typeof surface.figma === "string" ? surface.figma : null;
     const isComponent = name !== null && componentVocabulary.has(name);
     const isPattern = name !== null && patternVocabulary.has(name);
-    if (!isComponent && !isPattern) {
+    const isProduct = name !== null && productVocabulary.has(name);
+    if (!isComponent && !isPattern && !isProduct) {
       errors.push(
-        at + ": figma 이름이 " + READBACK + " 의 components 51 에도 templates 9 에도 없습니다: " +
-          String(surface.figma) + ". 되읽기에 없는 이름은 「Figma 에 있다」의 근거가 되지 못합니다.",
+        at + ": figma 이름이 " + READBACK + " 의 components · templates 에도, 제품 세트 계획(figma/product-*.plan.json)에도 없습니다: " +
+          String(surface.figma) + ". 어디에도 없는 이름은 「Figma 에 있다」의 근거가 되지 못합니다.",
       );
     } else if (isComponent) {
       mappedComponent += 1;
-    } else {
+    } else if (isPattern) {
       mappedPattern += 1;
+    } else {
+      mappedProduct += 1;
     }
     mapped += 1;
     continue;
@@ -455,6 +485,22 @@ if (mappedComponent < MAPPED_COMPONENT_BASELINE) {
   );
 }
 
+// 제품 세트 대응도 따로 잠근다(DS-D-0071). 표면이 LOUIS 컴포넌트가 되어 `figma` 칸이 LOUIS 이름으로 옮겨 가면 여기서 하나
+// 줄고 컴포넌트 대응이 하나 는다 — 그 교환은 두 수를 함께 옮기는 것으로 드러난다.
+if (mappedProduct < MAPPED_PRODUCT_BASELINE) {
+  errors.push(
+    "제품 세트 대응이 " + (MAPPED_PRODUCT_BASELINE - mappedProduct) + "개 줄었습니다 " +
+      "(" + MAPPED_PRODUCT_BASELINE + " → " + mappedProduct + "). LOUIS 컴포넌트로 옮겨 간 것이면 컴포넌트 대응 기준과 함께 " +
+      "이 파일의 MAPPED_PRODUCT_BASELINE 을 내리고, 아니면 후퇴입니다.",
+  );
+} else if (mappedProduct > MAPPED_PRODUCT_BASELINE) {
+  errors.push(
+    "제품 세트 대응이 " + (mappedProduct - MAPPED_PRODUCT_BASELINE) + "개 늘었습니다 " +
+      "(" + MAPPED_PRODUCT_BASELINE + " → " + mappedProduct + "). 이 파일의 MAPPED_PRODUCT_BASELINE 을 " + mappedProduct +
+      " 로 올려 이득을 잠그세요.",
+  );
+}
+
 if (ids.length < TOTAL_FLOOR) {
   errors.push(
     "표면 총수가 바닥 아래로 내려갔습니다 (" + TOTAL_FLOOR + " → " + ids.length + "). " +
@@ -479,7 +525,7 @@ const percentComponentTarget =
   target > 0 ? ((mappedComponent / target) * 100).toFixed(1) : "0.0";
 console.log(
   "Figma 표면 커버리지: 표면 " + ids.length + "종 · 대응 " + mapped +
-    " = 컴포넌트 " + mappedComponent + " + 패턴 " + mappedPattern +
+    " = 컴포넌트 " + mappedComponent + " + 패턴 " + mappedPattern + " + 제품 세트 " + mappedProduct +
     " (전체 대비 " + percentAll + "% · 대상 대비 " + percentTarget + "% / 대상 " + target + ") · " +
     "범위 밖 " + scoped + " · 필요 " + needed +
     "(high " + neededByWeight.high + " · medium " + neededByWeight.medium +

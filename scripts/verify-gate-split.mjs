@@ -375,6 +375,8 @@ const KNOWN_PRODUCT_STEPS = [
   "check-figma-product-checkout-status",
   // upgrade 4개 plan card와 canonical/checkout-redirect desktop scene을 측정값으로 생성하는 게이트.
   "check-figma-product-upgrade-scene",
+  // 제품 앵커의 인라인 <svg> 글리프를 옮겨 Product/… 글리프 세트 plan/renderer 를 생성하는 드리프트 게이트(DS-D-0071).
+  "check-figma-product-glyphs",
   // public /pricing 전체 페이지의 측정 component set과 desktop/mobile full-page scene 생성 게이트.
   "check-figma-product-pricing-page",
   // 사이드바 확장/접힘 두 상태를 제품 fixture에서 재는 측정기.

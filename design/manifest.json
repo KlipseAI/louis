@@ -194,6 +194,15 @@
       "generated": false
     },
     {
+      "id": "decision-product-sets-count-as-coverage",
+      "path": "design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md",
+      "title": "DS-D-0071 제품 컴포넌트 세트도 표면 대응으로 센다 — LOUIS 대응과 나눠 찍는 조건으로",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1661,6 +1670,7 @@
         "design/governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md",
         "design/governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md",
         "design/governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md",
+        "design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

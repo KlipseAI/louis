@@ -130,7 +130,7 @@ const applyPaint = (node, spec) => {
   if (spec.b) {
     const [hex, top, right, bottom, left, hairline] = spec.b;
     node.strokes = [hexToPaint(hex, "stroke")];
-    node.strokeAlign = "INSIDE";
+    node.strokeAlign = hairline === 2 ? "OUTSIDE" : "INSIDE";
 
     if (top === right && right === bottom && bottom === left) {
       node.strokeWeight = Math.max(0, top);

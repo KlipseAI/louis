@@ -39263,23 +39263,23 @@
                                             "paint": {
                                               "fill": "fafafa",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "0088ff",
+                                                "widths": [
+                                                  1.5,
+                                                  1.5,
+                                                  1.5,
+                                                  1.5
+                                                ],
+                                                "outside": true
+                                              },
                                               "radius": [
                                                 16,
                                                 16,
                                                 16,
                                                 16
                                               ],
-                                              "shadow": [
-                                                {
-                                                  "inset": false,
-                                                  "color": "0088ff",
-                                                  "x": 0,
-                                                  "y": 0,
-                                                  "blur": 0,
-                                                  "spread": 1.5
-                                                }
-                                              ],
+                                              "shadow": null,
                                               "opacity": null
                                             },
                                             "typography": null,
@@ -43573,23 +43573,23 @@
                                         "paint": {
                                           "fill": "fafafa",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "0088ff",
+                                            "widths": [
+                                              1.5,
+                                              1.5,
+                                              1.5,
+                                              1.5
+                                            ],
+                                            "outside": true
+                                          },
                                           "radius": [
                                             16,
                                             16,
                                             16,
                                             16
                                           ],
-                                          "shadow": [
-                                            {
-                                              "inset": false,
-                                              "color": "0088ff",
-                                              "x": 0,
-                                              "y": 0,
-                                              "blur": 0,
-                                              "spread": 1.5
-                                            }
-                                          ],
+                                          "shadow": null,
                                           "opacity": null
                                         },
                                         "typography": null,
@@ -56423,7 +56423,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 42577
+          "bytes": 42606
         }
       ]
     },
@@ -56435,7 +56435,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 42370
+          "bytes": 42399
         }
       ]
     },
@@ -56447,7 +56447,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 49701
+          "bytes": 49730
         }
       ]
     },
@@ -56459,7 +56459,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 48733
+          "bytes": 48762
         }
       ]
     },
@@ -56471,7 +56471,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 46950
+          "bytes": 46979
         }
       ]
     },
@@ -56483,7 +56483,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 46229
+          "bytes": 46258
         }
       ]
     },
@@ -56495,7 +56495,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 43096
+          "bytes": 43125
         }
       ]
     },
@@ -56507,7 +56507,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 42878
+          "bytes": 42907
         }
       ]
     },
@@ -56519,7 +56519,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 44338
+          "bytes": 44367
         }
       ]
     },
@@ -56531,7 +56531,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 43254
+          "bytes": 43283
         }
       ]
     },
@@ -56543,7 +56543,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 42241
+          "bytes": 42270
         }
       ]
     },
@@ -56555,7 +56555,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 42026
+          "bytes": 42055
         }
       ]
     },
@@ -56567,7 +56567,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 42235
+          "bytes": 42264
         }
       ]
     },
@@ -56579,7 +56579,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 42020
+          "bytes": 42049
         }
       ]
     },
@@ -56591,7 +56591,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 42236
+          "bytes": 42265
         }
       ]
     },
@@ -56603,7 +56603,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 42026
+          "bytes": 42055
         }
       ]
     },
@@ -56615,7 +56615,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 42226
+          "bytes": 42255
         }
       ]
     },
@@ -56627,7 +56627,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 42016
+          "bytes": 42045
         }
       ]
     },
@@ -56639,7 +56639,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 42220
+          "bytes": 42249
         }
       ]
     },
@@ -56651,7 +56651,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 42004
+          "bytes": 42033
         }
       ]
     },
@@ -56663,7 +56663,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 42203
+          "bytes": 42232
         }
       ]
     },
@@ -56675,7 +56675,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 41993
+          "bytes": 42022
         }
       ]
     },
@@ -56687,7 +56687,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 42192
+          "bytes": 42221
         }
       ]
     },
@@ -56699,7 +56699,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 41982
+          "bytes": 42011
         }
       ]
     },
@@ -56711,7 +56711,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.desktop.00.draw.js",
-          "bytes": 42940
+          "bytes": 42969
         }
       ]
     },
@@ -56723,7 +56723,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.mobile.00.draw.js",
-          "bytes": 42636
+          "bytes": 42665
         }
       ]
     },
@@ -56735,7 +56735,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.desktop.00.draw.js",
-          "bytes": 43081
+          "bytes": 43110
         }
       ]
     },
@@ -56747,7 +56747,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.mobile.00.draw.js",
-          "bytes": 42774
+          "bytes": 42803
         }
       ]
     },
@@ -56759,7 +56759,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
-          "bytes": 48347
+          "bytes": 48376
         }
       ]
     },
@@ -56771,7 +56771,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
-          "bytes": 45267
+          "bytes": 45296
         }
       ]
     },
@@ -56783,7 +56783,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
-          "bytes": 42221
+          "bytes": 42250
         }
       ]
     },
@@ -56795,7 +56795,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
-          "bytes": 41924
+          "bytes": 41953
         }
       ]
     },
@@ -56807,7 +56807,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
-          "bytes": 42754
+          "bytes": 42783
         }
       ]
     },
@@ -56819,7 +56819,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-          "bytes": 42455
+          "bytes": 42484
         }
       ]
     },
@@ -56831,7 +56831,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-          "bytes": 43877
+          "bytes": 43906
         }
       ]
     },
@@ -56843,7 +56843,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-          "bytes": 43576
+          "bytes": 43605
         }
       ]
     },
@@ -56855,7 +56855,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
-          "bytes": 42523
+          "bytes": 42552
         }
       ]
     },
@@ -56867,7 +56867,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-          "bytes": 42224
+          "bytes": 42253
         }
       ]
     },
@@ -56879,7 +56879,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
-          "bytes": 42515
+          "bytes": 42544
         }
       ]
     },
@@ -56891,7 +56891,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
-          "bytes": 42216
+          "bytes": 42245
         }
       ]
     },
@@ -56903,7 +56903,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
-          "bytes": 42945
+          "bytes": 42974
         }
       ]
     },
@@ -56915,7 +56915,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
-          "bytes": 42647
+          "bytes": 42676
         }
       ]
     }

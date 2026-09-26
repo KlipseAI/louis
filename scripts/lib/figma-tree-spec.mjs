@@ -558,6 +558,16 @@ function paintOf(style) {
       }
     }
   }
+  // **바깥 링(`0 0 0 Npx`, 안쪽 아님)은 바깥 획이다.** 선택 표시 링이 이 모양이다(쿠폰 요금제 카드의 파랑 1.5). Figma 는 그림자
+  // 퍼짐을 내용을 자르지 않는 프레임에서 그리지 않아, 그림자로 두면 링이 보이지 않는다 — OUTSIDE 획은 같은 선이고 레이아웃에 들지 않는다.
+  if (!stroke && shadow) {
+    const outer = shadow.filter((entry) => !entry.inset && entry.blur === 0 && entry.x === 0 && entry.y === 0 && entry.spread > 0);
+    if (outer.length === 1) {
+      stroke = { color: outer[0].color, widths: [outer[0].spread, outer[0].spread, outer[0].spread, outer[0].spread], outside: true };
+      shadow = shadow.filter((entry) => entry !== outer[0]);
+      if (shadow.length === 0) shadow = null;
+    }
+  }
   const rawOpacity = Number(style.opacity);
   const opacity = Number.isFinite(rawOpacity) && rawOpacity < 1 ? rawOpacity : null;
   if (!fill && !gradient && !stroke && !radius && !shadow && opacity == null) return null;

@@ -544,7 +544,7 @@ const buildNode = (spec, parent) => {
   }
 
   // 헤어라인 b[5]: 박스 밖 선(레이아웃 뒤에만 걸린다)
-  if (spec.b && spec.b[5] && node.layoutMode && node.layoutMode !== "NONE") node.strokesIncludedInLayout = false;
+  if (spec.b && node.layoutMode && node.layoutMode !== "NONE") node.strokesIncludedInLayout = !spec.b[5];
 
   for (const child of (spec.k || [])) buildNode(child, node);
 

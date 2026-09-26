@@ -951,6 +951,12 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
         : instanceLabel(node, set, evidence.readback);
     node.instance = { set, variant, why, ...(label == null ? {} : { label }) };
     node.children = [];
+    // **잎의 글자도 비운다.** 글자를 제 몸에 든 잎(잎 서명 · 글자 속성 부품)을 치환하면 payload 에 글자(`x`)가 남고, 렌더러는
+    // 글자가 있고 자식이 없는 노드를 인스턴스보다 먼저 TEXT 로 만든다 — 유튜브 연결 버튼 · 결제 상태 알림 · 쿠폰 코드 칩이 칠 없는
+    // 글자로 그려졌다(2026-09-26). 글자는 위에서 라벨로 이미 건졌다.
+    node.text = null;
+    node.textLines = null;
+    node.typography = null;
     applied.push({ path: node.path, set, variant, ...(label == null ? {} : { label }) });
     return true;
   };

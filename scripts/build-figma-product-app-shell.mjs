@@ -308,9 +308,13 @@ const candidateContracts = [
   //   subtree-70d030923c4b(6/18) → subtree-7afea61e7dab
   //   subtree-e7d2c976fc2b(15/4) → subtree-9a75e0bd18d2
   //   subtree-19866f2fb6c4(14/4) → subtree-8a8ec102efb8
-  ["subtree-7afea61e7dab", 6, 18],
-  ["subtree-9a75e0bd18d2", 15, 4],
-  ["subtree-8a8ec102efb8", 14, 4],
+  //
+  // 2026-09-26: id 는 그대로이고 **걸친 라우트 수만** 늘었다 — 인증 fixture 에 화면이 늘어서다(같은 앵커 2c6bdacf). 보드 없던
+  // 실제 화면 셋(bulk-success · bulk-fail · coupons)이 프로필 묶음을 18 → 21 로, 결제 성공 화면 넷의 `?preview=` 상태 여섯이
+  // 21 → 27 로 늘렸고, 새 상태 화면 여섯은 MyPage · Subscription 바를 써서 두 바가 4 → 6 이 됐다. nodeCount 는 셋 다 그대로다.
+  ["subtree-7afea61e7dab", 6, 27],
+  ["subtree-9a75e0bd18d2", 15, 6],
+  ["subtree-8a8ec102efb8", 14, 6],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -540,12 +544,13 @@ const desktopCandidateContracts = [
   //   subtree-8a6691461153(17/3) → subtree-ee83e5ff8b7f
   //   subtree-8ac04d3f1453(16/3) → subtree-b92008e236c0
   //   subtree-8e576a12733a(5/3)  → subtree-869dcbe1a654
-  ["subtree-11bba9db9ef0", 6, 18],
-  ["subtree-9650ff03cd07", 15, 4],
-  ["subtree-bab0168c7bfe", 14, 4],
-  ["subtree-ee83e5ff8b7f", 17, 3],
-  ["subtree-b92008e236c0", 16, 3],
-  ["subtree-869dcbe1a654", 5, 3],
+  // 2026-09-26: 모바일 가드와 같은 사유로 걸친 라우트 수만 늘었다(18 → 27 · 4 → 6 · 3 → 5). id 와 nodeCount 는 그대로다.
+  ["subtree-11bba9db9ef0", 6, 27],
+  ["subtree-9650ff03cd07", 15, 6],
+  ["subtree-bab0168c7bfe", 14, 6],
+  ["subtree-ee83e5ff8b7f", 17, 5],
+  ["subtree-b92008e236c0", 16, 5],
+  ["subtree-869dcbe1a654", 5, 5],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

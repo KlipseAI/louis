@@ -208,6 +208,19 @@ export function glyphSignature(node, childrenOf) {
  * 높이는 글꼴 상자라 줄 높이보다 작다(쿠폰 약관 링크 16 · 줄 21).
  * 한 줄일 때만(자식이 세로로 모두 겹친다) — 여러 줄이면 줄마다 strut 이 달라 패딩 하나로 옮길 수 없다.
  */
+/**
+ * **칠 없는 테두리는 패딩이다(2026-09-26).** 투명한 테두리(`border: 1.5px solid transparent` — 흔들림 경고 때만 색을 입는 결제 동의 상자)는
+ * 그려지지 않아 획이 되지 않지만 CSS 에서는 자리를 차지한다. 획이 없으면 그 폭이 통째로 빠져 상자가 테두리만큼 작아지므로 패딩으로 옮긴다.
+ */
+function clearBorderPadding(style) {
+  const out = { top: 0, right: 0, bottom: 0, left: 0 };
+  for (const side of ["Top", "Right", "Bottom", "Left"]) {
+    const width = (style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0);
+    if (width > 0 && !cssColorToHex(style[`border${side}Color`])) out[side.toLowerCase()] = width;
+  }
+  return out;
+}
+
 function lineBoxSlack(node, style, children, rawChildren) {
   if (/flex|grid/.test(style.display ?? "")) return null;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
@@ -277,6 +290,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
     }
     stats.kept += 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
+    const clearBorder = clearBorderPadding(style);
     if (slack) stats.lineBoxSlack.push({ path: node.path, ...slack });
     return {
       path: node.path,
@@ -335,10 +349,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // NO_WRAP 이 같은 그림이다. 표현하지 못한 자리는 `stats.verticalWrap` 에 남긴다.
         wrap: layoutMode === "HORIZONTAL" && style.flexWrap === "wrap",
         padding: {
-          top: (px(style.paddingTop) ?? 0) + (slack?.top ?? 0),
-          right: px(style.paddingRight) ?? 0,
-          bottom: (px(style.paddingBottom) ?? 0) + (slack?.bottom ?? 0),
-          left: px(style.paddingLeft) ?? 0,
+          top: (px(style.paddingTop) ?? 0) + (slack?.top ?? 0) + clearBorder.top,
+          right: (px(style.paddingRight) ?? 0) + clearBorder.right,
+          bottom: (px(style.paddingBottom) ?? 0) + (slack?.bottom ?? 0) + clearBorder.bottom,
+          left: (px(style.paddingLeft) ?? 0) + clearBorder.left,
         },
         // **GRID는 열 개수를 함께 줘야 한다.** Figma는 `gridColumnCount`가 없으면 기본 2열로 깔아
         // 4열 카드가 2열로 접힌다. 열 수는 선언된 `grid-template-columns`를 펼쳐 센다(computed는

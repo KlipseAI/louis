@@ -482,7 +482,18 @@
           "stats": {
             "kept": 12,
             "unresolved": [],
-            "sizingReconciled": 1
+            "sizingReconciled": 1,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.1.0.1.1.2.5.1.1.0.0",
+                "margin": [
+                  4,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
           },
           "runner": "figma/product-parts.checkout-agreement-viewport-desktop.00.draw.js"
         }

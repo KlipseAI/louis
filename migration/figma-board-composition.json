@@ -14,15 +14,15 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 54,
-  "rawNodesBeforePruning": 826,
+  "rawNodesBeforePruning": 909,
   "counts": {
-    "total": 990,
+    "total": 1071,
     "instance": 206,
     "replaceable": 0,
     "bespoke": 13,
     "blocked": 6,
     "missing": 0,
-    "structural": 765,
+    "structural": 846,
     "unclassified": 0
   },
   "ratio": {
@@ -59,7 +59,7 @@
   "bespokeByIcon": {},
   "structuralByKind": {
     "surface": 265,
-    "frame": 259,
+    "frame": 340,
     "image": 2,
     "text": 239
   },
@@ -175,13 +175,13 @@
         "figma/app-screens.analytics-youtube.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 16,
+        "total": 20,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 13,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -194,13 +194,13 @@
         "figma/app-screens.analytics-youtube.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 15,
+        "total": 19,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 13,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -213,13 +213,13 @@
         "figma/app-screens.archive.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 12,
+        "total": 13,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 10,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -232,13 +232,13 @@
         "figma/app-screens.archive.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 11,
+        "total": 12,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 10,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -251,13 +251,13 @@
         "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 11,
+        "total": 12,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 9,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -270,13 +270,13 @@
         "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 9,
+        "total": 10,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 9,
         "unclassified": 0
       }
     },
@@ -289,13 +289,13 @@
         "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 11,
+        "total": 12,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 9,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -308,13 +308,13 @@
         "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 9,
+        "total": 10,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 8,
+        "structural": 9,
         "unclassified": 0
       }
     },
@@ -327,13 +327,13 @@
         "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 14,
+        "total": 15,
         "instance": 4,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 10,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -346,13 +346,13 @@
         "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 12,
+        "total": 13,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 9,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -403,13 +403,13 @@
         "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 14,
+        "total": 15,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 10,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -422,13 +422,13 @@
         "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 12,
+        "total": 13,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 9,
+        "structural": 10,
         "unclassified": 0
       }
     },
@@ -441,13 +441,13 @@
         "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 13,
+        "total": 15,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 1,
         "missing": 0,
-        "structural": 10,
+        "structural": 12,
         "unclassified": 0
       }
     },
@@ -460,13 +460,13 @@
         "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 11,
+        "total": 13,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 1,
         "missing": 0,
-        "structural": 9,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -479,13 +479,13 @@
         "figma/app-screens.mypage-topup-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -498,13 +498,13 @@
         "figma/app-screens.mypage-topup-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -517,13 +517,13 @@
         "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 23,
+        "total": 25,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 20,
+        "structural": 22,
         "unclassified": 0
       }
     },
@@ -536,13 +536,13 @@
         "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 22,
+        "total": 24,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 20,
+        "structural": 22,
         "unclassified": 0
       }
     },
@@ -555,13 +555,13 @@
         "figma/app-screens.mypage-topup-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -574,13 +574,13 @@
         "figma/app-screens.mypage-topup-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -593,13 +593,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -612,13 +612,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -631,13 +631,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 18,
+        "total": 20,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 15,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -650,13 +650,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 17,
+        "total": 19,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 0,
-        "structural": 15,
+        "structural": 17,
         "unclassified": 0
       }
     },
@@ -669,13 +669,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -688,13 +688,13 @@
         "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -707,13 +707,13 @@
         "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -726,13 +726,13 @@
         "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -745,13 +745,13 @@
         "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 39,
+        "total": 41,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
         "missing": 0,
-        "structural": 34,
+        "structural": 36,
         "unclassified": 0
       }
     },
@@ -764,13 +764,13 @@
         "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 25,
+        "total": 26,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 23,
+        "structural": 24,
         "unclassified": 0
       }
     },
@@ -783,13 +783,13 @@
         "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 38,
+        "total": 40,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
         "missing": 0,
-        "structural": 34,
+        "structural": 36,
         "unclassified": 0
       }
     },
@@ -802,13 +802,13 @@
         "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 31,
+        "total": 32,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 30,
+        "structural": 31,
         "unclassified": 0
       }
     },
@@ -821,13 +821,13 @@
         "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -840,13 +840,13 @@
         "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -1011,13 +1011,13 @@
         "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 7,
+        "total": 8,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -1030,13 +1030,13 @@
         "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 4,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -1049,13 +1049,13 @@
         "figma/app-screens.mypage-upgrade.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 24,
+        "total": 29,
         "instance": 9,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 15,
+        "structural": 20,
         "unclassified": 0
       }
     },
@@ -1068,13 +1068,13 @@
         "figma/app-screens.mypage-upgrade.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 16,
+        "total": 20,
         "instance": 5,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 11,
+        "structural": 15,
         "unclassified": 0
       }
     },
@@ -1084,16 +1084,17 @@
       "frameId": "28:3",
       "file": "figma/app-screens.settings.desktop.00.draw.js",
       "files": [
-        "figma/app-screens.settings.desktop.00.draw.js"
+        "figma/app-screens.settings.desktop.00.draw.js",
+        "figma/app-screens.settings.desktop.01.draw.js"
       ],
       "counts": {
-        "total": 58,
+        "total": 65,
         "instance": 9,
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 2,
         "missing": 0,
-        "structural": 45,
+        "structural": 52,
         "unclassified": 0
       }
     },
@@ -1106,13 +1107,13 @@
         "figma/app-screens.settings.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 53,
+        "total": 59,
         "instance": 7,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 2,
         "missing": 0,
-        "structural": 43,
+        "structural": 49,
         "unclassified": 0
       }
     },
@@ -1125,13 +1126,13 @@
         "figma/app-screens.subscription-coupons.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 51,
+        "total": 53,
         "instance": 9,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 42,
+        "structural": 44,
         "unclassified": 0
       }
     },
@@ -1144,13 +1145,13 @@
         "figma/app-screens.subscription-coupons.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 35,
+        "total": 36,
         "instance": 6,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 29,
+        "structural": 30,
         "unclassified": 0
       }
     },
@@ -1163,13 +1164,13 @@
         "figma/app-screens.subscription.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 50,
+        "total": 53,
         "instance": 6,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 44,
+        "structural": 47,
         "unclassified": 0
       }
     },
@@ -1182,13 +1183,13 @@
         "figma/app-screens.subscription.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 46,
+        "total": 49,
         "instance": 4,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 0,
-        "structural": 42,
+        "structural": 45,
         "unclassified": 0
       }
     }
@@ -1275,6 +1276,17 @@
     },
     "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1672,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0": {
+      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1672,
@@ -1284,7 +1296,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0": {
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -1321,6 +1333,17 @@
     },
     "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.0": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        48,
+        64
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.0.0": {
+      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         48,
@@ -1330,7 +1353,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.0.0": {
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "img",
       "rect": [
@@ -1343,6 +1366,17 @@
     },
     "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.1": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        738.38,
+        109.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.1.0": {
+      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "p",
       "rect": [
         738.38,
@@ -1353,6 +1387,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.2": {
+      "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        400.28,
+        48
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@desktop-1920x1080#0.0.1.0.0.1.0.2.0": {
       "board": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -1444,6 +1489,17 @@
     },
     "/analytics/youtube@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        402,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         402,
@@ -1453,7 +1509,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0": {
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -1490,6 +1546,17 @@
     },
     "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        48,
+        64
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         48,
@@ -1499,7 +1566,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.0.0": {
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "img",
       "rect": [
@@ -1512,6 +1579,17 @@
     },
     "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.1": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        350,
+        254.97
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.1.0": {
+      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "p",
       "rect": [
         350,
@@ -1522,6 +1600,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.2": {
+      "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        350,
+        66
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/analytics/youtube@mobile-402x874#0.0.0.0.0.1.0.2.0": {
       "board": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -1626,6 +1715,17 @@
     },
     "/archive@desktop-1920x1080#0.0.1.0.0.0": {
       "board": "figma/app-screens.archive.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1640,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/archive@desktop-1920x1080#0.0.1.0.0.0.0": {
+      "board": "figma/app-screens.archive.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1640,
@@ -1635,7 +1735,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/archive@desktop-1920x1080#0.0.1.0.0.0.0": {
+    "/archive@desktop-1920x1080#0.0.1.0.0.0.0.0": {
       "board": "figma/app-screens.archive.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -1749,6 +1849,17 @@
     },
     "/archive@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.archive.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/archive@mobile-402x874#0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.archive.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -1758,7 +1869,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/archive@mobile-402x874#0.0.0.0.0.0.0": {
+    "/archive@mobile-402x874#0.0.0.0.0.0.0.0": {
       "board": "figma/app-screens.archive.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -1874,6 +1985,17 @@
     },
     "/highlight/[projectId]?__phase=analyzing@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -1883,7 +2005,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=analyzing@desktop-1920x1080#0.0.1.0.0.0": {
+    "/highlight/[projectId]?__phase=analyzing@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -1975,6 +2097,17 @@
     },
     "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -1984,7 +2117,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0": {
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2100,6 +2233,17 @@
     },
     "/highlight/[projectId]?__phase=extracting@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -2109,7 +2253,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=extracting@desktop-1920x1080#0.0.1.0.0.0": {
+    "/highlight/[projectId]?__phase=extracting@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2201,6 +2345,17 @@
     },
     "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -2210,7 +2365,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0": {
+    "/highlight/[projectId]?__phase=extracting@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2326,6 +2481,17 @@
     },
     "/highlight/[projectId]?__phase=failed@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -2335,7 +2501,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=failed@desktop-1920x1080#0.0.1.0.0.0": {
+    "/highlight/[projectId]?__phase=failed@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2464,6 +2630,17 @@
     },
     "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -2473,7 +2650,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0": {
+    "/highlight/[projectId]?__phase=failed@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2786,6 +2963,17 @@
     },
     "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -2795,7 +2983,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.0.0": {
+    "/highlight/[projectId]?__phase=upload@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -2926,6 +3114,17 @@
     },
     "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -2935,7 +3134,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0": {
+    "/highlight/[projectId]?__phase=upload@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3090,6 +3289,17 @@
     },
     "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -3099,7 +3309,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.0.0": {
+    "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3162,6 +3372,17 @@
     },
     "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.1.0.2": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        278.73,
+        22
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@desktop-1920x1080#0.0.1.0.1.0.2.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
       "tag": "p",
       "rect": [
         278.73,
@@ -3217,6 +3438,17 @@
     },
     "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -3226,7 +3458,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0": {
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3288,6 +3520,17 @@
       "candidateClause": "c-painted-mark"
     },
     "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.1.0.2": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        278.73,
+        22
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.0.1.0.2.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -3370,6 +3613,17 @@
     },
     "/mypage/topup/fail@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        337.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/fail@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -3439,6 +3693,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/mypage/topup/fail@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        368.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/fail@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -3523,6 +3788,17 @@
     },
     "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        476.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -3532,7 +3808,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -3543,7 +3819,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -3554,7 +3830,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3565,7 +3841,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.0.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3576,7 +3852,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.0.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.0.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3587,7 +3863,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3598,7 +3874,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.1.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.1.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3609,7 +3885,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.1.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.1.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3620,7 +3896,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.2": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.2": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3631,7 +3907,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.2.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.2.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3642,7 +3918,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.2.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.2.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3653,7 +3929,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.3": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.3": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3664,7 +3940,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.3.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.3.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3675,7 +3951,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.1.3.1": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.1.3.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3686,7 +3962,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.2": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.2": {
+      "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3697,7 +3984,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.2.0": {
+    "/mypage/topup/success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -3771,6 +4058,17 @@
     },
     "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        572.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0": {
+      "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
         390,
@@ -3780,7 +4078,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -3791,7 +4089,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -3802,7 +4100,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3813,7 +4111,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.0.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3824,7 +4122,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.0.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.0.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3835,7 +4133,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3846,7 +4144,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.1.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.1.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3857,7 +4155,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.1.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.1.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3868,7 +4166,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.2": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.2": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3879,7 +4177,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.2.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.2.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3890,7 +4188,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.2.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.2.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3901,7 +4199,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.3": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.3": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3912,7 +4210,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.3.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.3.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -3923,7 +4221,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.1.3.1": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.1.3.1": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -3934,7 +4232,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.2": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.2": {
+      "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.2.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -3945,7 +4254,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.2.0": {
+    "/mypage/topup/success?preview=success@mobile-402x874#0.0.0.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
       "tag": "a",
       "rect": [
@@ -4032,6 +4341,17 @@
     },
     "/mypage/topup/success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        317.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -4101,6 +4421,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/mypage/topup/success@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        310.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/topup/success@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -4185,6 +4516,17 @@
     },
     "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        337.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-fail@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -4254,6 +4596,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        368.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-fail@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -4338,6 +4691,17 @@
     },
     "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        383.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -4347,7 +4711,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -4358,7 +4722,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -4369,7 +4733,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -4380,7 +4744,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4391,7 +4755,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.0.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -4402,7 +4766,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.0.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -4413,7 +4777,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4424,7 +4788,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.1.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -4435,7 +4799,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.2.1.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -4446,7 +4810,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.3": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.3": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4457,7 +4832,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.3.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -4531,6 +4906,17 @@
     },
     "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        451.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
         390,
@@ -4540,7 +4926,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -4551,7 +4937,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -4562,7 +4948,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -4573,7 +4959,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4584,7 +4970,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.0.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -4595,7 +4981,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.0.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -4606,7 +4992,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4617,7 +5003,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.1.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -4628,7 +5014,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.2.1.1": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.2.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -4639,7 +5025,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.3": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.3": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -4650,7 +5047,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.3.0": {
+    "/mypage/upgrade/billing-change-success?preview=success@mobile-402x874#0.0.0.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
       "tag": "a",
       "rect": [
@@ -4737,6 +5134,17 @@
     },
     "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        317.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -4806,6 +5214,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Single, Back=False, Divider=On)."
     },
     "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        331.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-change-success@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -4890,6 +5309,17 @@
     },
     "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        473.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-fail@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -4959,6 +5389,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=False, Divider=On)."
     },
     "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        556.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-fail@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -5043,6 +5484,17 @@
     },
     "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        892.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -5052,7 +5504,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -5063,7 +5515,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -5074,7 +5526,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.2": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5087,7 +5539,7 @@
       "variant": "Viewport=Desktop",
       "reason": "이미 컴포넌트 인스턴스다 — Product/Billing Status Alert(Viewport=Desktop)."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -5098,7 +5550,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5109,7 +5561,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.0.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5120,7 +5572,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.0.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5131,7 +5583,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5142,7 +5594,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.1.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5153,7 +5605,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.1.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5164,7 +5616,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.2": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5175,7 +5627,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.2.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5186,7 +5638,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.2.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5197,7 +5649,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.3": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5208,7 +5660,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.3.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5219,7 +5671,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.3.3.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.3.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5230,7 +5682,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -5241,7 +5693,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5252,7 +5704,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.0.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5263,7 +5715,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.0.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5274,7 +5726,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5285,7 +5737,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.1.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5296,7 +5748,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.1.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5307,7 +5759,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.2": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5318,7 +5770,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.2.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5329,7 +5781,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.2.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5340,7 +5792,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.3": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5351,7 +5803,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.3.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5362,7 +5814,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.4.3.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.4.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5373,7 +5825,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.5": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.5": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        82
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.5.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5384,7 +5847,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.5.0": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.5.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -5399,7 +5862,7 @@
       "size": "md",
       "candidateClause": "a-interactive"
     },
-    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.5.1": {
+    "/mypage/upgrade/billing-success?preview=partial@desktop-1920x1080#0.0.1.1.0.5.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -5473,6 +5936,17 @@
     },
     "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        1196.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "section",
       "rect": [
         390,
@@ -5482,7 +5956,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -5493,7 +5967,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -5504,7 +5978,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.2": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5517,7 +5991,7 @@
       "variant": "Viewport=Mobile",
       "reason": "이미 컴포넌트 인스턴스다 — Product/Billing Status Alert(Viewport=Mobile)."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -5528,7 +6002,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5539,7 +6013,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.0.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5550,7 +6024,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.0.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5561,7 +6035,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5572,7 +6046,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.1.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5583,7 +6057,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.1.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5594,7 +6068,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.2": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5605,7 +6079,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.2.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5616,7 +6090,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.2.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5627,7 +6101,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.3": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5638,7 +6112,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.3.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5649,7 +6123,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.3.3.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.3.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5660,7 +6134,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.4": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.4": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5671,7 +6145,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.4.0": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.4.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5682,7 +6156,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.4.1": {
+    "/mypage/upgrade/billing-success?preview=partial@mobile-402x874#0.0.0.1.0.4.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5765,6 +6239,17 @@
     },
     "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        724.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -5774,7 +6259,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -5785,7 +6270,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -5796,7 +6281,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -5807,7 +6292,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5818,7 +6303,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.0.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5829,7 +6314,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.0.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5840,7 +6325,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5851,7 +6336,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5862,7 +6347,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5873,7 +6358,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.2": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5884,7 +6369,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5895,7 +6380,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5906,7 +6391,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.3": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5917,7 +6402,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.3.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5928,7 +6413,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.2.3.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.2.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5939,7 +6424,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -5950,7 +6435,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5961,7 +6446,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.0.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -5972,7 +6457,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.0.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -5983,7 +6468,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -5994,7 +6479,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6005,7 +6490,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6016,7 +6501,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.2": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6027,7 +6512,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6038,7 +6523,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6049,7 +6534,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.3": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6060,7 +6545,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.3.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6071,7 +6556,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.3.3.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.3.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6082,7 +6567,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.4": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.4": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        82
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.4.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6093,7 +6589,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.4.0": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.4.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -6108,7 +6604,7 @@
       "size": "md",
       "candidateClause": "a-interactive"
     },
-    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.4.1": {
+    "/mypage/upgrade/billing-success?preview=success@desktop-1920x1080#0.0.1.1.0.4.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
       "tag": "a",
       "rect": [
@@ -6182,6 +6678,17 @@
     },
     "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        1014.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
         390,
@@ -6191,7 +6698,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -6202,7 +6709,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -6213,7 +6720,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -6224,7 +6731,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6235,7 +6742,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.0.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6246,7 +6753,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.0.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6257,7 +6764,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6268,7 +6775,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6279,7 +6786,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6290,7 +6797,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.2": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6301,7 +6808,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6312,7 +6819,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6323,7 +6830,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.3": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6334,7 +6841,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.3.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6345,7 +6852,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.2.3.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.2.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6356,7 +6863,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dl",
       "rect": [
@@ -6367,7 +6874,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6378,7 +6885,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.0.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6389,7 +6896,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.0.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.0.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6400,7 +6907,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6411,7 +6918,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.1.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6422,7 +6929,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.1.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6433,7 +6940,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.2": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.2": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -6444,7 +6951,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.2.0": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.2.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
@@ -6455,7 +6962,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.3.2.1": {
+    "/mypage/upgrade/billing-success?preview=success@mobile-402x874#0.0.0.1.0.3.2.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -6538,6 +7045,17 @@
     },
     "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        430.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -6607,6 +7125,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=False, Divider=On)."
     },
     "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        465.78
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/billing-success@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -8690,6 +9219,17 @@
     },
     "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        520,
+        519.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/fail@desktop-1920x1080#0.0.1.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
       "tag": "section",
       "rect": [
         520,
@@ -8759,6 +9299,17 @@
       "reason": "이미 컴포넌트 인스턴스다 — Product/Mobile App Top Bar(Width=Inset, Breadcrumb=Trail, Back=False, Divider=On)."
     },
     "/mypage/upgrade/fail@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        639.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/fail@mobile-402x874#0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
       "tag": "section",
       "rect": [
@@ -8876,6 +9427,17 @@
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        820,
+        250.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "header",
       "rect": [
         820,
@@ -8885,7 +9447,18 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.0": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        419.5,
+        56
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -8898,7 +9471,18 @@
       "variant": "Viewport=Desktop",
       "reason": "이미 컴포넌트 인스턴스다 — Product/Pricing Notice(Viewport=Desktop)."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.1": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        820,
+        66.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "h2",
       "rect": [
@@ -8909,7 +9493,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.2": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.2": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -8920,7 +9504,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.3": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.3": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        820,
+        52
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -8931,7 +9526,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.3.0": {
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -9022,10 +9617,10 @@
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.2": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "margin",
       "rect": [
         1300,
-        1412.59
+        1476.59
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -9043,6 +9638,17 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.2.0.0": {
+      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        1300,
+        1412.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.2.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
       "tag": "h3",
       "rect": [
@@ -9134,6 +9740,17 @@
     },
     "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        335.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "header",
       "rect": [
         390,
@@ -9143,7 +9760,18 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0": {
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        56
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -9156,7 +9784,18 @@
       "variant": "Viewport=Mobile",
       "reason": "이미 컴포넌트 인스턴스다 — Product/Pricing Notice(Viewport=Mobile)."
     },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.1": {
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.1": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        115.19
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "h2",
       "rect": [
@@ -9167,7 +9806,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.2": {
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.2": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -9178,7 +9817,18 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.3": {
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.3": {
+      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        52
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -9189,7 +9839,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.3.0": {
+    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
       "tag": "button",
       "rect": [
@@ -9309,6 +9959,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -9318,7 +9979,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/settings@desktop-1920x1080#0.0.1.0.0.0": {
+    "/settings@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -9425,6 +10086,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.1.0.1.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1216.7,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         1216.7,
@@ -9515,6 +10187,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.3.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1247.05,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.3.0.1.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         1247.05,
@@ -9572,6 +10255,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.4.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1227.45,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.4.0.1.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         1227.45,
@@ -9628,6 +10322,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.5.0.1": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1199.7,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.5.0.1.0": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -9760,6 +10465,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.8.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1336,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.8.0.1.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         1336,
@@ -9887,6 +10603,17 @@
     },
     "/settings@desktop-1920x1080#0.0.1.0.1.11.0.1": {
       "board": "figma/app-screens.settings.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1260.91,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@desktop-1920x1080#0.0.1.0.1.11.0.1.0": {
+      "board": "figma/app-screens.settings.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         1260.91,
@@ -9958,6 +10685,17 @@
     },
     "/settings@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -9967,7 +10705,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/settings@mobile-402x874#0.0.0.0.0": {
+    "/settings@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -10074,6 +10812,17 @@
     },
     "/settings@mobile-402x874#0.0.0.1.1.0.1.1": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        210.7,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.1.1.0.1.1.0": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         210.7,
@@ -10164,6 +10913,17 @@
     },
     "/settings@mobile-402x874#0.0.0.1.3.0.1": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        241.05,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.1.3.0.1.0": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         241.05,
@@ -10232,6 +10992,17 @@
     },
     "/settings@mobile-402x874#0.0.0.1.4.0.1": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        221.45,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.1.4.0.1.0": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         221.45,
@@ -10299,6 +11070,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/settings@mobile-402x874#0.0.0.1.5.0.1": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        193.7,
+        66
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.1.5.0.1.0": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -10441,6 +11223,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/settings@mobile-402x874#0.0.0.1.8.0.1": {
+      "board": "figma/app-screens.settings.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        330,
+        24
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/settings@mobile-402x874#0.0.0.1.8.0.1.0": {
       "board": "figma/app-screens.settings.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -10591,6 +11384,17 @@
     },
     "/subscription/coupons@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription/coupons@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -10600,7 +11404,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/subscription/coupons@desktop-1920x1080#0.0.1.0.0.0": {
+    "/subscription/coupons@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -10944,6 +11748,17 @@
     },
     "/subscription/coupons@desktop-1920x1080#0.0.1.0.1.1.2.4.0.1": {
       "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1362,
+        29
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription/coupons@desktop-1920x1080#0.0.1.0.1.1.2.4.0.1.0": {
+      "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
       "tag": "p",
       "rect": [
         1362,
@@ -11146,6 +11961,17 @@
     },
     "/subscription/coupons@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription/coupons@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -11155,7 +11981,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/subscription/coupons@mobile-402x874#0.0.0.0.0": {
+    "/subscription/coupons@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -11567,6 +12393,17 @@
     },
     "/subscription@desktop-1920x1080#0.0.1.0.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        1648,
+        65
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@desktop-1920x1080#0.0.1.0.0.0": {
+      "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         1648,
@@ -11576,7 +12413,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/subscription@desktop-1920x1080#0.0.1.0.0.0": {
+    "/subscription@desktop-1920x1080#0.0.1.0.0.0.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -11804,10 +12641,10 @@
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
-      "tag": "dl",
+      "tag": "margin",
       "rect": [
         777.98,
-        37
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -11815,7 +12652,7 @@
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "dl",
       "rect": [
         777.98,
         37
@@ -11826,6 +12663,17 @@
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1.0.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        777.98,
+        37
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1.0.0.0": {
+      "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "dt",
       "rect": [
         94.86,
@@ -11835,7 +12683,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1.0.1": {
+    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.0.0.1.0.0.1": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -11892,10 +12740,10 @@
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0.2": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "margin",
       "rect": [
         526,
-        26
+        42
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -11906,13 +12754,24 @@
       "tag": "div",
       "rect": [
         526,
-        18
+        26
       ],
       "verdict": "structural",
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0.2.0.0": {
+      "board": "figma/app-screens.subscription.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        526,
+        18
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0.2.0.0.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -11923,7 +12782,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0.2.0.1": {
+    "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0.2.0.0.1": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -12105,6 +12964,17 @@
     },
     "/subscription@mobile-402x874#0.0.0.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        55
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -12114,7 +12984,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/subscription@mobile-402x874#0.0.0.0.0": {
+    "/subscription@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -12342,10 +13212,10 @@
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "dl",
+      "tag": "margin",
       "rect": [
         358,
-        37
+        49
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -12353,7 +13223,7 @@
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "div",
+      "tag": "dl",
       "rect": [
         358,
         37
@@ -12364,6 +13234,17 @@
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1.0.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        358,
+        37
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1.0.0.0": {
+      "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "dt",
       "rect": [
         94.86,
@@ -12373,7 +13254,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1.0.1": {
+    "/subscription@mobile-402x874#0.0.0.1.1.0.1.0.0.1.0.0.1": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "dd",
       "rect": [
@@ -12430,10 +13311,10 @@
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0.2": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
-      "tag": "div",
+      "tag": "margin",
       "rect": [
         358,
-        26
+        42
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -12444,13 +13325,24 @@
       "tag": "div",
       "rect": [
         358,
-        18
+        26
       ],
       "verdict": "structural",
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0.2.0.0": {
+      "board": "figma/app-screens.subscription.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        358,
+        18
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0.2.0.0.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -12461,7 +13353,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0.2.0.1": {
+    "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0.2.0.0.1": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
       "tag": "span",
       "rect": [

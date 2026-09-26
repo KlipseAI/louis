@@ -336,6 +336,9 @@ DS 쪽 정본은 [Motion](../foundations/motion.md)의 감소-모션 계약이�
 
 ## 10 — 업로드 화면의 Topic 칩이 패딩 · 간격 0 이라 글자끼리 붙는다
 
+> 2026-09-26: 보드는 이 칩 줄을 제품 부품 `Product/Highlight Theme Chips` 로 그린다(조립 규칙 31조) — 제품이 그리는 그대로(붙은 칩)다.
+> 제품이 고치면 재측정이 부품을 다시 채운다.
+
 **증상.** `/highlight/[projectId]?__phase=upload` 의 주제 칩 여섯(`Live Commerce` · `Education` ·
 `Gaming` · `Sports` · `Vlog` · `Interview`)이 서로 닿아 「EducationGaming」처럼 읽힌다. 화면 보드에서
 먼저 보였고(Updates (156)), 보드가 틀린 것이 아니라 제품이 그렇게 그린다.
@@ -385,7 +388,8 @@ month」를 가격 아래로 내리기, 데스크톱 격자를 넓은 화면에�
 > **결정(2026-09-26, 소유자): 제품이 LOUIS Button 으로 옮긴다.** `<Button variant="inverse" size="lg">` — 검정 면 · 흰 글자 · 높이 40 ·
 > 글자 14/500 은 그대로이고 모양은 반경 12, 상태는 LOUIS 를 따른다. 제품 PR [KlipseAI/klipse-web#257](https://github.com/KlipseAI/klipse-web/pull/257)
 > (`dev` 대상). 제품 앵커가 그 커밋을 넘어서면 보드 원장이 두 자리를 Button 인스턴스로 판정하고 이 항목을 닫는다 — 그때까지 원장은
-> 고정 앵커(`2c6bdacf`)의 지역 알약을 센다.
+> 고정 앵커(`2c6bdacf`)의 지역 알약을 센다. 2026-09-26 부터 그 알약은 보드에서 제품 부품 `Product/Analytics Connect Button` 의 인스턴스다
+> (조립 규칙 31조) — 앵커가 넘어서면 매처가 Button 자리를 먼저 보게 되고 이 부품은 은퇴한다.
 
 **증상.** `/analytics/youtube` · `/analytics/instagram` 의 미연동 안내에 있는 연결 버튼이 검정 알약(높이 40 · 반경 999)이다.
 LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원장이 이 두 자리를 「LOUIS 에 없다(미보유)」로 센다

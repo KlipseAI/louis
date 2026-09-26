@@ -287,6 +287,8 @@ const slim = (node) => {
   if (node.layout?.wrap && node.layout.layoutMode !== "HORIZONTAL") {
     fail(`wrap 은 HORIZONTAL 에만 실을 수 있습니다: ${node.path} (${node.layout.layoutMode})`);
   }
+  // 인스턴스 자리에 글자가 남으면 렌더러가 인스턴스보다 먼저 TEXT 로 만든다(2026-09-26 — 잎 인스턴스가 칠 없는 글자로 그려졌다).
+  if (node.instance && node.text) fail(`인스턴스 자리에 글자가 남았습니다: ${node.path} (${node.instance.set})`);
   return slimNode(node);
 };
 const slimNode = (node) => ({
@@ -400,6 +402,7 @@ let totalShellGaps = 0;
 let totalGlyphs = 0;
 let totalSizingReconciled = 0;
 let totalAutoMarginCentred = 0;
+let totalMarginWrapped = 0;
 let totalUnresolvedFillInHug = 0;
 
 /**
@@ -576,6 +579,60 @@ function reconcileFigmaSizing(spec) {
 }
 
 /**
+ * **형제가 있는 자식의 margin 을 감싸개 패딩으로 옮긴다(2026-09-26).** Figma Auto Layout 에는 margin 이 없고, 렌더러는 흐름 자식이
+ * 하나일 때만 margin 을 부모 padding 으로 옮긴다 — 그 판정이 자식을 붙이는 순간에 돌아 **첫 자식의 margin 은 형제가 뒤에 와도 부모
+ * padding 에 붙고**(첫 자식의 margin-bottom 이 부모 아래로 간다 — 결제 동의 상자의 체크박스 margin-top 4 가 줄 전체의 위 패딩이
+ * 되어 상자가 2 커졌다), **둘째부터는 버려졌다**(결제 결과 보드 14 장과 미리보기 12 장의 본문이 `margin-top: 108` 을 잃어 상단 바에
+ * 붙었다 — 제품 h1 y 165 · 보드 64). 형제가 있는 흐름 자식이 margin 을 가지면 칠 없는 감싸개(자식 하나)로 싸서 렌더러의 「자식 하나」
+ * 규칙이 감싸개 padding 으로 옮기게 한다(음수는 전과 같이 0 으로 막힌다 — 번짐). 감싸개의 크기는 축마다 자식이 FILL 이면 FILL,
+ * 아니면 HUG — CSS 에서 margin 상자가 차지하는 자리다. GRID 부모는 건드리지 않는다(칸이 정한다).
+ */
+function wrapSiblingMargins(spec) {
+  const wrapped = [];
+  const SIDES = ["top", "right", "bottom", "left"];
+  // 양수 margin 만 감싼다. 음수(번짐 — 상단 바 −16 / −8)는 감싸개가 들고 가서 전과 같이 부모 padding 을 깎는다(첫 자식일 때).
+  const hasMargin = (node) => node.margin && SIDES.some((side) => (node.margin[side] ?? 0) > 0.01);
+  const axis = (sizing) => (sizing === "FILL" ? "FILL" : "HUG");
+  const walk = (node) => {
+    if (node.instance) return;
+    const children = node.children ?? [];
+    if (node.layout && node.layout.layoutMode !== "GRID" && flowChildren(node).length >= 2) {
+      node.children = children.map((child) => {
+        if (child.positioning === "ABSOLUTE" || !hasMargin(child)) return child;
+        const out = Object.fromEntries(SIDES.map((side) => [side, Math.max(0, child.margin[side] ?? 0)]));
+        const bleed = Object.fromEntries(SIDES.map((side) => [side, Math.min(0, child.margin[side] ?? 0)]));
+        wrapped.push({ path: child.path, margin: SIDES.map((side) => child.margin[side] ?? 0) });
+        child.margin = out;
+        const sizing = {
+          ...child.sizing,
+          layoutSizingHorizontal: axis(child.sizing.layoutSizingHorizontal),
+          layoutSizingVertical: axis(child.sizing.layoutSizingVertical),
+          minWidth: null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [],
+        };
+        const reason = "형제가 있는 자식의 margin 감싸개 — 자식이 FILL 이면 FILL, 아니면 HUG";
+        return {
+          path: `${child.path}~margin`, tag: "margin", name: `margin ${child.path}`, text: null, textLines: null, paints: false,
+          rect: { x: child.rect.x - out.left, y: child.rect.y - out.top,
+            width: child.rect.width + out.left + out.right, height: child.rect.height + out.top + out.bottom },
+          glyph: null, sizing, paint: null, typography: null, positioning: "AUTO",
+          margin: bleed, offset: null, constraints: null,
+          why: { horizontal: { verdict: sizing.layoutSizingHorizontal, reason }, vertical: { verdict: sizing.layoutSizingVertical, reason } },
+          // 방향과 교차축 정렬은 부모를 따른다 — 최대 폭에 닿은 FILL 자식(결제 결과 본문 520)이 부모의 CENTER 로 가운데 서던 것을
+          // 감싸개 안에서도 그대로 받게.
+          layout: { layoutMode: node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
+            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: node.layout.align?.counterAxis ?? null, primaryAxis: null } },
+          clipsContent: false,
+          children: [child],
+        };
+      });
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return wrapped;
+}
+
+/**
  * **`margin: auto` 가운데 정렬을 부모의 교차축 정렬로 옮긴다(2026-09-23).**
  *
  * Figma Auto Layout 에는 margin 이 없다. 렌더러는 흐름 자식이 하나일 때만 margin 을 부모 padding 으로 옮기고, 형제가 있으면
@@ -668,6 +725,7 @@ const partContent = [];
         fail(`부품 ${part.set} ${variant.variant} 에 풀지 못한 감긴 글자가 있습니다 — Figma 에서 한 줄로 늘어납니다: ${JSON.stringify(sizingFix.unresolvedWraps)}`);
       }
       centreAutoMargins(spec);
+      const marginWrapped = wrapSiblingMargins(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
@@ -677,7 +735,8 @@ const partContent = [];
         ...(part.label ? { label: part.label } : {}),
         componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
         signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length,
-          ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}) },
+          ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
+          ...(marginWrapped.length ? { marginWrapped } : {}) },
         spec,
       });
     }
@@ -723,6 +782,8 @@ for (const screen of SCREENS) {
     const sizingFix = reconcileFigmaSizing(spec);
     const autoMarginCentred = centreAutoMargins(spec);
     totalAutoMarginCentred += autoMarginCentred.length;
+    const marginWrapped = wrapSiblingMargins(spec);
+    totalMarginWrapped += marginWrapped.length;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -750,7 +811,10 @@ for (const screen of SCREENS) {
       route: screen.route,
       context: context.id,
       figmaFrameId: screen[context.key],
-      frameSize: [round(measured.rootRect.width), round(measured.rootRect.height)],
+      // **보드는 뷰포트 창이다.** 인증 fixture 는 뷰포트와 겹치는 노드만 잰다(측정기 `intersectsViewport`) — 문서가 뷰포트보다
+      // 길어도(결제 성공 미리보기 모바일 1103 · 1286) 그 아래 행은 측정에 없다. 프레임을 문서 높이로 세우면 아래가 빈 채 남으므로
+      // 뷰포트 높이에서 자른다(보드 이름 「뷰포트 창」).
+      frameSize: [round(measured.rootRect.width), round(Math.min(measured.rootRect.height, Number(context.id.split("x").pop())))],
       shells,
       stats: {
         measured: stats.total,
@@ -769,6 +833,8 @@ for (const screen of SCREENS) {
         ...(sizingFix.unresolvedFillInHug.length ? { unresolvedFillInHug: sizingFix.unresolvedFillInHug } : {}),
         // `margin: auto` 가운데 정렬을 부모 교차축 CENTER 로 옮긴 자리(centreAutoMargins 주석).
         ...(autoMarginCentred.length ? { autoMarginCentred } : {}),
+        // 형제가 있는 자식의 margin 을 감싸개 padding 으로 옮긴 자리(wrapSiblingMargins 주석).
+        ...(marginWrapped.length ? { marginWrapped } : {}),
       },
       spec,
     });
@@ -1119,5 +1185,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

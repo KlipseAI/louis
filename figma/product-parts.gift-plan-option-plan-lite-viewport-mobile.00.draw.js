@@ -251,7 +251,6 @@ const applyPaint = (node, spec) => {
     const [hex, top, right, bottom, left, hairline] = spec.b;
     node.strokes = [hexToPaint(hex, "stroke")];
     node.strokeAlign = "INSIDE";
-    if (hairline) node.strokesIncludedInLayout = false; // 헤어라인은 박스 크기 밖
 
     if (top === right && right === bottom && bottom === left) {
       node.strokeWeight = Math.max(0, top);
@@ -547,6 +546,9 @@ const buildNode = (spec, parent) => {
       try { label.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
     }
   }
+
+  // 헤어라인 b[5]: 박스 밖 선(레이아웃 뒤에만 걸린다)
+  if (spec.b && spec.b[5] && node.layoutMode && node.layoutMode !== "NONE") node.strokesIncludedInLayout = false;
 
   for (const child of (spec.k || [])) buildNode(child, node);
 

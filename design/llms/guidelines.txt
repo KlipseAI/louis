@@ -14943,6 +14943,11 @@ month」를 가격 아래로 내리기, 데스크톱 격자를 넓은 화면에�
 
 #### 12 — 분석 화면의 「Connect Google Account」 버튼이 LOUIS Button 이 아니다
 
+> **결정(2026-09-26, 소유자): 제품이 LOUIS Button 으로 옮긴다.** `<Button variant="inverse" size="lg">` — 검정 면 · 흰 글자 · 높이 40 ·
+> 글자 14/500 은 그대로이고 모양은 반경 12, 상태는 LOUIS 를 따른다. 제품 PR [KlipseAI/klipse-web#257](https://github.com/KlipseAI/klipse-web/pull/257)
+> (`dev` 대상). 제품 앵커가 그 커밋을 넘어서면 보드 원장이 두 자리를 Button 인스턴스로 판정하고 이 항목을 닫는다 — 그때까지 원장은
+> 고정 앵커(`2c6bdacf`)의 지역 알약을 센다.
+
 **증상.** `/analytics/youtube` · `/analytics/instagram` 의 미연동 안내에 있는 연결 버튼이 검정 알약(높이 40 · 반경 999)이다.
 LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원장이 이 두 자리를 「LOUIS 에 없다(미보유)」로 센다
 ([Updates](../updates/README.md) (163)).

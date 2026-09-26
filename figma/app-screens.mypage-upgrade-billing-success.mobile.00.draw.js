@@ -179,6 +179,9 @@ const colorToHex = (color) => {
   return `${channelHex(color.r)}${channelHex(color.g)}${channelHex(color.b)}${alpha}`;
 };
 const variableByHex = new Map();
+// 획은 값이 같은 변수 가운데 **획 역할(`color/stroke-*`) 변수를 먼저** 고른다(2026-09-26). 헤어라인 #171B22 12% 는 값이 같은 변수가
+// 여럿이고 컬렉션 순서상 첫째가 `color/accent-secondary-hover` 라, 역할을 보지 않으면 선이 눌림 면 변수에 묶인다.
+const strokeVariableByHex = new Map();
 for (const name of P.colour.collections) {
   const collection = live.collections.find((entry) => entry.name === name);
   if (!collection) throw new Error(`변수 컬렉션을 찾지 못했습니다: ${name}`);
@@ -187,6 +190,7 @@ for (const name of P.colour.collections) {
     if (!variable || variable.resolvedType !== "COLOR") continue;
     const hex = colorToHex(live.resolve(variable));
     if (hex && !variableByHex.has(hex)) variableByHex.set(hex, variable);
+    if (hex && variable.name.startsWith("color/stroke-") && !strokeVariableByHex.has(hex)) strokeVariableByHex.set(hex, variable);
   }
 }
 
@@ -196,14 +200,14 @@ const textStyleByName = new Map((await figma.getLocalTextStylesAsync()).map((sty
 const boundColors = new Set();
 let gradientCount = 0;
 const unboundColors = new Set();
-const hexToPaint = (hex) => {
+const hexToPaint = (hex, role) => {
   const parse = (offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255;
   const paint = {
     type: "SOLID",
     color: { r: parse(0), g: parse(2), b: parse(4) },
     opacity: hex.length >= 8 ? parse(6) : 1,
   };
-  const variable = variableByHex.get(hex);
+  const variable = (role === "stroke" && strokeVariableByHex.get(hex)) || variableByHex.get(hex);
   if (!variable) { unboundColors.add(hex); return paint; }
   boundColors.add(variable.name);
   // `setBoundVariableForPaint`는 **새 paint를 돌려준다** — 반드시 받아서 써야 한다.
@@ -243,7 +247,7 @@ const applyPaint = (node, spec) => {
   if (fills.length > 0) node.fills = fills;
   if (spec.b) {
     const [hex, top, right, bottom, left] = spec.b;
-    node.strokes = [hexToPaint(hex)];
+    node.strokes = [hexToPaint(hex, "stroke")];
     node.strokeAlign = "INSIDE";
     if (top === right && right === bottom && bottom === left) {
       node.strokeWeight = Math.max(0, top);

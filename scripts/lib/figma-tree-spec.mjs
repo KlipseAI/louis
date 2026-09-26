@@ -434,6 +434,10 @@ export function cssColorToHex(value) {
  * 제품이 쓰는 값은 3종뿐이며(실측) 형태는 `<color> x y blur spread [inset]` 이다.
  * 해석하지 못한 그림자는 **버린다** — 지어내지 않는다.
  */
+// 색 표기는 둘이다 — legacy `rgb()`/`rgba()` 와, LOUIS 별칭을 거친 계산값의 `color(srgb …)`(Chromium 직렬화).
+// **2026-09-26 전에는 앞의 것만 읽었다.** LOUIS 헤어라인(`--louis-hairline-inset` = `color(srgb 0.09 0.106 0.133 / 0.12)
+// 0 0 0 0.5px inset`)이 전부 뒤의 표기라, 보드 전체에서 카드 · 입력의 헤어라인이 통째로 빠져 있었다(그림자 2개만 남음).
+const SHADOW_COLOR = /(?:rgba?|color)\([^)]*\)/;
 export function parseBoxShadow(value) {
   if (!value || value === "none") return null;
   const shadows = [];
@@ -441,10 +445,10 @@ export function parseBoxShadow(value) {
     const raw = piece.trim();
     if (!raw) continue;
     const inset = /(^|\s)inset(\s|$)/.test(raw);
-    const colorMatch = /rgba?\([^)]+\)/.exec(raw);
+    const colorMatch = SHADOW_COLOR.exec(raw);
     const color = colorMatch ? cssColorToHex(colorMatch[0]) : null;
     if (!color) continue;
-    const numbers = raw.replace(/rgba?\([^)]+\)/, "").replace(/inset/, "")
+    const numbers = raw.replace(SHADOW_COLOR, "").replace(/inset/, "")
       .trim().split(/\s+/).map((token) => px(token)).filter((n) => n != null);
     if (numbers.length < 2) continue;
     const [x, y, blur = 0, spread = 0] = numbers;
@@ -526,11 +530,33 @@ function paintOf(style) {
     (style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
   const drawn = SIDES.findIndex((side, index) => widths[index] > 0);
   const strokeColor = drawn >= 0 ? cssColorToHex(style[`border${SIDES[drawn]}Color`]) : null;
-  const stroke = strokeColor ? { color: strokeColor, widths } : null;
+  let stroke = strokeColor ? { color: strokeColor, widths } : null;
   const radii = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius"]
     .map((axis) => px(style[axis]) ?? 0);
   const radius = radii.some((value) => value > 0) ? radii : null;
-  const shadow = parseBoxShadow(style.boxShadow);
+  let shadow = parseBoxShadow(style.boxShadow);
+  // **헤어라인은 안쪽 획이다.** 흐림 0 인 안쪽 링 그림자(`0 0 0 Npx inset` · 한 변만 `Npx 0 0 0 inset`)는 CSS 가 테두리 대신
+  // 쓰는 선이다 — 박스 크기를 바꾸지 않는 안쪽 선이라 Figma 의 INSIDE 획과 같은 것이고, 획이어야 변수(`color/stroke-hairline`
+  // · `border-width/hairline`)에 묶이고 변마다 두께를 가질 수 있다. CSS 테두리가 이미 있으면 겹치므로 그림자로 둔다.
+  // 링 색이 여럿이면 하나의 획으로 합칠 수 없으니 옮기지 않는다(지어내지 않는다).
+  if (!stroke && shadow) {
+    const rings = shadow.filter((entry) => entry.inset && entry.blur === 0);
+    if (rings.length > 0 && rings.every((ring) => ring.color === rings[0].color)) {
+      const sides = [0, 0, 0, 0]; // top · right · bottom · left
+      for (const ring of rings) {
+        if (ring.spread > 0) for (let index = 0; index < 4; index += 1) sides[index] += ring.spread;
+        if (ring.y > 0) sides[0] += ring.y;
+        if (ring.x < 0) sides[1] += -ring.x;
+        if (ring.y < 0) sides[2] += -ring.y;
+        if (ring.x > 0) sides[3] += ring.x;
+      }
+      if (sides.some((width) => width > 0)) {
+        stroke = { color: rings[0].color, widths: sides };
+        shadow = shadow.filter((entry) => !rings.includes(entry));
+        if (shadow.length === 0) shadow = null;
+      }
+    }
+  }
   const rawOpacity = Number(style.opacity);
   const opacity = Number.isFinite(rawOpacity) && rawOpacity < 1 ? rawOpacity : null;
   if (!fill && !gradient && !stroke && !radius && !shadow && opacity == null) return null;

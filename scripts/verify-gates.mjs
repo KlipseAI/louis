@@ -1780,6 +1780,27 @@ withCanary(
   "--check",
 );
 
+// ── 헤어라인 카나리아(2026-09-26) ───────────────────────────────────────────
+// LOUIS 헤어라인(`--louis-hairline-inset`)은 계산값이 `color(srgb …) 0 0 0 0.5px inset` 이다. 그림자 파서가 `rgb()` 만 읽던 동안
+// 보드 전체에서 카드 · 입력의 헤어라인이 통째로 빠졌다(그림자 2개만 남았다). 파서를 `rgb()` 만 읽게 되돌리면 생성물 대조가 무는지 본다.
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace("const SHADOW_COLOR = /(?:rgba?|color)\\([^)]*\\)/;", "const SHADOW_COLOR = /rgba?\\([^)]*\\)/;"),
+  "figma tree spec: color(srgb …) 헤어라인을 버리는 그림자 파서",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+// 안쪽 링 그림자를 획으로 옮기는 풀이를 지우면(그림자로 남기면) 같은 대조가 무는지 본다 — 그림자로 남은 헤어라인은 변수에 묶이지 않는다.
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace("  if (!stroke && shadow) {\n    const rings", "  if (false && shadow) {\n    const rings"),
+  "figma tree spec: 안쪽 링 그림자를 획으로 옮기지 않는 변환",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── sidebar-states 찾기 구간 카나리아(2026-09-15) ───────────────────────────
 // sidebar-states 러너는 필요한 대상을 전부 찾은 뒤에만 쓴다. 옛 러너는 세트 칠을 쓰고 나서 라이브에 없는 id 를 찾다 던질
 // 자리였다(부분 적용). 생성기가 템플릿의 「── 1. 찾기」 구간에 쓰기가 섞였는지 글자로 보는데, 그 확인이 실제로 무는지

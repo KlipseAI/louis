@@ -50,8 +50,8 @@
   },
   "bespokeByIcon": {},
   "structuralByKind": {
-    "surface": 178,
-    "frame": 220,
+    "surface": 182,
+    "frame": 216,
     "image": 2,
     "text": 143
   },
@@ -8312,8 +8312,8 @@
         260.59
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.1.1.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
@@ -8457,8 +8457,8 @@
         195
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/subscription@desktop-1920x1080#0.0.1.0.1.1.0.2.0": {
       "board": "figma/app-screens.subscription.desktop.00.draw.js",
@@ -8850,8 +8850,8 @@
         244.59
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.1.1.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",
@@ -8995,8 +8995,8 @@
         202
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/subscription@mobile-402x874#0.0.0.1.1.0.2.0": {
       "board": "figma/app-screens.subscription.mobile.00.draw.js",

@@ -50,6 +50,15 @@
         "Klipse Semantic Color/color/table-row-hover",
         "Klipse Primitive/color/static-black-alpha/08"
       ],
+      "171b221f": [
+        "Klipse Semantic Color/color/accent-secondary-hover",
+        "Klipse Semantic Color/color/canvas-dot",
+        "Klipse Semantic Color/color/gray/000-alpha/12",
+        "Klipse Semantic Color/color/landing/line",
+        "Klipse Semantic Color/color/stroke-control",
+        "Klipse Semantic Color/color/stroke-hairline",
+        "Klipse Primitive/color/static-black-alpha/12"
+      ],
       "171b228f": [
         "Klipse Semantic Color/color/dim-modal",
         "Klipse Semantic Color/color/gray/000-alpha/56",
@@ -319,7 +328,7 @@
   "paint": {
     "fills": 221,
     "gradients": 0,
-    "strokes": 2,
+    "strokes": 34,
     "radii": 94,
     "shadows": 2,
     "texts": 181,
@@ -3694,7 +3703,15 @@
                                         "paint": {
                                           "fill": "171b2214",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -4176,7 +4193,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -4525,7 +4550,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -4874,7 +4907,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -5092,7 +5133,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -6033,7 +6082,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -6895,7 +6952,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -7113,7 +7178,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -7331,7 +7404,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -7680,7 +7761,15 @@
                                     "paint": {
                                       "fill": "ff4b591f",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -9236,7 +9325,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -9786,7 +9883,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -10205,7 +10310,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -10624,7 +10737,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -10844,7 +10965,15 @@
                                 "paint": {
                                   "fill": "171b2214",
                                   "gradient": null,
-                                  "stroke": null,
+                                  "stroke": {
+                                    "color": "171b221f",
+                                    "widths": [
+                                      0.5,
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
                                   "radius": [
                                     12,
                                     12,
@@ -11785,7 +11914,15 @@
                                 "paint": {
                                   "fill": "171b2214",
                                   "gradient": null,
-                                  "stroke": null,
+                                  "stroke": {
+                                    "color": "171b221f",
+                                    "widths": [
+                                      0.5,
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
                                   "radius": [
                                     12,
                                     12,
@@ -12715,7 +12852,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -13003,7 +13148,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -14192,7 +14345,15 @@
                                         "paint": {
                                           "fill": "ff4b591f",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "ff4b593d",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -14464,7 +14625,15 @@
                                             "paint": {
                                               "fill": "171b2214",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 12,
                                                 12,
@@ -14553,7 +14722,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -15451,7 +15628,22 @@
                                               "maxHeight": null,
                                               "unresolved": []
                                             },
-                                            "paint": null,
+                                            "paint": {
+                                              "fill": null,
+                                              "gradient": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0,
+                                                  0,
+                                                  0,
+                                                  0.5
+                                                ]
+                                              },
+                                              "radius": null,
+                                              "shadow": null,
+                                              "opacity": null
+                                            },
                                             "typography": null,
                                             "positioning": "AUTO",
                                             "margin": {
@@ -16332,7 +16524,22 @@
                                           "maxHeight": null,
                                           "unresolved": []
                                         },
-                                        "paint": null,
+                                        "paint": {
+                                          "fill": null,
+                                          "gradient": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0,
+                                              0,
+                                              0
+                                            ]
+                                          },
+                                          "radius": null,
+                                          "shadow": null,
+                                          "opacity": null
+                                        },
                                         "typography": null,
                                         "positioning": "AUTO",
                                         "margin": {
@@ -16464,7 +16671,15 @@
                                             "paint": {
                                               "fill": "ebecee",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 12,
                                                 12,
@@ -16666,7 +16881,15 @@
                                                 "paint": {
                                                   "fill": "171b2214",
                                                   "gradient": null,
-                                                  "stroke": null,
+                                                  "stroke": {
+                                                    "color": "171b221f",
+                                                    "widths": [
+                                                      0.5,
+                                                      0.5,
+                                                      0.5,
+                                                      0.5
+                                                    ]
+                                                  },
                                                   "radius": [
                                                     12,
                                                     12,
@@ -17657,7 +17880,15 @@
                                     "paint": {
                                       "fill": "ff4b591f",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "ff4b593d",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -17929,7 +18160,15 @@
                                         "paint": {
                                           "fill": "171b2214",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -18018,7 +18257,15 @@
                                     "paint": {
                                       "fill": "ffffff",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -18916,7 +19163,22 @@
                                           "maxHeight": null,
                                           "unresolved": []
                                         },
-                                        "paint": null,
+                                        "paint": {
+                                          "fill": null,
+                                          "gradient": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0,
+                                              0,
+                                              0
+                                            ]
+                                          },
+                                          "radius": null,
+                                          "shadow": null,
+                                          "opacity": null
+                                        },
                                         "typography": null,
                                         "positioning": "AUTO",
                                         "margin": {
@@ -19791,7 +20053,22 @@
                                       "maxHeight": null,
                                       "unresolved": []
                                     },
-                                    "paint": null,
+                                    "paint": {
+                                      "fill": null,
+                                      "gradient": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0,
+                                          0,
+                                          0
+                                        ]
+                                      },
+                                      "radius": null,
+                                      "shadow": null,
+                                      "opacity": null
+                                    },
                                     "typography": null,
                                     "positioning": "AUTO",
                                     "margin": {
@@ -19923,7 +20200,15 @@
                                         "paint": {
                                           "fill": "ebecee",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -23563,7 +23848,15 @@
                                             "paint": {
                                               "fill": "171b2214",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 12,
                                                 12,
@@ -23722,7 +24015,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -23808,7 +24109,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -23894,7 +24203,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -23980,7 +24297,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -24066,7 +24391,15 @@
                                         "paint": {
                                           "fill": "ffffff",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -25300,7 +25633,15 @@
                                         "paint": {
                                           "fill": "171b2214",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -25459,7 +25800,15 @@
                                     "paint": {
                                       "fill": "ffffff",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -25545,7 +25894,15 @@
                                     "paint": {
                                       "fill": "ffffff",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -34201,7 +34558,15 @@
                                 "paint": {
                                   "fill": "fafafa",
                                   "gradient": null,
-                                  "stroke": null,
+                                  "stroke": {
+                                    "color": "171b221f",
+                                    "widths": [
+                                      0.5,
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
                                   "radius": [
                                     16,
                                     16,
@@ -35088,7 +35453,15 @@
                             "paint": {
                               "fill": "fafafa",
                               "gradient": null,
-                              "stroke": null,
+                              "stroke": {
+                                "color": "171b221f",
+                                "widths": [
+                                  0.5,
+                                  0.5,
+                                  0.5,
+                                  0.5
+                                ]
+                              },
                               "radius": [
                                 16,
                                 16,
@@ -36149,7 +36522,15 @@
                                 "paint": {
                                   "fill": "fafafa",
                                   "gradient": null,
-                                  "stroke": null,
+                                  "stroke": {
+                                    "color": "171b221f",
+                                    "widths": [
+                                      0.5,
+                                      0.5,
+                                      0.5,
+                                      0.5
+                                    ]
+                                  },
                                   "radius": [
                                     16,
                                     16,
@@ -36506,7 +36887,15 @@
                                         "paint": {
                                           "fill": "171b2214",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -37116,7 +37505,15 @@
                             "paint": {
                               "fill": "fafafa",
                               "gradient": null,
-                              "stroke": null,
+                              "stroke": {
+                                "color": "171b221f",
+                                "widths": [
+                                  0.5,
+                                  0.5,
+                                  0.5,
+                                  0.5
+                                ]
+                              },
                               "radius": [
                                 16,
                                 16,
@@ -37479,7 +37876,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -38999,7 +39404,15 @@
                                             "paint": {
                                               "fill": "fafafa",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 16,
                                                 16,
@@ -39203,7 +39616,15 @@
                                             "paint": {
                                               "fill": "fafafa",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 16,
                                                 16,
@@ -39407,7 +39828,15 @@
                                             "paint": {
                                               "fill": "fafafa",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 16,
                                                 16,
@@ -40154,7 +40583,15 @@
                                                 "paint": {
                                                   "fill": "ffffff",
                                                   "gradient": null,
-                                                  "stroke": null,
+                                                  "stroke": {
+                                                    "color": "171b221f",
+                                                    "widths": [
+                                                      0.5,
+                                                      0.5,
+                                                      0.5,
+                                                      0.5
+                                                    ]
+                                                  },
                                                   "radius": [
                                                     8,
                                                     8,
@@ -40311,7 +40748,15 @@
                                                     "paint": {
                                                       "fill": "ebecee",
                                                       "gradient": null,
-                                                      "stroke": null,
+                                                      "stroke": {
+                                                        "color": "171b221f",
+                                                        "widths": [
+                                                          0.5,
+                                                          0.5,
+                                                          0.5,
+                                                          0.5
+                                                        ]
+                                                      },
                                                       "radius": [
                                                         12,
                                                         12,
@@ -40394,7 +40839,15 @@
                                                 "paint": {
                                                   "fill": "ffffff",
                                                   "gradient": null,
-                                                  "stroke": null,
+                                                  "stroke": {
+                                                    "color": "171b221f",
+                                                    "widths": [
+                                                      0.5,
+                                                      0.5,
+                                                      0.5,
+                                                      0.5
+                                                    ]
+                                                  },
                                                   "radius": [
                                                     8,
                                                     8,
@@ -42058,7 +42511,15 @@
                                                         "paint": {
                                                           "fill": "fafafa",
                                                           "gradient": null,
-                                                          "stroke": null,
+                                                          "stroke": {
+                                                            "color": "171b221f",
+                                                            "widths": [
+                                                              0.5,
+                                                              0.5,
+                                                              0.5,
+                                                              0.5
+                                                            ]
+                                                          },
                                                           "radius": [
                                                             8,
                                                             8,
@@ -44045,7 +44506,15 @@
                                         "paint": {
                                           "fill": "fafafa",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             16,
                                             16,
@@ -44249,7 +44718,15 @@
                                         "paint": {
                                           "fill": "fafafa",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             16,
                                             16,
@@ -44453,7 +44930,15 @@
                                         "paint": {
                                           "fill": "fafafa",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             16,
                                             16,
@@ -45200,7 +45685,15 @@
                                             "paint": {
                                               "fill": "ffffff",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 8,
                                                 8,
@@ -45357,7 +45850,15 @@
                                                 "paint": {
                                                   "fill": "ebecee",
                                                   "gradient": null,
-                                                  "stroke": null,
+                                                  "stroke": {
+                                                    "color": "171b221f",
+                                                    "widths": [
+                                                      0.5,
+                                                      0.5,
+                                                      0.5,
+                                                      0.5
+                                                    ]
+                                                  },
                                                   "radius": [
                                                     12,
                                                     12,
@@ -45440,7 +45941,15 @@
                                             "paint": {
                                               "fill": "ffffff",
                                               "gradient": null,
-                                              "stroke": null,
+                                              "stroke": {
+                                                "color": "171b221f",
+                                                "widths": [
+                                                  0.5,
+                                                  0.5,
+                                                  0.5,
+                                                  0.5
+                                                ]
+                                              },
                                               "radius": [
                                                 8,
                                                 8,
@@ -56307,7 +56816,15 @@
                                         "paint": {
                                           "fill": "171b2214",
                                           "gradient": null,
-                                          "stroke": null,
+                                          "stroke": {
+                                            "color": "171b221f",
+                                            "widths": [
+                                              0.5,
+                                              0.5,
+                                              0.5,
+                                              0.5
+                                            ]
+                                          },
                                           "radius": [
                                             12,
                                             12,
@@ -57262,7 +57779,15 @@
                                     "paint": {
                                       "fill": "171b2214",
                                       "gradient": null,
-                                      "stroke": null,
+                                      "stroke": {
+                                        "color": "171b221f",
+                                        "widths": [
+                                          0.5,
+                                          0.5,
+                                          0.5,
+                                          0.5
+                                        ]
+                                      },
                                       "radius": [
                                         12,
                                         12,
@@ -57434,7 +57959,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 41839
+          "bytes": 42395
         }
       ]
     },
@@ -57446,7 +57971,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 41632
+          "bytes": 42188
         }
       ]
     },
@@ -57458,7 +57983,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 48858
+          "bytes": 49513
         }
       ]
     },
@@ -57470,7 +57995,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 47925
+          "bytes": 48547
         }
       ]
     },
@@ -57482,7 +58007,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 46049
+          "bytes": 46758
         }
       ]
     },
@@ -57494,7 +58019,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 45328
+          "bytes": 46037
         }
       ]
     },
@@ -57506,7 +58031,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 42358
+          "bytes": 42914
         }
       ]
     },
@@ -57518,7 +58043,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 42140
+          "bytes": 42696
         }
       ]
     },
@@ -57530,7 +58055,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 43600
+          "bytes": 44156
         }
       ]
     },
@@ -57542,7 +58067,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 42516
+          "bytes": 43072
         }
       ]
     },
@@ -57554,7 +58079,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 41503
+          "bytes": 42059
         }
       ]
     },
@@ -57566,7 +58091,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 41288
+          "bytes": 41844
         }
       ]
     },
@@ -57578,7 +58103,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 41497
+          "bytes": 42053
         }
       ]
     },
@@ -57590,7 +58115,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 41282
+          "bytes": 41838
         }
       ]
     },
@@ -57602,7 +58127,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 41498
+          "bytes": 42054
         }
       ]
     },
@@ -57614,7 +58139,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 41288
+          "bytes": 41844
         }
       ]
     },
@@ -57626,7 +58151,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 41488
+          "bytes": 42044
         }
       ]
     },
@@ -57638,7 +58163,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 41278
+          "bytes": 41834
         }
       ]
     },
@@ -57650,7 +58175,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 41482
+          "bytes": 42038
         }
       ]
     },
@@ -57662,7 +58187,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 41266
+          "bytes": 41822
         }
       ]
     },
@@ -57674,7 +58199,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 41465
+          "bytes": 42021
         }
       ]
     },
@@ -57686,7 +58211,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 41255
+          "bytes": 41811
         }
       ]
     },
@@ -57698,7 +58223,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 41454
+          "bytes": 42010
         }
       ]
     },
@@ -57710,7 +58235,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 41244
+          "bytes": 41800
         }
       ]
     },
@@ -57722,7 +58247,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.desktop.00.draw.js",
-          "bytes": 42167
+          "bytes": 42756
         }
       ]
     },
@@ -57734,7 +58259,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.mobile.00.draw.js",
-          "bytes": 41863
+          "bytes": 42452
         }
       ]
     },
@@ -57746,7 +58271,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.desktop.00.draw.js",
-          "bytes": 42308
+          "bytes": 42897
         }
       ]
     },
@@ -57758,7 +58283,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.mobile.00.draw.js",
-          "bytes": 42001
+          "bytes": 42590
         }
       ]
     },
@@ -57770,7 +58295,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
-          "bytes": 48705
+          "bytes": 49492
         }
       ]
     },
@@ -57782,7 +58307,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
-          "bytes": 45662
+          "bytes": 46416
         }
       ]
     },
@@ -57794,7 +58319,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
-          "bytes": 41483
+          "bytes": 42039
         }
       ]
     },
@@ -57806,7 +58331,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
-          "bytes": 41186
+          "bytes": 41742
         }
       ]
     },
@@ -57818,7 +58343,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
-          "bytes": 42016
+          "bytes": 42572
         }
       ]
     },
@@ -57830,7 +58355,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-          "bytes": 41717
+          "bytes": 42273
         }
       ]
     },
@@ -57842,7 +58367,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-          "bytes": 43139
+          "bytes": 43695
         }
       ]
     },
@@ -57854,7 +58379,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-          "bytes": 42838
+          "bytes": 43394
         }
       ]
     },
@@ -57866,7 +58391,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
-          "bytes": 41785
+          "bytes": 42341
         }
       ]
     },
@@ -57878,7 +58403,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-          "bytes": 41486
+          "bytes": 42042
         }
       ]
     },
@@ -57890,7 +58415,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
-          "bytes": 41777
+          "bytes": 42333
         }
       ]
     },
@@ -57902,7 +58427,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
-          "bytes": 41478
+          "bytes": 42034
         }
       ]
     },
@@ -57914,7 +58439,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
-          "bytes": 42207
+          "bytes": 42763
         }
       ]
     },
@@ -57926,7 +58451,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
-          "bytes": 41909
+          "bytes": 42465
         }
       ]
     }

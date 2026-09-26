@@ -151,6 +151,37 @@ const PARTS = [
       ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.2.1.1", ["−", "+"], "2086:5891"],
     ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
   },
+  // **둘째 묶음(2026-09-26 저녁) — 보드 구성 원장의 「미보유」 18 을 0 으로.** 셋 다 LOUIS 컨트롤 사다리에 앉지 않는 제품 전용 자리다.
+  {
+    set: "Product/Analytics Connect Button",
+    about: "유튜브 분석 연결 안내의 계정 연결 버튼(components/scenes/YoutubeAnalyticsScene.tsx CONNECT_NOTICE_BTN — h-20 · rounded-full · bg-gray-000). LOUIS 버튼 사다리에 40 알약 반전 면이 없다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.0.2.0.3", ["Connect Google Account"], "2101:5880"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.0.2.0.3", ["Connect Google Account"], "2101:5881"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/analytics/youtube", context, path, anchor, component })),
+  },
+  {
+    // 칩 하나가 아니라 줄 하나다 — 제품이 테마 여섯을 고정 목록 하나로 그린다(themeChips 의 map). 칩마다 세트를 두면 라벨만 다른
+    // variant 가 열둘이 된다. 선택 칩(themeChipActive)은 측정 fixture 에 없다 — 업로드 단계의 기본 테마가 비어 있다.
+    set: "Product/Highlight Theme Chips",
+    about: "하이라이트 업로드 단계의 테마 칩 줄(components/scenes/HighlightProjectScene.tsx themeChips — 칩 여섯, h 18). 선택 칩은 측정되지 않았다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.0.1.2.1", ["Live Commerce", "Education", "Gaming", "Sports", "Vlog", "Interview"], "2101:5883"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.0.1.2.1", ["Live Commerce", "Education", "Gaming", "Sports", "Vlog", "Interview"], "2101:5884"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/highlight/[projectId]?__phase=upload", context, path, anchor, component })),
+  },
+  {
+    // 모바일 쿠폰 화면에는 결제 패널이 측정 화면 안에 없다(보드 계획에 약관 글자가 없다) — 데스크톱 하나다.
+    set: "Product/Checkout Agreement",
+    about: "요금제 선물 결제 패널의 약관 동의 상자(app/mypage/upgrade/TossPaymentWindowPanel.tsx CHECKOUT_AGREEMENT_BOX). 체크박스는 LOUIS .louis-checkbox 를 제품이 16px · gap 10 으로 덮는다(같은 파일 147-155행 주석 — LOUIS 기본 20 · gap 8).",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.5.1.1", [
+        "I agree to the terms below and to automatic subscription renewal with the registered card.",
+        "Your card will only be used for subscription payments and automatic renewals.",
+        "Payment service terms", "Privacy collection consent", "Third-party data sharing consent",
+      ], "2101:5886"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
+  },
 ];
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
@@ -572,7 +603,8 @@ const partContent = [];
       const sizingFix = reconcileFigmaSizing(spec);
       centreAutoMargins(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
-      partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure });
+      partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
+        ...(signature.leaf ? { leaf: signature.leaf } : {}) });
       parts.push({
         set: part.set, variant: variant.variant, route: variant.route, context: variant.context, path: variant.path,
         componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
@@ -741,6 +773,11 @@ const CONTENT_INSTANCES_BY_SET = {
   // 2026-09-26(뒤): 제품 부품 세트(PARTS) — `/subscription/coupons` 의 요금제 선택 카드 넷 × 두 뷰포트, 수량 스테퍼 × 두 뷰포트.
   "Product/Gift Plan Option": 8,
   "Product/Quantity Stepper": 2,
+  // 둘째 묶음: 유튜브 연결 버튼 × 두 뷰포트(잎 서명 — 버튼이 글자를 제 몸에 든다), 하이라이트 업로드 테마 칩 줄 × 두 뷰포트,
+  // 쿠폰 결제 동의 상자 × 데스크톱.
+  "Product/Analytics Connect Button": 2,
+  "Product/Highlight Theme Chips": 2,
+  "Product/Checkout Agreement": 1,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));

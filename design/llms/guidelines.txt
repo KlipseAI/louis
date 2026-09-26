@@ -3907,8 +3907,13 @@ var(--louis-color-stroke-hairline)`(`packages/css/src/base.css`). 선택 표시 
 - 보드는 같은 서브트리를 그 variant 의 인스턴스로 쓴다. 판정은 본문 세트 치환과 같은 **글자 서열 · 구조 서명 · 뷰포트**이고, 서명 함수
   (`contentSignatureOf`)를 치환 라이브러리와 함께 써서 부품과 보드가 규칙 차이로 어긋날 수 없다.
 - `anchor`(부품 서브트리의 글자 서열)가 측정과 다르면 생성기가 멈춘다 — 측정 경로가 다른 노드를 가리키게 된 것이다.
+- 자식이 없는 자리(글자를 제 몸에 든 버튼)는 **잎 서명**으로 맞춘다 — 부품 서명에 태그가 실리고, 매처는 잎을 잎 서명하고만 태그까지
+  같을 때 맞춘다. 본문 세트에는 잎 서명이 없어 잎을 보지 않는다.
+- 여럿이 고정 목록 하나로 그려지는 컨트롤(테마 칩 여섯)은 칩이 아니라 **줄**을 부품으로 한다 — 칩마다 세트를 두면 라벨만 다른
+  variant 가 늘어난다.
 - 보드 생성기의 `CONTENT_INSTANCES_BY_SET` 이 세트마다 보드 인스턴스 수를 잠근다. 첫 대상: `Product/Gift Plan Option` 8 ·
-  `Product/Quantity Stepper` 2(`/subscription/coupons`).
+  `Product/Quantity Stepper` 2(`/subscription/coupons`). 둘째 묶음으로 보드 구성 원장의 「미보유」가 0 이 됐다 —
+  `Product/Analytics Connect Button` 2 · `Product/Highlight Theme Chips` 2 · `Product/Checkout Agreement` 1.
 
 #### Acceptance tests
 

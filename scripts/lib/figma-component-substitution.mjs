@@ -886,16 +886,18 @@ function matchLouisPrimitive(site, node, style, evidence) {
   };
 }
 
-/** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
 /**
  * 부품 세트의 글자 서열 · 구조 서명 — 보드 생성기가 측정 서브트리에서 뜬 부품(`PARTS`)을 본문 후보로 넘길 때 쓴다.
  * 매처(`matchContent`)가 보드 쪽에서 쓰는 것과 **같은 함수**라, 부품과 보드의 서명이 규칙 차이로 어긋날 수 없다.
+ * 자식이 없는 부품(글자를 제 몸에 든 버튼)은 `leaf` 에 태그를 싣는다 — 매처는 잎을 잎 서명하고만, 태그까지 같을 때 맞춘다.
  */
 export function contentSignatureOf(spec) {
   const texts = textsOf(spec).filter(Boolean);
   const structure = (spec.children ?? []).map((child) => textsOf(child).filter(Boolean).length).filter((count) => count > 0);
-  return { texts, structure };
+  return { texts, structure, ...(spec.children?.length ? {} : { leaf: spec.tag }) };
 }
+
+/** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
 
 export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [] }) {
   const desktop = context.startsWith("desktop");
@@ -948,11 +950,13 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   const viewportName = desktop ? "Desktop" : "Mobile";
   const structureOf = (node) => (node.children ?? []).map((child) => textsOf(child).filter(Boolean).length).filter((count) => count > 0);
   const matchContent = (node) => {
-    if (!node.children?.length) return null;
+    // 잎(자식 없는 노드)은 잎 서명(`leaf` = 태그)을 가진 부품하고만 맞춘다. 본문 세트에는 잎 서명이 없어 잎을 보지 않는다(전과 같다).
+    const leaf = !node.children?.length;
     const texts = textsOf(node).filter(Boolean);
     if (texts.length === 0) return null;
     const sameTexts = [...CONTENT_COMPONENTS, ...extraContent].filter((candidate) =>
-      candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
+      (leaf ? candidate.leaf === node.tag : !candidate.leaf)
+      && candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
     if (sameTexts.length === 0) return null;
     const structure = structureOf(node);
     const hit = sameTexts.find((candidate) => candidate.viewport === viewportName

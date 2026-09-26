@@ -15,6 +15,7 @@
 //   이름   `<viewport> <W>×<H> — <route> (<상태>)` 파싱 실패 · W×H ≠ 실제 크기(반올림) · 상태 빈칸
 //   배치   허용 x 8 개 밖 · rowTop 산식 · 섹션 높이 산식 · 섹션 간격 800 · 섹션 밖 페이지 자식
 //   색인   (선택) START HERE 라우트 색인의 행마다 W×H · 상태 · 등급 칸이 보드 이름 · 커버리지 JSON 과 같은가
+//   검산   (색인과 함께) 요약 「N개 항목 · 라우트 프레임 R + 상태 프레임 S = T」 · 색인 이름 「— N개 · T프레임」이 보드에서 센 수와 같은가
 //
 // ## 쓰는 법 — CI 에 넣지 않는다(Figma 접근이 필요하다). verify 목록에도 넣지 않는다.
 //
@@ -177,6 +178,21 @@ if (indexFiles.length) {
     });
   }
   for (const route of byRoute.keys()) if (!listed.has(route)) report(`색인 ${route}`, "보드는 있는데 색인 행이 없다");
+  // **상시 검산식(조립 규칙 23조)도 센다(2026-09-26).** 색인 요약 글자와 색인 프레임 이름의 수가 산문으로만 남아 있으면 상태 보드가
+  // 늘 때(결제 성공 ?preview 여섯 × 2) 조용히 낡는다. 라우트 프레임은 색인 행의 크기 칸(「—」 가 아닌 것)에서, 상태 프레임은 보드에서 센다.
+  let routeFrames = 0;
+  for (const row of rows) {
+    if (!row.name.startsWith("행 · ")) continue;
+    const cells = row.cells.map(([, text]) => text);
+    routeFrames += (cells[3] !== "—" ? 1 : 0) + (cells[4] !== "—" ? 1 : 0);
+  }
+  const stateFrames = boards.filter((board) => STATE_BOARD.test(board.state)).length;
+  const total = routeFrames + stateFrames;
+  const tally = `${indexRows}개 항목 · 라우트 프레임 ${routeFrames} + 상태 프레임 ${stateFrames} = ${total}`;
+  const written = rows.flatMap((row) => row.cells.map(([, text]) => text)).find((text) => /라우트 프레임 \d+ \+ 상태 프레임 \d+ = \d+/.test(text));
+  if (!written?.startsWith(tally)) report("색인 요약", `「${(written ?? "없음").slice(0, tally.length + 8)}」 ≠ 보드에서 센 「${tally}」`);
+  const title = `00.2  라우트 색인 — ${indexRows}개 · ${total}프레임`;
+  if (parts[0].name !== title) report("색인 이름", `「${parts[0].name}」 ≠ 「${title}」`);
 }
 
 const summary = `보드 ${boards.length} · 페이지 ${pages.length}${indexFiles.length ? ` · 색인 행 ${indexRows}` : ""}`;

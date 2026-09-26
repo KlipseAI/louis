@@ -602,6 +602,63 @@
         }
       ],
       "boardInstances": 4
+    },
+    {
+      "setName": "Product/Coupon Code Chip",
+      "about": "bulk 결제 성공 화면의 쿠폰 코드 칩(app/mypage/upgrade/bulk-success/page.tsx CODE_CHIP — 헤어라인 · 곡률 8 · 88% 글자). 글자는 TEXT 속성 Code 다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/mypage/upgrade/bulk-success?preview=success",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.1.0.1.0.3.0",
+          "componentId": "2115:5880",
+          "frameSize": [
+            222.66,
+            33
+          ],
+          "signature": {
+            "texts": [
+              "PREV-IEW0-001"
+            ],
+            "structure": [],
+            "leaf": "span"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.coupon-code-chip-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/mypage/upgrade/bulk-success?preview=success",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.1.0.1.0.3.0",
+          "componentId": "2115:5881",
+          "frameSize": [
+            350,
+            33
+          ],
+          "signature": {
+            "texts": [
+              "PREV-IEW0-001"
+            ],
+            "structure": [],
+            "leaf": "span"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.coupon-code-chip-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 45
     }
   ]
 }

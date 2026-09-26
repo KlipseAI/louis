@@ -243,7 +243,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 밤: 134 → **161.** 보드가 늘고(결제 성공 미리보기 상태 보드 12 — 셸 인스턴스 18) PARTS 셋째 묶음이 섰다 — 결제 상태 알림 2
 // (`Product/Billing Status Alert`) · bulk 쿠폰 안내 4(`Product/Bulk Coupon Notice`, 성공 · 발급 실패 미리보기 × 두 뷰포트). 134 + 18 + 6 = 158 에
 // 미리보기 보드의 LOUIS Button 인스턴스 3 을 더해 161 이다.
-const INSTANCE_FLOOR = 161;
+// 같은 날 더 밤: 161 → **206.** **이득이다.** 글자 속성 부품(`Product/Coupon Code Chip`, PARTS 넷째 묶음) — bulk 성공 미리보기의 쿠폰
+// 코드 칩 45(데스크톱 30 · 모바일 15)가 인스턴스가 됐다. 칩의 글자는 인스턴스의 TEXT 속성 Code 로 옮겼다.
+const INSTANCE_FLOOR = 206;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -274,6 +276,8 @@ const INSTANCE_FLOOR = 161;
 // 레시피 — 「Go to My Page」 · 「Back to plans」 · 「Go to archive」, primitive-site-element-mismatch) · missing +45. 미보유 45 는 전부
 // bulk 성공 미리보기의 쿠폰 코드 칩(데스크톱 30 · 모바일 15, 칠해진 마크)이다 — 칩마다 글자가 달라 글자 서열 서명으로는 부품이 되지
 // 않는다(글자 속성을 가진 부품이 다음 묶음). 수는 instance 161 + replaceable 0 + bespoke 13 + blocked 6 + missing 45.
+// 같은 날 더 밤: 225 그대로 — 미보유 45 가 모두 같은 자리에서 인스턴스가 됐다(instance +45 · missing −45). 수는 instance 206 +
+// replaceable 0 + bespoke 13 + blocked 6 + missing 0.
 const CANDIDATE_FLOOR = 225;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).

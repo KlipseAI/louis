@@ -897,6 +897,14 @@ export function contentSignatureOf(spec) {
   return { texts, structure, ...(spec.children?.length ? {} : { leaf: spec.tag }) };
 }
 
+/**
+ * 글자 속성 부품(`PARTS` 의 `label`)의 모양 서명 — 칠과 타이포. 글자마다 다른 반복 칩(쿠폰 코드)은 글자 서열로 묶을 수 없으므로
+ * 잎 · 태그 · 이 모양 · 뷰포트가 같으면 같은 부품으로 보고, 글자는 인스턴스의 TEXT 속성으로 옮긴다.
+ */
+export function lookOf(spec) {
+  return JSON.stringify([spec.paint ?? null, spec.typography ?? null]);
+}
+
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
 
 export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [] }) {
@@ -923,7 +931,7 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   const applied = [];
   const skipped = [];
 
-  const substitute = (node, set, variant, why) => {
+  const substitute = (node, set, variant, why, labelOverride = null) => {
     if (!variant) { skipped.push({ path: node.path, set, reason: "variant 축을 판정하지 못했다" }); return false; }
     // 낱개 정본 프리미티브의 variant 는 **되읽기에서 조립한 것**이라 여기 목록에 없다 —
     // 축과 options 를 되읽기가 이미 확인했으므로 다시 확인할 목록이 없다(있으면 두 벌이 된다).
@@ -937,9 +945,10 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     }
     // **자식을 비우기 «전»에** 라벨을 건진다 — 비운 뒤에는 셀 텍스트가 없다.
     // 상단 바는 속성이 여럿이라 이름 → 글자 객체다(`topBarTextProperties`).
-    const label = TOP_BAR_PLANS[set]
-      ? topBarTextProperties(node, set, variant)
-      : instanceLabel(node, set, evidence.readback);
+    const label = labelOverride != null ? labelOverride
+      : TOP_BAR_PLANS[set]
+        ? topBarTextProperties(node, set, variant)
+        : instanceLabel(node, set, evidence.readback);
     node.instance = { set, variant, why, ...(label == null ? {} : { label }) };
     node.children = [];
     applied.push({ path: node.path, set, variant, ...(label == null ? {} : { label }) });
@@ -954,8 +963,15 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     const leaf = !node.children?.length;
     const texts = textsOf(node).filter(Boolean);
     if (texts.length === 0) return null;
-    const sameTexts = [...CONTENT_COMPONENTS, ...extraContent].filter((candidate) =>
-      (leaf ? candidate.leaf === node.tag : !candidate.leaf)
+    // 글자 속성 부품은 글자가 아니라 모양(`lookOf`)으로 맞추고, 글자는 라벨로 넘긴다.
+    if (leaf && texts.length === 1) {
+      const look = lookOf(node);
+      const labelled = extraContent.find((candidate) => candidate.label && candidate.leaf === node.tag
+        && candidate.viewport === viewportName && candidate.look === look && new RegExp(candidate.labelPattern).test(texts[0]));
+      if (labelled) return { hit: labelled, label: texts[0] };
+    }
+    const sameTexts = [...CONTENT_COMPONENTS, ...extraContent].filter((candidate) => !candidate.label
+      && (leaf ? candidate.leaf === node.tag : !candidate.leaf)
       && candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
     if (sameTexts.length === 0) return null;
     const structure = structureOf(node);
@@ -994,8 +1010,10 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     const content = matchContent(node);
     if (content?.hit) {
       const { hit } = content;
-      if (substitute(node, hit.set, hit.variant,
-        `글자 ${hit.texts.length}개 서열 · 구조 서명 [${hit.structure.join(",")}] · ${hit.viewport} 일치 — 기존 본문 컴포넌트(측정 ${round(node.rect.width)}×${round(node.rect.height)})`)) return;
+      const why = content.label != null
+        ? `글자 속성 부품 — 잎 ${node.tag} · 칠과 타이포 · ${hit.viewport} 일치, 글자 「${content.label}」 는 TEXT 속성 ${hit.label} 로(측정 ${round(node.rect.width)}×${round(node.rect.height)})`
+        : `글자 ${hit.texts.length}개 서열 · 구조 서명 [${hit.structure.join(",")}] · ${hit.viewport} 일치 — 기존 본문 컴포넌트(측정 ${round(node.rect.width)}×${round(node.rect.height)})`;
+      if (substitute(node, hit.set, hit.variant, why, content.label)) return;
     } else if (content?.miss) {
       contentMisses.push({ path: node.path, ...content.miss });
     }

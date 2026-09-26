@@ -623,7 +623,10 @@ function typographyOf(style) {
 
 /** grid 컨테이너의 열 개수 — 선언을 먼저 보고, 없으면 computed의 px 트랙을 센다. */
 function gridColumns(node, style) {
-  const declared = parseTracks(node.declared?.["grid-template-columns"]);
+  // `repeat(auto-fill | auto-fit, …)` 은 선언에서 열 수를 셀 수 없다(반복 수가 뷰포트에서 정해진다) — 그 뷰포트에서 풀린
+  // 트랙(computed)을 센다. 선언을 그대로 펼치면 한 열로 읽혀 bulk 성공 미리보기의 쿠폰 코드 격자(데스크톱 셋 열)가 한 줄로 섰다.
+  const raw = node.declared?.["grid-template-columns"];
+  const declared = /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw ?? "") ? null : parseTracks(raw);
   if (declared?.length) return declared.length;
   const computed = parseTracks(style.gridTemplateColumns);
   if (computed?.length && computed[0] !== "none") return computed.length;

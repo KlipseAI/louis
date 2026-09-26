@@ -596,7 +596,7 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | 가로 줄(flex 행) 안에서 줄어들어 감긴 글자 | 폭 FILL(형제가 쓰고 남은 폭) + `textAutoResize = "HEIGHT"` — 형제가 모두 FILL 이 아니고 측정 폭이 남은 폭(부모 안쪽 폭 − 형제 폭 − 간격)과 같을 때 | 쿠폰 결제 동의 문구(체크박스 16 · 간격 10 옆 461.6, 두 줄) — 세로 부모만 보던 규칙에 걸리지 않아 한 줄 550 으로 늘어났고 동의 상자가 193 → 174 로 섰다. 부품(`PARTS`)은 풀지 못한 감긴 글자가 있으면 생성기가 멈춘다 |
 | 한 줄짜리 인라인 흐름의 줄 상자(블록 안의 `inline-block` 들) | 줄 상자에서 남는 위 · 아래를 패딩으로(측정한 자식 위치에서 잰다). 원자 인라인만 — 그냥 `inline` 글자는 Figma 글자가 제 줄 높이를 이미 가진다 | 하이라이트 업로드의 테마 칩 줄 — 칩 18 인데 줄이 컨테이너 `line-height` 24(모바일 21)라 Figma 가로 배치가 18 로 접혔다(`figma-tree-spec` 의 `lineBoxSlack`) |
 | 한 줄 글자가 폭을 정하는 버튼(폭 선언 없음, 블록 버튼 포함) | 면을 Auto Layout 으로 두고 글자 HUG(`WIDTH_AND_HEIGHT`) · 측정 폭은 최소 폭으로, `text-align` 은 주축 정렬로 | 앱 화면 보드의 업로드 Topic 칩 — 글자 상자를 측정 폭에 가두면 Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾였다(Updates (156)) |
-| CSS grid 의 행(행 템플릿 선언 없음 = `auto`) · `gap` | GRID 행 트랙 `HUG`, 열은 `repeat(N, 1fr)` 면 FLEX. `gap` 은 `gridRowGap` · `gridColumnGap`(`itemSpacing` 은 GRID 에 뜻이 없다). 칸이 전부 세로 FILL(stretch)인 행은 가장 높은 칸만 HUG 로 두고 나머지는 FILL — 칸 안 세로 쌓기의 FILL 자식도 HUG 로 푼다. 인스턴스 칸은 컴포넌트가 안을 정하므로 제품이 잰 칸 높이로 둔다 | 앱 화면 보드의 `/subscription` · `/mypage/upgrade` 격자 — Figma 가 새 행을 FLEX(1fr)로 깔아 HUG 컨테이너 높이를 행 수로 똑같이 나눴고 긴 카드가 다음 행을 덮었다. HUG 행에 FILL 칸만 두면 칸이 패딩만 남기고 접힌다(Updates (156)) |
+| CSS grid 의 행(행 템플릿 선언 없음 = `auto`) · `gap` | GRID 행 트랙 `HUG`, 열은 `repeat(N, 1fr)` 면 FLEX. `repeat(auto-fill · auto-fit, …)` 은 선언에서 열 수를 셀 수 없어 그 뷰포트에서 풀린 트랙 수(computed)를 쓴다 — 선언을 펼치면 한 열로 읽혀 bulk 쿠폰 코드 격자(데스크톱 셋 열)가 한 줄로 섰다. `gap` 은 `gridRowGap` · `gridColumnGap`(`itemSpacing` 은 GRID 에 뜻이 없다). 칸이 전부 세로 FILL(stretch)인 행은 가장 높은 칸만 HUG 로 두고 나머지는 FILL — 칸 안 세로 쌓기의 FILL 자식도 HUG 로 푼다. 인스턴스 칸은 컴포넌트가 안을 정하므로 제품이 잰 칸 높이로 둔다 | 앱 화면 보드의 `/subscription` · `/mypage/upgrade` 격자 — Figma 가 새 행을 FLEX(1fr)로 깔아 HUG 컨테이너 높이를 행 수로 똑같이 나눴고 긴 카드가 다음 행을 덮었다. HUG 행에 FILL 칸만 두면 칸이 패딩만 남기고 접힌다(Updates (156)) |
 | `%` 비율 · `aspect-ratio` | constraints `SCALE` · `lockAspectRatio` | — |
 | `position: absolute` · `fixed` + `inset` | 절대 배치 + constraints. 자기 크기는 위 규칙을 따른다 | 결제 장면의 사이드바(`position: fixed`, 15번대로 마지막 자식) |
 
@@ -706,10 +706,12 @@ var(--louis-color-stroke-hairline)`(`packages/css/src/base.css`). 선택 표시 
 - 보드 생성기의 `CONTENT_INSTANCES_BY_SET` 이 세트마다 보드 인스턴스 수를 잠근다. 첫 대상: `Product/Gift Plan Option` 8 ·
   `Product/Quantity Stepper` 2(`/subscription/coupons`). 둘째 묶음으로 보드 구성 원장의 「미보유」가 0 이 됐다 —
   `Product/Analytics Connect Button` 2 · `Product/Highlight Theme Chips` 2 · `Product/Checkout Agreement` 1. 셋째 묶음은 결제 성공
-  미리보기 보드의 안내 상자 둘 — `Product/Billing Status Alert` 2 · `Product/Bulk Coupon Notice` 4.
-- **글자마다 다른 반복 칩은 아직 부품이 되지 않는다.** 서명이 글자 서열이라 쿠폰 코드 칩(bulk 성공 미리보기, 코드마다 글자가
-  다르다)은 칩 하나를 세트 하나로 묶을 수 없다 — 글자 속성(component TEXT property)을 가진 부품과 글자를 뺀 서명이 필요하다.
-  그때까지 보드 구성 원장의 「미보유」로 남긴다(데스크톱 30 · 모바일 15).
+  미리보기 보드의 안내 상자 둘 — `Product/Billing Status Alert` 2 · `Product/Bulk Coupon Notice` 4. 넷째 묶음(글자 속성)으로 보드 구성
+  원장의 「미보유」가 다시 0 이 됐다.
+- **글자마다 다른 반복 칩은 글자 속성 부품이 된다**(`label`). 서명이 글자 서열이면 쿠폰 코드 칩(코드마다 글자가 다르다)을 칩 하나로
+  묶을 수 없다. `label` 이 있는 부품은 글자가 아니라 **모양**(잎 · 태그 · 칠과 타이포 `lookOf` · 뷰포트)으로 맞추고, 그 모양의 잎
+  가운데 `labelPattern` 에 드는 글자만 받는다. 부품 러너가 세트에 TEXT 속성(이름 = `label`)을 열어 글자 노드를 묶고, 보드는 칩마다
+  글자를 인스턴스 속성으로 넣는다 — `Product/Coupon Code Chip` 45(bulk 성공 미리보기 데스크톱 30 · 모바일 15).
 
 ## Acceptance tests
 

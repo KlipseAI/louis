@@ -288,23 +288,26 @@ withCanary(
     const candidates = ledger.counts.instance + ledger.counts.replaceable + ledger.counts.bespoke
       + ledger.counts.blocked + ledger.counts.missing;
     const need = candidates - floor + 1;
-    const ids = Object.keys(ledger.nodes)
-      .filter((key) => ledger.nodes[key].verdict === "missing")
+    /* 미보유부터 옮기고, 모자라면 막힘을 옮긴다 — 미보유가 0 이 되는 날(2026-09-26, 글자 속성 부품이 쿠폰 코드 칩 45 를
+       인스턴스로 옮겼다) 이 canary 가 대상을 잃고 멈췄다. 어느 후보든 구조로 옮기면 분모가 준다. bespoke 는 옮기지 않는다 —
+       checker 가 bespoke 하락을 따로 잠가 이 그물이 아닌 다른 그물이 먼저 운다. */
+    const ids = ["missing", "blocked"]
+      .flatMap((verdict) => Object.keys(ledger.nodes).filter((key) => ledger.nodes[key].verdict === verdict))
       .slice(0, Math.max(need, 0));
     if (need < 1 || ids.length < need) {
       errors.push(
-        "board composition 후보 바닥 canary가 옮길 미보유 자리를 찾지 못했습니다: 바닥 " + floor +
-          " · 후보 " + candidates + " · 필요 " + need + " · 미보유 " + ledger.counts.missing + ".",
+        "board composition 후보 바닥 canary가 옮길 후보 자리를 찾지 못했습니다: 바닥 " + floor +
+          " · 후보 " + candidates + " · 필요 " + need + " · 미보유 " + ledger.counts.missing + " · 막힘 " + ledger.counts.blocked + ".",
       );
       return source;
     }
     for (const id of ids) {
+      ledger.counts[ledger.nodes[id].verdict] -= 1;
       const node = { ...ledger.nodes[id], verdict: "structural", rule: "surface",
         reason: "카나리아 — 후보를 구조로 옮겨 분모를 줄여 놓았다." };
       delete node.candidateClause;
       ledger.nodes[id] = node;
     }
-    ledger.counts.missing -= ids.length;
     ledger.counts.structural += ids.length;
     return JSON.stringify(ledger, null, 2) + "\n";
   },

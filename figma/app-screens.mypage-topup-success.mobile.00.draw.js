@@ -375,11 +375,7 @@ const buildNode = (spec, parent) => {
   } else if (spec.i) {
     // 셸·본문 자리 — 도형 대신 컴포넌트 인스턴스. 크기·배치는 아래 공통 경로가 그대로 건다.
     node = componentCache.get(`${spec.i[0]}|${spec.i[1]}`).createInstance();
-    // **라벨은 「인스턴스에 색·타이포를 걸지 않는다」에 걸리지 않는다.** 그 규칙은 컴포넌트가
-    // «정한» 값(면 색·글꼴)을 화면이 덮어써서 시스템 쪽 수정이 전파되지 않게 되는 것을 막는다.
-    // 라벨은 반대다 — 컴포넌트가 **스스로 연 TEXT 속성**이고, 채우지 않으면 마스터 기본값
-    // 「버튼」이 그대로 나온다. 실측: `/settings` 데스크톱 Button 7개가 그렇게 되어 HUG 폭이
-    // 49px 로 접혔다. 크기·배치보다 **먼저** 채워야 뒤따르는 HUG 가 제 글자를 문다.
+    // 라벨(컴포넌트가 연 TEXT 속성)은 크기·배치보다 먼저 채운다 — 뒤따르는 HUG 가 제 글자를 문다(instanceLabel 주석).
     if (spec.i[2] != null && typeof spec.i[2] === "object") {
       // **상단 바 — 속성이 여럿이라 이름으로 짝짓는다.** 계획은 세트의 TEXT 속성 이름 «전부»를 키로
       // 싣고, 이 variant 가 묶지 않은 속성은 null 이다. 파일의 TEXT 속성 이름 집합이 계획과 한 개라도
@@ -640,6 +636,12 @@ if (P.head) {
   // 측정 테마의 모드를 화면 루트에 고정한다 — 파일 기본 모드가 바뀌어도 보드가 측정과 같은 색으로 풀린다.
   live.pin(root);
   await flushTextStyles();
+  // 글자 속성 부품: 세트에 TEXT 속성을 열고 글자 노드를 묶는다(빌더 PARTS 의 label).
+  if (P.label) {
+    const set = frame.parent, text = root.findOne((n) => n.type === "TEXT"), defs = set.componentPropertyDefinitions;
+    const key = Object.keys(defs).find((k) => k.split("#")[0] === P.label && defs[k].type === "TEXT") || set.addComponentProperty(P.label, "TEXT", text.characters);
+    text.componentPropertyReferences = { characters: key };
+  }
   result = { chunk: 0, built: [Math.round(root.width), Math.round(root.height)], legacy: Boolean(legacy) };
 } else {
   // 조각 n — path를 따라 대기 자리를 찾아 실제 서브트리로 바꾼다.

@@ -7,7 +7,7 @@
   "screenCount": 54,
   "totalNodes": 3615,
   "totalUnresolved": 4,
-  "totalShellInstances": 161,
+  "totalShellInstances": 206,
   "totalShellGaps": 0,
   "totalSizingReconciled": 27,
   "totalUnresolvedFillInHug": 12,
@@ -23,7 +23,8 @@
     "Product/Highlight Theme Chips": 2,
     "Product/Checkout Agreement": 1,
     "Product/Billing Status Alert": 2,
-    "Product/Bulk Coupon Notice": 4
+    "Product/Bulk Coupon Notice": 4,
+    "Product/Coupon Code Chip": 45
   },
   "colourBinding": {
     "modeCollection": "Klipse Semantic Color",
@@ -335,11 +336,11 @@
   "paint": {
     "fills": 254,
     "gradients": 0,
-    "strokes": 100,
-    "radii": 147,
+    "strokes": 55,
+    "radii": 102,
     "shadows": 0,
-    "texts": 309,
-    "textStyled": 287,
+    "texts": 264,
+    "textStyled": 242,
     "textLiteral": [
       "12/400/18/-0.14",
       "12/400/18/-0.16",
@@ -59981,6 +59982,186 @@
             "variant": "Viewport=Desktop"
           },
           {
+            "path": "body.1.0.0.1.0.1.0.3.0",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-001"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.1",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-002"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.2",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-003"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.3",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-004"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.4",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-005"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.5",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-006"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.6",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-007"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.7",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-008"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.8",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-009"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.9",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-010"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.10",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-011"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.11",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-012"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.12",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-013"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.13",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-014"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.14",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-015"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.15",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-016"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.16",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-017"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.17",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-018"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.18",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-019"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.19",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-020"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.20",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-021"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.21",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-022"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.22",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-023"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.23",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-024"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.24",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-025"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.25",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-026"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.26",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-027"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.27",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-028"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.28",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-029"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.29",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Desktop",
+            "label": "PREV-IEW0-030"
+          },
+          {
             "path": "body.1.0.0.1.0.1.0.4.0",
             "set": "Button",
             "variant": "Variant=primary, Size=md, State=Default, Icon=none",
@@ -61258,7 +61439,7 @@
                                         "bottom": 0,
                                         "left": 0
                                       },
-                                      "columns": 1,
+                                      "columns": 3,
                                       "align": {
                                         "counterAxis": null,
                                         "primaryAxis": null
@@ -61346,7 +61527,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-001」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-001"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.1",
@@ -61428,7 +61615,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-002」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-002"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.2",
@@ -61510,7 +61703,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-003」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-003"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.3",
@@ -61592,7 +61791,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-004」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-004"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.4",
@@ -61674,7 +61879,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-005」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-005"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.5",
@@ -61756,7 +61967,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-006」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-006"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.6",
@@ -61838,7 +62055,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-007」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-007"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.7",
@@ -61920,7 +62143,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-008」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-008"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.8",
@@ -62002,7 +62231,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-009」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-009"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.9",
@@ -62084,7 +62319,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-010」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-010"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.10",
@@ -62166,7 +62407,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-011」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-011"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.11",
@@ -62248,7 +62495,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-012」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-012"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.12",
@@ -62330,7 +62583,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-013」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-013"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.13",
@@ -62412,7 +62671,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-014」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-014"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.14",
@@ -62494,7 +62759,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-015」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-015"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.15",
@@ -62576,7 +62847,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-016」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-016"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.16",
@@ -62658,7 +62935,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-017」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-017"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.17",
@@ -62740,7 +63023,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-018」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-018"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.18",
@@ -62822,7 +63111,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-019」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-019"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.19",
@@ -62904,7 +63199,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-020」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-020"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.20",
@@ -62986,7 +63287,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-021」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-021"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.21",
@@ -63068,7 +63375,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-022」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-022"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.22",
@@ -63150,7 +63463,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-023」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-023"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.23",
@@ -63232,7 +63551,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-024」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-024"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.24",
@@ -63314,7 +63639,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-025」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-025"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.25",
@@ -63396,7 +63727,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-026」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-026"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.26",
@@ -63478,7 +63815,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-027」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-027"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.27",
@@ -63560,7 +63903,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-028」 는 TEXT 속성 Code 로(측정 222.66×33)",
+                                          "label": "PREV-IEW0-028"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.28",
@@ -63642,7 +63991,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-029」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-029"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.0.3.29",
@@ -63724,7 +64079,13 @@
                                         },
                                         "layout": null,
                                         "clipsContent": true,
-                                        "children": []
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Coupon Code Chip",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Desktop 일치, 글자 「PREV-IEW0-030」 는 TEXT 속성 Code 로(측정 222.67×33)",
+                                          "label": "PREV-IEW0-030"
+                                        }
                                       }
                                     ]
                                   },
@@ -63924,6 +64285,96 @@
             "path": "body.1.0.0.1.0.1.0.2",
             "set": "Product/Bulk Coupon Notice",
             "variant": "Viewport=Mobile"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.0",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-001"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.1",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-002"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.2",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-003"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.3",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-004"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.4",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-005"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.5",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-006"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.6",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-007"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.7",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-008"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.8",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-009"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.9",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-010"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.10",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-011"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.11",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-012"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.12",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-013"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.13",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-014"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.0.3.14",
+            "set": "Product/Coupon Code Chip",
+            "variant": "Viewport=Mobile",
+            "label": "PREV-IEW0-015"
           }
         ],
         "skipped": []
@@ -65110,7 +65561,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-001」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-001"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.1",
@@ -65192,7 +65649,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-002」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-002"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.2",
@@ -65274,7 +65737,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-003」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-003"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.3",
@@ -65356,7 +65825,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-004」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-004"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.4",
@@ -65438,7 +65913,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-005」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-005"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.5",
@@ -65520,7 +66001,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-006」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-006"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.6",
@@ -65602,7 +66089,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-007」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-007"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.7",
@@ -65684,7 +66177,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-008」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-008"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.8",
@@ -65766,7 +66265,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-009」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-009"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.9",
@@ -65848,7 +66353,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-010」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-010"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.10",
@@ -65930,7 +66441,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-011」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-011"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.11",
@@ -66012,7 +66529,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-012」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-012"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.12",
@@ -66094,7 +66617,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-013」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-013"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.13",
@@ -66176,7 +66705,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-014」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-014"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.1.0.3.14",
@@ -66258,7 +66793,13 @@
                                     },
                                     "layout": null,
                                     "clipsContent": true,
-                                    "children": []
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Coupon Code Chip",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 속성 부품 — 잎 span · 칠과 타이포 · Mobile 일치, 글자 「PREV-IEW0-015」 는 TEXT 속성 Code 로(측정 350×33)",
+                                      "label": "PREV-IEW0-015"
+                                    }
                                   }
                                 ]
                               }
@@ -79879,7 +80420,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.desktop.00.draw.js",
-          "bytes": 42606
+          "bytes": 42616
         }
       ]
     },
@@ -79891,7 +80432,7 @@
       "files": [
         {
           "file": "figma/app-screens.archive.mobile.00.draw.js",
-          "bytes": 42399
+          "bytes": 42409
         }
       ]
     },
@@ -79903,7 +80444,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.desktop.00.draw.js",
-          "bytes": 49736
+          "bytes": 49746
         }
       ]
     },
@@ -79915,7 +80456,7 @@
       "files": [
         {
           "file": "figma/app-screens.settings.mobile.00.draw.js",
-          "bytes": 48762
+          "bytes": 48772
         }
       ]
     },
@@ -79927,7 +80468,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.desktop.00.draw.js",
-          "bytes": 46979
+          "bytes": 46989
         }
       ]
     },
@@ -79939,7 +80480,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 46258
+          "bytes": 46268
         }
       ]
     },
@@ -79951,7 +80492,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 43104
+          "bytes": 43114
         }
       ]
     },
@@ -79963,7 +80504,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 42885
+          "bytes": 42895
         }
       ]
     },
@@ -79975,7 +80516,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 44367
+          "bytes": 44377
         }
       ]
     },
@@ -79987,7 +80528,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 43283
+          "bytes": 43293
         }
       ]
     },
@@ -79999,7 +80540,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.desktop.00.draw.js",
-          "bytes": 42270
+          "bytes": 42280
         }
       ]
     },
@@ -80011,7 +80552,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success.mobile.00.draw.js",
-          "bytes": 42055
+          "bytes": 42065
         }
       ]
     },
@@ -80023,7 +80564,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.desktop.00.draw.js",
-          "bytes": 42264
+          "bytes": 42274
         }
       ]
     },
@@ -80035,7 +80576,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-fail.mobile.00.draw.js",
-          "bytes": 42049
+          "bytes": 42059
         }
       ]
     },
@@ -80047,7 +80588,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.desktop.00.draw.js",
-          "bytes": 42265
+          "bytes": 42275
         }
       ]
     },
@@ -80059,7 +80600,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success.mobile.00.draw.js",
-          "bytes": 42055
+          "bytes": 42065
         }
       ]
     },
@@ -80071,7 +80612,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.desktop.00.draw.js",
-          "bytes": 42255
+          "bytes": 42265
         }
       ]
     },
@@ -80083,7 +80624,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-fail.mobile.00.draw.js",
-          "bytes": 42045
+          "bytes": 42055
         }
       ]
     },
@@ -80095,7 +80636,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.desktop.00.draw.js",
-          "bytes": 42249
+          "bytes": 42259
         }
       ]
     },
@@ -80107,7 +80648,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-fail.mobile.00.draw.js",
-          "bytes": 42033
+          "bytes": 42043
         }
       ]
     },
@@ -80119,7 +80660,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.desktop.00.draw.js",
-          "bytes": 42232
+          "bytes": 42242
         }
       ]
     },
@@ -80131,7 +80672,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success.mobile.00.draw.js",
-          "bytes": 42022
+          "bytes": 42032
         }
       ]
     },
@@ -80143,7 +80684,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.desktop.00.draw.js",
-          "bytes": 42221
+          "bytes": 42231
         }
       ]
     },
@@ -80155,7 +80696,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-fail.mobile.00.draw.js",
-          "bytes": 42011
+          "bytes": 42021
         }
       ]
     },
@@ -80167,7 +80708,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.desktop.00.draw.js",
-          "bytes": 42969
+          "bytes": 42979
         }
       ]
     },
@@ -80179,7 +80720,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success.mobile.00.draw.js",
-          "bytes": 42665
+          "bytes": 42675
         }
       ]
     },
@@ -80191,7 +80732,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.desktop.00.draw.js",
-          "bytes": 43110
+          "bytes": 43120
         }
       ]
     },
@@ -80203,7 +80744,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-fail.mobile.00.draw.js",
-          "bytes": 42803
+          "bytes": 42813
         }
       ]
     },
@@ -80215,7 +80756,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
-          "bytes": 47254
+          "bytes": 47264
         }
       ]
     },
@@ -80227,7 +80768,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
-          "bytes": 45296
+          "bytes": 45306
         }
       ]
     },
@@ -80239,7 +80780,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-success.desktop.00.draw.js",
-          "bytes": 45583
+          "bytes": 45593
         }
       ]
     },
@@ -80251,7 +80792,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
-          "bytes": 44581
+          "bytes": 44591
         }
       ]
     },
@@ -80263,7 +80804,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.desktop.00.draw.js",
-          "bytes": 45896
+          "bytes": 45906
         }
       ]
     },
@@ -80275,7 +80816,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
-          "bytes": 44203
+          "bytes": 44213
         }
       ]
     },
@@ -80287,7 +80828,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.desktop.00.draw.js",
-          "bytes": 43398
+          "bytes": 43408
         }
       ]
     },
@@ -80299,7 +80840,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
-          "bytes": 43164
+          "bytes": 43174
         }
       ]
     },
@@ -80311,7 +80852,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success-preview-success.desktop.00.draw.js",
-          "bytes": 43913
+          "bytes": 43923
         }
       ]
     },
@@ -80323,7 +80864,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
-          "bytes": 43653
+          "bytes": 43663
         }
       ]
     },
@@ -80335,7 +80876,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success-preview-success.desktop.00.draw.js",
-          "bytes": 48193
+          "bytes": 47543
         }
       ]
     },
@@ -80347,7 +80888,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success-preview-success.mobile.00.draw.js",
-          "bytes": 45273
+          "bytes": 44938
         }
       ]
     },
@@ -80359,7 +80900,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success-preview-issue-error.desktop.00.draw.js",
-          "bytes": 43953
+          "bytes": 43963
         }
       ]
     },
@@ -80371,7 +80912,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-bulk-success-preview-issue-error.mobile.00.draw.js",
-          "bytes": 43648
+          "bytes": 43658
         }
       ]
     },
@@ -80383,7 +80924,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.desktop.00.draw.js",
-          "bytes": 42250
+          "bytes": 42260
         }
       ]
     },
@@ -80395,7 +80936,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-loading.mobile.00.draw.js",
-          "bytes": 41953
+          "bytes": 41963
         }
       ]
     },
@@ -80407,7 +80948,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.desktop.00.draw.js",
-          "bytes": 42783
+          "bytes": 42793
         }
       ]
     },
@@ -80419,7 +80960,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-          "bytes": 42484
+          "bytes": 42494
         }
       ]
     },
@@ -80431,7 +80972,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.desktop.00.draw.js",
-          "bytes": 43191
+          "bytes": 43201
         }
       ]
     },
@@ -80443,7 +80984,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-upload.mobile.00.draw.js",
-          "bytes": 42889
+          "bytes": 42899
         }
       ]
     },
@@ -80455,7 +80996,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",
-          "bytes": 42552
+          "bytes": 42562
         }
       ]
     },
@@ -80467,7 +81008,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-          "bytes": 42253
+          "bytes": 42263
         }
       ]
     },
@@ -80479,7 +81020,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.desktop.00.draw.js",
-          "bytes": 42544
+          "bytes": 42554
         }
       ]
     },
@@ -80491,7 +81032,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-extracting.mobile.00.draw.js",
-          "bytes": 42245
+          "bytes": 42255
         }
       ]
     },
@@ -80503,7 +81044,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.desktop.00.draw.js",
-          "bytes": 42974
+          "bytes": 42984
         }
       ]
     },
@@ -80515,7 +81056,7 @@
       "files": [
         {
           "file": "figma/app-screens.highlight--projectId-__phase-failed.mobile.00.draw.js",
-          "bytes": 42676
+          "bytes": 42686
         }
       ]
     }

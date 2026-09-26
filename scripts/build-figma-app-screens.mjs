@@ -91,6 +91,10 @@ const SCREENS = [
   { route: "/mypage/upgrade/fail", desktop: "183:743", mobile: "183:881" },
   { route: "/mypage/topup/success", desktop: "183:1427", mobile: "183:1565" },
   { route: "/mypage/topup/fail", desktop: "183:1606", mobile: "183:1736" },
+  // **2026-09-26 — 보드가 없던 실제 화면 셋.** 사양 문서 · 커버리지 파일에 없어 「⚠ 미등록」 섹션에 세웠다(조립 규칙 20조).
+  { route: "/mypage/upgrade/bulk-success", desktop: "2075:2243", mobile: "2075:2244" },
+  { route: "/mypage/upgrade/bulk-fail", desktop: "2075:2245", mobile: "2075:2246" },
+  { route: "/subscription/coupons", desktop: "2076:3371", mobile: "2076:3372" },
   // `/highlight/[projectId]` 의 phase 상태 여섯. 프레임은 §20 배치 산식으로 새로 세웠다
   // (섹션 `255:1856`, 항목 index 3~8 → x 8560 / 160 / 2960 / 5760 / 8560 / 160,
   //  rowTop 240 · 2140 · 3840). 측정은 개발 전용 `?__phase=` 후크가 연다.

@@ -124,6 +124,11 @@ const ROUTES = [
   "/mypage/upgrade/fail",
   "/mypage/topup/success",
   "/mypage/topup/fail",
+  // **2026-09-26 — 보드가 없던 화면 셋.** 대량 구매(쿠폰) 결과 둘과 구매한 쿠폰 목록이다. fixture 에는 주문 · 쿠폰 데이터가 없어
+  // 결과 화면은 쿼리 없이 연 상태(제품이 그리는 오류 · 빈 상태)를 잰다 — 이 측정기의 다른 화면과 같은 규칙이다.
+  "/mypage/upgrade/bulk-success",
+  "/mypage/upgrade/bulk-fail",
+  "/subscription/coupons",
   "/explore",
   // `/highlight/[projectId]` 의 phase 상태들. 제품이 `ae8fd627` 에서 넣은 개발 전용
   // `?__phase=<이름>` 후크로 연다(`HighlightProjectScene.tsx:128`, 게이트는 인증 바이패스와

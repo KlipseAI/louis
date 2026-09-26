@@ -206,6 +206,9 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/mypage/upgrade/fail": "/mypage/upgrade", // fail/page.tsx:161
   "/mypage/topup/success": "/mypage", // topup/success/page.tsx:326
   "/mypage/topup/fail": "/mypage", // topup/fail/page.tsx:147
+  "/mypage/upgrade/bulk-success": "/subscription", // bulk-success/page.tsx:231
+  "/mypage/upgrade/bulk-fail": "/subscription", // bulk-fail/page.tsx:57
+  "/subscription/coupons": "/subscription", // components/scenes/PurchasedCouponsScene.tsx:483
 });
 const currentPathOf = (route) =>
   PRODUCT_CURRENT_PATH[route] ?? (route.startsWith("/highlight/") ? "/highlight" : null);

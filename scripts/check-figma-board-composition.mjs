@@ -233,7 +233,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // 됐고, 요금제 카드 안의 `Button` inverse 인스턴스 4 가 카드 인스턴스 안으로 들어가 세어지지 않는다: 84 + 21 − 4.
 // 2026-09-26: 101 → **103.** **이득이다.** `/mypage/upgrade` 데스크톱 · 모바일 헤더의 「진행 중 이벤트 알약」이 제품 컴포넌트
 // `Product/Pricing Notice` 인스턴스가 됐다(제품 `PricingNotice`). 안의 초록 점(미보유 2)은 인스턴스 안으로 들어가 세어지지 않는다.
-const INSTANCE_FLOOR = 103;
+// 2026-09-26(뒤): 103 → **119.** 보드가 늘어서다 — 보드 없던 실제 화면 셋(bulk-success · bulk-fail · coupons)의 보드 여섯이
+// 셸 인스턴스 9(데스크톱 셋 × 상단 바 · 사이드바, 모바일 셋 × 상단 바)와 LOUIS Button 인스턴스 7 을 갖는다.
+const INSTANCE_FLOOR = 119;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -251,8 +253,12 @@ const INSTANCE_FLOOR = 103;
 // 둘이 가지치기됐다: missing −4(아바타 면 2 · 글리프 2) · bespoke +2. 수는 instance 101 + replaceable 0 + bespoke 3 + blocked 6 + missing 18.
 // 같은 날 뒤: 128 그대로 — 알약 둘이 인스턴스(+2)가 되고 그 안의 점 둘(missing −2)이 빠졌다. 이어서 업로드 면 둘이 missing → bespoke
 // (DropZone)로 옮겼다. 수는 instance 103 + bespoke 5 + blocked 6 + missing 14.
-const CANDIDATE_FLOOR = 128;
-const BOARD_FLOOR = 36;
+// 2026-09-26(뒤): 128 → **162.** 보드 여섯이 늘어서다(위 INSTANCE_FLOOR): instance +16 · missing +18. 미보유 18 은 전부
+// `/subscription/coupons` 의 제품 전용 컨트롤이다 — 요금제 선택 카드 넷(데스크톱 · 모바일), 수량 스테퍼(− · +), 칠해진 마크,
+// 결제 단계 표시. 수는 instance 119 + replaceable 0 + bespoke 5 + blocked 6 + missing 32.
+const CANDIDATE_FLOOR = 162;
+// 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
+const BOARD_FLOOR = 42;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
   "Product/Desktop App Top Bar",
@@ -293,6 +299,14 @@ const SHELL_INSTANCES_BY_BOARD = {
   "highlight--projectId-__phase-upload.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
   "highlight--projectId-__phase-uploading.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
   "highlight--projectId-__phase-uploading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  // 2026-09-26(뒤): 보드 없던 실제 화면 셋. 셋 다 `<Gnb currentPath="/subscription">`(figma-component-substitution.mjs 의
+  // PRODUCT_CURRENT_PATH 인용) — 사이드바에 Subscription 항목이 없어 Current=Default, 상단 바는 `/subscription` 보드와 같은 조합이다.
+  "mypage-upgrade-bulk-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-bulk-fail.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-bulk-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-bulk-success.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-coupons.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-coupons.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-topup-fail.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-topup-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-topup-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],

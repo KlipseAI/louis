@@ -653,23 +653,33 @@ function centreAutoMargins(spec) {
     if (node.layout?.layoutMode === "VERTICAL") {
       const children = flowChildren(node);
       const inner = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+      const offsetOf = (child) => child.rect.x - node.rect.x - node.layout.padding.left;
       const auto = children.filter((child) => {
-        const margin = child.margin;
-        return margin && margin.left > HALF_PIXEL && Math.abs(margin.left - margin.right) <= HALF_PIXEL
-          && child.sizing.layoutSizingHorizontal === "FILL" && child.sizing.maxWidth != null
-          && Math.abs(child.rect.width - child.sizing.maxWidth) <= HALF_PIXEL
-          && Math.abs(margin.left - (inner - child.rect.width) / 2) <= HALF_PIXEL;
+        const margin = child.margin ?? { left: 0, right: 0 };
+        const slack = (inner - child.rect.width) / 2;
+        const fillAtMax = child.sizing.layoutSizingHorizontal === "FILL" && child.sizing.maxWidth != null
+          && Math.abs(child.rect.width - child.sizing.maxWidth) <= HALF_PIXEL;
+        if (!fillAtMax || slack <= HALF_PIXEL) return false;
+        const byMargin = margin.left > HALF_PIXEL && Math.abs(margin.left - margin.right) <= HALF_PIXEL
+          && Math.abs(margin.left - slack) <= HALF_PIXEL;
+        // **계산 margin 이 0 으로 읽혀도 자리가 가운데면 auto 다(2026-09-26).** 측정기가 flex 항목의 auto margin 사용값을 때때로 0 으로
+        // 읽는다 — `/settings` 데스크톱 본문(`margin-inline: auto`, x 380)이 세 번 재어 0 · 124 · 0 이었다. rect 는 세 번 모두 같으므로
+        // 좌우 margin 이 둘 다 0 이고 자리가 부모 안쪽의 가운데이면 같은 판정을 준다.
+        const byGeometry = Math.abs(margin.left ?? 0) <= HALF_PIXEL && Math.abs(margin.right ?? 0) <= HALF_PIXEL
+          && Math.abs(offsetOf(child) - slack) <= HALF_PIXEL;
+        return byMargin || byGeometry;
       });
       if (auto.length > 0 && children.every((child) => auto.includes(child) || child.sizing.layoutSizingHorizontal === "FILL")) {
         // 렌더러와 같은 규칙으로 Figma 의 실제 padding 을 낸다 — 첫 흐름 자식의 margin 만 부모 padding 으로 옮겨진다.
         const lead = children[0];
         const figmaPadding = (side) => Math.max(0, node.layout.padding[side] + (lead && !auto.includes(lead) ? (lead.margin?.[side] ?? 0) : 0));
         const residual = auto.map((child) => {
-          const product = node.layout.padding.left + child.margin.left;
+          const product = node.layout.padding.left + offsetOf(child);
           const figma = figmaPadding("left") + (node.rect.width - figmaPadding("left") - figmaPadding("right") - child.rect.width) / 2;
           return Math.round((product - figma) * 100) / 100;
         });
-        centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path), margin: auto.map((child) => child.margin.left), residual });
+        centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path),
+          margin: auto.map((child) => ((child.margin?.left ?? 0) > HALF_PIXEL ? child.margin.left : Math.round(offsetOf(child) * 100) / 100)), residual });
         node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
         for (const child of auto) child.margin = { ...child.margin, left: 0, right: 0 };
       }

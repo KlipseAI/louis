@@ -404,6 +404,8 @@ let totalSizingReconciled = 0;
 let totalAutoMarginCentred = 0;
 let totalMarginWrapped = 0;
 let totalSpaceBetweenHug = 0;
+let totalBleedHoisted = 0;
+let totalBleedUnresolved = 0;
 let totalUnresolvedFillInHug = 0;
 
 /**
@@ -659,6 +661,87 @@ function wrapSiblingMargins(spec) {
 }
 
 /**
+ * **좌우 번짐(음수 margin)을 padding 을 가진 조상까지 끌어올린다(2026-09-26).** 렌더러는 자식을 붙이는 순간 흐름 자식이 하나이면
+ * margin 을 부모 padding 으로 옮기고 음수는 0 에서 막는다. 그래서 ① 번짐을 받을 padding 이 직계 부모에 없으면 번짐이 사라졌고(설정 ·
+ * 구독 · 쿠폰 · highlight · 보관함의 상단 바가 padding 0 인 부모 안에 갇혀 제품보다 좌 16 · 우 8 안쪽에 섰다 — 모바일은 6),
+ * ② 번지는 자식이 첫 자식이면 부모 padding 을 깎아 **뒤에 오는 형제까지** padding 없이 섰다(결제 결과 · bulk · 요금제 본문 — 요금제
+ * 카드 격자의 가운데가 4 어긋났다).
+ * 아래에서 위로 돈다. 부모 N 의 한 변 s 에서 흐름 자식 번짐의 최댓값을 D 라 하면, N 의 padding[s] 에서 take = min(padding, D) 를
+ * 깎고 남는 D − take 는 N 이 음수 margin 으로 들고 올라간다(N 이 그만큼 넓어지고, N 의 부모가 같은 규칙으로 받는다). 각 흐름 자식은
+ * 원래 자리를 지키도록 (옮긴 번짐 − 제 번짐) 만큼 감싸개 padding 을 받는다(이미 감싸개면 그 padding 에 더한다). 칠 · 테두리 · 그림자 ·
+ * 자르기가 있는 노드와 뿌리 · 절대 배치 노드는 넓히면 모양이 바뀌므로 넓히지 않는다(못 옮긴 번짐은 `unresolved`). 형제가 있는 가로
+ * 줄 · GRID 는 건드리지 않고, 위아래 번짐은 전과 같이 렌더러가 다룬다.
+ */
+function hoistBleed(spec) {
+  const hoisted = [];
+  const unresolved = [];
+  const SIDES = ["left", "right"];
+  const rigid = (node) => Boolean(node.clipsContent || node.paint?.fill || node.paint?.gradient || node.paint?.stroke || node.paint?.shadow);
+  const bleedOf = (node, side) => Math.max(0, -(node.margin?.[side] ?? 0));
+  const axis = (sizing) => (sizing === "FILL" ? "FILL" : "HUG");
+  const walk = (node, isRoot) => {
+    if (node.instance) return;
+    for (const child of node.children ?? []) walk(child, false);
+    if (!node.layout || node.layout.layoutMode === "GRID") return;
+    const flow = flowChildren(node);
+    const moved = {};
+    for (const side of SIDES) {
+      const most = Math.max(0, ...flow.map((child) => bleedOf(child, side)));
+      if (most <= HALF_PIXEL) continue;
+      if (flow.length > 1 && node.layout.layoutMode !== "VERTICAL") {
+        unresolved.push({ path: node.path, side, bleed: most, why: "형제가 있는 가로 줄" });
+        continue;
+      }
+      const pad = node.layout.padding[side];
+      const take = Math.min(pad, most);
+      const canGrow = !isRoot && !rigid(node) && node.positioning !== "ABSOLUTE"
+        && !(node.children ?? []).some((child) => child.positioning === "ABSOLUTE");
+      const grow = canGrow ? most - take : 0;
+      if (most - take - grow > HALF_PIXEL) unresolved.push({ path: node.path, side, bleed: most, moved: take + grow, why: canGrow ? "" : "칠 · 자르기 · 뿌리 · 절대 배치" });
+      node.layout = { ...node.layout, padding: { ...node.layout.padding, [side]: pad - take } };
+      if (grow > HALF_PIXEL) {
+        node.margin = { top: 0, right: 0, bottom: 0, left: 0, ...node.margin, [side]: (node.margin?.[side] ?? 0) - grow };
+        node.rect = { ...node.rect, x: node.rect.x - (side === "left" ? grow : 0), width: node.rect.width + grow };
+      }
+      moved[side] = take + grow;
+      hoisted.push({ path: node.path, side, bleed: most, padding: take, grow });
+    }
+    if (Object.keys(moved).length === 0) return;
+    node.children = node.children.map((child) => {
+      if (child.positioning === "ABSOLUTE") return child;
+      const pad = Object.fromEntries(SIDES.map((side) => [side, Math.max(0, (moved[side] ?? 0) - bleedOf(child, side))]));
+      for (const side of SIDES) if (moved[side] != null && bleedOf(child, side) > 0) child.margin = { ...child.margin, [side]: 0 };
+      if (pad.left <= HALF_PIXEL && pad.right <= HALF_PIXEL) return child;
+      if (child.tag === "margin") {
+        child.layout = { ...child.layout, padding: { ...child.layout.padding, left: child.layout.padding.left + pad.left, right: child.layout.padding.right + pad.right } };
+        child.rect = { ...child.rect, x: child.rect.x - pad.left, width: child.rect.width + pad.left + pad.right };
+        return child;
+      }
+      const sizing = {
+        ...child.sizing,
+        layoutSizingHorizontal: axis(child.sizing.layoutSizingHorizontal),
+        layoutSizingVertical: axis(child.sizing.layoutSizingVertical),
+        minWidth: null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [],
+      };
+      const reason = "번짐을 조상으로 올린 만큼 형제 자리를 지키는 감싸개 — 자식이 FILL 이면 FILL, 아니면 HUG";
+      return {
+        path: `${child.path}~margin`, tag: "margin", name: `margin ${child.path}`, text: null, textLines: null, paints: false,
+        rect: { x: child.rect.x - pad.left, y: child.rect.y, width: child.rect.width + pad.left + pad.right, height: child.rect.height },
+        glyph: null, sizing, paint: null, typography: null, positioning: "AUTO",
+        margin: null, offset: null, constraints: null,
+        why: { horizontal: { verdict: sizing.layoutSizingHorizontal, reason }, vertical: { verdict: sizing.layoutSizingVertical, reason } },
+        layout: { layoutMode: node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
+          padding: { top: 0, right: pad.right, bottom: 0, left: pad.left }, columns: null, align: { counterAxis: node.layout.align?.counterAxis ?? null, primaryAxis: null } },
+        clipsContent: false,
+        children: [child],
+      };
+    });
+  };
+  walk(spec, true);
+  return { hoisted, unresolved };
+}
+
+/**
  * **`margin: auto` 가운데 정렬을 부모의 교차축 정렬로 옮긴다(2026-09-23).**
  *
  * Figma Auto Layout 에는 margin 이 없다. 렌더러는 흐름 자식이 하나일 때만 margin 을 부모 padding 으로 옮기고, 형제가 있으면
@@ -667,10 +750,8 @@ function wrapSiblingMargins(spec) {
  * 여백이 auto 에서 왔다는 것은 수로 닫힌다 — 좌우 여백이 같고, 폭이 최대 폭에 닿았고, 여백이 (부모 안쪽 폭 − 폭) / 2 다.
  * 형제가 모두 가로 FILL 이면 교차축 정렬은 그 형제들에 아무 일도 하지 않으므로 부모를 CENTER 로 두고 여백을 지운다.
  *
- * **남는 차이를 수로 적는다.** 렌더러는 자식을 붙이는 순간 흐름 자식이 하나뿐이면 그 margin 을 부모 padding 으로 옮긴다.
- * 첫 자식이 음수 margin 으로 번지면(상단 바 −16 / −8) 부모 padding 이 깎이고, 가운데 기준도 함께 넓어진다. Auto Layout
- * 으로는 「번진 형제는 넓게, 이 자식은 원래 padding 안에서 가운데」를 함께 만들 수 없으므로 제품과의 가로 차이를
- * `residual` 로 남긴다(`/mypage/upgrade` 데스크톱 4 = (16 − 8) / 2).
+ * 첫 자식이 음수 margin 으로 번지면(상단 바 −16 / −8) 렌더러가 부모 padding 을 깎아 가운데 기준이 넓어지던 차이(`/mypage/upgrade`
+ * 데스크톱 4 = (16 − 8) / 2, 예전 `residual`)는 hoistBleed 가 형제 감싸개로 padding 을 돌려주어 없앤다.
  */
 function centreAutoMargins(spec) {
   const centred = [];
@@ -696,16 +777,8 @@ function centreAutoMargins(spec) {
         return byMargin || byGeometry;
       });
       if (auto.length > 0 && children.every((child) => auto.includes(child) || child.sizing.layoutSizingHorizontal === "FILL")) {
-        // 렌더러와 같은 규칙으로 Figma 의 실제 padding 을 낸다 — 첫 흐름 자식의 margin 만 부모 padding 으로 옮겨진다.
-        const lead = children[0];
-        const figmaPadding = (side) => Math.max(0, node.layout.padding[side] + (lead && !auto.includes(lead) ? (lead.margin?.[side] ?? 0) : 0));
-        const residual = auto.map((child) => {
-          const product = node.layout.padding.left + offsetOf(child);
-          const figma = figmaPadding("left") + (node.rect.width - figmaPadding("left") - figmaPadding("right") - child.rect.width) / 2;
-          return Math.round((product - figma) * 100) / 100;
-        });
         centred.push({ path: node.path, from: node.layout.align.counterAxis, children: auto.map((child) => child.path),
-          margin: auto.map((child) => ((child.margin?.left ?? 0) > HALF_PIXEL ? child.margin.left : Math.round(offsetOf(child) * 100) / 100)), residual });
+          margin: auto.map((child) => ((child.margin?.left ?? 0) > HALF_PIXEL ? child.margin.left : Math.round(offsetOf(child) * 100) / 100)) });
         node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
         for (const child of auto) child.margin = { ...child.margin, left: 0, right: 0 };
       }
@@ -762,6 +835,8 @@ const partContent = [];
       }
       centreAutoMargins(spec);
       const marginWrapped = wrapSiblingMargins(spec);
+      const bleed = hoistBleed(spec);
+      if (bleed.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 옮기지 못한 번짐이 있습니다: ${JSON.stringify(bleed.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
@@ -774,6 +849,7 @@ const partContent = [];
         signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length,
           ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
           ...(marginWrapped.length ? { marginWrapped } : {}),
+          ...(bleed.hoisted.length ? { bleedHoisted: bleed.hoisted } : {}),
           ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}) },
         spec,
       });
@@ -822,6 +898,9 @@ for (const screen of SCREENS) {
     totalAutoMarginCentred += autoMarginCentred.length;
     const marginWrapped = wrapSiblingMargins(spec);
     totalMarginWrapped += marginWrapped.length;
+    const bleed = hoistBleed(spec);
+    totalBleedHoisted += bleed.hoisted.length;
+    totalBleedUnresolved += bleed.unresolved.length;
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
     totalSizingReconciled += sizingFix.reconciled.length;
@@ -875,6 +954,9 @@ for (const screen of SCREENS) {
         ...(autoMarginCentred.length ? { autoMarginCentred } : {}),
         // 형제가 있는 자식의 margin 을 감싸개 padding 으로 옮긴 자리(wrapSiblingMargins 주석).
         ...(marginWrapped.length ? { marginWrapped } : {}),
+        // 좌우 번짐을 padding 을 가진 조상까지 올린 자리 · 못 옮긴 번짐(hoistBleed 주석).
+        ...(bleed.hoisted.length ? { bleedHoisted: bleed.hoisted } : {}),
+        ...(bleed.unresolved.length ? { bleedUnresolved: bleed.unresolved } : {}),
         // HUG 축의 space-between 을 MIN(gap 이 사는 정렬)으로 옮긴 자리(dropHugSpaceBetween 주석).
         ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
       },
@@ -1227,5 +1309,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

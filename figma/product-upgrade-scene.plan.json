@@ -90,6 +90,7 @@
     "sectionName": "O · product/Upgrade plans · measured desktop scene",
     "cardSetName": "Product/Upgrade Plan Card",
     "mobileVisibleCardSetName": "Product/Upgrade Plan Card Visible Slice",
+    "noticeSetName": "Product/Pricing Notice",
     "mainComponentName": "Product/Desktop Upgrade Main Surface",
     "sceneComponentName": "Product/Desktop Upgrade Scene",
     "mobileMainComponentName": "Product/Mobile Upgrade Main Surface",
@@ -188,7 +189,31 @@
               "bottom": 0,
               "left": 12
             },
-            "paddingBottom": 24
+            "paddingBottom": 24,
+            "surface": {
+              "color": [
+                0,
+                0,
+                0,
+                0.48
+              ],
+              "radius": 12,
+              "blur": 16,
+              "paint": "noticeSurface"
+            },
+            "dot": {
+              "size": 4,
+              "radius": 999,
+              "gap": 10,
+              "color": [
+                0,
+                0.7764705882352941,
+                0.5568627450980392,
+                1
+              ],
+              "paint": "green500"
+            },
+            "textMaxWidth": null
           },
           "titlePaddingBottom": 18,
           "bodyMaxWidth": 686.25,
@@ -3250,7 +3275,31 @@
                 "bottom": 0,
                 "left": 12
               },
-              "paddingBottom": 24
+              "paddingBottom": 24,
+              "surface": {
+                "color": [
+                  0,
+                  0,
+                  0,
+                  0.48
+                ],
+                "radius": 12,
+                "blur": 16,
+                "paint": "noticeSurface"
+              },
+              "dot": {
+                "size": 4,
+                "radius": 999,
+                "gap": 10,
+                "color": [
+                  0,
+                  0.7764705882352941,
+                  0.5568627450980392,
+                  1
+                ],
+                "paint": "green500"
+              },
+              "textMaxWidth": 352
             },
             "titlePaddingBottom": 18,
             "bodyMaxWidth": 600.469,
@@ -4473,6 +4522,10 @@
         "collection": "Klipse Primitive",
         "name": "color/green/500"
       },
+      "noticeSurface": {
+        "collection": "Klipse Primitive",
+        "name": "color/static-black-alpha/48"
+      },
       "accentInverse": {
         "collection": "Klipse Semantic Color",
         "name": "color/accent-inverse"
@@ -4536,6 +4589,10 @@
       "radius16": {
         "collection": "Klipse Primitive",
         "name": "radius/16"
+      },
+      "radiusPill": {
+        "collection": "Klipse Semantic",
+        "name": "radius/pill"
       },
       "spacing4": {
         "collection": "Klipse Primitive",
@@ -4812,15 +4869,41 @@
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 299,
             "quote": "  \"block w-9 h-9 mt-2 bg-accent-green-500\","
+          },
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 95,
+            "quote": "const NOTICE_DOT = \"size-2 flex-none rounded-full bg-accent-green-500 mr-5\";"
           }
         ],
         "measured": "#00c68e",
         "measuredAlpha": 1,
-        "sites": 44,
+        "sites": 46,
         "figma": "Klipse Primitive/color/green/500",
         "figmaValue": "#00c68e",
         "figmaAlpha": 1,
         "exact": true
+      },
+      "noticeSurface": {
+        "declared": [
+          {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "path": "apps/web/components/landing/sections/PricingSection.tsx",
+            "line": 91,
+            "quote": "  \"bg-[color-mix(in_srgb,var(--louis-color-media-scrim-dark)_48%,transparent)]\","
+          }
+        ],
+        "measured": "#000000",
+        "measuredAlpha": 0.48,
+        "sites": 2,
+        "figma": "Klipse Primitive/color/static-black-alpha/48",
+        "figmaValue": "#171b22",
+        "figmaAlpha": 0.48,
+        "productMix": "Klipse Semantic Color[Light]/color/media-scrim-dark → Klipse Primitive/color/static/black × 0.48",
+        "exact": false,
+        "reason": "The event pill mixes media-scrim-dark (pure black) at 48%. The live file has no black-at-48% twin; static-black-alpha/48 is the same step on the #171b22 base, so the surface binds to it and records the RGB gap (as gray000Alpha72).",
+        "liveValueTwins": []
       },
       "primary200Alpha40": {
         "declared": [

@@ -379,3 +379,25 @@ month」도 「per / month」로 꺾인다. 화면 보드에서 먼저 보였고
 month」를 가격 아래로 내리기, 데스크톱 격자를 넓은 화면에서만 다섯 열로 두기, 가격 크기를 카드 폭에 맞춰 줄이기.
 
 **그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드는 제품 폭(카드 256.8)에서 같은 자리가 같게 꺾인다.
+
+## 12 — 분석 화면의 「Connect Google Account」 버튼이 LOUIS Button 이 아니다
+
+**증상.** `/analytics/youtube` · `/analytics/instagram` 의 미연동 안내에 있는 연결 버튼이 검정 알약(높이 40 · 반경 999)이다.
+LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원장이 이 두 자리를 「LOUIS 에 없다(미보유)」로 센다
+([Updates](../updates/README.md) (163)).
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의 두 화면 데스크톱 트리에서
+
+    button "Connect Google Account"  rect 196.64 × 40  declared height calc(40px) · gap calc(6px)
+                                     font 14 / 500 · 면 gray-000(검정) · 글자 gray-1000
+
+레시피는 제품 지역 상수다 — `YoutubeAnalyticsScene.tsx:1116` 과 `InstagramAnalyticsScene.tsx:520` 의 `CONNECT_NOTICE_BTN`
+(`inline-flex items-center gap-3 h-20 px-10 [border:0] rounded-full bg-gray-000 … text-gray-1000`)이 **두 벌**로 똑같이 적혀 있고,
+`.louis-button` 을 물지 않는다. hover 는 `filter: brightness(90%)`, 누름은 `scale(0.98)` 로 LOUIS Button 의 상태 표현과도 다르다.
+
+**정해야 할 것(제품).** 이 버튼을 LOUIS Button(`primary` · `lg`, 반경 12)으로 옮길 것인가, 알약을 제품의 의도로 남길 것인가.
+옮기면 두 벌의 상수가 사라지고 보드는 Button 인스턴스가 된다. 남긴다면 알약이 이 두 화면만의 것인지, 다른 CTA 로도
+퍼질 모양인지를 정해야 한다 — 퍼질 모양이면 그때 LOUIS Button 에 모양 축을 여는 것을 검토한다.
+
+**그때까지 LOUIS 는 모양 축을 열지 않는다.** 제품이 정본을 물지 않는 자리에 맞춰 DS API 를 넓히면, 지역 레시피 하나가
+공용 계약이 된다([DS-D-0043](decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md)).

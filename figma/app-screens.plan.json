@@ -7,7 +7,7 @@
   "screenCount": 36,
   "totalNodes": 2405,
   "totalUnresolved": 4,
-  "totalShellInstances": 101,
+  "totalShellInstances": 103,
   "totalShellGaps": 0,
   "totalSizingReconciled": 19,
   "totalUnresolvedFillInHug": 12,
@@ -15,7 +15,8 @@
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
     "Product/Upgrade Plan Card": 5,
-    "Product/Upgrade Plan Card Visible Slice": 2
+    "Product/Upgrade Plan Card Visible Slice": 2,
+    "Product/Pricing Notice": 2
   },
   "colourBinding": {
     "modeCollection": "Klipse Semantic Color",
@@ -32,15 +33,6 @@
         "Klipse Semantic Color/color/gray/000",
         "Klipse Semantic Color/color/media-scrim-dark",
         "Klipse Primitive/color/static/black"
-      ],
-      "00c68e": [
-        "Klipse Semantic Color/color/alert-success-stroke",
-        "Klipse Semantic Color/color/node-image-accent",
-        "Klipse Semantic Color/color/node-image-icon",
-        "Klipse Semantic Color/color/node/handle-icon-image",
-        "Klipse Semantic Color/color/progress-ring-fill",
-        "Klipse Semantic Color/color/switch-on-track",
-        "Klipse Primitive/color/green/500"
       ],
       "171b22": [
         "Klipse Semantic Color/color/bg-upgrade",
@@ -301,13 +293,13 @@
     }
   ],
   "paint": {
-    "fills": 177,
+    "fills": 173,
     "gradients": 0,
     "strokes": 0,
-    "radii": 67,
+    "radii": 63,
     "shadows": 0,
-    "texts": 122,
-    "textStyled": 122,
+    "texts": 120,
+    "textStyled": 120,
     "textLiteral": []
   },
   "screens": [
@@ -22424,6 +22416,11 @@
             }
           },
           {
+            "path": "body.1.0.0.1.0.0.1.0.0",
+            "set": "Product/Pricing Notice",
+            "variant": "Viewport=Desktop"
+          },
+          {
             "path": "body.1.0.0.1.0.0.1.0.3.0",
             "set": "Button",
             "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
@@ -23309,128 +23306,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.0.1.0.0.0",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.0.1.0.0.0",
-                                            "text": null,
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 442,
-                                              "y": 111,
-                                              "width": 4,
-                                              "height": 4
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FIXED",
-                                              "layoutSizingVertical": "FIXED",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": {
-                                              "fill": "00c68e",
-                                              "gradient": null,
-                                              "stroke": null,
-                                              "radius": [
-                                                999,
-                                                999,
-                                                999,
-                                                999
-                                              ],
-                                              "shadow": null,
-                                              "opacity": null
-                                            },
-                                            "typography": null,
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 10,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FIXED",
-                                                "reason": "calc(4px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(4px)",
-                                                "source": "width:calc(4px)",
-                                                "value": 4
-                                              },
-                                              "vertical": {
-                                                "verdict": "FIXED",
-                                                "reason": "calc(4px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(4px)",
-                                                "source": "height:calc(4px)",
-                                                "value": 4
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.0.1.0.0.t",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.0.1.0.0.t",
-                                            "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 430,
-                                              "y": 97,
-                                              "width": 415.5,
-                                              "height": 32
-                                            },
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "HUG",
-                                              "layoutSizingVertical": "HUG",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-medium",
-                                              "size": 14,
-                                              "weight": 500,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "fafafa",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "HUG",
-                                                "reason": "own-text-split"
-                                              },
-                                              "vertical": {
-                                                "verdict": "HUG",
-                                                "reason": "own-text-split"
-                                              }
-                                            },
-                                            "layout": null,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Pricing Notice",
+                                          "variant": "Viewport=Desktop",
+                                          "why": "글자 1개 서열 · 구조 서명 [1] · Desktop 일치 — 기존 본문 컴포넌트(측정 419.5×32)"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.0.1.0.1",
@@ -24450,6 +24331,11 @@
             }
           },
           {
+            "path": "body.1.0.0.1.0.0.1.0.0",
+            "set": "Product/Pricing Notice",
+            "variant": "Viewport=Mobile"
+          },
+          {
             "path": "body.1.0.0.1.0.0.1.0.3.0",
             "set": "Button",
             "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
@@ -25157,128 +25043,12 @@
                                       }
                                     },
                                     "clipsContent": false,
-                                    "children": [
-                                      {
-                                        "path": "body.1.0.0.1.0.0.1.0.0.0",
-                                        "tag": "span",
-                                        "name": "body.1.0.0.1.0.0.1.0.0.0",
-                                        "text": null,
-                                        "textLines": null,
-                                        "paints": true,
-                                        "rect": {
-                                          "x": 18,
-                                          "y": 87,
-                                          "width": 4,
-                                          "height": 4
-                                        },
-                                        "glyph": null,
-                                        "sizing": {
-                                          "layoutSizingHorizontal": "FIXED",
-                                          "layoutSizingVertical": "FIXED",
-                                          "layoutPositioning": "AUTO",
-                                          "minWidth": null,
-                                          "maxWidth": null,
-                                          "minHeight": null,
-                                          "maxHeight": null,
-                                          "unresolved": []
-                                        },
-                                        "paint": {
-                                          "fill": "00c68e",
-                                          "gradient": null,
-                                          "stroke": null,
-                                          "radius": [
-                                            999,
-                                            999,
-                                            999,
-                                            999
-                                          ],
-                                          "shadow": null,
-                                          "opacity": null
-                                        },
-                                        "typography": null,
-                                        "positioning": "AUTO",
-                                        "margin": {
-                                          "top": 0,
-                                          "right": 10,
-                                          "bottom": 0,
-                                          "left": 0
-                                        },
-                                        "offset": null,
-                                        "constraints": null,
-                                        "why": {
-                                          "horizontal": {
-                                            "verdict": "FIXED",
-                                            "reason": "calc(4px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(4px)",
-                                            "source": "width:calc(4px)",
-                                            "value": 4
-                                          },
-                                          "vertical": {
-                                            "verdict": "FIXED",
-                                            "reason": "calc(4px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(4px)",
-                                            "source": "height:calc(4px)",
-                                            "value": 4
-                                          }
-                                        },
-                                        "layout": null,
-                                        "clipsContent": false,
-                                        "children": []
-                                      },
-                                      {
-                                        "path": "body.1.0.0.1.0.0.1.0.0.t",
-                                        "tag": "span",
-                                        "name": "body.1.0.0.1.0.0.1.0.0.t",
-                                        "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
-                                        "textLines": null,
-                                        "paints": true,
-                                        "rect": {
-                                          "x": 6,
-                                          "y": 73,
-                                          "width": 386,
-                                          "height": 32
-                                        },
-                                        "sizing": {
-                                          "layoutSizingHorizontal": "HUG",
-                                          "layoutSizingVertical": "HUG",
-                                          "layoutPositioning": "AUTO",
-                                          "minWidth": null,
-                                          "maxWidth": null,
-                                          "minHeight": null,
-                                          "maxHeight": null,
-                                          "unresolved": []
-                                        },
-                                        "paint": null,
-                                        "typography": {
-                                          "style": "typography/body-sm-medium",
-                                          "size": 14,
-                                          "weight": 500,
-                                          "lineHeight": 21,
-                                          "letterSpacing": -0.14,
-                                          "color": "fafafa",
-                                          "align": null
-                                        },
-                                        "positioning": "AUTO",
-                                        "margin": {
-                                          "top": 0,
-                                          "right": 0,
-                                          "bottom": 0,
-                                          "left": 0
-                                        },
-                                        "offset": null,
-                                        "constraints": null,
-                                        "why": {
-                                          "horizontal": {
-                                            "verdict": "HUG",
-                                            "reason": "own-text-split"
-                                          },
-                                          "vertical": {
-                                            "verdict": "HUG",
-                                            "reason": "own-text-split"
-                                          }
-                                        },
-                                        "layout": null,
-                                        "children": []
-                                      }
-                                    ]
+                                    "children": [],
+                                    "instance": {
+                                      "set": "Product/Pricing Notice",
+                                      "variant": "Viewport=Mobile",
+                                      "why": "글자 1개 서열 · 구조 서명 [1] · Mobile 일치 — 기존 본문 컴포넌트(측정 390×32)"
+                                    }
                                   },
                                   {
                                     "path": "body.1.0.0.1.0.0.1.0.1",
@@ -45083,7 +44853,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-          "bytes": 43798
+          "bytes": 43600
         }
       ]
     },
@@ -45095,7 +44865,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-          "bytes": 42713
+          "bytes": 42516
         }
       ]
     },

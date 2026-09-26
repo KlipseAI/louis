@@ -229,7 +229,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // `ghost` 도 같은 이유로 자리를 잃고 있어 함께 열었다. 대체가능 22 → 0.
 // 2026-09-14: 84 → **101.** **이득이다.** 본문 블록 21개(결과 8 · 체크아웃 6 · 요금제 카드 5 · 보이는 조각 2)가 인스턴스가
 // 됐고, 요금제 카드 안의 `Button` inverse 인스턴스 4 가 카드 인스턴스 안으로 들어가 세어지지 않는다: 84 + 21 − 4.
-const INSTANCE_FLOOR = 101;
+// 2026-09-26: 101 → **103.** **이득이다.** `/mypage/upgrade` 데스크톱 · 모바일 헤더의 「진행 중 이벤트 알약」이 제품 컴포넌트
+// `Product/Pricing Notice` 인스턴스가 됐다(제품 `PricingNotice`). 안의 초록 점(미보유 2)은 인스턴스 안으로 들어가 세어지지 않는다.
+const INSTANCE_FLOOR = 103;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -245,6 +247,7 @@ const INSTANCE_FLOOR = 101;
 // 수는 instance 101 + replaceable 0 + bespoke 5 + blocked 2 + missing 22.
 // 2026-09-26: 130 → **128.** 보드가 준 것이 아니라 설정 화면 아바타 둘이 bespoke 가 되어 그 안의 폴백 글리프(`user-circle-fill`, b-vector)
 // 둘이 가지치기됐다: missing −4(아바타 면 2 · 글리프 2) · bespoke +2. 수는 instance 101 + replaceable 0 + bespoke 3 + blocked 6 + missing 18.
+// 같은 날 뒤: 128 그대로 — 알약 둘이 인스턴스(+2)가 되고 그 안의 점 둘(missing −2)이 빠졌다. 수는 instance 103 + bespoke 3 + blocked 6 + missing 16.
 const CANDIDATE_FLOOR = 128;
 const BOARD_FLOOR = 36;
 const SHELL_COMPONENTS = new Set([

@@ -14,21 +14,21 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 36,
-  "rawNodesBeforePruning": 479,
+  "rawNodesBeforePruning": 473,
   "counts": {
-    "total": 542,
-    "instance": 101,
+    "total": 538,
+    "instance": 103,
     "replaceable": 0,
     "bespoke": 3,
     "blocked": 6,
-    "missing": 18,
-    "structural": 414,
+    "missing": 16,
+    "structural": 410,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 78.9,
-    "target": 101,
+    "instanceOverCandidates": 80.5,
+    "target": 103,
     "candidates": 128
   },
   "byInstanceSet": {
@@ -38,6 +38,7 @@
     "Button": 26,
     "Product/Payment Result Content": 8,
     "Product/Checkout Status Content": 6,
+    "Product/Pricing Notice": 2,
     "Product/Upgrade Plan Card": 5,
     "Product/Upgrade Plan Card Visible Slice": 2
   },
@@ -48,14 +49,13 @@
   },
   "bespokeByIcon": {},
   "structuralByKind": {
-    "surface": 146,
+    "surface": 144,
     "frame": 171,
     "image": 2,
-    "text": 95
+    "text": 93
   },
   "missingByCandidateClause": {
-    "a-interactive": 16,
-    "c-painted-mark": 2
+    "a-interactive": 16
   },
   "matchRules": [
     {
@@ -727,13 +727,13 @@
         "figma/app-screens.mypage-upgrade.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 26,
-        "instance": 8,
+        "total": 24,
+        "instance": 9,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 17,
+        "missing": 0,
+        "structural": 15,
         "unclassified": 0
       }
     },
@@ -746,13 +746,13 @@
         "figma/app-screens.mypage-upgrade.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 18,
-        "instance": 4,
+        "total": 16,
+        "instance": 5,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
-        "structural": 13,
+        "missing": 0,
+        "structural": 11,
         "unclassified": 0
       }
     },
@@ -4306,32 +4306,11 @@
         419.5,
         32
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        4,
-        4
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        415.5,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Pricing Notice",
+      "variant": "Viewport=Desktop",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Pricing Notice(Viewport=Desktop)."
     },
     "/mypage/upgrade@desktop-1920x1080#0.0.1.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade.desktop.00.draw.js",
@@ -4585,32 +4564,11 @@
         390,
         32
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.0": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        4,
-        4
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.0.1": {
-      "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        386,
-        32
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Product/Pricing Notice",
+      "variant": "Viewport=Mobile",
+      "reason": "이미 컴포넌트 인스턴스다 — Product/Pricing Notice(Viewport=Mobile)."
     },
     "/mypage/upgrade@mobile-402x874#0.0.0.0.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade.mobile.00.draw.js",

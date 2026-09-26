@@ -35,6 +35,7 @@ export const COMPONENT_SETS = Object.freeze({
   checkoutStatus: "Product/Checkout Status Content",
   upgradePlanCard: "Product/Upgrade Plan Card",
   upgradePlanCardSlice: "Product/Upgrade Plan Card Visible Slice",
+  pricingNotice: "Product/Pricing Notice",
 });
 
 /**
@@ -139,6 +140,14 @@ export const CONTENT_COMPONENTS = Object.freeze([
     texts: [...cardTexts(card), ...(card.action ? [card.action.label.text] : [])],
     structure: cardStructure(card),
   })),
+  // 「진행 중 이벤트 알약」(제품 `PricingNotice`) — 점(글자 없음) · 글자 하나라 구조 서명은 [1] 이다(2026-09-26).
+  ...[["Desktop", UPGRADE_PLAN.component], ["Mobile", UPGRADE_PLAN.component.mobile]].map(([viewport, surface]) => ({
+    set: COMPONENT_SETS.pricingNotice,
+    variant: `Viewport=${viewport}`,
+    viewport,
+    texts: [surface.main.headerNotice.text],
+    structure: [1],
+  })),
 ].map((entry) => Object.freeze({ ...entry, texts: entry.texts.map((text) => String(text ?? "").trim()) })));
 for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
   if (plan.productCommit !== APP_SHELL_PLAN.productCommit) {
@@ -146,7 +155,8 @@ for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
   }
 }
 if (COMPONENT_SETS.paymentResult !== PAYMENT_PLAN.componentSetName || COMPONENT_SETS.checkoutStatus !== CHECKOUT_PLAN.component.contentSetName ||
-  COMPONENT_SETS.upgradePlanCard !== UPGRADE_PLAN.component.cardSetName || COMPONENT_SETS.upgradePlanCardSlice !== UPGRADE_PLAN.component.mobileVisibleCardSetName) {
+  COMPONENT_SETS.upgradePlanCard !== UPGRADE_PLAN.component.cardSetName || COMPONENT_SETS.upgradePlanCardSlice !== UPGRADE_PLAN.component.mobileVisibleCardSetName ||
+  COMPONENT_SETS.pricingNotice !== UPGRADE_PLAN.component.noticeSetName) {
   throw new Error("[figma-app-screens] COMPONENT_SETS 의 본문 세트 이름이 생성기 plan 과 다릅니다.");
 }
 

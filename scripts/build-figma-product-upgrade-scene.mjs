@@ -281,6 +281,8 @@ const upgradeLayout = (tree, where) => {
   const container = at("body.1.0.0.1.0.0.1");
   const header = at("body.1.0.0.1.0.0.1.0");
   const notice = at("body.1.0.0.1.0.0.1.0.0");
+  // 알약의 초록 점(`PricingSection.tsx NOTICE_DOT` — 「진행 중」 표시). 알약 안의 유일한 자식 요소다.
+  const noticeDot = at("body.1.0.0.1.0.0.1.0.0.0");
   const title = at("body.1.0.0.1.0.0.1.0.1");
   const body = at("body.1.0.0.1.0.0.1.0.2");
   const deck = at("body.1.0.0.1.0.0.1.1");
@@ -349,6 +351,23 @@ const upgradeLayout = (tree, where) => {
         heightDeclared: declaredValue(notice, "height", /px\)?$/, where),
         padding: paddingOf(noticeStyle),
         paddingBottom: px(noticeStyle.marginBottom),
+        // **알약은 제품 컴포넌트다(2026-09-26, `Product/Pricing Notice`).** 옛 러너는 글자만 그려 면(검정 48% · 뒤 흐림)과
+        // 초록 점이 빠져 있었다. 면 · 반경 · 흐림은 `PricingSection.tsx NOTICE`, 점은 `NOTICE_DOT`(4 · 오른쪽 여백 10)다.
+        surface: {
+          color: color(noticeStyle.backgroundColor),
+          radius: px(noticeStyle.borderTopLeftRadius),
+          blur: Number(/blur\(([\d.]+)px\)/.exec(noticeStyle.backdropFilter ?? "")?.[1] ?? fail(`${where}: notice has no backdrop blur`)),
+        },
+        dot: {
+          size: px(style(noticeDot).width),
+          radius: px(style(noticeDot).borderTopLeftRadius),
+          gap: px(style(noticeDot).marginRight),
+          color: color(style(noticeDot).backgroundColor),
+        },
+        // 컨테이너 폭에 닿으면(모바일 390) 알약이 줄고 글자가 감긴다 — 글자의 최대 폭은 알약 폭에서 패딩 · 점 · 간격을 뺀 것이다.
+        textMaxWidth: notice.rect.width >= header.rect.width - 0.5
+          ? notice.rect.width - px(noticeStyle.paddingLeft) - px(noticeStyle.paddingRight) - px(style(noticeDot).width) - px(style(noticeDot).marginRight)
+          : null,
       },
       titlePaddingBottom: px(titleStyle.marginBottom),
       bodyMaxWidth: px(bodyStyle.maxWidth),
@@ -611,6 +630,8 @@ const plan = {
     sectionName: "O · product/Upgrade plans · measured desktop scene",
     cardSetName: "Product/Upgrade Plan Card",
     mobileVisibleCardSetName: "Product/Upgrade Plan Card Visible Slice",
+    // 「진행 중 이벤트 알약」 — 제품 `PricingNotice`(랜딩 · `/mypage/upgrade` 공용). Viewport 축은 글자 최대 폭 하나가 갈린다.
+    noticeSetName: "Product/Pricing Notice",
     mainComponentName: "Product/Desktop Upgrade Main Surface",
     sceneComponentName: "Product/Desktop Upgrade Scene",
     mobileMainComponentName: "Product/Mobile Upgrade Main Surface",
@@ -657,6 +678,7 @@ const plan = {
     bindings: {
       radius12: { collection: "Klipse Primitive", name: "radius/12" },
       radius16: { collection: "Klipse Primitive", name: "radius/16" },
+      radiusPill: { collection: "Klipse Semantic", name: "radius/pill" },
       ...spacingBindings,
     },
   },
@@ -703,7 +725,15 @@ const plan = {
         declared: [quote.product(PAGE, 265, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
         reason: "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
       },
-      green500: { collection: "Klipse Primitive", name: "color/green/500", declared: [quote.product(PAGE, 299, '  "block w-9 h-9 mt-2 bg-accent-green-500",')] },
+      green500: {
+        collection: "Klipse Primitive", name: "color/green/500",
+        declared: [quote.product(PAGE, 299, '  "block w-9 h-9 mt-2 bg-accent-green-500",'), quote.product(PRICING, 95, 'const NOTICE_DOT = "size-2 flex-none rounded-full bg-accent-green-500 mr-5";')],
+      },
+      noticeSurface: {
+        collection: "Klipse Primitive", name: "color/static-black-alpha/48", mix: { name: "color/media-scrim-dark", alpha: 0.48 },
+        declared: [quote.product(PRICING, 91, '  "bg-[color-mix(in_srgb,var(--louis-color-media-scrim-dark)_48%,transparent)]",')],
+        reason: "The event pill mixes media-scrim-dark (pure black) at 48%. The live file has no black-at-48% twin; static-black-alpha/48 is the same step on the #171b22 base, so the surface binds to it and records the RGB gap (as gray000Alpha72).",
+      },
       primary200Alpha40: {
         unbound: true, mix: { collection: "Klipse Primitive", name: "color/blue/200", alpha: 0.4 },
         declared: [quote.product(PAGE, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
@@ -741,6 +771,9 @@ const plan = {
     surface.page.paint = roles.paintFor(["appPageBg", "appPageBgNarrow"], surface.page.background, `${name} page`);
     surface.main.paint = roles.paintFor(["appMainCardBg"], surface.main.background, `${name} main`);
     surface.main.headerNotice.paint = roles.paintFor(["mediaForegroundDark"], surface.main.headerNotice.color, `${name} notice`);
+    const notice = surface.main.layout.header.notice;
+    notice.surface.paint = roles.paintFor(["noticeSurface"], notice.surface.color, `${name} notice surface`);
+    notice.dot.paint = roles.paintFor(["green500"], notice.dot.color, `${name} notice dot`);
     surface.main.headerTitle.paint = roles.paintFor(["gray000"], surface.main.headerTitle.color, `${name} title`);
     surface.main.headerBody.paint = roles.paintFor(["gray000Alpha72"], surface.main.headerBody.color, `${name} body`);
     if (surface.main.compareTitle) surface.main.compareTitle.paint = roles.paintFor(["gray000"], surface.main.compareTitle.color, `${name} compare title`);
@@ -790,6 +823,8 @@ const runnerPlan = stripAnnotations(plan);
     delete surface.layout.header.maxWidthDeclared;
     delete surface.layout.header.bodyMaxWidthDeclared;
     delete surface.layout.header.notice.heightDeclared;
+    delete surface.layout.header.notice.surface.color;
+    delete surface.layout.header.notice.dot.color;
     if (surface.layout.header.gift) delete surface.layout.header.gift.paddingTopDeclared;
     delete surface.layout.deck.declared;
   }

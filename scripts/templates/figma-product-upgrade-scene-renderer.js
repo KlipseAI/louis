@@ -386,13 +386,81 @@ const mobileCardSet = ensureCardSet(C.mobileVisibleCardSetName, M.cards, sliceNa
 });
 mobileCardSet.description = `${M.cards.length} viewport-observed mobile Upgrade card slices. Only nodes present in the ${M.page.rect.width}×${M.page.rect.height} fixture are included; this is not a complete mobile card contract. ${PLAN.productCommit}.`;
 
+// ── 이벤트 알약 ─────────────────────────────────────────────────────────
+// 제품 `PricingNotice`(랜딩 · `/mypage/upgrade` 공용) = 가로 Auto Layout 알약: 면(검정 48% · 뒤 흐림) · 반경 · 초록 점(「진행 중」) · 글자.
+// 높이는 선언(`h-16`), 폭은 글자를 hug 한다. Viewport 축은 글자 최대 폭 하나다 — 모바일은 컨테이너 폭에 닿아 글자가 감긴다.
+const noticeName = (viewport) => `Viewport=${viewport}`;
+const reconcileNotice = (node, S) => {
+  const N = S.main.layout.header.notice;
+  flow(node, "HORIZONTAL", { padding: N.padding, gap: N.dot.gap, counter: "CENTER" });
+  node.resize(node.width, N.height);
+  node.primaryAxisSizingMode = "AUTO";
+  node.counterAxisSizingMode = "FIXED";
+  node.cornerRadius = N.surface.radius;
+  bindCorners(node, V.radius12);
+  node.fills = [paint(N.surface.paint)];
+  node.effects = [{ type: "BACKGROUND_BLUR", blurType: "NORMAL", radius: N.surface.blur, visible: true }];
+  node.strokes = [];
+  node.clipsContent = false;
+  const dot = insertAt(node, node.findOne((entry) => entry.name === "dot") ?? newFrame("dot"), 0);
+  dot.resize(N.dot.size, N.dot.size);
+  dot.cornerRadius = N.dot.radius;
+  bindCorners(dot, V.radiusPill);
+  dot.fills = [paint(N.dot.paint)];
+  dot.layoutSizingHorizontal = "FIXED";
+  dot.layoutSizingVertical = "FIXED";
+  const text = insertAt(node, node.findOne((entry) => entry.type === "TEXT" && entry.name === "label") ?? newText("label"), 1);
+  styleText(text, S.main.headerNotice);
+  text.textAutoResize = "WIDTH_AND_HEIGHT";
+  text.maxWidth = N.textMaxWidth ?? null;
+  retireOthers(node, [dot, text]);
+};
+const noticeSpecs = [["Desktop", C], ["Mobile", M]];
+let noticeSet = section.findOne((entry) => entry.type === "COMPONENT_SET" && entry.name === C.noticeSetName);
+if (!noticeSet) {
+  const built = noticeSpecs.map(([viewport]) => {
+    const node = figma.createComponent();
+    node.name = noticeName(viewport);
+    section.appendChild(node);
+    return node;
+  });
+  noticeSet = figma.combineAsVariants(built, section);
+  noticeSet.name = C.noticeSetName;
+}
+for (const [viewport, S] of noticeSpecs) {
+  let node = noticeSet.children.find((entry) => entry.name === noticeName(viewport));
+  if (!node) {
+    node = figma.createComponent();
+    node.name = noticeName(viewport);
+    noticeSet.appendChild(node);
+  }
+  setModes(node);
+  reconcileNotice(node, S);
+  node.description = `Measured ${viewport} event pill (height ${S.main.layout.header.notice.height} declared) — Auto Layout, width hugs the label` +
+    (S.main.layout.header.notice.textMaxWidth ? `, label wraps at ${S.main.layout.header.notice.textMaxWidth} (the pill reaches the container)` : "") + ` · ${PLAN.productCommit} · product-only`;
+}
+noticeSet.fills = [];
+{
+  let cursor = gutter;
+  let tallest = 0;
+  for (const [viewport] of noticeSpecs) {
+    const node = noticeSet.children.find((entry) => entry.name === noticeName(viewport));
+    node.x = cursor;
+    node.y = gutter;
+    cursor += node.width + gutter;
+    tallest = Math.max(tallest, node.height);
+  }
+  noticeSet.resizeWithoutConstraints(cursor, tallest + gutter * 2);
+}
+noticeSet.description = `Product PricingNotice (landing · /mypage/upgrade) — event pill with the green in-progress dot. ${PLAN.productCommit}.`;
+
 // ── 메인 표면 ────────────────────────────────────────────────────────────
 // 가격 섹션(뷰포트 크롭) = 세로 Auto Layout. 크기는 마스터의 뷰포트 기본값(셸이 `h-[100dvh]` 이고 섹션이 `flex: 1 1 0%`)이고
 // 넘치는 것은 자른다. 좌우 패딩은 스크롤 칸 패딩에서 상단 바 bleed 를 뺀 값이라 바는 FILL 로 끝까지 닿고, `body` 가 bleed 만큼
 // 되돌려 컨테이너(`max-width: min(1300px, 100%)`, `margin-inline: auto`)를 가운데 둔다. 컨테이너 안은 헤더(`max-width: 820px`,
 // 알림 알약 · 제목 · 본문 · 선물 구매 줄의 칠 없는 자리) → 덱(`repeat(N, minmax(0px, 1fr))`, 가장 긴 카드 하나만 HUG · 나머지 FILL) → 비교 제목이다.
 const topBarTextChanges = [];
-const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain, cardNameOf, cardPrefix }) => {
+const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain, cardNameOf, cardPrefix, noticeMaster }) => {
   const L = S.main.layout;
   flow(component, "VERTICAL", { padding: L.main.padding, gap: L.main.barGap });
   component.resize(S.main.rect.width, S.main.rect.height);
@@ -440,16 +508,13 @@ const reconcileMain = (component, S, { topBarName, topBarMaster, cardSetForMain,
   flow(noticeBox, "VERTICAL", { padding: { bottom: L.header.notice.paddingBottom } });
   noticeBox.layoutSizingHorizontal = "HUG";
   noticeBox.layoutSizingVertical = "HUG";
-  const pill = insertAt(noticeBox, find("FRAME", "notice/pill") ?? newFrame("notice/pill"), 0);
-  plain(pill);
-  flow(pill, "HORIZONTAL", { padding: L.header.notice.padding, counter: "CENTER" });
-  pill.resize(pill.width, L.header.notice.height);
-  pill.layoutSizingHorizontal = "HUG";
-  pill.layoutSizingVertical = "FIXED";
-  const noticeText = insertAt(pill, find("TEXT", "header/notice") ?? newText("header/notice"), 0);
-  styleText(noticeText, S.main.headerNotice);
-  noticeText.textAutoResize = "WIDTH_AND_HEIGHT";
-  retireOthers(pill, [noticeText]);
+  // 알약은 `Product/Pricing Notice` 인스턴스다. 옛 러너가 지은 글자뿐인 프레임(`notice/pill`)은 숨겨 `retired/` 로 둔다.
+  let pill = find("INSTANCE", "notice/pill");
+  if (!pill) {
+    pill = noticeMaster.createInstance();
+    pill.name = "notice/pill";
+  } else if (pill.mainComponent?.id !== noticeMaster.id) pill.swapComponent(noticeMaster);
+  insertAt(noticeBox, pill, 0);
   retireOthers(noticeBox, [pill]);
   const titleBox = insertAt(header, find("FRAME", "title") ?? newFrame("title"), 1);
   plain(titleBox);
@@ -545,12 +610,14 @@ const mainComponent = ensureComponent(C.mainComponentName);
 reconcileMain(mainComponent, C, {
   topBarName: "top-bar/Subscription trail back", topBarMaster,
   cardSetForMain: { set: cardSet, specs: C.cards }, cardNameOf: cardName, cardPrefix: "plan-card",
+  noticeMaster: noticeSet.children.find((entry) => entry.name === noticeName("Desktop")),
 });
 mainComponent.description = `Measured ${C.page.rect.width}×${C.page.rect.height} upgrade main surface (price section ${C.main.rect.width}×${C.main.rect.height}, viewport crop) — Auto Layout · ${PLAN.productCommit} · product-only scene`;
 const mobileMainComponent = ensureComponent(C.mobileMainComponentName);
 reconcileMain(mobileMainComponent, M, {
   topBarName: "top-bar/Subscription trail back mobile inset", topBarMaster: mobileTopBarMaster,
   cardSetForMain: { set: mobileCardSet, specs: M.cards }, cardNameOf: sliceName, cardPrefix: "plan-card-visible-slice",
+  noticeMaster: noticeSet.children.find((entry) => entry.name === noticeName("Mobile")),
 });
 mobileMainComponent.description = `Measured ${M.page.rect.width}×${M.page.rect.height} mobile upgrade main surface. Only viewport-observed Upgrade nodes are present. Auto Layout · ${PLAN.productCommit} · product-only`;
 
@@ -608,7 +675,7 @@ mobileSceneComponent.description = `Measured ${M.page.rect.width}×${M.page.rect
 {
   let cursor = docs.y + docs.height + gutter;
   let right = 0;
-  for (const row of [[cardSet], [mainComponent, sceneComponent], [mobileCardSet], [mobileMainComponent, mobileSceneComponent]]) {
+  for (const row of [[cardSet, noticeSet], [mainComponent, sceneComponent], [mobileCardSet], [mobileMainComponent, mobileSceneComponent]]) {
     let x = gutter;
     let tallest = 0;
     for (const node of row) {
@@ -625,7 +692,7 @@ mobileSceneComponent.description = `Measured ${M.page.rect.width}×${M.page.rect
 
 // 보이는 페인트 감사 — 변수에 묶이지 않은 것은 계획의 고정 역할 색(`unboundColors` — 현재 플랜 아웃라인 · `gray-300` 88% 글자)이거나
 // 브랜드 로고 자산이어야 한다. 보존한 옛 variant(`Plan=Basic` · `Plan=Max`)는 이 러너가 칠하지 않으므로 세지 않는다.
-const paintAudit = audit([cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent], {
+const paintAudit = audit([cardSet, noticeSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent], {
   nested: C.nestedFixedPaints,
   skip: preservedCards,
   allow: (node) => {
@@ -638,7 +705,7 @@ const paintAudit = audit([cardSet, mainComponent, sceneComponent, mobileCardSet,
 // **반환은 수와 요약만 싣는다(2026-09-15).** 예전에는 여덟 뿌리의 서브트리 id 전부(`mutatedNodeIds`)를 실어 라이브 적용 응답이
 // `use_figma` 의 20KB 에서 잘렸다(2026-09-14 적용 — 앞 필드는 온전했지만 뒤의 감사 필드가 잘릴 수 있는 자리였다). 필요한 id 는
 // 뿌리 · 세트 · variant · 보존 variant 가 이미 이름으로 싣고, 서브트리는 뿌리마다 노드 수만 돌려준다.
-const auditedRoots = [section, docs, cardSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent];
+const auditedRoots = [section, docs, cardSet, noticeSet, mainComponent, sceneComponent, mobileCardSet, mobileMainComponent, mobileSceneComponent];
 const subtreeIds = new Set(auditedRoots.flatMap((root) => [root, ...root.findAll(() => true)].map((entry) => entry.id)));
 const mutatedNodes = {
   total: subtreeIds.size,
@@ -649,6 +716,8 @@ return {
   docFrameId: docs.id,
   cardComponentSetId: cardSet.id,
   cardVariantIds: cardSet.children.map((entry) => entry.id),
+  noticeComponentSetId: noticeSet.id,
+  noticeVariantIds: noticeSet.children.map((entry) => entry.id),
   mainComponentId: mainComponent.id,
   sceneComponentId: sceneComponent.id,
   mobileVisibleCardComponentSetId: mobileCardSet.id,

@@ -643,6 +643,8 @@ const CONTENT_INSTANCES_BY_SET = {
   [COMPONENT_SETS.checkoutStatus]: 6,
   [COMPONENT_SETS.upgradePlanCard]: 5,
   [COMPONENT_SETS.upgradePlanCardSlice]: 2,
+  // 2026-09-26: 「진행 중 이벤트 알약」(제품 `PricingNotice`) — `/mypage/upgrade` 데스크톱 · 모바일 헤더의 알약 하나씩.
+  [COMPONENT_SETS.pricingNotice]: 2,
 };
 const contentSets = new Set(CONTENT_COMPONENTS.map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));

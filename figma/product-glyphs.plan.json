@@ -7,6 +7,28 @@
     "collection": "Klipse Semantic Color",
     "name": "color/gray/000"
   },
+  "cssVariables": {
+    "--primary-500": {
+      "collection": "Klipse Primitive",
+      "name": "color/blue/500",
+      "declared": {
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+        "path": "apps/web/app/globals.css",
+        "line": 200,
+        "quote": "  --primary-500: var(--louis-color-blue-500);"
+      }
+    },
+    "--gray-000": {
+      "collection": "Klipse Semantic Color",
+      "name": "color/gray/000",
+      "declared": {
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+        "path": "apps/web/app/globals.css",
+        "line": 704,
+        "quote": "  --gray-000: var(--palette-gray-000);"
+      }
+    }
+  },
   "sets": [
     {
       "setName": "Product/Save Cloud Glyph",
@@ -254,6 +276,38 @@
             "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas/primitives.tsx",
             "path": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
             "line": 57,
+            "quote": "    <svg"
+          }
+        },
+        {
+          "value": "Plan Sparkle",
+          "surface": "apps/web/components/navigation/Gnb.tsx#PlanSparkleGlyph",
+          "stops": [
+            {
+              "cssVar": "--primary-500",
+              "collection": "Klipse Primitive",
+              "name": "color/blue/500"
+            },
+            {
+              "cssVar": "--gray-000",
+              "collection": "Klipse Semantic Color",
+              "name": "color/gray/000"
+            }
+          ],
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"PlanSparkleGlyph-1\" gradientUnits=\"userSpaceOnUse\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"32\"><stop offset=\"0%\" stop-color=\"#000000\"/><stop offset=\"100%\" stop-color=\"#000000\"/></linearGradient></defs><path d=\"M10.5339 21.4659L3.64767 18.9284C3.45779 18.8583 3.29396 18.7317 3.17824 18.5657C3.06253 18.3996 3.00049 18.2021 3.00049 17.9997C3.00049 17.7973 3.06253 17.5997 3.17824 17.4337C3.29396 17.2676 3.45779 17.141 3.64767 17.0709L10.5339 14.5334L13.0714 7.64718C13.1415 7.4573 13.2681 7.29347 13.4342 7.17775C13.6002 7.06204 13.7978 7 14.0002 7C14.2026 7 14.4001 7.06204 14.5662 7.17775C14.7322 7.29347 14.8588 7.4573 14.9289 7.64718L17.4664 14.5334L24.3527 17.0709C24.5426 17.141 24.7064 17.2676 24.8221 17.4337C24.9378 17.5997 24.9999 17.7973 24.9999 17.9997C24.9999 18.2021 24.9378 18.3996 24.8221 18.5657C24.7064 18.7317 24.5426 18.8583 24.3527 18.9284L17.4664 21.4659L14.9289 28.3522C14.8588 28.5421 14.7322 28.7059 14.5662 28.8216C14.4001 28.9373 14.2026 28.9994 14.0002 28.9994C13.7978 28.9994 13.6002 28.9373 13.4342 28.8216C13.2681 28.7059 13.1415 28.5421 13.0714 28.3522L10.5339 21.4659Z\" fill=\"url(#PlanSparkleGlyph-1)\"/><path d=\"M22 2V8M28 9V13M19 5H25M26 11H30\" stroke=\"url(#PlanSparkleGlyph-1)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+          "sha256": "b4bef0c93c0718bca908bfa20ef2ea32a18df9e910501a412ebd7a590924a94e",
+          "size": [
+            32,
+            32
+          ],
+          "shown": {
+            "width": "20",
+            "height": "20"
+          },
+          "source": {
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "path": "apps/web/components/navigation/Gnb.tsx",
+            "line": 2218,
             "quote": "    <svg"
           }
         }

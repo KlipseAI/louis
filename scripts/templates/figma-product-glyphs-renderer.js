@@ -25,6 +25,13 @@ const resolveColor = (variable, depth) => {
   return value;
 };
 const inkValue = resolveColor(ink, 0);
+// 그라디언트 정지점 변수 — 계획이 정지점 순서대로 컬렉션 · 이름을 싣는다.
+const variableByKey = (binding) => {
+  const collection = collections.find((c) => c.name === binding.collection);
+  const variable = collection && colorVariables.find((v) => v.variableCollectionId === collection.id && v.name === binding.name);
+  if (!variable) throw new Error("정지점 변수가 없습니다: " + binding.collection + "/" + binding.name);
+  return variable;
+};
 const inkPaint = (opacity) => figma.variables.setBoundVariableForPaint(
   { type: "SOLID", color: { r: inkValue.r, g: inkValue.g, b: inkValue.b }, opacity, visible: true, blendMode: "NORMAL" },
   "color", ink,
@@ -63,9 +70,27 @@ const fillFromSvg = (target, variant) => {
       const paints = node[key];
       if (!paints.length) continue;
       node[key] = paints.map((paint) => {
-        if (paint.type !== "SOLID") throw new Error("단색 밖 칠이 있습니다: " + variant.name);
-        bound += 1;
-        return inkPaint(paint.opacity === undefined ? 1 : paint.opacity);
+        if (paint.type === "SOLID") {
+          bound += 1;
+          return inkPaint(paint.opacity === undefined ? 1 : paint.opacity);
+        }
+        if (paint.type === "GRADIENT_LINEAR" || paint.type === "GRADIENT_RADIAL") {
+          if (!variant.stops || variant.stops.length !== paint.gradientStops.length) throw new Error("그라디언트 정지점 수가 계획과 다릅니다: " + variant.name);
+          bound += paint.gradientStops.length;
+          return {
+            type: paint.type,
+            gradientTransform: paint.gradientTransform,
+            opacity: paint.opacity === undefined ? 1 : paint.opacity,
+            visible: true,
+            blendMode: paint.blendMode || "NORMAL",
+            gradientStops: paint.gradientStops.map((stop, index) => {
+              const variable = variableByKey(variant.stops[index]);
+              const value = resolveColor(variable, 0);
+              return { position: stop.position, color: { r: value.r, g: value.g, b: value.b, a: stop.color.a }, boundVariables: { color: figma.variables.createVariableAlias(variable) } };
+            }),
+          };
+        }
+        throw new Error("옮기지 않는 칠입니다(" + paint.type + "): " + variant.name);
       });
     }
   }

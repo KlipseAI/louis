@@ -46,6 +46,11 @@ const fail = (message) => {
 const ASSETS_PAGE = "240:3529";
 const SECTION_NAME = "O · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물";
 const INK = { collection: "Klipse Semantic Color", name: "color/gray/000" };
+// 글리프 안의 `var(--…)`(그라디언트 정지점)를 LOUIS Figma 변수로 잇는 표. 근거는 제품 앵커의 선언 줄이다.
+const CSS_VARIABLES = {
+  "--primary-500": { collection: "Klipse Primitive", name: "color/blue/500", declared: ["apps/web/app/globals.css", 200, "  --primary-500: var(--louis-color-blue-500);"] },
+  "--gray-000": { collection: "Klipse Semantic Color", name: "color/gray/000", declared: ["apps/web/app/globals.css", 704, "  --gray-000: var(--palette-gray-000);"] },
+};
 
 // 세트 목록. variant 하나 = 표면 하나다(DS-D-0071 4항: 세트가 그 표면을 통째로 그린다).
 // `attrs` 는 원본 `<svg>` 가 획을 호출부 CSS 에 맡긴 자리에만 쓴다 — 그 값의 근거(호출부 줄)를 `callSite` 로 인용한다.
@@ -84,6 +89,7 @@ const SETS = [
       { value: "Pipeline Arrow", surface: "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx#PipelineArrow" },
       { value: "Project Videos", surface: "apps/web/components/scenes/create/ProjectHeader.tsx#ProjectVideosIcon" },
       { value: "Minus", surface: "apps/web/components/scenes/create/node-canvas/primitives.tsx#MinusIcon" },
+      { value: "Plan Sparkle", surface: "apps/web/components/navigation/Gnb.tsx#PlanSparkleGlyph" },
     ],
   },
   {
@@ -165,6 +171,18 @@ const constObjects = (file) => {
   }
   return out;
 };
+// 본문의 `const X = useId();` — 그라디언트 id 를 고정 문자열로 둔다(렌더마다 다른 id 는 그림이 아니다).
+const bodyIds = (fn, name) => {
+  const out = {};
+  let index = 0;
+  const visit = (node) => {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer && ts.isCallExpression(node.initializer)
+      && node.initializer.expression.getText() === "useId") out[node.name.text] = `${name}-${index += 1}`;
+    ts.forEachChild(node, visit);
+  };
+  if (fn.body) visit(fn.body);
+  return out;
+};
 // 매개변수 구조 분해의 기본값(`{ size = 22, children, ...rest }`)
 const parameterDefaults = (fn) => {
   const out = {};
@@ -193,6 +211,11 @@ const evaluate = (expression, ctx, where) => {
   if (ts.isNumericLiteral(expression)) return expression.text;
   if (ts.isPrefixUnaryExpression(expression) && expression.operator === ts.SyntaxKind.MinusToken && ts.isNumericLiteral(expression.operand)) return `-${expression.operand.text}`;
   if (ts.isIdentifier(expression) && Object.hasOwn(ctx.vars, expression.text)) return ctx.vars[expression.text];
+  if (ts.isTemplateExpression(expression)) {
+    let out = expression.head.text;
+    for (const span of expression.templateSpans) out += evaluate(span.expression, ctx, where) + span.literal.text;
+    return out;
+  }
   fail(`옮길 수 없는 식입니다 ${where}: ${expression.getText()}`);
 };
 
@@ -240,7 +263,7 @@ const extract = (surface, options = {}) => {
   if (!jsx) fail(`JSX 를 찾지 못했습니다: ${surface}`);
   const consts = constObjects(file);
   let svgNode = jsx;
-  let ctx = { vars: parameterDefaults(declaration), consts, ignoredSpreads: new Set(["p", "props", "rest"]), rootAttrs: options.attrs ?? null };
+  let ctx = { vars: { ...parameterDefaults(declaration), ...bodyIds(declaration, name) }, consts, ignoredSpreads: new Set(["p", "props", "rest"]), rootAttrs: options.attrs ?? null };
   const tag = tagOf(jsx);
   if (tag !== "svg") {
     // 같은 파일의 래퍼 컴포넌트 — 그 래퍼의 <svg> 에 이 표면의 자식을 끼운다.
@@ -256,8 +279,17 @@ const extract = (surface, options = {}) => {
   if (tagOf(svgNode) !== "svg") fail(`첫 JSX 가 <svg> 가 아닙니다: ${surface}`);
   let svg = serialize(svgNode, ctx, surface);
   if (!/ xmlns="/.test(svg.slice(0, svg.indexOf(">")))) svg = svg.replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"');
-  if (/var\(--/.test(svg)) fail(`CSS 변수가 남았습니다 — 이 생성기는 아직 풀지 않는다: ${surface}`);
-  if (/url\(#/.test(svg)) fail(`그라디언트 · 패턴 참조가 있습니다 — 이 생성기는 아직 옮기지 않는다: ${surface}`);
+  // CSS 변수는 그라디언트 정지점에서만 푼다 — 정지점 순서대로 변수를 적고 SVG 에는 자리표시 색을 싣는다(렌더러가 변수에 묶는다).
+  const stops = [];
+  svg = svg.replace(/<stop([^>]*?) stop-color="var\((--[\w-]+)\)"/g, (_, before, cssVar) => {
+    const binding = CSS_VARIABLES[cssVar];
+    if (!binding) fail(`모르는 CSS 변수입니다 — CSS_VARIABLES 에 근거와 함께 적는다: ${cssVar} (${surface})`);
+    stops.push({ cssVar, collection: binding.collection, name: binding.name });
+    return `<stop${before} stop-color="#000000"`;
+  });
+  if (/var\(--/.test(svg)) fail(`정지점 밖에 CSS 변수가 남았습니다: ${surface}`);
+  const gradientIds = [...svg.matchAll(/<(?:linearGradient|radialGradient)[^>]* id="([^"]+)"/g)].map((m) => m[1]);
+  for (const ref of svg.matchAll(/url\(#([^)]+)\)/g)) if (!gradientIds.includes(ref[1])) fail(`그라디언트가 아닌 참조입니다: ${ref[1]} (${surface})`);
   const viewBox = /viewBox="([^"]+)"/.exec(svg)?.[1];
   if (!viewBox) fail(`viewBox 가 없습니다: ${surface}`);
   const [, , vbW, vbH] = viewBox.split(/\s+/).map(Number);
@@ -271,6 +303,7 @@ const extract = (surface, options = {}) => {
   const line = file.getLineAndCharacterOfPosition(jsx.getStart()).line + 1;
   if (!lines[line - 1]?.includes(`<${tag}`)) fail(`인용 줄이 JSX 시작이 아닙니다: ${surface}:${line}`);
   return {
+    ...(stops.length ? { stops } : {}),
     svg: inked,
     sha256: createHash("sha256").update(inked).digest("hex"),
     size: [vbW, vbH],
@@ -330,12 +363,15 @@ for (const set of sets) {
   }
 }
 
+const cssVariableEvidence = Object.fromEntries(Object.entries(CSS_VARIABLES).map(([cssVar, binding]) =>
+  [cssVar, { collection: binding.collection, name: binding.name, declared: quoteAt(...binding.declared) }]));
 const plan = {
   $comment: "생성물. scripts/build-figma-product-glyphs.mjs 가 제품 앵커의 인라인 <svg> 를 옮겨 만든다. 직접 수정하지 않는다.",
   productCommit,
   page: ASSETS_PAGE,
   sectionName: SECTION_NAME,
   ink: INK,
+  cssVariables: cssVariableEvidence,
   sets,
 };
 
@@ -352,6 +388,7 @@ const payload = {
       name: `${set.axis}=${variant.value}`,
       svg: variant.svg,
       size: variant.size,
+      ...(variant.stops ? { stops: variant.stops.map(({ collection, name }) => ({ collection, name })) } : {}),
       description: `출처: ${variant.source.path}:${variant.source.line} (${variant.surface.split("#")[1]})${variant.callSite ? ` · 획은 호출부 ${variant.callSite.path}:${variant.callSite.line}` : ""} · svg sha256 ${variant.sha256.slice(0, 12)}`,
     })),
   })),

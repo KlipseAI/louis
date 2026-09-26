@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 81
+- Documents: 82
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -24,6 +24,7 @@
 - design/governance/decisions/DS-D-0068-hairline-recipe-per-theme-scope.md
 - design/governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md
 - design/governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md
+- design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -155,7 +156,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 160 |
+| Normative documents | 161 |
 | Generated documents | 5 |
 | Components | 52 |
 | Patterns | 9 |
@@ -1728,6 +1729,51 @@ surface 는 LOUIS 정본을 직접 소비한다」고 적고, 2026-09-22 전수(
 
 규칙 한 블록과 테스트 두 건을 되돌리고, 측정 기록의 `markerInline`(3)과 계약의 `Marker` 파트를 되살린다. Figma 는
 Selected 변형에 3px 막대(`color/accent-primary`, 반경 999, 위아래 8 안쪽)를 다시 그리고 되읽기를 다시 뜬다.
+
+## DS-D-0071 제품 컴포넌트 세트도 표면 대응으로 센다 — LOUIS 대응과 나눠 찍는 조건으로
+
+- Source: design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md
+- Maturity: experimental
+
+### DS-D-0071 제품 컴포넌트 세트도 표면 대응으로 센다 — LOUIS 대응과 나눠 찍는 조건으로
+
+- Status: accepted (소유자 결정, 2026-09-26 대화)
+- Date: 2026-09-26
+- Owners: repository owner, design system maintainer
+- Affects: `decision-product-surface-denominator`, `decision-pattern-boards-count-as-coverage`, `governance-figma-sync`
+
+#### Context
+
+소유자가 물었다 — 「피그마에 디자인은 대체 언제 완성시킬건데」. 표면 원장([DS-D-0037](../governance/decisions/DS-D-0037-product-surface-denominator.md))의
+`needed` 는 202 였고(부품 104 · 화면 64 · 한 자리 33 · 판단 대기 1), 절반(102)이 캔버스 편집기 한 곳이다. 그때까지는 한 표면마다
+LOUIS 컴포넌트를 코드 · 테스트 · Figma · parity 로 한 벌씩 세웠다(2026-09-26 의 Avatar `lg` · DropZone). 하루 세 건 속도라
+202 는 몇 달이다.
+
+소유자 결정: **「Figma 먼저, 생성기로 묶어서」.** 제품 전용 부품은 LOUIS 컴포넌트가 아니라 **Figma 제품 컴포넌트**(`Product/…`)로
+세우고, LOUIS 코드 구현은 제품이 그 정본을 실제로 쓰게 될 때 따라간다.
+
+그런데 원장의 `figma` 칸은 되읽기의 `components`(LOUIS) 와 `templates`(패턴 보드, DS-D-0039) 이름만 받는다. 제품 세트는 이미
+스물다섯 벌이 라이브에 있는데(`Product/Public Footer` · `Product/Pricing Plan Card` · `Product/Pricing Notice` …) 셀 어휘가 없어,
+그 표면들이 「그려야 한다」에 영구히 앉아 있다. DS-D-0039 가 패턴 보드에 대해 적은 것과 같은 오염이다.
+
+#### Decision
+
+1. **제품 세트를 셋째 어휘로 인정한다.** 원장의 `figma` 칸에 `Product/…` 세트 이름을 적을 수 있다. 어휘의 정본은 제품 세트
+   생성기의 계획(`figma/product-*.plan.json`)이 선언한 세트 이름이다 — 그 계획은 제품 측정에서 생성되고, 세트 러너로 라이브에
+   적용되며, `check-figma-product-*` 게이트가 계획과 러너를 잠근다.
+2. **세 대응을 한 수로 합치지 않는다.** `check-figma-surface-coverage` 는 합계와 함께 LOUIS 컴포넌트 · 패턴 · 제품 세트 대응을 **따로**
+   찍고, 셋 모두에 같은 래칫(정확히 일치)을 건다. 합계만 잠그면 LOUIS 대응을 제품 세트 대응으로 바꿔치기해도 수가 유지된다.
+3. **제품 세트 대응은 「LOUIS 에 있다」가 아니다.** 목표 A(제품이 LOUIS 를 소비한다)의 진척으로 세지 않는다. 그 표면이 LOUIS
+   컴포넌트가 되면 `figma` 칸을 LOUIS 이름으로 옮긴다 — 그때 제품 세트 대응은 하나 줄고 LOUIS 대응이 하나 는다.
+4. **판정은 표면 하나 = 세트 하나일 때만 한다.** 세트가 그 표면을 통째로 그릴 때만 적는다. 표면의 일부만 그리는 세트(예: 화면 안의
+   카드 한 장)는 그 화면을 대응으로 만들지 않는다.
+
+#### Consequences
+
+- 원장의 `needed` 가 제품 세트가 이미 있는 표면만큼 바로 준다. 그 뒤로는 생성기로 세트를 묶어 세울 때마다 준다.
+- LOUIS 컴포넌트 수(`manifest` 의 `figma: done`)와 표면 커버리지는 다른 축이 된다 — 표면 커버리지가 올라도 LOUIS 가 넓어진 것은 아니다.
+  인쇄를 셋으로 가르는 이유다.
+- 되돌리기: 제품 세트 어휘를 걷으면 그 판정들이 `needed` 로 돌아온다(원장의 판정 칸이 남아 있으므로 손실 없이 되돌릴 수 있다).
 
 ## Contributing
 
@@ -3455,7 +3501,7 @@ DS 는 **시스템이 소유한 계약**이라 `verify-figma-parity` 가 대조�
 | 표기 | 뜻 | 예 |
 | --- | --- | --- |
 | `⚠ 결번` | 어느 §10.N 도 소유하지 않는다 | `404` · `error` · `global-error` (10.4.md 가 「이 절의 범위 밖」이라 명시) |
-| `⚠ 미등록` | 문서에도 커버리지 등급에도 없다 | `/creative-media{,-admin}` — **등급을 지어내지 말 것** |
+| `⚠ 미등록` | 문서에도 커버리지 등급에도 없다 | `/creative-media{,-admin}` · `/mypage/upgrade/bulk-{success,fail}` · `/subscription/coupons` — **등급을 지어내지 말 것** |
 | `⚠ 권위 충돌` | 문서가 소유한다고 적지만 화면 정본이 다른 저장소다 | `/docs` (§10.4 vs klipse-docs 레포) |
 
 ##### 섹션 이름 끝의 `L3`/`L2` 는 보드가 정하지 않는다
@@ -3467,9 +3513,9 @@ DS 는 **시스템이 소유한 계약**이라 `verify-figma-parity` 가 대조�
 섹션 색도 같은 값에서 나온다 — 초록 L3 · 호박 L2 · 붉음 등급 없음. **등급이 바뀌면 보드를 손으로
 고치지 말고 JSON 에서 다시 찍는다.** 보드가 등급을 저작하면 그 순간 정본이 둘이 된다.
 
-등급을 **지어내지 않는다.** 커버리지 파일에 없는 라우트는 `등급 없음` 이다. 지금 7개가 그렇다 —
+등급을 **지어내지 않는다.** 커버리지 파일에 없는 라우트는 `등급 없음` 이다. 지금 10개가 그렇다 —
 `/nodecanvas?project=`(상태) · `/admin/coupons/[id]/print` · `/creative-media{,-admin}` ·
-404 · error · global-error.
+`/mypage/upgrade/bulk-{success,fail}` · `/subscription/coupons` · 404 · error · global-error.
 
 ##### 상시 검산식
 
@@ -3479,7 +3525,7 @@ DS 는 **시스템이 소유한 계약**이라 `verify-figma-parity` 가 대조�
 총 프레임     = 라우트 프레임 + 상태 프레임
 ```
 
-지금은 라우트 `48 × 2 − 1 = 95`, 상태 `6 × 2 = 12`, 합 **107** 이다. 이 등식이 깨지면 프레임이
+지금은 라우트 `51 × 2 − 1 = 101`, 상태 `6 × 2 = 12`, 합 **113** 이다(2026-09-26 에 미등록 라우트 셋을 더했다). 이 등식이 깨지면 프레임이
 빠졌거나 중복된 것이다.
 
 **축을 둘로 쪼갠 이유**(2026-09-01 정정). 원래 이 절은 `48 × 2 − 1 = 95` 하나였고 그 95 를 「총
@@ -3496,11 +3542,14 @@ node -e 'const s=require("./figma/app-screens.plan.json").screens;
 ```
 
 같은 파일이 프레임 id 도 갖는다(`1064:3132` ~ `1064:3143`). **보드 텍스트에 총계를 적을 때는 이
-두 항을 나란히 적는다** — 라우트 색인 보드의 안내 TEXT 는 아직 「95개 프레임」 한 수만 적고 있어
-같은 함정을 재생산한다(미해결, 라이브 Figma 수정 필요).
-**§10.N 인스코프 46 과 보드 항목 48 이 다른 이유는 `00.4` 대조표에 적어 둔다** — 적어 두지 않으면
-다음 사람이 48 을 「고치려」 든다. 차이는 리다이렉트 −2 · 범위 밖 docs 하위 −3 · 상태 +1 ·
-문서 미소유 +1 · 미등록 +2 · 결번 +3 이다.
+두 항을 나란히 적는다** — 라우트 색인 보드의 안내 TEXT 는 2026-09-26 부터 「라우트 프레임 101 + 상태
+프레임 12 = 113」으로 둘을 나란히 적는다(그전에는 「95개 프레임」 한 수였다).
+**§10.N 인스코프 46 과 보드 항목 51 이 다른 이유는 `00.4` 대조표에 적어 둔다** — 적어 두지 않으면
+다음 사람이 51 을 「고치려」 든다. 차이는 리다이렉트 −2 · 범위 밖 docs 하위 −3 · 상태 +1 ·
+문서 미소유 +1 · 미등록 +5 · 결번 +3 이다. 00.4 의 다른 쪽 검산(제품 앵커 `2c6bdacf` 의 화면 52 ↔ 보드 51)은
+리다이렉트 −2 · 렌더 계약 검사 화면 `/louis-render-contract` −1 · 에디터 상태 +1 · `/docs` +1 이다 — 앵커에는
+`/docs` 가 없다(정본이 klipse-docs 로 옮겨 갔다). page.tsx 수(49)가 옛 대조와 같은 것은 `/docs` 넷이 빠지고
+새 페이지 넷이 들어온 우연이다.
 
 ##### 배치 산식 (높이 216~10122 를 겹치지 않게 놓는 유일한 규칙)
 
@@ -3560,6 +3609,17 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 - `W×H` 는 **실제 노드 크기**여야 한다. hug 로 늘어난 뒤 이름을 갱신하지 않으면 색인이 거짓이 된다
   (실제로 `mobile 402×874` 라고 적힌 프레임이 402×1148 이었다).
 - 상태 판정이 없는 프레임은 「어느 분기를 그린 것인지 모르는 프레임」이다. 반드시 채운다.
+- **상태 판정은 그려진 화면이지 라우트의 의도가 아니다.** fixture 는 인증만 우회하고 쿼리 · 데이터가 없으므로
+  `/mypage/topup/success` 보드가 그리는 것은 「충전 성공」이 아니라 「결제 정보 없음 → 충전 반영 지연 안내」다.
+  2026-09-26 에 결제 결과 보드 14장이 라우트 이름을 풀어 쓴 판정(「충전 성공 결과」 · 「구독 결제 실패」)을 달고
+  있었다 — fixture 의 보이는 글자로 다시 적었다.
+- **라우트 색인(START HERE 00.2)은 보드 이름의 사본이다.** 손으로 고치지 않고 보드 이름에서 다시 찍는다.
+  (157)에서 보드 이름 열 개를 고칠 때 색인이 따라오지 않아 52 칸이 보드와 달랐다(2026-09-26 발견).
+- **기계로 센다 — `scripts/figma-board-layout-check.mjs`.** 이름 문법 · 실제 크기 · 상태 빈칸, 20조 배치 산식,
+  `--index` 를 주면 색인 칸까지 대조한다. Figma 접근이 필요해 CI 밖이다(`--emit` 탐침을 읽기 전용으로 돌리고
+  결과를 `--check` 에 준다). 이 스크립트가 없던 동안 보드 107 장 가운데 30 장이 어긋나 있었다 — 괄호 없는 이름 6 ·
+  옛 캡처 높이를 단 hug 보드 9 · 의도를 적은 결제 결과 14 · 반올림 1. 의미(「그려진 상태인가」)는 기계가 모른다 —
+  그것은 fixture 의 보이는 글자와 대조해 사람이 적는다.
 - 자산은 이름 앞에 `출처:` 태그를 붙인 **설명**으로 분류한다. 생김새가 아니라 출처로 가르는 이유는
   「제품의 무엇과 같아야 하나」의 검증 방법이 출처마다 다르기 때문이다(파일 diff ↔ 소스 줄 대조).
 
@@ -3847,7 +3907,8 @@ sidebar-states 러너가 편집기 상단 바 마스터 `477:4999` 에 `Klipse S
 - 접두 규칙은 (a) 화면 페이지에 남은 COMPONENT 0, (b) `.authored/` 사용 인스턴스 수를 센다.
   (b)는 0 을 향해 줄어들어야 하는 부채 지표다 — 늘어나면 출처 없이 그린 것이 늘었다는 뜻이다.
 - 23번은 프레임 이름을 `<viewport> <W>×<H> — <route> (<상태>)` 로 파싱해 (a) 파싱 실패 0,
-  (b) 이름의 W×H 와 실제 크기 불일치 0, (c) 상태 판정 빈칸 0 을 센다.
+  (b) 이름의 W×H 와 실제 크기 불일치 0, (c) 상태 판정 빈칸 0 을 센다 — `scripts/figma-board-layout-check.mjs`
+  (`--index` 로 라우트 색인 칸까지). 20번 배치 산식(허용 x · rowTop · 섹션 높이 · 섹션 간격)도 같은 스크립트가 센다.
 - 24번은 `pnpm run verify-product-scenes`가 고정 빌드와 생성물을 byte-for-byte 대조한다. 전제조건
   누락·dirty build·커밋/영수증/sourcemap 불일치·미소유 `liveOnly` 표본·생성물 drift 중 하나라도
   있으면 exit 1이어야 한다. 이 게이트는 제품 측정만 판정하며 Figma 되읽기 완료를 대신하지 않는다.
@@ -14968,6 +15029,27 @@ LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원�
 **그때까지 LOUIS 는 모양 축을 열지 않는다.** 제품이 정본을 물지 않는 자리에 맞춰 DS API 를 넓히면, 지역 레시피 하나가
 공용 계약이 된다([DS-D-0043](../governance/decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md)).
 
+#### 13 — 쿠폰 구매 화면의 결제창 오류 배너가 라이트 테마에서 보이지 않는다
+
+**증상.** `/subscription/coupons`(라이트)에서 결제창을 불러오지 못하면 뜨는 오류 배너의 제목 「Failed to load the payment
+window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해져 읽히지 않는다. 보드 생성으로 먼저 보였다([Updates](../updates/README.md)
+(164)) — 보드가 틀린 것이 아니라 제품이 그렇게 그린다.
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의 `screens["desktop-1920x1080"]["/subscription/coupons"]` 에서
+
+    배너 div(.louis-alert)  면 rgb(255 75 89 / 12%) · 테두리 24% — 카드 면 #FAFAFA 위에서 약 rgb(251 229 231)
+    제목 strong             rgb(255 229 232)          → 대비 1.01:1
+    도움말 p                rgb(250 250 250 / 72%)   → 대비 1.11:1
+
+레시피는 `app/mypage/upgrade/TossPaymentWindowPanel.tsx:94` 의 `CHECKOUT_ERROR = "louis-alert mb-12 py-8 text-accent-red-100"` 와
+`:97` 의 `CHECKOUT_ERROR_HELP`(`text-[rgb(var(--palette-gray-000-rgb)/72%)]`)다. 두 줄 위 주석이 스스로 「다크 면 위 옅은 분홍
+전경만 호출부에 남긴다」고 적는다 — 다크 업그레이드 화면용 전경이 테마를 따라가는 쿠폰 화면(라이트)에 그대로 실렸다. 모바일도 같다.
+
+**정해야 할 것(제품).** 전경을 테마를 따라가는 역할 토큰으로 옮길 것인가(LOUIS `.louis-alert` 의 기본 전경을 그대로 쓰면 된다),
+아니면 이 패널을 다크 면 위에서만 쓰도록 쿠폰 화면의 면을 바꿀 것인가.
+
+**그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 글자색을 고치면 보드가 제품보다 「정본」이 된다(업그레이드 비교표 대비와 같은 판례).
+
 ## Updates
 
 - Source: design/updates/README.md
@@ -14993,6 +15075,49 @@ LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-09-26 (164) — 보드 없던 실제 화면 셋을 그리고, 보드 이름 · 배치 · 라우트 색인을 기계로 세게 했다. 제품 세트가 표면 대응이 된다(DS-D-0071) — 필요 202 → 163
+
+소유자 결정 「Figma 먼저, 생성기로 묶어서」(2026-09-26)의 1단계와 2단계 첫 묶음이다.
+
+**1. 보드 없던 실제 화면 셋 — `/mypage/upgrade/bulk-success` · `/mypage/upgrade/bulk-fail` · `/subscription/coupons`.** 앵커 `2c6bdacf`
+의 page.tsx 49 가운데 보드가 없던 일곱을 가렸다 — 리다이렉트 둘(`/mypage` · `/explore`), `RENDER_CONTRACT_ENABLED` 가 있을 때만 열리는
+렌더 계약 검사 화면(`/louis-render-contract`), 보드 이름이 `/canvas` 로 낡아 있던 `/nodecanvas`(이름만 고쳤다), 그리고 진짜로 없던 셋.
+셋은 인증 fixture 에 더해 재고(데스크톱 · 모바일, 기존 25 화면은 한 바이트도 바뀌지 않았다) 보드 생성기로 그렸다. 셋 다 사양 문서
+(10.N.md) · 커버리지 파일에 없으므로 기존 §10 섹션에 끼우지 않고 「⚠ 미등록」 섹션을 따로 세웠다(조립 규칙 20조 — 문서 절이 없는 화면은 키
+대신 사유를 적는다). fixture 는 쿼리 없이 열므로 bulk-success 는 「결제 확인 실패 안내」, coupons 는 「결제창 불러오기 실패(외부 요청 차단) ·
+구매 내역 401」을 그린다.
+
+**2. 보드 이름 30 장을 조립 규칙 23조대로 고쳤다.** 괄호 없는 이름 6(`/` · `/privacy` · `/terms` 캡처 보드), 옛 캡처의 제품 높이를 단 hug 보드 9
+(`/pricing` 1920×4820 → 실제 4080 등), 반올림 1(`/nodecanvas` 모바일 1065 → 1066), 그리고 **그린 상태가 아니라 라우트의 의도를 적은 결제 결과
+14**(「충전 성공 결과」 → 「쿼리 없음 → 충전 반영 지연 안내」). 23조에 「상태 판정은 그려진 화면이지 라우트의 의도가 아니다」를 더했다.
+
+**3. 배치 산식(20조)을 다섯 페이지에 다시 적용했다.** 하이라이트 섹션이 자란 뒤 애널리틱스 섹션이 움직이지 않아 **2,580 겹쳐** 있었고,
+`/` 데스크톱 보드가 섹션 밖으로 127 나와 있었다. 섹션 높이 · 간격을 산식으로 다시 쌓았다.
+
+**4. 라우트 색인(START HERE 00.2)을 보드 이름에서 다시 찍었다.** 색인은 보드 이름의 사본인데 (157)에서 보드 이름 열 개를 고칠 때 따라오지 않아
+**52 칸이 보드와 달랐다**(`/settings` 「다크」 · `/subscription` 「Pro · 이력 있음」 · `/mypage/upgrade` 1920×2492 …). 새 행 셋, 요약을
+「51개 항목 · 라우트 프레임 101 + 상태 프레임 12 = 113」으로, 00.4 검산표를 앵커 기준(klipse-web 52 ↔ 보드 51 — 앵커에는 `/docs` 가 없다)으로 고쳤다.
+
+**5. 이것들을 세는 스크립트가 생겼다 — `scripts/figma-board-layout-check.mjs`.** 11절 표는 23조를 「센다」고 적었지만 세는 것이 없었다.
+이름 문법 · 실제 크기 · 상태 빈칸, 20조 배치 산식(허용 x · rowTop · 섹션 높이 · 섹션 간격), `--index` 로 색인 칸까지 대조한다. Figma 접근이 필요해
+CI 밖이다(`--emit` 탐침 → `--check`).
+
+**6. 제품 세트를 표면 대응으로 센다 — [DS-D-0071](../governance/decisions/DS-D-0071-product-sets-count-as-coverage.md).** 원장 `figma` 칸이 LOUIS 컴포넌트 ·
+패턴 보드 이름만 받아, 이미 라이브에 있는 제품 세트 스물다섯이 가리키는 표면이 「그려야 한다」에 앉아 있었다. 셋째 어휘로 인정하되 합계와 따로 센다.
+
+**7. 제품 인라인 SVG 글리프 생성기 — `build-figma-product-glyphs`.** 제품 앵커의 `.tsx` 안 `<svg>` 를 TypeScript 파서로 옮긴다(펼침 속성 · 래퍼 컴포넌트 ·
+매개변수 기본값 · `useId` 그라디언트까지, 옮길 수 없는 식이 있으면 멈춘다). 90 ASSETS 에 세트 넷을 세웠다 — `Product/Save Cloud Glyph`(3) ·
+`Product/Theme Glyph`(3) · `Product/Glyph`(6) · `Product/Mobile Action Glyph`(15). 칠은 잉크 변수 `color/gray/000` 에, PlanSparkle 의 그라디언트
+정지점은 `color/blue/500` · `color/gray/000` 에 묶었다. LOUIS 아이콘에 같은 그림이 있어 `scoped` 인 모바일 액션 글리프 여덟은 싣지 않았다(두 정본 금지).
+
+**원장.** 필요 202 → 163: 제품 세트 대응 29(글리프 27 · 푸터 · 이벤트 알약) · 그릴 것이 없는 칸 10 을 `scoped` 로(마크업 0 인 서버 껍데기
+`UpgradePlanPage` 1 — 같은 화면을 두 칸으로 세던 원장 결함, 앵커에서 참조 0 인 죽은 수출 9). 대응 33 → 60 = 컴포넌트 28 + 패턴 3 + 제품 세트 29.
+보드 구성: 보드 36 → 42 · 인스턴스 103 → 119 · 미보유 14 → 32(새 18 은 전부 coupons 의 제품 전용 컨트롤 — 요금제 선택 카드 · 수량 스테퍼).
+
+**남은 것.** 필요 163 의 종류는 부품 75 · 화면 64 · 한 자리 23 · 판단 대기 1 이다. **화면 64 는 보드를 그려도 줄지 않는다** — 원장 `$kindRule` 이
+「보드가 화면의 채워진 상태를 그리고, 부품을 다 꺼냈을 때」만 내보내게 했고 그 둘째 조건은 기계로 재지 못한다고 적었다. 인증 fixture 는 데이터가
+없어 대부분 빈 상태 · 실패 상태를 그린다 — 채워진 상태는 제품의 개발 전용 후크(`?__phase=` · 결제 화면의 `?preview=`)가 있는 곳만 잴 수 있다.
 
 #### 2026-09-26 (163) — 보드 미보유 18 → 14: 이벤트 알약을 제품 컴포넌트로, LOUIS DropZone 신설, 연결 버튼은 제품 확인 대기로
 

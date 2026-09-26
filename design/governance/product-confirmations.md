@@ -406,3 +406,24 @@ LOUIS Button 에는 알약 모양이 없어(반경 12) 화면 보드 구성 원�
 
 **그때까지 LOUIS 는 모양 축을 열지 않는다.** 제품이 정본을 물지 않는 자리에 맞춰 DS API 를 넓히면, 지역 레시피 하나가
 공용 계약이 된다([DS-D-0043](decisions/DS-D-0043-canonical-site-is-what-the-product-bites.md)).
+
+## 13 — 쿠폰 구매 화면의 결제창 오류 배너가 라이트 테마에서 보이지 않는다
+
+**증상.** `/subscription/coupons`(라이트)에서 결제창을 불러오지 못하면 뜨는 오류 배너의 제목 「Failed to load the payment
+window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해져 읽히지 않는다. 보드 생성으로 먼저 보였다([Updates](../updates/README.md)
+(164)) — 보드가 틀린 것이 아니라 제품이 그렇게 그린다.
+
+**실측(원장, 앵커 `2c6bdacf`).** `migration/product.auth-fixture.json` 의 `screens["desktop-1920x1080"]["/subscription/coupons"]` 에서
+
+    배너 div(.louis-alert)  면 rgb(255 75 89 / 12%) · 테두리 24% — 카드 면 #FAFAFA 위에서 약 rgb(251 229 231)
+    제목 strong             rgb(255 229 232)          → 대비 1.01:1
+    도움말 p                rgb(250 250 250 / 72%)   → 대비 1.11:1
+
+레시피는 `app/mypage/upgrade/TossPaymentWindowPanel.tsx:94` 의 `CHECKOUT_ERROR = "louis-alert mb-12 py-8 text-accent-red-100"` 와
+`:97` 의 `CHECKOUT_ERROR_HELP`(`text-[rgb(var(--palette-gray-000-rgb)/72%)]`)다. 두 줄 위 주석이 스스로 「다크 면 위 옅은 분홍
+전경만 호출부에 남긴다」고 적는다 — 다크 업그레이드 화면용 전경이 테마를 따라가는 쿠폰 화면(라이트)에 그대로 실렸다. 모바일도 같다.
+
+**정해야 할 것(제품).** 전경을 테마를 따라가는 역할 토큰으로 옮길 것인가(LOUIS `.louis-alert` 의 기본 전경을 그대로 쓰면 된다),
+아니면 이 패널을 다크 면 위에서만 쓰도록 쿠폰 화면의 면을 바꿀 것인가.
+
+**그때까지 Figma 는 이 화면을 제품대로 둔다.** 보드에서 글자색을 고치면 보드가 제품보다 「정본」이 된다(업그레이드 비교표 대비와 같은 판례).

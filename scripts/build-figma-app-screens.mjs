@@ -97,6 +97,15 @@ const SCREENS = [
   { route: "/mypage/upgrade/bulk-success", desktop: "2075:2243", mobile: "2075:2244" },
   { route: "/mypage/upgrade/bulk-fail", desktop: "2075:2245", mobile: "2075:2246" },
   { route: "/subscription/coupons", desktop: "2076:3371", mobile: "2076:3372" },
+  // **결제 성공 화면 넷의 실제 성공 상태(2026-09-26).** 쿼리 없이 연 화면은 「결제 정보 없음」 분기라 성공 화면의 본체가 보드에
+  // 없었다. 개발 전용 `?preview=` 후크(운영에서 꺼지는 NODE_ENV 게이트 — 인용은 측정기 sourceQuotes)로 연 상태 보드다. 프레임은
+  // 라우트 섹션 안 §20 자리에 세웠다(결제 결과 섹션 255:1862 의 항목 7~10, bulk 미등록 섹션 2075:2241 의 항목 2~3).
+  { route: "/mypage/upgrade/billing-success?preview=success", desktop: "2108:2507", mobile: "2108:2508" },
+  { route: "/mypage/upgrade/billing-success?preview=partial", desktop: "2108:2509", mobile: "2108:2510" },
+  { route: "/mypage/upgrade/billing-change-success?preview=success", desktop: "2108:2511", mobile: "2108:2512" },
+  { route: "/mypage/topup/success?preview=success", desktop: "2108:2513", mobile: "2108:2514" },
+  { route: "/mypage/upgrade/bulk-success?preview=success", desktop: "2108:2515", mobile: "2108:2516" },
+  { route: "/mypage/upgrade/bulk-success?preview=issue-error", desktop: "2108:2517", mobile: "2108:2518" },
   // `/highlight/[projectId]` 의 phase 상태 여섯. 프레임은 §20 배치 산식으로 새로 세웠다
   // (섹션 `255:1856`, 항목 index 3~8 → x 8560 / 160 / 2960 / 5760 / 8560 / 160,
   //  rowTop 240 · 2140 · 3840). 측정은 개발 전용 `?__phase=` 후크가 연다.
@@ -181,6 +190,25 @@ const PARTS = [
         "Payment service terms", "Privacy collection consent", "Third-party data sharing consent",
       ], "2101:5886"],
     ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
+  },
+  // **셋째 묶음(2026-09-26 저녁) — 결제 성공 미리보기 보드에서 드러난 안내 상자 둘.** 둘 다 글자를 제 몸에 든 잎이다(잎 서명).
+  // 쿠폰 코드 칩(bulk 성공 미리보기, 데스크톱 30 · 모바일 15)은 칩마다 글자가 달라 글자 서열 서명으로 묶을 수 없다 — 글자 속성
+  // (component TEXT property)을 가진 부품이 필요하다(다음 묶음).
+  {
+    set: "Product/Billing Status Alert",
+    about: "결제 성공 화면의 상태 알림(app/mypage/upgrade/billing-success/page.tsx STATUS_ALERT_ERROR — 빨강 8% 면 · 16% 테두리 · 곡률 12). 측정은 개발용 ?preview=partial 의 결제 수단 등록 실패 문구다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.1.2", ["Failed to register the billing method and complete the subscription charge."], "2109:5880"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.1.2", ["Failed to register the billing method and complete the subscription charge."], "2109:5881"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/mypage/upgrade/billing-success?preview=partial", context, path, anchor, component })),
+  },
+  {
+    set: "Product/Bulk Coupon Notice",
+    about: "bulk 결제 성공 화면의 안내(app/mypage/upgrade/bulk-success/page.tsx NOTICE — 헤어라인 · 곡률 8 · 64% 글자). 성공 · 발급 실패 미리보기가 같은 안내를 쓴다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.0.2", ["No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one."], "2109:5883"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.0.2", ["No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one."], "2109:5884"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/mypage/upgrade/bulk-success?preview=success", context, path, anchor, component })),
   },
 ];
 
@@ -464,9 +492,24 @@ function reconcileFigmaSizing(spec) {
       const lines = Math.round((node.rect.height / lineHeight) * 100) / 100;
       const definite = parent?.layout?.layoutMode === "VERTICAL" && parent.sizing.layoutSizingHorizontal !== "HUG";
       const room = parent?.layout ? parent.rect.width - parent.layout.padding.left - parent.layout.padding.right : null;
+      // **가로 줄 안의 감긴 글자(2026-09-26).** flex 행의 글자는 줄어들며(flex-shrink) 형제가 쓰고 남은 폭에서 감긴다 — 쿠폰 결제
+      // 동의 문구(체크박스 16 · 간격 10 옆 461.6, 2줄)가 한 줄 550 으로 늘어나 동의 상자가 193 → 174 로 섰다. 형제가 모두 FILL 이
+      // 아니고 측정 폭이 남은 폭과 같으면 그 폭을 정한 것은 줄이다 — FILL(남은 폭 차지)로 옮긴다.
+      const row = parent?.layout?.layoutMode === "HORIZONTAL" && parent.sizing.layoutSizingHorizontal !== "HUG";
+      const siblings = row ? flowChildren(parent).filter((child) => child !== node) : [];
+      const leftover = row
+        ? room - siblings.reduce((sum, child) => sum + child.rect.width + (child.margin?.left ?? 0) + (child.margin?.right ?? 0), 0)
+          - parent.layout.itemSpacing * siblings.length
+        : null;
+      const fillsRow = row && siblings.every((child) => child.sizing.layoutSizingHorizontal !== "FILL")
+        && Math.abs(node.rect.width - leftover) <= HALF_PIXEL;
       if (definite && node.rect.width <= room + HALF_PIXEL) {
         change(node, "horizontal", "FILL",
           `측정 글자가 ${lines}줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 ${parent.sizing.layoutSizingHorizontal})가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
+          `height ${node.rect.height} / line-height ${lineHeight}`);
+      } else if (fillsRow) {
+        change(node, "horizontal", "FILL",
+          `측정 글자가 ${lines}줄로 감겼다 — 폭은 가로 줄(폭 ${parent.sizing.layoutSizingHorizontal})에서 형제가 쓰고 남은 폭 ${Math.round(leftover * 100) / 100} 이다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
           `height ${node.rect.height} / line-height ${lineHeight}`);
       } else {
         unresolvedWraps.push({ path: node.path, lines, parent: parent?.path ?? null });
@@ -601,6 +644,10 @@ const partContent = [];
       if (inner.applied.some((applied) => applied.path === variant.path)) fail(`부품 뿌리가 다른 세트로 치환됐습니다: ${part.set} ${variant.variant}`);
       applyGlyphIdentity(spec, `${part.set} ${variant.variant}`);
       const sizingFix = reconcileFigmaSizing(spec);
+      // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
+      if (sizingFix.unresolvedWraps.length > 0) {
+        fail(`부품 ${part.set} ${variant.variant} 에 풀지 못한 감긴 글자가 있습니다 — Figma 에서 한 줄로 늘어납니다: ${JSON.stringify(sizingFix.unresolvedWraps)}`);
+      }
       centreAutoMargins(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
@@ -608,7 +655,8 @@ const partContent = [];
       parts.push({
         set: part.set, variant: variant.variant, route: variant.route, context: variant.context, path: variant.path,
         componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
-        signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length },
+        signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length,
+          ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}) },
         spec,
       });
     }
@@ -691,6 +739,8 @@ for (const screen of SCREENS) {
         unresolved: stats.unresolved,
         // 제품은 세로 flex 에 wrap 을 걸었지만 Figma 는 HORIZONTAL 에만 wrap 이 있어 NO_WRAP 으로 옮긴 자리.
         ...(stats.verticalWrap.length ? { verticalWrap: stats.verticalWrap } : {}),
+        // 한 줄짜리 인라인 흐름의 줄 상자(strut)를 패딩으로 옮긴 자리(figma-tree-spec 의 lineBoxSlack 주석).
+        ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
         // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자 ·
         // 풀지 못한 HUG 부모 · FILL 자식(UNRESOLVED_FILL_IN_HUG_BY_PARENT 가 부모 · 축마다 수를 잠근다).
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
@@ -778,6 +828,9 @@ const CONTENT_INSTANCES_BY_SET = {
   "Product/Analytics Connect Button": 2,
   "Product/Highlight Theme Chips": 2,
   "Product/Checkout Agreement": 1,
+  // 셋째 묶음: 결제 상태 알림 × 두 뷰포트(billing-success 일부 반영 미리보기), bulk 쿠폰 안내 × 두 뷰포트 × 미리보기 둘(성공 · 발급 실패).
+  "Product/Billing Status Alert": 2,
+  "Product/Bulk Coupon Notice": 4,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));

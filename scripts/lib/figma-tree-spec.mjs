@@ -200,11 +200,38 @@ export function glyphSignature(node, childrenOf) {
   return parts.join("|");
 }
 
+/**
+ * **한 줄짜리 인라인 흐름의 줄 상자(2026-09-26).** 블록 컨테이너 안의 인라인 블록(칩 버튼 · 인라인 상자)은 줄 상자에 앉고, 줄 상자의
+ * 높이는 컨테이너의 `line-height`(strut)가 받친다 — 하이라이트 업로드의 테마 칩 줄은 칩 18 인데 줄이 24(데스크톱 line-height)다.
+ * Figma 의 가로 자동 배치에는 strut 이 없어 줄이 칩 높이로 접힌다. 측정한 칩 위치에서 위 · 아래 남는 폭을 재어 패딩으로 옮긴다.
+ * **원자 인라인만 옮긴다** — 그냥 `inline` 글자가 섞이면 옮기지 않는다. Figma 글자는 제 줄 높이를 이미 가지고, 인라인 글자의 측정
+ * 높이는 글꼴 상자라 줄 높이보다 작다(쿠폰 약관 링크 16 · 줄 21).
+ * 한 줄일 때만(자식이 세로로 모두 겹친다) — 여러 줄이면 줄마다 strut 이 달라 패딩 하나로 옮길 수 없다.
+ */
+function lineBoxSlack(node, style, children, rawChildren) {
+  if (/flex|grid/.test(style.display ?? "")) return null;
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  // 원자 인라인(inline-block · inline-flex …)만 — 측정 상자가 곧 그 상자다. 그냥 `inline`(글자)은 측정 높이가 글꼴 상자라 줄 높이와 다르다.
+  const displayOf = new Map(rawChildren.map((child) => [child.path, child.style?.display ?? ""]));
+  if (flow.length === 0 || flow.some((child) => !/^inline-(block|flex|grid|table)$/.test(displayOf.get(child.path) ?? ""))) return null;
+  const top = (child) => child.rect.y - (child.margin?.top ?? 0);
+  const bottom = (child) => child.rect.y + child.rect.height + (child.margin?.bottom ?? 0);
+  if (Math.max(...flow.map((child) => child.rect.y)) >= Math.min(...flow.map((child) => child.rect.y + child.rect.height))) return null;
+  const border = (side) => ((style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
+  const contentTop = node.rect.y + border("Top") + (px(style.paddingTop) ?? 0);
+  const contentBottom = node.rect.y + node.rect.height - border("Bottom") - (px(style.paddingBottom) ?? 0);
+  const slackTop = Math.min(...flow.map(top)) - contentTop;
+  const slackBottom = contentBottom - Math.max(...flow.map(bottom));
+  if (slackTop < -0.5 || slackBottom < -0.5 || (slackTop <= 0.5 && slackBottom <= 0.5)) return null;
+  const round2 = (value) => Math.max(0, Math.round(value * 100) / 100);
+  return { top: round2(slackTop), bottom: round2(slackBottom), lineHeight: style.lineHeight ?? null };
+}
+
 export function toFigmaTreeSpec(tree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [] };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [] };
 
   const convert = (node, parent) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
@@ -249,6 +276,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
       stats.verticalWrap.push({ path: node.path, layoutMode });
     }
     stats.kept += 1;
+    const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
+    if (slack) stats.lineBoxSlack.push({ path: node.path, ...slack });
     return {
       path: node.path,
       tag: node.tag,
@@ -306,9 +335,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // NO_WRAP 이 같은 그림이다. 표현하지 못한 자리는 `stats.verticalWrap` 에 남긴다.
         wrap: layoutMode === "HORIZONTAL" && style.flexWrap === "wrap",
         padding: {
-          top: px(style.paddingTop) ?? 0,
+          top: (px(style.paddingTop) ?? 0) + (slack?.top ?? 0),
           right: px(style.paddingRight) ?? 0,
-          bottom: px(style.paddingBottom) ?? 0,
+          bottom: (px(style.paddingBottom) ?? 0) + (slack?.bottom ?? 0),
           left: px(style.paddingLeft) ?? 0,
         },
         // **GRID는 열 개수를 함께 줘야 한다.** Figma는 `gridColumnCount`가 없으면 기본 2열로 깔아

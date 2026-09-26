@@ -391,7 +391,15 @@
           "stats": {
             "kept": 7,
             "unresolved": [],
-            "sizingReconciled": 0
+            "sizingReconciled": 0,
+            "lineBoxSlack": [
+              {
+                "path": "body.1.0.0.1.0.1.0.1.2.1",
+                "top": 4,
+                "bottom": 2,
+                "lineHeight": "24px"
+              }
+            ]
           },
           "runner": "figma/product-parts.highlight-theme-chips-viewport-desktop.00.draw.js"
         },
@@ -427,7 +435,15 @@
           "stats": {
             "kept": 7,
             "unresolved": [],
-            "sizingReconciled": 0
+            "sizingReconciled": 0,
+            "lineBoxSlack": [
+              {
+                "path": "body.1.0.0.1.0.1.0.1.2.1",
+                "top": 2,
+                "bottom": 1,
+                "lineHeight": "21px"
+              }
+            ]
           },
           "runner": "figma/product-parts.highlight-theme-chips-viewport-mobile.00.draw.js"
         }
@@ -466,12 +482,126 @@
           "stats": {
             "kept": 12,
             "unresolved": [],
-            "sizingReconciled": 0
+            "sizingReconciled": 1
           },
           "runner": "figma/product-parts.checkout-agreement-viewport-desktop.00.draw.js"
         }
       ],
       "boardInstances": 1
+    },
+    {
+      "setName": "Product/Billing Status Alert",
+      "about": "결제 성공 화면의 상태 알림(app/mypage/upgrade/billing-success/page.tsx STATUS_ALERT_ERROR — 빨강 8% 면 · 16% 테두리 · 곡률 12). 측정은 개발용 ?preview=partial 의 결제 수단 등록 실패 문구다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/mypage/upgrade/billing-success?preview=partial",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.1.1.2",
+          "componentId": "2109:5880",
+          "frameSize": [
+            520,
+            47
+          ],
+          "signature": {
+            "texts": [
+              "Failed to register the billing method and complete the subscription charge."
+            ],
+            "structure": [],
+            "leaf": "div"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.billing-status-alert-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/mypage/upgrade/billing-success?preview=partial",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.1.1.2",
+          "componentId": "2109:5881",
+          "frameSize": [
+            390,
+            68
+          ],
+          "signature": {
+            "texts": [
+              "Failed to register the billing method and complete the subscription charge."
+            ],
+            "structure": [],
+            "leaf": "div"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.billing-status-alert-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 2
+    },
+    {
+      "setName": "Product/Bulk Coupon Notice",
+      "about": "bulk 결제 성공 화면의 안내(app/mypage/upgrade/bulk-success/page.tsx NOTICE — 헤어라인 · 곡률 8 · 64% 글자). 성공 · 발급 실패 미리보기가 같은 안내를 쓴다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/mypage/upgrade/bulk-success?preview=success",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.1.0.1.0.2",
+          "componentId": "2109:5883",
+          "frameSize": [
+            680,
+            62
+          ],
+          "signature": {
+            "texts": [
+              "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one."
+            ],
+            "structure": [],
+            "leaf": "p"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.bulk-coupon-notice-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/mypage/upgrade/bulk-success?preview=success",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.1.0.1.0.2",
+          "componentId": "2109:5884",
+          "frameSize": [
+            350,
+            83
+          ],
+          "signature": {
+            "texts": [
+              "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one."
+            ],
+            "structure": [],
+            "leaf": "p"
+          },
+          "instances": [],
+          "stats": {
+            "kept": 1,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.bulk-coupon-notice-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 4
     }
   ]
 }

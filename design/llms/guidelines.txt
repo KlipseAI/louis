@@ -3525,8 +3525,9 @@ DS 는 **시스템이 소유한 계약**이라 `verify-figma-parity` 가 대조�
 총 프레임     = 라우트 프레임 + 상태 프레임
 ```
 
-지금은 라우트 `51 × 2 − 1 = 101`, 상태 `6 × 2 = 12`, 합 **113** 이다(2026-09-26 에 미등록 라우트 셋을 더했다). 이 등식이 깨지면 프레임이
-빠졌거나 중복된 것이다.
+지금은 라우트 `51 × 2 − 1 = 101`, 상태 `(6 + 6) × 2 = 24`, 합 **125** 이다(2026-09-26 에 미등록 라우트 셋과 결제 성공 화면 넷의
+`?preview=` 상태 여섯을 더했다). 이 등식이 깨지면 프레임이 빠졌거나 중복된 것이다. `figma-board-layout-check --index` 가 색인 요약 ·
+색인 이름의 수를 보드에서 센 수와 대조한다.
 
 **축을 둘로 쪼갠 이유**(2026-09-01 정정). 원래 이 절은 `48 × 2 − 1 = 95` 하나였고 그 95 를 「총
 프레임 수」라고 불렀다. 보드는 그보다 12 개 많다 — `/highlight/[projectId]` 가 라우트 색인에서는
@@ -3534,16 +3535,17 @@ DS 는 **시스템이 소유한 계약**이라 `verify-figma-parity` 가 대조�
 95 를 총계로 읽으면 그 12 개가 「중복」으로 보여 **지우려 들게 된다.** 상태 보드는 중복이 아니라
 라우트 축이 표현할 수 없는 축이므로, 두 항을 따로 세고 합만 비교한다.
 
-상태 프레임 12 는 산 숫자가 아니라 생성물에서 읽는다 — 보드에 그려 넣은 것이 그 생성물이다.
+상태 프레임 24 는 산 숫자가 아니라 생성물에서 읽는다 — 보드에 그려 넣은 것이 그 생성물이다. 상태 보드의 화면 키에는 개발용
+후크의 쿼리(`?__phase=` · `?preview=`)가 붙는다.
 
 ```
 node -e 'const s=require("./figma/app-screens.plan.json").screens;
-  console.log(s.filter(x => x.route.includes("__phase")).length)'   # → 12
+  console.log(s.filter(x => x.route.includes("?")).length)'   # → 24
 ```
 
-같은 파일이 프레임 id 도 갖는다(`1064:3132` ~ `1064:3143`). **보드 텍스트에 총계를 적을 때는 이
+같은 파일이 프레임 id 도 갖는다(`__phase` `1064:3132` ~ `1064:3143` · `?preview` `2108:2507` ~ `2108:2518`). **보드 텍스트에 총계를 적을 때는 이
 두 항을 나란히 적는다** — 라우트 색인 보드의 안내 TEXT 는 2026-09-26 부터 「라우트 프레임 101 + 상태
-프레임 12 = 113」으로 둘을 나란히 적는다(그전에는 「95개 프레임」 한 수였다).
+프레임 24 = 125」로 둘을 나란히 적는다(그전에는 「95개 프레임」 한 수였다).
 **§10.N 인스코프 46 과 보드 항목 51 이 다른 이유는 `00.4` 대조표에 적어 둔다** — 적어 두지 않으면
 다음 사람이 51 을 「고치려」 든다. 차이는 리다이렉트 −2 · 범위 밖 docs 하위 −3 · 상태 +1 ·
 문서 미소유 +1 · 미등록 +5 · 결번 +3 이다. 00.4 의 다른 쪽 검산(제품 앵커 `2c6bdacf` 의 화면 52 ↔ 보드 51)은
@@ -3803,6 +3805,8 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | `margin-inline: auto`(최대 폭에 닿은 FILL 블록의 가운데 정렬) | 부모 교차축 정렬 `CENTER` + 그 여백은 지운다. 형제가 모두 가로 FILL 일 때만 — 교차축 정렬이 형제에게 아무 일도 하지 않는다. 여백이 auto 였다는 것은 좌우 여백이 같고 (부모 안쪽 폭 − 폭) / 2 로 닫히는지로 본다 | 앱 화면 보드 `/mypage/upgrade` · `/subscription` 데스크톱의 본문 컨테이너 — Auto Layout 에 margin 이 없어 형제가 있는 자식의 여백이 버려졌고 본문 왼쪽에 붙었다(Updates (161)) |
 | `vh` · `dvh` · `calc(100dvh − N)` · `clamp(… vh …)` | 그 보드 뷰포트에서 푼 값을 최소 높이 · 패딩으로 두고 식을 설명에 남긴다 | 결제 결과 · 체크아웃 메인 표면의 최소 높이와 본문 `margin-top` |
 | 줄바꿈 텍스트 | 폭 FILL(또는 HUG + 최대 폭) + `textAutoResize = "HEIGHT"` | 결제 결과 · 체크아웃 본문, 요금제 카드 기능 행, 앱 화면 보드의 선언 없는 흐름 글자 — 측정 높이가 줄 높이의 두 배 이상이면 감긴 것이라 폭 FILL(`build-figma-app-screens` 의 `reconcileFigmaSizing`). HUG 로 두면 Figma 가 한 줄로 늘여 카드 밖으로 잘린다 |
+| 가로 줄(flex 행) 안에서 줄어들어 감긴 글자 | 폭 FILL(형제가 쓰고 남은 폭) + `textAutoResize = "HEIGHT"` — 형제가 모두 FILL 이 아니고 측정 폭이 남은 폭(부모 안쪽 폭 − 형제 폭 − 간격)과 같을 때 | 쿠폰 결제 동의 문구(체크박스 16 · 간격 10 옆 461.6, 두 줄) — 세로 부모만 보던 규칙에 걸리지 않아 한 줄 550 으로 늘어났고 동의 상자가 193 → 174 로 섰다. 부품(`PARTS`)은 풀지 못한 감긴 글자가 있으면 생성기가 멈춘다 |
+| 한 줄짜리 인라인 흐름의 줄 상자(블록 안의 `inline-block` 들) | 줄 상자에서 남는 위 · 아래를 패딩으로(측정한 자식 위치에서 잰다). 원자 인라인만 — 그냥 `inline` 글자는 Figma 글자가 제 줄 높이를 이미 가진다 | 하이라이트 업로드의 테마 칩 줄 — 칩 18 인데 줄이 컨테이너 `line-height` 24(모바일 21)라 Figma 가로 배치가 18 로 접혔다(`figma-tree-spec` 의 `lineBoxSlack`) |
 | 한 줄 글자가 폭을 정하는 버튼(폭 선언 없음, 블록 버튼 포함) | 면을 Auto Layout 으로 두고 글자 HUG(`WIDTH_AND_HEIGHT`) · 측정 폭은 최소 폭으로, `text-align` 은 주축 정렬로 | 앱 화면 보드의 업로드 Topic 칩 — 글자 상자를 측정 폭에 가두면 Figma 글꼴이 조금 넓게 그려 「Spo / rts」처럼 꺾였다(Updates (156)) |
 | CSS grid 의 행(행 템플릿 선언 없음 = `auto`) · `gap` | GRID 행 트랙 `HUG`, 열은 `repeat(N, 1fr)` 면 FLEX. `gap` 은 `gridRowGap` · `gridColumnGap`(`itemSpacing` 은 GRID 에 뜻이 없다). 칸이 전부 세로 FILL(stretch)인 행은 가장 높은 칸만 HUG 로 두고 나머지는 FILL — 칸 안 세로 쌓기의 FILL 자식도 HUG 로 푼다. 인스턴스 칸은 컴포넌트가 안을 정하므로 제품이 잰 칸 높이로 둔다 | 앱 화면 보드의 `/subscription` · `/mypage/upgrade` 격자 — Figma 가 새 행을 FLEX(1fr)로 깔아 HUG 컨테이너 높이를 행 수로 똑같이 나눴고 긴 카드가 다음 행을 덮었다. HUG 행에 FILL 칸만 두면 칸이 패딩만 남기고 접힌다(Updates (156)) |
 | `%` 비율 · `aspect-ratio` | constraints `SCALE` · `lockAspectRatio` | — |
@@ -3913,7 +3917,11 @@ var(--louis-color-stroke-hairline)`(`packages/css/src/base.css`). 선택 표시 
   variant 가 늘어난다.
 - 보드 생성기의 `CONTENT_INSTANCES_BY_SET` 이 세트마다 보드 인스턴스 수를 잠근다. 첫 대상: `Product/Gift Plan Option` 8 ·
   `Product/Quantity Stepper` 2(`/subscription/coupons`). 둘째 묶음으로 보드 구성 원장의 「미보유」가 0 이 됐다 —
-  `Product/Analytics Connect Button` 2 · `Product/Highlight Theme Chips` 2 · `Product/Checkout Agreement` 1.
+  `Product/Analytics Connect Button` 2 · `Product/Highlight Theme Chips` 2 · `Product/Checkout Agreement` 1. 셋째 묶음은 결제 성공
+  미리보기 보드의 안내 상자 둘 — `Product/Billing Status Alert` 2 · `Product/Bulk Coupon Notice` 4.
+- **글자마다 다른 반복 칩은 아직 부품이 되지 않는다.** 서명이 글자 서열이라 쿠폰 코드 칩(bulk 성공 미리보기, 코드마다 글자가
+  다르다)은 칩 하나를 세트 하나로 묶을 수 없다 — 글자 속성(component TEXT property)을 가진 부품과 글자를 뺀 서명이 필요하다.
+  그때까지 보드 구성 원장의 「미보유」로 남긴다(데스크톱 30 · 모바일 15).
 
 #### Acceptance tests
 

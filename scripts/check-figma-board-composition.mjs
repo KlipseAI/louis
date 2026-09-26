@@ -222,7 +222,8 @@ const REPLACEABLE_BASELINE = 0;
 // 그 자리에서 면과 폴백 글리프 크기를 덮어 bespoke 로 판정됐다(제외 목록 `avatar-settings`). 전에는 LOUIS 에 40 이 없어 missing 이었다.
 // 같은 날 뒤: 3 → **5.** **발견이다.** LOUIS DropZone(신설)이 하이라이트 업로드 면 둘(데스크톱 · 모바일)의 대응이 됐고, 제품은 지역
 // 레시피(`highlightSceneStyles.ts uploadDropZone`)라 bespoke 다(제외 목록 `drop-zone-upload`). 전에는 LOUIS 에 대응이 없어 missing 이었다.
-const BESPOKE_BASELINE = 5; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-09-26(밤): 5 → 13 — 결제 성공 미리보기 보드의 링크 버튼 8(`a` 요소에 앉은 Button 레시피). 발견이다.
+const BESPOKE_BASELINE = 13; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -239,7 +240,10 @@ const UNCLASSIFIED_BASELINE = 0;
 // 요금제 선택 카드 8(넷 × 두 뷰포트)이 `Product/Gift Plan Option`, 수량 스테퍼 2 가 `Product/Quantity Stepper` 인스턴스가 됐다.
 // 같은 날 저녁: 129 → **134.** **이득이다.** PARTS 둘째 묶음 — 유튜브 연결 버튼 2(`Product/Analytics Connect Button`), 하이라이트
 // 업로드 테마 칩 줄 2(`Product/Highlight Theme Chips`), 쿠폰 결제 동의 상자 1(`Product/Checkout Agreement`).
-const INSTANCE_FLOOR = 134;
+// 같은 날 밤: 134 → **161.** 보드가 늘고(결제 성공 미리보기 상태 보드 12 — 셸 인스턴스 18) PARTS 셋째 묶음이 섰다 — 결제 상태 알림 2
+// (`Product/Billing Status Alert`) · bulk 쿠폰 안내 4(`Product/Bulk Coupon Notice`, 성공 · 발급 실패 미리보기 × 두 뷰포트). 134 + 18 + 6 = 158 에
+// 미리보기 보드의 LOUIS Button 인스턴스 3 을 더해 161 이다.
+const INSTANCE_FLOOR = 161;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -266,9 +270,14 @@ const INSTANCE_FLOOR = 134;
 // 같은 날 저녁: 158 → **145.** 보드가 준 것이 아니라 미보유 18 이 전부 부품 인스턴스(+5) 안으로 들어갔다 — 연결 버튼 둘은 제 자리가
 // 인스턴스가 되고(−2), 테마 칩 12(여섯 × 두 뷰포트)는 칩 줄 인스턴스 안, 결제 동의 상자의 체크박스 1 · 약관 링크 3 은 동의 상자 인스턴스
 // 안이라 따로 세지 않는다. 수는 instance 134 + replaceable 0 + bespoke 5 + blocked 6 + missing 0.
-const CANDIDATE_FLOOR = 145;
+// 같은 날 밤: 145 → **225.** 보드가 늘어서다 — 결제 성공 미리보기 상태 보드 12: instance +27 · bespoke +8(`a` 요소에 앉은 Button
+// 레시피 — 「Go to My Page」 · 「Back to plans」 · 「Go to archive」, primitive-site-element-mismatch) · missing +45. 미보유 45 는 전부
+// bulk 성공 미리보기의 쿠폰 코드 칩(데스크톱 30 · 모바일 15, 칠해진 마크)이다 — 칩마다 글자가 달라 글자 서열 서명으로는 부품이 되지
+// 않는다(글자 속성을 가진 부품이 다음 묶음). 수는 instance 161 + replaceable 0 + bespoke 13 + blocked 6 + missing 45.
+const CANDIDATE_FLOOR = 225;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
-const BOARD_FLOOR = 42;
+// 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
+const BOARD_FLOOR = 54;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
   "Product/Desktop App Top Bar",
@@ -329,6 +338,20 @@ const SHELL_INSTANCES_BY_BOARD = {
   "mypage-upgrade-billing-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
   "mypage-upgrade-billing-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-billing-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  // 2026-09-26(저녁): 결제 성공 화면 넷의 `?preview=` 상태 보드 12. 셸은 쿼리 없이 연 같은 라우트 보드와 한 글자도 다르지 않다 —
+  // 미리보기는 본문만 목 데이터로 바꾸고 셸(`<Gnb currentPath>` · 상단 바)은 그대로 쓴다(측정기 sourceQuotes 의 page.tsx 인용).
+  "mypage-upgrade-billing-success-preview-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
+  "mypage-upgrade-billing-success-preview-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  "mypage-upgrade-billing-success-preview-partial.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
+  "mypage-upgrade-billing-success-preview-partial.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
+  "mypage-upgrade-billing-change-success-preview-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-billing-change-success-preview-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-topup-success-preview-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-topup-success-preview-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-bulk-success-preview-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-bulk-success-preview-success.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-bulk-success-preview-issue-error.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "mypage-upgrade-bulk-success-preview-issue-error.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=False, Divider=On"],
   "mypage-upgrade.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],

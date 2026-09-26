@@ -129,6 +129,18 @@ const ROUTES = [
   "/mypage/upgrade/bulk-success",
   "/mypage/upgrade/bulk-fail",
   "/subscription/coupons",
+  // **2026-09-26 — 결제 성공 화면 넷의 개발 전용 미리보기.** 제품이 `?preview=<상태>` 로 실결제 · 실 API 없이 각 상태를
+  // 목 데이터로 그린다(`process.env.NODE_ENV !== "production"` 게이트 — 운영에서는 켜지지 않는다). 쿼리 없이 연 화면은
+  // 「결제 정보 없음」 분기라 성공 화면의 본체가 보드에 한 번도 없었다. 오류 · 처리 중 미리보기는 재지 않는다 — 오류는
+  // 쿼리 없이 연 화면과 같은 분기이고, 처리 중은 스피너 한 개다. 인용은 아래 sourceQuotes 에 있다.
+  ...[
+    ["/mypage/upgrade/billing-success", "success"],
+    ["/mypage/upgrade/billing-success", "partial"],
+    ["/mypage/upgrade/billing-change-success", "success"],
+    ["/mypage/topup/success", "success"],
+    ["/mypage/upgrade/bulk-success", "success"],
+    ["/mypage/upgrade/bulk-success", "issue-error"],
+  ].map(([pattern, preview]) => ({ pattern, url: pattern + "?preview=" + preview, id: pattern + "?preview=" + preview })),
   "/explore",
   // `/highlight/[projectId]` 의 phase 상태들. 제품이 `ae8fd627` 에서 넣은 개발 전용
   // `?__phase=<이름>` 후크로 연다(`HighlightProjectScene.tsx:128`, 게이트는 인증 바이패스와
@@ -1132,6 +1144,15 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 129),
     sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 130),
     sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 878),
+    // 결제 성공 화면 넷의 `?preview=` 후크 — 받는 값(사용 줄)과 운영 게이트(NODE_ENV 줄).
+    sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 192),
+    sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 195),
+    sourceQuote("apps/web/app/mypage/upgrade/billing-change-success/page.tsx", 184),
+    sourceQuote("apps/web/app/mypage/upgrade/billing-change-success/page.tsx", 187),
+    sourceQuote("apps/web/app/mypage/upgrade/billing-success/page.tsx", 233),
+    sourceQuote("apps/web/app/mypage/upgrade/billing-success/page.tsx", 237),
+    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 124),
+    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 127),
   ],
   screens,
 }, null, 2) + "\n";

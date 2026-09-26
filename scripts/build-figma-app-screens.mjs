@@ -28,6 +28,7 @@ import {
   applyComponentInstances,
   COMPONENT_SETS,
   CONTENT_COMPONENTS,
+  contentSignatureOf,
   LOUIS_PRIMITIVE_EXCLUSIONS,
   LOUIS_PRIMITIVE_SITES,
   SIDEBAR_VARIANT_SOURCES,
@@ -43,6 +44,7 @@ const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
 const recipesPath = resolve(repoRoot, "migration/product.rendered-components.json");
 const readbackPath = resolve(repoRoot, "figma/readback.json");
 const planPath = resolve(repoRoot, "figma/app-screens.plan.json");
+const partsPlanPath = resolve(repoRoot, "figma/product-parts.plan.json");
 const templatePath = resolve(repoRoot, "scripts/templates/figma-app-screens-renderer.js");
 const checkOnly = process.argv.includes("--check");
 const fail = (message) => { throw new Error(`[figma-app-screens] ${message}`); };
@@ -116,6 +118,39 @@ const SCREENS = [
 const CONTEXTS = [
   { id: "desktop-1920x1080", key: "desktop" },
   { id: "mobile-402x874", key: "mobile" },
+];
+
+// **제품 부품 세트(2026-09-26 — DS-D-0071 · 소유자 결정 「Figma 먼저, 생성기로 묶어서」).** 보드 안의 제품 전용 컨트롤을
+// 측정 서브트리 그대로 제품 컴포넌트 variant 로 찍고(보드와 같은 변환 · 같은 렌더러), 보드는 같은 서브트리를 그 variant 의
+// 인스턴스로 쓴다 — 본문 세트 치환과 같은 판정(글자 서열 · 구조 서명 · 뷰포트)이라 서명 함수도 같은 것을 쓴다
+// (`contentSignatureOf`). 대상 컴포넌트는 90 ASSETS 의 「O · product/Parts」 섹션에 먼저 세운 빈 variant 다(보드 프레임과
+// 같은 순서 — 러너는 있는 노드만 채운다). `anchor` 는 서브트리의 글자 서열이다: 측정이 옮겨 다른 노드를 가리키면 멈춘다.
+const PART_SECTION = "O · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물";
+const COUPONS = "/subscription/coupons";
+const PLAN_OPTION = (plan, price) => [plan, `${price} KRW each`];
+const PARTS = [
+  {
+    set: "Product/Gift Plan Option",
+    about: "요금제 선물 화면의 요금제 선택 카드(role=radio 버튼, app/subscription/coupons/page.tsx). 선택된 카드는 파랑 1.5 링, 나머지는 헤어라인이다 — 측정 fixture 에서는 Lite 가 선택돼 있다.",
+    variants: [
+      ["Plan=Lite, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.0", PLAN_OPTION("Lite", "12,900"), "2086:5881"],
+      ["Plan=Plus, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.1", PLAN_OPTION("Plus", "29,900"), "2086:5882"],
+      ["Plan=Pro, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.2", PLAN_OPTION("Pro", "49,900"), "2086:5883"],
+      ["Plan=Ultra, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.3", PLAN_OPTION("Ultra", "74,900"), "2086:5884"],
+      ["Plan=Lite, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.0", PLAN_OPTION("Lite", "12,900"), "2086:5885"],
+      ["Plan=Plus, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.1", PLAN_OPTION("Plus", "29,900"), "2086:5886"],
+      ["Plan=Pro, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.2", PLAN_OPTION("Pro", "49,900"), "2086:5887"],
+      ["Plan=Ultra, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.3", PLAN_OPTION("Ultra", "74,900"), "2086:5888"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
+  },
+  {
+    set: "Product/Quantity Stepper",
+    about: "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값은 측정이 글자로 잡지 않아 비어 있다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.1.1", ["−", "+"], "2086:5890"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.2.1.1", ["−", "+"], "2086:5891"],
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
+  },
 ];
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
@@ -495,6 +530,53 @@ function centreAutoMargins(spec) {
 
 const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, texts: 0, textStyled: 0, textLiteral: new Set() };
 
+// ── 제품 부품(PARTS) — 보드보다 먼저 변환한다. 보드가 같은 서브트리를 이 부품의 인스턴스로 쓰려면 서명이 먼저 있어야 한다.
+const parts = [];
+const partContent = [];
+{
+  const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
+  for (const part of PARTS) {
+    const seen = new Set();
+    for (const variant of part.variants) {
+      if (seen.has(variant.variant)) fail(`부품 variant 가 겹칩니다: ${part.set} ${variant.variant}`);
+      seen.add(variant.variant);
+      const measured = fixture.screens[variant.context]?.[variant.route];
+      if (!measured?.tree?.length) fail(`부품의 측정 트리가 없습니다: ${variant.route} @ ${variant.context}`);
+      const root = measured.tree.find((node) => node.path === variant.path) ?? fail(`부품 경로가 측정에 없습니다: ${part.set} ${variant.variant} ${variant.path}`);
+      const tree = normalizeAuthFixtureTree(measured.tree, fixture.computedStyles);
+      const { spec, stats } = toFigmaTreeSpec(tree, { rootPath: variant.path, contextId: variant.context });
+      // 서명은 치환 «앞»에서 뜬다 — 보드 쪽 매처도 치환 전 서브트리의 글자로 판정한다.
+      const signature = contentSignatureOf(spec);
+      if (JSON.stringify(signature.texts) !== JSON.stringify(variant.anchor)) {
+        fail(`부품 ${part.set} ${variant.variant} 의 글자 서열이 기대와 다릅니다 — 측정 경로가 다른 노드를 가리킨다: ${JSON.stringify(signature.texts)}`);
+      }
+      // 부품 안의 LOUIS 정본 프리미티브는 보드와 같은 규칙으로 인스턴스가 된다(셸 · 본문 세트는 부품 안에 없다).
+      const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
+      const declaredByPath = new Map(measured.tree.map((node) => [node.path, node.declared ?? null]));
+      const inner = applyComponentInstances(spec, {
+        route: variant.route,
+        context: variant.context,
+        viewport: { width: measured.rootRect.width, height: measured.rootRect.height },
+        styleOf: (path) => styleByPath.get(path) ?? null,
+        declaredOf: (path) => declaredByPath.get(path) ?? null,
+        evidence: { recipes, readback },
+      });
+      if (inner.applied.some((applied) => applied.path === variant.path)) fail(`부품 뿌리가 다른 세트로 치환됐습니다: ${part.set} ${variant.variant}`);
+      applyGlyphIdentity(spec, `${part.set} ${variant.variant}`);
+      const sizingFix = reconcileFigmaSizing(spec);
+      centreAutoMargins(spec);
+      const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
+      partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure });
+      parts.push({
+        set: part.set, variant: variant.variant, route: variant.route, context: variant.context, path: variant.path,
+        componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
+        signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length },
+        spec,
+      });
+    }
+  }
+}
+
 for (const screen of SCREENS) {
   for (const context of CONTEXTS) {
     const measured = fixture.screens[context.id]?.[screen.route];
@@ -510,8 +592,8 @@ for (const screen of SCREENS) {
     // **이미 있는 컴포넌트는 다시 그리지 않는다.** 셸(사이드바·상단 바)과 본문 블록(결제 결과·
     // 체크아웃 상태·요금제 카드)을 잘라내고 인스턴스를 심는다(판정 근거는 figma-component-substitution.mjs).
     // **계산 스타일을 경로로 되찾는다.** `toFigmaTreeSpec` 는 색·기하를 파싱해 담지만 그
-    // 과정에서 판정에 필요한 축(min-width·column-gap·box-shadow)이 사라진다 —
-    // `parseBoxShadow` 는 `color(srgb …)` 표기를 아예 읽지 못해 헤어라인이 통째로 없어진다.
+    // 과정에서 판정에 필요한 축(min-width·column-gap·box-shadow)이 사라진다 — `parseBoxShadow` 는 2026-09-26 까지
+    // `color(srgb …)` 표기를 읽지 못해 헤어라인이 통째로 없어졌다(지금은 읽고, 안쪽 링은 획으로 옮긴다).
     // 그래서 spec 이 들고 있는 `path` 로 fixture 의 원래 계산 스타일을 다시 본다.
     const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
     const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
@@ -524,6 +606,7 @@ for (const screen of SCREENS) {
       styleOf: (path) => styleByPath.get(path) ?? null,
       declaredOf: (path) => declaredByPath.get(path) ?? null,
       evidence: { recipes, readback },
+      extraContent: partContent,
     });
     // **아이콘 정체를 서명 ↔ 이름 조인표에 댄다.** 인스턴스 치환 «뒤에» 돌린다 — 셸 안으로
     // 사라진 글리프는 payload 에 나오지 않으므로 이름을 붙일 일도 없다.
@@ -649,8 +732,11 @@ const CONTENT_INSTANCES_BY_SET = {
   [COMPONENT_SETS.upgradePlanCardSlice]: 2,
   // 2026-09-26: 「진행 중 이벤트 알약」(제품 `PricingNotice`) — `/mypage/upgrade` 데스크톱 · 모바일 헤더의 알약 하나씩.
   [COMPONENT_SETS.pricingNotice]: 2,
+  // 2026-09-26(뒤): 제품 부품 세트(PARTS) — `/subscription/coupons` 의 요금제 선택 카드 넷 × 두 뷰포트, 수량 스테퍼 × 두 뷰포트.
+  "Product/Gift Plan Option": 8,
+  "Product/Quantity Stepper": 2,
 };
-const contentSets = new Set(CONTENT_COMPONENTS.map((entry) => entry.set));
+const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
 const contentSkipped = [];
 for (const entry of screens) {
@@ -843,12 +929,48 @@ plan.runners = manifest;
 // plan 갱신 후 다시 직렬화해야 manifest가 담긴다.
 outputs[0] = { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n` };
 
+// ── 제품 부품 러너 · 계획 ──────────────────────────────────────────────────────
+// 보드와 같은 렌더러로 부품 variant(빈 컴포넌트) 안을 채운다. 계획의 `setName` 은 표면 원장의 제품 세트 어휘가 된다(DS-D-0071).
+const partRunners = [];
+for (const part of parts) {
+  const slimSpec = slim(part.spec);
+  const { head, chunks } = splitSpec(slimSpec);
+  if (chunks.length > 0) fail(`부품이 한 조각에 들어가지 않습니다: ${part.set} ${part.variant}`);
+  const slug = `${part.set.replace(/^Product\//, "")} ${part.variant}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const name = `figma/product-parts.${slug}.00.draw.js`;
+  const payload = { route: `part:${part.set} ${part.variant}`, context: part.context, frameId: part.componentId, frameSize: part.frameSize, colour, head };
+  const draw =
+    `// Generated by scripts/build-figma-app-screens.mjs. Do not edit by hand.\n` +
+    `// 제품 부품 ${part.set} · ${part.variant} ← ${part.route} @ ${part.context} ${part.path}\n` +
+    `const P=${JSON.stringify(payload)};\n${template}`;
+  if (Buffer.byteLength(draw) > 50_000) fail(`부품 러너가 50,000 바이트를 넘었습니다: ${name}`);
+  outputs.push({ absolute: resolve(repoRoot, name), expected: draw });
+  partRunners.push({ set: part.set, variant: part.variant, componentId: part.componentId, file: name });
+}
+const partsPlan = {
+  $comment: "Generated by scripts/build-figma-app-screens.mjs (PARTS). Do not edit by hand.",
+  $why: "보드 안의 제품 전용 컨트롤을 측정 서브트리 그대로 제품 컴포넌트 variant 로 찍고, 보드는 같은 서브트리를 그 인스턴스로 쓴다(DS-D-0071).",
+  productCommit: fixture.productCommit,
+  sectionName: PART_SECTION,
+  sets: PARTS.map((part) => ({
+    setName: part.set,
+    about: part.about,
+    variants: parts.filter((entry) => entry.set === part.set).map((entry) => ({
+      variant: entry.variant, route: entry.route, context: entry.context, path: entry.path, componentId: entry.componentId,
+      frameSize: entry.frameSize, signature: entry.signature, instances: entry.instances, stats: entry.stats,
+      runner: partRunners.find((runner) => runner.set === entry.set && runner.variant === entry.variant).file,
+    })),
+    boardInstances: contentInstances[part.set] ?? 0,
+  })),
+};
+outputs.push({ absolute: partsPlanPath, expected: `${JSON.stringify(partsPlan, null, 2)}\n` });
+
 // **더 이상 내지 않는 런너는 지운다.** 조각 수는 spec이 바뀌면 줄어드는데, 남은 옛 파일은
 // `--check`가 잡지 못한다(검사는 "내야 할 것"만 본다). 실측 사고: 셸을 인스턴스로 바꿔 조각이
 // 7→6으로 줄자 `settings.desktop.06`이 남았고, 그게 05와 같은 path를 들고 있어 중복처럼 보였다.
 const wanted = new Set(outputs.map((output) => output.absolute));
 const orphans = readdirSync(resolve(repoRoot, "figma"))
-  .filter((name) => /^app-screens\..+\.\d\d\.draw\.js$/.test(name))
+  .filter((name) => /^(app-screens|product-parts)\..+\.\d\d\.draw\.js$/.test(name))
   .map((name) => resolve(repoRoot, "figma", name))
   .filter((absolute) => !wanted.has(absolute));
 
@@ -867,5 +989,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

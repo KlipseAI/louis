@@ -884,7 +884,17 @@ function matchLouisPrimitive(site, node, style, evidence) {
 }
 
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
-export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence }) {
+/**
+ * 부품 세트의 글자 서열 · 구조 서명 — 보드 생성기가 측정 서브트리에서 뜬 부품(`PARTS`)을 본문 후보로 넘길 때 쓴다.
+ * 매처(`matchContent`)가 보드 쪽에서 쓰는 것과 **같은 함수**라, 부품과 보드의 서명이 규칙 차이로 어긋날 수 없다.
+ */
+export function contentSignatureOf(spec) {
+  const texts = textsOf(spec).filter(Boolean);
+  const structure = (spec.children ?? []).map((child) => textsOf(child).filter(Boolean).length).filter((count) => count > 0);
+  return { texts, structure };
+}
+
+export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [] }) {
   const desktop = context.startsWith("desktop");
   // **증거가 없으면 조용히 넘어가지 않는다.** 낱개 컨트롤 치환이 소리 없이 꺼지면 보드 36장이
   // 도형으로 되돌아가고, `check-figma-app-screens` 는 그 교환을 한 글자도 보지 못한다.
@@ -915,7 +925,7 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     const known = VARIANTS[set]
       ?? (LOUIS_PRIMITIVE_SITES.some((site) => site.component === set)
         ? [variant]
-        : CONTENT_COMPONENTS.filter((entry) => entry.set === set).map((entry) => entry.variant));
+        : [...CONTENT_COMPONENTS, ...extraContent].filter((entry) => entry.set === set).map((entry) => entry.variant));
     if (!known.includes(variant)) {
       skipped.push({ path: node.path, set, variant, reason: "컴포넌트 세트에 없는 조합" });
       return false;
@@ -938,7 +948,7 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
     if (!node.children?.length) return null;
     const texts = textsOf(node).filter(Boolean);
     if (texts.length === 0) return null;
-    const sameTexts = CONTENT_COMPONENTS.filter((candidate) =>
+    const sameTexts = [...CONTENT_COMPONENTS, ...extraContent].filter((candidate) =>
       candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
     if (sameTexts.length === 0) return null;
     const structure = structureOf(node);

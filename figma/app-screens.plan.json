@@ -7,7 +7,7 @@
   "screenCount": 42,
   "totalNodes": 2813,
   "totalUnresolved": 4,
-  "totalShellInstances": 119,
+  "totalShellInstances": 129,
   "totalShellGaps": 0,
   "totalSizingReconciled": 23,
   "totalUnresolvedFillInHug": 12,
@@ -16,7 +16,9 @@
     "Product/Checkout Status Content": 6,
     "Product/Upgrade Plan Card": 5,
     "Product/Upgrade Plan Card Visible Slice": 2,
-    "Product/Pricing Notice": 2
+    "Product/Pricing Notice": 2,
+    "Product/Gift Plan Option": 8,
+    "Product/Quantity Stepper": 2
   },
   "colourBinding": {
     "modeCollection": "Klipse Semantic Color",
@@ -326,17 +328,16 @@
     }
   ],
   "paint": {
-    "fills": 221,
+    "fills": 207,
     "gradients": 0,
-    "strokes": 34,
-    "radii": 94,
-    "shadows": 2,
-    "texts": 181,
-    "textStyled": 162,
+    "strokes": 22,
+    "radii": 80,
+    "shadows": 0,
+    "texts": 161,
+    "textStyled": 146,
     "textLiteral": [
       "12/400/18/-0.14",
       "12/400/18/-0.16",
-      "12/400/18/0",
       "14/700/21/-0.14",
       "20/700/30/-0.14",
       "20/700/30/-0.16",
@@ -37985,6 +37986,31 @@
             }
           },
           {
+            "path": "body.1.0.0.1.0.1.1.1.1.0",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Lite, Viewport=Desktop"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.1",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Plus, Viewport=Desktop"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.2",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Pro, Viewport=Desktop"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.3",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Ultra, Viewport=Desktop"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.2.1.1",
+            "set": "Product/Quantity Stepper",
+            "variant": "Viewport=Desktop"
+          },
+          {
             "path": "body.1.0.0.1.0.1.1.2.6.0",
             "set": "Button",
             "variant": "Variant=primary, Size=md, State=Default, Icon=none",
@@ -39252,130 +39278,12 @@
                                               }
                                             },
                                             "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.0.0",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.0.0",
-                                                "text": "Lite",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 392,
-                                                  "y": 240.5938,
-                                                  "width": 26.6875,
-                                                  "height": 24
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-md-semibold",
-                                                  "size": 16,
-                                                  "weight": 600,
-                                                  "lineHeight": 24,
-                                                  "letterSpacing": -0.16,
-                                                  "color": "000000",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.0.1",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.0.1",
-                                                "text": "12,900 KRW each",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 392,
-                                                  "y": 268.5938,
-                                                  "width": 93.75,
-                                                  "height": 18
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/caption-regular",
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": -0.12,
-                                                  "color": "0000008f",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
+                                            "children": [],
+                                            "instance": {
+                                              "set": "Product/Gift Plan Option",
+                                              "variant": "Plan=Lite, Viewport=Desktop",
+                                              "why": "글자 2개 서열 · 구조 서명 [1,1] · Desktop 일치 — 기존 본문 컴포넌트(측정 342.5×70)"
+                                            }
                                           },
                                           {
                                             "path": "body.1.0.0.1.0.1.1.1.1.1",
@@ -39464,130 +39372,12 @@
                                               }
                                             },
                                             "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.1.0",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.1.0",
-                                                "text": "Plus",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 744.5,
-                                                  "y": 240.5938,
-                                                  "width": 30.8594,
-                                                  "height": 24
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-md-semibold",
-                                                  "size": 16,
-                                                  "weight": 600,
-                                                  "lineHeight": 24,
-                                                  "letterSpacing": -0.16,
-                                                  "color": "000000",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.1.1",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.1.1",
-                                                "text": "29,900 KRW each",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 744.5,
-                                                  "y": 268.5938,
-                                                  "width": 95.5625,
-                                                  "height": 18
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/caption-regular",
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": -0.12,
-                                                  "color": "0000008f",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
+                                            "children": [],
+                                            "instance": {
+                                              "set": "Product/Gift Plan Option",
+                                              "variant": "Plan=Plus, Viewport=Desktop",
+                                              "why": "글자 2개 서열 · 구조 서명 [1,1] · Desktop 일치 — 기존 본문 컴포넌트(측정 342.5×70)"
+                                            }
                                           },
                                           {
                                             "path": "body.1.0.0.1.0.1.1.1.1.2",
@@ -39676,130 +39466,12 @@
                                               }
                                             },
                                             "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.2.0",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.2.0",
-                                                "text": "Pro",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1097,
-                                                  "y": 240.5938,
-                                                  "width": 24.4688,
-                                                  "height": 24
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-md-semibold",
-                                                  "size": 16,
-                                                  "weight": 600,
-                                                  "lineHeight": 24,
-                                                  "letterSpacing": -0.16,
-                                                  "color": "000000",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.2.1",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.2.1",
-                                                "text": "49,900 KRW each",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1097,
-                                                  "y": 268.5938,
-                                                  "width": 96,
-                                                  "height": 18
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/caption-regular",
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": -0.12,
-                                                  "color": "0000008f",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
+                                            "children": [],
+                                            "instance": {
+                                              "set": "Product/Gift Plan Option",
+                                              "variant": "Plan=Pro, Viewport=Desktop",
+                                              "why": "글자 2개 서열 · 구조 서명 [1,1] · Desktop 일치 — 기존 본문 컴포넌트(측정 342.5×70)"
+                                            }
                                           },
                                           {
                                             "path": "body.1.0.0.1.0.1.1.1.1.3",
@@ -39888,130 +39560,12 @@
                                               }
                                             },
                                             "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.3.0",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.3.0",
-                                                "text": "Ultra",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1449.5,
-                                                  "y": 240.5938,
-                                                  "width": 35.5781,
-                                                  "height": 24
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/body-md-semibold",
-                                                  "size": 16,
-                                                  "weight": 600,
-                                                  "lineHeight": 24,
-                                                  "letterSpacing": -0.16,
-                                                  "color": "000000",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.1.1.3.1",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.1.1.3.1",
-                                                "text": "74,900 KRW each",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1449.5,
-                                                  "y": 268.5938,
-                                                  "width": 94.5,
-                                                  "height": 18
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "FILL",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": {
-                                                  "style": "typography/caption-regular",
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": -0.12,
-                                                  "color": "0000008f",
-                                                  "align": null
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": null,
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
+                                            "children": [],
+                                            "instance": {
+                                              "set": "Product/Gift Plan Option",
+                                              "variant": "Plan=Ultra, Viewport=Desktop",
+                                              "why": "글자 2개 서열 · 구조 서명 [1,1] · Desktop 일치 — 기존 본문 컴포넌트(측정 342.5×70)"
+                                            }
                                           }
                                         ]
                                       }
@@ -40555,361 +40109,12 @@
                                               }
                                             },
                                             "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.2.1.1.0",
-                                                "tag": "button",
-                                                "name": "body.1.0.0.1.0.1.1.2.1.1.0",
-                                                "text": "−",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1568,
-                                                  "y": 420.3906,
-                                                  "width": 36,
-                                                  "height": 36
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FIXED",
-                                                  "layoutSizingVertical": "FIXED",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": {
-                                                  "fill": "ffffff",
-                                                  "gradient": null,
-                                                  "stroke": {
-                                                    "color": "171b221f",
-                                                    "widths": [
-                                                      0.5,
-                                                      0.5,
-                                                      0.5,
-                                                      0.5
-                                                    ]
-                                                  },
-                                                  "radius": [
-                                                    8,
-                                                    8,
-                                                    8,
-                                                    8
-                                                  ],
-                                                  "shadow": null,
-                                                  "opacity": 0.4
-                                                },
-                                                "typography": {
-                                                  "style": null,
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": 0,
-                                                  "color": "000000",
-                                                  "align": "center"
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FIXED",
-                                                    "reason": "36px 고정 선언",
-                                                    "source": "width:36px",
-                                                    "value": 36
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FIXED",
-                                                    "reason": "36px 고정 선언",
-                                                    "source": "height:36px",
-                                                    "value": 36
-                                                  }
-                                                },
-                                                "layout": {
-                                                  "layoutMode": "HORIZONTAL",
-                                                  "itemSpacing": 0,
-                                                  "counterAxisSpacing": null,
-                                                  "wrap": false,
-                                                  "padding": {
-                                                    "top": 0,
-                                                    "right": 0,
-                                                    "bottom": 0,
-                                                    "left": 0
-                                                  },
-                                                  "columns": null,
-                                                  "align": {
-                                                    "counterAxis": "CENTER",
-                                                    "primaryAxis": "CENTER"
-                                                  }
-                                                },
-                                                "clipsContent": false,
-                                                "children": []
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.2.1.1.1",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.2.1.1.1",
-                                                "text": null,
-                                                "textLines": null,
-                                                "paints": false,
-                                                "rect": {
-                                                  "x": 1610,
-                                                  "y": 422.3906,
-                                                  "width": 112,
-                                                  "height": 32
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FIXED",
-                                                  "layoutSizingVertical": "HUG",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": 0,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": null,
-                                                "typography": null,
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FIXED",
-                                                    "reason": "112px 고정 선언",
-                                                    "source": "width:112px",
-                                                    "value": 112
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "HUG",
-                                                    "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                                    "source": "기본(flex item)",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": {
-                                                  "layoutMode": "VERTICAL",
-                                                  "itemSpacing": 4,
-                                                  "counterAxisSpacing": 4,
-                                                  "wrap": false,
-                                                  "padding": {
-                                                    "top": 0,
-                                                    "right": 0,
-                                                    "bottom": 0,
-                                                    "left": 0
-                                                  },
-                                                  "columns": null,
-                                                  "align": {
-                                                    "counterAxis": null,
-                                                    "primaryAxis": null
-                                                  }
-                                                },
-                                                "clipsContent": false,
-                                                "children": [
-                                                  {
-                                                    "path": "body.1.0.0.1.0.1.1.2.1.1.1.0",
-                                                    "tag": "span",
-                                                    "name": "body.1.0.0.1.0.1.1.2.1.1.1.0",
-                                                    "text": null,
-                                                    "textLines": null,
-                                                    "paints": true,
-                                                    "rect": {
-                                                      "x": 1610,
-                                                      "y": 422.3906,
-                                                      "width": 112,
-                                                      "height": 32
-                                                    },
-                                                    "glyph": null,
-                                                    "sizing": {
-                                                      "layoutSizingHorizontal": "FILL",
-                                                      "layoutSizingVertical": "HUG",
-                                                      "layoutPositioning": "AUTO",
-                                                      "minWidth": 0,
-                                                      "maxWidth": null,
-                                                      "minHeight": 32,
-                                                      "maxHeight": null,
-                                                      "unresolved": []
-                                                    },
-                                                    "paint": {
-                                                      "fill": "ebecee",
-                                                      "gradient": null,
-                                                      "stroke": {
-                                                        "color": "171b221f",
-                                                        "widths": [
-                                                          0.5,
-                                                          0.5,
-                                                          0.5,
-                                                          0.5
-                                                        ]
-                                                      },
-                                                      "radius": [
-                                                        12,
-                                                        12,
-                                                        12,
-                                                        12
-                                                      ],
-                                                      "shadow": null,
-                                                      "opacity": null
-                                                    },
-                                                    "typography": null,
-                                                    "positioning": "AUTO",
-                                                    "margin": {
-                                                      "top": 0,
-                                                      "right": 0,
-                                                      "bottom": 0,
-                                                      "left": 0
-                                                    },
-                                                    "offset": null,
-                                                    "constraints": null,
-                                                    "why": {
-                                                      "horizontal": {
-                                                        "verdict": "FILL",
-                                                        "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
-                                                        "source": "align-items:normal",
-                                                        "value": null
-                                                      },
-                                                      "vertical": {
-                                                        "verdict": "HUG",
-                                                        "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                                        "source": "flex-grow:0 · width:auto",
-                                                        "value": null
-                                                      }
-                                                    },
-                                                    "layout": {
-                                                      "layoutMode": "HORIZONTAL",
-                                                      "itemSpacing": 8,
-                                                      "counterAxisSpacing": 8,
-                                                      "wrap": false,
-                                                      "padding": {
-                                                        "top": 0,
-                                                        "right": 12,
-                                                        "bottom": 0,
-                                                        "left": 12
-                                                      },
-                                                      "columns": null,
-                                                      "align": {
-                                                        "counterAxis": "CENTER",
-                                                        "primaryAxis": null
-                                                      }
-                                                    },
-                                                    "clipsContent": false,
-                                                    "children": []
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.2.1.1.2",
-                                                "tag": "button",
-                                                "name": "body.1.0.0.1.0.1.1.2.1.1.2",
-                                                "text": "+",
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 1728,
-                                                  "y": 420.3906,
-                                                  "width": 36,
-                                                  "height": 36
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FIXED",
-                                                  "layoutSizingVertical": "FIXED",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": null,
-                                                  "maxWidth": null,
-                                                  "minHeight": null,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": {
-                                                  "fill": "ffffff",
-                                                  "gradient": null,
-                                                  "stroke": {
-                                                    "color": "171b221f",
-                                                    "widths": [
-                                                      0.5,
-                                                      0.5,
-                                                      0.5,
-                                                      0.5
-                                                    ]
-                                                  },
-                                                  "radius": [
-                                                    8,
-                                                    8,
-                                                    8,
-                                                    8
-                                                  ],
-                                                  "shadow": null,
-                                                  "opacity": null
-                                                },
-                                                "typography": {
-                                                  "style": null,
-                                                  "size": 12,
-                                                  "weight": 400,
-                                                  "lineHeight": 18,
-                                                  "letterSpacing": 0,
-                                                  "color": "000000",
-                                                  "align": "center"
-                                                },
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FIXED",
-                                                    "reason": "36px 고정 선언",
-                                                    "source": "width:36px",
-                                                    "value": 36
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "FIXED",
-                                                    "reason": "36px 고정 선언",
-                                                    "source": "height:36px",
-                                                    "value": 36
-                                                  }
-                                                },
-                                                "layout": {
-                                                  "layoutMode": "HORIZONTAL",
-                                                  "itemSpacing": 0,
-                                                  "counterAxisSpacing": null,
-                                                  "wrap": false,
-                                                  "padding": {
-                                                    "top": 0,
-                                                    "right": 0,
-                                                    "bottom": 0,
-                                                    "left": 0
-                                                  },
-                                                  "columns": null,
-                                                  "align": {
-                                                    "counterAxis": "CENTER",
-                                                    "primaryAxis": "CENTER"
-                                                  }
-                                                },
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
+                                            "children": [],
+                                            "instance": {
+                                              "set": "Product/Quantity Stepper",
+                                              "variant": "Viewport=Desktop",
+                                              "why": "글자 2개 서열 · 구조 서명 [1,1] · Desktop 일치 — 기존 본문 컴포넌트(측정 196×36)"
+                                            }
                                           }
                                         ]
                                       },
@@ -43273,6 +42478,31 @@
               "Parent": null,
               "Current": null
             }
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.0",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Lite, Viewport=Mobile"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.1",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Plus, Viewport=Mobile"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.2",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Pro, Viewport=Mobile"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.1.1.3",
+            "set": "Product/Gift Plan Option",
+            "variant": "Plan=Ultra, Viewport=Mobile"
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.2.1.1",
+            "set": "Product/Quantity Stepper",
+            "variant": "Viewport=Mobile"
           }
         ],
         "skipped": []
@@ -44354,130 +43584,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.0.0",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.0.0",
-                                            "text": "Lite",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 18,
-                                              "y": 261.5938,
-                                              "width": 23.3594,
-                                              "height": 21
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-semibold",
-                                              "size": 14,
-                                              "weight": 600,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "000000",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.0.1",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.0.1",
-                                            "text": "12,900 KRW each",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 18,
-                                              "y": 286.5938,
-                                              "width": 93.75,
-                                              "height": 18
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/caption-regular",
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": -0.12,
-                                              "color": "0000008f",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Gift Plan Option",
+                                          "variant": "Plan=Lite, Viewport=Mobile",
+                                          "why": "글자 2개 서열 · 구조 서명 [1,1] · Mobile 일치 — 기존 본문 컴포넌트(측정 190×67)"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.1.1.1.1",
@@ -44566,130 +43678,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.1.0",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.1.0",
-                                            "text": "Plus",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 218,
-                                              "y": 261.5938,
-                                              "width": 27,
-                                              "height": 21
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-semibold",
-                                              "size": 14,
-                                              "weight": 600,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "000000",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.1.1",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.1.1",
-                                            "text": "29,900 KRW each",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 218,
-                                              "y": 286.5938,
-                                              "width": 95.5625,
-                                              "height": 18
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/caption-regular",
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": -0.12,
-                                              "color": "0000008f",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Gift Plan Option",
+                                          "variant": "Plan=Plus, Viewport=Mobile",
+                                          "why": "글자 2개 서열 · 구조 서명 [1,1] · Mobile 일치 — 기존 본문 컴포넌트(측정 190×67)"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.1.1.1.2",
@@ -44778,130 +43772,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.2.0",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.2.0",
-                                            "text": "Pro",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 18,
-                                              "y": 338.5938,
-                                              "width": 21.4219,
-                                              "height": 21
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-semibold",
-                                              "size": 14,
-                                              "weight": 600,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "000000",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.2.1",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.2.1",
-                                            "text": "49,900 KRW each",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 18,
-                                              "y": 363.5938,
-                                              "width": 96,
-                                              "height": 18
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/caption-regular",
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": -0.12,
-                                              "color": "0000008f",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Gift Plan Option",
+                                          "variant": "Plan=Pro, Viewport=Mobile",
+                                          "why": "글자 2개 서열 · 구조 서명 [1,1] · Mobile 일치 — 기존 본문 컴포넌트(측정 190×67)"
+                                        }
                                       },
                                       {
                                         "path": "body.1.0.0.1.0.1.1.1.1.3",
@@ -44990,130 +43866,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.3.0",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.3.0",
-                                            "text": "Ultra",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 218,
-                                              "y": 338.5938,
-                                              "width": 31.125,
-                                              "height": 21
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/body-sm-semibold",
-                                              "size": 14,
-                                              "weight": 600,
-                                              "lineHeight": 21,
-                                              "letterSpacing": -0.14,
-                                              "color": "000000",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.1.1.3.1",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.1.1.3.1",
-                                            "text": "74,900 KRW each",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 218,
-                                              "y": 363.5938,
-                                              "width": 94.5,
-                                              "height": 18
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FILL",
-                                              "layoutSizingVertical": "FILL",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": {
-                                              "style": "typography/caption-regular",
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": -0.12,
-                                              "color": "0000008f",
-                                              "align": null
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              },
-                                              "vertical": {
-                                                "verdict": "FILL",
-                                                "reason": "부모 grid의 교차축 + align:normal — 교차축을 채운다",
-                                                "source": "align-items:normal",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": null,
-                                            "clipsContent": false,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Gift Plan Option",
+                                          "variant": "Plan=Ultra, Viewport=Mobile",
+                                          "why": "글자 2개 서열 · 구조 서명 [1,1] · Mobile 일치 — 기존 본문 컴포넌트(측정 190×67)"
+                                        }
                                       }
                                     ]
                                   }
@@ -45657,361 +44415,12 @@
                                           }
                                         },
                                         "clipsContent": false,
-                                        "children": [
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.2.1.1.0",
-                                            "tag": "button",
-                                            "name": "body.1.0.0.1.0.1.1.2.1.1.0",
-                                            "text": "−",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 160,
-                                              "y": 572.1875,
-                                              "width": 36,
-                                              "height": 36
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FIXED",
-                                              "layoutSizingVertical": "FIXED",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": {
-                                              "fill": "ffffff",
-                                              "gradient": null,
-                                              "stroke": {
-                                                "color": "171b221f",
-                                                "widths": [
-                                                  0.5,
-                                                  0.5,
-                                                  0.5,
-                                                  0.5
-                                                ]
-                                              },
-                                              "radius": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                              ],
-                                              "shadow": null,
-                                              "opacity": 0.4
-                                            },
-                                            "typography": {
-                                              "style": null,
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": 0,
-                                              "color": "000000",
-                                              "align": "center"
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FIXED",
-                                                "reason": "36px 고정 선언",
-                                                "source": "width:36px",
-                                                "value": 36
-                                              },
-                                              "vertical": {
-                                                "verdict": "FIXED",
-                                                "reason": "36px 고정 선언",
-                                                "source": "height:36px",
-                                                "value": 36
-                                              }
-                                            },
-                                            "layout": {
-                                              "layoutMode": "HORIZONTAL",
-                                              "itemSpacing": 0,
-                                              "counterAxisSpacing": null,
-                                              "wrap": false,
-                                              "padding": {
-                                                "top": 0,
-                                                "right": 0,
-                                                "bottom": 0,
-                                                "left": 0
-                                              },
-                                              "columns": null,
-                                              "align": {
-                                                "counterAxis": "CENTER",
-                                                "primaryAxis": "CENTER"
-                                              }
-                                            },
-                                            "clipsContent": false,
-                                            "children": []
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.2.1.1.1",
-                                            "tag": "span",
-                                            "name": "body.1.0.0.1.0.1.1.2.1.1.1",
-                                            "text": null,
-                                            "textLines": null,
-                                            "paints": false,
-                                            "rect": {
-                                              "x": 202,
-                                              "y": 574.1875,
-                                              "width": 112,
-                                              "height": 32
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FIXED",
-                                              "layoutSizingVertical": "HUG",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": 0,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": null,
-                                            "typography": null,
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FIXED",
-                                                "reason": "112px 고정 선언",
-                                                "source": "width:112px",
-                                                "value": 112
-                                              },
-                                              "vertical": {
-                                                "verdict": "HUG",
-                                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                                "source": "기본(flex item)",
-                                                "value": null
-                                              }
-                                            },
-                                            "layout": {
-                                              "layoutMode": "VERTICAL",
-                                              "itemSpacing": 4,
-                                              "counterAxisSpacing": 4,
-                                              "wrap": false,
-                                              "padding": {
-                                                "top": 0,
-                                                "right": 0,
-                                                "bottom": 0,
-                                                "left": 0
-                                              },
-                                              "columns": null,
-                                              "align": {
-                                                "counterAxis": null,
-                                                "primaryAxis": null
-                                              }
-                                            },
-                                            "clipsContent": false,
-                                            "children": [
-                                              {
-                                                "path": "body.1.0.0.1.0.1.1.2.1.1.1.0",
-                                                "tag": "span",
-                                                "name": "body.1.0.0.1.0.1.1.2.1.1.1.0",
-                                                "text": null,
-                                                "textLines": null,
-                                                "paints": true,
-                                                "rect": {
-                                                  "x": 202,
-                                                  "y": 574.1875,
-                                                  "width": 112,
-                                                  "height": 32
-                                                },
-                                                "glyph": null,
-                                                "sizing": {
-                                                  "layoutSizingHorizontal": "FILL",
-                                                  "layoutSizingVertical": "HUG",
-                                                  "layoutPositioning": "AUTO",
-                                                  "minWidth": 0,
-                                                  "maxWidth": null,
-                                                  "minHeight": 32,
-                                                  "maxHeight": null,
-                                                  "unresolved": []
-                                                },
-                                                "paint": {
-                                                  "fill": "ebecee",
-                                                  "gradient": null,
-                                                  "stroke": {
-                                                    "color": "171b221f",
-                                                    "widths": [
-                                                      0.5,
-                                                      0.5,
-                                                      0.5,
-                                                      0.5
-                                                    ]
-                                                  },
-                                                  "radius": [
-                                                    12,
-                                                    12,
-                                                    12,
-                                                    12
-                                                  ],
-                                                  "shadow": null,
-                                                  "opacity": null
-                                                },
-                                                "typography": null,
-                                                "positioning": "AUTO",
-                                                "margin": {
-                                                  "top": 0,
-                                                  "right": 0,
-                                                  "bottom": 0,
-                                                  "left": 0
-                                                },
-                                                "offset": null,
-                                                "constraints": null,
-                                                "why": {
-                                                  "horizontal": {
-                                                    "verdict": "FILL",
-                                                    "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
-                                                    "source": "align-items:normal",
-                                                    "value": null
-                                                  },
-                                                  "vertical": {
-                                                    "verdict": "HUG",
-                                                    "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
-                                                    "source": "flex-grow:0 · width:auto",
-                                                    "value": null
-                                                  }
-                                                },
-                                                "layout": {
-                                                  "layoutMode": "HORIZONTAL",
-                                                  "itemSpacing": 8,
-                                                  "counterAxisSpacing": 8,
-                                                  "wrap": false,
-                                                  "padding": {
-                                                    "top": 0,
-                                                    "right": 12,
-                                                    "bottom": 0,
-                                                    "left": 12
-                                                  },
-                                                  "columns": null,
-                                                  "align": {
-                                                    "counterAxis": "CENTER",
-                                                    "primaryAxis": null
-                                                  }
-                                                },
-                                                "clipsContent": false,
-                                                "children": []
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "path": "body.1.0.0.1.0.1.1.2.1.1.2",
-                                            "tag": "button",
-                                            "name": "body.1.0.0.1.0.1.1.2.1.1.2",
-                                            "text": "+",
-                                            "textLines": null,
-                                            "paints": true,
-                                            "rect": {
-                                              "x": 320,
-                                              "y": 572.1875,
-                                              "width": 36,
-                                              "height": 36
-                                            },
-                                            "glyph": null,
-                                            "sizing": {
-                                              "layoutSizingHorizontal": "FIXED",
-                                              "layoutSizingVertical": "FIXED",
-                                              "layoutPositioning": "AUTO",
-                                              "minWidth": null,
-                                              "maxWidth": null,
-                                              "minHeight": null,
-                                              "maxHeight": null,
-                                              "unresolved": []
-                                            },
-                                            "paint": {
-                                              "fill": "ffffff",
-                                              "gradient": null,
-                                              "stroke": {
-                                                "color": "171b221f",
-                                                "widths": [
-                                                  0.5,
-                                                  0.5,
-                                                  0.5,
-                                                  0.5
-                                                ]
-                                              },
-                                              "radius": [
-                                                8,
-                                                8,
-                                                8,
-                                                8
-                                              ],
-                                              "shadow": null,
-                                              "opacity": null
-                                            },
-                                            "typography": {
-                                              "style": null,
-                                              "size": 12,
-                                              "weight": 400,
-                                              "lineHeight": 18,
-                                              "letterSpacing": 0,
-                                              "color": "000000",
-                                              "align": "center"
-                                            },
-                                            "positioning": "AUTO",
-                                            "margin": {
-                                              "top": 0,
-                                              "right": 0,
-                                              "bottom": 0,
-                                              "left": 0
-                                            },
-                                            "offset": null,
-                                            "constraints": null,
-                                            "why": {
-                                              "horizontal": {
-                                                "verdict": "FIXED",
-                                                "reason": "36px 고정 선언",
-                                                "source": "width:36px",
-                                                "value": 36
-                                              },
-                                              "vertical": {
-                                                "verdict": "FIXED",
-                                                "reason": "36px 고정 선언",
-                                                "source": "height:36px",
-                                                "value": 36
-                                              }
-                                            },
-                                            "layout": {
-                                              "layoutMode": "HORIZONTAL",
-                                              "itemSpacing": 0,
-                                              "counterAxisSpacing": null,
-                                              "wrap": false,
-                                              "padding": {
-                                                "top": 0,
-                                                "right": 0,
-                                                "bottom": 0,
-                                                "left": 0
-                                              },
-                                              "columns": null,
-                                              "align": {
-                                                "counterAxis": "CENTER",
-                                                "primaryAxis": "CENTER"
-                                              }
-                                            },
-                                            "clipsContent": false,
-                                            "children": []
-                                          }
-                                        ]
+                                        "children": [],
+                                        "instance": {
+                                          "set": "Product/Quantity Stepper",
+                                          "variant": "Viewport=Mobile",
+                                          "why": "글자 2개 서열 · 구조 서명 [1,1] · Mobile 일치 — 기존 본문 컴포넌트(측정 196×36)"
+                                        }
                                       }
                                     ]
                                   },
@@ -58295,7 +56704,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
-          "bytes": 49492
+          "bytes": 48163
         }
       ]
     },
@@ -58307,7 +56716,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription-coupons.mobile.00.draw.js",
-          "bytes": 46416
+          "bytes": 45085
         }
       ]
     },

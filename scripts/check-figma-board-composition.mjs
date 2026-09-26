@@ -235,7 +235,9 @@ const UNCLASSIFIED_BASELINE = 0;
 // `Product/Pricing Notice` 인스턴스가 됐다(제품 `PricingNotice`). 안의 초록 점(미보유 2)은 인스턴스 안으로 들어가 세어지지 않는다.
 // 2026-09-26(뒤): 103 → **119.** 보드가 늘어서다 — 보드 없던 실제 화면 셋(bulk-success · bulk-fail · coupons)의 보드 여섯이
 // 셸 인스턴스 9(데스크톱 셋 × 상단 바 · 사이드바, 모바일 셋 × 상단 바)와 LOUIS Button 인스턴스 7 을 갖는다.
-const INSTANCE_FLOOR = 119;
+// 같은 날 더 뒤: 119 → **129.** **이득이다.** 제품 부품 세트(보드 생성기 PARTS, DS-D-0071)가 섰다 — `/subscription/coupons` 의
+// 요금제 선택 카드 8(넷 × 두 뷰포트)이 `Product/Gift Plan Option`, 수량 스테퍼 2 가 `Product/Quantity Stepper` 인스턴스가 됐다.
+const INSTANCE_FLOOR = 129;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -256,7 +258,10 @@ const INSTANCE_FLOOR = 119;
 // 2026-09-26(뒤): 128 → **162.** 보드 여섯이 늘어서다(위 INSTANCE_FLOOR): instance +16 · missing +18. 미보유 18 은 전부
 // `/subscription/coupons` 의 제품 전용 컨트롤이다 — 요금제 선택 카드 넷(데스크톱 · 모바일), 수량 스테퍼(− · +), 칠해진 마크,
 // 결제 단계 표시. 수는 instance 119 + replaceable 0 + bespoke 5 + blocked 6 + missing 32.
-const CANDIDATE_FLOOR = 162;
+// 같은 날 더 뒤: 162 → **158.** 보드가 준 것이 아니라 부품 인스턴스(+10) 안으로 미보유가 들어갔다(−14) — 요금제 카드 8 과 스테퍼
+// 둘의 자리 2 가 인스턴스가 되며, 스테퍼 안의 − · + 버튼 넷(두 뷰포트)이 스테퍼 인스턴스 안이라 따로 세지 않는다. 수는 instance 129 +
+// replaceable 0 + bespoke 5 + blocked 6 + missing 18.
+const CANDIDATE_FLOOR = 158;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 const BOARD_FLOOR = 42;
 const SHELL_COMPONENTS = new Set([

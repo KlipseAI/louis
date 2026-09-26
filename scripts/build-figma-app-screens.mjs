@@ -181,7 +181,12 @@ const paintKeys = (node) => {
     // `g`: 그라디언트 면 — [각도, [색, 위치], …]. `f` 보다 위에 그려진다(CSS background-image 규칙).
     ...(paint.gradient ? { g: [round(paint.gradient.angle),
       ...paint.gradient.stops.map((stop) => [stop.color, round(stop.position)])] } : {}),
-    ...(paint.stroke ? { b: [paint.stroke.color, ...paint.stroke.widths.map(round)] } : {}),
+    // **헤어라인(2026-09-26).** 여섯째 칸 1 = 그림자(`--louis-hairline-inset`)에서 옮긴 선 — 박스 크기에 들어가지 않는다. 렌더러가
+    // `strokesIncludedInLayout = false` 로 둔다: GRID 프레임은 획을 레이아웃에 넣는 것이 기본이라 두면 0.5 선이 위아래로 더해져
+    // 쿠폰 요금제 카드가 70 → 71 이 됐다. CSS 테두리는 다섯 칸 그대로다. 렌더러는 획의 변수를 값이 같은 것 가운데
+    // `color/stroke-hairline` > `color/stroke-*` > 첫 변수 순으로 고른다 — 헤어라인 #171B22 12% 의 첫 변수가 `color/accent-secondary-hover`,
+    // 획 역할 중 첫째가 `color/stroke-control` 이었고, LOUIS 는 헤어라인을 `--louis-color-stroke-hairline` 으로 정의한다(base.css).
+    ...(paint.stroke ? { b: [paint.stroke.color, ...paint.stroke.widths.map(round), ...(paint.stroke.inset ? [1] : [])] } : {}),
     ...(radius ? { d: Array.isArray(radius) ? radius.map(round) : round(radius) } : {}),
     ...(paint.shadow ? { e: paint.shadow.map((shadow) =>
       [shadow.inset ? 1 : 0, shadow.color, round(shadow.x), round(shadow.y), round(shadow.blur), round(shadow.spread)]) } : {}),

@@ -551,7 +551,8 @@ function paintOf(style) {
         if (ring.x > 0) sides[3] += ring.x;
       }
       if (sides.some((width) => width > 0)) {
-        stroke = { color: rings[0].color, widths: sides };
+        // `inset: true` — 박스 크기에 들어가지 않는 선이다(CSS box-shadow). 렌더러가 레이아웃에서 뺀다(`strokesIncludedInLayout = false`).
+        stroke = { color: rings[0].color, widths: sides, inset: true };
         shadow = shadow.filter((entry) => !rings.includes(entry));
         if (shadow.length === 0) shadow = null;
       }

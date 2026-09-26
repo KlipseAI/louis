@@ -58,9 +58,7 @@ const colorToHex = (color) => {
   return `${channelHex(color.r)}${channelHex(color.g)}${channelHex(color.b)}${alpha}`;
 };
 const variableByHex = new Map();
-// 획은 값이 같은 변수 가운데 **획 역할(`color/stroke-*`) 변수를 먼저** 고르고, 그중에서도 `color/stroke-hairline` 을 맨 먼저 고른다
-// (2026-09-26). 헤어라인 #171B22 12% 는 값이 같은 변수가 여럿이다 — 컬렉션 순서상 첫째가 `color/accent-secondary-hover` 이고,
-// 획 역할 중에서도 `color/stroke-control` 이 먼저다. LOUIS 는 헤어라인을 `--louis-color-stroke-hairline` 으로 정의한다(base.css).
+// 획: color/stroke-hairline > color/stroke-* > 값이 같은 첫 변수 (사유: build-figma-app-screens.mjs 「헤어라인」)
 const strokeVariableByHex = new Map();
 const strokeRank = (name) => (name === "color/stroke-hairline" ? 0 : 1);
 for (const name of P.colour.collections) {
@@ -130,9 +128,11 @@ const applyPaint = (node, spec) => {
   }
   if (fills.length > 0) node.fills = fills;
   if (spec.b) {
-    const [hex, top, right, bottom, left] = spec.b;
+    const [hex, top, right, bottom, left, hairline] = spec.b;
     node.strokes = [hexToPaint(hex, "stroke")];
     node.strokeAlign = "INSIDE";
+    if (hairline) node.strokesIncludedInLayout = false; // 헤어라인은 박스 크기 밖
+
     if (top === right && right === bottom && bottom === left) {
       node.strokeWeight = Math.max(0, top);
     } else {

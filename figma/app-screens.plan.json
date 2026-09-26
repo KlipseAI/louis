@@ -18491,6 +18491,23 @@
               0
             ]
           }
+        ],
+        "spaceBetweenHug": [
+          {
+            "path": "body.1.0.0.1.0.1.1.0.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.0.0.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.0.1.1.0.1.1.0.4",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 8
+          }
         ]
       },
       "spec": {
@@ -19441,7 +19458,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": null,
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -20024,7 +20041,7 @@
                                                   "columns": null,
                                                   "align": {
                                                     "counterAxis": "MIN",
-                                                    "primaryAxis": "SPACE_BETWEEN"
+                                                    "primaryAxis": null
                                                   }
                                                 },
                                                 "clipsContent": false,
@@ -21438,7 +21455,7 @@
                                                   "columns": null,
                                                   "align": {
                                                     "counterAxis": null,
-                                                    "primaryAxis": "SPACE_BETWEEN"
+                                                    "primaryAxis": null
                                                   }
                                                 },
                                                 "clipsContent": false,
@@ -51638,6 +51655,43 @@
               0
             ]
           }
+        ],
+        "spaceBetweenHug": [
+          {
+            "path": "body.1.0.0.1.1.2.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.2.1",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.2.2",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.2.3",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.1",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.2",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          }
         ]
       },
       "spec": {
@@ -52448,7 +52502,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -52655,7 +52709,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -52862,7 +52916,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -53054,7 +53108,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -53331,7 +53385,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -53538,7 +53592,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -53745,7 +53799,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -56924,6 +56978,33 @@
               0
             ]
           }
+        ],
+        "spaceBetweenHug": [
+          {
+            "path": "body.1.0.0.1.1.3.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.1",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.2",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.3.3",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.4.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          }
         ]
       },
       "spec": {
@@ -57812,7 +57893,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -58019,7 +58100,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -58226,7 +58307,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -58418,7 +58499,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -58627,7 +58708,7 @@
                                   "columns": null,
                                   "align": {
                                     "counterAxis": "CENTER",
-                                    "primaryAxis": "SPACE_BETWEEN"
+                                    "primaryAxis": null
                                   }
                                 },
                                 "clipsContent": false,
@@ -60330,6 +60411,18 @@
               0
             ]
           }
+        ],
+        "spaceBetweenHug": [
+          {
+            "path": "body.1.0.0.1.1.2.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.2.1",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          }
         ]
       },
       "spec": {
@@ -61134,7 +61227,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -61326,7 +61419,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -63609,6 +63702,28 @@
               0
             ]
           }
+        ],
+        "spaceBetweenHug": [
+          {
+            "path": "body.1.0.0.1.1.1.0",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.1.1",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.1.2",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          },
+          {
+            "path": "body.1.0.0.1.1.1.3",
+            "layoutMode": "VERTICAL",
+            "itemSpacing": 16
+          }
         ]
       },
       "spec": {
@@ -64352,7 +64467,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -64559,7 +64674,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -64766,7 +64881,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -64958,7 +65073,7 @@
                                       "columns": null,
                                       "align": {
                                         "counterAxis": "CENTER",
-                                        "primaryAxis": "SPACE_BETWEEN"
+                                        "primaryAxis": null
                                       }
                                     },
                                     "clipsContent": false,
@@ -86538,7 +86653,7 @@
       "files": [
         {
           "file": "figma/app-screens.subscription.mobile.00.draw.js",
-          "bytes": 46485
+          "bytes": 46446
         }
       ]
     },
@@ -86850,7 +86965,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-success.mobile.00.draw.js",
-          "bytes": 44663
+          "bytes": 44572
         }
       ]
     },
@@ -86874,7 +86989,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-success-preview-partial.mobile.00.draw.js",
-          "bytes": 44203
+          "bytes": 44138
         }
       ]
     },
@@ -86898,7 +87013,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-upgrade-billing-change-success-preview-success.mobile.00.draw.js",
-          "bytes": 43322
+          "bytes": 43296
         }
       ]
     },
@@ -86922,7 +87037,7 @@
       "files": [
         {
           "file": "figma/app-screens.mypage-topup-success-preview-success.mobile.00.draw.js",
-          "bytes": 43811
+          "bytes": 43759
         }
       ]
     },

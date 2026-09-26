@@ -403,6 +403,7 @@ let totalGlyphs = 0;
 let totalSizingReconciled = 0;
 let totalAutoMarginCentred = 0;
 let totalMarginWrapped = 0;
+let totalSpaceBetweenHug = 0;
 let totalUnresolvedFillInHug = 0;
 
 /**
@@ -579,6 +580,31 @@ function reconcileFigmaSizing(spec) {
 }
 
 /**
+ * **내용으로 서는(HUG) 축의 space-between 은 gap 이다(2026-09-26).** CSS `justify-content: space-between` 은 남는 공간을 나눌 뿐이고, 내용으로
+ * 서는 축에는 남는 공간이 없어 `gap` 만 남는다. Figma 는 SPACE_BETWEEN 이면 itemSpacing 을 버리고 HUG 축에서는 간격을 0 으로 접는다 — 결제
+ * 성공 미리보기 모바일의 결제 정보 행(dt · dd 세로, gap 16)이 붙어 행마다 16 씩 올라갔다(마지막 행 −111, 보드 글자 자리 대조). 그 축이 HUG
+ * 이면 주축 정렬을 MIN 으로 두어 itemSpacing(= gap)이 살게 한다.
+ */
+function dropHugSpaceBetween(spec) {
+  const changed = [];
+  const walk = (node) => {
+    if (node.instance) return;
+    const layout = node.layout;
+    if (layout && layout.align?.primaryAxis === "SPACE_BETWEEN") {
+      const axis = layout.layoutMode === "VERTICAL" ? node.sizing.layoutSizingVertical
+        : layout.layoutMode === "HORIZONTAL" ? node.sizing.layoutSizingHorizontal : null;
+      if (axis === "HUG") {
+        changed.push({ path: node.path, layoutMode: layout.layoutMode, itemSpacing: layout.itemSpacing });
+        node.layout = { ...layout, align: { ...layout.align, primaryAxis: null } };
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return changed;
+}
+
+/**
  * **형제가 있는 자식의 margin 을 감싸개 패딩으로 옮긴다(2026-09-26).** Figma Auto Layout 에는 margin 이 없고, 렌더러는 흐름 자식이
  * 하나일 때만 margin 을 부모 padding 으로 옮긴다 — 그 판정이 자식을 붙이는 순간에 돌아 **첫 자식의 margin 은 형제가 뒤에 와도 부모
  * padding 에 붙고**(첫 자식의 margin-bottom 이 부모 아래로 간다 — 결제 동의 상자의 체크박스 margin-top 4 가 줄 전체의 위 패딩이
@@ -736,6 +762,7 @@ const partContent = [];
       }
       centreAutoMargins(spec);
       const marginWrapped = wrapSiblingMargins(spec);
+      const spaceBetweenHug = dropHugSpaceBetween(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
@@ -746,7 +773,8 @@ const partContent = [];
         componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
         signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length,
           ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
-          ...(marginWrapped.length ? { marginWrapped } : {}) },
+          ...(marginWrapped.length ? { marginWrapped } : {}),
+          ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}) },
         spec,
       });
     }
@@ -794,6 +822,8 @@ for (const screen of SCREENS) {
     totalAutoMarginCentred += autoMarginCentred.length;
     const marginWrapped = wrapSiblingMargins(spec);
     totalMarginWrapped += marginWrapped.length;
+    const spaceBetweenHug = dropHugSpaceBetween(spec);
+    totalSpaceBetweenHug += spaceBetweenHug.length;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -845,6 +875,8 @@ for (const screen of SCREENS) {
         ...(autoMarginCentred.length ? { autoMarginCentred } : {}),
         // 형제가 있는 자식의 margin 을 감싸개 padding 으로 옮긴 자리(wrapSiblingMargins 주석).
         ...(marginWrapped.length ? { marginWrapped } : {}),
+        // HUG 축의 space-between 을 MIN(gap 이 사는 정렬)으로 옮긴 자리(dropHugSpaceBetween 주석).
+        ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
       },
       spec,
     });
@@ -1195,5 +1227,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

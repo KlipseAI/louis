@@ -111,7 +111,12 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // 발견이라 에러가 안 나지만, 그만큼 **하락 그물이 헐거워진다** — 202 에서 176 까지 조용히
 // 되돌아가도 이 검사는 아무 말도 하지 않았고, 그래서 `coverage targets needed fell without
 // locking` 카나리아가 물지 못했다(checker 가 주입을 통과시켰다). 상승도 그때그때 잠근다.
-const NEEDED_BASELINE = 202; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-09-26: 202 → **163.** 서른아홉이 두 곳으로 갔다 — **Figma 에 세웠다 29**(제품 세트가 셋째 대응 어휘가 됐다,
+// DS-D-0071: 글리프 생성기 세트 넷의 인라인 글리프 27 · `Product/Footer` · `Product/Pricing Notice`), **범위 밖으로 옮겼다 10**
+// (그릴 것이 없다 — 앵커 2c6bdacf 에서 참조 0 인 죽은 수출 아홉(`node-canvas/primitives.tsx` 의 Eyebrow 아이콘 일곱 ·
+// `ToolIcon` · `SelectionChrome`)과 마크업 0 인 서버 껍데기 `mypage/upgrade/page.tsx#UpgradePlanPage` — 화면은
+// `UpgradePlanPageClient` 가 그리므로 같은 화면을 두 칸으로 세던 결함이었다). 원장 커밋 21947b0 · b9c0b35.
+const NEEDED_BASELINE = 163; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -150,7 +155,9 @@ const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있�
 // needed 197 + 5 = 202 · scoped 239 - 1 = 238.
 // **원장은 `7f41d5a`(앵커 38a7d5a4 이동)가 이미 갱신했고 이 기준선만 안 따라왔다** —
 // 그래서 이 게이트는 그 커밋 이후로 계속 빨갰다.
-const SCOPED_BASELINE = 238; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-09-26: 238 → 248 — 위 NEEDED_BASELINE 문단의 「범위 밖으로 옮겼다 10」이다(표면 총수 472 그대로). 열 칸 모두 사유에
+// 앵커 grep 근거를 적었고, 제품이 그 수출을 다시 쓰면 needed 로 되돌린다.
+const SCOPED_BASELINE = 248; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서

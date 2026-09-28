@@ -272,13 +272,13 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 | 축 | 상태 |
 | --- | --- |
-| GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 갈래만 돌고 2026-08-22 부터 결제로 정지.** 두 갈래의 단계 수는 `package.json`의 `verify:ci`·`verify:product`가 소유한다 — 표에 박지 않는다. owner 승인과 publish 권한 남음 |
+| GOV 트랙 | `DS-GOV-000`이 `partial` — 원격 done. **hosted CI 는 `verify:ci` 갈래만 돈다.** 지금 도는지 · 초록인지는 `gh run list --branch main --limit 1` 이 낸다 — 이 칸에 적혀 있던 「2026-08-22 부터 결제로 정지」는 09-26 푸시의 초록 실행이 반증했다. 두 갈래의 단계 수는 `package.json`의 `verify:ci`·`verify:product`가 소유한다 — 표에 박지 않는다. owner 승인과 publish 권한 남음 |
 | `DS-F-000`~`DS-F-005` | `done` |
 | `DS-P3-002a` · `002`(1단계) · `003` · `009a` · `013` | `done` |
 | `DS-P3-001` | `done` (2026-09-13). Decision 6종은 `proposed` 이고 모순을 걷은 뒤 owner 확인 요청을 Updates (129)에 기록했다 — `accepted` 전환만 owner 몫이다 |
 | Decision | `ls design/governance/decisions/DS-D-*.md \| wc -l` · 대기는 `grep -l '^- Status: proposed' …` |
 | 카탈로그 | gap registry 합산 우선순위 15종이 닫혔다. **화면별 세부 부품은 그 목록에 처음부터 없었다**(아래 정정 참조) |
-| manifest component | [`manifest.json`](../manifest.json)이 정본이다 — `select` 만 `not-planned` 이고 `not-ready` 는 없다 |
+| manifest component | [`manifest.json`](../manifest.json)이 정본이다 — 상태별 수는 그 파일을 센다(아래 명령). `select` 만 `not-planned` 다. 이 칸에 적혀 있던 「`not-ready` 는 없다」는 낡았다(2026-09-28 에 web `not-ready` 컴포넌트가 있었다) |
 | Figma | `pnpm verify-figma-parity` 출력이 변수·collection·style·component 수를 낸다 |
 | 검증 | `pnpm test` 가 브라우저 회귀 수를, 각 `verify-*` 게이트가 자기 canary 수를 출력한다 |
 
@@ -300,13 +300,19 @@ Icon Button 의 정본으로 지목됐던 제품의 공유 UI 패키지는 Turbo
 
 | 층 | 무엇 | 수 |
 | --- | --- | ---: |
-| 카탈로그에 등록조차 없음 | 타임라인 · 트랙레인 · 룰러 · 플레이헤드 · 파형 · 필름스트립 · 인스펙터 · 캔버스 노드 · 엣지 · 미니맵 · 툴바 · 줌 컨트롤 · 비디오 플레이어 · 탭 · 칩 · 컬러 피커 · 코치마크 · 투어 · 리사이즈 디바이더 등 | 미등록(드롭존은 2026-09-26 `DropZone` 으로 등록됐다) |
-| 규범 문서만 있고 구현 없음 | `landing-shell` · `auth-two-panel` · `status-result` · `route-boundary` · `editor-workspace` | 5 |
-| 규범·구현 있고 Figma만 없음 | `loading` · `app-shell` · `project-grid` | 3 |
+| 카탈로그에 등록조차 없음 | 타임라인 · 트랙레인 · 룰러 · 플레이헤드 · 파형 · 필름스트립 · 미니맵 · 툴바 · 줌 컨트롤 · 칩 · 컬러 피커 · 코치마크 · 투어 등 | 미등록 |
+| 규범 문서만 있고 구현 없음 | `web: not-ready` 인 항목 — 아래 명령이 낸다 | — |
+| 규범·구현 있고 Figma만 없음 | `web: partial` + `figma: not-ready` 인 항목 — 아래 명령이 낸다 | — |
 
-**아래 두 행의 정본은 [`manifest.json`](../manifest.json)이다** — `web: not-ready` 가 2행,
-`web: partial` + `figma: not-ready` 가 3행이며 둘 다 지금은 pattern 만 해당한다. 손으로 센 수를
-믿지 말고 manifest 를 다시 읽어 판단한다.
+**1행은 이 문서가 손으로 들고 있는 유일한 목록이라 낡는다.** 한때 여기 있던 인스펙터 · 캔버스 노드 · 엣지 · 비디오
+플레이어 · 탭 · 리사이즈 디바이더 · 드롭존은 manifest 에 등록됐다(`inspector-row` · `node-shell` · `canvas-edge` ·
+`video-player` · `tabs` · `pane-divider` · `drop-zone` 등). **2 · 3행의 정본은 [`manifest.json`](../manifest.json)이다** —
+한때 적혀 있던 이름과 수(5 · 3)와 「둘 다 pattern 만 해당한다」가 2026-09-28 에 낡아 있었다(`web: not-ready` 는
+컴포넌트에도 있고, `figma: not-ready` 는 pattern 하나였다). 그 자리에서 센다.
+
+```sh
+node -e 'const m=require("./design/manifest.json");for(const k of ["components","patterns"])for(const x of m[k])if(x.web==="not-ready"||x.figma==="not-ready")console.log(k,x.id,"web:"+x.web,"figma:"+x.figma)'
+```
 
 1행은 **카탈로그에 등록조차 되지 않은 것들**이며 이 문서 어디에도 그 목록이 따로 있지 않다.
 새로 세우려면 gap registry 와 제품 실측으로 수요를 먼저 확인한다. (1a)~(1d)와 아래 새

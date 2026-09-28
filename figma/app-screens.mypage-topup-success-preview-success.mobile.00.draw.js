@@ -336,8 +336,17 @@ const findVariant = async (setName, variantName) => {
   return variant;
 };
 // 인스턴스 생성은 비동기 조회가 필요하므로, 트리를 만들기 전에 쓸 variant를 미리 모아 둔다.
+// 자산 이미지 `im` = [id, 이름](생성기 IMAGE_COMPONENTS) — 이름까지 같아야 쓴다.
+const imageCache = new Map();
 const preloadVariants = async (spec) => {
   if (spec.i) await findVariant(spec.i[0], spec.i[1]);
+  if (spec.im && !imageCache.has(spec.im[0])) {
+    const component = await figma.getNodeByIdAsync(spec.im[0]);
+    if (!component || component.type !== "COMPONENT" || component.name !== spec.im[1]) {
+      throw new Error(`자산 이미지 컴포넌트가 다릅니다: ${spec.im[0]} «${spec.im[1]}» (라이브: ${component ? `${component.type} «${component.name}»` : "없음"})`);
+    }
+    imageCache.set(spec.im[0], component);
+  }
   for (const child of (spec.k || [])) await preloadVariants(child);
 };
 
@@ -400,6 +409,9 @@ const buildNode = (spec, parent) => {
       }
       node.setProperties({ [keys[0]]: String(spec.i[2]) });
     }
+  } else if (spec.im) {
+    node = imageCache.get(spec.im[0]).createInstance();
+    node.rescale(Math.max(0.01, spec.r[0]) / node.width);
   } else {
     node = figma.createFrame();
     node.fills = [];
@@ -418,6 +430,15 @@ const buildNode = (spec, parent) => {
         // FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다. 실측 사고: `/subscription` 모바일의 요금제
         // 카드(456)가 281 짜리 행에 담겨 다음 행(크레딧 이력)을 덮었다. 열은 `repeat(N, 1fr)` 라 FLEX 그대로 둔다.
         try { for (const track of node.gridRowSizes) track.type = "HUG"; } catch (error) {}
+        // 늘어난 행은 FIXED(figma-tree-spec gridStretchedRow).
+        if (Array.isArray(spec.l[10])) {
+          spec.l[10].forEach((size, index) => {
+            const track = node.gridRowSizes[index];
+            if (!track) throw new Error(`grid 행 ${index} 가 없습니다: ${spec.t} (행 ${node.gridRowCount})`);
+            track.type = "FIXED";
+            track.value = size;
+          });
+        }
         // **간격도 격자의 것이다.** 아래 `itemSpacing` 은 GRID 에 뜻이 없어 건너뛰는데, 그 자리를 메우지 않아 격자 칸이 붙어
         // 그려졌다(`/subscription` 알림과 요금제 카드 사이 24 가 0). 계획의 간격 하나를 행 · 열 간격에 같이 건다(CSS `gap`).
         try { node.gridRowGap = spec.l[1] || 0; node.gridColumnGap = spec.l[1] || 0; } catch (error) {}
@@ -448,7 +469,7 @@ const buildNode = (spec, parent) => {
       : ` · ${spec.i[2]}`)
     // **아이콘은 이름으로 부른다.** `v` 가 없던 동안 보드의 svg 자리는 전부 `svg AA` 라
     // 서로 구분되지 않았고, 어느 그림인지는 보드를 열어 눈으로 세는 수밖에 없었다.
-    : (spec.w ? "pending " : "") + spec.t + (spec.v ? " " + spec.v : "")
+    : (spec.w ? "pending " : "") + spec.t + (spec.v ? " " + spec.v : "") + (spec.im ? " " + spec.im[1].split(" (")[0] : "")
       + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
   if (parent && node.parent !== parent) parent.appendChild(node);
@@ -485,6 +506,10 @@ const buildNode = (spec, parent) => {
     };
     apply("layoutSizingHorizontal", h);
     apply("layoutSizingVertical", v);
+    if (spec.ga && parent && parent.layoutMode === "GRID") {
+      node.gridChildHorizontalAlign = spec.ga[0] || "AUTO";
+      node.gridChildVerticalAlign = spec.ga[1] || "AUTO";
+    }
     if (isText) node.textAutoResize = (h === "HUG" && v === "HUG") ? "WIDTH_AND_HEIGHT" : "HEIGHT";
   }
 
@@ -506,7 +531,7 @@ const buildNode = (spec, parent) => {
   }
 
   // 면은 크기·배치가 끝난 뒤에 건다. 인스턴스에는 걸지 않는다.
-  if (!isText && !spec.i) applyPaint(node, spec);
+  if (!isText && !spec.i && !spec.im) applyPaint(node, spec);
 
   // 면을 가진 텍스트: 프레임 안에 실제 글자를 넣는다. 프레임의 padding/정렬이 그대로 배치를 잡는다.
   if (textInSurface) {
@@ -555,7 +580,7 @@ const buildNode = (spec, parent) => {
   // 64 · 데스크톱 48 로 접혀 내용이 잘렸다. 그래서 행마다 (1) 칸을 모두 HUG 로 두고 칸 안의 세로 FILL 사슬을 HUG 로 풀어
   // 내용 높이를 재고, (2) 가장 높은 칸만 HUG 로 남기고 나머지는 FILL 로 돌려 그 높이까지 늘인다 — 나란한 카드는 높은 쪽
   // HUG · 낮은 쪽 FILL. 가로로 쌓는 부모의 세로 FILL 은 늘이기(stretch)라 hug 부모 안에서도 성립하므로 두지 않는다.
-  if (node.type === "FRAME" && node.layoutMode === "GRID" && spec.k) {
+  if (node.type === "FRAME" && node.layoutMode === "GRID" && spec.k && !Array.isArray(spec.l && spec.l[10])) {
     const columns = Math.max(1, (spec.l && spec.l[9]) || 1);
     const cells = spec.k.map((childSpec, index) => ({ childSpec, child: node.children[index] }))
       .filter(({ childSpec, child }) => child && !childSpec.p);

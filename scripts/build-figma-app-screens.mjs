@@ -70,6 +70,31 @@ for (const source of [fixture, anonymousFixture]) {
 }
 if (anonymousFixture.fixture?.theme !== fixture.fixture?.theme) fail("두 측정 fixture 의 테마가 다릅니다 — 보드 색 모드는 하나다");
 
+// **자산 이미지(2026-09-28).** 제품 `<img src>` 는 그림이 파일이라 측정에 모양이 없고, 렌더러가 빈 상자로 그렸다 — 인증 화면
+// 브랜드 패널 · 카드 위의 로고가 통째로 빠졌다(캡처로 확인). src 를 LOUIS 90 · 자산의 컴포넌트에 잇는다. 이름은 여기 적되 id 와
+// 실재는 라이브 자산 목록(`figma/live-assets.json`)이 증거다 — 없으면 멈춘다. 여기 없는 src 는 지금처럼 빈 상자로 남는다
+// (`/icons/youtube.svg` 는 `<img>` 라 제 색으로 그려지는데 `icon/youtube` 의 색을 대조하지 않아 아직 잇지 않았다).
+const IMAGE_COMPONENTS = {
+  "/klipse-dark.svg": "logo/klipse-dark",
+  "/klipse-light.svg": "logo/klipse-light",
+  "/icons/aws-logo.svg": "icon/aws-logo",
+};
+const liveAssets = JSON.parse(readFileSync(resolve(repoRoot, "figma/live-assets.json"), "utf8"));
+const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, name]) => {
+  const hits = Object.values(liveAssets.components ?? {}).filter((entry) => entry.name === name || entry.name.startsWith(`${name} (`));
+  if (hits.length !== 1) fail(`자산 이미지 ${src} 의 컴포넌트 «${name}» 가 figma/live-assets.json 에 ${hits.length}개입니다 — 하나여야 합니다`);
+  return [src, { id: hits[0].id, name: hits[0].name }];
+}));
+// spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
+const attachImageComponents = (node, unmapped) => {
+  if (node.tag === "img" && node.src) {
+    const component = imageComponentBySrc.get(node.src);
+    if (component) node.imageComponent = component;
+    else unmapped.push({ path: node.path, src: node.src, rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
+  }
+  for (const child of node.children ?? []) attachImageComponents(child, unmapped);
+};
+
 // **색 변수의 컬렉션 · 모드(2026-09-14).** 렌더러는 측정 색과 값이 같은 라이브 변수를 찾아 묶는다. 그 컬렉션은 되읽기
 // (`figma/readback.json`)에 있는 라이브 셋 가운데 색을 담는 둘이고(은퇴한 컬렉션이 되읽기에 남아 있으면
 // 공용 헬퍼 `RETIRED_COLLECTIONS` 대조가 멈춘다), 모드는 측정 테마가 정한다 — fixture 는 light 문맥에서 잰다(`fixture.theme`, 화면마다 `theme`).
@@ -337,8 +362,14 @@ const slimNode = (node) => ({
       node.layout.align.primaryAxis ?? "",
       node.layout.wrap ? 1 : 0,
       node.layout.columns ?? 0,
+      // 늘어난 grid 행(figma-tree-spec gridSingleRow) — 있을 때만 11번째 칸으로 싣는다(없는 보드의 payload 는 그대로다).
+      ...(node.layout.rows ? [node.layout.rows] : []),
     ],
   } : {}),
+  // grid 칸 안 정렬 [가로, 세로] — 한 줄 grid 에서 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
+  ...(node.gridAlign ? { ga: [node.gridAlign.horizontal ?? "", node.gridAlign.vertical ?? ""] } : {}),
+  // 자산 이미지 — `<img src>` 가 이어진 LOUIS 컴포넌트 [id, 이름](IMAGE_COMPONENTS).
+  ...(node.imageComponent ? { im: [node.imageComponent.id, node.imageComponent.name] } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),
   // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
   // **세 번째 칸은 라벨이다** — 컴포넌트가 노출한 TEXT 슬롯을 채울 글자. 라벨이 없는 인스턴스
@@ -422,6 +453,10 @@ let totalUnresolved = 0;
 let totalShells = 0;
 let totalShellGaps = 0;
 let totalGlyphs = 0;
+let totalImageInstances = 0;
+let totalGridRows = 0;
+const countImageComponents = (node) => (node.imageComponent ? 1 : 0)
+  + (node.children ?? []).reduce((sum, child) => sum + countImageComponents(child), 0);
 let totalSizingReconciled = 0;
 let totalAutoMarginCentred = 0;
 let totalMarginWrapped = 0;
@@ -915,6 +950,11 @@ for (const screen of SCREENS) {
     // 사라진 글리프는 payload 에 나오지 않으므로 이름을 붙일 일도 없다.
     const glyphs = applyGlyphIdentity(spec, `${screen.route} @ ${context.id}`);
     totalGlyphs += glyphs;
+    // 자산 이미지도 치환 «뒤에» 잇는다 — 셸 안으로 사라진 로고(사이드바 워드마크)는 셸 컴포넌트가 그린다.
+    const unmappedImages = [];
+    attachImageComponents(spec, unmappedImages);
+    totalImageInstances += countImageComponents(spec);
+    totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
     const sizingFix = reconcileFigmaSizing(spec);
     const autoMarginCentred = centreAutoMargins(spec);
@@ -968,6 +1008,10 @@ for (const screen of SCREENS) {
         ...(stats.verticalWrap.length ? { verticalWrap: stats.verticalWrap } : {}),
         // 한 줄짜리 인라인 흐름의 줄 상자(strut)를 패딩으로 옮긴 자리(figma-tree-spec 의 lineBoxSlack 주석).
         ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
+        // 한 줄 grid 의 늘어난 행(FIXED)과 칸 안 정렬(figma-tree-spec 의 gridSingleRow 주석).
+        ...(stats.gridRows.length ? { gridRows: stats.gridRows } : {}),
+        // LOUIS 자산에 잇지 못해 빈 상자로 남은 `<img>`(IMAGE_COMPONENTS 주석).
+        ...(unmappedImages.length ? { unmappedImages } : {}),
         // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자 ·
         // 풀지 못한 HUG 부모 · FILL 자식(UNRESOLVED_FILL_IN_HUG_BY_PARENT 가 부모 · 축마다 수를 잠근다).
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
@@ -1332,5 +1376,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

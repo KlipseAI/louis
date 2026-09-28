@@ -273,9 +273,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [] };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [] };
 
-  const convert = (node, parent) => {
+  // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
+  const convert = (node, parent, inStretchedRow = false) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
 
     // grid 부모 안에서 이 자식이 놓인 열 — 자식 순번이 아니라 자동 배치로 푼다(형제 · 흐름 · 명시 배치를 본다).
@@ -303,7 +304,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
     }
 
     const rawChildren = childrenOf.get(node.path) ?? [];
-    let children = rawChildren.map((child) => convert(child, node)).filter(Boolean);
+    // 한 줄 grid 의 행이 바깥 높이로 늘어났는가 — 칸 안의 grid 에 알려야 하므로 자식보다 먼저 판정한다.
+    const stretchedRow = gridStretchedRow(node, node.style ?? {}, sizing, rawChildren, inStretchedRow);
+    let children = rawChildren.map((child) => convert(child, node, stretchedRow != null)).filter(Boolean);
     // 글자와 요소 자식을 함께 가진 노드는 글자를 자식으로 떼어낸다(splitOwnText 주석 참조).
     const split = splitOwnText(node, children);
     if (split) { children = split; stats.textSplits += 1; }
@@ -316,6 +319,14 @@ export function toFigmaTreeSpec(tree, options = {}) {
     const layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
     if (style.flexWrap === "wrap" && layoutMode !== "HORIZONTAL" && layoutMode !== "NONE") {
       stats.verticalWrap.push({ path: node.path, layoutMode });
+    }
+    // 한 줄짜리 grid 의 늘어난 행과 칸 안 정렬(gridSingleRow 주석).
+    const gridRow = layoutMode === "GRID"
+      ? gridSingleRow(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
+      : null;
+    if (gridRow) {
+      children = gridRow.children;
+      stats.gridRows.push({ path: node.path, rows: gridRow.rows, aligned: gridRow.aligned });
     }
     stats.kept += 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
@@ -335,6 +346,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // **아이콘의 정체.** `<svg>` 일 때만. 자손 도형은 바로 아래에서 버려지므로, 버리기 전에
       // 서명을 떠서 붙인다. 이것이 없으면 아이콘은 크기만 남은 빈 상자가 된다.
       glyph: glyphSignature(node, childrenOf),
+      // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
+      ...(node.tag === "img" && node.src ? { src: node.src } : {}),
       sizing,
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint: paintOf(style),
@@ -387,6 +400,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // 4열 카드가 2열로 접힌다. 열 수는 선언된 `grid-template-columns`를 펼쳐 센다(computed는
         // 이미 px로 풀려 `repeat()`을 복원할 수 없지만 트랙 개수는 그대로 살아 있다).
         columns: layoutMode === "GRID" ? gridColumns(node, style) : null,
+        // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 없으면 null.
+        rows: gridRow?.rows ?? null,
         align: {
           counterAxis: liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
           primaryAxis: cssJustifyToFigma(style.justifyContent),
@@ -661,6 +676,97 @@ function typographyOf(style) {
     size, weight, lineHeight, letterSpacing,
     color: cssColorToHex(style.color),
     align: /^(center|right|justify)$/.test(style.textAlign ?? "") ? style.textAlign : null,
+  };
+}
+
+/**
+ * **한 줄짜리 grid 의 행이 바깥 높이로 늘어났는가(2026-09-28).** 늘어났으면 브라우저가 푼 트랙 높이, 아니면 null.
+ *
+ * CSS grid 는 행 템플릿이 없으면 행이 auto 인데, 컨테이너가 내용보다 높으면(`min-height` · 부모가 늘인 칸) 남는 높이를
+ * auto 행에 나눠 주고(`align-content: normal`), 자식은 `align-items` · `justify-items`(`place-items`)로 그 칸 안에 선다.
+ * 렌더러는 행을 늘 HUG(내용 높이)로 깔아서, 늘어난 행 가운데 서던 인증 카드가 위로 붙고 로그인 브랜드 패널(1040)이 내용
+ * 높이(약 420)로 접혔다(캡처로 확인). Figma 는 HUG 컨테이너에 FLEX 행을 허락하지 않으므로 늘어난 행은 FIXED 로 깐다.
+ *
+ * **늘어남은 자식 높이로 판정하지 않는다.** `align-items: stretch` 인 자식은 측정에서 이미 행 높이로 늘어나 있어 「행이 자식보다
+ * 높은가」는 늘어난 행을 놓친다. 늘어남의 출처는 `min-height` 를 가진 컨테이너 하나이고, 그 늘어난 행의 칸에서 세로 FILL 로 늘어난
+ * grid 만 이어받는다(로그인 오른쪽 판). 세로 FILL 만으로는 늘어났다고 보지 않는다 — 내용 높이인 부모 안의 FILL 은 행도 내용
+ * 높이다(요금제 카드 격자 · 구독 정보 dl 이 그렇다). 트랙은 내용 상자 높이와 같아야 한다(한 줄이 그 높이를 다 받았다).
+ */
+function gridStretchedRow(node, style, sizing, rawChildren, inStretchedRow) {
+  if (!/grid/.test(style.display ?? "")) return null;
+  const columns = parseTracks(style.gridTemplateColumns)?.map(px);
+  const rows = parseTracks(style.gridTemplateRows)?.map(px);
+  if (!columns?.length || columns.some((value) => value == null) || rows?.length !== 1 || rows[0] == null) return null;
+  const flow = rawChildren.filter((child) => isVisible(child) && !/^(absolute|fixed)$/.test(child.style?.position ?? ""));
+  if (flow.length === 0 || flow.length > columns.length) return null;
+  const contentHeight = node.rect.height - (px(style.paddingTop) ?? 0) - (px(style.paddingBottom) ?? 0)
+    - (px(style.borderTopWidth) ?? 0) - (px(style.borderBottomWidth) ?? 0);
+  if (Math.abs(rows[0] - contentHeight) > 1) return null;
+  const fromOutside = Boolean(sizing.minHeight) || (inStretchedRow && sizing.layoutSizingVertical === "FILL");
+  return fromOutside ? Math.round(rows[0] * 100) / 100 : null;
+}
+
+/**
+ * **한 줄짜리 grid 의 칸 안 정렬.** 좌표로 판정한다 — `justify-items` 는 측정 축에 없고, 칸과 자식의 rect 가 결과 그 자체다.
+ * 칸을 채운 축(여유 1px 이하)은 정렬이 뜻이 없어 싣지 않는다. 세로 정렬은 행이 늘어났을 때만 싣는다 — 늘지 않은 행에서 낮은
+ * 칸은 stretch 이고 렌더러의 행 맞춤(높은 칸 HUG · 낮은 칸 FILL)이 맡는다. 여러 줄 grid · 명시 배치 · margin 있는 자식은
+ * 좌표만으로 칸을 되짚을 수 없어 건드리지 않는다.
+ *
+ * @returns {null | {rows: number[] | null, aligned: number, children: object[]}}
+ */
+function gridSingleRow(node, style, stretchedRow, children, declaredOf) {
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  const columns = parseTracks(style.gridTemplateColumns)?.map(px);
+  const rows = parseTracks(style.gridTemplateRows)?.map(px);
+  if (flow.length === 0 || !columns?.length || columns.some((value) => value == null)) return null;
+  if (flow.length > columns.length || rows?.length !== 1 || rows[0] == null) return null;
+  const placed = (child) => {
+    const declared = declaredOf(child);
+    return Boolean(declared["grid-column"] || declared["grid-row"] || declared["grid-area"]);
+  };
+  const margined = (child) => child.margin && (child.margin.top || child.margin.right || child.margin.bottom || child.margin.left);
+  if (flow.some((child) => placed(child) || margined(child))) return null;
+  const left = node.rect.x + (px(style.paddingLeft) ?? 0) + (px(style.borderLeftWidth) ?? 0);
+  const top = node.rect.y + (px(style.paddingTop) ?? 0) + (px(style.borderTopWidth) ?? 0);
+  const gap = px(style.columnGap ?? style.gap) ?? 0;
+  const stretched = stretchedRow != null;
+  // 한 축의 자리 — 칸을 채웠으면(여유 1px 이하) null, 가운데 · 시작 · 끝이면 그 값, 셋 다 아니면 null(설명 못 한 여유).
+  const place = (start, size, cellStart, cellSize) => {
+    if (cellSize - size <= 1) return null;
+    const before = start - cellStart;
+    const after = cellStart + cellSize - (start + size);
+    if (Math.abs(before - after) <= 1) return "CENTER";
+    if (before <= 1) return "MIN";
+    if (after <= 1) return "MAX";
+    return null;
+  };
+  let aligned = 0;
+  let cellLeft = left;
+  const byChild = new Map();
+  flow.forEach((child, index) => {
+    const horizontal = place(child.rect.x, child.rect.width, cellLeft, columns[index]);
+    const vertical = stretched ? place(child.rect.y, child.rect.height, top, rows[0]) : null;
+    cellLeft += columns[index] + gap;
+    if (horizontal || vertical) {
+      byChild.set(child, { horizontal, vertical });
+      aligned += 1;
+    }
+  });
+  if (!stretched && aligned === 0) return null;
+  return {
+    rows: stretched ? [stretchedRow] : null,
+    aligned,
+    children: children.map((child) => {
+      const gridAlign = byChild.get(child);
+      if (!gridAlign) return child;
+      // 늘어난 행 안에서 여유를 남긴 자식은 늘어나지 않았다 — 세로 FILL 이면 정렬이 먹지 않으므로 HUG 로 둔다.
+      const hugs = gridAlign.vertical && child.sizing.layoutSizingVertical === "FILL" && (child.layout || child.text);
+      return {
+        ...child,
+        gridAlign,
+        ...(hugs ? { sizing: { ...child.sizing, layoutSizingVertical: "HUG" } } : {}),
+      };
+    }),
   };
 }
 

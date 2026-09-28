@@ -366,7 +366,11 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint: paintOf(style),
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
-      typography: (!split && (node.ownText || node.ownTextLines?.length)) ? typographyOf(style) : null,
+      // 떠 있는 한 줄 라벨은 정렬을 싣지 않는다 — 글자 폭 상자라 제품에서 `text-align` 은 뜻이 없는데, Figma 의 폭 자동 글자는
+      // 가운데 정렬이면 텍스트 스타일이 뒤늦게 걸릴 때 양쪽으로 자라 왼쪽 끝이 밀린다(로그인 모바일 「Password」 x 33 → 28, 캡처로 확인).
+      typography: (!split && (node.ownText || node.ownTextLines?.length))
+        ? (floatingLine ? { ...typographyOf(style), align: null } : typographyOf(style))
+        : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
       // 흐름에 끼어든다. 실측 사고: `/settings` 사이드바는 `position:fixed`라 흐름에서 빠지고 메인이
       // x=280부터 시작하는데, 이 정보를 잃자 부모가 column이라는 이유로 사이드바 아래에 메인이

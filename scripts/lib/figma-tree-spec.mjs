@@ -329,6 +329,20 @@ export function toFigmaTreeSpec(tree, options = {}) {
       stats.gridRows.push({ path: node.path, rows: gridRow.rows, aligned: gridRow.aligned });
     }
     stats.kept += 1;
+    // **떠 있는 한 줄 글자는 글자 폭이다(2026-09-28).** 절대 배치 글자(입력칸의 떠 있는 라벨)를 측정 폭 그대로 FIXED 로 두면 Figma
+    // 글꼴이 조금 넓게 그리는 순간 줄이 꺾인다(`/recover` 「이메일」 → 「이메 / 일」, 조립 규칙 28조). 폭 선언이 없는 절대 배치 상자는
+    // 브라우저에서도 글자 폭으로 줄어드는 상자라(`text-align` 은 그 안에서 뜻이 없다) 한 줄이면 HUG 로 둔다.
+    const declaredWidth = node.declared?.width;
+    const floatingLine = decision.absolute && node.ownText && children.length === 0
+      && (!declaredWidth || declaredWidth === "auto")
+      && (() => {
+        const lineHeight = px(style.lineHeight);
+        return !lineHeight || Math.round(node.rect.height / lineHeight) <= 1;
+      })();
+    const nodeSizing = floatingLine
+      ? { ...sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" }
+      : sizing;
+    if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
     const clearBorder = clearBorderPadding(style);
     if (slack) stats.lineBoxSlack.push({ path: node.path, ...slack });
@@ -348,7 +362,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
       glyph: glyphSignature(node, childrenOf),
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
       ...(node.tag === "img" && node.src ? { src: node.src } : {}),
-      sizing,
+      sizing: nodeSizing,
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
       paint: paintOf(style),
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
@@ -775,8 +789,12 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
     if (horizontal && sizing.layoutSizingHorizontal === "FILL") {
       const capped = sizing.maxWidth && Math.abs(child.rect.width - sizing.maxWidth) <= 1;
       if (!capped) {
-        if (hugsTo(child, "horizontal")) sizing.layoutSizingHorizontal = "HUG";
-        else horizontal = null;
+        if (hugsTo(child, "horizontal")) {
+          sizing.layoutSizingHorizontal = "HUG";
+          // 글자는 세로도 HUG 여야 렌더러가 폭을 자동(WIDTH_AND_HEIGHT)으로 둔다 — 세로 FILL 이 남으면 폭 고정(HEIGHT)이 되어
+          // 새 글자 상자의 좁은 기본 폭에서 줄이 꺾였다(「Check / your / email」, 캡처로 확인).
+          if (child.text) sizing.layoutSizingVertical = "HUG";
+        } else horizontal = null;
       }
     }
     if (vertical && sizing.layoutSizingVertical === "FILL") {

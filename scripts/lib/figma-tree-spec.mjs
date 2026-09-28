@@ -320,9 +320,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
     if (style.flexWrap === "wrap" && layoutMode !== "HORIZONTAL" && layoutMode !== "NONE") {
       stats.verticalWrap.push({ path: node.path, layoutMode });
     }
-    // 한 줄짜리 grid 의 늘어난 행과 칸 안 정렬(gridSingleRow 주석).
+    // 늘어난 grid 행과 칸 안 정렬(gridStretchedRow · gridCellAlign 주석).
     const gridRow = layoutMode === "GRID"
-      ? gridSingleRow(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
+      ? gridCellAlign(node, style, stretchedRow, children, (child) => byPath.get(child.path)?.declared ?? {})
       : null;
     if (gridRow) {
       children = gridRow.children;
@@ -707,29 +707,37 @@ function gridStretchedRow(node, style, sizing, rawChildren, inStretchedRow) {
 }
 
 /**
- * **한 줄짜리 grid 의 칸 안 정렬.** 좌표로 판정한다 — `justify-items` 는 측정 축에 없고, 칸과 자식의 rect 가 결과 그 자체다.
- * 칸을 채운 축(여유 1px 이하)은 정렬이 뜻이 없어 싣지 않는다. 세로 정렬은 행이 늘어났을 때만 싣는다 — 늘지 않은 행에서 낮은
- * 칸은 stretch 이고 렌더러의 행 맞춤(높은 칸 HUG · 낮은 칸 FILL)이 맡는다. 여러 줄 grid · 명시 배치 · margin 있는 자식은
+ * **grid 칸 안 정렬.** 좌표로 판정한다 — `justify-items` 는 측정 축에 없고, 칸과 자식의 rect 가 결과 그 자체다. 칸을 되짚을 수
+ * 있는 두 모양만 본다 — 한 줄(자식 수 ≤ 열 수, 행 하나)과 한 열(열 하나, 줄 수 무관). 여러 줄 · 여러 열은 자동 배치를 되짚어야 해
+ * 건드리지 않는다. 칸을 채운 축(여유 1px 이하)은 정렬이 뜻이 없어 싣지 않는다. 세로 정렬은 늘어난 한 줄에서만 싣는다 — 늘지 않은
+ * 행에서 낮은 칸은 stretch 이고 렌더러의 행 맞춤(높은 칸 HUG · 낮은 칸 FILL)이 맡는다. 그 축에 margin 이 있는 자식과 명시 배치는
  * 좌표만으로 칸을 되짚을 수 없어 건드리지 않는다.
+ *
+ * **여유를 남긴 FILL 자식은 늘어나지 않은 것이다.** 판정기는 grid 칸의 block 자식을 FILL(stretch)로 보는데, 측정 폭이 칸보다 좁으면
+ * `justify-items: center` 같은 것이 늘이기를 이긴 것이다 — FILL 로 두면 정렬이 먹지 않아 인증 화면 모바일 로고가 왼쪽에 붙었다
+ * (캡처로 확인). 그 축을 HUG 로 돌리되, HUG 가 내용 크기로 풀리는 자리만 돌린다(자식이 모두 그 축 FILL 이 아닌 auto-layout 프레임 ·
+ * 가로는 한 줄 글자). 폭 상한(`max-width`)에 닿아 좁은 FILL 은 그대로 두고 정렬만 싣는다(오른쪽 판의 카드 `min(100%, 400px)`).
+ * 돌릴 수 없는 FILL 은 정렬도 싣지 않는다 — 칸을 채워 정렬이 뜻이 없다.
  *
  * @returns {null | {rows: number[] | null, aligned: number, children: object[]}}
  */
-function gridSingleRow(node, style, stretchedRow, children, declaredOf) {
+function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
   const columns = parseTracks(style.gridTemplateColumns)?.map(px);
   const rows = parseTracks(style.gridTemplateRows)?.map(px);
   if (flow.length === 0 || !columns?.length || columns.some((value) => value == null)) return null;
-  if (flow.length > columns.length || rows?.length !== 1 || rows[0] == null) return null;
+  const singleRow = flow.length <= columns.length && rows?.length === 1 && rows[0] != null;
+  const singleColumn = columns.length === 1;
+  if (!singleRow && !singleColumn) return null;
   const placed = (child) => {
     const declared = declaredOf(child);
     return Boolean(declared["grid-column"] || declared["grid-row"] || declared["grid-area"]);
   };
-  const margined = (child) => child.margin && (child.margin.top || child.margin.right || child.margin.bottom || child.margin.left);
-  if (flow.some((child) => placed(child) || margined(child))) return null;
+  if (flow.some(placed)) return null;
   const left = node.rect.x + (px(style.paddingLeft) ?? 0) + (px(style.borderLeftWidth) ?? 0);
   const top = node.rect.y + (px(style.paddingTop) ?? 0) + (px(style.borderTopWidth) ?? 0);
   const gap = px(style.columnGap ?? style.gap) ?? 0;
-  const stretched = stretchedRow != null;
+  const stretched = singleRow && stretchedRow != null;
   // 한 축의 자리 — 칸을 채웠으면(여유 1px 이하) null, 가운데 · 시작 · 끝이면 그 값, 셋 다 아니면 null(설명 못 한 여유).
   const place = (start, size, cellStart, cellSize) => {
     if (cellSize - size <= 1) return null;
@@ -740,15 +748,43 @@ function gridSingleRow(node, style, stretchedRow, children, declaredOf) {
     if (after <= 1) return "MAX";
     return null;
   };
+  // 그 축을 HUG 로 돌려도 내용 크기로 풀리는가.
+  const hugsTo = (child, axis) => {
+    // 글자는 세로면 늘 HUG 로 풀리고, 가로는 한 줄일 때만 — 감긴 글자를 HUG 로 두면 Figma 가 한 줄로 편다. 줄 rect 가 없는
+    // 측정(인증 · 로그아웃 원장)은 높이를 행간으로 나눠 센다.
+    if (child.text) {
+      const lineHeight = child.typography?.lineHeight;
+      const lines = child.textLines?.length ?? (lineHeight ? Math.round(child.rect.height / lineHeight) : 1);
+      return axis === "vertical" || lines <= 1;
+    }
+    if (!child.layout) return false;
+    const key = axis === "horizontal" ? "layoutSizingHorizontal" : "layoutSizingVertical";
+    return (child.children ?? []).every((kid) => kid.positioning === "ABSOLUTE" || kid.sizing?.[key] !== "FILL");
+  };
   let aligned = 0;
   let cellLeft = left;
-  const byChild = new Map();
+  const fixes = new Map();
   flow.forEach((child, index) => {
-    const horizontal = place(child.rect.x, child.rect.width, cellLeft, columns[index]);
-    const vertical = stretched ? place(child.rect.y, child.rect.height, top, rows[0]) : null;
-    cellLeft += columns[index] + gap;
+    const column = singleColumn ? 0 : index;
+    const cellStart = singleColumn ? left : cellLeft;
+    if (!singleColumn) cellLeft += columns[index] + gap;
+    const margin = child.margin ?? {};
+    let horizontal = margin.left || margin.right ? null : place(child.rect.x, child.rect.width, cellStart, columns[column]);
+    let vertical = !stretched || margin.top || margin.bottom ? null : place(child.rect.y, child.rect.height, top, rows[0]);
+    const sizing = { ...child.sizing };
+    if (horizontal && sizing.layoutSizingHorizontal === "FILL") {
+      const capped = sizing.maxWidth && Math.abs(child.rect.width - sizing.maxWidth) <= 1;
+      if (!capped) {
+        if (hugsTo(child, "horizontal")) sizing.layoutSizingHorizontal = "HUG";
+        else horizontal = null;
+      }
+    }
+    if (vertical && sizing.layoutSizingVertical === "FILL") {
+      if (hugsTo(child, "vertical")) sizing.layoutSizingVertical = "HUG";
+      else vertical = null;
+    }
     if (horizontal || vertical) {
-      byChild.set(child, { horizontal, vertical });
+      fixes.set(child, { gridAlign: { horizontal, vertical }, sizing });
       aligned += 1;
     }
   });
@@ -757,15 +793,8 @@ function gridSingleRow(node, style, stretchedRow, children, declaredOf) {
     rows: stretched ? [stretchedRow] : null,
     aligned,
     children: children.map((child) => {
-      const gridAlign = byChild.get(child);
-      if (!gridAlign) return child;
-      // 늘어난 행 안에서 여유를 남긴 자식은 늘어나지 않았다 — 세로 FILL 이면 정렬이 먹지 않으므로 HUG 로 둔다.
-      const hugs = gridAlign.vertical && child.sizing.layoutSizingVertical === "FILL" && (child.layout || child.text);
-      return {
-        ...child,
-        gridAlign,
-        ...(hugs ? { sizing: { ...child.sizing, layoutSizingVertical: "HUG" } } : {}),
-      };
+      const fix = fixes.get(child);
+      return fix ? { ...child, gridAlign: fix.gridAlign, sizing: fix.sizing } : child;
     }),
   };
 }

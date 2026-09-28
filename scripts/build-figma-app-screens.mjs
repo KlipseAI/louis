@@ -362,11 +362,11 @@ const slimNode = (node) => ({
       node.layout.align.primaryAxis ?? "",
       node.layout.wrap ? 1 : 0,
       node.layout.columns ?? 0,
-      // 늘어난 grid 행(figma-tree-spec gridSingleRow) — 있을 때만 11번째 칸으로 싣는다(없는 보드의 payload 는 그대로다).
+      // 늘어난 grid 행(figma-tree-spec gridStretchedRow) — 있을 때만 11번째 칸으로 싣는다(없는 보드의 payload 는 그대로다).
       ...(node.layout.rows ? [node.layout.rows] : []),
     ],
   } : {}),
-  // grid 칸 안 정렬 [가로, 세로] — 한 줄 grid 에서 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
+  // grid 칸 안 정렬 [가로, 세로](figma-tree-spec gridCellAlign) — 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
   ...(node.gridAlign ? { ga: [node.gridAlign.horizontal ?? "", node.gridAlign.vertical ?? ""] } : {}),
   // 자산 이미지 — `<img src>` 가 이어진 LOUIS 컴포넌트 [id, 이름](IMAGE_COMPONENTS).
   ...(node.imageComponent ? { im: [node.imageComponent.id, node.imageComponent.name] } : {}),
@@ -1008,7 +1008,7 @@ for (const screen of SCREENS) {
         ...(stats.verticalWrap.length ? { verticalWrap: stats.verticalWrap } : {}),
         // 한 줄짜리 인라인 흐름의 줄 상자(strut)를 패딩으로 옮긴 자리(figma-tree-spec 의 lineBoxSlack 주석).
         ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
-        // 한 줄 grid 의 늘어난 행(FIXED)과 칸 안 정렬(figma-tree-spec 의 gridSingleRow 주석).
+        // 늘어난 grid 행(FIXED)과 칸 안 정렬(figma-tree-spec 의 gridStretchedRow · gridCellAlign 주석).
         ...(stats.gridRows.length ? { gridRows: stats.gridRows } : {}),
         // LOUIS 자산에 잇지 못해 빈 상자로 남은 `<img>`(IMAGE_COMPONENTS 주석).
         ...(unmappedImages.length ? { unmappedImages } : {}),

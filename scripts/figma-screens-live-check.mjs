@@ -168,13 +168,16 @@ function expectedBoards() {
       const wantsSurface = Boolean(spec.f || spec.b || spec.d != null || spec.e);
       const textInSurface = Boolean(spec.x) && !spec.k && wantsSurface;
       const isText = Boolean(spec.x) && !spec.k && !wantsSurface;
-      const type = isText ? "TEXT" : spec.i ? "INSTANCE" : "FRAME";
+      // 자산 이미지(`im`)도 인스턴스다 — 세트가 없는 낱개 컴포넌트라 탐침은 세트 · variant 칸에 둘 다 컴포넌트 이름을 적는다.
+      const type = isText ? "TEXT" : spec.i || spec.im ? "INSTANCE" : "FRAME";
       const name = isRoot ? generatedName
         : spec.i ? `shell/${spec.i[0]} · ${spec.i[1]}${labelSuffix(spec.i[2])}`
-          : (spec.w ? "pending " : "") + spec.t + (spec.v ? ` ${spec.v}` : "")
+          : (spec.w ? "pending " : "") + spec.t + (spec.v ? ` ${spec.v}` : "") + (spec.im ? ` ${spec.im[1].split(" (")[0]}` : "")
             + (spec.x ? ` ${String(spec.x).slice(0, 18)}` : "") + ` ${spec.s}`;
       names.push(`${type}:${name}`);
-      if (type === "INSTANCE") {
+      if (type === "INSTANCE" && spec.im) {
+        instances.push({ set: spec.im[1], variant: spec.im[1], text: {}, textNames: [], image: true });
+      } else if (type === "INSTANCE") {
         const label = spec.i[2];
         const text = label == null ? {}
           : typeof label === "object" ? Object.fromEntries(Object.entries(label).filter(([, value]) => value != null))
@@ -217,7 +220,7 @@ if (emitting && args.includes("--consumers")) {
     if (!page) fail("--sets 에는 --page <PAGE_ID> 가 필요합니다(세트는 90 · 자산 과 DS · Components 에 흩어져 있다).");
     const wanted = {};
     for (const board of boards) {
-      for (const entry of board.instances) (wanted[entry.set] ??= new Set()).add(entry.variant);
+      for (const entry of board.instances) if (!entry.image) (wanted[entry.set] ??= new Set()).add(entry.variant);
     }
     const payload = Object.fromEntries(Object.entries(wanted).map(([set, variants]) => [set, [...variants].sort()]));
     // 상단 바 두 세트는 variant 마다 Auto Layout 축도 뜬다 — 앱 셸 plan 의 `layoutContract` 와 대조한다(L-8).
@@ -683,6 +686,7 @@ function runCheck() {
     const textWanted = {};
     for (const board of boards) {
       for (const entry of board.instances) {
+        if (entry.image) continue; // 자산 이미지는 세트가 아니다
         (wanted[entry.set] ??= new Set()).add(entry.variant);
         if (entry.textNames.length) (textWanted[entry.set] ??= new Set()).add(JSON.stringify(entry.textNames));
       }

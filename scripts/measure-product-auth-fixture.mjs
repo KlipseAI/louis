@@ -110,6 +110,11 @@ const MEASURE_ATTEMPTS = 3;
 //     id       생성물의 화면 키. 같은 라우트의 상태들을 구분한다.
 const ROUTES = [
   "/archive",
+  // **허브 셋(`/nodecanvas` · `/videoeditor` · `/highlight`)은 이 fixture 로 잴 수 없다(2026-09-28 실측).** 셋 다 서버 컴포넌트에서
+  // `supabase.auth.getUser()` 로 사용자를 확인하고 없으면 `redirect("/")` 한다(앵커 `nodecanvas/page.tsx:22 · 26`,
+  // `videoeditor/page.tsx:14 · 18`, `highlight/page.tsx:14 · 18`). 인증 우회(`NEXT_PUBLIC_DEV_AUTH_BYPASS`)는 브라우저 쪽이라 서버 확인을
+  // 통과하지 못한다 — 더해서 재 보니 셋 다 `redirected: true` 로 랜딩이 재졌다. 잴 길은 서버가 받는 가짜 세션(Supabase 인증 응답을 흉내
+  // 내는 로컬 서버)이다. 편집기 · 하이라이트 결과 화면도 같은 벽이다.
   "/settings",
   "/subscription",
   "/analytics/youtube",

@@ -80,6 +80,8 @@ const colour = liveColour.assertBindings({
 // 같은 화면을 두 번 그리게 된다.
 const SCREENS = [
   { route: "/archive", desktop: "20:2", mobile: "23:2" },
+  // 허브 셋(`/nodecanvas` 219:2917 · 219:3209, `/videoeditor` 219:3403 · 219:3701, `/highlight` 29:3 · 29:44)은 여기 없다 — 서버 인증
+  // 확인으로 fixture 에서 랜딩으로 넘어가 잴 수 없다(측정기 ROUTES 주석, 2026-09-28). 보드는 아직 손 조립이다(섹션 머리글 ⚠).
   { route: "/settings", desktop: "28:3", mobile: "28:44" },
   { route: "/subscription", desktop: "190:1172", mobile: "190:1497" },
   { route: "/analytics/youtube", desktop: "30:3", mobile: "30:33" },

@@ -51,16 +51,24 @@ const checkOnly = process.argv.includes("--check");
 const fail = (message) => { throw new Error(`[figma-app-screens] ${message}`); };
 
 const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
+// **로그아웃 원장(2026-09-28).** 인증 화면 · 404 · 짧은 공개 화면은 인증 우회 없이 잰 `product.anonymous-fixture.json` 에 있다
+// (`measure-product-auth-fixture.mjs --anonymous`). 화면 항목의 `fixture: "anonymous"` 가 그 원장을 고른다. 스타일 id 는 값의 해시라
+// 두 원장의 표가 섞여도 같은 id 는 같은 값이다.
+const anonymousFixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.anonymous-fixture.json"), "utf8"));
+const fixtureOf = (screen) => (screen.fixture === "anonymous" ? anonymousFixture : fixture);
 const recipes = JSON.parse(readFileSync(recipesPath, "utf8"));
 const readback = JSON.parse(readFileSync(readbackPath, "utf8"));
 // 제품 원장과 측정 fixture 가 같은 커밋을 봐야 한다. 어긋나면 「제품이 이 자리에서 무는
 // 클래스」를 어제의 제품에서 읽고 오늘의 화면에 심는 것이 된다.
-if (recipes.productCommit !== fixture.productCommit) {
-  fail(
-    `제품 레시피 원장의 커밋(${String(recipes.productCommit).slice(0, 8)})이 측정 fixture 의 ` +
-    `${String(fixture.productCommit).slice(0, 8)} 와 다릅니다.`,
-  );
+for (const source of [fixture, anonymousFixture]) {
+  if (recipes.productCommit !== source.productCommit) {
+    fail(
+      `제품 레시피 원장의 커밋(${String(recipes.productCommit).slice(0, 8)})이 측정 fixture(${source.$evidenceClass})의 ` +
+      `${String(source.productCommit).slice(0, 8)} 와 다릅니다.`,
+    );
+  }
 }
+if (anonymousFixture.fixture?.theme !== fixture.fixture?.theme) fail("두 측정 fixture 의 테마가 다릅니다 — 보드 색 모드는 하나다");
 
 // **색 변수의 컬렉션 · 모드(2026-09-14).** 렌더러는 측정 색과 값이 같은 라이브 변수를 찾아 묶는다. 그 컬렉션은 되읽기
 // (`figma/readback.json`)에 있는 라이브 셋 가운데 색을 담는 둘이고(은퇴한 컬렉션이 되읽기에 남아 있으면
@@ -82,6 +90,18 @@ const SCREENS = [
   { route: "/archive", desktop: "20:2", mobile: "23:2" },
   // 허브 셋(`/nodecanvas` 219:2917 · 219:3209, `/videoeditor` 219:3403 · 219:3701, `/highlight` 29:3 · 29:44)은 여기 없다 — 서버 인증
   // 확인으로 fixture 에서 랜딩으로 넘어가 잴 수 없다(측정기 ROUTES 주석, 2026-09-28). 보드는 아직 손 조립이다(섹션 머리글 ⚠).
+  // **로그아웃 화면(2026-09-28).** 손 조립 · 옛 캡처였던 인증 화면 아홉 · 데이터 삭제 상태 · 404 를 로그아웃 원장에서 그린다.
+  { route: "/login", desktop: "24:3", mobile: "24:19", fixture: "anonymous" },
+  { route: "/signup", desktop: "187:1152", mobile: "187:1230", fixture: "anonymous" },
+  { route: "/aws/signup", desktop: "187:1300", mobile: "187:1387", fixture: "anonymous" },
+  { route: "/signup/check-email", desktop: "184:1131", mobile: "184:1188", fixture: "anonymous" },
+  { route: "/signup/expired", desktop: "184:1237", mobile: "184:1292", fixture: "anonymous" },
+  { route: "/signup/verified", desktop: "184:1339", mobile: "184:1394", fixture: "anonymous" },
+  { route: "/reset-password", desktop: "185:1142", mobile: "185:1202", fixture: "anonymous" },
+  { route: "/reset-password/new", desktop: "185:1254", mobile: "185:1317", fixture: "anonymous" },
+  { route: "/recover", desktop: "188:1166", mobile: "188:1184", fixture: "anonymous" },
+  { route: "/data-deletion-status", desktop: "214:2965", mobile: "214:2980", fixture: "anonymous" },
+  { route: "404", desktop: "37:3", mobile: "37:10", fixture: "anonymous" },
   { route: "/settings", desktop: "28:3", mobile: "28:44" },
   { route: "/subscription", desktop: "190:1172", mobile: "190:1497" },
   { route: "/analytics/youtube", desktop: "30:3", mobile: "30:33" },
@@ -860,13 +880,14 @@ const partContent = [];
 }
 
 for (const screen of SCREENS) {
+  const source = fixtureOf(screen);
   for (const context of CONTEXTS) {
-    const measured = fixture.screens[context.id]?.[screen.route];
+    const measured = source.screens[context.id]?.[screen.route];
     if (!measured?.tree?.length) fail(`측정 트리가 없습니다: ${screen.route} @ ${context.id}`);
     if (measured.theme !== measuredTheme) fail(`화면 테마 ${measured.theme} 가 fixture 테마 ${measuredTheme} 와 다릅니다: ${screen.route} @ ${context.id}`);
     if (measured.redirected) fail(`리다이렉트된 route는 대상이 아닙니다: ${screen.route}`);
 
-    const tree = normalizeAuthFixtureTree(measured.tree, fixture.computedStyles);
+    const tree = normalizeAuthFixtureTree(measured.tree, source.computedStyles);
     const { spec, stats } = toFigmaTreeSpec(tree, {
       rootPath: measured.rootPath,
       contextId: context.id,
@@ -877,7 +898,7 @@ for (const screen of SCREENS) {
     // 과정에서 판정에 필요한 축(min-width·column-gap·box-shadow)이 사라진다 — `parseBoxShadow` 는 2026-09-26 까지
     // `color(srgb …)` 표기를 읽지 못해 헤어라인이 통째로 없어졌다(지금은 읽고, 안쪽 링은 획으로 옮긴다).
     // 그래서 spec 이 들고 있는 `path` 로 fixture 의 원래 계산 스타일을 다시 본다.
-    const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
+    const styleById = new Map(source.computedStyles.map((entry) => [entry.id, entry.value]));
     const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
     // 선언(`declared`)도 경로로 되찾는다 — 사이드바는 폭 수가 아니라 폭 선언으로 찾는다(figma-component-substitution.mjs).
     const declaredByPath = new Map(measured.tree.map((node) => [node.path, node.declared ?? null]));

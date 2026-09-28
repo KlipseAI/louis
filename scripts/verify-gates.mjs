@@ -1804,6 +1804,19 @@ withCanary(
   "--check",
 );
 
+// ── display: contents 재부모 카나리아(2026-09-28) ───────────────────────────
+// 측정기는 `display: contents` 요소를 싣지 않고 그 자식의 `parentPath` 를 가장 가까운 보이는 조상으로 적는다. 생성기가 경로를
+// 잘라 부모를 구하던 동안 로그아웃 인증 화면 모바일 여덟 장이 조용히 빈 보드로 생성됐다(측정 23 중 3 만 남았다).
+// `parentPath` 를 버리고 경로를 자르게 되돌리면 고아 가드가 생성기를 멈추는지 본다.
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace('const parentPath = typeof node.parentPath === "string"', "const parentPath = false"),
+  "figma tree spec: display: contents 자식을 경로로 부모에 붙이는 조립",
+  "scripts/build-figma-app-screens.mjs",
+  "부모를 트리에서 찾지 못한 노드",
+  "--check",
+);
+
 // 바깥 링(선택 표시, `0 0 0 Npx`)을 바깥 획으로 옮기는 풀이를 지우면 그림자로 남는다 — Figma 는 자르지 않는 프레임에서 그림자 퍼짐을
 // 그리지 않아 링이 사라진다(쿠폰 요금제 카드 Lite). 부품 러너 대조가 무는지 본다.
 withCanary(

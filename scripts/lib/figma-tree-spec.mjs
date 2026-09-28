@@ -62,24 +62,53 @@ export function normalizeAuthFixtureTree(tree, computedStyles) {
   });
 }
 
-/** 측정 트리(평탄 배열)를 path 기준 계층으로 되돌린다. */
+/**
+ * 측정 트리(평탄 배열)를 계층으로 되돌린다.
+ *
+ * 부모는 측정기가 적은 `parentPath` 를 따른다. `display: contents` 요소는 상자가 없어 싣지 않고, 그 자식을
+ * 가장 가까운 보이는 조상에 붙여 적는다 — 레이아웃에서도 그 자식은 조상의 흐름에 든다. 경로를 잘라 부모를
+ * 구하면 그 자식들이 없는 부모에 매달려 통째로 사라진다. 실측 사고(2026-09-28): 로그아웃 fixture 의 인증
+ * 화면 모바일 여덟 장이 측정 노드 23 중 3 만 남아 빈 보드가 됐다(인증 2열의 오른쪽 칸이 모바일에서
+ * `display: contents`). `parentPath` 가 없는 측정만 경로를 자른다.
+ *
+ * 부모를 찾지 못한 노드가 하나라도 있으면 멈춘다 — 조용히 빠진 노드는 빈 보드로 보내진다.
+ */
 export function buildHierarchy(tree, rootPath = "main") {
   const byPath = new Map(tree.map((node) => [node.path, node]));
   const childrenOf = new Map();
+  const orphans = [];
   for (const node of tree) {
-    if (node.path === rootPath) continue;
-    const parentPath = node.path.slice(0, node.path.lastIndexOf("."));
+    // 측정 루트(`parentPath: null`)는 부모가 없다. 부품처럼 화면 트리 전체를 넘기고 그 안의 가지를 루트로 삼을
+    // 때도 화면 루트가 여기로 온다.
+    if (node.path === rootPath || node.parentPath === null) continue;
+    const parentPath = typeof node.parentPath === "string"
+      ? node.parentPath
+      : node.path.slice(0, node.path.lastIndexOf("."));
+    if (!byPath.has(parentPath)) { orphans.push(`${node.path} → ${parentPath}`); continue; }
     if (!childrenOf.has(parentPath)) childrenOf.set(parentPath, []);
     childrenOf.get(parentPath).push(node);
   }
-  // 경로의 마지막 인덱스로 정렬해 문서 순서를 지킨다(문자열 정렬은 10이 2보다 앞선다).
-  for (const list of childrenOf.values()) {
-    list.sort((a, b) => {
-      const ai = Number(a.path.slice(a.path.lastIndexOf(".") + 1));
-      const bi = Number(b.path.slice(b.path.lastIndexOf(".") + 1));
-      return ai - bi;
-    });
+  if (orphans.length > 0) {
+    throw new Error(
+      `[figma-tree-spec] 부모를 트리에서 찾지 못한 노드 ${orphans.length}개 — 이대로면 그 가지가 보드에서 사라집니다: ` +
+        orphans.slice(0, 5).join(", "),
+    );
   }
+  // 문서 순서로 정렬한다 — 경로를 마디마다 수로 비교한다. 문자열 정렬은 10 이 2 보다 앞서고, 끝 마디만 보면
+  // `display: contents` 를 건너 올라온 손자가 형제 사이에서 제 자리를 잃는다.
+  const documentOrder = (a, b) => {
+    const left = a.path.split(".");
+    const right = b.path.split(".");
+    for (let i = 0; i < Math.min(left.length, right.length); i += 1) {
+      if (left[i] === right[i]) continue;
+      const l = Number(left[i]);
+      const r = Number(right[i]);
+      if (Number.isFinite(l) && Number.isFinite(r)) return l - r;
+      return left[i] < right[i] ? -1 : 1;
+    }
+    return left.length - right.length;
+  };
+  for (const list of childrenOf.values()) list.sort(documentOrder);
   return { byPath, childrenOf };
 }
 

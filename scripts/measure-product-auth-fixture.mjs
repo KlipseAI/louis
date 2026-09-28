@@ -14,7 +14,13 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
 // 기록하며, 운영 세션·실데이터 parity의 근거로 승격할 수 없도록 산출물의 evidenceClass를 고정한다.
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const outputPath = resolve(repoRoot, "migration/product.auth-fixture.json");
+// **로그아웃 모드(`--anonymous`, 2026-09-28).** 인증 화면(로그인 · 가입 · 비밀번호)은 로그인된 사용자를 `/archive` 로 보낸다
+// (앵커 `login/page.tsx:318-322` — `if (!loading && user) router.replace("/archive")`). 인증 우회 서버에서는 가짜 사용자가 있어
+// 그 화면이 재지지 않는다. 이 모드는 **우회를 끈** 서버로 `ANONYMOUS_ROUTES` 만 재 별도 원장에 쓴다 — 측정 · 안정화 · 정규화 코드는
+// 인증 fixture 와 한 벌이라 규칙이 갈라지지 않는다.
+const anonymous = process.argv.includes("--anonymous");
+const outputRelative = anonymous ? "migration/product.anonymous-fixture.json" : "migration/product.auth-fixture.json";
+const outputPath = resolve(repoRoot, outputRelative);
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const fixtureRoot =
   process.env.KLIPSE_PRODUCT_FIXTURE_ROOT ?? process.env.KLIPSE_PRODUCT_BUILD_ROOT;
@@ -176,9 +182,28 @@ const ROUTES = [
   })),
 ];
 
+// **로그아웃 모드가 재는 화면(`--anonymous`).** 로그인하지 않은 사용자가 보는 공개 화면 가운데 **한 뷰포트 안에서 끝나는** 것만 싣는다 —
+// 이 측정기는 뷰포트와 겹치는 노드만 재므로 긴 공개 페이지(랜딩 · 약관 · 요금 · 블로그 목록)는 전체 페이지 측정(장면 측정기)의 몫이다.
+// 404 는 `page.tsx` 가 없다 — 없는 경로를 열고 `file` 로 `not-found.tsx` 를 확인한다.
+const ANONYMOUS_ROUTES = [
+  "/login",
+  "/signup",
+  // AWS Marketplace 가입은 쿼리 `token` 이 없으면 `/signup` 으로 보낸다(앵커 `aws/signup/page.tsx:272` `searchParams.get("token")` ·
+  // `:316-317`). 토큰은 제출할 때만 쓰이므로 가짜 토큰으로 연 화면이 마켓플레이스에서 들어온 사용자가 보는 화면이다. 키는 라우트 그대로 둔다.
+  { pattern: "/aws/signup", url: "/aws/signup?token=fixture-aws-marketplace-token", id: "/aws/signup" },
+  "/signup/check-email",
+  "/signup/expired",
+  "/signup/verified",
+  "/reset-password",
+  "/reset-password/new",
+  "/recover",
+  "/data-deletion-status",
+  { pattern: "/fixture-no-such-page", url: "/fixture-no-such-page", id: "404", file: "apps/web/app/not-found.tsx" },
+];
+
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
 // 「의도한 search 로 끝났는가」를 물어야 하므로 빈 문자열을 못박을 수 없다.
-const SCREEN_SPECS = ROUTES.map((entry) => {
+const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -186,6 +211,7 @@ const SCREEN_SPECS = ROUTES.map((entry) => {
     id: spec.id ?? url,
     pattern: spec.pattern,
     url,
+    ...(spec.file ? { file: spec.file } : {}),
     expectedPath: target.pathname,
     expectedSearch: target.search,
   };
@@ -240,7 +266,7 @@ const sourceQuote = (path, line) => ({
 // 않는다(`/highlight/fixture-no-such-project` 라는 디렉터리는 없다).
 const routeFiles = SCREEN_SPECS.map((spec) => ({
   route: spec.id,
-  path: "apps/web/app" + spec.pattern + "/page.tsx",
+  path: spec.file ?? "apps/web/app" + spec.pattern + "/page.tsx",
 }));
 for (const routeFile of routeFiles) {
   try {
@@ -284,7 +310,9 @@ const startFixtureServer = async () => {
         ...process.env,
         PATH: dirname(process.execPath) + delimiter + (process.env.PATH ?? ""),
         NODE_ENV: "development",
-        NEXT_PUBLIC_DEV_AUTH_BYPASS: "1",
+        // 로그아웃 모드는 빈 문자열로 **끈다** — 제품은 `=== "1"` 만 켠다(AuthProvider · middleware). 셸의 환경변수나 fixture 의
+        // `.env.local` 에 켜 둔 값이 있어도 프로세스 환경이 이긴다.
+        NEXT_PUBLIC_DEV_AUTH_BYPASS: anonymous ? "" : "1",
         NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:9",
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "fixture-anon-key",
       },
@@ -1082,24 +1110,30 @@ for (const contextSpec of CONTEXTS) {
     .slice(0, 60);
 }
 
+const MEASURE_METHOD =
+  "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.";
 const payload = JSON.stringify({
-  $comment:
-    "생성물. scripts/measure-product-auth-fixture.mjs가 고정 커밋의 development-only auth bypass를 켠 clean Next dev server에서 보호 route 기본 상태를 직접 렌더한다. 직접 수정하지 않는다.",
-  $evidenceClass: "development-auth-fixture",
-  $notEvidenceFor: [
-    "운영 인증 세션 parity",
-    "실사용자·실결제·실프로젝트 데이터 parity",
-    "API 성공 상태 parity",
-    "인증 후 페이지 완료 판정",
-  ],
-  $method:
-    "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
+  $comment: anonymous
+    ? "생성물. scripts/measure-product-auth-fixture.mjs --anonymous 가 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 공개 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
+    : "생성물. scripts/measure-product-auth-fixture.mjs가 고정 커밋의 development-only auth bypass를 켠 clean Next dev server에서 보호 route 기본 상태를 직접 렌더한다. 직접 수정하지 않는다.",
+  $evidenceClass: anonymous ? "development-anonymous-fixture" : "development-auth-fixture",
+  $notEvidenceFor: anonymous
+    ? ["운영 인증 흐름(OAuth · 메일 발송) parity", "실사용자 데이터 parity", "API 성공 상태 parity"]
+    : [
+      "운영 인증 세션 parity",
+      "실사용자·실결제·실프로젝트 데이터 parity",
+      "API 성공 상태 parity",
+      "인증 후 페이지 완료 판정",
+    ],
+  $method: anonymous
+    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 직접 띄운다 — 로그인하지 않은 사용자의 화면이다. 인증 화면은 로그인된 사용자를 /archive 로 보내므로(sourceQuotes) 인증 우회 서버에서는 잴 수 없다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 한 뷰포트 안에서 끝나는 공개 화면만 싣는다(긴 공개 페이지는 전체 페이지 측정의 몫). " + MEASURE_METHOD
+    : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD,
   productRef,
   productRefSource,
   productCommit: commit,
   fixture: {
     nodeEnv: "development",
-    devAuthBypass: true,
+    devAuthBypass: !anonymous,
     mockSupabase: "unreachable-localhost",
     externalRequests: "blocked",
     locale: "en",
@@ -1117,7 +1151,20 @@ const payload = JSON.stringify({
     screenAliases,
     repeatedSubtreesByContext,
   },
-  sourceQuotes: [
+  sourceQuotes: anonymous ? [
+    // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
+    sourceQuote("apps/web/app/login/page.tsx", 316),
+    sourceQuote("apps/web/app/login/page.tsx", 318),
+    sourceQuote("apps/web/app/login/page.tsx", 319),
+    sourceQuote("apps/web/app/login/page.tsx", 320),
+    // 우회 플래그는 `=== "1"` 로만 켜진다 — 빈 문자열이 끈다.
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 36),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 37),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
+    sourceQuote("apps/web/middleware.ts", 35),
+    sourceQuote("apps/web/middleware.ts", 36),
+    sourceQuote("apps/web/middleware.ts", 37),
+  ] : [
     sourceQuote("apps/web/middleware.ts", 31),
     sourceQuote("apps/web/middleware.ts", 32),
     sourceQuote("apps/web/middleware.ts", 33),
@@ -1164,7 +1211,7 @@ const payload = JSON.stringify({
 
 if (checkOnly) {
   if (!existsSync(outputPath)) {
-    console.error("[product-auth-fixture] 생성물이 없습니다: migration/product.auth-fixture.json");
+    console.error("[product-auth-fixture] 생성물이 없습니다: " + outputRelative);
     process.exit(1);
   }
   const recordedPayload = readFileSync(outputPath, "utf8");
@@ -1184,6 +1231,6 @@ if (checkOnly) {
 }
 
 console.log(
-  "[product-auth-fixture] " + (checkOnly ? "checked" : "built") + ": " +
+  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : "") + (checkOnly ? "checked" : "built") + ": " +
     SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

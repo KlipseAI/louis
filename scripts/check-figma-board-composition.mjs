@@ -223,7 +223,9 @@ const REPLACEABLE_BASELINE = 0;
 // 같은 날 뒤: 3 → **5.** **발견이다.** LOUIS DropZone(신설)이 하이라이트 업로드 면 둘(데스크톱 · 모바일)의 대응이 됐고, 제품은 지역
 // 레시피(`highlightSceneStyles.ts uploadDropZone`)라 bespoke 다(제외 목록 `drop-zone-upload`). 전에는 LOUIS 에 대응이 없어 missing 이었다.
 // 2026-09-26(밤): 5 → 13 — 결제 성공 미리보기 보드의 링크 버튼 8(`a` 요소에 앉은 Button 레시피). 발견이다.
-const BESPOKE_BASELINE = 13; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-09-28: 13 → 15 — **발견이다.** 로그아웃 fixture 보드(인증 화면 열 · 404)의 `/aws/signup` 언어 선택 버튼 지구본 둘(데스크톱 ·
+// 모바일). 제품 `GlobeIcon.tsx:19-21` 이 제 원 · 타원을 그려 LOUIS `icon/globe` 를 물지 않는다(글리프 조인표 `globe`).
+const BESPOKE_BASELINE = 15; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -245,7 +247,10 @@ const UNCLASSIFIED_BASELINE = 0;
 // 미리보기 보드의 LOUIS Button 인스턴스 3 을 더해 161 이다.
 // 같은 날 더 밤: 161 → **206.** **이득이다.** 글자 속성 부품(`Product/Coupon Code Chip`, PARTS 넷째 묶음) — bulk 성공 미리보기의 쿠폰
 // 코드 칩 45(데스크톱 30 · 모바일 15)가 인스턴스가 됐다. 칩의 글자는 인스턴스의 TEXT 속성 Code 로 옮겼다.
-const INSTANCE_FLOOR = 206;
+// 2026-09-28: 206 → **224.** 보드가 늘어서다 — 로그아웃 fixture(`product.anonymous-fixture.json`) 보드 22(인증 화면 열 · `/data-deletion-status`
+// · 404, 두 뷰포트)가 LOUIS Button 인스턴스 18 을 갖는다: inverse lg 10(로그인 · 가입 · 재설정 둘 · 복구의 주 버튼), ghost md 4(가입의 약관
+// 「View」 둘), primary md 4(`/aws/signup` 가입 · 404 「Back to home」). 셸은 없다 — 인증 화면은 앱 셸 밖이다(아래 셸 표에 넣지 않는다).
+const INSTANCE_FLOOR = 224;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -278,10 +283,16 @@ const INSTANCE_FLOOR = 206;
 // 않는다(글자 속성을 가진 부품이 다음 묶음). 수는 instance 161 + replaceable 0 + bespoke 13 + blocked 6 + missing 45.
 // 같은 날 더 밤: 225 그대로 — 미보유 45 가 모두 같은 자리에서 인스턴스가 됐다(instance +45 · missing −45). 수는 instance 206 +
 // replaceable 0 + bespoke 13 + blocked 6 + missing 0.
-const CANDIDATE_FLOOR = 225;
+// 2026-09-28: 225 → **289.** 보드가 늘어서다 — 로그아웃 fixture 보드 22: instance +18 · bespoke +2(지구본) · blocked +2(`/signup/check-email`
+// 「Resend email」 — Button/lg 상자인데 disabled 면이 variant 를 덮는다) · missing +42. 미보유 42 는 전부 인증 화면의 제품 전용 자리다 —
+// 「Back to log in」 링크 버튼(높이 48, LOUIS 사다리 밖) 10 · 모바일 로고 링크 9 · 가입 약관 체크 마크(22×22) 8 · `/aws/signup` 약관 「View」 버튼(높이 22 · 반경 12) 4 ·
+// 「Forgot password?」 · 「Sign up」 같은 글자 링크 8 · 링크 사이 세로 구분선 2 · 로그인 데스크톱 영상 판의 칠해진 덮개 1.
+// 수는 instance 224 + replaceable 0 + bespoke 15 + blocked 8 + missing 42.
+const CANDIDATE_FLOOR = 289;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
-const BOARD_FLOOR = 54;
+// 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
+const BOARD_FLOOR = 76;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
   "Product/Desktop App Top Bar",
@@ -745,7 +756,8 @@ console.log(
 console.log(
   "  미보유 " + recounted.missing + " · 막힘 " + recounted.blocked +
     "(대응은 있는데 측정이 고를 정보를 잃었다 — ProgressBar 의 State 축 2 와, 제품은 정본을 무는데 레시피 원장 probe 가 " +
-    "쓰이지 않는 상수를 재는 SegmentedControl/settings 4(2026-09-15 bespoke 에서 옮겼다). " +
+    "쓰이지 않는 상수를 재는 SegmentedControl/settings 4(2026-09-15 bespoke 에서 옮겼다), 그리고 Button/lg 상자에 disabled 면이 " +
+    "variant 를 덮은 `/signup/check-email` 「Resend email」 2(2026-09-28 로그아웃 보드). " +
     "`/mypage/upgrade` 의 disabled 요금제 CTA 는 2026-09-14 부터 요금제 카드 인스턴스 안이라 세지 않는다). " +
     "아이콘 정체 여섯은 서명을 이어 닫혔고 bespoke 4 · 미보유 2 로 갈렸다) · " +
     "제품bespoke " + recounted.bespoke + " 는 늘어도 실패하지 않는다 — 발견이지 후퇴가 아니다. " +

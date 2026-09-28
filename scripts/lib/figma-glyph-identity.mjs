@@ -195,6 +195,18 @@ export const PRODUCT_GLYPHS = Object.freeze([
       "`/settings` 테마 토글의 「Dark」 칸 글리프 — 초승달이다. `sun` 과 같은 이유로 LOUIS 에 " +
       "대응이 없다. 셋(monitor·sun·moon)은 한 토글의 세 칸이라 함께 서야 하는 묶음이다.",
   },
+  {
+    id: "globe",
+    // 측정 서명에 적도 선(`<path d="M3 12h18">`)이 없다 — 높이가 0 이라 측정기가 가시 노드로 싣지 않는다. 제품 소스는 원 · 적도 · 자오선 셋이다.
+    signature: "0 0 24 24|circle(cx=12 cy=12 r=9)|ellipse(cx=12 cy=12 rx=3.5 ry=9)",
+    louis: "icon/globe",
+    verdict: "bespoke",
+    why:
+      "`/aws/signup` 언어 선택 버튼(`aria-label` 「Language」)의 지구본 — 제품 `GlobeIcon.tsx:19-21` 이 원(r 9) · 적도(`M3 12h18`) · " +
+      "자오선 타원(rx 3.5 · ry 9)을 획 1.5 로 그린다. LOUIS `icon/globe` 가 같은 기하(원 · 가로선 · 타원, 획 1.5)지만 제품은 제 " +
+      "컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다. 측정 서명에 적도 선이 없는 것은 높이 0 인 선을 측정기가 싣지 " +
+      "않아서다(제품 차이가 아니다). 2026-09-28 로그아웃 원장으로 처음 들어왔다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

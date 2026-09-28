@@ -2651,8 +2651,13 @@
       "authority": "reference"
     },
     {
+      "path": "migration/product.anonymous-fixture.json",
+      "purpose": "같은 측정기를 인증 우회 없이(로그아웃) 띄워 인증 화면 아홉 · 데이터 삭제 상태 · 404 를 desktop/mobile 에서 직접 렌더한 생성 기록(2026-09-28). 인증 화면은 로그인된 사용자를 /archive 로 보내 인증 우회 fixture 로는 잴 수 없다. 한 뷰포트 안에서 끝나는 공개 화면만 담고, 운영 인증 흐름 · API 성공의 근거가 아니다",
+      "authority": "reference"
+    },
+    {
       "path": "scripts/measure-product-auth-fixture.mjs",
-      "purpose": "개발 인증 fixture 측정 생성기이자 check 게이트. clean pinned checkout, source quote, 격리 viewport, 가시 DOM geometry·computed style·profile 링 pseudo-element·API 상태를 검증한다",
+      "purpose": "개발 인증 fixture 측정 생성기이자 check 게이트. clean pinned checkout, source quote, 격리 viewport, 가시 DOM geometry·computed style·profile 링 pseudo-element·API 상태를 검증한다. --anonymous 는 우회를 끈 서버로 로그아웃 화면을 재 product.anonymous-fixture.json 에 쓴다(측정 · 정규화 코드는 한 벌)",
       "authority": "reference"
     },
     {

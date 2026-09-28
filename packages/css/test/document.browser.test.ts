@@ -247,6 +247,15 @@ test("타이포 — 제목 36 · 절 제목 28 · 수치 36 · 리드 16/500, �
   const lead = getComputedStyle(document.querySelector(".louis-document__lead")!);
   expect(lead.fontSize).toBe("16px");
   expect(lead.fontWeight).toBe("500");
+  // 감기는 제목은 줄 길이를 고르게 나누고, 두 줄 제목의 줄은 블록이다(구 경계에서 끊는다).
+  const wrapOf = (style: CSSStyleDeclaration) => (style as unknown as { textWrapStyle?: string }).textWrapStyle ?? style.getPropertyValue("text-wrap");
+  expect(wrapOf(title)).toContain("balance");
+  expect(wrapOf(getComputedStyle(probe("section-title")))).toContain("balance");
+  const line = document.createElement("span");
+  line.className = "louis-document__title-line";
+  probe("title").append(line);
+  expect(getComputedStyle(line).display).toBe("block");
+  line.remove();
   const section = getComputedStyle(probe("section-title"));
   expect(section.fontSize).toBe("28px");
   expect(section.fontWeight).toBe("600");

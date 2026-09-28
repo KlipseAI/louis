@@ -143,3 +143,5 @@ authority: normative
   deck-kit 「박스 사이 간격 10」에서 내린 값이다.
 - **제목 48 → 36, 리드 20/400 → 16/500.** 랜딩 데스크톱의 절 제목(`type-heading-36-semibold`) · 설명(`type-body-16-medium`)과 같게
   하라는 지시다. 좁은 화면의 제목은 28 이다.
+- **제목은 구 경계에서 끊는다.** 문서 제목 · 절 제목은 `text-wrap: balance`, 두 줄로 쓸 제목은 줄마다 한 구를
+  `.louis-document__title-line` 으로 감싼다(`<br>` 을 쓰지 않는다).

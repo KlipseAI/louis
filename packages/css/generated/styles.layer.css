@@ -8875,6 +8875,14 @@
     font-weight: var(--louis-typography-heading-md-semibold-font-weight);
     line-height: var(--louis-typography-heading-md-semibold-line-height);
     letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
+    /* 감기는 제목은 줄 길이를 고르게 나눈다 — 어절은 루트의 `keep-all` 이 지킨다. 마지막 줄에 낱말 하나가 남지 않는다. */
+    text-wrap: balance;
+  }
+
+  /* **두 줄이 더 보기 좋은 제목은 구 경계에서 끊는다(2026-09-28 소유자 지시).** 줄마다 한 구를 이 요소로 감싼다 —
+   * `<br>` 을 쓰지 않는 것은 좁은 화면에서 줄 안에서 다시 감길 때 그 줄도 `balance` 로 고르게 나뉘게 하려는 것이다. */
+  .louis-document__title-line {
+    display: block;
   }
 
   /* 리드 — 제목을 한 문장으로 푼다. 랜딩 데스크톱의 절 설명(`type-body-16-medium`)과 같은 16/500 이다
@@ -9018,6 +9026,8 @@
     font-weight: var(--louis-typography-heading-md-semibold-font-weight);
     line-height: var(--louis-typography-heading-sm-medium-line-height);
     letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
+    /* 문서 제목과 같다 — 감기면 고르게 나눈다. */
+    text-wrap: balance;
   }
 
   /* 기준 시점과 출처. 수치를 쓰는 절은 이 줄을 남긴다(copy-tone.md). */

@@ -90,11 +90,12 @@ const BASELINE = {
   "build-figma-variable-source.mjs": 2,
   // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(1800, 980)` 류와 그 최소 크기 비교) ·
   // 문서 프레임 · 세트 크기 · 열 폭이다. 캔버스가 아닌 것: 사이드바 상태 렌더러의 접힌 레일 조각
-  // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` · `rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` 등 18),
-  // 컴포넌트 렌더러의 패딩 4 → spacing4 바인딩 비교 둘(묶음 4 의 사이드바 메뉴 몫).
+  // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` · `rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` 등 18).
   // 결제 장면 렌더러의 둘은 문서 프레임(`docs.resize(840, 156)`)이다.
+  // 2026-09-28: 컴포넌트 렌더러 12 → 10 — 패딩 4 → spacing4 바인딩 비교 둘을 걷었다. 간격 · 패딩은 이제 값이 같은 `spacing/<n>` 에
+  // 한 함수(`bindSpacing`)로 묶는다(사이드바 셸 패딩을 넷 다 `spacing/12` 에 묶어 측정 8 · 0 을 덮어쓰던 것을 고치며).
   "templates/figma-product-app-shell-renderer.js": 3,
-  "templates/figma-product-components-renderer.js": 12,
+  "templates/figma-product-components-renderer.js": 10,
   "templates/figma-product-payment-scenes-renderer.js": 2,
   "templates/figma-product-pricing-renderer.js": 6,
   // 사이드바 상태 렌더러에는 [설명 수치] 둘도 들어 있다 — 노드 이름 「label clip · measured 12×18」 · 「96×28 clipped」(묶음 4).

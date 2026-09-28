@@ -156,6 +156,14 @@ const simpleRow = (key, index, text) => {
 };
 const betaNode = byText(routes.default.route, "BETA");
 const betaStyle = style(betaNode);
+/* 라벨 ↔ 딱지 간격 — 딱지는 라벨과 같은 flex 줄의 형제이고, 줄 간격(10)에 딱지의 `margin-left: -2px` 가 더해져 8 이 된다. Figma 는
+   자식마다 간격을 다르게 둘 수 없어 렌더러가 라벨 · 딱지를 이 간격의 묶음으로 싼다. 계산 스타일로 정하고 두 rect 의 차와 맞대 본다. */
+const betaLabel = byText(routes.default.route, "Highlight");
+if (betaNode.parentPath !== betaLabel.parentPath) fail("BETA chip is no longer a sibling of the Highlight label");
+const betaGap = px(style(node(routes.default.route, betaLabel.parentPath)).columnGap) + px(betaStyle.marginLeft);
+if (Math.abs(betaNode.rect.x - (betaLabel.rect.x + betaLabel.rect.width) - betaGap) > 0.01) {
+  fail(`BETA chip gap ${betaGap} (column-gap + margin-left) disagrees with the measured rects`);
+}
 /* **후보 id 의 스타일 축은 이제 내용 주소다 — 아래 두 판정은 그 전의 기록이다.**
    («내용 주소»라고만 적었다가 반증에서 잡혀 좁혔다. 해시 재료에는 `path`/`parentPath` 가
    남아 있고 그것은 **보이지 않는 형제까지 세는** 자식 인덱스 체인이다(`describe` 의
@@ -774,6 +782,7 @@ const plan = {
         kind: "highlight",
         beta: {
           rect: relRect(betaNode, rootRect),
+          gap: betaGap,
           label: {
             ...textSpec(routes.default.route, "BETA", rootRect),
             rect: {
@@ -939,6 +948,26 @@ for (const variant of runnerPlan.component.paymentResult.variants) {
     if (variant.action.radius !== Number(bindings.radius12.name.split("/").pop())) {
       fail(`payment result ${variant.route} action radius ${variant.action.radius} is not radius/12`);
     }
+  }
+  // 사이드바 세트도 같다(2026-09-28) — 셸 패딩 · 브랜드 · 흐름 간격 · 메뉴 행 패딩과 간격 · 딱지 간격과 패딩 · CTA 패딩과 간격.
+  // 렌더러가 넷 다 `spacing/12` 에 묶던 셸 패딩(측정 8 · 12 · 0 · 12)이 그렇게 틀렸다 — 이제 값마다 같은 변수를 찾고, 없으면 여기서 멈춘다.
+  const C = plan.component;
+  const sides = (padding) => [padding.top, padding.right, padding.bottom, padding.left];
+  const sidebarSpacing = [
+    ...sides(C.shell.root.padding),
+    C.shell.brand.paddingLeft,
+    C.shell.brand.gap,
+    C.shell.menu.y - (C.shell.brand.rect.y + C.shell.brand.rect.height),
+    C.root.gap,
+    ...C.rows.flatMap((row) => [
+      ...sides(row.padding),
+      row.label.rect.x - row.icon.rect.x - row.icon.rect.width,
+      ...(row.beta ? [row.beta.gap, row.beta.padding.left, row.beta.padding.right] : []),
+    ]),
+    ...C.upgradeCta.variants.flatMap((cta) => [...sides(cta.padding), cta.gap]),
+  ];
+  for (const value of sidebarSpacing) {
+    if (value && !bindings[`spacing${value}`]) fail(`Gnb sidebar needs a spacing/${value} binding`);
   }
 }
 // **러너는 압축해 싣는다(2026-09-14).** 결제 결과 세트를 매 실행 reconcile 하게 되면서 템플릿이 자라, 주석을

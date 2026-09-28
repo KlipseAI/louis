@@ -8,7 +8,24 @@ await figma.setCurrentPageAsync(page);
 // 변수 · 모드 · 칠은 공용 조각(`scripts/templates/lib/figma-live-variables.js`, 생성기가 앞에 붙인다)이 푼다. 칠하는 자리는
 // 계획이 고른 역할 이름(`paint` · `fillPaint` · `labelPaint` · `activePaint` · `menuRowPaint`)만 읽는다.
 const B = P.bindings;
-const { V, pin, paint, paintIcon, bindCorners, audit, mode: colourMode } = await liveVariables(B);
+const { V, pin, paint, paintIcon, bindCorners, audit, resolve, mode: colourMode } = await liveVariables(B);
+
+// **간격 · 패딩은 값이 같은 `spacing/<n>` 에 묶는다 — 값을 적는 자리와 묶는 자리를 한 함수로 둔다(2026-09-28).** 사이드바 셸이 네 패딩을
+// 계획값(위 8 · 아래 0)으로 적은 뒤 넷 다 `spacing/12` 에 묶어, 라이브가 12 · 12 로 섰다 — 결합이 측정값을 덮어써 메뉴가 4 내려가고
+// 업그레이드 버튼이 12 올라갔다. 결합한 변수가 측정값과 다른 수로 풀리면 던진다. 0 은 결합을 푼다.
+const spacingVariable = (value) => {
+  const variable = V[`spacing${value}`];
+  if (!variable) throw new Error(`Missing spacing binding for ${value}`);
+  if (resolve(variable) !== value) throw new Error(`${variable.name} resolves to ${resolve(variable)}, not the measured ${value}`);
+  return variable;
+};
+const bindSpacing = (node, field, value) => {
+  node[field] = value;
+  node.setBoundVariable(field, value ? spacingVariable(value) : null);
+};
+const bindPadding = (node, padding) => {
+  for (const side of ["Top", "Right", "Bottom", "Left"]) bindSpacing(node, `padding${side}`, padding[side.toLowerCase()]);
+};
 
 const allComponents = page.findAllWithCriteria({ types: ["COMPONENT"] });
 const componentByName = new Map();
@@ -62,18 +79,24 @@ const applyMeasuredFrame = (frame, spec, gap) => {
   frame.counterAxisSizingMode = "FIXED";
   frame.resize(spec.rect.width, spec.rect.height);
   frame.counterAxisAlignItems = "CENTER";
-  frame.paddingTop = spec.padding.top;
-  frame.paddingRight = spec.padding.right;
-  frame.paddingBottom = spec.padding.bottom;
-  frame.paddingLeft = spec.padding.left;
-  frame.itemSpacing = gap;
+  bindPadding(frame, spec.padding);
+  bindSpacing(frame, "itemSpacing", gap);
   frame.cornerRadius = spec.radius;
   frame.fills = [];
-  if (gap === 4) frame.setBoundVariable("itemSpacing", V.spacing4);
-  if (gap === 10) frame.setBoundVariable("itemSpacing", V.spacing10);
-  if (spec.padding.left === 4) frame.setBoundVariable("paddingLeft", V.spacing4);
-  if (spec.padding.right === 4) frame.setBoundVariable("paddingRight", V.spacing4);
   if (spec.radius === 10) bindCorners(frame, V.radius10);
+};
+// **라벨 · 딱지 묶음.** 제품은 행 간격 10 에 딱지의 `margin-left: -2px` 를 걸어 딱지를 라벨 뒤 8 에 둔다(계획 `beta.gap`). Figma 는 자식마다
+// 간격을 달리 둘 수 없으므로 둘을 그 간격의 가로 묶음으로 싼다 — 항목마다 간격이 다르면 스택을 중첩한다. 옛 러너는 딱지를 행 간격 10 에 두어
+// 제품보다 2 넓었다.
+const LABEL_GROUP = "flow/label-and-badge";
+const labelGroup = (group, gap) => {
+  group.layoutMode = "HORIZONTAL";
+  group.primaryAxisSizingMode = group.counterAxisSizingMode = "AUTO";
+  group.counterAxisAlignItems = "CENTER";
+  bindPadding(group, { top: 0, right: 0, bottom: 0, left: 0 });
+  bindSpacing(group, "itemSpacing", gap);
+  group.fills = [];
+  group.clipsContent = false;
 };
 
 // **세트 크기는 variant 배치에서 도출한다(2026-09-15).** 세 세트 모두 variant 를 x = 여백 + 순번 × (폭 + 간격)에 놓는데,
@@ -165,17 +188,9 @@ if (!upgradeSet) {
     component.primaryAxisSizingMode = component.counterAxisSizingMode = "FIXED";
     component.resize(spec.rect.width, spec.rect.height);
     component.primaryAxisAlignItems = component.counterAxisAlignItems = "CENTER";
-    component.itemSpacing = spec.gap;
-    component.paddingTop = spec.padding.top;
-    component.paddingRight = spec.padding.right;
-    component.paddingBottom = spec.padding.bottom;
-    component.paddingLeft = spec.padding.left;
+    bindSpacing(component, "itemSpacing", spec.gap);
+    bindPadding(component, spec.padding);
     component.cornerRadius = spec.radius;
-    component.setBoundVariable("itemSpacing", V.spacing8);
-    component.setBoundVariable("paddingTop", V.spacing10);
-    component.setBoundVariable("paddingBottom", V.spacing10);
-    component.setBoundVariable("paddingLeft", V.spacing14);
-    component.setBoundVariable("paddingRight", V.spacing14);
     bindCorners(component, V.radius12);
     component.fills = [paint(spec.fillPaint)];
     component.effects = makeEffects(spec.effects);
@@ -208,6 +223,9 @@ for (const variant of upgradeSet.children) {
   if (!spec) continue;
   pin(variant);
   if (variant.width !== spec.rect.width || variant.height !== spec.rect.height) variant.resize(spec.rect.width, spec.rect.height);
+  // 패딩 · 간격도 매 실행 계획대로 건다(값이 같으면 결과가 같다) — 없을 때만 걸던 옛 경로는 측정이 옮겨도 라이브가 따라오지 않는다.
+  bindPadding(variant, spec.padding);
+  bindSpacing(variant, "itemSpacing", spec.gap);
   variant.fills = [paint(spec.fillPaint)];
   for (const text of variant.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(spec.labelPaint)];
 }
@@ -241,10 +259,8 @@ const ensureShell = (menuSet, ctaSet) => {
       brand.layoutMode = "HORIZONTAL";
       brand.primaryAxisSizingMode = brand.counterAxisSizingMode = "FIXED";
       brand.counterAxisAlignItems = "CENTER";
-      brand.paddingLeft = S.brand.paddingLeft;
-      brand.itemSpacing = S.brand.gap;
-      brand.setBoundVariable("paddingLeft", V.spacing4);
-      brand.setBoundVariable("itemSpacing", V.spacing8);
+      bindSpacing(brand, "paddingLeft", S.brand.paddingLeft);
+      bindSpacing(brand, "itemSpacing", S.brand.gap);
       brand.fills = [];
       const logo = logoMaster.createInstance();
       logo.name = logoName;
@@ -314,10 +330,11 @@ const ensureShell = (menuSet, ctaSet) => {
     top.layoutMode = "VERTICAL";
     top.primaryAxisSizingMode = top.counterAxisSizingMode = "FIXED";
     top.resize(S.nav.width, S.brand.rect.height + (S.menu.y - (S.brand.rect.y + S.brand.rect.height)) + S.menu.height);
-    top.itemSpacing = S.menu.y - (S.brand.rect.y + S.brand.rect.height);
-    top.setBoundVariable("itemSpacing", V.spacing12);
+    bindSpacing(top, "itemSpacing", S.menu.y - (S.brand.rect.y + S.brand.rect.height));
     top.fills = [];
     brand.resize(S.brand.rect.width, S.brand.rect.height);
+    bindSpacing(brand, "paddingLeft", S.brand.paddingLeft);
+    bindSpacing(brand, "itemSpacing", S.brand.gap);
     menu.resize(S.menu.width, S.menu.height);
     cta.resize(S.upgradeCta.width, S.upgradeCta.height);
     const expectedMenuMaster = menuByCurrent.get(spec.menuCurrent);
@@ -335,14 +352,8 @@ const ensureShell = (menuSet, ctaSet) => {
     shell.resize(S.root.width, S.root.height);
     shell.primaryAxisAlignItems = "SPACE_BETWEEN";
     shell.counterAxisAlignItems = "CENTER";
-    shell.paddingTop = S.root.padding.top;
-    shell.paddingRight = S.root.padding.right;
-    shell.paddingBottom = S.root.padding.bottom;
-    shell.paddingLeft = S.root.padding.left;
-    shell.setBoundVariable("paddingTop", V.spacing12);
-    shell.setBoundVariable("paddingRight", V.spacing12);
-    shell.setBoundVariable("paddingBottom", V.spacing12);
-    shell.setBoundVariable("paddingLeft", V.spacing12);
+    // 제품 헤더 패딩은 위 8(`--app-gnb-safe-top`) · 좌우 12 · 아래 0 이고 CTA 가 레일 끝에 닿는다(측정 y 1039 + 41 = 1080).
+    bindPadding(shell, S.root.padding);
     shell.fills = [];
     shell.description = `Measured ${spec.route} Gnb Auto Layout · ${PLAN.productCommit}`;
     shell.x = VARIANT_GUTTER + index * (S.root.width + VARIANT_GUTTER);
@@ -398,18 +409,6 @@ const ensurePaymentResult = () => {
     actions.appendChild(action);
     component.appendChild(actions);
     return component;
-  };
-  const spacingVariable = (value) => {
-    const variable = V[`spacing${value}`];
-    if (!variable) throw new Error(`Missing spacing binding for ${value}`);
-    return variable;
-  };
-  const bindSpacing = (node, field, value) => {
-    node[field] = value;
-    node.setBoundVariable(field, value ? spacingVariable(value) : null);
-  };
-  const bindPadding = (node, padding) => {
-    for (const side of ["Top", "Right", "Bottom", "Left"]) bindSpacing(node, `padding${side}`, padding[side.toLowerCase()]);
   };
   // 같은 이름의 노드를 **그 variant 어디에서든** 찾아(옛 구조에서는 버튼이 variant 직계였다) 새 부모의 제자리로 옮긴다.
   const place = (scope, parent, type, name, index) => {
@@ -561,8 +560,8 @@ const ensurePaymentResult = () => {
 // `main-action`(아이콘 · 라벨 감싸개) + `add-action · …`(+ 버튼) 이다. 칠만 다시 걸면 제품에 없는 + 버튼이 variant 마다
 // 둘씩 보인 채 남는다(칠이 묶여 있어 감사도 통과한다). 그래서 계획 행의 자식(아이콘 · 라벨 · 스페이서 · BETA 칩)을 같은 id 로
 // 행의 직계 제자리에 옮기고, 계획에 없는 자식(`main-action` · `add-action · …`)과 계획에 없는 행은 **지우지 않고** 숨겨
-// `retired/` 로 이름만 바꾼다 — 인스턴스의 override 가 그 노드 id 에 걸려 있다. 감싸개에서 꺼낸 행은 간격이 + 버튼과의
-// 간격이었으므로 계획의 아이콘–라벨 간격으로 되돌린다(자리가 그대로다). 그 밖의 행 기하는 여기서 건드리지 않는다(묶음 4).
+// `retired/` 로 이름만 바꾼다 — 인스턴스의 override 가 그 노드 id 에 걸려 있다. 행의 패딩 · 아이콘–라벨 간격 · 크기는 매 실행
+// 계획대로 건다(2026-09-28 — 전에는 감싸개에서 꺼낼 때만 간격을 걸어 옛 패딩이 남았다).
 const menuRowName = (spec) => `row/${spec.label.text}`;
 const retire = (node) => {
   if (!node.name.startsWith("retired/")) node.name = `retired/${node.name}`;
@@ -581,33 +580,46 @@ const reconcileLabel = async (variant, row, text, want) => {
   text.characters = want;
 };
 const reconcileMenuRow = async (variant, row, spec) => {
-  const wrapper = row.children.find((entry) => entry.type === "FRAME" && entry.name === "main-action");
-  let lifted = false;
-  const placeChild = (type, name, index) => {
-    const node =
-      row.children.find((entry) => entry.type === type && entry.name === name) ??
-      wrapper?.children.find((entry) => entry.type === type && entry.name === name);
-    if (!node) throw new Error(`Missing ${type} ${name} in Gnb menu ${row.name}`);
-    if (node.parent?.id !== row.id) lifted = true;
-    if (node.parent?.id !== row.id || row.children.findIndex((entry) => entry.id === node.id) !== index) row.insertChild(index, node);
+  // 자식은 행 직계 · 옛 `main-action` 감싸개 · 라벨 묶음 어디에 있든 같은 id 로 찾아 제자리로 옮긴다.
+  const holders = [row, ...row.children.filter((entry) => entry.type === "FRAME" && (entry.name === "main-action" || entry.name === LABEL_GROUP))];
+  const find = (type, name) => {
+    for (const holder of holders) {
+      const node = holder.children.find((entry) => entry.type === type && entry.name === name);
+      if (node) return node;
+    }
+    throw new Error(`Missing ${type} ${name} in Gnb menu ${row.name}`);
+  };
+  const place = (parent, node, index) => {
+    if (node.parent?.id !== parent.id || parent.children.findIndex((entry) => entry.id === node.id) !== index) parent.insertChild(index, node);
     node.visible = true;
     return node;
   };
-  const keep = [placeChild("INSTANCE", "icon", 0), placeChild("TEXT", "label", 1)];
-  // 딱지는 라벨 바로 뒤다(제품 658ece13) — 옛 spacer 는 keep 에 넣지 않아 아래에서 retired/ 로 숨는다.
-  if (spec.kind === "highlight") keep.push(placeChild("FRAME", "badge/BETA", 2));
-  if (lifted) {
-    const gap = spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width;
-    const variable = V[`spacing${gap}`];
-    if (!variable) throw new Error(`Missing spacing binding for Gnb menu gap ${gap}`);
-    row.itemSpacing = gap;
-    row.setBoundVariable("itemSpacing", variable);
+  const label = find("TEXT", "label");
+  const keep = [place(row, find("INSTANCE", "icon"), 0)];
+  if (spec.kind === "highlight") {
+    // 딱지는 라벨 바로 뒤 8 이다(제품 658ece13 · 계획 `beta.gap`) — 둘을 그 간격의 묶음으로 싼다. 옛 spacer 는 keep 에 없어 retired/ 로 숨는다.
+    let group = row.children.find((entry) => entry.type === "FRAME" && entry.name === LABEL_GROUP);
+    if (!group) {
+      group = figma.createFrame();
+      group.name = LABEL_GROUP;
+    }
+    place(row, group, 1);
+    labelGroup(group, spec.beta.gap);
+    place(group, label, 0);
+    place(group, find("FRAME", "badge/BETA"), 1);
+    keep.push(group);
+  } else {
+    keep.push(place(row, label, 1));
   }
+  // **행 패딩 · 간격은 매 실행 계획대로 건다(2026-09-28).** 옛 경로는 감싸개에서 꺼낼 때만 간격을 걸고 패딩은 손대지 않아, 옛 행의 왼쪽
+  // 패딩 4(`spacing/4`)가 제품 8 대신 남았다 — 데스크톱 보드 27장의 사이드바 글자가 제품보다 4 왼쪽에 섰다.
+  bindPadding(row, spec.padding);
+  bindSpacing(row, "itemSpacing", spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width);
   const keepIds = new Set(keep.map((node) => node.id));
   for (const child of [...row.children]) if (!keepIds.has(child.id)) retire(child);
   // 행 크기는 측정 rect 다 — 행은 레일 내용 폭을 채우므로 레일이 줄면(제품 bc3e6fa3, 280 → 240) 함께 준다. 다를 때만 쓴다.
   if (row.width !== spec.rect.width || row.height !== spec.rect.height) row.resize(spec.rect.width, spec.rect.height);
-  await reconcileLabel(variant, row, keep.find((node) => node.type === "TEXT"), spec.label.text);
+  await reconcileLabel(variant, row, label, spec.label.text);
 };
 
 const reconcileMenuVariants = async (menuSet) => {
@@ -712,9 +724,14 @@ for (const spec of P.rows) {
   row.name = `row/${spec.label.text}`;
   applyMeasuredFrame(row, spec, gap);
   row.appendChild(makeIcon(spec.icon, spec.icon.paint));
-  row.appendChild(makeText(spec.label, spec.label.paint));
+  const label = makeText(spec.label, spec.label.paint);
   if (spec.kind === "highlight") {
-    // 딱지는 라벨 바로 뒤다(제품 658ece13) — 행 끝으로 밀던 spacer 는 짓지 않는다. 간격은 행 간격(10)이라 제품(8)보다 2 넓다.
+    // 딱지는 라벨 바로 뒤 8 이다(제품 658ece13 · 계획 `beta.gap`) — 라벨과 함께 그 간격의 묶음에 넣는다. 행 끝으로 밀던 spacer 는 짓지 않는다.
+    const group = figma.createFrame();
+    group.name = LABEL_GROUP;
+    row.appendChild(group);
+    labelGroup(group, spec.beta.gap);
+    group.appendChild(label);
     const badge = figma.createFrame();
     badge.name = "badge/BETA";
     badge.layoutMode = "HORIZONTAL";
@@ -722,15 +739,15 @@ for (const spec of P.rows) {
     badge.counterAxisSizingMode = "FIXED";
     badge.resize(spec.beta.rect.width, spec.beta.rect.height);
     badge.primaryAxisAlignItems = badge.counterAxisAlignItems = "CENTER";
-    badge.paddingLeft = spec.beta.padding.left;
-    badge.paddingRight = spec.beta.padding.right;
-    badge.setBoundVariable("paddingLeft", V.spacing8);
-    badge.setBoundVariable("paddingRight", V.spacing8);
+    bindSpacing(badge, "paddingLeft", spec.beta.padding.left);
+    bindSpacing(badge, "paddingRight", spec.beta.padding.right);
     badge.cornerRadius = spec.beta.radius;
     bindCorners(badge, V.radius6);
     badge.fills = [paint(spec.beta.paint)];
     badge.appendChild(makeText(spec.beta.label, spec.beta.label.paint));
-    row.appendChild(badge);
+    group.appendChild(badge);
+  } else {
+    row.appendChild(label);
   }
   root.appendChild(row);
 }

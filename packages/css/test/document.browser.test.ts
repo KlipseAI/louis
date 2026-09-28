@@ -449,14 +449,23 @@ test('목록 롤 — 표식을 지운 목록은 role="list" 를 달고, 예시�
     "louis-document-grid",
     "louis-document-timeline",
   ]);
-  // 소비자가 베끼는 예시의 목록도 전부 이 다섯 가운데 하나이고 role="list" 를 단다.
-  const response = await fetch(new URL("../examples/document.html", import.meta.url));
-  expect(response.ok).toBe(true);
-  const example = new DOMParser().parseFromString(await response.text(), "text/html");
-  const exampleLists = [...example.querySelectorAll(".louis-document ol, .louis-document ul")];
-  expect(exampleLists.length).toBeGreaterThan(0);
-  for (const list of exampleLists) {
-    expect(recipeClasses.has(list.classList[0] ?? ""), list.className).toBe(true);
-    expect(list.getAttribute("role"), list.className).toBe("list");
+  // 소비자가 베끼는 예시의 목록도 전부 이 다섯 가운데 하나이고 role="list" 를 단다 — 승인본(document.html)과 부품을 전부 쓰는
+  // 운영 보고(document-report.html) 둘 다.
+  // `new URL` 의 경로는 글자 그대로 적는다 — Vite 는 글자 그대로의 `new URL("…", import.meta.url)` 만 옮겨 적고, 변수로 넘기면 풀리지 않는다.
+  const examples = [
+    new URL("../examples/document.html", import.meta.url),
+    new URL("../examples/document-report.html", import.meta.url),
+  ];
+  for (const url of examples) {
+    const file = url.pathname.split("/").pop();
+    const response = await fetch(url);
+    expect(response.ok, file).toBe(true);
+    const example = new DOMParser().parseFromString(await response.text(), "text/html");
+    const exampleLists = [...example.querySelectorAll(".louis-document ol, .louis-document ul")];
+    expect(exampleLists.length, file).toBeGreaterThan(0);
+    for (const list of exampleLists) {
+      expect(recipeClasses.has(list.classList[0] ?? ""), `${file} ${list.className}`).toBe(true);
+      expect(list.getAttribute("role"), `${file} ${list.className}`).toBe("list");
+    }
   }
 });

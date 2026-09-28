@@ -2209,6 +2209,46 @@
             }
           }
         },
+        "color-palette-gray-950-alpha-72": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/palette-gray-950-alpha/72",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.05098,
+                  0.066666,
+                  0.094117
+                ],
+                "hex": "#0d1118"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.05098,
+                  0.066666,
+                  0.094117
+                ]
+              },
+              "sourcePath": "primitive.color.palette-gray-950-alpha.72"
+            }
+          }
+        },
         "color-pink-100": {
           "$type": "color",
           "fields": [],
@@ -18667,18 +18707,18 @@
           ],
           "valuesByMode": {
             "Dark": {
-              "$value": "{primitive.color.static-black-alpha.72}",
+              "$value": "{primitive.color.palette-gray-950-alpha.72}",
               "aliasTarget": {
-                "id": "color-static-black-alpha-72",
+                "id": "color-palette-gray-950-alpha-72",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 0.72,
                 "colorSpace": "srgb",
                 "components": [
-                  0.090196,
-                  0.105882,
-                  0.133333
+                  0.05098,
+                  0.066666,
+                  0.094117
                 ]
               },
               "sourcePath": "semantic.dark.color.dim-modal"

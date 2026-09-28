@@ -1159,6 +1159,27 @@
           }
         }
       },
+      "palette-gray-950-alpha": {
+        "$type": "color",
+        "72": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.05098,
+              0.066666,
+              0.094117
+            ],
+            "alpha": 0.72,
+            "hex": "#0d1118"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-palette-gray-950-alpha-72",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
       "pink": {
         "$type": "color",
         "100": {
@@ -8984,7 +9005,7 @@
           }
         },
         "dim-modal": {
-          "$value": "{primitive.color.static-black-alpha.72}",
+          "$value": "{primitive.color.palette-gray-950-alpha.72}",
           "$extensions": {
             "com.klipse-design": {
               "id": "color-dim-modal",

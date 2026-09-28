@@ -80,6 +80,8 @@
   --louis-color-palette-gray-900: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-palette-gray-900-rgb: 23 27 34;
   --louis-color-palette-gray-950: color(srgb 0.05098 0.066666 0.094117 / 1);
+  --louis-color-palette-gray-950-alpha-72: color(srgb 0.05098 0.066666 0.094117 / 0.72);
+  --louis-color-palette-gray-950-alpha-72-rgb: 13 17 24;
   --louis-color-palette-gray-950-rgb: 13 17 24;
   --louis-color-pink-100: color(srgb 1 0.898039 0.929412 / 1);
   --louis-color-pink-100-rgb: 255 229 237;
@@ -757,7 +759,7 @@
   --louis-color-bg-warning: color(srgb 0.298039 0.2 0 / 1);
   --louis-color-brand-logo-ink: color(srgb 1 1 1 / 1);
   --louis-color-canvas-dot: color(srgb 0.980392 0.980392 0.980392 / 0.16);
-  --louis-color-dim-modal: color(srgb 0.090196 0.105882 0.133333 / 0.72);
+  --louis-color-dim-modal: color(srgb 0.05098 0.066666 0.094117 / 0.72);
   --louis-color-fg-danger: color(srgb 1 0.898039 0.909804 / 1);
   --louis-color-fg-danger-on-surface: color(srgb 1 0.435294 0.486275 / 1);
   --louis-color-fg-disabled: color(srgb 0.345098 0.360784 0.388235 / 1);

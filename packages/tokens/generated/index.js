@@ -1854,6 +1854,39 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-palette-gray-950-alpha-72": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-palette-gray-950-alpha-72": "color(srgb 0.05098 0.066666 0.094117 / 0.72)",
+      "--louis-color-palette-gray-950-alpha-72-rgb": "13 17 24"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-palette-gray-950-alpha-72",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.05098,
+        0.066666,
+        0.094117
+      ],
+      "alpha": 0.72,
+      "hex": "#0d1118"
+    },
+    "sourcePath": "primitive.color.palette-gray-950-alpha.72",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.05098,
+        0.066666,
+        0.094117
+      ],
+      "alpha": 0.72
+    }
+  },
   "color-pink-100": {
     "aliasTarget": null,
     "cssProperties": {
@@ -18937,26 +18970,26 @@ export const tokens = {
     },
     "color-dim-modal": {
       "aliasTarget": {
-        "id": "color-static-black-alpha-72",
+        "id": "color-palette-gray-950-alpha-72",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-dim-modal": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
+        "--louis-color-dim-modal": "color(srgb 0.05098 0.066666 0.094117 / 0.72)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-dim-modal",
       "mode": "dark",
-      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "rawValue": "{primitive.color.palette-gray-950-alpha.72}",
       "sourcePath": "semantic.dark.color.dim-modal",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.090196,
-          0.105882,
-          0.133333
+          0.05098,
+          0.066666,
+          0.094117
         ],
         "alpha": 0.72
       }

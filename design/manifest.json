@@ -203,6 +203,15 @@
       "generated": false
     },
     {
+      "id": "decision-dim-modal-dark-is-the-floor",
+      "path": "design/governance/decisions/DS-D-0072-dim-modal-dark-is-the-floor.md",
+      "title": "DS-D-0072 다크 모달 가림막(`color-dim-modal`)은 바닥색으로 칠한다 — `static-black-alpha.72` → `palette-gray-950-alpha.72`",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1671,6 +1680,7 @@
         "design/governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md",
         "design/governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md",
         "design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md",
+        "design/governance/decisions/DS-D-0072-dim-modal-dark-is-the-floor.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

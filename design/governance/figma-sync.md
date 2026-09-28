@@ -672,6 +672,9 @@ DS-D-0026 의 16단으로 스냅해 **79 → 46** 으로 줄였다(19 개는 이
 - `gray-1000-alpha` → `static-black-alpha` (같은 #000000, 오차 0)
 - `gray-0-alpha` → `static-white-alpha` (#fafafa → #ffffff, 2%)
 - 남은 알파: `static-black-alpha` 16 · `static-white-alpha` 16 · `red-alpha` 3 · `green-500-alpha` 1
+- 2026-09-28 에 하나를 더했다 — `palette-gray-950-alpha` 1(`72`). 다크 모달 가림막의 바탕이 카드 면과 같은 값이면
+  안 되기 때문이다([DS-D-0072](decisions/DS-D-0072-dim-modal-dark-is-the-floor.md)). 흡수 기준(합성 결과)으로 보면
+  `static-black-alpha` 어느 칸도 이 자리를 대신하지 못한다 — 바탕색 자체가 다르다.
 
 ### 표가 순서대로 보이려면 자릿수를 맞춰야 한다
 

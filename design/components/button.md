@@ -317,7 +317,7 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
 ### `sm` 열의 값은 어디서 왔나
 
 **높이 24만 [DS-D-0032](../governance/decisions/DS-D-0032-control-size-ladder-sm.md)가 준다.**
-나머지는 근거를 값마다 남긴다. 실측 출처는 Figma `OlYKERKOkgbxBEEoXGZW2c` Page 14 프레임
+나머지는 근거를 값마다 남긴다. 실측 출처는 Figma `OlYKERKOkgbxBEEoXGZW2c` `작업 · 시안` 페이지(옛 Page 14) 프레임
 `1087:2383`(비디오에디터)의 「가져오기」 버튼 `1087:2429`이며, 그 자리가 이 문서에서 `sm` Button에
 해당하는 유일한 자리다.
 

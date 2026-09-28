@@ -384,7 +384,7 @@ const plan = {
   component: {
     id: "product/desktop-payment-result-scenes",
     pageId: "240:3529",
-    pageName: "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+    pageName: "90 · 자산 — 아이콘 · 로고 · 제품 부품",
     sectionName: "M · product/Desktop payment result scenes · measured composition",
     mainSetName: "Product/Desktop Payment Result Main Surface",
     sceneSetName: "Product/Desktop Payment Result Scene",

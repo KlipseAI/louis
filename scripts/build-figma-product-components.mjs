@@ -712,7 +712,7 @@ const plan = {
   component: {
     id: "product/gnb-sidebar-menu",
     pageId: "240:3529",
-    pageName: "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+    pageName: "90 · 자산 — 아이콘 · 로고 · 제품 부품",
     sectionName: "I · product/Gnb sidebar · measured component",
     componentSetName: "Product/Gnb Sidebar Menu",
     root: {

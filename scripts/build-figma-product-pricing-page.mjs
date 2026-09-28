@@ -307,7 +307,7 @@ const base = {
   productCommit: evidence.productCommit,
   evidence: "migration/product.scenes.json#/pages/*/~1pricing/tree",
   pageId: "240:3529",
-  pageName: "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+  pageName: "90 · 자산 — 아이콘 · 로고 · 제품 부품",
   sectionName: "P · product/Pricing · measured full-page components and scenes",
   bindings,
   dependencies: { featureCheckId: "61:388", headerLogoId: "57:10", footerLogoId: "208:1887" },

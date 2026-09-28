@@ -214,7 +214,7 @@ if (emitting && args.includes("--consumers")) {
   const only = option("--only");
   const page = option("--page");
   if (args.includes("--sets")) {
-    if (!page) fail("--sets 에는 --page <PAGE_ID> 가 필요합니다(세트는 90 · ASSETS 와 DS · Components 에 흩어져 있다).");
+    if (!page) fail("--sets 에는 --page <PAGE_ID> 가 필요합니다(세트는 90 · 자산 과 DS · Components 에 흩어져 있다).");
     const wanted = {};
     for (const board of boards) {
       for (const entry of board.instances) (wanted[entry.set] ??= new Set()).add(entry.variant);

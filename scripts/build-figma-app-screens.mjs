@@ -133,9 +133,9 @@ const CONTEXTS = [
 // **제품 부품 세트(2026-09-26 — DS-D-0071 · 소유자 결정 「Figma 먼저, 생성기로 묶어서」).** 보드 안의 제품 전용 컨트롤을
 // 측정 서브트리 그대로 제품 컴포넌트 variant 로 찍고(보드와 같은 변환 · 같은 렌더러), 보드는 같은 서브트리를 그 variant 의
 // 인스턴스로 쓴다 — 본문 세트 치환과 같은 판정(글자 서열 · 구조 서명 · 뷰포트)이라 서명 함수도 같은 것을 쓴다
-// (`contentSignatureOf`). 대상 컴포넌트는 90 ASSETS 의 「O · product/Parts」 섹션에 먼저 세운 빈 variant 다(보드 프레임과
+// (`contentSignatureOf`). 대상 컴포넌트는 90 · 자산 의 「S · product/Parts」 섹션에 먼저 세운 빈 variant 다(보드 프레임과
 // 같은 순서 — 러너는 있는 노드만 채운다). `anchor` 는 서브트리의 글자 서열이다: 측정이 옮겨 다른 노드를 가리키면 멈춘다.
-const PART_SECTION = "O · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물";
+const PART_SECTION = "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물";
 const COUPONS = "/subscription/coupons";
 const PLAN_OPTION = (plan, price) => [plan, `${price} KRW each`];
 const PARTS = [

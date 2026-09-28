@@ -802,7 +802,7 @@ const plan = {
   component: {
     id: "product/mobile-app-top-bar",
     pageId: "240:3529",
-    pageName: "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+    pageName: "90 · 자산 — 아이콘 · 로고 · 제품 부품",
     sectionName: "K · product/Mobile app top bar · measured component",
     componentSetName: "Product/Mobile App Top Bar",
     iconComponents: {

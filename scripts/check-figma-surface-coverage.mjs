@@ -173,7 +173,7 @@ const componentVocabulary = new Set(Object.keys(readback.components ?? {}));
 const patternVocabulary = new Set(Object.keys(readback.templates ?? {}));
 // 셋째 어휘 — 제품 세트(DS-D-0071). 정본은 제품 세트 생성기의 계획이 선언한 세트 이름이다. 그 계획은 제품 측정에서 생성되고
 // 세트 러너로 라이브에 적용되며 `check-figma-product-*` 가 계획과 러너를 잠근다. 되읽기(`DS · Components`)에는 없다 —
-// 제품 세트는 `90 · ASSETS` 에 산다.
+// 제품 세트는 `90 · 자산` 에 산다.
 const productVocabulary = new Set();
 for (const file of readdirSync(resolve(repoRoot, "figma")).filter((name) => /^product-.+\.plan\.json$/.test(name))) {
   const walk = (value, key) => {

@@ -32,15 +32,19 @@ const READBACK = "figma/readback.json";
  * 겹침을 함께 세는 이유: 변형을 프로그램으로 만들면 **전부 (0,0) 에 쌓이기 쉽다.**
  * 실제로 한 세트(SegmentedControlItem)는 18개가 한 자리에 겹쳐 153쌍이었고, 그 상태로도
  * parity 는 초록이었다 — 계약은 축과 값만 보지 배치를 보지 않기 때문이다. 겹친 세트는
- * 디자이너가 쓸 수 없으므로 「만든 것」이 아니다. */
+ * 디자이너가 쓸 수 없으므로 「만든 것」이 아니다.
+ *
+ * **세트는 분류 섹션 안에 산다(2026-09-28).** 페이지 최상위만 돌던 동안에는 섹션으로 묶는 순간 세트가 전부
+ * 「스냅숏에만 있습니다」로 보였을 것이다. 섹션은 한 층뿐이라(조립 규칙 20조 — 중첩하지 않는다) 최상위와 섹션
+ * 자식을 함께 돈다. 겹침은 같은 부모 안에서 센다(섹션 자식의 x · y 는 섹션 상대 좌표다). 섹션끼리의 겹침도 센다. */
 const PROBE = `const page = figma.root.children.find(p => p.name === "DS · Components");
 await figma.setCurrentPageAsync(page);
 const hit = (a, b) => a.x < b.x + b.width - 0.5 && b.x < a.x + a.width - 0.5 && a.y < b.y + b.height - 0.5 && b.y < a.y + a.height - 0.5;
+const isSet = (n) => n.type === "COMPONENT_SET" || n.type === "COMPONENT";
+const sections = page.children.filter((n) => n.type === "SECTION");
+const groups = [page.children.filter(isSet), ...sections.map((s) => s.children.filter(isSet))];
 const out = {};
-const tops = [];
-for (const n of page.children) {
-  if (n.type !== "COMPONENT_SET" && n.type !== "COMPONENT") continue;
-  tops.push(n);
+for (const n of groups.flat()) {
   const props = {};
   for (const [raw, def] of Object.entries(n.componentPropertyDefinitions || {})) {
     const key = raw.includes("#") ? raw.slice(0, raw.indexOf("#")) : raw;
@@ -59,8 +63,10 @@ for (const n of page.children) {
   };
 }
 let setOverlap = 0;
-for (let i = 0; i < tops.length; i += 1) for (let j = i + 1; j < tops.length; j += 1) if (hit(tops[i], tops[j])) setOverlap += 1;
-return { components: out, setOverlap };`;
+for (const tops of groups) for (let i = 0; i < tops.length; i += 1) for (let j = i + 1; j < tops.length; j += 1) if (hit(tops[i], tops[j])) setOverlap += 1;
+let sectionOverlap = 0;
+for (let i = 0; i < sections.length; i += 1) for (let j = i + 1; j < sections.length; j += 1) if (hit(sections[i], sections[j])) sectionOverlap += 1;
+return { components: out, setOverlap, sectionOverlap, sections: sections.map((s) => s.name) };`;
 
 const args = process.argv.slice(2);
 const read = (p) => JSON.parse(readFileSync(resolve(repoRoot, p), "utf8"));
@@ -90,6 +96,9 @@ const issues = [];
 
 if (typeof raw.setOverlap === "number" && raw.setOverlap > 0) {
   issues.push(`component set 끼리 겹칩니다 (${raw.setOverlap}쌍) — 캔버스에서 서로를 덮고 있습니다.`);
+}
+if (typeof raw.sectionOverlap === "number" && raw.sectionOverlap > 0) {
+  issues.push(`분류 섹션끼리 겹칩니다 (${raw.sectionOverlap}쌍) — 섹션을 옮기거나 크기를 다시 재세요.`);
 }
 for (const [name, got] of Object.entries(live)) {
   if (got.variantOverlap > 0) {

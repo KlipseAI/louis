@@ -44,7 +44,7 @@ const fail = (message) => {
 };
 
 const ASSETS_PAGE = "240:3529";
-const SECTION_NAME = "O · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물";
+const SECTION_NAME = "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물";
 const INK = { collection: "Klipse Semantic Color", name: "color/gray/000" };
 // 글리프 안의 `var(--…)`(그라디언트 정지점)를 LOUIS Figma 변수로 잇는 표. 근거는 제품 앵커의 선언 줄이다.
 const CSS_VARIABLES = {

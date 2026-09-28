@@ -312,7 +312,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
     if (split) { children = split; stats.textSplits += 1; }
 
     // 자식도 없고 스스로 그릴 것도 없으면 버린다 — Auto Layout에 빈 껍데기를 남기지 않는다.
-    if (children.length === 0 && !hasOwnPaint(node)) { stats.droppedEmpty += 1; return null; }
+    // **입력 요소는 빈 껍데기가 아니다(2026-09-28).** `<input>` 은 칠이 없어도 제 줄 높이로 칸을 받친다 — 버리자 입력칸(58)이 패딩
+    // 높이로 눌려 가입 보드의 칸 넷이 무너지고 라벨이 칸 밖으로 나갔다(캡처로 확인). 측정 크기의 상자로 남긴다.
+    const formControl = /^(input|textarea|select)$/.test(node.tag);
+    if (children.length === 0 && !hasOwnPaint(node) && !formControl) { stats.droppedEmpty += 1; return null; }
 
     const style = node.style ?? {};
     // 흐름 방향은 자식의 display가 결정한다(inline 형제는 가로로 흐른다).

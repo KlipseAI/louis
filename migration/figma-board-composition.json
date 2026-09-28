@@ -14,22 +14,22 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 76,
-  "rawNodesBeforePruning": 1380,
+  "rawNodesBeforePruning": 1410,
   "counts": {
-    "total": 1558,
+    "total": 1588,
     "instance": 224,
     "replaceable": 0,
     "bespoke": 15,
     "blocked": 8,
-    "missing": 42,
+    "missing": 72,
     "structural": 1269,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 77.5,
+    "instanceOverCandidates": 70.2,
     "target": 224,
-    "candidates": 289
+    "candidates": 319
   },
   "byInstanceSet": {
     "Button": 54,
@@ -66,8 +66,8 @@
     "image": 23
   },
   "missingByCandidateClause": {
-    "c-painted-mark": 11,
-    "a-interactive": 31
+    "a-interactive": 61,
+    "c-painted-mark": 11
   },
   "matchRules": [
     {
@@ -294,12 +294,12 @@
         "figma/app-screens.aws-signup.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 53,
+        "total": 57,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 4,
+        "missing": 8,
         "structural": 47,
         "unclassified": 0
       }
@@ -313,12 +313,12 @@
         "figma/app-screens.aws-signup.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 50,
+        "total": 54,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 4,
+        "missing": 8,
         "structural": 44,
         "unclassified": 0
       }
@@ -598,12 +598,12 @@
         "figma/app-screens.login.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 24,
+        "total": 26,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 4,
+        "missing": 6,
         "structural": 19,
         "unclassified": 0
       }
@@ -617,12 +617,12 @@
         "figma/app-screens.login.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 18,
+        "total": 20,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 4,
+        "missing": 6,
         "structural": 13,
         "unclassified": 0
       }
@@ -1244,12 +1244,12 @@
         "figma/app-screens.recover.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 17,
+        "total": 19,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
+        "missing": 4,
         "structural": 14,
         "unclassified": 0
       }
@@ -1263,12 +1263,12 @@
         "figma/app-screens.recover.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 17,
+        "total": 19,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
+        "missing": 4,
         "structural": 14,
         "unclassified": 0
       }
@@ -1282,12 +1282,12 @@
         "figma/app-screens.reset-password-new.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 21,
+        "total": 23,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 1,
+        "missing": 3,
         "structural": 19,
         "unclassified": 0
       }
@@ -1299,6 +1299,25 @@
       "file": "figma/app-screens.reset-password-new.mobile.00.draw.js",
       "files": [
         "figma/app-screens.reset-password-new.mobile.00.draw.js"
+      ],
+      "counts": {
+        "total": 21,
+        "instance": 1,
+        "replaceable": 0,
+        "bespoke": 0,
+        "blocked": 0,
+        "missing": 4,
+        "structural": 16,
+        "unclassified": 0
+      }
+    },
+    {
+      "route": "/reset-password",
+      "context": "desktop-1920x1080",
+      "frameId": "185:1142",
+      "file": "figma/app-screens.reset-password.desktop.00.draw.js",
+      "files": [
+        "figma/app-screens.reset-password.desktop.00.draw.js"
       ],
       "counts": {
         "total": 19,
@@ -1313,25 +1332,6 @@
     },
     {
       "route": "/reset-password",
-      "context": "desktop-1920x1080",
-      "frameId": "185:1142",
-      "file": "figma/app-screens.reset-password.desktop.00.draw.js",
-      "files": [
-        "figma/app-screens.reset-password.desktop.00.draw.js"
-      ],
-      "counts": {
-        "total": 18,
-        "instance": 1,
-        "replaceable": 0,
-        "bespoke": 0,
-        "blocked": 0,
-        "missing": 1,
-        "structural": 16,
-        "unclassified": 0
-      }
-    },
-    {
-      "route": "/reset-password",
       "context": "mobile-402x874",
       "frameId": "185:1202",
       "file": "figma/app-screens.reset-password.mobile.00.draw.js",
@@ -1339,12 +1339,12 @@
         "figma/app-screens.reset-password.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 16,
+        "total": 17,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
+        "missing": 3,
         "structural": 13,
         "unclassified": 0
       }
@@ -1513,12 +1513,12 @@
         "figma/app-screens.signup.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 44,
+        "total": 48,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 3,
+        "missing": 7,
         "structural": 38,
         "unclassified": 0
       }
@@ -1532,12 +1532,12 @@
         "figma/app-screens.signup.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 39,
+        "total": 43,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 4,
+        "missing": 8,
         "structural": 32,
         "unclassified": 0
       }
@@ -2833,6 +2833,18 @@
     },
     "/aws/signup@desktop-1920x1080#0.0.2.0.1.0.0": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@desktop-1920x1080#0.0.2.0.1.0.1": {
+      "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         55.33,
@@ -2854,6 +2866,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/aws/signup@desktop-1920x1080#0.0.2.0.1.1.0": {
+      "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@desktop-1920x1080#0.0.2.0.1.1.1": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -2888,6 +2912,18 @@
     },
     "/aws/signup@desktop-1920x1080#0.0.2.0.1.2.0.0": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@desktop-1920x1080#0.0.2.0.1.2.0.1": {
+      "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         70.98,
@@ -2909,6 +2945,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/aws/signup@desktop-1920x1080#0.0.2.0.1.2.1.0": {
+      "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@desktop-1920x1080#0.0.2.0.1.2.1.1": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -3392,6 +3440,18 @@
     },
     "/aws/signup@mobile-402x874#0.0.1.1.0.0": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@mobile-402x874#0.0.1.1.0.1": {
+      "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         55.48,
@@ -3413,6 +3473,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/aws/signup@mobile-402x874#0.0.1.1.1.0": {
+      "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@mobile-402x874#0.0.1.1.1.1": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -3447,6 +3519,18 @@
     },
     "/aws/signup@mobile-402x874#0.0.1.1.2.0.0": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@mobile-402x874#0.0.1.1.2.0.1": {
+      "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         62.11,
@@ -3468,6 +3552,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/aws/signup@mobile-402x874#0.0.1.1.2.1.0": {
+      "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@mobile-402x874#0.0.1.1.2.1.1": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -5960,6 +6056,18 @@
     },
     "/login@desktop-1920x1080#0.0.1.0.1.0.0.0": {
       "board": "figma/app-screens.login.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/login@desktop-1920x1080#0.0.1.0.1.0.0.1": {
+      "board": "figma/app-screens.login.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         29,
@@ -5981,6 +6089,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/login@desktop-1920x1080#0.0.1.0.1.0.1.0": {
+      "board": "figma/app-screens.login.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/login@desktop-1920x1080#0.0.1.0.1.0.1.1": {
       "board": "figma/app-screens.login.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -6164,6 +6284,18 @@
     },
     "/login@mobile-402x874#0.0.0.1.0.0.0": {
       "board": "figma/app-screens.login.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/login@mobile-402x874#0.0.0.1.0.0.1": {
+      "board": "figma/app-screens.login.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         29.11,
@@ -6185,6 +6317,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/login@mobile-402x874#0.0.0.1.0.1.0": {
+      "board": "figma/app-screens.login.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/login@mobile-402x874#0.0.0.1.0.1.1": {
       "board": "figma/app-screens.login.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -12826,6 +12970,18 @@
     },
     "/recover@desktop-1920x1080#0.0.0.2.0.0.0": {
       "board": "figma/app-screens.recover.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/recover@desktop-1920x1080#0.0.0.2.0.0.1": {
+      "board": "figma/app-screens.recover.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         30.64,
@@ -12847,6 +13003,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/recover@desktop-1920x1080#0.0.0.2.0.1.0": {
+      "board": "figma/app-screens.recover.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/recover@desktop-1920x1080#0.0.0.2.0.1.1": {
       "board": "figma/app-screens.recover.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -13017,6 +13185,18 @@
     },
     "/recover@mobile-402x874#0.0.0.2.0.0.0": {
       "board": "figma/app-screens.recover.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/recover@mobile-402x874#0.0.0.2.0.0.1": {
+      "board": "figma/app-screens.recover.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         30.7,
@@ -13038,6 +13218,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/recover@mobile-402x874#0.0.0.2.0.1.0": {
+      "board": "figma/app-screens.recover.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/recover@mobile-402x874#0.0.0.2.0.1.1": {
       "board": "figma/app-screens.recover.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -13262,6 +13454,18 @@
     },
     "/reset-password/new@desktop-1920x1080#0.0.1.0.1.0.0.0.0": {
       "board": "figma/app-screens.reset-password-new.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password/new@desktop-1920x1080#0.0.1.0.1.0.0.0.1": {
+      "board": "figma/app-screens.reset-password-new.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         70.98,
@@ -13283,6 +13487,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/reset-password/new@desktop-1920x1080#0.0.1.0.1.0.0.1.0": {
+      "board": "figma/app-screens.reset-password-new.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password/new@desktop-1920x1080#0.0.1.0.1.0.0.1.1": {
       "board": "figma/app-screens.reset-password-new.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -13475,6 +13691,18 @@
     },
     "/reset-password/new@mobile-402x874#0.0.0.2.0.0.0.0": {
       "board": "figma/app-screens.reset-password-new.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        328,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password/new@mobile-402x874#0.0.0.2.0.0.0.1": {
+      "board": "figma/app-screens.reset-password-new.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         62.11,
@@ -13496,6 +13724,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/reset-password/new@mobile-402x874#0.0.0.2.0.0.1.0": {
+      "board": "figma/app-screens.reset-password-new.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        328,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password/new@mobile-402x874#0.0.0.2.0.0.1.1": {
       "board": "figma/app-screens.reset-password-new.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -13698,6 +13938,18 @@
     },
     "/reset-password@desktop-1920x1080#0.0.1.0.1.0.0.0": {
       "board": "figma/app-screens.reset-password.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password@desktop-1920x1080#0.0.1.0.1.0.0.1": {
+      "board": "figma/app-screens.reset-password.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         38.94,
@@ -13877,6 +14129,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/reset-password@mobile-402x874#0.0.0.2.0.0.0": {
+      "board": "figma/app-screens.reset-password.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        328,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/reset-password@mobile-402x874#0.0.0.2.0.0.1": {
       "board": "figma/app-screens.reset-password.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -16368,6 +16632,18 @@
     },
     "/signup@desktop-1920x1080#0.0.1.0.1.0.0": {
       "board": "figma/app-screens.signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@desktop-1920x1080#0.0.1.0.1.0.1": {
+      "board": "figma/app-screens.signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         55.33,
@@ -16389,6 +16665,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/signup@desktop-1920x1080#0.0.1.0.1.1.0": {
+      "board": "figma/app-screens.signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@desktop-1920x1080#0.0.1.0.1.1.1": {
       "board": "figma/app-screens.signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -16423,6 +16711,18 @@
     },
     "/signup@desktop-1920x1080#0.0.1.0.1.2.0.0": {
       "board": "figma/app-screens.signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@desktop-1920x1080#0.0.1.0.1.2.0.1": {
+      "board": "figma/app-screens.signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
         70.98,
@@ -16444,6 +16744,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/signup@desktop-1920x1080#0.0.1.0.1.2.1.0": {
+      "board": "figma/app-screens.signup.desktop.00.draw.js",
+      "tag": "input",
+      "rect": [
+        366,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@desktop-1920x1080#0.0.1.0.1.2.1.1": {
       "board": "figma/app-screens.signup.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -16807,6 +17119,18 @@
     },
     "/signup@mobile-402x874#0.0.0.1.0.0": {
       "board": "figma/app-screens.signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@mobile-402x874#0.0.0.1.0.1": {
+      "board": "figma/app-screens.signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         55.48,
@@ -16828,6 +17152,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/signup@mobile-402x874#0.0.0.1.1.0": {
+      "board": "figma/app-screens.signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@mobile-402x874#0.0.0.1.1.1": {
       "board": "figma/app-screens.signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -16862,6 +17198,18 @@
     },
     "/signup@mobile-402x874#0.0.0.1.2.0.0": {
       "board": "figma/app-screens.signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@mobile-402x874#0.0.0.1.2.0.1": {
+      "board": "figma/app-screens.signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         62.11,
@@ -16883,6 +17231,18 @@
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/signup@mobile-402x874#0.0.0.1.2.1.0": {
+      "board": "figma/app-screens.signup.mobile.00.draw.js",
+      "tag": "input",
+      "rect": [
+        336,
+        21
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/signup@mobile-402x874#0.0.0.1.2.1.1": {
       "board": "figma/app-screens.signup.mobile.00.draw.js",
       "tag": "span",
       "rect": [

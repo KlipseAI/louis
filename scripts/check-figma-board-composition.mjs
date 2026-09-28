@@ -288,7 +288,10 @@ const INSTANCE_FLOOR = 224;
 // 「Back to log in」 링크 버튼(높이 48, LOUIS 사다리 밖) 10 · 모바일 로고 링크 9 · 가입 약관 체크 마크(22×22) 8 · `/aws/signup` 약관 「View」 버튼(높이 22 · 반경 12) 4 ·
 // 「Forgot password?」 · 「Sign up」 같은 글자 링크 8 · 링크 사이 세로 구분선 2 · 로그인 데스크톱 영상 판의 칠해진 덮개 1.
 // 수는 instance 224 + replaceable 0 + bespoke 15 + blocked 8 + missing 42.
-const CANDIDATE_FLOOR = 289;
+// 같은 날 뒤: 289 → **319.** 보드가 준 것도 판정을 푼 것도 아니다 — 생성기가 칠 없는 `<input>` 을 빈 껍데기로 버리던 것을 고쳐(입력칸이
+// 패딩 높이로 눌렸다) 인증 화면의 입력 요소 30 이 보드에 섰고, LOUIS 컨트롤 사다리에 맞는 기하가 없어 미보유 +30 이다. 수는 instance 224 +
+// replaceable 0 + bespoke 15 + blocked 8 + missing 72.
+const CANDIDATE_FLOOR = 319;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.

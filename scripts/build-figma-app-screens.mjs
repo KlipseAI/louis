@@ -72,12 +72,15 @@ if (anonymousFixture.fixture?.theme !== fixture.fixture?.theme) fail("두 측정
 
 // **자산 이미지(2026-09-28).** 제품 `<img src>` 는 그림이 파일이라 측정에 모양이 없고, 렌더러가 빈 상자로 그렸다 — 인증 화면
 // 브랜드 패널 · 카드 위의 로고가 통째로 빠졌다(캡처로 확인). src 를 LOUIS 90 · 자산의 컴포넌트에 잇는다. 이름은 여기 적되 id 와
-// 실재는 라이브 자산 목록(`figma/live-assets.json`)이 증거다 — 없으면 멈춘다. 여기 없는 src 는 지금처럼 빈 상자로 남는다
-// (`/icons/youtube.svg` 는 `<img>` 라 제 색으로 그려지는데 `icon/youtube` 의 색을 대조하지 않아 아직 잇지 않았다).
+// 실재는 라이브 자산 목록(`figma/live-assets.json`)이 증거다 — 없으면 멈춘다. 여기 없는 src 는 지금처럼 빈 상자로 남는다.
+// `<img>` 는 제 색으로 그려지므로(`currentColor` 가 닿지 않는다) 컴포넌트의 색을 대조한 뒤에만 잇는다 — `/icons/youtube.svg` 는 검정 획
+// (`stroke="black"`)이고 `icon/youtube` 의 획은 `color/gray/000`(라이트 검정)이라 같다. 획 두께는 다르다 — 컴포넌트는 DS 아이콘 규칙대로
+// 32 상자에 2(48 로 줄이면 3.0)이고 제품은 원본 2.4 를 1.5 배로 그려 3.6 이다(2026-09-28 대조).
 const IMAGE_COMPONENTS = {
   "/klipse-dark.svg": "logo/klipse-dark",
   "/klipse-light.svg": "logo/klipse-light",
   "/icons/aws-logo.svg": "icon/aws-logo",
+  "/icons/youtube.svg": "icon/youtube",
 };
 const liveAssets = JSON.parse(readFileSync(resolve(repoRoot, "figma/live-assets.json"), "utf8"));
 const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, name]) => {

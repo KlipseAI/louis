@@ -9368,7 +9368,7 @@
                                 "path": "body.1.0.0.1.0.3.t",
                                 "tag": "span",
                                 "name": "body.1.0.0.1.0.3.t",
-                                "text": "Already have an account?",
+                                "text": "Already have an account? ",
                                 "textLines": null,
                                 "paints": true,
                                 "rect": {
@@ -12545,7 +12545,7 @@
                             "path": "body.1.0.0.1.0.3.t",
                             "tag": "span",
                             "name": "body.1.0.0.1.0.3.t",
-                            "text": "Already have an account?",
+                            "text": "Already have an account? ",
                             "textLines": null,
                             "paints": true,
                             "rect": {
@@ -33193,7 +33193,7 @@
                         "path": "body.1.0.0.0.1",
                         "tag": "p",
                         "name": "body.1.0.0.0.1",
-                        "text": "탈퇴한 계정을 복구합니다. 기존 이메일과 비밀번호를 입력해주세요.",
+                        "text": "탈퇴한 계정을 복구합니다.\n기존 이메일과 비밀번호를 입력해주세요.",
                         "textLines": null,
                         "paints": true,
                         "rect": {
@@ -34624,7 +34624,7 @@
                         "path": "body.1.0.0.0.1",
                         "tag": "p",
                         "name": "body.1.0.0.0.1",
-                        "text": "탈퇴한 계정을 복구합니다. 기존 이메일과 비밀번호를 입력해주세요.",
+                        "text": "탈퇴한 계정을 복구합니다.\n기존 이메일과 비밀번호를 입력해주세요.",
                         "textLines": null,
                         "paints": true,
                         "rect": {
@@ -59383,16 +59383,6 @@
         "droppedInvisible": 0,
         "droppedEmpty": 3,
         "unresolved": [],
-        "unmappedImages": [
-          {
-            "path": "body.1.0.0.1.0.0.2.0.0.0",
-            "src": "/icons/youtube.svg",
-            "rect": [
-              48,
-              48
-            ]
-          }
-        ],
         "sizingReconciled": [
           {
             "path": "body.1.0.0.1.0.0.2.0.1",
@@ -60540,7 +60530,11 @@
                                                 },
                                                 "layout": null,
                                                 "clipsContent": false,
-                                                "children": []
+                                                "children": [],
+                                                "imageComponent": {
+                                                  "id": "61:441",
+                                                  "name": "icon/youtube"
+                                                }
                                               }
                                             ]
                                           }
@@ -60944,16 +60938,6 @@
         "droppedInvisible": 0,
         "droppedEmpty": 3,
         "unresolved": [],
-        "unmappedImages": [
-          {
-            "path": "body.1.0.0.1.0.0.2.0.0.0",
-            "src": "/icons/youtube.svg",
-            "rect": [
-              48,
-              48
-            ]
-          }
-        ],
         "sizingReconciled": [
           {
             "path": "body.1.0.0.1.0.0.2.0.1",
@@ -62022,7 +62006,11 @@
                                                 },
                                                 "layout": null,
                                                 "clipsContent": false,
-                                                "children": []
+                                                "children": [],
+                                                "imageComponent": {
+                                                  "id": "61:441",
+                                                  "name": "icon/youtube"
+                                                }
                                               }
                                             ]
                                           }
@@ -126751,7 +126739,7 @@
       "files": [
         {
           "file": "figma/app-screens.signup.desktop.00.draw.js",
-          "bytes": 47735
+          "bytes": 47736
         }
       ]
     },
@@ -126763,7 +126751,7 @@
       "files": [
         {
           "file": "figma/app-screens.signup.mobile.00.draw.js",
-          "bytes": 47201
+          "bytes": 47202
         }
       ]
     },
@@ -126919,7 +126907,7 @@
       "files": [
         {
           "file": "figma/app-screens.recover.desktop.00.draw.js",
-          "bytes": 44831
+          "bytes": 44832
         }
       ]
     },
@@ -126931,7 +126919,7 @@
       "files": [
         {
           "file": "figma/app-screens.recover.mobile.00.draw.js",
-          "bytes": 44807
+          "bytes": 44808
         }
       ]
     },
@@ -127051,7 +127039,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.desktop.00.draw.js",
-          "bytes": 44793
+          "bytes": 44824
         }
       ]
     },
@@ -127063,7 +127051,7 @@
       "files": [
         {
           "file": "figma/app-screens.analytics-youtube.mobile.00.draw.js",
-          "bytes": 44571
+          "bytes": 44602
         }
       ]
     },

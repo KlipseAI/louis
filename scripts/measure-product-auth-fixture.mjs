@@ -644,12 +644,32 @@ try {
               computed[axis].replaceAll(location.origin, ""),
             ]));
           };
-          const ownText = (node) => cleanText(
-            [...node.childNodes]
-              .filter((child) => child.nodeType === Node.TEXT_NODE)
-              .map((child) => child.textContent)
-              .join(" "),
-          );
+          // **줄과 경계 공백을 살린다(2026-09-28).** 옛 추출은 글자 노드만 공백으로 이어 `trim` 해서 둘을 잃었다 — `<br />` 로 가른 두
+          // 문장이 한 줄로 이어졌고(`/recover` 안내), 글자와 링크 사이의 공백(`{t.hasAccount}{" "}<Link>`)이 잘려 「account?Log in」이
+          // 됐다. `<br>` 은 줄바꿈으로, 요소와 맞닿은 공백은 한 칸으로 남긴다. 글자 노드끼리는 옛 추출처럼 공백으로 잇고(원장이 흔들리지
+          // 않게), 공백만 있는 글자는 옛처럼 없는 것으로 본다.
+          const ownText = (node) => {
+            // 글자 노드 안의 줄바꿈 문자는 CSS 처럼 공백으로 접히고, 줄은 `<br>` 만 가른다.
+            const ELEMENT = "\u0001";
+            const BREAK = "\u0002";
+            let raw = "";
+            let lastWasText = false;
+            for (const child of node.childNodes) {
+              if (child.nodeType === Node.TEXT_NODE) {
+                raw += (lastWasText ? " " : "") + child.textContent;
+                lastWasText = true;
+              } else if (child.nodeType === Node.ELEMENT_NODE) {
+                raw += child.nodeName === "BR" ? BREAK : ELEMENT;
+                lastWasText = false;
+              }
+            }
+            const lines = raw.replace(/\s+/g, " ").split(BREAK)
+              .map((line) => line.trim().split(ELEMENT).join("").replace(/ {2,}/g, " "));
+            while (lines.length && !lines[0].trim()) lines.shift();
+            while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+            const text = lines.join("\n");
+            return text.trim() ? text : "";
+          };
           const vectorAttributes = (node) => {
             if (!(node instanceof SVGElement)) return null;
             const names = [

@@ -124,8 +124,9 @@ const ref = option("--ref");
 const readRepo = (path) => (ref
   ? execFileSync("git", ["-C", repoRoot, "show", `${ref}:${path}`], { encoding: "utf8", maxBuffer: 1 << 28 })
   : readFileSync(resolve(repoRoot, path), "utf8"));
-const matchesOnly = (board, only) =>
-  !only || board.route.includes(only) || board.context.includes(only) || board.frameId === only;
+// 쉼표로 여럿을 줄 수 있다 — 어느 하나에 맞으면 고른다. 탐침 응답이 도구 한도(20KB)를 넘는 페이지를 나눠 뜰 때 쓴다(2026-09-28, 04 페이지).
+const matchesOnly = (board, only) => !only || only.split(",").some((part) =>
+  board.route.includes(part) || board.context.includes(part) || board.frameId === part);
 
 const fnv = (text) => {
   let hash = 0x811c9dc5;

@@ -156,6 +156,12 @@ test("시트가 문서의 유일한 헤어라인이고 바닥 위에 선다", ()
   expect(probe("sheet").getBoundingClientRect().width).toBe(1120);
 });
 
+test("카드에 색 레일이 없다 — 2026-09-28 소유자 지시로 레일 변형을 걷어냈다", () => {
+  // 옛 마크업(`data-accent="rail"`)을 그대로 둔 카드도 여느 카드로 선다 — 앞에 긋는 선이 없다.
+  expect(getComputedStyle(probe("rail"), "::before").content).toBe("none");
+  expect(getComputedStyle(probe("rail")).backgroundColor).toBe(getComputedStyle(probe("card")).backgroundColor);
+});
+
 test("시트 안의 면에는 테두리도 그림자도 없다 — 깊이는 한 겹이다", () => {
   for (const name of ["decision-item", "card", "stat", "rail", "split", "note", "caution", "flow-label", "verdict", "marker"]) {
     const style = getComputedStyle(probe(name));
@@ -199,13 +205,13 @@ for (const theme of THEMES) {
   });
 }
 
-test("박스 사이는 10, 카드 여백은 24 · 32 다", () => {
+test("박스 사이는 8, 카드 여백은 24 · 32 다", () => {
   for (const name of ["decision-list", "grid-3", "grid-4", "grid-2"]) {
     const style = getComputedStyle(probe(name));
-    expect(style.rowGap, name).toBe("10px");
+    expect(style.rowGap, name).toBe("8px");
   }
   for (const name of ["grid-3", "grid-4", "grid-2"]) {
-    expect(getComputedStyle(probe(name)).columnGap, name).toBe("10px");
+    expect(getComputedStyle(probe(name)).columnGap, name).toBe("8px");
   }
   for (const name of ["card", "stat", "decision-item", "note"]) {
     expect(getComputedStyle(probe(name)).paddingTop, name).toBe("24px");
@@ -233,10 +239,14 @@ test("격자 열 수 — 기본 3 · data-columns 2 · 4", () => {
   expect(columns("grid-2")).toBe(2);
 });
 
-test("타이포 일곱 단계 — 제목 48 · 절 제목 28 · 수치 36, 굵기는 semibold 까지", () => {
+test("타이포 — 제목 36 · 절 제목 28 · 수치 36 · 리드 16/500, 굵기는 semibold 까지", () => {
+  // 제목과 리드는 랜딩 데스크톱의 절 제목(type-heading-36-semibold) · 설명(type-body-16-medium)과 같다(2026-09-28).
   const title = getComputedStyle(probe("title"));
-  expect(title.fontSize).toBe("48px");
+  expect(title.fontSize).toBe("36px");
   expect(title.fontWeight).toBe("600");
+  const lead = getComputedStyle(document.querySelector(".louis-document__lead")!);
+  expect(lead.fontSize).toBe("16px");
+  expect(lead.fontWeight).toBe("500");
   const section = getComputedStyle(probe("section-title"));
   expect(section.fontSize).toBe("28px");
   expect(section.fontWeight).toBe("600");
@@ -402,7 +412,8 @@ test("좁은 화면(≤719) — 시트가 화면이 되고 글자가 한 단씩 
   expect(sheet.borderTopLeftRadius).toBe("0px");
   expect(sheet.boxShadow).toBe("none");
   expect(getComputedStyle(probe("page")).paddingTop).toBe("0px");
-  expect(getComputedStyle(probe("title")).fontSize).toBe("36px");
+  expect(getComputedStyle(probe("title")).fontSize).toBe("28px");
+  expect(getComputedStyle(document.querySelector(".louis-document__lead")!).fontSize).toBe("16px");
   expect(getComputedStyle(probe("section-title")).fontSize).toBe("20px");
   expect(getComputedStyle(probe("stat-value")).fontSize).toBe("28px");
   expect(getComputedStyle(probe("column")).paddingLeft).toBe("20px");

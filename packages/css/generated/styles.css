@@ -8676,8 +8676,8 @@
   --louis-document-inset-block-end: 64px;
   /* 절과 절 사이. 절 안의 블록 간격(`space-layout-section` 24)의 세 배다. */
   --louis-document-flow-gap: 72px;
-  /* 박스를 나열하는 컨테이너의 gap — 카드 열 · 수치 행 · 결정 항목이 전부 같다. */
-  --louis-document-box-gap: 10px;
+  /* 박스를 나열하는 컨테이너의 gap — 카드 열 · 수치 행 · 결정 항목이 전부 같다. 2026-09-28 소유자 지시로 10 → 8. */
+  --louis-document-box-gap: 8px;
   /* 카드 안쪽 여백은 24 또는 32 뿐이다. */
   --louis-document-card-inset: 24px;
   --louis-document-card-inset-lg: 32px;
@@ -8783,25 +8783,26 @@
   block-size: var(--louis-icon-size-md);
 }
 
-/* 문서의 유일한 heading-48 이다. 합성 ramp 의 heading-lg 에는 medium 한 칸뿐이라 크기 · 행간 ·
- * 자간은 거기서, 굵기는 semibold 칸에서 받는다 — stat-tile `lg` 와 같은 결함이고 같은 처리다. */
+/* 문서 제목은 랜딩 데스크톱의 절 제목(`type-heading-36-semibold`)과 같은 36/600 이다 — 2026-09-28 소유자 지시
+ * (전에는 heading-48). */
 .louis-document__title {
   margin: 0;
   color: var(--louis-color-fg-primary);
-  font-size: var(--louis-typography-heading-lg-medium-font-size);
+  font-size: var(--louis-typography-heading-md-semibold-font-size);
   font-weight: var(--louis-typography-heading-md-semibold-font-weight);
-  line-height: var(--louis-typography-heading-lg-medium-line-height);
-  letter-spacing: var(--louis-typography-heading-lg-medium-letter-spacing);
+  line-height: var(--louis-typography-heading-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
 }
 
-/* 리드 — 제목을 한 문장으로 푼다. */
+/* 리드 — 제목을 한 문장으로 푼다. 랜딩 데스크톱의 절 설명(`type-body-16-medium`)과 같은 16/500 이다
+ * (2026-09-28 소유자 지시, 전에는 20/400). */
 .louis-document__lead {
   margin: 0;
   color: var(--louis-color-fg-secondary);
-  font-size: var(--louis-typography-body-lg-regular-font-size);
-  font-weight: var(--louis-typography-body-lg-regular-font-weight);
-  line-height: var(--louis-typography-body-lg-regular-line-height);
-  letter-spacing: var(--louis-typography-body-lg-regular-letter-spacing);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
 /* 날짜 · 작성 주체 같은 메타. 한 줄이면 가운뎃점으로 이어 붙이지 않고 요소를 나눈다. */
@@ -9008,23 +9009,6 @@
 
 .louis-document-card[data-inset="lg"] {
   padding: var(--louis-document-card-inset-lg);
-}
-
-/* 강조는 테두리가 아니라 **좌측 3px 레일**로만 준다(deck-kit §6.1 `.k-card--accent`). */
-.louis-document-card[data-accent="rail"] {
-  --louis-document-card-rail-inline-size: 3px;
-
-  position: relative;
-}
-
-.louis-document-card[data-accent="rail"]::before {
-  content: "";
-  position: absolute;
-  inset-block: var(--louis-space-control-lg);
-  inset-inline-start: 0;
-  inline-size: var(--louis-document-card-rail-inline-size);
-  border-radius: var(--louis-radius-pill);
-  background: var(--louis-color-accent-primary);
 }
 
 /* 한 면에 요약 하나 + 설명 하나. 좁으면 세로로 쌓인다. */
@@ -9504,16 +9488,12 @@
     box-shadow: none;
   }
 
+  /* 제목 36 → 28 — 랜딩 절 제목도 좁은 화면에서 28 까지 내려간다. 28 은 semibold 칸이 없어 크기 · 행간 · 자간을
+   * medium 칸에서 받고 굵기는 위 규칙의 semibold 가 남는다. 리드는 16 그대로다. */
   .louis-document__title {
-    font-size: var(--louis-typography-heading-md-semibold-font-size);
-    line-height: var(--louis-typography-heading-md-semibold-line-height);
-    letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
-  }
-
-  .louis-document__lead {
-    font-size: var(--louis-typography-body-md-regular-font-size);
-    line-height: var(--louis-typography-body-md-regular-line-height);
-    letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+    font-size: var(--louis-typography-heading-sm-medium-font-size);
+    line-height: var(--louis-typography-heading-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
   }
 
   .louis-document-section__title {
@@ -9607,7 +9587,6 @@
     border: var(--louis-border-width-default) solid CanvasText;
   }
 
-  .louis-document-card[data-accent="rail"]::before,
   .louis-document-bars__fill,
   .louis-document-timeline__body::before {
     forced-color-adjust: none;

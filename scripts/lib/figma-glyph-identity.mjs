@@ -304,6 +304,42 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "부스 체험(`/creative-media`) 머리글의 메뉴 버튼 — 가로선 셋(`components/creative-media/CreativeMediaClient.tsx:1095`). 폭이 있고 높이가 0 인 선이라 측정기가 선 도형을 싣게 된 뒤에야 서명이 섰다. LOUIS 에 목록 · 햄버거 그림이 없다.",
   },
+  // ── 2026-09-30 — 공개 원장의 랜딩(`/`).
+  {
+    id: "text-t-32",
+    signature: "0 0 32 32|path(d=M5.3335 9.33301V5.33301H26.6668V9.33301M16.0002 5.33301V26.6663M12.0002 26.6663H20.0002)",
+    louis: "icon/text",
+    verdict: "bespoke",
+    why: "랜딩 개요의 노드 캔버스 목업 — 텍스트 노드의 「T」 글리프(`components/scenes/create/node-canvas-v2/icons/TextIcon.tsx`, 32 상자). LOUIS `icon/text` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "trash-lucide",
+    signature: "0 0 24 24|path(d=M3 6h18)|path(d=M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2)|path(d=M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6)|path(d=M10 11v6)|path(d=M14 11v6)",
+    louis: "icon/trash-simple",
+    verdict: "bespoke",
+    why: "랜딩 개요의 노드 캔버스 목업 — 노드 도구 막대의 삭제(`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx`, lucide 모양 휴지통). LOUIS `icon/trash-simple` 과 뜻은 같지만 뚜껑 · 안쪽 선이 있는 다른 그림이다.",
+  },
+  {
+    id: "copy-rounded",
+    signature: "0 0 24 24|path(d=M4 16C2.9 16 2 15.1 2 14V4C2 2.9 2.9 2 4 2H14C15.1 2 16 2.9 16 4M10 8H20C21.1046 8 22 8.89543 22 10V20C22 21.1046 21.1046 22 20 22H10C8.89543 22 8 21.1046 8 20V10C8 8.89543 8.89543 8 10 8Z)",
+    louis: "icon/copy",
+    verdict: "bespoke",
+    why: "랜딩 개요의 노드 캔버스 목업 — 글자 칸의 복사(`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx`, 둥근 두 사각형). LOUIS `icon/copy` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "chevron-left-16",
+    signature: "0 0 16 16|path(d=M10 3L5 8l5 5)",
+    louis: "icon/caret-left",
+    verdict: "bespoke",
+    why: "랜딩 캐러셀의 이전 화살표(`components/landing/system/CarouselArrows.tsx:65`, 16 상자). LOUIS `icon/caret-left` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "chevron-right-16",
+    signature: "0 0 16 16|path(d=M6 3l5 5-5 5)",
+    louis: "icon/caret-right",
+    verdict: "bespoke",
+    why: "랜딩 캐러셀의 다음 화살표(`components/landing/system/CarouselArrows.tsx:65`, 16 상자). LOUIS `icon/caret-right` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

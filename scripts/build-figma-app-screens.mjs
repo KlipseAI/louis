@@ -1381,7 +1381,14 @@ const TEXT_DETERMINED_WHY =
 const PUBLIC_FOOTER_PENDING_WHY = "공개 페이지 푸터(링크 열 · 소셜 링크)의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const INQUIRY_FORM_PENDING_WHY = "문의 폼 · 안내 칸의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09-29 새 보드, 캡처 대조 전";
+const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 — 2026-09-30 새 보드(가장 높은 형제가 HUG 로 서고 나머지가 그 높이로 늘어나는지 캡처 대조 전)";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
+  "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.2.0.0.1.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  "/ @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/ @ mobile-402x874 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  "/ @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },

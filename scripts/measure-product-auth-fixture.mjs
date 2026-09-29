@@ -233,6 +233,13 @@ const SESSION_ROUTES = [
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
 // 나오는 것부터 싣는다. 템플릿 상세는 장면 측정기와 같은 `filter` 로 연다.
 const PUBLIC_ROUTES = [
+  // **랜딩(2026-09-30).** 로그아웃 상태의 문서 전체 — 템플릿 섹션은 DB(`creative_media_templates`)가 닿지 않아 빈 배열이 오고 제품
+  // 코드대로 통째로 빠진다(`app/page.tsx` 로더 주석). 모델 캐러셀도 `/api/models` 가 500 이라 빠진다.
+  // **동작 줄이기로 잰다.** 랜딩의 스크롤 리빌은 화면에 들어온 요소에만 `.is-visible` 을 붙이고 벗어나면 뗀다(래치가 아니다) — 훑고
+  // 되감으면 히어로 아래 구획이 다시 `opacity: 0` 이 되어 FAQ · 마지막 CTA(데스크톱 1051)가 원장에서 빠졌다. 제품 CSS 는
+  // `prefers-reduced-motion: reduce` 에서 출발 상태 규칙을 걸지 않아 도착 상태가 처음부터 보이고(globals.css 스크롤 리빌 주석), 제품의
+  // 대비 · 렌더 하네스도 그 경로로 잰다. 동영상도 첫 프레임에 선다(`Hero.tsx`).
+  { pattern: "/", file: "apps/web/app/page.tsx", fullPage: true, reducedMotion: true },
   { pattern: "/privacy", fullPage: true },
   { pattern: "/terms", fullPage: true },
   { pattern: "/inquiry", fullPage: true },
@@ -258,6 +265,7 @@ const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : 
     url,
     ...(spec.file ? { file: spec.file } : {}),
     ...(spec.fullPage ? { fullPage: true } : {}),
+    ...(spec.reducedMotion ? { reducedMotion: true } : {}),
     expectedPath: target.pathname,
     expectedSearch: target.search,
   };
@@ -631,6 +639,8 @@ try {
       const context = await browser.newContext({
         viewport: { width: contextSpec.width, height: contextSpec.height },
         colorScheme: "light",
+        // 동작 줄이기로 재는 화면(PUBLIC_ROUTES 의 랜딩 주석) — 스크롤 리빌 · 자동 재생의 도착 상태.
+        ...(spec.reducedMotion ? { reducedMotion: "reduce" } : {}),
         locale: "en-US",
         extraHTTPHeaders: { "Accept-Language": "en-US,en;q=0.9" },
         serviceWorkers: "block",
@@ -1185,6 +1195,7 @@ try {
           ...(spec.url === spec.id ? {} : { requestedUrl: spec.url }),
           // 문서 끝까지 잰 화면 — 보드는 뷰포트 창이 아니라 문서 높이로 선다(build-figma-app-screens frameSize).
           ...(spec.fullPage ? { fullPage: true } : {}),
+          ...(spec.reducedMotion ? { reducedMotion: true } : {}),
           ...measured,
           // 「요청한 곳과 다른 데 도착했다」를 잡는 canary다. search 를 빈 문자열로 못박으면
           // 의도한 쿼리(`?__phase=…`)까지 redirect 로 잡히므로 **의도한 search 와** 견준다.

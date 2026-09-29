@@ -345,6 +345,8 @@ const buildNode = (spec, parent) => {
         // `layoutWrap` 은 HORIZONTAL 에만 건다 — 세로 프레임에 WRAP 을 걸면 API 가 던져 러너가 멈춘다.
         // 생성기(figma-tree-spec `wrap`)도 가로에만 싣지만, 옛 조각을 돌려도 멈추지 않게 여기서도 막는다.
         if (node.layoutMode === "HORIZONTAL") node.layoutWrap = spec.l[8] ? "WRAP" : "NO_WRAP";
+        // 감긴 줄 사이 간격(`row-gap`) — 걸지 않으면 줄이 붙는다.
+        if (node.layoutMode === "HORIZONTAL" && spec.l[8] && spec.cg) node.counterAxisSpacing = spec.cg;
         if (spec.l[6]) node.counterAxisAlignItems = spec.l[6];
         if (spec.l[7]) node.primaryAxisAlignItems = spec.l[7];
       }

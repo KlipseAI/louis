@@ -448,6 +448,9 @@ const slimNode = (node) => ({
       ...(node.layout.columnTracks ? [node.layout.columnTracks] : []),
     ],
   } : {}),
+  // 감긴 가로 줄의 줄 간격(`row-gap`) — Figma `counterAxisSpacing`. 렌더러가 걸지 않아 감긴 줄 사이가 붙었다(2026-09-30, 공개 페이지
+  // 모바일 푸터의 링크 묶음 두 줄 사이 40).
+  ...(node.layout?.wrap && node.layout.counterAxisSpacing && wrapRowCount(node) > 1 ? { cg: round(node.layout.counterAxisSpacing) } : {}),
   // grid 칸 안 정렬 [가로, 세로](figma-tree-spec gridCellAlign) — 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
   ...(node.gridAlign ? { ga: [node.gridAlign.horizontal ?? "", node.gridAlign.vertical ?? ""] } : {}),
   // 자산 이미지 — `<img src>` 가 이어진 LOUIS 컴포넌트 [id, 이름](IMAGE_COMPONENTS).
@@ -624,6 +627,13 @@ const AXIS_OF = {
   vertical: { sizing: "layoutSizingVertical", extent: "height", min: "minHeight", start: "top", end: "bottom", mode: "VERTICAL" },
 };
 const flowChildren = (node) => (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+/** 감긴 가로 줄이 측정에서 실제로 몇 줄로 섰는가 — 흐름 자식의 y 로 가른다(한 줄이면 줄 간격 · 줄 안 stretch 가 그림에 뜻이 없다). */
+const wrapRowCount = (node) => {
+  if (!node.layout?.wrap || node.layout.layoutMode !== "HORIZONTAL") return 0;
+  const tops = [];
+  for (const child of flowChildren(node)) if (!tops.some((y) => Math.abs(y - child.rect.y) <= 0.5)) tops.push(child.rect.y);
+  return tops.length;
+};
 /** 자동 배치 노드가 한 축에서 자기 내용으로 서면 가질 크기(측정 자식 · 간격 · 패딩). 잴 수 없으면 null. */
 function contentExtent(node, axisName) {
   const axis = AXIS_OF[axisName];
@@ -632,6 +642,16 @@ function contentExtent(node, axisName) {
   if (node.instance || !layout || layout.layoutMode === "GRID" || children.length === 0) return null;
   const outer = (child) => child.rect[axis.extent] + (child.margin?.[axis.start] ?? 0) + (child.margin?.[axis.end] ?? 0);
   const padding = layout.padding[axis.start] + layout.padding[axis.end];
+  // 감긴 가로 줄의 세로는 줄마다의 높이 합 + 줄 간격이다 — 측정 자리(y)로 줄을 가른다.
+  if (layout.wrap && layout.layoutMode === "HORIZONTAL" && axisName === "vertical") {
+    const rows = [];
+    for (const child of [...children].sort((a, b) => a.rect.y - b.rect.y)) {
+      const row = rows.find((entry) => Math.abs(entry.y - child.rect.y) <= HALF_PIXEL);
+      if (row) row.height = Math.max(row.height, outer(child));
+      else rows.push({ y: child.rect.y, height: outer(child) });
+    }
+    return padding + rows.reduce((sum, row) => sum + row.height, 0) + (layout.counterAxisSpacing ?? 0) * (rows.length - 1);
+  }
   return layout.layoutMode === axis.mode
     ? padding + children.reduce((sum, child) => sum + outer(child), 0) + layout.itemSpacing * (children.length - 1)
     : padding + Math.max(...children.map(outer));
@@ -682,6 +702,18 @@ function reconcileFigmaSizing(spec) {
           `height ${node.rect.height} / line-height ${lineHeight}`);
       } else {
         unresolvedWraps.push({ path: node.path, lines, parent: parent?.path ?? null });
+      }
+    }
+    // **감긴 줄 안의 세로 stretch(2026-09-30).** 감긴 가로 줄에서 CSS 의 교차축 stretch 는 제 줄의 높이로 늘일 뿐인데, Figma 의 감긴 줄 안
+    // 세로 FILL 은 최소로 접혀 둘째 줄이 첫 줄에 겹쳤다(공개 페이지 모바일 푸터, 둘째 줄 −72). 칠이 없으면 HUG(늘어난 높이는 보이지 않는다),
+    // 칠이 있으면 측정 높이 FIXED 로 둔다.
+    if (wrapRowCount(node) > 1) {
+      for (const child of flowChildren(node)) {
+        if (child.instance || child.sizing.layoutSizingVertical !== "FILL") continue;
+        const hug = !child.paint && (child.layout || child.text);
+        change(child, "vertical", hug ? "HUG" : "FIXED",
+          `감긴 가로 줄(${node.path}) 안의 세로 stretch — Figma 는 감긴 줄 안의 FILL 을 최소로 접는다. ${hug ? "칠이 없어 내용 높이(HUG)로 둔다" : "칠이 있어 측정 높이로 둔다"}`,
+          `wrap row · measured ${child.rect.height}`);
       }
     }
     if (node.layout && node.layout.layoutMode !== "GRID") {
@@ -1388,15 +1420,10 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/ @ mobile-402x874 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
-  "/ @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

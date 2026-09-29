@@ -397,6 +397,8 @@ const typographyKeys = (node) => {
     ...(typography.color ? { tc: typography.color } : {}),
     ...(typography.align ? { ta: typography.align } : {}),
     ...(typography.truncate ? { tt: 1 } : {}),
+    // 글자 모양으로 오린 그라디언트(figma-tree-spec clippedTextPaint) — [각도, [색, 위치], …].
+    ...(typography.gradient ? { tg: [round(typography.gradient.angle), ...typography.gradient.stops.map((stop) => [stop.color, round(stop.position)])] } : {}),
   };
 };
 

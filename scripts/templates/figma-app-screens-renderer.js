@@ -254,7 +254,14 @@ const applyTypography = (node, spec) => {
   node.fontName = { family: "Pretendard", style: literal ? (WEIGHT_STYLE[literal[1]] ?? "Regular") : "Regular" };
   if (literal) node.fontSize = literal[0];
   node.characters = String(spec.x);
-  node.fills = spec.tc ? [hexToPaint(spec.tc)] : [];
+  node.fills = spec.tc ? [hexToPaint(spec.tc)] : spec.tg ? [{
+    type: "GRADIENT_LINEAR",
+    gradientTransform: gradientTransform(spec.tg[0]),
+    gradientStops: spec.tg.slice(1).map(([hex, position]) => {
+      const parse = (offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255;
+      return { position, color: { r: parse(0), g: parse(2), b: parse(4), a: hex.length >= 8 ? parse(6) : 1 } };
+    }),
+  }] : [];
   if (spec.ta && ALIGN[spec.ta]) node.textAlignHorizontal = ALIGN[spec.ta];
   if (literal) {
     if (literal[2]) node.lineHeight = { value: literal[2], unit: "PIXELS" };

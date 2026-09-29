@@ -805,7 +805,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       // 떠 있는 한 줄 라벨은 정렬을 싣지 않는다 — 글자 폭 상자라 제품에서 `text-align` 은 뜻이 없는데, Figma 의 폭 자동 글자는
       // 가운데 정렬이면 텍스트 스타일이 뒤늦게 걸릴 때 양쪽으로 자라 왼쪽 끝이 밀린다(로그인 모바일 「Password」 x 33 → 28, 캡처로 확인).
       typography: (!textMoved && (node.ownText || node.ownTextLines?.length))
-        ? (floatingLine ? { ...typographyOf(style), align: null } : typographyOf(style))
+        ? (() => {
+          const typography = floatingLine ? { ...typographyOf(style), align: null } : typographyOf(style);
+          const clipped = typography ? clippedTextPaint(style, node.rect) : null;
+          return clipped ? { ...typography, color: clipped.color ?? null, ...(clipped.gradient ? { gradient: clipped.gradient } : {}) } : typography;
+        })()
         : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
       // 흐름에 끼어든다. 실측 사고: `/settings` 사이드바는 `position:fixed`라 흐름에서 빠지고 메인이
@@ -1062,6 +1066,48 @@ function parseLinearGradient(layer) {
     if (stops[index].position == null) stops[index].position = index / (stops.length - 1);
   }
   return { angle, stops };
+}
+
+/**
+ * **글자 모양으로 오린 그라디언트(2026-09-30).** 글자색이 투명이고 배경이 그라디언트면 `background-clip: text` 다(측정기는 오림 축을 싣지
+ * 않지만, 그렇지 않으면 글자가 보이지 않는 디자인이라 뜻이 없다) — 랜딩 후기 밴드의 인용문이 칠 없는 글자로 사라졌다. 배경 크기 ·
+ * 자리(`300% 100%` · `19% 0px`)로 글자 상자에 보이는 구간을 계산해 정지점을 다시 매긴다. 보이는 구간이 한 색이면 그 색 하나다.
+ * @returns {null | {color: string} | {gradient: {angle: number, stops: {color: string, position: number}[]}}}
+ */
+function clippedTextPaint(style, rect) {
+  if (!/^(transparent|rgba\([^)]*,\s*0\)|color\([^)]*\/\s*0\))$/.test(String(style.color ?? "").trim())) return null;
+  const layers = (style.backgroundImage && style.backgroundImage !== "none") ? splitTopLevel(style.backgroundImage) : [];
+  const gradient = layers.map(parseLinearGradient).find(Boolean);
+  if (!gradient) return null;
+  let t0 = 0, t1 = 1;
+  const horizontal = Math.abs(((gradient.angle % 360) + 360) % 180 - 90) < 0.5;
+  if (horizontal && rect?.width > 0) {
+    const [sizeX] = String(style.backgroundSize ?? "auto").split(/\s+/);
+    const scale = /%$/.test(sizeX) ? Number.parseFloat(sizeX) / 100 : (px(sizeX) != null ? px(sizeX) / rect.width : 1);
+    const [positionX] = String(style.backgroundPosition ?? "0% 0%").split(/\s+/);
+    const bgWidth = rect.width * scale;
+    const offset = /%$/.test(positionX) ? (rect.width - bgWidth) * (Number.parseFloat(positionX) / 100) : (px(positionX) ?? 0);
+    t0 = -offset / bgWidth;
+    t1 = (rect.width - offset) / bgWidth;
+    if (((gradient.angle % 360) + 360) % 360 > 180) { const flip = [1 - t1, 1 - t0]; t0 = flip[0]; t1 = flip[1]; }
+  }
+  const colorAt = (t) => {
+    const stops = gradient.stops;
+    if (t <= stops[0].position) return stops[0].color;
+    for (let index = 1; index < stops.length; index += 1) {
+      if (t <= stops[index].position) {
+        const [a, b] = [stops[index - 1], stops[index]];
+        const k = b.position === a.position ? 0 : (t - a.position) / (b.position - a.position);
+        const channel = (hex, offset) => parseInt(hex.slice(offset, offset + 2) || "ff", 16);
+        return [0, 2, 4, 6].map((offset) => Math.round(channel(a.color, offset) + (channel(b.color, offset) - channel(a.color, offset)) * k).toString(16).padStart(2, "0")).join("").replace(/ff$/, "");
+      }
+    }
+    return stops[stops.length - 1].color;
+  };
+  const inside = gradient.stops.filter((stop) => stop.position > t0 && stop.position < t1);
+  const stops = [{ color: colorAt(t0), position: 0 }, ...inside.map((stop) => ({ color: stop.color, position: Math.round(((stop.position - t0) / (t1 - t0)) * 10000) / 10000 })), { color: colorAt(t1), position: 1 }];
+  if (stops.every((stop) => stop.color === stops[0].color)) return { color: stops[0].color };
+  return { gradient: { angle: gradient.angle, stops } };
 }
 
 function paintOf(style) {

@@ -110,7 +110,8 @@ const IMAGE_COMPONENTS = {
   "/Image.svg": "tile/Image",
   "/Video.svg": "tile/Video",
   "/Audio.svg": "tile/Audio",
-  "/VideoEditor.svg": "tile/VideoEditor",
+  // 라이브 이름은 제품 메뉴 이름(Composition)이다 — 원본 파일 이름은 그대로 VideoEditor.svg.
+  "/VideoEditor.svg": "tile/Composition",
   "/YouTube.svg": "tile/YouTube",
   "/images/landing/testimonials-backdrop.jpg": "image/landing/testimonials-backdrop",
   "/images/landing/creator-program-backdrop.jpg": "image/landing/creator-program-backdrop",

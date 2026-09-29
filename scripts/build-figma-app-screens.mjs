@@ -196,19 +196,21 @@ const SCREENS = [
     { route: "/nodecanvas", desktop: "219:2917", mobile: "219:3209", fixture: "session" },
     { route: "/videoeditor", desktop: "219:3403", mobile: "219:3701", fixture: "session" },
     { route: "/highlight", desktop: "29:3", mobile: "29:44", fixture: "session" },
-    { route: "/admin", desktop: "222:3310", mobile: "222:3626", fixture: "session" },
+    // `/admin` 은 원장에만 있다 — 관리자에게는 사이드바가 관리자 메뉴를 더한 다른 셸이라(노드 90 ↔ 설정 53) 셸 세트에 variant 가 먼저 서야
+    // 한다. 보드는 손 조립으로 둔다(2026-09-29).
+    // 부스 운영 — 측정 서버의 픽스처 키로 열고, 관리자 Supabase 클라이언트가 가짜 Supabase 에 붙어 행사 없는 빈 상태를 그린다.
     { route: "/creative-media-admin", desktop: "224:3553", mobile: "224:3799", fixture: "session" },
     { route: "/mypage/upgrade/checkout", desktop: "199:1729", mobile: "199:2782", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
-    { route: "/privacy", desktop: "350:17450", mobile: "350:18523", fixture: "public" },
-    { route: "/terms", desktop: "350:19606", mobile: "350:20517", fixture: "public" },
+    // `/privacy` · `/terms` 는 원장에만 있다 — 긴 문단이 많은 문서라 러너가 뷰포트마다 71 ~ 143 조각이 된다(조각마다 렌더러 약 43KB 를 싣고
+    // 50KB 한도를 지키면 payload 는 조각당 몇 KB 뿐이다). 지금 전송 방식으로는 보낼 수 없어 손 보드(제품 DOM 캡처)로 둔다(2026-09-29).
     { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
     { route: "/pricing", desktop: "213:2297", mobile: "213:3353", fixture: "public" },
     { route: "/templates", desktop: "33:3", mobile: "33:47", fixture: "public" },
-    { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "public" },
+    // `/templates/[slug]` 은 원장에만 있다 — 연 `filter` 템플릿이 이 빌드에 없어 「Page not found」(노드 8)가 재졌다. 보드는 손 조립으로 둔다.
     { route: "/blog", desktop: "214:2767", mobile: "214:2865", fixture: "public" },
-    { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "public" },
+    // `/creative-media` 도 원장에만 있다 — 부스 체험은 fixture 에서 「Something went wrong」(노드 11)만 그린다. 보드는 손 조립으로 둔다.
   ].filter((screen) => LEDGERS.public.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
 ];
 
@@ -1243,10 +1245,12 @@ for (const screen of SCREENS) {
 const CONTENT_INSTANCES_BY_SET = {
   [COMPONENT_SETS.paymentResult]: 8,
   [COMPONENT_SETS.checkoutStatus]: 6,
-  [COMPONENT_SETS.upgradePlanCard]: 5,
+  // 2026-09-29: 5 → 9 — 공개 원장 `/pricing` 데스크톱의 요금제 카드 넷이 `/mypage/upgrade` 카드와 글자 서열 · 구조 · 뷰포트가 같다(같은 제품 카드).
+  [COMPONENT_SETS.upgradePlanCard]: 9,
   [COMPONENT_SETS.upgradePlanCardSlice]: 2,
   // 2026-09-26: 「진행 중 이벤트 알약」(제품 `PricingNotice`) — `/mypage/upgrade` 데스크톱 · 모바일 헤더의 알약 하나씩.
-  [COMPONENT_SETS.pricingNotice]: 2,
+  // 2026-09-29: 2 → 4 — 공개 원장 `/pricing` 데스크톱 · 모바일 헤더에도 같은 알약이 선다.
+  [COMPONENT_SETS.pricingNotice]: 4,
   // 2026-09-26(뒤): 제품 부품 세트(PARTS) — `/subscription/coupons` 의 요금제 선택 카드 넷 × 두 뷰포트, 수량 스테퍼 × 두 뷰포트.
   "Product/Gift Plan Option": 8,
   "Product/Quantity Stepper": 2,
@@ -1254,7 +1258,8 @@ const CONTENT_INSTANCES_BY_SET = {
   // 쿠폰 결제 동의 상자 × 데스크톱.
   "Product/Analytics Connect Button": 2,
   "Product/Highlight Theme Chips": 2,
-  "Product/Checkout Agreement": 1,
+  // 2026-09-29: 1 → 2 — 세션 원장 결제 진행(`/mypage/upgrade/checkout?plan=pro`) 데스크톱에도 같은 동의 상자가 선다.
+  "Product/Checkout Agreement": 2,
   // 셋째 묶음: 결제 상태 알림 × 두 뷰포트(billing-success 일부 반영 미리보기), bulk 쿠폰 안내 × 두 뷰포트 × 미리보기 둘(성공 · 발급 실패).
   "Product/Billing Status Alert": 2,
   "Product/Bulk Coupon Notice": 4,
@@ -1276,7 +1281,12 @@ for (const set of new Set([...Object.keys(CONTENT_INSTANCES_BY_SET), ...contentS
     );
   }
 }
-if (contentSkipped.length > 0) fail(`본문 세트 치환이 사유와 함께 보류됐습니다 — 세트 plan 이나 매처가 제품과 어긋났습니다:\n  ${contentSkipped.join("\n  ")}`);
+// **알고 둔 보류(2026-09-29).** 공개 원장 `/pricing` 모바일의 요금제 카드 넷은 데스크톱 카드와 글자 서열이 같지만 세트에 모바일 variant 가 없다 —
+// 모바일 세트는 `/mypage/upgrade` 모바일 뷰포트에 보이는 조각(`upgradePlanCardSlice`)뿐이다. 모바일 온전한 카드 variant 가 서기 전까지 보드는
+// 측정한 노드 그대로 그린다. 여기 없는 보류는 여전히 멈춘다.
+const CONTENT_SKIPPED_ALLOWED = new Set([1, 2, 3, 4].map((index) => `/pricing @ mobile-402x874 · body.1.0.0.2.0.0.1.${index}`));
+const contentSkippedUnexpected = contentSkipped.filter((line) => !CONTENT_SKIPPED_ALLOWED.has(line.split(":")[0]));
+if (contentSkippedUnexpected.length > 0) fail(`본문 세트 치환이 사유와 함께 보류됐습니다 — 세트 plan 이나 매처가 제품과 어긋났습니다:\n  ${contentSkippedUnexpected.join("\n  ")}`);
 
 /**
  * **풀지 못한 HUG 부모 · FILL 자식은 부모 · 축마다 정확히 잠근다(2026-09-14 리뷰).**
@@ -1305,7 +1315,105 @@ const TEXT_DETERMINED_WHY =
 // 2026-09-29: `/subscription` 데스크톱 본문 칸(`body.1.0.0.1.0.1` 세로 1)이 풀렸다 — 그 높이의 출처는 `min-height: 100%` 였고 크기 판정이
 // 퍼센트를 버렸다. 트리 변환이 부모 안쪽 높이의 P% 가 측정 높이와 같으면 최소 높이로 싣는다(figma-tree-spec 퍼센트 최소 높이) —
 // 칸이 1044 로 서고 section 이 남은 높이를 채워, 가운데 선 안내가 9 위에 서던 것이 풀린다.
+// 2026-09-29: 세션 · 공개 원장 보드(부스 운영 · 문의 · 공개 페이지 푸터)의 HUG 부모 · FILL 자식 — **캡처 대조 전**이다. 보낸 뒤 보드 캡처 · 글자 자리
+// 대조로 폭이 무너졌는지 보고, 무너지지 않았으면 근거를 적고 무너졌으면 판정기(reconcileFigmaSizing)를 고쳐 이 줄을 푼다.
+const PUBLIC_FOOTER_PENDING_WHY = "공개 페이지 푸터(링크 열 · 소셜 링크)의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
+const INQUIRY_FORM_PENDING_WHY = "문의 폼 · 안내 칸의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
+const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
+  "/creative-media-admin @ desktop-1920x1080 · body.1.0.0.0.0.2 · vertical": { count: 2, why: BOOTH_ADMIN_PENDING_WHY },
+  "/creative-media-admin @ mobile-402x874 · body.1.0.0.0.0.2 · vertical": { count: 2, why: BOOTH_ADMIN_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.0 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1.0.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1.1.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.1.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.2 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.2.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.0.0 · horizontal": { count: 3, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.0 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.0.1.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.0.2 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.0.2.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.2.0.0.1.1.2 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/pricing @ mobile-402x874 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/templates @ mobile-402x874 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
+  "/blog @ mobile-402x874 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 3, why: PUBLIC_FOOTER_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

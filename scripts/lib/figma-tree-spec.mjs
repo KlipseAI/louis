@@ -305,11 +305,33 @@ export function toFigmaTreeSpec(tree, options = {}) {
     // **퍼센트 최소 높이(2026-09-29).** `min-height: 100%` 는 계산값에서도 %라 크기 판정(limitPx)이 풀지 못해 버렸다 — 구독 데스크톱
     // 본문 열(`min-height: 100%` = main 안쪽 1044)이 내용 높이(1009)로 서, 가운데 정렬 section 이 35 짧아지고 그 안의 안내가 9 위에
     // 섰다. 부모 안쪽 높이의 P% 가 측정 높이와 같으면(최소 높이가 걸려 있었다) 그 높이를 최소 높이로 싣는다.
+    // **최소 높이가 일을 할 때만(2026-09-29).** 측정 높이가 부모 안쪽의 P% 와 우연히 같아도 내용이 그 높이를 정했으면 싣지 않는다 —
+    // 구독 모바일 본문 칸(874)은 자식 합이 921.8 로 내용이 넘쳤는데 최소 높이를 싣자 section 이 FILL 로 바뀌어 본문이 8 올라갔다.
+    // 자연 높이 = 늘어나지 않는 자식의 높이 + 늘어나는(grow) 자식의 제 내용 범위 + 간격 · 패딩(세로 flex), 그 밖은 자식 범위 + 패딩.
     const percentMin = /^(\d+(?:\.\d+)?)%$/.exec(String(node.style?.minHeight ?? "").trim());
+    const naturalHeight = () => {
+      const style = node.style ?? {};
+      const own = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+      const inFlow = (entry) => entry.rect && entry.rect.height > 0 && !["absolute", "fixed"].includes(entry.style?.position);
+      const kids = (childrenOf.get(node.path) ?? []).filter(inFlow);
+      if (kids.length === 0) return null;
+      const extent = (entries) => Math.max(...entries.map((entry) => entry.rect.y + entry.rect.height)) - Math.min(...entries.map((entry) => entry.rect.y));
+      if (/flex/.test(style.display ?? "") && /^column/.test(style.flexDirection ?? "")) {
+        const heights = kids.map((kid) => {
+          if (!(Number(kid.style?.flexGrow) > 0)) return kid.rect.height;
+          const inner = (childrenOf.get(kid.path) ?? []).filter(inFlow);
+          const kidEdge = (side) => (px(kid.style?.[`padding${side}`]) ?? 0) + (px(kid.style?.[`border${side}Width`]) ?? 0);
+          return inner.length ? extent(inner) + kidEdge("Top") + kidEdge("Bottom") : 0;
+        });
+        return heights.reduce((sum, value) => sum + value, 0) + (kids.length - 1) * (px(style.rowGap) ?? 0) + own("Top") + own("Bottom");
+      }
+      return extent(kids) + own("Top") + own("Bottom");
+    };
     if (percentMin && !sizing.minHeight && parent?.rect) {
       const edge = (side) => (px(parent.style?.[`padding${side}`]) ?? 0) + (px(parent.style?.[`border${side}Width`]) ?? 0);
       const inner = parent.rect.height - edge("Top") - edge("Bottom");
-      if (Math.abs(inner * Number(percentMin[1]) / 100 - node.rect.height) <= 0.5) {
+      const natural = naturalHeight();
+      if (Math.abs(inner * Number(percentMin[1]) / 100 - node.rect.height) <= 0.5 && natural != null && natural < node.rect.height - 0.5) {
         sizing.minHeight = node.rect.height;
         stats.percentMinHeight = (stats.percentMinHeight ?? 0) + 1;
       }

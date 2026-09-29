@@ -225,6 +225,9 @@ const SESSION_ROUTES = [
   { pattern: "/creative-media-admin", url: "/creative-media-admin?k=fixture-booth-key", id: "/creative-media-admin", fullPage: true },
   // 결제 진행은 `?plan=` 의 요금제로 연다(`mypage/upgrade/checkout/page.tsx:180-181`, 정적 요금제 표). 결제창(Toss)은 바깥 요청이라 막힌다.
   { pattern: "/mypage/upgrade/checkout", url: "/mypage/upgrade/checkout?plan=pro", id: "/mypage/upgrade/checkout" },
+  // 부스 체험 — 공개 화면이지만 행사 설정을 DB 에서 읽는다. 공개 모드(Supabase 닿지 않음)에서는 「Something went wrong」만 그려져, 가짜 Supabase
+  // (행사 없음 — 빈 목록)가 있는 세션 모드에서 잰다.
+  { pattern: "/creative-media", fullPage: true },
 ];
 
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
@@ -357,7 +360,9 @@ const startFixtureServer = async () => {
         NEXT_PUBLIC_SUPABASE_URL: fakeSupabase ? fakeSupabase.url : "http://127.0.0.1:9",
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "fixture-anon-key",
         // 세션 모드의 게이트 둘 — 실제 비밀이 아니라 측정용 값이다(가짜 사용자 이메일 · 픽스처 키).
-        ...(session ? { ADMIN_EMAILS: "fixture@klipse.test", CREATIVE_MEDIA_ADMIN_KEY: "fixture-booth-key" } : {}),
+        // 관리자 Supabase 클라이언트(`app/lib/supabase/admin.ts`)는 `SUPABASE_SECRET_KEY` 가 없으면 던진다 — 어드민 유저 목록 · 부스 운영 ·
+        // 결제수단 API 가 본문 없는 500 으로 끝나 화면에 「Failed to execute 'json'」 원문이 찍혔다. 가짜 Supabase 는 키를 보지 않는다.
+        ...(session ? { ADMIN_EMAILS: "fixture@klipse.test", CREATIVE_MEDIA_ADMIN_KEY: "fixture-booth-key", SUPABASE_SECRET_KEY: "fixture-secret-key" } : {}),
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -846,9 +851,13 @@ try {
             const intersectsViewport = fullPage
               ? rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth
               : rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight;
+            // **선 도형은 한 변이 0 이어도 보인다(2026-09-29).** 가로선 · 세로선 `<path>`(더하기 아이콘 `M3.75 12H20.25`)는 상자의 높이나
+            // 폭이 0 이라 버려졌고, 그 svg 는 자식 없이 뷰박스만 남아 서명이 비었다(허브 「New Canvas」 · 요금 체크 표시 26곳).
+            const hasArea = rect.width > 0 && rect.height > 0 ||
+              (node instanceof SVGGeometryElement && (rect.width > 0 || rect.height > 0));
             const visible =
               computed.display !== "none" && computed.visibility !== "hidden" &&
-              computed.opacity !== "0" && rect.width > 0 && rect.height > 0 && intersectsViewport;
+              computed.opacity !== "0" && hasArea && intersectsViewport;
             if (!visible && computed.display !== "contents") return [];
             const src = node instanceof HTMLImageElement && node.currentSrc
               ? (() => {

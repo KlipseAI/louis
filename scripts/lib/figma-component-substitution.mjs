@@ -217,6 +217,8 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/nodecanvas": "/nodecanvas", // components/scenes/NodeCanvasHomeScene.tsx:666 gnbCurrentPath = NODE_CANVAS_HUB_PATH(lib/app-paths.ts:6)
   "/videoeditor": "/videoeditor", // components/scenes/VideoEditScene.tsx:716
   "/highlight": "/highlight", // components/scenes/HighlightScene.tsx:1196
+  "/admin": "/admin", // app/admin/AdminClient.tsx:1088 — 사이드바에 어드민 항목이 없어 활성 없음(Default)
+  "/mypage/upgrade/checkout": "/mypage/upgrade", // app/mypage/upgrade/checkout/page.tsx:224
 });
 // 화면 키에 개발용 후크 쿼리(`?__phase=` · `?preview=`)가 붙어도 GNB 는 같은 페이지의 것이다 — 쿼리를 떼고 찾는다.
 const currentPathOf = (route) => {
@@ -554,6 +556,17 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
     reason:
       "출처가 `myPageSceneStyles.ts settingsAvatarFigure` 다 — `.louis-avatar` 를 물고 크기는 LOUIS `lg`(40)와 같지만, 면을 " +
       "`gray-000` 12% 로, 폴백 글리프를 78% 로 덮는다. 둘 다 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
+  },
+  // **2026-09-29 — 상단 바 프로필 아바타.** 세션 원장 허브 · 결제 진행 데스크톱은 상단 바 세트에 허브 제목 variant 가 없어 상단 바를 측정
+  // 노드로 그리고, 그 안의 프로필 아바타(24)가 Avatar/sm 모양으로 잡힌다. 레시피 원장에는 이 자리의 probe 가 없다 — 이름은 자리를 가리킨다.
+  {
+    probe: "gnb-profile-avatar",
+    component: "Avatar",
+    sizes: ["sm"],
+    verdict: "bespoke",
+    reason:
+      "출처가 `Gnb.tsx profileImage`(1017-1023) 다 — `.louis-avatar` 를 물고 크기는 LOUIS `sm`(24)과 같지만 면을 `bg-transparent` 로 " +
+      "덮는다(기본 아바타 SVG 의 구멍으로 `bg-inset` 이 비치지 않게 — 같은 파일 1011-1016 주석). 눈에 보이는 값이라 인스턴스로 바꾸면 화면이 제품과 달라진다.",
   },
   // **2026-09-26 — 하이라이트 업로드 면.** LOUIS DropZone 이 이 기하를 옮겼지만 제품은 지역 레시피(`highlightSceneStyles.ts
   // uploadDropZone`)를 쓰고, 그 면은 끌어다 놓기 · 포커스 링이 없고 면 색이 LOUIS 눌림 면 역할과 다르다. 제품이 DropZone 으로

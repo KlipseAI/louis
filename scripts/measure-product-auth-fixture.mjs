@@ -776,6 +776,29 @@ try {
             const text = lines.join("\n");
             return text.trim() ? text : "";
           };
+          // **인라인 조각의 순서(2026-09-30).** 제 글자와 인라인 요소가 섞인 문단(`… at least <strong>7 days</strong> prior …`)은
+          // `ownText` 가 요소를 빼고 이어 붙여 순서를 잃는다 — 생성기가 제 글자와 요소를 따로 세워 약관 문단 95곳의 문장이 흩어졌다.
+          // 자식 노드 순서대로 글자 조각(문자열)과 요소 자식의 순번(수 — 자식 경로의 끝 칸)을 싣는다. `<br>` 은 "\n" 이다.
+          const inlineRunsOf = (node, text) => {
+            if (!text) return null;
+            const elements = [...node.children];
+            if (!elements.some((child) => child.tagName !== "BR")) return null;
+            const runs = [];
+            const pushText = (piece) => {
+              if (typeof runs[runs.length - 1] === "string") runs[runs.length - 1] += piece; else runs.push(piece);
+            };
+            for (const child of node.childNodes) {
+              if (child.nodeType === Node.TEXT_NODE) pushText(child.textContent.replace(/\s+/g, " "));
+              else if (child.nodeType === Node.ELEMENT_NODE) {
+                if (child.tagName === "BR") pushText("\n");
+                else runs.push(elements.indexOf(child));
+              }
+            }
+            const cleaned = runs.map((run) => (typeof run === "string" ? run.replace(/ *\n */g, "\n") : run));
+            if (typeof cleaned[0] === "string") cleaned[0] = cleaned[0].replace(/^\s+/, "");
+            if (typeof cleaned[cleaned.length - 1] === "string") cleaned[cleaned.length - 1] = cleaned[cleaned.length - 1].replace(/\s+$/, "");
+            return cleaned.filter((run) => run !== "");
+          };
           const vectorAttributes = (node) => {
             if (!(node instanceof SVGElement)) return null;
             const names = [
@@ -877,6 +900,7 @@ try {
             const text = visible ? ownText(node) : "";
             const wraps = visible ? wrapLinesOf(node, text) : null;
             const value = visible ? valueOf(node) : null;
+            const runs = visible ? inlineRunsOf(node, text) : null;
             const current = visible ? [{
               path,
               parentPath,
@@ -896,6 +920,7 @@ try {
               ...(text ? { ownText: text } : {}),
               ...(wraps ? { wrapLines: wraps } : {}),
               ...(value ? { value } : {}),
+              ...(runs ? { inlineRuns: runs } : {}),
               rect: rectOf(node),
               style: styleOf(node),
             }] : [];

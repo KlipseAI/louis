@@ -229,8 +229,13 @@ const preloadVariants = async (spec) => {
   for (const child of (spec.k || [])) await preloadVariants(child);
 };
 
+// 크기가 다른 grid 열을 걸지 못한 자리 — 결과로 돌려준다(조용히 균등 열로 남기지 않는다).
+const gridTrackFailures = [];
+
 // 텍스트 스타일 적용은 비동기다. 트리를 다 만든 뒤 한 번에 건다.
 const pendingTextStyles = [];
+// 글자 안의 범위 서식(`xr`)은 텍스트 스타일을 건 **뒤에** 건다 — 스타일이 글자 전체의 글꼴을 다시 쓰기 때문이다.
+const pendingRanges = [];
 const missingTextStyles = new Set();
 
 /** 텍스트 노드에 타이포를 건다. 스타일 이름이면 뒤에서 한 번에, 숫자면 즉시. */
@@ -247,6 +252,7 @@ const applyTypography = (node, spec) => {
   } else if (typeof spec.y === "string") {
     pendingTextStyles.push([node, spec.y]);
   }
+  if (spec.xr) pendingRanges.push([node, spec.xr]);
 };
 
 const buildNode = (spec, parent) => {
@@ -304,6 +310,18 @@ const buildNode = (spec, parent) => {
         const columns = spec.l[9];
         const cells = (spec.k || []).filter((child) => !child.p).length;
         try { node.gridColumnCount = columns; } catch (error) {}
+        // **열마다의 크기(2026-09-30).** 크기가 다른 열(`1fr auto 1fr` · `0.8fr 1.2fr` · `18px 1fr`)은 계획이 12번째 칸에 싣는다 — 싣지 않으면
+        // Figma 가 모든 열을 같은 FLEX 로 깐다. 못 건 열은 결과의 `gridTrackFailures` 로 드러낸다.
+        if (Array.isArray(spec.l[11])) {
+          spec.l[11].forEach(([type, value], index) => {
+            const track = node.gridColumnSizes[index];
+            try {
+              if (!track) throw new Error("열이 없다");
+              track.type = type === "X" ? "FIXED" : type === "H" ? "HUG" : "FLEX";
+              if (type !== "H" && value != null) track.value = value;
+            } catch (error) { gridTrackFailures.push(`${spec.t} 열 ${index} ${type}${value ?? ""}: ${error.message || error}`); }
+          });
+        }
         try { node.gridRowCount = Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
         // **행은 내용 높이다.** CSS grid 는 행 템플릿을 선언하지 않으면 행이 auto(내용 높이)인데, Figma 는 새 행을
         // FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다. 실측 사고: `/subscription` 모바일의 요금제
@@ -434,7 +452,13 @@ const buildNode = (spec, parent) => {
       node.primaryAxisSizingMode = "AUTO";
       node.minWidth = Math.max(0.01, spec.r[0]);
       if (v === "HUG") { node.counterAxisSizingMode = "AUTO"; node.minHeight = Math.max(0.01, spec.r[1]); }
-      else node.counterAxisSizingMode = "FIXED";
+      else {
+        node.counterAxisSizingMode = "FIXED";
+        // **세로 FILL 이어도 측정 높이 밑으로 접히지 않는다(2026-09-30).** 내용 높이로 서는 줄(stretch) 안의 탭 버튼(패딩 6 · 테두리 1)은
+        // 세로 FILL 인데, Figma 는 HUG 부모 안의 FILL 을 최소 크기로 접어 버튼이 글자 높이(21)로 눌렸다 — 부스 운영 보드의 탭 줄이
+        // 35 → 23 이라 그 아래가 모두 12 올라갔다(보드 글자 자리 대조로 찾았다). 패딩이 측정 크기 안에 있으므로 측정 높이를 최소로 둔다.
+        if (v === "FILL") node.minHeight = Math.max(0.01, spec.r[1]);
+      }
       label.textAutoResize = "WIDTH_AND_HEIGHT";
     } else {
       // **flex가 아닌 블록 버튼**은 `text-align`으로만 글자를 가운데 놓는다. Figma에서 HUG로 두면
@@ -519,6 +543,20 @@ const flushTextStyles = async () => {
     catch (error) { missingTextStyles.add(`${styleName} (적용 실패)`); }
   }
   pendingTextStyles.length = 0;
+  // **섞인 문단의 범위 서식(2026-09-30).** 문장 안의 굵은 글자 · 링크 색 · 밑줄 — 생성기가 문단을 글자 하나로 합치고 범위를 싣는다.
+  for (const [node, ranges] of pendingRanges) {
+    for (const [start, end, weight, colour, underline] of ranges) {
+      if (end <= start || end > node.characters.length) continue;
+      if (weight) {
+        let font = { family: "Pretendard", style: WEIGHT_STYLE[weight] ?? "Regular" };
+        try { await figma.loadFontAsync(font); } catch (error) { font = { family: "Pretendard", style: "SemiBold" }; await figma.loadFontAsync(font); }
+        node.setRangeFontName(start, end, font);
+      }
+      if (colour) node.setRangeFills(start, end, [hexToPaint(colour)]);
+      if (underline) node.setRangeTextDecoration(start, end, "UNDERLINE");
+    }
+  }
+  pendingRanges.length = 0;
 };
 
 const frame = await figma.getNodeByIdAsync(P.frameId);
@@ -600,4 +638,5 @@ return {
   gradients: gradientCount,
   unboundColors: [...unboundColors].sort(),
   missingTextStyles: [...missingTextStyles],
+  ...(gridTrackFailures.length ? { gridTrackFailures } : {}),
 };

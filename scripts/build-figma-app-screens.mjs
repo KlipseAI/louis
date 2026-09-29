@@ -212,10 +212,12 @@ const SCREENS = [
     { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
-    // `/privacy` · `/terms` 는 원장에만 있다(2026-09-30). 조각 묶음으로 뷰포트마다 4 ~ 5 조각이 되어 보낼 수는 있지만, 문장 안의 굵은 글자
-    // (`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은 측정기가 글자 조각의 순서를 싣지 않아 제 글자와 인라인 요소가 따로 선다 — 「7 days」 가
-    // 문장에서 떨어져 오른쪽에 서고 문장 순서가 흩어졌다(보내서 캡처로 확인). 보드는 제품 DOM 캡처로 둔다. 여는 길: 측정기가 인라인 조각
-    // 순서를 싣고 렌더러가 범위 서식 글자 하나로 그린다.
+    // 약관 둘 — 떼어낸 자리를 조각 하나에 묶어 뷰포트마다 4 ~ 5 조각이다. 문장 안의 굵은 글자(`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은
+    // 측정기가 싣는 조각 순서로 글자 하나 + 범위 서식으로 합친다(figma-tree-spec richInlineText) — 따로 세우면 「7 days」 가 문장에서 떨어져
+    // 오른쪽에 섰다. 표 칸(td · tr · th)은 크기 판정 규칙이 없어 미해결로 남고 측정 폭(FIXED)으로 선다. 옛 보드(제품 DOM 캡처)는 은퇴한 7모드
+    // 변수에 묶여 바탕이 회색 · 글자가 거의 흰색으로 틀어져 있었다(2026-09-30).
+    { route: "/privacy", desktop: "350:17450", mobile: "350:18523", fixture: "public" },
+    { route: "/terms", desktop: "350:19606", mobile: "350:20517", fixture: "public" },
     { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
     { route: "/pricing", desktop: "213:2297", mobile: "213:3353", fixture: "public" },
     { route: "/templates", desktop: "33:3", mobile: "33:47", fixture: "public" },
@@ -399,6 +401,8 @@ const slimNode = (node) => ({
   // **글자는 제품 글꼴로 보이는 줄대로 싣는다(2026-09-29).** 보드 글꼴은 너비가 달라 폭만 옮기면 줄이 다른 자리에서 꺾인다
   // (measured-text.mjs). 서명 · 매칭은 spec 의 `text` 를 그대로 본다.
   ...(node.text ? { x: (node.wrapLines?.length > 1 ? node.wrapLines.join("\n") : node.text).replace(/^ /, "\u00a0").replace(/ $/, "\u00a0") } : {}),
+  // 글자 안의 범위 서식 [시작, 끝, 굵기(0 = 문단 그대로), 색("" = 그대로), 밑줄 1/0] — 섞인 문단(figma-tree-spec richInlineText).
+  ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0]) } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
   s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),
@@ -421,7 +425,9 @@ const slimNode = (node) => ({
       node.layout.wrap ? 1 : 0,
       node.layout.columns ?? 0,
       // 늘어난 grid 행(figma-tree-spec gridStretchedRow) — 있을 때만 11번째 칸으로 싣는다(없는 보드의 payload 는 그대로다).
-      ...(node.layout.rows ? [node.layout.rows] : []),
+      // 크기가 다른 grid 열(figma-tree-spec gridColumnTracks)은 12번째 칸이다 — 그때 행이 없으면 11번째는 0 이다.
+      ...(node.layout.rows || node.layout.columnTracks ? [node.layout.rows ?? 0] : []),
+      ...(node.layout.columnTracks ? [node.layout.columnTracks] : []),
     ],
   } : {}),
   // grid 칸 안 정렬 [가로, 세로](figma-tree-spec gridCellAlign) — 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).

@@ -198,6 +198,45 @@ function splitOwnText(node, children) {
 }
 
 /**
+ * **섞인 문단은 글자 하나로 합친다(2026-09-30).** 제 글자와 인라인 요소(`<strong>` · `<a>` · `<em>`)가 섞인 문단을 제 글자와 요소로 따로
+ * 세우면 문장이 흩어진다 — 약관의 「… at least <strong>7 days</strong> prior …」가 문장에서 떨어져 오른쪽에 섰고, 제 글자는 요소를 빼고
+ * 이어 붙어 순서도 잃었다(약관 문단 95곳, 보내서 캡처로 확인). 측정기가 싣는 조각 순서(`inlineRuns` — 글자 조각과 요소 자식 순번)로 글자를
+ * 다시 짓고, 요소 몫은 범위 서식(굵기 · 색 · 밑줄 — 문단과 다를 때만)으로 싣는다. 요소가 글자뿐인 인라인 잎일 때만 합친다 — 면 · 테두리 ·
+ * 패딩을 가진 칩이나 요소를 품은 요소가 하나라도 있으면 합치지 않는다(전과 같이 따로 선다).
+ */
+function richInlineText(node, childrenOf) {
+  const runs = node.inlineRuns;
+  if (!Array.isArray(runs) || !runs.some((run) => typeof run === "number")) return null;
+  const kids = childrenOf.get(node.path) ?? [];
+  const base = node.style ?? {};
+  let text = "";
+  const ranges = [];
+  for (const run of runs) {
+    if (typeof run === "string") { text += run; continue; }
+    const child = kids.find((kid) => kid.path === `${node.path}.${run}`);
+    if (!child) continue; // 보이지 않는 요소 — 측정에 없고 글자도 없다
+    if ((childrenOf.get(child.path) ?? []).length > 0) return null;
+    const style = child.style ?? {};
+    if ((style.display ?? "") !== "inline") return null;
+    const painted = (style.backgroundColor && !TRANSPARENT.test(style.backgroundColor)) || (style.backgroundImage && style.backgroundImage !== "none")
+      || ["Top", "Right", "Bottom", "Left"].some((side) => ((style[`border${side}Style`] ?? "none") !== "none" && (px(style[`border${side}Width`]) ?? 0) > 0)
+        || (px(style[`padding${side}`]) ?? 0) > 0);
+    if (painted) return null;
+    const piece = child.ownText ?? "";
+    if (!piece) continue;
+    const start = text.length;
+    text += piece;
+    const range = { start, end: text.length };
+    if (style.fontWeight && Number(style.fontWeight) !== Number(base.fontWeight)) range.weight = Number(style.fontWeight);
+    const colour = cssColorToHex(style.color);
+    if (colour && colour !== cssColorToHex(base.color)) range.color = colour;
+    if (/underline/.test(style.textDecorationLine ?? style.textDecoration ?? "") && !/underline/.test(base.textDecorationLine ?? base.textDecoration ?? "")) range.underline = true;
+    if (range.weight || range.color || range.underline) ranges.push(range);
+  }
+  return text.trim() ? { text, ranges } : null;
+}
+
+/**
  * **패딩을 가진 칠 없는 글자 잎(2026-09-30).** Figma 글자 노드에는 패딩이 없어, 자식 없이 제 글자만 가진 상자의 CSS 패딩이 통째로
  * 빠졌다 — 템플릿 목록의 빈 상태 문구(「Templates are coming soon.」, 위아래 패딩 80)가 181 → 21 로 접혀 보드가 160 짧았다. 칠이 없으면
  * (면 · 테두리 · 그림자 — 칠이 있는 잎은 렌더러가 면 + 안쪽 글자로 그린다) 이 상자를 세로 자동 배치 + 패딩으로 두고, 글자는 콘텐츠 상자를
@@ -226,6 +265,7 @@ function padTextLeaf(node, children, sizing) {
     text: node.ownText,
     textLines: node.ownTextLines?.length ? node.ownTextLines : null,
     ...(node.wrapLines ? { wrapLines: node.wrapLines } : {}),
+    ...(node.textRanges?.length ? { textRanges: node.textRanges } : {}),
     paints: true,
     rect,
     sizing: {
@@ -516,7 +556,13 @@ export function toFigmaTreeSpec(tree, options = {}) {
       stats.unresolved.push({ path: node.path, tag: node.tag, reason });
     }
 
-    const rawChildren = childrenOf.get(node.path) ?? [];
+    // 제 글자와 글자뿐인 인라인 요소가 섞인 문단은 글자 하나 + 범위 서식으로 합친다(richInlineText 주석).
+    const rich = richInlineText(node, childrenOf);
+    if (rich) {
+      node = { ...node, ownText: rich.text, wrapLines: undefined, textRanges: rich.ranges };
+      stats.richInlineText = (stats.richInlineText ?? 0) + 1;
+    }
+    const rawChildren = rich ? [] : (childrenOf.get(node.path) ?? []);
     // 한 줄 grid 의 행이 바깥 높이로 늘어났는가 — 칸 안의 grid 에 알려야 하므로 자식보다 먼저 판정한다.
     const stretchedRow = gridStretchedRow(node, node.style ?? {}, sizing, rawChildren, inStretchedRow);
     let children = rawChildren.map((child) => convert(child, node, stretchedRow != null)).filter(Boolean);
@@ -604,6 +650,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // 제품 글꼴로 보이는 줄(측정기 `wrapLines`, 감긴 자리가 `<br>` 보다 많을 때만). 서명 · 매칭은 `text` 를 보고, 러너만 이 줄로
       // 글자를 줄바꿈해 싣는다(measured-text.mjs).
       ...(!textMoved && node.wrapLines ? { wrapLines: node.wrapLines } : {}),
+      // 글자 안의 범위 서식(굵기 · 색 · 밑줄) — 섞인 문단을 합친 자리(richInlineText).
+      ...(!textMoved && node.textRanges?.length ? { textRanges: node.textRanges } : {}),
       // 스스로 그리는 것이 있는가(면·테두리·그림자·이미지). 래퍼 접기 판정과 색 이관에 쓴다.
       paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
@@ -671,6 +719,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // 4열 카드가 2열로 접힌다. 열 수는 선언된 `grid-template-columns`를 펼쳐 센다(computed는
         // 이미 px로 풀려 `repeat()`을 복원할 수 없지만 트랙 개수는 그대로 살아 있다).
         columns: layoutMode === "GRID" ? gridColumns(node, style) : null,
+        // 열마다의 크기 — 크기가 다른 열만(gridColumnTracks 주석).
+        columnTracks: layoutMode === "GRID" ? gridColumnTracks(node, style, nodeSizing) : null,
         // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 없으면 null.
         rows: gridRow?.rows ?? null,
         align: {
@@ -1102,12 +1152,47 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
 function gridColumns(node, style) {
   // `repeat(auto-fill | auto-fit, …)` 은 선언에서 열 수를 셀 수 없다(반복 수가 뷰포트에서 정해진다) — 그 뷰포트에서 풀린
   // 트랙(computed)을 센다. 선언을 그대로 펼치면 한 열로 읽혀 bulk 성공 미리보기의 쿠폰 코드 격자(데스크톱 셋 열)가 한 줄로 섰다.
-  const raw = node.declared?.["grid-template-columns"];
+  // `!important` 는 트랙이 아니다(2026-09-30) — 공개 페이지 모바일 머리글 `1fr auto !important` 가 세 열로 세어졌다.
+  const raw = node.declared?.["grid-template-columns"]?.replace(/!important/g, "").trim();
   const declared = /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw ?? "") ? null : parseTracks(raw);
   if (declared?.length) return declared.length;
   const computed = parseTracks(style.gridTemplateColumns);
   if (computed?.length && computed[0] !== "none") return computed.length;
   return null;
+}
+
+/**
+ * **grid 열의 크기(2026-09-30).** 열 수만 싣자 Figma 가 모든 열을 같은 FLEX 로 깔아, 크기가 다른 열이 똑같이 나뉘었다 — 공개 페이지 머리글
+ * (`1fr auto 1fr`)의 가운데 메뉴가 셋으로 나눈 가운데 칸 왼쪽에 붙어 135 왼쪽에 섰고, 문의 두 칸(`minmax(0, 0.8fr) minmax(0, 1.2fr)`)은 왼쪽
+ * 글이 534 → 280 으로 좁아져 줄이 늘었다(보드 글자 자리 대조로 찾았다). 선언된 열을 트랙 크기로 옮긴다 — `Nfr` → FLEX N, `Npx` → FIXED,
+ * `auto` · `max-content` · `min-content` · `fit-content()` → HUG, `minmax(a, b)` 는 b 를 따른다. 모든 열이 같은 FLEX 면 싣지 않는다(지금처럼
+ * 균등 열). 내용 폭(HUG) grid 에는 FLEX 열이 설 수 없어(Figma) 브라우저가 푼 폭(FIXED)으로 둔다. 읽지 못하는 선언(`var()` · auto-fill)은 싣지 않는다.
+ * 돌려주는 꼴은 `[["F", 비율] | ["X", px] | ["H"]]` 이다.
+ */
+function gridColumnTracks(node, style, sizing) {
+  const raw = String(node.declared?.["grid-template-columns"] ?? "").replace(/!important/g, "").trim();
+  if (!raw || raw === "none" || /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw) || /var\(/.test(raw)) return null;
+  const tokens = parseTracks(raw);
+  if (!tokens?.length) return null;
+  const trackOf = (token) => {
+    const text = token.trim();
+    const fr = /^([\d.]+)fr$/.exec(text);
+    if (fr) return ["F", Number(fr[1])];
+    const fixed = /^([\d.]+)px$/.exec(text);
+    if (fixed) return ["X", Number(fixed[1])];
+    if (/^(auto|max-content|min-content)$/.test(text) || /^fit-content\(/.test(text)) return ["H"];
+    const minmax = /^minmax\(\s*([^,]+),\s*(.+)\)$/.exec(text);
+    return minmax ? trackOf(minmax[2]) : null;
+  };
+  const tracks = tokens.map(trackOf);
+  if (tracks.some((track) => track == null)) return null;
+  if (tracks.every((track) => track[0] === "F" && track[1] === tracks[0][1])) return null;
+  if (sizing?.layoutSizingHorizontal === "HUG" && tracks.some((track) => track[0] === "F")) {
+    const computed = parseTracks(style.gridTemplateColumns)?.map((token) => px(token));
+    if (!computed || computed.length !== tracks.length || computed.some((value) => value == null)) return null;
+    return tracks.map((track, index) => (track[0] === "F" ? ["X", Math.round(computed[index] * 100) / 100] : track));
+  }
+  return tracks;
 }
 
 /**

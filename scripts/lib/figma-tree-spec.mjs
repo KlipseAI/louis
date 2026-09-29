@@ -1114,7 +1114,8 @@ function gridStretchedRow(node, style, sizing, rawChildren, inStretchedRow) {
  * `justify-items: center` 같은 것이 늘이기를 이긴 것이다 — FILL 로 두면 정렬이 먹지 않아 인증 화면 모바일 로고가 왼쪽에 붙었다
  * (캡처로 확인). 그 축을 HUG 로 돌리되, HUG 가 내용 크기로 풀리는 자리만 돌린다(자식이 모두 그 축 FILL 이 아닌 auto-layout 프레임 ·
  * 가로는 한 줄 글자). 폭 상한(`max-width`)에 닿아 좁은 FILL 은 그대로 두고 정렬만 싣는다(오른쪽 판의 카드 `min(100%, 400px)`).
- * 돌릴 수 없는 FILL 은 정렬도 싣지 않는다 — 칸을 채워 정렬이 뜻이 없다.
+ * HUG 로 풀리지 않는 가로 FILL(그 축 FILL 자식을 품은 프레임 · 감긴 글자)은 측정 폭 FIXED 로 세우고 정렬을 싣는다 — FILL 로 두면
+ * 칸을 채워, 가입 확인 메일 · 만료 · 인증 완료의 제목 묶음(340, 칸 400)이 늘어나며 안내 문단이 30(모바일 11) 왼쪽에 섰다.
  *
  * @returns {null | {rows: number[] | null, aligned: number, children: object[]}}
  */
@@ -1177,7 +1178,7 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
           // 글자는 세로도 HUG 여야 렌더러가 폭을 자동(WIDTH_AND_HEIGHT)으로 둔다 — 세로 FILL 이 남으면 폭 고정(HEIGHT)이 되어
           // 새 글자 상자의 좁은 기본 폭에서 줄이 꺾였다(「Check / your / email」, 캡처로 확인).
           if (child.text) sizing.layoutSizingVertical = "HUG";
-        } else horizontal = null;
+        } else sizing.layoutSizingHorizontal = "FIXED";
       }
     }
     if (vertical && sizing.layoutSizingVertical === "FILL") {

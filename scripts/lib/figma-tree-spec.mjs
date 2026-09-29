@@ -898,10 +898,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         columns: layoutMode === "GRID" ? gridColumns(node, style) : null,
         // 열마다의 크기 — 크기가 다른 열만(gridColumnTracks 주석).
         columnTracks: layoutMode === "GRID" ? gridColumnTracks(node, style, nodeSizing) : null,
-        // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 없으면 null.
-        rows: gridRow?.rows ?? null,
-        // 칸 자리를 되짚은 grid 의 행 수(gridPlacements) — 렌더러가 자식 수로 행을 세지 않고 이 수로 깐다.
-        ...(gridPlace ? { rowCount: gridPlace.rowCount } : {}),
+        // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 선언된 고정 행도 여기다. 없으면 null.
+        rows: gridRow?.rows ?? (layoutMode === "GRID" ? declaredFixedRows(node, style) : null),
+        // 칸 자리를 되짚은 grid 의 행 수(gridPlacements) · 선언된 고정 행 수 — 렌더러가 자식 수로 행을 세지 않고 이 수로 깐다.
+        ...(gridPlace ? { rowCount: gridPlace.rowCount }
+          : layoutMode === "GRID" && !gridRow?.rows && declaredFixedRows(node, style) ? { rowCount: declaredFixedRows(node, style).length } : {}),
         align: {
           // 세로로 쌓은 줄 글자는 `text-align` 이 줄을 놓는다 — 조각이 글자 폭(HUG)이라 교차축 정렬이 곧 줄 정렬이다.
           counterAxis: stackedText
@@ -1271,8 +1272,13 @@ function gridStretchedRow(node, style, sizing, rawChildren, inStretchedRow) {
   if (flow.length === 0 || flow.length > columns.length) return null;
   const contentHeight = node.rect.height - (px(style.paddingTop) ?? 0) - (px(style.paddingBottom) ?? 0)
     - (px(style.borderTopWidth) ?? 0) - (px(style.borderBottomWidth) ?? 0);
+  // 선언 높이(FIXED)도 밖에서 온 높이다.
+  const fromOutside = Boolean(sizing.minHeight) || sizing.layoutSizingVertical === "FIXED" || (inStretchedRow && sizing.layoutSizingVertical === "FILL");
+  // **행이 컨테이너보다 낮은 한 줄 grid(2026-09-30).** `align-content: center` 류는 내용 높이의 행을 컨테이너 안에 세운다(측정기는 이 축을
+  // 싣지 않는다 — 늘이기였다면 행이 컨테이너를 채웠다). 행을 컨테이너 높이로 깔고 칸 안 세로 자리는 측정 좌표로 가린다(gridCellAlign) —
+  // 랜딩 크리에이터 밴드(최소 높이 800, 행 285)의 내용이 가운데가 아니라 위에 붙어 135 떴다.
+  if (rows[0] < contentHeight - 1) return fromOutside ? Math.round(contentHeight * 100) / 100 : null;
   if (Math.abs(rows[0] - contentHeight) > 1) return null;
-  const fromOutside = Boolean(sizing.minHeight) || (inStretchedRow && sizing.layoutSizingVertical === "FILL");
   return fromOutside ? Math.round(rows[0] * 100) / 100 : null;
 }
 
@@ -1326,6 +1332,20 @@ function gridPlacements(node, style, children) {
   return { rowCount: rows.length, placements: new Map(flow.map((child, index) => [child, placements[index]])) };
 }
 
+/**
+ * **선언된 고정 행(2026-09-30).** `grid-template-rows: repeat(2, 160px)` 처럼 px 트랙만 선언된 grid 는 행이 내용이 아니라 선언 크기다 —
+ * 렌더러는 행을 내용 높이(HUG)로 까는데, 랜딩 새소식의 대표 카드(2×2)가 내용 높이만큼만 두 행을 차지해 둘째 줄 카드가 24(모바일 285)
+ * 올라왔다. 계산된 행 크기(넘치는 암시 행 포함)를 FIXED 로 싣는다.
+ * @returns {null | number[]}
+ */
+function declaredFixedRows(node, style) {
+  const declared = String(node.declared?.["grid-template-rows"] ?? "").replace(/!important/g, "").trim();
+  if (!declared || !/^(repeat\(\s*\d+\s*,\s*[\d.]+px\s*\)|[\d.]+px)(\s+(repeat\(\s*\d+\s*,\s*[\d.]+px\s*\)|[\d.]+px))*$/.test(declared)) return null;
+  const rows = parseTracks(style.gridTemplateRows)?.map(px);
+  if (!rows?.length || rows.some((value) => value == null)) return null;
+  return rows.map((value) => Math.round(value * 100) / 100);
+}
+
 function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
   const columns = parseTracks(style.gridTemplateColumns)?.map(px);
@@ -1375,7 +1395,7 @@ function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
     if (!singleColumn) cellLeft += columns[index] + gap;
     const margin = child.margin ?? {};
     let horizontal = margin.left || margin.right ? null : place(child.rect.x, child.rect.width, cellStart, columns[column]);
-    let vertical = !stretched || margin.top || margin.bottom ? null : place(child.rect.y, child.rect.height, top, rows[0]);
+    let vertical = !stretched || margin.top || margin.bottom ? null : place(child.rect.y, child.rect.height, top, stretchedRow);
     const sizing = { ...child.sizing };
     if (horizontal && sizing.layoutSizingHorizontal === "FILL") {
       const capped = sizing.maxWidth && Math.abs(child.rect.width - sizing.maxWidth) <= 1;

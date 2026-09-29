@@ -212,10 +212,10 @@ const SCREENS = [
     { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
-    // 약관 둘 — 떼어낸 자리를 조각 하나에 묶은 뒤로 뷰포트마다 4 ~ 5 조각이다(묶기 전 18 ~ 41). 표(`table`)의 칸은 크기 판정 규칙이 없어
-    // 미해결(td · tr · th)로 남고 측정 폭(FIXED)으로 선다 — fixture 뷰포트에서는 측정과 같다(2026-09-30).
-    { route: "/privacy", desktop: "350:17450", mobile: "350:18523", fixture: "public" },
-    { route: "/terms", desktop: "350:19606", mobile: "350:20517", fixture: "public" },
+    // `/privacy` · `/terms` 는 원장에만 있다(2026-09-30). 조각 묶음으로 뷰포트마다 4 ~ 5 조각이 되어 보낼 수는 있지만, 문장 안의 굵은 글자
+    // (`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은 측정기가 글자 조각의 순서를 싣지 않아 제 글자와 인라인 요소가 따로 선다 — 「7 days」 가
+    // 문장에서 떨어져 오른쪽에 서고 문장 순서가 흩어졌다(보내서 캡처로 확인). 보드는 제품 DOM 캡처로 둔다. 여는 길: 측정기가 인라인 조각
+    // 순서를 싣고 렌더러가 범위 서식 글자 하나로 그린다.
     { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
     { route: "/pricing", desktop: "213:2297", mobile: "213:3353", fixture: "public" },
     { route: "/templates", desktop: "33:3", mobile: "33:47", fixture: "public" },

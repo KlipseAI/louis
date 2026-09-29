@@ -583,9 +583,11 @@ try {
           }
         });
 
+        // 개발 서버는 화면을 처음 열 때 컴파일한다 — 무거운 화면(결제 · bulk)이 60초를 넘겨 측정이 통째로 멈춘 일이 두 번 있었다
+        // (2026-09-28, 매번 다른 화면). 제한을 넉넉히 둔다. 값이 아니라 기다림의 한도라 원장은 바뀌지 않는다.
         await page.goto(fixtureServer.url + spec.url, {
           waitUntil: "domcontentloaded",
-          timeout: 60_000,
+          timeout: 180_000,
         });
         if (new URL(page.url()).origin !== fixtureServer.url) {
           throw new Error(

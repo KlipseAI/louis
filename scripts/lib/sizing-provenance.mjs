@@ -269,7 +269,9 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
       return { verdict: AXIS.HUG, reason: `grid 트랙 ${gridTrack}이지만 justify-self:${effectiveJustify} — 트랙을 채우지 않는다`, source: `justify-self:${effectiveJustify}`, value: null };
     }
     const track = String(gridTrack).trim();
-    if (/^(-?[\d.]+)fr$/.test(track) || /minmax\([^)]*\bfr\b[^)]*\)/.test(track) || track === "auto") {
+    // `minmax(a, Nfr)` 의 `fr` 앞은 숫자라 단어 경계(`\bfr`)가 서지 않는다 — 그 정규식이 한 번도 맞지 않아 문의 데스크톱의 두 칸
+    // (`minmax(0, 0.8fr) minmax(0, 1.2fr)`)이 HUG 로 떨어져 폼이 140 폭으로 줄었다(2026-09-30, 보드 글자 자리 대조).
+    if (/^(-?[\d.]+)fr$/.test(track) || /^minmax\(.*[\d.]fr\s*\)$/.test(track) || track === "auto") {
       return { verdict: AXIS.FILL, reason: `grid 트랙 ${track} — 남는 공간을 나눠 갖는다`, source: `grid-template: ${track}`, value: null };
     }
     const fixedTrack = px(track);

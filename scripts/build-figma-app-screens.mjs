@@ -696,6 +696,17 @@ function reconcileFigmaSizing(spec) {
         const fills = children.filter((child) => child.sizing[axis.sizing] === "FILL");
         // 교차축은 FILL 이 아닌 형제가 하나라도 있으면 Figma 가 그 형제로 부모를 세우고 나머지를 늘인다 — CSS 와 같다.
         if (fills.length === 0 || (!primary && fills.length !== children.length)) continue;
+        // **내용 폭을 잴 수 없는 교차축 FILL 들의 HUG 부모(2026-09-30).** 교차축 자식이 모두 FILL 이면 Figma 는 HUG 부모를 최소로 접는다.
+        // CSS 에서 그 부모 폭은 자식의 내용 폭(max-content)인데, 원장에는 한 줄 글자의 글자 폭이 없어(블록 글자의 측정 상자는 늘어난 폭이다)
+        // 어느 자식이 폭을 정했는지 되짚을 수 없다 — 문의 데스크톱 안내 카드의 글 칸(304)이 122 로 접혀 문단이 세 줄로 늘었고, 공개 페이지
+        // 푸터의 링크 열이 제목 폭으로 좁아졌다. 부모 판정(HUG)은 CSS 대로 맞고 Figma 가 그 조합을 나타내지 못하는 자리라, 부모를 그 뷰포트에서
+        // 푼 측정 폭(FIXED)으로 세운다 — 자식은 FILL 로 그 폭을 따른다. 내용을 잴 수 있는 자식만이면 아래 판정(HUG 로 옮기기 · 수축)을 따른다.
+        if (!primary && fills.some((child) => contentExtent(child, axisName) == null)) {
+          change(node, axisName, "FIXED",
+            `교차축 자식이 모두 FILL 이고 내용 폭을 잴 수 없는 자식(글자 잎 · 인스턴스)이 있다 — CSS 의 부모 폭은 자식의 max-content 인데 원장에 글자 폭이 없고, Figma 는 모두 FILL 이면 HUG 부모를 최소로 접는다. 그 뷰포트에서 푼 측정 폭으로 선다`,
+            `measured ${node.rect[axis.extent]}`);
+          continue;
+        }
         for (const child of fills) {
           const measured = child.rect[axis.extent];
           const content = contentExtent(child, axisName);
@@ -1371,67 +1382,19 @@ const PUBLIC_FOOTER_PENDING_WHY = "공개 페이지 푸터(링크 열 · 소셜 
 const INQUIRY_FORM_PENDING_WHY = "문의 폼 · 안내 칸의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
-  "/creative-media-admin @ desktop-1920x1080 · body.1.0.0.0.0.2 · vertical": { count: 2, why: BOOTH_ADMIN_PENDING_WHY },
-  "/creative-media-admin @ mobile-402x874 · body.1.0.0.0.0.2 · vertical": { count: 2, why: BOOTH_ADMIN_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.0 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1.0.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.0.1.1.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.1.1 · horizontal": { count: 1, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.2 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.2.0.0.1.1.0.2.1 · horizontal": { count: 2, why: INQUIRY_FORM_PENDING_WHY },
   "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
   "/inquiry @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
   "/pricing @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
   "/templates @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.0.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.1.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.2.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3 · horizontal": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1.3.1 · horizontal": { count: 2, why: PUBLIC_FOOTER_PENDING_WHY },
   "/blog @ mobile-402x874 · body.1.0.0.3.1.0 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.6.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.10.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
-  "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
-  "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
-  "/subscription @ mobile-402x874 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
 };
 {
   const actual = {};

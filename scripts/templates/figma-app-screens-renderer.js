@@ -427,6 +427,8 @@ const buildNode = (spec, parent) => {
       node.gridChildVerticalAlign = spec.ga[1] || "AUTO";
     }
     if (isText) node.textAutoResize = (h === "HUG" && v === "HUG") ? "WIDTH_AND_HEIGHT" : "HEIGHT";
+    // 줄바꿈 없이 잘리는 글자(`white-space: nowrap` + `overflow: hidden`) — 한 줄에서 말줄임으로 자른다.
+    if (isText && spec.tt && h !== "HUG") { try { node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
   }
 
   if (spec.mh) { try { node.minHeight = spec.mh; } catch (error) {} }

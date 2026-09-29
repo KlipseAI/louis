@@ -524,11 +524,17 @@ function hiddenGapMargins(node, style, children) {
  */
 function flowSlack(node, style, children, rawChildren, sizing, recordedBottom) {
   if (/grid|table/.test(style.display ?? "")) return null;
+  // 가운데 · 끝 정렬 flex 세로 줄 — 보이는 자식 묶음이 그 정렬대로 서 있지 않으면(가운데인데 위아래 여유가 다르다 · 끝인데 아래 여유가
+  // 있다) 보이지 않는 자식이 자리를 차지한 것이다. 여유를 패딩으로 옮기고 주축 정렬을 시작으로 둔다(`realign`) — 구독 모바일의 사용 이력
+  // 오류 칸(최소 높이 132 · 가운데)은 제목이 위에 붙고 아래 84 가 비어 153 인데, 보드는 제목을 가운데 세운 132 였다.
+  let realign = false;
   if (/flex/.test(style.display ?? "")) {
     if (!(style.flexDirection ?? "row").startsWith("column") || style.flexDirection.endsWith("reverse")) return null;
-    if (style.flexWrap === "wrap" || !/^(normal|flex-start|start)$/.test(style.justifyContent ?? "normal")) return null;
+    if (style.flexWrap === "wrap") return null;
+    realign = !/^(normal|flex-start|start)$/.test(style.justifyContent ?? "normal");
+    if (realign && !/^(center|flex-end|end)$/.test(style.justifyContent)) return null;
   }
-  if (sizing.layoutSizingVertical !== "HUG" || sizing.minHeight) return null;
+  if (sizing.layoutSizingVertical !== "HUG" || (sizing.minHeight && !realign)) return null;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
   if (flow.length === 0) return null;
   // 블록 자식만 — 인라인 요소(`<strong>`)의 측정 상자는 줄 상자가 아니라 글꼴 상자라 여유가 거짓으로 잡힌다.
@@ -537,13 +543,18 @@ function flowSlack(node, style, children, rawChildren, sizing, recordedBottom) {
   const border = (side) => ((style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
   const contentTop = node.rect.y + border("Top") + (px(style.paddingTop) ?? 0);
   const contentBottom = node.rect.y + node.rect.height - border("Bottom") - (px(style.paddingBottom) ?? 0);
-  // 뷰포트만 잰 원장은 뷰포트 밖에서 시작하는 노드를 싣지 않는다 — 그 아래 여유는 싣지 않은 자식이다.
-  if (recordedBottom != null && contentBottom > recordedBottom + 0.5) return null;
+  // 뷰포트만 잰 원장은 뷰포트 밖에서 시작하는 노드를 싣지 않는다 — 그 아래 여유는 싣지 않은 자식이다. 정렬을 다시 세우는 칸은
+  // 보이는 자식을 측정 자리에 두는 것이 목적이고 칸 크기도 측정 그대로라, 뷰포트를 넘어도 옮긴다(구독 모바일 이력 칸은 아래가 뷰포트 밖).
+  if (!realign && recordedBottom != null && contentBottom > recordedBottom + 0.5) return null;
   const slackTop = Math.min(...flow.map((child) => child.rect.y - (child.margin?.top ?? 0))) - contentTop;
   const slackBottom = contentBottom - Math.max(...flow.map((child) => child.rect.y + child.rect.height + (child.margin?.bottom ?? 0)));
-  if (slackTop < -0.5 || slackBottom < -0.5 || (slackTop <= 0.5 && slackBottom <= 0.5)) return null;
+  // 반 픽셀 테두리를 링(그림자)으로 그린 칸은 테두리가 레이아웃에 들지 않아 여유가 −0.5 남짓으로 잡힌다 — 1px 까지 봐준다.
+  if (slackTop < -1 || slackBottom < -1 || (slackTop <= 0.5 && slackBottom <= 0.5)) return null;
+  // 정렬대로 선 묶음(가운데면 위아래 여유가 같고, 끝이면 아래 여유가 없다)은 보이지 않는 자식이 없다 — 정렬이 여유를 맡는다.
+  if (realign && /center/.test(style.justifyContent) && Math.abs(slackTop - slackBottom) <= 1) return null;
+  if (realign && /end/.test(style.justifyContent) && slackBottom <= 0.5) return null;
   const round2 = (value) => (value <= 0.5 ? 0 : Math.round(value * 100) / 100);
-  return { top: round2(slackTop), bottom: round2(slackBottom) };
+  return { top: round2(slackTop), bottom: round2(slackBottom), ...(realign ? { realign: true } : {}) };
 }
 
 function lineBoxSlack(node, style, children, rawChildren) {
@@ -853,7 +864,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
           counterAxis: stackedText
             ? (TEXT_ALIGN_COUNTER[style.textAlign] ?? "MIN")
             : liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
-          primaryAxis: cssJustifyToFigma(style.justifyContent),
+          primaryAxis: slack?.realign ? null : cssJustifyToFigma(style.justifyContent),
         },
       },
       clipsContent: style.overflow === "hidden" || style.overflowX === "hidden",
@@ -1146,6 +1157,10 @@ function typographyOf(style) {
     size, weight, lineHeight, letterSpacing,
     color: cssColorToHex(style.color),
     align: /^(center|right|justify)$/.test(style.textAlign ?? "") ? style.textAlign : null,
+    // **줄바꿈 없이 잘리는 글자(2026-09-30).** `white-space: nowrap` + `overflow: hidden`(Tailwind `truncate`)은 한 줄에서 잘린다 —
+    // Figma 에는 줄바꿈 금지가 없어 좁은 칸에서 꺾였다(부스 운영의 모델 선택 값 「nano-banana-2」 47 폭이 세 줄). 렌더러가 한 줄 자르기
+    // (`textTruncation = "ENDING"` · `maxLines = 1`)를 건다.
+    ...(/^(nowrap|pre)$/.test(style.whiteSpace ?? "") && /hidden|clip/.test(`${style.overflow ?? ""} ${style.overflowX ?? ""}`) ? { truncate: true } : {}),
   };
 }
 

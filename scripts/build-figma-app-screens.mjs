@@ -396,6 +396,7 @@ const typographyKeys = (node) => {
       : [round(typography.size), typography.weight, round(typography.lineHeight ?? 0), round(typography.letterSpacing ?? 0)],
     ...(typography.color ? { tc: typography.color } : {}),
     ...(typography.align ? { ta: typography.align } : {}),
+    ...(typography.truncate ? { tt: 1 } : {}),
   };
 };
 

@@ -1240,8 +1240,10 @@ function gridColumns(node, style) {
   // `repeat(auto-fill | auto-fit, …)` 은 선언에서 열 수를 셀 수 없다(반복 수가 뷰포트에서 정해진다) — 그 뷰포트에서 풀린
   // 트랙(computed)을 센다. 선언을 그대로 펼치면 한 열로 읽혀 bulk 성공 미리보기의 쿠폰 코드 격자(데스크톱 셋 열)가 한 줄로 섰다.
   // `!important` 는 트랙이 아니다(2026-09-30) — 공개 페이지 모바일 머리글 `1fr auto !important` 가 세 열로 세어졌다.
+  // 반복 수가 변수인 선언(`repeat(var(--comparison-cols, 4), minmax(0, 1fr))`)도 셀 수 없다 — 한 열로 읽혀 요금제 비교표(모바일 다섯 열)가
+  // 한 줄에 하나씩 쌓여 보드가 6450 → 12539 로 늘었다(2026-09-30, 라이브 탐침). 역시 풀린 트랙을 센다.
   const raw = node.declared?.["grid-template-columns"]?.replace(/!important/g, "").trim();
-  const declared = /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw ?? "") ? null : parseTracks(raw);
+  const declared = /repeat\(\s*(?:auto-(?:fill|fit)\b|var\()/i.test(raw ?? "") ? null : parseTracks(raw);
   if (declared?.length) return declared.length;
   const computed = parseTracks(style.gridTemplateColumns);
   if (computed?.length && computed[0] !== "none") return computed.length;

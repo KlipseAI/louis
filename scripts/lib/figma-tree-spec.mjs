@@ -522,7 +522,7 @@ function hiddenGapMargins(node, style, children) {
  * 이라 그 아래가 모두 3 올라갔다). 내용 높이(HUG)로 서는 세로 흐름에서 측정 콘텐츠 상자와 흐름 자식의 끝 사이 여유를 패딩으로
  * 옮긴다 — 측정 자리가 정답이다. flex 는 주축 정렬이 시작일 때만 본다(가운데 · 끝 정렬은 여유가 정렬의 몫이다).
  */
-function flowSlack(node, style, children, rawChildren, sizing, recordedBottom) {
+function flowSlack(node, style, children, rawChildren, sizing, recordedBottom, parent = null, siblings = []) {
   if (/grid|table/.test(style.display ?? "")) return null;
   // 가운데 · 끝 정렬 flex 세로 줄 — 보이는 자식 묶음이 그 정렬대로 서 있지 않으면(가운데인데 위아래 여유가 다르다 · 끝인데 아래 여유가
   // 있다) 보이지 않는 자식이 자리를 차지한 것이다. 여유를 패딩으로 옮기고 주축 정렬을 시작으로 둔다(`realign`) — 구독 모바일의 사용 이력
@@ -534,7 +534,13 @@ function flowSlack(node, style, children, rawChildren, sizing, recordedBottom) {
     realign = !/^(normal|flex-start|start)$/.test(style.justifyContent ?? "normal");
     if (realign && !/^(center|flex-end|end)$/.test(style.justifyContent)) return null;
   }
-  if (sizing.layoutSizingVertical !== "HUG" || (sizing.minHeight && !realign)) return null;
+  // grid 행의 높이를 제 내용으로 정하는 칸 자식(측정 높이 = 계산된 행 크기)은 FILL 이어도 내용 높이로 선 것이다 — 랜딩 모바일 후기의 인용
+  // 슬라이드(108)는 보이지 않는 두 줄이 아래 54 를 차지하는데, 칸이 내용 높이 행이라 보드에서 54 로 접혀 인용문이 27 내려갔다.
+  // 그 grid 의 유일한 흐름 자식일 때만 — 형제가 있으면 행을 정한 것이 이 자식인지 늘어난 것인지 가를 수 없다.
+  const rowOwner = sizing.layoutSizingVertical === "FILL" && /grid/.test(parent?.style?.display ?? "")
+    && (parseTracks(parent.style.gridTemplateRows)?.map(px) ?? []).some((row) => row != null && Math.abs(row - node.rect.height) <= 1)
+    && siblings.filter((sibling) => isVisible(sibling) && !/^(absolute|fixed)$/.test(sibling.style?.position ?? "")).length === 1;
+  if ((sizing.layoutSizingVertical !== "HUG" && !rowOwner) || (sizing.minHeight && !realign)) return null;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
   if (flow.length === 0) return null;
   // 블록 자식만 — 인라인 요소(`<strong>`)의 측정 상자는 줄 상자가 아니라 글꼴 상자라 여유가 거짓으로 잡힌다.
@@ -805,7 +811,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren)
       : layoutMode === "VERTICAL" && !split && !stackedText && !padded
-        ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null) : null;
+        ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null, parent, parent ? (childrenOf.get(parent.path) ?? []) : []) : null;
     const clearBorder = clearBorderPadding(style);
     const paint = paintOf(style);
     // 테두리에 합친 링의 두께 — 획이 레이아웃에 드므로 패딩에서 뺀다(paintOf 주석).

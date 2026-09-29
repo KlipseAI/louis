@@ -216,6 +216,8 @@ const SCREENS = [
     // 측정기가 싣는 조각 순서로 글자 하나 + 범위 서식으로 합친다(figma-tree-spec richInlineText) — 따로 세우면 「7 days」 가 문장에서 떨어져
     // 오른쪽에 섰다. 표 칸(td · tr · th)은 크기 판정 규칙이 없어 미해결로 남고 측정 폭(FIXED)으로 선다. 옛 보드(제품 DOM 캡처)는 은퇴한 7모드
     // 변수에 묶여 바탕이 회색 · 글자가 거의 흰색으로 틀어져 있었다(2026-09-30).
+    // 랜딩 — 로그아웃 문서 전체. 템플릿 섹션은 DB(`creative_media_templates`)가 닿지 않아 빈 배열이 오고 제품 코드대로 빠진다(2026-09-30).
+    { route: "/", desktop: "359:2032", mobile: "359:2986", fixture: "public" },
     { route: "/privacy", desktop: "350:17450", mobile: "350:18523", fixture: "public" },
     { route: "/terms", desktop: "350:19606", mobile: "350:20517", fixture: "public" },
     { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
@@ -691,9 +693,17 @@ function reconcileFigmaSizing(spec) {
               `content ${Math.round(content * 100) / 100}`);
             continue;
           }
-          // 자식의 최소 크기가 측정 크기를 덮으면(그리고 내용이 측정보다 크지 않으면) Figma 가 접어도 그 최소(= 측정)에서 선다.
+          // 자식의 최소 크기가 측정 크기를 덮으면(그리고 내용이 측정보다 크지 않으면) 늘이기는 아무 일도 하지 않았다 — 자식은 그 최소
+          // (= 측정)에 섰다. **FILL 로 두지 않는다(2026-09-30).** Figma 는 HUG 부모의 주축 크기를 FILL 자식의 최소로만 세워 형제가 부모
+          // 밖으로 넘쳤다 — 문의 모바일 메시지 칸(textarea FILL · 최소 200 + 첨부 줄 57)이 265 대신 200 으로 서서 그 아래가 모두 65
+          // 올라갔다(라이브 탐침). 잎은 측정 크기 FIXED, 자동 배치 프레임은 HUG(최소 크기가 측정을 지킨다)로 옮긴다.
           const childMin = child.sizing[axis.min];
-          if (childMin && childMin >= measured - HALF_PIXEL && (content == null || content <= measured + HALF_PIXEL)) continue;
+          if (childMin && childMin >= measured - HALF_PIXEL && (content == null || content <= measured + HALF_PIXEL)) {
+            change(child, axisName, child.layout ? "HUG" : "FIXED",
+              `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 가 아무 일도 하지 않았다 — 측정 ${measured} 이 자식의 최소 크기 ${childMin} 에 섰다. Figma 는 HUG 부모를 FILL 자식의 최소로만 세워 형제가 넘친다`,
+              `min ${childMin}`);
+            continue;
+          }
           const kind = content != null ? (measured > content ? "larger" : "smaller")
             : child.instance ? "instance" : child.text && !child.layout ? "text" : "unmeasurable";
           unresolvedFillInHug.push({
@@ -1551,8 +1561,9 @@ for (const entry of screens) {
   // 문자 클래스로, `?`를 한 글자 와일드카드로 읽으므로 `figma/app-screens.*`를 다루는 명령이
   // 조용히 빗나간다. 점도 뺀다 — 파일명 구획자(`app-screens.<slug>.<문맥>.<번호>.draw.js`)다.
   // 지금 SCREENS 12개의 키는 `[a-z-]`뿐이라 결과가 한 글자도 바뀌지 않는다.
-  const slug = entry.route.replace(/^\//, "").replace(/\//g, "-")
-    .replace(/[^A-Za-z0-9_-]+/g, "-")
+  // 랜딩(`/`)은 지우면 빈 이름이라 `home` 으로 부른다(`app-screens..desktop` 이 되지 않게).
+  const slug = (entry.route === "/" ? "home" : entry.route.replace(/^\//, "").replace(/\//g, "-")
+    .replace(/[^A-Za-z0-9_-]+/g, "-"))
     + "." + (entry.context.startsWith("desktop") ? "desktop" : "mobile");
 
   // 조각 0: 프레임 껍데기 + head. 이후 조각들은 path로 자리표시를 찾아 채운다.

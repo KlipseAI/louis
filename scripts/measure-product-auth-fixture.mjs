@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
+import { tmpdir } from "node:os";
 import { delimiter, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -369,10 +370,51 @@ const startFixtureServer = async () => {
 // 화면이 조용해질 때까지 기다린다. 지문은 경로·테마·로캘·높이(문서 + 실제 스크롤 컨테이너들)·
 // root 텍스트·요소 수·dialog 수다.
 // **두 번 쓰인다** — 처음 열었을 때 한 번, 애니메이션을 얼린 뒤 그 여파를 가라앉히려 한 번 더.
-const stabilize = async (page, label) => {
+// **flex 열에서 가운데 선 자식의 좌우 여백은 좌표로 정한다(2026-09-29).** 설정 화면 본문(`flex column` · `align-items: stretch` 안의
+// 폭 제한 1400 칸)은 좌표가 매번 x 380 · 폭 1400 인데, Chrome 이 돌려주는 계산 여백은 재측정마다 124 와 0 을 오갔다 — 인증 원장
+// 대조 게이트가 한 번씩 빨갛던 이유다(인계서 4-1). 같은 모양의 `/mypage` 본문은 0 으로 기록돼 있었다. 부모 내용 상자 안에서 좌우
+// 틈이 같게 선 자식은 여백이 그 틈이다 — 흔들리는 계산값 대신 흔들리지 않는 좌표로 적는다. 정렬 · 절대 배치로 선 자식은 건드리지 않는다.
+const settleCentredMargins = (tree) => {
+  const byPath = new Map(tree.map((node) => [node.path, node]));
+  const length = (value) => {
+    const number = Number.parseFloat(value);
+    return Number.isFinite(number) ? number : 0;
+  };
+  let settled = 0;
+  for (const node of tree) {
+    const parent = byPath.get(node.parentPath);
+    if (!parent?.style || !node.style) continue;
+    const outer = parent.style;
+    const own = node.style;
+    if (!/flex/.test(outer.display ?? "") || !/column/.test(outer.flexDirection ?? "")) continue;
+    if (!/^(stretch|normal|flex-start|start)$/.test(outer.alignItems ?? "")) continue;
+    if (/^(center|flex-end|end)$/.test(own.alignSelf ?? "")) continue;
+    if (/^(absolute|fixed)$/.test(own.position ?? "")) continue;
+    const contentLeft = parent.rect.x + length(outer.paddingLeft) + length(outer.borderLeftWidth);
+    const contentRight = parent.rect.x + parent.rect.width - length(outer.paddingRight) - length(outer.borderRightWidth);
+    const left = node.rect.x - contentLeft;
+    const right = contentRight - (node.rect.x + node.rect.width);
+    if (contentRight - contentLeft - node.rect.width <= 1 || Math.abs(left - right) > 1 || left <= 1) continue;
+    const value = `${Math.round(left * 1000) / 1000}px`;
+    if (own.marginLeft !== value || own.marginRight !== value) settled += 1;
+    own.marginLeft = value;
+    own.marginRight = value;
+  }
+  return settled;
+};
+
+// **요청이 오가는 동안에는 안정으로 세지 않는다(2026-09-29).** 지문(경로 · 글자 · 요소 수 · 높이)만 보면 화면 코드가 아직 돌지 않은
+// 빈 껍데기도 0.9초 가만히 있으면 안정이 된다. 실측: `?plan=` 없이 연 결제 화면(데스크톱)이 클라이언트 리다이렉트 전의 빈 셸(노드 2 ·
+// API 호출 0)로 기록됐다 — 같은 실행의 모바일은 리다이렉트 뒤(노드 95)였다. 이 화면은 리다이렉트 여부에 따라 반복 부품 집계에서 빠졌다
+// 들어갔다 하므로(`screen.redirected`), 알려진 흔들림(모바일 프로필 버튼 반복 27/26)도 같은 뿌리로 본다. `isQuiet` 는 부팅 · 이동에
+// 걸리는 요청(문서 · 스크립트 · 스타일 · fetch · XHR · 이미지 · 글꼴)이 하나도 진행 중이 아닐 때 참이다. 한도는 횟수가 아니라 시간이다 —
+// 개발 서버가 무거운 화면을 처음 컴파일하는 동안 스크립트 요청이 오래 열려 있을 수 있다. 값이 아니라 기다림의 한도다.
+const STABILIZE_DEADLINE_MS = 180_000;
+const stabilize = async (page, label, isQuiet = () => true) => {
   let previous = null;
   let stableCount = 0;
-  for (let attempt = 0; attempt < 80 && stableCount < 6; attempt += 1) {
+  const deadline = Date.now() + STABILIZE_DEADLINE_MS;
+  while (stableCount < 6 && Date.now() < deadline) {
     const fingerprint = await page.evaluate(() => {
       const rootCandidates = [...document.body.children]
         .filter((node) => node instanceof HTMLElement)
@@ -418,7 +460,7 @@ const stabilize = async (page, label) => {
           }).length,
       });
     });
-    if (fingerprint === previous) stableCount += 1;
+    if (fingerprint === previous && isQuiet()) stableCount += 1;
     else {
       previous = fingerprint;
       stableCount = 0;
@@ -562,6 +604,16 @@ try {
           }
         });
         const page = await context.newPage();
+        // 진행 중인 요청 — `stabilize` 는 이것이 0 일 때만 안정으로 센다(위 주석). 끝나지 않는 연결(eventsource · websocket ·
+        // media)은 세지 않는다 — 세면 그런 화면은 영영 안정되지 않는다. 막힌 외부 요청은 `requestfailed` 로 곧 빠진다.
+        const COUNTED_REQUESTS = new Set(["document", "script", "stylesheet", "fetch", "xhr", "image", "font"]);
+        const inflight = new Set();
+        page.on("request", (request) => {
+          if (COUNTED_REQUESTS.has(request.resourceType())) inflight.add(request);
+        });
+        page.on("requestfinished", (request) => inflight.delete(request));
+        page.on("requestfailed", (request) => inflight.delete(request));
+        const isQuiet = () => inflight.size === 0;
         page.on("response", (response) => {
           const target = new URL(response.url());
           if (target.origin === fixtureServer.url && target.pathname.startsWith("/api/")) {
@@ -595,12 +647,12 @@ try {
           );
         }
         await delay(3_000);
-        await stabilize(page, spec.id);
+        await stabilize(page, spec.id, isQuiet);
         // 조용해진 **뒤에** 훑는다 — 훑기는 스크롤을 움직이므로 아직 마운트 중인 화면에서 하면
         // 엉뚱한 자리를 훑는다. 훑고 나면 접혀 있던 subtree 가 처음 레이아웃되면서 이미지 로드
         // 같은 여파가 따라오므로 한 번 더 가라앉힌다.
         await settleContentVisibility(page);
-        await stabilize(page, spec.id + " (content-visibility 확정 후)");
+        await stabilize(page, spec.id + " (content-visibility 확정 후)", isQuiet);
         await page.evaluate(async () => { await document.fonts.ready; });
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
@@ -900,7 +952,7 @@ try {
               try { animation.finish(); } catch { animation.currentTime = 0; }
             }
           });
-          await stabilize(page, spec.id + " (애니메이션 정지 후)");
+          await stabilize(page, spec.id + " (애니메이션 정지 후)", isQuiet);
 
           measured = await runMeasurePass();
 
@@ -971,6 +1023,7 @@ try {
           if (attached === 0) {
             throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
           }
+          settleCentredMargins(measured.tree);
           break;
         }
         if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + spec.id + ")");
@@ -1238,6 +1291,10 @@ if (checkOnly) {
   }
   const recordedPayload = readFileSync(outputPath, "utf8");
   if (recordedPayload !== payload) {
+    // 새로 잰 결과를 통째로 남긴다 — 흔들림은 첫 차이 한 줄로는 어느 화면인지 모른다(2026-09-29, 모바일 프로필 버튼 반복 27/26).
+    const measuredPath = resolve(tmpdir(), outputRelative.replace(/[\\/]/g, "_") + ".measured.json");
+    writeFileSync(measuredPath, payload);
+    console.error("[product-auth-fixture] 새로 잰 결과: " + measuredPath);
     const difference = firstDifference(JSON.parse(recordedPayload), JSON.parse(payload));
     console.error(
       "[product-auth-fixture] fixture 렌더가 기록과 다릅니다: " +

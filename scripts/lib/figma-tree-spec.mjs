@@ -562,11 +562,47 @@ function lineBoxSlack(node, style, children, rawChildren) {
   return { top: round2(slackTop), bottom: round2(slackBottom), lineHeight: style.lineHeight ?? null };
 }
 
-export function toFigmaTreeSpec(tree, options = {}) {
+/**
+ * **배율이 걸린 서브트리(2026-09-30).** CSS `transform: scale` 은 그림만 줄이고 계산값(글자 크기 · 패딩 · 간격 · 테두리 · 곡률 · 그림자)은
+ * 줄기 전 값으로 둔다. 측정 상자(`rect`)는 줄어든 그림이라, 그대로 옮기면 상자는 작은데 글자와 여백은 커서 안이 넘친다 — 랜딩 개요의
+ * 노드 캔버스 목업(`matrix(0.774, 0, 0, 0.774, …)`, 모바일 0.496)이 그 자리다. 고른 배율(`matrix(s, 0, 0, s, tx, ty)`)이 걸린 노드와
+ * 그 자손의 계산값 · 선언의 px 값에 배율을 곱해 측정 상자와 한 척도로 맞춘다(겹친 배율은 곱한다). Figma `rescale()` 은 러너 조각이
+ * 서브트리를 나누면 뒤 조각이 배율 밖에 서므로 쓰지 않는다.
+ */
+function scalePx(value, factor) {
+  return typeof value === "string" && value.includes("px")
+    ? value.replace(/(-?\d*\.?\d+(?:e-?\d+)?)px/g, (_, number) => `${Math.round(Number(number) * factor * 10000) / 10000}px`)
+    : value;
+}
+function uniformScaleOf(style) {
+  const match = /^matrix\(\s*([-\d.e]+),\s*([-\d.e]+),\s*([-\d.e]+),\s*([-\d.e]+),/.exec(style?.transform ?? "");
+  if (!match) return null;
+  const [a, b, c, d] = match.slice(1, 5).map(Number);
+  if (Math.abs(b) > 1e-4 || Math.abs(c) > 1e-4 || Math.abs(a - d) > 1e-4 || Math.abs(a - 1) <= 1e-3 || a <= 0) return null;
+  return a;
+}
+function applyTransformScale(tree) {
+  const roots = tree.map((node) => ({ node, factor: uniformScaleOf(node.style) })).filter((entry) => entry.factor != null);
+  if (roots.length === 0) return { tree, scaled: 0 };
+  const factorOf = (path) => roots.reduce((product, { node, factor }) => (path === node.path || path.startsWith(`${node.path}.`) ? product * factor : product), 1);
+  let scaled = 0;
+  const next = tree.map((node) => {
+    const factor = factorOf(node.path);
+    if (factor === 1) return node;
+    scaled += 1;
+    const style = Object.fromEntries(Object.entries(node.style ?? {}).map(([key, value]) => [key, key === "transform" ? value : scalePx(value, factor)]));
+    const declared = node.declared ? Object.fromEntries(Object.entries(node.declared).map(([key, value]) => [key, scalePx(value, factor)])) : node.declared;
+    return { ...node, style, declared };
+  });
+  return { tree: next, scaled };
+}
+
+export function toFigmaTreeSpec(inputTree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
+  const { tree, scaled: transformScaled } = applyTransformScale(inputTree);
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [] };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}) };
 
   // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
   const convert = (node, parent, inStretchedRow = false) => {

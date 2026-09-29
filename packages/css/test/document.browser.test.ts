@@ -131,17 +131,50 @@ const FIXTURE = `
         <div class="louis-document-compare__item"><p class="louis-document-compare__label">보드</p><img class="louis-document-media" width="100" height="200" alt="보드" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='200'/%3E"></div>
       </div>
     </figure>
+    <nav class="louis-document-toc" aria-label="목차" data-probe="toc">
+      <p class="louis-document-toc__title">목차</p>
+      <ol class="louis-document-toc__list" role="list" data-probe="toc-list">
+        <li><a class="louis-document-toc__link" href="#t-a" data-probe="toc-link"><span class="louis-document-toc__kicker" data-probe="toc-kicker">01</span><span class="louis-document-toc__label">첫 절</span></a></li>
+        <li><a class="louis-document-toc__link" href="#t-b"><span class="louis-document-toc__kicker">02</span><span class="louis-document-toc__label">둘째 절</span></a></li>
+      </ol>
+    </nav>
+    <figure class="louis-document-card">
+      <ol class="louis-document-stack" role="list" data-probe="stack">
+        <li class="louis-document-stack__part" data-lead data-probe="stack-lead" style="--louis-document-stack-value: 60%"><span class="louis-document-stack__label">앞</span> <span class="louis-document-stack__value" data-probe="stack-value">60%</span></li>
+        <li class="louis-document-stack__part" data-probe="stack-rest" style="--louis-document-stack-value: 30%"><span class="louis-document-stack__label">뒤</span> <span class="louis-document-stack__value">30%</span></li>
+        <li class="louis-document-stack__part" data-tone="faint" data-probe="stack-faint" style="--louis-document-stack-value: 10%"><span class="louis-document-stack__label">끝</span> <span class="louis-document-stack__value">10%</span></li>
+      </ol>
+    </figure>
+    <p class="louis-document-prose" data-probe="code-prose">명령은 <code data-probe="code-inline">--check</code> 로 돈다.<sup class="louis-document-footnote" data-probe="footnote"><a href="#t-fn-1" id="t-fnref-1">1</a></sup></p>
+    <pre class="louis-document-codeblock" data-probe="codeblock"><code>node scripts/figma-screens-live-check.mjs --check live-246-3448.json live-246-3449.json live-246-3450.json --allow-partial</code></pre>
+    <figure class="louis-document-quote" data-probe="quote">
+      <blockquote class="louis-document-quote__text" data-probe="quote-text"><p>「옮긴 말」</p></blockquote>
+      <figcaption class="louis-document-quote__cite" data-probe="quote-cite">소유자, 9월 29일</figcaption>
+    </figure>
+    <figure class="louis-document-card">
+      <div class="louis-document-shot" data-probe="shot">
+        <img class="louis-document-media" width="160" height="100" alt="보기" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='100'/%3E">
+        <span class="louis-document-pin" aria-hidden="true" data-probe="pin" style="--louis-document-pin-x: 25%; --louis-document-pin-y: 50%">1</span>
+      </div>
+      <ol class="louis-document-pins" role="list" data-probe="pins"><li class="louis-document-pins__item"><span class="louis-document-pin" aria-hidden="true">1</span><span>짚은 자리</span></li></ol>
+    </figure>
     <div class="louis-document-table">
       <table class="louis-table" data-probe="table">
         <caption class="louis-visually-hidden">소재별 성과</caption>
         <thead><tr><th scope="col" data-probe="table-head">지표</th><th scope="col" data-align="end">A</th><th scope="col" data-align="end">합계</th></tr></thead>
         <tbody>
           <tr><th scope="row" data-probe="row-head">방문</th><td data-align="end" data-emphasis="lead" data-probe="lead-cell">265</td><td data-align="end" data-emphasis="total" data-probe="total-cell">514</td></tr>
-          <tr><th scope="row">비용</th><td data-align="end" data-probe="plain-cell">₩207</td><td data-align="end"><strong data-probe="cell-strong">₩215</strong></td></tr>
+          <tr><th scope="row">비용</th><td data-align="end" data-probe="plain-cell">₩207</td><td data-align="end"><strong data-probe="cell-strong">₩215</strong> <span class="louis-document-verdict" data-tone="neutral" data-probe="verdict-neutral">상태</span></td></tr>
           <tr><th scope="row">클릭</th><td data-align="end" data-probe="last-cell">279</td><td data-align="end">551</td></tr>
         </tbody>
       </table>
     </div>
+  </section>
+  <section class="louis-document-sources" aria-labelledby="t-sources">
+    <h2 class="louis-document-sources__title" id="t-sources">출처</h2>
+    <ol class="louis-document-sources__list" role="list" data-probe="sources-list">
+      <li class="louis-document-sources__item" id="t-fn-1"><span class="louis-document-sources__number" data-probe="sources-number">1</span><span>원장 <code data-probe="code-small">migration/figma-board-composition.json</code></span></li>
+    </ol>
   </section>
   <footer class="louis-document__foot" data-probe="foot"><span>Plan</span><span>2026.09</span></footer>
 </article>
@@ -189,7 +222,7 @@ test("카드에 색 레일이 없다 — 2026-09-28 소유자 지시로 레일 �
 });
 
 test("시트 안의 면에는 테두리도 그림자도 없다 — 깊이는 한 겹이다", () => {
-  for (const name of ["decision-item", "card", "stat", "rail", "split", "note", "caution", "flow-label", "verdict", "marker"]) {
+  for (const name of ["decision-item", "card", "stat", "rail", "split", "note", "caution", "flow-label", "verdict", "marker", "quote", "codeblock"]) {
     const style = getComputedStyle(probe(name));
     expect(style.boxShadow, `${name} 에 그림자가 있다`).toBe("none");
     for (const side of ["Top", "Right", "Bottom", "Left"] as const) {
@@ -480,6 +513,111 @@ test("나란히 보기 — 두 열 · 간격 8, 라벨은 14/500 fg-tertiary", (
   expect(media.height / media.width).toBeCloseTo(2, 2);
 });
 
+test("목차 — 넓은 화면 두 열, 링크는 14/500 fg-secondary, 키커는 강조색", () => {
+  expect(getComputedStyle(probe("toc-list")).gridTemplateColumns.split(" ").length).toBe(2);
+  const link = getComputedStyle(probe("toc-link"));
+  expect(link.fontSize).toBe("14px");
+  expect(link.fontWeight).toBe("500");
+  expect(link.textDecorationLine).toBe("none");
+  expect(composite(link.color)).toEqual(composite(token("--louis-color-fg-secondary")));
+  expect(composite(getComputedStyle(probe("toc-kicker")).color)).toEqual(composite(token("--louis-color-accent-primary")));
+});
+
+test("누적 막대 — 조각 폭이 몫이고, 앞선 조각만 강조색 · 나머지 잉크 24% · 12%, 바깥 두 끝만 둥글다", () => {
+  const bar = probe("stack").getBoundingClientRect().width;
+  for (const [name, share] of [["stack-lead", 0.6], ["stack-rest", 0.3], ["stack-faint", 0.1]] as const) {
+    expect(probe(name).getBoundingClientRect().width, name).toBeCloseTo(bar * share, 0);
+    expect(getComputedStyle(probe(name), "::before").height, name).toBe("8px");
+  }
+  const sheet = getComputedStyle(probe("sheet")).backgroundColor;
+  const fill = (name: string): Rgb => on(sheet, getComputedStyle(probe(name), "::before").backgroundColor);
+  expect(fill("stack-lead")).toEqual(composite(token("--louis-color-accent-primary")));
+  const probeFace = document.createElement("div");
+  host.append(probeFace);
+  const ink = token("--louis-color-fg-primary");
+  probeFace.style.background = `color-mix(in srgb, ${ink} 24%, transparent)`;
+  expect(fill("stack-rest")).toEqual(on(sheet, getComputedStyle(probeFace).backgroundColor));
+  probeFace.style.background = `color-mix(in srgb, ${ink} 12%, transparent)`;
+  expect(fill("stack-faint")).toEqual(on(sheet, getComputedStyle(probeFace).backgroundColor));
+  probeFace.remove();
+  const lead = getComputedStyle(probe("stack-lead"), "::before");
+  expect(lead.borderTopLeftRadius).not.toBe("0px");
+  expect(lead.borderTopRightRadius).toBe("0px");
+  expect(getComputedStyle(probe("stack-faint"), "::before").borderTopRightRadius).not.toBe("0px");
+  // 값은 라벨 글이 갖는다 — 막대 칸은 생성 콘텐츠라 글이 없다.
+  expect(probe("stack-lead").textContent?.replace(/\s+/g, " ").trim()).toBe("앞 60%");
+  expect(getComputedStyle(probe("stack-value")).fontVariantNumeric).toContain("tabular-nums");
+});
+
+test("표 칸 안의 상태 알약 — 중립 톤은 칩과 같은 8% 면 · fg-secondary 이고 칸 흐름대로 선다", () => {
+  const pill = getComputedStyle(probe("verdict-neutral"));
+  const sheet = getComputedStyle(probe("sheet")).backgroundColor;
+  expect(on(sheet, pill.backgroundColor)).toEqual(on(sheet, getComputedStyle(probe("flow-label")).backgroundColor));
+  expect(composite(pill.color)).toEqual(composite(token("--louis-color-fg-secondary")));
+  expect(pill.marginLeft).toBe("0px");
+  expect(pill.blockSize ?? pill.height).toBe("24px");
+});
+
+test("각주와 출처 — 번호가 줄 높이를 밀지 않고, 출처 목록은 12 글자에 번호가 자릿수대로 선다", () => {
+  const sup = getComputedStyle(probe("footnote"));
+  expect(sup.lineHeight).toBe("0px");
+  expect(sup.verticalAlign).toBe("super");
+  expect(composite(getComputedStyle(probe("footnote").querySelector("a") as HTMLElement).color)).toEqual(composite(token("--louis-color-accent-primary")));
+  // 번호가 있는 줄과 없는 줄의 높이가 같다(한 줄 문단).
+  const prose = probe("code-prose");
+  expect(prose.getBoundingClientRect().height).toBe(Number.parseFloat(getComputedStyle(prose).lineHeight));
+  const list = getComputedStyle(probe("sources-list"));
+  expect(list.fontSize).toBe("12px");
+  expect(composite(list.color)).toEqual(composite(token("--louis-color-fg-tertiary")));
+  expect(getComputedStyle(probe("sources-number")).fontVariantNumeric).toContain("tabular-nums");
+});
+
+test("코드 표기 — 고정폭 · 8% 면 · 한 덩어리로 줄을 넘기고, 둘레보다 한 단 작되 12 아래로 내려가지 않는다", () => {
+  const inline = getComputedStyle(probe("code-inline"));
+  expect(inline.fontFamily).toContain("monospace");
+  expect(inline.display).toBe("inline-block");
+  expect(inline.fontSize).toBe("14px");
+  const sheet = getComputedStyle(probe("sheet")).backgroundColor;
+  expect(on(sheet, inline.backgroundColor)).toEqual(on(sheet, getComputedStyle(probe("flow-label")).backgroundColor));
+  expect(getComputedStyle(probe("code-small")).fontSize).toBe("12px");
+  const block = probe("codeblock");
+  const style = getComputedStyle(block);
+  expect(style.whiteSpace).toBe("pre");
+  expect(style.overflowX).toBe("auto");
+  expect(style.borderRadius).toBe(token("--louis-radius-card"));
+  expect(on(sheet, style.backgroundColor)).toEqual(on(sheet, getComputedStyle(probe("card")).backgroundColor));
+  // 블록 안의 code 는 면을 겹치지 않는다.
+  expect(getComputedStyle(block.querySelector("code") as HTMLElement).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+});
+
+test("인용 — 카드 면 한 겹 위 20/500, 색 선이 없고 누가 한 말인지 14 로 적는다", () => {
+  const quote = getComputedStyle(probe("quote"));
+  const sheet = getComputedStyle(probe("sheet")).backgroundColor;
+  expect(on(sheet, quote.backgroundColor)).toEqual(on(sheet, getComputedStyle(probe("card")).backgroundColor));
+  expect(quote.borderRadius).toBe(token("--louis-radius-card"));
+  expect(getComputedStyle(probe("quote"), "::before").content).toBe("none");
+  expect(getComputedStyle(probe("quote-text")).marginLeft).toBe("0px");
+  const text = getComputedStyle(probe("quote-text"));
+  expect(text.fontSize).toBe("20px");
+  expect(text.fontWeight).toBe("500");
+  const cite = getComputedStyle(probe("quote-cite"));
+  expect(cite.fontSize).toBe("14px");
+  expect(composite(cite.color)).toEqual(composite(token("--louis-color-fg-tertiary")));
+});
+
+test("캡처 위 번호 핀 — 핀 중심이 캡처 기준 퍼센트 자리에 서고, 강조색 면 위 뒤집히지 않는 잉크다", () => {
+  const shot = probe("shot").getBoundingClientRect();
+  const pin = probe("pin");
+  const box = pin.getBoundingClientRect();
+  expect(box.width).toBe(24);
+  expect(box.left + box.width / 2).toBeCloseTo(shot.left + shot.width * 0.25, 0);
+  expect(box.top + box.height / 2).toBeCloseTo(shot.top + shot.height * 0.5, 0);
+  const style = getComputedStyle(pin);
+  expect(composite(style.backgroundColor)).toEqual(composite(token("--louis-color-accent-primary")));
+  expect(composite(style.color)).toEqual(composite(token("--louis-color-fg-inverse")));
+  expect(pin.getAttribute("aria-hidden")).toBe("true");
+});
+
 // 문서의 표는 LOUIS 기본 표 그대로다(2026-09-29 소유자 결정 — 문서용 규선 변형을 걷어냈다). 문서는 열 폭 정책만 정한다.
 test("표 — 문서 안에서도 LOUIS 기본 표다: 머리 면 · 헤어라인 · 머리 12 · 셀 8", () => {
   const table = probe("table");
@@ -579,6 +717,9 @@ test("좁은 화면(≤719) — 시트가 화면이 되고 글자가 한 단씩 
   expect(getComputedStyle(probe("table-head")).fontSize).toBe("12px");
   // 나란히 보기는 좁은 화면에서도 두 열이다 — 견주는 것이 목적이다.
   expect(columns("compare")).toBe(2);
+  // 목차는 한 열, 인용은 20 → 16.
+  expect(getComputedStyle(probe("toc-list")).gridTemplateColumns.split(" ").length).toBe(1);
+  expect(getComputedStyle(probe("quote-text")).fontSize).toBe("16px");
   // 가로 스크롤이 생기지 않는다.
   expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
 });
@@ -594,16 +735,20 @@ test('목록 롤 — 표식을 지운 목록은 role="list" 를 달고, 예시�
     expect(list.getAttribute("role"), list.className).toBe("list");
     recipeClasses.add(list.classList[0] ?? "");
   }
-  // 결정 · 흐름 · 격자 · 막대 · 타임라인 · 추이의 점 — 레시피의 목록 여섯이 모두 탐침에 있다.
+  // 결정 · 흐름 · 격자 · 막대 · 타임라인 · 추이의 점 · 누적 막대 · 목차 · 출처 · 핀 설명 — 레시피의 목록 열이 모두 탐침에 있다.
   expect([...recipeClasses].sort()).toEqual([
     "louis-document-bars",
     "louis-document-decision__list",
     "louis-document-flow",
     "louis-document-grid",
+    "louis-document-pins",
+    "louis-document-sources__list",
+    "louis-document-stack",
     "louis-document-timeline",
+    "louis-document-toc__list",
     "louis-document-trend__points",
   ]);
-  // 소비자가 베끼는 예시의 목록도 전부 이 여섯 가운데 하나이고 role="list" 를 단다 — 승인본(document.html)과 부품을 전부 쓰는
+  // 소비자가 베끼는 예시의 목록도 전부 이 열 가운데 하나이고 role="list" 를 단다 — 승인본(document.html)과 부품을 전부 쓰는
   // 운영 보고(document-report.html) 둘 다.
   // `new URL` 의 경로는 글자 그대로 적는다 — Vite 는 글자 그대로의 `new URL("…", import.meta.url)` 만 옮겨 적고, 변수로 넘기면 풀리지 않는다.
   const examples = [

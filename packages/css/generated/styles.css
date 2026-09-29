@@ -8617,6 +8617,9 @@
   --louis-document-bars-track-face: var(--louis-color-progress-track);
   /* 비용 주의(노랑) — Alert warning 의 획색을 빌린다. 콜아웃 면(16%)과 표식이 읽는다. */
   --louis-document-caution: var(--louis-color-alert-warning-stroke);
+  /* 코드 표기의 글꼴 — LOUIS 에 고정폭 글꼴 토큰이 없어 문서 규칙 값으로 둔다(document.md 값의 출처). 글꼴 파일을 싣지 않고
+   * 시스템 고정폭을 쓴다 — 경로 · 명령에서 l · 1 · I 가 갈려야 한다. */
+  --louis-document-code-font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
   box-sizing: border-box;
   display: block;
@@ -8802,6 +8805,69 @@
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
+/* ── 목차 — 긴 문서의 길잡이. 절 키커와 제목을 그대로 옮긴다 ────────────────────
+ * `nav aria-label="목차"` 안의 `ol role="list"` 이고 항목은 절 앵커(`#s1`)로 가는 링크다. 넓은 화면은 두 열, 좁은 화면은 한 열.
+ * 키커는 절 키커와 같은 강조색 14/500 이다(Known deviations 1 의 대비를 함께 진다). */
+.louis-document-toc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  margin: 0;
+}
+
+.louis-document-toc__title {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-document-toc__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--louis-space-layout-section);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.louis-document-toc__link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--louis-space-control-md);
+  padding-block: var(--louis-space-control-sm);
+  color: var(--louis-color-fg-secondary);
+  text-decoration: none;
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-document-toc__kicker {
+  color: var(--louis-color-accent-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.louis-document-toc__link:hover .louis-document-toc__label {
+  color: var(--louis-color-fg-primary);
+  text-decoration: underline;
+}
+
+.louis-document-toc__link:focus-visible,
+.louis-document-footnote > a:focus-visible,
+.louis-document-sources__back:focus-visible {
+  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
+  outline-offset: var(--louis-border-width-ring);
+}
+
+/* 절 앵커로 뛰면 절 머리가 시트 위 끝에 붙지 않게 한 칸 띄운다. */
+.louis-document-section {
+  scroll-margin-block-start: var(--louis-space-layout-section);
+}
+
 /* ── 번호 표식 — 강조색을 글자가 아니라 면으로 쓴다 ──────────────────────
  * 순서의 의미는 `ol` 이 이미 전하므로 표식은 `aria-hidden` 이다(문서 Accessibility). */
 .louis-document-marker {
@@ -8892,6 +8958,51 @@
 .louis-document strong {
   color: var(--louis-color-fg-primary);
   font-weight: var(--louis-typography-body-md-semibold-font-weight);
+}
+
+/* ── 코드 표기 — 경로 · 명령 · 식별자 ──────────────────────────────────────
+ * 본문 안의 `code` 는 고정폭 글꼴 · 칩과 같은 8% 면이다. 글자는 **둘레보다 한 단 작게** 서고(16 본문에서 14, 14 표에서 12) 12 아래로는
+ * 내려가지 않는다. **한 덩어리로 줄을 넘긴다**(`inline-block`) — 글줄 안에 두면 하이픈 뒤가 줄바꿈 자리라 `--check` 가 `--` 와 `check` 로
+ * 갈렸다. 한 줄보다 긴 경로만 상자 안에서 접힌다. 여러 줄은 코드 블록이다. */
+.louis-document code {
+  box-sizing: border-box;
+  display: inline-block;
+  max-inline-size: 100%;
+  padding-inline: var(--louis-space-control-xs);
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-document-face-strong);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-document-code-font-family);
+  font-size: max(0.875em, var(--louis-typography-caption-regular-font-size));
+  overflow-wrap: anywhere;
+}
+
+/* 코드 블록 — 카드 면 한 겹 위의 여러 줄. 줄을 접지 않고 가로로 스크롤한다(명령은 접으면 뜻이 바뀐다). */
+.louis-document-codeblock {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--louis-document-card-inset);
+  overflow-x: auto;
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-document-face);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-document-code-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+  tab-size: 2;
+}
+
+/* 블록 안의 `code` 는 면을 겹치지 않는다. */
+.louis-document-codeblock > code {
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: inherit;
+  overflow-wrap: normal;
 }
 
 /* ── 격자 ─────────────────────────────────────────────────────────────────
@@ -9126,6 +9237,89 @@
   font-size: var(--louis-typography-caption-medium-font-size);
   font-weight: var(--louis-typography-caption-medium-font-weight);
   line-height: var(--louis-typography-caption-medium-line-height);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 상태 알약 — 판정이 아니라 상태(「수정 요청」 · 「알려진 결함」)는 중립 톤이다. 초록은 앞선 값에만 쓴다. */
+.louis-document-verdict[data-tone="neutral"] {
+  background: var(--louis-document-face-strong);
+  color: var(--louis-color-fg-secondary);
+}
+
+/* 표 칸 안에서는 칸 흐름대로 선다 — 카드 머리 끝으로 밀지 않는다. */
+.louis-table .louis-document-verdict {
+  margin-inline-start: 0;
+}
+
+/* ── 누적 막대 — 부분과 전체를 한 줄에 ─────────────────────────────────────
+ * 조각(`li`)마다 몫을 퍼센트로 준다(`--louis-document-stack-value`, 합이 100%). 조각이 막대 한 칸과 그 아래 라벨을 함께 갖는다 —
+ * 라벨이 제 조각의 시작선에 서므로 색 범례가 없다(라벨 앞에 점을 찍지 않는다). 앞선 조각만 강조색, 나머지는 잉크 24%, 셋째 조각을
+ * 가르려면 `data-tone="faint"`(12%). 조각은 셋까지이고, 가장 작은 조각이 제 라벨을 담을 폭이어야 한다 — 아니면 표로 쓴다. 막대 칸은
+ * 생성 콘텐츠라 읽히지 않고 값은 라벨 글이 갖는다. */
+.louis-document-stack {
+  --louis-document-stack-block-size: 8px;
+
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.louis-document-stack__part {
+  --louis-document-stack-value: 0%;
+
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 var(--louis-document-stack-value);
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+  padding-inline-end: var(--louis-space-control-sm);
+}
+
+/* 막대 칸 — 조각의 폭을 다 쓴다(라벨 쪽 끝 여백을 되돌린다). 바깥 두 끝만 둥글다. */
+.louis-document-stack__part::before {
+  content: "";
+  display: block;
+  block-size: var(--louis-document-stack-block-size);
+  margin-inline-end: calc(0px - var(--louis-space-control-sm));
+  background: color-mix(in srgb, var(--louis-color-fg-primary) 24%, transparent);
+}
+
+.louis-document-stack__part:first-child::before {
+  border-start-start-radius: var(--louis-radius-pill);
+  border-end-start-radius: var(--louis-radius-pill);
+}
+
+.louis-document-stack__part:last-child::before {
+  border-start-end-radius: var(--louis-radius-pill);
+  border-end-end-radius: var(--louis-radius-pill);
+}
+
+.louis-document-stack__part[data-lead]::before {
+  background: var(--louis-color-accent-primary);
+}
+
+.louis-document-stack__part[data-tone="faint"]::before {
+  background: color-mix(in srgb, var(--louis-color-fg-primary) 12%, transparent);
+}
+
+.louis-document-stack__label {
+  color: var(--louis-color-fg-tertiary);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  white-space: nowrap;
+}
+
+.louis-document-stack__value {
+  color: var(--louis-color-fg-primary);
+  font-size: var(--louis-typography-body-md-semibold-font-size);
+  font-weight: var(--louis-typography-body-md-semibold-font-weight);
+  line-height: var(--louis-typography-body-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -9472,6 +9666,42 @@
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
+/* ── 인용 — 소유자 · 고객의 말을 그대로 옮긴다 ──────────────────────────────
+ * `figure.louis-document-quote > blockquote + figcaption`. 색 선(레일)을 긋지 않는다 — 카드 면 한 겹 위에 20 글자로 서고, 옮긴 말은
+ * 따옴표(「」)로 감싸 글로 인용임을 말한다. 누가 언제 한 말인지 `figcaption` 에 적는다. 절마다 하나까지. */
+.louis-document-quote {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-stack-md);
+  margin: 0;
+  padding: var(--louis-document-card-inset);
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-document-face);
+}
+
+.louis-document-quote__text {
+  margin: 0;
+  color: var(--louis-color-fg-primary);
+  font-size: var(--louis-typography-body-lg-medium-font-size);
+  font-weight: var(--louis-typography-body-lg-medium-font-weight);
+  line-height: var(--louis-typography-body-lg-medium-line-height);
+  letter-spacing: var(--louis-typography-body-lg-medium-letter-spacing);
+}
+
+.louis-document-quote__text > p {
+  margin: 0;
+}
+
+.louis-document-quote__cite {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
 /* ── 표 — LOUIS 기본 표(`.louis-table`)를 감싸 가로 스크롤과 열 폭 정책을 소유한다 ──
  * **표의 모양은 앱과 같다(2026-09-29 소유자 결정)** — 머리 면 · 헤어라인 · 머리 12 · 셀 8. 문서용 규선 변형을
  * 걷어냈다. table.css 가 「가로 스크롤과 열 너비는 소비처가 소유한다」고 적었고 여기서는 문서가 그 소비처다.
@@ -9533,6 +9763,139 @@
   font-weight: var(--louis-typography-body-sm-medium-font-weight);
   line-height: var(--louis-typography-body-sm-medium-line-height);
   letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* ── 캡처 위 번호 핀 — 사각형 · 화살표 대신 번호로 짚는다(deck-kit §7-5) ───────────
+ * 캡처를 `.louis-document-shot` 으로 감싸고 핀(`--louis-document-pin-x` · `-y`, 캡처 기준 퍼센트)을 올린다. 넷까지. 핀 번호는 아래
+ * 설명 목록(`ol.louis-document-pins`)의 같은 번호와 짝이다 — 캡처 위 핀은 장식(`aria-hidden`)이고 뜻은 목록 글이 갖는다. 캡처는
+ * 테마를 따르지 않으므로 핀도 테마로 뒤집히지 않는 잉크(`fg-inverse`)를 강조색 면 위에 쓴다(콜아웃 표식과 같다). */
+.louis-document-shot {
+  position: relative;
+  display: block;
+  margin: 0;
+}
+
+.louis-document-pin {
+  --louis-document-pin-size: 24px;
+  --louis-document-pin-x: 0%;
+  --louis-document-pin-y: 0%;
+
+  box-sizing: border-box;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: var(--louis-document-pin-size);
+  block-size: var(--louis-document-pin-size);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
+  font-size: var(--louis-typography-caption-semibold-font-size);
+  font-weight: var(--louis-typography-caption-semibold-font-weight);
+  line-height: var(--louis-typography-caption-semibold-line-height);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 그림 좌표라 물리 방향이다(추이와 같다). */
+.louis-document-shot > .louis-document-pin {
+  position: absolute;
+  left: var(--louis-document-pin-x);
+  top: var(--louis-document-pin-y);
+  translate: -50% -50%;
+}
+
+.louis-document-pins {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.louis-document-pins__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--louis-space-control-md);
+  color: var(--louis-color-fg-secondary);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* ── 각주와 출처 — 수치의 근거를 번호로 잇는다 ───────────────────────────────
+ * 본문의 번호(`sup.louis-document-footnote > a`)가 문서 끝 출처 목록(`.louis-document-sources`)의 같은 번호로 간다. 번호는 글자다 —
+ * 색 점이나 아이콘을 쓰지 않는다. 번호 위 첨자는 줄 높이를 밀지 않는다(`line-height: 0`). 출처 목록은 맺음 바로 위에 12 글자로 선다. */
+.louis-document-footnote {
+  margin-inline-start: 1px;
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: 0;
+  vertical-align: super;
+  font-variant-numeric: tabular-nums;
+}
+
+.louis-document-footnote > a {
+  color: var(--louis-color-accent-primary);
+  text-decoration: none;
+}
+
+.louis-document-footnote > a:hover {
+  text-decoration: underline;
+}
+
+.louis-document-sources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  margin: 0;
+}
+
+.louis-document-sources__title {
+  margin: 0;
+  color: var(--louis-color-fg-secondary);
+  font-size: var(--louis-typography-body-sm-semibold-font-size);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+  line-height: var(--louis-typography-body-sm-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-sm-semibold-letter-spacing);
+}
+
+.louis-document-sources__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-stack-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--louis-color-fg-tertiary);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-document-sources__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--louis-space-control-sm);
+}
+
+/* 번호 칸 — 두 자리까지 같은 폭으로 선다. */
+.louis-document-sources__number {
+  min-inline-size: 2ch;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 본문 번호로 뛰어 온 항목은 잉크를 한 단 올린다. */
+.louis-document-sources__item:target {
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-document-sources__back {
+  margin-inline-start: var(--louis-space-control-xs);
+  color: var(--louis-color-accent-primary);
+  text-decoration: none;
 }
 
 /* ── 맺음 ─────────────────────────────────────────────────────────────── */
@@ -9641,6 +10004,17 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .louis-document-toc__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 인용 20 → 16 — 리드와 같은 계단(body-20 → 16). */
+  .louis-document-quote__text {
+    font-size: var(--louis-typography-body-md-medium-font-size);
+    line-height: var(--louis-typography-body-md-medium-line-height);
+    letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  }
+
   .louis-document-timeline__when {
     padding-inline-start: var(--louis-document-timeline-indent);
   }
@@ -9665,7 +10039,10 @@
   .louis-document-callout,
   .louis-document-decision__item,
   .louis-document-timeline__item,
-  .louis-document-trend {
+  .louis-document-trend,
+  .louis-document-quote,
+  .louis-document-codeblock,
+  .louis-document-stack {
     break-inside: avoid;
   }
 }
@@ -9714,6 +10091,21 @@
 
   .louis-document-trend__point::before {
     forced-color-adjust: none;
+    background: Highlight;
+  }
+
+  .louis-document-quote,
+  .louis-document-codeblock,
+  .louis-document-pin {
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-document-stack__part::before {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .louis-document-stack__part[data-lead]::before {
     background: Highlight;
   }
 

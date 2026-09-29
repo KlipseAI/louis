@@ -435,6 +435,45 @@ function stacksChildren(parentStyle) {
 }
 
 /**
+ * **블록 흐름의 margin 겹침(2026-09-30).** CSS 블록 흐름에서 세로 margin 은 겹친다 — 패딩 · 테두리 없는 부모의 마지막 자식 `margin-bottom` 은
+ * 부모를 뚫고 나가 부모의 margin 과 겹치고(첫 자식 `margin-top` 도 같다), 이웃 둘의 margin 사이는 합이 아니라 큰 쪽이다. Figma 에는 margin 이
+ * 없어 생성기가 margin 을 감싸개 패딩으로 옮기는데, 겹침을 모르고 다 더했다 — 요금제 머리(`header`)의 마지막 h2 `margin-bottom: 18` 이 부모
+ * 안에 더해져 카드 격자가 18 아래에 섰다(보드 글자 자리 대조로 찾았다). 규칙을 흉내 내지 않고 **측정 자리**로 판정한다: 첫 · 마지막 자식이
+ * 부모 콘텐츠 가장자리에 붙어 있으면 그 margin 은 부모 밖으로 나간 것이라 0 으로, 이웃 사이가 두 margin 의 합이 아니라 큰 쪽과 같으면 작은
+ * 쪽을 0 으로. 양수 margin 만 본다(음수는 겹침 규칙이 다르다). flex · grid 는 margin 이 겹치지 않아 보지 않는다.
+ */
+function collapsedBlockMargins(node, style, children) {
+  if (/flex|grid|table/.test(style.display ?? "")) return 0;
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  if (flow.length === 0) return 0;
+  const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+  let count = 0;
+  const first = flow[0];
+  if ((first.margin?.top ?? 0) > 0.5 && edge("Top") === 0 && Math.abs(first.rect.y - node.rect.y) <= 0.5) {
+    first.margin = { ...first.margin, top: 0 };
+    count += 1;
+  }
+  const last = flow[flow.length - 1];
+  if ((last.margin?.bottom ?? 0) > 0.5 && edge("Bottom") === 0
+    && Math.abs(last.rect.y + last.rect.height - (node.rect.y + node.rect.height)) <= 0.5) {
+    last.margin = { ...last.margin, bottom: 0 };
+    count += 1;
+  }
+  for (let index = 0; index + 1 < flow.length; index += 1) {
+    const upper = flow[index], lower = flow[index + 1];
+    const below = upper.margin?.bottom ?? 0, above = lower.margin?.top ?? 0;
+    if (below <= 0.5 || above <= 0.5) continue;
+    const gap = lower.rect.y - (upper.rect.y + upper.rect.height);
+    if (Math.abs(gap - Math.max(below, above)) <= 0.5 && Math.abs(gap - (below + above)) > 0.5) {
+      if (below >= above) lower.margin = { ...lower.margin, top: 0 };
+      else upper.margin = { ...upper.margin, bottom: 0 };
+      count += 1;
+    }
+  }
+  return count;
+}
+
+/**
  * **높이 0 형제가 남긴 간격(2026-09-29).** flex 의 `gap` 은 크기가 0 인 아이템 뒤에도 붙는다. 측정기는 넓이 없는 노드를 싣지 않으므로
  * 그런 형제가 있던 자리의 간격이 통째로 빠진다 — 하이라이트 상태 보드의 본문 래퍼(`gap: 24px`)는 첫 자식이 비어 있는 알림 자리라
  * section 이 24 아래에서 시작하는데, 보드는 래퍼 맨 위에 붙여 문구가 모두 24 올라갔다. 앞에서부터 채우는 한 줄 flex
@@ -608,6 +647,11 @@ export function toFigmaTreeSpec(tree, options = {}) {
     // 높이 0 형제가 남긴 간격을 margin 으로 옮긴다(hiddenGapMargins 주석).
     // 글자를 떼어낸 노드는 그 글자 조각의 자리가 추정이라 보지 않는다.
     if (!split) for (const hidden of hiddenGapMargins(node, style, children)) stats.hiddenGaps = [...(stats.hiddenGaps ?? []), hidden];
+    // 블록 흐름의 margin 겹침(collapsedBlockMargins 주석).
+    if (!split && layoutMode === "VERTICAL") {
+      const collapsed = collapsedBlockMargins(node, style, children);
+      if (collapsed) stats.collapsedMargins = (stats.collapsedMargins ?? 0) + collapsed;
+    }
     stats.kept += 1;
     // **떠 있는 한 줄 글자는 글자 폭이다(2026-09-28).** 절대 배치 글자(입력칸의 떠 있는 라벨)를 측정 폭 그대로 FIXED 로 두면 Figma
     // 글꼴이 조금 넓게 그리는 순간 줄이 꺾인다(`/recover` 「이메일」 → 「이메 / 일」, 조립 규칙 28조). 폭 선언이 없는 절대 배치 상자는

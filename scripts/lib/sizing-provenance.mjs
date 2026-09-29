@@ -271,6 +271,19 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     }
   }
 
+  // **트랙 선언이 없는 grid 의 아이템도 칸을 채운다(2026-09-30).** `grid-template-columns` 선언이 없으면(암시적 한 열) 위 트랙 규칙이 서지
+  // 않아 아래 flex 규칙으로 떨어졌고, grid 는 주축이 없어 「콘텐츠가 결정한다」(HUG)가 됐다 — 문의 모바일의 소개 `aside`(칸 370)가 HUG 로
+  // 서고 안의 글자가 HUG 부모 안의 FILL 로 접혀 164 폭으로 줄이 늘었다(보드 글자 자리 대조로 찾았다). grid 아이템의 `justify-self` 기본
+  // (normal)은 stretch 라 칸을 채운다.
+  if (/grid/.test(parentDisplay) && horizontal && gridTrack == null && !isReplaced) {
+    const justifySelf = selfAlign?.justifySelf ?? computed?.justifySelf ?? "auto";
+    const parentJustifyItems = parentComputed?.justifyItems ?? "normal";
+    const effectiveJustify = justifySelf !== "auto" ? justifySelf : parentJustifyItems;
+    if (/^(normal|stretch|auto)$/.test(effectiveJustify)) {
+      return { verdict: AXIS.FILL, reason: `grid 칸을 채운다 — 트랙 선언 없음 · justify-self:${effectiveJustify}`, source: "기본(grid item stretch)", value: null };
+    }
+  }
+
   if (parentIsFlexOrGrid) {
     const crossAxisOfParent = !mainAxisOfParent;
     const alignSelf = computed?.alignSelf ?? "auto";

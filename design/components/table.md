@@ -25,7 +25,7 @@ Known deviations 첫 항목이 그 실측이다.
 
 | Surface       | 상태           | 근거                                                                                                          |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------- |
-| Web           | `partial`      | CSS 레시피 하나(`packages/css/src/component/table.css`, `@layer louis.component`)와 제품 소비처 2곳. **React 컴포넌트가 없다** — `packages/react/src/table` 디렉터리가 없고 `packages/react/src/index.ts` 에 export 0이다. acceptance test 는 행 hover 축 셋(10 · 11 · 17)만 `packages/css/test/table.browser.test.ts` 가 잰다. 규선 변형(`data-variant="ruled"`)과 셀 강조(`data-emphasis`)는 2026-09-21 에 [Document](../patterns/document.md) 패턴과 함께 섰고 `packages/css/test/document.browser.test.ts` 가 잰다(19 · 20). 두 축은 Figma 에 아직 없다 |
+| Web           | `partial`      | CSS 레시피 하나(`packages/css/src/component/table.css`, `@layer louis.component`)와 제품 소비처 2곳. **React 컴포넌트가 없다** — `packages/react/src/table` 디렉터리가 없고 `packages/react/src/index.ts` 에 export 0이다. acceptance test 는 행 hover 축 셋(10 · 11 · 17)만 `packages/css/test/table.browser.test.ts` 가 잰다. 셀 강조(`data-emphasis`)와 행 머리(`th scope="row"`)는 [Document](../patterns/document.md) 패턴이 문서 안의 표로 `packages/css/test/document.browser.test.ts` 에서 잰다(19 · 20). 셀 강조는 Figma 에 아직 없다. 문서용 규선 변형(`data-variant="ruled"`, 2026-09-21)은 2026-09-29 소유자 결정으로 걷어냈다 — 문서의 표도 이 표다 |
 | Figma         | `partial`      | TableHeaderCell(Align 3) · TableCell(Align × State = 6) · Table(조립 COMPONENT, 머리 행 + 몸 3행)              |
 | Documentation | `done`         | 이 문서                                                                                                       |
 | Maturity      | `experimental` | 규범이 구현보다 늦게 선다 — CSS 가 먼저 있었고 이 문서가 그것을 사후에 규범화한다                             |
@@ -37,9 +37,11 @@ Known deviations 첫 항목이 그 실측이다.
 - 열끼리 **세로로 비교**하는 것이 목적일 때. 숫자 열은 `data-align="end"` 로 우측 정렬 +
   tabular-nums 가 된다.
 
-**문서에서 읽는 표는 `data-variant="ruled"` 다** — 보고서 · 운영안처럼 한 번 끝까지 읽는 자리.
-머리 면을 걷고 가로 규선만 남기며, 열 폭을 내용이 정한다(`table-layout: auto`). 규범은
-[Document](../patterns/document.md) 패턴이 갖는다.
+**문서에서 읽는 표도 이 표다(2026-09-29 소유자 결정).** 보고서 · 운영안의 표가 앱 · Figma 의 표와 같은
+모양이다 — 머리 면 · 헤어라인 · 머리 12 · 셀 8. 문서는 소비처로서 스크롤 래퍼와 열 폭 정책만 정한다
+(`.louis-document-table` 이 `table-layout: auto` 를 준다, [Document](../patterns/document.md)). 2026-09-21 에
+문서용 규선 변형(`data-variant="ruled"` — 머리 면 없이 가로 규선만 · 머리 14 · 셀 12)을 세웠다가 걷어냈다. 문서
+속 표만 다른 모양이었고 Figma 에는 그 변형이 없었다.
 
 쓰지 않는 자리.
 
@@ -49,8 +51,8 @@ Known deviations 첫 항목이 그 실측이다.
 - **열 폭을 데이터가 정해야 할 때.** 이 레시피(기본 조판)는 `table-layout: fixed` 다. 폭을 주지 않은
   열이 균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
   (`components/scenes/create/guide/ModelSpecPanel.tsx:42-51`)가 정확히 그 이유로 채택을 거부했다 —
-  8열에 폭을 주지 않고 내용 폭 + `min-w-[860px]` 으로 가로 스크롤하는 표다. 문서에서 읽는 표라면
-  `ruled`(`auto`)가 그 자리다 — 위 문단.
+  8열에 폭을 주지 않고 내용 폭 + `min-w-[860px]` 으로 가로 스크롤하는 표다. 열 폭 정책은 소비처의
+  것이므로 그 표도 래퍼에서 `table-layout: auto` 를 주면 이 레시피를 물 수 있다 — 문서가 그렇게 한다(위 문단).
 - **고정 헤더가 필요할 때.** sticky 헤더 축이 없다. 아래 Known deviations.
 - **정렬(sort)·선택(체크박스)·페이지네이션이 필요할 때.** 셋 다 이 레시피에 없다.
 
@@ -87,7 +89,9 @@ React 표면이 없다. **클래스와 data 속성으로 소비한다.**
 3. **Header cell** — `<th>`. 헤더 면·잉크·캡션 타이포·`nowrap` 을 소유한다. 첫/마지막 셀이 행의
    모서리 곡률을 만든다 — 행의 `border-radius` 는 셀 배경을 자르지 못한다.
 4. **Body row** — `<tbody> > <tr>`. `data-interactive="true"` 일 때만 커서와 호버 면을 갖는다.
-5. **Body cell** — `<td>`. 여백·잉크·아래 구분선·세로 정렬을 소유한다.
+5. **Body cell** — `<td>`, 그리고 행 머리 `<th scope="row">`. 여백·잉크·아래 구분선·세로 정렬을 소유한다.
+   행 머리도 몸 칸과 같은 칸이다 — 레시피가 `th` 의 UA 기본값(굵게 · 가운데)을 덮는다. Figma 의 TableCell 이
+   이 칸이다.
 6. **Scroll wrapper** — **DS 밖이다.** 소비처가 소유한다. 아래 Implementation.
 
 ## Properties
@@ -99,11 +103,10 @@ prop 이 아니라 훅(hook) 계약이다.
 | `.louis-table`      | —                      | `<table>`            | 루트. 이 클래스가 없으면 아무 규칙도 걸리지 않는다        |
 | `data-align`        | `end` \| `center`      | `<th>` · `<td>`      | 정렬. `end` 는 `tabular-nums` 를 함께 켠다                |
 | `data-interactive`  | `"true"`               | `<tbody> > <tr>`     | 행을 눌러 들어가는 표. 커서와 행 호버 면을 켠다            |
-| `data-variant`      | `ruled`                | `<table>`            | 문서에서 읽는 표. 머리 면 대신 머리 아래 선, 행 사이 헤어라인, 셀 12, 머리 14, 첫 · 끝 열 바깥 여백 0, `table-layout: auto`. 행 머리 `th scope="row"` 를 몸 칸과 같게 그린다 |
 | `data-emphasis`     | `total` \| `lead`      | `<th>` · `<td>`      | 한 칸만 도드라지게. `total` 은 `fg-primary` + semibold, `lead`(비교에서 앞선 값)는 `alert-success-stroke` + semibold |
 
-**`start` 값이 없다.** 기본이 start 다 — `th` 는 UA 기본 `center` 를 레시피가 `start` 로
-덮고([table.css:46](../../packages/css/src/component/table.css)), `td` 는 UA 기본이 이미 start 다.
+**`start` 값이 없다.** 기본이 start 다 — 머리 칸 `th` 와 행 머리 `th` 는 UA 기본 `center` 를 레시피가
+`start` 로 덮고, `td` 는 UA 기본이 이미 start 다.
 없는 값을 위한 셀렉터를 만들지 않았다. **Figma 쪽 Align 축에는 `start` 옵션이 있다** — 아래 Known
 deviations.
 
@@ -113,12 +116,11 @@ deviations.
 
 ## Hierarchy와 variants
 
-**variant 축은 하나다 — `ruled`(2026-09-21).** 강조 단계가 아니라 **읽는 자리**가 다르다. 기본 표는
-대시보드의 데이터 표(머리 행에 면 · 헤어라인, 캡션 12 머리, 셀 8)이고, `ruled` 는 문서에서 읽는
-표(가로 규선만, 머리 14, 셀 12)다. 두 조판은 같은 골격(`thead`/`tbody` · `data-align` · 스크롤 래퍼
-소유)을 공유하므로 컴포넌트를 가르지 않았다
-([DS-D-0067](../governance/decisions/DS-D-0067-document-is-not-an-app-screen.md) 판정표). 아래 밀도 표의
-어느 무리도 대신하지 않는다 — 제품 표 가운데 `ruled` 를 쓰는 것은 아직 없다.
+**variant 축이 없다.** 대시보드의 데이터 표와 문서에서 읽는 표가 같은 한 벌이다. 2026-09-21 에 문서용
+규선 변형(`ruled`)을 세웠다가 2026-09-29 소유자 결정으로 걷어냈다 — 소유자가 「문서 속 표 스타일이 루이에
+정의된 스타일 맞아?」라고 물었고, 그 변형은 코드에만 있고 Figma 와 제품에는 없었다. 읽는 자리의 차이는
+모양이 아니라 소비처의 열 폭 정책(`table-layout`)으로 받는다
+([DS-D-0067](../governance/decisions/DS-D-0067-document-is-not-an-app-screen.md) 추기).
 
 **크기(density) 축도 없다.** 한 벌뿐이다. 제품의 여섯 표가 갖는 셀 여백은
 5/8·6/8·8/12·10/12·10/14로 갈리는데, 그것은 밀도 단계가 아니라 서로 다른 무리의 값이다.
@@ -393,17 +395,18 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   전부 달라 한 set 으로 묶으면 절반이 거짓 조합이 되기 때문이며(`design/manifest.json` 의 table
   note), CSS 는 그것을 `thead > tr > th` 와 `tbody > tr > td` 라는 **위치**로 가른다. 축 이름이
   양쪽에서 대응하지 않는다.
-- **acceptance test 는 행 hover 축 셋과 규선 변형 둘만 자동이다.** 10 · 11 · 17 을
+- **acceptance test 는 행 hover 축 셋과 행 머리 · 셀 강조 둘만 자동이다.** 10 · 11 · 17 을
   `packages/css/test/table.browser.test.ts` 가 사다리 바닥 넷 × 테마 둘에서 잰다(DS-D-0065). 19 · 20 은
-  `packages/css/test/document.browser.test.ts` 가 잰다.
+  `packages/css/test/document.browser.test.ts` 가 문서 안의 표로 잰다(1 · 5 의 셀 여백과 머리 글자 크기도
+  그 표에서 함께 잰다).
   나머지 항목은 아직 사람이 확인하는 목록이다.
 - **`data-emphasis="lead"` 의 초록이 라이트에서 본문 대비 기준에 못 미친다.** 잉크가
   `alert-success-stroke` 라 `bg-surface` 위 2.12:1(다크 4.21:1)이다. `louis-delta-pill[data-tone="up"]`
   과 같은 선택이고 같은 뿌리의 결함이다 — 글자로 쓸 success 잉크 역할이 LOUIS 에 없다. 굵기
   (semibold)가 함께 가서 색이 유일한 전달 수단은 아니지만 대비는 모자라다. 해소는 역할 토큰 판정이다
   ([Document](../patterns/document.md) Known deviations 2).
-- **규선 변형과 셀 강조가 Figma 에 없다.** TableHeaderCell · TableCell 세트에 `Variant` · `Emphasis`
-  축이 없다. Figma 가 `partial` 인 이유에 하나가 더해졌다.
+- **셀 강조가 Figma 에 없다.** TableCell 세트에 `Emphasis` 축이 없다. Figma 가 `partial` 인 이유에 하나가
+  더해졌다. 규선 변형이 없던 것은 그 변형을 걷어내며 해소됐다(2026-09-29).
 - **sticky 헤더가 없다.** 소비처가 만들려면 스크롤 래퍼와 함께 스스로 세워야 하고, 그때
   `isolation: isolate` 가 만드는 stacking 문맥과 어떻게 겹치는지 확인되지 않았다.
 - **정렬(sort)·선택 열·페이지네이션·zebra striping·빈 상태가 없다.** 정렬 헤더는 `aria-sort` 와
@@ -459,11 +462,9 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 18. 한 줄짜리 본문 행의 `getBoundingClientRect().height` 가 **38px** 이고 마지막 행만 37px 이며,
     머리 행이 26px 이다. Figma 조립본 `Table` 의 137 과 어긋나는 139 가 현재의 실측이다 —
     위 Specification.
-19. `data-variant="ruled"` 인 표는 `table-layout: auto` 이고, 머리 셀 배경이 투명 · 머리 행 헤어라인이
-    없으며, 머리 아래 선이 1px `color-table-row-line`, 행 사이 선이 `color-stroke-hairline` 이고 마지막
-    행 아래에는 선이 없다. 머리가 14, 첫 열 시작 · 끝 열 끝 여백이 0 이고, 행 머리 `th` 가 굵어지거나
-    가운데로 가지 않는다. `data-align="center"` · `"end"` 가 머리 칸과 몸 칸에서 같은 정렬이다 — 몸 칸의
-    `text-align: start` 가 기본 정렬 규칙보다 세서 두 값을 변형 안에서 되살린다. ≤719 에서 머리가 12 로
-    내려간다. 변형이 없는 표의 계산값은 그대로다(`packages/css/test/document.browser.test.ts`).
+19. 행 머리 `th scope="row"` 가 몸 칸과 같다 — 굵기 400 · `text-align: start` · 여백 · 아래 구분선 · 잉크가
+    옆 `td` 와 같고, 브라우저 기본값(굵게 · 가운데)이 새지 않는다. `data-align="center"` · `"end"` 가 머리
+    칸과 몸 칸(행 머리 포함)에서 같은 정렬이다 — 몸 칸의 `text-align: start` 가 정렬 규칙을 이기지 않는다.
+    `data-variant` 는 아무 규칙도 걸지 않는다(`packages/css/test/document.browser.test.ts`).
 20. `data-emphasis="total"` 칸이 `fg-primary` · 600, `data-emphasis="lead"` 칸이 `alert-success-stroke`
-    · 600 이다. 규선 표 안에서도 몸 칸 잉크(`fg-secondary`)를 이긴다.
+    · 600 이다.

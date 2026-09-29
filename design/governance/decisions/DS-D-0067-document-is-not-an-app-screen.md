@@ -145,3 +145,26 @@ authority: normative
   하라는 지시다. 좁은 화면의 제목은 28 이다.
 - **제목은 구 경계에서 끊는다.** 문서 제목 · 절 제목은 `text-wrap: balance`, 두 줄로 쓸 제목은 줄마다 한 구를
   `.louis-document__title-line` 으로 감싼다(`<br>` 을 쓰지 않는다).
+
+## 2026-09-29 소유자 결정 — 표는 LOUIS 기본 표다 · 추이와 캡처를 세운다
+
+위 Decision 2 와 판정표의 「규선 표」 행은 기록으로 남긴다. 현재 값은 [Document](../../patterns/document.md) · [Table](../../components/table.md) 가 소유한다.
+
+- **규선 변형(`data-variant="ruled"`)을 걷어냈다.** 소유자가 「문서 속 표 스타일이 루이에 정의된 스타일 맞아?」라고 물었다. 그 변형은
+  `table.css` 와 Table 규범에 있었지만 이 결정이 문서를 위해 세운 것이었고, Figma 의 Table 세트와 제품의 표에는 없었다. 기본 표로
+  통일하기로 정했다 — 문서의 표도 머리 면 · 헤어라인 · 머리 12 · 셀 8 이다. 위 판정표가 적은 「Figma 가 `partial` 이라 CSS 변형이
+  Figma 판정을 거짓으로 만들지 않는다」는 판정이 틀렸다는 뜻이다 — 거짓이 되지는 않았지만, 코드에만 있는 변형은 「LOUIS 에 정의된
+  표」를 두 벌로 만들었다.
+- **문서는 열 폭 정책만 정한다.** `.louis-document-table > .louis-table` 이 `table-layout: auto` 를 준다. Table 이 「가로 스크롤과 열
+  너비는 소비처가 소유한다」고 적어 두었으므로 새 변형이 아니다.
+- **행 머리는 기본 표가 받는다.** `th scope="row"` 가 몸 칸 규칙을 받는다(굵기 400 · 시작 정렬) — 규선 변형만 갖고 있던 규칙이고,
+  없으면 브라우저 기본값(굵게 · 가운데)이 새어 나온다. Figma 의 TableCell 과 같은 칸이다. 셀 강조 `data-emphasis` 는 원래 기본 표의
+  축이라 그대로다.
+- **「깊이는 헤어라인 한 겹」의 예외가 표 하나 생겼다** — 표 머리 행의 면과 헤어라인. document.md Known deviations 7.
+- **추이(`.louis-document-trend`)와 캡처(`.louis-document-media` · `.louis-document-compare`)를 세웠다.** 운영 보고 부록이 가장 자주
+  부딪혔다고 적은 두 자리다. 추이는 앱의 [Chart Card](../../components/chart-card.md) 에 얹지 않는다 — Chart Card 는 바깥 액자와 안쪽 면
+  두 겹(반경 16 · 10)의 대시보드 카드이고, 문서는 카드 면 한 겹이다(첫 시안이 거절된 「앱 부품을 문서에 얹기」와 같은 자리다). 캡처는
+  deck-kit `.k-shot` 의 규칙(면색만으로 서는 프레임 · 비율 유지 · 사각형 대신 핀)을 문서 카드로 옮겼다.
+
+**되돌리기.** 규선 변형을 되살리려면 이 추기 전의 `table.css` 규선 블록 · 문서 테스트 · 두 예시의 `data-variant="ruled"` 를 한 커밋에서
+되돌린다. 추이 · 캡처는 `document.css` 의 두 블록과 예시의 해당 마크업 · `examples/media/` 를 빼면 된다 — 다른 부품이 그 이름을 읽지 않는다.

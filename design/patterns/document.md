@@ -20,7 +20,7 @@ authority: normative
 
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
-| Web | `partial` | CSS 레시피 `packages/css/src/pattern/document.css`(`.louis-document*`)와 표 변형 `.louis-table[data-variant="ruled"]`. 실브라우저 테스트 `packages/css/test/document.browser.test.ts`. React 표면은 없다 — 소비처는 클래스 마크업을 쓴다. 제품 소비처가 아직 없다 |
+| Web | `partial` | CSS 레시피 `packages/css/src/pattern/document.css`(`.louis-document*`)와 LOUIS 기본 표 `.louis-table`(변형 없이 — 2026-09-29 소유자 결정). 실브라우저 테스트 `packages/css/test/document.browser.test.ts`. React 표면은 없다 — 소비처는 클래스 마크업을 쓴다. 제품 소비처가 아직 없다 |
 | Figma | `not-ready` | 템플릿 보드도 변수도 없다. 문서 규칙 값(박스 간격 8 · 카드 여백 24/32 …)이 아직 토큰이 아닌 이유가 이것이다(아래 [값의 출처](#값의-출처)) |
 | Documentation | `done` | 이 문서와 예시 [`packages/css/examples/document.html`](../../packages/css/examples/document.html) |
 | Maturity | `experimental` | 승인본 하나와 장표 규약 하나가 근거다 |
@@ -51,7 +51,7 @@ Page (.louis-document)                       바닥 bg-canvas, 가장자리 12
       ├─ Head (.louis-document__head)          발행 주체 · 제목 48 · 리드 20 · 메타 12
       ├─ Decision (.louis-document-decision)   결론 · 결정 요청 — 머리 바로 아래
       ├─ Section × n (.louis-document-section) 키커(번호) · 절 제목 28 · 출처 줄 · 블록들
-      │   └─ 블록: 산문 · 격자(카드 · 수치) · 비교 막대 · 규선 표 · 타임라인 · 흐름 · 콜아웃
+      │   └─ 블록: 산문 · 격자(카드 · 수치) · 비교 막대 · 추이 · 표 · 캡처 · 타임라인 · 흐름 · 콜아웃
       └─ Foot (.louis-document__foot)          헤어라인 위 한 줄
 ```
 
@@ -69,6 +69,9 @@ klipse-deck-kit `docs/DESIGN-RULES.md` §1 · §3 · §11 을 따른다.
   없이 **잉크 알파 면색**으로만 선다 — `fg-primary` 4%(카드 · 수치 · 결정 항목), 8%(칩 · 막대
   트랙). 가장자리가 필요해 보이면 선을 긋지 말고 알파를 한 단 올린다. 알파는
   [DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)의 16단에서 고른다.
+- **예외는 표 하나다.** 표는 문서 부품이 아니라 앱과 같은 LOUIS 기본 표라 머리 행의 면과 헤어라인을
+  그대로 갖는다(2026-09-29 소유자 결정 — [Table](../components/table.md)). 문서 속 표만 다른 모양이면
+  「LOUIS 에 정의된 표」가 두 벌이 되고, Figma 에는 한 벌뿐이다.
 - **면은 겹치지 않는다.** 카드 안에 수치를 놓으면 수치는 자기 면을 버리고 카드의 면을 쓴다. 알파
   면이 두 겹이면 한 단 짙은 상자가 생기고, 그것이 곧 깊이 하나를 더 만드는 일이다.
 - 면 사다리 칸(`bg-inset` · `bg-raised`)을 쓰지 않는다. 다크에 시트 위 한 칸 면이 없기 때문이다 —
@@ -152,7 +155,10 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 나란한 항목 셋 · 넷 | `.louis-document-grid` + `.louis-document-card` | 기본 3열, `data-columns="2|4"`. 번호가 있으면 `ol` 과 표식, 없으면 `ul` — 어느 쪽이든 `role="list"` |
 | 지표 몇 개 | `.louis-document-grid[data-columns="4"]` + `.louis-document-stat` | 라벨 14 · 수치 36 · 단위 20 · 보조 12. 한 행 넷까지 |
 | 두세 대상의 비교 | `.louis-document-card` 안 `.louis-document-bars` (`ul role="list"`) | 앞선 쪽만 `data-lead` 로 강조색, 나머지는 잉크 24%. 막대는 0 에서 시작. 판정은 `.louis-document-verdict` |
-| 전체 수치 | `.louis-table[data-variant="ruled"]` 를 `.louis-document-table` 로 감싼다 | 가로 규선만. 숫자 열 `data-align="end"`, 합계 `data-emphasis="total"`, 앞선 값 `data-emphasis="lead"` |
+| 세 시점 이상의 흐름 | `.louis-document-card` 안 `.louis-document-trend` — 선 `svg` + 점 `ol role="list"` | 두 시점이면 비교 막대다. 계열 하나 · 강조색 · 0 에서 잰다. 고른 표본(날마다 · 주마다)은 선, 기록할 때만 바뀌는 값(보드 수처럼)은 계단. 라벨은 처음 · 끝 · `data-label` 점만 보인다 |
+| 전체 수치 | `.louis-table`(LOUIS 기본 표)을 `.louis-document-table` 로 감싼다 | 앱과 같은 표다 — 머리 면 · 머리 12 · 셀 8. 숫자 열 `data-align="end"`, 합계 `data-emphasis="total"`, 앞선 값 `data-emphasis="lead"`, 첫 열이 행의 이름이면 `th scope="row"` |
+| 화면 캡처 한 장 | `figure.louis-document-card` 안 `img.louis-document-media` + `figcaption.louis-document-card__description` | 비율을 바꾸지 않는다 — 자르되 늘이지 않는다. 캡처를 실은 카드는 면이 8% 다. 캡처 위에 사각형 · 화살표를 그리지 않는다 |
+| 두 캡처 견주기 | 카드 안 `.louis-document-compare` + `__item` · `__label` | 전후 · 제품과 보드. 좁은 화면에서도 두 열이다. 라벨은 「제품」 · 「보드」처럼 짧게 |
 | 해석 · 한 대목 짚기 | `.louis-document-card`(`__title` + `__body`) | 강조는 본문 `strong` 으로만 준다. 색 선을 긋지 않는다. 절마다 하나 |
 | 기간 요약 + 설명 | `.louis-document-card[data-layout="split"]` (+ `data-inset="lg"`) | 왼쪽에 수치, 오른쪽에 판단. 좁으면 쌓인다 |
 | 일정 | `.louis-document-timeline` (`ol role="list"`) | 끝난 항목만 `data-state="done"`. 넷 넘으면 절을 나눈다 |
@@ -163,8 +169,11 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 **목록 부품은 `role="list"` 를 단다.** 레시피가 목록 표식을 전부 지우기 때문이다 — 이유는 아래
 [Accessibility](#accessibility).
 
-**기존 컴포넌트와의 경계.** 위 부품 가운데 기존 LOUIS 컴포넌트에 얹은 것은 표 하나다
-(`data-variant="ruled"` — [Table](../components/table.md)). 나머지를 변형으로 얹지 않은 이유는
+**기존 컴포넌트와의 경계.** 위 부품 가운데 기존 LOUIS 컴포넌트를 쓰는 것은 표 하나이고, **변형 없이
+그대로 쓴다**([Table](../components/table.md)). 2026-09-21 에 문서용 규선 변형(`data-variant="ruled"` — 머리 면
+없이 가로 규선만 · 머리 14 · 셀 12)을 얹었다가 2026-09-29 소유자 결정으로 걷어냈다 — 소유자가 「문서 속 표
+스타일이 루이에 정의된 스타일 맞아?」라고 물었고, 그 변형은 코드에만 있고 Figma 와 제품에는 없었다. 문서는
+소비처로서 가로 스크롤과 열 폭 정책(`table-layout: auto`)만 정한다. 나머지를 앱 컴포넌트의 변형으로 얹지 않은 이유는
 [DS-D-0067](../governance/decisions/DS-D-0067-document-is-not-an-app-screen.md) 판정표가 부품마다 적는다.
 요약하면 — Alert 는 **화면 상태**를 알리는 배너라 편집 강조와 뜻이 다르고, Stat Tile 은 「액자가
 있고 없고가 조형을 가른다」를 자기 규칙으로 갖고 있으며, Badge 는 반경 8 의 상태 표식이라 알약
@@ -185,7 +194,9 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 격자 | 3 · 2 · 4열 | 1 · 1 · 2열 — 4열만 2열로 남는다 |
 | 기간 요약 카드 | 가로 둘 | 세로로 쌓인다 |
 | 타임라인 | 날짜 열 112 + 본문 | 날짜가 본문 위로 올라간다 |
-| 규선 표 | 14 | 12, 셀 여백을 줄인다. 넘치면 `.louis-document-table` 이 가로로 스크롤한다 |
+| 추이 | 좌표 상자 높이 160 | 같다. 라벨은 처음 · 끝 · `data-label` 점만 |
+| 표 | 기본 표 — 몸 14 · 머리 12 · 셀 8 | 같다. 넘치면 `.louis-document-table` 이 가로로 스크롤한다 |
+| 나란히 보기 | 두 열 | 두 열 — 견주는 것이 목적이라 쌓지 않는다 |
 
 글자 램프는 `migration/deck/information-hierarchy.md` 의 반응형 칸에서 **7단계 안의 값만** 골랐다.
 출처는 네 줄(`heading-48 → 36 → 32 → 28` · `heading-36 → 32 → 28 → 20` · `heading-28 → 20 → 18` ·
@@ -251,7 +262,14 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 ## Accessibility
 
 - **표는 `caption` 을 갖는다.** 보이지 않게 두려면 `.louis-visually-hidden` 을 쓴다. 열 머리는
-  `th scope="col"`, 첫 열이 행의 이름이면 `th scope="row"` 다 — 규선 표는 행 머리를 몸 칸과 같게 그린다.
+  `th scope="col"`, 첫 열이 행의 이름이면 `th scope="row"` 다 — 표는 행 머리를 몸 칸과 같게 그린다
+  ([Table](../components/table.md) Anatomy 5).
+- **추이의 값도 글로 남는다.** 선(`svg`)은 `aria-hidden` 이고 점 목록(`ol role="list"`)이 시점과 값을 읽힌다 —
+  점마다 시점과 값 사이에 공백 한 칸을 둔다. 목록의 `aria-label` 이 무엇의 추이인지 말한다. 화면에서 숨긴
+  라벨도 읽기 도구에는 남는다. 표식은 장식이다.
+- **캡처는 대체 텍스트를 갖는다.** 무엇이 보이는지와 이 문서가 짚는 점을 한두 문장으로 적는다(보고 예시 —
+  「… 옅은 회색 글자로 서 있어 거의 읽히지 않는다」). 캡션은 `figcaption` 이고, `img` 에 `width` · `height` 를
+  적어 그림이 늦게 와도 자리가 흔들리지 않게 한다.
 - **비교 막대의 값은 글로 남는다.** 트랙은 `aria-hidden="true"` 이고 막대 옆 수치 텍스트가 값을 갖는다.
   비교 카드는 `figure` 이고 `figcaption` 이 그 이름이다.
 - **목록은 목록이다.** 결정 요청 · 타임라인 · 흐름 · 번호 카드는 `ol`, 순서가 없는 나열(막대 · 번호 없는
@@ -287,7 +305,9 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 | 막대 트랙 · 채움 · 앞선 채움 | `progress-track` · `fg-primary` 24% · `accent-primary`, 높이 8 | `--louis-document-bars-track-face` (= `progress-track`, 빌린 값) · `--louis-document-bars-track-block-size` |
 | 번호 표식 · 콜아웃 표식 · 칩 · 판정 알약 | 26 · 22 · 28 · 24 | 각 부품 루트의 `--louis-document-*` |
 | 타임라인 | 날짜 열 112 · 노드 16 · 이음선 2(`stroke-hairline`) · 들여 30 | `--louis-document-timeline-*` |
-| 규선 표 | 머리 14/500 `fg-tertiary` · 셀 12 여백 · 머리 아래 `table-row-line` · 행 사이 `stroke-hairline` | [Table](../components/table.md) |
+| 추이 | 좌표 상자 160 · 선 2(`accent-primary`, `non-scaling-stroke`) · 표식 8 · 라벨 12/500(값 `fg-secondary` · 시점 `fg-tertiary`) · 라벨과 점 사이 8 · 바닥 선 헤어라인 | `--louis-document-trend-plot-block-size` · `-line-inline-size` · `-dot-size` |
+| 표 | LOUIS 기본 표 — 머리 12/500 · 머리 면 `table-header-surface` · 머리 행 헤어라인 · 셀 8 · 행 사이 `table-row-line`. 문서 안에서 `table-layout: auto` | [Table](../components/table.md) · `.louis-document-table` |
+| 캡처 · 나란히 보기 | 반경 `radius-card` · 캡처를 실은 카드의 면 8% · 두 열 간격 8 · 라벨 14/500 `fg-tertiary` | `.louis-document-media` · `.louis-document-compare` |
 | 맺음 | 위 24 · `hairline-inset-block-start` · 12 `fg-tertiary` | — |
 
 ## Known deviations
@@ -296,19 +316,18 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
    시트 위 3.37:1 이다(다크 4.90). 번호 표식(12/600, 12% 면 위)은 라이트 2.72 · 다크 3.84 인데 표식은
    `aria-hidden` 인 장식이라 대상이 아니다. 승인본의 색이고, 글자로 쓸 수 있는 파랑 역할(라이트에서
    한 단 짙은 강조 잉크)이 LOUIS 에 없다. 해소는 그 역할 토큰을 세우는 것이고 소유자 판정이다.
-2. **앞선 값의 초록이 라이트에서 2.12:1 이다**(다크 4.21). 규선 표의 `data-emphasis="lead"` 가
+2. **앞선 값의 초록이 라이트에서 2.12:1 이다**(다크 4.21). 표의 `data-emphasis="lead"` 가
    `alert-success-stroke` 를 쓴다 — `louis-delta-pill[data-tone="up"]` 과 같은 선택이고 같은 결함이다
    ([Table](../components/table.md) Known deviations). 굵기가 함께 가고 표에 글로 된 판정이 있어 색이
    유일한 전달 수단은 아니지만, 대비는 기준에 못 미친다. 판정 알약은 `fg-success` 라 8.34:1 이다.
 3. **문서 규칙 값이 토큰이 아니다** — 위 [값의 출처](#값의-출처). Figma 가 `not-ready` 인 동안의
    상태이고, 토큰으로 올리는 것이 다음 단계다.
 4. **승인본과 몇 px 씩 다른 자리가 있다.** 승인본의 6 · 14 · 20 간격을 LOUIS 간격 계단의 4 · 12 · 16 으로
-   옮겼고(수치 카드 줄 간격 · 막대 행 간격 · 타임라인 열 간격), 규선 표 셀 여백은 12/14 가 12/12, 좁은
-   화면의 10/6 이 8/4 다. 기간 범위의 화살표는 SVG 24 대신 단위 글자(20)다. 표 머리 아래 선과 맺음 선은
-   1px 잉크 12% 대신 각각 `table-row-line` 1px · 헤어라인 0.5px 다. 판정 알약 면은 초록 14% 대신
-   `accent-green-500-alpha-08` 이다. 390 에서 이 차이는 **줄 바꿈을 바꾸지 않는다** — 절마다 높이를 재어
-   대조하면 한 절(「기존 Meta 광고 성과」)만 46 짧고(표 셀 여백 36 · 수치 격자 6 · 비교 막대 4) 맺음이 1
-   짧다(아래 [예시](#예시)). 박스 여백은 390 · 360 · 320 모두 승인본과 같다. 바닥과 시트 사이는 720 이상에서
+   옮겼고(수치 카드 줄 간격 · 막대 행 간격 · 타임라인 열 간격), 규선 표이던 동안 셀 여백은 12/14 가 12/12, 좁은
+   화면의 10/6 이 8/4 였다(표는 아래 7 에서 기본 표가 됐다). 기간 범위의 화살표는 SVG 24 대신 단위 글자(20)다. 맺음 선은
+   1px 잉크 12% 대신 헤어라인 0.5px 다. 판정 알약 면은 초록 14% 대신 `accent-green-500-alpha-08` 이다. 규선 표이던
+   2026-09-21 에 390 에서 이 차이는 **줄 바꿈을 바꾸지 않았다** — 절마다 높이를 재어 대조하면 한 절(「기존 Meta 광고
+   성과」)만 46 짧고(표 셀 여백 36 · 수치 격자 6 · 비교 막대 4) 맺음이 1 짧았다(아래 [예시](#예시)). 박스 여백은 390 · 360 · 320 모두 승인본과 같다. 바닥과 시트 사이는 720 이상에서
    승인본의 12 가 아니라 8 이다 — 아래 5 의 빌림이 실제로 움직인 자리다(≤719 는 바닥 여백이 0 이라 같다).
 5. **다른 부품의 토큰 셋을 빌린다** — 바닥과 시트 사이가 App Shell 의 `layout-app-shell-outer-gap`,
    비교 막대의 빈 트랙이 Progress 의 `progress-track`, 비용 주의 노랑이 Alert 의
@@ -328,13 +347,24 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
    경계(예: ≤374 에서 1열)는 [Responsive Layout](../foundations/responsive-layout.md) 4절 「breakpoint 는
    행동 경계다」에 따라 결정 기록이 필요하고, 콘텐츠 한도(한 행 넷의 수치 글자 수)로 막을지와 함께
    소유자 판정으로 남긴다. 한도의 글자 수는 아직 재지 않았다.
+7. **표가 승인본과 다르다(2026-09-29 소유자 결정).** 승인본의 표는 머리 면 없이 가로 규선만 긋는 표(머리 14 ·
+   셀 12/14)였고 2026-09-21 에 그대로 옮겨 `data-variant="ruled"` 로 두었다. 소유자가 「문서 속 표 스타일이 루이에
+   정의된 스타일 맞아?」라고 물었고 — 그 변형은 코드에만 있고 Figma · 제품에는 없었다 — 문서도 앱과 같은 LOUIS
+   기본 표를 쓰기로 정했다. 그래서 표만은 「깊이는 헤어라인 한 겹」의 예외다(머리 행의 면과 헤어라인). 승인본과
+   나란히 놓으면 표가 있는 절이 가장 크게 다르다.
+8. **추이의 좌표를 두 번 적는다.** 점(`li` 의 `--louis-document-trend-x` · `-y`)과 선(`polyline` 의 `points`)이 같은
+   숫자를 따로 갖는다. CSS 가 형제의 값을 읽지 못해서이고, 레시피는 마크업을 바꿀 수 없다. 두 곳이 어긋나면 점이
+   선을 벗어난다 — 수용 테스트 17 이 예시에서 둘을 대조한다. 데이터에서 좌표를 내는 일은 비교 막대의 길이처럼
+   소비처의 몫이다([Chart Card](../components/chart-card.md) 「곡선 자체를 그리는 컴포넌트가 아니다」와 같은 판단).
+9. **캡처 카드의 면은 `:has()` 로 올린다.** 캡처(`.louis-document-media`)를 실은 카드만 면이 8% 다. `:has()` 를 모르는
+   브라우저에서는 4% 로 남아 밝은 캡처의 가장자리가 흐려진다 — 뜻은 잃지 않고 가장자리만 약해진다.
 
 ## Acceptance tests
 
 `packages/css/test/document.browser.test.ts` — 실브라우저(chromium), 일반 · reduced-motion 두 project.
 
-1. 시트가 문서의 유일한 헤어라인이고 바닥(`bg-canvas`) 위에 `bg-surface` · 반경 16 으로 선다. 1440 에서
-   시트 폭이 1120 이다.
+1. 시트가 헤어라인 한 겹으로 바닥(`bg-canvas`) 위에 `bg-surface` · 반경 16 으로 선다. 1440 에서 시트 폭이
+   1120 이다. 시트 안에서 헤어라인을 갖는 것은 표의 머리 행 하나다(Known deviations 7).
 2. 시트 안의 면 아홉 가지(결정 항목 · 카드 · 수치 · 기간 요약 · 콜아웃 둘 · 칩 · 판정 알약 · 표식)에
    그림자도 테두리도 없다.
 3. 두 테마에서 면은 `fg-primary` 4% · 칩은 8% 합성색이고, 라이트에서는 시트보다 어둡게 · 다크에서는
@@ -351,14 +381,23 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 11. 흐름의 화살표는 대체 텍스트가 빈 생성 콘텐츠이고 앞 칩 뒤에 붙으며(줄이 접히면 줄 끝에 남는다) 마지막 칩 뒤에는 없다.
 12. 콜아웃 두 톤의 면이 다르고 표식 글리프는 `i` · `!` 이며 장식이다.
 13. 판정 알약은 `delta-pill` 이 아니고 `fg-success` 잉크 · 높이 24 이며 카드 머리 끝에 붙는다.
-14. 규선 표 — 머리 면이 없고 머리 아래 `table-row-line` 1px, 행 사이 `stroke-hairline`, 첫 · 끝 열 바깥
-    여백 0, 행 머리가 굵어지거나 가운데로 가지 않으며, 셀 강조 둘이 선다. `data-align` 두 값(`center` ·
-    `end`)이 머리 칸과 몸 칸에서 같다. 변형이 없는 표는 그대로다.
+14. 표 — 문서 안의 표가 LOUIS 기본 표다: 머리 면 `table-header-surface` · 머리 행 헤어라인 · 머리 12 · 셀 8 ·
+    행 사이 `table-row-line` · 마지막 행 아래 선 없음. 문서 안에서만 `table-layout: auto` 이고 문서 밖의 표는
+    `fixed` 를 지킨다. 행 머리가 몸 칸과 같고(굵게 · 가운데가 새지 않는다) 셀 강조 둘이 서며, `data-align` 두
+    값(`center` · `end`)이 머리 칸과 몸 칸에서 같다.
 15. ≤719 에서 시트가 화면이 되고(반경 · 헤어라인 · 가장자리 0), 글자가 한 단씩 내려가며, 4열만 2열로
     남고, 가로 스크롤이 없다. 카드 여백은 나열된 박스 20 · 넓은 카드 위아래 24 좌우 20 · 콜아웃 24 이고,
     넓은 카드 안의 글자가 위 카드의 글자와 같은 x 에서 시작한다.
-16. 목록 부품 다섯(결정 · 흐름 · 격자 · 막대 · 타임라인)은 `list-style: none` 이고 `role="list"` 를 단다.
-    예시(`examples/document.html`)의 목록도 전부 그 다섯 가운데 하나이고 `role="list"` 를 단다.
+16. 목록 부품 여섯(결정 · 흐름 · 격자 · 막대 · 타임라인 · 추이의 점)은 `list-style: none` 이고 `role="list"` 를
+    단다. 두 예시(`examples/document.html` · `document-report.html`)의 목록도 전부 그 여섯 가운데 하나이고
+    `role="list"` 를 단다.
+17. 추이 — 선이 `aria-hidden` 인 `svg` 이고 두께 2 · `non-scaling-stroke` · 강조색이며, 표식(8, 강조색)의 중심이
+    선의 꼭짓점과 0.5 안에서 맞는다. 라벨은 처음 · 끝 · `data-label` 점만 보이고 나머지는 화면에서만 숨는다(글은
+    남는다). 처음 라벨은 좌표 상자의 시작선에, 끝 라벨은 끝선에 맞고, 값은 점 위 · 시점은 바닥 선 아래에 선다.
+    좌표 상자가 160 이고 바닥 선이 헤어라인이다.
+18. 캡처 — `img` 가 카드의 내용 폭을 채우고 비율을 지키며 반경이 `radius-card` 다. 캡처를 실은 카드의 면이
+    `fg-primary` 8% 합성색이고 여느 카드(4%)보다 한 단 짙다(두 테마).
+19. 나란히 보기 — 두 열 · 간격 8 이고 좁은 화면(390)에서도 두 열이다. 라벨이 14/500 `fg-tertiary` 다.
 
 인쇄와 강제 색은 브라우저 테스트가 재지 않는다 — 규칙만 있다.
 
@@ -376,13 +415,17 @@ deviations 4 의 간격 계단 반올림에서 온다. 첫 대조에서는 좁�
 설명이 한 줄 늘어난 것을 놓쳤다(모바일 7056) — 그 뒤로 박스 여백을 390 · 360 · 320 에서 계산값으로도 잰다.
 이 높이는 바닥이 12 이던 때의 것이다. 바닥이 8 이 된 뒤(Known deviations 5) 같은 판을 다시 재면
 데스크톱 · 다크 5182, 모바일 7035 다 — 줄어든 8 은 바닥 위아래 4 씩이고, ≤719 는 바닥 여백이 0 이라
-그대로다. 같은 페이지에 바닥만 12 로 되돌려 재면 5190 으로 위 기록과 같다.
+그대로다. 같은 페이지에 바닥만 12 로 되돌려 재면 5190 으로 위 기록과 같다. 2026-09-29 표를 LOUIS 기본 표로 바꾼 뒤(Known
+deviations 7) 다시 재면 데스크톱 · 다크 5074, 모바일 7037 이다 — 셀 여백이 12 에서 8, 머리가 14 에서 12 가 된 만큼 데스크톱이 줄었다.
 
 [`packages/css/examples/document-report.html`](../../packages/css/examples/document-report.html) — 둘째 예시. 부품 선택표의 부품과
 변형을 한 문서에 전부 쓴 「LOUIS Figma 화면 보드 9월 운영 보고」다(결정 요청 셋 · 흐름 다섯 칩 · 번호 격자 3열 두 줄 · 무번호 격자 4열 ·
-수치 넷과 증감 알약 · 비교 막대 둘 · 규선 표 둘 · 해석 카드 · 분할 카드 · 타임라인 · 참고와 주의 콜아웃). 수치는 저장소 기준(2026-09-28)이고
-지어낸 값이 없다. 2026-09-28 에 데스크톱 1440 · 모바일 390(배율 2) · 다크 1440 세 판을 Playwright 로 떴다 — 높이 5394 · 7229 · 5394,
-가로 넘침 0. 부록 절이 이 문서를 쓰며 부품이 모자랐던 자리를 적는다(아래 「남은 것」의 부품 목록).
+수치 넷과 증감 알약 · 비교 막대 둘 · 추이 둘(계단 · 선) · 표 둘 · 해석 카드 · 분할 카드 · 캡처 한 장 · 제품과 보드 나란히 보기 · 타임라인 ·
+참고와 주의 콜아웃). 수치는 저장소 기준(2026-09-28)이고 지어낸 값이 없다 — 추이는 보드 구성 원장의 커밋 31개에서 날마다의 마지막 값을 뽑았다.
+캡처는 `packages/css/examples/media/` 의 webp 셋이다. 보드 둘은 LOUIS Figma 에서 2배율로 내보냈고, 제품 하나는 기준 커밋 fixture 를 측정기와
+같은 조건(라이트 · en-US · 외부 요청 차단)으로 402×874 배율 2 로 떴다. 2026-09-29 에 데스크톱 1440 · 모바일 390(배율 2) · 다크 1440 세 판을
+Playwright 로 떴다 — 높이 7284 · 8917 · 7284, 가로 넘침 0, 덜 불러온 그림 0. 부록 절이 이 문서를 쓰며 부품이 모자랐던 자리를 적는다(아래
+「남은 것」의 부품 목록).
 
 ## 남은 것
 
@@ -392,6 +435,8 @@ deviations 4 의 간격 계단 반올림에서 온다. 첫 대조에서는 좁�
 - 빌린 토큰 셋(Known deviations 5) — 문서 규칙 값의 토큰 승격과 같은 작업에서 문서 역할로 옮긴다.
 - 좁은 폰의 수치 넘침(Known deviations 6) — 새 경계인지 콘텐츠 한도인지 소유자 판정.
 - 제품 소비처. 문서를 만드는 첫 소비처가 이 레시피를 물면 `web` 을 다시 판정한다.
-- 운영 보고를 쓰며 모자랐던 부품(`document-report.html` 부록) — 세 시점 이상을 잇는 추이 차트(선 · 계단), 그림과 캡션 · 전후 나란히 보기,
-  부분과 전체를 한 줄에 보이는 누적 막대, 규선 표 칸 안의 판정 알약, 각주와 문서 끝 출처 목록, 목차와 절 앵커, 본문 안 코드 표기와 코드 블록,
-  인용 블록. 가장 자주 부딪힌 것은 추이와 캡처 첨부다 — 앱 부품으로 대신하지 않고 문서 역할로 세운다(DS-D-0067).
+- 운영 보고를 쓰며 모자랐던 부품(`document-report.html` 부록) — 부분과 전체를 한 줄에 보이는 누적 막대, 표 칸 안의 판정 알약,
+  각주와 문서 끝 출처 목록, 목차와 절 앵커, 본문 안 코드 표기와 코드 블록, 인용 블록, 캡처 위 번호 핀(deck-kit `.k-pin`, 넷까지). 가장 자주
+  부딪힌 추이와 캡처 첨부는 2026-09-29 에 세웠다 — 앱 부품으로 대신하지 않고 문서 역할로 세운다(DS-D-0067).
+- 추이의 두 계열 비교 — 지금은 계열 하나이고 둘을 견주려면 차트를 나란히 둔다. 두 계열이 자주 필요해지면 앞선 쪽만
+  강조색 · 나머지 잉크 24% 인 비교 막대의 규칙을 선에 옮긴다.

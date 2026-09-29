@@ -7321,6 +7321,10 @@
  *
  * 열 너비도 DS가 정하지 않는다 — 어떤 열이 넓어야 하는지는 데이터의 문제다. 소비처가
  * `<col>` 이나 caller 유틸리티로 준다.
+ *
+ * **문서의 표도 이 표다(2026-09-29 소유자 결정).** 문서용 규선 변형(`data-variant="ruled"`, 2026-09-21)을
+ * 걷어냈다 — 문서 속 표가 앱 · Figma 의 표와 다른 모양이었고, Figma 에는 그 변형이 없었다. 문서는 열 폭
+ * 정책(`table-layout`)만 소비처로서 정한다(document.css `.louis-document-table`).
  */
 
 .louis-table {
@@ -7375,17 +7379,23 @@
   border-end-end-radius: var(--louis-radius-table-header);
 }
 
-.louis-table > tbody > tr > td {
+/* 몸 칸. **행 머리(`th scope="row"`)도 몸 칸이다** — 첫 열이 행의 이름인 표(문서의 표가 그렇다)는 그 칸을
+ * `th` 로 두는 편이 읽기 도구에 맞다. 이 규칙이 `th` 를 받지 않으면 브라우저 기본값(굵게 · 가운데)이 새어 나와
+ * 첫 열만 다른 표가 된다. Figma 의 TableCell 과 같은 칸이다. 정렬(`data-align`)과 강조(`data-emphasis`)는
+ * 선택자가 더 세서 아래 두 값을 이긴다. */
+.louis-table > tbody > tr > :is(th, td) {
   box-sizing: border-box;
   padding-block: var(--louis-space-control-sm);
   padding-inline: var(--louis-space-control-sm);
   border-block-end: var(--louis-border-width-default) solid var(--louis-color-table-row-line);
   color: var(--louis-color-fg-primary);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  text-align: start;
   vertical-align: middle;
 }
 
 /* 마지막 행 아래 선은 표를 감싼 카드의 경계와 겹친다. */
-.louis-table > tbody > tr:last-child > td {
+.louis-table > tbody > tr:last-child > :is(th, td) {
   border-block-end: 0;
 }
 
@@ -7407,7 +7417,7 @@
 /* 호버는 면이 아니라 상태 레이어다(DS-D-0065) — 토큰이 알파라 표가 놓인 바닥 위에 한 겹 얹힌다.
  * 면 사다리 칸으로 되돌리지 않는다. 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은
  * 값) 카드 위 표에서 hover 가 바닥과 같은 색이 됐다. */
-.louis-table > tbody > tr[data-interactive="true"]:hover > td {
+.louis-table > tbody > tr[data-interactive="true"]:hover > :is(th, td) {
   background: var(--louis-color-table-row-hover);
 }
 
@@ -7430,117 +7440,10 @@
   font-weight: var(--louis-typography-body-sm-semibold-font-weight);
 }
 
-/* 규선 표(`data-variant="ruled"`) — 문서에서 읽는 표.
- *
- * 기본 표는 대시보드의 데이터 표다: 머리 행에 면과 헤어라인, 캡션 12 머리 글자, 셀 8. 문서는
- * 한 번 끝까지 **읽는** 표라 면이 필요 없다 — 가로 규선만 남기고(design/patterns/document.md
- * 「깊이는 헤어라인 한 겹」), 머리는 14 로, 셀은 12 로 넓힌다. 첫 열과 끝 열의 바깥 여백을 0 으로
- * 두어 표의 좌우 끝이 본문 열의 글자 끝과 맞는다.
- *
- * **열 폭은 내용이 정한다(`table-layout: auto`).** 기본 표의 `fixed` 는 데이터 표가 행을 늘려도
- * 열이 흔들리지 않게 하려는 것이고, 문서의 표는 행이 고정된 한 장이라 이름 열이 넓고 수치 열이
- * 좁은 편이 읽힌다. 소비처가 `<col>` 로 폭을 주는 길은 그대로 열려 있다.
- *
- * 머리 아래 선은 `table-row-line`, 행 사이 선은 한 단 옅은 `stroke-hairline` 이다 — 머리와 몸을
- * 가르는 선이 행을 가르는 선보다 진해야 머리가 한 덩어리로 읽힌다. */
-.louis-table[data-variant="ruled"] {
-  table-layout: auto;
-}
-
-.louis-table[data-variant="ruled"] > thead > tr {
-  box-shadow: none;
-}
-
-.louis-table[data-variant="ruled"] > thead > tr > th {
-  padding-block: var(--louis-space-control-md);
-  padding-inline: var(--louis-space-control-md);
-  border-block-end: var(--louis-border-width-default) solid var(--louis-color-table-row-line);
-  border-radius: 0;
-  background: none;
-  color: var(--louis-color-fg-tertiary);
-  font-family: var(--louis-typography-body-sm-medium-font-family);
-  font-size: var(--louis-typography-body-sm-medium-font-size);
-  font-weight: var(--louis-typography-body-sm-medium-font-weight);
-  line-height: var(--louis-typography-body-sm-medium-line-height);
-  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
-}
-
-/* 행 머리(`th scope="row"`)도 몸 칸과 같은 칸이다 — 기본 표는 몸에 `th` 를 두지 않아 규칙이 없고,
- * 브라우저 기본값(굵게 · 가운데)이 새어 나오면 첫 열만 다른 표가 된다. 문서의 표는 첫 열이 행의
- * 이름이라 `th` 로 두는 편이 읽기 도구에 맞다(document.md Accessibility). */
-.louis-table[data-variant="ruled"] > tbody > tr > :is(th, td) {
-  box-sizing: border-box;
-  padding-block: var(--louis-space-control-md);
-  padding-inline: var(--louis-space-control-md);
-  border-block-end: var(--louis-border-width-default) solid var(--louis-color-stroke-hairline);
-  color: var(--louis-color-fg-secondary);
-  font-weight: var(--louis-typography-body-sm-regular-font-weight);
-  text-align: start;
-  vertical-align: middle;
-}
-
-.louis-table[data-variant="ruled"] > tbody > tr:last-child > :is(th, td) {
-  border-block-end: 0;
-}
-
-/* 위 몸 칸 규칙(`text-align: start`)이 기본 정렬 규칙보다 세므로 정렬 값 둘을 여기서 되살린다 —
- * 하나라도 빠지면 머리 칸만 그 정렬을 받고 몸 칸은 시작에 붙어 한 열이 어긋난다. */
-.louis-table[data-variant="ruled"] > tbody > tr > [data-align="end"] {
-  text-align: end;
-}
-
-.louis-table[data-variant="ruled"] > tbody > tr > [data-align="center"] {
-  text-align: center;
-}
-
-.louis-table[data-variant="ruled"] > tbody > tr > [data-emphasis="total"] {
-  color: var(--louis-color-fg-primary);
-  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
-}
-
-.louis-table[data-variant="ruled"] > tbody > tr > [data-emphasis="lead"] {
-  color: var(--louis-color-alert-success-stroke);
-  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
-}
-
-.louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :first-child {
-  padding-inline-start: 0;
-}
-
-.louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :last-child {
-  padding-inline-end: 0;
-}
-
-/* 좁은 화면에서는 한 단 작게 — 네 열이 390 폭 안에 들어오게 한다. 그래도 넘치면 소비처의
- * 스크롤 래퍼가 받는다. 719 는 section-header 가 쓰는 같은 행동 경계다. */
-@media (max-width: 719px) {
-  .louis-table[data-variant="ruled"] {
-    font-size: var(--louis-typography-caption-regular-font-size);
-    line-height: var(--louis-typography-caption-regular-line-height);
-    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
-  }
-
-  .louis-table[data-variant="ruled"] > thead > tr > th {
-    font-size: var(--louis-typography-caption-medium-font-size);
-    line-height: var(--louis-typography-caption-medium-line-height);
-    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
-  }
-
-  .louis-table[data-variant="ruled"] > :is(thead, tbody) > tr > :is(th, td) {
-    padding-block: var(--louis-space-control-sm);
-    padding-inline: var(--louis-space-control-xs);
-  }
-}
-
 @media (forced-colors: active) {
   .louis-table > thead > tr {
     box-shadow: none;
     border: var(--louis-border-width-default) solid currentColor;
-  }
-
-  /* 규선 표는 머리 행에 상자를 두르지 않는다 — 머리 아래 선이 이미 시스템 색으로 남는다. */
-  .louis-table[data-variant="ruled"] > thead > tr {
-    border: 0;
   }
 }
 
@@ -9227,6 +9130,127 @@
   white-space: nowrap;
 }
 
+/* ── 추이 — 세 시점 이상을 선이나 계단으로 잇는다(migration/deck/chart-style.md) ─────────
+ * 두 시점이면 비교 막대다. 좌표는 데이터라 막대 길이처럼 소비처가 준다 — 점(`li`)마다 가로 위치와
+ * 높이를 퍼센트로 주고(`--louis-document-trend-x` · `-y`, 0% 가 첫 시점 · 바닥), 선은 **같은 숫자**를
+ * `svg` 의 `polyline` 에 적는다. `svg` 는 0–100 상자(`viewBox="0 0 100 100"` ·
+ * `preserveAspectRatio="none"`)이고 위아래를 뒤집어 두어 두 곳의 좌표가 같은 방향이다. 선은
+ * `non-scaling-stroke` 라 늘어나도 두께 2 를 지키고, 점과 라벨은 HTML 이라 찌그러지지 않는다.
+ * 선과 계단은 변형이 아니라 좌표다 — 계단은 꺾이는 자리를 `polyline` 에 한 번 더 적는다.
+ * 높이는 0 에서 잰다(바닥 선이 0 이다). 계열은 하나이고 강조색이다 — 둘을 견주려면 차트를 나란히 둔다.
+ * 값은 글로 남는다 — 선은 `aria-hidden` 이고 점 목록이 시점과 값을 읽힌다. 라벨은 처음과 끝 점, 그리고
+ * `data-label` 을 단 점만 화면에 보인다. 나머지 점의 라벨은 화면에서만 숨는다(읽기 도구에는 남는다). */
+.louis-document-trend {
+  --louis-document-trend-plot-block-size: 160px;
+  --louis-document-trend-line-inline-size: 2px;
+  --louis-document-trend-dot-size: 8px;
+
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  /* 맨 위 점의 값 라벨과 바닥 아래 시점 라벨이 설 자리 — 라벨 한 줄(`1lh`)과 라벨 · 점 사이. */
+  padding-block: calc(1lh + var(--louis-space-control-sm));
+  color: var(--louis-color-fg-secondary);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 좌표 상자. 바닥 선이 0 이다. **그림 좌표라 물리 방향(left · bottom)을 쓴다** — `svg` 좌표는 글 방향을
+ * 따라 뒤집히지 않으므로 점도 뒤집히면 안 된다. */
+.louis-document-trend__plot {
+  position: relative;
+  block-size: var(--louis-document-trend-plot-block-size);
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+/* 위아래를 뒤집는다 — `polyline` 의 y 가 점의 `--louis-document-trend-y` 와 같은 방향(아래에서 위)이 된다. */
+.louis-document-trend__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  transform: scaleY(-1);
+}
+
+.louis-document-trend__path {
+  fill: none;
+  stroke: var(--louis-color-accent-primary);
+  stroke-width: var(--louis-document-trend-line-inline-size);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.louis-document-trend__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 점 하나 — 자기 상자를 갖지 않는다. 점 · 값 · 시점이 전부 좌표 상자(`__plot`)를 기준으로 선다.
+ * 여기 값은 「안 줬을 때 첫 시점 바닥」이라는 기본값이고, 소비처가 점마다 인라인으로 준다. */
+.louis-document-trend__point {
+  --louis-document-trend-x: 0%;
+  --louis-document-trend-y: 0%;
+}
+
+/* 표식 — 표본이 있는 자리다. 선과 같은 강조색이고 장식이다(값은 글이 갖는다). */
+.louis-document-trend__point::before {
+  content: "";
+  position: absolute;
+  left: var(--louis-document-trend-x);
+  bottom: var(--louis-document-trend-y);
+  inline-size: var(--louis-document-trend-dot-size);
+  block-size: var(--louis-document-trend-dot-size);
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-accent-primary);
+  translate: -50% 50%;
+}
+
+/* 값은 점 위에, 시점은 바닥 선 아래에 선다. 처음 점은 시작선에, 끝 점은 끝선에 맞춰 상자 밖으로 나가지 않는다. */
+.louis-document-trend__value {
+  position: absolute;
+  left: var(--louis-document-trend-x);
+  bottom: calc(var(--louis-document-trend-y) + var(--louis-space-control-sm));
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.louis-document-trend__when {
+  position: absolute;
+  left: var(--louis-document-trend-x);
+  top: calc(100% + var(--louis-space-control-sm));
+  translate: -50% 0;
+  color: var(--louis-color-fg-tertiary);
+  white-space: nowrap;
+}
+
+.louis-document-trend__point:first-child > .louis-document-trend__value,
+.louis-document-trend__point:first-child > .louis-document-trend__when {
+  translate: 0 0;
+}
+
+.louis-document-trend__point:last-child > .louis-document-trend__value,
+.louis-document-trend__point:last-child > .louis-document-trend__when {
+  translate: -100% 0;
+}
+
+/* 가운데 점의 라벨은 `data-label` 을 달아야 보인다 — 촘촘한 점끼리 라벨이 겹치지 않게 소비처가 고른다. */
+.louis-document-trend__point:not(:first-child, :last-child, [data-label])
+  > .louis-document-trend__value,
+.louis-document-trend__point:not(:first-child, :last-child, [data-label])
+  > .louis-document-trend__when {
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
 /* ── 세로 타임라인 ─────────────────────────────────────────────────────── */
 
 .louis-document-timeline {
@@ -9448,11 +9472,67 @@
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-/* ── 표 — 규선 표(`.louis-table[data-variant="ruled"]`)를 감싸 가로 스크롤을 소유한다 ──
- * table.css 가 「가로 스크롤은 소비처가 소유한다」고 적었고 여기서는 문서가 그 소비처다. */
+/* ── 표 — LOUIS 기본 표(`.louis-table`)를 감싸 가로 스크롤과 열 폭 정책을 소유한다 ──
+ * **표의 모양은 앱과 같다(2026-09-29 소유자 결정)** — 머리 면 · 헤어라인 · 머리 12 · 셀 8. 문서용 규선 변형을
+ * 걷어냈다. table.css 가 「가로 스크롤과 열 너비는 소비처가 소유한다」고 적었고 여기서는 문서가 그 소비처다.
+ * 문서의 표는 행이 고정된 한 장이라 열 폭을 내용이 정한다(`auto`) — 이름 열이 넓고 수치 열이 좁은 편이 읽힌다.
+ * 기본 표의 `fixed` 는 행이 늘어도 열이 흔들리지 않게 하려는 대시보드의 선택이다. */
 .louis-document-table {
   overflow-x: auto;
   margin: 0;
+}
+
+.louis-document-table > .louis-table {
+  table-layout: auto;
+}
+
+/* ── 캡처 — 그림은 비율을 바꾸지 않는다. 자르되 늘이지 않는다(migration/deck/imagery.md) ───────
+ * 카드(`figure.louis-document-card`) 안에 선다. 밝은 캡처가 밝은 시트 위에서 가장자리를 잃지 않게
+ * 선을 긋는 대신 카드 면 위에 올린다 — 「가장자리가 필요해 보이면 알파를 한 단 올린다」와 같은 판단이다.
+ * 캡션은 카드의 설명(`figcaption.louis-document-card__description`)이다. 캡처 위에 사각형 · 화살표를
+ * 그리지 않는다. 한 문서 안에서 다크 캡처와 라이트 캡처를 섞지 않는다(deck-kit §7). */
+.louis-document-media {
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+  margin: 0;
+  border-radius: var(--louis-radius-card);
+}
+
+/* 캡처를 실은 카드는 면을 한 단(8%) 올린다. 앱 화면의 밝은 바탕(라이트 `bg-canvas` 계열)이 4% 면과 거의 같은
+ * 색이라, 4% 면 위에서는 캡처의 가장자리가 사라진다(보고 예시의 데이터 삭제 상태 보드가 그랬다). */
+.louis-document-card:has(.louis-document-media) {
+  background: var(--louis-document-face-strong);
+}
+
+/* 나란히 보기 — 전후 · 제품과 보드처럼 두 캡처를 견준다. 좁은 화면에서도 두 열을 지킨다 — 견주는 것이
+ * 목적이라 위아래로 쌓으면 한 화면에 둘이 들지 않는다. */
+.louis-document-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--louis-document-box-gap);
+  margin: 0;
+}
+
+.louis-document-compare__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* 어느 쪽인지 — 「제품」 · 「보드」, 「바꾸기 전」 · 「바꾼 뒤」. 수치 라벨과 같은 14/500 이다. */
+.louis-document-compare__label {
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
 /* ── 맺음 ─────────────────────────────────────────────────────────────── */
@@ -9584,7 +9664,8 @@
   .louis-document-stat,
   .louis-document-callout,
   .louis-document-decision__item,
-  .louis-document-timeline__item {
+  .louis-document-timeline__item,
+  .louis-document-trend {
     break-inside: avoid;
   }
 }
@@ -9619,6 +9700,21 @@
 
   .louis-document-bars__track {
     border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  /* 추이 — 선과 표식은 강조(Highlight), 바닥 선은 글자색 실선이다. */
+  .louis-document-trend__plot {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-document-trend__path {
+    stroke: Highlight;
+  }
+
+  .louis-document-trend__point::before {
+    forced-color-adjust: none;
+    background: Highlight;
   }
 
   .louis-document__foot {

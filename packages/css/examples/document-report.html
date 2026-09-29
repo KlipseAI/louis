@@ -136,8 +136,44 @@
         </ul>
       </figure>
     </div>
+    <!-- 추이 — 보드 구성 원장(migration/figma-board-composition.json)의 커밋별 값, 날마다 마지막 커밋. 가로는 9월 2일부터 날짜 비례(26일 = 100%),
+         높이는 차트마다 최댓값이 100% 다. 보드 수는 원장 커밋에서만 바뀌므로 계단, 인스턴스는 날마다의 표본을 잇는 선이다. -->
+    <div class="louis-document-grid" data-columns="2">
+      <figure class="louis-document-card">
+        <figcaption class="louis-document-card__head"><span class="louis-document-card__title">측정 생성 보드</span></figcaption>
+        <div class="louis-document-trend">
+          <div class="louis-document-trend__plot">
+            <svg class="louis-document-trend__canvas" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><polyline class="louis-document-trend__path" points="0,47.37 92.31,47.37 92.31,71.05 100,71.05 100,100"/></svg>
+            <ol class="louis-document-trend__points" role="list" aria-label="날짜별 측정 생성 보드 수">
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 0%; --louis-document-trend-y: 47.37%"><span class="louis-document-trend__when">9월 2일</span> <span class="louis-document-trend__value">36장</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 92.31%; --louis-document-trend-y: 71.05%"><span class="louis-document-trend__when">9월 26일</span> <span class="louis-document-trend__value">54장</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 100%; --louis-document-trend-y: 100%"><span class="louis-document-trend__when">9월 28일</span> <span class="louis-document-trend__value">76장</span></li>
+            </ol>
+          </div>
+        </div>
+        <p class="louis-document-card__description">9월 2일부터 36장에 머물다가 9월 26일 18장, 9월 28일 22장이 더해졌다. 28일은 로그아웃 측정 원장이 선 날이다</p>
+      </figure>
+      <figure class="louis-document-card">
+        <figcaption class="louis-document-card__head"><span class="louis-document-card__title">컴포넌트 인스턴스</span></figcaption>
+        <div class="louis-document-trend">
+          <div class="louis-document-trend__plot">
+            <svg class="louis-document-trend__canvas" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><polyline class="louis-document-trend__path" points="0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100"/></svg>
+            <ol class="louis-document-trend__points" role="list" aria-label="날짜별 컴포넌트 인스턴스 수">
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 0%; --louis-document-trend-y: 34.82%"><span class="louis-document-trend__when">9월 2일</span> <span class="louis-document-trend__value">78개</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 11.54%; --louis-document-trend-y: 33.93%"><span class="louis-document-trend__when">9월 5일</span> <span class="louis-document-trend__value">76개</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 34.62%; --louis-document-trend-y: 37.5%"><span class="louis-document-trend__when">9월 11일</span> <span class="louis-document-trend__value">84개</span></li>
+              <li class="louis-document-trend__point" data-label style="--louis-document-trend-x: 46.15%; --louis-document-trend-y: 45.09%"><span class="louis-document-trend__when">9월 14일</span> <span class="louis-document-trend__value">101개</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 88.46%; --louis-document-trend-y: 45.09%"><span class="louis-document-trend__when">9월 25일</span> <span class="louis-document-trend__value">101개</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 92.31%; --louis-document-trend-y: 91.96%"><span class="louis-document-trend__when">9월 26일</span> <span class="louis-document-trend__value">206개</span></li>
+              <li class="louis-document-trend__point" style="--louis-document-trend-x: 100%; --louis-document-trend-y: 100%"><span class="louis-document-trend__when">9월 28일</span> <span class="louis-document-trend__value">224개</span></li>
+            </ol>
+          </div>
+        </div>
+        <p class="louis-document-card__description">9월 26일 하루에 101개에서 206개로 늘었다. 보드 생성기가 제품 부품 세트를 찍기 시작한 날이다</p>
+      </figure>
+    </div>
     <div class="louis-document-table">
-      <table class="louis-table" data-variant="ruled">
+      <table class="louis-table">
         <caption class="louis-visually-hidden">페이지별 보드 구성</caption>
         <thead>
           <tr><th scope="col">페이지</th><th scope="col" data-align="end">보드</th><th scope="col" data-align="end">측정 생성</th><th scope="col" data-align="end">손 조립</th><th scope="col" data-align="end">측정 생성 비율</th></tr>
@@ -166,6 +202,20 @@
       <p class="louis-document-section__source">로그인 보드 두 장을 먼저 보내 캡처로 본 뒤 22장으로 넓혔다</p>
     </div>
     <p class="louis-document-prose">결함은 모두 보낸 보드를 캡처로 볼 때 드러났다. 생성기는 오류 없이 끝났고 보드 수와 크기도 맞았다. 수치 대조만으로는 보이지 않는 결함이라, <strong>보낸 뒤 캡처로 보는 단계</strong>를 흐름에서 빼지 않는다.</p>
+    <figure class="louis-document-card">
+      <figcaption class="louis-document-card__head"><span class="louis-document-card__title">모바일 로그인, 제품과 보드</span></figcaption>
+      <div class="louis-document-compare">
+        <div class="louis-document-compare__item">
+          <p class="louis-document-compare__label">제품</p>
+          <img class="louis-document-media" src="media/login-product-mobile.webp" width="804" height="1748" alt="기준 커밋의 제품 로그인 화면을 모바일 폭으로 연 모습. 가운데 Klipse 로고 아래 이메일과 비밀번호 입력칸, 검은 로그인 버튼, 비밀번호 찾기와 가입 링크가 선다">
+        </div>
+        <div class="louis-document-compare__item">
+          <p class="louis-document-compare__label">보드</p>
+          <img class="louis-document-media" src="media/login-board-mobile.webp" width="804" height="1748" alt="같은 화면을 재서 생성한 LOUIS Figma 보드. 로고, 입력칸 둘, 로그인 버튼, 링크 한 줄이 제품과 같은 자리에 선다">
+        </div>
+      </div>
+      <p class="louis-document-card__description">기준 커밋 2c6bdacf 의 로그인 화면을 402×874 로 연 캡처와, 그 화면을 재서 생성한 보드다. 보드는 9월 29일 grid 칸의 여백을 고친 판이다 — 그 전에는 로고와 입력칸 사이가 제품보다 24 좁았다. 첫 칸의 짙은 테두리(제품이 이메일 칸에 포커스를 건 상태)는 보드에 아직 없다</p>
+    </figure>
     <ol class="louis-document-grid" role="list" aria-label="고친 생성기 결함">
       <li class="louis-document-card">
         <div class="louis-document-card__head"><span class="louis-document-marker" aria-hidden="true">01</span><p class="louis-document-card__title">가지째 빠진 모바일 본문</p></div>
@@ -218,8 +268,12 @@
         <p class="louis-document-card__description">페이지가 글자를 인라인 색으로 칠하고 바탕을 두지 않아, 라이트 테마의 밝은 면 위에서 글자가 거의 보이지 않는다. 손 조립 보드는 다크 면으로 그려 이 결함을 가리고 있었다. 보드는 제품대로 두고 프레임 이름에 적었다.</p>
       </div>
     </div>
+    <figure class="louis-document-card">
+      <img class="louis-document-media" src="media/data-deletion-board-crop.webp" width="1280" height="800" alt="데이터 삭제 상태 데스크톱 보드의 윗부분. 제목 Data Deletion Request, 본문 두 문단, 확인 코드와 상태 라벨이 밝은 회색 바탕 위에 옅은 회색 글자로 서 있어 거의 읽히지 않는다">
+      <figcaption class="louis-document-card__description">데이터 삭제 상태 데스크톱 보드의 윗부분이다. 1920×1080 중 가로 640 · 세로 400 을 잘랐고 늘이지 않았다</figcaption>
+    </figure>
     <div class="louis-document-table">
-      <table class="louis-table" data-variant="ruled">
+      <table class="louis-table">
         <caption class="louis-visually-hidden">보드가 드러낸 제품 대비 결함</caption>
         <thead>
           <tr><th scope="col">화면</th><th scope="col">자리</th><th scope="col" data-align="end">대비</th><th scope="col">상태</th></tr>
@@ -285,16 +339,15 @@
       <p class="louis-document-section__source">문서 레시피 고도화의 입력. 부품 선택표에 있는 부품을 모두 쓴 뒤에 남은 것</p>
     </div>
     <div class="louis-document-table">
-      <table class="louis-table" data-variant="ruled">
+      <table class="louis-table">
         <caption class="louis-visually-hidden">문서 부품이 모자란 자리</caption>
         <thead>
           <tr><th scope="col">쓰고 싶었던 것</th><th scope="col">이 문서에서 대신한 것</th><th scope="col">모자란 부품</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">날짜별 추이</th><td>두 시점 막대 비교</td><td>세 시점 이상을 잇는 선 차트와 계단 차트</td></tr>
-          <tr><th scope="row">보드 캡처 전후</th><td>글로 된 설명</td><td>그림과 캡션, 전후 나란히 보기</td></tr>
-          <tr><th scope="row">부분과 전체</th><td>규선 표의 비율 열</td><td>누적 막대 한 줄(측정 생성과 손 조립의 몫)</td></tr>
-          <tr><th scope="row">표 안의 판정</th><td>상태를 글로 적은 열</td><td>규선 표 칸 안의 판정 알약</td></tr>
+          <tr><th scope="row">부분과 전체</th><td>표의 비율 열</td><td>누적 막대 한 줄(측정 생성과 손 조립의 몫)</td></tr>
+          <tr><th scope="row">표 안의 판정</th><td>상태를 글로 적은 열</td><td>표 칸 안의 판정 알약</td></tr>
+          <tr><th scope="row">캡처 위 짚기</th><td>캡션에 자리를 글로 적었다</td><td>캡처 위 번호 핀과 그 설명 목록</td></tr>
           <tr><th scope="row">근거 번호</th><td>절 머리의 출처 줄</td><td>각주와 문서 끝 출처 목록</td></tr>
           <tr><th scope="row">긴 문서의 길잡이</th><td>절 키커 번호</td><td>목차와 절 앵커</td></tr>
           <tr><th scope="row">파일 경로와 명령</th><td>경로를 본문에서 뺐다</td><td>본문 안 코드 표기와 코드 블록</td></tr>
@@ -304,7 +357,7 @@
     </div>
     <div class="louis-document-card">
       <p class="louis-document-card__title">먼저 만들 것</p>
-      <p class="louis-document-card__body">운영 보고가 가장 자주 부딪힌 것은 <strong>세 시점 이상의 추이와 캡처 첨부</strong>다. 둘 다 앱 부품으로 대신하면 첫 시안이 거절된 이유를 되풀이하게 되므로, 문서 레시피 안에 문서 역할로 세운다.</p>
+      <p class="louis-document-card__body">가장 자주 부딪힌 <strong>세 시점 이상의 추이와 캡처 첨부</strong>는 9월 29일에 문서 부품으로 세웠고 이 보고서가 쓴다(01 · 02 · 03절). 다음은 <strong>누적 막대와 표 칸 안의 판정 알약</strong>이다. 둘 다 앱 부품으로 대신하면 첫 시안이 거절된 이유를 되풀이하게 되므로, 문서 레시피 안에 문서 역할로 세운다.</p>
     </div>
   </section>
 

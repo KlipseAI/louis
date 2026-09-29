@@ -106,10 +106,35 @@ const FIXTURE = `
     </ol>
     <div class="louis-document-callout" role="note" data-probe="note"><span class="louis-document-callout__mark" aria-hidden="true" data-probe="note-mark"></span><div class="louis-document-callout__body"><p class="louis-document-callout__title">짚을 것</p><p class="louis-document-callout__text"><strong data-probe="callout-strong">강조</strong></p></div></div>
     <div class="louis-document-callout" data-tone="caution" role="note" data-probe="caution"><span class="louis-document-callout__mark" aria-hidden="true" data-probe="caution-mark"></span><div class="louis-document-callout__body"><p class="louis-document-callout__title">비용 확인</p></div></div>
+    <figure class="louis-document-card" data-probe="trend-card">
+      <figcaption class="louis-document-card__head"><span class="louis-document-card__title">추이</span></figcaption>
+      <div class="louis-document-trend" data-probe="trend">
+        <div class="louis-document-trend__plot" data-probe="trend-plot">
+          <svg class="louis-document-trend__canvas" data-probe="trend-canvas" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><polyline class="louis-document-trend__path" data-probe="trend-path" points="0,20 40,60 70,40 100,100"/></svg>
+          <ol class="louis-document-trend__points" role="list" aria-label="월별 방문">
+            <li class="louis-document-trend__point" data-probe="trend-first" style="--louis-document-trend-x: 0%; --louis-document-trend-y: 20%"><span class="louis-document-trend__when">1월</span> <span class="louis-document-trend__value">20</span></li>
+            <li class="louis-document-trend__point" data-probe="trend-hidden" style="--louis-document-trend-x: 40%; --louis-document-trend-y: 60%"><span class="louis-document-trend__when">2월</span> <span class="louis-document-trend__value">60</span></li>
+            <li class="louis-document-trend__point" data-probe="trend-marked" data-label style="--louis-document-trend-x: 70%; --louis-document-trend-y: 40%"><span class="louis-document-trend__when">3월</span> <span class="louis-document-trend__value">40</span></li>
+            <li class="louis-document-trend__point" data-probe="trend-last" style="--louis-document-trend-x: 100%; --louis-document-trend-y: 100%"><span class="louis-document-trend__when">4월</span> <span class="louis-document-trend__value">100</span></li>
+          </ol>
+        </div>
+      </div>
+    </figure>
+    <figure class="louis-document-card" data-probe="media-card">
+      <img class="louis-document-media" data-probe="media" width="160" height="100" alt="보기" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='100'/%3E">
+      <figcaption class="louis-document-card__description">캡션</figcaption>
+    </figure>
+    <figure class="louis-document-card">
+      <figcaption class="louis-document-card__head"><span class="louis-document-card__title">나란히</span></figcaption>
+      <div class="louis-document-compare" data-probe="compare">
+        <div class="louis-document-compare__item"><p class="louis-document-compare__label" data-probe="compare-label">제품</p><img class="louis-document-media" data-probe="compare-media" width="100" height="200" alt="제품" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='200'/%3E"></div>
+        <div class="louis-document-compare__item"><p class="louis-document-compare__label">보드</p><img class="louis-document-media" width="100" height="200" alt="보드" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='200'/%3E"></div>
+      </div>
+    </figure>
     <div class="louis-document-table">
-      <table class="louis-table" data-variant="ruled" data-probe="ruled">
+      <table class="louis-table" data-probe="table">
         <caption class="louis-visually-hidden">소재별 성과</caption>
-        <thead><tr><th scope="col" data-probe="ruled-head">지표</th><th scope="col" data-align="end">A</th><th scope="col" data-align="end">합계</th></tr></thead>
+        <thead><tr><th scope="col" data-probe="table-head">지표</th><th scope="col" data-align="end">A</th><th scope="col" data-align="end">합계</th></tr></thead>
         <tbody>
           <tr><th scope="row" data-probe="row-head">방문</th><td data-align="end" data-emphasis="lead" data-probe="lead-cell">265</td><td data-align="end" data-emphasis="total" data-probe="total-cell">514</td></tr>
           <tr><th scope="row">비용</th><td data-align="end" data-probe="plain-cell">₩207</td><td data-align="end"><strong data-probe="cell-strong">₩215</strong></td></tr>
@@ -142,7 +167,8 @@ afterEach(() => {
   host.remove();
 });
 
-test("시트가 문서의 유일한 헤어라인이고 바닥 위에 선다", () => {
+// 시트 안에서 헤어라인을 갖는 것은 LOUIS 기본 표의 머리 행 하나다(표는 앱과 같은 부품이다 — 2026-09-29).
+test("시트가 헤어라인 한 겹으로 바닥 위에 선다", () => {
   const pageStyle = getComputedStyle(probe("page"));
   const sheet = getComputedStyle(probe("sheet"));
   const floor = pageStyle.backgroundColor;
@@ -350,64 +376,168 @@ test("맺음 — 위 경계는 헤어라인 한 줄이다", () => {
   expect(style.borderTopWidth).toBe("0px");
 });
 
-test("규선 표 — 머리 면이 없고 가로 규선만 남으며 열 끝이 본문 끝과 맞는다", () => {
-  const table = probe("ruled");
-  expect(getComputedStyle(table).tableLayout).toBe("auto");
-  const head = getComputedStyle(probe("ruled-head"));
-  expect(head.backgroundColor).toBe("rgba(0, 0, 0, 0)");
-  expect(head.borderBottomWidth).toBe("1px");
-  expect(composite(head.borderBottomColor)).toEqual(composite(token("--louis-color-table-row-line")));
-  expect(head.fontSize).toBe("14px");
-  expect(head.paddingLeft).toBe("0px");
-  const headRow = probe("ruled-head").parentElement;
+// 추이 — 좌표는 소비처가 두 곳(점의 --louis-document-trend-x/y · polyline points)에 같은 숫자로 적는다(document.md Known deviations 8).
+test("추이 — 선은 aria-hidden 인 2 두께 강조색이고, 점이 선의 꼭짓점에 선다", () => {
+  const canvas = probe("trend-canvas");
+  expect(canvas.getAttribute("aria-hidden")).toBe("true");
+  const path = probe("trend-path") as unknown as SVGPolylineElement;
+  const line = getComputedStyle(path);
+  expect(line.strokeWidth).toBe("2px");
+  expect(line.vectorEffect).toBe("non-scaling-stroke");
+  expect(line.fill).toBe("none");
+  expect(composite(line.stroke)).toEqual(composite(token("--louis-color-accent-primary")));
+  const plot = probe("trend-plot");
+  expect(plot.getBoundingClientRect().height).toBe(160);
+  expect(getComputedStyle(plot).boxShadow).toContain("inset");
+  // 선이 실제로 그려진 화면 좌표(뒤집기 포함)와 점 표식의 중심이 같다.
+  const matrix = path.getScreenCTM();
+  if (matrix === null) throw new Error("선의 화면 좌표를 얻지 못했습니다");
+  const vertices = [...path.points].map((point) => {
+    const drawn = new DOMPoint(point.x, point.y).matrixTransform(matrix);
+    return [drawn.x, drawn.y] as const;
+  });
+  const box = plot.getBoundingClientRect();
+  for (const name of ["trend-first", "trend-hidden", "trend-marked", "trend-last"]) {
+    const point = probe(name);
+    const style = getComputedStyle(point);
+    const x = box.left + (box.width * Number.parseFloat(style.getPropertyValue("--louis-document-trend-x"))) / 100;
+    const y = box.bottom - (box.height * Number.parseFloat(style.getPropertyValue("--louis-document-trend-y"))) / 100;
+    const hit = vertices.some(([vx, vy]) => Math.abs(vx - x) <= 0.5 && Math.abs(vy - y) <= 0.5);
+    expect(hit, `${name} 이 선의 꼭짓점에 없다`).toBe(true);
+    const dot = getComputedStyle(point, "::before");
+    expect(dot.width, name).toBe("8px");
+    expect(composite(dot.backgroundColor), name).toEqual(composite(token("--louis-color-accent-primary")));
+  }
+});
+
+test("추이 — 라벨은 처음 · 끝 · data-label 점만 보이고, 처음은 시작선 · 끝은 끝선에 맞는다", () => {
+  const plot = probe("trend-plot").getBoundingClientRect();
+  const part = (name: string, kind: "value" | "when"): HTMLElement => {
+    const element = probe(name).querySelector<HTMLElement>(`.louis-document-trend__${kind}`);
+    if (element === null) throw new Error(`${name} 의 ${kind} 가 없다`);
+    return element;
+  };
+  for (const name of ["trend-first", "trend-marked", "trend-last"]) {
+    expect(getComputedStyle(part(name, "value")).clipPath, name).toBe("none");
+    expect(getComputedStyle(part(name, "when")).clipPath, name).toBe("none");
+  }
+  // 가운데 점의 라벨은 화면에서만 숨는다 — 글은 남는다.
+  const hidden = part("trend-hidden", "value");
+  expect(getComputedStyle(hidden).clipPath).toBe("inset(50%)");
+  expect(hidden.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+  expect(probe("trend-hidden").textContent?.replace(/\s+/g, " ").trim()).toBe("2월 60");
+  // 처음 · 끝 라벨이 좌표 상자 밖으로 나가지 않는다.
+  expect(part("trend-first", "when").getBoundingClientRect().left).toBeCloseTo(plot.left, 0);
+  expect(part("trend-first", "value").getBoundingClientRect().left).toBeCloseTo(plot.left, 0);
+  expect(part("trend-last", "when").getBoundingClientRect().right).toBeCloseTo(plot.right, 0);
+  expect(part("trend-last", "value").getBoundingClientRect().right).toBeCloseTo(plot.right, 0);
+  // 값은 점 위에, 시점은 바닥 선 아래에 선다(사이 8).
+  const marked = probe("trend-marked");
+  const markedY = plot.bottom - (plot.height * Number.parseFloat(getComputedStyle(marked).getPropertyValue("--louis-document-trend-y"))) / 100;
+  expect(part("trend-marked", "value").getBoundingClientRect().bottom).toBeCloseTo(markedY - 8, 0);
+  expect(part("trend-marked", "when").getBoundingClientRect().top).toBeCloseTo(plot.bottom + 8, 0);
+  // 맨 위 점의 값 라벨이 추이 상자 안에 든다 — 위 여백이 라벨 한 줄 + 8 이다.
+  const trend = probe("trend").getBoundingClientRect();
+  expect(part("trend-last", "value").getBoundingClientRect().top).toBeGreaterThanOrEqual(trend.top - 0.5);
+  expect(part("trend-first", "when").getBoundingClientRect().bottom).toBeLessThanOrEqual(trend.bottom + 0.5);
+});
+
+test("캡처 — 카드 폭을 채우고 비율을 지키며, 캡처를 실은 카드는 면이 한 단 짙다", () => {
+  const media = probe("media");
+  const card = probe("media-card");
+  const cardStyle = getComputedStyle(card);
+  const inner = card.getBoundingClientRect().width - Number.parseFloat(cardStyle.paddingLeft) - Number.parseFloat(cardStyle.paddingRight);
+  const box = media.getBoundingClientRect();
+  expect(box.width).toBeCloseTo(inner, 0);
+  expect(box.width / box.height).toBeCloseTo(1.6, 2);
+  expect(getComputedStyle(media).borderRadius).toBe(token("--louis-radius-card"));
+  expect(getComputedStyle(media).display).toBe("block");
+});
+
+for (const theme of THEMES) {
+  test(`캡처 카드의 면 — ${theme} 에서 잉크 8% 이고 여느 카드(4%)보다 한 단 짙다`, () => {
+    document.documentElement.setAttribute("data-theme", theme);
+    const sheet = getComputedStyle(probe("sheet")).backgroundColor;
+    const bare = composite(sheet);
+    const strong = on(sheet, getComputedStyle(probe("media-card")).backgroundColor);
+    // 칩(흐름 라벨)과 같은 면 — `--louis-document-face-strong`(잉크 8%)이다.
+    expect(strong).toEqual(on(sheet, getComputedStyle(probe("flow-label")).backgroundColor));
+    const plain = on(sheet, getComputedStyle(probe("card")).backgroundColor);
+    const shift = (rgb: Rgb): number => Math.abs(luminance(rgb) - luminance(bare));
+    expect(shift(strong)).toBeGreaterThan(shift(plain));
+  });
+}
+
+test("나란히 보기 — 두 열 · 간격 8, 라벨은 14/500 fg-tertiary", () => {
+  const compare = getComputedStyle(probe("compare"));
+  expect(compare.gridTemplateColumns.split(" ").length).toBe(2);
+  expect(compare.columnGap).toBe("8px");
+  const label = getComputedStyle(probe("compare-label"));
+  expect(label.fontSize).toBe("14px");
+  expect(label.fontWeight).toBe("500");
+  expect(composite(label.color)).toEqual(composite(token("--louis-color-fg-tertiary")));
+  const media = probe("compare-media").getBoundingClientRect();
+  expect(media.height / media.width).toBeCloseTo(2, 2);
+});
+
+// 문서의 표는 LOUIS 기본 표 그대로다(2026-09-29 소유자 결정 — 문서용 규선 변형을 걷어냈다). 문서는 열 폭 정책만 정한다.
+test("표 — 문서 안에서도 LOUIS 기본 표다: 머리 면 · 헤어라인 · 머리 12 · 셀 8", () => {
+  const table = probe("table");
+  expect(table.dataset.variant).toBeUndefined();
+  const head = getComputedStyle(probe("table-head"));
+  expect(composite(head.backgroundColor)).toEqual(composite(token("--louis-color-table-header-surface")));
+  expect(head.fontSize).toBe("12px");
+  expect(head.paddingTop).toBe("4px");
+  expect(head.paddingLeft).toBe("8px");
+  const headRow = probe("table-head").parentElement;
   if (headRow === null) throw new Error("머리 행을 찾지 못했습니다");
-  expect(getComputedStyle(headRow).boxShadow).toBe("none");
+  expect(getComputedStyle(headRow).boxShadow).toContain("inset");
   const cell = getComputedStyle(probe("plain-cell"));
-  expect(composite(cell.borderBottomColor)).toEqual(composite(token("--louis-color-stroke-hairline")));
-  expect(composite(cell.color)).toEqual(composite(token("--louis-color-fg-secondary")));
-  // 마지막 행 아래에는 선이 없다 — 표 아래는 본문의 여백이다.
+  expect(cell.paddingTop).toBe("8px");
+  expect(cell.paddingLeft).toBe("8px");
+  expect(cell.fontSize).toBe("14px");
+  expect(composite(cell.borderBottomColor)).toEqual(composite(token("--louis-color-table-row-line")));
+  expect(composite(cell.color)).toEqual(composite(token("--louis-color-fg-primary")));
+  // 마지막 행 아래에는 선이 없다.
   expect(getComputedStyle(probe("last-cell")).borderBottomWidth).toBe("0px");
-  // 행 머리는 몸 칸과 같다 — 브라우저 기본값(굵게 · 가운데)이 새지 않는다.
+  // 문서는 소비처로서 열 폭 정책만 정한다 — 내용이 폭을 정한다. 문서 밖의 표는 기본값(fixed)을 지킨다.
+  expect(getComputedStyle(table).tableLayout).toBe("auto");
+  const plain = document.createElement("table");
+  plain.className = "louis-table";
+  plain.innerHTML = '<thead><tr><th scope="col">이름</th></tr></thead><tbody><tr><td>가</td></tr></tbody>';
+  host.append(plain);
+  expect(getComputedStyle(plain).tableLayout).toBe("fixed");
+});
+
+test("표 — 행 머리는 몸 칸과 같고 셀 강조 둘이 선다", () => {
+  // 행 머리(`th scope="row"`)가 몸 칸 규칙을 받는다 — 브라우저 기본값(굵게 · 가운데)이 새지 않는다.
   const rowHead = getComputedStyle(probe("row-head"));
+  const cell = getComputedStyle(probe("plain-cell"));
   expect(rowHead.fontWeight).toBe("400");
   expect(rowHead.textAlign).toBe("start");
-  expect(rowHead.paddingLeft).toBe("0px");
-  // 셀 강조
+  expect(rowHead.paddingLeft).toBe(cell.paddingLeft);
+  expect(rowHead.borderBottomWidth).toBe(cell.borderBottomWidth);
+  expect(rowHead.color).toBe(cell.color);
+  // 셀 강조 — 합계는 잉크 한 단 · semibold, 앞선 값은 초록 · semibold.
   const total = getComputedStyle(probe("total-cell"));
   expect(total.fontWeight).toBe("600");
-  expect(total.paddingRight).toBe("0px");
   expect(composite(total.color)).toEqual(composite(token("--louis-color-fg-primary")));
   const lead = getComputedStyle(probe("lead-cell"));
   expect(lead.fontWeight).toBe("600");
   expect(composite(lead.color)).toEqual(composite(token("--louis-color-alert-success-stroke")));
   expect(lead.textAlign).toBe("end");
-  // 정렬 값 둘이 몸 칸에서도 머리 칸과 같다 — 몸 칸의 `text-align: start` 가 기본 정렬 규칙을 이긴다.
+  // 정렬 값 둘이 몸 칸(행 머리 포함)에서도 머리 칸과 같다 — 몸 칸의 `text-align: start` 가 정렬 규칙을 이기지 않는다.
   const aligned = document.createElement("table");
   aligned.className = "louis-table";
-  aligned.dataset.variant = "ruled";
   aligned.innerHTML =
     '<thead><tr><th scope="col">이름</th><th scope="col" data-align="center">가운데</th><th scope="col" data-align="end">끝</th></tr></thead>' +
-    '<tbody><tr><th scope="row">가</th><td data-align="center">1</td><td data-align="end">2</td></tr></tbody>';
+    '<tbody><tr><th scope="row" data-align="end">가</th><td data-align="center">1</td><td data-align="end">2</td></tr></tbody>';
   host.append(aligned);
   for (const align of ["center", "end"]) {
     for (const cell of aligned.querySelectorAll<HTMLElement>(`[data-align="${align}"]`)) {
       expect(getComputedStyle(cell).textAlign, `${cell.tagName} ${align}`).toBe(align);
     }
   }
-});
-
-test("변형이 없는 표는 그대로다 — 머리 면과 헤어라인을 유지한다", () => {
-  const plain = document.createElement("table");
-  plain.className = "louis-table";
-  plain.innerHTML = '<thead><tr><th scope="col">이름</th></tr></thead><tbody><tr><td>가</td></tr></tbody>';
-  host.append(plain);
-  const cell = plain.querySelector("th");
-  const row = plain.querySelector("thead > tr");
-  if (cell === null || row === null) throw new Error("표 머리를 찾지 못했습니다");
-  const th = getComputedStyle(cell);
-  expect(composite(th.backgroundColor)).toEqual(composite(token("--louis-color-table-header-surface")));
-  expect(getComputedStyle(row).boxShadow).toContain("inset");
-  expect(getComputedStyle(plain).tableLayout).toBe("fixed");
 });
 
 test("좁은 화면(≤719) — 시트가 화면이 되고 글자가 한 단씩 내려가며 4열만 2열로 남는다", async () => {
@@ -445,7 +575,10 @@ test("좁은 화면(≤719) — 시트가 화면이 되고 글자가 한 단씩 
     probe("card").getBoundingClientRect().left + Number.parseFloat(getComputedStyle(probe("card")).paddingLeft);
   expect(probe("nested-stat").getBoundingClientRect().left).toBeCloseTo(cardTextStart, 1);
   expect(split.gridTemplateColumns.split(" ").length).toBe(1);
-  expect(getComputedStyle(probe("ruled-head")).fontSize).toBe("12px");
+  // 표 머리는 좁은 화면에서도 12 다 — 기본 표는 크기 축이 없다.
+  expect(getComputedStyle(probe("table-head")).fontSize).toBe("12px");
+  // 나란히 보기는 좁은 화면에서도 두 열이다 — 견주는 것이 목적이다.
+  expect(columns("compare")).toBe(2);
   // 가로 스크롤이 생기지 않는다.
   expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(390);
 });
@@ -461,15 +594,16 @@ test('목록 롤 — 표식을 지운 목록은 role="list" 를 달고, 예시�
     expect(list.getAttribute("role"), list.className).toBe("list");
     recipeClasses.add(list.classList[0] ?? "");
   }
-  // 결정 · 흐름 · 격자 · 막대 · 타임라인 — 레시피의 목록 다섯이 모두 탐침에 있다.
+  // 결정 · 흐름 · 격자 · 막대 · 타임라인 · 추이의 점 — 레시피의 목록 여섯이 모두 탐침에 있다.
   expect([...recipeClasses].sort()).toEqual([
     "louis-document-bars",
     "louis-document-decision__list",
     "louis-document-flow",
     "louis-document-grid",
     "louis-document-timeline",
+    "louis-document-trend__points",
   ]);
-  // 소비자가 베끼는 예시의 목록도 전부 이 다섯 가운데 하나이고 role="list" 를 단다 — 승인본(document.html)과 부품을 전부 쓰는
+  // 소비자가 베끼는 예시의 목록도 전부 이 여섯 가운데 하나이고 role="list" 를 단다 — 승인본(document.html)과 부품을 전부 쓰는
   // 운영 보고(document-report.html) 둘 다.
   // `new URL` 의 경로는 글자 그대로 적는다 — Vite 는 글자 그대로의 `new URL("…", import.meta.url)` 만 옮겨 적고, 변수로 넘기면 풀리지 않는다.
   const examples = [

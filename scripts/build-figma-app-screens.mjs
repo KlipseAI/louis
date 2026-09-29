@@ -678,7 +678,13 @@ function dropHugSpaceBetween(spec) {
  * 되어 상자가 2 커졌다), **둘째부터는 버려졌다**(결제 결과 보드 14 장과 미리보기 12 장의 본문이 `margin-top: 108` 을 잃어 상단 바에
  * 붙었다 — 제품 h1 y 165 · 보드 64). 형제가 있는 흐름 자식이 margin 을 가지면 칠 없는 감싸개(자식 하나)로 싸서 렌더러의 「자식 하나」
  * 규칙이 감싸개 padding 으로 옮기게 한다(음수는 전과 같이 0 으로 막힌다 — 번짐). 감싸개의 크기는 축마다 자식이 FILL 이면 FILL,
- * 아니면 HUG — CSS 에서 margin 상자가 차지하는 자리다. GRID 부모는 건드리지 않는다(칸이 정한다).
+ * 아니면 HUG — CSS 에서 margin 상자가 차지하는 자리다.
+ *
+ * **GRID 부모도 감싼다(2026-09-29).** 처음에는 「칸이 정한다」며 건너뛰었는데, 렌더러는 grid 행을 내용 높이(HUG)로 깔아서 CSS 에서
+ * auto 행 높이에 들어가던 margin 이 칸에 남지 않았다. 로그인 모바일 보드의 열(grid, 자식 셋)에서 로고 링크의 `margin-bottom: 24` 는
+ * 첫 자식이라 열 전체의 아래 padding 이 되고, 버튼 · 링크 줄의 `margin-top: 8` 은 버려져, 제품 로고 y 278 · 폼 388 이 보드에서
+ * 285.5 · 371.5 가 됐다(제품 캡처와 나란히 놓아 찾았다 — 구조 대조는 통과했다). grid 칸에 서는 것은 감싸개이므로 칸 안 정렬
+ * (`gridAlign`)을 감싸개가 넘겨받고, 감싸개 안은 세로 오토 레이아웃이다 — margin 상자가 칸 안에 서는 CSS 와 같다.
  */
 function wrapSiblingMargins(spec) {
   const wrapped = [];
@@ -689,9 +695,12 @@ function wrapSiblingMargins(spec) {
   const walk = (node) => {
     if (node.instance) return;
     const children = node.children ?? [];
-    if (node.layout && node.layout.layoutMode !== "GRID" && flowChildren(node).length >= 2) {
+    const grid = node.layout?.layoutMode === "GRID";
+    if (node.layout && flowChildren(node).length >= 2) {
       node.children = children.map((child) => {
         if (child.positioning === "ABSOLUTE" || !hasMargin(child)) return child;
+        const gridAlign = grid ? child.gridAlign ?? null : null;
+        if (grid) delete child.gridAlign;
         const out = Object.fromEntries(SIDES.map((side) => [side, Math.max(0, child.margin[side] ?? 0)]));
         const bleed = Object.fromEntries(SIDES.map((side) => [side, Math.min(0, child.margin[side] ?? 0)]));
         wrapped.push({ path: child.path, margin: SIDES.map((side) => child.margin[side] ?? 0) });
@@ -711,9 +720,10 @@ function wrapSiblingMargins(spec) {
           margin: bleed, offset: null, constraints: null,
           why: { horizontal: { verdict: sizing.layoutSizingHorizontal, reason }, vertical: { verdict: sizing.layoutSizingVertical, reason } },
           // 방향과 교차축 정렬은 부모를 따른다 — 최대 폭에 닿은 FILL 자식(결제 결과 본문 520)이 부모의 CENTER 로 가운데 서던 것을
-          // 감싸개 안에서도 그대로 받게.
-          layout: { layoutMode: node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
-            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: node.layout.align?.counterAxis ?? null, primaryAxis: null } },
+          // 감싸개 안에서도 그대로 받게. grid 부모의 감싸개는 세로 오토 레이아웃이고 칸 안 정렬을 넘겨받는다(위 주석).
+          ...(gridAlign ? { gridAlign } : {}),
+          layout: { layoutMode: grid ? "VERTICAL" : node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
+            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : node.layout.align?.counterAxis ?? null, primaryAxis: null } },
           clipsContent: false,
           children: [child],
         };

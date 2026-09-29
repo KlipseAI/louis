@@ -232,6 +232,16 @@ const preloadVariants = async (spec) => {
 // 크기가 다른 grid 열을 걸지 못한 자리 — 결과로 돌려준다(조용히 균등 열로 남기지 않는다).
 const gridTrackFailures = [];
 
+// **절대 배치는 트리를 다 지은 뒤 측정 크기 · 자리를 한 번 더 건다(2026-09-30).** 부모가 HUG 로 잠시 줄었다가 최소 높이로 돌아오는
+// 동안 늘이기 제약(STRETCH)이 걸린 절대 자식의 크기가 틀어졌다 — 랜딩 후기 밴드의 배경 사진이 1920×800 대신 1920×106 으로 섰다.
+const pendingAbsolute = [];
+const settleAbsolute = () => {
+  for (const [node, size, offset] of pendingAbsolute) {
+    try { node.resize(Math.max(0.01, size[0]), Math.max(0.01, size[1])); } catch (error) {}
+    if (offset) { try { node.x = offset[0]; node.y = offset[1]; } catch (error) {} }
+  }
+  pendingAbsolute.length = 0;
+};
 // 텍스트 스타일 적용은 비동기다. 트리를 다 만든 뒤 한 번에 건다.
 const pendingTextStyles = [];
 // 글자 안의 범위 서식(`xr`)은 텍스트 스타일을 건 **뒤에** 건다 — 스타일이 글자 전체의 글꼴을 다시 쓰기 때문이다.
@@ -296,7 +306,13 @@ const buildNode = (spec, parent) => {
     }
   } else if (spec.im) {
     node = imageCache.get(spec.im[0]).createInstance();
-    node.rescale(Math.max(0.01, spec.r[0]) / node.width);
+    // 사진(`image/` — 이미지 채움 FILL = object-cover)은 측정 상자 그대로다. 로고 · 타일 · 아이콘은 비율을 지켜 폭으로 줄인다.
+    if (spec.im[1].startsWith("image/")) {
+      try { node.constrainProportions = false; } catch (error) {}
+      node.resize(Math.max(0.01, spec.r[0]), Math.max(0.01, spec.r[1]));
+    } else {
+      node.rescale(Math.max(0.01, spec.r[0]) / node.width);
+    }
   } else {
     node = figma.createFrame();
     node.fills = [];
@@ -394,6 +410,7 @@ const buildNode = (spec, parent) => {
     node.resize(Math.max(0.01, spec.r[0]), Math.max(0.01, spec.r[1]));
   }
   if (isAbsolute && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
+  if (isAbsolute && !isText) pendingAbsolute.push([node, spec.r, spec.o]);
 
   if (!isAbsolute) {
     const selfAuto = "layoutMode" in node && node.layoutMode && node.layoutMode !== "NONE";
@@ -598,6 +615,7 @@ if (P.head) {
   // 측정 테마의 모드를 화면 루트에 고정한다 — 파일 기본 모드가 바뀌어도 보드가 측정과 같은 색으로 풀린다.
   live.pin(root);
   await flushTextStyles();
+  settleAbsolute();
   // 글자 속성 부품: 세트에 TEXT 속성을 열고 글자 노드를 묶는다(빌더 PARTS 의 label).
   if (P.label) {
     const set = frame.parent, text = root.findOne((n) => n.type === "TEXT"), defs = set.componentPropertyDefinitions;
@@ -632,6 +650,7 @@ if (P.head) {
     replaced.push(built.name);
   }
   await flushTextStyles();
+  settleAbsolute();
   result = { chunk: slots.map((slot) => slot.path.join(".")).join(" "), replaced: replaced.join(" · ") };
 }
 

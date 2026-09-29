@@ -26,6 +26,9 @@ export function isVisible(node) {
   if (style.display === "none") return false;
   if (style.visibility === "hidden") return false;
   if (Number(style.opacity ?? 1) === 0) return false;
+  // **화면에서 숨긴 스크린리더 전용 요소(2026-09-30).** `sr-only`(1×1 · overflow hidden · clip)는 보조 기술만 읽는다 — 옮기면 1px 폭
+  // 글자 상자가 되어 한 글자씩 세로로 늘어섰다(랜딩 후기 밴드의 「“ Klipse reviews ”」).
+  if (node.rect.width <= 1 && node.rect.height <= 1 && /hidden|clip/.test(`${style.overflow ?? ""} ${style.overflowX ?? ""}`)) return false;
   return node.rect.width > 0 && node.rect.height > 0;
 }
 

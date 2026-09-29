@@ -99208,6 +99208,10 @@
             "tag": "p",
             "role": "status",
             "ownText": "Credit top-up is not available on the Trial plan. Subscribe to a paid plan to purchase additional credits.",
+            "wrapLines": [
+              "Credit top-up is not available on the Trial plan. Subscribe to a paid plan to purchase additional",
+              "credits."
+            ],
             "rect": {
               "x": 1229.9844,
               "y": 592.5938,
@@ -102087,6 +102091,10 @@
                 "tag": "p",
                 "id": "yt-analytics-plan-gate-title-description",
                 "ownText": "This feature is available on the Plus plan or higher.",
+                "wrapLines": [
+                  "This feature is available on the Plus plan or",
+                  "higher."
+                ],
                 "rect": {
                   "x": 796,
                   "y": 512,
@@ -104794,6 +104802,10 @@
                 "tag": "p",
                 "id": "yt-analytics-plan-gate-title-description",
                 "ownText": "This feature is available on the Plus plan or higher.",
+                "wrapLines": [
+                  "This feature is available on the Plus plan or",
+                  "higher."
+                ],
                 "rect": {
                   "x": 796,
                   "y": 512,
@@ -112268,6 +112280,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+            "wrapLines": [
+              "Monthly billed plans are available for one month from each billing date.",
+              "After that, payment renews automatically on the same billing date each month."
+            ],
             "rect": {
               "x": 430,
               "y": 219.5938,
@@ -112919,6 +112935,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.4",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos up to 10",
+              "min"
+            ],
             "rect": {
               "x": 472,
               "y": 655.1875,
@@ -113144,6 +113164,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "strong",
             "ownText": "12,900 KRW",
+            "wrapLines": [
+              "12,900",
+              "KRW"
+            ],
             "rect": {
               "x": 706.7969,
               "y": 403.5938,
@@ -113165,6 +113189,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 873.7969,
               "y": 448.7813,
@@ -113411,6 +113439,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.1",
             "tag": "span",
             "ownText": "3 Composition uploads, 3 imports",
+            "wrapLines": [
+              "3 Composition uploads, 3",
+              "imports"
+            ],
             "rect": {
               "x": 732.7969,
               "y": 625.7813,
@@ -113683,6 +113715,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.5",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos up to 10",
+              "min"
+            ],
             "rect": {
               "x": 732.7969,
               "y": 749.7813,
@@ -113976,6 +114012,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.1",
             "tag": "strong",
             "ownText": "29,900 KRW",
+            "wrapLines": [
+              "29,900",
+              "KRW"
+            ],
             "rect": {
               "x": 967.5938,
               "y": 403.5938,
@@ -113997,6 +114037,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1135.7031,
               "y": 448.7813,
@@ -114243,6 +114287,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.1",
             "tag": "span",
             "ownText": "5 Composition uploads, 5 imports",
+            "wrapLines": [
+              "5 Composition uploads, 5",
+              "imports"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 625.7813,
@@ -114447,6 +114495,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.4",
             "tag": "span",
             "ownText": "YouTube/Instagram upload, schedule & analytics",
+            "wrapLines": [
+              "YouTube/Instagram upload,",
+              "schedule & analytics"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 723.7813,
@@ -114583,6 +114635,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.6",
             "tag": "span",
             "ownText": "Highlight input videos up to 30 min",
+            "wrapLines": [
+              "Highlight input videos up to 30",
+              "min"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 795.7813,
@@ -114876,6 +114932,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.1",
             "tag": "strong",
             "ownText": "49,900 KRW",
+            "wrapLines": [
+              "49,900",
+              "KRW"
+            ],
             "rect": {
               "x": 1228.3906,
               "y": 403.5938,
@@ -114897,6 +114957,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1396.8281,
               "y": 448.7813,
@@ -115143,6 +115207,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.4.1",
             "tag": "span",
             "ownText": "7 Composition uploads, 7 imports",
+            "wrapLines": [
+              "7 Composition uploads, 7",
+              "imports"
+            ],
             "rect": {
               "x": 1254.3906,
               "y": 625.7813,
@@ -115211,6 +115279,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.4.2",
             "tag": "span",
             "ownText": "Highlight input videos up to 120 min",
+            "wrapLines": [
+              "Highlight input videos up to 120",
+              "min"
+            ],
             "rect": {
               "x": 1254.3906,
               "y": 671.7813,
@@ -115504,6 +115576,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.1",
             "tag": "strong",
             "ownText": "74,900 KRW",
+            "wrapLines": [
+              "74,900",
+              "KRW"
+            ],
             "rect": {
               "x": 1489.1875,
               "y": 403.5938,
@@ -115525,6 +115601,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1656.7656,
               "y": 448.7813,
@@ -115771,6 +115851,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.4.1",
             "tag": "span",
             "ownText": "10 Composition uploads, 10 imports",
+            "wrapLines": [
+              "10 Composition uploads, 10",
+              "imports"
+            ],
             "rect": {
               "x": 1515.1875,
               "y": 625.7813,
@@ -118711,6 +118795,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+            "wrapLines": [
+              "Monthly billed plans are available for one month from each billing date.",
+              "After that, payment renews automatically on the same billing date each month."
+            ],
             "rect": {
               "x": 430,
               "y": 219.5938,
@@ -119362,6 +119450,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.4",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos up to 10",
+              "min"
+            ],
             "rect": {
               "x": 472,
               "y": 655.1875,
@@ -119587,6 +119679,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "strong",
             "ownText": "12,900 KRW",
+            "wrapLines": [
+              "12,900",
+              "KRW"
+            ],
             "rect": {
               "x": 706.7969,
               "y": 403.5938,
@@ -119608,6 +119704,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 873.7969,
               "y": 448.7813,
@@ -119854,6 +119954,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.1",
             "tag": "span",
             "ownText": "3 Composition uploads, 3 imports",
+            "wrapLines": [
+              "3 Composition uploads, 3",
+              "imports"
+            ],
             "rect": {
               "x": 732.7969,
               "y": 625.7813,
@@ -120126,6 +120230,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.5",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos up to 10",
+              "min"
+            ],
             "rect": {
               "x": 732.7969,
               "y": 749.7813,
@@ -120419,6 +120527,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.1",
             "tag": "strong",
             "ownText": "29,900 KRW",
+            "wrapLines": [
+              "29,900",
+              "KRW"
+            ],
             "rect": {
               "x": 967.5938,
               "y": 403.5938,
@@ -120440,6 +120552,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1135.7031,
               "y": 448.7813,
@@ -120686,6 +120802,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.1",
             "tag": "span",
             "ownText": "5 Composition uploads, 5 imports",
+            "wrapLines": [
+              "5 Composition uploads, 5",
+              "imports"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 625.7813,
@@ -120890,6 +121010,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.4",
             "tag": "span",
             "ownText": "YouTube/Instagram upload, schedule & analytics",
+            "wrapLines": [
+              "YouTube/Instagram upload,",
+              "schedule & analytics"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 723.7813,
@@ -121026,6 +121150,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.2.4.6",
             "tag": "span",
             "ownText": "Highlight input videos up to 30 min",
+            "wrapLines": [
+              "Highlight input videos up to 30",
+              "min"
+            ],
             "rect": {
               "x": 993.5938,
               "y": 795.7813,
@@ -121319,6 +121447,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.1",
             "tag": "strong",
             "ownText": "49,900 KRW",
+            "wrapLines": [
+              "49,900",
+              "KRW"
+            ],
             "rect": {
               "x": 1228.3906,
               "y": 403.5938,
@@ -121340,6 +121472,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1396.8281,
               "y": 448.7813,
@@ -121586,6 +121722,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.4.1",
             "tag": "span",
             "ownText": "7 Composition uploads, 7 imports",
+            "wrapLines": [
+              "7 Composition uploads, 7",
+              "imports"
+            ],
             "rect": {
               "x": 1254.3906,
               "y": 625.7813,
@@ -121654,6 +121794,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.3.4.2",
             "tag": "span",
             "ownText": "Highlight input videos up to 120 min",
+            "wrapLines": [
+              "Highlight input videos up to 120",
+              "min"
+            ],
             "rect": {
               "x": 1254.3906,
               "y": 671.7813,
@@ -121947,6 +122091,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.1",
             "tag": "strong",
             "ownText": "74,900 KRW",
+            "wrapLines": [
+              "74,900",
+              "KRW"
+            ],
             "rect": {
               "x": 1489.1875,
               "y": 403.5938,
@@ -121968,6 +122116,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 1656.7656,
               "y": 448.7813,
@@ -122214,6 +122366,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.4.4.1",
             "tag": "span",
             "ownText": "10 Composition uploads, 10 imports",
+            "wrapLines": [
+              "10 Composition uploads, 10",
+              "imports"
+            ],
             "rect": {
               "x": 1515.1875,
               "y": 625.7813,
@@ -124728,6 +124884,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed, but plan",
+              "update delayed"
+            ],
             "rect": {
               "x": 816,
               "y": 165,
@@ -127116,6 +127276,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+            "wrapLines": [
+              "The payment was cancelled or an error occurred during checkout.",
+              "Your plan was not changed, and no subscription payment was",
+              "completed."
+            ],
             "rect": {
               "x": 816,
               "y": 237.5938,
@@ -129552,6 +129717,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed, but plan",
+              "update delayed"
+            ],
             "rect": {
               "x": 816,
               "y": 165,
@@ -134265,6 +134434,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+            "wrapLines": [
+              "The payment was cancelled or an error occurred during checkout.",
+              "Your plan was not changed, and no subscription payment was",
+              "completed."
+            ],
             "rect": {
               "x": 816,
               "y": 237.5938,
@@ -136766,6 +136940,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but credit top-up delayed",
+            "wrapLines": [
+              "Payment confirmed, but credit",
+              "top-up delayed"
+            ],
             "rect": {
               "x": 816,
               "y": 165,
@@ -141499,6 +141677,10 @@
             "parentPath": "body.1.0.0.1.0.1.0.0",
             "tag": "span",
             "ownText": "If the payment went through, you'll find the coupons in coupon management. Contact support if this keeps happening.",
+            "wrapLines": [
+              "If the payment went through, you'll find the coupons in coupon management. Contact support if this keeps",
+              "happening."
+            ],
             "rect": {
               "x": 400,
               "y": 124.7969,
@@ -146908,6 +147090,7 @@
             "tag": "input",
             "ariaLabel": "Quantity",
             "inputType": "text",
+            "value": "1",
             "rect": {
               "x": 1622,
               "y": 427.8906,
@@ -147502,6 +147685,10 @@
             "parentPath": "body.1.0.0.1.0.1.1.2.5.1.1.0",
             "tag": "span",
             "ownText": "I agree to the terms below and to automatic subscription renewal with the registered card.",
+            "wrapLines": [
+              "I agree to the terms below and to automatic subscription renewal with the",
+              "registered card."
+            ],
             "rect": {
               "x": 1285.3906,
               "y": 849.3906,
@@ -152920,6 +153107,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed, but plan",
+              "update delayed"
+            ],
             "rect": {
               "x": 816,
               "y": 165,
@@ -152941,6 +153132,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "Your payment was processed successfully. Your plan update may take a few minutes. Please refresh the page or contact support if your plan does not update.",
+            "wrapLines": [
+              "Your payment was processed successfully. Your plan update may take a",
+              "few minutes. Please refresh the page or contact support if your plan does",
+              "not update."
+            ],
             "rect": {
               "x": 816,
               "y": 286.1875,
@@ -158245,6 +158441,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "10,000 credits have been added.",
+            "wrapLines": [
+              "10,000 credits have been",
+              "added."
+            ],
             "rect": {
               "x": 816,
               "y": 165,
@@ -160957,6 +161157,10 @@
             "parentPath": "body.1.0.0.1.0.1.0",
             "tag": "p",
             "ownText": "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one.",
+            "wrapLines": [
+              "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day",
+              "they redeem one."
+            ],
             "rect": {
               "x": 400,
               "y": 227.7969,
@@ -164096,6 +164300,10 @@
             "parentPath": "body.1.0.0.1.0.1.0",
             "tag": "p",
             "ownText": "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one.",
+            "wrapLines": [
+              "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day",
+              "they redeem one."
+            ],
             "rect": {
               "x": 400,
               "y": 227.7969,
@@ -164161,6 +164369,10 @@
             "parentPath": "body.1.0.0.1.0.1.0.3",
             "tag": "span",
             "ownText": "The payment went through. Please refresh this page. Issuing can only be retried from here — if the problem persists, keep this page open and contact support.",
+            "wrapLines": [
+              "The payment went through. Please refresh this page. Issuing can only be retried from here — if the problem",
+              "persists, keep this page open and contact support."
+            ],
             "rect": {
               "x": 400,
               "y": 339.7969,
@@ -174071,6 +174283,10 @@
             "parentPath": "body.1.0.0.1.0.1.0.1.1",
             "tag": "span",
             "ownText": "Uploaded source videos are kept for 30 days. After that, clips can no longer be re-extracted.",
+            "wrapLines": [
+              "Uploaded source videos are kept for 30 days.",
+              "After that, clips can no longer be re-extracted."
+            ],
             "rect": {
               "x": 958.2031,
               "y": 205,
@@ -184434,6 +184650,11 @@
             "parentPath": "body.1.0.0.1.0.1.6.0",
             "tag": "span",
             "ownText": "Recurring billing settings become available after upgrading from Trial.",
+            "wrapLines": [
+              "Recurring billing settings",
+              "become available after",
+              "upgrading from Trial."
+            ],
             "rect": {
               "x": 6,
               "y": 496.5938,
@@ -186801,6 +187022,10 @@
             "parentPath": "body.1.0.0.1.0.1.1.0.0.0",
             "tag": "span",
             "ownText": "Your plan and credits cannot be displayed accurately. Please try again shortly.",
+            "wrapLines": [
+              "Your plan and credits cannot be displayed accurately. Please try",
+              "again shortly."
+            ],
             "rect": {
               "x": 22,
               "y": 174.5938,
@@ -187408,6 +187633,10 @@
             "tag": "p",
             "role": "status",
             "ownText": "Credit top-up is not available on the Trial plan. Subscribe to a paid plan to purchase additional credits.",
+            "wrapLines": [
+              "Credit top-up is not available on the Trial plan. Subscribe to a paid",
+              "plan to purchase additional credits."
+            ],
             "rect": {
               "x": 22,
               "y": 648.7813,
@@ -188691,6 +188920,13 @@
             "parentPath": "body.1.0.0.1.0.0.2.0",
             "tag": "p",
             "ownText": "After you connect YouTube,\nyou can view analytics and upload from Klipse.",
+            "wrapLines": [
+              "After you connect",
+              "YouTube,",
+              "you can view",
+              "analytics and upload",
+              "from Klipse."
+            ],
             "rect": {
               "x": 26,
               "y": 251.5156,
@@ -188712,6 +188948,10 @@
             "parentPath": "body.1.0.0.1.0.0.2.0",
             "tag": "p",
             "ownText": "Connect your Google account to view YouTube analytics.",
+            "wrapLines": [
+              "Connect your Google account to view YouTube",
+              "analytics."
+            ],
             "rect": {
               "x": 26,
               "y": 506.4844,
@@ -188819,6 +189059,10 @@
                 "tag": "p",
                 "id": "yt-analytics-plan-gate-title-description",
                 "ownText": "This feature is available on the Plus plan or higher.",
+                "wrapLines": [
+                  "This feature is available on the Plus plan or",
+                  "higher."
+                ],
                 "rect": {
                   "x": 37,
                   "y": 409,
@@ -189999,6 +190243,13 @@
             "parentPath": "body.1.0.0.1.0.0.2.0",
             "tag": "p",
             "ownText": "After you connect YouTube,\nyou can view analytics and upload from Klipse.",
+            "wrapLines": [
+              "After you connect",
+              "YouTube,",
+              "you can view",
+              "analytics and upload",
+              "from Klipse."
+            ],
             "rect": {
               "x": 26,
               "y": 251.5156,
@@ -190020,6 +190271,10 @@
             "parentPath": "body.1.0.0.1.0.0.2.0",
             "tag": "p",
             "ownText": "Connect your Google account to view YouTube analytics.",
+            "wrapLines": [
+              "Connect your Google account to view YouTube",
+              "analytics."
+            ],
             "rect": {
               "x": 26,
               "y": 506.4844,
@@ -190127,6 +190382,10 @@
                 "tag": "p",
                 "id": "yt-analytics-plan-gate-title-description",
                 "ownText": "This feature is available on the Plus plan or higher.",
+                "wrapLines": [
+                  "This feature is available on the Plus plan or",
+                  "higher."
+                ],
                 "rect": {
                   "x": 37,
                   "y": 409,
@@ -191930,6 +192189,11 @@
             "parentPath": "body.1.0.0.1.0.1.6.0",
             "tag": "span",
             "ownText": "Recurring billing settings become available after upgrading from Trial.",
+            "wrapLines": [
+              "Recurring billing settings",
+              "become available after",
+              "upgrading from Trial."
+            ],
             "rect": {
               "x": 6,
               "y": 496.5938,
@@ -194436,6 +194700,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
+            "wrapLines": [
+              "All plans on sale to mark the Lite launch (2026.09.01 -",
+              "09.30)"
+            ],
             "rect": {
               "x": 6,
               "y": 73,
@@ -194485,6 +194753,10 @@
             "tag": "h2",
             "id": "upgrade-plan-title",
             "ownText": "Start free, upgrade or cancel anytime.",
+            "wrapLines": [
+              "Start free, upgrade",
+              "or cancel anytime."
+            ],
             "rect": {
               "x": 6,
               "y": 129,
@@ -194506,6 +194778,12 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+            "wrapLines": [
+              "Monthly billed plans are available for",
+              "one month from each billing date.",
+              "After that, payment renews automatically on the same billing",
+              "date each month."
+            ],
             "rect": {
               "x": 6,
               "y": 244.1875,
@@ -194794,6 +195072,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0",
             "tag": "p",
             "ownText": "Core features for trying Klipse",
+            "wrapLines": [
+              "Core features for trying",
+              "Klipse"
+            ],
             "rect": {
               "x": 18,
               "y": 567.9844,
@@ -194953,6 +195235,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.1",
             "tag": "span",
             "ownText": "1 Composition upload, 2 imports",
+            "wrapLines": [
+              "1 Composition upload,",
+              "2 imports"
+            ],
             "rect": {
               "x": 44,
               "y": 643.9844,
@@ -195021,6 +195307,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.2",
             "tag": "span",
             "ownText": "AI video generation trial",
+            "wrapLines": [
+              "AI video generation",
+              "trial"
+            ],
             "rect": {
               "x": 44,
               "y": 689.9844,
@@ -195157,6 +195447,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.4",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos",
+              "up to 10 min"
+            ],
             "rect": {
               "x": 44,
               "y": 761.9844,
@@ -195332,6 +195626,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "strong",
             "ownText": "12,900 KRW",
+            "wrapLines": [
+              "12,900",
+              "KRW"
+            ],
             "rect": {
               "x": 215,
               "y": 460.1875,
@@ -195353,6 +195651,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 337.2813,
               "y": 489.7813,
@@ -195599,6 +195901,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.1",
             "tag": "span",
             "ownText": "3 Composition uploads, 3 imports",
+            "wrapLines": [
+              "3 Composition",
+              "uploads, 3 imports"
+            ],
             "rect": {
               "x": 241,
               "y": 660.7813,
@@ -195735,6 +196041,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.3",
             "tag": "span",
             "ownText": "Text/image overlay, TTS",
+            "wrapLines": [
+              "Text/image overlay,",
+              "TTS"
+            ],
             "rect": {
               "x": 241,
               "y": 732.7813,
@@ -195803,6 +196113,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.4",
             "tag": "span",
             "ownText": "YouTube/Instagram upload",
+            "wrapLines": [
+              "YouTube/Instagram",
+              "upload"
+            ],
             "rect": {
               "x": 241,
               "y": 778.7813,
@@ -195871,6 +196185,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.5",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos",
+              "up to 10 min"
+            ],
             "rect": {
               "x": 241,
               "y": 824.7813,
@@ -197120,6 +197438,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
+            "wrapLines": [
+              "All plans on sale to mark the Lite launch (2026.09.01 -",
+              "09.30)"
+            ],
             "rect": {
               "x": 6,
               "y": 73,
@@ -197169,6 +197491,10 @@
             "tag": "h2",
             "id": "upgrade-plan-title",
             "ownText": "Start free, upgrade or cancel anytime.",
+            "wrapLines": [
+              "Start free, upgrade",
+              "or cancel anytime."
+            ],
             "rect": {
               "x": 6,
               "y": 129,
@@ -197190,6 +197516,12 @@
             "parentPath": "body.1.0.0.1.0.0.1.0",
             "tag": "p",
             "ownText": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
+            "wrapLines": [
+              "Monthly billed plans are available for",
+              "one month from each billing date.",
+              "After that, payment renews automatically on the same billing",
+              "date each month."
+            ],
             "rect": {
               "x": 6,
               "y": 244.1875,
@@ -197478,6 +197810,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0",
             "tag": "p",
             "ownText": "Core features for trying Klipse",
+            "wrapLines": [
+              "Core features for trying",
+              "Klipse"
+            ],
             "rect": {
               "x": 18,
               "y": 567.9844,
@@ -197637,6 +197973,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.1",
             "tag": "span",
             "ownText": "1 Composition upload, 2 imports",
+            "wrapLines": [
+              "1 Composition upload,",
+              "2 imports"
+            ],
             "rect": {
               "x": 44,
               "y": 643.9844,
@@ -197705,6 +198045,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.2",
             "tag": "span",
             "ownText": "AI video generation trial",
+            "wrapLines": [
+              "AI video generation",
+              "trial"
+            ],
             "rect": {
               "x": 44,
               "y": 689.9844,
@@ -197841,6 +198185,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.0.4.4",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos",
+              "up to 10 min"
+            ],
             "rect": {
               "x": 44,
               "y": 761.9844,
@@ -198016,6 +198364,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "strong",
             "ownText": "12,900 KRW",
+            "wrapLines": [
+              "12,900",
+              "KRW"
+            ],
             "rect": {
               "x": 215,
               "y": 460.1875,
@@ -198037,6 +198389,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.1",
             "tag": "span",
             "ownText": "per month",
+            "wrapLines": [
+              "per",
+              "month"
+            ],
             "rect": {
               "x": 337.2813,
               "y": 489.7813,
@@ -198283,6 +198639,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.1",
             "tag": "span",
             "ownText": "3 Composition uploads, 3 imports",
+            "wrapLines": [
+              "3 Composition",
+              "uploads, 3 imports"
+            ],
             "rect": {
               "x": 241,
               "y": 660.7813,
@@ -198419,6 +198779,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.3",
             "tag": "span",
             "ownText": "Text/image overlay, TTS",
+            "wrapLines": [
+              "Text/image overlay,",
+              "TTS"
+            ],
             "rect": {
               "x": 241,
               "y": 732.7813,
@@ -198487,6 +198851,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.4",
             "tag": "span",
             "ownText": "YouTube/Instagram upload",
+            "wrapLines": [
+              "YouTube/Instagram",
+              "upload"
+            ],
             "rect": {
               "x": 241,
               "y": 778.7813,
@@ -198555,6 +198923,10 @@
             "parentPath": "body.1.0.0.1.0.0.1.1.1.4.5",
             "tag": "span",
             "ownText": "Highlight input videos up to 10 min",
+            "wrapLines": [
+              "Highlight input videos",
+              "up to 10 min"
+            ],
             "rect": {
               "x": 241,
               "y": 824.7813,
@@ -199492,6 +199864,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed,",
+              "but plan update",
+              "delayed"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -199513,6 +199890,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "Billing authorization information is missing from the success URL.",
+            "wrapLines": [
+              "Billing authorization information is missing from the success",
+              "URL."
+            ],
             "rect": {
               "x": 6,
               "y": 274.7813,
@@ -199534,6 +199915,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "div",
             "ownText": "Billing authorization information is missing from the success URL.",
+            "wrapLines": [
+              "Billing authorization information is missing from the",
+              "success URL."
+            ],
             "rect": {
               "x": 6,
               "y": 340.7813,
@@ -200485,6 +200870,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment was not completed.",
+            "wrapLines": [
+              "Payment was not",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -200506,6 +200895,12 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+            "wrapLines": [
+              "The payment was cancelled or an error occurred during",
+              "checkout.",
+              "Your plan was not changed, and no subscription payment was",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 226.1875,
@@ -201570,6 +201965,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed,",
+              "but plan update",
+              "delayed"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -201591,6 +201991,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "Billing authorization information is missing from the success URL.",
+            "wrapLines": [
+              "Billing authorization information is missing from the success",
+              "URL."
+            ],
             "rect": {
               "x": 6,
               "y": 274.7813,
@@ -202477,6 +202881,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment was not completed.",
+            "wrapLines": [
+              "Payment was not",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -203515,6 +203923,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment was not completed.",
+            "wrapLines": [
+              "Payment was not",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -203536,6 +203948,12 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+            "wrapLines": [
+              "The payment was cancelled or an error occurred during",
+              "checkout.",
+              "Your plan was not changed, and no subscription payment was",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 226.1875,
@@ -204666,6 +205084,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but credit top-up delayed",
+            "wrapLines": [
+              "Payment confirmed,",
+              "but credit top-up",
+              "delayed"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -205573,6 +205996,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment was not completed.",
+            "wrapLines": [
+              "Payment was not",
+              "completed."
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -206631,6 +207058,10 @@
             "parentPath": "body.1.0.0.1.0.1.0.0",
             "tag": "span",
             "ownText": "Couldn't confirm the payment",
+            "wrapLines": [
+              "Couldn't confirm the",
+              "payment"
+            ],
             "rect": {
               "x": 26,
               "y": 69,
@@ -206652,6 +207083,11 @@
             "parentPath": "body.1.0.0.1.0.1.0.0",
             "tag": "span",
             "ownText": "If the payment went through, you'll find the coupons in coupon management. Contact support if this keeps happening.",
+            "wrapLines": [
+              "If the payment went through, you'll find the coupons in",
+              "coupon management. Contact support if this keeps",
+              "happening."
+            ],
             "rect": {
               "x": 26,
               "y": 154.5938,
@@ -207600,6 +208036,10 @@
             "parentPath": "body.1.0.0.1.0.1.0",
             "tag": "span",
             "ownText": "The payment was cancelled or declined. No coupons were issued and you were not charged.",
+            "wrapLines": [
+              "The payment was cancelled or declined. No coupons",
+              "were issued and you were not charged."
+            ],
             "rect": {
               "x": 26,
               "y": 118.7969,
@@ -208701,6 +209141,11 @@
             "parentPath": "body.1.0.0.1.0.1.1",
             "tag": "p",
             "ownText": "Buy plans in bulk and hand them out as coupon codes. Nothing is applied to the paying account — each recipient's plan starts the day they redeem.",
+            "wrapLines": [
+              "Buy plans in bulk and hand them out as coupon codes. Nothing",
+              "is applied to the paying account — each recipient's plan starts",
+              "the day they redeem."
+            ],
             "rect": {
               "x": 6,
               "y": 133.5938,
@@ -209147,6 +209592,11 @@
             "parentPath": "body.1.0.0.1.0.1.1.2.0.0",
             "tag": "p",
             "ownText": "Register your card to start your subscription. The first payment will be charged immediately and your card will be used for automatic monthly renewals.",
+            "wrapLines": [
+              "Register your card to start your subscription. The first",
+              "payment will be charged immediately and your card will",
+              "be used for automatic monthly renewals."
+            ],
             "rect": {
               "x": 30,
               "y": 475.1875,
@@ -209314,6 +209764,7 @@
             "tag": "input",
             "ariaLabel": "Quantity",
             "inputType": "text",
+            "value": "1",
             "rect": {
               "x": 214,
               "y": 579.6875,
@@ -209366,6 +209817,11 @@
             "parentPath": "body.1.0.0.1.0.1.1.2",
             "tag": "p",
             "ownText": "Buying one seat per person issues that many coupons to hand out. No plan is attached to the paying account. Up to 100 seats can be purchased at once. Contact us for larger orders.",
+            "wrapLines": [
+              "Buying one seat per person issues that many coupons to hand",
+              "out. No plan is attached to the paying account.Up to 100 seats",
+              "can be purchased at once. Contact us for larger orders."
+            ],
             "rect": {
               "x": 30,
               "y": 650.1875,
@@ -210441,6 +210897,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Plan upgraded successfully!",
+            "wrapLines": [
+              "Plan upgraded",
+              "successfully!"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -211851,6 +212311,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment confirmed, but plan update delayed",
+            "wrapLines": [
+              "Payment confirmed,",
+              "but plan update",
+              "delayed"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -211872,6 +212337,11 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "p",
             "ownText": "Your payment was processed successfully. Your plan update may take a few minutes. Please refresh the page or contact support if your plan does not update.",
+            "wrapLines": [
+              "Your payment was processed successfully. Your plan update",
+              "may take a few minutes. Please refresh the page or contact",
+              "support if your plan does not update."
+            ],
             "rect": {
               "x": 6,
               "y": 274.7813,
@@ -211893,6 +212363,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "div",
             "ownText": "Failed to register the billing method and complete the subscription charge.",
+            "wrapLines": [
+              "Failed to register the billing method and complete the",
+              "subscription charge."
+            ],
             "rect": {
               "x": 6,
               "y": 361.7813,
@@ -213108,6 +213582,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "Payment method updated",
+            "wrapLines": [
+              "Payment method",
+              "updated"
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -214170,6 +214648,10 @@
             "parentPath": "body.1.0.0.1.1",
             "tag": "h1",
             "ownText": "10,000 credits have been added.",
+            "wrapLines": [
+              "10,000 credits have",
+              "been added."
+            ],
             "rect": {
               "x": 6,
               "y": 105,
@@ -215512,6 +215994,11 @@
             "parentPath": "body.1.0.0.1.0.1.0",
             "tag": "p",
             "ownText": "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one.",
+            "wrapLines": [
+              "No plan is applied to the paying account. Hand out",
+              "the codes below — each person's plan starts the",
+              "day they redeem one."
+            ],
             "rect": {
               "x": 26,
               "y": 219.7969,
@@ -216874,6 +217361,11 @@
             "parentPath": "body.1.0.0.1.0.1.0",
             "tag": "p",
             "ownText": "No plan is applied to the paying account. Hand out the codes below — each person's plan starts the day they redeem one.",
+            "wrapLines": [
+              "No plan is applied to the paying account. Hand out",
+              "the codes below — each person's plan starts the",
+              "day they redeem one."
+            ],
             "rect": {
               "x": 26,
               "y": 219.7969,
@@ -216939,6 +217431,11 @@
             "parentPath": "body.1.0.0.1.0.1.0.3",
             "tag": "span",
             "ownText": "The payment went through. Please refresh this page. Issuing can only be retried from here — if the problem persists, keep this page open and contact support.",
+            "wrapLines": [
+              "The payment went through. Please refresh this page.",
+              "Issuing can only be retried from here — if the problem",
+              "persists, keep this page open and contact support."
+            ],
             "rect": {
               "x": 26,
               "y": 349.7969,
@@ -221253,6 +221750,10 @@
             "parentPath": "body.1.0.0.1.0.1.0.1.1",
             "tag": "span",
             "ownText": "Uploaded source videos are kept for 30 days. After that, clips can no longer be re-extracted.",
+            "wrapLines": [
+              "Uploaded source videos are kept for 30 days.",
+              "After that, clips can no longer be re-extracted."
+            ],
             "rect": {
               "x": 79.2031,
               "y": 184,

@@ -10,6 +10,7 @@ import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
+import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -20,7 +21,17 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // 그 화면이 재지지 않는다. 이 모드는 **우회를 끈** 서버로 `ANONYMOUS_ROUTES` 만 재 별도 원장에 쓴다 — 측정 · 안정화 · 정규화 코드는
 // 인증 fixture 와 한 벌이라 규칙이 갈라지지 않는다.
 const anonymous = process.argv.includes("--anonymous");
-const outputRelative = anonymous ? "migration/product.anonymous-fixture.json" : "migration/product.auth-fixture.json";
+// **세션 모드(`--session`, 2026-09-29).** 서버 컴포넌트가 `supabase.auth.getUser()` 로 사용자를 확인하는 화면(허브 셋)을 서버가 받는
+// 가짜 세션으로 잰다 — 로컬 가짜 Supabase(`lib/fixture-fake-supabase.mjs`)가 인증에 고정 사용자로 답하고 데이터 조회에는 빈 목록으로
+// 답한다. **공개 모드(`--public`, 2026-09-29).** 뷰포트보다 긴 공개 페이지를 로그아웃 상태로 문서 전체까지 잰다(`fullPage`). 둘 다
+// 별도 원장에 쓴다 — 인증 · 로그아웃 원장과 환경이 달라 섞으면 기존 보드가 흔들린다.
+const session = process.argv.includes("--session");
+const publicMode = process.argv.includes("--public");
+if ([anonymous, session, publicMode].filter(Boolean).length > 1) throw new Error("[product-auth-fixture] --anonymous · --session · --public 은 하나만 줍니다");
+const outputRelative = anonymous ? "migration/product.anonymous-fixture.json"
+  : session ? "migration/product.session-fixture.json"
+  : publicMode ? "migration/product.public-fixture.json"
+  : "migration/product.auth-fixture.json";
 const outputPath = resolve(repoRoot, outputRelative);
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const fixtureRoot =
@@ -202,9 +213,37 @@ const ANONYMOUS_ROUTES = [
   { pattern: "/fixture-no-such-page", url: "/fixture-no-such-page", id: "404", file: "apps/web/app/not-found.tsx" },
 ];
 
+// **세션 모드가 재는 화면(`--session`).** 허브 셋 — 서버 확인을 통과하면 로그인한 사용자의 작업공간이 그려진다. 가짜 Supabase 는
+// 데이터 조회에 빈 목록으로 답하므로 프로젝트가 없는 사용자의 화면이다(지어낸 데이터로 채우지 않는다).
+const SESSION_ROUTES = [
+  "/nodecanvas",
+  "/videoeditor",
+  "/highlight",
+  // 어드민은 `ADMIN_EMAILS` 에 든 이메일만 연다(앵커 `app/lib/auth/admin.ts`) — 측정 서버에 가짜 사용자의 이메일을 준다.
+  "/admin",
+  // 부스 운영은 `?k=` 가 `CREATIVE_MEDIA_ADMIN_KEY` 와 같아야 연다(`app/lib/creative-media/adminAuth.ts`) — 측정 서버에 픽스처 키를 준다.
+  { pattern: "/creative-media-admin", url: "/creative-media-admin?k=fixture-booth-key", id: "/creative-media-admin", fullPage: true },
+  // 결제 진행은 `?plan=` 의 요금제로 연다(`mypage/upgrade/checkout/page.tsx:180-181`, 정적 요금제 표). 결제창(Toss)은 바깥 요청이라 막힌다.
+  { pattern: "/mypage/upgrade/checkout", url: "/mypage/upgrade/checkout?plan=pro", id: "/mypage/upgrade/checkout" },
+];
+
+// **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
+// 나오는 것부터 싣는다. 템플릿 상세는 장면 측정기와 같은 `filter` 로 연다.
+const PUBLIC_ROUTES = [
+  { pattern: "/privacy", fullPage: true },
+  { pattern: "/terms", fullPage: true },
+  { pattern: "/inquiry", fullPage: true },
+  { pattern: "/pricing", fullPage: true },
+  { pattern: "/templates", fullPage: true },
+  { pattern: "/templates/[slug]", url: "/templates/filter", id: "/templates/[slug]", fullPage: true },
+  { pattern: "/blog", fullPage: true },
+  // 부스 체험 — 인증 없이 여는 공개 화면(앵커 `app/creative-media/page.tsx`).
+  { pattern: "/creative-media", fullPage: true },
+];
+
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
 // 「의도한 search 로 끝났는가」를 물어야 하므로 빈 문자열을 못박을 수 없다.
-const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : ROUTES).map((entry) => {
+const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -213,6 +252,7 @@ const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : ROUTES).map((entry) => {
     pattern: spec.pattern,
     url,
     ...(spec.file ? { file: spec.file } : {}),
+    ...(spec.fullPage ? { fullPage: true } : {}),
     expectedPath: target.pathname,
     expectedSearch: target.search,
   };
@@ -313,9 +353,11 @@ const startFixtureServer = async () => {
         NODE_ENV: "development",
         // 로그아웃 모드는 빈 문자열로 **끈다** — 제품은 `=== "1"` 만 켠다(AuthProvider · middleware). 셸의 환경변수나 fixture 의
         // `.env.local` 에 켜 둔 값이 있어도 프로세스 환경이 이긴다.
-        NEXT_PUBLIC_DEV_AUTH_BYPASS: anonymous ? "" : "1",
-        NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:9",
+        NEXT_PUBLIC_DEV_AUTH_BYPASS: anonymous || publicMode ? "" : "1",
+        NEXT_PUBLIC_SUPABASE_URL: fakeSupabase ? fakeSupabase.url : "http://127.0.0.1:9",
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "fixture-anon-key",
+        // 세션 모드의 게이트 둘 — 실제 비밀이 아니라 측정용 값이다(가짜 사용자 이메일 · 픽스처 키).
+        ...(session ? { ADMIN_EMAILS: "fixture@klipse.test", CREATIVE_MEDIA_ADMIN_KEY: "fixture-booth-key" } : {}),
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -568,6 +610,8 @@ const firstDifference = (recorded, measured, path = "$") => {
   return null;
 };
 
+// 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
+const fakeSupabase = session ? await startFakeSupabase() : null;
 const fixtureServer = await startFixtureServer();
 let browser = null;
 const screens = {};
@@ -590,6 +634,7 @@ try {
         await context.addCookies([
           { name: "facen-language", value: "en", url: fixtureServer.url },
           { name: "klipse-theme", value: "light", url: fixtureServer.url },
+          ...(fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
         ]);
         await context.addInitScript(() => {
           localStorage.setItem("facen-language", "en");
@@ -597,7 +642,7 @@ try {
         });
         await context.route("**/*", async (intercepted) => {
           const target = new URL(intercepted.request().url());
-          if (target.origin === fixtureServer.url || target.protocol === "data:") {
+          if (target.origin === fixtureServer.url || target.origin === fakeSupabase?.url || target.protocol === "data:") {
             await intercepted.continue();
           } else {
             await intercepted.abort("blockedbyclient");
@@ -656,7 +701,7 @@ try {
         await page.evaluate(async () => { await document.fonts.ready; });
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
-        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes }) => {
+        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage }) => {
           // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
           // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
           // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
@@ -739,14 +784,68 @@ try {
             if (href) attributes.href = href.replace(location.origin, "");
             return Object.keys(attributes).length > 0 ? attributes : null;
           };
+          // **감긴 줄을 싣는다(2026-09-29).** 보드 글꼴은 제품 글꼴(`system-ui` = 맥 Chrome 의 SF Pro 등)과 너비가 달라 폭만 옮기면
+          // 줄이 다른 자리에서 꺾인다 — 데이터 삭제 상태 첫 문단이 제품 두 줄 · 보드 한 줄이라 그 아래가 25.6 올라갔다. 직계 글자
+          // 노드를 한 자씩 Range 로 재서 보이는 줄마다 글자를 모은다. `<br>` 로 가른 줄 수보다 많을 때(폭 때문에 감겼을 때)만 싣고,
+          // 줄을 이은 글자가 `ownText` 와 다르면 싣지 않는다(생성기가 이 줄로 글자를 다시 짓는다).
+          const wrapLinesOf = (node, text) => {
+            if (!text) return null;
+            const textNodes = [...node.childNodes].filter((child) =>
+              child.nodeType === Node.TEXT_NODE && (child.textContent ?? "").trim());
+            if (textNodes.length === 0) return null;
+            const whole = document.createRange();
+            whole.setStart(textNodes[0], 0);
+            const last = textNodes[textNodes.length - 1];
+            whole.setEnd(last, (last.textContent ?? "").length);
+            const tops = new Set([...whole.getClientRects()]
+              .filter((box) => box.width > 0 && box.height > 0)
+              .map((box) => Math.round(box.top)));
+            whole.detach();
+            if (tops.size < 2) return null;
+            const lines = [];
+            let active = null;
+            for (const textNode of textNodes) {
+              const source = textNode.textContent ?? "";
+              for (let index = 0; index < source.length; index += 1) {
+                const range = document.createRange();
+                range.setStart(textNode, index);
+                range.setEnd(textNode, index + 1);
+                const bounds = range.getBoundingClientRect();
+                range.detach();
+                if (!bounds.width && !bounds.height) {
+                  if (active) active.text += source[index];
+                  continue;
+                }
+                if (!active || Math.abs(active.top - bounds.top) > bounds.height / 2) {
+                  active = { top: bounds.top, text: "" };
+                  lines.push(active);
+                }
+                active.text += source[index];
+              }
+            }
+            const out = lines.map((line) => line.text.replace(/\s+/g, " ").trim()).filter(Boolean);
+            if (out.length <= text.split("\n").length) return null;
+            const flat = (value) => value.replace(/\s+/g, "");
+            return flat(out.join("")) === flat(text) ? out : null;
+          };
+          // **입력칸의 값(2026-09-29).** 값은 글자 노드가 아니라 `ownText` 에 없다 — 쿠폰 수량 입력칸(「1」)이 보드에서 비어 있었다.
+          // 비밀번호는 싣지 않는다(점으로 그려진다).
+          const valueOf = (node) => {
+            if (node instanceof HTMLTextAreaElement) return node.value || null;
+            if (!(node instanceof HTMLInputElement)) return null;
+            if (!["text", "email", "number", "tel", "search", "url"].includes(node.type)) return null;
+            return node.value || null;
+          };
           // `sink` 에는 트리에 실린 노드가 **트리와 같은 순서로** 쌓인다. `current` 를 만든 뒤
           // 자식으로 내려가므로 push 순서가 곧 반환 배열의 전위(pre-order) 순서다. 이 배열이
           // 뒤따르는 CDP 패스의 조인 키가 된다 — 자세한 이유는 아래 CDP 호출 자리에 적었다.
           const describe = (node, path, parentPath = null, sink = null) => {
             const computed = getComputedStyle(node);
             const rect = node.getBoundingClientRect();
-            const intersectsViewport =
-              rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight;
+            // 전체 페이지(`fullPage`)는 세로로 문서 끝까지 — 가로는 여전히 뷰포트 안만.
+            const intersectsViewport = fullPage
+              ? rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth
+              : rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight;
             const visible =
               computed.display !== "none" && computed.visibility !== "hidden" &&
               computed.opacity !== "0" && rect.width > 0 && rect.height > 0 && intersectsViewport;
@@ -757,6 +856,10 @@ try {
                   return parsed.origin === location.origin ? parsed.pathname : parsed.origin + parsed.pathname;
                 })()
               : null;
+            // 글자 · 감긴 줄 · 값은 보이는 노드에서만 한 번씩 잰다(감긴 줄은 한 자씩 Range 를 만든다).
+            const text = visible ? ownText(node) : "";
+            const wraps = visible ? wrapLinesOf(node, text) : null;
+            const value = visible ? valueOf(node) : null;
             const current = visible ? [{
               path,
               parentPath,
@@ -773,7 +876,9 @@ try {
                 ? { placeholder: node.placeholder }
                 : {}),
               ...(vectorAttributes(node) ? { vector: vectorAttributes(node) } : {}),
-              ...(ownText(node) ? { ownText: ownText(node) } : {}),
+              ...(text ? { ownText: text } : {}),
+              ...(wraps ? { wrapLines: wraps } : {}),
+              ...(value ? { value } : {}),
               rect: rectOf(node),
               style: styleOf(node),
             }] : [];
@@ -803,8 +908,8 @@ try {
           const measuredNodes = [];
           const rootTree = describe(rootCandidate.node, rootPath, null, measuredNodes);
           window.__louisAuthFixtureNodes = measuredNodes;
-          if (rootTree.length > 2_000) {
-            throw new Error("app root 측정 노드가 2,000개를 넘었습니다: " + rootTree.length);
+          if (rootTree.length > (fullPage ? 12_000 : 2_000)) {
+            throw new Error("app root 측정 노드가 상한을 넘었습니다: " + rootTree.length);
           }
           const rootSet = new Set(rootTree.map((entry) => entry.path));
           const overlays = [...document.querySelectorAll('[role="dialog"]')]
@@ -922,7 +1027,7 @@ try {
             tree: rootTree,
             overlays,
           };
-        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES });
+        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage) });
 
         // **두 패스는 서로 다른 시각의 DOM 을 본다.** 그 사이에 mount/unmount 가 일어나면
         // 조인이 성립하지 않는다. 그래서 한 번 얼려 여파를 끄집어내고, 가라앉히고, 재고,
@@ -1036,6 +1141,8 @@ try {
           // 화면 키가 라우트가 아니게 되면서 **무엇을 열었는지**가 키에서 복원되지 않는다.
           // 동적 세그먼트를 무엇으로 채웠는지는 여기에만 남으므로 다를 때만 함께 적는다.
           ...(spec.url === spec.id ? {} : { requestedUrl: spec.url }),
+          // 문서 끝까지 잰 화면 — 보드는 뷰포트 창이 아니라 문서 높이로 선다(build-figma-app-screens frameSize).
+          ...(spec.fullPage ? { fullPage: true } : {}),
           ...measured,
           // 「요청한 곳과 다른 데 도착했다」를 잡는 canary다. search 를 빈 문자열로 못박으면
           // 의도한 쿼리(`?__phase=…`)까지 redirect 로 잡히므로 **의도한 search 와** 견준다.
@@ -1055,6 +1162,7 @@ try {
 } finally {
   if (browser) await browser.close();
   await fixtureServer.stop();
+  await fakeSupabase?.close();
 }
 assertCleanFixture("측정 후");
 
@@ -1188,11 +1296,16 @@ for (const contextSpec of CONTEXTS) {
 const MEASURE_METHOD =
   "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.";
 const payload = JSON.stringify({
-  $comment: anonymous
+  $comment: session
+    ? "생성물. scripts/measure-product-auth-fixture.mjs --session 이 고정 커밋의 clean Next dev server를 로컬 가짜 Supabase(인증은 고정 사용자, 데이터 조회는 빈 목록)에 붙여 띄우고 세션 쿠키를 넣어, 서버가 로그인을 확인하는 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
+    : publicMode
+    ? "생성물. scripts/measure-product-auth-fixture.mjs --public 이 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 뷰포트보다 긴 공개 페이지를 문서 전체까지 직접 렌더한다. 직접 수정하지 않는다."
+    : anonymous
     ? "생성물. scripts/measure-product-auth-fixture.mjs --anonymous 가 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 공개 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
     : "생성물. scripts/measure-product-auth-fixture.mjs가 고정 커밋의 development-only auth bypass를 켠 clean Next dev server에서 보호 route 기본 상태를 직접 렌더한다. 직접 수정하지 않는다.",
-  $evidenceClass: anonymous ? "development-anonymous-fixture" : "development-auth-fixture",
-  $notEvidenceFor: anonymous
+  $evidenceClass: session ? "development-session-fixture" : publicMode ? "development-public-fixture"
+    : anonymous ? "development-anonymous-fixture" : "development-auth-fixture",
+  $notEvidenceFor: anonymous || publicMode
     ? ["운영 인증 흐름(OAuth · 메일 발송) parity", "실사용자 데이터 parity", "API 성공 상태 parity"]
     : [
       "운영 인증 세션 parity",
@@ -1200,7 +1313,11 @@ const payload = JSON.stringify({
       "API 성공 상태 parity",
       "인증 후 페이지 완료 판정",
     ],
-  $method: anonymous
+  $method: session
+    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고(지어낸 데이터 없음) 요청을 기록한다. 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
+    : publicMode
+    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다. Supabase URL은 연결되지 않는 localhost endpoint로 고정하고 외부 요청을 차단한다. fullPage 화면은 뷰포트가 아니라 문서 끝까지의 노드를 잰다(가로는 뷰포트 안). " + MEASURE_METHOD
+    : anonymous
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 직접 띄운다 — 로그인하지 않은 사용자의 화면이다. 인증 화면은 로그인된 사용자를 /archive 로 보내므로(sourceQuotes) 인증 우회 서버에서는 잴 수 없다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 한 뷰포트 안에서 끝나는 공개 화면만 싣는다(긴 공개 페이지는 전체 페이지 측정의 몫). " + MEASURE_METHOD
     : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD,
   productRef,
@@ -1208,8 +1325,9 @@ const payload = JSON.stringify({
   productCommit: commit,
   fixture: {
     nodeEnv: "development",
-    devAuthBypass: !anonymous,
-    mockSupabase: "unreachable-localhost",
+    devAuthBypass: !anonymous && !publicMode,
+    mockSupabase: session ? "local-fake-auth-empty-data" : "unreachable-localhost",
+    ...(fakeSupabase ? { supabaseRequests: [...new Set(fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`))].sort() } : {}),
     externalRequests: "blocked",
     locale: "en",
     theme: "light",
@@ -1226,7 +1344,7 @@ const payload = JSON.stringify({
     screenAliases,
     repeatedSubtreesByContext,
   },
-  sourceQuotes: anonymous ? [
+  sourceQuotes: anonymous || publicMode ? [
     // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
     sourceQuote("apps/web/app/login/page.tsx", 316),
     sourceQuote("apps/web/app/login/page.tsx", 318),
@@ -1310,6 +1428,6 @@ if (checkOnly) {
 }
 
 console.log(
-  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : "") + (checkOnly ? "checked" : "built") + ": " +
+  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : session ? "(세션) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
     SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

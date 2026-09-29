@@ -250,7 +250,7 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-28: 206 → **224.** 보드가 늘어서다 — 로그아웃 fixture(`product.anonymous-fixture.json`) 보드 22(인증 화면 열 · `/data-deletion-status`
 // · 404, 두 뷰포트)가 LOUIS Button 인스턴스 18 을 갖는다: inverse lg 10(로그인 · 가입 · 재설정 둘 · 복구의 주 버튼), ghost md 4(가입의 약관
 // 「View」 둘), primary md 4(`/aws/signup` 가입 · 404 「Back to home」). 셸은 없다 — 인증 화면은 앱 셸 밖이다(아래 셸 표에 넣지 않는다).
-const INSTANCE_FLOOR = 224;
+const INSTANCE_FLOOR = 266;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -378,6 +378,16 @@ const SHELL_INSTANCES_BY_BOARD = {
   "settings.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "subscription.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "subscription.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-09-30 — 세션 원장 보드(허브 셋 · 결제 진행 · 관리자 모바일): 상단 바 · 사이드바 셸이 측정 서브트리 그대로 붙었다(보드 글자 자리 대조 · 캡처로 확인).
+  "admin.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "highlight.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "mypage-upgrade-checkout.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
+  "mypage-upgrade-checkout.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"],
+  "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
+  "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "videoeditor.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
+  "videoeditor.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
 };
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.

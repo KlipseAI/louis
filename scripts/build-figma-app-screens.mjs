@@ -201,17 +201,20 @@ const SCREENS = [
     // 한다. 보드는 손 조립으로 둔다(2026-09-29).
     // 부스 운영 — 측정 서버의 픽스처 키로 열고, 관리자 Supabase 클라이언트가 가짜 Supabase 에 붙어 행사 없는 빈 상태를 그린다.
     { route: "/creative-media-admin", desktop: "224:3553", mobile: "224:3799", fixture: "session" },
+    { route: "/admin", desktop: "222:3310", mobile: "222:3626", fixture: "session" },
     { route: "/mypage/upgrade/checkout", desktop: "199:1729", mobile: "199:2782", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
-    // `/privacy` · `/terms` 는 원장에만 있다 — 긴 문단이 많은 문서라 러너가 뷰포트마다 71 ~ 143 조각이 된다(조각마다 렌더러 약 43KB 를 싣고
-    // 50KB 한도를 지키면 payload 는 조각당 몇 KB 뿐이다). 지금 전송 방식으로는 보낼 수 없어 손 보드(제품 DOM 캡처)로 둔다(2026-09-29).
+    // `/privacy` · `/terms` 는 원장에만 있다 — 표(`table`)의 크기 판정 규칙이 없어(td · tr · th 미해결 819) 조각이 뷰포트마다 18 ~ 41 개다
+    // (렌더러를 압축한 뒤에도 — 나누기가 떼어낸 형제를 한 조각에 묶지 못한다). 표 규칙과 조각 묶음 뒤로 미루고, 보드는 제품 DOM 캡처로 둔다
+    // (2026-09-30).
     { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
     { route: "/pricing", desktop: "213:2297", mobile: "213:3353", fixture: "public" },
     { route: "/templates", desktop: "33:3", mobile: "33:47", fixture: "public" },
     // `/templates/[slug]` 은 원장에만 있다 — 연 `filter` 템플릿이 이 빌드에 없어 「Page not found」(노드 8)가 재졌다. 보드는 손 조립으로 둔다.
     { route: "/blog", desktop: "214:2767", mobile: "214:2865", fixture: "public" },
-    // `/creative-media` 도 원장에만 있다 — 부스 체험은 fixture 에서 「Something went wrong」(노드 11)만 그린다. 보드는 손 조립으로 둔다.
+    // 루트 오류 경계 — 공개 모드의 부스 체험이 던져 선 `app/error.tsx` 화면(측정기 PUBLIC_ROUTES 의 `error`). 404 와 같은 섹션의 보드다.
+    { route: "error", desktop: "37:18", mobile: "37:25", fixture: "public" },
   ].filter((screen) => LEDGERS.public.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
 ];
 

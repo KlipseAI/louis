@@ -240,8 +240,10 @@ const PUBLIC_ROUTES = [
   { pattern: "/templates", fullPage: true },
   { pattern: "/templates/[slug]", url: "/templates/filter", id: "/templates/[slug]", fullPage: true },
   { pattern: "/blog", fullPage: true },
-  // 부스 체험 — 인증 없이 여는 공개 화면(앵커 `app/creative-media/page.tsx`).
-  { pattern: "/creative-media", fullPage: true },
+  // **루트 오류 경계(`app/error.tsx`) — 2026-09-30.** 부스 체험(`/creative-media`)은 행사 설정을 DB 에서 읽는데 공개 모드는 Supabase 에
+  // 닿지 않아(`http://127.0.0.1:9`) 페이지가 던지고 루트 오류 경계가 선다(「Something went wrong」 · 다시 시도 · 홈으로). 그 화면을 `error`
+  // 로 싣는다 — 오류 경계를 띄우려고 제품 코드를 바꿀 필요가 없다. 부스 체험 본 화면은 세션 모드(가짜 Supabase)가 잰다.
+  { pattern: "/creative-media", id: "error", file: "apps/web/app/error.tsx", fullPage: true },
 ];
 
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —

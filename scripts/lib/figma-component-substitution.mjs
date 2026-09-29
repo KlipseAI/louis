@@ -217,8 +217,14 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/nodecanvas": "/nodecanvas", // components/scenes/NodeCanvasHomeScene.tsx:666 gnbCurrentPath = NODE_CANVAS_HUB_PATH(lib/app-paths.ts:6)
   "/videoeditor": "/videoeditor", // components/scenes/VideoEditScene.tsx:716
   "/highlight": "/highlight", // components/scenes/HighlightScene.tsx:1196
-  "/admin": "/admin", // app/admin/AdminClient.tsx:1088 — 사이드바에 어드민 항목이 없어 활성 없음(Default)
+  "/admin": "/admin", // app/admin/AdminClient.tsx:1088 — 사이드바는 셸 세트에 variant 가 없다(SIDEBAR_WITHOUT_VARIANT)
   "/mypage/upgrade/checkout": "/mypage/upgrade", // app/mypage/upgrade/checkout/page.tsx:224
+});
+// **셸 세트에 variant 가 없는 사이드바(2026-09-30).** 관리자에게는 사이드바가 관리자 메뉴를 더한 다른 셸이다(세션 원장 `/admin` — 사이드바
+// 노드 90 ↔ 설정 53, `app/admin/AdminClient.tsx`). 셸 세트(Product/Gnb Desktop Shell)에 그 variant 가 없어 인스턴스로 바꾸지 않고 측정
+// 그대로 그린다 — 치환 보류(`shells.skipped`)에 사유로 남는다. variant 를 세우면 이 표에서 뺀다.
+const SIDEBAR_WITHOUT_VARIANT = Object.freeze({
+  "/admin": "관리자 사이드바 — 셸 세트에 관리자 메뉴 variant 가 없어 측정 그대로 그린다",
 });
 // 화면 키에 개발용 후크 쿼리(`?__phase=` · `?preview=`)가 붙어도 GNB 는 같은 페이지의 것이다 — 쿼리를 떼고 찾는다.
 const currentPathOf = (route) => {
@@ -1043,7 +1049,9 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
   const walk = (node) => {
     if (desktop && node.tag === "header" && node.positioning === "ABSOLUTE"
         && declaredOf(node.path)?.width === SIDEBAR_WIDTH_DECLARATION) {
-      if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
+      const raw = SIDEBAR_WITHOUT_VARIANT[route.split("?")[0]];
+      if (raw) skipped.push({ path: node.path, set: COMPONENT_SETS.sidebar, reason: raw });
+      else if (substitute(node, COMPONENT_SETS.sidebar, sidebarVariant(route),
         `position:fixed header · width: ${SIDEBAR_WIDTH_DECLARATION} (측정 ${round(node.rect.width)}×${round(node.rect.height)}) — 앱 데스크톱 사이드바`)) return;
     }
     if (!barDone && isTopBarRow(node)) {

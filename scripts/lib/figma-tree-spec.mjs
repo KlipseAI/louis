@@ -198,6 +198,61 @@ function splitOwnText(node, children) {
 }
 
 /**
+ * **패딩을 가진 칠 없는 글자 잎(2026-09-30).** Figma 글자 노드에는 패딩이 없어, 자식 없이 제 글자만 가진 상자의 CSS 패딩이 통째로
+ * 빠졌다 — 템플릿 목록의 빈 상태 문구(「Templates are coming soon.」, 위아래 패딩 80)가 181 → 21 로 접혀 보드가 160 짧았다. 칠이 없으면
+ * (면 · 테두리 · 그림자 — 칠이 있는 잎은 렌더러가 면 + 안쪽 글자로 그린다) 이 상자를 세로 자동 배치 + 패딩으로 두고, 글자는 콘텐츠 상자를
+ * 채우는(가로 FILL) 자식으로 뗀다. 정렬은 글자의 `text-align` 이 한다.
+ */
+function padTextLeaf(node, children, sizing) {
+  if (!node.ownText || children.length > 0) return null;
+  const style = node.style ?? {};
+  const pad = { top: px(style.paddingTop) ?? 0, right: px(style.paddingRight) ?? 0, bottom: px(style.paddingBottom) ?? 0, left: px(style.paddingLeft) ?? 0 };
+  if (Object.values(pad).every((value) => value <= 0.5)) return null;
+  const paint = paintOf(style);
+  if (paint && (paint.fill || paint.gradient || paint.stroke || paint.shadow)) return null;
+  const border = (side) => ((style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
+  // 상자가 글자 폭(HUG — 폭 선언 없는 링크 · 인라인 버튼)이면 글자도 제 폭이다. 채우는 글자는 HUG 부모 안의 FILL 이 된다.
+  const hugs = sizing?.layoutSizingHorizontal === "HUG";
+  const rect = {
+    x: node.rect.x + pad.left + border("Left"),
+    y: node.rect.y + pad.top + border("Top"),
+    width: Math.max(0, node.rect.width - pad.left - pad.right - border("Left") - border("Right")),
+    height: Math.max(0, node.rect.height - pad.top - pad.bottom - border("Top") - border("Bottom")),
+  };
+  return [{
+    path: `${node.path}.t`,
+    tag: "span",
+    name: `${node.path}.t`,
+    text: node.ownText,
+    textLines: node.ownTextLines?.length ? node.ownTextLines : null,
+    ...(node.wrapLines ? { wrapLines: node.wrapLines } : {}),
+    paints: true,
+    rect,
+    sizing: {
+      layoutSizingHorizontal: hugs ? "HUG" : "FILL",
+      layoutSizingVertical: "HUG",
+      layoutPositioning: "AUTO",
+      minWidth: null, maxWidth: null, minHeight: null, maxHeight: null,
+      unresolved: [],
+    },
+    paint: null,
+    typography: typographyOf(style),
+    positioning: "AUTO",
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    offset: null,
+    constraints: null,
+    why: {
+      horizontal: hugs
+        ? { verdict: "HUG", reason: "padded-text-leaf — 상자가 글자 폭(HUG)이라 글자도 제 폭" }
+        : { verdict: "FILL", reason: "padded-text-leaf — 글자는 패딩 안 콘텐츠 상자를 채운다" },
+      vertical: { verdict: "HUG", reason: "padded-text-leaf" },
+    },
+    layout: null,
+    children: [],
+  }];
+}
+
+/**
  * **SVG 글리프의 정체 서명 — 측정값을 그대로 잇는다.**
  *
  * 측정기는 `<svg>` 의 `viewBox` 와 자손 도형의 기하 속성(`d`·`points`·`cx`…)을 담는다
@@ -266,6 +321,22 @@ function stackedInlineText(style, children) {
   return flow.every((child, i) => i === 0 || child.rect.y >= flow[i - 1].rect.y + flow[i - 1].rect.height - 0.5);
 }
 const TEXT_ALIGN_COUNTER = { center: "CENTER", right: "MAX", end: "MAX" };
+
+/** 흐름 자식이 두 줄 이상에 앉았는가 — 어느 자식의 위가 첫 자식의 아래 이상이다. */
+function wrapsIntoRows(children) {
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  if (flow.length < 2) return false;
+  const first = flow[0].rect;
+  return flow.some((child) => child.rect.y >= first.y + first.height - 0.5);
+}
+
+/** 부모가 자식을 세로로 쌓거나(블록 · 세로 flex) grid 칸에 두는가 — 그 안의 가로 FILL 은 교차축 늘이기다. */
+function stacksChildren(parentStyle) {
+  const display = parentStyle.display ?? "";
+  if (/grid/.test(display)) return true;
+  if (/flex/.test(display)) return (parentStyle.flexDirection ?? "row").startsWith("column");
+  return /^(block|flow-root|list-item)$/.test(display);
+}
 
 /**
  * **높이 0 형제가 남긴 간격(2026-09-29).** flex 의 `gap` 은 크기가 0 인 아이템 뒤에도 붙는다. 측정기는 넓이 없는 노드를 싣지 않으므로
@@ -396,6 +467,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
     // 글자와 요소 자식을 함께 가진 노드는 글자를 자식으로 떼어낸다(splitOwnText 주석 참조).
     const split = splitOwnText(node, children);
     if (split) { children = split; stats.textSplits += 1; }
+    // 패딩을 가진 칠 없는 글자 잎은 패딩 프레임 + 글자 자식으로 가른다(padTextLeaf 주석).
+    const padded = split ? null : padTextLeaf(node, children, sizing);
+    if (padded) { children = padded; stats.paddedTextLeaves = (stats.paddedTextLeaves ?? 0) + 1; }
+    const textMoved = Boolean(split || padded);
 
     // 자식도 없고 스스로 그릴 것도 없으면 버린다 — Auto Layout에 빈 껍데기를 남기지 않는다.
     // **입력 요소는 빈 껍데기가 아니다(2026-09-28).** `<input>` 은 칠이 없어도 제 줄 높이로 칸을 받친다 — 버리자 입력칸(58)이 패딩
@@ -413,7 +488,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
 
     const style = node.style ?? {};
     // 흐름 방향은 자식의 display가 결정한다(inline 형제는 가로로 흐른다).
-    let layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
+    let layoutMode = padded ? "VERTICAL" : toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
     // 줄마다 새로 시작하는 인라인 글자는 세로로 쌓는다(stackedInlineText 주석).
     const stackedText = layoutMode === "HORIZONTAL" && stackedInlineText(style, children);
     if (stackedText) { layoutMode = "VERTICAL"; stats.stackedInlineText = (stats.stackedInlineText ?? 0) + 1; }
@@ -442,11 +517,20 @@ export function toFigmaTreeSpec(tree, options = {}) {
         const lineHeight = px(style.lineHeight);
         return !lineHeight || Math.round(node.rect.height / lineHeight) <= 1;
       })();
+    // **여러 줄로 감긴 가로 흐름은 폭을 자리가 정했다(2026-09-30).** `flex-wrap: wrap` 줄의 폭이 내용 폭(fit-content)으로 판정돼도,
+    // 한 줄 내용이 자리보다 넓어 감겼다면 CSS 폭은 자리 폭이다 — Figma 의 HUG 감기 자동 배치는 감기지 않고 한 줄로 늘어난다(공개 페이지
+    // 푸터의 링크 묶음 넷이 모바일에서 2×2 로 감기는데 보드는 한 줄 732 로 늘어나 높이가 304 → 132). 측정 자식이 두 줄 이상에 앉고
+    // 부모가 세로로 쌓거나 grid 칸이면 가로 FILL 로 둔다(가로 부모의 FILL 은 늘이기라 뜻이 다르다).
+    const wrappedRows = layoutMode === "HORIZONTAL" && style.flexWrap === "wrap" && sizing.layoutSizingHorizontal === "HUG"
+      && parent != null && !decision.absolute && wrapsIntoRows(children) && stacksChildren(parent.style ?? {});
+    if (wrappedRows) stats.wrappedRows = (stats.wrappedRows ?? 0) + 1;
     const nodeSizing = floatingLine
       ? { ...sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" }
       : placeholder
         ? { ...sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED" }
-        : sizing;
+        : wrappedRows
+          ? { ...sizing, layoutSizingHorizontal: "FILL" }
+          : sizing;
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
     const clearBorder = clearBorderPadding(style);
@@ -459,11 +543,11 @@ export function toFigmaTreeSpec(tree, options = {}) {
       tag: node.tag,
       name: node.classAttr ? `${node.tag}.${node.path}` : node.path,
       // 글자를 자식으로 떼어냈으면 이 노드는 더 이상 글자를 갖지 않는다(중복 렌더 방지).
-      text: split ? null : (node.ownText || null),
-      textLines: split ? null : (node.ownTextLines?.length ? node.ownTextLines : null),
+      text: textMoved ? null : (node.ownText || null),
+      textLines: textMoved ? null : (node.ownTextLines?.length ? node.ownTextLines : null),
       // 제품 글꼴로 보이는 줄(측정기 `wrapLines`, 감긴 자리가 `<br>` 보다 많을 때만). 서명 · 매칭은 `text` 를 보고, 러너만 이 줄로
       // 글자를 줄바꿈해 싣는다(measured-text.mjs).
-      ...(!split && node.wrapLines ? { wrapLines: node.wrapLines } : {}),
+      ...(!textMoved && node.wrapLines ? { wrapLines: node.wrapLines } : {}),
       // 스스로 그리는 것이 있는가(면·테두리·그림자·이미지). 래퍼 접기 판정과 색 이관에 쓴다.
       paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.
@@ -479,7 +563,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
       // 떠 있는 한 줄 라벨은 정렬을 싣지 않는다 — 글자 폭 상자라 제품에서 `text-align` 은 뜻이 없는데, Figma 의 폭 자동 글자는
       // 가운데 정렬이면 텍스트 스타일이 뒤늦게 걸릴 때 양쪽으로 자라 왼쪽 끝이 밀린다(로그인 모바일 「Password」 x 33 → 28, 캡처로 확인).
-      typography: (!split && (node.ownText || node.ownTextLines?.length))
+      typography: (!textMoved && (node.ownText || node.ownTextLines?.length))
         ? (floatingLine ? { ...typographyOf(style), align: null } : typographyOf(style))
         : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어

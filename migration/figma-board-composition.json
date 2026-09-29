@@ -14,15 +14,15 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 104,
-  "rawNodesBeforePruning": 6874,
+  "rawNodesBeforePruning": 6875,
   "counts": {
-    "total": 6992,
+    "total": 6993,
     "instance": 266,
     "replaceable": 0,
     "bespoke": 83,
     "blocked": 12,
     "missing": 1116,
-    "structural": 5515,
+    "structural": 5516,
     "unclassified": 0
   },
   "ratio": {
@@ -67,7 +67,7 @@
   },
   "structuralByKind": {
     "surface": 639,
-    "frame": 2904,
+    "frame": 2905,
     "text": 1931,
     "image": 41
   },
@@ -1460,13 +1460,13 @@
         "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 41,
+        "total": 42,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 2,
-        "structural": 38,
+        "structural": 39,
         "unclassified": 0
       }
     },
@@ -23672,7 +23672,7 @@
       "tag": "margin",
       "rect": [
         1324,
-        656.8
+        684.8
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -24060,6 +24060,17 @@
     },
     "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        390,
+        1022.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0": {
+      "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         390,
@@ -24069,23 +24080,12 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "section",
       "rect": [
         390,
         970.59
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0": {
-      "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
-      "tag": "div",
-      "rect": [
-        342,
-        100.59
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -24104,6 +24104,17 @@
     },
     "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        342,
+        100.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.0.0.0": {
+      "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "h3",
       "rect": [
         342,
@@ -24113,7 +24124,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.0.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -24124,7 +24135,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24135,7 +24146,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -24146,7 +24157,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.1.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "strong",
       "rect": [
@@ -24157,7 +24168,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -24168,7 +24179,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24179,7 +24190,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24190,7 +24201,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2.0.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "strong",
       "rect": [
@@ -24201,7 +24212,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2.0.0.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2.0.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -24212,7 +24223,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.2.0.0.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.2.0.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -24223,7 +24234,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24234,7 +24245,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24245,7 +24256,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24256,7 +24267,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "h4",
       "rect": [
@@ -24267,7 +24278,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -24278,7 +24289,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.1.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -24289,7 +24300,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.1.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.1.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -24300,7 +24311,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.0.1.2": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.0.1.2": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -24311,7 +24322,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24322,7 +24333,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24333,7 +24344,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "h4",
       "rect": [
@@ -24344,7 +24355,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -24355,7 +24366,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "label",
       "rect": [
@@ -24366,7 +24377,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -24377,7 +24388,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.0.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.0.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "input",
       "rect": [
@@ -24389,7 +24400,7 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.0.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.0.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -24400,7 +24411,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.1": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.1": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -24411,7 +24422,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.2": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.2": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -24422,7 +24433,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.2.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.2.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -24433,7 +24444,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.3.1.1.2.0.0": {
+    "/mypage/upgrade/checkout@mobile-402x874#0.0.0.0.1.0.0.3.1.1.2.0.0": {
       "board": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
       "tag": "a",
       "rect": [

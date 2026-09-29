@@ -443,19 +443,23 @@ function stacksChildren(parentStyle) {
  * 쪽을 0 으로. 양수 margin 만 본다(음수는 겹침 규칙이 다르다). flex · grid 는 margin 이 겹치지 않아 보지 않는다.
  */
 function collapsedBlockMargins(node, style, children) {
-  if (/flex|grid|table/.test(style.display ?? "")) return 0;
+  const none = { count: 0, top: 0, bottom: 0 };
+  if (/flex|grid|table/.test(style.display ?? "")) return none;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
-  if (flow.length === 0) return 0;
+  if (flow.length === 0) return none;
   const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
-  let count = 0;
+  let count = 0, top = 0, bottom = 0;
+  // 뚫고 나간 margin 은 버리지 않는다 — 부모의 바깥 margin 이 된다(부모 자리를 그만큼 민다). 버리면 문서가 그만큼 짧아진다.
   const first = flow[0];
   if ((first.margin?.top ?? 0) > 0.5 && edge("Top") === 0 && Math.abs(first.rect.y - node.rect.y) <= 0.5) {
+    top = first.margin.top;
     first.margin = { ...first.margin, top: 0 };
     count += 1;
   }
   const last = flow[flow.length - 1];
   if ((last.margin?.bottom ?? 0) > 0.5 && edge("Bottom") === 0
     && Math.abs(last.rect.y + last.rect.height - (node.rect.y + node.rect.height)) <= 0.5) {
+    bottom = last.margin.bottom;
     last.margin = { ...last.margin, bottom: 0 };
     count += 1;
   }
@@ -470,7 +474,7 @@ function collapsedBlockMargins(node, style, children) {
       count += 1;
     }
   }
-  return count;
+  return { count, top, bottom };
 }
 
 /**
@@ -647,10 +651,13 @@ export function toFigmaTreeSpec(tree, options = {}) {
     // 높이 0 형제가 남긴 간격을 margin 으로 옮긴다(hiddenGapMargins 주석).
     // 글자를 떼어낸 노드는 그 글자 조각의 자리가 추정이라 보지 않는다.
     if (!split) for (const hidden of hiddenGapMargins(node, style, children)) stats.hiddenGaps = [...(stats.hiddenGaps ?? []), hidden];
-    // 블록 흐름의 margin 겹침(collapsedBlockMargins 주석).
+    // 블록 흐름의 margin 겹침(collapsedBlockMargins 주석). 부모를 뚫고 나간 margin 은 이 노드의 바깥 margin 이 된다(큰 쪽).
+    let throughTop = 0, throughBottom = 0;
     if (!split && layoutMode === "VERTICAL") {
       const collapsed = collapsedBlockMargins(node, style, children);
-      if (collapsed) stats.collapsedMargins = (stats.collapsedMargins ?? 0) + collapsed;
+      if (collapsed.count) stats.collapsedMargins = (stats.collapsedMargins ?? 0) + collapsed.count;
+      throughTop = collapsed.top;
+      throughBottom = collapsed.bottom;
     }
     stats.kept += 1;
     // **떠 있는 한 줄 글자는 글자 폭이다(2026-09-28).** 절대 배치 글자(입력칸의 떠 있는 라벨)를 측정 폭 그대로 FIXED 로 두면 Figma
@@ -726,9 +733,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // `margin-left:280px`(= `var(--app-gnb-sidebar-width)`)로 사이드바 옆에 놓이는데, 이 값을 잃자
       // main이 x=0에서 1920 폭으로 그려져 **사이드바를 통째로 덮었다**.
       margin: {
-        top: px(style.marginTop) ?? 0,
+        // 뚫고 나간 자식 margin 이 있을 때만 큰 쪽 — 음수 margin(테두리 겹침 −1 · 당김)은 그대로 둔다(형제 사이 음수 간격 묶음이 읽는다).
+        top: throughTop > 0 ? Math.max(px(style.marginTop) ?? 0, throughTop) : (px(style.marginTop) ?? 0),
         right: px(style.marginRight) ?? 0,
-        bottom: px(style.marginBottom) ?? 0,
+        bottom: throughBottom > 0 ? Math.max(px(style.marginBottom) ?? 0, throughBottom) : (px(style.marginBottom) ?? 0),
         left: px(style.marginLeft) ?? 0,
       },
       // ABSOLUTE 노드는 부모 기준 좌표와 제약이 필요하다.

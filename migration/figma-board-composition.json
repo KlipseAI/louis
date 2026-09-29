@@ -1518,7 +1518,8 @@
         "figma/app-screens.pricing.desktop.01.draw.js",
         "figma/app-screens.pricing.desktop.02.draw.js",
         "figma/app-screens.pricing.desktop.03.draw.js",
-        "figma/app-screens.pricing.desktop.04.draw.js"
+        "figma/app-screens.pricing.desktop.04.draw.js",
+        "figma/app-screens.pricing.desktop.05.draw.js"
       ],
       "counts": {
         "total": 801,
@@ -1540,7 +1541,8 @@
         "figma/app-screens.pricing.mobile.00.draw.js",
         "figma/app-screens.pricing.mobile.01.draw.js",
         "figma/app-screens.pricing.mobile.02.draw.js",
-        "figma/app-screens.pricing.mobile.03.draw.js"
+        "figma/app-screens.pricing.mobile.03.draw.js",
+        "figma/app-screens.pricing.mobile.04.draw.js"
       ],
       "counts": {
         "total": 788,
@@ -4716,7 +4718,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/aws/signup@desktop-1920x1080#0.0.1": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
@@ -5422,7 +5424,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/aws/signup@mobile-402x874#0.0.1": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
@@ -6321,7 +6323,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/blog@desktop-1920x1080#0.0.0.0.2.1": {
       "board": "figma/app-screens.blog.desktop.00.draw.js",
@@ -6357,7 +6359,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/blog@desktop-1920x1080#0.0.0.0.2.2": {
       "board": "figma/app-screens.blog.desktop.00.draw.js",
@@ -7436,7 +7438,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/blog@mobile-402x874#0.0.0.0.1.1": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
@@ -7472,7 +7474,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/blog@mobile-402x874#0.0.0.0.1.2": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
@@ -13435,7 +13437,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.2.1": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -13471,7 +13473,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.2.2": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -15126,7 +15128,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.1.1": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -15162,7 +15164,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/inquiry@mobile-402x874#0.0.0.0.1.2": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -25216,7 +25218,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/pricing@desktop-1920x1080#0.0.0.0.2.1": {
       "board": "figma/app-screens.pricing.desktop.00.draw.js",
@@ -25252,7 +25254,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/pricing@desktop-1920x1080#0.0.0.0.2.2": {
       "board": "figma/app-screens.pricing.desktop.00.draw.js",
@@ -34153,7 +34155,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/pricing@mobile-402x874#0.0.0.0.1.1": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
@@ -34189,7 +34191,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/pricing@mobile-402x874#0.0.0.0.1.2": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
@@ -50495,7 +50497,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/templates@desktop-1920x1080#0.0.0.0.2.1": {
       "board": "figma/app-screens.templates.desktop.00.draw.js",
@@ -50531,7 +50533,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/templates@desktop-1920x1080#0.0.0.0.2.2": {
       "board": "figma/app-screens.templates.desktop.00.draw.js",
@@ -51642,7 +51644,7 @@
       "candidateClause": "b-vector",
       "glyph": "globe-with-equator",
       "icon": "icon/globe",
-      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` 의 원 · 적도 · 자오선. 위 `globe` 와 같은 그림이고, 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다. LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 그린다."
+      "reason": "공개 페이지 푸터의 언어 선택(8곳)과 `/aws/signup` 언어 버튼의 지구본 — 제품 `GlobeIcon.tsx` (`:19-21`)의 원(r 9) · 적도(`M3 12h18`) · 자오선 타원(rx 3.5 · ry 9), 획 1.5. 측정기가 높이 0 인 적도 선을 싣게 되어 서명에 그 선이 들어왔다(옛 `globe` 항목은 선 없는 서명이라 2026-09-30 에 걷었다). LOUIS `icon/globe` 와 기하가 같지만 제품이 제 컴포넌트를 인라인으로 그린다 — chevron 과 같은 `bespoke` 다."
     },
     "/templates@mobile-402x874#0.0.0.0.1.1": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",
@@ -51678,7 +51680,7 @@
       "rule": "glyph-missing",
       "candidateClause": "b-vector",
       "glyph": "sun-with-rays",
-      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 위 `sun` 과 같은 그림이고, 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다. 판정은 옛 항목과 같게 둔다 — 다만 LOUIS 에 지금 `sun` · `moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+      "reason": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
     },
     "/templates@mobile-402x874#0.0.0.0.1.2": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",

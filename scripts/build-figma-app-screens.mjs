@@ -436,6 +436,8 @@ const slimNode = (node) => ({
   // 39자리면 조각이 갈라진다. 서명 ↔ 이름의 조인은 생성 시점에 끝내고(`glyphIdOf`), 감사본
   // (`plan.json` 의 `productGlyphs`)이 그 표를 통째로 들고 있어 원장이 되짚을 수 있다.
   ...(node.glyphId ? { v: node.glyphId } : {}),
+  // 아이콘의 그림(figma-tree-spec glyphMarkup) — 렌더러가 createNodeFromSvg 로 그린다.
+  ...(node.glyphSvg ? { vs: node.glyphSvg } : {}),
   ...(node.instance ? {} : paintKeys(node)),
   ...(node.instance ? {} : typographyKeys(node)),
   ...(node.children.length ? { k: node.children.map(slim) } : {}),

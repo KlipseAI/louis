@@ -253,6 +253,62 @@ function padTextLeaf(node, children, sizing) {
 }
 
 /**
+ * **아이콘을 측정한 도형으로 그린다(2026-09-30).** 보드의 `<svg>` 자리는 이름(`v`)만 붙은 빈 상자라 화면에 아이콘이 하나도 보이지 않았다 —
+ * 테마 토글의 모니터 · 해 · 달, 언어 선택의 지구본, 프로필 자리의 사람 원이 전부 비어 있었다(라이브 보드에서 자식 0 · 칠 0 으로 확인).
+ * 측정기가 싣는 도형의 기하 속성(`d` · `cx` · `r` …)과 계산된 칠 · 획(`fill` · `stroke` · 두께 · 끝모양 · 이음 · 점선 · 불투명도)으로 SVG 를
+ * 조립하고, 렌더러가 `figma.createNodeFromSvg` 로 그린 뒤 칠 · 획을 값이 같은 변수에 묶는다. 크기는 측정 상자다(`viewBox` 는 원본 그대로).
+ * 속성 값은 홑따옴표로 싣는다 — payload JSON 에 이스케이프가 생기지 않게.
+ */
+const GLYPH_SHAPES = new Set(["path", "circle", "ellipse", "rect", "line", "polyline", "polygon"]);
+const GLYPH_GEOMETRY = ["d", "cx", "cy", "r", "rx", "ry", "x", "y", "width", "height", "x1", "y1", "x2", "y2", "points", "transform", "fill-rule", "clip-rule"];
+function glyphColour(value) {
+  const text = String(value ?? "").trim();
+  if (!text || text === "none" || text === "transparent") return { colour: "none" };
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/.exec(text);
+  const rgb = /^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\s*\)$/.exec(text);
+  const channels = srgb ? srgb.slice(1, 4).map((c) => Number.parseFloat(c) * 255) : rgb ? rgb.slice(1, 4).map(Number) : null;
+  if (!channels) return null;
+  const alpha = Number.parseFloat((srgb ?? rgb)[4] ?? "1");
+  if (alpha <= 0) return { colour: "none" };
+  const hex = `#${channels.map((c) => Math.round(c).toString(16).padStart(2, "0")).join("")}`;
+  return { colour: hex, alpha: alpha < 1 ? Math.round(alpha * 1000) / 1000 : null };
+}
+function glyphMarkup(node, childrenOf) {
+  const viewBox = node.vector?.viewBox;
+  if (!viewBox) return null;
+  const quote = (value) => String(value).replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/</g, "&lt;");
+  const shapes = [];
+  const walk = (parent) => {
+    for (const child of childrenOf.get(parent.path) ?? []) {
+      if (!GLYPH_SHAPES.has(child.tag)) { walk(child); continue; }
+      const style = child.style ?? {};
+      const attrs = GLYPH_GEOMETRY.filter((name) => child.vector?.[name] != null).map((name) => `${name}='${quote(child.vector[name])}'`);
+      const fill = glyphColour(style.fill ?? "rgb(0, 0, 0)");
+      const stroke = glyphColour(style.stroke ?? "none");
+      if (!fill || !stroke) return null;
+      attrs.push(`fill='${fill.colour}'`);
+      if (fill.alpha != null) attrs.push(`fill-opacity='${fill.alpha}'`);
+      attrs.push(`stroke='${stroke.colour}'`);
+      if (stroke.colour !== "none") {
+        if (stroke.alpha != null) attrs.push(`stroke-opacity='${stroke.alpha}'`);
+        const width = px(style.strokeWidth);
+        if (width != null) attrs.push(`stroke-width='${width}'`);
+        if (style.strokeLinecap && style.strokeLinecap !== "butt") attrs.push(`stroke-linecap='${style.strokeLinecap}'`);
+        if (style.strokeLinejoin && style.strokeLinejoin !== "miter") attrs.push(`stroke-linejoin='${style.strokeLinejoin}'`);
+        if (style.strokeDasharray && style.strokeDasharray !== "none") attrs.push(`stroke-dasharray='${quote(style.strokeDasharray.replace(/px/g, ""))}'`);
+      }
+      const opacity = Number.parseFloat(style.opacity ?? "1");
+      if (opacity < 1) attrs.push(`opacity='${opacity}'`);
+      shapes.push(`<${child.tag} ${attrs.join(" ")}/>`);
+    }
+    return true;
+  };
+  if (walk(node) === null || shapes.length === 0) return null;
+  const size = (value) => Math.round(value * 100) / 100;
+  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${quote(viewBox)}' width='${size(node.rect.width)}' height='${size(node.rect.height)}' fill='none'>${shapes.join("")}</svg>`;
+}
+
+/**
  * **SVG 글리프의 정체 서명 — 측정값을 그대로 잇는다.**
  *
  * 측정기는 `<svg>` 의 `viewBox` 와 자손 도형의 기하 속성(`d`·`points`·`cx`…)을 담는다
@@ -555,6 +611,8 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // **아이콘의 정체.** `<svg>` 일 때만. 자손 도형은 바로 아래에서 버려지므로, 버리기 전에
       // 서명을 떠서 붙인다. 이것이 없으면 아이콘은 크기만 남은 빈 상자가 된다.
       glyph: glyphSignature(node, childrenOf),
+      // **아이콘의 그림.** 측정한 도형(기하 속성 + 계산된 칠 · 획)을 SVG 로 조립한다 — 렌더러가 이것으로 아이콘을 그린다(glyphMarkup).
+      ...(node.tag === "svg" ? (() => { const markup = glyphMarkup(node, childrenOf); return markup ? { glyphSvg: markup } : {}; })() : {}),
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
       ...(node.tag === "img" && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,

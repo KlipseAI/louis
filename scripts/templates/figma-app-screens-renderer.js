@@ -453,6 +453,23 @@ const buildNode = (spec, parent) => {
 
   for (const child of (spec.k || [])) buildNode(child, node);
 
+  // **아이콘은 측정한 도형으로 그린다(2026-09-30).** 생성기가 도형의 기하와 계산된 칠 · 획으로 조립한 SVG(`vs`)를 그리고, 칠 · 획은 값이
+  // 같은 변수에 묶는다(다른 면과 같은 규칙 — 없으면 리터럴 + unboundColors). 그림은 측정 상자 크기라 흐름 자식으로 붙인다.
+  if (spec.vs) {
+    const glyph = figma.createNodeFromSvg(spec.vs);
+    glyph.name = "glyph";
+    glyph.fills = [];
+    glyph.clipsContent = false;
+    const channel = (value) => Math.round(value * 255).toString(16).padStart(2, "0");
+    const rebind = (paints) => paints.map((paint) => (paint.type !== "SOLID" ? paint
+      : hexToPaint(channel(paint.color.r) + channel(paint.color.g) + channel(paint.color.b) + ((paint.opacity ?? 1) < 1 ? channel(paint.opacity) : ""))));
+    for (const shape of glyph.findAll((child) => "fills" in child)) {
+      if (Array.isArray(shape.fills) && shape.fills.length) shape.fills = rebind(shape.fills);
+      if (Array.isArray(shape.strokes) && shape.strokes.length) shape.strokes = rebind(shape.strokes);
+    }
+    node.appendChild(glyph);
+  }
+
   // **HUG 행에서 칸이 전부 세로 FILL 이면 행이 접힌다.** CSS grid 는 칸 내용이 행 높이를 정하고 칸이 그 높이까지 늘어나는데
   // (stretch), Figma 의 HUG 행은 FILL 칸에 높이를 주지 못해 칸이 패딩만 남기고 접힌다. 칸 안에서 세로로 쌓는 부모의 FILL
   // 자식(flex-grow)도 같다 — 부모가 hug 하면 늘 자리가 없어 1px 로 접힌다. 실측 사고: `/subscription` 요금제 카드가 모바일

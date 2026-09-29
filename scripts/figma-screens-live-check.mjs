@@ -188,6 +188,8 @@ function expectedBoards() {
         instances.push({ set: spec.i[0], variant: spec.i[1], text, textNames });
       }
       if (textInSurface) names.push(`TEXT:text ${String(spec.x).slice(0, 18)}`);
+      // 아이콘 그림(`vs`)은 렌더러가 svg 자리의 자식 「glyph」 로 그린다 — 탐침은 그 안으로 내려가지 않는다.
+      if (spec.vs) names.push("FRAME:glyph");
       if (type === "INSTANCE") return;
       for (const child of spec.k ?? []) walk(child, false);
     };
@@ -304,6 +306,8 @@ for (const target of TARGETS) {
     const walk = async (node) => {
       names.push(node.type + ":" + node.name);
       if (node.name.startsWith("pending ")) pending += 1;
+      // 아이콘 그림은 createNodeFromSvg 가 만든 벡터 묶음이라 안을 세지 않는다(기대값도 「FRAME:glyph」 하나).
+      if (node.type === "FRAME" && node.name === "glyph") return;
       if (node.type === "INSTANCE") {
         const main = await node.getMainComponentAsync();
         const set = main && main.parent && main.parent.type === "COMPONENT_SET" ? main.parent : null;

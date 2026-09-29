@@ -296,6 +296,14 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서).",
   },
+  // ── 2026-09-30 — 세션 원장의 부스 체험(행사 없음).
+  {
+    id: "menu-lines",
+    signature: "0 0 24 24|path(d=M4 7h16)|path(d=M4 12h16)|path(d=M4 17h16)",
+    louis: null,
+    verdict: "missing",
+    why: "부스 체험(`/creative-media`) 머리글의 메뉴 버튼 — 가로선 셋(`components/creative-media/CreativeMediaClient.tsx:1095`). 폭이 있고 높이가 0 인 선이라 측정기가 선 도형을 싣게 된 뒤에야 서명이 섰다. LOUIS 에 목록 · 햄버거 그림이 없다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

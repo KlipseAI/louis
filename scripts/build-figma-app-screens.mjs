@@ -203,6 +203,8 @@ const SCREENS = [
     { route: "/creative-media-admin", desktop: "224:3553", mobile: "224:3799", fixture: "session" },
     { route: "/admin", desktop: "222:3310", mobile: "222:3626", fixture: "session" },
     { route: "/mypage/upgrade/checkout", desktop: "199:1729", mobile: "199:2782", fixture: "session" },
+    // 부스 체험 — 가짜 Supabase 에 행사가 없어 「No event is running right now」 빈 상태로 선다(공개 모드는 오류 경계 — `error` 보드).
+    { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
     // `/privacy` · `/terms` 는 원장에만 있다 — 표(`table`)의 크기 판정 규칙이 없어(td · tr · th 미해결 819) 조각이 뷰포트마다 18 ~ 41 개다

@@ -4,8 +4,8 @@
   "$why": "측정 픽셀을 박지 않고 크기 출처(FILL/HUG/FIXED/ABSOLUTE)로 조립하므로 프레임을 리사이즈하면 제품처럼 반응한다.",
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
-  "screenCount": 96,
-  "totalNodes": 7599,
+  "screenCount": 98,
+  "totalNodes": 7629,
   "totalUnresolved": 74,
   "totalShellInstances": 264,
   "totalShellGaps": 15,
@@ -505,16 +505,23 @@
       "louis": null,
       "verdict": "missing",
       "why": "테마 토글 「Light」 칸의 해(공개 페이지 푸터 8곳 · `/settings`) — 가운데 원에 광선 여덟이다. 가로 · 세로 광선(폭이나 높이가 0 인 선)이 측정에 들어와 서명이 길어졌다(옛 `sun` 항목은 대각선 넷만 든 서명이라 2026-09-30 에 걷었다). 판정은 옛 항목대로 `missing` 이다 — 다만 LOUIS 에 지금 `icon/sun` · `icon/moon` 이 있으므로 `bespoke` 로 다시 볼 일이다(인계서)."
+    },
+    {
+      "id": "menu-lines",
+      "signature": "0 0 24 24|path(d=M4 7h16)|path(d=M4 12h16)|path(d=M4 17h16)",
+      "louis": null,
+      "verdict": "missing",
+      "why": "부스 체험(`/creative-media`) 머리글의 메뉴 버튼 — 가로선 셋(`components/creative-media/CreativeMediaClient.tsx:1095`). 폭이 있고 높이가 0 인 선이라 측정기가 선 도형을 싣게 된 뒤에야 서명이 섰다. LOUIS 에 목록 · 햄버거 그림이 없다."
     }
   ],
   "paint": {
-    "fills": 679,
+    "fills": 685,
     "gradients": 2,
     "strokes": 182,
-    "radii": 390,
+    "radii": 392,
     "shadows": 8,
-    "texts": 1362,
-    "textStyled": 1171,
+    "texts": 1366,
+    "textStyled": 1175,
     "textLiteral": [
       "12/400/18/-0.14",
       "12/400/18/-0.16",
@@ -177074,6 +177081,2062 @@
       }
     },
     {
+      "route": "/creative-media",
+      "context": "desktop-1920x1080",
+      "figmaFrameId": "224:3455",
+      "frameSize": [
+        1920,
+        1080
+      ],
+      "shells": {
+        "applied": [],
+        "skipped": []
+      },
+      "stats": {
+        "measured": 21,
+        "kept": 15,
+        "droppedInvisible": 4,
+        "droppedEmpty": 2,
+        "unresolved": [],
+        "autoMarginCentred": [
+          {
+            "path": "body.1.0.0",
+            "from": null,
+            "children": [
+              "body.1.0.0.0"
+            ],
+            "margin": [
+              720
+            ]
+          }
+        ]
+      },
+      "spec": {
+        "path": "body.1",
+        "tag": "div",
+        "name": "body.1",
+        "text": null,
+        "textLines": null,
+        "paints": true,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "glyph": null,
+        "sizing": {
+          "layoutSizingHorizontal": "FILL",
+          "layoutSizingVertical": "HUG",
+          "layoutPositioning": "AUTO",
+          "minWidth": 0,
+          "maxWidth": null,
+          "minHeight": 1080,
+          "maxHeight": null,
+          "unresolved": []
+        },
+        "paint": {
+          "fill": "f2f3f5",
+          "gradient": null,
+          "stroke": null,
+          "radius": null,
+          "shadow": null,
+          "opacity": null
+        },
+        "typography": null,
+        "positioning": "AUTO",
+        "margin": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "offset": null,
+        "constraints": null,
+        "why": {
+          "horizontal": {
+            "verdict": "FILL",
+            "reason": "선언 없음 + block-level flex/grid — inline축을 채운다",
+            "source": "기본(block-level)",
+            "value": null
+          },
+          "vertical": {
+            "verdict": "HUG",
+            "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+            "source": "기본(height:auto)",
+            "value": null
+          }
+        },
+        "layout": {
+          "layoutMode": "VERTICAL",
+          "itemSpacing": 0,
+          "counterAxisSpacing": null,
+          "wrap": false,
+          "padding": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "columns": null,
+          "rows": null,
+          "align": {
+            "counterAxis": null,
+            "primaryAxis": null
+          }
+        },
+        "clipsContent": false,
+        "children": [
+          {
+            "path": "body.1.0",
+            "tag": "div",
+            "name": "body.1.0",
+            "text": null,
+            "textLines": null,
+            "paints": true,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1920,
+              "height": 1080
+            },
+            "glyph": null,
+            "sizing": {
+              "layoutSizingHorizontal": "FILL",
+              "layoutSizingVertical": "FILL",
+              "layoutPositioning": "AUTO",
+              "minWidth": null,
+              "maxWidth": null,
+              "minHeight": 0,
+              "maxHeight": null,
+              "unresolved": []
+            },
+            "paint": {
+              "fill": "f2f3f5",
+              "gradient": null,
+              "stroke": null,
+              "radius": null,
+              "shadow": null,
+              "opacity": null
+            },
+            "typography": null,
+            "positioning": "AUTO",
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "offset": null,
+            "constraints": null,
+            "why": {
+              "horizontal": {
+                "verdict": "FILL",
+                "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                "source": "align-items:normal",
+                "value": null
+              },
+              "vertical": {
+                "verdict": "FILL",
+                "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                "source": "flex-grow:1",
+                "value": null
+              }
+            },
+            "layout": {
+              "layoutMode": "VERTICAL",
+              "itemSpacing": 0,
+              "counterAxisSpacing": null,
+              "wrap": false,
+              "padding": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "columns": null,
+              "rows": null,
+              "align": {
+                "counterAxis": null,
+                "primaryAxis": null
+              }
+            },
+            "clipsContent": false,
+            "children": [
+              {
+                "path": "body.1.0.0",
+                "tag": "main",
+                "name": "body.1.0.0",
+                "text": null,
+                "textLines": null,
+                "paints": true,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1920,
+                  "height": 1080
+                },
+                "glyph": null,
+                "sizing": {
+                  "layoutSizingHorizontal": "FILL",
+                  "layoutSizingVertical": "HUG",
+                  "layoutPositioning": "AUTO",
+                  "minWidth": 0,
+                  "maxWidth": null,
+                  "minHeight": 1080,
+                  "maxHeight": null,
+                  "unresolved": []
+                },
+                "paint": {
+                  "fill": "000000",
+                  "gradient": null,
+                  "stroke": null,
+                  "radius": null,
+                  "shadow": null,
+                  "opacity": null
+                },
+                "typography": null,
+                "positioning": "AUTO",
+                "margin": {
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0,
+                  "left": 0
+                },
+                "offset": null,
+                "constraints": null,
+                "why": {
+                  "horizontal": {
+                    "verdict": "FILL",
+                    "reason": "horizontal 100% 선언 — 부모를 채운다",
+                    "source": "width:100%",
+                    "value": null
+                  },
+                  "vertical": {
+                    "verdict": "HUG",
+                    "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+                    "source": "기본(height:auto)",
+                    "value": null
+                  }
+                },
+                "layout": {
+                  "layoutMode": "VERTICAL",
+                  "itemSpacing": 0,
+                  "counterAxisSpacing": null,
+                  "wrap": false,
+                  "padding": {
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0,
+                    "left": 0
+                  },
+                  "columns": null,
+                  "rows": null,
+                  "align": {
+                    "counterAxis": "CENTER",
+                    "primaryAxis": null
+                  }
+                },
+                "clipsContent": false,
+                "children": [
+                  {
+                    "path": "body.1.0.0.0",
+                    "tag": "div",
+                    "name": "body.1.0.0.0",
+                    "text": null,
+                    "textLines": null,
+                    "paints": false,
+                    "rect": {
+                      "x": 720,
+                      "y": 0,
+                      "width": 480,
+                      "height": 1080
+                    },
+                    "glyph": null,
+                    "sizing": {
+                      "layoutSizingHorizontal": "FILL",
+                      "layoutSizingVertical": "HUG",
+                      "layoutPositioning": "AUTO",
+                      "minWidth": 0,
+                      "maxWidth": 480,
+                      "minHeight": 1080,
+                      "maxHeight": null,
+                      "unresolved": []
+                    },
+                    "paint": null,
+                    "typography": null,
+                    "positioning": "AUTO",
+                    "margin": {
+                      "top": 0,
+                      "right": 0,
+                      "bottom": 0,
+                      "left": 0
+                    },
+                    "offset": null,
+                    "constraints": null,
+                    "why": {
+                      "horizontal": {
+                        "verdict": "FILL",
+                        "reason": "horizontal 100% 선언 — 부모를 채운다",
+                        "source": "width:100%",
+                        "value": null
+                      },
+                      "vertical": {
+                        "verdict": "HUG",
+                        "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+                        "source": "기본(height:auto)",
+                        "value": null
+                      }
+                    },
+                    "layout": {
+                      "layoutMode": "VERTICAL",
+                      "itemSpacing": 0,
+                      "counterAxisSpacing": null,
+                      "wrap": false,
+                      "padding": {
+                        "top": 16,
+                        "right": 20,
+                        "bottom": 32,
+                        "left": 20
+                      },
+                      "columns": null,
+                      "rows": null,
+                      "align": {
+                        "counterAxis": null,
+                        "primaryAxis": null
+                      }
+                    },
+                    "clipsContent": false,
+                    "children": [
+                      {
+                        "path": "body.1.0.0.0.0",
+                        "tag": "header",
+                        "name": "body.1.0.0.0.0",
+                        "text": null,
+                        "textLines": null,
+                        "paints": false,
+                        "rect": {
+                          "x": 740,
+                          "y": 16,
+                          "width": 440,
+                          "height": 48
+                        },
+                        "glyph": null,
+                        "sizing": {
+                          "layoutSizingHorizontal": "FILL",
+                          "layoutSizingVertical": "HUG",
+                          "layoutPositioning": "AUTO",
+                          "minWidth": null,
+                          "maxWidth": null,
+                          "minHeight": null,
+                          "maxHeight": null,
+                          "unresolved": []
+                        },
+                        "paint": null,
+                        "typography": null,
+                        "positioning": "AUTO",
+                        "margin": {
+                          "top": 0,
+                          "right": 0,
+                          "bottom": 0,
+                          "left": 0
+                        },
+                        "offset": null,
+                        "constraints": null,
+                        "why": {
+                          "horizontal": {
+                            "verdict": "FILL",
+                            "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                            "source": "align-items:normal",
+                            "value": null
+                          },
+                          "vertical": {
+                            "verdict": "HUG",
+                            "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                            "source": "flex-grow:0 · width:auto",
+                            "value": null
+                          }
+                        },
+                        "layout": {
+                          "layoutMode": "HORIZONTAL",
+                          "itemSpacing": 0,
+                          "counterAxisSpacing": null,
+                          "wrap": false,
+                          "padding": {
+                            "top": 8,
+                            "right": 0,
+                            "bottom": 8,
+                            "left": 0
+                          },
+                          "columns": null,
+                          "rows": null,
+                          "align": {
+                            "counterAxis": "CENTER",
+                            "primaryAxis": "SPACE_BETWEEN"
+                          }
+                        },
+                        "clipsContent": false,
+                        "children": [
+                          {
+                            "path": "body.1.0.0.0.0.0",
+                            "tag": "span",
+                            "name": "body.1.0.0.0.0.0",
+                            "text": null,
+                            "textLines": null,
+                            "paints": false,
+                            "rect": {
+                              "x": 740,
+                              "y": 27,
+                              "width": 92,
+                              "height": 26
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "FIXED",
+                              "layoutSizingVertical": "FIXED",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": null,
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "FIXED",
+                                "reason": "92px 고정 선언",
+                                "source": "width:92px",
+                                "value": 92
+                              },
+                              "vertical": {
+                                "verdict": "FIXED",
+                                "reason": "26px 고정 선언",
+                                "source": "height:26px",
+                                "value": 26
+                              }
+                            },
+                            "layout": {
+                              "layoutMode": "HORIZONTAL",
+                              "itemSpacing": 0,
+                              "counterAxisSpacing": null,
+                              "wrap": false,
+                              "padding": {
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0,
+                                "left": 0
+                              },
+                              "columns": null,
+                              "rows": null,
+                              "align": {
+                                "counterAxis": "CENTER",
+                                "primaryAxis": "CENTER"
+                              }
+                            },
+                            "clipsContent": false,
+                            "children": [
+                              {
+                                "path": "body.1.0.0.0.0.0.1",
+                                "tag": "img",
+                                "name": "body.1.0.0.0.0.0.1",
+                                "text": null,
+                                "textLines": null,
+                                "paints": true,
+                                "rect": {
+                                  "x": 740,
+                                  "y": 27,
+                                  "width": 92,
+                                  "height": 26
+                                },
+                                "glyph": null,
+                                "src": "/klipse-dark.svg",
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "ABSOLUTE",
+                                  "minWidth": 0,
+                                  "maxWidth": null,
+                                  "minHeight": 0,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": null,
+                                "typography": null,
+                                "positioning": "ABSOLUTE",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": {
+                                  "x": 0,
+                                  "y": 0
+                                },
+                                "constraints": {
+                                  "horizontal": "MIN",
+                                  "vertical": "MIN"
+                                },
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "position:absolute — 절대 배치이므로 축이 아니라 좌표/제약으로 다룬다",
+                                    "source": "position:absolute",
+                                    "value": null
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "position:absolute — 절대 배치이므로 축이 아니라 좌표/제약으로 다룬다",
+                                    "source": "position:absolute",
+                                    "value": null
+                                  }
+                                },
+                                "layout": null,
+                                "clipsContent": false,
+                                "children": [],
+                                "imageComponent": {
+                                  "id": "57:11",
+                                  "name": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "path": "body.1.0.0.0.0.1",
+                            "tag": "div",
+                            "name": "body.1.0.0.0.0.1",
+                            "text": null,
+                            "textLines": null,
+                            "paints": false,
+                            "rect": {
+                              "x": 1108,
+                              "y": 24,
+                              "width": 72,
+                              "height": 32
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": null,
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              }
+                            },
+                            "layout": {
+                              "layoutMode": "HORIZONTAL",
+                              "itemSpacing": 8,
+                              "counterAxisSpacing": 8,
+                              "wrap": false,
+                              "padding": {
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0,
+                                "left": 0
+                              },
+                              "columns": null,
+                              "rows": null,
+                              "align": {
+                                "counterAxis": "CENTER",
+                                "primaryAxis": null
+                              }
+                            },
+                            "clipsContent": false,
+                            "children": [
+                              {
+                                "path": "body.1.0.0.0.0.1.0.0",
+                                "tag": "svg",
+                                "name": "body.1.0.0.0.0.1.0.0",
+                                "text": null,
+                                "textLines": null,
+                                "paints": true,
+                                "rect": {
+                                  "x": 1114,
+                                  "y": 30,
+                                  "width": 20,
+                                  "height": 20
+                                },
+                                "glyph": "0 0 24 24|circle(cx=12 cy=12 r=9)|path(d=M3 12h18)|ellipse(cx=12 cy=12 rx=3.5 ry=9)",
+                                "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20' fill='none'><circle cx='12' cy='12' r='9' fill='none' stroke='#fafafa' stroke-width='1.5'/><path d='M3 12h18' fill='none' stroke='#fafafa' stroke-width='1.5' stroke-linecap='round'/><ellipse cx='12' cy='12' rx='3.5' ry='9' fill='none' stroke='#fafafa' stroke-width='1.5'/></svg>",
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "AUTO",
+                                  "minWidth": null,
+                                  "maxWidth": null,
+                                  "minHeight": null,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": null,
+                                "typography": null,
+                                "positioning": "AUTO",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": null,
+                                "constraints": null,
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(20px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(20px)",
+                                    "source": "width:calc(20px)",
+                                    "value": 20
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(20px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(20px)",
+                                    "source": "height:calc(20px)",
+                                    "value": 20
+                                  }
+                                },
+                                "layout": {
+                                  "layoutMode": "HORIZONTAL",
+                                  "itemSpacing": 0,
+                                  "counterAxisSpacing": null,
+                                  "wrap": false,
+                                  "padding": {
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0,
+                                    "left": 0
+                                  },
+                                  "columns": null,
+                                  "rows": null,
+                                  "align": {
+                                    "counterAxis": null,
+                                    "primaryAxis": null
+                                  }
+                                },
+                                "clipsContent": true,
+                                "children": [],
+                                "glyphId": "globe-with-equator"
+                              },
+                              {
+                                "path": "body.1.0.0.0.0.1.1",
+                                "tag": "button",
+                                "name": "body.1.0.0.0.0.1.1",
+                                "text": null,
+                                "textLines": null,
+                                "paints": false,
+                                "rect": {
+                                  "x": 1148,
+                                  "y": 24,
+                                  "width": 32,
+                                  "height": 32
+                                },
+                                "glyph": null,
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "AUTO",
+                                  "minWidth": null,
+                                  "maxWidth": null,
+                                  "minHeight": null,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": {
+                                  "fill": null,
+                                  "gradient": null,
+                                  "stroke": null,
+                                  "radius": [
+                                    999,
+                                    999,
+                                    999,
+                                    999
+                                  ],
+                                  "shadow": null,
+                                  "opacity": null
+                                },
+                                "typography": null,
+                                "positioning": "AUTO",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": null,
+                                "constraints": null,
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(32px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(32px)",
+                                    "source": "width:calc(32px)",
+                                    "value": 32
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(32px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(32px)",
+                                    "source": "height:calc(32px)",
+                                    "value": 32
+                                  }
+                                },
+                                "layout": {
+                                  "layoutMode": "HORIZONTAL",
+                                  "itemSpacing": 0,
+                                  "counterAxisSpacing": null,
+                                  "wrap": false,
+                                  "padding": {
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0,
+                                    "left": 0
+                                  },
+                                  "columns": null,
+                                  "rows": null,
+                                  "align": {
+                                    "counterAxis": "CENTER",
+                                    "primaryAxis": "CENTER"
+                                  }
+                                },
+                                "clipsContent": false,
+                                "children": [
+                                  {
+                                    "path": "body.1.0.0.0.0.1.1.0",
+                                    "tag": "svg",
+                                    "name": "body.1.0.0.0.0.1.1.0",
+                                    "text": null,
+                                    "textLines": null,
+                                    "paints": true,
+                                    "rect": {
+                                      "x": 1154,
+                                      "y": 30,
+                                      "width": 20,
+                                      "height": 20
+                                    },
+                                    "glyph": "0 0 24 24|path(d=M4 7h16)|path(d=M4 12h16)|path(d=M4 17h16)",
+                                    "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20' fill='none'><path d='M4 7h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/><path d='M4 12h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/><path d='M4 17h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/></svg>",
+                                    "sizing": {
+                                      "layoutSizingHorizontal": "HUG",
+                                      "layoutSizingVertical": "HUG",
+                                      "layoutPositioning": "AUTO",
+                                      "minWidth": null,
+                                      "maxWidth": null,
+                                      "minHeight": null,
+                                      "maxHeight": null,
+                                      "unresolved": []
+                                    },
+                                    "paint": null,
+                                    "typography": null,
+                                    "positioning": "AUTO",
+                                    "margin": {
+                                      "top": 0,
+                                      "right": 0,
+                                      "bottom": 0,
+                                      "left": 0
+                                    },
+                                    "offset": null,
+                                    "constraints": null,
+                                    "why": {
+                                      "horizontal": {
+                                        "verdict": "HUG",
+                                        "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                        "source": "flex-grow:0 · width:auto",
+                                        "value": null
+                                      },
+                                      "vertical": {
+                                        "verdict": "HUG",
+                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                        "source": "기본(flex item)",
+                                        "value": null
+                                      }
+                                    },
+                                    "layout": {
+                                      "layoutMode": "HORIZONTAL",
+                                      "itemSpacing": 0,
+                                      "counterAxisSpacing": null,
+                                      "wrap": false,
+                                      "padding": {
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0,
+                                        "left": 0
+                                      },
+                                      "columns": null,
+                                      "rows": null,
+                                      "align": {
+                                        "counterAxis": null,
+                                        "primaryAxis": null
+                                      }
+                                    },
+                                    "clipsContent": true,
+                                    "children": [],
+                                    "glyphId": "menu-lines"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "path": "body.1.0.0.0.1",
+                        "tag": "div",
+                        "name": "body.1.0.0.0.1",
+                        "text": null,
+                        "textLines": null,
+                        "paints": false,
+                        "rect": {
+                          "x": 740,
+                          "y": 64,
+                          "width": 440,
+                          "height": 984
+                        },
+                        "glyph": null,
+                        "sizing": {
+                          "layoutSizingHorizontal": "FILL",
+                          "layoutSizingVertical": "FILL",
+                          "layoutPositioning": "AUTO",
+                          "minWidth": null,
+                          "maxWidth": null,
+                          "minHeight": null,
+                          "maxHeight": null,
+                          "unresolved": []
+                        },
+                        "paint": null,
+                        "typography": null,
+                        "positioning": "AUTO",
+                        "margin": {
+                          "top": 0,
+                          "right": 0,
+                          "bottom": 0,
+                          "left": 0
+                        },
+                        "offset": null,
+                        "constraints": null,
+                        "why": {
+                          "horizontal": {
+                            "verdict": "FILL",
+                            "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                            "source": "align-items:normal",
+                            "value": null
+                          },
+                          "vertical": {
+                            "verdict": "FILL",
+                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                            "source": "flex-grow:1",
+                            "value": null
+                          }
+                        },
+                        "layout": {
+                          "layoutMode": "VERTICAL",
+                          "itemSpacing": 12,
+                          "counterAxisSpacing": 12,
+                          "wrap": false,
+                          "padding": {
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0,
+                            "left": 0
+                          },
+                          "columns": null,
+                          "rows": null,
+                          "align": {
+                            "counterAxis": "CENTER",
+                            "primaryAxis": "CENTER"
+                          }
+                        },
+                        "clipsContent": false,
+                        "children": [
+                          {
+                            "path": "body.1.0.0.0.1.0",
+                            "tag": "h1",
+                            "name": "body.1.0.0.0.1.0",
+                            "text": "No event is running right now",
+                            "textLines": null,
+                            "paints": true,
+                            "rect": {
+                              "x": 827.6406,
+                              "y": 524.5,
+                              "width": 264.7188,
+                              "height": 30
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": {
+                              "style": "typography/body-lg-semibold",
+                              "size": 20,
+                              "weight": 600,
+                              "lineHeight": 30,
+                              "letterSpacing": -0.2,
+                              "color": "fafafa",
+                              "align": "center"
+                            },
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              }
+                            },
+                            "layout": null,
+                            "clipsContent": false,
+                            "children": []
+                          },
+                          {
+                            "path": "body.1.0.0.0.1.1",
+                            "tag": "p",
+                            "name": "body.1.0.0.0.1.1",
+                            "text": "Please visit the Klipse booth during the event.",
+                            "textLines": null,
+                            "paints": true,
+                            "rect": {
+                              "x": 820.3125,
+                              "y": 566.5,
+                              "width": 279.375,
+                              "height": 21
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": {
+                              "style": "typography/body-sm-regular",
+                              "size": 14,
+                              "weight": 400,
+                              "lineHeight": 21,
+                              "letterSpacing": -0.14,
+                              "color": "8b8e93",
+                              "align": "center"
+                            },
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              }
+                            },
+                            "layout": null,
+                            "clipsContent": false,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "route": "/creative-media",
+      "context": "mobile-402x874",
+      "figmaFrameId": "224:3504",
+      "frameSize": [
+        402,
+        874
+      ],
+      "shells": {
+        "applied": [],
+        "skipped": []
+      },
+      "stats": {
+        "measured": 21,
+        "kept": 15,
+        "droppedInvisible": 4,
+        "droppedEmpty": 2,
+        "unresolved": []
+      },
+      "spec": {
+        "path": "body.1",
+        "tag": "div",
+        "name": "body.1",
+        "text": null,
+        "textLines": null,
+        "paints": true,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 402,
+          "height": 874
+        },
+        "glyph": null,
+        "sizing": {
+          "layoutSizingHorizontal": "FILL",
+          "layoutSizingVertical": "HUG",
+          "layoutPositioning": "AUTO",
+          "minWidth": 0,
+          "maxWidth": null,
+          "minHeight": 874,
+          "maxHeight": null,
+          "unresolved": []
+        },
+        "paint": {
+          "fill": "fafafa",
+          "gradient": null,
+          "stroke": null,
+          "radius": null,
+          "shadow": null,
+          "opacity": null
+        },
+        "typography": null,
+        "positioning": "AUTO",
+        "margin": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "offset": null,
+        "constraints": null,
+        "why": {
+          "horizontal": {
+            "verdict": "FILL",
+            "reason": "선언 없음 + block-level flex/grid — inline축을 채운다",
+            "source": "기본(block-level)",
+            "value": null
+          },
+          "vertical": {
+            "verdict": "HUG",
+            "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+            "source": "기본(height:auto)",
+            "value": null
+          }
+        },
+        "layout": {
+          "layoutMode": "VERTICAL",
+          "itemSpacing": 0,
+          "counterAxisSpacing": null,
+          "wrap": false,
+          "padding": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "columns": null,
+          "rows": null,
+          "align": {
+            "counterAxis": null,
+            "primaryAxis": null
+          }
+        },
+        "clipsContent": false,
+        "children": [
+          {
+            "path": "body.1.0",
+            "tag": "div",
+            "name": "body.1.0",
+            "text": null,
+            "textLines": null,
+            "paints": true,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 402,
+              "height": 874
+            },
+            "glyph": null,
+            "sizing": {
+              "layoutSizingHorizontal": "FILL",
+              "layoutSizingVertical": "FILL",
+              "layoutPositioning": "AUTO",
+              "minWidth": null,
+              "maxWidth": null,
+              "minHeight": 0,
+              "maxHeight": null,
+              "unresolved": []
+            },
+            "paint": {
+              "fill": "fafafa",
+              "gradient": null,
+              "stroke": null,
+              "radius": null,
+              "shadow": null,
+              "opacity": null
+            },
+            "typography": null,
+            "positioning": "AUTO",
+            "margin": {
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            },
+            "offset": null,
+            "constraints": null,
+            "why": {
+              "horizontal": {
+                "verdict": "FILL",
+                "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                "source": "align-items:normal",
+                "value": null
+              },
+              "vertical": {
+                "verdict": "FILL",
+                "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                "source": "flex-grow:1",
+                "value": null
+              }
+            },
+            "layout": {
+              "layoutMode": "VERTICAL",
+              "itemSpacing": 0,
+              "counterAxisSpacing": null,
+              "wrap": false,
+              "padding": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "columns": null,
+              "rows": null,
+              "align": {
+                "counterAxis": null,
+                "primaryAxis": null
+              }
+            },
+            "clipsContent": false,
+            "children": [
+              {
+                "path": "body.1.0.0",
+                "tag": "main",
+                "name": "body.1.0.0",
+                "text": null,
+                "textLines": null,
+                "paints": true,
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 402,
+                  "height": 874
+                },
+                "glyph": null,
+                "sizing": {
+                  "layoutSizingHorizontal": "FILL",
+                  "layoutSizingVertical": "HUG",
+                  "layoutPositioning": "AUTO",
+                  "minWidth": 0,
+                  "maxWidth": null,
+                  "minHeight": 874,
+                  "maxHeight": null,
+                  "unresolved": []
+                },
+                "paint": {
+                  "fill": "000000",
+                  "gradient": null,
+                  "stroke": null,
+                  "radius": null,
+                  "shadow": null,
+                  "opacity": null
+                },
+                "typography": null,
+                "positioning": "AUTO",
+                "margin": {
+                  "top": 0,
+                  "right": 0,
+                  "bottom": 0,
+                  "left": 0
+                },
+                "offset": null,
+                "constraints": null,
+                "why": {
+                  "horizontal": {
+                    "verdict": "FILL",
+                    "reason": "horizontal 100% 선언 — 부모를 채운다",
+                    "source": "width:100%",
+                    "value": null
+                  },
+                  "vertical": {
+                    "verdict": "HUG",
+                    "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+                    "source": "기본(height:auto)",
+                    "value": null
+                  }
+                },
+                "layout": {
+                  "layoutMode": "VERTICAL",
+                  "itemSpacing": 0,
+                  "counterAxisSpacing": null,
+                  "wrap": false,
+                  "padding": {
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0,
+                    "left": 0
+                  },
+                  "columns": null,
+                  "rows": null,
+                  "align": {
+                    "counterAxis": null,
+                    "primaryAxis": null
+                  }
+                },
+                "clipsContent": false,
+                "children": [
+                  {
+                    "path": "body.1.0.0.0",
+                    "tag": "div",
+                    "name": "body.1.0.0.0",
+                    "text": null,
+                    "textLines": null,
+                    "paints": false,
+                    "rect": {
+                      "x": 0,
+                      "y": 0,
+                      "width": 402,
+                      "height": 874
+                    },
+                    "glyph": null,
+                    "sizing": {
+                      "layoutSizingHorizontal": "FILL",
+                      "layoutSizingVertical": "HUG",
+                      "layoutPositioning": "AUTO",
+                      "minWidth": 0,
+                      "maxWidth": 480,
+                      "minHeight": 874,
+                      "maxHeight": null,
+                      "unresolved": []
+                    },
+                    "paint": null,
+                    "typography": null,
+                    "positioning": "AUTO",
+                    "margin": {
+                      "top": 0,
+                      "right": 0,
+                      "bottom": 0,
+                      "left": 0
+                    },
+                    "offset": null,
+                    "constraints": null,
+                    "why": {
+                      "horizontal": {
+                        "verdict": "FILL",
+                        "reason": "horizontal 100% 선언 — 부모를 채운다",
+                        "source": "width:100%",
+                        "value": null
+                      },
+                      "vertical": {
+                        "verdict": "HUG",
+                        "reason": "선언 없음 — 세로는 콘텐츠가 결정한다",
+                        "source": "기본(height:auto)",
+                        "value": null
+                      }
+                    },
+                    "layout": {
+                      "layoutMode": "VERTICAL",
+                      "itemSpacing": 0,
+                      "counterAxisSpacing": null,
+                      "wrap": false,
+                      "padding": {
+                        "top": 16,
+                        "right": 20,
+                        "bottom": 32,
+                        "left": 20
+                      },
+                      "columns": null,
+                      "rows": null,
+                      "align": {
+                        "counterAxis": null,
+                        "primaryAxis": null
+                      }
+                    },
+                    "clipsContent": false,
+                    "children": [
+                      {
+                        "path": "body.1.0.0.0.0",
+                        "tag": "header",
+                        "name": "body.1.0.0.0.0",
+                        "text": null,
+                        "textLines": null,
+                        "paints": false,
+                        "rect": {
+                          "x": 20,
+                          "y": 16,
+                          "width": 362,
+                          "height": 48
+                        },
+                        "glyph": null,
+                        "sizing": {
+                          "layoutSizingHorizontal": "FILL",
+                          "layoutSizingVertical": "HUG",
+                          "layoutPositioning": "AUTO",
+                          "minWidth": null,
+                          "maxWidth": null,
+                          "minHeight": null,
+                          "maxHeight": null,
+                          "unresolved": []
+                        },
+                        "paint": null,
+                        "typography": null,
+                        "positioning": "AUTO",
+                        "margin": {
+                          "top": 0,
+                          "right": 0,
+                          "bottom": 0,
+                          "left": 0
+                        },
+                        "offset": null,
+                        "constraints": null,
+                        "why": {
+                          "horizontal": {
+                            "verdict": "FILL",
+                            "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                            "source": "align-items:normal",
+                            "value": null
+                          },
+                          "vertical": {
+                            "verdict": "HUG",
+                            "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                            "source": "flex-grow:0 · width:auto",
+                            "value": null
+                          }
+                        },
+                        "layout": {
+                          "layoutMode": "HORIZONTAL",
+                          "itemSpacing": 0,
+                          "counterAxisSpacing": null,
+                          "wrap": false,
+                          "padding": {
+                            "top": 8,
+                            "right": 0,
+                            "bottom": 8,
+                            "left": 0
+                          },
+                          "columns": null,
+                          "rows": null,
+                          "align": {
+                            "counterAxis": "CENTER",
+                            "primaryAxis": "SPACE_BETWEEN"
+                          }
+                        },
+                        "clipsContent": false,
+                        "children": [
+                          {
+                            "path": "body.1.0.0.0.0.0",
+                            "tag": "span",
+                            "name": "body.1.0.0.0.0.0",
+                            "text": null,
+                            "textLines": null,
+                            "paints": false,
+                            "rect": {
+                              "x": 20,
+                              "y": 27,
+                              "width": 92,
+                              "height": 26
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "FIXED",
+                              "layoutSizingVertical": "FIXED",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": null,
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "FIXED",
+                                "reason": "92px 고정 선언",
+                                "source": "width:92px",
+                                "value": 92
+                              },
+                              "vertical": {
+                                "verdict": "FIXED",
+                                "reason": "26px 고정 선언",
+                                "source": "height:26px",
+                                "value": 26
+                              }
+                            },
+                            "layout": {
+                              "layoutMode": "HORIZONTAL",
+                              "itemSpacing": 0,
+                              "counterAxisSpacing": null,
+                              "wrap": false,
+                              "padding": {
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0,
+                                "left": 0
+                              },
+                              "columns": null,
+                              "rows": null,
+                              "align": {
+                                "counterAxis": "CENTER",
+                                "primaryAxis": "CENTER"
+                              }
+                            },
+                            "clipsContent": false,
+                            "children": [
+                              {
+                                "path": "body.1.0.0.0.0.0.1",
+                                "tag": "img",
+                                "name": "body.1.0.0.0.0.0.1",
+                                "text": null,
+                                "textLines": null,
+                                "paints": true,
+                                "rect": {
+                                  "x": 20,
+                                  "y": 27,
+                                  "width": 92,
+                                  "height": 26
+                                },
+                                "glyph": null,
+                                "src": "/klipse-dark.svg",
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "ABSOLUTE",
+                                  "minWidth": 0,
+                                  "maxWidth": null,
+                                  "minHeight": 0,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": null,
+                                "typography": null,
+                                "positioning": "ABSOLUTE",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": {
+                                  "x": 0,
+                                  "y": 0
+                                },
+                                "constraints": {
+                                  "horizontal": "MIN",
+                                  "vertical": "MIN"
+                                },
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "position:absolute — 절대 배치이므로 축이 아니라 좌표/제약으로 다룬다",
+                                    "source": "position:absolute",
+                                    "value": null
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "position:absolute — 절대 배치이므로 축이 아니라 좌표/제약으로 다룬다",
+                                    "source": "position:absolute",
+                                    "value": null
+                                  }
+                                },
+                                "layout": null,
+                                "clipsContent": false,
+                                "children": [],
+                                "imageComponent": {
+                                  "id": "57:11",
+                                  "name": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "path": "body.1.0.0.0.0.1",
+                            "tag": "div",
+                            "name": "body.1.0.0.0.0.1",
+                            "text": null,
+                            "textLines": null,
+                            "paints": false,
+                            "rect": {
+                              "x": 310,
+                              "y": 24,
+                              "width": 72,
+                              "height": 32
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": null,
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              }
+                            },
+                            "layout": {
+                              "layoutMode": "HORIZONTAL",
+                              "itemSpacing": 8,
+                              "counterAxisSpacing": 8,
+                              "wrap": false,
+                              "padding": {
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0,
+                                "left": 0
+                              },
+                              "columns": null,
+                              "rows": null,
+                              "align": {
+                                "counterAxis": "CENTER",
+                                "primaryAxis": null
+                              }
+                            },
+                            "clipsContent": false,
+                            "children": [
+                              {
+                                "path": "body.1.0.0.0.0.1.0.0",
+                                "tag": "svg",
+                                "name": "body.1.0.0.0.0.1.0.0",
+                                "text": null,
+                                "textLines": null,
+                                "paints": true,
+                                "rect": {
+                                  "x": 316,
+                                  "y": 30,
+                                  "width": 20,
+                                  "height": 20
+                                },
+                                "glyph": "0 0 24 24|circle(cx=12 cy=12 r=9)|path(d=M3 12h18)|ellipse(cx=12 cy=12 rx=3.5 ry=9)",
+                                "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20' fill='none'><circle cx='12' cy='12' r='9' fill='none' stroke='#fafafa' stroke-width='1.5'/><path d='M3 12h18' fill='none' stroke='#fafafa' stroke-width='1.5' stroke-linecap='round'/><ellipse cx='12' cy='12' rx='3.5' ry='9' fill='none' stroke='#fafafa' stroke-width='1.5'/></svg>",
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "AUTO",
+                                  "minWidth": null,
+                                  "maxWidth": null,
+                                  "minHeight": null,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": null,
+                                "typography": null,
+                                "positioning": "AUTO",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": null,
+                                "constraints": null,
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(20px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(20px)",
+                                    "source": "width:calc(20px)",
+                                    "value": 20
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(20px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(20px)",
+                                    "source": "height:calc(20px)",
+                                    "value": 20
+                                  }
+                                },
+                                "layout": {
+                                  "layoutMode": "HORIZONTAL",
+                                  "itemSpacing": 0,
+                                  "counterAxisSpacing": null,
+                                  "wrap": false,
+                                  "padding": {
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0,
+                                    "left": 0
+                                  },
+                                  "columns": null,
+                                  "rows": null,
+                                  "align": {
+                                    "counterAxis": null,
+                                    "primaryAxis": null
+                                  }
+                                },
+                                "clipsContent": true,
+                                "children": [],
+                                "glyphId": "globe-with-equator"
+                              },
+                              {
+                                "path": "body.1.0.0.0.0.1.1",
+                                "tag": "button",
+                                "name": "body.1.0.0.0.0.1.1",
+                                "text": null,
+                                "textLines": null,
+                                "paints": false,
+                                "rect": {
+                                  "x": 350,
+                                  "y": 24,
+                                  "width": 32,
+                                  "height": 32
+                                },
+                                "glyph": null,
+                                "sizing": {
+                                  "layoutSizingHorizontal": "FIXED",
+                                  "layoutSizingVertical": "FIXED",
+                                  "layoutPositioning": "AUTO",
+                                  "minWidth": null,
+                                  "maxWidth": null,
+                                  "minHeight": null,
+                                  "maxHeight": null,
+                                  "unresolved": []
+                                },
+                                "paint": {
+                                  "fill": null,
+                                  "gradient": null,
+                                  "stroke": null,
+                                  "radius": [
+                                    999,
+                                    999,
+                                    999,
+                                    999
+                                  ],
+                                  "shadow": null,
+                                  "opacity": null
+                                },
+                                "typography": null,
+                                "positioning": "AUTO",
+                                "margin": {
+                                  "top": 0,
+                                  "right": 0,
+                                  "bottom": 0,
+                                  "left": 0
+                                },
+                                "offset": null,
+                                "constraints": null,
+                                "why": {
+                                  "horizontal": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(32px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(32px)",
+                                    "source": "width:calc(32px)",
+                                    "value": 32
+                                  },
+                                  "vertical": {
+                                    "verdict": "FIXED",
+                                    "reason": "calc(32px) — CSS 변수/계산식이지만 퍼센트가 없어 고정 크기로 해결됨(32px)",
+                                    "source": "height:calc(32px)",
+                                    "value": 32
+                                  }
+                                },
+                                "layout": {
+                                  "layoutMode": "HORIZONTAL",
+                                  "itemSpacing": 0,
+                                  "counterAxisSpacing": null,
+                                  "wrap": false,
+                                  "padding": {
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0,
+                                    "left": 0
+                                  },
+                                  "columns": null,
+                                  "rows": null,
+                                  "align": {
+                                    "counterAxis": "CENTER",
+                                    "primaryAxis": "CENTER"
+                                  }
+                                },
+                                "clipsContent": false,
+                                "children": [
+                                  {
+                                    "path": "body.1.0.0.0.0.1.1.0",
+                                    "tag": "svg",
+                                    "name": "body.1.0.0.0.0.1.1.0",
+                                    "text": null,
+                                    "textLines": null,
+                                    "paints": true,
+                                    "rect": {
+                                      "x": 356,
+                                      "y": 30,
+                                      "width": 20,
+                                      "height": 20
+                                    },
+                                    "glyph": "0 0 24 24|path(d=M4 7h16)|path(d=M4 12h16)|path(d=M4 17h16)",
+                                    "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20' fill='none'><path d='M4 7h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/><path d='M4 12h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/><path d='M4 17h16' fill='none' stroke='#fafafa' stroke-width='2' stroke-linecap='round'/></svg>",
+                                    "sizing": {
+                                      "layoutSizingHorizontal": "HUG",
+                                      "layoutSizingVertical": "HUG",
+                                      "layoutPositioning": "AUTO",
+                                      "minWidth": null,
+                                      "maxWidth": null,
+                                      "minHeight": null,
+                                      "maxHeight": null,
+                                      "unresolved": []
+                                    },
+                                    "paint": null,
+                                    "typography": null,
+                                    "positioning": "AUTO",
+                                    "margin": {
+                                      "top": 0,
+                                      "right": 0,
+                                      "bottom": 0,
+                                      "left": 0
+                                    },
+                                    "offset": null,
+                                    "constraints": null,
+                                    "why": {
+                                      "horizontal": {
+                                        "verdict": "HUG",
+                                        "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                        "source": "flex-grow:0 · width:auto",
+                                        "value": null
+                                      },
+                                      "vertical": {
+                                        "verdict": "HUG",
+                                        "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                        "source": "기본(flex item)",
+                                        "value": null
+                                      }
+                                    },
+                                    "layout": {
+                                      "layoutMode": "HORIZONTAL",
+                                      "itemSpacing": 0,
+                                      "counterAxisSpacing": null,
+                                      "wrap": false,
+                                      "padding": {
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0,
+                                        "left": 0
+                                      },
+                                      "columns": null,
+                                      "rows": null,
+                                      "align": {
+                                        "counterAxis": null,
+                                        "primaryAxis": null
+                                      }
+                                    },
+                                    "clipsContent": true,
+                                    "children": [],
+                                    "glyphId": "menu-lines"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "path": "body.1.0.0.0.1",
+                        "tag": "div",
+                        "name": "body.1.0.0.0.1",
+                        "text": null,
+                        "textLines": null,
+                        "paints": false,
+                        "rect": {
+                          "x": 20,
+                          "y": 64,
+                          "width": 362,
+                          "height": 778
+                        },
+                        "glyph": null,
+                        "sizing": {
+                          "layoutSizingHorizontal": "FILL",
+                          "layoutSizingVertical": "FILL",
+                          "layoutPositioning": "AUTO",
+                          "minWidth": null,
+                          "maxWidth": null,
+                          "minHeight": null,
+                          "maxHeight": null,
+                          "unresolved": []
+                        },
+                        "paint": null,
+                        "typography": null,
+                        "positioning": "AUTO",
+                        "margin": {
+                          "top": 0,
+                          "right": 0,
+                          "bottom": 0,
+                          "left": 0
+                        },
+                        "offset": null,
+                        "constraints": null,
+                        "why": {
+                          "horizontal": {
+                            "verdict": "FILL",
+                            "reason": "부모 flex의 교차축 + align:normal — 교차축을 채운다",
+                            "source": "align-items:normal",
+                            "value": null
+                          },
+                          "vertical": {
+                            "verdict": "FILL",
+                            "reason": "부모가 flex이고 flex-grow:1 — 남는 공간을 채운다",
+                            "source": "flex-grow:1",
+                            "value": null
+                          }
+                        },
+                        "layout": {
+                          "layoutMode": "VERTICAL",
+                          "itemSpacing": 12,
+                          "counterAxisSpacing": 12,
+                          "wrap": false,
+                          "padding": {
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0,
+                            "left": 0
+                          },
+                          "columns": null,
+                          "rows": null,
+                          "align": {
+                            "counterAxis": "CENTER",
+                            "primaryAxis": "CENTER"
+                          }
+                        },
+                        "clipsContent": false,
+                        "children": [
+                          {
+                            "path": "body.1.0.0.0.1.0",
+                            "tag": "h1",
+                            "name": "body.1.0.0.0.1.0",
+                            "text": "No event is running right now",
+                            "textLines": null,
+                            "paints": true,
+                            "rect": {
+                              "x": 68.6406,
+                              "y": 421.5,
+                              "width": 264.7188,
+                              "height": 30
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": {
+                              "style": "typography/body-lg-semibold",
+                              "size": 20,
+                              "weight": 600,
+                              "lineHeight": 30,
+                              "letterSpacing": -0.2,
+                              "color": "fafafa",
+                              "align": "center"
+                            },
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              }
+                            },
+                            "layout": null,
+                            "clipsContent": false,
+                            "children": []
+                          },
+                          {
+                            "path": "body.1.0.0.0.1.1",
+                            "tag": "p",
+                            "name": "body.1.0.0.0.1.1",
+                            "text": "Please visit the Klipse booth during the event.",
+                            "textLines": null,
+                            "paints": true,
+                            "rect": {
+                              "x": 61.3125,
+                              "y": 463.5,
+                              "width": 279.375,
+                              "height": 21
+                            },
+                            "glyph": null,
+                            "sizing": {
+                              "layoutSizingHorizontal": "HUG",
+                              "layoutSizingVertical": "HUG",
+                              "layoutPositioning": "AUTO",
+                              "minWidth": null,
+                              "maxWidth": null,
+                              "minHeight": null,
+                              "maxHeight": null,
+                              "unresolved": []
+                            },
+                            "paint": null,
+                            "typography": {
+                              "style": "typography/body-sm-regular",
+                              "size": 14,
+                              "weight": 400,
+                              "lineHeight": 21,
+                              "letterSpacing": -0.14,
+                              "color": "8b8e93",
+                              "align": "center"
+                            },
+                            "positioning": "AUTO",
+                            "margin": {
+                              "top": 0,
+                              "right": 0,
+                              "bottom": 0,
+                              "left": 0
+                            },
+                            "offset": null,
+                            "constraints": null,
+                            "why": {
+                              "horizontal": {
+                                "verdict": "HUG",
+                                "reason": "부모 flex의 아이템, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "기본(flex item)",
+                                "value": null
+                              },
+                              "vertical": {
+                                "verdict": "HUG",
+                                "reason": "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다",
+                                "source": "flex-grow:0 · width:auto",
+                                "value": null
+                              }
+                            },
+                            "layout": null,
+                            "clipsContent": false,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "route": "/inquiry",
       "context": "desktop-1920x1080",
       "figmaFrameId": "36:3",
@@ -342252,6 +344315,30 @@
         {
           "file": "figma/app-screens.mypage-upgrade-checkout.mobile.00.draw.js",
           "bytes": 20463
+        }
+      ]
+    },
+    {
+      "route": "/creative-media",
+      "context": "desktop-1920x1080",
+      "frameId": "224:3455",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.creative-media.desktop.00.draw.js",
+          "bytes": 18256
+        }
+      ]
+    },
+    {
+      "route": "/creative-media",
+      "context": "mobile-402x874",
+      "frameId": "224:3504",
+      "chunkCount": 1,
+      "files": [
+        {
+          "file": "figma/app-screens.creative-media.mobile.00.draw.js",
+          "bytes": 18232
         }
       ]
     },

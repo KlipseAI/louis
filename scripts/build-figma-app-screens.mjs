@@ -457,6 +457,9 @@ const slimNode = (node) => ({
   ...(node.layout?.wrap && node.layout.counterAxisSpacing && wrapRowCount(node) > 1 ? { cg: round(node.layout.counterAxisSpacing) } : {}),
   // grid 칸 안 정렬 [가로, 세로](figma-tree-spec gridCellAlign) — 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
   ...(node.gridAlign ? { ga: [node.gridAlign.horizontal ?? "", node.gridAlign.vertical ?? ""] } : {}),
+  // grid 칸 자리와 span [행, 열, 행 span, 열 span](figma-tree-spec gridPlacements) · 그 grid 의 행 수.
+  ...(node.gridPlace ? { gp: node.gridPlace } : {}),
+  ...(node.layout?.rowCount ? { gr: node.layout.rowCount } : {}),
   // 자산 이미지 — `<img src>` 가 이어진 LOUIS 컴포넌트 [id, 이름](IMAGE_COMPONENTS).
   ...(node.imageComponent ? { im: [node.imageComponent.id, node.imageComponent.name] } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),
@@ -839,6 +842,8 @@ function wrapSiblingMargins(spec) {
         if (child.positioning === "ABSOLUTE" || !hasMargin(child)) return child;
         const gridAlign = grid ? child.gridAlign ?? null : null;
         if (grid) delete child.gridAlign;
+        const gridPlace = grid ? child.gridPlace ?? null : null;
+        if (grid) delete child.gridPlace;
         const out = Object.fromEntries(SIDES.map((side) => [side, Math.max(0, child.margin[side] ?? 0)]));
         const bleed = Object.fromEntries(SIDES.map((side) => [side, Math.min(0, child.margin[side] ?? 0)]));
         wrapped.push({ path: child.path, margin: SIDES.map((side) => child.margin[side] ?? 0) });
@@ -860,6 +865,7 @@ function wrapSiblingMargins(spec) {
           // 방향과 교차축 정렬은 부모를 따른다 — 최대 폭에 닿은 FILL 자식(결제 결과 본문 520)이 부모의 CENTER 로 가운데 서던 것을
           // 감싸개 안에서도 그대로 받게. grid 부모의 감싸개는 세로 오토 레이아웃이고 칸 안 정렬을 넘겨받는다(위 주석).
           ...(gridAlign ? { gridAlign } : {}),
+          ...(gridPlace ? { gridPlace } : {}),
           layout: { layoutMode: grid ? "VERTICAL" : node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
             padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : node.layout.align?.counterAxis ?? null, primaryAxis: null } },
           clipsContent: false,

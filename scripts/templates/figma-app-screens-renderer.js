@@ -231,6 +231,15 @@ const preloadVariants = async (spec) => {
 
 // 크기가 다른 grid 열을 걸지 못한 자리 — 결과로 돌려준다(조용히 균등 열로 남기지 않는다).
 const gridTrackFailures = [];
+// grid 칸 자리 · span 을 건다(조각이 자리를 다시 채운 뒤에도 부른다).
+const placeGridChild = (node, spec) => {
+  if (!spec.gp || !node.parent || node.parent.layoutMode !== "GRID") return;
+  try {
+    if (node.gridRowAnchorIndex !== spec.gp[0] || node.gridColumnAnchorIndex !== spec.gp[1]) node.setGridChildPosition(spec.gp[0], spec.gp[1]);
+    if (spec.gp[2] > 1) node.gridRowSpan = spec.gp[2];
+    if (spec.gp[3] > 1) node.gridColumnSpan = spec.gp[3];
+  } catch (error) { gridTrackFailures.push(`${spec.t} span ${spec.gp.join(",")}: ${error.message || error}`); }
+};
 
 // **절대 배치는 트리를 다 지은 뒤 측정 크기 · 자리를 한 번 더 건다(2026-09-30).** 부모가 HUG 로 잠시 줄었다가 최소 높이로 돌아오는
 // 동안 늘이기 제약(STRETCH)이 걸린 절대 자식의 크기가 틀어졌다 — 랜딩 후기 밴드의 배경 사진이 1920×800 대신 1920×106 으로 섰다.
@@ -345,7 +354,7 @@ const buildNode = (spec, parent) => {
             } catch (error) { gridTrackFailures.push(`${spec.t} 열 ${index} ${type}${value ?? ""}: ${error.message || error}`); }
           });
         }
-        try { node.gridRowCount = Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
+        try { node.gridRowCount = spec.gr || Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
         // **행은 내용 높이다.** CSS grid 는 행 템플릿을 선언하지 않으면 행이 auto(내용 높이)인데, Figma 는 새 행을
         // FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다. 실측 사고: `/subscription` 모바일의 요금제
         // 카드(456)가 281 짜리 행에 담겨 다음 행(크레딧 이력)을 덮었다. 열은 `repeat(N, 1fr)` 라 FLEX 그대로 둔다.
@@ -394,7 +403,13 @@ const buildNode = (spec, parent) => {
     : (spec.w ? "pending " : "") + spec.t + (spec.v ? " " + spec.v : "") + (spec.im ? " " + spec.im[1].split(" (")[0] : "")
       + (spec.x ? " " + String(spec.x).slice(0, 18) : "") + " " + spec.s;
 
-  if (parent && node.parent !== parent) parent.appendChild(node);
+  if (parent && node.parent !== parent) {
+    // grid 칸 자리와 span(`gp`) — 자리에 넣고 span 을 건다. 못 건 자리는 결과의 `gridTrackFailures` 로 드러낸다.
+    if (spec.gp && parent.layoutMode === "GRID") {
+      try { parent.appendChildAt(node, spec.gp[0], spec.gp[1]); } catch (error) { parent.appendChild(node); gridTrackFailures.push(`${spec.t} 자리 ${spec.gp.join(",")}: ${error.message || error}`); }
+      placeGridChild(node, spec);
+    } else parent.appendChild(node);
+  }
   const parentAuto = parent && "layoutMode" in parent && parent.layoutMode && parent.layoutMode !== "NONE";
 
   const isAbsolute = Boolean(spec.p) && parentAuto;
@@ -417,7 +432,10 @@ const buildNode = (spec, parent) => {
     node.resize(Math.max(0.01, spec.r[0]), Math.max(0.01, spec.r[1]));
   }
   if (isAbsolute && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
-  if (isAbsolute && !isText) pendingAbsolute.push([node, spec.r, spec.o]);
+  // **자동 배치가 없는 부모 안의 자식도 측정 자리에 둔다(2026-09-30).** 절대 자식만 모인 부모는 자동 배치 없이(NONE) 서는데, 그 안의
+  // 자식에 자리를 걸지 않아 모두 원점에 섰다 — 랜딩 노드 캔버스 목업의 월드(363.79, 24)가 부모 원점에 서서 목업 안 글자가 −370 옮겨졌다.
+  if (!parentAuto && parent && spec.o) { node.x = spec.o[0]; node.y = spec.o[1]; }
+  if ((isAbsolute || (!parentAuto && parent && spec.o)) && !isText) pendingAbsolute.push([node, spec.r, spec.o]);
 
   if (!isAbsolute) {
     const selfAuto = "layoutMode" in node && node.layoutMode && node.layoutMode !== "NONE";
@@ -656,6 +674,7 @@ if (P.head) {
     target.remove();
     const built = buildNode(slot.spec, holder);
     holder.insertChild(at, built);
+    placeGridChild(built, slot.spec);
     replaced.push(built.name);
   }
   await flushTextStyles();

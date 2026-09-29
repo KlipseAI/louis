@@ -707,8 +707,21 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     // 하이라이트 업로드 중 · 추출 중 보드의 문구가 32(스피너 16 + 간격 16) 올라갔다. 측정 크기의 빈 상자(FIXED)로 남긴다.
     // SVG 안의 도형은 상자가 아니다 — 아이콘은 `<svg>` 의 서명으로 그린다(glyphSignature).
     const insideSvg = () => { for (let at = parent; at; at = byPath.get(at.parentPath)) if (at.tag === "svg") return true; return false; };
+    // **grid 칸에 겹쳐 선 빈 상자는 자리를 차지하지 않는다(2026-09-30).** 크로스페이드 슬라이드는 한 칸(`grid-area: 1 / 1`)에 겹쳐
+    // 서고 하나만 보인다 — 보이지 않는 슬라이드의 틀이 빈 상자로 남아 Figma grid 가 한 줄씩 늘어놓자 랜딩 후기의 저자 줄 열세 개가
+    // 312 로 쌓여 밴드 안 내용이 143 위로 떴다. 보이는 형제와 절반 넘게 겹치는 빈 상자는 버린다.
+    const stackedInGrid = () => {
+      if (!/grid/.test(parent?.style?.display ?? "")) return false;
+      const area = node.rect.width * node.rect.height;
+      return (childrenOf.get(parent.path) ?? []).some((sibling) => {
+        if (sibling === node || !isVisible(sibling)) return false;
+        const w = Math.min(node.rect.x + node.rect.width, sibling.rect.x + sibling.rect.width) - Math.max(node.rect.x, sibling.rect.x);
+        const h = Math.min(node.rect.y + node.rect.height, sibling.rect.y + sibling.rect.height) - Math.max(node.rect.y, sibling.rect.y);
+        return w > 0 && h > 0 && w * h > area * 0.5;
+      });
+    };
     const placeholder = children.length === 0 && !hasOwnPaint(node) && !formControl
-      && parent != null && !decision.absolute && node.rect.width > 0 && node.rect.height > 0 && !insideSvg();
+      && parent != null && !decision.absolute && node.rect.width > 0 && node.rect.height > 0 && !insideSvg() && !stackedInGrid();
     if (children.length === 0 && !hasOwnPaint(node) && !formControl && !placeholder) { stats.droppedEmpty += 1; return null; }
     if (placeholder) stats.placeholderBoxes = (stats.placeholderBoxes ?? 0) + 1;
 
@@ -728,6 +741,30 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     if (gridRow) {
       children = gridRow.children;
       stats.gridRows.push({ path: node.path, rows: gridRow.rows, aligned: gridRow.aligned });
+    }
+    // **한 칸에 겹친 슬라이드(2026-09-30).** 크로스페이드는 슬라이드를 한 칸에 겹쳐 세우고 하나만 보인다 — 보이지 않는 슬라이드는 글자가
+    // 빠진 뒤 자리 상자만 남은 틀이라, Figma grid 가 한 줄씩 늘어놓자 랜딩 후기의 저자 줄 열셋이 312 로 쌓였다. 겹친 형제 무리에서
+    // 서브트리에 보이는 내용(글자 · 칠 · 아이콘 · 이미지)이 없는 자식을 버린다.
+    if (layoutMode === "GRID") {
+      const hasContent = (spec) => Boolean(spec.text || spec.paints || spec.glyphSvg || spec.glyph || spec.src || spec.instance)
+        || (spec.children ?? []).some(hasContent);
+      const overlaps = (a, b) => {
+        const w = Math.min(a.rect.x + a.rect.width, b.rect.x + b.rect.width) - Math.max(a.rect.x, b.rect.x);
+        const h = Math.min(a.rect.y + a.rect.height, b.rect.y + b.rect.height) - Math.max(a.rect.y, b.rect.y);
+        return w > 0 && h > 0 && w * h > Math.min(a.rect.width * a.rect.height, b.rect.width * b.rect.height) * 0.5;
+      };
+      const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+      const drop = new Set(flow.filter((child) => !hasContent(child) && flow.some((other) => other !== child && overlaps(child, other))));
+      if (drop.size) {
+        children = children.filter((child) => !drop.has(child));
+        stats.stackedDropped = (stats.stackedDropped ?? 0) + drop.size;
+      }
+    }
+    // grid 칸 자리와 span(gridPlacements 주석).
+    const gridPlace = layoutMode === "GRID" ? gridPlacements(node, style, children) : null;
+    if (gridPlace) {
+      children = children.map((child) => (gridPlace.placements.has(child) ? { ...child, gridPlace: gridPlace.placements.get(child) } : child));
+      stats.gridPlacements = (stats.gridPlacements ?? 0) + 1;
     }
     // 높이 0 형제가 남긴 간격을 margin 으로 옮긴다(hiddenGapMargins 주석).
     // 글자를 떼어낸 노드는 그 글자 조각의 자리가 추정이라 보지 않는다.
@@ -863,6 +900,8 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         columnTracks: layoutMode === "GRID" ? gridColumnTracks(node, style, nodeSizing) : null,
         // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 없으면 null.
         rows: gridRow?.rows ?? null,
+        // 칸 자리를 되짚은 grid 의 행 수(gridPlacements) — 렌더러가 자식 수로 행을 세지 않고 이 수로 깐다.
+        ...(gridPlace ? { rowCount: gridPlace.rowCount } : {}),
         align: {
           // 세로로 쌓은 줄 글자는 `text-align` 이 줄을 놓는다 — 조각이 글자 폭(HUG)이라 교차축 정렬이 곧 줄 정렬이다.
           counterAxis: stackedText
@@ -1253,6 +1292,40 @@ function gridStretchedRow(node, style, sizing, rawChildren, inStretchedRow) {
  *
  * @returns {null | {rows: number[] | null, aligned: number, children: object[]}}
  */
+/**
+ * **grid 칸 자리와 span(2026-09-30).** 칸을 여럿 차지하는 아이템(`grid-column: span 2` · `grid-row: span 2`)이나 열 방향 흐름은 자식 순서로
+ * 칸을 채우는 Figma 의 기본 자리와 다르다 — 랜딩 새소식의 대표 카드(2×2)가 한 칸에 서고 나머지가 한 줄로 흘러 둘째 줄이 첫 줄로 올라왔다.
+ * 계산된 열 · 행 트랙(px)과 간격으로 칸 경계를 세우고, 자식의 측정 margin 상자가 걸친 칸으로 [행, 열, 행 span, 열 span] 을 되짚는다.
+ * 자식 순서대로 한 칸씩이면 싣지 않는다. 트랙이 px 로 풀리지 않거나 칸에 들지 않는 자식이 있으면 되짚지 않는다.
+ * @returns {null | {rowCount: number, placements: Map<object, number[]>}}
+ */
+function gridPlacements(node, style, children) {
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  const columns = parseTracks(style.gridTemplateColumns)?.map(px);
+  const rows = parseTracks(style.gridTemplateRows)?.map(px);
+  if (!flow.length || !columns?.length || columns.some((value) => value == null) || !rows?.length || rows.some((value) => value == null)) return null;
+  const lines = (sizes, origin, gap) => { const out = []; let at = origin; for (const size of sizes) { out.push([at, at + size]); at += size + gap; } return out; };
+  const columnLines = lines(columns, node.rect.x + (px(style.paddingLeft) ?? 0) + (px(style.borderLeftWidth) ?? 0), px(style.columnGap ?? style.gap) ?? 0);
+  const rowLines = lines(rows, node.rect.y + (px(style.paddingTop) ?? 0) + (px(style.borderTopWidth) ?? 0), px(style.rowGap ?? style.gap) ?? 0);
+  const cellOf = (spans, value) => spans.findIndex(([start, end]) => value >= start - 2 && value <= end + 2);
+  const placements = [];
+  for (const child of flow) {
+    const margin = child.margin ?? {};
+    const x0 = child.rect.x - Math.max(0, margin.left ?? 0), x1 = child.rect.x + child.rect.width + Math.max(0, margin.right ?? 0) - 0.01;
+    const y0 = child.rect.y - Math.max(0, margin.top ?? 0), y1 = child.rect.y + child.rect.height + Math.max(0, margin.bottom ?? 0) - 0.01;
+    const [c0, c1, r0, r1] = [cellOf(columnLines, x0), cellOf(columnLines, x1), cellOf(rowLines, y0), cellOf(rowLines, y1)];
+    if (c0 < 0 || c1 < c0 || r0 < 0 || r1 < r0) return null;
+    placements.push([r0, c0, r1 - r0 + 1, c1 - c0 + 1]);
+  }
+  const taken = new Set();
+  for (const [r, c, rs, cs] of placements) for (let i = r; i < r + rs; i += 1) for (let j = c; j < c + cs; j += 1) {
+    if (taken.has(`${i}:${j}`)) return null; // 겹치는 자리는 되짚지 않는다
+    taken.add(`${i}:${j}`);
+  }
+  if (placements.every(([r, c, rs, cs], index) => rs === 1 && cs === 1 && r === Math.floor(index / columns.length) && c === index % columns.length)) return null;
+  return { rowCount: rows.length, placements: new Map(flow.map((child, index) => [child, placements[index]])) };
+}
+
 function gridCellAlign(node, style, stretchedRow, children, declaredOf) {
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
   const columns = parseTracks(style.gridTemplateColumns)?.map(px);

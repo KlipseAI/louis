@@ -18,17 +18,17 @@
   "counts": {
     "total": 4510,
     "instance": 264,
-    "replaceable": 4,
-    "bespoke": 71,
+    "replaceable": 0,
+    "bespoke": 75,
     "blocked": 12,
     "missing": 571,
     "structural": 3588,
     "unclassified": 0
   },
   "ratio": {
-    "instanceOverTarget": 98.5,
+    "instanceOverTarget": 100,
     "instanceOverCandidates": 28.6,
-    "target": 268,
+    "target": 264,
     "candidates": 922
   },
   "byInstanceSet": {
@@ -51,15 +51,13 @@
     "Product/Gift Plan Option": 8,
     "Product/Quantity Stepper": 2
   },
-  "byComponent": {
-    "Button/md": 4
-  },
+  "byComponent": {},
   "bespokeByComponent": {
     "IconButton/md": 6,
     "Avatar/sm": 4,
+    "Button/md": 21,
     "Button/lg": 4,
     "DropZone/base": 4,
-    "Button/md": 17,
     "Avatar/lg": 2
   },
   "bespokeByIcon": {
@@ -381,8 +379,8 @@
       "counts": {
         "total": 111,
         "instance": 0,
-        "replaceable": 1,
-        "bespoke": 1,
+        "replaceable": 0,
+        "bespoke": 2,
         "blocked": 0,
         "missing": 29,
         "structural": 80,
@@ -761,8 +759,8 @@
       "counts": {
         "total": 161,
         "instance": 0,
-        "replaceable": 1,
-        "bespoke": 4,
+        "replaceable": 0,
+        "bespoke": 5,
         "blocked": 0,
         "missing": 39,
         "structural": 117,
@@ -1525,8 +1523,8 @@
       "counts": {
         "total": 801,
         "instance": 6,
-        "replaceable": 1,
-        "bespoke": 12,
+        "replaceable": 0,
+        "bespoke": 13,
         "blocked": 0,
         "missing": 133,
         "structural": 649,
@@ -1946,8 +1944,8 @@
       "counts": {
         "total": 114,
         "instance": 0,
-        "replaceable": 1,
-        "bespoke": 1,
+        "replaceable": 0,
+        "bespoke": 2,
         "blocked": 0,
         "missing": 28,
         "structural": 84,
@@ -6368,11 +6366,11 @@
         95.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
+      "verdict": "bespoke",
+      "rule": "primitive-face-overridden",
       "site": "button-md",
       "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "reason": "Button/md 의 상자는 맞고 제품도 정본 자리 `button-md` 를 무는데, 면(171b22)이 LOUIS variant 의 면 (원장 probe primary · secondary · inverse · ghost · disabled, 라이트 포함)이 아니다 — 제품이 지역 class 로 면을 덮었다. 인스턴스로 바꾸면 LOUIS 면이 그려져 제품과 달라진다.",
       "component": "Button",
       "size": "md",
       "candidateClause": "a-interactive"
@@ -13482,11 +13480,11 @@
         95.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
+      "verdict": "bespoke",
+      "rule": "primitive-face-overridden",
       "site": "button-md",
       "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "reason": "Button/md 의 상자는 맞고 제품도 정본 자리 `button-md` 를 무는데, 면(171b22)이 LOUIS variant 의 면 (원장 probe primary · secondary · inverse · ghost · disabled, 라이트 포함)이 아니다 — 제품이 지역 class 로 면을 덮었다. 인스턴스로 바꾸면 LOUIS 면이 그려져 제품과 달라진다.",
       "component": "Button",
       "size": "md",
       "candidateClause": "a-interactive"
@@ -25263,11 +25261,11 @@
         95.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
+      "verdict": "bespoke",
+      "rule": "primitive-face-overridden",
       "site": "button-md",
       "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "reason": "Button/md 의 상자는 맞고 제품도 정본 자리 `button-md` 를 무는데, 면(171b22)이 LOUIS variant 의 면 (원장 probe primary · secondary · inverse · ghost · disabled, 라이트 포함)이 아니다 — 제품이 지역 class 로 면을 덮었다. 인스턴스로 바꾸면 LOUIS 면이 그려져 제품과 달라진다.",
       "component": "Button",
       "size": "md",
       "candidateClause": "a-interactive"
@@ -50542,11 +50540,11 @@
         95.55,
         32
       ],
-      "verdict": "replaceable",
-      "rule": "button",
+      "verdict": "bespoke",
+      "rule": "primitive-face-overridden",
       "site": "button-md",
       "probe": "button-md",
-      "reason": "라벨을 든 상호작용 요소이고 높이·반경이 Button 사다리 위에 정확히 앉는다. 되읽기의 Button/md 와 height·cornerRadius 가 맞고, 제품이 그 자리에서 정본을 문다(정본 자리 `button-md` — 제품이 Button.tsx 에서 `.louis-button[data-size=md]` 를 그대로 문다(DS-D-0027 의 기본값).) — 레시피 상자 height·borderTopLeftRadius·paddingTop·paddingRight·paddingLeft·columnGap 가 모두 같다.",
+      "reason": "Button/md 의 상자는 맞고 제품도 정본 자리 `button-md` 를 무는데, 면(171b22)이 LOUIS variant 의 면 (원장 probe primary · secondary · inverse · ghost · disabled, 라이트 포함)이 아니다 — 제품이 지역 class 로 면을 덮었다. 인스턴스로 바꾸면 LOUIS 면이 그려져 제품과 달라진다.",
       "component": "Button",
       "size": "md",
       "candidateClause": "a-interactive"

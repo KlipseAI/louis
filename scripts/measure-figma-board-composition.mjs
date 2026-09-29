@@ -149,7 +149,8 @@ import { readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
-import { isDisabledButtonFill, slimRecipeBoxDiff } from "./lib/figma-component-substitution.mjs";
+import { isDisabledButtonFill,
+  isKnownButtonFace, slimRecipeBoxDiff } from "./lib/figma-component-substitution.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const figmaDir = resolve(repoRoot, "figma");
@@ -479,6 +480,22 @@ function canonicalVerdict(rule, size, node) {
             "Variant 축을 고를 수 없다 — button.css 가 primary·danger·danger-secondary·inverse " +
             "넷을 같은 면·같은 글자로 접고, 측정 트리에 `disabled` 칸이 없다. 고칠 곳은 Figma 가 " +
             "아니라 측정 쪽이다.",
+        },
+      };
+    }
+    // **면을 지역 class 로 덮은 Button — 상자는 맞지만 LOUIS 면이 아니다(2026-09-30).** 제품이 `.louis-button` 을 물고도 면을 덮으면
+    // 인스턴스는 LOUIS 면을 그린다(공개 페이지 머리글 「Get started」 — `Gnb.tsx` 의 `TOPBAR_CTA_LIGHT`). 바꾸면 안 되는 자리다.
+    if (rule.component === "Button" && !isKnownButtonFace(node.f, recipes.declared ?? {})) {
+      return {
+        verdict: "bespoke",
+        entry: {
+          rule: "primitive-face-overridden",
+          site: site.id,
+          probe: site.probe,
+          reason:
+            `${rule.component}/${size} 의 상자는 맞고 제품도 정본 자리 \`${site.id}\` 를 무는데, 면(${node.f})이 LOUIS variant 의 면 ` +
+            "(원장 probe primary · secondary · inverse · ghost · disabled, 라이트 포함)이 아니다 — 제품이 지역 class 로 면을 덮었다. " +
+            "인스턴스로 바꾸면 LOUIS 면이 그려져 제품과 달라진다.",
         },
       };
     }

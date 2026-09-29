@@ -728,6 +728,35 @@ export function isDisabledButtonFill(fill, declared) {
   return typeof fill === "string" && faces.includes(fill.toLowerCase());
 }
 
+/**
+ * **Button 면이 LOUIS variant 의 면인가(2026-09-30).** 제품이 `.louis-button` 을 물고도 지역 class 로 면을 덮는 자리가 있다 — 공개 페이지
+ * 머리글의 「Get started」는 `<Button variant="primary">` 에 `TOPBAR_CTA_LIGHT` 를 얹어 파랑 대신 어두운 면(#171B22)과 헤어라인을 그린다
+ * (`components/landing/navigation/Gnb.tsx`). 상자(높이 · 반경 · 패딩)는 Button/md 와 같아 보드 원장이 「대체 가능」으로 셌지만, 인스턴스로
+ * 바꾸면 LOUIS 면이 그려져 제품과 달라진다 — bespoke 다. 원장이 잰 variant 면(primary · secondary · inverse · ghost · disabled, 라이트
+ * 포함)을 축약 트리의 면 표기(`rrggbb` + 알파 두 자리)로 옮겨 대본다. 면이 없는(투명) 도형은 ghost 면이라 알려진 면으로 친다.
+ */
+const BUTTON_FACE_PROBES = Object.freeze([
+  "button-md", "button-secondary", "button-secondary-light", "button-inverse", "button-inverse-light",
+  "button-ghost", "button-disabled", "button-disabled-light",
+]);
+export function isKnownButtonFace(fill, declared) {
+  if (fill == null) return true;
+  if (typeof fill !== "string") return false;
+  const faces = BUTTON_FACE_PROBES.map((probe) => cssColorToSlimHex(declared[probe]?.["background-color"])).filter(Boolean);
+  if (faces.length === 0) throw new Error("[figma-app-screens] 제품 레시피 원장에 Button 면 값이 없습니다.");
+  return faces.includes(fill.toLowerCase());
+}
+
+/** CSS 색 → 축약 트리의 면 표기(`rrggbb`, 알파가 1 보다 작으면 두 자리를 붙인다). 투명은 null. */
+function cssColorToSlimHex(value) {
+  const hex = cssColorToHex(value);
+  if (!hex) return null;
+  const alphaMatch = /\/\s*([\d.]+)\s*\)$/.exec(String(value)) ?? /^rgba\([^)]*,\s*([\d.]+)\s*\)$/.exec(String(value));
+  const alpha = alphaMatch ? Number.parseFloat(alphaMatch[1]) : 1;
+  if (alpha <= 0) return null;
+  return alpha < 1 ? `${hex}${Math.round(alpha * 255).toString(16).padStart(2, "0")}` : hex;
+}
+
 /** `color(srgb r g b)` · `rgb(r, g, b)` → `rrggbb`. 해석하지 못하면 null 이다(빈 문자열이 아니다 — 조용히 맞아 버린다). */
 function cssColorToHex(value) {
   const text = String(value ?? "").trim();

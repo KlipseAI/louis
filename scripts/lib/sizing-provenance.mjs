@@ -140,6 +140,13 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     if (basis && basis !== "auto" && percent(basis) === 100) {
       return { verdict: AXIS.FILL, reason: "flex-basis:100% — 부모 주축을 채운다", source: `flex-basis:${basis}`, value: null };
     }
+    // **basis 가 주축 크기를 정한다(2026-09-30).** grow 0 이고 크기 선언이 없어도 basis 가 auto · content · 0 이 아니면 그 자리의 크기는
+    // basis 다(수축이 없으면). 부모 비례 basis(`calc(50% - 32px)`)는 Figma 에 대응이 없어 그 뷰포트에서 푼 크기(측정)로 둔다 — HUG 로 두자
+    // 글자 폭으로 줄어, 공개 페이지 모바일 푸터의 링크 묶음(basis 153 · 두 열로 감김)이 한 줄에 셋 섰다.
+    const basisSet = basis && !/^(auto|content|0(px|%)?)$/.test(String(basis).trim());
+    if (grow === 0 && (declared === "auto" || declared == null) && basisSet) {
+      return { verdict: AXIS.FIXED, reason: `flex-basis:${basis} · grow 0 — basis 가 주축 크기다(부모 비례면 그 뷰포트에서 푼 측정 크기)`, source: `flex-basis:${basis}`, value: px(basis) };
+    }
     if (grow === 0 && (declared === "auto" || declared == null)) {
       return { verdict: AXIS.HUG, reason: "부모가 flex, grow:0, 크기 선언 없음 — 콘텐츠가 결정한다", source: "flex-grow:0 · width:auto", value: null };
     }

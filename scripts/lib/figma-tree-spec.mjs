@@ -253,6 +253,55 @@ function clearBorderPadding(style) {
   return out;
 }
 
+/**
+ * **줄마다 새로 시작하는 인라인 글자(2026-09-29).** 블록 컨테이너 안의 인라인 흐름은 가로로 싣는다(toLayoutMode). 그런데 글자 조각이
+ * `<br>` 로 나뉘어 저마다 새 줄에서 시작하면 제품의 줄은 아래로 쌓인다 — 가로로 두면 조각이 한 줄에 늘어서 폭을 넘치고 문단이 줄 수만큼
+ * 낮아졌다(`/aws/signup` 안내문 세 조각 — 모바일 문단 84 → 42, 가입 폼이 20 올라갔다). 흐름 자식이 모두 글자 잎이고 저마다 앞 조각의
+ * 아래에서 시작할 때만 세로로 쌓는다. 한 줄에 둘 이상이 앉는 흐름(글 사이의 링크 · 칩)은 그대로 가로다.
+ */
+function stackedInlineText(style, children) {
+  if (/flex|grid|table/.test(style.display ?? "")) return false;
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  if (flow.length < 2 || flow.some((child) => !child.text || child.children.length > 0)) return false;
+  return flow.every((child, i) => i === 0 || child.rect.y >= flow[i - 1].rect.y + flow[i - 1].rect.height - 0.5);
+}
+const TEXT_ALIGN_COUNTER = { center: "CENTER", right: "MAX", end: "MAX" };
+
+/**
+ * **높이 0 형제가 남긴 간격(2026-09-29).** flex 의 `gap` 은 크기가 0 인 아이템 뒤에도 붙는다. 측정기는 넓이 없는 노드를 싣지 않으므로
+ * 그런 형제가 있던 자리의 간격이 통째로 빠진다 — 하이라이트 상태 보드의 본문 래퍼(`gap: 24px`)는 첫 자식이 비어 있는 알림 자리라
+ * section 이 24 아래에서 시작하는데, 보드는 래퍼 맨 위에 붙여 문구가 모두 24 올라갔다. 앞에서부터 채우는 한 줄 flex
+ * (`justify-content` 가 normal · flex-start · start, 감기 · 역순 없음)에서 자식의 측정 위치가 기대 위치보다 간격의 정수배만큼
+ * 뒤에 있으면, 그만큼을 그 자식의 앞 margin 으로 옮긴다(margin 은 생성기가 감싸는 프레임의 패딩이 된다).
+ */
+function hiddenGapMargins(node, style, children) {
+  if (!/flex/.test(style.display ?? "") || style.flexWrap === "wrap") return [];
+  if (!/^(normal|flex-start|start)$/.test(style.justifyContent ?? "normal")) return [];
+  const direction = style.flexDirection ?? "row";
+  if (direction.endsWith("reverse")) return [];
+  const column = direction.startsWith("column");
+  const gap = px(column ? (style.rowGap ?? style.gap) : (style.columnGap ?? style.gap)) ?? 0;
+  if (gap <= 0) return [];
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  const found = [];
+  const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+  let end = column ? node.rect.y + edge("Top") : node.rect.x + edge("Left");
+  flow.forEach((child, index) => {
+    const before = column ? "top" : "left";
+    const after = column ? "bottom" : "right";
+    const want = end + (index ? gap : 0) + (child.margin?.[before] ?? 0);
+    const actual = column ? child.rect.y : child.rect.x;
+    const extra = actual - want;
+    const k = Math.round(extra / gap);
+    if (extra > 0.5 && k >= 1 && Math.abs(extra - k * gap) <= 0.5) {
+      child.margin = { ...(child.margin ?? { top: 0, right: 0, bottom: 0, left: 0 }), [before]: (child.margin?.[before] ?? 0) + k * gap };
+      found.push({ path: child.path, gaps: k, gap });
+    }
+    end = actual + (column ? child.rect.height : child.rect.width) + (child.margin?.[after] ?? 0);
+  });
+  return found;
+}
+
 function lineBoxSlack(node, style, children, rawChildren) {
   if (/flex|grid/.test(style.display ?? "")) return null;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
@@ -352,11 +401,22 @@ export function toFigmaTreeSpec(tree, options = {}) {
     // **입력 요소는 빈 껍데기가 아니다(2026-09-28).** `<input>` 은 칠이 없어도 제 줄 높이로 칸을 받친다 — 버리자 입력칸(58)이 패딩
     // 높이로 눌려 가입 보드의 칸 넷이 무너지고 라벨이 칸 밖으로 나갔다(캡처로 확인). 측정 크기의 상자로 남긴다.
     const formControl = /^(input|textarea|select)$/.test(node.tag);
-    if (children.length === 0 && !hasOwnPaint(node) && !formControl) { stats.droppedEmpty += 1; return null; }
+    // **흐름 안에서 자리를 차지하는 빈 상자도 빈 껍데기가 아니다(2026-09-29).** 칠 · 글자 · 자식이 없어도 흐름 안에서 넓이를 가진 상자는
+    // 제품에서 자리를 차지한다 — 가상 요소로 그리는 스피너(`LoadingSpinner`: 몸은 칠 없는 16×16, 고리는 ::before · ::after)를 버리자
+    // 하이라이트 업로드 중 · 추출 중 보드의 문구가 32(스피너 16 + 간격 16) 올라갔다. 측정 크기의 빈 상자(FIXED)로 남긴다.
+    // SVG 안의 도형은 상자가 아니다 — 아이콘은 `<svg>` 의 서명으로 그린다(glyphSignature).
+    const insideSvg = () => { for (let at = parent; at; at = byPath.get(at.parentPath)) if (at.tag === "svg") return true; return false; };
+    const placeholder = children.length === 0 && !hasOwnPaint(node) && !formControl
+      && parent != null && !decision.absolute && node.rect.width > 0 && node.rect.height > 0 && !insideSvg();
+    if (children.length === 0 && !hasOwnPaint(node) && !formControl && !placeholder) { stats.droppedEmpty += 1; return null; }
+    if (placeholder) stats.placeholderBoxes = (stats.placeholderBoxes ?? 0) + 1;
 
     const style = node.style ?? {};
     // 흐름 방향은 자식의 display가 결정한다(inline 형제는 가로로 흐른다).
-    const layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
+    let layoutMode = toLayoutMode(style, rawChildren.map((child) => child.style ?? {}));
+    // 줄마다 새로 시작하는 인라인 글자는 세로로 쌓는다(stackedInlineText 주석).
+    const stackedText = layoutMode === "HORIZONTAL" && stackedInlineText(style, children);
+    if (stackedText) { layoutMode = "VERTICAL"; stats.stackedInlineText = (stats.stackedInlineText ?? 0) + 1; }
     if (style.flexWrap === "wrap" && layoutMode !== "HORIZONTAL" && layoutMode !== "NONE") {
       stats.verticalWrap.push({ path: node.path, layoutMode });
     }
@@ -368,6 +428,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
       children = gridRow.children;
       stats.gridRows.push({ path: node.path, rows: gridRow.rows, aligned: gridRow.aligned });
     }
+    // 높이 0 형제가 남긴 간격을 margin 으로 옮긴다(hiddenGapMargins 주석).
+    // 글자를 떼어낸 노드는 그 글자 조각의 자리가 추정이라 보지 않는다.
+    if (!split) for (const hidden of hiddenGapMargins(node, style, children)) stats.hiddenGaps = [...(stats.hiddenGaps ?? []), hidden];
     stats.kept += 1;
     // **떠 있는 한 줄 글자는 글자 폭이다(2026-09-28).** 절대 배치 글자(입력칸의 떠 있는 라벨)를 측정 폭 그대로 FIXED 로 두면 Figma
     // 글꼴이 조금 넓게 그리는 순간 줄이 꺾인다(`/recover` 「이메일」 → 「이메 / 일」, 조립 규칙 28조). 폭 선언이 없는 절대 배치 상자는
@@ -381,7 +444,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
       })();
     const nodeSizing = floatingLine
       ? { ...sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" }
-      : sizing;
+      : placeholder
+        ? { ...sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED" }
+        : sizing;
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
     const clearBorder = clearBorderPadding(style);
@@ -441,10 +506,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
         // itemSpacing은 **주축** 간격이다 — 세로 배치면 row-gap, 가로 배치면 column-gap.
-        itemSpacing: (layoutMode === "VERTICAL"
+        itemSpacing: stackedText ? 0 : (layoutMode === "VERTICAL"
           ? px(style.rowGap ?? style.gap)
           : px(style.columnGap ?? style.gap)) ?? 0,
-        counterAxisSpacing: (layoutMode === "VERTICAL"
+        counterAxisSpacing: stackedText ? null : (layoutMode === "VERTICAL"
           ? px(style.columnGap)
           : px(style.rowGap)) ?? null,
         // **wrap 은 가로 배치에만 싣는다.** Figma 의 `layoutWrap = "WRAP"` 은 HORIZONTAL 자동 배치에만
@@ -467,7 +532,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 없으면 null.
         rows: gridRow?.rows ?? null,
         align: {
-          counterAxis: liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
+          // 세로로 쌓은 줄 글자는 `text-align` 이 줄을 놓는다 — 조각이 글자 폭(HUG)이라 교차축 정렬이 곧 줄 정렬이다.
+          counterAxis: stackedText
+            ? (TEXT_ALIGN_COUNTER[style.textAlign] ?? "MIN")
+            : liftChildAlign(cssAlignToFigma(style.alignItems), rawChildren, children),
           primaryAxis: cssJustifyToFigma(style.justifyContent),
         },
       },

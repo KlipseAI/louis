@@ -475,6 +475,19 @@ export const LOUIS_PRIMITIVE_SITES = Object.freeze([
     size: "md",
     why: "제품이 `.louis-avatar` 를 그대로 문다. 크기를 소유하는 쪽이 그 클래스다.",
   },
+  // **2026-09-29 — 로딩 스피너.** 제품 `LoadingSpinner.tsx` 가 `.louis-spinner[data-size=md] > .louis-spinner__ring` 을 그대로 문다
+  // (하이라이트 상태 카드 — 불러오는 중 · 업로드 중 · 분석 중 · 추출 중). 고리는 링의 ::before · ::after 가 그려 몸은 칠 없는
+  // 16×16 원이다 — 인증 fixture 측정기는 가상 요소를 싣지 않으므로, 레시피 probe 의 가상 요소 축(`::after:borderTopWidth`)은
+  // 대지 않고 몸의 모양(칠 · 자식 없음 · 원)으로 판정한다(`pseudoUnmeasured`, matchLouisPrimitive).
+  {
+    id: "spinner-md",
+    probe: "spinner-md",
+    element: "span",
+    component: "Spinner",
+    size: "md",
+    pseudoUnmeasured: true,
+    why: "제품이 `LoadingSpinner.tsx` 에서 `.louis-spinner[data-size=md]` 의 링(`.louis-spinner__ring`)을 그대로 문다.",
+  },
 ]);
 
 /**
@@ -856,7 +869,15 @@ function matchLouisPrimitive(site, node, style, evidence) {
   const box = evidence.recipes.rendered?.[site.probe];
   // 제품 상자 — 원장이 잰 **모든** 축이 문자열까지 같아야 한다.
   for (const [axis, expected] of Object.entries(box)) {
+    // 가상 요소 축은 측정 fixture 에 없다 — 그 자리가 스스로 밝힌 경우에만 대신 몸의 모양을 본다(아래).
+    if (site.pseudoUnmeasured && axis.startsWith("::")) continue;
     if (style[axis] !== expected) return null;
+  }
+  // 가상 요소가 그리는 부품은 몸이 비어 있어야 한다 — 칠 · 글자 · 자식 없이, 반경이 반 이상인 원.
+  if (site.pseudoUnmeasured) {
+    const radius = parseFloat(style.borderTopLeftRadius ?? "0");
+    const painted = ["fill", "gradient", "stroke", "shadow"].some((key) => node.paint?.[key]);
+    if ((node.children?.length ?? 0) > 0 || node.text || painted || !(radius >= node.rect.width / 2)) return null;
   }
   // Figma 기하 — 같은 size 가 실재하고 높이·반경이 맞아야 한다. 어긋나면 LOUIS 가 제품에서
   // 멀어진 것이고, 그때 인스턴스를 심으면 화면이 조용히 시스템과 다른 값을 그린다.

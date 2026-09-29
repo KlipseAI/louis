@@ -366,7 +366,7 @@
     "gradients": 0,
     "strokes": 93,
     "radii": 164,
-    "shadows": 12,
+    "shadows": 4,
     "texts": 395,
     "textStyled": 343,
     "textLiteral": [
@@ -3740,6 +3740,12 @@
                                       "stroke": {
                                         "color": "00000066",
                                         "widths": [
+                                          2,
+                                          2,
+                                          2,
+                                          2
+                                        ],
+                                        "ringWithin": [
                                           1,
                                           1,
                                           1,
@@ -3752,16 +3758,7 @@
                                         0,
                                         0
                                       ],
-                                      "shadow": [
-                                        {
-                                          "inset": true,
-                                          "color": "00000066",
-                                          "x": 0,
-                                          "y": 0,
-                                          "blur": 0,
-                                          "spread": 1
-                                        }
-                                      ],
+                                      "shadow": null,
                                       "opacity": null
                                     },
                                     "typography": null,
@@ -3794,10 +3791,10 @@
                                       "counterAxisSpacing": null,
                                       "wrap": false,
                                       "padding": {
-                                        "top": 12,
-                                        "right": 16,
-                                        "bottom": 12,
-                                        "left": 16
+                                        "top": 11,
+                                        "right": 15,
+                                        "bottom": 11,
+                                        "left": 15
                                       },
                                       "columns": null,
                                       "rows": null,
@@ -5394,6 +5391,12 @@
                                   "stroke": {
                                     "color": "00000066",
                                     "widths": [
+                                      2,
+                                      2,
+                                      2,
+                                      2
+                                    ],
+                                    "ringWithin": [
                                       1,
                                       1,
                                       1,
@@ -5406,16 +5409,7 @@
                                     0,
                                     0
                                   ],
-                                  "shadow": [
-                                    {
-                                      "inset": true,
-                                      "color": "00000066",
-                                      "x": 0,
-                                      "y": 0,
-                                      "blur": 0,
-                                      "spread": 1
-                                    }
-                                  ],
+                                  "shadow": null,
                                   "opacity": null
                                 },
                                 "typography": null,
@@ -5448,10 +5442,10 @@
                                   "counterAxisSpacing": null,
                                   "wrap": false,
                                   "padding": {
-                                    "top": 12,
-                                    "right": 16,
-                                    "bottom": 12,
-                                    "left": 16
+                                    "top": 11,
+                                    "right": 15,
+                                    "bottom": 11,
+                                    "left": 15
                                   },
                                   "columns": null,
                                   "rows": null,
@@ -7346,6 +7340,12 @@
                                   "stroke": {
                                     "color": "00000066",
                                     "widths": [
+                                      2,
+                                      2,
+                                      2,
+                                      2
+                                    ],
+                                    "ringWithin": [
                                       1,
                                       1,
                                       1,
@@ -7358,16 +7358,7 @@
                                     12,
                                     12
                                   ],
-                                  "shadow": [
-                                    {
-                                      "inset": true,
-                                      "color": "00000066",
-                                      "x": 0,
-                                      "y": 0,
-                                      "blur": 0,
-                                      "spread": 1
-                                    }
-                                  ],
+                                  "shadow": null,
                                   "opacity": null
                                 },
                                 "typography": null,
@@ -7400,10 +7391,10 @@
                                   "counterAxisSpacing": null,
                                   "wrap": false,
                                   "padding": {
-                                    "top": 12,
-                                    "right": 16,
-                                    "bottom": 12,
-                                    "left": 16
+                                    "top": 11,
+                                    "right": 15,
+                                    "bottom": 11,
+                                    "left": 15
                                   },
                                   "columns": null,
                                   "rows": null,
@@ -10682,6 +10673,12 @@
                               "stroke": {
                                 "color": "00000066",
                                 "widths": [
+                                  2,
+                                  2,
+                                  2,
+                                  2
+                                ],
+                                "ringWithin": [
                                   1,
                                   1,
                                   1,
@@ -10694,16 +10691,7 @@
                                 12,
                                 12
                               ],
-                              "shadow": [
-                                {
-                                  "inset": true,
-                                  "color": "00000066",
-                                  "x": 0,
-                                  "y": 0,
-                                  "blur": 0,
-                                  "spread": 1
-                                }
-                              ],
+                              "shadow": null,
                               "opacity": null
                             },
                             "typography": null,
@@ -10736,10 +10724,10 @@
                               "counterAxisSpacing": null,
                               "wrap": false,
                               "padding": {
-                                "top": 12,
-                                "right": 16,
-                                "bottom": 12,
-                                "left": 16
+                                "top": 11,
+                                "right": 15,
+                                "bottom": 11,
+                                "left": 15
                               },
                               "columns": null,
                               "rows": null,
@@ -15223,6 +15211,12 @@
                                   "stroke": {
                                     "color": "5a718a",
                                     "widths": [
+                                      2,
+                                      2,
+                                      2,
+                                      2
+                                    ],
+                                    "ringWithin": [
                                       1,
                                       1,
                                       1,
@@ -15235,16 +15229,7 @@
                                     12,
                                     12
                                   ],
-                                  "shadow": [
-                                    {
-                                      "inset": true,
-                                      "color": "5a718a",
-                                      "x": 0,
-                                      "y": 0,
-                                      "blur": 0,
-                                      "spread": 1
-                                    }
-                                  ],
+                                  "shadow": null,
                                   "opacity": null
                                 },
                                 "typography": null,
@@ -15277,10 +15262,10 @@
                                   "counterAxisSpacing": null,
                                   "wrap": false,
                                   "padding": {
-                                    "top": 12,
-                                    "right": 16,
-                                    "bottom": 12,
-                                    "left": 16
+                                    "top": 11,
+                                    "right": 15,
+                                    "bottom": 11,
+                                    "left": 15
                                   },
                                   "columns": null,
                                   "rows": null,
@@ -19208,6 +19193,12 @@
                               "stroke": {
                                 "color": "5a718a",
                                 "widths": [
+                                  2,
+                                  2,
+                                  2,
+                                  2
+                                ],
+                                "ringWithin": [
                                   1,
                                   1,
                                   1,
@@ -19220,16 +19211,7 @@
                                 12,
                                 12
                               ],
-                              "shadow": [
-                                {
-                                  "inset": true,
-                                  "color": "5a718a",
-                                  "x": 0,
-                                  "y": 0,
-                                  "blur": 0,
-                                  "spread": 1
-                                }
-                              ],
+                              "shadow": null,
                               "opacity": null
                             },
                             "typography": null,
@@ -19262,10 +19244,10 @@
                               "counterAxisSpacing": null,
                               "wrap": false,
                               "padding": {
-                                "top": 12,
-                                "right": 16,
-                                "bottom": 12,
-                                "left": 16
+                                "top": 11,
+                                "right": 15,
+                                "bottom": 11,
+                                "left": 15
                               },
                               "columns": null,
                               "rows": null,
@@ -35404,6 +35386,12 @@
                                   "stroke": {
                                     "color": "00000066",
                                     "widths": [
+                                      2,
+                                      2,
+                                      2,
+                                      2
+                                    ],
+                                    "ringWithin": [
                                       1,
                                       1,
                                       1,
@@ -35416,16 +35404,7 @@
                                     0,
                                     0
                                   ],
-                                  "shadow": [
-                                    {
-                                      "inset": true,
-                                      "color": "00000066",
-                                      "x": 0,
-                                      "y": 0,
-                                      "blur": 0,
-                                      "spread": 1
-                                    }
-                                  ],
+                                  "shadow": null,
                                   "opacity": null
                                 },
                                 "typography": null,
@@ -35458,10 +35437,10 @@
                                   "counterAxisSpacing": null,
                                   "wrap": false,
                                   "padding": {
-                                    "top": 12,
-                                    "right": 16,
-                                    "bottom": 12,
-                                    "left": 16
+                                    "top": 11,
+                                    "right": 15,
+                                    "bottom": 11,
+                                    "left": 15
                                   },
                                   "columns": null,
                                   "rows": null,
@@ -37137,6 +37116,12 @@
                                   "stroke": {
                                     "color": "00000066",
                                     "widths": [
+                                      2,
+                                      2,
+                                      2,
+                                      2
+                                    ],
+                                    "ringWithin": [
                                       1,
                                       1,
                                       1,
@@ -37149,16 +37134,7 @@
                                     0,
                                     0
                                   ],
-                                  "shadow": [
-                                    {
-                                      "inset": true,
-                                      "color": "00000066",
-                                      "x": 0,
-                                      "y": 0,
-                                      "blur": 0,
-                                      "spread": 1
-                                    }
-                                  ],
+                                  "shadow": null,
                                   "opacity": null
                                 },
                                 "typography": null,
@@ -37191,10 +37167,10 @@
                                   "counterAxisSpacing": null,
                                   "wrap": false,
                                   "padding": {
-                                    "top": 12,
-                                    "right": 16,
-                                    "bottom": 12,
-                                    "left": 16
+                                    "top": 11,
+                                    "right": 15,
+                                    "bottom": 11,
+                                    "left": 15
                                   },
                                   "columns": null,
                                   "rows": null,
@@ -129585,7 +129561,7 @@
       "files": [
         {
           "file": "figma/app-screens.login.desktop.00.draw.js",
-          "bytes": 45396
+          "bytes": 45367
         }
       ]
     },
@@ -129597,7 +129573,7 @@
       "files": [
         {
           "file": "figma/app-screens.login.mobile.00.draw.js",
-          "bytes": 44934
+          "bytes": 44905
         }
       ]
     },
@@ -129609,7 +129585,7 @@
       "files": [
         {
           "file": "figma/app-screens.signup.desktop.00.draw.js",
-          "bytes": 47814
+          "bytes": 47785
         }
       ]
     },
@@ -129621,7 +129597,7 @@
       "files": [
         {
           "file": "figma/app-screens.signup.mobile.00.draw.js",
-          "bytes": 47429
+          "bytes": 47400
         }
       ]
     },
@@ -129633,7 +129609,7 @@
       "files": [
         {
           "file": "figma/app-screens.aws-signup.desktop.00.draw.js",
-          "bytes": 48526
+          "bytes": 48499
         }
       ]
     },
@@ -129645,7 +129621,7 @@
       "files": [
         {
           "file": "figma/app-screens.aws-signup.mobile.00.draw.js",
-          "bytes": 48257
+          "bytes": 48230
         }
       ]
     },
@@ -129777,7 +129753,7 @@
       "files": [
         {
           "file": "figma/app-screens.recover.desktop.00.draw.js",
-          "bytes": 45130
+          "bytes": 45101
         }
       ]
     },
@@ -129789,7 +129765,7 @@
       "files": [
         {
           "file": "figma/app-screens.recover.mobile.00.draw.js",
-          "bytes": 45106
+          "bytes": 45077
         }
       ]
     },

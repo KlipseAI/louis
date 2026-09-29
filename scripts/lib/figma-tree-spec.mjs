@@ -348,6 +348,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
     const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
     const clearBorder = clearBorderPadding(style);
+    const paint = paintOf(style);
+    // 테두리에 합친 링의 두께 — 획이 레이아웃에 드므로 패딩에서 뺀다(paintOf 주석).
+    const ringWithin = paint?.stroke?.ringWithin ?? [0, 0, 0, 0];
     if (slack) stats.lineBoxSlack.push({ path: node.path, ...slack });
     return {
       path: node.path,
@@ -367,7 +370,7 @@ export function toFigmaTreeSpec(tree, options = {}) {
       ...(node.tag === "img" && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,
       // **색·테두리·radius·그림자·불투명도.** 측정에 없는 값은 담지 않는다.
-      paint: paintOf(style),
+      paint,
       // **타이포.** 텍스트를 직접 가진 노드만. LOUIS 텍스트 스타일 이름으로 바꿔 싣는다.
       // 떠 있는 한 줄 라벨은 정렬을 싣지 않는다 — 글자 폭 상자라 제품에서 `text-align` 은 뜻이 없는데, Figma 의 폭 자동 글자는
       // 가운데 정렬이면 텍스트 스타일이 뒤늦게 걸릴 때 양쪽으로 자라 왼쪽 끝이 밀린다(로그인 모바일 「Password」 x 33 → 28, 캡처로 확인).
@@ -412,10 +415,10 @@ export function toFigmaTreeSpec(tree, options = {}) {
         // NO_WRAP 이 같은 그림이다. 표현하지 못한 자리는 `stats.verticalWrap` 에 남긴다.
         wrap: layoutMode === "HORIZONTAL" && style.flexWrap === "wrap",
         padding: {
-          top: (px(style.paddingTop) ?? 0) + (slack?.top ?? 0) + clearBorder.top,
-          right: (px(style.paddingRight) ?? 0) + clearBorder.right,
-          bottom: (px(style.paddingBottom) ?? 0) + (slack?.bottom ?? 0) + clearBorder.bottom,
-          left: (px(style.paddingLeft) ?? 0) + clearBorder.left,
+          top: (px(style.paddingTop) ?? 0) + (slack?.top ?? 0) + clearBorder.top - ringWithin[0],
+          right: (px(style.paddingRight) ?? 0) + clearBorder.right - ringWithin[1],
+          bottom: (px(style.paddingBottom) ?? 0) + (slack?.bottom ?? 0) + clearBorder.bottom - ringWithin[2],
+          left: (px(style.paddingLeft) ?? 0) + clearBorder.left - ringWithin[3],
         },
         // **GRID는 열 개수를 함께 줘야 한다.** Figma는 `gridColumnCount`가 없으면 기본 2열로 깔아
         // 4열 카드가 2열로 접힌다. 열 수는 선언된 `grid-template-columns`를 펼쳐 센다(computed는
@@ -643,6 +646,34 @@ function paintOf(style) {
     .map((axis) => px(style[axis]) ?? 0);
   const radius = radii.some((value) => value > 0) ? radii : null;
   let shadow = parseBoxShadow(style.boxShadow);
+  // 링 그림자 하나가 변마다 보태는 두께 — top · right · bottom · left.
+  const ringSides = (rings) => {
+    const sides = [0, 0, 0, 0];
+    for (const ring of rings) {
+      if (ring.spread > 0) for (let index = 0; index < 4; index += 1) sides[index] += ring.spread;
+      if (ring.y > 0) sides[0] += ring.y;
+      if (ring.x < 0) sides[1] += -ring.x;
+      if (ring.y < 0) sides[2] += -ring.y;
+      if (ring.x > 0) sides[3] += ring.x;
+    }
+    return sides;
+  };
+  // **테두리 안쪽의 같은 색 링은 테두리에 합친다(2026-09-29).** CSS 의 `inset` 링은 테두리 안쪽(패딩 상자 가장자리)부터 그려지는데
+  // Figma 의 안쪽 그림자는 프레임 가장자리부터 그려져, 테두리가 있는 자리에 링을 그림자로 두면 두 겹이 한 자리에 겹친다 — 로그인
+  // 입력칸의 포커스(테두리 1 + 링 1, 둘 다 검정 40%)가 제품 2px 이 보드에서 짙은 1px 이 됐다(제품 캡처와 나란히 놓아 찾았다). 링 색이
+  // 테두리 색과 같으면 변마다 두께를 더한 하나의 안쪽 획으로 싣고, 더한 두께를 `ringWithin` 으로 남겨 패딩에서 뺀다 — 테두리는 자리를
+  // 차지하고 링은 차지하지 않으므로, 합친 획이 레이아웃에 들면 그만큼 내용이 밀린다. 패딩이 링보다 얇은 변이 있으면 합치지 않는다.
+  if (stroke && shadow) {
+    const rings = shadow.filter((entry) => entry.inset && entry.blur === 0);
+    const add = ringSides(rings);
+    const paddings = ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"].map((axis) => px(style[axis]) ?? 0);
+    if (rings.length > 0 && rings.every((ring) => ring.color === stroke.color)
+      && add.some((width) => width > 0) && add.every((width, index) => width <= paddings[index] + 0.01)) {
+      stroke = { ...stroke, widths: stroke.widths.map((width, index) => width + add[index]), ringWithin: add };
+      shadow = shadow.filter((entry) => !rings.includes(entry));
+      if (shadow.length === 0) shadow = null;
+    }
+  }
   // **헤어라인은 안쪽 획이다.** 흐림 0 인 안쪽 링 그림자(`0 0 0 Npx inset` · 한 변만 `Npx 0 0 0 inset`)는 CSS 가 테두리 대신
   // 쓰는 선이다 — 박스 크기를 바꾸지 않는 안쪽 선이라 Figma 의 INSIDE 획과 같은 것이고, 획이어야 변수(`color/stroke-hairline`
   // · `border-width/hairline`)에 묶이고 변마다 두께를 가질 수 있다. CSS 테두리가 이미 있으면 겹치므로 그림자로 둔다.
@@ -650,14 +681,7 @@ function paintOf(style) {
   if (!stroke && shadow) {
     const rings = shadow.filter((entry) => entry.inset && entry.blur === 0);
     if (rings.length > 0 && rings.every((ring) => ring.color === rings[0].color)) {
-      const sides = [0, 0, 0, 0]; // top · right · bottom · left
-      for (const ring of rings) {
-        if (ring.spread > 0) for (let index = 0; index < 4; index += 1) sides[index] += ring.spread;
-        if (ring.y > 0) sides[0] += ring.y;
-        if (ring.x < 0) sides[1] += -ring.x;
-        if (ring.y < 0) sides[2] += -ring.y;
-        if (ring.x > 0) sides[3] += ring.x;
-      }
+      const sides = ringSides(rings); // top · right · bottom · left
       if (sides.some((width) => width > 0)) {
         // `inset: true` — 박스 크기에 들어가지 않는 선이다(CSS box-shadow). 렌더러가 레이아웃에서 뺀다(`strokesIncludedInLayout = false`).
         stroke = { color: rings[0].color, widths: sides, inset: true };

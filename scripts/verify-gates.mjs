@@ -1804,6 +1804,28 @@ withCanary(
   "--check",
 );
 
+// 테두리 안쪽의 같은 색 링을 테두리에 합치는 풀이를 지우면(그림자로 남기면) 로그인 입력칸의 포커스가 제품 2px 에서 보드의 짙은 1px 로
+// 겹친다(2026-09-29) — CSS 링은 테두리 안쪽부터, Figma 안쪽 그림자는 프레임 가장자리부터 그려진다. 같은 대조가 무는지 본다.
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace("  if (stroke && shadow) {\n    const rings", "  if (false && shadow) {\n    const rings"),
+  "figma tree spec: 테두리 안쪽 링을 테두리에 합치지 않는 변환",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
+// grid 부모 자식의 margin 을 감싸개로 옮기지 않으면(2026-09-29 전처럼 GRID 를 건너뛰면) 로그인 모바일 열의 로고 · 폼 간격이 24 좁아진다
+// — 첫 자식의 margin 은 열 아래 padding 이 되고 나머지는 버려진다. 같은 대조가 무는지 본다.
+withCanary(
+  "scripts/build-figma-app-screens.mjs",
+  (source) => source.replace("    if (node.layout && flowChildren(node).length >= 2) {", "    if (node.layout && !grid && flowChildren(node).length >= 2) {"),
+  "figma app screens: grid 자식의 margin 을 버리는 감싸개",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── display: contents 재부모 카나리아(2026-09-28) ───────────────────────────
 // 측정기는 `display: contents` 요소를 싣지 않고 그 자식의 `parentPath` 를 가장 가까운 보이는 조상으로 적는다. 생성기가 경로를
 // 잘라 부모를 구하던 동안 로그아웃 인증 화면 모바일 여덟 장이 조용히 빈 보드로 생성됐다(측정 23 중 3 만 남았다).

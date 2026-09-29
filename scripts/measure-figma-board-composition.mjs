@@ -631,10 +631,12 @@ for (const [key, parts] of partsByBoard) {
   const root = head.payload.head;
   for (const part of parts) {
     if (part === head) continue;
-    if (!Array.isArray(part.payload.path) || !part.payload.spec) {
-      fail(`조각에 path·spec 이 없습니다: figma/${part.name}`);
+    // 한 조각이 자리 여럿을 채운다(`slots`, 조상 먼저). 옛 꼴은 자리 하나(`path` · `spec`)다.
+    const slots = part.payload.slots ?? [{ path: part.payload.path, spec: part.payload.spec }];
+    for (const slot of slots) {
+      if (!Array.isArray(slot.path) || !slot.spec) fail(`조각에 path·spec 이 없습니다: figma/${part.name}`);
+      graft(root, slot.path, slot.spec, part.name);
     }
-    graft(root, part.payload.path, part.payload.spec, part.name);
   }
   // 붙이고 나면 대기표시가 하나도 남지 않아야 한다. 남으면 조각 파일이 빠진 것이고,
   // 그대로 세면 그 서브트리가 통째로 분모에서 사라진다.

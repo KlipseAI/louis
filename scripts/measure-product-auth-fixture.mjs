@@ -864,6 +864,12 @@ try {
             const src = node instanceof HTMLImageElement && node.currentSrc
               ? (() => {
                   const parsed = new URL(node.currentSrc, location.href);
+                  // **next/image 는 원본을 `url` 쿼리에 싣는다(2026-09-30).** 경로만 남기면 모든 최적화 이미지가 `/_next/image` 하나로
+                  // 접혀 자산 조인표가 원본을 고를 수 없었다(`/aws/signup` 브랜드 패널의 `/symbol.png`).
+                  if (parsed.origin === location.origin && parsed.pathname === "/_next/image" && parsed.searchParams.get("url")) {
+                    const original = new URL(parsed.searchParams.get("url"), location.href);
+                    return original.origin === location.origin ? original.pathname : original.origin + original.pathname;
+                  }
                   return parsed.origin === location.origin ? parsed.pathname : parsed.origin + parsed.pathname;
                 })()
               : null;

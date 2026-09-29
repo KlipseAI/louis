@@ -568,22 +568,30 @@ if (P.head) {
   // 조각 n — path를 따라 대기 자리를 찾아 실제 서브트리로 바꾼다.
   // **대기 자리를 먼저 지운다.** margin→padding 이관은 "흐름 자식이 하나일 때"만 도는데,
   // 자리표시를 남긴 채 교체본을 만들면 흐름 자식이 둘로 보여 이관이 건너뛰어진다.
-  let target = frame.children.find((child) => child.name === generatedName);
-  if (!target) throw new Error(`조각 0을 먼저 돌려야 합니다: ${generatedName}`);
-  for (const index of P.path) {
-    if (!("children" in target) || !target.children[index]) {
-      throw new Error(`대기 자리를 찾지 못했습니다: path=${P.path.join(".")} (${P.route})`);
+  const generatedRoot = frame.children.find((child) => child.name === generatedName);
+  if (!generatedRoot) throw new Error(`조각 0을 먼저 돌려야 합니다: ${generatedName}`);
+  // **한 조각이 자리 여럿을 채운다(2026-09-30).** 나누기가 떼어낸 형제를 한 조각에 묶어(`slots`, 조상 먼저) 조각 수를 줄인다 —
+  // 약관처럼 문단이 많은 문서는 떼어낸 자리마다 조각 하나라 뷰포트마다 18 ~ 41 조각이었다. 옛 꼴(`path` · `spec`)도 읽는다.
+  const slots = P.slots || [{ path: P.path, spec: P.spec }];
+  const replaced = [];
+  for (const slot of slots) {
+    let target = generatedRoot;
+    for (const index of slot.path) {
+      if (!("children" in target) || !target.children[index]) {
+        throw new Error(`대기 자리를 찾지 못했습니다: path=${slot.path.join(".")} (${P.route})`);
+      }
+      target = target.children[index];
     }
-    target = target.children[index];
+    const holder = target.parent;
+    const at = holder.children.indexOf(target);
+    await preloadVariants(slot.spec);
+    target.remove();
+    const built = buildNode(slot.spec, holder);
+    holder.insertChild(at, built);
+    replaced.push(built.name);
   }
-  const holder = target.parent;
-  const at = holder.children.indexOf(target);
-  await preloadVariants(P.spec);
-  target.remove();
-  const built = buildNode(P.spec, holder);
-  holder.insertChild(at, built);
   await flushTextStyles();
-  result = { chunk: P.path.join("."), replaced: built.name };
+  result = { chunk: slots.map((slot) => slot.path.join(".")).join(" "), replaced: replaced.join(" · ") };
 }
 
 return {

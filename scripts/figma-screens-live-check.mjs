@@ -158,9 +158,12 @@ function expectedBoards() {
     const head = structuredClone(headPayload.head);
     // 조각은 파일 순서(조상 먼저)로 붙인다 — 렌더러를 번호 순서대로 돌린 결과와 같다.
     for (const payload of payloads.filter((entry) => !entry.head)) {
-      let holder = head;
-      for (const index of payload.path.slice(0, -1)) holder = holder.k[index];
-      holder.k[payload.path.at(-1)] = payload.spec;
+      // 한 조각이 자리 여럿을 채운다(`slots`, 조상 먼저 — 렌더러와 같은 순서). 옛 꼴은 자리 하나다.
+      for (const slot of payload.slots ?? [{ path: payload.path, spec: payload.spec }]) {
+        let holder = head;
+        for (const index of slot.path.slice(0, -1)) holder = holder.k[index];
+        holder.k[slot.path.at(-1)] = slot.spec;
+      }
     }
     const generatedName = `generated/${runner.route} ${runner.context.split("-")[0]}`;
     const names = [];

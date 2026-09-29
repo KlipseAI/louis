@@ -13,26 +13,26 @@
   "$primitiveSiteSource": "정본 자리·제외 목록은 figma/app-screens.plan.json 의 louisPrimitiveSites · louisPrimitiveExclusions 에서 읽고, 제품 레시피 상자는 migration/product.rendered-components.json 의 rendered[probe] 에서 읽는다. 어느 값도 이 열거기에 베끼지 않는다 — 베낀 목록은 제품이나 LOUIS 가 움직인 날 조용히 낡고, 그때부터 이 원장은 「제품이 문다」를 근거 없이 말하게 된다.",
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
-  "boardCount": 102,
-  "rawNodesBeforePruning": 7485,
+  "boardCount": 104,
+  "rawNodesBeforePruning": 7505,
   "counts": {
-    "total": 7603,
-    "instance": 264,
+    "total": 7623,
+    "instance": 266,
     "replaceable": 0,
-    "bespoke": 81,
+    "bespoke": 83,
     "blocked": 12,
     "missing": 1144,
-    "structural": 6102,
+    "structural": 6118,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 17.6,
-    "target": 264,
-    "candidates": 1501
+    "instanceOverCandidates": 17.7,
+    "target": 266,
+    "candidates": 1505
   },
   "byInstanceSet": {
-    "Button": 69,
+    "Button": 71,
     "Product/Mobile App Top Bar": 32,
     "Product/Gnb Desktop Shell": 31,
     "Product/Desktop App Top Bar": 28,
@@ -55,7 +55,7 @@
   "bespokeByComponent": {
     "IconButton/md": 6,
     "Avatar/sm": 4,
-    "Button/md": 25,
+    "Button/md": 27,
     "Button/lg": 4,
     "DropZone/base": 4,
     "Avatar/lg": 2
@@ -66,9 +66,9 @@
     "icon/plus": 22
   },
   "structuralByKind": {
-    "surface": 635,
-    "frame": 3313,
-    "text": 2113,
+    "surface": 641,
+    "frame": 3319,
+    "text": 2117,
     "image": 41
   },
   "missingByCandidateClause": {
@@ -517,6 +517,44 @@
         "blocked": 0,
         "missing": 0,
         "structural": 16,
+        "unclassified": 0
+      }
+    },
+    {
+      "route": "error",
+      "context": "desktop-1920x1080",
+      "frameId": "37:18",
+      "file": "figma/app-screens.error.desktop.00.draw.js",
+      "files": [
+        "figma/app-screens.error.desktop.00.draw.js"
+      ],
+      "counts": {
+        "total": 10,
+        "instance": 1,
+        "replaceable": 0,
+        "bespoke": 1,
+        "blocked": 0,
+        "missing": 0,
+        "structural": 8,
+        "unclassified": 0
+      }
+    },
+    {
+      "route": "error",
+      "context": "mobile-402x874",
+      "frameId": "37:25",
+      "file": "figma/app-screens.error.mobile.00.draw.js",
+      "files": [
+        "figma/app-screens.error.mobile.00.draw.js"
+      ],
+      "counts": {
+        "total": 10,
+        "instance": 1,
+        "replaceable": 0,
+        "bespoke": 1,
+        "blocked": 0,
+        "missing": 0,
+        "structural": 8,
         "unclassified": 0
       }
     },
@@ -11006,6 +11044,238 @@
       "verdict": "structural",
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "error@desktop-1920x1080#root": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@desktop-1920x1080#0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@desktop-1920x1080#0.0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "main",
+      "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@desktop-1920x1080#0.0.0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        440,
+        188.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@desktop-1920x1080#0.0.0.0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "h1",
+      "rect": [
+        365.05,
+        48.59
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "error@desktop-1920x1080#0.0.0.1": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "p",
+      "rect": [
+        343.13,
+        72
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "error@desktop-1920x1080#0.0.0.2": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        197.16,
+        44
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@desktop-1920x1080#0.0.0.2.0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        197.16,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@desktop-1920x1080#0.0.0.2.0.0": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        83.19,
+        32
+      ],
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Button",
+      "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=primary, Size=md, State=Default, Icon=none)."
+    },
+    "error@desktop-1920x1080#0.0.0.2.0.1": {
+      "board": "figma/app-screens.error.desktop.00.draw.js",
+      "tag": "a",
+      "rect": [
+        109.97,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-element-mismatch",
+      "site": "button-md",
+      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
+      "component": "Button",
+      "size": "md",
+      "candidateClause": "a-interactive"
+    },
+    "error@mobile-402x874#root": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@mobile-402x874#0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@mobile-402x874#0.0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "main",
+      "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "error@mobile-402x874#0.0.0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        370,
+        179.59
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@mobile-402x874#0.0.0.0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "h1",
+      "rect": [
+        365.05,
+        48.59
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "error@mobile-402x874#0.0.0.1": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        300.23,
+        63
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "error@mobile-402x874#0.0.0.2": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        197.16,
+        44
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@mobile-402x874#0.0.0.2.0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        197.16,
+        32
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "error@mobile-402x874#0.0.0.2.0.0": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        83.19,
+        32
+      ],
+      "verdict": "instance",
+      "rule": "instance",
+      "component": "Button",
+      "variant": "Variant=primary, Size=md, State=Default, Icon=none",
+      "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=primary, Size=md, State=Default, Icon=none)."
+    },
+    "error@mobile-402x874#0.0.0.2.0.1": {
+      "board": "figma/app-screens.error.mobile.00.draw.js",
+      "tag": "a",
+      "rect": [
+        109.97,
+        32
+      ],
+      "verdict": "bespoke",
+      "rule": "primitive-site-element-mismatch",
+      "site": "button-md",
+      "reason": "Button/md 의 정본 자리는 `button-md`(<button>) 인데 이 도형은 <a> 다. 제품이 그 자리에서 무는 요소가 아니므로 인스턴스로 바꾸면 Figma 가 제품보다 더 「정본」이 된다(DS-D-0043).",
+      "component": "Button",
+      "size": "md",
+      "candidateClause": "a-interactive"
     },
     "/highlight/[projectId]?__phase=analyzing@desktop-1920x1080#root": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.desktop.00.draw.js",

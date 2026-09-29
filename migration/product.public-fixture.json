@@ -60,8 +60,8 @@
       "path": "apps/web/app/blog/page.tsx"
     },
     {
-      "route": "/creative-media",
-      "path": "apps/web/app/creative-media/page.tsx"
+      "route": "error",
+      "path": "apps/web/app/error.tsx"
     }
   ],
   "styleAxes": [
@@ -186010,8 +186010,9 @@
         ],
         "localApiFailures": []
       },
-      "/creative-media": {
-        "requestedRoute": "/creative-media",
+      "error": {
+        "requestedRoute": "error",
+        "requestedUrl": "/creative-media",
         "fullPage": true,
         "finalPath": "/creative-media",
         "finalSearch": "",
@@ -240159,8 +240160,9 @@
         ],
         "localApiFailures": []
       },
-      "/creative-media": {
-        "requestedRoute": "/creative-media",
+      "error": {
+        "requestedRoute": "error",
+        "requestedUrl": "/creative-media",
         "fullPage": true,
         "finalPath": "/creative-media",
         "finalSearch": "",

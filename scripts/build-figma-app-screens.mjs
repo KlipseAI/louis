@@ -414,6 +414,10 @@ const slimNode = (node) => ({
     : {}),
   ...(node.sizing.minHeight ? { mh: round(node.sizing.minHeight) } : {}),
   ...(node.sizing.maxWidth ? { mw: round(node.sizing.maxWidth) } : {}),
+  // 높이 상한 — 상한에 닿은 자리만(측정 높이 = 상한). 늘이기(FILL)가 상한을 넘으면 Figma 가 칸을 더 채운다(하이라이트 허브 모바일 본문
+  // `max-height: calc(100dvh - 64px)` 810 이 819 로 서서 가운데 놓인 내용이 4 내려갔다).
+  ...(node.sizing.maxHeight && node.sizing.layoutSizingVertical !== "FIXED" && Math.abs(node.rect.height - node.sizing.maxHeight) <= 0.5
+    ? { xh: round(node.sizing.maxHeight) } : {}),
   ...(node.layout ? {
     l: [
       node.layout.layoutMode[0],
@@ -1088,6 +1092,8 @@ for (const screen of SCREENS) {
     const { spec, stats } = toFigmaTreeSpec(tree, {
       rootPath: measured.rootPath,
       contextId: context.id,
+      // 뷰포트만 잰 원장은 뷰포트 밖에서 시작하는 노드를 싣지 않는다(figma-tree-spec flowSlack).
+      recordedBottom: measured.fullPage ? null : measured.viewport.height,
     });
     // **이미 있는 컴포넌트는 다시 그리지 않는다.** 셸(사이드바·상단 바)과 본문 블록(결제 결과·
     // 체크아웃 상태·요금제 카드)을 잘라내고 인스턴스를 심는다(판정 근거는 figma-component-substitution.mjs).

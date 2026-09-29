@@ -512,6 +512,37 @@ function hiddenGapMargins(node, style, children) {
   return found;
 }
 
+/**
+ * **보이지 않는 자식이 남긴 세로 흐름의 여유(2026-09-30).** 측정기는 넓이 없는 노드를 싣지 않는다 — 값이 빈 `<span class="mt-1.5">`
+ * 같은 높이 0 블록은 제 margin 만 남기고 빠지고, flex 세로 줄 끝의 크기 0 아이템은 `gap` 하나를 남기고 빠진다. 새 서식 맥락(flex
+ * 아이템 · grid 칸 …)의 상자는 그 여유를 제 높이에 넣는데, 남은 자식만으로 HUG 하면 그만큼 낮아진다(설정 모바일 이메일 줄 24 → 21
+ * 이라 그 아래가 모두 3 올라갔다). 내용 높이(HUG)로 서는 세로 흐름에서 측정 콘텐츠 상자와 흐름 자식의 끝 사이 여유를 패딩으로
+ * 옮긴다 — 측정 자리가 정답이다. flex 는 주축 정렬이 시작일 때만 본다(가운데 · 끝 정렬은 여유가 정렬의 몫이다).
+ */
+function flowSlack(node, style, children, rawChildren, sizing, recordedBottom) {
+  if (/grid|table/.test(style.display ?? "")) return null;
+  if (/flex/.test(style.display ?? "")) {
+    if (!(style.flexDirection ?? "row").startsWith("column") || style.flexDirection.endsWith("reverse")) return null;
+    if (style.flexWrap === "wrap" || !/^(normal|flex-start|start)$/.test(style.justifyContent ?? "normal")) return null;
+  }
+  if (sizing.layoutSizingVertical !== "HUG" || sizing.minHeight) return null;
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  if (flow.length === 0) return null;
+  // 블록 자식만 — 인라인 요소(`<strong>`)의 측정 상자는 줄 상자가 아니라 글꼴 상자라 여유가 거짓으로 잡힌다.
+  const displayOf = new Map(rawChildren.map((child) => [child.path, child.style?.display ?? ""]));
+  if (flow.some((child) => /^inline/.test(displayOf.get(child.path) ?? ""))) return null;
+  const border = (side) => ((style[`border${side}Style`] ?? "none") === "none" ? 0 : (px(style[`border${side}Width`]) ?? 0));
+  const contentTop = node.rect.y + border("Top") + (px(style.paddingTop) ?? 0);
+  const contentBottom = node.rect.y + node.rect.height - border("Bottom") - (px(style.paddingBottom) ?? 0);
+  // 뷰포트만 잰 원장은 뷰포트 밖에서 시작하는 노드를 싣지 않는다 — 그 아래 여유는 싣지 않은 자식이다.
+  if (recordedBottom != null && contentBottom > recordedBottom + 0.5) return null;
+  const slackTop = Math.min(...flow.map((child) => child.rect.y - (child.margin?.top ?? 0))) - contentTop;
+  const slackBottom = contentBottom - Math.max(...flow.map((child) => child.rect.y + child.rect.height + (child.margin?.bottom ?? 0)));
+  if (slackTop < -0.5 || slackBottom < -0.5 || (slackTop <= 0.5 && slackBottom <= 0.5)) return null;
+  const round2 = (value) => (value <= 0.5 ? 0 : Math.round(value * 100) / 100);
+  return { top: round2(slackTop), bottom: round2(slackBottom) };
+}
+
 function lineBoxSlack(node, style, children, rawChildren) {
   if (/flex|grid/.test(style.display ?? "")) return null;
   const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
@@ -685,12 +716,15 @@ export function toFigmaTreeSpec(tree, options = {}) {
           ? { ...sizing, layoutSizingHorizontal: "FILL" }
           : sizing;
     if (floatingLine) stats.floatingLines = (stats.floatingLines ?? 0) + 1;
-    const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren) : null;
+    const slack = layoutMode === "HORIZONTAL" ? lineBoxSlack(node, style, children, rawChildren)
+      : layoutMode === "VERTICAL" && !split && !stackedText && !padded
+        ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null) : null;
     const clearBorder = clearBorderPadding(style);
     const paint = paintOf(style);
     // 테두리에 합친 링의 두께 — 획이 레이아웃에 드므로 패딩에서 뺀다(paintOf 주석).
     const ringWithin = paint?.stroke?.ringWithin ?? [0, 0, 0, 0];
-    if (slack) stats.lineBoxSlack.push({ path: node.path, ...slack });
+    if (slack && layoutMode === "HORIZONTAL") stats.lineBoxSlack.push({ path: node.path, ...slack });
+    if (slack && layoutMode === "VERTICAL") stats.flowSlack = [...(stats.flowSlack ?? []), { path: node.path, ...slack }];
     return {
       path: node.path,
       tag: node.tag,

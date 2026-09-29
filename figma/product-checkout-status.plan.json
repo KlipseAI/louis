@@ -38,7 +38,7 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment confirmed, but plan update delayed",
+          "text": "Payment confirmed, but plan\nupdate delayed",
           "rect": {
             "x": 0,
             "y": 0,
@@ -286,7 +286,7 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+          "text": "The payment was cancelled or an error occurred during checkout.\nYour plan was not changed, and no subscription payment was\ncompleted.",
           "rect": {
             "x": 0,
             "y": 72.59379999999999,
@@ -605,7 +605,7 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+          "text": "The payment was cancelled or an error occurred during checkout.\nYour plan was not changed, and no subscription payment was\ncompleted.",
           "rect": {
             "x": 0,
             "y": 72.59379999999999,
@@ -974,7 +974,7 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment confirmed, but plan update delayed",
+          "text": "Payment confirmed,\nbut plan update\ndelayed",
           "rect": {
             "x": 0,
             "y": 0,
@@ -996,7 +996,7 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "Billing authorization information is missing from the success URL.",
+          "text": "Billing authorization information is missing from the success\nURL.",
           "rect": {
             "x": 0,
             "y": 169.7813,
@@ -1130,7 +1130,7 @@
           ]
         },
         "alert": {
-          "text": "Billing authorization information is missing from the success URL.",
+          "text": "Billing authorization information is missing from the\nsuccess URL.",
           "rect": {
             "x": 0,
             "y": 235.7813,
@@ -1158,7 +1158,7 @@
             0.08
           ],
           "textStyle": {
-            "text": "Billing authorization information is missing from the success URL.",
+            "text": "Billing authorization information is missing from the\nsuccess URL.",
             "rect": {
               "x": 0,
               "y": 235.7813,
@@ -1200,7 +1200,7 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment was not completed.",
+          "text": "Payment was not\ncompleted.",
           "rect": {
             "x": 0,
             "y": 0,
@@ -1222,7 +1222,7 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+          "text": "The payment was cancelled or an error occurred during\ncheckout.\nYour plan was not changed, and no subscription payment was\ncompleted.",
           "rect": {
             "x": 0,
             "y": 121.1875,
@@ -1519,7 +1519,7 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment was not completed.",
+          "text": "Payment was not\ncompleted.",
           "rect": {
             "x": 0,
             "y": 0,
@@ -1541,7 +1541,7 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "The payment was cancelled or an error occurred during checkout. Your plan was not changed, and no subscription payment was completed.",
+          "text": "The payment was cancelled or an error occurred during\ncheckout.\nYour plan was not changed, and no subscription payment was\ncompleted.",
           "rect": {
             "x": 0,
             "y": 121.1875,

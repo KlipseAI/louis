@@ -5,6 +5,7 @@ import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, nestedFixedPaints, parseCssColor, sourceQuotes } from "./lib/figma-live-variables.mjs";
 import { INSTANCE_TEXT_LIB, topBarTextProperties } from "./lib/figma-top-bar-text.mjs";
+import { drawnText } from "./lib/measured-text.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.auth-fixture.json"), "utf8"));
@@ -32,7 +33,7 @@ const relRect = (entry, rootRect) => ({
 const textSpec = (entry, rootRect) => {
   const computed = style(entry);
   return {
-    text: entry.ownText,
+    text: drawnText(entry),
     rect: relRect(entry, rootRect),
     fontFamily: computed.fontFamily,
     fontSize: px(computed.fontSize),
@@ -133,7 +134,7 @@ const contentSpec = ({ context, viewport }, { outcome, route, kind }) => {
         const computed = style(entry);
         declaredValue(entry, "width", /^100%$/, where);
         return {
-          text: entry.ownText,
+          text: drawnText(entry),
           rect: relRect(entry, root.rect),
           // 높이는 선언(`h-16` → `height: calc(32px)`)이라 FIXED, 폭은 `width: 100%` 라 FILL 이다.
           height: px(computed.height),
@@ -150,7 +151,7 @@ const contentSpec = ({ context, viewport }, { outcome, route, kind }) => {
     const alert = node(context, route, `${contentPath}.2`);
     const computed = style(alert);
     spec.alert = {
-      text: alert.ownText,
+      text: drawnText(alert),
       rect: relRect(alert, root.rect),
       padding: padding(computed),
       radius: px(computed.borderTopLeftRadius),

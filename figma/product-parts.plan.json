@@ -237,7 +237,7 @@
     },
     {
       "setName": "Product/Quantity Stepper",
-      "about": "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값은 측정이 글자로 잡지 않아 비어 있다.",
+      "about": "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값(「1」)은 측정기가 `value` 로 싣고 트리 변환이 글자로 옮긴다(2026-09-29).",
       "variants": [
         {
           "variant": "Viewport=Desktop",
@@ -252,9 +252,11 @@
           "signature": {
             "texts": [
               "−",
+              "1",
               "+"
             ],
             "structure": [
+              1,
               1,
               1
             ]
@@ -280,9 +282,11 @@
           "signature": {
             "texts": [
               "−",
+              "1",
               "+"
             ],
             "structure": [
+              1,
               1,
               1
             ]

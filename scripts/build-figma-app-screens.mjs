@@ -20,7 +20,7 @@
 //
 // 실행: `node scripts/build-figma-app-screens.mjs [--check]`
 
-import { readFileSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
@@ -55,12 +55,27 @@ const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
 // (`measure-product-auth-fixture.mjs --anonymous`). 화면 항목의 `fixture: "anonymous"` 가 그 원장을 고른다. 스타일 id 는 값의 해시라
 // 두 원장의 표가 섞여도 같은 id 는 같은 값이다.
 const anonymousFixture = JSON.parse(readFileSync(resolve(repoRoot, "migration/product.anonymous-fixture.json"), "utf8"));
-const fixtureOf = (screen) => (screen.fixture === "anonymous" ? anonymousFixture : fixture);
+// **세션 · 공개 원장(2026-09-29).** 서버가 로그인을 확인하는 화면(허브)은 가짜 Supabase 세션으로 잰 `product.session-fixture.json`,
+// 뷰포트보다 긴 공개 페이지는 문서 전체를 잰 `product.public-fixture.json` 에 있다(`measure-product-auth-fixture.mjs --session ·
+// --public`). 화면 항목의 `fixture` 가 고른다. 원장이 없으면 그 원장을 고른 화면에서 멈춘다.
+const optionalFixture = (relative) => {
+  const path = resolve(repoRoot, relative);
+  return existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : null;
+};
+const LEDGERS = {
+  anonymous: anonymousFixture,
+  session: optionalFixture("migration/product.session-fixture.json"),
+  public: optionalFixture("migration/product.public-fixture.json"),
+};
+const fixtureOf = (screen) => {
+  if (!screen.fixture) return fixture;
+  return LEDGERS[screen.fixture] ?? fail(`화면 ${screen.route} 의 원장 ${screen.fixture} 가 없습니다`);
+};
 const recipes = JSON.parse(readFileSync(recipesPath, "utf8"));
 const readback = JSON.parse(readFileSync(readbackPath, "utf8"));
 // 제품 원장과 측정 fixture 가 같은 커밋을 봐야 한다. 어긋나면 「제품이 이 자리에서 무는
 // 클래스」를 어제의 제품에서 읽고 오늘의 화면에 심는 것이 된다.
-for (const source of [fixture, anonymousFixture]) {
+for (const source of [fixture, ...Object.values(LEDGERS).filter(Boolean)]) {
   if (recipes.productCommit !== source.productCommit) {
     fail(
       `제품 레시피 원장의 커밋(${String(recipes.productCommit).slice(0, 8)})이 측정 fixture(${source.$evidenceClass})의 ` +
@@ -68,7 +83,9 @@ for (const source of [fixture, anonymousFixture]) {
     );
   }
 }
-if (anonymousFixture.fixture?.theme !== fixture.fixture?.theme) fail("두 측정 fixture 의 테마가 다릅니다 — 보드 색 모드는 하나다");
+for (const source of Object.values(LEDGERS).filter(Boolean)) {
+  if (source.fixture?.theme !== fixture.fixture?.theme) fail("측정 원장들의 테마가 다릅니다 — 보드 색 모드는 하나다");
+}
 
 // **자산 이미지(2026-09-28).** 제품 `<img src>` 는 그림이 파일이라 측정에 모양이 없고, 렌더러가 빈 상자로 그렸다 — 인증 화면
 // 브랜드 패널 · 카드 위의 로고가 통째로 빠졌다(캡처로 확인). src 를 LOUIS 90 · 자산의 컴포넌트에 잇는다. 이름은 여기 적되 id 와
@@ -173,6 +190,26 @@ const SCREENS = [
   // 없으면 던진다) 하이라이트 상세의 phase 프레임은 아직 보드에 없다. 프레임을 만드는 것은
   // Figma 쪽 작업이라 측정과 같은 걸음에 할 수 없다 — 프레임이 생기면 여기에 id와 함께 더하면
   // 그때부터 런너가 나온다. 키에 `[`·`]`·`?`가 있어도 파일명은 아래에서 정리한다.
+  // **세션 원장 · 공개 원장 화면(2026-09-29).** 손 조립이던 보드를 측정 생성으로 바꾼다 — 원장이 있을 때만 싣는다(없으면 이 항목들이 빠질 뿐
+  // 생성기는 멈추지 않는다). 세션 원장은 가짜 Supabase 세션(인증 고정 사용자 · 데이터 빈 목록), 공개 원장은 로그아웃 · 문서 전체다.
+  ...(LEDGERS.session ? [
+    { route: "/nodecanvas", desktop: "219:2917", mobile: "219:3209", fixture: "session" },
+    { route: "/videoeditor", desktop: "219:3403", mobile: "219:3701", fixture: "session" },
+    { route: "/highlight", desktop: "29:3", mobile: "29:44", fixture: "session" },
+    { route: "/admin", desktop: "222:3310", mobile: "222:3626", fixture: "session" },
+    { route: "/creative-media-admin", desktop: "224:3553", mobile: "224:3799", fixture: "session" },
+    { route: "/mypage/upgrade/checkout", desktop: "199:1729", mobile: "199:2782", fixture: "session" },
+  ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
+  ...(LEDGERS.public ? [
+    { route: "/privacy", desktop: "350:17450", mobile: "350:18523", fixture: "public" },
+    { route: "/terms", desktop: "350:19606", mobile: "350:20517", fixture: "public" },
+    { route: "/inquiry", desktop: "36:3", mobile: "36:44", fixture: "public" },
+    { route: "/pricing", desktop: "213:2297", mobile: "213:3353", fixture: "public" },
+    { route: "/templates", desktop: "33:3", mobile: "33:47", fixture: "public" },
+    { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "public" },
+    { route: "/blog", desktop: "214:2767", mobile: "214:2865", fixture: "public" },
+    { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "public" },
+  ].filter((screen) => LEDGERS.public.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
 ];
 
 const CONTEXTS = [
@@ -205,10 +242,10 @@ const PARTS = [
   },
   {
     set: "Product/Quantity Stepper",
-    about: "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값은 측정이 글자로 잡지 않아 비어 있다.",
+    about: "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값(「1」)은 측정기가 `value` 로 싣고 트리 변환이 글자로 옮긴다(2026-09-29).",
     variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.1.1", ["−", "+"], "2086:5890"],
-      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.2.1.1", ["−", "+"], "2086:5891"],
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.1.1", ["−", "1", "+"], "2086:5890"],
+      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.2.1.1", ["−", "1", "+"], "2086:5891"],
     ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
   },
   // **둘째 묶음(2026-09-26 저녁) — 보드 구성 원장의 「미보유」 18 을 0 으로.** 셋 다 LOUIS 컨트롤 사다리에 앉지 않는 제품 전용 자리다.
@@ -345,7 +382,9 @@ const slimNode = (node) => ({
   t: node.tag,
   // 글자 끝의 공백은 NBSP 로 싣는다(2026-09-28) — Figma 의 폭 자동 글자는 끝 공백을 폭에 넣지 않아, 측정이 살린 경계 공백이
   // 「account?Log in」처럼 사라졌다. 줄바꿈 없는 공백은 글리프라 폭을 차지한다.
-  ...(node.text ? { x: node.text.replace(/^ /, "\u00a0").replace(/ $/, "\u00a0") } : {}),
+  // **글자는 제품 글꼴로 보이는 줄대로 싣는다(2026-09-29).** 보드 글꼴은 너비가 달라 폭만 옮기면 줄이 다른 자리에서 꺾인다
+  // (measured-text.mjs). 서명 · 매칭은 spec 의 `text` 를 그대로 본다.
+  ...(node.text ? { x: (node.wrapLines?.length > 1 ? node.wrapLines.join("\n") : node.text).replace(/^ /, "\u00a0").replace(/ $/, "\u00a0") } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
   s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),
@@ -471,6 +510,8 @@ let totalMarginWrapped = 0;
 let totalSpaceBetweenHug = 0;
 let totalBleedHoisted = 0;
 let totalBleedUnresolved = 0;
+let totalGapsPaired = 0;
+let totalGapsUnresolved = 0;
 let totalUnresolvedFillInHug = 0;
 
 /**
@@ -817,6 +858,82 @@ function hoistBleed(spec) {
 }
 
 /**
+ * **형제 사이의 위아래 음수 margin 을 두 형제를 묶은 세로 쌓기의 간격으로 옮긴다(2026-09-29).** Figma Auto Layout 에는 margin 이
+ * 없고 간격(itemSpacing · gridRowGap)은 부모 안에서 하나다. 렌더러는 첫 자식의 margin 만 부모 padding 으로 옮기고(음수는 0 에서
+ * 막힌다) 나머지는 버려서, 형제를 겹치거나 당기는 음수 margin 이 사라졌다 — 로그인 · 가입 · 비밀번호 화면의 입력칸 한 쌍(테두리를
+ * 겹치는 `margin-bottom: -1`)이 1 벌어져 폼이 제품보다 1 컸고(172 ↔ 171), 로그인 데스크톱의 아래 링크 줄(`margin-top: -12`)은 12,
+ * 가입 안내 문단(`-4`)은 4 아래에 섰다. 음수 간격을 가진 이웃 둘을 칠 없는 세로 쌓기 하나로 묶고 간격을 (부모 간격 + 음수 margin)
+ * 으로 둔다 — Figma 는 음수 간격을 받는다. 세로 쌓기와 한 열 GRID 에서만(여러 열이면 칸 배치가 바뀐다) 묶고, 늘어난 행(`rows`)이
+ * 있는 GRID 는 건드리지 않는다. 묶음의 교차축 정렬은 부모(세로) 또는 채우지 않는 자식의 칸 정렬(GRID)을 따르고, 두 자식의 칸
+ * 정렬이 다르면 묶지 않는다(`unresolved`). 묶음은 첫 자식의 위 · 둘째의 아래 음수 margin 을 들고 가 다음 이웃과 다시 묶일 수 있다.
+ */
+function pairNegativeGaps(spec) {
+  const paired = [];
+  const unresolved = [];
+  const below = (node) => Math.min(0, node.margin?.bottom ?? 0);
+  const above = (node) => Math.min(0, node.margin?.top ?? 0);
+  const walk = (node) => {
+    if (node.instance) return;
+    for (const child of node.children ?? []) walk(child);
+    const mode = node.layout?.layoutMode;
+    const grid = mode === "GRID";
+    if (mode !== "VERTICAL" && !(grid && (node.layout.columns ?? 1) === 1 && !node.layout.rows)) return;
+    for (let guard = 0; guard < 64; guard += 1) {
+      const flow = flowChildren(node);
+      const index = flow.findIndex((child, at) => at + 1 < flow.length && below(child) + above(flow[at + 1]) < -HALF_PIXEL);
+      if (index < 0) return;
+      const [a, b] = [flow[index], flow[index + 1]];
+      const overlap = below(a) + above(b);
+      a.margin = { ...a.margin, bottom: 0 };
+      b.margin = { ...b.margin, top: 0 };
+      let counterAxis = grid ? null : node.layout.align?.counterAxis ?? null;
+      if (grid) {
+        const aligns = [...new Set([a, b].filter((child) => child.sizing.layoutSizingHorizontal !== "FILL")
+          .map((child) => child.gridAlign?.horizontal ?? "AUTO"))];
+        if (aligns.length > 1) {
+          unresolved.push({ path: node.path, pair: [a.path, b.path], overlap, why: "두 자식의 칸 정렬이 다르다" });
+          continue;
+        }
+        counterAxis = aligns[0] && aligns[0] !== "AUTO" ? aligns[0] : null;
+      }
+      const fill = (key) => ([a, b].some((child) => child.sizing[key] === "FILL") ? "FILL" : "HUG");
+      const sizing = {
+        ...a.sizing, layoutSizingHorizontal: fill("layoutSizingHorizontal"), layoutSizingVertical: fill("layoutSizingVertical"),
+        minWidth: null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [],
+      };
+      const gridAlign = grid && sizing.layoutSizingHorizontal !== "FILL" && counterAxis ? { horizontal: counterAxis, vertical: null } : null;
+      if (grid) { delete a.gridAlign; delete b.gridAlign; }
+      const gap = Math.round(((node.layout.itemSpacing ?? 0) + overlap) * 100) / 100;
+      const reason = "음수 margin 으로 겹치거나 당기는 이웃 둘의 묶음 — 둘 중 하나가 FILL 이면 FILL, 아니면 HUG";
+      const left = Math.min(a.rect.x, b.rect.x);
+      const top = Math.min(a.rect.y, b.rect.y);
+      const pair = {
+        path: `${a.path}~pair`, tag: "pair", name: `pair ${a.path}`, text: null, textLines: null, paints: false,
+        rect: { x: left, y: top, width: Math.max(a.rect.x + a.rect.width, b.rect.x + b.rect.width) - left,
+          height: Math.max(a.rect.y + a.rect.height, b.rect.y + b.rect.height) - top },
+        glyph: null, sizing, paint: null, typography: null, positioning: "AUTO",
+        margin: { top: above(a), right: 0, bottom: below(b), left: 0 }, offset: null, constraints: null,
+        why: { horizontal: { verdict: sizing.layoutSizingHorizontal, reason }, vertical: { verdict: sizing.layoutSizingVertical, reason } },
+        ...(gridAlign ? { gridAlign } : {}),
+        layout: { layoutMode: "VERTICAL", itemSpacing: gap, counterAxisSpacing: null, wrap: false,
+          padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis, primaryAxis: null } },
+        clipsContent: false,
+        children: [a, b],
+      };
+      a.margin = { ...a.margin, top: 0 };
+      b.margin = { ...b.margin, bottom: 0 };
+      paired.push({ path: pair.path, pair: [a.path, b.path], gap, overlap });
+      const at = node.children.indexOf(a);
+      node.children = node.children.filter((child) => child !== b).map((child) => (child === a ? pair : child));
+      if (at < 0) throw new Error(`pairNegativeGaps: 자식 자리를 잃었다 ${a.path}`);
+    }
+    throw new Error(`pairNegativeGaps: 묶기가 끝나지 않는다 ${node.path}`);
+  };
+  walk(spec);
+  return { paired, unresolved };
+}
+
+/**
  * **`margin: auto` 가운데 정렬을 부모의 교차축 정렬로 옮긴다(2026-09-23).**
  *
  * Figma Auto Layout 에는 margin 이 없다. 렌더러는 흐름 자식이 하나일 때만 margin 을 부모 padding 으로 옮기고, 형제가 있으면
@@ -912,6 +1029,8 @@ const partContent = [];
       const marginWrapped = wrapSiblingMargins(spec);
       const bleed = hoistBleed(spec);
       if (bleed.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 옮기지 못한 번짐이 있습니다: ${JSON.stringify(bleed.unresolved)}`);
+      const gaps = pairNegativeGaps(spec);
+      if (gaps.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 묶지 못한 음수 간격이 있습니다: ${JSON.stringify(gaps.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
@@ -925,6 +1044,7 @@ const partContent = [];
           ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
           ...(marginWrapped.length ? { marginWrapped } : {}),
           ...(bleed.hoisted.length ? { bleedHoisted: bleed.hoisted } : {}),
+          ...(gaps.paired.length ? { negativeGapsPaired: gaps.paired } : {}),
           ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}) },
         spec,
       });
@@ -982,6 +1102,9 @@ for (const screen of SCREENS) {
     const bleed = hoistBleed(spec);
     totalBleedHoisted += bleed.hoisted.length;
     totalBleedUnresolved += bleed.unresolved.length;
+    const gaps = pairNegativeGaps(spec);
+    totalGapsPaired += gaps.paired.length;
+    totalGapsUnresolved += gaps.unresolved.length;
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
     totalSizingReconciled += sizingFix.reconciled.length;
@@ -1014,7 +1137,8 @@ for (const screen of SCREENS) {
       // **보드는 뷰포트 창이다.** 인증 fixture 는 뷰포트와 겹치는 노드만 잰다(측정기 `intersectsViewport`) — 문서가 뷰포트보다
       // 길어도(결제 성공 미리보기 모바일 1103 · 1286) 그 아래 행은 측정에 없다. 프레임을 문서 높이로 세우면 아래가 빈 채 남으므로
       // 뷰포트 높이에서 자른다(보드 이름 「뷰포트 창」).
-      frameSize: [round(measured.rootRect.width), round(Math.min(measured.rootRect.height, Number(context.id.split("x").pop())))],
+      // 문서 끝까지 잰 화면(`fullPage`, 공개 원장)은 문서 높이로 선다 — 뷰포트 창 규칙은 뷰포트만 잰 원장의 것이다.
+      frameSize: [round(measured.rootRect.width), round(measured.fullPage ? measured.rootRect.height : Math.min(measured.rootRect.height, Number(context.id.split("x").pop())))],
       shells,
       stats: {
         measured: stats.total,
@@ -1042,6 +1166,9 @@ for (const screen of SCREENS) {
         // 좌우 번짐을 padding 을 가진 조상까지 올린 자리 · 못 옮긴 번짐(hoistBleed 주석).
         ...(bleed.hoisted.length ? { bleedHoisted: bleed.hoisted } : {}),
         ...(bleed.unresolved.length ? { bleedUnresolved: bleed.unresolved } : {}),
+        // 형제 사이의 위아래 음수 margin 을 묶음 간격으로 옮긴 자리 · 묶지 못한 자리(pairNegativeGaps 주석).
+        ...(gaps.paired.length ? { negativeGapsPaired: gaps.paired } : {}),
+        ...(gaps.unresolved.length ? { negativeGapsUnresolved: gaps.unresolved } : {}),
         // HUG 축의 space-between 을 MIN(gap 이 사는 정렬)으로 옮긴 자리(dropHugSpaceBetween 주석).
         ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
       },
@@ -1064,9 +1191,13 @@ for (const screen of SCREENS) {
  */
 {
   const desktopContext = CONTEXTS.find((context) => context.key === "desktop").id;
-  const measuredDesktop = fixture.screens[desktopContext] ?? {};
+  // 화면마다 제 원장에서 읽는다 — 허브(세션 원장)의 사이드바도 같은 서명 규칙을 받는다. 스타일 id 는 값의 해시라 원장이 달라도 견줄 수 있다.
+  const measuredOf = (route) => {
+    const screen = SCREENS.find((entry) => entry.route === route.split("?")[0] || entry.route === route);
+    return (screen ? fixtureOf(screen) : fixture).screens[desktopContext]?.[route] ?? fixture.screens[desktopContext]?.[route];
+  };
   const signatureOf = (route, path) => {
-    const nodes = (measuredDesktop[route]?.tree ?? [])
+    const nodes = (measuredOf(route)?.tree ?? [])
       .filter((node) => node.path === path || node.path.startsWith(`${path}.`));
     return nodes.length === 0 ? null : JSON.stringify(nodes.map((node) =>
       [node.path.slice(path.length), node.tag, node.ownText ?? "", node.rect, node.styleRef]));
@@ -1086,7 +1217,7 @@ for (const screen of SCREENS) {
     }
     variantBySignature.set(signature, { route: entry.route, variant: sidebar.variant });
     const source = SIDEBAR_VARIANT_SOURCES[sidebar.variant];
-    if (source && measuredDesktop[source] && signatureOf(source, sidebar.path) !== signature) {
+    if (source && measuredOf(source) && signatureOf(source, sidebar.path) !== signature) {
       fail(
         `${entry.route} 가 ${sidebar.variant} 를 받았지만 사이드바 서브트리가 그 variant 의 출처 ${source} 와 다릅니다. ` +
         "활성 항목이 다른 화면입니다 — PRODUCT_CURRENT_PATH 를 제품 <Gnb currentPath> 와 대조하세요.",
@@ -1171,17 +1302,15 @@ const TEXT_DETERMINED_WHY =
 // 2026-09-15: `/subscription` 두 뷰포트 `Credit usage history` 블록(`body.1.0.0.1.0.1.1.0.2` 가로 2 · 2)이 빠졌다 — 판정기가 한 열
 // grid 의 셋째 자식 트랙을 자식 순번으로 집어 못 찾던 것을 자동 배치 열 번호로 풀었다(`sizing-provenance.mjs` 의
 // `gridAutoPlacementColumn`). 블록이 트랙 `1fr` 의 FILL 이 되어 그 안의 FILL 자식이 더는 HUG 부모 안에 있지 않다.
+// 2026-09-29: `/subscription` 데스크톱 본문 칸(`body.1.0.0.1.0.1` 세로 1)이 풀렸다 — 그 높이의 출처는 `min-height: 100%` 였고 크기 판정이
+// 퍼센트를 버렸다. 트리 변환이 부모 안쪽 높이의 P% 가 측정 높이와 같으면 최소 높이로 싣는다(figma-tree-spec 퍼센트 최소 높이) —
+// 칸이 1044 로 서고 section 이 남은 높이를 채워, 가운데 선 안내가 9 위에 서던 것이 풀린다.
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.6.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.10.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
-  "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1 · vertical": {
-    count: 1,
-    why: "본문 section 의 grow. 부모(본문 칸)의 높이가 자기 내용보다 큰데 그 출처를 측정 선언이 싣지 않아 부모 판정이 HUG 다. " +
-      "Figma 는 section 을 내용 높이로 접는다 — 같은 route 모바일은 측정 = 내용이라 HUG 로 풀렸다",
-  },
   "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
   "/subscription @ desktop-1920x1080 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
   "/subscription @ mobile-402x874 · body.1.0.0.1.0.1.1.0.1.0.0.0.0 · horizontal": { count: 2, why: TEXT_DETERMINED_WHY },
@@ -1394,5 +1523,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

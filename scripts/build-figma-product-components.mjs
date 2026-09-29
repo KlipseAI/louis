@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { transformSync } from "esbuild";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { BINDING_POLICY, RENDERER_LIB, liveVariables, sourceQuotes } from "./lib/figma-live-variables.mjs";
+import { drawnText } from "./lib/measured-text.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
@@ -376,7 +377,7 @@ const upgradeSpec = (route, state) => {
     color: rgba(labelStyle.color),
     effects: shadows(buttonStyle.boxShadow),
     label: {
-      text: label.ownText,
+      text: drawnText(label),
       rect: relRect(label, button.rect),
       fontFamily: labelStyle.fontFamily,
       fontSize: px(labelStyle.fontSize),
@@ -468,7 +469,7 @@ const resultNode = (context, route, path) =>
 const resultText = (entry, rootRect) => {
   const computed = style(entry);
   return {
-    text: entry.ownText,
+    text: drawnText(entry),
     rect: relRect(entry, rootRect),
     fontFamily: computed.fontFamily,
     fontSize: px(computed.fontSize),

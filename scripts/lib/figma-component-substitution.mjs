@@ -107,6 +107,10 @@ const cardStructure = (card) => [
   ...card.sections.map((section) => (section.texts ?? section.items).length),
   ...(card.action ? [1] : []),
 ];
+// **매칭 글자는 공백을 한 칸으로 접는다(2026-09-29).** 그리는 글자는 제품 글꼴의 줄대로 줄바꿈을 품는다(measured-text.mjs) — 본문 세트
+// 계획의 글자에 줄바꿈이 들어가자 보드 쪽 글자(측정 `ownText`)와 달라져 결제 결과 본문 인스턴스가 8 → 2 로 끊겼다. 줄이 어디서 꺾이는지는
+// 같은 글자인지와 상관이 없으므로 양쪽 다 공백 · 줄바꿈을 한 칸으로 접어 견준다.
+const matchText = (text) => String(text ?? "").replace(/\s+/g, " ").trim();
 export const CONTENT_COMPONENTS = Object.freeze([
   ...PAYMENT_PLAN.variants.map((variant) => ({
     set: PAYMENT_PLAN.componentSetName,
@@ -148,7 +152,7 @@ export const CONTENT_COMPONENTS = Object.freeze([
     texts: [surface.main.headerNotice.text],
     structure: [1],
   })),
-].map((entry) => Object.freeze({ ...entry, texts: entry.texts.map((text) => String(text ?? "").trim()) })));
+].map((entry) => Object.freeze({ ...entry, texts: entry.texts.map((text) => matchText(text)) })));
 for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
   if (plan.productCommit !== APP_SHELL_PLAN.productCommit) {
     throw new Error(`[figma-app-screens] 본문 세트 plan 의 앵커(${String(plan.productCommit).slice(0, 8)})가 앱 셸 plan 과 다릅니다 — 생성기를 같은 앵커에서 다시 도세요.`);
@@ -209,6 +213,10 @@ const PRODUCT_CURRENT_PATH = Object.freeze({
   "/mypage/upgrade/bulk-success": "/subscription", // bulk-success/page.tsx:231
   "/mypage/upgrade/bulk-fail": "/subscription", // bulk-fail/page.tsx:57
   "/subscription/coupons": "/subscription", // components/scenes/PurchasedCouponsScene.tsx:483
+  // 허브 셋(세션 원장, 2026-09-29).
+  "/nodecanvas": "/nodecanvas", // components/scenes/NodeCanvasHomeScene.tsx:666 gnbCurrentPath = NODE_CANVAS_HUB_PATH(lib/app-paths.ts:6)
+  "/videoeditor": "/videoeditor", // components/scenes/VideoEditScene.tsx:716
+  "/highlight": "/highlight", // components/scenes/HighlightScene.tsx:1196
 });
 // 화면 키에 개발용 후크 쿼리(`?__phase=` · `?preview=`)가 붙어도 GNB 는 같은 페이지의 것이다 — 쿼리를 떼고 찾는다.
 const currentPathOf = (route) => {
@@ -236,7 +244,7 @@ const SIDEBAR_WIDTH_DECLARATION = "var(--app-gnb-sidebar-width)";
 
 /** 노드가 품은 모든 텍스트를 순서대로 모은다. */
 function textsOf(node, into = []) {
-  if (node.text) into.push(node.text.trim());
+  if (node.text) into.push(matchText(node.text));
   for (const child of node.children ?? []) textsOf(child, into);
   return into;
 }

@@ -58,7 +58,9 @@ export function normalizeAuthFixtureTree(tree, computedStyles) {
   return tree.map((node) => {
     const style = table.get(node.styleRef);
     if (!style) throw new Error(`[figma-tree-spec] styleRef를 찾지 못했습니다: ${node.styleRef} (${node.path})`);
-    return { ...node, style };
+    // **입력칸의 값은 그 칸의 글자다(2026-09-29).** 값은 글자 노드가 아니라 측정기가 `value` 로 따로 싣는다 — 쿠폰 수량
+    // 입력칸의 「1」이 보드에서 비어 있었다. 제품이 그 칸에 그 글자를 그리므로 글자로 옮긴다.
+    return { ...node, ...(node.value && !node.ownText ? { ownText: node.value } : {}), style };
   });
 }
 
@@ -169,6 +171,7 @@ function splitOwnText(node, children) {
     name: `${node.path}.t`,
     text: node.ownText,
     textLines: lines.length > 0 ? lines : null,
+    ...(node.wrapLines ? { wrapLines: node.wrapLines } : {}),
     paints: true,
     rect,
     sizing: {
@@ -299,6 +302,18 @@ export function toFigmaTreeSpec(tree, options = {}) {
       contextId,
     });
     const sizing = toFigmaSizing(decision);
+    // **퍼센트 최소 높이(2026-09-29).** `min-height: 100%` 는 계산값에서도 %라 크기 판정(limitPx)이 풀지 못해 버렸다 — 구독 데스크톱
+    // 본문 열(`min-height: 100%` = main 안쪽 1044)이 내용 높이(1009)로 서, 가운데 정렬 section 이 35 짧아지고 그 안의 안내가 9 위에
+    // 섰다. 부모 안쪽 높이의 P% 가 측정 높이와 같으면(최소 높이가 걸려 있었다) 그 높이를 최소 높이로 싣는다.
+    const percentMin = /^(\d+(?:\.\d+)?)%$/.exec(String(node.style?.minHeight ?? "").trim());
+    if (percentMin && !sizing.minHeight && parent?.rect) {
+      const edge = (side) => (px(parent.style?.[`padding${side}`]) ?? 0) + (px(parent.style?.[`border${side}Width`]) ?? 0);
+      const inner = parent.rect.height - edge("Top") - edge("Bottom");
+      if (Math.abs(inner * Number(percentMin[1]) / 100 - node.rect.height) <= 0.5) {
+        sizing.minHeight = node.rect.height;
+        stats.percentMinHeight = (stats.percentMinHeight ?? 0) + 1;
+      }
+    }
     for (const reason of sizing.unresolved) {
       stats.unresolved.push({ path: node.path, tag: node.tag, reason });
     }
@@ -359,6 +374,9 @@ export function toFigmaTreeSpec(tree, options = {}) {
       // 글자를 자식으로 떼어냈으면 이 노드는 더 이상 글자를 갖지 않는다(중복 렌더 방지).
       text: split ? null : (node.ownText || null),
       textLines: split ? null : (node.ownTextLines?.length ? node.ownTextLines : null),
+      // 제품 글꼴로 보이는 줄(측정기 `wrapLines`, 감긴 자리가 `<br>` 보다 많을 때만). 서명 · 매칭은 `text` 를 보고, 러너만 이 줄로
+      // 글자를 줄바꿈해 싣는다(measured-text.mjs).
+      ...(!split && node.wrapLines ? { wrapLines: node.wrapLines } : {}),
       // 스스로 그리는 것이 있는가(면·테두리·그림자·이미지). 래퍼 접기 판정과 색 이관에 쓴다.
       paints: hasOwnPaint(node),
       // rect는 FIXED 축 크기와 검증용이다. FILL/HUG 축은 Figma가 계산한다.

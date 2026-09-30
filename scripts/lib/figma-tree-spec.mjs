@@ -214,6 +214,7 @@ function richInlineText(node, childrenOf) {
   const base = node.style ?? {};
   let text = "";
   const ranges = [];
+  const childPieces = []; // [start, end, 측정 y] — 보이는 줄을 되살릴 때 줄 경계의 요소가 어느 줄인지 가른다
   for (const run of runs) {
     if (typeof run === "string") { text += run; continue; }
     const child = kids.find((kid) => kid.path === `${node.path}.${run}`);
@@ -229,6 +230,7 @@ function richInlineText(node, childrenOf) {
     if (!piece) continue;
     const start = text.length;
     text += piece;
+    childPieces.push([start, text.length, child.rect?.y ?? null]);
     const range = { start, end: text.length };
     if (style.fontWeight && Number(style.fontWeight) !== Number(base.fontWeight)) range.weight = Number(style.fontWeight);
     const colour = cssColorToHex(style.color);
@@ -236,7 +238,55 @@ function richInlineText(node, childrenOf) {
     if (/underline/.test(style.textDecorationLine ?? style.textDecoration ?? "") && !/underline/.test(base.textDecorationLine ?? base.textDecoration ?? "")) range.underline = true;
     if (range.weight || range.color || range.underline) ranges.push(range);
   }
-  return text.trim() ? { text, ranges } : null;
+  if (!text.trim()) return null;
+  const wrapped = mergedWrapLines(node, text, childPieces, ranges);
+  return wrapped ? { text, ranges: wrapped.ranges, wrapLines: wrapped.lines } : { text, ranges };
+}
+
+/**
+ * **섞인 문단의 보이는 줄(2026-09-30).** 측정기의 `wrapLines` 는 제 글자만으로 줄을 세어 안쪽 요소의 글자(`<strong>7 days</strong>`)가
+ * 빠진다 — 합친 글자와 맞지 않아 버리자 보드 글꼴로 줄이 다시 감겨 이용약관 문단이 세 줄 → 두 줄로 줄었다(그 아래가 24 올라갔다).
+ * 제 글자 기준 줄 끝을 합친 글자로 옮기고, 경계에 걸린 요소는 측정 y 로 줄을 가린다. 범위 서식은 줄바꿈으로 이은 글자 기준으로 옮긴다.
+ */
+function mergedWrapLines(node, text, childPieces, ranges) {
+  const own = Array.isArray(node.wrapLines) ? node.wrapLines : null;
+  if (!own || own.length < 2) return null;
+  const isChild = (index) => childPieces.some(([start, end]) => index >= start && index < end);
+  const ownChars = [];
+  for (let index = 0; index < text.length; index += 1) if (!/\s/.test(text[index]) && !isChild(index)) ownChars.push(index);
+  const counts = own.map((line) => line.replace(/\s+/g, "").length);
+  if (counts.reduce((sum, count) => sum + count, 0) !== ownChars.length) return null; // 제 글자가 맞지 않으면 되살리지 않는다
+  const lineHeight = node.rect.height / own.length;
+  const lineOf = (y) => (y == null ? null : Math.round((y - node.rect.y) / lineHeight));
+  const breaks = []; // [줄 끝(배타), 다음 줄 시작]
+  let consumed = 0;
+  for (let line = 0; line < own.length - 1; line += 1) {
+    consumed += counts[line];
+    let end = ownChars[consumed - 1] + 1;
+    for (;;) {
+      let next = end;
+      while (next < text.length && /\s/.test(text[next])) next += 1;
+      const piece = childPieces.find(([start]) => start === next);
+      if (piece && lineOf(piece[2]) != null && lineOf(piece[2]) <= line) { end = piece[1]; continue; }
+      breaks.push([end, next]);
+      break;
+    }
+  }
+  let joined = "";
+  const map = new Array(text.length + 1);
+  let cursor = 0;
+  for (const [end, next] of breaks) {
+    for (let index = cursor; index < end; index += 1) { map[index] = joined.length; joined += text[index]; }
+    for (let index = end; index < next; index += 1) map[index] = joined.length;
+    joined += "\n";
+    cursor = next;
+  }
+  for (let index = cursor; index < text.length; index += 1) { map[index] = joined.length; joined += text[index]; }
+  map[text.length] = joined.length;
+  return {
+    lines: joined.split("\n"),
+    ranges: ranges.map((range) => ({ ...range, start: map[range.start], end: map[range.end] })),
+  };
 }
 
 /**
@@ -689,7 +739,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     // 제 글자와 글자뿐인 인라인 요소가 섞인 문단은 글자 하나 + 범위 서식으로 합친다(richInlineText 주석).
     const rich = richInlineText(node, childrenOf);
     if (rich) {
-      node = { ...node, ownText: rich.text, wrapLines: undefined, textRanges: rich.ranges };
+      node = { ...node, ownText: rich.text, wrapLines: rich.wrapLines, textRanges: rich.ranges };
       stats.richInlineText = (stats.richInlineText ?? 0) + 1;
     }
     const rawChildren = rich ? [] : (childrenOf.get(node.path) ?? []);
@@ -917,7 +967,10 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
           primaryAxis: slack?.realign ? null : cssJustifyToFigma(style.justifyContent),
         },
       },
-      clipsContent: style.overflow === "hidden" || style.overflowX === "hidden",
+      // 스크롤 칸(`overflow-x: auto · scroll`)은 자식이 실제로 넘칠 때만 자른다 — 스크롤 전 첫 화면이 그 칸 안만 보인다(요금제 비교표).
+      clipsContent: style.overflow === "hidden" || style.overflowX === "hidden"
+        || (/^(auto|scroll)$/.test(style.overflowX ?? "") && children.some((child) => child.positioning !== "ABSOLUTE"
+          && child.rect.x + child.rect.width > node.rect.x + node.rect.width + 1)),
       children,
     };
   };
@@ -1459,6 +1512,19 @@ function gridColumns(node, style) {
  */
 function gridColumnTracks(node, style, sizing) {
   const raw = String(node.declared?.["grid-template-columns"] ?? "").replace(/!important/g, "").trim();
+  // **내용 최소 폭이 밀어낸 암시 열(2026-09-30).** 열 선언이 없는 grid 의 암시 열은 내용의 최소 폭까지 자란다 — 개인정보 모바일은 본문 표가
+  // 열을 483.6 으로 밀어 컨테이너(370)를 넘치는데(제품 페이지가 가로로 넘친다), 보드는 칸을 370 으로 채워 문단 줄이 두 배가 되고 보드가
+  // 1342 길었다. 계산된 트랙 합이 콘텐츠 폭을 넘으면 계산된 px 트랙(FIXED)으로 싣는다.
+  if (!raw || raw === "none") {
+    const computed = parseTracks(style.gridTemplateColumns)?.map((token) => px(token));
+    const room = node.rect.width - (px(style.paddingLeft) ?? 0) - (px(style.paddingRight) ?? 0)
+      - (px(style.borderLeftWidth) ?? 0) - (px(style.borderRightWidth) ?? 0);
+    const gap = px(style.columnGap ?? style.gap) ?? 0;
+    if (computed?.length && computed.every((value) => value != null)
+      && computed.reduce((sum, value) => sum + value, 0) + gap * (computed.length - 1) > room + 1) {
+      return computed.map((value) => ["X", Math.round(value * 100) / 100]);
+    }
+  }
   if (!raw || raw === "none" || /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw) || /var\(/.test(raw)) return null;
   const tokens = parseTracks(raw);
   if (!tokens?.length) return null;

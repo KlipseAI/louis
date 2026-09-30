@@ -458,6 +458,7 @@ const buildNode = (spec, parent) => {
 
   if (spec.mh) { try { node.minHeight = spec.mh; } catch (error) {} }
   if (spec.mw) { try { node.maxWidth = spec.mw; } catch (error) {} }
+  if (spec.mn) { try { node.minWidth = spec.mn; } catch (error) {} }
   if (spec.xh) { try { node.maxHeight = spec.xh; } catch (error) {} }
 
   // margin — Figma Auto Layout에는 margin이 없다. 흐름 자식이 하나면 부모 padding으로 옮긴다.

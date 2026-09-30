@@ -432,6 +432,10 @@ const slimNode = (node) => ({
     : {}),
   ...(node.sizing.minHeight ? { mh: round(node.sizing.minHeight) } : {}),
   ...(node.sizing.maxWidth ? { mw: round(node.sizing.maxWidth) } : {}),
+  // 폭 하한 — 하한에 닿은 자리만(측정 폭 = 하한). 요금제 비교표(`min-width: 640px`)가 스크롤 칸(370)에 FILL 로 눌려 열이 좁아지고
+  // 글자가 여러 줄로 꺾여 모바일 보드가 1269 길었다(2026-09-30, 글자 전부 대조).
+  ...(node.sizing.minWidth && node.sizing.layoutSizingHorizontal !== "FIXED" && Math.abs(node.rect.width - node.sizing.minWidth) <= 0.5
+    ? { mn: round(node.sizing.minWidth) } : {}),
   // 높이 상한 — 상한에 닿은 자리만(측정 높이 = 상한). 늘이기(FILL)가 상한을 넘으면 Figma 가 칸을 더 채운다(하이라이트 허브 모바일 본문
   // `max-height: calc(100dvh - 64px)` 810 이 819 로 서서 가운데 놓인 내용이 4 내려갔다).
   ...(node.sizing.maxHeight && node.sizing.layoutSizingVertical !== "FIXED" && Math.abs(node.rect.height - node.sizing.maxHeight) <= 0.5

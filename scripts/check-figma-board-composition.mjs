@@ -225,7 +225,9 @@ const REPLACEABLE_BASELINE = 0;
 // 2026-09-26(밤): 5 → 13 — 결제 성공 미리보기 보드의 링크 버튼 8(`a` 요소에 앉은 Button 레시피). 발견이다.
 // 2026-09-28: 13 → 15 — **발견이다.** 로그아웃 fixture 보드(인증 화면 열 · 404)의 `/aws/signup` 언어 선택 버튼 지구본 둘(데스크톱 ·
 // 모바일). 제품 `GlobeIcon.tsx:19-21` 이 제 원 · 타원을 그려 LOUIS `icon/globe` 를 물지 않는다(글리프 조인표 `globe`).
-const BESPOKE_BASELINE = 15; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-09-30: 15 → **114.** **발견이다.** 공개 페이지 보드(요금 · 약관 · 개인정보 · 문의 · 템플릿 · 블로그 · 크리에이티브 미디어 · 랜딩)가 서며 제품이
+// LOUIS 컴포넌트를 물지 않는 자리가 드러났다 — icon/plus 32 · Button/md 28 · icon/globe 14 · IconButton/md 10 순(검사 출력의 bespoke 표).
+const BESPOKE_BASELINE = 114; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -250,7 +252,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-28: 206 → **224.** 보드가 늘어서다 — 로그아웃 fixture(`product.anonymous-fixture.json`) 보드 22(인증 화면 열 · `/data-deletion-status`
 // · 404, 두 뷰포트)가 LOUIS Button 인스턴스 18 을 갖는다: inverse lg 10(로그인 · 가입 · 재설정 둘 · 복구의 주 버튼), ghost md 4(가입의 약관
 // 「View」 둘), primary md 4(`/aws/signup` 가입 · 404 「Back to home」). 셸은 없다 — 인증 화면은 앱 셸 밖이다(아래 셸 표에 넣지 않는다).
-const INSTANCE_FLOOR = 266;
+// 2026-09-30: 266 → **274.** 보드가 늘어서다 — 랜딩 두 보드의 LOUIS 인스턴스 8.
+const INSTANCE_FLOOR = 274;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -291,11 +294,14 @@ const INSTANCE_FLOOR = 266;
 // 같은 날 뒤: 289 → **319.** 보드가 준 것도 판정을 푼 것도 아니다 — 생성기가 칠 없는 `<input>` 을 빈 껍데기로 버리던 것을 고쳐(입력칸이
 // 패딩 높이로 눌렸다) 인증 화면의 입력 요소 30 이 보드에 섰고, LOUIS 컨트롤 사다리에 맞는 기하가 없어 미보유 +30 이다. 수는 instance 224 +
 // replaceable 0 + bespoke 15 + blocked 8 + missing 72.
-const CANDIDATE_FLOOR = 319;
+// 2026-09-30: 319 → **1618.** 보드가 늘어서다 — 공개 페이지 · 랜딩 보드 30(76 → 106). 미보유가 대부분(1216)이고 모두 공개 페이지의
+// 제품 전용 자리다. 수는 instance 274 + replaceable 0 + bespoke 114 + blocked 14 + missing 1216.
+const CANDIDATE_FLOOR = 1618;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
-const BOARD_FLOOR = 76;
+// 2026-09-29 ~ 30: 76 → 106 — 공개 fixture 보드(공개 페이지 열넷 · 랜딩, 두 뷰포트).
+const BOARD_FLOOR = 106;
 const SHELL_COMPONENTS = new Set([
   "Product/Gnb Desktop Shell",
   "Product/Desktop App Top Bar",

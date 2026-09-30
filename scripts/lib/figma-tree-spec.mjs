@@ -727,7 +727,9 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       const edge = (side) => (px(parent.style?.[`padding${side}`]) ?? 0) + (px(parent.style?.[`border${side}Width`]) ?? 0);
       const inner = parent.rect.height - edge("Top") - edge("Bottom");
       const natural = naturalHeight();
-      if (Math.abs(inner * Number(percentMin[1]) / 100 - node.rect.height) <= 0.5 && natural != null && natural < node.rect.height - 0.5) {
+      // 백분율 최소 높이가 부모 안쪽에서 푸는 크기(퍼센트 → 비율).
+      const percentHeight = inner * (Number(percentMin[1]) / 100);
+      if (Math.abs(percentHeight - node.rect.height) <= 0.5 && natural != null && natural < node.rect.height - 0.5) {
         sizing.minHeight = node.rect.height;
         stats.percentMinHeight = (stats.percentMinHeight ?? 0) + 1;
       }

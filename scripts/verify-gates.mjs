@@ -1750,12 +1750,13 @@ withCanary(
 // ── grid 자동 배치 열 카나리아(2026-09-15) ──────────────────────────────────
 // 판정기가 grid 자식의 트랙을 자식 순번으로 집으면 한 열 grid 의 둘째 · 셋째 자식이 트랙을 못 찾고 HUG 로 접힌다(`/subscription`
 // 크레딧 이력 블록). 열 번호를 자동 배치로 푼 뒤 그 자리가 풀지 못한 HUG·FILL 래칫에서 빠졌다 — 순번으로 되돌리면 래칫이 무는지 본다.
+// 2026-09-30: 트랙 없는 grid 아이템을 FILL 로 두는 판정 · 크기 조합 풀이가 접힌 자리를 풀어 래칫 대신 생성물 대조가 문다.
 withCanary(
   "scripts/lib/sizing-provenance.mjs",
   (source) => source.replace("return out ? null : cursor % trackCount;", "return out ? null : index;"),
   "sizing provenance: grid 열을 자식 순번으로 집는 판정기",
   "scripts/build-figma-app-screens.mjs",
-  "풀지 못한 HUG 부모 · FILL 자식이 기준과 다릅니다",
+  "생성물이 다릅니다",
   "--check",
 );
 
@@ -1786,12 +1787,13 @@ withCanary(
 // ── 헤어라인 카나리아(2026-09-26) ───────────────────────────────────────────
 // LOUIS 헤어라인(`--louis-hairline-inset`)은 계산값이 `color(srgb …) 0 0 0 0.5px inset` 이다. 그림자 파서가 `rgb()` 만 읽던 동안
 // 보드 전체에서 카드 · 입력의 헤어라인이 통째로 빠졌다(그림자 2개만 남았다). 파서를 `rgb()` 만 읽게 되돌리면 생성물 대조가 무는지 본다.
+// 2026-09-30: 헤어라인이 빠지면 쿠폰 코드 칩이 글자 속성 부품 검사에서 먼저 멈춘다(생성물 대조까지 가지 않는다) — 그 진단을 기대한다.
 withCanary(
   "scripts/lib/figma-tree-spec.mjs",
   (source) => source.replace("const SHADOW_COLOR = /(?:rgba?|color)\\([^)]*\\)/;", "const SHADOW_COLOR = /rgba?\\([^)]*\\)/;"),
   "figma tree spec: color(srgb …) 헤어라인을 버리는 그림자 파서",
   "scripts/build-figma-app-screens.mjs",
-  "생성물이 다릅니다",
+  "글자 속성 부품은 글자 하나를 든 잎이고",
   "--check",
 );
 // 안쪽 링 그림자를 획으로 옮기는 풀이를 지우면(그림자로 남기면) 같은 대조가 무는지 본다 — 그림자로 남은 헤어라인은 변수에 묶이지 않는다.

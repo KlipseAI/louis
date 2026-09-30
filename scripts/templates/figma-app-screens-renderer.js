@@ -278,7 +278,7 @@ const applyTypography = (node, spec) => {
   } else if (typeof spec.y === "string") {
     pendingTextStyles.push([node, spec.y]);
   }
-  if (spec.xr) pendingRanges.push([node, spec.xr]);
+  if (spec.xr) pendingRanges.push([node, spec.xr, spec.r && spec.r[1]]);
 };
 
 const buildNode = (spec, parent) => {
@@ -592,7 +592,7 @@ const flushTextStyles = async () => {
   }
   pendingTextStyles.length = 0;
   // **섞인 문단의 범위 서식(2026-09-30).** 문장 안의 굵은 글자 · 링크 색 · 밑줄 — 생성기가 문단을 글자 하나로 합치고 범위를 싣는다.
-  for (const [node, ranges] of pendingRanges) {
+  for (const [node, ranges, measured] of pendingRanges) {
     for (const [start, end, weight, colour, underline] of ranges) {
       if (end <= start || end > node.characters.length) continue;
       if (weight) {
@@ -602,6 +602,13 @@ const flushTextStyles = async () => {
       }
       if (colour) node.setRangeFills(start, end, [hexToPaint(colour)]);
       if (underline) node.setRangeTextDecoration(start, end, "UNDERLINE");
+    }
+    // **첫 줄의 굵은 범위는 글자 상자를 1 키운다(2026-09-30).** Pretendard SemiBold 범위가 여러 줄 문단의 첫 줄에 있으면 Figma 의 높이 맞춤
+    // 글자 상자가 줄 높이 합보다 1 높다(고정 px 줄 높이여도 같다 — 둘째 줄의 굵은 범위 · 한 줄 문단은 그대로, 복제본 실험). 개인정보 목록의
+    // 「라벨: 설명」 항목이 하나마다 1 씩 키워 문서 끝이 100 내려갔다. 측정 높이보다 1 안쪽으로 높으면 측정 높이로 고정한다.
+    if (measured && node.textAutoResize === "HEIGHT" && node.height > measured + 0.5 && node.height <= measured + 1.5) {
+      node.textAutoResize = "NONE";
+      node.resize(node.width, measured);
     }
   }
   pendingRanges.length = 0;

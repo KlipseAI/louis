@@ -667,6 +667,23 @@ function contentExtent(node, axisName) {
     ? padding + children.reduce((sum, child) => sum + outer(child), 0) + layout.itemSpacing * (children.length - 1)
     : padding + Math.max(...children.map(outer));
 }
+/**
+ * 늘어나기 전의 내용 크기 — `contentExtent` 와 같되 그 축 FILL 자식은 측정 크기(늘어난 크기)가 아니라 제 내용 크기로 센다. 잴 수 없으면 null.
+ * 구독 데스크톱 요금제 카드는 안쪽 열(FILL)이 행 높이로 늘어나 있어 측정 자식으로 세면 두 카드가 모두 행 높이였다.
+ */
+function intrinsicExtent(node, axisName) {
+  const axis = AXIS_OF[axisName];
+  const layout = node.layout;
+  const children = flowChildren(node);
+  if (node.instance || !layout || layout.layoutMode === "GRID" || layout.wrap || children.length === 0) return null;
+  const sizes = children.map((child) => (child.sizing[axis.sizing] === "FILL" && child.layout ? intrinsicExtent(child, axisName) : child.rect[axis.extent]));
+  if (sizes.some((size) => size == null)) return null;
+  const outer = sizes.map((size, index) => size + (children[index].margin?.[axis.start] ?? 0) + (children[index].margin?.[axis.end] ?? 0));
+  const padding = layout.padding[axis.start] + layout.padding[axis.end];
+  return layout.layoutMode === axis.mode
+    ? padding + outer.reduce((sum, size) => sum + size, 0) + layout.itemSpacing * (children.length - 1)
+    : padding + Math.max(...outer);
+}
 const UNRESOLVED_FILL_KIND = {
   instance: "인스턴스 — 내용 크기는 컴포넌트가 갖고 계획이 잴 수 없다",
   text: "글자 잎 — 계획에 글자의 내용 폭이 없다",
@@ -727,6 +744,45 @@ function reconcileFigmaSizing(spec) {
           `wrap row · measured ${child.rect.height}`);
       }
     }
+    // **grid 행의 높은 칸은 생성기가 고른다(2026-09-30).** 렌더러의 행 맞춤(칸이 모두 세로 FILL 이면 내용을 재어 가장 높은 칸만 HUG)은
+    // grid 를 만드는 순간에 돈다 — 러너 조각이 칸 안 내용을 뒤 조각에서 붙이면 그때의 높이로 고른다. 요금제 비교표 모바일(한 줄 다섯 열)이
+    // 뒤 조각에 내용이 남은 둘째 열 높이로 서서 Trial 열이 잘리고 그 아래가 모두 165 올라왔다. 측정에서 자기 내용이 행 높이와 같은 칸을
+    // HUG 로 둔다 — 렌더러의 행 맞춤은 칸이 모두 FILL 인 행만 돈다.
+    if (node.layout?.layoutMode === "GRID" && !node.layout.rows && node.sizing.layoutSizingVertical === "HUG") {
+      const cells = flowChildren(node);
+      const columns = Math.max(1, node.layout.columns || 1);
+      if (!cells.some((cell) => cell.gridPlace)) {
+        for (let start = 0; start < cells.length; start += columns) {
+          const row = cells.slice(start, start + columns);
+          if (row.length < 2 || !row.every((cell) => cell.sizing.layoutSizingVertical === "FILL" && !cell.instance)) continue;
+          const height = Math.max(...row.map((cell) => cell.rect.height));
+          const tallest = row.find((cell) => {
+            const content = intrinsicExtent(cell, "vertical");
+            return content != null && Math.abs(content - cell.rect.height) <= HALF_PIXEL && Math.abs(cell.rect.height - height) <= HALF_PIXEL;
+          });
+          if (tallest) {
+            change(tallest, "vertical", "HUG",
+              `grid 행(${node.path})의 가장 높은 칸 — 자기 내용 ${height} 이 행 높이다. 렌더러의 행 맞춤은 조각을 나누면 내용이 덜 붙은 때의 높이로 고른다`,
+              `row ${height}`);
+          }
+        }
+      }
+    }
+    // **표 줄의 칸은 줄 높이로 늘어난다(2026-09-30).** CSS 표 칸은 늘 줄 높이다. 판정기는 내용 높이(HUG)로 두는데, 테두리를 겹친 표
+    // (`border-collapse`)의 칸은 테두리를 반씩만 가져 Figma 의 HUG 칸(패딩 + 내용 + 테두리 둘)이 측정보다 1 높다 — 약관 정의 표의 이름 칸
+    // (`<strong>`)이 줄마다 1 씩 키워 표 아래가 모두 6 내려갔다. 자기 내용이 줄보다 낮은 칸을 FILL 로 둔다 — 줄 높이는 FILL 이 아닌 칸이 정한다.
+    if (node.tag === "tr" && node.layout?.layoutMode === "HORIZONTAL" && node.sizing.layoutSizingVertical === "HUG") {
+      const cells = flowChildren(node);
+      const shorter = cells.filter((cell) => cell.layout && cell.layout.layoutMode !== "GRID" && cell.sizing.layoutSizingVertical === "HUG"
+        && (contentExtent(cell, "vertical") ?? Infinity) < cell.rect.height - HALF_PIXEL);
+      if (shorter.length > 0 && cells.some((cell) => !shorter.includes(cell) && cell.sizing.layoutSizingVertical !== "FILL")) {
+        for (const cell of shorter) {
+          change(cell, "vertical", "FILL",
+            `표 줄(${node.path})의 칸 — 자기 내용 ${Math.round(contentExtent(cell, "vertical") * 100) / 100} 이 줄 높이 ${cell.rect.height} 보다 낮다. 표 칸은 줄 높이로 늘어난다`,
+            `row ${cell.rect.height}`);
+        }
+      }
+    }
     if (node.layout && node.layout.layoutMode !== "GRID") {
       const children = flowChildren(node);
       for (const axisName of ["horizontal", "vertical"]) {
@@ -769,6 +825,17 @@ function reconcileFigmaSizing(spec) {
               `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 가 아무 일도 하지 않았다 — 측정 ${measured} 이 자식의 최소 크기 ${childMin} 에 섰다. Figma 는 HUG 부모를 FILL 자식의 최소로만 세워 형제가 넘친다`,
               `min ${childMin}`);
             continue;
+          }
+          // 글자 잎의 주축 grow — 부모의 측정 크기가 흐름 자식 측정 크기의 합(+ 간격 · 패딩)과 같으면 남는 공간이 없어 grow 가 아무 일도
+          // 하지 않았다(2026-09-30, 구독 데스크톱 크레딧 카드의 안내 문단 — grid 행의 높은 칸을 HUG 로 두자 드러났다).
+          if (primary && child.text && !child.layout) {
+            const parentContent = contentExtent(node, axisName);
+            if (parentContent != null && Math.abs(parentContent - node.rect[axis.extent]) <= HALF_PIXEL) {
+              change(child, axisName, "HUG",
+                `HUG 부모(${node.path})의 주축 grow 가 아무 일도 하지 않았다 — 부모 측정 ${node.rect[axis.extent]} 이 흐름 자식의 합과 같아 남는 공간이 없다`,
+                `parent content ${Math.round(parentContent * 100) / 100}`);
+              continue;
+            }
           }
           const kind = content != null ? (measured > content ? "larger" : "smaller")
             : child.instance ? "instance" : child.text && !child.layout ? "text" : "unmeasurable";

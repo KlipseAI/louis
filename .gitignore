@@ -43,3 +43,6 @@ __screenshots__/
 
 # 작업용 임시 파일 — 저장소에 남길 것이 아니다
 scratchpad/
+
+# klipse-document 스킬이 만드는 문서(결과물). 키트가 아니라 git 이 추적하지 않는다.
+/documents/

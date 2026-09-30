@@ -2729,6 +2729,13 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 
 인쇄와 강제 색은 브라우저 테스트가 재지 않는다 — 규칙만 있다.
 
+#### 만드는 법
+
+문서 한 편을 이 규범으로 끝까지 내는 순서는 스킬 [`.claude/skills/klipse-document/SKILL.md`](../../.claude/skills/klipse-document/SKILL.md)가
+갖는다 — 브리프에서 결론과 결정 요청을 먼저 세우고, 뼈대(`new-document.mjs`)를 만들고, 아래 예시의 부품 마크업을 옮겨 쓰고,
+실브라우저 검사(`check-document.mjs` — 구조 · 한도 · 마크업 · 접근성 · 문장 · 세 판 렌더)와 캡처로 확인한 뒤 파일 하나로
+묶는다(`export-document.mjs`). 검사는 이 문서의 규칙 중 기계로 잴 수 있는 것만 잰다 — 규칙의 정본은 이 문서다.
+
 #### 예시
 
 [`packages/css/examples/document.html`](../../packages/css/examples/document.html) — 승인된 운영안을

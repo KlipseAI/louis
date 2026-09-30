@@ -9591,7 +9591,7 @@
 
 /* ── 콜아웃 — 절마다 하나까지 ──────────────────────────────────────────────
  * **Alert 가 아니다.** Alert 는 화면의 상태를 알리는 배너이고(role · 톤 · 닫기), 이것은 글의 한
- * 대목을 짚는 편집 강조다. 테두리가 없고 반경은 콜아웃 역할 `alert` 20 이다.
+ * 대목을 짚는 편집 강조다. 테두리가 없고 반경은 다른 박스와 같은 `card` 12 다(2026-09-30 — 박스 곡률을 한 값으로).
  * `note`(기본)는 강조색 면, `caution` 은 **비용이 드는 지점에만** 노랑 면이다. */
 .louis-document-callout {
   --louis-document-callout-mark-size: 22px;
@@ -9603,7 +9603,7 @@
   column-gap: var(--louis-space-control-md);
   margin: 0;
   padding: var(--louis-document-card-inset);
-  border-radius: var(--louis-radius-alert);
+  border-radius: var(--louis-radius-card);
   background: var(--louis-document-accent-face);
   color: var(--louis-color-fg-secondary);
 }

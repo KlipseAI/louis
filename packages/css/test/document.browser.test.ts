@@ -281,10 +281,10 @@ test("박스 사이는 8, 카드 여백은 24 · 32 다", () => {
   expect(getComputedStyle(probe("nested-stat")).paddingTop).toBe("0px");
 });
 
-test("반경은 역할 다섯 가운데 하나다", () => {
+test("박스의 반경은 하나다 — 카드 · 수치 · 콜아웃이 card, 작은 표식은 pill", () => {
   expect(getComputedStyle(probe("card")).borderRadius).toBe(token("--louis-radius-card"));
   expect(getComputedStyle(probe("stat")).borderRadius).toBe(token("--louis-radius-card"));
-  expect(getComputedStyle(probe("note")).borderRadius).toBe(token("--louis-radius-alert"));
+  expect(getComputedStyle(probe("note")).borderRadius).toBe(token("--louis-radius-card"));
   for (const name of ["flow-label", "verdict", "marker", "track"]) {
     expect(getComputedStyle(probe(name)).borderRadius, name).toBe(token("--louis-radius-pill"));
   }

@@ -8,6 +8,8 @@ authority: normative
 
 Klipse가 사용자에게 일관되게 말하는 방법을 정의한다. 현재는 최소 계약만 제공하며 `experimental`이다.
 
+카드뉴스, 공지처럼 Klipse 이름으로 밖에 내보내는 글의 어조는 [Voice & Tone](voice-tone.md)이 정한다.
+
 ## 기본 원칙
 
 - 사용자가 지금 할 수 있는 행동과 그 결과를 명확하고 간결하게 쓴다.
@@ -31,7 +33,7 @@ Klipse가 사용자에게 일관되게 말하는 방법을 정의한다. 현재�
 
 ## 남은 작업
 
-- Voice & Tone과 writing Do/Don't 확정
+- 제품 화면 문구의 Voice & Tone과 writing Do/Don't 확정(밖에 내보내는 글은 [Voice & Tone](voice-tone.md)에 있다)
 - KO/EN/JA 길이·줄바꿈 테스트 fixture
 - 하드코딩 사용자 문구 게이트
 - 숫자·날짜·duration·credit 표기 규칙

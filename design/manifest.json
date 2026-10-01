@@ -869,6 +869,15 @@
       "generated": false
     },
     {
+      "id": "content-voice-tone",
+      "path": "design/content/voice-tone.md",
+      "title": "Voice & Tone",
+      "section": "content",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "develop-overview",
       "path": "design/develop/README.md",
       "title": "Develop",
@@ -1677,6 +1686,7 @@
         "design/README.md",
         "design/develop/README.md",
         "design/content/README.md",
+        "design/content/voice-tone.md",
         "design/governance/decisions/DS-D-0061-canvas-edge-canon-is-a-token-table.md",
         "design/governance/decisions/DS-D-0062-transform-frame-chrome-is-quiet.md",
         "design/governance/decisions/DS-D-0063-ring-and-compact-inset-follow-the-product.md",

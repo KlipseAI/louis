@@ -1839,6 +1839,38 @@ withCanary(
   "--check",
 );
 
+// 떼어낸 제 글자를 DOM 순서(`inlineRuns`)가 아니라 가로 판정으로 끼우면 블록 흐름의 `<li>글자<ul>…</ul></li>` 에서 글자가 하위 목록
+// 아래로 내려간다 — 약관 5 · 8 · 31 · 34조의 하위 목록이 31 ~ 66 위에 섰다(2026-10-01). 같은 대조가 무는지 본다.
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace("    if (firstText >= 0) {", "    if (false) {"),
+  "figma app screens: 떼어낸 제 글자를 DOM 순서 없이 끼우는 판정",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
+// 글자를 떼어낸 노드의 margin 겹침을 건너뛰면 글자 뒤 하위 목록의 margin-bottom 이 항목 안에 갇혀 다음 항목이 4 씩 밀린다(2026-10-01).
+withCanary(
+  "scripts/lib/figma-tree-spec.mjs",
+  (source) => source.replace('    if (layoutMode === "VERTICAL") {\n      const collapsed = collapsedBlockMargins', '    if (!split && layoutMode === "VERTICAL") {\n      const collapsed = collapsedBlockMargins'),
+  "figma app screens: 글자를 떼어낸 노드의 margin 겹침 건너뛰기",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
+// 테두리를 겹친 표의 칸 패딩에서 테두리 반쪽을 빼지 않으면 Figma 칸이 테두리 둘을 다 레이아웃에 넣어 줄마다 1 씩 키운다 — 약관 · 개인정보
+// 표 31개(2026-10-01). 같은 대조가 무는지 본다.
+withCanary(
+  "scripts/build-figma-app-screens.mjs",
+  (source) => source.replace("      if (collapsed) {\n        for (const row of rows) {", "      if (false) {\n        for (const row of rows) {"),
+  "figma app screens: 겹친 표 칸에 테두리를 통째로 두는 변환",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── display: contents 재부모 카나리아(2026-09-28) ───────────────────────────
 // 측정기는 `display: contents` 요소를 싣지 않고 그 자식의 `parentPath` 를 가장 가까운 보이는 조상으로 적는다. 생성기가 경로를
 // 잘라 부모를 구하던 동안 로그아웃 인증 화면 모바일 여덟 장이 조용히 빈 보드로 생성됐다(측정 23 중 3 만 남았다).

@@ -160,11 +160,29 @@ function splitOwnText(node, children) {
   } else {
     // 줄 rect가 없으면(auth-fixture) **첫 자식이 콘텐츠 시작에 붙어 있는지**로 판정한다.
     // 붙어 있으면 글자는 자식들 뒤, 아니면 앞이다.
-    const first = children[0].rect[axis] - node.rect[axis];
-    at = first <= padStart + 0.5 ? children.length : 0;
-    const span = children.reduce((sum, child) => sum + child.rect[extent], 0);
-    rect = vertical
-      ? { x: node.rect.x, y: node.rect.y, width: node.rect.width, height: Math.max(0, node.rect.height - span) }
+    // **DOM 순서가 있으면 그 순서로 끼운다(2026-10-01).** 위 판정은 flex 열이 아니면 가로로 재서, 블록 흐름의 `<li>글자<ul>…</ul></li>`
+    // 에서 「목록이 왼쪽 시작에 붙어 있다 → 글자는 뒤」로 갔다 — 약관 · 개인정보의 「… in the following cases:」가 하위 목록 아래로
+    // 내려가 목록이 61 위에 섰다(보드 끝은 같아 끝 대조로는 안 보이고 글자 대조로 찾았다). 측정기가 싣는 조각 순서(`inlineRuns` — 글자
+    // 조각과 요소 자식 순번)에서 첫 글자 조각 뒤에 오는 첫 자식 앞에 넣고, 자식이 콘텐츠 폭을 채우는 블록 흐름이면 세로로 쌓인 것으로 본다.
+    const runs = Array.isArray(node.inlineRuns) ? node.inlineRuns : null;
+    const firstText = runs ? runs.findIndex((run) => typeof run === "string" && run.trim()) : -1;
+    const contentWidth = node.rect.width - (px(style.paddingLeft) ?? 0) - (px(style.paddingRight) ?? 0)
+      - (px(style.borderLeftWidth) ?? 0) - (px(style.borderRightWidth) ?? 0);
+    const blockFlow = firstText >= 0 && !/flex|grid/.test(style.display ?? "")
+      && children.every((child) => child.rect.width >= contentWidth - 1);
+    const stacked = vertical || blockFlow;
+    if (firstText >= 0) {
+      const runOf = (child) => runs.indexOf(Number(child.path.slice(node.path.length + 1)));
+      const index = children.findIndex((child) => runOf(child) > firstText);
+      at = index < 0 ? children.length : index;
+    } else {
+      const first = children[0].rect[axis] - node.rect[axis];
+      at = first <= padStart + 0.5 ? children.length : 0;
+    }
+    const span = children.reduce((sum, child) => sum + child.rect[stacked ? "height" : extent], 0);
+    const top = blockFlow && at > 0 ? children[at - 1].rect.y + children[at - 1].rect.height : node.rect.y;
+    rect = stacked
+      ? { x: node.rect.x, y: top, width: node.rect.width, height: Math.max(0, node.rect.height - span) }
       : { x: node.rect.x, y: node.rect.y, width: Math.max(0, node.rect.width - span), height: node.rect.height };
   }
 
@@ -828,8 +846,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     // 글자를 떼어낸 노드는 그 글자 조각의 자리가 추정이라 보지 않는다.
     if (!split) for (const hidden of hiddenGapMargins(node, style, children)) stats.hiddenGaps = [...(stats.hiddenGaps ?? []), hidden];
     // 블록 흐름의 margin 겹침(collapsedBlockMargins 주석). 부모를 뚫고 나간 margin 은 이 노드의 바깥 margin 이 된다(큰 쪽).
+    // **글자를 떼어낸 노드도 본다(2026-10-01).** 떼어낸 글자 조각은 margin 이 없어 겹침 판정에 끼지 않고, 판정은 측정된 자식의 자리로만
+    // 한다 — 글자 뒤의 하위 목록(`<li>글자<ul class="mb-4">`)은 마지막 자식이라 margin 이 항목 밖으로 나가는데, 건너뛰자 항목 안에 갇혀
+    // 약관 5조 · 8조의 다음 항목이 4 씩 밀렸다. 글자가 마지막이면 마지막 자식이 글자라 전과 같이 겹치지 않는다(CSS 에서도 줄 상자가 막는다).
     let throughTop = 0, throughBottom = 0;
-    if (!split && layoutMode === "VERTICAL") {
+    if (layoutMode === "VERTICAL") {
       const collapsed = collapsedBlockMargins(node, style, children);
       if (collapsed.count) stats.collapsedMargins = (stats.collapsedMargins ?? 0) + collapsed.count;
       throughTop = collapsed.top;

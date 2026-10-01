@@ -565,6 +565,7 @@ let totalAutoMarginCentred = 0;
 let totalMarginWrapped = 0;
 let totalSpaceBetweenHug = 0;
 let totalCarriedLinesHugged = 0;
+let totalCollapsedTables = 0;
 let totalBleedHoisted = 0;
 let totalBleedUnresolved = 0;
 let totalGapsPaired = 0;
@@ -1077,6 +1078,61 @@ function hugCarriedLines(spec) {
   return changed;
 }
 
+/**
+ * **테두리를 겹친 표의 칸은 테두리를 반씩 갖는다(2026-10-01).** CSS 표(`border-collapse: collapse`)에서 이웃 칸은 테두리 하나를 나눠 갖고
+ * 줄 높이 · 칸 폭에는 변마다 테두리의 반만 든다. Figma 칸은 획을 통째로 레이아웃에 넣어(안쪽 획 · 레이아웃에 포함) 칸마다 테두리 하나가
+ * 더 붙는다 — 약관 사업자 정보 표의 이름 칸(패딩 5 + 글자 18 + 패딩 5 + 테두리 2 = 30)이 줄(29)보다 높아 줄마다 1 씩 키웠고, 표 넷을
+ * 지나며 문서 아래가 9 내려갔다(보드 글자 자리 대조). 원장에는 `border-collapse` 가 없어 측정 자리로 가린다 — 겹친 표는 표 상자가 줄보다
+ * 바깥 칸 테두리의 반쪽씩 넓다(370 ↔ 369; 따로 그리는 표는 줄과 같거나 제 테두리 · 간격만큼 넓다). 그런 표의 자동 배치 칸은 패딩에서 변마다
+ * 테두리의 반을 빼고, 표는 바깥 반쪽을 패딩으로 갖는다. 글자뿐인 칸(면 + 글자)은 측정 크기로 서므로 그대로다.
+ */
+function halveCollapsedBorders(spec) {
+  const changed = [];
+  const unwrap = (node) => (node?.tag === "margin" && node.children?.length === 1 ? node.children[0] : node);
+  const rowsOf = (table) => {
+    const rows = [];
+    for (const child of (table.children ?? []).map(unwrap)) {
+      if (child.tag === "tr") rows.push(child);
+      else if (/^(thead|tbody|tfoot)$/.test(child.tag ?? "")) for (const row of (child.children ?? []).map(unwrap)) if (row.tag === "tr") rows.push(row);
+    }
+    return rows;
+  };
+  const cellsOf = (row) => (row.children ?? []).map(unwrap).filter((cell) => /^(td|th)$/.test(cell.tag ?? ""));
+  const strokeOf = (cell) => (cell.paint?.stroke && !cell.paint.stroke.inset && !cell.paint.stroke.outside ? cell.paint.stroke.widths : null);
+  const walk = (node) => {
+    if (node.instance) return;
+    if (node.tag === "table" && node.layout && !node.paint?.stroke) {
+      const rows = rowsOf(node);
+      const head = rows.length > 0 ? cellsOf(rows[0]) : [];
+      const tail = rows.length > 0 ? cellsOf(rows.at(-1)) : [];
+      const left = head.length > 0 ? strokeOf(head[0]) : null;
+      const right = head.length > 0 ? strokeOf(head.at(-1)) : null;
+      const outer = left && right ? (left[3] + right[1]) / 2 : 0;
+      const collapsed = outer > HALF_PIXEL / 2 && rows.every((row) => cellsOf(row).every((cell) => strokeOf(cell)))
+        && Math.abs(node.rect.width - rows[0].rect.width - outer) <= HALF_PIXEL / 2;
+      if (collapsed) {
+        for (const row of rows) {
+          for (const cell of cellsOf(row)) {
+            if (!cell.layout) continue;
+            const [top, rightWidth, bottom, leftWidth] = strokeOf(cell);
+            const pad = cell.layout.padding;
+            cell.layout = { ...cell.layout, padding: { top: Math.max(0, pad.top - top / 2), right: Math.max(0, pad.right - rightWidth / 2),
+              bottom: Math.max(0, pad.bottom - bottom / 2), left: Math.max(0, pad.left - leftWidth / 2) } };
+          }
+        }
+        const half = (cells, side) => Math.max(0, ...cells.map((cell) => strokeOf(cell)[side])) / 2;
+        const pad = node.layout.padding;
+        node.layout = { ...node.layout, padding: { top: pad.top + half(head, 0), right: pad.right + right[1] / 2,
+          bottom: pad.bottom + half(tail, 2), left: pad.left + left[3] / 2 } };
+        changed.push(node.path);
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+  return changed;
+}
+
 function pairNegativeGaps(spec) {
   const paired = [];
   const unresolved = [];
@@ -1243,6 +1299,7 @@ const partContent = [];
       if (gaps.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 묶지 못한 음수 간격이 있습니다: ${JSON.stringify(gaps.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
       hugCarriedLines(spec);
+      halveCollapsedBorders(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
@@ -1321,6 +1378,7 @@ for (const screen of SCREENS) {
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
     totalCarriedLinesHugged += hugCarriedLines(spec).length;
+    totalCollapsedTables += halveCollapsedBorders(spec).length;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -1778,5 +1836,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

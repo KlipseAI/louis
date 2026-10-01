@@ -564,6 +564,7 @@ let totalSizingReconciled = 0;
 let totalAutoMarginCentred = 0;
 let totalMarginWrapped = 0;
 let totalSpaceBetweenHug = 0;
+let totalCarriedLinesHugged = 0;
 let totalBleedHoisted = 0;
 let totalBleedUnresolved = 0;
 let totalGapsPaired = 0;
@@ -1041,6 +1042,41 @@ function hoistBleed(spec) {
  * 있는 GRID 는 건드리지 않는다. 묶음의 교차축 정렬은 부모(세로) 또는 채우지 않는 자식의 칸 정렬(GRID)을 따르고, 두 자식의 칸
  * 정렬이 다르면 묶지 않는다(`unresolved`). 묶음은 첫 자식의 위 · 둘째의 아래 음수 margin 을 들고 가 다음 이웃과 다시 묶일 수 있다.
  */
+/**
+ * **제품 줄을 옮긴 글자는 Figma 가 다시 감지 않게 폭을 글자에 맞춘다(2026-10-01).** 측정기의 `wrapLines` 로 제품 줄바꿈을 그대로 넣어도
+ * (measured-text.mjs) 글자 상자가 칸 폭(FILL · FIXED, 높이 맞춤)이면 Figma 는 제 글꼴로 한 줄이 칸보다 몇 px 넓을 때 그 줄을 한 번 더 감는다 —
+ * 개인정보 데스크톱의 「The Company processes … User Data Policy」 줄이 720 을 넘겨 두 줄 문단이 세 줄이 됐고, 그런 문단이 쌓여 보드 끝이
+ * 개인정보 80 · 약관 모바일 92 내려갔다(끝 대조 · 글자 대조로 찾았다 — 줄바꿈을 넣지 않은 옛 손 보드 글자는 Figma 가 스스로 두 줄로 감았다).
+ * 줄을 옮긴 글자를 가로 · 세로 HUG(폭 맞춤)로 둬 줄바꿈이 제품 자리에서만 일어나게 한다. **상자 폭이 바뀌어도 자리가 같은 경우만** —
+ * 시작 정렬 글자이고, 부모가 폭이 정해진(HUG 아닌) 세로 쌓기이며 교차축이 시작이거나 글자가 부모의 흐름 자식 하나이고, 측정 상자가 부모
+ * 내용의 시작선에 붙어 있을 때. 가운데 · 끝 정렬 글자, 여러 자식이 선 가로 줄 안의 글자, grid 칸의 글자는 그대로 둔다.
+ */
+function hugCarriedLines(spec) {
+  const changed = [];
+  const walk = (node, parent) => {
+    if (node.instance) return;
+    const carried = Array.isArray(node.wrapLines) && node.wrapLines.length > 1;
+    if (carried && node.text && parent && !node.typography?.align && node.positioning !== "ABSOLUTE"
+      && node.sizing?.layoutSizingHorizontal !== "HUG" && parent.sizing?.layoutSizingHorizontal !== "HUG") {
+      const layout = parent.layout ?? {};
+      const flow = flowChildren(parent);
+      const vertical = layout.layoutMode === "VERTICAL" && (layout.align?.counterAxis ?? "MIN") === "MIN";
+      const alone = layout.layoutMode === "HORIZONTAL" && flow.length === 1 && (layout.align?.primaryAxis ?? "MIN") === "MIN";
+      const contentStart = (parent.rect?.x ?? 0) + (layout.padding?.left ?? 0);
+      const atStart = Math.abs((node.rect?.x ?? 0) - contentStart) <= 1;
+      if ((vertical || alone) && atStart) {
+        const before = node.sizing.layoutSizingHorizontal;
+        node.sizing = { ...node.sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG", minWidth: null, maxWidth: null };
+        node.why = { ...node.why, horizontal: { verdict: "HUG", reason: `제품 줄을 옮긴 글자 — Figma 가 다시 감지 않게 폭 맞춤(전 판정 ${before})` } };
+        changed.push(node.path);
+      }
+    }
+    for (const child of node.children ?? []) walk(child, node);
+  };
+  walk(spec, null);
+  return changed;
+}
+
 function pairNegativeGaps(spec) {
   const paired = [];
   const unresolved = [];
@@ -1206,6 +1242,7 @@ const partContent = [];
       const gaps = pairNegativeGaps(spec);
       if (gaps.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 묶지 못한 음수 간격이 있습니다: ${JSON.stringify(gaps.unresolved)}`);
       const spaceBetweenHug = dropHugSpaceBetween(spec);
+      hugCarriedLines(spec);
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
@@ -1283,6 +1320,7 @@ for (const screen of SCREENS) {
     totalGapsUnresolved += gaps.unresolved.length;
     const spaceBetweenHug = dropHugSpaceBetween(spec);
     totalSpaceBetweenHug += spaceBetweenHug.length;
+    totalCarriedLinesHugged += hugCarriedLines(spec).length;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -1740,5 +1778,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

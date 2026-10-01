@@ -1828,6 +1828,17 @@ withCanary(
   "--check",
 );
 
+// 제품 줄을 옮긴 글자의 폭 맞춤을 끄면(칸 폭 그대로 두면) Figma 가 제 글꼴로 넓은 줄을 한 번 더 감아 약관 · 개인정보 보드 끝이 18 ~ 92
+// 내려간다(2026-10-01). 같은 대조가 무는지 본다.
+withCanary(
+  "scripts/build-figma-app-screens.mjs",
+  (source) => source.replace("      if ((vertical || alone) && atStart) {", "      if (false) {"),
+  "figma app screens: 제품 줄을 옮긴 글자를 칸 폭에 두는 변환",
+  "scripts/build-figma-app-screens.mjs",
+  "생성물이 다릅니다",
+  "--check",
+);
+
 // ── display: contents 재부모 카나리아(2026-09-28) ───────────────────────────
 // 측정기는 `display: contents` 요소를 싣지 않고 그 자식의 `parentPath` 를 가장 가까운 보이는 조상으로 적는다. 생성기가 경로를
 // 잘라 부모를 구하던 동안 로그아웃 인증 화면 모바일 여덟 장이 조용히 빈 보드로 생성됐다(측정 23 중 3 만 남았다).

@@ -606,7 +606,8 @@ const flushTextStyles = async () => {
     // **첫 줄의 굵은 범위는 글자 상자를 1 키운다(2026-09-30).** Pretendard SemiBold 범위가 여러 줄 문단의 첫 줄에 있으면 Figma 의 높이 맞춤
     // 글자 상자가 줄 높이 합보다 1 높다(고정 px 줄 높이여도 같다 — 둘째 줄의 굵은 범위 · 한 줄 문단은 그대로, 복제본 실험). 개인정보 목록의
     // 「라벨: 설명」 항목이 하나마다 1 씩 키워 문서 끝이 100 내려갔다. 측정 높이보다 1 안쪽으로 높으면 측정 높이로 고정한다.
-    if (measured && node.textAutoResize === "HEIGHT" && node.height > measured + 0.5 && node.height <= measured + 1.5) {
+    // 폭 맞춤(WIDTH_AND_HEIGHT) 글자도 같다(2026-10-01) — 제품 줄을 옮긴 글자를 폭 맞춤으로 바꾸자 이 보정이 빠져 항목마다 다시 1 씩 커졌다.
+    if (measured && (node.textAutoResize === "HEIGHT" || node.textAutoResize === "WIDTH_AND_HEIGHT") && node.height > measured + 0.5 && node.height <= measured + 1.5) {
       node.textAutoResize = "NONE";
       node.resize(node.width, measured);
     }

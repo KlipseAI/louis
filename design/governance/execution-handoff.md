@@ -1213,9 +1213,9 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
    `contrastPairs` 항목 모양을 넓히는 token source 스키마 변경이다. **착수 조건:** 일곱의 뒤 면
    목록을 CSS 소비처에서 뽑고, 토큰으로 선언할 수 없는 둘을 무엇으로 재는지(최악 배경 가정인지,
    게이트 밖 편차인지) 정한다. **여덟은 하한이다** — 「한 규칙 안」 기준으로 셌으므로 글자와 면이
-   다른 규칙에 있는 알파 조합 후보(배너 캐러셀 pill 컨트롤의 `media-control-*`, Tooltip
-   `coachmark` 레이아웃의 `bg-inverse-translucent` 면과 base 규칙의 `fg-on-inverse`)는 들어 있지
-   않다. 착수할 때 상속까지 따라 다시 센다.
+   다른 규칙에 있는 알파 조합 후보(배너 캐러셀 pill 컨트롤의 `media-control-*`)는 들어 있지
+   않다. 착수할 때 상속까지 따라 다시 센다. Tooltip `coachmark` 의 `bg-inverse-translucent` 면은
+   2026-10-02 에 불투명 `bg-inverse` 가 되어 후보에서 빠졌다([DS-D-0073](decisions/DS-D-0073-coachmark-surface-is-opaque.md)).
 2. **Alert success · warning 은 소유자 판정 대기다.** light 3.90 · 3.43 이라 그대로 올리면 빌드가
    죽고, `minimum` 을 낮춰 올리면 수용으로 읽힌다. 전경을 `color-fg-{tone}` 으로 옮길지 사유를 적고
    수용할지는 [Alert](../components/alert.md) Known deviations 4·5 가 적은 판정이다.

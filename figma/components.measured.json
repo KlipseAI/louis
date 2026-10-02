@@ -696,6 +696,14 @@
             "border": "color-stroke-hairline",
             "$border": "generic 헤어라인 (color-stroke-hairline, DS-D-0023)"
           }
+        },
+        "coachmark": {
+          "Default": {
+            "background": "color-bg-inverse",
+            "$background": "**불투명** 반전 배경 color-bg-inverse — base 와 같은 재료다(DS-D-0073). 예전의 color-bg-inverse-translucent(72%)는 꼬리가 같은 반투명을 따로 칠해 겹친 자리가 진해지고 면의 테두리가 꼬리 밑으로 비쳐 상자와 꼬리가 두 조각으로 보였다(소유자 판정 2026-10-01). 꼬리(::before)도 이 값이며 surface-states.browser.test.tsx 가 네 방향 두 테마에서 둘이 같고 불투명한지 잰다.",
+            "foreground": "color-fg-on-inverse",
+            "$foreground": "반전 위 전경 color-fg-on-inverse. base 와 같다."
+          }
         }
       },
       "$arrow": "Side 축이 네 방향인데 화살표가 없어 **네 variant가 전부 같은 그림**이었다(2026-08-18). 축이 아무것도 바꾸지 않으면 그 축은 거짓말이다. 말풍선 바깥에 삼각형을 붙여 방향이 보이게 했다."

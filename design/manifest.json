@@ -212,6 +212,15 @@
       "generated": false
     },
     {
+      "id": "decision-coachmark-surface-is-opaque",
+      "path": "design/governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md",
+      "title": "DS-D-0073 코치마크의 면과 꼬리는 한 불투명 재료다 — `bg-inverse-translucent` → `bg-inverse`",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1681,6 +1690,7 @@
         "design/governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md",
         "design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md",
         "design/governance/decisions/DS-D-0072-dim-modal-dark-is-the-floor.md",
+        "design/governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2367,7 +2377,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-10-02: coachmark 의 면과 꼬리가 불투명 bg-inverse 한 재료가 됐다(DS-D-0073) — 반투명 꼬리가 면 위에 따로 칠해져 상자와 꼬리가 두 조각으로 보였다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
       "doc": "design/components/tooltip.md",
       "figmaName": "Tooltip"
     },

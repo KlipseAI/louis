@@ -163,14 +163,14 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | padding         | `space-control-md` 12 (네 변)                            |
 | radius          | `radius-card` 12                                        |
 | 테두리          | 1px `accent-primary` 56%                                 |
-| 배경            | `color-bg-inverse-translucent`                           |
+| 배경            | `color-bg-inverse` — **불투명**, 꼬리와 같은 재료(DS-D-0073) |
 | 제목            | `typography-caption-medium` (12/18)                     |
 | 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
 | 제목/본문 간격  | `space-overlay-item-gap` 2                              |
-| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6   |
+| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
-**제품과 갈리는 값 넷과 그 사유.**
+**제품과 갈리는 값 다섯과 그 사유.**
 
 | 제품 | LOUIS | 왜 |
 | --- | --- | --- |
@@ -178,6 +178,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 제목/본문 간격 3 | 2 | 같은 자리를 [Toast](toast.md)의 `callout`이 2로 쓴다. 한 시스템 안에서 같은 자리는 한 값이다 |
 | `0 8px 24px` 검정 16% | `elevation-tooltip` | 그 값을 가진 토큰이 없고, layout 축은 자기 그림자를 가질 수 없다(아래) |
 | `backdrop-filter: blur(panel)` | 없음 | 같은 이유 |
+| 면과 꼬리 `--gray-900` 72% | `color-bg-inverse` 불투명 | 반투명 꼬리가 면 위에 따로 칠해져 겹친 자리가 진해지고 면의 테두리가 꼬리 밑으로 비쳤다. 소유자가 「따로따로인 것처럼 보이는 현상」으로 판정했다([DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md)) |
 
 **layout 축이 자기 effect를 가질 수 없는 이유.** Figma component set의 effect는 변형이 아니라
 역할(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기
@@ -189,6 +190,12 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 실제 방향이라, 표면이 뒤집히면 꼬리도 함께 옮겨간다. 네 방향 모두 테두리를 갖는 두 변이 다르다 —
 `border-style: solid`를 네 변에 주고 두 변만 폭을 주면 나머지가 initial `medium`(3px)로 그려지므로,
 변마다 폭과 색을 함께 준다.
+
+**면과 꼬리는 한 불투명 재료다(2026-10-02, [DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md)).**
+꼬리는 `::before` 로 면 위에 따로 칠하는 도형이다. 둘이 반투명이면 꼬리 안쪽 절반이 면과 겹친 자리가 두 번
+칠해져 진해지고, 면의 테두리가 꼬리 밑으로 비쳐 지나가 상자와 꼬리가 두 조각으로 보인다. 둘을 같은 불투명
+`color-bg-inverse` 로 칠하면 위치 지정된 꼬리가 면의 테두리를 덮어 이음새가 사라진다. 그래서 둘 중 하나만
+바꾸면 안 된다 — 브라우저 테스트가 네 방향, 두 테마에서 둘이 같은 값이고 알파가 1 인지를 잰다.
 
 **「닫힘: 즉시」는 지연이 없다는 뜻이지 전환이 0이라는 뜻이 아니다.** 제품은 exit를 별도 duration·easing으로 돌린다 — enter는 `cubic-bezier(0.23, 1, 0.32, 1)` 140ms로 감속하고, exit는 `cubic-bezier(0.19, 1, 0.22, 1)` 120ms로 가속한다. **비대칭이다.** 열림 곡선을 닫힘에 그대로 재사용하면 tooltip이 끝에서 늘어져 잔상처럼 남는다. 전환 property는 `opacity`와 `transform` 둘뿐이고 열림·닫힘이 같은 두 축을 다툰다. 제품은 이 5종을 `globals.css:336-340`에 tooltip 모션 SSOT로 선언한다 — rest scale·enter duration·exit duration·enter ease·exit ease. **다만 값의 출처는 이제 제품이 아니라 LOUIS다** — 다섯 줄 모두 `var(--louis-motion-tooltip-*)` / `var(--louis-motion-scale-tooltip-rest)` 별칭이고, 숫자는 [tokens.css:526](../../packages/tokens/generated/tokens.css)·`549-553`이 소유한다.
 
@@ -234,6 +241,7 @@ tooltip 면과 정확히 같았다.
 | 열림 모션 | `overlay-enter` 채택 | 제품은 140ms에 `cubic-bezier(0.23, 1, 0.32, 1)`이고 DS는 200ms다. 제품 값을 그대로 들이려면 motion 토큰 추가가 선행이라 DS 값을 썼다 |
 
 | 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `louis-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
+| coachmark 의 흐림 | 없음 | 면이 불투명이라 흐림이 비출 것이 없다. 반투명 면에 흐림을 얹는 안은 꼬리에 같은 흐림을 줄 수 없어(꼬리는 따로 칠하는 도형이다) 이음새가 남는다(DS-D-0073) |
 | 확대 기준점 | 미배선 | overlay 표면은 `--louis-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `louis-tooltip` 표면이 `louis-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
 
 ## Acceptance tests
@@ -249,8 +257,11 @@ tooltip 면과 정확히 같았다.
 9. 표면이 포인터 이벤트를 받지 않는다.
 10. `disabled`면 열리지 않는다.
 11. trigger의 accessible name이 tooltip 내용으로 바뀌지 않는다.
+12. `coachmark` 의 면과 꼬리가 네 방향, 두 테마에서 같은 불투명 `color-bg-inverse` 이고, 꼬리의 테두리 변이 면의 테두리와 같은 색이다.
 
 ## Migration and changelog
 
+- 2026-10-02 — `coachmark` 의 면과 꼬리를 `color-bg-inverse-translucent` 에서 불투명 `color-bg-inverse` 로 옮겼다(DS-D-0073).
+  Figma 의 꼬리 테두리 변도 바깥 두 변으로 바로잡았다.
 - 2026-08-15 — 첫 공개. 세 화면 실측에서 22개 파일이 tooltip을 쓰는데 공용 컴포넌트가 없었다.
   제품 자신의 Button(17개 파일)보다 넓게 쓰인다.

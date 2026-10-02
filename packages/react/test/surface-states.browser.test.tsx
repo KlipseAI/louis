@@ -118,6 +118,87 @@ test("Tooltip의 states 표가 코드와 같다", async () => {
   await userEvent.unhover(find("button.louis-button"));
 });
 
+test("Tooltip coachmark의 states 표가 코드와 같다", async () => {
+  const spec = statesOf("tooltip", "coachmark");
+  await render(
+    <OverlayProvider>
+      <Tooltip title="제목" content="본문" openDelay={0}>
+        <Button>대상</Button>
+      </Tooltip>
+    </OverlayProvider>,
+  );
+  await userEvent.hover(find("button.louis-button"));
+  await expect.poll(() => document.querySelector('.louis-tooltip[data-layout="coachmark"]')).not.toBeNull();
+  assertPaint(
+    find('.louis-tooltip[data-layout="coachmark"]'),
+    stateOf(spec, "Default"),
+    "tooltip/coachmark/Default",
+  );
+  await userEvent.unhover(find("button.louis-button"));
+});
+
+/** 계산된 색의 알파. `color(srgb r g b)` 와 `rgb(...)` 는 알파를 적지 않으면 1 이다. */
+function alphaOf(value: string): number {
+  const slash = /\/\s*([\d.]+)\s*\)$/.exec(value);
+  if (slash !== null) return Number(slash[1]);
+  const rgba = /^rgba\([^)]*,\s*([\d.]+)\s*\)$/.exec(value);
+  return rgba === null ? 1 : Number(rgba[1]);
+}
+
+/**
+ * coachmark 의 꼬리와 면은 **한 불투명 재료**다(DS-D-0073).
+ *
+ * 꼬리(`::before`)는 면 위에 따로 칠해지는 도형이라, 둘이 반투명이면 겹친 자리가 두 번 칠해져
+ * 진해지고 면의 테두리가 꼬리 밑으로 비쳐 상자와 꼬리가 두 조각으로 보인다. 둘 중 하나만
+ * 바뀌어도 이음새가 돌아오므로 네 방향, 두 테마에서 같은 값이고 알파가 1 인지를 함께 잰다.
+ * 꼬리의 테두리를 갖는 변도 면의 테두리와 같은 색이어야 한 덩어리로 읽힌다.
+ */
+const COACHMARK_TAIL_EDGES = {
+  bottom: "borderTopColor",
+  top: "borderBottomColor",
+  right: "borderLeftColor",
+  left: "borderRightColor",
+} as const;
+
+test("Tooltip coachmark의 꼬리와 면이 네 방향 두 테마에서 한 불투명 재료다", async () => {
+  const sides = Object.keys(COACHMARK_TAIL_EDGES) as (keyof typeof COACHMARK_TAIL_EDGES)[];
+  await render(
+    <>
+      {sides.map((side) => (
+        <div key={side} className="louis-tooltip-positioner" data-side={side}>
+          <div className="louis-tooltip" data-layout="coachmark">
+            <p className="louis-tooltip__title">제목</p>
+            <p className="louis-tooltip__body">본문</p>
+          </div>
+        </div>
+      ))}
+    </>,
+  );
+  const root = document.documentElement;
+  const original = root.getAttribute("data-theme");
+  try {
+    for (const theme of ["light", "dark"] as const) {
+      root.setAttribute("data-theme", theme);
+      const material = tokenValue("color-bg-inverse", "background-color");
+      for (const side of sides) {
+        const label = `${theme}/${side}`;
+        const panel = find(`.louis-tooltip-positioner[data-side="${side}"] .louis-tooltip`);
+        const surface = getComputedStyle(panel);
+        const tail = getComputedStyle(panel, "::before");
+        expect(surface.backgroundColor, `${label} 면`).toBe(material);
+        expect(alphaOf(surface.backgroundColor), `${label} 면 알파`).toBe(1);
+        expect(tail.backgroundColor, `${label} 꼬리 = 면`).toBe(surface.backgroundColor);
+        expect(tail[COACHMARK_TAIL_EDGES[side]], `${label} 꼬리 테두리 = 면 테두리`).toBe(
+          surface.borderTopColor,
+        );
+      }
+    }
+  } finally {
+    if (original === null) root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", original);
+  }
+});
+
 const TOAST_TONES: readonly ToastTone[] = ["neutral", "danger"];
 
 for (const tone of TOAST_TONES) {

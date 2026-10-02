@@ -8384,6 +8384,12 @@
    * 표면·전경은 base 와 같은 반전 토큰을 쓴다 — 제품도 `--gray-900`/`--gray-000` 이라 테마를
    * 따라 뒤집힌다(같은 파일의 CALLOUT 이 고정 팔레트인 것과 다르다. 원본이 그렇게 갈려 있다).
    *
+   * **면은 불투명이다(DS-D-0073).** 예전에는 `bg-inverse-translucent`(72%)였고 꼬리도 같은 반투명을
+   * 따로 칠했다. 그러자 꼬리 안쪽 절반이 면과 겹친 자리가 두 번 칠해져 진해지고, 면의 테두리가
+   * 꼬리 밑으로 비쳐 지나가 상자와 꼬리가 두 조각으로 보였다. 흐림도 없어서 반투명은 뒤의 그림을
+   * 글자 밑으로 끌어들일 뿐이었다. 면과 꼬리를 같은 불투명 `bg-inverse` 로 칠하면 꼬리가 면의
+   * 테두리를 덮어 이음새가 사라진다 — 위치 지정된 `::before` 는 부모의 배경과 테두리 위에 그려진다.
+   *
    * **떠 있는 값(그림자·흐림)은 base 와 같은 것을 쓴다.** 제품은 `0 8px 24px 16%` 그림자와
    * `blur(panel)` 을 얹는데, 이 축은 그것을 담을 수 없다 — Figma component set 의 effect 는
    * 변형이 아니라 **역할(`self`) 하나**가 갖는 값이고 이 저장소의 parity 계약이 그것을 문자열
@@ -8410,7 +8416,8 @@
     border: var(--louis-border-width-default) solid
       color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
     border-radius: var(--louis-radius-card);
-    background: var(--louis-color-bg-inverse-translucent);
+    /* 꼬리(`::before`)와 **같은 재료**다. 둘 중 하나만 바꾸면 이음새가 돌아온다. */
+    background: var(--louis-color-bg-inverse);
     box-shadow: var(--louis-elevation-tooltip);
     text-align: start;
   }
@@ -8461,7 +8468,9 @@
       color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
     border-inline-start: var(--louis-border-width-default) solid
       color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
-    background: var(--louis-color-bg-inverse-translucent);
+    /* 면과 같은 불투명 재료. 안쪽 절반이 면의 테두리를 덮어야 상자와 꼬리가 한 덩어리로 읽힌다 —
+     * 반투명이면 겹친 자리가 두 번 칠해지고 테두리가 비쳐 지나간다(DS-D-0073). */
+    background: var(--louis-color-bg-inverse);
     rotate: 45deg;
   }
 
@@ -8502,7 +8511,7 @@
       color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
   }
 
-  /* forced-colors — 강조색 테두리와 반투명 면이 함께 치환되면 꼬리가 면과 구분되지 않는다.
+  /* forced-colors — 강조색 테두리와 면이 함께 치환되면 꼬리가 면과 구분되지 않는다.
    * 패널과 꼬리 모두 시스템 색 실선으로 되살린다(base 의 같은 블록과 짝이다). */
   @media (forced-colors: active) {
     .louis-tooltip[data-layout="coachmark"],

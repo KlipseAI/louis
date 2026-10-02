@@ -14,22 +14,22 @@
   "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 106,
-  "rawNodesBeforePruning": 7474,
+  "rawNodesBeforePruning": 7462,
   "counts": {
-    "total": 7593,
+    "total": 7581,
     "instance": 274,
     "replaceable": 0,
     "bespoke": 114,
     "blocked": 14,
-    "missing": 1216,
-    "structural": 5975,
+    "missing": 1214,
+    "structural": 5965,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 16.9,
+    "instanceOverCandidates": 17,
     "target": 274,
-    "candidates": 1618
+    "candidates": 1616
   },
   "byInstanceSet": {
     "Button": 79,
@@ -71,12 +71,12 @@
   },
   "structuralByKind": {
     "surface": 683,
-    "frame": 3162,
+    "frame": 3152,
     "text": 2068,
     "image": 62
   },
   "missingByCandidateClause": {
-    "a-interactive": 344,
+    "a-interactive": 342,
     "c-painted-mark": 697,
     "b-vector": 175
   },
@@ -1996,13 +1996,13 @@
         "figma/app-screens.signup.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 53,
+        "total": 51,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 7,
-        "structural": 43,
+        "missing": 6,
+        "structural": 42,
         "unclassified": 0
       }
     },
@@ -2015,13 +2015,13 @@
         "figma/app-screens.signup.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 50,
+        "total": 48,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 8,
-        "structural": 39,
+        "missing": 7,
+        "structural": 38,
         "unclassified": 0
       }
     },
@@ -2151,13 +2151,13 @@
         "figma/app-screens.terms.desktop.03.draw.js"
       ],
       "counts": {
-        "total": 540,
+        "total": 536,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 76,
-        "structural": 463,
+        "structural": 459,
         "unclassified": 0
       }
     },
@@ -2173,13 +2173,13 @@
         "figma/app-screens.terms.mobile.03.draw.js"
       ],
       "counts": {
-        "total": 540,
+        "total": 536,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
         "missing": 76,
-        "structural": 463,
+        "structural": 459,
         "unclassified": 0
       }
     },
@@ -70252,31 +70252,8 @@
         24
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/signup@desktop-1920x1080#0.0.1.0.2.0": {
-      "board": "figma/app-screens.signup.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        187.56,
-        24
-      ],
-      "verdict": "structural",
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/signup@desktop-1920x1080#0.0.1.0.2.1": {
-      "board": "figma/app-screens.signup.desktop.00.draw.js",
-      "tag": "a",
-      "rect": [
-        42.33,
-        19
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/signup@mobile-402x874#root": {
       "board": "figma/app-screens.signup.mobile.00.draw.js",
@@ -70816,31 +70793,8 @@
         21
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/signup@mobile-402x874#0.0.0.2.0.0": {
-      "board": "figma/app-screens.signup.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        164.13,
-        21
-      ],
-      "verdict": "structural",
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/signup@mobile-402x874#0.0.0.2.0.1": {
-      "board": "figma/app-screens.signup.mobile.00.draw.js",
-      "tag": "a",
-      "rect": [
-        37.03,
-        16
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-a-interactive",
-      "candidateClause": "a-interactive",
-      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/subscription/coupons@desktop-1920x1080#root": {
       "board": "figma/app-screens.subscription-coupons.desktop.00.draw.js",
@@ -76558,7 +76512,7 @@
       "tag": "margin",
       "rect": [
         706,
-        188
+        192
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -76577,16 +76531,16 @@
     },
     "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         706,
-        144
+        48
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -76597,7 +76551,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -76608,7 +76562,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -76619,7 +76573,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.1": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -76630,7 +76584,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.1.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -76641,7 +76595,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.2": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.2": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -76652,7 +76606,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.2.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.2.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -76663,7 +76617,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.3": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.3": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -76674,7 +76628,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.3.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.3.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -76685,23 +76639,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.0.0.4": {
+    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1.4": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
         692,
         24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@desktop-1920x1080#0.0.0.3.15.1.0.1": {
-      "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        184
       ],
       "verdict": "structural",
       "rule": "text",
@@ -77265,7 +77208,7 @@
       "tag": "margin",
       "rect": [
         706,
-        160
+        164
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -77284,16 +77227,16 @@
     },
     "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         706,
-        140
+        24
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -77304,7 +77247,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77315,7 +77258,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77326,7 +77269,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.1": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77337,7 +77280,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.1.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77348,7 +77291,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.2": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.2": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77359,7 +77302,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.2.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.2.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77370,23 +77313,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.0.0.3": {
+    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1.3": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
         692,
         24
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@desktop-1920x1080#0.0.0.3.28.0.0.1": {
-      "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        156
       ],
       "verdict": "structural",
       "rule": "text",
@@ -77508,7 +77440,7 @@
       "tag": "margin",
       "rect": [
         706,
-        236
+        240
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -77527,16 +77459,16 @@
     },
     "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         706,
-        192
+        48
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -77547,7 +77479,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77558,7 +77490,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77569,7 +77501,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.1": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77580,7 +77512,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.1.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77591,7 +77523,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.2": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.2": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77602,7 +77534,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.2.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.2.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77613,7 +77545,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.3": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.3": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77624,7 +77556,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.3.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.3.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77635,23 +77567,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.0.0.4": {
+    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1.4": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
         692,
         48
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@desktop-1920x1080#0.0.0.3.31.1.0.1": {
-      "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        232
       ],
       "verdict": "structural",
       "rule": "text",
@@ -77817,7 +77738,7 @@
       "tag": "margin",
       "rect": [
         706,
-        284
+        288
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -77836,16 +77757,16 @@
     },
     "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         706,
-        240
+        48
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -77856,7 +77777,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77867,7 +77788,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.0.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.0.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77878,7 +77799,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.1": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.1": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77889,7 +77810,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.1.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.1.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77900,7 +77821,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.2": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.2": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77911,7 +77832,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.2.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.2.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77922,7 +77843,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.3": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.3": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -77933,7 +77854,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.3.0": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.3.0": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
@@ -77944,23 +77865,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.0.0.4": {
+    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1.4": {
       "board": "figma/app-screens.terms.desktop.00.draw.js",
       "tag": "li",
       "rect": [
         692,
         48
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@desktop-1920x1080#0.0.0.3.34.1.0.1": {
-      "board": "figma/app-screens.terms.desktop.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        280
       ],
       "verdict": "structural",
       "rule": "text",
@@ -82579,7 +82489,7 @@
       "tag": "margin",
       "rect": [
         356,
-        293
+        297
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -82598,16 +82508,16 @@
     },
     "/terms@mobile-402x874#0.0.0.3.15.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         356,
-        234
+        63
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -82618,7 +82528,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -82629,7 +82539,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -82640,7 +82550,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.1": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -82651,7 +82561,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.1.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -82662,7 +82572,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.2": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.2": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -82673,7 +82583,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.2.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.2.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -82684,7 +82594,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.3": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.3": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -82695,7 +82605,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.3.0": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.3.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -82706,23 +82616,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.0.0.4": {
+    "/terms@mobile-402x874#0.0.0.3.15.1.0.1.4": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
         342,
         42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@mobile-402x874#0.0.0.3.15.1.0.1": {
-      "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        289
       ],
       "verdict": "structural",
       "rule": "text",
@@ -83286,7 +83185,7 @@
       "tag": "margin",
       "rect": [
         356,
-        226
+        230
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -83305,16 +83204,16 @@
     },
     "/terms@mobile-402x874#0.0.0.3.28.0.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         356,
-        188
+        42
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -83325,7 +83224,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83336,7 +83235,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83347,7 +83246,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.1": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83358,7 +83257,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.1.0": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83369,7 +83268,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.2": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.2": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83380,7 +83279,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.2.0": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.2.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83391,23 +83290,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.0.0.3": {
+    "/terms@mobile-402x874#0.0.0.3.28.0.0.1.3": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
         342,
         21
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@mobile-402x874#0.0.0.3.28.0.0.1": {
-      "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        222
       ],
       "verdict": "structural",
       "rule": "text",
@@ -83529,7 +83417,7 @@
       "tag": "margin",
       "rect": [
         356,
-        335
+        339
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -83548,16 +83436,16 @@
     },
     "/terms@mobile-402x874#0.0.0.3.31.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         356,
-        276
+        63
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -83568,7 +83456,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83579,7 +83467,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83590,7 +83478,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.1": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83601,7 +83489,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.1.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83612,7 +83500,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.2": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.2": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83623,7 +83511,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.2.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.2.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83634,7 +83522,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.3": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.3": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83645,7 +83533,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.3.0": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.3.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83656,23 +83544,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.0.0.4": {
+    "/terms@mobile-402x874#0.0.0.3.31.1.0.1.4": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
         342,
         63
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@mobile-402x874#0.0.0.3.31.1.0.1": {
-      "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        331
       ],
       "verdict": "structural",
       "rule": "text",
@@ -83838,7 +83715,7 @@
       "tag": "margin",
       "rect": [
         356,
-        335
+        339
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -83857,16 +83734,16 @@
     },
     "/terms@mobile-402x874#0.0.0.3.34.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "margin",
+      "tag": "span",
       "rect": [
         356,
-        297
+        42
       ],
       "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "ul",
       "rect": [
@@ -83877,7 +83754,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83888,7 +83765,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.0.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.0.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83899,7 +83776,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.1": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.1": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83910,7 +83787,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.1.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.1.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83921,7 +83798,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.2": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.2": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83932,7 +83809,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.2.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.2.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83943,7 +83820,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.3": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.3": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -83954,7 +83831,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.3.0": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.3.0": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
@@ -83965,23 +83842,12 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.0.0.4": {
+    "/terms@mobile-402x874#0.0.0.3.34.1.0.1.4": {
       "board": "figma/app-screens.terms.mobile.00.draw.js",
       "tag": "li",
       "rect": [
         342,
         42
-      ],
-      "verdict": "structural",
-      "rule": "text",
-      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
-    },
-    "/terms@mobile-402x874#0.0.0.3.34.1.0.1": {
-      "board": "figma/app-screens.terms.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
-        0,
-        331
       ],
       "verdict": "structural",
       "rule": "text",

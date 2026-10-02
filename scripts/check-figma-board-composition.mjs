@@ -296,7 +296,10 @@ const INSTANCE_FLOOR = 274;
 // replaceable 0 + bespoke 15 + blocked 8 + missing 72.
 // 2026-09-30: 319 → **1618.** 보드가 늘어서다 — 공개 페이지 · 랜딩 보드 30(76 → 106). 미보유가 대부분(1216)이고 모두 공개 페이지의
 // 제품 전용 자리다. 수는 instance 274 + replaceable 0 + bespoke 114 + blocked 14 + missing 1216.
-const CANDIDATE_FLOOR = 1618;
+// 2026-10-02: 1618 → **1616.** 보드가 줄었다 — 가입 보드 둘의 「Already have an account? Log in」에서 글자 링크(`<a>`, 미보유)가
+// 섞인 문단 규칙으로 문단 글자의 범위 서식이 됐다(원장이 inlineRuns 를 실어 합칠 수 있게 됐다). 수는 instance 274 + replaceable 0 +
+// bespoke 114 + blocked 14 + missing 1214.
+const CANDIDATE_FLOOR = 1616;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.

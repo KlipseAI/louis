@@ -334,7 +334,7 @@ const COMPONENT_CONTRACTS = [
       },
       slots: {},
       extraStrokeWeights: [],
-      // **폭은 보지 않는다.** coachmark 는 320 고정이지만 base 의 폭은 라벨 렌더링이 정하는
+      // **폭은 보지 않는다.** coachmark 는 상한 320(`min(320px, 가용 폭)`)이 폭을 정하지만 base 의 폭은 라벨 렌더링이 정하는
       // 값이라 measured 에 근거가 없다. 한 계약의 fields 는 모든 size 키에 함께 걸리므로
       // 여기에 width 를 넣으면 base 에 「근거 값이 없습니다」가 난다. coachmark 320 은
       // surface-geometry.browser.test.tsx 가 코드 쪽에서 잰다.
@@ -2274,7 +2274,11 @@ const COMPONENT_CONTRACTS = [
       fields: {
         // 펼친 폭은 레일 내용 폭을 채우는 계산값이라 기록에 수가 없다(`$width`) — Figma 표본은 DS 레일 내용 폭과 맞댄다.
         // 접힌 32 는 제품 선언이라 기록의 수와 대조한다.
-        width: { field: "width", fillIn: ["false"], fill: "rail-content" }, height: "height", cornerRadius: "radius",
+        // **높이는 하한이다(2026-10-06, 크기 굳힘 감사 묶음 8).** 기록의 `height` 는 측정기가 `min-height` 를 읽은 값이고
+        // (`$height` 「최소 높이다 — 실효 높이가 아니다」), 펼친 버튼의 실효 높이는 패딩 10 + 줄 높이 21 + 패딩 10 = 41 이다.
+        // Figma 펼친 variant 가 높이를 FIXED 40 · 라벨 TRUNCATE 로 굳혀 두 칸이 같은 수로 맞던 것을 HUG + minHeight 40 으로
+        // 풀었으므로, 대조도 「최소값 이상」으로 바꾼다. 패딩 · 라벨 폭은 따로 맞대므로 높이가 떠다니지 않는다.
+        width: { field: "width", fillIn: ["false"], fill: "rail-content" }, height: { atLeast: "height" }, cornerRadius: "radius",
         paddingInline: "paddingInline", paddingInlineEnd: "paddingInline",
         paddingBlock: "paddingBlock", paddingBlockEnd: "paddingBlock",
         itemSpacing: "gap",
@@ -3454,7 +3458,18 @@ function tamperCompositeKeyGeometry(document) {
   return `${contract.figmaName} ${target}의 Rail 높이를 ${donor}의 값으로 바꿈`;
 }
 
+// 하한 칸(`{ atLeast }`)의 검출력. 사이드바 CTA 펼친 variant 의 높이를 기록의 최소값보다 1 낮춘다 — 「최소값 이상」
+// 대조가 조용히 아무것도 안 보게 되면(예: `continue` 가 비교 전에 걸리면) 여기서 문다.
+function tamperComponentAtLeast(snapshot) {
+  const geometry = snapshot.components?.SidebarCta?.geometry;
+  const heights = geometry?.false?.height;
+  if (!Array.isArray(heights) || heights.length === 0) return null;
+  geometry.false.height = [39];
+  return "SidebarCta false 의 높이를 기록의 최소값(40)보다 낮은 39 로 바꿈";
+}
+
 const TAMPERS = [
+  tamperComponentAtLeast,
   tamperValue,
   tamperAlias,
   tamperCollection,
@@ -4216,6 +4231,10 @@ function compareComponentGeometry(contract, got) {
         )
           ? undefined
           : { set: members };
+      } else if (typeof rule?.atLeast === "string") {
+        // **하한 칸 `{ atLeast: <기록 키> }`(2026-10-06).** 기록이 CSS `min-*` 를 잰 칸이면 Figma 는 그 이상이면 된다 —
+        // 내용이 정하는 크기(HUG)를 최소값과 같은 수로 굳히지 않게 한다(figma-screen-assembly.md 28번).
+        expected[field] = spec[rule.atLeast] === undefined ? undefined : { atLeast: spec[rule.atLeast] };
       } else {
         expected[field] = rule.literal;
       }
@@ -4242,6 +4261,15 @@ function compareComponentGeometry(contract, got) {
         ) {
           issues.push(
             `${contract.figmaName} ${size}: ${field}의 값 집합이 다릅니다 — 코드 실측 {${wantSet.join(", ")}}, Figma {${got.join(", ")}}`,
+          );
+        }
+        continue;
+      }
+      if (want !== null && typeof want === "object" && typeof want.atLeast === "number") {
+        const below = values.filter((value) => value < want.atLeast);
+        if (below.length > 0) {
+          issues.push(
+            `${contract.figmaName} ${size}: ${field}가 코드의 최소값 ${want.atLeast} 보다 작습니다 — Figma [${values.join(", ")}]`,
           );
         }
         continue;

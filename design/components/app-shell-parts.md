@@ -647,12 +647,13 @@ style이다.
   (`typography-body-sm-medium`, 150%)로 계산하므로, 라벨 한 줄에서 합이 최소를 넘어 버튼이 그 합이 된다(제품 측정은
   `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 그런데 기록
   `sidebar-cta.sizes.false.height` 는 최소값 40 을 높이로 적고, Figma `SidebarCta` 의 `Collapsed=false` variant 는
-  높이를 그 40 으로 **FIXED** 에 두고 라벨을 `TRUNCATE` 로 줄 높이보다 낮게 잘라 넣는다(2026-09-14 읽기 전용 확인 —
+  높이를 그 40 으로 **FIXED** 에 두고 라벨을 `TRUNCATE` 로 줄 높이보다 낮게 잘라 넣었다(2026-09-14 읽기 전용 확인 —
   세로 축 `counterAxisSizingMode FIXED`, 최소 높이 없음). `verify-figma-parity` 는 기록과 Figma 를 서로 대조하므로
-  이 축이 초록이고, 코드 쪽 브라우저 테스트는 펼친 높이를 재지 않는다(접힘의 최소 32 만 본다) — 그래서 어느 게이트도
-  이 차이를 말하지 않는다. **Figma 고정은 이번에 바꾸지 않았다.** 닫는 길은 variant 를 높이 HUG + 최소 높이 40 ·
-  라벨 줄 높이 그대로로 짓고, 기록 칸을 최소 키로 옮겨 계약이 최소를 대조하게 하는 것이다(조립 규칙 28번의
-  `min-*` 행, [Figma Component Authoring](../governance/figma-component-authoring.md) §8).
+  이 축이 초록이었고, 코드 쪽 브라우저 테스트는 펼친 높이를 재지 않는다(접힘의 최소 32 만 본다).
+  **2026-10-06 에 Figma 쪽을 닫았다**(크기 굳힘 감사 묶음 8). 펼친 variant 셋은 높이 HUG + 최소 높이 40 · 라벨 내용 폭으로
+  서서 실효 높이 41 이 되고, 계약은 기록 칸을 하한(`{ atLeast: "height" }`)으로 대조한다(조립 규칙 28번의 `min-*` 행,
+  [Figma Component Authoring](../governance/figma-component-authoring.md) §8). 남은 것은 코드 쪽 — 브라우저 테스트가
+  펼친 높이를 재지 않는다.
 - **시프트된 라이트 램프의 셸 바닥 `#eeeef1`에 토큰이 없다.** 위 「라이트 팔레트가 한 단계
   밝아진다」의 결과로 배포본 셸 바닥과 ≤719px 드로어 면이 `#eeeef1`이 되는데, LOUIS primitive
   램프에 그 값이 없다(`packages/css/generated/tokens.css`에 `#eeeef1`(238 238 241)이 0건이고,

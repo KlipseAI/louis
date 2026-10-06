@@ -2008,7 +2008,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 제품 정본은 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
 좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
 
-`coachmark`에서 갈리는 것 셋: 폭이 320 고정이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
+`coachmark`에서 갈리는 것 셋: 폭을 내용이 아니라 상한 320 이 정하고(`min(320px, 가용 폭)`), 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
 **강조색 1px 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로 바꾸면
 축이 아무것도 바꾸지 않게 된다.
 
@@ -2082,8 +2082,8 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 
 | 항목            | 값                                                      |
 | --------------- | ------------------------------------------------------- |
-| 폭              | **320 고정**(`box-sizing: border-box`)                  |
-| 높이            | 64 (테두리 1+1 + padding 12+12 + 내용 38)               |
+| 폭              | `min(320px, 가용 폭)` — 상한 320(`box-sizing: border-box`)이 선택값이고, 가용 폭이 그보다 넓으면 320(`tooltip.sizes.coachmark.width`) |
+| 높이            | 테두리 1+1 + padding 12+12 + 내용 — 제목과 본문이 한 줄씩일 때 64(내용 38, `tooltip.sizes.coachmark.height`) |
 | padding         | `space-control-md` 12 (네 변)                            |
 | radius          | `radius-card` 12                                        |
 | 테두리          | 1px `accent-primary` 56%                                 |
@@ -2094,7 +2094,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
-**제품과 갈리는 값 다섯과 그 사유.**
+**제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 
 | 제품 | LOUIS | 왜 |
 | --- | --- | --- |
@@ -2354,7 +2354,8 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 
 | 항목            | 값                                                      |
 | --------------- | ------------------------------------------------------- |
-| 높이            | 65 (padding 12+12 + 내용 41)                            |
+| 높이            | padding 12+12 + 내용 — 내용이 정한다. 제목과 본문이 한 줄씩일 때 65(내용 41, `toast.sizes.callout.height`) |
+| 폭              | 내용에 맞춘다(제품 `w-fit`). 상한은 아래 최대 폭 |
 | padding         | `space-control-md` 12 / **좌 `space-control-lg` 16 · 우 `space-control-md` 12** |
 | gap             | `space-control-lg` 16 (본문 덩어리 ↔ 액션)              |
 | 제목            | `typography-body-sm-medium` (14/21)                     |
@@ -2364,7 +2365,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 액션 padding    | 4 / `space-control-md` 12                               |
 | 액션 radius     | `radius-control-sm` 8                                    |
 | 액션 면         | 전경색 12% · hover 24%                                   |
-| 최대 폭         | 720px                                                    |
+| 최대 폭         | `min(720px, 가용 폭)`                                    |
 
 **좌우 padding이 갈리는 이유.** 액션이 자기 padding을 갖고 있어 오른쪽을 4 줄여야 시각 여백이
 좌우로 같아 보인다. 광학 보정이며 실수가 아니다.
@@ -6658,12 +6659,13 @@ style이다.
   (`typography-body-sm-medium`, 150%)로 계산하므로, 라벨 한 줄에서 합이 최소를 넘어 버튼이 그 합이 된다(제품 측정은
   `figma/product-components.plan.json` 의 `component.upgradeCta.variants[].rect`). 그런데 기록
   `sidebar-cta.sizes.false.height` 는 최소값 40 을 높이로 적고, Figma `SidebarCta` 의 `Collapsed=false` variant 는
-  높이를 그 40 으로 **FIXED** 에 두고 라벨을 `TRUNCATE` 로 줄 높이보다 낮게 잘라 넣는다(2026-09-14 읽기 전용 확인 —
+  높이를 그 40 으로 **FIXED** 에 두고 라벨을 `TRUNCATE` 로 줄 높이보다 낮게 잘라 넣었다(2026-09-14 읽기 전용 확인 —
   세로 축 `counterAxisSizingMode FIXED`, 최소 높이 없음). `verify-figma-parity` 는 기록과 Figma 를 서로 대조하므로
-  이 축이 초록이고, 코드 쪽 브라우저 테스트는 펼친 높이를 재지 않는다(접힘의 최소 32 만 본다) — 그래서 어느 게이트도
-  이 차이를 말하지 않는다. **Figma 고정은 이번에 바꾸지 않았다.** 닫는 길은 variant 를 높이 HUG + 최소 높이 40 ·
-  라벨 줄 높이 그대로로 짓고, 기록 칸을 최소 키로 옮겨 계약이 최소를 대조하게 하는 것이다(조립 규칙 28번의
-  `min-*` 행, [Figma Component Authoring](../governance/figma-component-authoring.md) §8).
+  이 축이 초록이었고, 코드 쪽 브라우저 테스트는 펼친 높이를 재지 않는다(접힘의 최소 32 만 본다).
+  **2026-10-06 에 Figma 쪽을 닫았다**(크기 굳힘 감사 묶음 8). 펼친 variant 셋은 높이 HUG + 최소 높이 40 · 라벨 내용 폭으로
+  서서 실효 높이 41 이 되고, 계약은 기록 칸을 하한(`{ atLeast: "height" }`)으로 대조한다(조립 규칙 28번의 `min-*` 행,
+  [Figma Component Authoring](../governance/figma-component-authoring.md) §8). 남은 것은 코드 쪽 — 브라우저 테스트가
+  펼친 높이를 재지 않는다.
 - **시프트된 라이트 램프의 셸 바닥 `#eeeef1`에 토큰이 없다.** 위 「라이트 팔레트가 한 단계
   밝아진다」의 결과로 배포본 셸 바닥과 ≤719px 드로어 면이 `#eeeef1`이 되는데, LOUIS primitive
   램프에 그 값이 없다(`packages/css/generated/tokens.css`에 `#eeeef1`(238 238 241)이 0건이고,
@@ -8978,7 +8980,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
   `TabItem`과 `Tabs` 두 벌로 등재돼 있고 게이트가 실제로 돈다(`parity OK … component 39개`).
   State 4개(Default·Hover·Selected·Disabled)와 속성 축은 그래서 대조된다. **없는 것은 기하다** —
   두 계약 모두 `geometry`를, 따라서 그것이 가리킬 `measuredId`를 갖지 않고
-  `figma/components.measured.json`의 23종에도 tabs가 없다. 높이 28 · 좌우 인셋 12 · 반경 999 ·
+  `figma/components.measured.json`의 45종에도 tabs가 없다. 높이 28 · 좌우 인셋 12 · 반경 999 ·
   줄 간격 4는 Figma와 코드 어느 쪽이 움직여도 게이트가 모른다.
 
 #### Acceptance tests
@@ -9384,7 +9386,7 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   `TableCell` 의 `strokes: { self: { weight: 1, align: "INSIDE" } }`, `Table` 의
   `effects: { HeaderRow: "INNER_SHADOW:0:0:0.5" }` 와 `strokes.TableCell.weight: [1, 0]`
   (마지막 행만 0)이 전부 계약으로 적혀 있다. **빠진 것은 `geometry` 하나다** — 세 항목 어디에도
-  `geometry.measuredId` 가 없고 `figma/components.measured.json` 의 23개 키에도 `table` 이 없다.
+  `geometry.measuredId` 가 없고 `figma/components.measured.json` 의 45개 키에도 `table` 이 없다.
   그래서 여백 4/8·8/8, 헤더 높이 26, 셀 높이 37/38, 반경 4 는 **아무도 대조하지 않는다.** 위
   Specification 이 적은 1px 어긋남이 게이트를 통과하는 이유가 그것이다.
   [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 table 을 "선행
@@ -9650,7 +9652,7 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 다섯 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `carousel-arrow` 항목이 없다 |
+| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이고, 기하도 대조한다 — `figma/components.measured.json` 의 `carousel-arrow`(제품 클래스를 실브라우저에서 잰 값)와 버튼 32 × 32 · 반경 12 · 안쪽 여백 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                            |
 
@@ -9719,7 +9721,8 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   있다 — 결손으로 적어 둔다.
 - hover 면을 **배경 이미지 한 겹**으로 쌓는다(`background-image: linear-gradient(…)`). 면 색을
   바꾸는 대신 겹을 더하는 방식이라 아래 층의 잉크 8% 가 그대로 남는다.
-- 크기가 32 로 고정이고 좁은 화면에서도 줄지 않는다(`flex-none`).
+- 크기가 32 로 고정이다. 좁은 화면에서도 쌍이 줄지 않는 것은 버튼이 아니라 감싸는 래퍼의
+  `flex-none` 때문이다(`CarouselArrows.tsx` 의 `flex flex-none items-center gap-2`).
 - 비활성 버튼은 클릭도 포커스도 받지 않는다 — 네이티브 `disabled` 다.
 
 #### Content
@@ -9786,9 +9789,12 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 5. **제품은 쌍을 하나로 내보내고 Figma 는 하나를 set 으로 뽑았다.** 상호작용과 프로토타입을
    받는 단위가 버튼 하나이기 때문이다. 그 결과 **쌍 간격 4 를 아무도 소유하지 않는다** —
    제품에서는 래퍼의 `gap` 이고 Figma 에는 없다. 이 문서가 임시로 소유한다.
-6. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `carousel-arrow`
-   항목이 없어 32 · 12 · 16 · 5 × 10 을 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
-   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+6. **기하는 한 방향으로만, 버튼 상자만 대조된다.** `figma/components.measured.json` 의
+   `carousel-arrow` 가 제품 클래스를 실브라우저에서 잰 32 × 32 · 반경 12 · 안쪽 여백 0 을 갖고,
+   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저
+   테스트는 LOUIS 레시피가 없어 없다. **캐럿 16 × 16 과 글리프 5 × 10 은 대조하지 않는다** —
+   16 은 인라인 SVG 의 `width`/`height` 속성이고 5 × 10 은 `path` 의 바운딩 박스라, 클래스를
+   컴파일해 재는 하네스가 닿지 않는다.
 7. ~~**포커스 상태가 코드에도 Figma 에도 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스 링을
    그리지 않으므로 `State` 축에 `Focus` 를 더하지 않는다.
 
@@ -10358,7 +10364,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                          |
-| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `step-tile` 항목이 없다 |
+| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `step-tile`(제품 클래스를 실브라우저에서 잰 값)과 루트 간격 12 · 안쪽 여백 0 · 반경 0 · 타일 반경 12 · 라벨과 설명의 글자 크기 20 · 줄 높이 150% 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 타일 콘텐츠가 정해지고 기하 실측이 붙으면 승격한다                                                                                      |
 
@@ -10458,8 +10464,9 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 - **라벨이 유일한 필수 글자다.** 설명은 없어도 된다 — 세 번째 항목이 실제로 비어 있다.
 - **라벨 셋은 서로 달라야 한다.** 제품이 라벨 문구를 목록 `key` 로 쓴다 — 같은 문구가 둘이면
   항목이 엉킨다.
-- 라벨은 **한 동작**을 말한다. 첫 항목처럼 문장을 통째로 넣으면 캡션이 두 줄이 되고 그 카드만
-  30 높아진다. 그 자체가 결함은 아니지만 세 칸의 캡션 높이가 갈리는 값이므로 의식하고 쓴다.
+- 라벨은 **한 동작**을 말한다. 첫 항목처럼 문장을 통째로 넣으면 캡션이 두 줄이 될 수 있고, 그러면
+  그 카드만 캡션 줄 높이 하나만큼(1024 이상 30, 1023 이하 27, 767 이하 24) 높아진다. 둘째 줄이 생기는지는
+  카드 폭이 정한다. 그 자체가 결함은 아니지만 세 칸의 캡션 높이가 갈리는 값이므로 의식하고 쓴다.
 - 라벨과 설명 사이는 **진짜 공백 문자**다. 복사하면 `카테고리 영상의 주제를 선택하세요.` 로
   붙는다 — 간격을 flex 로 만들면 공백 없이 이어진다(Known deviations 1).
 
@@ -10503,7 +10510,7 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 | Tile 자름 | 내용 잘림 | 지금은 자를 것이 없다. 콘텐츠가 들어갈 때를 위한 것이다 |
 | Tile 테두리 | **없다** | stroke 0 · effect 0. 이 시스템의 면 대부분이 갖는 헤어라인이 여기엔 없다 |
 | Tile ↔ Caption | 12 | 2px 격자 · Figma 루트 `itemSpacing` 12 |
-| Caption | body-20-medium, 줄 높이 150%(30) | `typography/body-lg-medium`(Known deviations 2) |
+| Caption | body-20-medium, 줄 높이 150% — 1024 이상 30 · 1023 이하 27 · 767 이하 24 | `typography/body-lg-medium`(Known deviations 2). 타입과 행간 1.5 가 선택값이고 줄 높이는 글자 크기 × 1.5 다 |
 | Label 색 | `gray/200` | 램프를 그대로 쓴다 — 뒤집어도 관계가 유지되는 자리다 |
 | Description 색 | `landing/text-muted` | 램프 인덱스만 뒤집어서는 성립하지 않는 역할이다 |
 | Label ↔ Description | 공백 문자 한 개(실측 4.69) | Figma 는 `itemSpacing` 4(Known deviations 1) |
@@ -10538,9 +10545,12 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 4. **타일이 비어 있다.** 시안 프레임이 자식 0 · IMAGE fill 0 · VECTOR 0 이고 에셋도 파일명도
    없다. 제품도 면만 둔다. **지금 비어 있는 것은 결정이 아니라 미결이다** — 콘텐츠가 정해지면
    이 문서의 Anatomy · States · Accessibility 가 함께 움직인다.
-5. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `step-tile` 항목이
-   없어 12 · 30 · 60 · 4 를 아무도 대조하지 않는다. 위 값들은 제품 소스와 그 안에 적힌 실측이고
-   이 저장소가 직접 잰 브라우저 값이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `step-tile` 이 제품 클래스를
+   실브라우저에서 잰 루트 간격 12 · 타일 반경 12 · 캡션 글자 크기 20 · 줄 높이 30(1024 이상 값,
+   `step-tile.sizes.base.labelLineHeight`)을 갖고, parity 게이트가 Figma 를 간격 · 반경 · 글자 크기와
+   줄 높이 150% 로 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
+   없어 없다. **두 줄 캡션 60 과 Caption 의 `itemSpacing` 4 는 대조하지 않는다** — 60 은 카드 폭이
+   정하는 줄 수에서 나오는 값이고, 4 는 제품에 없는 gap 이다(Known deviations 1).
 6. **좁은 화면 규칙이 Figma 에 없다.** 시안에 좁은 프레임이 없어 제품이 1열로 접는 지점을
    정했다 — **`max-width: 719px`**(720 미만)이고, 근거는 「정사각 3장이면 한 변이 100 도 안
    된다」다. 그 값은 지금 제품에만 있고 아무도 대조하지 않는다 — 이 문서가 임시로 소유한다.
@@ -10770,9 +10780,10 @@ Known deviations 12).
 
 - **질문 줄 전체가 버튼이다.** 질문 글자가 짧아도 오른쪽 빈 자리까지 눌린다. 닫힌 행에서는 그것이
   행 전체이고, 열린 행에서는 답변이 버튼 밖에 있어 답변을 눌러도 접히지 않는다.
-- 질문이 두 줄이 되면 `+` 가 **첫 줄에 붙어 위에 남는다**(`items-start`). 제품 주석은 「시안의
-  counter 정렬이 `MIN` 이라 그 동작을 그대로 옮겼다」고 적는데, **되읽기에는 정렬 필드 자체가
-  없어** 그 전언은 대조되지 않았다(Known deviations 11).
+- `+` 는 **질문 높이의 가운데**에 선다(`items-center`). 질문이 두 줄이 되어도 첫 줄에 붙어 위로
+  올라가지 않는다. 제품은 예전에 「시안의 counter 정렬이 `MIN`」이라는 이유로 `items-start` 였다가
+  가운데로 옮겼다(제품 `5a047ab02`). **되읽기에는 정렬 필드 자체가 없어** 어느 쪽도 대조되지
+  않는다(Known deviations 11).
 - **타입 스케일이 뷰포트를 따라 줄어든다.** 질문의 body-20 은 20 → 18(≤1023) → 16(≤767), 답변의
   body-16 은 14 로(≤450) 내려간다. 그래서 **닫힌 행 높이 66 은 1024 이상에서만 참이다** —
   아래로는 63, 60 이 된다. Figma 의 66 은 그중 한 단계다.
@@ -10853,9 +10864,9 @@ Known deviations 12).
 | 행 간격 | 4 | 목록이 갖는다 — 이 컴포넌트 밖이다 |
 | Question | 좌우 20 · 위아래 18 · 사이 16 | 2px 그리드(`px-10 py-9 gap-8`) |
 | Question 높이 | 66 = 18 + 30 + 18 | 20 × 1.5 = 30. **1024 이상에서만**(→ 63 → 60) |
-| Question 정렬 | 위 맞춤 | `items-start`. 제품 주석이 「시안에서 `MIN`」이라 적었을 뿐 되읽기에 정렬 필드가 없다(Known deviations 11) |
+| Question 정렬 | 가운데 | `items-center`(제품 `FAQ.tsx` 의 `QUESTION_CLASS`). 되읽기에 정렬 필드가 없다(Known deviations 11) |
 | QuestionText | body-20-medium | `typography/body-lg-medium` · `color/gray/000` |
-| Glyph | `+`, body-20-regular, 13 × 30 | 글리프 높이 30 은 20 × 1.5 의 줄 상자다 |
+| Glyph | `+`, body-20-regular, 13 × 줄 상자 높이 | 높이는 글자 크기 × 1.5 의 줄 상자에서 나온다 — 1024 이상 30(`faq-row.sizes["false/lg"].iconHeight`), 1023 이하 27, 767 이하 24 |
 | Glyph 색 | 잉크 64% | `color/landing/text-muted`. **50% 가 아니다** — 정본이 리터럴 50% 에서 이 토큰으로 옮겼다(제품 `b1d1409c`). Figma 는 아직 `color/gray/000` 50% 다(Known deviations 3) |
 | Glyph 회전 | 열림에서 45° | `transform: rotate(45deg)`. `rotate` 프로퍼티가 아니라 `transform` 이다 — 전환 대상이기 때문 |
 | Answer | 좌우 20 · 위 0 · 아래 18, 최대 `64ch` | 질문의 좌우 여백에 맞추고 아래만 띄운다 |
@@ -10874,8 +10885,8 @@ Known deviations 12).
 | Question 위아래 | 18 | **12** | `py-6` × `--spacing: 2px` |
 | Question 좌우 | 20 | **14** | `px-7`. 모달 본문 단이 1080 − 좌우 24 = 1032 라 행이 좁다 |
 | Question 사이 | 16 | **12** | `gap-6` |
-| Question 정렬 | 위 맞춤 | **가운데** | `items-center`. 모달 질문은 한 줄을 전제한다 |
-| Question 높이 | 66 | **48** | 12 + 24 + 12 |
+| Question 정렬 | 가운데 | 가운데 | 둘 다 `items-center`. 모달 질문은 한 줄을 전제한다 |
+| Question 높이 | 66(1024 이상) | **48**(451 이상) | 질문이 한 줄일 때 18 + 30 + 18 · 12 + 24 + 12 |
 | QuestionText | body-20-medium | **body-16-medium** | `type-body-16-medium` (JSX 리터럴) |
 | Glyph | body-20, 줄 상자 30 | **body-16, 줄 상자 24** | `GUIDE_FAQ_CHEVRON` 이 16 을 직접 세우고 행간은 버튼에서 물려받는다 |
 | Answer 위 · 아래 | 0 · 18 | **10 · 14** | `pt-5 pb-7` |
@@ -10982,10 +10993,11 @@ Known deviations 12).
     `aria-expanded` 뿐이다** — 글리프 회전을 그 속성에 걸어 두어 속성을 빼면 시각도 함께 죽는다
     (API 참조). `aria-controls` · `id` · 제목 요소는 **CSS 가 강제할 수 없는 마크업**이라
     레시피가 채울 수 없고, API 절의 마크업 계약과 소비처가 진다.
-11. **counter 축 정렬이 대조되지 않는다.** `items-start` 의 근거로 적힌 「시안 counter 정렬
-    `MIN`」은 제품 주석의 전언이고, 되읽기에는 정렬 필드가 아예 없다(`FaqRow` 의
-    `parts.Question` 은 width · height · padding · itemSpacing 뿐이다). 되읽기 채취에 counter
-    정렬을 더하는 것이 승격 조건 하나다.
+11. **counter 축 정렬이 대조되지 않는다.** 제품은 `items-start`(근거는 제품 주석이 전한 「시안
+    counter 정렬 `MIN`」)에서 `items-center` 로 옮겼는데(제품 `5a047ab02`), 되읽기에는 정렬 필드가
+    아예 없어(`FaqRow` 의 `parts.Question` 은 width · height · padding · itemSpacing 뿐이다) Figma 가
+    어느 쪽인지 확인되지 않는다. **LOUIS 레시피 `lg` 는 아직 `align-items: flex-start` 다** — 제품을
+    따라 옮겨야 한다. 되읽기 채취에 counter 정렬을 더하는 것이 승격 조건 하나다.
 12. **여닫이 전개를 레시피가 그리지 않는다.** 정본은 framer-motion 이 `height: 0 ↔ auto` 를
     300ms 로 옮기고, `grid-template-rows: 0fr ↔ 1fr` 은 매 프레임 재레이아웃으로 렉이 있어
     버렸다는 기록이 제품에 남아 있다. CSS 만으로는 그 둘 중 하나를 고를 수밖에 없으므로 레시피는
@@ -11016,15 +11028,17 @@ Known deviations 12).
 
 1. 행이 radius 12 이고 면이 잉크 8% 오버레이(`landing/panel-strong`)다. `gray-900` 이 아니다.
 2. 행에 stroke 가 없고 effect 도 없다 — 되읽기의 `boundStrokes` · `rawStrokes` 가 각각 0 이다.
-3. 닫힌 행 높이가 66 이고 18 + 30 + 18 로 분해된다.
-4. 질문의 좌우가 20, 글자와 `+` 사이가 16 이며 `+` 가 **위 맞춤**이다.
+3. 질문이 한 줄일 때 닫힌 행 높이가 위 패딩 + 질문 줄 상자 + 아래 패딩이다 — 1024 이상에서 66 =
+   18 + 30 + 18(`faq-row.sizes["false/lg"].questionHeight`)이고, 1023 이하 63, 767 이하 60 이다.
+4. 질문의 좌우가 20, 글자와 `+` 사이가 16 이며 `+` 가 **질문 높이의 가운데**(`items-center`)다.
 5. `Expanded=true` 가 `+` 를 45° 돌리고 답변을 **같은 면 안에** 붙인다 — 카드가 둘로 쪼개지지
    않는다.
 6. `Expanded` 가 면 · 반경 · 좌우 여백을 바꾸지 않는다. 두 변형이 그 셋에서 같다.
 7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 8. 질문 버튼이 `aria-expanded` 를 갖고 `+` 가 `aria-hidden` 이다.
 9. 목록에서 한 번에 한 행만 열려 있다.
-10. `Size=md` 에서 반경이 8, 질문 여백이 12/14, 사이가 12 이고 닫힌 높이가 48 = 12 + 24 + 12 이다.
+10. `Size=md` 에서 반경이 8, 질문 여백이 12/14, 사이가 12 이고 질문이 한 줄일 때 닫힌 높이가
+    451 이상에서 48 = 12 + 24 + 12 이다(`faq-row.sizes["false/md"].questionHeight`).
 11. `Size=md` 에서 **글리프가 돌지 않는다.** 정본이 글자 자체를 `+` ↔ `−` 로 갈아 끼우므로
     거기까지 돌리면 `−` 가 세로줄이 되어 닫힘으로 읽힌다.
 12. 글리프 회전이 `aria-expanded="true"` 에만 선다 — 속성이 없으면 회전도 없다.
@@ -11380,7 +11394,7 @@ Figma 도 같은 작업에서 0.65(hover 0.80)로 맞췄다 — 세 곳이 같�
 | Surface       | 상태           | 근거                                                                                                                                                                                                     |
 | ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하도 불투명도도 대조하지 않는다** — `figma/components.measured.json` 에 항목이 없고 되읽기가 opacity 를 담지 않는다 |
+| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하와 불투명도도 대조한다 — 기하는 `figma/components.measured.json` 의 `gnb-menu-item`(제품 클래스를 실브라우저에서 잰 값)과 높이 28 · 안쪽 여백 0 / 12 · 반경 999 · 라벨 14 / 21 을, 불투명도는 parity 계약의 `opacity` 블록과 여덟 변형의 되읽기 값을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                  |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 라벨 굵기 대조가 붙으면 승격한다                                                                                                            |
 
@@ -11599,10 +11613,11 @@ Figma 의 축은 이것과 이렇게 대응한다.
 7. **hover 가 `@media (hover: hover)` 밖이다.** 임의 변형 `[&:hover]:` 를 쓰기 때문이고,
    그것은 모듈 CSS 의 계산값을 그대로 옮기려는 의도적 선택이었다. 터치 기기에서 탭 후 hover
    불투명도가 남을 수 있다. Figma 의 `State=Hover` 는 그 조건을 표현하지 않는다.
-8. **기하가 게이트에 걸려 있지 않고, 폭의 성격도 확인되지 않았다.**
-   `figma/components.measured.json` 에 `gnb-menu-item` 항목이 없어 28 · 12 · 999 · 21 을
-   아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고 브라우저 실측이 아니다.
-   더해서 되읽기에 sizing mode 가 없어 **Figma 의 폭 72 가 HUG 인지 FIXED 인지 알 수 없다** —
+8. **기하는 한 방향으로만 대조되고, 폭의 성격은 확인되지 않았다.**
+   `figma/components.measured.json` 의 `gnb-menu-item` 이 제품 클래스를 실브라우저에서 잰
+   28 · 12 · 999 · 21 을 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히
+   만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **폭 72 는 대조하지 않는다** —
+   라벨이 정하는 값이다(`$whyNotTextWidth`). 더해서 되읽기에 sizing mode 가 없어 **Figma 의 폭 72 가 HUG 인지 FIXED 인지 알 수 없다** —
    제품은 내용이 폭을 정하므로 FIXED 라면 긴 로케일에서 갈라진다. 실측 probe 를 붙이는 것이
    승격 조건이다.
 9. ~~**포커스 상태가 코드에도 Figma 에도 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스
@@ -11676,7 +11691,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 13개 파일 · 20개 호출부다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 다만 링만은 LOUIS 레시피를 그대로 소비한다 |
-| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `inline-loading-label` 항목이 없다 |
+| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `inline-loading-label`(제품 클래스를 실브라우저에서 잰 값)과 슬롯 지름 16 · 12 · 라벨과 슬롯 사이 6 · 4(닫힘 0) · 안쪽 여백 0 · 반경 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 기하 실측이 붙고 증거 락이 현재 판을 가리키면 승격한다                                                                                      |
 
@@ -11891,9 +11906,12 @@ Figma 의 축은 이것과 이렇게 대응한다.
    14 / 150% 로 고정했다. 확인한 소비처에서는 값이 맞는다 — LOUIS Button 이 lg·md 모두 14 이고,
    아카이브의 자체 버튼도 `type-body-14-medium` 이다. **맞는 것은 우연이 아니라 현재 상태일
    뿐이며, 12 나 16 짜리 컨트롤 안에 놓이는 순간 Figma 만 어긋난다.**
-5. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `inline-loading-label`
-   항목이 없어 16 · 12 · 6 · 4 · 0.85 를 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
-   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `inline-loading-label` 이
+   제품 클래스를 실브라우저에서 잰 16 · 12 · 6 · 4 를 갖고, parity 게이트가 Figma 를 그것과
+   맞댄다 — 6 · 4 는 제품에서 슬롯의 `margin-left` 이고 Figma 에서는 `itemSpacing` 이다. 코드가 그
+   실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **scale 0.85 와 닫힘
+   폭 0 은 대조하지 않는다** — 0.85 는 기하가 아니라 transform 이고, 닫힘 변형은 되읽기에 슬롯
+   레이어가 없다.
 6. **증거 락이 이 파일의 옛 판을 가리킨다.** `migration/product-evidence.lock.json` 이 고정한 blob
    은 링을 **자체 유틸리티 묶음**으로 그리던 판이고, 지금 제품은 LOUIS `.louis-spinner` 레시피를
    소비한다. 그래서 [Spinner](../components/spinner.md) 의 「인라인 로딩 슬롯」 표가 인용하는 좌표와 회전
@@ -11969,7 +11987,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | Surface       | 상태           | 근거                                                                                                                                                                                                                                              |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 쿠폰 등록 모달 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 제품 쪽에도 이 컴포넌트를 겨냥한 테스트가 없다                                                          |
-| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `segmented-code-input` 항목이 없다 |
+| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `segmented-code-input`(제품 칸 클래스를 실브라우저에서 잰 값)과 트랙 높이(= 칸 높이 36) · 칸 28 × 36 · 칸 반경 8 · 글자와 하이픈의 크기 16 · 높이 24 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                                                            |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                                                                                  |
 
@@ -11995,7 +12013,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 
 1. **Track** — 가로 한 줄. 높이 36, 안쪽 여백 0, 항목 간격 2. 폭은 컨테이너를 채운다.
 2. **Cell** — 칸 하나. 최대 28 × 36, radius 8, stroke 1(안쪽). 12개.
-3. **Char** — 칸 안의 글자 한 자. `body-md-medium`(16 / 150% = 24), 가운데 정렬, 대문자 표기.
+3. **Char** — 칸 안의 글자 한 자. `body-md-medium`(451 이상 16 / 150% = 24, 450 이하 14 / 21), 가운데 정렬, 대문자 표기.
 4. **Separator** — 12 × 24 자리에 놓인 하이픈. 네 칸마다 하나, **마지막 칸 뒤에는 없다.**
    12칸 · 묶음 4 에서 2개다.
 5. **Dash** — 그 안의 `-` 글자. 크기 16.
@@ -12176,7 +12194,7 @@ Figma 의 축은 이것과 이렇게 대응한다.
 | 칸 테두리 | 1, 안쪽 | `border-width-default` · `1 \| INSIDE`. **헤어라인이 아니다** — 이 저장소의 기본 경계는 0.5 inset 그림자다(Known deviations 2) |
 | 칸 면 | 잉크 4% | `color/gray/000-alpha/04` |
 | 칸 테두리 색 | 잉크 12% | `color/gray/000-alpha/12` |
-| 글자 | `body-md-medium` 16 / 150%(24), 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
+| 글자 | `body-md-medium` 16 / 150%(24) — 450 이하 14 / 21, 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
 | 글자색 | 잉크 88% | `color/gray/000-alpha/88` |
 | Focus 테두리 | `primary-400` 72% | Figma 는 `color/accent-primary` @72% 에 묶었다 — Known deviations 1 |
 | Focus 면 | 잉크 8% | `color/gray/000-alpha/08` |
@@ -12222,10 +12240,12 @@ Figma 의 축은 이것과 이렇게 대응한다.
 6. **칸 이름의 꼬리가 i18n 밖에 있다.** `aria-label` 이 `${ariaLabel} N번째 글자` 로 조립되고
    「번째 글자」가 한국어 리터럴이다. 영어·일본어 로케일에서 스크린리더가 두 언어를 섞어
    읽는다. 게이트가 잡지 못한다 — 이 저장소에는 제품의 하드코딩 문구를 보는 검사가 없다.
-7. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에
-   `segmented-code-input` 항목이 없어 28 · 36 · 8 · 2 · 386 을 아무도 대조하지 않는다. 위
-   값들은 제품 소스와 되읽기에서 읽은 것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이
-   승격 조건이다.
+7. **기하는 한 방향으로만, 일부만 대조된다.** `figma/components.measured.json` 의
+   `segmented-code-input` 이 제품 칸 클래스(`BOX`)를 실브라우저에서 잰 칸 28 × 36 · 반경 8 ·
+   글자 16 / 24 를 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 28 은 트랙이 넉넉할 때의 값(상한)이고
+   24 는 451 이상의 값이다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
+   없어 없다. **간격 2 와 묶음 폭 386 은 대조하지 않는다** — 2 는 소비처 래퍼의 인라인 className
+   (`gap-1`)이라 상수로 꺼낼 자리가 없고, 386 은 칸이 상한 28 에 닿는 폭에서 나온 산술이다.
 8. **글자 굵기가 대조되지 않는다.** 되읽기의 `parts` 는 `fontSize` 와 높이만 담고 텍스트
    스타일 **이름**을 담지 않는다. `typography/body-md` 세 굵기가 모두 16 / 150% / −0.16 이라
    지금 게이트로는 regular · medium · semibold 를 가려낼 수 없다 —
@@ -12249,13 +12269,15 @@ Figma 의 축은 이것과 이렇게 대응한다.
 
 #### Acceptance tests
 
-1. 칸이 28 × 36 이고 radius 8 이다.
+1. 칸 높이가 36 이고 radius 8 이다. 칸 폭은 트랙을 칸 수로 나눈 몫(`flex-1`)과 상한 28(`max-w-14`) 중
+   작은 쪽이다 — 트랙이 넉넉하면 28 이다(`segmented-code-input.sizes.<State>.cellWidth`).
 2. 트랙 높이가 36, 항목 간격이 2, 안쪽 여백이 0 이며 `layoutMode` 가 `HORIZONTAL` 이다.
 3. 프레임 폭 386 이 칸 상한과 맞아떨어진다 — 12 × 28 + 2 × 12 + 13 × 2 = 386.
 4. 칸에 stroke 가 있고 `1 | INSIDE` 다. **헤어라인 effect 가 아니다** — 되읽기의 `effects` 가
    비어 있다.
 5. 구분자가 2개다 — 네 칸마다 하나이고 **마지막 칸 뒤에는 없다.**
-6. 글자와 하이픈의 크기가 16 이고 글자 높이가 24 다. **굵기(medium)는 확인되지 않는다**
+6. 451 이상에서 글자와 하이픈의 크기가 16 이고 글자 높이가 24 다(`segmented-code-input.sizes.<State>.charHeight`).
+   450 이하에서는 14 / 21 로 내려간다. **굵기(medium)는 확인되지 않는다**
    (Known deviations 8).
 7. 세 변형의 기하가 모두 같다 — 되읽기의 각 기하 값이 단일값이다(28 · 36 · 8 · 386 · 2).
 8. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이고, set 에 설명이
@@ -13591,8 +13613,10 @@ Figma 쪽은 `verify-figma-parity`, 코드 쪽은 `packages/react/test/chart-car
 
 축마다 하나씩.
 
-7. `area` 에는 기간(`Meta`)이 있고 곡선 슬롯의 높이가 하한 140 이다.
-8. `spark` 의 미니 곡선이 상한 폭 130 과 고정 높이를 갖는다 — 44% 는 156.6 이라 상한이 이긴다.
+7. `area` 에는 기간(`Meta`)이 있다. 곡선 슬롯의 선택값은 비율 4 : 1 과 하한 140 이고, 카드 폭 400 일 때
+   비율 높이 90 이 하한에 걸려 높이가 140 이다(`chart-card.sizes.area.chartMinHeight`).
+8. `spark` 의 미니 곡선의 선택값은 폭 44% · 상한 130 · 높이 46 이다. 카드 폭 400 일 때 44%(156.6)가
+   상한에 걸려 폭이 130 이다(`chart-card.sizes.spark.sparkWidth`).
 9. **안쪽 면의 하한이 두 축에서 갈린다**: `area` 는 0, `spark` 는 92. 이 값은 계약 밖이라
    (Figma 가 `minHeight = 0` 을 거부하고 `null` 은 되읽기에서 사라진다) 두 칸을 다 재는 것은
    이 시험뿐이다.

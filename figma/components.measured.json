@@ -657,7 +657,7 @@
           "height": 64,
           "$height": "border 1+1 + padding 12+12 + 내용 38(제목 18 + 2 + 본문 18) = 64.",
           "width": 320,
-          "$width": "제품 w-160 = 320. base 와 달리 **고정 폭**이다 — 두 줄 안내는 줄바꿈 자리가 문장마다 달라지면 안 된다.",
+          "$width": "넓은 화면에서 320 이다 — 레시피가 `inline-size: min(320px, var(--louis-overlay-available-width, 100vw))` 이고(packages/css/src/component/tooltip.css), 제품 첫 사용 안내가 그 레시피를 문다(전에는 제품 w-160 = 320). base 와 달리 내용이 아니라 상한 320 이 폭을 정한다 — 두 줄 안내의 줄바꿈 자리가 문장마다 달라지지 않게. 가용 폭이 320 보다 좁으면 그 폭으로 줄어든다(2026-10-06 「고정 폭」에서 고침).",
           "paddingBlock": 12,
           "$paddingBlock": "space-control-md 12. 가로와 같다 — 코치마크는 두 줄짜리 상자라 네 변을 같은 칸으로 둔다.",
           "paddingInline": 12,
@@ -2448,7 +2448,7 @@
         "false": {
           "$width": "**채움이다 — 수를 적지 않는다(2026-09-15).** 펼친 CTA 는 레일 내용 폭을 채운다 — 제품 `sidebarUpgradeButton` 이 LOUIS `.louis-sidebar-cta__button` 을 물고 그 `inline-size: 100%` 가 폭을 정한다(접힘은 `[width:fit-content]` 로 덮는다). 레일 내용 폭 = 레일 `--app-gnb-sidebar-width` − 레일 좌우 패딩(`--app-gnb-sidebar-padding-x`) 이다. 이 칸은 그 결과 256 을 적고 있었는데 제품 bc3e6fa3 가 레일을 280 → 240 으로 줄이자 같이 낡았다. 대조는 measure-product-components 의 `fill` 행이 제품 부품 폭과 조상 레일 내용 폭을 같은 하네스에서 맞춰 본다. Figma `SidebarCta` 의 펼친 variant 폭은 verify-figma-parity 가 DS 레일 내용 폭(레일 `.louis-app-shell__rail` 의 `inline-size` 토큰 − `padding` 토큰 × 2)과 맞대고 계산 과정을 인쇄한다(`fillIn` · `fill: rail-content`) — 제품 레일과 DS 토큰이 갈리는 동안(제품 240 · 토큰 280) 표본은 DS 를 따른다.",
           "height": 40,
-          "$height": "**최소 높이다 — 실효 높이가 아니다(2026-09-14).** 코드는 min-block-size: layout-control-height-lg(40)에 세로 패딩 10 · 10 과 body-sm-medium 줄 높이(150%)를 두고, 제품(Gnb.tsx:1973-1974 sidebarUpgradeButton 이 .louis-sidebar-cta__button 을 문다)도 같다. 그래서 라벨이 한 줄일 때 버튼은 패딩 + 줄 높이 + 패딩과 이 최소 중 큰 쪽이고, 그 합이 최소를 넘는다 — 제품 측정은 figma/product-components.plan.json 의 component.upgradeCta.variants[].rect 가 갖는다. 이 칸과 Figma SidebarCta Collapsed=false 는 둘 다 최소값이고 verify-figma-parity 는 둘을 서로 대조하므로 초록이다. Figma variant 는 높이를 FIXED 로 두고 라벨을 TRUNCATE 로 줄여 그 안에 넣는다(2026-09-14 읽기 전용 확인) — 실효 높이와 갈리는 사정은 design/components/app-shell-parts.md Known deviations 가 갖는다.",
+          "$height": "**최소 높이다 — 실효 높이가 아니다(2026-09-14).** 코드는 min-block-size: layout-control-height-lg(40)에 세로 패딩 10 · 10 과 body-sm-medium 줄 높이(150%)를 두고, 제품(Gnb.tsx:1973-1974 sidebarUpgradeButton 이 .louis-sidebar-cta__button 을 문다)도 같다. 그래서 라벨이 한 줄일 때 버튼은 패딩 + 줄 높이 + 패딩과 이 최소 중 큰 쪽이고, 그 합이 최소를 넘는다 — 제품 측정은 figma/product-components.plan.json 의 component.upgradeCta.variants[].rect 가 갖는다. 2026-10-06 부터 Figma SidebarCta Collapsed=false 는 높이 HUG + minHeight 40 · 라벨 내용 폭이라 실효 높이 41 로 서고, verify-figma-parity 는 이 칸을 하한(`{ atLeast: \"height\" }`)으로 대조한다 — 전에는 Figma 가 높이를 FIXED 40 · 라벨 TRUNCATE 로 굳혀 두 최소값이 서로 같은 수로 맞았다(크기 굳힘 감사 묶음 8).",
           "radius": 12,
           "paddingInline": 14,
           "paddingBlock": 10,

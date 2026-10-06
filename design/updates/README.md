@@ -25,6 +25,40 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-06 (195) — 크기 굳힘 감사 묶음 8 · 10(나머지): DS 세트 열한 개의 hug 축을 풀고, 규범 문서 열한 개의 계산값을 규칙으로
+
+- **묶음 8 — Figma `DS · Components`.** 제품 · LOUIS CSS 가 크기를 선언하지 않는 축을 숫자로 굳힌 세트를 내용 크기(HUG)로 풀었다.
+  - `SegmentedControlItem` 폭 60 → 내용(lg 49 · md 37), `SegmentedControl` 트랙 186 → 내용(LOUIS 트랙이 `inline-flex`, 칸이
+    `flex: 1 1 auto`). `TabItem` 72 → 38(`flex: none`). `NodeChip` 기본형 96 → 51. `Keycap` 20 → 내용 + 최소 20(⌘ 라벨이 22 로
+    넘치던 것). `FormMessage` 높이 18 → 내용. `Dialog` sheet 높이 320 → 내용(207). `InspectorRow` 높이 → 내용 + 최소 28.
+    `EmptyState` base 의 설명 폭 400 고정 → 채움.
+  - `SidebarCta` 펼침: 높이 FIXED 40 · 라벨 `TRUNCATE` 60 → 높이 HUG + 최소 40 · 라벨 내용 폭. 실효 높이가 제품과 같은 41(패딩 10 +
+    줄 21 + 10)이 됐다. 기록의 `height` 40 은 측정기가 `min-height` 를 읽은 값이라, parity 계약에 **하한 규칙 `{ atLeast }`** 를 새로
+    두고 이 칸을 그것으로 대조한다. 변조 카나리아 하나(높이를 39 로)를 더했다 — 37종. [App Shell Parts](../components/app-shell-parts.md)
+    Known deviations 를 결과로 고쳤다.
+  - 되읽기(`figma/readback.json`)의 열한 세트를 다시 떠 스냅숏을 만들었고 `verify-figma-parity` 가 초록이다.
+  - 소비처는 세트 자신 안의 인스턴스(트랙의 칸 · 탭 목록 · 표의 칸)와 `DS · Templates` 의 사이드바 CTA 넷 · 빈 상태 하나, `작업 · 시안`
+    몇 개다. 제품 화면 보드는 이 세트를 쓰지 않는다.
+  - **남긴 것.** `Tooltip` base(높이 FIXED 26 · 패딩 4.5/8.5) — 헤어라인이 레이아웃 밖 INSIDE 획이라 HUG 로 풀면 27 이 된다. 패딩을
+    4/8 로 되돌리고, 계약의 「패딩 + 테두리」 접기를 크기마다 가르는 변경(base 는 inset 헤어라인, coachmark 는 실제 테두리)이 함께
+    필요하다. `StatTile` · `TableCell` 자식의 채움(감사 「낮음」), `alert` 기록의 「패딩 + 한 줄」 높이 키 개명(브라우저 테스트가 그
+    키를 읽는다).
+- **묶음 10 나머지 — 규범 문서의 계산값.** 감사의 문서 갈래(출력이 잘렸던 것)를 다시 돌려 74 문서를 훑고 결함 일곱과 낡은 서술을
+  고쳤다. 제품 인용 스무 줄은 고정 커밋 원문과 바이트 단위로 대조했다.
+  - [Step Tile](../components/step-tile.md) 캡션 줄 높이(1024 이상 30 · 1023 이하 27 · 767 이하 24), [FAQ Row](../components/faq-row.md)
+    닫힌 높이(질문이 한 줄일 때 — lg 1024 이상 66 · md 451 이상 48), [Tooltip](../components/tooltip.md) coachmark 폭
+    `min(320px, 가용 폭)` · 높이(제목 · 본문이 한 줄씩일 때 64), [Toast](../components/toast.md) callout 높이와 최대 폭,
+    [Segmented Code Input](../components/segmented-code-input.md) 칸 폭(상한 28)과 글자(450 이하 14/21),
+    [Route Boundary](../patterns/route-boundary.md) 콘텐츠 폭(`min(100%, 440px)`, 최후 경계는 최대 420),
+    [Chart Card](../components/chart-card.md) 의 「카드 폭 400 일 때」.
+  - carousel-arrow · gnb-menu-item · inline-loading-label · step-tile · segmented-code-input 의 「measured.json 에 항목이 없다 · 기하는
+    대조하지 않는다」를 지금의 계약대로 고쳤고, table · tabs 의 기록 키 수(23 → 45)도 고쳤다.
+  - 감사 밖에서 함께 드러난 제품 사실 둘을 고정 커밋 원문으로 확인해 옮겼다 — FAQ 질문의 `+` 는 가운데 정렬(`items-center`,
+    `FAQ.tsx` 의 `QUESTION_CLASS`), 경계 화면 설명 알파는 64% / 56%(`error.tsx` · `not-found-content.tsx`).
+  - 측정 기록의 tooltip coachmark `$width`(「고정 폭」)와 parity 스크립트 주석도 맞췄다.
+  - **남긴 것.** LOUIS `faq-row.css` 의 `lg` 정렬이 아직 `flex-start` 다(제품은 가운데) — 레시피 변경은 별건이다. FAQ 의 `+` 가
+    제품에서 16px 아이콘(`PlusIcon`)으로 바뀌어 Spec Glyph 칸의 「글리프 폭 13」 서술이 낡았을 수 있다.
+
 ## 2026-10-06 (194) — 크기 굳힘 감사 묶음 7 · 10 · 11: 인벤토리의 선언 판정 · news-card 와 media-card 문서의 계산값 · 고아 생성기 은퇴
 
 크기 굳힘 감사(2026-09-14)의 남은 묶음 4 ~ 11 가운데 셋을 닫는다. 4(Gnb 사이드바 세트) · 5(`/pricing`) · 6(보드 판정기) ·

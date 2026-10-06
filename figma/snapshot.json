@@ -8143,7 +8143,7 @@
             }
           },
           "height": [
-            320
+            207
           ],
           "width": [
             480
@@ -9069,8 +9069,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             18
           ],
@@ -9098,7 +9096,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "neutral": {
           "slots": {},
@@ -9115,8 +9115,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             18
           ],
@@ -9144,7 +9142,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -10324,13 +10324,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             20
           ],
           "width": [
-            20
+            22
           ],
           "paddingBlock": [
             0
@@ -10353,7 +10351,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "text": {
           "slots": {},
@@ -10370,13 +10370,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             20
           ],
           "width": [
-            20
+            22
           ],
           "paddingBlock": [
             0
@@ -10399,7 +10397,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -11201,13 +11201,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             32
           ],
           "width": [
-            96
+            51
           ],
           "paddingBlock": [
             0
@@ -11230,7 +11228,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "square": {
           "slots": {
@@ -11248,8 +11248,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             32
           ],
@@ -11277,7 +11275,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -15010,7 +15010,7 @@
         "lg": {
           "slots": {
             "Item 1": [
-              "60x32"
+              "58x32"
             ],
             "Item 2": [
               "60x32"
@@ -15022,7 +15022,7 @@
           "parts": {
             "Item 1": {
               "width": [
-                60
+                58
               ],
               "height": [
                 32
@@ -15079,19 +15079,19 @@
         "md": {
           "slots": {
             "Item 1": [
-              "60x24"
+              "45x24"
             ],
             "Item 2": [
-              "60x24"
+              "47x24"
             ],
             "Item 3": [
-              "60x24"
+              "47x24"
             ]
           },
           "parts": {
             "Item 1": {
               "width": [
-                60
+                45
               ],
               "height": [
                 24
@@ -15099,7 +15099,7 @@
             },
             "Item 2": {
               "width": [
-                60
+                47
               ],
               "height": [
                 24
@@ -15107,7 +15107,7 @@
             },
             "Item 3": {
               "width": [
-                60
+                47
               ],
               "height": [
                 24
@@ -15118,7 +15118,7 @@
             32
           ],
           "width": [
-            186
+            147
           ],
           "paddingBlock": [
             4
@@ -15148,19 +15148,19 @@
         "settings": {
           "slots": {
             "Item 1": [
-              "60x28"
+              "49x28"
             ],
             "Item 2": [
-              "60x28"
+              "49x28"
             ],
             "Item 3": [
-              "60x28"
+              "49x28"
             ]
           },
           "parts": {
             "Item 1": {
               "width": [
-                60
+                49
               ],
               "height": [
                 28
@@ -15168,7 +15168,7 @@
             },
             "Item 2": {
               "width": [
-                60
+                49
               ],
               "height": [
                 28
@@ -15176,7 +15176,7 @@
             },
             "Item 3": {
               "width": [
-                60
+                49
               ],
               "height": [
                 28
@@ -15187,7 +15187,7 @@
             36
           ],
           "width": [
-            186
+            155
           ],
           "paddingBlock": [
             4
@@ -15217,19 +15217,19 @@
         "sm": {
           "slots": {
             "Item 1": [
-              "60x20"
+              "45x20"
             ],
             "Item 2": [
-              "60x20"
+              "47x20"
             ],
             "Item 3": [
-              "60x20"
+              "47x20"
             ]
           },
           "parts": {
             "Item 1": {
               "width": [
-                60
+                45
               ],
               "height": [
                 20
@@ -15237,7 +15237,7 @@
             },
             "Item 2": {
               "width": [
-                60
+                47
               ],
               "height": [
                 20
@@ -15245,7 +15245,7 @@
             },
             "Item 3": {
               "width": [
-                60
+                47
               ],
               "height": [
                 20
@@ -15256,7 +15256,7 @@
             24
           ],
           "width": [
-            184
+            143
           ],
           "paddingBlock": [
             2
@@ -15286,19 +15286,19 @@
         "xs": {
           "slots": {
             "Item 1": [
-              "60x28"
+              "45x28"
             ],
             "Item 2": [
-              "60x28"
+              "47x28"
             ],
             "Item 3": [
-              "60x28"
+              "47x28"
             ]
           },
           "parts": {
             "Item 1": {
               "width": [
-                60
+                45
               ],
               "height": [
                 28
@@ -15306,7 +15306,7 @@
             },
             "Item 2": {
               "width": [
-                60
+                47
               ],
               "height": [
                 28
@@ -15314,7 +15314,7 @@
             },
             "Item 3": {
               "width": [
-                60
+                47
               ],
               "height": [
                 28
@@ -15325,7 +15325,7 @@
             28
           ],
           "width": [
-            186
+            147
           ],
           "paddingBlock": [
             4
@@ -15417,7 +15417,7 @@
             32
           ],
           "width": [
-            60
+            49
           ],
           "paddingBlock": [
             0
@@ -15463,7 +15463,7 @@
             24
           ],
           "width": [
-            60
+            37
           ],
           "paddingBlock": [
             0
@@ -15509,7 +15509,7 @@
             28
           ],
           "width": [
-            60
+            49
           ],
           "paddingBlock": [
             0
@@ -15555,7 +15555,7 @@
             28
           ],
           "width": [
-            60
+            37
           ],
           "paddingBlock": [
             0
@@ -16026,7 +16026,7 @@
             }
           },
           "height": [
-            40
+            41
           ],
           "width": [
             216
@@ -17558,13 +17558,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
           "width": [
-            72
+            38
           ],
           "paddingBlock": [
             0
@@ -17587,7 +17585,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "Disabled": {
           "slots": {},
@@ -17604,13 +17604,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
           "width": [
-            72
+            38
           ],
           "paddingBlock": [
             0
@@ -17633,7 +17631,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "Hover": {
           "slots": {},
@@ -17650,13 +17650,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
           "width": [
-            72
+            38
           ],
           "paddingBlock": [
             0
@@ -17679,7 +17677,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         },
         "Selected": {
           "slots": {},
@@ -17696,13 +17696,11 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
           "width": [
-            72
+            38
           ],
           "paddingBlock": [
             0
@@ -17725,7 +17723,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -18199,26 +18199,26 @@
         "base": {
           "slots": {
             "TabItem": [
-              "72x28"
+              "52x28",
+              "69x28"
             ]
           },
           "parts": {
             "TabItem": {
               "width": [
-                72
+                52,
+                69
               ],
               "height": [
                 28
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             28
           ],
           "width": [
-            224
+            181
           ],
           "paddingBlock": [
             0
@@ -18241,7 +18241,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},

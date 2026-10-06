@@ -15,8 +15,13 @@ import { resolveProductRef } from "./lib/product-ref.mjs";
 //
 //   ① 크기는 **제품이 선언한 것만** 고정한다.
 //      `[width:32px]` · `w-22` · `w-[260px]` · `w-[min(...)]` → 고정
+//      `w-[60%]` · `[height:30%]`(100% 가 아닌 퍼센트)        → 비율 선언 — 실측으로 고정하고 사유를 「비율」로
 //      `w-full` · `[width:100%]`                              → 부모가 준다(FILL)
-//      선언 없음                                              → 내용이 정한다(HUG)
+//      `w-max` · `w-fit` · `[height:fit-content]`             → 내용이 정한다고 선언했다(HUG)
+//      선언 없음                                              → 문맥이 정한다(flex 행의 주축은 HUG, 교차축 · 블록은 FILL)
+//      `min-w-*` · `max-w-*` · `min-h-*` · `max-h-*` 는 크기 선언이 아니고, 변형 접두가 붙은 토큰(`before:` · `hover:` ·
+//      `[@media(…)]:` · `[.x_&]:`)은 다른 요소 · 상태 · 화면의 크기라 판정에서 뺀다(크기 굳힘 감사 묶음 7 — 전에는 이것들이
+//      고정으로 읽혀 폭 선언고정이 83, 지금 39 다).
 //      결과값(36.44 같은)을 고정하면 문구가 바뀔 때 깨진다.
 //
 //   ② 글자는 **언제나 자동**이다. 손으로 크기를 잡으면 글리프가 잘리고 리플로우가 죽는다.
@@ -76,24 +81,101 @@ const constantBody = (file, part, seen) => {
   bodyCache.set(key, text);
   return text;
 };
-const declarationOf = (file, part) => {
-  const key = file + "|" + part;
-  if (declCache.has(key)) return declCache.get(key);
-  const text = constantBody(file, part, new Set());
+// **요소 자신의 크기 판정에는 변형 접두가 없는 토큰만 쓴다(크기 굳힘 감사 묶음 7).**
+// `before:[height:20%]` 는 의사 요소의 높이, `hover:w-10` 은 다른 상태, `[@media(max-width:959px)]:w-full` 은 다른
+// 화면의 폭이다. 접두는 **괄호 밖의 콜론**이다 — `[width:32px]` · `[@media(…)]` 안의 콜론은 괄호 안이라 남는다.
+const ownSizeTokens = (text) =>
+  text
+    .split(/[\s"'`]+/)
+    .filter((token) => {
+      let depth = 0;
+      for (const char of token) {
+        if (char === "[" || char === "(") depth += 1;
+        else if (char === "]" || char === ")") depth -= 1;
+        else if (char === ":" && depth === 0) return false;
+      }
+      return true;
+    })
+    .join(" ");
+// 길이 단위가 붙은 값과 함수만 고정 선언이다. 전에는 `\d` 한 글자로 받아 `[width:100%]` 의 1 이 고정으로 읽혔다 —
+// 퍼센트는 부모가 주는 크기다(`[width:100%]` 는 아래 채움, 그 밖의 퍼센트는 고정도 채움도 아니다).
+const LENGTH = String.raw`(?:\d+(?:\.\d+)?(?:px|rem|em|ch)\b|min\(|max\(|clamp\(|calc\(|var\()`;
+// 유틸리티 이름 앞에 글자나 `-` 가 붙으면 다른 유틸리티다 — `min-w-0` 은 `w-0` 이 아니고 `max-w-full` 은
+// `w-full` 이 아니다(`\b` 는 `-` 와 글자 사이에서도 서서 둘 다 잘못 걸렸다).
+const UTILITY = (name) => new RegExp(String.raw`(?<![\w-])${name}(?![\w-])`);
+// 100% 가 아닌 퍼센트(`h-[30%]` · `[width:60%]`)는 부모에 대한 **비율 선언**이다. 채움도 내용도 아니므로 실측 크기로
+// 고정하되 사유를 「비율」로 따로 적는다 — 내용 판정(HUG)으로 떨어뜨리면 띠 · 진행 막대가 내용 크기로 줄어든다.
+const PARTIAL_PERCENT = String.raw`(?!100%)\d+(?:\.\d+)?%`;
+const declFromText = (raw) => {
+  const text = ownSizeTokens(raw);
   const has = (re) => re.test(text);
-  const decl = {
+  return {
+    wRatio:
+      has(new RegExp(String.raw`\[width:\s*${PARTIAL_PERCENT}\]`)) || has(new RegExp(String.raw`(?<![\w-])w-\[${PARTIAL_PERCENT}\]`)),
+    hRatio:
+      has(new RegExp(String.raw`\[height:\s*${PARTIAL_PERCENT}\]`)) || has(new RegExp(String.raw`(?<![\w-])h-\[${PARTIAL_PERCENT}\]`)),
+    // 내용 크기 선언(`w-max` · `w-fit` · `[height:fit-content]`) — 문맥(flex 열의 교차축 등)이 아니라 선언이 내용을 고른다.
+    wHug: has(/(?<![\w-])w-(?:max|fit|min)(?![\w-])/) || has(/\[width:\s*(?:max|min|fit)-content\]/),
+    hHug: has(/(?<![\w-])h-(?:max|fit|min)(?![\w-])/) || has(/\[height:\s*(?:max|min|fit)-content\]/),
     // 숫자 유틸리티(`w-22`)도 선언이다. 이 저장소는 spacing 1단위가 2px이라 w-22 = 44px이다.
-    wFixed: has(/\[width:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bw-\[(?:\d|min\(|calc\(|var\()/) || has(/\bw-\d+\b/),
+    // 분수(`w-1/2`) · 퍼센트는 숫자 유틸리티가 아니다.
+    wFixed:
+      has(new RegExp(String.raw`\[width:\s*${LENGTH}`)) ||
+      has(new RegExp(String.raw`(?<![\w-])w-\[${LENGTH}`)) ||
+      has(/(?<![\w-])w-\d+(?![\w.%/-])/),
     // `[flex:1]`·`flex-1`·`grow`도 부모가 폭을 주는 선언이다 — 모달 버튼이 이렇게 행을
-    // 나눠 갖는데 이걸 몰라 HUG로 판정했고, 버튼이 글자만 감싸는 알약으로 그려졌다.
-    wFill: has(/\bw-full\b/) || has(/\[width:\s*100%\]/) || has(/\[flex:\s*1/) || has(/\bflex-1\b/) || has(/\bgrow\b/),
+    // 나눠 갖는데 이걸 몰라 HUG로 판정했고, 버튼이 글자만 감싸는 알약으로 그려졌다. `grow-0` 은 늘이지 않는다.
+    wFill:
+      has(UTILITY("w-full")) || has(/\[width:\s*100%\]/) || has(/(?<![\w-])w-\[100%\]/) ||
+      has(/\[flex:\s*1/) || has(UTILITY("flex-1")) || has(UTILITY("grow")),
     // `h-[var(--button-height)]`도 고정 선언이다. `var(`를 빠뜨려 공용 버튼이 전부
     // HUG으로 판정됐고 40px 버튼이 글자 높이 21로 그려졌다.
-    hFixed: has(/\[height:\s*(?:\d|min\(|calc\(|var\()/) || has(/\bh-\[(?:\d|min\(|calc\(|var\()/) || has(/\bh-\d+\b/),
-    hFill: has(/\bh-full\b/) || has(/\[height:\s*100%\]/),
+    hFixed:
+      has(new RegExp(String.raw`\[height:\s*${LENGTH}`)) ||
+      has(new RegExp(String.raw`(?<![\w-])h-\[${LENGTH}`)) ||
+      has(/(?<![\w-])h-\d+(?![\w.%/-])/),
+    hFill: has(UTILITY("h-full")) || has(/\[height:\s*100%\]/) || has(/(?<![\w-])h-\[100%\]/),
     maxW: Number((/\[max-width:\s*(\d+(?:\.\d+)?)px\]/.exec(text) || [])[1] || 0),
     minW: Number((/\[min-width:\s*(\d+(?:\.\d+)?)px\]/.exec(text) || [])[1] || 0),
   };
+};
+// 판정 카나리아 — 위 규칙이 무너지면 생성도 검사도 여기서 멈춘다. 왼쪽이 클래스 문자열, 오른쪽이 기대 판정이다.
+// 위 다섯 줄이 감사가 잡은 오판(projectHeader `[width:100%]` · GEO_COUNTRY `min-w-0` · GEO_PCT `min-h-10` ·
+// `max-w-full` · 의사 요소 `before:[height:20%]`)이고, 아래는 지키던 판정이 그대로인지 본다.
+const DECLARATION_CANARIES = [
+  ["[width:100%]", { wFixed: false, wFill: true }],
+  ["min-w-0", { wFixed: false, wFill: false }],
+  ["min-h-10", { hFixed: false, hFill: false }],
+  ["max-w-full", { wFixed: false, wFill: false }],
+  ["before:[height:20%]", { hFixed: false, hFill: false }],
+  ["[@media(max-width:959px)]:w-full", { wFixed: false, wFill: false }],
+  ["grow-0", { wFill: false }],
+  ["w-1/2", { wFixed: false, wFill: false }],
+  ["w-22", { wFixed: true }],
+  ["w-[min(316px,46vw)]", { wFixed: true }],
+  ["[width:32px]", { wFixed: true, wFill: false }],
+  ["h-[var(--button-height)]", { hFixed: true }],
+  ["flex-1", { wFill: true }],
+  ["grow", { wFill: true }],
+  ["h-full", { hFill: true, hFixed: false }],
+  ["h-[30%]", { hRatio: true, hFixed: false, hFill: false }],
+  ["[width:60%]", { wRatio: true, wFixed: false, wFill: false }],
+  ["w-max", { wHug: true, wFixed: false }],
+  ["[height:fit-content]", { hHug: true, hFixed: false }],
+];
+for (const [classes, expected] of DECLARATION_CANARIES) {
+  const got = declFromText(`"${classes}"`);
+  for (const [axis, value] of Object.entries(expected)) {
+    if (got[axis] !== value) {
+      console.error(`[figma-inventory] 선언 판정 카나리아 실패: "${classes}" 의 ${axis} 가 ${got[axis]}(기대 ${value}).`);
+      process.exit(1);
+    }
+  }
+}
+const declarationOf = (file, part) => {
+  const key = file + "|" + part;
+  if (declCache.has(key)) return declCache.get(key);
+  const decl = declFromText(constantBody(file, part, new Set()));
   declCache.set(key, decl);
   return decl;
 };
@@ -242,6 +324,8 @@ const layout = (node, file, specimenId, parentCtx) => {
     .reduce((a, b) => ({
       wFixed: a.wFixed || b.wFixed, wFill: a.wFill || b.wFill,
       hFixed: a.hFixed || b.hFixed, hFill: a.hFill || b.hFill,
+      wRatio: a.wRatio || b.wRatio, hRatio: a.hRatio || b.hRatio,
+      wHug: a.wHug || b.wHug, hHug: a.hHug || b.hHug,
       maxW: a.maxW || b.maxW, minW: a.minW || b.minW,
     }));
   const empty = flow.length === 0 && !node.text;
@@ -314,8 +398,9 @@ const layout = (node, file, specimenId, parentCtx) => {
     //   일반 흐름의 block → 부모 폭을 채운다(FILL).
     //   inline 계열 → 내용이 정한다(HUG).
     // 이 구분을 놓쳐 빈 상태 패널이 372에서 225로 줄고 배지가 반대로 늘어났었다.
-    wx: decl.wFixed ? "FIX"
+    wx: decl.wFixed || decl.wRatio ? "FIX"
       : (decl.wFill || coversParent ? "FILL"
+        : decl.wHug ? "HUG"
         : (empty ? (fillsParentW ? "FILL" : (slotW ? "HUG" : "FIX"))
           : ((parentCtx && parentCtx.flex && parentCtx.row) || (V.display ?? "").startsWith("inline") ? "HUG" : "FILL"))),
     // **왜 그 정책인가.** 선언에서 온 것과 폴백으로 굳은 것을 구분해야 조립할 때 믿을 수 있다.
@@ -323,11 +408,12 @@ const layout = (node, file, specimenId, parentCtx) => {
     //   빈칸   자식도 글자도 없어 hug가 0이 된다 — 실측으로 굳혔을 뿐, 선언이 아니다
     //   주축   flex 행의 자식이라 내용이 정한다
     //   교차축 flex 열/블록이라 부모가 준다
-    wy: decl.wFixed ? "선언" : (decl.wFill ? "선언(채움)" : (coversParent ? "덮음" : (empty ? (fillsParentW ? "부모폭" : (slotW ? "슬롯" : "빈칸")) :
+    wy: decl.wFixed ? "선언" : decl.wRatio ? "선언(비율)" : (decl.wFill ? "선언(채움)" : (coversParent ? "덮음" : decl.wHug ? "선언(내용)" : (empty ? (fillsParentW ? "부모폭" : (slotW ? "슬롯" : "빈칸")) :
       ((parentCtx && parentCtx.flex && parentCtx.row) || (V.display ?? "").startsWith("inline") ? "주축" : "교차축")))),
-    hy: decl.hFixed ? "선언" : (decl.hFill ? "선언(채움)" : (coversParent ? "덮음" : (empty ? (fillsParentH ? "부모높이" : (slotH ? "슬롯" : "빈칸")) : "내용"))),
-    hx: decl.hFixed ? "FIX"
+    hy: decl.hFixed ? "선언" : decl.hRatio ? "선언(비율)" : (decl.hFill ? "선언(채움)" : (coversParent ? "덮음" : decl.hHug ? "선언(내용)" : (empty ? (fillsParentH ? "부모높이" : (slotH ? "슬롯" : "빈칸")) : "내용"))),
+    hx: decl.hFixed || decl.hRatio ? "FIX"
       : (decl.hFill || coversParent ? "FILL"
+        : decl.hHug ? "HUG"
         : (empty ? (fillsParentH ? "FILL" : (slotH ? "HUG" : "FIX")) : "HUG")),
     minW: decl.minW || px(V.minWidth) || 0,
     minH: px(V.minHeight) || 0,
@@ -536,16 +622,20 @@ return {count:created.length,어긋난것:drift.length,drift:drift.slice(0,12),�
 // 계획을 그리기 좋은 최소 형태로 줄인다.
 const zero = (a) => a.every((x) => !x);
 const compact = (n) => {
-  // absolute는 부모 flow 밖이라 FILL이 성립하지 않는다 — 측정 크기로 고정하고 좌표를 갖는다.
+  // absolute는 부모 flow 밖이라 FILL이 성립하지 않는다 — 그 축만 측정 크기로 고정하고 좌표를 갖는다.
+  // 선언 고정 · 내용(HUG) 판정은 그대로 둔다 — 전에는 absolute 면 두 축을 무조건 고정해 내용이 정하는
+  // 배지 · 라벨까지 측정 크기로 굳었다(크기 굳힘 감사 묶음 7).
   // 부모를 그대로 덮는 absolute는 좌표가 아니라 **채움**으로 옮긴다 — 그래야 조립할 때
   // 부모를 늘리면 따라온다. 그 밖의 absolute만 측정 좌표를 갖는다.
   const covers = n.abs && n.wx === "FILL" && n.hx === "FILL";
-  const o = n.abs && !covers
-    ? { p: n.part, w: n.w, h: n.h, wx: "FIX", hx: "FIX", abs: 1, x: n.x, y: n.y }
+  const floating = n.abs && !covers;
+  const o = floating
+    ? { p: n.part, w: n.w, h: n.h, wx: n.wx === "FILL" ? "FIX" : n.wx, hx: n.hx === "FILL" ? "FIX" : n.hx, abs: 1, x: n.x, y: n.y }
     : { p: n.part, w: n.w, h: n.h, wx: n.wx, hx: n.hx };
   if (n.ci) o.ci = n.ci;
   if (n.slot) o.slot = 1;
-  o.wy = n.wy; o.hy = n.hy;
+  o.wy = floating && n.wx === "FILL" ? "절대 배치라 채움 불가 → 실측" : n.wy;
+  o.hy = floating && n.hx === "FILL" ? "절대 배치라 채움 불가 → 실측" : n.hy;
   if (!zero(n.pad)) o.pad = n.pad;
   if (!zero(n.inset)) o.ins = n.inset;
   if (n.gap) o.gap = n.gap;
@@ -564,6 +654,11 @@ const compact = (n) => {
   if (n.minH) o.mh = n.minH;
   if (n.maxW) o.xw = n.maxW;
   if (n.children.length) o.c = n.children.map(compact);
+  // 내용이 정하는(HUG) 부모가 채움(FILL) 자식을 가지면 Figma 에서 채움이 성립하지 않아, 그리기 코드가 그 부모를
+  // 실측 크기로 고정한다. 그 사실을 계획의 사유에도 남긴다 — 판정은 HUG 그대로다(조립할 때 부모 고정만 풀면 된다).
+  const kids = o.c ?? [];
+  if (o.wx === "HUG" && kids.some((k) => k.wx === "FILL")) o.wy += " · 채움 자식 → 그릴 때 실측 고정";
+  if (o.hx === "HUG" && kids.some((k) => k.hx === "FILL")) o.hy += " · 채움 자식 → 그릴 때 실측 고정";
   return o;
 };
 const drawSections = sections.map((s) => ({

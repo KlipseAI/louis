@@ -103,7 +103,7 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
 | Active | `scale(0.975)`. `:has(.louis-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
 | Focus visible | **그리지 않는다**(DS-D-0074). 강제 색에서만 프레임에 `Highlight` 링을 그린다 — 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
-| Renaming | 제목 한 줄이 `<span>`에서 `<input>`으로 바뀐다. 그 입력은 **밑줄 하나**를 갖는다. 상자가 3px 높아지지만 **카드의 다른 값은 움직이지 않는다** — 띠는 `min-block-size: 30%`의 하한이 이기는 구간에 있어(측정 폭 360에서 내용 93 < 띠 107.7) 그 3px를 하한 안에서 흡수하고, 띠 높이·세 줄 폭·여백·간격·헤어라인이 그대로다. Figma `State=Renaming`이 이 상태이며 `Rename`과 그 아래 `Underline`이 그 상자다 ([DS-D-0050](../governance/decisions/DS-D-0050-renaming-is-a-card-state.md) · [DS-D-0051](../governance/decisions/DS-D-0051-rename-underline-is-canonical.md)) |
+| Renaming | 제목 한 줄이 `<span>`에서 `<input>`으로 바뀐다. 그 입력은 **밑줄 하나**를 갖는다. 상자가 3px 높아지지만 **미디어 높이가 약 320 이상인 카드에서는 다른 값이 움직이지 않는다** — 띠는 `min-block-size: 30%`의 하한이 이기는 구간에 있어(측정 폭 360에서 내용 93 < 띠 107.7) 그 3px를 하한 안에서 흡수하고, 띠 높이·세 줄 폭·여백·간격·헤어라인이 그대로다. 그보다 작은 카드(최소 트랙 240, 3~5열 격자의 흔한 폭 약 230~315)에서는 내용(이름 변경 중 96)이 띠를 정하므로 띠가 그 3px만큼 자란다. Figma `State=Renaming`이 이 상태이며 `Rename`과 그 아래 `Underline`이 그 상자다 ([DS-D-0050](../governance/decisions/DS-D-0050-renaming-is-a-card-state.md) · [DS-D-0051](../governance/decisions/DS-D-0051-rename-underline-is-canonical.md)) |
 
 **hover에서 카드 면을 바꾸지 않는다.** 카드의 대부분은 썸네일이고 그 위에 어떤 강조를 얹어도
 이미지에 따라 결과가 달라진다. 제품 네 벌도 hover에서 면을 바꾸지 않는다.
@@ -114,8 +114,8 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 - 세 줄은 모두 한 줄로 잘린다. 카드 폭은 격자가 정하므로 줄바꿈을 허용하면 카드마다 높이가 다르다.
 - 오버레이 높이는 px이 아니라 **미디어 높이의 30%를 하한으로** 갖는다
   (`block-size: fit-content; min-block-size: 30%`). 큰 카드에서는 30%가 이기고, 세 줄과 여백의 합이
-  그보다 커지는 작은 카드에서는 내용이 이긴다. 경계는 미디어 높이 약 310px이며 격자의 최소 트랙
-  240px은 그 아래다.
+  그보다 커지는 작은 카드에서는 내용이 이긴다. 경계는 미디어 높이 약 310px(이름 변경 중에는 내용 96이라 약 320px)이며
+  격자의 최소 트랙 240px은 그 아래다.
 
   처음 구현은 `block-size: 30%`만 두었다. 절대 위치 박스의 확정 크기라 내용이 커져도 자라지 않고
   **글자가 띠 위로 넘쳤다** — 240px에서 띠 71.4px에 내용 92.8px이라 eyebrow가 흐림이 0인 구간에

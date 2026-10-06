@@ -482,11 +482,17 @@ Dialog(790) · BannerCarousel(840) 같은 큰 것이 들어가면 다음 것을 
   계약도 같다 — 계산된 크기를 두 기록에 사본으로 두지 않는다. AppTopBar 의 두 슬롯은 높이를 선언하지 않고 담은 것을
   hug 하므로 `verify-figma-parity` 계약이 후행 높이를 ProgressRing 기록에서, 선행 높이를 IconButton 기록에서 `from`
   으로 읽는다(2026-09-14 — 사본 `trailingSlotHeight` 가 ProgressRing 기록이 옮긴 뒤에도 옛 수로 남아 있었고, 같은
-  꼴의 `leadingSlotHeight` 도 함께 걷었다). 「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸(사이드바 CTA · 툴팁 ·
-  알림)은 아직 남아 있다 — 계약이 hug 를 표현하지 못하는 동안은 Figma 와 같은 변경 단위에서 최소값이나 조건 키로
-  옮긴다. 사이드바 CTA 는 기록 칸이 이미 최소값(40)이지만 Figma variant 가 그 수로 높이를 FIXED 로 두고 라벨을
-  잘라 넣어, 줄 높이가 최소를 넘기는 코드 · 제품과 갈린다([App Shell Parts](../components/app-shell-parts.md)
-  Known deviations).
+  꼴의 `leadingSlotHeight` 도 함께 걷었다).
+- **기록 칸이 CSS `min-*` 이면 Figma 는 HUG + 최소값이고, 계약은 하한으로 대조한다.** `verify-figma-parity` 의
+  `{ atLeast: <기록 키> }` 가 「Figma 값 ≥ 기록」을 본다(2026-10-06). 사이드바 CTA 펼침이 첫 사례다 — 기록 `height` 40 은
+  측정기가 `min-height` 를 읽은 값인데 Figma 가 그 수로 높이를 FIXED 에 두고 라벨을 잘라 넣어 같은 수로 맞고 있었다. 지금은
+  HUG + 최소 40 으로 서서 제품과 같은 실효 높이 41 이 된다([App Shell Parts](../components/app-shell-parts.md) Known deviations).
+  「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸은 툴팁 base 와 알림이 남아 있다 — 툴팁 base 는 헤어라인이 레이아웃 밖
+  INSIDE 획인데 패딩에 0.5 를 더해 두어, 아래 「border 가 없는데 padding 에 border 를 더하지 마라」를 먼저 풀어야 HUG 로 풀린다.
+- **오토레이아웃 없는(NONE) 루트 안에 겹쳐 놓인 층은 constraints 를 측정 자리대로 건다.** 기본값 MIN/MIN 은 루트를 키우면
+  층이 왼쪽 위에 남는다. 덮개(영상 · 스크림 · 격자)는 STRETCH/STRETCH, 아래 크롬은 STRETCH/MAX, 가운데 내용은 CENTER, 모서리 ·
+  변 손잡이는 자기 모서리 · 변(MIN · CENTER · MAX)이다. 정사각처럼 비율이 계약인 프레임은 `lockAspectRatio()` 로 비율을
+  고정한다(2026-10-06 — BannerCarousel · VideoPlayer · TransformFrame · StepTile, 크기 굳힘 감사 묶음 9).
 
 ## 9. 작업 순서 — 부품 먼저, 조립은 그다음
 

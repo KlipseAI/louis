@@ -25,6 +25,21 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-06 (196) — 크기 굳힘 감사 묶음 9: 겹침 층의 constraints 와 비율 — 루트를 키우면 층이 제자리를 따라온다
+
+- **constraints.** 오토레이아웃 없는 루트 안에 겹쳐 놓인 층이 기본값(MIN/MIN)이라, 인스턴스를 키우면 왼쪽 위에 남았다. 측정 자리대로
+  걸었다 — `BannerCarousel` 내용 CENTER/STRETCH · 컨트롤 CENTER/MAX, `VideoPlayer` 영상 · 스크림 · 가운데 크롬 STRETCH/STRETCH · 아래
+  크롬 STRETCH/MAX, `TransformFrame` 격자 STRETCH/STRETCH · 손잡이 여덟은 자기 모서리 · 변. 지금 크기에서는 기하가 그대로라 parity 에
+  영향이 없고, 임시 인스턴스를 키워(480×270 · 300×200 · 1200×400) 층이 따라오는 것을 확인한 뒤 지웠다.
+- **비율.** `StepTile` 의 타일에 1:1 비율을 고정했다 — 인스턴스를 칸 폭에 맞추면 높이가 정사각으로 따라온다. 표본 폭 462.7 은 그대로다.
+- **문서.** [Project Card](../components/project-card.md) 의 「이름 변경 중에도 카드의 다른 값은 움직이지 않는다」에 조건(미디어 높이 약
+  320 이상)을 달았다 — 최소 트랙 240 과 흔한 격자 폭 약 230 ~ 315 에서는 내용(이름 변경 중 96)이 띠를 정해 3px 만큼 자란다.
+  DS-D-0051 의 같은 문장도 맞췄다. [Step Tile](../components/step-tile.md) 에 비율 고정을 적었다.
+- **규칙.** [Figma Component Authoring](../governance/figma-component-authoring.md) §8 에 둘을 더했다 — 겹침 층의 constraints,
+  기록이 CSS `min-*` 인 축은 HUG + 최소값 · 계약은 하한(`{ atLeast }`, (195)).
+- **남긴 것.** `ProjectCard` 제목 띠의 Figma 높이(108 고정) — 제품은 `[height:30%]`, LOUIS 레시피는 `fit-content` + 최소 30% 라 Figma 의
+  기준을 먼저 정해야 한다.
+
 ## 2026-10-06 (195) — 크기 굳힘 감사 묶음 8 · 10(나머지): DS 세트 열한 개의 hug 축을 풀고, 규범 문서 열한 개의 계산값을 규칙으로
 
 - **묶음 8 — Figma `DS · Components`.** 제품 · LOUIS CSS 가 크기를 선언하지 않는 축을 숫자로 굳힌 세트를 내용 크기(HUG)로 풀었다.

@@ -153,7 +153,7 @@ emitter 는 `typeof node.strokeWeight === "number"` 인 노드만 담으므로
   `renameUnderlineWidth: 1` · `renameUnderlineGap: 2`.
 - 토큰이 셋 늘어난다(`color-stroke-underline` 라이트·다크, `space-underline-gap`).
   `pnpm check-token-diff` 판정은 **additive 3 · breaking 0** 이다.
-- 이름변경 상자의 높이가 3px 는다(여백 2 + 선 1). **카드의 다른 값은 움직이지 않는다** —
+- 이름변경 상자의 높이가 3px 는다(여백 2 + 선 1). **미디어 높이가 약 320 이상이면 카드의 다른 값은 움직이지 않는다** —
   제목 띠는 `min-block-size: 30%` 의 하한이 이기는 구간에 있어(측정 폭 360 에서 내용 93 < 띠
   107.7) 3px 가 하한 안에서 흡수된다. DS-D-0050 이 「기하가 움직이지 않았다」로 확인한 자리가
   이번에도 같은 이유로 유지된다.

@@ -102,7 +102,7 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 | Default | 헤어라인 inset, 변형 없음 |
 | Hover | 카드 자신은 바뀌지 않는다. 슬롯 안의 컨트롤이 드러난다 |
 | Active | `scale(0.975)`. `:has(.louis-project-card-action:active)`로 **클릭 타깃만** 본다 — 프레임에 직접 걸면 슬롯의 버튼을 눌러도 카드가 줄어든다 |
-| Focus visible | 링은 프레임에 그린다. 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
+| Focus visible | **그리지 않는다**(DS-D-0074). 강제 색에서만 프레임에 `Highlight` 링을 그린다 — 투명한 클릭 타깃에만 링이 뜨면 무엇이 선택됐는지 모른다 |
 | Renaming | 제목 한 줄이 `<span>`에서 `<input>`으로 바뀐다. 그 입력은 **밑줄 하나**를 갖는다. 상자가 3px 높아지지만 **카드의 다른 값은 움직이지 않는다** — 띠는 `min-block-size: 30%`의 하한이 이기는 구간에 있어(측정 폭 360에서 내용 93 < 띠 107.7) 그 3px를 하한 안에서 흡수하고, 띠 높이·세 줄 폭·여백·간격·헤어라인이 그대로다. Figma `State=Renaming`이 이 상태이며 `Rename`과 그 아래 `Underline`이 그 상자다 ([DS-D-0050](../governance/decisions/DS-D-0050-renaming-is-a-card-state.md) · [DS-D-0051](../governance/decisions/DS-D-0051-rename-underline-is-canonical.md)) |
 
 **hover에서 카드 면을 바꾸지 않는다.** 카드의 대부분은 썸네일이고 그 위에 어떤 강조를 얹어도

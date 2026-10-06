@@ -136,7 +136,7 @@ Button은 토글이 아니므로 `pressed`(`aria-pressed`)를 갖지 않는다 �
 | Hover         | hover에서만 기능을 드러내지 않음                       |
 | Active        | 누르고 있는 동안의 feedback. reduced-motion에서 scale 이동 제거 |
 | Disabled      | 실행되지 않으며 이유가 필요하면 인접 설명 제공         |
-| Focus-visible | 배경과 테마에 관계없이 2px 이상 명확한 indicator       |
+| Focus-visible | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 | Loading       | label 의미 유지, 중복 실행 차단, `aria-busy=true`      |
 
 ### 「복사됨」은 상태가 아니다 (2026-09-06 판정)

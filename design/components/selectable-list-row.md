@@ -90,7 +90,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Hover | 면 `color-accent-ghost-hover`, 전경 `color-fg-primary` |
 | Selected | 면 `color-bg-inset`, 전경 `color-fg-primary`. 선행 표식은 없다 |
 | Disabled | 전경 `color-fg-disabled`, hover가 면을 칠하지 않는다 |
-| Focus | 행이 공유 링을 받는다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 
 **선택된 행에서도 보조 문구는 `color-fg-secondary`로 남는다.** 둘 다 primary가 되면
 제목과 보조의 위계가 사라진다.

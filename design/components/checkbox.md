@@ -123,7 +123,7 @@ variant 축이 없다. 체크박스는 강조 단계를 갖지 않는다.
 | Checked | 면 `color-accent-primary`이 채운다, 체크 표시 `color-fg-inverse` — 헤어라인은 남지만 상태는 면이 전달한다 |
 | Indeterminate | 면 `color-accent-primary`이 채운다, **가로 막대** `color-fg-inverse` — Checked와 같은 판단이다 |
 | Disabled | 면 `color-bg-inset`, generic 헤어라인 유지, 표시 `color-fg-disabled` — 상태는 면·전경이 전달한다 |
-| Focus | 컨트롤이 공유 링을 받는다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 
 **Indeterminate가 Checked를 이긴다.** 네이티브에서 두 상태는 동시에 참일 수 있고, 그때 화면은
 "일부"를 보여야 한다 — 부분 선택은 선택이 아니다. 두 규칙이 소스 순서로 갈리므로 CSS가 그 승패를

@@ -665,6 +665,8 @@ style이다.
   `Glyph` 로 불렀으며, 워드마크 틀은 96 이다. 접힌 CTA 는 제품처럼 32×32 에 라벨을 12 로 자른다.
   Focus variant 의 링(획 2)은 프레임 밖에 서는 것이 의도라서 명세에 `outsideParts: ["FocusRing"]` 를,
   parity 계약에 `extraStrokeWeights: [2]` 를 적었다. 손으로 남긴 값은 이제 없다.
+  **2026-10-06 Focus 변형 둘을 걷었다**(DS-D-0074) — 링을 그리지 않으므로 Focus 가 Default 와 같다.
+  `outsideParts` 와 `extraStrokeWeights` 도 함께 비웠고 세트는 6 variant 다.
 
 ## Acceptance tests
 

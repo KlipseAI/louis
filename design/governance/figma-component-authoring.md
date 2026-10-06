@@ -593,8 +593,8 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 면이나 글자가 바뀌는 컴포넌트(TextField 의 라벨 색처럼)만 그 변화를 `Focus` 로 그린다.
 
 옛 규칙 — 링을 **요소보다 각 변 2px 큰 사각형의 2px OUTSIDE stroke**(`FocusRing` 자손)로 그리던 것 — 으로
-선 변형이 아직 라이브에 남아 있다(TextField · SegmentedControlItem · Slider · SidebarCta). 그것을 걷는 일은
-DS-D-0074 의 Figma 단계다.
+선 변형 열아홉(TextField 7 · Slider 6 · SegmentedControlItem 4 · SidebarCta 2)은 2026-10-06 에 걷었다. 그 변형을
+쓰는 인스턴스는 파일 전체에서 0 이었다.
 
 ## 기록 — Linear 의 `_` 접두사 관행 (도입하지 않았다)
 

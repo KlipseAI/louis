@@ -17151,7 +17151,7 @@
       }
     },
     "SegmentedControlItem": {
-      "variantCount": 24,
+      "variantCount": 20,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -17172,18 +17172,17 @@
             "Default",
             "Hover",
             "Selected",
-            "Focus",
             "Disabled",
             "SelectedDisabled"
           ]
         }
       },
       "binding": {
-        "boundFills": 32,
+        "boundFills": 28,
         "rawFills": 0,
-        "boundStrokes": 4,
+        "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 24,
+        "textStyled": 20,
         "textUnstyled": 0
       },
       "geometry": {
@@ -17199,14 +17198,6 @@
               ],
               "fontSize": [
                 14
-              ]
-            },
-            "FocusRing": {
-              "width": [
-                64
-              ],
-              "height": [
-                36
               ]
             }
           },
@@ -17237,12 +17228,8 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "md": {
@@ -17257,14 +17244,6 @@
               ],
               "fontSize": [
                 12
-              ]
-            },
-            "FocusRing": {
-              "width": [
-                64
-              ],
-              "height": [
-                28
               ]
             }
           },
@@ -17295,12 +17274,8 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "xs": {
@@ -17316,14 +17291,6 @@
               "fontSize": [
                 12
               ]
-            },
-            "FocusRing": {
-              "width": [
-                64
-              ],
-              "height": [
-                32
-              ]
             }
           },
           "height": [
@@ -17353,12 +17320,8 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "settings": {
@@ -17374,14 +17337,6 @@
               "fontSize": [
                 14
               ]
-            },
-            "FocusRing": {
-              "width": [
-                64
-              ],
-              "height": [
-                32
-              ]
             }
           },
           "height": [
@@ -17411,24 +17366,13 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         }
       },
-      "strokes": {
-        "FocusRing": [
-          "2|OUTSIDE"
-        ]
-      },
-      "effects": {},
-      "outsideParts": [
-        "FocusRing"
-      ]
+      "strokes": {},
+      "effects": {}
     },
     "SelectTrigger": {
       "variantCount": 8,
@@ -17824,7 +17768,7 @@
       "effects": {}
     },
     "SidebarCta": {
-      "variantCount": 8,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "Collapsed": {
@@ -17838,18 +17782,17 @@
           "type": "VARIANT",
           "options": [
             "Hover",
-            "Focus",
             "Current",
             "Default"
           ]
         }
       },
       "binding": {
-        "boundFills": 16,
+        "boundFills": 12,
         "rawFills": 0,
-        "boundStrokes": 2,
+        "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 8,
+        "textStyled": 6,
         "textUnstyled": 0
       },
       "geometry": {
@@ -17889,12 +17832,8 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "true": {
@@ -17933,12 +17872,8 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         }
       },
@@ -17947,10 +17882,7 @@
         "self": [
           "INNER_SHADOW:0:0:1 + DROP_SHADOW:1:2:0"
         ]
-      },
-      "outsideParts": [
-        "FocusRing"
-      ]
+      }
     },
     "SidebarNavItem": {
       "variantCount": 6,
@@ -18279,7 +18211,7 @@
       "effects": {}
     },
     "Slider": {
-      "variantCount": 18,
+      "variantCount": 12,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -18306,18 +18238,17 @@
         "State": {
           "type": "VARIANT",
           "options": [
-            "Focus",
             "Disabled",
             "Default"
           ]
         }
       },
       "binding": {
-        "boundFills": 72,
+        "boundFills": 48,
         "rawFills": 0,
-        "boundStrokes": 15,
+        "boundStrokes": 6,
         "rawStrokes": 0,
-        "textStyled": 18,
+        "textStyled": 12,
         "textUnstyled": 0
       },
       "geometry": {
@@ -18401,9 +18332,7 @@
           "strokeWeight": [
             2
           ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "lg/track": {
@@ -18483,12 +18412,8 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "md/thumb": {
@@ -18571,9 +18496,7 @@
           "strokeWeight": [
             2
           ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "md/track": {
@@ -18653,12 +18576,8 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "sm/thumb": {
@@ -18741,9 +18660,7 @@
           "strokeWeight": [
             2
           ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "overflowingParts": [],
           "offCenterMarks": []
         },
         "sm/track": {
@@ -18823,12 +18740,8 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [
-            2
-          ],
-          "overflowingParts": [
-            "FocusRing"
-          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
           "offCenterMarks": []
         }
       },
@@ -18837,10 +18750,7 @@
           "2|INSIDE"
         ]
       },
-      "effects": {},
-      "outsideParts": [
-        "FocusRing"
-      ]
+      "effects": {}
     },
     "Spinner": {
       "variantCount": 2,
@@ -20092,7 +20002,7 @@
       "effects": {}
     },
     "TextField": {
-      "variantCount": 29,
+      "variantCount": 22,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -20134,7 +20044,6 @@
           "type": "VARIANT",
           "options": [
             "Default",
-            "Focus",
             "Invalid",
             "Disabled",
             "Placeholder"
@@ -20158,11 +20067,11 @@
         }
       },
       "binding": {
-        "boundFills": 116,
+        "boundFills": 88,
         "rawFills": 0,
-        "boundStrokes": 36,
+        "boundStrokes": 22,
         "rawStrokes": 0,
-        "textStyled": 87,
+        "textStyled": 66,
         "textUnstyled": 0
       },
       "geometry": {
@@ -20272,8 +20181,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20384,8 +20292,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20496,8 +20403,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20610,8 +20516,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20724,8 +20629,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20838,8 +20742,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -20952,8 +20855,7 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5,
-            2
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []

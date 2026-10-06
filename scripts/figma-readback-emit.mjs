@@ -69,8 +69,9 @@
 //     effect 로 옮겼다. `IconButton` 은 같은 CSS(`border:0` + inset box-shadow)를 stroke 0.5|INSIDE
 //     로 그리고 있어 **규범과 어긋난 채 초록이다** — 기법을 맞추는 것은 소유자 판정으로 남긴다.
 //   · `Slider` — `variantCount:12` 와 `binding` 3분의 1은 그 뒤 되읽기가 갱신되며 해소됐다(18변형).
-//     `outsideParts:["FocusRing"]` 이 이 명세에 없어 다시 뜨면 사라지던 것은 2026-09-01 에 명세에
-//     적어 닫았다 — 포커스 링은 `outline-offset: 2` 라 각 변 2px 밖에 서는 것이 계약이다.
+//     `outsideParts:["FocusRing"]` 은 2026-10-06 에 명세에서 다시 뺐다 — DS-D-0074 로 포커스 링을
+//     그리지 않게 되어 Focus 변형과 그 링이 Figma 에서 없어졌다(12변형). SegmentedControlItem ·
+//     SidebarCta 의 FocusRing 도 같은 날 빠졌다.
 //   · `MenuPanel` — **값은 같고 형태만 다르다(2026-08-30 확인).** `CompositePopover` 를 등재하며
 //     같은 명세로 MenuPanel 을 다시 떠 대조했더니 기하·바인딩·effect 가 전부 일치하고 빈
 //     `parts: {}` 키의 유무만 달랐다. 되읽기 기하 블록 101개 중 10개가 그 키를 생략하고 2개가 빈
@@ -246,7 +247,7 @@ const CAPTURE = {
   // 한 변형에만 있으므로 값 배열은 길이 1 이다.
   "ProjectCard": {"key":{"name":"base"},"parts":{"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"],"Rename":["cornerRadius","itemSpacing"],"Underline":["height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
-  "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"],"FocusRing":["width","height"]},"strokes":["FocusRing"],"outsideParts":["FocusRing"]},
+  "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"]}},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},
   // **폭·높이를 담지 않는다.** 이 컴포넌트의 프레임 치수는 데모 문구의 길이가 정하므로,
   // 담으면 시안의 예시 글을 한 글자 고칠 때마다 되읽기가 흔들리는데 대조하는 계약은 없다.
@@ -263,7 +264,7 @@ const CAPTURE = {
   // 정했고(figma-component-authoring.md, DS-D-0023) 여덟 변형이 전부 그것을 갖는다.
   "SelectTrigger": {"key":{"by":["Size"]},"parts":{"Glyph":["width","height"],"Caret":["width","height"]},"effects":["self"]},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
-  "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"],"outsideParts":["FocusRing"]},
+  "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},
   // **Collapsed 축으로 가른다.** 한 바구니에 담으면 펼침(좌 8)과 접힘(좌 0)이 섞여
   // `paddingInline: [8, 0]` 이 되고, parity 는 「variant 마다 다르다」로 죽는다.
   // 원장이 이미 `navItem` · `navItemCollapsed` 로 갈라져 있으므로 `map` 으로 그 이름에 맞춘다
@@ -271,7 +272,7 @@ const CAPTURE = {
   "SidebarNavItem": {"key":{"by":["Collapsed"],"map":{"false":"navItem","true":"navItemCollapsed"}},"parts":{"Icon":["width","height"]}},
   "SidebarNavRow": {"key":{"name":"navRow"},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","itemSpacing","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd"],"parts":{"Item":["height"],"Action":["width","height"]},"childOrder":true},
   "Skeleton": {"key":{"by":["Shape"]}},
-  "Slider": {"key":{"by":["Size","Variant"]},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Control":["width","height"],"Rail":["width","height"],"Fill":["width","height"],"Thumb":["width","height"]},"strokes":["Thumb"],"outsideParts":["FocusRing"]},
+  "Slider": {"key":{"by":["Size","Variant"]},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Control":["width","height"],"Rail":["width","height"],"Fill":["width","height"],"Thumb":["width","height"]},"strokes":["Thumb"]},
   "Spinner": {"key":{"by":["Size"]},"fields":["width","height","strokeWeight"],"parts":{"Track":["width","height"],"Arc":["width","height"]}},
   // 높이·폭을 담지 않는다. 폭은 격자 트랙이 정하고(StepTile 과 같은 판정) 높이는 힌트와
   // 알약의 유무가 정하므로, 담으면 `Delta=none` 변형 때문에 배열이 길어져 「변형마다 다르다」로

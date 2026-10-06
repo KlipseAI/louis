@@ -19,7 +19,7 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 | Surface       | 상태           | 근거                                                                                 |
 | ------------- | -------------- | ------------------------------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 19건이 두 motion context에서 각각 돈다(`sm`이 크기별 3건을 더했다); visual regression, Figma component와 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(Size·Variant·State). DS-D-0032 의 `sm` 이 Figma 에도 서서 코드 축과 같아졌다. 복합 키 `{size}/{variant}` 로 그룹을 나눠 variant별 기하를 각각 대조하고 raw fill·stroke 0 이다. 기하는 양방향이다 — `slider.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(Size·Variant·State, 12 variant — 2026-10-06 Focus 여섯을 걷었다, DS-D-0074). DS-D-0032 의 `sm` 이 Figma 에도 서서 코드 축과 같아졌다. 복합 키 `{size}/{variant}` 로 그룹을 나눠 variant별 기하를 각각 대조하고 raw fill·stroke 0 이다. 기하는 양방향이다 — `slider.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                                              |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                                           |
 
@@ -90,7 +90,7 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 | --- | --- |
 | Default | 채움 `color-accent-primary`, 빈 레일 `color-stroke-default`, 썸 `color-accent-primary` + 표면색 링 |
 | Hover | **바뀌지 않는다** |
-| Focus | 컨트롤 전체가 공유 링을 받는다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 | Disabled | 레일 전체 `color-stroke-subtle`, 썸 `color-fg-disabled`, `cursor: not-allowed` |
 
 **hover에서 아무것도 바꾸지 않는다.** 제품의 두 레시피는 썸을 1.15배로 키우는데, 커서가 이미

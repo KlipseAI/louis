@@ -90,7 +90,7 @@ DropZone)은 opt-in 클래스 `louis-focus-ring` 을 붙였다.
 - 브라우저 테스트가 뒤집혔다 — 「키보드에서만 링이 선다」가 「키보드에도 링이 없다, 강제 색에서만 선다」로.
   강제 색은 CDP `Emulation.setEmulatedMedia` 로 실제 미디어 쿼리를 켜서 잰다.
 - `figma/components.measured.json` 의 TextField 프레임 폭 328(링 4px 여백)과 결합 칸의 `ringOffset` −3 은
-  강제 색 링의 자리로 남는다.
+  강제 색 링의 자리로 남는다. Figma 의 TextField 변형도 328 폭을 그대로 갖는다.
 - 제품은 LOUIS 핀이 이 커밋에 닿기 전까지 LOUIS 가 그리는 링(text-field 상자 · checkbox 등)을 그대로
   보인다. 제품이 자기 손으로 그리던 링은 제품 저장소의 같은 결정 커밋이 지운다.
 
@@ -99,9 +99,12 @@ DropZone)은 opt-in 클래스 `louis-focus-ring` 을 붙였다.
 1. CSS · React · 토큰 · 문서를 같은 변경 단위로 옮기고 생성물은 `pnpm build` 로만 만든다.
 2. `pnpm check` · `pnpm verify` · `pnpm test` 가 초록이어야 한다. 브라우저 테스트가 light · dark 의
    `outline-style: none` 과 강제 색의 `Highlight` 링을 잰다.
-3. **Figma.** 링을 그리는 Focus 변형(TextField · SegmentedControlItem · Slider · SidebarCta)과
-   effect style `elevation/focus-ring` 은 이 커밋에서 옮기지 않았다. 라이브 적용과 되읽기 병합은 Updates
-   (191) 이 남은 일로 적는다.
+3. **Figma(2026-10-06 적용).** 링을 바깥 stroke 로 그리던 Focus 변형 열아홉을 걷었다 — TextField 7 ·
+   Slider 6 · SegmentedControlItem 4 · SidebarCta 2. 그 변형을 쓰는 인스턴스는 파일 전체 열세 페이지에서 0 이었다.
+   채취 명세(`figma-readback-emit.mjs`)와 parity 계약에서 FocusRing · Focus 옵션 · 두께 2 를 빼고, 네 세트를
+   emitter 로 다시 떠 병합한 뒤 `verify-figma-parity` 가 초록이다. SegmentedCodeInput 의 Focus 는 링이 아니라
+   제품의 테두리 색과 면이라 그대로 둔다. effect style `elevation/focus-ring` 은 토큰과 함께 deprecated 로 남는다
+   (Deprecations 의 제거 조건을 따른다).
 
 ## Rollback
 

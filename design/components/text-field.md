@@ -20,7 +20,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ------------------------------------------------------------ |
 | Web           | `partial`      | public export와 실브라우저 acceptance test 8건; visual regression과 제품 소비 증거 없음 |
-| Figma         | `done`      | component set(Size·State·LabelBehavior·Join, 29 variant). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(Size·State·LabelBehavior·Join, 22 variant — 2026-10-06 Focus 일곱을 걷었다, DS-D-0074). 계약이 모든 property 를 pin 하고 Box·Label·Value·Message 를 자손으로 대조한다. 기하는 양방향이다 — `text-field.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                      |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                   |
 
@@ -121,7 +121,7 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 | --- | --- |
 | Default | generic 헤어라인(inset, `color-stroke-hairline`) |
 | Hover | **바뀌지 않는다** |
-| Focus | 박스가 `:focus-within`으로 공유 링을 받는다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 박스가 `:focus-within`으로 `Highlight` 링을 받는다 |
 | Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
 | Disabled | generic 헤어라인 유지, 전경 `color-fg-disabled`이 상태를 전달한다 |
 
@@ -338,8 +338,9 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
 
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
   [`product.measured.json`](../../migration/product.measured.json)의 `text-field`에 있다.
-- **Figma의 Focus는 아직 링을 stroke로 그린다.** 코드는 DS-D-0074 로 링을 걷었지만 Figma 의
-  Focus 변형은 그 결정의 Figma 단계가 남아 있다(결정 문서 Rollout 참조).
+- **Figma 에 Focus 변형이 없다(2026-10-06).** 포커스 링을 그리지 않으므로(DS-D-0074) Focus 는
+  Default 와 같고, 링을 바깥 stroke 로 그리던 일곱 변형을 걷었다. 프레임 폭 328(박스 320 + 좌우 4)은
+  그대로 둔다 — 강제 색 링의 자리이고, 줄이면 형제 칸 격자와 계약 `frameWidth` 가 함께 움직인다.
 - **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(캔버스 프롬프트 계열). 같은
   박스 구조로 확장할 수 있으나 이번 범위가 아니다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로

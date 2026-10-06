@@ -1509,9 +1509,9 @@ const COMPONENT_CONTRACTS = [
   {
     id: "segmented-control-item",
     figmaName: "SegmentedControlItem",
-    // 포커스 링은 CSS 에서 outline 이고 Figma 에 outline 이 없어 **바깥으로 나가는 stroke** 로
-    // 그린다. 그래서 링이 세그먼트 바깥으로 넘치는 것이 정상이다.
-    strokes: { FocusRing: { weight: 2, align: "OUTSIDE" } },
+    // 포커스 링은 그리지 않는다(DS-D-0074, 2026-10-06). Focus 변형과 그 바깥 stroke(FocusRing)가
+    // Figma 에서 없어졌으므로 이 세트에는 stroke 역할이 없다.
+    strokes: {},
     effects: {},
     figmaAhead: "세그먼트 하나를 Figma 에서 별도 set 으로 뽑았다 — 상호작용과 프로토타입을 받는 단위다. 코드에서는 SegmentedControl 안의 label 이라 독립 선언이 없다.",
     variantProperties: {},
@@ -1551,21 +1551,9 @@ const COMPONENT_CONTRACTS = [
         // 라벨 **폭은 담지 않는다** — 글꼴 렌더링에 달려 있어 브라우저와 Figma 가 원래 다르다
         // (`components.measured.json` 의 `$whyNotTextWidth` 와 같은 이유).
         Label: { fields: { height: "lineHeight", fontSize: "fontSize" } },
-        // 포커스 링은 **선언만 한다.** 계약이 선언하지 않은 자손이 snapshot 에 있으면 실패이므로
-        // 자리는 있어야 하는데, 링 상자는 세그먼트 + `outline-offset` × 2 라 measured 에 그 합을
-        // 담은 값이 없고 fields 규칙은 상수를 더하지 못한다. 링의 계약은 위 `strokes` 가
-        // 두께 2 · OUTSIDE 로 이미 잡는다.
-        FocusRing: { fields: {} },
       },
-      // 포커스 링의 2px. **테두리가 아니다** — CSS 에서는 outline 이고 Figma 에 outline 이 없어
-      // 바깥으로 나가는 stroke 로 그린다. TextField 가 같은 자리에 같은 값을 갖는다.
-      //
-      // **2026-09-03 에 드러났다.** 이 줄이 비어 있어도 초록이었던 이유는 되읽기 쪽이었다 —
-      // Item 의 되읽기 항목은 `figma-readback-emit.mjs` 가 생기기 전에 뜬 것이라 `strokeWeight`
-      // 가 빈 배열이었고(그 스크립트 머리말의 「알려진 어긋남」이 말하는 것이 이 종류다),
-      // 게이트는 없는 두께를 성실히 통과시켰다. `settings` 를 세우며 emitter 로 다시 뜨자
-      // lg·md 까지 함께 걸렸다 — **새 칸이 만든 실패가 아니라 새 칸이 드러낸 실패다.**
-      extraStrokeWeights: [2],
+      // 포커스 링의 2px 를 여기 적어 두던 자리다. DS-D-0074 로 링이 없어져 두께도 없다.
+      extraStrokeWeights: [],
     },
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "세그먼트 라벨." },
@@ -1576,8 +1564,8 @@ const COMPONENT_CONTRACTS = [
           "Figma Item 에만 없는 부채이고, 위 geometry 주석이 그 사연을 갖는다.",
       },
       State: {
-        options: ["Default", "Hover", "Selected", "Focus", "Disabled", "SelectedDisabled"],
-        reason: "segmented-control.css:124·130·136·158·163. hover 는 글자색만, selected 는 면+글자, focus 는 outline, disabled 는 글자만 흐리게.",
+        options: ["Default", "Hover", "Selected", "Disabled", "SelectedDisabled"],
+        reason: "segmented-control.css. hover 는 글자색만, selected 는 면+글자, disabled 는 글자만 흐리게. Focus 는 없다 — 포커스 링을 그리지 않아 Default 와 같다(DS-D-0074).",
       },
     },
   },
@@ -1714,9 +1702,9 @@ const COMPONENT_CONTRACTS = [
       HasMessage: { type: "BOOLEAN", reason: "도움말·오류 문구의 유무. 있고 없고에 따라 아래 여백이 달라진다." },
       Value: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
-        options: ["Default", "Focus", "Invalid", "Disabled", "Placeholder"],
+        options: ["Default", "Invalid", "Disabled", "Placeholder"],
         reason:
-          "Focus는 코드에서 CSS 상태(:focus-within)이고 Invalid/Disabled는 boolean prop이다. Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다. Placeholder는 값이 비어 있는 쉼 상태다 — 코드에서는 :placeholder-shown 이라 prop이 아니고, 디자이너가 「빈 필드」를 그리려면 Figma에 자리가 있어야 한다.",
+          "Invalid/Disabled는 boolean prop이다. Focus 는 없다 — 포커스 링을 그리지 않아 Default 와 같다(DS-D-0074). Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다. Placeholder는 값이 비어 있는 쉼 상태다 — 코드에서는 :placeholder-shown 이라 prop이 아니고, 디자이너가 「빈 필드」를 그리려면 Figma에 자리가 있어야 한다.",
       },
     },
     // 보이는 테두리는 Box가 갖는다. root(component set)에는 stroke가 없다.
@@ -1741,9 +1729,8 @@ const COMPONENT_CONTRACTS = [
         width: "frameWidth",
       },
       slots: {},
-      // Focus 링의 2px. **테두리가 아니다** — CSS에서는 outline이고 Figma에 outline이 없어
-      // 바깥으로 나가는 stroke로 그린다. 값은 border-width-ring과 같다.
-      extraStrokeWeights: [2],
+      // Focus 링의 2px 를 적어 두던 자리다. DS-D-0074 로 Focus 변형과 링이 없어졌다.
+      extraStrokeWeights: [],
       parts: {
         Box: {
           fields: {
@@ -2007,9 +1994,9 @@ const COMPONENT_CONTRACTS = [
     figmaOnlyProperties: {
       HasLabel: { type: "BOOLEAN", reason: "라벨 없는 슬라이더가 실재한다 — 인스펙터의 조밀한 속성 행이 그것이다." },
       State: {
-        options: ["Focus", "Disabled", "Default"],
+        options: ["Disabled", "Default"],
         reason:
-          "Focus는 CSS 상태(:focus-visible)이고 Disabled는 prop이다. Hover 축은 없다 — 트랙은 hover에서 바뀌지 않는다.",
+          "Disabled는 prop이다. Hover 축은 없다 — 트랙은 hover에서 바뀌지 않는다. Focus 는 없다 — 포커스 링을 그리지 않아 Default 와 같다(DS-D-0074).",
       },
     },
     id: "slider",
@@ -2270,9 +2257,9 @@ const COMPONENT_CONTRACTS = [
     variantProperties: {},
     figmaOnlyProperties: {
       State: {
-        options: ["Hover", "Focus", "Current", "Default"],
+        options: ["Hover", "Current", "Default"],
         reason:
-          "CSS 상태(hover·focus)와 현재 위치(current)를 한 축에 합쳤다. Figma에는 CSS 상태가 없다.",
+          "CSS 상태(hover)와 현재 위치(current)를 한 축에 합쳤다. Figma에는 CSS 상태가 없다. Focus 는 없다 — 포커스 링을 그리지 않아 Default 와 같다(DS-D-0074).",
       },
       Collapsed: {
         options: ["false", "true"],
@@ -2294,11 +2281,8 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
-      // Focus variant 의 링 2px. **테두리가 아니다** — CSS 는 `outline: border-width-ring solid` · `outline-offset: 2px`
-      // (`.louis-sidebar-cta__button:focus-visible`)이고 Figma 에 outline 이 없어 바깥으로 나가는 stroke 로 그린다.
-      // 링이 프레임 밖에 서는 것도 그래서 계약이다(채취 명세 `outsideParts`). SegmentedControlItem 과 같은 처리다.
-      // 2026-09-23 에 드러났다 — 이 부품의 되읽기가 emitter 이전 것이라 두께가 빈 배열이었고 게이트가 초록이었다.
-      extraStrokeWeights: [2],
+      // Focus variant 의 링 2px 를 적어 두던 자리다. DS-D-0074 로 Focus 변형과 링이 없어졌다.
+      extraStrokeWeights: [],
       parts: { Label: { fields: { width: "labelWidth" }, optional: true } },
     },
   },
@@ -2458,7 +2442,7 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "VERTICAL" },
       },
       slots: {},
-      // DragOver 의 안쪽 링(`border-width-ring` 2) — 테두리(borderWidth 0)가 아니라 상태 표시라 허용 집합에 따로 둔다(SidebarCta 의 포커스 링과 같다).
+      // DragOver 의 안쪽 링(`border-width-ring` 2) — 테두리(borderWidth 0)가 아니라 상태 표시라 허용 집합에 따로 둔다.
       extraStrokeWeights: [2],
       parts: {
         Graphic: { fields: { width: "graphic", height: "graphic" } },

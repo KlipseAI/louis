@@ -45,8 +45,11 @@ authority: normative
   그대로다.
 - **테스트.** 브라우저 테스트 아홉 파일이 「키보드에서만 링이 선다」에서 「키보드에도 링이 없고 강제 색에서만 선다」로 바뀌었다.
   강제 색은 CDP `Emulation.setEmulatedMedia` 로 켠다.
-- **남은 것 — Figma.** 링을 그리는 `Focus` 변형(TextField · SegmentedControlItem · SegmentedControl · Slider · SidebarCta)과 effect style
-  `elevation/focus-ring` 은 이 항목에서 옮기지 않았다. **제품** 은 LOUIS 핀이 이 커밋에 닿기 전까지 LOUIS 가 그리는 링을 그대로 보인다.
+- **Figma.** 링을 바깥 stroke 로 그리던 `Focus` 변형 열아홉을 걷었다(TextField 29 → 22 · Slider 18 → 12 · SegmentedControlItem
+  24 → 20 · SidebarCta 8 → 6). 그 변형을 쓰는 인스턴스는 파일 전체에서 0 이었다. 채취 명세와 parity 계약에서 FocusRing 과
+  Focus 옵션을 빼고 네 세트를 emitter 로 다시 떠 병합했다 — `verify-figma-parity` 초록. effect style `elevation/focus-ring` 은
+  deprecated 토큰과 함께 남는다.
+- **남은 것 — 제품.** LOUIS 핀이 이 커밋에 닿기 전까지 제품은 LOUIS 레시피가 그리는 링(text-field 상자 등)을 그대로 보인다.
 
 ## 2026-10-01 (190) — 약관 · 개인정보 보드의 글자 대조로 잡은 규칙 셋: 제 글자를 DOM 순서로 · 글자 뒤 하위 목록의 margin 겹침 · 겹친 표의 칸 테두리
 

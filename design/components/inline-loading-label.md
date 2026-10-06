@@ -36,7 +36,7 @@ summary: 버튼 라벨 옆에서 스피너 자리를 열고 닫아 작업이 도
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 13개 파일 · 20개 호출부다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 다만 링만은 LOUIS 레시피를 그대로 소비한다 |
-| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `inline-loading-label` 항목이 없다 |
+| Figma         | `partial`      | `InlineLoadingLabel` 4 variant(`Size` × `Loading`) + `Label`·`LoadingLabel` TEXT. parity 게이트가 대조하는 것은 속성 축 넷 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `inline-loading-label`(제품 클래스를 실브라우저에서 잰 값)과 슬롯 지름 16 · 12 · 라벨과 슬롯 사이 6 · 4(닫힘 0) · 안쪽 여백 0 · 반경 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 기하 실측이 붙고 증거 락이 현재 판을 가리키면 승격한다                                                                                      |
 
@@ -251,9 +251,12 @@ Figma 의 축은 이것과 이렇게 대응한다.
    14 / 150% 로 고정했다. 확인한 소비처에서는 값이 맞는다 — LOUIS Button 이 lg·md 모두 14 이고,
    아카이브의 자체 버튼도 `type-body-14-medium` 이다. **맞는 것은 우연이 아니라 현재 상태일
    뿐이며, 12 나 16 짜리 컨트롤 안에 놓이는 순간 Figma 만 어긋난다.**
-5. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `inline-loading-label`
-   항목이 없어 16 · 12 · 6 · 4 · 0.85 를 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
-   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `inline-loading-label` 이
+   제품 클래스를 실브라우저에서 잰 16 · 12 · 6 · 4 를 갖고, parity 게이트가 Figma 를 그것과
+   맞댄다 — 6 · 4 는 제품에서 슬롯의 `margin-left` 이고 Figma 에서는 `itemSpacing` 이다. 코드가 그
+   실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **scale 0.85 와 닫힘
+   폭 0 은 대조하지 않는다** — 0.85 는 기하가 아니라 transform 이고, 닫힘 변형은 되읽기에 슬롯
+   레이어가 없다.
 6. **증거 락이 이 파일의 옛 판을 가리킨다.** `migration/product-evidence.lock.json` 이 고정한 blob
    은 링을 **자체 유틸리티 묶음**으로 그리던 판이고, 지금 제품은 LOUIS `.louis-spinner` 레시피를
    소비한다. 그래서 [Spinner](./spinner.md) 의 「인라인 로딩 슬롯」 표가 인용하는 좌표와 회전

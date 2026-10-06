@@ -184,9 +184,10 @@ Known deviations 12).
 
 - **질문 줄 전체가 버튼이다.** 질문 글자가 짧아도 오른쪽 빈 자리까지 눌린다. 닫힌 행에서는 그것이
   행 전체이고, 열린 행에서는 답변이 버튼 밖에 있어 답변을 눌러도 접히지 않는다.
-- 질문이 두 줄이 되면 `+` 가 **첫 줄에 붙어 위에 남는다**(`items-start`). 제품 주석은 「시안의
-  counter 정렬이 `MIN` 이라 그 동작을 그대로 옮겼다」고 적는데, **되읽기에는 정렬 필드 자체가
-  없어** 그 전언은 대조되지 않았다(Known deviations 11).
+- `+` 는 **질문 높이의 가운데**에 선다(`items-center`). 질문이 두 줄이 되어도 첫 줄에 붙어 위로
+  올라가지 않는다. 제품은 예전에 「시안의 counter 정렬이 `MIN`」이라는 이유로 `items-start` 였다가
+  가운데로 옮겼다(제품 `5a047ab02`). **되읽기에는 정렬 필드 자체가 없어** 어느 쪽도 대조되지
+  않는다(Known deviations 11).
 - **타입 스케일이 뷰포트를 따라 줄어든다.** 질문의 body-20 은 20 → 18(≤1023) → 16(≤767), 답변의
   body-16 은 14 로(≤450) 내려간다. 그래서 **닫힌 행 높이 66 은 1024 이상에서만 참이다** —
   아래로는 63, 60 이 된다. Figma 의 66 은 그중 한 단계다.
@@ -267,9 +268,9 @@ Known deviations 12).
 | 행 간격 | 4 | 목록이 갖는다 — 이 컴포넌트 밖이다 |
 | Question | 좌우 20 · 위아래 18 · 사이 16 | 2px 그리드(`px-10 py-9 gap-8`) |
 | Question 높이 | 66 = 18 + 30 + 18 | 20 × 1.5 = 30. **1024 이상에서만**(→ 63 → 60) |
-| Question 정렬 | 위 맞춤 | `items-start`. 제품 주석이 「시안에서 `MIN`」이라 적었을 뿐 되읽기에 정렬 필드가 없다(Known deviations 11) |
+| Question 정렬 | 가운데 | `items-center`(제품 `FAQ.tsx` 의 `QUESTION_CLASS`). 되읽기에 정렬 필드가 없다(Known deviations 11) |
 | QuestionText | body-20-medium | `typography/body-lg-medium` · `color/gray/000` |
-| Glyph | `+`, body-20-regular, 13 × 30 | 글리프 높이 30 은 20 × 1.5 의 줄 상자다 |
+| Glyph | `+`, body-20-regular, 13 × 줄 상자 높이 | 높이는 글자 크기 × 1.5 의 줄 상자에서 나온다 — 1024 이상 30(`faq-row.sizes["false/lg"].iconHeight`), 1023 이하 27, 767 이하 24 |
 | Glyph 색 | 잉크 64% | `color/landing/text-muted`. **50% 가 아니다** — 정본이 리터럴 50% 에서 이 토큰으로 옮겼다(제품 `b1d1409c`). Figma 는 아직 `color/gray/000` 50% 다(Known deviations 3) |
 | Glyph 회전 | 열림에서 45° | `transform: rotate(45deg)`. `rotate` 프로퍼티가 아니라 `transform` 이다 — 전환 대상이기 때문 |
 | Answer | 좌우 20 · 위 0 · 아래 18, 최대 `64ch` | 질문의 좌우 여백에 맞추고 아래만 띄운다 |
@@ -288,8 +289,8 @@ Known deviations 12).
 | Question 위아래 | 18 | **12** | `py-6` × `--spacing: 2px` |
 | Question 좌우 | 20 | **14** | `px-7`. 모달 본문 단이 1080 − 좌우 24 = 1032 라 행이 좁다 |
 | Question 사이 | 16 | **12** | `gap-6` |
-| Question 정렬 | 위 맞춤 | **가운데** | `items-center`. 모달 질문은 한 줄을 전제한다 |
-| Question 높이 | 66 | **48** | 12 + 24 + 12 |
+| Question 정렬 | 가운데 | 가운데 | 둘 다 `items-center`. 모달 질문은 한 줄을 전제한다 |
+| Question 높이 | 66(1024 이상) | **48**(451 이상) | 질문이 한 줄일 때 18 + 30 + 18 · 12 + 24 + 12 |
 | QuestionText | body-20-medium | **body-16-medium** | `type-body-16-medium` (JSX 리터럴) |
 | Glyph | body-20, 줄 상자 30 | **body-16, 줄 상자 24** | `GUIDE_FAQ_CHEVRON` 이 16 을 직접 세우고 행간은 버튼에서 물려받는다 |
 | Answer 위 · 아래 | 0 · 18 | **10 · 14** | `pt-5 pb-7` |
@@ -396,10 +397,11 @@ Known deviations 12).
     `aria-expanded` 뿐이다** — 글리프 회전을 그 속성에 걸어 두어 속성을 빼면 시각도 함께 죽는다
     (API 참조). `aria-controls` · `id` · 제목 요소는 **CSS 가 강제할 수 없는 마크업**이라
     레시피가 채울 수 없고, API 절의 마크업 계약과 소비처가 진다.
-11. **counter 축 정렬이 대조되지 않는다.** `items-start` 의 근거로 적힌 「시안 counter 정렬
-    `MIN`」은 제품 주석의 전언이고, 되읽기에는 정렬 필드가 아예 없다(`FaqRow` 의
-    `parts.Question` 은 width · height · padding · itemSpacing 뿐이다). 되읽기 채취에 counter
-    정렬을 더하는 것이 승격 조건 하나다.
+11. **counter 축 정렬이 대조되지 않는다.** 제품은 `items-start`(근거는 제품 주석이 전한 「시안
+    counter 정렬 `MIN`」)에서 `items-center` 로 옮겼는데(제품 `5a047ab02`), 되읽기에는 정렬 필드가
+    아예 없어(`FaqRow` 의 `parts.Question` 은 width · height · padding · itemSpacing 뿐이다) Figma 가
+    어느 쪽인지 확인되지 않는다. **LOUIS 레시피 `lg` 는 아직 `align-items: flex-start` 다** — 제품을
+    따라 옮겨야 한다. 되읽기 채취에 counter 정렬을 더하는 것이 승격 조건 하나다.
 12. **여닫이 전개를 레시피가 그리지 않는다.** 정본은 framer-motion 이 `height: 0 ↔ auto` 를
     300ms 로 옮기고, `grid-template-rows: 0fr ↔ 1fr` 은 매 프레임 재레이아웃으로 렉이 있어
     버렸다는 기록이 제품에 남아 있다. CSS 만으로는 그 둘 중 하나를 고를 수밖에 없으므로 레시피는
@@ -430,15 +432,17 @@ Known deviations 12).
 
 1. 행이 radius 12 이고 면이 잉크 8% 오버레이(`landing/panel-strong`)다. `gray-900` 이 아니다.
 2. 행에 stroke 가 없고 effect 도 없다 — 되읽기의 `boundStrokes` · `rawStrokes` 가 각각 0 이다.
-3. 닫힌 행 높이가 66 이고 18 + 30 + 18 로 분해된다.
-4. 질문의 좌우가 20, 글자와 `+` 사이가 16 이며 `+` 가 **위 맞춤**이다.
+3. 질문이 한 줄일 때 닫힌 행 높이가 위 패딩 + 질문 줄 상자 + 아래 패딩이다 — 1024 이상에서 66 =
+   18 + 30 + 18(`faq-row.sizes["false/lg"].questionHeight`)이고, 1023 이하 63, 767 이하 60 이다.
+4. 질문의 좌우가 20, 글자와 `+` 사이가 16 이며 `+` 가 **질문 높이의 가운데**(`items-center`)다.
 5. `Expanded=true` 가 `+` 를 45° 돌리고 답변을 **같은 면 안에** 붙인다 — 카드가 둘로 쪼개지지
    않는다.
 6. `Expanded` 가 면 · 반경 · 좌우 여백을 바꾸지 않는다. 두 변형이 그 셋에서 같다.
 7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 8. 질문 버튼이 `aria-expanded` 를 갖고 `+` 가 `aria-hidden` 이다.
 9. 목록에서 한 번에 한 행만 열려 있다.
-10. `Size=md` 에서 반경이 8, 질문 여백이 12/14, 사이가 12 이고 닫힌 높이가 48 = 12 + 24 + 12 이다.
+10. `Size=md` 에서 반경이 8, 질문 여백이 12/14, 사이가 12 이고 질문이 한 줄일 때 닫힌 높이가
+    451 이상에서 48 = 12 + 24 + 12 이다(`faq-row.sizes["false/md"].questionHeight`).
 11. `Size=md` 에서 **글리프가 돌지 않는다.** 정본이 글자 자체를 `+` ↔ `−` 로 갈아 끼우므로
     거기까지 돌리면 `−` 가 세로줄이 되어 닫힘으로 읽힌다.
 12. 글리프 회전이 `aria-expanded="true"` 에만 선다 — 속성이 없으면 회전도 없다.

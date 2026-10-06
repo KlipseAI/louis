@@ -312,7 +312,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
   `TabItem`과 `Tabs` 두 벌로 등재돼 있고 게이트가 실제로 돈다(`parity OK … component 39개`).
   State 4개(Default·Hover·Selected·Disabled)와 속성 축은 그래서 대조된다. **없는 것은 기하다** —
   두 계약 모두 `geometry`를, 따라서 그것이 가리킬 `measuredId`를 갖지 않고
-  `figma/components.measured.json`의 23종에도 tabs가 없다. 높이 28 · 좌우 인셋 12 · 반경 999 ·
+  `figma/components.measured.json`의 45종에도 tabs가 없다. 높이 28 · 좌우 인셋 12 · 반경 999 ·
   줄 간격 4는 Figma와 코드 어느 쪽이 움직여도 게이트가 모른다.
 
 ## Acceptance tests

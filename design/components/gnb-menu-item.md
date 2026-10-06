@@ -37,7 +37,7 @@ Figma 도 같은 작업에서 0.65(hover 0.80)로 맞췄다 — 세 곳이 같�
 | Surface       | 상태           | 근거                                                                                                                                                                                                     |
 | ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 GNB 한 자리(같은 파일 안 네 갈래)다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하도 불투명도도 대조하지 않는다** — `figma/components.measured.json` 에 항목이 없고 되읽기가 opacity 를 담지 않는다 |
+| Figma         | `partial`      | `GnbMenuItem` 8 variant(`Surface` × `State`) + `Label` TEXT. parity 게이트가 대조하는 것은 속성 축 셋 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · stroke 없음 · effect 없음 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하와 불투명도도 대조한다 — 기하는 `figma/components.measured.json` 의 `gnb-menu-item`(제품 클래스를 실브라우저에서 잰 값)과 높이 28 · 안쪽 여백 0 / 12 · 반경 999 · 라벨 14 / 21 을, 불투명도는 parity 계약의 `opacity` 블록과 여덟 변형의 되읽기 값을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                  |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 라벨 굵기 대조가 붙으면 승격한다                                                                                                            |
 
@@ -256,10 +256,11 @@ Figma 의 축은 이것과 이렇게 대응한다.
 7. **hover 가 `@media (hover: hover)` 밖이다.** 임의 변형 `[&:hover]:` 를 쓰기 때문이고,
    그것은 모듈 CSS 의 계산값을 그대로 옮기려는 의도적 선택이었다. 터치 기기에서 탭 후 hover
    불투명도가 남을 수 있다. Figma 의 `State=Hover` 는 그 조건을 표현하지 않는다.
-8. **기하가 게이트에 걸려 있지 않고, 폭의 성격도 확인되지 않았다.**
-   `figma/components.measured.json` 에 `gnb-menu-item` 항목이 없어 28 · 12 · 999 · 21 을
-   아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고 브라우저 실측이 아니다.
-   더해서 되읽기에 sizing mode 가 없어 **Figma 의 폭 72 가 HUG 인지 FIXED 인지 알 수 없다** —
+8. **기하는 한 방향으로만 대조되고, 폭의 성격은 확인되지 않았다.**
+   `figma/components.measured.json` 의 `gnb-menu-item` 이 제품 클래스를 실브라우저에서 잰
+   28 · 12 · 999 · 21 을 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히
+   만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다. **폭 72 는 대조하지 않는다** —
+   라벨이 정하는 값이다(`$whyNotTextWidth`). 더해서 되읽기에 sizing mode 가 없어 **Figma 의 폭 72 가 HUG 인지 FIXED 인지 알 수 없다** —
    제품은 내용이 폭을 정하므로 FIXED 라면 긴 로케일에서 갈라진다. 실측 probe 를 붙이는 것이
    승격 조건이다.
 9. ~~**포커스 상태가 코드에도 Figma 에도 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스

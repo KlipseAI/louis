@@ -24,7 +24,7 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
 | Surface       | 상태           | 근거                                                                                                                                                                        |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 다섯 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                                |
-| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `carousel-arrow` 항목이 없다 |
+| Figma         | `partial`      | `CarouselArrow` 6 variant(`Direction` × `State`). parity 게이트가 대조하는 것은 캐럿 stroke(1 · `CENTER`) · 헤어라인 effect(`INNER_SHADOW:0:0:0.5`) · 속성 축 · raw fill·stroke 0 넷이고, 기하도 대조한다 — `figma/components.measured.json` 의 `carousel-arrow`(제품 클래스를 실브라우저에서 잰 값)와 버튼 32 × 32 · 반경 12 · 안쪽 여백 0 을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                     |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                            |
 
@@ -93,7 +93,8 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
   있다 — 결손으로 적어 둔다.
 - hover 면을 **배경 이미지 한 겹**으로 쌓는다(`background-image: linear-gradient(…)`). 면 색을
   바꾸는 대신 겹을 더하는 방식이라 아래 층의 잉크 8% 가 그대로 남는다.
-- 크기가 32 로 고정이고 좁은 화면에서도 줄지 않는다(`flex-none`).
+- 크기가 32 로 고정이다. 좁은 화면에서도 쌍이 줄지 않는 것은 버튼이 아니라 감싸는 래퍼의
+  `flex-none` 때문이다(`CarouselArrows.tsx` 의 `flex flex-none items-center gap-2`).
 - 비활성 버튼은 클릭도 포커스도 받지 않는다 — 네이티브 `disabled` 다.
 
 ## Content
@@ -160,9 +161,12 @@ summary: 캐러셀을 앞뒤로 넘기는 32×32 화살표 버튼입니다.
 5. **제품은 쌍을 하나로 내보내고 Figma 는 하나를 set 으로 뽑았다.** 상호작용과 프로토타입을
    받는 단위가 버튼 하나이기 때문이다. 그 결과 **쌍 간격 4 를 아무도 소유하지 않는다** —
    제품에서는 래퍼의 `gap` 이고 Figma 에는 없다. 이 문서가 임시로 소유한다.
-6. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `carousel-arrow`
-   항목이 없어 32 · 12 · 16 · 5 × 10 을 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은
-   것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+6. **기하는 한 방향으로만, 버튼 상자만 대조된다.** `figma/components.measured.json` 의
+   `carousel-arrow` 가 제품 클래스를 실브라우저에서 잰 32 × 32 · 반경 12 · 안쪽 여백 0 을 갖고,
+   parity 게이트가 Figma 를 그것과 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저
+   테스트는 LOUIS 레시피가 없어 없다. **캐럿 16 × 16 과 글리프 5 × 10 은 대조하지 않는다** —
+   16 은 인라인 SVG 의 `width`/`height` 속성이고 5 × 10 은 `path` 의 바운딩 박스라, 클래스를
+   컴파일해 재는 하네스가 닿지 않는다.
 7. ~~**포커스 상태가 코드에도 Figma 에도 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스 링을
    그리지 않으므로 `State` 축에 `Focus` 를 더하지 않는다.
 

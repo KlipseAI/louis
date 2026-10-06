@@ -30,7 +30,7 @@ summary: 비어 있는 정사각 면 하나와 그 밑에 붙는 한 줄 캡션�
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 랜딩 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다                                          |
-| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `step-tile` 항목이 없다 |
+| Figma         | `partial`      | `StepTile` 단일 COMPONENT(변형 축 0) · TEXT 2 · BOOLEAN 1. parity 게이트가 대조하는 것은 속성 축 · stroke 0 · effect 0 · raw fill·stroke 0 · 스타일 없는 텍스트 0 · set 설명 유무 · 프레임 밖 넘침 0 · 광학 중앙 이탈 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `step-tile`(제품 클래스를 실브라우저에서 잰 값)과 루트 간격 12 · 안쪽 여백 0 · 반경 0 · 타일 반경 12 · 라벨과 설명의 글자 크기 20 · 줄 높이 150% 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. 타일 콘텐츠가 정해지고 기하 실측이 붙으면 승격한다                                                                                      |
 
@@ -130,8 +130,9 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 - **라벨이 유일한 필수 글자다.** 설명은 없어도 된다 — 세 번째 항목이 실제로 비어 있다.
 - **라벨 셋은 서로 달라야 한다.** 제품이 라벨 문구를 목록 `key` 로 쓴다 — 같은 문구가 둘이면
   항목이 엉킨다.
-- 라벨은 **한 동작**을 말한다. 첫 항목처럼 문장을 통째로 넣으면 캡션이 두 줄이 되고 그 카드만
-  30 높아진다. 그 자체가 결함은 아니지만 세 칸의 캡션 높이가 갈리는 값이므로 의식하고 쓴다.
+- 라벨은 **한 동작**을 말한다. 첫 항목처럼 문장을 통째로 넣으면 캡션이 두 줄이 될 수 있고, 그러면
+  그 카드만 캡션 줄 높이 하나만큼(1024 이상 30, 1023 이하 27, 767 이하 24) 높아진다. 둘째 줄이 생기는지는
+  카드 폭이 정한다. 그 자체가 결함은 아니지만 세 칸의 캡션 높이가 갈리는 값이므로 의식하고 쓴다.
 - 라벨과 설명 사이는 **진짜 공백 문자**다. 복사하면 `카테고리 영상의 주제를 선택하세요.` 로
   붙는다 — 간격을 flex 로 만들면 공백 없이 이어진다(Known deviations 1).
 
@@ -175,7 +176,7 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 | Tile 자름 | 내용 잘림 | 지금은 자를 것이 없다. 콘텐츠가 들어갈 때를 위한 것이다 |
 | Tile 테두리 | **없다** | stroke 0 · effect 0. 이 시스템의 면 대부분이 갖는 헤어라인이 여기엔 없다 |
 | Tile ↔ Caption | 12 | 2px 격자 · Figma 루트 `itemSpacing` 12 |
-| Caption | body-20-medium, 줄 높이 150%(30) | `typography/body-lg-medium`(Known deviations 2) |
+| Caption | body-20-medium, 줄 높이 150% — 1024 이상 30 · 1023 이하 27 · 767 이하 24 | `typography/body-lg-medium`(Known deviations 2). 타입과 행간 1.5 가 선택값이고 줄 높이는 글자 크기 × 1.5 다 |
 | Label 색 | `gray/200` | 램프를 그대로 쓴다 — 뒤집어도 관계가 유지되는 자리다 |
 | Description 색 | `landing/text-muted` | 램프 인덱스만 뒤집어서는 성립하지 않는 역할이다 |
 | Label ↔ Description | 공백 문자 한 개(실측 4.69) | Figma 는 `itemSpacing` 4(Known deviations 1) |
@@ -210,9 +211,12 @@ BOOLEAN 명부(`Icon` · `Dot` · `Prefix` · `Suffix` · `LeftIcon` · `RightIc
 4. **타일이 비어 있다.** 시안 프레임이 자식 0 · IMAGE fill 0 · VECTOR 0 이고 에셋도 파일명도
    없다. 제품도 면만 둔다. **지금 비어 있는 것은 결정이 아니라 미결이다** — 콘텐츠가 정해지면
    이 문서의 Anatomy · States · Accessibility 가 함께 움직인다.
-5. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `step-tile` 항목이
-   없어 12 · 30 · 60 · 4 를 아무도 대조하지 않는다. 위 값들은 제품 소스와 그 안에 적힌 실측이고
-   이 저장소가 직접 잰 브라우저 값이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+5. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `step-tile` 이 제품 클래스를
+   실브라우저에서 잰 루트 간격 12 · 타일 반경 12 · 캡션 글자 크기 20 · 줄 높이 30(1024 이상 값,
+   `step-tile.sizes.base.labelLineHeight`)을 갖고, parity 게이트가 Figma 를 간격 · 반경 · 글자 크기와
+   줄 높이 150% 로 맞댄다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
+   없어 없다. **두 줄 캡션 60 과 Caption 의 `itemSpacing` 4 는 대조하지 않는다** — 60 은 카드 폭이
+   정하는 줄 수에서 나오는 값이고, 4 는 제품에 없는 gap 이다(Known deviations 1).
 6. **좁은 화면 규칙이 Figma 에 없다.** 시안에 좁은 프레임이 없어 제품이 1열로 접는 지점을
    정했다 — **`max-width: 719px`**(720 미만)이고, 근거는 「정사각 3장이면 한 변이 100 도 안
    된다」다. 그 값은 지금 제품에만 있고 아무도 대조하지 않는다 — 이 문서가 임시로 소유한다.

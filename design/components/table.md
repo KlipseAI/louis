@@ -379,7 +379,7 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   `TableCell` 의 `strokes: { self: { weight: 1, align: "INSIDE" } }`, `Table` 의
   `effects: { HeaderRow: "INNER_SHADOW:0:0:0.5" }` 와 `strokes.TableCell.weight: [1, 0]`
   (마지막 행만 0)이 전부 계약으로 적혀 있다. **빠진 것은 `geometry` 하나다** — 세 항목 어디에도
-  `geometry.measuredId` 가 없고 `figma/components.measured.json` 의 23개 키에도 `table` 이 없다.
+  `geometry.measuredId` 가 없고 `figma/components.measured.json` 의 45개 키에도 `table` 이 없다.
   그래서 여백 4/8·8/8, 헤더 높이 26, 셀 높이 37/38, 반경 4 는 **아무도 대조하지 않는다.** 위
   Specification 이 적은 1px 어긋남이 게이트를 통과하는 이유가 그것이다.
   [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 table 을 "선행

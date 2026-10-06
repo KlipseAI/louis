@@ -164,7 +164,8 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 
 | 항목            | 값                                                      |
 | --------------- | ------------------------------------------------------- |
-| 높이            | 65 (padding 12+12 + 내용 41)                            |
+| 높이            | padding 12+12 + 내용 — 내용이 정한다. 제목과 본문이 한 줄씩일 때 65(내용 41, `toast.sizes.callout.height`) |
+| 폭              | 내용에 맞춘다(제품 `w-fit`). 상한은 아래 최대 폭 |
 | padding         | `space-control-md` 12 / **좌 `space-control-lg` 16 · 우 `space-control-md` 12** |
 | gap             | `space-control-lg` 16 (본문 덩어리 ↔ 액션)              |
 | 제목            | `typography-body-sm-medium` (14/21)                     |
@@ -174,7 +175,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 | 액션 padding    | 4 / `space-control-md` 12                               |
 | 액션 radius     | `radius-control-sm` 8                                    |
 | 액션 면         | 전경색 12% · hover 24%                                   |
-| 최대 폭         | 720px                                                    |
+| 최대 폭         | `min(720px, 가용 폭)`                                    |
 
 **좌우 padding이 갈리는 이유.** 액션이 자기 padding을 갖고 있어 오른쪽을 4 줄여야 시각 여백이
 좌우로 같아 보인다. 광학 보정이며 실수가 아니다.

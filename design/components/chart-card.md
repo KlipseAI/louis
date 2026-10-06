@@ -170,8 +170,10 @@ Figma 쪽은 `verify-figma-parity`, 코드 쪽은 `packages/react/test/chart-car
 
 축마다 하나씩.
 
-7. `area` 에는 기간(`Meta`)이 있고 곡선 슬롯의 높이가 하한 140 이다.
-8. `spark` 의 미니 곡선이 상한 폭 130 과 고정 높이를 갖는다 — 44% 는 156.6 이라 상한이 이긴다.
+7. `area` 에는 기간(`Meta`)이 있다. 곡선 슬롯의 선택값은 비율 4 : 1 과 하한 140 이고, 카드 폭 400 일 때
+   비율 높이 90 이 하한에 걸려 높이가 140 이다(`chart-card.sizes.area.chartMinHeight`).
+8. `spark` 의 미니 곡선의 선택값은 폭 44% · 상한 130 · 높이 46 이다. 카드 폭 400 일 때 44%(156.6)가
+   상한에 걸려 폭이 130 이다(`chart-card.sizes.spark.sparkWidth`).
 9. **안쪽 면의 하한이 두 축에서 갈린다**: `area` 는 0, `spark` 는 92. 이 값은 계약 밖이라
    (Figma 가 `minHeight = 0` 을 거부하고 `null` 은 되읽기에서 사라진다) 두 칸을 다 재는 것은
    이 시험뿐이다.

@@ -84,7 +84,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 제품 정본은 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
 좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
 
-`coachmark`에서 갈리는 것 셋: 폭이 320 고정이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
+`coachmark`에서 갈리는 것 셋: 폭을 내용이 아니라 상한 320 이 정하고(`min(320px, 가용 폭)`), 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
 **강조색 1px 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로 바꾸면
 축이 아무것도 바꾸지 않게 된다.
 
@@ -158,8 +158,8 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 
 | 항목            | 값                                                      |
 | --------------- | ------------------------------------------------------- |
-| 폭              | **320 고정**(`box-sizing: border-box`)                  |
-| 높이            | 64 (테두리 1+1 + padding 12+12 + 내용 38)               |
+| 폭              | `min(320px, 가용 폭)` — 상한 320(`box-sizing: border-box`)이 선택값이고, 가용 폭이 그보다 넓으면 320(`tooltip.sizes.coachmark.width`) |
+| 높이            | 테두리 1+1 + padding 12+12 + 내용 — 제목과 본문이 한 줄씩일 때 64(내용 38, `tooltip.sizes.coachmark.height`) |
 | padding         | `space-control-md` 12 (네 변)                            |
 | radius          | `radius-card` 12                                        |
 | 테두리          | 1px `accent-primary` 56%                                 |
@@ -170,7 +170,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
-**제품과 갈리는 값 다섯과 그 사유.**
+**제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 
 | 제품 | LOUIS | 왜 |
 | --- | --- | --- |

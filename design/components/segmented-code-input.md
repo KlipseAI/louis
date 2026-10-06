@@ -33,7 +33,7 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 | Surface       | 상태           | 근거                                                                                                                                                                                                                                              |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처는 쿠폰 등록 모달 한 자리다. **LOUIS 표면은 0** — CSS 레시피도 React export 도 없고 acceptance test 도 0건이다. 제품 쪽에도 이 컴포넌트를 겨냥한 테스트가 없다                                                          |
-| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `segmented-code-input` 항목이 없다 |
+| Figma         | `partial`      | `SegmentedCodeInput` 3 variant(`State`). parity 게이트가 대조하는 것은 속성 축 하나 · `Cell 1` stroke(1 · `INSIDE`) · effect 없음 · raw fill·stroke 0 · 스타일 없는 텍스트 0 이고, 기하도 대조한다 — `figma/components.measured.json` 의 `segmented-code-input`(제품 칸 클래스를 실브라우저에서 잰 값)과 트랙 높이(= 칸 높이 36) · 칸 28 × 36 · 칸 반경 8 · 글자와 하이픈의 크기 16 · 높이 24 를 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                                                                                            |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                                                                                                  |
 
@@ -59,7 +59,7 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
 1. **Track** — 가로 한 줄. 높이 36, 안쪽 여백 0, 항목 간격 2. 폭은 컨테이너를 채운다.
 2. **Cell** — 칸 하나. 최대 28 × 36, radius 8, stroke 1(안쪽). 12개.
-3. **Char** — 칸 안의 글자 한 자. `body-md-medium`(16 / 150% = 24), 가운데 정렬, 대문자 표기.
+3. **Char** — 칸 안의 글자 한 자. `body-md-medium`(451 이상 16 / 150% = 24, 450 이하 14 / 21), 가운데 정렬, 대문자 표기.
 4. **Separator** — 12 × 24 자리에 놓인 하이픈. 네 칸마다 하나, **마지막 칸 뒤에는 없다.**
    12칸 · 묶음 4 에서 2개다.
 5. **Dash** — 그 안의 `-` 글자. 크기 16.
@@ -240,7 +240,7 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 | 칸 테두리 | 1, 안쪽 | `border-width-default` · `1 \| INSIDE`. **헤어라인이 아니다** — 이 저장소의 기본 경계는 0.5 inset 그림자다(Known deviations 2) |
 | 칸 면 | 잉크 4% | `color/gray/000-alpha/04` |
 | 칸 테두리 색 | 잉크 12% | `color/gray/000-alpha/12` |
-| 글자 | `body-md-medium` 16 / 150%(24), 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
+| 글자 | `body-md-medium` 16 / 150%(24) — 450 이하 14 / 21, 가운데, 대문자 | `typography/body-md-medium` · `type-body-16-medium` + `text-center uppercase` |
 | 글자색 | 잉크 88% | `color/gray/000-alpha/88` |
 | Focus 테두리 | `primary-400` 72% | Figma 는 `color/accent-primary` @72% 에 묶었다 — Known deviations 1 |
 | Focus 면 | 잉크 8% | `color/gray/000-alpha/08` |
@@ -286,10 +286,12 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 6. **칸 이름의 꼬리가 i18n 밖에 있다.** `aria-label` 이 `${ariaLabel} N번째 글자` 로 조립되고
    「번째 글자」가 한국어 리터럴이다. 영어·일본어 로케일에서 스크린리더가 두 언어를 섞어
    읽는다. 게이트가 잡지 못한다 — 이 저장소에는 제품의 하드코딩 문구를 보는 검사가 없다.
-7. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에
-   `segmented-code-input` 항목이 없어 28 · 36 · 8 · 2 · 386 을 아무도 대조하지 않는다. 위
-   값들은 제품 소스와 되읽기에서 읽은 것이고 브라우저 실측이 아니다. 실측 probe 를 붙이는 것이
-   승격 조건이다.
+7. **기하는 한 방향으로만, 일부만 대조된다.** `figma/components.measured.json` 의
+   `segmented-code-input` 이 제품 칸 클래스(`BOX`)를 실브라우저에서 잰 칸 28 × 36 · 반경 8 ·
+   글자 16 / 24 를 갖고, parity 게이트가 Figma 를 그것과 맞댄다. 28 은 트랙이 넉넉할 때의 값(상한)이고
+   24 는 451 이상의 값이다. 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가
+   없어 없다. **간격 2 와 묶음 폭 386 은 대조하지 않는다** — 2 는 소비처 래퍼의 인라인 className
+   (`gap-1`)이라 상수로 꺼낼 자리가 없고, 386 은 칸이 상한 28 에 닿는 폭에서 나온 산술이다.
 8. **글자 굵기가 대조되지 않는다.** 되읽기의 `parts` 는 `fontSize` 와 높이만 담고 텍스트
    스타일 **이름**을 담지 않는다. `typography/body-md` 세 굵기가 모두 16 / 150% / −0.16 이라
    지금 게이트로는 regular · medium · semibold 를 가려낼 수 없다 —
@@ -313,13 +315,15 @@ summary: 쿠폰 코드처럼 한 글자씩 칸을 나눠 받는 입력 묶음입
 
 ## Acceptance tests
 
-1. 칸이 28 × 36 이고 radius 8 이다.
+1. 칸 높이가 36 이고 radius 8 이다. 칸 폭은 트랙을 칸 수로 나눈 몫(`flex-1`)과 상한 28(`max-w-14`) 중
+   작은 쪽이다 — 트랙이 넉넉하면 28 이다(`segmented-code-input.sizes.<State>.cellWidth`).
 2. 트랙 높이가 36, 항목 간격이 2, 안쪽 여백이 0 이며 `layoutMode` 가 `HORIZONTAL` 이다.
 3. 프레임 폭 386 이 칸 상한과 맞아떨어진다 — 12 × 28 + 2 × 12 + 13 × 2 = 386.
 4. 칸에 stroke 가 있고 `1 | INSIDE` 다. **헤어라인 effect 가 아니다** — 되읽기의 `effects` 가
    비어 있다.
 5. 구분자가 2개다 — 네 칸마다 하나이고 **마지막 칸 뒤에는 없다.**
-6. 글자와 하이픈의 크기가 16 이고 글자 높이가 24 다. **굵기(medium)는 확인되지 않는다**
+6. 451 이상에서 글자와 하이픈의 크기가 16 이고 글자 높이가 24 다(`segmented-code-input.sizes.<State>.charHeight`).
+   450 이하에서는 14 / 21 로 내려간다. **굵기(medium)는 확인되지 않는다**
    (Known deviations 8).
 7. 세 변형의 기하가 모두 같다 — 되읽기의 각 기하 값이 단일값이다(28 · 36 · 8 · 386 · 2).
 8. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이고, set 에 설명이

@@ -66,8 +66,8 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 
 **hover를 잉크가 아니라 면으로 표현한다.** 제품은 잉크를 100% → 88%로 **낮춰서** hover를 말하는데
 (랜딩 헤더의 잉크 램프), 이 저장소에는 그 램프 토큰이 없고 면 없는 컨트롤의 hover는 ghost 면 8%로
-이미 서 있다. 그리고 **제품의 `outline: none`은 옮기지 않았다** — focus-visible에서 링을 지우고
-색만 바꾸는 것은 채택할 사양이 아니라 결손이다.
+이미 서 있다. 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)) —
+제품의 `outline: none`과 이제 같다.
 
 ## Anatomy
 
@@ -442,7 +442,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 - 내부 버튼, 링크, segmented control, Listbox는 각자의 네이티브/ARIA 역할을 유지한다.
 - 같은 페이지에 GNB가 여러 번 마운트될 수 있으므로 `profile-popover` 같은 고정 id를 복제하지 않는다.
 
-공통으로 visible focus ring, disabled 상태, reduced-motion, 200% 확대를 지원한다. Panel이 닫혀 있으면 그
+공통으로 disabled 상태, reduced-motion, 200% 확대를 지원한다. 포커스 링은 그리지 않는다(DS-D-0074). Panel이 닫혀 있으면 그
 자손은 accessibility tree와 Tab 순서에서 제외돼야 한다.
 
 ## Specification
@@ -503,8 +503,8 @@ item-radius · surface-bg), 일곱 번째 `--dropdown-frame-on-dark`는 그보�
 
 **항목 높이는 제품(37px)을 따른다.** 예전엔 min-block-size로 44px(AAA target-size) floor를 강제해
 제품을 의도적으로 따르지 않았으나, 제품 외형 수렴 결정으로 floor를 제거했다 — WCAG 2.5.8 AA(24px)는
-충족하고 AAA만 포기한다. **focus ring은 유지한다**(base.css의 키보드 전용 ring이라 마우스 외형과
-무관하다; 제품엔 ring이 없다). **`danger` 전경을 제품 값으로 바꾼 것이 문서가
+충족하고 AAA만 포기한다. 포커스 링은 그리지 않는다(DS-D-0074) — 키보드 위치는
+`[data-highlighted]` 면이 말한다. **`danger` 전경을 제품 값으로 바꾼 것이 문서가
 이미 인정하던 대비 결함을 해소한다** — 이전 `color-fg-danger`는 중립 표면 위에서
 무너졌다.
 

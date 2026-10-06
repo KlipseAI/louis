@@ -118,8 +118,9 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 - **라벨이 필수다.** 시각 라벨이 없으면 `aria-label`을 준다.
 - `formatValue`는 **숫자가 그 자체로 뜻을 갖지 않을 때만** 준다. `0.5`가 아니라 `50%`,
   `1.5`가 아니라 `1.5배`. 늘 붙이면 `aria-valuetext`가 `aria-valuenow`를 덮어 원래 값을 잃는다.
-- **포커스 링을 지우지 않는다.** 제품의 세 레시피가 `outline: none`을 직접 선언했고 그것이
-  37벌 중 25벌(68%)이다. 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 옮기지 않는다.
+- **포커스 링은 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+  제품의 세 레시피가 `outline: none`을 직접 선언한 것(37벌 중 25벌)과 이제 같다. 강제 색에서만
+  `base.css`가 `Highlight` 링을 그린다.
 - id는 컴포넌트가 인스턴스마다 발급한다. 호출부가 만들면 같은 화면에 슬라이더가 여럿일 때 겹친다.
 
 ## Specification
@@ -240,7 +241,7 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 7. controlled일 때 호출부의 값이 이기고, 갱신하지 않으면 값이 튀지 않는다.
 8. 라벨의 `for`가 컨트롤을 가리키고, 라벨을 누르면 컨트롤이 포커스를 받는다.
 9. 슬라이더가 둘 있을 때 두 컨트롤의 id가 다르다.
-10. 포커스 링이 **키보드에서만** 나타나고 두께가 `border-width-ring`이다.
+10. 키보드 포커스에도 링이 없고, 강제 색에서만 두께 `border-width-ring`의 링이 선다(DS-D-0074).
 11. `disabled`면 키보드로도 값이 바뀌지 않고 `onValueChange`가 불리지 않는다.
 12. `formatValue`를 준 것만 `aria-valuetext`를 갖는다.
 13. 두 변형 모두 자동 접근성 검사에 위반이 없다.

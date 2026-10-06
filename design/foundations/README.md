@@ -58,7 +58,7 @@ P2의 구체적인 package 경계와 완료 조건은
 
 - WCAG 2.2 AA를 기본 목표로 한다.
 - keyboard와 pointer로 동일한 핵심 기능을 사용할 수 있어야 한다.
-- focus-visible은 가려지지 않고 명확해야 한다.
+- 포커스 링은 그리지 않는다. 강제 색에서만 `Highlight` 링이 선다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
 - 200% zoom과 좁은 container에서도 핵심 동작을 잃지 않아야 한다.
 - 색만으로 상태를 전달하지 않는다.
 - `prefers-reduced-motion`에서 비필수 motion을 줄인다.

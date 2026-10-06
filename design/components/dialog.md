@@ -345,9 +345,8 @@ Figma 세트에 이것이 없어서 디자이너가 확인 대화상자를 만�
   설명이 렌더되지 않았으면 `aria-describedby`를 **붙이지 않는다.**
 - 열림 초기 포커스, focus trap, 닫힘 focus return은 선택 사항이 아니다.
 - modal 뒤 앱 root는 pointer뿐 아니라 보조 기술·키보드 접근도 막아야 한다.
-- 모든 버튼에 visible `:focus-visible`이 있고 icon-only close에는 locale-aware accessible name이 있다.
-  Dialog가 제공하는 버튼은 공용 focus ring 유틸을 직접 부착한다 — 그 유틸이 opt-in이므로 부착하지 않으면
-  링이 조용히 사라진다.
+- icon-only close에는 locale-aware accessible name이 있다. 포커스 링은 그리지 않는다
+  ([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)) — 강제 색의 링만 `base.css`가 그린다.
 - busy, error, status는 [Loading Pattern](../patterns/loading.md)과 live region 계약을 따른다. Dialog는
   인스턴스마다 polite live region을 하나 소유하고 dismiss 차단 안내를 그곳에 쓴다.
 - 320px, 200% 확대, light/dark, reduced-motion, KO/EN/JA를 검증한다.

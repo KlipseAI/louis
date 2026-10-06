@@ -188,9 +188,8 @@ React prop이 아니라 **DOM 계약**이다. 소비처가 요소와 속성으�
   이름은 `aria-label`이 준다. 제품의 사운드 토글이 그렇게 한다.
 - **토글은 `aria-pressed`를 함께 준다.** 이 컴포넌트가 눌림을 색으로 그리지 않으므로, 보조기술에
   상태를 전하는 것은 `aria-pressed`와 라벨 텍스트뿐이다.
-- **포커스 링을 레시피가 그리지 않는다.** LOUIS의 포커스 링은 `.louis-focus-ring` opt-in
-  유틸리티이고(`packages/css/src/base.css`), 이 레시피도 제품 소비처 루트 16자리도 그것을 붙이지
-  않는다. 지금 보이는 것은 브라우저 기본 outline이다. 아래 Known deviations.
+- **포커스 링을 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+  브라우저 기본 outline 도 `base.css` 의 한 규칙이 지운다. 강제 색에서만 `Highlight` 링이 선다.
 - **hit target이 32×32다.** [Icon Button](icon-button.md)은 `.louis-hit-target`을 스스로 붙여
   시각 32px에서도 히트 영역 44×44를 만드는데, 이 알약은 붙이지 않는다. WCAG 2.2 AA 최소(24px)는
   넘고 [Button](button.md)의 내부 목표 44px에는 미달한다.
@@ -279,11 +278,9 @@ Known deviations.
   [DS-D-0025](../governance/decisions/DS-D-0025-figma-as-projection.md)가 `alert`·`node-chip`·
   `switch`·`table`·`tabs` 다섯을 그렇게 적어 두었다. 그래서 아래 Acceptance tests의 1번이 다른
   컴포넌트처럼 measured 대조가 아니라 **토큰 대조**다.
-- **포커스 링이 없다.** `.louis-focus-ring`은 opt-in이고 레시피도 제품 루트 16자리도 붙이지
-  않았다.
-  드롭다운을 여는 트리거가 키보드에서 어디 있는지 DS가 그리지 않는다는 뜻이다. 붙이는 것은
-  한 줄이지만, 32px 알약에 `outline-offset: 2px` 링이 붙으면 툴바 행 높이 안에서 잘리는지
-  확인해야 한다 — **확인되지 않았다.**
+- ~~**포커스 링이 없다.**~~ **편차가 아니게 됐다**(DS-D-0074) — 포커스 링을 그리지 않는 것이
+  계약이다. 강제 색에서 32px 알약의 `outline-offset: 2px` 링이 툴바 행 높이 안에서 잘리는지는
+  **확인되지 않았다.**
 - **hit target이 44px에 미달한다.** 32×32다. `.louis-hit-target`을 붙이면 44×44 의사 요소가
   중앙에 깔리는데, 알약들이 4px 간격으로 늘어선 툴바에서 그 영역이 서로 겹친다. 겹칠 때 어느
   알약이 눌리는지는 **확인되지 않았다.** 그래서 붙이지 않았다.

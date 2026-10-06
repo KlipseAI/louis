@@ -19,7 +19,7 @@ authority: normative
 | ---------- | ----------------------- | -------------------------------------- | --------------- |
 | `default`  | —                       | 아무 상태도 아님                       | —               |
 | `hover`    | `:hover`                | 포인터가 위에 있음                     | 일시적          |
-| `focus`    | `:focus-visible`        | 키보드 focus가 있음                    | 일시적          |
+| `focus`    | `:focus-visible`        | 키보드 focus가 있음 — **그리지 않는다** | 일시적          |
 | `active`   | `:active`               | **누르고 있는 동안**                   | 일시적          |
 | `pressed`  | `aria-pressed="true"`   | **토글이 켜져 있음**                   | 지속            |
 | `selected` | `aria-selected="true"`  | 목록·탭에서 선택됨                     | 지속            |
@@ -27,6 +27,16 @@ authority: normative
 | `expanded` | `aria-expanded="true"`  | 연결된 표면이 열려 있음                | 지속            |
 | `disabled` | `:disabled`, `aria-disabled` | 실행되지 않음                     | 지속            |
 | `busy`     | `aria-busy="true"`      | 진행 중이며 중복 실행을 막음           | 지속            |
+
+## `focus`는 그리지 않는다
+
+2026-10-06 소유자가 키보드 포커스 링을 전부 걷기로 정했다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+`focus`는 이름으로 남지만 **평상 렌더링에서 링도 번짐도 그리지 않는다.** 브라우저 기본 링도
+지운다. 포커스의 표현은 `packages/css/src/base.css`의 한 규칙이 소유하고, 컴포넌트는 링을 다시
+선언하지 않는다. 링은 강제 색(Windows 고대비)에서만 시스템 색 `Highlight`로 선다.
+
+링이 아닌 상태 표현은 그대로다 — 메뉴 항목의 `[data-highlighted]` 면, 입력 테두리와 떠오른 라벨의
+색처럼 포커스와 함께 바뀌는 면·글자는 이 결정의 대상이 아니다.
 
 ## `active`와 `pressed`를 절대 섞지 않는다
 

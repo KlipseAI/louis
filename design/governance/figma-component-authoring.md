@@ -585,12 +585,16 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 것과 얹은 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다 — CSS 주석이 그렇게
 적어 두었는데도 처음엔 면을 칠했다. 상태를 만들기 전에 그 상태의 CSS 규칙을 먼저 읽는다.
 
-### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
+### 포커스 링은 그리지 않는다
 
-`packages/css/src/base.css:58-62` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
-outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
-반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
-그건 브라우저가 그리는 것과 다르다.
+2026-10-06 소유자가 포커스 링을 전부 걷기로 정했다([DS-D-0074](decisions/DS-D-0074-focus-ring-removed.md)).
+코드는 평상 렌더링에서 링을 그리지 않고 강제 색(Windows 고대비)에서만 `Highlight` 링을 세운다. Figma 는
+강제 색을 표현하지 못하므로 **새 컴포넌트에 링을 그리는 `Focus` 변형을 만들지 않는다.** 포커스와 함께
+면이나 글자가 바뀌는 컴포넌트(TextField 의 라벨 색처럼)만 그 변화를 `Focus` 로 그린다.
+
+옛 규칙 — 링을 **요소보다 각 변 2px 큰 사각형의 2px OUTSIDE stroke**(`FocusRing` 자손)로 그리던 것 — 으로
+선 변형이 아직 라이브에 남아 있다(TextField · SegmentedControlItem · Slider · SidebarCta). 그것을 걷는 일은
+DS-D-0074 의 Figma 단계다.
 
 ## 기록 — Linear 의 `_` 접두사 관행 (도입하지 않았다)
 

@@ -164,7 +164,7 @@ Known deviations 12).
 | 닫힘 | 질문 줄만. `aria-expanded="false"` |
 | 열림 | 답변이 **같은 면 안에** 붙고 `+` 가 45° 돈다. `aria-expanded="true"` |
 | Hover | **`lg` 에는 없다** — 커서가 `pointer` 로 바뀌는 것이 전부다. **`md` 는 질문 버튼의 면이 잉크 4% → 8% 로 진해진다**(정본 `GUIDE_FAQ_QUESTION`). 이 차이는 Figma 에 그려지지 않았다 |
-| Focus | **컴포넌트가 그리지 않는다.** 다만 전역 리셋이 끄는 것은 `:focus:not(:focus-visible)` 뿐이라 **브라우저 기본 `:focus-visible` 링은 남는다** — 보이기는 하는데 디자인 시스템이 소유하지 않는다 |
+| Focus | **그리지 않는다**(DS-D-0074). LOUIS 클래스를 단 질문 버튼은 `base.css` 의 한 규칙이 브라우저 기본 링까지 지운다. 강제 색에서만 `Highlight` 링 |
 | Disabled | **없다.** 열 수 없는 행이라는 개념이 없다 |
 | Active(누르는 중) | **없다.** `:active` 선언이 없다 |
 
@@ -225,9 +225,8 @@ Known deviations 12).
   WAI-ARIA APG 의 Disclosure 패턴이 권고하는 연결이며 **결손**이다.
 - **질문이 제목 요소가 아니다.** 버튼 안의 `<span>` 이라 제목으로 목록을 훑는 탐색이 안 된다.
   질문이 일곱 개인 가격 페이지에서 특히 아쉽다 — **결손**이다.
-- **포커스 표시를 컴포넌트가 소유하지 않는다.** 전역 리셋이 `:focus:not(:focus-visible)` 만
-  끄므로 브라우저 기본 링은 남는다. 즉 carousel-arrow 처럼 「아무것도 안 보이는」 상태는
-  아니지만, 값이 브라우저마다 다르고 Figma 에 `Focus` 변형이 없어 **검토 대상이 아니다.**
+- **포커스 링을 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+  브라우저 기본 링도 `base.css` 가 지운다. 강제 색에서만 `Highlight` 링이 선다.
 - 타깃 크기: 닫힌 행이 폭 전체 × 66 이라 SC 2.5.5(44 × 44)를 넉넉히 넘는다. 행 간격 4 로 두
   타깃이 가깝지만 둘 다 크다.
 - **대비.** 아래는 **랜딩 바닥**(`landing/page-bg` — 라이트 #f1f1f3 · 다크 #000000) 위에서
@@ -328,10 +327,9 @@ Known deviations 12).
 - **닫힌 행 높이 66 · 48 을 고정값으로 두지 않는다.** 여백과 줄 상자에서 떨어지는 수다
   (18 + 30 + 18 · 12 + 24 + 12). `min-block-size` 로 박으면 타입이 뷰포트를 따라 줄어드는
   자리에서 행이 글자를 자른다.
-- **`overflow: hidden` 이 포커스 링을 자른다.** 소비처가 질문 버튼에 `louis-focus-ring` 을 붙이면
-  그 링은 `outline-offset: 2px` 이라 행 밖으로 나가고, 행의 `overflow: hidden` 이 그것을 자른다.
-  레시피가 포커스를 그리지 않는 것은 정본을 따른 것이고(States 참조), 링을 원하면 행에 걸거나
-  offset 을 안쪽으로 주어야 한다 — **소유자 판정**이다.
+- **`overflow: hidden` 이 강제 색의 포커스 링을 자른다.** 강제 색에서 `base.css` 가 질문 버튼에
+  거는 링은 `outline-offset: 2px` 이라 행 밖으로 나가고, 행의 `overflow: hidden` 이 그것을 자른다.
+  평상 렌더링에는 링이 없다(DS-D-0074). 강제 색의 링을 행에 걸지는 아직 판정하지 않았다.
 - `verify-recipe-record` 가 레시피의 선언을 계약과 열두 줄 대조하고 면 이름 넷을 고정한다.
   `packages/react/test/faq-row.browser.test.tsx` 가 브라우저에서 같은 값을 되잰다.
 

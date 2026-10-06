@@ -122,7 +122,7 @@ Icon Button은 `active`(누르는 중)와 `pressed`(토글 켜짐)를 **둘 다*
 - 아이콘은 항상 `aria-hidden`이다. Icon Button이 감싸는 span이 그것을 보장한다.
 - `pressed`를 준 경우에만 `aria-pressed`가 붙는다. 주지 않으면 속성 자체가 없다 — `false`를 늘
   붙이면 일반 버튼이 토글로 노출된다.
-- focus ring은 `.louis-focus-ring`이 소유한다.
+- 포커스 링은 그리지 않는다. 강제 색의 링만 `base.css`의 한 규칙이 그린다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
 
 ## Specification
 

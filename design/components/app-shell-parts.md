@@ -120,7 +120,7 @@ variant 축이 없다. rail 안의 행은 전부 같은 무게이며, 강조는 
 | Default | 투명, `color-fg-secondary` |
 | Hover | `color-accent-ghost-hover`, `color-fg-primary` |
 | Current | `color-bg-inset`, `color-fg-primary` |
-| Focus visible | 공유 focus ring |
+| Focus visible | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 
 **행 아이콘은 라벨보다 옅다.** 아이콘 슬롯은 20×20에 `background-color: currentColor` + 마스크이고,
 비활성 행에서 `opacity: 0.92`, 활성 행에서만 `1`이 된다. 라벨은 어느 상태에서도 100%다 — **같은 행
@@ -376,7 +376,7 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 - **접혀도 라벨이 DOM에 남는다.** 지우면 접기/펴기마다 접근성 이름이 사라졌다 나타나고, 스크린 리더
   사용자에게는 접힘이 보이지 않는 상태 변화가 된다. `clip-path`로 시각에서만 숨긴다.
 - 아이콘은 `aria-hidden`이다. 라벨이 이름을 소유한다.
-- **포커스 링이 실제로 그려진다.** 아래 Known deviations를 본다.
+- 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). 강제 색에서만 `base.css`가 `Highlight` 링을 그린다.
 
 ## Specification
 
@@ -605,12 +605,10 @@ style이다.
   `html[data-theme=light] body:has(&)`로 `--palette-gray-*`를 재매핑한다. 그래서 업그레이드 CTA의
   라이트 전경이 `neutral.100`이 아니라 `neutral.50`이다 — 탐침이 그 표식을 두지 않았을 때 한 단계
   어두운 값을 재고 있었다.
-- **제품의 사이드바 항목에는 포커스 표시가 없다.** `globals.css`의
-  `button:focus, button:focus-visible { outline: none }`이 `@layer base` 블록 **밖**에 있어
-  `@layer utilities` 안의 Tailwind 임의 유틸리티를 특이도와 무관하게 이긴다. 항목이 선언한
-  `[&:focus-visible]:[outline:2px_...]` 세 줄이 전부 사문이고, 앱 셸 소비처 25곳이 모두 `<button>`
-  분기를 타므로 **키보드 사용자가 지금 어디에 있는지 알 수 없다.** 그 구조는 옮기지 않았고
-  테스트가 링이 실제로 그려지는지 확인한다.
+- ~~**제품의 사이드바 항목에는 포커스 표시가 없다.**~~ **편차가 아니게 됐다** — 2026-10-06
+  소유자가 포커스 링을 전부 걷기로 정했다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+  이제 LOUIS 도 링을 그리지 않으므로 제품과 같다. 테스트는 평상 렌더링에 링이 없고 강제 색에서만
+  선다는 것을 확인한다.
 - **목적지가 있으면 링크다.** 제품의 앱 셸 소비처 25곳이 전부 `onNavigate`를 넘겨 `<button>`
   분기를 타는데, 그 결과 새 탭·링크 복사·미들클릭이 죽는다. 라우터 가로채기는 호출부가 `onClick`에서
   한다.
@@ -671,7 +669,7 @@ style이다.
 ## Acceptance tests
 
 1. 행과 상단 바의 높이·여백·간격·반경·아이콘 크기가 `components.measured.json`과 같다.
-2. **포커스 링이 실제로 그려지고** 두께와 색이 토큰에서 온다.
+2. 키보드 포커스에 링이 없고, 강제 색에서만 `border-width-ring` 두께의 `Highlight` 링이 선다.
 3. `current`가 `aria-current="page"`가 되고 면·글자가 states 표와 같다.
 4. 접혀도 라벨이 DOM에 남고 `display: none`이 아니며, trailing은 사라진다.
 5. `href`가 있으면 `<a>`, 없으면 `<button>`이다.

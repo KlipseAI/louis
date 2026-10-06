@@ -166,7 +166,7 @@ Container 기반 구현에서는 viewport가 경계 안에 있어도 expanded si
 - 단순 CSS grid는 별도 `role="grid"`를 붙이지 않는다. 복합 grid keyboard model을 구현하지 않는 한
   native link/button 목록으로 둔다.
 - DOM과 시각적 프로젝트 순서를 일치시킨다.
-- 모든 card open action과 menu trigger에 명확한 focus-visible indicator를 제공한다.
+- card open action과 menu trigger는 키보드로 닿아야 한다. 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
 - drag/reorder를 도입하면 keyboard 대체 동작과 현재 위치 안내를 함께 제공한다.
 - reduced-motion에서 staggered card entrance와 scale transition을 제거해도 콘텐츠가 즉시 보여야 한다.
 

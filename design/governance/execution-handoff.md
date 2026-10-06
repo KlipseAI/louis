@@ -333,6 +333,8 @@ node -e 'const m=require("./design/manifest.json");for(const k of ["components",
 - **`elevation-popover`** — `.louis-popover`는 action-menu와 composite-popover **둘 다**
   `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
 - **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
+  — **2026-10-06 `$deprecated` 로 표시했다**([DS-D-0074](decisions/DS-D-0074-focus-ring-removed.md)). 포커스 링을
+  그리지 않기로 해 대체가 없다. 제거는 한 migration window 뒤 제품 참조 0 을 확인하고 한다
 - **`blur-panel`**(12px) — 흐림을 쓰는 둘이 각각 `blur-toast`(16px · Toast)와 `blur-surface`(10px ·
   ProjectCard)를 쓴다. panel 을 쓰는 자리가 없다
 - ~~**`color-stroke-strong`**~~ — **해소됨(2026-08-18).** Checkbox가 첫 소비처이고 이름이 뜻과
@@ -868,7 +870,7 @@ checkout에서 root 명령이 통과한다.
   `layers.css`(layer 순서 선언), `tokens.css`(재export), `reset.css`(opt-in), `styles.css`(언레이어드),
   `styles.layer.css`(레이어드). 두 벌 배포는 Tailwind 소비자가 유틸리티로 라이브러리를 이길 수 있게
   한다.
-- base 유틸리티: `louis-visually-hidden`, `louis-focus-ring`, `louis-hit-target`, `louis-layer-*`,
+- base 유틸리티: `louis-visually-hidden`, `louis-focus-ring`(2026-10-06 DS-D-0074 로 없어졌다), `louis-hit-target`, `louis-layer-*`,
   그리고 `[data-louis-state]`의 closing/closed 계약.
 - 저작 규칙 게이트 5종 + drift 1종을 `scripts/verify-css-gates.mjs`가 canary로 증명한다 —
   `!important`, 숫자 z-index, raw color, primitive 직접 소비, reset 밖 전역 선택자.

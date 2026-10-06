@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 84
+- Documents: 86
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -27,6 +27,8 @@
 - design/governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md
 - design/governance/decisions/DS-D-0071-product-sets-count-as-coverage.md
 - design/governance/decisions/DS-D-0072-dim-modal-dark-is-the-floor.md
+- design/governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md
+- design/governance/decisions/DS-D-0074-focus-ring-removed.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -158,7 +160,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 163 |
+| Normative documents | 165 |
 | Generated documents | 5 |
 | Components | 52 |
 | Patterns | 9 |
@@ -1995,6 +1997,221 @@ LOUIS 컴포넌트를 코드 · 테스트 · Figma · parity 로 한 벌씩 세�
   (쿠폰 발급 창, 자막 편집 창, 삭제 확인 창 셋 다 같다). 다크 화면 픽셀 표본은 뒤 카드 `#171b21` → `#0f141a`, 바닥
   `#15181f` → `#0d1118`, 대화상자 면 `#171b22` 그대로다 — Context 표의 합성값과 한 칸 안에서 맞는다.
 
+## DS-D-0073 코치마크의 면과 꼬리는 한 불투명 재료다 — `bg-inverse-translucent` → `bg-inverse`
+
+- Source: design/governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md
+- Maturity: experimental
+
+### DS-D-0073 코치마크의 면과 꼬리는 한 불투명 재료다 — `bg-inverse-translucent` → `bg-inverse`
+
+- Status: accepted (소유자 판정 2026-10-01, 제품 첫 사용 안내 2라운드의 시안 3)
+- Date: 2026-10-02
+- Owners: repository owner, design system maintainer
+- Affects: `tooltip`, `governance-figma-sync`, `decision-three-in-one-change`
+
+#### Context
+
+[Tooltip](../components/tooltip.md) 의 `coachmark` layout 은 면을 `color-bg-inverse-translucent`(72%)로 칠했고,
+꼬리(`::before`, 변 10 정사각형을 45° 돌린 것)도 같은 반투명 바탕을 따로 칠했다. 제품 첫 사용 안내의 이미지 완성
+코치마크 시안을 본 소유자 판정(2026-10-01): 「코치마크가 박스랑 꼬리가 별개여서 저렇게 투명도 먹혀서 따로따로인것처럼
+보이는 현상 해결해.」
+
+원인은 두 겹 칠이다. 꼬리 안쪽 절반은 면과 겹치므로 그 자리가 72% 두 번으로 진해진다. 면의 강조색 테두리는 꼬리 밑을
+그대로 지나가 비친다. 흐림이 없으니 반투명은 뒤의 그림을 글자 밑으로 끌어들이기만 했다(390 폭에서 코치마크가 이미지
+위로 뒤집힐 때 특히 그렇다). 수정 전 계산값은 네 방향, 두 테마 모두 면과 꼬리가 같은 반투명 값이었다.
+
+| 테마 | 면, 꼬리 (수정 전) |
+| --- | --- |
+| light | `color(srgb 0.090196 0.105882 0.133333 / 0.72)` |
+| dark | `color(srgb 0.980392 0.980392 0.980392 / 0.72)` |
+
+캡처는 제품 저장소 `.omc/handoffs/onboarding-guide/checks/louis-coachmark/before-*.png` 에 있다(LOUIS 생성 CSS 만으로
+네 방향 두 테마를 그린 탐침).
+
+반투명은 제품에서 온 값이다. 제품이 이 layout 을 물기 전의 원본(제품 `12147e88`)은 면과 꼬리를 같은 72% 로 칠했고,
+면에만 흐림을 얹었다.
+
+| 자리 | 원문(제품 `12147e88`) |
+| --- | --- |
+| 면 | `  "bg-[rgb(var(--gray-900-rgb)/72%)] [backdrop-filter:blur(var(--louis-blur-panel))] text-gray-000",` |
+| 꼬리 | `  "before:bg-[rgb(var(--gray-900-rgb)/72%)] before:[transform:rotate(45deg)]",` |
+
+명령은 `git -C <제품 저장소> grep -n "gray-900-rgb)/72%" 12147e88` 이다. 결과 열여섯 줄 중
+`CanvasOnboardingHints.tsx` 의 두 줄이 위 표다. 그 파일은 제품 근거 잠금(`migration/product-evidence.lock.json`) 밖이라
+여기서 좌표로 인용하지 않는다 — 잠금은 앵커 재고정 때 다시 뽑는다. LOUIS 는 그 반투명을 받으면서 흐림은 받지 않았다(layout 축이 자기 effect 를 가질 수 없다, Tooltip 규범의
+「제품과 갈리는 값」).
+
+#### Decision
+
+`coachmark` 의 면과 꼬리를 **같은 불투명 `color-bg-inverse`** 로 칠한다. base tooltip 과 같은 재료다.
+
+위치 지정된 `::before` 는 부모의 배경과 테두리 위에 그려진다. 꼬리가 불투명하면 안쪽 절반이 면의 테두리를 덮고, 꼬리의
+바깥 두 변의 테두리가 면의 테두리와 이어져 한 덩어리의 외곽선이 된다. 두 겹 칠도 사라진다 — 위에 놓인 것이 아래를
+완전히 가린다.
+
+둘 중 하나만 바뀌어도 이음새가 돌아오므로 브라우저 테스트가 네 방향(`data-side` top, right, bottom, left), 두 테마에서
+면이 `color-bg-inverse` 이고 알파가 1 이며 꼬리가 면과 같은 값이고 꼬리의 테두리 변이 면의 테두리와 같은 색인지를 잰다
+(`packages/react/test/surface-states.browser.test.tsx`). 측정 기록 `figma/components.measured.json` 에
+`tooltip.states.coachmark` 를 더해 같은 파일의 states 대조가 실제 컴포넌트에서도 면을 잰다.
+
+#### Alternatives
+
+| 대안 | 버린 이유 |
+| --- | --- |
+| 반투명을 두고 꼬리의 안쪽 절반을 `clip-path` 로 잘라 겹침을 없앤다 | 겹침은 사라지지만 면의 테두리가 꼬리 뿌리를 그대로 가로지른다. 테두리에 구멍을 내려면 면에 `mask` 를 걸어야 하고, 그 구멍의 자리는 `data-side` 마다 달라 규칙이 넷 더 생긴다. 흐림이 없는 반투명이 글자 가독성을 떨어뜨리는 문제는 그대로 남는다 |
+| 면과 꼬리를 SVG 하나(또는 `border-image`)로 그린다 | 한 도형이라 이음새는 없지만 반경 12, 강조색 테두리, 네 방향을 도형 생성으로 옮겨야 한다. CSS 레시피 하나로 소비되는 지금 구조(제품이 클래스만 문다)를 깬다 |
+| 반투명 면에 제품처럼 흐림을 얹는다 | 꼬리는 따로 칠하는 도형이라 같은 흐림을 받지 못한다. 면은 흐리고 꼬리는 맑아 오히려 더 갈라져 보인다. layout 축이 자기 effect 를 갖지 못하는 parity 계약도 그대로다 |
+| 알파만 올린다(88% 등) | 두 겹 칠과 비치는 테두리가 약해질 뿐 사라지지 않는다 |
+
+#### Consequences
+
+- **라이트에서 면이 더 어두워진다.** 반투명일 때 밝은 바닥 위의 합성은 `#171b22` 72% 라 회색에 가까웠고, 이제 base
+  tooltip 과 같은 `#2b2f36` 이다. 다크는 `#fafafa` 72% 합성에서 `#c1c3c6` 으로, 차이가 작다.
+- **흐림은 계속 없다.** 면이 불투명이라 흐림이 비출 것이 없어 편차가 아니라 해당 없음이 된다.
+- **Figma 꼬리의 테두리 변이 틀려 있었다.** 네 변형 모두 꼬리의 테두리가 안쪽 변에 붙어 있었다(Figma 의 회전은 반시계
+  방향이라 CSS 의 `rotate: 45deg` 와 변이 갈린다). 반투명일 때는 안쪽 변이 면 안에 비쳐 묻혔고, 불투명이 되자 드러났다.
+  바깥 두 변으로 옮겼다(아래 표).
+- **Figma 본문 글자의 캐시 색이 검정이었다.** 네 변형의 `Content` 는 `color/fg-on-inverse` 72% 에 묶여 있었지만 저장된
+  색이 `#000000` 이라 화면에 어두운 글자로 그려졌다. 같은 변수로 다시 묶어 갱신했다. 값과 바인딩은 그대로다.
+- **되읽기 명세는 칠 색을 담지 않는다.** `figma-readback-emit.mjs` 의 `Tooltip` 명세는 기하, 테두리 두께, effect,
+  바인딩 개수만 담으므로 이번 변경 뒤에 다시 뜬 `components.Tooltip` 은 이전과 바이트 단위로 같았다. Figma 의 면 색은
+  parity 게이트가 아니라 이 결정의 되읽기 기록(아래)이 증거다.
+- **제품은 핀을 올릴 때 받는다.** 소비처는 `CanvasOnboardingHints.tsx` 의 첫 노드 안내와 다음 단계 안내 둘이며 둘 다
+  클래스만 물기 때문에 코드 변경 없이 바뀐다.
+
+#### 세 곳 ([DS-D-0028](../governance/decisions/DS-D-0028-three-in-one-change.md))
+
+| 자리 | 바꾼 것 |
+| --- | --- |
+| 코드 | `packages/css/src/component/tooltip.css` 의 coachmark 면과 `::before` 꼬리 배경. 생성 CSS 둘은 `build:css` 로. 브라우저 테스트 둘(states 표의 coachmark, 네 방향 두 테마의 한 재료)과 측정 기록의 `states.coachmark` |
+| Figma | `Tooltip` 세트(`674:12041`)의 coachmark 네 변형(`1352:16005`, `1352:16010`, `1352:16015`, `1352:16020`)과 각 `Tail`(`1352:16025`~`16028`)의 칠을 `color/bg-inverse-translucent` 72% → `color/bg-inverse` 100% 로 옮겼다. 꼬리의 테두리 변을 바깥 두 변으로 바로잡았다(top: 아래 두 변, bottom: 위 두 변, right: 왼쪽 두 변, left: 오른쪽 두 변). 본문 글자 칠을 다시 묶었다. `--components --only Tooltip` 으로 다시 떠 `--merge` 하고 `snapshot.json` 을 다시 만들었다 |
+| 문서 | 이 결정, [Tooltip](../components/tooltip.md) Specification, Known deviations, Acceptance tests, changelog, [Updates](../updates/README.md) (173) |
+
+#### Rollout and verification
+
+- 수정 뒤 계산값(같은 탐침): 네 방향 모두 면과 꼬리가 light `color(srgb 0.168627 0.184314 0.211765)`,
+  dark `color(srgb 0.756863 0.764706 0.776471)` 로 같고 알파가 없다. 확대 캡처에서 면의 테두리가 꼬리 뿌리에서 끊기고
+  꼬리의 바깥 두 변으로 이어진다(`after-*-zoom.png`, `after-zoom-sheet.png`).
+- 지키는 테스트가 실제로 거는지: 생성 CSS 의 꼬리만 반투명으로 되돌리면 `light/bottom 꼬리 = 면` 에서 두 motion
+  context 모두 실패한다.
+- Figma 되읽기: 여덟 노드의 칠이 `color/bg-inverse`, 불투명도 1 이다. 네 변형의 확대 캡처와 Dark 모드 인스턴스 캡처에서
+  이음새가 없다(`figma-after-*.png`).
+
+#### Rollback
+
+`tooltip.css` 의 두 `background` 를 `var(--louis-color-bg-inverse-translucent)` 로 되돌리고 테스트 둘과 `states.coachmark`
+를 지운다. Figma 는 여덟 노드의 칠을 `color/bg-inverse-translucent` 72% 로 되돌린다. 꼬리의 테두리 변과 본문 글자 칠은
+되돌리지 않는다 — 둘은 이 결정과 무관하게 틀려 있던 것이다.
+
+## DS-D-0074 포커스 링을 그리지 않는다 — 강제 색에서만 `Highlight`
+
+- Source: design/governance/decisions/DS-D-0074-focus-ring-removed.md
+- Maturity: experimental
+
+### DS-D-0074 포커스 링을 그리지 않는다 — 강제 색에서만 `Highlight`
+
+- Status: accepted (코드 · 토큰 · 문서 2026-10-06)
+- Date: 2026-10-06
+- Owners: design system maintainer (소유자 결정)
+- Affects: `foundation-interaction-states`, `foundation-inclusive-design`, `button`, `icon-button`,
+  `dialog`, `menu-popover`, `text-field`, `checkbox`, `slider`, `segmented-control`,
+  `selectable-list-row`, `project-card`, `banner-carousel`, `app-shell-parts`, `drop-zone`, `switch`,
+  `tabs`, `pattern-document`, `elevation-focus-ring`, `shadow-focus-ring`
+
+#### Context
+
+키보드 포커스는 파란 링 하나로 그려졌다. `base.css` 의 `.louis-focus-ring:focus-visible` 이
+`outline: border-width-ring(2) solid color-stroke-focus` 에 틈 2px 를 두었고, 그 링을 컴포넌트 열한
+곳(text-field 상자 · slider · checkbox · segmented 칸 · selectable-list-row · project-card 프레임 · 더보기 ·
+이름 변경 · banner 화살표와 점 · 사이드바 CTA · 건너뛰기 링크)과 document 패턴의 링크가 같은 값으로 다시
+적었다. React 컴포넌트 일곱(Button · IconButton · DialogClose · Menu 항목 · Sub 트리거 · SidebarNavItem ·
+DropZone)은 opt-in 클래스 `louis-focus-ring` 을 붙였다.
+
+제품과 문서 사이트도 각자 링을 그렸다. 문서 사이트의 검색 막대 「문서 검색 ⌘K」가 파란 링과 2px 틈으로
+포커스를 받은 화면이 이 결정의 계기였다.
+
+소유자가 2026-10-06 시안 셋을 보고 골랐다 — 지금의 파란 링과 틈, A 무채색 링, **B 링 없음**.
+**B 를 택했다.**
+
+#### Decision
+
+**키보드 포커스는 평상 렌더링에서 링도 번짐도 그리지 않는다. 강제 색(Windows 고대비)에서만 시스템 색
+`Highlight` 링을 세운다.** 디자인 시스템 · 제품 · 문서 사이트가 같은 규칙을 갖는다.
+
+1. **한 규칙이 소유한다.** `packages/css/src/base.css`:
+
+   ```css
+   :where([class^="louis-"], [class*=" louis-"]):focus-visible { outline: none; }
+   @media (forced-colors: active) {
+     :where([class^="louis-"], [class*=" louis-"]):focus-visible {
+       outline: var(--louis-border-width-ring) solid Highlight;
+       outline-offset: 2px;
+     }
+   }
+   ```
+
+   `outline: none` 이 브라우저 기본 링까지 지우므로 키보드 포커스가 Chrome 의 파랑 · 검정 링으로
+   돌아가지 않는다. 선택자는 LOUIS 클래스를 단 요소만 잡는다 — 전역 선택자는 reset 밖에서 금지다
+   ([DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md)). `:where()` 로 특이도를 `:focus-visible` 하나에 묶어
+   컴포넌트와 소비자가 언제나 이긴다.
+2. **opt-in `reset.css` 가 같은 내용을 전역으로 갖는다** — `:where(:focus-visible)`. LOUIS 클래스가
+   없는 요소(문서 패턴의 각주 `<a>` 같은 맨 마크업)의 브라우저 기본 링은 reset 을 택한 소비자에서 지워진다.
+3. **컴포넌트의 링 규칙을 지운다.** 덮어쓰지 않고 지운다. 열한 컴포넌트와 document 패턴의 평상 링,
+   그리고 base 규칙과 같은 내용이던 컴포넌트별 강제 색 블록을 지웠다.
+   강제 색에서 링을 **다른 요소가 그려야 하는** 넷만 자기 파일의 강제 색 블록에 같은 링을 적는다 —
+   text-field(포커스는 `<input>` 이 받고 링은 상자가 그린다) · segmented-control(radio 가 숨어 있어 칸이
+   그린다) · project-card(투명한 액션 층이 프레임의 overflow 에 잘려 프레임이 그린다) ·
+   selectable-list-row(강제 색의 선택 테두리 (0,2,0) 가 base 의 링 (0,1,0) 을 이긴다).
+4. **`.louis-focus-ring` 클래스를 없앤다.** 한 규칙이 그 opt-in 을 흡수했다. React 컴포넌트 일곱이
+   붙이던 클래스를 뗐고 문서의 마크업 예시에서도 지웠다. 클래스를 남긴 소비처는 이름 없는 클래스를
+   하나 갖게 될 뿐이고 그 결과(링 없음)가 이 결정이 원하는 것이다 — 그래서 migration window 없이
+   없앤다([Deprecations](../governance/deprecations.md)).
+5. **토큰.** 아직 참조되는 것은 둔다.
+   - `border-width-ring` — 강제 색 링의 두께이고 Spinner · Progress · Node Shell 도 쓴다.
+   - `color-stroke-focus` — 포커스 링에서는 빠졌지만 Drop Zone 의 끌어다 놓는 중 안쪽 테두리가 쓴다.
+     그것은 포커스가 아니라 「여기에 놓인다」라서 이 결정의 대상이 아니다.
+   - `elevation-focus-ring` · `shadow-focus-ring` — 원래 소비처가 0 이었다. `$deprecated` 로 표시한다.
+     대체는 없다. Figma effect style `elevation/focus-ring` 으로도 발행돼 있어 제거는 breaking 이고,
+     [Deprecations](../governance/deprecations.md) 의 절차대로 한 migration window 뒤 제품 참조 0 을 확인하고 한다.
+6. **링이 아닌 것은 대상이 아니다.** 입력 테두리 색 · 면과 글자의 상태 색 · 떠오른 라벨의 색 · 메뉴의
+   `[data-highlighted]` 면 · 끌어다 놓기 / 놓을 자리 / 선택의 테두리는 그대로다.
+
+#### Alternatives
+
+- **지금의 파란 링을 둔다.** 기각. 소유자가 시안을 보고 고르지 않았다.
+- **A 무채색 링.** 기각. 같은 비교에서 B 가 선택됐다.
+- **컴포넌트마다 `outline: none` 을 적는다.** 기각. 마흔 곳에 흩어지면 하나를 빠뜨려도 게이트가
+  잡지 못하고, 브라우저 기본 링이 그 자리로 돌아온다. 한 규칙이 소유하면 빠뜨릴 자리가 없다.
+- **강제 색에서도 링을 지운다.** 기각. 그 모드에서는 면 색과 그림자가 시스템 색으로 치환돼 포커스를
+  말할 다른 단서가 없다. 평상 렌더링에는 영향이 없다.
+
+#### Consequences
+
+- **WCAG 2.2 의 2.4.7 Focus Visible(AA)은 링으로 충족되지 않는다.** 포커스와 함께 면이나 글자가
+  바뀌는 자리(메뉴 항목 · 입력)는 그 변화가 남고, 버튼 · 링크 · 체크박스 · 슬라이더처럼 포커스만
+  받는 자리는 평상 렌더링에서 키보드 위치가 보이지 않는다. 소유자가 이 편차를 알고 정한 예외이며
+  [Inclusive design](../foundations/inclusive-design.md) 이 그것을 적는다.
+- 브라우저 테스트가 뒤집혔다 — 「키보드에서만 링이 선다」가 「키보드에도 링이 없다, 강제 색에서만 선다」로.
+  강제 색은 CDP `Emulation.setEmulatedMedia` 로 실제 미디어 쿼리를 켜서 잰다.
+- `figma/components.measured.json` 의 TextField 프레임 폭 328(링 4px 여백)과 결합 칸의 `ringOffset` −3 은
+  강제 색 링의 자리로 남는다.
+- 제품은 LOUIS 핀이 이 커밋에 닿기 전까지 LOUIS 가 그리는 링(text-field 상자 · checkbox 등)을 그대로
+  보인다. 제품이 자기 손으로 그리던 링은 제품 저장소의 같은 결정 커밋이 지운다.
+
+#### Rollout and verification
+
+1. CSS · React · 토큰 · 문서를 같은 변경 단위로 옮기고 생성물은 `pnpm build` 로만 만든다.
+2. `pnpm check` · `pnpm verify` · `pnpm test` 가 초록이어야 한다. 브라우저 테스트가 light · dark 의
+   `outline-style: none` 과 강제 색의 `Highlight` 링을 잰다.
+3. **Figma.** 링을 그리는 Focus 변형(TextField · SegmentedControlItem · Slider · SidebarCta)과
+   effect style `elevation/focus-ring` 은 이 커밋에서 옮기지 않았다. 라이브 적용과 되읽기 병합은 Updates
+   (191) 이 남은 일로 적는다.
+
+#### Rollback
+
+`base.css` · `reset.css` 의 두 블록을 지우고 이 커밋의 컴포넌트 · React · 테스트 변경을 되돌리면 링이
+돌아온다. 토큰의 `$deprecated` 두 줄을 지우고 `pnpm build` 를 다시 돈다.
+
 ## Contributing
 
 - Source: design/governance/contributing.md
@@ -3396,12 +3613,16 @@ hover·focus·selected 를 **컨테이너의 variant** 로 두면 두 가지가 
 것과 얹은 것이 같은 표현이 되어 어느 쪽이 현재 값인지 순간 읽히지 않는다 — CSS 주석이 그렇게
 적어 두었는데도 처음엔 면을 칠했다. 상태를 만들기 전에 그 상태의 CSS 규칙을 먼저 읽는다.
 
-##### 포커스 링은 `outline` 이고 `outline-offset` 이 있다
+##### 포커스 링은 그리지 않는다
 
-`packages/css/src/base.css:58-62` 는 `outline: 2px solid stroke-focus; outline-offset: 2px` 다. Figma 에는
-outline-offset 이 없으므로 **요소보다 각 변 2px 큰 사각형에 2px OUTSIDE stroke** 를 둔다.
-반지름도 따라간다 — 요소 반지름 + 2. 요소에 바로 stroke 를 걸면 딱 붙은 각진 상자가 되고,
-그건 브라우저가 그리는 것과 다르다.
+2026-10-06 소유자가 포커스 링을 전부 걷기로 정했다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+코드는 평상 렌더링에서 링을 그리지 않고 강제 색(Windows 고대비)에서만 `Highlight` 링을 세운다. Figma 는
+강제 색을 표현하지 못하므로 **새 컴포넌트에 링을 그리는 `Focus` 변형을 만들지 않는다.** 포커스와 함께
+면이나 글자가 바뀌는 컴포넌트(TextField 의 라벨 색처럼)만 그 변화를 `Focus` 로 그린다.
+
+옛 규칙 — 링을 **요소보다 각 변 2px 큰 사각형의 2px OUTSIDE stroke**(`FocusRing` 자손)로 그리던 것 — 으로
+선 변형이 아직 라이브에 남아 있다(TextField · SegmentedControlItem · Slider · SidebarCta). 그것을 걷는 일은
+DS-D-0074 의 Figma 단계다.
 
 #### 기록 — Linear 의 `_` 접두사 관행 (도입하지 않았다)
 
@@ -4904,6 +5125,8 @@ node -e 'const m=require("./design/manifest.json");for(const k of ["components",
 - **`elevation-popover`** — `.louis-popover`는 action-menu와 composite-popover **둘 다**
   `elevation-menu`를 쓴다. popover라는 이름의 토큰을 popover가 안 쓴다
 - **`elevation-focus-ring`** — 실제 링은 `outline`이고 이 토큰은 box-shadow `0 0 0 3px` 파랑 42%다
+  — **2026-10-06 `$deprecated` 로 표시했다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). 포커스 링을
+  그리지 않기로 해 대체가 없다. 제거는 한 migration window 뒤 제품 참조 0 을 확인하고 한다
 - **`blur-panel`**(12px) — 흐림을 쓰는 둘이 각각 `blur-toast`(16px · Toast)와 `blur-surface`(10px ·
   ProjectCard)를 쓴다. panel 을 쓰는 자리가 없다
 - ~~**`color-stroke-strong`**~~ — **해소됨(2026-08-18).** Checkbox가 첫 소비처이고 이름이 뜻과
@@ -5439,7 +5662,7 @@ checkout에서 root 명령이 통과한다.
   `layers.css`(layer 순서 선언), `tokens.css`(재export), `reset.css`(opt-in), `styles.css`(언레이어드),
   `styles.layer.css`(레이어드). 두 벌 배포는 Tailwind 소비자가 유틸리티로 라이브러리를 이길 수 있게
   한다.
-- base 유틸리티: `louis-visually-hidden`, `louis-focus-ring`, `louis-hit-target`, `louis-layer-*`,
+- base 유틸리티: `louis-visually-hidden`, `louis-focus-ring`(2026-10-06 DS-D-0074 로 없어졌다), `louis-hit-target`, `louis-layer-*`,
   그리고 `[data-louis-state]`의 closing/closed 계약.
 - 저작 규칙 게이트 5종 + drift 1종을 `scripts/verify-css-gates.mjs`가 canary로 증명한다 —
   `!important`, 숫자 z-index, raw color, primitive 직접 소비, reset 밖 전역 선택자.
@@ -5784,9 +6007,9 @@ coverage가 끝나지 않았다면 P3 core release라고 명시한다. published
    `contrastPairs` 항목 모양을 넓히는 token source 스키마 변경이다. **착수 조건:** 일곱의 뒤 면
    목록을 CSS 소비처에서 뽑고, 토큰으로 선언할 수 없는 둘을 무엇으로 재는지(최악 배경 가정인지,
    게이트 밖 편차인지) 정한다. **여덟은 하한이다** — 「한 규칙 안」 기준으로 셌으므로 글자와 면이
-   다른 규칙에 있는 알파 조합 후보(배너 캐러셀 pill 컨트롤의 `media-control-*`, Tooltip
-   `coachmark` 레이아웃의 `bg-inverse-translucent` 면과 base 규칙의 `fg-on-inverse`)는 들어 있지
-   않다. 착수할 때 상속까지 따라 다시 센다.
+   다른 규칙에 있는 알파 조합 후보(배너 캐러셀 pill 컨트롤의 `media-control-*`)는 들어 있지
+   않다. 착수할 때 상속까지 따라 다시 센다. Tooltip `coachmark` 의 `bg-inverse-translucent` 면은
+   2026-10-02 에 불투명 `bg-inverse` 가 되어 후보에서 빠졌다([DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md)).
 2. **Alert success · warning 은 소유자 판정 대기다.** light 3.90 · 3.43 이라 그대로 올리면 빌드가
    죽고, `minimum` 을 낮춰 올리면 수용으로 읽힌다. 전경을 `color-fg-{tone}` 으로 옮길지 사유를 적고
    수용할지는 [Alert](../components/alert.md) Known deviations 4·5 가 적은 판정이다.
@@ -7369,8 +7592,15 @@ owner를 공개한다.
 
 #### 활성 항목
 
-현재 이 독립 디자인 시스템 저장소에는 활성 deprecation이 없다. monolith 제품의 legacy 폐기
-항목은 제품 저장소가 계속 소유한다.
+| 항목 | 종류 | 대체 | 시작 | 제거 조건 | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| `elevation-focus-ring` | semantic token · Figma effect style `elevation/focus-ring` | 없다 — 포커스 링을 그리지 않는다 | 2026-10-06 | 한 migration window 뒤 제품 · 문서 사이트 참조 0 | [DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md) |
+| `shadow-focus-ring` | primitive token | 없다 | 2026-10-06 | 위와 같다 | [DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md) |
+
+**`.louis-focus-ring` 클래스는 window 없이 없앴다.** 붙여 둔 소비처에 남는 결과가 「링 없음」이고
+그것이 결정이 원하는 결과라 깨지는 화면이 없다. 같은 이유로 deprecated alias 를 두지 않았다.
+
+monolith 제품의 legacy 폐기 항목은 제품 저장소가 계속 소유한다.
 
 ## Design Decisions
 
@@ -15527,6 +15757,29 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-06 (191) — 포커스 링을 그리지 않는다: 한 규칙이 소유하고 강제 색에서만 `Highlight` (DS-D-0074)
+
+소유자가 시안 셋(지금의 파란 링과 2px 틈 · A 무채색 링 · B 링 없음) 가운데 **B** 를 골랐다. 계기는 문서 사이트 검색 막대
+「문서 검색 ⌘K」의 파란 링이었다. [DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md).
+
+- **한 규칙.** `base.css` 의 `:where([class^="louis-"], [class*=" louis-"]):focus-visible { outline: none }` 이 LOUIS 요소의
+  포커스를 소유한다. 브라우저 기본 링도 지운다. opt-in `reset.css` 가 같은 내용을 `:where(:focus-visible)` 로 전역에 건다.
+  강제 색(Windows 고대비)에서만 `border-width-ring` 두께의 시스템 색 `Highlight` 링이 선다.
+- **지운 것.** 열한 컴포넌트(text-field 상자와 결합 칸 · slider · checkbox · segmented 칸 · selectable-list-row · project-card 프레임 ·
+  더보기 · 이름 변경 · banner 화살표와 점 · 사이드바 CTA · 건너뛰기 링크)와 document 패턴 링크의 평상 링. 덮어쓰지 않고 지웠다.
+  강제 색 링을 다른 요소가 그려야 하는 넷(text-field · segmented-control · project-card · selectable-list-row)만 자기 파일의 강제 색
+  블록에 같은 링을 적는다.
+- **`.louis-focus-ring` 클래스가 없어졌다.** React 일곱(Button · IconButton · DialogClose · Menu 항목 · Sub 트리거 · SidebarNavItem ·
+  DropZone)이 붙이던 것을 뗐다. 남겨 둔 소비처에는 효과 없는 클래스가 남을 뿐이다 — migration window 없이 없앤 사유는
+  [Deprecations](../governance/deprecations.md).
+- **토큰.** `elevation-focus-ring` · `shadow-focus-ring` 을 `$deprecated` 로 표시했다(대체 없음, 원래 소비처 0).
+  `color-stroke-focus` 는 Drop Zone 의 끌어다 놓는 중 안쪽 테두리가, `border-width-ring` 은 강제 색 링과 Spinner · Progress 가 쓰므로
+  그대로다.
+- **테스트.** 브라우저 테스트 아홉 파일이 「키보드에서만 링이 선다」에서 「키보드에도 링이 없고 강제 색에서만 선다」로 바뀌었다.
+  강제 색은 CDP `Emulation.setEmulatedMedia` 로 켠다.
+- **남은 것 — Figma.** 링을 그리는 `Focus` 변형(TextField · SegmentedControlItem · SegmentedControl · Slider · SidebarCta)과 effect style
+  `elevation/focus-ring` 은 이 항목에서 옮기지 않았다. **제품** 은 LOUIS 핀이 이 커밋에 닿기 전까지 LOUIS 가 그리는 링을 그대로 보인다.
+
 #### 2026-10-01 (190) — 약관 · 개인정보 보드의 글자 대조로 잡은 규칙 셋: 제 글자를 DOM 순서로 · 글자 뒤 하위 목록의 margin 겹침 · 겹친 표의 칸 테두리
 
 (189) 뒤 약관 모바일을 글자 전부 대조하자 짝 241 가운데 180 이 2 넘게 어긋났다. 보드 끝은 측정과 26 차이였지만, 끝 대조만으로는 그 안의
@@ -15929,6 +16182,27 @@ Klipse 이름으로 밖에 내보내는 글의 몫을 [Voice & Tone](../content/
 
 **나란히 보기가 보드 결함 하나를 찾았다.** 제품 캡처와 보드를 나란히 놓자 모바일 로그인 보드의 로고와 입력칸 사이가 제품보다 24 좁았다 — 구조 대조(76/76)는
 통과한 상태였다. 생성기가 grid 자식의 margin 을 버리고 있었다(다음 항목 (174)).
+
+#### 2026-10-02 (173) — 코치마크의 면과 꼬리를 한 불투명 재료로 칠한다(DS-D-0073) — 상자와 꼬리가 두 조각으로 보이던 것
+
+제품 첫 사용 안내의 이미지 완성 코치마크 시안에서 소유자가 「박스랑 꼬리가 별개여서 투명도 먹혀서 따로따로인 것처럼
+보이는 현상」을 지적했다. [Tooltip](../components/tooltip.md) 의 `coachmark` 면과 꼬리(`::before`)가 둘 다
+`color-bg-inverse-translucent`(72%)라, 꼬리 안쪽 절반이 면과 겹친 자리가 두 번 칠해져 진해지고 면의 테두리가 꼬리 밑으로
+비쳐 지나갔다.
+
+**바뀐 것.**
+
+- 면과 꼬리를 같은 불투명 `color-bg-inverse` 로 칠한다. base tooltip 과 같은 재료다. 꼬리가 면의 테두리를 덮어 이음새가
+  사라지고, 꼬리의 바깥 두 변이 면의 테두리와 이어진다. 네 방향, 두 테마 모두 그렇다.
+- 라이트에서 면이 더 어두워진다(반투명 합성의 회색 → `#2b2f36`). 다크는 차이가 작다(`#c1c3c6`).
+- 브라우저 테스트 둘이 더해졌다. 측정 기록의 `tooltip.states.coachmark` 를 실제 코치마크에서 재고, 네 방향 두 테마에서
+  면과 꼬리가 같은 불투명 값인지와 꼬리의 테두리 변이 면의 테두리와 같은 색인지를 잰다.
+- Figma: `Tooltip` 세트 coachmark 네 변형과 각 `Tail` 의 칠을 `color/bg-inverse` 로 옮겼다. 꼬리 테두리가 안쪽 두 변에
+  붙어 있던 것(반투명일 때는 묻혀 보이지 않았다)을 바깥 두 변으로 고쳤고, 캐시 색이 검정이던 본문 글자 칠을 다시 묶었다.
+  `--components --only Tooltip` 으로 다시 떠 병합했다. 그 명세는 칠 색을 담지 않아 되읽기 내용은 이전과 같다.
+
+**제품은 핀을 올릴 때 받는다.** 첫 노드 안내와 다음 단계 안내가 클래스만 물기 때문에 코드 변경 없이 바뀐다. 근거와 대안은
+[DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md).
 
 #### 2026-09-28 (172) — 로그아웃 보드의 남은 차이 셋을 고치고 라이브 76장을 전부 대조했다 — 줄바꿈 · 경계 공백 · YouTube 아이콘
 

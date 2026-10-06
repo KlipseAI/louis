@@ -25,6 +25,29 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-06 (191) — 포커스 링을 그리지 않는다: 한 규칙이 소유하고 강제 색에서만 `Highlight` (DS-D-0074)
+
+소유자가 시안 셋(지금의 파란 링과 2px 틈 · A 무채색 링 · B 링 없음) 가운데 **B** 를 골랐다. 계기는 문서 사이트 검색 막대
+「문서 검색 ⌘K」의 파란 링이었다. [DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md).
+
+- **한 규칙.** `base.css` 의 `:where([class^="louis-"], [class*=" louis-"]):focus-visible { outline: none }` 이 LOUIS 요소의
+  포커스를 소유한다. 브라우저 기본 링도 지운다. opt-in `reset.css` 가 같은 내용을 `:where(:focus-visible)` 로 전역에 건다.
+  강제 색(Windows 고대비)에서만 `border-width-ring` 두께의 시스템 색 `Highlight` 링이 선다.
+- **지운 것.** 열한 컴포넌트(text-field 상자와 결합 칸 · slider · checkbox · segmented 칸 · selectable-list-row · project-card 프레임 ·
+  더보기 · 이름 변경 · banner 화살표와 점 · 사이드바 CTA · 건너뛰기 링크)와 document 패턴 링크의 평상 링. 덮어쓰지 않고 지웠다.
+  강제 색 링을 다른 요소가 그려야 하는 넷(text-field · segmented-control · project-card · selectable-list-row)만 자기 파일의 강제 색
+  블록에 같은 링을 적는다.
+- **`.louis-focus-ring` 클래스가 없어졌다.** React 일곱(Button · IconButton · DialogClose · Menu 항목 · Sub 트리거 · SidebarNavItem ·
+  DropZone)이 붙이던 것을 뗐다. 남겨 둔 소비처에는 효과 없는 클래스가 남을 뿐이다 — migration window 없이 없앤 사유는
+  [Deprecations](../governance/deprecations.md).
+- **토큰.** `elevation-focus-ring` · `shadow-focus-ring` 을 `$deprecated` 로 표시했다(대체 없음, 원래 소비처 0).
+  `color-stroke-focus` 는 Drop Zone 의 끌어다 놓는 중 안쪽 테두리가, `border-width-ring` 은 강제 색 링과 Spinner · Progress 가 쓰므로
+  그대로다.
+- **테스트.** 브라우저 테스트 아홉 파일이 「키보드에서만 링이 선다」에서 「키보드에도 링이 없고 강제 색에서만 선다」로 바뀌었다.
+  강제 색은 CDP `Emulation.setEmulatedMedia` 로 켠다.
+- **남은 것 — Figma.** 링을 그리는 `Focus` 변형(TextField · SegmentedControlItem · SegmentedControl · Slider · SidebarCta)과 effect style
+  `elevation/focus-ring` 은 이 항목에서 옮기지 않았다. **제품** 은 LOUIS 핀이 이 커밋에 닿기 전까지 LOUIS 가 그리는 링을 그대로 보인다.
+
 ## 2026-10-01 (190) — 약관 · 개인정보 보드의 글자 대조로 잡은 규칙 셋: 제 글자를 DOM 순서로 · 글자 뒤 하위 목록의 margin 겹침 · 겹친 표의 칸 테두리
 
 (189) 뒤 약관 모바일을 글자 전부 대조하자 짝 241 가운데 180 이 2 넘게 어긋났다. 보드 끝은 측정과 26 차이였지만, 끝 대조만으로는 그 안의

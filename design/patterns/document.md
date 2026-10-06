@@ -287,7 +287,7 @@ Figma 는 `not-ready` 다. 그래서 레시피 루트가 값을 **이름으로 �
 - **누적 막대 · 핀의 뜻도 글이 갖는다.** 누적 막대의 칸은 생성 콘텐츠라 읽히지 않고 조각 목록이 라벨과 값을 읽힌다. 캡처 위 핀은
   `aria-hidden` 이고 설명 목록(`ol role="list"`)의 순서가 번호를 말한다 — 설명 목록의 핀도 장식이다.
 - **목차는 `nav aria-label="목차"` 다.** 항목은 절 앵커로 가는 링크이고 절은 한 칸(24) 띄워 선다(`scroll-margin-block-start`).
-  각주 번호도 링크이며 출처 항목의 「본문으로」가 되돌아간다. 링크의 포커스는 `stroke-focus` 링이다.
+  각주 번호도 링크이며 출처 항목의 「본문으로」가 되돌아간다. 링크의 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)) — 각주의 맨 `<a>` 는 LOUIS 클래스가 없어 opt-in `reset.css` 가 브라우저 기본 링을 지운다.
 - **인용은 `figure > blockquote + figcaption` 이다.** 인용임은 따옴표 글자와 `blockquote` 가 말하고 색 선은 쓰지 않는다.
 - **캡처는 대체 텍스트를 갖는다.** 무엇이 보이는지와 이 문서가 짚는 점을 한두 문장으로 적는다(보고 예시 —
   「… 옅은 회색 글자로 서 있어 거의 읽히지 않는다」). 캡션은 `figcaption` 이고, `img` 에 `width` · `height` 를

@@ -12,8 +12,8 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 **제품에 공용 구현이 없다(제품 앵커 `2c6bdacf`).** 하이라이트 두 화면 — 허브(`HighlightScene.tsx`)와 프로젝트 상세의
 업로드 대기(`HighlightProjectScene.tsx`) — 가 `highlightSceneStyles.ts` 의 `uploadDropZone` 지역 레시피를 쓴다. 그 면은
 이름과 달리 **끌어다 놓기를 받지 않는다** — 누르면 숨긴 `input[type=file]` 을 여는 `<button>` 이다. 그리고
-`:focus-visible` 에서 outline 을 지워 **키보드 포커스가 보이지 않는다.** 이 컴포넌트는 그 레시피의 기하(패딩 · 간격 ·
-반경 · 글리프 · 글자 크기)를 옮기고, 끌어다 놓기와 포커스 링을 계약으로 더한다. [gap registry](../../migration/figma-gap-registry.md)의
+`:focus-visible` 에서 outline 을 지운다. 이 컴포넌트는 그 레시피의 기하(패딩 · 간격 ·
+반경 · 글리프 · 글자 크기)를 옮기고, 끌어다 놓기를 계약으로 더한다. 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). [gap registry](../../migration/figma-gap-registry.md)의
 「영상 업로드 드롭존」 · 「업로드 드롭존 버튼」 두 줄이 이 자리다.
 
 ## Availability
@@ -77,7 +77,7 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 | --- | --- |
 | Default | 면 `color-accent-secondary`, 안내 `color-fg-primary`, 보조 `color-fg-tertiary` |
 | Hover | 면 `color-accent-secondary-hover` |
-| Focus | `louis-focus-ring` 의 링(outline) |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `base.css` 의 `Highlight` 링 |
 | DragOver | 면 `color-accent-secondary-hover` + 안쪽 링 `color-stroke-focus`(`border-width-ring` 두께의 안쪽 그림자) |
 | Disabled | 면 `color-bg-inset`, 글자 `color-fg-disabled`, 커서 `not-allowed` |
 
@@ -102,7 +102,7 @@ DragOver 의 링은 테두리가 아니라 **안쪽 그림자**다 — 테두리
 - 루트가 `<button>` 이라 포커스 · 누름 · 이름을 기본으로 갖는다. 이름은 안내 + 보조 문구다.
 - 숨긴 입력은 `hidden` · `tabIndex=-1` · `aria-hidden` 이다 — 두 번 읽히거나 탭이 두 번 멈추지 않는다.
 - 글리프는 장식이다.
-- 포커스 링을 지우지 않는다. 제품 면이 지운 것이 이 컴포넌트를 세운 이유 중 하나다.
+- 포커스 링은 그리지 않는다(DS-D-0074). 끌어다 놓기의 안쪽 링은 포커스가 아니라 「여기에 놓인다」이므로 남는다.
 
 ## Specification
 

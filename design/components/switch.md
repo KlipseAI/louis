@@ -56,7 +56,7 @@ CSS 레시피만 있고 React 표면이 없다. 소비처가 마크업을 직접
 ```tsx
 <button
   type="button"
-  className="louis-switch louis-focus-ring"
+  className="louis-switch"
   role="switch"
   aria-checked={scheduled}
   onClick={() => setScheduled(!scheduled)}
@@ -65,8 +65,9 @@ CSS 레시피만 있고 React 표면이 없다. 소비처가 마크업을 직접
 </button>
 ```
 
-**포커스 링은 이 레시피가 소유하지 않는다.** `.louis-focus-ring`을 함께 붙이지 않으면 키보드
-포커스가 아무 표시도 남기지 않는다. 아래 Known deviations.
+**포커스 링은 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+`base.css`의 한 규칙이 `louis-` 클래스를 단 요소의 링을 지우고 강제 색에서만 `Highlight` 링을 세운다 —
+호출부가 붙일 클래스가 없다.
 
 ## Anatomy
 
@@ -94,7 +95,6 @@ CSS 레시피만 있고 React 표면이 없다. 소비처가 마크업을 직접
 | `disabled` | boolean | 없음 | `<button>`의 네이티브 비활성 |
 | `aria-disabled` | `true` | 없음 | `disabled`를 쓸 수 없을 때의 대안. **표현만 같고 동작은 같지 않다** — 활성화를 막지 않는다 |
 | `class` | `louis-switch` | **필수** | 트랙 |
-| `class` | `louis-focus-ring` | 권장 | 포커스 링. 레시피 밖이다 |
 
 **켜짐/꺼짐 클래스가 없는 이유.** 상태를 클래스로도 두면 클래스와 `aria-checked`가 어긋날 수
 있고, 어긋나면 화면과 스크린 리더가 서로 다른 말을 한다. 제품은 이관 전 `TOGGLE`/`TOGGLE_ON`
@@ -132,7 +132,7 @@ CSS 레시피만 있고 React 표면이 없다. 소비처가 마크업을 직접
 | Off | 트랙 `color-switch-off-track`(흰색 16%), 썸이 왼쪽 |
 | On | 트랙 `color-switch-on-track`(#00c68e), 썸이 오른쪽으로 20px |
 | Disabled | 위 두 표현 그대로, `opacity: 0.45` + `cursor: not-allowed` |
-| Focus | 소비처가 붙인 `.louis-focus-ring`의 `:focus-visible` outline |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 
 **hover 표현이 없다.** 제품 정본에 없었고, 넣으려면 꺼짐/켜짐 두 면에 각각 대응하는 hover 값이
 필요한데 그 짝이 토큰에 없다. 커서가 `pointer`로 바뀌는 것이 현재의 유일한 hover 신호다.
@@ -170,8 +170,8 @@ CSS 레시피만 있고 React 표면이 없다. 소비처가 마크업을 직접
   라벨을 가리키거나 `aria-label`을 준다. 현재 제품 소비처는 라벨 `<span>`을 옆에 두기만 하고 둘을
   **연결하지 않는다**(`PublishFlow.tsx:373-382`) — 스위치에 접근 가능한 이름이 없다. 아래 Known
   deviations.
-- **포커스 링이 레시피 밖이다.** `.louis-focus-ring`(`packages/css/src/base.css`)을 함께 붙여야
-  하고, 그 링은 `outline`이라 `border-radius`를 따라가고 forced-colors에서 `Highlight`로 바뀐다.
+- **포커스 링은 그리지 않는다.** forced-colors에서만 `base.css`가 `Highlight` 링을 그리고, 그 링은
+  `outline`이라 `border-radius`를 따라간다.
 - **`prefers-reduced-motion: reduce`에서 두 전환의 duration이 `motion-reduced-duration`(0ms)이
   된다.** 값은 즉시 바뀌고 이동만 사라진다 — 전환을 없애는 것이지 동작을 없애는 것이 아니다.
 - **forced-colors에서 면 색이 시스템 색으로 치환되면 on/off가 같아 보인다.** 트랙에
@@ -296,9 +296,8 @@ forced-colors에서 그림자를 지운다 — 그 모드에서 그림자는 렌
   `@keyframes`와 `animation-name`만 보고 `transition-property`는 보지 않는다. 트랙의
   `transition-property: background`도 선언된 이름(`background-color`)과 다른 단축 프로퍼티다.
   둘 다 recipe의 허용 목록을 넓히거나 스위치 전용 recipe를 세워야 풀린다.
-- **포커스 링을 레시피가 소유하지 않는다.** 소비처가 `.louis-focus-ring`을 함께 붙여야 하고,
-  빠뜨리면 키보드 포커스가 아무 표시도 남기지 않은 채 게이트를 통과한다. Button 계열이 같은
-  구조인데, 스위치는 React 래퍼가 없어 **빠뜨릴 자리가 소비처마다 열려 있다.**
+- ~~**포커스 링을 레시피가 소유하지 않는다.**~~ **해소됐다**(DS-D-0074) — 포커스의 표현은
+  `base.css`의 한 규칙이 소유하고 링을 그리지 않으므로 소비처가 붙일 것이 없다.
 - **44px hit target에 미달한다.** 44×24이므로 높이가 절반이다. `.louis-hit-target`
   (`packages/css/src/base.css`)이 시각 크기를 그대로 두고 타깃만 44px로 넓히는 유틸로 이미 있는데
   이 레시피가 붙이지 않는다. 붙일지 여부는 소비처가 정하게 되어 있고, 현재 제품 소비처는 붙이지
@@ -345,6 +344,5 @@ forced-colors에서 그림자를 지운다 — 그 모드에서 그림자는 렌
     썸 그림자가 없다.
 15. 트랙이 `flex` 행 안에서 폭 44px을 유지한다(`flex: none`).
 16. 클릭·`Enter`·`Space`가 모두 값을 바꾼다.
-17. `.louis-focus-ring`을 함께 붙였을 때 키보드 포커스에서만 outline이 나타나고 그 두께가
-    `border-width-ring`이다.
+17. 키보드 포커스에도 outline이 없고, 강제 색에서만 두께 `border-width-ring`의 링이 선다(DS-D-0074).
 18. 접근성 트리에서 역할이 `switch`이고 체크 상태가 노출된다.

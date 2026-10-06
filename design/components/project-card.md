@@ -148,7 +148,7 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 
 **`:focus-visible`이 아니라 `:focus-within`으로 드러내는 이유** — 브라우저 heuristic에 따라
 키보드로 닿았는데도 안 보이는 경우가 생기고, 숨은 컨트롤에서 그것은 **닿을 수 없다는 뜻**이다.
-초점 링 자체는 `:focus-visible`이 소유한다.
+초점 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
 
 **reduced-motion에서는 항상 보인다.** 움직임을 줄여 달라고 한 사람에게 hover로만 드러나는
 컨트롤은 찾기 어렵다.
@@ -176,11 +176,9 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 없앴다**([DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md)의 「쓰지 않는
 계단은 재고」).
 
-**초점 링은 남는다.** 제품의 밑줄 두 벌에 초점 표시가 없는 것은 호출부가 상자를 띄우자마자
-`focus()` 를 넘겨 두 상태가 항상 같이 오기 때문이고, 그 우연이 없는 소비처에서는 둘이 구별되지
-않는다. 링 두께는 0.5 에서 2 로 올렸다 — 0.5px 링은 밑줄과 나란히 놓인 또 하나의 가는 선이 되어
-초점 여부가 "선이 하나인가 둘인가"로 읽힌다. 2 는 이 파일의 더보기 링과 `.louis-focus-ring` 이
-이미 쓰는 값이다.
+**초점 링은 그리지 않는다.** 한때 이 상자에 2px 링을 남겼지만 2026-10-06 소유자가 포커스 링을
+전부 걷기로 정했다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). 제품의 밑줄 두
+벌과 이제 같다.
 
 ## Accessibility
 
@@ -189,7 +187,7 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 - **클릭 타깃 안에 대화형 자손을 두지 않는다.** `ProjectCardAdornment`는 그 형제이며 위에 칠해진다.
 - 클릭 타깃의 이름은 `ProjectCardTitle`에서 온다. id는 호출부가 만들면 카드가 여럿일 때 겹치므로
   컴포넌트가 인스턴스마다 발급한다. 제목이 없는 카드는 `aria-label`을 직접 준다.
-- focus ring은 프레임에 그린다(`:has()`).
+- 포커스 링은 그리지 않는다(DS-D-0074). 강제 색에서만 프레임에 `Highlight` 링을 그린다(`:has()`) — 포커스를 받는 투명한 액션 층은 프레임의 overflow 에 잘린다.
 - **오버레이 글자의 대비는 썸네일에 달려 있어 보장되지 않는다.** 흐림이 뒤를 고르게 만들지만
   값을 고정하지는 못한다. 아래 Known deviations를 본다.
 

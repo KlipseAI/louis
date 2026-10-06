@@ -146,8 +146,8 @@ Alert 의 `Layout=block` 과 같은 규칙이다.
 
 - 트리거의 accessible name 은 호출부가 준다. 값만으로는 「무엇의 값인지」가 서지 않는다.
 - 캐럿은 `aria-hidden` 이다. 열림·닫힘은 `aria-expanded` 가 말한다.
-- **포커스 링을 지우지 않는다.** 제품의 여러 자리가 `outline: none` 을 쓰는데 그것은 채택할
-  사양이 아니라 결손이라, `base.css` 의 링이 그대로 산다.
+- **포커스 링은 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+  `base.css` 의 한 규칙이 링을 지우고 강제 색에서만 `Highlight` 링을 세운다.
 - `sm`(24)은 WCAG 2.2 AA 의 24×24 를 만족하고 AAA(44)에는 미달한다 — `TextField` 의 sm 과 같은
   알려진 편차이며, 편집 표면의 도구 줄에서만 쓴다.
 - 캐럿 회전은 `prefers-reduced-motion` 에서 지속시간을 줄인다. 회전 자체는 남는다 — 그것이

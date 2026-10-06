@@ -54,7 +54,7 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 입힌다** — 레시피가 요소를 가리지 않으므로 모양은 한 글자도 다르지 않다.
 
 ```html
-<a href="/" class="louis-button louis-focus-ring" data-variant="secondary" data-size="md">
+<a href="/" class="louis-button" data-variant="secondary" data-size="md">
   <span class="louis-button__label">홈으로 이동</span>
 </a>
 ```
@@ -244,7 +244,7 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 - pointer click, Enter, Space가 각각 정확히 한 번 실행된다.
 - disabled와 loading에서 모든 activation 경로가 차단된다.
 - loading 시작·완료 시 accessible name과 focus가 예측 가능하다.
-- light/dark/high contrast에서 focus-visible이 보인다.
+- light/dark에서 키보드 포커스에 링이 없고, high contrast(강제 색)에서만 `Highlight` 링이 보인다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
 - KO/EN/JA 긴 라벨, 200% zoom, 320px container에서 핵심 텍스트가 사라지지 않는다.
 - reduced-motion에서 active/loading 의미가 유지된다.
 - **아이콘 유무로 높이가 달라지지 않는다.** 세 크기 모두에서 `leftIcon`/`rightIcon`을 준 버튼과
@@ -275,7 +275,7 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 | `children` | Label 텍스트 | |
 
 Figma component의 모든 fill·stroke는 변수에, 모든 텍스트는 text style에 바인딩된다(raw 값 0).
-focus-visible 링은 브라우저가 그리므로 Figma variant로 두지 않는다.
+포커스 링은 그리지 않으므로(DS-D-0074) Figma variant로 두지 않는다.
 
 활성화는 네이티브 `<button>`에 맡긴다. pointer click, Enter, Space가 각각 정확히 한 번 실행되는 것은
 브라우저가 보장하며, keydown으로 클릭을 흉내 내면 중복 실행이 된다.
@@ -364,7 +364,8 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
 
 > **제품 좌표에 `@a3ed8e03` 이 붙은 항목은 과거 배포본을 가리킨다.** 제품 `components/ui/Button.tsx`
 > 는 그 뒤 LOUIS 를 채택했다 — 배포본 `df414c24` 에서 그 파일은 **69줄**이고 `.louis-button` ·
-> `.louis-focus-ring` 과 `data-variant` / `data-size` / `data-left-icon` / `data-right-icon` 만 건다.
+> `.louis-focus-ring` 과 `data-variant` / `data-size` / `data-left-icon` / `data-right-icon` 만 건다
+> (`.louis-focus-ring` 은 그 뒤 DS-D-0074 로 없어졌다).
 > 아래에 「제품 실측」으로 적힌 값 중 그 파일이 소유하던 것(글래스 3겹 · variant 별 disabled 알파 ·
 > 원 팔레트 라벨색)은 **지금 제품에 없다.** 좌표를 지우지 않고 커밋에 묶어 두는 것은, 그 값이
 > 실재했다는 것과 무엇이 없어졌는지를 함께 남기기 위해서다. 값이 사라진 것과 처음부터 없었던 것은

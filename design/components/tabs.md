@@ -58,10 +58,10 @@ React 컴포넌트가 없다. **CSS 레시피와 마크업 계약만 있다.**
 
 ```html
 <nav class="louis-tabs" role="tablist" aria-label="분석 보기">
-  <button class="louis-tabs__tab louis-focus-ring" type="button"
+  <button class="louis-tabs__tab" type="button"
           role="tab" id="tab-overview" aria-controls="panel-overview"
           aria-selected="true" tabindex="0">개요</button>
-  <button class="louis-tabs__tab louis-focus-ring" type="button"
+  <button class="louis-tabs__tab" type="button"
           role="tab" id="tab-videos" aria-controls="panel-videos"
           aria-selected="false" tabindex="-1">영상</button>
 </nav>
@@ -69,8 +69,8 @@ React 컴포넌트가 없다. **CSS 레시피와 마크업 계약만 있다.**
 <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">…</div>
 ```
 
-**`louis-focus-ring`을 호출부가 붙인다.** `.louis-tabs__tab`은 포커스 표시를 선언하지 않는다 —
-아래 Known deviations.
+**포커스 링은 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+`base.css`의 한 규칙이 링을 지우고 강제 색에서만 `Highlight` 링을 세운다 — 호출부가 붙일 클래스가 없다.
 
 ## Anatomy
 
@@ -118,7 +118,7 @@ option이 생긴다.
 | Hover | 투명도 `0.9`. **선택된 탭과 비활성 탭에는 걸리지 않는다** |
 | Selected | 투명도 `1` |
 | Disabled | 투명도 `0.32` · `cursor: not-allowed` |
-| Focus | **레시피에 없다.** 호출부가 `louis-focus-ring`을 붙인다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
 
 **선택을 면이 아니라 전경 대비로 말한다.** 면을 칠하면 Segmented Control과 같은 표현이 되고,
 같은 화면에 둘이 함께 서는 대시보드 상단에서 어느 쪽이 값이고 어느 쪽이 화면 전환인지 읽히지
@@ -264,7 +264,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - **acceptance test를 쓰지 않은 것 — 막힌 것이 아니라 미룬 것이다.** 아래 Acceptance tests 17개
   항목은 오늘 그대로 쓸 수 있다. `packages/css/test/base.browser.test.ts`가 React 없이 원시 HTML을
   마운트해 계산값과 접근성 트리를 재는 **CSS 전용** 하네스이고(`.louis-visually-hidden`·
-  `.louis-focus-ring` 검증 9건이 그렇게 서 있다), Tabs에 React 표면이 없는 것은 이 하네스에
+  옛 `.louis-focus-ring` 검증이 그렇게 서 있었다), Tabs에 React 표면이 없는 것은 이 하네스에
   걸림돌이 아니다. 미룬 이유는 그 하네스가 아직 base CSS만 대상으로 서 있고 컴포넌트 검증은
   전부 `packages/react/test/`의 React 테스트에 몰려 있어, Tabs가 CSS 하네스로 레시피를 재는 첫
   벌이 되기 때문이다 — 그 벌을 여는 변경 단위에서 함께 쓴다. 위 Implementation의
@@ -285,11 +285,8 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - **토큰 게이트가 이 수치를 계산하지 않는다.** 토큰 소스의 `contrastPairs`는 전부 토큰 대
   토큰이고, **요소 투명도를 얹은 뒤의 색을 보는 쌍이 하나도 없다.** 위 실측은 손으로 잰 것이다.
   이 결손은 이 컴포넌트가 만든 것이 아니라 드러낸 것이다.
-- **포커스 표시가 레시피에 없다.** `.louis-tabs__tab`은 `:focus-visible` 선언을 갖지 않는다.
-  `packages/css/src/base.css`의 `.louis-focus-ring`은 opt-in 클래스이고, Button·IconButton·Menu·
-  Dialog는 React 컴포넌트가 그것을 붙여 준다. Tabs는 React 표면이 없으므로 **붙일 주체가 없다.**
-  제품 소비처 중 문의 폼만 자기 링을 갖고 있고 분석 대시보드 세 화면은 포커스 표시가 없다.
-  React 표면이 서는 변경 단위에서 함께 해소한다.
+- ~~**포커스 표시가 레시피에 없다.**~~ **해소됐다**(DS-D-0074) — 포커스 링을 그리지 않는 것이
+  계약이고, 강제 색의 링은 `base.css`의 한 규칙이 `.louis-tabs__tab`에도 건다. 붙일 주체가 필요 없다.
 - **탭 사이 간격 4px을 아무도 쓰지 않는다.** 분석 계열 세 파일이 `gap-0`으로, 문의 폼이 `gap-9`(18px)로
   덮는다. 채택한 것은 이 값이 합의된 값이어서가 아니라 **줄에 간격 선언이 아예 없으면 소비처가
   전부 자기 값을 써야 하기 때문**이다. 4는 컨트롤 간격 계단의 가장 작은 칸이며, 다음 소비처가
@@ -339,5 +336,5 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 14. 탭이 `flex: none`이라 컨테이너가 좁아져도 폭이 줄지 않고 라벨이 잘리지 않는다.
 15. 라벨이 길어도 줄바꿈하지 않고 줄의 높이가 28px로 유지된다.
 16. `role`·`aria-selected` 없이 클래스만 붙이면 선택 표현이 나타나지 않는다.
-17. 레시피에 `:focus-visible` 선언이 없다 — 이 항목은 위 Known deviations가 해소되면
-    「포커스 링이 `border-width-ring` 두께로 나타난다」로 **바뀐다.**
+17. 레시피에 `:focus-visible` 선언이 없다. 키보드 포커스에 링이 없고 강제 색에서만 `base.css`의
+    링이 선다(DS-D-0074).

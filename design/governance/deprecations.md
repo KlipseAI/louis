@@ -31,5 +31,12 @@ owner를 공개한다.
 
 ## 활성 항목
 
-현재 이 독립 디자인 시스템 저장소에는 활성 deprecation이 없다. monolith 제품의 legacy 폐기
-항목은 제품 저장소가 계속 소유한다.
+| 항목 | 종류 | 대체 | 시작 | 제거 조건 | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| `elevation-focus-ring` | semantic token · Figma effect style `elevation/focus-ring` | 없다 — 포커스 링을 그리지 않는다 | 2026-10-06 | 한 migration window 뒤 제품 · 문서 사이트 참조 0 | [DS-D-0074](decisions/DS-D-0074-focus-ring-removed.md) |
+| `shadow-focus-ring` | primitive token | 없다 | 2026-10-06 | 위와 같다 | [DS-D-0074](decisions/DS-D-0074-focus-ring-removed.md) |
+
+**`.louis-focus-ring` 클래스는 window 없이 없앴다.** 붙여 둔 소비처에 남는 결과가 「링 없음」이고
+그것이 결정이 원하는 결과라 깨지는 화면이 없다. 같은 이유로 deprecated alias 를 두지 않았다.
+
+monolith 제품의 legacy 폐기 항목은 제품 저장소가 계속 소유한다.

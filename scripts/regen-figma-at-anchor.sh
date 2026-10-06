@@ -126,7 +126,9 @@ if [ "$MODE" != "figma-only" ]; then
     exit 2
   fi
 
-  if [ ! -d "$F/.git" ]; then
+  # worktree 의 `.git` 은 디렉터리가 아니라 gitdir 을 가리키는 파일이다 — `-d` 로 보면 worktree fixture 를
+  # 「클론이 없다」로 거부한다(2026-10-06, fixture 를 제품 저장소의 worktree 로 둔다).
+  if [ ! -e "$F/.git" ]; then
     echo "  ✗ fixture 클론이 없다: $F  (KLIPSE_PRODUCT_FIXTURE_ROOT 로 지정)"; pre_ok=0
   else
     need_rebuild=0

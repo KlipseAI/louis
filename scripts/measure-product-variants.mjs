@@ -275,8 +275,12 @@ const constantsByFile = {};
 const importMapOf = (file, source) => {
   const map = {};
   const dir = file.slice(0, file.lastIndexOf("/"));
-  for (const m of source.matchAll(/import\s*(?:type\s*)?\{([^}]*)\}\s*from\s*"([^"]+)"/g)) {
-    const spec = m[2];
+  // **다시 내보내기도 싣는다(2026-10-06).** 제품 a4125565 의 SectionShell 이 `INLINE` 을 정의하지 않고
+  // `export { INLINE } from "./sectionInline"` 로 넘긴다 — 가져오기만 보면 Footer 의 `FOOTER → INLINE` 이 풀리지 않았다.
+  // 이름을 바꿔 넘기는 꼴(`export { A as B }`)은 원래 이름을 알아야 따라갈 수 있어 싣지 않는다.
+  for (const m of source.matchAll(/(import\s*(?:type\s*)?|export\s*)\{([^}]*)\}\s*from\s*"([^"]+)"/g)) {
+    const reexport = m[1].trim().startsWith("export");
+    const spec = m[3];
     let base = null;
     if (spec.startsWith("@/")) base = "apps/web/" + spec.slice(2);
     else if (spec.startsWith("./") || spec.startsWith("../")) {
@@ -290,7 +294,8 @@ const importMapOf = (file, source) => {
       base = out.join("/");
     }
     if (!base) continue; // 패키지 import 는 제품 트리 밖이라 따라가지 않는다
-    for (const raw of m[1].split(",")) {
+    for (const raw of m[2].split(",")) {
+      if (reexport && /\s+as\s+/.test(raw)) continue;
       const name = raw.trim().split(/\s+as\s+/).pop().trim();
       if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) map[name] = base;
     }
@@ -305,9 +310,8 @@ const loadConstants = (file, seenFiles) => {
   importsByFile[file] = importMapOf(file, source);
   // 자리를 먼저 잡아 순환 import 에서 무한히 내려가지 않게 한다.
   constantsByFile[file] = {};
-  const external = (name) => {
-    const base = importsByFile[file][name];
-    if (!base || seenFiles.has(base)) return null;
+  const lookup = (base, name, seen) => {
+    if (!base || seen.has(base)) return null;
     for (const ext of [".tsx", ".ts"]) {
       const target = base + ext;
       if (sources[target] === undefined) {
@@ -315,12 +319,19 @@ const loadConstants = (file, seenFiles) => {
         if (probed === null) continue; // 그 경로에 파일이 없다 — 다음 확장자
         sources[target] = probed;
       }
-      const table = loadConstants(target, new Set([...seenFiles, base]));
+      const table = loadConstants(target, new Set([...seen, base]));
       const hit = table[name];
       if (hit && hit.classes) return hit.classes;
+      // 그 파일이 정의하지 않고 다시 내보내기만 하면 그 출처를 따라간다.
+      const next = importsByFile[target]?.[name];
+      if (next) {
+        const found = lookup(next, name, new Set([...seen, base]));
+        if (found) return found;
+      }
     }
     return null;
   };
+  const external = (name) => lookup(importsByFile[file][name], name, seenFiles);
   constantsByFile[file] = Object.fromEntries(
     extractAll(source, external).map((entry) => [entry.name, entry]),
   );

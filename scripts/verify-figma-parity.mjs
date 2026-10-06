@@ -324,10 +324,14 @@ const COMPONENT_CONTRACTS = [
       sizeKeys: ["base", "coachmark"],
       fields: {
         height: "height",
-        paddingBlock: ["paddingBlock", "borderWidth"],
-        paddingBlockEnd: ["paddingBlock", "borderWidth"],
-        paddingInline: ["paddingInline", "borderWidth"],
-        paddingInlineEnd: ["paddingInline", "borderWidth"],
+        // **「패딩 + 테두리」 접기는 coachmark 에만 건다(2026-10-06).** base 의 경계는 테두리가 아니라 inset 헤어라인
+        // (`box-shadow: … var(--louis-hairline-inset)`)이라 박스에 자리가 없다 — Figma 도 레이아웃 밖 INSIDE 획이고 패딩은
+        // CSS 그대로 4/8 이다(figma-component-authoring.md 「border 가 없는데 padding 에 border 를 더하지 마라」). coachmark 는
+        // 진짜 1px 테두리라 접는다. 전에는 둘 다 접어 base 가 4.5/8.5 · 높이 FIXED 26 으로 굳어 있었다.
+        paddingBlock: { bySize: { base: "paddingBlock", coachmark: ["paddingBlock", "borderWidth"] } },
+        paddingBlockEnd: { bySize: { base: "paddingBlock", coachmark: ["paddingBlock", "borderWidth"] } },
+        paddingInline: { bySize: { base: "paddingInline", coachmark: ["paddingInline", "borderWidth"] } },
+        paddingInlineEnd: { bySize: { base: "paddingInline", coachmark: ["paddingInline", "borderWidth"] } },
         itemSpacing: "gap",
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
@@ -3468,7 +3472,17 @@ function tamperComponentAtLeast(snapshot) {
   return "SidebarCta false 의 높이를 기록의 최소값(40)보다 낮은 39 로 바꿈";
 }
 
+// 크기별 칸(`{ bySize }`)의 검출력. Tooltip base 의 위 패딩을 옛 접기 값 4.5(패딩 4 + 헤어라인 0.5)로 되돌린다 —
+// 크기별 규칙이 coachmark 의 접기를 base 에도 건네게 망가지면 여기서 문다.
+function tamperComponentBySize(snapshot) {
+  const base = snapshot.components?.Tooltip?.geometry?.base;
+  if (!Array.isArray(base?.paddingBlock) || base.paddingBlock[0] === 4.5) return null;
+  base.paddingBlock = [4.5];
+  return "Tooltip base 의 위 패딩을 옛 접기 값 4.5 로 바꿈";
+}
+
 const TAMPERS = [
+  tamperComponentBySize,
   tamperComponentAtLeast,
   tamperValue,
   tamperAlias,
@@ -4231,6 +4245,14 @@ function compareComponentGeometry(contract, got) {
         )
           ? undefined
           : { set: members };
+      } else if (rule?.bySize && typeof rule.bySize === "object") {
+        // **크기마다 다른 규칙 `{ bySize: { <size>: <키 | 키 목록> } }`(2026-10-06).** 한 계약 안에서 크기에 따라 출처가
+        // 갈리는 칸 — Tooltip 의 패딩이 그렇다(base 는 inset 헤어라인, coachmark 는 진짜 테두리). 목록이면 더한다.
+        // 규칙에 없는 크기는 undefined 가 되어 아래 「근거 값이 없습니다」로 걸린다.
+        const pick = rule.bySize[size];
+        expected[field] = typeof pick === "string"
+          ? spec[pick]
+          : Array.isArray(pick) ? pick.reduce((total, key) => total + spec[key], 0) : undefined;
       } else if (typeof rule?.atLeast === "string") {
         // **하한 칸 `{ atLeast: <기록 키> }`(2026-10-06).** 기록이 CSS `min-*` 를 잰 칸이면 Figma 는 그 이상이면 된다 —
         // 내용이 정하는 크기(HUG)를 최소값과 같은 수로 굳히지 않게 한다(figma-screen-assembly.md 28번).

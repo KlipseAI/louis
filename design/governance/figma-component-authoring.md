@@ -487,8 +487,10 @@ Dialog(790) · BannerCarousel(840) 같은 큰 것이 들어가면 다음 것을 
   `{ atLeast: <기록 키> }` 가 「Figma 값 ≥ 기록」을 본다(2026-10-06). 사이드바 CTA 펼침이 첫 사례다 — 기록 `height` 40 은
   측정기가 `min-height` 를 읽은 값인데 Figma 가 그 수로 높이를 FIXED 에 두고 라벨을 잘라 넣어 같은 수로 맞고 있었다. 지금은
   HUG + 최소 40 으로 서서 제품과 같은 실효 높이 41 이 된다([App Shell Parts](../components/app-shell-parts.md) Known deviations).
-  「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸은 툴팁 base 와 알림이 남아 있다 — 툴팁 base 는 헤어라인이 레이아웃 밖
-  INSIDE 획인데 패딩에 0.5 를 더해 두어, 아래 「border 가 없는데 padding 에 border 를 더하지 마라」를 먼저 풀어야 HUG 로 풀린다.
+  툴팁 base 도 같은 날 풀었다 — 헤어라인이 레이아웃 밖 INSIDE 획인데 패딩에 0.5 를 더해(4.5/8.5) 높이를 FIXED 26 에 굳혀
+  두었던 것을, 패딩 4/8 · 높이 HUG 로 되돌렸다(아래 「border 가 없는데 padding 에 border 를 더하지 마라」). 테두리가 실재하는
+  coachmark 만 접도록 계약이 크기마다 출처를 가른다(`{ bySize }`). 「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸은 알림이
+  남아 있다(브라우저 테스트가 그 키를 읽는다).
 - **오토레이아웃 없는(NONE) 루트 안에 겹쳐 놓인 층은 constraints 를 측정 자리대로 건다.** 기본값 MIN/MIN 은 루트를 키우면
   층이 왼쪽 위에 남는다. 덮개(영상 · 스크림 · 격자)는 STRETCH/STRETCH, 아래 크롬은 STRETCH/MAX, 가운데 내용은 CENTER, 모서리 ·
   변 손잡이는 자기 모서리 · 변(MIN · CENTER · MAX)이다. 정사각처럼 비율이 계약인 프레임은 `lockAspectRatio()` 로 비율을

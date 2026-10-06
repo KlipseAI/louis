@@ -79,7 +79,6 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const BASELINE = {
   // 컴포넌트 생성기의 글리프 20 가드, 요금제 장면(묶음 5)의 뷰포트 · 카드 크기 가드.
   "build-figma-product-components.mjs": 2,
-  "build-figma-product-pricing-page.mjs": 4,
   // 앱 셸 생성기의 Figma 글리프 실측표(`figmaGlyphBounds` · `desktopFigmaGlyphBounds`, 라벨 열 개 × 폭 · 높이 ×
   // 두 뷰포트)와 `lineShiftX`. 제품 rect 가 아니라 Figma 글꼴 메트릭이지만 라벨 · 글꼴이 바뀌면 낡는 계산값이다.
   "build-figma-product-app-shell.mjs": 41,
@@ -96,9 +95,9 @@ const BASELINE = {
   "templates/figma-product-app-shell-renderer.js": 3,
   "templates/figma-product-components-renderer.js": 10,
   "templates/figma-product-payment-scenes-renderer.js": 2,
-  "templates/figma-product-pricing-renderer.js": 6,
   // 사이드바 상태 렌더러에는 [설명 수치] 둘도 들어 있다 — 노드 이름 「label clip · measured 12×18」 · 「96×28 clipped」(묶음 4).
-  "templates/figma-product-sidebar-states-renderer.js": 20,
+  // 2026-10-06: 접힌 레일의 묶음 · 메뉴 고정(`fixed(top, 32, 264)` · `fixed(menu, 32, 212)`)을 HUG 로 풀었다: 20 → 16(묶음 4).
+  "templates/figma-product-sidebar-states-renderer.js": 16,
   // 2026-09-26: 글리프 렌더러의 보드 캔버스 — 섹션 안 첫 세트의 y 160(부품 섹션과 같은 배치). 새 섹션의 자리 채움 크기
   // (`resizeWithoutConstraints(2000, 1000)`, 끝에서 내용으로 다시 잰다)는 걷었다: 3 → 1.
   "templates/figma-product-glyphs-renderer.js": 1,

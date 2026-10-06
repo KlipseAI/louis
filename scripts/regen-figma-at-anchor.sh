@@ -334,7 +334,7 @@ for m in \
   build-figma-snapshot build-figma-variables build-figma-styles build-figma-summaries \
   build-figma-product-components build-figma-product-app-shell build-figma-product-sidebar-states \
   build-figma-product-payment-scenes build-figma-product-checkout-status \
-  build-figma-product-upgrade-scene build-figma-product-pricing-page build-figma-product-highlight-hub \
+  build-figma-product-upgrade-scene build-figma-product-highlight-hub \
   build-figma-app-screens build-figma-inventory measure-figma-board-composition
 do
   run "$m"

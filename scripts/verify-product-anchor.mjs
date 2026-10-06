@@ -4,7 +4,7 @@
 // 왜 있나: 2026-09-01 전수 감사에서 이 저장소의 제품 생성물 24개가 **네 시점의 제품**을
 // 동시에 기준 삼고 있었다(원장 `anchor-scatter-five-commits`). `ae8fd627` 19핀 ·
 // `a3ed8e03` 4핀 · `a89fc0d5` 1 · `7e9c3b69` 1 · `086f4a62` 1. 그중 가장 나쁜 것은
-// `figma/product-pricing-page.plan.json` 이었다 — 326커밋 낡은 제품의 가격 페이지를 그려
+// figma/product-pricing-page.plan.json(2026-10-06 은퇴) 이었다 — 326커밋 낡은 제품의 가격 페이지를 그려
 // 놓고 초록이었는데, 그 사이 제품에서 가격표가 실제로 두 번 바뀌었다(제품 `dde15c7c` ·
 // `fc265a02`). 낡음 자체보다 나쁜 것은 낡았다는 사실을 재는 자가 없다는 것이다.
 //
@@ -185,11 +185,6 @@ const HOW_TO_REALIGN = new Map([
   [
     "migration/product.variable-modes.json",
     "build-figma-variable-source 측정기로 다시 뜬다. 제품을 브라우저에 올려 문맥별 해결값을 뽑는다.",
-  ],
-  [
-    "figma/product-pricing-page.plan.json",
-    "`pnpm run build-figma-product-pricing-page` 로 다시 만든다. 그 생성기는 이미 " +
-      "장면 증거의 커밋을 lock 과 대조하고 멈춘다 — 즉 이 핀은 앞선 어긋남의 그림자다.",
   ],
   [
     "migration/product.measured.json",

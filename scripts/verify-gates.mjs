@@ -1437,14 +1437,6 @@ withCanary(
   "check-figma-product-upgrade-scene",
 );
 
-withCanary(
-  "package.json",
-  (source) => source.replace(" && pnpm run check-figma-product-pricing-page", ""),
-  "measured Figma product pricing-page generation remains wired",
-  "scripts/verify-gate-split.mjs",
-  "check-figma-product-pricing-page",
-);
-
 // variants는 liveOnly를 정적 하네스에서 제외한다. 새 liveOnly가 장면 측정기의 소유 목록에
 // 등록되지 않은 채 추가되면 두 측정기 모두에서 사라지므로, 카탈로그 단계에서 실패해야 한다.
 withCanary(

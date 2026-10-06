@@ -8,7 +8,7 @@ authority: normative
 
 > **2026-08-23 — 제품 전 페이지 Figma 이식 작업은
 > [현재 인계서](handoff-2026-08-23-figma-product-pages.md)에서 이어간다.** `/privacy`·`/terms` 4프레임과
-> `/pricing` 세트 `443:9424`(desktop `443:7960` · mobile `443:8657`)가 섰다. `/` 2프레임(`359:2032` · `359:2986`)은
+> `/pricing` 세트 `443:9424`(desktop `443:7960` · mobile `443:8657`)가 섰다(2026-10-06 은퇴 — 측정 생성 보드가 정본). `/` 2프레임(`359:2032` · `359:2986`)은
 > 제품 `8802565e` 개편 **전** 랜딩의 손 조립이라 지금 제품의 권위 프레임이 아니다(인계서 「다음 순서」 4번). 공개·문서·법무·인증
 > 22개 route의 desktop/mobile 측정도 완료됐다. pinned commit의 page file은 49개이며 27개 route
 > pattern 중 16개 static route는 제품이 선언한 development-only auth fixture의 실패/빈 기본 상태까지

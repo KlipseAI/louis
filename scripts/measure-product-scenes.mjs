@@ -965,9 +965,8 @@ try {
         if (tierCards.length !== 5) {
           throw new Error(
             "가격 페이지 요금제 카드 수가 5가 아닙니다: " + tierCards.length +
-              ". 제품이 플랜을 늘리거나 줄였다면 이 수와 " +
-              "scripts/build-figma-product-pricing-page.mjs 의 planNames 를 함께 옮기세요 — " +
-              "둘이 어긋나면 Figma 보드의 variant 이름이 엉뚱한 카드에 붙습니다.",
+              ". 제품이 플랜을 늘리거나 줄였다면 이 수를 옮기세요 — 이 측정을 Figma 요금제 부품으로 옮기던 " +
+              "옛 생성기(build-figma-product-pricing-page)는 2026-10-06 에 은퇴했고, /pricing 보드는 측정 생성이다.",
           );
         }
         const tree = subtreeSnapshots(main);

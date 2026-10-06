@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 // 세 갈래인데 셋 다 이 파일을 읽는다 —
 //   · `scripts/lib/product-ref.mjs` 를 import 하는 측정·생성 스크립트 15개
 //   · `verify-citations` 가 인용 좌표를 열 때 쓰는 `lock.productCommit`
-//   · `scripts/lib/product-scene-evidence.mjs` 가 장면 생성물을 대조하는 기준
+//   · scripts/lib/product-scene-evidence.mjs(2026-10-06 은퇴) 가 장면 생성물을 대조하는 기준
 // 반대로 `migration/*.json` · `figma/*.json` 이 스스로 적어 두는 `productCommit` 핀 25개는
 // **아무도 읽지 않는 기록**이다 — 생성 당시의 제품이 무엇이었는지를 적어 둘 뿐이다.
 // 그래서 정본은 lock 이고, 나머지는 그 정본을 따라와야 하는 그림자다.

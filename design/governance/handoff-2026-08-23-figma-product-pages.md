@@ -1015,7 +1015,7 @@ fragment로 유지한다.
 
 재현 runner는 connector 50KB 제한 때문에 shell, plan desktop/mobile, credit, FAQ, comparison
 desktop/mobile 각 2개, scenes로 분할했다. generator/check는
-`scripts/build-figma-product-pricing-page.mjs` / `check-figma-product-pricing-page`이며 `verify:product`의
+scripts/build-figma-product-pricing-page.mjs(2026-10-06 은퇴) / `check-figma-product-pricing-page`이며 `verify:product`의
 22번째 제품 의존 leaf다.
 
 ## 2026-08-24 추가 — 공통 GNB/헤더와 비디오 편집기 그리드 복구
@@ -1482,8 +1482,8 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
    `410:1294` · `417:2214`)는 2026-09-14 앱 셸 러너(옛 계획) 적용에서 기본 라벨로 바뀌어 손으로 되채웠다 — 이제 러너들이 route 측정
    글자로 채우고 바꾼 속성을 `topBarTextChanges` 로 돌려준다((135)).
 4. **랜딩 `/` 전용 축은 짓지 않는다(2026-09-13 판정 — 소비자 0).** `migration/product.scenes.json` 의
-   `pages.*["/"]` 를 읽는 코드는 측정기 자신의 `--check` 뿐이다 — 증거 로더(`scripts/lib/product-scene-evidence.mjs`)의
-   유일한 호출자 `scripts/build-figma-product-pricing-page.mjs` 는 `/pricing` 만 읽고(`:123`), 옛 전용 키
+   `pages.*["/"]` 를 읽는 코드는 측정기 자신의 `--check` 뿐이다 — 증거 로더(scripts/lib/product-scene-evidence.mjs(2026-10-06 은퇴))의
+   유일한 호출자 scripts/build-figma-product-pricing-page.mjs(2026-10-06 은퇴) 는 `/pricing` 만 읽고(`:123`), 옛 전용 키
    (`nodeCanvasArticle` · `sections`)는 이력 전체에서 측정기와 생성물 밖에 나온 적이 없다(`git log --all -S
    nodeCanvasArticle` 세 커밋). Figma 생성기 중 랜딩 보드를 만드는 것은 없고 앱 화면 계획 36 보드에도 `/` 가
    없다. 라이브 `/` 보드 `359:2032` · `359:2986` 은 앵커 `a3ed8e03` 의 손 조립이라 생성기도 게이트도 읽지 않고,

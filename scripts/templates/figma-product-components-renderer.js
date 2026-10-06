@@ -89,6 +89,16 @@ const applyMeasuredFrame = (frame, spec, gap) => {
 // 간격을 달리 둘 수 없으므로 둘을 그 간격의 가로 묶음으로 싼다 — 항목마다 간격이 다르면 스택을 중첩한다. 옛 러너는 딱지를 행 간격 10 에 두어
 // 제품보다 2 넓었다.
 const LABEL_GROUP = "flow/label-and-badge";
+// **딱지는 양축 내용 크기다(크기 굳힘 감사 묶음 4).** 제품 딱지(`exploreSoonChip`)는 크기를 선언하지 않고 패딩과 글자로 선다
+// (계획 `beta.padding` · `beta.label`). 위아래 패딩은 결합할 `spacing/<n>` 이 계획에 없어 값으로 둔다.
+const hugBadge = (badge, beta) => {
+  badge.layoutMode = "HORIZONTAL";
+  badge.primaryAxisSizingMode = badge.counterAxisSizingMode = "AUTO";
+  badge.paddingTop = beta.padding.top;
+  badge.paddingBottom = beta.padding.bottom;
+  bindSpacing(badge, "paddingLeft", beta.padding.left);
+  bindSpacing(badge, "paddingRight", beta.padding.right);
+};
 const labelGroup = (group, gap) => {
   group.layoutMode = "HORIZONTAL";
   group.primaryAxisSizingMode = group.counterAxisSizingMode = "AUTO";
@@ -187,6 +197,8 @@ if (!upgradeSet) {
     component.layoutMode = "HORIZONTAL";
     component.primaryAxisSizingMode = component.counterAxisSizingMode = "FIXED";
     component.resize(spec.rect.width, spec.rect.height);
+    // 높이는 내용(패딩 + 라벨 줄)이 정한다 — 폭만 측정 rect 다(크기 굳힘 감사 묶음 4).
+    component.counterAxisSizingMode = "AUTO";
     component.primaryAxisAlignItems = component.counterAxisAlignItems = "CENTER";
     bindSpacing(component, "itemSpacing", spec.gap);
     bindPadding(component, spec.padding);
@@ -222,7 +234,12 @@ for (const variant of upgradeSet.children) {
   const spec = C.variants.find((entry) => variant.name === `State=${entry.state}`);
   if (!spec) continue;
   pin(variant);
-  if (variant.width !== spec.rect.width || variant.height !== spec.rect.height) variant.resize(spec.rect.width, spec.rect.height);
+  // **높이는 내용이 정한다(크기 굳힘 감사 묶음 4).** 제품 CTA 는 최소 높이만 두고 패딩 10 + 라벨 줄 21 + 10 으로 서므로 측정 rect 의
+  // 높이를 굳히지 않는다 — 폭만 레일 내용 폭(측정 rect, 소비처에서는 채움)으로 쓴다.
+  if (variant.width !== spec.rect.width) variant.resize(spec.rect.width, variant.height);
+  variant.layoutMode = "HORIZONTAL";
+  variant.primaryAxisSizingMode = "FIXED";
+  variant.counterAxisSizingMode = "AUTO";
   // 패딩 · 간격도 매 실행 계획대로 건다(값이 같으면 결과가 같다) — 없을 때만 걸던 옛 경로는 측정이 옮겨도 라이브가 따라오지 않는다.
   bindPadding(variant, spec.padding);
   bindSpacing(variant, "itemSpacing", spec.gap);
@@ -328,15 +345,14 @@ const ensureShell = (menuSet, ctaSet) => {
       top.appendChild(menu);
     }
     top.layoutMode = "VERTICAL";
-    top.primaryAxisSizingMode = top.counterAxisSizingMode = "FIXED";
-    top.resize(S.nav.width, S.brand.rect.height + (S.menu.y - (S.brand.rect.y + S.brand.rect.height)) + S.menu.height);
+    // **묶음 · 브랜드 · 메뉴 · CTA 는 측정 rect 로 굳히지 않는다(크기 굳힘 감사 묶음 4).** 폭은 셸 내용 폭을 채우고(FILL), 높이는
+    // 내용이 정한다(HUG) — 브랜드 행만 제품이 선언한 높이(측정 rect)다. 채움은 셸이 세로 오토레이아웃이 된 뒤 아래에서 건다.
+    top.primaryAxisSizingMode = "AUTO";
     bindSpacing(top, "itemSpacing", S.menu.y - (S.brand.rect.y + S.brand.rect.height));
     top.fills = [];
-    brand.resize(S.brand.rect.width, S.brand.rect.height);
+    if (brand.height !== S.brand.rect.height) brand.resize(brand.width, S.brand.rect.height);
     bindSpacing(brand, "paddingLeft", S.brand.paddingLeft);
     bindSpacing(brand, "itemSpacing", S.brand.gap);
-    menu.resize(S.menu.width, S.menu.height);
-    cta.resize(S.upgradeCta.width, S.upgradeCta.height);
     const expectedMenuMaster = menuByCurrent.get(spec.menuCurrent);
     if (!expectedMenuMaster) throw new Error(`Missing measured menu state ${spec.menuCurrent}`);
     if (menu.mainComponent?.id !== expectedMenuMaster.id) menu.swapComponent(expectedMenuMaster);
@@ -354,6 +370,13 @@ const ensureShell = (menuSet, ctaSet) => {
     shell.counterAxisAlignItems = "CENTER";
     // 제품 헤더 패딩은 위 8(`--app-gnb-safe-top`) · 좌우 12 · 아래 0 이고 CTA 가 레일 끝에 닿는다(측정 y 1039 + 41 = 1080).
     bindPadding(shell, S.root.padding);
+    top.layoutSizingHorizontal = "FILL";
+    brand.layoutSizingHorizontal = "FILL";
+    brand.layoutSizingVertical = "FIXED";
+    menu.layoutSizingHorizontal = "FILL";
+    menu.layoutSizingVertical = "HUG";
+    cta.layoutSizingHorizontal = "FILL";
+    cta.layoutSizingVertical = "HUG";
     shell.fills = [];
     shell.description = `Measured ${spec.route} Gnb Auto Layout · ${PLAN.productCommit}`;
     shell.x = VARIANT_GUTTER + index * (S.root.width + VARIANT_GUTTER);
@@ -606,7 +629,7 @@ const reconcileMenuRow = async (variant, row, spec) => {
     place(row, group, 1);
     labelGroup(group, spec.beta.gap);
     place(group, label, 0);
-    place(group, find("FRAME", "badge/BETA"), 1);
+    hugBadge(place(group, find("FRAME", "badge/BETA"), 1), spec.beta);
     keep.push(group);
   } else {
     keep.push(place(row, label, 1));
@@ -617,8 +640,11 @@ const reconcileMenuRow = async (variant, row, spec) => {
   bindSpacing(row, "itemSpacing", spec.label.rect.x - spec.icon.rect.x - spec.icon.rect.width);
   const keepIds = new Set(keep.map((node) => node.id));
   for (const child of [...row.children]) if (!keepIds.has(child.id)) retire(child);
-  // 행 크기는 측정 rect 다 — 행은 레일 내용 폭을 채우므로 레일이 줄면(제품 bc3e6fa3, 280 → 240) 함께 준다. 다를 때만 쓴다.
-  if (row.width !== spec.rect.width || row.height !== spec.rect.height) row.resize(spec.rect.width, spec.rect.height);
+  // **행 폭은 레일 내용 폭을 채운다(FILL, 크기 굳힘 감사 묶음 4).** 측정 rect 로 굳히면 레일이 바뀔 때(제품 bc3e6fa3, 280 → 240)
+  // 생성기를 다시 돌려야 따라왔다. 높이는 제품이 선언한 행 높이라 측정 rect 그대로 둔다.
+  if (row.height !== spec.rect.height) row.resize(row.width, spec.rect.height);
+  row.layoutSizingHorizontal = "FILL";
+  row.layoutSizingVertical = "FIXED";
   await reconcileLabel(variant, row, label, spec.label.text);
 };
 
@@ -662,8 +688,10 @@ const reconcileMenuVariants = async (menuSet) => {
         for (const text of badge.findAllWithCriteria({ types: ["TEXT"] })) text.fills = [paint(beta.label.paint)];
       }
     }
-    // variant 크기도 측정 rect 다 — 행 수(제품 2c6bdacf 가 「분석」 아이브로우 행을 걷었다)와 행 폭을 따라간다. 다를 때만 쓴다.
-    if (variant.width !== P.root.width || variant.height !== P.root.height) variant.resize(P.root.width, P.root.height);
+    // **variant 높이는 행이 정한다(HUG, 크기 굳힘 감사 묶음 4).** 행 수가 바뀌면(제품 2c6bdacf 가 「분석」 아이브로우 행을 걷었다)
+    // 따라온다. 폭은 레일 내용 폭(측정 rect, 소비처에서는 채움)이다.
+    if (variant.width !== P.root.width) variant.resize(P.root.width, variant.height);
+    variant.primaryAxisSizingMode = "AUTO";
     variant.x = VARIANT_GUTTER + index * (P.root.width + VARIANT_GUTTER);
     variant.y = VARIANT_GUTTER;
   }
@@ -734,13 +762,8 @@ for (const spec of P.rows) {
     group.appendChild(label);
     const badge = figma.createFrame();
     badge.name = "badge/BETA";
-    badge.layoutMode = "HORIZONTAL";
-    badge.primaryAxisSizingMode = "FIXED";
-    badge.counterAxisSizingMode = "FIXED";
-    badge.resize(spec.beta.rect.width, spec.beta.rect.height);
+    hugBadge(badge, spec.beta);
     badge.primaryAxisAlignItems = badge.counterAxisAlignItems = "CENTER";
-    bindSpacing(badge, "paddingLeft", spec.beta.padding.left);
-    bindSpacing(badge, "paddingRight", spec.beta.padding.right);
     badge.cornerRadius = spec.beta.radius;
     bindCorners(badge, V.radius6);
     badge.fills = [paint(spec.beta.paint)];
@@ -750,7 +773,9 @@ for (const spec of P.rows) {
     row.appendChild(label);
   }
   root.appendChild(row);
+  row.layoutSizingHorizontal = "FILL";
 }
+root.primaryAxisSizingMode = "AUTO";
 root.description = `Measured · ${PLAN.productCommit} · ${PLAN.sourceCandidate.id}`;
 section.appendChild(root);
 

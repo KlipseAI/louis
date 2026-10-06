@@ -225,7 +225,9 @@ const buildRailVariant = (current) => {
   top.layoutMode = "VERTICAL";
   top.itemSpacing = 12;
   top.fills = [];
-  fixed(top, 32, 264);
+  // 묶음 · 메뉴는 자식이 정한다(HUG) — 브랜드 40 + 간격 12 + 메뉴(행 여섯 · 간격 넷)가 264 · 212 를 낸다. 전에는 그 합을 수로
+  // 굳혀 행 수가 바뀌어도 따라오지 않았다(크기 굳힘 감사 묶음 4).
+  top.primaryAxisSizingMode = top.counterAxisSizingMode = "AUTO";
   const brand = figma.createFrame();
   brand.name = "brand/Klipse · collapsed crop";
   brand.layoutMode = "HORIZONTAL";
@@ -248,7 +250,7 @@ const buildRailVariant = (current) => {
   menu.layoutMode = "VERTICAL";
   menu.itemSpacing = 4;
   menu.fills = [];
-  fixed(menu, 32, 212);
+  menu.primaryAxisSizingMode = menu.counterAxisSizingMode = "AUTO";
   for (const [label, key] of menuItems) {
     const measured = PLAN.measurements.collapsed.menu.find((entry) => entry.label === label);
     const row = figma.createFrame();

@@ -10995,10 +10995,10 @@ Known deviations 12).
     (API 참조). `aria-controls` · `id` · 제목 요소는 **CSS 가 강제할 수 없는 마크업**이라
     레시피가 채울 수 없고, API 절의 마크업 계약과 소비처가 진다.
 11. **counter 축 정렬이 대조되지 않는다.** 제품은 `items-start`(근거는 제품 주석이 전한 「시안
-    counter 정렬 `MIN`」)에서 `items-center` 로 옮겼는데(제품 `5a047ab02`), 되읽기에는 정렬 필드가
-    아예 없어(`FaqRow` 의 `parts.Question` 은 width · height · padding · itemSpacing 뿐이다) Figma 가
-    어느 쪽인지 확인되지 않는다. **LOUIS 레시피 `lg` 는 아직 `align-items: flex-start` 다** — 제품을
-    따라 옮겨야 한다. 되읽기 채취에 counter 정렬을 더하는 것이 승격 조건 하나다.
+    counter 정렬 `MIN`」)에서 `items-center` 로 옮겼다(제품 `5a047ab02`). 2026-10-06 에 LOUIS 레시피의 `lg`
+    (`align-items: center`, `md` 덮어쓰기는 걷었다)와 Figma `lg` 두 변형(질문 줄 counter MIN → CENTER, 높이 66 그대로)을
+    따라 옮겼다. 남은 것은 대조 — 되읽기에 정렬 필드가 없어(`FaqRow` 의 `parts.Question` 은 width · height · padding ·
+    itemSpacing 뿐이다) Figma 가 다시 갈려도 게이트가 모른다. 되읽기 채취에 counter 정렬을 더하는 것이 승격 조건 하나다.
 12. **여닫이 전개를 레시피가 그리지 않는다.** 정본은 framer-motion 이 `height: 0 ↔ auto` 를
     300ms 로 옮기고, `grid-template-rows: 0fr ↔ 1fr` 은 매 프레임 재레이아웃으로 렉이 있어
     버렸다는 기록이 제품에 남아 있다. CSS 만으로는 그 둘 중 하나를 고를 수밖에 없으므로 레시피는

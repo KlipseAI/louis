@@ -25,6 +25,22 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-06 (197) — 크기 굳힘 감사 묶음 4 · 5 와 앵커 이동 준비: 사이드바 부품은 내용 크기로 서고, 옛 /pricing 캡처 부품은 걷었다
+
+- **묶음 4 — 사이드바 부품(렌더러만, 라이브 미적용).** `figma-product-components-renderer.js` 가 측정 rect 로 굳히던 축을 풀었다 —
+  업그레이드 CTA 높이는 HUG(패딩 10 + 라벨 줄 21 + 10), BETA 딱지는 양축 HUG(위아래 패딩은 값 · 좌우는 `spacing/<n>`), 메뉴 행은 폭
+  FILL · 높이는 제품이 선언한 행 높이, 메뉴 variant 와 셸의 묶음은 높이 HUG. 셸 안에서 묶음 · 브랜드 · 메뉴 · CTA 가 폭 FILL 이라
+  레일 폭이 바뀌어도(제품 bc3e6fa3, 280 → 240) 생성기를 다시 돌리지 않고 따라온다. `figma-product-sidebar-states-renderer.js` 의 묶음 ·
+  메뉴도 합계 수(264 · 212) 대신 HUG 다. **라이브 `90 · 자산` 의 Gnb 세트에는 아직 보내지 않았다** — 앵커 이동 뒤 재전송 묶음에 함께 싣는다.
+- **묶음 5 — 옛 /pricing DOM 캡처 부품 은퇴(소유자 지시).** `90 · 자산` 의 옛 /pricing 섹션이 Full Page 보드에서 인스턴스 0 인 것을
+  확인하고 섹션 · 생성기 `build-figma-product-pricing-page.mjs` · 렌더러 · 계획 · 러너 열여섯과 `product-scene-evidence` 를 걷었다.
+  표면 커버리지 기준선은 대응 59 · 제품 28 로 내렸다(`check-figma-surface-coverage.mjs` 사유 주석).
+- **Tooltip base.** 패딩을 4/8 · 높이 HUG 로 바꿨다. 헤어라인은 INSIDE 획(레이아웃 밖)이라 패딩에 접지 않는다 — parity 는 크기별
+  계약 `{ bySize }` 로 base 는 패딩만, coachmark 는 패딩 + 테두리를 본다. 변조 카나리아 `tamperComponentBySize` 를 더했다.
+- **FAQ 행.** 정본이 질문 줄을 `items-start` 에서 `items-center` 로 옮겨 `faq-row.css` 의 lg 를 가운데 정렬로 맞추고 md 덮어쓰기를 걷었다.
+- **측정기 두 곳.** `measure-product-variants` 가 `export { … } from` 다시 내보내기를 따라간다(앵커 a4125565 의 `SectionShell` 이
+  `INLINE` 을 넘기기만 해 FOOTER → INLINE 이 풀리지 않았다). `regen-figma-at-anchor.sh` 가 worktree fixture(`.git` 이 파일)를 받는다.
+
 ## 2026-10-06 (196) — 크기 굳힘 감사 묶음 9: 겹침 층의 constraints 와 비율 — 루트를 키우면 층이 제자리를 따라온다
 
 - **constraints.** 오토레이아웃 없는 루트 안에 겹쳐 놓인 층이 기본값(MIN/MIN)이라, 인스턴스를 키우면 왼쪽 위에 남았다. 측정 자리대로

@@ -3518,8 +3518,10 @@ Dialog(790) · BannerCarousel(840) 같은 큰 것이 들어가면 다음 것을 
   `{ atLeast: <기록 키> }` 가 「Figma 값 ≥ 기록」을 본다(2026-10-06). 사이드바 CTA 펼침이 첫 사례다 — 기록 `height` 40 은
   측정기가 `min-height` 를 읽은 값인데 Figma 가 그 수로 높이를 FIXED 에 두고 라벨을 잘라 넣어 같은 수로 맞고 있었다. 지금은
   HUG + 최소 40 으로 서서 제품과 같은 실효 높이 41 이 된다([App Shell Parts](../components/app-shell-parts.md) Known deviations).
-  「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸은 툴팁 base 와 알림이 남아 있다 — 툴팁 base 는 헤어라인이 레이아웃 밖
-  INSIDE 획인데 패딩에 0.5 를 더해 두어, 아래 「border 가 없는데 padding 에 border 를 더하지 마라」를 먼저 풀어야 HUG 로 풀린다.
+  툴팁 base 도 같은 날 풀었다 — 헤어라인이 레이아웃 밖 INSIDE 획인데 패딩에 0.5 를 더해(4.5/8.5) 높이를 FIXED 26 에 굳혀
+  두었던 것을, 패딩 4/8 · 높이 HUG 로 되돌렸다(아래 「border 가 없는데 padding 에 border 를 더하지 마라」). 테두리가 실재하는
+  coachmark 만 접도록 계약이 크기마다 출처를 가른다(`{ bySize }`). 「패딩 + 한 줄」 산수를 고정 높이로 적은 기록 칸은 알림이
+  남아 있다(브라우저 테스트가 그 키를 읽는다).
 - **오토레이아웃 없는(NONE) 루트 안에 겹쳐 놓인 층은 constraints 를 측정 자리대로 건다.** 기본값 MIN/MIN 은 루트를 키우면
   층이 왼쪽 위에 남는다. 덮개(영상 · 스크림 · 격자)는 STRETCH/STRETCH, 아래 크롬은 STRETCH/MAX, 가운데 내용은 CENTER, 모서리 ·
   변 손잡이는 자기 모서리 · 변(MIN · CENTER · MAX)이다. 정사각처럼 비율이 계약인 프레임은 `lockAspectRatio()` 로 비율을
@@ -4809,7 +4811,7 @@ P3에서 먼저 검증한다. Editor Workspace geometry 검증은 DS-P5-005의 �
 
 > **2026-08-23 — 제품 전 페이지 Figma 이식 작업은
 > [현재 인계서](../governance/handoff-2026-08-23-figma-product-pages.md)에서 이어간다.** `/privacy`·`/terms` 4프레임과
-> `/pricing` 세트 `443:9424`(desktop `443:7960` · mobile `443:8657`)가 섰다. `/` 2프레임(`359:2032` · `359:2986`)은
+> `/pricing` 세트 `443:9424`(desktop `443:7960` · mobile `443:8657`)가 섰다(2026-10-06 은퇴 — 측정 생성 보드가 정본). `/` 2프레임(`359:2032` · `359:2986`)은
 > 제품 `8802565e` 개편 **전** 랜딩의 손 조립이라 지금 제품의 권위 프레임이 아니다(인계서 「다음 순서」 4번). 공개·문서·법무·인증
 > 22개 route의 desktop/mobile 측정도 완료됐다. pinned commit의 page file은 49개이며 27개 route
 > pattern 중 16개 static route는 제품이 선언한 development-only auth fixture의 실패/빈 기본 상태까지
@@ -15765,6 +15767,22 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-06 (197) — 크기 굳힘 감사 묶음 4 · 5 와 앵커 이동 준비: 사이드바 부품은 내용 크기로 서고, 옛 /pricing 캡처 부품은 걷었다
+
+- **묶음 4 — 사이드바 부품(렌더러만, 라이브 미적용).** `figma-product-components-renderer.js` 가 측정 rect 로 굳히던 축을 풀었다 —
+  업그레이드 CTA 높이는 HUG(패딩 10 + 라벨 줄 21 + 10), BETA 딱지는 양축 HUG(위아래 패딩은 값 · 좌우는 `spacing/<n>`), 메뉴 행은 폭
+  FILL · 높이는 제품이 선언한 행 높이, 메뉴 variant 와 셸의 묶음은 높이 HUG. 셸 안에서 묶음 · 브랜드 · 메뉴 · CTA 가 폭 FILL 이라
+  레일 폭이 바뀌어도(제품 bc3e6fa3, 280 → 240) 생성기를 다시 돌리지 않고 따라온다. `figma-product-sidebar-states-renderer.js` 의 묶음 ·
+  메뉴도 합계 수(264 · 212) 대신 HUG 다. **라이브 `90 · 자산` 의 Gnb 세트에는 아직 보내지 않았다** — 앵커 이동 뒤 재전송 묶음에 함께 싣는다.
+- **묶음 5 — 옛 /pricing DOM 캡처 부품 은퇴(소유자 지시).** `90 · 자산` 의 옛 /pricing 섹션이 Full Page 보드에서 인스턴스 0 인 것을
+  확인하고 섹션 · 생성기 `build-figma-product-pricing-page.mjs` · 렌더러 · 계획 · 러너 열여섯과 `product-scene-evidence` 를 걷었다.
+  표면 커버리지 기준선은 대응 59 · 제품 28 로 내렸다(`check-figma-surface-coverage.mjs` 사유 주석).
+- **Tooltip base.** 패딩을 4/8 · 높이 HUG 로 바꿨다. 헤어라인은 INSIDE 획(레이아웃 밖)이라 패딩에 접지 않는다 — parity 는 크기별
+  계약 `{ bySize }` 로 base 는 패딩만, coachmark 는 패딩 + 테두리를 본다. 변조 카나리아 `tamperComponentBySize` 를 더했다.
+- **FAQ 행.** 정본이 질문 줄을 `items-start` 에서 `items-center` 로 옮겨 `faq-row.css` 의 lg 를 가운데 정렬로 맞추고 md 덮어쓰기를 걷었다.
+- **측정기 두 곳.** `measure-product-variants` 가 `export { … } from` 다시 내보내기를 따라간다(앵커 a4125565 의 `SectionShell` 이
+  `INLINE` 을 넘기기만 해 FOOTER → INLINE 이 풀리지 않았다). `regen-figma-at-anchor.sh` 가 worktree fixture(`.git` 이 파일)를 받는다.
 
 #### 2026-10-06 (196) — 크기 굳힘 감사 묶음 9: 겹침 층의 constraints 와 비율 — 루트를 키우면 층이 제자리를 따라온다
 

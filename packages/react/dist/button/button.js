@@ -13,7 +13,7 @@ import { Spinner } from "../spinner/spinner.js";
 export function Button({ variant = "primary", size = "md", loading = false, leftIcon, rightIcon, type = "button", className, children, disabled, onClick, ...rest }) {
     const ariaDisabled = rest["aria-disabled"];
     const blocked = loading === true || ariaDisabled === true || ariaDisabled === "true";
-    const classes = ["louis-button", "louis-focus-ring", "louis-hit-target", className]
+    const classes = ["louis-button", "louis-hit-target", className]
         .filter(Boolean)
         .join(" ");
     return (_jsxs("button", { ...rest, type: type, className: classes, disabled: disabled, "data-variant": variant, "data-size": size, "data-loading": loading ? "true" : undefined, "data-left-icon": leftIcon !== undefined && !loading ? "true" : undefined, "data-right-icon": rightIcon !== undefined ? "true" : undefined, "aria-busy": loading ? true : undefined, "aria-disabled": blocked ? true : undefined, onClick: (event) => {

@@ -65,14 +65,12 @@
   }
 }
 
-.louis-selectable-list-row:focus-visible {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
-}
-
+/* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서는 위의 선택 테두리(0,2,0)가
+ * base.css 의 강제 색 링(0,1,0)을 이기므로, 선택된 행에 포커스가 들어도 링이 서도록 여기서 다시 적는다. */
 @media (forced-colors: active) {
   .louis-selectable-list-row:focus-visible {
-    outline-color: Highlight;
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
   }
 }
 

@@ -4,13 +4,20 @@
 // 그래서 **정본이 있는 컴포넌트보다 테스트가 더 중요하다** — 대조할 바깥 기준이 없다.
 import type { JSX } from "react";
 import { expect, test } from "vitest";
-import { userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { TextField, type TextFieldSize } from "@klipse-design/react";
 import measured from "../../../figma/components.measured.json" with { type: "json" };
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+
+// DS-D-0074 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 포커스 링은 그 모드에서만 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
@@ -178,15 +185,20 @@ test("포커스 링을 박스가 받는다 — 슬롯까지 함께 둘린다", a
   await userEvent.click(control);
   expect(document.activeElement, "입력에 포커스가 간다").toBe(control);
 
-  const boxStyle = getComputedStyle(box);
-  expect(boxStyle.outlineStyle, "박스에 링이 뜬다").toBe("solid");
-  expect(px(boxStyle.outlineWidth), "링 두께").toBe(
-    px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
-  );
-  expect(boxStyle.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
-
-  // 입력 자신은 링을 그리지 않는다 — 두 겹이 되면 안 된다.
-  expect(getComputedStyle(control).outlineStyle, "입력은 링을 그리지 않는다").toBe("none");
+  // DS-D-0074 — 평상 렌더링에는 링이 없다. 강제 색에서만 박스가 링을 받는다.
+  expect(getComputedStyle(box).outlineStyle, "평상 렌더링에는 링이 없다").toBe("none");
+  await setForcedColors(true);
+  try {
+    const boxStyle = getComputedStyle(box);
+    expect(boxStyle.outlineStyle, "강제 색에서 박스에 링이 뜬다").toBe("solid");
+    expect(px(boxStyle.outlineWidth), "링 두께").toBe(
+      px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
+    );
+    // 입력 자신은 링을 그리지 않는다 — 두 겹이 되면 안 된다.
+    expect(getComputedStyle(control).outlineStyle, "입력은 링을 그리지 않는다").toBe("none");
+  } finally {
+    await setForcedColors(false);
+  }
 
   // 접미 버튼이 박스 안에 있어야 링이 그것까지 둘러싼다.
   const clear = find('[data-testid="clear"]');
@@ -440,7 +452,7 @@ for (const join of JOINS) {
   });
 }
 
-test("결합의 포커스 링은 상자 안으로 들어간다 — 이웃이 덮을 수 없는 자리다", async () => {
+test("결합의 강제 색 포커스 링은 상자 안으로 들어간다 — 이웃이 덮을 수 없는 자리다", async () => {
   // 이웃은 DOM 에서 뒤에 와 나중에 칠해진다. 바깥 링(offset 2)은 맞닿는 변에서 통째로 덮인다 —
   // Chromium 픽셀 실측으로 위 상자의 아래쪽 링이 0px 남았다. 제품은 z-index 를 1 → 2 로 올려
   // 피하는데 이 저장소는 숫자 z-index 를 금지한다(build-css.mjs · elevation-layer.md).
@@ -467,9 +479,16 @@ test("결합의 포커스 링은 상자 안으로 들어간다 — 이웃이 덮
     const style = getComputedStyle(box);
     return { offset: px(style.outlineOffset), width: style.outlineWidth, color: style.outlineColor };
   };
-  const firstRing = ringOf(first);
-  const secondRing = ringOf(second);
-  const soloRing = ringOf(solo);
+  // 링은 강제 색에서만 선다(DS-D-0074). 자리 계약은 그 모드의 링이 갖는다.
+  await setForcedColors(true);
+  let firstRing, secondRing, soloRing;
+  try {
+    firstRing = ringOf(first);
+    secondRing = ringOf(second);
+    soloRing = ringOf(solo);
+  } finally {
+    await setForcedColors(false);
+  }
   expect(firstRing.offset, "첫 칸의 링은 안으로").toBe(startSpec.ringOffset);
   expect(secondRing.offset, "끝 칸도 같은 자리").toBe(endSpec.ringOffset);
   // **결합하지 않은 필드는 바뀌지 않는다.** 이 축이 링을 옮기는 것은 이웃이 있을 때뿐이다.

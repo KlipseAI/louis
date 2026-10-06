@@ -20,7 +20,7 @@ export function ActionMenuItem({ danger = false, disabled = false, disabledReaso
     const context = useAnchoredContext("ActionMenuItem");
     const state = useItemState(disabled, busy, disabledReason);
     const shouldClose = closeOnSelect ?? context.closeOnSelect;
-    return (_jsxs("button", { ...rest, ref: ref, type: "button", role: role, "data-louis-menu-item": "", className: ["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" "), ...(danger ? { "data-tone": "danger" } : {}), ...(state.skip ? { disabled: true } : {}), ...(state.announce || busy ? { "aria-disabled": true } : {}), ...(busy ? { "aria-busy": true } : {}), ...(checked === undefined ? {} : { "aria-checked": checked }), ...(state.describedBy === undefined
+    return (_jsxs("button", { ...rest, ref: ref, type: "button", role: role, "data-louis-menu-item": "", className: ["louis-menu__item", className].filter(Boolean).join(" "), ...(danger ? { "data-tone": "danger" } : {}), ...(state.skip ? { disabled: true } : {}), ...(state.announce || busy ? { "aria-disabled": true } : {}), ...(busy ? { "aria-busy": true } : {}), ...(checked === undefined ? {} : { "aria-checked": checked }), ...(state.describedBy === undefined
             ? {}
             : { "aria-describedby": state.describedBy }), onClick: (event) => {
             if (state.blocked) {
@@ -40,7 +40,7 @@ export function ActionMenuLinkItem({ href, danger = false, disabled = false, dis
     const skipProps = state.skip
         ? { "data-louis-menu-skip": "", "aria-disabled": true }
         : {};
-    return (_jsxs("a", { ...rest, ...skipProps, ref: ref, role: "menuitem", "data-louis-menu-item": "", className: ["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" "), ...(state.skip ? {} : { href }), ...(danger ? { "data-tone": "danger" } : {}), ...(state.announce ? { "aria-disabled": true } : {}), ...(state.describedBy === undefined
+    return (_jsxs("a", { ...rest, ...skipProps, ref: ref, role: "menuitem", "data-louis-menu-item": "", className: ["louis-menu__item", className].filter(Boolean).join(" "), ...(state.skip ? {} : { href }), ...(danger ? { "data-tone": "danger" } : {}), ...(state.announce ? { "aria-disabled": true } : {}), ...(state.describedBy === undefined
             ? {}
             : { "aria-describedby": state.describedBy }), onClick: (event) => {
             if (state.blocked) {

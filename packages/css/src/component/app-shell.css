@@ -3,13 +3,11 @@
  * 셸의 **레이아웃 계약은 design/patterns/app-shell.md가 소유한다.** 여기 있는 것은 그 안에 놓이는
  * 부품 둘이다 — navigation rail의 한 행과 top chrome의 한 줄.
  *
- * ## 제품에서 옮기지 않은 것
+ * ## 포커스 링이 없다
  *
- * 제품의 사이드바 항목에는 **포커스 표시가 없다.** `globals.css`의
- * `button:focus, button:focus-visible { outline: none }`이 `@layer base` 블록 **밖**에 있어
- * `@layer utilities` 안의 Tailwind 임의 유틸리티를 특이도와 무관하게 이긴다. 항목이 선언한
- * `[&:focus-visible]:[outline:2px_...]` 세 줄이 전부 사문이고, 앱 셸 소비처 25곳이 모두
- * `<button>` 분기를 타므로 **키보드 사용자가 지금 어디에 있는지 알 수 없다.**
+ * 제품의 사이드바 항목에는 포커스 표시가 없다(`globals.css` 의 `button:focus-visible { outline: none }`).
+ * 한때 이것을 결손으로 보고 여기서 링을 더했지만, 2026-10-06 소유자가 포커스 링을 전부 걷기로
+ * 정했다(DS-D-0074). 이제 이 부품들도 링을 그리지 않고, 강제 색의 링만 base.css 가 그린다.
  *
  * ## 선택 상태를 면으로 그린다
  *
@@ -339,11 +337,6 @@
   }
 }
 
-.louis-sidebar-cta__button:focus-visible {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
-}
-
 /* **현재 위치면 한 단계 더 뒤집힌다.** 선택을 `aria-current`가 소유하는 것은 SidebarNavItem과
  * 같은 규칙이다 — 시각 전용 속성을 따로 두지 않는다. */
 .louis-sidebar-cta__button[aria-current="page"] {
@@ -422,8 +415,6 @@
 
 .louis-app-shell__skip:focus-visible {
   translate: 0 0;
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
 }
 
 /* 높이는 `--app-shell-viewport-height`를 먼저 보고 없을 때만 100dvh로 떨어진다.

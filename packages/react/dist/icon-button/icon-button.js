@@ -10,7 +10,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
  * 보조 기술에 토글로 노출된다.
  */
 export function IconButton({ label, variant = "ghost", size = "md", pressed, type = "button", className, children, ref, ...rest }) {
-    const classes = ["louis-icon-button", "louis-focus-ring", "louis-hit-target", className]
+    const classes = ["louis-icon-button", "louis-hit-target", className]
         .filter(Boolean)
         .join(" ");
     return (_jsx("button", { ...rest, ...(ref === undefined ? {} : { ref }), type: type, className: classes, "data-variant": variant, "data-size": size, "aria-label": label, ...(pressed === undefined ? {} : { "aria-pressed": pressed }), children: _jsx("span", { className: "louis-icon-button__glyph", "aria-hidden": "true", children: children }) }));

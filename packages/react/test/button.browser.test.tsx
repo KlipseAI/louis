@@ -118,7 +118,8 @@ test("아이콘 전용 버튼은 accessible name을 유지한다", async () => {
   await expect.element(page.getByRole("button")).toHaveAccessibleName("닫기");
 });
 
-test("focus-visible은 키보드에서만 나타난다", async () => {
+// DS-D-0074 — 포커스 링을 그리지 않는다. 키보드 포커스에도, 두 테마 모두에서.
+test("키보드 포커스에도 light와 dark 모두 링이 없다", async () => {
   await render(
     <>
       <button data-testid="before">before</button>
@@ -126,30 +127,17 @@ test("focus-visible은 키보드에서만 나타난다", async () => {
     </>,
   );
   const button = buttonIn();
-
-  await userEvent.click(page.getByRole("button", { name: "저장" }));
-  expect(button.matches(":focus-visible")).toBe(false);
-
-  (document.querySelector('[data-testid="before"]') as HTMLElement).focus();
-  await userEvent.tab();
-  expect(button.matches(":focus-visible")).toBe(true);
-  const style = getComputedStyle(button);
-  expect(style.outlineStyle).toBe("solid");
-  expect(Number.parseFloat(style.outlineWidth)).toBeGreaterThanOrEqual(2);
-});
-
-test("light와 dark 모두에서 focus 링 색이 테마를 따른다", async () => {
-  await render(<Button>저장</Button>);
-  const button = buttonIn();
-  const seen: string[] = [];
-  for (const theme of ["light", "dark"] as const) {
-    document.documentElement.setAttribute("data-theme", theme);
-    button.focus();
-    seen.push(getComputedStyle(button).outlineColor);
+  try {
+    for (const theme of ["light", "dark"] as const) {
+      document.documentElement.setAttribute("data-theme", theme);
+      (document.querySelector('[data-testid="before"]') as HTMLElement).focus();
+      await userEvent.tab();
+      expect(button.matches(":focus-visible"), `${theme}: 키보드 포커스다`).toBe(true);
+      expect(getComputedStyle(button).outlineStyle, `${theme}: 링 없음`).toBe("none");
+    }
+  } finally {
+    document.documentElement.removeAttribute("data-theme");
   }
-  document.documentElement.removeAttribute("data-theme");
-  expect(seen[0]).not.toBe("");
-  expect(seen[0]).not.toBe(seen[1]);
 });
 
 test("hit target이 44px 이상이다", async () => {

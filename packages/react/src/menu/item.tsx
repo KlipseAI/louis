@@ -113,7 +113,7 @@ export function ActionMenuItem({
       type="button"
       role={role}
       data-louis-menu-item=""
-      className={["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" ")}
+      className={["louis-menu__item", className].filter(Boolean).join(" ")}
       {...(danger ? { "data-tone": "danger" } : {})}
       {...(state.skip ? { disabled: true } : {})}
       {...(state.announce || busy ? { "aria-disabled": true } : {})}
@@ -192,7 +192,7 @@ export function ActionMenuLinkItem({
       ref={ref}
       role="menuitem"
       data-louis-menu-item=""
-      className={["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" ")}
+      className={["louis-menu__item", className].filter(Boolean).join(" ")}
       {...(state.skip ? {} : { href })}
       {...(danger ? { "data-tone": "danger" } : {})}
       {...(state.announce ? { "aria-disabled": true } : {})}

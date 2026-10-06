@@ -171,7 +171,7 @@ export function ActionMenuSubTrigger({
       aria-expanded={sub.open}
       {...(blocked ? { "aria-disabled": true } : {})}
       {...(danger ? { "data-tone": "danger" } : {})}
-      className={["louis-menu__item", "louis-focus-ring", className].filter(Boolean).join(" ")}
+      className={["louis-menu__item", className].filter(Boolean).join(" ")}
       ref={(node) => {
         // return focus 대상이다. 채우지 않으면 primitive가 부모 패널의 **첫 항목**으로
         // 되돌려, 사용자가 있던 자리(내보내기)가 아니라 엉뚱한 곳으로 focus가 간다.

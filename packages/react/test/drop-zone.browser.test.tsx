@@ -5,13 +5,20 @@
 import type { JSX } from "react";
 import axe from "axe-core";
 import { expect, test, vi } from "vitest";
-import { userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { DropZone } from "@klipse-design/react";
 import measured from "../../../figma/components.measured.json" with { type: "json" };
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+
+// DS-D-0074 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 포커스 링은 그 모드에서만 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
 
 const px = (value: string): number => Number.parseFloat(value);
 const spec = measured.components["drop-zone"].sizes.base;
@@ -147,14 +154,21 @@ test("disabled 이면 누름도 놓기도 받지 않고 그렇게 보인다", as
   expect(getComputedStyle(zone()).color, "Disabled foreground").toBe(tokenValue(states.Disabled.foreground, "color"));
 });
 
-test("키보드 포커스가 링으로 보인다", async () => {
+test("키보드 포커스에 링이 없고 강제 색에서만 선다", async () => {
   await render(<Fixture />);
   await userEvent.keyboard("{Tab}");
   expect(document.activeElement, "면이 포커스를 받는다").toBe(zone());
-  const style = getComputedStyle(zone());
-  // 제품 면은 :focus-visible 에서 outline 을 지워 포커스가 보이지 않았다 — 이 컴포넌트는 LOUIS 링을 그린다.
-  expect(style.outlineStyle, "링이 그려진다").not.toBe("none");
-  expect(px(style.outlineWidth), "링 두께").toBeGreaterThan(0);
+  // DS-D-0074 — 포커스 링을 그리지 않는다. 끌어다 놓기의 안쪽 테두리는 포커스가 아니므로 여기서도 없다.
+  expect(getComputedStyle(zone()).outlineStyle, "링 없음").toBe("none");
+  expect(getComputedStyle(zone()).boxShadow, "포커스는 안쪽 테두리를 켜지 않는다").toBe("none");
+  await setForcedColors(true);
+  try {
+    const style = getComputedStyle(zone());
+    expect(style.outlineStyle, "강제 색에서 링이 그려진다").toBe("solid");
+    expect(px(style.outlineWidth), "링 두께").toBeGreaterThan(0);
+  } finally {
+    await setForcedColors(false);
+  }
 });
 
 test("글리프는 장식이고, 안내 문구가 접근성 이름이 된다", async () => {

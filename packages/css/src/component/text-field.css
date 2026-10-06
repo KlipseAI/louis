@@ -10,8 +10,8 @@
  * 표시 전환)을 필드 **안에** 두려면 `<input>` 하나로는 안 된다. 박스가 테두리·반경·배경을 갖고
  * `<input>`은 그 안에서 투명하다.
  *
- * 그래서 포커스 링도 `:focus-within`이 받는다. `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯은
- * 밖에 남는다.
+ * 그래서 강제 색에서 되살리는 포커스 링도 `:focus-within`이 받는다. `<input>`에 걸면 링이 글자
+ * 주위에만 뜨고 슬롯은 밖에 남는다. 평상 렌더링에는 포커스 링이 없다(DS-D-0074).
  */
 
 .louis-text-field {
@@ -107,13 +107,6 @@
   letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
-/* **`:focus-within`이 받는다.** `<input>`에 걸면 링이 글자 주위에만 뜨고 슬롯이 밖에 남는다.
- * 링의 모양은 base.css의 공유 링과 같다 — 컴포넌트마다 다른 링을 만들지 않는다. */
-.louis-text-field__box:focus-within {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
-}
-
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 상자 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
   .louis-text-field__box {
@@ -121,8 +114,20 @@
     border: var(--louis-border-width-default) solid currentColor;
   }
 
+  /* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서만 되살리고, **상자가
+   * `:focus-within` 으로 받는다** — `<input>` 에 걸면 링이 글자 주위에만 뜨고 슬롯이 밖에 남는다.
+   * 모양은 base.css 의 강제 색 링과 같다. */
   .louis-text-field__box:focus-within {
-    outline-color: Highlight;
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* 이어 붙인 칸은 링을 안으로 당긴다. 한 덩어리 안에서 링의 자리가 칸마다 달라지면 초점이
+   * 어디 있는지가 아니라 «어느 칸인지»가 먼저 읽힌다. */
+  .louis-text-field[data-join] .louis-text-field__box:focus-within {
+    outline-offset: calc(
+      0px - var(--louis-text-field-join-overlap) - var(--louis-border-width-ring)
+    );
   }
 }
 
@@ -149,7 +154,7 @@
   font-weight: var(--louis-typography-body-sm-regular-font-weight);
   line-height: var(--louis-typography-body-sm-regular-line-height);
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
-  /* 링은 박스가 그린다. 여기 링이 또 뜨면 두 겹이 된다. */
+  /* 강제 색의 링은 박스가 그린다. base.css 의 강제 색 링이 여기 또 뜨면 두 겹이 된다. */
   outline: none;
 }
 
@@ -332,7 +337,7 @@
  * 인증 다섯 화면이 상자 둘을 위/아래로 이어 붙여 한 덩어리로 읽히게 한다
  * (`/login` · `/signup` · `/recover` · `/reset-password/new` · `/aws/signup`).
  * 맞닿는 쪽에서 세 가지가 달라진다 — 곡률이 펴지고, 이음매가 두 겹이 되지 않게 겹치고,
- * 포커스 링이 밖이 아니라 안으로 들어간다. 그 밖의 값(높이·여백·면·헤어라인·타이포)은
+ * 강제 색의 포커스 링이 밖이 아니라 안으로 들어간다. 그 밖의 값(높이·여백·면·헤어라인·타이포)은
  * `lg/floating` 과 **글자 그대로 같다** — 이 축은 그 값들을 하나도 다시 쓰지 않는다.
  *
  * ## 겹침은 0.5 가 아니라 1 이다 — 잰 값이다
@@ -389,12 +394,4 @@
 .louis-text-field[data-join="end"] .louis-text-field__box {
   border-start-start-radius: 0;
   border-start-end-radius: 0;
-}
-
-/* 링을 안으로. 세 값이 같은 자리를 쓰는 이유는 한 덩어리 안에서 링의 자리가 칸마다 달라지면
- * 초점이 어디 있는지가 아니라 «어느 칸인지»가 먼저 읽히기 때문이다. */
-.louis-text-field[data-join] .louis-text-field__box:focus-within {
-  outline-offset: calc(
-    0px - var(--louis-text-field-join-overlap) - var(--louis-border-width-ring)
-  );
 }

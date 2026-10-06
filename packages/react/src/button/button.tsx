@@ -59,7 +59,7 @@ export function Button({
   const blocked =
     loading === true || ariaDisabled === true || ariaDisabled === "true";
 
-  const classes = ["louis-button", "louis-focus-ring", "louis-hit-target", className]
+  const classes = ["louis-button", "louis-hit-target", className]
     .filter(Boolean)
     .join(" ");
 

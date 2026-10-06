@@ -1,12 +1,11 @@
 // design/components/app-shell-parts.md의 Acceptance tests를 실제 브라우저에서 검증한다.
 //
-// 제품 실측에서 **사이드바 항목에 포커스 표시가 아예 없다는 것**을 찾았다 — globals.css의
-// `button:focus-visible { outline: none }`이 `@layer base` 밖에 있어 항목이 선언한 링 세 줄이
-// 전부 사문이고, 앱 셸 소비처 25곳이 모두 `<button>` 분기를 탄다. 그래서 이 파일에서 가장 중요한
-// 단언은 "포커스 링이 실제로 그려진다"와 "선택이 aria로 전달된다"이다.
+// 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074, 2026-10-06 소유자 결정). 제품의 사이드바
+// 항목에 포커스 표시가 없던 것과 이제 같다. 링은 강제 색에서만 선다. 이 파일에서 가장 중요한 단언은
+// "선택이 aria로 전달된다"이다.
 import type { JSX } from "react";
 import { expect, test } from "vitest";
-import { userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { AppTopBar, IconButton, SidebarNavItem, SidebarNavRow } from "@klipse-design/react";
 import { IconHouse } from "@klipse-design/react/icons";
@@ -14,6 +13,13 @@ import measured from "../../../figma/components.measured.json" with { type: "jso
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+
+// DS-D-0074 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 포커스 링은 그 모드에서만 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
@@ -56,8 +62,7 @@ test("SidebarNavItem의 구조값이 components.measured.json과 같다", async 
   );
 });
 
-test("포커스 링이 실제로 그려진다", async () => {
-  // **제품에서 죽어 있던 축이다.** 전역 리셋이 항목의 링 선언을 특이도와 무관하게 이겼다.
+test("포커스 링은 평상 렌더링에 없고 강제 색에서만 그려진다", async () => {
   await render(
     <SidebarNavItem href="/archive" icon={<IconHouse />}>
       보관함
@@ -65,14 +70,19 @@ test("포커스 링이 실제로 그려진다", async () => {
   );
   const item = find(".louis-sidebar-nav-item");
   item.focus();
-
-  const style = getComputedStyle(item);
   expect(document.activeElement, "포커스를 받는다").toBe(item);
-  expect(style.outlineStyle, "링이 그려진다").toBe("solid");
-  expect(px(style.outlineWidth), "링 두께").toBe(
-    px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
-  );
-  expect(style.outlineColor, "링 색").toBe(tokenValue("color-stroke-focus", "color"));
+  expect(getComputedStyle(item).outlineStyle, "링 없음").toBe("none");
+
+  await setForcedColors(true);
+  try {
+    const style = getComputedStyle(item);
+    expect(style.outlineStyle, "강제 색에서 링이 그려진다").toBe("solid");
+    expect(px(style.outlineWidth), "링 두께").toBe(
+      px(getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring")),
+    );
+  } finally {
+    await setForcedColors(false);
+  }
 });
 
 test("선택이 aria로 전달된다", async () => {

@@ -247,12 +247,6 @@
   color: var(--louis-color-fg-primary);
 }
 
-/* 링은 라벨이 받는다. radio는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. */
-.louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible) {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
-}
-
 @media (forced-colors: active) {
   /* box-shadow 헤어라인은 강제 색에서 사라지므로 트랙 경계를 시스템 색 실선으로 되살린다 (DS-D-0023). */
   .louis-segmented-control {
@@ -260,8 +254,11 @@
     border: var(--louis-border-width-default) solid currentColor;
   }
 
+  /* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서만 되살리고, **라벨이 받는다**
+   * — radio 는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. 모양은 base.css 의 강제 색 링과 같다. */
   .louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible) {
-    outline-color: Highlight;
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
   }
 
   /* forced-colors에서는 면 색이 시스템 색으로 치환돼 선택이 사라진다. 테두리로 다시 세운다. */

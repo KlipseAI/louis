@@ -1,7 +1,7 @@
 // 생성된 base CSS가 브라우저에서 규범대로 동작하는지 검증한다.
 // 문자열 검사가 아니라 계산값과 실제 상호작용을 본다.
 import { expect, test } from "vitest";
-import { page, userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
@@ -33,49 +33,58 @@ test("visually-hidden은 보이지 않지만 accessibility tree에 남는다", (
   }
 });
 
-test("focus-visible 링은 키보드 포커스에서만 나타난다", async () => {
+// DS-D-0074 — 포커스는 링도 번짐도 그리지 않는다. base.css 의 한 규칙이 LOUIS 클래스를 단 요소의
+// outline 을 지우므로 브라우저 기본 링으로도 돌아가지 않는다. 강제 색에서만 Highlight 링이 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
+
+test("키보드 포커스에도 링과 번짐이 없다 — 브라우저 기본 링도 없다", async () => {
   const host = mount(
-    `<button data-testid="before">before</button><button data-testid="target" class="louis-focus-ring">target</button>`,
+    `<button data-testid="before">before</button><button data-testid="target" class="louis-probe">target</button>`,
   );
   try {
     const target = host.querySelector('[data-testid="target"]') as HTMLElement;
+    const restShadow = getComputedStyle(target).boxShadow;
 
-    // 포인터 클릭: Chromium은 버튼에 :focus-visible을 주지 않는다.
-    await userEvent.click(page.getByTestId("target"));
-    expect(target.matches(":focus")).toBe(true);
-    expect(target.matches(":focus-visible")).toBe(false);
-    expect(getComputedStyle(target).outlineStyle).toBe("none");
-
-    // 키보드 이동: :focus-visible이 켜지고 링이 보인다.
     (host.querySelector('[data-testid="before"]') as HTMLElement).focus();
     await userEvent.tab();
-    expect(target.matches(":focus-visible")).toBe(true);
+    expect(target.matches(":focus-visible"), "키보드 포커스다").toBe(true);
     const style = getComputedStyle(target);
-    expect(style.outlineStyle).toBe("solid");
-    expect(Number.parseFloat(style.outlineWidth)).toBeGreaterThan(0);
+    expect(style.outlineStyle, "링 없음").toBe("none");
+    expect(style.boxShadow, "번짐 없음").toBe(restShadow);
   } finally {
     host.remove();
   }
 });
 
-test("focus 링 색이 semantic 토큰에서 온다", () => {
-  const host = mount(`<button class="louis-focus-ring" data-testid="ring">x</button>`);
+test("강제 색에서만 Highlight 링이 선다", async () => {
+  const host = mount(
+    `<button data-testid="before">before</button><button data-testid="target" class="louis-probe">target</button>`,
+  );
+  await setForcedColors(true);
   try {
-    const target = host.querySelector('[data-testid="ring"]') as HTMLElement;
-    target.focus();
-    const outline = getComputedStyle(target).outlineColor;
-    const tokenValue = getComputedStyle(document.documentElement)
-      .getPropertyValue("--louis-color-stroke-focus")
-      .trim();
-    expect(tokenValue).not.toBe("");
-    // 둘 다 브라우저가 계산한 색 문자열이므로 직접 비교 가능하다.
+    expect(matchMedia("(forced-colors: active)").matches).toBe(true);
+    const target = host.querySelector('[data-testid="target"]') as HTMLElement;
+    (host.querySelector('[data-testid="before"]') as HTMLElement).focus();
+    await userEvent.tab();
+    expect(target.matches(":focus-visible")).toBe(true);
+    const style = getComputedStyle(target);
+    expect(style.outlineStyle, "링이 선다").toBe("solid");
+    const ring = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--louis-border-width-ring"),
+    );
+    expect(Number.parseFloat(style.outlineWidth), "두께가 border-width-ring").toBe(ring);
     const probe = document.createElement("div");
-    probe.style.color = tokenValue;
+    probe.style.color = "Highlight";
     document.body.append(probe);
-    const resolved = getComputedStyle(probe).color;
+    const highlight = getComputedStyle(probe).color;
     probe.remove();
-    expect(outline).toBe(resolved);
+    expect(style.outlineColor, "시스템 색 Highlight").toBe(highlight);
   } finally {
+    await setForcedColors(false);
     host.remove();
   }
 });

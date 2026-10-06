@@ -7,13 +7,20 @@ import type { JSX } from "react";
 import { useState } from "react";
 import axe from "axe-core";
 import { expect, test } from "vitest";
-import { userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Checkbox } from "@klipse-design/react";
 import measured from "../../../figma/components.measured.json" with { type: "json" };
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+
+// DS-D-0074 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 포커스 링은 그 모드에서만 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
@@ -204,7 +211,7 @@ test("disabled면 클릭과 키보드로 값이 바뀌지 않는다", async () =
   expect(seen, "콜백 없음").toEqual([]);
 });
 
-test("포커스 링이 키보드에서만 나타난다", async () => {
+test("포커스 링은 키보드에도 없고 강제 색에서만 선다", async () => {
   await render(
     <>
       <button type="button">앞</button>
@@ -221,9 +228,16 @@ test("포커스 링이 키보드에서만 나타난다", async () => {
   await userEvent.tab();
   expect(document.activeElement, "Tab이 들어온다").toBe(input);
   expect(input.matches(":focus-visible"), "키보드 포커스").toBe(true);
-  const style = getComputedStyle(input);
-  expect(style.outlineStyle, "링 있음").toBe("solid");
-  expect(px(style.outlineWidth), "두께가 border-width-ring").toBe(tokenPx("border-width-ring"));
+  expect(getComputedStyle(input).outlineStyle, "키보드에도 링 없음").toBe("none");
+
+  await setForcedColors(true);
+  try {
+    const style = getComputedStyle(input);
+    expect(style.outlineStyle, "강제 색에서 링 있음").toBe("solid");
+    expect(px(style.outlineWidth), "두께가 border-width-ring").toBe(tokenPx("border-width-ring"));
+  } finally {
+    await setForcedColors(false);
+  }
 });
 
 test("접근성 위반이 없다", async () => {

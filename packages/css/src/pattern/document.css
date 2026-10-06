@@ -310,13 +310,6 @@
   text-decoration: underline;
 }
 
-.louis-document-toc__link:focus-visible,
-.louis-document-footnote > a:focus-visible,
-.louis-document-sources__back:focus-visible {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: var(--louis-border-width-ring);
-}
-
 /* 절 앵커로 뛰면 절 머리가 시트 위 끝에 붙지 않게 한 칸 띄운다. */
 .louis-document-section {
   scroll-margin-block-start: var(--louis-space-layout-section);

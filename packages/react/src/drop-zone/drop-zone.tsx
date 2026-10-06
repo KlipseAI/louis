@@ -71,7 +71,7 @@ export function DropZone({
         ref={ref}
         type="button"
         disabled={disabled}
-        className={join("louis-drop-zone", "louis-focus-ring", className)}
+        className={join("louis-drop-zone", className)}
         // 끌어다 놓는 중이 아닐 때도 속성을 남긴다 — 「없다」와 「false」가 DOM 에서 구분되지 않으면 계약이 한 칸 준다.
         data-drag-over={dragOver ? "true" : "false"}
         onClick={(event) => {

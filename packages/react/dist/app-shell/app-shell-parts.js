@@ -12,7 +12,7 @@ function join(...values) {
 export function SidebarNavItem(props) {
     const { icon, trailing, current = false, collapsed = false, className, children } = props;
     const shared = {
-        className: join("louis-sidebar-nav-item", "louis-focus-ring", className),
+        className: join("louis-sidebar-nav-item", className),
         "aria-current": current ? "page" : undefined,
         "data-collapsed": collapsed ? "true" : undefined,
     };

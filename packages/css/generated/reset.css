@@ -41,6 +41,20 @@
     padding: 0;
   }
 
+  /* 포커스 링을 그리지 않는다 (DS-D-0074). 브라우저 기본 링(Chrome 의 파랑·검정)까지 지운다 —
+   * base.css 가 LOUIS 요소에 거는 규칙과 같은 내용을 reset 을 택한 소비자의 나머지 요소로 넓힌다.
+   * 강제 색(Windows 고대비)에서만 시스템 색 링을 되살린다. */
+  :where(:focus-visible) {
+    outline: none;
+  }
+
+  @media (forced-colors: active) {
+    :where(:focus-visible) {
+      outline: var(--louis-border-width-ring) solid Highlight;
+      outline-offset: 2px;
+    }
+  }
+
   /* 접근성: 모션 민감 사용자에게 애니메이션을 강제하지 않는다.
    * lifecycle(focus 이동, scroll lock, unmount 순서)은 건드리지 않는다 — motion.md 계약. */
   @media (prefers-reduced-motion: reduce) {

@@ -19,8 +19,6 @@ export declare function DialogActions({ className, children, ...rest }: DialogFo
  * icon-only 닫기. `dismissible=false`면 아예 렌더하지 않는다 — 눌러도 안 되는 어포던스를
  * 남기지 않는다.
  *
- * `.louis-focus-ring`을 직접 붙인다. 그 유틸은 opt-in이라 붙이지 않으면 링이 조용히 사라진다.
- *
  * `data-louis-safe-action`을 **달지 않는다.** header에 있어 footer의 취소보다 DOM에서 앞서므로,
  * 달면 `danger-confirm`의 초기 포커스가 명시적인 "취소"가 아니라 아이콘 X로 간다. 취소 버튼이
  * 없는 `sheet`에서는 표식 없이도 첫 focusable로 자연히 선택된다.

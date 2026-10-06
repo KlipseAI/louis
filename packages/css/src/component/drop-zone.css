@@ -4,9 +4,9 @@
  *
  * 제품에 공용 구현이 없다. 하이라이트 두 화면(`HighlightScene` · `HighlightProjectScene`)이
  * `highlightSceneStyles.ts uploadDropZone` 지역 레시피를 쓰는데, **끌어다 놓기는 없고**(누르면 숨긴
- * `input[type=file]` 을 여는 버튼일 뿐이다) `:focus-visible` 에서 outline 을 지워 키보드 포커스가 보이지
- * 않는다. 기하(패딩 56 / 16 · 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)는 그 레시피를 옮기고,
- * 끌어다 놓기와 포커스 링은 이 컴포넌트가 계약으로 더한다.
+ * `input[type=file]` 을 여는 버튼일 뿐이다) `:focus-visible` 에서 outline 을 지운다. 기하(패딩 56 / 16 ·
+ * 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)는 그 레시피를 옮기고, 끌어다 놓기는 이 컴포넌트가
+ * 계약으로 더한다. 포커스 링은 그리지 않는다(DS-D-0074) — 강제 색의 링만 base.css 가 그린다.
  *
  * 면은 LOUIS 의 눌림 면 역할(`accent-secondary` · `-hover`)을 쓴다 — Button secondary · 메뉴 항목과
  * 같은 가족이다. 제품 면(`palette-gray-100`, 호버 `-150`)과 값이 다르며 Known deviations 가 적는다.

@@ -200,7 +200,8 @@
   overscroll-behavior: contain;
   padding-inline: var(--louis-dialog-surface-inset);
   padding-block: var(--louis-space-control-sm);
-  /* focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다. */
+  /* 강제 색의 focus ring(offset 2 + width 2 = 4px)이 scrollport 경계에서 잘리지 않게 한다.
+   * 평상 렌더링에는 링이 없다(DS-D-0074). */
   scroll-padding-block: var(--louis-space-control-sm);
 }
 

@@ -62,7 +62,7 @@ export function IconButton({
   ref,
   ...rest
 }: IconButtonProps): JSX.Element {
-  const classes = ["louis-icon-button", "louis-focus-ring", "louis-hit-target", className]
+  const classes = ["louis-icon-button", "louis-hit-target", className]
     .filter(Boolean)
     .join(" ");
   return (

@@ -273,11 +273,6 @@
   scale: 0.94;
 }
 
-.louis-banner-carousel__arrow:focus-visible {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
-}
-
 .louis-banner-carousel__dots {
   display: inline-flex;
   align-items: center;
@@ -317,11 +312,6 @@
 
 .louis-banner-carousel__dot[aria-current="true"] {
   background-color: var(--louis-color-media-indicator-active);
-}
-
-.louis-banner-carousel__dot:focus-visible {
-  outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus);
-  outline-offset: 2px;
 }
 
 /* ── reduced motion ──────────────────────────────────────────────────────────

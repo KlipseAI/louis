@@ -25,7 +25,7 @@ export function DropZone({ prompt, caption, graphic, accept, multiple = false, o
             return;
         onFiles(multiple ? files : files.slice(0, 1));
     };
-    return (_jsxs(_Fragment, { children: [_jsxs("button", { ...rest, ref: ref, type: "button", disabled: disabled, className: join("louis-drop-zone", "louis-focus-ring", className), "data-drag-over": dragOver ? "true" : "false", onClick: (event) => {
+    return (_jsxs(_Fragment, { children: [_jsxs("button", { ...rest, ref: ref, type: "button", disabled: disabled, className: join("louis-drop-zone", className), "data-drag-over": dragOver ? "true" : "false", onClick: (event) => {
                     onClick?.(event);
                     if (!event.defaultPrevented)
                         input.current?.click();

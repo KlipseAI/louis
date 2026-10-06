@@ -8,7 +8,7 @@ import type { JSX } from "react";
 import { useState } from "react";
 import axe from "axe-core";
 import { expect, test } from "vitest";
-import { userEvent } from "vitest/browser";
+import { cdp, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import {
   SegmentedControl,
@@ -19,6 +19,13 @@ import measured from "../../../figma/components.measured.json" with { type: "jso
 import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
+
+// DS-D-0074 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 포커스 링은 그 모드에서만 선다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
 
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
@@ -277,7 +284,7 @@ test("클릭이 값을 바꾸고 이전 선택이 풀린다", async () => {
   expect(segments[1]!.dataset.selected, "이전 선택이 풀린다").toBe("false");
 });
 
-test("포커스 링을 라벨이 받고 키보드에서만 나타난다", async () => {
+test("포커스 링은 키보드에도 없고 강제 색에서만 라벨이 받는다", async () => {
   await render(
     <>
       <button type="button">앞</button>
@@ -294,11 +301,18 @@ test("포커스 링을 라벨이 받고 키보드에서만 나타난다", async 
   await userEvent.tab();
   // Tab은 그룹의 선택된 radio로 들어온다.
   expect(radios()[1]!.matches(":focus-visible"), "키보드 포커스다").toBe(true);
-  const style = getComputedStyle(selected);
-  expect(style.outlineStyle, "라벨이 링을 받는다").toBe("solid");
-  expect(px(style.outlineWidth), "링 두께가 border-width-ring이다").toBe(
-    tokenPx("border-width-ring"),
-  );
+  expect(getComputedStyle(selected).outlineStyle, "키보드에도 링 없음").toBe("none");
+
+  await setForcedColors(true);
+  try {
+    const style = getComputedStyle(selected);
+    expect(style.outlineStyle, "강제 색에서 라벨이 링을 받는다").toBe("solid");
+    expect(px(style.outlineWidth), "링 두께가 border-width-ring이다").toBe(
+      tokenPx("border-width-ring"),
+    );
+  } finally {
+    await setForcedColors(false);
+  }
 });
 
 test("그룹 disabled가 항목 전부를 막는다", async () => {

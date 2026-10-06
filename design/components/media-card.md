@@ -34,7 +34,7 @@ summary: 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보
 | Surface       | 상태           | 근거                                                                                                                                                                    |
 | ------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | 제품 구현이 정본이고 소비처가 세 자리다. **컴포넌트 표면은 여전히 0** — `media-card.css` 도 React export 도 acceptance test 도 없다. 다만 **「LOUIS 표면 0」은 더 이상 맞지 않는다**: 정보 바의 점진 블러(반경 + 마스크 곡선)를 `base.css` 가 값으로 발행하고 제품이 그것을 참조한다. 상태를 올리지 않는 이유는 그 한 값이 컴포넌트 recipe 가 아니기 때문이다 |
-| Figma         | `partial`      | `MediaCard` 3 variant(`Badge`) · TEXT 2 · BOOLEAN 2 · INSTANCE_SWAP 1. parity 게이트가 대조하는 것은 effect 두 겹 · 속성 축 · raw fill·stroke 0 셋이다. **기하는 대조하지 않는다** — `figma/components.measured.json` 에 `media-card` 항목이 없다 |
+| Figma         | `partial`      | `MediaCard` 3 variant(`Badge`) · TEXT 2 · BOOLEAN 2 · INSTANCE_SWAP 1. parity 게이트가 대조하는 것은 effect 두 겹 · 속성 축 · raw fill·stroke 0 과 기하다 — 기하는 `figma/components.measured.json` 의 `media-card`(제품 클래스를 실브라우저에서 잰 값)와 카드 폭 · 높이 · 반경 · 안쪽 여백을 맞댄다. 남은 것은 반대 방향이다 — 코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트가 LOUIS 레시피가 없어 없다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                                 |
 | Maturity      | `experimental` | 되읽기와 문서가 방금 처음 섰다. LOUIS recipe 가 서고 기하 실측이 붙으면 승격한다                                                                                        |
 
@@ -94,7 +94,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 | 축 | 값 | 무엇이 바뀌나 |
 | --- | --- | --- |
-| `layout` (코드) | `carousel` | 폭 316 고정 · 줄어들지 않음 · `scroll-snap-align: start` |
+| `layout` (코드) | `carousel` | 960 이상 316 × 316 · 959 이하 `min(316px, 46vw)` 정사각 · 트랙 안에서 줄지 않음(`flex-none`) · `scroll-snap-align: start` |
 | | `grid` | 칸이 폭을 정한다(`w-full aspect-square`) · 스냅 없음 |
 | `Badge` (Figma) | `New` · `Top` · `none` | 알약의 유무와 그 문구 |
 
@@ -122,6 +122,10 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 - **캐러셀 분기에만 스냅이 붙는다.** `scroll-snap-align: start` 가 `carousel` 박스에만 있어
   캐러셀 전용 성질이 그리드로 새지 않는다.
+- **캐러셀 박스는 959 이하에서 화면을 따라 줄어든다**(소유자 요청). `min(316px, 46vw)` 정사각이다 —
+  한 화면에 카드가 최소 둘 보이고 다음 장이 조금 비치도록 고른 비율이다(제품 주석: 375 화면에서
+  46vw × 2 + 6 = 351, 남는 24 가 다음 장의 미리보기). 687 위에서는 46vw 가 316 을 넘으므로 316 이
+  상한이다. 960 이상에서는 316 그대로다.
 - **그리드 분기는 칸이 폭을 정한다.** `w-full aspect-square` 라 좁아지면 그대로 줄어들고
   정사각 비율만 지킨다. 1400 폭에서 한 칸이 345.5 다.
 - 정보 바의 아래 모서리에는 반경을 걸지 않는다. `backdrop-filter` 가 조상의 `overflow: hidden`
@@ -137,8 +141,10 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 ## Content
 
-- **이름은 한 줄이다.** 줄바꿈을 전제하지 않는다 — 정보 바 높이(111)가 이름 한 줄 + 설명 한
-  줄로 계산돼 있어 두 줄이 되면 바가 자란다.
+- **이름은 한 줄이다.** 줄바꿈을 전제하지 않는다 — 정보 바 높이는 내용이 정하므로(481 이상에서
+  이름 한 줄 + 설명 한 줄일 때 111) 두 줄이 되면 바가 자란다. 480 이하에서는 카드가 작아지는 만큼
+  이름(`body-20` → `body-16` 크기)과 설명(`body-14` → `caption-12` 크기)을 한 단 낮춰 캡션이 카드를
+  덮지 않게 한다.
 - 배지 문구는 **짧은 표식**이다(`New` · `Top`). 문장을 넣지 않는다.
 - 설명은 카테고리·용도 한 마디다(`Music & Effects`).
 - **`alt` 는 비울 수 없다.** 사진이 카드의 내용이고 장식이 아니다.
@@ -166,7 +172,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 
 | Part | 값 | 토큰·근거 |
 | --- | --- | --- |
-| Box (`carousel`) | 316 × 316, 줄어들지 않음 | **리터럴**. 대응 spacing 토큰이 없다(Known deviations 4) |
+| Box (`carousel`) | 316 × 316(960 이상) · 959 이하 `min(316px, 46vw)` 정사각 | 316 은 시안 값을 고른 **리터럴**이고 46vw 는 「한 화면에 둘 + 다음 장 미리보기」로 고른 비율이다. 대응 spacing 토큰이 없다(Known deviations 4) · `media-card.sizes.base` |
 | Box (`grid`) | 폭 100%, 정사각 | 칸이 정한다 |
 | Card | radius 12, `overflow: hidden` | `radius/12` |
 | Badge | 좌·상 16, 안쪽 4 / 2, radius 999 | `spacing` 2px 그리드(`left-8 top-8` · `px-2 py-1`) |
@@ -177,7 +183,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Info bar 면 | 흰색 저알파 tint + **점진 배경 흐림** | Figma 는 `color/static-white-alpha/04`, 제품은 1%(Known deviations 2) |
 | Info bar 흐림 | 반경 10, 마스크로 아래→위 감쇠 | `blur/surface` · 곡선은 `--louis-progressive-blur-mask` |
 | Info bar 마스크 | 바닥에서 0~55% 온전 · 70% 80% · 85% 40% · 100% 0 | `figma/components.measured.json` 의 `project-card.overlayMaskStops` 가 표를 소유한다 |
-| Info bar 높이 | 111 | 40 + 30 + 4 + 21 + 16 |
+| Info bar 높이 | 내용이 정한다 — 481 이상에서 이름 · 설명이 한 줄이면 111 | `infoPaddingBlockStart` 40 + `titleLineHeight` 30 + `infoGap` 4 + `descriptionLineHeight` 21 + `infoPaddingBlockEnd` 16. 480 이하는 글자가 한 단 낮아져 함께 낮아진다 |
 | Name row | 높이 30, 간격 8 | 20 × 1.5 = 30 |
 | Name | body-20-medium | `typography/body-lg-medium` · `color/media-foreground-dark` |
 | Description | body-14-regular, 알파 72% | `typography/body-sm-regular` · `color/media-foreground-dark` 72% |
@@ -213,31 +219,35 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
    85% 에서 0.333(CSS 0.4, **−6.7pt**) 이다. 부호가 한쪽이라 Figma 쪽이 그 구간에서 조금 더
    빨리 걷힌다. 더해서 「알파 0.4 의 blur(10) 층」과 「blur(4)」는 원리가 달라 같은 픽셀을 내지
    않는다 — 수치 차이보다 이쪽이 근본이다. Figma 가 꺾인 램프를 지원하기 전에는 좁힐 수 없다.
-4. **카드 폭 316 이 리터럴이다.** 토큰 전수에서 값이 316 인 변수가 없다. 시안 값이고 2px
-   그리드에도 얹히지 않는다(316 = 2 × 158).
+4. **카드 폭 316 이 리터럴이다.** 토큰 전수에서 값이 316 인 변수가 없다 — 시안 값을 고른 것이다
+   (2px 격자에는 떨어진다, 316 = 2 × 158). 959 이하의 `min(316px, 46vw)` 도 같은 리터럴을 상한으로 쓴다.
 5. **`Badge` 축은 폐기 판정을 받았고 Figma 재작업이 남아 있다.**
    `design/governance/figma-component-authoring.md` §2 개정의 「네 시험」 중 **시험 4(값 자체가
    내용인가)** 에 걸린다 — 값에 문구(`New` · `Top`)가 들어가 있어 라이브러리가 카피를 소유하게
-   되고, 문구가 늘 때마다 변형이 는다. 나머지 셋은 통과한다: 배지를 감춰도 카드는 316 × 316
-   고정이라 스타일도 기하도 전이도 바뀌지 않는다. 갈 곳은 `Badge` BOOLEAN + `BadgeLabel` TEXT
+   되고, 문구가 늘 때마다 변형이 는다. 나머지 셋은 통과한다: 배지를 감춰도 카드 크기는 박스가
+   정한 그대로라 스타일도 기하도 전이도 바뀌지 않는다. 갈 곳은 `Badge` BOOLEAN + `BadgeLabel` TEXT
    이고 변형은 3 → 1 이 된다. **아직 Figma 파일을 고치지 않았다** — 그래서 parity 계약은
    현상(3값 VARIANT)을 그대로 적고 있다. 재작업에는 기존 인스턴스의 재바인딩이 따라온다.
 6. **`TopBar` 층이 제품에 없다.** 제품은 배지를 `absolute left-8 top-8` 로 놓고 Figma 는
    높이 54 · 안쪽 16 의 auto-layout 프레임으로 감쌌다. 보이는 위치는 같지만 층 수가 다르므로
    LOUIS recipe 를 세울 때 어느 쪽을 정본으로 삼을지 정해야 한다.
 7. **`layout` 축이 Figma 에 없다.** 제품은 `carousel` · `grid` 두 박스를 갖는데 Figma 는 316
-   고정 하나다. 그리드 쪽 폭은 칸이 정하므로 고정 폭 variant 로 그리면 어떤 폭을 골라도
+   고정 하나다(960 이상의 캐러셀 박스). 캐러셀 박스도 959 이하에서는 화면을 따라 줄어든다. 그리드 쪽 폭은 칸이 정하므로 고정 폭 variant 로 그리면 어떤 폭을 골라도
    거짓이 된다 — Dialog 의 `fullscreen` 을 뺀 것과 같은 이유다. 그래서 **의도적으로 비웠고**,
    대신 이 문서가 그 축을 소유한다.
-8. **기하가 게이트에 걸려 있지 않다.** `figma/components.measured.json` 에 `media-card` 항목이
-   없어 316 · 111 · 40 · 22 를 아무도 대조하지 않는다. 위 값들은 제품 소스에서 읽은 것이고
-   브라우저 실측이 아니다. 실측 probe 를 붙이는 것이 승격 조건이다.
+8. **기하는 한 방향으로만 대조된다.** `figma/components.measured.json` 의 `media-card.sizes.base` 가
+   제품 클래스를 실브라우저에서 잰 값(카드 316 · 배지 22 · 정보 바의 위 40 · 아래 16 · 간격 4 · 줄 높이
+   30 · 21 …)을 갖고, parity 게이트가 Figma 의 카드 폭 · 높이 · 반경 · 안쪽 여백을 그것과 맞댄다.
+   코드가 그 실측을 여전히 만드는지 되재는 브라우저 테스트는 LOUIS 레시피가 없어 없다 — 레시피가 서야
+   열린다.
 
 ## Acceptance tests
 
 1. 카드가 정사각이고 radius 12 이며 사진이 모서리에서 잘린다.
 2. `carousel` 박스만 `scroll-snap-align: start` 를 갖는다. `grid` 박스에는 없다.
-3. 정보 바 높이가 **111** 이다(40 + 30 + 4 + 21 + 16).
+3. 481 이상에서 이름 · 설명이 한 줄일 때 정보 바가 `media-card.sizes.base` 의 항별 값으로 선다 —
+   위 `infoPaddingBlockStart` 40 · 이름 행 `titleLineHeight` 30 · `infoGap` 4 · 설명
+   `descriptionLineHeight` 21 · 아래 `infoPaddingBlockEnd` 16(합 111). 높이 하나가 아니라 항별로 잰다.
 4. 정보 바의 흐림이 **띠가 아니라 그 아래 한 층에** 있고, 그 층이 마스크로 아래→위 감쇠한다.
    띠 자체에 마스크가 걸려 글자가 함께 지워지면 실패다.
 5. 배지와 정보 바의 흐림 반경이 **둘 다 `blur/surface`(10)** 다. 둘을 가르는 것은 마스크의
@@ -245,6 +255,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 6. 이름·설명·배지 글자가 모두 `media-foreground-dark` 에서 오고 `gray-*` 램프를 쓰지 않는다.
 7. Figma 되읽기에서 raw fill · raw stroke · 스타일 없는 텍스트가 각각 0 이다.
 8. 사진에 `alt` 가 있고 이름과 같은 문구가 아니다.
+9. 캐러셀 박스가 960 이상에서 316 × 316, 959 이하에서 `min(316px, 46vw)` 정사각이다.
 
 ## Migration and changelog
 

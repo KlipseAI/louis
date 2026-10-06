@@ -1204,7 +1204,7 @@ const COMPONENT_CONTRACTS = [
       Featured: {
         options: ["false", "true"],
         reason:
-          "코드에서는 item.image 의 유무다. §3 은 있고 없고를 BOOLEAN 으로 두라고 하지만 **BOOLEAN 은 가시성만 바꾼다** — 이 축은 카드를 347×160 에서 698×324 로 키우고(셸프에서 두 열 두 행을 차지하며 그 사이 간격 4 를 자기 몸으로 덮는다) 전경 색 계열을 테마 추종(landing/panel-strong · gray/000 · landing/text-muted)에서 고정 팔레트(media-foreground-dark · palette-gray/500)로 통째로 바꾼다. 제목 줄 수도 2 에서 1 로 갈린다. Button 의 Icon 축이 padding 보정 때문에 불리언이 될 수 없었던 것과 같은 사유다. **figma-component-authoring.md §2 개정이 Featured 를 조건 축 명부에 올렸다** — 프레임 자신의 고정 크기가 다시 쓰이므로 시험 2 에 걸린다.",
+          "코드에서는 item.image 의 유무다. §3 은 있고 없고를 BOOLEAN 으로 두라고 하지만 **BOOLEAN 은 가시성만 바꾼다** — 이 축은 카드를 346×160 에서 698×326 으로 키우고(셸프에서 두 열 두 행을 차지하며 그 사이 간격 4 를 자기 몸으로 덮는다) 전경 색 계열을 테마 추종(landing/panel-strong · gray/000 · landing/text-muted)에서 고정 팔레트(media-foreground-dark · palette-gray/500)로 통째로 바꾼다. 제목 줄 수도 2 에서 1 로 갈린다. Button 의 Icon 축이 padding 보정 때문에 불리언이 될 수 없었던 것과 같은 사유다. **figma-component-authoring.md §2 개정이 Featured 를 조건 축 명부에 올렸다** — 프레임 자신의 고정 크기가 다시 쓰이므로 시험 2 에 걸린다.",
       },
       Title: { type: "TEXT", reason: "제목 한 줄. 코드에서는 item.title 이다." },
       Meta: {
@@ -1213,10 +1213,10 @@ const COMPONENT_CONTRACTS = [
           "날짜 표기. 코드에서는 dateLabel prop 이고 값은 i18n 문자열이 아니라 셸프가 소유한 로케일 포맷터가 만든다. 기계용 ISO 값(item.date)은 Figma 에 대응 슬롯이 없다 — dateTime 같은 의미 속성이 없기 때문이며 그 값의 정본은 코드에만 있다.",
       },
     },
-    // **기하가 붙었다 — 폭·높이까지 잰다.** 347 · 160 · 698 · 324 는 카드가 아니라 **트랙 격자**가
-    // 정하는 값이라(`grid-auto-columns: 347px` · `grid-template-rows: repeat(2,160px)` · gap 4)
+    // **기하가 붙었다 — 폭·높이까지 잰다.** 346 · 160 · 698 · 326 은 카드가 아니라 **트랙 격자**가
+    // 정하는 값이라(`grid-auto-columns: 346px` · `grid-template-rows: repeat(2,160px)` · gap 6, 960 이상)
     // 카드만 세워서는 낼 수 없다. 탐침이 트랙을 조상으로 세우고 카드를 칸에 앉혀 격자가 직접
-    // 계산하게 한다 — 698 = 347×2 + 4, 324 = 160×2 + 4 라는 산술도 우리가 적지 않는다.
+    // 계산하게 한다 — 698 = 346×2 + 6, 326 = 160×2 + 6 이라는 산술도 우리가 적지 않는다.
     //
     // Body 94 · 64 는 넣지 않는다. 제목이 두 줄이냐 한 줄이냐가 정하는 높이라 컴포넌트가
     // 소유하는 값이 아니다 — 대신 그 두 값을 만드는 itemSpacing 10 과 타이포를 잡는다.

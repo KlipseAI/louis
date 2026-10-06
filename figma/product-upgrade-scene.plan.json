@@ -10,17 +10,17 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 232,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 233,
         "quote": "  \"[outline-offset:-2px]\","
@@ -119,13 +119,13 @@
     },
     "deckSource": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 206,
         "quote": "  \"grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "line": 212,
         "quote": "  \"min-h-[560px] [@media(max-width:788px)]:[min-height:auto]\","
@@ -4655,13 +4655,13 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 68,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 794,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
@@ -4678,13 +4678,13 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 68,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 1071,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
@@ -4701,13 +4701,13 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 110,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 795,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
@@ -4724,15 +4724,15 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
             "line": 125,
             "quote": "  \"m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!\";"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 360,
+            "line": 359,
             "quote": "  \"m-0 mb-16 type-heading-36-semibold text-gray-000 text-center\";"
           }
         ],
@@ -4747,7 +4747,7 @@
       "gray000Alpha72": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 177,
             "quote": "  \"text-[rgb(var(--gray-000-rgb)/72%)]!\","
@@ -4767,7 +4767,7 @@
       "mediaForegroundDark": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
             "line": 90,
             "quote": "  \"type-body-14-medium text-[var(--louis-color-media-foreground-dark)]\","
@@ -4784,7 +4784,7 @@
       "bgRaised": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 223,
             "quote": "  \"bg-[var(--louis-color-bg-raised)]\","
@@ -4801,7 +4801,7 @@
       "gray200": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 215,
             "quote": "  \"flex flex-col text-gray-200 overflow-hidden\","
@@ -4818,21 +4818,21 @@
       "gray300": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 269,
+            "line": 268,
             "quote": "  \"mt-2 flex w-full pb-12 items-end gap-4 text-gray-300\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 279,
+            "line": 278,
             "quote": "const TIER_INCLUDES = \"[margin:12px_0_0] p-0 block text-gray-300\";"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 285,
+            "line": 284,
             "quote": "  \"[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300\","
           }
         ],
@@ -4847,9 +4847,9 @@
       "gray300Alpha88": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 265,
+            "line": 264,
             "quote": "  \"[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2\","
           }
         ],
@@ -4865,13 +4865,13 @@
       "green500": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 299,
+            "line": 298,
             "quote": "  \"block w-9 h-9 mt-2 bg-accent-green-500\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
             "line": 95,
             "quote": "const NOTICE_DOT = \"size-2 flex-none rounded-full bg-accent-green-500 mr-5\";"
@@ -4888,7 +4888,7 @@
       "noticeSurface": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
             "line": 91,
             "quote": "  \"bg-[color-mix(in_srgb,var(--louis-color-media-scrim-dark)_48%,transparent)]\","
@@ -4908,7 +4908,7 @@
       "primary200Alpha40": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "line": 232,
             "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
@@ -4926,9 +4926,9 @@
       "accentInverse": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 716,
+            "line": 715,
             "quote": "                      variant=\"inverse\""
           },
           {
@@ -4964,9 +4964,9 @@
       "bgInset": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 724,
+            "line": 723,
             "quote": "                      disabled={"
           },
           {
@@ -5002,9 +5002,9 @@
       "accentSecondary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 603,
+            "line": 602,
             "quote": "                  variant=\"secondary\""
           },
           {

@@ -1,6 +1,6 @@
 {
   "$comment": "생성물. scripts/build-figma-product-glyphs.mjs 가 제품 앵커의 인라인 <svg> 를 옮겨 만든다. 직접 수정하지 않는다.",
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "page": "240:3529",
   "sectionName": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
   "ink": {
@@ -12,7 +12,7 @@
       "collection": "Klipse Primitive",
       "name": "color/blue/500",
       "declared": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
         "path": "apps/web/app/globals.css",
         "line": 200,
         "quote": "  --primary-500: var(--louis-color-blue-500);"
@@ -22,7 +22,7 @@
       "collection": "Klipse Semantic Color",
       "name": "color/gray/000",
       "declared": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/globals.css",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
         "path": "apps/web/app/globals.css",
         "line": 704,
         "quote": "  --gray-000: var(--palette-gray-000);"
@@ -49,7 +49,7 @@
             "height": null
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "line": 51,
             "quote": "    <svg"
@@ -69,7 +69,7 @@
             "height": null
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "line": 24,
             "quote": "    <svg"
@@ -89,7 +89,7 @@
             "height": null
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "path": "apps/web/components/navigation/ProjectSaveCloudGlyph.tsx",
             "line": 92,
             "quote": "    <svg"
@@ -116,7 +116,7 @@
             "height": "14"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/theme/ThemeIcons.tsx",
             "path": "apps/web/components/theme/ThemeIcons.tsx",
             "line": 20,
             "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
@@ -136,7 +136,7 @@
             "height": "14"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/theme/ThemeIcons.tsx",
             "path": "apps/web/components/theme/ThemeIcons.tsx",
             "line": 34,
             "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
@@ -156,7 +156,7 @@
             "height": "14"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/theme/ThemeIcons.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/theme/ThemeIcons.tsx",
             "path": "apps/web/components/theme/ThemeIcons.tsx",
             "line": 53,
             "quote": "    <svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\">"
@@ -183,13 +183,13 @@
             "height": null
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/ui/GlobeIcon.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/ui/GlobeIcon.tsx",
             "path": "apps/web/components/ui/GlobeIcon.tsx",
             "line": 11,
             "quote": "    <svg"
           },
           "callSite": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/creative-media/CreativeMediaClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/creative-media/CreativeMediaClient.tsx",
             "path": "apps/web/components/creative-media/CreativeMediaClient.tsx",
             "line": 269,
             "quote": "          <GlobeIcon className=\"h-10 w-10 [stroke:currentColor] [stroke-width:1.5]\" />"
@@ -213,7 +213,7 @@
             "height": "12"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/CommandPalette.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/CommandPalette.tsx",
             "path": "apps/web/components/navigation/CommandPalette.tsx",
             "line": 921,
             "quote": "    <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden>"
@@ -233,7 +233,7 @@
             "height": "24"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
             "path": "apps/web/components/scenes/create/guide/GettingStartedPanel.tsx",
             "line": 121,
             "quote": "    <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" className={GUIDE_PIPELINE_ARROW}>"
@@ -253,7 +253,7 @@
             "height": null
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/ProjectHeader.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/ProjectHeader.tsx",
             "path": "apps/web/components/scenes/create/ProjectHeader.tsx",
             "line": 640,
             "quote": "    <svg"
@@ -273,7 +273,7 @@
             "height": "24"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas/primitives.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas/primitives.tsx",
             "path": "apps/web/components/scenes/create/node-canvas/primitives.tsx",
             "line": 57,
             "quote": "    <svg"
@@ -305,9 +305,9 @@
             "height": "20"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 2218,
+            "line": 2217,
             "quote": "    <svg"
           }
         }
@@ -332,7 +332,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 33,
             "quote": "  <Glyph {...p}>"
@@ -352,7 +352,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 63,
             "quote": "  <Glyph {...p}>"
@@ -372,7 +372,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 69,
             "quote": "  <Glyph {...p}>"
@@ -392,7 +392,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 77,
             "quote": "  <Glyph {...p}>"
@@ -412,7 +412,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 88,
             "quote": "  <Glyph {...p}>"
@@ -432,7 +432,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 99,
             "quote": "  <Glyph {...p}>"
@@ -452,7 +452,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 106,
             "quote": "  <Glyph {...p}>"
@@ -472,7 +472,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 114,
             "quote": "  <Glyph {...p}>"
@@ -492,7 +492,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 121,
             "quote": "  <Glyph {...p}>"
@@ -512,7 +512,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 127,
             "quote": "  <Glyph {...p}>"
@@ -532,7 +532,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 149,
             "quote": "  <Glyph {...p}>"
@@ -552,7 +552,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 157,
             "quote": "  <Glyph {...p}>"
@@ -572,7 +572,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 173,
             "quote": "  <Glyph {...p}>"
@@ -592,7 +592,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 180,
             "quote": "  <Glyph {...p}>"
@@ -612,7 +612,7 @@
             "height": "22"
           },
           "source": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileActionGlyphs.tsx",
             "line": 186,
             "quote": "  <Glyph {...p}>"

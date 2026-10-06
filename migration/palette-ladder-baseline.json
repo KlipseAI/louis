@@ -3,7 +3,7 @@
   "$rule": "한 방향이다. 파일의 수는 내려갈 수 있고 절대 오를 수 없으며, 여기 없는 파일은 0 이다. 새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다.",
   "$whyPerFile": "합계 하나로 잠그면 A 에서 하나 고치고 B 에 하나 넣는 것이 통과한다. 제품 저장소의 `lint-baseline.json` 이 per file 로 얼린 것과 같은 이유다.",
   "measuredAt": {
-    "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+    "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
     "refSource": "product-evidence.lock.json"
   },
   "files": {

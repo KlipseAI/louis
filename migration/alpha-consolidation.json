@@ -20,12 +20,12 @@
   ],
   "visibleThresholdRelative": 0.15,
   "keep": [],
-  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productRef": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "totals": {
     "stops": 42,
     "trueAlphaStops": 34,
-    "trueAlphaUses": 1774,
+    "trueAlphaUses": 1777,
     "movedUses": 653,
     "visibleUses": 2,
     "reviewSites": 2
@@ -33,7 +33,7 @@
   "inkLadder": [
     {
       "ink": "--gray-000-rgb",
-      "uses": 865,
+      "uses": 867,
       "stops": [
         {
           "stop": 4,
@@ -41,11 +41,11 @@
         },
         {
           "stop": 6,
-          "uses": 3
+          "uses": 4
         },
         {
           "stop": 8,
-          "uses": 171
+          "uses": 172
         },
         {
           "stop": 10,
@@ -603,11 +603,15 @@
     },
     {
       "ink": "--accent-yellow-500-rgb",
-      "uses": 10,
+      "uses": 11,
       "stops": [
         {
           "stop": 8,
           "uses": 6
+        },
+        {
+          "stop": 12,
+          "uses": 1
         },
         {
           "stop": 20,
@@ -1136,7 +1140,7 @@
       "to": 6,
       "delta": 0,
       "relative": 0,
-      "uses": 3,
+      "uses": 4,
       "visible": false
     },
     {
@@ -1152,7 +1156,7 @@
       "to": 8,
       "delta": 0,
       "relative": 0,
-      "uses": 322,
+      "uses": 323,
       "visible": false
     },
     {
@@ -1168,7 +1172,7 @@
       "to": 12,
       "delta": 0,
       "relative": 0,
-      "uses": 198,
+      "uses": 199,
       "visible": false
     },
     {
@@ -1426,7 +1430,7 @@
     {
       "from": 100,
       "to": null,
-      "uses": 275,
+      "uses": 277,
       "note": "불투명 잉크로 흡수 — solid role이 받는다."
     }
   ],

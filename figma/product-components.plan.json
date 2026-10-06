@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
     "id": "subtree-9c4c0327c2b0",
@@ -281,7 +281,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
+        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
         "activePaint": "gray000"
       },
       {
@@ -295,7 +295,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
+        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
         "activePaint": "gray000"
       },
       {
@@ -309,7 +309,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4664-4665 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60.",
+        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
         "activePaint": "gray000"
       }
     ],
@@ -1758,7 +1758,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -2789,7 +2789,7 @@
       "iconOpacity": 0.92,
       "activeSurface": null,
       "activeSurfaceSource": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 585,
         "quote": "    \"[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]\","
@@ -2799,7 +2799,7 @@
       "gray300": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 573,
             "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
@@ -2816,31 +2816,31 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 579,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1971,
+            "line": 1970,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 88,
             "quote": "  \"m-0 text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 113,
             "quote": "  \"[&_dd]:text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 128,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
@@ -2857,7 +2857,7 @@
       "paletteGray600": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 171,
             "quote": "    \"[color:var(--palette-gray-600)]\","
@@ -2874,7 +2874,7 @@
       "paletteGray500Alpha12": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 172,
             "quote": "    \"[background:rgb(var(--palette-gray-500-rgb)_/_12%)]\","
@@ -2892,9 +2892,9 @@
       "paletteGray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1960,
+            "line": 1959,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]\","
           }
         ],
@@ -2909,9 +2909,9 @@
       "paletteGray100": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1961,
+            "line": 1960,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]\","
           }
         ],
@@ -2926,9 +2926,9 @@
       "paletteGray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1970,
+            "line": 1969,
             "quote": "    \"[background:var(--palette-gray-000)]\","
           }
         ],
@@ -2943,7 +2943,7 @@
       "gray000Alpha56": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 96,
             "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
@@ -2963,7 +2963,7 @@
       "gray000Alpha48": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 110,
             "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
@@ -2983,7 +2983,7 @@
       "gray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "line": 128,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","

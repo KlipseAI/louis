@@ -79,7 +79,7 @@ const EDITOR = "apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx"
 // 셸 인셋이 사방이라는 선언 — margin 과 그 짝인 폭 · 높이 뺄셈. `MAIN` 은 여백을 내지 않는다.
 const shellSources = [
   sourceQuote("apps/web/app/globals.css", 155, "  --app-gnb-main-inline-padding: var(--louis-layout-app-shell-content-inset);"),
-  sourceQuote(EDITOR, 153, '  "[padding:0]",'),
+  sourceQuote(EDITOR, 164, '  "[padding:0]",'),
   sourceQuote(VEM, 1836, '    "[.vem-modal&]:[width:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
   sourceQuote(VEM, 1839, '    "[.vem-modal&]:[height:calc(100%_-_var(--app-gnb-main-inline-padding)_*_2)]",'),
   sourceQuote(VEM, 1853, '    "[.vem-modal&]:[margin:var(--app-gnb-main-inline-padding)]",'),
@@ -120,8 +120,8 @@ const [propertiesRowPaddingInline] = declaredTrack(propertiesPanelSources[4], /\
 // 옛 앵커의 장면이다. 격자 트랙과 셸 인셋은 그대로 제품 값이라 옮기지만, 장면 구성을 풀화면으로 다시 짓는
 // 일은 이 생성기의 레일 측정(`/settings` 접힘)으로는 닿지 않는다 — 편집기 경로를 재는 측정이 먼저다.
 const compositionSources = [
-  sourceQuote(EDITOR, 1120, "        /* 프로젝트를 연 편집 화면은 노드 캔버스와 같이 **풀화면**이다. 사이드바가 차지하던"),
-  sourceQuote(EDITOR, 1124, '        variant="create"'),
+  sourceQuote(EDITOR, 1183, "        /* 프로젝트를 연 편집 화면은 노드 캔버스와 같이 **풀화면**이다. 사이드바가 차지하던"),
+  sourceQuote(EDITOR, 1187, '        variant="create"'),
 ];
 const editor = {
   $why:
@@ -161,8 +161,8 @@ const roles = live.colorRoles({
   roles: {
     gray300: { name: "color/gray/300", declared: [quote.product(GNB, 573, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",')] },
     gray000: { name: "color/gray/000", declared: [quote.product(GNB, 579, '    "[color:var(--gray-000)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1965, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1966, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1964, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-100)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1965, '    "[html[data-theme=dark]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-900)]",')] },
     // 편집기 상단 바 아래 선은 제품이 **선언한** 칠이지만 이 측정(`desktop-1920x1080-dark` 사이드바 상태)이 재지 않는 자리다 —
     // 주석 잉크(문서 프레임)와 다른 종류라 선언 인용을 붙이고 `unmeasured` 로 둔다(측정 대조 없음, `exact: null`).
     topBarDivider: {
@@ -218,12 +218,12 @@ const plan = {
     // 소유한다. 사라진 리터럴을 계속 인용하면 값이 아니라 **소유자**가 바뀐 사실이 지워진다.
     sourceQuote("apps/web/components/navigation/Gnb.tsx", 300, '    "louis-app-top-bar__leading",'),
     sourceQuote("apps/web/components/navigation/Gnb.tsx", 464, '    "[padding:8px_var(--mainchrome-pad-x)]",'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1105, '        <path'),
-    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1106, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1951, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1952, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1991, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
-    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1992, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1168, '        <path'),
+    sourceQuote("apps/web/app/videoeditor/[projectId]/EditorProjectWorkspace.tsx", 1169, '          d="M19 12H5M5 12L11 6M5 12L11 18"'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1950, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1951, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1990, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[text-overflow:ellipsis]",'),
+    sourceQuote("apps/web/components/navigation/Gnb.tsx", 1991, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[font-size:var(--type-caption-12-size)]",'),
   ],
   figma: {
     pageId: "240:3529",

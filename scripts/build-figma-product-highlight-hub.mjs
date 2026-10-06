@@ -91,14 +91,14 @@ const sourceEvidence = [
   // historySectionEyebrowCount(996~1000행) — clipCountValue(63~67행)에도 같은 줄이 있으나
   // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
   sourceQuote(HIGHLIGHT, 999, '    \"[margin-left:6px]\",'),
-  // uploadCardCompact(2058~2075행).
-  sourceQuote(HIGHLIGHT, 2065, '    \"[&:not(.tw-hs-188)]:[width:400px]!\",'),
-  sourceQuote(HIGHLIGHT, 2067, '    \"[&:not(.tw-hs-188)]:[height:140px]!\",'),
-  sourceQuote(HIGHLIGHT, 2069, '    \"[padding:8px]!\",'),
-  sourceQuote(HIGHLIGHT, 2070, '    \"[gap:8px]!\",'),
+  // uploadCardCompact(2071~2088행).
+  sourceQuote(HIGHLIGHT, 2078, '    \"[&:not(.tw-hs-188)]:[width:400px]!\",'),
+  sourceQuote(HIGHLIGHT, 2080, '    \"[&:not(.tw-hs-188)]:[height:140px]!\",'),
+  sourceQuote(HIGHLIGHT, 2082, '    \"[padding:8px]!\",'),
+  sourceQuote(HIGHLIGHT, 2083, '    \"[gap:8px]!\",'),
   // 제품이 이 값을 LOUIS 로 넘겼다(`ae8fd627`) — 20px 은 그대로이고 소유자만 바뀌었다.
   // `--louis-radius-card-lg: 20px`(tokens.css:568). 리터럴을 계속 인용하면 채택 사실이 지워진다.
-  sourceQuote(HIGHLIGHT, 2071, '    \"[border-radius:var(--louis-radius-card-lg)]!\",'),
+  sourceQuote(HIGHLIGHT, 2084, '    \"[border-radius:var(--louis-radius-card-lg)]!\",'),
   ];
 // 허브 스크롤 영역(`main`)의 좌/우 패딩 — 좌 인셋과 우 `-end` 가 다른 토큰이다(값은 원장이 잰다).
 const MAIN_PADDING = [
@@ -107,12 +107,12 @@ const MAIN_PADDING = [
 ];
 // 업로드 카드는 뷰포트에 고정된다 — 사이드바 오른쪽 영역의 가운데, 바닥에서 20.
 const UPLOAD_POSITION = [
-  sourceQuote(HIGHLIGHT, 2058, "  uploadCardCompact: ["),
-  sourceQuote(HIGHLIGHT, 2060, '    "[&:not(.tw-hs-188)]:[position:fixed]!",'),
-  sourceQuote(HIGHLIGHT, 2061, '    "[bottom:20px]",'),
-  sourceQuote(HIGHLIGHT, 2062, '    "[left:var(--app-gnb-sidebar-width,_0px)]",'),
-  sourceQuote(HIGHLIGHT, 2063, '    "[right:0]",'),
-  sourceQuote(HIGHLIGHT, 2064, '    "[margin:0_auto]",'),
+  sourceQuote(HIGHLIGHT, 2071, "  uploadCardCompact: ["),
+  sourceQuote(HIGHLIGHT, 2073, '    "[&:not(.tw-hs-188)]:[position:fixed]!",'),
+  sourceQuote(HIGHLIGHT, 2074, '    "[bottom:20px]",'),
+  sourceQuote(HIGHLIGHT, 2075, '    "[left:var(--app-gnb-sidebar-width,_0px)]",'),
+  sourceQuote(HIGHLIGHT, 2076, '    "[right:0]",'),
+  sourceQuote(HIGHLIGHT, 2077, '    "[margin:0_auto]",'),
 ];
 const at = (line) => sourceEvidence.find((entry) => entry.line === line) ?? fail(`missing quote ${HIGHLIGHT}:${line}`);
 const columns = declared(at(770), /repeat\((\d+),_1fr\)/, "grid columns");
@@ -120,10 +120,10 @@ const sectionTop = declared(at(984), /\[margin:(\d+)px_auto_0\]/, "section margi
 const sectionBottom = declared(at(985), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
 const headingGap = declared(at(990), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
 const headingCountGap = declared(at(999), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
-const uploadWidth = declared(at(2065), /\[width:(\d+)px\]/, "upload width");
-const uploadHeight = declared(at(2067), /\[height:(\d+)px\]/, "upload height");
-const uploadPadding = declared(at(2069), /\[padding:(\d+)px\]/, "upload padding");
-const uploadGap = declared(at(2070), /\[gap:(\d+)px\]/, "upload gap");
+const uploadWidth = declared(at(2078), /\[width:(\d+)px\]/, "upload width");
+const uploadHeight = declared(at(2080), /\[height:(\d+)px\]/, "upload height");
+const uploadPadding = declared(at(2082), /\[padding:(\d+)px\]/, "upload padding");
+const uploadGap = declared(at(2083), /\[gap:(\d+)px\]/, "upload gap");
 const uploadBottom = declared(UPLOAD_POSITION[2], /\[bottom:(\d+)px\]/, "upload bottom");
 // 5열은 `min-[1800px]` 에서다 — 원장 뷰포트가 그 폭 이상이어야 이 열 수를 쓸 수 있다.
 const breakpoint = declared(at(770), /min-\[(\d+)px\]/, "grid breakpoint");

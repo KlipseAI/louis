@@ -8,9 +8,9 @@
     "인증 후 페이지 완료 판정"
   ],
   "$method": "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.",
-  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productRef": "a4125565e15367aee8212dafbdf758964261a201",
   "productRefSource": "product-evidence.lock.json",
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "fixture": {
     "nodeEnv": "development",
     "devAuthBypass": true,
@@ -89001,199 +89001,199 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 31,
       "quote": " * 개발 전용 인증 바이패스 — 로그인 없이 로그인-후(보호) 페이지를 확인(반응형 작업 등)하기 위함."
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 32,
       "quote": " * 운영(production)에선 NODE_ENV 게이트로 절대 활성화되지 않는다(이중 안전장치)."
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 33,
       "quote": " * 활성화: 로컬 `apps/web/.env.local` 에 `NEXT_PUBLIC_DEV_AUTH_BYPASS=1`."
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 35,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 36,
       "quote": "    process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 37,
       "quote": "    process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/middleware.ts",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 215,
       "quote": "    if (!user && isProtectedPage && !DEV_AUTH_BYPASS) {"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 30,
       "quote": ""
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 31,
       "quote": "/**"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 32,
       "quote": " * 개발 전용 인증 바이패스 — 실제 세션이 없을 때 목 유저를 채워 로그인-후 화면을 확인(반응형 작업 등)."
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 36,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 37,
       "quote": "  process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 38,
       "quote": "  process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 40,
       "quote": "const DEV_MOCK_USER: User = { id: \"dev-bypass-user\", email: \"dev@local.test\" };"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 41,
       "quote": "const DEV_MOCK_PROFILE: Profile = {"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 352,
       "quote": "      const result = await response.json();"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 353,
       "quote": ""
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 354,
       "quote": "      if (!response.ok || !result.ok) {"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 355,
       "quote": "        if (DEV_AUTH_BYPASS) {"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 356,
       "quote": "          setUser(DEV_MOCK_USER);"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 357,
       "quote": "          setProfile(DEV_MOCK_PROFILE);"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
       "line": 128,
-      "quote": " *"
+      "quote": " * 왜 필요한가. 이 화면의 `phase` 는 프로젝트 데이터에서 파생되므로 특정 단계를 재현하려면"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
       "line": 129,
-      "quote": " * 운영에선 `NODE_ENV` 게이트로 절대 활성화되지 않는다(인증 바이패스와 **동일한 규약**:"
+      "quote": " * 그 단계에 있는 실제 프로젝트가 있어야 한다. 그래서 디자인 시스템 저장소의 화면 실측 하네스가"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
       "line": 130,
-      "quote": " * `middleware.ts` · `components/auth/AuthProvider.tsx`)."
+      "quote": " * 이 화면의 **한 단계(기본 진입)밖에 잴 수 없었다.** 재지 못하는 것은 Figma 에도 그려지지 않고"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
       "line": 878,
-      "quote": "   * 그대로 두므로 그 문제가 없다."
+      "quote": "    requiredPlan: string;"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/topup/success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/topup/success/page.tsx",
       "path": "apps/web/app/mypage/topup/success/page.tsx",
       "line": 192,
       "quote": "   *  사용: ?preview=processing | success | error */"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/topup/success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/topup/success/page.tsx",
       "path": "apps/web/app/mypage/topup/success/page.tsx",
       "line": 195,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "line": 184,
       "quote": "   *  사용: ?preview=processing | success | error */"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "line": 187,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "line": 233,
       "quote": "   * 사용: ?preview=processing | success | partial | error"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "line": 237,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "line": 124,
       "quote": "   *  사용: ?preview=processing | success | issue-error | error */"
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "line": 127,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"

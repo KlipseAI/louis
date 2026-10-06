@@ -235,6 +235,10 @@ try {
     // 줄은 `git diff -U0 6f6282c1 2c6bdacf -- apps/web/components/navigation/Gnb.tsx` 의 hunk 로 옮기고, 여섯 인용문을 새 커밋에서
     // 바이트 그대로 대조했다. 598 의 형제 간격(+6 · +16)도 573 · 579 · 589 에서 그대로다.
     //
+    // 2026-10-06 재고정(`2c6bdacf` → `a4125565`)에서 `Gnb.tsx` 가 5548 → 5546 줄로 줄었다. 1094행 근처 크레딧 팝오버 주석이
+    // 한 줄 줄어 그 아래 로고 블록만 -1(1825→1824 · 1899→1898 · 1901→1900)이고 그 위 메뉴 블록 573 · 579 · 589 는 그대로다.
+    // 여섯 인용문은 새 커밋에서 바이트 그대로 대조했다.
+    //
     // 570 만 문자열이 유일하지 않다(`"[color:var(--gray-000)]",` 는 새 커밋에 14번 나온다).
     // 그래서 문자열 검색이 아니라 **형제로** 고정했다: 588 · 594 · 604 는 한 선언 배열 안의
     // 같은 블록이고 옛 564 · 570 · 580 과 **간격이 같다**(+6 · +16). 그 일치가 이 셋이 같은
@@ -244,9 +248,9 @@ try {
     // 대조하지 않는 `measure-product-auth-fixture` 의 `sourceQuote` 와 다른 점이고, 그쪽은
     // 같은 회차에 손으로 찾아야 했다. 인용을 굽는 자리는 대조를 함께 굽는 것이 맞다.
     sourceEvidence: [
-      quote(1825, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
-      quote(1899, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
-      quote(1901, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
+      quote(1824, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-cube-px)]",'),
+      quote(1898, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:var(--app-gnb-sidebar-logo-symbol-w)]",'),
+      quote(1900, '    "[html[data-app-gnb-sidebar-collapsed=true]_&]:[transform:translateX(_calc(_(_var(--app-gnb-sidebar-menu-hit-w)_-_var(--app-gnb-sidebar-logo-symbol-w)_)_/_2_)_)]",'),
       quote(573, '    "[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]",'),
       quote(579, '    "[color:var(--gray-000)]",'),
       quote(589, '    "[html[data-theme=dark]_.gnb-menuSidebar_&]:[background-color:transparent]",'),

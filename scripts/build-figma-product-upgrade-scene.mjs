@@ -705,7 +705,7 @@ const plan = {
       appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 110, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
       gray000: {
         name: "color/gray/000",
-        declared: [quote.product(PRICING, 125, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 360, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
+        declared: [quote.product(PRICING, 125, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 359, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
       },
       gray000Alpha72: {
         name: "color/gray/000-alpha/72", mix: { name: "color/gray/000", alpha: 0.72 },
@@ -717,17 +717,17 @@ const plan = {
       gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 215, '  "flex flex-col text-gray-200 overflow-hidden",')] },
       gray300: {
         name: "color/gray/300",
-        declared: [quote.product(PAGE, 269, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 279, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
-          quote.product(PAGE, 285, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
+        declared: [quote.product(PAGE, 268, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 278, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
+          quote.product(PAGE, 284, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
       },
       gray300Alpha88: {
         unbound: true, mix: { name: "color/gray/300", alpha: 0.88 },
-        declared: [quote.product(PAGE, 265, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
+        declared: [quote.product(PAGE, 264, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
         reason: "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
       },
       green500: {
         collection: "Klipse Primitive", name: "color/green/500",
-        declared: [quote.product(PAGE, 299, '  "block w-9 h-9 mt-2 bg-accent-green-500",'), quote.product(PRICING, 95, 'const NOTICE_DOT = "size-2 flex-none rounded-full bg-accent-green-500 mr-5";')],
+        declared: [quote.product(PAGE, 298, '  "block w-9 h-9 mt-2 bg-accent-green-500",'), quote.product(PRICING, 95, 'const NOTICE_DOT = "size-2 flex-none rounded-full bg-accent-green-500 mr-5";')],
       },
       noticeSurface: {
         collection: "Klipse Primitive", name: "color/static-black-alpha/48", mix: { name: "color/media-scrim-dark", alpha: 0.48 },
@@ -739,11 +739,11 @@ const plan = {
         declared: [quote.product(PAGE, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
         reason: "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
       },
-      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 716, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
+      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 715, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
       fgOnAccentInverse: { name: "color/fg-on-accent-inverse", declared: [quote.ds(BUTTON, 204, "  color: var(--louis-color-fg-on-accent-inverse);")] },
-      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 724, "                      disabled={"), quote.ds(BUTTON, 333, "  background: var(--louis-color-bg-inset);")] },
+      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 723, "                      disabled={"), quote.ds(BUTTON, 333, "  background: var(--louis-color-bg-inset);")] },
       fgDisabled: { name: "color/fg-disabled", declared: [quote.ds(BUTTON, 318, "  color: var(--louis-color-fg-disabled);")] },
-      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 603, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
+      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 602, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
       accentSecondaryForeground: { name: "color/accent-secondary-foreground", declared: [quote.ds(BUTTON, 215, "  color: var(--louis-color-accent-secondary-foreground);")] },
       boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
       docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

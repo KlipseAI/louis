@@ -653,8 +653,8 @@ const GNB = "apps/web/components/navigation/Gnb.tsx";
 /* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다(4614-4615 · 564/570 이 `6f6282c1` 에서 4694-4695 ·
    592/598 로 옮겨 있었다). 이제 활성 판정 두 줄은 소스 인용으로 확인하고, 색 줄은 `colorEvidence` 의 역할을 가리킨다. */
 const activeRuleSource = [
-  quote.product(GNB, 4664, "                    const href = row.href;"),
-  quote.product(GNB, 4665, "                    const isActive = isSidebarMenuHrefActive(href);"),
+  quote.product(GNB, 4663, "                    const href = row.href;"),
+  quote.product(GNB, 4664, "                    const isActive = isSidebarMenuHrefActive(href);"),
 ];
 const sharedActiveColourNote =
   `No new visual value: Gnb.tsx:${activeRuleSource[0].line}-${activeRuleSource[1].line} applies the common isSidebarMenuHrefActive result ` +
@@ -672,7 +672,7 @@ const roles = live.colorRoles({
       name: "color/gray/000",
       declared: [
         quote.product(GNB, 579, '    "[color:var(--gray-000)]",'),
-        quote.product(GNB, 1971, '    "[color:var(--gray-000)]",'),
+        quote.product(GNB, 1970, '    "[color:var(--gray-000)]",'),
         quote.product(RESULT, 88, '  "m-0 text-gray-000",'),
         quote.product(RESULT, 113, '  "[&_dd]:text-gray-000",'),
         quote.product(RESULT, 128, '  "[border:none] bg-gray-000 text-gray-900!",'),
@@ -687,9 +687,9 @@ const roles = live.colorRoles({
       declared: [quote.product(GNB, 172, '    "[background:rgb(var(--palette-gray-500-rgb)_/_12%)]",')],
       reason: "The BETA chip paints rgb(var(--palette-gray-500-rgb) / 12%). The live file has no palette-gray alpha ramp and no variable resolves to palette-gray-500 at 12% (color/app/nav-chip-tint is static-black-alpha/04 in Light), so the chip keeps the measured colour as a fixed paint.",
     },
-    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1960, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
-    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1961, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
-    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 1970, '    "[background:var(--palette-gray-000)]",')] },
+    paletteGray900: { collection: "Klipse Primitive", name: "color/palette-gray/900", declared: [quote.product(GNB, 1959, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]",')] },
+    paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1960, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
+    paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 1969, '    "[background:var(--palette-gray-000)]",')] },
     gray000Alpha56: {
       name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
       declared: [quote.product(RESULT, 96, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),

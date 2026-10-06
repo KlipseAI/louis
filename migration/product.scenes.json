@@ -2,10 +2,10 @@
   "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 49개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 공개·법무·인증 18개 concrete route를 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
   "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 랜딩 `/` 만은 prefers-reduced-motion: reduce 로 열어 networkidle 과 도는 애니메이션이 없어질 때까지 기다린다 — 스크롤 리빌의 출발 상태(opacity 0 · translate 32px)로 되감기는 도중을 재지 않기 위해서이고, 제품 renderHarness.mjs 의 --force-prefers-reduced-motion 과 같은 길이다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
-  "productRef": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
-  "productCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+  "productRef": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "buildEvidence": {
-    "releaseCommit": "2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60",
+    "releaseCommit": "a4125565e15367aee8212dafbdf758964261a201",
     "sourcemapFingerprint": "unavailable(no page sourcemaps)",
     "$verified": "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같음을 실행 시 확인했다. 장면 구성 소스의 sourcemap 원문 대조는 페이지 sourcemap 이 있을 때만 수행한다 — 없으면 `sourcemapFingerprint` 가 unavailable 이고, 커밋 고정은 _sentryRelease 가 진다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
     "sourceInputs": [
@@ -15,7 +15,7 @@
       },
       {
         "path": "apps/web/components/scenes/highlightSceneStyles.ts",
-        "sha256": "7a929528696ecfa3cf8e98082173ab9886bbf216a4cf31976f337bb34f647ea9"
+        "sha256": "a1c7d5afa0a76c2d7aa9a00756238708bb41b67654f2be010153fae0dee0cd81"
       },
       {
         "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
@@ -38,7 +38,7 @@
     }
   ],
   "routeInventory": {
-    "command": "git ls-tree -r --name-only 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60 -- apps/web/app",
+    "command": "git ls-tree -r --name-only a4125565e15367aee8212dafbdf758964261a201 -- apps/web/app",
     "pageFileCount": 49,
     "measuredConcreteRouteCount": 18,
     "guestOutcomeRouteCount": 26,
@@ -617,7 +617,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 6278,
+        "documentHeight": 6481,
         "headings": [
           {
             "level": 1,
@@ -909,7 +909,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 6278,
+        "documentHeight": 6481,
         "headings": [
           {
             "level": 1,
@@ -1021,7 +1021,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 6278,
+        "documentHeight": 6481,
         "headings": [
           {
             "level": 1,
@@ -1207,7 +1207,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 5145,
+        "documentHeight": 5549,
         "headings": [
           {
             "level": 1,
@@ -1499,7 +1499,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 5145,
+        "documentHeight": 5549,
         "headings": [
           {
             "level": 1,
@@ -1611,7 +1611,7 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 5145,
+        "documentHeight": 5549,
         "headings": [
           {
             "level": 1,
@@ -1851,22 +1851,22 @@
     "heroWordmark": {
       "path": "apps/web/public/klipse-wordmark-text-dark.svg",
       "sha256": "6024e3a27d33fbd3e61efe45c546518a99989d0ef59acb2b2746f68546d36131",
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/public/klipse-wordmark-text-dark.svg"
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/public/klipse-wordmark-text-dark.svg"
     },
     "demoBackground": {
       "path": "apps/web/public/images/hero/demo-bg-01.jpg",
       "sha256": "30865cf27be80471c18324433ae2ac349ef9d798bae8423a35992ca051e9c27b",
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/public/images/hero/demo-bg-01.jpg"
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/public/images/hero/demo-bg-01.jpg"
     },
     "highlightWordmark": {
       "path": "apps/web/public/highlight-wordmark.svg",
       "sha256": "68829a9f96c5dbef43126cdc91571ddfdc48212ce236bd9d7c1f8b3b5a558bfb",
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/public/highlight-wordmark.svg"
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/public/highlight-wordmark.svg"
     },
     "monitorArrowUp": {
       "path": "apps/web/public/icons/MonitorArrowUp.svg",
       "sha256": "8e2df0e6d3dd8332e595d4c4bed54f33940f946b8217895fcf32da8c8029d46d",
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/public/icons/MonitorArrowUp.svg"
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/public/icons/MonitorArrowUp.svg"
     },
     "themeDropdownChevron": {
       "$notMeasured": "liveOnly 표본이 0개입니다. 합성 장면 2문맥을 재지 않습니다. 랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다."
@@ -1877,13 +1877,13 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/landing/sections/Hero.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/Hero.tsx",
       "path": "apps/web/components/landing/sections/Hero.tsx",
       "line": 54,
       "quote": ""
     },
     {
-      "command": "git show 2c6bdacfad9576af9fa06fc341a3a2cd6e56dd60:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+      "command": "git show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "line": 96,
       "quote": "        <span className={CONTENT}>"
@@ -1905,18 +1905,18 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 5849,
+        "documentHeight": 6052,
         "body": {
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 5849.1563
+          "height": 6051.7813
         },
         "root": {
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 5849.1563
+          "height": 6051.7813
         },
         "landmarks": {
           "header": [
@@ -1940,7 +1940,7 @@
               "tag": "header",
               "ariaLabel": null,
               "x": 260,
-              "y": 4579.375,
+              "y": 4782,
               "width": 1400,
               "height": 48.5938
             }
@@ -1958,7 +1958,7 @@
               "tag": "nav",
               "ariaLabel": "Product",
               "x": 970,
-              "y": 5551.1563,
+              "y": 5753.7813,
               "width": 690,
               "height": 144
             }
@@ -1970,7 +1970,7 @@
               "x": 0,
               "y": 0,
               "width": 1920,
-              "height": 5849.1563
+              "height": 6051.7813
             }
           ],
           "aside": [],
@@ -1980,7 +1980,7 @@
               "tag": "footer",
               "ariaLabel": null,
               "x": 0,
-              "y": 5511.1563,
+              "y": 5713.7813,
               "width": 1920,
               "height": 338
             }
@@ -2007,7 +2007,7 @@
             "level": 2,
             "text": "“ Klipse reviews ”",
             "x": 959.5,
-            "y": 2497.1875,
+            "y": 2699.8125,
             "width": 1,
             "height": 1
           },
@@ -2015,7 +2015,7 @@
             "level": 2,
             "text": "We build Klipsetogether with creators",
             "x": 710.6875,
-            "y": 3314.1875,
+            "y": 3516.8125,
             "width": 498.625,
             "height": 97.1875
           },
@@ -2023,7 +2023,7 @@
             "level": 2,
             "text": "What’s new",
             "x": 260,
-            "y": 3924.7813,
+            "y": 4127.4063,
             "width": 1400,
             "height": 48.5938
           },
@@ -2031,7 +2031,7 @@
             "level": 2,
             "text": "Frequently asked questions",
             "x": 260,
-            "y": 4579.375,
+            "y": 4782,
             "width": 1400,
             "height": 48.5938
           },
@@ -2039,7 +2039,7 @@
             "level": 2,
             "text": "Your first AI video,\nmake it with Klipse",
             "x": 810.0313,
-            "y": 5237.9688,
+            "y": 5440.5938,
             "width": 299.9375,
             "height": 97.1875
           },
@@ -2047,7 +2047,7 @@
             "level": 2,
             "text": "Product",
             "x": 970,
-            "y": 5551.1563,
+            "y": 5753.7813,
             "width": 56.2813,
             "height": 24
           },
@@ -2055,7 +2055,7 @@
             "level": 2,
             "text": "Resources",
             "x": 1142.375,
-            "y": 5551.1563,
+            "y": 5753.7813,
             "width": 92.2969,
             "height": 24
           },
@@ -2063,7 +2063,7 @@
             "level": 2,
             "text": "Social",
             "x": 1350.7656,
-            "y": 5551.1563,
+            "y": 5753.7813,
             "width": 73.0625,
             "height": 24
           },
@@ -2071,7 +2071,7 @@
             "level": 2,
             "text": "Trust",
             "x": 1539.9219,
-            "y": 5551.1563,
+            "y": 5753.7813,
             "width": 120.0781,
             "height": 24
           }
@@ -2134,10 +2134,18 @@
             "height": 20
           },
           {
+            "src": "/images/landing/node-showcase-sofa.jpg",
+            "alt": "Generated",
+            "x": 1186.34,
+            "y": 1456.1483,
+            "width": 364.3201,
+            "height": 647.6801
+          },
+          {
             "src": "/_next/image?url=%2Fimages%2Flanding%2Ftestimonials-backdrop.jpg&w=1920&q=75",
             "alt": "",
             "x": 0,
-            "y": 2204.7813,
+            "y": 2407.4063,
             "width": 1920,
             "height": 800
           },
@@ -2145,7 +2153,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Favatar-new-pd.png&w=32&q=75",
             "alt": "",
             "x": 926.4844,
-            "y": 2617.375,
+            "y": 2820,
             "width": 20,
             "height": 20
           },
@@ -2153,7 +2161,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fcreator-program-backdrop.jpg&w=1920&q=75",
             "alt": "",
             "x": 0,
-            "y": 3004.7813,
+            "y": 3207.4063,
             "width": 1920,
             "height": 800
           },
@@ -2161,7 +2169,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fambassador-seal.png&w=64&q=75",
             "alt": "",
             "x": 944,
-            "y": 3262.1875,
+            "y": 3464.8125,
             "width": 32,
             "height": 32
           },
@@ -2169,7 +2177,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fnews-featured.webp&w=750&q=75",
             "alt": "",
             "x": 260,
-            "y": 4013.375,
+            "y": 4216,
             "width": 698,
             "height": 326
           }
@@ -206940,18 +206948,18 @@
         },
         "locale": "en",
         "theme": "light",
-        "documentHeight": 5021,
+        "documentHeight": 5425,
         "body": {
           "x": 0,
           "y": 0,
           "width": 402,
-          "height": 5021.2656
+          "height": 5425.1094
         },
         "root": {
           "x": 0,
           "y": 0,
           "width": 402,
-          "height": 5021.2656
+          "height": 5425.1094
         },
         "landmarks": {
           "header": [
@@ -206975,7 +206983,7 @@
               "tag": "header",
               "ariaLabel": null,
               "x": 16,
-              "y": 3606.2656,
+              "y": 4010.1094,
               "width": 370,
               "height": 27
             }
@@ -206993,7 +207001,7 @@
               "tag": "nav",
               "ariaLabel": "Product",
               "x": 16,
-              "y": 4607.2656,
+              "y": 5011.1094,
               "width": 370,
               "height": 304
             }
@@ -207005,7 +207013,7 @@
               "x": 0,
               "y": 0,
               "width": 402,
-              "height": 5021.2656
+              "height": 5425.1094
             }
           ],
           "aside": [],
@@ -207015,7 +207023,7 @@
               "tag": "footer",
               "ariaLabel": null,
               "x": 0,
-              "y": 4359.2656,
+              "y": 4763.1094,
               "width": 402,
               "height": 662
             }
@@ -207042,7 +207050,7 @@
             "level": 2,
             "text": "“ Klipse reviews ”",
             "x": 200.5,
-            "y": 1862.7656,
+            "y": 2266.6094,
             "width": 1,
             "height": 1
           },
@@ -207050,7 +207058,7 @@
             "level": 2,
             "text": "We build Klipsetogether with creators",
             "x": 16,
-            "y": 2324.2656,
+            "y": 2728.1094,
             "width": 370,
             "height": 54
           },
@@ -207058,7 +207066,7 @@
             "level": 2,
             "text": "What’s new",
             "x": 16,
-            "y": 2705.2656,
+            "y": 3109.1094,
             "width": 370,
             "height": 27
           },
@@ -207066,7 +207074,7 @@
             "level": 2,
             "text": "Frequently asked questions",
             "x": 16,
-            "y": 3606.2656,
+            "y": 4010.1094,
             "width": 370,
             "height": 27
           },
@@ -207074,7 +207082,7 @@
             "level": 2,
             "text": "Your first AI video,\nmake it with Klipse",
             "x": 115.7813,
-            "y": 4167.2656,
+            "y": 4571.1094,
             "width": 170.4375,
             "height": 54
           },
@@ -207082,7 +207090,7 @@
             "level": 2,
             "text": "Product",
             "x": 16,
-            "y": 4607.2656,
+            "y": 5011.1094,
             "width": 153,
             "height": 21
           },
@@ -207090,7 +207098,7 @@
             "level": 2,
             "text": "Resources",
             "x": 209,
-            "y": 4607.2656,
+            "y": 5011.1094,
             "width": 153,
             "height": 21
           },
@@ -207098,7 +207106,7 @@
             "level": 2,
             "text": "Social",
             "x": 16,
-            "y": 4779.2656,
+            "y": 5183.1094,
             "width": 153,
             "height": 21
           },
@@ -207106,7 +207114,7 @@
             "level": 2,
             "text": "Trust",
             "x": 209,
-            "y": 4779.2656,
+            "y": 5183.1094,
             "width": 153,
             "height": 21
           }
@@ -207169,10 +207177,18 @@
             "height": 20
           },
           {
+            "src": "/images/landing/node-showcase-sofa.jpg",
+            "alt": "Generated",
+            "x": 476.48,
+            "y": 1496.058,
+            "width": 301.356,
+            "height": 535.744
+          },
+          {
             "src": "/_next/image?url=%2Fimages%2Flanding%2Ftestimonials-backdrop.jpg&w=640&q=75",
             "alt": "",
             "x": 0,
-            "y": 1764.2656,
+            "y": 2168.1094,
             "width": 402,
             "height": 420
           },
@@ -207180,7 +207196,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Favatar-new-pd.png&w=32&q=75",
             "alt": "",
             "x": 170.0469,
-            "y": 1992.2656,
+            "y": 2396.1094,
             "width": 20,
             "height": 20
           },
@@ -207188,7 +207204,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fcreator-program-backdrop.jpg&w=640&q=75",
             "alt": "",
             "x": 0,
-            "y": 2184.2656,
+            "y": 2588.1094,
             "width": 402,
             "height": 433
           },
@@ -207196,7 +207212,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fambassador-seal.png&w=64&q=75",
             "alt": "",
             "x": 185,
-            "y": 2272.2656,
+            "y": 2676.1094,
             "width": 32,
             "height": 32
           },
@@ -207204,7 +207220,7 @@
             "src": "/_next/image?url=%2Fimages%2Flanding%2Fnews-featured.webp&w=640&q=75",
             "alt": "",
             "x": 16,
-            "y": 2772.2656,
+            "y": 3176.1094,
             "width": 370,
             "height": 326
           }

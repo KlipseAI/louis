@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-06 (198) — 제품 앵커를 a4125565 로 옮겼다: 측정 원장 전부를 다시 재고, 측정기 · 생성기 인용 쉰두 줄을 새 원문에 맞췄다
+
+- **앵커.** `migration/product-evidence.lock.json` 이 제품 `design` a4125565 를 가리킨다(전 앵커 2c6bdacf). 측정 12단계, 익명 · 세션 ·
+  공개 원장, 인증 화면 31장, 사이드바 상태, 토큰 사용, 팔레트 기준선(파일 24 · 위반 71, 파일별 상승 없음)을 새 앵커에서 다시 쟀다.
+  `verify-product-anchor` 는 생성물 핀 49개가 앵커와 같다.
+- **인용 줄 이동.** 값은 그대로이고 제품 파일 다섯의 줄만 움직였다 — `Gnb.tsx` 1094행 근처 주석 -1(그 아래 전부 -1),
+  `UpgradePlanPageClient.tsx` -1, `PricingSection.tsx` -1, `highlightSceneStyles.ts` +13, `EditorProjectWorkspace.tsx` +11 · +63.
+  측정기 하나와 생성기 다섯의 인용을 `git diff -U0 2c6bdacf a4125565` 의 hunk 오프셋과 맞춰 옮기고, 인용문은 새 커밋에서 바이트 그대로
+  대조했다.
+- **새 글리프 둘.** 랜딩 개요의 노드 캔버스 목업에 다운로드(`download-lucide`, LOUIS `icon/download-simple` 과 뜻만 같은 bespoke)와 선
+  반짝임(`sparkle-plus-32`, LOUIS 에 없음)이 섰다. `figma-glyph-identity.mjs` 의 대응표에 이름 · 대응 · 사유를 적었다. 보드 구성은
+  bespoke 114 → 120 · 미보유 1214 → 1225 다(늘어난 것은 발견이다).
+- **기준선.** 랜딩 목업의 풀지 못한 HUG 부모 · FILL 자식 두 자리는 감싸는 층이 하나 늘어 경로만 한 단계 깊어졌다(수 · 사유 그대로).
+  표면 원장은 472종 · 대응 59 · 필요 164(부품 76 · 화면 64 · 한자리 23).
+- **장면 축.** `measure-product-scenes` 가 NOT_MEASURED 다 — 새 앵커에 liveOnly 표본이 0 이라 합성 장면 2문맥을 재지 않았다.
+- **재생성 스크립트.** `regen-figma-at-anchor.sh` 의 생성기 목록에 `build-figma-product-glyphs` 가 빠져 있었다(앵커 게이트가 그 계획의
+  낡은 핀을 잡았다). 목록에 넣었다.
+- **라이브 미적용.** 바뀐 러너는 `app-screens` 의 home(데스크톱 조각이 둘 → 셋) · creative-media-admin 과 제품 부품 계획 아홉이다.
+  묶음 4(197)와 함께 다음 회차에 재전송한다.
+
 ## 2026-10-06 (197) — 크기 굳힘 감사 묶음 4 · 5 와 앵커 이동 준비: 사이드바 부품은 내용 크기로 서고, 옛 /pricing 캡처 부품은 걷었다
 
 - **묶음 4 — 사이드바 부품(렌더러만, 라이브 미적용).** `figma-product-components-renderer.js` 가 측정 rect 로 굳히던 축을 풀었다 —

@@ -181,19 +181,20 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // 2c6bdacf 에서 줄만 −37 밀렸다(1470 → 1433) — 위쪽 스타일 표에서 어드민 아이콘 사본(`customSidebarIconMask`) · 사이드바와
 // 모바일 「분석」 아이브로우 상수가 걷히고 아이콘 슬롯 주석이 늘었다. 이 파일의 Gnb.tsx 인용 문자열은 모두 글자 그대로이고 줄만 옮겼다.
 // 나머지 문자열 다섯은 글자 그대로다.
+// a4125565 에서 줄만 −1 밀렸다(1433 → 1432) — 1094행 근처 크레딧 팝오버 주석이 한 줄 줄었다(`git diff -U0 2c6bdacf a4125565`).
 const ringSourceLines = [
-  [1433, '    "[--profile-avatar-size:24px]",'],
-  [1436, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1437, '    "[--profile-ring-gap:2px]",'],
-  [1438, '    "[--profile-ring-width:2px]",'],
-  [1465, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1467, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1432, '    "[--profile-avatar-size:24px]",'],
+  [1435, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1436, '    "[--profile-ring-gap:2px]",'],
+  [1437, '    "[--profile-ring-width:2px]",'],
+  [1464, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1466, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // 버튼 한 변이 식이라는 선언 셋 — `--profile-ring-size` calc 와 그것을 폭·높이로 쓰는 두 줄.
 const profileSizeSourceLines = [
-  [1439, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
-  [1441, '    "[width:var(--profile-ring-size)]",'],
-  [1442, '    "[height:var(--profile-ring-size)]",'],
+  [1438, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
+  [1440, '    "[width:var(--profile-ring-size)]",'],
+  [1441, '    "[height:var(--profile-ring-size)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // **앞머리 컨트롤 한 변도 선언이다.** `mainChromeSidebarToggle`(Gnb.tsx:359) 의 `[width:32px]` ·
 // `[height:32px]`. 두 문자열은 파일에 네 번씩 나오므로 블록 머리(:359–360)를 함께 인용해 자리를 고정한다.
@@ -224,9 +225,9 @@ const DECLARED_PROFILE = (() => {
 })();
 // 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5252–5254 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
 const toggleSvgSourceLines = [
-  [5252, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
-  [5253, "                      width={20}"],
-  [5254, "                      height={20}"],
+  [5251, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
+  [5252, "                      width={20}"],
+  [5253, "                      height={20}"],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 const DECLARED_TOGGLE_SVG = (() => {
   const [width, height] = [toggleSvgSourceLines[1], toggleSvgSourceLines[2]].map((entry) => Number(/=\{(\d+)\}/.exec(entry.quote)?.[1]));

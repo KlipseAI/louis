@@ -330,9 +330,10 @@ fi
 # ── 2. 생성 ──────────────────────────────────────────────────────────────
 echo
 echo "════ 2) Figma 생성기 ════"
+# build-figma-product-glyphs 는 2026-10-06 앵커 이동에서 빠진 것이 드러났다 — verify-product-anchor 가 그 계획의 낡은 핀을 잡았다.
 for m in \
   build-figma-snapshot build-figma-variables build-figma-styles build-figma-summaries \
-  build-figma-product-components build-figma-product-app-shell build-figma-product-sidebar-states \
+  build-figma-product-components build-figma-product-glyphs build-figma-product-app-shell build-figma-product-sidebar-states \
   build-figma-product-payment-scenes build-figma-product-checkout-status \
   build-figma-product-upgrade-scene build-figma-product-highlight-hub \
   build-figma-app-screens build-figma-inventory measure-figma-board-composition

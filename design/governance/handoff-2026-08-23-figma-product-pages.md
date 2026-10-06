@@ -1519,7 +1519,8 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
      StepTile), project-card 문서의 조건 없는 불변식.
    - 10 — news-card · media-card 문서의 계산값 사실 서술.
    - 5 — `/pricing` DOM 캡처 평탄화. 증거 스냅숏과 재사용 컴포넌트를 가르는 Decision 이 먼저다.
-   - 11 — 고아 생성기 `build-figma-ds-library.mjs` · `figma/run-ds-library.js` 은퇴(실행하면 페이지를 통째로 지운다).
+   - 11 — 고아 생성기 build-figma-ds-library.mjs · figma/run-ds-library.js 은퇴(실행하면 페이지를 통째로 지운다).
+     **2026-10-06 걷었다** — 되살릴 때는 `3d3c20ea` 에서 꺼낸다.
    감사의 docs 갈래 출력은 중간에서 잘려 받지 못한 발견이 있다 — 묶음 10 에 들어가기 전에 그 갈래를 다시 돈다.
 7. `execution-handoff.md` 의 큐(`DS-P3-001` owner 확인 · `DS-P3-014` 토큰 커버리지)로 돌아간다.
 
@@ -1591,8 +1592,8 @@ archive/billing-fail/settings-mobile의 보이는 공유 셸 인스턴스 전부
   `a3ed8e031214f67ac319c5ceaa7ad2808cf0d3a4` 또는 clean fixture
   `/private/tmp/klipse-web-measure.528RlU/repo`에서 얻었다.
 - DS worktree는 의도적으로 dirty다. 새 upgrade/app-shell/payment/checkout generated plan·runner와 generator·
-  renderer는 아직 untracked이며 커밋하지 않았다. `figma/run-ds-library.js`, `figma/run-full-figma-sync.js`,
-  `scripts/build-figma-ds-library.mjs`, `scripts/build-figma-full-runner.mjs`,
+  renderer는 아직 untracked이며 커밋하지 않았다. figma/run-ds-library.js(2026-10-06 은퇴), `figma/run-full-figma-sync.js`,
+  scripts/build-figma-ds-library.mjs(2026-10-06 은퇴), `scripts/build-figma-full-runner.mjs`,
   `scripts/figma-live-bridge.mjs`, `scripts/figma-live-daemon.mjs`는 사용자 소유 untracked 파일이므로 보존한다.
 
 ## 한도 종료 직전 체크리스트

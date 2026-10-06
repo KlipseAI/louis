@@ -83,9 +83,8 @@ const BASELINE = {
   // 앱 셸 생성기의 Figma 글리프 실측표(`figmaGlyphBounds` · `desktopFigmaGlyphBounds`, 라벨 열 개 × 폭 · 높이 ×
   // 두 뷰포트)와 `lineShiftX`. 제품 rect 가 아니라 Figma 글꼴 메트릭이지만 라벨 · 글꼴이 바뀌면 낡는 계산값이다.
   "build-figma-product-app-shell.mjs": 41,
-  // 생성 러너 문자열에 박힌 DS 라이브러리 견본 크기(`pCard.resize(320, 320)` · 버튼 60×36 …)와 인벤토리 보드의
-  // 표 폭 1700 · 글자 상자 임시 높이 10, 변수 원천 측정의 뷰포트 1440×900.
-  "build-figma-ds-library.mjs": 13,
+  // 인벤토리 보드의 표 폭 1700 · 글자 상자 임시 높이 10, 변수 원천 측정의 뷰포트 1440×900.
+  // 2026-10-06: DS 라이브러리 견본 생성기(13 — `pCard.resize(320, 320)` · 버튼 60×36 …)를 걷어 기준선에서 뺐다(크기 굳힘 감사 묶음 11).
   "build-figma-inventory.mjs": 2,
   "build-figma-variable-source.mjs": 2,
   // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(1800, 980)` 류와 그 최소 크기 비교) ·

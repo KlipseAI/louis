@@ -4979,7 +4979,7 @@ export const primitives = {
   "shadow-focus-ring": {
     "aliasTarget": null,
     "cssProperties": {},
-    "deprecated": null,
+    "deprecated": "DS-D-0074 (2026-10-06): focus rings are not drawn; forced-colors uses the system color Highlight. No replacement. Remove after one migration window once product references are 0.",
     "description": null,
     "id": "shadow-focus-ring",
     "mode": "base",
@@ -8823,7 +8823,7 @@ export const tokens = {
       "cssProperties": {
         "--louis-elevation-focus-ring": "0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42)"
       },
-      "deprecated": null,
+      "deprecated": "DS-D-0074 (2026-10-06): focus rings are not drawn; forced-colors uses the system color Highlight. No replacement. Remove after one migration window once product references are 0.",
       "description": null,
       "id": "elevation-focus-ring",
       "mode": "global",

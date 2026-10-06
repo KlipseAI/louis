@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "dcd4813604fff296bbc0ced9f49b83972142649d6436061c40dfa376e7fff784"
+      "sha256": "8d5ce9e55ac94858d900e8b65b1e1a3acffe9f3deec44a7990b56d3bfbaa0332"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,7 +10,7 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "63e480d332091a85ba6369e1ac256570be289e26317296803eb8e743538a87d7"
+      "sha256": "44069e90f436d9971ed66db3ae013b1261817328736b74bcda7c210b0ef3bc72"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
@@ -18,7 +18,7 @@
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "6dcf659c2281637c72ed871d1a39ce13aa545739c77e965d81f7ec232a8be7a6"
+      "sha256": "b57cd706c7b24b53f6348ee1e0e9ca07a97dfbfe73e47fe1e611d2f34f22b4a4"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "b91a82013d9df6f956b3fb1d9e906cbb545a01e90c4615783634d1810e7c2d0c"
+    "sha256": "8d3c35fa624d0318bf96b52a671a16b7ee83e9285875407cd9bc14ae966663d2"
   },
   "themes": [
     "light",
@@ -14441,7 +14441,7 @@
       "cssProperties": {
         "--louis-elevation-focus-ring": "0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42)"
       },
-      "deprecated": null,
+      "deprecated": "DS-D-0074 (2026-10-06): focus rings are not drawn; forced-colors uses the system color Highlight. No replacement. Remove after one migration window once product references are 0.",
       "description": null,
       "id": "elevation-focus-ring",
       "mode": "global",
@@ -17751,7 +17751,7 @@
     {
       "aliasTarget": null,
       "cssProperties": {},
-      "deprecated": null,
+      "deprecated": "DS-D-0074 (2026-10-06): focus rings are not drawn; forced-colors uses the system color Highlight. No replacement. Remove after one migration window once product references are 0.",
       "description": null,
       "id": "shadow-focus-ring",
       "mode": "base",

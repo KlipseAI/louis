@@ -132,8 +132,12 @@ export async function startFakeSupabase({ seeds = {} } = {}) {
       // `maybeSingle()` 은 GET 에 `application/json` 을 보내고 길이 1 배열에서 행을 꺼낸다(postgrest-js 2.98) — 목록 갈래가 맞다.
       const single = String(request.headers.accept ?? "").includes("vnd.pgrst.object");
       const table = path.slice("/rest/v1/".length);
-      const seeded = Object.hasOwn(seeds, table);
-      const result = seeded ? queryRows(seeds[table], url.searchParams) : { rows: [] };
+      // 시드는 행 배열이거나 `{ rows, requireFilter }` 다 — `requireFilter` 열로 집어 읽을 때만(`<열>=eq.…`) 행을 내고, 목록 조회에는 빈 목록이다.
+      // 같은 세션 측정의 허브(`/nodecanvas` 목록)가 같은 표를 `user_id` 로만 읽으므로, 상세용 시드가 허브 보드의 빈 상태를 바꾸지 않게 한다(2026-10-07).
+      const entry = Object.hasOwn(seeds, table) ? seeds[table] : null;
+      const rowsOf = Array.isArray(entry) ? entry : entry?.rows ?? null;
+      const gated = entry && !Array.isArray(entry) && entry.requireFilter && !url.searchParams.has(entry.requireFilter);
+      const result = rowsOf && !gated ? queryRows(rowsOf, url.searchParams) : { rows: [] };
       if (result.error) return send(400, { code: "FIXTURE", message: result.error, hint: "fixture-fake-supabase 가 이 조회 모양을 모른다" });
       const rows = result.rows;
       const range = rows.length ? `0-${rows.length - 1}/${rows.length}` : "*/0";

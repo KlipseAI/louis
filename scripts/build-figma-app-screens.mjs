@@ -364,6 +364,47 @@ const PARTS = [
       ],
     })),
   },
+  {
+    set: "Product/Page Header",
+    about: "앱 허브 머리(components/ui/PageHeader.tsx — .louis-section-header data-level=page · 제목 + 설명). 노드캔버스 · 하이라이트 허브도 같은 머리를 쓰지만 카드 · 기록이 있을 때만 그린다 — 측정은 /videoeditor 다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "2683:4185"],
+      ["Viewport=Mobile", "mobile-402x874", "2683:4186"],
+    ].map(([variant, context, component]) => ({
+      variant, route: "/videoeditor", context, path: "body.1.0.0.1.0.1.0", fixture: "session", component,
+      anchor: ["Composition", "Chain your finished generations together — cut them down in Composition, and add subtitles or images."],
+    })),
+  },
+  {
+    set: "Product/Admin Section Header",
+    about: "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 도구 막대). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "2683:4188"],
+      ["Viewport=Mobile", "mobile-402x874", "2683:4189"],
+    ].map(([variant, context, component]) => ({
+      variant, route: "/admin", context, path: "body.1.0.0.1.0.0.0.1.1", fixture: "session", component,
+      anchor: ["유저 관리", "총 0명 · 20명씩 불러옵니다", "전체", "테스터", "유료", "구독없음", "이메일", "잔액", "가입일", "▲", "새로고침"],
+    })),
+  },
+  {
+    set: "Product/Select Dropdown",
+    about: "선택 칸(components/scenes/create/CustomDropdown.tsx — 버튼 · 값 · 꺾쇠, 닫힌 상태). Field 는 문의 양식의 48 칸, Admin 은 어드민 선택(AdminSelect) 40 칸이다. 아이콘만 있는 칸(AWS 가입 언어 선택)은 글자가 없어 서명으로 묶지 않는다.",
+    variants: [
+      ["Trigger=Field, Viewport=Desktop", "desktop-1920x1080", "/inquiry", "body.1.0.0.2.0.0.1.1.0.0.0.1", "public", ["Bug report"], "2683:4191"],
+      ["Trigger=Field, Viewport=Mobile", "mobile-402x874", "/inquiry", "body.1.0.0.2.0.0.1.1.0.0.0.1", "public", ["Bug report"], "2683:4192"],
+      ["Trigger=Admin, Viewport=Desktop", "desktop-1920x1080", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2"], "2683:4193"],
+      ["Trigger=Admin, Viewport=Mobile", "mobile-402x874", "/creative-media-admin", "body.1.0.0.0.2.1.0.0.1.1.2.1", "session", ["nano-banana-2"], "2683:4194"],
+    ].map(([variant, context, route, path, fixture, anchor, component]) => ({ variant, route, context, path, fixture, anchor, component })),
+  },
+  {
+    // 글자 서열이 수백 개라 앵커를 글자 수 · FNV 로 준다. 모바일은 가로 스크롤 안에서 보이는 열만 잰다(데스크톱 241 · 모바일 159).
+    set: "Product/Plan Comparison Table",
+    about: "요금제 비교표(components/landing/sections/PricingSection.tsx PlanComparisonTable — 제목 · 가로 스크롤 · 요금제 열마다 머리 · 분류 · 기능 행). /pricing 과 /mypage/upgrade 가 같은 컴포넌트를 쓴다 — 측정은 /pricing 이다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", { length: 241, fnv: "6f9a30e4" }, "2683:4196"],
+      ["Viewport=Mobile", "mobile-402x874", { length: 159, fnv: "dd0e7bd7" }, "2683:4197"],
+    ].map(([variant, context, anchor, component]) => ({ variant, route: "/pricing", context, path: "body.1.0.0.2.0.0.4", fixture: "public", anchor, component })),
+  },
 ];
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
@@ -1313,8 +1354,18 @@ const partContent = [];
       if (part.label && (!signature.leaf || signature.texts.length !== 1 || !new RegExp(part.labelPattern).test(signature.texts[0]))) {
         fail(`글자 속성 부품은 글자 하나를 든 잎이고 그 글자가 labelPattern 에 들어야 합니다: ${part.set} ${variant.variant} ${JSON.stringify(signature.texts)}`);
       }
-      if (JSON.stringify(signature.texts) !== JSON.stringify(variant.anchor)) {
-        fail(`부품 ${part.set} ${variant.variant} 의 글자 서열이 기대와 다릅니다 — 측정 경로가 다른 노드를 가리킨다: ${JSON.stringify(signature.texts)}`);
+      // 앵커는 글자 서열 그대로이거나, 긴 표처럼 서열이 수백 개면 `{ length, fnv }`(글자 수 · 서열 JSON 의 FNV-1a)다(2026-10-07).
+      const anchorOf = (texts) => {
+        const text = JSON.stringify(texts);
+        let h = 0x811c9dc5;
+        for (let i = 0; i < text.length; i += 1) { h ^= text.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+        return { length: texts.length, fnv: h.toString(16).padStart(8, "0") };
+      };
+      const anchorMatches = Array.isArray(variant.anchor)
+        ? JSON.stringify(signature.texts) === JSON.stringify(variant.anchor)
+        : JSON.stringify(anchorOf(signature.texts)) === JSON.stringify(variant.anchor);
+      if (!anchorMatches) {
+        fail(`부품 ${part.set} ${variant.variant} 의 글자 서열이 기대와 다릅니다 — 측정 경로가 다른 노드를 가리킨다: ${JSON.stringify(signature.texts).slice(0, 400)} ${JSON.stringify(anchorOf(signature.texts))}`);
       }
       // 부품 안의 LOUIS 정본 프리미티브는 보드와 같은 규칙으로 인스턴스가 된다(셸 · 본문 세트는 부품 안에 없다).
       const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
@@ -1580,6 +1631,12 @@ const CONTENT_INSTANCES_BY_SET = {
   "Product/Coupon Code Chip": 45,
   // 다섯째 묶음(2026-10-07): 공개 화면 푸터 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 × 두 뷰포트(같은 컴포넌트 · 같은 글자 서열).
   "Product/Landing Footer": 10,
+  // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
+  // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
+  "Product/Page Header": 2,
+  "Product/Admin Section Header": 2,
+  "Product/Select Dropdown": 4,
+  "Product/Plan Comparison Table": 2,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
@@ -1822,19 +1879,46 @@ outputs[0] = { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n
 const partRunners = [];
 for (const part of parts) {
   const slimSpec = slim(part.spec);
-  const { head, chunks } = splitSpec(slimSpec);
-  if (chunks.length > 0) fail(`부품이 한 조각에 들어가지 않습니다: ${part.set} ${part.variant}`);
   const slug = `${part.set.replace(/^Product\//, "")} ${part.variant}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const name = `figma/product-parts.${slug}.00.draw.js`;
-  const payload = { route: `part:${part.set} ${part.variant}`, context: part.context, frameId: part.componentId, frameSize: part.frameSize, colour, head,
-    ...(part.label ? { label: part.label } : {}) };
-  const draw =
-    `// Generated by scripts/build-figma-app-screens.mjs. Do not edit by hand.\n` +
-    `// 제품 부품 ${part.set} · ${part.variant} ← ${part.route} @ ${part.context} ${part.path}\n` +
-    `const P=${payloadLiteral(payload)};\n${template}`;
-  if (Buffer.byteLength(draw) > RUNNER_BYTES) fail(`부품 러너가 ${RUNNER_BYTES} 바이트를 넘었습니다: ${name}`);
-  outputs.push({ absolute: resolve(repoRoot, name), expected: draw });
-  partRunners.push({ set: part.set, variant: part.variant, componentId: part.componentId, file: name });
+  const base = { route: `part:${part.set} ${part.variant}`, context: part.context, frameId: part.componentId };
+  // **큰 부품은 보드처럼 조각으로 나눈다(2026-10-07).** 요금제 비교표(노드 754)는 한 조각에 들지 않는다. 렌더러는 보드와 부품을 같은
+  // 방식으로 채우므로(조각 0 이 머리, 뒤 조각이 `slots` 를 조상 먼저 채운다) 나누는 규칙도 보드와 같다. 한 조각에 드는 부품은 결과가 그대로다.
+  const draftsOf = ({ head, chunks }, budget) => {
+    const ordered = chunks
+      .map((chunk, index) => ({ chunk, index }))
+      .sort((a, b) => a.chunk.path.length - b.chunk.path.length || a.index - b.index);
+    const groups = [];
+    for (const { chunk } of ordered) {
+      const size = slimBytes(chunk.spec) + JSON.stringify(chunk.path).length + 16;
+      const last = groups.at(-1);
+      if (last && last.size + size <= budget) { last.slots.push({ path: chunk.path, spec: chunk.spec }); last.size += size; }
+      else groups.push({ size, slots: [{ path: chunk.path, spec: chunk.spec }] });
+    }
+    const payloads = [
+      { ...base, frameSize: part.frameSize, colour, head, ...(part.label ? { label: part.label } : {}) },
+      ...groups.map((group) => ({ ...base, colour, slots: group.slots })),
+    ];
+    return payloads.map((payload, index) => {
+      const name = `figma/product-parts.${slug}.${String(index).padStart(2, "0")}.draw.js`;
+      const draw =
+        `// Generated by scripts/build-figma-app-screens.mjs. Do not edit by hand.\n` +
+        `// 제품 부품 ${part.set} · ${part.variant} ← ${part.route} @ ${part.context} ${part.path}` +
+        (payloads.length > 1 ? ` · 조각 ${index}/${payloads.length - 1}` : "") + `\n` +
+        `const P=${payloadLiteral(payload)};\n${template}`;
+      return { name, draw, bytes: Buffer.byteLength(draw) };
+    });
+  };
+  let budget = CHUNK_BUDGET;
+  let drafts = draftsOf(splitSpec(slimSpec, budget), budget);
+  while (drafts.some((draft) => draft.bytes > RUNNER_BYTES)) {
+    budget -= 1000;
+    if (budget < 3000) fail(`조각 예산을 3000 아래로 줄여도 ${RUNNER_BYTES} 바이트에 들지 않습니다: ${part.set} ${part.variant}`);
+    drafts = draftsOf(splitSpec(slimSpec, budget), budget);
+  }
+  if (part.label && drafts.length > 1) fail(`글자 속성 부품은 한 조각이어야 합니다: ${part.set} ${part.variant}`);
+  for (const { name, draw } of drafts) outputs.push({ absolute: resolve(repoRoot, name), expected: draw });
+  partRunners.push({ set: part.set, variant: part.variant, componentId: part.componentId, file: drafts[0].name,
+    ...(drafts.length > 1 ? { files: drafts.map((draft) => draft.name) } : {}) });
 }
 const partsPlan = {
   $comment: "Generated by scripts/build-figma-app-screens.mjs (PARTS). Do not edit by hand.",

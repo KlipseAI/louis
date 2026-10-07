@@ -25,7 +25,7 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-## 2026-10-07 (199) — 가짜 Supabase 에 자리표시 시드 · 쿠폰 인쇄 보드를 측정 생성으로 · 공개 화면 푸터를 제품 부품으로
+## 2026-10-07 (199) — 가짜 Supabase 에 자리표시 시드 · 쿠폰 인쇄 보드를 측정 생성으로 · 편집기 밖 제품 부품 다섯
 
 - **자리표시 시드(소유자 허용 2026-10-06).** `scripts/lib/fixture-fake-supabase.mjs` 가 표별 시드(`seeds`)를 받아 PostgREST 처럼 거른다 —
   `eq` · `neq` · `is.null` · `in.(…)` 필터, `order`, `limit` · `offset`, 평범한 `select` 열 목록, 한 행 요구(`vnd.pgrst.object`)의 1행 · 406.
@@ -37,6 +37,10 @@ authority: normative
 - **공개 화면 푸터 부품.** 편집기 밖 필요 부품 41종을 측정 원장과 맞대 조사했다(바로 세울 수 있음 8 · 상태가 있어야 9+3 · 측정 화면에
   없음 10 · 화면 본체 11). 첫 번째로 `Product/Landing Footer`(데스크톱 · 모바일)를 세웠다 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 보드 열 곳이
   그 인스턴스다. 부품도 보드처럼 원장을 고른다(`fixture` 키). 표면 원장 Footer 는 needed → figma(대응 59 → 60 · 제품 세트 28 → 29).
+- **부품 넷 더.** 같은 조사에서 바로 세울 수 있던 자리 넷을 세웠다 — `Product/Page Header`(/videoeditor) · `Product/Admin Section Header`(/admin) ·
+  `Product/Select Dropdown`(문의 Field 48 · 부스 운영 Admin 40, 닫힌 상태) · `Product/Plan Comparison Table`(/pricing). 비교표는 노드 754 라 한
+  조각에 들지 않아 부품 러너도 보드처럼 조각으로 나눈다(조각 0 머리 · 뒤 조각 `slots`). 긴 글자 서열은 앵커를 `{ length, fnv }` 로 준다.
+  요금 보드는 조각이 데스크톱 5 → 1 · 모바일 5 → 2 로 줄었다. 표면 대응 60 → 64 · 제품 세트 29 → 33, 필요 163 → 159.
 - **한 줄 글자의 꺾임.** 교차축 자식이 모두 FILL 이라 부모를 측정 폭으로 세우는 풀이에서, 그 안의 왼쪽 정렬 · 칠 없는 한 줄 글자를 HUG 로
   옮긴다 — 측정 폭(브라우저 글자 폭)보다 Figma 글꼴이 조금 넓으면 FILL 글자가 줄을 꺾었다(푸터 「Product」 → 「Prod / uct」, 부품 캡처).
   문의 데스크톱 · 구독 보드의 같은 자리 여덟도 함께 풀렸다.

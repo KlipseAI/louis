@@ -861,6 +861,754 @@
         }
       ],
       "boardInstances": 10
+    },
+    {
+      "setName": "Product/Page Header",
+      "about": "앱 허브 머리(components/ui/PageHeader.tsx — .louis-section-header data-level=page · 제목 + 설명). 노드캔버스 · 하이라이트 허브도 같은 머리를 쓰지만 카드 · 기록이 있을 때만 그린다 — 측정은 /videoeditor 다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/videoeditor",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.1.0.1.0",
+          "componentId": "2683:4185",
+          "frameSize": [
+            1648,
+            100.59
+          ],
+          "signature": {
+            "texts": [
+              "Composition",
+              "Chain your finished generations together — cut them down in Composition, and add subtitles or images."
+            ],
+            "structure": [
+              2
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 4,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.page-header-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/videoeditor",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.1.0.1.0",
+          "componentId": "2683:4186",
+          "frameSize": [
+            390,
+            124.59
+          ],
+          "signature": {
+            "texts": [
+              "Composition",
+              "Chain your finished generations together — cut them down in Composition, and add subtitles or images."
+            ],
+            "structure": [
+              2
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 4,
+            "unresolved": [],
+            "sizingReconciled": 1
+          },
+          "runner": "figma/product-parts.page-header-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 2
+    },
+    {
+      "setName": "Product/Admin Section Header",
+      "about": "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 도구 막대). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/admin",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.1.0.0.0.1.1",
+          "componentId": "2683:4188",
+          "frameSize": [
+            1640,
+            70.59
+          ],
+          "signature": {
+            "texts": [
+              "유저 관리",
+              "총 0명 · 20명씩 불러옵니다",
+              "전체",
+              "테스터",
+              "유료",
+              "구독없음",
+              "이메일",
+              "잔액",
+              "가입일",
+              "▲",
+              "새로고침"
+            ],
+            "structure": [
+              2,
+              9
+            ]
+          },
+          "instances": [
+            {
+              "path": "body.1.0.0.1.0.0.0.1.1.1.0.2",
+              "set": "Button",
+              "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+              "label": "새로고침"
+            }
+          ],
+          "stats": {
+            "kept": 31,
+            "unresolved": [],
+            "sizingReconciled": 7
+          },
+          "runner": "figma/product-parts.admin-section-header-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/admin",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.1.0.0.0.1.1",
+          "componentId": "2683:4189",
+          "frameSize": [
+            390,
+            158.59
+          ],
+          "signature": {
+            "texts": [
+              "유저 관리",
+              "총 0명 · 20명씩 불러옵니다",
+              "전체",
+              "테스터",
+              "유료",
+              "구독없음",
+              "이메일",
+              "잔액",
+              "가입일",
+              "▲",
+              "새로고침"
+            ],
+            "structure": [
+              2,
+              9
+            ]
+          },
+          "instances": [
+            {
+              "path": "body.1.0.0.1.0.0.0.1.1.1.0.2",
+              "set": "Button",
+              "variant": "Variant=secondary, Size=md, State=Default, Icon=none",
+              "label": "새로고침"
+            }
+          ],
+          "stats": {
+            "kept": 31,
+            "unresolved": [],
+            "sizingReconciled": 8
+          },
+          "runner": "figma/product-parts.admin-section-header-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 2
+    },
+    {
+      "setName": "Product/Select Dropdown",
+      "about": "선택 칸(components/scenes/create/CustomDropdown.tsx — 버튼 · 값 · 꺾쇠, 닫힌 상태). Field 는 문의 양식의 48 칸, Admin 은 어드민 선택(AdminSelect) 40 칸이다. 아이콘만 있는 칸(AWS 가입 언어 선택)은 글자가 없어 서명으로 묶지 않는다.",
+      "variants": [
+        {
+          "variant": "Trigger=Field, Viewport=Desktop",
+          "route": "/inquiry",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.2.0.0.1.1.0.0.0.1",
+          "componentId": "2683:4191",
+          "frameSize": [
+            372.8,
+            48
+          ],
+          "signature": {
+            "texts": [
+              "Bug report"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.select-dropdown-trigger-field-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Trigger=Field, Viewport=Mobile",
+          "route": "/inquiry",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.2.0.0.1.1.0.0.0.1",
+          "componentId": "2683:4192",
+          "frameSize": [
+            338,
+            48
+          ],
+          "signature": {
+            "texts": [
+              "Bug report"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.select-dropdown-trigger-field-viewport-mobile.00.draw.js"
+        },
+        {
+          "variant": "Trigger=Admin, Viewport=Desktop",
+          "route": "/creative-media-admin",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.2.1.0.0.1.1.2.1",
+          "componentId": "2683:4193",
+          "frameSize": [
+            97,
+            40
+          ],
+          "signature": {
+            "texts": [
+              "nano-banana-2"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.select-dropdown-trigger-admin-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Trigger=Admin, Viewport=Mobile",
+          "route": "/creative-media-admin",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.0.2.1.0.0.1.1.2.1",
+          "componentId": "2683:4194",
+          "frameSize": [
+            304,
+            40
+          ],
+          "signature": {
+            "texts": [
+              "nano-banana-2"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.select-dropdown-trigger-admin-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 4
+    },
+    {
+      "setName": "Product/Plan Comparison Table",
+      "about": "요금제 비교표(components/landing/sections/PricingSection.tsx PlanComparisonTable — 제목 · 가로 스크롤 · 요금제 열마다 머리 · 분류 · 기능 행). /pricing 과 /mypage/upgrade 가 같은 컴포넌트를 쓴다 — 측정은 /pricing 이다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/pricing",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.2.0.0.4",
+          "componentId": "2683:4196",
+          "frameSize": [
+            1300,
+            1412.59
+          ],
+          "signature": {
+            "texts": [
+              "Compare Plans",
+              "Trial",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "–",
+              "Kling 3.0 / 3.0 Pro",
+              "–",
+              "Seedance Fast / Standard",
+              "–",
+              "Kling Omni",
+              "–",
+              "Text-to-Video",
+              "–",
+              "Max Resolution",
+              "720p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "10 min",
+              "Selected Clips",
+              "1",
+              "YouTube URL Analysis",
+              "–",
+              "Composition",
+              "Source Uploads",
+              "1",
+              "Source Imports",
+              "2",
+              "Basic Editing",
+              "Text Overlay",
+              "–",
+              "Image Overlay",
+              "–",
+              "TTS",
+              "–",
+              "Platform Integration",
+              "YouTube Upload",
+              "–",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "–",
+              "Instagram Upload",
+              "–",
+              "Other",
+              "Credit Top-up",
+              "–",
+              "Prompt Assist",
+              "–",
+              "Caption Assist",
+              "–",
+              "Total Projects",
+              "3",
+              "Concurrent Jobs",
+              "1",
+              "Watermark",
+              "Yes",
+              "Monthly Credits",
+              "800 (one-time)",
+              "Lite",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "10 min",
+              "Selected Clips",
+              "3",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "3",
+              "Source Imports",
+              "3",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "–",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Bronze only",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "5",
+              "Concurrent Jobs",
+              "1",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "5,000",
+              "Plus",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "30 min",
+              "Selected Clips",
+              "5",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "5",
+              "Source Imports",
+              "5",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "12",
+              "Concurrent Jobs",
+              "2",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "16,500",
+              "Pro",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "120 min",
+              "Selected Clips",
+              "7",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "7",
+              "Source Imports",
+              "7",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "YouTube Analytics",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "24",
+              "Concurrent Jobs",
+              "3",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "30,000",
+              "Ultra",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "120 min",
+              "Selected Clips",
+              "10",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "10",
+              "Source Imports",
+              "10",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "YouTube Analytics",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "Unlimited",
+              "Concurrent Jobs",
+              "3",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "48,000"
+            ],
+            "structure": [
+              1,
+              240
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 674,
+            "unresolved": [],
+            "sizingReconciled": 1,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.2.0.0.4.0",
+                "margin": [
+                  0,
+                  0,
+                  32,
+                  0
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.plan-comparison-table-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/pricing",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.2.0.0.4",
+          "componentId": "2683:4197",
+          "frameSize": [
+            370,
+            2295
+          ],
+          "signature": {
+            "texts": [
+              "Compare Plans",
+              "Trial",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "–",
+              "Kling 3.0 / 3.0 Pro",
+              "–",
+              "Seedance Fast / Standard",
+              "–",
+              "Kling Omni",
+              "–",
+              "Text-to-Video",
+              "–",
+              "Max Resolution",
+              "720p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "10 min",
+              "Selected Clips",
+              "1",
+              "YouTube URL Analysis",
+              "–",
+              "Composition",
+              "Source Uploads",
+              "1",
+              "Source Imports",
+              "2",
+              "Basic Editing",
+              "Text Overlay",
+              "–",
+              "Image Overlay",
+              "–",
+              "TTS",
+              "–",
+              "Platform Integration",
+              "YouTube Upload",
+              "–",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "–",
+              "Instagram Upload",
+              "–",
+              "Other",
+              "Credit Top-up",
+              "–",
+              "Prompt Assist",
+              "–",
+              "Caption Assist",
+              "–",
+              "Total Projects",
+              "3",
+              "Concurrent Jobs",
+              "1",
+              "Watermark",
+              "Yes",
+              "Monthly Credits",
+              "800 (one-time)",
+              "Lite",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "10 min",
+              "Selected Clips",
+              "3",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "3",
+              "Source Imports",
+              "3",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "–",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Bronze only",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "5",
+              "Concurrent Jobs",
+              "1",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "5,000",
+              "Plus",
+              "AI Video Generation",
+              "Veo Lite",
+              "Seedance Mini",
+              "Kling 2.6 / 2.6 Pro",
+              "Veo Fast / Standard",
+              "Kling 3.0 / 3.0 Pro",
+              "Seedance Fast / Standard",
+              "Kling Omni",
+              "Text-to-Video",
+              "Max Resolution",
+              "1080p",
+              "Highlight Extraction",
+              "Max Video Length",
+              "30 min",
+              "Selected Clips",
+              "5",
+              "YouTube URL Analysis",
+              "Composition",
+              "Source Uploads",
+              "5",
+              "Source Imports",
+              "5",
+              "Basic Editing",
+              "Text Overlay",
+              "Image Overlay",
+              "TTS",
+              "Platform Integration",
+              "YouTube Upload",
+              "YouTube Scheduled Upload",
+              "–",
+              "YouTube Analytics",
+              "Instagram Upload",
+              "Other",
+              "Credit Top-up",
+              "Prompt Assist",
+              "Caption Assist",
+              "Total Projects",
+              "12",
+              "Concurrent Jobs",
+              "2",
+              "Watermark",
+              "No",
+              "Monthly Credits",
+              "16,500",
+              "Pro",
+              "AI Video Generation",
+              "Highlight Extraction",
+              "Composition",
+              "Platform Integration",
+              "Other"
+            ],
+            "structure": [
+              1,
+              158
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 453,
+            "unresolved": [],
+            "sizingReconciled": 76,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.2.0.0.4.0",
+                "margin": [
+                  0,
+                  0,
+                  32,
+                  0
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.plan-comparison-table-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 2
     }
   ]
 }

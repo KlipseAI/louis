@@ -238,6 +238,13 @@ export const metadata = Object.freeze({
       "lifecycle": "loop"
     },
     {
+      "motion": "motion-loading-word",
+      "properties": [
+        "background-position"
+      ],
+      "lifecycle": "loop"
+    },
+    {
       "motion": "motion-crossfade-enter",
       "properties": [
         "opacity"
@@ -6737,6 +6744,49 @@ export const primitives = {
       ]
     }
   },
+  "transition-loading-word": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-loading-word",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 2200,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.loading-word",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 2200,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0,
+        0,
+        1,
+        1
+      ]
+    }
+  },
   "transition-menu-enter": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -10268,6 +10318,41 @@ export const tokens = {
           0.23,
           1,
           0.32,
+          1
+        ]
+      }
+    },
+    "motion-loading-word": {
+      "aliasTarget": {
+        "id": "transition-loading-word",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-loading-word-duration": "2200ms",
+        "--louis-motion-loading-word-delay": "0ms",
+        "--louis-motion-loading-word-timing-function": "cubic-bezier(0, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-loading-word",
+      "mode": "global",
+      "rawValue": "{primitive.transition.loading-word}",
+      "sourcePath": "semantic.global.motion.loading-word",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 2200,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
           1
         ]
       }

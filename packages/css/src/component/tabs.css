@@ -48,8 +48,11 @@
   letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
-.louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled)):hover {
-  opacity: 0.9;
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled)):hover {
+    opacity: 0.9;
+  }
 }
 
 .louis-tabs__tab[aria-selected="true"] {

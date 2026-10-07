@@ -91,15 +91,18 @@
  * 글자만 pressed 색으로 남는다. 켜짐 상태가 시야에서 사라지는 것이고, 실측으로 확인했다 —
  * pressed primary에 hover하면 bg가 #38a4ff, fg가 foreground-primary가 됐다.
  * 지속 상태를 일시적 상태가 덮으면 안 된다 (design/foundations/interaction-states.md). */
-.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
-  background: var(--louis-color-accent-primary-hover);
-}
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
+    background: var(--louis-color-accent-primary-hover);
+  }
 
-.louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
-    [data-variant="secondary"],
-    [data-variant="ghost"]
-  ) {
-  background: var(--louis-color-bg-inset);
+  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
+      [data-variant="secondary"],
+      [data-variant="ghost"]
+    ) {
+    background: var(--louis-color-bg-inset);
+  }
 }
 
 /* pressed — 토글의 켜짐 상태. :active(누르는 중)와 다른 축이다. */

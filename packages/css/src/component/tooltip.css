@@ -190,9 +190,15 @@
   transition-duration: var(--louis-motion-control-hover-duration);
 }
 
-.louis-tooltip__close:hover,
 .louis-tooltip__close:focus-visible {
   opacity: 1;
+}
+
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-tooltip__close:hover {
+    opacity: 1;
+  }
 }
 /* 꼬리 — 45° 돌린 정사각형의 **두 변만** 테두리를 갖는다.
  *

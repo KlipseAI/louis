@@ -53,11 +53,14 @@
 }
 
 /* 눌러서 여는 트리거만 호버 면을 갖는다. 값을 보여주기만 하는 알약은 정적이다. */
-.louis-node-chip:where(button, [role="button"]):where(
-    :not(:disabled):not([aria-disabled="true"])
-  ):hover {
-  background: var(--louis-color-node-chip-surface-hover);
-  cursor: pointer;
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-node-chip:where(button, [role="button"]):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: var(--louis-color-node-chip-surface-hover);
+    cursor: pointer;
+  }
 }
 
 /* 비활성 — 면과 경계는 유지하고 글자만 죽인다. 알약이 사라지면 툴바 행의 리듬이 깨진다. */

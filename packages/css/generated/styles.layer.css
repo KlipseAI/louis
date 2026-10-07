@@ -553,9 +553,12 @@
     letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
   }
 
-  .louis-sidebar-nav-item:where(:not([aria-disabled="true"])):hover {
-    background: var(--louis-color-accent-ghost-hover);
-    color: var(--louis-color-fg-primary);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-sidebar-nav-item:where(:not([aria-disabled="true"])):hover {
+      background: var(--louis-color-accent-ghost-hover);
+      color: var(--louis-color-fg-primary);
+    }
   }
 
   /* **`aria-current`가 선택을 소유한다.** `data-selected` 같은 시각 전용 속성을 두면 화면에는
@@ -1872,45 +1875,48 @@
     color: var(--louis-color-accent-danger);
   }
 
-  /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
-   *
-   * 제품은 secondary·ghost의 hover를 **알파 오버레이**로 준다(5% / 8%). 면 위에 얹히므로 배경이
-   * 무엇이든 같은 정도로 어두워진다. 이전 DS는 둘 다 불투명 background-inset이라 배경이 다른
-   * 자리에서 면이 튀었고 secondary와 ghost가 구분되지 않았다. */
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
-    background: var(--louis-color-accent-primary-hover);
-  }
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    /* hover — hover에서만 기능을 드러내지 않는다. 면 강조만 바꾼다.
+     *
+     * 제품은 secondary·ghost의 hover를 **알파 오버레이**로 준다(5% / 8%). 면 위에 얹히므로 배경이
+     * 무엇이든 같은 정도로 어두워진다. 이전 DS는 둘 다 불투명 background-inset이라 배경이 다른
+     * 자리에서 면이 튀었고 secondary와 ghost가 구분되지 않았다. */
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="primary"] {
+      background: var(--louis-color-accent-primary-hover);
+    }
 
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
-    background: var(--louis-color-accent-secondary-hover);
-  }
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="secondary"] {
+      background: var(--louis-color-accent-secondary-hover);
+    }
 
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
-    background: var(--louis-color-accent-ghost-hover);
-  }
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
+      background: var(--louis-color-accent-ghost-hover);
+    }
 
-  /* neutral 의 hover 는 면 토큰을 한 단 내린다(`bg-surface` → `bg-inset`). 제품 Hero 의 값이다.
-   * 알파 오버레이가 아닌 이유는 이 variant 의 면이 불투명 단색이고, states 계약이 `backgroundColor`
-   * 하나로만 기술돼 있어 겹쳐 쌓은 hover 는 잴 수 없기 때문이다. 누르는 동안(:active)은 hover 가
-   * 그대로 이어지고 scale 만 더해진다 — 제품에 active 면 값이 없고 secondary 도 같다. */
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="neutral"] {
-    background: var(--louis-color-bg-inset);
-  }
+    /* neutral 의 hover 는 면 토큰을 한 단 내린다(`bg-surface` → `bg-inset`). 제품 Hero 의 값이다.
+     * 알파 오버레이가 아닌 이유는 이 variant 의 면이 불투명 단색이고, states 계약이 `backgroundColor`
+     * 하나로만 기술돼 있어 겹쳐 쌓은 hover 는 잴 수 없기 때문이다. 누르는 동안(:active)은 hover 가
+     * 그대로 이어지고 scale 만 더해진다 — 제품에 active 면 값이 없고 secondary 도 같다. */
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="neutral"] {
+      background: var(--louis-color-bg-inset);
+    }
 
-  /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
-   * 같은 방식을 쓴다 — motion 규범이 허용하는 property이기도 하다. */
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger-secondary"] {
-    background: var(--louis-color-accent-danger-secondary-hover);
-  }
+    /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
+     * 같은 방식을 쓴다 — motion 규범이 허용하는 property이기도 하다. */
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger-secondary"] {
+      background: var(--louis-color-accent-danger-secondary-hover);
+    }
 
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
-    opacity: 0.85;
-  }
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="danger"] {
+      opacity: 0.85;
+    }
 
-  /* 제품 인증 CTA 의 hover 는 saturate/brightness 필터였다. 단색 반전 면에서는 밝기 변화가 곧
-   * 불투명도 변화라 danger 와 같은 방식으로 통일한다 — 새 색 토큰을 만들지 않는다. */
-  .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="inverse"] {
-    opacity: 0.85;
+    /* 제품 인증 CTA 의 hover 는 saturate/brightness 필터였다. 단색 반전 면에서는 밝기 변화가 곧
+     * 불투명도 변화라 danger 와 같은 방식으로 통일한다 — 새 색 토큰을 만들지 않는다. */
+    .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="inverse"] {
+      opacity: 0.85;
+    }
   }
 
   /* pressed — reduced-motion에서는 scale 이동을 제거하되 의미는 유지한다. */
@@ -2416,8 +2422,8 @@
    * ## 한 컴포넌트, 변형 둘
    *
    * 갈리는 것은 **고른 면을 어떻게 말하느냐** 하나뿐이고 나머지(역할 · aria-checked · 로빙 · 오류 링 · 한 줄 규칙)는
-   * 같다. 그래서 `data-variant="card"`(기본) · `"row"` 로 묶었다. **두 표현을 하나로 합칠지는 소유자 판정이다**
-   * (choice-card.md 「판정 필요」) — 둘 다 구현했으므로 소유자가 하나를 고르면 다른 쪽 블록만 지운다.
+   * 같다. 그래서 `data-variant="card"`(기본) · `"row"` 로 묶었다. **두 표현을 둘 다 둔다(2026-10-07 소유자 결정 — 카드형은 링, 행형은 뒤집기)**
+   * (choice-card.md) — 큰 카드는 링이, 좁은 행은 뒤집기가 눈에 잘 띈다.
    *
    * ## 상태별로 box-shadow 를 **한 줄만** 붙인다
    *
@@ -2508,8 +2514,11 @@
     color: var(--louis-color-fg-secondary);
   }
 
-  .louis-choice-card:not([aria-checked="true"]):not(:disabled):not([aria-disabled="true"]):hover {
-    background: var(--louis-color-accent-secondary-hover);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-choice-card:not([aria-checked="true"]):not(:disabled):not([aria-disabled="true"]):hover {
+      background: var(--louis-color-accent-secondary-hover);
+    }
   }
 
   /* 고름 — 카드: 올린 면 + 2px 주색 링. 링은 헤어라인을 **대신**한다(box-shadow 한 줄). 색 하나로만 알리지
@@ -3097,7 +3106,13 @@
     transition: background-color var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
   }
 
-  .louis-drop-zone:where(:not(:disabled)):hover,
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-drop-zone:where(:not(:disabled)):hover {
+      background: var(--louis-color-accent-secondary-hover);
+    }
+  }
+
   .louis-drop-zone[data-drag-over="true"] {
     background: var(--louis-color-accent-secondary-hover);
   }
@@ -3770,9 +3785,13 @@
    * 알파 하나뿐이다 — `background` 를 다시 적으면 색을 갈아 끼울 자리가 생기고, 그것이 이
    * 컴포넌트가 하지 않기로 한 일이다. Figma 도 같은 변수에 paint opacity 만 올린다.
    *
-   * `@media (hover: hover)` 가드를 두지 않는다 — 앵커가 `[&:hover]:` 로 적어 그 가드가 없다. */
-  .louis-pill-trigger:hover {
-    --louis-floating-shell-surface-alpha: 88%;
+   * `@media (hover: hover)` 안에 둔다 — 제품이 거친 포인터에서 호버 색이 남지 않게 `[@media(hover:hover)]:[&:hover]:` 로 바꿨다
+   * (2026-10-07, 제품 canvas-mobile-ux 3b74f57d2 `Toolbar.tsx`). */
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-pill-trigger:hover {
+      --louis-floating-shell-surface-alpha: 88%;
+    }
   }
 
   /* 캐럿. **아이콘이 아니라 방향 표시다** — 10 은 아이콘 사다리(16 · 20 · 24)의 값이 아니고
@@ -3918,15 +3937,18 @@
    * 글자만 pressed 색으로 남는다. 켜짐 상태가 시야에서 사라지는 것이고, 실측으로 확인했다 —
    * pressed primary에 hover하면 bg가 #38a4ff, fg가 foreground-primary가 됐다.
    * 지속 상태를 일시적 상태가 덮으면 안 된다 (design/foundations/interaction-states.md). */
-  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
-    background: var(--louis-color-accent-primary-hover);
-  }
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover[data-variant="primary"] {
+      background: var(--louis-color-accent-primary-hover);
+    }
 
-  .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
-      [data-variant="secondary"],
-      [data-variant="ghost"]
-    ) {
-    background: var(--louis-color-bg-inset);
+    .louis-icon-button:where(:not([aria-disabled="true"]):not(:disabled)):not([aria-pressed="true"]):hover:where(
+        [data-variant="secondary"],
+        [data-variant="ghost"]
+      ) {
+      background: var(--louis-color-bg-inset);
+    }
   }
 
   /* pressed — 토글의 켜짐 상태. :active(누르는 중)와 다른 축이다. */
@@ -4283,8 +4305,11 @@
     transition-timing-function: var(--louis-motion-control-hover-timing-function);
   }
 
-  .louis-inspector-section-head__action:where(:not(:disabled)):hover {
-    background: var(--louis-color-accent-ghost-hover);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-inspector-section-head__action:where(:not(:disabled)):hover {
+      background: var(--louis-color-accent-ghost-hover);
+    }
   }
 
   .louis-inspector-section-head__action:disabled,
@@ -4437,11 +4462,13 @@
    * 파형이 이어지게 하는 순환이다. 같은 keyframe 을 쓰면 네 주기가 한 번에 지나가 속도가 네 배가 된다.
    *
    * 값은 둘로 갈린다.
-   * - **주기는 `motion-shimmer`(1.6s)를 쓴다.** 같은 화면에서 Skeleton 과 시머 글자가 다른 속도로
-   *   돌지 않게 한다. 제품은 2.2s 로 돌았다 — 이 편차는 문서의 Known deviations 에 적는다.
+   * - **주기는 글자 쉬머 전용 토큰 `motion-loading-word`(2.2s)를 쓴다.** 제품의 시머 글자 아홉 곳이
+   *   전부 2.2s 로 돌고(`projectLoadingSweep_2.2s_linear_infinite`), 소유자가 2026-10-07 에 그 값을
+   *   정본으로 정했다. 면 자리표시의 `motion-shimmer`(1.6s)와 속도가 다른 것은 의도다 — 글자는 한 칸을
+   *   밀어 되풀이되는 순환이고 면은 하이라이트 하나를 건너보내는 쓸림이라 같은 박자로 맞출 이유가 없다.
    * - **easing 은 `linear` 다.** `motion-shimmer` 의 `easing-standard` 는 한 번 건너가는 쓸림에 맞는
    *   곡선이고, 이것은 한 칸마다 이어 붙는 순환이라 가감속을 걸면 매 주기 끝에서 속도가 죽었다 살아나
-   *   맥박처럼 뛴다. 제품의 아홉 곳이 전부 등속이다.
+   *   맥박처럼 뛴다. 제품의 아홉 곳이 전부 등속이고, 토큰의 timing function 도 `linear` 다.
    */
 
   .louis-loading-word {
@@ -4471,8 +4498,8 @@
     -webkit-background-clip: text;
     background-clip: text;
     animation-name: louis-loading-word-sweep;
-    animation-duration: var(--louis-motion-shimmer-duration);
-    animation-timing-function: linear;
+    animation-duration: var(--louis-motion-loading-word-duration);
+    animation-timing-function: var(--louis-motion-loading-word-timing-function);
     animation-iteration-count: infinite;
   }
 
@@ -4654,7 +4681,13 @@
 
   /* hover와 roving 하이라이트는 같은 표현이다. pointer로 열고 방향키로 이동하는 경로에서
    * `:focus-visible`만으로는 표시가 비는 프레임이 생기므로 data 속성이 함께 필요하다. */
-  .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover {
+      background: var(--louis-color-accent-menu-item-hover);
+    }
+  }
+
   .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
     background: var(--louis-color-accent-menu-item-hover);
   }
@@ -4663,7 +4696,12 @@
     color: var(--louis-color-accent-danger);
   }
 
-  .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  @media (hover: hover) {
+    .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover {
+      background: var(--louis-color-accent-menu-danger-hover);
+    }
+  }
+
   .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
     background: var(--louis-color-accent-menu-danger-hover);
   }
@@ -4887,13 +4925,23 @@
       border-block-start: var(--louis-border-width-default) solid currentColor;
     }
 
-    .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+    @media (hover: hover) {
+      .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled)):hover {
+        background: Highlight;
+        color: HighlightText;
+      }
+
+      .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover {
+        background: Highlight;
+        color: HighlightText;
+      }
+    }
+
     .louis-menu__item:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
       background: Highlight;
       color: HighlightText;
     }
 
-    .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled)):hover,
     .louis-menu__item[data-tone="danger"]:where(:not([aria-disabled="true"]):not(:disabled))[data-highlighted="true"] {
       background: Highlight;
       color: HighlightText;
@@ -4941,7 +4989,12 @@
 
   /* 선택된 행에 얹었을 때 hover(4%)가 선택(12%)을 덮으면 「선택이 풀린 것처럼」 보인다.
    * 선택이 이긴다 — hover 는 「누를 수 있다」이고 선택은 「지금 이것이다」라, 뒤엣것이 더 강하다. */
-  .louis-menu__item[aria-selected="true"]:hover,
+  @media (hover: hover) {
+    .louis-menu__item[aria-selected="true"]:hover {
+      background: var(--louis-color-accent-secondary-hover);
+    }
+  }
+
   .louis-menu__item[aria-selected="true"][data-highlighted="true"] {
     background: var(--louis-color-accent-secondary-hover);
   }
@@ -4991,9 +5044,12 @@
   /* **hover 를 잉크가 아니라 면으로 표현한다.** 제품은 잉크를 100% → 88% 로 **낮춰서** hover 를
    * 표현하는데(랜딩 헤더의 잉크 램프), 이 저장소에는 그 램프 토큰이 없고 면 없는 컨트롤의
    * hover 는 ghost 면 8% 로 이미 서 있다. 낮아지는 hover 는 「덜 눌린다」로 읽히기도 한다.
-   * 제품 주석대로 `@media (hover: hover)` 가드는 두지 않는다 — 원본에 없다. */
-  .louis-menu-trigger:hover {
-    background: var(--louis-color-accent-ghost-hover);
+   * 제품도 이제 `@media (hover: hover)` 안에 둔다(2026-10-07, 제품 canvas-mobile-ux 3b74f57d2) — 터치에서 누른 뒤 면이 남지 않는다. */
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-menu-trigger:hover {
+      background: var(--louis-color-accent-ghost-hover);
+    }
   }
 
   /* 열려 있는 동안은 hover 와 같은 면을 유지한다. 포인터가 패널로 넘어가면 트리거가 hover 를
@@ -5033,10 +5089,16 @@
      * 알 수 없다 — 시스템 강조색으로 되살린다. hover 규칙과 같은 형태로 다시 적어야
      * 특이도에서 지지 않는다(위 danger 블록과 같은 이유다). */
     .louis-menu__item[aria-selected="true"],
-    .louis-menu__item[aria-selected="true"]:hover,
     .louis-menu__item[aria-selected="true"][data-highlighted="true"] {
       background: Highlight;
       color: HighlightText;
+    }
+
+    @media (hover: hover) {
+      .louis-menu__item[aria-selected="true"]:hover {
+        background: Highlight;
+        color: HighlightText;
+      }
     }
 
     .louis-menu-trigger {
@@ -5101,11 +5163,14 @@
   }
 
   /* 눌러서 여는 트리거만 호버 면을 갖는다. 값을 보여주기만 하는 알약은 정적이다. */
-  .louis-node-chip:where(button, [role="button"]):where(
-      :not(:disabled):not([aria-disabled="true"])
-    ):hover {
-    background: var(--louis-color-node-chip-surface-hover);
-    cursor: pointer;
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-node-chip:where(button, [role="button"]):where(
+        :not(:disabled):not([aria-disabled="true"])
+      ):hover {
+      background: var(--louis-color-node-chip-surface-hover);
+      cursor: pointer;
+    }
   }
 
   /* 비활성 — 면과 경계는 유지하고 글자만 죽인다. 알약이 사라지면 툴바 행의 리듬이 깨진다. */
@@ -5217,22 +5282,25 @@
     color: inherit;
   }
 
-  /* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
-  .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
-    background: var(--louis-color-accent-ghost-hover);
-  }
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    /* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
+    .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      background: var(--louis-color-accent-ghost-hover);
+    }
 
-  /* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
-   * `Tone` 이 축이고 글리프는 슬롯이다.
-   *
-   * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
-   * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
-   * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
-  .louis-node-chrome-button[data-tone="danger"]:where(
-      :not(:disabled):not([aria-disabled="true"])
-    ):hover {
-    background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
-    color: var(--louis-color-accent-danger);
+    /* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
+     * `Tone` 이 축이고 글리프는 슬롯이다.
+     *
+     * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
+     * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
+     * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
+    .louis-node-chrome-button[data-tone="danger"]:where(
+        :not(:disabled):not([aria-disabled="true"])
+      ):hover {
+      background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
+      color: var(--louis-color-accent-danger);
+    }
   }
 
   /* 프레스 — **축이 아니라 동작이다.** 변형으로 그리면 기하 계약이 「눌린 크기」를 정본처럼
@@ -5262,8 +5330,10 @@
   /* forced-colors — 틴트가 강제 치환되면 호버가 사라진다. 면 대신 시스템 색 실선으로 되살린다.
    * 기본 상태에 테두리를 두지 않는 것은 그대로다 — 이 버튼은 면도 선도 없는 것이 계약이다. */
   @media (forced-colors: active) {
-    .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
-      outline: var(--louis-border-width-default) solid currentColor;
+    @media (hover: hover) {
+      .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+        outline: var(--louis-border-width-default) solid currentColor;
+      }
     }
 
     .louis-node-chrome-button:disabled,
@@ -5781,13 +5851,16 @@
   /* 호버·프레스 — 디스크가 커지고 작아지며 셸이 밝기를 민다. 메뉴가 열린 상태는 소스가
    * `filter: none` 만 더해 **기본과 시각이 같다**(계약의 `$whyNoHoverVariant`) — 그래서 여는
    * 상태의 규칙을 두지 않는 것이 옳다. */
-  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover {
-    filter: brightness(1.1);
-  }
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      filter: brightness(1.1);
+    }
 
-  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
-    .louis-node-side-handle__facet {
-    transform: scale(1.08);
+    .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+      .louis-node-side-handle__facet {
+      transform: scale(1.08);
+    }
   }
 
   .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active {
@@ -5845,8 +5918,13 @@
       transition-duration: var(--louis-motion-reduced-duration);
     }
 
-    .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
-      .louis-node-side-handle__facet,
+    @media (hover: hover) {
+      .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+        .louis-node-side-handle__facet {
+        transform: none;
+      }
+    }
+
     .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active
       .louis-node-side-handle__facet {
       transform: none;
@@ -6030,7 +6108,13 @@
     z-index: var(--louis-layer-content);
   }
 
-  .louis-pane-divider:hover::before,
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-pane-divider:hover::before {
+      opacity: 1;
+    }
+  }
+
   .louis-pane-divider[data-louis-state="active"]::before {
     opacity: 1;
   }
@@ -6056,7 +6140,12 @@
       block-size var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
   }
 
-  .louis-pane-divider--vertical:hover::before,
+  @media (hover: hover) {
+    .louis-pane-divider--vertical:hover::before {
+      block-size: var(--louis-layout-pane-divider-grip-length-active);
+    }
+  }
+
   .louis-pane-divider--vertical[data-louis-state="active"]::before {
     block-size: var(--louis-layout-pane-divider-grip-length-active);
   }
@@ -6082,7 +6171,12 @@
       inline-size var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
   }
 
-  .louis-pane-divider--horizontal:hover::before,
+  @media (hover: hover) {
+    .louis-pane-divider--horizontal:hover::before {
+      inline-size: var(--louis-layout-pane-divider-grip-length-active);
+    }
+  }
+
   .louis-pane-divider--horizontal[data-louis-state="active"]::before {
     inline-size: var(--louis-layout-pane-divider-grip-length-active);
   }
@@ -6105,12 +6199,20 @@
       transition-duration: var(--louis-motion-reduced-duration);
     }
 
-    .louis-pane-divider--vertical:hover::before,
+    @media (hover: hover) {
+      .louis-pane-divider--vertical:hover::before {
+        block-size: var(--louis-layout-pane-divider-grip-length);
+      }
+
+      .louis-pane-divider--horizontal:hover::before {
+        inline-size: var(--louis-layout-pane-divider-grip-length);
+      }
+    }
+
     .louis-pane-divider--vertical[data-louis-state="active"]::before {
       block-size: var(--louis-layout-pane-divider-grip-length);
     }
 
-    .louis-pane-divider--horizontal:hover::before,
     .louis-pane-divider--horizontal[data-louis-state="active"]::before {
       inline-size: var(--louis-layout-pane-divider-grip-length);
     }
@@ -7313,8 +7415,11 @@
 
   /* hover는 글자만 바꾼다. 면까지 바꾸면 선택된 것과 얹은 것이 같은 표현이 되어 어느 쪽이
    * 현재 값인지 순간 읽히지 않는다. */
-  .louis-segmented-control__segment:hover {
-    color: var(--louis-color-fg-primary);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-segmented-control__segment:hover {
+      color: var(--louis-color-fg-primary);
+    }
   }
 
   /* 선택. **면과 글자를 함께 바꾼다** — 제품 B는 색 하나로만 전달하고 aria도 없어서, 색각 이상과
@@ -7465,8 +7570,11 @@
    * inset 면 위의 8% 는 거의 움직이지 않는다. 제품 Gnb 가 같은 자리에서 같은 토큰을 읽고,
    * 그 파일 주석이 「LOUIS Button secondary 와 **같은 토큰**을 읽어, 메뉴 안팎의 같은 성격
    * 버튼이 같은 값으로 눌린다」고 적는다. */
-  .louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])):hover {
-    background: var(--louis-color-accent-secondary-hover);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      background: var(--louis-color-accent-secondary-hover);
+    }
   }
 
   /* 열려 있는 동안 hover 와 같은 면을 유지한다. 포인터가 패널로 넘어가면 트리거가 hover 를
@@ -7698,9 +7806,12 @@
     letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
   }
 
-  .louis-selectable-list-row:hover {
-    background: var(--louis-color-accent-ghost-hover);
-    color: var(--louis-color-fg-primary);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-selectable-list-row:hover {
+      background: var(--louis-color-accent-ghost-hover);
+      color: var(--louis-color-fg-primary);
+    }
   }
 
   /* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
@@ -7731,9 +7842,11 @@
     cursor: not-allowed;
   }
 
-  .louis-selectable-list-row:disabled:hover {
-    background: none;
-    color: var(--louis-color-fg-disabled);
+  @media (hover: hover) {
+    .louis-selectable-list-row:disabled:hover {
+      background: none;
+      color: var(--louis-color-fg-disabled);
+    }
   }
 
   /* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */
@@ -8304,6 +8417,201 @@
 }
 
 @layer louis.component {
+  /* Start Card — design/components/start-card.md
+   *
+   * 빈 캔버스에서 **첫 노드를 만드는 생성 카드**(「이미지 생성」 · 「비디오 생성」)다. 미디어가 면을 채우고,
+   * 위쪽에 점진 블러 띠가 걸리고, 그 위에 이름 한 줄이 얹힌다. `<button>` 이고 호버에서 안의 미디어가
+   * 움직인다. 출처는 2026-10-07 제품 `chore/landing-dead-walkthrough` 의 `CanvasEmptyState.tsx` `CARD` ·
+   * `CARD_BLUR` · `CARD_LABEL`(`CanvasEmptyState.tsx@d564ed435:138` 부근, 도입 @a31f808c5)다.
+   *
+   * ## Media Card 가 아니라 따로 선 부품이다 (소유자 결정 2026-10-07)
+   *
+   * Media Card 는 `<article>` 이고 상태가 없는 표시용이며 정사각 + **아래** 정보 띠다. 이 카드는 `<button>` 이고
+   * 호버 · 키보드 상태를 갖고 320/403 비율 + **위쪽** 이름이다. 변형으로 접으면 축이 하나도 겹치지 않는다.
+   * 재료(`--louis-progressive-blur` · `--louis-progressive-blur-mask-block-start`)만 `base.css` 에서 빌려 쓴다.
+   *
+   * ## LOUIS 가 소유하는 것과 제품 콘텐츠
+   *
+   * LOUIS 는 **상자**를 소유한다 — 비율 · 반경 · 면 · 헤어라인 · 위쪽 블러 띠 · 이름 자리 · 미디어 슬롯의
+   * 호버 전환 박자. **슬롯 안의 미디어는 제품 콘텐츠다** — 스틸 격자의 흐름, 영상 재생, 프레임 띠와 진행선은
+   * 제품이 칠하고 움직인다. 안이 무엇이든 카드는 같다.
+   *
+   * 마크업은 이 순서를 지킨다. 숫자 z-index 를 쓰지 않으므로(elevation-layer.md) **칠하는 순서가 트리 순서다**.
+   *
+   *   <button class="louis-start-card" type="button">
+   *     <span class="louis-start-card__media" aria-hidden="true">…제품 미디어…</span>
+   *     <span class="louis-start-card__blur" aria-hidden="true"></span>
+   *     <span class="louis-start-card__label">이미지 생성</span>
+   *   </button>                                       (헤어라인은 ::after 가 맨 위에 칠한다)
+   *
+   * ## 호버
+   *
+   * 모든 호버 규칙은 `@media (hover: hover)` 안에 있다(DS-D-0077) — 터치에서 첫 탭이 호버로 먹히지 않는다.
+   * 슬롯 안의 제품 콘텐츠가 자기 움직임을 달 때는 **자기 규칙도 같은 가드 안에 두고**, 박자는 이 카드가 발행한
+   * 두 사용자 정의 속성(`--louis-start-card-drift-duration` · `--louis-start-card-drift-easing`)을 읽는다.
+   * 슬롯 자체가 움직이는 것은 `data-media-motion="zoom"` 하나뿐이다(제품 영상: 호버에서 `scale(1.04)`).
+   *
+   * ## 값의 근거
+   *
+   * 토큰이 있는 값은 토큰이다. 없는 값은 리터럴이고 사유를 달았다. 제품 Tailwind 간격 격자는 `--spacing: 2px`
+   * 라 `p-7` = 14px · `p-9` = 18px 다.
+   */
+
+  .louis-start-card {
+    /* 움직임의 박자. 제품은 호버 이동을 **앱 표준 패널 곡선**(오버레이 등장 곡선과 같은 값)으로 1600ms 동안
+     * 천천히 하고(`DRIFT`), 1600ms 는 motion 토큰에 없는 제품 리터럴이다. 슬롯 안의 콘텐츠가 읽도록 공개한다. */
+    --louis-start-card-drift-duration: 1600ms;
+    --louis-start-card-drift-easing: var(--louis-motion-overlay-enter-timing-function);
+
+    box-sizing: border-box;
+    position: relative;
+    /* 칠하는 순서를 카드 안에 가둔다 — 안의 미디어가 카드 밖 요소 사이로 끼어들지 못한다. */
+    isolation: isolate;
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    /* 320 × 403. 제품 값이고 토큰이 없다. */
+    aspect-ratio: 320 / 403;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    /* 면은 미디어가 올라오기 전의 무대다. 제품은 `palette-gray-950`(#0d1118)이었고 같은 자리를 하는 토큰
+     * `color-media-stage-surface`(두 mode 모두 static black)가 생겨 그것을 쓴다 — 테마를 따르지 않는다. */
+    background: var(--louis-color-media-stage-surface);
+    color: var(--louis-color-media-foreground-dark);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    border-radius: var(--louis-radius-overlay);
+    /* 이름 · 블러 띠가 카드 폭으로 크기를 잰다(`cqw`). 폭이 정해진 상자라 inline-size 컨테이너가 된다. */
+    container: louis-start-card / inline-size;
+  }
+
+  /* 반경은 **카드가 아니라 조상 컨테이너의 폭**을 본다. 제품의 `@min-[600px]:rounded-card-lg` 는 이름 없는
+   * 컨테이너 질의이고, 자기 자신은 자기 컨테이너가 아니므로 가장 가까운 조상(빈 캔버스의 띠 상자)을 잰다. 즉 칸이
+   * 넓은 화면에서 한 단 둥글어진다. */
+  @container (min-width: 600px) {
+    .louis-start-card {
+      border-radius: var(--louis-radius-card-lg);
+    }
+  }
+
+  /* 가장자리는 헤어라인이다. **미디어 위에 얹혀야 하므로 ::after** 가 맨 위에서 칠한다(제품 `after:`). 카드의
+   * `box-shadow` 로 두면 미디어가 덮는다. 포인터를 받지 않는다. */
+  .louis-start-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: var(--louis-hairline-inset);
+  }
+
+  /* 미디어 슬롯. 카드 전체를 채우고 안은 제품이 칠한다. 안이 카드보다 커도(기울어진 스틸 격자가 칸을 넘친다)
+   * 카드의 `overflow: hidden` 이 자른다. */
+  .louis-start-card__media {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transition-property: scale;
+    transition-duration: var(--louis-start-card-drift-duration);
+    transition-timing-function: var(--louis-start-card-drift-easing);
+  }
+
+  /* 위쪽 점진 블러 띠 — 유리다. **띠에 바탕색 · 틴트 · 베일을 깔지 않는다.** 위 가장자리에 붙어 아래로
+   * 걷히는 곡선(`--louis-progressive-blur-mask-block-start`)과 카드 흐림 반경(`--louis-progressive-blur`)을
+   * 그대로 쓴다. 높이는 카드 폭의 26% — 이름 뒤만 흐린다(제품 `h-[26cqw]`). 반경은 카드에서 받는다 —
+   * backdrop-filter 층은 합성 레이어로 올라가며 조상 클립을 놓칠 수 있다(제품 `MediaCard.tsx` INFO 주석).
+   * 동작 줄이기에서도 흐림은 둔다 — 움직임이 아니라 재료다. */
+  .louis-start-card__blur {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 26cqw;
+    pointer-events: none;
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+    backdrop-filter: var(--louis-progressive-blur);
+    mask-image: var(--louis-progressive-blur-mask-block-start);
+    -webkit-mask-image: var(--louis-progressive-blur-mask-block-start);
+  }
+
+  /* 이름 — 밑이 늘 어두운 미디어라 **미디어 전경**(밝은 글자)이다. 받침을 깔지 않는다. 테마를 따르지 않는다.
+   * 크기는 카드 폭에서 잰다: 240 이상이면 여백 18 · body-md 16, 그 아래(폰)는 여백 14 · body-sm 14. 둘 다
+   * 세미볼드다. 여백 14 · 18 은 토큰 계단(`space-control-lg` 16)에 없는 제품 리터럴이다.
+   *
+   * iOS — 흐림 층이 같은 레이어의 글자까지 backdrop 으로 잡아 흐리는 문제가 있어 이름을 `position: relative` 와
+   * `translateZ(0)` 로 자체 합성 레이어에 올린다. 둘 중 하나만으로는 지는 조건이 각각 있다(제품
+   * `MediaCard.tsx` NAME_ROW 주석). 블러 층보다 뒤 트리 순서라 위에 칠해진다. */
+  .louis-start-card__label {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    max-inline-size: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    transform: translateZ(0);
+    color: var(--louis-color-media-foreground-dark);
+    font-family: var(--louis-typography-body-sm-semibold-font-family);
+    font-size: var(--louis-typography-body-sm-semibold-font-size);
+    font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+    line-height: var(--louis-typography-body-sm-semibold-line-height);
+    letter-spacing: var(--louis-typography-body-sm-semibold-letter-spacing);
+  }
+
+  @container louis-start-card (min-width: 240px) {
+    .louis-start-card__label {
+      padding: 18px;
+      font-family: var(--louis-typography-body-md-semibold-font-family);
+      font-size: var(--louis-typography-body-md-semibold-font-size);
+      font-weight: var(--louis-typography-body-md-semibold-font-weight);
+      line-height: var(--louis-typography-body-md-semibold-line-height);
+      letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+    }
+  }
+
+  /* 호버가 없는 기기에서는 쉬는 장면 그대로다. 슬롯이 스스로 움직이는 변형은 하나 — 영상의 확대다. */
+  @media (hover: hover) {
+    .louis-start-card:hover > .louis-start-card__media[data-media-motion="zoom"] {
+      scale: 1.04;
+    }
+  }
+
+  /* 포커스는 평상 렌더링에서 그리지 않는다 — 포커스 표현은 base.css 의 한 규칙이 소유한다(DS-D-0074).
+   * 강제 색에서만 링을 되살린다. */
+  @media (forced-colors: active) {
+    .louis-start-card {
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    /* box-shadow 헤어라인은 강제 색에서 사라지므로 시스템 색 실선으로 되살린다(DS-D-0023). */
+    .louis-start-card::after {
+      box-shadow: none;
+      border: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    .louis-start-card__label {
+      color: CanvasText;
+    }
+
+    .louis-start-card:focus-visible {
+      outline: var(--louis-border-width-ring) solid Highlight;
+      outline-offset: 2px;
+    }
+  }
+
+  /* reduced-motion 에서 슬롯의 전환은 사라진다(DS-D-0016). 제품은 `motion-reduce:transition-none` 이었다 —
+   * 호버에서 그 자리로 바로 간다. 영상은 제품이 재생하지 않는다. */
+  @media (prefers-reduced-motion: reduce) {
+    .louis-start-card {
+      --louis-start-card-drift-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+}
+
+@layer louis.component {
   /* Stat Tile — design/components/stat-tile.md
    *
    * 「라벨 · 수치 · 보조 설명 · 증감 알약」 네 줄짜리 지표 타일 하나. 격자에 여럿 깔려
@@ -8676,8 +8984,11 @@
   /* 호버는 면이 아니라 상태 레이어다(DS-D-0065) — 토큰이 알파라 표가 놓인 바닥 위에 한 겹 얹힌다.
    * 면 사다리 칸으로 되돌리지 않는다. 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은
    * 값) 카드 위 표에서 hover 가 바닥과 같은 색이 됐다. */
-  .louis-table > tbody > tr[data-interactive="true"]:hover > :is(th, td) {
-    background: var(--louis-color-table-row-hover);
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-table > tbody > tr[data-interactive="true"]:hover > :is(th, td) {
+      background: var(--louis-color-table-row-hover);
+    }
   }
 
   /* 셀 강조 — 표 안에서 한 칸만 도드라져야 할 때.
@@ -8826,8 +9137,11 @@
     letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
   }
 
-  .louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled)):hover {
-    opacity: 0.9;
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled)):hover {
+      opacity: 0.9;
+    }
   }
 
   .louis-tabs__tab[aria-selected="true"] {
@@ -9562,9 +9876,12 @@
     letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
   }
 
-  /* 제품의 `[&:hover]:` 와 같다 — 원본에 `@media (hover: hover)` 가드가 없다. */
-  .louis-toast__action:hover {
-    background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
+  /* 호버 색은 `@media (hover: hover)` 안에 둔다 — 터치에서 누른 뒤 면이 남지 않는다(2026-10-07, 제품 canvas-mobile-ux 3b74f57d2). */
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-toast__action:hover {
+      background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
+    }
   }
 
   /* ── callout 의 행동 묶음과 닫기(2026-10-07, 소유자 — 제품 캔버스 도움말 작업 브랜치) ──────────────
@@ -9601,9 +9918,14 @@
     transition-duration: var(--louis-motion-control-hover-duration);
   }
 
-  .louis-toast__close:hover,
   .louis-toast__close:focus-visible {
     opacity: 1;
+  }
+
+  @media (hover: hover) {
+    .louis-toast__close:hover {
+      opacity: 1;
+    }
   }
 
   /* forced-colors — 12%/24% 잉크 면은 강제 색에서 사라진다. 액션이 눌리는 것이라는 신호를
@@ -9808,9 +10130,15 @@
     transition-duration: var(--louis-motion-control-hover-duration);
   }
 
-  .louis-tooltip__close:hover,
   .louis-tooltip__close:focus-visible {
     opacity: 1;
+  }
+
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-tooltip__close:hover {
+      opacity: 1;
+    }
   }
   /* 꼬리 — 45° 돌린 정사각형의 **두 변만** 테두리를 갖는다.
    *
@@ -10409,9 +10737,12 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .louis-document-toc__link:hover .louis-document-toc__label {
-    color: var(--louis-color-fg-primary);
-    text-decoration: underline;
+  @media (hover: hover) {
+    /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+    .louis-document-toc__link:hover .louis-document-toc__label {
+      color: var(--louis-color-fg-primary);
+      text-decoration: underline;
+    }
   }
 
   /* 절 앵커로 뛰면 절 머리가 시트 위 끝에 붙지 않게 한 칸 띄운다. */
@@ -11392,8 +11723,10 @@
     text-decoration: none;
   }
 
-  .louis-document-footnote > a:hover {
-    text-decoration: underline;
+  @media (hover: hover) {
+    .louis-document-footnote > a:hover {
+      text-decoration: underline;
+    }
   }
 
   .louis-document-sources {

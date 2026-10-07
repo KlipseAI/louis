@@ -176,9 +176,12 @@
   letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
-/* 제품의 `[&:hover]:` 와 같다 — 원본에 `@media (hover: hover)` 가드가 없다. */
-.louis-toast__action:hover {
-  background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
+/* 호버 색은 `@media (hover: hover)` 안에 둔다 — 터치에서 누른 뒤 면이 남지 않는다(2026-10-07, 제품 canvas-mobile-ux 3b74f57d2). */
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-toast__action:hover {
+    background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
+  }
 }
 
 /* ── callout 의 행동 묶음과 닫기(2026-10-07, 소유자 — 제품 캔버스 도움말 작업 브랜치) ──────────────
@@ -215,9 +218,14 @@
   transition-duration: var(--louis-motion-control-hover-duration);
 }
 
-.louis-toast__close:hover,
 .louis-toast__close:focus-visible {
   opacity: 1;
+}
+
+@media (hover: hover) {
+  .louis-toast__close:hover {
+    opacity: 1;
+  }
 }
 
 /* forced-colors — 12%/24% 잉크 면은 강제 색에서 사라진다. 액션이 눌리는 것이라는 신호를

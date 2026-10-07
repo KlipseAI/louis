@@ -92,7 +92,7 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 
 | 상태 | 글자 | 배경 |
 | --- | --- | --- |
-| 흐름 | `transparent` | 9정지점 그라디언트를 글자 모양으로 자른다. `-100%` 를 `1.6s` 등속으로 민다 |
+| 흐름 | `transparent` | 9정지점 그라디언트를 글자 모양으로 자른다. `-100%` 를 `2.2s` 등속으로 민다 |
 | `prefers-reduced-motion: reduce` | 잉크 88% 하나 | 그라디언트가 없다. **글자가 읽힌다** |
 | `forced-colors: active` | `CanvasText` | 없다 |
 
@@ -177,7 +177,7 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 | 그라디언트 | 90deg · 9정지점 · 20 · 28 · **88** · 32 · 20 · 28 · **88** · 32 · 20 % (0 · 12 · 24 · 36 · 50 · 62 · 74 · 86 · 100%) | 제품 값. 36% 정지점은 작업 브랜치가 34 에서 32 로 옮겼다 |
 | 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | 제품 값 |
 | 흐름 | keyframe `louis-loading-word-sweep` · `0% 50%` → `-100% 50%` · 한 칸 이동 | `louis-shimmer` 와 다른 순환이다(아래) |
-| 주기 | `motion-shimmer` 1600ms | 같은 화면의 Skeleton 과 같은 속도 — Known deviations 1 |
+| 주기 | `motion-loading-word` 2200ms · `linear` | 제품 값. 글자 쉬머 전용 loop 토큰이다 — Known deviations 1 |
 | easing | `linear` | 한 칸마다 이어 붙는 순환이라 가감속이 맥박이 된다. 제품 아홉 곳이 전부 등속 |
 | reduced-motion | 그라디언트 없음 · 잉크 88% 단색 · duration `motion-reduced` · 반복 1회 | 글자가 읽혀야 한다 |
 | forced-colors | `CanvasText` · 그라디언트 없음 | 투명 글자가 사라지는 것을 막는다 |
@@ -185,9 +185,8 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 **keyframe 은 `louis-shimmer` 를 쓰지 못한다.** 그쪽은 `200%` → `-200%` 로 네 칸을 밀어 면 자리표시의
 하이라이트 하나를 건너보내는 한 번짜리 쓸림이다. 여기는 파형이 되풀이되는 그라디언트를 한 칸(`-100%`)
 밀어 시작 모양으로 돌아오게 하는 순환이다. 같은 keyframe 을 쓰면 한 주기에 네 칸이 지나가 속도가
-네 배가 된다. 같은 **기법**(`background-position`)이고 같은 **motion 토큰**(`motion-shimmer` — 그
-property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md))을
-쓰되 keyframe 만 하나 더 둔다.
+네 배가 된다. 같은 **기법**(`background-position`)이고 motion 토큰은 글자 쉬머 전용 `motion-loading-word`(`background-position` 한 property 의 loop 로 선언했다,
+[DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md))를 쓰고 keyframe 도 하나 더 둔다.
 
 **「더 불러오기」 시머와 합쳐진다.** 제품의 목록 하단 「더 불러오기」 문구는 라이트에서
 `--palette-gray-900-rgb`, 다크에서 `--palette-gray-000-rgb` 로 갈아 끼우는 별도 구현이었다. `fg-primary`
@@ -205,12 +204,12 @@ property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-key
 
 ## Known deviations
 
-1. **주기가 제품과 다르다 — 2.2s 가 아니라 1.6s 다.** 제품의 시머 글자 아홉 곳은 `2.2s linear` 이고
-   [Loading](../patterns/loading.md) 이 「하나를 골라야 한다」고 남겨 둔 값이다. 이 레시피는 **`motion-shimmer`
-   를 가져다 쓰는 쪽을 골랐다** — 같은 화면에서 Skeleton 과 글자가 다른 속도로 돌지 않게 하려는 것이고
-   gate(DS-D-0017)가 keyframe 을 motion 토큰에 묶으라 요구한다. easing 은 `motion-shimmer` 의
-   `easing-standard` 가 아니라 `linear` 다. **소유자 판정이 필요하다** — 제품 값 2.2s 로 되돌리려면
-   `motion-shimmer` 와 별개의 loop 토큰이 필요하다.
+1. **주기는 제품 값 2.2s 다 — 소유자 결정(2026-10-07).** 제품의 시머 글자 아홉 곳은 `2.2s linear` 이고
+   [Loading](../patterns/loading.md) 이 「하나를 골라야 한다」고 남겨 둔 값이었다. 소유자가 제품 2.2s 를
+   정본으로 정했다. 면 자리표시의 `motion-shimmer`(1.6s)에 얹지 않고 **글자 쉬머 전용 loop 토큰
+   `motion-loading-word`(2200ms · `linear` · `background-position`)를 새로 열었다** — gate(DS-D-0017)가 요구하는
+   keyframe 과 motion 토큰의 묶음은 그대로 지킨다. 같은 화면에서 Skeleton(1.6s)과 글자(2.2s)가 다른 속도로 도는 것은
+   의도다.
 2. **`LoadingWord` 에 제품이 갖는 `will-change: background-position` 을 옮기지 않았다.** `background-position`
    은 합성 레이어로 올라가는 property 가 아니라 힌트가 효과를 내지 못한다.
 3. **reduced-motion 에서 제품과 다르다.** 제품은 애니메이션만 끄고 그라디언트를 0프레임에 세워 글자가
@@ -235,7 +234,7 @@ property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-key
 1. 글자가 `transparent` 이고 `background-clip: text` 가 선다(접두 속성 포함).
 2. 그라디언트가 9정지점이고 알파가 20 · 28 · 88 · 32 로 대칭이며 **한 색의 변주**다.
 3. **light · dark 두 테마 모두에서** 잉크가 배경과 다르다(`fg-primary` 가 뒤집힌다).
-4. 흐름이 `louis-loading-word-sweep` 이고 `motion-shimmer` 토큰을 쓰며 `background-position` 만
+4. 흐름이 `louis-loading-word-sweep` 이고 `motion-loading-word` 토큰(2200ms)을 쓰며 `background-position` 만
    움직인다. easing 이 `linear` 다.
 5. **시작과 끝의 모양이 같다** — `0% 50%` 와 `-100% 50%` 에서 같은 렌더(이음새가 없다).
 6. reduced-motion 에서 그라디언트가 없고 글자 색이 불투명하며 반복이 1회다.

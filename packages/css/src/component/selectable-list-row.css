@@ -46,9 +46,12 @@
   letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
-.louis-selectable-list-row:hover {
-  background: var(--louis-color-accent-ghost-hover);
-  color: var(--louis-color-fg-primary);
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-selectable-list-row:hover {
+    background: var(--louis-color-accent-ghost-hover);
+    color: var(--louis-color-fg-primary);
+  }
 }
 
 /* **`aria-current`가 선택을 소유한다.** SidebarNavItem과 같은 판정이다 — 시각 전용 속성을 두면
@@ -79,9 +82,11 @@
   cursor: not-allowed;
 }
 
-.louis-selectable-list-row:disabled:hover {
-  background: none;
-  color: var(--louis-color-fg-disabled);
+@media (hover: hover) {
+  .louis-selectable-list-row:disabled:hover {
+    background: none;
+    color: var(--louis-color-fg-disabled);
+  }
 }
 
 /* 선행 슬롯. 썸네일이 들어가며 크기는 호출부가 정한다 — 96px(하이라이트)처럼 화면마다 다르다. */

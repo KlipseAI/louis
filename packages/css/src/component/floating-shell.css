@@ -188,9 +188,13 @@
  * 알파 하나뿐이다 — `background` 를 다시 적으면 색을 갈아 끼울 자리가 생기고, 그것이 이
  * 컴포넌트가 하지 않기로 한 일이다. Figma 도 같은 변수에 paint opacity 만 올린다.
  *
- * `@media (hover: hover)` 가드를 두지 않는다 — 앵커가 `[&:hover]:` 로 적어 그 가드가 없다. */
-.louis-pill-trigger:hover {
-  --louis-floating-shell-surface-alpha: 88%;
+ * `@media (hover: hover)` 안에 둔다 — 제품이 거친 포인터에서 호버 색이 남지 않게 `[@media(hover:hover)]:[&:hover]:` 로 바꿨다
+ * (2026-10-07, 제품 canvas-mobile-ux 3b74f57d2 `Toolbar.tsx`). */
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-pill-trigger:hover {
+    --louis-floating-shell-surface-alpha: 88%;
+  }
 }
 
 /* 캐럿. **아이콘이 아니라 방향 표시다** — 10 은 아이콘 사다리(16 · 20 · 24)의 값이 아니고

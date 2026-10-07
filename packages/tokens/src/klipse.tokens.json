@@ -333,6 +333,13 @@
           "lifecycle": "loop"
         },
         {
+          "motion": "motion-loading-word",
+          "properties": [
+            "background-position"
+          ],
+          "lifecycle": "loop"
+        },
+        {
           "motion": "motion-crossfade-enter",
           "properties": [
             "opacity"
@@ -4488,6 +4495,30 @@
           }
         }
       },
+      "loading-word": {
+        "$value": {
+          "duration": {
+            "value": 2200,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-loading-word",
+            "tier": "primitive"
+          }
+        }
+      },
       "menu-enter": {
         "$value": {
           "duration": {
@@ -5794,6 +5825,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-list-stagger-step",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "loading-word": {
+          "$value": "{primitive.transition.loading-word}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-loading-word",
               "tier": "semantic",
               "mode": "global"
             }

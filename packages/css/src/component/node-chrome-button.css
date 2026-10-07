@@ -61,22 +61,25 @@
   color: inherit;
 }
 
-/* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
-.louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
-  background: var(--louis-color-accent-ghost-hover);
-}
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  /* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
+  .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    background: var(--louis-color-accent-ghost-hover);
+  }
 
-/* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
- * `Tone` 이 축이고 글리프는 슬롯이다.
- *
- * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
- * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
- * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
-.louis-node-chrome-button[data-tone="danger"]:where(
-    :not(:disabled):not([aria-disabled="true"])
-  ):hover {
-  background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
-  color: var(--louis-color-accent-danger);
+  /* 삭제 호버 — **잉크까지 붉게 간다.** 두 톤이 갈리는 것은 면이 아니라 잉크이고, 그래서
+   * `Tone` 이 축이고 글리프는 슬롯이다.
+   *
+   * 면은 `accent-danger` 를 8% 로 섞어 만든다. 같은 값의 원시 토큰(`color-red-alpha-08`)이
+   * 있지만 component CSS 는 primitive 를 직접 소비하지 않는 것이 이 저장소의 규칙이고, 저작
+   * 게이트가 그것을 강제한다 — 섞어 만든 색은 그 원시 칸과 바이트 단위로 같다. */
+  .louis-node-chrome-button[data-tone="danger"]:where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
+    color: var(--louis-color-accent-danger);
+  }
 }
 
 /* 프레스 — **축이 아니라 동작이다.** 변형으로 그리면 기하 계약이 「눌린 크기」를 정본처럼
@@ -106,8 +109,10 @@
 /* forced-colors — 틴트가 강제 치환되면 호버가 사라진다. 면 대신 시스템 색 실선으로 되살린다.
  * 기본 상태에 테두리를 두지 않는 것은 그대로다 — 이 버튼은 면도 선도 없는 것이 계약이다. */
 @media (forced-colors: active) {
-  .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
-    outline: var(--louis-border-width-default) solid currentColor;
+  @media (hover: hover) {
+    .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      outline: var(--louis-border-width-default) solid currentColor;
+    }
   }
 
   .louis-node-chrome-button:disabled,

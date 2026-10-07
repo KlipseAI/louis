@@ -516,6 +516,9 @@
   --louis-motion-list-stagger-step-delay: 36ms;
   --louis-motion-list-stagger-step-duration: 560ms;
   --louis-motion-list-stagger-step-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  --louis-motion-loading-word-delay: 0ms;
+  --louis-motion-loading-word-duration: 2200ms;
+  --louis-motion-loading-word-timing-function: cubic-bezier(0, 0, 1, 1);
   --louis-motion-menu-enter-delay: 0ms;
   --louis-motion-menu-enter-duration: 260ms;
   --louis-motion-menu-enter-timing-function: cubic-bezier(0.32, 0.72, 0, 1);

@@ -112,13 +112,16 @@
 /* 호버·프레스 — 디스크가 커지고 작아지며 셸이 밝기를 민다. 메뉴가 열린 상태는 소스가
  * `filter: none` 만 더해 **기본과 시각이 같다**(계약의 `$whyNoHoverVariant`) — 그래서 여는
  * 상태의 규칙을 두지 않는 것이 옳다. */
-.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover {
-  filter: brightness(1.1);
-}
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    filter: brightness(1.1);
+  }
 
-.louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
-  .louis-node-side-handle__facet {
-  transform: scale(1.08);
+  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+    .louis-node-side-handle__facet {
+    transform: scale(1.08);
+  }
 }
 
 .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active {
@@ -176,8 +179,13 @@
     transition-duration: var(--louis-motion-reduced-duration);
   }
 
-  .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
-    .louis-node-side-handle__facet,
+  @media (hover: hover) {
+    .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):hover
+      .louis-node-side-handle__facet {
+      transform: none;
+    }
+  }
+
   .louis-node-side-handle:where(:not(:disabled):not([aria-disabled="true"])):active
     .louis-node-side-handle__facet {
     transform: none;

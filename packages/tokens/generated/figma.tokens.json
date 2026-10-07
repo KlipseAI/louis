@@ -243,6 +243,13 @@
           ]
         },
         {
+          "lifecycle": "loop",
+          "motion": "motion-loading-word",
+          "properties": [
+            "background-position"
+          ]
+        },
+        {
           "motion": "motion-crossfade-enter",
           "properties": [
             "opacity"
@@ -8439,6 +8446,60 @@
             }
           }
         },
+        "transition-loading-word": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/loading-word",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 2200
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 2200
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.loading-word"
+            }
+          }
+        },
         "transition-menu-enter": {
           "$type": "transition",
           "fields": [
@@ -12946,6 +13007,48 @@
                 ]
               },
               "sourcePath": "semantic.global.motion.list-stagger-step"
+            }
+          }
+        },
+        "motion-loading-word": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/loading-word",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.loading-word}",
+              "aliasTarget": {
+                "id": "transition-loading-word",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 2200
+                },
+                "timingFunction": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.loading-word"
             }
           }
         },

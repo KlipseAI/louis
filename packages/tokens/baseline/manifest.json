@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "2356a4e18639195736c1afd0c5f382cc0d91e921bdd9d733481869313dd005df"
+      "sha256": "29c0eb127b08b635d68adbd4c7fd2dbf287d3a38e8a81450af60b3cc82efe8e7"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "a1351f3806c75b36aaeded80b3af964bc68e796eb1ab4b4f777cb14ebde78591"
+      "sha256": "f9b122a4253b0f2e93da0aca349f9b6ac47e4524db48169761684f71ce2840cc"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "4d890937ffe3516d6dc8cdaee88d951c1a264a6b23ac28698d01bb275d2b0a0d"
+      "sha256": "9aa55e2bded5f0359d655c65813ad91e8b517023a4ffdf98426c0a7ae8336af8"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "1b8b25eebb1bb56bbeefd6e3818b85a5a71098287edfd9d8acb914967a9f563e"
+      "sha256": "a56dfe66eeec3aa182762628e89cc667edfc81060e59b08955eb7d527d51e64a"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "b4e94015c68f66cf97cc0b9ce882d2c9192b6bccfbaca4d6a2c90d46862ac4f5"
+      "sha256": "e2d3f76f6df8cb610f8b9d2306e93f0cefe44ceb2239cb459d57375eae15ff6a"
     }
   ],
   "contrastPairs": [
@@ -259,6 +259,13 @@
       ]
     },
     {
+      "lifecycle": "loop",
+      "motion": "motion-loading-word",
+      "properties": [
+        "background-position"
+      ]
+    },
+    {
       "motion": "motion-crossfade-enter",
       "properties": [
         "opacity"
@@ -484,13 +491,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "db16cf1fdf429c665350d93338d1d21dd5e61f0be3a57b4bcf9848e3facce704"
+    "sha256": "f2129ec08f541f8bd7ee39dd5cb4f63915eee4f9a60c52ab71fb2e67ff03412f"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 793,
+  "tokenCount": 795,
   "tokens": [
     {
       "aliasTarget": {
@@ -16708,6 +16715,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-loading-word",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-loading-word-delay": "0ms",
+        "--louis-motion-loading-word-duration": "2200ms",
+        "--louis-motion-loading-word-timing-function": "cubic-bezier(0, 0, 1, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-loading-word",
+      "mode": "global",
+      "rawValue": "{primitive.transition.loading-word}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 2200
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.loading-word",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-menu-enter",
         "mode": "base"
       },
@@ -20102,6 +20144,49 @@
         ]
       },
       "sourcePath": "primitive.transition.list-stagger-step",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-loading-word",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 2200
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 2200
+        },
+        "timingFunction": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.loading-word",
       "tier": "primitive",
       "type": "transition"
     },

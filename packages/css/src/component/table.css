@@ -108,8 +108,11 @@
 /* 호버는 면이 아니라 상태 레이어다(DS-D-0065) — 토큰이 알파라 표가 놓인 바닥 위에 한 겹 얹힌다.
  * 면 사다리 칸으로 되돌리지 않는다. 다크에는 bg-surface 보다 한 칸 위 면이 없어(bg-raised 와 같은
  * 값) 카드 위 표에서 hover 가 바닥과 같은 색이 됐다. */
-.louis-table > tbody > tr[data-interactive="true"]:hover > :is(th, td) {
-  background: var(--louis-color-table-row-hover);
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-table > tbody > tr[data-interactive="true"]:hover > :is(th, td) {
+    background: var(--louis-color-table-row-hover);
+  }
 }
 
 /* 셀 강조 — 표 안에서 한 칸만 도드라져야 할 때.

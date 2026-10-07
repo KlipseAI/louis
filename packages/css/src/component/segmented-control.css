@@ -219,8 +219,11 @@
 
 /* hover는 글자만 바꾼다. 면까지 바꾸면 선택된 것과 얹은 것이 같은 표현이 되어 어느 쪽이
  * 현재 값인지 순간 읽히지 않는다. */
-.louis-segmented-control__segment:hover {
-  color: var(--louis-color-fg-primary);
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-segmented-control__segment:hover {
+    color: var(--louis-color-fg-primary);
+  }
 }
 
 /* 선택. **면과 글자를 함께 바꾼다** — 제품 B는 색 하나로만 전달하고 aria도 없어서, 색각 이상과

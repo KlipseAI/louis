@@ -1354,6 +1354,10 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 
 근거: `GlassConfirmModal.tsx:99-101`(base) · `:105`(취소) · `:111`(primary) · `:119`(danger).
 
+**LOUIS 는 이 함정을 따라가지 않는다(2026-10-07, [DS-D-0077](../governance/decisions/DS-D-0077-hover-only-on-hover-devices.md)).**
+호버 규칙은 `@media (hover: hover)` 안에 둔다 — 터치에서 누른 뒤 호버 색이 남지 않게. `:focus-visible` 과
+`[data-highlighted]` 는 가드 밖에 두고, `:active` 는 대상이 아니다. 제품도 `feat/canvas-mobile-ux` 에서 같은 가드로 바꿨다.
+
 #### Figma에서의 표현
 
 Figma에는 CSS 상태가 없다. 그래서 일시적 상태도 variant property로 만들어야 하고, 그 property는

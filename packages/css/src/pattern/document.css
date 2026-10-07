@@ -305,9 +305,12 @@
   font-variant-numeric: tabular-nums;
 }
 
-.louis-document-toc__link:hover .louis-document-toc__label {
-  color: var(--louis-color-fg-primary);
-  text-decoration: underline;
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-document-toc__link:hover .louis-document-toc__label {
+    color: var(--louis-color-fg-primary);
+    text-decoration: underline;
+  }
 }
 
 /* 절 앵커로 뛰면 절 머리가 시트 위 끝에 붙지 않게 한 칸 띄운다. */
@@ -1288,8 +1291,10 @@
   text-decoration: none;
 }
 
-.louis-document-footnote > a:hover {
-  text-decoration: underline;
+@media (hover: hover) {
+  .louis-document-footnote > a:hover {
+    text-decoration: underline;
+  }
 }
 
 .louis-document-sources {

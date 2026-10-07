@@ -268,8 +268,11 @@
   transition-timing-function: var(--louis-motion-control-hover-timing-function);
 }
 
-.louis-inspector-section-head__action:where(:not(:disabled)):hover {
-  background: var(--louis-color-accent-ghost-hover);
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-inspector-section-head__action:where(:not(:disabled)):hover {
+    background: var(--louis-color-accent-ghost-hover);
+  }
 }
 
 .louis-inspector-section-head__action:disabled,

@@ -1,0 +1,192 @@
+/* Start Card — design/components/start-card.md
+ *
+ * 빈 캔버스에서 **첫 노드를 만드는 생성 카드**(「이미지 생성」 · 「비디오 생성」)다. 미디어가 면을 채우고,
+ * 위쪽에 점진 블러 띠가 걸리고, 그 위에 이름 한 줄이 얹힌다. `<button>` 이고 호버에서 안의 미디어가
+ * 움직인다. 출처는 2026-10-07 제품 `chore/landing-dead-walkthrough` 의 `CanvasEmptyState.tsx` `CARD` ·
+ * `CARD_BLUR` · `CARD_LABEL`(`CanvasEmptyState.tsx@d564ed435:138` 부근, 도입 @a31f808c5)다.
+ *
+ * ## Media Card 가 아니라 따로 선 부품이다 (소유자 결정 2026-10-07)
+ *
+ * Media Card 는 `<article>` 이고 상태가 없는 표시용이며 정사각 + **아래** 정보 띠다. 이 카드는 `<button>` 이고
+ * 호버 · 키보드 상태를 갖고 320/403 비율 + **위쪽** 이름이다. 변형으로 접으면 축이 하나도 겹치지 않는다.
+ * 재료(`--louis-progressive-blur` · `--louis-progressive-blur-mask-block-start`)만 `base.css` 에서 빌려 쓴다.
+ *
+ * ## LOUIS 가 소유하는 것과 제품 콘텐츠
+ *
+ * LOUIS 는 **상자**를 소유한다 — 비율 · 반경 · 면 · 헤어라인 · 위쪽 블러 띠 · 이름 자리 · 미디어 슬롯의
+ * 호버 전환 박자. **슬롯 안의 미디어는 제품 콘텐츠다** — 스틸 격자의 흐름, 영상 재생, 프레임 띠와 진행선은
+ * 제품이 칠하고 움직인다. 안이 무엇이든 카드는 같다.
+ *
+ * 마크업은 이 순서를 지킨다. 숫자 z-index 를 쓰지 않으므로(elevation-layer.md) **칠하는 순서가 트리 순서다**.
+ *
+ *   <button class="louis-start-card" type="button">
+ *     <span class="louis-start-card__media" aria-hidden="true">…제품 미디어…</span>
+ *     <span class="louis-start-card__blur" aria-hidden="true"></span>
+ *     <span class="louis-start-card__label">이미지 생성</span>
+ *   </button>                                       (헤어라인은 ::after 가 맨 위에 칠한다)
+ *
+ * ## 호버
+ *
+ * 모든 호버 규칙은 `@media (hover: hover)` 안에 있다(DS-D-0077) — 터치에서 첫 탭이 호버로 먹히지 않는다.
+ * 슬롯 안의 제품 콘텐츠가 자기 움직임을 달 때는 **자기 규칙도 같은 가드 안에 두고**, 박자는 이 카드가 발행한
+ * 두 사용자 정의 속성(`--louis-start-card-drift-duration` · `--louis-start-card-drift-easing`)을 읽는다.
+ * 슬롯 자체가 움직이는 것은 `data-media-motion="zoom"` 하나뿐이다(제품 영상: 호버에서 `scale(1.04)`).
+ *
+ * ## 값의 근거
+ *
+ * 토큰이 있는 값은 토큰이다. 없는 값은 리터럴이고 사유를 달았다. 제품 Tailwind 간격 격자는 `--spacing: 2px`
+ * 라 `p-7` = 14px · `p-9` = 18px 다.
+ */
+
+.louis-start-card {
+  /* 움직임의 박자. 제품은 호버 이동을 **앱 표준 패널 곡선**(오버레이 등장 곡선과 같은 값)으로 1600ms 동안
+   * 천천히 하고(`DRIFT`), 1600ms 는 motion 토큰에 없는 제품 리터럴이다. 슬롯 안의 콘텐츠가 읽도록 공개한다. */
+  --louis-start-card-drift-duration: 1600ms;
+  --louis-start-card-drift-easing: var(--louis-motion-overlay-enter-timing-function);
+
+  box-sizing: border-box;
+  position: relative;
+  /* 칠하는 순서를 카드 안에 가둔다 — 안의 미디어가 카드 밖 요소 사이로 끼어들지 못한다. */
+  isolation: isolate;
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+  /* 320 × 403. 제품 값이고 토큰이 없다. */
+  aspect-ratio: 320 / 403;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  /* 면은 미디어가 올라오기 전의 무대다. 제품은 `palette-gray-950`(#0d1118)이었고 같은 자리를 하는 토큰
+   * `color-media-stage-surface`(두 mode 모두 static black)가 생겨 그것을 쓴다 — 테마를 따르지 않는다. */
+  background: var(--louis-color-media-stage-surface);
+  color: var(--louis-color-media-foreground-dark);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--louis-radius-overlay);
+  /* 이름 · 블러 띠가 카드 폭으로 크기를 잰다(`cqw`). 폭이 정해진 상자라 inline-size 컨테이너가 된다. */
+  container: louis-start-card / inline-size;
+}
+
+/* 반경은 **카드가 아니라 조상 컨테이너의 폭**을 본다. 제품의 `@min-[600px]:rounded-card-lg` 는 이름 없는
+ * 컨테이너 질의이고, 자기 자신은 자기 컨테이너가 아니므로 가장 가까운 조상(빈 캔버스의 띠 상자)을 잰다. 즉 칸이
+ * 넓은 화면에서 한 단 둥글어진다. */
+@container (min-width: 600px) {
+  .louis-start-card {
+    border-radius: var(--louis-radius-card-lg);
+  }
+}
+
+/* 가장자리는 헤어라인이다. **미디어 위에 얹혀야 하므로 ::after** 가 맨 위에서 칠한다(제품 `after:`). 카드의
+ * `box-shadow` 로 두면 미디어가 덮는다. 포인터를 받지 않는다. */
+.louis-start-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: var(--louis-hairline-inset);
+}
+
+/* 미디어 슬롯. 카드 전체를 채우고 안은 제품이 칠한다. 안이 카드보다 커도(기울어진 스틸 격자가 칸을 넘친다)
+ * 카드의 `overflow: hidden` 이 자른다. */
+.louis-start-card__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transition-property: scale;
+  transition-duration: var(--louis-start-card-drift-duration);
+  transition-timing-function: var(--louis-start-card-drift-easing);
+}
+
+/* 위쪽 점진 블러 띠 — 유리다. **띠에 바탕색 · 틴트 · 베일을 깔지 않는다.** 위 가장자리에 붙어 아래로
+ * 걷히는 곡선(`--louis-progressive-blur-mask-block-start`)과 카드 흐림 반경(`--louis-progressive-blur`)을
+ * 그대로 쓴다. 높이는 카드 폭의 26% — 이름 뒤만 흐린다(제품 `h-[26cqw]`). 반경은 카드에서 받는다 —
+ * backdrop-filter 층은 합성 레이어로 올라가며 조상 클립을 놓칠 수 있다(제품 `MediaCard.tsx` INFO 주석).
+ * 동작 줄이기에서도 흐림은 둔다 — 움직임이 아니라 재료다. */
+.louis-start-card__blur {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 26cqw;
+  pointer-events: none;
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+  backdrop-filter: var(--louis-progressive-blur);
+  mask-image: var(--louis-progressive-blur-mask-block-start);
+  -webkit-mask-image: var(--louis-progressive-blur-mask-block-start);
+}
+
+/* 이름 — 밑이 늘 어두운 미디어라 **미디어 전경**(밝은 글자)이다. 받침을 깔지 않는다. 테마를 따르지 않는다.
+ * 크기는 카드 폭에서 잰다: 240 이상이면 여백 18 · body-md 16, 그 아래(폰)는 여백 14 · body-sm 14. 둘 다
+ * 세미볼드다. 여백 14 · 18 은 토큰 계단(`space-control-lg` 16)에 없는 제품 리터럴이다.
+ *
+ * iOS — 흐림 층이 같은 레이어의 글자까지 backdrop 으로 잡아 흐리는 문제가 있어 이름을 `position: relative` 와
+ * `translateZ(0)` 로 자체 합성 레이어에 올린다. 둘 중 하나만으로는 지는 조건이 각각 있다(제품
+ * `MediaCard.tsx` NAME_ROW 주석). 블러 층보다 뒤 트리 순서라 위에 칠해진다. */
+.louis-start-card__label {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  transform: translateZ(0);
+  color: var(--louis-color-media-foreground-dark);
+  font-family: var(--louis-typography-body-sm-semibold-font-family);
+  font-size: var(--louis-typography-body-sm-semibold-font-size);
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+  line-height: var(--louis-typography-body-sm-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-sm-semibold-letter-spacing);
+}
+
+@container louis-start-card (min-width: 240px) {
+  .louis-start-card__label {
+    padding: 18px;
+    font-family: var(--louis-typography-body-md-semibold-font-family);
+    font-size: var(--louis-typography-body-md-semibold-font-size);
+    font-weight: var(--louis-typography-body-md-semibold-font-weight);
+    line-height: var(--louis-typography-body-md-semibold-line-height);
+    letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+  }
+}
+
+/* 호버가 없는 기기에서는 쉬는 장면 그대로다. 슬롯이 스스로 움직이는 변형은 하나 — 영상의 확대다. */
+@media (hover: hover) {
+  .louis-start-card:hover > .louis-start-card__media[data-media-motion="zoom"] {
+    scale: 1.04;
+  }
+}
+
+/* 포커스는 평상 렌더링에서 그리지 않는다 — 포커스 표현은 base.css 의 한 규칙이 소유한다(DS-D-0074).
+ * 강제 색에서만 링을 되살린다. */
+@media (forced-colors: active) {
+  .louis-start-card {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  /* box-shadow 헤어라인은 강제 색에서 사라지므로 시스템 색 실선으로 되살린다(DS-D-0023). */
+  .louis-start-card::after {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-start-card__label {
+    color: CanvasText;
+  }
+
+  .louis-start-card:focus-visible {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+/* reduced-motion 에서 슬롯의 전환은 사라진다(DS-D-0016). 제품은 `motion-reduce:transition-none` 이었다 —
+ * 호버에서 그 자리로 바로 간다. 영상은 제품이 재생하지 않는다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-start-card {
+    --louis-start-card-drift-duration: var(--louis-motion-reduced-duration);
+  }
+}

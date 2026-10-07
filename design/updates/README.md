@@ -25,6 +25,19 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (209) — 소유자 결정 넷: 호버는 호버 기기에서만(DS-D-0077) · 글자 쉬머 2.2초 · 선택 카드 두 표현 · Start Card
+
+- **호버는 `@media (hover: hover)` 안에만**([DS-D-0077](../governance/decisions/DS-D-0077-hover-only-on-hover-devices.md)) — CSS 스무 파일의
+  `:hover` 59곳을 가드 안으로 옮겼다(선택자 · 선언 · 특이도 그대로). `:focus-visible` · `[data-highlighted]` 와 묶여 있던 선택자 열다섯은
+  둘로 나눠 키보드 쪽을 밖에 남겼다. 강제 색 · 동작 줄이기 블록 안의 호버도 한 겹 더 감쌌다. 제품 캔버스 모바일 작업 브랜치가 터치에서
+  누른 뒤 호버 색이 남는 문제를 같은 방법으로 막았다. 브라우저 시험 전체(53파일 588)가 통과했다 — 데스크톱 Chromium 은 hover:hover 가
+  참이다. 터치 실기기 확인은 남는다.
+- **글자 쉬머 2.2초** — `motion-loading-word`(2200ms linear, loop) 신설. 토큰 diff 의 추가 2 · motionProperties 1 만 확인하고 기준선을
+  옮겼다. Figma 변수 `motion/loading-word` 를 만들고 되읽어 병합했다.
+- **선택 카드는 두 표현을 둘 다 둔다** — 카드형은 링, 행형은 뒤집기.
+- **[Start Card](../components/start-card.md)** — 빈 캔버스 생성 카드를 별도 부품으로(`<button>` · 320:403 · 무대 면 · 위쪽 점진 블러 띠 위
+  이름). 안의 스틸 흐름 · 영상 재생은 제품 콘텐츠이고 LOUIS 는 미디어 슬롯만 갖는다.
+
 ## 2026-10-07 (208) — 작업 브랜치 3단: 새 부품 다섯 · 토큰 다섯 · 캔버스와 랜딩 셸 문서
 
 제품 작업 브랜치 감사(205)의 남은 항목을 여덟 갈래로 나눠 반영했다. Figma 는 Button 변형과 새 변수까지만 세웠고, 나머지 새 슬롯의

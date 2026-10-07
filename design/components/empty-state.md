@@ -191,12 +191,10 @@ aspect 320/403 · 반경 `radius-overlay`(칸 600 이상 `radius-card-lg`) · �
 헤어라인(`hairline-inset`) · 위쪽 점진 블러 층(`progressive-blur` + `progressive-blur-mask-block-start`) ·
 이름 `media-foreground-dark`. 안은 스틸 격자 또는 영상 + 프레임 띠이고 호버에서 움직인다.
 
-**이 컴포넌트로도, [Media Card](./media-card.md) 변형으로도 세우지 않았다 — 판정 필요다**(소유자 몫). 근거는 이렇다. ① Media Card 는 `<article>` 이고 **상태가 없는 표시용**이며 LOUIS 레시피(`media-card.css`)도
-아직 없다 — 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖는다. ② Media Card 는 정사각 + 아래 정보 띠인데 이
-카드는 320/403 + **위쪽** 이름이라 기하가 다르다. ③ 안(스틸 흐름 · 영상 재생)은 제품 콘텐츠다. 재료만은 LOUIS
-소유이고 이미 있다 — 위쪽 점진 블러 마스크가 `base.css` 에 발행돼 있다. 판정이 필요한 것은 (a) Media Card 에
-`position` 축(`info-end` · `label-start`)을 여는지, (b) 별도 부품(`start-card`)으로 세우는지, (c) 제품에 두는지다.
-Figma 변형은 아직 없다.
+**별도 부품 [Start Card](./start-card.md) 로 세웠다 — 소유자 결정(2026-10-07).** 이 컴포넌트의 변형도 [Media Card](./media-card.md) 의
+변형도 아니다. Media Card 는 `<article>` 이고 상태가 없는 표시용인데 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖고, 기하도
+정사각 + 아래 정보 띠 대 320/403 + **위쪽** 이름으로 달랐다. 이 컴포넌트는 카드 줄의 «자리»(`__action` 슬롯)만 소유하고 칸 안은
+Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. Figma 변형은 아직 없다.
 
 ## States
 

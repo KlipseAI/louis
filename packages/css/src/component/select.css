@@ -83,8 +83,11 @@
  * inset 면 위의 8% 는 거의 움직이지 않는다. 제품 Gnb 가 같은 자리에서 같은 토큰을 읽고,
  * 그 파일 주석이 「LOUIS Button secondary 와 **같은 토큰**을 읽어, 메뉴 안팎의 같은 성격
  * 버튼이 같은 값으로 눌린다」고 적는다. */
-.louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])):hover {
-  background: var(--louis-color-accent-secondary-hover);
+@media (hover: hover) {
+  /* 호버는 `@media (hover: hover)` 안에 둔다(DS-D-0077) — 터치에서 누른 뒤 호버 색이 남지 않게. */
+  .louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    background: var(--louis-color-accent-secondary-hover);
+  }
 }
 
 /* 열려 있는 동안 hover 와 같은 면을 유지한다. 포인터가 패널로 넘어가면 트리거가 hover 를

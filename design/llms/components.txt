@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 59
+- Documents: 60
 - Purpose: 컴포넌트 사용·상태·접근성 계약
 
 ## Sources
@@ -22,6 +22,7 @@
 - design/components/text-field.md
 - design/components/drop-zone.md
 - design/components/empty-state.md
+- design/components/start-card.md
 - design/components/banner-carousel.md
 - design/components/badge.md
 - design/components/spinner.md
@@ -309,6 +310,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [Dialog / Confirm Modal](../components/dialog.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test. Figma component set 3 variant(Size). fullscreen은 표면이 뷰포트라 고정 폭 variant로 그릴 수 없어 제외했다. 제품에 공용 정본이 없다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(dialog · surface-geometry.browser.test.tsx). |
 | [Drop Zone](../components/drop-zone.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 10건이 두 motion context에서 각각 돈다(2026-09-26 신설). 제품에 공용 구현이 없다 — 하이라이트 두 화면이 highlightSceneStyles.ts uploadDropZone 지역 레시피를 쓰고, 그 면은 끌어다 놓기를 받지 않으며 :focus-visible 에서 outline 을 지워 포커스가 보이지 않는다. 기하(패딩 56/16 · 간격 12 · 반경 12 · 글리프 56 · 안내 16 · 보조 12)는 그 레시피를 옮겼고 끌어다 놓기는 이 컴포넌트가 더한다(포커스 링은 그리지 않는다 — DS-D-0074). 면은 LOUIS 눌림 면 역할(accent-secondary · -hover)이라 제품 면(palette-gray-100 · -150)과 값이 다르다. 제품이 아직 쓰지 않아 화면 보드의 두 업로드 면은 bespoke 로 판정된다. Figma component set 4 variant(State — Default · Hover · DragOver · Disabled, Focus 는 그리지 않는다 — DS-D-0074)가 섰고 parity 게이트가 Graphic · Prompt · Caption 을 자손으로 대조한다. DS-D-0035: 게시 없이 Figma done — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(drop-zone · drop-zone.browser.test.tsx). |
 | [Empty State](../components/empty-state.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 11건. Figma 는 `Layout` 축 3변형의 component set 이고 parity 게이트가 base·compact·canvas 세 칸을 전부 대조하며 Graphic·Title·Description·Action 을 자손으로 본다. 제품에 정의가 9벌 있고 하나는 도달 불가능한 죽은 분기다. 아홉 벌이 합의하는 것은 '자기 배경도 테두리도 반경도 갖지 않는다' 하나뿐인데 **그 합의는 집계 안에서만 참이다** — 집계 밖 두 정의(대시보드 AnalyticsStatePanel · 빈 캔버스 CanvasEmptyState)를 2026-09-06 에 compact · canvas 축으로 세웠다. 오류 상태는 다루지 않는다 — 제품은 둘을 합쳤지만 사용자가 취할 행동이 다르고, 제품의 tone="error" 분기는 클래스가 빈 문자열이라 배포본에서도 그려지지 않는다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(empty-state · empty-state.browser.test.tsx). |
+| [Start Card](../components/start-card.md) | `experimental` | `not-ready` | `not-ready` | `partial` | 빈 캔버스에서 첫 노드를 만드는 생성 카드(「이미지 생성」 · 「비디오 생성」) — 미디어가 면을 채우고 위쪽 점진 블러 띠 위에 이름이 얹히는 `<button>` 이고 호버에서 안의 미디어가 움직인다. 2026-10-07 제품 chore/landing-dead-walkthrough 의 CanvasEmptyState.tsx CARD · CARD_BLUR · CARD_LABEL(CanvasEmptyState.tsx@d564ed435:138)이 출처이고, 소유자가 Media Card 의 변형이 아니라 별도 부품으로 세우기로 결정했다 — Media Card 는 상태 없는 `<article>` 이고 정사각 + 아래 띠인데 이 카드는 눌리는 `<button>` 이고 320/403 + 위쪽 이름이다. LOUIS 는 상자(비율 · 반경 radius-overlay → 조상 600 이상 radius-card-lg · 면 color-media-stage-surface · 헤어라인 · 위쪽 블러 · 이름 · 슬롯의 호버 박자)를 소유하고 슬롯 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. 호버 규칙은 처음부터 @media (hover: hover) 안에 있다(DS-D-0077). CSS recipe .louis-start-card(packages/css/src/component/start-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거 · Figma 변형은 아직 없다. |
 | [FAQ Row](../components/faq-row.md) | `experimental` | `done` | `partial` | `done` | 랜딩·가격 두 페이지와 캔버스 가이드 모달이 쓰는 아코디언 행. **2026-09-09 에 LOUIS 레시피가 섰다** (packages/css/src/component/faq-row.css) — 그 전까지 계약과 Figma 는 서 있는데 생성 CSS 에 클래스가 0 이라 제품이 물 수가 없었다. 정본은 여전히 제품 두 벌이다: FAQ.tsx 가 `lg`, guide/FAQPanel.tsx 가 `md` 다. 닫힌 행이 통째로 버튼이고 열리면 질문 줄까지다(답변은 버튼 밖의 형제다. 좌우 20 · 위아래 18 · 사이 16, 닫힌 높이 66 = 18+30+18). **면을 gray-900 이나 bg-* 사다리로 두면 라이트에서 사라진다** — 그 단이 랜딩 페이지 바닥과 같아져 대비가 1:1 이 되므로 잉크 8% 오버레이(landing/panel-strong)를 쓰고, verify-recipe-record 의 surfaces 가 그 이름을 고정한다. 밑줄 2열 배치를 버리고 면으로 나눈 결과 행 면과 바닥의 대비가 1.2:1 뿐이고 헤어라인도 두르지 않는다 — 다른 랜딩 면과 갈리는 자리다. 그 1.2:1 은 랜딩 바닥 기준이고, 바닥을 고정하는 가격 페이지 다크에서는 1.01:1 이며 방향도 반대다. 전환이 둘로 갈려 있다: 높이·투명도 300ms cubic-bezier(0.4,0,0.2,1)(framer-motion) 과 + 글리프 회전 220ms(CSS) 인데 Figma 는 한 전환에 두 시간을 담을 수 없어 하나로 합칠 수밖에 없다 — 그 하나가 얼마인지는 되읽기가 프로토타입 전이를 채취하지 않아 대조되지 않는다. **높이 전개는 레시피가 그리지 않는다**: 정본이 framer-motion 으로 height auto 를 옮기고 grid-template-rows 0fr↔1fr 을 렉 때문에 버렸으므로, CSS 가 그 둘 중 하나를 고르는 대신 여닫이를 소비처에 남기고 글리프 회전만 가진다. **Expanded 는 figma-component-authoring.md §2 개정으로 조건 축(false·true) 명부에 올랐다** — + 글리프가 계속 보이는 채로 45° 돌고(시험 1) 여닫이에 전이를 걸어야 해서(시험 3) BOOLEAN 이 아니다. aria-controls 와 제목 요소가 없다. **reduced-motion 결손은 LOUIS 쪽에서 닫혔다** — 정본에 계약이 없지만 레시피가 회전에 prefers-reduced-motion 을 건다(높이 전개는 소비처의 것이라 소비처가 같은 판단을 해야 한다). 가격 페이지 스코프가 --gray-000 만 되돌리고 --gray-300 을 빼놓아 다크 테마에서 답변 대비가 1.29:1 로 떨어지는 미해결이 남아 있다. 2026-09-09 재판정: figma 를 done 으로 올린다 — DS-D-0035 (a)(b)(c) 를 만족한다. 되읽기에 FaqRow 가 등재됐고, verify-figma-parity 에 계약이 있고, 계약의 geometry 가 figma/components.measured.json 의 faq-row 를 가리키며 packages/react/test/faq-row.browser.test.tsx 가 코드 쪽을 네 칸 전부 되잰다(그 되재기가 없다는 것이 직전까지 partial 의 유일한 사유였다). web 은 partial 이다: CSS 레시피와 브라우저 시험은 섰지만 React 표면이 없고 제품 두 벌이 아직 자기 클래스로 그린다 — alert · section-header · stat-tile 과 같은 형태다. Figma 에 아직 없는 것 둘을 문서가 갖는다: md 가 글리프 문자를 + ↔ − 로 갈아 끼우는 것과 md 질문 버튼의 hover 다. |
 | [FormMessage](../components/form-message.md) | `experimental` | `partial` | `not-ready` | `partial` | 제품 전수 인벤토리에서 확인. 인증 폼 아래 한 줄 메시지(login/page.tsx:199,537) — caption-12-regular · padding-left 4. error/neutral 두 톤. LOUIS recipe 는 아직 없다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — 계약에 geometry 가 없어 Figma 치수가 코드 실측과 한 번도 만나지 않는다. |
 | [GNB Menu Item](../components/gnb-menu-item.md) | `experimental` | `partial` | `not-ready` | `done` | 랜딩 상단 내비게이션 가운데 메뉴의 항목 하나. 제품 구현(landing/navigation/Gnb.tsx 의 menuLinkClass)이 정본이고 앵커·라우트·드롭다운 트리거·「공개 예정」 넷이 같은 알약을 쓴다 — LOUIS recipe 는 없다. **상태를 면이 아니라 잉크 불투명도로 만든다**: 여덟 변형의 기하가 완전히 같고(되읽기의 기하 값이 전부 단일값이다 — base 키 자체는 채취 명세의 선언이라 증거가 아니다), 면·테두리·그림자가 전부 없다. **톤은 테마가 아니라 밑에 깔린 면이다** — 라이트 테마 안의 어두운 사진 밴드에서 뒤집히므로 시맨틱 램프가 아니라 고정 palette-gray-* 를 쓴다. **제품이 밝은 면 Default 를 0.50 → 0.65 로 올렸는데 Figma 는 아직 0.50 이다** — 0.50 은 랜딩 바닥과 AA 미달이었고 누를 수 있는 링크라 비활성 면제 대상이 아니다. 되읽기가 opacity 를 담지 않아 어떤 게이트도 이 어긋남을 잡지 못한다. **figma-component-authoring.md §2 개정이 두 축을 판정했다** — Surface 는 축 표에 열렸고(제품이 이 자리를 고정 팔레트로 받으므로 테마 모드로 접히지 않는다), State=Selected 는 접기 시험을 통과해 State 값으로 남는다. 남은 것은 Figma 재작업이다 — Surface 두 변형이 어느 색에 묶여 있는지 확인해야 한다. 포커스 링을 코드도 Figma 도 소유하지 않는다(SC 2.4.7 결손). 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었으나 gnb-menu-item 실측을 코드가 여전히 만드는지 되재는 브라우저 테스트가 없어 evidence 가 한 방향이다. LOUIS 레시피가 아직 없으므로 그 되재기는 코드가 서야 열린다. |
@@ -3836,12 +3838,10 @@ aspect 320/403 · 반경 `radius-overlay`(칸 600 이상 `radius-card-lg`) · �
 헤어라인(`hairline-inset`) · 위쪽 점진 블러 층(`progressive-blur` + `progressive-blur-mask-block-start`) ·
 이름 `media-foreground-dark`. 안은 스틸 격자 또는 영상 + 프레임 띠이고 호버에서 움직인다.
 
-**이 컴포넌트로도, [Media Card](../components/media-card.md) 변형으로도 세우지 않았다 — 판정 필요다**(소유자 몫). 근거는 이렇다. ① Media Card 는 `<article>` 이고 **상태가 없는 표시용**이며 LOUIS 레시피(`media-card.css`)도
-아직 없다 — 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖는다. ② Media Card 는 정사각 + 아래 정보 띠인데 이
-카드는 320/403 + **위쪽** 이름이라 기하가 다르다. ③ 안(스틸 흐름 · 영상 재생)은 제품 콘텐츠다. 재료만은 LOUIS
-소유이고 이미 있다 — 위쪽 점진 블러 마스크가 `base.css` 에 발행돼 있다. 판정이 필요한 것은 (a) Media Card 에
-`position` 축(`info-end` · `label-start`)을 여는지, (b) 별도 부품(`start-card`)으로 세우는지, (c) 제품에 두는지다.
-Figma 변형은 아직 없다.
+**별도 부품 [Start Card](../components/start-card.md) 로 세웠다 — 소유자 결정(2026-10-07).** 이 컴포넌트의 변형도 [Media Card](../components/media-card.md) 의
+변형도 아니다. Media Card 는 `<article>` 이고 상태가 없는 표시용인데 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖고, 기하도
+정사각 + 아래 정보 띠 대 320/403 + **위쪽** 이름으로 달랐다. 이 컴포넌트는 카드 줄의 «자리»(`__action` 슬롯)만 소유하고 칸 안은
+Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. Figma 변형은 아직 없다.
 
 #### States
 
@@ -3990,6 +3990,178 @@ Figma 변형은 아직 없다.
 10. `layout="canvas"`의 여백·간격·제목 크기·액션 추가 간격·정렬이 `sizes.canvas`와 같고,
     **배경도 테두리도 반경도 없다**(base와 같은 자리다).
 11. `compact`만 면을 갖는다 — 배경이 `color-bg-raised`, 테두리 색이 `color-stroke-default`다.
+
+## Start Card
+
+- Source: design/components/start-card.md
+- Maturity: experimental
+
+### Start Card
+
+빈 캔버스에서 **첫 노드를 만드는 생성 카드**(「이미지 생성」 · 「비디오 생성」)다. 미디어가 카드 면을 채우고,
+위쪽에 점진 블러 띠가 걸리고, 그 위에 이름 한 줄이 얹힌다. `<button>` 이고 호버에서 안의 미디어가 움직인다.
+
+**별도 부품으로 세웠다 — 소유자 결정(2026-10-07).** [Media Card](../components/media-card.md) 의 변형으로 접지 않았다.
+근거는 셋이다. ① Media Card 는 `<article>` 이고 **상태가 없는 표시용**인데 이 카드는 `<button>` 이고 호버 ·
+키보드 상태를 갖는다. ② Media Card 는 정사각 + **아래** 정보 띠인데 이 카드는 320/403 + **위쪽** 이름이라 기하가
+다르다. ③ 변형 축이 하나도 겹치지 않아 `position` 축을 열면 한 컴포넌트가 두 가지 다른 역할을 prop 으로 숨긴다.
+재료만 공유한다 — `base.css` 의 `--louis-progressive-blur` · `--louis-progressive-blur-mask-block-start`.
+
+**LOUIS 는 상자를 소유하고 안은 제품 콘텐츠다.** 비율 · 반경 · 면 · 헤어라인 · 위쪽 블러 띠 · 이름 자리 · 슬롯의
+호버 박자는 이 레시피가 갖는다. 슬롯 안의 미디어 — 스틸 격자의 흐름, 영상 재생, 프레임 띠와 진행선 — 는 제품이
+칠하고 움직인다. 이 문서는 그 안을 규정하지 않는다.
+
+출처는 2026-10-07 제품 `chore/landing-dead-walkthrough` 의 `CanvasEmptyState.tsx` 다(`CARD`
+`CanvasEmptyState.tsx@d564ed435:138` · `CARD_BLUR` `CanvasEmptyState.tsx@d564ed435:188` · `CARD_LABEL`
+`CanvasEmptyState.tsx@d564ed435:198`, 도입 커밋 `a31f808c5`). 작업 브랜치 좌표라 `<파일>@<커밋>:<줄>` 형식으로만 적는다.
+
+#### Availability
+
+| Surface | 상태 | 근거 |
+| --- | --- | --- |
+| Web | `not-ready` | CSS recipe 만 있다(`packages/css/src/component/start-card.css` — `.louis-start-card`). React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
+| Figma | `not-ready` | **Figma 변형은 아직 없다.** component set 도 되읽기 계약도 없다 |
+| Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
+| Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
+
+#### When to use
+
+- **빈 캔버스에서 첫 노드를 만드는 큰 카드 한두 장.** 카드 하나가 노드 종류 하나를 뜻하고, 누르면 그 종류의 노드를
+  추가한다. 안의 미디어가 «이 종류가 무엇을 만드는지»를 보여 준다.
+- 쓰지 않는 자리:
+  - **상태 없는 미디어 표시** — 눌리지 않는 사진 카드는 [Media Card](../components/media-card.md) 다.
+  - **프로젝트 목록의 카드** — [Project Card](../components/project-card.md) 다.
+  - **선택지를 고르는 카드** — [Choice Card](../components/choice-card.md) 다. 이 카드는 선택 상태가 없다.
+
+#### Anatomy
+
+1. **Card** — `<button type="button" class="louis-start-card">`. 면 · 헤어라인 · 반경을 갖는다.
+2. **Media** — `<span class="louis-start-card__media" aria-hidden="true">`. 카드를 채우는 슬롯. 안은 제품 콘텐츠다.
+3. **Blur** — `<span class="louis-start-card__blur" aria-hidden="true">`. 위쪽 점진 블러 띠. 내용이 없다.
+4. **Label** — `<span class="louis-start-card__label">`. 이름 한 줄. 카드의 접근성 이름이다.
+
+**마크업은 이 순서다.** 숫자 z-index 를 쓰지 않으므로 칠하는 순서가 트리 순서다 — 미디어 → 블러 → 이름. 헤어라인은 `::after`
+가 맨 위에서 칠한다(미디어가 카드 `box-shadow` 를 덮기 때문이다).
+
+#### Properties
+
+prop 이 없다. 클래스 넷, 데이터 속성 하나, 공개 사용자 정의 속성 둘이다.
+
+| 이름 | 종류 | 기본 | 뜻 |
+| --- | --- | --- | --- |
+| `.louis-start-card` | 클래스 | — | 카드 상자 |
+| `.louis-start-card__media` · `__blur` · `__label` | 클래스 | — | 슬롯 · 블러 띠 · 이름 |
+| `data-media-motion="zoom"` | 속성(`__media`) | 없음 | 호버에서 슬롯이 `scale(1.04)` 로 확대된다(제품 영상). 없으면 슬롯은 움직이지 않는다 |
+| `--louis-start-card-drift-duration` | 공개 사용자 정의 속성 | `1600ms` | 호버 이동의 시간. 슬롯 안의 콘텐츠가 자기 움직임에 읽는다. reduced-motion 에서 `motion-reduced` 로 바뀐다 |
+| `--louis-start-card-drift-easing` | 공개 사용자 정의 속성 | `motion-overlay-enter` 의 timing function | 호버 이동의 곡선(제품: 앱 표준 패널 곡선) |
+
+#### States
+
+| 상태 | 표현 |
+| --- | --- |
+| 쉼 | 면 + 미디어의 쉬는 장면 + 위쪽 블러 + 이름 |
+| 호버 | `@media (hover: hover)` 안에서만. 슬롯 안의 콘텐츠가 움직인다(`data-media-motion="zoom"` 이면 슬롯이 확대된다). 카드 면 · 이름은 바뀌지 않는다 |
+| 포커스 | **평상 렌더링에서 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md) — 포커스 표현은 `base.css` 의 한 규칙이 소유한다). forced-colors 에서만 `Highlight` 링 |
+| 눌림 · 비활성 | 정의하지 않는다 — 제품에 없다 |
+| reduced-motion | 호버 전환이 `motion-reduced`(0ms)다 — 호버에서 그 자리로 바로 간다. 영상 재생은 제품이 막는다 |
+| forced-colors | 면 `Canvas` · 글자 `CanvasText` · 헤어라인은 시스템 색 실선 테두리 |
+
+#### Interaction and responsive behavior
+
+- **호버 가드.** 모든 호버 규칙은 `@media (hover: hover)` 안에 있다([DS-D-0077](../governance/decisions/DS-D-0077-hover-only-on-hover-devices.md)). 호버가 없는 기기(터치)에서는
+  쉬는 장면 그대로다. 슬롯 안의 제품 콘텐츠가 호버 움직임을 달 때도 **자기 규칙을 같은 가드 안에 둔다.**
+- **반경이 조상 폭을 따라간다.** 기본은 `radius-overlay`(16)이고 **조상 컨테이너가 600px 이상이면** `radius-card-lg`(20)다. 제품의
+  `@min-[600px]:rounded-card-lg` 는 이름 없는 컨테이너 질의이고 자기 자신은 자기 컨테이너가 아니라서 가장 가까운 조상
+  (빈 캔버스의 띠 상자)을 잰다. 카드의 폭이 아니다.
+- **카드는 자기 폭의 컨테이너다**(`inline-size`). 블러 띠 높이와 이름 크기가 카드 폭에서 잰다 — 폭은 칸이 정한다.
+- 폭이 정해진 칸 안에서 `inline-size: 100%` 로 채우고 높이는 비율(320/403)이 정한다.
+
+#### Content
+
+- 이름은 짧은 명사구 한 줄 — 「이미지 생성」 · 「비디오 생성」. 말줄임 처리를 하지 않는다 — 호출부가 칸 폭 안에 들어가는 문구를 낸다.
+- 슬롯 안 미디어는 **장식**이다(`aria-hidden="true"`). 이름이 카드의 정체를 이미 말한다.
+
+#### Accessibility
+
+- 카드는 `<button type="button">` 이다. 접근성 이름은 이름 한 줄(`__label`)이다.
+- 미디어 · 블러 띠는 `aria-hidden="true"` 이고 포인터를 받지 않는 장식이다.
+- **이름의 대비는 측정하지 않았다.** 이름은 `media-foreground-dark`(#fafafa)를 위쪽 점진 블러 위에 놓고 바탕은 미디어다. 미디어마다
+  다르므로 SC 1.4.3 을 이 레시피만으로 판정할 수 없다 — 결손으로 적어 둔다(Media Card 의 대비와 같은 사정). 블러가 편차를 줄이는
+  장치다.
+- **호버로만 드러나는 정보가 없다.** 호버는 미디어를 움직일 뿐이고 이름 · 역할은 쉴 때도 다 있다. 터치에서도 같은 정보가 보인다.
+- 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). forced-colors 에서만 `Highlight` 링이 선다.
+- reduced-motion 에서 호버 전환이 사라진다. 영상은 제품이 재생하지 않는다.
+
+#### Specification
+
+| 항목 | 값 | 토큰 · 근거 |
+| --- | --- | --- |
+| 비율 | 320 / 403 | 제품 값. 토큰 없음 |
+| 폭 | 100% | 칸이 정한다 |
+| 반경 | 16, 조상 컨테이너 600 이상에서 20 | `radius-overlay` · `radius-card-lg` |
+| 면 | static black | `color-media-stage-surface`. 제품은 `palette-gray-950`(#0d1118)이었다 — Known deviations 1 |
+| 헤어라인 | inset | `hairline-inset`, `::after`(미디어 위) |
+| 블러 띠 | 위 가장자리 · 높이 카드 폭의 26% · 흐림 `blur-surface`(10) · 마스크 위→아래로 걷힘 | `--louis-progressive-blur` · `--louis-progressive-blur-mask-block-start`. 띠에 바탕색 · 틴트 · 베일을 깔지 않는다 |
+| 이름 위치 | 왼쪽 위 | |
+| 이름 여백 | 카드 폭 240 이상 18 · 미만 14 | 제품 리터럴(`p-9` · `p-7`, 격자 2px). 토큰 계단 최대 `space-control-lg`(16) 에 없다 |
+| 이름 글자 | 240 이상 body-md-semibold(16) · 미만 body-sm-semibold(14) | `typography/body-md-semibold` · `typography/body-sm-semibold` |
+| 이름 색 | `media-foreground-dark` | 테마를 따르지 않는다 |
+| 호버 이동 | 1600ms · 앱 표준 패널 곡선 | 시간은 motion 토큰에 없는 제품 리터럴, 곡선은 `motion-overlay-enter` |
+| 영상 확대 | `scale(1.04)` | 제품 `VIDEO_MEDIA`, `CanvasEmptyState.tsx@d564ed435:170` |
+
+#### Implementation
+
+- Web source: `packages/css/src/component/start-card.css` — `.louis-start-card` · `__media` · `__blur` · `__label`. React 표면 없음.
+- Public import: 없음. 소비처가 클래스를 직접 쓴다.
+- Figma component: 없다. **Figma 변형은 아직 없다.**
+- 제품 정본: `CanvasEmptyState.tsx@d564ed435:138`(`CARD`) · `CanvasEmptyState.tsx@d564ed435:188`(`CARD_BLUR`) ·
+  `CanvasEmptyState.tsx@d564ed435:198`(`CARD_LABEL`) · `CanvasEmptyState.tsx@d564ed435:255`(`StartCard` — 영상 재생을
+  마우스 포인터에서만 시작하고 떠나면 첫 장면으로 되돌리는 것은 제품 코드다).
+- Tests/visual evidence: **없다.** 아래 Acceptance tests 는 선 뒤에 붙일 목록이다.
+
+**슬롯 안은 제품 콘텐츠다.** 이미지 카드의 기울어진 세 줄 스틸 격자, 비디오 카드의 장면 · 프레임 띠 · 진행선과 그 흐름은 LOUIS 가
+소유하지 않는다. 소유자가 운영 DB 의 큐레이션 생성물로 정한 소재(스틸 아홉 장 · 4초 클립)도 제품 몫이다. 레시피는 그것이 놓일
+슬롯과 호버 박자(`--louis-start-card-drift-*`)만 낸다.
+
+#### Known deviations
+
+1. **면이 제품의 `palette-gray-950` 이 아니라 `color-media-stage-surface`(검정)다.** 소유자 결정(2026-10-07)으로 토큰이 생겨 그것을
+   쓴다. 제품은 `#0d1118`(청회색을 띤 검정)이었고 이 면은 미디어가 올라오기 전, 또는 미디어가 비는 틈에만 보인다. 값 차이는 육안으로
+   작다.
+2. **`color-media-foreground-dark-soft`(72%)를 쓰지 않았다.** 이 카드의 글자는 이름 하나이고 그것은 불투명한 `media-foreground-dark`
+   다. 보조 글자가 생기면 그 토큰을 쓴다.
+3. **호버 이동 시간 1600ms 가 motion 토큰에 없다.** 제품 리터럴을 공개 사용자 정의 속성 하나로 격리했다. 곡선은 토큰이다.
+4. **이름 여백 14 · 18 이 토큰 계단에 없다.** 제품 격자(`p-7` · `p-9`)의 값을 리터럴로 옮겼다.
+5. **슬롯 안 콘텐츠의 호버 움직임은 레시피 밖이다.** 확대(`data-media-motion="zoom"`)만 레시피가 갖고, 이미지 카드의 줄마다 엇갈려 흐르는
+   이동과 영상 띠 · 진행선은 제품 CSS 가 `.louis-start-card:hover` 를 읽어 단다.
+6. **Figma 변형은 아직 없다.**
+
+#### Acceptance tests
+
+아직 없다. 서면 다음을 되잰다.
+
+1. 카드가 320/403 비율이고 폭을 채운다. 조상 컨테이너 600 미만에서 반경 16, 이상에서 20 이다.
+2. 면이 두 테마에서 같은 검정이다(`color-media-stage-surface`).
+3. 블러 띠가 위 가장자리에 붙고 높이가 카드 폭의 26% 이며 아래로 걷힌다. 바탕색 · 틴트가 없다.
+4. 이름이 왼쪽 위에 서고 카드 폭 240 기준으로 여백 · 글자 크기가 갈린다. 블러가 이름 글자를 흐리지 않는다(iOS 포함).
+5. 헤어라인이 미디어 **위**에 그려진다.
+6. **호버 규칙이 전부 `@media (hover: hover)` 안에 있다** — 호버가 없는 기기에서 `data-media-motion="zoom"` 슬롯이 확대되지 않는다.
+7. `data-media-motion="zoom"` 슬롯이 호버에서 1.04 로 확대된다. reduced-motion 에서 전환 시간이 0 이다.
+8. forced-colors 에서 헤어라인이 테두리로 서고 포커스 시 `Highlight` 링이 선다. 평상 렌더링에는 포커스 링이 없다.
+9. 키보드 Enter · Space 로 눌린다. 접근성 이름이 이름 한 줄이다.
+10. 자동 접근성 검사에 위반이 없다.
+
+#### Migration and changelog
+
+새로 선 컴포넌트다. 이전 LOUIS API 가 없다. 제품의 `CanvasEmptyState.tsx` `CARD` · `CARD_BLUR` · `CARD_LABEL` 임의값 유틸리티는 이 클래스를
+무는 날 정리 대상이 된다. 사용자 영향 변경은 [Updates](../updates/README.md) 에 적는다.
+
+#### 다음
+
+- [x] LOUIS CSS recipe 작성 (2026-10-07)
+- [ ] 실브라우저 acceptance test
+- [ ] 제품을 그 recipe 로 이관(`CanvasEmptyState.tsx` 의 카드 둘)
+- [ ] Figma component set
 
 ## Banner Carousel
 
@@ -5246,8 +5418,8 @@ master-detail의 좌측 열에서 하나를 고른다.
 둘 셋을 크게 늘어놓아 **링으로 테두리를 짚는** 쪽이 자연스럽고, 행은 일곱 줄을 촘촘히 쌓아 **어느 줄이 켜졌는지 면의 명암으로
 읽히는** 쪽이 자연스럽다.
 
-**두 표현을 하나로 합칠지는 소유자 판정이다**(아래 「판정 필요」). 둘 다 구현했으므로 소유자가 하나를 고르면 다른 쪽 블록과
-이 절만 지운다.
+**두 표현을 둘 다 둔다 — 소유자 결정(2026-10-07).** 카드형은 링, 행형은 뒤집기로 변형마다 다르게 두고 하나로 합치지
+않는다.
 
 #### Availability
 
@@ -5433,10 +5605,9 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 #### 판정 필요
 
-1. **고른 면의 표현을 하나로 합칠 것인가.** 카드형(밝은 올린 면 + 2px 주색 링)과 행형(검은 면 뒤집기)은 같은 일을 서로 다른
-   시각 언어로 한다. 한 제품 안에서 둘이 공존하면 「선택됨」이 화면마다 다르게 보인다. 선택지: ① 둘 다 둔다(지금) — 쓰임
-   (크게 · 촘촘하게)이 다르다는 입장, ② 링으로 통일 — 행형도 링, ③ 뒤집기로 통일 — 카드형도 `accent-inverse`. 레시피는 ①로
-   섰고 ②③은 한쪽 블록을 지우면 된다.
+1. ~~고른 면의 표현을 하나로 합칠 것인가.~~ **닫았다 — 소유자 결정(2026-10-07): 카드형은 링, 행형은 뒤집기로 변형마다
+   다르게 둔다.** 카드형(밝은 올린 면 + 2px 주색 링)과 행형(검은 면 뒤집기)은 쓰임(크게 · 촘촘하게)이 달라 각자의 시각 언어를
+   갖는다. 통일하지 않으므로 어느 쪽 블록도 지우지 않는다.
 2. **카드 안쪽 여백 32 · 28 이 의도인가.** 제품 간격 격자 2px 로 계산한 값이다. 토큰 계단(`space-control-lg` 16 이 최대)보다
    크다. 의도라면 토큰을 새로 낼지, 리터럴로 둘지(지금) 정한다.
 3. 쉬는 면을 `accent-secondary` 로 닫은 것(앰배서더 쪽이 한 단계 진해짐)이 맞는가. 제품 `--panel` 은 `landing-panel` 이라는
@@ -5476,7 +5647,7 @@ React 표면이 없어 속성은 마크업 속성이다.
 #### 다음
 
 - [x] LOUIS CSS recipe 작성 (2026-10-07)
-- [ ] 소유자 판정 — 「판정 필요」 1 ~ 3
+- [ ] 소유자 판정 — 「판정 필요」 2 ~ 3 (1 은 2026-10-07 에 닫았다)
 - [ ] React 표면(`ChoiceGroup` · `ChoiceCard`) — 로빙 tabindex 와 `aria-checked` 를 컴포넌트가 소유할지 판정한다
 - [ ] 실브라우저 acceptance test
 - [ ] 제품을 그 recipe 로 이관(앰배서더 `Choice` · 온보딩 `OPTION`)
@@ -11451,10 +11622,9 @@ image 하이라이트에서 갈렸다. 제품 `V2_EDGE_TONE` 의 주석이 그 �
 **색이 테마를 따르지 않는다.** 사진 위에 놓이는 전경은 두 테마에서 같아야 읽힌다. 그래서
 `media-foreground-dark` 와 `static-white-alpha/*` 를 쓰고 `gray-*` 램프를 쓰지 않는다.
 
-**빈 캔버스의 시작 카드는 이 카드가 아니다(2026-10-07, 판정 필요).** 제품 빈 캔버스의 생성 카드는 위쪽
-점진 블러 + 위쪽 이름 + `<button>` 이라 정사각 · 아래 띠 · 상태 없는 `<article>` 인 이 카드와 기하와 역할이
-다르다. 재료(점진 블러 마스크 `progressive-blur-mask-block-start`)는 공유하지만 변형으로 흡수할지 별도 부품으로
-둘지는 [Empty State](../components/empty-state.md#시작-카드)에 기록했고 소유자가 판정한다.
+**빈 캔버스의 시작 카드는 이 카드가 아니다 — 별도 부품 [Start Card](../components/start-card.md) 로 세웠다(소유자 결정 2026-10-07).** 제품 빈 캔버스의
+생성 카드는 위쪽 점진 블러 + 위쪽 이름 + `<button>` 이라 정사각 · 아래 띠 · 상태 없는 `<article>` 인 이 카드와 기하와 역할이 다르다.
+재료(점진 블러 마스크 `progressive-blur-mask-block-start`)만 공유하고 변형 축은 열지 않았다.
 
 #### Availability
 
@@ -13432,7 +13602,7 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 
 | 상태 | 글자 | 배경 |
 | --- | --- | --- |
-| 흐름 | `transparent` | 9정지점 그라디언트를 글자 모양으로 자른다. `-100%` 를 `1.6s` 등속으로 민다 |
+| 흐름 | `transparent` | 9정지점 그라디언트를 글자 모양으로 자른다. `-100%` 를 `2.2s` 등속으로 민다 |
 | `prefers-reduced-motion: reduce` | 잉크 88% 하나 | 그라디언트가 없다. **글자가 읽힌다** |
 | `forced-colors: active` | `CanvasText` | 없다 |
 
@@ -13517,7 +13687,7 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 | 그라디언트 | 90deg · 9정지점 · 20 · 28 · **88** · 32 · 20 · 28 · **88** · 32 · 20 % (0 · 12 · 24 · 36 · 50 · 62 · 74 · 86 · 100%) | 제품 값. 36% 정지점은 작업 브랜치가 34 에서 32 로 옮겼다 |
 | 배경 크기 · 시작 위치 | `200% 100%` · `0% 50%` | 제품 값 |
 | 흐름 | keyframe `louis-loading-word-sweep` · `0% 50%` → `-100% 50%` · 한 칸 이동 | `louis-shimmer` 와 다른 순환이다(아래) |
-| 주기 | `motion-shimmer` 1600ms | 같은 화면의 Skeleton 과 같은 속도 — Known deviations 1 |
+| 주기 | `motion-loading-word` 2200ms · `linear` | 제품 값. 글자 쉬머 전용 loop 토큰이다 — Known deviations 1 |
 | easing | `linear` | 한 칸마다 이어 붙는 순환이라 가감속이 맥박이 된다. 제품 아홉 곳이 전부 등속 |
 | reduced-motion | 그라디언트 없음 · 잉크 88% 단색 · duration `motion-reduced` · 반복 1회 | 글자가 읽혀야 한다 |
 | forced-colors | `CanvasText` · 그라디언트 없음 | 투명 글자가 사라지는 것을 막는다 |
@@ -13525,9 +13695,8 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 **keyframe 은 `louis-shimmer` 를 쓰지 못한다.** 그쪽은 `200%` → `-200%` 로 네 칸을 밀어 면 자리표시의
 하이라이트 하나를 건너보내는 한 번짜리 쓸림이다. 여기는 파형이 되풀이되는 그라디언트를 한 칸(`-100%`)
 밀어 시작 모양으로 돌아오게 하는 순환이다. 같은 keyframe 을 쓰면 한 주기에 네 칸이 지나가 속도가
-네 배가 된다. 같은 **기법**(`background-position`)이고 같은 **motion 토큰**(`motion-shimmer` — 그
-property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md))을
-쓰되 keyframe 만 하나 더 둔다.
+네 배가 된다. 같은 **기법**(`background-position`)이고 motion 토큰은 글자 쉬머 전용 `motion-loading-word`(`background-position` 한 property 의 loop 로 선언했다,
+[DS-D-0017](../governance/decisions/DS-D-0017-keyframe-contract.md))를 쓰고 keyframe 도 하나 더 둔다.
 
 **「더 불러오기」 시머와 합쳐진다.** 제품의 목록 하단 「더 불러오기」 문구는 라이트에서
 `--palette-gray-900-rgb`, 다크에서 `--palette-gray-000-rgb` 로 갈아 끼우는 별도 구현이었다. `fg-primary`
@@ -13545,12 +13714,12 @@ property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-key
 
 #### Known deviations
 
-1. **주기가 제품과 다르다 — 2.2s 가 아니라 1.6s 다.** 제품의 시머 글자 아홉 곳은 `2.2s linear` 이고
-   [Loading](../patterns/loading.md) 이 「하나를 골라야 한다」고 남겨 둔 값이다. 이 레시피는 **`motion-shimmer`
-   를 가져다 쓰는 쪽을 골랐다** — 같은 화면에서 Skeleton 과 글자가 다른 속도로 돌지 않게 하려는 것이고
-   gate(DS-D-0017)가 keyframe 을 motion 토큰에 묶으라 요구한다. easing 은 `motion-shimmer` 의
-   `easing-standard` 가 아니라 `linear` 다. **소유자 판정이 필요하다** — 제품 값 2.2s 로 되돌리려면
-   `motion-shimmer` 와 별개의 loop 토큰이 필요하다.
+1. **주기는 제품 값 2.2s 다 — 소유자 결정(2026-10-07).** 제품의 시머 글자 아홉 곳은 `2.2s linear` 이고
+   [Loading](../patterns/loading.md) 이 「하나를 골라야 한다」고 남겨 둔 값이었다. 소유자가 제품 2.2s 를
+   정본으로 정했다. 면 자리표시의 `motion-shimmer`(1.6s)에 얹지 않고 **글자 쉬머 전용 loop 토큰
+   `motion-loading-word`(2200ms · `linear` · `background-position`)를 새로 열었다** — gate(DS-D-0017)가 요구하는
+   keyframe 과 motion 토큰의 묶음은 그대로 지킨다. 같은 화면에서 Skeleton(1.6s)과 글자(2.2s)가 다른 속도로 도는 것은
+   의도다.
 2. **`LoadingWord` 에 제품이 갖는 `will-change: background-position` 을 옮기지 않았다.** `background-position`
    은 합성 레이어로 올라가는 property 가 아니라 힌트가 효과를 내지 못한다.
 3. **reduced-motion 에서 제품과 다르다.** 제품은 애니메이션만 끄고 그라디언트를 0프레임에 세워 글자가
@@ -13575,7 +13744,7 @@ property 선언 안에 있다, [DS-D-0017](../governance/decisions/DS-D-0017-key
 1. 글자가 `transparent` 이고 `background-clip: text` 가 선다(접두 속성 포함).
 2. 그라디언트가 9정지점이고 알파가 20 · 28 · 88 · 32 로 대칭이며 **한 색의 변주**다.
 3. **light · dark 두 테마 모두에서** 잉크가 배경과 다르다(`fg-primary` 가 뒤집힌다).
-4. 흐름이 `louis-loading-word-sweep` 이고 `motion-shimmer` 토큰을 쓰며 `background-position` 만
+4. 흐름이 `louis-loading-word-sweep` 이고 `motion-loading-word` 토큰(2200ms)을 쓰며 `background-position` 만
    움직인다. easing 이 `linear` 다.
 5. **시작과 끝의 모양이 같다** — `0% 50%` 와 `-100% 50%` 에서 같은 렌더(이음새가 없다).
 6. reduced-motion 에서 그라디언트가 없고 글자 색이 불투명하며 반복이 1회다.

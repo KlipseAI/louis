@@ -23,9 +23,18 @@ Web/Figma 표면을 소유한다. 정본 위치와 provenance 규칙은
 
 generated 셋은 직접 수정하지 않는다. 정본을 고치고 `pnpm build:icons`를 실행한다.
 
-**모든 글리프는 provenance를 갖는다.** `origin: "original"`이거나, upstream 프로젝트·아이콘 이름·
-라이선스·라이선스 파일·출처 URL·취득일·수정 내역을 전부 갖는다. 추정 출처와 `unknown`은 빌드 실패다.
-upstream 글리프를 채택하면 그 라이선스 원문이 저장소에 함께 들어오고 고지문이 패키지에 동봉된다.
+**모든 글리프는 provenance를 갖는다**([DS-D-0078](../governance/decisions/DS-D-0078-icon-provenance-per-set.md)).
+`provenance.json`은 `sets`(쓰이는 세트마다 `project` · `license` · `licenseFile` · `url` 한 번)와
+`glyphs`(글리프마다 `"세트:세트 안의 원래 이름"` 한 줄, 직접 그린 것은 `"original"`)로 이루어진다.
+
+```json
+"sets": { "phosphor": { "project": "Phosphor Icons", "license": "MIT", "licenseFile": "phosphor.txt", "url": "https://github.com/phosphor-icons/core" } },
+"glyphs": { "x-circle": "phosphor:x-circle", "nodes-linked": "original" }
+```
+
+글리프별 취득일 · 수정 내역 · 출처 URL은 적지 않는다 — 24 격자 · 선 1.5 · 배경 rect 제거는 아래 Geometry contract의
+전역 규칙이다. 추정 출처와 `unknown`은 빌드 실패다. upstream 글리프를 채택하면 그 세트의 라이선스 원문이 저장소에
+함께 들어오고 원문 전체가 고지문에 실려 패키지에 동봉된다.
 
 ## Geometry contract
 
@@ -151,7 +160,7 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 | 항목 | 상태 | 사유 |
 | --- | --- | --- |
 | 실루엣 정확성 | 게이트 없음 | 정규화·해시·이름·고지는 기계가 잡지만 "이 글리프가 의도한 그림인가"는 사람의 시각 review다 |
-| 출처 미확정 글리프 | 미채택 | provenance를 확인할 수 없는 글리프는 채택하지 않는다(DS-D-0008 결정 3). 재작도 또는 확인이 선행 조건이다 |
+| 출처 미확정 글리프 | 미채택 | provenance를 확인할 수 없는 글리프는 채택하지 않는다(DS-D-0008 결정 3, 항목 형식은 DS-D-0078). 재작도 또는 확인이 선행 조건이다 |
 
 ## Acceptance tests
 
@@ -164,4 +173,4 @@ breaking이므로**(DS-D-0006) 글리프 이름과 심볼은 이제 공개 계�
 7. 같은 아이콘 두 개를 한 문서에 렌더해도 id 충돌로 클리핑이 깨지지 않는다.
 8. 200% zoom에서 아이콘과 라벨의 정렬이 유지된다.
 9. 한 아이콘만 import한 production 번들에 다른 글리프의 path 데이터가 포함되지 않는다.
-10. `THIRD-PARTY-NOTICES.md`가 provenance의 모든 upstream 라이선스 원문을 포함한다.
+10. `THIRD-PARTY-NOTICES.md`가 provenance에서 쓰이는 모든 세트의 라이선스 원문 전체를 포함한다.

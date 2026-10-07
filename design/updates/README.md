@@ -25,6 +25,19 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (212) — 아이콘 출처를 세트 단위로(DS-D-0078)
+
+소유자가 글리프마다 일곱 칸을 적는 출처 기록(DS-D-0008 3항)이 무겁다고 했다. [DS-D-0078](../governance/decisions/DS-D-0078-icon-provenance-per-set.md)
+로 줄였다.
+
+- `provenance.json` 은 `sets`(Phosphor · Lucide · Iconoir — 프로젝트 · 라이선스 · 원문 파일 · 저장소 주소)와 `glyphs`(글리프마다 「세트:원래 이름」
+  한 줄, 직접 그린 것은 `"original"`)다. 받은 날 · 수정 내역 · 글리프별 주소는 없앴다 — 선 1.5 · 24 격자 정규화는 전역 규칙이고, 글리프별
+  설명은 git 이력에 남는다. 47개 모두 옮겼다(Phosphor 29 · Lucide 4 · Iconoir 3 · 직접 11).
+- **고지 의무는 그대로다.** 쓰인 세트마다 라이선스 원문 전체가 `THIRD-PARTY-NOTICES.md` 에 실린다. Lucide 는 Feather 파생 글리프(`text` ·
+  `question-circle`)가 있어 세트 라이선스를 `ISC AND MIT` 로 적었고, 원문에 MIT 고지가 함께 있다.
+- 아이콘 게이트의 변조 canary 를 새 형태로 맞췄다(22 → 25종 — 항목 삭제 · 알 수 없는 세트 · 형식 이탈 · 원문 누락 · 쓰이지 않는 세트 등).
+  manifest 는 `formatVersion` 2.
+
 ## 2026-10-07 (211) — Figma 구조 맞춤: Toast · 코치마크 닫기, 빈 캔버스 세 줄, 도움말 아이콘 `question-circle`
 
 - **Toast `Layout=callout`** 두 변형에 `Actions`(행동 단추 + 28 칸 `Close`, `icon/x` 14, 간격 `spacing/control-xs`)를 세웠다. 행동 단추 면이

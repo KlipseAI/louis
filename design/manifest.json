@@ -257,6 +257,15 @@
       "generated": false
     },
     {
+      "id": "decision-icon-provenance-per-set",
+      "path": "design/governance/decisions/DS-D-0078-icon-provenance-per-set.md",
+      "title": "DS-D-0078 아이콘 출처는 세트마다 한 번, 글리프마다 한 줄",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1801,6 +1810,7 @@
         "design/governance/decisions/DS-D-0075-text-field-invalid-ring.md",
         "design/governance/decisions/DS-D-0076-layer-follows-product-ladder.md",
         "design/governance/decisions/DS-D-0077-hover-only-on-hover-devices.md",
+        "design/governance/decisions/DS-D-0078-icon-provenance-per-set.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

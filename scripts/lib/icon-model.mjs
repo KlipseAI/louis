@@ -313,18 +313,12 @@ function normalizeColors(element, name, issues) {
   }
 }
 
-// upstream 레코드가 반드시 갖는 필드. `modifications`가 여기 있는 이유는 규범이
-// "정규화와 개명 외의 수정은 modifications에 적는다"를 요구하기 때문이다 — 요구만 하고
-// 검사하지 않으면 그 문장은 규범이 아니라 권고다.
-export const REQUIRED_UPSTREAM_FIELDS = [
-  "project",
-  "icon",
-  "license",
-  "licenseFile",
-  "sourceUrl",
-  "retrievedAt",
-  "modifications",
-];
+// 세트 정의가 반드시 갖는 필드 (DS-D-0078). 글리프마다 적던 취득일 · 수정 내역 · 글리프별 URL 은
+// 없앴다 — 좌표 정규화는 전역 규칙이고, 세트 URL 하나가 출처를 가리킨다.
+export const REQUIRED_SET_FIELDS = ["project", "license", "licenseFile", "url"];
+
+// 글리프 항목의 모양: "세트:세트 안의 원래 파일 이름" 또는 직접 그린 "original".
+const GLYPH_SOURCE_PATTERN = /^([a-z][a-z0-9]*(?:-[a-z0-9]+)*):([a-z0-9]+(?:-[a-z0-9]+)*)$/;
 
 // 추정을 사실로 승격시키는 상투어. 대소문자를 가리지 않는다.
 const PLACEHOLDER_VALUES = new Set([
@@ -344,35 +338,25 @@ const PLACEHOLDER_VALUES = new Set([
  * 라이선스 블록의 경계를 호출부가 마음대로 바꿀 수 있고, 그러면 "원문 그대로 동봉한다"는
  * 보증이 값 하나로 무너진다.
  */
-function validateNoticeSafe(name, field, value, issues) {
+function validateNoticeSafe(label, field, value, issues) {
   if (/[\n\r]/.test(value)) {
-    issues.push(`${name}: provenance.${field}에 개행이 있습니다. 고지문 구조를 위조할 수 있습니다.`);
+    issues.push(`${label}: provenance.${field}에 개행이 있습니다. 고지문 구조를 위조할 수 있습니다.`);
   }
   if (value.includes("```")) {
-    issues.push(`${name}: provenance.${field}에 코드펜스가 있습니다. 고지문의 라이선스 블록 경계를 깹니다.`);
+    issues.push(`${label}: provenance.${field}에 코드펜스가 있습니다. 고지문의 라이선스 블록 경계를 깹니다.`);
   }
 }
 
-function validateProvenance(name, record, licenseFiles, issues) {
-  if (record === undefined || record === null) {
-    issues.push(
-      `${name}: provenance가 선언되지 않았습니다 (${ICON_PROVENANCE_PATH}).`,
-    );
+function validateSet(setName, record, licenseFiles, issues) {
+  const label = `세트 ${setName}`;
+  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(setName)) {
+    issues.push(`${label}: 세트 이름은 kebab-case여야 합니다.`);
+  }
+  if (record === null || typeof record !== "object" || Array.isArray(record)) {
+    issues.push(`${label}: 세트 정의가 객체가 아닙니다.`);
     return;
   }
-  if (typeof record !== "object" || Array.isArray(record)) {
-    issues.push(`${name}: provenance 항목이 객체가 아닙니다.`);
-    return;
-  }
-  if (record.origin === "original") return;
-  if (record.origin !== "upstream") {
-    issues.push(
-      `${name}: provenance.origin은 "original" 또는 "upstream"이어야 합니다: ` +
-        `${JSON.stringify(record.origin)}`,
-    );
-    return;
-  }
-  for (const field of REQUIRED_UPSTREAM_FIELDS) {
+  for (const field of REQUIRED_SET_FIELDS) {
     const value = record[field];
     if (
       typeof value !== "string" ||
@@ -380,36 +364,66 @@ function validateProvenance(name, record, licenseFiles, issues) {
       PLACEHOLDER_VALUES.has(value.trim().toLowerCase())
     ) {
       issues.push(
-        `${name}: provenance가 불완전합니다 (${field}). ` +
+        `${label}: 세트 정의가 불완전합니다 (${field}). ` +
           `추정 출처와 "unknown"은 허용되지 않습니다.`,
       );
       continue;
     }
-    validateNoticeSafe(name, field, value, issues);
+    validateNoticeSafe(label, field, value, issues);
   }
-  if (typeof record.sourceUrl === "string") {
+  if (typeof record.url === "string") {
     // 접두사만 보면 "https://" 한 줄이 통과한다. 실제로 열어볼 수 있는 주소인지까지 본다.
     let parsed = null;
     try {
-      parsed = new URL(record.sourceUrl);
+      parsed = new URL(record.url);
     } catch {
       parsed = null;
     }
     if (parsed === null || parsed.protocol !== "https:" || parsed.hostname.length === 0) {
-      issues.push(
-        `${name}: provenance.sourceUrl이 https URL이 아닙니다: ${record.sourceUrl}`,
-      );
+      issues.push(`${label}: provenance.url이 https URL이 아닙니다: ${record.url}`);
     }
   }
   if (
     typeof record.licenseFile === "string" &&
+    record.licenseFile.trim().length > 0 &&
     !licenseFiles.has(record.licenseFile)
   ) {
     issues.push(
-      `${name}: 라이선스 원문이 없습니다: ${ICON_LICENSE_DIRECTORY}/${record.licenseFile}. ` +
+      `${label}: 라이선스 원문이 없습니다: ${ICON_LICENSE_DIRECTORY}/${record.licenseFile}. ` +
         `upstream 글리프는 고지문 없이 배포할 수 없습니다 (DS-D-0008 결정 4).`,
     );
   }
+}
+
+/**
+ * 글리프 항목 하나를 읽는다. 돌려주는 값이 manifest 로 투영되는 모양이다.
+ * `null`이면 이미 진단을 냈다.
+ */
+function validateGlyphSource(name, value, sets, issues) {
+  if (value === undefined || value === null) {
+    issues.push(
+      `${name}: provenance가 선언되지 않았습니다 (${ICON_PROVENANCE_PATH}).`,
+    );
+    return null;
+  }
+  if (value === "original") return { origin: "original" };
+  const match = typeof value === "string" ? GLYPH_SOURCE_PATTERN.exec(value) : null;
+  if (match === null) {
+    issues.push(
+      `${name}: provenance 형식이 "세트:원래 이름" 또는 "original"이 아닙니다: ` +
+        `${JSON.stringify(value)}`,
+    );
+    return null;
+  }
+  const [, setName, icon] = match;
+  if (!Object.hasOwn(sets, setName)) {
+    issues.push(
+      `${name}: 알 수 없는 세트 "${setName}"입니다. sets에 먼저 선언하십시오 ` +
+        `(선언된 세트: ${Object.keys(sets).sort(byCodePoint).join(", ") || "없음"}).`,
+    );
+    return null;
+  }
+  return { origin: "upstream", set: setName, icon };
 }
 
 /**
@@ -421,10 +435,24 @@ export function compileIconSource(files, provenance, licenses, keywords = {}) {
   const issues = [];
   const glyphs = [];
   const licenseFiles = new Set(licenses.keys());
-  // `$`로 시작하는 키는 문서용 주석이다. 글리프로 취급하지 않는다.
-  const declaredNames = Object.keys(provenance).filter(
-    (key) => !key.startsWith("$"),
-  );
+
+  // 최상위는 $comment · sets · glyphs 셋뿐이다. `$`로 시작하는 키는 문서용 주석이다. 옛 형태(글리프
+  // 이름을 최상위에 두는 것)가 남으면 "선언되지 않음"으로 흩어지지 않고 여기서 먼저 말한다.
+  for (const key of Object.keys(provenance)) {
+    if (!key.startsWith("$") && key !== "sets" && key !== "glyphs") {
+      issues.push(`provenance 최상위에 알 수 없는 키 "${key}"가 있습니다. 허용: sets, glyphs.`);
+    }
+  }
+  const isRecordObject = (value) =>
+    value !== null && typeof value === "object" && !Array.isArray(value);
+  if (!isRecordObject(provenance.sets)) issues.push("provenance.sets가 객체가 아닙니다.");
+  if (!isRecordObject(provenance.glyphs)) issues.push("provenance.glyphs가 객체가 아닙니다.");
+  const sets = isRecordObject(provenance.sets) ? provenance.sets : {};
+  const glyphSources = isRecordObject(provenance.glyphs) ? provenance.glyphs : {};
+  const declaredNames = Object.keys(glyphSources);
+  for (const setName of Object.keys(sets).sort(byCodePoint)) {
+    validateSet(setName, sets[setName], licenseFiles, issues);
+  }
 
   const sorted = [...files].sort((a, b) => byCodePoint(a.name, b.name));
   for (const { name, source } of sorted) {
@@ -451,8 +479,7 @@ export function compileIconSource(files, provenance, licenses, keywords = {}) {
       }
     }
 
-    const record = provenance[name];
-    validateProvenance(name, record, licenseFiles, issues);
+    const record = validateGlyphSource(name, glyphSources[name], sets, issues);
 
     const { elements, seen } = parseElements(source, name, issues);
     if (seen.length === 0) issues.push(`${name}: 그릴 요소가 없습니다.`);
@@ -483,13 +510,22 @@ export function compileIconSource(files, provenance, licenses, keywords = {}) {
     }
   }
 
+  // 근거 없는 고지 항목이 실리지 않게 한다: 어떤 글리프도 쓰지 않는 세트, 어떤 세트도 가리키지
+  // 않는 라이선스 원문은 둘 다 실패다.
+  const usedSets = new Set(glyphs.map((glyph) => glyph.provenance?.set).filter(Boolean));
+  for (const setName of Object.keys(sets).sort(byCodePoint)) {
+    if (!usedSets.has(setName)) {
+      issues.push(
+        `세트 ${setName}: 어떤 글리프도 쓰지 않는 세트입니다. ` +
+          `고지문에 근거 없는 항목이 실리지 않도록 제거하십시오.`,
+      );
+    }
+  }
   for (const key of [...licenseFiles].sort(byCodePoint)) {
-    const used = declaredNames.some(
-      (name) => provenance[name]?.licenseFile === key,
-    );
+    const used = Object.values(sets).some((set) => set?.licenseFile === key);
     if (!used) {
       issues.push(
-        `${key}: 어떤 글리프도 참조하지 않는 라이선스 원문입니다. ` +
+        `${key}: 어떤 세트도 참조하지 않는 라이선스 원문입니다. ` +
           `고지문에 근거 없는 항목이 실리지 않도록 제거하십시오.`,
       );
     }
@@ -528,7 +564,7 @@ export function compileIconSource(files, provenance, licenses, keywords = {}) {
   }
 
   if (issues.length > 0) throw new IconValidationError(issues);
-  return { viewBox: ICON_VIEWBOX, glyphs, licenses };
+  return { viewBox: ICON_VIEWBOX, glyphs, licenses, sets };
 }
 
 function renderAttributes(attributes) {
@@ -590,9 +626,16 @@ function renderManifest(model) {
   return (
     JSON.stringify(
       {
-        formatVersion: 1,
+        formatVersion: 2,
         viewBox: model.viewBox,
         strokeWidths: [...ICON_STROKE_WIDTHS].sort(byCodePoint),
+        // 쓰이는 세트만. 글리프의 provenance.set 이 이 키를 가리킨다.
+        sets: Object.fromEntries(
+          [...usedSetNames(model)].sort(byCodePoint).map((setName) => {
+            const { project, license, licenseFile, url } = model.sets[setName];
+            return [setName, { project, license, licenseFile, url }];
+          }),
+        ),
         icons: model.glyphs.map((glyph) => ({
           name: glyph.name,
           symbol: `Icon${pascalCase(glyph.name)}`,
@@ -610,64 +653,45 @@ function renderManifest(model) {
   );
 }
 
+function usedSetNames(model) {
+  return new Set(
+    model.glyphs.map((glyph) => glyph.provenance?.set).filter(Boolean),
+  );
+}
+
 function renderNotices(model) {
-  const groups = new Map();
-  for (const glyph of model.glyphs) {
-    const record = glyph.provenance;
-    if (!record || record.origin !== "upstream") continue;
-    const key = record.licenseFile;
-    if (!groups.has(key)) {
-      groups.set(key, {
-        projects: new Set(),
-        licenses: new Set(),
-        sourceUrls: new Set(),
-        glyphs: [],
-      });
-    }
-    // 같은 라이선스 원문을 공유해도 글리프마다 license 표현이 다를 수 있다. Lucide의 Feather
-    // 파생 글리프는 ISC와 MIT를 함께 받고 나머지는 ISC만 받는다. 첫 글리프의 값만 쓰면 그 차이가
-    // 제목에서 사라져, 고지문이 실제보다 좁은 의무만 선언한 문서가 된다.
-    const group = groups.get(key);
-    group.projects.add(record.project);
-    group.licenses.add(record.license);
-    group.sourceUrls.add(record.sourceUrl);
-    group.glyphs.push({ name: glyph.name, icon: record.icon, license: record.license });
-  }
   const lines = [
     "<!-- GENERATED FILE — packages/react/src/icons/provenance.json을 고치고 pnpm build:icons를 실행한다. -->",
     "",
     "# Third-party notices",
     "",
     "`@klipse-design/react`의 아이콘 일부는 아래 프로젝트에서 유래한다. 각 라이선스가 요구하는",
-    "저작권 고지와 허가 고지를 원문 그대로 포함한다. 좌표 정규화(viewBox·stroke·색 슬롯)와",
-    "이름 변경 외의 수정은 provenance의 modifications에 적는다.",
+    "저작권 고지와 허가 고지를 원문 그대로 포함한다. 좌표 정규화(24 격자 · 선 1.5 · 색 슬롯)와",
+    "이름 변경 외의 수정은 하지 않는다(DS-D-0078).",
     "",
   ];
-  for (const key of [...groups.keys()].sort(byCodePoint)) {
-    const group = groups.get(key);
-    const projects = [...group.projects].sort(byCodePoint).join(", ");
-    const licenses = [...group.licenses].sort(byCodePoint).join(" / ");
-    const mixed = group.licenses.size > 1;
-    const glyphs = group.glyphs
-      .sort((a, b) => byCodePoint(a.name, b.name))
-      .map((entry) =>
-        mixed
-          ? `${entry.name} (upstream: ${entry.icon}, ${entry.license})`
-          : `${entry.name} (upstream: ${entry.icon})`,
-      );
+  const used = usedSetNames(model);
+  // 세트마다 한 절이다. 라이선스 원문은 파일 전체를 싣는다 — Lucide 원문에는 ISC 본문과 Feather
+  // 파생 목록, 그리고 그 목록에 대한 MIT 고지가 함께 들어 있어서 파일을 통째로 싣는 것이 곧 두
+  // 라이선스를 모두 싣는 것이다. 절 제목의 license 표현도 세트 정의에서 그대로 온다.
+  for (const setName of [...used].sort(byCodePoint)) {
+    const set = model.sets[setName];
+    const icons = model.glyphs
+      .filter((glyph) => glyph.provenance?.set === setName)
+      .map((glyph) => `${glyph.name} (upstream: ${glyph.provenance.icon})`);
     lines.push(
-      `## ${projects} — ${licenses}`,
+      `## ${set.project} — ${set.license}`,
       "",
-      ...[...group.sourceUrls].sort(byCodePoint).map((url) => `- Source: ${url}`),
-      `- Icons: ${glyphs.join(", ")}`,
+      `- Source: ${set.url}`,
+      `- Icons: ${icons.join(", ")}`,
       "",
       "```text",
-      model.licenses.get(key).trimEnd(),
+      model.licenses.get(set.licenseFile).trimEnd(),
       "```",
       "",
     );
   }
-  if (groups.size === 0) {
+  if (used.size === 0) {
     lines.push("현재 upstream에서 유래한 아이콘이 없다.", "");
   }
   return lines.join("\n");

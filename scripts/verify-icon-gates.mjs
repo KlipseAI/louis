@@ -9,7 +9,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { REQUIRED_UPSTREAM_FIELDS } from "./lib/icon-model.mjs";
+import { REQUIRED_SET_FIELDS } from "./lib/icon-model.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
@@ -103,7 +103,7 @@ function withAddedGlyphs(entries, label, expectedDiagnostic) {
   writeFileSync(
     provenanceAbsolute,
     editProvenance(provenanceBefore, (document) => {
-      for (const entry of entries) document[entry.name] = entry.record;
+      for (const entry of entries) document.glyphs[entry.name] = entry.record;
     }),
   );
 
@@ -180,7 +180,7 @@ const VALID_GLYPH = [
   "",
 ].join("\n");
 
-const ORIGINAL_RECORD = { origin: "original" };
+const ORIGINAL_RECORD = "original";
 
 // 정상 상태에서 통과해야 한다. 이것이 없으면 canary의 실패가 canary 덕분인지
 // 원래 깨져 있었기 때문인지 구분할 수 없다.
@@ -256,32 +256,42 @@ positive("모든 글리프의 provenance가 완전함", () => {
     const record = icon.provenance;
     if (!record) return `${icon.name}: provenance가 없습니다`;
     if (record.origin === "original") continue;
+    if (record.origin !== "upstream") return `${icon.name}: origin이 ${record.origin}입니다`;
+    if (typeof record.icon !== "string" || record.icon.trim().length === 0) {
+      return `${icon.name}: provenance.icon이 비었습니다`;
+    }
+    const set = manifest.sets?.[record.set];
+    if (!set) return `${icon.name}: 알 수 없는 세트 ${record.set}`;
     // 목록을 복제하지 않는다. 두 벌이 되면 한쪽에 필드를 더할 때 다른 쪽이 조용히 뒤처진다.
-    for (const field of REQUIRED_UPSTREAM_FIELDS) {
-      const value = record[field];
+    for (const field of REQUIRED_SET_FIELDS) {
+      const value = set[field];
       if (typeof value !== "string" || value.trim().length === 0) {
-        return `${icon.name}: provenance.${field}가 비었거나 추정입니다`;
+        return `${record.set}: 세트의 ${field}가 비었거나 추정입니다`;
       }
     }
-    if (!record.sourceUrl.startsWith("https://")) {
-      return `${icon.name}: sourceUrl이 https가 아닙니다`;
+    if (!set.url.startsWith("https://")) {
+      return `${record.set}: 세트 url이 https가 아닙니다`;
     }
   }
   return null;
 });
 
+const usedSetEntries = () =>
+  [...new Set(
+    manifest.icons
+      .map((icon) => icon.provenance)
+      .filter((record) => record && record.origin === "upstream")
+      .map((record) => record.set),
+  )].map((name) => [name, manifest.sets[name]]);
+
 positive("고지문이 라이선스 원문의 저작권 줄을 담음", () => {
   // iconography.md Acceptance test 10. 파일을 참조만 하고 내용을 싣지 않으면 MIT/ISC의
   // "copies에 고지를 포함한다"를 만족하지 못한다.
   const notices = read("packages/react/THIRD-PARTY-NOTICES.md");
-  const used = new Set(
-    manifest.icons
-      .map((icon) => icon.provenance)
-      .filter((record) => record && record.origin === "upstream")
-      .map((record) => record.licenseFile),
-  );
-  if (used.size === 0) return "upstream 글리프가 없어 고지 대상이 없습니다";
-  for (const file of used) {
+  const used = usedSetEntries();
+  if (used.length === 0) return "upstream 글리프가 없어 고지 대상이 없습니다";
+  for (const [, set] of used) {
+    const file = set.licenseFile;
     const text = read(`packages/react/src/icons/licenses/${file}`);
     const copyright = text
       .split("\n")
@@ -297,19 +307,23 @@ positive("고지문이 라이선스 원문의 저작권 줄을 담음", () => {
 });
 
 positive("고지문이 혼합 라이선스를 모두 드러냄", () => {
-  // 같은 라이선스 파일을 공유하는 글리프의 license 표현이 다를 수 있다. Lucide의 Feather 파생
-  // 글리프는 ISC와 MIT를 함께 받는다. 제목이 첫 글리프의 값만 보이면 고지문이 실제보다 좁은
-  // 의무만 선언한 문서가 된다.
+  // 한 세트의 원문에 라이선스가 둘 이상 들어 있을 수 있다. Lucide 원문은 ISC 본문과 Feather
+  // 파생 목록의 MIT 고지를 함께 담는다. 세트 정의의 license 표현을 "AND"로 나눈 조각마다 고지문에
+  // 그 이름이 있어야 하고, 원문 파일이 그 조각을 실제로 말해야 한다 — 표현만 적고 원문이 빠지면
+  // 고지문이 실제보다 좁은 의무만 선언한 문서가 된다.
   const notices = read("packages/react/THIRD-PARTY-NOTICES.md");
-  const declared = new Set(
-    manifest.icons
-      .map((icon) => icon.provenance)
-      .filter((record) => record && record.origin === "upstream")
-      .map((record) => record.license),
-  );
-  for (const license of declared) {
-    if (!notices.includes(license)) {
-      return `고지문에 license 표현 "${license}"이 없습니다`;
+  for (const [setName, set] of usedSetEntries()) {
+    const text = read(`packages/react/src/icons/licenses/${set.licenseFile}`);
+    for (const part of set.license.split(/\s+AND\s+/)) {
+      if (!notices.includes(part)) {
+        return `고지문에 ${setName}의 license 조각 "${part}"이 없습니다`;
+      }
+      if (!text.includes(part)) {
+        return `${set.licenseFile} 원문이 "${part}"을 말하지 않습니다`;
+      }
+    }
+    if (!notices.includes(text.trimEnd())) {
+      return `고지문이 ${set.licenseFile} 원문 전체를 싣지 않았습니다`;
     }
   }
   return null;
@@ -382,7 +396,7 @@ withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      delete document["check-circle"];
+      delete document.glyphs["check-circle"];
     }),
   "provenance 삭제",
   "provenance가 선언되지 않았습니다",
@@ -416,20 +430,65 @@ withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      document["check-circle"].license = "unknown";
+      document.sets.phosphor.license = "unknown";
     }),
   "provenance 추정",
-  "provenance가 불완전합니다",
+  "세트 정의가 불완전합니다",
 );
 
 withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      document["check-circle"].licenseFile = "does-not-exist.txt";
+      document.sets.phosphor.licenseFile = "does-not-exist.txt";
     }),
   "라이선스 원문 미참조",
   "고지문 없이 배포할 수 없습니다",
+);
+
+withCanary(
+  PROVENANCE,
+  (source) =>
+    editProvenance(source, (document) => {
+      delete document.sets.phosphor.licenseFile;
+    }),
+  "licenseFile 누락",
+  "세트 정의가 불완전합니다 (licenseFile)",
+);
+
+withCanary(
+  PROVENANCE,
+  (source) =>
+    editProvenance(source, (document) => {
+      document.glyphs["check-circle"] = "no-such-set:check-circle";
+    }),
+  "알 수 없는 세트",
+  "알 수 없는 세트",
+);
+
+withCanary(
+  PROVENANCE,
+  (source) =>
+    editProvenance(source, (document) => {
+      document.glyphs["check-circle"] = "phosphor";
+    }),
+  "글리프 항목 형식 이탈",
+  '"세트:원래 이름" 또는 "original"이 아닙니다',
+);
+
+withCanary(
+  PROVENANCE,
+  (source) =>
+    editProvenance(source, (document) => {
+      document.sets.extra = {
+        project: "Extra",
+        license: "MIT",
+        licenseFile: "phosphor.txt",
+        url: "https://example.com/extra",
+      };
+    }),
+  "쓰이지 않는 세트",
+  "어떤 글리프도 쓰지 않는 세트",
 );
 
 withAddedLicense(
@@ -437,7 +496,7 @@ withAddedLicense(
   "orphan.txt",
   "MIT License\n\nCopyright (c) 2026 Nobody\n",
   "고아 라이선스 원문",
-  "어떤 글리프도 참조하지 않는",
+  "어떤 세트도 참조하지 않는",
 );
 
 withCanary(
@@ -472,27 +531,17 @@ withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      document["check-circle"].license = "Unknown";
+      document.sets.phosphor.license = "Unknown";
     }),
   "상투어 대소문자 우회",
-  "provenance가 불완전합니다",
+  "세트 정의가 불완전합니다",
 );
 
 withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      delete document["check-circle"].modifications;
-    }),
-  "modifications 누락",
-  "provenance가 불완전합니다 (modifications)",
-);
-
-withCanary(
-  PROVENANCE,
-  (source) =>
-    editProvenance(source, (document) => {
-      document["check-circle"].project = "Phosphor\n```\n## 위조된 절\n```text\n아무 문장";
+      document.sets.phosphor.project = "Phosphor\n```\n## 위조된 절\n```text\n아무 문장";
     }),
   "고지문 위조",
   "고지문 구조를 위조",
@@ -502,9 +551,9 @@ withCanary(
   PROVENANCE,
   (source) =>
     editProvenance(source, (document) => {
-      document["check-circle"].sourceUrl = "https://";
+      document.sets.phosphor.url = "https://";
     }),
-  "sourceUrl 형태 우회",
+  "세트 url 형태 우회",
   "https URL이 아닙니다",
 );
 

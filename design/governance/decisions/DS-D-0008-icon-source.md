@@ -11,6 +11,7 @@ authority: normative
 - Owners: repository owner, design maintainer, package maintainer
 - Affects: `foundation-iconography`, `@klipse-design/react`, `component-button`,
   DS-P3-013, DS-F-006
+- 3항은 [DS-D-0078](DS-D-0078-icon-provenance-per-set.md)이 바꿨다 — 글리프마다 일곱 칸 대신 세트마다 한 번 · 글리프마다 한 줄.
 
 ## Context
 

@@ -12,6 +12,9 @@ export function IconArrowUp(props) {
 export function IconArrowsLeftRight(props) {
     return (_jsxs(IconRoot, { ...props, name: "arrows-left-right", children: [_jsx("polyline", { points: "16.5 13.5 19.5 16.5 16.5 19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "4.5", y1: "16.5", x2: "19.5", y2: "16.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("polyline", { points: "7.5 10.5 4.5 7.5 7.5 4.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "19.5", y1: "7.5", x2: "4.5", y2: "7.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }
+export function IconBookOpen(props) {
+    return (_jsxs(IconRoot, { ...props, name: "book-open", children: [_jsx("path", { d: "M12 6.75C10.25 5.4 7.75 4.75 4.5 4.75v13c3.25 0 5.75.65 7.5 2 1.75-1.35 4.25-2 7.5-2v-13c-3.25 0-5.75.65-7.5 2z", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M12 6.75v13", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
 export function IconCaretDown(props) {
     return (_jsx(IconRoot, { ...props, name: "caret-down", children: _jsx("polyline", { points: "19.5 9 12 16.5 4.5 9", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }) }));
 }
@@ -20,6 +23,9 @@ export function IconCaretLeft(props) {
 }
 export function IconCaretRight(props) {
     return (_jsx(IconRoot, { ...props, name: "caret-right", children: _jsx("polyline", { points: "9 4.5 16.5 12 9 19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }) }));
+}
+export function IconChatBubbles(props) {
+    return (_jsxs(IconRoot, { ...props, name: "chat-bubbles", children: [_jsx("path", { d: "M14.5 8.5V6.25a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v5.25a2 2 0 0 0 2 2h1V16l3-2.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M10.5 11.5a2 2 0 0 1 2-2H19a2 2 0 0 1 2 2v4.25a2 2 0 0 1-2 2h-1v2.5l-3-2.5h-2.5a2 2 0 0 1-2-2z", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }
 export function IconCheckCircle(props) {
     return (_jsxs(IconRoot, { ...props, name: "check-circle", children: [_jsx("polyline", { points: "8.25 12.75 10.5 15 15.75 9.75", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("circle", { cx: "12", cy: "12", r: "9", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
@@ -93,6 +99,9 @@ export function IconMoon(props) {
 export function IconMusicNotesSimple(props) {
     return (_jsxs(IconRoot, { ...props, name: "music-notes-simple", children: [_jsx("circle", { cx: "16.875", cy: "15.375", r: "2.625", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("circle", { cx: "4.875", cy: "18.375", r: "2.625", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("polyline", { points: "7.5 18.375 7.5 5.25 19.5 2.25 19.5 15.375", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }
+export function IconNodesLinked(props) {
+    return (_jsxs(IconRoot, { ...props, name: "nodes-linked", children: [_jsx("rect", { rx: "2", x: "3", y: "4", width: "7.5", height: "6", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("rect", { rx: "2", x: "13.5", y: "14", width: "7.5", height: "6", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M10.5 7c3.6 0-.6 10 3 10", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
 export function IconPause(props) {
     return (_jsxs(IconRoot, { ...props, name: "pause", children: [_jsx("rect", { rx: "1.125", x: "7.5", y: "4.5", width: "3.75", height: "15", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinejoin: "round" }), _jsx("rect", { rx: "1.125", x: "12.75", y: "4.5", width: "3.75", height: "15", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinejoin: "round" })] }));
 }
@@ -101,6 +110,9 @@ export function IconPlay(props) {
 }
 export function IconPlus(props) {
     return (_jsxs(IconRoot, { ...props, name: "plus", children: [_jsx("line", { x1: "3.75", y1: "12", x2: "20.25", y2: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "12", y1: "3.75", x2: "12", y2: "20.25", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
+export function IconShieldCheck(props) {
+    return (_jsxs(IconRoot, { ...props, name: "shield-check", children: [_jsx("path", { d: "M12 3.5l7 2.6v5.4c0 4.25-2.9 7.6-7 9-4.1-1.4-7-4.75-7-9V6.1l7-2.6z", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9 12.25l2.1 2.1L15.25 10", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }
 export function IconSun(props) {
     return (_jsxs(IconRoot, { ...props, name: "sun", children: [_jsx("line", { x1: "12", y1: "3.75", x2: "12", y2: "1.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("circle", { cx: "12", cy: "12", r: "5.25", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "6", y1: "6", x2: "4.5", y2: "4.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "6", y1: "18", x2: "4.5", y2: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "18", y1: "6", x2: "19.5", y2: "4.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "18", y1: "18", x2: "19.5", y2: "19.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "3.75", y1: "12", x2: "1.5", y2: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "12", y1: "20.25", x2: "12", y2: "22.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "20.25", y1: "12", x2: "22.5", y2: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));

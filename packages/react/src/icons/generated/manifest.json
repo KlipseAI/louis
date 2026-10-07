@@ -116,6 +116,30 @@
       }
     },
     {
+      "name": "book-open",
+      "symbol": "IconBookOpen",
+      "figmaName": "icon/book-open",
+      "source": "packages/react/src/icons/svg/book-open.svg",
+      "geometryHash": "a0480e40c56e8f3e",
+      "elementCount": 2,
+      "keywords": [
+        "book",
+        "open",
+        "read",
+        "docs",
+        "guide",
+        "책",
+        "읽을거리",
+        "문서",
+        "가이드",
+        "자료"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 제품 apps/web/components/landing/sections/footerTrackIcons.tsx(랜딩 타임라인 푸터 트랙 머리, 2026-10-07)와 같은 좌표다. 펼친 책 한 장을 외곽선 하나와 가운데 접힌 줄 하나로 그렸다. 양쪽 면이 가운데(12)를 축으로 좌우 대칭이고, 위아래 가장자리가 가운데로 2 만큼 처져 책장이 벌어진 모양이 된다. upstream 을 주장하지 않는 이유는 출처를 대조할 수 없는 상태에서 upstream 이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."
+      }
+    },
+    {
       "name": "caret-down",
       "symbol": "IconCaretDown",
       "figmaName": "icon/caret-down",
@@ -182,6 +206,30 @@
       "provenance": {
         "origin": "original",
         "modifications": "저장소에서 직접 그렸다. 24 격자 위의 45° 갈매기꼴 한 겹이며 stroke-width 1.5와 round cap/join은 이 세트의 다른 글리프와 같다. upstream을 베끼지 않은 이유는 출처를 대조할 수 없는 상태에서 upstream이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3이 추정 출처를 빌드 실패로 둔다. 꼭짓점은 중심(12)에서 좌우 3, 상하 7.5로 두어 세 방향이 회전 대칭이다."
+      }
+    },
+    {
+      "name": "chat-bubbles",
+      "symbol": "IconChatBubbles",
+      "figmaName": "icon/chat-bubbles",
+      "source": "packages/react/src/icons/svg/chat-bubbles.svg",
+      "geometryHash": "32000033e0bfd88f",
+      "elementCount": 2,
+      "keywords": [
+        "chat",
+        "bubbles",
+        "conversation",
+        "social",
+        "message",
+        "대화",
+        "말풍선",
+        "소통",
+        "소셜",
+        "메시지"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 제품 apps/web/components/landing/sections/footerTrackIcons.tsx(랜딩 타임라인 푸터 트랙 머리, 2026-10-07)와 같은 좌표다. 말풍선 둘이 겹친다 — 뒤 말풍선은 왼쪽 위에서 꼬리가 왼쪽 아래로, 앞 말풍선은 오른쪽 아래에서 꼬리가 오른쪽 아래로 나가 대화의 두 쪽이 된다. 뒤 말풍선은 앞 말풍선에 가리는 자리에서 선을 끊어 겹침을 선으로만 보인다. 모서리 반경은 둘 다 2. upstream 을 주장하지 않는 이유는 출처를 대조할 수 없는 상태에서 upstream 이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."
       }
     },
     {
@@ -822,6 +870,29 @@
       }
     },
     {
+      "name": "nodes-linked",
+      "symbol": "IconNodesLinked",
+      "figmaName": "icon/nodes-linked",
+      "source": "packages/react/src/icons/svg/nodes-linked.svg",
+      "geometryHash": "339a3a8e4bfbfe9a",
+      "elementCount": 3,
+      "keywords": [
+        "nodes",
+        "linked",
+        "connect",
+        "canvas",
+        "workflow",
+        "노드",
+        "연결",
+        "캔버스",
+        "흐름"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 제품 apps/web/components/landing/sections/footerTrackIcons.tsx(랜딩 타임라인 푸터 트랙 머리, 2026-10-07)와 같은 좌표다. 둥근 사각형 둘(7.5×6, rx 2)을 대각선 자리(3,4 와 13.5,14)에 두고, 왼쪽 위 사각형의 오른쪽 가운데에서 나간 곡선 하나가 오른쪽 아래 사각형의 왼쪽 가운데로 들어간다 — 캔버스의 노드와 연결선을 형태로 옮긴 것이다. 기존 graph 글리프와 다른 점은 노드가 점이 아니라 카드라는 것이다. upstream 을 주장하지 않는 이유는 출처를 대조할 수 없는 상태에서 upstream 이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."
+      }
+    },
+    {
       "name": "pause",
       "symbol": "IconPause",
       "figmaName": "icon/pause",
@@ -886,6 +957,30 @@
         "sourceUrl": "https://raw.githubusercontent.com/phosphor-icons/core/main/raw/regular/plus.svg",
         "retrievedAt": "2026-08-14",
         "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
+      }
+    },
+    {
+      "name": "shield-check",
+      "symbol": "IconShieldCheck",
+      "figmaName": "icon/shield-check",
+      "source": "packages/react/src/icons/svg/shield-check.svg",
+      "geometryHash": "16dee18e818f6bc3",
+      "elementCount": 2,
+      "keywords": [
+        "shield",
+        "check",
+        "trust",
+        "security",
+        "privacy",
+        "방패",
+        "신뢰",
+        "보안",
+        "개인정보",
+        "약관"
+      ],
+      "provenance": {
+        "origin": "original",
+        "modifications": "저장소에서 직접 그렸다. 제품 apps/web/components/landing/sections/footerTrackIcons.tsx(랜딩 타임라인 푸터 트랙 머리, 2026-10-07)와 같은 좌표다. 방패 외곽(어깨 폭 14, 높이 17)과 그 안의 체크 하나다. 체크는 방패의 시각 중심(y≈12)에 두었고 짧은 획 대 긴 획이 1:2 다. upstream 을 주장하지 않는 이유는 출처를 대조할 수 없는 상태에서 upstream 이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."
       }
     },
     {

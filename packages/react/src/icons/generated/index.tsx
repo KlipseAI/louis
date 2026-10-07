@@ -11,9 +11,11 @@ export type IconName =
   | "arrow-right"
   | "arrow-up"
   | "arrows-left-right"
+  | "book-open"
   | "caret-down"
   | "caret-left"
   | "caret-right"
+  | "chat-bubbles"
   | "check-circle"
   | "cloud-arrow-up"
   | "cloud-check"
@@ -38,9 +40,11 @@ export type IconName =
   | "monitor-arrow-up"
   | "moon"
   | "music-notes-simple"
+  | "nodes-linked"
   | "pause"
   | "play"
   | "plus"
+  | "shield-check"
   | "sun"
   | "text"
   | "trash-simple"
@@ -88,6 +92,15 @@ export function IconArrowsLeftRight(props: IconProps): JSX.Element {
   );
 }
 
+export function IconBookOpen(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="book-open">
+      <path d="M12 6.75C10.25 5.4 7.75 4.75 4.5 4.75v13c3.25 0 5.75.65 7.5 2 1.75-1.35 4.25-2 7.5-2v-13c-3.25 0-5.75.65-7.5 2z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 6.75v13" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
 export function IconCaretDown(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="caret-down">
@@ -108,6 +121,15 @@ export function IconCaretRight(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="caret-right">
       <polyline points="9 4.5 16.5 12 9 19.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconChatBubbles(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="chat-bubbles">
+      <path d="M14.5 8.5V6.25a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v5.25a2 2 0 0 0 2 2h1V16l3-2.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10.5 11.5a2 2 0 0 1 2-2H19a2 2 0 0 1 2 2v4.25a2 2 0 0 1-2 2h-1v2.5l-3-2.5h-2.5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }
@@ -351,6 +373,16 @@ export function IconMusicNotesSimple(props: IconProps): JSX.Element {
   );
 }
 
+export function IconNodesLinked(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="nodes-linked">
+      <rect rx="2" x="3" y="4" width="7.5" height="6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect rx="2" x="13.5" y="14" width="7.5" height="6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10.5 7c3.6 0-.6 10 3 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
 export function IconPause(props: IconProps): JSX.Element {
   return (
     <IconRoot {...props} name="pause">
@@ -373,6 +405,15 @@ export function IconPlus(props: IconProps): JSX.Element {
     <IconRoot {...props} name="plus">
       <line x1="3.75" y1="12" x2="20.25" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="12" y1="3.75" x2="12" y2="20.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconShieldCheck(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="shield-check">
+      <path d="M12 3.5l7 2.6v5.4c0 4.25-2.9 7.6-7 9-4.1-1.4-7-4.75-7-9V6.1l7-2.6z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 12.25l2.1 2.1L15.25 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

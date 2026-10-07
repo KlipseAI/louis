@@ -223,6 +223,9 @@ const SCREENS = [
     { route: "/mypage/upgrade/checkout", desktop: "199:1729", mobile: "199:2782", fixture: "session" },
     // 부스 체험 — 가짜 Supabase 에 행사가 없어 「No event is running right now」 빈 상태로 선다(공개 모드는 오류 경계 — `error` 보드).
     { route: "/creative-media", desktop: "224:3455", mobile: "224:3504", fixture: "session" },
+    // 쿠폰 인쇄(2026-10-07) — 가짜 Supabase 의 자리표시 시드(`lib/fixture-seeds.mjs` — 캠페인 하나 · 코드 10장 · 묶음 둘)로 연 화면. 글자는
+    // 자리표시이고 크기 · 색 · 간격은 잰 값이다. 데스크톱은 옛 손 조립 보드(721×345) 자리, 모바일은 같은 섹션 §20 자리에 새로 세웠다.
+    { route: "/admin/coupons/[id]/print", desktop: "224:3393", mobile: "2682:175", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
     // 약관 둘 — 떼어낸 자리를 조각 하나에 묶어 뷰포트마다 4 ~ 5 조각이다. 문장 안의 굵은 글자(`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은
@@ -824,6 +827,21 @@ function reconcileFigmaSizing(spec) {
           change(node, axisName, "FIXED",
             `교차축 자식이 모두 FILL 이고 내용 폭을 잴 수 없는 자식(글자 잎 · 인스턴스)이 있다 — CSS 의 부모 폭은 자식의 max-content 인데 원장에 글자 폭이 없고, Figma 는 모두 FILL 이면 HUG 부모를 최소로 접는다. 그 뷰포트에서 푼 측정 폭으로 선다`,
             `measured ${node.rect[axis.extent]}`);
+          // **그 폭을 정한 한 줄 글자는 FILL 로 두지 않는다(2026-10-07).** 측정 폭은 브라우저 글꼴의 글자 폭이라, Figma 의 같은 글꼴이 그보다
+          // 조금만 넓어도 FILL 글자가 줄을 꺾는다 — 공개 페이지 푸터 데스크톱의 「Product」 열(56.28)이 「Prod / uct」 두 줄로 섰다(부품 캡처).
+          // 세로 흐름 안의 왼쪽 정렬 · 칠 없는 한 줄 글자는 늘어나도 그림이 같으므로 HUG(글자 폭)로 옮긴다. 가운데 · 오른쪽 정렬은 늘어난 폭이
+          // 줄 자리를 정하므로 그대로 둔다.
+          if (axisName === "horizontal" && node.layout.layoutMode === "VERTICAL") {
+            for (const child of fills) {
+              const lineHeight = child.typography?.lineHeight;
+              if (child.text && !child.layout && !child.paint && !child.typography?.align && lineHeight
+                && child.rect.height < lineHeight * 2 - HALF_PIXEL) {
+                change(child, axisName, "HUG",
+                  `측정 폭으로 선 부모(${node.path}) 안의 한 줄 글자 — 왼쪽 정렬 · 칠 없음이라 늘어나도 그림이 같다. FILL 이면 Figma 글꼴 폭이 측정보다 넓을 때 줄을 꺾는다`,
+                  `single line ${child.rect.height} / line-height ${lineHeight}`);
+              }
+            }
+          }
           continue;
         }
         for (const child of fills) {

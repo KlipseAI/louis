@@ -13,14 +13,14 @@
   "filesScanned": 311,
   "counts": {
     "total": 472,
-    "mapped": 59,
+    "mapped": 60,
     "scoped": 248,
-    "needed": 164,
+    "needed": 163,
     "unclear": 1,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 76,
+    "primitive": 75,
     "screen": 64,
     "oneoff": 23,
     "unclear": 1,
@@ -1614,12 +1614,12 @@
       "file": "apps/web/components/landing/sections/Footer.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "공개 페이지 전부(랜딩 · 요금 · 템플릿 · 블로그 · 약관 · 문의)의 맨 아래에 같은 푸터가 붙는다. 이 표면을 그리던 Figma 제품 세트 `Product/Public Footer` 는 옛 /pricing DOM 캡처 생성기의 부품이었고 2026-10-06 소유자 지시로 걷었다 — 공개 보드는 측정 생성이라 푸터를 원시 프레임으로 그린다. 세울 때는 측정 원장에서 생성기로 묶는다(2026-09-26 「Figma 먼저 · 생성기로 묶어서」).",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "공개 페이지 여러 라우트가 같은 `<Footer />` 를 렌더한다 — 소비처가 여럿이라 화면 한 장이 아니라 되풀이 부품이다."
+      "verdict": "figma",
+      "figma": "Product/Landing Footer",
+      "reason": "Figma 제품 세트 `Product/Landing Footer`(Viewport=Desktop|Mobile)가 이 표면을 통째로 그린다 — 공개 원장 랜딩 측정 서브트리(노드 81)를 보드 생성기 PARTS 가 찍고, 랜딩 · 문의 · 요금 · 블로그 · 템플릿 보드 열 곳이 그 인스턴스다(Updates (199)). DS-D-0071: 제품 세트 대응이지 LOUIS 컴포넌트가 아니다.",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/sections/Hero.tsx#Hero": {
       "file": "apps/web/components/landing/sections/Hero.tsx",

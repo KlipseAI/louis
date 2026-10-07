@@ -11,6 +11,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
+import { FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -228,6 +229,9 @@ const SESSION_ROUTES = [
   // 부스 체험 — 공개 화면이지만 행사 설정을 DB 에서 읽는다. 공개 모드(Supabase 닿지 않음)에서는 「Something went wrong」만 그려져, 가짜 Supabase
   // (행사 없음 — 빈 목록)가 있는 세션 모드에서 잰다.
   { pattern: "/creative-media", fullPage: true },
+  // 쿠폰 인쇄(2026-10-07) — 관리자 클라이언트로 캠페인 한 행과 코드 목록을 읽는다. 빈 목록이면 `notFound()` 라 가짜 Supabase 의
+  // 자리표시 시드(`lib/fixture-seeds.mjs`, 캠페인 하나 · 코드 10장 · 묶음 둘)로 연다. 글자는 자리표시이고 크기 · 색 · 간격은 잰 값이다.
+  { pattern: "/admin/coupons/[id]/print", url: `/admin/coupons/${FIXTURE_COUPON_CAMPAIGN_ID}/print`, id: "/admin/coupons/[id]/print" },
 ];
 
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
@@ -626,7 +630,7 @@ const firstDifference = (recorded, measured, path = "$") => {
 };
 
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
-const fakeSupabase = session ? await startFakeSupabase() : null;
+const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS }) : null;
 const fixtureServer = await startFixtureServer();
 let browser = null;
 const screens = {};
@@ -1367,7 +1371,7 @@ const payload = JSON.stringify({
       "인증 후 페이지 완료 판정",
     ],
   $method: session
-    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고(지어낸 데이터 없음) 요청을 기록한다. 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
+    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
     : publicMode
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다. Supabase URL은 연결되지 않는 localhost endpoint로 고정하고 외부 요청을 차단한다. fullPage 화면은 뷰포트가 아니라 문서 끝까지의 노드를 잰다(가로는 뷰포트 안). " + MEASURE_METHOD
     : anonymous
@@ -1379,7 +1383,9 @@ const payload = JSON.stringify({
   fixture: {
     nodeEnv: "development",
     devAuthBypass: !anonymous && !publicMode,
-    mockSupabase: session ? "local-fake-auth-empty-data" : "unreachable-localhost",
+    mockSupabase: session ? "local-fake-auth-seeded-tables" : "unreachable-localhost",
+    // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
+    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(FIXTURE_SEEDS).map(([table, rows]) => [table, rows.length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set(fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`))].sort() } : {}),
     externalRequests: "blocked",
     locale: "en",

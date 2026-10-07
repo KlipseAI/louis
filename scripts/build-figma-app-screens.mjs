@@ -1557,6 +1557,7 @@ const pendingAnchors = {};
       // **LOUIS 문서 예시는 측정 폭으로 묶는다(2026-10-07).** 인라인 코드 칩(`code`, 바탕 · 안쪽 여백이 있는 inline-block)이 섞인 감긴 문장은
       // 글자 범위로 합칠 수 없다(칩의 바탕은 글자 범위에 없다). 한 줄로 늘어나 부품 밖으로 넘치지 않게 그 글자를 측정 폭(FIXED)으로 묶고,
       // 자리는 부품 계획의 `unresolvedWraps` 에 남긴다 — 칩은 글자 옆 상자로 선다(문장 흐름 안이 아니다).
+      let partHugHeight = false;
       if (sizingFix.unresolvedWraps.length > 0 && LOUIS_EXAMPLES) {
         const byPath = new Map();
         const parentOf = new Map();
@@ -1571,6 +1572,7 @@ const pendingAnchors = {};
           // 감긴 조각은 부모 줄의 안쪽 폭으로 묶고, 부모 가로 줄은 감기게 해 칩과 링크가 다음 줄로 내려가게 한다(칩이 글자 옆 상자로 서는 알려진 차이와 같은 결).
           const parent = parentOf.get(node.path);
           if (wrap.lines > 1 && parent?.layout?.layoutMode === "HORIZONTAL") {
+            partHugHeight = true;
             const inner = parent.rect.width - (parent.layout.padding?.left ?? 0) - (parent.layout.padding?.right ?? 0);
             node.rect = { ...node.rect, width: inner };
             parent.layout = { ...parent.layout, wrap: true };
@@ -1594,6 +1596,7 @@ const pendingAnchors = {};
         set: part.set, variant: variant.variant, route: variant.route, context: variant.context, path: variant.path,
         ...(part.label ? { label: part.label } : {}),
         componentId: variant.component, frameSize: [round(root.rect.width), round(root.rect.height)],
+        ...(partHugHeight ? { hugHeight: true } : {}),
         signature, instances: inner.applied, stats: { kept: stats.kept, unresolved: stats.unresolved, sizingReconciled: sizingFix.reconciled.length,
           ...(stats.lineBoxSlack.length ? { lineBoxSlack: stats.lineBoxSlack } : {}),
           ...(marginWrapped.length ? { marginWrapped } : {}),
@@ -2118,7 +2121,7 @@ for (const part of parts) {
       else groups.push({ size, slots: [{ path: chunk.path, spec: chunk.spec }] });
     }
     const payloads = [
-      { ...base, frameSize: part.frameSize, colour, head, ...(part.label ? { label: part.label } : {}) },
+      { ...base, frameSize: part.frameSize, ...(part.hugHeight ? { hugHeight: true } : {}), colour, head, ...(part.label ? { label: part.label } : {}) },
       ...groups.map((group) => ({ ...base, colour, slots: group.slots })),
     ];
     return payloads.map((payload, index) => {

@@ -656,6 +656,8 @@ if (P.head) {
   await preloadVariants(P.head);
   const root = buildNode(P.head, frame);
   root.name = generatedName;
+  // 측정보다 내용이 길어지는 부품(`hugHeight`, 예시 부품의 감긴 각주 줄)은 틀 높이를 내용에 맞춘다 — 고정하면 아래가 넘친다.
+  if (P.hugHeight) frame.primaryAxisSizingMode = "AUTO";
   // 측정 테마의 모드를 화면 루트에 고정한다 — 파일 기본 모드가 바뀌어도 보드가 측정과 같은 색으로 풀린다.
   live.pin(root);
   await flushTextStyles();

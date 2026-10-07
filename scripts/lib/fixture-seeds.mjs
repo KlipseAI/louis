@@ -62,8 +62,10 @@ const editorSource = (nodeId, origin, name, frames) => ({
 // 비율이지만 비율도 데이터라 지어내지 않는다. 상세 보기(viewMode detail)는 카드를 눌러야 열려 재지 않는다. 허브(`/highlight`)는 프로젝트를
 // `user_id` · `type` 으로 읽으므로 이 프로젝트 행은 `id` 로 집을 때만 보인다.
 export const FIXTURE_HIGHLIGHT_PROJECT_ID = "00000000-0000-4000-8000-00000000c0c1";
+// 시각은 `mm:ss` 로 적는다 — 초를 그대로 이어 붙이면 「00:65 – 00:80」처럼 없는 시각이 보드에 선다(2026-10-07 캡처).
+const clock = (seconds) => `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 const highlightItem = (index) => ({
-  index, start_time: `00:${String(5 + index * 20).padStart(2, "0")}`, end_time: `00:${String(20 + index * 20).padStart(2, "0")}`,
+  index, start_time: clock(5 + index * 20), end_time: clock(20 + index * 20),
   duration_seconds: 15, summary: `Placeholder summary ${index + 1}`, reason: `Placeholder reason ${index + 1}`,
   score: Math.round((0.95 - index * 0.05) * 100) / 100, type: "single", title: `Placeholder clip title ${index + 1}`, segments: null,
 });

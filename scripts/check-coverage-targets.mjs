@@ -116,7 +116,9 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // (그릴 것이 없다 — 앵커 2c6bdacf 에서 참조 0 인 죽은 수출 아홉(`node-canvas/primitives.tsx` 의 Eyebrow 아이콘 일곱 ·
 // `ToolIcon` · `SelectionChrome`)과 마크업 0 인 서버 껍데기 `mypage/upgrade/page.tsx#UpgradePlanPage` — 화면은
 // `UpgradePlanPageClient` 가 그리므로 같은 화면을 두 칸으로 세던 결함이었다). 원장 커밋 21947b0 · b9c0b35.
-const NEEDED_BASELINE = 163; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-07: 163 → 159 — **Figma 에 세웠다 4**: PageHeader · AdminSectionHeader · CustomDropdown · PlanComparisonTable 이 보드 생성기
+// PARTS 의 제품 세트(Product/Page Header · Admin Section Header · Select Dropdown · Plan Comparison Table)가 됐다(Updates (199)).
+const NEEDED_BASELINE = 159; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.

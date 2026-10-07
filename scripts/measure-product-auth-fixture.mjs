@@ -11,7 +11,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
-import { FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -27,10 +27,13 @@ const anonymous = process.argv.includes("--anonymous");
 // 답한다. **공개 모드(`--public`, 2026-09-29).** 뷰포트보다 긴 공개 페이지를 로그아웃 상태로 문서 전체까지 잰다(`fullPage`). 둘 다
 // 별도 원장에 쓴다 — 인증 · 로그아웃 원장과 환경이 달라 섞으면 기존 보드가 흔들린다.
 const session = process.argv.includes("--session");
-const publicMode = process.argv.includes("--public");
+// `--public-seeded`(2026-10-07): 공개 모드와 같은 로그아웃 서버에 가짜 Supabase(세션 쿠키 없음) + 공개 시드를 붙여 상세 화면을 잰다. 원장을 따로 쓴다.
+const publicSeeded = process.argv.includes("--public-seeded");
+const publicMode = process.argv.includes("--public") || publicSeeded;
 if ([anonymous, session, publicMode].filter(Boolean).length > 1) throw new Error("[product-auth-fixture] --anonymous · --session · --public 은 하나만 줍니다");
 const outputRelative = anonymous ? "migration/product.anonymous-fixture.json"
   : session ? "migration/product.session-fixture.json"
+  : publicSeeded ? "migration/product.public-seeded-fixture.json"
   : publicMode ? "migration/product.public-fixture.json"
   : "migration/product.auth-fixture.json";
 const outputPath = resolve(repoRoot, outputRelative);
@@ -257,9 +260,16 @@ const PUBLIC_ROUTES = [
   { pattern: "/creative-media", id: "error", file: "apps/web/app/error.tsx", fullPage: true },
 ];
 
+// **공개 시드 모드가 재는 화면(`--public-seeded`, 2026-10-07).** 발행된 한 행이 있어야 서는 공개 상세 — 가짜 Supabase 의 자리표시 시드
+// (`lib/fixture-seeds.mjs` FIXTURE_PUBLIC_SEEDS)로 연다. 로그아웃 사용자 · 문서 전체. 글자는 자리표시, 크기 · 색 · 간격은 잰 값이다.
+const PUBLIC_SEEDED_ROUTES = [
+  { pattern: "/blog/[slug]", url: "/blog/fixture-post", id: "/blog/[slug]", fullPage: true },
+  { pattern: "/templates/[slug]", url: "/templates/filter", id: "/templates/[slug]", fullPage: true },
+];
+
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
 // 「의도한 search 로 끝났는가」를 물어야 하므로 빈 문자열을 못박을 수 없다.
-const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
+const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -630,7 +640,8 @@ const firstDifference = (recorded, measured, path = "$") => {
 };
 
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
-const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS }) : null;
+const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
+  : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
 const fixtureServer = await startFixtureServer();
 let browser = null;
 const screens = {};
@@ -655,7 +666,8 @@ try {
         await context.addCookies([
           { name: "facen-language", value: "en", url: fixtureServer.url },
           { name: "klipse-theme", value: "light", url: fixtureServer.url },
-          ...(fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
+          // 세션 쿠키는 세션 모드만 넣는다 — 공개 시드 모드는 로그아웃 사용자다.
+          ...(session && fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
         ]);
         await context.addInitScript(() => {
           localStorage.setItem("facen-language", "en");
@@ -1372,6 +1384,8 @@ const payload = JSON.stringify({
     ],
   $method: session
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
+    : publicSeeded
+    ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다(세션 쿠키 없음). Supabase URL은 로컬 가짜 Supabase 이고, /rest/v1/* 조회는 fixture.seededTables 의 표만 자리표시 행으로(eq · order 를 PostgREST 처럼 적용) 나머지는 빈 목록으로 답한다. 외부 요청은 차단한다. fullPage 화면은 문서 끝까지의 노드를 잰다. " + MEASURE_METHOD
     : publicMode
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다. Supabase URL은 연결되지 않는 localhost endpoint로 고정하고 외부 요청을 차단한다. fullPage 화면은 뷰포트가 아니라 문서 끝까지의 노드를 잰다(가로는 뷰포트 안). " + MEASURE_METHOD
     : anonymous
@@ -1383,9 +1397,9 @@ const payload = JSON.stringify({
   fixture: {
     nodeEnv: "development",
     devAuthBypass: !anonymous && !publicMode,
-    mockSupabase: session ? "local-fake-auth-seeded-tables" : "unreachable-localhost",
+    mockSupabase: session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
-    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(FIXTURE_SEEDS).map(([table, rows]) => [table, rows.length])) } : {}),
+    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, rows.length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set(fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`))].sort() } : {}),
     externalRequests: "blocked",
     locale: "en",
@@ -1487,6 +1501,6 @@ if (checkOnly) {
 }
 
 console.log(
-  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : session ? "(세션) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
+  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : session ? "(세션) " : publicSeeded ? "(공개 시드 · 전체 페이지) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
     SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

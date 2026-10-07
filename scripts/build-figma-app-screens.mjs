@@ -67,6 +67,8 @@ const LEDGERS = {
   anonymous: anonymousFixture,
   session: optionalFixture("migration/product.session-fixture.json"),
   public: optionalFixture("migration/product.public-fixture.json"),
+  // 공개 시드 원장(2026-10-07, `--public-seeded`) — 발행된 한 행이 있어야 서는 공개 상세(블로그 글 · 템플릿)를 자리표시 시드로 잰다.
+  publicSeeded: optionalFixture("migration/product.public-seeded-fixture.json"),
 };
 const fixtureOf = (screen) => {
   if (!screen.fixture) return fixture;
@@ -244,6 +246,12 @@ const SCREENS = [
     // 루트 오류 경계 — 공개 모드의 부스 체험이 던져 선 `app/error.tsx` 화면(측정기 PUBLIC_ROUTES 의 `error`). 404 와 같은 섹션의 보드다.
     { route: "error", desktop: "37:18", mobile: "37:25", fixture: "public" },
   ].filter((screen) => LEDGERS.public.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
+  // **공개 시드 원장 화면(2026-10-07).** 블로그 글 · 템플릿 상세 — 가짜 Supabase 의 자리표시 시드(`lib/fixture-seeds.mjs` fixturePublicSeeds)로
+  // 연 로그아웃 화면. 옛 손 조립 보드와 같은 상태(블로그 커버 · 부제 있음, 템플릿 미디어 5장)다. 글자는 자리표시, 크기 · 색 · 간격은 잰 값이다.
+  ...(LEDGERS.publicSeeded ? [
+    { route: "/blog/[slug]", desktop: "216:2824", mobile: "216:2940", fixture: "publicSeeded" },
+    { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "publicSeeded" },
+  ].filter((screen) => LEDGERS.publicSeeded.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
 ];
 
 const CONTEXTS = [
@@ -1630,7 +1638,8 @@ const CONTENT_INSTANCES_BY_SET = {
   // 넷째 묶음: 쿠폰 코드 칩 — bulk 성공 미리보기 데스크톱 30 · 모바일 15(측정 화면 안에 보이는 칩만 잰다).
   "Product/Coupon Code Chip": 45,
   // 다섯째 묶음(2026-10-07): 공개 화면 푸터 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 × 두 뷰포트(같은 컴포넌트 · 같은 글자 서열).
-  "Product/Landing Footer": 10,
+  // 같은 날 뒤: 10 → 14 — 공개 시드 원장의 블로그 글 · 템플릿 상세 × 두 뷰포트에도 같은 푸터가 선다.
+  "Product/Landing Footer": 14,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   "Product/Page Header": 2,

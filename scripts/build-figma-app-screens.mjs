@@ -230,6 +230,35 @@ const fixAspectBoxes = (node, styleOf, fixed) => {
   node.sizing = { ...node.sizing, layoutSizingVertical: "FIXED" };
   fixed.push(node.path);
 };
+// **줄어드는 세로 상자의 FILL 글자는 HUG 로(2026-10-07).** CSS 에서 폭을 내용에 맞추는(shrink-to-fit) 세로 상자는 가장 긴 글줄의 폭이
+// 된다. Figma 의 HUG 세로 상자는 FILL 자식으로 폭을 정하지 못해 HUG · FIXED 자식(버튼)의 폭으로 접힌다 — 전체 오류 화면의 글 묶음이
+// 267 대신 버튼 폭 104 로 서서 제목이 「문제가 발 / 생했습니다」로 꺾였다(제품 캡처 대조). 측정 폭이 HUG · FIXED 자식보다 넓을 때만,
+// FILL 인 글자 잎(과 글자 하나만 감싼 margin 감싸개)을 HUG 로 바꾼다. 글자의 줄은 제품 줄대로 실려 있어 HUG 로 늘어나지 않는다.
+const fixShrinkToFit = (node, fixed) => {
+  if (node.instance) return;
+  for (const child of node.children ?? []) fixShrinkToFit(child, fixed);
+  if (node.layout?.layoutMode !== "VERTICAL" || node.sizing?.layoutSizingHorizontal !== "HUG") return;
+  const flow = (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+  const sized = flow.filter((child) => child.sizing?.layoutSizingHorizontal !== "FILL");
+  const room = node.rect.width - (node.layout.padding?.left ?? 0) - (node.layout.padding?.right ?? 0);
+  const widest = Math.max(0, ...sized.map((child) => child.rect.width));
+  if (room <= widest + HALF_PIXEL) return;
+  // 폭 때문에 감긴 글자(명시적 줄 수보다 높다)는 HUG 로 바꾸면 한 줄로 늘어난다 — 제품 줄이 실린(\n) 글자 · 한 줄 글자만 바꾼다.
+  const isTextLeaf = (child) => {
+    if (!child.text || (child.children ?? []).length) return false;
+    const lineHeight = child.typography?.lineHeight;
+    const lines = typeof child.text === "string" ? child.text.split("\n").length : 1;
+    return Boolean(lineHeight) && child.rect.height <= lineHeight * lines + lineHeight / 2;
+  };
+  for (const child of flow) {
+    if (child.sizing?.layoutSizingHorizontal !== "FILL") continue;
+    const inner = child.tag === "margin" && child.children?.length === 1 && isTextLeaf(child.children[0]) ? child.children[0] : null;
+    if (!isTextLeaf(child) && !inner) continue;
+    child.sizing = { ...child.sizing, layoutSizingHorizontal: "HUG" };
+    if (inner) inner.sizing = { ...inner.sizing, layoutSizingHorizontal: "HUG" };
+    fixed.push(child.path);
+  }
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -845,6 +874,7 @@ let totalImageInstances = 0;
 let totalStackingMoved = 0;
 let totalEmptyHugFixed = 0;
 let totalAspectFixed = 0;
+let totalShrinkFixed = 0;
 let totalGridRows = 0;
 const countImageComponents = (node) => (node.imageComponent ? 1 : 0)
   + (node.children ?? []).reduce((sum, child) => sum + countImageComponents(child), 0);
@@ -1622,6 +1652,9 @@ const pendingAnchors = {};
       fixEmptyHug(spec, emptyHugFixed);
       const aspectFixed = [];
       fixAspectBoxes(spec, (path) => styleByPath.get(path) ?? null, aspectFixed);
+      const shrinkFixed = [];
+      fixShrinkToFit(spec, shrinkFixed);
+      totalShrinkFixed += shrinkFixed.length;
       totalAspectFixed += aspectFixed.length;
       totalEmptyHugFixed += emptyHugFixed.length;
       const sizingFix = reconcileFigmaSizing(spec);
@@ -1680,7 +1713,8 @@ const pendingAnchors = {};
           ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
           ...(unmappedImages.length ? { unmappedImages } : {}),
           ...(unmappedMasks.length ? { unmappedMasks } : {}),
-          ...(stackingMoved.length ? { stackingMoved } : {}) },
+          ...(stackingMoved.length ? { stackingMoved } : {}),
+          ...(shrinkFixed.length ? { shrinkFixed } : {}) },
         spec,
       });
     }
@@ -1742,6 +1776,9 @@ for (const screen of SCREENS) {
     fixEmptyHug(spec, emptyHugFixed);
     const aspectFixed = [];
     fixAspectBoxes(spec, (path) => styleByPath.get(path) ?? null, aspectFixed);
+    const shrinkFixed = [];
+    fixShrinkToFit(spec, shrinkFixed);
+    totalShrinkFixed += shrinkFixed.length;
     totalAspectFixed += aspectFixed.length;
     totalEmptyHugFixed += emptyHugFixed.length;
     totalImageInstances += countImageComponents(spec);
@@ -1811,6 +1848,7 @@ for (const screen of SCREENS) {
         ...(unmappedImages.length ? { unmappedImages } : {}),
         ...(unmappedMasks.length ? { unmappedMasks } : {}),
         ...(stackingMoved.length ? { stackingMoved } : {}),
+        ...(shrinkFixed.length ? { shrinkFixed } : {}),
         // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자 ·
         // 풀지 못한 HUG 부모 · FILL 자식(UNRESOLVED_FILL_IN_HUG_BY_PARENT 가 부모 · 축마다 수를 잠근다).
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
@@ -2261,5 +2299,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 줄어드는 상자 글자 ${totalShrinkFixed} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

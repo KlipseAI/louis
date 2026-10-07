@@ -731,7 +731,9 @@ function splitSpec(slimRoot, budget = CHUNK_BUDGET) {
       const child = head.k[index];
       if (!child || child.w) continue; // 이미 대기표시면 건너뛴다
       chunks.push({ path: [...path, index], spec: child });
-      head.k[index] = { t: child.t, r: child.r, s: child.s, w: 1 }; // 자리표시
+      // 자리표시. grid 칸 자리(`gp`)는 남긴다(2026-10-07) — 빠지면 Figma 가 자리표시를 빈 칸에 자동으로 넣어, 뒤 형제가 제 칸을
+      // 잃는다(편집기 데스크톱: 타임라인 자리표시가 (0,3)에 들어가 오른쪽 리사이저 · aside 가 「occupied」로 실패).
+      head.k[index] = { t: child.t, r: child.r, s: child.s, ...(child.gp ? { gp: child.gp } : {}), w: 1 };
     }
     return head;
   };

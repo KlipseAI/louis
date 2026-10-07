@@ -1565,9 +1565,19 @@ function gridColumnTracks(node, style, sizing) {
       return computed.map((value) => ["X", Math.round(value * 100) / 100]);
     }
   }
-  if (!raw || raw === "none" || /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw) || /var\(/.test(raw)) return null;
+  if (!raw || raw === "none" || /repeat\(\s*auto-(?:fill|fit)\b/i.test(raw)) return null;
   const tokens = parseTracks(raw);
   if (!tokens?.length) return null;
+  // **변수로 정한 열(2026-10-07).** 편집기 타임라인(`var(--vem-rail-width) minmax(0, var(--sequence-time-axis-width))`)과 편집기 본문
+  // (`var(--video-edit-assets-width, 317px) 4px minmax(0, 1fr) …`)을 버리면 Figma 가 열을 균등하게 깔아 타임라인 클립 · 눈금 · 재생 헤드가
+  // 오른쪽 절반(944)으로 밀렸다(제품 캡처 대조). 선언과 계산값의 열 수가 같고 `repeat()` 가 없으면, 변수가 든 열만 계산된 px 로 싣고
+  // `fr` 열은 그대로 둔다. 수가 다르면(요금 비교표의 `repeat(var(--comparison-cols,4), …)`) 전처럼 싣지 않는다.
+  let computedForVar = null;
+  if (/var\(/.test(raw)) {
+    const computed = parseTracks(style.gridTemplateColumns)?.map((token) => px(token));
+    if (/repeat\(/i.test(raw) || !computed || computed.length !== tokens.length || computed.some((value) => value == null)) return null;
+    computedForVar = computed;
+  }
   const trackOf = (token) => {
     const text = token.trim();
     const fr = /^([\d.]+)fr$/.exec(text);
@@ -1578,7 +1588,8 @@ function gridColumnTracks(node, style, sizing) {
     const minmax = /^minmax\(\s*([^,]+),\s*(.+)\)$/.exec(text);
     return minmax ? trackOf(minmax[2]) : null;
   };
-  const tracks = tokens.map(trackOf);
+  const tracks = tokens.map((token, index) => (computedForVar && /var\(/.test(token)
+    ? ["X", Math.round(computedForVar[index] * 100) / 100] : trackOf(token)));
   if (tracks.some((track) => track == null)) return null;
   if (tracks.every((track) => track[0] === "F" && track[1] === tracks[0][1])) return null;
   if (sizing?.layoutSizingHorizontal === "HUG" && tracks.some((track) => track[0] === "F")) {

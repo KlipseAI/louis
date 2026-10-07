@@ -148,6 +148,27 @@ const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, 
 // **data URL 그림은 해시로 잇는다(2026-10-07).** 측정기는 같은 출처가 아닌 src 를 origin + pathname 으로 적어 data URL 이 통째로
 // 원장에 남는다(LOUIS 문서 예시의 브랜드 표식). 그 문자열의 sha256 앞 16자를 키로 쓴다 — 그림이 바뀌면 키도 바뀌어 대응이 끊긴다.
 const imageKeyOf = (src) => (/^(null|data:)/.test(src) ? `data-sha256:${createHash("sha256").update(src).digest("hex").slice(0, 16)}` : src);
+// **mask 아이콘(2026-10-07).** 제품 아이콘 다수는 `<span>` 의 `mask-image: url("/icons/X.svg")` + `background-color`(= currentColor)로
+// 그려진다. 측정 트리에는 바탕색 상자만 남아, 보드가 그 자리를 색 네모로 그렸다(하이라이트 완료 「Download all」 · 구독 결제 · 요금의
+// CheckCircle 등 보드 116곳과 부품 안, 캡처로 확인). public/icons 원본은 `90 · 자산` 에 `icon/<파일 이름>` 컴포넌트로 있으므로 그 인스턴스로
+// 바꾸고(`im`), 렌더러가 인스턴스 안의 면 · 획을 그 자리의 바탕색으로 덮는다(`mt`) — mask 는 모양만 주고 색은 바탕이 준다.
+// 자식이 있는 자리 · 셸 안 · `/icons/` 밖 원본은 건드리지 않고 감사본에 남긴다.
+const assetComponentByName = (name) => {
+  const hits = Object.values(liveAssets.components ?? {}).filter((entry) => entry.name === name);
+  return hits.length === 1 ? { id: hits[0].id, name: hits[0].name } : null;
+};
+const attachMaskIcons = (node, styleOf, unmapped) => {
+  if (node.instance) return;
+  const mask = styleOf(node.path)?.maskImage;
+  const url = mask && /^url\("([^"]+)"\)$/.exec(mask)?.[1];
+  if (url && !node.imageComponent) {
+    const name = url.startsWith("/icons/") && url.endsWith(".svg") ? `icon/${url.slice("/icons/".length, -".svg".length)}` : null;
+    const component = name && !(node.children ?? []).length ? assetComponentByName(name) : null;
+    if (component && node.paint?.fill) { node.imageComponent = component; node.maskTint = true; }
+    else unmapped.push({ path: node.path, mask: url, rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
+  }
+  for (const child of node.children ?? []) attachMaskIcons(child, styleOf, unmapped);
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -664,6 +685,7 @@ const slimNode = (node) => ({
   ...(node.layout?.rowCount ? { gr: node.layout.rowCount } : {}),
   // 자산 이미지 — `<img src>` 가 이어진 LOUIS 컴포넌트 [id, 이름](IMAGE_COMPONENTS).
   ...(node.imageComponent ? { im: [node.imageComponent.id, node.imageComponent.name] } : {}),
+  ...(node.maskTint ? { mt: 1 } : {}),
   ...(node.clipsContent ? { c: 1 } : {}),
   // 셸 자리는 자식 대신 컴포넌트 variant 참조만 싣는다.
   // **세 번째 칸은 라벨이다** — 컴포넌트가 노출한 TEXT 슬롯을 채울 글자. 라벨이 없는 인스턴스
@@ -1525,6 +1547,8 @@ const pendingAnchors = {};
       // 자산 이미지도 보드와 같이 잇는다(2026-10-07) — 빠져 있어 Document/Compare 의 그림 두 칸이 빈 상자로 그려졌다.
       const unmappedImages = [];
       attachImageComponents(spec, unmappedImages);
+      const unmappedMasks = [];
+      attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
       const sizingFix = reconcileFigmaSizing(spec);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
       if (sizingFix.unresolvedWraps.length > 0 && !LOUIS_EXAMPLES) {
@@ -1565,7 +1589,8 @@ const pendingAnchors = {};
           ...(bleed.hoisted.length ? { bleedHoisted: bleed.hoisted } : {}),
           ...(gaps.paired.length ? { negativeGapsPaired: gaps.paired } : {}),
           ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
-          ...(unmappedImages.length ? { unmappedImages } : {}) },
+          ...(unmappedImages.length ? { unmappedImages } : {}),
+          ...(unmappedMasks.length ? { unmappedMasks } : {}) },
         spec,
       });
     }
@@ -1616,6 +1641,8 @@ for (const screen of SCREENS) {
     // 자산 이미지도 치환 «뒤에» 잇는다 — 셸 안으로 사라진 로고(사이드바 워드마크)는 셸 컴포넌트가 그린다.
     const unmappedImages = [];
     attachImageComponents(spec, unmappedImages);
+    const unmappedMasks = [];
+    attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
     totalImageInstances += countImageComponents(spec);
     totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
@@ -1681,6 +1708,7 @@ for (const screen of SCREENS) {
         ...(stats.gridRows.length ? { gridRows: stats.gridRows } : {}),
         // LOUIS 자산에 잇지 못해 빈 상자로 남은 `<img>`(IMAGE_COMPONENTS 주석).
         ...(unmappedImages.length ? { unmappedImages } : {}),
+        ...(unmappedMasks.length ? { unmappedMasks } : {}),
         // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자 ·
         // 풀지 못한 HUG 부모 · FILL 자식(UNRESOLVED_FILL_IN_HUG_BY_PARENT 가 부모 · 축마다 수를 잠근다).
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),

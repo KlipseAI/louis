@@ -329,6 +329,13 @@ const buildNode = (spec, parent) => {
     } else {
       node.rescale(Math.max(0.01, spec.r[0]) / node.width);
     }
+    // mask 아이콘(`mt`) — 제품은 mask 로 모양을, 바탕색(`f`, currentColor)으로 색을 준다. 인스턴스 안의 보이는 면 · 획을 그 색으로 덮는다.
+    if (spec.mt && spec.f) {
+      for (const part of node.findAll((child) => "fills" in child)) {
+        if (Array.isArray(part.fills) && part.fills.some((paint) => paint.visible !== false)) part.fills = [hexToPaint(spec.f)];
+        if (Array.isArray(part.strokes) && part.strokes.some((paint) => paint.visible !== false)) part.strokes = [hexToPaint(spec.f, "stroke")];
+      }
+    }
   } else {
     node = figma.createFrame();
     node.fills = [];

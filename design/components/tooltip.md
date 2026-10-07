@@ -123,6 +123,26 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
   설명으로 두 번 읽는다. 덧붙일 것이 없으면 tooltip을 두지 않는다.
 - 단축키는 이름 뒤에 붙인다 — "삭제 (⌫)".
 
+## 단축키 슬롯(2026-10-07)
+
+이름 뒤에 `(H)` 처럼 단축키를 붙이는 자리는 `.louis-tooltip__shortcut` 이다. 앞의 공백과 괄호까지 슬롯 안에 글자로 적는다 —
+`<span class="louis-tooltip__shortcut"> (H)</span>`. **거친 포인터(`@media (pointer: coarse)`)에서는 슬롯이 숨는다.** 터치에는 누를
+키보드가 없고, 키보드를 붙인 태블릿에서 포커스로 열린 툴팁도 같다 — 판정은 포인터 종류만 쓰고 입력 장치를 추측하지 않는다.
+공백과 괄호를 슬롯 밖에 두면 숨겼을 때 이름 뒤에 빈 괄호나 공백이 남는다. 키캡 모양(`.louis-keycap`)으로 그리지 않는다 — 툴팁은
+글자 한 줄이고, 키캡은 명령 팔레트·도움말 같은 목록 행의 오른쪽 자리다([Keycap](keycap.md)). 근거는 제품 캔버스 모바일 UX 작업
+브랜치(`feat/canvas-mobile-ux`)의 `ChromeTooltip.tsx` `SHORTCUT_HINT` 이고, 노드 우클릭 메뉴의 단축키 배지와 같은 규칙이다.
+
+**터치로 누른 트리거에서는 툴팁을 열지 않는다(동작 계약 — 소비자/React 의 몫, CSS 가 아니다).** 터치에는 호버에서 떠나는 순간이
+없어, 열린 툴팁이 다음 탭까지(모달 위에서도) 남는다. 그래서 두 가지를 지킨다.
+
+- 터치의 `pointerenter` 는 호버가 아니라 누름의 시작이다 — `pointerType === "touch"` 이면 열지 않는다.
+- 트리거를 마지막으로 누른 포인터 종류를 기억해 두고, 터치로 눌렸다면 포커스를 받아도 열지 않는다. **포커스를 잃으면 그 기억을
+  지운다** — 이어서 키보드로 들어온 포커스는 지금처럼 지연 없이 연다.
+
+위 「터치에는 열리지 않는다」(Interaction)의 구체화다 — 그쪽은 방침이고 이쪽은 포커스 경로까지 막는 판정이다. LOUIS
+`Tooltip` React 구현(`tooltip.tsx`)은 첫째만 한다 — 둘째(터치로 누른 뒤의 포커스 경로)는 아직 없고 `onFocus` 가 지연 없이 연다. 제품
+`ChromeTooltip.tsx` 가 정본이며 React 몫이다.
+
 ## Accessibility
 
 - 표면은 `role="tooltip"`이고 trigger는 `aria-describedby`로 그것을 가리킨다. **`aria-labelledby`가

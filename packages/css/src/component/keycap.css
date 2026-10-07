@@ -1,0 +1,76 @@
+/* Keycap — design/components/keycap.md
+ *
+ * 키보드 단축키 한 칸. `<kbd>` 하나가 키 하나이고, 조합(`⌘ K`)은 키캡을 나란히 놓아 만든다.
+ *
+ * ## 두 소비처가 갈라져 있었다
+ *
+ * 제품에 키캡이 두 벌 있고 값이 다르다.
+ *
+ * | 항목 | 캔버스 도움말(`KBD`)                       | 명령 팔레트(`KEY`)                     |
+ * | ---- | ------------------------------------------ | -------------------------------------- |
+ * | 칸   | 최소 22×22 (`min-w-11 h-11`)               | 최소 20×20 (`min-w-10 h-10`)           |
+ * | 가로 | 6 (`px-3`)                                 | 5 (`px-[5px]`)                         |
+ * | 반경 | `radius-overlay-item` (10)                 | `rounded-6` (6)                        |
+ * | 면   | `bg-inset`                                 | `gray-000` 8% + 같은 색 1px 안쪽 선    |
+ * | 글자 | `fg-secondary` · caption-12-medium         | `gray-000` 56% · 12 · 글리프는 12×12   |
+ *
+ * (제품 Tailwind 간격 격자는 `--spacing: 2px` 라 `11` = 22px, `10` = 20px 이다.)
+ * 근거: `chore/landing-dead-walkthrough` 의 `CanvasHelpPanel.tsx:164`, `origin/dev` 의
+ * `CommandPalette.tsx:285`.
+ *
+ * ## 도움말 쪽으로 닫았다
+ *
+ * - **이미 토큰으로 적혀 있다.** 도움말은 `--louis-color-bg-inset` · `--louis-color-fg-secondary` ·
+ *   `--louis-radius-overlay-item` 을 그대로 쓴다. 팔레트는 팔레트 전용 팔레트색 알파(`gray-000` 8%)와
+ *   라이트 테마 덮어쓰기 두 줄을 직접 들고 있어 토큰으로 옮길 대응이 없다. `bg-inset` 은 테마를
+ *   따라 뒤집히므로 그 덮어쓰기가 필요 없다.
+ * - **면이 하나다.** 팔레트의 안쪽 1px 선은 8% 면 위의 8% 선이라 면을 한 번 더 칠한 것에 가깝다.
+ *   inset 면은 어느 표면(overlay · 카드 · 패널) 위에서도 읽히므로 선을 두지 않는다.
+ * - **글자가 모두 medium 이다.** 팔레트는 글리프 키와 글자 키(Esc)의 시각 무게를 맞추려고 글자 키에만
+ *   굵기와 자간 0.02em 을 줬다(`KEY_TEXT`). 처음부터 전부 medium 이면 그 갈래가 필요 없다.
+ * - 팔레트 쪽이 얻는 것은 2px 큰 칸과 둥근 모서리이고, 잃는 것은 면의 8% 투명도다. 이관할 때 그 차이를
+ *   본다 — keycap.md 가 적는다.
+ *
+ * 칸 크기(22)와 가로 여백(6)은 토큰 계단에 없다. 6 은 `space-overlay-inset` 과 같은 값이지만 그것은
+ * 오버레이 안쪽 여백의 뜻이라 키캡이 빌려 쓰면 오버레이 여백을 바꿀 때 키캡이 따라 움직인다.
+ */
+
+.louis-keycap {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  /* 도움말 22×22. 글자가 길면(Esc · Enter) 가로로만 늘어난다. */
+  min-inline-size: 22px;
+  block-size: 22px;
+  padding-block: 0;
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-overlay-item);
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-secondary);
+  /* 키 이름은 한 덩어리다. 칸 안에서 줄이 바뀌면 키가 둘로 읽힌다. */
+  white-space: nowrap;
+  user-select: none;
+  /* 제품은 `font-[inherit]` 이라 `<kbd>` 의 기본 monospace 를 걷어낸다. 같은 뜻을 토큰으로 적는다. */
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 글리프 키(⌘ ⌥ ⇧ ↵). 팔레트의 `[&_svg]:w-6 h-6` 이 12×12 다 — 22 칸 안에서 글자 12 와 같은 크기다.
+ * `:where()` 로 특이도를 0 으로 내려 소비자 클래스 하나가 크기를 이길 수 있게 한다(DS-D-0004). */
+.louis-keycap > :where(svg) {
+  display: block;
+  inline-size: 12px;
+  block-size: 12px;
+}
+
+/* forced-colors: 면이 시스템 색으로 치환돼 칸이 사라지므로 경계를 되살린다. */
+@media (forced-colors: active) {
+  .louis-keycap {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}

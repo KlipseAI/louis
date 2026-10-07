@@ -4168,7 +4168,7 @@
         }
       },
       "sticky": {
-        "$value": 100,
+        "$value": 1000,
         "$extensions": {
           "com.klipse-design": {
             "id": "layer-base-sticky",
@@ -4177,7 +4177,7 @@
         }
       },
       "popover": {
-        "$value": 200,
+        "$value": 1100,
         "$extensions": {
           "com.klipse-design": {
             "id": "layer-base-popover",
@@ -4186,7 +4186,7 @@
         }
       },
       "modal": {
-        "$value": 300,
+        "$value": 10200,
         "$extensions": {
           "com.klipse-design": {
             "id": "layer-base-modal",
@@ -4195,7 +4195,7 @@
         }
       },
       "critical": {
-        "$value": 400,
+        "$value": 13000,
         "$extensions": {
           "com.klipse-design": {
             "id": "layer-base-critical",

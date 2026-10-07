@@ -311,7 +311,62 @@
   border-end-end-radius: 0;
 }
 
+/* **손잡이(grabber) — 시트 위 가장자리의 닫기 띠(2026-10-07, 제품 캔버스 모바일 작업 브랜치).**
+ * 제품 두 시트(캔버스 모바일 시트 · 에디터 시트)가 같은 부품을 쓴다 —
+ * `CanvasMobileSheet.tsx` 가 `MobileSheetGrabber` 를 조립하고 치수는 `vemClass.ts:1572-1596` 에 있다.
+ * 마크업은 `<button class="louis-dialog__grabber" aria-label="…"><span class="louis-dialog__grabber-bar"></span></button>`
+ * 이며 surface 의 **첫 자식**으로 둔다. 탭과 아래로 40px 쓸기로 닫는 것은 CSS 가 아니라 소비자(또는 React)가
+ * 소유한다 — design/components/dialog.md 의 Interaction. 여기서는 모양과 누르는 영역만 정한다. */
+.louis-dialog[data-variant="sheet"] .louis-dialog__surface {
+  /* 띠 높이 32px 은 토큰이 없어 리터럴이다(`layout-control-height-md` 도 32 지만 컨트롤 높이라 뜻이 다르고, 그 값이
+   * 움직일 때 손잡이가 따라가면 안 된다). 제품은 16px 이던 것을 「손가락이 못 잡았다」며 32 로 올렸다
+   * (`vemClass.ts:1566-1570` 주석 · `height: 32px`, 1580행). 44px 타깃 기준보다 낮지만 띠 아래가 곧바로 헤더라
+   * 더 넓히면 헤더의 첫 탭을 먹는다 — 폭 전체를 쓰는 것으로 가로 조준 부담을 대신한다. */
+  --louis-dialog-grabber-block-size: 32px;
+}
+
+/* 손잡이가 있는 시트만 첫 행을 띠 높이만큼 내린다 — 띠는 절대 배치로 얹혀 격자 칸을 차지하지 않으므로 비우지 않으면
+ * 헤더의 위쪽이 띠에 가려진다(제품이 첫 행을 같은 높이만큼 비운다 — `CanvasMobileSheet.tsx` SHEET_GRABBER_ROW,
+ * `vemClass.ts:1568-1570` 주석). 손잡이가 없는 시트에는 아무 영향이 없다. */
+.louis-dialog[data-variant="sheet"] .louis-dialog__surface:has(> .louis-dialog__grabber) {
+  padding-block-start: var(--louis-dialog-grabber-block-size);
+}
+
+.louis-dialog__grabber {
+  /* 절대 배치인 이유 — 시트 안이 가로로 갈라지는 소비처(레일|본문)가 있어 자식 행으로 끼울 수 없다
+   * (`vemClass.ts:1566-1568`). surface 가 이미 `position: relative` 라 기준이 된다. */
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--louis-dialog-grabber-block-size, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  /* 쓸기가 스크롤에 뺏기지 않게 한다 — 이 띠에서 시작한 세로 제스처는 전부 소비자 핸들러의 것이다
+   * (`vemClass.ts:1571` 주석 · `touch-action: none`, 1581행). */
+  touch-action: none;
+}
+
+.louis-dialog__grabber-bar {
+  /* 36 × 4 는 제품 실측이다(`vemClass.ts:1590-1596`). 토큰이 없다 — 4 는 `space-control-xs` 와 같지만 간격이 아니라
+   * 막대 두께라 묶지 않는다. 곡률은 알약(`radius-pill`), 색은 `stroke-hairline` 으로 제품과 같다. */
+  inline-size: 36px;
+  block-size: 4px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-stroke-hairline);
+}
+
 @media (forced-colors: active) {
+  /* 강제 색은 막대의 배경을 캔버스색으로 덮어 막대가 사라진다 — 덮기를 끄고 글자색으로 되살린다. */
+  .louis-dialog__grabber-bar {
+    forced-color-adjust: none;
+    background: currentColor;
+  }
+
   /* box-shadow(elevation + 헤어라인)는 강제 색에서 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
   .louis-dialog__surface {
     box-shadow: none;

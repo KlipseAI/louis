@@ -7,6 +7,7 @@ authority: normative
 # DS-D-0009 Font distribution
 
 - Status: proposed
+- Implemented: 1항(2026-10-07) — `--louis-font-family-sans` · `-mono` 를 CSS 로 내고 typography 조합 토큰이 `var(--louis-font-family-sans)` 를 읽는다(`scripts/lib/token-model.mjs` 의 `fontStackTable`). 2 · 3 · 4 · 5항은 아직이다
 - Date: 2026-08-14
 - Owners: repository owner, token maintainer, package maintainer
 - Affects: `@klipse-design/tokens`, `@klipse-design/css`, `foundation-typography`

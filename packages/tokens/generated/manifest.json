@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "fcde9637cea9e9f004c0e5feeb87b52318187399818c5c4c6b6a2adf52e312df"
+      "sha256": "2e1198b21126186a7d38f2d7677e7ba7761ae5000804213c2f52d1c242e0c5c5"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
@@ -10,15 +10,15 @@
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "fd417e39942cf069b8962bc1b0fe5c4d24e3f4e6c24153ebae5107df2c66673e"
+      "sha256": "5e6f144034476c4c4069df1676a598316455d57dbcb2b0baf4bc74268c4fcefb"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "d18c2d602c217222c29e71b0f0748360bb35b65f08afd00724e5bdb9724d425d"
+      "sha256": "42e71b22a852e4ad16bd2855b2564816e4b9384d14cb69cd44142e5a7861e321"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "3f4441b9c97618f6f8fbca8a7619b9f53c6d0dcfe0957aa41f95ad9ab6b10e93"
+      "sha256": "dde6b10bdcc64f497127d0e0aa6766c745c20c240e0939dd415ed71ac26607e4"
     }
   ],
   "contrastPairs": [
@@ -479,7 +479,7 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "d5a737f4fb844c17d323ad6e1fdfa5bdb1fbde9dc019305a46c339e3fca83f82"
+    "sha256": "b2dc63fb9369926382afefa291442c3cbeae0db06b1356195455ed76e271ef9f"
   },
   "themes": [
     "light",
@@ -15041,7 +15041,9 @@
     },
     {
       "aliasTarget": null,
-      "cssProperties": {},
+      "cssProperties": {
+        "--louis-font-family-mono": "\"SFMono-Regular\", \"Consolas\", \"Liberation Mono\", monospace"
+      },
       "deprecated": null,
       "description": null,
       "id": "font-family-mono",
@@ -15064,7 +15066,9 @@
     },
     {
       "aliasTarget": null,
-      "cssProperties": {},
+      "cssProperties": {
+        "--louis-font-family-sans": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif"
+      },
       "deprecated": null,
       "description": null,
       "id": "font-family-sans",
@@ -15388,8 +15392,8 @@
       "description": null,
       "id": "layer-base-critical",
       "mode": "base",
-      "rawValue": 400,
-      "resolvedValue": 400,
+      "rawValue": 13000,
+      "resolvedValue": 13000,
       "sourcePath": "primitive.layer.critical",
       "tier": "primitive",
       "type": "number"
@@ -15401,8 +15405,8 @@
       "description": null,
       "id": "layer-base-modal",
       "mode": "base",
-      "rawValue": 300,
-      "resolvedValue": 300,
+      "rawValue": 10200,
+      "resolvedValue": 10200,
       "sourcePath": "primitive.layer.modal",
       "tier": "primitive",
       "type": "number"
@@ -15414,8 +15418,8 @@
       "description": null,
       "id": "layer-base-popover",
       "mode": "base",
-      "rawValue": 200,
-      "resolvedValue": 200,
+      "rawValue": 1100,
+      "resolvedValue": 1100,
       "sourcePath": "primitive.layer.popover",
       "tier": "primitive",
       "type": "number"
@@ -15427,8 +15431,8 @@
       "description": null,
       "id": "layer-base-sticky",
       "mode": "base",
-      "rawValue": 100,
-      "resolvedValue": 100,
+      "rawValue": 1000,
+      "resolvedValue": 1000,
       "sourcePath": "primitive.layer.sticky",
       "tier": "primitive",
       "type": "number"
@@ -15457,14 +15461,14 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-critical": "400"
+        "--louis-layer-critical": "13000"
       },
       "deprecated": null,
       "description": null,
       "id": "layer-critical",
       "mode": "global",
       "rawValue": "{primitive.layer.critical}",
-      "resolvedValue": 400,
+      "resolvedValue": 13000,
       "sourcePath": "semantic.global.layer.critical",
       "tier": "semantic",
       "type": "number"
@@ -15475,14 +15479,14 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-modal": "300"
+        "--louis-layer-modal": "10200"
       },
       "deprecated": null,
       "description": null,
       "id": "layer-modal",
       "mode": "global",
       "rawValue": "{primitive.layer.modal}",
-      "resolvedValue": 300,
+      "resolvedValue": 10200,
       "sourcePath": "semantic.global.layer.modal",
       "tier": "semantic",
       "type": "number"
@@ -15493,14 +15497,14 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-popover": "200"
+        "--louis-layer-popover": "1100"
       },
       "deprecated": null,
       "description": null,
       "id": "layer-popover",
       "mode": "global",
       "rawValue": "{primitive.layer.popover}",
-      "resolvedValue": 200,
+      "resolvedValue": 1100,
       "sourcePath": "semantic.global.layer.popover",
       "tier": "semantic",
       "type": "number"
@@ -15511,14 +15515,14 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-sticky": "100"
+        "--louis-layer-sticky": "1000"
       },
       "deprecated": null,
       "description": null,
       "id": "layer-sticky",
       "mode": "global",
       "rawValue": "{primitive.layer.sticky}",
-      "resolvedValue": 100,
+      "resolvedValue": 1000,
       "sourcePath": "semantic.global.layer.sticky",
       "tier": "semantic",
       "type": "number"
@@ -21951,7 +21955,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-medium-font-size": "20px",
         "--louis-typography-body-lg-medium-font-weight": "500",
         "--louis-typography-body-lg-medium-letter-spacing": "-0.2px",
@@ -21993,7 +21997,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-regular-font-size": "20px",
         "--louis-typography-body-lg-regular-font-weight": "400",
         "--louis-typography-body-lg-regular-letter-spacing": "-0.2px",
@@ -22035,7 +22039,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-semibold-font-size": "20px",
         "--louis-typography-body-lg-semibold-font-weight": "600",
         "--louis-typography-body-lg-semibold-letter-spacing": "-0.2px",
@@ -22077,7 +22081,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-medium-font-size": "16px",
         "--louis-typography-body-md-medium-font-weight": "500",
         "--louis-typography-body-md-medium-letter-spacing": "-0.16px",
@@ -22119,7 +22123,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-regular-font-size": "16px",
         "--louis-typography-body-md-regular-font-weight": "400",
         "--louis-typography-body-md-regular-letter-spacing": "-0.16px",
@@ -22161,7 +22165,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-semibold-font-size": "16px",
         "--louis-typography-body-md-semibold-font-weight": "600",
         "--louis-typography-body-md-semibold-letter-spacing": "-0.16px",
@@ -22203,7 +22207,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-medium-font-size": "14px",
         "--louis-typography-body-sm-medium-font-weight": "500",
         "--louis-typography-body-sm-medium-letter-spacing": "-0.14px",
@@ -22245,7 +22249,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-regular-font-size": "14px",
         "--louis-typography-body-sm-regular-font-weight": "400",
         "--louis-typography-body-sm-regular-letter-spacing": "-0.14px",
@@ -22287,7 +22291,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-semibold-font-size": "14px",
         "--louis-typography-body-sm-semibold-font-weight": "600",
         "--louis-typography-body-sm-semibold-letter-spacing": "-0.14px",
@@ -22329,7 +22333,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-medium-font-size": "12px",
         "--louis-typography-caption-medium-font-weight": "500",
         "--louis-typography-caption-medium-letter-spacing": "-0.12px",
@@ -22371,7 +22375,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-regular-font-size": "12px",
         "--louis-typography-caption-regular-font-weight": "400",
         "--louis-typography-caption-regular-letter-spacing": "-0.12px",
@@ -22413,7 +22417,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-semibold-font-size": "12px",
         "--louis-typography-caption-semibold-font-weight": "600",
         "--louis-typography-caption-semibold-letter-spacing": "-0.12px",
@@ -22455,7 +22459,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-lg-medium-font-size": "48px",
         "--louis-typography-heading-lg-medium-font-weight": "500",
         "--louis-typography-heading-lg-medium-letter-spacing": "-0.96px",
@@ -22497,7 +22501,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-lg-semibold-font-size": "48px",
         "--louis-typography-heading-lg-semibold-font-weight": "600",
         "--louis-typography-heading-lg-semibold-letter-spacing": "-0.96px",
@@ -22539,7 +22543,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-md-medium-font-size": "36px",
         "--louis-typography-heading-md-medium-font-weight": "500",
         "--louis-typography-heading-md-medium-letter-spacing": "-0.72px",
@@ -22581,7 +22585,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-md-semibold-font-size": "36px",
         "--louis-typography-heading-md-semibold-font-weight": "600",
         "--louis-typography-heading-md-semibold-letter-spacing": "-0.72px",
@@ -22623,7 +22627,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-sm-medium-font-size": "28px",
         "--louis-typography-heading-sm-medium-font-weight": "500",
         "--louis-typography-heading-sm-medium-letter-spacing": "-0.56px",
@@ -22665,7 +22669,7 @@
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-sm-semibold-font-size": "28px",
         "--louis-typography-heading-sm-semibold-font-weight": "600",
         "--louis-typography-heading-sm-semibold-letter-spacing": "-0.56px",

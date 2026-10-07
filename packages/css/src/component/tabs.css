@@ -62,6 +62,49 @@
   opacity: 0.32;
 }
 
+/* ── 밑선 탭 줄(`data-variant="underline"`) ──────────────────────────────────
+ * 출처: 2026-10-07, 제품 origin/dev `apps/web/components/scenes/analytics/AnalyticsTabs.tsx`
+ * (구독 허브 · 유튜브 · 인스타 · 영상 분석 네 화면). 제품은 `.louis-tabs` 위에 값을 덮어 쓰고
+ * 있었고, 정본이 받아야 할 것만 이 변형으로 옮겼다. 기본 탭 줄은 그대로다.
+ *
+ * - gap 0 — AnalyticsTabs.tsx:24 `gap-0`. 제품 어느 소비처도 4px 을 쓰지 않았던 값이다.
+ * - 밑선 — AnalyticsTabs.tsx:17 `border-b-[rgb(var(--gray-000-rgb)/8%)]`. DS-D-0023 한 면 헤어라인
+ *   (`--louis-hairline-inset-block-end`)으로 받는다. 줄 높이를 늘리지 않는다. 제품의 8% 와 이 헤어라인은
+ *   다크에서 같고(8%) 라이트에서 12% 다.
+ * - 480px 이하 — AnalyticsTabs.tsx:25-26,43. 줄이 wrap 하고, 탭 좌우 인셋이 8px 로 줄며, 첫 탭의
+ *   시작 인셋이 0 이 되어 글자가 줄 왼쪽 끝에 맞는다. 첫 탭의 `pl-6`(24px 격자에서 12px)은 기본
+ *   인셋과 같은 값이라 따로 적지 않는다.
+ *
+ * 받지 않은 것: 글자색 `text-gray-000`(순검정) · 450px 이하 글자 16→14 — 문서 Known deviations.
+ * 전환 300→200ms 는 이미 정본이 200ms(`motion-tab-select`)라 받을 것이 없다.
+ * 밑선은 목록 자기 폭만큼 그려진다. 제품처럼 오른쪽 기간 선택기까지 이어지는 선은 호출부 몫이다. */
+.louis-tabs[data-variant="underline"] {
+  gap: 0;
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+@media (max-width: 480px) {
+  .louis-tabs[data-variant="underline"] {
+    flex-wrap: wrap;
+  }
+
+  .louis-tabs[data-variant="underline"] > .louis-tabs__tab {
+    padding-inline: var(--louis-space-control-sm);
+  }
+
+  .louis-tabs[data-variant="underline"] > .louis-tabs__tab:first-child {
+    padding-inline-start: 0;
+  }
+}
+
+/* forced-colors: box-shadow 밑선은 강제 색 모드에서 사라진다 — 시스템 색 실선으로 되살린다(DS-D-0023). */
+@media (forced-colors: active) {
+  .louis-tabs[data-variant="underline"] {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .louis-tabs__tab {
     transition-duration: var(--louis-motion-reduced-duration);

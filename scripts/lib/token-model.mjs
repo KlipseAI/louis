@@ -168,6 +168,7 @@ export function compileTokenSource(rawSource, options = {}) {
     issues.push("token source에 token이 하나도 없습니다.");
   if (issues.length > 0) throw new TokenValidationError(issues);
 
+  const fontStacks = fontStackTable(records);
   const allTokens = records.sort(compareTokenRecords).map((token) => ({
     id: token.id,
     mode: token.mode,
@@ -186,10 +187,12 @@ export function compileTokenSource(rawSource, options = {}) {
     resolvedValue: deepClone(token.resolvedValue),
     cssProperties:
       token.tier === "semantic"
-        ? cssPropertiesForToken(token.id, token.type, token.resolvedValue)
+        ? cssPropertiesForToken(token.id, token.type, token.resolvedValue, fontStacks)
         : token.tier === "primitive" && token.type === "color"
           ? primitiveColorCss(token.id, token.resolvedValue)
-          : {},
+          : token.tier === "primitive" && token.type === "fontFamily"
+            ? primitiveFontFamilyCss(token.id, token.resolvedValue)
+            : {},
   }));
   const semanticTokens = allTokens.filter((token) => token.tier === "semantic");
   const primitiveTokens = allTokens.filter(
@@ -386,6 +389,7 @@ export function parseTokenManifest(rawSource, label = "token manifest") {
     } else {
       const seen = new Set();
       const tokensById = new Map();
+      const fontStacks = fontStackTable(manifest.tokens, { emittedOnly: true });
       const tokenByIdMode = new Map();
       const tokenBySourcePath = new Map();
       for (const [index, token] of manifest.tokens.entries()) {
@@ -502,7 +506,20 @@ export function parseTokenManifest(rawSource, label = "token manifest") {
               );
             }
           } else if (
+            token.type === "fontFamily" &&
+            normalizedValue !== undefined &&
+            Object.keys(token.cssProperties).length !== 0
+          ) {
+            // primitive 글꼴 스택도 CSS로 공개된다 (DS-D-0009 1항, 2026-10-07). 비어 있으면 그 전에 굳은 매니페스트다.
+            const expectedCss = primitiveFontFamilyCss(token.id, normalizedValue);
+            if (!jsonEqual(token.cssProperties, expectedCss)) {
+              issues.push(
+                `${tokenLabel}.primitive fontFamily cssProperties가 resolvedValue와 일치하지 않습니다.`,
+              );
+            }
+          } else if (
             token.type !== "color" &&
+            token.type !== "fontFamily" &&
             Object.keys(token.cssProperties).length !== 0
           ) {
             issues.push(
@@ -518,6 +535,7 @@ export function parseTokenManifest(rawSource, label = "token manifest") {
               token.id,
               token.type,
               normalizedValue,
+              fontStacks,
             );
             if (!jsonEqual(token.cssProperties, expectedCss)) {
               issues.push(
@@ -1128,6 +1146,7 @@ function validateFoundationDomains(records, issues) {
 
 function validateCssNames(records, issues) {
   const ownerByName = new Map();
+  const fontStacks = fontStackTable(records);
   for (const token of records.filter((item) => item.tier === "semantic")) {
     if (token.resolvedValue === undefined) continue;
     let properties;
@@ -1136,6 +1155,7 @@ function validateCssNames(records, issues) {
         token.id,
         token.type,
         token.resolvedValue,
+        fontStacks,
       );
     } catch (error) {
       issues.push(`${token.location}: CSS 변환 실패: ${error.message}`);
@@ -2355,11 +2375,38 @@ function figmaLossesForToken(type, representation) {
   return [];
 }
 
-function cssPropertiesForToken(id, type, value) {
+// **글꼴 스택은 원시 토큰 하나가 갖는다(DS-D-0009 1항, 2026-10-07).** 예전에는 같은 스택 리터럴이 typography 조합 토큰마다
+// 인라인돼, 소비자가 글꼴을 바꾸려면 조합 토큰 열여섯을 전부 덮어야 했다(제품이 일본어 화면에서 실제로 그렇게 덮었다). 원시
+// `font-family-*` 를 CSS 로 내고, 조합 토큰의 스택이 그 값과 같으면 `var()` 로 가리킨다. 다르면 지금처럼 리터럴이다.
+// 매니페스트를 검증할 때는 원시 글꼴 CSS 를 **실제로 낸** 토큰만 센다 — 그 전에 굳은 기준선(`packages/tokens/baseline`)은
+// 원시 글꼴의 cssProperties 가 비어 있고 조합 토큰이 리터럴이라, 새 규칙으로 읽으면 멀쩡한 기준선이 틀린 것으로 보인다.
+function fontStackTable(tokens, { emittedOnly = false } = {}) {
+  const table = new Map();
+  for (const token of tokens ?? []) {
+    if (token.tier !== "primitive" || token.type !== "fontFamily") continue;
+    const value = token.resolvedValue;
+    if (value === undefined) continue;
+    const name = `--louis-${token.id.replaceAll(".", "-")}`;
+    if (emittedOnly && !Object.hasOwn(token.cssProperties ?? {}, name)) continue;
+    table.set(JSON.stringify(Array.isArray(value) ? value : [value]), name);
+  }
+  return table;
+}
+
+function primitiveFontFamilyCss(id, value) {
+  return { [`--louis-${id.replaceAll(".", "-")}`]: cssFontFamily(value) };
+}
+
+function cssTypographyFontFamily(value, fontStacks) {
+  const name = fontStacks?.get(JSON.stringify(Array.isArray(value) ? value : [value]));
+  return name ? `var(${name})` : cssFontFamily(value);
+}
+
+function cssPropertiesForToken(id, type, value, fontStacks) {
   const base = `--louis-${id.replaceAll(".", "-")}`;
   if (type === "typography") {
     return {
-      [`${base}-font-family`]: cssFontFamily(value.fontFamily),
+      [`${base}-font-family`]: cssTypographyFontFamily(value.fontFamily, fontStacks),
       [`${base}-font-size`]: cssDimension(value.fontSize),
       [`${base}-font-weight`]: cssFontWeight(value.fontWeight),
       [`${base}-letter-spacing`]: cssDimension(value.letterSpacing),

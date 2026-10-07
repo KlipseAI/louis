@@ -62,6 +62,11 @@ CSS에서 행간이 필요하면 composite의 비율 field를 쓴다. percent �
 
 ## Locale and font loading
 
+- **글꼴 교체 지점은 하나다(DS-D-0009 1항, 2026-10-07).** `--louis-font-family-sans` 가 스택을 갖고 모든 typography 토큰의
+  `-font-family` 가 그것을 `var()` 로 읽는다. 소비자가 글꼴을 바꾸거나 로케일별 스택을 쓰려면 문서 루트에서 그 한 줄만 덮는다 —
+  예: `html[lang="ja"] { --louis-font-family-sans: <JA 스택>; }`. 조합 토큰 열여섯을 하나씩 덮지 않는다(제품 랜딩 작업 브랜치가 일본어
+  화면에서 그렇게 덮고 있었다). **루트에서 덮는다** — 조합 토큰은 `:root` · `[data-theme]` 에서 선언되므로 더 깊은 요소에서
+  바꾼 값은 보지 못한다.
 - P2 source는 공용 multi-script fallback 후보를 ordered font-family 배열로 보존한다. Validator는 trim된
   non-empty string 배열과 typography composite 구조를 검사하며 실제 script별 glyph 지원을 증명하지 않는다.
 - locale별 font 선택, asset 제공과 실제 glyph coverage 검증은 소비 환경이 소유하며 P3/P5 전에는 완료로

@@ -25,6 +25,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (207) — 작업 브랜치 2단: 겹 순서를 제품 사다리로(DS-D-0076) · 글꼴 교체 지점 하나(DS-D-0009 1항) · 새 슬롯 다섯
+
+- **겹 순서**([DS-D-0076](../governance/decisions/DS-D-0076-layer-follows-product-ladder.md), 소유자) — sticky 100→1000 · popover 200→1100 ·
+  modal 300→10200 · critical 400→13000(순서 그대로). LOUIS 층이 제품 앱 셸(1001)보다 모두 낮아 LOUIS modal 층을 쓴 화면 셋이 사이드바
+  밑에 깔렸었다. 값 변경은 breaking 이라 의도한 여덟 개만 확인하고 토큰 기준선을 옮겼다. Figma `layer/*` 원시 변수 넷을 `--only`
+  조각으로 그대로 보내고 되읽어 병합했다. 실측표는 Elevation and layer 가 갖는다.
+- **글꼴 교체 지점 하나**(DS-D-0009 1항 구현) — `--louis-font-family-sans` · `-mono` 를 CSS 로 내고 typography 토큰 열여덟의 `-font-family`
+  가 `var(--louis-font-family-sans)` 를 읽는다. 소비자는 문서 루트에서 한 줄만 덮는다(제품 랜딩 작업 브랜치가 일본어 화면에서 조합 토큰
+  열여섯을 하나씩 덮고 있었다). 기준선 매니페스트는 원시 글꼴 CSS 가 없던 판이라 검증기가 그것을 구분한다.
+- **새 슬롯 · 변형 다섯**(CSS · 문서, Figma 는 다음 회차)
+  - 시트 손잡이 `.louis-dialog__grabber` — 띠 32 · 막대 36×4, 탭과 아래로 40 쓸기로 닫힌다(동작은 소비자 몫).
+  - 밑선 탭 줄 `.louis-tabs[data-variant="underline"]` — 간격 0 · 아래 헤어라인 · 480 이하 줄바꿈과 좁은 인셋. 분석 네 화면.
+  - 메뉴 두 줄 항목 `__item-text` · `__item-description` · 아이콘 타일 `__item-icon[data-shape="tile"]` — 제품이 `!` 로 덮던 정렬을 레시피로.
+  - 키캡 `.louis-keycap`(최소 22×22 · `bg-inset` · caption-medium)과 툴팁 단축키 슬롯 `.louis-tooltip__shortcut`(거친 포인터에서 숨김).
+  - 글자 쉬머 [Loading Word](../components/loading-word.md) `.louis-loading-word` — 문구형 로딩의 정본, 동작 줄이기에서는 흐르지 않는다.
+    주기는 `motion-shimmer`(1.6s)라 제품(2.2s)과 다르다 — 소유자 판정 대기.
+
 ## 2026-10-07 (206) — 소유자 결정 둘을 반영: callout 닫기, 목록 상태는 예외만 배지 · 코치마크 닫기 자리
 
 (205) 의 감사에서 기존 규범과 어긋나 소유자 결정이 필요했던 것 가운데 둘을 반영했다(나머지 둘 — 입력칸 오류 링은 (205) 의

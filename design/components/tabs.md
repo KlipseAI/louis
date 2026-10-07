@@ -92,18 +92,39 @@ React prop이 없으므로 **계약면은 DOM 속성이다.** 레시피가 실�
 | `aria-selected` | `"true"` \| `"false"` | 없음 | 선택된 탭. `"true"`가 투명도를 1로 올린다 |
 | `disabled` | boolean 속성 | 없음 | 비활성. 투명도 0.32 · `cursor: not-allowed` |
 | `aria-disabled` | `"true"` | 없음 | `disabled`와 **같은 선언**을 받는다 |
+| `data-variant` | `"underline"` | 없음 | `.louis-tabs`(목록)에 붙는다. 밑선 탭 줄. 아래 Hierarchy와 variants |
 
 `aria-selected` 없이 클래스만 붙이면 **선택 상태가 그려지지 않는다.** 지속 상태를 ARIA 속성이
 소유하는 것은 [Interaction states](../foundations/interaction-states.md)의 계약이며, 그래서
 보조기술에 노출되지 않은 선택은 화면에도 나타날 수 없다.
 
-크기·variant·톤 prop이 없다. 아래 「일부러 하지 않은 것」.
+크기·톤 prop이 없다. 아래 「일부러 하지 않은 것」.
 
 ## Hierarchy와 variants
 
-**variant 축이 없다.** 밑줄 탭·박스 탭·알약 탭 같은 갈래를 두지 않았다. 제품 일곱 벌이 전부
+**variant는 `underline` 하나다.** 박스 탭·알약 탭 같은 갈래는 두지 않았다. 제품 일곱 벌이 전부
 같은 표현(면 없는 텍스트 + 투명도)이며, 실재하지 않는 갈래를 축으로 만들면 Figma에 그릴 수 없는
 option이 생긴다.
+
+**밑선 탭 줄 — `<nav class="louis-tabs" data-variant="underline" role="tablist">`.**
+2026-10-07, 제품 origin/dev `AnalyticsTabs.tsx`(구독 허브 · 유튜브 · 인스타 · 영상 분석 네 화면)가
+`.louis-tabs` 위에 값을 덮어 쓰던 것을 변형으로 받았다. **기본값은 바꾸지 않았다** — 기본 줄의
+소비처(문의 폼 칩 · 가이드 모달)가 다른 값(`gap-9` 등)을 쓰고, 덮어쓴 값 가운데 일부는 정본으로
+받을 수 없기 때문이다. `data-variant` 이름은 `app-shell`의 선례를 따랐다.
+
+| 제품이 덮은 값 | 판정 | 처리 |
+| --- | --- | --- |
+| gap 4 → 0 | 받음 | 변형의 `gap: 0` |
+| 첫 탭 `pl-6` | 받을 것 없음 | 12px 로 기본 인셋과 같다 — 제품의 `p-4`=8px · `px-6`=12px 격자 때문에 커 보였을 뿐이다 |
+| 밑선 gray-000 8% | 받음(근사) | DS-D-0023 헤어라인 `--louis-hairline-inset-block-end`. 다크 8% 로 같고 라이트는 12% — 아래 Known deviations |
+| 480px 이하 탭 좌우 `px-4`(8px) | 받음 | `space-control-sm`. 첫 탭은 시작 인셋 0, 줄은 wrap(제품 `pl-0!` · `flex-wrap`) |
+| 전환 300 → 200ms | 이미 정본 | `motion-tab-select`가 200ms 라 받을 것이 없다. 제품 주석이 낡았다 |
+| 글자 `text-gray-000` | 받지 않음 | Known deviations — 이미 적힌 순검정 편차 |
+| 450px 이하 글자 16 → 14 | 받지 않음 | Known deviations — 반응형 타이포는 타이포 정본의 일이다 |
+
+밑선은 **목록 자기 폭만큼** 그려진다. 제품의 선은 목록이 아니라 그 바깥 줄(탭 + 오른쪽 기간
+선택기)에 있어 선택기 아래까지 이어진다 — 그 줄은 호출부가 갖는다(「일부러 하지 않은 것」의 줄 배치와 같은 이유).
+출처: 2026-10-07, 제품 origin/dev AnalyticsTabs. **Figma 변형은 아직 없다**(TabItem · Tabs에 이 축이 없다).
 
 **크기 축도 없다.** 높이가 28 하나다. 이 값은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의
 컨트롤 사다리(`lg` 40 · `md` 32)를 **따르지 않는다** — 탭은 나란히 서는 컨트롤이 아니라 내비게이션
@@ -140,8 +161,9 @@ Implementation.
 - 그래서 좁아지면 **넘친다.** 레시피는 넘침을 처리하지 않는다. `.louis-tabs`의
   `min-inline-size: 0`은 이 줄이 flex 부모 안에서 자기 내용 크기 아래로 줄 수 있게 열어 둔 것이며,
   실제 처리(줄바꿈·가로 스크롤)는 호출부가 정한다. 분석 계열 세 파일은 480px 이하에서
-  `flex-wrap`하고 문의 폼은 상시 wrap한다.
-- 탭 사이 간격은 4px이지만 **제품 어느 소비처도 이 값을 쓰지 않는다.** 아래 Known deviations.
+  `flex-wrap`하고 문의 폼은 상시 wrap한다. **밑선 변형은 480px 이하 규칙을 레시피가 갖는다** —
+  wrap · 탭 좌우 8px(`space-control-sm`) · 첫 탭 시작 인셋 0.
+- 탭 사이 간격은 4px이지만 **제품 어느 소비처도 이 값을 쓰지 않는다.** 밑선 변형은 0이다. 아래 Known deviations.
 - 전환은 `opacity` 하나다. 폭·위치가 움직이지 않으므로 레이아웃 재계산이 없다.
 - `prefers-reduced-motion: reduce`에서 전환 시간이 0ms가 된다. 상태 자체는 남는다.
 
@@ -177,7 +199,9 @@ Implementation.
 | 세로 인셋 | 0 | 리터럴 |
 | 반경 | 999px | `radius-pill` |
 | 커서 | `pointer` · 비활성 `not-allowed` | 리터럴 |
-| 탭 사이 간격 | 4px | `space-control-xs` |
+| 탭 사이 간격 | 4px · 밑선 변형 0 | `space-control-xs` · 리터럴 |
+| 밑선(변형) | 헤어라인 inset 1면 | `hairline-inset-block-end` |
+| 480px 이하(변형) | 탭 좌우 8px · 첫 탭 시작 0 · wrap | `space-control-sm` |
 | 타이포 | 16/1.5 · 500 · −0.16px | `typography-body-md-medium` |
 | 전경 | light `#171B22` · dark `#FAFAFA` | `color-fg-primary` |
 | 면 | `transparent` | 리터럴 |
@@ -235,7 +259,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - Public import: **없다.** 소비처가 `styles.layer.css`를 통해 클래스를 받는다
 - React source: **없다**
 - Figma: TabItem · Tabs
-- Tests: **없다.** 하네스는 있다 — 아래 「일부러 하지 않은 것」
+- Tests: **없다**(밑선 변형 포함). 하네스는 있다 — 아래 「일부러 하지 않은 것」
 
 - **호출부가 투명도를 덮어쓸 수 있는 것은 특이도가 아니라 레이어 순서 덕이다.** 선택 규칙
   `.louis-tabs__tab[aria-selected="true"]`는 클래스+속성이라 (0,2,0)이고, `:where()`를 쓰는
@@ -261,7 +285,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
   하고, 쓰지 않는 계약은 Figma에서 빈 자리로 남는다.
 - **줄의 정렬·간격 축.** `justify-content`를 정하지 않는다. 분석 계열 세 파일이 `justify-start`에
   `gap-0`, 문의 폼이 `gap-9`(18px)로 서로 다르고 그 차이는 컴포넌트가 아니라 배치의 몫이다.
-- **acceptance test를 쓰지 않은 것 — 막힌 것이 아니라 미룬 것이다.** 아래 Acceptance tests 17개
+- **acceptance test를 쓰지 않은 것 — 막힌 것이 아니라 미룬 것이다.** 아래 Acceptance tests 18개
   항목은 오늘 그대로 쓸 수 있다. `packages/css/test/base.browser.test.ts`가 React 없이 원시 HTML을
   마운트해 계산값과 접근성 트리를 재는 **CSS 전용** 하네스이고(`.louis-visually-hidden`·
   옛 `.louis-focus-ring` 검증이 그렇게 서 있었다), Tabs에 React 표면이 없는 것은 이 하네스에
@@ -282,6 +306,11 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
   라벨이므로 면제 대상이 아니다. 그런데도 제품 값을 채택한 이유는 하나다 — 이것을 고치면 선택과
   미선택의 대비 차이가 좁아져 **어느 탭이 현재 화면인지 읽히지 않는다.** 투명도 하나로 선택을
   말하는 설계 자체를 바꿔야 하는 문제이며, 그 결정은 이 변경 단위 밖이다. 수용하고 여기 적는다.
+- **밑선이 제품 8%가 아니라 헤어라인(라이트 12% · 다크 8%)이다.** 제품은 `gray-000` 8% 이고 라이트에서
+  순검정 8% 다. 새 토큰을 만들지 않고 DS-D-0023 헤어라인을 받았다 — 라이트에서 4%p 짙다. 같게
+  하려면 밑선 전용 알파 토큰이 필요하고, 쓰는 곳이 이 변형 하나다.
+- **밑선이 목록 폭까지만 그려진다.** 제품은 탭 + 기간 선택기를 담는 바깥 줄이 선을 갖는다.
+- **Figma에 밑선 변형이 없다.** TabItem · Tabs 어느 쪽도 이 축을 갖지 않는다. 코드가 앞서 있다.
 - **토큰 게이트가 이 수치를 계산하지 않는다.** 토큰 소스의 `contrastPairs`는 전부 토큰 대
   토큰이고, **요소 투명도를 얹은 뒤의 색을 보는 쌍이 하나도 없다.** 위 실측은 손으로 잰 것이다.
   이 결손은 이 컴포넌트가 만든 것이 아니라 드러낸 것이다.
@@ -336,5 +365,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 14. 탭이 `flex: none`이라 컨테이너가 좁아져도 폭이 줄지 않고 라벨이 잘리지 않는다.
 15. 라벨이 길어도 줄바꿈하지 않고 줄의 높이가 28px로 유지된다.
 16. `role`·`aria-selected` 없이 클래스만 붙이면 선택 표현이 나타나지 않는다.
-17. 레시피에 `:focus-visible` 선언이 없다. 키보드 포커스에 링이 없고 강제 색에서만 `base.css`의
+17. (미작성) `data-variant="underline"`의 `gap`이 0이고 `box-shadow`가 헤어라인이며, 480px 이하에서
+    탭 좌우가 8px · 첫 탭 시작이 0 · 줄이 wrap한다. forced-colors에서는 `border-block-end` 실선이 선다.
+18. 레시피에 `:focus-visible` 선언이 없다. 키보드 포커스에 링이 없고 강제 색에서만 `base.css`의
     링이 선다(DS-D-0074).

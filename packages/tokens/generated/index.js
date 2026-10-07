@@ -4428,7 +4428,9 @@ export const primitives = {
   },
   "font-family-mono": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-font-family-mono": "\"SFMono-Regular\", \"Consolas\", \"Liberation Mono\", monospace"
+    },
     "deprecated": null,
     "description": null,
     "id": "font-family-mono",
@@ -4451,7 +4453,9 @@ export const primitives = {
   },
   "font-family-sans": {
     "aliasTarget": null,
-    "cssProperties": {},
+    "cssProperties": {
+      "--louis-font-family-sans": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif"
+    },
     "deprecated": null,
     "description": null,
     "id": "font-family-sans",
@@ -4670,11 +4674,11 @@ export const primitives = {
     "description": null,
     "id": "layer-base-critical",
     "mode": "base",
-    "rawValue": 400,
+    "rawValue": 13000,
     "sourcePath": "primitive.layer.critical",
     "tier": "primitive",
     "type": "number",
-    "value": 400
+    "value": 13000
   },
   "layer-base-modal": {
     "aliasTarget": null,
@@ -4683,11 +4687,11 @@ export const primitives = {
     "description": null,
     "id": "layer-base-modal",
     "mode": "base",
-    "rawValue": 300,
+    "rawValue": 10200,
     "sourcePath": "primitive.layer.modal",
     "tier": "primitive",
     "type": "number",
-    "value": 300
+    "value": 10200
   },
   "layer-base-popover": {
     "aliasTarget": null,
@@ -4696,11 +4700,11 @@ export const primitives = {
     "description": null,
     "id": "layer-base-popover",
     "mode": "base",
-    "rawValue": 200,
+    "rawValue": 1100,
     "sourcePath": "primitive.layer.popover",
     "tier": "primitive",
     "type": "number",
-    "value": 200
+    "value": 1100
   },
   "layer-base-sticky": {
     "aliasTarget": null,
@@ -4709,11 +4713,11 @@ export const primitives = {
     "description": null,
     "id": "layer-base-sticky",
     "mode": "base",
-    "rawValue": 100,
+    "rawValue": 1000,
     "sourcePath": "primitive.layer.sticky",
     "tier": "primitive",
     "type": "number",
-    "value": 100
+    "value": 1000
   },
   "line-height-percent-120": {
     "aliasTarget": null,
@@ -9322,7 +9326,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-critical": "400"
+        "--louis-layer-critical": "13000"
       },
       "deprecated": null,
       "description": null,
@@ -9332,7 +9336,7 @@ export const tokens = {
       "sourcePath": "semantic.global.layer.critical",
       "tier": "semantic",
       "type": "number",
-      "value": 400
+      "value": 13000
     },
     "layer-modal": {
       "aliasTarget": {
@@ -9340,7 +9344,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-modal": "300"
+        "--louis-layer-modal": "10200"
       },
       "deprecated": null,
       "description": null,
@@ -9350,7 +9354,7 @@ export const tokens = {
       "sourcePath": "semantic.global.layer.modal",
       "tier": "semantic",
       "type": "number",
-      "value": 300
+      "value": 10200
     },
     "layer-popover": {
       "aliasTarget": {
@@ -9358,7 +9362,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-popover": "200"
+        "--louis-layer-popover": "1100"
       },
       "deprecated": null,
       "description": null,
@@ -9368,7 +9372,7 @@ export const tokens = {
       "sourcePath": "semantic.global.layer.popover",
       "tier": "semantic",
       "type": "number",
-      "value": 200
+      "value": 1100
     },
     "layer-sticky": {
       "aliasTarget": {
@@ -9376,7 +9380,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-layer-sticky": "100"
+        "--louis-layer-sticky": "1000"
       },
       "deprecated": null,
       "description": null,
@@ -9386,7 +9390,7 @@ export const tokens = {
       "sourcePath": "semantic.global.layer.sticky",
       "tier": "semantic",
       "type": "number",
-      "value": 100
+      "value": 1000
     },
     "layout-alert-compact-inset": {
       "aliasTarget": {
@@ -12075,7 +12079,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-medium-font-size": "20px",
         "--louis-typography-body-lg-medium-font-weight": "500",
         "--louis-typography-body-lg-medium-letter-spacing": "-0.2px",
@@ -12117,7 +12121,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-regular-font-size": "20px",
         "--louis-typography-body-lg-regular-font-weight": "400",
         "--louis-typography-body-lg-regular-letter-spacing": "-0.2px",
@@ -12159,7 +12163,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-lg-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-lg-semibold-font-size": "20px",
         "--louis-typography-body-lg-semibold-font-weight": "600",
         "--louis-typography-body-lg-semibold-letter-spacing": "-0.2px",
@@ -12201,7 +12205,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-medium-font-size": "16px",
         "--louis-typography-body-md-medium-font-weight": "500",
         "--louis-typography-body-md-medium-letter-spacing": "-0.16px",
@@ -12243,7 +12247,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-regular-font-size": "16px",
         "--louis-typography-body-md-regular-font-weight": "400",
         "--louis-typography-body-md-regular-letter-spacing": "-0.16px",
@@ -12285,7 +12289,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-md-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-md-semibold-font-size": "16px",
         "--louis-typography-body-md-semibold-font-weight": "600",
         "--louis-typography-body-md-semibold-letter-spacing": "-0.16px",
@@ -12327,7 +12331,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-medium-font-size": "14px",
         "--louis-typography-body-sm-medium-font-weight": "500",
         "--louis-typography-body-sm-medium-letter-spacing": "-0.14px",
@@ -12369,7 +12373,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-regular-font-size": "14px",
         "--louis-typography-body-sm-regular-font-weight": "400",
         "--louis-typography-body-sm-regular-letter-spacing": "-0.14px",
@@ -12411,7 +12415,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-body-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-body-sm-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-body-sm-semibold-font-size": "14px",
         "--louis-typography-body-sm-semibold-font-weight": "600",
         "--louis-typography-body-sm-semibold-letter-spacing": "-0.14px",
@@ -12453,7 +12457,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-medium-font-size": "12px",
         "--louis-typography-caption-medium-font-weight": "500",
         "--louis-typography-caption-medium-letter-spacing": "-0.12px",
@@ -12495,7 +12499,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-regular-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-regular-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-regular-font-size": "12px",
         "--louis-typography-caption-regular-font-weight": "400",
         "--louis-typography-caption-regular-letter-spacing": "-0.12px",
@@ -12537,7 +12541,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-caption-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-caption-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-caption-semibold-font-size": "12px",
         "--louis-typography-caption-semibold-font-weight": "600",
         "--louis-typography-caption-semibold-letter-spacing": "-0.12px",
@@ -12579,7 +12583,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-lg-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-lg-medium-font-size": "48px",
         "--louis-typography-heading-lg-medium-font-weight": "500",
         "--louis-typography-heading-lg-medium-letter-spacing": "-0.96px",
@@ -12621,7 +12625,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-lg-semibold-font-size": "48px",
         "--louis-typography-heading-lg-semibold-font-weight": "600",
         "--louis-typography-heading-lg-semibold-letter-spacing": "-0.96px",
@@ -12663,7 +12667,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-md-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-md-medium-font-size": "36px",
         "--louis-typography-heading-md-medium-font-weight": "500",
         "--louis-typography-heading-md-medium-letter-spacing": "-0.72px",
@@ -12705,7 +12709,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-md-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-md-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-md-semibold-font-size": "36px",
         "--louis-typography-heading-md-semibold-font-weight": "600",
         "--louis-typography-heading-md-semibold-letter-spacing": "-0.72px",
@@ -12747,7 +12751,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-sm-medium-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-medium-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-sm-medium-font-size": "28px",
         "--louis-typography-heading-sm-medium-font-weight": "500",
         "--louis-typography-heading-sm-medium-letter-spacing": "-0.56px",
@@ -12789,7 +12793,7 @@ export const tokens = {
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-typography-heading-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-semibold-font-family": "var(--louis-font-family-sans)",
         "--louis-typography-heading-sm-semibold-font-size": "28px",
         "--louis-typography-heading-sm-semibold-font-weight": "600",
         "--louis-typography-heading-sm-semibold-letter-spacing": "-0.56px",

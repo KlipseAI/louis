@@ -5716,9 +5716,9 @@
           "scopes": [],
           "valuesByMode": {
             "Base": {
-              "$value": 400,
+              "$value": 13000,
               "aliasTarget": null,
-              "resolvedValue": 400,
+              "resolvedValue": 13000,
               "sourcePath": "primitive.layer.critical"
             }
           }
@@ -5734,9 +5734,9 @@
           "scopes": [],
           "valuesByMode": {
             "Base": {
-              "$value": 300,
+              "$value": 10200,
               "aliasTarget": null,
-              "resolvedValue": 300,
+              "resolvedValue": 10200,
               "sourcePath": "primitive.layer.modal"
             }
           }
@@ -5752,9 +5752,9 @@
           "scopes": [],
           "valuesByMode": {
             "Base": {
-              "$value": 200,
+              "$value": 1100,
               "aliasTarget": null,
-              "resolvedValue": 200,
+              "resolvedValue": 1100,
               "sourcePath": "primitive.layer.popover"
             }
           }
@@ -5770,9 +5770,9 @@
           "scopes": [],
           "valuesByMode": {
             "Base": {
-              "$value": 100,
+              "$value": 1000,
               "aliasTarget": null,
-              "resolvedValue": 100,
+              "resolvedValue": 1000,
               "sourcePath": "primitive.layer.sticky"
             }
           }
@@ -11741,7 +11741,7 @@
                 "id": "layer-base-critical",
                 "mode": "base"
               },
-              "resolvedValue": 400,
+              "resolvedValue": 13000,
               "sourcePath": "semantic.global.layer.critical"
             }
           }
@@ -11762,7 +11762,7 @@
                 "id": "layer-base-modal",
                 "mode": "base"
               },
-              "resolvedValue": 300,
+              "resolvedValue": 10200,
               "sourcePath": "semantic.global.layer.modal"
             }
           }
@@ -11783,7 +11783,7 @@
                 "id": "layer-base-popover",
                 "mode": "base"
               },
-              "resolvedValue": 200,
+              "resolvedValue": 1100,
               "sourcePath": "semantic.global.layer.popover"
             }
           }
@@ -11804,7 +11804,7 @@
                 "id": "layer-base-sticky",
                 "mode": "base"
               },
-              "resolvedValue": 100,
+              "resolvedValue": 1000,
               "sourcePath": "semantic.global.layer.sticky"
             }
           }

@@ -120,6 +120,7 @@ workspace wrapper는 분리한다.
 6. **Body** — 설명, 폼, 오류, 스크롤 콘텐츠.
 7. **Footer** — 안전한 취소와 primary/danger action.
 8. **Nested overlay host** — Select, Popover, Tooltip을 같은 modal branch에 연결한다.
+9. **Grabber** — `sheet` 전용 선택 부품. surface 위 가장자리의 닫기 띠이며 손잡이 막대를 그린다. 아래 「Sheet 손잡이」.
 
 **Body는 슬롯이다.** 배포본 확인 모달 셸은 설명 `<p>`와 액션 행 **사이**에 children을 그대로
 끼운다(`GlassConfirmModal.tsx:193`). 소비처가 넣는 것은 설명 아래·액션 위에 앉고, 설명과 액션
@@ -241,6 +242,45 @@ Tab과 Shift+Tab은 최상위 Dialog 내부에서 순환한다. nested Popover�
   손실 가능성이 있으면 dirty guard를 제공한다.
 - closing 상태의 root는 action을 다시 받지 않는다. 다만 exit가 끝날 때까지 배경 클릭이 accidental
   action으로 통과하지 않도록 정책을 일관되게 유지한다.
+
+### Sheet 손잡이(grabber)
+
+`data-variant="sheet"` 의 surface 첫 자식으로 둘 수 있는 선택 부품이다. 작은 화면에서 아래에서 올라온 시트를
+엄지로 내리는 제스처를 위한 것이며, 두 제품 시트(캔버스 모바일 시트 · 에디터 시트)가 같은 부품을 쓴다.
+출처: 2026-10-07, 제품 캔버스 모바일 작업 브랜치(`feat/canvas-mobile-ux` 의 `CanvasMobileSheet.tsx` ·
+`vemClass.ts:1566-1596` · `MobileSheetGrabber.tsx`).
+
+```html
+<div class="louis-dialog__surface" role="dialog" aria-label="…">
+  <button type="button" class="louis-dialog__grabber" aria-label="시트 닫기">
+    <span class="louis-dialog__grabber-bar"></span>
+  </button>
+  <!-- header · body · footer -->
+</div>
+```
+
+| 축 | 값 |
+| --- | --- |
+| 띠 | 절대 배치 · 위 가장자리 · 폭 전체 · 높이 32px(`--louis-dialog-grabber-block-size`). 토큰이 없어 리터럴이다 |
+| 막대 | 36 × 4px · `radius-pill` · `color-stroke-hairline` |
+| 누르는 영역 | 띠 전체(폭 × 32px). 44px 보다 낮지만, 더 넓히면 바로 아래 헤더의 첫 탭을 먹는다 — 제품이 16px 에서 32px 로 올린 것이 그 균형이다 |
+| 아래 내용 | 손잡이가 있는 surface 만 위 패딩을 띠 높이만큼 둔다(`:has(> .louis-dialog__grabber)`). 없으면 영향 없다 |
+| 쓸기 | `touch-action: none` — 띠에서 시작한 세로 제스처를 스크롤이 가져가지 않는다 |
+
+**동작 계약 — 탭과 아래로 쓸기로 닫힌다(40px).** 이 동작은 **CSS 가 아니라 소비자(또는 React)의 몫**이다.
+`dialog.css` 는 모양과 누르는 영역만 소유하고, 아래 규칙은 소비자가 핸들러로 구현한다. 제품 `MobileSheetGrabber` 가
+기준 구현이다.
+
+- 아래로 **40px**(`SWIPE_CLOSE_PX`) 이상 끌면 즉시 닫는다. 손가락 떨림(≈10px)보다 크고 한 번 쓸기(≈80px)보다 짧은 값이다.
+- 40px 미만으로 눌렀다 떼면 탭이며 닫는다. 위로 40px 이상 끌었다 놓은 것은 탭이 아니다 — 닫지 않는다.
+- 한 제스처에 `onClose` 는 **한 번**만 부른다. 포인터 캡처로 손가락이 띠 밖으로 나가도 이동을 계속 받는다.
+- 탭은 `click` 이 아니라 pointerup 에서 닫는다(쓸어서 닫힌 뒤 따라오는 click 의 중복 호출을 피한다). `click` 은 키보드
+  (Enter · Space, `detail === 0`)만 받는다. 보조 버튼 · 두 번째 손가락은 무시한다.
+- 띠는 `<button type="button">` 이고 `aria-label` 이 필수다(예: 「시트 닫기」). 닫기 사유는 `cancel` 과 같다.
+
+**현재 구현 범위.** CSS 는 `dialog.css` 에 있다. React `Dialog` 에는 손잡이 part 가 **아직 없다** — 새 public export
+(`api-surface.json`) 와 쓸기 제스처 계약이 함께 들어가야 해서 이 변경에서 넣지 않았다. 소비자는 위 마크업과 제스처 규칙을
+직접 구현한다. **Figma 변형도 아직 없다**(손잡이 막대 · 띠 높이는 코드에만 있다).
 
 ## Modal and Workspace separation
 

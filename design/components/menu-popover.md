@@ -81,6 +81,9 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
    - **Item leading icon slot** — 라벨 앞에 서는 고정 치수 칩이다. 아이콘 자체가 아니라 아이콘을 담는
      면이며, 행이 좁아져도 줄지 않는다. 치수·곡률·면은 §Specification의 「Item leading icon slot」 표가
      소유한다. 이 슬롯을 아이콘 크기로만 정의하면 칩 면이 사라져 행이 밋밋해진다.
+   - **Item text / description slot** — 이름(`__item-label`) 아래에 결과 한 줄(`__item-description`)을
+     더하는 두 줄 항목이다. 설명 슬롯이 있는 항목만 아이콘을 첫 줄에 맞추고 줄을 접지 않는다. 치수와 근거는
+     §Specification의 「두 줄 항목」이 소유한다.
 7. **Nested overlay** — submenu, Listbox, color picker 등이다. 부모와 같은 overlay branch에 등록한다.
 
 ## Properties
@@ -576,6 +579,63 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 않으므로 확인할 자리가 없다」로 판정을 미뤄 두었으나, 이 슬롯이 그 5px이 실제로 서는 자리다. primitive 추가와
 리터럴 허용 중 하나를 골라야 하며, 그 판정 문장도 함께 정정한다.
 
+**2026-10-07 판정 — 타일은 `data-shape="tile"` 로 켜고, 곡률 5px 은 리터럴로 닫는다.** 위 문단이 미뤄 둔
+「primitive 추가와 리터럴 허용」 중 **리터럴 허용**을 골랐다. 사다리에 5가 없고 가장 가까운 `radius-table-header`(4)는
+이름이 표 머리 전용이라 타일에 쓰면 거짓이 된다. 20px 정사각형에서 4·5·6은 1px 차이라 화면에서 구분되지 않으므로
+토큰을 새로 세우는 비용이 얻는 것보다 크다. 반경 5가 타일 밖에서 둘째 소비처를 얻으면 그때 primitive 로 올린다.
+면은 위 표의 제품 값(다크 gray-700 · 라이트 palette-gray-200/025)을 따르지 않고 `color-accent-secondary-hover`
+(잉크 12%)로 닫는다 — Known deviations 「아이콘 타일 면」.
+
+### 두 줄 항목 (이름 + 설명) · 아이콘 타일
+
+**출처: 2026-10-07, 제품 origin/dev `NodeNextStepMenu.tsx:55-66` · 작업 브랜치 `HomeCreateNewMenu.tsx:193` 부근.**
+제품은 두 파일 모두 `louis-menu__item` 에 `items-start!` · `whitespace-nowrap!` 를 얹어 레시피를 **덮어썼다**.
+`!` 가 필요했다는 것은 레시피가 그 모양을 갖고 있지 않았다는 뜻이라, 슬롯과 함께 레시피가 갖는다.
+
+```
+.louis-menu__item
+├─ .louis-menu__item-icon[data-shape="tile"]   20×20 · 5px 리터럴 · 잉크 12% 면 · 두 줄이면 mt 2px
+└─ .louis-menu__item-text                      column · gap 2px
+   ├─ .louis-menu__item-label                  이름 — 항목 본문 서체(body-sm)
+   └─ .louis-menu__item-description            결과 한 줄 — caption-regular · color-fg-tertiary
+```
+
+| 속성 | 값 | 근거 |
+| --- | --- | --- |
+| 정렬 | 설명 슬롯이 **있는** 항목만 `align-items: flex-start` | `NodeNextStepMenu.tsx:56` `items-start!` |
+| 줄바꿈 | 같은 항목만 `white-space: nowrap` | `NodeNextStepMenu.tsx:56` `whitespace-nowrap!`, 폭 실측 주석 |
+| 적용 방식 | 속성이 아니라 `:where(:has(.louis-menu__item-description))` — 특이도 (0,1,0) | 호출처가 속성을 더 달지 않는다 |
+| 이름↔설명 간격 | 2px (`space-overlay-item-gap` 값 재사용) | 제품 `gap-1`, `--spacing: 2px` |
+| 설명 서체 | `typography-caption-regular` (12px) | 제품 `type-caption-12-regular` |
+| 설명 색 | `color-fg-tertiary`. disabled · forced-colors 에서는 `inherit` | 제품 `text-fg-tertiary group-disabled:[color:inherit]` |
+| 타일 치수 | `icon-size-md` = 20px 정사각 | 제품 `w-10 h-10` |
+| 타일 곡률 | **5px 리터럴** | 위 2026-10-07 판정 |
+| 타일 면 | `color-accent-secondary-hover` | Known deviations |
+| 타일 세로 위치 | 두 줄 항목에서 `margin-block-start` 2px | 제품 `mt-1` |
+
+**Figma 변형은 아직 없다.** 항목 set(State)에 「설명 줄」·「타일」 축이 없고, 계약(`menu-popover.sizes`)도 이 슬롯을
+pin 하지 않는다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은 CSS 클래스만 있고 소비처가
+마크업을 직접 쓴다. 제품 `NodeNextStepMenu` 가 쓰는 동안 Figma 와 React 는 후속이다.
+
+### 팝오버 밖 목록 — 정본으로 올리지 않고 편차로 둔다
+
+작업 브랜치 `HomeCreateNewMenu.tsx` 의 `HomeCreateNewList` 는 같은 항목 배열을 **팝오버 없이 본문에 펼치고**
+이름을 body-16 · 설명을 body-14 로 한 단계씩 키우고, 둘째 행부터 행 윗변에 `--louis-hairline-inset-block-start`
+를 긋는다. 판정은 **편차**다.
+
+- 소비처가 하나이고 아직 `dev` 에 합쳐지지 않았다. 둘째 소비처가 없는 크기 축은 세우지 않는다
+  (Trigger 절의 「쓰지 않는 계단은 세우지 않는다」와 같다).
+- 이 쓰임은 메뉴가 아니다. `role="menuitem"` 도 roving focus 도 없는 **본문의 버튼 목록**이라 이 문서의 Panel ·
+  Interaction 계약 밖이다. 같은 `louis-menu__item` 을 빌려 쓸 뿐이다.
+- 슬롯(`__item-text` · `__item-description`)은 그대로 쓸 수 있다. 소비자가 크기를 올리려면 `.louis-menu__item`
+  과 `.louis-menu__item-description` 에 글꼴 크기를 직접 준다 — 레시피는 `:where()` 로 특이도를 낮춰 두었다.
+- 행 윗변 헤어라인은 별도 0.5px 박스가 아니라 행 자신의 `box-shadow` 다(제품 주석: 박스는 소수점 높이에서 기기
+  픽셀 사이로 떨어져 선이 사라지고, `border` 는 Chrome 이 0.5px 를 1px 로 올린다). `.louis-menu__separator`
+  와 같은 토큰을 읽는다.
+
+둘째 소비처가 생기거나 이 목록이 `dev` 에 합쳐지면 `data-size="lg"`(이름 body-md · 설명 body-sm) 축과 행 구분선
+슬롯을 **Decision 으로** 올릴지 다시 판정한다.
+
 ### 위 표에서 어긋나는 행
 
 - **`Item 내부 gap` 6px은 제품과 2px 다르다.** 제품의 아이콘↔라벨 간격은 `gap-4` = **8px**다
@@ -621,6 +681,17 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
 
 ## Known deviations
 
+- **아이콘 타일 면이 제품과 다르다.** 제품 `NodeNextStepMenu` 는 다크 `gray-700`(#575d68) · 라이트
+  `palette-gray-025` 를 직접 지정한다. 라이트 025 는 이 저장소의 `color-bg-menu`(라이트 025, DS-D-0069)와 같은 값이라
+  타일이 사라지고, 다크 값은 팔레트 램프에 정확한 짝이 없다(가장 가까운 `palette-gray-600` = #585c63 은 테마를 따라
+  뒤집히지 않는다). 그래서 테마를 따라 뒤집히는 `color-accent-secondary-hover`(잉크 12%)로 닫았다. 다크에서
+  타일은 제품(#575d68)보다 어둡다(패널 gray-900 위 흰 12%). 제품이 두 면을 같은 값으로 맞출지 소유자가 판정한다.
+- **설명 줄이 있는 항목은 줄을 접지 않는다.** 제품 `whitespace-nowrap!` 를 그대로 가져왔다. 가용 폭이 좁으면
+  (320 CSS px · 200% 확대) 줄이 접히지 않고 패널이 `overlay.css` 의 `overflow: auto` 로 가로 스크롤된다 — WCAG
+  1.4.10 reflow 와 어긋날 수 있다. 제품은 언어별 폭을 실측해 한계를 정했고(`MENU_WIDTH_PX = 300`) 접으면 두 줄 항목의
+  높이가 제각각이 된다는 이유로 접지 않는다. 수동 확대 검토 뒤 접힘 허용 축(`data-wrap`)을 둘지 판정한다.
+- **두 줄 항목에는 React API 도 Figma 변형도 없다.** CSS 슬롯만 있다. 위 「두 줄 항목」 절.
+- **팝오버 밖에서 크기를 키운 목록(`HomeCreateNewList`)은 정본이 아니다.** 위 「팝오버 밖 목록」 절.
 - **바깥 클릭이 드물게 배경 액션을 실행한다 — 간헐 결함.** 규범이 차단급으로 지정한 계약
   ("바깥 클릭은 메뉴만 닫고 배경 액션을 실행하지 않는다")이 전체 suite 실행 **36회 중 1회** 깨졌다. 실측한 증상은 **패널은 정상적으로 닫히는데 클릭이 배경까지 도달하는 것**이고,
   `browser-reduced-motion` project에서만 관측됐다. 단일 테스트 20회, 단일 project(reduced-motion) 10회로는

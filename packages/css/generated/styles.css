@@ -2603,7 +2603,62 @@
   border-end-end-radius: 0;
 }
 
+/* **손잡이(grabber) — 시트 위 가장자리의 닫기 띠(2026-10-07, 제품 캔버스 모바일 작업 브랜치).**
+ * 제품 두 시트(캔버스 모바일 시트 · 에디터 시트)가 같은 부품을 쓴다 —
+ * `CanvasMobileSheet.tsx` 가 `MobileSheetGrabber` 를 조립하고 치수는 `vemClass.ts:1572-1596` 에 있다.
+ * 마크업은 `<button class="louis-dialog__grabber" aria-label="…"><span class="louis-dialog__grabber-bar"></span></button>`
+ * 이며 surface 의 **첫 자식**으로 둔다. 탭과 아래로 40px 쓸기로 닫는 것은 CSS 가 아니라 소비자(또는 React)가
+ * 소유한다 — design/components/dialog.md 의 Interaction. 여기서는 모양과 누르는 영역만 정한다. */
+.louis-dialog[data-variant="sheet"] .louis-dialog__surface {
+  /* 띠 높이 32px 은 토큰이 없어 리터럴이다(`layout-control-height-md` 도 32 지만 컨트롤 높이라 뜻이 다르고, 그 값이
+   * 움직일 때 손잡이가 따라가면 안 된다). 제품은 16px 이던 것을 「손가락이 못 잡았다」며 32 로 올렸다
+   * (`vemClass.ts:1566-1570` 주석 · `height: 32px`, 1580행). 44px 타깃 기준보다 낮지만 띠 아래가 곧바로 헤더라
+   * 더 넓히면 헤더의 첫 탭을 먹는다 — 폭 전체를 쓰는 것으로 가로 조준 부담을 대신한다. */
+  --louis-dialog-grabber-block-size: 32px;
+}
+
+/* 손잡이가 있는 시트만 첫 행을 띠 높이만큼 내린다 — 띠는 절대 배치로 얹혀 격자 칸을 차지하지 않으므로 비우지 않으면
+ * 헤더의 위쪽이 띠에 가려진다(제품이 첫 행을 같은 높이만큼 비운다 — `CanvasMobileSheet.tsx` SHEET_GRABBER_ROW,
+ * `vemClass.ts:1568-1570` 주석). 손잡이가 없는 시트에는 아무 영향이 없다. */
+.louis-dialog[data-variant="sheet"] .louis-dialog__surface:has(> .louis-dialog__grabber) {
+  padding-block-start: var(--louis-dialog-grabber-block-size);
+}
+
+.louis-dialog__grabber {
+  /* 절대 배치인 이유 — 시트 안이 가로로 갈라지는 소비처(레일|본문)가 있어 자식 행으로 끼울 수 없다
+   * (`vemClass.ts:1566-1568`). surface 가 이미 `position: relative` 라 기준이 된다. */
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--louis-dialog-grabber-block-size, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  /* 쓸기가 스크롤에 뺏기지 않게 한다 — 이 띠에서 시작한 세로 제스처는 전부 소비자 핸들러의 것이다
+   * (`vemClass.ts:1571` 주석 · `touch-action: none`, 1581행). */
+  touch-action: none;
+}
+
+.louis-dialog__grabber-bar {
+  /* 36 × 4 는 제품 실측이다(`vemClass.ts:1590-1596`). 토큰이 없다 — 4 는 `space-control-xs` 와 같지만 간격이 아니라
+   * 막대 두께라 묶지 않는다. 곡률은 알약(`radius-pill`), 색은 `stroke-hairline` 으로 제품과 같다. */
+  inline-size: 36px;
+  block-size: 4px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-stroke-hairline);
+}
+
 @media (forced-colors: active) {
+  /* 강제 색은 막대의 배경을 캔버스색으로 덮어 막대가 사라진다 — 덮기를 끄고 글자색으로 되살린다. */
+  .louis-dialog__grabber-bar {
+    forced-color-adjust: none;
+    background: currentColor;
+  }
+
   /* box-shadow(elevation + 헤어라인)는 강제 색에서 사라지므로 시스템 색 경계를 되살린다 (DS-D-0023). */
   .louis-dialog__surface {
     box-shadow: none;
@@ -3819,6 +3874,191 @@
   }
 }
 
+/* Keycap — design/components/keycap.md
+ *
+ * 키보드 단축키 한 칸. `<kbd>` 하나가 키 하나이고, 조합(`⌘ K`)은 키캡을 나란히 놓아 만든다.
+ *
+ * ## 두 소비처가 갈라져 있었다
+ *
+ * 제품에 키캡이 두 벌 있고 값이 다르다.
+ *
+ * | 항목 | 캔버스 도움말(`KBD`)                       | 명령 팔레트(`KEY`)                     |
+ * | ---- | ------------------------------------------ | -------------------------------------- |
+ * | 칸   | 최소 22×22 (`min-w-11 h-11`)               | 최소 20×20 (`min-w-10 h-10`)           |
+ * | 가로 | 6 (`px-3`)                                 | 5 (`px-[5px]`)                         |
+ * | 반경 | `radius-overlay-item` (10)                 | `rounded-6` (6)                        |
+ * | 면   | `bg-inset`                                 | `gray-000` 8% + 같은 색 1px 안쪽 선    |
+ * | 글자 | `fg-secondary` · caption-12-medium         | `gray-000` 56% · 12 · 글리프는 12×12   |
+ *
+ * (제품 Tailwind 간격 격자는 `--spacing: 2px` 라 `11` = 22px, `10` = 20px 이다.)
+ * 근거: `chore/landing-dead-walkthrough` 의 `CanvasHelpPanel.tsx:164`, `origin/dev` 의
+ * `CommandPalette.tsx:285`.
+ *
+ * ## 도움말 쪽으로 닫았다
+ *
+ * - **이미 토큰으로 적혀 있다.** 도움말은 `--louis-color-bg-inset` · `--louis-color-fg-secondary` ·
+ *   `--louis-radius-overlay-item` 을 그대로 쓴다. 팔레트는 팔레트 전용 팔레트색 알파(`gray-000` 8%)와
+ *   라이트 테마 덮어쓰기 두 줄을 직접 들고 있어 토큰으로 옮길 대응이 없다. `bg-inset` 은 테마를
+ *   따라 뒤집히므로 그 덮어쓰기가 필요 없다.
+ * - **면이 하나다.** 팔레트의 안쪽 1px 선은 8% 면 위의 8% 선이라 면을 한 번 더 칠한 것에 가깝다.
+ *   inset 면은 어느 표면(overlay · 카드 · 패널) 위에서도 읽히므로 선을 두지 않는다.
+ * - **글자가 모두 medium 이다.** 팔레트는 글리프 키와 글자 키(Esc)의 시각 무게를 맞추려고 글자 키에만
+ *   굵기와 자간 0.02em 을 줬다(`KEY_TEXT`). 처음부터 전부 medium 이면 그 갈래가 필요 없다.
+ * - 팔레트 쪽이 얻는 것은 2px 큰 칸과 둥근 모서리이고, 잃는 것은 면의 8% 투명도다. 이관할 때 그 차이를
+ *   본다 — keycap.md 가 적는다.
+ *
+ * 칸 크기(22)와 가로 여백(6)은 토큰 계단에 없다. 6 은 `space-overlay-inset` 과 같은 값이지만 그것은
+ * 오버레이 안쪽 여백의 뜻이라 키캡이 빌려 쓰면 오버레이 여백을 바꿀 때 키캡이 따라 움직인다.
+ */
+
+.louis-keycap {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  /* 도움말 22×22. 글자가 길면(Esc · Enter) 가로로만 늘어난다. */
+  min-inline-size: 22px;
+  block-size: 22px;
+  padding-block: 0;
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-overlay-item);
+  background: var(--louis-color-bg-inset);
+  color: var(--louis-color-fg-secondary);
+  /* 키 이름은 한 덩어리다. 칸 안에서 줄이 바뀌면 키가 둘로 읽힌다. */
+  white-space: nowrap;
+  user-select: none;
+  /* 제품은 `font-[inherit]` 이라 `<kbd>` 의 기본 monospace 를 걷어낸다. 같은 뜻을 토큰으로 적는다. */
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 글리프 키(⌘ ⌥ ⇧ ↵). 팔레트의 `[&_svg]:w-6 h-6` 이 12×12 다 — 22 칸 안에서 글자 12 와 같은 크기다.
+ * `:where()` 로 특이도를 0 으로 내려 소비자 클래스 하나가 크기를 이길 수 있게 한다(DS-D-0004). */
+.louis-keycap > :where(svg) {
+  display: block;
+  inline-size: 12px;
+  block-size: 12px;
+}
+
+/* forced-colors: 면이 시스템 색으로 치환돼 칸이 사라지므로 경계를 되살린다. */
+@media (forced-colors: active) {
+  .louis-keycap {
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+}
+
+/* Loading Word — design/components/loading-word.md
+ *
+ * 스피너 없이 **글자 자체를 쉬머로 흘려** 진행 중임을 말한다. 출처는 2026-10-07 제품 하이라이트 새
+ * 화면 작업 브랜치(`feat/highlight-new-screen`)의 `LoadingWord.tsx` 이고, 제품은 그것을 문구형
+ * 로딩의 정본으로 선언했다. 같은 브랜치에서 홈·캔버스·구독·확인 창·하이라이트 보드가 쓴다.
+ * 그 전에는 같은 스윕 keyframe 을 이름만 바꿔 네 벌, 소비처마다 한 벌씩 복제해 쓰고 있었다.
+ *
+ * ## 글자를 그라디언트로 잘라 낸다
+ *
+ * 글자는 `color: transparent` 이고 글자 모양의 배경 클립이 그라디언트를 비춘다. 표준
+ * `background-clip: text` 만으로는 사파리가 글자 클리핑을 하지 않으므로 접두 속성을 함께 쓴다.
+ *
+ * 글자를 투명으로 두는 구조라 **`currentcolor` 를 잉크로 쓸 수 없다**(Skeleton 이 면 색을
+ * `currentcolor` 에 맡기는 것과 다른 점이다 — 거기서는 글자가 아니라 상자를 칠한다). 그래서 잉크는
+ * 지역 변수 하나(`--louis-loading-word-ink`)로 두고 기본을 `fg-primary` 로 둔다. 제품의 잉크는
+ * 테마마다 뒤집히는 전경색(`--gray-000`)의 알파 변주이고 `fg-primary` 가 같은 색이다 — 라이트에서
+ * 어두운 잉크, 다크에서 밝은 잉크. 알파는 어느 배경 위에서도 성립해 테마별로 색을 고르지 않는다.
+ *
+ * ## 그라디언트는 9정지점이고 한 색의 알파 변주다
+ *
+ * 20 · 28 · 88 · 32 · 20 · 28 · 88 · 32 · 20 %. 88% 봉우리가 두 번 있는 **대칭 파형**이고
+ * `background-size: 200% 100%` 와 맞물린다. 절반(50%)에서 파형이 한 번 되풀이되므로 배경을 한
+ * 칸(`-100%`) 밀면 시작 모양과 똑같아진다 — 반복 경계에서 튀지 않는 이유가 이것이다. 정지점 알파는
+ * 제품 리터럴이었고(`rgb(var(--gray-000-rgb)/NN%)`) 여기서는 같은 색에 `color-mix` 를 건다. 제품은
+ * 36% 정지점을 34 에서 32 로 옮겼다 — 이 파일은 옮긴 값이다.
+ *
+ * ## 흐름
+ *
+ * 기법은 `background-position` 이동이라 `motion-shimmer` 가 선언한 property 안에 있다(DS-D-0017).
+ * 다만 **keyframe 은 `louis-shimmer` 를 쓰지 못한다.** 그쪽은 `200%` 에서 `-200%` 까지 네 칸을
+ * 밀어 면 자리표시의 하이라이트 하나를 건너보내는 한 번짜리 쓸림이고, 여기는 한 칸을 밀어 되풀이되는
+ * 파형이 이어지게 하는 순환이다. 같은 keyframe 을 쓰면 네 주기가 한 번에 지나가 속도가 네 배가 된다.
+ *
+ * 값은 둘로 갈린다.
+ * - **주기는 `motion-shimmer`(1.6s)를 쓴다.** 같은 화면에서 Skeleton 과 시머 글자가 다른 속도로
+ *   돌지 않게 한다. 제품은 2.2s 로 돌았다 — 이 편차는 문서의 Known deviations 에 적는다.
+ * - **easing 은 `linear` 다.** `motion-shimmer` 의 `easing-standard` 는 한 번 건너가는 쓸림에 맞는
+ *   곡선이고, 이것은 한 칸마다 이어 붙는 순환이라 가감속을 걸면 매 주기 끝에서 속도가 죽었다 살아나
+ *   맥박처럼 뛴다. 제품의 아홉 곳이 전부 등속이다.
+ */
+
+.louis-loading-word {
+  /* 잉크. 호출부가 다른 면 위에 놓을 때 이 변수만 덮는다. 기본은 전경색이다. */
+  --louis-loading-word-ink: var(--louis-color-fg-primary);
+
+  /* 글줄 안에 놓이되 배경이 자기 상자를 기준으로 크기와 위치를 갖도록 inline-block 이다. 크기와
+   * 글꼴은 호출부가 정한다 — 블록 로딩은 타이포 클래스로, 버튼 안에서는 버튼의 글자 크기를 그대로
+   * 받는다. */
+  display: inline-block;
+  color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--louis-loading-word-ink) 20%, transparent) 0%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 28%, transparent) 12%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 88%, transparent) 24%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 32%, transparent) 36%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 20%, transparent) 50%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 28%, transparent) 62%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 88%, transparent) 74%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 32%, transparent) 86%,
+    color-mix(in srgb, var(--louis-loading-word-ink) 20%, transparent) 100%
+  );
+  /* 두 칸 폭이라 파형이 한 번 되풀이된다. 시작은 왼쪽 끝이다. */
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation-name: louis-loading-word-sweep;
+  animation-duration: var(--louis-motion-shimmer-duration);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* 한 칸을 민다. `-100%` 는 두 칸 폭 이미지에서 컨테이너 폭만큼의 이동이고, 대칭 파형이 그 자리에서
+ * 시작 모양과 같아지므로 끝과 처음이 이어진다. */
+@keyframes louis-loading-word-sweep {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -100% 50%;
+  }
+}
+
+/* reduced-motion 에서 loop 는 짧아지는 것이 아니라 **사라진다**(DS-D-0016). 다만 이 표시는 글자가
+ * 곧 상태라서 Skeleton 처럼 면만 남기면 끝나지 않는다 — **글자는 읽혀야 한다.** 제품은 애니메이션만
+ * 끄고 그라디언트를 0프레임에 세워 두어 글자가 20%~88% 알파로 얼룩진 채 남았다. 여기서는 그라디언트를
+ * 걷고 글자를 하나의 잉크로 칠한다. 88% 는 쉬머가 오르는 봉우리 값이다 — 흐름이 없을 때 읽히는 세기로
+ * 그 값을 고른다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-loading-word {
+    animation-duration: var(--louis-motion-reduced-duration);
+    animation-iteration-count: 1;
+    background-image: none;
+    color: color-mix(in srgb, var(--louis-loading-word-ink) 88%, transparent);
+  }
+}
+
+/* 강제 색상 모드는 배경 이미지를 지우는데 글자가 투명이면 글자까지 사라진다. 시스템 글자색으로 되돌린다. */
+@media (forced-colors: active) {
+  .louis-loading-word {
+    animation-duration: var(--louis-motion-reduced-duration);
+    animation-iteration-count: 1;
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
 /* Menu / Popover — design/components/menu-popover.md
  *
  * 패널 **표면**은 두 variant가 공유하므로 `.louis-popover`가 소유하고, action-menu 내부만
@@ -4007,6 +4247,81 @@
   min-inline-size: 0;
 }
 
+/* ── 두 줄 항목 (이름 + 설명) · 아이콘 타일 ───────────────────────────────────
+ *
+ * 근거: 2026-10-07, 제품 origin/dev `NodeNextStepMenu.tsx:55-66`(출력점 「다음 단계」 메뉴), 작업 브랜치
+ * `chore/landing-dead-walkthrough:HomeCreateNewMenu.tsx:193` 부근(홈 시작 목록). 제품은 두 파일 모두
+ * 이 레시피를 `items-start!` · `whitespace-nowrap!` 로 **덮어써서** 얻었다 — `!` 가 필요했다는 것은
+ * 레시피가 그 모양을 갖고 있지 않았다는 뜻이다. 소비자가 느낌표로 이기지 않도록 여기서 갖는다.
+ *
+ * 구조: 항목 > (아이콘 타일) + `__item-text`(이름 `__item-label` + 설명 `__item-description`).
+ * 설명 줄이 **있는** 항목만 바뀐다. 구조 선택자(`:has`)로 거는 이유는 호출처가 속성 하나를 더 달지
+ * 않아도 설명 슬롯을 넣는 순간 정렬이 따라오게 하려는 것이고, `:where()` 안에 두어 특이도를
+ * (0,1,0)으로 유지한다(DS-D-0004 저작 규칙 — 소비자의 클래스 하나가 순서와 무관하게 이긴다). */
+.louis-menu__item:where(:has(.louis-menu__item-description)) {
+  /* 두 줄이면 아이콘은 첫 줄에 맞춘다. 가운데 정렬이면 타일이 두 줄 한가운데에 떠 이름과 어긋난다. */
+  align-items: flex-start;
+  /* 제품은 결과 줄을 접지 않고 메뉴 폭을 내용에 맞춘다(`MENU_WIDTH_PX` 주석: ko 201~235 · en 264~277 ·
+   * ja 251~285 로 쟀다). 접으면 항목마다 높이가 달라져 두 줄 규칙이 깨진다. 대가는 Known deviations 에
+   * 적었다 — 좁은 화면에서 줄이 접히지 않고 패널이 가로로 스크롤된다. */
+  white-space: nowrap;
+}
+
+.louis-menu__item-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+  /* 제품 gap-1 = 2px. 값이 `space-overlay-item-gap` 과 같지만 행 사이가 아니라 이름과 설명 **줄 사이**다. */
+  gap: var(--louis-space-overlay-item-gap);
+  text-align: start;
+}
+
+.louis-menu__item-description {
+  min-inline-size: 0;
+  /* 고정 면(팝오버) 위 글자라 알파가 아니라 글자 단계 토큰이다(제품 주석 그대로). 제품 `text-fg-tertiary`. */
+  color: var(--louis-color-fg-tertiary);
+  /* 제품 `type-caption-12-regular`. */
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* disabled 항목에서 설명만 정상 대비로 남으면 한 항목 안에서 상태가 갈려 보인다 — 단축키와 같은 이유다.
+ * 제품은 `group-disabled:[color:inherit]` 로 이것을 직접 적었다. */
+.louis-menu__item:disabled .louis-menu__item-description,
+.louis-menu__item[aria-disabled="true"] .louis-menu__item-description {
+  color: inherit;
+}
+
+/* 아이콘 타일 — 글리프를 담는 20×20 면. Specification 의 「Item leading icon slot」 표가 치수를 소유한다.
+ * 타일은 `data-shape="tile"` 로 켠다: 맨 글리프(면 없음)도 이 슬롯을 쓰므로 면은 기본값이 아니다.
+ *
+ * 곡률 **5px 은 리터럴이다.** 반경 사다리(`radius-control-sm` 8 · `radius-table-header` 4 …)에 5 가 없고, 가까운 4 는
+ * 표 머리 전용 이름이라 타일에 쓰면 이름이 거짓말을 한다. 20px 정사각형에서 4 · 5 · 6 은 1px 씩 차이로 화면에서
+ * 구분되지 않지만, 제품이 11파일에서 같은 5 를 쓰고 있어 값을 바꾸면 제품 옆에서 갈린다 — 그래서 토큰을 새로 세우지
+ * 않고 제품 값을 옮긴다(chart-card · node-shell 의 5px 리터럴과 같은 처리). primitive 로 올릴지는 반경 5 가
+ * 타일 밖에서도 서는 날 정한다.
+ *
+ * 면은 **테마를 따라 뒤집히는 잉크 12%**(`accent-secondary-hover`)다. 제품은 다크 `gray-700` · 라이트 `palette-gray-025`
+ * 를 직접 지정하는데, 라이트 025 는 이 저장소의 메뉴 면(`bg-menu` 라이트 025, DS-D-0069)과 **같은 값**이라 타일이
+ * 통째로 사라진다. 잉크 알파는 두 테마에서 같은 세기로 읽히고 hover(4%) 위에서도 구분된다. 다크는 제품(#575d68)보다
+ * 어둡게 그려진다 — Known deviations 에 적었다. */
+.louis-menu__item-icon[data-shape="tile"] {
+  box-sizing: border-box;
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
+  border-radius: 5px;
+  background: var(--louis-color-accent-secondary-hover);
+}
+
+/* 제품 `mt-1` = 2px. 두 줄 항목에서만이다 — 한 줄 항목은 가운데 정렬이 이미 맞춘다. */
+.louis-menu__item:where(:has(.louis-menu__item-description)) > .louis-menu__item-icon[data-shape="tile"] {
+  margin-block-start: var(--louis-space-overlay-item-gap);
+}
+
 .louis-menu__item-trailing {
   flex: none;
   color: var(--louis-color-fg-secondary);
@@ -4133,6 +4448,7 @@
   /* 자체 color를 선언한 조각은 부모의 HighlightText를 상속받지 못한다. 어두운 Highlight 위
    * CanvasText가 되어 단축키와 표시자가 사라진다. */
   .louis-menu__item-trailing,
+  .louis-menu__item-description,
   .louis-menu__item-icon,
   .louis-menu__item-indicator {
     color: inherit;
@@ -7491,6 +7807,49 @@
   opacity: 0.32;
 }
 
+/* ── 밑선 탭 줄(`data-variant="underline"`) ──────────────────────────────────
+ * 출처: 2026-10-07, 제품 origin/dev `apps/web/components/scenes/analytics/AnalyticsTabs.tsx`
+ * (구독 허브 · 유튜브 · 인스타 · 영상 분석 네 화면). 제품은 `.louis-tabs` 위에 값을 덮어 쓰고
+ * 있었고, 정본이 받아야 할 것만 이 변형으로 옮겼다. 기본 탭 줄은 그대로다.
+ *
+ * - gap 0 — AnalyticsTabs.tsx:24 `gap-0`. 제품 어느 소비처도 4px 을 쓰지 않았던 값이다.
+ * - 밑선 — AnalyticsTabs.tsx:17 `border-b-[rgb(var(--gray-000-rgb)/8%)]`. DS-D-0023 한 면 헤어라인
+ *   (`--louis-hairline-inset-block-end`)으로 받는다. 줄 높이를 늘리지 않는다. 제품의 8% 와 이 헤어라인은
+ *   다크에서 같고(8%) 라이트에서 12% 다.
+ * - 480px 이하 — AnalyticsTabs.tsx:25-26,43. 줄이 wrap 하고, 탭 좌우 인셋이 8px 로 줄며, 첫 탭의
+ *   시작 인셋이 0 이 되어 글자가 줄 왼쪽 끝에 맞는다. 첫 탭의 `pl-6`(24px 격자에서 12px)은 기본
+ *   인셋과 같은 값이라 따로 적지 않는다.
+ *
+ * 받지 않은 것: 글자색 `text-gray-000`(순검정) · 450px 이하 글자 16→14 — 문서 Known deviations.
+ * 전환 300→200ms 는 이미 정본이 200ms(`motion-tab-select`)라 받을 것이 없다.
+ * 밑선은 목록 자기 폭만큼 그려진다. 제품처럼 오른쪽 기간 선택기까지 이어지는 선은 호출부 몫이다. */
+.louis-tabs[data-variant="underline"] {
+  gap: 0;
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+@media (max-width: 480px) {
+  .louis-tabs[data-variant="underline"] {
+    flex-wrap: wrap;
+  }
+
+  .louis-tabs[data-variant="underline"] > .louis-tabs__tab {
+    padding-inline: var(--louis-space-control-sm);
+  }
+
+  .louis-tabs[data-variant="underline"] > .louis-tabs__tab:first-child {
+    padding-inline-start: 0;
+  }
+}
+
+/* forced-colors: box-shadow 밑선은 강제 색 모드에서 사라진다 — 시스템 색 실선으로 되살린다(DS-D-0023). */
+@media (forced-colors: active) {
+  .louis-tabs[data-variant="underline"] {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .louis-tabs__tab {
     transition-duration: var(--louis-motion-reduced-duration);
@@ -8413,6 +8772,18 @@
   .louis-tooltip[data-layout="coachmark"],
   .louis-tooltip[data-layout="coachmark"]::before {
     border-color: currentColor;
+  }
+}
+
+/* ── 단축키 슬롯(2026-10-07, 제품 캔버스 모바일 UX 작업 브랜치 · `ChromeTooltip.tsx` 의 `SHORTCUT_HINT`) ──
+ *
+ * 이름 뒤에 ` (H)` 로 붙는 단축키 표기다. **거친 포인터(터치)에서는 숨긴다** — 누를 키보드가 없다. 키보드를 붙인 태블릿에서
+ * 포커스로 열린 툴팁도 같다: 판정은 포인터 종류(이 미디어 쿼리)만 쓰고 입력 장치를 따로 추측하지 않는다. 제품의 노드 우클릭 메뉴
+ * 단축키 배지와 같은 규칙이다. 앞의 공백과 괄호는 소비자가 글자로 적는다 — 숨김이 그 둘까지 함께 걷어 내야 이름 뒤에 빈 괄호나
+ * 공백이 남지 않는다. */
+@media (pointer: coarse) {
+  .louis-tooltip__shortcut {
+    display: none;
   }
 }
 

@@ -131,9 +131,16 @@
   }
 }
 
-/* invalid — **색 축을 두지 않는다.** 모든 상태가 generic 헤어라인으로 통일됐고(DS-D-0023, 이전엔
- * color-stroke-danger border), 오류는 메시지(color-fg-danger) + aria-invalid + role="alert"가
- * 전달한다. 색 하나로만 알리지 않는 규범은 유지된다 — 색이 사라진 자리를 텍스트와 ARIA가 잇는다. */
+/* invalid — **상자에 ring 두께의 위험색 링을 건다(DS-D-0075, 2026-10-07 소유자).** DS-D-0023 은 모든 상태를 generic
+ * 헤어라인으로 통일하고 오류를 메시지 · aria-invalid · role="alert" 에만 맡겼다. 그런데 오류가 12px 빨간 글자 하나뿐이면
+ * 틀린 칸과 맞는 칸의 상자가 같아 보인다(제품 앰배서더 지원서 실측 — 대비 2.91:1). 링은 헤어라인을 **대신**한다
+ * (box-shadow 한 겹). 색 하나로만 알리지 않는 규범은 그대로다 — 메시지와 ARIA 가 계속 함께 간다.
+ *
+ * `data-invalid` 는 **있으면** 오류다. `"true"` 만 잡던 선택자는 제품이 빈 값(`data-invalid=""`)으로 달자 오류 색을
+ * 놓쳤다. `"false"` 만 예외로 둔다. */
+.louis-text-field[data-invalid]:not([data-invalid="false"]) .louis-text-field__box {
+  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-fg-danger-on-surface);
+}
 
 .louis-text-field:has(.louis-text-field__control:disabled) .louis-text-field__box {
   /* disabled도 generic 헤어라인을 유지하고 상태는 foreground 색이 전달한다 (DS-D-0023,
@@ -196,7 +203,7 @@
   letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
 }
 
-.louis-text-field[data-invalid="true"] .louis-text-field__message {
+.louis-text-field[data-invalid]:not([data-invalid="false"]) .louis-text-field__message {
   color: var(--louis-color-fg-danger);
 }
 

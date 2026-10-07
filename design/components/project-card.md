@@ -137,7 +137,7 @@ variant 축이 없다는 뜻이고, 그 셋은 CSS 상태이지 prop 이 아니�
 | 부품 | 계약 |
 | --- | --- |
 | 진입 stagger | `motion-list-enter`(560ms) · 항목당 36ms. **순서는 소비처가 준다** |
-| `ProjectCardMore` | 32×32 · `media-control-*` 색 · hover와 **초점**에서 드러난다 |
+| `ProjectCardMore` | 32×32 · `media-control-*` 색 · hover와 **초점**에서 드러난다. **hover 가 없는 기기(`@media (hover: none)`)에서는 늘 보인다** — 숨기면 터치에서 닿을 길이 없다(2026-10-07) |
 | `ProjectCardRename` | 밑줄 하나 · 반경 0 · 초점 링 |
 
 **진입 순서를 카드가 갖지 않는 이유** — 카드는 자기 순서를 알 방법이 없고, 알아도 그리드가 다시

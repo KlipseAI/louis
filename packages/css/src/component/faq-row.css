@@ -18,10 +18,11 @@
  * 시각과 보조기술이 같은 하나를 읽게 한다 — 별도의 `data-open` 을 두면 둘이 갈릴 수 있고,
  * 실제로 정본 문서의 결손 목록이 「`+` 는 `aria-hidden` 이라 상태의 출처는 그것 하나」를 적는다.
  *
- * **면을 사다리(`--louis-color-bg-*`)로 바꾸면 라이트에서 행이 사라진다.** `bg-*` 의 라이트 칸은
- * 랜딩 바닥(`landing-page-bg` = palette-gray/050)과 같거나 더 밝아서 방향이 뒤집힌다. 정본이
- * `gray-900` 을 버리고 잉크 8% 오버레이를 고른 이유가 그것이고(문서 Known deviations 1),
- * `verify-recipe-record` 의 `forbidden` 이 그 되돌림을 막는다.
+ * **면은 올린 면(`bg-raised`)과 헤어라인이다(2026-10-07, 소유자 — 제품 작업 브랜치 FAQ.tsx).** 라이트는
+ * 바닥보다 한 단 밝은 흰색, 다크는 gray-900 이고 두 테마 모두 헤어라인으로 경계를 세운다. 가격 페이지의
+ * 플랜 카드 · 크레딧 팩 카드와 같은 면이다. 예전 `landing-panel-strong` 은 라이트에서 바닥보다 **어두웠다**
+ * (#ebecee 대 #fafafa) — 소유자가 그 방향을 뒤집었다. 사다리 칸만 칠하고 선을 빼면 라이트에서 행이 바닥에
+ * 묻히므로 **면과 선은 함께 다닌다**(문서 Known deviations 1 · 2).
  */
 
 .louis-faq-row {
@@ -33,7 +34,8 @@
    * 읽히지 않는다. `overflow: hidden` 은 펼침 애니메이션이 모서리를 넘지 않게 한다. */
   border-radius: var(--louis-radius-card);
   overflow: hidden;
-  background: var(--louis-color-landing-panel-strong);
+  background: var(--louis-color-bg-raised);
+  box-shadow: var(--louis-hairline-inset);
 }
 
 /* 질문 줄 전체를 덮는 버튼. `justify-content: space-between` 이 글자와 글리프를 양 끝으로
@@ -139,6 +141,8 @@
    * 높이에서 같은 판단을 했다. 8 은 `radius-control-sm` 이다. */
   border-radius: var(--louis-radius-control-sm);
   background: transparent;
+  /* 면의 주인이 질문 버튼으로 옮겨 가므로 행의 선도 함께 걷는다. */
+  box-shadow: none;
 }
 
 /* **면이 알파 오버레이이지 사다리가 아니다.** 여기서만 사다리를 쓸 수 없다: 정본의 라이트

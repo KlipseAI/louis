@@ -25,6 +25,30 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (205) — 제품 작업 브랜치의 디자인 변경을 LOUIS 로: 1단 열 가지 · DS-D-0075
+
+소유자 지시로 제품의 **아직 합쳐지지 않은 작업 브랜치**(origin/dev 위 여섯 묶음 — 랜딩 · 모델, 캔버스 도움말 · 온보딩, 앰배서더,
+하이라이트 새 화면, 덱 · 어드민 · 3D · 지표, 캔버스 모바일 · 작은 수정)를 감사해 후보 139건(높음 34)을 모았다. 이 항목은 그중
+**소유자가 이미 정했거나 결함이 분명해 바로 올린 것**이다. 새 부품과 결정이 필요한 것은 다음 항목들이 이어 받는다.
+
+- **FAQ 행 면 = 올린 면 + 헤어라인.** 라이트 흰색 · 다크 gray-900(`bg-raised`), 두 테마 모두 `--louis-hairline-inset`. 소유자가 가격
+  카드와 같은 면으로 옮겼다 — 예전 `landing-panel-strong` 은 라이트에서 바닥보다 어두웠다. `md` 는 면이 없으니 선도 없다. Figma
+  `FaqRow` lg 두 변형의 면 · inner shadow 와 parity 계약(`effects`)을 함께 바꿨다.
+- **프로젝트 카드 더보기**가 `@media (hover: none)` 에서 늘 보인다 — 숨기면 터치에서 이름 변경 · 삭제에 닿을 길이 없다.
+- **메뉴 항목**이 `@media (pointer: coarse)` 에서 `min-block-size` 44 를 되건다. 마우스는 37 그대로다.
+- **Select 값 없는 상태** — `.louis-select-trigger__value[data-placeholder]` 잉크 `fg-tertiary`. 명시적으로 고르게 하는 자리만 쓴다.
+- **TextField 오류 상자에 위험색 링**([DS-D-0075](../governance/decisions/DS-D-0075-text-field-invalid-ring.md), 소유자) — ring 두께
+  `fg-danger-on-surface` 가 헤어라인을 대신한다. `data-invalid` 는 있으면 오류다(`"false"` 만 예외) — 제품이 빈 값으로 달자 메시지
+  색을 놓치던 결함도 함께 닫았다. DS-D-0023 5항의 invalid 를 바꾼다.
+- **`typography-heading-lg-semibold`**(48/600) 신설 — 문서 홈 · 랜딩 히어로 · 인증 패널 · 구독 네 곳이 쓴다. Figma 텍스트 스타일 18개.
+- **시트**가 홈 표시줄을 비키고(`padding-block-end: env(safe-area-inset-bottom)`) 위를 남긴다(`max-block-size: min(85svh, 100svh − 48)`).
+- **토스트 callout** 이 좌우에 12 씩 남긴다 — 폰에서 면이 화면 끝까지 붙어 모서리가 잘렸다.
+- **툴팁 본문 · 대화상자 설명**에 `text-wrap: pretty`.
+- 문서: FAQ 행 `md` 의 첫 LOUIS 소비(제품 캔버스 도움말 패널), 노드 칩의 누름 영역 겹침을 제품이 푼 규칙(이웃 쪽은 간격 절반).
+
+후보 전체와 단계 구분은 세션 계획 `scratchpad/louis-uptake/2026-10-07-plan.md` 에 있다. 제품 덮어쓰기는 핀을 이 판으로 올릴 때 지운다
+— 핀 줄은 포커스 링 브랜치가 먼저 올린다.
+
 ## 2026-10-07 (204) — 빈 캔버스 제목을 세미볼드로: `typography-heading-sm-semibold` 신설
 
 소유자가 노드 캔버스가 비었을 때의 제목 「아직 프로젝트가 없습니다」를 세미볼드로 올리라고 했고, 제품이 먼저 굵기만 덮었다

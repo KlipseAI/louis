@@ -7814,6 +7814,17 @@
           "fontWeight"
         ]
       },
+      "typography/heading-lg-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 48,
+        "lineHeightPercent": 135.000002,
+        "letterSpacingPx": -0.96,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
+      },
       "typography/heading-md-medium": {
         "fontFamily": "Pretendard",
         "fontStyle": "Medium",
@@ -10801,7 +10812,11 @@
         }
       },
       "strokes": {},
-      "effects": {}
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
     },
     "FloatingShell": {
       "variantCount": 1,

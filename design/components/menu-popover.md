@@ -409,8 +409,9 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 - action menu는 최소 Trigger 폭 이상, 기본 200px을 권장한다. 프로필 composite popover는 240px을 기준으로
   하되 긴 번역과 200% 확대에서 내용 폭으로 확장하거나 작은 화면 variant로 바꾼다.
 - 높이가 부족하면 `max-height`와 내부 스크롤을 사용한다. viewport 밖 item을 잘라내지 않는다.
-- touch에서는 각 action의 hit area를 44px 이상 권장한다. DS 행은 37px(제품 정합)이므로 touch 밀집
-  UI에서는 인접 간격으로 유효 타깃을 보완한다.
+- touch에서는 각 action의 hit area를 44px 이상으로 둔다. **2026-10-07 부터 레시피가 직접 건다** — `@media (pointer: coarse)`
+  에서 `.louis-menu__item` 의 `min-block-size` 가 `layout-control-hit-target-minimum`(44)이다. 마우스에서는 37px(제품 정합)이다.
+  제품 캔버스 모바일 메뉴 세 곳이 같은 덮어쓰기를 반복해서 정본으로 올렸다.
 - mobile Sheet로 전환하면 기존 menu가 아니라 이름 있는 modal dialog가 된다. focus trap, scroll lock,
   닫기 버튼 계약도 함께 전환한다.
 
@@ -458,7 +459,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 | Item 내부 gap  | `space-overlay-item-content-gap` = 6px                 | 아이콘·라벨 간격           |
 | Item 전경      | `color-fg-menu-item` — 알파 86%                | light/dark                 |
 | Item hover     | `color-accent-menu-item-hover` — 반투명 오버레이       | 배경이 달라도 같은 정도    |
-| Item height    | 37px (콘텐츠 높이 — floor 없음, 제품 정합)             | pointer/touch target (AA)  |
+| Item height    | 37px (마우스) · **거친 포인터 44**(2026-10-07)         | pointer/touch target (AA)  |
 | Danger 전경    | `color-accent-danger` = #ff4b59                        | 중립 표면 위 대비          |
 | Danger hover   | `color-accent-menu-danger-hover` — red 알파            | light/dark                 |
 | Anchor offset  | 8px                                                    | collision/flip             |

@@ -123,9 +123,9 @@ test("sm이 알약이 되지 않는다 — 반경이 높이의 절반보다 작�
   expect(radius * 2, "높이보다 작다 — 알약이 아니다").toBeLessThan(box.offsetHeight);
 });
 
-test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인이다", async () => {
-  // DS-D-0023: invalid/disabled의 stroke 색 축을 없앴다. 세 상태가 같은 generic 헤어라인 inset을
-  // 쓰고, 상태는 면(background) · foreground · 메시지 · aria가 전달한다. invalid의 danger는 아래
+test("states 표가 코드와 같다 — 기본 · 잠김은 헤어라인, 오류는 위험색 링이다", async () => {
+  // DS-D-0023 이 invalid/disabled 의 stroke 색 축을 없앴고, DS-D-0075(2026-10-07)가 invalid 에 ring 두께의 위험색
+  // 링을 되살렸다. 기본 · 잠김은 같은 generic 헤어라인 inset 이다. 오류를 색만으로 알리지 않는지는 아래
   // "오류를 색만으로 알리지 않는다" 테스트가 메시지 + aria-invalid + role=alert로 확인한다.
   const spec = measured.components.input.states.base;
   await render(
@@ -146,14 +146,19 @@ test("states 표가 코드와 같다 — 모든 상태가 generic 헤어라인�
     throw new Error("control을 찾지 못했습니다");
   }
 
-  // 세 상태 모두 border 없이 같은 generic 헤어라인 inset을 쓴다.
+  // 세 상태 모두 border 가 없다. 기본 · 잠김은 generic 헤어라인 inset, 오류는 ring 두께의 위험색 inset 이다.
   const hairline = tokenValue("color-stroke-hairline", "color");
   for (const box of [defaultBox, invalidBox, disabledBox]) {
     const style = getComputedStyle(box);
     expect(style.borderTopWidth, "border 제거").toBe("0px");
-    expect(style.boxShadow, "inset 헤어라인").toContain("inset");
-    expect(style.boxShadow, "헤어라인 색").toContain(hairline);
+    expect(style.boxShadow, "inset").toContain("inset");
   }
+  for (const box of [defaultBox, disabledBox]) {
+    expect(getComputedStyle(box).boxShadow, "헤어라인 색").toContain(hairline);
+  }
+  const danger = tokenValue("color-fg-danger-on-surface", "color");
+  expect(getComputedStyle(invalidBox).boxShadow, "오류 링 색").toContain(danger);
+  expect(getComputedStyle(invalidBox).boxShadow, "오류 링 두께").toContain("2px");
 
   // 면과 전경은 상태를 유지한다.
   expect(getComputedStyle(defaultBox).backgroundColor, "Default background").toBe(

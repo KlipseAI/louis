@@ -339,6 +339,14 @@
   }
 }
 
+/* **hover 가 없는 기기에서는 늘 보인다(2026-10-07, 제품 origin/dev 8aaa76135).** 숨긴 채 두면 폰 · 태블릿에는 카드를
+ * 얹을 포인터가 없어 이름 변경 · 삭제에 닿을 길이 없다. */
+@media (hover: none) {
+  .louis-project-card-more {
+    opacity: 1;
+  }
+}
+
 /* **초점이 카드 안 어디든 들어오면 드러난다.** `:focus-visible`에만 걸면 브라우저의 heuristic에
  * 따라 키보드로 닿았는데도 안 보이는 경우가 생긴다 — 숨은 컨트롤에서 그것은 닿을 수 없다는 뜻이다. */
 .louis-project-card:focus-within .louis-project-card-more {

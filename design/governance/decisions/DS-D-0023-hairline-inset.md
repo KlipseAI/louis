@@ -7,6 +7,7 @@ authority: normative
 # DS-D-0023 일반 0.5px stroke는 CSS border가 아니라 inset 헤어라인이다
 
 - Status: proposed
+- Amended: 5항의 TextField invalid 는 [DS-D-0075](DS-D-0075-text-field-invalid-ring.md)(2026-10-07)가 바꿨다 — 오류 상자는 위험색 링을 갖는다
 - Date: 2026-08-24
 - Owners: repository owner, design system maintainer
 - Affects: `color-stroke-hairline`(신규 semantic), `color-static-black-alpha-10`(신규 primitive),

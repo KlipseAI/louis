@@ -1112,15 +1112,14 @@ const COMPONENT_CONTRACTS = [
     figmaAhead:
       "LOUIS recipe 없음 — 제품 FAQ.tsx 가 정본이고 소비처가 두 자리다(랜딩 faq · 가격 pricing-faq).",
     variantProperties: {},
-    // **행에 선이 한 줄도 없다.** 제품 행 클래스는 `rounded-12 bg-[var(--panel-strong)]
-    // overflow-hidden` 셋뿐이고 질문 버튼은 `[border:0]` 이다 — `border-0`(폭만 0, style 은
-    // solid)과 다르다. 경계는 잉크 8% 오버레이 한 겹이 혼자 만든다.
+    // **행에 stroke 가 한 줄도 없다.** 경계는 아래 inner shadow 헤어라인이 만든다. 질문 버튼은 `[border:0]` 이다
+    // — `border-0`(폭만 0, style 은 solid)과 다르다.
     strokes: {},
-    // **헤어라인도 없다.** carousel-arrow · node-chip 은 같은 랜딩 면에 INNER_SHADOW:0:0:0.5 를
-    // 두르는데 이 행은 두르지 않는다 — 제품에 box-shadow 선언이 없다. 빈 칸을 비워 두는 것이
-    // 아니라 **없다는 사실을 적는 것**이다. 나중에 누가 Figma 에서 헤어라인을 얹으면 게이트가
-    // 잡는다. 행 면과 페이지 바닥의 대비가 1.2:1 뿐이라 얹고 싶어지는 자리다(faq-row.md 2번).
-    effects: {},
+    // **헤어라인을 두른다(2026-10-07, 소유자).** 면이 올린 면(`bg-raised`)으로 바뀌며 선이 함께 다닌다 —
+    // CSS `box-shadow: var(--louis-hairline-inset)`, Figma 대응물은 carousel-arrow · node-chip 과 같은
+    // INNER_SHADOW:0:0:0.5 다. `md` 두 변형은 면의 주인이 질문 버튼이라 선이 없다 — 되읽기가 효과를 가진
+    // 변형만 모으므로 문자열 하나로 적는다(faq-row.md 2번).
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
     // `+` 는 아이콘 인스턴스가 아니라 **텍스트 노드**다(되읽기의 Glyph fontSize 20). 그래서
     // INSTANCE_SWAP 슬롯이 없고 iconSlots 도 없다. 열림에서 45° 도는 것도 아이콘 교체가 아니라
     // 같은 글리프의 transform 이다.

@@ -166,6 +166,8 @@
   color: var(--louis-color-fg-secondary);
   overflow-wrap: break-word;
   word-break: keep-all;
+  /* 끝말 하나만 다음 줄에 남지 않게 한다(2026-10-07, 제품 확인 창 `GlassConfirmModal` 의 같은 덮어쓰기). */
+  text-wrap: pretty;
   font-family: var(--louis-typography-body-sm-regular-font-family);
   font-size: var(--louis-typography-body-sm-regular-font-size);
   font-weight: var(--louis-typography-body-sm-regular-font-weight);
@@ -299,6 +301,12 @@
 
 .louis-dialog[data-variant="sheet"] .louis-dialog__surface {
   inline-size: 100%;
+  /* **위쪽을 남기고 홈 표시줄을 비킨다(2026-10-07, 제품 하이라이트 · 캔버스 모바일 작업 브랜치).** 바닥 여백이 0 이라
+   * 면이 홈 표시줄 아래까지 내려가 마지막 줄이 가려졌고, 높이 상한이 없어 긴 목록은 화면 위 끝까지 차 닫을 자리가
+   * 보이지 않았다. 두 소비처가 같은 값으로 덮던 것을 기본으로 올린다 — fullscreen 이 safe-area 를 이미 처리하는
+   * 것과 짝이다. 위쪽 48 은 시트 뒤 화면이 보여 「위에 떠 있다」가 읽히는 최소다. */
+  max-block-size: min(85svh, calc(100svh - 48px));
+  padding-block-end: env(safe-area-inset-bottom, 0px);
   border-end-start-radius: 0;
   border-end-end-radius: 0;
 }

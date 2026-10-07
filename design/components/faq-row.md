@@ -11,7 +11,10 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 아니라 좌우 20 여백까지 전부 누를 수 있다. 열리면 버튼은 질문 줄까지이고 **답변은 버튼 밖**이라,
 답변을 눌러도 접히지 않는다.
 
-**정본은 제품이다.** `FAQ.tsx`(`lg`)와 `guide/FAQPanel.tsx`(`md`)가 구현이고, Figma 는 그 제품
+**정본은 제품이다.** `FAQ.tsx`(`lg`)와 `guide/FAQPanel.tsx`(`md`)가 구현이고(**`FAQPanel.tsx` 는 제품 작업 브랜치
+`chore/landing-dead-walkthrough` 에서 지워졌다** — 그 브랜치의 캔버스 도움말 패널 `CanvasHelpPanel.tsx:316` 이
+`className="louis-faq-row" data-size="md"` 로 **LOUIS 클래스를 직접 문다**. 이 컴포넌트의 첫 소비이고, 브랜치가 합쳐지면
+`md` 의 정본 출처를 그 패널로 옮긴다), Figma 는 그 제품
 구현을 투영한 것이다.
 
 **LOUIS 레시피가 2026-09-09 에 섰다** — `packages/css/src/component/faq-row.css`. 그 전까지 계약과
@@ -26,9 +29,10 @@ Figma 는 서 있는데 **생성 CSS 에 클래스가 0** 이라 제품이 물 �
 **면 토큰을 잘못 고르면 라이트에서 컴포넌트가 사라진다.** `gray-900` 은 라이트에서
 `palette-gray-100`(#f1f1f3)으로 뒤집히는데 랜딩 페이지 바닥이 정확히 같은 값이다. 시안이 다크
 렌더라서 다크만 보고 고르면 걸리는 함정이고, 제품 주석에 「다른 섹션 셋도 같은 자리에서
-걸렸다」고 적혀 있다. 잉크 8% 오버레이(`landing/panel-strong`)는 **랜딩 바닥 위에서는** 두 테마
-모두 바닥보다 한 단 진하다 — 바닥을 테마와 무관하게 고정하는 가격 페이지는 다르다
-(Known deviations 7).
+걸렸다」고 적혀 있다. **2026-10-07 부터 면은 올린 면(`bg-raised` — 라이트 흰색 · 다크 gray-900)과
+헤어라인이다**(소유자 — 제품 작업 브랜치 `FAQ.tsx`). 가격 페이지의 플랜 카드 · 크레딧 팩 카드와 같은 면이고,
+예전 `landing/panel-strong` 이 라이트에서 바닥보다 어둡던 방향을 뒤집었다. 흰 면은 바닥과 차이가 작아 **선이 함께
+다녀야** 행이 보인다(Known deviations 1 · 2).
 
 ## Availability
 
@@ -144,8 +148,7 @@ Known deviations 12).
 쓰임새로 부른다」가 **사다리로 표현되지 않을 때만** 여는 예외이기 때문이다. 여기 두 값은
 순서가 있는 두 밀도(66 > 48)라 사다리가 그대로 표현하고, 이름이 순서를 거짓말하지도 않는다.
 
-**`md` 에서는 면을 행이 아니라 질문 버튼이 갖는다.** 랜딩 행은 알약 전체가 잉크 8% 오버레이
-(`landing/panel-strong`)이고 답변이 그 면 안에 들어가지만, 가이드 모달의 행 클래스
+**`md` 에서는 면을 행이 아니라 질문 버튼이 갖는다.** 랜딩 행은 알약 전체가 올린 면과 헤어라인이고 답변이 그 면 안에 들어가지만, 가이드 모달의 행 클래스
 (`GUIDE_FAQ_ITEM`)는 반경과 `overflow: hidden` 뿐이고 잉크 4% 를 칠하는 것은 질문 버튼
 (`GUIDE_FAQ_QUESTION`)이다. 그래서 `md` 에서 열린 답변은 **면 밖**에 선다. 구조가 갈리는
 유일한 자리이고, Figma 의 네 변형도 그대로 그렇게 서 있다.
@@ -263,8 +266,8 @@ Known deviations 12).
 | Part/state | 값 | 토큰·근거 |
 | --- | --- | --- |
 | Row | 폭 100%(섹션 상한 1400), radius 12 | `radius/12` · `overflow: hidden` |
-| Row 면 | 잉크 8% 오버레이 | `color/landing/panel-strong`. **`gray-900` 이 아니다**(Known deviations 1) |
-| Row 테두리 | **없다** | 헤어라인도 없다(Known deviations 2) |
+| Row 면 | 올린 면 | `color/bg-raised` — 라이트 흰색 · 다크 gray-900(Known deviations 1) |
+| Row 테두리 | 헤어라인 | `--louis-hairline-inset`. `md` 는 없다(Known deviations 2) |
 | 행 간격 | 4 | 목록이 갖는다 — 이 컴포넌트 밖이다 |
 | Question | 좌우 20 · 위아래 18 · 사이 16 | 2px 그리드(`px-10 py-9 gap-8`) |
 | Question 높이 | 66 = 18 + 30 + 18 | 20 × 1.5 = 30. **1024 이상에서만**(→ 63 → 60) |
@@ -310,7 +313,7 @@ Known deviations 12).
 | --- | --- |
 | Row 반경 `lg` 12 | `radius-card` |
 | Row 반경 `md` 8 | `radius-control-sm` |
-| Row 면 `lg` | `color/landing/panel-strong` |
+| Row 면 `lg` | `color/bg-raised` + 헤어라인 |
 | Question 사이 `lg` 16 | `space-control-lg` |
 | Question 사이 · 위아래 `md` 12 | `space-control-md` |
 | Question 위아래 `lg` 18 · 좌우 20 · `md` 좌우 14 | **리터럴.** 간격 계단(4·8·12·16) 밖이고, 18 · 20 이 닫힌 높이 66 을 만드는 실측이다. `inspector-row` 가 같은 형태로 계단 밖 값을 리터럴에 사유를 달아 둔 선례다 |
@@ -336,16 +339,13 @@ Known deviations 12).
 
 ## Known deviations
 
-1. **면이 `gray-900` 이 아니라 잉크 8% 오버레이다.** 시안은 다크 렌더이고 그 값만 보면 `gray-900`
-   이 맞아 보인다. 그러나 그 단은 라이트에서 `palette-gray-100`(#f1f1f3)으로 뒤집히고 랜딩
-   페이지 바닥도 정확히 같은 값이라 대비가 1:1 이 된다 — 컴포넌트가 사라진다. 제품이
-   `landing/panel-strong` 을 고른 이유가 그것이고 이 문서는 그 선택을 따른다. **시안 값과
-   토큰 이름이 다르다는 사실이 남는다.**
-2. **헤어라인이 없다.** 다른 랜딩 면(carousel-arrow · node-chip)은 `INNER_SHADOW:0:0:0.5` 로
-   0.5 헤어라인을 두르는데 이 행은 두르지 않는다. 제품 행 클래스가 반경·면·`overflow` 셋뿐이고
-   `box-shadow` 선언이 없다. 되읽기의 `boundStrokes` · `rawStrokes` 가 둘 다 0 인 것이 그
-   사실이다. **헤어라인을 두를지는 소유자 판정이다** — 두르면 위 1.2:1 경계가 개선되지만 랜딩
-   면 어휘가 하나 더 갈린다.
+1. **면이 올린 면(`bg-raised`)이다(2026-10-07, 소유자).** 처음에는 잉크 8% 오버레이(`landing/panel-strong`)였다 —
+   시안의 `gray-900` 은 라이트에서 랜딩 바닥과 같은 값으로 뒤집혀 행이 사라지기 때문이었다. 그런데 그 오버레이는
+   라이트에서 바닥보다 **어두웠고**(#ebecee 대 #fafafa), 소유자가 가격 카드와 같은 「바닥보다 한 단 밝은 흰색」으로
+   방향을 뒤집었다(제품 작업 브랜치 `FAQ.tsx` `ITEM_CLASS`). 다크는 gray-900 이다.
+2. **헤어라인을 두른다(2026-10-07, 소유자).** 예전에는 두르지 않았고 「두를지는 소유자 판정」으로 남겨 두었다. 흰 면은
+   바닥과 차이가 작아 선이 경계를 세운다 — 면과 선은 함께 다닌다. `md` 는 면의 주인이 질문 버튼이라 선도 없다.
+   **Figma 의 `lg` 두 변형은 이 회차에 면과 inner shadow 를 맞췄다**(되읽기 `boundStrokes` 는 여전히 0 — 선이 effect 다).
 3. **`+` 의 알파가 50% 가 아니라 64% 이고, Figma 만 아직 50% 다.** 시안은 `+` 만 순수 흰색 50%
    이고 질문·제목은 `#fafafa` 다. 같은 면 위에서 두 흰색을 쓰는 이유를 찾지 못해 팔레트 쪽으로
    통일했고(차이는 1% 미만), 그래서 테마를 따라 라이트에서 잉크가 된다. **그 뒤 정본이 알파까지
@@ -430,8 +430,8 @@ Known deviations 12).
 
 ## Acceptance tests
 
-1. 행이 radius 12 이고 면이 잉크 8% 오버레이(`landing/panel-strong`)다. `gray-900` 이 아니다.
-2. 행에 stroke 가 없고 effect 도 없다 — 되읽기의 `boundStrokes` · `rawStrokes` 가 각각 0 이다.
+1. 행이 radius 12 이고 면이 올린 면(`bg-raised`)이다.
+2. 행에 stroke 가 없고 헤어라인은 inner shadow effect 하나다 — 되읽기의 `boundStrokes` · `rawStrokes` 가 각각 0 이다.
 3. 질문이 한 줄일 때 닫힌 행 높이가 위 패딩 + 질문 줄 상자 + 아래 패딩이다 — 1024 이상에서 66 =
    18 + 30 + 18(`faq-row.sizes["false/lg"].questionHeight`)이고, 1023 이하 63, 767 이하 60 이다.
 4. 질문의 좌우가 20, 글자와 `+` 사이가 16 이며 `+` 가 **질문 높이의 가운데**(`items-center`)다.
@@ -446,7 +446,7 @@ Known deviations 12).
 11. `Size=md` 에서 **글리프가 돌지 않는다.** 정본이 글자 자체를 `+` ↔ `−` 로 갈아 끼우므로
     거기까지 돌리면 `−` 가 세로줄이 되어 닫힘으로 읽힌다.
 12. 글리프 회전이 `aria-expanded="true"` 에만 선다 — 속성이 없으면 회전도 없다.
-13. 행 면의 합성 결과가 랜딩 바닥과 **다르다.** 이름(`landing/panel-strong`)은
+13. 행 면의 합성 결과가 랜딩 바닥과 **다르다.** 이름(`bg-raised` · 헤어라인)은
     `verify-recipe-record` 가, 합성 결과는 브라우저 시험이 잡는다.
 
 1 · 2 · 7 은 Figma 되읽기 쪽이고, 3 · 4 · 5(회전) · 6 · 10 · 11 · 12 · 13 은

@@ -97,7 +97,7 @@
  * 높이 정책: 예전엔 min-block-size로 44px(AAA target-size)를 강제해 제품(37px)을 의도적으로
  * 따르지 않았다. 제품 외형 수렴 결정(사용자)에 따라 그 floor를 제거해 제품과 같은 콘텐츠 높이
  * (padding-block 8+8 + body-sm line-height 21 = 37px)를 쓴다. WCAG 2.5.8 AA(24px)는 여전히
- * 충족하고 AAA(44)만 포기한다. 키보드 위치는 `[data-highlighted]` 면이 말한다 — focus ring 은
+ * 충족하고 마우스에서만 AAA(44)를 포기한다 — 거친 포인터는 아래 `@media (pointer: coarse)` 가 44 를 되건다. 키보드 위치는 `[data-highlighted]` 면이 말한다 — focus ring 은
  * 평상 렌더링에서 그리지 않는다(DS-D-0074). */
 .louis-menu__item {
   box-sizing: border-box;
@@ -126,6 +126,15 @@
   font-weight: var(--louis-typography-body-sm-regular-font-weight);
   line-height: var(--louis-typography-body-sm-regular-line-height);
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* **거친 포인터에서는 44 바닥을 다시 건다(2026-10-07, 제품 canvas-mobile-ux).** 위의 37px 수렴은 마우스 근거다 — 손가락으로
+ * 고르는 우클릭 메뉴 · 추가 시트 · 레이어 시트 세 곳이 같은 덮어쓰기를 반복했다. 행 자체 높이로 늘리므로 위 hit-target 겹침
+ * 문제는 생기지 않는다. */
+@media (pointer: coarse) {
+  .louis-menu__item {
+    min-block-size: var(--louis-layout-control-hit-target-minimum);
+  }
 }
 
 /* hover와 roving 하이라이트는 같은 표현이다. pointer로 열고 방향키로 이동하는 경로에서

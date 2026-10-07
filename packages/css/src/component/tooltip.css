@@ -143,6 +143,8 @@
    * 제품 두 벌이 2 와 3 으로 갈려 있었고, 한 시스템 안에서 같은 자리는 한 값이다. */
   margin: var(--louis-space-overlay-item-gap) 0 0;
   opacity: 0.72;
+  /* 끝말 하나만 다음 줄에 남지 않게 한다(2026-10-07, 제품 캔버스 도움말 작업 브랜치 — 첫 사용 안내가 감길 때). */
+  text-wrap: pretty;
   font-family: var(--louis-typography-caption-regular-font-family);
   font-size: var(--louis-typography-caption-regular-font-size);
   font-weight: var(--louis-typography-caption-regular-font-weight);

@@ -8191,6 +8191,59 @@ export const primitives = {
       "lineHeight": 1.35
     }
   },
+  "type-style-heading-lg-semibold": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "type-style-heading-lg-semibold",
+    "mode": "base",
+    "rawValue": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 48,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.96,
+        "unit": "px"
+      },
+      "lineHeight": 1.35
+    },
+    "sourcePath": "primitive.typography.heading-lg-semibold",
+    "tier": "primitive",
+    "type": "typography",
+    "value": {
+      "fontFamily": [
+        "Pretendard Variable",
+        "Pretendard",
+        "Inter",
+        "Noto Sans KR",
+        "Noto Sans JP",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": {
+        "value": 48,
+        "unit": "px"
+      },
+      "fontWeight": 600,
+      "letterSpacing": {
+        "value": -0.96,
+        "unit": "px"
+      },
+      "lineHeight": 1.35
+    }
+  },
   "type-style-heading-md-medium": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -12555,6 +12608,48 @@ export const tokens = {
           "unit": "px"
         },
         "fontWeight": 500,
+        "letterSpacing": {
+          "value": -0.96,
+          "unit": "px"
+        },
+        "lineHeight": 1.35
+      }
+    },
+    "typography-heading-lg-semibold": {
+      "aliasTarget": {
+        "id": "type-style-heading-lg-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-typography-heading-lg-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-lg-semibold-font-size": "48px",
+        "--louis-typography-heading-lg-semibold-font-weight": "600",
+        "--louis-typography-heading-lg-semibold-letter-spacing": "-0.96px",
+        "--louis-typography-heading-lg-semibold-line-height": "1.35"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-heading-lg-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.heading-lg-semibold}",
+      "sourcePath": "semantic.global.typography.heading-lg-semibold",
+      "tier": "semantic",
+      "type": "typography",
+      "value": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "value": 48,
+          "unit": "px"
+        },
+        "fontWeight": 600,
         "letterSpacing": {
           "value": -0.96,
           "unit": "px"

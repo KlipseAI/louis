@@ -230,6 +230,15 @@
       "generated": false
     },
     {
+      "id": "decision-text-field-invalid-ring",
+      "path": "design/governance/decisions/DS-D-0075-text-field-invalid-ring.md",
+      "title": "DS-D-0075 TextField 오류 상태는 상자에 위험색 링을 건다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1711,6 +1720,7 @@
         "design/governance/decisions/DS-D-0072-dim-modal-dark-is-the-floor.md",
         "design/governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md",
         "design/governance/decisions/DS-D-0074-focus-ring-removed.md",
+        "design/governance/decisions/DS-D-0075-text-field-invalid-ring.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

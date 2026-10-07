@@ -99,8 +99,13 @@
   align-items: center;
   /* 제품 gap-8 = 16. 본문 덩어리와 액션 사이다. */
   gap: var(--louis-space-control-lg);
-  /* 제품 max-w-[min(92vw,720px)]. 뷰포트 여유는 overlay primitive 가 잰 값을 쓴다. */
-  max-inline-size: min(720px, var(--louis-overlay-available-width, 100vw));
+  /* 제품 max-w-[min(92vw,720px)]. 뷰포트 여유는 overlay primitive 가 잰 값을 쓴다.
+   * **좌우에 12 씩 남긴다(2026-10-07, 제품 캔버스 도움말 · 모바일 · 하이라이트 작업 브랜치).** 남기지 않으면 폰에서
+   * 면이 화면 끝까지 붙어 둥근 모서리가 잘린다 — 세 소비처가 `--louis-overlay-available-width` 를 각자 줄여 덮었다. */
+  max-inline-size: min(
+    720px,
+    calc(var(--louis-overlay-available-width, 100vw) - var(--louis-space-control-md) - var(--louis-space-control-md))
+  );
   /* **좌우가 다르다.** 제품 pl-8 / pr-6 = 16 / 12. 액션이 자기 padding 을 갖고 있어
    * 오른쪽을 4 줄여야 시각 여백이 좌우로 같아 보인다 — 광학 보정이지 실수가 아니다. */
   padding-inline-start: var(--louis-space-control-lg);

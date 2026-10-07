@@ -122,7 +122,7 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 | Default | generic 헤어라인(inset, `color-stroke-hairline`) |
 | Hover | **바뀌지 않는다** |
 | Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 박스가 `:focus-within`으로 `Highlight` 링을 받는다 |
-| Invalid | generic 헤어라인 유지 — 색 축 대신 **오류 문구 + `aria-invalid` + `role="alert"`**가 전달한다 |
+| Invalid | 상자에 **ring 두께(2px)의 `fg-danger-on-surface` 링**이 헤어라인을 대신한다([DS-D-0075](../governance/decisions/DS-D-0075-text-field-invalid-ring.md), 2026-10-07). 오류 문구 + `aria-invalid` + `role="alert"` 도 함께 간다. `data-invalid` 는 있으면 오류이고 `"false"` 만 예외다 |
 | Disabled | generic 헤어라인 유지, 전경 `color-fg-disabled`이 상태를 전달한다 |
 
 **결합한 필드의 Focus 는 링의 «자리»가 다르다.** 링은 밖이 아니라 상자 **안**에 선다 —

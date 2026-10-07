@@ -289,12 +289,12 @@ const RECIPES = [
         "iconFontSize",
       ],
     ],
-    // **이 셋은 값이 아니라 이름이 결정이다.** `landing-panel-strong` 을 같은 값의 사다리 칸으로
-    // 「고쳐 두면」 라이트에서 행 면이 랜딩 바닥과 같아져 컴포넌트가 사라진다 — 정본이 `gray-900`
-    // 을 버린 이유가 그것이고 문서 Known deviations 1 이 소유한다. `md` 의 행이 면을 갖지 않는
-    // 것(주인이 질문 버튼으로 옮겨 가는 것)도 같은 종류의 결정이다.
+    // **이 넷은 값이 아니라 이름이 결정이다.** 행 면은 올린 면(`bg-raised`)과 헤어라인이 함께 다닌다
+    // (2026-10-07 소유자) — 선을 빼면 라이트에서 흰 행이 바닥에 묻힌다. 문서 Known deviations 1 · 2 가
+    // 소유한다. `md` 의 행이 면을 갖지 않는 것(주인이 질문 버튼으로 옮겨 가는 것)도 같은 종류의 결정이다.
     surfaces: [
-      [".louis-faq-row", "var(--louis-color-landing-panel-strong)"],
+      [".louis-faq-row", "var(--louis-color-bg-raised)"],
+      [".louis-faq-row", "box-shadow: var(--louis-hairline-inset)"],
       [".louis-faq-row__icon", "var(--louis-color-landing-text-muted)"],
       ['.louis-faq-row[data-size="md"]', "background: transparent"],
       [

@@ -7,7 +7,8 @@ authority: normative
 # Voice & Tone
 
 Klipse 이름으로 밖에 내보내는 글의 어조를 정합니다. 카드뉴스, 인스타그램 게시물, 공지, 업데이트 소식이
-대상입니다.
+대상입니다. 보고서, 운영안, 제안서 같은 LOUIS 문서([Document 패턴](../patterns/document.md))도 같은 공식 톤으로
+씁니다.
 
 제품 화면 문구는 이 문서의 대상이 아닙니다. 화면 문구는 [Content & Localization](README.md)의 기본 원칙을
 따르고, 사용자가 할 행동을 쉬운 말로 씁니다.

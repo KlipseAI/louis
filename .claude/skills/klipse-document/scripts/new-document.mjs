@@ -71,7 +71,7 @@ const html = `<!doctype html>
   <header class="louis-document__head">
     <p class="louis-document__brand"><img class="louis-document__brand-mark" src="${brandMark}" alt="" width="20" height="20"> ${publisher}</p>
     <h1 class="louis-document__title">${title}</h1>
-    <p class="louis-document__lead">${fill("결론 한 문장 — 무엇을 했고 무엇을 정해야 하는지")}</p>
+    <p class="louis-document__lead">${fill("결론 한 문장: 무엇을 했고 무엇을 결정해야 하는지")}</p>
     <p class="louis-document__meta"><time datetime="${iso}">${human}</time></p>
   </header>
 
@@ -80,8 +80,8 @@ const html = `<!doctype html>
     <ol class="louis-document-decision__list" role="list">
       <li class="louis-document-decision__item">
         <span class="louis-document-marker" aria-hidden="true">1</span>
-        <p class="louis-document-decision__label">${fill("정할 것 — 명사구(「… 승인」 · 「… 착수」)")}</p>
-        <p class="louis-document-decision__detail">${fill("조건 · 기한 · 비용 한 줄")}</p>
+        <p class="louis-document-decision__label">${fill("결정할 사항: 명사구(「예산 승인」, 「개발 착수」)")}</p>
+        <p class="louis-document-decision__detail">${fill("조건, 기한, 비용 한 줄")}</p>
       </li>
     </ol>
   </section>
@@ -89,7 +89,7 @@ const html = `<!doctype html>
   <section class="louis-document-section" aria-labelledby="s0">
     <div class="louis-document-section__head">
       <p class="louis-document-section__kicker">요약</p>
-      <h2 class="louis-document-section__title" id="s0">${fill("요약 절의 주장 — 한 문장")}</h2>
+      <h2 class="louis-document-section__title" id="s0">${fill("요약 절의 주장 한 문장")}</h2>
     </div>
     <ol class="louis-document-grid" role="list" aria-label="${fill("격자의 이름")}">
       <li class="louis-document-card">
@@ -110,11 +110,11 @@ const html = `<!doctype html>
   <section class="louis-document-section" aria-labelledby="s1">
     <div class="louis-document-section__head">
       <p class="louis-document-section__kicker">01</p>
-      <h2 class="louis-document-section__title" id="s1">${fill("이 절의 주장 — 한 문장")}</h2>
+      <h2 class="louis-document-section__title" id="s1">${fill("이 절의 주장 한 문장")}</h2>
       <p class="louis-document-section__source">${fill("기준 시점과 출처")}</p>
     </div>
     <div class="louis-document-prose">
-      <p>${fill("주장 → 근거 → 해석. 수치는 격자 · 막대 · 표로, 산문은 해석으로")}</p>
+      <p>${fill("주장, 근거, 해석 순서. 수치는 격자, 막대, 표로, 산문은 해석으로")}</p>
     </div>
   </section>
 

@@ -239,7 +239,7 @@ const ANONYMOUS_ROUTES = [
   // `window.localStorage.getItem` 을 try 없이 부르므로(`components/landing/system/I18nProvider.tsx` 43), 저장소가 막힌 브라우저
   // (사이트 데이터 차단 — 접근이 `SecurityError` 를 던진다)에서는 루트 경계가 선다. 측정 문맥에서 그 조건만 만든다(`blockStorage`).
   // 제품 코드는 건드리지 않는다. 어느 페이지든 같으므로 가장 가벼운 `/login` 을 연다.
-  { pattern: "/login", id: "global-error", file: "apps/web/app/global-error.tsx", blockStorage: true },
+  { pattern: "/login", id: "global-error", file: "apps/web/app/global-error.tsx", blockStorage: true, rootBody: true },
 ];
 
 // **세션 모드가 재는 화면(`--session`).** 허브 셋 — 서버 확인을 통과하면 로그인한 사용자의 작업공간이 그려진다. 가짜 Supabase 는
@@ -320,6 +320,7 @@ const SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMO
     ...(spec.fullPage ? { fullPage: true } : {}),
     ...(spec.reducedMotion ? { reducedMotion: true } : {}),
     ...(spec.blockStorage ? { blockStorage: true } : {}),
+    ...(spec.rootBody ? { rootBody: true } : {}),
     expectedPath: target.pathname,
     expectedSearch: target.search,
   };
@@ -852,7 +853,7 @@ try {
         await page.evaluate(async () => { await document.fonts.ready; });
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
-        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage }) => {
+        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage, rootBody }) => {
           // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
           // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
           // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
@@ -1085,11 +1086,13 @@ try {
               };
             })
             .sort((left, right) => right.score - left.score);
-          const rootCandidate = rootCandidates[0];
+          // **`body` 가 곧 화면인 경우(`rootBody`, 2026-10-07).** 전체 오류 화면은 루트 레이아웃 대신 제 `<body>` 에 바탕 · 가운데 정렬을
+          // 인라인으로 건다 — 가장 큰 자식(글 묶음 267×163)을 뿌리로 잡으면 바탕과 자리가 빠진다. 그 화면만 `body` 자체를 뿌리로 잰다.
+          const rootCandidate = rootBody ? { node: document.body, bodyIndex: null, score: 1 } : rootCandidates[0];
           if (!rootCandidate || rootCandidate.score === 0) {
             throw new Error("가시적인 app root를 찾지 못했습니다");
           }
-          const rootPath = "body." + rootCandidate.bodyIndex;
+          const rootPath = rootBody ? "body" : "body." + rootCandidate.bodyIndex;
           // 잰 노드를 페이지에 남겨 둔다. 다음 CDP 패스가 **이 노드들 자체**를 조인 키로 쓴다.
           const measuredNodes = [];
           const rootTree = describe(rootCandidate.node, rootPath, null, measuredNodes);
@@ -1213,7 +1216,7 @@ try {
             tree: rootTree,
             overlays,
           };
-        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage) });
+        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage), rootBody: Boolean(spec.rootBody) });
 
         // **두 패스는 서로 다른 시각의 DOM 을 본다.** 그 사이에 mount/unmount 가 일어나면
         // 조인이 성립하지 않는다. 그래서 한 번 얼려 여파를 끄집어내고, 가라앉히고, 재고,

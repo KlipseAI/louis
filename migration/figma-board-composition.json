@@ -14,15 +14,15 @@
   "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 122,
-  "rawNodesBeforePruning": 7370,
+  "rawNodesBeforePruning": 7372,
   "counts": {
-    "total": 7485,
+    "total": 7487,
     "instance": 302,
     "replaceable": 0,
     "bespoke": 219,
     "blocked": 12,
     "missing": 1355,
-    "structural": 5597,
+    "structural": 5599,
     "unclassified": 0
   },
   "ratio": {
@@ -83,7 +83,7 @@
     "icon/music-notes-simple": 1
   },
   "structuralByKind": {
-    "surface": 869,
+    "surface": 871,
     "frame": 2973,
     "text": 1646,
     "image": 109
@@ -661,13 +661,13 @@
         "figma/app-screens.global-error.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 1,
-        "structural": 5,
+        "structural": 6,
         "unclassified": 0
       }
     },
@@ -680,13 +680,13 @@
         "figma/app-screens.global-error.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 6,
+        "total": 7,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
         "missing": 1,
-        "structural": 5,
+        "structural": 6,
         "unclassified": 0
       }
     },
@@ -11996,6 +11996,17 @@
     },
     "global-error@desktop-1920x1080#root": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "body",
+      "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "global-error@desktop-1920x1080#0": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "div",
       "rect": [
         266.67,
@@ -12005,7 +12016,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@desktop-1920x1080#0": {
+    "global-error@desktop-1920x1080#0.0": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -12016,7 +12027,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@desktop-1920x1080#0.0": {
+    "global-error@desktop-1920x1080#0.0.0": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -12027,7 +12038,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "global-error@desktop-1920x1080#1": {
+    "global-error@desktop-1920x1080#0.1": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -12038,7 +12049,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@desktop-1920x1080#1.0": {
+    "global-error@desktop-1920x1080#0.1.0": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "p",
       "rect": [
@@ -12049,7 +12060,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "global-error@desktop-1920x1080#2": {
+    "global-error@desktop-1920x1080#0.2": {
       "board": "figma/app-screens.global-error.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -12063,6 +12074,17 @@
     },
     "global-error@mobile-402x874#root": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "body",
+      "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+    },
+    "global-error@mobile-402x874#0": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "div",
       "rect": [
         267.17,
@@ -12072,7 +12094,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@mobile-402x874#0": {
+    "global-error@mobile-402x874#0.0": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -12083,7 +12105,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@mobile-402x874#0.0": {
+    "global-error@mobile-402x874#0.0.0": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -12094,7 +12116,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "global-error@mobile-402x874#1": {
+    "global-error@mobile-402x874#0.1": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "margin",
       "rect": [
@@ -12105,7 +12127,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "global-error@mobile-402x874#1.0": {
+    "global-error@mobile-402x874#0.1.0": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -12116,7 +12138,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "global-error@mobile-402x874#2": {
+    "global-error@mobile-402x874#0.2": {
       "board": "figma/app-screens.global-error.mobile.00.draw.js",
       "tag": "button",
       "rect": [

@@ -7846,6 +7846,17 @@
           "fontSize",
           "fontWeight"
         ]
+      },
+      "typography/heading-sm-semibold": {
+        "fontFamily": "Pretendard",
+        "fontStyle": "SemiBold",
+        "fontSize": 28,
+        "lineHeightPercent": 135.000002,
+        "letterSpacingPx": -0.56,
+        "boundVariables": [
+          "fontSize",
+          "fontWeight"
+        ]
       }
     },
     "effect": {
@@ -10342,7 +10353,7 @@
           "parts": {
             "Title": {
               "width": [
-                274
+                273
               ],
               "height": [
                 38

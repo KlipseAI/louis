@@ -10461,6 +10461,72 @@
               "sourcePath": "primitive.typography.heading-sm-medium"
             }
           }
+        },
+        "type-style-heading-sm-semibold": {
+          "$type": "typography",
+          "fields": [
+            "fontFamily",
+            "fontSize",
+            "fontWeight",
+            "letterSpacing",
+            "lineHeight"
+          ],
+          "figmaName": "typography/heading-sm-semibold",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive typography은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "fontFamily": [
+                  "Pretendard Variable",
+                  "Pretendard",
+                  "Inter",
+                  "Noto Sans KR",
+                  "Noto Sans JP",
+                  "system-ui",
+                  "sans-serif"
+                ],
+                "fontSize": {
+                  "unit": "px",
+                  "value": 28
+                },
+                "fontWeight": 600,
+                "letterSpacing": {
+                  "unit": "px",
+                  "value": -0.56
+                },
+                "lineHeight": 1.35
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "fontFamily": [
+                  "Pretendard Variable",
+                  "Pretendard",
+                  "Inter",
+                  "Noto Sans KR",
+                  "Noto Sans JP",
+                  "system-ui",
+                  "sans-serif"
+                ],
+                "fontSize": {
+                  "unit": "px",
+                  "value": 28
+                },
+                "fontWeight": 600,
+                "letterSpacing": {
+                  "unit": "px",
+                  "value": -0.56
+                },
+                "lineHeight": 1.35
+              },
+              "sourcePath": "primitive.typography.heading-sm-semibold"
+            }
+          }
         }
       }
     },
@@ -15925,6 +15991,55 @@
                 "lineHeight": 1.35
               },
               "sourcePath": "semantic.global.typography.heading-sm-medium"
+            }
+          }
+        },
+        "typography-heading-sm-semibold": {
+          "$type": "typography",
+          "fields": [
+            "fontFamily",
+            "fontSize",
+            "fontWeight",
+            "letterSpacing",
+            "lineHeight"
+          ],
+          "figmaName": "typography/heading-sm-semibold",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG typography composite는 단일 native variable로 표현되지 않아 text-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "text-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.typography.heading-sm-semibold}",
+              "aliasTarget": {
+                "id": "type-style-heading-sm-semibold",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "fontFamily": [
+                  "Pretendard Variable",
+                  "Pretendard",
+                  "Inter",
+                  "Noto Sans KR",
+                  "Noto Sans JP",
+                  "system-ui",
+                  "sans-serif"
+                ],
+                "fontSize": {
+                  "unit": "px",
+                  "value": 28
+                },
+                "fontWeight": 600,
+                "letterSpacing": {
+                  "unit": "px",
+                  "value": -0.56
+                },
+                "lineHeight": 1.35
+              },
+              "sourcePath": "semantic.global.typography.heading-sm-semibold"
             }
           }
         }

@@ -140,12 +140,13 @@
   padding-inline: 24px;
 }
 
+/* 제목은 세미볼드다(2026-10-07, 소유자 — 제품 b6844e0e8 이 먼저 굵기만 덮었다). 크기 · 행간 · 자간은 heading-sm 그대로다. */
 .louis-empty-state[data-layout="canvas"] .louis-empty-state__title {
-  font-family: var(--louis-typography-heading-sm-medium-font-family);
-  font-size: var(--louis-typography-heading-sm-medium-font-size);
-  font-weight: var(--louis-typography-heading-sm-medium-font-weight);
-  line-height: var(--louis-typography-heading-sm-medium-line-height);
-  letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
+  font-family: var(--louis-typography-heading-sm-semibold-font-family);
+  font-size: var(--louis-typography-heading-sm-semibold-font-size);
+  font-weight: var(--louis-typography-heading-sm-semibold-font-weight);
+  line-height: var(--louis-typography-heading-sm-semibold-line-height);
+  letter-spacing: var(--louis-typography-heading-sm-semibold-letter-spacing);
 }
 
 /* base 는 액션을 한 단계 더 떨어뜨리지만(4px) canvas 는 그러지 않는다 — 제품이 제목과 버튼을

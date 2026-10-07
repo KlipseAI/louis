@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "8d5ce9e55ac94858d900e8b65b1e1a3acffe9f3deec44a7990b56d3bfbaa0332"
+      "sha256": "459e03221d2277f7d5836f0a5b6187fbd456514a181c8e24ce219ab426648498"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "25ffd40afaee6bd331bb62c9e1a9cbcaeaaf7ff83d100727e5f857effe9e7762"
+      "sha256": "cd390861f558cdaf90e4611fbabdc5ef5f806108ae28ea749949abb3c10dd0ff"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "44069e90f436d9971ed66db3ae013b1261817328736b74bcda7c210b0ef3bc72"
+      "sha256": "19e7c5839521233324eb87fc92f1ea664457af3e893f8c284cfc65cfe875e286"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "8098e94b9645613bf1a0dcd13a7a443dac35cfac1007ad0dd56270596013bc4c"
+      "sha256": "3ffd4f948e434b5dce2da1a611b99d4c58b94ae2ef0d20ac55aee354e52ebfdf"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "b57cd706c7b24b53f6348ee1e0e9ca07a97dfbfe73e47fe1e611d2f34f22b4a4"
+      "sha256": "e07cd832e3673d0ae12c88a0ed7d4188a38a7efbecdfb1ce2bdc9b47f568e08b"
     }
   ],
   "contrastPairs": [
@@ -479,13 +479,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "8d3c35fa624d0318bf96b52a671a16b7ee83e9285875407cd9bc14ae966663d2"
+    "sha256": "4da0156bf8a27602b542267097f1ef259bc1e185327d95a06df347ad96cde17d"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 779,
+  "tokenCount": 781,
   "tokens": [
     {
       "aliasTarget": {
@@ -21768,6 +21768,59 @@
       "type": "typography"
     },
     {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "type-style-heading-sm-semibold",
+      "mode": "base",
+      "rawValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 28
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.56
+        },
+        "lineHeight": 1.35
+      },
+      "resolvedValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 28
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.56
+        },
+        "lineHeight": 1.35
+      },
+      "sourcePath": "primitive.typography.heading-sm-semibold",
+      "tier": "primitive",
+      "type": "typography"
+    },
+    {
       "aliasTarget": {
         "id": "font-weight-medium",
         "mode": "base"
@@ -22508,6 +22561,48 @@
         "lineHeight": 1.35
       },
       "sourcePath": "semantic.global.typography.heading-sm-medium",
+      "tier": "semantic",
+      "type": "typography"
+    },
+    {
+      "aliasTarget": {
+        "id": "type-style-heading-sm-semibold",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-typography-heading-sm-semibold-font-family": "\"Pretendard Variable\", \"Pretendard\", \"Inter\", \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
+        "--louis-typography-heading-sm-semibold-font-size": "28px",
+        "--louis-typography-heading-sm-semibold-font-weight": "600",
+        "--louis-typography-heading-sm-semibold-letter-spacing": "-0.56px",
+        "--louis-typography-heading-sm-semibold-line-height": "1.35"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "typography-heading-sm-semibold",
+      "mode": "global",
+      "rawValue": "{primitive.typography.heading-sm-semibold}",
+      "resolvedValue": {
+        "fontFamily": [
+          "Pretendard Variable",
+          "Pretendard",
+          "Inter",
+          "Noto Sans KR",
+          "Noto Sans JP",
+          "system-ui",
+          "sans-serif"
+        ],
+        "fontSize": {
+          "unit": "px",
+          "value": 28
+        },
+        "fontWeight": 600,
+        "letterSpacing": {
+          "unit": "px",
+          "value": -0.56
+        },
+        "lineHeight": 1.35
+      },
+      "sourcePath": "semantic.global.typography.heading-sm-semibold",
       "tier": "semantic",
       "type": "typography"
     }

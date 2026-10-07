@@ -3506,6 +3506,35 @@
           }
         }
       },
+      "heading-sm-semibold": {
+        "$value": {
+          "fontFamily": [
+            "Pretendard Variable",
+            "Pretendard",
+            "Inter",
+            "Noto Sans KR",
+            "Noto Sans JP",
+            "system-ui",
+            "sans-serif"
+          ],
+          "fontSize": {
+            "value": 28,
+            "unit": "px"
+          },
+          "fontWeight": 600,
+          "letterSpacing": {
+            "value": -0.56,
+            "unit": "px"
+          },
+          "lineHeight": 1.35
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "type-style-heading-sm-semibold",
+            "tier": "primitive"
+          }
+        }
+      },
       "heading-md-medium": {
         "$value": {
           "fontFamily": [
@@ -6645,6 +6674,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "typography-heading-sm-medium",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "heading-sm-semibold": {
+          "$value": "{primitive.typography.heading-sm-semibold}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "typography-heading-sm-semibold",
               "tier": "semantic",
               "mode": "global"
             }

@@ -25,6 +25,20 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (204) — 빈 캔버스 제목을 세미볼드로: `typography-heading-sm-semibold` 신설
+
+소유자가 노드 캔버스가 비었을 때의 제목 「아직 프로젝트가 없습니다」를 세미볼드로 올리라고 했고, 제품이 먼저 굵기만 덮었다
+(제품 `b6844e0e8`, `CanvasEmptyState.tsx` 의 `HEADING_CLASS` 에 `font-weight: var(--type-weight-semibold)`). 정본을 그쪽으로 옮긴다.
+
+- **토큰.** `typography-heading-sm-semibold`(28 · 600 · 행간 1.35 · 자간 -0.56)를 열었다. heading-sm 은 지금까지 medium 하나뿐이었다
+  — heading-md 가 Section Header 와 함께 semibold 를 연 것과 같은 방식이다.
+- **CSS.** `.louis-empty-state[data-layout="canvas"] .louis-empty-state__title` 이 새 토큰을 쓴다. 크기 · 행간 · 자간은 그대로다.
+- **Figma.** 생성물 `figma/apply-styles.js` 를 그대로 보내 text style `typography/heading-sm-semibold` 를 만들고(17개), EmptyState
+  `Layout=canvas` 의 Title 을 그 스타일로 옮겼다. 스타일과 EmptyState 를 되읽어 병합했다 — `verify-figma-parity` 초록.
+- **남은 것 — 제품.** 제품은 아직 덮어쓰기로 같은 값을 그린다. 핀을 이 판으로 올릴 때 `HEADING_CLASS` 의 굵기를 지운다. 순서는
+  포커스 링 브랜치(`feat/focus-ring-none`, 핀 `bab5efdf`)가 먼저 합쳐진 뒤다 — 두 브랜치가 같은 핀 줄을 고치면 충돌하고, 이 판을
+  먼저 받으면 LOUIS 가 그리던 포커스 링만 먼저 사라진다.
+
 ## 2026-10-07 (203) — 보드와 제품 캡처를 나란히 대조해 생성기 결함 넷을 고쳤다, 전체 오류 화면 측정 생성, 인스타그램 분석은 보류로
 
 - **캡처 대조.** 측정기에 `--shots=<폴더>` 를 더했다 — 잰 직후 페이지를 캡처로 남기고 원장은 쓰지 않는다(`--only` 와 함께). 오늘 세운 편집기 ·

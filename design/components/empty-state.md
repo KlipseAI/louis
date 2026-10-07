@@ -195,7 +195,7 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 | 액션 추가 간격 | 4px | — | 0 | base 는 `space-control-xs` |
 | 액션 사이 간격 | 12px | — | 12px | `space-stack-md` |
 | 그래픽 | 64px | — | — | `icon-size-xl` |
-| 제목 | 20/600 | 16/600 | 28/500 | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-medium` |
+| 제목 | 20/600 | 16/600 | 28/600 | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-semibold` |
 | 설명 | 16/400 | 14/400 | — | `typography-body-md-regular` · `-body-sm-regular` |
 | 설명 최대 폭 | 44ch | 제한 없음 | — | — |
 | 배경 | 없음 | `color-bg-raised` | 없음 | — |
@@ -264,6 +264,10 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
   옮기지 않은 이유는 표면 사다리와 같다 — 알파는 바닥이 무엇이냐에 따라 다른 색이 되고, LOUIS 의
   잉크 역할은 바닥과 무관하게 정해진다. **대비를 이유로 값을 바꾼 것이 아니다**: 옮기지 않은
   것은 색이 아니라 «알파로 색을 만드는 방식»이다.
+- **`canvas` 제목은 세미볼드다(2026-10-07).** 소유자 요청으로 제품이 먼저 굵기만 600 으로 덮었고(`b6844e0e8`,
+  `CanvasEmptyState.tsx` 의 `HEADING_CLASS`), LOUIS 가 그 값을 받았다 — 크기 · 행간 · 자간은 heading-sm 그대로라
+  `typography-heading-sm-semibold` 를 새로 열었다. 제품의 덮어쓰기는 핀을 이 판으로 올릴 때 지운다(포커스 링 브랜치가
+  핀을 먼저 올린 뒤).
 - **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
   `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
   쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.

@@ -343,6 +343,10 @@
   --text-heading-sm-medium--line-height: var(--louis-typography-heading-sm-medium-line-height);
   --text-heading-sm-medium--letter-spacing: var(--louis-typography-heading-sm-medium-letter-spacing);
   --text-heading-sm-medium--font-weight: var(--louis-typography-heading-sm-medium-font-weight);
+  --text-heading-sm-semibold: var(--louis-typography-heading-sm-semibold-font-size);
+  --text-heading-sm-semibold--line-height: var(--louis-typography-heading-sm-semibold-line-height);
+  --text-heading-sm-semibold--letter-spacing: var(--louis-typography-heading-sm-semibold-letter-spacing);
+  --text-heading-sm-semibold--font-weight: var(--louis-typography-heading-sm-semibold-font-weight);
 
   /* Tailwind 4에 대응 namespace가 없다. 변수로만 내보내며 유틸리티는 생기지 않는다 —
    * `[z-index:var(--louis-layer-modal)]` 같은 임의값으로 쓴다. */

@@ -109,6 +109,11 @@ export const metadata = Object.freeze({
       "minimum": 4.5
     },
     {
+      "foreground": "color-fg-primary",
+      "background": "color-canvas-chip-surface",
+      "minimum": 4.5
+    },
+    {
       "foreground": "color-fg-secondary",
       "background": "color-bg-inset",
       "minimum": 4.5
@@ -14209,6 +14214,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-canvas-chip-surface": {
+      "aliasTarget": {
+        "id": "color-palette-gray-000",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-chip-surface": "color(srgb 0.980392 0.980392 0.980392 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-chip-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.000}",
+      "sourcePath": "semantic.light.color.canvas-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-palette-gray-025",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-chip-surface-hover": "color(srgb 0.94902 0.952941 0.960784 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-chip-surface-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.025}",
+      "sourcePath": "semantic.light.color.canvas-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.94902,
+          0.952941,
+          0.960784
+        ],
+        "alpha": 1
+      }
+    },
     "color-canvas-dot": {
       "aliasTarget": {
         "id": "color-static-black-alpha-12",
@@ -15717,6 +15774,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-media-foreground-dark-muted": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-64",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-dark-muted": "color(srgb 0.980392 0.980392 0.980392 / 0.64)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-dark-muted",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.64}",
+      "sourcePath": "semantic.light.color.media-foreground-dark-muted",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.64
+      }
+    },
+    "color-media-foreground-dark-soft": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-dark-soft": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-dark-soft",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
+      "sourcePath": "semantic.light.color.media-foreground-dark-soft",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.72
+      }
+    },
     "color-media-indicator-active": {
       "aliasTarget": {
         "id": "color-palette-gray-000",
@@ -15809,6 +15918,32 @@ export const tokens = {
       "mode": "light",
       "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.light.color.media-scrim-dark",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-stage-surface": {
+      "aliasTarget": {
+        "id": "color-static-black",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-stage-surface": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-stage-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.black}",
+      "sourcePath": "semantic.light.color.media-stage-surface",
       "tier": "semantic",
       "type": "color",
       "value": {
@@ -19136,6 +19271,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-canvas-chip-surface": {
+      "aliasTarget": {
+        "id": "color-palette-gray-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-chip-surface": "color(srgb 0.254902 0.270588 0.298039 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-chip-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.700}",
+      "sourcePath": "semantic.dark.color.canvas-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.254902,
+          0.270588,
+          0.298039
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-chip-surface-hover": {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-chip-surface-hover": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-chip-surface-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "sourcePath": "semantic.dark.color.canvas-chip-surface-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ],
+        "alpha": 1
+      }
+    },
     "color-canvas-dot": {
       "aliasTarget": {
         "id": "color-static-white-alpha-16",
@@ -20644,6 +20831,58 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-media-foreground-dark-muted": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-64",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-dark-muted": "color(srgb 0.980392 0.980392 0.980392 / 0.64)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-dark-muted",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.64}",
+      "sourcePath": "semantic.dark.color.media-foreground-dark-muted",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.64
+      }
+    },
+    "color-media-foreground-dark-soft": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-dark-soft": "color(srgb 0.980392 0.980392 0.980392 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-dark-soft",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.72}",
+      "sourcePath": "semantic.dark.color.media-foreground-dark-soft",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.72
+      }
+    },
     "color-media-indicator-active": {
       "aliasTarget": {
         "id": "color-palette-gray-000",
@@ -20736,6 +20975,32 @@ export const tokens = {
       "mode": "dark",
       "rawValue": "{primitive.color.static.black}",
       "sourcePath": "semantic.dark.color.media-scrim-dark",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-stage-surface": {
+      "aliasTarget": {
+        "id": "color-static-black",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-stage-surface": "color(srgb 0 0 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-stage-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static.black}",
+      "sourcePath": "semantic.dark.color.media-stage-surface",
       "tier": "semantic",
       "type": "color",
       "value": {

@@ -107,8 +107,34 @@ React `Button` 은 `<button>` 만 그린다. 그래서 이 경우에는 **클래
 | `ghost`     | 툴바·저강조 액션    | 면이 없어도 발견 가능한 위치에서 사용              |
 | `danger`    | 삭제·초기화         | 결과를 구체적으로 설명하고 필요하면 확인 단계 제공 |
 | `danger-secondary` | 확인 모달·목록 행의 파괴 액션 | 취소·편집과 나란히 서는 자리. solid `danger`와 같은 화면에 함께 두지 않는다 |
+| `inverse` | 인증 플로우 제출 CTA | 페이지와 반전된 면. 브랜드 아트워크와 나란히 설 때 |
+| `neutral` | 바탕이 어두운 고정 면(영상 위·어두운 배너)이나 헤어라인 있는 알약이 필요한 둘째 버튼 | primary 옆의 보조 액션. 브랜드 색 없이 불투명한 면이 필요할 때 |
 
 강조 수준을 색만으로 결정하지 않고, 같은 영역에 경쟁하는 primary를 여러 개 두지 않는다.
+
+### neutral — 언제 primary·secondary·ghost 대신 쓰는가
+
+`neutral` 은 페이지 축의 `bg-surface` 를 **불투명하게** 칠하고 secondary 와 같은 헤어라인을 두른 보조 버튼이다.
+라이트에서 #fafafa 면 · 검정 글자, 다크에서 #181b22 면이다.
+
+| 자리 | 쓰는 variant |
+| --- | --- |
+| 한 영역의 최우선 액션 | `primary` |
+| 일반 면 위의 취소·대안 | `secondary` — 잉크 8% 알파라 바탕이 어두우면 면이 묻힌다 |
+| 툴바·저강조 | `ghost` — 면이 없다 |
+| **영상 위·어두운 고정 배너 위처럼 secondary 의 알파가 사라지는 바탕의 둘째 버튼**, primary 옆에서 흰 알약처럼 서야 하는 자리 | `neutral` |
+
+- 상태: 쉼 `bg-surface` · hover `bg-inset` · active 는 hover 면에 scale 0.98(제품에 active 면 값이 없고 secondary 와 같다) ·
+  disabled `bg-inset` + `fg-disabled`(헤어라인 유지). 글자는 `fg-primary`, 면·글자 모두 토큰이다. primary 의 빛은 없다.
+- hover 는 알파 오버레이가 아니라 면 토큰 교체다 — 면이 불투명 단색이고 states 계약이 `backgroundColor` 하나로만 기술된다.
+- **호출부가 ghost 위에 면·헤어라인을 유틸리티로 덮는 방식을 쓰지 않는다.** 유틸리티가 이기는 순간 LOUIS 의 hover 가
+  함께 죽는다.
+- 출처: 2026-10-07, 제품 feat/landing-hero-scroll `components/landing/sections/Hero.tsx` 의 `NEUTRAL_BUTTON`(「LOUIS 에 그
+  변형이 없다」), `components/models/ModelHeroActions.tsx` 의 같은 칠(목록 배너 `onDark`).
+- **Figma 변형은 아직 없다.** `Variant` 축은 여섯이라 코드 `ButtonVariant`(일곱)와 어긋난다 — Figma 변형이 생기기 전까지
+  parity 게이트가 이 어긋남을 가리킨다.
+- 이 변형이 흡수하지 않는 것: `CreatorProgram.tsx` 의 `bg-inset` 면 + 8% 알파 hover 판(면을 갈아끼우지 않고 오버레이를 얹는
+  다른 레시피)과 GNB 상단 CTA 의 헤더 톤 반전 알약(고정 팔레트 gray-000/gray-900) — 아래 Known deviations 참조.
 
 ### primary 의 빛 (DS-D-0066)
 
@@ -267,7 +293,7 @@ variant 축이 되는데, 그 축을 세울 근거가 하나뿐이다.
 
 | 코드 | Figma | 비고 |
 | --- | --- | --- |
-| `variant` | `Variant` (primary/secondary/ghost/danger/danger-secondary/inverse) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다. 여섯으로 일치한다 |
+| `variant` | `Variant` (primary/secondary/ghost/danger/danger-secondary/inverse) | 옵션 집합을 parity 게이트가 `ButtonVariant`와 대조한다. 코드는 `neutral` 을 더해 일곱이고 **Figma 는 아직 여섯이다**(Figma 변형은 아직 없다) |
 | `size` | `Size` (lg/md/sm) | `ButtonSize`와 대조한다. 셋으로 일치한다 |
 | `loading` | `State=Loading` | boolean prop이 Figma에서는 state variant다 |
 | `disabled` | `State=Disabled` | 같은 이유 |
@@ -483,6 +509,12 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   라벨이 사실상 보이지 않는다** — 제품은 `#fafafa` 라벨에 0.35를 그대로 곱한다. 판정은
   [`migration/product.measured.json`](../../migration/product.measured.json)의 「disabled 표현」 축에
   accepted-deviation으로 있다.
+- **`neutral` 이 흡수하지 않는 두 레시피가 제품에 남아 있다(2026-10-07, 판정 필요).**
+  (1) `CreatorProgram.tsx` 의 보조 버튼 — 면 `bg-inset` 에 hover 는 면을 갈아끼우지 않고 잉크 8% 알파 오버레이
+  (`background-image`)를 얹는다. 면 교체로 헤어라인이 묻히지 않게 하려는 의도라 `neutral`(hover 면 교체)과 값이 다르다.
+  `neutral` 로 옮기면 hover 가 `bg-inset`→`bg-inset` 이라 사라지므로 그대로 옮기지 않는다. (2) GNB 상단 CTA(`Gnb.tsx`) 는
+  헤더 톤(밝은 면/어두운 면)에 따라 `palette-gray-000`/`gray-900` 고정 팔레트로 뒤집히는 반전 알약이라 페이지 축을 따르는
+  `neutral` 로 흡수되지 않는다 — 별도의 고정 팔레트 inverse 변형이나 소비처 예외 중 소유자가 고른다.
 - **캔버스 중립 버튼의 면 색이 LOUIS에 없다.** 제품은 노드 카드에 붙는 보조 버튼용으로 별도 SSOT
   토큰군 `--node-chrome-btn-*`를 둔다(`globals.css:522-548`, 라이트 덮어쓰기 `:567-573`).
 

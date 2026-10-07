@@ -588,7 +588,7 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 
 ### 두 줄 항목 (이름 + 설명) · 아이콘 타일
 
-**출처: 2026-10-07, 제품 origin/dev `NodeNextStepMenu.tsx:55-66` · 작업 브랜치 `HomeCreateNewMenu.tsx:193` 부근.**
+**출처: 2026-10-07, 제품 origin/dev `NodeNextStepMenu.tsx@70afc3604:55-66` · 작업 브랜치 `HomeCreateNewMenu.tsx@b3c56ed1a:193` 부근.**
 제품은 두 파일 모두 `louis-menu__item` 에 `items-start!` · `whitespace-nowrap!` 를 얹어 레시피를 **덮어썼다**.
 `!` 가 필요했다는 것은 레시피가 그 모양을 갖고 있지 않았다는 뜻이라, 슬롯과 함께 레시피가 갖는다.
 
@@ -602,8 +602,8 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 
 | 속성 | 값 | 근거 |
 | --- | --- | --- |
-| 정렬 | 설명 슬롯이 **있는** 항목만 `align-items: flex-start` | `NodeNextStepMenu.tsx:56` `items-start!` |
-| 줄바꿈 | 같은 항목만 `white-space: nowrap` | `NodeNextStepMenu.tsx:56` `whitespace-nowrap!`, 폭 실측 주석 |
+| 정렬 | 설명 슬롯이 **있는** 항목만 `align-items: flex-start` | `NodeNextStepMenu.tsx@b57cd1f95:56` `items-start!` |
+| 줄바꿈 | 같은 항목만 `white-space: nowrap` | `NodeNextStepMenu.tsx@b57cd1f95:56` `whitespace-nowrap!`, 폭 실측 주석 |
 | 적용 방식 | 속성이 아니라 `:where(:has(.louis-menu__item-description))` — 특이도 (0,1,0) | 호출처가 속성을 더 달지 않는다 |
 | 이름↔설명 간격 | 2px (`space-overlay-item-gap` 값 재사용) | 제품 `gap-1`, `--spacing: 2px` |
 | 설명 서체 | `typography-caption-regular` (12px) | 제품 `type-caption-12-regular` |

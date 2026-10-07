@@ -97,6 +97,32 @@
   border-radius: var(--louis-radius-control);
 }
 
+/* compact — 휴대폰 폭(`≤719px`)의 캔버스 하단 바. **조각이 32 에서 40 으로 커진다.**
+ *
+ * 2026-10-07, 제품 `feat/canvas-mobile-ux` `Toolbar.tsx:203` · `index.tsx`(TOOLBAR_ROW) @3923caf7.
+ * 제품은 버튼을 앱 셸 모바일 구간에서 `--louis-layout-control-height-lg`(40)로 키우고
+ * (`[@media(max-width:719px)]:w-[var(--louis-layout-control-height-lg)]`), 보이는 크기와 별개로
+ * **누르는 영역 44** 를 `.louis-hit-target` 이 보장한다. 자리의 곡률 12 는 그대로다.
+ *
+ * **축이 아니라 속성 하나다.** 칸이 둘(32 · 40)이지만 둘이 갈리는 것은 크기뿐이고 재료 · 여백 ·
+ * 간격 · 반경은 같다 — 그래서 `data-size="compact"` 한 값만 열고 기본(속성 없음)은 지금 그대로
+ * 32 다. 속성을 **미디어 쿼리로 자동 판정하지 않는다**: 어느 폭에서 하단 바 구성(레이어 · 툴
+ * 전환 · 추가 · 되돌리기 네 칸)으로 바뀌는지는 캔버스가 정하고(같은 경계 719 를 쓰지만 JS 가
+ * 구성을 가른다), 레시피가 크기만 따로 바꾸면 구성은 데스크톱인데 조각만 커지는 중간 상태가
+ * 생긴다.
+ *
+ * **높이는 이번에도 선언하지 않는다.** 셸의 40 이 `4 + 32 + 4` 의 파생값이던 것처럼 compact 는
+ * `4 + 40 + 4 = 48` 이다. 간격 4 + 조각 40 + 누름 영역 44 가 이웃끼리 **맞닿기만 하고 겹치지 않는
+ * 이유**다(넓힌 영역이 좌우 2씩이라 4 의 간격이 그만큼을 받는다). 데스크톱 32 조각에 44 를
+ * 주면 이웃과 겹쳐 누르는 영역이 바뀌므로 `.louis-hit-target` 은 compact 에서만 붙는다.
+ *
+ * 하단 위치(`bottom: max(12px, env(safe-area-inset-bottom))` · 가운데 정렬 · 쌓임)는 여기 없다 —
+ * 어디에 뜨는지는 호출부의 것이다. 문서 「Compact」 절이 값을 적는다. */
+.louis-floating-shell[data-size="compact"] .louis-floating-shell__item {
+  inline-size: var(--louis-layout-control-height-lg);
+  block-size: var(--louis-layout-control-height-lg);
+}
+
 /* ── Pill Trigger ────────────────────────────────────────────────────────────
  *
  * 눌러 패널을 여는 알약. **여는 패널은 여기서 만들지 않는다** — `.louis-popover` 가 이미 그것을

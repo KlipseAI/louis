@@ -256,10 +256,13 @@ const ALLOWED_VIOLATIONS: Readonly<Record<string, readonly string[]>> = {
    * 4.5 를 넘기려면 red.500 자체를 어둡게 내려야 하고 그것은 이 variant 가 아니라 팔레트의 결정이다.
    * 소유자가 Figma 에 그린 값이 정본이므로 색을 임의로 바꾸지 않는다(DS-D-0045). */
   "danger-secondary": ["color-contrast"],
+  /* neutral — 걸리지 않는다. 글자 fg-primary(잉크)가 불투명 bg-surface 위에 서서 대비가 AA 를 넉넉히
+   * 넘는다. 빈 배열로 둔다 — 「걸리지 않는 것」임을 키로 남긴다. */
+  neutral: [],
 };
 
 test("variant마다 접근성 위반이 없다 (알려진 것 제외)", async () => {
-  for (const variant of ["primary", "secondary", "ghost", "danger", "danger-secondary"] as const) {
+  for (const variant of ["primary", "secondary", "ghost", "danger", "danger-secondary", "neutral"] as const) {
     const host = document.createElement("div");
     document.body.append(host);
     try {
@@ -383,6 +386,55 @@ test("danger-secondary는 danger와 다른 면을 쓰고 hover에서 더 진해�
     expect(getComputedStyle(tonal).opacity).toBe("1");
     expect(alphaOf(tonalHover)).toBeGreaterThan(alphaOf(tonalDefault));
     await userEvent.unhover(tonal);
+  } finally {
+    host.remove();
+  }
+});
+
+/**
+ * neutral — 불투명한 중립 면. secondary(잉크 알파)와 갈리는 두 가지를 값으로 단언한다.
+ * 면이 알파 1 이라는 것(어두운 바탕에서도 알약으로 읽힌다), hover 가 bg-inset 으로 내려가고 헤어라인이
+ * 그대로 남는다는 것. disabled 는 다른 면 variant 처럼 bg-inset + fg-disabled 다.
+ */
+test("neutral은 불투명 bg-surface 면에 헤어라인을 두고 hover에서 bg-inset으로 내려간다", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  try {
+    await render(
+      <>
+        <Button variant="neutral">가격 보기</Button>
+        <Button variant="neutral" disabled>
+          가격 보기
+        </Button>
+        <Button variant="secondary">가격 보기</Button>
+      </>,
+      { container: host },
+    );
+    const [neutral, disabled, secondary] = [...host.querySelectorAll("button.louis-button")];
+    if (neutral === undefined || disabled === undefined || secondary === undefined) {
+      throw new Error("세 버튼을 찾지 못했습니다");
+    }
+
+    const rest = getComputedStyle(neutral).backgroundColor;
+    expect(rest).toBe(tokenBackground("color-bg-surface"));
+    // 알파 1 — secondary 의 잉크 8% 와 갈리는 자리다.
+    expect(alphaOf(rest)).toBe(1);
+    expect(alphaOf(getComputedStyle(secondary).backgroundColor)).toBeLessThan(1);
+    expect(getComputedStyle(neutral).color).toBe(tokenColor("color-fg-primary"));
+    // 불투명 면은 밝은 바닥에서 경계가 사라지므로 헤어라인이 있어야 한다.
+    expect(getComputedStyle(neutral).boxShadow).not.toBe("none");
+    expect(getComputedStyle(neutral).boxShadow).toBe(getComputedStyle(secondary).boxShadow);
+
+    await userEvent.hover(neutral);
+    expect(getComputedStyle(neutral).backgroundColor).toBe(tokenBackground("color-bg-inset"));
+    expect(getComputedStyle(neutral).boxShadow).not.toBe("none");
+    await userEvent.unhover(neutral);
+
+    // disabled — 면이 bg-inset, 글자가 fg-disabled. 이 칸에는 hover 가 걸리지 않는다.
+    expect(getComputedStyle(disabled).backgroundColor).toBe(tokenBackground("color-bg-inset"));
+    expect(getComputedStyle(disabled).color).toBe(tokenColor("color-fg-disabled"));
+    // primary 의 빛은 neutral 에 없다.
+    expect(getComputedStyle(neutral, "::before").content).toBe("none");
   } finally {
     host.remove();
   }

@@ -5457,6 +5457,40 @@
           ]
         ],
         [
+          "color/canvas-chip-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/000",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/700",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-chip-surface-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/025",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/600",
+              null
+            ]
+          ]
+        ],
+        [
           "color/canvas-dot",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6443,6 +6477,40 @@
           ]
         ],
         [
+          "color/media-foreground-dark-muted",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-white-alpha/64",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/64",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-foreground-dark-soft",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-white-alpha/72",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/72",
+              null
+            ]
+          ]
+        ],
+        [
           "color/media-indicator-active",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6505,6 +6573,23 @@
             ],
             [
               "Light",
+              "Klipse Primitive::color/static/black",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-stage-surface",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static/black",
+              null
+            ],
+            [
+              "Dark",
               "Klipse Primitive::color/static/black",
               null
             ]
@@ -8889,7 +8974,7 @@
       "effects": {}
     },
     "Button": {
-      "variantCount": 360,
+      "variantCount": 420,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -8909,7 +8994,8 @@
             "ghost",
             "danger",
             "inverse",
-            "danger-secondary"
+            "danger-secondary",
+            "neutral"
           ]
         },
         "Size": {
@@ -8941,11 +9027,11 @@
         }
       },
       "binding": {
-        "boundFills": 660,
+        "boundFills": 780,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 360,
+        "textStyled": 420,
         "textUnstyled": 0
       },
       "geometry": {

@@ -72,6 +72,8 @@
   --color-bg-upgrade-hover: var(--louis-color-bg-upgrade-hover);
   --color-bg-warning: var(--louis-color-bg-warning);
   --color-brand-logo-ink: var(--louis-color-brand-logo-ink);
+  --color-canvas-chip-surface: var(--louis-color-canvas-chip-surface);
+  --color-canvas-chip-surface-hover: var(--louis-color-canvas-chip-surface-hover);
   --color-canvas-dot: var(--louis-color-canvas-dot);
   --color-dim-modal: var(--louis-color-dim-modal);
   --color-fg-danger: var(--louis-color-fg-danger);
@@ -130,10 +132,13 @@
   --color-media-control-surface: var(--louis-color-media-control-surface);
   --color-media-foreground-bright: var(--louis-color-media-foreground-bright);
   --color-media-foreground-dark: var(--louis-color-media-foreground-dark);
+  --color-media-foreground-dark-muted: var(--louis-color-media-foreground-dark-muted);
+  --color-media-foreground-dark-soft: var(--louis-color-media-foreground-dark-soft);
   --color-media-indicator-active: var(--louis-color-media-indicator-active);
   --color-media-indicator-rest: var(--louis-color-media-indicator-rest);
   --color-media-scrim-bright: var(--louis-color-media-scrim-bright);
   --color-media-scrim-dark: var(--louis-color-media-scrim-dark);
+  --color-media-stage-surface: var(--louis-color-media-stage-surface);
   --color-node-audio-accent: var(--louis-color-node-audio-accent);
   --color-node-audio-icon: var(--louis-color-node-audio-icon);
   --color-node-audio-surface: var(--louis-color-node-audio-surface);

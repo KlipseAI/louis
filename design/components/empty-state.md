@@ -25,7 +25,7 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 
 **그 합의는 집계 «안»에서만 참이다.** 집계 밖에 정의가 둘 더 있고 둘 다 위 표로는 그릴 수 없다 —
 대시보드의 `AnalyticsStatePanel` 은 면·1px 테두리·12 반경을 갖고 **왼쪽에서 시작하며**, 빈 캔버스의
-`CanvasEmptyState` 는 그래픽 없이 28px 제목 한 줄과 버튼 둘만 그린다. 「아홉 벌이 합의하는 것은
+`CanvasEmptyState` 는 그래픽 없이 28px 제목 한 줄 아래 생성 카드 줄과 글자 단추 줄만 그린다. 「아홉 벌이 합의하는 것은
 하나뿐」이라는 문장은 그래서 **layout 축의 근거**다: 합의 밖의 자리가 실재한다는 사실을 이미 적고
 있었다. 그 둘을 `compact` 과 `canvas` 로 세웠다 — 아래 [Layout](#layout) 을 본다.
 
@@ -69,16 +69,11 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
   description="영상을 올리면 이 자리에 지표가 쌓입니다."
 />
 
-{/* 작업 표면 위 — 그림 없이 큰 제목과 할 수 있는 일 둘 */}
+{/* 작업 표면 위 — 그림 없이 큰 제목과 생성 카드 줄. 카드 줄이 action 슬롯 하나다 */}
 <EmptyState
   layout="canvas"
   title="첫 노드를 만들어 시작하세요"
-  action={
-    <>
-      <Button variant="secondary">이미지 생성</Button>
-      <Button variant="secondary">비디오 생성</Button>
-    </>
-  }
+  action={<StartCardRow />}
 />
 ```
 
@@ -98,7 +93,7 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 | --- | :---: | :---: | :---: | :---: |
 | `base` | 선택 | 필수 | 선택 | 선택 |
 | `compact` | — | 필수 | 필수 | — |
-| `canvas` | — | 필수 | — | 필수(둘) |
+| `canvas` | — | 필수 | — | 필수(카드 줄) + 선택(글자 단추 줄) |
 
 ## Properties
 
@@ -149,7 +144,59 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 보고 이 사다리를 골랐으므로 여기서 되돌리지 않는다.
 
 **`canvas` 는 그림을 그리지 않는다.** 캔버스가 비었다는 사실보다 그림이 먼저 읽히기 때문이고,
-제품도 그렇게 그린다. 대신 액션이 둘이다 — 액션 «개수»는 소비처가 정하므로 축이 아니다.
+제품도 그렇게 그린다. 대신 **카드 줄과 글자 단추 줄**이 화면을 채운다(아래 「canvas 의 줄 계약」) — 줄 안의 «개수»는 소비처가 정하므로 축이 아니다.
+
+### canvas 의 줄 계약 (2026-10-07)
+
+제품 빈 캔버스가 「제목 + 버튼 둘」에서 **세로 줄 셋**으로 바뀌었다(소유자 시안, 제품
+`chore/landing-dead-walkthrough` `CanvasEmptyState.tsx` a31f808c5).
+
+| 줄 | 슬롯 | 안 | 간격 |
+| --- | --- | --- | --- |
+| 1 제목 | `__title` | heading 28/600 한 줄 | — |
+| 2 생성 카드 줄 | `__action` | 두 칸 격자. 칸은 [시작 카드](#시작-카드) | 카드 사이 `layout-project-grid-gap`(4px) — 소비처가 정한다 |
+| 3 글자 단추 줄 | `__action` 하나 더 | ghost Button 하나(「사용법 보기」). 도움말을 여는 쪽이 없으면 줄이 없다 | — |
+
+세 줄 사이는 모두 **20px**(`--louis-empty-state-canvas-gap`)다 — 액션 슬롯의 추가 간격은 canvas 에서 0 이라 둘째
+슬롯도 같은 간격을 받는다. 줄 둘이 같은 `__action` 슬롯인 까닭은 슬롯의 «자리»(제목 아래, 가운데 정렬,
+추가 간격 0)가 같고 안에 무엇이 서는지는 소비처가 정하기 때문이다. 그래서 레시피는 카드 줄의 칸 수 · 폭 ·
+격자를 소유하지 않는다 — 폭이 띠 높이에 따라 줄기 때문이다(아래).
+
+**여백과 간격은 공개 사용자 정의 속성이다.**
+
+| 속성 | 값 | 뜻 |
+| --- | ---: | --- |
+| `--louis-empty-state-canvas-pad` | 24px | 세로 여백(`padding-block`) |
+| `--louis-empty-state-canvas-gap` | 20px | 줄 사이 간격(`gap`) |
+
+`.louis-empty-state[data-layout="canvas"]` 요소에 선언되므로 **그 요소나 자손에서 읽는다.** 제품이 이 두 값을
+리터럴(`--canvas-start-pad:24px` · `--canvas-start-gap:20px`)로 베끼고 정규식 테스트로 묶어 둔 것이 이
+속성을 연 계기다(`CanvasEmptyState.tsx:52`, `CanvasEmptyState.test.ts`). 조상 요소(제품의 `AVOID_BOX`)에서
+읽을 수 있는 `:root` 선언은 하지 않았다 — 컴포넌트 층이 전역 선택자를 쓰지 않는다(DS-D-0004). 조상에 둔
+변수가 필요하면 소비처가 자기 요소에서 이 속성을 읽어 넘긴다. 값이 바뀌면 소비처의 복사본이 아니라 이 속성이
+따라간다.
+
+**띠 맞춤 식은 제품 몫이다.** 제품은 캔버스 위쪽 헤더와 아래쪽 툴바 사이 «띠»(`100cqh`)에 제목부터
+단추까지가 늘 들어가도록 카드 줄 폭을 줄인다. 제품 주석의 식은 이렇다 — 세로로 쌓이는 것은 여백 P · 제목 T · 간격 G ·
+카드 · 간격 G · 단추 A · 여백 P 이고, 띠 높이 B 에서 카드가 가질 수 있는 높이는 B − T − A − 2P − 2G,
+칸 둘과 칸 사이 간격 g 의 줄 폭으로는 그 × 640/403 + g 다. 줄 폭 하한은 칸 폭 128 이고 거기에 닿으면 P 가 0
+까지, 그다음 G 가 8 까지 줄어든다(출처 `CanvasEmptyState.tsx` `BAND_FIT_VARS` 주석). 이 식은 **작업 표면의 크롬
+높이**(`canvasChromeInsets`)와 **레이어 · 도움말 패널 피함**에 묶여 있어 레시피가 아는 것이 아니다 —
+LOUIS 는 P 와 G 의 «최대값»만 발행하고 줄이는 쪽은 소비처가 한다. 소비처는 **발행한 값 이하로만** 줄여야 한다.
+
+### 시작 카드
+
+생성 카드(「이미지 생성」 · 「비디오 생성」)는 제품 `CanvasEmptyState.tsx` 의 `CARD`(138행 부근)다 —
+aspect 320/403 · 반경 `radius-overlay`(칸 600 이상 `radius-card-lg`) · 면 `palette-gray-950` · `::after`
+헤어라인(`hairline-inset`) · 위쪽 점진 블러 층(`progressive-blur` + `progressive-blur-mask-block-start`) ·
+이름 `media-foreground-dark`. 안은 스틸 격자 또는 영상 + 프레임 띠이고 호버에서 움직인다.
+
+**이 컴포넌트로도, [Media Card](./media-card.md) 변형으로도 세우지 않았다 — 판정 필요다**(소유자 몫). 근거는 이렇다. ① Media Card 는 `<article>` 이고 **상태가 없는 표시용**이며 LOUIS 레시피(`media-card.css`)도
+아직 없다 — 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖는다. ② Media Card 는 정사각 + 아래 정보 띠인데 이
+카드는 320/403 + **위쪽** 이름이라 기하가 다르다. ③ 안(스틸 흐름 · 영상 재생)은 제품 콘텐츠다. 재료만은 LOUIS
+소유이고 이미 있다 — 위쪽 점진 블러 마스크가 `base.css` 에 발행돼 있다. 판정이 필요한 것은 (a) Media Card 에
+`position` 축(`info-end` · `label-start`)을 여는지, (b) 별도 부품(`start-card`)으로 세우는지, (c) 제품에 두는지다.
+Figma 변형은 아직 없다.
 
 ## States
 
@@ -189,13 +236,13 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
 
 | 축 | `base` | `compact` | `canvas` | 토큰 |
 | --- | ---: | ---: | ---: | --- |
-| 세로 여백 | 80px | 20px | 24px | — (세 값 다 리터럴) |
+| 세로 여백 | 80px | 20px | 24px | — (세 값 다 리터럴, canvas 는 `--louis-empty-state-canvas-pad`) |
 | 좌우 여백 | 16px | 20px | 24px | base 만 `space-layout-gutter` |
-| 블록 간격 | 12px | 6px | 20px | base 만 `space-stack-md` |
+| 블록 간격 | 12px | 6px | 20px | base 만 `space-stack-md`, canvas 는 `--louis-empty-state-canvas-gap` |
 | 액션 추가 간격 | 4px | — | 0 | base 는 `space-control-xs` |
-| 액션 사이 간격 | 12px | — | 12px | `space-stack-md` |
+| 액션 슬롯 안 간격 | 12px | — | 12px(단추 줄) · 카드 줄은 소비처 | `space-stack-md` |
 | 그래픽 | 64px | — | — | `icon-size-xl` |
-| 제목 | 20/600 | 16/600 | 28/600 | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-semibold` |
+| 제목 | 20/600 | 16/600 | 28/600 (2026-10-07 세미볼드) | `typography-body-lg-semibold` · `-body-md-semibold` · `-heading-sm-semibold` |
 | 설명 | 16/400 | 14/400 | — | `typography-body-md-regular` · `-body-sm-regular` |
 | 설명 최대 폭 | 44ch | 제한 없음 | — | — |
 | 배경 | 없음 | `color-bg-raised` | 없음 | — |
@@ -268,6 +315,12 @@ summary: 보여 줄 것이 없을 때 그 사실과 다음 행동을 안내합�
   `CanvasEmptyState.tsx` 의 `HEADING_CLASS`), LOUIS 가 그 값을 받았다 — 크기 · 행간 · 자간은 heading-sm 그대로라
   `typography-heading-sm-semibold` 를 새로 열었다. 제품의 덮어쓰기는 핀을 이 판으로 올릴 때 지운다(포커스 링 브랜치가
   핀을 먼저 올린 뒤).
+- **둘째 액션 줄은 React 컴포넌트가 아직 담지 못한다(2026-10-07).** `EmptyState` 의 `action` prop 은 슬롯 하나만
+  그린다(`packages/react/src/empty-state`). 제품은 컴포넌트를 쓰지 않고 `louis-empty-state` · `__title` ·
+  `__action` 클래스를 직접 써서 슬롯을 둘 세운다. `secondaryAction` 을 여는지, 소비처가 클래스로 계속 쓰는지는
+  소유자 판정이다 — 이 문서는 CSS 계약만 갱신했다.
+- **Figma `canvas` 변형은 이전 모양이다(2026-10-07).** 아직 제목 + 버튼 둘이고 카드 줄과 글자 단추 줄이 없다.
+  `figma/components.measured.json` 의 canvas 계약은 이번에 건드리지 않았다.
 - **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
   `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
   쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.

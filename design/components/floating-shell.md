@@ -62,6 +62,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | --- | --- |
 | `.louis-floating-shell` | 조각을 담는 셸. 여백 4 · 간격 4 · 반경 16 · 재료 한 벌 |
 | `.louis-floating-shell__item` | 조각이 서는 **자리**. 겉 크기 32 와 곡률 12 만 갖는다 |
+| `.louis-floating-shell[data-size="compact"]` | 휴대폰 폭의 하단 바. 자리가 **40** 이 된다(여백 · 간격 · 재료 · 곡률은 그대로). 아래 「compact」 |
 | `.louis-pill-trigger` | 알약 트리거. 높이 36 · 좌우 12 · 간격 4 · 반경 16 · 재료 한 벌 |
 | `.louis-pill-trigger__caret` | 방향 표시 10 · 불투명도 0.7. 열림에서 180° 뒤집힌다 |
 
@@ -93,6 +94,14 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | 조각 | `32` 정사각 · 반경 `12` | `w-16 h-16` · `rounded-[var(--button-radius)]` |
 | 테두리 | 없음 | `[border:none]` |
 
+**compact**(`data-size="compact"`) — 위 표에서 **조각만 바뀐다.**
+
+| 축 | 값 | 출처 |
+| --- | --- | --- |
+| 조각 | `40` 정사각 · 반경 `12` | `--louis-layout-control-height-lg` · 곡률은 기본과 같다 |
+| 높이 | `48` | 선언 없음 — `4 + 40 + 4` 의 파생값 |
+| 누르는 영역 | `44` | 조각에 `.louis-hit-target`(compact 에서만) |
+
 **PillTrigger** — 문구와 캐럿 한 줄.
 
 | 축 | 값 | 출처 |
@@ -104,6 +113,38 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | 반경 | `16` | 셸과 같다 |
 | 라벨 | 14 · 행간 1 | `type-body-14-medium` + `[line-height:1]!` |
 | 캐럿 | `10` · 불투명도 `0.7` | `ToolbarChevronDown` 기본 `size = 10` · `opacity-[0.7]` |
+
+## compact — 캔버스 하단 바
+
+2026-10-07, 제품 `feat/canvas-mobile-ux` `Toolbar.tsx:203` · `index.tsx`(TOOLBAR_ROW) @3923caf7. 앱 셸이
+compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 캔버스 하단 툴바가 이 셸의 40 조각판으로
+바뀐다. 셸의 재료는 하나도 갈리지 않는다.
+
+**무엇이 갈리는가 — 조각 크기 하나다.** 32 조각이 40(`--louis-layout-control-height-lg`)이 되고 곡률 12
+는 같다. 속성은 `data-size="compact"` 한 값이고 속성이 없으면 지금과 같은 32 다. 칸이 둘이지만 축으로
+열지 않았다 — 둘이 갈리는 것이 크기뿐이고 둘째 값이 한 자리(하단 바)에만 서는 재고라서다(DS-D-0048 의
+논리와 같다).
+
+**속성을 미디어 쿼리로 자동 판정하지 않는다.** 하단 바는 크기만이 아니라 **구성**이 바뀐다 — 데스크톱의
+여덟 버튼이 레이어 · 툴 전환 · 추가 · 되돌리기 네 칸으로 접히고(노드 추가 여섯 칸은 「추가」 시트 한 칸으로
+모이며, 전체 보기는 두지 않는다 — 소유자 결정 2026-09-15), 그 구성은 캔버스가 JS 로 가른다. 레시피가
+크기만 따로 바꾸면 구성은 데스크톱인데 조각만 커지는 중간 상태가 생긴다.
+
+**누르는 영역 44 는 조각이 아니라 `.louis-hit-target` 이 갖는다.** 보이는 크기 40 에 누르는 영역 44 를
+더하면 이웃 사이 간격 4 가 넓힌 영역(좌우 2씩)을 그대로 받아 **맞닿기만 하고 겹치지 않는다.**
+데스크톱 32 조각에 44 를 주면 이웃과 겹쳐 눌리는 쪽이 바뀌므로 compact 에만 붙인다.
+
+**높이는 여전히 선언이 아니라 파생값이다.** 기본 `4 + 32 + 4 = 40`, compact `4 + 40 + 4 = 48`. 제품의
+`canvasChromeInsets.ts@b3c56ed1a:15`(@ad81d1b5e)가 그 파생값을 「LOUIS `.louis-floating-shell` 이 선언하지 않는
+파생값이다」라고 적고 `4×2 + 32` 를 직접 계산해 빈 캔버스 안내 · 도움말 패널 · 콜아웃의 위치가 모두
+거기에 기댄다. **발행할지는 판정 필요**로 남긴다 — Known deviations 9.
+
+**위치는 호출부의 것이다.** 가운데 정렬 · `bottom: max(12px, env(safe-area-inset-bottom))` ·
+가장 위 층(상단 블러와 레이어 패널 위)은 이 레시피가 아니라 캔버스의 `TOOLBAR_ROW` 가 갖는다. 앱이
+`viewport-fit=cover` 를 켜지 않아 환경 값은 보통 0 이고 12 가 남는다. 거친 포인터의
+`touch-action: pan-x pan-y`(핀치로 페이지가 커져 시트 좌표가 어긋난 Android 인앱 WebView 결함의 해법)도
+같은 행이 갖는다 — 셸이 아니라 행의 선언이다. 구성과 시트의 배치는
+[Editor Workspace](../patterns/editor-workspace.md)의 「캔버스 하단 바」가 적는다.
 
 ## 36 은 컨트롤 높이가 아니다
 
@@ -117,7 +158,8 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 
 ## Properties
 
-**FloatingShell** — 축도 프로퍼티도 없다. `MenuPanel` · `MenuSeparator` 와 같은 단일 컴포넌트다.
+**FloatingShell** — 축이 없다. `MenuPanel` · `MenuSeparator` 와 같은 단일 컴포넌트다. 코드에는
+`data-size="compact"` 속성이 하나 있지만 Figma 변형은 아직 없다 — 위 「compact」.
 
 **PillTrigger**
 
@@ -229,9 +271,27 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
    감쌀 근거가 생기기 전에 감싸면 아무도 쓰지 않는 API 가 된다. `Alert` · `Switch` ·
    `NodeChip` · `Inspector Row` 가 같은 형태이고, 브라우저 시험은 클래스 마크업을 직접 렌더해
    잰다. 소비처가 생기고 상태 관리(`aria-expanded` 의 소유)가 필요해지면 그때 연다.
+8. **툴바 단추의 「보여 주기」 강조(spotlight)가 정본이 없다 — 판정 필요.** 제품
+   `Toolbar.tsx:89`(`chore/landing-dead-walkthrough` @d040dce15)의 `TOOLBAR_BUTTON_SPOTLIGHT` 가
+   `[box-shadow:0_0_0_2px_var(--louis-color-accent-primary)]` 로 도움말 「보여 주기」가 짚은 단추(이미지 ·
+   영상 둘)에 잠시 강조색 2px 테두리를 두른다. 시간은 캔버스가 정한다. 세 가지가 걸린다. (a) **포커스
+   링과 혼동된다** — 같은 2px 강조색 링이라 키보드 포커스와 겹치는 단추에서 둘이 구별되지 않는다
+   (DS-D-0074). (b) **토큰 없이 들어왔다** — `box-shadow` 에 리터럴 2 를 적었다. (c) **이 셸의 `__item`
+   은 상태가 없는 자리**이고(위 4번) 그 상태를 가진 툴바 버튼의 레시피가 아직 없다. 일시 강조를
+   `data-spotlight` 같은 상태로 세울지, 세운다면 포커스 링과 **다른 두께 · 간격**으로 가를지는 소유자
+   판정이다. 이번에 레시피는 열지 않았다.
+9. **compact 와 높이 파생값.** (a) compact 크기 40 은 **브라우저 시험이 아직 재지 않는다** —
+   `floating-shell.browser.test.tsx` 는 기본 32 만 안다. 높이 48 과 누르는 영역 44 도 파생값이라 시험에서만
+   재진다. Figma 변형도 없다. (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
+   계산한다. 높이를 토큰(`--louis-layout-floating-shell-height` 40 · compact 48)으로 **발행하면 제품이
+   계산을 걷고 읽을 수 있다** — 하지만 소비처(빈 캔버스 · 도움말 패널 · 콜아웃)가 셸의 **자손이 아니라**
+   CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야
+   해서 이번에 하지 않았다. **판정 필요**: 발행할지, 발행 없이 문서의 파생식(`2 × 4 + 조각`)을 정본으로
+   둘지.
 
 ## Related
 
 - [Menu Popover](menu-popover.md) — 트리거가 여는 패널. 여기서 다시 만들지 않는다
 - [Node Chrome Button](node-chrome-button.md) — 셸 안에 서는 32 정사각의 이웃 문법
 - [Toast](toast.md) — 같은 「반투명 + 흐림」 재료를 쓰지만 반전 면이고 층이 다르다
+- [Editor Workspace](../patterns/editor-workspace.md) — 캔버스 하단 바(compact)와 측면 패널의 배치

@@ -21,6 +21,10 @@ summary: 여러 항목을 행과 열로 늘어놓고 값끼리 비교하게 합�
 **이 레시피는 골격만 소유한다.** 여백과 타이포는 두 소비처가 전부 유틸리티로 되돌린다 — 아래
 Known deviations 첫 항목이 그 실측이다.
 
+**2026-10-07 에 어드민 표의 반복 넷이 올라왔다** — 펼치는 그룹 `tbody` 와 자식 줄 들여쓰기, 칸 보조 줄, 표 안
+소제목 줄, `aria-busy` 로 흐리는 상태. 제품 작업 브랜치(`feat/ambassador-links` · `codex/actionable-product-metrics`)의
+어드민 표가 각자 지역 상수로 적던 값이다. 소비처 수와 근거는 아래 「그룹 · 보조 줄 · 소제목 · 불러오는 중」 절이 갖는다.
+
 ## Availability
 
 | Surface       | 상태           | 근거                                                                                                          |
@@ -104,6 +108,10 @@ prop 이 아니라 훅(hook) 계약이다.
 | `data-align`        | `end` \| `center`      | `<th>` · `<td>`      | 정렬. `end` 는 `tabular-nums` 를 함께 켠다                |
 | `data-interactive`  | `"true"`               | `<tbody> > <tr>`     | 행을 눌러 들어가는 표. 커서와 행 호버 면을 켠다            |
 | `data-emphasis`     | `total` \| `lead`      | `<th>` · `<td>`      | 한 칸만 도드라지게. `total` 은 `fg-primary` + semibold, `lead`(비교에서 앞선 값)는 `alert-success-stroke` + semibold |
+| `data-indent`       | `child`                | `<tbody> > <tr> > <td>` | 그룹의 자식 줄 칸. 앞 여백을 24 로 늘린다(8 + 16). 칸 하나(보통 첫 칸)에만 건다 |
+| `aria-busy`         | `"true"`               | `<table>`            | 새 조회를 받는 동안 표를 흐리게(opacity 0.55). 상태의 출처는 이 속성 하나다 |
+| `.louis-table__hint`| —                      | 칸 안의 `<span>`     | 칸 값 아래 한 줄 설명. caption · `fg-tertiary` · `display: block` |
+| `scope`             | `colgroup` \| `rowgroup` | `<tbody> > <tr> > <th colspan>` | 표 안 소제목 줄의 머리 칸. body-sm-medium 으로 굵힌다 |
 
 **`start` 값이 없다.** 기본이 start 다 — 머리 칸 `th` 와 행 머리 `th` 는 UA 기본 `center` 를 레시피가
 `start` 로 덮고, `td` 는 UA 기본이 이미 start 다.
@@ -137,6 +145,53 @@ deviations.
 **같은 값을 쓰는 것은 둘이 아니라 셋이다** — 랜딩 스냅샷이 대시보드 둘과 같은 8/12·10/12 다.
 그리고 **레시피 자신의 4/8·8/8 은 이 표에 없다.** 그 여백을 쓰는 제품 표가 하나도 없다.
 축으로 접으려면 어느 값이 어느 단계인지 먼저 합의해야 하고, 그 합의가 없다.
+
+## 그룹 · 보조 줄 · 소제목 · 불러오는 중
+
+2026-10-07, 제품 작업 브랜치의 어드민 표 넷에서 올렸다. **Figma 변형은 아직 없다** — 네 조각 모두 TableCell 세트에
+축이 없고 Table 조립본에 그룹 행도 없다. 코드 쪽 레시피만 선 상태다.
+
+```html
+<table class="louis-table" aria-busy="true">      <!-- 불러오는 동안만 -->
+  <tbody>                                         <!-- 그룹 하나 = tbody 하나 -->
+    <tr data-interactive="true">
+      <td>
+        앰버서더 이름
+        <span class="louis-table__hint">이메일, 링크 3개</span>
+      </td>
+      …
+    </tr>
+    <tr>                                          <!-- 펼쳤을 때만 -->
+      <td data-indent="child">링크 이름</td>
+      …
+    </tr>
+  </tbody>
+  <tbody>
+    <tr><th scope="rowgroup" colspan="6">미분류</th></tr>   <!-- 표 안 소제목 줄 -->
+    …
+  </tbody>
+</table>
+```
+
+| 조각 | 소비처 | 근거 |
+| --- | ---: | --- |
+| 그룹 `tbody` + 펼침 머리 줄 | **2** | `AmbassadorManagement.tsx@2ceec4ed3:50,485-575`(앰버서더 한 명이 `tbody` 하나, 머리 줄 + 링크 줄 + 만들기 줄) · `AdAttributionPanel.tsx@b57cd1f95:376-398,438`(광고 묶음 머리 줄이 `data-interactive`, 두 번째 `tbody` 가 미분류 묶음) @7273a964e |
+| 자식 줄 들여쓰기 `data-indent="child"` | **1** | `AmbassadorManagement.tsx@2ceec4ed3:91,532,557` `LINK_CELL = "pl-12"`(24px). 광고 표는 들여쓰기 대신 서랍 줄을 펼친다 — **소비처가 하나뿐이라 판정 필요로 남겼다**(아래) |
+| 칸 보조 줄 `.louis-table__hint` | **3** | `ProductMetricsDashboard.tsx@b57cd1f95:64` `CELL_HINT` @e88df97bb · `AmbassadorManagement.tsx@2ceec4ed3:501,537` · `AdAttributionPanel.tsx@b57cd1f95:442` @7273a964e 가 같은 `block type-caption-12-regular text-fg-tertiary` 를 각자 적는다 |
+| 표 안 소제목 줄 | **2** | `ProductMetricsDashboard.tsx@b57cd1f95:110,529` `GROUP_HEAD`(`th scope="colgroup"`, 14 medium) @e88df97bb · `AdAttributionPanel.tsx@b57cd1f95:387-392`(`td colSpan`, 14 medium `fg-secondary` + 위 여백 28) @7273a964e. 두 번째는 잉크와 여백이 달라 **레시피는 첫째의 모양이다** |
+| `aria-busy` 흐림 | **7** | `AdAttributionPanel.tsx@b57cd1f95:100,291` · `AmbassadorManagement.tsx@2ceec4ed3:95,304` · `PaymentManagement.tsx@b57cd1f95:102,500` · `UsageByModelDashboard.tsx@b57cd1f95:53` · `JobMonitor.tsx:78,705` · `AdminClient.tsx:383` · `ProductMetricsDashboard.tsx@b57cd1f95:69` @7273a964e. 앞의 다섯은 호버와 같은 전환 토큰을 적고 뒤의 둘만 `120ms ease` 리터럴이다. **표는 둘뿐이고 나머지 다섯은 패널 · 격자 · 목록이다** — 판정 필요(아래) |
+
+**값.**
+
+- 그룹 경계의 선은 **새 규칙이 아니라 기존 규칙의 수정이다.** 마지막 행 구분선 0 이 `tbody > tr:last-child` 라 그룹마다
+  마지막 행의 선이 지워졌다 — 그룹 표에서 그룹을 가르는 선이 사라진다. 선택자를 `tbody:last-of-type > tr:last-child` 로
+  좁혀 **표의 마지막 `tbody` 의 마지막 행**만 선을 잃게 했다. `tbody` 가 하나인 표는 같은 행을 잡는다. 광고 표는 이
+  변경으로 첫 `tbody` 의 마지막 행 아래 선이 **새로 생긴다**(두 묶음 사이의 선).
+- 들여쓰기 24 = `space-control-sm`(8) + `space-control-lg`(16). 제품 `pl-12`(격자 2px)는 앞 여백 8 을 **대체**한다.
+- 보조 줄은 `typography-caption-regular` · `color-fg-tertiary`. 값 아래에 붙고 열 폭을 더 쓰지 않는다.
+- 소제목 줄은 `typography-body-sm-medium`. 몸 칸 규칙이 `th` 의 굵기를 regular 로 되돌리므로 선택자를 한 단 올려 이긴다.
+- 흐림은 `opacity: 0.55`, 전환은 `motion-control-hover`(160ms). `prefers-reduced-motion` 에서 전환을 끈다.
+  흐림은 **표 자신**에 건다 — 제품은 가로 스크롤 래퍼에 걸었는데 래퍼는 소비처의 것이라 `aria-busy` 를 표에 둔다.
 
 ## States
 
@@ -233,9 +288,13 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 | 본문 잉크             | —                              | `color-fg-primary`                                    |
 | 본문 셀 세로 정렬     | `middle`                       | 리터럴                                                |
 | 행 구분선             | 1px                            | `border-width-default` + `color-table-row-line`       |
-| 마지막 행 구분선      | 0                              | 리터럴                                                |
+| 마지막 행 구분선      | 0 (표의 마지막 `tbody` 만)     | 리터럴                                                |
 | 행 호버 레이어        | light 검정 8% · dark 흰색 8%   | `color-table-row-hover` (→ `static-black-alpha-08` · `static-white-alpha-08`) |
 | 숫자 열 정렬          | `end` + `tabular-nums`         | 리터럴                                                |
+| 자식 줄 앞 여백       | 24px                           | `space-control-sm` + `space-control-lg`               |
+| 보조 줄 타이포 · 잉크 | 12/1.5, 400 · `fg-tertiary`    | `typography-caption-regular` · `color-fg-tertiary`    |
+| 소제목 줄 타이포      | 14/1.5, 500                    | `typography-body-sm-medium`                           |
+| 불러오는 중           | opacity 0.55                   | 리터럴(불투명도 토큰 없음), 전환은 `motion-control-hover` |
 
 **리터럴인 자리와 그 이유.**
 
@@ -425,6 +484,15 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
   **앵커를 `5a67d692` 로 옮기며 후보가 하나 더 줄었다(↓).** 관리자 캡션 템플릿 표는 손수 기하를
   버리고 `louis-table` 을 문다(`app/admin/CaptionTemplateManagement.tsx:52`·`:54`) — 흡수가 아니라
   **제품이 스스로 정본으로 넘어온** 경우다. 셋이 둘이 됐고, 위 벌 표의 그 행도 함께 옮겼다.
+- **어드민 그룹 · 보조 줄 · 흐림은 소비처가 하나뿐이거나 표 밖으로 번진 것이 있다(2026-10-07, 판정 필요).**
+  (1) `data-indent="child"` 는 소비처가 앰버서더 표 하나다 — 세워 두었으나 광고 표는 서랍 줄을 펼친다. 두 번째 소비처가
+  생기기 전에는 한 단 고정이다. (2) `aria-busy` 0.55 는 일곱 곳이 쓰지만 **표는 둘**이다 — 패널(`PaymentManagement`
+  · `UsageByModelDashboard`) · 통계 격자(`AdminClient` · `ProductMetricsDashboard`) · 작업 목록(`JobMonitor`)이 같은 값을
+  각자 적는다. 표에만 두면 다섯이 남고, 모든 `[aria-busy]` 에 걸면 전역 선택자(DS-D-0004)다 — 별도 `louis-busy` 유틸리티로
+  올릴지가 소유자 판정이다. (3) 흐림 값 0.55 가 불투명도 토큰이 아니라 리터럴이다. `AdminClient` · `ProductMetricsDashboard`
+  의 `120ms ease` 는 토큰 전환(160ms)과 40ms 갈린다. (4) 소제목 줄의 `scope` — 제품은 `colgroup` 을 썼으나 이 줄은
+  뒤따르는 행 묶음의 이름이라 HTML 의미는 `rowgroup` 이다. 레시피는 둘 다 받고 제품 수정은 제품 몫이다. (5) 광고 표의 두 번째
+  묶음 소제목은 `td` 에 `pt-14`(28) · `fg-secondary` 라 이 레시피와 잉크 · 여백이 다르다 — 맞출지 소비처에 둘지 미결이다.
 
 ## Acceptance tests
 
@@ -439,7 +507,7 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
    셀이 `typography-body-sm-regular`(14/1.5/400)와 같다.
 6. 헤더 셀의 `border-block-end` 두께가 0 이고 `white-space` 가 `nowrap`, `text-align` 이 `start`
    다.
-7. 본문 셀의 `border-block-end` 가 1px solid `color-table-row-line` 이고, **마지막 `<tr>` 의
+7. 본문 셀의 `border-block-end` 가 1px solid `color-table-row-line` 이고, **표의 마지막 `<tr>` 의
    셀에서만** 0 이다.
 8. `data-align="end"` 인 셀이 `text-align: end` 이고 `font-variant-numeric` 에 `tabular-nums` 가
    있다. `data-align="center"` 인 셀은 `text-align: center` 이고 **tabular-nums 가 없다.**
@@ -470,3 +538,9 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
     `data-variant` 는 아무 규칙도 걸지 않는다(`packages/css/test/document.browser.test.ts`).
 20. `data-emphasis="total"` 칸이 `fg-primary` · 600, `data-emphasis="lead"` 칸이 `alert-success-stroke`
     · 600 이다.
+21. 그룹 표(`tbody` 가 둘 이상)에서 **앞 `tbody` 의 마지막 행** 셀은 아래 구분선(1px)이 남고, **마지막 `tbody` 의 마지막 행**
+    셀만 0 이다. `tbody` 하나인 표는 7번과 같다.
+22. `td[data-indent="child"]` 의 `padding-inline-start` 가 24px 이고 같은 줄의 다른 칸은 8px 이다.
+23. `.louis-table__hint` 가 `display: block` · 12/1.5/400 · `color-fg-tertiary` 이다.
+24. `th[scope="colgroup"]` 와 `th[scope="rowgroup"]` 가 body-sm-medium(14/1.5/500)이고, 같은 `tbody` 의 `td` 는 400 이다.
+25. `table[aria-busy="true"]` 의 `opacity` 가 0.55 이고 `aria-busy` 가 없으면 1 이다. `prefers-reduced-motion` 에서 전환 시간이 0 이다.

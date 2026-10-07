@@ -8,8 +8,10 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 # Node Shell
 
 캔버스에 놓이는 노드 여덟 종이 공유하는 **겉**이다. 카드 **위**에 얹힌 헤더 한 줄(타입 글리프 ·
-노드 이름 · 다운로드/삭제 액션)과 그 아래 400px 폭 카드로 이루어진다. 카드 **안**은 이 컴포넌트가
-소유하지 않는다 — 미디어든 폼이든 프롬프트든 노드 타입이 채우는 슬롯이다.
+노드 이름 · 도움말/다운로드/삭제 액션)과 그 아래 400px 폭 카드로 이루어진다. 카드 **안**의 내용은
+이 컴포넌트가 소유하지 않는다 — 미디어든 폼이든 프롬프트든 노드 타입이 채우는 슬롯이다. 다만 그
+슬롯 **바닥에 놓이는 입력판**(면 · 설정 줄 · 생성 버튼 자리 · 오류 배너)은 노드마다 복제되던 것이라
+이 컴포넌트의 하위 부품으로 세웠다(아래 「입력판」).
 
 **제품에 정본이 없다는 것이 이 컴포넌트의 출발점이었다.** 여덟 노드 파일이 각자
 `[--node-card-width:400px]` 를 선언하고, 각자 `NODE_WRAP` · `NODE_HEADER_ABOVE` ·
@@ -41,8 +43,8 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
-| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다 |
-| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT). 본문·사이드 레일은 담지 않는다 |
+| Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
+| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT). 본문·사이드 레일은 담지 않는다. **도움말 단추(헤더 액션 셋째 칸)와 입력판의 Figma 변형은 아직 없다** — 보드의 헤더는 다운로드 · 삭제 둘만 그린다 |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있고 카드 테두리가 제품과 갈린다(아래 Known deviations) |
 
@@ -54,20 +56,81 @@ NodeShell (세로, 간격 4, 폭 400)
 │  ├─ Title (가로, 간격 5)
 │  │  ├─ TypeGlyph  16×16  ← INSTANCE_SWAP
 │  │  └─ Label      body-14 medium · 줄 높이 1
-│  └─ Actions (가로, 간격 0)   ← 두 개를 의도적으로 붙인다
+│  └─ Actions (가로, 간격 0)   ← 셋을 의도적으로 붙인다
+│     ├─ NodeChromeButton  Tone=neutral  (도움말)   ← 조건부 칸, 글리프 help
 │     ├─ NodeChromeButton  Tone=neutral  (다운로드)
 │     └─ NodeChromeButton  Tone=danger   (삭제)
 └─ Card (폭 400, 반경 24, 테두리 2 안쪽)
    └─ Body  ← 노드 타입이 채우는 슬롯
+      └─ Composer (세로, 간격 8, 사방 8)   ← 입력판. 쓰는 노드만
+         └─ Field (면 bg-raised, 반경 16, 사방 8, 헤어라인)
+            ├─ (첫 줄 · 글 입력칸)  ← 슬롯. 이 부품이 소유하지 않는다
+            └─ Footer (세로, 간격 8)   ← 앞에 무엇이 있으면 위로 8
+               ├─ FooterControls (가로, 높이 32)
+               │  ├─ Meta (가로, 간격 4, 남는 폭)   ← Node Chip 줄
+               │  └─ Generate (오른쪽 끝, 왼쪽 8)   ← 생성 버튼 슬롯
+               └─ Error (최소 높이 28, 반경 12)   ← 있을 때만
 ```
 
 **헤더의 높이를 정하는 것은 제목이 아니라 액션 버튼이다.** 글리프는 16이고 라벨의 줄 상자는
-14인데, 행이 32인 것은 [Node Chrome Button](node-chrome-button.md) 둘이 32이기 때문이다.
+14인데, 행이 32인 것은 [Node Chrome Button](node-chrome-button.md) 셋이 32이기 때문이다.
 액션을 지우면 헤더가 16으로 주저앉는다.
+
+**도움말 단추는 2026-10-07 에 생긴 셋째 칸이고 조건부다.** 제품 `NodeHeaderActions.tsx:104`
+(`chore/landing-dead-walkthrough` @d040dce15)의 `NodeHelpAction` 이 모든 노드 머리 맨 **앞**에
+`BUTTON_NEUTRAL` — 다운로드와 같은 중립 톤 — 로 붙는다. 노드 종류를 노드 파일마다 넘기지 않고
+캔버스 저장소에서 읽으므로 노드 파일 아홉을 고치지 않고 한 곳에서 붙는다. 그리는 조건은 둘이고
+둘 다 참일 때만이다 — **캔버스가 도움말을 열 수 있을 것**(랜딩 · 임베드는 못 연다)과 **그 노드에
+도움말 쪽이 있을 것**. 그래서 헤더 액션의 개수는 둘에서 셋 사이에서 움직이고, 액션 묶음에 폭을
+적지 않는다. 누르면 [Editor Workspace](../patterns/editor-workspace.md)의 「캔버스 측면 패널」이
+그 노드의 쪽으로 열린다. 툴팁은 짧게 「도움말」이고 `aria-label` 은 어느 노드의 도움말인지까지
+말한다.
 
 **헤더와 카드 사이 4는 뺄셈의 결과다.** 제품은 컨테이너 간격 10(`gap-5`, 격자가 2px)에 헤더의
 `-mb-3`(−6)을 겹쳐 4를 만든다. Figma 오토레이아웃에는 음수 여백이 없으므로 결과값 4를
 컨테이너 간격으로 세웠다. 값은 같고 만드는 방법이 다르다.
+
+## 입력판
+
+카드 슬롯 바닥에 서는 입력 영역이다. 클래스는 `.louis-node-shell__composer` 이하 일곱이고 노드가 쓸
+때만 문다 — 이미지 뷰어만 있는 노드나 텍스트 노드의 글 입력칸은 이 부품 밖이다.
+
+**왜 부품인가.** 제품 `feat/3d-model-node-design` `Model3dNode.tsx@0b75c760d:189`(@d97ad187c)가 「입력판은 부품이
+아니라 노드마다 같은 상수를 들고 있다(VideoNode 633~857)」고 적고 영역 · 면 · 푸터 · 설정 줄 · 생성 버튼
+자리 · 오류 배너 여섯 상수를 또 옮겨 적었다. 값은 `VideoNode.tsx` 와 같고 `ImageNode.tsx` · `TextNode.tsx` 도 같은
+상수를 읽는다 — 소비처가 넷이다. 새 노드가 생길 때마다 사본이 하나씩 는다 — 셸이 recipe 로 선 이유와 같다.
+
+| 클래스 | 무엇 | 값 · 출처 |
+| --- | --- | --- |
+| `__composer` | 영역. 세로 flex, 투명 | 사방 `8` · 줄 사이 `8` — `--node-inner-padding` · `gap-4` |
+| `__field` | **면.** 카드보다 한 칸 위 | `bg-raised` · 반경 `16`(`--node-input-radius`) · 사방 `8` · 헤어라인 · `isolation: isolate` |
+| `__footer` | 설정 줄 + 오류 배너 | 줄 사이 `8`. 앞에 형제가 있을 때만 위로 `8` |
+| `__footer-controls` | 한 줄 | 높이 `32`(`layout-node-chip-height`) |
+| `__meta` | 알약 줄 | 간격 `4`(`--node-chrome-btn-gap`) · 남는 폭 · 넘침 보임(드롭다운) |
+| `__generate` | 오른쪽 끝 행동 자리 | 왼쪽 `8` |
+| `__error` / `__error-text` | 오류 배너 | 최소 높이 `28` · 반경 `12` · 사방 `8` · `accent-danger` 8% 면 · 글자 최대 3줄 |
+
+**푸터의 위 여백은 속성이 아니라 형제 관계다.** 제품은 면 첫 줄(연결 사진 · 뽑아 둔 산출물)이 있으면
+`mt-8` 이 붙은 상수를, 없으면 붙지 않은 상수를 호출부가 골랐다. recipe 는 「앞에 무엇이 있으면 띄운다」를
+형제 선택자 하나로 갖는다 — 호출부가 분기하지 않는다.
+
+**면에 흐림을 얹지 않는다.** 제품이 이 면의 `backdrop-filter` 를 걷었다 — 면이 불투명이라 비칠 틈이
+없는데 합성 레이어 · 배경 캡처 비용을 매 프레임 내고 모바일 WebKit 에서 탭 메모리에 쌓였다. 쌓임
+맥락만 `isolation: isolate` 로 남긴다(면 안 드롭다운이 밖 형제와 겨루는 순서가 전과 같아야 한다).
+
+**이 부품이 소유하지 않는 것.**
+
+- **글 입력칸과 복사 · 글자 수 줄.** 텍스트를 받는 노드의 슬롯이다.
+- **생성 버튼.** 자리(`__generate`)만 있다. 안쪽 버튼의 절대 배치를 흐름으로 되돌리는 후손 선택자는
+  제품 생성 버튼과의 결합이라 호출부가 갖는다.
+- **미디어 위 유리 칩 · 참조 썸네일.** Known deviations 9.
+- **`PROMPT_COMPOSER` 래퍼.** 면 아래 흐름 상자이고 `--node-prompt-gen-btn-w` 만 얹었는데, 생성 버튼이
+  푸터 안 흐름 배치가 된 뒤로 읽는 곳이 없다.
+
+**오류는 한 자리다.** 줄마다 흩어져 뜨던 빨간 글자를 푸터 아래 배너 하나로 모은다. 접근성은 호출부가
+`role="alert"` 를 붙인다 — [Alert](alert.md)와 같은 전제다. 이 배너는 Alert block 의 변형이 아니라 따로
+갖는다(반경 12 · 테두리 없음 · 사방 8 · 최소 높이 28 의 줄이고, Alert block 은 반경 20 · 1px · 12/18 의
+상자다). 입력판 8 격자 위에 얹히는 크기를 Alert 에 접으면 Alert 가 노드용 밀도를 갖게 된다.
 
 ## When to use
 
@@ -153,8 +216,32 @@ NodeShell (세로, 간격 4, 폭 400)
    카드 `050` → `000`, 입력칸과 테두리 `000` → 흰색). 이 문서가 전에 적었던 「라이트 카드 바닥이 캔버스
    바닥과 같아 흰 테두리가 카드를 만든다」는 더는 참이 아니다. 사다리를 정본으로 삼을지는 소유자
    판정이다.
+
+   **2026-10-07 확인 — 이 사다리의 라이트 값은 소유자 확정이다**(제품 `origin/dev` `64f475e05`,
+   `node-canvas-v2/index.tsx:533` · `canvasMenuSurface.ts@b57cd1f95:13` · `nodeShellStyles.ts@b57cd1f95:38`). 캔버스 면 하나하나가
+   이미 있는 시맨틱과 같은 값이라 **면 토큰을 새로 세우지 않았다.**
+
+   | 면 | 라이트 | 다크 | LOUIS 시맨틱 |
+   | --- | --- | --- | --- |
+   | 바닥 | `palette-gray-025` | `palette-gray-950` | `color-bg-canvas` |
+   | 노드 카드 | `palette-gray-000` | `palette-gray-900` | `color-bg-surface` |
+   | 메타 알약 · 호버 | `palette-gray-000` · `025` | `palette-gray-700` · `600` | `color-canvas-chip-surface` · `-hover`(신설, [Node Chip](node-chip.md)) |
+   | 캔버스 안 메뉴 · 떠 있는 툴바 | 흰색 | `palette-gray-900` | `color-bg-raised` |
+
+   메뉴 줄은 제품이 `color-bg-menu`(라이트 `palette-gray-025`)를 캔버스 셸 안에서만 흰색으로 덮는 것
+   (`light:[--louis-color-bg-menu:var(--palette-white)]`)과 **값이 같다.** 카드가 `pg-000` 으로 올라와 메뉴보다
+   밝아졌기 때문에 «카드 위에 열리는 메뉴는 카드보다 한 칸 밝아야 한다»는 것이 제품의 근거다. `bg-menu` 는 앱 전체의
+   메뉴 면이라 그 값은 옮기지 않았다. 캔버스 메뉴를 `bg-menu` 대신 `bg-raised` 로 읽게 할지는 **판정 필요**다.
+   바닥은 값이 같아도 제품이 라이트에서 팔레트 칸을 직접 짚는다 — 그 관계(바닥 = 카드의 한 칸 아래)를
+   계약으로 삼을지, `bg-canvas` 를 정본으로 삼을지도 위 소유자 판정에 속한다. Figma 변수는 이 회차에서 건드리지 않았다.
 3. **제목 잉크도 쌍이 없다.** 제품은 다크 `palette-gray-500` · 라이트 `palette-gray-700` 인데
    `color/fg-secondary` 는 라이트가 정확히 같고 다크가 한 단 밝다(`palette-gray-300`).
+
+   **2026-10-07 확인 — 제품 다크가 한 단 올라 `palette-gray-400` 이다**(`NodeHeaderActions.tsx:50`,
+   헤더 액션 셋 모두. 제목과 같은 클래스를 쓰도록 맞췄고 `theme.test.ts` 가 둘을 대조한다 — 제품 주석이
+   「다크 제목이 pg-500 에서 pg-400 으로 한 단 올라갈 때(2026-09-11)」라고 적는다). 위 `pg-500` 은
+   그 전의 값이다. `fg-secondary`(다크 `pg-300`)와의 차이는 두 단에서 한 단으로 줄었다. 레시피 값은
+   바꾸지 않았다 — 사다리에 물린 판정은 그대로이고 어긋남의 크기만 달라졌다.
 4. **타입 글리프 넷이 없다.** `video-camera` · `youtube` · `instagram` · `magic-wand` 가 아이콘
    세트에 없다. 변형별 기본값을 채우면 그 넷이 거짓 글리프를 갖게 되므로 슬롯 기본값을 하나
    (`icon/image`)만 두었다. 넷이 승격되면 그때 채운다.
@@ -172,6 +259,33 @@ NodeShell (세로, 간격 4, 폭 400)
 8. **사이드 레일을 담지 않는다.** 노드마다 채널 목록이 달라서, 셸이 레일을 소유하면 열넷의
    변형이 채널 목록을 굳혀 버린다. 레일 좌표는 토큰(`--node-side-gap` · `--node-side-ctrl`)이
    갖고 버튼은 [Node Side Handle](node-side-handle.md)이 갖는다.
+9. **미디어 위 유리 칩과 참조 썸네일을 이 문서에 담지 않았다.** 둘 다 입력판 곁에서 같이 복제되지만
+   입력판이 아니다.
+   - **유리 아이콘 칩**(`Model3dNode.tsx@0b75c760d:103` @2dfc8fbab): 틴트 `palette-gray-900` 28% · 호버 40% ·
+     글자 88% · 헤어라인. 제품 주석이 「`VideoPlayer` 의 `PLAYER_GLASS_TOKENS` … 내보내지 않는 상수라
+     옮겨 둔다」고 적는다 — 이미지 노드 · 영상 플레이어 · 3D 노드 세 곳이 같은 값을 따로 든다. 정본의
+     자리가 [Video Player](video-player.md)(미디어 위 조작)라 그쪽 문서가 소유하는 것이 맞다. 여기서
+     레시피를 세우면 영상 플레이어 갈래와 같은 값을 두 번 세운다. **판정 필요**: 공용 조각의 이름과
+     소유 문서.
+   - **참조 썸네일 76×52와 길이 배지**(`Model3dNode.tsx@0b75c760d:264`, `VideoNode.tsx` `REFERENCE_VIDEO_THUMB`):
+     반경 8 · 테두리 `palette-gray-000` 12% · 배지 `rgb(0 0 0 / 56%)` 에 흰 글자. 소비처가 둘이지만
+     리터럴 검정 알파가 있어 면 토큰이 먼저 정해져야 한다. 노드 첨부 썸네일 조각으로 올릴지는 **판정
+     필요**다(우선순위 낮음).
+10. **입력판 면이 다크에서 카드와 같은 칸이다.** 제품은 다크 `palette-gray-800` · 라이트 `palette-white`
+    이다(`origin/dev` `VideoNode.tsx:689`). 그 쌍을 가진 세만틱이 없다 — `color-bg-raised` 는 라이트가
+    흰색으로 정확히 같고 다크가 `palette-gray-900` 이라 카드 면(`color-bg-surface`, 다크 같은 칸)과
+    **같아진다.** 면의 「한 칸 위」는 라이트에서만 보이고 다크에서는 헤어라인이 경계를 만든다. 팔레트 칸을
+    테마마다 직접 고르는 길은 막혀 있다(component CSS 는 테마 선택자를 쓰지 않는다). **판정 필요**:
+    `node-composer-surface`(다크 `palette-gray-800` · 라이트 흰색) 시맨틱을 세울지 — 토큰 생성물을 다시
+    내야 하는 변경이라 이번에 하지 않았다.
+11. **오류 배너 글자 대비가 AA 에 못 미친다 — 제품 값 그대로다.** 글자 `accent-danger`(제품
+    `--accent-red-500`) 위에 같은 색 8% 면이라 라이트 2.98:1 · 다크 3.78:1 이다(면 흰색 ·
+    `palette-gray-800` 기준. LOUIS 면으로 바꾸면 다크는 4.85:1). 같은 자리를 위한 `fg-danger-on-surface`
+    가 이미 있지만 제품이 쓰지 않는다. 보드나 레시피에서 고치지 않고 제품 결함으로 기록한다.
+12. **`help` 글리프가 아이콘 세트에 없다.** 제품 `nodeGlyphs.ts` 의 새 글리프(lucide `circle-help`, 원
+    안의 물음표 · 24 격자)이고 아카이브 썸네일의 제목 줄도 같은 경로를 굽는다(`6530c9620`). 이 저장소
+    아이콘 세트에는 등재하지 않았다 — **필요하다**: 노드 보드의 헤더가 도움말 단추를 그리려면 슬롯
+    `Glyph` 에 꽂을 아이콘이 있어야 한다. 위 넷(deviation 4)과 같은 형태의 결손이다.
 
 ## Related
 

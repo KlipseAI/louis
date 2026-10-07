@@ -1,10 +1,16 @@
-/* Node chrome button — 노드 카드 헤더의 32px 아이콘 버튼 쌍 (다운로드 · 삭제)
+/* Node chrome button — 노드 카드 헤더의 32px 아이콘 버튼 묶음 (도움말 · 다운로드 · 삭제)
  *
  * 규범: design/components/node-chrome-button.md
  * 계약: figma/components.measured.json 의 `node-chrome-button`.
  * 정본: 제품 앵커 `5a67d692` 의
  *       apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx
  *       (BUTTON · BUTTON_NEUTRAL · BUTTON_DANGER 세 상수).
+ *
+ * **도움말 단추는 새 톤이 아니라 중립 톤의 세 번째 소비처다.** 2026-10-07, 제품
+ * `chore/landing-dead-walkthrough` `NodeHeaderActions.tsx`(@d040dce15)의 `NodeHelpAction` 이 모든
+ * 노드 머리에 `BUTTON_NEUTRAL` 로 붙는다 — 다운로드와 같은 클래스에 글리프만 다르다. 그래서 이
+ * 파일에는 선언이 하나도 늘지 않았다. 글리프 `help`(lucide circle-help)는 아이콘 세트에 아직
+ * 없다 — 문서 Known deviations 6.
  *
  * **IconButton 과 다른 계열이다.** 치수를 컨트롤 사다리가 아니라 노드 크롬 축
  * (`node-chrome-btn-h` 32 · `node-chrome-btn-radius`)에서 받고, **면이 없다** — 기본은 투명이고
@@ -55,7 +61,7 @@
   color: inherit;
 }
 
-/* 중립(다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
+/* 중립(도움말 · 다운로드) 호버 — 면만 얹고 잉크는 그대로 둔다. */
 .louis-node-chrome-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
   background: var(--louis-color-accent-ghost-hover);
 }

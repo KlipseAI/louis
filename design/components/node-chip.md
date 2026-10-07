@@ -209,8 +209,10 @@ React prop이 아니라 **DOM 계약**이다. 소비처가 요소와 속성으�
 | 반경 | 12px | `radius-node-chip` |
 | 헤어라인 (inset) | 0.5px | `hairline-inset` (= `border-width-hairline` + `color-stroke-hairline`) |
 | 테두리 | 0 | **리터럴** — 경계를 border가 아니라 inset 헤어라인으로 그린다. reset은 opt-in이라 `<button>`의 UA 기본 테두리를 스스로 지운다 |
-| 면 | light `palette-gray-100` / dark `palette-gray-600` | `color-node-chip-surface` |
-| 호버 면 | light `palette-gray-150` / dark `palette-gray-500` | `color-node-chip-surface-hover` |
+| 면 | light `palette-gray-050` / dark `palette-gray-600` | `color-node-chip-surface` |
+| 호버 면 | light `palette-gray-100` / dark `palette-gray-500` | `color-node-chip-surface-hover` |
+| 캔버스 안 면 | light `palette-gray-000` / dark `palette-gray-700` | `color-canvas-chip-surface` — 캔버스 셸이 `color-node-chip-surface` 자리에 덮는다(아래 「캔버스 안의 면」) |
+| 캔버스 안 호버 면 | light `palette-gray-025` / dark `palette-gray-600` | `color-canvas-chip-surface-hover` |
 | 전경 | light `#171b22` / dark `#fafafa` | `color-fg-primary` |
 | 비활성 전경 | light `palette-gray-500` / dark `palette-gray-400` | `color-node-chip-fg-disabled` |
 | 타이포 | 12 / 1.5 / -0.12px / 400 | `typography-caption-regular` |
@@ -247,6 +249,29 @@ Known deviations.
 - **호버는 면만 바꾼다.** 전환 대상에 `color`가 함께 있는 것은 비활성으로 넘어갈 때의 글자색
   변화를 위한 것이지, 호버에서 글자색이 바뀌기 때문이 아니다.
 
+## 캔버스 안의 면
+
+제품은 알약을 두 곳에서 다른 면으로 쓴다. 캔버스(`node-canvas-v2`) 밖 — `/inquiry` 첨부 버튼 같은
+자리 — 는 위 표의 기본 면을 그대로 쓰고, **캔버스 셸 안에서만** 면과 호버 면을 덮는다
+(2026-10-07, 제품 `origin/dev` `node-canvas-v2/index.tsx:492-522` · `:533`). 덮는 근거는 노드 카드가
+캔버스 바닥 위에서 한 칸 떠 있는 사다리를 알약이 따라가야 한다는 것이고, 제품 주석이 **토큰 자체를 고치지
+않고 캔버스에서 덮는 이유**를 적어 두었다 — 같은 알약을 캔버스 밖 화면도 쓰므로 토큰을 옮기면 무관한
+화면이 함께 바뀐다. 그래서 `color-node-chip-surface` 의 값은 **그대로 두고**, 캔버스 몫을 별도 토큰으로
+세웠다. 기존 토큰의 값을 바꾸지 않으므로 breaking 이 아니다.
+
+| 토큰 | light | dark | 제품 근거 |
+| --- | --- | --- | --- |
+| `color-canvas-chip-surface` | `palette-gray-000` | `palette-gray-700` | 라이트는 소유자 확정 2026-10-01(`64f475e05`, 메타 알약 `pg-025` → `pg-000`). 다크는 노드 카드가 `pg-800` → `pg-900` 으로 내려간 것을 따라 LOUIS 기본값(`pg-600`)에서 한 칸 내린 값이고, 이미지 · TTS 노드의 모델 알약이 같은 값을 읽도록 맞췄다(`24dad22fa`, 소유자 확인 뒤) |
+| `color-canvas-chip-surface-hover` | `palette-gray-025` | `palette-gray-600` | 라이트 `pg-050` → `pg-025`(`64f475e05`), 다크는 기본 면 `pg-700` 에서 한 칸 위 |
+
+소비하는 쪽(캔버스 셸)이 `--louis-color-node-chip-surface` 와 `--louis-color-node-chip-surface-hover`
+를 이 두 토큰으로 덮는다. 이 저장소의 `node-chip.css` 는 아직 캔버스 토큰을 직접 읽지 않는다 — 덮어쓰기는
+제품이 한다. 이 두 토큰을 읽는 범위 규칙을 CSS 에 넣을지는 **판정 필요**다. Figma 변형은 아직 없다.
+
+캔버스 안의 나머지 면은 새 토큰이 필요 없다. 바닥은 `color-bg-canvas`(두 테마 모두 제품 값과 같다),
+카드는 `color-bg-surface`, 캔버스 안 메뉴와 떠 있는 툴바는 `color-bg-raised`(라이트 흰색 · 다크
+`palette-gray-900`)가 제품 값과 같다. 상세는 [Node Shell](node-shell.md) Known deviations 1 · 2.
+
 ## Implementation
 
 - 정본 CSS는 `packages/css/src/component/node-chip.css`이고 `packages/css/generated/styles.layer.css`의
@@ -254,7 +279,8 @@ Known deviations.
 - 토큰 소스는 `packages/tokens/src/klipse.tokens.json`, 투영은 `packages/css/generated/tokens.css`다.
   이 컴포넌트가 세운 토큰은 여섯이다 — `layout-node-chip-height` · `layout-node-chip-inset` ·
   `radius-node-chip` · `color-node-chip-surface` · `color-node-chip-surface-hover` ·
-  `color-node-chip-fg-disabled`.
+  `color-node-chip-fg-disabled`. 캔버스 안 면 둘(`color-canvas-chip-surface` ·
+  `color-canvas-chip-surface-hover`)은 2026-10-07 에 더해졌다.
 - **호버 선택자에 `:where()`를 쓴다.** `:where(button, [role="button"])`과
   `:where(:not(:disabled):not([aria-disabled="true"]))`는 스스로 특이도를 올리지 않는다. 다만
   선택자 끝의 `:hover`가 클래스 자리를 하나 더 올리므로 규칙 전체는 **0-2-0**이다
@@ -283,7 +309,7 @@ Known deviations.
   **확인되지 않았다.**
 - **hit target이 44px에 미달한다.** 32×32다. `.louis-hit-target`을 붙이면 44×44 의사 요소가
   중앙에 깔리는데, 알약들이 4px 간격으로 늘어선 툴바에서 그 영역이 서로 겹친다. 그래서 붙이지 않았다.
-  **제품이 답을 냈다(2026-10-07, 작업 브랜치 `feat/canvas-mobile-ux` `nodeShellStyles.ts:199`)** — 거친 포인터에서만
+  **제품이 답을 냈다(2026-10-07, 작업 브랜치 `feat/canvas-mobile-ux` `nodeShellStyles.ts@3923caf7a:199`)** — 거친 포인터에서만
   누름 영역을 키우되 **이웃 쪽 변은 간격의 절반까지만**, 나머지 변은 44 까지 늘린다
   (`left: calc(var(--node-chrome-btn-gap) / -2)`). 영역이 겹치지 않으므로 어느 알약이 눌리는지의 문제가 생기지 않는다.
   LOUIS 의 거친 포인터 hit target 변형을 세울 때 이 규칙을 옮긴다.
@@ -295,8 +321,13 @@ Known deviations.
   값을 바꾼 것이 아니라 램프 이동의 결과로 따라온 것이다.** 남은 호버 4.43을 올리려면
   `color-node-chip-surface-hover`를 한 칸 옮겨야 하는데 그것은 메타 툴바 전역의 룩앤드필 변경이라
   owner 판정 대상이다.
-- **기본 면은 게이트가 잰다(2026-09-13).** `color-fg-primary` / `color-node-chip-surface`가
-  `contrastPairs`에 `minimum 4.5`로 있다. **호버 면은 게이트 밖이다** — 글자색과 호버 면이
+  **캔버스 안에서는 이 항목이 풀려 있다**(2026-10-07) — 제품이 캔버스 셸에서 다크 면을 `palette-gray-700`
+  (`#41454c`), 호버를 `palette-gray-600`(`#585c63`)으로 덮으므로 `color-fg-primary`(#fafafa) 대
+  면은 **9.23:1**, 호버는 **6.44:1** 로 둘 다 AA 를 넘는다(위 4.43 은 캔버스 밖 기본 호버만의 수다).
+  라이트 캔버스는 면(`palette-gray-000` `#fafafa`) 16.54 · 호버(`palette-gray-025` `#f2f3f5`) 15.55 다.
+  캔버스 밖 기본 호버 4.43 은 그대로 남는다.
+- **기본 면은 게이트가 잰다(2026-09-13).** `color-fg-primary` / `color-node-chip-surface`와
+  `color-fg-primary` / `color-canvas-chip-surface`가 `contrastPairs`에 `minimum 4.5`로 있다. **호버 면은 게이트 밖이다** — 글자색과 호버 면이
   서로 다른 규칙에 선언돼 있고, 올리더라도 다크 4.43이라 4.5를 넘지 못한다. 호버 수치는 이
   문서가 계산한 것이고 CI가 다시 계산하지 않는다.
 - **호버 면이 제품과 다르다.** 제품은 면 위에 오버레이를 섞었고(다크 `palette-gray-000` 8% ·

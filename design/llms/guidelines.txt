@@ -162,9 +162,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 168 |
+| Normative documents | 172 |
 | Generated documents | 5 |
-| Components | 53 |
+| Components | 57 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -15891,6 +15891,30 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-07 (208) — 작업 브랜치 3단: 새 부품 다섯 · 토큰 다섯 · 캔버스와 랜딩 셸 문서
+
+제품 작업 브랜치 감사(205)의 남은 항목을 여덟 갈래로 나눠 반영했다. Figma 는 Button 변형과 새 변수까지만 세웠고, 나머지 새 슬롯의
+Figma 변형은 다음 회차다.
+
+- **Button `neutral`** — 불투명 중립 면(`bg-surface` · 헤어라인, hover · 눌림 `bg-inset`, 글자 `fg-primary`). secondary 는 잉크 8% 알파라
+  어두운 고정 면에서 묻힌다. 랜딩 히어로 · 모델 히어로가 ghost 를 덮어 그리던 것. Figma `Button` 에 `Variant=neutral` 60개(크기 3 ×
+  상태 5 × 아이콘 4)를 세우고 되읽어 병합했다.
+- **새 컴포넌트** — [Choice Card](../components/choice-card.md)(카드형 · 행형, 상태마다 box-shadow 한 줄, 오류 링은 DS-D-0075 값) ·
+  [Record Card](../components/record-card.md)(어드민 펼침 기록) · [Text Link](../components/text-link.md)(호버에만 밑줄) ·
+  [Bare Button](../components/bare-button.md)(글꼴을 덮지 않는 맨 버튼 초기화 · 행 제목).
+- **Table** — 그룹 `tbody` 와 자식 들여쓰기, 칸 보조 줄 `.louis-table__hint`, 표 안 소제목 줄, `aria-busy` 흐림. 마지막 행 구분선 0 규칙을
+  `tbody:last-of-type` 로 좁혔다(그룹마다 가르는 선이 지워지지 않게).
+- **EmptyState canvas** — 제목 · 생성 카드 줄 · 글자 단추 줄의 세 줄 계약, 공개 속성 `--louis-empty-state-canvas-pad` · `-gap`. 시작 카드는
+  판정 필요.
+- **노드 · 캔버스** — 노드 머리 셋째 액션(도움말), 노드 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__generate` · `__error` …),
+  floating-shell `data-size="compact"`(캔버스 하단 바), editor-workspace 의 「캔버스 측면 패널」 · 「캔버스 하단 바」 절.
+- **토큰(추가만)** — `color-canvas-chip-surface` · `-hover`(캔버스 안 노드 칩, 소유자 10-01 값 — 캔버스 밖 기본 칩은 그대로),
+  `color-media-foreground-dark-soft`(72%) · `-muted`(64%), `color-media-stage-surface`. 대비 쌍 `fg-primary / canvas-chip-surface` 4.5 를 더했다.
+  토큰 diff 의 추가 10 · 대비 쌍 1 만 확인하고 기준선을 옮겼다. Figma 변수 다섯을 `--only` 조각으로 만들고 되읽어 병합했다.
+- **문서** — 영상 플레이어 볼륨 칩 · 세로 슬라이더 · 진행 막대 키보드 계약(세로 Slider 는 소비처가 없어 열지 않음), 랜딩 셸의 공용
+  타임라인 푸터 · GNB 메가 시트(항목 간격 4, 소유자) · 시트 틴트 예외 · 톤 결정식 · 페이지 테마 고정 · 올린 면 = `bg-raised`.
+- 작업 브랜치에만 있는 제품 파일 인용은 `<파일>@<커밋>:<줄>` 과거형 좌표로 적었다(앵커 대조 밖).
 
 #### 2026-10-07 (207) — 작업 브랜치 2단: 겹 순서를 제품 사다리로(DS-D-0076) · 글꼴 교체 지점 하나(DS-D-0009 1항) · 새 슬롯 다섯
 

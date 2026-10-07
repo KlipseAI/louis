@@ -141,7 +141,12 @@
 
 /* 액션 묶음. **간격 0 이 계약이다** — 제품이 `--node-chrome-btn-gap` 을 쓰지 않고 `gap-0` 을
  * 쓰며 「의도적으로 붙인다」를 주석으로 남겼다. 잘못 누르는 쪽이 삭제라는 점에서 이 값은
- * 다시 볼 만하고, 그 판정은 문서 Accessibility 절이 소유자에게 남겨 두었다. */
+ * 다시 볼 만하고, 그 판정은 문서 Accessibility 절이 소유자에게 남겨 두었다.
+ *
+ * **묶음은 도움말 · 다운로드 · 삭제 셋이 됐다**(2026-10-07, 제품 `chore/landing-dead-walkthrough`
+ * `NodeHeaderActions.tsx`, @d040dce15). 도움말은 **조건부 칸**이다 — 캔버스가 도움말을 열 수 있고
+ * (랜딩 · 임베드는 못 연다) 그 노드에 도움말 쪽이 있을 때만 그려진다. 폭이 늘 수 있다는 뜻이라
+ * 이 묶음에 폭을 적지 않는다. 헤더 높이(32)는 그대로이고 제목 쪽이 남는 폭을 말줄임으로 낸다. */
 .louis-node-shell__actions {
   display: inline-flex;
   flex: none;
@@ -195,6 +200,176 @@
   color: var(--louis-node-shell-accent);
 }
 
+/* ── 입력판 ──────────────────────────────────────────────────────────────────
+ *
+ * 카드 **안** 바닥에 서는 입력 영역이다 — 첫 줄(참조 미디어 · 연결 칩) · 설정 알약 줄 · 생성 버튼
+ * · 오류 배너. 본문이 노드 타입의 슬롯이라는 계약은 그대로이고, 이 하위 부품은 그 슬롯 **안**에
+ * 놓이는 한 벌이다. 쓰지 않는 노드(텍스트 연결 전의 이미지 뷰어 등)는 클래스를 물지 않으면 된다.
+ *
+ * **왜 부품으로 세우는가.** 2026-10-07, 제품 `feat/3d-model-node-design` `Model3dNode.tsx:189`
+ * (@d97ad187c)가 「입력판은 부품이 아니라 노드마다 같은 상수를 들고 있다(VideoNode 633~857)」고
+ * 적고 `PROMPT_AREA` · `PROMPT_FIELD_SHELL` · `PROMPT_FOOTER` · `PROMPT_FOOTER_CONTROLS` ·
+ * `PROMPT_FOOTER_GENERATE` · `PROMPT_ERROR_BANNER` 를 **또** 옮겨 적었다. 값은 `VideoNode.tsx` 와
+ * 같고 `ImageNode.tsx` · `TextNode.tsx` 도 같은 상수를 읽으므로 소비처가 이미 넷이다 — 새 노드가
+ * 생길 때마다 사본이 하나씩 는다. 값의 현행 정본은 제품 `origin/dev` 의 `VideoNode.tsx:689`(PROMPT_FIELD_SHELL)다.
+ *
+ * **여기 담지 않는 것.**
+ *   · 글 입력칸(textarea)과 복사 · 글자 수 줄 — 텍스트를 받는 노드의 슬롯이다. 입력판의 면과 줄
+ *     배치가 이 레시피이고, 입력 컨트롤은 [Text Field] 쪽 문법이다.
+ *   · 제품의 `PROMPT_COMPOSER` 래퍼 — 면 아래 흐름 상자일 뿐이고 `--node-prompt-gen-btn-w`(생성
+ *     버튼 자리 폭)만 얹는다. 생성 버튼이 푸터 안에서 **흐름 배치**가 된 뒤로는 읽는 곳이 없다.
+ *   · 안쪽 `button` 의 절대 배치를 꺼 주는 후손 선택자(`[&_button]:static!` 따위) — 제품 생성
+ *     버튼 컴포넌트와의 결합을 되돌리는 것이라 호출부가 갖는다.
+ *   · 미디어 위 유리 칩 · 참조 썸네일 — 문서 Known deviations 9 가 사유와 함께 소유한다.
+ *   · 영역 자신의 아래 모서리 곡률(`--node-inner-radius` 22) — 영역이 투명이라 보이는 효과가 없다.
+ *
+ * **안쪽 여백 8 은 제품의 `--node-inner-padding` 이고** 컨트롤 간격 사다리의 `sm` 과 같은 수다.
+ * 같은 변수가 영역 · 면 · 푸터 윗여백 셋을 지배하므로 한 토큰을 세 번 읽는다 — 하나가 움직이면
+ * 셋이 함께 움직여야 면 안의 첫 줄과 푸터가 어긋나지 않는다. */
+.louis-node-shell__composer {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* 8. 면과 오류 배너 사이가 아니라 **영역 안 줄 사이**다 — 제품 `gap-4`(--spacing 2px). */
+  gap: var(--louis-space-control-sm);
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-sm);
+  background: transparent;
+}
+
+/* 입력판의 면 — 카드보다 **한 칸 위**다.
+ *
+ * 제품은 다크 `palette-gray-800` · 라이트 `palette-white` 로 칠한다(`VideoNode.tsx:689` 의
+ * `bg-[var(--palette-gray-800)]` + `light:bg-[var(--palette-white)]`). 제품 주석이 계약을 값이
+ * 아니라 **카드와의 한 칸 차이**라고 적는다 — 카드가 `pg-800` 에서 `pg-900` 으로 내려갈 때 이 면도
+ * 같이 내려갔다. 그 쌍을 가진 세만틱은 없다: `bg-raised` 는 라이트가 흰색으로 **정확히 같고**
+ * 다크가 `palette-gray-900`(카드 면과 같은 칸)이다. 팔레트 칸을 직접 읽으면 테마가 갈려 한쪽이
+ * 틀리므로(위 카드 면 주석과 같은 판정) 관계를 가장 잘 나르는 `bg-raised` 에 문다. **다크에서 카드와
+ * 면이 같아지는 것이 이 선택의 값**이고 경계는 아래 헤어라인이 남긴다 — 문서 Known deviations 10.
+ *
+ * 반경 16 은 제품 `--node-input-radius` 이고 같은 수를 가진 세만틱은 `radius-overlay` 하나다.
+ * 이 면은 오버레이가 아니라 입력판이라 이름이 뜻과 어긋나지만, 카드 반경 24 와 달리 새 값을
+ * 만들지 않으려고 그 칸을 읽는다(`.louis-floating-shell` 이 같은 판정을 했다).
+ *
+ * **`isolation: isolate` 는 장식이 아니다.** 제품이 면에서 보이지 않는 `backdrop-filter` 를 걷으면서
+ * 그것이 덤으로 만들던 쌓임 맥락만 남겼다 — 면 안 드롭다운(z 100 · 120)이 면 밖 형제와 겨루는
+ * 순서가 전과 같아야 하기 때문이다. **흐림을 다시 얹지 않는다**: 면이 불투명이라 비칠 틈이 없는데
+ * 요소마다 합성 레이어 · 배경 캡처 비용을 매 프레임 내고, 모바일 WebKit 에서 탭 메모리에 쌓였다. */
+.louis-node-shell__field {
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: auto;
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-sm);
+  border-radius: var(--louis-radius-overlay);
+  background: var(--louis-color-bg-raised);
+  /* 경계는 border 가 아니라 안쪽 헤어라인 한 겹이다 — 카드의 2px 진짜 테두리와 다른 기법이고
+   * 레이아웃 박스를 접지 않는다(DS-D-0023). */
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 푸터 — 설정 알약 줄과 생성 버튼, 그 아래 오류 배너. 남는 세로 공간은 이 레시피가 아니라
+ * 면 위쪽의 글 입력칸이 흡수한다(`flex: 1 1 auto`). */
+.louis-node-shell__footer {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+}
+
+/* 푸터는 **앞에 무엇이 있을 때만** 한 칸 띄운다. 제품은 첫 줄이 있으면 `mt-8` 을 얹은 상수를,
+ * 없으면 얹지 않은 상수를 따로 골랐다(같은 프로퍼티라 덧붙이지 않고 두 상수로 가른 것이다).
+ * 형제 선택자 하나가 같은 결과를 내므로 호출부가 분기하지 않는다. 푸터 자신은 제외한다 —
+ * 푸터가 둘이면 맞붙는 쪽이 띄워지지 않을 이유가 없지만 그런 마크업은 계약에 없다. */
+.louis-node-shell__field > :not(.louis-node-shell__footer) + .louis-node-shell__footer {
+  margin-block-start: var(--louis-space-control-sm);
+}
+
+/* 설정 줄 — 알약(왼쪽, 남는 폭)과 생성 버튼(오른쪽 끝). 높이는 줄 안의 알약이 정한다. */
+.louis-node-shell__footer-controls {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  block-size: var(--louis-layout-node-chip-height);
+}
+
+/* 알약 줄. 제품은 한때 절대 배치였던 메타 툴바를 흐름으로 되돌리는 선언 열 개를 함께 적는다 —
+ * 그것들은 옛 클래스를 이기려는 것이라 옮기지 않는다. 간격 4 는 `--node-chrome-btn-gap` 이고
+ * 노드 크롬 알약 사이의 값이다([Node Chip]). */
+.louis-node-shell__meta {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--louis-node-chrome-btn-gap);
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--louis-layout-node-chip-height);
+  padding: 0;
+  /* 알약의 드롭다운이 줄 밖으로 펼쳐져야 한다 — 잘라 내면 메뉴가 사라진다. */
+  overflow: visible;
+}
+
+/* 오른쪽 끝 행동 자리 — 알약 줄과 8 떨어진다. 안에 서는 생성 버튼은 이 레시피 밖이다. */
+.louis-node-shell__generate {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin-inline-start: var(--louis-space-control-sm);
+}
+
+/* 오류 배너 — 줄마다 흩어져 뜨던 빨간 글자를 푸터 아래 한 자리로 모은다.
+ *
+ * 제품은 `bg-[rgb(var(--accent-red-500-rgb)/8%)] text-[var(--accent-red-500)]` 에 반경 12 와
+ * 헤어라인이다. **[Alert] 의 block 과 다른 밀도다**: 그쪽은 반경 20 · 1px 테두리 · 위아래 12 ·
+ * 좌우 18 의 상자이고 이쪽은 반경 12 · 테두리 없음 · 사방 8 · 최소 높이 28 의 줄이다. 입력판
+ * 안쪽 8 격자 위에 얹히는 크기라 같은 부품의 변형으로 접으면 Alert 가 노드용 밀도를 갖게 된다 —
+ * 그래서 이 하위 부품이 따로 갖는다. 면은 `accent-danger` 8% 를 섞어 만든다(원시 토큰
+ * `color-red-alpha-08` 과 바이트 단위로 같고, 원시 직접 소비는 저작 게이트가 막는다).
+ *
+ * **글자 대비가 낮다 — 제품 값을 그대로 옮기고 사유를 남긴다.** 글자가 `accent-danger` 이고 면이
+ * 8% 틴트라 라이트 2.98:1 · 다크 3.78:1 이다(면 흰색 · `palette-gray-800` 기준, AA 4.5 미달). `fg-danger-on-surface` 가 정확히 그 자리를 위한
+ * 토큰이지만 제품이 쓰지 않으므로 보드나 레시피에서 고치지 않는다 — 문서 Known deviations 11. */
+.louis-node-shell__error {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  inline-size: 100%;
+  /* 28. 제품 `min-h-14`(--spacing 2px). 사다리(24 · 32 · 40)에 없는 값이다 — 줄이 한 줄일 때만
+   * 이 높이이고 세 줄까지 자란다. */
+  min-block-size: 28px;
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-sm);
+  border-radius: var(--louis-radius-control);
+  background: color-mix(in srgb, var(--louis-color-accent-danger) 8%, transparent);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-accent-danger);
+}
+
+/* 최대 세 줄 — 더 길면 말줄임이고 전문은 호출부가 `title` 로 낸다. */
+.louis-node-shell__error-text {
+  display: -webkit-box;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
 /* forced-colors — 카드 경계는 진짜 border 라 시스템 색으로 치환되며 살아남지만, **선택 표시가
  * 사라진다**(치환된 뒤 두 상태의 테두리가 같은 색이다). 선택은 캔버스가 노드를 앞으로 올리고
  * 좌우 레일을 드러내는 신호를 함께 갖지만 그 둘은 이 레시피 밖이므로, 여기서는 두께로 한 겹
@@ -202,5 +377,14 @@
 @media (forced-colors: active) {
   .louis-node-shell[data-selected="true"] .louis-node-shell__card {
     border-style: double;
+  }
+
+  /* 입력판의 면과 오류 배너는 경계가 헤어라인 한 겹(box-shadow)이라 강제 색에서 사라진다. 시스템
+   * 색 실선을 **안쪽으로** 되살린다 — 안으로 접어야 레이아웃 박스가 움직이지 않는다. */
+  .louis-node-shell__field,
+  .louis-node-shell__error {
+    outline: var(--louis-border-width-default) solid currentColor;
+    outline-offset: calc(0px - var(--louis-border-width-default));
+    box-shadow: none;
   }
 }

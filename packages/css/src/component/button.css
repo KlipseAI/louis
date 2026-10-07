@@ -220,6 +220,26 @@
   color: var(--louis-color-accent-secondary-foreground);
 }
 
+/* neutral — **불투명한 중립 면** 버튼이다. secondary 와 갈리는 자리는 면의 성질이다.
+ * secondary 는 잉크 8% **알파**라 아래 바탕을 비치고, 바탕이 어두운 고정 면(영상 위, 어두운 배너)이면
+ * 잉크가 그 바탕에 묻혀 사라진다. neutral 은 페이지 축의 면 토큰(`bg-surface`)을 **불투명하게** 칠해
+ * 어떤 바탕 위에서도 알약으로 읽힌다. primary 처럼 브랜드 색을 쓰지 않으면서 ghost 처럼 묻히지도
+ * 않아야 하는 두 번째 버튼의 자리다 — 쓰임은 design/components/button.md 의 variants 표에 있다.
+ *
+ * 면 `bg-surface`(라이트 #fafafa · 다크 #181b22) · 글자 `fg-primary` · 헤어라인은 secondary 와 같은
+ * generic inset(DS-D-0023)이다. 불투명 면은 라이트 바닥(거의 같은 #fafafa)에서 경계가 사라지므로
+ * 헤어라인이 있어야 한다. hover 는 면을 한 단 `bg-inset` 으로 내린다.
+ *
+ * 출처: 2026-10-07, 제품 feat/landing-hero-scroll `components/landing/sections/Hero.tsx`
+ * `NEUTRAL_BUTTON`(「LOUIS 에 그 변형이 없다」)과 `components/models/ModelHeroActions.tsx` 의 같은 칠.
+ * 세 화면이 ghost 위에 유틸리티로 이 칠을 덮어 쓰고 있었다 — 유틸리티가 이기는 순간 LOUIS 의 hover 도
+ * 함께 죽는다. */
+.louis-button[data-variant="neutral"] {
+  background: var(--louis-color-bg-surface);
+  box-shadow: var(--louis-hairline-inset);
+  color: var(--louis-color-fg-primary);
+}
+
 /* 제품의 danger는 solid다 (#ff4b59 + 흰 글자). 이전 DS는 tonal이었다. */
 .louis-button[data-variant="danger"] {
   background: var(--louis-color-accent-danger);
@@ -269,6 +289,14 @@
 
 .louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="ghost"] {
   background: var(--louis-color-accent-ghost-hover);
+}
+
+/* neutral 의 hover 는 면 토큰을 한 단 내린다(`bg-surface` → `bg-inset`). 제품 Hero 의 값이다.
+ * 알파 오버레이가 아닌 이유는 이 variant 의 면이 불투명 단색이고, states 계약이 `backgroundColor`
+ * 하나로만 기술돼 있어 겹쳐 쌓은 hover 는 잴 수 없기 때문이다. 누르는 동안(:active)은 hover 가
+ * 그대로 이어지고 scale 만 더해진다 — 제품에 active 면 값이 없고 secondary 도 같다. */
+.louis-button:where(:not([aria-disabled="true"]):not(:disabled)):hover[data-variant="neutral"] {
+  background: var(--louis-color-bg-inset);
 }
 
 /* 제품은 danger hover를 opacity 0.85로 준다 (Button.tsx:130). 색 토큰을 새로 만들지 않고
@@ -322,18 +350,23 @@
     [data-variant="primary"],
     [data-variant="danger"],
     [data-variant="danger-secondary"],
-    [data-variant="inverse"]
+    [data-variant="inverse"],
+    [data-variant="neutral"]
   ),
 .louis-button[aria-disabled="true"]:where(
     [data-variant="primary"],
     [data-variant="danger"],
     [data-variant="danger-secondary"],
-    [data-variant="inverse"]
+    [data-variant="inverse"],
+    [data-variant="neutral"]
   ) {
   background: var(--louis-color-bg-inset);
 }
 
-/* disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
+/* disabled neutral 은 면이 bg-inset 으로 바뀌고 헤어라인은 secondary 처럼 남는다. hover 면과 같은
+ * 값이지만 disabled 는 hover 규칙에 걸리지 않고 글자가 fg-disabled 라 서로 구분된다.
+ *
+ * disabled secondary는 별도 테두리 색을 두지 않는다 — enabled의 generic 헤어라인을 유지하고
  * 상태는 foreground 색이 전달한다 (DS-D-0023, 이전엔 color-stroke-subtle border였다). */
 
 /* loading — label 의미를 유지한 채 progress indicator를 함께 보인다. */

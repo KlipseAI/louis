@@ -116,6 +116,11 @@
           "minimum": 4.5
         },
         {
+          "foreground": "color-fg-primary",
+          "background": "color-canvas-chip-surface",
+          "minimum": 4.5
+        },
+        {
           "foreground": "color-fg-secondary",
           "background": "color-bg-inset",
           "minimum": 4.5
@@ -7193,6 +7198,26 @@
             }
           }
         },
+        "canvas-chip-surface": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-chip-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-chip-surface-hover": {
+          "$value": "{primitive.color.palette-gray.025}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-chip-surface-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "dim-modal": {
           "$value": "{primitive.color.static-black-alpha.56}",
           "$extensions": {
@@ -7423,6 +7448,26 @@
             }
           }
         },
+        "media-foreground-dark-muted": {
+          "$value": "{primitive.color.static-white-alpha.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-dark-muted",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-foreground-dark-soft": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-dark-soft",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "media-indicator-active": {
           "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
@@ -7458,6 +7503,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-scrim-dark",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-stage-surface": {
+          "$value": "{primitive.color.static.black}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-stage-surface",
               "tier": "semantic",
               "mode": "light"
             }
@@ -9084,6 +9139,26 @@
             }
           }
         },
+        "canvas-chip-surface": {
+          "$value": "{primitive.color.palette-gray.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-chip-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-chip-surface-hover": {
+          "$value": "{primitive.color.palette-gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-chip-surface-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "dim-modal": {
           "$value": "{primitive.color.palette-gray-950-alpha.72}",
           "$extensions": {
@@ -9314,6 +9389,26 @@
             }
           }
         },
+        "media-foreground-dark-muted": {
+          "$value": "{primitive.color.static-white-alpha.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-dark-muted",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-foreground-dark-soft": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-dark-soft",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "media-indicator-active": {
           "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
@@ -9349,6 +9444,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-scrim-dark",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-stage-surface": {
+          "$value": "{primitive.color.static.black}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-stage-surface",
               "tier": "semantic",
               "mode": "dark"
             }

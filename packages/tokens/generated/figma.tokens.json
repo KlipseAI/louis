@@ -114,6 +114,11 @@
           "minimum": 4.5
         },
         {
+          "background": "color-canvas-chip-surface",
+          "foreground": "color-fg-primary",
+          "minimum": 4.5
+        },
+        {
           "background": "color-bg-inset",
           "foreground": "color-fg-secondary",
           "minimum": 4.5
@@ -18872,6 +18877,108 @@
             }
           }
         },
+        "color-canvas-chip-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-chip-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.700}",
+              "aliasTarget": {
+                "id": "color-palette-gray-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.254902,
+                  0.270588,
+                  0.298039
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-chip-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-chip-surface"
+            }
+          }
+        },
+        "color-canvas-chip-surface-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-chip-surface-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.600}",
+              "aliasTarget": {
+                "id": "color-palette-gray-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.345098,
+                  0.360784,
+                  0.388235
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-chip-surface-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.025}",
+              "aliasTarget": {
+                "id": "color-palette-gray-025",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.94902,
+                  0.952941,
+                  0.960784
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-chip-surface-hover"
+            }
+          }
+        },
         "color-canvas-dot": {
           "$type": "color",
           "fields": [],
@@ -21832,6 +21939,108 @@
             }
           }
         },
+        "color-media-foreground-dark-muted": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-foreground-dark-muted",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.64}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-64",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.64,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-foreground-dark-muted"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-white-alpha.64}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-64",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.64,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-foreground-dark-muted"
+            }
+          }
+        },
+        "color-media-foreground-dark-soft": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-foreground-dark-soft",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-foreground-dark-soft"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-white-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-foreground-dark-soft"
+            }
+          }
+        },
         "color-media-indicator-active": {
           "$type": "color",
           "fields": [],
@@ -22033,6 +22242,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.media-scrim-dark"
+            }
+          }
+        },
+        "color-media-stage-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-stage-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static.black}",
+              "aliasTarget": {
+                "id": "color-static-black",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-stage-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.static.black}",
+              "aliasTarget": {
+                "id": "color-static-black",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-stage-surface"
             }
           }
         },

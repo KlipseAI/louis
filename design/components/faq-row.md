@@ -12,7 +12,7 @@ summary: 질문 한 줄을 눌러 답변을 같은 면 안에서 펼치는 채�
 답변을 눌러도 접히지 않는다.
 
 **정본은 제품이다.** `FAQ.tsx`(`lg`)와 `guide/FAQPanel.tsx`(`md`)가 구현이고(**`FAQPanel.tsx` 는 제품 작업 브랜치
-`chore/landing-dead-walkthrough` 에서 지워졌다** — 그 브랜치의 캔버스 도움말 패널 `CanvasHelpPanel.tsx:316` 이
+`chore/landing-dead-walkthrough` 에서 지워졌다** — 그 브랜치의 캔버스 도움말 패널 `CanvasHelpPanel.tsx@b3c56ed1a:316` 이
 `className="louis-faq-row" data-size="md"` 로 **LOUIS 클래스를 직접 문다**. 이 컴포넌트의 첫 소비이고, 브랜치가 합쳐지면
 `md` 의 정본 출처를 그 패널로 옮긴다), Figma 는 그 제품
 구현을 투영한 것이다.

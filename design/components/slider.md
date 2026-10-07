@@ -102,7 +102,10 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 - 폭은 호출부가 정한다. 컨트롤은 `inline-size: 100%`이며 스스로 폭을 갖지 않는다.
 - 레일 어디를 눌러도 그 지점으로 값이 간다. 네이티브 동작이며 손잡이를 정확히 집을 필요가 없다.
 - `touch-action: none`이라 드래그 중에 화면이 따라 스크롤되지 않는다. 스크롤이 따라오면 값이 튄다.
-- 세로 방향은 지원하지 않는다. 제품에 세로 슬라이더가 0벌이다.
+- **세로 방향은 지원하지 않는다.** 이 컴포넌트(네이티브 range)의 소비처 중 세로가 0벌이다. 제품에 세로
+  슬라이더가 **하나 생겼지만**(영상 플레이어의 볼륨 패널, 2026-10-07) 그것은 `role="slider"` `div` 에
+  `currentColor` 로 칠하는 미디어 크롬 부품이라 이 컴포넌트를 쓰지 않는다 —
+  [Video Player](video-player.md)의 「세로 슬라이더는 왜 Slider 가 아닌가」와 키보드 계약이 갖는다.
 
 ## Content
 
@@ -229,6 +232,12 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
   [`product.measured.json`](../../migration/product.measured.json)의 `slider`에 있다.
 - **범위(두 손잡이) 선택이 없다.** 제품에 0벌이라 이번 범위가 아니다.
+- **세로 방향(`data-orientation="vertical"`)을 열지 않았다**(2026-10-07 판정). 열려면 네이티브 range 의 세로
+  방식(`writing-mode: vertical-lr` + `direction: rtl`)과 WebKit · Gecko 의 썸 정렬 보정 · 키 방향을 두 브라우저에서
+  재야 하는데 harness 가 Chromium 단독이고 pseudo-element 의 렌더 결과를 게이트가 읽지 못한다. 소비처도
+  없다 — 제품의 세로 슬라이더(영상 볼륨)는 이 컴포넌트를 쓰지 않는다. **두 곳 이상에서 세로 값 조절이 필요해지면**
+  기존 `data-size` · `data-variant` 와 같은 `data-*` 축으로 `data-orientation="vertical"` 을 열고, 접근성은
+  `aria-orientation="vertical"` 과 ↑ 올림 · ↓ 내림으로 둔다.
 
 ## Acceptance tests
 

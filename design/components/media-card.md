@@ -29,6 +29,11 @@ summary: 사진이 배경을 채우고 그 위에 유리 배지와 흐린 정보
 **색이 테마를 따르지 않는다.** 사진 위에 놓이는 전경은 두 테마에서 같아야 읽힌다. 그래서
 `media-foreground-dark` 와 `static-white-alpha/*` 를 쓰고 `gray-*` 램프를 쓰지 않는다.
 
+**빈 캔버스의 시작 카드는 이 카드가 아니다(2026-10-07, 판정 필요).** 제품 빈 캔버스의 생성 카드는 위쪽
+점진 블러 + 위쪽 이름 + `<button>` 이라 정사각 · 아래 띠 · 상태 없는 `<article>` 인 이 카드와 기하와 역할이
+다르다. 재료(점진 블러 마스크 `progressive-blur-mask-block-start`)는 공유하지만 변형으로 흡수할지 별도 부품으로
+둘지는 [Empty State](./empty-state.md#시작-카드)에 기록했고 소유자가 판정한다.
+
 ## Availability
 
 | Surface       | 상태           | 근거                                                                                                                                                                    |
@@ -161,7 +166,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 - **사진에 `alt` 가 필수다.** 카드의 이름이 사진 밖에 글자로 있으므로 `alt` 는 사진 자체를
   설명한다 — 이름을 그대로 복사하면 스크린리더가 같은 말을 두 번 읽는다.
 - 글리프는 장식이며 이름이 옆에 글자로 있다.
-- **대비.** 이름은 `media-foreground-dark`(#fafafa) 를 흐린 사진 위에 놓고, 설명은 그 72% 다.
+- **대비.** 이름은 `media-foreground-dark`(#fafafa) 를 흐린 사진 위에 놓고, 설명은 그 72% 다(2026-10-07 부터 `color-media-foreground-dark-soft`, [색과 테마](../foundations/color-theme.md)).
   바탕이 사진이라 대비를 고정할 수 없고 흐림 20 이 그 편차를 줄이는 장치다. **측정된 대비값이
   없다** — 사진마다 다르므로 SC 1.4.3 을 이 컴포넌트만으로 판정할 수 없다. 결손으로 적어 둔다.
 - 포커스·키보드 계약이 없다. 지금은 카드가 상호작용 요소가 아니라서 성립하지만, 카드를 누를 수
@@ -186,7 +191,7 @@ Figma 의 축·슬롯은 이것과 이렇게 대응한다.
 | Info bar 높이 | 내용이 정한다 — 481 이상에서 이름 · 설명이 한 줄이면 111 | `infoPaddingBlockStart` 40 + `titleLineHeight` 30 + `infoGap` 4 + `descriptionLineHeight` 21 + `infoPaddingBlockEnd` 16. 480 이하는 글자가 한 단 낮아져 함께 낮아진다 |
 | Name row | 높이 30, 간격 8 | 20 × 1.5 = 30 |
 | Name | body-20-medium | `typography/body-lg-medium` · `color/media-foreground-dark` |
-| Description | body-14-regular, 알파 72% | `typography/body-sm-regular` · `color/media-foreground-dark` 72% |
+| Description | body-14-regular, 알파 72% | `typography/body-sm-regular` · `color/media-foreground-dark` 72% — 토큰 `color-media-foreground-dark-soft`(Figma 변수는 아직 없다) |
 | Glyph | 16 × 16 | `icon` 슬롯 |
 
 **위 padding 40 은 이제 마스크의 상수다.** 띠 111 에서 글자 윗변은 바닥에서 71(=64%) 에 있고

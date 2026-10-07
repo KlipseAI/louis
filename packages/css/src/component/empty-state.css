@@ -82,9 +82,11 @@
  *   compact  대시보드의 `AnalyticsStatePanel` — 면 + 1px 테두리 + 12 반경 + 좌측 정렬.
  *            제품 `components/scenes/analytics/shared.tsx:123-128` (`p-10 rounded-12 gap-3`).
  *            호출 15곳 / 6파일 / 2라우트로 이 컴포넌트의 단일 최다 소비처다.
- *   canvas   빈 캔버스의 `CanvasEmptyState` — 그래픽 없이 heading 28 한 줄과 버튼 둘.
- *            제품 `.../node-canvas-v2/components/CanvasEmptyState.tsx:24-38`
- *            (`gap-10 p-12` · `text-heading-28 font-medium` · 액션 `gap-6`).
+ *   canvas   빈 캔버스의 `CanvasEmptyState` — 제목 한 줄 아래 «생성 카드 줄», 그 아래 «글자 단추 줄».
+ *            2026-10-07 에 제품이 「heading 28 한 줄과 버튼 둘」에서 이 모양으로 바꿨다(소유자 시안).
+ *            제품 `.../node-canvas-v2/components/CanvasEmptyState.tsx:24-38`(바뀌기 전 값:
+ *            `gap-10 p-12` · 액션 `gap-6`), 새 모양은 같은 파일 `INNER_CLASS` · `CARD_ROW`
+ *            (2026-10-07, 제품 chore/landing-dead-walkthrough, a31f808c5).
  *
  * **`tone="error"` 는 옮기지 않는다.** 제품의 오류 분기가 더하는 클래스 문자열이 빈 문자열이고
  * (`shared.tsx:130-132`), 원본 CSS 의 오류 색은 특이도 싸움에서 져 배포본에서도 그려지지 않는다.
@@ -131,12 +133,32 @@
   letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
-/* canvas — 그림 대신 «할 수 있는 일 둘»이 화면을 채운다. 면은 base 와 같이 없다: 캔버스 위에
- * 떠 있는 오버레이라 상자를 그리면 노드가 하나 더 있는 것처럼 보인다. */
+/* canvas — 그림 대신 «할 수 있는 일»이 화면을 채운다. 면은 base 와 같이 없다: 캔버스 위에
+ * 떠 있는 오버레이라 상자를 그리면 노드가 하나 더 있는 것처럼 보인다.
+ *
+ * **세로 줄이 셋이다**(2026-10-07, 제품 chore/landing-dead-walkthrough `CanvasEmptyState.tsx`
+ * a31f808c5, 소유자 시안). 제목 → 생성 카드 줄(`__action` 슬롯 하나, 안은 두 칸 격자) →
+ * 글자 단추 줄(`__action` 슬롯 하나 더, ghost Button 하나). 전에는 제목 아래 슬롯 하나에 단추 둘이
+ * 가로로 앉았다. 슬롯은 이전과 같은 `__action` 이고 **슬롯이 둘 서는 것이 달라진 계약**이다 —
+ * 슬롯 사이 간격은 아래 `gap` 이 맡는다. 카드 줄의 칸 수 · 칸 사이 간격(앱 프로젝트 격자 간격
+ * `layout-project-grid-gap`) · 폭은 소비처가 정한다 — 이 레시피는 슬롯의 «자리»만 소유한다.
+ *
+ * **여백과 간격을 공개 사용자 정의 속성으로 발행한다.** 제품이 이 두 값을 띠 맞춤 식(높이에 맞춰
+ * 카드 줄이 줄어드는 계산)의 입력으로 쓰는데, 값을 레시피에서 읽을 길이 없어 리터럴 24 · 20 을
+ * 베끼고 정규식 테스트로 묶어 두었다(`CanvasEmptyState.tsx:52` `--canvas-start-pad:24px` ·
+ * `--canvas-start-gap:20px`, `CanvasEmptyState.test.ts`). 속성은 **이 요소에 선언된다** — 읽는 쪽은
+ * 이 요소나 그 자손에서 `var()` 로 읽는다(제품의 `py-[clamp(...)]` · `gap-y-[clamp(...)]` 가 이 요소의
+ * 클래스다). 조상에서 읽으려면 요소가 아니라 `:root` 에 선언해야 하는데 컴포넌트 층은 전역 선택자를
+ * 쓰지 않는다(DS-D-0004) — 조상(`AVOID_BOX`)에 둔 변수가 필요하면 소비처가 이 속성을 요소에서
+ * 읽어 넘긴다.
+ *
+ * 값이 같은 리터럴이 토큰이 아닌 이유는 compact 과 같다(소비처가 한 곳). 이름이 `-pad` 인 것은
+ * 세로 여백(`padding-block`)이 값이기 때문이다 — 좌우 여백도 같은 24 지만 읽는 쪽이 세로만 쓴다. */
 .louis-empty-state[data-layout="canvas"] {
-  /* 20px · 24px. 리터럴인 이유는 compact 과 같다. */
-  gap: 20px;
-  padding-block: 24px;
+  --louis-empty-state-canvas-pad: 24px;
+  --louis-empty-state-canvas-gap: 20px;
+  gap: var(--louis-empty-state-canvas-gap);
+  padding-block: var(--louis-empty-state-canvas-pad);
   padding-inline: 24px;
 }
 
@@ -149,8 +171,9 @@
   letter-spacing: var(--louis-typography-heading-sm-semibold-letter-spacing);
 }
 
-/* base 는 액션을 한 단계 더 떨어뜨리지만(4px) canvas 는 그러지 않는다 — 제품이 제목과 버튼을
- * 같은 20px 로 두고, 여기서는 버튼이 「읽고 나서 누르는 것」이 아니라 화면의 본문이다. */
+/* base 는 액션을 한 단계 더 떨어뜨리지만(4px) canvas 는 그러지 않는다 — 제품이 제목과 카드 줄,
+ * 카드 줄과 글자 단추 줄을 모두 같은 20px 로 두고, 여기서는 카드가 「읽고 나서 누르는 것」이 아니라
+ * 화면의 본문이다. 슬롯이 둘이어도 둘 다 이 규칙을 받는다. */
 .louis-empty-state[data-layout="canvas"] .louis-empty-state__action {
   margin-block-start: 0;
 }

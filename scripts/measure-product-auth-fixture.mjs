@@ -12,7 +12,7 @@ import { productFontFile } from "./lib/product-font.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
-import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -48,6 +48,14 @@ const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-we
 const fixtureRoot =
   process.env.KLIPSE_PRODUCT_FIXTURE_ROOT ?? process.env.KLIPSE_PRODUCT_BUILD_ROOT;
 const checkOnly = process.argv.includes("--check");
+// **`--only=<화면 id>`(여러 번, 2026-10-07).** 그 화면만 다시 재고 나머지는 기록된 원장에서 그대로 싣는다 — 세션 측정 전체는 45분이
+// 넘고(노드캔버스 · 편집기), 다시 재면 이미 보낸 보드의 값이 흔들릴 수 있다. 실린 화면은 스타일 표를 되풀어 측정 직후와 같은 모양으로
+// 넣으므로, 뒤의 스타일 묶기 · 반복 서브트리 · 별칭은 전체 실행과 같은 길을 탄다. 가짜 Supabase 요청 목록은 기록과 이번 실행의 합이다.
+const onlyIds = new Set(process.argv.filter((arg) => arg.startsWith("--only=")).map((arg) => arg.slice("--only=".length)));
+if (onlyIds.size > 0 && checkOnly) {
+  console.error("[product-auth-fixture] --only 와 --check 는 함께 쓸 수 없습니다");
+  process.exit(1);
+}
 const { ref: productRef, source: productRefSource } = resolveProductRef();
 
 const unavailable = (reason) => {
@@ -249,6 +257,9 @@ const SESSION_ROUTES = [
   { pattern: "/videoeditor/[projectId]", url: `/videoeditor/${FIXTURE_EDITOR_PROJECT_ID}`, id: "/videoeditor/[projectId]" },
   // 하이라이트 완료 격자(2026-10-07) — 클립 다섯의 추출 완료 작업을 시드로 연다. 카드 영상은 검은 면 · 비율은 CSS 기본값(4:3)이다.
   { pattern: "/highlight/[projectId]", url: `/highlight/${FIXTURE_HIGHLIGHT_PROJECT_ID}`, id: "/highlight/[projectId] completed", fullPage: true },
+  // 쇼츠 렌더 완료 결과(2026-10-07) — `result_url` 이 있는 쇼츠 한 행을 시드로 연다. 편집 모달이 닫힌 결과 보기이고 영상은 검은 면이다.
+  { pattern: "/highlight/[projectId]/shorts/[shortId]", url: `/highlight/${FIXTURE_HIGHLIGHT_PROJECT_ID}/shorts/${FIXTURE_HIGHLIGHT_SHORT_ID}`,
+    id: "/highlight/[projectId]/shorts/[shortId]", fullPage: true },
 ];
 
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
@@ -687,6 +698,26 @@ const LOUIS_EXAMPLE_FONT_CSS = louisExamples
   ? '@font-face{font-family:"Pretendard Variable";src:url(data:font/woff2;base64,' + productFontFile(productRoot, commit).toString("base64") +
     ') format("woff2-variations");font-weight:45 920;font-style:normal;font-display:block}\n'
   : "";
+const recordedForOnly = onlyIds.size > 0 ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+if (recordedForOnly) {
+  if (recordedForOnly.productCommit !== commit) unavailable(`--only 는 같은 앵커의 원장에만 합친다: 원장 ${recordedForOnly.productCommit} · 지금 ${commit}`);
+  for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
+}
+const styleById = new Map((recordedForOnly?.computedStyles ?? []).map((entry) => [entry.id, entry.value]));
+const rehydrate = (screen) => {
+  const copy = structuredClone(screen);
+  const unintern = (entry) => {
+    if (!entry.styleRef) return;
+    if (!styleById.has(entry.styleRef)) unavailable("기록된 원장에 없는 styleRef: " + entry.styleRef);
+    const style = styleById.get(entry.styleRef);
+    delete entry.styleRef;
+    entry.style = style;
+  };
+  for (const heading of copy.headings ?? []) unintern(heading);
+  for (const node of copy.tree ?? []) unintern(node);
+  for (const overlay of copy.overlays ?? []) for (const node of overlay.tree ?? []) unintern(node);
+  return copy;
+};
 let browser = null;
 const screens = {};
 const round = (value) => Math.round(value * 10_000) / 10_000;
@@ -695,6 +726,12 @@ try {
   for (const contextSpec of CONTEXTS) {
     screens[contextSpec.id] = {};
     for (const spec of SCREEN_SPECS) {
+      if (recordedForOnly && !onlyIds.has(spec.id)) {
+        const recorded = recordedForOnly.screens?.[contextSpec.id]?.[spec.id];
+        if (!recorded) unavailable(`--only: 기록된 원장에 ${spec.id} @ ${contextSpec.id} 가 없어 다시 재야 합니다`);
+        screens[contextSpec.id][spec.id] = rehydrate(recorded);
+        continue;
+      }
       // 진행을 stderr 로 찍는다(2026-10-07) — 측정기는 끝날 때까지 아무것도 내지 않아, 한 화면이 안정화 한도(180초)를 몇 번씩 돌며 멈춰도
       // 어느 화면인지 보이지 않았다(시드 화면을 더한 세션 측정이 46분 동안 조용했다). 원장에는 영향이 없다.
       const startedAt = Date.now();
@@ -1460,7 +1497,8 @@ const payload = JSON.stringify({
     mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
     ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
-    ...(fakeSupabase ? { supabaseRequests: [...new Set(fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`))].sort() } : {}),
+    ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),
+      ...fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`)])].sort() } : {}),
     externalRequests: "blocked",
     locale: "en",
     theme: "light",

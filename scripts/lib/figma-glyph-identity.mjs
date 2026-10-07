@@ -661,6 +661,35 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "랜딩 캐러셀의 다음 화살표(`components/landing/system/CarouselArrows.tsx:65`, 16 상자). LOUIS `icon/caret-right` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
   },
+  // 2026-10-07 — 쇼츠 렌더 완료 결과(`/highlight/[projectId]/shorts/[shortId]`)의 결과 플레이어 · 동작 버튼.
+  {
+    id: "play-filled-video-player",
+    signature: "0 0 24 24|path(d=M7 4.5l15 7.5L7 19.5V4.5z)",
+    louis: "icon/play",
+    verdict: "bespoke",
+    why: "공용 영상 플레이어의 가운데 재생 버튼(`components/ui/VideoPlayer.tsx:846`, 34 상자 채운 삼각형)이다. LOUIS `icon/play` 와 뜻은 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "volume-high-video-player",
+    signature: "0 0 24 24|path(d=M11 5L6 9H3v6h3l5 4V5z)|path(d=M15.5 8.5a5 5 0 010 7M18 6a8 8 0 010 12)",
+    louis: null,
+    verdict: "missing",
+    why: "공용 영상 플레이어의 음량 버튼(`components/ui/VideoPlayer.tsx:912-916`, 음량 0.5 초과의 두 물결)이다. LOUIS 세트에 스피커 · 음량 아이콘이 없다.",
+  },
+  {
+    id: "expand-corners-video-player",
+    signature: "0 0 24 24|path(d=M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6)",
+    louis: null,
+    verdict: "missing",
+    why: "공용 영상 플레이어의 크게 보기 버튼(`components/ui/VideoPlayer.tsx:955-957`, 네 모서리 꺾쇠)이다. LOUIS 세트에 전체 화면 · 펼치기 아이콘이 없다.",
+  },
+  {
+    id: "youtube-brand-16",
+    signature: "0 0 24 24|path(d=M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z)|path(d=M9.75 15.02l5.75-3.27-5.75-3.27v6.54z)",
+    louis: null,
+    verdict: "missing",
+    why: "쇼츠 결과의 「Upload to YouTube」 버튼 왼쪽 아이콘(`app/highlight/[projectId]/shorts/[shortId]/page.tsx:1339-1342`, 빨간 면 · 흰 삼각형의 브랜드 표식)이다. LOUIS 아이콘 세트는 브랜드 표식을 두지 않는다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

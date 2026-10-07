@@ -256,6 +256,7 @@ const PRODUCT_SCREENS = [
     { route: "/videoeditor/[projectId]", desktop: "39:3", mobile: "39:1520", fixture: "session" },
     // 하이라이트 완료 격자(2026-10-07) — 클립 다섯 자리표시 시드. 카드 영상은 검은 면 · 비율 4:3(CSS 기본값)이다. 옛 손 조립 보드 자리다.
     { route: "/highlight/[projectId] completed", desktop: "220:3452", mobile: "220:3759", fixture: "session" },
+    { route: "/highlight/[projectId]/shorts/[shortId]", desktop: "221:3234", mobile: "221:3504", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
     // 약관 둘 — 떼어낸 자리를 조각 하나에 묶어 뷰포트마다 4 ~ 5 조각이다. 문장 안의 굵은 글자(`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은
@@ -1859,12 +1860,14 @@ const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09
 const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 — 2026-09-30 새 보드(가장 높은 형제가 HUG 로 서고 나머지가 그 높이로 늘어나는지 캡처 대조 전)";
 // 2026-10-06 앵커 a4125565 — 랜딩 노드 캔버스 목업의 두 자리는 감싸는 층이 하나 늘어 경로만 한 단계 깊어졌다(수 · 축 · 사유는 그대로).
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
+const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   "/nodecanvas?project= @ desktop-1920x1080 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/nodecanvas?project= @ desktop-1920x1080 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/nodecanvas?project= @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/nodecanvas?project= @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
+  "/highlight/[projectId]/shorts/[shortId] @ mobile-402x874 · body.1.0.0.1.0.1.1.0 · vertical": { count: 1, why: SHORT_RESULT_PLAYER_WHY },
   "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.1.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.2.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },

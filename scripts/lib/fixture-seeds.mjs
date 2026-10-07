@@ -68,6 +68,13 @@ const highlightItem = (index) => ({
   score: Math.round((0.95 - index * 0.05) * 100) / 100, type: "single", title: `Placeholder clip title ${index + 1}`, segments: null,
 });
 
+// `/highlight/[projectId]/shorts/[shortId]` 렌더 완료 결과(2026-10-07). `/api/highlight/shorts/[shortId]` 가 `highlight_shorts` 한 행(`id` · `user_id` eq ·
+// maybeSingle)을 읽고 `result_url` 을 `toPlayableUrl` 로 바꾼다 — 스토리지 참조가 아닌 바깥 절대 URL 은 그대로 내려가고, 측정기는 바깥 요청을
+// 끊어 결과 영상은 검은 면이다. `result_url` 이 있으면 편집 모달을 닫은 결과 보기다(page.tsx 836 `setModalOpen(!json.data.result_url)`).
+// `editor_state` 는 비워 비율이 제품 기본값(9:16)을 따른다. 뒤로가기 옆 제목은 하이라이트 완료 시드의 프로젝트 이름이다.
+// 하이라이트 완료 화면이 같은 표를 읽어도 `id` 로 집을 때만 보인다.
+export const FIXTURE_HIGHLIGHT_SHORT_ID = "00000000-0000-4000-8000-00000000c0c3";
+
 export const FIXTURE_SEEDS = Object.freeze({
   coupon_campaigns: [{ id: FIXTURE_COUPON_CAMPAIGN_ID, code: "FIXTURE2026", name: "픽스처 쿠폰 캠페인" }],
   coupon_codes: couponCodes,
@@ -88,6 +95,15 @@ export const FIXTURE_SEEDS = Object.freeze({
       highlights: [0, 1, 2, 3, 4].map(highlightItem),
       clips: [0, 1, 2, 3, 4].map((index) => ({ index, filename: `clip_${index}.mp4`, download_url: `https://fixture.invalid/clip-${index}.mp4` })),
       video_url: null, thumbnail_url: null, dominant_color: null, selected_indices: [0, 1, 2, 3, 4], unanalyzed_ranges: [],
+    }],
+  },
+  highlight_shorts: {
+    requireFilter: "id",
+    rows: [{
+      id: FIXTURE_HIGHLIGHT_SHORT_ID, user_id: FIXTURE_USER, job_id: "00000000-0000-4000-8000-00000000c0c2", clip_index: 0, status: "done",
+      editor_state: {}, result_url: "https://fixture.invalid/short-result.mp4",
+      caption_ko: "자리표시 쇼츠 제목", caption_en: "Placeholder short title",
+      created_at: "2026-01-03T00:00:00.000Z", updated_at: "2026-01-03T00:00:00.000Z",
     }],
   },
   canvas_sessions: [{ id: "00000000-0000-4000-8000-0000000c5001", project_id: FIXTURE_CANVAS_PROJECT_ID, user_id: FIXTURE_USER,

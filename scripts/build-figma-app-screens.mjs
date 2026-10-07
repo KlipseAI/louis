@@ -1559,11 +1559,22 @@ const pendingAnchors = {};
       // 자리는 부품 계획의 `unresolvedWraps` 에 남긴다 — 칩은 글자 옆 상자로 선다(문장 흐름 안이 아니다).
       if (sizingFix.unresolvedWraps.length > 0 && LOUIS_EXAMPLES) {
         const byPath = new Map();
-        const index = (node) => { byPath.set(node.path, node); for (const child of node.children ?? []) index(child); };
+        const parentOf = new Map();
+        const index = (node) => { byPath.set(node.path, node); for (const child of node.children ?? []) { parentOf.set(child.path, node); index(child); } };
         index(spec);
         for (const wrap of sizingFix.unresolvedWraps) {
           const node = byPath.get(wrap.path);
-          if (node) node.sizing = { ...node.sizing, layoutSizingHorizontal: "FIXED" };
+          if (!node) continue;
+          node.sizing = { ...node.sizing, layoutSizingHorizontal: "FIXED" };
+          // **여러 줄로 감긴 조각은 줄 폭으로(2026-10-07).** 모바일에서 각주 문장이 코드 칩을 사이에 두고 세 줄로 감기면 그 글자 조각의
+          // 측정 폭은 줄 폭이 아니다(20 · 34 · 0) — 그 폭으로 묶으면 Figma 가 한 자씩 세로로 쌓았다(Document/Sources 모바일 1031 높이, 캡처).
+          // 감긴 조각은 부모 줄의 안쪽 폭으로 묶고, 부모 가로 줄은 감기게 해 칩과 링크가 다음 줄로 내려가게 한다(칩이 글자 옆 상자로 서는 알려진 차이와 같은 결).
+          const parent = parentOf.get(node.path);
+          if (wrap.lines > 1 && parent?.layout?.layoutMode === "HORIZONTAL") {
+            const inner = parent.rect.width - (parent.layout.padding?.left ?? 0) - (parent.layout.padding?.right ?? 0);
+            node.rect = { ...node.rect, width: inner };
+            parent.layout = { ...parent.layout, wrap: true };
+          }
         }
       }
       centreAutoMargins(spec);

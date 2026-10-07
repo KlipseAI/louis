@@ -169,6 +169,45 @@ const attachMaskIcons = (node, styleOf, unmapped) => {
   }
   for (const child of node.children ?? []) attachMaskIcons(child, styleOf, unmapped);
 };
+// **칠 순서를 CSS 쌓임 순서로(2026-10-07).** Figma 는 자식 배열 순서대로 칠하고, 측정 트리는 DOM 순서다. 제품은 z-index 로 그 순서를
+// 뒤집는다 — 노드캔버스 편집기에서 점 바탕(`svg`, z-index −1)이 DOM 상 노드 층(z-index 4) 뒤에 있어 보드에서 노드를 통째로 덮었고,
+// 상단 바(`position: fixed`, z-index 1001)는 DOM 상 `main` 앞이라 그 바탕에 덮였다(제품 캡처 대조). 형제 사이에서 CSS 쌓임 순서
+// (음수 z → 흐름 속 비위치 요소 → 위치 지정 auto/0 → 양수 z 값 순, 같으면 DOM 순서)를 따른다. **옮기는 것은 Figma 에서 ABSOLUTE 인 자식뿐이다** —
+// 흐름 자식의 순서를 바꾸면 배치가 바뀐다. 흐름 자식은 제자리에 두고, ABSOLUTE 자식을 그보다 낮지 않은 마지막 형제 뒤에 넣는다.
+// 쌓임 맥락을 넘나드는 비교(조상의 z 끼리)는 하지 않는다 — 형제 안에서만 견준다.
+const stackKey = (style) => {
+  const positioned = Boolean(style?.position) && style.position !== "static";
+  const z = Number.parseInt(style?.zIndex, 10);
+  if (positioned && Number.isFinite(z) && z < 0) return [0, z];
+  if (!positioned) return [1, 0];
+  if (!Number.isFinite(z) || z === 0) return [2, 0];
+  return [3, z];
+};
+// 같은 층 · 같은 z 이면 DOM 순서다(세 번째 칸) — 위치 지정 auto 끼리(relative 버튼과 absolute 선택 표시)는 DOM 순서로 칠한다.
+const keyLess = (a, b) => a[0] !== b[0] ? a[0] < b[0] : a[1] !== b[1] ? a[1] < b[1] : a[2] < b[2];
+const orderByStacking = (node, styleOf, moved) => {
+  if (node.instance || !node.children?.length) return;
+  for (const child of node.children) orderByStacking(child, styleOf, moved);
+  const entries = node.children.map((child, index) => ({ child, key: [...stackKey(styleOf(child.path)), index], movable: child.positioning === "ABSOLUTE" }));
+  if (!entries.some((entry) => entry.movable)) return;
+  const result = entries.filter((entry) => !entry.movable);
+  for (const entry of entries.filter((item) => item.movable)) {
+    let at = 0;
+    for (let index = 0; index < result.length; index += 1) if (keyLess(result[index].key, entry.key)) at = index + 1;
+    result.splice(at, 0, entry);
+  }
+  const reordered = result.map((entry) => entry.child);
+  // 겹치지 않는 형제끼리는 칠 순서가 화면에 드러나지 않는다(앱 셸 사이드바 0~240 과 본문 240~). 순서가 뒤집히는 쌍 가운데 실제로
+  // 겹치는 것이 있을 때만 바꾼다 — 보이지 않는 차이로 보드를 다시 보내지 않는다.
+  const overlap = (a, b) => Math.min(a.rect.x + a.rect.width, b.rect.x + b.rect.width) - Math.max(a.rect.x, b.rect.x) > HALF_PIXEL
+    && Math.min(a.rect.y + a.rect.height, b.rect.y + b.rect.height) - Math.max(a.rect.y, b.rect.y) > HALF_PIXEL;
+  const domIndex = new Map(node.children.map((child, index) => [child, index]));
+  const visible = reordered.some((a, i) => reordered.slice(i + 1).some((b) => domIndex.get(b) < domIndex.get(a) && overlap(a, b)));
+  if (visible) {
+    moved.push(node.path);
+    node.children = reordered;
+  }
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -779,6 +818,7 @@ let totalShells = 0;
 let totalShellGaps = 0;
 let totalGlyphs = 0;
 let totalImageInstances = 0;
+let totalStackingMoved = 0;
 let totalGridRows = 0;
 const countImageComponents = (node) => (node.imageComponent ? 1 : 0)
   + (node.children ?? []).reduce((sum, child) => sum + countImageComponents(child), 0);
@@ -1549,6 +1589,9 @@ const pendingAnchors = {};
       attachImageComponents(spec, unmappedImages);
       const unmappedMasks = [];
       attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
+      const stackingMoved = [];
+      orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
+      totalStackingMoved += stackingMoved.length;
       const sizingFix = reconcileFigmaSizing(spec);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
       if (sizingFix.unresolvedWraps.length > 0 && !LOUIS_EXAMPLES) {
@@ -1604,7 +1647,8 @@ const pendingAnchors = {};
           ...(gaps.paired.length ? { negativeGapsPaired: gaps.paired } : {}),
           ...(spaceBetweenHug.length ? { spaceBetweenHug } : {}),
           ...(unmappedImages.length ? { unmappedImages } : {}),
-          ...(unmappedMasks.length ? { unmappedMasks } : {}) },
+          ...(unmappedMasks.length ? { unmappedMasks } : {}),
+          ...(stackingMoved.length ? { stackingMoved } : {}) },
         spec,
       });
     }
@@ -1657,6 +1701,9 @@ for (const screen of SCREENS) {
     attachImageComponents(spec, unmappedImages);
     const unmappedMasks = [];
     attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
+    const stackingMoved = [];
+    orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
+    totalStackingMoved += stackingMoved.length;
     totalImageInstances += countImageComponents(spec);
     totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
@@ -1723,6 +1770,7 @@ for (const screen of SCREENS) {
         // LOUIS 자산에 잇지 못해 빈 상자로 남은 `<img>`(IMAGE_COMPONENTS 주석).
         ...(unmappedImages.length ? { unmappedImages } : {}),
         ...(unmappedMasks.length ? { unmappedMasks } : {}),
+        ...(stackingMoved.length ? { stackingMoved } : {}),
         // Figma 가 CSS 와 다르게 푸는 크기 조합을 측정으로 푼 자리(reconcileFigmaSizing 주석) · 풀지 못한 감긴 글자 ·
         // 풀지 못한 HUG 부모 · FILL 자식(UNRESOLVED_FILL_IN_HUG_BY_PARENT 가 부모 · 축마다 수를 잠근다).
         ...(sizingFix.reconciled.length ? { sizingReconciled: sizingFix.reconciled } : {}),
@@ -2188,5 +2236,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

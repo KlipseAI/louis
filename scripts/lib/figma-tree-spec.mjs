@@ -428,7 +428,21 @@ function glyphMarkup(node, childrenOf) {
   };
   if (walk(node) === null || shapes.length === 0) return null;
   const size = (value) => Math.round(value * 100) / 100;
-  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${quote(viewBox)}' width='${size(node.rect.width)}' height='${size(node.rect.height)}' fill='none'>${shapes.join("")}</svg>`;
+  // **svg 자체의 CSS 변환(2026-10-07).** 편집기 뒤로 가기 아이콘은 오른쪽 화살표에 `transform: matrix(-1, 0, 0, -1, 0, 0)`(180도 회전)을
+  // 걸어 왼쪽을 가리키는데, 마크업에는 변환이 없어 보드가 반대 방향을 그렸다(제품 캡처 대조). CSS 변환의 기준점은 상자 가운데(기본
+  // transform-origin)이므로 viewBox 중심을 기준으로 도형을 감싼다. 이동 성분은 상자 자리가 이미 담으므로 옮기지 않는다.
+  const matrix = /^matrix\(([^)]+)\)$/.exec(String(node.style?.transform ?? "").trim());
+  let body = shapes.join("");
+  if (matrix) {
+    const [a, b, c, d] = matrix[1].split(",").map((value) => Number.parseFloat(value));
+    const box = String(viewBox).trim().split(/[\s,]+/).map(Number);
+    if ([a, b, c, d].every(Number.isFinite) && box.length === 4 && box.every(Number.isFinite) && !(a === 1 && b === 0 && c === 0 && d === 1)) {
+      const cx = size(box[0] + box[2] / 2);
+      const cy = size(box[1] + box[3] / 2);
+      body = `<g transform='translate(${cx} ${cy}) matrix(${a} ${b} ${c} ${d} 0 0) translate(${-cx} ${-cy})'>${body}</g>`;
+    }
+  }
+  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${quote(viewBox)}' width='${size(node.rect.width)}' height='${size(node.rect.height)}' fill='none'>${body}</svg>`;
 }
 
 /**

@@ -5068,7 +5068,7 @@
                                           "height": 160
                                         },
                                         "glyph": "0 0 100 100|polyline(points=0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100)",
-                                        "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='408' height='160' fill='none'><polyline points='0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100' fill='none' stroke='#0088ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+                                        "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='408' height='160' fill='none'><g transform='translate(50 50) matrix(1 0 0 -1 0 0) translate(-50 -50)'><polyline points='0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100' fill='none' stroke='#0088ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></g></svg>",
                                         "sizing": {
                                           "layoutSizingHorizontal": "FIXED",
                                           "layoutSizingVertical": "FIXED",
@@ -22586,7 +22586,7 @@
                                           "height": 160
                                         },
                                         "glyph": "0 0 100 100|polyline(points=0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100)",
-                                        "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='322' height='160' fill='none'><polyline points='0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100' fill='none' stroke='#0088ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+                                        "glyphSvg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='322' height='160' fill='none'><g transform='translate(50 50) matrix(1 0 0 -1 0 0) translate(-50 -50)'><polyline points='0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100' fill='none' stroke='#0088ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></g></svg>",
                                         "sizing": {
                                           "layoutSizingHorizontal": "FIXED",
                                           "layoutSizingVertical": "FIXED",
@@ -78045,7 +78045,7 @@
       "files": [
         {
           "file": "figma/louis-document.document-report.desktop.00.draw.js",
-          "bytes": 41962
+          "bytes": 42038
         },
         {
           "file": "figma/louis-document.document-report.desktop.01.draw.js",
@@ -78061,7 +78061,7 @@
       "files": [
         {
           "file": "figma/louis-document.document-report.mobile.00.draw.js",
-          "bytes": 41825
+          "bytes": 41901
         },
         {
           "file": "figma/louis-document.document-report.mobile.01.draw.js",

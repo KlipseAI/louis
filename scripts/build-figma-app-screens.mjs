@@ -343,6 +343,24 @@ const PARTS = [
       ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.0.3.0", ["PREV-IEW0-001"], "2115:5881"],
     ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/mypage/upgrade/bulk-success?preview=success", context, path, anchor, component })),
   },
+  // **다섯째 묶음(2026-10-07) — 편집기 밖 필요 부품 조사(scratchpad 「parts41-survey」)에서 측정 서브트리가 바로 선 것.** 공개 화면 푸터는
+  // 랜딩 · 문의 · 요금 · 블로그 · 템플릿이 같은 컴포넌트를 쓰고 측정도 노드 81 · 글자 서열이 같다 — 공개 원장(`fixture: "public"`)에서 뜬다.
+  {
+    set: "Product/Landing Footer",
+    about: "공개 화면 공용 푸터(components/landing/sections/Footer.tsx — 회사 정보 · 링크 세 묶음 · 소셜 · 저작권 줄). 데스크톱은 가로 한 줄, 모바일은 세로로 쌓인다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "2677:4185"],
+      ["Viewport=Mobile", "mobile-402x874", "2677:4186"],
+    ].map(([variant, context, component]) => ({
+      variant, route: "/", context, path: "body.1.0.0.3", fixture: "public", component,
+      anchor: [
+        "Company", "SFACSPACE Inc.", "CEO", "Minho Yeom", "Business Registration No.", "450-87-01864", "Address",
+        "4F, Magok 595 Bldg, 59-5 Magok Jungang-ro, Gangseo-gu, Seoul", "Phone", "02-6217-1119", "E-commerce Registration No.",
+        "2026-Seoul Gangseo-1080", "Product", "Docs", "Pricing", "Resources", "Blog", "Newsroom", "Ambassador", "Social", "Instagram",
+        "Threads", "YouTube", "Trust", "Contact", "Privacy Policy", "Terms of Service", "© SFACSPACE 2026. All rights reserved",
+      ],
+    })),
+  },
 ];
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
@@ -1253,16 +1271,23 @@ const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, t
 const parts = [];
 const partContent = [];
 {
-  const styleById = new Map(fixture.computedStyles.map((entry) => [entry.id, entry.value]));
+  // 부품도 보드처럼 원장을 고른다(`fixture` 키 — 없으면 인증 원장). 공개 화면 푸터는 공개 원장에만 있다(2026-10-07).
+  const styleIndex = new Map();
+  const styleByIdOf = (ledger) => {
+    if (!styleIndex.has(ledger)) styleIndex.set(ledger, new Map(ledger.computedStyles.map((entry) => [entry.id, entry.value])));
+    return styleIndex.get(ledger);
+  };
   for (const part of PARTS) {
     const seen = new Set();
     for (const variant of part.variants) {
       if (seen.has(variant.variant)) fail(`부품 variant 가 겹칩니다: ${part.set} ${variant.variant}`);
       seen.add(variant.variant);
-      const measured = fixture.screens[variant.context]?.[variant.route];
+      const ledger = fixtureOf(variant);
+      const styleById = styleByIdOf(ledger);
+      const measured = ledger.screens[variant.context]?.[variant.route];
       if (!measured?.tree?.length) fail(`부품의 측정 트리가 없습니다: ${variant.route} @ ${variant.context}`);
       const root = measured.tree.find((node) => node.path === variant.path) ?? fail(`부품 경로가 측정에 없습니다: ${part.set} ${variant.variant} ${variant.path}`);
-      const tree = normalizeAuthFixtureTree(measured.tree, fixture.computedStyles);
+      const tree = normalizeAuthFixtureTree(measured.tree, ledger.computedStyles);
       const { spec, stats } = toFigmaTreeSpec(tree, { rootPath: variant.path, contextId: variant.context });
       // 서명은 치환 «앞»에서 뜬다 — 보드 쪽 매처도 치환 전 서브트리의 글자로 판정한다.
       const signature = contentSignatureOf(spec);
@@ -1535,6 +1560,8 @@ const CONTENT_INSTANCES_BY_SET = {
   "Product/Bulk Coupon Notice": 4,
   // 넷째 묶음: 쿠폰 코드 칩 — bulk 성공 미리보기 데스크톱 30 · 모바일 15(측정 화면 안에 보이는 칩만 잰다).
   "Product/Coupon Code Chip": 45,
+  // 다섯째 묶음(2026-10-07): 공개 화면 푸터 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 × 두 뷰포트(같은 컴포넌트 · 같은 글자 서열).
+  "Product/Landing Footer": 10,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
@@ -1587,7 +1614,8 @@ const TEXT_DETERMINED_WHY =
 // 칸이 1044 로 서고 section 이 남은 높이를 채워, 가운데 선 안내가 9 위에 서던 것이 풀린다.
 // 2026-09-29: 세션 · 공개 원장 보드(부스 운영 · 문의 · 공개 페이지 푸터)의 HUG 부모 · FILL 자식 — **캡처 대조 전**이다. 보낸 뒤 보드 캡처 · 글자 자리
 // 대조로 폭이 무너졌는지 보고, 무너지지 않았으면 근거를 적고 무너졌으면 판정기(reconcileFigmaSizing)를 고쳐 이 줄을 푼다.
-const PUBLIC_FOOTER_PENDING_WHY = "공개 페이지 푸터(링크 열 · 소셜 링크)의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
+// 공개 페이지 푸터(링크 열 · 소셜 링크)의 stretch 자식(데스크톱 `body.1.0.0.3.1.0.1` 세로, 2026-09-29 새 보드 · 캡처 대조 전)은 2026-10-07 부터
+// 보드가 아니라 부품 `Product/Landing Footer` 안에 있다 — 보드 다섯 장의 그 자리는 인스턴스가 되어 이 표에서 빠졌다. 캡처 대조는 부품에서 한다.
 const INQUIRY_FORM_PENDING_WHY = "문의 폼 · 안내 칸의 stretch 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 — 2026-09-30 새 보드(가장 높은 형제가 HUG 로 서고 나머지가 그 높이로 늘어나는지 캡처 대조 전)";
@@ -1595,12 +1623,7 @@ const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 �
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
-  "/ @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/ @ mobile-402x874 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
-  "/inquiry @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/pricing @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/templates @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
-  "/blog @ desktop-1920x1080 · body.1.0.0.3.1.0.1 · vertical": { count: 1, why: PUBLIC_FOOTER_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

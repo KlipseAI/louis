@@ -674,6 +674,193 @@
         }
       ],
       "boardInstances": 45
+    },
+    {
+      "setName": "Product/Landing Footer",
+      "about": "공개 화면 공용 푸터(components/landing/sections/Footer.tsx — 회사 정보 · 링크 세 묶음 · 소셜 · 저작권 줄). 데스크톱은 가로 한 줄, 모바일은 세로로 쌓인다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.3",
+          "componentId": "2677:4185",
+          "frameSize": [
+            1920,
+            338
+          ],
+          "signature": {
+            "texts": [
+              "Company",
+              "SFACSPACE Inc.",
+              "CEO",
+              "Minho Yeom",
+              "Business Registration No.",
+              "450-87-01864",
+              "Address",
+              "4F, Magok 595 Bldg, 59-5 Magok Jungang-ro, Gangseo-gu, Seoul",
+              "Phone",
+              "02-6217-1119",
+              "E-commerce Registration No.",
+              "2026-Seoul Gangseo-1080",
+              "Product",
+              "Docs",
+              "Pricing",
+              "Resources",
+              "Blog",
+              "Newsroom",
+              "Ambassador",
+              "Social",
+              "Instagram",
+              "Threads",
+              "YouTube",
+              "Trust",
+              "Contact",
+              "Privacy Policy",
+              "Terms of Service",
+              "© SFACSPACE 2026. All rights reserved"
+            ],
+            "structure": [
+              28
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 73,
+            "unresolved": [
+              {
+                "path": "body.1.0.0.3.1.0.0.1.0.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.1.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.2.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.3.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.4.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.5.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              }
+            ],
+            "sizingReconciled": 7
+          },
+          "runner": "figma/product-parts.landing-footer-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.3",
+          "componentId": "2677:4186",
+          "frameSize": [
+            402,
+            662
+          ],
+          "signature": {
+            "texts": [
+              "Company",
+              "SFACSPACE Inc.",
+              "CEO",
+              "Minho Yeom",
+              "Business Registration No.",
+              "450-87-01864",
+              "Address",
+              "4F, Magok 595 Bldg, 59-5 Magok Jungang-ro, Gangseo-gu, Seoul",
+              "Phone",
+              "02-6217-1119",
+              "E-commerce Registration No.",
+              "2026-Seoul Gangseo-1080",
+              "Product",
+              "Docs",
+              "Pricing",
+              "Resources",
+              "Blog",
+              "Newsroom",
+              "Ambassador",
+              "Social",
+              "Instagram",
+              "Threads",
+              "YouTube",
+              "Trust",
+              "Contact",
+              "Privacy Policy",
+              "Terms of Service",
+              "© SFACSPACE 2026. All rights reserved"
+            ],
+            "structure": [
+              28
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 73,
+            "unresolved": [
+              {
+                "path": "body.1.0.0.3.1.0.0.1.0.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.1.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.2.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.3.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.4.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              },
+              {
+                "path": "body.1.0.0.3.1.0.0.1.5.1",
+                "tag": "span",
+                "reason": "v: 해석하지 못한 선언: 0.9em"
+              }
+            ],
+            "sizingReconciled": 6,
+            "spaceBetweenHug": [
+              {
+                "path": "body.1.0.0.3.1.0",
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 32
+              },
+              {
+                "path": "body.1.0.0.3.1.1",
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 12
+              }
+            ]
+          },
+          "runner": "figma/product-parts.landing-footer-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 10
     }
   ]
 }

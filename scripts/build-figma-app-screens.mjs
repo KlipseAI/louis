@@ -208,6 +208,17 @@ const orderByStacking = (node, styleOf, moved) => {
     node.children = reordered;
   }
 };
+// **흐름 자식이 없는 HUG 상자는 측정 크기로(2026-10-07).** Figma 의 HUG 오토레이아웃은 흐름 자식이 하나도 없으면(자식이 모두 ABSOLUTE)
+// 줄어들 근거가 없어 처음 만든 크기(새 프레임 기본 100)에 머문다. 쇼츠 결과의 제목 묶음(CSS `height: 64px`, 자식은 absolute 줄 하나)이
+// 100 으로 서서 본문이 36 아래로 밀렸다(제품 캡처 대조). 그런 상자는 HUG 축을 측정 크기(FIXED)로 둔다.
+const fixEmptyHug = (node, fixed) => {
+  if (node.instance) return;
+  for (const child of node.children ?? []) fixEmptyHug(child, fixed);
+  if (!node.layout || !node.children?.length || node.children.some((child) => child.positioning !== "ABSOLUTE")) return;
+  for (const axis of ["layoutSizingHorizontal", "layoutSizingVertical"]) {
+    if (node.sizing?.[axis] === "HUG") { node.sizing = { ...node.sizing, [axis]: "FIXED" }; fixed.push(`${node.path} ${axis}`); }
+  }
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -819,6 +830,7 @@ let totalShellGaps = 0;
 let totalGlyphs = 0;
 let totalImageInstances = 0;
 let totalStackingMoved = 0;
+let totalEmptyHugFixed = 0;
 let totalGridRows = 0;
 const countImageComponents = (node) => (node.imageComponent ? 1 : 0)
   + (node.children ?? []).reduce((sum, child) => sum + countImageComponents(child), 0);
@@ -1592,6 +1604,9 @@ const pendingAnchors = {};
       const stackingMoved = [];
       orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
       totalStackingMoved += stackingMoved.length;
+      const emptyHugFixed = [];
+      fixEmptyHug(spec, emptyHugFixed);
+      totalEmptyHugFixed += emptyHugFixed.length;
       const sizingFix = reconcileFigmaSizing(spec);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
       if (sizingFix.unresolvedWraps.length > 0 && !LOUIS_EXAMPLES) {
@@ -1704,6 +1719,9 @@ for (const screen of SCREENS) {
     const stackingMoved = [];
     orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
     totalStackingMoved += stackingMoved.length;
+    const emptyHugFixed = [];
+    fixEmptyHug(spec, emptyHugFixed);
+    totalEmptyHugFixed += emptyHugFixed.length;
     totalImageInstances += countImageComponents(spec);
     totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
@@ -2236,5 +2254,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

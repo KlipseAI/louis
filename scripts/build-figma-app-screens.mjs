@@ -219,6 +219,17 @@ const fixEmptyHug = (node, fixed) => {
     if (node.sizing?.[axis] === "HUG") { node.sizing = { ...node.sizing, [axis]: "FIXED" }; fixed.push(`${node.path} ${axis}`); }
   }
 };
+// **비율 상자는 측정 높이로(2026-10-07).** `aspect-ratio` 상자는 높이를 자식이 아니라 폭과 비율에서 얻는다. Figma 에는 비율 상자가
+// 없어 HUG 로 두면 자식(대개 FILL 미디어)에 따라 접힌다 — 노드캔버스 비디오 노드의 미리보기 영역이 접혀 노드가 짧았다(제품 캡처 대조).
+// 비율 상자의 세로 HUG 를 측정 높이(FIXED)로 둔다. 폭은 그대로 부모를 따른다.
+const fixAspectBoxes = (node, styleOf, fixed) => {
+  if (node.instance) return;
+  for (const child of node.children ?? []) fixAspectBoxes(child, styleOf, fixed);
+  const ratio = styleOf(node.path)?.aspectRatio;
+  if (!ratio || ratio === "auto" || !node.layout || node.sizing?.layoutSizingVertical !== "HUG") return;
+  node.sizing = { ...node.sizing, layoutSizingVertical: "FIXED" };
+  fixed.push(node.path);
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -833,6 +844,7 @@ let totalGlyphs = 0;
 let totalImageInstances = 0;
 let totalStackingMoved = 0;
 let totalEmptyHugFixed = 0;
+let totalAspectFixed = 0;
 let totalGridRows = 0;
 const countImageComponents = (node) => (node.imageComponent ? 1 : 0)
   + (node.children ?? []).reduce((sum, child) => sum + countImageComponents(child), 0);
@@ -1608,6 +1620,9 @@ const pendingAnchors = {};
       totalStackingMoved += stackingMoved.length;
       const emptyHugFixed = [];
       fixEmptyHug(spec, emptyHugFixed);
+      const aspectFixed = [];
+      fixAspectBoxes(spec, (path) => styleByPath.get(path) ?? null, aspectFixed);
+      totalAspectFixed += aspectFixed.length;
       totalEmptyHugFixed += emptyHugFixed.length;
       const sizingFix = reconcileFigmaSizing(spec);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
@@ -1725,6 +1740,9 @@ for (const screen of SCREENS) {
     totalStackingMoved += stackingMoved.length;
     const emptyHugFixed = [];
     fixEmptyHug(spec, emptyHugFixed);
+    const aspectFixed = [];
+    fixAspectBoxes(spec, (path) => styleByPath.get(path) ?? null, aspectFixed);
+    totalAspectFixed += aspectFixed.length;
     totalEmptyHugFixed += emptyHugFixed.length;
     totalImageInstances += countImageComponents(spec);
     totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
@@ -1976,25 +1994,10 @@ const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 �
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
-  "/nodecanvas?project= @ desktop-1920x1080 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/nodecanvas?project= @ desktop-1920x1080 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/nodecanvas?project= @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/nodecanvas?project= @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId]/shorts/[shortId] @ mobile-402x874 · body.1.0.0.1.0.1.1.0 · vertical": { count: 1, why: SHORT_RESULT_PLAYER_WHY },
-  "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.1.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.2.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.3.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ desktop-1920x1080 · body.1.0.0.1.0.1.0.1.0.4.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ mobile-402x874 · body.1.0.0.1.0.1.0.1.0.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ mobile-402x874 · body.1.0.0.1.0.1.0.1.0.1.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ mobile-402x874 · body.1.0.0.1.0.1.0.1.0.2.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ mobile-402x874 · body.1.0.0.1.0.1.0.1.0.3.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/highlight/[projectId] completed @ mobile-402x874 · body.1.0.0.1.0.1.0.1.0.4.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
-  "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
-  "/ @ mobile-402x874 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
@@ -2258,5 +2261,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

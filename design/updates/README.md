@@ -25,6 +25,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (201) — 편집기 화면 셋을 측정 생성으로: 노드캔버스 프로젝트 · 영상 편집기 · 하이라이트 완료, 편집기 글리프 41
+
+- **조건부 시드.** 세 화면은 프로젝트 행이 있어야 그려진다. 그런데 같은 세션 측정의 허브(`/nodecanvas` 목록 등)가 같은 표를 읽어, 시드를
+  그냥 넣으면 허브 보드의 빈 상태가 바뀐다. 그래서 시드를 `{ rows, requireFilter }` 로도 받게 했다 — `requireFilter` 열로 집어 읽을 때만
+  (`id=eq.…`) 행을 내고, 목록 조회에는 전처럼 빈 목록을 준다(`fixture-fake-supabase.mjs`). 기존 세션 화면 여덟은 값이 그대로다.
+- **보드 여섯.** 세션 원장에 `/nodecanvas?project=` · `/videoeditor/[projectId]` · `/highlight/[projectId] completed`(전체 높이)가 데스크톱 ·
+  모바일로 섰고, 손 조립 보드 자리를 측정 생성 러너로 바꿨다(보드 112 → 118). 노드캔버스 · 편집기는 측정에 화면당 2 ~ 21분이 걸려
+  측정기가 화면마다 걸린 시간을 찍는다.
+- **글리프 41.** 편집기 화면의 인라인 글리프 41개를 글리프 대응표에 올렸다. LOUIS 세트에 대응이 없는 것(가위 · 자르기 등)은 `missing` 이다.
+  문서 추이 차트 선 둘의 판정도 `missing` 으로 바로잡았다(대응표 규칙: LOUIS 이름이 없으면 `missing`).
+- **편집기 칩은 bespoke.** 편집기 에셋 패널의 「Import from project」 칩과 Video · Image · Audio · Text 필터 탭(높이 24)이 Button/sm 모양으로
+  잡혔다. 그런데 출처는 `AssetPanel.tsx` 의 맨 `<button>` 과 `vemClass.ts` 지역 레시피(`assetHeaderBtn` · `assetFilterTab`)다. 그래서
+  `LOUIS_PRIMITIVE_EXCLUSIONS` 에 `editor-asset-panel-chip`(bespoke)으로 올렸다. 보드 구성에는 사유 없는 자리가 0 이다.
+- **부품의 자산 이미지.** 부품 생성 경로에 이미지 대응이 빠져 있었다. 그래서 문서 부품 `Compare` 의 그림 두 칸과 `Head` 의 브랜드 표식,
+  `Shot` 의 그림이 빈 상자였다(전송 결과로 확인). 이제 보드와 같이 잇는다. 이어지지 못한 `<img>` 는 부품 계획의 `unmappedImages` 에 남는다.
+  제품 부품 러너는 바뀌지 않았다.
+
 ## 2026-10-07 (200) — Figma `DS · Templates` 에 문서 스킬 보드: 스킬 전 내용과 승인 예시 두 편을 한 판에
 
 - **무엇.** `Pattern · Document — 문서 스킬 (klipse-document)` 보드(`2720:528`, 기존 패턴 보드 오른쪽 x 15012)를 세웠다. 세 열이다.

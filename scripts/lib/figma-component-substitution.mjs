@@ -599,6 +599,18 @@ export const LOUIS_PRIMITIVE_EXCLUSIONS = Object.freeze([
       "출처가 `highlightSceneStyles.ts uploadDropZone` 이다 — 제품 지역 레시피이지 `.louis-drop-zone` 이 아니다. 기하는 같지만 " +
       "면 색(`palette-gray-100` · 호버 `-150`)이 LOUIS 눌림 면 역할과 다르고, 끌어다 놓기와 포커스 링이 없다.",
   },
+  // **2026-10-07 — 편집기 에셋 패널 머리 칩 · 필터 탭.** 세션 원장 `/videoeditor/[projectId]` 데스크톱의 「Import from project」 칩과
+  // Video · Image · Audio · Text 필터 탭(높이 24)이 Button/sm 모양으로 잡힌다. 정본 Button/sm 자리는 없고, 레시피 원장에도 이 자리의
+  // probe 가 없다 — 이름은 자리를 가리킨다.
+  {
+    probe: "editor-asset-panel-chip",
+    component: "Button",
+    sizes: ["sm"],
+    verdict: "bespoke",
+    reason:
+      "출처가 `videoEditParts/AssetPanel.tsx`(:421-431 · :515) 의 맨 `<button>` 이다 — 클래스는 `vemClass.ts` 의 `assetHeaderBtn`(:210) · " +
+      "`assetFilterTab`(:140) 지역 레시피이지 `.louis-button` 이 아니다.",
+  },
   {
     probe: "progress-bar-track",
     component: "ProgressBar",

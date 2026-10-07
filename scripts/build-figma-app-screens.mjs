@@ -2055,8 +2055,6 @@ const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 �
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
-  "/nodecanvas?project= @ desktop-1920x1080 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/nodecanvas?project= @ mobile-402x874 · body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.4.0.0 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

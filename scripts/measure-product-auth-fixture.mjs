@@ -1061,6 +1061,13 @@ try {
               ...(node instanceof HTMLInputElement && node.placeholder
                 ? { placeholder: node.placeholder }
                 : {}),
+              // **placeholder 글자의 색(2026-10-07).** 값이 비고 placeholder 가 글자를 가진 입력칸(textarea 포함)은 제품이 그 글자를
+              // `::placeholder` 색으로 그린다 — 노드캔버스 「Search layers」 · 문의 입력칸이 보드에서 비어 있었다(제품 캡처 대조).
+              // 공백뿐인 placeholder(떠 있는 라벨 방식)는 싣지 않는다 — 그 칸은 글자를 그리지 않는다.
+              ...((node instanceof HTMLInputElement || node instanceof HTMLTextAreaElement) && !node.value && node.placeholder?.trim()
+                ? { placeholderColor: getComputedStyle(node, "::placeholder").color,
+                    ...(node instanceof HTMLTextAreaElement ? { placeholder: node.placeholder } : {}) }
+                : {}),
               ...(vectorAttributes(node) ? { vector: vectorAttributes(node) } : {}),
               ...(text ? { ownText: text } : {}),
               ...(wraps ? { wrapLines: wraps } : {}),

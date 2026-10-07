@@ -201164,6 +201164,7 @@
             "id": "inquiry-email",
             "inputType": "email",
             "placeholder": "Email address to receive our reply",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
             "rect": {
               "x": 1287.1875,
               "y": 280.5,
@@ -201266,6 +201267,7 @@
             "id": "inquiry-title",
             "inputType": "text",
             "placeholder": "Enter a title for your inquiry",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
             "rect": {
               "x": 890.3906,
               "y": 377.5,
@@ -201367,6 +201369,8 @@
             "parentPath": "body.1.0.0.2.0.0.1.1.0.2.1",
             "tag": "textarea",
             "id": "inquiry-description",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
+            "placeholder": "Please describe your issue in detail",
             "rect": {
               "x": 874.3906,
               "y": 473,
@@ -270897,6 +270901,7 @@
             "id": "inquiry-email",
             "inputType": "email",
             "placeholder": "Email address to receive our reply",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
             "rect": {
               "x": 48,
               "y": 551.0938,
@@ -270999,6 +271004,7 @@
             "id": "inquiry-title",
             "inputType": "text",
             "placeholder": "Enter a title for your inquiry",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
             "rect": {
               "x": 48,
               "y": 648.0938,
@@ -271100,6 +271106,8 @@
             "parentPath": "body.1.0.0.2.0.0.1.1.0.2.1",
             "tag": "textarea",
             "id": "inquiry-description",
+            "placeholderColor": "color(srgb 0.254902 0.270588 0.298039)",
+            "placeholder": "Please describe your issue in detail",
             "rect": {
               "x": 32,
               "y": 743.5938,

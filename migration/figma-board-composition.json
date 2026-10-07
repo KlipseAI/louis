@@ -14,22 +14,22 @@
   "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 122,
-  "rawNodesBeforePruning": 7372,
+  "rawNodesBeforePruning": 7380,
   "counts": {
-    "total": 7487,
+    "total": 7495,
     "instance": 302,
     "replaceable": 0,
     "bespoke": 219,
     "blocked": 12,
-    "missing": 1355,
-    "structural": 5599,
+    "missing": 1349,
+    "structural": 5613,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
     "instanceOverCandidates": 16,
     "target": 302,
-    "candidates": 1888
+    "candidates": 1882
   },
   "byInstanceSet": {
     "Button": 77,
@@ -83,13 +83,13 @@
     "icon/music-notes-simple": 1
   },
   "structuralByKind": {
-    "surface": 871,
+    "surface": 877,
     "frame": 2973,
-    "text": 1646,
+    "text": 1654,
     "image": 109
   },
   "missingByCandidateClause": {
-    "c-painted-mark": 920,
+    "c-painted-mark": 914,
     "a-interactive": 359,
     "b-vector": 75,
     "d-control-group": 1
@@ -286,8 +286,8 @@
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
-        "missing": 30,
-        "structural": 73,
+        "missing": 29,
+        "structural": 74,
         "unclassified": 0
       }
     },
@@ -305,8 +305,8 @@
         "replaceable": 0,
         "bespoke": 0,
         "blocked": 0,
-        "missing": 2,
-        "structural": 15,
+        "missing": 1,
+        "structural": 16,
         "unclassified": 0
       }
     },
@@ -1081,13 +1081,13 @@
         "figma/app-screens.inquiry.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 85,
+        "total": 88,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 4,
         "blocked": 0,
-        "missing": 18,
-        "structural": 61,
+        "missing": 16,
+        "structural": 66,
         "unclassified": 0
       }
     },
@@ -1100,13 +1100,13 @@
         "figma/app-screens.inquiry.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 63,
+        "total": 66,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 3,
         "blocked": 0,
-        "missing": 14,
-        "structural": 44,
+        "missing": 12,
+        "structural": 49,
         "unclassified": 0
       }
     },
@@ -1805,13 +1805,13 @@
         "figma/app-screens.nodecanvas-project-.desktop.02.draw.js"
       ],
       "counts": {
-        "total": 279,
+        "total": 280,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 25,
         "blocked": 0,
         "missing": 63,
-        "structural": 191,
+        "structural": 192,
         "unclassified": 0
       }
     },
@@ -1826,13 +1826,13 @@
         "figma/app-screens.nodecanvas-project-.mobile.02.draw.js"
       ],
       "counts": {
-        "total": 274,
+        "total": 275,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 24,
         "blocked": 0,
         "missing": 62,
-        "structural": 188,
+        "structural": 189,
         "unclassified": 0
       }
     },
@@ -4528,10 +4528,9 @@
         1576.08,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/admin@desktop-1920x1080#0.0.1.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.admin.desktop.00.draw.js",
@@ -4756,10 +4755,9 @@
         326.08,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/admin@mobile-402x874#0.0.0.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.admin.mobile.00.draw.js",
@@ -23336,10 +23334,9 @@
         372.81,
         48
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.0.1.1.0": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -23352,6 +23349,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.0.1.1.0.0": {
+      "board": "figma/app-screens.inquiry.desktop.00.draw.js",
+      "tag": "span",
+      "rect": [
+        340.81,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.1": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -23382,10 +23390,9 @@
         769.61,
         48
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.1.1.0": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -23398,6 +23405,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.1.1.0.0": {
+      "board": "figma/app-screens.inquiry.desktop.00.draw.js",
+      "tag": "span",
+      "rect": [
+        737.61,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.2": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -23443,6 +23461,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.2.1.0.0": {
+      "board": "figma/app-screens.inquiry.desktop.00.draw.js",
+      "tag": "span",
+      "rect": [
+        737.61,
+        168
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@desktop-1920x1080#0.0.0.0.0.1.1.0.2.1.1": {
       "board": "figma/app-screens.inquiry.desktop.00.draw.js",
@@ -24179,10 +24208,9 @@
         338,
         48
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.0.1.1.0": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -24195,6 +24223,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.0.1.1.0.0": {
+      "board": "figma/app-screens.inquiry.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        306,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.1": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -24225,10 +24264,9 @@
         338,
         48
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.1.1.0": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -24241,6 +24279,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.1.1.0.0": {
+      "board": "figma/app-screens.inquiry.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        306,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.2": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -24286,6 +24335,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.2.1.0.0": {
+      "board": "figma/app-screens.inquiry.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        306,
+        168
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/inquiry@mobile-402x874#0.0.0.0.0.1.1.0.2.1.1": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
@@ -34534,6 +34594,17 @@
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
+    "/nodecanvas?project=@desktop-1920x1080#0.0.0.0.0.0.0.0.1.0.0.0.2.0.0.1.2.0.2.0": {
+      "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
+      "tag": "span",
+      "rect": [
+        283.69,
+        51.36
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
     "/nodecanvas?project=@desktop-1920x1080#0.0.0.0.0.0.0.0.1.0.0.0.2.0.0.1.2.0.3": {
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
       "tag": "margin",
@@ -37756,6 +37827,17 @@
       "rule": "unmatched-a-interactive",
       "candidateClause": "a-interactive",
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.0.2.0.0.1.2.0.2.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "span",
+      "rect": [
+        65.94,
+        11.94
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.0.2.0.0.1.2.0.3": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",

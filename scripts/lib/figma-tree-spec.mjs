@@ -63,6 +63,10 @@ export function normalizeAuthFixtureTree(tree, computedStyles) {
     if (!style) throw new Error(`[figma-tree-spec] styleRef를 찾지 못했습니다: ${node.styleRef} (${node.path})`);
     // **입력칸의 값은 그 칸의 글자다(2026-09-29).** 값은 글자 노드가 아니라 측정기가 `value` 로 따로 싣는다 — 쿠폰 수량
     // 입력칸의 「1」이 보드에서 비어 있었다. 제품이 그 칸에 그 글자를 그리므로 글자로 옮긴다.
+    if (!node.value && !node.ownText && node.placeholderColor && node.placeholder?.trim()) {
+      // **비어 있는 입력칸의 placeholder(2026-10-07).** 제품은 그 칸에 placeholder 를 `::placeholder` 색으로 그린다 — 색만 그 값으로 덮는다.
+      return { ...node, ownText: node.placeholder, style: { ...style, color: node.placeholderColor } };
+    }
     return { ...node, ...(node.value && !node.ownText ? { ownText: node.value } : {}), style };
   });
 }

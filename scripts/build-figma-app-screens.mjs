@@ -119,6 +119,12 @@ const IMAGE_COMPONENTS = {
   "/images/landing/creator-program-backdrop.jpg": "image/landing/creator-program-backdrop",
   "/images/landing/ambassador-seal.png": "image/landing/ambassador-seal",
   "/images/landing/news-featured.webp": "image/landing/news-featured",
+  // 2026-10-07 — 공개 시드 측정(템플릿 · 블로그 상세)의 자리표시 미디어. 제품 public 원본(600×900)을 같은 섹션에 이미지 채움 컴포넌트로 올렸다.
+  "/image-edit/examples/example-1.jpg": "image/examples/example-1",
+  "/image-edit/examples/example-2.jpg": "image/examples/example-2",
+  "/image-edit/examples/example-3.jpg": "image/examples/example-3",
+  "/image-edit/examples/example-4.jpg": "image/examples/example-4",
+  "/image-edit/examples/example-5.jpg": "image/examples/example-5",
 };
 const liveAssets = JSON.parse(readFileSync(resolve(repoRoot, "figma/live-assets.json"), "utf8"));
 const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, name]) => {
@@ -228,6 +234,8 @@ const SCREENS = [
     // 쿠폰 인쇄(2026-10-07) — 가짜 Supabase 의 자리표시 시드(`lib/fixture-seeds.mjs` — 캠페인 하나 · 코드 10장 · 묶음 둘)로 연 화면. 글자는
     // 자리표시이고 크기 · 색 · 간격은 잰 값이다. 데스크톱은 옛 손 조립 보드(721×345) 자리, 모바일은 같은 섹션 §20 자리에 새로 세웠다.
     { route: "/admin/coupons/[id]/print", desktop: "224:3393", mobile: "2682:175", fixture: "session" },
+    // 노드캔버스 편집기(2026-10-07) — 프로젝트 한 행 · 캔버스 문서(노드 셋 · 엣지 둘) 자리표시 시드로 연 화면. 옛 손 조립 보드 자리다.
+    { route: "/nodecanvas?project=", desktop: "38:3", mobile: "38:3843", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
     // 약관 둘 — 떼어낸 자리를 조각 하나에 묶어 뷰포트마다 4 ~ 5 조각이다. 문장 안의 굵은 글자(`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은

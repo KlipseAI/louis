@@ -2095,6 +2095,13 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
+
+**닫기 자리(2026-10-07).** 코치마크는 사용자가 치울 수 있어야 해서 `.louis-tooltip__close` 를 둔다 — 표면의 오른쪽 위 모서리 칸
+(폭 44 · 높이 42, 표면 안), 글리프는 칸 오른쪽 끝에서 8 안쪽 · 제목 줄과 같은 높이. 표면은 포인터를 받지 않고 닫기만
+`pointer-events: auto` 다. 닫기가 있으면 제목이 오른쪽 20 을 비운다. 쉬는 불투명도 72%, hover · 키보드 초점에서 100%(링 없음).
+`aria-label` 을 준다. 근거는 제품 캔버스 다음 단계 코치마크(`CanvasOnboardingHints.tsx` `NEXT_STEP_COACHMARK_CLOSE`) — 소유자가
+「너무 안으로 들어와」라며 세 번 고친 값이다. **Figma 의 `Layout=coachmark` 에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+
 **제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 
 | 제품 | LOUIS | 왜 |
@@ -2324,6 +2331,10 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 - toast는 focus를 가져가지 않는다. 사용자가 하던 일을 끊지 않는다.
 - `duration: 0`이 아닌 한 자동으로 사라지므로 **닫기 버튼을 두지 않는다.** 대신 포인터·focus로
   멈춘다. 닫기 버튼은 focus 순서에 끼어들고, 사라지는 대상에 focus를 두면 focus가 소실된다.
+- **예외 — 사라지지 않는 callout 은 닫기를 갖는다(2026-10-07, 소유자).** 할 일이 끝날 때까지 떠 있는 안내(`duration: 0` 의
+  `data-layout="callout"`)는 사용자가 치울 길이 필요하다. 행동 단추와 닫기를 `.louis-toast__actions` 로 묶고 닫기는
+  `.louis-toast__close`(누르는 칸 28 · 쉬는 불투명도 72%)다. 닫기에는 `aria-label`(「안내 닫기」)을 준다. 제품 캔버스 도움말
+  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. **Figma 의 callout 변형에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달
@@ -4032,6 +4043,11 @@ variant 축은 `bleed`와 `controls` 둘이다. 톤은 variant가 아니라 **�
 
 - 항목 하나의 **상태**를 옆에 붙일 때 — 완료, 실패, 처리 중.
 - 항목의 **분류**를 한 단어로 표시할 때 — 공개 범위, 플랜, 종류.
+
+**목록 · 표의 상태 칸에서는 예외만 배지다(2026-10-07, 소유자).** 행마다 상태가 하나씩 붙는 목록에서 평소 값(공개 · 결제 완료 ·
+진행 중)은 `caption` 크기의 `fg-secondary` 글자로 두고, **손이 가야 하는 예외**(숨김 · 초안 · 환불 · 실패 · 처리 대기)만 배지로
+세운다. 모든 행이 알약이면 찾아야 할 줄이 오히려 흐려진다 — 제품 어드민 아홉 화면이 이 규칙으로 바뀌었다(작업 브랜치
+`feat/admin-ops-review` 의 `AdminStatus`). 상세 화면처럼 상태가 하나만 놓이는 자리는 평소 값도 배지다.
 
 쓰지 않는 자리.
 
@@ -9201,6 +9217,8 @@ Hover 가 같은 칸을 쓴다). 알파라서 표가 어느 사다리 바닥에 
 - 헤더와 셀의 정렬을 어긋나게 두지 않는다. `data-align` 을 `th` 와 `td` 양쪽에 같은 값으로 준다 —
   셀렉터가 둘을 구분하지 않는 이유가 그것이다.
 - 빈 셀은 빈 문자열이 아니라 `—` 로 채운다. 이 규칙은 **레시피가 강제하지 않는다.**
+- **상태 열은 예외만 배지다(2026-10-07, 소유자).** 평소 값은 `caption` 크기 `fg-secondary` 글자, 손이 가야 하는 예외만
+  [Badge](../components/badge.md) 다 — 모든 행이 알약이면 찾아야 할 줄이 흐려진다. 규칙은 Badge 문서 When to use 가 갖는다.
 
 #### Accessibility
 

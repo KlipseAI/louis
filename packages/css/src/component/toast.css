@@ -181,6 +181,45 @@
   background: color-mix(in srgb, var(--louis-color-fg-on-inverse) 24%, transparent);
 }
 
+/* ── callout 의 행동 묶음과 닫기(2026-10-07, 소유자 — 제품 캔버스 도움말 작업 브랜치) ──────────────
+ *
+ * **닫기는 callout 에만 있다.** 자동으로 사라지는 토스트는 여전히 닫기를 두지 않는다(문서 Content). callout 은 할 일이 끝날
+ * 때까지 떠 있는 안내라(`duration: 0`) 사용자가 치울 길이 필요했다 — 제품이 화면 밖 안내 · 영상 입력 안내 두 곳에 같은
+ * 닫기를 달았다.
+ *
+ * 행동 단추와 닫기는 한 덩어리로 붙는다. 본문과 행동 사이(16)보다 가깝게 4 를 둔다. */
+.louis-toast__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+}
+
+/* 닫기 — 면 없이 표면의 전경을 물려받고 72% 로 쉬다가 hover 와 키보드 초점에서 100% 로 드러난다. 코치마크의 닫기와 같은
+ * 재료다. 누르는 칸 28 은 컨트롤 사다리에 없지만 제품 실측이고(`w-14 h-14`), 콜아웃 한 줄 높이 안에 들어가는 최대다 —
+ * 행동 단추(26)와 나란히 서도 줄이 늘지 않는다. 포커스 링은 그리지 않는다(DS-D-0074). */
+.louis-toast__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: 28px;
+  block-size: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.72;
+  transition-property: opacity;
+  transition-duration: var(--louis-motion-control-hover-duration);
+}
+
+.louis-toast__close:hover,
+.louis-toast__close:focus-visible {
+  opacity: 1;
+}
+
 /* forced-colors — 12%/24% 잉크 면은 강제 색에서 사라진다. 액션이 눌리는 것이라는 신호를
  * 시스템 색 실선으로 되살린다. */
 @media (forced-colors: active) {

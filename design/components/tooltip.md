@@ -170,6 +170,13 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
+
+**닫기 자리(2026-10-07).** 코치마크는 사용자가 치울 수 있어야 해서 `.louis-tooltip__close` 를 둔다 — 표면의 오른쪽 위 모서리 칸
+(폭 44 · 높이 42, 표면 안), 글리프는 칸 오른쪽 끝에서 8 안쪽 · 제목 줄과 같은 높이. 표면은 포인터를 받지 않고 닫기만
+`pointer-events: auto` 다. 닫기가 있으면 제목이 오른쪽 20 을 비운다. 쉬는 불투명도 72%, hover · 키보드 초점에서 100%(링 없음).
+`aria-label` 을 준다. 근거는 제품 캔버스 다음 단계 코치마크(`CanvasOnboardingHints.tsx` `NEXT_STEP_COACHMARK_CLOSE`) — 소유자가
+「너무 안으로 들어와」라며 세 번 고친 값이다. **Figma 의 `Layout=coachmark` 에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+
 **제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 
 | 제품 | LOUIS | 왜 |

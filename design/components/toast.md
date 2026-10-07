@@ -133,6 +133,10 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 - toast는 focus를 가져가지 않는다. 사용자가 하던 일을 끊지 않는다.
 - `duration: 0`이 아닌 한 자동으로 사라지므로 **닫기 버튼을 두지 않는다.** 대신 포인터·focus로
   멈춘다. 닫기 버튼은 focus 순서에 끼어들고, 사라지는 대상에 focus를 두면 focus가 소실된다.
+- **예외 — 사라지지 않는 callout 은 닫기를 갖는다(2026-10-07, 소유자).** 할 일이 끝날 때까지 떠 있는 안내(`duration: 0` 의
+  `data-layout="callout"`)는 사용자가 치울 길이 필요하다. 행동 단추와 닫기를 `.louis-toast__actions` 로 묶고 닫기는
+  `.louis-toast__close`(누르는 칸 28 · 쉬는 불투명도 72%)다. 닫기에는 `aria-label`(「안내 닫기」)을 준다. 제품 캔버스 도움말
+  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. **Figma 의 callout 변형에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달

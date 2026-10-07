@@ -15768,6 +15768,21 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-07 (200) — Figma `DS · Templates` 에 문서 스킬 보드: 스킬 전 내용과 승인 예시 두 편을 한 판에
+
+- **무엇.** `Pattern · Document — 문서 스킬 (klipse-document)` 보드(`2720:528`, 기존 패턴 보드 오른쪽 x 15012)를 세웠다. 세 열이다.
+  - 왼쪽: 스킬(`.claude/skills/klipse-document/SKILL.md`)의 전 내용 — 원칙 · 아홉 단계 흐름 · 0 문서가 맞는가 · 1 먼저 읽는다 ·
+    2.1 ~ 2.9(넷만 묻는다 · 설계 표 · 부품 선택표 14행 · 뼈대 명령 · 작성 규칙 · 검사 항목 · 캡처 · 내보내기 · 보고) · 3 고칠 때 · 브리프(`BRIEF.md`) 일곱 칸.
+  - 가운데: 모든 부품이 든 `packages/css/examples/document-report.html` 의 1440 라이트 실브라우저 캡처(조각 셋).
+  - 오른쪽: 소유자 승인 운영안 `document.html` 캡처(조각 둘).
+- **값은 옮기지 않았다.** 스킬과 같은 원칙으로 크기 · 간격 · 색 값을 보드 글자에 적지 않았다 — 부품 모양은 예시 캡처가 보이고, 정본은
+  `design/patterns/document.md` 와 LOUIS CSS 다. 보드의 색은 의미 변수(`Klipse Semantic Color` Light)에, 글자는 LOUIS 글자 스타일에 묶었다.
+- **캡처 대신 측정 생성(같은 날 뒤, 소유자 「그냥 이미지를 갖다 넣어 놨네」).** 예시 두 편의 캡처 이미지를 걷고, 실브라우저로 잰 값으로 Figma 레이어를
+  생성했다 — 측정기 `--louis-examples`(정적 서버로 `packages/css` 를 내고 CDN 의 Pretendard Variable 은 제품 글꼴 파일로 대 준다,
+  `migration/louis.document-examples.json`)와 생성기 `--louis-examples`(제품 보드와 계획 · 러너 · 기준선을 따로 — `figma/louis-document.*`).
+  데스크톱 1920 · 모바일 402 문서 전체, 노드 1,488. 예시 안의 그림 넷은 `90 · 자산` U · image/ 의 이미지 채움 컴포넌트로 이었다(data URL 은 해시 키).
+  추이 차트 선 둘은 글리프 대응표에 데이터 그림으로 올렸다. 왼쪽 스킬 내용 열은 손으로 세운 것이라 스킬이 바뀌면 다시 세운다.
+
 #### 2026-10-07 (199) — 가짜 Supabase 에 자리표시 시드 · 쿠폰 인쇄 보드를 측정 생성으로 · 편집기 밖 제품 부품 다섯
 
 - **자리표시 시드(소유자 허용 2026-10-06).** `scripts/lib/fixture-fake-supabase.mjs` 가 표별 시드(`seeds`)를 받아 PostgREST 처럼 거른다 —

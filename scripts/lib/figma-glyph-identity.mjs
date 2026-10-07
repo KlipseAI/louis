@@ -319,6 +319,23 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "랜딩 개요의 노드 캔버스 목업 — 노드 도구 막대의 삭제(`components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs.tsx`, lucide 모양 휴지통). LOUIS `icon/trash-simple` 과 뜻은 같지만 뚜껑 · 안쪽 선이 있는 다른 그림이다.",
   },
+  // **LOUIS 문서 예시의 추이 차트 둘(2026-10-07, 생성기 `--louis-examples`).** 아이콘이 아니라 데이터 그림이다 — `.louis-document-trend` 의
+  // 선(`polyline`, 0~100 상자에 늘인다)이 예시 문서 `packages/css/examples/document-report.html` 의 수치로 그려진다. 대응할 LOUIS 아이콘이 없고
+  // 있어서도 안 된다. 서명은 예시의 좌표라 예시 수치가 바뀌면 함께 바뀐다.
+  {
+    id: "document-trend-boards",
+    signature: "0 0 100 100|polyline(points=0,47.37 92.31,47.37 92.31,71.05 100,71.05 100,100)",
+    louis: null,
+    verdict: "bespoke",
+    why: "LOUIS 문서 예시(document-report) 01 절의 「측정 생성 보드」 추이 선 — 9월 2일 36장 → 9월 28일 76장. 데이터 그림이지 아이콘이 아니다.",
+  },
+  {
+    id: "document-trend-instances",
+    signature: "0 0 100 100|polyline(points=0,34.82 11.54,33.93 34.62,37.5 46.15,45.09 88.46,45.09 92.31,91.96 100,100)",
+    louis: null,
+    verdict: "bespoke",
+    why: "LOUIS 문서 예시(document-report) 01 절의 「컴포넌트 인스턴스」 추이 선 — 78개 → 224개. 데이터 그림이지 아이콘이 아니다.",
+  },
   {
     id: "download-lucide",
     signature: "0 0 24 24|path(d=M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4)|path(d=M7 10l5 5 5-5)|path(d=M12 15V3)",

@@ -12,6 +12,11 @@ import { execFileSync } from "node:child_process";
 // `fontFamily`를 재고 나서야 알았다(그 축도 그때 측정에 추가했다).
 //
 // 제품이 쓰는 그 파일을 그대로 심는다. 추정하지 않는다.
+/** 제품 글꼴 파일(`apps/web/app/fonts/PretendardVariable.woff2`)의 바이트 — 다른 이름으로 실을 때 쓴다(LOUIS 예시 측정). */
+export function productFontFile(productRoot, commit) {
+  return execFileSync("git", ["show", commit + ":apps/web/app/fonts/PretendardVariable.woff2"], { cwd: productRoot, maxBuffer: 64 * 1024 * 1024, encoding: "buffer" });
+}
+
 export function productFontFace(productRoot, commit) {
   const path = "apps/web/app/fonts/PretendardVariable.woff2";
   const blob = execFileSync("git", ["show", commit + ":" + path], {

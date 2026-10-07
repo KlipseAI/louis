@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createHash } from "node:crypto";
 // **측정된 앱 화면을 Figma Auto Layout 계층으로 생성한다.**
 //
 // ## 왜 이 생성기인가
@@ -45,8 +46,13 @@ const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
 // 제품이 무는 레시피는 제품 원장이, LOUIS 의 size·variant 축은 되읽기가 소유한다.
 const recipesPath = resolve(repoRoot, "migration/product.rendered-components.json");
 const readbackPath = resolve(repoRoot, "figma/readback.json");
-const planPath = resolve(repoRoot, "figma/app-screens.plan.json");
-const partsPlanPath = resolve(repoRoot, "figma/product-parts.plan.json");
+// **LOUIS 예시 실행(`--louis-examples`, 2026-10-07).** 같은 변환 · 같은 렌더러로 LOUIS 문서 예시(`migration/louis.document-examples.json`)를
+// Figma 레이어로 생성한다 — 제품 화면 보드 통계(보드 수 · 커버리지 · 기준선)와 섞이지 않게 화면 · 부품 · 계획 · 러너 · 기준선을 따로 둔다.
+const LOUIS_EXAMPLES = process.argv.includes("--louis-examples");
+const RUNNER_PREFIX = LOUIS_EXAMPLES ? "louis-document" : "app-screens";
+const PART_RUNNER_PREFIX = LOUIS_EXAMPLES ? "louis-document-parts" : "product-parts";
+const planPath = resolve(repoRoot, `figma/${RUNNER_PREFIX}.plan.json`);
+const partsPlanPath = resolve(repoRoot, `figma/${PART_RUNNER_PREFIX}.plan.json`);
 const templatePath = resolve(repoRoot, "scripts/templates/figma-app-screens-renderer.js");
 const checkOnly = process.argv.includes("--check");
 const fail = (message) => { throw new Error(`[figma-app-screens] ${message}`); };
@@ -69,6 +75,8 @@ const LEDGERS = {
   public: optionalFixture("migration/product.public-fixture.json"),
   // 공개 시드 원장(2026-10-07, `--public-seeded`) — 발행된 한 행이 있어야 서는 공개 상세(블로그 글 · 템플릿)를 자리표시 시드로 잰다.
   publicSeeded: optionalFixture("migration/product.public-seeded-fixture.json"),
+  // LOUIS 문서 예시(2026-10-07, 측정기 `--louis-examples`) — 예시 실행에서만 쓴다.
+  louisExamples: LOUIS_EXAMPLES ? optionalFixture("migration/louis.document-examples.json") : null,
 };
 const fixtureOf = (screen) => {
   if (!screen.fixture) return fixture;
@@ -119,6 +127,11 @@ const IMAGE_COMPONENTS = {
   "/images/landing/creator-program-backdrop.jpg": "image/landing/creator-program-backdrop",
   "/images/landing/ambassador-seal.png": "image/landing/ambassador-seal",
   "/images/landing/news-featured.webp": "image/landing/news-featured",
+  // 2026-10-07 — LOUIS 문서 예시(packages/css/examples)의 그림 넷. 브랜드 표식은 예시에 data URL 로 들어 있어 해시 키(imageKeyOf)로 잇는다.
+  "data-sha256:14c4cecb59a81ede": "image/louis-examples/brand-mark",
+  "/examples/media/login-product-mobile.webp": "image/louis-examples/login-product-mobile",
+  "/examples/media/login-board-mobile.webp": "image/louis-examples/login-board-mobile",
+  "/examples/media/data-deletion-board-crop.webp": "image/louis-examples/data-deletion-board-crop",
   // 2026-10-07 — 공개 시드 측정(템플릿 · 블로그 상세)의 자리표시 미디어. 제품 public 원본(600×900)을 같은 섹션에 이미지 채움 컴포넌트로 올렸다.
   "/image-edit/examples/example-1.jpg": "image/examples/example-1",
   "/image-edit/examples/example-2.jpg": "image/examples/example-2",
@@ -132,12 +145,15 @@ const imageComponentBySrc = new Map(Object.entries(IMAGE_COMPONENTS).map(([src, 
   if (hits.length !== 1) fail(`자산 이미지 ${src} 의 컴포넌트 «${name}» 가 figma/live-assets.json 에 ${hits.length}개입니다 — 하나여야 합니다`);
   return [src, { id: hits[0].id, name: hits[0].name }];
 }));
+// **data URL 그림은 해시로 잇는다(2026-10-07).** 측정기는 같은 출처가 아닌 src 를 origin + pathname 으로 적어 data URL 이 통째로
+// 원장에 남는다(LOUIS 문서 예시의 브랜드 표식). 그 문자열의 sha256 앞 16자를 키로 쓴다 — 그림이 바뀌면 키도 바뀌어 대응이 끊긴다.
+const imageKeyOf = (src) => (/^(null|data:)/.test(src) ? `data-sha256:${createHash("sha256").update(src).digest("hex").slice(0, 16)}` : src);
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
-    const component = imageComponentBySrc.get(node.src);
+    const component = imageComponentBySrc.get(imageKeyOf(node.src));
     if (component) node.imageComponent = component;
-    else unmapped.push({ path: node.path, src: node.src, rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
+    else unmapped.push({ path: node.path, src: imageKeyOf(node.src), rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
   }
   for (const child of node.children ?? []) attachImageComponents(child, unmapped);
 };
@@ -158,7 +174,7 @@ const colour = liveColour.assertBindings({
 // LOUIS(OlYKERKOkgbxBEEoXGZW2c)의 대상 프레임. 라이브에서 읽어 확인한 install id다.
 // 별칭 route(`/mypage`→`/settings`, `/explore`→`/archive`, `/checkout`→`/upgrade`)는 제외한다 —
 // 같은 화면을 두 번 그리게 된다.
-const SCREENS = [
+const PRODUCT_SCREENS = [
   { route: "/archive", desktop: "20:2", mobile: "23:2" },
   // 허브 셋(`/nodecanvas` 219:2917 · 219:3209, `/videoeditor` 219:3403 · 219:3701, `/highlight` 29:3 · 29:44)은 여기 없다 — 서버 인증
   // 확인으로 fixture 에서 랜딩으로 넘어가 잴 수 없다(측정기 ROUTES 주석, 2026-09-28). 보드는 아직 손 조립이다(섹션 머리글 ⚠).
@@ -236,6 +252,10 @@ const SCREENS = [
     { route: "/admin/coupons/[id]/print", desktop: "224:3393", mobile: "2682:175", fixture: "session" },
     // 노드캔버스 편집기(2026-10-07) — 프로젝트 한 행 · 캔버스 문서(노드 셋 · 엣지 둘) 자리표시 시드로 연 화면. 옛 손 조립 보드 자리다.
     { route: "/nodecanvas?project=", desktop: "38:3", mobile: "38:3843", fixture: "session" },
+    // 편집기(2026-10-07) — 소스 둘 · 클립 둘 자리표시 시드. 미리보기 영상은 검은 면(바깥 주소)이다. 옛 손 조립 보드 자리다.
+    { route: "/videoeditor/[projectId]", desktop: "39:3", mobile: "39:1520", fixture: "session" },
+    // 하이라이트 완료 격자(2026-10-07) — 클립 다섯 자리표시 시드. 카드 영상은 검은 면 · 비율 4:3(CSS 기본값)이다. 옛 손 조립 보드 자리다.
+    { route: "/highlight/[projectId] completed", desktop: "220:3452", mobile: "220:3759", fixture: "session" },
   ].filter((screen) => LEDGERS.session.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
   ...(LEDGERS.public ? [
     // 약관 둘 — 떼어낸 자리를 조각 하나에 묶어 뷰포트마다 4 ~ 5 조각이다. 문장 안의 굵은 글자(`<strong>`)가 섞인 문단(개인정보 54 · 이용약관 41)은
@@ -261,6 +281,15 @@ const SCREENS = [
     { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "publicSeeded" },
   ].filter((screen) => LEDGERS.publicSeeded.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
 ];
+// LOUIS 문서 예시 보드 — `DS · Templates` 의 「Pattern · Document — 문서 스킬」 보드 안 프레임(2026-10-07).
+const LOUIS_EXAMPLE_SCREENS = [
+  { route: "document-report", desktop: "2723:534", mobile: "2723:535", fixture: "louisExamples" },
+  { route: "document", desktop: "2723:542", mobile: "2723:543", fixture: "louisExamples" },
+];
+const SCREENS = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_SCREENS : PRODUCT_SCREENS;
+// 예시 실행의 기준선 — 제품 기준선과 따로 잠근다(수와 사유는 생성기가 처음 낸 값을 보고 적는다).
+const LOUIS_EXAMPLE_CONTENT_INSTANCES = {};
+const LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG = {};
 
 const CONTEXTS = [
   { id: "desktop-1920x1080", key: "desktop" },
@@ -275,7 +304,7 @@ const CONTEXTS = [
 const PART_SECTION = "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물";
 const COUPONS = "/subscription/coupons";
 const PLAN_OPTION = (plan, price) => [plan, `${price} KRW each`];
-const PARTS = [
+const PRODUCT_PARTS = [
   {
     set: "Product/Gift Plan Option",
     about: "요금제 선물 화면의 요금제 선택 카드(role=radio 버튼, app/subscription/coupons/page.tsx). 선택된 카드는 파랑 1.5 링, 나머지는 헤어라인이다 — 측정 fixture 에서는 Lite 가 선택돼 있다.",
@@ -422,6 +451,9 @@ const PARTS = [
     ].map(([variant, context, anchor, component]) => ({ variant, route: "/pricing", context, path: "body.1.0.0.2.0.0.4", fixture: "public", anchor, component })),
   },
 ];
+// LOUIS 문서 부품(2026-10-07) — 예시 `document-report` 의 측정 서브트리에서 찍는다. 세트는 문서 스킬 보드의 부품 카탈로그 열에 있다.
+const LOUIS_DOC_PARTS = [];
+const PARTS = LOUIS_EXAMPLES ? LOUIS_DOC_PARTS : PRODUCT_PARTS;
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
 // **축 코드는 서로 겹치면 안 된다.** 첫 글자만 쓰면 `FIXED`와 `FILL`이 둘 다 `"F"`가 되어
@@ -1622,7 +1654,7 @@ for (const screen of SCREENS) {
  * billing-change-fail 과 본문 서브트리가 같아 같은 `Outcome=Failure` 를 받는다) · 체크아웃 6(billing-success · billing-fail ·
  * upgrade/fail × 두 뷰포트) · 요금제 카드 5(`/mypage/upgrade` 데스크톱) · 보이는 조각 2(같은 route 모바일)다.
  */
-const CONTENT_INSTANCES_BY_SET = {
+const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCES : {
   [COMPONENT_SETS.paymentResult]: 8,
   [COMPONENT_SETS.checkoutStatus]: 6,
   // 2026-09-29: 5 → 9 — 공개 원장 `/pricing` 데스크톱의 요금제 카드 넷이 `/mypage/upgrade` 카드와 글자 서열 · 구조 · 뷰포트가 같다(같은 제품 카드).
@@ -1663,7 +1695,7 @@ for (const entry of screens) {
   for (const skipped of entry.shells.skipped) if (contentSets.has(skipped.set)) contentSkipped.push(`${entry.route} @ ${entry.context} · ${skipped.path}: ${skipped.reason}`);
 }
 for (const set of new Set([...Object.keys(CONTENT_INSTANCES_BY_SET), ...contentSets])) {
-  if ((contentInstances[set] ?? 0) !== CONTENT_INSTANCES_BY_SET[set]) {
+  if ((contentInstances[set] ?? 0) !== (CONTENT_INSTANCES_BY_SET[set] ?? 0)) {
     fail(
       `본문 세트 ${set} 의 인스턴스가 ${contentInstances[set] ?? 0} 개입니다(기준 ${CONTENT_INSTANCES_BY_SET[set] ?? 0}). ` +
       "줄었으면 매처가 그 보드를 놓친 이유를, 늘었으면 옳은 서브트리에 붙었는지를 먼저 보고 CONTENT_INSTANCES_BY_SET 을 고치며 사유를 적으세요.",
@@ -1712,7 +1744,7 @@ const INQUIRY_FORM_PENDING_WHY = "문의 폼 · 안내 칸의 stretch 자식 —
 const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09-29 새 보드, 캡처 대조 전";
 const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 — 2026-09-30 새 보드(가장 높은 형제가 HUG 로 서고 나머지가 그 높이로 늘어나는지 캡처 대조 전)";
 // 2026-10-06 앵커 a4125565 — 랜딩 노드 캔버스 목업의 두 자리는 감싸는 층이 하나 늘어 경로만 한 단계 깊어졌다(수 · 축 · 사유는 그대로).
-const UNRESOLVED_FILL_IN_HUG_BY_PARENT = {
+const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/ @ mobile-402x874 · body.1.0.0.2.1.0.1.1.2.0.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0 · vertical": { count: 1, why: LANDING_PENDING_WHY },
@@ -1859,7 +1891,7 @@ for (const entry of screens) {
                                   colour, slots: group.slots })),
     ];
     return payloads.map((payload, index) => {
-      const name = `figma/app-screens.${slug}.${String(index).padStart(2, "0")}.draw.js`;
+      const name = `figma/${RUNNER_PREFIX}.${slug}.${String(index).padStart(2, "0")}.draw.js`;
       const draw =
         `// Generated by scripts/build-figma-app-screens.mjs. Do not edit by hand.\n` +
         `// ${entry.route} · ${entry.context} · 조각 ${index}/${groups.length}\n` +
@@ -1916,7 +1948,7 @@ for (const part of parts) {
       ...groups.map((group) => ({ ...base, colour, slots: group.slots })),
     ];
     return payloads.map((payload, index) => {
-      const name = `figma/product-parts.${slug}.${String(index).padStart(2, "0")}.draw.js`;
+      const name = `figma/${PART_RUNNER_PREFIX}.${slug}.${String(index).padStart(2, "0")}.draw.js`;
       const draw =
         `// Generated by scripts/build-figma-app-screens.mjs. Do not edit by hand.\n` +
         `// 제품 부품 ${part.set} · ${part.variant} ← ${part.route} @ ${part.context} ${part.path}` +
@@ -1960,7 +1992,7 @@ outputs.push({ absolute: partsPlanPath, expected: `${JSON.stringify(partsPlan, n
 // 7→6으로 줄자 `settings.desktop.06`이 남았고, 그게 05와 같은 path를 들고 있어 중복처럼 보였다.
 const wanted = new Set(outputs.map((output) => output.absolute));
 const orphans = readdirSync(resolve(repoRoot, "figma"))
-  .filter((name) => /^(app-screens|product-parts)\..+\.\d\d\.draw\.js$/.test(name))
+  .filter((name) => new RegExp(`^(${RUNNER_PREFIX}|${PART_RUNNER_PREFIX})\\..+\\.\\d\\d\\.draw\\.js$`).test(name))
   .map((name) => resolve(repoRoot, "figma", name))
   .filter((absolute) => !wanted.has(absolute));
 

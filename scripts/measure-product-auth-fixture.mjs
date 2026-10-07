@@ -8,10 +8,11 @@ import { delimiter, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { productFontFile } from "./lib/product-font.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
-import { FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
+import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
 // 보호 route의 로그인 후 shell과 실패/빈 기본 상태를 렌더한다. API 401/500도 숨기지 않고 함께
@@ -30,8 +31,14 @@ const session = process.argv.includes("--session");
 // `--public-seeded`(2026-10-07): 공개 모드와 같은 로그아웃 서버에 가짜 Supabase(세션 쿠키 없음) + 공개 시드를 붙여 상세 화면을 잰다. 원장을 따로 쓴다.
 const publicSeeded = process.argv.includes("--public-seeded");
 const publicMode = process.argv.includes("--public") || publicSeeded;
-if ([anonymous, session, publicMode].filter(Boolean).length > 1) throw new Error("[product-auth-fixture] --anonymous · --session · --public 은 하나만 줍니다");
-const outputRelative = anonymous ? "migration/product.anonymous-fixture.json"
+// **LOUIS 예시 모드(`--louis-examples`, 2026-10-07).** 제품 화면이 아니라 이 저장소의 정적 예시(`packages/css/examples/*.html`)를 같은
+// 측정 · 안정화 · 정규화 코드로 잰다 — 문서 패턴 예시를 Figma 레이어로 생성하려고(소유자 「그냥 이미지를 갖다 넣어 놨네」). Next 서버 대신
+// `packages/css` 를 정적으로 내고, 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일(`apps/web/app/fonts/PretendardVariable.woff2`)로
+// 대 준다(바깥 요청은 끊는다). 제품 원장들과 같은 `productCommit` 을 적는다 — 글꼴의 출처이고 생성기가 원장끼리 같은 앵커인지 본다.
+const louisExamples = process.argv.includes("--louis-examples");
+if ([anonymous, session, publicMode, louisExamples].filter(Boolean).length > 1) throw new Error("[product-auth-fixture] --anonymous · --session · --public · --louis-examples 는 하나만 줍니다");
+const outputRelative = louisExamples ? "migration/louis.document-examples.json"
+  : anonymous ? "migration/product.anonymous-fixture.json"
   : session ? "migration/product.session-fixture.json"
   : publicSeeded ? "migration/product.public-seeded-fixture.json"
   : publicMode ? "migration/product.public-fixture.json"
@@ -51,17 +58,17 @@ const unavailable = (reason) => {
 if (!existsSync(resolve(productRoot, ".git"))) {
   unavailable("제품 저장소가 없습니다: " + productRoot);
 }
-if (!fixtureRoot) {
+if (!fixtureRoot && !louisExamples) {
   unavailable("KLIPSE_PRODUCT_FIXTURE_ROOT 또는 KLIPSE_PRODUCT_BUILD_ROOT가 없습니다");
 }
-if (!existsSync(resolve(fixtureRoot, ".git"))) {
+if (!louisExamples && !existsSync(resolve(fixtureRoot, ".git"))) {
   unavailable("fixture 저장소가 아닙니다: " + fixtureRoot);
 }
 
 const gitAt = (cwd, args, encoding = "utf8") =>
   execFileSync("git", args, { cwd, encoding, maxBuffer: 128 * 1024 * 1024 });
 const commit = gitAt(productRoot, ["rev-parse", productRef]).trim();
-const fixtureCommit = gitAt(fixtureRoot, ["rev-parse", "HEAD"]).trim();
+const fixtureCommit = louisExamples ? commit : gitAt(fixtureRoot, ["rev-parse", "HEAD"]).trim();
 if (fixtureCommit !== commit) {
   unavailable(
     "fixture HEAD가 고정 커밋과 다릅니다: " +
@@ -70,6 +77,7 @@ if (fixtureCommit !== commit) {
 }
 
 const assertCleanFixture = (stage) => {
+  if (louisExamples) return;
   const status = gitAt(fixtureRoot, [
     "status",
     "--porcelain=v1",
@@ -83,13 +91,13 @@ const assertCleanFixture = (stage) => {
 };
 assertCleanFixture("측정 전");
 
-const webRoot = resolve(fixtureRoot, "apps/web");
+const webRoot = louisExamples ? null : resolve(fixtureRoot, "apps/web");
 // 제품은 `.npmrc` 에 `node-linker=hoisted` 를 쓴다(첫 커밋부터). 그래서 `next` 는
 // **workspace 가 아니라 저장소 루트** `node_modules` 에 실체화된다 —
 // `apps/web/node_modules/next` 는 어느 시점에도 존재한 적이 없다. 한 자리만 보던 검사는
 // fixture 를 제대로 갖춰도 「실행 파일이 없습니다」로 죽었고, 그래서 이 게이트는
 // **한 번도 실제로 측정한 적이 없다.** 두 자리를 다 본다.
-const nextCli = [
+const nextCli = louisExamples ? "(louis-examples)" : [
   resolve(webRoot, "node_modules/next/dist/bin/next"),
   resolve(fixtureRoot, "node_modules/next/dist/bin/next"),
 ].find((candidate) => existsSync(candidate));
@@ -235,6 +243,12 @@ const SESSION_ROUTES = [
   // 쿠폰 인쇄(2026-10-07) — 관리자 클라이언트로 캠페인 한 행과 코드 목록을 읽는다. 빈 목록이면 `notFound()` 라 가짜 Supabase 의
   // 자리표시 시드(`lib/fixture-seeds.mjs`, 캠페인 하나 · 코드 10장 · 묶음 둘)로 연다. 글자는 자리표시이고 크기 · 색 · 간격은 잰 값이다.
   { pattern: "/admin/coupons/[id]/print", url: `/admin/coupons/${FIXTURE_COUPON_CAMPAIGN_ID}/print`, id: "/admin/coupons/[id]/print" },
+  // 노드캔버스 편집기(2026-10-07) — 프로젝트 한 행과 캔버스 문서(노드 셋 · 엣지 둘)를 시드로 연다(`lib/fixture-seeds.mjs`). 허브 목록은 그대로 빈 상태다.
+  { pattern: "/nodecanvas", url: `/nodecanvas?project=${FIXTURE_CANVAS_PROJECT_ID}`, id: "/nodecanvas?project=" },
+  // 편집기(2026-10-07) — 소스 둘 · 클립 둘의 편집 프로젝트를 시드로 연다. 미리보기 영상은 바깥 주소라 검은 면이다(크롭 비율은 소스 메타).
+  { pattern: "/videoeditor/[projectId]", url: `/videoeditor/${FIXTURE_EDITOR_PROJECT_ID}`, id: "/videoeditor/[projectId]" },
+  // 하이라이트 완료 격자(2026-10-07) — 클립 다섯의 추출 완료 작업을 시드로 연다. 카드 영상은 검은 면 · 비율은 CSS 기본값(4:3)이다.
+  { pattern: "/highlight/[projectId]", url: `/highlight/${FIXTURE_HIGHLIGHT_PROJECT_ID}`, id: "/highlight/[projectId] completed", fullPage: true },
 ];
 
 // **공개 모드가 재는 화면(`--public`).** 뷰포트보다 긴 공개 페이지 — 문서 전체를 잰다(`fullPage`). 데이터 없이도 제품과 같은 화면이
@@ -269,7 +283,12 @@ const PUBLIC_SEEDED_ROUTES = [
 
 // 문자열·객체 항목을 하나의 모양으로 편다. `expectedSearch` 는 redirect 판정에 쓴다 —
 // 「의도한 search 로 끝났는가」를 물어야 하므로 빈 문자열을 못박을 수 없다.
-const SCREEN_SPECS = (anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
+// LOUIS 예시 — 문서 패턴의 부품 전수 예시와 소유자 승인 운영안(정본). 문서 전체를 잰다.
+const LOUIS_EXAMPLE_ROUTES = [
+  { pattern: "/examples/document-report.html", id: "document-report", file: "packages/css/examples/document-report.html", fullPage: true },
+  { pattern: "/examples/document.html", id: "document", file: "packages/css/examples/document.html", fullPage: true },
+];
+const SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -337,6 +356,10 @@ const routeFiles = SCREEN_SPECS.map((spec) => ({
   path: spec.file ?? "apps/web/app" + spec.pattern + "/page.tsx",
 }));
 for (const routeFile of routeFiles) {
+  if (louisExamples) {
+    if (!existsSync(resolve(repoRoot, routeFile.path))) unavailable("예시 파일이 없습니다: " + routeFile.path);
+    continue;
+  }
   try {
     gitAt(productRoot, ["cat-file", "-e", commit + ":" + routeFile.path]);
   } catch {
@@ -360,7 +383,23 @@ const reservePort = async () => {
   return port;
 };
 
+// 예시 모드의 정적 서버 — `packages/css` 를 낸다(예시는 `../generated/*.css` 를 상대 경로로 읽는다).
+const startStaticServer = async () => {
+  const { createServer: createHttpServer } = await import("node:http");
+  const { extname } = await import("node:path");
+  const root = resolve(repoRoot, "packages/css");
+  const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2" };
+  const server = createHttpServer((request, response) => {
+    const path = resolve(root, "." + decodeURIComponent(new URL(request.url, "http://x").pathname));
+    if (!path.startsWith(root) || !existsSync(path)) { response.writeHead(404); response.end(); return; }
+    response.writeHead(200, { "content-type": TYPES[extname(path)] ?? "application/octet-stream" });
+    response.end(readFileSync(path));
+  });
+  await new Promise((done) => server.listen(0, "127.0.0.1", done));
+  return { url: `http://127.0.0.1:${server.address().port}`, stop: () => new Promise((done) => server.close(() => done())) };
+};
 const startFixtureServer = async () => {
+  if (louisExamples) return startStaticServer();
   const port = await reservePort();
   const url = "http://127.0.0.1:" + port;
   // **`--webpack` 을 명시한다.** Next 16 부터 `next dev` 의 기본 번들러가 Turbopack 인데,
@@ -643,6 +682,11 @@ const firstDifference = (recorded, measured, path = "$") => {
 const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
 const fixtureServer = await startFixtureServer();
+// 예시 모드의 글꼴 — 예시 CSS 가 쓰는 이름(`Pretendard Variable`)으로 제품 글꼴 파일을 싣는다.
+const LOUIS_EXAMPLE_FONT_CSS = louisExamples
+  ? '@font-face{font-family:"Pretendard Variable";src:url(data:font/woff2;base64,' + productFontFile(productRoot, commit).toString("base64") +
+    ') format("woff2-variations");font-weight:45 920;font-style:normal;font-display:block}\n'
+  : "";
 let browser = null;
 const screens = {};
 const round = (value) => Math.round(value * 10_000) / 10_000;
@@ -651,6 +695,10 @@ try {
   for (const contextSpec of CONTEXTS) {
     screens[contextSpec.id] = {};
     for (const spec of SCREEN_SPECS) {
+      // 진행을 stderr 로 찍는다(2026-10-07) — 측정기는 끝날 때까지 아무것도 내지 않아, 한 화면이 안정화 한도(180초)를 몇 번씩 돌며 멈춰도
+      // 어느 화면인지 보이지 않았다(시드 화면을 더한 세션 측정이 46분 동안 조용했다). 원장에는 영향이 없다.
+      const startedAt = Date.now();
+      process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} …\n`);
       const context = await browser.newContext({
         viewport: { width: contextSpec.width, height: contextSpec.height },
         colorScheme: "light",
@@ -675,6 +723,11 @@ try {
         });
         await context.route("**/*", async (intercepted) => {
           const target = new URL(intercepted.request().url());
+          // 예시의 Pretendard Variable(CDN)은 제품 글꼴 파일로 대 준다 — 같은 가변 글꼴이고, 바깥 요청은 끊는다.
+          if (louisExamples && /pretendard/i.test(target.href) && target.pathname.endsWith(".css")) {
+            await intercepted.fulfill({ status: 200, contentType: "text/css", body: LOUIS_EXAMPLE_FONT_CSS });
+            return;
+          }
           if (target.origin === fixtureServer.url || target.origin === fakeSupabase?.url || target.protocol === "data:") {
             await intercepted.continue();
           } else {
@@ -1225,6 +1278,7 @@ try {
         };
       } finally {
         await context.close();
+        process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} ${Math.round((Date.now() - startedAt) / 1000)}초\n`);
       }
     }
   }
@@ -1365,16 +1419,20 @@ for (const contextSpec of CONTEXTS) {
 const MEASURE_METHOD =
   "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.";
 const payload = JSON.stringify({
-  $comment: session
+  $comment: louisExamples
+    ? "생성물. scripts/measure-product-auth-fixture.mjs --louis-examples 가 이 저장소의 LOUIS 문서 예시(packages/css/examples)를 정적 서버로 내 1920×1080 · 402×874 에서 문서 전체를 잰다. 글꼴은 제품 PretendardVariable.woff2. 직접 수정하지 않는다."
+    : session
     ? "생성물. scripts/measure-product-auth-fixture.mjs --session 이 고정 커밋의 clean Next dev server를 로컬 가짜 Supabase(인증은 고정 사용자, 데이터 조회는 빈 목록)에 붙여 띄우고 세션 쿠키를 넣어, 서버가 로그인을 확인하는 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
     : publicMode
     ? "생성물. scripts/measure-product-auth-fixture.mjs --public 이 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 뷰포트보다 긴 공개 페이지를 문서 전체까지 직접 렌더한다. 직접 수정하지 않는다."
     : anonymous
     ? "생성물. scripts/measure-product-auth-fixture.mjs --anonymous 가 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 공개 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
     : "생성물. scripts/measure-product-auth-fixture.mjs가 고정 커밋의 development-only auth bypass를 켠 clean Next dev server에서 보호 route 기본 상태를 직접 렌더한다. 직접 수정하지 않는다.",
-  $evidenceClass: session ? "development-session-fixture" : publicMode ? "development-public-fixture"
+  $evidenceClass: louisExamples ? "louis-static-example" : session ? "development-session-fixture" : publicMode ? "development-public-fixture"
     : anonymous ? "development-anonymous-fixture" : "development-auth-fixture",
-  $notEvidenceFor: anonymous || publicMode
+  $notEvidenceFor: louisExamples
+    ? ["제품 화면 parity", "문서 내용 — 예시 문장 · 수치는 패턴 시연용이다"]
+    : anonymous || publicMode
     ? ["운영 인증 흐름(OAuth · 메일 발송) parity", "실사용자 데이터 parity", "API 성공 상태 parity"]
     : [
       "운영 인증 세션 parity",
@@ -1382,7 +1440,9 @@ const payload = JSON.stringify({
       "API 성공 상태 parity",
       "인증 후 페이지 완료 판정",
     ],
-  $method: session
+  $method: louisExamples
+    ? "packages/css 를 로컬 정적 서버로 내고 예시 문서를 연다. 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일로 대 주고 나머지 바깥 요청은 끊는다. fullPage 로 문서 끝까지의 노드를 잰다. " + MEASURE_METHOD
+    : session
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
     : publicSeeded
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다(세션 쿠키 없음). Supabase URL은 로컬 가짜 Supabase 이고, /rest/v1/* 조회는 fixture.seededTables 의 표만 자리표시 행으로(eq · order 를 PostgREST 처럼 적용) 나머지는 빈 목록으로 답한다. 외부 요청은 차단한다. fullPage 화면은 문서 끝까지의 노드를 잰다. " + MEASURE_METHOD
@@ -1396,10 +1456,10 @@ const payload = JSON.stringify({
   productCommit: commit,
   fixture: {
     nodeEnv: "development",
-    devAuthBypass: !anonymous && !publicMode,
-    mockSupabase: session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
+    devAuthBypass: !anonymous && !publicMode && !louisExamples,
+    mockSupabase: louisExamples ? "none-static-example" : session ? "local-fake-auth-seeded-tables" : publicSeeded ? "local-fake-no-session-seeded-tables" : "unreachable-localhost",
     // 시드가 든 표 — 그 표에서 온 글자는 제품 문구가 아니라 자리표시다(`lib/fixture-seeds.mjs`).
-    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, rows.length])) } : {}),
+    ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set(fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`))].sort() } : {}),
     externalRequests: "blocked",
     locale: "en",
@@ -1417,7 +1477,7 @@ const payload = JSON.stringify({
     screenAliases,
     repeatedSubtreesByContext,
   },
-  sourceQuotes: anonymous || publicMode ? [
+  sourceQuotes: louisExamples ? [] : anonymous || publicMode ? [
     // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
     sourceQuote("apps/web/app/login/page.tsx", 316),
     sourceQuote("apps/web/app/login/page.tsx", 318),
@@ -1501,6 +1561,6 @@ if (checkOnly) {
 }
 
 console.log(
-  "[product-auth-fixture] " + (anonymous ? "(로그아웃) " : session ? "(세션) " : publicSeeded ? "(공개 시드 · 전체 페이지) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
+  "[product-auth-fixture] " + (louisExamples ? "(LOUIS 예시 · 전체 페이지) " : anonymous ? "(로그아웃) " : session ? "(세션) " : publicSeeded ? "(공개 시드 · 전체 페이지) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
     SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

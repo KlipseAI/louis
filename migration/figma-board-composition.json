@@ -13,23 +13,23 @@
   "$primitiveSiteSource": "정본 자리·제외 목록은 figma/app-screens.plan.json 의 louisPrimitiveSites · louisPrimitiveExclusions 에서 읽고, 제품 레시피 상자는 migration/product.rendered-components.json 의 rendered[probe] 에서 읽는다. 어느 값도 이 열거기에 베끼지 않는다 — 베낀 목록은 제품이나 LOUIS 가 움직인 날 조용히 낡고, 그때부터 이 원장은 「제품이 문다」를 근거 없이 말하게 된다.",
   "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
-  "boardCount": 120,
-  "rawNodesBeforePruning": 7358,
+  "boardCount": 122,
+  "rawNodesBeforePruning": 7370,
   "counts": {
-    "total": 7473,
+    "total": 7485,
     "instance": 302,
     "replaceable": 0,
     "bespoke": 219,
     "blocked": 12,
-    "missing": 1353,
-    "structural": 5587,
+    "missing": 1355,
+    "structural": 5597,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
     "instanceOverCandidates": 16,
     "target": 302,
-    "candidates": 1886
+    "candidates": 1888
   },
   "byInstanceSet": {
     "Button": 77,
@@ -84,13 +84,13 @@
   },
   "structuralByKind": {
     "surface": 869,
-    "frame": 2967,
-    "text": 1642,
+    "frame": 2973,
+    "text": 1646,
     "image": 109
   },
   "missingByCandidateClause": {
     "c-painted-mark": 920,
-    "a-interactive": 357,
+    "a-interactive": 359,
     "b-vector": 75,
     "d-control-group": 1
   },
@@ -649,6 +649,44 @@
         "blocked": 0,
         "missing": 0,
         "structural": 8,
+        "unclassified": 0
+      }
+    },
+    {
+      "route": "global-error",
+      "context": "desktop-1920x1080",
+      "frameId": "37:33",
+      "file": "figma/app-screens.global-error.desktop.00.draw.js",
+      "files": [
+        "figma/app-screens.global-error.desktop.00.draw.js"
+      ],
+      "counts": {
+        "total": 6,
+        "instance": 0,
+        "replaceable": 0,
+        "bespoke": 0,
+        "blocked": 0,
+        "missing": 1,
+        "structural": 5,
+        "unclassified": 0
+      }
+    },
+    {
+      "route": "global-error",
+      "context": "mobile-402x874",
+      "frameId": "37:41",
+      "file": "figma/app-screens.global-error.mobile.00.draw.js",
+      "files": [
+        "figma/app-screens.global-error.mobile.00.draw.js"
+      ],
+      "counts": {
+        "total": 6,
+        "instance": 0,
+        "replaceable": 0,
+        "bespoke": 0,
+        "blocked": 0,
+        "missing": 1,
+        "structural": 5,
         "unclassified": 0
       }
     },
@@ -11955,6 +11993,140 @@
       "component": "Button",
       "size": "md",
       "candidateClause": "a-interactive"
+    },
+    "global-error@desktop-1920x1080#root": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        266.67,
+        162.5
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@desktop-1920x1080#0": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        266.67,
+        48
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@desktop-1920x1080#0.0": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "h1",
+      "rect": [
+        266.67,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "global-error@desktop-1920x1080#1": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        266.67,
+        72
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@desktop-1920x1080#1.0": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "p",
+      "rect": [
+        266.67,
+        48
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "global-error@desktop-1920x1080#2": {
+      "board": "figma/app-screens.global-error.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        103.78,
+        42.5
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "global-error@mobile-402x874#root": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        267.17,
+        162.5
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@mobile-402x874#0": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        267.17,
+        48
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@mobile-402x874#0.0": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "h1",
+      "rect": [
+        267.17,
+        36
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "global-error@mobile-402x874#1": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "margin",
+      "rect": [
+        267.17,
+        72
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "global-error@mobile-402x874#1.0": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "p",
+      "rect": [
+        267.17,
+        48
+      ],
+      "verdict": "structural",
+      "rule": "text",
+      "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
+    },
+    "global-error@mobile-402x874#2": {
+      "board": "figma/app-screens.global-error.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        103.78,
+        42.5
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/highlight/[projectId]/shorts/[shortId]@desktop-1920x1080#root": {
       "board": "figma/app-screens.highlight--projectId--shorts--shortId-.desktop.00.draw.js",

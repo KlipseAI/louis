@@ -51,6 +51,10 @@ const checkOnly = process.argv.includes("--check");
 // **`--only=<화면 id>`(여러 번, 2026-10-07).** 그 화면만 다시 재고 나머지는 기록된 원장에서 그대로 싣는다 — 세션 측정 전체는 45분이
 // 넘고(노드캔버스 · 편집기), 다시 재면 이미 보낸 보드의 값이 흔들릴 수 있다. 실린 화면은 스타일 표를 되풀어 측정 직후와 같은 모양으로
 // 넣으므로, 뒤의 스타일 묶기 · 반복 서브트리 · 별칭은 전체 실행과 같은 길을 탄다. 가짜 Supabase 요청 목록은 기록과 이번 실행의 합이다.
+// **`--shots=<폴더>`(2026-10-07).** 잰 직후의 페이지를 캡처로 남긴다 — 보드와 제품을 나란히 대조하는 용도다. 원장은 쓰지 않는다
+// (캡처만 원하는 실행이 원장을 흔들지 않게). `--only` 와 함께 쓰면 그 화면만 연다.
+const shotsArg = process.argv.find((arg) => arg.startsWith("--shots="));
+const shotsDir = shotsArg ? resolve(shotsArg.slice("--shots=".length)) : null;
 const onlyIds = new Set(process.argv.filter((arg) => arg.startsWith("--only=")).map((arg) => arg.slice("--only=".length)));
 if (onlyIds.size > 0 && checkOnly) {
   console.error("[product-auth-fixture] --only 와 --check 는 함께 쓸 수 없습니다");
@@ -231,6 +235,11 @@ const ANONYMOUS_ROUTES = [
   "/recover",
   "/data-deletion-status",
   { pattern: "/fixture-no-such-page", url: "/fixture-no-such-page", id: "404", file: "apps/web/app/not-found.tsx" },
+  // **전체 오류 화면(`app/global-error.tsx`) — 2026-10-07.** 루트 레이아웃이 던져야 서는 화면이다. 루트의 `I18nProvider` effect 가
+  // `window.localStorage.getItem` 을 try 없이 부르므로(`components/landing/system/I18nProvider.tsx` 43), 저장소가 막힌 브라우저
+  // (사이트 데이터 차단 — 접근이 `SecurityError` 를 던진다)에서는 루트 경계가 선다. 측정 문맥에서 그 조건만 만든다(`blockStorage`).
+  // 제품 코드는 건드리지 않는다. 어느 페이지든 같으므로 가장 가벼운 `/login` 을 연다.
+  { pattern: "/login", id: "global-error", file: "apps/web/app/global-error.tsx", blockStorage: true },
 ];
 
 // **세션 모드가 재는 화면(`--session`).** 허브 셋 — 서버 확인을 통과하면 로그인한 사용자의 작업공간이 그려진다. 가짜 Supabase 는
@@ -310,6 +319,7 @@ const SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMO
     ...(spec.file ? { file: spec.file } : {}),
     ...(spec.fullPage ? { fullPage: true } : {}),
     ...(spec.reducedMotion ? { reducedMotion: true } : {}),
+    ...(spec.blockStorage ? { blockStorage: true } : {}),
     expectedPath: target.pathname,
     expectedSearch: target.search,
   };
@@ -758,6 +768,24 @@ try {
           localStorage.setItem("facen-language", "en");
           localStorage.setItem("klipse-theme", "light");
         });
+        // 저장소가 막힌 브라우저 — `localStorage` 접근이 던진다(위의 언어 · 테마 기록 뒤에 건다). `global-error` 화면만 쓴다.
+        if (spec.blockStorage) {
+          await context.addInitScript(() => {
+            Object.defineProperty(window, "localStorage", {
+              configurable: true,
+              get() { throw new DOMException("The operation is insecure.", "SecurityError"); },
+            });
+            // 개발 서버는 그 오류를 오버레이(`nextjs-portal`)로 띄워 전체 오류 화면을 덮는다 — 제품 화면이 아니므로 이 화면에서만 숨긴다.
+            const hide = () => {
+              const style = document.createElement("style");
+              style.textContent = "nextjs-portal{display:none!important}";
+              (document.head ?? document.documentElement).appendChild(style);
+            };
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hide); else hide();
+            new MutationObserver(() => { if (!document.querySelector("style[data-fixture-hide-portal]")) { const style = document.createElement("style"); style.dataset.fixtureHidePortal = ""; style.textContent = "nextjs-portal{display:none!important}"; document.documentElement.appendChild(style); } })
+              .observe(document, { childList: true, subtree: true });
+          });
+        }
         await context.route("**/*", async (intercepted) => {
           const target = new URL(intercepted.request().url());
           // 예시의 Pretendard Variable(CDN)은 제품 글꼴 파일로 대 준다 — 같은 가변 글꼴이고, 바깥 요청은 끊는다.
@@ -1313,6 +1341,11 @@ try {
           localApiResponses: uniqueRecords(localResponses),
           localApiFailures: uniqueRecords(localFailures),
         };
+        if (shotsDir) {
+          const file = resolve(shotsDir, `${contextSpec.id}__${spec.id.replace(/[^A-Za-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")}.png`);
+          await page.screenshot({ path: file, fullPage: Boolean(spec.fullPage) });
+          process.stderr.write(`[product-auth-fixture] 캡처 ${file}\n`);
+        }
       } finally {
         await context.close();
         process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} ${Math.round((Date.now() - startedAt) / 1000)}초\n`);
@@ -1594,6 +1627,8 @@ if (checkOnly) {
     );
     process.exit(1);
   }
+} else if (shotsDir) {
+  console.error("[product-auth-fixture] --shots: 캡처만 남기고 원장은 쓰지 않았다 — " + shotsDir);
 } else {
   atomicWriteBatch([{ absolute: outputPath, expected: payload }]);
 }

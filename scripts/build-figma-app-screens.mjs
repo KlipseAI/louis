@@ -261,6 +261,8 @@ const PRODUCT_SCREENS = [
   { route: "/recover", desktop: "188:1166", mobile: "188:1184", fixture: "anonymous" },
   { route: "/data-deletion-status", desktop: "214:2965", mobile: "214:2980", fixture: "anonymous" },
   { route: "404", desktop: "37:3", mobile: "37:10", fixture: "anonymous" },
+  // 전체 오류 화면(2026-10-07) — 측정기가 저장소가 막힌 브라우저를 흉내 내 루트 경계를 세운다(measure-product-auth-fixture `blockStorage`).
+  { route: "global-error", desktop: "37:33", mobile: "37:41", fixture: "anonymous" },
   { route: "/settings", desktop: "28:3", mobile: "28:44" },
   { route: "/subscription", desktop: "190:1172", mobile: "190:1497" },
   { route: "/analytics/youtube", desktop: "30:3", mobile: "30:33" },
@@ -1678,7 +1680,9 @@ for (const screen of SCREENS) {
   for (const context of CONTEXTS) {
     const measured = source.screens[context.id]?.[screen.route];
     if (!measured?.tree?.length) fail(`측정 트리가 없습니다: ${screen.route} @ ${context.id}`);
-    if (measured.theme !== measuredTheme) fail(`화면 테마 ${measured.theme} 가 fixture 테마 ${measuredTheme} 와 다릅니다: ${screen.route} @ ${context.id}`);
+    // 테마 속성이 아예 없는 화면은 테마를 쓰지 않는다 — 전체 오류 화면(`global-error.tsx`)은 루트 레이아웃 대신 제 `<html lang="ko">` 와
+    // 인라인 색으로 선다. 그 화면만 검사에서 뺀다(측정 테마가 다른 화면은 여전히 멈춘다).
+    if (measured.theme !== measuredTheme && !(measured.theme == null && screen.route === "global-error")) fail(`화면 테마 ${measured.theme} 가 fixture 테마 ${measuredTheme} 와 다릅니다: ${screen.route} @ ${context.id}`);
     if (measured.redirected) fail(`리다이렉트된 route는 대상이 아닙니다: ${screen.route}`);
 
     const tree = normalizeAuthFixtureTree(measured.tree, source.computedStyles);

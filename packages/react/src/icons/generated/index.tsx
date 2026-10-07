@@ -44,6 +44,7 @@ export type IconName =
   | "pause"
   | "play"
   | "plus"
+  | "question-circle"
   | "shield-check"
   | "sun"
   | "text"
@@ -405,6 +406,16 @@ export function IconPlus(props: IconProps): JSX.Element {
     <IconRoot {...props} name="plus">
       <line x1="3.75" y1="12" x2="20.25" y2="12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <line x1="12" y1="3.75" x2="12" y2="20.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconQuestionCircle(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="question-circle">
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 17h.01" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

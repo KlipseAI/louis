@@ -21,7 +21,7 @@
         "sets": 66,
         "variants": 785
       },
-      "icons": 46,
+      "icons": 47,
       "templates": 9
     }
   },
@@ -8418,11 +8418,11 @@
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 11,
         "rawFills": 0,
         "boundStrokes": 1,
         "rawStrokes": 0,
-        "textStyled": 5,
+        "textStyled": 7,
         "textUnstyled": 0
       },
       "geometry": {
@@ -8536,10 +8536,12 @@
             },
             "Action": {
               "width": [
-                204
+                384,
+                96
               ],
               "height": [
-                32
+                239.3,
+                40
               ],
               "paddingBlock": [
                 0
@@ -8556,7 +8558,7 @@
             432
           ],
           "height": [
-            138
+            405.3
           ],
           "paddingBlock": [
             24
@@ -19298,6 +19300,14 @@
                 2
               ]
             },
+            "Actions": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
             "Action": {
               "height": [
                 26
@@ -19317,13 +19327,21 @@
               "paddingInlineEnd": [
                 12
               ]
+            },
+            "Close": {
+              "width": [
+                28
+              ],
+              "height": [
+                28
+              ]
             }
           },
           "height": [
             65
           ],
           "width": [
-            390
+            422
           ],
           "paddingBlock": [
             12
@@ -19454,12 +19472,28 @@
                 2
               ]
             },
+            "TitleRow": {
+              "paddingInlineEnd": [
+                20
+              ]
+            },
             "Tail": {
               "width": [
                 10
               ],
               "height": [
                 10
+              ]
+            },
+            "Close": {
+              "width": [
+                44
+              ],
+              "height": [
+                42
+              ],
+              "paddingInlineEnd": [
+                8
               ]
             }
           },
@@ -20850,6 +20884,33 @@
         "만들기",
         "새로",
         "추가"
+      ]
+    },
+    "question-circle": {
+      "figmaName": "icon/question-circle",
+      "width": 24,
+      "height": 24,
+      "vectors": 3,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "faq",
+        "help",
+        "question",
+        "도움말",
+        "물음",
+        "질문"
       ]
     },
     "shield-check": {

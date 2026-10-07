@@ -291,8 +291,12 @@ const CAPTURE = {
   // `undefined` 로 떨어진다 — 그 칸의 곡률이 **아무 값과도 대조되지 않는다.** Dialog 의 sheet 가
   // 같은 이유로 같은 모양을 쓴다. 좌우는 대칭이라 왼쪽 두 모서리만 건다 (DS-D-0052).
   "TextField": {"key":{"by":["Size","LabelBehavior","Join"],"omit":{"Join":"none"}},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
-  "Toast": {"key":{"by":["Layout"]},"effects":["self"],"parts":{"Content":["itemSpacing"],"Action":["height","cornerRadius","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"]}},
-  "Tooltip": {"key":{"by":["Layout"]},"parts":{"Arrow":["width","height"],"Tail":["width","height"],"Stack":["itemSpacing"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow","Tail"]},
+  // `Actions` 는 callout 의 행동 단추와 닫기를 묶는 줄이고 `Close` 는 그 안의 닫기 칸이다(2026-10-07). 닫기의 쉬는
+  // 불투명도 72% 는 담지 않는다 — 자손 값은 소수 한 자리(r1)에서 접혀 0.7 로 돌아오므로 계약 값과 만날 수 없다.
+  "Toast": {"key":{"by":["Layout"]},"effects":["self"],"parts":{"Content":["itemSpacing"],"Actions":["itemSpacing","layoutMode"],"Action":["height","cornerRadius","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Close":["width","height"]}},
+  // 코치마크의 닫기(`Close`, 표면 안 오른쪽 위에 절대 배치된 칸)와 제목 줄(`TitleRow`, 닫기와 겹치지 않게 오른쪽을 비운다)을
+  // 담는다(2026-10-07). 닫기의 쉬는 불투명도 72% 는 담지 않는다 — 자손 값은 소수 한 자리(r1)에서 접혀 계약 값과 만날 수 없다.
+  "Tooltip": {"key":{"by":["Layout"]},"parts":{"Arrow":["width","height"],"Tail":["width","height"],"Stack":["itemSpacing"],"TitleRow":["paddingInlineEnd"],"Close":["width","height","paddingInlineEnd"]},"strokes":["self"],"effects":["self"],"outsideParts":["Arrow","Tail"]},
   // **손잡이 여덟 자리는 축이 아니라 슬롯이고, 축은 «어느 벌을 내놓는가» 하나다**(DS-D-0060).
   // 그래서 키가 `Handles` 다. 네 모서리는 이름이 하나(`HandleCorner`)로 겹치는데, 채취가 같은
   // 이름의 값을 한 자루에 모아 중복을 접으므로 넷이 어긋나면 배열이 길어져 그 사실이 보인다 —

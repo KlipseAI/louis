@@ -683,7 +683,15 @@
           "tailOffsetInline": 24,
           "$tailOffsetInline": "정렬 축에서 꼬리가 서는 자리. 제품은 flow 좌표에 left 24 로 놓는다.",
           "tailOffsetBlock": -6,
-          "$tailOffsetBlock": "표면 밖으로 나가는 깊이. 제품 -top-3 = -6."
+          "$tailOffsetBlock": "표면 밖으로 나가는 깊이. 제품 -top-3 = -6.",
+          "closeWidth": 44,
+          "$closeWidth": "44. 닫기 칸의 폭이다(tooltip.css `.louis-tooltip__close`, 2026-10-07 제품 캔버스 도움말 작업 브랜치). 표면 안 오른쪽 위 모서리에 절대 배치로 서서 흐름에 끼지 않는다 — 표면 높이 64 를 바꾸지 않는다. 소유자가 「너무 안으로 들어와」라며 세 번 고친 자리다.",
+          "closeHeight": 42,
+          "$closeHeight": "42. 닫기 칸의 높이다. 42 의 가운데 21 = 안쪽 여백 12 + 제목 줄 18 의 절반 9 라 세로 가운데에 놓인 글리프가 제목 줄과 나란하다.",
+          "closeGlyphInset": 8,
+          "$closeGlyphInset": "space-control-sm 8. 글리프가 닫기 칸의 오른쪽 끝에서 들어오는 거리다. 칸이 글리프를 오른쪽에 붙여 두고 이 값만큼 띄운다.",
+          "closeTitleInset": 20,
+          "$closeTitleInset": "20. 닫기가 있으면 제목이 오른쪽을 이만큼 비워 글리프와 겹치지 않는다(tooltip.css 의 `:has(> .louis-tooltip__close)` 규칙). 소비처가 이 한 줄뿐이라 토큰을 세우지 않고 리터럴로 둔다."
         }
       },
       "states": {
@@ -766,6 +774,10 @@
           "$actionPaddingInline": "space-control-md 12. 세로(4)보다 넓다 — 알약 버튼의 좌우가 세로보다 넓은 것이 이 저장소의 기본 비례다.",
           "actionRadius": 8,
           "$actionRadius": "radius-control-sm 8. 제품 rounded-8 과 같다.",
+          "actionsGap": 4,
+          "$actionsGap": "space-control-xs 4. 행동 단추와 닫기를 한 덩어리로 붙이는 간격이다(2026-10-07, toast.css `.louis-toast__actions`). 본문과 행동 사이(gap 16)보다 가깝다 — 둘이 한 묶음으로 읽혀야 한다.",
+          "closeSize": 28,
+          "$closeSize": "28. 닫기의 누르는 칸이다(toast.css `.louis-toast__close`, 제품 `w-14 h-14`). 컨트롤 사다리에 없는 값이지만 콜아웃 한 줄 높이 안에 들어가는 최대라 행동 단추(26)와 나란히 서도 줄이 늘지 않는다 — 내용 41 이 높이를 정한다. 사라지지 않는 callout 에만 선다.",
           "backdropBlur": 16,
           "$backdropBlur": "base 와 같다. 제품 callout 은 blur(4) 를 쓰지만 표면 자체는 base 와 한 벌로 두었다 — 이 축이 바꾸는 것은 기하와 슬롯이다(toast.css 의 layout 블록 주석)."
         }
@@ -1725,7 +1737,7 @@
           "$radius": "0. 같은 이유다",
           "align": "center",
           "$align": "center. 제품 `items-center` + `text-center`",
-          "$slots": "그래픽과 설명의 값이 없다. 제품의 캔버스 빈 상태는 제목 한 줄과 버튼 둘뿐이다 — 그림을 넣으면 캔버스가 비었다는 사실보다 그림이 먼저 읽힌다"
+          "$slots": "그래픽과 설명의 값이 없다. 제품의 캔버스 빈 상태는 제목 한 줄 아래 액션 슬롯 둘(생성 카드 줄 · 글자 단추 줄)이다(2026-10-07, empty-state.md 「canvas 의 줄 계약」) — 그림을 넣으면 캔버스가 비었다는 사실보다 그림이 먼저 읽힌다. 두 슬롯은 같은 `__action` 이라 actionGap 12 · actionMarginBlockStart 0 을 함께 받는다. 카드 줄 안의 칸 사이(layout-project-grid-gap 4)와 칸 수는 소비처가 정하므로 이 기록에 두지 않는다 — Figma 의 카드 둘은 Start Card 세트가 서기 전까지의 자리표시다"
         }
       },
       "states": {

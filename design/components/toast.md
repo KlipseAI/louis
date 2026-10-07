@@ -136,7 +136,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 - **예외 — 사라지지 않는 callout 은 닫기를 갖는다(2026-10-07, 소유자).** 할 일이 끝날 때까지 떠 있는 안내(`duration: 0` 의
   `data-layout="callout"`)는 사용자가 치울 길이 필요하다. 행동 단추와 닫기를 `.louis-toast__actions` 로 묶고 닫기는
   `.louis-toast__close`(누르는 칸 28 · 쉬는 불투명도 72%)다. 닫기에는 `aria-label`(「안내 닫기」)을 준다. 제품 캔버스 도움말
-  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. **Figma 의 callout 변형에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. Figma 의 callout 두 변형에도 `Actions`(행동 단추 + 28 칸 `Close`, `icon/x` 14)를 세웠다(2026-10-07). 닫기를 켜고 끄는 속성은 없어 늘 보인다.
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달

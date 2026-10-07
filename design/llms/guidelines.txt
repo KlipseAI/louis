@@ -15955,6 +15955,21 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-07 (211) — Figma 구조 맞춤: Toast · 코치마크 닫기, 빈 캔버스 세 줄, 도움말 아이콘 `question-circle`
+
+- **Toast `Layout=callout`** 두 변형에 `Actions`(행동 단추 + 28 칸 `Close`, `icon/x` 14, 간격 `spacing/control-xs`)를 세웠다. 행동 단추 면이
+  12% 가 아니라 100% 로 칠해져 라벨이 안 보이던 것도 같은 변수 0.12 로 바로잡았다.
+- **Tooltip `Layout=coachmark`** 네 변형에 절대 배치 `Close`(44×42, 오른쪽 안쪽 8)와 제목 줄 오른쪽 20(`TitleRow`)을 세웠다.
+- **EmptyState `Layout=canvas`** 를 세 줄로 — 제목 · 시작 카드 자리표시 둘(320:403, 무대 면) · ghost 「사용법 보기」.
+- 세 세트의 parity 계약 · 채취 명세 · 측정 계약(닫기 치수 · 간격, 사유 포함)을 함께 고치고 되읽어 병합했다.
+- **아이콘 `question-circle`** — 노드 머리의 도움말 단추 글리프. 제품이 쓰는 lucide `circle-help`(lucide-react 1.28.0 의
+  `circle-question-mark`)를 제품 저장소의 로컬 패키지에서 옮겼다(내려받기 없음). Feather 의 help-circle 파생이라 ISC 와 MIT 고지를
+  함께 받는다. 정본 SVG · 키워드 · provenance → `build:icons`(47개, 고지문 자동 갱신), Figma `DS · Icons` 에 `icon/question-circle`
+  (획 `color/fg-primary`)을 세우고 격자를 이름순 8열로 다시 놓았다. 되읽기 icons 블록은 같은 채취 코드가 기존 46행을 바이트 단위로
+  재현하는 것을 확인한 뒤 47행으로 바꿨다.
+- LOUIS 아이콘은 Phosphor 전용이 아니다 — Phosphor 29 · Lucide 4 · Iconoir 3 · 자체 11. 출처 기록(DS-D-0008)은 MIT · ISC 의 고지 의무를
+  고지문 자동 생성으로 지키기 위한 것이다.
+
 #### 2026-10-07 (210) — Figma 를 코드에 맞췄다: TextField 오류 링 · Keycap 정사각
 
 - **TextField `State=Invalid`** 네 변형의 Box 선을 2px `fg-danger-on-surface` 로 바꿨다(DS-D-0075). parity 계약의 Box 굵기를

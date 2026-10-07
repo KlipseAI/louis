@@ -111,6 +111,9 @@ export function IconPlay(props) {
 export function IconPlus(props) {
     return (_jsxs(IconRoot, { ...props, name: "plus", children: [_jsx("line", { x1: "3.75", y1: "12", x2: "20.25", y2: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "12", y1: "3.75", x2: "12", y2: "20.25", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }
+export function IconQuestionCircle(props) {
+    return (_jsxs(IconRoot, { ...props, name: "question-circle", children: [_jsx("circle", { cx: "12", cy: "12", r: "10", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M12 17h.01", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
 export function IconShieldCheck(props) {
     return (_jsxs(IconRoot, { ...props, name: "shield-check", children: [_jsx("path", { d: "M12 3.5l7 2.6v5.4c0 4.25-2.9 7.6-7 9-4.1-1.4-7-4.75-7-9V6.1l7-2.6z", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("path", { d: "M9 12.25l2.1 2.1L15.25 10", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }

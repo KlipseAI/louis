@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import type { IconProps } from "../types.js";
 export type { IconComponent, IconProps, IconSize } from "../types.js";
-export type IconName = "arrow-elbow-down-left" | "arrow-right" | "arrow-up" | "arrows-left-right" | "book-open" | "caret-down" | "caret-left" | "caret-right" | "chat-bubbles" | "check-circle" | "cloud-arrow-up" | "cloud-check" | "cloud-warning" | "copy" | "copy-check" | "desktop" | "dots-three-vertical" | "download-simple" | "eye" | "eye-slash" | "file-zip" | "folder" | "globe" | "graph" | "hand" | "house" | "image" | "info" | "magnifying-glass" | "minus" | "monitor-arrow-up" | "moon" | "music-notes-simple" | "nodes-linked" | "pause" | "play" | "plus" | "shield-check" | "sun" | "text" | "trash-simple" | "user-sound" | "video-stack" | "waveform" | "x" | "x-circle";
+export type IconName = "arrow-elbow-down-left" | "arrow-right" | "arrow-up" | "arrows-left-right" | "book-open" | "caret-down" | "caret-left" | "caret-right" | "chat-bubbles" | "check-circle" | "cloud-arrow-up" | "cloud-check" | "cloud-warning" | "copy" | "copy-check" | "desktop" | "dots-three-vertical" | "download-simple" | "eye" | "eye-slash" | "file-zip" | "folder" | "globe" | "graph" | "hand" | "house" | "image" | "info" | "magnifying-glass" | "minus" | "monitor-arrow-up" | "moon" | "music-notes-simple" | "nodes-linked" | "pause" | "play" | "plus" | "question-circle" | "shield-check" | "sun" | "text" | "trash-simple" | "user-sound" | "video-stack" | "waveform" | "x" | "x-circle";
 export declare function IconArrowElbowDownLeft(props: IconProps): JSX.Element;
 export declare function IconArrowRight(props: IconProps): JSX.Element;
 export declare function IconArrowUp(props: IconProps): JSX.Element;
@@ -39,6 +39,7 @@ export declare function IconNodesLinked(props: IconProps): JSX.Element;
 export declare function IconPause(props: IconProps): JSX.Element;
 export declare function IconPlay(props: IconProps): JSX.Element;
 export declare function IconPlus(props: IconProps): JSX.Element;
+export declare function IconQuestionCircle(props: IconProps): JSX.Element;
 export declare function IconShieldCheck(props: IconProps): JSX.Element;
 export declare function IconSun(props: IconProps): JSX.Element;
 export declare function IconText(props: IconProps): JSX.Element;

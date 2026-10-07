@@ -960,6 +960,32 @@
       }
     },
     {
+      "name": "question-circle",
+      "symbol": "IconQuestionCircle",
+      "figmaName": "icon/question-circle",
+      "source": "packages/react/src/icons/svg/question-circle.svg",
+      "geometryHash": "31f93bb19272f22d",
+      "elementCount": 3,
+      "keywords": [
+        "question",
+        "help",
+        "faq",
+        "물음",
+        "질문",
+        "도움말"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "project": "Lucide",
+        "icon": "circle-question-mark",
+        "license": "ISC AND MIT",
+        "licenseFile": "lucide.txt",
+        "sourceUrl": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/circle-question-mark.svg",
+        "retrievedAt": "2026-10-07",
+        "modifications": "lucide-react 1.28.0(제품 저장소 node_modules) 의 아이콘 노드에서 옮겼다 — 좌표 변경 없음(이미 24 격자). 요소마다 fill/stroke/linecap/linejoin 을 적었다. stroke-width 2 → 1.5 (Klipse 24 격자 계약). Klipse 이름은 question-circle — x-circle · check-circle 과 같은 관례. Feather 의 help-circle 파생이라 Lucide LICENSE 에 따라 ISC 와 MIT 고지를 모두 받는다. 제품은 노드 머리의 도움말 단추(NodeHeaderActions)에 같은 글리프를 쓴다."
+      }
+    },
+    {
       "name": "shield-check",
       "symbol": "IconShieldCheck",
       "figmaName": "icon/shield-check",

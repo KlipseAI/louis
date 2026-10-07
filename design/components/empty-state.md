@@ -317,8 +317,9 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   그린다(`packages/react/src/empty-state`). 제품은 컴포넌트를 쓰지 않고 `louis-empty-state` · `__title` ·
   `__action` 클래스를 직접 써서 슬롯을 둘 세운다. `secondaryAction` 을 여는지, 소비처가 클래스로 계속 쓰는지는
   소유자 판정이다 — 이 문서는 CSS 계약만 갱신했다.
-- **Figma `canvas` 변형은 이전 모양이다(2026-10-07).** 아직 제목 + 버튼 둘이고 카드 줄과 글자 단추 줄이 없다.
-  `figma/components.measured.json` 의 canvas 계약은 이번에 건드리지 않았다.
+- **Figma `canvas` 변형은 세 줄이다(2026-10-07).** 제목 · 카드 줄(`CardGrid · 자리표시` — 시작 카드 둘, 사이 4) · 글자 단추 줄(ghost
+  「사용법 보기」)이다. 카드는 Start Card 세트가 서기 전까지의 자리표시이고 레이어 이름이 그렇게 적는다. 제목 · 줄 간격 · 여백 값은
+  `figma/components.measured.json` 의 canvas 계약과 같아 계약 값은 바꾸지 않았다.
 - **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
   `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
   쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.

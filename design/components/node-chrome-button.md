@@ -142,9 +142,8 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
    저장소의 규칙이고 저작 게이트가 그것을 강제한다. `accent-danger` 를 8% 로 섞은 색은 그
    원시 칸과 바이트 단위로 같으므로 값이 아니라 **적는 방법**만 다르다.
 
-6. **`help` 글리프를 아이콘 세트에 등재하지 않았다.** 이 버튼의 `Glyph` 슬롯에 꽂을 아이콘이 없어
-   도움말 변형을 그릴 수 없다. 등재가 **필요하다** — 문서는 필요성만 보고하고 아이콘 세트는 건드리지
-   않았다([Node Shell](node-shell.md) Known deviations 12 와 같은 항목).
+6. **도움말 글리프 `icon/question-circle` 을 등재했다(2026-10-07).** 이 버튼의 `Glyph` 슬롯에 꽂을 수 있다. Figma 의 도움말 변형은
+   아직 세우지 않았다([Node Shell](node-shell.md) Known deviations 12).
 7. **제품 잉크가 한 단 올랐다.** 제품은 헤더 액션 셋 모두를 다크 `palette-gray-400` 으로 칠한다
    (`NodeHeaderActions.tsx:50`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
    그 전의 값이다. `fg-secondary` 는 라이트가 정확히 같고 다크 `palette-gray-300` 이라 어긋남의 크기만

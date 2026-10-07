@@ -39,10 +39,11 @@ SOFTWARE.
 
 ## Lucide — ISC / ISC AND MIT
 
+- Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/circle-question-mark.svg
 - Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/copy-check.svg
 - Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/copy.svg
 - Source: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/type.svg
-- Icons: copy (upstream: copy, ISC), copy-check (upstream: copy-check, ISC), text (upstream: type, ISC AND MIT)
+- Icons: copy (upstream: copy, ISC), copy-check (upstream: copy-check, ISC), question-circle (upstream: circle-question-mark, ISC AND MIT), text (upstream: type, ISC AND MIT)
 
 ```text
 ISC License

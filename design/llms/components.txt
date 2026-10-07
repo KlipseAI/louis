@@ -2235,7 +2235,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 (폭 44 · 높이 42, 표면 안), 글리프는 칸 오른쪽 끝에서 8 안쪽 · 제목 줄과 같은 높이. 표면은 포인터를 받지 않고 닫기만
 `pointer-events: auto` 다. 닫기가 있으면 제목이 오른쪽 20 을 비운다. 쉬는 불투명도 72%, hover · 키보드 초점에서 100%(링 없음).
 `aria-label` 을 준다. 근거는 제품 캔버스 다음 단계 코치마크(`CanvasOnboardingHints.tsx` `NEXT_STEP_COACHMARK_CLOSE`) — 소유자가
-「너무 안으로 들어와」라며 세 번 고친 값이다. **Figma 의 `Layout=coachmark` 에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+「너무 안으로 들어와」라며 세 번 고친 값이다. Figma 의 `Layout=coachmark` 네 변형에도 절대 배치 `Close`(44×42, `icon/x` 14)와 제목 줄 오른쪽 20(`TitleRow`)을 세웠다(2026-10-07).
 
 **제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 
@@ -2469,7 +2469,7 @@ toast가 떴다는 사실 자체가 이미 "그 일이 일어났다"이므로 �
 - **예외 — 사라지지 않는 callout 은 닫기를 갖는다(2026-10-07, 소유자).** 할 일이 끝날 때까지 떠 있는 안내(`duration: 0` 의
   `data-layout="callout"`)는 사용자가 치울 길이 필요하다. 행동 단추와 닫기를 `.louis-toast__actions` 로 묶고 닫기는
   `.louis-toast__close`(누르는 칸 28 · 쉬는 불투명도 72%)다. 닫기에는 `aria-label`(「안내 닫기」)을 준다. 제품 캔버스 도움말
-  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. **Figma 의 callout 변형에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+  작업 브랜치의 화면 밖 안내 · 영상 입력 안내가 근거다. Figma 의 callout 두 변형에도 `Actions`(행동 단추 + 28 칸 `Close`, `icon/x` 14)를 세웠다(2026-10-07). 닫기를 켜고 끄는 속성은 없어 늘 보인다.
 
 - **두 `role` 모두 제품에 선례가 있다.** `danger`의 assertive는 에디터 오류 토스트가 `role="alert"
   aria-live="assertive"`로 띄우고(`EditorProjectWorkspace.tsx:1115-1116`), `neutral`의 polite는 모달
@@ -3964,8 +3964,9 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   그린다(`packages/react/src/empty-state`). 제품은 컴포넌트를 쓰지 않고 `louis-empty-state` · `__title` ·
   `__action` 클래스를 직접 써서 슬롯을 둘 세운다. `secondaryAction` 을 여는지, 소비처가 클래스로 계속 쓰는지는
   소유자 판정이다 — 이 문서는 CSS 계약만 갱신했다.
-- **Figma `canvas` 변형은 이전 모양이다(2026-10-07).** 아직 제목 + 버튼 둘이고 카드 줄과 글자 단추 줄이 없다.
-  `figma/components.measured.json` 의 canvas 계약은 이번에 건드리지 않았다.
+- **Figma `canvas` 변형은 세 줄이다(2026-10-07).** 제목 · 카드 줄(`CardGrid · 자리표시` — 시작 카드 둘, 사이 4) · 글자 단추 줄(ghost
+  「사용법 보기」)이다. 카드는 Start Card 세트가 서기 전까지의 자리표시이고 레이어 이름이 그렇게 적는다. 제목 · 줄 간격 · 여백 값은
+  `figma/components.measured.json` 의 canvas 계약과 같아 계약 값은 바꾸지 않았다.
 - **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
   `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
   쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.
@@ -14715,9 +14716,8 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
    저장소의 규칙이고 저작 게이트가 그것을 강제한다. `accent-danger` 를 8% 로 섞은 색은 그
    원시 칸과 바이트 단위로 같으므로 값이 아니라 **적는 방법**만 다르다.
 
-6. **`help` 글리프를 아이콘 세트에 등재하지 않았다.** 이 버튼의 `Glyph` 슬롯에 꽂을 아이콘이 없어
-   도움말 변형을 그릴 수 없다. 등재가 **필요하다** — 문서는 필요성만 보고하고 아이콘 세트는 건드리지
-   않았다([Node Shell](../components/node-shell.md) Known deviations 12 와 같은 항목).
+6. **도움말 글리프 `icon/question-circle` 을 등재했다(2026-10-07).** 이 버튼의 `Glyph` 슬롯에 꽂을 수 있다. Figma 의 도움말 변형은
+   아직 세우지 않았다([Node Shell](../components/node-shell.md) Known deviations 12).
 7. **제품 잉크가 한 단 올랐다.** 제품은 헤더 액션 셋 모두를 다크 `palette-gray-400` 으로 칠한다
    (`NodeHeaderActions.tsx:50`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
    그 전의 값이다. `fg-secondary` 는 라이트가 정확히 같고 다크 `palette-gray-300` 이라 어긋남의 크기만
@@ -15011,10 +15011,9 @@ NodeShell (세로, 간격 4, 폭 400)
     `--accent-red-500`) 위에 같은 색 8% 면이라 라이트 2.98:1 · 다크 3.78:1 이다(면 흰색 ·
     `palette-gray-800` 기준. LOUIS 면으로 바꾸면 다크는 4.85:1). 같은 자리를 위한 `fg-danger-on-surface`
     가 이미 있지만 제품이 쓰지 않는다. 보드나 레시피에서 고치지 않고 제품 결함으로 기록한다.
-12. **`help` 글리프가 아이콘 세트에 없다.** 제품 `nodeGlyphs.ts` 의 새 글리프(lucide `circle-help`, 원
-    안의 물음표 · 24 격자)이고 아카이브 썸네일의 제목 줄도 같은 경로를 굽는다(`6530c9620`). 이 저장소
-    아이콘 세트에는 등재하지 않았다 — **필요하다**: 노드 보드의 헤더가 도움말 단추를 그리려면 슬롯
-    `Glyph` 에 꽂을 아이콘이 있어야 한다. 위 넷(deviation 4)과 같은 형태의 결손이다.
+12. **도움말 글리프는 `icon/question-circle` 이다(2026-10-07 등재).** 제품 `nodeGlyphs.ts` 의 새 글리프(lucide `circle-help`, 원
+    안의 물음표 · 24 격자)이고 아카이브 썸네일의 제목 줄도 같은 경로를 굽는다(`6530c9620`). 이 저장소 아이콘 세트에 Lucide
+    `circle-question-mark` 로 등재했다(ISC AND MIT, 선 2 → 1.5) — Figma `DS · Icons` 에도 섰다.
 
 #### Related
 

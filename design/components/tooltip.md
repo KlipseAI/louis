@@ -195,7 +195,7 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 (폭 44 · 높이 42, 표면 안), 글리프는 칸 오른쪽 끝에서 8 안쪽 · 제목 줄과 같은 높이. 표면은 포인터를 받지 않고 닫기만
 `pointer-events: auto` 다. 닫기가 있으면 제목이 오른쪽 20 을 비운다. 쉬는 불투명도 72%, hover · 키보드 초점에서 100%(링 없음).
 `aria-label` 을 준다. 근거는 제품 캔버스 다음 단계 코치마크(`CanvasOnboardingHints.tsx` `NEXT_STEP_COACHMARK_CLOSE`) — 소유자가
-「너무 안으로 들어와」라며 세 번 고친 값이다. **Figma 의 `Layout=coachmark` 에는 아직 닫기가 없다** — 다음 Figma 회차의 일이다.
+「너무 안으로 들어와」라며 세 번 고친 값이다. Figma 의 `Layout=coachmark` 네 변형에도 절대 배치 `Close`(44×42, `icon/x` 14)와 제목 줄 오른쪽 20(`TitleRow`)을 세웠다(2026-10-07).
 
 **제품과 갈리는 값 다섯과 그 사유.** 「제품」 칸은 `CanvasFirstNodeHint` 가 LOUIS coachmark 레시피(`louis-tooltip`)로 옮기기 전의 값이다 — 지금 제품은 레시피를 소비해 오른쪽 값을 받는다.
 

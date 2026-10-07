@@ -350,6 +350,15 @@ const COMPONENT_CONTRACTS = [
         // 제목/본문 덩어리. Figma 에는 자식별 간격이 없어 이 프레임의 itemSpacing 이
         // CSS 의 본문 margin-block-start 와 같은 값을 낸다.
         Stack: { fields: { itemSpacing: "contentGap" }, optional: true },
+        // **코치마크의 닫기 자리(2026-10-07).** 사용자가 치울 수 있어야 해서 표면 안 오른쪽 위 모서리에 44×42 칸이 절대
+        // 배치로 선다 — 흐름에 끼지 않으므로 표면 높이(64)를 바꾸지 않는다. 글리프는 칸 오른쪽 끝에서 8 안쪽, 세로 가운데에
+        // 놓여 제목 줄과 나란하다. 제목은 오른쪽 20 을 비워 글리프와 겹치지 않는다 — Figma 글자 노드에는 padding 이 없어
+        // 제목을 `TitleRow` 프레임에 싸고 그 프레임의 오른쪽 padding 으로 같은 20 을 만든다. base 에는 닫기가 없다.
+        TitleRow: { fields: { paddingInlineEnd: "closeTitleInset" }, optional: true },
+        Close: {
+          fields: { width: "closeWidth", height: "closeHeight", paddingInlineEnd: "closeGlyphInset" },
+          optional: true,
+        },
       },
     },
   },
@@ -410,6 +419,15 @@ const COMPONENT_CONTRACTS = [
           },
           optional: true,
         },
+        // **행동 묶음과 닫기(2026-10-07).** 사라지지 않는 callout 은 사용자가 치울 길이 필요해 닫기를 갖고, 행동 단추와
+        // 닫기는 한 줄로 붙는다 — 본문과 행동 사이(16)보다 가까운 4 다. base 는 자동으로 사라지므로 닫기가 없고, 그래서
+        // 두 자손 모두 optional 이며 base 칸에는 근거 값도 없다. 닫기의 쉬는 불투명도 72% 는 되읽기가 자손 값을 소수
+        // 한 자리에서 접어 대조하지 못한다 — 그 값은 CSS 레시피와 문서가 소유한다.
+        Actions: {
+          fields: { itemSpacing: "actionsGap", layoutMode: { literal: "HORIZONTAL" } },
+          optional: true,
+        },
+        Close: { fields: { width: "closeSize", height: "closeSize" }, optional: true },
       },
     },
   },
@@ -2405,6 +2423,10 @@ const COMPONENT_CONTRACTS = [
         // CSS는 액션에 `margin-block-start: 4px`를 더해 앞 요소와 16px 떨어진다. Figma
         // auto-layout에는 자식별 간격이 없어 같은 4px을 이 프레임의 위쪽 padding으로 만든다.
         // canvas는 그 추가 간격이 0이다 — 제품이 제목과 버튼을 같은 gap으로 둔다.
+        // **canvas 에는 `Action` 이 둘 선다(2026-10-07).** 생성 카드 줄과 글자 단추 줄이 둘 다 같은 `__action` 슬롯이라
+        // 이름이 같고, 되읽기가 두 프레임의 값을 한 칸에 모으므로 두 줄이 같은 간격·추가 간격을 가져야 초록이다.
+        // 카드 줄 안의 격자(칸 사이 4)는 소비처 몫이라 이 계약 밖이며, Figma 의 카드 둘은 Start Card 세트가 서기 전의
+        // 자리표시다.
         Action: {
           optional: true,
           fields: {

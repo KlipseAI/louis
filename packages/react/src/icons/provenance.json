@@ -316,6 +316,16 @@
     "retrievedAt": "2026-08-14",
     "modifications": "좌표를 256 격자에서 24 격자로 한 번 스케일(×3/32, 나머지 없이 떨어짐). stroke-width 16 → 1.5. 렌더에 기여하지 않는 배경 <rect width=\"256\" height=\"256\" fill=\"none\"/> 제거. 256px 래스터 대조에서 upstream과 픽셀 동일."
   },
+  "question-circle": {
+    "origin": "upstream",
+    "project": "Lucide",
+    "icon": "circle-question-mark",
+    "license": "ISC AND MIT",
+    "licenseFile": "lucide.txt",
+    "sourceUrl": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/circle-question-mark.svg",
+    "retrievedAt": "2026-10-07",
+    "modifications": "lucide-react 1.28.0(제품 저장소 node_modules) 의 아이콘 노드에서 옮겼다 — 좌표 변경 없음(이미 24 격자). 요소마다 fill/stroke/linecap/linejoin 을 적었다. stroke-width 2 → 1.5 (Klipse 24 격자 계약). Klipse 이름은 question-circle — x-circle · check-circle 과 같은 관례. Feather 의 help-circle 파생이라 Lucide LICENSE 에 따라 ISC 와 MIT 고지를 모두 받는다. 제품은 노드 머리의 도움말 단추(NodeHeaderActions)에 같은 글리프를 쓴다."
+  },
   "shield-check": {
     "origin": "original",
     "modifications": "저장소에서 직접 그렸다. 제품 apps/web/components/landing/sections/footerTrackIcons.tsx(랜딩 타임라인 푸터 트랙 머리, 2026-10-07)와 같은 좌표다. 방패 외곽(어깨 폭 14, 높이 17)과 그 안의 체크 하나다. 체크는 방패의 시각 중심(y≈12)에 두었고 짧은 획 대 긴 획이 1:2 다. upstream 을 주장하지 않는 이유는 출처를 대조할 수 없는 상태에서 upstream 이라고 적으면 그것이 추정 출처가 되기 때문이다 — DS-D-0008 결정 3."

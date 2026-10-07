@@ -39,6 +39,14 @@ authority: normative
   `migration/louis.document-examples.json`)와 생성기 `--louis-examples`(제품 보드와 계획 · 러너 · 기준선을 따로 — `figma/louis-document.*`).
   데스크톱 1920 · 모바일 402 문서 전체, 노드 1,488. 예시 안의 그림 넷은 `90 · 자산` U · image/ 의 이미지 채움 컴포넌트로 이었다(data URL 은 해시 키).
   추이 차트 선 둘은 글리프 대응표에 데이터 그림으로 올렸다. 왼쪽 스킬 내용 열은 손으로 세운 것이라 스킬이 바뀌면 다시 세운다.
+- **부품 카탈로그.** 같은 측정에서 문서 부품 17세트(`Document/Head` · `Decision` · `Toc` · `Flow` · `Card Grid` · `Stat Grid` · `Stack Card` ·
+  `Bars Card` · `Trend Card` · `Table` · `Compare` · `Codeblock` · `Callout`(Tone 기본 · 주의) · `Shot` · `Timeline` · `Quote` · `Sources`, variant 36)를
+  보드 생성기 PARTS 로 찍었다 — 예시 보드가 그 인스턴스를 쓴다. 경로는 원장에 클래스가 없어 같은 조건으로 예시를 다시 열고 클래스 상자와 같은
+  상자의 노드로 짚었다. 앵커는 생성기가 계산해 모아 보인 값을 그대로 옮겼다.
+- **생성기 규칙 둘.** (1) 문장 안 각주 번호(`<sup><a>`)처럼 한 겹 감싼 글자뿐인 인라인 요소도 글자 하나 + 범위 서식으로 합친다 — 바깥의
+  글자 크기를 범위 크기(`xr` 여섯째 칸, 렌더러 `setRangeFontSize`)로 옮긴다. 위첨자 기준선은 Figma 글자 범위에 없어 옮기지 않는다.
+  (2) 인라인 코드 칩이 섞인 감긴 문장은 합칠 수 없어, 예시 실행에서는 그 글자를 측정 폭으로 묶는다(칩은 글자 옆 상자로 선다 — 알려진 차이).
+  제품 러너는 렌더러가 바뀐 만큼만 다시 생성됐고 payload 는 그대로다(라이브 재전송 불필요).
 
 ## 2026-10-07 (199) — 가짜 Supabase 에 자리표시 시드 · 쿠폰 인쇄 보드를 측정 생성으로 · 편집기 밖 제품 부품 다섯
 

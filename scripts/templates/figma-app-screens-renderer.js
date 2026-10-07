@@ -593,7 +593,7 @@ const flushTextStyles = async () => {
   pendingTextStyles.length = 0;
   // **섞인 문단의 범위 서식(2026-09-30).** 문장 안의 굵은 글자 · 링크 색 · 밑줄 — 생성기가 문단을 글자 하나로 합치고 범위를 싣는다.
   for (const [node, ranges, measured] of pendingRanges) {
-    for (const [start, end, weight, colour, underline] of ranges) {
+    for (const [start, end, weight, colour, underline, size] of ranges) {
       if (end <= start || end > node.characters.length) continue;
       if (weight) {
         let font = { family: "Pretendard", style: WEIGHT_STYLE[weight] ?? "Regular" };
@@ -602,6 +602,7 @@ const flushTextStyles = async () => {
       }
       if (colour) node.setRangeFills(start, end, [hexToPaint(colour)]);
       if (underline) node.setRangeTextDecoration(start, end, "UNDERLINE");
+      if (size) node.setRangeFontSize(start, end, size);
     }
     // **첫 줄의 굵은 범위는 글자 상자를 1 키운다(2026-09-30).** Pretendard SemiBold 범위가 여러 줄 문단의 첫 줄에 있으면 Figma 의 높이 맞춤
     // 글자 상자가 줄 높이 합보다 1 높다(고정 px 줄 높이여도 같다 — 둘째 줄의 굵은 범위 · 한 줄 문단은 그대로, 복제본 실험). 개인정보 목록의

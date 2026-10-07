@@ -288,7 +288,26 @@ const LOUIS_EXAMPLE_SCREENS = [
 ];
 const SCREENS = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_SCREENS : PRODUCT_SCREENS;
 // 예시 실행의 기준선 — 제품 기준선과 따로 잠근다(수와 사유는 생성기가 처음 낸 값을 보고 적는다).
-const LOUIS_EXAMPLE_CONTENT_INSTANCES = {};
+// 문서 부품은 예시 document-report 의 데스크톱 · 모바일에 하나씩 선다(콜아웃은 기본 · 주의 둘). 운영안(document)은 글자가 달라 인스턴스가 아니다.
+const LOUIS_EXAMPLE_CONTENT_INSTANCES = {
+  "Document/Head": 2,
+  "Document/Decision": 2,
+  "Document/Toc": 2,
+  "Document/Flow": 2,
+  "Document/Card Grid": 2,
+  "Document/Stat Grid": 2,
+  "Document/Stack Card": 2,
+  "Document/Bars Card": 2,
+  "Document/Trend Card": 2,
+  "Document/Table": 2,
+  "Document/Compare": 2,
+  "Document/Codeblock": 2,
+  "Document/Callout": 4,
+  "Document/Shot": 2,
+  "Document/Timeline": 2,
+  "Document/Quote": 2,
+  "Document/Sources": 2,
+};
 const LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG = {};
 
 const CONTEXTS = [
@@ -452,7 +471,74 @@ const PRODUCT_PARTS = [
   },
 ];
 // LOUIS 문서 부품(2026-10-07) — 예시 `document-report` 의 측정 서브트리에서 찍는다. 세트는 문서 스킬 보드의 부품 카탈로그 열에 있다.
-const LOUIS_DOC_PARTS = [];
+// 경로는 원장에 클래스가 없어 같은 뷰포트 · 같은 글꼴로 예시를 다시 열고 부품 클래스의 상자와 같은 상자의 노드로 짚었다(데스크톱 · 모바일 같은 경로).
+// 앵커(글자 서열의 `{ length, fnv }`)는 아래 표가 갖는다 — 비어 있으면 생성기가 전부 계산해 모아 보여 주고 멈춘다(손으로 옮겨 적지 않는다).
+const LOUIS_DOC_ANCHORS = {
+  "Document/Head Viewport=Desktop": { length: 5, fnv: "63d7f1ec" },
+  "Document/Head Viewport=Mobile": { length: 5, fnv: "63d7f1ec" },
+  "Document/Decision Viewport=Desktop": { length: 10, fnv: "869ef7c0" },
+  "Document/Decision Viewport=Mobile": { length: 10, fnv: "869ef7c0" },
+  "Document/Toc Viewport=Desktop": { length: 15, fnv: "45e2b0b0" },
+  "Document/Toc Viewport=Mobile": { length: 15, fnv: "45e2b0b0" },
+  "Document/Flow Viewport=Desktop": { length: 5, fnv: "cecbe88b" },
+  "Document/Flow Viewport=Mobile": { length: 5, fnv: "cecbe88b" },
+  "Document/Card Grid Viewport=Desktop": { length: 9, fnv: "0b33d42b" },
+  "Document/Card Grid Viewport=Mobile": { length: 9, fnv: "0b33d42b" },
+  "Document/Stat Grid Viewport=Desktop": { length: 14, fnv: "4e11f1a9" },
+  "Document/Stat Grid Viewport=Mobile": { length: 14, fnv: "4e11f1a9" },
+  "Document/Stack Card Viewport=Desktop": { length: 5, fnv: "3b49ff05" },
+  "Document/Stack Card Viewport=Mobile": { length: 5, fnv: "3b49ff05" },
+  "Document/Bars Card Viewport=Desktop": { length: 6, fnv: "23398b89" },
+  "Document/Bars Card Viewport=Mobile": { length: 6, fnv: "23398b89" },
+  "Document/Trend Card Viewport=Desktop": { length: 2, fnv: "e450bd94" },
+  "Document/Trend Card Viewport=Mobile": { length: 2, fnv: "e450bd94" },
+  "Document/Table Viewport=Desktop": { length: 40, fnv: "8b95064d" },
+  "Document/Table Viewport=Mobile": { length: 40, fnv: "8b95064d" },
+  "Document/Compare Viewport=Desktop": { length: 2, fnv: "284c8921" },
+  "Document/Compare Viewport=Mobile": { length: 2, fnv: "284c8921" },
+  "Document/Codeblock Viewport=Desktop": { length: 1, fnv: "effb3ba0" },
+  "Document/Codeblock Viewport=Mobile": { length: 1, fnv: "effb3ba0" },
+  "Document/Callout Tone=Default, Viewport=Desktop": { length: 2, fnv: "398ab071" },
+  "Document/Callout Tone=Default, Viewport=Mobile": { length: 2, fnv: "398ab071" },
+  "Document/Callout Tone=Caution, Viewport=Desktop": { length: 2, fnv: "bcda19dd" },
+  "Document/Callout Tone=Caution, Viewport=Mobile": { length: 2, fnv: "bcda19dd" },
+  "Document/Shot Viewport=Desktop": { length: 2, fnv: "fbe78d48" },
+  "Document/Shot Viewport=Mobile": { length: 2, fnv: "fbe78d48" },
+  "Document/Timeline Viewport=Desktop": { length: 12, fnv: "809fb90d" },
+  "Document/Timeline Viewport=Mobile": { length: 12, fnv: "809fb90d" },
+  "Document/Quote Viewport=Desktop": { length: 2, fnv: "68a20349" },
+  "Document/Quote Viewport=Mobile": { length: 2, fnv: "68a20349" },
+  "Document/Sources Viewport=Desktop": { length: 15, fnv: "529e0321" },
+  "Document/Sources Viewport=Mobile": { length: 15, fnv: "529e0321" },
+};
+const docPart = (set, path, desktop, mobile) => ({
+  set, about: `LOUIS 문서 부품 ${set} — 예시 document-report 의 측정 서브트리.`,
+  variants: [["Viewport=Desktop", "desktop-1920x1080", desktop], ["Viewport=Mobile", "mobile-402x874", mobile]].map(([variant, context, component]) => ({
+    variant, route: "document-report", context, path: `body.0.0.0.${path}`, fixture: "louisExamples", anchor: LOUIS_DOC_ANCHORS[`${set} ${variant}`] ?? null, component,
+  })),
+});
+const LOUIS_DOC_PARTS = [
+  docPart("Document/Head", "0", "2725:535", "2725:536"),
+  docPart("Document/Decision", "1", "2725:540", "2725:541"),
+  docPart("Document/Toc", "2", "2725:545", "2725:546"),
+  docPart("Document/Flow", "3.2", "2725:550", "2725:551"),
+  docPart("Document/Card Grid", "3.3", "2725:555", "2725:556"),
+  docPart("Document/Stat Grid", "4.1", "2725:560", "2725:561"),
+  docPart("Document/Stack Card", "4.2", "2725:565", "2725:566"),
+  docPart("Document/Bars Card", "4.3.0", "2725:570", "2725:571"),
+  docPart("Document/Trend Card", "4.4.0", "2725:575", "2725:576"),
+  docPart("Document/Table", "4.5", "2725:580", "2725:581"),
+  docPart("Document/Compare", "5.2.1", "2725:585", "2725:586"),
+  docPart("Document/Codeblock", "5.4", "2725:590", "2725:591"),
+  { set: "Document/Callout", about: "louis-document-callout — 결론 한 줄(기본) · 비용 주의(data-tone=caution).", variants: [
+    ["Tone=Default, Viewport=Desktop", "desktop-1920x1080", "5.6", "2725:595"], ["Tone=Default, Viewport=Mobile", "mobile-402x874", "5.6", "2725:596"],
+    ["Tone=Caution, Viewport=Desktop", "desktop-1920x1080", "8.2", "2725:597"], ["Tone=Caution, Viewport=Mobile", "mobile-402x874", "8.2", "2725:598"],
+  ].map(([variant, context, path, component]) => ({ variant, route: "document-report", context, path: `body.0.0.0.${path}`, fixture: "louisExamples", anchor: LOUIS_DOC_ANCHORS[`Document/Callout ${variant}`] ?? null, component })) },
+  docPart("Document/Shot", "6.2.0", "2725:602", "2725:603"),
+  docPart("Document/Timeline", "8.1", "2725:607", "2725:608"),
+  docPart("Document/Quote", "9.2", "2725:612", "2725:613"),
+  docPart("Document/Sources", "10", "2725:617", "2725:618"),
+];
 const PARTS = LOUIS_EXAMPLES ? LOUIS_DOC_PARTS : PRODUCT_PARTS;
 
 /** 런너 payload를 줄이기 위한 축약. 키가 길면 50KB 상한에 금방 닿는다. */
@@ -530,7 +616,8 @@ const slimNode = (node) => ({
   // (measured-text.mjs). 서명 · 매칭은 spec 의 `text` 를 그대로 본다.
   ...(node.text ? { x: (node.wrapLines?.length > 1 ? node.wrapLines.join("\n") : node.text).replace(/^ /, "\u00a0").replace(/ $/, "\u00a0") } : {}),
   // 글자 안의 범위 서식 [시작, 끝, 굵기(0 = 문단 그대로), 색("" = 그대로), 밑줄 1/0] — 섞인 문단(figma-tree-spec richInlineText).
-  ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0]) } : {}),
+  // 여섯째 칸(글자 크기)은 크기가 있는 범위에만 붙인다 — 각주 번호(2026-10-07). 없는 범위는 다섯 칸 그대로다.
+  ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0, ...(range.size ? [range.size] : [])]) } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
   s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),
@@ -1377,6 +1464,7 @@ const paintStats = { fills: 0, gradients: 0, strokes: 0, radii: 0, shadows: 0, t
 // ── 제품 부품(PARTS) — 보드보다 먼저 변환한다. 보드가 같은 서브트리를 이 부품의 인스턴스로 쓰려면 서명이 먼저 있어야 한다.
 const parts = [];
 const partContent = [];
+const pendingAnchors = {};
 {
   // 부품도 보드처럼 원장을 고른다(`fixture` 키 — 없으면 인증 원장). 공개 화면 푸터는 공개 원장에만 있다(2026-10-07).
   const styleIndex = new Map();
@@ -1412,7 +1500,10 @@ const partContent = [];
       const anchorMatches = Array.isArray(variant.anchor)
         ? JSON.stringify(signature.texts) === JSON.stringify(variant.anchor)
         : JSON.stringify(anchorOf(signature.texts)) === JSON.stringify(variant.anchor);
-      if (!anchorMatches) {
+      if (variant.anchor === null) {
+        // 앵커를 아직 적지 않은 부품(LOUIS 문서 부품) — 계산한 값을 모아 끝에 한 번에 보여 준다.
+        pendingAnchors[`${part.set} ${variant.variant}`] = anchorOf(signature.texts);
+      } else if (!anchorMatches) {
         fail(`부품 ${part.set} ${variant.variant} 의 글자 서열이 기대와 다릅니다 — 측정 경로가 다른 노드를 가리킨다: ${JSON.stringify(signature.texts).slice(0, 400)} ${JSON.stringify(anchorOf(signature.texts))}`);
       }
       // 부품 안의 LOUIS 정본 프리미티브는 보드와 같은 규칙으로 인스턴스가 된다(셸 · 본문 세트는 부품 안에 없다).
@@ -1430,8 +1521,20 @@ const partContent = [];
       applyGlyphIdentity(spec, `${part.set} ${variant.variant}`);
       const sizingFix = reconcileFigmaSizing(spec);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
-      if (sizingFix.unresolvedWraps.length > 0) {
+      if (sizingFix.unresolvedWraps.length > 0 && !LOUIS_EXAMPLES) {
         fail(`부품 ${part.set} ${variant.variant} 에 풀지 못한 감긴 글자가 있습니다 — Figma 에서 한 줄로 늘어납니다: ${JSON.stringify(sizingFix.unresolvedWraps)}`);
+      }
+      // **LOUIS 문서 예시는 측정 폭으로 묶는다(2026-10-07).** 인라인 코드 칩(`code`, 바탕 · 안쪽 여백이 있는 inline-block)이 섞인 감긴 문장은
+      // 글자 범위로 합칠 수 없다(칩의 바탕은 글자 범위에 없다). 한 줄로 늘어나 부품 밖으로 넘치지 않게 그 글자를 측정 폭(FIXED)으로 묶고,
+      // 자리는 부품 계획의 `unresolvedWraps` 에 남긴다 — 칩은 글자 옆 상자로 선다(문장 흐름 안이 아니다).
+      if (sizingFix.unresolvedWraps.length > 0 && LOUIS_EXAMPLES) {
+        const byPath = new Map();
+        const index = (node) => { byPath.set(node.path, node); for (const child of node.children ?? []) index(child); };
+        index(spec);
+        for (const wrap of sizingFix.unresolvedWraps) {
+          const node = byPath.get(wrap.path);
+          if (node) node.sizing = { ...node.sizing, layoutSizingHorizontal: "FIXED" };
+        }
       }
       centreAutoMargins(spec);
       const marginWrapped = wrapSiblingMargins(spec);
@@ -1462,6 +1565,9 @@ const partContent = [];
   }
 }
 
+if (Object.keys(pendingAnchors).length > 0) {
+  fail(`앵커를 적지 않은 부품이 ${Object.keys(pendingAnchors).length}개입니다 — 계산한 값을 확인하고 LOUIS_DOC_ANCHORS 에 옮기세요:\n${JSON.stringify(pendingAnchors, null, 1)}`);
+}
 for (const screen of SCREENS) {
   const source = fixtureOf(screen);
   for (const context of CONTEXTS) {
@@ -1694,10 +1800,14 @@ for (const entry of screens) {
   for (const applied of entry.shells.applied) if (contentSets.has(applied.set)) contentInstances[applied.set] += 1;
   for (const skipped of entry.shells.skipped) if (contentSets.has(skipped.set)) contentSkipped.push(`${entry.route} @ ${entry.context} · ${skipped.path}: ${skipped.reason}`);
 }
-for (const set of new Set([...Object.keys(CONTENT_INSTANCES_BY_SET), ...contentSets])) {
-  if ((contentInstances[set] ?? 0) !== (CONTENT_INSTANCES_BY_SET[set] ?? 0)) {
+{
+  // 어긋난 세트를 모두 모아 한 번에 보인다(2026-10-07) — 첫 세트에서 멈추면 세트가 여럿 늘 때 한 번에 하나씩만 보였다.
+  const drift = [...new Set([...Object.keys(CONTENT_INSTANCES_BY_SET), ...contentSets])]
+    .filter((set) => (contentInstances[set] ?? 0) !== (CONTENT_INSTANCES_BY_SET[set] ?? 0))
+    .map((set) => `본문 세트 ${set} 의 인스턴스가 ${contentInstances[set] ?? 0} 개입니다(기준 ${CONTENT_INSTANCES_BY_SET[set] ?? 0}).`);
+  if (drift.length > 0) {
     fail(
-      `본문 세트 ${set} 의 인스턴스가 ${contentInstances[set] ?? 0} 개입니다(기준 ${CONTENT_INSTANCES_BY_SET[set] ?? 0}). ` +
+      `${drift.join("\n")}\n` +
       "줄었으면 매처가 그 보드를 놓친 이유를, 늘었으면 옳은 서브트리에 붙었는지를 먼저 보고 CONTENT_INSTANCES_BY_SET 을 고치며 사유를 적으세요.",
     );
   }

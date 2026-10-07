@@ -235,8 +235,18 @@ function richInlineText(node, childrenOf) {
   const childPieces = []; // [start, end, 측정 y] — 보이는 줄을 되살릴 때 줄 경계의 요소가 어느 줄인지 가른다
   for (const run of runs) {
     if (typeof run === "string") { text += run; continue; }
-    const child = kids.find((kid) => kid.path === `${node.path}.${run}`);
+    let child = kids.find((kid) => kid.path === `${node.path}.${run}`);
     if (!child) continue; // 보이지 않는 요소 — 측정에 없고 글자도 없다
+    // **한 겹 감싼 인라인 잎(2026-10-07).** 각주 번호(`<sup><a>1</a></sup>`)처럼 글자뿐인 인라인 요소를 또 하나의 인라인 요소가 감싼 경우도
+    // 합친다 — 바깥(`sup`)의 글자 크기와 안쪽(`a`)의 색으로 범위를 싣는다. 합치지 않으면 문단이 글자와 요소로 갈려 감긴 글자가 Figma 에서
+    // 한 줄로 늘어났다(LOUIS 문서 예시의 추이 카드 해석 문단). 기준선 위로 올리는 것(위첨자)은 Figma 글자 범위에 없어 옮기지 않는다.
+    let outer = null;
+    const grand = childrenOf.get(child.path) ?? [];
+    if (grand.length === 1 && (childrenOf.get(grand[0].path) ?? []).length === 0 && !child.ownText
+      && (child.style?.display ?? "") === "inline" && (grand[0].style?.display ?? "") === "inline") {
+      outer = child;
+      child = grand[0];
+    }
     if ((childrenOf.get(child.path) ?? []).length > 0) return null;
     const style = child.style ?? {};
     if ((style.display ?? "") !== "inline") return null;
@@ -254,7 +264,9 @@ function richInlineText(node, childrenOf) {
     const colour = cssColorToHex(style.color);
     if (colour && colour !== cssColorToHex(base.color)) range.color = colour;
     if (/underline/.test(style.textDecorationLine ?? style.textDecoration ?? "") && !/underline/.test(base.textDecorationLine ?? base.textDecoration ?? "")) range.underline = true;
-    if (range.weight || range.color || range.underline) ranges.push(range);
+    const size = px((outer ?? child).style?.fontSize);
+    if (outer && size && size !== px(base.fontSize)) range.size = size;
+    if (range.weight || range.color || range.underline || range.size) ranges.push(range);
   }
   if (!text.trim()) return null;
   const wrapped = mergedWrapLines(node, text, childPieces, ranges);

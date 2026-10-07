@@ -63,6 +63,11 @@ export function normalizeAuthFixtureTree(tree, computedStyles) {
     if (!style) throw new Error(`[figma-tree-spec] styleRef를 찾지 못했습니다: ${node.styleRef} (${node.path})`);
     // **입력칸의 값은 그 칸의 글자다(2026-09-29).** 값은 글자 노드가 아니라 측정기가 `value` 로 따로 싣는다 — 쿠폰 수량
     // 입력칸의 「1」이 보드에서 비어 있었다. 제품이 그 칸에 그 글자를 그리므로 글자로 옮긴다.
+    if (node.vector?.bbox && GLYPH_SHAPES.has(node.tag)) {
+      // **svg 상자 밖으로 넘친 도형(2026-10-07).** 측정기가 React Flow 연결선처럼 제 상자 밖으로 넘치는 svg 안의 도형을 svg 없이 싣는다(`vector.bbox`).
+      // 흐름에 끼지 않게 절대 배치로 두고, 변환기가 그 상자로 도형 하나짜리 svg 를 만든다(looseShapeMarkup).
+      return { ...node, looseShape: true, style: { ...style, position: "absolute" } };
+    }
     if (!node.value && !node.ownText && node.placeholderColor && node.placeholder?.trim()) {
       // **비어 있는 입력칸의 placeholder(2026-10-07).** 제품은 그 칸에 placeholder 를 `::placeholder` 색으로 그린다 — 색만 그 값으로 덮는다.
       return { ...node, ownText: node.placeholder, style: { ...style, color: node.placeholderColor } };
@@ -450,6 +455,47 @@ function glyphMarkup(node, childrenOf) {
 }
 
 /**
+ * **떠 있는 도형 하나짜리 svg(2026-10-07).** 제 상자 밖으로 넘치는 svg 안에 있던 도형(React Flow 연결선)은 사용자 좌표 상자(`vector.bbox`)와 화면 상자
+ * (`rect`)를 갖는다. 획이 상자 밖으로 반 두께만큼 나가므로 viewBox 를 그만큼 넓히고, 화면 크기도 같은 배율로 넓힌다. 보이지 않는 도형
+ * (획 · 칠이 모두 투명 — 연결선의 클릭 영역 path)은 null 이다. 아이콘이 아니므로 글리프 대응표를 거치지 않는다.
+ */
+function looseShapeMarkup(node) {
+  const box = String(node.vector?.bbox ?? "").split(" ").map(Number);
+  if (box.length !== 4 || !box.every(Number.isFinite)) return null;
+  const style = node.style ?? {};
+  const fill = glyphColour(style.fill ?? "none");
+  const stroke = glyphColour(style.stroke ?? "none");
+  if (!fill || !stroke) return null;
+  const strokeOpacity = Number.parseFloat(style.strokeOpacity ?? "1");
+  const fillOpacity = Number.parseFloat(style.fillOpacity ?? "1");
+  const strokeVisible = stroke.colour !== "none" && strokeOpacity > 0 && (stroke.alpha ?? 1) > 0;
+  const fillVisible = fill.colour !== "none" && fillOpacity > 0 && (fill.alpha ?? 1) > 0;
+  if (!strokeVisible && !fillVisible) return null;
+  const width = strokeVisible ? (px(style.strokeWidth) ?? 1) : 0;
+  const pad = width / 2;
+  const [bx, by, bw, bh] = box;
+  const scale = bw > 0 ? node.rect.width / bw : bh > 0 ? node.rect.height / bh : 1;
+  if (!Number.isFinite(scale) || scale <= 0) return null;
+  const size = (value) => Math.round(value * 100) / 100;
+  const quote = (value) => String(value).replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/</g, "&lt;");
+  const attrs = GLYPH_GEOMETRY.filter((name) => node.vector?.[name] != null).map((name) => `${name}='${quote(node.vector[name])}'`);
+  attrs.push(`fill='${fillVisible ? fill.colour : "none"}'`);
+  if (fillVisible && fill.alpha != null) attrs.push(`fill-opacity='${fill.alpha}'`);
+  attrs.push(`stroke='${strokeVisible ? stroke.colour : "none"}'`);
+  if (strokeVisible) {
+    if (stroke.alpha != null || strokeOpacity < 1) attrs.push(`stroke-opacity='${size((stroke.alpha ?? 1) * strokeOpacity)}'`);
+    attrs.push(`stroke-width='${width}'`);
+    if (style.strokeLinecap && style.strokeLinecap !== "butt") attrs.push(`stroke-linecap='${style.strokeLinecap}'`);
+    if (style.strokeLinejoin && style.strokeLinejoin !== "miter") attrs.push(`stroke-linejoin='${style.strokeLinejoin}'`);
+    if (style.strokeDasharray && style.strokeDasharray !== "none") attrs.push(`stroke-dasharray='${quote(style.strokeDasharray.replace(/px/g, ""))}'`);
+  }
+  return {
+    markup: `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${size(bx - pad)} ${size(by - pad)} ${size(bw + width)} ${size(bh + width)}' width='${size((bw + width) * scale)}' height='${size((bh + width) * scale)}' fill='none'><${node.tag} ${attrs.join(" ")}/></svg>`,
+    rect: { x: node.rect.x - pad * scale, y: node.rect.y - pad * scale, width: (bw + width) * scale, height: (bh + width) * scale },
+  };
+}
+
+/**
  * **SVG 글리프의 정체 서명 — 측정값을 그대로 잇는다.**
  *
  * 측정기는 `<svg>` 의 `viewBox` 와 자손 도형의 기하 속성(`d`·`points`·`cx`…)을 담는다
@@ -725,6 +771,13 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
   // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
   const convert = (node, parent, inStretchedRow = false) => {
     if (!isVisible(node)) { stats.droppedInvisible += 1; return null; }
+    // 떠 있는 도형(normalizeAuthFixtureTree 의 looseShape) — 보이는 도형만 도형 하나짜리 svg 로 싣는다. 상자는 획 여유만큼 넓힌다.
+    if (node.looseShape) {
+      const loose = looseShapeMarkup(node);
+      if (!loose) { stats.droppedEmpty += 1; return null; }
+      node = { ...node, rect: loose.rect, looseMarkup: loose.markup };
+      stats.looseShapes = (stats.looseShapes ?? 0) + 1;
+    }
 
     // grid 부모 안에서 이 자식이 놓인 열 — 자식 순번이 아니라 자동 배치로 푼다(형제 · 흐름 · 명시 배치를 본다).
     const gridColumn = parent && /grid/.test(parent.style?.display ?? "")
@@ -828,7 +881,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     };
     const placeholder = children.length === 0 && !hasOwnPaint(node) && !formControl
       && parent != null && !decision.absolute && node.rect.width > 0 && node.rect.height > 0 && !insideSvg() && !stackedInGrid();
-    if (children.length === 0 && !hasOwnPaint(node) && !formControl && !placeholder) { stats.droppedEmpty += 1; return null; }
+    if (children.length === 0 && !hasOwnPaint(node) && !formControl && !placeholder && !node.looseMarkup) { stats.droppedEmpty += 1; return null; }
     if (placeholder) stats.placeholderBoxes = (stats.placeholderBoxes ?? 0) + 1;
 
     const style = node.style ?? {};
@@ -942,6 +995,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       glyph: glyphSignature(node, childrenOf),
       // **아이콘의 그림.** 측정한 도형(기하 속성 + 계산된 칠 · 획)을 SVG 로 조립한다 — 렌더러가 이것으로 아이콘을 그린다(glyphMarkup).
       ...(node.tag === "svg" ? (() => { const markup = glyphMarkup(node, childrenOf); return markup ? { glyphSvg: markup } : {}; })() : {}),
+      ...(node.looseMarkup ? { glyphSvg: node.looseMarkup } : {}),
       // **이미지의 정체.** `<img>` 의 src — 생성기가 LOUIS 자산 컴포넌트와 잇는 열쇠다(IMAGE_COMPONENTS).
       ...(node.tag === "img" && node.src ? { src: node.src } : {}),
       sizing: nodeSizing,

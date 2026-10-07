@@ -944,6 +944,15 @@ try {
             if (typeof cleaned[cleaned.length - 1] === "string") cleaned[cleaned.length - 1] = cleaned[cleaned.length - 1].replace(/\s+$/, "");
             return cleaned.filter((run) => run !== "");
           };
+          // 도형이 제 상자 밖으로 4px 넘게 넘쳐 그려지는 `overflow: visible` svg — React Flow 연결선(svg 는 기본 300×150, 선은 그 밖).
+          const zeroSizeOwner = (svg) => {
+            if (!(svg instanceof SVGSVGElement) || getComputedStyle(svg).overflow !== "visible") return false;
+            const box = svg.getBoundingClientRect();
+            return [...svg.querySelectorAll("path, line, polyline, polygon, rect, circle, ellipse")].some((shape) => {
+              const r = shape.getBoundingClientRect();
+              return r.width + r.height > 0 && (r.left < box.left - 4 || r.top < box.top - 4 || r.right > box.right + 4 || r.bottom > box.bottom + 4);
+            });
+          };
           const vectorAttributes = (node) => {
             if (!(node instanceof SVGElement)) return null;
             const names = [
@@ -957,6 +966,12 @@ try {
               .filter((entry) => entry[1] !== null));
             const href = node.getAttribute("href") ?? node.getAttribute("xlink:href");
             if (href) attributes.href = href.replace(location.origin, "");
+            // 크기 0 svg 안의 도형(위 passThrough) — 사용자 좌표 상자를 싣는다.
+            const owner = node.ownerSVGElement;
+            if (node instanceof SVGGeometryElement && owner && zeroSizeOwner(owner)) {
+              const box = node.getBBox();
+              attributes.bbox = [box.x, box.y, box.width, box.height].map((value) => Math.round(value * 1000) / 1000).join(" ");
+            }
             return Object.keys(attributes).length > 0 ? attributes : null;
           };
           // **감긴 줄을 싣는다(2026-09-29).** 보드 글꼴은 제품 글꼴(`system-ui` = 맥 Chrome 의 SF Pro 등)과 너비가 달라 폭만 옮기면
@@ -1028,6 +1043,20 @@ try {
             const visible =
               computed.display !== "none" && computed.visibility !== "hidden" &&
               computed.opacity !== "0" && hasArea && intersectsViewport;
+            // **제 상자 밖으로 넘치는 svg 안의 선(2026-10-07).** React Flow 는 연결선마다 크기를 정하지 않은(기본 300×150) `overflow: visible`
+            // svg 를 크기 0 인 상자(`.react-flow__edges`)에 두고, 선은 그 svg 상자 밖에 그린다 — 크기 0 상자째 버려져 선이 원장에 오지 않았다
+            // (노드캔버스 연결선, 제품 캡처 대조). 그런 svg 와, 그런 svg 만 담은 크기 0 상자는 `display: contents` 처럼 건너뛰고 안으로
+            // 내려간다. 안의 도형에는 사용자 좌표 상자(`bbox`)를 함께 싣는다 — 생성기가 그 상자로 도형 하나짜리 svg 를 만든다.
+            const passThrough = computed.display !== "none" && computed.visibility !== "hidden" && (zeroSizeOwner(node)
+              || (!visible && rect.width === 0 && rect.height === 0 && node instanceof HTMLElement && node.children.length > 0 && [...node.children].every(zeroSizeOwner)));
+            // 그 svg 안의 묶음(`g`)도 상자가 아니다 — 흐름 자식이 되어 배치를 흔들지 않게 건너뛴다.
+            const passGroup = node instanceof SVGGElement && node.ownerSVGElement && zeroSizeOwner(node.ownerSVGElement);
+            if (passGroup) {
+              return [...node.children].flatMap((child, index) => describe(child, path + "." + index, parentPath, sink));
+            }
+            if (passThrough) {
+              return [...node.children].flatMap((child, index) => describe(child, path + "." + index, parentPath, sink));
+            }
             if (!visible && computed.display !== "contents") return [];
             const src = node instanceof HTMLImageElement && node.currentSrc
               ? (() => {

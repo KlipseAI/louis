@@ -1395,7 +1395,12 @@ function gridPlacements(node, style, children) {
   const lines = (sizes, origin, gap) => { const out = []; let at = origin; for (const size of sizes) { out.push([at, at + size]); at += size + gap; } return out; };
   const columnLines = lines(columns, node.rect.x + (px(style.paddingLeft) ?? 0) + (px(style.borderLeftWidth) ?? 0), px(style.columnGap ?? style.gap) ?? 0);
   const rowLines = lines(rows, node.rect.y + (px(style.paddingTop) ?? 0) + (px(style.borderTopWidth) ?? 0), px(style.rowGap ?? style.gap) ?? 0);
-  const cellOf = (spans, value) => spans.findIndex(([start, end]) => value >= start - 2 && value <= end + 2);
+  // 칸 안에 정확히 드는 쪽을 먼저 고른다 — 여유(±2)만 보면 간격이 2 보다 좁은 grid(쿠폰 인쇄 격자 · 간격 1)에서 둘째 칸의 시작이 첫 칸
+  // 끝의 여유 안에 들어 첫 칸으로 잡히고, 칸이 겹친다고 보아 되짚기를 통째로 버렸다(2026-10-07 — 묶음 띠 `col-span-4` 가 한 칸에 섰다).
+  const cellOf = (spans, value) => {
+    const exact = spans.findIndex(([start, end]) => value >= start && value <= end);
+    return exact >= 0 ? exact : spans.findIndex(([start, end]) => value >= start - 2 && value <= end + 2);
+  };
   const placements = [];
   for (const child of flow) {
     const margin = child.margin ?? {};

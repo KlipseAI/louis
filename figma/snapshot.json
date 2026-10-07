@@ -10423,7 +10423,7 @@
             }
           },
           "height": [
-            20
+            22
           ],
           "width": [
             22
@@ -10435,16 +10435,16 @@
             0
           ],
           "paddingInline": [
-            5
+            4
           ],
           "paddingInlineEnd": [
-            5
+            4
           ],
           "itemSpacing": [
             0
           ],
           "cornerRadius": [
-            6
+            10
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -10469,7 +10469,7 @@
             }
           },
           "height": [
-            20
+            22
           ],
           "width": [
             22
@@ -10481,16 +10481,16 @@
             0
           ],
           "paddingInline": [
-            5
+            4
           ],
           "paddingInlineEnd": [
-            5
+            4
           ],
           "itemSpacing": [
             0
           ],
           "cornerRadius": [
-            6
+            10
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -10501,11 +10501,7 @@
         }
       },
       "strokes": {},
-      "effects": {
-        "self": [
-          "INNER_SHADOW:0:0:1"
-        ]
-      }
+      "effects": {}
     },
     "MediaCard": {
       "outsideParts": [],
@@ -18531,7 +18527,8 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5
+            0.5,
+            2
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -18981,7 +18978,8 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5
+            0.5,
+            2
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -19092,7 +19090,8 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5
+            0.5,
+            2
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -19203,7 +19202,8 @@
             "VERTICAL"
           ],
           "strokeWeight": [
-            0.5
+            0.5,
+            2
           ],
           "overflowingParts": [],
           "offCenterMarks": []
@@ -19211,7 +19211,8 @@
       },
       "strokes": {
         "Box": [
-          "0.5|INSIDE"
+          "0.5|INSIDE",
+          "2|INSIDE"
         ]
       },
       "effects": {}

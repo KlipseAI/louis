@@ -31,8 +31,7 @@
  * - 팔레트 쪽이 얻는 것은 2px 큰 칸과 둥근 모서리이고, 잃는 것은 면의 8% 투명도다. 이관할 때 그 차이를
  *   본다 — keycap.md 가 적는다.
  *
- * 칸 크기(22)와 가로 여백(6)은 토큰 계단에 없다. 6 은 `space-overlay-inset` 과 같은 값이지만 그것은
- * 오버레이 안쪽 여백의 뜻이라 키캡이 빌려 쓰면 오버레이 여백을 바꿀 때 키캡이 따라 움직인다.
+ * 칸 크기(22)는 토큰 계단에 없다. 가로 여백은 `space-control-xs`(4)다 — 한 글자 키가 정사각으로 남는 최대값이다.
  */
 
 .louis-keycap {
@@ -41,11 +40,14 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  /* 도움말 22×22. 글자가 길면(Esc · Enter) 가로로만 늘어난다. */
+  /* 22×22 정사각. 글자가 길면(Esc · Enter) 가로로만 늘어난다.
+   * **한 글자 키는 늘 정사각이다(2026-10-07).** 좌우 여백이 6 이면 12px 글리프(⌘ ⌥ ⇧ ↵) 하나가 12 + 6 + 6 = 24 로
+   * 최소 22 를 넘어 24×22 가 됐다(제품 두 소비처도 같은 산수로 22 를 넘는다). 여백을 4 로 두면 한 글자는 20 이라 최소 22
+   * 안에 들어가고, 여러 글자부터 늘어난다. */
   min-inline-size: 22px;
   block-size: 22px;
   padding-block: 0;
-  padding-inline: 6px;
+  padding-inline: var(--louis-space-control-xs);
   border-radius: var(--louis-radius-overlay-item);
   background: var(--louis-color-bg-inset);
   color: var(--louis-color-fg-secondary);

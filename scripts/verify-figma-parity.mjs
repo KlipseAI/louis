@@ -842,15 +842,16 @@ const COMPONENT_CONTRACTS = [
   {
     id: "keycap",
     figmaName: "Keycap",
-    figmaAhead: "LOUIS recipe 없음 — CommandPalette.tsx:281-296 이 정본이다.",
+    figmaAhead: "React 없음 — CSS 레시피 packages/css/src/component/keycap.css(2026-10-07)가 정본이다.",
     variantProperties: {},
     // **제품과 줄 높이·자간이 다르다.** 정본(CommandPalette.tsx:288)은 leading-[1] 이고 글자
     // 키캡은 tracking-[0.02em] 을 더 준다. Figma 에서는 스케일 스타일(typography/caption-*)을
     // 그대로 쓴다 — 칩이 20×20 고정이고 글자가 가운데 정렬이라 줄 높이가 보이는 크기를 바꾸지
     // 않는다(적용 전후 칩 20×20 동일 확인). 스타일 연결을 끊어 가며 지킬 값이 아니다.
-    // 칩 테두리는 border 가 아니라 inset 그림자다(정본의 box-shadow: inset 0 0 0 1px).
+    // **선이 없다(2026-10-07).** 레시피가 두 소비처(커맨드 팔레트 20 · 알파 면 + 안쪽 선, 캔버스 도움말 22 · `bg-inset`)를
+    // 도움말 쪽으로 닫았다 — 최소 22×22 · 좌우 6 · `radius-overlay-item` · 불투명 `bg-inset` 면이라 안쪽 선이 필요 없다.
     strokes: {},
-    effects: { self: "INNER_SHADOW:0:0:1" },
+    effects: {},
     figmaOnlyProperties: {
       Label: { type: "TEXT", reason: "키캡 글자. 코드에서는 children 이다." },
       Kind: { options: ["glyph", "text"], reason: "글리프 키캡과 글자 키캡은 자간·굵기만 다르다(KEY vs KEY_TEXT)." },
@@ -1711,7 +1712,9 @@ const COMPONENT_CONTRACTS = [
       },
     },
     // 보이는 테두리는 Box가 갖는다. root(component set)에는 stroke가 없다.
-    strokes: { Box: { weight: "borderWidth", align: "INSIDE" } },
+    // **굵기가 둘이다(2026-10-07, DS-D-0075).** 기본 · 잠김 · 빈 칸은 헤어라인 0.5, 오류 칸은 ring 두께 2 의
+    // `fg-danger-on-surface` 다. 배열은 「변형마다 이 중 하나」라 어느 칸이 2 인지는 브라우저 시험이 잰다.
+    strokes: { Box: { weight: [0.5, 2], align: "INSIDE", reason: "기본 · 잠김 · 빈 칸은 헤어라인 0.5, 오류 칸은 DS-D-0075 의 ring 두께 2 위험색 링이다." } },
     effects: {},
     geometry: {
       measuredId: "input",
@@ -1732,8 +1735,9 @@ const COMPONENT_CONTRACTS = [
         width: "frameWidth",
       },
       slots: {},
-      // Focus 링의 2px 를 적어 두던 자리다. DS-D-0074 로 Focus 변형과 링이 없어졌다.
-      extraStrokeWeights: [],
+      // Focus 링의 2px 를 적어 두던 자리다. DS-D-0074 로 Focus 변형과 링이 없어졌고, DS-D-0075 로 오류 칸의
+      // 2px 위험색 링이 같은 굵기로 돌아왔다.
+      extraStrokeWeights: [2],
       parts: {
         Box: {
           fields: {

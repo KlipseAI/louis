@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-07 (210) — Figma 를 코드에 맞췄다: TextField 오류 링 · Keycap 정사각
+
+- **TextField `State=Invalid`** 네 변형의 Box 선을 2px `fg-danger-on-surface` 로 바꿨다(DS-D-0075). parity 계약의 Box 굵기를
+  `[0.5, 2]`(사유 포함)로 넓혔다.
+- **Keycap 이 늘 정사각이다.** 레시피의 좌우 여백이 6 이라 12px 글리프 한 글자가 12 + 6 + 6 = 24 로 최소 22 를 넘어 **24×22** 가 됐다
+  (Figma 에서 드러났고 브라우저도 같다 — 제품 두 소비처도 같은 산수로 22 를 살짝 넘는다). 여백을 4(`space-control-xs`)로 바꿔
+  한 글자 키는 22×22, 여러 글자부터 가로로 늘어난다. Figma `Keycap` 두 변형도 레시피대로 — `bg-inset` 면, 반경
+  `radius-overlay-item`, 안쪽 선 없음, 여백 `spacing/control-xs` — 맞추고 parity 계약의 효과를 비웠다.
+- 두 세트를 되읽어 병합했다. Toast callout · Tooltip 코치마크 닫기, EmptyState canvas 세 줄은 부품 구조와 계약 경로가 함께 바뀌어 다음
+  Figma 회차다.
+
 ## 2026-10-07 (209) — 소유자 결정 넷: 호버는 호버 기기에서만(DS-D-0077) · 글자 쉬머 2.2초 · 선택 카드 두 표현 · Start Card
 
 - **호버는 `@media (hover: hover)` 안에만**([DS-D-0077](../governance/decisions/DS-D-0077-hover-only-on-hover-devices.md)) — CSS 스무 파일의

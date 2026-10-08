@@ -409,7 +409,9 @@ const ensureSection = (name, width, height) => {
   return section;
 };
 // 세트가 없으면 측정 variant 로 세트를 만들고, 있으면 **없는 측정 variant 만 더한다**(지우지 않는다).
-// 계획의 측정·보존 어느 쪽에도 없는 이름이 세트에 있으면 던진다. 격자는 3열이고 칸 간격이
+// 계획의 측정·보존·손대지 않음(`untouchedVariants`) 어디에도 없는 이름이 세트에 있으면 던진다. 손대지 않음 칸은 측정
+// 출처가 사라졌지만 라이브 보드 · 인스턴스가 참조할 수 있는 칸이다 — 모드 · 칠 · 기하 · 설명을 고치지 않고 지우지도 않으며,
+// 아래 격자 배치와 세트 크기 맞춤에서만 자리를 갖는다. 세트가 없을 때도 만들지 않는다. 격자는 3열이고 칸 간격이
 // variant 폭보다 넓어 겹치지 않는다(figma-live-check 의 겹침 규칙). 행 간격은 칸의 실제 높이에서 잰다 —
 // 바 높이는 HUG 라 러너가 미리 알지 못한다.
 const ensureSet = ({ section, name, S, menuMaster, columnWidth, description }) => {
@@ -435,7 +437,9 @@ const ensureSet = ({ section, name, S, menuMaster, columnWidth, description }) =
   set.fills = [];
   const keys = ensureTextProperties(set, S.textProperties);
   const specByName = new Map([...S.variants, ...S.preservedVariants].map((spec) => [variantName(spec), spec]));
+  const untouched = new Set(S.untouchedVariants);
   for (const variant of set.children) {
+    if (untouched.has(variant.name)) continue;
     const spec = specByName.get(variant.name);
     if (!spec) throw new Error(`Cannot reconcile ${name} variant ${variant.name}`);
     pin(variant);
@@ -459,10 +463,10 @@ const ensureSet = ({ section, name, S, menuMaster, columnWidth, description }) =
     Math.max(section.width, set.x + set.width + 40),
     Math.max(section.height, set.y + set.height + 40),
   );
-  return { set, keys, added };
+  return { set, keys, added, untouched: set.children.filter((entry) => untouched.has(entry.name)).map((entry) => entry.id) };
 };
 const note = (S, viewport) =>
-  `${PLAN.productCommit.slice(0, 8)} · ${viewport} · ${S.variants.length} measured + ${S.preservedVariants.length} preserved combinations · product-only candidate`;
+  `${PLAN.productCommit.slice(0, 8)} · ${viewport} · ${S.variants.length} measured + ${S.preservedVariants.length} preserved + ${S.untouchedVariants.length} untouched combinations · product-only candidate`;
 const layoutNote = "The bar hugs its height (padding + tallest child + hairline); its width is a default — consumers set FILL.";
 
 // ── 모바일 ───────────────────────────────────────────────────────────────
@@ -507,8 +511,14 @@ const desktop = ensureSet({
 });
 if (layoutViolations.length) throw new Error(`Top-bar layout contract violated: ${JSON.stringify(layoutViolations.slice(0, 8))}`);
 
+// 칠 검사는 이 러너가 고친 노드만 본다 — 손대지 않음 칸은 고치지 않으므로 그 아래는 세지 않는다.
+const untouchedIds = new Set([...mobile.untouched, ...desktop.untouched]);
 const visiblePaints = [];
-for (const node of [mobile.set, desktop.set, expandedMaster].flatMap((root) => [root, ...root.findAll(() => true)])) {
+const reconciledNodes = (root) => [root, ...root.findAll((node) => {
+  for (let at = node; at && at !== root; at = at.parent) if (untouchedIds.has(at.id)) return false;
+  return true;
+})];
+for (const node of [mobile.set, desktop.set, expandedMaster].flatMap(reconciledNodes)) {
   for (const field of ["fills", "strokes"]) {
     if (!Array.isArray(node[field])) continue;
     for (const paint of node[field]) {
@@ -526,12 +536,14 @@ return {
   componentSetId: mobile.set.id,
   variantIds: mobile.set.children.map((entry) => entry.id),
   addedVariantIds: mobile.added,
+  untouchedVariantIds: mobile.untouched,
   textPropertyKeys: mobile.keys,
   desktopSectionId: desktopSection.id,
   desktopDocFrameId: desktopDocs.id,
   desktopComponentSetId: desktop.set.id,
   desktopVariantIds: desktop.set.children.map((entry) => entry.id),
   desktopAddedVariantIds: desktop.added,
+  desktopUntouchedVariantIds: desktop.untouched,
   desktopTextPropertyKeys: desktop.keys,
   expandedSidebarGlyphId: expandedMaster.id,
   glyphDrift,

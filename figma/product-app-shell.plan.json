@@ -1805,6 +1805,12 @@
         "reason": "보존 · 제품 출처 없음(라이브 허브 보드·legacy 인스턴스가 참조)"
       }
     ],
+    "untouchedVariants": [
+      {
+        "name": "Width=Full, Breadcrumb=Trail, Back=True, Divider=On",
+        "reason": "측정 출처 사라짐 — 하이라이트 상세 `?__phase=` 가 스튜디오 판(바 없음)으로 바뀌었다(앵커 54b62a8a). 라이브 칸은 그대로 둔다"
+      }
+    ],
     "desktopTopBar": {
       "id": "product/desktop-app-top-bar",
       "sectionName": "L · product/Desktop app top bar · measured component",
@@ -3760,6 +3766,12 @@
           ],
           "status": "preserved",
           "reason": "보존 · 제품 출처 없음(라이브 허브 보드·legacy 인스턴스가 참조)"
+        }
+      ],
+      "untouchedVariants": [
+        {
+          "name": "Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On",
+          "reason": "측정 출처 사라짐 — 하이라이트 상세 `?__phase=` 가 스튜디오 판(바 없음)으로 바뀌었다(앵커 54b62a8a). 라이브 칸은 그대로 둔다"
         }
       ]
     }

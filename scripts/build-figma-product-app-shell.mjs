@@ -492,7 +492,9 @@ const variantInputs = [
   // 갈래의 스튜디오 판(`HighlightStudioShell` — Gnb variant=create: 뒤로 단추 · 프로필만, 브레드크럼 없음)으로 바뀌어 이 바를 그리지 않는다.
   // 같은 바를 그리는 측정 화면은 세션 원장의 쇼츠 결과(「Highlight / 자리표시 쇼츠 제목」)뿐인데, 그 글자의 Figma 글리프 경계
   // (`figmaGlyphBounds`)는 라이브에 같은 글꼴 · 크기의 글자 노드가 없어 읽기만으로 잴 수 없다(2026-10-08 탐침 — 보드의 같은 글자는 28px 제목뿐).
-  // 렌더러는 계획에 없는 variant 를 건드리지 않으므로 라이브 세트의 그 칸은 그대로 남는다. 경계를 재면 쇼츠 결과를 출처로 되살린다.
+  // 라이브 세트의 그 칸(1521:5349)은 지우지 않는다 — 렌더러는 계획의 측정 · 보존 어느 쪽에도 없는 이름을 만나면 던지므로(ensureSet,
+  // 2026-10-09 LOUIS 적용이 그렇게 멈췄다) 이름만 `untouchedMobileInputs` 에 올려 손대지 않고 배치에서만 자리를 준다. 경계를 재면
+  // 쇼츠 결과를 출처로 되살린다.
   // 통합 판(76b6cf15)에서 `/mypage/topup/fail` 의 바 글자가 「Subscription」 이 됐다 — 「My Page」 바(위 15/5 · 14/5 후보)의 출처를 같은 충전
   // 흐름의 `/mypage/topup/success` 로 옮긴다(같은 root path, 후보 roots 에 있다).
   { width: "Inset", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/success", rootPath: "body.1.0.0.1.0.0" },
@@ -504,6 +506,13 @@ const variantInputs = [
 const PRESERVED_REASON = "보존 · 제품 출처 없음(라이브 허브 보드·legacy 인스턴스가 참조)";
 const mobilePreservedInputs = [
   { width: "Full", breadcrumb: "Single", back: false, divider: true, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
+];
+// **측정 출처가 사라졌지만 라이브 세트에 남아 있는 칸 — 이름만 싣고 측정하지 않는다(2026-10-09).** 렌더러는 이 칸을 지우지도
+// 고치지도 않는다(모드 고정 · 칠 · 기하 · 설명 모두 그대로). 세트 격자 배치와 세트 크기 맞춤에서만 자리를 갖는다. 화면 치환
+// 후보도 아니다 — 치환은 `variants` 만 읽는다. 이름은 2026-10-09 LOUIS 읽기 탐침으로 확인했다.
+const UNTOUCHED_REASON = "측정 출처 사라짐 — 하이라이트 상세 `?__phase=` 가 스튜디오 판(바 없음)으로 바뀌었다(앵커 54b62a8a). 라이브 칸은 그대로 둔다";
+const untouchedMobileInputs = [
+  { width: "Full", breadcrumb: "Trail", back: true, divider: true }, // 라이브 1521:5349
 ];
 
 const mobileSidebarProbe = screens["/settings"].vectorControlProbes?.navigationOpen;
@@ -593,9 +602,12 @@ const desktopVariantInputs = [
   { content: "Subscription", breadcrumb: "Single", back: false, divider: true, route: "/subscription", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-fail", rootPath: "body.1.0.0.1.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
-  // Highlight 칸은 뺐다 — 위 모바일 Full · Trail · 뒤로 조합과 같은 사유(2026-10-08 밤).
+  // Highlight 칸은 측정에서 뺐다 — 위 모바일 Full · Trail · 뒤로 조합과 같은 사유(2026-10-08 밤). 라이브 칸은 아래 untouched 로 남긴다.
 ];
 const desktopPreservedInputs = [desktopVariantInputs[0]];
+const untouchedDesktopInputs = [
+  { content: "Highlight", breadcrumb: "Trail", back: true, divider: true }, // 라이브 1521:5599
+];
 
 const desktopSidebarProbe = fixture.screens["desktop-1920x1080"]["/settings"]
   .vectorControlProbes?.sidebarCollapse;
@@ -622,9 +634,12 @@ const measuredDesktopVariants = desktopVariantInputs.map(barSpec("desktop")).map
 const preservedDesktopVariants = desktopPreservedInputs.map(preservedSpec("desktop"));
 const mobileSets = [...measuredMobileVariants, ...preservedMobileVariants];
 const desktopSets = [...measuredDesktopVariants, ...preservedDesktopVariants];
+const untouchedOf = (inputs) => inputs.map((input) => ({ name: variantName(input), reason: UNTOUCHED_REASON }));
+const untouchedMobileVariants = untouchedOf(untouchedMobileInputs);
+const untouchedDesktopVariants = untouchedOf(untouchedDesktopInputs);
 for (const spec of [...mobileSets, ...desktopSets]) assertProfileVisual(spec);
-for (const [kind, list] of [["mobile", mobileSets], ["desktop", desktopSets]]) {
-  const names = list.map(variantName);
+for (const [kind, list, untouched] of [["mobile", mobileSets, untouchedMobileVariants], ["desktop", desktopSets, untouchedDesktopVariants]]) {
+  const names = [...list.map(variantName), ...untouched.map((entry) => entry.name)];
   const duplicates = names.filter((name, index) => names.indexOf(name) !== index);
   if (duplicates.length) fail(`duplicate ${kind} top-bar variant ${duplicates.join(" | ")}`);
 }
@@ -873,6 +888,7 @@ const plan = {
     textProperties: textPropertiesOf(measuredMobileVariants),
     variants: measuredMobileVariants,
     preservedVariants: preservedMobileVariants,
+    untouchedVariants: untouchedMobileVariants,
     desktopTopBar: {
       id: "product/desktop-app-top-bar",
       sectionName: "L · product/Desktop app top bar · measured component",
@@ -889,6 +905,7 @@ const plan = {
       textProperties: textPropertiesOf(measuredDesktopVariants),
       variants: measuredDesktopVariants,
       preservedVariants: preservedDesktopVariants,
+      untouchedVariants: untouchedDesktopVariants,
     },
   },
 };
@@ -923,12 +940,14 @@ const runnerPlan = {
     glyphWidths: glyphWidths(figmaGlyphBounds),
     variants: measuredMobileVariants.map(runnerVariant),
     preservedVariants: preservedMobileVariants.map(runnerVariant),
+    untouchedVariants: untouchedMobileVariants.map((entry) => entry.name),
     desktopTopBar: {
       ...plan.component.desktopTopBar,
       sourceCandidates: undefined,
       glyphWidths: glyphWidths(desktopFigmaGlyphBounds),
       variants: measuredDesktopVariants.map(runnerVariant),
       preservedVariants: preservedDesktopVariants.map(runnerVariant),
+      untouchedVariants: untouchedDesktopVariants.map((entry) => entry.name),
     },
   },
 };
@@ -960,7 +979,7 @@ if (checkOnly) {
 
 console.log(
   `[figma-product-app-shell] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-    `${measuredMobileVariants.length}+${preservedMobileVariants.length} mobile · ${measuredDesktopVariants.length}+${preservedDesktopVariants.length} desktop top-bar variants (measured+preserved) · ` +
+    `${measuredMobileVariants.length}+${preservedMobileVariants.length}+${untouchedMobileVariants.length} mobile · ${measuredDesktopVariants.length}+${preservedDesktopVariants.length}+${untouchedDesktopVariants.length} desktop top-bar variants (measured+preserved+untouched) · ` +
     `runner ${draw.length}/${RUNNER_LIMIT} chars · mobile candidates ${candidateContracts
       .map((entry) => `${entry.nodeCount}/${entry.routeCount}`)
       .join(", ")} · desktop candidates ${desktopCandidateContracts.map((entry) => `${entry.nodeCount}/${entry.routeCount}`).join(", ")} nodes/routes`,

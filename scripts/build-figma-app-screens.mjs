@@ -1064,7 +1064,9 @@ const slimNode = (node) => ({
   ...(node.sizing.maxWidth ? { mw: round(node.sizing.maxWidth) } : {}),
   // 폭 하한 — 하한에 닿은 자리만(측정 폭 = 하한). 요금제 비교표(`min-width: 640px`)가 스크롤 칸(370)에 FILL 로 눌려 열이 좁아지고
   // 글자가 여러 줄로 꺾여 모바일 보드가 1269 길었다(2026-09-30, 글자 전부 대조).
-  ...(node.sizing.minWidth && node.sizing.layoutSizingHorizontal !== "FIXED" && Math.abs(node.rect.width - node.sizing.minWidth) <= 0.5
+  // auto margin 감싸개(wrapSiblingMargins)의 하한은 측정 폭에서 닿지 않아도 싣는다 — 줄이 좁아질 때 자식 상자 아래로 접히지 않게.
+  ...(node.sizing.minWidth && node.sizing.layoutSizingHorizontal !== "FIXED"
+    && (Math.abs(node.rect.width - node.sizing.minWidth) <= 0.5 || node.tag === "margin")
     ? { mn: round(node.sizing.minWidth) } : {}),
   // 높이 상한 — 상한에 닿은 자리만(측정 높이 = 상한). 늘이기(FILL)가 상한을 넘으면 Figma 가 칸을 더 채운다(하이라이트 허브 모바일 본문
   // `max-height: calc(100dvh - 64px)` 810 이 819 로 서서 가운데 놓인 내용이 4 내려갔다).
@@ -1624,12 +1626,31 @@ function dropHugSpaceBetween(spec) {
  * 285.5 · 371.5 가 됐다(제품 캡처와 나란히 놓아 찾았다 — 구조 대조는 통과했다). grid 칸에 서는 것은 감싸개이므로 칸 안 정렬
  * (`gridAlign`)을 감싸개가 넘겨받고, 감싸개 안은 세로 오토 레이아웃이다 — margin 상자가 칸 안에 서는 CSS 와 같다.
  */
-function wrapSiblingMargins(spec) {
+function wrapSiblingMargins(spec, declaredOf = () => null) {
   const wrapped = [];
   const SIDES = ["top", "right", "bottom", "left"];
   // 양수 margin 만 감싼다. 음수(번짐 — 상단 바 −16 / −8)는 감싸개가 들고 가서 전과 같이 부모 padding 을 깎는다(첫 자식일 때).
   const hasMargin = (node) => node.margin && SIDES.some((side) => (node.margin[side] ?? 0) > 0.01);
   const axis = (sizing) => (sizing === "FILL" ? "FILL" : "HUG");
+  const isAuto = (value) => /^auto$/.test(String(value ?? "").replace(/!important/g, "").trim());
+  // **가로 줄의 auto margin 은 남는 폭이다(2026-10-09, 조립 규칙 15조의 7).** `margin-left: auto`(오른쪽 끝 단추) · `margin-right: auto`
+  // (앞에 붙인 문구)는 줄의 남는 폭을 먹는다 — 측정값(1272.97 등)을 감싸개 padding 으로 옮기면 감싸개가 HUG 로 그 폭에 굳어, 보드를
+  // 1440 으로 줄이자 하이라이트 스튜디오 판의 알림 줄(새로고침 · 다시 시도 · 클립 받기 단추, 「분석 중」 문구)이 줄 밖으로 +284 ~ +414
+  // 나갔다(늘림 시험 run 2026-10-09a, 03-app 부모 밖 14 → 22 중 넷). 그 변의 padding 을 버리고 감싸개를 가로 FILL(남는 폭) · 폭 하한 =
+  // 자식 상자로 두며, 자식은 auto 의 반대쪽에 붙인다(왼쪽 auto → MAX, 오른쪽 → MIN, 둘 다 → CENTER). 측정 폭에서는 남는 폭 = 측정
+  // margin 이라 자리가 같다(auto 둘이 나눈 남는 폭도 FILL 둘이 똑같이 나눈다). 폭이 정해진(HUG 아닌) 가로 줄에서만 —
+  // HUG 줄에는 남는 폭이 없다. **감기는 줄에서 혼자 한 줄을 차지한 감싸개는 그대로 둔다** — 감기 줄의 FILL 은 줄을 고를 때 폭이 0 인
+  // 것처럼 앞 항목 뒤에 붙어(splitWrapRowsAtLoneText 주석의 라이브 탐침), 뒤 항목(업로드 진행 막대, `flex-basis: 100%`)이 그 줄로
+  // 올라온다.
+  const autoSidesOf = (node, child) => {
+    if (node.layout.layoutMode !== "HORIZONTAL" || node.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingHorizontal === "FILL") return [];
+    const declared = declaredOf(child.path) ?? {};
+    const sides = ["left", "right"].filter((side) => isAuto(declared[`margin-${side}`]) && (child.margin[side] ?? 0) > HALF_PIXEL);
+    if (sides.length === 0) return [];
+    const room = node.rect.width - node.layout.padding.left - node.layout.padding.right;
+    const outer = child.rect.width + Math.max(0, child.margin.left ?? 0) + Math.max(0, child.margin.right ?? 0);
+    return node.layout.wrap && Math.abs(outer - room) <= HALF_PIXEL ? [] : sides;
+  };
   const walk = (node) => {
     if (node.instance) return;
     const children = node.children ?? [];
@@ -1641,21 +1662,27 @@ function wrapSiblingMargins(spec) {
         if (grid) delete child.gridAlign;
         const gridPlace = grid ? child.gridPlace ?? null : null;
         if (grid) delete child.gridPlace;
-        const out = Object.fromEntries(SIDES.map((side) => [side, Math.max(0, child.margin[side] ?? 0)]));
+        const autoSides = autoSidesOf(node, child);
+        const out = Object.fromEntries(SIDES.map((side) => [side, autoSides.includes(side) ? 0 : Math.max(0, child.margin[side] ?? 0)]));
         const bleed = Object.fromEntries(SIDES.map((side) => [side, Math.min(0, child.margin[side] ?? 0)]));
-        wrapped.push({ path: child.path, margin: SIDES.map((side) => child.margin[side] ?? 0) });
+        wrapped.push({ path: child.path, margin: SIDES.map((side) => child.margin[side] ?? 0), ...(autoSides.length ? { auto: autoSides } : {}) });
+        // auto 변의 측정 margin 은 감싸개 상자에 남긴다(측정 폭의 자리 · 검증용) — padding 으로는 옮기지 않는다.
+        const boxLeft = Math.max(0, child.margin.left ?? 0), boxRight = Math.max(0, child.margin.right ?? 0);
         child.margin = out;
         const sizing = {
           ...child.sizing,
-          layoutSizingHorizontal: axis(child.sizing.layoutSizingHorizontal),
+          layoutSizingHorizontal: autoSides.length ? "FILL" : axis(child.sizing.layoutSizingHorizontal),
           layoutSizingVertical: axis(child.sizing.layoutSizingVertical),
-          minWidth: null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [],
+          minWidth: autoSides.length ? child.rect.width + out.left + out.right : null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [],
         };
-        const reason = "형제가 있는 자식의 margin 감싸개 — 자식이 FILL 이면 FILL, 아니면 HUG";
+        const reason = autoSides.length
+          ? `auto margin(${autoSides.join(" · ")}) 감싸개 — 줄의 남는 폭(FILL), 폭 하한은 자식 상자`
+          : "형제가 있는 자식의 margin 감싸개 — 자식이 FILL 이면 FILL, 아니면 HUG";
+        const primaryAxis = autoSides.length === 2 ? "CENTER" : autoSides[0] === "left" ? "MAX" : null;
         return {
           path: `${child.path}~margin`, tag: "margin", name: `margin ${child.path}`, text: null, textLines: null, paints: false,
-          rect: { x: child.rect.x - out.left, y: child.rect.y - out.top,
-            width: child.rect.width + out.left + out.right, height: child.rect.height + out.top + out.bottom },
+          rect: { x: child.rect.x - boxLeft, y: child.rect.y - out.top,
+            width: child.rect.width + boxLeft + boxRight, height: child.rect.height + out.top + out.bottom },
           glyph: null, sizing, paint: null, typography: null, positioning: "AUTO",
           margin: bleed, offset: null, constraints: null,
           why: { horizontal: { verdict: sizing.layoutSizingHorizontal, reason }, vertical: { verdict: sizing.layoutSizingVertical, reason } },
@@ -1664,7 +1691,7 @@ function wrapSiblingMargins(spec) {
           ...(gridAlign ? { gridAlign } : {}),
           ...(gridPlace ? { gridPlace } : {}),
           layout: { layoutMode: grid ? "VERTICAL" : node.layout.layoutMode, itemSpacing: 0, counterAxisSpacing: null, wrap: false,
-            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : node.layout.align?.counterAxis ?? null, primaryAxis: null } },
+            padding: { top: 0, right: 0, bottom: 0, left: 0 }, columns: null, align: { counterAxis: grid ? null : node.layout.align?.counterAxis ?? null, primaryAxis } },
           clipsContent: false,
           children: [child],
         };
@@ -2084,7 +2111,7 @@ const pendingAnchors = {};
         }
       }
       centreAutoMargins(spec);
-      const marginWrapped = wrapSiblingMargins(spec);
+      const marginWrapped = wrapSiblingMargins(spec, (path) => declaredByPath.get(path) ?? null);
       const bleed = hoistBleed(spec);
       if (bleed.unresolved.length > 0) fail(`부품 ${part.set} ${variant.variant} 에 옮기지 못한 번짐이 있습니다: ${JSON.stringify(bleed.unresolved)}`);
       const gaps = pairNegativeGaps(spec);
@@ -2194,7 +2221,7 @@ for (const screen of SCREENS) {
     const sizingFix = reconcileFigmaSizing(spec);
     const autoMarginCentred = centreAutoMargins(spec);
     totalAutoMarginCentred += autoMarginCentred.length;
-    const marginWrapped = wrapSiblingMargins(spec);
+    const marginWrapped = wrapSiblingMargins(spec, (path) => declaredByPath.get(path) ?? null);
     totalMarginWrapped += marginWrapped.length;
     const bleed = hoistBleed(spec);
     totalBleedHoisted += bleed.hoisted.length;

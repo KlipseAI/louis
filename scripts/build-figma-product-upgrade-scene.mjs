@@ -698,9 +698,8 @@ const plan = {
         declared: [quote.product(PRICING, 98, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 331, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
       },
       gray000Alpha72: {
-        name: "color/gray/000-alpha/72", mix: { name: "color/gray/000", alpha: 0.72 },
+        name: "color/gray/000-alpha/72",
         declared: [quote.product(PAGE, 178, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
-        reason: "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
       },
       bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 233, '  "bg-[var(--louis-color-bg-raised)]",')] },
       gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 223, '  "flex flex-col text-gray-200 overflow-hidden",')] },

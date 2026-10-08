@@ -717,12 +717,12 @@ const roles = live.colorRoles({
     paletteGray100: { collection: "Klipse Primitive", name: "color/palette-gray/100", declared: [quote.product(GNB, 1996, '    "[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]",')] },
     paletteGray000: { collection: "Klipse Primitive", name: "color/palette-gray/000", declared: [quote.product(GNB, 2005, '    "[background:var(--palette-gray-000)]",')] },
     gray000Alpha56: {
-      name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
-      declared: [quote.product(RESULT, 97, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),
+      name: "color/gray/000-alpha/56",
+      declared: [quote.product(RESULT, 97, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')],
     },
     gray000Alpha48: {
-      name: "color/gray/000-alpha/48", mix: { name: "color/gray/000", alpha: 0.48 },
-      declared: [quote.product(RESULT, 111, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
+      name: "color/gray/000-alpha/48",
+      declared: [quote.product(RESULT, 111, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')],
     },
     gray900: { name: "color/gray/900", declared: [quote.product(RESULT, 129, '  "[border:none] bg-gray-000 text-gray-900!",')] },
     boardSurface: { name: "color/bg-canvas", annotation: "section fills behind the sets (board canvas, not a product surface)" },

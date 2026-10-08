@@ -324,16 +324,16 @@ const roles = live.colorRoles({
         quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",'), quote.product(FAIL, 114, '  "[&_dd]:text-gray-000",')],
     },
     gray000Alpha56: {
-      name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
-      declared: [quote.product(SUCCESS, 118, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')], reason: alphaReason("--gray-000-rgb", 56),
+      name: "color/gray/000-alpha/56",
+      declared: [quote.product(SUCCESS, 118, '  "m-0 text-[rgb(var(--gray-000-rgb)/56%)]",')],
     },
     gray000Alpha48: {
-      name: "color/gray/000-alpha/48", mix: { name: "color/gray/000", alpha: 0.48 },
-      declared: [quote.product(FAIL, 111, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
+      name: "color/gray/000-alpha/48",
+      declared: [quote.product(FAIL, 111, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')],
     },
     gray000Alpha08: {
-      name: "color/gray/000-alpha/08", mix: { name: "color/gray/000", alpha: 0.08 },
-      declared: [quote.product(FAIL, 106, '  "[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]",')], reason: alphaReason("--gray-000-rgb", 8),
+      name: "color/gray/000-alpha/08",
+      declared: [quote.product(FAIL, 106, '  "[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]",')],
     },
     gray900: { name: "color/gray/900", declared: [quote.product(SUCCESS, 157, '  "[border:none] bg-gray-000 text-gray-900!",')] },
     bgRaised: { name: "color/bg-raised", declared: [quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",')] },

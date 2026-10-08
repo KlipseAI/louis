@@ -4376,13 +4376,10 @@
         "measured": "#000000",
         "measuredAlpha": 0.72,
         "sites": 2,
-        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/72 → Klipse Primitive/color/static-black-alpha/72",
-        "figmaValue": "#171b22",
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/72 → Klipse Primitive/color/static-pure-black-alpha/72",
+        "figmaValue": "#000000",
         "figmaAlpha": 0.72,
-        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.72",
-        "exact": false,
-        "reason": "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
-        "liveValueTwins": []
+        "exact": true
       },
       "bgRaised": {
         "declared": [

@@ -2794,13 +2794,10 @@
         "measured": "#000000",
         "measuredAlpha": 0.56,
         "sites": 6,
-        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/56 → Klipse Primitive/color/static-black-alpha/56",
-        "figmaValue": "#171b22",
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/56 → Klipse Primitive/color/static-pure-black-alpha/56",
+        "figmaValue": "#000000",
         "figmaAlpha": 0.56,
-        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.56",
-        "exact": false,
-        "reason": "Product paints rgb(var(--gray-000-rgb) / 56%) — pure black at 56% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
-        "liveValueTwins": []
+        "exact": true
       },
       "gray000Alpha48": {
         "declared": [
@@ -2814,13 +2811,10 @@
         "measured": "#000000",
         "measuredAlpha": 0.48,
         "sites": 2,
-        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/48 → Klipse Primitive/color/static-black-alpha/48",
-        "figmaValue": "#171b22",
+        "figma": "Klipse Semantic Color[Light]/color/gray/000-alpha/48 → Klipse Primitive/color/static-pure-black-alpha/48",
+        "figmaValue": "#000000",
         "figmaAlpha": 0.48,
-        "productMix": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black × 0.48",
-        "exact": false,
-        "reason": "Product paints rgb(var(--gray-000-rgb) / 48%) — pure black at 48% in light. The live alpha ramp with that step resolves to static-black-alpha (#171b22 base), so the paint binds to the same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
-        "liveValueTwins": []
+        "exact": true
       },
       "gray900": {
         "declared": [

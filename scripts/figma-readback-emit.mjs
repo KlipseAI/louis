@@ -205,10 +205,12 @@ const CAPTURE = {
   "EmptyState": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]},"strokes":["self"]},
   "FaqRow": {"key":{"by":["Expanded","Size"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]},"effects":["self"]},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
-  // 떠 있는 알약 셸 — 변형이 없다(단일 COMPONENT). 폭은 담지 않는다: 안에 몇 조각이 서느냐가
+  // 떠 있는 알약 셸. 폭은 담지 않는다: 안에 몇 조각이 서느냐가
   // 정하는 값이라 셸의 선언이 아니다. `Item 1~3` 은 INSTANCE 라 훑기가 그 안으로 들어가지
   // 않고 겉 크기와 곡률만 담긴다 — 그 자리에 무엇이 오는지는 호출부가 정한다.
-  "FloatingShell": {"key":{"name":"shell"},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["cornerRadius"],"Item 2":["cornerRadius"],"Item 3":["cornerRadius"]},"effects":["self"]},
+  // 떠 있는 알약 셸(2026-10-08 compact 변형). 키가 `Size`(md · lg)이고 원장 키로 옮긴다 — md = `shell`(기존 키 그대로, 조각 32),
+  // lg = `compact`(코드 `data-size="compact"`, 조각 40). `compact` 는 Size 축 어휘에서 폐기된 말이라 축 값은 사다리 이름이다.
+  "FloatingShell": {"key":{"by":["Size"],"map":{"md":"shell","lg":"compact"}},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["cornerRadius"],"Item 2":["cornerRadius"],"Item 3":["cornerRadius"]},"effects":["self"]},
   // `Glyph.glyph` 를 뺐다(2026-09-01) — Button 과 같은 이유다. 위 Button 주석이 근거를 갖는다.
   "IconButton": {"key":{"by":["Size"]},"slots":{"Glyph":"size"},"strokes":["self"]},
   // 인스펙터 «행 문법» 두 벌. 값 형태 넷은 한 키(row)에 모은다 — 행의 기하는 형태와 무관하게

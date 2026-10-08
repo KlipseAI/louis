@@ -44,7 +44,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe(`packages/css/src/component/floating-shell.css`)가 섰다. React 표면은 없고 제품은 아직 물지 않았다 — `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 여전히 그리고 있다 |
-| Figma         | `partial`      | FloatingShell(단일 · 축 없음) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 |
+| Figma         | `partial`      | FloatingShell 2 variant(`Size` = `md` · `lg`, `lg` 가 compact) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 계획서가 제안한 네 축 중 하나도 열지 않았고 그 이유가 전부 실측이다 |
 
@@ -158,8 +158,18 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 ## Properties
 
-**FloatingShell** — 축이 없다. `MenuPanel` · `MenuSeparator` 와 같은 단일 컴포넌트다. 코드에는
-`data-size="compact"` 속성이 하나 있지만 Figma 변형은 아직 없다 — 위 「compact」.
+**FloatingShell**
+
+| 이름 | 종류 | 뜻 |
+| --- | --- | --- |
+| `Size` | 축 (2) | `md` = 속성 없음(조각 32, 높이 40) · `lg` = `data-size="compact"`(조각 40, 높이 48) |
+
+코드는 칸이 하나뿐인 값이라 축이 아니라 **속성 하나**로 열었다(위 「compact」). Figma 에는 속성 선택자가
+없어 변형으로 둔다(2026-10-08). 값 이름이 `compact` 가 아닌 것은 그 말이 `Size` 축 어휘에서 폐기됐기
+때문이다([저작 규범 §2](../governance/figma-component-authoring.md)) — 조각이 컨트롤 사다리의
+`layout-control-height-md` · `-lg` 를 그대로 읽으므로 사다리 이름이 곧 값이다. `lg` 변형의 조각 인스턴스는 폭 ·
+높이가 변수 `layout/control-height-lg` 에 묶였고, 여백 · 간격 · 반경 · 재료 · 조각 곡률 12 는 두 변형이 같다.
+누르는 영역 44(`.louis-hit-target`)는 CSS 의 것이라 그리지 않는다. 되읽기 키는 `shell`(md) · `compact`(lg)다.
 
 **PillTrigger**
 
@@ -282,7 +292,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    판정이다. 이번에 레시피는 열지 않았다.
 9. **compact 와 높이 파생값.** (a) compact 크기 40 은 **브라우저 시험이 아직 재지 않는다** —
    `floating-shell.browser.test.tsx` 는 기본 32 만 안다. 높이 48 과 누르는 영역 44 도 파생값이라 시험에서만
-   재진다. Figma 변형도 없다. (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
+   재진다. Figma 는 `Size=lg` 변형으로 섰다(2026-10-08 — 조각 40 · 높이 48 을 되읽기가 잰다). (b) 제품은 툴바 높이를 `canvasChromeInsets.ts` 에서 `4×2 + 32` 로 직접
    계산한다. 높이를 토큰(`--louis-layout-floating-shell-height` 40 · compact 48)으로 **발행하면 제품이
    계산을 걷고 읽을 수 있다** — 하지만 소비처(빈 캔버스 · 도움말 패널 · 콜아웃)가 셸의 **자손이 아니라**
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야

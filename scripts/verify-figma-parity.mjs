@@ -3617,12 +3617,19 @@ const COMPONENT_CONTRACTS = [
     // 것은 LOUIS 흐림 사다리(10·12·16)에 4 가 없기 때문이고, 그 사실은 measured 의
     // `$blurRadius` 가 갖는다.
     effects: { self: "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4" },
-    // 변형 축이 하나도 없다(MenuPanel·MenuSeparator 와 같은 단일 COMPONENT). 계획서가 제안한
-    // Orientation·Divider 두 축을 열지 않은 사유는 measured 의 `$whyNoOrientationAxis`·
-    // `$whyNoDividerAxis` 가 갖는다.
-    figmaOnlyProperties: {},
+    // 축은 `Size` 하나다(2026-10-08 compact 변형). 계획서가 제안한 Orientation·Divider 두 축을 열지 않은 사유는
+    // measured 의 `$whyNoOrientationAxis`·`$whyNoDividerAxis` 가 갖는다.
+    figmaOnlyProperties: {
+      Size: {
+        options: ["md", "lg"],
+        reason:
+          "코드의 `data-size=\"compact\"` 한 속성(휴대폰 폭 `≤719px` 캔버스 하단 바)을 옮긴 축. md = 속성 없음(조각 32 = layout-control-height-md, 높이 파생 40), lg = compact(조각 40 = layout-control-height-lg, 높이 파생 48). 여백 4 · 간격 4 · 반경 16 · 재료 · 조각 곡률 12 는 두 칸이 같다. 코드는 칸이 하나뿐인 값이라 축이 아니라 속성으로 열었지만 Figma 에는 속성 선택자가 없어 변형으로 둔다. 값 이름을 `compact` 로 두지 않는 것은 그 말이 Size 축 어휘에서 폐기됐기 때문이고(figma-component-authoring §2), 조각이 컨트롤 사다리 md · lg 를 그대로 읽어 사다리 이름이 곧 값이다. 누르는 영역 44(`.louis-hit-target`, compact 에서만)는 CSS 의 것이라 그리지 않는다.",
+      },
+    },
     geometry: {
       measuredId: "floating-shell",
+      // 원장 키는 `shell`(Size=md) · `compact`(Size=lg) — 채취 명세의 `map` 이 옮긴다.
+      sizeKeys: ["shell", "compact"],
       // **폭은 담지 않는다.** 안에 몇 조각이 서느냐가 정하는 값이라 셸의 선언이 아니다 —
       // 이 파일의 `$whyNotTextWidth` 가 라벨 폭을 계약 밖에 둔 것과 같은 종류다.
       fields: {

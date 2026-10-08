@@ -25,6 +25,20 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (225) — Figma: FloatingShell 에 compact 변형(Size md · lg)
+
+- 단일 COMPONENT 이던 `FloatingShell` 이 component set(2 변형)이 됐다. 축은 `Size` 하나 — `md` 가 기존 변형(속성 없음, 조각 32 ·
+  높이 40)이고 `lg` 가 코드의 `data-size="compact"`(휴대폰 폭 `≤719px` 캔버스 하단 바, 조각 40 · 높이 48)다. 기존 노드
+  (`1375:1455`)가 `Size=md` 로 그대로 들어가 인스턴스 연결이 끊기지 않는다(파일 안 인스턴스는 0개였다).
+- 값 이름을 `compact` 로 두지 않았다 — 그 말은 `Size` 축 어휘에서 폐기됐고(figma-component-authoring §2), 조각이 컨트롤 사다리
+  `layout-control-height-md` · `-lg` 를 그대로 읽어 사다리 이름이 곧 값이다. `lg` 의 조각 인스턴스 셋은 폭 · 높이가 변수
+  `layout/control-height-lg` 에 묶였고 여백 4 · 간격 4 · 반경 16 · 재료 · 조각 곡률 12 는 두 변형이 같다. 누르는 영역
+  44(`.louis-hit-target`)는 CSS 의 것이라 그리지 않는다.
+- 채취 명세의 키가 `Size` 를 원장 키로 옮긴다(`md` → `shell`, `lg` → `compact`) — 기존 키 `shell` 을 읽는 `verify-recipe-record`
+  를 그대로 두기 위해서다. 기록 `floating-shell` 에 `compact` 칸(높이 48 · 조각 40 등, 레시피 선언)을 더하고 parity 계약에 `Size`
+  축과 `sizeKeys` 를, `verify-recipe-record` 에 compact 조각 크기 대조 2건을 더했다. 되읽어 세션 기록에서 꺼내 병합했다(바인딩 fill
+  2 · 원시 0). Figma 상태는 `partial` 그대로다(흐림 4 · 구분선 · 배지).
+
 ## 2026-10-08 (224) — Figma 새 컴포넌트: 노드 입력판(NodeComposer · NodeComposerError)
 
 - Node Shell 의 하위 부품 입력판(`.louis-node-shell__composer` 이하)이 DS · Components 「7 · 캔버스 · 에디터」 맨 아래에 **단일

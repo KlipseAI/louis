@@ -118,6 +118,10 @@ const RECIPES = [
       [".louis-floating-shell__item", "inline-size", "shell", "itemSize"],
       [".louis-floating-shell__item", "block-size", "shell", "itemSize"],
       [".louis-floating-shell__item", "border-radius", "shell", "itemRadius"],
+      // compact(2026-10-08 Figma `Size=lg`) — 조각 크기만 다시 쓴다. 높이 48 은 shell 의 40 과 같은 파생값이라 대조할
+      // 선언이 없고, 여백 · 간격 · 반경 · 곡률은 기본 규칙을 그대로 받는다(기록의 compact 칸이 같은 값을 적는다).
+      ['.louis-floating-shell[data-size="compact"] .louis-floating-shell__item', "inline-size", "compact", "itemSize"],
+      ['.louis-floating-shell[data-size="compact"] .louis-floating-shell__item', "block-size", "compact", "itemSize"],
     ],
     // 면은 값이 아니라 **이름**이 계약이다. 라이트 palette-gray 025 · 다크 palette-gray 900 은
     // `color-bg-menu` 와 바이트로 같아서, 누가 팔레트 칸을 직접 적어도 두 테마 모두 픽셀이

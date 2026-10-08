@@ -11393,11 +11393,19 @@
       }
     },
     "FloatingShell": {
-      "variantCount": 1,
+      "variantCount": 2,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "lg"
+          ]
+        }
+      },
       "binding": {
-        "boundFills": 1,
+        "boundFills": 2,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -11436,6 +11444,63 @@
           },
           "height": [
             40
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact": {
+          "slots": {
+            "Item 1": [
+              "40x40"
+            ],
+            "Item 2": [
+              "40x40"
+            ],
+            "Item 3": [
+              "40x40"
+            ]
+          },
+          "parts": {
+            "Item 1": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Item 2": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Item 3": {
+              "cornerRadius": [
+                12
+              ]
+            }
+          },
+          "height": [
+            48
           ],
           "paddingBlock": [
             4

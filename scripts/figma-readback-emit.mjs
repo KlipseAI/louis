@@ -267,7 +267,10 @@ const CAPTURE = {
   // 담은 12 정사각이다. 규칙 1 대로 INSTANCE 안으로는 들어가지 않으므로 캐럿 획은 여기 담기지
   // 않는다 — 그 정본은 아이콘 manifest 이고 compareIcons 가 따로 잰다.
   // `effects:["self"]` 는 헤어라인을 담는다. 규범이 stroke 가 아니라 INNER_SHADOW 로 그리라고
-  // 정했고(figma-component-authoring.md, DS-D-0023) 여덟 변형이 전부 그것을 갖는다.
+  // 정했고(figma-component-authoring.md, DS-D-0023) 열여섯 변형이 전부 그것을 갖는다.
+  // **`Placeholder` 축(2026-10-08)은 키에 넣지 않는다.** 그 축은 값 잉크(fg-tertiary)만 바꾸고 기하를 하나도 다시
+  // 쓰지 않는다 — 키에 넣으면 같은 값이 두 번 담기고, 한 칸만 어긋나도 그 사실이 배열 길이가 아니라 키 이름에 숨는다
+  // (ChartCard 의 State 와 같은 판단). 같은 키 안의 여덟 변형은 값이 같아야 하고, 어긋나면 배열이 길어져 보인다.
   "SelectTrigger": {"key":{"by":["Size"]},"parts":{"Glyph":["width","height"],"Caret":["width","height"]},"effects":["self"]},
   "SidebarBrand": {"key":{"by":["Collapsed"]},"fields":["strokeWeight","width","height","cornerRadius","layoutMode","paddingInline","paddingInlineEnd","paddingBlock","paddingBlockEnd","itemSpacing"],"parts":{"Mark":["width","height"],"Wordmark":["width","height"]}},
   "SidebarCta": {"key":{"by":["Collapsed"]},"parts":{"Label":["width"]},"effects":["self"]},

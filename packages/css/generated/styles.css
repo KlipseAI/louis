@@ -7571,8 +7571,12 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
 
 /* **값이 아직 없는 상태(2026-10-07, 제품 하이라이트 작업 브랜치 CustomDropdown).** 첫 옵션을 지금 값인 척 보여 주지 않고
  * 안내 문구를 `data-placeholder` 와 함께 그린다 — 명시적으로 고르게 하는 자리(주제 · 종목)만 쓴다. 잉크는 입력칸의
- * placeholder 와 같은 `fg-tertiary` 다. */
-.louis-select-trigger__value[data-placeholder] {
+ * placeholder 와 같은 `fg-tertiary` 다.
+ *
+ * **꺼진 트리거에서는 `fg-disabled` 가 이긴다(2026-10-08, Figma `Placeholder` 축을 세우며 확인).** 이 규칙은 값 요소에
+ * 직접 색을 주므로, 가드 없이 두면 트리거의 `fg-disabled` 상속을 덮어 꺼진 빈 Select 가 켜진 것처럼 읽힌다 — 다크에서는
+ * `fg-tertiary` 가 `fg-disabled` 보다 밝다. 상태 가드는 `:where()` 안에 두어 특이도에 보태지 않는다(DS-D-0004 저작 규칙). */
+.louis-select-trigger:where(:not(:disabled):not([aria-disabled="true"])) .louis-select-trigger__value[data-placeholder] {
   color: var(--louis-color-fg-tertiary);
 }
 

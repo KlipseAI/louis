@@ -142,7 +142,7 @@ BOOLEAN 이 못 그리는 조건은 **그 조건 이름을 그대로 쓰는 2값
 Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서 있고, 이 표가 그것을
 인정하지 않고 있었을 뿐이다.
 
-**현재 열려 있는 조건 축 이름은 일곱이다.**
+**현재 열려 있는 조건 축 이름은 여덟이다.**
 
 | 조건 축 | 어디에 | 왜 BOOLEAN 이 아닌가 |
 | --- | --- | --- |
@@ -153,8 +153,9 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 | `Featured` | 목록 안의 대표 항목 | 프레임 고정 크기가 바뀐다(시험 2) |
 | `Collapsed` | 접히는 내비 | 라벨이 사라지고 프레임 폭이 다시 쓰인다(시험 1·2) |
 | `Loading` | 작업이 도는 동안 자리를 여는 라벨 | 프레임이 자기 `itemSpacing` 을 다시 쓰고 두 조건 사이에 전이가 걸린다(시험 2·3) |
+| `Placeholder` | 값이 아직 없는 선택 트리거 | 계속 보이는 값 레이어의 잉크가 바뀐다(시험 1). SelectTrigger 에서 열렸다(2026-10-08) — CSS `data-placeholder` 와 같은 철자다 |
 
-이 일곱 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
+이 여덟 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
 어휘이므로 **쓰지 않는다** — 같은 뜻에 이름이 둘이면 두 벌이 된다.
 
 **`LabelBehavior` 는 2026-09-03 에 열렸다** ([DS-D-0049](decisions/DS-D-0049-label-placement-is-an-axis.md)).
@@ -165,6 +166,14 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 쓰인다(원장의 「캔버스 하단 플로팅 툴바」). **`Mode` 를 늘리지 않은 이유도 적는다** — 뜻은
 맞지만 `determinate`·`indeterminate` 와 겹치지 않는 두 번째 쌍이 한 이름 아래 놓여, 같은 이름에
 두 뜻이 된다.
+
+**`Placeholder` 는 2026-10-08 에 열렸다.** 근거는 SelectTrigger 의 값 없는 상태다(제품 하이라이트 작업 브랜치
+CustomDropdown 의 주제 · 종목 Select, select.css `.louis-select-trigger__value[data-placeholder]`). 잉크만 바뀌므로
+BOOLEAN 이 아니고(시험 1), 아래 「조건을 `State` 값으로 접어도 되는 때」의 시험이 **접지 말라**로 나온다 — 값이 없는 채로
+`Hover` · `Open` 은 면이 바뀌고 `Disabled` 는 잉크가 `fg-disabled` 로 간다. **TextField 의 `State=Placeholder` 는 그대로
+둔다** — 그 필드는 hover 에서 아무것도 바꾸지 않아 곱할 칸이 없다는 판정이 그쪽 계약 사유에 있다. 같은 뜻의 이름이 한쪽은
+조건 축, 한쪽은 `State` 값으로 서는 것은 이 시험의 정상 결과다 — 이름은 같고 곱할 것의 유무가 갈린다. 다만 `State` 의 허용값
+표에 `Placeholder` 가 없는 것은 TextField 가 남긴 빚이고, 이 개정은 그것을 갚지 않았다.
 
 **`Loading` 은 2026-08-27 에 열렸다.** 근거는 InlineLoadingLabel 실측이다 — 네 변형의 되읽기에서
 프레임 `itemSpacing` 이 닫힘 0, 열림 md 6 · sm 4 로 **프레임 자신이 자기 값을 다시 쓴다**(시험 2).

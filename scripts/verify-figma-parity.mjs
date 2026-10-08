@@ -707,6 +707,11 @@ const COMPONENT_CONTRACTS = [
         type: "TEXT",
         reason: "지금 골라져 있는 값. 코드에서는 트리거의 자식 텍스트라 prop 이 아니다 — MenuTrigger 의 같은 슬롯과 같은 처리다.",
       },
+      Placeholder: {
+        options: ["false", "true"],
+        reason:
+          "값이 아직 없는 상태(2026-10-08 Figma 에 세움). CSS 에서 값 요소의 `data-placeholder` 이고 잉크만 `fg-tertiary` 로 내린다 — 면 · 기하는 그대로라 되읽기 키(Size)도 갈리지 않는다. **BOOLEAN 이 아닌 이유는 계속 보이는 레이어(Value)의 색이 바뀌기 때문이다**(figma-component-authoring.md §2 시험 1). **State 값으로 접지 않은 이유는 접기 시험이다** — placeholder 인 채로 Hover · Open 은 면이 바뀌고 Disabled 는 잉크가 fg-disabled 로 간다(select.css 의 상태 가드). 셋이 각각 다르게 보이므로 독립 조건 축이고, 그래서 16 변형(Size 2 × State 4 × Placeholder 2)이다. TextField 는 같은 뜻을 `State=Placeholder` 로 접었는데, 그 필드는 hover 에서 아무것도 바꾸지 않아 곱할 Hover 칸이 없다 — Select 는 면이 hover · 열림에서 움직인다.",
+      },
     },
     // **보이는 테두리가 없다.** 경계는 border 가 아니라 inset 헤어라인이고(DS-D-0023),
     // 그것은 stroke 가 아니라 INNER_SHADOW 로 그린다 — Button secondary·MenuPanel 과 같은

@@ -50,10 +50,12 @@ function Specimen({
   size,
   open = false,
   disabled = false,
+  placeholder = false,
 }: {
   size: Size;
   open?: boolean;
   disabled?: boolean;
+  placeholder?: boolean;
 }): JSX.Element {
   return (
     <div style={{ inlineSize: "160px" }}>
@@ -68,8 +70,12 @@ function Specimen({
         disabled={disabled}
       >
         <span className="louis-select-trigger__icon" data-testid="glyph" aria-hidden="true" />
-        <span className="louis-select-trigger__value" data-testid="value">
-          한국어
+        <span
+          className="louis-select-trigger__value"
+          data-testid="value"
+          data-placeholder={placeholder ? "" : undefined}
+        >
+          {placeholder ? "주제 선택" : "한국어"}
         </span>
         <span className="louis-select-trigger__caret" data-testid="caret" aria-hidden="true" />
       </button>
@@ -185,4 +191,54 @@ test("SelectTrigger Disabled 는 면을 두고 잉크만 내린다", async () =>
   );
   expect(style.color, "foreground").toBe(tokenValue(paints.Disabled.foreground, "color"));
   expect(style.cursor, "cursor").toBe("not-allowed");
+});
+
+/* ── 값이 없는 상태(placeholder) ──────────────────────────────────────────────
+ *
+ * measured `states.placeholder` 네 칸을 읽는다. Figma `Placeholder=true` 여덟 변형과 같은 표다.
+ * **잉크는 트리거가 아니라 값 요소에서 잰다** — placeholder 규칙이 값 요소에 직접 색을 주므로
+ * 트리거의 계산색은 이 상태를 말하지 않는다. Disabled 칸이 이 묶음의 요점이다: 가드가 없던 판은
+ * 꺼진 빈 Select 의 값을 fg-tertiary 로 그렸다. */
+const placeholderPaints = measured.components.select.states.placeholder;
+
+test("SelectTrigger placeholder 가 쉼에서 값 잉크를 fg-tertiary 로 내리고 면은 그대로 둔다", async () => {
+  await render(<Specimen size="md" placeholder />);
+  expect(getComputedStyle(find("trigger")).backgroundColor, "Default background").toBe(
+    tokenValue(placeholderPaints.Default.background, "background-color"),
+  );
+  expect(getComputedStyle(find("value")).color, "Default value ink").toBe(
+    tokenValue(placeholderPaints.Default.foreground, "color"),
+  );
+});
+
+test("SelectTrigger placeholder 가 hover 에서 면만 바꾸고 잉크는 그대로 둔다", async () => {
+  await render(<Specimen size="md" placeholder />);
+  await userEvent.hover(find("trigger"));
+  await expect
+    .poll(() => getComputedStyle(find("trigger")).backgroundColor, { timeout: 2000 })
+    .toBe(tokenValue(placeholderPaints.Hover.background, "background-color"));
+  expect(getComputedStyle(find("value")).color, "Hover value ink").toBe(
+    tokenValue(placeholderPaints.Hover.foreground, "color"),
+  );
+  await userEvent.unhover(find("trigger"));
+});
+
+test("SelectTrigger placeholder 가 열려도 잉크는 fg-tertiary 다", async () => {
+  await render(<Specimen size="md" placeholder open />);
+  expect(getComputedStyle(find("trigger")).backgroundColor, "Open background").toBe(
+    tokenValue(placeholderPaints.Open.background, "background-color"),
+  );
+  expect(getComputedStyle(find("value")).color, "Open value ink").toBe(
+    tokenValue(placeholderPaints.Open.foreground, "color"),
+  );
+});
+
+test("SelectTrigger placeholder 가 꺼지면 fg-disabled 가 이긴다", async () => {
+  await render(<Specimen size="md" placeholder disabled />);
+  expect(getComputedStyle(find("trigger")).backgroundColor, "Disabled background").toBe(
+    tokenValue(placeholderPaints.Disabled.background, "background-color"),
+  );
+  expect(getComputedStyle(find("value")).color, "Disabled value ink").toBe(
+    tokenValue(placeholderPaints.Disabled.foreground, "color"),
+  );
 });

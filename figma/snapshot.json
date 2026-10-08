@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 66,
-        "variants": 794
+        "variants": 802
       },
       "icons": 47,
       "templates": 9
@@ -15846,7 +15846,7 @@
     "SelectTrigger": {
       "outsideParts": [],
       "tokenId": "select",
-      "variantCount": 8,
+      "variantCount": 16,
       "hasDescription": true,
       "properties": {
         "Value": {
@@ -15867,14 +15867,21 @@
             "Open",
             "Disabled"
           ]
+        },
+        "Placeholder": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
         }
       },
       "binding": {
-        "boundFills": 16,
+        "boundFills": 32,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 8,
+        "textStyled": 16,
         "textUnstyled": 0
       },
       "geometry": {

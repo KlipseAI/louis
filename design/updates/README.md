@@ -25,6 +25,21 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (216) — Figma 구조 맞춤: Select 빈 값(`Placeholder` 축)과 꺼진 빈 트리거의 잉크
+
+- **SelectTrigger** set 에 조건 축 `Placeholder` = `false` · `true` 가 섰다 — `Size` 2 × `State` 4 와 곱해져 변형이 8 → 16. 기존
+  변형은 이름에 `Placeholder=false` 가 붙었을 뿐 노드 id 가 그대로라 이미 놓인 인스턴스는 값이 있는 트리거로 남는다. set 은
+  두 열(왼쪽 false · 오른쪽 true)로 다시 배치했다.
+- `true` 는 CSS `.louis-select-trigger__value[data-placeholder]`(2026-10-07)다 — 값 레이어의 잉크만 `color/fg-tertiary` 로 내리고 면 ·
+  기하는 그대로다. `State` 의 다섯째 값으로 접지 않은 이유는 작성 규범 §2 의 접기 시험이다: 값이 없는 채로 `Hover` · `Open` 은
+  면이 바뀌고 `Disabled` 는 잉크가 다르다. 작성 규범 §2 의 조건 축 명부에 `Placeholder` 를 올렸다(일곱 → 여덟).
+- **CSS 결함 수정 — 꺼진 빈 트리거.** placeholder 규칙이 값 요소에 직접 색을 주어 트리거의 `fg-disabled` 상속을 덮었다. 다크에서는
+  `fg-tertiary` 가 `fg-disabled` 보다 밝아 꺼진 빈 Select 가 켜진 것처럼 읽혔다. 규칙을 상태 가드
+  `:where(:not(:disabled):not([aria-disabled="true"]))` 안에 넣어 꺼진 트리거에서는 `fg-disabled` 가 이긴다. 소비처가 할 일은 없다.
+- parity 계약(`Placeholder` 축 사유)과 채취 명세 주석(축을 키에 넣지 않는 이유)을 고치고, `components.measured.json` 의 `select.states` 에
+  `placeholder` 네 칸을 더했다. `select.browser.test.tsx` 가 네 칸을 값 요소의 계산색으로 잰다 — 가드를 걷으면 Disabled 칸이 빨개지는
+  것을 확인했다. 되읽기는 세션 기록에서 꺼내 병합했다(16 변형 · 바인딩 fill 32 · 원시 0).
+
 ## 2026-10-08 (215) — Figma 구조 맞춤: 시트 손잡이(Dialog `Layout=grabber`)
 
 - **Dialog** set 에 `Layout` = `base` · `grabber` 축이 섰다. 기존 다섯 변형은 이름에 `Layout=base` 가 붙었을 뿐 노드 id 가

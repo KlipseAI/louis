@@ -1414,6 +1414,29 @@
             "foreground": "color-fg-disabled",
             "$foreground": "잉크만 내린다. 상태를 말하는 것은 잉크와 커서(not-allowed)다."
           }
+        },
+        "placeholder": {
+          "$doc": "값이 아직 없는 상태(2026-10-07 CSS · 2026-10-08 Figma `Placeholder=true`). 값 요소에 `data-placeholder` 가 붙으면 **값의 잉크만** 바뀌고 면 · 기하는 base 칸과 같다. foreground 는 트리거가 아니라 `.louis-select-trigger__value` 의 계산색이다 — 이 규칙이 값 요소에 직접 색을 주기 때문이다.",
+          "Default": {
+            "background": "color-bg-inset",
+            "foreground": "color-fg-tertiary",
+            "$foreground": "입력칸의 placeholder 와 같은 잉크다(text-field 의 State=Placeholder). 첫 옵션을 지금 값인 척 보여 주지 않고 안내 문구를 내린 잉크로 그린다 — 제품 하이라이트 작업 브랜치 CustomDropdown 의 주제 · 종목 Select."
+          },
+          "Hover": {
+            "background": "color-accent-secondary-hover",
+            "foreground": "color-fg-tertiary",
+            "$foreground": "면은 base 의 Hover 와 같고 잉크는 placeholder 그대로다 — **이것이 Placeholder 를 State 값으로 접지 않은 이유다**(figma-component-authoring.md §2 접기 시험: placeholder 인 채로 Hover · Open · Disabled 가 각각 다르게 보인다)."
+          },
+          "Open": {
+            "background": "color-accent-secondary-hover",
+            "foreground": "color-fg-tertiary",
+            "$foreground": "Hover 와 같다. 값이 없는 채로 패널이 열린 자리다."
+          },
+          "Disabled": {
+            "background": "color-bg-inset",
+            "foreground": "color-fg-disabled",
+            "$foreground": "**fg-disabled 가 이긴다.** select.css 의 placeholder 규칙은 상태 가드 `:where(:not(:disabled):not([aria-disabled=\"true\"]))` 안에 있어 꺼진 트리거에서는 값이 트리거의 fg-disabled 를 상속한다. 가드가 없던 2026-10-07 판은 꺼진 빈 Select 를 fg-tertiary 로 그려 켜진 것처럼 읽혔다 — 다크에서 fg-tertiary 가 fg-disabled 보다 밝다."
+          }
         }
       }
     },

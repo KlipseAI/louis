@@ -25,6 +25,15 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-09 (239) — 캔버스 토큰을 Figma DS 컴포넌트에 묶는다(DS-D-0082 부품 반영)
+
+- `NodeShell` 의 선택되지 않은 일곱 변형 Card 테두리를 `color/stroke-default` → `color/node-card-stroke`, `NodeComposer` 안의 칩
+  인스턴스 둘을 `color/node-chip-surface` → `color/canvas-chip-surface` 로 옮겼다. 둘 다 캔버스에만 서는 부품이라 기본 결합을 바꾼다.
+- `FloatingShell`(두 크기) · `PillTrigger`(Default · Open) 칠 불투명도 1 → 0.72, `PillTrigger` Hover 1 → 0.88 — 레시피의 면 알파와 같다.
+- 보류: `NodeChip` 세트 · `FloatingShell` · `PillTrigger` · `Menu` · `MenuPanel` 은 캔버스 밖에도 서고 범위 축이 없어 캔버스 판이
+  필요하다. `NodeChromeButton` 은 규범상 기본 면이 없어 묶을 칠이 없다.
+- 되읽기: DS-D-0082 변수 42행을 라이브에서 다시 떴고(신설 19 · 갱신 23), 네 컴포넌트의 components 블록은 재채취 지문이 기존과 같다.
+
 ## 2026-10-09 (238) — 늘림 시험 4회차 · 앱 셸 손대지 않음 칸 · 감기는 줄의 외톨이 글자는 줄을 끊어 줄 폭을 따른다
 
 - 새 앵커 보드를 보낸 뒤 늘림 시험 run 2026-10-09a(29aa108d): 후퇴 둘 — 푸터 모바일 주소 칸이 측정 폭 FIXED 로 굳어 360 에서 +22(글자 잘림

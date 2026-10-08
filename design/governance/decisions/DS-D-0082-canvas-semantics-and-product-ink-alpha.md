@@ -154,6 +154,12 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
    `color/canvas-menu-surface` · `color/node-card-stroke` 신설과 `color/gray/000-alpha/*` · `color/scrollbar/*` ·
    `color/canvas-dot` · `color/app/page-bg` · `color/node/chrome-btn-bg` 갱신. 부품 — `NodeShell` Card 테두리,
    `NodeChip` · `NodeComposer` 칩 면, `NodeChromeButton` 면, `FloatingShell` · `PillTrigger` · `Menu` 의 캔버스 판.
+   - 2026-10-09 반영: 변수는 전부 섰다(되읽기 42행 재채취). 부품은 캔버스에만 서는 것만 기본 결합을 옮겼다 — `NodeShell`
+     `Selected=false` Card 테두리 → `color/node-card-stroke`, `NodeComposer` 칩 인스턴스 둘 → `color/canvas-chip-surface`.
+     `NodeChromeButton` 은 규범상 기본 면이 없어([Node Chrome Button](../../components/node-chrome-button.md)) 묶을 칠이 없다 —
+     `node/chrome-btn-bg` 를 읽는 것은 모델 알약 · 게시물 열기 같은 면 있는 크롬이다. `FloatingShell` · `PillTrigger` 는 칠
+     불투명도만 0.72 · 호버 0.88 로 맞췄다. 캔버스 밖에도 서는 `NodeChip` 세트 · `FloatingShell` · `PillTrigger` · `Menu` ·
+     `MenuPanel` 은 범위를 나타내는 변형 축이 없어 캔버스 판이 필요하고, 그 판정은 남았다.
 3. 검증: `pnpm build` · `pnpm check` · `pnpm verify:ci` · 토큰 · CSS 시험.
 
 ## Rollback

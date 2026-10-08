@@ -193,8 +193,8 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 | 상태 | 무엇이 바뀌나 | Figma |
 | --- | --- | --- |
-| 기본 | 면 72% | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
-| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
+| 기본 | 면 72% | 있다 — 칠 불투명도 0.72(2026-10-09) |
+| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 있다 — `PillTrigger` `State=Hover` 칠 불투명도 0.88(2026-10-09) |
 | 열림 | 캐럿이 180° 뒤집힌다. 면·잉크는 그대로 | 있다(위를 가리키는 갈매기) |
 | 비활성 | 제품에 선언이 **없다** | 없는 것이 옳다 |
 
@@ -213,8 +213,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 - **범위**: `data-louis-scope="canvas"` 를 단 조상, 또는 그 속성을 단 셸 · 트리거 자신(`body` 로 포털되는 조각).
 - **바뀌는 것은 색 하나다.** 알파 72% · 호버 88% 는 지역 변수 `--louis-floating-shell-surface-alpha` 가 그대로 나른다.
   라이트 합성값은 `#ffffffb8`(72%) · `#ffffffe0`(88%)이고, 보드의 묶이지 않던 칠 `ffffffb8` 이 이것이다.
-- **Figma**: 셸 · 알약의 캔버스 판은 아직 없다 — 칠을 `color/canvas-menu-surface` 에 묶고 불투명도 0.72 · 호버 0.88 로
-  세우는 것이 다음 Figma 회차의 일이다.
+- **Figma**: 칠 불투명도는 2026-10-09 에 레시피와 맞췄다(`FloatingShell` 두 크기 · `PillTrigger` Default · Open 0.72,
+  Hover 0.88 — 칠은 `color/bg-menu` 그대로). **셸 · 알약의 캔버스 판은 아직 없다** — 두 세트에 범위를 나타내는 변형 축도
+  속성도 없고, 이 재료는 캔버스 밖에도 서므로 기본 칠을 `color/canvas-menu-surface` 로 바꾸면 캔버스 밖 인스턴스가 함께
+  흰색이 된다. 캔버스 판(축 하나 또는 별도 세트)을 세울지는 다음 Figma 회차의 판정이다.
 
 ## Content
 
@@ -313,10 +315,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야
    해서 이번에 하지 않았다. **판정 필요**: 발행할지, 발행 없이 문서의 파생식(`2 × 4 + 조각`)을 정본으로
    둘지.
-10. **Figma 의 면 불투명도가 레시피와 다르다(2026-10-08 감사 확인).** `FloatingShell` `2875:1754` · `PillTrigger`
-    `1375:16007` 의 칠이 Default · Hover · Open 모두 불투명도 1 이다. 레시피와 이 문서는 72% · 호버 88% 이다 — 레시피
-    쪽이 정본이고(`floating-shell.css` 의 `--louis-floating-shell-surface-alpha` 72% · 호버 88%), Figma 칠 불투명도를
-    0.72 · 0.88 로 고치는 것이 남았다. 위 States 표가 전에 「있다」고 적었던 것은 사실과 달랐다.
+10. **Figma 의 캔버스 판이 없다.** 면 불투명도는 2026-10-08 감사가 「Default · Hover · Open 모두 1」로 찾은 것을
+    2026-10-09 에 0.72 · 호버 0.88 로 고쳤다(`FloatingShell` `2875:1754` · `PillTrigger` `1375:16007`, 레시피의
+    `--louis-floating-shell-surface-alpha` 와 같다). 남은 것은 캔버스 범위의 면 색 `color/canvas-menu-surface` 를 나를 판이다 —
+    위 「캔버스 안의 면」의 Figma 항목.
 
 ## Related
 

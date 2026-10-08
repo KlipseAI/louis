@@ -277,8 +277,10 @@ Known deviations.
 두 선택자 모두 `:where()` 라 특이도가 기본 규칙과 같고(면 0-1-0 · 호버 0-2-0) 뒤에 놓여 순서로 이긴다. forced-colors
 블록보다 앞이라 강제 색의 치환을 이기지 않는다. 같은 칸을 노드 크롬 버튼(모델 알약 · 게시물 열기)이 읽으므로
 `color/node/chrome-btn-bg` 도 같은 날 라이트 `palette-gray-000` · 다크 `palette-gray-700` 으로 옮겼다(`index.tsx:490`).
-Figma `NodeChip` `776:843` · `NodeComposer` `2872:1726` 의 칩은 아직 `color/node-chip-surface` 에 묶여 있다 — 캔버스 판을
-`color/canvas-chip-surface(-hover)` 로 묶는 것이 다음 Figma 회차의 일이다.
+Figma 는 2026-10-09 에 둘로 갈랐다. `NodeComposer` `2872:1726` 안의 칩 인스턴스 둘은 노드 셸 안이라 언제나 캔버스 알약이므로
+칠을 `color/canvas-chip-surface` 로 덮었다. `NodeChip` `776:843` 세트 자체는 `color/node-chip-surface(-hover)` 그대로다 — 위
+「캔버스 안의 면」대로 같은 알약이 캔버스 밖(`/inquiry` 첨부 버튼)에도 서고, 세트에는 범위를 나타내는 변형 축도 속성도 없어
+기본 칠을 바꾸면 캔버스 밖 인스턴스가 함께 바뀐다. 세트의 캔버스 판은 다음 Figma 회차의 판정이다.
 
 캔버스 안의 나머지 면: 바닥은 `color-bg-canvas`(두 테마 모두 제품 값과 같다), 카드는 `color-bg-surface`, 카드 테두리는
 `color-node-card-stroke`, 캔버스 안 메뉴와 떠 있는 툴바는 `color-canvas-menu-surface`(라이트 흰색 · 다크 `palette-gray-900`)다.

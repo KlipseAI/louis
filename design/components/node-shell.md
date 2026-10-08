@@ -46,7 +46,7 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 | Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
 | Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 브라우저 되재기는 없다(아래 「입력판 — Figma」) |
 | Documentation | `done`           | 이 문서 |
-| Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합은 아직 `stroke-default` 다(아래 Known deviations 1) |
+| Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합도 2026-10-09 에 옮겼다(아래 Known deviations 1) |
 
 ## Anatomy
 
@@ -239,14 +239,15 @@ NodeShell (세로, 간격 4, 폭 400)
 
 ## Known deviations
 
-1. **카드 테두리는 캔버스 토큰이다 — Figma 결합만 남았다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
+1. **카드 테두리는 캔버스 토큰이다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
    같은 값이다(다크 `palette-gray-900`, 라이트 `palette-gray-000` — 제품 `nodeShellStyles.ts` 의
    `NODE_CARD_SURFACE`). 테두리는 제품이 다크 `palette-gray-700` · 라이트 흰색이고(통합 판 `54b62a8aa`
    `node-canvas-v2/index.tsx:441-442`) 그 쌍을 가진 공용 세만틱이 없어, 2026-10-08
    [DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md) 로 캔버스 전용
    `color-node-card-stroke`(라이트 `static/white` · 다크 `palette-gray-700`)를 세우고 레시피가 그것을 읽는다. 노드 셸은
-   캔버스 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. **Figma `NodeShell` Card 의 테두리는 아직 `color/stroke-default`
-   에 묶여 있다** — 변수를 민 뒤 `color/node-card-stroke` 로 옮기는 것이 다음 Figma 회차의 일이다.
+   캔버스 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. Figma `NodeShell` 의 `Selected=false` 일곱 변형 Card 테두리도
+   2026-10-09 에 `color/stroke-default` 에서 `color/node-card-stroke` 로 옮겼다. 노드 셸은 캔버스에만 서므로 캔버스 판 없이
+   기본 결합을 바꾼다. `Selected=true` 는 갈래 강조색(`color/node-*-accent`) 그대로다.
 2. **캔버스 바닥도 지금은 사다리 값과 같지만 계약은 아니다.** 제품 바닥은 다크 `bg-canvas`
    (`palette-gray-950`) · 라이트 `palette-gray-025` 로 두 테마 모두 `bg-canvas` 와 값이 같다. 그러나 제품은
    라이트에서 사다리 토큰이 아니라 «카드의 한 칸 아래» 팔레트 칸을 짚으므로 같은 값은 결과일 뿐이다.

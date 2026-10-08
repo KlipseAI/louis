@@ -1944,6 +1944,10 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   외부 이벤트 정책 3을 그대로 따른 결과이며, 실사용에서 어색하다는 근거가 모이면 규범을 먼저 고친다.
 - **`route`로 닫으면 포커스가 body로 떨어질 수 있다.** 포커스를 옮기지 않는 것이 그 reason의 계약이고,
   새 화면이 포커스를 잡는 것이 정상 경로다.
+- **Figma 에 캔버스 판이 없다(2026-10-09 확인).** `Menu` `674:12` 의 면 있는 변형(Default · Busy)과 `MenuPanel`
+  `674:12042` 는 `color/bg-menu` 에 묶여 있고, 두 세트에 범위를 나타내는 변형 축도 속성도 없다. 메뉴는 캔버스 밖이 주 무대라
+  기본 칠을 `color/canvas-menu-surface` 로 바꾸지 않았다 — 캔버스 안 패널(위 「Panel surface · 캔버스 안」)을 Figma 에서
+  나타내려면 캔버스 판을 세워야 하고, 그 판정은 다음 Figma 회차의 일이다.
 
 #### 승격 조건
 
@@ -9473,8 +9477,10 @@ Known deviations.
 두 선택자 모두 `:where()` 라 특이도가 기본 규칙과 같고(면 0-1-0 · 호버 0-2-0) 뒤에 놓여 순서로 이긴다. forced-colors
 블록보다 앞이라 강제 색의 치환을 이기지 않는다. 같은 칸을 노드 크롬 버튼(모델 알약 · 게시물 열기)이 읽으므로
 `color/node/chrome-btn-bg` 도 같은 날 라이트 `palette-gray-000` · 다크 `palette-gray-700` 으로 옮겼다(`index.tsx:490`).
-Figma `NodeChip` `776:843` · `NodeComposer` `2872:1726` 의 칩은 아직 `color/node-chip-surface` 에 묶여 있다 — 캔버스 판을
-`color/canvas-chip-surface(-hover)` 로 묶는 것이 다음 Figma 회차의 일이다.
+Figma 는 2026-10-09 에 둘로 갈랐다. `NodeComposer` `2872:1726` 안의 칩 인스턴스 둘은 노드 셸 안이라 언제나 캔버스 알약이므로
+칠을 `color/canvas-chip-surface` 로 덮었다. `NodeChip` `776:843` 세트 자체는 `color/node-chip-surface(-hover)` 그대로다 — 위
+「캔버스 안의 면」대로 같은 알약이 캔버스 밖(`/inquiry` 첨부 버튼)에도 서고, 세트에는 범위를 나타내는 변형 축도 속성도 없어
+기본 칠을 바꾸면 캔버스 밖 인스턴스가 함께 바뀐다. 세트의 캔버스 판은 다음 Figma 회차의 판정이다.
 
 캔버스 안의 나머지 면: 바닥은 `color-bg-canvas`(두 테마 모두 제품 값과 같다), 카드는 `color-bg-surface`, 카드 테두리는
 `color-node-card-stroke`, 캔버스 안 메뉴와 떠 있는 툴바는 `color-canvas-menu-surface`(라이트 흰색 · 다크 `palette-gray-900`)다.
@@ -14954,7 +14960,7 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 | Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
 | Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 브라우저 되재기는 없다(아래 「입력판 — Figma」) |
 | Documentation | `done`           | 이 문서 |
-| Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합은 아직 `stroke-default` 다(아래 Known deviations 1) |
+| Maturity      | `experimental`   | Figma 가 코드보다 앞서 있다. 카드 테두리는 2026-10-08 에 캔버스 토큰 `color-node-card-stroke` 로 제품과 맞췄고(DS-D-0082) Figma 결합도 2026-10-09 에 옮겼다(아래 Known deviations 1) |
 
 #### Anatomy
 
@@ -15147,14 +15153,15 @@ NodeShell (세로, 간격 4, 폭 400)
 
 #### Known deviations
 
-1. **카드 테두리는 캔버스 토큰이다 — Figma 결합만 남았다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
+1. **카드 테두리는 캔버스 토큰이다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
    같은 값이다(다크 `palette-gray-900`, 라이트 `palette-gray-000` — 제품 `nodeShellStyles.ts` 의
    `NODE_CARD_SURFACE`). 테두리는 제품이 다크 `palette-gray-700` · 라이트 흰색이고(통합 판 `54b62a8aa`
    `node-canvas-v2/index.tsx:441-442`) 그 쌍을 가진 공용 세만틱이 없어, 2026-10-08
    [DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md) 로 캔버스 전용
    `color-node-card-stroke`(라이트 `static/white` · 다크 `palette-gray-700`)를 세우고 레시피가 그것을 읽는다. 노드 셸은
-   캔버스 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. **Figma `NodeShell` Card 의 테두리는 아직 `color/stroke-default`
-   에 묶여 있다** — 변수를 민 뒤 `color/node-card-stroke` 로 옮기는 것이 다음 Figma 회차의 일이다.
+   캔버스 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. Figma `NodeShell` 의 `Selected=false` 일곱 변형 Card 테두리도
+   2026-10-09 에 `color/stroke-default` 에서 `color/node-card-stroke` 로 옮겼다. 노드 셸은 캔버스에만 서므로 캔버스 판 없이
+   기본 결합을 바꾼다. `Selected=true` 는 갈래 강조색(`color/node-*-accent`) 그대로다.
 2. **캔버스 바닥도 지금은 사다리 값과 같지만 계약은 아니다.** 제품 바닥은 다크 `bg-canvas`
    (`palette-gray-950`) · 라이트 `palette-gray-025` 로 두 테마 모두 `bg-canvas` 와 값이 같다. 그러나 제품은
    라이트에서 사다리 토큰이 아니라 «카드의 한 칸 아래» 팔레트 칸을 짚으므로 같은 값은 결과일 뿐이다.
@@ -15575,8 +15582,8 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 | 상태 | 무엇이 바뀌나 | Figma |
 | --- | --- | --- |
-| 기본 | 면 72% | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
-| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
+| 기본 | 면 72% | 있다 — 칠 불투명도 0.72(2026-10-09) |
+| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 있다 — `PillTrigger` `State=Hover` 칠 불투명도 0.88(2026-10-09) |
 | 열림 | 캐럿이 180° 뒤집힌다. 면·잉크는 그대로 | 있다(위를 가리키는 갈매기) |
 | 비활성 | 제품에 선언이 **없다** | 없는 것이 옳다 |
 
@@ -15595,8 +15602,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 - **범위**: `data-louis-scope="canvas"` 를 단 조상, 또는 그 속성을 단 셸 · 트리거 자신(`body` 로 포털되는 조각).
 - **바뀌는 것은 색 하나다.** 알파 72% · 호버 88% 는 지역 변수 `--louis-floating-shell-surface-alpha` 가 그대로 나른다.
   라이트 합성값은 `#ffffffb8`(72%) · `#ffffffe0`(88%)이고, 보드의 묶이지 않던 칠 `ffffffb8` 이 이것이다.
-- **Figma**: 셸 · 알약의 캔버스 판은 아직 없다 — 칠을 `color/canvas-menu-surface` 에 묶고 불투명도 0.72 · 호버 0.88 로
-  세우는 것이 다음 Figma 회차의 일이다.
+- **Figma**: 칠 불투명도는 2026-10-09 에 레시피와 맞췄다(`FloatingShell` 두 크기 · `PillTrigger` Default · Open 0.72,
+  Hover 0.88 — 칠은 `color/bg-menu` 그대로). **셸 · 알약의 캔버스 판은 아직 없다** — 두 세트에 범위를 나타내는 변형 축도
+  속성도 없고, 이 재료는 캔버스 밖에도 서므로 기본 칠을 `color/canvas-menu-surface` 로 바꾸면 캔버스 밖 인스턴스가 함께
+  흰색이 된다. 캔버스 판(축 하나 또는 별도 세트)을 세울지는 다음 Figma 회차의 판정이다.
 
 #### Content
 
@@ -15695,10 +15704,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야
    해서 이번에 하지 않았다. **판정 필요**: 발행할지, 발행 없이 문서의 파생식(`2 × 4 + 조각`)을 정본으로
    둘지.
-10. **Figma 의 면 불투명도가 레시피와 다르다(2026-10-08 감사 확인).** `FloatingShell` `2875:1754` · `PillTrigger`
-    `1375:16007` 의 칠이 Default · Hover · Open 모두 불투명도 1 이다. 레시피와 이 문서는 72% · 호버 88% 이다 — 레시피
-    쪽이 정본이고(`floating-shell.css` 의 `--louis-floating-shell-surface-alpha` 72% · 호버 88%), Figma 칠 불투명도를
-    0.72 · 0.88 로 고치는 것이 남았다. 위 States 표가 전에 「있다」고 적었던 것은 사실과 달랐다.
+10. **Figma 의 캔버스 판이 없다.** 면 불투명도는 2026-10-08 감사가 「Default · Hover · Open 모두 1」로 찾은 것을
+    2026-10-09 에 0.72 · 호버 0.88 로 고쳤다(`FloatingShell` `2875:1754` · `PillTrigger` `1375:16007`, 레시피의
+    `--louis-floating-shell-surface-alpha` 와 같다). 남은 것은 캔버스 범위의 면 색 `color/canvas-menu-surface` 를 나를 판이다 —
+    위 「캔버스 안의 면」의 Figma 항목.
 
 #### Related
 

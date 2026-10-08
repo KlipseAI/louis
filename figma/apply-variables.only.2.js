@@ -1,0 +1,62 @@
+// 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
+// use_figma에 그대로 넘긴다. 2/2 — Klipse Semantic Color 1/1 (변수 23개).
+// **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
+// idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
+const NAME={"color-palette-gray-950":"Klipse Primitive::color/palette-gray/950","color-palette-gray-025":"Klipse Primitive::color/palette-gray/025","color-static-white-alpha-16":"Klipse Primitive::color/static-white-alpha/16","color-palette-gray-600-alpha-28":"Klipse Primitive::color/palette-gray-600-alpha/28","color-palette-gray-900":"Klipse Primitive::color/palette-gray/900","color-static-white":"Klipse Primitive::color/static/white","color-static-white-alpha-04":"Klipse Primitive::color/static-white-alpha/04","color-static-pure-black-alpha-04":"Klipse Primitive::color/static-pure-black-alpha/04","color-static-white-alpha-08":"Klipse Primitive::color/static-white-alpha/08","color-static-pure-black-alpha-08":"Klipse Primitive::color/static-pure-black-alpha/08","color-static-white-alpha-12":"Klipse Primitive::color/static-white-alpha/12","color-static-pure-black-alpha-12":"Klipse Primitive::color/static-pure-black-alpha/12","color-static-pure-black-alpha-16":"Klipse Primitive::color/static-pure-black-alpha/16","color-static-white-alpha-20":"Klipse Primitive::color/static-white-alpha/20","color-static-pure-black-alpha-20":"Klipse Primitive::color/static-pure-black-alpha/20","color-static-white-alpha-24":"Klipse Primitive::color/static-white-alpha/24","color-static-pure-black-alpha-24":"Klipse Primitive::color/static-pure-black-alpha/24","color-static-white-alpha-28":"Klipse Primitive::color/static-white-alpha/28","color-static-pure-black-alpha-28":"Klipse Primitive::color/static-pure-black-alpha/28","color-static-white-alpha-32":"Klipse Primitive::color/static-white-alpha/32","color-static-pure-black-alpha-32":"Klipse Primitive::color/static-pure-black-alpha/32","color-static-white-alpha-40":"Klipse Primitive::color/static-white-alpha/40","color-static-pure-black-alpha-40":"Klipse Primitive::color/static-pure-black-alpha/40","color-static-white-alpha-48":"Klipse Primitive::color/static-white-alpha/48","color-static-pure-black-alpha-48":"Klipse Primitive::color/static-pure-black-alpha/48","color-static-white-alpha-56":"Klipse Primitive::color/static-white-alpha/56","color-static-pure-black-alpha-56":"Klipse Primitive::color/static-pure-black-alpha/56","color-static-white-alpha-64":"Klipse Primitive::color/static-white-alpha/64","color-static-pure-black-alpha-64":"Klipse Primitive::color/static-pure-black-alpha/64","color-static-white-alpha-72":"Klipse Primitive::color/static-white-alpha/72","color-static-pure-black-alpha-72":"Klipse Primitive::color/static-pure-black-alpha/72","color-static-white-alpha-80":"Klipse Primitive::color/static-white-alpha/80","color-static-pure-black-alpha-80":"Klipse Primitive::color/static-pure-black-alpha/80","color-static-white-alpha-88":"Klipse Primitive::color/static-white-alpha/88","color-static-pure-black-alpha-88":"Klipse Primitive::color/static-pure-black-alpha/88","color-static-white-alpha-96":"Klipse Primitive::color/static-white-alpha/96","color-static-pure-black-alpha-96":"Klipse Primitive::color/static-pure-black-alpha/96","color-palette-gray-700":"Klipse Primitive::color/palette-gray/700","color-palette-gray-000":"Klipse Primitive::color/palette-gray/000"};
+const COL={"c":"Klipse Semantic Color","m":["Light","Dark"],"d":"Light","vars":[{"i":"color-app-page-bg","n":"color/app/page-bg","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-950"},"Light":{"a":"color-palette-gray-025"}}},{"i":"color-canvas-dot","n":"color/canvas-dot","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-16"},"Light":{"a":"color-palette-gray-600-alpha-28"}}},{"i":"color-canvas-menu-surface","n":"color/canvas-menu-surface","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-900"},"Light":{"a":"color-static-white"}}},{"i":"color-gray-000-alpha-04","n":"color/gray/000-alpha/04","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-04"},"Light":{"a":"color-static-pure-black-alpha-04"}}},{"i":"color-gray-000-alpha-08","n":"color/gray/000-alpha/08","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL","EFFECT_COLOR"],"v":{"Dark":{"a":"color-static-white-alpha-08"},"Light":{"a":"color-static-pure-black-alpha-08"}}},{"i":"color-gray-000-alpha-12","n":"color/gray/000-alpha/12","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-12"},"Light":{"a":"color-static-pure-black-alpha-12"}}},{"i":"color-gray-000-alpha-16","n":"color/gray/000-alpha/16","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-16"},"Light":{"a":"color-static-pure-black-alpha-16"}}},{"i":"color-gray-000-alpha-20","n":"color/gray/000-alpha/20","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-20"},"Light":{"a":"color-static-pure-black-alpha-20"}}},{"i":"color-gray-000-alpha-24","n":"color/gray/000-alpha/24","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-24"},"Light":{"a":"color-static-pure-black-alpha-24"}}},{"i":"color-gray-000-alpha-28","n":"color/gray/000-alpha/28","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-28"},"Light":{"a":"color-static-pure-black-alpha-28"}}},{"i":"color-gray-000-alpha-32","n":"color/gray/000-alpha/32","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-32"},"Light":{"a":"color-static-pure-black-alpha-32"}}},{"i":"color-gray-000-alpha-40","n":"color/gray/000-alpha/40","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-40"},"Light":{"a":"color-static-pure-black-alpha-40"}}},{"i":"color-gray-000-alpha-48","n":"color/gray/000-alpha/48","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-48"},"Light":{"a":"color-static-pure-black-alpha-48"}}},{"i":"color-gray-000-alpha-56","n":"color/gray/000-alpha/56","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-56"},"Light":{"a":"color-static-pure-black-alpha-56"}}},{"i":"color-gray-000-alpha-64","n":"color/gray/000-alpha/64","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-64"},"Light":{"a":"color-static-pure-black-alpha-64"}}},{"i":"color-gray-000-alpha-72","n":"color/gray/000-alpha/72","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-72"},"Light":{"a":"color-static-pure-black-alpha-72"}}},{"i":"color-gray-000-alpha-80","n":"color/gray/000-alpha/80","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-80"},"Light":{"a":"color-static-pure-black-alpha-80"}}},{"i":"color-gray-000-alpha-88","n":"color/gray/000-alpha/88","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-88"},"Light":{"a":"color-static-pure-black-alpha-88"}}},{"i":"color-gray-000-alpha-96","n":"color/gray/000-alpha/96","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-96"},"Light":{"a":"color-static-pure-black-alpha-96"}}},{"i":"color-node-card-stroke","n":"color/node-card-stroke","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-700"},"Light":{"a":"color-static-white"}}},{"i":"color-node-chrome-btn-bg","n":"color/node/chrome-btn-bg","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-palette-gray-700"},"Light":{"a":"color-palette-gray-000"}}},{"i":"color-scrollbar-thumb","n":"color/scrollbar/thumb","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-24"},"Light":{"a":"color-static-pure-black-alpha-20"}}},{"i":"color-scrollbar-thumb-hover","n":"color/scrollbar/thumb-hover","t":"COLOR","h":false,"sc":["FRAME_FILL","SHAPE_FILL","STROKE_COLOR","TEXT_FILL"],"v":{"Dark":{"a":"color-static-white-alpha-40"},"Light":{"a":"color-static-pure-black-alpha-32"}}}]};
+
+const report={created:[],updated:[],unchanged:0,modesAdded:[],collectionsCreated:[],missingAlias:[]};
+const near=(a,b)=>Math.abs((a??1)-(b??1))<1e-5;
+// 색은 Figma가 전정밀도로 저장하고 여기 값은 6자리 반올림이라 **엄격 비교하면 매번 달라 보인다.**
+// 그러면 idempotent 실행이 항상 updated로 보고돼 무엇이 실제로 바뀌었는지 알 수 없다.
+const eq=(a,b)=>(a&&b&&typeof a==="object"&&typeof b==="object"&&"r" in a&&"r" in b)
+  ?(near(a.r,b.r)&&near(a.g,b.g)&&near(a.b,b.b)&&near(a.a,b.a))
+  :JSON.stringify(a)===JSON.stringify(b);
+let cols=await figma.variables.getLocalVariableCollectionsAsync();
+let c=cols.find(x=>x.name===COL.c);
+if(!c){c=figma.variables.createVariableCollection(COL.c);report.collectionsCreated.push(COL.c);}
+let modeName=new Map(c.modes.map(m=>[m.name,m.modeId]));
+if(c.modes.length===1&&!modeName.has(COL.d)){
+  c.renameMode(c.modes[0].modeId,COL.d);modeName=new Map([[COL.d,c.modes[0].modeId]]);
+}
+for(const m of COL.m){ if(!modeName.has(m)){modeName.set(m,c.addMode(m));report.modesAdded.push(COL.c+"/"+m);} }
+// 1차 — 변수 자체를 맞춘다.
+let all=await figma.variables.getLocalVariablesAsync();
+const inCol=new Map(all.filter(v=>v.variableCollectionId===c.id).map(v=>[v.name,v]));
+for(const spec of COL.vars){
+  let v=inCol.get(spec.n);
+  if(!v){v=figma.variables.createVariable(spec.n,c,spec.t);report.created.push(spec.i);inCol.set(spec.n,v);}
+  v.hiddenFromPublishing=spec.h;
+  if(spec.sc.length) v.scopes=spec.sc;
+}
+// 2차 — 값을 넣는다. 별칭은 **컬렉션::이름** 으로 파일 전체에서 찾는다.
+// 이름만으로 찾으면 안 된다 — border-width/default 와 layer/* 8개는 Primitive 와 Semantic
+// 양쪽에 같은 이름으로 존재한다. Map 은 나중 것이 이기므로 semantic 이 자기 자신을 별칭
+// 대상으로 잡아 Figma 가 값을 0 으로 떨어뜨린다(2026-08-26 LOUIS 파일에서 8건 실측).
+all=await figma.variables.getLocalVariablesAsync();
+cols=await figma.variables.getLocalVariableCollectionsAsync();
+const collName=new Map(cols.map(x=>[x.id,x.name]));
+const byName=new Map(all.map(v=>[collName.get(v.variableCollectionId)+"::"+v.name,v]));
+for(const spec of COL.vars){
+  const v=inCol.get(spec.n); if(!v) continue;
+  let touched=false;
+  for(const [mode,val] of Object.entries(spec.v)){
+    const modeId=modeName.get(mode); if(!modeId) continue;
+    let next;
+    if(val.a!==undefined){
+      const t=byName.get(NAME[val.a]);
+      if(!t){report.missingAlias.push(spec.i+"→"+val.a);continue;}
+      next=figma.variables.createVariableAlias(t);
+    }
+    else if(val.c) next={r:val.c[0],g:val.c[1],b:val.c[2],a:val.c[3]};
+    else if(val.n!==undefined) next=val.n;
+    else next=val.s;
+    if(!eq(v.valuesByMode[modeId],next)){v.setValueForMode(modeId,next);touched=true;}
+  }
+  const isNew=report.created.includes(spec.i);
+  if(touched&&!isNew) report.updated.push(spec.i);
+  if(!touched&&!isNew) report.unchanged+=1;
+}
+return {collection:COL.c,collectionsCreated:report.collectionsCreated,modesAdded:report.modesAdded,
+  created:report.created.length,updated:report.updated.length,unchanged:report.unchanged,
+  missingAlias:report.missingAlias};

@@ -277,6 +277,35 @@ test("Menu 항목의 states 표가 코드와 같다", async () => {
   await userEvent.unhover(danger);
 });
 
+// 캔버스 안에서 열리는 패널은 `bg-menu` 대신 `canvas-menu-surface` 를 읽는다(DS-D-0082). 범위는 조상의
+// `data-louis-scope="canvas"` 와 패널 자신의 같은 속성(`body` 로 포털되는 캔버스 팝오버) 둘이다. 라이트에서
+// 두 면이 실제로 갈리는지도 본다 — 같으면 범위 규칙을 지워도 이 시험이 통과한다.
+test("Menu 패널이 캔버스 안에서만 canvas-menu-surface 를 읽는다", async () => {
+  await render(
+    <>
+      <div data-louis-scope="canvas">
+        <div className="louis-popover" data-testid="panel-in-scope" />
+      </div>
+      <div className="louis-popover" data-louis-scope="canvas" data-testid="panel-self-scope" />
+      <div className="louis-popover" data-testid="panel-app" />
+    </>,
+  );
+  for (const theme of ["light", "dark"] as const) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const canvas = tokenValue("color-canvas-menu-surface", "background-color");
+    expect(getComputedStyle(find('[data-testid="panel-in-scope"]')).backgroundColor, `${theme} 조상 범위`).toBe(canvas);
+    expect(getComputedStyle(find('[data-testid="panel-self-scope"]')).backgroundColor, `${theme} 자기 범위`).toBe(canvas);
+    expect(getComputedStyle(find('[data-testid="panel-app"]')).backgroundColor, `${theme} 캔버스 밖`).toBe(
+      tokenValue("color-bg-menu", "background-color"),
+    );
+  }
+  document.documentElement.setAttribute("data-theme", "light");
+  expect(tokenValue("color-canvas-menu-surface", "background-color"), "라이트에서 두 면이 갈린다").not.toBe(
+    tokenValue("color-bg-menu", "background-color"),
+  );
+  document.documentElement.removeAttribute("data-theme");
+});
+
 test("Dialog surface의 states 표가 코드와 같다", async () => {
   const spec = statesOf("dialog", "base");
   await page.viewport(1280, 900);

@@ -194,11 +194,12 @@ const RECIPES = [
       [".louis-node-shell__card", "border-radius", "video/false", "cardRadius"],
       [".louis-node-shell__card", "border-width", "video/false", "borderWidth"],
     ],
-    // 라이트에서 정본과 갈리는 자리라 **갈리는 것 자체가 결정**이다. 누가 팔레트 칸
-    // (palette-gray 100/000)을 직접 적어 「고쳐 두면」 그 결정이 조용히 뒤집힌다.
+    // 면과 테두리는 **이름**이 계약이다. 누가 팔레트 칸을 직접 적어 「고쳐 두면」 한 테마에서
+    // 결정이 조용히 뒤집힌다. 테두리는 2026-10-08 DS-D-0082 로 공용 `stroke-default` 에서 캔버스
+    // 전용 `node-card-stroke`(라이트 흰색 · 다크 palette-gray-700)로 옮겼다.
     surfaces: [
       [".louis-node-shell__card", "var(--louis-color-bg-surface)"],
-      [".louis-node-shell__card", "var(--louis-color-stroke-default)"],
+      [".louis-node-shell__card", "var(--louis-color-node-card-stroke)"],
       [".louis-node-shell__title", "var(--louis-color-fg-secondary)"],
     ],
     forbidden: ["--louis-color-palette-gray"],

@@ -193,13 +193,28 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 | 상태 | 무엇이 바뀌나 | Figma |
 | --- | --- | --- |
-| 기본 | 면 72% | 있다 |
-| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 있다(paint opacity) |
+| 기본 | 면 72% | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
+| 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 변형은 있으나 **칠 불투명도가 1 이다**(Known deviations 10) |
 | 열림 | 캐럿이 180° 뒤집힌다. 면·잉크는 그대로 | 있다(위를 가리키는 갈매기) |
 | 비활성 | 제품에 선언이 **없다** | 없는 것이 옳다 |
 
 되읽기의 필드는 면의 알파도 캐럿의 향도 담지 않는다. 세 변형의 **기하가 같다**는 사실만 담기고,
 그것은 `NodeChromeButton` 의 `Default`/`Hover` 가 이미 서 있는 자리다.
+
+## 캔버스 안의 면
+
+캔버스 안에서는 면 색이 `color-bg-menu` 가 아니라 **`color-canvas-menu-surface`** 다(라이트 흰색 · 다크
+`palette-gray-900`, [DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
+라이트에서 노드 카드가 `palette-gray-000` 으로 올라와 앱 메뉴 면(`palette-gray-025`)보다 밝아졌고, 카드 위에 뜨는
+크롬은 카드보다 한 칸 밝아야 한다. 제품은 캔버스 셸이 `bg-menu` 를 흰색으로 덮는다(통합 판 `54b62a8aa`
+`node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:492`). 이 재료는 캔버스 밖(덱 화면의 언어 전환)에도 서므로
+기본 면은 그대로 두고 범위 안에서만 갈아 읽는다.
+
+- **범위**: `data-louis-scope="canvas"` 를 단 조상, 또는 그 속성을 단 셸 · 트리거 자신(`body` 로 포털되는 조각).
+- **바뀌는 것은 색 하나다.** 알파 72% · 호버 88% 는 지역 변수 `--louis-floating-shell-surface-alpha` 가 그대로 나른다.
+  라이트 합성값은 `#ffffffb8`(72%) · `#ffffffe0`(88%)이고, 보드의 묶이지 않던 칠 `ffffffb8` 이 이것이다.
+- **Figma**: 셸 · 알약의 캔버스 판은 아직 없다 — 칠을 `color/canvas-menu-surface` 에 묶고 불투명도 0.72 · 호버 0.88 로
+  세우는 것이 다음 Figma 회차의 일이다.
 
 ## Content
 
@@ -298,6 +313,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    CSS 변수 상속으로는 닿지 않고 TypeScript 상수를 거쳐야 한다. 토큰 생성물과 Figma 변수를 함께 열어야
    해서 이번에 하지 않았다. **판정 필요**: 발행할지, 발행 없이 문서의 파생식(`2 × 4 + 조각`)을 정본으로
    둘지.
+10. **Figma 의 면 불투명도가 레시피와 다르다(2026-10-08 감사 확인).** `FloatingShell` `2875:1754` · `PillTrigger`
+    `1375:16007` 의 칠이 Default · Hover · Open 모두 불투명도 1 이다. 레시피와 이 문서는 72% · 호버 88% 이다 — 레시피
+    쪽이 정본이고(`floating-shell.css` 의 `--louis-floating-shell-surface-alpha` 72% · 호버 88%), Figma 칠 불투명도를
+    0.72 · 0.88 로 고치는 것이 남았다. 위 States 표가 전에 「있다」고 적었던 것은 사실과 달랐다.
 
 ## Related
 

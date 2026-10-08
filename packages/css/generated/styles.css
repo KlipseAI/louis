@@ -3789,6 +3789,26 @@
   transform: rotate(180deg);
 }
 
+/* ── 캔버스 안의 면 ─────────────────────────────────────────────────────────────
+ *
+ * 캔버스 안에서는 면 색이 `bg-menu` 가 아니라 `canvas-menu-surface` 다(DS-D-0082). 라이트에서 노드
+ * 카드가 pg-000 으로 올라와 앱 메뉴 면(pg-025)보다 밝아졌고, 카드 위에 뜨는 크롬은 카드보다 한 칸
+ * 밝아야 해서 제품은 캔버스 셸이 `bg-menu` 를 흰색으로 덮는다(통합 판 `54b62a8aa`
+ * `node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:492`). 이 재료는 캔버스 밖(덱 화면의
+ * 언어 전환)에도 서므로 기본 면은 그대로 두고 범위 안에서만 갈아 읽는다.
+ *
+ * **바뀌는 것은 색 하나다.** 알파 72% · 호버 88% 는 지역 변수가 그대로 나르므로 호버 규칙을 다시
+ * 적지 않는다. 범위는 `data-louis-scope="canvas"` 를 단 조상이나 요소 자신이다 — `body` 로 포털되는
+ * 조각은 셸 밖이라 자기에게 단다. forced-colors 블록보다 앞에 두어 `Canvas` 치환을 이기지 않는다. */
+:where([data-louis-scope="canvas"]) :is(.louis-floating-shell, .louis-pill-trigger),
+:is(.louis-floating-shell, .louis-pill-trigger):where([data-louis-scope="canvas"]) {
+  background: color-mix(
+    in srgb,
+    var(--louis-color-canvas-menu-surface) var(--louis-floating-shell-surface-alpha),
+    transparent
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .louis-pill-trigger,
   .louis-pill-trigger__caret {
@@ -4558,6 +4578,16 @@
   overscroll-behavior: contain;
 }
 
+/* 캔버스 안의 면(DS-D-0082). 캔버스 안에서 열리는 패널은 `bg-menu` 대신 `canvas-menu-surface` 를
+ * 읽는다 — 라이트 흰색으로 노드 카드(pg-000)보다 한 칸 밝다. 제품은 캔버스 셸이 `bg-menu` 를 흰색으로
+ * 덮고(통합 판 `54b62a8aa` `node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:492`), `body` 로
+ * 포털되는 캔버스 팝오버는 같은 줄을 자기 면에 붙인다. 그래서 범위는 조상과 요소 자신 둘이다.
+ * `bg-menu` 는 앱 전체의 메뉴 면이라 값을 옮기지 않는다. */
+:where([data-louis-scope="canvas"]) .louis-popover,
+.louis-popover:where([data-louis-scope="canvas"]) {
+  background: var(--louis-color-canvas-menu-surface);
+}
+
 /* action menu는 최소 trigger 폭 이상을 권장한다. anchor 폭은 positioner가 발행한다. */
 .louis-popover[data-kind="action-menu"] {
   --louis-popover-anchor-floor: var(--louis-overlay-anchor-width, 0px);
@@ -5078,7 +5108,8 @@
  *
  * **badge와 다른 컴포넌트다.** badge는 상태를 읽기만 하는 정적 라벨이고, node chip은 눌러서
  * 드롭다운을 여는 대화형 트리거다(비활성 상태와 호버 면이 있고, 아이콘 전용 정사각 변형도 쓴다).
- * 그래서 배지 계열 토큰이 아니라 자체 면 토큰(node-chip-surface)을 쓴다.
+ * 그래서 배지 계열 토큰이 아니라 자체 면 토큰(node-chip-surface)을 쓰고, 캔버스 안에서는
+ * 캔버스 면 토큰(canvas-chip-surface)으로 갈아 읽는다(아래 「캔버스 안의 면」, DS-D-0082).
  *
  * 캔버스 줌과 무관하게 화면 픽셀을 유지하는 스케일 보정, 위치, 드롭다운 앵커는 소비처가 소유한다.
  */
@@ -5157,6 +5188,25 @@
   min-inline-size: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* 캔버스 안의 면(DS-D-0082). 같은 알약을 캔버스 밖(`/inquiry` 첨부 · PhotoGrid)도 쓰므로 기본 면은
+ * 그대로 두고, 캔버스 안에서만 캔버스 토큰을 읽는다. 제품은 캔버스 셸이 `--louis-color-node-chip-surface`
+ * 자리를 덮는다(통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:488-489` 라이트 · `:517-518` 다크).
+ *
+ * 범위는 둘이다 — 노드 셸 안(노드는 캔버스 밖에 서지 않는다)과 `data-louis-scope="canvas"` 를 단
+ * 조상. 둘 다 `:where()` 라 특이도를 올리지 않고 위 기본 규칙과 같은 0-1-0 · 0-2-0 에서 **순서로**
+ * 이긴다. forced-colors 블록보다 앞에 두어 강제 색의 치환을 이기지 않는다. */
+:where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip {
+  background: var(--louis-color-canvas-chip-surface);
+}
+
+@media (hover: hover) {
+  :where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip:where(button, [role="button"]):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: var(--louis-color-canvas-chip-surface-hover);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5321,12 +5371,11 @@
  * 옮기면 조용히 6 이 남는다 — Figma 오토레이아웃에도 음수 여백이 없으므로 결과값 4 를 그대로
  * 컨테이너 간격으로 쓴다. 계약의 `$headerToCardGap` 이 같은 사실을 적는다.
  *
- * **면과 테두리는 사다리 토큰에 문다.** 제품은 카드 바닥을 다크 palette-gray-800 · 라이트
- * palette-gray-100 으로, 테두리를 다크 palette-gray-600 · 라이트 palette-gray-000 으로 칠하는데
- * 그 라이트/다크 쌍을 가진 세만틱이 없다 — `bg-surface` 와 `stroke-default` 는 다크가 정확히
- * 같고 라이트만 갈린다. 팔레트 칸을 테마마다 직접 고르는 대신 **관계**(카드는 캔버스 위로
- * 한 칸 나온 면이고, 그 경계는 공용 기본 선이다)를 고정한다. 갈리는 칸은 문서
- * Known deviations 1·2 가 소유한다. */
+ * **면은 사다리 토큰에, 테두리는 캔버스 토큰에 문다.** 카드 면은 제품(통합 판 `54b62a8aa`
+ * `nodeShellStyles.ts` 의 `NODE_CARD_SURFACE`)이 두 테마 모두 `bg-surface` 와 같은 칸이다.
+ * 테두리는 제품이 다크 palette-gray-700 · 라이트 흰색으로 칠하고(`index.tsx:441-442`) 그 쌍을
+ * 가진 공용 세만틱이 없어 캔버스 전용 `node-card-stroke` 를 세웠다(DS-D-0082). 노드 셸은 캔버스
+ * 밖에 서지 않으므로 범위 규칙 없이 바로 읽는다. 남은 갈림은 문서 Known deviations 2 가 소유한다. */
 
 .louis-node-shell {
   box-sizing: border-box;
@@ -5476,7 +5525,7 @@
   border-radius: 24px;
   border-style: solid;
   border-width: var(--louis-border-width-ring);
-  border-color: var(--louis-color-stroke-default);
+  border-color: var(--louis-color-node-card-stroke);
   background: var(--louis-color-bg-surface);
   color: var(--louis-color-fg-primary);
 }

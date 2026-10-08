@@ -219,6 +219,26 @@
   transform: rotate(180deg);
 }
 
+/* ── 캔버스 안의 면 ─────────────────────────────────────────────────────────────
+ *
+ * 캔버스 안에서는 면 색이 `bg-menu` 가 아니라 `canvas-menu-surface` 다(DS-D-0082). 라이트에서 노드
+ * 카드가 pg-000 으로 올라와 앱 메뉴 면(pg-025)보다 밝아졌고, 카드 위에 뜨는 크롬은 카드보다 한 칸
+ * 밝아야 해서 제품은 캔버스 셸이 `bg-menu` 를 흰색으로 덮는다(통합 판 `54b62a8aa`
+ * `node-canvas-v2/canvasMenuSurface.ts:14-15` · `index.tsx:492`). 이 재료는 캔버스 밖(덱 화면의
+ * 언어 전환)에도 서므로 기본 면은 그대로 두고 범위 안에서만 갈아 읽는다.
+ *
+ * **바뀌는 것은 색 하나다.** 알파 72% · 호버 88% 는 지역 변수가 그대로 나르므로 호버 규칙을 다시
+ * 적지 않는다. 범위는 `data-louis-scope="canvas"` 를 단 조상이나 요소 자신이다 — `body` 로 포털되는
+ * 조각은 셸 밖이라 자기에게 단다. forced-colors 블록보다 앞에 두어 `Canvas` 치환을 이기지 않는다. */
+:where([data-louis-scope="canvas"]) :is(.louis-floating-shell, .louis-pill-trigger),
+:is(.louis-floating-shell, .louis-pill-trigger):where([data-louis-scope="canvas"]) {
+  background: color-mix(
+    in srgb,
+    var(--louis-color-canvas-menu-surface) var(--louis-floating-shell-surface-alpha),
+    transparent
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .louis-pill-trigger,
   .louis-pill-trigger__caret {

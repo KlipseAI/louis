@@ -36,6 +36,22 @@ Raw color와 semantic color는 단일 DTCG source 안의 논리적 계층이다.
 제품 코드는 semantic color만 소비한다. primitive 이름을 화면 의미로 사용하거나 기존 CSS 변수 이름을
 새 정본으로 승격하지 않는다.
 
+### 알파 사다리의 바탕은 둘이다 — 팔레트 끝과 순검정
+
+검정 쪽 알파 원시값은 바탕이 다른 두 벌이다. 계단은 둘 다 [DS-D-0026](../governance/decisions/DS-D-0026-alpha-scale.md)
+의 16단이다.
+
+| 원시 | 바탕 | 누가 읽나 |
+| --- | --- | --- |
+| `static-black-alpha/*` | `palette-gray-900` `#171b22` | LOUIS 가 소유하고 제품도 `var(--louis-color-*)` 로 읽는 시맨틱 — `stroke-hairline` · `dim-modal` · `accent-secondary` 등 |
+| `static-pure-black-alpha/*` | `static/black` `#000000` | 제품이 직접 쓰는 잉크 알파를 비추는 시맨틱 — `color/gray/000-alpha/*` · `scrollbar/thumb(-hover)` 의 라이트 |
+
+제품의 투명 잉크 `rgb(var(--gray-000-rgb) / N%)` 는 라이트에서 순검정, 다크에서 `palette-gray-000`(`#fafafa`) 바탕이다
+(통합 판 `54b62a8aa` `globals.css:782` · `:726`). 그래서 그것을 비추는 `color/gray/000-alpha/*` 는 라이트가
+`static-pure-black-alpha`, 다크가 `static-white-alpha`(`#fafafa` 바탕)다 — 이름이 「`gray/000` 의 N%」이고 값도 그렇다.
+**새 시맨틱이 제품의 잉크 알파를 비춘다면 `color/gray/000-alpha/*` 를 읽고, LOUIS 가 정하는 면 · 선이면 `static-black-alpha`
+계열 시맨틱을 읽는다**([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
+
 ### 예외 — 면이 테마를 따르지 않으면 그 위 전경도 따르지 않는다
 
 면 색이 mode와 무관하게 고정된 자리(브랜드 면, 사진, 항상 어두운 오버레이, 리터럴 hex 배경)에서는 그

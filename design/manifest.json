@@ -284,6 +284,15 @@
       "generated": false
     },
     {
+      "id": "decision-canvas-semantics-and-product-ink-alpha",
+      "path": "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
+      "title": "DS-D-0082 캔버스 시맨틱 토큰과 제품 바탕의 투명 잉크 — `canvas-menu-surface` · `node-card-stroke` 신설, 라이트 `gray/000-alpha` 를 순검정 바탕으로",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1831,6 +1840,7 @@
         "design/governance/decisions/DS-D-0078-icon-provenance-per-set.md",
         "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
         "design/governance/decisions/DS-D-0081-locale-string-collection.md",
+        "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

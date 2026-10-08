@@ -211,7 +211,7 @@ React prop이 아니라 **DOM 계약**이다. 소비처가 요소와 속성으�
 | 테두리 | 0 | **리터럴** — 경계를 border가 아니라 inset 헤어라인으로 그린다. reset은 opt-in이라 `<button>`의 UA 기본 테두리를 스스로 지운다 |
 | 면 | light `palette-gray-050` / dark `palette-gray-600` | `color-node-chip-surface` |
 | 호버 면 | light `palette-gray-100` / dark `palette-gray-500` | `color-node-chip-surface-hover` |
-| 캔버스 안 면 | light `palette-gray-000` / dark `palette-gray-700` | `color-canvas-chip-surface` — 캔버스 셸이 `color-node-chip-surface` 자리에 덮는다(아래 「캔버스 안의 면」) |
+| 캔버스 안 면 | light `palette-gray-000` / dark `palette-gray-700` | `color-canvas-chip-surface` — 노드 셸 안 · `data-louis-scope="canvas"` 안에서 레시피가 읽는다(아래 「캔버스 안의 면」) |
 | 캔버스 안 호버 면 | light `palette-gray-025` / dark `palette-gray-600` | `color-canvas-chip-surface-hover` |
 | 전경 | light `#171b22` / dark `#fafafa` | `color-fg-primary` |
 | 비활성 전경 | light `palette-gray-500` / dark `palette-gray-400` | `color-node-chip-fg-disabled` |
@@ -264,13 +264,25 @@ Known deviations.
 | `color-canvas-chip-surface` | `palette-gray-000` | `palette-gray-700` | 라이트는 소유자 확정 2026-10-01(`64f475e05`, 메타 알약 `pg-025` → `pg-000`). 다크는 노드 카드가 `pg-800` → `pg-900` 으로 내려간 것을 따라 LOUIS 기본값(`pg-600`)에서 한 칸 내린 값이고, 이미지 · TTS 노드의 모델 알약이 같은 값을 읽도록 맞췄다(`24dad22fa`, 소유자 확인 뒤) |
 | `color-canvas-chip-surface-hover` | `palette-gray-025` | `palette-gray-600` | 라이트 `pg-050` → `pg-025`(`64f475e05`), 다크는 기본 면 `pg-700` 에서 한 칸 위 |
 
-소비하는 쪽(캔버스 셸)이 `--louis-color-node-chip-surface` 와 `--louis-color-node-chip-surface-hover`
-를 이 두 토큰으로 덮는다. 이 저장소의 `node-chip.css` 는 아직 캔버스 토큰을 직접 읽지 않는다 — 덮어쓰기는
-제품이 한다. 이 두 토큰을 읽는 범위 규칙을 CSS 에 넣을지는 **판정 필요**다. Figma 변형은 아직 없다.
+제품은 캔버스 셸이 `--louis-color-node-chip-surface` 와 `--louis-color-node-chip-surface-hover` 를 이 두 칸으로
+덮는다(통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:488-489` 라이트 · `:517-518` 다크). **2026-10-08 부터 레시피가
+캔버스 토큰을 직접 읽는다**([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)) —
+`node-chip.css` 의 범위 규칙이 두 자리에서 면과 호버 면을 갈아 읽는다.
 
-캔버스 안의 나머지 면은 새 토큰이 필요 없다. 바닥은 `color-bg-canvas`(두 테마 모두 제품 값과 같다),
-카드는 `color-bg-surface`, 캔버스 안 메뉴와 떠 있는 툴바는 `color-bg-raised`(라이트 흰색 · 다크
-`palette-gray-900`)가 제품 값과 같다. 상세는 [Node Shell](node-shell.md) Known deviations 1 · 2.
+| 범위 | 선택자 | 이유 |
+| --- | --- | --- |
+| 노드 셸 안 | `:where(.louis-node-shell) .louis-node-chip` | 노드는 캔버스 밖에 서지 않는다 — 노드 안 알약은 언제나 캔버스 알약이다 |
+| 캔버스 표시 안 | `:where([data-louis-scope="canvas"]) .louis-node-chip` | 노드 밖의 캔버스 크롬(도움말 데모 등)이 같은 알약을 쓸 때 |
+
+두 선택자 모두 `:where()` 라 특이도가 기본 규칙과 같고(면 0-1-0 · 호버 0-2-0) 뒤에 놓여 순서로 이긴다. forced-colors
+블록보다 앞이라 강제 색의 치환을 이기지 않는다. 같은 칸을 노드 크롬 버튼(모델 알약 · 게시물 열기)이 읽으므로
+`color/node/chrome-btn-bg` 도 같은 날 라이트 `palette-gray-000` · 다크 `palette-gray-700` 으로 옮겼다(`index.tsx:490`).
+Figma `NodeChip` `776:843` · `NodeComposer` `2872:1726` 의 칩은 아직 `color/node-chip-surface` 에 묶여 있다 — 캔버스 판을
+`color/canvas-chip-surface(-hover)` 로 묶는 것이 다음 Figma 회차의 일이다.
+
+캔버스 안의 나머지 면: 바닥은 `color-bg-canvas`(두 테마 모두 제품 값과 같다), 카드는 `color-bg-surface`, 카드 테두리는
+`color-node-card-stroke`, 캔버스 안 메뉴와 떠 있는 툴바는 `color-canvas-menu-surface`(라이트 흰색 · 다크 `palette-gray-900`)다.
+상세는 [Node Shell](node-shell.md) Known deviations 1 · 2.
 
 ## Implementation
 

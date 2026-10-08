@@ -75,6 +75,7 @@
   --color-canvas-chip-surface: var(--louis-color-canvas-chip-surface);
   --color-canvas-chip-surface-hover: var(--louis-color-canvas-chip-surface-hover);
   --color-canvas-dot: var(--louis-color-canvas-dot);
+  --color-canvas-menu-surface: var(--louis-color-canvas-menu-surface);
   --color-dim-modal: var(--louis-color-dim-modal);
   --color-fg-danger: var(--louis-color-fg-danger);
   --color-fg-danger-on-surface: var(--louis-color-fg-danger-on-surface);
@@ -142,6 +143,7 @@
   --color-node-audio-accent: var(--louis-color-node-audio-accent);
   --color-node-audio-icon: var(--louis-color-node-audio-icon);
   --color-node-audio-surface: var(--louis-color-node-audio-surface);
+  --color-node-card-stroke: var(--louis-color-node-card-stroke);
   --color-node-chip-fg-disabled: var(--louis-color-node-chip-fg-disabled);
   --color-node-chip-surface: var(--louis-color-node-chip-surface);
   --color-node-chip-surface-hover: var(--louis-color-node-chip-surface-hover);

@@ -454,6 +454,7 @@ LOUIS만 DS-D-0023을 따르고 있었던 셈이다. 기록을 0.5로 고치고 
 | Part/state     | 목표 token/recipe                                      | 검증                       |
 | -------------- | ------------------------------------------------------ | -------------------------- |
 | Panel surface  | `color-bg-menu` — 라이트 palette-gray-025 / 다크 palette-gray-900 ([DS-D-0069](../governance/decisions/DS-D-0069-menu-surface-light-one-step-lighter.md)) | light/dark/high contrast   |
+| Panel surface · 캔버스 안 | `color-canvas-menu-surface` — 라이트 흰색 / 다크 palette-gray-900. `data-louis-scope="canvas"` 를 단 조상 안이나 그 속성을 단 패널 자신(`body` 로 포털되는 캔버스 팝오버)에서 읽는다 ([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md), 제품 통합 판 `54b62a8aa` `node-canvas-v2/canvasMenuSurface.ts:14-15`) | 노드 카드(라이트 palette-gray-000)보다 한 칸 밝다 |
 | Panel radius   | `radius-overlay` = 16px                                | visual regression          |
 | Panel padding  | `space-overlay-inset` = 6px                            | item hit area 유지         |
 | Panel border   | 없음. 헤어라인은 패널이 조합하는 inset(`--louis-hairline-inset`) | 레이아웃 박스 불변 |

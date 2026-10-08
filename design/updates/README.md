@@ -37,7 +37,7 @@ authority: normative
 - **`build.sh` 가 고정 커밋을 SHA 로 가져온다.** 브랜치가 움직이거나 다시 쌓여도 기록한 판을 만들고, 움직인 갈래를 한 줄씩 알린다(전에는 멈췄다).
   지금 셋이 움직였다 — 랜딩 히어로(+14) · 워크스루 걷기(다시 쌓임) · 포커스 링(다시 쌓임). 고정은 그대로다.
 
-확인: 통합 저장소에서 `pnpm install --frozen-lockfile`(lockfile 변화 없음) · `apps/web` 타입 검사(`check-types`) · `turbo run build --filter=web` 통과.
+확인: 통합 저장소에서 `pnpm install --frozen-lockfile`(lockfile 변화 없음) · 웹 앱 타입 검사(`check-types`) · `turbo run build --filter=web` 통과.
 
 ## 2026-10-08 (233) — Figma 100% 에 「늘리고 줄여도 제품처럼」을 넣는다 — 늘림 시험 게이트와 생성기 반응 수정
 

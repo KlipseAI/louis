@@ -372,6 +372,54 @@ test("셸과 트리거가 같은 유리다", async () => {
   document.documentElement.removeAttribute("data-theme");
 });
 
+// 캔버스 안에서는 면 색만 `canvas-menu-surface` 로 바뀌고 알파는 그대로다(DS-D-0082). 범위는
+// 조상의 `data-louis-scope="canvas"` 와 요소 자신의 같은 속성(포털되는 조각) 둘이다. 라이트에서
+// 캔버스 면(흰색)과 앱 메뉴 면(palette-gray-025)이 실제로 갈리는지도 함께 본다 — 같으면 이 시험이
+// 범위 규칙을 지워도 통과한다.
+test("캔버스 안에서는 면 색이 canvas-menu-surface 이고 알파는 그대로다", async () => {
+  await render(
+    <>
+      <div data-louis-scope="canvas">
+        <div className="louis-floating-shell" data-testid="canvas-shell">
+          <span className="louis-floating-shell__item" />
+        </div>
+      </div>
+      <button
+        type="button"
+        className="louis-pill-trigger"
+        data-louis-scope="canvas"
+        data-testid="canvas-trigger"
+        aria-haspopup="menu"
+        aria-expanded={false}
+      >
+        100%
+      </button>
+      <div className="louis-floating-shell" data-testid="app-shell">
+        <span className="louis-floating-shell__item" />
+      </div>
+    </>,
+  );
+  for (const theme of ["light", "dark"] as const) {
+    document.documentElement.setAttribute("data-theme", theme);
+    await settle();
+    const canvasRgb = rgbOf(tokenColor("color-canvas-menu-surface"));
+    for (const id of ["canvas-shell", "canvas-trigger"]) {
+      const paint = getComputedStyle(find(id)).backgroundColor;
+      expect(rgbOf(paint), `${theme} ${id} 면 색`).toBe(canvasRgb);
+      expect(alphaOf(paint), `${theme} ${id} 면 알파`).toBe(shellAlpha("Default"));
+    }
+    expect(rgbOf(getComputedStyle(find("app-shell")).backgroundColor), `${theme} 캔버스 밖`).toBe(
+      rgbOf(tokenColor("color-bg-menu")),
+    );
+  }
+  document.documentElement.setAttribute("data-theme", "light");
+  await settle();
+  expect(rgbOf(tokenColor("color-canvas-menu-surface")), "라이트에서 두 면이 갈린다").not.toBe(
+    rgbOf(tokenColor("color-bg-menu")),
+  );
+  document.documentElement.removeAttribute("data-theme");
+});
+
 test("열림이 바꾸는 것은 캐럿의 향뿐이다", async () => {
   await render(<Specimen />);
   const closed = getComputedStyle(find("trigger"));

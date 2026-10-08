@@ -24,6 +24,7 @@ import "@klipse-design/css/styles.css";
 import "../../css/src/component/node-shell.css";
 import "../../css/src/component/node-chrome-button.css";
 import "../../css/src/component/node-side-handle.css";
+import "../../css/src/component/node-chip.css";
 
 const shellSpec = measured.components["node-shell"].sizes;
 const buttonSpec = measured.components["node-chrome-button"].sizes;
@@ -243,6 +244,54 @@ test("미선택에서 액센트 일곱이 같은 면과 같은 테두리를 갖�
     return `${card.backgroundColor} / ${card.borderTopColor}`;
   });
   expect(new Set(paints).size).toBe(1);
+});
+
+// 미선택 테두리는 캔버스 토큰이다(DS-D-0082) — 라이트 흰색 · 다크 palette-gray-700. 공용
+// `stroke-default` 로 되돌아가면 두 테마 모두 한 칸씩 틀린다. 두 테마를 다 잰다.
+test("미선택 카드 테두리가 두 테마에서 node-card-stroke 다", async () => {
+  await render(<Shell />);
+  for (const theme of ["light", "dark"] as const) {
+    document.documentElement.setAttribute("data-theme", theme);
+    expect(getComputedStyle(find("card")).borderTopColor, `${theme} 카드 테두리`).toBe(
+      tokenColor("color-node-card-stroke"),
+    );
+  }
+  document.documentElement.removeAttribute("data-theme");
+});
+
+// 메타 알약은 캔버스 안에서만 캔버스 면을 읽는다(DS-D-0082). 노드 셸 안과
+// `data-louis-scope="canvas"` 안 둘이 범위이고, 그 밖(문의 화면 첨부 등)은 기본 면 그대로다.
+test("메타 알약이 캔버스 안에서만 canvas-chip-surface 를 읽는다", async () => {
+  await render(
+    <>
+      <div className="louis-node-shell">
+        <span className="louis-node-chip" data-testid="chip-in-shell">
+          모델
+        </span>
+      </div>
+      <div data-louis-scope="canvas">
+        <span className="louis-node-chip" data-testid="chip-in-scope">
+          모델
+        </span>
+      </div>
+      <span className="louis-node-chip" data-testid="chip-outside">
+        모델
+      </span>
+    </>,
+  );
+  for (const theme of ["light", "dark"] as const) {
+    document.documentElement.setAttribute("data-theme", theme);
+    // 알약은 `background` 에 전이를 건다 — 테마를 뒤집은 직후는 보간 중인 색이라 끝난 뒤에 잰다.
+    void getComputedStyle(document.body).backgroundColor;
+    await Promise.all(document.getAnimations().map((animation) => animation.finished));
+    const canvas = tokenColor("color-canvas-chip-surface");
+    expect(getComputedStyle(find("chip-in-shell")).backgroundColor, `${theme} 셸 안`).toBe(canvas);
+    expect(getComputedStyle(find("chip-in-scope")).backgroundColor, `${theme} 범위 안`).toBe(canvas);
+    expect(getComputedStyle(find("chip-outside")).backgroundColor, `${theme} 캔버스 밖`).toBe(
+      tokenColor("color-node-chip-surface"),
+    );
+  }
+  document.documentElement.removeAttribute("data-theme");
 });
 
 // 선택에서만 액센트가 나타난다. youtube 와 instagram 이 **바이트 단위로 같다**는 기록의

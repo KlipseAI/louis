@@ -7,7 +7,8 @@
  *
  * **badge와 다른 컴포넌트다.** badge는 상태를 읽기만 하는 정적 라벨이고, node chip은 눌러서
  * 드롭다운을 여는 대화형 트리거다(비활성 상태와 호버 면이 있고, 아이콘 전용 정사각 변형도 쓴다).
- * 그래서 배지 계열 토큰이 아니라 자체 면 토큰(node-chip-surface)을 쓴다.
+ * 그래서 배지 계열 토큰이 아니라 자체 면 토큰(node-chip-surface)을 쓰고, 캔버스 안에서는
+ * 캔버스 면 토큰(canvas-chip-surface)으로 갈아 읽는다(아래 「캔버스 안의 면」, DS-D-0082).
  *
  * 캔버스 줌과 무관하게 화면 픽셀을 유지하는 스케일 보정, 위치, 드롭다운 앵커는 소비처가 소유한다.
  */
@@ -86,6 +87,25 @@
   min-inline-size: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* 캔버스 안의 면(DS-D-0082). 같은 알약을 캔버스 밖(`/inquiry` 첨부 · PhotoGrid)도 쓰므로 기본 면은
+ * 그대로 두고, 캔버스 안에서만 캔버스 토큰을 읽는다. 제품은 캔버스 셸이 `--louis-color-node-chip-surface`
+ * 자리를 덮는다(통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:488-489` 라이트 · `:517-518` 다크).
+ *
+ * 범위는 둘이다 — 노드 셸 안(노드는 캔버스 밖에 서지 않는다)과 `data-louis-scope="canvas"` 를 단
+ * 조상. 둘 다 `:where()` 라 특이도를 올리지 않고 위 기본 규칙과 같은 0-1-0 · 0-2-0 에서 **순서로**
+ * 이긴다. forced-colors 블록보다 앞에 두어 강제 색의 치환을 이기지 않는다. */
+:where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip {
+  background: var(--louis-color-canvas-chip-surface);
+}
+
+@media (hover: hover) {
+  :where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip:where(button, [role="button"]):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: var(--louis-color-canvas-chip-surface-hover);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

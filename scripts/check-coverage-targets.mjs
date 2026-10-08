@@ -193,7 +193,11 @@ const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
 // 2026-09-10: 74 → 73. 제품이 무는 LOUIS 이름이 176 → 213 으로 늘며(40c4e427 의 핀 상향으로
 // alert·danger·accent-secondary 계열을 물기 시작했다) 죽어 있던 이름 하나가 살아났다.
 // 이득 방향이라 잠근다.
-const DEAD_TOKEN_BASELINE = 72; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+// 2026-10-08: 72 → 71. 직전 HEAD(974ea48c)의 실측은 73 이었다 — 2026-10-07 에 세운 `color-canvas-chip-surface` ·
+// `-hover` 둘이 소비자 없이 들어와 기준선보다 하나 많은 채 빨갰다. DS-D-0082 로 `node-chip.css` 가 캔버스 범위에서
+// 그 둘을 처음 물어 71 이 됐다. 같은 회차에 세운 `canvas-menu-surface` · `node-card-stroke` 는 레시피가 바로 읽어
+// 죽은 채로 들어오지 않았다. 이득 방향이라 잠근다.
+const DEAD_TOKEN_BASELINE = 71; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
 // 2026-09-21: 73 → 72. Document 패턴(DS-D-0067)의 바닥이 화면 가장자리와 시트 사이를
 // `layout-app-shell-outer-gap` 으로 띄우면서 LOUIS CSS 가 그 토큰을 처음 문다. 이득 방향이라 잠근다.

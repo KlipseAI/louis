@@ -161,8 +161,10 @@ image 하이라이트에서 갈렸다. 제품 `V2_EDGE_TONE` 의 주석이 그 �
 ## 이 문서가 다루지 않는 것
 
 **바닥의 점 격자.** 간격 24 · 점 2 이고 색은 `color-canvas-dot` 이 이미 갖는다.
-컴포넌트가 아니라 **패턴 채움**이라 component set 으로 세우지 않는다. 다만 그 변수의 라이트 값이
-제품과 다르다 — 자세한 것은 `design/updates/README.md` 의 이 회차 항목.
+컴포넌트가 아니라 **패턴 채움**이라 component set 으로 세우지 않는다. 그 변수의 라이트 값은
+2026-10-08 에 제품과 맞췄다 — `palette-gray-600` 28%(원시 `palette-gray-600-alpha/28` 신설), 다크는 그대로
+`static-white-alpha/16` 이다. 근거는 제품 통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:530`
+([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
 
 **정렬 스냅 가이드.** 제품이 아직 이름 없는 색 리터럴 하나로 그린다. 이름을 정하는 일은 새
 프리미티브를 세우는 일이고, 그것은 토큰 파이프라인과 Figma 변수 컬렉션을 함께 움직이는 별건이다.

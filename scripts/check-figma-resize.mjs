@@ -43,10 +43,13 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 높이 +30% 에서 루트가 내용 높이에 머문다). 03-app 의 넘침 2 → 10 · 부모 밖 14 → 23 은 처음 그린 상태 보드(커맨드 팔레트 넷 · 연체 배너)가
 // 잴 수 있게 된 몫이다(전에는 noRoot 16) — 팔레트 배경 div 가 1440 에서 +480, 연체 배너 닫기 단추가 +468/+30. 공개 모바일 360 의 상단 바
 // +42 는 /pricing · /inquiry · /blog/[slug] 모바일이 안전 검사로 재전송되지 못한 옛 렌더라 남았다.
+// run 2026-10-08c(b868655e · e3a2b8d8 를 보낸 뒤): 03-app 넘침 10 → 1 · 부모 밖 23 → 14(팔레트 배경 STRETCH · 대화 상자 FILL + 최대 폭 ·
+// 배너 닫기 단추 오른쪽 · 가운데), 01-public 12 → 11. 남은 공개 넘침은 안전 검사로 재전송되지 못한 /pricing · /inquiry · /blog/[slug] 모바일의
+// 옛 상단 바와 측정 폭에서부터 넘치는 /privacy · /terms 모바일이다.
 const BASELINE = {
-  "01-public": { overflow: 12, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 11, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { overflow: 10, childOutside: 23, heightFollow: 4, noRoot: 6 },
+  "03-app": { overflow: 1, childOutside: 14, heightFollow: 4, noRoot: 6 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
   "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
 };

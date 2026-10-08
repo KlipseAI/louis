@@ -307,6 +307,57 @@ const RECIPES = [
     // 순간 다음 사람에게 정확히 틀린 지시를 준다. 같은 되돌림은 위 `surfaces` 가 이름을 양성으로
     // 고정해 이미 막는다 — 사다리로 바꾸면 그 needle 이 사라져 실패한다.
   },
+  // ── 선택 카드(2026-10-08) ─────────────────────────────────────────────────
+  //
+  // React 표면이 없어 브라우저 시험이 기록을 되재지 않는다. 그래서 이 표가 기록의 유일한 반대편이다 — 레시피의 선언
+  // 하나하나를 기록의 세 칸(card/md · card/sm · row/md)과 맞댄다. 레시피가 패딩을 세로 · 가로 두 선언으로 적는 것은
+  // 이 게이트가 선언 하나를 수 하나로 읽기 때문이다. 최소 높이 · 이름과 설명 사이 · 표식 반경 · 체크 상자는 크기마다
+  // 다시 적지 않는 선언이라 같은 선언을 세 칸(또는 두 칸)과 맞댄다.
+  {
+    component: "choice-card",
+    recipe: "packages/css/src/component/choice-card.css",
+    geometry: [
+      // 카드형 md — 기본 선언
+      [".louis-choice-card", "min-block-size", "card/md", "minHeight"],
+      [".louis-choice-card", "padding-block", "card/md", "paddingBlock"],
+      [".louis-choice-card", "padding-inline", "card/md", "paddingInline"],
+      [".louis-choice-card", "gap", "card/md", "gap"],
+      [".louis-choice-card", "border-radius", "card/md", "radius"],
+      [".louis-choice-card__text", "gap", "card/md", "textGap"],
+      [".louis-choice-card__marker", "inline-size", "card/md", "markerSize"],
+      [".louis-choice-card__marker", "block-size", "card/md", "markerSize"],
+      [".louis-choice-card__marker", "border-radius", "card/md", "markerRadiusRadio"],
+      ['.louis-choice-card[role="checkbox"] .louis-choice-card__marker', "border-radius", "card/md", "markerRadiusCheckbox"],
+      [".louis-choice-card__marker::before", "inline-size", "card/md", "checkInline"],
+      [".louis-choice-card__marker::before", "block-size", "card/md", "checkBlock"],
+      // 카드형 sm(compact)
+      [".louis-choice-card", "min-block-size", "card/sm", "minHeight"],
+      ['.louis-choice-card[data-size="sm"]', "padding-block", "card/sm", "paddingBlock"],
+      ['.louis-choice-card[data-size="sm"]', "padding-inline", "card/sm", "paddingInline"],
+      ['.louis-choice-card[data-size="sm"]', "gap", "card/sm", "gap"],
+      ['.louis-choice-card[data-size="sm"]', "border-radius", "card/sm", "radius"],
+      [".louis-choice-card__text", "gap", "card/sm", "textGap"],
+      ['.louis-choice-card[data-size="sm"] .louis-choice-card__marker', "inline-size", "card/sm", "markerSize"],
+      ['.louis-choice-card[data-size="sm"] .louis-choice-card__marker', "block-size", "card/sm", "markerSize"],
+      [".louis-choice-card__marker", "border-radius", "card/sm", "markerRadiusRadio"],
+      ['.louis-choice-card[role="checkbox"] .louis-choice-card__marker', "border-radius", "card/sm", "markerRadiusCheckbox"],
+      [".louis-choice-card__marker::before", "inline-size", "card/sm", "checkInline"],
+      [".louis-choice-card__marker::before", "block-size", "card/sm", "checkBlock"],
+      // 행형
+      [".louis-choice-card", "min-block-size", "row/md", "minHeight"],
+      ['.louis-choice-card[data-variant="row"]', "padding-block", "row/md", "paddingBlock"],
+      ['.louis-choice-card[data-variant="row"]', "padding-inline", "row/md", "paddingInline"],
+      ['.louis-choice-card[data-variant="row"]', "gap", "row/md", "gap"],
+      ['.louis-choice-card[data-variant="row"]', "border-radius", "row/md", "radius"],
+      [".louis-choice-card__text", "gap", "row/md", "textGap"],
+    ],
+    // 쉬는 면과 헤어라인은 이름이 계약이다 — 두 호출부의 면(landing-panel · accent-secondary)을 accent-secondary 로
+    // 닫은 것이 결정이고(choice-card.md 「판정 필요」 3), 헤어라인은 DS-D-0023 의 한 벌이다.
+    surfaces: [
+      [".louis-choice-card", "var(--louis-color-accent-secondary)"],
+      [".louis-choice-card", "var(--louis-hairline-inset)"],
+    ],
+  },
 ];
 
 const errors = [];

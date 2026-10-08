@@ -25,6 +25,24 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (219) — Figma 새 세트: Choice Card(선택 카드 · 선택 행)
+
+- **`ChoiceCard`** component set 이 DS · Components 「2 · 입력」 구획에 섰다(MediaScrubber 아래, 42 변형). 축은 `Variant`(card · row,
+  CSS `data-variant`) · `Size`(md · sm, 행형은 md 만) · `Role`(radio · checkbox, 표식의 모양) · `Checked` · `Invalid` · `State`(Default ·
+  Hover · Disabled)이고, 텍스트 속성 `Label` · `Description` 과 BOOLEAN `HasDescription` 이 있다. 한 묶음마다 쉼 · 호버 · 비활성,
+  오류의 쉼 · 호버, 고름의 쉼 · 비활성 일곱 칸이다 — 고른 칸은 호버를 흡수해 `Hover` 가 없고, 오류는 고르지 않은 항목에만 선다.
+- 고른 면은 변형마다 다르게 말한다(소유자 결정 2026-10-07) — card 는 `accent-secondary-selected` 면 + 2px `accent-primary` 링 + 표식
+  체크, row 는 `accent-inverse` 면 뒤집기. 헤어라인 · 고른 링 · 오류 링은 CSS 의 「상태마다 box-shadow 한 줄」대로 inner shadow 한
+  겹이다. 비활성은 불투명도 0.4.
+- **축 어휘에 `Role` 을 더했다**(figma-component-authoring.md §2) — 항목의 ARIA role 을 철자 그대로 옮기고 표식의 모양만 바꾼다.
+  `Checked` · `Invalid` 는 기존 조건 축 명부의 이름이다.
+- parity 계약(축 · 효과 · 기하 세 칸 `card/md` · `card/sm` · `row/md`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다
+  (42 변형 · 바인딩 fill 106 · stroke 8 · 원시 0 · 텍스트 스타일 56). 기록 `figma/components.measured.json` 에 `choice-card` 를
+  세웠다 — 값은 브라우저 실측이 아니라 레시피 선언이고, `verify-recipe-record` 에 표 한 항목(대조 30건 · 면 이름 둘)을 더해
+  레시피 ↔ 기록을 맞댄다. 그래서 레시피의 패딩 선언 셋을 세로 · 가로 둘씩으로 갈랐다(값은 그대로).
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다 — React 표면이 없어 기하를 되재는 브라우저 시험이 없고 DS-D-0035 (c) 를
+  채우지 못한다. 같은 note 의 「판정 필요: 고른 면의 표현을 하나로 합칠지」는 10-07 에 닫힌 판정이라 걷었다.
+
 ## 2026-10-08 (218) — Figma 구조 맞춤: 노드 머리 도움말 단추(NodeShell `HelpButton`)
 
 - **NodeShell** 14 변형 모두 헤더 `Actions` 맨 앞에 `Help` 칸이 섰다 — NodeChromeButton `Tone=neutral` 의 `Glyph` 를

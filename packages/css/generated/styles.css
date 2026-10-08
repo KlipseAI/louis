@@ -2462,8 +2462,10 @@
   min-inline-size: 0;
   min-block-size: var(--louis-layout-control-hit-target-minimum);
   margin: 0;
-  /* 안쪽 여백 28 · 32 — 제품 `py-14 px-16`(간격 격자 2px). 토큰 계단에 없다. */
-  padding: 28px 32px;
+  /* 안쪽 여백 28 · 32 — 제품 `py-14 px-16`(간격 격자 2px). 토큰 계단에 없다. 세로 · 가로를 따로 적는 것은
+   * verify-recipe-record 가 선언 하나를 수 하나로 읽기 때문이다(기록 `choice-card` 의 paddingBlock · paddingInline). */
+  padding-block: 28px;
+  padding-inline: 32px;
   border: 0;
   /* 반경 16 — 제품 `rounded-16`. 위 머리말의 사유로 리터럴이다. */
   border-radius: 16px;
@@ -2480,7 +2482,8 @@
 /* compact — 한 줄 이름만 있는 작은 칸을 여러 열로. 제품 `rounded-12 px-12 py-10 gap-8`. */
 .louis-choice-card[data-size="sm"] {
   gap: var(--louis-space-control-lg);
-  padding: 20px 24px;
+  padding-block: 20px;
+  padding-inline: 24px;
   border-radius: var(--louis-radius-card);
 }
 
@@ -2488,7 +2491,8 @@
 .louis-choice-card[data-variant="row"] {
   justify-content: flex-start;
   gap: var(--louis-space-control-lg);
-  padding: var(--louis-space-control-sm) var(--louis-space-control-lg);
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-space-control-lg);
   border-radius: var(--louis-radius-card);
   color: var(--louis-color-fg-secondary);
 }

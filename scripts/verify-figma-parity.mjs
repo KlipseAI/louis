@@ -1486,6 +1486,94 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "choice-card",
+    figmaName: "ChoiceCard",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/choice-card.css 의 .louis-choice-group · .louis-choice-card 가 정본이다(2026-10-07). 제품 작업 브랜치 두 곳(앰배서더 지원서 Choice · 지표 온보딩 OPTION)이 출처다.",
+    variantProperties: {},
+    // **선이 없다.** 헤어라인 · 고른 링 · 오류 링이 전부 CSS `box-shadow: inset` 이라 Figma 도 inner shadow 로 그린다
+    // (DS-D-0023, figma-component-authoring.md 「헤어라인은 stroke 가 아니라 INNER_SHADOW 로」). 체크는 VECTOR 의 획이라 역할로 세지 않는다.
+    strokes: {},
+    // 레시피가 상태마다 box-shadow 를 **한 줄만** 붙이므로(choice-card.md Implementation) 변형마다 inner shadow 가 한 겹이다 —
+    // 쉼 · 호버 · 비활성 · 행의 고름은 헤어라인 0.5, 카드의 고름(accent-primary)과 오류(fg-danger-on-surface)는 ring 두께 2.
+    // 되읽기 문자열에 색이 없어 2 의 두 색은 여기서 갈리지 않는다 — 색은 변수 바인딩이 나른다. 표식은 쉴 때만 헤어라인을
+    // 갖고(고른 표식은 주색 면에 효과가 없어 되읽기에 담기지 않는다), 행형에는 표식이 없다.
+    effects: {
+      self: ["INNER_SHADOW:0:0:0.5", "INNER_SHADOW:0:0:2"],
+      Marker: "INNER_SHADOW:0:0:0.5",
+    },
+    figmaOnlyProperties: {
+      Variant: {
+        options: ["card", "row"],
+        reason:
+          "CSS `data-variant` 를 그대로 옮긴 축(figma-component-authoring.md §2 Variant 예외). 고른 면을 말하는 방식이 갈린다 — card 는 accent-secondary-selected 면 + 2px accent-primary 링 + 표식, row 는 accent-inverse 면 뒤집기(소유자 결정 2026-10-07). 패딩 · 반경 · 이름 타이포도 함께 갈린다.",
+      },
+      Size: {
+        options: ["md", "sm"],
+        reason:
+          "CSS `data-size`. sm 은 한 줄 이름만 있는 compact 카드(패딩 20 · 24, 반경 12, 표식 20, 이름 16/500)다. 행형에는 sm 칸이 없다 — 레시피가 행의 패딩 · 반경 · 간격을 행 값으로 덮어 다른 기하가 나오지 않기 때문이다.",
+      },
+      Role: {
+        options: ["radio", "checkbox"],
+        reason:
+          "항목의 ARIA role 을 철자 그대로 옮긴 축. 하나만 고르는 묶음(radiogroup)과 여럿 고르는 묶음(group)을 가르고, 시각으로는 표식의 모양만 바꾼다(원 · 반경 6 사각, CSS `[role=\"checkbox\"] .louis-choice-card__marker`). 행형은 표식이 없어 두 값의 그림이 같다 — 그래도 축을 두는 것은 묶음의 역할이 마크업 계약이기 때문이다.",
+      },
+      Checked: {
+        options: ["false", "true"],
+        reason:
+          "코드에서 `aria-checked` 가 선택을 소유한다. 조건 축 명부의 `Checked` 다 — 면 · 링 · 표식 체크가 바뀐다(시험 1). 접기 시험: 고른 칸은 호버를 흡수하지만 비활성(0.4)에서는 달라져 State 로 접지 않는다. 그래서 Checked=true 에는 Hover 칸이 없다.",
+      },
+      Invalid: {
+        options: ["false", "true"],
+        reason:
+          "코드에서 항목 또는 묶음의 `data-invalid`(있으면 오류, `\"false\"` 만 예외 — DS-D-0075). 조건 축 명부의 `Invalid` 다 — ring 두께의 fg-danger-on-surface 링이 선다. **고르지 않은 항목에만** 걸리므로(고른 항목은 자기 링을 지킨다) Checked=true 와 곱하지 않는다.",
+      },
+      State: {
+        options: ["Default", "Hover", "Disabled"],
+        reason:
+          "상호작용 상태. Hover 는 accent-secondary-hover 면이고 `@media (hover: hover)` 안에서만 걸린다(DS-D-0077). Disabled 는 항목 전체 불투명도 0.4 다 — 되읽기가 불투명도를 담지 않아(같은 키에 1 과 섞인다) 그 값은 레시피 · 문서가 소유한다. Focus 는 그리지 않는다(DS-D-0074).",
+      },
+      Label: { type: "TEXT", reason: "선택지 이름. 코드에서는 `.louis-choice-card__label` 의 텍스트다." },
+      Description: { type: "TEXT", reason: "선택지 설명. 코드에서는 `.louis-choice-card__description` 의 텍스트다." },
+      HasDescription: {
+        type: "BOOLEAN",
+        reason: "설명 줄의 유무. 설명 없는 선택지가 실재한다(compact 카드 · 행형 설문). 표본은 card/md 에만 설명 줄을 둔다.",
+      },
+    },
+    geometry: {
+      // **세 칸을 전부 건다.** 기하를 다시 쓰는 축은 Variant · Size 둘이라 되읽기 키가 그 둘의 곱(행형은 md 하나)이다.
+      // 기록의 값은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피 ↔ 기록을 맞댄다 — React 표면이
+      // 없어 component-geometry 브라우저 시험이 이 칸을 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`).
+      measuredId: "choice-card",
+      sizeKeys: ["card/md", "card/sm", "row/md"],
+      fields: {
+        // 레시피의 `min-block-size: layout-control-hit-target-minimum` — 높이는 문구가 정하므로 하한만 계약이다.
+        minHeight: "minHeight",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        counterAxisAlignItems: { literal: "CENTER" },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Text: { fields: { itemSpacing: "textGap", layoutMode: { literal: "VERTICAL" } } },
+        Label: { fields: { fontSize: "labelFontSize", lineHeightPercent: "labelLineHeight" } },
+        Description: { fields: { fontSize: "descriptionFontSize", lineHeightPercent: "descriptionLineHeight" }, optional: true },
+        // 표식의 반경은 Role 이 바꾼다(원 999 · 사각 6). 되읽기가 같은 키의 두 Role 을 한 배열에 모으므로 집합으로 맞댄다.
+        Marker: {
+          fields: { width: "markerSize", height: "markerSize", cornerRadius: { set: ["markerRadiusRadio", "markerRadiusCheckbox"] } },
+          optional: true,
+        },
+        Check: { fields: { width: "checkInline", height: "checkBlock" }, optional: true },
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:

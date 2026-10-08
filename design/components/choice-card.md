@@ -12,7 +12,7 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `not-ready` — **Figma 변형은 아직 없다** |
+| Figma | `partial` — component set `ChoiceCard`(2026-10-08, 42 변형). 되읽기 · parity 계약은 있고 기하를 되재는 브라우저 시험이 없다 |
 | 코드 | CSS recipe `.louis-choice-group` · `.louis-choice-card` ([`choice-card.css`](../../packages/css/src/component/choice-card.css), 2026-10-07). React 표면은 없다 |
 
 ## 왜 있는가
@@ -61,7 +61,7 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `not-ready` | **Figma 변형은 아직 없다.** component set 도 되읽기 계약도 없다 |
+| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 
@@ -221,6 +221,30 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 **두 호출부가 아직 이 클래스를 물지 않는다.** 제품은 자기 Tailwind 리터럴로 그린다.
 
+## Figma
+
+DS · Components 「2 · 입력」 구획의 component set `ChoiceCard`(2026-10-08). 항목 하나가 변형 하나이고 묶음(`.louis-choice-group`)은
+component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자는 화면에서 오토레이아웃으로 놓는다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Variant` | `card` · `row` | `data-variant` — 고른 면을 말하는 방식과 패딩 · 반경 · 이름 타이포가 갈린다 |
+| `Size` | `md` · `sm` | `data-size`. 행형에는 `sm` 칸이 없다 — 레시피가 행의 패딩 · 반경 · 간격을 행 값으로 덮어 다른 기하가 나오지 않는다 |
+| `Role` | `radio` · `checkbox` | 항목의 `role`. 표식의 모양(원 · 반경 6 사각)만 바꾼다. 행형은 표식이 없어 두 값의 그림이 같다 |
+| `Checked` | `false` · `true` | `aria-checked` |
+| `Invalid` | `false` · `true` | `data-invalid`(항목 또는 묶음). 고르지 않은 항목에만 선다 |
+| `State` | `Default` · `Hover` · `Disabled` | 상호작용 상태. Focus 는 그리지 않는다(DS-D-0074) |
+| `Label` · `Description` | 텍스트 | 이름 · 설명 |
+| `HasDescription` | BOOLEAN | 설명 줄의 유무. 표본은 card/md 에만 설명 줄을 둔다 |
+
+한 묶음(`Variant` · `Size` · `Role`)마다 일곱 칸이다 — 쉼 · 호버 · 비활성, 오류의 쉼 · 호버, 고름의 쉼 · 비활성. **고른 칸에는
+`Hover` 가 없다** — 레시피가 고른 항목에 호버를 걸지 않아 면이 바뀌지 않는다(접기 시험: 고름이 호버를 흡수한다. 비활성에서는
+0.4 로 달라지므로 `State` 로 접지 않았다). **오류와 고름을 곱하지 않는다** — 고른 항목은 오류 링 대신 자기 링을 지킨다.
+
+링 · 헤어라인은 CSS 와 같이 inner shadow 한 겹이다(상태마다 `box-shadow` 한 줄, DS-D-0023). 체크는 checkbox 와 같은 구조의 벡터
+(4 × 7 상자의 두 변, 획 2, 45°)다. 기하 계약은 `figma/components.measured.json` 의 `choice-card` 세 칸(`card/md` · `card/sm` ·
+`row/md`)이 고정하고, 그 기록은 레시피 선언에서 왔다 — `verify-recipe-record` 가 레시피 ↔ 기록을 맞댄다.
+
 ## 제품이 이관할 때 달라지는 것
 
 - **앰배서더 지원서 `Choice`(카드형).**
@@ -260,7 +284,11 @@ React 표면이 없어 속성은 마크업 속성이다.
 - **표식 사각의 반경이 6 이다.** [Checkbox](checkbox.md)는 `radius-control-sm`(8)이다. 제품 값(`rounded-6`)을 따랐다.
 - **오류 링과 면의 대비를 이 문서에서 재지 않았다.** `fg-danger-on-surface` 가 `accent-secondary` 면 위에서 비텍스트 3:1 을
   넘는지는 실브라우저 acceptance test 가 서면서 잰다.
-- **Figma 변형은 아직 없다.**
+- **Figma 의 비활성 불투명도 0.4 는 게이트가 대조하지 않는다.** 되읽기 키가 `Variant/Size` 라 같은 키에 1 과 0.4 가 섞이고, 키에
+  `State` 를 넣으면 같은 기하가 세 번 담긴다. 그 값은 이 레시피와 문서가 소유한다. 오류 링과 고른 링도 되읽기 문자열에 색이 없어
+  두께(2)만 대조되고 색은 변수 바인딩(원시값 0)이 나른다.
+- **Figma 의 `Role` 축은 행형에서 그림이 같다.** 행형은 표식이 없으므로 `radio` · `checkbox` 두 칸이 시각적으로 같다 — 묶음의 역할이
+  마크업 계약이라 축은 남겼다.
 - **`aria-invalid` 는 `role="group"` 에 쓸 수 없다.** 여럿 고르는 묶음의 오류는 문구와 `role="alert"` 가 맡는다(접근성 절).
 
 ## Acceptance tests
@@ -286,9 +314,11 @@ React 표면이 없어 속성은 마크업 속성이다.
 - [ ] React 표면(`ChoiceGroup` · `ChoiceCard`) — 로빙 tabindex 와 `aria-checked` 를 컴포넌트가 소유할지 판정한다
 - [ ] 실브라우저 acceptance test
 - [ ] 제품을 그 recipe 로 이관(앰배서더 `Choice` · 온보딩 `OPTION`)
-- [ ] Figma component set
+- [x] Figma component set `ChoiceCard` (2026-10-08) — 브라우저 되재기가 서면 `done` 판정
 
 ## 출처
 
 - 2026-10-07 — CSS recipe 신설. 두 소비처(`ApplyFlow.tsx@2ceec4ed3:94-157` · `ResearchOnboarding.tsx@b57cd1f95:77`)의 공통 재료를 한 컴포넌트로 묶고
   갈리는 값(고른 면의 표현)은 변형으로 두었다. 오류 링은 DS-D-0075 와 같은 값이다.
+- 2026-10-08 — Figma component set `ChoiceCard`(42 변형)와 parity 계약 · 되읽기 · 기록 `choice-card` 세 칸. 레시피의 패딩 선언을
+  세로 · 가로 둘로 갈랐다(값은 같다 — `verify-recipe-record` 가 선언 하나를 수 하나로 읽는다).

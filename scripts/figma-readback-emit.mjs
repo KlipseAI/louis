@@ -176,6 +176,13 @@ const CAPTURE = {
   // minWidth 가 `null` 이라(실측 2026-08-30) 채취하면 빈 배열이 되고, parity 는 빈 배열을
   // 「값이 없습니다」로 읽어 담는 것 자체가 실패가 된다. 240 은 고정폭 프레임으로 그려져
   // `width` 에 있으므로 계약이 그쪽을 CSS 하한과 대조한다(verify-figma-parity 의 계약 주석).
+  // 선택 카드(2026-10-08). 키가 `Variant/Size` 인 것은 그 둘만 기하를 다시 쓰기 때문이다 — `Role` 은 표식의 모양(원 · 반경 6)만,
+  // `Checked` · `Invalid` · `State` 는 면 · 링 · 불투명도만 바꾼다. 같은 키의 열네 변형은 기하가 같아야 하고 어긋나면 배열이 길어진다.
+  // `minHeight` 를 담는 이유는 레시피가 모든 항목에 `min-block-size: layout-control-hit-target-minimum` 을 걸기 때문이다(행은 그 값이 곧 높이).
+  // 높이 · 폭은 담지 않는다 — 카드 높이는 문구가, 폭은 묶음의 격자가 정한다. 비활성의 불투명도 0.4 는 담지 않는다 — 같은 키에 1 과 섞여
+  // 「변형마다 다르다」가 되고, 키에 `State` 를 넣으면 같은 기하가 세 번 담긴다(그 값은 레시피 · 문서가 소유한다).
+  // `self` effect 는 상태마다 한 겹인 헤어라인(0.5) · 링(2)이고, `Marker` effect 는 쉬는 표식의 헤어라인이다(고른 표식은 효과가 없다).
+  "ChoiceCard": {"key":{"by":["Variant","Size"]},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Text":["itemSpacing","layoutMode"],"Label":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"],"Marker":["width","height","cornerRadius"],"Check":["width","height"]},"effects":["self","Marker"]},
   "CompositePopover": {"key":{"name":"composite-popover"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"effects":["self"]},
   // **Dialog 만 `cornerRadius` 대신 모서리 둘을 담는다.** sheet 변형은 아래에서 올라와 뷰포트
   // 바닥에 붙으므로 아래 두 모서리가 0 이다(`dialog.css` 의 `[data-variant="sheet"]` 가

@@ -2393,9 +2393,10 @@
       "id": "choice-card",
       "name": "Choice Card",
       "doc": "design/components/choice-card.md",
-      "note": "한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거 · Figma 변형은 아직 없다. 소유자 판정 필요: 고른 면의 표현을 하나로 합칠지, 카드 안쪽 여백 32·28 이 의도인지.",
+      "note": "한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다 — 두 표현을 둘 다 두는 것은 2026-10-07 소유자 결정이다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거는 아직 없다. Figma 는 2026-10-08 에 component set ChoiceCard(42 변형 — Variant · Size · Role · Checked · Invalid · State)가 섰고 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피와 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 소유자 판정 남음: 카드 안쪽 여백 32·28 이 의도인지, 쉬는 면을 accent-secondary 로 닫은 것이 맞는지.",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
+      "figmaName": "ChoiceCard",
       "web": "not-ready",
       "docs": "partial"
     },

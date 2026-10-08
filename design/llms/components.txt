@@ -331,7 +331,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [SegmentedControlItem](../components/segmented-control-item.md) | `experimental` | `partial` | `not-ready` | `partial` | 세그먼트 하나. hover·selected·focus 는 컨트롤이 아니라 여기가 받으므로 별도 component set 으로 뽑고 프로토타입 반응(ON_HOVER → Hover, ON_CLICK → Selected)을 건다. hover 는 글자색만 바꾼다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었고 되재기도 있으나 계약이 `lg`·`md` 두 칸만 걸고 **Figma 가 그리는 `xs` 는 대조 범위 밖**이다. 그 `xs` 는 제품 정본·CSS·Figma 세 곳이 서로 다른 값을 갖는 미결 축이라(계약 주석이 그 셋을 나란히 적어 두었다) 값 판정이 선행한다. `sm` 은 반대로 코드에만 있고 Figma Item 에 없다. |
 | [Select](../components/select.md) | `experimental` | `done` | `partial` | `done` | 2026-08-18 에 not-planned 였다 — 「고르기는 Menu 가 소유한다」. DS-D-0053 이 그 판정을 뒤집었다: 그 판정은 네이티브 <select> 엘리먼트를 셌는데(14벌 / 5파일 · 전부 admin 계열) 제품이 값을 고르는 방식은 그것이 아니다. 앵커 5a67d692 에서 components/scenes/create/CustomDropdown.tsx 가 JSX 아홉 자리 / 여덟 파일에 서 있고 Gnb 가 물기 때문에 사실상 전 라우트에 뜬다. **여는 것은 트리거 하나다** — 패널은 MenuPanel, 항목과 「지금 값」 표시는 Menu, 검색 필드는 TextField(HasLabel=false) 가 이미 소유한다. CSS 레시피(.louis-select-trigger)는 있고 React 표면은 없다. Figma component set 8 variant(Size × State) 이고 계약에 geometry 가 붙어 양방향이다 — select.browser.test.tsx 가 코드 쪽에서 같은 실측을 되잰다. 제품 원장의 CustomDropdown 항은 이 회차에 움직이지 않는다: 제품이 아직 이 트리거를 물지 않았고, 커버리지가 오르는 것은 채택하는 회차다. |
 | [Selectable List Row](../components/selectable-list-row.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면이 갖는다**(bg-inset + fg-primary). 3px 선행 표식은 2026-09-22 에 걷었다(DS-D-0070) — 제품 세 소비처가 모두 표식을 끄고 있었고 소유자가 왼쪽 막대를 거부했다. 지금 다크 bg-inset 은 canvas 와 같고 올라온 면들과 갈리므로, 목록은 캔버스가 아니라 올라온 면 위에 둔다. listbox가 아니며 Tab이 목록을 훑는다. Figma component set 3 variant(State)가 섰고 parity 게이트가 Text·Title·Meta·Media·Trailing을 자손으로 대조한다 — raw fill 0. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(selectable-list-row · selectable-list-row.browser.test.tsx). |
-| [Choice Card](../components/choice-card.md) | `experimental` | `not-ready` | `not-ready` | `partial` | 한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거 · Figma 변형은 아직 없다. 소유자 판정 필요: 고른 면의 표현을 하나로 합칠지, 카드 안쪽 여백 32·28 이 의도인지. |
+| [Choice Card](../components/choice-card.md) | `experimental` | `partial` | `not-ready` | `partial` | 한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다 — 두 표현을 둘 다 두는 것은 2026-10-07 소유자 결정이다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거는 아직 없다. Figma 는 2026-10-08 에 component set ChoiceCard(42 변형 — Variant · Size · Role · Checked · Invalid · State)가 섰고 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피와 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 소유자 판정 남음: 카드 안쪽 여백 32·28 이 의도인지, 쉬는 면을 accent-secondary 로 닫은 것이 맞는지. |
 | [Section Header](../components/section-header.md) | `experimental` | `done` | `partial` | `done` | 화면·묶음·패널의 머리. 정본은 제품 app/admin/AdminSection.tsx 의 AdminSectionHeader 이고 호출 지점이 11 파일 17 자리다(page 11 · section 5 · label 1). 같은 조형이 어드민 밖에도 있다 — components/ui/PageHeader 가 앱 허브 넷에서 같은 제목 36 SemiBold + 설명 16 Medium 을 그린다. **그 「같다」를 실측으로 대조했고 갈리는 자리는 아래 여백 하나였다**: PageHeader 는 32 를 통째로 지고 page 는 12 만 지며, 어드민 쪽은 감싸는 스택의 gap-10(20)이 나머지를 내 합이 두 곳 다 32 다(제품이 BlogManagement.tsx:50-52 · TemplateManagement.tsx:1009-1012 에 그 셈을 적어 두었다). Level 축은 밀도가 아니라 문서 위계라 Size 가 아니고, 그 축 이름이 2026-09-07 에 figma-component-authoring.md §2 표에 열렸다. React 표면이 없어 정본이 CSS 레시피이고 브라우저 테스트가 클래스 마크업을 렌더한다(alert 와 같다). 719px 접힘은 Figma 에 그릴 자리가 없어 계약의 $foldRule 이 규칙으로 갖고 브라우저 테스트만 되잰다 — 한쪽만 있는 근거다. typography-heading-md-semibold 토큰이 이 컴포넌트와 함께 열렸다: LOUIS heading 계열에 semibold 가 하나도 없었고 제품 스케일에는 실재하는 칸이라 지어낸 역할이 아니라 빠져 있던 칸을 채운 것이다. **/admin 은 제품의 대비·타이포·표면 게이트가 하나도 재지 않는 영역이라** 제품이 문 뒤에도 회귀는 사람이 봐야 한다. DS-D-0035 판정: Figma done — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(section-header · section-header.browser.test.tsx). |
 | [Skeleton](../components/skeleton.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다. **면 색을 고르지 않는다** — 제품 실측(면 8% · 하이라이트 9%, 전경색 기준)대로 currentColor를 낮은 알파로 깐다. 인계서 (1c)의 "면 색 판정"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그것을 부정했다. 흐름은 background-position이며 loop 허용 property(DS-D-0016)와 제품 우세 기법이 같은 곳을 가리킨다. 크기는 호출부가 정한다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(skeleton · skeleton.browser.test.tsx). |
 | [Slider](../components/slider.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type="range">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set 4 variant(Size×Variant)가 섰고 **복합 키 `{size}/{variant}`를 쓰는 유일한 컴포넌트**다 — Variant 축이 레일 두께 4↔28과 썸 16↔2×14를 바꾼다. parity 게이트가 Rail·Fill·Thumb·Control·Label을 그룹별로 대조하고 변조 canary가 한 variant만 어긋난 경우를 잡는다. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(slider · slider.browser.test.tsx). |
@@ -5387,7 +5387,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 | 항목 | 값 |
 | --- | --- |
-| Figma | `not-ready` — **Figma 변형은 아직 없다** |
+| Figma | `partial` — component set `ChoiceCard`(2026-10-08, 42 변형). 되읽기 · parity 계약은 있고 기하를 되재는 브라우저 시험이 없다 |
 | 코드 | CSS recipe `.louis-choice-group` · `.louis-choice-card` ([`choice-card.css`](../../packages/css/src/component/choice-card.css), 2026-10-07). React 표면은 없다 |
 
 #### 왜 있는가
@@ -5436,7 +5436,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `not-ready` | **Figma 변형은 아직 없다.** component set 도 되읽기 계약도 없다 |
+| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 
@@ -5596,6 +5596,30 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 **두 호출부가 아직 이 클래스를 물지 않는다.** 제품은 자기 Tailwind 리터럴로 그린다.
 
+#### Figma
+
+DS · Components 「2 · 입력」 구획의 component set `ChoiceCard`(2026-10-08). 항목 하나가 변형 하나이고 묶음(`.louis-choice-group`)은
+component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자는 화면에서 오토레이아웃으로 놓는다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Variant` | `card` · `row` | `data-variant` — 고른 면을 말하는 방식과 패딩 · 반경 · 이름 타이포가 갈린다 |
+| `Size` | `md` · `sm` | `data-size`. 행형에는 `sm` 칸이 없다 — 레시피가 행의 패딩 · 반경 · 간격을 행 값으로 덮어 다른 기하가 나오지 않는다 |
+| `Role` | `radio` · `checkbox` | 항목의 `role`. 표식의 모양(원 · 반경 6 사각)만 바꾼다. 행형은 표식이 없어 두 값의 그림이 같다 |
+| `Checked` | `false` · `true` | `aria-checked` |
+| `Invalid` | `false` · `true` | `data-invalid`(항목 또는 묶음). 고르지 않은 항목에만 선다 |
+| `State` | `Default` · `Hover` · `Disabled` | 상호작용 상태. Focus 는 그리지 않는다(DS-D-0074) |
+| `Label` · `Description` | 텍스트 | 이름 · 설명 |
+| `HasDescription` | BOOLEAN | 설명 줄의 유무. 표본은 card/md 에만 설명 줄을 둔다 |
+
+한 묶음(`Variant` · `Size` · `Role`)마다 일곱 칸이다 — 쉼 · 호버 · 비활성, 오류의 쉼 · 호버, 고름의 쉼 · 비활성. **고른 칸에는
+`Hover` 가 없다** — 레시피가 고른 항목에 호버를 걸지 않아 면이 바뀌지 않는다(접기 시험: 고름이 호버를 흡수한다. 비활성에서는
+0.4 로 달라지므로 `State` 로 접지 않았다). **오류와 고름을 곱하지 않는다** — 고른 항목은 오류 링 대신 자기 링을 지킨다.
+
+링 · 헤어라인은 CSS 와 같이 inner shadow 한 겹이다(상태마다 `box-shadow` 한 줄, DS-D-0023). 체크는 checkbox 와 같은 구조의 벡터
+(4 × 7 상자의 두 변, 획 2, 45°)다. 기하 계약은 `figma/components.measured.json` 의 `choice-card` 세 칸(`card/md` · `card/sm` ·
+`row/md`)이 고정하고, 그 기록은 레시피 선언에서 왔다 — `verify-recipe-record` 가 레시피 ↔ 기록을 맞댄다.
+
 #### 제품이 이관할 때 달라지는 것
 
 - **앰배서더 지원서 `Choice`(카드형).**
@@ -5635,7 +5659,11 @@ React 표면이 없어 속성은 마크업 속성이다.
 - **표식 사각의 반경이 6 이다.** [Checkbox](../components/checkbox.md)는 `radius-control-sm`(8)이다. 제품 값(`rounded-6`)을 따랐다.
 - **오류 링과 면의 대비를 이 문서에서 재지 않았다.** `fg-danger-on-surface` 가 `accent-secondary` 면 위에서 비텍스트 3:1 을
   넘는지는 실브라우저 acceptance test 가 서면서 잰다.
-- **Figma 변형은 아직 없다.**
+- **Figma 의 비활성 불투명도 0.4 는 게이트가 대조하지 않는다.** 되읽기 키가 `Variant/Size` 라 같은 키에 1 과 0.4 가 섞이고, 키에
+  `State` 를 넣으면 같은 기하가 세 번 담긴다. 그 값은 이 레시피와 문서가 소유한다. 오류 링과 고른 링도 되읽기 문자열에 색이 없어
+  두께(2)만 대조되고 색은 변수 바인딩(원시값 0)이 나른다.
+- **Figma 의 `Role` 축은 행형에서 그림이 같다.** 행형은 표식이 없으므로 `radio` · `checkbox` 두 칸이 시각적으로 같다 — 묶음의 역할이
+  마크업 계약이라 축은 남겼다.
 - **`aria-invalid` 는 `role="group"` 에 쓸 수 없다.** 여럿 고르는 묶음의 오류는 문구와 `role="alert"` 가 맡는다(접근성 절).
 
 #### Acceptance tests
@@ -5661,12 +5689,14 @@ React 표면이 없어 속성은 마크업 속성이다.
 - [ ] React 표면(`ChoiceGroup` · `ChoiceCard`) — 로빙 tabindex 와 `aria-checked` 를 컴포넌트가 소유할지 판정한다
 - [ ] 실브라우저 acceptance test
 - [ ] 제품을 그 recipe 로 이관(앰배서더 `Choice` · 온보딩 `OPTION`)
-- [ ] Figma component set
+- [x] Figma component set `ChoiceCard` (2026-10-08) — 브라우저 되재기가 서면 `done` 판정
 
 #### 출처
 
 - 2026-10-07 — CSS recipe 신설. 두 소비처(`ApplyFlow.tsx@2ceec4ed3:94-157` · `ResearchOnboarding.tsx@b57cd1f95:77`)의 공통 재료를 한 컴포넌트로 묶고
   갈리는 값(고른 면의 표현)은 변형으로 두었다. 오류 링은 DS-D-0075 와 같은 값이다.
+- 2026-10-08 — Figma component set `ChoiceCard`(42 변형)와 parity 계약 · 되읽기 · 기록 `choice-card` 세 칸. 레시피의 패딩 선언을
+  세로 · 가로 둘로 갈랐다(값은 같다 — `verify-recipe-record` 가 선언 하나를 수 하나로 읽는다).
 
 ## Section Header
 

@@ -25,6 +25,24 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (222) — Figma 새 세트: Bare Button(맨 버튼 · 행 제목)
+
+- **`BareButton`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(TextLink 아래, 2 변형). 축은 `Layout` 하나 — `base`
+  (CSS `.louis-bare-button`) · `row-title`(CSS `.louis-row-title`)다. 두 변형 모두 면 · 테두리 · 여백이 없는 `Label` 한 줄이고 잉크는
+  `fg-primary` 다. `row-title` 은 반경 4(리터럴)와 텍스트 스타일 `typography/body-sm-medium` 을 자기 값으로 갖는다.
+- **`base` 의 글자는 대표값이다.** 초기화 클래스는 글꼴과 색을 건드리지 않는 것이 계약이라(제품 `[font:inherit]` 층 순서 사고,
+  ce9af3491) Figma 는 `typography/body-sm-regular` · `fg-primary` 로 대신 그린다 — 인스턴스의 텍스트 스타일과 잉크를 소비처의
+  type 클래스와 그 자리 잉크로 바꾼다.
+- **상태 축이 없다** — 레시피에 호버 · 비활성 선언이 없고 Focus 는 그리지 않는다(DS-D-0074). TEXT 속성 `Label` 이 글자를 바꾼다.
+- **축 어휘를 넓혔다**(figma-component-authoring.md §2 Layout) — CSS 클래스 이름을 그대로 옮기는 자리(`row-title`)를 적었다.
+- parity 계약(축 · 여백 · 반경 · 글자 크기 두 칸 `base` · `row-title`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다
+  (2 변형 · 바인딩 fill 2 · 원시 0 · 텍스트 스타일 2). 기록 `figma/components.measured.json` 에 `bare-button` 을 세웠고 값은 레시피
+  선언이다 — `verify-recipe-record` 에 한 항목(row-title 의 반경 · 글자 크기 대조 2건 · 잉크 · 굵기 · 투명 면 이름 셋)을 더했다.
+  그 게이트는 이제 같은 선택자의 최상위 규칙을 전부 읽는다 — 묶은 선택자(`.louis-bare-button,\n.louis-row-title`)의 끝 칸이 첫
+  규칙으로 걸려 행 제목 자기 블록을 못 보던 것을 고쳤다(나중 규칙부터 이어 캐스케이드와 같은 답).
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **판정은 그대로 남는다** — 부모 글꼴을 물려받는
+  `CaptionTemplateManagement` 제목을 어느 클래스로 받을지(bare-button.md Known deviations).
+
 ## 2026-10-08 (221) — Figma 새 세트: Text Link(글자 링크)
 
 - **`TextLink`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(PillTrigger 아래, 6 변형). 축은 `Tone`(default · inherit,

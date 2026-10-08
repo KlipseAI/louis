@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 70,
-        "variants": 860
+        "sets": 71,
+        "variants": 862
       },
       "icons": 47,
       "templates": 9
@@ -6939,6 +6939,104 @@
           ],
           "layoutMode": [
             "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "BareButton": {
+      "outsideParts": [],
+      "tokenId": "bare-button",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "row-title"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row-title": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            4
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
           ],
           "strokeWeight": [],
           "overflowingParts": [],

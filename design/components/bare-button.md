@@ -29,7 +29,7 @@ LOUIS 레시피는 `packages/css/src/component/bare-button.css`(2026-10-07)다. 
 | Surface       | 상태           | 근거                                                                                  |
 | ------------- | -------------- | ------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | `packages/css/src/component/bare-button.css` 레시피는 있다. 제품 네 파일은 아직 자기 상수로 그린다 — 소비 증거도 브라우저 시험도 없다 |
-| Figma         | `not-ready`    | **Figma 변형은 아직 없다**                                                            |
+| Figma         | `partial`      | component set `BareButton`(DS · Components 「1 · 액션」, 2026-10-08, 2 변형). 되읽기 등재 + parity 계약(축 · 여백 · 반경 · 글자 크기 두 칸)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial`      | 이 문서 — States · Content · Acceptance tests 절이 아직 없다 |
 | Maturity      | `experimental` | 소비처가 이 클래스를 물면 승격을 다시 판정한다                                        |
 
@@ -56,6 +56,23 @@ LOUIS 레시피는 `packages/css/src/component/bare-button.css`(2026-10-07)다. 
 | 잉크 | `fg-primary` | 블로그는 라이트에서 순검정, 배너 · 템플릿은 다크에서 88% 흰색이던 것을 맞춘다 |
 | 반경 | 4 | **리터럴** — 반경 계단에 4 의 이름이 없다(`radius-table-header` 는 표 머리의 값). 고대비 링을 위한 모양 |
 
+## Figma
+
+component set `BareButton`(2026-10-08, DS · Components 「1 · 액션」 TextLink 아래). 축 하나가 CSS 클래스 둘을 같은 철자로 옮긴다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Layout` | `base` · `row-title` | `.louis-bare-button` · `.louis-row-title` |
+
+- 2 변형이다. 둘 다 면 · 테두리 · 여백 0 의 `Label` 한 줄이고 잉크는 `fg-primary` 다.
+- `base` 는 반경 0, 텍스트 스타일 `typography/body-sm-regular` 다. **레시피가 글꼴과 색을 쥐지 않으므로** 이 둘은 대표값이다 —
+  인스턴스의 텍스트 스타일과 잉크를 소비처의 type 클래스 · 그 자리 잉크로 바꾼다.
+- `row-title` 은 반경 4(리터럴), 텍스트 스타일 `typography/body-sm-medium` 이다 — 이 클래스 자신이 갖는 값이다. 코드에서는
+  `display: block` 이라 행 폭을 채우므로 인스턴스를 행에 넣을 때 가로를 채움으로 둔다.
+- **상태 축이 없다.** 레시피에 호버 · 비활성 선언이 없고(`disabled` 의 커서도 pointer), Focus 는 그리지 않는다(DS-D-0074).
+  반경 4 는 강제 색에서 되살아나는 링의 모양이라 평소에는 보이지 않는다.
+- TEXT 속성 `Label` 이 글자를 바꾼다.
+
 ## Accessibility
 
 - 포커스 링을 그리지 않는다(DS-D-0074). 제품 `louis-focus-ring rounded-4` 의 링은 base.css 가 걷었다.
@@ -68,7 +85,7 @@ LOUIS 레시피는 `packages/css/src/component/bare-button.css`(2026-10-07)다. 
   다르면 `bare-button` + 소비처 type 클래스다.
 - **`.louis-bare-button` 의 소비처가 없다.** 지금 올라온 소비는 행 제목 넷뿐이다 — 초기화만 필요한 자리(`AmbassadorManagement`
   의 `LINK_TITLE` 이 `text-inherit [font:inherit]` 로 같은 사고를 부른다)가 이 클래스의 두 번째 소비처 후보다.
-- **브라우저 시험과 Figma 변형이 없다.**
+- **브라우저 시험이 없다.**
 
 ## 출처
 

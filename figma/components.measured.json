@@ -4522,6 +4522,34 @@
           "$textDecoration": "NONE. 밑줄 없는 이동 링크는 호버에도 밑줄이 없고 색만 바뀐다 — 레시피 `.louis-text-link[data-underline=\"none\"]:hover { text-decoration-line: none }`. 이 갈래를 남길지는 소유자 판정이다(text-link.md Known deviations)."
         }
       }
+    },
+    "bare-button": {
+      "$doc": "design/components/bare-button.md",
+      "$source": "packages/css/src/component/bare-button.css",
+      "$note": "맨 버튼 · 행 제목(2026-10-07 레시피, 2026-10-08 Figma). 값은 브라우저 실측이 아니라 **레시피 선언**이다 — React 표면이 없어 component-geometry 브라우저 시험이 이 칸을 되재지 않고, 대신 verify-recipe-record 가 row-title 의 반경 · 글자 크기와 잉크 이름을 레시피와 대조한다(text-link · record-card 와 같은 처지다). 출처는 제품 작업 브랜치 feat/admin-ops-review 의 ROW_TITLE(BannerManagement.tsx@0b25d15a3:128 · ModelManagement.tsx@0b25d15a3:75 외 둘, 커밋 ce9af3491)이다. 글자 폭은 담지 않는다 — 글꼴 렌더링에 달렸다.",
+      "$keyRule": "키가 `Layout` 이다(base = `.louis-bare-button` · row-title = `.louis-row-title`). 상태 축이 없다 — 레시피에 호버 · 비활성 선언이 없다. base 의 글자 크기는 레시피가 쥐지 않는 Figma 대표값이고(소비처의 type 클래스가 준다), row-title 의 글자 크기만 레시피 선언이다.",
+      "sizes": {
+        "base": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 초기화 클래스는 여백이 없다 — 레시피 `padding: 0`(UA 버튼 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다(`border: 0` · `background: transparent`).",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "radius": 0,
+          "$radius": "0. 초기화 클래스는 반경을 선언하지 않는다 — 면이 없어 반경이 보이지 않는다.",
+          "labelFontSize": 14,
+          "$labelFontSize": "14. **레시피 선언이 아니다** — `.louis-bare-button` 은 글꼴을 건드리지 않는 것이 계약이라(제품 `[font:inherit]` 층 순서 사고, ce9af3491) Figma 는 typography-body-sm-regular 를 대표로 그린다. 인스턴스의 텍스트 스타일은 소비처의 type 클래스대로 바꾼다."
+        },
+        "row-title": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 초기화 클래스는 여백이 없다 — 레시피 `padding: 0`(UA 버튼 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다(`border: 0` · `background: transparent`).",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "radius": 4,
+          "$radius": "4. 레시피 `.louis-row-title { border-radius: 4px }` 리터럴 — 반경 계단에 4 의 이름이 없다. 강제 색(고대비)에서 되살아나는 링이 글자 상자에 맞게 둥글도록 제품 `rounded-4` 를 옮겼다.",
+          "labelFontSize": 14,
+          "$labelFontSize": "14. typography-body-sm-medium(14/1.5, 500) — 레시피가 `.louis-row-title` 자신에게 선언한다(type 클래스를 함께 붙이지 않는다). 커밋 ce9af3491 이 일곱 목록을 맞춘 값이다."
+        }
+      }
     }
   },
   "$noProductRender": {

@@ -272,6 +272,10 @@ const CAPTURE = {
   // 글자 링크(2026-10-08). 키가 `Underline/State` 인 것은 그 두 축만 밑줄의 유무를 가르기 때문이다 — `Tone` 은 잉크만
   // 바꾸고(같은 키에 모인다) 잉크 바인딩은 되읽기가 세지 않는다. 글자 크기 · 폭은 담지 않는다 — 레시피가 글꼴을 쥐지 않는다.
   "TextLink": {"key":{"by":["Underline","State"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode","strokeWeight"],"parts":{"Label":["textDecoration"]}},
+  // 맨 버튼 · 행 제목(2026-10-08). 키가 `Layout`(base · row-title)인 것은 그 축 하나가 반경과 글자를 다시 쓰기 때문이다 —
+  // 상태 축이 없다(레시피에 호버 · 비활성 선언이 없다). 글자 폭은 담지 않는다(글꼴 렌더링에 달렸다). base 의 글자 크기는
+  // 레시피가 쥐지 않는 대표값이고 row-title 의 14 만 레시피 선언이다(verify-recipe-record 가 맞댄다).
+  "BareButton": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"]}},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"]}},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},

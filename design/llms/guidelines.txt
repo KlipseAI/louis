@@ -3328,7 +3328,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | --- | --- | --- |
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` · (CSS `data-variant` 를 그대로 옮기는 자리는 그 철자) | **강조 단계만.** 부품 이름을 넣지 않는다. 예외 하나 — 강조 축이 없는 컴포넌트가 CSS 에서 `data-variant` 로 표현 갈래를 고르면 같은 이름 · 같은 철자로 옮긴다(Tabs `default` · `underline`, 2026-10-08). 이름을 따로 지으면 코드와 Figma 가 같은 갈래를 두 이름으로 부른다 |
-| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`, RecordCard `raised` = `data-surface`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08). 카드가 자기 면을 갖느냐도 이 축이다 — RecordCard `base`(면 없는 줄) · `raised`(올린 면 카드, 2026-10-08). `Surface` 는 아래 깔린 면의 밝기라 쓰지 않는다 |
+| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`, RecordCard `raised` = `data-surface`) · (CSS 클래스 이름을 그대로 옮기는 자리는 그 철자 — BareButton `row-title` = `.louis-row-title`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08). 카드가 자기 면을 갖느냐도 이 축이다 — RecordCard `base`(면 없는 줄) · `raised`(올린 면 카드, 2026-10-08). `Surface` 는 아래 깔린 면의 밝기라 쓰지 않는다. 한 레시피 파일의 두 클래스가 같은 뼈대 위에서 반경 · 글자를 다시 쓰는 것도 이 축이다 — BareButton `base`(초기화만) · `row-title`(행 제목, 2026-10-08) |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` · (CSS `data-tone` 을 그대로 옮기는 자리는 그 철자 — TextLink `default` · `inherit`) | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다. 예외 하나 — 의미 톤이 없는 컴포넌트가 CSS 에서 `data-tone` 으로 잉크의 출처를 고르면 같은 철자로 옮긴다(TextLink `inherit` = 주변 잉크 상속, 2026-10-08). `Variant` 의 `data-variant` 예외와 같은 사유다 |
 | `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
@@ -16043,6 +16043,24 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-08 (222) — Figma 새 세트: Bare Button(맨 버튼 · 행 제목)
+
+- **`BareButton`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(TextLink 아래, 2 변형). 축은 `Layout` 하나 — `base`
+  (CSS `.louis-bare-button`) · `row-title`(CSS `.louis-row-title`)다. 두 변형 모두 면 · 테두리 · 여백이 없는 `Label` 한 줄이고 잉크는
+  `fg-primary` 다. `row-title` 은 반경 4(리터럴)와 텍스트 스타일 `typography/body-sm-medium` 을 자기 값으로 갖는다.
+- **`base` 의 글자는 대표값이다.** 초기화 클래스는 글꼴과 색을 건드리지 않는 것이 계약이라(제품 `[font:inherit]` 층 순서 사고,
+  ce9af3491) Figma 는 `typography/body-sm-regular` · `fg-primary` 로 대신 그린다 — 인스턴스의 텍스트 스타일과 잉크를 소비처의
+  type 클래스와 그 자리 잉크로 바꾼다.
+- **상태 축이 없다** — 레시피에 호버 · 비활성 선언이 없고 Focus 는 그리지 않는다(DS-D-0074). TEXT 속성 `Label` 이 글자를 바꾼다.
+- **축 어휘를 넓혔다**(figma-component-authoring.md §2 Layout) — CSS 클래스 이름을 그대로 옮기는 자리(`row-title`)를 적었다.
+- parity 계약(축 · 여백 · 반경 · 글자 크기 두 칸 `base` · `row-title`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다
+  (2 변형 · 바인딩 fill 2 · 원시 0 · 텍스트 스타일 2). 기록 `figma/components.measured.json` 에 `bare-button` 을 세웠고 값은 레시피
+  선언이다 — `verify-recipe-record` 에 한 항목(row-title 의 반경 · 글자 크기 대조 2건 · 잉크 · 굵기 · 투명 면 이름 셋)을 더했다.
+  그 게이트는 이제 같은 선택자의 최상위 규칙을 전부 읽는다 — 묶은 선택자(`.louis-bare-button,\n.louis-row-title`)의 끝 칸이 첫
+  규칙으로 걸려 행 제목 자기 블록을 못 보던 것을 고쳤다(나중 규칙부터 이어 캐스케이드와 같은 답).
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **판정은 그대로 남는다** — 부모 글꼴을 물려받는
+  `CaptionTemplateManagement` 제목을 어느 클래스로 받을지(bare-button.md Known deviations).
 
 #### 2026-10-08 (221) — Figma 새 세트: Text Link(글자 링크)
 

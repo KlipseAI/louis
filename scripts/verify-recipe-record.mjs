@@ -416,6 +416,29 @@ const RECIPES = [
       ['.louis-text-link[data-tone="inherit"]', "color: inherit"],
     ],
   },
+  // ── 맨 버튼 · 행 제목(2026-10-08) ─────────────────────────────────────────
+  //
+  // text-link 와 같은 처지다 — React 표면이 없어 이 표가 기록의 유일한 반대편이다. 기록이 레시피 선언을 갖는 칸은
+  // row-title 의 반경(리터럴 4px)과 글자 크기(body-sm-medium)뿐이다. base 의 글자 크기 14 는 Figma 대표값이라
+  // 대조하지 않는다 — `.louis-bare-button` 은 글꼴을 쥐지 않는 것이 계약이다. 여백 0 은 `padding: 0` 이라 이 게이트가
+  // 수로 풀지 않는다 — parity 계약이 기록과 Figma 를 맞댄다. 행 제목의 선택자는 공용 초기화 블록(`.louis-bare-button,
+  // .louis-row-title`)에도 걸려 두 규칙 본문을 함께 읽는다(ruleBody).
+  {
+    component: "bare-button",
+    recipe: "packages/css/src/component/bare-button.css",
+    geometry: [
+      [".louis-row-title", "border-radius", "row-title", "radius"],
+      [".louis-row-title", "font-size", "row-title", "labelFontSize"],
+    ],
+    // 행 제목의 잉크와 굵기는 이름이 계약이다 — 주 글자 fg-primary, body-sm-medium 의 500. 투명 면은 공용 초기화 블록의
+    // 선언이다 — `.louis-bare-button` 은 묶은 선택자의 첫 칸이라 이 게이트의 규칙 찾기(선택자 바로 뒤의 `{`)에 걸리지 않아
+    // 같은 블록의 끝 칸 `.louis-row-title` 로 읽는다.
+    surfaces: [
+      [".louis-row-title", "var(--louis-color-fg-primary)"],
+      [".louis-row-title", "var(--louis-typography-body-sm-medium-font-weight)"],
+      [".louis-row-title", "background: transparent"],
+    ],
+  },
 ];
 
 const errors = [];
@@ -461,10 +484,16 @@ if (recordSource !== null) {
 /** 주석을 지운 규칙 본문. 주석 안의 수는 사유이지 선언이 아니다. */
 function ruleBody(recipeSource, recipePath, selector) {
   const stripped = recipeSource.replace(/\/\*[\s\S]*?\*\//g, "");
+  // **같은 선택자의 최상위 규칙이 여럿이면 전부 읽는다(2026-10-08 bare-button).** 묶은 선택자(`.a,\n.b { … }`)의 끝
+  // 칸도 이 패턴에 걸려, 첫 규칙만 읽으면 `.louis-row-title` 이 공용 초기화 블록에 멈추고 자기 블록의 반경 · 글꼴을
+  // 못 본다. 본문은 **나중 규칙부터** 잇는다 — 아래 선언 찾기가 첫 일치를 쓰므로, 같은 특정도에서 뒤 규칙이 이기는
+  // 캐스케이드와 같은 답이 나온다.
   const pattern = new RegExp(
     `(?:^|\\n)${selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*\\{([^}]*)\\}`,
+    "g",
   );
-  const match = pattern.exec(stripped);
+  const bodies = [...stripped.matchAll(pattern)].map((found) => found[1]);
+  const match = bodies.length === 0 ? null : [null, bodies.reverse().join("\n")];
   if (!match) {
     errors.push(
       `${recipePath} 에 최상위 규칙 \`${selector}\` 이 없습니다. ` +

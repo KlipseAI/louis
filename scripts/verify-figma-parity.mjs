@@ -1716,6 +1716,48 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "bare-button",
+    figmaName: "BareButton",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/bare-button.css 의 .louis-bare-button · .louis-row-title 이 정본이다(2026-10-07). 제품 작업 브랜치 feat/admin-ops-review 의 ROW_TITLE(어드민 네 파일 복제)이 출처다.",
+    variantProperties: {},
+    // **선도 효과도 면도 없다.** 초기화 클래스가 하는 일이 UA 면(배경 · 테두리 · 여백)을 지우는 것이다(레시피 `border: 0` ·
+    // `background: transparent` · `padding: 0`). 반경 4 는 강제 색에서 되살아나는 링의 모양이라 평소에는 보이지 않는다.
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: {
+        options: ["base", "row-title"],
+        reason:
+          "CSS 클래스 둘을 옮긴 축(figma-component-authoring.md §2 Layout — CSS 이름을 그대로 옮기는 자리는 그 철자). `base` = `.louis-bare-button`(여백 0 · 테두리 0 · 투명 면 · 시작 정렬만 갖고 글꼴과 색은 소비처가 정한다 — Figma 는 body-sm-regular · fg-primary 로 대신 그린다), `row-title` = `.louis-row-title`(그 위에 반경 4 · body-sm-medium · fg-primary 를 이 클래스 자신이 갖는다, 코드에서는 display:block 이라 행 폭을 채운다). 같은 부품이 반경과 글자를 다시 쓰는 갈래라 Layout 이다 — 강조 단계가 아니어서 Variant 가 아니고, 크기 사다리가 아니어서 Size 가 아니다. 상태 축은 없다 — 레시피에 호버 · 비활성 선언이 없고(disabled 의 커서도 pointer) Focus 는 그리지 않는다(DS-D-0074).",
+      },
+      Label: { type: "TEXT", reason: "버튼 글자. 코드에서는 `<button class=\"louis-row-title\">` 의 텍스트다." },
+    },
+    geometry: {
+      // **두 칸을 다 건다.** 루트의 기하를 다시 쓰는 축은 Layout 하나라 되읽기 키가 그 값이다. 기록의 값은 브라우저 실측이
+      // 아니라 레시피 선언이고 verify-recipe-record 가 레시피 ↔ 기록을 맞댄다(row-title 의 반경 · 글자 크기) — React 표면이
+      // 없어 브라우저 시험이 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`).
+      measuredId: "bare-button",
+      sizeKeys: ["base", "row-title"],
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: { literal: 0 },
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 글자 크기. row-title 의 14 는 레시피 선언(body-sm-medium)이고, base 의 14 는 레시피가 쥐지 않는 대표값이다 —
+        // 소비처의 type 클래스대로 인스턴스의 텍스트 스타일을 바꾼다.
+        Label: { fields: { fontSize: "labelFontSize" } },
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:

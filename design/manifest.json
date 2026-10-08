@@ -2523,9 +2523,10 @@
       "id": "bare-button",
       "name": "Bare Button",
       "doc": "design/components/bare-button.md",
-      "note": "button 의 UA 면을 걷어내되 글꼴과 색을 건드리지 않는 초기화 클래스 `.louis-bare-button` 과 그 위에 서는 목록 행 제목 `.louis-row-title`(14 medium fg-primary). 제품 ROW_TITLE 이 네 파일에 복제됐고 `[font:inherit]` 속기가 유틸리티 층에서 type 클래스를 이겨 행 제목이 16px 400 이 된 층 순서 사고가 났다(ce9af3491). 2026-10-07 CSS 레시피가 섰다. 소비처가 이 클래스를 물지 않고 브라우저 시험 · Figma 변형이 없다. 판정 필요: CaptionTemplateManagement 처럼 부모 글꼴을 물려받는 자리를 어떻게 받을지.",
+      "note": "button 의 UA 면을 걷어내되 글꼴과 색을 건드리지 않는 초기화 클래스 `.louis-bare-button` 과 그 위에 서는 목록 행 제목 `.louis-row-title`(14 medium fg-primary). 제품 ROW_TITLE 이 네 파일에 복제됐고 `[font:inherit]` 속기가 유틸리티 층에서 type 클래스를 이겨 행 제목이 16px 400 이 된 층 순서 사고가 났다(ce9af3491). 2026-10-07 CSS 레시피가 섰다. 소비처가 이 클래스를 물지 않고 브라우저 시험이 없다. Figma 는 2026-10-08 에 component set BareButton(2 변형 — Layout base · row-title, 상태 축 없음)이 섰고 되읽기 등재 + parity 계약(축 · 여백 · 반경 · 글자 크기 두 칸)이 있다. 기록은 레시피 선언이고 verify-recipe-record 가 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 판정 필요: CaptionTemplateManagement 처럼 부모 글꼴을 물려받는 자리를 어떻게 받을지.",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
+      "figmaName": "BareButton",
       "web": "not-ready",
       "docs": "partial"
     },

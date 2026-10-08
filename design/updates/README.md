@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (220) — 코치마크의 강조색 테두리를 걷는다(DS-D-0080) — 폭 1px 은 투명으로 남는다
+
+제품 첫 사용 안내의 코치마크를 본 소유자가 「테두리 파랑 그거 빼라」고 판정했다. [Tooltip](../components/tooltip.md) 의
+`coachmark` 는 면의 네 변과 꼬리(`::before`)의 바깥 두 변에 `accent-primary` 56% 1px 테두리를 둘렀다.
+
+**바뀐 것.**
+
+- 면과 꼬리의 테두리 색을 투명으로 바꿨다. **폭 1px 은 남긴다** — 걷으면 상자가 2px 줄고 꼬리가 1px 옮겨 간다. 배경이
+  그 띠까지 칠해져 보이는 것은 면 하나이고, 높이 64 · 폭 320 · 꼬리 자리는 그대로다.
+- 강제 색(Windows 고대비)에서는 면과 꼬리의 테두리가 `currentColor` 실선으로 되살아난다. 꼬리의 방향 규칙이 특이도가
+  더 높아 강제 색 블록이 그 선택자도 적는다.
+- 브라우저 테스트: 네 방향 두 테마에서 면과 꼬리 변이 투명이고 폭 1px 인지, 강제 색에서 currentColor 인지를 잰다.
+  측정 기록의 `tooltip.states.coachmark.Default` 에 `border: null`(투명)을 적었다.
+- Figma: `Tooltip` 세트 coachmark 네 변형과 각 `Tail` 의 stroke 를 걷었다. 안쪽 여백 13(12 + 1)이 그 자리를 그대로
+  갖는다. parity 계약의 `strokes.self` 를 base 헤어라인 0.5 하나로 좁혀, 걷은 테두리가 되살아나면 게이트가 걸린다.
+  `--components --only Tooltip` 으로 다시 떠 병합했다.
+
+**제품은 핀을 올릴 때 받는다.** 제품은 그때까지 면과 꼬리의 `border-color` 를 투명으로 덮고 있고(제품 `93da9e7d1`),
+핀을 올리면 그 덮개를 지운다. 근거와 대안은 [DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md).
+
 ## 2026-10-06 (191) — 포커스 링을 그리지 않는다: 한 규칙이 소유하고 강제 색에서만 `Highlight` (DS-D-0074)
 
 소유자가 시안 셋(지금의 파란 링과 2px 틈 · A 무채색 링 · B 링 없음) 가운데 **B** 를 골랐다. 계기는 문서 사이트 검색 막대

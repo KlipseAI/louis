@@ -19292,7 +19292,7 @@
       "binding": {
         "boundFills": 28,
         "rawFills": 0,
-        "boundStrokes": 12,
+        "boundStrokes": 4,
         "rawStrokes": 0,
         "textStyled": 12,
         "textUnstyled": 0
@@ -19389,9 +19389,7 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": [
-            1
-          ],
+          "strokeWeight": [],
           "overflowingParts": [
             "Tail"
           ],
@@ -19400,8 +19398,7 @@
       },
       "strokes": {
         "self": [
-          "0.5|INSIDE",
-          "1|INSIDE"
+          "0.5|INSIDE"
         ]
       },
       "effects": {

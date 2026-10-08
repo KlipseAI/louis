@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 66,
-        "variants": 802
+        "sets": 67,
+        "variants": 804
       },
       "icons": 47,
       "templates": 9
@@ -10590,6 +10590,104 @@
           ],
           "cornerRadius": [
             10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "LoadingWord": {
+      "outsideParts": [],
+      "tokenId": "loading-word",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Motion": {
+          "type": "VARIANT",
+          "options": [
+            "flow",
+            "reduced"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "flow": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            21
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "reduced": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            21
+          ],
+          "width": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
           ],
           "layoutMode": [
             "HORIZONTAL"

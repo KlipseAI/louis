@@ -213,6 +213,9 @@ const CAPTURE = {
   "InspectorSectionHead": {"key":{"name":"head"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Title":["fontSize"],"Tail":["itemSpacing"],"Meta":["fontSize"],"Action":["width","height","cornerRadius"],"ActionGlyph":["width","height"]}},
   "InlineLoadingLabel": {"key":{"by":["Size","Loading"]},"slots":{"Slot":"size"},"parts":{"Label":["width","height","fontSize","lineHeightPercent"],"Slot":["width","height"]}},
   "Keycap": {"key":{"by":["Kind"]},"parts":{"Label":["width","height","fontSize"]},"effects":["self"]},
+  // 글자 쉬머(2026-10-08). `Motion` 은 흐름의 0프레임(flow)과 reduced-motion 단색(reduced) 두 정지 상태다. 기하 계약이
+  // 없다 — 크기와 글꼴은 호출부가 정하고 표본 글자의 폭은 계약이 아니다. 담는 것은 축 · 바인딩(정지점 단위)뿐이다.
+  "LoadingWord": {"key":{"by":["Motion"]}},
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},
   "MediaScrubber": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Thumb":["width","height"]}},
   // **두 줄 항목(2026-10-08)이 `Layout` 축을 열었다.** base 는 지금까지의 키 `panel` 을 그대로 쓰고(`map`) — 개명하면

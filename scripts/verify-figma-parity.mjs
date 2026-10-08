@@ -1464,6 +1464,28 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "loading-word",
+    figmaName: "LoadingWord",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/loading-word.css 의 .louis-loading-word 가 정본이다(2026-10-07). 제품 작업 브랜치의 LoadingWord.tsx 가 출처다.",
+    variantProperties: {},
+    // **면도 선도 그림자도 없다.** 글자 하나가 전부인 표시라 칠하는 것은 글자뿐이다 — 흐름의 0프레임은 글자 칠의
+    // 그라디언트, reduced 는 글자 칠의 단색이다. 그라디언트 정지점은 되읽기가 stop 단위로 세어 바인딩 검사(raw 0)를 받는다.
+    strokes: {},
+    effects: {},
+    // **기하 계약이 없다(2026-10-08).** 크기와 글꼴은 호출부가 정하고(블록 로딩은 타이포 클래스, 버튼 안은 버튼의 글자),
+    // 레시피에 여백 · 반경 · 간격이 하나도 없다 — 표본 글자 「분석 중」의 40×21 은 문구가 정한 값이라 계약이 아니다.
+    // 그래서 이 계약이 고정하는 것은 축과 바인딩뿐이고, manifest 의 Figma 상태는 DS-D-0035 (c) 를 채우지 못해 partial 이다.
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "흐르는 문구. 코드에서는 span 의 텍스트이고 호출부가 말줄임표 없는 진행 문구를 넘긴다." },
+      Motion: {
+        options: ["flow", "reduced"],
+        reason:
+          "**코드의 축이 아니다 — Figma 가 흐름(background-position 이동)을 그리지 못해 연 정지 상태 둘이다.** flow 는 흐름의 0프레임(`0% 50%`)으로 200% 폭 그라디언트의 앞 절반이 글자 상자에 보인다. reduced 는 `prefers-reduced-motion` 의 모양으로 그라디언트 없이 잉크 88% 단색이다. 두 모양은 CSS 가 실제로 그리는 두 상태라 디자이너가 둘 다 놓을 수 있어야 한다. forced-colors(`CanvasText`)는 시스템 색이라 Figma 변형을 두지 않는다(loading-word.md Known deviations 7).",
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:

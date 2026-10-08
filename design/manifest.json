@@ -2206,9 +2206,10 @@
       "id": "loading-word",
       "name": "Loading Word",
       "doc": "design/components/loading-word.md",
-      "note": "스피너 없이 글자 자체를 쉬머로 흘리는 로딩 표시 — 제품이 문구형 로딩의 정본으로 선언했다(2026-10-07, 제품 하이라이트 새 화면 작업 브랜치 feat/highlight-new-screen 의 LoadingWord.tsx, 9개 파일이 쓴다). Inline Loading Label(스피너 슬롯)의 변형이 아니라 따로 선 컴포넌트다 — 슬롯도 축도 없고 쓰는 자리가 겹치지 않는다. 블록 로딩과, 라벨을 진행 문구로 갈아 끼우는 버튼 진행 상태(aria-disabled 로 초점 유지)가 그 자리다. packages/css/src/component/loading-word.css 레시피가 이 회차에 섰다 — 9정지점 알파 그라디언트를 글자 모양으로 잘라 한 칸(-100%)씩 민다. 제품 gray-000 알파 리터럴은 fg-primary 의 color-mix 로 옮겼다. 흐름 keyframe 은 louis-shimmer 를 쓰지 못해(네 칸을 미는 한 번짜리 쓸림) louis-loading-word-sweep 을 하나 더 두고 주기만 motion-shimmer(1.6s)에 묶는다 — 제품은 2.2s·등속이었고 이 편차는 소유자 판정 대기다. easing 은 이어 붙는 순환이라 linear 다. reduced-motion 에서는 그라디언트를 걷고 글자를 단색으로 읽히게 하며(제품은 0프레임 얼룩), forced-colors 분기를 더했다. Web `partial` 이되 acceptance test 0건 · React 표면 없음 · 제품이 이 클래스를 무는 증거 없음이다. **Figma 는 아직 없다** — 흐름이 background-position 이동이라 정지 상태만 표현되고 component set 도 되읽기 계약도 없다.",
+      "note": "스피너 없이 글자 자체를 쉬머로 흘리는 로딩 표시 — 제품이 문구형 로딩의 정본으로 선언했다(2026-10-07, 제품 하이라이트 새 화면 작업 브랜치 feat/highlight-new-screen 의 LoadingWord.tsx, 9개 파일이 쓴다). Inline Loading Label(스피너 슬롯)의 변형이 아니라 따로 선 컴포넌트다 — 슬롯도 축도 없고 쓰는 자리가 겹치지 않는다. 블록 로딩과, 라벨을 진행 문구로 갈아 끼우는 버튼 진행 상태(aria-disabled 로 초점 유지)가 그 자리다. packages/css/src/component/loading-word.css 레시피가 이 회차에 섰다 — 9정지점 알파 그라디언트를 글자 모양으로 잘라 한 칸(-100%)씩 민다. 제품 gray-000 알파 리터럴은 fg-primary 의 color-mix 로 옮겼다. 흐름 keyframe 은 louis-shimmer 를 쓰지 못해(네 칸을 미는 한 번짜리 쓸림) louis-loading-word-sweep 을 하나 더 두고, 주기는 소유자가 2026-10-07 에 제품 값 2.2s 로 정해 글자 쉬머 전용 loop 토큰 motion-loading-word(2200ms · linear)를 쓴다. easing 은 이어 붙는 순환이라 linear 다. reduced-motion 에서는 그라디언트를 걷고 글자를 단색으로 읽히게 하며(제품은 0프레임 얼룩), forced-colors 분기를 더했다. Web `partial` 이되 acceptance test 0건 · React 표면 없음 · 제품이 이 클래스를 무는 증거 없음이다. Figma 는 2026-10-08 에 component set `LoadingWord` 가 섰다 — 흐름이 background-position 이동이라 정지 상태 둘(Motion=flow 0프레임 · reduced 단색 88%)만 그리고, 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 기하 계약이 없어(크기와 글꼴은 호출부 몫) DS-D-0035 (c) 를 채우지 못하므로 `partial` 이다.",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
+      "figmaName": "LoadingWord",
       "web": "partial",
       "docs": "done"
     },

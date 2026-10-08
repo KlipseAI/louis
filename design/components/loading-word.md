@@ -40,7 +40,7 @@ prop 으로 숨어 [Loading](../patterns/loading.md) 의 선택 기준이 컴포
 | Surface       | 상태           | 근거                                                                                                                                                                  |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/loading-word.css` 레시피가 선다. **acceptance test 0건 · React 표면 없음 · 제품이 이 클래스를 무는 증거 없음** — 제품은 아직 자기 Tailwind 리터럴로 그린다 |
-| Figma         | `not-ready`    | **아직 없다.** 흐름이 `background-position` 이동이라 Figma 는 정지 상태만 표현할 수 있다([Skeleton](./skeleton.md) 과 같은 한계). component set 도 되읽기 계약도 없다 |
+| Figma         | `partial`      | component set `LoadingWord`(2026-10-08) — `Motion=flow`(흐름의 0프레임) · `reduced`(단색 88%) 두 정지 상태, `Label` 텍스트 속성. 되읽기 등재 + parity 계약(축 · 바인딩)이 있다. 흐름 자체는 표현하지 못하고([Skeleton](./skeleton.md) 과 같은 한계) 기하 계약이 없어(크기와 글꼴은 호출부 몫) `done` 이 아니다 |
 | Documentation | `done`         | 이 문서                                                                                                                                                               |
 | Maturity      | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다                                                                  |
 
@@ -197,7 +197,7 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 
 - Web source: `packages/css/src/component/loading-word.css` — `.louis-loading-word`. React 표면 없음.
 - Public import: 없음. 소비처가 클래스를 직접 쓴다.
-- Figma component: 없음.
+- Figma component: `LoadingWord`(DS · Components 의 「4 · 피드백」 구획). `Motion=flow | reduced`, 텍스트 속성 `Label`. 표본 크기는 버튼 안(`typography/body-sm-medium`)이다.
 - 제품 정본: `feat/highlight-new-screen:components/ui/LoadingWord.tsx` (17-26행 부근의 그라디언트
   리터럴과 `animate-[projectLoadingSweep_2.2s_linear_infinite]` · `motion-reduce:animate-none`).
 - Tests/visual evidence: **없다.** 아래 Acceptance tests 는 선 뒤에 붙일 목록이다.
@@ -222,8 +222,17 @@ prop 이 없다. 레시피는 클래스 하나이고 지역 변수가 하나다.
 6. **제품 안에서 버튼 진행 상태가 두 갈래다.** 하이라이트 보드의 두 버튼은 `aria-disabled` 로 초점을
    지키고, 확인 창의 확인 버튼은 `disabled` 를 그대로 둔 채 문구만 흘린다. 이 문서는 `aria-disabled`
    쪽을 규칙으로 적었다 — [Button](./button.md) 의 `aria-disabled` 계약이 그쪽이다.
-7. **Figma 는 흐름을 표현하지 못한다.** 만들 때는 정지 상태 한 장이 되고 reduced-motion 의 단색 잉크와
-   같은 모양이 된다. **아직 없다.**
+7. **Figma 는 흐름을 표현하지 못한다(2026-10-08 세트가 섰다).** 그래서 CSS 가 실제로 그리는 두 정지 상태를
+   Figma 전용 축 `Motion` 으로 열었다 — 코드에는 이 축이 없다.
+   - `flow` — 흐름의 0프레임(`background-position: 0% 50%`). 200% 폭 그라디언트의 앞 절반이 글자 상자에 보이므로
+     정지점 0 · 12 · 24 · 36 · 50% 가 상자의 0 · 24 · 48 · 72 · 100% 에 서고 알파는 20 · 28 · 88 · 32 · 20% 다.
+     **Figma 는 변수에 묶은 정지점의 알파를 변수 값(불투명)으로 덮는다** — 정지점마다 알파를 달리 줄 수 없다.
+     그래서 `color/fg-primary` 20% 단색 위에 `fg-primary`(불투명) / 투명 정지점 그라디언트(0 · 0.208 · **0.48** · 0.771 · 1)를
+     85% 로 얹었다. 합성 알파 `0.2 + 0.8 × 0.85 × g` 가 다섯 점에서 20 · 28 · 88 · 32 · 20% 로 정확히 맞고, 점 사이 곡선만 CSS 의
+     직선 보간과 조금 다르다(최대 알파 차 0.07 안팎). 투명 정지점은 색을 나르지 않아 바인딩 검사에서 세지 않는다(ProgressBar 와 같은 기법).
+   - `reduced` — `prefers-reduced-motion` 의 모양. `color/fg-primary` 88% 단색.
+   - `forced-colors`(`CanvasText`)는 시스템 색이라 변형을 두지 않는다. 주기 `motion/loading-word`(2200ms) 변수는 있지만
+     캔버스에 흐름이 없어 어디에도 묶이지 않는다.
 8. **문구 방어가 없다.** Inline Loading Label 처럼 꼬리 말줄임표를 떼지 않는다. 제품 i18n 에 남은
    `가입 중...` 류 문구를 이 컴포넌트에 그대로 넘기면 점이 화면에 나간다.
 

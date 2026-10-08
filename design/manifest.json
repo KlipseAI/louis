@@ -275,6 +275,15 @@
       "generated": false
     },
     {
+      "id": "decision-coachmark-border-removed",
+      "path": "design/governance/decisions/DS-D-0080-coachmark-border-removed.md",
+      "title": "DS-D-0080 코치마크의 강조색 테두리를 걷는다 — 폭 1px 은 투명으로 남긴다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "decision-locale-string-collection",
       "path": "design/governance/decisions/DS-D-0081-locale-string-collection.md",
       "title": "DS-D-0081 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다",
@@ -1839,6 +1848,7 @@
         "design/governance/decisions/DS-D-0077-hover-only-on-hover-devices.md",
         "design/governance/decisions/DS-D-0078-icon-provenance-per-set.md",
         "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
+        "design/governance/decisions/DS-D-0080-coachmark-border-removed.md",
         "design/governance/decisions/DS-D-0081-locale-string-collection.md",
         "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
         "design/governance/contributing.md",
@@ -2593,7 +2603,7 @@
       "figma": "done",
       "web": "partial",
       "docs": "done",
-      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-10-02: coachmark 의 면과 꼬리가 불투명 bg-inverse 한 재료가 됐다(DS-D-0073) — 반투명 꼬리가 면 위에 따로 칠해져 상자와 꼬리가 두 조각으로 보였다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
+      "note": "public export와 실브라우저 acceptance test 12건. Figma component set 4 variant(Side). 표면이 페이지와 반전된다 — 제품 공용 SSOT에서 채택했다. 그룹 지연 건너뛰기와 arrow가 남음 2026-09-06: Layout 축(base · coachmark)이 열렸다 — coachmark 는 대상에 붙어 함께 팬·줌되는 두 줄 안내이고 꼬리가 45° 정사각형이다. 2026-10-02: coachmark 의 면과 꼬리가 불투명 bg-inverse 한 재료가 됐다(DS-D-0073) — 반투명 꼬리가 면 위에 따로 칠해져 상자와 꼬리가 두 조각으로 보였다. 2026-10-08: coachmark 의 강조색 테두리를 걷었다(DS-D-0080) — 면과 꼬리의 테두리 색이 투명이고 폭 1px 은 남아 기하가 그대로다. Figma 코치마크 네 변형과 Tail 의 stroke 도 걷었다. 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(tooltip · surface-geometry.browser.test.tsx).",
       "doc": "design/components/tooltip.md",
       "figmaName": "Tooltip"
     },

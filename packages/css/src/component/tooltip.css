@@ -81,9 +81,14 @@
  * 놓이므로 **캔버스와 함께 팬·줌된다** — 그것이 이 layout 이 base tooltip 과 갈리는 가장 큰
  * 이유다. base 는 포인터를 따라다니는 설명이고, 이쪽은 대상에 붙어 함께 움직이는 안내다.
  *
- * base 와 갈리는 것: 폭이 고정(320)이고, 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
- * **강조색 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로
- * 바꾸면 축이 아무것도 바꾸지 않게 된다.
+ * base 와 갈리는 것: 폭이 고정(320)이고, 제목/본문 두 줄이며, 꼬리가 45° 정사각형이다.
+ *
+ * **테두리는 폭만 남고 색이 없다(DS-D-0080).** 예전에는 강조색(accent-primary 56%) 1px 테두리가
+ * 「여기를 보라」를 말했다. 소유자가 「테두리 파랑 그거 빼라」로 걷었다(2026-10-08). 대상을 가리키는
+ * 일은 꼬리가 맡는다. **폭 1px 은 투명으로 남긴다.** 걷어 내면 상자가 2px 줄고
+ * 꼬리가 1px 옮겨 가는데, 제품은 같은 자리를 면과 `::before` 의 `border-color: transparent` 로
+ * 덮어 두고 있어 기하가 그대로여야 핀 상향이 아무것도 움직이지 않는다. 투명 테두리는 강제 색에서
+ * 시스템 색으로 되살아나므로(맨 아래 블록) 고대비 사용자에게는 경계가 그대로 보인다.
  *
  * 표면·전경은 base 와 같은 반전 토큰을 쓴다 — 제품도 `--gray-900`/`--gray-000` 이라 테마를
  * 따라 뒤집힌다(같은 파일의 CALLOUT 이 고정 팔레트인 것과 다르다. 원본이 그렇게 갈려 있다).
@@ -92,7 +97,8 @@
  * 따로 칠했다. 그러자 꼬리 안쪽 절반이 면과 겹친 자리가 두 번 칠해져 진해지고, 면의 테두리가
  * 꼬리 밑으로 비쳐 지나가 상자와 꼬리가 두 조각으로 보였다. 흐림도 없어서 반투명은 뒤의 그림을
  * 글자 밑으로 끌어들일 뿐이었다. 면과 꼬리를 같은 불투명 `bg-inverse` 로 칠하면 꼬리가 면의
- * 테두리를 덮어 이음새가 사라진다 — 위치 지정된 `::before` 는 부모의 배경과 테두리 위에 그려진다.
+ * 테두리 자리를 덮어 이음새가 사라진다 — 위치 지정된 `::before` 는 부모의 배경과 테두리 위에
+ * 그려진다. 테두리가 투명이 된 뒤(DS-D-0080)에도 그 자리는 면 가장자리의 1px 띠라 꼬리가 덮어야 한다.
  *
  * **떠 있는 값(그림자·흐림)은 base 와 같은 것을 쓴다.** 제품은 `0 8px 24px 16%` 그림자와
  * `blur(panel)` 을 얹는데, 이 축은 그것을 담을 수 없다 — Figma component set 의 effect 는
@@ -102,7 +108,8 @@
  * 아니다(DS-D-0027 — 이름이 실물보다 많으면 고르는 쪽이 손해를 본다). 제품이 물 때 흐림이
  * 사라지는 것이 이 선택의 값이며 절차서가 그것을 적는다.
  *
- * `hairline-inset` 은 뺀다 — 여기에는 진짜 테두리가 있어 두 겹 프레임이 된다.
+ * `hairline-inset` 은 뺀다 — 여기에는 테두리 자리(투명 1px)가 있고, 헤어라인을 얹으면 걷은 경계를
+ * 다른 이름으로 되살리는 것이 된다.
  */
 .louis-tooltip[data-layout="coachmark"] {
   /* **border-box 를 여기서 선언한다.** base 는 테두리도 고정 폭도 없어 필요가 없었지만,
@@ -117,8 +124,8 @@
    * 세울 사유가 없어 12 로 닫는다. 절차서가 그 2px 을 제품 쪽에 적는다. */
   padding-block: var(--louis-space-control-md);
   padding-inline: var(--louis-space-control-md);
-  border: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  /* 폭은 남고 색이 없다(DS-D-0080). 1px 이 상자 320 · 64 와 꼬리 자리에 들어 있다. */
+  border: var(--louis-border-width-default) solid transparent;
   border-radius: var(--louis-radius-card);
   /* 꼬리(`::before`)와 **같은 재료**다. 둘 중 하나만 바꾸면 이음새가 돌아온다. */
   background: var(--louis-color-bg-inverse);
@@ -200,7 +207,8 @@
     opacity: 1;
   }
 }
-/* 꼬리 — 45° 돌린 정사각형의 **두 변만** 테두리를 갖는다.
+/* 꼬리 — 45° 돌린 정사각형의 **두 변만** 테두리 자리를 갖는다. 색은 면과 같이 투명이고(DS-D-0080)
+ * 폭 1px 이 남아 꼬리의 바깥 크기와 자리를 지킨다. 강제 색에서는 그 두 변이 면의 외곽선과 이어진다.
  *
  * `border-t`/`border-l` 처럼 변을 따로 적는 이유는 제품 주석이 적어 둔 함정 때문이다:
  * `border-style: solid` 를 네 변에 주면 폭을 안 준 두 변이 initial `medium`(3px)로 그려진다.
@@ -218,10 +226,8 @@
   /* 정렬 축에서의 자리. 제품은 flow 좌표에 left 24 로 놓는다. */
   inset-inline-start: var(--louis-space-layout-section);
   inset-block-start: calc(0px - var(--louis-space-overlay-inset));
-  border-block-start: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
-  border-inline-start: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-block-start: var(--louis-border-width-default) solid transparent;
+  border-inline-start: var(--louis-border-width-default) solid transparent;
   /* 면과 같은 불투명 재료. 안쪽 절반이 면의 테두리를 덮어야 상자와 꼬리가 한 덩어리로 읽힌다 —
    * 반투명이면 겹친 자리가 두 번 칠해지고 테두리가 비쳐 지나간다(DS-D-0073). */
   background: var(--louis-color-bg-inverse);
@@ -234,10 +240,8 @@
   inset-block-end: calc(0px - var(--louis-space-overlay-inset));
   border-block-start: 0;
   border-inline-start: 0;
-  border-block-end: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
-  border-inline-end: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-block-end: var(--louis-border-width-default) solid transparent;
+  border-inline-end: var(--louis-border-width-default) solid transparent;
 }
 
 /* 패널이 대상 **오른쪽**에 서면 꼬리는 왼 변이다. */
@@ -246,10 +250,8 @@
   inset-block-start: var(--louis-space-layout-section);
   border-block-start: 0;
   border-inline-end: 0;
-  border-block-end: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
-  border-inline-start: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-block-end: var(--louis-border-width-default) solid transparent;
+  border-inline-start: var(--louis-border-width-default) solid transparent;
 }
 
 /* 패널이 대상 **왼쪽**에 서면 꼬리는 오른 변이다. */
@@ -259,17 +261,20 @@
   inset-block-start: var(--louis-space-layout-section);
   border-inline-start: 0;
   border-block-end: 0;
-  border-block-start: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
-  border-inline-end: var(--louis-border-width-default) solid
-    color-mix(in srgb, var(--louis-color-accent-primary) 56%, transparent);
+  border-block-start: var(--louis-border-width-default) solid transparent;
+  border-inline-end: var(--louis-border-width-default) solid transparent;
 }
 
-/* forced-colors — 강조색 테두리와 면이 함께 치환되면 꼬리가 면과 구분되지 않는다.
- * 패널과 꼬리 모두 시스템 색 실선으로 되살린다(base 의 같은 블록과 짝이다). */
+/* forced-colors — 면이 시스템 색으로 치환되면 경계가 없는 코치마크는 바탕과 구분되지 않는다.
+ * 평상시 투명인 테두리(DS-D-0080)를 패널과 꼬리 모두 시스템 색 실선으로 되살린다(base 의 같은
+ * 블록과 짝이다). Chromium 은 이 블록 없이도 강제 색에서 투명 테두리를 시스템 색으로 바꿔
+ * 그리지만(2026-10-08 확인), 그것은 브라우저의 동작이라 의도를 여기에 선언으로 남긴다. 꼬리의
+ * 방향 규칙(`data-side`)이 특이도가 더 높아 같은 특이도의 선택자를 함께 적는다 — 기본 규칙만
+ * 적으면 이 선언이 top · right · left 의 꼬리에 닿지 않는다. */
 @media (forced-colors: active) {
   .louis-tooltip[data-layout="coachmark"],
-  .louis-tooltip[data-layout="coachmark"]::before {
+  .louis-tooltip[data-layout="coachmark"]::before,
+  .louis-tooltip-positioner[data-side] .louis-tooltip[data-layout="coachmark"]::before {
     border-color: currentColor;
   }
 }

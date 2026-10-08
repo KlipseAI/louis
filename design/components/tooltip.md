@@ -84,9 +84,10 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 제품 정본은 캔버스의 `CanvasFirstNodeHint`로, React Flow의 `ViewportPortal` 안에서 flow
 좌표로 놓여 **캔버스와 함께 팬·줌된다.** 그것이 두 layout이 갈리는 가장 큰 이유다.
 
-`coachmark`에서 갈리는 것 셋: 폭을 내용이 아니라 상한 320 이 정하고(`min(320px, 가용 폭)`), 제목/본문 두 줄이며, 경계가 헤어라인이 아니라
-**강조색 1px 테두리**다. 「여기를 보라」를 말하는 것이 그 테두리이므로 generic 헤어라인으로 바꾸면
-축이 아무것도 바꾸지 않게 된다.
+`coachmark`에서 갈리는 것 셋: 폭을 내용이 아니라 상한 320 이 정하고(`min(320px, 가용 폭)`), 제목/본문 두 줄이며, 꼬리가 45° 정사각형이다.
+**경계선이 없다**([DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)). 한때 강조색 1px 테두리가 「여기를 보라」를 말했는데 소유자 판정(2026-10-08,
+「테두리 파랑 그거 빼라」)으로 걷었다. 테두리 폭 1px 은 투명으로 남아 상자와 꼬리의 자리를 지킨다.
+generic 헤어라인으로 바꾸지 않는다 — 걷은 경계를 다른 이름으로 되살리는 것이 된다.
 
 ## States
 
@@ -179,15 +180,15 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | 항목            | 값                                                      |
 | --------------- | ------------------------------------------------------- |
 | 폭              | `min(320px, 가용 폭)` — 상한 320(`box-sizing: border-box`)이 선택값이고, 가용 폭이 그보다 넓으면 320(`tooltip.sizes.coachmark.width`) |
-| 높이            | 테두리 1+1 + padding 12+12 + 내용 — 제목과 본문이 한 줄씩일 때 64(내용 38, `tooltip.sizes.coachmark.height`) |
+| 높이            | 투명 테두리 1+1 + padding 12+12 + 내용 — 제목과 본문이 한 줄씩일 때 64(내용 38, `tooltip.sizes.coachmark.height`) |
 | padding         | `space-control-md` 12 (네 변)                            |
 | radius          | `radius-card` 12                                        |
-| 테두리          | 1px `accent-primary` 56%                                 |
+| 테두리          | 1px **투명** — 폭만 남는다. 강제 색에서 `currentColor` ([DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)) |
 | 배경            | `color-bg-inverse` — **불투명**, 꼬리와 같은 재료(DS-D-0073) |
 | 제목            | `typography-caption-medium` (12/18)                     |
 | 본문            | `typography-caption-regular` (12/18) · 불투명도 72%      |
 | 제목/본문 간격  | `space-overlay-item-gap` 2                              |
-| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse` |
+| 꼬리            | 변 10의 정사각형을 45° 돌린 것. 정렬 축 24 · 표면 밖 6. 면과 같은 `color-bg-inverse`. 바깥 두 변의 1px 테두리도 투명 |
 | 그림자          | `elevation-tooltip` — base와 **같다**                    |
 
 
@@ -207,6 +208,9 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 | `backdrop-filter: blur(panel)` | 없음 | 같은 이유 |
 | 면과 꼬리 `--gray-900` 72% | `color-bg-inverse` 불투명 | 반투명 꼬리가 면 위에 따로 칠해져 겹친 자리가 진해지고 면의 테두리가 꼬리 밑으로 비쳤다. 소유자가 「따로따로인 것처럼 보이는 현상」으로 판정했다([DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md)) |
 
+**테두리는 갈리지 않는다.** 제품은 LOUIS 핀을 올리기 전까지 면과 꼬리의 `border-color` 를 `transparent` 로
+덮고(강제 색에서는 `currentColor`), 폭은 남긴다. LOUIS 가 같은 값을 갖게 됐으므로 핀을 올릴 때 그 덮개를 지운다([DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)).
+
 **layout 축이 자기 effect를 가질 수 없는 이유.** Figma component set의 effect는 변형이 아니라
 역할(`self`) 하나가 갖는 값이고, parity 계약이 그것을 문자열 하나로 잡는다. layout이 자기
 그림자·흐림을 가지려면 컴포넌트를 둘로 쪼개야 하는데, 둘은 같은 앵커 표면이라 이름을 둘로 늘릴
@@ -217,6 +221,11 @@ import { IconTrashSimple } from "@klipse-design/react/icons";
 실제 방향이라, 표면이 뒤집히면 꼬리도 함께 옮겨간다. 네 방향 모두 테두리를 갖는 두 변이 다르다 —
 `border-style: solid`를 네 변에 주고 두 변만 폭을 주면 나머지가 initial `medium`(3px)로 그려지므로,
 변마다 폭과 색을 함께 준다.
+
+**테두리는 폭만 남고 색이 없다(2026-10-08, [DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)).** 면의 네 변과 꼬리의 두 변이 1px 투명이다.
+폭을 걷으면 상자가 2px 줄고 꼬리가 1px 옮겨 가므로 남긴다. 면과 꼬리의 배경이 그 띠까지 칠해져 보이는 것은
+면 하나다. 강제 색에서는 면과 꼬리의 테두리가 `currentColor` 로 되살아난다 — 면이 시스템 색으로 치환되면 경계 없는
+상자는 바탕과 구분되지 않는다. 꼬리의 방향 규칙(`data-side`)이 특이도가 더 높아 강제 색 블록이 그 선택자도 적는다.
 
 **면과 꼬리는 한 불투명 재료다(2026-10-02, [DS-D-0073](../governance/decisions/DS-D-0073-coachmark-surface-is-opaque.md)).**
 꼬리는 `::before` 로 면 위에 따로 칠하는 도형이다. 둘이 반투명이면 꼬리 안쪽 절반이 면과 겹친 자리가 두 번
@@ -268,6 +277,7 @@ tooltip 면과 정확히 같았다.
 | 열림 모션 | `overlay-enter` 채택 | 제품은 140ms에 `cubic-bezier(0.23, 1, 0.32, 1)`이고 DS는 200ms다. 제품 값을 그대로 들이려면 motion 토큰 추가가 선행이라 DS 값을 썼다 |
 
 | 닫힘 모션 | 없음 | 제품은 exit를 120ms `cubic-bezier(0.19, 1, 0.22, 1)`로 따로 돌리지만 `louis-tooltip`에는 exit keyframe이 없다. exit motion 토큰 추가가 선행이다 |
+| coachmark 의 경계선 | 없음 | 강조색 테두리를 걷었다. 경계는 면의 명도 차이와 `elevation-tooltip` 그림자가 맡고, 강제 색에서만 `currentColor` 실선이 선다([DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)) |
 | coachmark 의 흐림 | 없음 | 면이 불투명이라 흐림이 비출 것이 없다. 반투명 면에 흐림을 얹는 안은 꼬리에 같은 흐림을 줄 수 없어(꼬리는 따로 칠하는 도형이다) 이음새가 남는다(DS-D-0073) |
 | 확대 기준점 | 미배선 | overlay 표면은 `--louis-overlay-transform-origin`으로 anchor 원점을 이미 갖고 있고 규범도 menu-popover 문서에 `origin=anchor`로 서 있다. 그런데 `louis-tooltip` 표면이 `louis-overlay-panel`을 얹지 않아 지금은 center에서 자란다 |
 
@@ -285,9 +295,12 @@ tooltip 면과 정확히 같았다.
 10. `disabled`면 열리지 않는다.
 11. trigger의 accessible name이 tooltip 내용으로 바뀌지 않는다.
 12. `coachmark` 의 면과 꼬리가 네 방향, 두 테마에서 같은 불투명 `color-bg-inverse` 이고, 꼬리의 테두리 변이 면의 테두리와 같은 색이다.
+13. `coachmark` 의 면의 네 변과 꼬리의 두 변이 네 방향, 두 테마에서 투명이고 폭이 1px 이다. 강제 색에서는 그 변들이 `currentColor` 다.
 
 ## Migration and changelog
 
+- 2026-10-08 — `coachmark` 의 강조색(`accent-primary` 56%) 테두리를 걷었다. 면과 꼬리의 테두리 색이 투명이고 폭 1px 은 남는다([DS-D-0080](../governance/decisions/DS-D-0080-coachmark-border-removed.md)).
+  Figma 코치마크 네 변형과 각 `Tail` 의 stroke 도 걷었다. 제품은 핀을 올릴 때 임시 덮기를 지운다.
 - 2026-10-02 — `coachmark` 의 면과 꼬리를 `color-bg-inverse-translucent` 에서 불투명 `color-bg-inverse` 로 옮겼다(DS-D-0073).
   Figma 의 꼬리 테두리 변도 바깥 두 변으로 바로잡았다.
 - 2026-08-15 — 첫 공개. 세 화면 실측에서 22개 파일이 tooltip을 쓰는데 공용 컴포넌트가 없었다.

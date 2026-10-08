@@ -282,18 +282,13 @@ const COMPONENT_CONTRACTS = [
   },
   {
     id: "tooltip",
-    // **한 역할이 두 두께를 갖는 것이 계약이다.** base 의 경계는 generic 헤어라인 0.5(DS-D-0023)이고
-    // coachmark 의 경계는 강조색 1px 테두리다 — 「여기를 보라」를 말하는 것이 그 테두리라 헤어라인으로
-    // 바꾸면 layout 축이 아무것도 바꾸지 않게 된다. 두 값은 각각 measured 의 base.borderWidth 와
-    // coachmark.borderWidth 이며, 그 둘을 여기에 목록으로 적는다.
-    strokes: {
-      self: {
-        weight: [0.5, 1],
-        align: "INSIDE",
-        reason:
-          "base 는 헤어라인 0.5(components.measured.json 의 tooltip.sizes.base.borderWidth), coachmark 는 강조색 테두리 1(같은 파일 tooltip.sizes.coachmark.borderWidth)이다. layout 축이 경계의 뜻을 바꾸므로 두께가 하나일 수 없다.",
-      },
-    },
+    // **stroke 는 base 의 헤어라인 하나뿐이다.** base 의 경계는 generic 헤어라인 0.5(DS-D-0023,
+    // measured 의 base.borderWidth)다. coachmark 는 한때 강조색 1px 테두리를 stroke 로 가져 이 역할이
+    // [0.5, 1] 두 두께를 허용했는데, DS-D-0080(2026-10-08)이 그 테두리를 걷었다. 코드는 1px 을
+    // 투명으로 남기고 Figma 는 stroke 없이 안쪽 여백 13(12 + 1)으로 같은 자리를 갖는다 — 그 1 은
+    // 아래 geometry 의 「패딩 + borderWidth」가 대조한다. 1 을 목록에 남겨 두면 걷은 테두리가
+    // Figma 에 되살아나도 이 게이트가 초록이다.
+    strokes: { self: { weight: 0.5, align: "INSIDE" } },
     // **두 layout 이 같은 effect 를 쓴다.** component set 의 effect 는 변형이 아니라 역할(`self`)
     // 하나가 갖는 값이고 이 게이트가 그것을 문자열 하나로 잡는다(compareComponentEffects) — layout
     // 축이 자기 그림자를 가지려면 컴포넌트를 둘로 쪼개야 하는데 둘은 같은 앵커 표면이다.

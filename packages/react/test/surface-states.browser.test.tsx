@@ -9,7 +9,7 @@
 // 넣은 쪽으로 붙는다. 기대 토큰의 계산값을 probe로 얻어 값끼리 비교한다.
 import type { JSX } from "react";
 import { expect, test } from "vitest";
-import { page, userEvent } from "vitest/browser";
+import { cdp, page, userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import {
   ActionMenu,
@@ -39,7 +39,8 @@ import "@klipse-design/css/styles.css";
 type Paint = {
   background: string | null;
   foreground: string;
-  border?: string;
+  /** 토큰 이름, 또는 `null` — 테두리 자리는 있고 색이 없다(투명). background 의 `null` 과 같은 문법이다. */
+  border?: string | null;
 };
 
 const TRANSPARENT = "rgba(0, 0, 0, 0)";
@@ -65,7 +66,9 @@ function assertPaint(node: Element, expected: Paint, label: string): void {
   expect(style.backgroundColor, `${label} background`).toBe(wantBackground);
   expect(style.color, `${label} foreground`).toBe(tokenValue(expected.foreground, "color"));
   if (expected.border !== undefined) {
-    if (expected.border === "color-stroke-hairline") {
+    if (expected.border === null) {
+      expect(style.borderTopColor, `${label} border 투명`).toBe(TRANSPARENT);
+    } else if (expected.border === "color-stroke-hairline") {
       // DS-D-0023: 일반 stroke는 border가 아니라 generic 헤어라인 inset이다.
       expect(style.borderTopWidth, `${label} border 제거`).toBe("0px");
       expect(style.boxShadow, `${label} 헤어라인`).toContain("inset");
@@ -152,15 +155,24 @@ function alphaOf(value: string): number {
  * 진해지고 면의 테두리가 꼬리 밑으로 비쳐 상자와 꼬리가 두 조각으로 보인다. 둘 중 하나만
  * 바뀌어도 이음새가 돌아오므로 네 방향, 두 테마에서 같은 값이고 알파가 1 인지를 함께 잰다.
  * 꼬리의 테두리를 갖는 변도 면의 테두리와 같은 색이어야 한 덩어리로 읽힌다.
+ *
+ * **그 테두리는 폭만 남고 색이 없다(DS-D-0080).** 강조색 테두리를 걷되 1px 은 투명으로 남겨
+ * 상자와 꼬리의 기하가 움직이지 않게 했다. 그래서 면과 꼬리 변의 색이 투명이고 폭이 1px 인지를
+ * 함께 잰다 — 폭을 0 으로 걷으면 상자가 2px 줄고 꼬리가 1px 옮겨 가는데 색만 보면 초록이다.
  */
 const COACHMARK_TAIL_EDGES = {
-  bottom: "borderTopColor",
-  top: "borderBottomColor",
-  right: "borderLeftColor",
-  left: "borderRightColor",
+  bottom: ["borderTopColor", "borderLeftColor"],
+  top: ["borderBottomColor", "borderRightColor"],
+  right: ["borderBottomColor", "borderLeftColor"],
+  left: ["borderTopColor", "borderRightColor"],
 } as const;
 
-test("Tooltip coachmark의 꼬리와 면이 네 방향 두 테마에서 한 불투명 재료다", async () => {
+type EdgeColor = "borderTopColor" | "borderRightColor" | "borderBottomColor" | "borderLeftColor";
+type EdgeWidth = "borderTopWidth" | "borderRightWidth" | "borderBottomWidth" | "borderLeftWidth";
+const widthOf = (color: EdgeColor): EdgeWidth => color.replace(/Color$/, "Width") as EdgeWidth;
+
+/** 네 방향 코치마크를 한 화면에 세운다. positioner 의 `data-side` 가 꼬리의 방향을 정한다. */
+async function renderCoachmarkSides(): Promise<(keyof typeof COACHMARK_TAIL_EDGES)[]> {
   const sides = Object.keys(COACHMARK_TAIL_EDGES) as (keyof typeof COACHMARK_TAIL_EDGES)[];
   await render(
     <>
@@ -174,8 +186,14 @@ test("Tooltip coachmark의 꼬리와 면이 네 방향 두 테마에서 한 불�
       ))}
     </>,
   );
+  return sides;
+}
+
+test("Tooltip coachmark의 꼬리와 면이 네 방향 두 테마에서 한 불투명 재료다", async () => {
+  const sides = await renderCoachmarkSides();
   const root = document.documentElement;
   const original = root.getAttribute("data-theme");
+  const borderWidth = getComputedStyle(root).getPropertyValue("--louis-border-width-default").trim();
   try {
     for (const theme of ["light", "dark"] as const) {
       root.setAttribute("data-theme", theme);
@@ -188,14 +206,51 @@ test("Tooltip coachmark의 꼬리와 면이 네 방향 두 테마에서 한 불�
         expect(surface.backgroundColor, `${label} 면`).toBe(material);
         expect(alphaOf(surface.backgroundColor), `${label} 면 알파`).toBe(1);
         expect(tail.backgroundColor, `${label} 꼬리 = 면`).toBe(surface.backgroundColor);
-        expect(tail[COACHMARK_TAIL_EDGES[side]], `${label} 꼬리 테두리 = 면 테두리`).toBe(
-          surface.borderTopColor,
-        );
+        // DS-D-0080 — 면의 테두리는 네 변 모두 폭 1px 이고 색이 없다.
+        for (const edge of ["Top", "Right", "Bottom", "Left"] as const) {
+          expect(surface[`border${edge}Color`], `${label} 면 ${edge} 투명`).toBe(TRANSPARENT);
+          expect(surface[`border${edge}Width`], `${label} 면 ${edge} 폭`).toBe(borderWidth);
+        }
+        for (const edge of COACHMARK_TAIL_EDGES[side]) {
+          expect(tail[edge], `${label} 꼬리 ${edge} = 면 테두리`).toBe(surface.borderTopColor);
+          expect(tail[widthOf(edge)], `${label} 꼬리 ${widthOf(edge)}`).toBe(borderWidth);
+        }
       }
     }
   } finally {
     if (original === null) root.removeAttribute("data-theme");
     else root.setAttribute("data-theme", original);
+  }
+});
+
+// DS-D-0080 — 강제 색(Windows 고대비)을 CDP 로 흉내 낸다. 평상시 투명인 테두리가 거기서는
+// 시스템 색 실선으로 되살아나야 한다. 면이 시스템 색으로 치환되면 경계 없는 코치마크는 바탕과
+// 구분되지 않는다. **결과를 잰다.** Chromium 은 tooltip.css 의 강제 색 블록이 없어도 투명
+// 테두리를 시스템 색으로 그리므로(블록을 지우고 돌려 확인했다) 이 테스트가 그 블록을 지키지는
+// 않는다 — 지키는 것은 「강제 색에서 경계가 보인다」는 결과다.
+async function setForcedColors(active: boolean): Promise<void> {
+  await cdp().send("Emulation.setEmulatedMedia", {
+    features: active ? [{ name: "forced-colors", value: "active" }] : [],
+  });
+}
+
+test("Tooltip coachmark의 투명 테두리가 강제 색에서 네 방향 모두 currentColor로 되살아난다", async () => {
+  const sides = await renderCoachmarkSides();
+  await setForcedColors(true);
+  try {
+    expect(matchMedia("(forced-colors: active)").matches).toBe(true);
+    for (const side of sides) {
+      const panel = find(`.louis-tooltip-positioner[data-side="${side}"] .louis-tooltip`);
+      const surface = getComputedStyle(panel);
+      const tail = getComputedStyle(panel, "::before");
+      expect(surface.borderTopColor, `${side} 면 테두리 = currentColor`).toBe(surface.color);
+      expect(alphaOf(surface.borderTopColor), `${side} 면 테두리 알파`).toBe(1);
+      for (const edge of COACHMARK_TAIL_EDGES[side]) {
+        expect(tail[edge], `${side} 꼬리 ${edge} = currentColor`).toBe(tail.color);
+      }
+    }
+  } finally {
+    await setForcedColors(false);
   }
 });
 

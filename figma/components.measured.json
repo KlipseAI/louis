@@ -665,7 +665,7 @@
           "gap": 0,
           "$gap": "0. 제목/본문 간격은 본문의 margin 이며 contentGap 이 소유한다.",
           "borderWidth": 1,
-          "$borderWidth": "**헤어라인이 아니라 강조색 테두리다.** 「여기를 보라」를 말하는 것이 이 테두리이므로 generic 10% 헤어라인으로 바꾸면 축이 아무것도 바꾸지 않게 된다. 색은 accent-primary 56%.",
+          "$borderWidth": "**폭만 남은 투명 테두리다(DS-D-0080).** 예전에는 accent-primary 56% 강조색 테두리였고 소유자가 「테두리 파랑 그거 빼라」로 걷었다(2026-10-08). 1px 을 투명으로 남겨 상자 64 · 320 과 꼬리 자리가 움직이지 않는다 — Figma 는 stroke 없이 안쪽 여백 13(12 + 1)으로 같은 자리를 갖는다. 헤어라인으로 바꾸지 않는다: 걷은 경계를 다른 이름으로 되살리는 것이 된다. 강제 색에서는 시스템 색으로 되살아난다.",
           "radius": 12,
           "$radius": "radius-card 12. base 의 control-sm 8 보다 크다 — 한 줄 말풍선이 아니라 카드다.",
           "fontSize": 12,
@@ -710,7 +710,9 @@
             "background": "color-bg-inverse",
             "$background": "**불투명** 반전 배경 color-bg-inverse — base 와 같은 재료다(DS-D-0073). 예전의 color-bg-inverse-translucent(72%)는 꼬리가 같은 반투명을 따로 칠해 겹친 자리가 진해지고 면의 테두리가 꼬리 밑으로 비쳐 상자와 꼬리가 두 조각으로 보였다(소유자 판정 2026-10-01). 꼬리(::before)도 이 값이며 surface-states.browser.test.tsx 가 네 방향 두 테마에서 둘이 같고 불투명한지 잰다.",
             "foreground": "color-fg-on-inverse",
-            "$foreground": "반전 위 전경 color-fg-on-inverse. base 와 같다."
+            "$foreground": "반전 위 전경 color-fg-on-inverse. base 와 같다.",
+            "border": null,
+            "$border": "**투명**(DS-D-0080). 테두리 자리 1px 은 남고 색이 없다 — 예전의 accent-primary 56% 강조색 테두리는 소유자 판정으로 걷었다(2026-10-08). 꼬리의 두 변도 같다. surface-states.browser.test.tsx 가 네 방향 두 테마에서 면과 꼬리 변이 투명이고 폭 1px 인지, 강제 색에서 currentColor 로 되살아나는지 잰다."
           }
         }
       },

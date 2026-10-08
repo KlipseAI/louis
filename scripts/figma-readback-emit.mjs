@@ -246,6 +246,14 @@ const CAPTURE = {
   // 헤더는 카드 **바깥**에 있고 컨테이너 gap 이 그 사이를 정한다. `Actions` 의 `children` 은 감춘 레이어까지 센다 —
   // 도움말 칸(`Help`, BOOLEAN `HelpButton` 기본 꺼짐, 2026-10-08)이 감춘 채로 셋째 자식이고, 감춘 칸의 치수는 visit 가 건너뛴다.
   "NodeShell": {"key":{"by":["Accent","Selected"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"TypeGlyph":"size"},"parts":{"HeaderRow":["width","height","paddingInline","paddingInlineEnd","itemSpacing","layoutMode","primaryAxisAlignItems"],"Title":["width","height","itemSpacing","layoutMode"],"TypeGlyph":["width","height"],"Label":["height","fontSize","lineHeightPercent"],"Actions":["width","height","itemSpacing","children"],"Card":["width","height","cornerRadius","layoutMode"],"Body":["width","height"]},"strokes":["Card"]},
+  // 노드 입력판(2026-10-08) — NodeShell 의 Body 바닥에 서는 하위 부품. 축이 없어 키는 `composer` 하나다. 루트의 폭(카드를
+  // 채운다) · 높이(파생)와 `Lead`(첫 줄 슬롯의 자리표시 48)는 담지 않는다. 면의 헤어라인은 `Field` 의 INNER_SHADOW 다.
+  // 오류 배너 `Error` 는 BOOLEAN `HasError`(기본 꺼짐)에 물린 NodeComposerError 인스턴스라 감춘 채로 visit 가 건너뛴다 —
+  // 그 값은 NodeComposerError 원본에서 따로 뜬다.
+  "NodeComposer": {"key":{"name":"composer"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Field":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Footer":["itemSpacing","layoutMode"],"FooterControls":["height","itemSpacing","layoutMode"],"Meta":["height","itemSpacing","layoutMode"]},"effects":["Field"]},
+  // 입력판 오류 배너(2026-10-08). 키는 `error` — 기록 node-composer 의 두 칸 중 하나다. 최소 높이 28 을 `minHeight` 로 담고
+  // 실제 높이(글자 한 줄 18 + 여백 16 = 34)는 담지 않는다. 글자 크기는 레시피가 선언하지 않아(상속) 담지 않는다.
+  "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},
   "NewsCard": {"key":{"by":["Featured"]},"parts":{"Body":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Date":["width","height","fontSize"],"Headline":["width","height","fontSize","lineHeightPercent"]}},

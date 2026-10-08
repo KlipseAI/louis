@@ -14191,6 +14191,172 @@
       "strokes": {},
       "effects": {}
     },
+    "NodeComposer": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "HasLead": {
+          "type": "BOOLEAN"
+        },
+        "HasError": {
+          "type": "BOOLEAN"
+        }
+      },
+      "binding": {
+        "boundFills": 5,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "composer": {
+          "slots": {},
+          "parts": {
+            "Field": {
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                8
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                16
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Footer": {
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "FooterControls": {
+              "height": [
+                32
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Meta": {
+              "height": [
+                32
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "Field": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
+    "NodeComposerError": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Message": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "error": {
+          "slots": {},
+          "parts": {},
+          "minHeight": [
+            28
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
     "NodeShell": {
       "variantCount": 14,
       "hasDescription": true,

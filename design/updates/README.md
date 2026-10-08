@@ -25,6 +25,28 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (224) — Figma 새 컴포넌트: 노드 입력판(NodeComposer · NodeComposerError)
+
+- Node Shell 의 하위 부품 입력판(`.louis-node-shell__composer` 이하)이 DS · Components 「7 · 캔버스 · 에디터」 맨 아래에 **단일
+  COMPONENT 둘**로 섰다 — `NodeComposer`(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 `NodeComposerError`(TEXT
+  `Message`). 변형 축이 없다 — 레시피에 상태 선언이 없고 있고 없음만 갈린다. manifest `node-shell` 의 `figmaName` 이 `figmaNames`
+  셋(NodeShell · NodeComposer · NodeComposerError)이 됐다.
+- 트리: 영역(세로, 사방 · 줄 사이 8, 투명) → `Field`(면 `color/bg-raised` · 반경 `radius/overlay` 16 · 사방 8 · 헤어라인 INNER_SHADOW
+  0.5) → `Lead`(첫 줄 슬롯, 자리표시 48) · `Footer`(줄 사이 8) → `FooterControls`(높이 `layout/node-chip-height` 32) → `Meta`(알약 줄,
+  간격 `node/chrome-btn-gap` 4) · `Generate`, 끝에 `Error`(NodeComposerError 인스턴스). NodeChip 둘 · IconButton 은 자리 표시다.
+- **푸터 위 여백 8 은 `Field` 의 itemSpacing 이다** — CSS 의 형제 선택자(앞에 첫 줄이 있을 때만 띄운다)를 옮겨 `HasLead` 를 끄면 함께
+  사라진다. 생성 버튼 자리의 왼쪽 8 도 `FooterControls` 의 간격이다. 높이는 기본 120 · 오류 켜면 162 · 첫 줄 끄면 64.
+- **오류 배너는 따로 선 컴포넌트다** — 입력판 안에서는 기본 꺼짐이라 되읽기가 감춘 칸을 보지 않으므로 원본을 따로 떠 반경
+  `radius/control` 12 · 사방 8 · 최소 높이 28 · 헤어라인을 맞댄다. 면은 primitive `color/red-alpha/08` 이다 — Figma 는 색 변수의
+  알파가 칠 불투명도를 덮어 `color/accent-danger` 에 8% 를 얹을 수 없다(node-shell.md Known deviations 13).
+- 입력판 면이 다크에서 카드와 같은 칸이 되는 결손(Known deviations 10, 면 시맨틱은 소유자 판정 대기)은 Figma 도 레시피와 같이
+  `color/bg-raised` 로 둔다.
+- parity 계약 둘 · 채취 명세 둘을 더하고 되읽어 세션 기록에서 꺼내 병합했다(NodeComposer 바인딩 fill 5 · NodeComposerError fill 2 ·
+  텍스트 스타일 1 · 원시 0). 기록 `figma/components.measured.json` 에 `node-composer`(`composer` · `error`, 레시피 선언)를 세우고
+  `verify-recipe-record` 에 한 항목(대조 16건과 면 · 헤어라인 이름 넷)을 더했다. Node Shell 의 Figma 상태는 `partial` 그대로다.
+- `figma/component-summaries.json` 을 생성기로 다시 만들었다 — (223) 이 손으로 적은 `StartCard` 줄이 문서 summary · manifest 순서와
+  달라 `check-figma-summaries` 가 어긋나 있던 것도 함께 맞았다.
+
 ## 2026-10-08 (223) — Figma 새 세트: Start Card(빈 캔버스 시작 카드), EmptyState canvas 카드를 인스턴스로
 
 - **`StartCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(MediaCard 오른쪽, 2 변형). 축은 `Size` 하나 — `sm`(카드 폭

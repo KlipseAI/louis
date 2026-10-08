@@ -3468,6 +3468,100 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    // **id 가 `node-shell` 이다.** 입력판은 Node Shell 의 하위 부품이라 manifest 항목과 규범 문서가 하나다
+    // (`figmaNames` 셋 — FloatingShell · PillTrigger 와 같은 형태). 기록 칸은 따로(`node-composer`) 둔다.
+    id: "node-shell",
+    figmaName: "NodeComposer",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__composer 이하 일곱 클래스가 정본이다(2026-10-07). 값의 출처는 제품 origin/dev 의 VideoNode.tsx PROMPT_* 상수(ImageNode · TextNode · Model3dNode 가 복제)다.",
+    variantProperties: {},
+    // 테두리가 없다. 면의 경계는 border 가 아니라 안쪽 헤어라인 한 겹이다(`box-shadow: var(--louis-hairline-inset)`).
+    strokes: {},
+    effects: { Field: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      HasLead: {
+        type: "BOOLEAN",
+        reason:
+          "면 첫 줄(글 입력칸 · 참조 미디어 · 연결 칩)이 있는가. 코드에서는 prop 이 아니라 마크업의 형제 유무이고, 레시피가 「앞에 무엇이 있으면 푸터를 위로 8 띄운다」를 형제 선택자로 갖는다. Figma 는 그 8 을 Field 의 itemSpacing 으로 옮겨 Lead 를 감추면 간격도 사라진다 — 계속 보이는 레이어의 스타일이 그대로이고 Field 는 hug 라 자기 값을 다시 쓰지 않아 네 시험을 다 통과한다. 기본 켜짐(프롬프트 노드는 첫 줄이 있다). Lead 의 높이 48 은 자리표시다 — 첫 줄은 이 부품이 소유하지 않는다.",
+      },
+      HasError: {
+        type: "BOOLEAN",
+        reason:
+          "푸터 아래 오류 배너(NodeComposerError 인스턴스)가 있는가. 코드에서는 오류가 있을 때만 호출부가 `.louis-node-shell__error` 를 그리는 렌더 조건이다. 배너가 감춰져 Footer 가 줄어드는 것은 BOOLEAN 의 정상 결과이고 남는 레이어의 스타일은 그대로다. 기본 꺼짐.",
+      },
+    },
+    geometry: {
+      measuredId: "node-composer",
+      sizeKeys: ["composer"],
+      // **폭 · 높이는 담지 않는다.** 폭은 카드(400)를 채우는 값이고 높이는 내용의 합이다(Lead 자리표시 48 이 들어간다).
+      fields: {
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        itemSpacing: "gap",
+        // 영역은 투명한 흐름 상자다 — 곡률을 갖지 않는다(레시피가 제품의 아래 모서리 곡률을 옮기지 않은 사유는 CSS 주석).
+        cornerRadius: { literal: 0 },
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Field: {
+          fields: {
+            paddingBlock: "fieldPadding",
+            paddingBlockEnd: "fieldPadding",
+            paddingInline: "fieldPadding",
+            paddingInlineEnd: "fieldPadding",
+            // CSS 는 푸터의 `margin-block-start`(앞 형제가 있을 때만)다. Figma 는 자식별 여백이 없어 Field 의 간격으로 옮긴다.
+            itemSpacing: "footerOffset",
+            cornerRadius: "fieldRadius",
+            layoutMode: { literal: "VERTICAL" },
+          },
+        },
+        Footer: { fields: { itemSpacing: "footerGap", layoutMode: { literal: "VERTICAL" } } },
+        // 생성 버튼 자리의 왼쪽 8(`__generate { margin-inline-start }`)을 FooterControls 의 간격으로 옮긴다.
+        FooterControls: {
+          fields: { height: "controlsHeight", itemSpacing: "generateOffset", layoutMode: { literal: "HORIZONTAL" } },
+        },
+        Meta: { fields: { height: "controlsHeight", itemSpacing: "metaGap", layoutMode: { literal: "HORIZONTAL" } } },
+      },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeComposerError",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__error · __error-text 가 정본이다(2026-10-07). 제품 origin/dev 의 VideoNode.tsx PROMPT_ERROR_BANNER 가 출처다.",
+    variantProperties: {},
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      Message: {
+        type: "TEXT",
+        reason: "오류 문구다. 코드에서는 `.louis-node-shell__error-text` 의 텍스트이고 최대 3줄에서 말줄임된다(전문은 호출부가 title 로 낸다).",
+      },
+    },
+    geometry: {
+      measuredId: "node-composer",
+      sizeKeys: ["error"],
+      // 높이는 담지 않는다 — 글자가 정한다. 최소 높이 28 을 Figma 의 minHeight 로 맞댄다.
+      fields: {
+        minHeight: "minHeight",
+        paddingBlock: "padding",
+        paddingBlockEnd: "padding",
+        paddingInline: "padding",
+        paddingInlineEnd: "padding",
+        itemSpacing: "gap",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
+  },
+  {
     id: "node-side-handle",
     figmaName: "NodeSideHandle",
     figmaAhead:

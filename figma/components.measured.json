@@ -4574,6 +4574,44 @@
           "$labelFontSize": "16. typography-body-md-semibold(16/1.5, 600) — 카드 폭 240 이상의 이름."
         }
       }
+    },
+    "node-composer": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css",
+      "$note": "노드 입력판(2026-10-07 레시피, 2026-10-08 Figma) — Node Shell 의 하위 부품 `.louis-node-shell__composer` 이하 일곱 클래스다. 값은 브라우저 실측이 아니라 **레시피 선언**이다 — React 표면이 없고 node-chrome 브라우저 시험이 입력판을 렌더하지 않아 되재지 않는다(start-card · bare-button 과 같은 처지). 레시피의 출처는 제품 `origin/dev` 의 VideoNode.tsx PROMPT_AREA · PROMPT_FIELD_SHELL · PROMPT_FOOTER · PROMPT_FOOTER_CONTROLS · PROMPT_FOOTER_GENERATE · PROMPT_ERROR_BANNER 다. 폭(카드를 채운다) · 높이(내용의 합) · 첫 줄 슬롯(글 입력칸 — 이 부품 밖)의 높이는 담지 않는다.",
+      "$keyRule": "축이 없다. 키 둘은 Figma 의 두 컴포넌트다 — `composer` 는 NodeComposer(영역 · 면 · 푸터 · 설정 줄 · 알약 줄), `error` 는 NodeComposerError(푸터 아래 오류 배너). 배너가 NodeComposer 안에서는 BOOLEAN `HasError`(기본 꺼짐)에 물린 인스턴스라 감춘 채로 되읽기가 보지 않으므로 원본을 따로 뜬다.",
+      "sizes": {
+        "composer": {
+          "padding": 8,
+          "$padding": "space-control-sm 8. 레시피 `.louis-node-shell__composer { padding-block · padding-inline: var(--louis-space-control-sm) }` — 제품 `--node-inner-padding` 8. 같은 수가 영역 · 면 · 푸터 위 여백 셋을 지배한다.",
+          "gap": 8,
+          "$gap": "space-control-sm 8. 영역 안 줄 사이 — 제품 `gap-4`(격자 2px).",
+          "fieldPadding": 8,
+          "$fieldPadding": "space-control-sm 8. `.louis-node-shell__field` 의 사방 여백 — 제품 PROMPT_FIELD_SHELL 의 `p*-[var(--node-inner-padding,8px)]`.",
+          "fieldRadius": 16,
+          "$fieldRadius": "radius-overlay 16. 제품 `--node-input-radius` 16 과 같은 수를 가진 시맨틱이 radius-overlay 하나라 그 칸을 읽는다(이름이 뜻과 어긋나는 것은 레시피 주석이 적는다).",
+          "footerOffset": 8,
+          "$footerOffset": "space-control-sm 8. 면 안에서 앞 형제(첫 줄)가 있을 때만 푸터를 띄우는 값 — 레시피 `.louis-node-shell__field > :not(.louis-node-shell__footer) + .louis-node-shell__footer { margin-block-start }`. Figma 는 Field 의 itemSpacing 으로 옮겨, 첫 줄 슬롯(Lead)을 감추면 저절로 사라진다.",
+          "footerGap": 8,
+          "$footerGap": "space-control-sm 8. `.louis-node-shell__footer` 의 줄 사이 — 설정 줄과 오류 배너 사이.",
+          "controlsHeight": 32,
+          "$controlsHeight": "layout-node-chip-height 32. `.louis-node-shell__footer-controls` · `__meta` 의 block-size — 줄 안 Node Chip 의 높이.",
+          "generateOffset": 8,
+          "$generateOffset": "space-control-sm 8. `.louis-node-shell__generate { margin-inline-start }` — 알약 줄과 생성 버튼 자리 사이. Figma 는 FooterControls 의 itemSpacing 이다.",
+          "metaGap": 4,
+          "$metaGap": "node-chrome-btn-gap 4. `.louis-node-shell__meta` 의 알약 사이 — 제품 `--node-chrome-btn-gap`."
+        },
+        "error": {
+          "minHeight": 28,
+          "$minHeight": "28. `.louis-node-shell__error { min-block-size: 28px }` 리터럴 — 제품 `min-h-14`(격자 2px). 컨트롤 사다리(24 · 32 · 40)에 없다. 글자 크기를 레시피가 선언하지 않아(상속) 실제 높이는 글자가 정하고 세 줄까지 자란다 — Figma 대표 글자 caption 한 줄이면 18 + 여백 16 = 34 라 최소값은 바닥으로만 선다.",
+          "padding": 8,
+          "$padding": "space-control-sm 8. `.louis-node-shell__error` 의 사방 여백 — 제품 `py-4 px-4`.",
+          "gap": 8,
+          "$gap": "space-control-sm 8. 배너 안 줄 사이 — 제품 `gap-4`.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-12`. Alert block(반경 20 · 1px · 12/18)과 다른 밀도라 따로 갖는다(node-shell.md 「입력판」)."
+        }
+      }
     }
   },
   "$noProductRender": {

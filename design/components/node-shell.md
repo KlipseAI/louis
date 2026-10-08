@@ -44,7 +44,7 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
 | Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
-| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. **입력판의 Figma 변형은 아직 없다** |
+| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. 입력판은 2026-10-08 에 단일 컴포넌트 둘로 섰다 — NodeComposer(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 NodeComposerError(TEXT `Message`). 입력판 값은 레시피 선언 기록(`node-composer`)과 맞대고 브라우저 되재기는 없다(아래 「입력판 — Figma」) |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있고 카드 테두리가 제품과 갈린다(아래 Known deviations) |
 
@@ -139,6 +139,34 @@ NodeShell (세로, 간격 4, 폭 400)
 `role="alert"` 를 붙인다 — [Alert](alert.md)와 같은 전제다. 이 배너는 Alert block 의 변형이 아니라 따로
 갖는다(반경 12 · 테두리 없음 · 사방 8 · 최소 높이 28 의 줄이고, Alert block 은 반경 20 · 1px · 12/18 의
 상자다). 입력판 8 격자 위에 얹히는 크기를 Alert 에 접으면 Alert 가 노드용 밀도를 갖게 된다.
+
+### 입력판 — Figma
+
+단일 COMPONENT 둘이다(2026-10-08, DS · Components 「7 · 캔버스 · 에디터」 맨 아래). 변형 축이 없다 — 레시피에 상태 선언이
+없고(생성 중 · 결과는 노드 타입의 몫이다) 있고 없음만 갈린다.
+
+| 컴포넌트 | 속성 | 코드 |
+| --- | --- | --- |
+| `NodeComposer` | `HasLead` (BOOLEAN, 기본 켜짐) | 면 첫 줄(글 입력칸 · 참조 미디어 · 연결 칩)의 유무 — 마크업의 형제 유무 |
+| | `HasError` (BOOLEAN, 기본 꺼짐) | 푸터 아래 `.louis-node-shell__error` 의 유무 — 호출부의 렌더 조건 |
+| `NodeComposerError` | `Message` (TEXT) | `.louis-node-shell__error-text` 의 문구 |
+
+- 트리는 `NodeComposer`(세로, 사방 · 줄 사이 8, 투명, 폭 400) → `Field`(면 `color/bg-raised` · 반경 `radius/overlay` · 사방 8 ·
+  헤어라인 INNER_SHADOW 0.5) → `Lead`(첫 줄 슬롯) · `Footer`(세로, 줄 사이 8) → `FooterControls`(가로, 높이
+  `layout/node-chip-height` 32, 간격 8) → `Meta`(가로, 간격 `node/chrome-btn-gap` 4, 남는 폭) · `Generate`, 그리고 `Footer` 끝의
+  `Error`(NodeComposerError 인스턴스, `HasError` 에 물림)다.
+- **푸터 위 여백 8 은 `Field` 의 itemSpacing 이다.** CSS 는 「앞에 형제가 있으면 푸터를 위로 8 띄운다」를 형제 선택자로 갖는다 —
+  Figma 에는 자식별 여백이 없어 간격으로 옮겼고, `HasLead` 를 끄면 간격도 함께 사라져 같은 결과가 난다. 생성 버튼 자리의 왼쪽
+  8(`margin-inline-start`)도 같은 이유로 `FooterControls` 의 간격이다.
+- **`Lead` 는 비어 있는 자리표시(높이 48)다.** 첫 줄은 이 부품이 소유하지 않는다 — 시안에서는 인스턴스의 `Lead` 에 입력칸을 채운다.
+  `Meta` 의 NodeChip 둘과 `Generate` 의 IconButton 도 자리 표시이지 정본이 아니다(생성 버튼은 제품 콘텐츠다).
+- 높이는 내용의 합이다 — 기본 120(8 + 면 104 + 8), `HasError` 를 켜면 162, `HasLead` 를 끄면 64.
+- **오류 배너는 따로 선 컴포넌트다.** 배너가 `NodeComposer` 안에서는 기본 꺼짐이라 되읽기가 감춘 칸의 치수를 보지 않는다 —
+  원본을 따로 세워 반경 `radius/control`(12) · 사방 8 · 줄 사이 8 · 최소 높이 28 · 헤어라인을 맞댄다. 글자는
+  `typography/caption-regular` 대표값(레시피가 글자 크기를 선언하지 않는다 — 상속), 잉크 `color/accent-danger`, 최대 3줄 말줄임이다.
+- 계약은 parity 의 `NodeComposer` · `NodeComposerError`(manifest 항목 `node-shell` 의 `figmaNames` 셋)이고 값은 기록
+  `figma/components.measured.json` 의 `node-composer`(`composer` · `error` 두 칸, 레시피 선언)다 — `verify-recipe-record` 가 레시피와
+  맞댄다. 입력판을 렌더하는 브라우저 시험은 아직 없다.
 
 ## When to use
 
@@ -285,7 +313,8 @@ NodeShell (세로, 간격 4, 폭 400)
     **같아진다.** 면의 「한 칸 위」는 라이트에서만 보이고 다크에서는 헤어라인이 경계를 만든다. 팔레트 칸을
     테마마다 직접 고르는 길은 막혀 있다(component CSS 는 테마 선택자를 쓰지 않는다). **판정 필요**:
     `node-composer-surface`(다크 `palette-gray-800` · 라이트 흰색) 시맨틱을 세울지 — 토큰 생성물을 다시
-    내야 하는 변경이라 이번에 하지 않았다.
+    내야 하는 변경이라 이번에 하지 않았다. Figma `NodeComposer` 의 `Field` 도 같은 판정으로 `color/bg-raised` 에 물렸다(2026-10-08) —
+    시맨틱이 서면 레시피와 함께 옮긴다.
 11. **오류 배너 글자 대비가 AA 에 못 미친다 — 제품 값 그대로다.** 글자 `accent-danger`(제품
     `--accent-red-500`) 위에 같은 색 8% 면이라 라이트 2.98:1 · 다크 3.78:1 이다(면 흰색 ·
     `palette-gray-800` 기준. LOUIS 면으로 바꾸면 다크는 4.85:1). 같은 자리를 위한 `fg-danger-on-surface`
@@ -294,6 +323,9 @@ NodeShell (세로, 간격 4, 폭 400)
     안의 물음표 · 24 격자)이고 아카이브 썸네일의 제목 줄도 같은 경로를 굽는다(`6530c9620`). 이 저장소 아이콘 세트에 Lucide
     `circle-question-mark` 로 등재했다(ISC AND MIT, 선 2 → 1.5) — Figma `DS · Icons` 에도 섰고, 2026-10-08 셸 헤더의
     `HelpButton` 칸에 꽂혔다. 남은 결손은 없다 — 이 항목은 기록으로 남긴다.
+13. **Figma 오류 배너의 면은 primitive `color/red-alpha/08` 에 물렸다.** CSS 는 `color-mix(in srgb, accent-danger 8%, transparent)`
+    인데 Figma 는 칠에 색 변수를 묶으면 변수 색의 알파가 칠 불투명도를 덮어 시맨틱 `color/accent-danger` 에 8% 를 얹을 수 없다.
+    바이트 같은 값의 primitive 를 쓴다 — [Node Chrome Button](node-chrome-button.md) danger 호버와 같은 처리다.
 
 ## Related
 

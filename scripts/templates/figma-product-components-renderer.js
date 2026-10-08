@@ -636,7 +636,15 @@ const reconcileMenuRow = async (variant, row, spec) => {
     return node;
   };
   const label = find("TEXT", "label");
-  const keep = [place(row, find("INSTANCE", "icon"), 0)];
+  // **기존 행의 아이콘도 계획대로 맞춘다(2026-10-08).** 이 경로는 세트가 이미 있을 때 타는데, 예전에는 아이콘 인스턴스를 그대로 둬
+  // 마스터 교체(캔버스 · 컴포지션 → icon/Canvas · icon/FilmSlate)와 획 맞춤(32 마스터 획 2 → 20 자리 1.25)이 닿지 않았다.
+  // 색은 아래 reconcileMenuVariants 가 매 실행 다시 칠한다.
+  const icon = find("INSTANCE", "icon");
+  const iconMaster = componentByName.get(P.iconComponents[spec.icon.asset]);
+  if (!iconMaster) throw new Error(`Missing icon master for ${spec.icon.asset} in Gnb menu ${row.name}`);
+  if (icon.mainComponent?.id !== iconMaster.id) icon.swapComponent(iconMaster);
+  fitLineIcon(icon, spec.icon.rect.width, spec.icon.rect.height);
+  const keep = [place(row, icon, 0)];
   if (spec.kind === "highlight") {
     // 딱지는 라벨 바로 뒤 8 이다(제품 658ece13 · 계획 `beta.gap`) — 둘을 그 간격의 묶음으로 싼다. 옛 spacer 는 keep 에 없어 retired/ 로 숨는다.
     let group = row.children.find((entry) => entry.type === "FRAME" && entry.name === LABEL_GROUP);

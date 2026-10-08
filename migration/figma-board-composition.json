@@ -14,22 +14,22 @@
   "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 140,
-  "rawNodesBeforePruning": 8913,
+  "rawNodesBeforePruning": 8945,
   "counts": {
-    "total": 9040,
+    "total": 9071,
     "instance": 340,
     "replaceable": 0,
     "bespoke": 265,
     "blocked": 10,
-    "missing": 1703,
-    "structural": 6722,
+    "missing": 1727,
+    "structural": 6729,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 14.7,
+    "instanceOverCandidates": 14.5,
     "target": 340,
-    "candidates": 2318
+    "candidates": 2342
   },
   "byInstanceSet": {
     "Button": 84,
@@ -66,7 +66,7 @@
   "byComponent": {},
   "bespokeByComponent": {
     "Button/md": 51,
-    "IconButton/md": 44,
+    "IconButton/md": 45,
     "Avatar/sm": 10,
     "Button/lg": 5,
     "DropZone/base": 4,
@@ -89,20 +89,19 @@
     "icon/trash-simple": 3,
     "icon/image": 6,
     "icon/copy": 3,
-    "icon/cloud-arrow-up": 1,
     "icon/eye": 3,
     "icon/music-notes-simple": 1
   },
   "structuralByKind": {
-    "surface": 1190,
-    "frame": 3400,
+    "surface": 1189,
+    "frame": 3408,
     "text": 1998,
     "image": 134
   },
   "missingByCandidateClause": {
     "c-painted-mark": 1176,
-    "a-interactive": 448,
-    "d-control-group": 16,
+    "a-interactive": 471,
+    "d-control-group": 17,
     "b-vector": 63
   },
   "matchRules": [
@@ -596,12 +595,12 @@
         "figma/app-screens.aws-signup.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 63,
+        "total": 64,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 8,
+        "missing": 9,
         "structural": 53,
         "unclassified": 0
       }
@@ -615,12 +614,12 @@
         "figma/app-screens.aws-signup.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 60,
+        "total": 61,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 8,
+        "missing": 9,
         "structural": 50,
         "unclassified": 0
       }
@@ -653,12 +652,12 @@
         "figma/app-screens.blog--slug-.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 65,
+        "total": 66,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 17,
+        "missing": 18,
         "structural": 45,
         "unclassified": 0
       }
@@ -691,12 +690,12 @@
         "figma/app-screens.blog.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 32,
+        "total": 33,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 9,
+        "missing": 10,
         "structural": 21,
         "unclassified": 0
       }
@@ -748,12 +747,12 @@
         "figma/app-screens.creative-media.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 14,
+        "total": 15,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 2,
+        "missing": 3,
         "structural": 11,
         "unclassified": 0
       }
@@ -767,12 +766,12 @@
         "figma/app-screens.creative-media.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 14,
+        "total": 15,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 2,
+        "missing": 3,
         "structural": 11,
         "unclassified": 0
       }
@@ -900,13 +899,13 @@
         "figma/app-screens.highlight--projectId--shorts--shortId-.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 61,
+        "total": 62,
         "instance": 6,
         "replaceable": 0,
         "bespoke": 4,
         "blocked": 0,
         "missing": 6,
-        "structural": 45,
+        "structural": 46,
         "unclassified": 0
       }
     },
@@ -919,13 +918,13 @@
         "figma/app-screens.highlight--projectId--shorts--shortId-.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 64,
+        "total": 65,
         "instance": 5,
         "replaceable": 0,
         "bespoke": 4,
         "blocked": 0,
         "missing": 6,
-        "structural": 49,
+        "structural": 50,
         "unclassified": 0
       }
     },
@@ -1166,13 +1165,13 @@
         "figma/app-screens.highlight--projectId-completed.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 74,
+        "total": 75,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 4,
         "blocked": 0,
         "missing": 12,
-        "structural": 55,
+        "structural": 56,
         "unclassified": 0
       }
     },
@@ -1185,13 +1184,13 @@
         "figma/app-screens.highlight--projectId-completed.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 55,
+        "total": 56,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 4,
         "blocked": 0,
         "missing": 6,
-        "structural": 43,
+        "structural": 44,
         "unclassified": 0
       }
     },
@@ -1242,13 +1241,13 @@
         "figma/app-screens.home.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 205,
+        "total": 207,
         "instance": 4,
         "replaceable": 0,
         "bespoke": 8,
         "blocked": 0,
         "missing": 47,
-        "structural": 146,
+        "structural": 148,
         "unclassified": 0
       }
     },
@@ -1261,13 +1260,13 @@
         "figma/app-screens.home.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 195,
+        "total": 198,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 8,
         "blocked": 0,
-        "missing": 46,
-        "structural": 138,
+        "missing": 47,
+        "structural": 140,
         "unclassified": 0
       }
     },
@@ -1299,12 +1298,12 @@
         "figma/app-screens.inquiry.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 65,
+        "total": 66,
         "instance": 3,
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
-        "missing": 12,
+        "missing": 13,
         "structural": 48,
         "unclassified": 0
       }
@@ -2023,12 +2022,12 @@
         "figma/app-screens.nodecanvas-project-.mobile.02.draw.js"
       ],
       "counts": {
-        "total": 282,
+        "total": 293,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 25,
         "blocked": 0,
-        "missing": 64,
+        "missing": 75,
         "structural": 192,
         "unclassified": 0
       }
@@ -2176,12 +2175,12 @@
         "figma/app-screens.pricing.mobile.01.draw.js"
       ],
       "counts": {
-        "total": 330,
+        "total": 331,
         "instance": 7,
         "replaceable": 0,
         "bespoke": 12,
         "blocked": 0,
-        "missing": 54,
+        "missing": 55,
         "structural": 257,
         "unclassified": 0
       }
@@ -2640,12 +2639,12 @@
         "figma/app-screens.templates--slug-.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 43,
+        "total": 44,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 2,
         "blocked": 0,
-        "missing": 9,
+        "missing": 10,
         "structural": 30,
         "unclassified": 0
       }
@@ -2678,12 +2677,12 @@
         "figma/app-screens.templates.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 36,
+        "total": 37,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 1,
         "blocked": 0,
-        "missing": 8,
+        "missing": 9,
         "structural": 26,
         "unclassified": 0
       }
@@ -2743,13 +2742,13 @@
         "figma/app-screens.videoeditor--projectId-.desktop.02.draw.js"
       ],
       "counts": {
-        "total": 357,
+        "total": 358,
         "instance": 0,
         "replaceable": 0,
         "bespoke": 27,
         "blocked": 0,
-        "missing": 217,
-        "structural": 113,
+        "missing": 219,
+        "structural": 112,
         "unclassified": 0
       }
     },
@@ -19902,6 +19901,18 @@
     },
     "/aws/signup@desktop-1920x1080#0.0.2.0.0": {
       "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@desktop-1920x1080#0.0.2.0.0.0": {
+      "board": "figma/app-screens.aws-signup.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
         16,
@@ -19970,6 +19981,18 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/aws/signup@mobile-402x874#0.0.0.0.0": {
+      "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        36,
+        36
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/aws/signup@mobile-402x874#0.0.0.0.0.0": {
       "board": "figma/app-screens.aws-signup.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -22127,6 +22150,18 @@
     },
     "/blog/[slug]@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.blog--slug-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.blog--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -22136,7 +22171,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.0": {
+    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.blog--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -22148,7 +22183,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.1": {
+    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.blog--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -22160,7 +22195,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.2": {
+    "/blog/[slug]@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.blog--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -22977,6 +23012,18 @@
     },
     "/blog@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/blog@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.blog.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -22986,7 +23033,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/blog@mobile-402x874#0.0.2.0.2.2.0": {
+    "/blog@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -22998,7 +23045,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/blog@mobile-402x874#0.0.2.0.2.2.1": {
+    "/blog@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -23010,7 +23057,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/blog@mobile-402x874#0.0.2.0.2.2.2": {
+    "/blog@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.blog.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -24844,6 +24891,18 @@
     },
     "/creative-media@desktop-1920x1080#0.0.0.0.1.0": {
       "board": "figma/app-screens.creative-media.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/creative-media@desktop-1920x1080#0.0.0.0.1.0.0": {
+      "board": "figma/app-screens.creative-media.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
         20,
@@ -25003,6 +25062,18 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/creative-media@mobile-402x874#0.0.0.0.1.0": {
+      "board": "figma/app-screens.creative-media.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        32,
+        32
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/creative-media@mobile-402x874#0.0.0.0.1.0.0": {
       "board": "figma/app-screens.creative-media.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -26058,6 +26129,17 @@
       "tag": "div",
       "rect": [
         315.66,
+        20
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]/shorts/[shortId]@desktop-1920x1080#0.0.1.0.1.1.0.0.1.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId--shorts--shortId-.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        315.66,
         3
       ],
       "verdict": "missing",
@@ -26757,6 +26839,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/highlight/[projectId]/shorts/[shortId]@mobile-402x874#0.0.0.0.1.1.0.0.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId--shorts--shortId-.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        50.72,
+        20
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]/shorts/[shortId]@mobile-402x874#0.0.0.0.1.1.0.0.0.1.0.1.0": {
       "board": "figma/app-screens.highlight--projectId--shorts--shortId-.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -29832,6 +29925,17 @@
       "tag": "div",
       "rect": [
         657.22,
+        20
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId] completed@desktop-1920x1080#0.0.1.0.1.0.0.1.0.1.0.1.0.1.0": {
+      "board": "figma/app-screens.highlight--projectId-completed.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        657.22,
         3
       ],
       "verdict": "missing",
@@ -30470,6 +30574,17 @@
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
     "/highlight/[projectId] completed@mobile-402x874#0.0.0.1.0.0.1.0.1.0.1.0.1": {
+      "board": "figma/app-screens.highlight--projectId-completed.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        233.22,
+        20
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId] completed@mobile-402x874#0.0.0.1.0.0.1.0.1.0.1.0.1.0": {
       "board": "figma/app-screens.highlight--projectId-completed.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -31258,10 +31373,10 @@
     },
     "/@desktop-1920x1080#0.0.0.0.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "section",
       "rect": [
         1920,
-        1080
+        7560
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -31289,7 +31404,18 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.home.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/@desktop-1920x1080#0.0.0.0.0.0.1": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -31300,7 +31426,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -31311,7 +31437,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.0": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -31322,7 +31448,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.0.0": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.0.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -31333,7 +31459,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.0.1": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.0.1": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -31344,7 +31470,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.1": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.1": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "div",
       "rect": [
@@ -31355,7 +31481,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.1.0": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.1.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -31368,7 +31494,7 @@
       "variant": "Variant=primary, Size=md, State=Default, Icon=none",
       "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=primary, Size=md, State=Default, Icon=none)."
     },
-    "/@desktop-1920x1080#0.0.0.0.0.1.0.1.1": {
+    "/@desktop-1920x1080#0.0.0.0.0.0.1.0.1.1": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "button",
       "rect": [
@@ -32923,10 +33049,10 @@
     },
     "/@desktop-1920x1080#0.0.0.6": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
-      "tag": "div",
+      "tag": "section",
       "rect": [
         1920,
-        1080
+        4130
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -32947,6 +33073,17 @@
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "div",
       "rect": [
+        1920,
+        1080
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/@desktop-1920x1080#0.0.0.6.0.0.0": {
+      "board": "figma/app-screens.home.desktop.00.draw.js",
+      "tag": "div",
+      "rect": [
         488.25,
         64.8
       ],
@@ -32954,7 +33091,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@desktop-1920x1080#0.0.0.6.0.0.0": {
+    "/@desktop-1920x1080#0.0.0.6.0.0.0.0": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -32965,7 +33102,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@desktop-1920x1080#0.0.0.6.0.0.1": {
+    "/@desktop-1920x1080#0.0.0.6.0.0.0.1": {
       "board": "figma/app-screens.home.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -33595,10 +33732,10 @@
     },
     "/@mobile-402x874#0.0.0.0.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
-      "tag": "div",
+      "tag": "section",
       "rect": [
         402,
-        874
+        4370
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -33626,7 +33763,18 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1": {
+    "/@mobile-402x874#0.0.0.0.0.0.0.0": {
+      "board": "figma/app-screens.home.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/@mobile-402x874#0.0.0.0.0.0.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -33637,7 +33785,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.0": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "h1",
       "rect": [
@@ -33648,7 +33796,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.0.0": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -33659,7 +33807,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.0.1": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.0.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -33670,7 +33818,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.1": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "div",
       "rect": [
@@ -33681,7 +33829,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.1.0": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.1.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "button",
       "rect": [
@@ -33694,7 +33842,7 @@
       "variant": "Variant=primary, Size=md, State=Default, Icon=none",
       "reason": "이미 컴포넌트 인스턴스다 — Button(Variant=primary, Size=md, State=Default, Icon=none)."
     },
-    "/@mobile-402x874#0.0.0.0.0.1.1.1": {
+    "/@mobile-402x874#0.0.0.0.0.0.1.1.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "button",
       "rect": [
@@ -35249,10 +35397,10 @@
     },
     "/@mobile-402x874#0.0.0.6": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
-      "tag": "div",
+      "tag": "section",
       "rect": [
         402,
-        874
+        3924
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -35273,6 +35421,17 @@
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "div",
       "rect": [
+        402,
+        874
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/@mobile-402x874#0.0.0.6.0.0.0": {
+      "board": "figma/app-screens.home.mobile.00.draw.js",
+      "tag": "div",
+      "rect": [
         207.84,
         27
       ],
@@ -35280,7 +35439,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.0.6.0.0.0": {
+    "/@mobile-402x874#0.0.0.6.0.0.0.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -35291,7 +35450,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/@mobile-402x874#0.0.0.6.0.0.1": {
+    "/@mobile-402x874#0.0.0.6.0.0.0.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -35717,6 +35876,18 @@
     },
     "/@mobile-402x874#0.0.1.0.2.2": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/@mobile-402x874#0.0.1.0.2.2.0": {
+      "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -35726,7 +35897,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/@mobile-402x874#0.0.1.0.2.2.0": {
+    "/@mobile-402x874#0.0.1.0.2.2.0.0": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -35738,7 +35909,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/@mobile-402x874#0.0.1.0.2.2.1": {
+    "/@mobile-402x874#0.0.1.0.2.2.0.1": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -35750,7 +35921,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/@mobile-402x874#0.0.1.0.2.2.2": {
+    "/@mobile-402x874#0.0.1.0.2.2.0.2": {
       "board": "figma/app-screens.home.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -37446,6 +37617,18 @@
     },
     "/inquiry@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/inquiry@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.inquiry.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -37455,7 +37638,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/inquiry@mobile-402x874#0.0.2.0.2.2.0": {
+    "/inquiry@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -37467,7 +37650,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/inquiry@mobile-402x874#0.0.2.0.2.2.1": {
+    "/inquiry@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -37479,7 +37662,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/inquiry@mobile-402x874#0.0.2.0.2.2.2": {
+    "/inquiry@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.inquiry.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -46852,6 +47035,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.0.1.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
         3.03,
@@ -46876,6 +47071,18 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.0.1.1.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.0.1.1.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -47113,6 +47320,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        5.31,
+        5.31
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         3.03,
@@ -47122,7 +47341,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -47133,7 +47352,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.2.0.1.0.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -47204,6 +47423,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        5.31,
+        5.31
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         3.03,
@@ -47213,7 +47444,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -47224,7 +47455,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.0.0.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -47593,6 +47824,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
         3.03,
@@ -47618,6 +47861,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.1.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.1.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
         3.03,
@@ -47642,6 +47897,18 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.2.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.0.1.0.0.2.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -48253,6 +48520,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
         3.03,
@@ -48278,6 +48557,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.1.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.1.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
         3.03,
@@ -48302,6 +48593,18 @@
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.2.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        6.06,
+        6.06
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.0.1.2.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -48733,6 +49036,18 @@
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        5.31,
+        5.31
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0.0": {
+      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         3.03,
@@ -48742,7 +49057,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -48753,7 +49068,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0.0.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1.0.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -61433,6 +61748,18 @@
     },
     "/pricing@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/pricing@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.pricing.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -61442,7 +61769,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/pricing@mobile-402x874#0.0.2.0.2.2.0": {
+    "/pricing@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -61454,7 +61781,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/pricing@mobile-402x874#0.0.2.0.2.2.1": {
+    "/pricing@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -61466,7 +61793,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/pricing@mobile-402x874#0.0.2.0.2.2.2": {
+    "/pricing@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.pricing.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -84180,6 +84507,18 @@
     },
     "/templates/[slug]@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.templates--slug-.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.templates--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -84189,7 +84528,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.0": {
+    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.templates--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -84201,7 +84540,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.1": {
+    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.templates--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -84213,7 +84552,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.2": {
+    "/templates/[slug]@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.templates--slug-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -85105,6 +85444,18 @@
     },
     "/templates@mobile-402x874#0.0.2.0.2.2": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        38,
+        38
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/templates@mobile-402x874#0.0.2.0.2.2.0": {
+      "board": "figma/app-screens.templates.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         20,
@@ -85114,7 +85465,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/templates@mobile-402x874#0.0.2.0.2.2.0": {
+    "/templates@mobile-402x874#0.0.2.0.2.2.0.0": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -85126,7 +85477,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/templates@mobile-402x874#0.0.2.0.2.2.1": {
+    "/templates@mobile-402x874#0.0.2.0.2.2.0.1": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -85138,7 +85489,7 @@
       "candidateClause": "c-painted-mark",
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
-    "/templates@mobile-402x874#0.0.2.0.2.2.2": {
+    "/templates@mobile-402x874#0.0.2.0.2.2.0.2": {
       "board": "figma/app-screens.templates.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -97405,9 +97756,10 @@
         37,
         724
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -97471,6 +97823,18 @@
       "reason": "편집기 에셋 패널의 텍스트 자막 추가 버튼(`aria-label` 「텍스트 자막 추가」, `components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx`)이 쓰는 14px T 글자 획이다. LOUIS 에 같은 뜻의 `icon/text` 가 있다. (출처 apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/AssetPanel.tsx:312)"
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1.0.2": {
+      "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        28,
+        28
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.1.0.2.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
       "tag": "span",
       "rect": [
@@ -98196,17 +98560,18 @@
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.0.0.9": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
-      "tag": "svg",
+      "tag": "button",
       "rect": [
-        18,
-        18
+        32,
+        32
       ],
       "verdict": "bespoke",
-      "rule": "glyph-bespoke",
-      "candidateClause": "b-vector",
-      "glyph": "cloud-arrow-up-32",
-      "icon": "icon/cloud-arrow-up",
-      "reason": "편집기 미리보기 조작 막대의 저장 버튼(`aria-label` 「Save」)이 `components/navigation/ProjectSaveCloudGlyph.tsx`의 `CloudArrowUpSvg`를 32 viewBox · 획 2로 인라인 작도한 구름 업로드 글리프다. LOUIS `icon/cloud-arrow-up`이 같은 실루엣과 같은 의미(업로드 저장)를 가지므로 대응하지만 제품은 자체 32 박스 사본을 그린다. (출처 apps/web/components/navigation/ProjectSaveCloudGlyph.tsx:59)"
+      "rule": "primitive-site-excluded",
+      "probe": "icon-button/icon-button-card",
+      "reason": "IconButton/md 기하를 재는 probe 는 `icon-button` · `icon-button-card` 이고 정본 자리 목록에 없다. 출처가 `Gnb.tsx iconButton` 이다 — 제품 지역 스타일이지 `.louis-icon-button` 이 아니다. 출처가 `appHomeSceneStyles.ts archiveMoreButton` 이다 — 카드 위 more 버튼의 지역 스타일이다. 클래스 이름에 `louis-` 가 붙어 있지만(`.louis-project-card-more`) 그것은 **ProjectCard 의 부품**이지 IconButton 프리미티브가 아니다 — 그래서 「probe 의 html 에 `louis-` 가 있는가」 같은 문자열 시험으로는 이 목록을 대신할 수 없다.",
+      "component": "IconButton",
+      "size": "md",
+      "candidateClause": "a-interactive"
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.0.0.10": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",

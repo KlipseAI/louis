@@ -568,6 +568,23 @@ const buildNode = (spec, parent) => {
   if (spec.b && node.layoutMode && node.layoutMode !== "NONE") node.strokesIncludedInLayout = !spec.b[5];
 
   for (const child of (spec.k || [])) buildNode(child, node);
+  // **절대 자식이 늘린 grid 행을 걷는다(2026-10-08).** 절대 자식도 먼저 흐름 자식으로 붙어야 ABSOLUTE 가 걸리는데, `appendChild` 가 다음 빈 칸
+  // 으로 새 행을 만들고 ABSOLUTE 뒤에도 그 행이 남는다 — 랜딩 푸터 트랙의 재생 막대(절대)가 여섯째 행(빈 HUG 100)을 남겨 부품이 100 길어졌고,
+  // 그 인스턴스를 문 보드(`/inquiry` 1370 → 1470 · 홈 모바일)도 같이 길어졌다. 자식을 다 붙인 뒤 행 수를 계획 수로 되돌린다. 절대 자식이 그
+  // 행을 붙들어 줄지 않으면 첫 칸으로 옮겨 다시 줄인다. 그래도 남으면 결과의 `gridTrackFailures` 로 드러낸다.
+  if (node.type === "FRAME" && node.layoutMode === "GRID" && spec.l && spec.l[9] && spec.k) {
+    const wantedRows = spec.gr || Math.max(1, Math.ceil(spec.k.filter((child) => !child.p).length / spec.l[9]));
+    const trim = () => { if (node.gridRowCount > wantedRows) node.gridRowCount = wantedRows; return node.gridRowCount === wantedRows; };
+    let trimmed = false;
+    try { trimmed = trim(); } catch (error) {}
+    if (!trimmed) {
+      for (const kid of node.children) {
+        if (kid.layoutPositioning === "ABSOLUTE" && kid.gridRowAnchorIndex >= wantedRows) { try { kid.setGridChildPosition(0, 0); } catch (error) {} }
+      }
+      try { trimmed = trim(); } catch (error) {}
+      if (!trimmed) gridTrackFailures.push(`${spec.t} 행 수 ${node.gridRowCount} → ${wantedRows} 실패`);
+    }
+  }
   if (P.locale && spec.vv) pendingLocaleVisible.push([node, spec.vv]);
 
   // **아이콘은 측정한 도형으로 그린다(2026-09-30).** 생성기가 도형의 기하와 계산된 칠 · 획으로 조립한 SVG(`vs`)를 그리고, 칠 · 획은 값이
@@ -638,7 +655,7 @@ const flushTextStyles = async () => {
   pendingTextStyles.length = 0;
   // **섞인 문단의 범위 서식(2026-09-30).** 문장 안의 굵은 글자 · 링크 색 · 밑줄 — 생성기가 문단을 글자 하나로 합치고 범위를 싣는다.
   for (const [node, ranges, measured] of pendingRanges) {
-    for (const [start, end, weight, colour, underline, size] of ranges) {
+    for (const [start, end, weight, colour, underline, size, track] of ranges) {
       if (end <= start || end > node.characters.length) continue;
       if (weight) {
         let font = { family: "Pretendard", style: WEIGHT_STYLE[weight] ?? "Regular" };
@@ -648,6 +665,13 @@ const flushTextStyles = async () => {
       if (colour) node.setRangeFills(start, end, [hexToPaint(colour)]);
       if (underline) node.setRangeTextDecoration(start, end, "UNDERLINE");
       if (size) node.setRangeFontSize(start, end, size);
+      // 요소 margin 을 옮긴 자간(생성기 richInlineText `track`) — 글자 스타일의 자간(px · %)을 px 로 풀어 더한다.
+      if (track) {
+        const held = node.getRangeLetterSpacing(start, end);
+        const fontSize = node.getRangeFontSize(start, end);
+        const base = held === figma.mixed ? 0 : held.unit === "PIXELS" ? held.value : held.value * (fontSize === figma.mixed ? 0 : fontSize) / 100;
+        node.setRangeLetterSpacing(start, end, { unit: "PIXELS", value: base + track });
+      }
     }
     // **첫 줄의 굵은 범위는 글자 상자를 1 키운다(2026-09-30).** Pretendard SemiBold 범위가 여러 줄 문단의 첫 줄에 있으면 Figma 의 높이 맞춤
     // 글자 상자가 줄 높이 합보다 1 높다(고정 px 줄 높이여도 같다 — 둘째 줄의 굵은 범위 · 한 줄 문단은 그대로, 복제본 실험). 개인정보 목록의

@@ -318,6 +318,14 @@ function richInlineText(node, childrenOf) {
     const size = px((outer ?? child).style?.fontSize);
     if (outer && size && size !== px(base.fontSize)) range.size = size;
     if (range.weight || range.color || range.underline || range.size) ranges.push(range);
+    // **요소의 가로 margin 은 이웃 글자의 자간이다(2026-10-08).** 합친 글자에는 요소 상자가 없어 `margin-right: 6px` 이 빠졌다 — 랜딩 푸터
+    // 사업자 정보의 라벨과 값이 「CompanySFACSPACE Inc.」로 붙었다. 글자 하나의 자간은 그 글자 뒤에 붙는 간격이라, 오른쪽 margin 은 요소의
+    // 마지막 글자, 왼쪽 margin 은 요소 앞 글자의 자간에 더한다(`track` — 렌더러가 글자 스타일의 자간에 더한다). 측정 폭 그대로다.
+    const margin = (side) => [outer, child].reduce((sum, at) => sum + Math.max(0, px(at?.style?.[`margin${side}`]) ?? 0), 0);
+    const after = margin("Right");
+    const before = margin("Left");
+    if (after > 0.5) ranges.push({ start: text.length - 1, end: text.length, track: after });
+    if (before > 0.5 && start > 0 && !/\n/.test(text[start - 1])) ranges.push({ start: start - 1, end: start, track: before });
   }
   if (!text.trim()) return null;
   const wrapped = mergedWrapLines(node, text, childPieces, ranges);
@@ -1044,6 +1052,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     const ringWithin = paint?.stroke?.ringWithin ?? [0, 0, 0, 0];
     if (slack && layoutMode === "HORIZONTAL") stats.lineBoxSlack.push({ path: node.path, ...slack });
     if (slack && layoutMode === "VERTICAL") stats.flowSlack = [...(stats.flowSlack ?? []), { path: node.path, ...slack }];
+    const fixedRows = layoutMode === "GRID" ? (declaredFixedRows(node, style) ?? contentFreeRows(style, nodeSizing, children)) : null;
     return {
       path: node.path,
       tag: node.tag,
@@ -1132,10 +1141,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         // 열마다의 크기 — 크기가 다른 열만(gridColumnTracks 주석).
         columnTracks: layoutMode === "GRID" ? gridColumnTracks(node, style, nodeSizing) : null,
         // 한 줄짜리 grid 에서 내용보다 높게 늘어난 행 — 브라우저가 푼 트랙 높이(FIXED 로 깐다). 선언된 고정 행도 여기다. 없으면 null.
-        rows: gridRow?.rows ?? (layoutMode === "GRID" ? declaredFixedRows(node, style) : null),
+        // 내용이 정하지 않은 행(contentFreeRows)도 고정 행이다.
+        rows: gridRow?.rows ?? fixedRows,
         // 칸 자리를 되짚은 grid 의 행 수(gridPlacements) · 선언된 고정 행 수 — 렌더러가 자식 수로 행을 세지 않고 이 수로 깐다.
         ...(gridPlace ? { rowCount: gridPlace.rowCount }
-          : layoutMode === "GRID" && !gridRow?.rows && declaredFixedRows(node, style) ? { rowCount: declaredFixedRows(node, style).length } : {}),
+          : !gridRow?.rows && fixedRows ? { rowCount: fixedRows.length } : {}),
         align: {
           // 세로로 쌓은 줄 글자는 `text-align` 이 줄을 놓는다 — 조각이 글자 폭(HUG)이라 교차축 정렬이 곧 줄 정렬이다.
           counterAxis: stackedText
@@ -1188,6 +1198,12 @@ export function collapseWrappers(node, stats = null) {
     if (p && (p.top || p.right || p.bottom || p.left)) return false;
     const only = candidate.children[0];
     if (only.positioning === "ABSOLUTE") return false;
+    // **고정 크기가 자식과 다른 축은 자리를 차지한다(2026-10-08).** 판정이 둘 다 FIXED 여도 크기가 다르면 감싸개가 남는 자리를 만든다 —
+    // 랜딩 스크롤 구간(`height: calc(… * 화면 수)` 4370 · 3924)이 제 안의 sticky 판(100vh, 874)과 둘 다 FIXED 라 접혀, 구간 높이가 판
+    // 높이로 줄고 홈 모바일 보드가 6546 짧았다. 측정 크기가 반 픽셀 넘게 다른 FIXED 축이 있으면 접지 않는다.
+    for (const [key, size] of [["layoutSizingHorizontal", "width"], ["layoutSizingVertical", "height"]]) {
+      if (candidate.sizing[key] === "FIXED" && candidate.rect && only.rect && Math.abs(candidate.rect[size] - only.rect[size]) > 0.5) return false;
+    }
     // 크기 판정이 다르면 접는 순간 리사이즈 반응이 달라진다.
     return candidate.sizing.layoutSizingHorizontal === only.sizing.layoutSizingHorizontal
       && candidate.sizing.layoutSizingVertical === only.sizing.layoutSizingVertical;
@@ -1622,6 +1638,37 @@ function declaredFixedRows(node, style) {
   if (!declared || !/^(repeat\(\s*\d+\s*,\s*[\d.]+px\s*\)|[\d.]+px)(\s+(repeat\(\s*\d+\s*,\s*[\d.]+px\s*\)|[\d.]+px))*$/.test(declared)) return null;
   const rows = parseTracks(style.gridTemplateRows)?.map(px);
   if (!rows?.length || rows.some((value) => value == null)) return null;
+  return rows.map((value) => Math.round(value * 100) / 100);
+}
+
+/**
+ * **내용이 정하지 않은 행(2026-10-08).** `grid-auto-rows: 160px` 은 측정기의 선언 축(declared-styles)에 없어 `declaredFixedRows` 가 보지
+ * 못한다 — 랜딩 새소식 격자(제품이 `grid-template-rows` 선언을 `[grid-auto-rows:160px]` 로 바꿨다)의 행이 내용 높이(HUG)로 깔려 작은 카드가
+ * 160 → 119, 대표 카드(2×2)가 326 → 40 으로 접혀 홈 모바일 보드가 344 짧았다. 계산된 행 트랙(px)은 선언이든 내용이든 같은 꼴이라 결과로
+ * 가린다 — 내용 높이 행이면 그 행을 차지한 아이템 하나는 제 내용 높이가 칸 높이와 같다(행 크기 = 내용 기여의 최댓값). 바깥이 늘인 grid(최소
+ * 높이 · 고정 높이 · FILL)는 행이 늘어난 것이라 보지 않는다(gridStretchedRow 의 몫). 흐름 아이템이 모두 세로로 늘어났고(FILL) 그 누구의 내용
+ * 높이(흐름 자식의 측정 범위 + 패딩)도 제 칸 높이에 1 넘게 못 미치면, 행은 선언 크기다 — 계산된 행 크기를 FIXED 로 싣는다. 글자 · 고정 크기 ·
+ * 자식 없는 아이템이 하나라도 있으면 내용 높이를 가늠할 수 없어 보지 않는다.
+ * @returns {null | number[]}
+ */
+function contentFreeRows(style, sizing, children) {
+  if (sizing.layoutSizingVertical !== "HUG" || sizing.minHeight || sizing.maxHeight) return null;
+  const rows = parseTracks(style.gridTemplateRows)?.map(px);
+  if (!rows?.length || rows.some((value) => value == null)) return null;
+  const flow = children.filter((child) => child.positioning !== "ABSOLUTE");
+  if (flow.length === 0) return null;
+  for (const item of flow) {
+    if (item.sizing?.layoutSizingVertical !== "FILL" || item.text || !item.layout || item.sizing.minHeight) return null;
+    const inner = (item.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+    if (inner.length === 0) return null;
+    const top = Math.min(...inner.map((child) => child.rect.y - Math.max(0, child.margin?.top ?? 0)));
+    const bottom = Math.max(...inner.map((child) => child.rect.y + child.rect.height + Math.max(0, child.margin?.bottom ?? 0)));
+    // 위쪽 자리(패딩 + 테두리)는 측정 자리로 재고, 패딩으로 설명되지 않는 위 테두리는 아래에도 있다고 본다 — 테두리 1 짜리 카드가 위아래 2 를
+    // 못 세어 내용 높이 행인데도 걸렸다(공개 템플릿 시드 카드).
+    const lead = top - item.rect.y;
+    const content = lead + (bottom - top) + (item.layout.padding?.bottom ?? 0) + Math.max(0, lead - (item.layout.padding?.top ?? 0));
+    if (content >= item.rect.height - 1) return null;
+  }
   return rows.map((value) => Math.round(value * 100) / 100);
 }
 

@@ -1050,7 +1050,9 @@ const slimNode = (node) => ({
   ...(node.text ? { x: figmaTextValue(node) } : {}),
   // 글자 안의 범위 서식 [시작, 끝, 굵기(0 = 문단 그대로), 색("" = 그대로), 밑줄 1/0] — 섞인 문단(figma-tree-spec richInlineText).
   // 여섯째 칸(글자 크기)은 크기가 있는 범위에만 붙인다 — 각주 번호(2026-10-07). 없는 범위는 다섯 칸 그대로다.
-  ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0, ...(range.size ? [range.size] : [])]) } : {}),
+  // 일곱째 칸(자간에 더할 px)은 요소 margin 을 옮긴 범위에만 붙인다(2026-10-08, richInlineText `track`) — 여섯째 칸은 0 으로 채운다.
+  ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0,
+    ...(range.track ? [range.size ?? 0, range.track] : range.size ? [range.size] : [])]) } : {}),
   r: [round(node.rect.width), round(node.rect.height)],
   s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),

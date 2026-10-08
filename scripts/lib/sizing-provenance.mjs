@@ -152,8 +152,15 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
     }
   }
 
+  // **flex · grid 교차축의 `auto` 선언은 선언이 없는 것과 같다(2026-10-08).** `height: auto` 는 CSS 초기값이라 교차축 늘이기(`align-items:
+  // normal · stretch`)를 막지 않는다 — 랜딩 푸터 모바일 트랙의 이름 칸(`h2`, `height: auto` 선언 · grid 행 49)이 HUG 로 서서 칸 높이가 21 로
+  // 접혀, 칸 아래 선이 옆 링크 묶음의 선보다 28 위에 그려졌다(제품 캡처와 나란히 놓아 찾았다). 그 축은 아래 기본 규칙(3)으로 판정한다.
+  // 가로 block-level 의 `width: auto`(채운다)는 전과 같다.
+  const autoAsDefault = declared === "auto" && /flex|grid/.test(parentDisplay) && !mainAxisOfParent
+    && !(horizontal && BLOCK_LEVEL.test(computed?.display ?? "") && !isReplaced);
+
   // 2. 선언된 값이 있으면 그것이 정답이다 (CDP가 준 원문).
-  if (declared != null && declared !== "") {
+  if (declared != null && declared !== "" && !autoAsDefault) {
     const pct = percent(declared);
     if (pct === 100) {
       return { verdict: AXIS.FILL, reason: `${axis} 100% 선언 — 부모를 채운다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };

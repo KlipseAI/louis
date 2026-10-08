@@ -1915,7 +1915,8 @@ withCanary(
 // 직접 건 API · pin 별칭)에서 실제로 무는지 본다.
 for (const [label, needle, injected, diagnostic] of [
   ["마스터에 다시 건 pin", "unpin(topBar);\n", "unpin(topBar);\npin(topBar);\n", "pin() 은 measuredSection 에만"],
-  ["인스턴스에 직접 건 명시 모드", "unpin(barInstance);\n", "unpin(barInstance);\nbarInstance.setExplicitVariableModeForCollection(modeCollection, measuredMode.modeId);\n", "setExplicitVariableModeForCollection 직접 호출"],
+  // 2026-10-08: 러너가 편집 장면(상단 바 인스턴스)을 더는 고치지 않아 바늘을 레일 variant 안 접힌 CTA 인스턴스로 옮겼다.
+  ["인스턴스에 직접 건 명시 모드", "unpin(cta);\n", "{ unpin(cta); cta.setExplicitVariableModeForCollection(modeCollection, measuredMode.modeId); }\n", "setExplicitVariableModeForCollection 직접 호출"],
   ["pin 별칭", "pin(measuredSection);\n", "pin(measuredSection);\nconst setModes = pin;\nsetModes(railSet);\n", "pin 을 호출 밖에서 참조"],
 ]) {
   withCanary(

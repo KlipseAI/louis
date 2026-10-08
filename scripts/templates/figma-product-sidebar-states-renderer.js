@@ -5,9 +5,13 @@ await figma.setCurrentPageAsync(page);
 // **찾기가 먼저, 쓰기는 그 뒤다(2026-09-15).** 옛 러너는 접힌 CTA 마스터 · 레일 세트의 칠을 먼저 쓰고 나서야 편집 장면의
 // 옛 노드 id(옛 레일 · 옛 헤더 · breadcrumb · 액션 · 프로필 원본)를 찾았다. 그 노드들은 2026-08-24 라이브 교체 뒤로 파일에
 // 없어, 적용하면 세트를 칠한 채 「Missing video editor scene targets」로 던질 자리였다(부분 적용). 이제 이 러너는
-//   1. 쓰기 없이 필요한 대상을 **전부** 찾는다 — 편집 장면은 보드 프레임 하나(`install.sceneFrameId`, 이름으로 확인)에서
-//      내려가며 이름과 구조로 찾고, 원본 id 는 싣지 않는다. 하나라도 없거나 둘이면 여기서 던진다.
+//   1. 쓰기 없이 필요한 대상을 **전부** 찾는다. 하나라도 없거나 둘이면 여기서 던진다.
 //   2. 그 뒤에만 칠하고 짓고 옮긴다.
+// **편집 장면(보드 `39:3`)은 이 러너가 고치지 않는다(2026-10-08).** 앱 화면 생성기(`build-figma-app-screens` →
+// `figma/app-screens.videoeditor--projectId-.desktop.00.draw.js`, 계획 runners 의 frameId `39:3`)가 그 보드를 측정으로 다시
+// 그리며 손 조립 장면을 숨긴 `legacy//videoeditor/[projectId]` 묶음으로 넣었다. 이 러너가 그 보드에서 메인 카드 · 격자를 찾자
+// 찾기 단계에서 던져 세트(레일 획 맞춤 포함)가 영영 갱신되지 않았다. 이제 이 러너는 세트 · 마스터만 짓고 고친다 — 보드는 앱 화면
+// 생성기가 소유한다.
 // 새로 짓는 경로가 남은 것은 세트 · variant · 마스터 · 인스턴스뿐이다(원본이 필요 없다). 편집기 상단 바 컴포넌트는 원본
 // (옛 헤더의 breadcrumb · 액션 · 프로필)을 복제해 지었으므로 원본이 사라진 지금 새로 지을 수 없다 — 없으면 던진다.
 //
@@ -18,7 +22,6 @@ await figma.setCurrentPageAsync(page);
 // 이제 러너는 전에 자기가 걸었던 명시 모드를 걷고(`unpin` — 이 컬렉션만, 다른 override 는 건드리지 않는다), 마스터는 섹션의
 // 모드로 미리보기되고 인스턴스는 놓인 보드의 모드를 따른다. 생성기가 `pin` 이 섹션 밖을 가리키면 멈춘다.
 const { pin, paint, collections } = await liveVariables(F.bindings);
-const I = F.install;
 const found = (list, label) => {
   if (list.length > 1) throw new Error(`Ambiguous ${label}: ${list.map((entry) => `${entry.id} ${entry.name}`).join(" · ")}`);
   return list[0] ?? null;
@@ -57,25 +60,6 @@ if (existingSection) {
   if (foreign.length) throw new Error(`Section ${existingSection.id} ${F.sectionName} already carries another explicit mode: ${foreign.map((entry) => entry.join("=")).join(" · ")}`);
 }
 
-// 편집 장면 — 보드 프레임에서 내려가며 이름 · 구조로 찾는다.
-const video = await figma.getNodeByIdAsync(I.sceneFrameId);
-if (!video || video.type !== "FRAME" || !video.name.startsWith(I.sceneFramePrefix)) {
-  throw new Error(`Missing video editor scene frame ${I.sceneFrameId} named ${JSON.stringify(`${I.sceneFramePrefix}…`)}`);
-}
-const railInstance = found(
-  video.children.filter((entry) => entry.type === "INSTANCE" && (I.railInstanceNames.includes(entry.name) ||
-    (entry.mainComponent?.parent?.type === "COMPONENT_SET" && entry.mainComponent.parent.name === F.componentSetName))),
-  `rail instance in ${video.name}`,
-);
-const main = need(
-  found(video.children.filter((entry) => entry.type === "FRAME" && entry.children.some((child) => child.type === "FRAME" && child.name === I.bodyName)), `main card in ${video.name}`),
-  `main card (FRAME holding ${I.bodyName}) in ${video.name}`,
-);
-const strays = (parent, known) => parent.children.filter((entry) => entry.visible && !known.some((node) => node && node.id === entry.id));
-{
-  const extra = strays(video, [railInstance, main]);
-  if (extra.length) throw new Error(`Unexpected visible scene children in ${video.name}: ${extra.map((entry) => `${entry.id} ${entry.name}`).join(" · ")}`);
-}
 const topBar = need(
   found(page.findAll((entry) => entry.type === "COMPONENT" && entry.name === F.topBarName), `component ${F.topBarName}`),
   `component ${F.topBarName} — its breadcrumb · actions · profile sources are retired, so this runner does not build it`,
@@ -89,44 +73,6 @@ if (breadcrumbNode.type === "TEXT") {
   const fonts = new Map(breadcrumbNode.getStyledTextSegments(["fontName"]).map((segment) => [`${segment.fontName.family} · ${segment.fontName.style}`, segment.fontName]));
   await Promise.all([...fonts.values()].map((font) => figma.loadFontAsync(font)));
 }
-const topBarInstances = main.children.filter((entry) => entry.type === "INSTANCE" && (entry.mainComponent?.id === topBar.id || I.topBarInstanceNames.includes(entry.name)));
-const topBarInstance = found(topBarInstances, `top bar instance in ${main.name}`);
-if (topBarInstance && topBarInstance.mainComponent?.id !== topBar.id) {
-  throw new Error(`Top bar instance ${topBarInstance.id} points at ${topBarInstance.mainComponent?.name ?? "no component"}, not ${F.topBarName}`);
-}
-const body = child(main, (entry) => entry.type === "FRAME" && entry.name === I.bodyName, "editor body");
-{
-  const extra = strays(main, [topBarInstance, body]);
-  if (extra.length) throw new Error(`Unexpected visible children in ${main.name}: ${extra.map((entry) => `${entry.id} ${entry.name}`).join(" · ")}`);
-}
-const upper = child(body, (entry) => entry.type === "FRAME" && entry.name === I.upperRowName, "upper grid row");
-const timelineDivider = child(body, (entry) => entry.type === "FRAME" && entry.name === I.timelineDividerName, "timeline divider");
-const timeline = need(
-  found(body.children.filter((entry) => entry.visible && entry.id !== upper.id && entry.id !== timelineDivider.id), `timeline in ${body.name}`),
-  `timeline in ${body.name}`,
-);
-const assetsDivider = child(upper, (entry) => entry.type === "FRAME" && entry.name === I.assetsDividerName, "assets divider");
-const propertiesDivider = child(upper, (entry) => entry.type === "FRAME" && entry.name === I.propertiesDividerName, "properties divider");
-// 위 줄의 판 셋은 이름이 아니라 **자리**로 찾는다 — 디바이더 둘을 뺀 보이는 자식이 정확히 셋이고, 에셋 · 디바이더 · 미리보기 ·
-// 디바이더 · 속성 순서여야 한다(판 이름은 손 조립 주석이라 제품 문구가 바뀌면 흔들린다).
-const [assets, preview, properties] = (() => {
-  const panels = upper.children.filter((entry) => entry.visible && entry.id !== assetsDivider.id && entry.id !== propertiesDivider.id);
-  const order = upper.children.map((entry) => entry.id);
-  const at = (node) => order.indexOf(node.id);
-  if (panels.length !== 3 || !(at(panels[0]) < at(assetsDivider) && at(assetsDivider) < at(panels[1]) && at(panels[1]) < at(propertiesDivider) && at(propertiesDivider) < at(panels[2]))) {
-    throw new Error(`Unexpected editor columns in ${upper.name}: ${upper.children.map((entry) => entry.name).join(" · ")}`);
-  }
-  return panels;
-})();
-const gripOf = (divider) => need(found([...divider.children], `grip in ${divider.name}`), `grip in ${divider.name}`);
-const nodes = { assets, preview, properties, timeline, assetsGrip: gripOf(assetsDivider), propertiesGrip: gripOf(propertiesDivider), timelineGrip: gripOf(timelineDivider) };
-// 속성 판 안의 손 조립 내용 — 보이는 세로 Auto Layout 프레임 하나(제품 `propertiesPanelInner` 흉내)와 그 안의 가로 행(이름 · 값).
-// 이름은 손 조립 주석이라 구조로 찾는다. 트랙 폭이 바뀌어도 이 프레임은 제 폭에 남아 값 열이 잘렸다(S7) — 쓰기 단계에서 판 폭에 맞춘다.
-const propertiesInner = need(
-  found(properties.children.filter((entry) => entry.visible && entry.type === "FRAME" && entry.layoutMode === "VERTICAL"), `inner frame in ${properties.name}`),
-  `inner frame (vertical Auto Layout) in ${properties.name}`,
-);
-const propertiesRows = propertiesInner.children.filter((entry) => entry.visible && entry.type === "FRAME" && entry.layoutMode === "HORIZONTAL");
 
 // ── 2. 쓰기 ──────────────────────────────────────────────────────────────────────────
 // **선 아이콘의 획은 표시 크기를 따른다(2026-10-08).** `resize()` 는 기하만 줄이고 획을 그대로 둔다 — 32 마스터(획 2)를 20 자리에
@@ -224,7 +170,6 @@ const collapsedUpgradeMaster = (() => {
 // 레일 variant 하나를 짓는다(세트가 없을 때, 또는 세트에 그 variant 가 없을 때 — 있는 variant 는 지우지도 다시 짓지도 않는다).
 // 편집 화면 레일은 제품 개명대로 `Current=Composition` 이다(옛 러너는 라이브에 없는 `Current=VideoEditor` 를 찾았다).
 const RAIL_CURRENTS = ["Default", "Home", "Composition", "YouTube", "Upgrade"];
-const EDITOR_CURRENT = I.editorCurrent;
 const menuItems = [
   ["Search", "Search"], ["Home", "Home"], ["Canvas", "Canvas"],
   ["Composition", "Composition"], ["Highlight", "Highlight"], ["YouTube analytics", "YouTube"],
@@ -309,39 +254,39 @@ if (!railSet) {
     }
     // 있는 variant 는 기하를 두고 행 아이콘 잉크만 역할로 다시 건다(계획의 행 이름이 아닌 옛 행은 비활성 잉크). 옛 러너가 variant 와
     // 그 안 접힌 CTA 인스턴스에 건 명시 모드는 걷는다 — 세트 페이지에서는 섹션의 측정 모드로, 보드에서는 놓인 자리의 모드로 풀린다.
+    // **행 아이콘도 계획대로 맞춘다(2026-10-08).** 예전에는 잉크만 다시 걸어, 새로 지을 때만 타는 `fitLineIcon`(32 마스터 획 2 →
+    // 20 자리 1.25)과 캔버스 · 컴포지션 행의 새 마스터(icon/Canvas · icon/FilmSlate)가 라이브 세트에 닿지 않았다 — 라이브 세트의
+    // 행 아이콘 30개가 획 2, 캔버스 · 컴포지션 행은 icon/Graph · icon/MagicWand 그대로였다(LOUIS 읽기 탐침). 계획의 행이면 마스터가
+    // 다를 때 바꾸고 이름 · 크기 · 획을 새로 지을 때와 같게 맞춘다. 행의 직계 인스턴스만 본다(아이콘 안쪽 인스턴스는 건드리지 않는다).
     unpin(variant);
     for (const cta of variant.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id)) unpin(cta);
     for (const row of variant.findAll((entry) => entry.type === "FRAME" && entry.name.startsWith("row/"))) {
       const key = menuItems.find(([label]) => row.name === `row/${label}`)?.[1];
-      for (const icon of row.findAllWithCriteria({ types: ["INSTANCE"] })) recolor(icon, key === current ? F.paints.active : F.paints.inactive);
+      for (const icon of row.children.filter((entry) => entry.type === "INSTANCE")) {
+        if (key) {
+          if (icon.mainComponent?.id !== icons[key].id) icon.swapComponent(icons[key]);
+          // swapComponent 는 옛 아이콘 벡터의 칠 · 획 덮어쓰기를 같은 자리의 새 벡터에 옮긴다 — 부품 렌더러에서 옛 집 아이콘의 면 칠이
+          // icon/Canvas 외곽 사각형을 검게 메웠다(cba0b470). 칠 · 획의 «있고 없음»은 매 실행 마스터에서 다시 가져온다(색은 아래 recolor).
+          const masterParts = icons[key].findAll((node) => "fills" in node && "strokes" in node);
+          icon.findAll((node) => "fills" in node && "strokes" in node).forEach((part, index) => {
+            const source = masterParts[index];
+            if (!source || !Array.isArray(source.fills) || !Array.isArray(source.strokes)) return;
+            part.fills = source.fills.map((entry) => ({ ...entry }));
+            part.strokes = source.strokes.map((entry) => ({ ...entry }));
+          });
+          icon.name = `icon/${key}`;
+          fitLineIcon(icon, 20);
+        }
+        recolor(icon, key === current ? F.paints.active : F.paints.inactive);
+      }
     }
   }
 }
 
-const railMaster = railSet.children.find((entry) => entry.type === "COMPONENT" && entry.name === `Current=${EDITOR_CURRENT}`);
-// 옛 러너가 놓은 인스턴스(`gnb/Current=VideoEditor · …`)는 같은 노드를 새 variant 로 바꿔 쓰고 이름도 제품 개명대로 고친다 —
-// 새로 하나 더 놓지 않는다.
-let rail = railInstance;
-if (!rail) {
-  rail = railMaster.createInstance();
-  video.insertChild(0, rail);
-} else if (rail.mainComponent?.id !== railMaster.id) rail.swapComponent(railMaster);
-rail.name = I.railInstanceNames[0];
-rail.resize(56, 1080);
-video.layoutMode = "HORIZONTAL";
-video.itemSpacing = 0;
-fixed(video, 1920, 1080);
-main.layoutMode = "VERTICAL";
-main.itemSpacing = 0;
-main.counterAxisAlignItems = "CENTER";
-fixed(main, PLAN.measurements.collapsed.main.width, PLAN.measurements.collapsed.main.height);
-
-// ── 상단 바 · 편집기 본문: 계산된 크기를 굳히지 않는다(2026-09-14) ─────────────────────────
-// 예전에는 바를 FIXED main 폭 × 52, 앞머리를 FIXED 68×36, 프로필을 36 으로, 본문 격자를 1832×996 · 미리보기 1259 ·
-// 위 칸 656 으로 박았다. 제품 바는 높이를 선언하지 않고(패딩 + 가장 큰 자식), 격자의 1fr 칸은 남는 자리다.
-// 그래서 바는 가로 Auto Layout HUG, 앞머리 · 프로필 묶음은 HUG 에 선언 크기 컨트롤, 본문은 main 을 채우고
-// 셸 인셋(사방)을 패딩으로, 트랙은 선언 기본값만 FIXED 로 두고 1fr 칸은 FILL 이다. 매 실행 다시 박는다 —
-// 없을 때만 짓던 옛 경로는 한 번 틀린 기하를 영영 고치지 못했다.
+// ── 상단 바 마스터: 계산된 크기를 굳히지 않는다(2026-09-14) ─────────────────────────
+// 예전에는 바를 FIXED main 폭 × 52, 앞머리를 FIXED 68×36, 프로필을 36 으로 박았다. 제품 바는 높이를 선언하지 않는다(패딩 +
+// 가장 큰 자식). 그래서 바는 가로 Auto Layout HUG, 앞머리 · 프로필 묶음은 HUG 에 선언 크기 컨트롤이다. 매 실행 다시 박는다 —
+// 없을 때만 짓던 옛 경로는 한 번 틀린 기하를 영영 고치지 못했다. 편집 장면의 본문 격자는 앱 화면 생성기의 보드가 소유한다.
 const E = PLAN.measurements.editor;
 const T = E.topBar;
 const hug = (node) => {
@@ -349,7 +294,7 @@ const hug = (node) => {
   node.counterAxisSizingMode = "AUTO";
 };
 // 아래 선은 매 실행 역할로 다시 건다(옛 획은 은퇴한 컬렉션 변수 + 페인트 불투명도 0.08 이었다). 마스터의 명시 모드는 걷는다 —
-// 이 마스터의 인스턴스는 라이트 보드(`39:3`)에 놓여 있다.
+// 인스턴스는 놓인 자리의 모드를 따라야 한다.
 topBar.strokes = [paint("topBarDivider")];
 unpin(topBar);
 topBar.layoutMode = "HORIZONTAL";
@@ -400,63 +345,6 @@ for (const entry of profileCluster.children) {
     hug(entry);
   }
 }
-let barInstance = topBarInstance;
-if (!barInstance) barInstance = topBar.createInstance();
-barInstance.name = I.topBarInstanceNames[0];
-// 마스터에서 걷은 뒤에도 인스턴스 자신에 남은 명시 모드(옛 러너가 인스턴스에 직접 건 것)가 있으면 걷는다.
-unpin(rail);
-unpin(barInstance);
-
-main.insertChild(0, barInstance);
-main.insertChild(1, body);
-barInstance.layoutSizingHorizontal = "FILL";
-barInstance.layoutSizingVertical = "HUG";
-body.layoutMode = "VERTICAL";
-body.clipsContent = true;
-body.paddingTop = body.paddingRight = body.paddingBottom = body.paddingLeft = E.shellInset;
-body.itemSpacing = E.rowGap;
-body.layoutSizingHorizontal = "FILL";
-body.layoutSizingVertical = "FILL";
-upper.layoutMode = "HORIZONTAL";
-upper.itemSpacing = E.columnGap;
-for (const entry of [nodes.assets, assetsDivider, nodes.preview, propertiesDivider, nodes.properties]) upper.appendChild(entry);
-for (const entry of [upper, timelineDivider, nodes.timeline]) body.appendChild(entry);
-upper.layoutSizingHorizontal = "FILL";
-upper.layoutSizingVertical = "FILL";
-const track = (node, width) => {
-  node.resize(width, node.height);
-  node.layoutSizingHorizontal = "FIXED";
-  node.layoutSizingVertical = "FILL";
-};
-track(nodes.assets, E.columns.assets);
-track(assetsDivider, E.columns.assetsDivider);
-nodes.preview.layoutSizingHorizontal = "FILL";
-nodes.preview.layoutSizingVertical = "FILL";
-track(propertiesDivider, E.columns.propertiesDivider);
-track(nodes.properties, E.columns.properties);
-// 속성 판 안쪽 — 판 폭을 따르게(가로 STRETCH) 맞추고 제품의 안쪽 여백 · 간격, 행 가로 패딩을 건다. 높이는 내용으로 HUG 한다.
-propertiesInner.x = 0;
-propertiesInner.y = 0;
-propertiesInner.resize(nodes.properties.width, propertiesInner.height);
-propertiesInner.primaryAxisSizingMode = "AUTO";
-propertiesInner.counterAxisSizingMode = "FIXED";
-propertiesInner.constraints = { horizontal: "STRETCH", vertical: "MIN" };
-propertiesInner.paddingTop = propertiesInner.paddingRight = propertiesInner.paddingBottom = propertiesInner.paddingLeft = E.propertiesPanel.innerPadding;
-propertiesInner.itemSpacing = E.propertiesPanel.innerGap;
-for (const row of propertiesRows) row.paddingLeft = row.paddingRight = E.propertiesPanel.rowPaddingInline;
-timelineDivider.resize(timelineDivider.width, E.rows.timelineDivider);
-timelineDivider.layoutSizingHorizontal = "FILL";
-timelineDivider.layoutSizingVertical = "FIXED";
-nodes.timeline.resize(nodes.timeline.width, E.rows.timeline);
-nodes.timeline.layoutSizingHorizontal = "FILL";
-nodes.timeline.layoutSizingVertical = "FIXED";
-nodes.assetsGrip.x = 0;
-nodes.assetsGrip.y = 260;
-nodes.propertiesGrip.x = 0;
-nodes.propertiesGrip.y = 260;
-nodes.timelineGrip.x = 868;
-nodes.timelineGrip.y = -0.5;
-
 // 세트 · 마스터를 측정 섹션 안에 한 줄씩 쌓는다(형제 러너와 같은 여백, 높이는 실제 크기로 잰다). 섹션 밖에 있으면 들인다 —
 // 옮기는 것은 부모와 자리뿐이고 id · 인스턴스 연결은 그대로다.
 {
@@ -472,37 +360,26 @@ nodes.timelineGrip.y = -0.5;
   }
   measuredSection.resizeWithoutConstraints(Math.max(measuredSection.width, right), Math.max(measuredSection.height, cursor));
 }
-// 되읽기 — 명시 모드(이 컬렉션)와 잘린 자손. 둘 다 비어 있어야 한다(섹션만 측정 모드 · 속성 판 안에서 잘리는 것 0).
+// 되읽기 — 명시 모드(이 컬렉션)와 행 아이콘 획. 명시 모드는 비어 있어야 한다(섹션만 측정 모드).
 const modeName = (node) => {
   const modeId = node.explicitVariableModes[modeCollection.id];
   return modeId === undefined ? null : modeCollection.modes.find((entry) => entry.modeId === modeId)?.name ?? modeId;
 };
-const pinned = [measuredSection, railSet, ...railSet.children, ...railSet.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id), collapsedUpgradeMaster, topBar, rail, barInstance]
+const pinned = [measuredSection, railSet, ...railSet.children, ...railSet.findAll((entry) => entry.type === "INSTANCE" && entry.mainComponent?.id === collapsedUpgradeMaster.id), collapsedUpgradeMaster, topBar]
   .map((node) => [node.id, modeName(node)])
   .filter(([, mode]) => mode !== null);
-// 잘림은 자르는 조상마다 본다 — 판과 그 안의 행이 모두 clipsContent 다. 자손 상자가 가장 가까운 자르는 조상 상자를 넘으면 잘린다.
-const outside = (inner, outer) => inner.x < outer.x - 0.5 || inner.y < outer.y - 0.5 ||
-  inner.x + inner.width > outer.x + outer.width + 0.5 || inner.y + inner.height > outer.y + outer.height + 0.5;
-const propertiesOverflow = nodes.properties.findAll((entry) => {
-  if (!entry.visible || !entry.absoluteBoundingBox) return false;
-  let clip = entry.parent;
-  while (clip && clip.id !== nodes.properties.id && !clip.clipsContent) clip = clip.parent;
-  return outside(entry.absoluteBoundingBox, (clip ?? nodes.properties).absoluteBoundingBox);
-}).map((entry) => `${entry.id} ${entry.name}`);
+// 행 아이콘 — 마스터 이름과 획 두께(획이 있는 자손의 서로 다른 값). 32 마스터 획 2 가 20 자리에서 1.25 여야 한다.
+const rowIcons = railSet.children.flatMap((variant) => variant.findAll((entry) => entry.type === "FRAME" && entry.name.startsWith("row/")).flatMap((row) =>
+  row.children.filter((entry) => entry.type === "INSTANCE").map((icon) => [
+    `${variant.name} ${row.name}`,
+    `${icon.mainComponent?.name ?? "no component"} · ${[...new Set(icon.findAll((node) => "strokeWeight" in node && Array.isArray(node.strokes) && node.strokes.length > 0).map((node) => node.strokeWeight))].join("/") || "no stroke"}`,
+  ])));
 return {
   railSetId: railSet.id,
   railVariantIds: railSet.children.map((entry) => entry.id),
   collapsedUpgradeMasterId: collapsedUpgradeMaster.id,
-  videoFrameId: video.id,
-  railInstanceId: rail.id,
-  mainId: main.id,
   topBarId: topBar.id,
-  topBarInstanceId: barInstance.id,
-  bodyId: body.id,
-  editorNodeIds: Object.fromEntries(Object.entries(nodes).map(([key, node]) => [key, node.id])),
   sectionId: measuredSection.id,
   explicitModes: Object.fromEntries(pinned),
-  propertiesInnerId: propertiesInner.id,
-  propertiesRowIds: propertiesRows.map((entry) => entry.id),
-  propertiesOverflow,
+  rowIcons: Object.fromEntries(rowIcons),
 };

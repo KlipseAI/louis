@@ -88,7 +88,7 @@ const BASELINE = {
   "build-figma-variable-source.mjs": 2,
   // 렌더러 템플릿. 대부분 보드 캔버스 — 섹션(`resizeWithoutConstraints(1800, 980)` 류와 그 최소 크기 비교) ·
   // 문서 프레임 · 세트 크기 · 열 폭이다. 캔버스가 아닌 것: 사이드바 상태 렌더러의 접힌 레일 조각
-  // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` · `rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` 등 18).
+  // (`fixed(top, 32, 264)` · `fixed(menu, 32, 212)` 등 — 장면 수리 몫은 2026-10-08 에 걷었다).
   // 결제 장면 렌더러의 둘은 문서 프레임(`docs.resize(840, 156)`)이다.
   // 2026-09-28: 컴포넌트 렌더러 12 → 10 — 패딩 4 → spacing4 바인딩 비교 둘을 걷었다. 간격 · 패딩은 이제 값이 같은 `spacing/<n>` 에
   // 한 함수(`bindSpacing`)로 묶는다(사이드바 셸 패딩을 넷 다 `spacing/12` 에 묶어 측정 8 · 0 을 덮어쓰던 것을 고치며).
@@ -97,7 +97,9 @@ const BASELINE = {
   "templates/figma-product-payment-scenes-renderer.js": 2,
   // 사이드바 상태 렌더러에는 [설명 수치] 둘도 들어 있다 — 노드 이름 「label clip · measured 12×18」 · 「96×28 clipped」(묶음 4).
   // 2026-10-06: 접힌 레일의 묶음 · 메뉴 고정(`fixed(top, 32, 264)` · `fixed(menu, 32, 212)`)을 HUG 로 풀었다: 20 → 16(묶음 4).
-  "templates/figma-product-sidebar-states-renderer.js": 16,
+  // 2026-10-08: 편집 장면 수리(`rail.resize(56, 1080)` · `fixed(video, 1920, 1080)` · 그립 자리)를 걷었다 — 보드 `39:3` 은 앱 화면
+  // 생성기가 소유한다: 16 → 10.
+  "templates/figma-product-sidebar-states-renderer.js": 10,
   // 2026-09-26: 글리프 렌더러의 보드 캔버스 — 섹션 안 첫 세트의 y 160(부품 섹션과 같은 배치). 새 섹션의 자리 채움 크기
   // (`resizeWithoutConstraints(2000, 1000)`, 끝에서 내용으로 다시 잰다)는 걷었다: 3 → 1.
   "templates/figma-product-glyphs-renderer.js": 1,

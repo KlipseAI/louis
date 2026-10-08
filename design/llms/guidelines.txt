@@ -16044,6 +16044,16 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-08 (226) — Figma: Dialog 닫기 글리프 · Menu 항목 가시성 참조
+
+- `Dialog` 여섯 변형의 닫기(`Close`, IconButton ghost · md 인스턴스)가 IconButton 기본 글리프 `icon/plus` 를 그대로 물고 있어
+  「+」로 보였다. `Glyph` 스왑을 LOUIS 아이콘 세트의 `icon/x`(`667:32`, IconButton 의 선호 글리프 목록에 있다)로 바꿨다.
+- `Menu` 항목 set 의 `State=Busy` · `State=Selected` 네 변형(base · description)은 `Icon` · `Trailing` · `Check` 의 가시성 참조가
+  원래부터 비어 있어 인스턴스에서 `HasIcon` · `HasTrailing` · `Checked` 를 켜도 듣지 않았다. 다른 열 변형과 같이 세 BOOLEAN 에
+  이었다(기본값은 모두 꺼짐이라 겉모습은 그대로다).
+- 둘 다 되읽기 채취 축(기하 · 바인딩 · 속성 정의) 밖이라 `figma/readback.json` 은 되읽어 병합해도 바뀌지 않았고, parity ·
+  snapshot 게이트도 이 두 결함을 잡지 못한다 — 인스턴스 안 글리프와 속성 참조를 세는 축은 아직 없다.
+
 #### 2026-10-08 (225) — Figma: FloatingShell 에 compact 변형(Size md · lg)
 
 - 단일 COMPONENT 이던 `FloatingShell` 이 component set(2 변형)이 됐다. 축은 `Size` 하나 — `md` 가 기존 변형(속성 없음, 조각 32 ·

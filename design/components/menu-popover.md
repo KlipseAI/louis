@@ -621,6 +621,8 @@ Disabled 에서는 `color/fg-disabled`)을 `Text` 열(간격 `spacing/overlay-it
 남는다. parity 계약은 `components.measured.json` 의 `menu-popover.sizes.descriptionItem`(높이 · 정렬 · 열 간격 · 설명 서체)과
 대조한다.
 
+**`Busy` · `Selected` 네 변형도 `Icon` · `Trailing` · `Check` 가시성을 BOOLEAN `HasIcon` · `HasTrailing` · `Checked` 에 잇는다(2026-10-08).** 그 넷만 참조가 비어 있어 인스턴스에서 토글이 듣지 않았다. 되읽기는 속성 참조를 담지 않아 parity 가 잡지 못한다.
+
 **아이콘 타일(`data-shape="tile"`)은 Figma 에 아직 없다.** 타일 면(잉크 12% 로 닫은 값)이 Known deviations 「아이콘 타일 면」의
 소유자 판정을 기다리고 있어, 판정 전에 변형으로 굳히지 않았다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은
 CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.

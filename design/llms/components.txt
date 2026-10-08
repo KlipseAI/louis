@@ -1806,6 +1806,8 @@ Disabled 에서는 `color/fg-disabled`)을 `Text` 열(간격 `spacing/overlay-it
 남는다. parity 계약은 `components.measured.json` 의 `menu-popover.sizes.descriptionItem`(높이 · 정렬 · 열 간격 · 설명 서체)과
 대조한다.
 
+**`Busy` · `Selected` 네 변형도 `Icon` · `Trailing` · `Check` 가시성을 BOOLEAN `HasIcon` · `HasTrailing` · `Checked` 에 잇는다(2026-10-08).** 그 넷만 참조가 비어 있어 인스턴스에서 토글이 듣지 않았다. 되읽기는 속성 참조를 담지 않아 parity 가 잡지 못한다.
+
 **아이콘 타일(`data-shape="tile"`)은 Figma 에 아직 없다.** 타일 면(잉크 12% 로 닫은 값)이 Known deviations 「아이콘 타일 면」의
 소유자 판정을 기다리고 있어, 판정 전에 변형으로 굳히지 않았다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은
 CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
@@ -7762,6 +7764,8 @@ surface 위 패딩을 두는 것과 같은 결과다. BOOLEAN 이 아니라 축�
 ([Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 시험 2). parity 계약은
 `components.measured.json` 의 `dialog.sizes["sheet/grabber"]`(띠 높이 · 막대 치수 · 위 패딩)와 대조한다. 탭 · 쓸기 동작은
 Figma 에 그리지 않는다 — 위 동작 계약이 소유한다.
+
+**Figma 닫기 글리프는 `icon/x` 다(2026-10-08).** 여섯 변형의 `Close`(IconButton ghost · md) 인스턴스가 IconButton 기본 글리프 `icon/plus` 를 그대로 물고 있어 「+」로 보였다 — `Glyph` 스왑을 `icon/x` 로 바꿨다. 되읽기는 인스턴스 안으로 들어가지 않아 이 어긋남을 parity 가 잡지 못한다.
 
 #### Modal and Workspace separation
 

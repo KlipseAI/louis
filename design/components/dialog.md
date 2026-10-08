@@ -291,6 +291,8 @@ surface 위 패딩을 두는 것과 같은 결과다. BOOLEAN 이 아니라 축�
 `components.measured.json` 의 `dialog.sizes["sheet/grabber"]`(띠 높이 · 막대 치수 · 위 패딩)와 대조한다. 탭 · 쓸기 동작은
 Figma 에 그리지 않는다 — 위 동작 계약이 소유한다.
 
+**Figma 닫기 글리프는 `icon/x` 다(2026-10-08).** 여섯 변형의 `Close`(IconButton ghost · md) 인스턴스가 IconButton 기본 글리프 `icon/plus` 를 그대로 물고 있어 「+」로 보였다 — `Glyph` 스왑을 `icon/x` 로 바꿨다. 되읽기는 인스턴스 안으로 들어가지 않아 이 어긋남을 parity 가 잡지 못한다.
+
 ## Modal and Workspace separation
 
 Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면

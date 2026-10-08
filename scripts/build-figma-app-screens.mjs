@@ -618,7 +618,8 @@ const PRODUCT_PARTS = [
       ["Viewport=Desktop", "desktop-1920x1080", { length: 62, fnv: "f262472e" }, "2677:4185"],
       // 모바일(2677:4186)은 한때 뺐다가 되살렸다(2026-10-08) — 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이
       // 혼자 한 줄을 차지해 줄 폭까지 줄어들며 두 줄로 감기는데, 크기 조합 풀이(reconcileFigmaSizing)가 그 꼴을 풀지 못해 부품이 멈췄다.
-      // 「감기는 줄에서 혼자 한 줄을 차지한 감긴 글자」 규칙(같은 함수 · 조립 규칙 28조)이 측정 폭 FIXED 로 푼다. 모바일 글자 서열은
+      // 「감기는 줄에서 혼자 한 줄을 차지한 감긴 글자」 규칙(조립 규칙 28조)이 푼다 — 첫 판(2026-10-08)은 측정 폭 FIXED 였고 늘림 시험 360 에서
+      // 넘쳐, 2026-10-09 부터 그 자리에서 줄을 끊고 글자는 줄 폭 FILL 이다(splitWrapRowsAtLoneText). 모바일 글자 서열은
       // 트랙 이름이 아이콘만 남아 데스크톱보다 짧다(23).
       ["Viewport=Mobile", "mobile-402x874", { length: 23, fnv: "98743518" }, "2677:4186"],
     ].map(([variant, context, anchor, component]) => ({ variant, route: "/inquiry", context, path: "body.1.0.0.3", fixture: "public", anchor, component })),
@@ -1334,7 +1335,74 @@ const UNRESOLVED_FILL_KIND = {
   larger: "측정 크기가 내용보다 크다 — 부모 밖(부모 판정 · grid 트랙)에서 왔거나 측정기가 싣지 않은 선언(block-size 등)이다",
   smaller: "측정 크기가 내용보다 작다 — 수축(flex-shrink)이다",
 };
+/**
+ * **감기는 줄에서 혼자 한 줄을 차지한 감긴 글자는 그 자리에서 줄을 끊는다(2026-10-09).** `flex-wrap: wrap` 줄의 항목은 한 줄 내용
+ * (max-content)이 남은 폭보다 길면 제 줄로 내려가 줄 폭까지 줄어들며(flex-shrink) 감긴다 — 공개 푸터 모바일의 주소 칸(li, 362 · 두 줄).
+ * Figma 감기 자동 배치에는 그 「내용 폭으로 줄을 고르고 줄 폭으로 줄어드는」 항목이 없다:
+ *   · 측정 폭 FIXED(a51d4b7c 첫 판)는 줄이 좁아지면 넘친다 — 늘림 시험 run 2026-10-09a 의 360 에서 줄 320 보다 +42 · 보드 밖 +22,
+ *     공개 모바일 보드 일곱의 글자 잘림 1 → 8.
+ *   · 감기 줄 안의 FILL 글자는 줄을 고를 때 폭이 0 인 것처럼 앞 항목 뒤에 붙는다(라이브 탐침 2026-10-09: 362 줄에서 「Business
+ *     Registration No.」 219.27 뒤 남은 120.73 에 서서 다섯 줄로 감겼고, 390 줄에서는 14.62 폭 · 37 줄).
+ * 그래서 측정에서 혼자 선 줄을 구조로 옮긴다 — 감기는 줄을 세로 쌓기(간격 = 줄 간격)로 바꾸고, 그 글자 앞 · 뒤의 항목은 원래 줄의
+ * 배치(감기 · 간격 · 정렬)를 그대로 가진 칠 없는 감기는 줄(가로 FILL · 세로 HUG)로 묶는다. 글자는 세로 쌓기의 흐름 자식이 되어
+ * 「줄바꿈 텍스트」 규칙대로 폭 FILL(줄 폭을 따른다)이 된다. 측정 폭에서는 줄 나눔 · 자리가 같고(옛 · 새 생성기 대조), 줄이 좁아져도
+ * 글자는 줄 폭을 따른다. 절대 배치 자식이 있는 감기는 줄은 건드리지 않는다(절대 자식의 자리 기준이 바뀐다).
+ *
+ * 끊은 글자는 「제품 줄을 옮긴 글자」의 폭 맞춤(hugCarriedLines)에서 뺀다 — 그 규칙은 Figma 글꼴이 칸보다 몇 px 넓어 옮긴 줄을 다시 감는
+ * 자리를 막지만, 여기서는 줄 폭을 따르는 것이 목적이고 여유가 넉넉하다. 원장 근거(2026-10-09, 주소 칸): 같은 li 의 데스크톱 측정이 한 줄
+ * 400.23(max-content)이라 줄 폭 400 아래(모바일 시험 360 · 430 의 줄 320 · 390)에서는 제품도 늘 혼자 한 줄이고, 같은 글꼴(Pretendard 12 ·
+ * 자간 −0.12) 한 줄 표본 55 로 맞춘 글자 폭(잔차 RMS 0.83 · 상대 최대 4.3%)으로 옮긴 두 줄은 약 180 · 221(오차를 얹어 188 · 231)이다 —
+ * 측정 줄 362 에서 131, 360 시험의 줄 320 에서 89 남는다.
+ */
+function splitWrapRowsAtLoneText(spec) {
+  const loneWrappedText = (node, parent) => {
+    const lineHeight = node.typography?.lineHeight;
+    if (!node.text || node.paint || node.layout || node.instance || node.positioning === "ABSOLUTE" || !lineHeight) return false;
+    if (node.sizing.layoutSizingHorizontal !== "HUG" || node.rect.height < lineHeight * 2 - HALF_PIXEL) return false;
+    const room = parent.rect.width - parent.layout.padding.left - parent.layout.padding.right;
+    return flowChildren(parent).every((child) => child === node
+      || child.rect.y >= node.rect.y + node.rect.height - HALF_PIXEL || child.rect.y + child.rect.height <= node.rect.y + HALF_PIXEL)
+      && Math.abs(node.rect.width + (node.margin?.left ?? 0) + (node.margin?.right ?? 0) - room) <= HALF_PIXEL;
+  };
+  const walk = (node) => {
+    if (node.instance) return;
+    const layout = node.layout;
+    const children = node.children ?? [];
+    // 자식이 하나면 끊을 줄이 없다(그 글자는 「가로 줄 안에서 줄어들어 감긴 글자」 판정이 남은 폭 FILL 로 푼다).
+    if (layout?.layoutMode === "HORIZONTAL" && layout.wrap && node.sizing.layoutSizingHorizontal !== "HUG" && children.length > 1
+      && children.every((child) => child.positioning !== "ABSOLUTE")) {
+      const at = children.findIndex((child) => loneWrappedText(child, node));
+      if (at >= 0) {
+        const lone = children[at];
+        const group = (items, suffix) => {
+          if (items.length === 0) return [];
+          const top = Math.min(...items.map((child) => child.rect.y - (child.margin?.top ?? 0)));
+          const bottom = Math.max(...items.map((child) => child.rect.y + child.rect.height + (child.margin?.bottom ?? 0)));
+          const reason = `감기는 줄(${node.path})을 혼자 한 줄을 차지한 감긴 글자(${lone.path}) 자리에서 끊은 줄 — 줄 폭을 따른다(FILL), 높이는 내용(HUG)`;
+          return [{
+            path: `${node.path}~lines-${suffix}`, tag: "lines", name: `lines ${suffix} ${node.path}`, text: null, textLines: null, paints: false,
+            rect: { x: node.rect.x + layout.padding.left, y: top, width: node.rect.width - layout.padding.left - layout.padding.right, height: bottom - top },
+            glyph: null, paint: null, typography: null, positioning: "AUTO", margin: null, offset: null, constraints: null,
+            sizing: { layoutSizingHorizontal: "FILL", layoutSizingVertical: "HUG", minWidth: null, maxWidth: null, minHeight: null, maxHeight: null, unresolved: [] },
+            why: { horizontal: { verdict: "FILL", reason }, vertical: { verdict: "HUG", reason } },
+            layout: { ...layout, padding: { top: 0, right: 0, bottom: 0, left: 0 } },
+            clipsContent: false,
+            children: items,
+          }];
+        };
+        // 끊은 자리의 글자는 줄 폭을 따른다 — 「제품 줄을 옮긴 글자」의 폭 맞춤(hugCarriedLines)이 세로 쌓기 안의 글자로 보고 HUG 로 돌리지 않게 표시한다.
+        lone.splitWrapLine = node.path;
+        node.children = [...group(children.slice(0, at), "before"), lone, ...group(children.slice(at + 1), "after")];
+        node.layout = { ...layout, layoutMode: "VERTICAL", itemSpacing: layout.counterAxisSpacing ?? 0, counterAxisSpacing: null, wrap: false,
+          align: { counterAxis: "MIN", primaryAxis: null } };
+      }
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  walk(spec);
+}
 function reconcileFigmaSizing(spec) {
+  splitWrapRowsAtLoneText(spec);
   const reconciled = [];
   const unresolvedWraps = [];
   const unresolvedFillInHug = [];
@@ -1363,16 +1431,6 @@ function reconcileFigmaSizing(spec) {
         : null;
       const fillsRow = row && siblings.every((child) => child.sizing.layoutSizingHorizontal !== "FILL")
         && Math.abs(node.rect.width - leftover) <= HALF_PIXEL;
-      // **감기는 줄에서 혼자 한 줄을 차지한 감긴 글자(2026-10-08).** `flex-wrap: wrap` 줄의 항목은 한 줄 내용이 줄 폭보다 길면 제 줄로
-      // 내려가 줄 폭까지 줄어들며(flex-shrink) 감긴다 — 공개 푸터 모바일의 주소 칸(li, 362 · 두 줄)이 그 꼴인데, 형제가 다른 줄에 있어
-      // 「남은 폭」 판정에 걸리지 않아 부품이 멈췄다. 측정에서 그 줄에 다른 흐름 형제가 없고 폭(바깥 여백 포함)이 줄 안쪽 폭과 같으면 폭을
-      // 정한 것은 수축이다 — 조립 규칙 28조의 예외 3(수축으로 감긴 글자는 측정 상자 폭)대로 FIXED 로 둔다. Figma 감기 자동 배치의 FILL 은
-      // 줄을 나누는 기준이 CSS 와 달라 쓰지 않는다.
-      const wrapRow = parent?.layout?.layoutMode === "HORIZONTAL" && parent.layout.wrap;
-      const aloneOnLine = wrapRow && room != null
-        && flowChildren(parent).every((child) => child === node
-          || child.rect.y >= node.rect.y + node.rect.height - HALF_PIXEL || child.rect.y + child.rect.height <= node.rect.y + HALF_PIXEL)
-        && Math.abs(node.rect.width + (node.margin?.left ?? 0) + (node.margin?.right ?? 0) - room) <= HALF_PIXEL;
       if (definite && node.rect.width <= room + HALF_PIXEL) {
         change(node, "horizontal", "FILL",
           `측정 글자가 ${lines}줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 ${parent.sizing.layoutSizingHorizontal})가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
@@ -1380,10 +1438,6 @@ function reconcileFigmaSizing(spec) {
       } else if (fillsRow) {
         change(node, "horizontal", "FILL",
           `측정 글자가 ${lines}줄로 감겼다 — 폭은 가로 줄(폭 ${parent.sizing.layoutSizingHorizontal})에서 형제가 쓰고 남은 폭 ${Math.round(leftover * 100) / 100} 이다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
-          `height ${node.rect.height} / line-height ${lineHeight}`);
-      } else if (aloneOnLine) {
-        change(node, "horizontal", "FIXED",
-          `측정 글자가 ${lines}줄로 감겼다 — 감기는 가로 줄(${parent.path})에서 혼자 한 줄을 차지해 줄 안쪽 폭 ${Math.round(room * 100) / 100} 까지 줄어들었다(수축). HUG 글자는 Figma 에서 한 줄로 늘어난다`,
           `height ${node.rect.height} / line-height ${lineHeight}`);
       } else {
         unresolvedWraps.push({ path: node.path, lines, parent: parent?.path ?? null });
@@ -1720,14 +1774,15 @@ function hoistBleed(spec) {
  * 개인정보 80 · 약관 모바일 92 내려갔다(끝 대조 · 글자 대조로 찾았다 — 줄바꿈을 넣지 않은 옛 손 보드 글자는 Figma 가 스스로 두 줄로 감았다).
  * 줄을 옮긴 글자를 가로 · 세로 HUG(폭 맞춤)로 둬 줄바꿈이 제품 자리에서만 일어나게 한다. **상자 폭이 바뀌어도 자리가 같은 경우만** —
  * 시작 정렬 글자이고, 부모가 폭이 정해진(HUG 아닌) 세로 쌓기이며 교차축이 시작이거나 글자가 부모의 흐름 자식 하나이고, 측정 상자가 부모
- * 내용의 시작선에 붙어 있을 때. 가운데 · 끝 정렬 글자, 여러 자식이 선 가로 줄 안의 글자, grid 칸의 글자는 그대로 둔다.
+ * 내용의 시작선에 붙어 있을 때. 가운데 · 끝 정렬 글자, 여러 자식이 선 가로 줄 안의 글자, grid 칸의 글자는 그대로 둔다. 감기는 줄을 끊은
+ * 자리의 글자(splitWrapRowsAtLoneText)도 그대로 둔다 — 줄 폭을 따르게 끊은 것이다.
  */
 function hugCarriedLines(spec) {
   const changed = [];
   const walk = (node, parent) => {
     if (node.instance) return;
     const carried = Array.isArray(node.wrapLines) && node.wrapLines.length > 1;
-    if (carried && node.text && parent && !node.typography?.align && node.positioning !== "ABSOLUTE"
+    if (carried && node.text && parent && !node.splitWrapLine && !node.typography?.align && node.positioning !== "ABSOLUTE"
       && node.sizing?.layoutSizingHorizontal !== "HUG" && parent.sizing?.layoutSizingHorizontal !== "HUG") {
       const layout = parent.layout ?? {};
       const flow = flowChildren(parent);

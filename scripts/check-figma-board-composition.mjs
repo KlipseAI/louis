@@ -253,7 +253,23 @@ const UNCLASSIFIED_BASELINE = 0;
 // · 404, 두 뷰포트)가 LOUIS Button 인스턴스 18 을 갖는다: inverse lg 10(로그인 · 가입 · 재설정 둘 · 복구의 주 버튼), ghost md 4(가입의 약관
 // 「View」 둘), primary md 4(`/aws/signup` 가입 · 404 「Back to home」). 셸은 없다 — 인증 화면은 앱 셸 밖이다(아래 셸 표에 넣지 않는다).
 // 2026-09-30: 266 → **274.** 보드가 늘어서다 — 랜딩 두 보드의 LOUIS 인스턴스 8.
-const INSTANCE_FLOOR = 274;
+// 2026-10-08: 274 → **262.** 제품 측정 앵커를 통합 판(76b6cf15, DS-D-0079)으로 옮겨 다시 잰 결과다. 커밋된 원장(HEAD, 302 — 이 바닥이
+// 따라가지 못한 판)과 보드 · 세트별로 견주면 −40 이다: 요금제 선물 화면이 리다이렉트만 하는 옛 주소가 되어 `subscription-coupons` 보드
+// 둘이 빠졌다(Gift Plan Option 8 · Quantity Stepper 2 · Checkout Agreement 1 · 셸 3 · Button 1, −15). 진행 중 이벤트 알약이 걷혔다
+// (Pricing Notice −4). 공용 푸터가 타임라인 푸터로 바뀌고 모바일 variant 를 잠시 뺐으며 공개 `/` 가 오류 경계로 재졌다(Landing Footer −8).
+// `/mypage/topup/fail` 본문에 재시도 링크가 붙어 Failure 와 서명이 갈렸다(Payment Result Content −2). 하이라이트 업로드 중 · 분석 · 추출
+// 보드 여섯의 Spinner 가 인스턴스가 아니다(−6). 오류 경계로 재진 보드 — 공개 `/` 의 Button −6, `/nodecanvas` 셸 −2, 대신 경계 화면의
+// 「Try again」 Button 이 `/nodecanvas` · `/nodecanvas?project=` · `/videoeditor/[projectId]` 에 +6(−2). 쇼츠 결과 셸 −3 · Button +2(−1),
+// 하이라이트 완료 Button +2, 어드민 Button −2 · 쿠폰 인쇄 Button +2, `/subscription` Button −3(구독 정보를 못 불러온 오류 상태로 재졌다),
+// 결제 진행 데스크톱 「Pay now」 Button −1(대체가능 1 — 남은 빨강). 유튜브 연결 버튼은 부품 −2 · LOUIS Button +2 로 0 이다.
+// 오류 경계 화면이 돌아오면 다시 오른다.
+// 같은 날 뒤: 262 → **281.** **이득이다.** 통합 판 원장에서 세운 제품 부품 일곱 세트(보드 생성기 PARTS) — 인증 입력 칸 14
+// (`Product/Auth Floating Field` — 로그인 · 가입 · 비밀번호 찾기 · 새 비밀번호, 두 뷰포트), 가입 약관 동의 줄 2(`Product/Signup Legal Agreements`),
+// 템플릿 상세 캐러셀 2 · 블로그 글 머리 2 · 문의 첨부 드롭존 2. 22 에서 가입 약관 줄 안으로 들어간 LOUIS Button(ghost md 「View」 둘 × 두
+// 뷰포트) 4 를 빼면 +18 이다. 여기에 결제 진행 데스크톱 「Pay now」 가 Button 인스턴스가 됐다(+1, 대체가능 1 → 0) — 제품이 레이아웃 class 로
+// 최소 폭만 280 으로 넓혀 매처의 레시피 대조(min-width 48px 문자열)에서 빠지던 것을, min-width 를 바닥으로 읽게 고쳤다
+// (figma-component-substitution matchLouisPrimitive). 테마 순환 버튼 · 어드민 워드마크는 글자가 없어 보드에 묶이지 않는다(0).
+const INSTANCE_FLOOR = 281;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -299,7 +315,16 @@ const INSTANCE_FLOOR = 274;
 // 2026-10-02: 1618 → **1616.** 보드가 줄었다 — 가입 보드 둘의 「Already have an account? Log in」에서 글자 링크(`<a>`, 미보유)가
 // 섞인 문단 규칙으로 문단 글자의 범위 서식이 됐다(원장이 inlineRuns 를 실어 합칠 수 있게 됐다). 수는 instance 274 + replaceable 0 +
 // bespoke 114 + blocked 14 + missing 1214.
-const CANDIDATE_FLOOR = 1616;
+// 2026-10-08: 1616 → **1498.** 통합 판 앵커(76b6cf15, DS-D-0079)로 다시 잰 결과 — 커밋된 원장(HEAD, 1882)과 견주면 −384 이고 대부분이
+// 오류 경계로 재진 보드다: `/videoeditor/[projectId]` 데스크톱 244 → 2 · 모바일 30 → 2, `/nodecanvas?project=` 88 · 86 → 2 · 2, 공개 `/`
+// 70 · 50 → 2 · 2, `/nodecanvas` 5 → 2(합 −559). 반대로 공개 모바일 보드 여섯의 새 타임라인 푸터가 부품 인스턴스가 아니라 날노드로 서며
+// 미보유가 늘었다(문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세 모바일 각 +26 ~ +27). 오류 경계 화면이 돌아오면 이 바닥을 다시 올린다.
+// 수는 instance 262 + replaceable 1 + bespoke 134 + blocked 10 + missing 1091.
+// 같은 날 뒤: 1498 → **1474.** 보드가 준 것이 아니라 부품 인스턴스(위 INSTANCE_FLOOR, +19) 안으로 후보가 들어가 가지치기됐다 — instance +19 ·
+// replaceable −1(「Pay now」) · bespoke −2 · missing −40. 미보유 −40 은 인증 입력 칸 14 개의 `<input>`(LOUIS 사다리에 맞는 기하가 없던 미보유)
+// 14 · 가입 약관 체크 마크(22×22) 4, 나머지 22 와 bespoke 2 는 캐러셀(‹ › 둥근 버튼 · 도트) · 아티클 머리 · 드롭존(textarea · 툴바) 서브트리
+// 안의 자리다. 수는 instance 281 + replaceable 0 + bespoke 132 + blocked 10 + missing 1051.
+const CANDIDATE_FLOOR = 1474;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
@@ -351,9 +376,11 @@ const SHELL_INSTANCES_BY_BOARD = {
   "mypage-upgrade-bulk-fail.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-bulk-success.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-upgrade-bulk-success.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  "subscription-coupons.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
-  "subscription-coupons.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  "mypage-topup-fail.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  // 2026-10-08: `subscription-coupons` 두 보드는 생성 목록에서 빠졌다 — 통합 판(DS-D-0079)에서 `/subscription/coupons` 가 `/subscription?tab=group`
+  // 으로 리다이렉트만 하는 옛 주소가 됐다(build-figma-app-screens 의 PRODUCT_SCREENS 주석).
+  // 2026-10-08: `mypage-topup-fail.desktop` 상단 바 Content=MyPage → Subscription — 통합 판의 측정 바 글자가 「Subscription」 이다(같은 화면
+  // 모바일 바는 그대로).
+  "mypage-topup-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-topup-fail.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-topup-success.desktop": ["Product/Desktop App Top Bar · Content=MyPage, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
   "mypage-topup-success.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Single, Back=False, Divider=On"],
@@ -393,8 +420,14 @@ const SHELL_INSTANCES_BY_BOARD = {
   "highlight.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-checkout.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-checkout.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"],
-  "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
-  "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-08: `nodecanvas` 두 보드의 셸은 잠시 뺀다 — 통합 판 원장에서 세션 `/nodecanvas` 가 오류 경계 화면(노드 11 · 「Something went
+  // wrong」)으로 재져 사이드바 · 상단 바가 없다(원인은 따로 고치는 중). 화면이 돌아오면 두 줄을 되살린다.
+  // "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
+  // "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-08: 하이라이트 완료 격자 두 보드의 셸을 표에 넣는다 — 커밋된 원장(HEAD)에도 이미 붙어 있었는데 이 표가 따라가지 못했다.
+  // 측정 글자(사이드바 · 「Highlight / Fixture highlight project」 뒤로 가기 바)와 조합이 `?__phase=` 보드 여섯과 같다.
+  "highlight--projectId-completed.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId-completed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
   "videoeditor.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
   "videoeditor.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
 };

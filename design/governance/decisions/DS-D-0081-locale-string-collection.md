@@ -4,7 +4,7 @@ status: experimental
 authority: normative
 ---
 
-# DS-D-0080 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
+# DS-D-0081 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
 
 - Status: accepted (실측 2026-10-08, 시범 보드 `/inquiry` 진행 중)
 - Date: 2026-10-08

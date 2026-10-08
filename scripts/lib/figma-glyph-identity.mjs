@@ -690,6 +690,55 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "쇼츠 결과의 「Upload to YouTube」 버튼 왼쪽 아이콘(`app/highlight/[projectId]/shorts/[shortId]/page.tsx:1339-1342`, 빨간 면 · 흰 삼각형의 브랜드 표식)이다. LOUIS 아이콘 세트는 브랜드 표식을 두지 않는다.",
   },
+  {
+    id: "footer-track-product",
+    signature: "0 0 24 24|rect(rx=2 x=3 y=4 width=7.5 height=6)|rect(rx=2 x=13.5 y=14 width=7.5 height=6)|path(d=M10.5 7c3.6 0-.6 10 3 10)",
+    louis: "icon/nodes-linked",
+    verdict: "bespoke",
+    why: "공개 화면 타임라인 푸터의 「Product」 트랙 아이콘(`components/landing/sections/footerTrackIcons.tsx`)이다. 좌표가 LOUIS `icon/nodes-linked`(packages/react/src/icons/svg/nodes-linked.svg)와 같지만 제품은 아직 `@klipse-design/react` 를 소비하지 않아 같은 좌표의 사본을 인라인으로 그린다(같은 파일 머리 주석). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "footer-track-resources",
+    signature: "0 0 24 24|path(d=M12 6.75C10.25 5.4 7.75 4.75 4.5 4.75v13c3.25 0 5.75.65 7.5 2 1.75-1.35 4.25-2 7.5-2v-13c-3.25 0-5.75.65-7.5 2z)|path(d=M12 6.75v13)",
+    louis: "icon/book-open",
+    verdict: "bespoke",
+    why: "공개 화면 타임라인 푸터의 「Resources」 트랙 아이콘(`components/landing/sections/footerTrackIcons.tsx`)이다. 좌표가 LOUIS `icon/book-open`(packages/react/src/icons/svg/book-open.svg)와 같지만 제품은 아직 `@klipse-design/react` 를 소비하지 않아 같은 좌표의 사본을 인라인으로 그린다(같은 파일 머리 주석). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "footer-track-social",
+    signature: "0 0 24 24|path(d=M14.5 8.5V6.25a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v5.25a2 2 0 0 0 2 2h1V16l3-2.5)|path(d=M10.5 11.5a2 2 0 0 1 2-2H19a2 2 0 0 1 2 2v4.25a2 2 0 0 1-2 2h-1v2.5l-3-2.5h-2.5a2 2 0 0 1-2-2z)",
+    louis: "icon/chat-bubbles",
+    verdict: "bespoke",
+    why: "공개 화면 타임라인 푸터의 「Social」 트랙 아이콘(`components/landing/sections/footerTrackIcons.tsx`)이다. 좌표가 LOUIS `icon/chat-bubbles`(packages/react/src/icons/svg/chat-bubbles.svg)와 같지만 제품은 아직 `@klipse-design/react` 를 소비하지 않아 같은 좌표의 사본을 인라인으로 그린다(같은 파일 머리 주석). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "footer-track-trust",
+    signature: "0 0 24 24|path(d=M12 3.5l7 2.6v5.4c0 4.25-2.9 7.6-7 9-4.1-1.4-7-4.75-7-9V6.1l7-2.6z)|path(d=M9 12.25l2.1 2.1L15.25 10)",
+    louis: "icon/shield-check",
+    verdict: "bespoke",
+    why: "공개 화면 타임라인 푸터의 「Trust」 트랙 아이콘(`components/landing/sections/footerTrackIcons.tsx`)이다. 좌표가 LOUIS `icon/shield-check`(packages/react/src/icons/svg/shield-check.svg)와 같지만 제품은 아직 `@klipse-design/react` 를 소비하지 않아 같은 좌표의 사본을 인라인으로 그린다(같은 파일 머리 주석). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "admin-refresh-16",
+    signature: "0 0 16 16|path(d=M12.95 9.75a5.25 5.25 0 1 1-1.24-5.46L14.42 6.83)|path(d=M14.42 3.33v3.5h-3.5)",
+    louis: null,
+    verdict: "missing",
+    why: "어드민 머리의 새로고침 아이콘 버튼(`app/admin/AdminSection.tsx` AdminRefreshButton — 사용자 · 고객 문의 · 청약철회가 같은 글리프)이 16 상자 1.5 획으로 그리는 시계 방향 화살 고리다. LOUIS 아이콘 세트에 새로고침 · 회전 화살표가 없다. 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "magnifying-glass-phosphor-256",
+    signature: "0 0 256 256|path(d=M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z)",
+    louis: "icon/magnifying-glass",
+    verdict: "bespoke",
+    why: "어드민 검색 칸 앞 돋보기(`app/admin/AdminSearch.tsx:26` — `@phosphor-icons/react` 의 `MagnifyingGlass` 16px, 256 격자 채운 패스)다. LOUIS 에 같은 뜻의 `icon/magnifying-glass` 가 있지만 제품은 그것을 물지 않고 Phosphor 를 직접 쓴다. 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
+  {
+    id: "volume-high-video-player-split",
+    signature: "0 0 24 24|g()|path(d=M11 4.70007C10.9998 4.56079 10.9583 4.42468 10.8809 4.30893C10.8034 4.19318 10.6934 4.10298 10.5647 4.0497C10.436 3.99643 10.2944 3.98247 10.1577 4.00958C10.0211 4.0367 9.89559 4.10368 9.797 4.20207L6.413 7.58507C6.2824 7.71645 6.12703 7.8206 5.95589 7.8915C5.78475 7.96239 5.60124 7.99862 5.416 7.99808H3C2.73478 7.99808 2.48043 8.10343 2.29289 8.29097C2.10536 8.4785 2 8.73286 2 8.99808V14.9981C2 15.2633 2.10536 15.5176 2.29289 15.7052C2.48043 15.8927 2.73478 15.9981 3 15.9981H5.416C5.60124 15.9975 5.78475 16.0338 5.95589 16.1047C6.12703 16.1755 6.2824 16.2797 6.413 16.4111L9.796 19.7951C9.8946 19.8939 10.0203 19.9612 10.1572 19.9885C10.2941 20.0157 10.436 20.0018 10.5649 19.9483C10.6939 19.8949 10.804 19.8044 10.8815 19.6883C10.959 19.5721 11.0002 19.4357 11 19.2961V4.70007Z)|path(d=M16 8.99807C16.6491 9.86356 17 10.9162 17 11.9981C17 13.0799 16.6491 14.1326 16 14.9981)|path(d=M19.364 18.3621C20.1997 17.5263 20.8627 16.5342 21.315 15.4423C21.7673 14.3503 22.0001 13.18 22.0001 11.9981C22.0001 10.8162 21.7673 9.64584 21.315 8.5539C20.8627 7.46196 20.1997 6.4698 19.364 5.63407)",
+    louis: null,
+    verdict: "missing",
+    why: "공용 영상 플레이어의 음량 단추(`components/ui/VideoPlayerVolume.tsx` VolumeGlyph level=high — Lucide `volume-2` 패스를 몸통 · 안 물결 · 바깥 물결 셋으로 나눠 `<g>` 에 담았다)다. LOUIS 세트에 스피커 · 음량 아이콘이 없다(같은 그림의 한 패스 판은 `volume-2-lucide`). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

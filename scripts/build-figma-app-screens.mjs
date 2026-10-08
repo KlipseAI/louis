@@ -35,10 +35,13 @@ import {
   LOUIS_PRIMITIVE_SITES,
   lookOf,
   SIDEBAR_VARIANT_SOURCES,
+  treeLookOf,
 } from "./lib/figma-component-substitution.mjs";
 import { glyphBySignature, PRODUCT_GLYPHS } from "./lib/figma-glyph-identity.mjs";
 import { COLOR_COLLECTION, PRIMITIVE_COLLECTION, RENDERER_LIB, THEME_MODE, liveVariables } from "./lib/figma-live-variables.mjs";
 import { normalizeAuthFixtureTree, toFigmaTreeSpec } from "./lib/figma-tree-spec.mjs";
+import { figmaTextValue } from "./lib/locale-text-pairing.mjs";
+import { loadArea } from "./lib/state-recipes.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixturePath = resolve(repoRoot, "migration/product.auth-fixture.json");
@@ -78,6 +81,15 @@ const LEDGERS = {
   // LOUIS 문서 예시(2026-10-07, 측정기 `--louis-examples`) — 예시 실행에서만 쓴다.
   louisExamples: LOUIS_EXAMPLES ? optionalFixture("migration/louis.document-examples.json") : null,
 };
+// **상태 레시피 원장(2026-10-08, 상태 레시피 설계서 3절).** 측정기 `--states=<영역>` 이 쓴 `migration/product-states/<영역>.json` 을 훑어
+// `states:<영역>` 원장으로 싣는다. 그 원장의 보드는 영역 파일(`migration/measure-states/<영역>.json`) 레시피의 `board` 가 정한다(아래
+// STATE_RECIPE_SCREENS) — 영역 작업이 이 파일의 보드 목록을 건드리지 않게. 원장 폴더가 없으면 아무것도 싣지 않아 출력이 종전과 같다.
+const statesLedgerDir = resolve(repoRoot, "migration/product-states");
+if (!LOUIS_EXAMPLES && existsSync(statesLedgerDir)) {
+  for (const name of readdirSync(statesLedgerDir).filter((entry) => entry.endsWith(".json")).sort()) {
+    LEDGERS[`states:${name.slice(0, -".json".length)}`] = JSON.parse(readFileSync(resolve(statesLedgerDir, name), "utf8"));
+  }
+}
 const fixtureOf = (screen) => {
   if (!screen.fixture) return fixture;
   return LEDGERS[screen.fixture] ?? fail(`화면 ${screen.route} 의 원장 ${screen.fixture} 가 없습니다`);
@@ -297,6 +309,17 @@ const colour = liveColour.assertBindings({
   collections: [COLOR_COLLECTION, PRIMITIVE_COLLECTION],
 }, "app-screens colour");
 
+// 상태 레시피 보드 — 원장이 있는 영역의 레시피 가운데 `board` 를 적은 것. 데스크톱 전용 레시피(`contexts`)는 `board.desktop` 만 적고,
+// 아래 화면 루프는 보드가 없는 뷰포트를 건너뛴다. 원장에 그 레시피가 아직 없으면(재지 않음) 다른 원장 화면처럼 싣지 않는다.
+const STATE_BOARD_CONTEXTS = { desktop: "desktop-1920x1080", mobile: "mobile-402x874" };
+const STATE_RECIPE_SCREENS = Object.keys(LEDGERS).filter((key) => key.startsWith("states:")).flatMap((key) =>
+  loadArea(key.slice("states:".length)).recipes
+    .filter((recipe) => recipe.board)
+    // baseRoute — 셸 치환(사이드바 활성 항목 표)은 상태 키가 아니라 그 상태가 선 기준 화면으로 찾는다.
+    .map((recipe) => ({ route: recipe.id, baseRoute: recipe.baseKey, ...recipe.board, fixture: key }))
+    .filter((screen) => Object.entries(STATE_BOARD_CONTEXTS)
+      .every(([board, contextId]) => !screen[board] || LEDGERS[key].screens?.[contextId]?.[screen.route])));
+
 // LOUIS(OlYKERKOkgbxBEEoXGZW2c)의 대상 프레임. 라이브에서 읽어 확인한 install id다.
 // 별칭 route(`/mypage`→`/settings`, `/explore`→`/archive`, `/checkout`→`/upgrade`)는 제외한다 —
 // 같은 화면을 두 번 그리게 된다.
@@ -335,7 +358,9 @@ const PRODUCT_SCREENS = [
   // **2026-09-26 — 보드가 없던 실제 화면 셋.** 사양 문서 · 커버리지 파일에 없어 「⚠ 미등록」 섹션에 세웠다(조립 규칙 20조).
   { route: "/mypage/upgrade/bulk-success", desktop: "2075:2243", mobile: "2075:2244" },
   { route: "/mypage/upgrade/bulk-fail", desktop: "2075:2245", mobile: "2075:2246" },
-  { route: "/subscription/coupons", desktop: "2076:3371", mobile: "2076:3372" },
+  // `/subscription/coupons`(보드 2076:3371 · 2076:3372)는 통합 판(2026-10-08, DS-D-0079)에서 뺀다 — 넘기기만 하는 옛 주소가 되어
+  // `/subscription?tab=group` 으로 **리다이렉트되어** 구독 허브가 재진다(redirected: true, 위 `/analytics/instagram` 과 같은 이유).
+  // 결제 화면 `/subscription/group-purchase` 는 원장 라우트에 없다 — 측정기가 그 주소를 재면 보드를 그쪽으로 옮긴다. Figma 보드는 그대로 둔다.
   // **결제 성공 화면 넷의 실제 성공 상태(2026-09-26).** 쿼리 없이 연 화면은 「결제 정보 없음」 분기라 성공 화면의 본체가 보드에
   // 없었다. 개발 전용 `?preview=` 후크(운영에서 꺼지는 NODE_ENV 게이트 — 인용은 측정기 sourceQuotes)로 연 상태 보드다. 프레임은
   // 라우트 섹션 안 §20 자리에 세웠다(결제 결과 섹션 255:1862 의 항목 7~10, bulk 미등록 섹션 2075:2241 의 항목 2~3).
@@ -409,6 +434,7 @@ const PRODUCT_SCREENS = [
     { route: "/blog/[slug]", desktop: "216:2824", mobile: "216:2940", fixture: "publicSeeded" },
     { route: "/templates/[slug]", desktop: "217:2868", mobile: "217:2978", fixture: "publicSeeded" },
   ].filter((screen) => LEDGERS.publicSeeded.screens?.["desktop-1920x1080"]?.[screen.route]) : []),
+  ...STATE_RECIPE_SCREENS,
 ];
 // LOUIS 문서 예시 보드 — `DS · Templates` 의 「Pattern · Document — 문서 스킬」 보드 안 프레임(2026-10-07).
 const LOUIS_EXAMPLE_SCREENS = [
@@ -450,40 +476,19 @@ const CONTEXTS = [
 // (`contentSignatureOf`). 대상 컴포넌트는 90 · 자산 의 「S · product/Parts」 섹션에 먼저 세운 빈 variant 다(보드 프레임과
 // 같은 순서 — 러너는 있는 노드만 채운다). `anchor` 는 서브트리의 글자 서열이다: 측정이 옮겨 다른 노드를 가리키면 멈춘다.
 const PART_SECTION = "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물";
-const COUPONS = "/subscription/coupons";
-const PLAN_OPTION = (plan, price) => [plan, `${price} KRW each`];
+// **통합 판 앵커(2026-10-08, DS-D-0079) — 요금제 선물 화면이 원장에서 사라졌다.** `/subscription/coupons` 는 이제 넘기기만 하는 옛 주소다
+// (제품 76b6cf15 app/subscription/coupons/page.tsx — `plan` 이 없으면 `/subscription?tab=group`, 있으면 `/subscription/group-purchase`).
+// 측정기는 그 주소를 그대로 열어 구독 허브(단체 구매 탭 · 오류 상태)를 재고, 결제 화면 `/subscription/group-purchase` 는 원장 라우트에 없다.
+// 그래서 요금제 선택 카드(`Product/Gift Plan Option` 넷 × 두 뷰포트 — 옛 자리 body.1.0.0.1.0.1.1.1.1.0 ~ 3)와 수량 스테퍼
+// (`Product/Quantity Stepper` 두 뷰포트 — 옛 자리 body.1.0.0.1.0.1.1.2.1.1)를 찍을 서브트리가 없어 세트 항목을 잠시 뺀다. 같은 컨트롤이
+// 다른 측정 화면에도 없다(세션 `/mypage/upgrade/checkout` 은 gift 모드가 아니다). 측정기가 `/subscription/group-purchase` 를 재면 그 원장에서
+// 자리를 찾아 되살린다 — Figma 세트(2086:5881 ~ 5888 · 5890 · 5891)는 그대로 둔다. 옛 항목은 git 기록(이 줄 앞 커밋)에 있다.
 const PRODUCT_PARTS = [
-  {
-    set: "Product/Gift Plan Option",
-    about: "요금제 선물 화면의 요금제 선택 카드(role=radio 버튼, app/subscription/coupons/page.tsx). 선택된 카드는 파랑 1.5 링, 나머지는 헤어라인이다 — 측정 fixture 에서는 Lite 가 선택돼 있다.",
-    variants: [
-      ["Plan=Lite, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.0", PLAN_OPTION("Lite", "12,900"), "2086:5881"],
-      ["Plan=Plus, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.1", PLAN_OPTION("Plus", "29,900"), "2086:5882"],
-      ["Plan=Pro, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.2", PLAN_OPTION("Pro", "49,900"), "2086:5883"],
-      ["Plan=Ultra, Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.1.1.3", PLAN_OPTION("Ultra", "74,900"), "2086:5884"],
-      ["Plan=Lite, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.0", PLAN_OPTION("Lite", "12,900"), "2086:5885"],
-      ["Plan=Plus, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.1", PLAN_OPTION("Plus", "29,900"), "2086:5886"],
-      ["Plan=Pro, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.2", PLAN_OPTION("Pro", "49,900"), "2086:5887"],
-      ["Plan=Ultra, Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.1.1.3", PLAN_OPTION("Ultra", "74,900"), "2086:5888"],
-    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
-  },
-  {
-    set: "Product/Quantity Stepper",
-    about: "요금제 선물 결제 패널(app/mypage/upgrade/TossPaymentWindowPanel.tsx gift 모드)의 수량 스테퍼 — − · 수량 입력 · +. 입력 값(「1」)은 측정기가 `value` 로 싣고 트리 변환이 글자로 옮긴다(2026-09-29).",
-    variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.1.1", ["−", "1", "+"], "2086:5890"],
-      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.1.2.1.1", ["−", "1", "+"], "2086:5891"],
-    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
-  },
   // **둘째 묶음(2026-09-26 저녁) — 보드 구성 원장의 「미보유」 18 을 0 으로.** 셋 다 LOUIS 컨트롤 사다리에 앉지 않는 제품 전용 자리다.
-  {
-    set: "Product/Analytics Connect Button",
-    about: "유튜브 분석 연결 안내의 계정 연결 버튼(components/scenes/YoutubeAnalyticsScene.tsx CONNECT_NOTICE_BTN — h-20 · rounded-full · bg-gray-000). LOUIS 버튼 사다리에 40 알약 반전 면이 없다.",
-    variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.0.2.0.3", ["Connect Google Account"], "2101:5880"],
-      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.0.2.0.3", ["Connect Google Account"], "2101:5881"],
-    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/analytics/youtube", context, path, anchor, component })),
-  },
+  // 통합 판(2026-10-08): `Product/Analytics Connect Button`(옛 자리 `/analytics/youtube` body.1.0.0.1.0.0.2.0.3)을 뺐다 — 제품이 지역 알약
+  // (`CONNECT_NOTICE_BTN`)을 걷고 LOUIS Button(`inverse` · `lg`)으로 바꿔(76b6cf15 components/scenes/YoutubeAnalyticsScene.tsx 358행 주석)
+  // 같은 버튼(지금 자리 .1.0.3)이 LOUIS 정본 Button 인스턴스로 치환된다(부품 뿌리가 다른 세트로 치환 — 제품 전용 자리가 아니다).
+  // Figma 세트(2101:5880 · 5881)는 그대로 둔다.
   {
     // 칩 하나가 아니라 줄 하나다 — 제품이 테마 여섯을 고정 목록 하나로 그린다(themeChips 의 map). 칩마다 세트를 두면 라벨만 다른
     // variant 가 열둘이 된다. 선택 칩(themeChipActive)은 측정 fixture 에 없다 — 업로드 단계의 기본 테마가 비어 있다.
@@ -495,16 +500,18 @@ const PRODUCT_PARTS = [
     ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/highlight/[projectId]?__phase=upload", context, path, anchor, component })),
   },
   {
-    // 모바일 쿠폰 화면에는 결제 패널이 측정 화면 안에 없다(보드 계획에 약관 글자가 없다) — 데스크톱 하나다.
+    // 모바일 쿠폰 화면에는 결제 패널이 측정 화면 안에 없었다 — 세트는 데스크톱 variant 하나다.
+    // 통합 판(2026-10-08): 요금제 선물 화면(`/subscription/coupons` body.1.0.0.1.0.1.1.2.5.1.1)이 원장에서 사라져(위 PRODUCT_PARTS 머리 주석)
+    // 같은 패널을 쓰는 세션 원장 결제 진행(`/mypage/upgrade/checkout?plan=pro`) 데스크톱에서 찍는다 — 글자 서열이 옛 자리와 같다.
     set: "Product/Checkout Agreement",
     about: "요금제 선물 결제 패널의 약관 동의 상자(app/mypage/upgrade/TossPaymentWindowPanel.tsx CHECKOUT_AGREEMENT_BOX). 체크박스는 LOUIS .louis-checkbox 를 제품이 16px · gap 10 으로 덮는다(같은 파일 147-155행 주석 — LOUIS 기본 20 · gap 8).",
     variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.1.2.5.1.1", [
+      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.0.1.0.3.1.1", [
         "I agree to the terms below and to automatic subscription renewal with the registered card.",
         "Your card will only be used for subscription payments and automatic renewals.",
         "Payment service terms", "Privacy collection consent", "Third-party data sharing consent",
       ], "2101:5886"],
-    ].map(([variant, context, path, anchor, component]) => ({ variant, route: COUPONS, context, path, anchor, component })),
+    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/mypage/upgrade/checkout", context, path, fixture: "session", anchor, component })),
   },
   // **셋째 묶음(2026-09-26 저녁) — 결제 성공 미리보기 보드에서 드러난 안내 상자 둘.** 둘 다 글자를 제 몸에 든 잎이다(잎 서명).
   // 쿠폰 코드 칩(bulk 성공 미리보기, 데스크톱 30 · 모바일 15)은 칩마다 글자가 달라 글자 서열 서명으로 묶을 수 없다 — 글자 속성
@@ -543,19 +550,16 @@ const PRODUCT_PARTS = [
   // 랜딩 · 문의 · 요금 · 블로그 · 템플릿이 같은 컴포넌트를 쓰고 측정도 노드 81 · 글자 서열이 같다 — 공개 원장(`fixture: "public"`)에서 뜬다.
   {
     set: "Product/Landing Footer",
-    about: "공개 화면 공용 푸터(components/landing/sections/Footer.tsx — 회사 정보 · 링크 세 묶음 · 소셜 · 저작권 줄). 데스크톱은 가로 한 줄, 모바일은 세로로 쌓인다.",
+    about: "공개 화면 공용 타임라인 푸터(components/landing/sections/TimelineFooter.tsx — 문구 · 시간 눈금 · 링크 묶음 넷을 트랙으로 · 사업자 정보 · 저작권 줄, 늘 다크). 폰(720 아래)은 트랙 이름이 아이콘만 남는다.",
+    // 통합 판(2026-10-08): 푸터가 공용 타임라인 푸터로 바뀌어(문구 · 눈금 타임코드 · 링크 · 회사 정보, 데스크톱 노드 124 · 모바일 89) 글자 서열이
+    // 길어져(데스크톱 서명 62) 앵커를 `{ length, fnv }` 로 준다. 트랙 아이콘 넷은 figma-glyph-identity 의 footer-track-* 이다. 공개 원장의 `/` 는 지금 오류 경계 화면(노드 11)으로 재져 푸터가 없다 —
+    // 같은 푸터가 같은 경로(body.1.0.0.3)에 선 `/inquiry` 에서 찍는다(문의 · 요금 · 템플릿 · 블로그 · 공개 시드 둘이 같은 글자 서열).
     variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "2677:4185"],
-      ["Viewport=Mobile", "mobile-402x874", "2677:4186"],
-    ].map(([variant, context, component]) => ({
-      variant, route: "/", context, path: "body.1.0.0.3", fixture: "public", component,
-      anchor: [
-        "Company", "SFACSPACE Inc.", "CEO", "Minho Yeom", "Business Registration No.", "450-87-01864", "Address",
-        "4F, Magok 595 Bldg, 59-5 Magok Jungang-ro, Gangseo-gu, Seoul", "Phone", "02-6217-1119", "E-commerce Registration No.",
-        "2026-Seoul Gangseo-1080", "Product", "Docs", "Pricing", "Resources", "Blog", "Newsroom", "Ambassador", "Social", "Instagram",
-        "Threads", "YouTube", "Trust", "Contact", "Privacy Policy", "Terms of Service", "© SFACSPACE 2026. All rights reserved",
-      ],
-    })),
+      ["Viewport=Desktop", "desktop-1920x1080", { length: 62, fnv: "f262472e" }, "2677:4185"],
+      // 모바일(2677:4186)은 잠시 뺀다 — 새 푸터의 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이 두 줄로 감기는데
+      // 트리 변환이 그 감김을 풀지 못한다(부품은 감긴 글자가 남으면 멈춘다 — 1728행). 변환이 그 자리를 풀면 되살린다. 그동안 모바일 보드의
+      // 푸터는 측정한 노드 그대로 그려진다.
+    ].map(([variant, context, anchor, component]) => ({ variant, route: "/inquiry", context, path: "body.1.0.0.3", fixture: "public", anchor, component })),
   },
   {
     set: "Product/Page Header",
@@ -570,13 +574,15 @@ const PRODUCT_PARTS = [
   },
   {
     set: "Product/Admin Section Header",
-    about: "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 도구 막대). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+    about: "어드민 머리(app/admin/AdminSection.tsx AdminSectionHeader — level=page · 제목 · 메타 · 오른쪽 아이콘 동작). 측정은 /admin 유저 관리 탭(빈 목록)이다. section · label 단계와 설명 칸은 측정되지 않은 탭 · 모달에만 있다.",
+    // 통합 판(2026-10-08): 어드민 글자가 영어가 되고(「유저 관리」 → 「Users」) 필터 칩 · 정렬 · 새로고침 막대가 머리 밖의 검색 · 필터 줄로 갈라졌다.
+    // 머리는 제목 · 메타 · 새로고침 아이콘 버튼(inlineActions)만 남아 옛 자리 body.1.0.0.1.0.0.0.1.1 이 아니라 그 형 .1.0 이다.
     variants: [
       ["Viewport=Desktop", "desktop-1920x1080", "2683:4188"],
       ["Viewport=Mobile", "mobile-402x874", "2683:4189"],
     ].map(([variant, context, component]) => ({
-      variant, route: "/admin", context, path: "body.1.0.0.1.0.0.0.1.1", fixture: "session", component,
-      anchor: ["유저 관리", "총 0명 · 20명씩 불러옵니다", "전체", "테스터", "유료", "구독없음", "이메일", "잔액", "가입일", "▲", "새로고침"],
+      variant, route: "/admin", context, path: "body.1.0.0.1.0.0.0.1.0", fixture: "session", component,
+      anchor: ["Users", "0 users"],
     })),
   },
   {
@@ -594,9 +600,82 @@ const PRODUCT_PARTS = [
     set: "Product/Plan Comparison Table",
     about: "요금제 비교표(components/landing/sections/PricingSection.tsx PlanComparisonTable — 제목 · 가로 스크롤 · 요금제 열마다 머리 · 분류 · 기능 행). /pricing 과 /mypage/upgrade 가 같은 컴포넌트를 쓴다 — 측정은 /pricing 이다.",
     variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", { length: 241, fnv: "6f9a30e4" }, "2683:4196"],
-      ["Viewport=Mobile", "mobile-402x874", { length: 159, fnv: "dd0e7bd7" }, "2683:4197"],
+      // 통합 판(2026-10-08): 경로는 같고 앵커만 다시 적었다 — 데스크톱 241 → 239. 원장의 날글자(ownText) · 태그 구성은 옛 판과 같다(239 · 756 노드).
+      ["Viewport=Desktop", "desktop-1920x1080", { length: 239, fnv: "c3545fea" }, "2683:4196"],
+      // 모바일 159 → 157(날글자 157 · 495 노드 — 옛 판과 같다).
+      ["Viewport=Mobile", "mobile-402x874", { length: 157, fnv: "e9258b89" }, "2683:4197"],
     ].map(([variant, context, anchor, component]) => ({ variant, route: "/pricing", context, path: "body.1.0.0.2.0.0.4", fixture: "public", anchor, component })),
+  },
+  // **2026-10-08 — 통합 판(DS-D-0079) 원장에서 세운 제품 세트 다섯.** 「필요」 표면(부품 · 한자리)을 측정 서브트리로 찍는다 — 화면 종류는 보드 몫이라 넣지 않는다.
+  {
+    // 글자가 없다(aria-label 뿐) — 컴포넌트는 채우지만 보드의 같은 자리는 묶이지 않는다(매처가 글자 없는 노드를 보지 않는다, CONTENT_INSTANCES_BY_SET 0).
+    set: "Product/Theme Cycle Button",
+    about: "랜딩 GNB 우측 테마 순환 버튼(ThemeSelector.tsx. LanguageSelector 의 TRIGGER_COMPACT·ICON_COMPACT 기하를 그대로 써서 높이 32, 좌우 8, 폭 36, 면 투명, 글리프 20, stroke 1.5). 통합 판에서는 GNB 구조가 바뀌어 액션 열이 body.1.0.0.1.0.3 이 되었다. 순서는 .3.0 언어 버튼 래퍼, .3.1 테마 버튼, .3.2 Get started(모바일은 .3.3 햄버거)다. / 가 오류 화면으로 재져서 아침 조사의 / body.1.0.0.1.0.2.1 은 무효이고, 같은 GNB 가 붙은 /pricing 으로 바꿨다. aria-label 「Theme: Light」로 확인했다. 측정에는 현재 preference(light)의 글리프 하나만 담겨 있다.",
+    variants: [
+      { variant: "Viewport=Desktop", route: "/pricing", context: "desktop-1920x1080", path: "body.1.0.0.1.0.3.1", fixture: "public", anchor: [], component: "2888:4193" },
+      { variant: "Viewport=Mobile", route: "/pricing", context: "mobile-402x874", path: "body.1.0.0.1.0.3.1", fixture: "public", anchor: [], component: "2888:4194" },
+    ],
+  },
+  {
+    set: "Product/Template Result Carousel",
+    about: "템플릿 상세의 3D 커버플로 캐러셀(components/templates/TemplateResultCarousel.tsx. perspective 스테이지 .3.0, 원형 nav ‹ › 와 도트 줄 .3.1(40 높이)). public-seeded 원장에만 그려져 있고, 통합 판에서도 경로가 아침 조사와 같다. 데스크톱 스테이지는 860x540(노드 19), 모바일은 370x440(노드 15)이다. 카드 좌하단 라벨 배지는 측정 항목에 label 이 없어 그려지지 않았다.",
+    variants: [
+      { variant: "Viewport=Desktop", route: "/templates/[slug]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: ["‹", "›"], component: "2888:4196" },
+      { variant: "Viewport=Mobile", route: "/templates/[slug]", context: "mobile-402x874", path: "body.1.0.0.2.0.0.3", fixture: "publicSeeded", anchor: ["‹", "›"], component: "2888:4197" },
+    ],
+  },
+  {
+    set: "Product/Article Header",
+    about: "블로그 상세의 아티클 머리 조판(app/blog/[slug]/page.tsx ARTICLE_HEAD_CLASS. h1 heading-36 제목, p body-20 부제, 밑줄 메타 행 div 50 높이의 날짜). public-seeded 원장에 있고, 통합 판에서도 경로가 아침 조사와 같다. 뒤로가기 링크(← 블로그, 51.84x21)는 형제 body.1.0.0.2.0.0.0 이라 이 서브트리 밖이다. 부모 body.1.0.0.2.0.0 은 MarkdownContent 본문(데스크톱 760x1607)까지 잡아 너무 크다. 표면 reason 의 커버와 구분선은 측정에 없다. app/templates/[slug] 의 header(body.1.0.0.2.0.0.1, 860x131.59)가 같은 상수 벌을 복제하므로 수렴 후보다.",
+    variants: [
+      { variant: "Viewport=Desktop", route: "/blog/[slug]", context: "desktop-1920x1080", path: "body.1.0.0.2.0.0.1", fixture: "publicSeeded", anchor: ["Fixture post title", "A one-line placeholder excerpt for the fixture post.", "2026년 1월 1일"], component: "2888:4199" },
+      { variant: "Viewport=Mobile", route: "/blog/[slug]", context: "mobile-402x874", path: "body.1.0.0.2.0.0.1", fixture: "publicSeeded", anchor: ["Fixture post title", "A one-line placeholder excerpt for the fixture post.", "2026년 1월 1일"], component: "2888:4200" },
+    ],
+  },
+  {
+    set: "Product/Attachment Dropzone",
+    about: "문의 폼 본문의 작성 그룹 겸 드롭존이다(InquiryClient.tsx 183행 COMPOSE_GROUP = louis-text-field__box flex-col, 625행에서 dragOver 일 때 COMPOSE_BORDER_DRAG 를 더하고 636행 onDrop). 안에 textarea 200 높이, 첨부 툴바(Attach images 버튼, 0 / 5 카운터)가 있다. 카테고리 칩은 louis-tabs, 토스트는 Toast 로 이미 접혔으니 컨트롤 하나만 남는다. public 원장 /inquiry, 경로는 아침 조사와 같다. 측정은 idle 상태뿐이다. dragover 테두리와 썸네일 줄(images>0)은 원장에 없다. 앵커는 textarea 자리표시 · 「Attach images」 · 「0 / 5」 셋, 노드 11. 카운터 「0 / 5」 는 측정마다 바뀌는 글자가 아니다(첨부 0 장의 고정 상태).",
+    variants: [
+      { variant: "Viewport=Desktop", route: "/inquiry", context: "desktop-1920x1080", path: "body.1.0.0.2.0.0.1.1.0.2.1", fixture: "public", anchor: ["Please describe your issue in detail", "Attach images", "0 / 5"], component: "2888:4202" },
+      { variant: "Viewport=Mobile", route: "/inquiry", context: "mobile-402x874", path: "body.1.0.0.2.0.0.1.1.0.2.1", fixture: "public", anchor: ["Please describe your issue in detail", "Attach images", "0 / 5"], component: "2888:4203" },
+    ],
+  },
+  {
+    // 글자가 없다(img 둘) — 테마 순환 버튼과 같이 컴포넌트만 채우고 보드는 묶이지 않는다.
+    set: "Product/Admin Wordmark Logo",
+    about: "Gnb admin 변형의 브랜드 행이다(components/navigation/Gnb.tsx 2321행 function GnbWordmarkLogo, 2367행 /klipse-admin-wordmark-black.svg). 24x28 심볼 클립 span 안에 klipse-light.svg(96x28)가 있고, 계산된 갭 뒤에 admin 워드마크 img(78x28)가 이어진다. session /admin 데스크톱 사이드바에서 재졌고 경로는 아침과 같다. 모바일 /admin(노드 56)은 사이드바가 닫힌 드로어라 이 노드가 없어 데스크톱 하나다. 글자가 없어 앵커는 [] 다. 글자 서열 서명으로는 보드의 같은 서브트리를 묶을 수 없으니 구조 서명이나 수동 component 지정이 필요하다(Select Dropdown 의 아이콘만 있는 칸과 같은 사정). reason 대로 LOUIS SidebarBrand 에 Brand=klipse|admin 축을 더하는 대안도 있다.",
+    variants: [
+      { variant: "Viewport=Desktop", route: "/admin", context: "desktop-1920x1080", path: "body.1.0.0.0.0.0.0.0.0.0", fixture: "session", anchor: [], component: "2888:4205" },
+    ],
+  },
+  // **2026-10-08 — 인증 두 세트(통합 판 로그아웃 원장 `product.anonymous-fixture.json`).** 인증 화면 여섯이 같은 플로팅 라벨 입력 상자를 각자 다시
+  // 적는다(INPUT_BOX_TOP · INPUT_BOX_BOTTOM · INPUT_BOX). 칸 하나가 부품이다 — 위 칸(위만 곡률 12 · mb −1), 아래 칸(아래만 12), 단칸(네 모서리 12) ×
+  // 포커스(autoFocus — 라벨이 떠 12px · 테두리 40% + 안쪽 링) / 쉼(라벨 16px · 테두리 12%). 글자 하나(라벨)로는 위 칸 · 단칸이 갈리지 않아
+  // 매처가 뿌리 모양(`look`)으로 가린다(figma-component-substitution matchContent). 원장에 없는 조합(아래 칸 포커스)은 세우지 않았다.
+  {
+    set: "Product/Auth Floating Field",
+    // 글자 하나라 설정 · 약관 본문의 「Email」 칸, 남색으로 덮은 AWS 가입 칸에도 붙었다 — 서브트리 모양까지 같을 때만 맞춘다(treeLookOf).
+    strictLook: true,
+    about: "인증 화면의 플로팅 라벨 입력 칸(app/(auth-brand)/login · signup · reset-password 의 INPUT_BOX_TOP/BOTTOM · INPUT_BOX — 데스크톱 400×58 · 모바일 370×55). 지우기 · 비밀번호 표시 버튼은 값이 있을 때만 서서 측정에 없다.",
+    variants: [
+      ["Shape=Top, State=Focused", "/login", "body.1.0.0.1.0.2.0.0", ["Email"], "2889:4193", "2889:4194"],
+      ["Shape=Bottom, State=Idle", "/login", "body.1.0.0.1.0.2.0.1", ["Password"], "2889:4195", "2889:4196"],
+      ["Shape=Single, State=Focused", "/signup", "body.1.0.0.1.0.2.0", ["Username"], "2889:4197", "2889:4198"],
+      ["Shape=Single, State=Idle", "/reset-password", "body.1.0.0.1.0.2.0.0", ["Email"], "2889:4199", "2889:4200"],
+      ["Shape=Top, State=Idle", "/signup", "body.1.0.0.1.0.2.2.0", ["Password"], "2889:4201", "2889:4202"],
+    ].flatMap(([axes, route, path, anchor, desktop, mobile]) => [["Desktop", "desktop-1920x1080", desktop], ["Mobile", "mobile-402x874", mobile]]
+      .map(([viewport, context, component]) => ({ variant: `${axes}, Viewport=${viewport}`, route, context, path, fixture: "anonymous", anchor, component }))),
+  },
+  {
+    set: "Product/Signup Legal Agreements",
+    // AWS 가입(/aws/signup)이 같은 글자의 블록을 남색 리터럴로 복제한다 — 뿌리에 칠이 없어 서브트리 모양으로 가린다(treeLookOf).
+    strictLook: true,
+    about: "회원가입 폼의 약관 동의 두 줄(app/(auth-brand)/signup LEGAL_AGREEMENTS — 줄마다 체크박스 면 · 동의 문구 · ghost 「View」). 측정은 둘 다 해제 상태다.",
+    variants: [
+      ["Viewport=Desktop", "desktop-1920x1080", "2889:4204"],
+      ["Viewport=Mobile", "mobile-402x874", "2889:4205"],
+    ].map(([variant, context, component]) => ({ variant, route: "/signup", context, path: "body.1.0.0.1.0.2.4", fixture: "anonymous", component,
+      anchor: ["I agree to the Privacy Policy (required)", "View", "I agree to the Terms of Service (required)", "View"] })),
   },
 ];
 // LOUIS 문서 부품(2026-10-07) — 예시 `document-report` 의 측정 서브트리에서 찍는다. 세트는 문서 스킬 보드의 부품 카탈로그 열에 있다.
@@ -727,6 +806,50 @@ const typographyKeys = (node) => {
   };
 };
 
+// **로캘 변수 바인딩(DS-D-0081, 2026-10-08).** `figma/locale-strings.plan.json`(scripts/build-figma-locale-strings.mjs 생성물)이 있으면
+// 그 계획이 묶은 자리의 노드에 변수 이름을 싣고 payload 에 `locale` 을 더한다 — 렌더러는 `P.locale` 이 있을 때만 글자 → 텍스트 스타일 →
+// 바인딩 순서로 묶는다. 계획이 없으면(또는 `--no-locale`) 이 갈래는 아무것도 싣지 않아 러너가 바이트 하나 바뀌지 않는다.
+// 계획은 보드 계획(app-screens.plan.json)의 경로를 열쇠로 지었다 — 앵커가 다르거나 묶은 자리가 사라졌으면 조용히 en 리터럴로 두지 않고 멈춘다.
+// 그때는 `--no-locale` 로 보드를 먼저 세우고 로캘 원장 · 계획을 다시 만든다(계획이 옛 보드 계획에서 지어졌으므로 순서가 이렇다).
+const localePlanArg = process.argv.find((arg) => arg.startsWith("--locale-plan="));
+const localePlanPath = localePlanArg ? resolve(localePlanArg.slice("--locale-plan=".length)) : resolve(repoRoot, "figma/locale-strings.plan.json");
+const localePlan = !LOUIS_EXAMPLES && !process.argv.includes("--no-locale") && existsSync(localePlanPath)
+  ? JSON.parse(readFileSync(localePlanPath, "utf8")) : null;
+if (localePlan && localePlan.productCommit !== fixture.productCommit) {
+  fail(`로캘 계획의 커밋(${String(localePlan.productCommit).slice(0, 8)})이 측정 fixture(${String(fixture.productCommit).slice(0, 8)})와 다릅니다 — ` +
+    "로캘 원장을 새 앵커에서 다시 재고 build-figma-locale-strings 를 돌리거나, --no-locale 로 보드를 먼저 세우세요.");
+}
+// 지금 축약하는 보드 · 부품의 바인딩(경로 → { xv, vv, iv }). slim 앞에 세우고 뒤에 비운다.
+let localeBindings = null;
+const localeUsed = new Set();
+const localeKeys = (node) => {
+  const binding = localeBindings?.[node.path];
+  if (!binding) return {};
+  const out = {};
+  // 범위 서식 글자는 묶지 않는다 — 첫 모드 전환에 서식이 한 덩어리로 무너진다(DS-D-0081 4항, 실측 10-08).
+  if (binding.xv && node.text && !node.textRanges?.length) out.xv = binding.xv;
+  if (binding.vv) out.vv = binding.vv;
+  if (binding.iv && node.instance?.label != null) out.iv = binding.iv;
+  for (const key of Object.keys(out)) localeUsed.add(`${node.path}|${key}`);
+  return out;
+};
+const localeConsumed = new Set();
+/** 바인딩을 세우고 축약한 뒤, 계획이 묶은 자리가 모두 쓰였는지 본다. */
+const slimWithLocale = (key, spec) => {
+  localeBindings = localePlan?.bindings?.[key] ?? null;
+  localeUsed.clear();
+  const slimmed = slim(spec);
+  if (localeBindings) {
+    localeConsumed.add(key);
+    const stale = Object.entries(localeBindings).flatMap(([path, binding]) =>
+      Object.keys(binding).filter((name) => !localeUsed.has(`${path}|${name}`)).map((name) => `${path} ${name}`));
+    if (stale.length > 0) fail(`로캘 계획이 묶은 자리가 ${key} 에 없습니다(${stale.length}) — 계획이 옛 보드에서 지어졌습니다: ${stale.slice(0, 5).join(", ")}`);
+  }
+  const locale = localeBindings ? { collection: localePlan.collection } : null;
+  localeBindings = null;
+  return { slimmed, locale };
+};
+
 const slim = (node) => {
   // 세로 배치에 wrap 칸이 서면 렌더러가 `layoutWrap = "WRAP"` 을 세로 프레임에 걸려다 던진다(2026-09-14
   // `/subscription` 모바일). 원천은 figma-tree-spec 이 막지만, payload 로 새어 나오면 여기서 멈춘다.
@@ -743,7 +866,8 @@ const slimNode = (node) => ({
   // 「account?Log in」처럼 사라졌다. 줄바꿈 없는 공백은 글리프라 폭을 차지한다.
   // **글자는 제품 글꼴로 보이는 줄대로 싣는다(2026-09-29).** 보드 글꼴은 너비가 달라 폭만 옮기면 줄이 다른 자리에서 꺾인다
   // (measured-text.mjs). 서명 · 매칭은 spec 의 `text` 를 그대로 본다.
-  ...(node.text ? { x: (node.wrapLines?.length > 1 ? node.wrapLines.join("\n") : node.text).replace(/^ /, "\u00a0").replace(/ $/, "\u00a0") } : {}),
+  // 식은 로캘 짝짓기(locale-text-pairing.mjs figmaTextValue)와 한 함수다 — en 모드의 변수 값이 이 리터럴과 같아야 한다.
+  ...(node.text ? { x: figmaTextValue(node) } : {}),
   // 글자 안의 범위 서식 [시작, 끝, 굵기(0 = 문단 그대로), 색("" = 그대로), 밑줄 1/0] — 섞인 문단(figma-tree-spec richInlineText).
   // 여섯째 칸(글자 크기)은 크기가 있는 범위에만 붙인다 — 각주 번호(2026-10-07). 없는 범위는 다섯 칸 그대로다.
   ...(node.text && node.textRanges?.length ? { xr: node.textRanges.map((range) => [range.start, range.end, range.weight ?? 0, range.color ?? "", range.underline ? 1 : 0, ...(range.size ? [range.size] : [])]) } : {}),
@@ -801,6 +925,8 @@ const slimNode = (node) => ({
   ...(node.instance ? { i: node.instance.label == null
     ? [node.instance.set, node.instance.variant]
     : [node.instance.set, node.instance.variant, node.instance.label] } : {}),
+  // 로캘 변수(DS-D-0081) — `xv` 글자 · `vv` 존재(visible) · `iv` 인스턴스 라벨. 로캘 계획이 묶은 자리에만 붙는다(localeKeys 주석).
+  ...localeKeys(node),
   // **인스턴스에는 색·타이포를 싣지 않는다.** 컴포넌트가 이미 제 색을 갖고 있고,
   // 덮어쓰면 디자인 시스템 쪽 수정이 화면에 전파되지 않는다. 라벨은 여기 해당하지 않는다 —
   // 컴포넌트가 **스스로 연 슬롯**을 채우는 것이지 컴포넌트가 정한 값을 덮는 것이 아니다.
@@ -1624,6 +1750,7 @@ const pendingAnchors = {};
       // 서명은 치환 «앞»에서 뜬다 — 보드 쪽 매처도 치환 전 서브트리의 글자로 판정한다.
       const signature = contentSignatureOf(spec);
       const look = lookOf(spec);
+      const treeLook = part.strictLook ? treeLookOf(spec) : null;
       if (part.label && (!signature.leaf || signature.texts.length !== 1 || !new RegExp(part.labelPattern).test(signature.texts[0]))) {
         fail(`글자 속성 부품은 글자 하나를 든 잎이고 그 글자가 labelPattern 에 들어야 합니다: ${part.set} ${variant.variant} ${JSON.stringify(signature.texts)}`);
       }
@@ -1718,7 +1845,8 @@ const pendingAnchors = {};
       const viewport = variant.context.startsWith("desktop") ? "Desktop" : "Mobile";
       partContent.push({ set: part.set, variant: variant.variant, viewport, texts: signature.texts, structure: signature.structure,
         ...(signature.leaf ? { leaf: signature.leaf } : {}),
-        ...(part.label ? { label: part.label, labelPattern: part.labelPattern, look } : {}) });
+        // 모양은 늘 싣는다 — 글자 · 구조가 같은 후보가 여럿일 때 매처가 뿌리 모양으로 가린다(인증 입력 상자, 2026-10-08).
+        look, ...(treeLook ? { treeLook } : {}), ...(part.label ? { label: part.label, labelPattern: part.labelPattern } : {}) });
       parts.push({
         set: part.set, variant: variant.variant, route: variant.route, context: variant.context, path: variant.path,
         ...(part.label ? { label: part.label } : {}),
@@ -1746,6 +1874,7 @@ if (Object.keys(pendingAnchors).length > 0) {
 for (const screen of SCREENS) {
   const source = fixtureOf(screen);
   for (const context of CONTEXTS) {
+    if (!screen[context.key]) continue; // 보드를 한 뷰포트에만 둔 상태 레시피 화면(STATE_RECIPE_SCREENS)
     const measured = source.screens[context.id]?.[screen.route];
     if (!measured?.tree?.length) fail(`측정 트리가 없습니다: ${screen.route} @ ${context.id}`);
     // 테마 속성이 아예 없는 화면은 테마를 쓰지 않는다 — 전체 오류 화면(`global-error.tsx`)은 루트 레이아웃 대신 제 `<html lang="ko">` 와
@@ -1771,7 +1900,7 @@ for (const screen of SCREENS) {
     // 선언(`declared`)도 경로로 되찾는다 — 사이드바는 폭 수가 아니라 폭 선언으로 찾는다(figma-component-substitution.mjs).
     const declaredByPath = new Map(measured.tree.map((node) => [node.path, node.declared ?? null]));
     const shells = applyComponentInstances(spec, {
-      route: screen.route,
+      route: screen.baseRoute ?? screen.route,
       context: context.id,
       viewport: { width: measured.rootRect.width, height: measured.rootRect.height },
       styleOf: (path) => styleByPath.get(path) ?? null,
@@ -1959,23 +2088,30 @@ for (const screen of SCREENS) {
  * upgrade/fail × 두 뷰포트) · 요금제 카드 5(`/mypage/upgrade` 데스크톱) · 보이는 조각 2(같은 route 모바일)다.
  */
 const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCES : {
-  [COMPONENT_SETS.paymentResult]: 8,
+  // 2026-10-08: 8 → 6 — 통합 판(DS-D-0079)의 `/mypage/topup/fail` 본문이 액션 둘(「Try again」 재시도 링크 + 「Back to subscription」)이라
+  // (제품 76b6cf15 app/mypage/topup/fail/page.tsx 189행 retryHref) 액션 하나인 `Outcome=Failure` 와 서명이 달라 두 뷰포트가 날노드로 그려진다.
+  [COMPONENT_SETS.paymentResult]: 6,
   [COMPONENT_SETS.checkoutStatus]: 6,
   // 2026-09-29: 5 → 9 — 공개 원장 `/pricing` 데스크톱의 요금제 카드 넷이 `/mypage/upgrade` 카드와 글자 서열 · 구조 · 뷰포트가 같다(같은 제품 카드).
   [COMPONENT_SETS.upgradePlanCard]: 9,
   [COMPONENT_SETS.upgradePlanCardSlice]: 2,
   // 2026-09-26: 「진행 중 이벤트 알약」(제품 `PricingNotice`) — `/mypage/upgrade` 데스크톱 · 모바일 헤더의 알약 하나씩.
   // 2026-09-29: 2 → 4 — 공개 원장 `/pricing` 데스크톱 · 모바일 헤더에도 같은 알약이 선다.
-  [COMPONENT_SETS.pricingNotice]: 4,
+  // 2026-10-08: 4 → 0 — 통합 판(DS-D-0079)에서 알약이 걷혔다(제품 f0527efc6). 세트 은퇴는 보드를 다시 보낸 뒤.
+  [COMPONENT_SETS.pricingNotice]: 0,
   // 2026-09-26(뒤): 제품 부품 세트(PARTS) — `/subscription/coupons` 의 요금제 선택 카드 넷 × 두 뷰포트, 수량 스테퍼 × 두 뷰포트.
-  "Product/Gift Plan Option": 8,
-  "Product/Quantity Stepper": 2,
+  // 2026-10-08: 8 · 2 → 0 · 0 — 통합 판에서 `/subscription/coupons` 가 리다이렉트만 하는 옛 주소가 되어 요금제 선물 화면이 원장에 없다
+  // (PRODUCT_PARTS 머리 주석). 세트 항목을 잠시 뺐다.
+  "Product/Gift Plan Option": 0,
+  "Product/Quantity Stepper": 0,
   // 둘째 묶음: 유튜브 연결 버튼 × 두 뷰포트(잎 서명 — 버튼이 글자를 제 몸에 든다), 하이라이트 업로드 테마 칩 줄 × 두 뷰포트,
   // 쿠폰 결제 동의 상자 × 데스크톱.
-  "Product/Analytics Connect Button": 2,
+  // 2026-10-08: 2 → 0 — 통합 판에서 제품이 지역 알약을 LOUIS Button(inverse · lg)으로 바꿔 세트 항목을 뺐다(PRODUCT_PARTS 의 주석).
+  "Product/Analytics Connect Button": 0,
   "Product/Highlight Theme Chips": 2,
   // 2026-09-29: 1 → 2 — 세션 원장 결제 진행(`/mypage/upgrade/checkout?plan=pro`) 데스크톱에도 같은 동의 상자가 선다.
-  "Product/Checkout Agreement": 2,
+  // 2026-10-08: 2 → 1 — 통합 판에서 쿠폰 화면이 원장에서 빠져 세션 결제 진행 데스크톱 하나만 남았다(variant 도 그 자리에서 찍는다).
+  "Product/Checkout Agreement": 1,
   // 셋째 묶음: 결제 상태 알림 × 두 뷰포트(billing-success 일부 반영 미리보기), bulk 쿠폰 안내 × 두 뷰포트 × 미리보기 둘(성공 · 발급 실패).
   "Product/Billing Status Alert": 2,
   "Product/Bulk Coupon Notice": 4,
@@ -1983,13 +2119,29 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Coupon Code Chip": 45,
   // 다섯째 묶음(2026-10-07): 공개 화면 푸터 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 × 두 뷰포트(같은 컴포넌트 · 같은 글자 서열).
   // 같은 날 뒤: 10 → 14 — 공개 시드 원장의 블로그 글 · 템플릿 상세 × 두 뷰포트에도 같은 푸터가 선다.
-  "Product/Landing Footer": 14,
+  // 2026-10-08: 14 → 6 — 통합 판에서 공개 `/` 가 오류 경계 화면으로 재져 푸터가 없고(−2), 모바일 variant 를 잠시 뺐다(감긴 주소 칸,
+  // PRODUCT_PARTS 의 주석 — 모바일 −6). 남은 것은 문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세의 데스크톱 여섯이다.
+  "Product/Landing Footer": 6,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   "Product/Page Header": 2,
   "Product/Admin Section Header": 2,
   "Product/Select Dropdown": 4,
   "Product/Plan Comparison Table": 2,
+  // 2026-10-08(통합 판 원장 일곱 세트): 템플릿 상세 캐러셀 · 블로그 글 머리 · 문의 첨부 드롭존 — 측정한 그 자리 × 두 뷰포트.
+  "Product/Template Result Carousel": 2,
+  "Product/Article Header": 2,
+  "Product/Attachment Dropzone": 2,
+  // 테마 순환 버튼(/pricing) · 어드민 워드마크(/admin 데스크톱)는 글자가 없어(aria-label · img 뿐) 글자 서열 서명으로 보드에 묶이지 않는다 —
+  // 매처가 글자 없는 노드를 보지 않는다(Select Dropdown 의 아이콘만 있는 칸과 같은 사정). 컴포넌트만 채우고 보드는 측정한 노드 그대로다.
+  "Product/Theme Cycle Button": 0,
+  "Product/Admin Wordmark Logo": 0,
+  // 인증 입력 칸 14 — 로그인 위 칸 포커스 · 아래 칸 쉼, 가입 단칸 포커스(Username) · 단칸 쉼(Email) · 위 칸 쉼(Password), 비밀번호 찾기
+  // 단칸 쉼, 새 비밀번호 위 칸 쉼 × 두 뷰포트. 가입 · 새 비밀번호의 「Confirm password」 아래 칸은 글자가 달라(세트의 아래 칸은 「Password」)
+  // 날노드로, 탈퇴 복구(/recover)는 글자가 한국어라 묶이지 않는다. AWS 가입 · 설정 · 약관 본문의 같은 글자 칸은 서브트리 모양이 달라 뺀다(strictLook).
+  "Product/Auth Floating Field": 14,
+  // 약관 동의 줄 — 가입 × 두 뷰포트. AWS 가입의 같은 글자 블록(남색)은 서브트리 모양이 달라 뺀다(strictLook).
+  "Product/Signup Legal Agreements": 2,
 };
 const contentSets = new Set([...CONTENT_COMPONENTS, ...partContent].map((entry) => entry.set));
 const contentInstances = Object.fromEntries([...contentSets].map((set) => [set, 0]));
@@ -2055,8 +2207,10 @@ const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 �
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
-  "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  // 2026-10-08 통합 판(DS-D-0079): 아래 두 자리는 잠시 0 이다 — 공개 원장의 `/` 와 세션의 `/videoeditor/[projectId]` 가 지금 오류 경계
+  // 화면으로 재져 그 서브트리가 없다(원인은 따로 고치는 중). 화면이 돌아오면 두 줄을 되살린다.
+  // "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
+  // "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
@@ -2165,7 +2319,7 @@ const template = (() => {
 })();
 const manifest = [];
 for (const entry of screens) {
-  const slimSpec = slim(entry.spec);
+  const { slimmed: slimSpec, locale } = slimWithLocale(`${entry.route} @ ${entry.context}`, entry.spec);
   // **파일명에 위험한 글자를 남기지 않는다.** 화면 키는 이제 route가 아니라 상태라서
   // `?`·`[`·`]`가 들어올 수 있다(`/highlight/[projectId]?__phase=upload`). 셸 글롭이 대괄호를
   // 문자 클래스로, `?`를 한 글자 와일드카드로 읽으므로 `figma/app-screens.*`를 다루는 명령이
@@ -2195,9 +2349,9 @@ for (const entry of screens) {
       else groups.push({ size, slots: [{ path: chunk.path, spec: chunk.spec }] });
     }
     const payloads = [
-      { route: entry.route, context: entry.context, frameId: entry.figmaFrameId, frameSize: entry.frameSize, colour, head },
+      { route: entry.route, context: entry.context, frameId: entry.figmaFrameId, frameSize: entry.frameSize, colour, head, ...(locale ? { locale } : {}) },
       ...groups.map((group) => ({ route: entry.route, context: entry.context, frameId: entry.figmaFrameId,
-                                  colour, slots: group.slots })),
+                                  colour, slots: group.slots, ...(locale ? { locale } : {}) })),
     ];
     return payloads.map((payload, index) => {
       const name = `figma/${RUNNER_PREFIX}.${slug}.${String(index).padStart(2, "0")}.draw.js`;
@@ -2236,7 +2390,9 @@ outputs[0] = { absolute: planPath, expected: `${JSON.stringify(plan, null, 2)}\n
 // 보드와 같은 렌더러로 부품 variant(빈 컴포넌트) 안을 채운다. 계획의 `setName` 은 표면 원장의 제품 세트 어휘가 된다(DS-D-0071).
 const partRunners = [];
 for (const part of parts) {
-  const slimSpec = slim(part.spec);
+  const { slimmed: slimSpec, locale } = slimWithLocale(`part:${part.set} ${part.variant}`, part.spec);
+  // 글자 속성 부품은 마스터 글자를 TEXT 속성에 묶는다 — 변수 바인딩과 한 글자에 겹치지 않는다(로캘 계획도 그 부품을 묶지 않는다).
+  if (locale && part.label) fail(`글자 속성 부품에 로캘 바인딩이 있습니다: ${part.set} ${part.variant}`);
   const slug = `${part.set.replace(/^Product\//, "")} ${part.variant}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const base = { route: `part:${part.set} ${part.variant}`, context: part.context, frameId: part.componentId };
   // **큰 부품은 보드처럼 조각으로 나눈다(2026-10-07).** 요금제 비교표(노드 754)는 한 조각에 들지 않는다. 렌더러는 보드와 부품을 같은
@@ -2253,8 +2409,8 @@ for (const part of parts) {
       else groups.push({ size, slots: [{ path: chunk.path, spec: chunk.spec }] });
     }
     const payloads = [
-      { ...base, frameSize: part.frameSize, ...(part.hugHeight ? { hugHeight: true } : {}), colour, head, ...(part.label ? { label: part.label } : {}) },
-      ...groups.map((group) => ({ ...base, colour, slots: group.slots })),
+      { ...base, frameSize: part.frameSize, ...(part.hugHeight ? { hugHeight: true } : {}), colour, head, ...(part.label ? { label: part.label } : {}), ...(locale ? { locale } : {}) },
+      ...groups.map((group) => ({ ...base, colour, slots: group.slots, ...(locale ? { locale } : {}) })),
     ];
     return payloads.map((payload, index) => {
       const name = `figma/${PART_RUNNER_PREFIX}.${slug}.${String(index).padStart(2, "0")}.draw.js`;
@@ -2295,6 +2451,11 @@ const partsPlan = {
   })),
 };
 outputs.push({ absolute: partsPlanPath, expected: `${JSON.stringify(partsPlan, null, 2)}\n` });
+// 로캘 계획에 있는데 이 실행이 그리지 않은 보드 · 부품 — 화면 목록에서 빠졌거나 이름이 바뀌었다.
+if (localePlan) {
+  const unknown = Object.keys(localePlan.bindings ?? {}).filter((key) => !localeConsumed.has(key));
+  if (unknown.length > 0) fail(`로캘 계획의 보드 · 부품을 이 실행이 그리지 않습니다: ${unknown.join(", ")}`);
+}
 
 // **더 이상 내지 않는 런너는 지운다.** 조각 수는 spec이 바뀌면 줄어드는데, 남은 옛 파일은
 // `--check`가 잡지 못한다(검사는 "내야 할 것"만 본다). 실측 사고: 셸을 인스턴스로 바꿔 조각이

@@ -1,4 +1,4 @@
-// **되읽기 탐침이 글자를 en 모드로 푼 값으로 읽게 하는 플러그인 코드 조각(DS-D-0080, 2026-10-08).**
+// **되읽기 탐침이 글자를 en 모드로 푼 값으로 읽게 하는 플러그인 코드 조각(DS-D-0081, 2026-10-08).**
 //
 // 보드 글자가 「Klipse Locale」 변수에 묶이면 `node.characters` 는 그 노드가 선 자리의 모드(페이지 · 섹션이 ko 로 남아 있으면 ko)로 풀린
 // 값을 돌려준다 — 되읽기 · 라이브 대조가 en 측정과 어긋나 빨개진다. 탐침은 읽기 전용이라 모드를 바꿨다 되돌리지 않는다(원칙). 대신
@@ -12,7 +12,7 @@
 
 export const LOCALE_COLLECTION = "Klipse Locale";
 
-export const LOCALE_READ_SNIPPET = String.raw`// DS-D-0080 — 「Klipse Locale」 이 있으면 글자는 en 모드로 푼 값을 읽는다(페이지가 ko · ja 로 남아 있어도 같다). 읽기 전용: 모드를 바꾸지 않는다.
+export const LOCALE_READ_SNIPPET = String.raw`// DS-D-0081 — 「Klipse Locale」 이 있으면 글자는 en 모드로 푼 값을 읽는다(페이지가 ko · ja 로 남아 있어도 같다). 읽기 전용: 모드를 바꾸지 않는다.
 const LOCALE = await (async () => {
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
   const collection = collections.find((entry) => entry.name === "Klipse Locale");

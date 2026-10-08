@@ -34,7 +34,7 @@
 - design/governance/decisions/DS-D-0077-hover-only-on-hover-devices.md
 - design/governance/decisions/DS-D-0078-icon-provenance-per-set.md
 - design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md
-- design/governance/decisions/DS-D-0080-locale-string-collection.md
+- design/governance/decisions/DS-D-0081-locale-string-collection.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -2519,12 +2519,12 @@ DS-D-0008 3항의 항목 형식을 아래로 **바꾼다.** 3항의 나머지 �
 
 `migration/product-evidence.lock.json` 을 `design` 브랜치의 커밋으로 되돌리고, `KLIPSE_PRODUCT_REPO` 를 제품 저장소로 되돌린 뒤 원장을 다시 잰다.
 
-## DS-D-0080 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
+## DS-D-0081 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
 
-- Source: design/governance/decisions/DS-D-0080-locale-string-collection.md
+- Source: design/governance/decisions/DS-D-0081-locale-string-collection.md
 - Maturity: experimental
 
-### DS-D-0080 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
+### DS-D-0081 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다
 
 - Status: accepted (실측 2026-10-08, 시범 보드 `/inquiry` 진행 중)
 - Date: 2026-10-08

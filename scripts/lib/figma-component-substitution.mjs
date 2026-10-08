@@ -144,14 +144,8 @@ export const CONTENT_COMPONENTS = Object.freeze([
     texts: [...cardTexts(card), ...(card.action ? [card.action.label.text] : [])],
     structure: cardStructure(card),
   })),
-  // 「진행 중 이벤트 알약」(제품 `PricingNotice`) — 점(글자 없음) · 글자 하나라 구조 서명은 [1] 이다(2026-09-26).
-  ...[["Desktop", UPGRADE_PLAN.component], ["Mobile", UPGRADE_PLAN.component.mobile]].map(([viewport, surface]) => ({
-    set: COMPONENT_SETS.pricingNotice,
-    variant: `Viewport=${viewport}`,
-    viewport,
-    texts: [surface.main.headerNotice.text],
-    structure: [1],
-  })),
+  // 「진행 중 이벤트 알약」(제품 `PricingNotice`)은 통합 판에서 걷혔다(제품 f0527efc6 「Lite 출시 기념 할인 공지 알약을 걷는다」, DS-D-0079) —
+  // 보드에 그 자리가 없으므로 치환 항목도 없다. 세트 `Product/Pricing Notice` 의 은퇴는 따로 정한다.
 ].map((entry) => Object.freeze({ ...entry, texts: entry.texts.map((text) => matchText(text)) })));
 for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
   if (plan.productCommit !== APP_SHELL_PLAN.productCommit) {
@@ -159,8 +153,7 @@ for (const plan of [COMPONENTS_PLAN, CHECKOUT_PLAN, UPGRADE_PLAN]) {
   }
 }
 if (COMPONENT_SETS.paymentResult !== PAYMENT_PLAN.componentSetName || COMPONENT_SETS.checkoutStatus !== CHECKOUT_PLAN.component.contentSetName ||
-  COMPONENT_SETS.upgradePlanCard !== UPGRADE_PLAN.component.cardSetName || COMPONENT_SETS.upgradePlanCardSlice !== UPGRADE_PLAN.component.mobileVisibleCardSetName ||
-  COMPONENT_SETS.pricingNotice !== UPGRADE_PLAN.component.noticeSetName) {
+  COMPONENT_SETS.upgradePlanCard !== UPGRADE_PLAN.component.cardSetName || COMPONENT_SETS.upgradePlanCardSlice !== UPGRADE_PLAN.component.mobileVisibleCardSetName) {
   throw new Error("[figma-app-screens] COMPONENT_SETS 의 본문 세트 이름이 생성기 plan 과 다릅니다.");
 }
 
@@ -918,6 +911,10 @@ function matchLouisPrimitive(site, node, style, evidence) {
   for (const [axis, expected] of Object.entries(box)) {
     // 가상 요소 축은 측정 fixture 에 없다 — 그 자리가 스스로 밝힌 경우에만 대신 몸의 모양을 본다(아래).
     if (site.pseudoUnmeasured && axis.startsWith("::")) continue;
+    // **min-width 는 바닥이다(2026-10-08).** 제품이 레이아웃 class 로 최소 폭만 넓힌 Button — 결제 진행 데스크톱 「Pay now」
+    // (TossPaymentWindowPanel CHECKOUT_PAY_BUTTON `min-w-[280px]`) — 은 레시피 상자가 같고 폭만 넓다. 문자열 비교로는 48px ≠ 280px 라
+    // 사유 없이 도형으로 남았다(보드 원장은 이 축을 보지 않아 「대체 가능」으로 셌다). 인스턴스는 측정 최소 폭을 payload `mn` 으로 받는다.
+    if (axis === "minWidth" && Number.parseFloat(style[axis]) >= Number.parseFloat(expected)) continue;
     if (style[axis] !== expected) return null;
   }
   // 가상 요소가 그리는 부품은 몸이 비어 있어야 한다 — 칠 · 글자 · 자식 없이, 반경이 반 이상인 원.
@@ -994,6 +991,18 @@ export function lookOf(spec) {
   return JSON.stringify([spec.paint ?? null, spec.typography ?? null]);
 }
 
+/**
+ * 서브트리 모양 서명 — 뿌리만이 아니라 모든 노드의 칠과 타이포(깊이 우선 순서). `PARTS` 의 `strictLook` 부품은 이것까지 같을 때만 맞춘다
+ * (2026-10-08). 인증 입력 칸 · 약관 동의 줄은 글자 하나(「Email」)나 짧은 서열이라 설정 · 약관 본문의 같은 글자 칸에도, 같은 벌을 남색
+ * 리터럴로 덮은 AWS 가입 화면에도 붙었다 — 약관 동의 줄은 뿌리에 칠이 없어 뿌리 모양(`lookOf`)으로도 갈리지 않는다.
+ */
+export function treeLookOf(spec) {
+  const looks = [];
+  const walk = (node) => { looks.push([node.paint ?? null, node.typography ?? null]); for (const child of node.children ?? []) walk(child); };
+  walk(spec);
+  return JSON.stringify(looks);
+}
+
 /** 셸 자리를 인스턴스로 바꾼다. spec을 제자리에서 수정하고 적용·보류 목록을 돌려준다. */
 
 export function applyComponentInstances(spec, { route, context, viewport, styleOf, declaredOf, evidence, extraContent = [] }) {
@@ -1065,13 +1074,19 @@ export function applyComponentInstances(spec, { route, context, viewport, styleO
         && candidate.viewport === viewportName && candidate.look === look && new RegExp(candidate.labelPattern).test(texts[0]));
       if (labelled) return { hit: labelled, label: texts[0] };
     }
+    // `strictLook` 부품(`treeLook` 을 실은 후보)은 서브트리 모양까지 같아야 후보가 된다 — 다르면 후보가 아니라 보류 사유도 남기지 않는다.
+    let nodeTreeLook = null;
     const sameTexts = [...CONTENT_COMPONENTS, ...extraContent].filter((candidate) => !candidate.label
       && (leaf ? candidate.leaf === node.tag : !candidate.leaf)
-      && candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index]));
+      && candidate.texts.length === texts.length && candidate.texts.every((text, index) => text === texts[index])
+      && (!candidate.treeLook || candidate.treeLook === (nodeTreeLook ??= treeLookOf(node))));
     if (sameTexts.length === 0) return null;
     const structure = structureOf(node);
-    const hit = sameTexts.find((candidate) => candidate.viewport === viewportName
+    const hits = sameTexts.filter((candidate) => candidate.viewport === viewportName
       && candidate.structure.length === structure.length && candidate.structure.every((count, index) => count === structure[index]));
+    // **글자 · 구조가 같은 후보가 여럿이면 뿌리 모양으로 가린다(2026-10-08).** 인증 입력 상자는 「Email」 하나로 위 칸(위만 곡률)과
+    // 단칸(네 모서리) · 포커스와 쉼이 갈린다 — 첫 후보를 고르면 가입 보드의 단칸이 로그인 위 칸 세트로 바뀐다. 후보가 하나면 전과 같다.
+    const hit = hits.length > 1 ? (hits.find((candidate) => candidate.look && candidate.look === lookOf(node)) ?? hits[0]) : hits[0];
     if (hit) return { hit };
     const inViewport = sameTexts.filter((candidate) => candidate.viewport === viewportName);
     return {

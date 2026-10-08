@@ -78,6 +78,33 @@ for (const name of P.colour.collections) {
 
 const textStyleByName = new Map((await figma.getLocalTextStylesAsync()).map((style) => [style.name, style]));
 
+// ── 로캘 변수(DS-D-0081) ──────────────────────────────────────────────────
+// `P.locale` 이 있을 때만 돈다 — 없으면 아래 갈래는 하나도 일하지 않고 러너는 전과 같다. 컬렉션 「Klipse Locale」의 변수를 이름으로
+// 찾는다(로캘 러너 figma-locale-strings-renderer.js 가 먼저 세운다). 없는 변수는 조용히 리터럴로 두지 않고 그리기 전에 던진다.
+const localeVarByName = new Map();
+if (P.locale) {
+  const collection = (await figma.variables.getLocalVariableCollectionsAsync()).find((entry) => entry.name === P.locale.collection);
+  if (!collection) throw new Error(`로캘 컬렉션을 찾지 못했습니다: ${P.locale.collection} — 로캘 러너(figma/locale-strings.*.draw.js)를 먼저 돌리세요.`);
+  for (const variable of await figma.variables.getLocalVariablesAsync()) {
+    if (variable.variableCollectionId === collection.id) localeVarByName.set(variable.name, variable);
+  }
+  const wanted = new Set();
+  const gather = (spec) => {
+    if (spec.xv) wanted.add(spec.xv);
+    if (spec.vv) wanted.add(spec.vv);
+    if (spec.iv) for (const name of typeof spec.iv === "object" ? Object.values(spec.iv) : [spec.iv]) wanted.add(name);
+    for (const child of (spec.k || [])) gather(child);
+  };
+  if (P.head) gather(P.head);
+  for (const slot of (P.slots || [])) gather(slot.spec);
+  const missingLocaleVars = [...wanted].filter((name) => !localeVarByName.has(name));
+  if (missingLocaleVars.length) throw new Error(`로캘 변수 ${missingLocaleVars.length}개가 ${P.locale.collection} 에 없습니다: ${missingLocaleVars.slice(0, 8).join(" | ")}`);
+}
+// 글자 · 존재 바인딩은 텍스트 스타일 · 범위 서식을 건 뒤에 건다 — `characters` · `visible` 을 쓰면 바인딩이 조용히 풀린다(실측 10-08).
+const pendingLocaleTexts = [];
+const pendingLocaleVisible = [];
+const localeCounts = { texts: 0, visible: 0, labels: 0 };
+
 // ── 색 적용 ───────────────────────────────────────────────────────────────
 const boundColors = new Set();
 let gradientCount = 0;
@@ -279,6 +306,8 @@ const applyTypography = (node, spec) => {
     pendingTextStyles.push([node, spec.y]);
   }
   if (spec.xr) pendingRanges.push([node, spec.xr, spec.r && spec.r[1]]);
+  // 범위 서식 글자는 묶지 않는다(DS-D-0081 4항) — 생성기도 싣지 않지만 옛 조각을 돌려도 무너지지 않게 여기서도 막는다.
+  if (P.locale && spec.xv && !spec.xr) pendingLocaleTexts.push([node, spec.xv]);
 };
 
 const buildNode = (spec, parent) => {
@@ -310,7 +339,11 @@ const buildNode = (spec, parent) => {
       }
       const values = {};
       for (const name of wanted) {
-        if (spec.i[2][name] != null) values[keys[fileNames.indexOf(name)]] = String(spec.i[2][name]);
+        if (spec.i[2][name] == null) continue;
+        // 로캘 변수가 있는 속성은 별칭으로 넣는다(모드를 따른다). 없으면 글자 그대로.
+        const alias = P.locale && spec.iv && spec.iv[name];
+        values[keys[fileNames.indexOf(name)]] = alias ? figma.variables.createVariableAlias(localeVarByName.get(alias)) : String(spec.i[2][name]);
+        if (alias) localeCounts.labels += 1;
       }
       node.setProperties(values);
     } else if (spec.i[2] != null) {
@@ -318,7 +351,9 @@ const buildNode = (spec, parent) => {
       if (keys.length !== 1) {
         throw new Error(`${spec.i[0]} 의 TEXT 속성이 ${keys.length}개입니다(${keys.join(" | ") || "없음"}) — 라벨 «${spec.i[2]}» 를 어디에 넣을지 정할 수 없습니다.`);
       }
-      node.setProperties({ [keys[0]]: String(spec.i[2]) });
+      const alias = P.locale && typeof spec.iv === "string" ? spec.iv : null;
+      node.setProperties({ [keys[0]]: alias ? figma.variables.createVariableAlias(localeVarByName.get(alias)) : String(spec.i[2]) });
+      if (alias) localeCounts.labels += 1;
     }
   } else if (spec.im) {
     node = imageCache.get(spec.im[0]).createInstance();
@@ -531,6 +566,7 @@ const buildNode = (spec, parent) => {
   if (spec.b && node.layoutMode && node.layoutMode !== "NONE") node.strokesIncludedInLayout = !spec.b[5];
 
   for (const child of (spec.k || [])) buildNode(child, node);
+  if (P.locale && spec.vv) pendingLocaleVisible.push([node, spec.vv]);
 
   // **아이콘은 측정한 도형으로 그린다(2026-09-30).** 생성기가 도형의 기하와 계산된 칠 · 획으로 조립한 SVG(`vs`)를 그리고, 칠 · 획은 값이
   // 같은 변수에 묶는다(다른 면과 같은 규칙 — 없으면 리터럴 + unboundColors). 그림은 측정 상자 크기라 흐름 자식으로 붙인다.
@@ -621,6 +657,11 @@ const flushTextStyles = async () => {
     }
   }
   pendingRanges.length = 0;
+  // 로캘 바인딩 — 글자 · 텍스트 스타일 · 범위 서식이 다 걸린 뒤.
+  for (const [node, name] of pendingLocaleTexts) { node.setBoundVariable("characters", localeVarByName.get(name)); localeCounts.texts += 1; }
+  pendingLocaleTexts.length = 0;
+  for (const [node, name] of pendingLocaleVisible) { node.setBoundVariable("visible", localeVarByName.get(name)); localeCounts.visible += 1; }
+  pendingLocaleVisible.length = 0;
 };
 
 const frame = await figma.getNodeByIdAsync(P.frameId);
@@ -659,6 +700,7 @@ if (P.head) {
   // 측정보다 내용이 길어지는 부품(`hugHeight`, 예시 부품의 감긴 각주 줄)은 틀 높이를 내용에 맞춘다 — 고정하면 아래가 넘친다.
   if (P.hugHeight) frame.primaryAxisSizingMode = "AUTO";
   // 측정 테마의 모드를 화면 루트에 고정한다 — 파일 기본 모드가 바뀌어도 보드가 측정과 같은 색으로 풀린다.
+  // **Locale 컬렉션은 고정하지 않는다(DS-D-0081 3항).** 루트에 en 을 박으면 페이지 · 섹션에서 고른 언어가 보드에 닿지 않는다.
   live.pin(root);
   await flushTextStyles();
   settleAbsolute();
@@ -708,4 +750,5 @@ return {
   unboundColors: [...unboundColors].sort(),
   missingTextStyles: [...missingTextStyles],
   ...(gridTrackFailures.length ? { gridTrackFailures } : {}),
+  ...(P.locale ? { boundTexts: localeCounts.texts, boundVisible: localeCounts.visible, boundLabels: localeCounts.labels } : {}),
 };

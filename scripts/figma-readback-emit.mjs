@@ -1660,7 +1660,7 @@ async function templateExecutionCanaries() {
   } catch (error) {
     failures.push(`실행 canary(밴드 불일치)가 던졌습니다: ${error.message}`);
   }
-  // DS-D-0080 — 글자가 Locale 변수에 묶여 있으면 노드가 ko 로 풀려 있어도 en 값을 읽고, 읽은 변수를 따로 적는다.
+  // DS-D-0081 — 글자가 Locale 변수에 묶여 있으면 노드가 ko 로 풀려 있어도 en 값을 읽고, 읽은 변수를 따로 적는다.
   // 컬렉션이 없거나 묶인 글자가 없으면 결과는 지금과 같은 모양이다.
   const localeTable = {
     copy: {
@@ -1831,7 +1831,7 @@ function mergeTemplates(resultPath, acceptUnverified) {
   const incomingRaw = JSON.parse(readFileSync(resolve(process.cwd(), resultPath), "utf8"));
   const incoming = incomingRaw.templates ?? incomingRaw;
   if (incomingRaw.localeBound) {
-    // DS-D-0080: 글자가 Locale 변수에 묶여 있었고 en 모드로 푼 값을 읽었다 — 병합본은 en 값이다.
+    // DS-D-0081: 글자가 Locale 변수에 묶여 있었고 en 모드로 푼 값을 읽었다 — 병합본은 en 값이다.
     const variables = Object.values(incomingRaw.localeBound.variables ?? {}).flatMap((bag) => Object.keys(bag));
     console.error(`[readback-emit] 글자 ${new Set(variables).size}개 변수를 ${incomingRaw.localeBound.collection} ${incomingRaw.localeBound.mode} 모드 값으로 읽었습니다.`);
   }

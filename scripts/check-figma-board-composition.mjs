@@ -281,7 +281,11 @@ const UNCLASSIFIED_BASELINE = 0;
 // 노드 카드 셋(`Product/Canvas Text Node` · `Canvas Image Node` · `Canvas Video Node`) 3, 프로젝트 머리(`Product/Project Header`) 두 뷰포트 2,
 // 편집기 모바일 타임라인(`Product/Mobile Timeline`) 1. 카드 안에는 LOUIS 인스턴스가 없어(머리 버튼은 IconButton 레시피의 bespoke) 빠진 것이 없다.
 // 툴바 · 연결 버튼 · 머리 동작 · 복사 · 이미지 줄 · 눈금자는 글자가 없어, 생성 알약 · 제목 · LLM 결과는 카드 인스턴스 안이라 보드에 서지 않는다(0).
-const INSTANCE_FLOOR = 332;
+// 같은 날 뒤: 332 → **340.** **이득이다.** 트리 변환이 막던 두 자리를 규칙으로 풀어 세트에 넣었다 — 공개 모바일 보드 일곱(랜딩 · 문의 · 요금 ·
+// 템플릿 · 블로그 · 블로그 글 · 템플릿 상세)의 타임라인 푸터가 `Product/Landing Footer` 모바일 variant 의 인스턴스가 됐고(+7, 감기는 줄에서
+// 혼자 한 줄을 차지한 감긴 주소 칸 — build-figma-app-screens 의 reconcileFigmaSizing), `/nodecanvas?project=` 데스크톱의 줌 비율 트리거가
+// `Product/Canvas Zoom Trigger` 의 인스턴스가 됐다(+1, 글자 + 캐럿 단추의 떼어낸 글자 — figma-tree-spec 의 flexRowTextRect).
+const INSTANCE_FLOOR = 340;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -351,7 +355,12 @@ const INSTANCE_FLOOR = 332;
 // 복사)와 카드의 제품 전용 자리(모델 · 길이 · 비율 칩 · 프롬프트 칸 · 생성 알약), 프로젝트 머리의 뒤로 · 저장, 편집기 모바일 타임라인의
 // 필름 줄이 인스턴스 안이라 따로 세지 않는다. 모바일 캔버스 카드(줌 0.19)는 variant 를 세우지 않아 그대로다.
 // 수는 instance 332 + replaceable 0 + bespoke 294 + blocked 10 + missing 1849.
-const CANDIDATE_FLOOR = 2485;
+// 같은 날 뒤: 2485 → **2318.** 보드가 준 것이 아니라 부품 인스턴스(위 INSTANCE_FLOOR, +8) 안으로 후보가 들어가 가지치기됐다. 커밋된 원장
+// (HEAD — instance 332 + bespoke 294 + blocked 10 + missing 1865 = 2501, 이 바닥보다 16 위에 있었다)과 보드별로 견주면 공개 모바일 보드 일곱이
+// 각 instance +1 · bespoke −4(푸터 트랙 아이콘 넷 — 인라인 제품 글리프) · missing −23(푸터의 제품 전용 자리 — 눈금 · 링크 트랙 · 사업자 정보 줄),
+// `/nodecanvas?project=` 데스크톱이 instance +1 · bespoke −1(캐럿 글리프) · missing −1(반투명 알약)이다 — 합 instance +8 · bespoke −29 ·
+// missing −162. 수는 instance 340 + replaceable 0 + bespoke 265 + blocked 10 + missing 1703.
+const CANDIDATE_FLOOR = 2318;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.

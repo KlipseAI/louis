@@ -474,9 +474,125 @@
             ]
           },
           "runner": "figma/product-parts.landing-footer-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/inquiry",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.3",
+          "componentId": "2677:4186",
+          "frameSize": [
+            402,
+            471
+          ],
+          "signature": {
+            "texts": [
+              "00:00",
+              "00:02",
+              "00:04",
+              "Models",
+              "Docs",
+              "Pricing",
+              "Blog",
+              "Newsroom",
+              "Ambassador",
+              "Instagram",
+              "Threads",
+              "YouTube",
+              "Contact",
+              "Privacy Policy",
+              "Terms of Service",
+              "00:02",
+              "CompanySFACSPACE Inc.",
+              "CEOMinho Yeom",
+              "Business Registration No.450-87-01864",
+              "Address4F, Magok 595 Bldg, 59-5 Magok Jungang-ro, Gangseo-gu, Seoul",
+              "Phone02-6217-1119",
+              "E-commerce Registration No.2026-Seoul Gangseo-1080",
+              "© SFACSPACE 2026. All rights reserved"
+            ],
+            "structure": [
+              16,
+              7
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 62,
+            "unresolved": [],
+            "sizingReconciled": 7,
+            "spaceBetweenHug": [
+              {
+                "path": "body.1.0.0.3.1.2.1.0.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.2.1.1.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.2.1.2.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.3.1.0.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.3.1.1.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.3.1.2.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.4.1.0.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.4.1.1.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.4.1.2.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.5.1.0.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.5.1.1.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.1.5.1.2.0",
+                "layoutMode": "HORIZONTAL",
+                "itemSpacing": 10
+              },
+              {
+                "path": "body.1.0.0.3.2",
+                "layoutMode": "VERTICAL",
+                "itemSpacing": 10
+              }
+            ]
+          },
+          "runner": "figma/product-parts.landing-footer-viewport-mobile.00.draw.js"
         }
       ],
-      "boardInstances": 7
+      "boardInstances": 14
     },
     {
       "setName": "Product/Page Header",
@@ -1964,6 +2080,39 @@
         }
       ],
       "boardInstances": 2
+    },
+    {
+      "setName": "Product/Canvas Zoom Trigger",
+      "about": "캔버스 우하단 줌 · 보기 옵션 트리거(node-canvas-v2/components/CanvasZoomControl.tsx — 반투명 알약 · 줌 비율 · 캐럿, 높이 36 · 곡률 16 · 배경 흐림). 측정은 메뉴가 닫힌 상태이고 비율은 캔버스가 화면에 맞춘 줌이다. 줌을 타지 않는 크롬이지만 모바일 캔버스에는 이 컨트롤이 없어 데스크톱 하나다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.3.0",
+          "componentId": "2979:3679",
+          "frameSize": [
+            67.09,
+            36
+          ],
+          "signature": {
+            "texts": [
+              "82%"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 3,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.canvas-zoom-trigger-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 1
     },
     {
       "setName": "Product/Canvas Text Node",

@@ -13,14 +13,14 @@
   "filesScanned": 360,
   "counts": {
     "total": 555,
-    "mapped": 104,
+    "mapped": 105,
     "scoped": 292,
-    "needed": 157,
+    "needed": 156,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 57,
+    "primitive": 56,
     "screen": 80,
     "oneoff": 19,
     "unclear": 1,
@@ -3428,12 +3428,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasZoomControl.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "우하단 줌 비율 트리거 알약(높이 18*2=36 · gray-800/72% + blur 4 + hairline-inset + 캐럿). 원장이 지목한 표면이고, 드롭다운 본문은 Menu 정본이 소유하지만 트리거 알약 자체는 어떤 정본에도 없다. 하단 툴바 알약과 같은 표면 문법을 공유하므로 한 벌로 세우는 게 맞다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Menu] 컴포넌트 JSX 는 1(index.tsx)이지만 **표면이 6 파일 공용**이다 — `gray-800/72%` + `backdrop-filter:blur(4px)` + `box-shadow:var(--louis-hairline-inset)` 세 값이 함께 있는 파일을 앵커에서 세니 CommandPalette · NodeCanvasHomeScene · VideoEditScene · CanvasZoomControl · Toolbar · index.tsx. 즉 캔버스 · 홈 · 영상편집 · 커맨드팔레트 네 화면이 같은 떠 있는 알약 셸을 쓴다. 트리거 알약(높이 36 · 캐럿)은 어떤 정본에도 없다. 드롭다운 본문은 Menu 가 이미 소유."
+      "verdict": "figma",
+      "figma": "Product/Canvas Zoom Trigger",
+      "reason": "Figma 제품 세트 `Product/Canvas Zoom Trigger` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` body.1.0.0.0.7.0.0.3.0(반투명 알약 · 줌 비율 「82%」 · 캐럿, 높이 36 · 배경 흐림, 데스크톱 — 모바일 캔버스에는 이 컨트롤이 없다). 메뉴가 열린 상태(드롭다운 본문은 Menu 정본)는 측정에 없다. 한때 트리 변환이 글자 + 캐럿 단추의 떼어낸 글자를 감긴 글자로 읽어 세우지 못했으나 익명 flex 항목 규칙(figma-tree-spec flexRowTextRect)으로 풀었다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx#ChromeTooltip": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/ChromeTooltip.tsx",

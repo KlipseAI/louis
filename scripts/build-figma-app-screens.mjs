@@ -619,9 +619,11 @@ const PRODUCT_PARTS = [
     // 공개 `/` 가 한때 오류 경계로 재져 푸터가 없었다가 다시 재자 랜딩 데스크톱 푸터도 이 세트의 인스턴스가 됐다(CONTENT_INSTANCES_BY_SET).
     variants: [
       ["Viewport=Desktop", "desktop-1920x1080", { length: 62, fnv: "f262472e" }, "2677:4185"],
-      // 모바일(2677:4186)은 잠시 뺀다 — 새 푸터의 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이 두 줄로 감기는데
-      // 트리 변환이 그 감김을 풀지 못한다(부품은 감긴 글자가 남으면 멈춘다 — 1728행). 변환이 그 자리를 풀면 되살린다. 그동안 모바일 보드의
-      // 푸터는 측정한 노드 그대로 그려진다.
+      // 모바일(2677:4186)은 한때 뺐다가 되살렸다(2026-10-08) — 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이
+      // 혼자 한 줄을 차지해 줄 폭까지 줄어들며 두 줄로 감기는데, 크기 조합 풀이(reconcileFigmaSizing)가 그 꼴을 풀지 못해 부품이 멈췄다.
+      // 「감기는 줄에서 혼자 한 줄을 차지한 감긴 글자」 규칙(같은 함수 · 조립 규칙 28조)이 측정 폭 FIXED 로 푼다. 모바일 글자 서열은
+      // 트랙 이름이 아이콘만 남아 데스크톱보다 짧다(23).
+      ["Viewport=Mobile", "mobile-402x874", { length: 23, fnv: "98743518" }, "2677:4186"],
     ].map(([variant, context, anchor, component]) => ({ variant, route: "/inquiry", context, path: "body.1.0.0.3", fixture: "public", anchor, component })),
   },
   {
@@ -747,8 +749,14 @@ const PRODUCT_PARTS = [
   // 글자 4px 안팎)로 재졌다. 모바일 variant 는 읽을 수 없는 축소판을 부품으로 굳히는 셈이라 세우지 않는다 — 모바일 보드의 카드는 측정한 노드 그대로다.
   // 캔버스 밖 크롬(프로젝트 머리 · 툴바)은 줌을 타지 않아 두 뷰포트를 세운다. 카드 세트가 보드의 카드를 통째로 인스턴스로 바꾸므로 카드 안 부품
   // (연결 버튼 · 머리 동작 · 생성 · 복사 · 제목 · 이미지 줄 · LLM 결과)은 보드 인스턴스가 0 이다 — 부품은 부품을 품지 않는다(PARTS 변환).
-  // 줌 비율 트리거(CanvasZoomControl, body.1.0.0.0.7.0.0.3.0)는 세우지 않았다 — 버튼이 글자(「82%」)와 캐럿 svg 를 함께 들어 글자 상자가 버튼 높이
-  // 36 을 받고, 트리 변환이 그것을 2.57 줄로 감긴 글자로 읽어 부품이 멈춘다(위 「풀지 못한 감긴 글자」). 변환이 그 자리를 풀면 세운다.
+  {
+    // 줌 비율 트리거는 한때 세우지 못했다 — 버튼이 글자(「82%」)와 캐럿 svg 를 함께 들어, 트리 변환이 떼어낸 글자 상자에 버튼 상자(36 높이 ·
+    // 패딩 포함 폭)를 주자 2.57 줄로 감긴 글자로 읽혀 부품이 멈췄다. 떼어낸 글자를 익명 flex 항목의 상자(이웃 사이 폭 · 줄 높이)로 잡는
+    // 규칙(figma-tree-spec flexRowTextRect)이 푼다(2026-10-08). 글자 「82%」는 캔버스가 화면에 맞춘 줌(0.815)이다.
+    set: "Product/Canvas Zoom Trigger",
+    about: "캔버스 우하단 줌 · 보기 옵션 트리거(node-canvas-v2/components/CanvasZoomControl.tsx — 반투명 알약 · 줌 비율 · 캐럿, 높이 36 · 곡률 16 · 배경 흐림). 측정은 메뉴가 닫힌 상태이고 비율은 캔버스가 화면에 맞춘 줌이다. 줌을 타지 않는 크롬이지만 모바일 캔버스에는 이 컨트롤이 없어 데스크톱 하나다.",
+    variants: [{ variant: "Viewport=Desktop", route: "/nodecanvas?project=", context: "desktop-1920x1080", path: "body.1.0.0.0.7.0.0.3.0", fixture: "session", anchor: ["82%"], component: "2979:3679" }],
+  },
   {
     set: "Product/Canvas Text Node",
     about: "캔버스 텍스트 노드 카드(node-canvas-v2/nodes/TextNode.tsx — 머리 · 생성된 프롬프트 결과 · 요청 프롬프트 셸 · 좌우 연결 버튼). 측정은 생성이 끝난 LLM 프롬프트 모드이고 캔버스 줌 0.815 배다.",
@@ -1356,6 +1364,16 @@ function reconcileFigmaSizing(spec) {
         : null;
       const fillsRow = row && siblings.every((child) => child.sizing.layoutSizingHorizontal !== "FILL")
         && Math.abs(node.rect.width - leftover) <= HALF_PIXEL;
+      // **감기는 줄에서 혼자 한 줄을 차지한 감긴 글자(2026-10-08).** `flex-wrap: wrap` 줄의 항목은 한 줄 내용이 줄 폭보다 길면 제 줄로
+      // 내려가 줄 폭까지 줄어들며(flex-shrink) 감긴다 — 공개 푸터 모바일의 주소 칸(li, 362 · 두 줄)이 그 꼴인데, 형제가 다른 줄에 있어
+      // 「남은 폭」 판정에 걸리지 않아 부품이 멈췄다. 측정에서 그 줄에 다른 흐름 형제가 없고 폭(바깥 여백 포함)이 줄 안쪽 폭과 같으면 폭을
+      // 정한 것은 수축이다 — 조립 규칙 28조의 예외 3(수축으로 감긴 글자는 측정 상자 폭)대로 FIXED 로 둔다. Figma 감기 자동 배치의 FILL 은
+      // 줄을 나누는 기준이 CSS 와 달라 쓰지 않는다.
+      const wrapRow = parent?.layout?.layoutMode === "HORIZONTAL" && parent.layout.wrap;
+      const aloneOnLine = wrapRow && room != null
+        && flowChildren(parent).every((child) => child === node
+          || child.rect.y >= node.rect.y + node.rect.height - HALF_PIXEL || child.rect.y + child.rect.height <= node.rect.y + HALF_PIXEL)
+        && Math.abs(node.rect.width + (node.margin?.left ?? 0) + (node.margin?.right ?? 0) - room) <= HALF_PIXEL;
       if (definite && node.rect.width <= room + HALF_PIXEL) {
         change(node, "horizontal", "FILL",
           `측정 글자가 ${lines}줄로 감겼다 — 폭은 내용이 아니라 부모(세로 흐름, 폭 ${parent.sizing.layoutSizingHorizontal})가 정한다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
@@ -1363,6 +1381,10 @@ function reconcileFigmaSizing(spec) {
       } else if (fillsRow) {
         change(node, "horizontal", "FILL",
           `측정 글자가 ${lines}줄로 감겼다 — 폭은 가로 줄(폭 ${parent.sizing.layoutSizingHorizontal})에서 형제가 쓰고 남은 폭 ${Math.round(leftover * 100) / 100} 이다. HUG 글자는 Figma 에서 한 줄로 늘어난다`,
+          `height ${node.rect.height} / line-height ${lineHeight}`);
+      } else if (aloneOnLine) {
+        change(node, "horizontal", "FIXED",
+          `측정 글자가 ${lines}줄로 감겼다 — 감기는 가로 줄(${parent.path})에서 혼자 한 줄을 차지해 줄 안쪽 폭 ${Math.round(room * 100) / 100} 까지 줄어들었다(수축). HUG 글자는 Figma 에서 한 줄로 늘어난다`,
           `height ${node.rect.height} / line-height ${lineHeight}`);
       } else {
         unresolvedWraps.push({ path: node.path, lines, parent: parent?.path ?? null });
@@ -2316,7 +2338,9 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // 2026-10-08: 14 → 7 — 통합 판에서 모바일 variant 를 잠시 뺐다(감긴 주소 칸, PRODUCT_PARTS 의 주석 — 모바일 −7). 남은 것은 랜딩 · 문의 ·
   // 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세의 데스크톱 일곱이다. 되살림(2026-10-08): 공개 `/` 가 한때 오류 경계로 재져 6 이었다가
   // fixture 에 CDN 주소를 세워 다시 재자 랜딩 데스크톱 푸터가 돌아왔다(+1).
-  "Product/Landing Footer": 7,
+  // 같은 날 뒤: 7 → 14 — 모바일 variant 를 되살렸다(감기는 줄에서 혼자 한 줄을 차지한 감긴 글자 규칙, PRODUCT_PARTS 의 주석). 데스크톱과 같은
+  // 일곱 화면(랜딩 · 문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세)의 모바일 푸터가 인스턴스가 됐다(+7).
+  "Product/Landing Footer": 14,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   // 2026-10-08: 2 → 6 — 셸 상태 레시피 `/videoeditor seeded` · `/videoeditor seeded.more-menu` × 두 뷰포트에도 같은 허브 머리가 선다.
@@ -2345,6 +2369,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Canvas Video Node": 1,
   "Product/Project Header": 2,
   "Product/Mobile Timeline": 1,
+  // 같은 날 뒤: 줌 비율 트리거 — 노드캔버스 프로젝트 데스크톱 보드 하나(모바일 캔버스에는 이 컨트롤이 없다).
+  "Product/Canvas Zoom Trigger": 1,
   // 카드 안 부품은 카드 인스턴스가 서브트리를 통째로 가져가 보드에 따로 서지 않는다(생성 알약 · 제목 · LLM 결과 — 글자는 있다).
   "Product/Node Generate Button": 0,
   "Product/Node Title Label": 0,

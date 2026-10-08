@@ -121,7 +121,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // (figma 22 — auth-two-panel 이 덮는 인증 레이아웃 · 브랜드 패널 등), 같은 날 LOUIS 세트 열셋(Choice · Record Card · Text Link · Bare
 // Button · Start Card · LoadingWord · 노드 입력판 등)이 섰다.
 // 같은 날 저녁: 82 → 104 — 제품 세트 대응 22(아래 MAPPED_PRODUCT_BASELINE). 컴포넌트 대응은 그대로 47 이다.
-const MAPPED_BASELINE = 104;
+// 같은 날 뒤: 104 → 105 — CanvasZoomControl ← Product/Canvas Zoom Trigger(아래 MAPPED_PRODUCT_BASELINE).
+const MAPPED_BASELINE = 105;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 47;
@@ -138,7 +139,9 @@ const MAPPED_COMPONENT_BASELINE = 47;
 // 템플릿 캐러셀 · 블로그 아티클 머리 · 문의 드롭존 · 어드민 워드마크 · 인증 입력 칸이 로그인 · 비밀번호 찾기 둘 · 가입 약관 줄이 가입),
 // 오류 경계에서 돌아온 세션 화면 열넷(노드 카드 셋 · 프로젝트 머리 · 연결 버튼 · 툴바 · 머리 동작 · 생성 알약 · 복사 · 제목 · 이미지 줄 ·
 // LLM 결과 · 모바일 타임라인 · 눈금자). 화면 종류(레이어 · 에셋 패널 · 쇼츠 결과 · 히어로 · 후기 밴드)와 줌 트리거(트리 변환이 멈춤)는 needed 다.
-const MAPPED_PRODUCT_BASELINE = 52;
+// 같은 날 뒤: 52 → 53 — 줌 트리거(CanvasZoomControl)가 섰다. 트리 변환이 글자 + 캐럿 단추의 떼어낸 글자를 버튼 상자(36 높이)로 잡아
+// 감긴 글자로 읽던 것을 익명 flex 항목 규칙(figma-tree-spec flexRowTextRect, 조립 규칙 28조)이 풀었다.
+const MAPPED_PRODUCT_BASELINE = 53;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

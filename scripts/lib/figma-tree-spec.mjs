@@ -192,7 +192,7 @@ function splitOwnText(node, children) {
     const top = blockFlow && at > 0 ? children[at - 1].rect.y + children[at - 1].rect.height : node.rect.y;
     rect = stacked
       ? { x: node.rect.x, y: top, width: node.rect.width, height: Math.max(0, node.rect.height - span) }
-      : { x: node.rect.x, y: node.rect.y, width: Math.max(0, node.rect.width - span), height: node.rect.height };
+      : flexRowTextRect(node, style, children, at) ?? { x: node.rect.x, y: node.rect.y, width: Math.max(0, node.rect.width - span), height: node.rect.height };
   }
 
   const textChild = {
@@ -225,6 +225,48 @@ function splitOwnText(node, children) {
     children: [],
   };
   return [...children.slice(0, at), textChild, ...children.slice(at)];
+}
+
+/**
+ * **flex 행의 떼어낸 글자는 익명 flex 항목의 상자다(2026-10-08).** 줄 rect 가 없는 원장에서 가로로 놓인 글자 조각을 노드 상자 − 자식 폭으로
+ * 잡자 패딩 · 간격이 글자 폭에 들고 높이는 노드 높이를 그대로 받았다 — 캔버스 줌 트리거(「82%」 + 캐럿 svg, 높이 36 · 줄 높이 14)의 글자가
+ * 57 × 36, 「2.57 줄로 감긴 글자」로 읽혀 부품이 멈췄다. CSS 에서 flex 컨테이너 안의 글자 조각은 익명 flex 항목이다 — 폭은 이웃 항목 사이
+ * (간격 `column-gap` 을 뺀다), 높이는 교차축 정렬이 stretch 면 콘텐츠 상자 높이, 아니면 줄 높이 × 측정 줄 수(`wrapLines`, 없으면 한 줄)다.
+ * 이웃이 한쪽뿐이면 남는 공간이 없다고 보고(내용 폭 컨테이너) `justify-content: center` 만 양쪽 여백을 같게 둔다. 감기는 flex 행 · 절대 배치
+ * 자식은 자리가 다르게 정해져 보지 않는다(종전 상자). 판정만 바뀐다 — 글자는 HUG 라 렌더러가 폭을 글자로 정한다.
+ */
+function flexRowTextRect(node, style, children, at) {
+  if (!/flex/.test(style.display ?? "") || /^column/.test(style.flexDirection ?? "") || style.flexWrap === "wrap") return null;
+  const edge = (side) => (px(style[`padding${side}`]) ?? 0) + (px(style[`border${side}Width`]) ?? 0);
+  const inner = {
+    left: node.rect.x + edge("Left"), right: node.rect.x + node.rect.width - edge("Right"),
+    top: node.rect.y + edge("Top"), bottom: node.rect.y + node.rect.height - edge("Bottom"),
+  };
+  const inFlow = (child) => child.positioning !== "ABSOLUTE";
+  const flow = children.filter(inFlow);
+  const gap = px(style.columnGap) ?? 0;
+  const outerLeft = (child) => child.rect.x - (child.margin?.left ?? 0);
+  const outerRight = (child) => child.rect.x + child.rect.width + (child.margin?.right ?? 0);
+  const prev = children.slice(0, at).filter(inFlow).at(-1);
+  const next = children.slice(at).find(inFlow);
+  const span = flow.reduce((sum, child) => sum + outerRight(child) - outerLeft(child), 0);
+  const packed = Math.max(0, inner.right - inner.left - span - gap * flow.length);
+  const centred = /^(center|safe center)$/.test(style.justifyContent ?? "");
+  let left = prev ? outerRight(prev) + gap : null;
+  let right = next ? outerLeft(next) - gap : null;
+  if (left == null && right == null) { left = inner.left; right = inner.right; }
+  if (left == null) left = centred ? inner.left + (inner.right - outerRight(flow.at(-1))) : Math.max(inner.left, right - packed);
+  if (right == null) right = centred ? inner.right - (outerLeft(flow[0]) - inner.left) : Math.min(inner.right, left + packed);
+  const contentHeight = Math.max(0, inner.bottom - inner.top);
+  const align = style.alignItems ?? "normal";
+  const lineHeight = px(style.lineHeight);
+  const lines = Array.isArray(node.wrapLines) && node.wrapLines.length > 0 ? node.wrapLines.length : 1;
+  const stretch = /^(normal|stretch)$/.test(align) || !lineHeight;
+  const height = stretch ? contentHeight : Math.min(contentHeight, lineHeight * lines);
+  const top = stretch || /^(flex-start|start|self-start|baseline|first baseline)$/.test(align) ? inner.top
+    : /^(flex-end|end|self-end|last baseline)$/.test(align) ? inner.bottom - height
+      : inner.top + (contentHeight - height) / 2;
+  return { x: left, y: top, width: Math.max(0, right - left), height };
 }
 
 /**

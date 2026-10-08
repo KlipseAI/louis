@@ -32,7 +32,7 @@
     },
     {
       "key": "/inquiry @ mobile-402x874",
-      "texts": 36,
+      "texts": 13,
       "labels": 0
     },
     {
@@ -58,6 +58,11 @@
     {
       "key": "part:Product/Attachment Dropzone Viewport=Mobile",
       "texts": 3,
+      "labels": 0
+    },
+    {
+      "key": "part:Product/Landing Footer Viewport=Mobile",
+      "texts": 23,
       "labels": 0
     }
   ],
@@ -609,42 +614,6 @@
       },
       "body.1.0.0.2.0.0.1.1.2.1.1.0.0": {
         "xv": "i18n/inquiry/submit"
-      },
-      "body.1.0.0.3.1.2.1.0.0.0": {
-        "xv": "screen/inquiry/831ffbce"
-      },
-      "body.1.0.0.3.1.2.1.1.0.0": {
-        "xv": "i18n/nav/docs"
-      },
-      "body.1.0.0.3.1.2.1.2.0.0": {
-        "xv": "screen/inquiry/7efe7e2a"
-      },
-      "body.1.0.0.3.1.3.1.0.0.0": {
-        "xv": "screen/inquiry/6937ccf9"
-      },
-      "body.1.0.0.3.1.3.1.1.0.0": {
-        "xv": "i18n/footer/links/newsroom"
-      },
-      "body.1.0.0.3.1.3.1.2.0.0": {
-        "xv": "screen/inquiry/c637741c"
-      },
-      "body.1.0.0.3.1.4.1.0.0.0": {
-        "xv": "screen/inquiry/03675e66"
-      },
-      "body.1.0.0.3.1.4.1.1.0.0": {
-        "xv": "screen/inquiry/2dbf751e"
-      },
-      "body.1.0.0.3.1.4.1.2.0.0": {
-        "xv": "screen/inquiry/94c8e8b7"
-      },
-      "body.1.0.0.3.1.5.1.0.0.0": {
-        "xv": "screen/inquiry/48621a1b"
-      },
-      "body.1.0.0.3.1.5.1.1.0.0": {
-        "xv": "screen/inquiry/e1413fdb"
-      },
-      "body.1.0.0.3.1.5.1.2.0.0": {
-        "xv": "screen/inquiry/652e278c"
       }
     },
     "part:Product/Select Dropdown Trigger=Field, Viewport=Desktop": {
@@ -731,6 +700,44 @@
       "body.1.0.0.2.0.0.1.1.0.2.1.1.0.1": {
         "xv": "i18n/inquiry/imageLabel"
       }
+    },
+    "part:Product/Landing Footer Viewport=Mobile": {
+      "body.1.0.0.3.1.2.1.0.0.0": {
+        "xv": "screen/inquiry/831ffbce"
+      },
+      "body.1.0.0.3.1.2.1.1.0.0": {
+        "xv": "i18n/nav/docs"
+      },
+      "body.1.0.0.3.1.2.1.2.0.0": {
+        "xv": "screen/inquiry/7efe7e2a"
+      },
+      "body.1.0.0.3.1.3.1.0.0.0": {
+        "xv": "screen/inquiry/6937ccf9"
+      },
+      "body.1.0.0.3.1.3.1.1.0.0": {
+        "xv": "i18n/footer/links/newsroom"
+      },
+      "body.1.0.0.3.1.3.1.2.0.0": {
+        "xv": "screen/inquiry/c637741c"
+      },
+      "body.1.0.0.3.1.4.1.0.0.0": {
+        "xv": "screen/inquiry/03675e66"
+      },
+      "body.1.0.0.3.1.4.1.1.0.0": {
+        "xv": "screen/inquiry/2dbf751e"
+      },
+      "body.1.0.0.3.1.4.1.2.0.0": {
+        "xv": "screen/inquiry/94c8e8b7"
+      },
+      "body.1.0.0.3.1.5.1.0.0.0": {
+        "xv": "screen/inquiry/48621a1b"
+      },
+      "body.1.0.0.3.1.5.1.1.0.0": {
+        "xv": "screen/inquiry/e1413fdb"
+      },
+      "body.1.0.0.3.1.5.1.2.0.0": {
+        "xv": "screen/inquiry/652e278c"
+      }
     }
   },
   "report": {
@@ -741,60 +748,6 @@
     "localeRichLost": [],
     "localeOnly": [],
     "richTextEnFixed": [
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.0",
-        "values": {
-          "en": "CompanySFACSPACE Inc.",
-          "ko": "상호명(주)스팩스페이스",
-          "ja": "会社名SFACSPACE Inc."
-        }
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.1",
-        "values": {
-          "en": "CEOMinho Yeom",
-          "ko": "대표자명염민호",
-          "ja": "代表Yeom Minho"
-        }
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.2",
-        "values": {
-          "en": "Business Registration No.450-87-01864",
-          "ko": "사업자등록번호450-87-01864",
-          "ja": "事業者登録番号450-87-01864"
-        }
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.3",
-        "values": {
-          "en": "Address4F, Magok 595 Bldg, 59-\n5 Magok Jungang-ro, Gangseo-gu, Seoul",
-          "ko": "사업장 주소서울특별시 강서구 마곡중앙로 59-5, 마곡595빌딩 4층",
-          "ja": "住所ソウル特別市 江西区 麻谷中央路59-5 麻谷595ビル 4階"
-        }
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.4",
-        "values": {
-          "en": "Phone02-6217-1119",
-          "ko": "대표 전화02-6217-1119",
-          "ja": "電話02-6217-1119"
-        }
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.5",
-        "values": {
-          "en": "E-commerce Registration No.2026-Seoul Gangseo-1080",
-          "ko": "통신판매업 신고번호2026-서울강서-1080",
-          "ja": "通信販売届出番号2026-ソウル江西-1080"
-        }
-      },
       {
         "target": "part:Product/Landing Footer Viewport=Desktop",
         "path": "body.1.0.0.3.2.0.0",
@@ -842,6 +795,60 @@
       },
       {
         "target": "part:Product/Landing Footer Viewport=Desktop",
+        "path": "body.1.0.0.3.2.0.5",
+        "values": {
+          "en": "E-commerce Registration No.2026-Seoul Gangseo-1080",
+          "ko": "통신판매업 신고번호2026-서울강서-1080",
+          "ja": "通信販売届出番号2026-ソウル江西-1080"
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.0",
+        "values": {
+          "en": "CompanySFACSPACE Inc.",
+          "ko": "상호명(주)스팩스페이스",
+          "ja": "会社名SFACSPACE Inc."
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.1",
+        "values": {
+          "en": "CEOMinho Yeom",
+          "ko": "대표자명염민호",
+          "ja": "代表Yeom Minho"
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.2",
+        "values": {
+          "en": "Business Registration No.450-87-01864",
+          "ko": "사업자등록번호450-87-01864",
+          "ja": "事業者登録番号450-87-01864"
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.3",
+        "values": {
+          "en": "Address4F, Magok 595 Bldg, 59-\n5 Magok Jungang-ro, Gangseo-gu, Seoul",
+          "ko": "사업장 주소서울특별시 강서구 마곡중앙로 59-5, 마곡595빌딩 4층",
+          "ja": "住所ソウル特別市 江西区 麻谷中央路59-5 麻谷595ビル 4階"
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.4",
+        "values": {
+          "en": "Phone02-6217-1119",
+          "ko": "대표 전화02-6217-1119",
+          "ja": "電話02-6217-1119"
+        }
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
         "path": "body.1.0.0.3.2.0.5",
         "values": {
           "en": "E-commerce Registration No.2026-Seoul Gangseo-1080",
@@ -1073,262 +1080,6 @@
         "path": "body.1.0.0.2.0.0.1.1.2.1.1.0.0",
         "locale": "ja",
         "dw": 38.81,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.0.0.0",
-        "locale": "ko",
-        "dw": -21.95,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.0.0.0",
-        "locale": "ja",
-        "dw": -6.91,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.1.0.0",
-        "locale": "ko",
-        "dw": -7.95,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.1.0.0",
-        "locale": "ja",
-        "dw": 46.05,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.2.0.0",
-        "locale": "ko",
-        "dw": -19,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.2.1.2.0.0",
-        "locale": "ja",
-        "dw": -16.94,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.0.0.0",
-        "locale": "ko",
-        "dw": 8.17,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.0.0.0",
-        "locale": "ja",
-        "dw": 11.25,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.1.0.0",
-        "locale": "ko",
-        "dw": -31.88,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.1.0.0",
-        "locale": "ja",
-        "dw": 23.14,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.2.0.0",
-        "locale": "ko",
-        "dw": -32.91,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.3.1.2.0.0",
-        "locale": "ja",
-        "dw": -2.83,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.4.1.0.0.0",
-        "locale": "ko",
-        "dw": -4.12,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.4.1.1.0.0",
-        "locale": "ko",
-        "dw": -16.47,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.4.1.2.0.0",
-        "locale": "ko",
-        "dw": -18.22,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.0.0.0",
-        "locale": "ko",
-        "dw": -26.66,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.0.0.0",
-        "locale": "ja",
-        "dw": 27.34,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.1.0.0",
-        "locale": "ko",
-        "dw": 8.44,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.1.0.0",
-        "locale": "ja",
-        "dw": 42.61,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.2.0.0",
-        "locale": "ko",
-        "dw": -18.08,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.1.5.1.2.0.0",
-        "locale": "ja",
-        "dw": -53.13,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.0",
-        "locale": "ko",
-        "dw": -25.75,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.0",
-        "locale": "ja",
-        "dw": -17.75,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.1",
-        "locale": "ko",
-        "dw": -16.77,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.2",
-        "locale": "ko",
-        "dw": -62.31,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.2",
-        "locale": "ja",
-        "dw": -56.16,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.3",
-        "locale": "ko",
-        "dw": -45.14,
-        "dh": -18,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.3",
-        "locale": "ja",
-        "dw": -55.61,
-        "dh": -18,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.4",
-        "locale": "ko",
-        "dw": 10.38,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.4",
-        "locale": "ja",
-        "dw": -11.27,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.5",
-        "locale": "ko",
-        "dw": -98.66,
-        "dh": 0,
-        "fixedAncestor": null
-      },
-      {
-        "target": "/inquiry @ mobile-402x874",
-        "path": "body.1.0.0.3.2.0.5",
-        "locale": "ja",
-        "dw": -90.12,
         "dh": 0,
         "fixedAncestor": null
       },
@@ -1721,6 +1472,262 @@
         "path": "body.1.0.0.2.0.0.1.1.0.2.1.1.0.1",
         "locale": "ja",
         "dw": -20.69,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.0.0.0",
+        "locale": "ko",
+        "dw": -21.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.0.0.0",
+        "locale": "ja",
+        "dw": -6.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.1.0.0",
+        "locale": "ko",
+        "dw": -7.95,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.1.0.0",
+        "locale": "ja",
+        "dw": 46.05,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.2.0.0",
+        "locale": "ko",
+        "dw": -19,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.2.1.2.0.0",
+        "locale": "ja",
+        "dw": -16.94,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.0.0.0",
+        "locale": "ko",
+        "dw": 8.17,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.0.0.0",
+        "locale": "ja",
+        "dw": 11.25,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.1.0.0",
+        "locale": "ko",
+        "dw": -31.88,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.1.0.0",
+        "locale": "ja",
+        "dw": 23.14,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.2.0.0",
+        "locale": "ko",
+        "dw": -32.91,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.3.1.2.0.0",
+        "locale": "ja",
+        "dw": -2.83,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.4.1.0.0.0",
+        "locale": "ko",
+        "dw": -4.12,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.4.1.1.0.0",
+        "locale": "ko",
+        "dw": -16.47,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.4.1.2.0.0",
+        "locale": "ko",
+        "dw": -18.22,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.0.0.0",
+        "locale": "ko",
+        "dw": -26.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.0.0.0",
+        "locale": "ja",
+        "dw": 27.34,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.1.0.0",
+        "locale": "ko",
+        "dw": 8.44,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.1.0.0",
+        "locale": "ja",
+        "dw": 42.61,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.2.0.0",
+        "locale": "ko",
+        "dw": -18.08,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.1.5.1.2.0.0",
+        "locale": "ja",
+        "dw": -53.13,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.0",
+        "locale": "ko",
+        "dw": -25.75,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.0",
+        "locale": "ja",
+        "dw": -17.75,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.1",
+        "locale": "ko",
+        "dw": -16.77,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.2",
+        "locale": "ko",
+        "dw": -62.31,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.2",
+        "locale": "ja",
+        "dw": -56.16,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.3",
+        "locale": "ko",
+        "dw": -45.14,
+        "dh": -18,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.3",
+        "locale": "ja",
+        "dw": -55.61,
+        "dh": -18,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.4",
+        "locale": "ko",
+        "dw": 10.38,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.4",
+        "locale": "ja",
+        "dw": -11.27,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.5",
+        "locale": "ko",
+        "dw": -98.66,
+        "dh": 0,
+        "fixedAncestor": null
+      },
+      {
+        "target": "part:Product/Landing Footer Viewport=Mobile",
+        "path": "body.1.0.0.3.2.0.5",
+        "locale": "ja",
+        "dw": -90.12,
         "dh": 0,
         "fixedAncestor": null
       }

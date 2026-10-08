@@ -25,6 +25,24 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (220) — Figma 새 세트: Record Card(어드민 기록 카드)
+
+- **`RecordCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(VideoPlayer 아래, 8 변형). 축은 `Layout`(base · raised,
+  CSS `data-surface`) · `Expanded`(CSS `aria-expanded`) · `State`(Default · Hover)이고 텍스트 속성 `Title` · `Note` 가 있다. 머리는 Badge
+  `Tone=warning` · 이름 · 유형 | 셰브런(`icon/caret-down` 16) 위 줄과 이메일 · 채널 · 시각 아래 줄이고, 펼치면 위 헤어라인 아래
+  라벨/값 격자(Figma 격자 오토레이아웃, 열 HUG · FLEX)와 오른쪽 정렬 행동 줄(Button secondary · primary sm)이 선다.
+- `base` 는 면 없는 줄(아래 헤어라인), `raised` 는 `bg-raised` 면 + 사방 헤어라인 + 반경 `radius-overlay`. 헤어라인 셋은 CSS 대로
+  inner shadow 한 겹씩이고, Figma 가 채움 없는 프레임에 inner shadow 를 그리지 않아 줄의 루트와 Detail 에 불투명도 0 의 운반 fill
+  을 두었다(되읽기가 세지 않는다). 목록 첫 줄의 위 헤어라인(`:first-child`)은 변형으로 두지 않는다.
+- **축 어휘 `Layout` 에 `raised` 를 적었다**(figma-component-authoring.md §2) — 카드가 자기 면을 갖느냐는 `Surface`(아래 면의 밝기)가
+  아니라 `Layout` 이다.
+- parity 계약(축 · 효과 · 기하 두 칸 `base` · `raised`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다(8 변형 · 바인딩
+  fill 96 · 원시 0 · 텍스트 스타일 72). 기록 `figma/components.measured.json` 에 `record-card` 를 세웠고 값은 레시피 선언이다 —
+  `verify-recipe-record` 에 한 항목(대조 31건 · 이름 넷)을 더했다. 그래서 레시피의 상세 `padding-block` 을 위 · 아래 두 선언으로
+  갈랐다(값 12 · 16 그대로).
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **소유자 판정은 그대로 남는다** — 면 없는 줄과 올린 면
+  카드를 하나로 합칠지(record-card.md Known deviations). 합치면 `Layout` 축 하나가 없어진다.
+
 ## 2026-10-08 (219) — Figma 새 세트: Choice Card(선택 카드 · 선택 행)
 
 - **`ChoiceCard`** component set 이 DS · Components 「2 · 입력」 구획에 섰다(MediaScrubber 아래, 42 변형). 축은 `Variant`(card · row,

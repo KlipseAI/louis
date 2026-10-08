@@ -6884,7 +6884,11 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   display: flex;
   flex-direction: column;
   gap: var(--louis-space-control-md);
-  padding-block: var(--louis-space-control-md) var(--louis-space-control-lg);
+  /* 위 · 아래를 따로 적는 것은 verify-recipe-record 가 선언 하나를 수 하나로 읽기 때문이다
+   * (기록 `record-card` 의 detailPaddingBlockStart · detailPaddingBlockEnd). 값은 12 · 16 그대로다. */
+  padding-block-start: var(--louis-space-control-md);
+  padding-block-end: var(--louis-space-control-lg);
+  /* 옆 20 은 머리의 옆 여백과 같은 사유로 리터럴이다(위 `__head` 머리말). */
   padding-inline: 20px;
   box-shadow: var(--louis-hairline-inset-block-start);
 }

@@ -263,6 +263,12 @@ const CAPTURE = {
   // 나오는 파생값이라 담으면 계약이 되지 않은 채 스냅숏에만 앉는다. 부품이 `State=Renaming`
   // 한 변형에만 있으므로 값 배열은 길이 1 이다.
   "ProjectCard": {"key":{"name":"base"},"parts":{"Media":["width","height"],"Title overlay":["width","height","itemSpacing","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","layoutMode"],"Eyebrow":["width","height","fontSize","lineHeightPercent"],"Title":["width","height","fontSize","lineHeightPercent"],"Meta":["width","height","fontSize","lineHeightPercent"],"Thumbnail":["width","height"],"Action":["width","height"],"Adornment":["width","height"],"Rename":["cornerRadius","itemSpacing"],"Underline":["height"]},"strokes":["self"],"effects":["Title overlay"],"childOrder":true},
+  // 기록 카드(2026-10-08). 키가 `Layout` 인 것은 그 축만 카드 루트의 기하(반경 0 · radius-overlay)를 다시 쓰기 때문이다 —
+  // `Expanded` 는 Detail 의 유무와 셰브런 회전만, `State` 는 머리 면만 바꾼다. 같은 키의 네 변형은 기하가 같아야 한다.
+  // 카드 높이 · 폭은 담지 않는다 — 높이는 문구와 펼침이, 폭은 목록이 정한다. 머리 · 상세의 여백과 간격은 파트로 잡는다.
+  // `self` effect 는 줄(base)의 아래 헤어라인(-0.5)과 면 카드(raised)의 사방 헤어라인(0.5)이고, `Detail` effect 는 상세 위
+  // 헤어라인(+0.5)이다. 그 둘이 렌더되도록 루트(base) · Detail 에 불투명도 0 의 운반 fill 이 있다 — 되읽기는 그 fill 을 세지 않는다.
+  "RecordCard": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Head":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"Top":["itemSpacing"],"Meta":["itemSpacing"],"Title":["fontSize"],"Note":["fontSize"],"Sub":["itemSpacing","counterAxisSpacing"],"SubItem":["fontSize"],"Chevron":["width","height"],"Detail":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Grid":["gridColumnGap","gridRowGap","layoutMode"],"Label":["fontSize"],"Value":["fontSize"],"Actions":["itemSpacing","paddingBlock","primaryAxisAlignItems"]},"effects":["self","Detail"]},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"]}},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},

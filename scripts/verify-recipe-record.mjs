@@ -358,6 +358,43 @@ const RECIPES = [
       [".louis-choice-card", "var(--louis-hairline-inset)"],
     ],
   },
+  // ── 기록 카드(2026-10-08) ─────────────────────────────────────────────────
+  //
+  // choice-card 와 같은 처지다 — React 표면이 없어 이 표가 기록의 유일한 반대편이다. 머리 · 상세의 선언은 크기마다
+  // 다시 적지 않으므로 같은 선언을 두 칸(base · raised)과 맞대고, 반경만 면 카드 규칙에서 읽는다. 면 카드 규칙은
+  // 선택자 목록의 마지막 줄(`:first-child`)로 찾는다 — 이 게이트가 규칙을 「줄 첫머리의 선택자 + `{`」로 찾기 때문이다.
+  // 상세의 위 · 아래 여백을 레시피가 두 선언으로 적는 것도 같은 사유다. 셰브런 16 은 소비처의 svg 라 레시피가 선언하지 않는다.
+  {
+    component: "record-card",
+    recipe: "packages/css/src/component/record-card.css",
+    geometry: [
+      ['.louis-record-card[data-surface="raised"]:first-child', "border-radius", "raised", "radius"],
+      ...["base", "raised"].flatMap((key) => [
+        [".louis-record-card__head", "padding-block", key, "headPaddingBlock"],
+        [".louis-record-card__head", "padding-inline", key, "headPaddingInline"],
+        [".louis-record-card__head", "gap", key, "headGap"],
+        [".louis-record-card__top", "gap", key, "topGap"],
+        [".louis-record-card__meta", "gap", key, "metaGap"],
+        [".louis-record-card__sub", "column-gap", key, "subColumnGap"],
+        [".louis-record-card__sub", "row-gap", key, "subRowGap"],
+        [".louis-record-card__detail", "padding-block-start", key, "detailPaddingBlockStart"],
+        [".louis-record-card__detail", "padding-block-end", key, "detailPaddingBlockEnd"],
+        [".louis-record-card__detail", "padding-inline", key, "detailPaddingInline"],
+        [".louis-record-card__detail", "gap", key, "detailGap"],
+        [".louis-record-card__grid", "column-gap", key, "gridColumnGap"],
+        [".louis-record-card__grid", "row-gap", key, "gridRowGap"],
+        [".louis-record-card__actions", "gap", key, "actionsGap"],
+        [".louis-record-card__actions", "padding-block-start", key, "actionsPaddingBlockStart"],
+      ]),
+    ],
+    // 면과 헤어라인은 이름이 계약이다 — 줄은 아래 헤어라인 한 줄, 면 카드는 bg-raised 위 사방 헤어라인, 상세는 위 헤어라인.
+    surfaces: [
+      [".louis-record-card", "var(--louis-hairline-inset-block-end)"],
+      ['.louis-record-card[data-surface="raised"]:first-child', "var(--louis-color-bg-raised)"],
+      ['.louis-record-card[data-surface="raised"]:first-child', "var(--louis-hairline-inset)"],
+      [".louis-record-card__detail", "var(--louis-hairline-inset-block-start)"],
+    ],
+  },
 ];
 
 const errors = [];

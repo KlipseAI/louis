@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 68,
-        "variants": 846
+        "sets": 69,
+        "variants": 854
       },
       "icons": 47,
       "templates": 9
@@ -15141,6 +15141,327 @@
       "effects": {
         "Title overlay": [
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
+        ]
+      }
+    },
+    "RecordCard": {
+      "outsideParts": [],
+      "tokenId": "record-card",
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Note": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "raised"
+          ]
+        },
+        "Expanded": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 96,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 72,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "paddingBlock": [
+                14
+              ],
+              "paddingBlockEnd": [
+                14
+              ],
+              "paddingInline": [
+                20
+              ],
+              "paddingInlineEnd": [
+                20
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Top": {
+              "itemSpacing": [
+                12
+              ]
+            },
+            "Meta": {
+              "itemSpacing": [
+                10
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Note": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Chevron": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Sub": {
+              "itemSpacing": [
+                12
+              ],
+              "counterAxisSpacing": [
+                4
+              ]
+            },
+            "SubItem": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Detail": {
+              "paddingBlock": [
+                12
+              ],
+              "paddingBlockEnd": [
+                16
+              ],
+              "paddingInline": [
+                20
+              ],
+              "paddingInlineEnd": [
+                20
+              ],
+              "itemSpacing": [
+                12
+              ]
+            },
+            "Grid": {
+              "gridColumnGap": [
+                12
+              ],
+              "gridRowGap": [
+                8
+              ],
+              "layoutMode": [
+                "GRID"
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Value": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "raised": {
+          "slots": {},
+          "parts": {
+            "Head": {
+              "paddingBlock": [
+                14
+              ],
+              "paddingBlockEnd": [
+                14
+              ],
+              "paddingInline": [
+                20
+              ],
+              "paddingInlineEnd": [
+                20
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Top": {
+              "itemSpacing": [
+                12
+              ]
+            },
+            "Meta": {
+              "itemSpacing": [
+                10
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Note": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Chevron": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "Sub": {
+              "itemSpacing": [
+                12
+              ],
+              "counterAxisSpacing": [
+                4
+              ]
+            },
+            "SubItem": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Detail": {
+              "paddingBlock": [
+                12
+              ],
+              "paddingBlockEnd": [
+                16
+              ],
+              "paddingInline": [
+                20
+              ],
+              "paddingInlineEnd": [
+                20
+              ],
+              "itemSpacing": [
+                12
+              ]
+            },
+            "Grid": {
+              "gridColumnGap": [
+                12
+              ],
+              "gridRowGap": [
+                8
+              ],
+              "layoutMode": [
+                "GRID"
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            },
+            "Value": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                4
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "Detail": [
+          "INNER_SHADOW:0.5:0:0"
+        ],
+        "self": [
+          "INNER_SHADOW:-0.5:0:0",
+          "INNER_SHADOW:0:0:0.5"
         ]
       }
     },

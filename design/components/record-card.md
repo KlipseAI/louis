@@ -20,7 +20,7 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 | Surface       | 상태           | 근거                                                                                                    |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------- |
 | Web           | `not-ready`    | `packages/css/src/component/record-card.css` 레시피는 있다. 제품 세 파일은 아직 자기 상수로 그린다 — 소비 증거도 브라우저 시험도 없어 `partial` 로 올리지 않는다 |
-| Figma         | `not-ready`    | **Figma 변형은 아직 없다**                                                                              |
+| Figma         | `partial`      | component set `RecordCard`(DS · Components 「5 · 내용」, 2026-10-08, 8 변형). 되읽기 등재 + parity 계약(축 · 효과 · 기하 두 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial`      | 이 문서 — States · Content · Acceptance tests 절이 아직 없다 |
 | Maturity      | `experimental` | 레시피가 정본을 옮겨 적은 단계다. 소비처가 이 클래스를 물면 승격을 다시 판정한다                          |
 
@@ -123,6 +123,28 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 | 행동 줄 | 오른쪽 정렬 · 간격 8 · 위 4 | 제품 `pt-2` |
 | 면 카드 | `bg-raised` + `hairline-inset` + 반경 16 | `radius-overlay` · 제품 `ADMIN_SURFACE` |
 
+## Figma
+
+DS · Components 「5 · 내용」 구획의 component set `RecordCard`(2026-10-08, FaqRow · VideoPlayer 아래). 카드 하나가 변형 하나이고
+목록(카드 사이 간격 · 첫 줄의 위 헤어라인)은 component 가 아니다 — 화면에서 오토레이아웃으로 놓는다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Layout` | `base` · `raised` | `data-surface`. 없음 = 면 없는 줄(`base`), `raised` = 올린 면 카드. 루트의 면 · 반경 · 헤어라인이 갈린다 |
+| `Expanded` | `false` · `true` | 머리의 `aria-expanded`(또는 `details[open]`). 셰브런이 180° 돌고 Detail 이 선다 |
+| `State` | `Default` · `Hover` | 머리만 `accent-ghost-hover` 면. Focus 는 그리지 않는다(DS-D-0074) |
+| `Title` · `Note` | 텍스트 | 이름 · 유형 |
+
+여덟 칸(2 × 2 × 2)이 모두 선다 — 펼친 카드의 머리에도 호버 면이 서므로 `Expanded` 와 `State` 를 곱했다. 머리의 배지는
+[Badge](./badge.md) `Tone=warning` 인스턴스, 셰브런은 라이브러리 `icon/caret-down` 인스턴스(16, 획 1.5, `fg-tertiary`), 행동 줄은
+[Button](./button.md) `secondary` · `primary` `sm` 인스턴스다. 라벨/값 격자는 Figma 격자 오토레이아웃(열 `HUG` · `FLEX` = CSS
+`auto 1fr`)이다.
+
+헤어라인 셋(줄의 아래 · 면 카드의 사방 · 상세의 위)은 CSS 와 같이 inner shadow 한 겹씩이다. **Figma 는 채움이 없는 프레임에 inner
+shadow 를 그리지 않아** 줄(`base`)의 루트와 Detail 에 불투명도 0 의 운반 fill 을 두었다 — 색을 나르지 않으므로 되읽기가 세지
+않는다. 기하 계약은 `figma/components.measured.json` 의 `record-card` 두 칸(`base` · `raised`)이 고정하고, 그 기록은 레시피
+선언에서 왔다 — `verify-recipe-record` 가 레시피 ↔ 기록을 맞댄다.
+
 ## Accessibility
 
 - **머리가 `<button>` 이다** — 키보드로 펼치고 `aria-expanded` 가 상태를 읽힌다. 제품이 문의 관리를 `<div onClick>` 에서
@@ -144,7 +166,12 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 - **줄 모양의 아래 헤어라인이 머리 hover 면에 가린다.** 카드 자신의 inset 그림자는 자식 배경 아래에 그려진다 — 머리를
   올렸을 때 0.5px 선이 잠깐 사라진다. 제품은 실제 `border-bottom` 이었다. 레이아웃을 바꾸지 않으려는 DS-D-0023 선택의 대가다.
 - **전환이 200ms 에서 160ms 로 내려온다**(셰브런 · hover 배경은 150ms → 160ms).
-- **브라우저 시험과 Figma 변형이 없다.**
+- **브라우저 시험이 없다.** Figma 기하가 레시피 선언과만 맞대진다.
+- **Figma 는 목록 첫 줄의 위 헤어라인을 그리지 않는다.** CSS `:first-child` 가 줄에 위 · 아래 두 겹을 거는데, 목록 위치는
+  component 가 알 수 없어 변형으로 두지 않았다 — 화면에서 목록 위에 헤어라인을 놓는다.
+- **Figma 셰브런은 소비처 svg 와 같은 벡터가 아니다.** 소비처는 16 뷰박스의 `M4 6l4 4 4-4` 이고 Figma 는 라이브러리
+  `icon/caret-down`(24 뷰박스 쐐기)을 16 으로 줄였다. 같은 방향의 갈매기이고 획 두께 1.5 는 같다.
+- **Figma 의 라이트 머리 hover 는 레시피와 같은 잉크 8% 다** — 위 「라이트 머리 hover」 편차가 Figma 에도 그대로 실린다.
 - **카드 안 입력 · 이미지 썸네일 · 확인 모달**(`InquiryManagement` 의 이미지 격자, 지원서 검토의 `MODAL_CARD`)은 이 카드의
   범위가 아니다. 확인 모달은 [Dialog](./dialog.md) compact 와 380px 치수를 대조할 제품 이행 대상이다.
 
@@ -153,3 +180,6 @@ summary: 어드민 기록 하나를 머리 한 줄로 접고 눌러서 라벨/�
 2026-10-07, 제품 `feat/ambassador-links` `app/admin/AmbassadorApplications.tsx@2ceec4ed3:69-157`
 · `InquiryManagement.tsx@b57cd1f95:66-180` · `RefundManagement.tsx@b57cd1f95:62-150` @7273a964e,
 `codex/actionable-product-metrics` `ProductMetricsDashboard.tsx@e80c86ee7:77-107` @07640ee76.
+
+2026-10-08 — Figma component set `RecordCard`(8 변형)와 parity 계약 · 되읽기 · 기록 `record-card` 두 칸. 레시피의 상세 위 · 아래
+여백을 두 선언으로 갈랐다(값은 같다 — `verify-recipe-record` 가 선언 하나를 수 하나로 읽는다).

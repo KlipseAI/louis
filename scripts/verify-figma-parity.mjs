@@ -1574,6 +1574,97 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "record-card",
+    figmaName: "RecordCard",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/record-card.css 의 .louis-record-card 가 정본이다(2026-10-07). 제품 작업 브랜치 feat/ambassador-links 의 어드민 세 파일(지원서 검토 · 문의 관리 · 청약철회)이 출처다.",
+    variantProperties: {},
+    // **선이 없다.** 줄의 아래 헤어라인 · 면 카드의 사방 헤어라인 · 상세 위 헤어라인이 전부 CSS `box-shadow: inset` 이라
+    // Figma 도 inner shadow 로 그린다(DS-D-0023). 셰브런은 아이콘 인스턴스라 그 획은 icon 게이트가 본다.
+    strokes: {},
+    // `self` — 줄(base)은 hairline-inset-block-end(아래 -0.5), 면 카드(raised)는 hairline-inset(사방 0.5)이다. `Detail` — 상세 위
+    // hairline-inset-block-start(+0.5). 채움이 없는 프레임에서는 Figma 가 inner shadow 를 그리지 않아 루트(base)와 Detail 에
+    // 불투명도 0 의 운반 fill 이 있다 — 되읽기가 그 fill 을 세지 않으므로(색이 아니다) 바인딩 수에 들어가지 않는다.
+    // 목록 첫 줄의 위 헤어라인(CSS `:first-child` 의 두 겹)은 변형으로 그리지 않는다 — 목록 위치는 화면이 정한다.
+    effects: {
+      self: ["INNER_SHADOW:-0.5:0:0", "INNER_SHADOW:0:0:0.5"],
+      Detail: "INNER_SHADOW:0.5:0:0",
+    },
+    figmaOnlyProperties: {
+      Layout: {
+        options: ["base", "raised"],
+        reason:
+          "CSS `data-surface` 를 옮긴 축(figma-component-authoring.md §2 Layout — CSS 속성값을 그대로 옮기는 자리는 그 철자). 없음 = 면 없는 줄(문의 · 청약철회)이라 기본 갈래 이름 `base` 로, `raised` = bg-raised 면 + 사방 헤어라인 + 반경 radius-overlay 카드(지원서 검토)다. `Surface` 축이 아닌 이유 — 그 축은 아래 깔린 면의 밝기(light · dark)를 말하고, 이 갈래는 카드가 자기 면을 갖느냐다. 두 모양을 하나로 합칠지는 소유자 판정이 남아 있다(record-card.md Known deviations).",
+      },
+      Expanded: {
+        options: ["false", "true"],
+        reason:
+          "코드에서 머리 버튼의 `aria-expanded`(또는 `details[open]`)가 펼침을 소유한다. 조건 축 명부의 `Expanded` 다 — FaqRow 와 같이 그 컴포넌트 자신이 자란다(80 → 상세만큼). 셰브런이 180° 돌고(계속 보이는 레이어의 회전 — 시험 1) 위 헤어라인 아래 Detail 이 선다.",
+      },
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "상호작용 상태. Hover 는 머리만 accent-ghost-hover 면이고 `@media (hover: hover)` 안에서만 걸린다(DS-D-0077). 카드에는 Disabled 선언이 없고 Focus 는 그리지 않는다(DS-D-0074). Expanded 와 곱한다 — 펼친 카드의 머리에도 호버 면이 선다.",
+      },
+      Title: { type: "TEXT", reason: "기록 이름. 코드에서는 `.louis-record-card__title` 의 텍스트다(말줄임)." },
+      Note: { type: "TEXT", reason: "이름 옆 유형 · 구분. 코드에서는 `.louis-record-card__note` 의 텍스트다." },
+    },
+    geometry: {
+      // **두 칸을 다 건다.** 루트의 기하를 다시 쓰는 축은 Layout 하나라 되읽기 키가 그 값이다. 기록의 값은 브라우저 실측이
+      // 아니라 레시피 선언이고 verify-recipe-record 가 레시피 ↔ 기록을 맞댄다 — React 표면이 없어 component-geometry 브라우저
+      // 시험이 이 칸을 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`).
+      measuredId: "record-card",
+      sizeKeys: ["base", "raised"],
+      fields: {
+        // 카드 루트는 여백 · 간격이 없다 — 머리와 상세가 자기 여백을 갖는다.
+        paddingBlock: { literal: 0 },
+        paddingInline: { literal: 0 },
+        itemSpacing: { literal: 0 },
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Head: {
+          fields: {
+            paddingBlock: "headPaddingBlock",
+            paddingBlockEnd: "headPaddingBlock",
+            paddingInline: "headPaddingInline",
+            paddingInlineEnd: "headPaddingInline",
+            itemSpacing: "headGap",
+            layoutMode: { literal: "VERTICAL" },
+          },
+        },
+        Top: { fields: { itemSpacing: "topGap" } },
+        Meta: { fields: { itemSpacing: "metaGap" } },
+        Title: { fields: { fontSize: "titleFontSize" } },
+        Note: { fields: { fontSize: "noteFontSize" } },
+        Chevron: { fields: { width: "chevronSize", height: "chevronSize" } },
+        Sub: { fields: { itemSpacing: "subColumnGap", counterAxisSpacing: "subRowGap" } },
+        SubItem: { fields: { fontSize: "subItemFontSize" } },
+        // 상세 이하는 Expanded=true 칸에만 있다.
+        Detail: {
+          fields: {
+            paddingBlock: "detailPaddingBlockStart",
+            paddingBlockEnd: "detailPaddingBlockEnd",
+            paddingInline: "detailPaddingInline",
+            paddingInlineEnd: "detailPaddingInline",
+            itemSpacing: "detailGap",
+          },
+          optional: true,
+        },
+        Grid: { fields: { gridColumnGap: "gridColumnGap", gridRowGap: "gridRowGap", layoutMode: { literal: "GRID" } }, optional: true },
+        Label: { fields: { fontSize: "labelFontSize" }, optional: true },
+        Value: { fields: { fontSize: "valueFontSize" }, optional: true },
+        Actions: {
+          fields: { itemSpacing: "actionsGap", paddingBlock: "actionsPaddingBlockStart", primaryAxisAlignItems: { literal: "MAX" } },
+          optional: true,
+        },
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:

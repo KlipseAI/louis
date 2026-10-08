@@ -3328,7 +3328,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | --- | --- | --- |
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` · (CSS `data-variant` 를 그대로 옮기는 자리는 그 철자) | **강조 단계만.** 부품 이름을 넣지 않는다. 예외 하나 — 강조 축이 없는 컴포넌트가 CSS 에서 `data-variant` 로 표현 갈래를 고르면 같은 이름 · 같은 철자로 옮긴다(Tabs `default` · `underline`, 2026-10-08). 이름을 따로 지으면 코드와 Figma 가 같은 갈래를 두 이름으로 부른다 |
-| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08) |
+| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`, RecordCard `raised` = `data-surface`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08). 카드가 자기 면을 갖느냐도 이 축이다 — RecordCard `base`(면 없는 줄) · `raised`(올린 면 카드, 2026-10-08). `Surface` 는 아래 깔린 면의 밝기라 쓰지 않는다 |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다 |
 | `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
@@ -16042,6 +16042,24 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-08 (220) — Figma 새 세트: Record Card(어드민 기록 카드)
+
+- **`RecordCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(VideoPlayer 아래, 8 변형). 축은 `Layout`(base · raised,
+  CSS `data-surface`) · `Expanded`(CSS `aria-expanded`) · `State`(Default · Hover)이고 텍스트 속성 `Title` · `Note` 가 있다. 머리는 Badge
+  `Tone=warning` · 이름 · 유형 | 셰브런(`icon/caret-down` 16) 위 줄과 이메일 · 채널 · 시각 아래 줄이고, 펼치면 위 헤어라인 아래
+  라벨/값 격자(Figma 격자 오토레이아웃, 열 HUG · FLEX)와 오른쪽 정렬 행동 줄(Button secondary · primary sm)이 선다.
+- `base` 는 면 없는 줄(아래 헤어라인), `raised` 는 `bg-raised` 면 + 사방 헤어라인 + 반경 `radius-overlay`. 헤어라인 셋은 CSS 대로
+  inner shadow 한 겹씩이고, Figma 가 채움 없는 프레임에 inner shadow 를 그리지 않아 줄의 루트와 Detail 에 불투명도 0 의 운반 fill
+  을 두었다(되읽기가 세지 않는다). 목록 첫 줄의 위 헤어라인(`:first-child`)은 변형으로 두지 않는다.
+- **축 어휘 `Layout` 에 `raised` 를 적었다**(figma-component-authoring.md §2) — 카드가 자기 면을 갖느냐는 `Surface`(아래 면의 밝기)가
+  아니라 `Layout` 이다.
+- parity 계약(축 · 효과 · 기하 두 칸 `base` · `raised`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다(8 변형 · 바인딩
+  fill 96 · 원시 0 · 텍스트 스타일 72). 기록 `figma/components.measured.json` 에 `record-card` 를 세웠고 값은 레시피 선언이다 —
+  `verify-recipe-record` 에 한 항목(대조 31건 · 이름 넷)을 더했다. 그래서 레시피의 상세 `padding-block` 을 위 · 아래 두 선언으로
+  갈랐다(값 12 · 16 그대로).
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **소유자 판정은 그대로 남는다** — 면 없는 줄과 올린 면
+  카드를 하나로 합칠지(record-card.md Known deviations). 합치면 `Layout` 축 하나가 없어진다.
 
 #### 2026-10-08 (219) — Figma 새 세트: Choice Card(선택 카드 · 선택 행)
 

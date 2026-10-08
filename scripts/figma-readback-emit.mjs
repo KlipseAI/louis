@@ -236,7 +236,8 @@ const CAPTURE = {
   // 없는 `opacity` 를 명시로 넣는다(GnbMenuItem 과 같은 이유).
   "NodeChromeButton": {"key":{"by":["Tone","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
   // 노드 셸 — 채색이 갈리는 것은 카드 stroke 하나뿐이라 stroke 역할은 `Card` 다(`self` 아님).
-  // 헤더는 카드 **바깥**에 있고 컨테이너 gap 이 그 사이를 정한다.
+  // 헤더는 카드 **바깥**에 있고 컨테이너 gap 이 그 사이를 정한다. `Actions` 의 `children` 은 감춘 레이어까지 센다 —
+  // 도움말 칸(`Help`, BOOLEAN `HelpButton` 기본 꺼짐, 2026-10-08)이 감춘 채로 셋째 자식이고, 감춘 칸의 치수는 visit 가 건너뛴다.
   "NodeShell": {"key":{"by":["Accent","Selected"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"slots":{"TypeGlyph":"size"},"parts":{"HeaderRow":["width","height","paddingInline","paddingInlineEnd","itemSpacing","layoutMode","primaryAxisAlignItems"],"Title":["width","height","itemSpacing","layoutMode"],"TypeGlyph":["width","height"],"Label":["height","fontSize","lineHeightPercent"],"Actions":["width","height","itemSpacing","children"],"Card":["width","height","cornerRadius","layoutMode"],"Body":["width","height"]},"strokes":["Card"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

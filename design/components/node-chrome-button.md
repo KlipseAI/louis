@@ -30,7 +30,7 @@ summary: 노드 카드 헤더의 아이콘 버튼 — 면이 없고 호버에서
 CSS 선언도 늘지 않았다.
 
 - **글리프는 `help`**(lucide `circle-help`, 원 안의 물음표, 24 격자 · 16 렌더 · 표시 두께 1). 아카이브
-  썸네일의 제목 줄도 같은 경로를 굽는다. 아이콘 세트에는 아직 없다 — Known deviations 6.
+  썸네일의 제목 줄도 같은 경로를 굽는다. 아이콘 세트에는 `icon/question-circle` 로 등재돼 있다 — Known deviations 6.
 - **묶음의 맨 앞**이다(도움말 → 다운로드 → 삭제). 삭제가 맨 끝이라는 배치는 그대로다.
 - **조건부 칸이다.** 캔버스가 도움말을 열 수 있고(랜딩 · 임베드는 못 연다) 그 노드에 도움말 쪽이
   있을 때만 그려진다. 둘 중 하나라도 아니면 칸이 사라지고 묶음은 둘로 돌아간다 — 폭을 고정하지 않는
@@ -39,8 +39,9 @@ CSS 선언도 늘지 않았다.
   말한다(제품 `nodeHelpAria(노드 이름)`). 캔버스에는 노드가 여럿이라 라벨이 모두 같으면 화면 읽기 도구 사용자가 노드를 구별하지 못한다.
 - **누르면 측면 패널이 그 노드의 쪽으로 열린다**([Editor Workspace](../patterns/editor-workspace.md)의
   「캔버스 측면 패널」). 비활성이 없다 — 도움말은 막을 이유가 없다.
-- Figma 변형은 아직 없다. `NodeChromeButton`(neutral)의 `Glyph` 슬롯에 `help` 를 꽂으면 되지만
-  [Node Shell](node-shell.md) 보드의 헤더가 아직 두 단추만 그린다.
+- **Figma 는 새 변형이 아니라 셸의 칸이다(2026-10-08).** 이 버튼의 축(`Tone` · `State`)은 그대로이고,
+  [Node Shell](node-shell.md) 헤더 `Actions` 맨 앞에 `NodeChromeButton`(`Tone=neutral`)의 `Glyph` 를
+  `icon/question-circle` 로 갈아 끼운 인스턴스 `Help` 가 섰다. 조건부라 셸의 BOOLEAN `HelpButton`(기본 꺼짐)이 가시성을 갖는다.
 
 ## Availability
 
@@ -142,8 +143,8 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
    저장소의 규칙이고 저작 게이트가 그것을 강제한다. `accent-danger` 를 8% 로 섞은 색은 그
    원시 칸과 바이트 단위로 같으므로 값이 아니라 **적는 방법**만 다르다.
 
-6. **도움말 글리프 `icon/question-circle` 을 등재했다(2026-10-07).** 이 버튼의 `Glyph` 슬롯에 꽂을 수 있다. Figma 의 도움말 변형은
-   아직 세우지 않았다([Node Shell](node-shell.md) Known deviations 12).
+6. **도움말 글리프 `icon/question-circle` 을 등재했다(2026-10-07).** 2026-10-08 [Node Shell](node-shell.md) 헤더의
+   `HelpButton` 칸에 꽂혀 Figma 에도 섰다(Node Shell Known deviations 12). 남은 결손은 없다 — 기록으로 남긴다.
 7. **제품 잉크가 한 단 올랐다.** 제품은 헤더 액션 셋 모두를 다크 `palette-gray-400` 으로 칠한다
    (`NodeHeaderActions.tsx:50`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
    그 전의 값이다. `fg-secondary` 는 라이트가 정확히 같고 다크 `palette-gray-300` 이라 어긋남의 크기만

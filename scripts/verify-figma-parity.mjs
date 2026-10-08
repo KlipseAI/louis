@@ -3076,6 +3076,11 @@ const COMPONENT_CONTRACTS = [
         reason:
           "선택 테두리 색이 바뀐다(시험 1). `figma-component-authoring.md` §2 의 조건 축 일곱 중 `Selected` 가 이미 열려 있고, 캔버스 노드도 「선택 가능한 항목」이라 같은 이름을 쓴다.",
       },
+      HelpButton: {
+        type: "BOOLEAN",
+        reason:
+          "헤더 액션 맨 앞의 도움말 단추(2026-10-08 Figma 에 세움) — 제품 `NodeHelpAction` 은 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려지는 조건부 칸이라 코드에서는 prop 이 아니라 렌더 조건이다. 네 시험을 다 통과한다 — 켜고 꺼도 계속 보이는 레이어의 스타일이 그대로이고 Actions 는 간격 0 의 hug 라 자기 값을 다시 쓰지 않는다(자식이 빠져 줄어드는 것은 BOOLEAN 의 정상 결과다). 기본은 꺼짐이다 — 앵커 제품과 그것을 잰 보드가 아직 둘만 그린다.",
+      },
     },
     geometry: {
       measuredId: "node-shell",
@@ -3113,14 +3118,17 @@ const COMPONENT_CONTRACTS = [
             lineHeightPercent: "labelLineHeightPercent",
           },
         },
-        // 액션 묶음은 폭·자식 수까지 담는다. 「둘이 붙어 있다」가 계약이라 간격 0 과 자식 2 가
-        // 함께 있어야 한 쪽만 바뀌는 것을 잡는다.
+        // 액션 묶음은 폭·자식 수까지 담는다. 「붙어 있다」가 계약이라 간격 0 과 자식 수가
+        // 함께 있어야 한 쪽만 바뀌는 것을 잡는다. **자식은 셋(2026-10-08)** — 도움말 · 다운로드 · 삭제.
+        // 도움말은 `HelpButton`(기본 꺼짐)에 가시성이 물린 칸이라 폭은 감춘 채의 64 이고, 감춘 레이어도
+        // 자식으로 세어지므로 자식 수는 렌더된 단추 수(`actionsCount` 2, 브라우저 시험)가 아니라 자리 수
+        // `actionsSlots` 와 대조한다. 감춘 칸의 치수는 되읽기가 보지 않는다 — 그 값은 NodeChromeButton 원본이 갖는다.
         Actions: {
           fields: {
             width: "actionsWidth",
             height: "headerHeight",
             itemSpacing: "actionsGap",
-            children: "actionsCount",
+            children: "actionsSlots",
           },
         },
         Card: { fields: { width: "cardWidth", height: "cardHeight", cornerRadius: "cardRadius" } },

@@ -3502,9 +3502,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "image/false": {
           "cardWidth": 400,
@@ -3542,9 +3544,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "text/false": {
           "cardWidth": 400,
@@ -3582,9 +3586,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "youtube/false": {
           "cardWidth": 400,
@@ -3622,9 +3628,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "instagram/false": {
           "cardWidth": 400,
@@ -3662,9 +3670,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "audio/false": {
           "cardWidth": 400,
@@ -3702,9 +3712,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "edit/false": {
           "cardWidth": 400,
@@ -3742,9 +3754,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "video/true": {
           "cardWidth": 400,
@@ -3782,9 +3796,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "image/true": {
           "cardWidth": 400,
@@ -3822,9 +3838,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "text/true": {
           "cardWidth": 400,
@@ -3862,9 +3880,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "youtube/true": {
           "cardWidth": 400,
@@ -3902,9 +3922,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "instagram/true": {
           "cardWidth": 400,
@@ -3942,9 +3964,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "audio/true": {
           "cardWidth": 400,
@@ -3982,9 +4006,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         },
         "edit/true": {
           "cardWidth": 400,
@@ -4022,9 +4048,11 @@
           "actionsGap": 0,
           "$actionsGap": "`NodeHeaderActions` 의 `gap-0`. 두 버튼을 **의도적으로** 붙인다 — 소스 주석이 `--node-chrome-btn-gap` 을 쓰지 않는다고 명시한다.",
           "actionsCount": 2,
-          "$actionsCount": "다운로드·삭제 둘. 아홉 노드가 같은 쌍을 쓴다.",
+          "$actionsCount": "다운로드·삭제 둘 — 제품이 앵커에서 그리는 단추 수다(브라우저 시험이 렌더된 자식 수로 잰다). 도움말 단추는 조건부라 여기 세지 않는다 — Figma 의 자리 수는 `actionsSlots` 가 갖는다.",
           "actionsWidth": 64,
-          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다."
+          "$actionsWidth": "32 × 2 = 64. 간격이 0 이라 폭이 버튼 변의 두 배다. Figma 의 도움말 칸(`HelpButton`)은 기본 꺼짐이라 감춘 채로 hug 폭에서 빠지고, 켜면 32 × 3 = 96 이 된다.",
+          "actionsSlots": 3,
+          "$actionsSlots": "도움말 · 다운로드 · 삭제 셋(2026-10-08 Figma 에 세움). 도움말은 제품 `NodeHeaderActions.tsx@d040dce15:104`(`chore/landing-dead-walkthrough`)의 `NodeHelpAction` 이 묶음 맨 앞에 중립 톤으로 붙이는 조건부 칸이다 — 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을 때만 그려진다. Figma 는 그 조건을 BOOLEAN `HelpButton`(기본 꺼짐)으로 갖고, 감춘 레이어도 자식으로 세어지므로 Actions 의 자식은 셋이다. 앵커의 제품은 아직 둘만 그리므로 `actionsCount` 는 2 로 둔다."
         }
       }
     },

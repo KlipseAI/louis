@@ -44,7 +44,7 @@ summary: 캔버스 노드의 겉 — 카드 위에 얹힌 헤더 한 줄과 그 
 | Surface       | 상태             | 근거 |
 | ------------- | ---------------- | ---- |
 | Web           | `partial`        | CSS recipe `packages/css/src/component/node-shell.css`. React 표면은 없다 — 소비처(제품 노드 여덟)가 클래스를 물면 되고, 감싸는 컴포넌트를 요구하는 자리가 아직 없다. 입력판 하위 부품(`__composer` · `__field` · `__footer` · `__footer-controls` · `__meta` · `__generate` · `__error`)은 2026-10-07 에 섰고 **브라우저 시험이 아직 없다** |
-| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT). 본문·사이드 레일은 담지 않는다. **도움말 단추(헤더 액션 셋째 칸)와 입력판의 Figma 변형은 아직 없다** — 보드의 헤더는 다운로드 · 삭제 둘만 그린다 |
+| Figma         | `partial`        | NodeShell — Accent(7) × Selected(2) = 14 variant. 슬롯: TypeGlyph(INSTANCE_SWAP) · Label(TEXT) · HelpButton(BOOLEAN, 기본 꺼짐 — 헤더 액션 맨 앞의 도움말 단추, 2026-10-08). 본문·사이드 레일은 담지 않는다. **입력판의 Figma 변형은 아직 없다** |
 | Documentation | `done`           | 이 문서 |
 | Maturity      | `experimental`   | Figma 가 코드보다 앞서 있고 카드 테두리가 제품과 갈린다(아래 Known deviations) |
 
@@ -57,7 +57,7 @@ NodeShell (세로, 간격 4, 폭 400)
 │  │  ├─ TypeGlyph  16×16  ← INSTANCE_SWAP
 │  │  └─ Label      body-14 medium · 줄 높이 1
 │  └─ Actions (가로, 간격 0)   ← 셋을 의도적으로 붙인다
-│     ├─ NodeChromeButton  Tone=neutral  (도움말)   ← 조건부 칸, 글리프 help
+│     ├─ Help = NodeChromeButton  Tone=neutral  (도움말)   ← 조건부 칸(HelpButton), 글리프 question-circle
 │     ├─ NodeChromeButton  Tone=neutral  (다운로드)
 │     └─ NodeChromeButton  Tone=danger   (삭제)
 └─ Card (폭 400, 반경 24, 테두리 2 안쪽)
@@ -85,6 +85,14 @@ NodeShell (세로, 간격 4, 폭 400)
 적지 않는다. 누르면 [Editor Workspace](../patterns/editor-workspace.md)의 「캔버스 측면 패널」이
 그 노드의 쪽으로 열린다. 툴팁은 짧게 「도움말」이고 `aria-label` 은 어느 노드의 도움말인지까지
 말한다.
+
+**Figma 에서는 BOOLEAN `HelpButton` 이다(2026-10-08).** 14 변형 모두 `Actions` 맨 앞에 `Help`(NodeChromeButton
+`Tone=neutral` · `Glyph` = `icon/question-circle`) 인스턴스가 서고 가시성이 그 속성에 물렸다. 조건이 두 개라도 그리는 것은
+「있다/없다」 하나이고, 켜고 꺼도 계속 보이는 레이어의 스타일이 그대로이며 `Actions` 는 간격 0 의 hug 라 자기 값을 다시 쓰지
+않는다 — [작성 규범](../governance/figma-component-authoring.md) §2 의 네 시험을 다 통과하므로 축이 아니라 BOOLEAN 이다.
+**기본은 꺼짐이다** — 앵커 제품과 그것을 잰 화면 보드가 아직 둘만 그리므로, 이미 놓인 인스턴스가 저절로 셋이 되면 안 된다.
+켜면 묶음 폭이 64 → 96 이 된다. 같은 회차에 삭제 단추의 글리프가 `icon/download-simple` 로 잘못 꽂혀 있던 것을
+`icon/trash-simple` 로 바로잡았다.
 
 **헤더와 카드 사이 4는 뺄셈의 결과다.** 제품은 컨테이너 간격 10(`gap-5`, 격자가 2px)에 헤더의
 `-mb-3`(−6)을 겹쳐 4를 만든다. Figma 오토레이아웃에는 음수 여백이 없으므로 결과값 4를
@@ -284,7 +292,8 @@ NodeShell (세로, 간격 4, 폭 400)
     가 이미 있지만 제품이 쓰지 않는다. 보드나 레시피에서 고치지 않고 제품 결함으로 기록한다.
 12. **도움말 글리프는 `icon/question-circle` 이다(2026-10-07 등재).** 제품 `nodeGlyphs.ts` 의 새 글리프(lucide `circle-help`, 원
     안의 물음표 · 24 격자)이고 아카이브 썸네일의 제목 줄도 같은 경로를 굽는다(`6530c9620`). 이 저장소 아이콘 세트에 Lucide
-    `circle-question-mark` 로 등재했다(ISC AND MIT, 선 2 → 1.5) — Figma `DS · Icons` 에도 섰다.
+    `circle-question-mark` 로 등재했다(ISC AND MIT, 선 2 → 1.5) — Figma `DS · Icons` 에도 섰고, 2026-10-08 셸 헤더의
+    `HelpButton` 칸에 꽂혔다. 남은 결손은 없다 — 이 항목은 기록으로 남긴다.
 
 ## Related
 

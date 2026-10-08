@@ -25,6 +25,18 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (218) — Figma 구조 맞춤: 노드 머리 도움말 단추(NodeShell `HelpButton`)
+
+- **NodeShell** 14 변형 모두 헤더 `Actions` 맨 앞에 `Help` 칸이 섰다 — NodeChromeButton `Tone=neutral` 의 `Glyph` 를
+  `icon/question-circle` 로 갈아 끼운 인스턴스다. 제품 `NodeHelpAction` 이 캔버스가 도움말을 열 수 있고 그 노드에 도움말 쪽이 있을
+  때만 그리는 조건부 칸이라, set 에 BOOLEAN `HelpButton` 을 두고 칸의 가시성을 물렸다(작성 규범 §2 네 시험 통과 — 계속 보이는
+  레이어도, `Actions` 의 간격 0 도 바뀌지 않는다). **기본은 꺼짐**이라 이미 놓인 인스턴스는 그대로 두 단추이고, 켜면 묶음 폭이
+  64 → 96 이 된다. NodeChromeButton 자신의 축은 늘지 않았다.
+- 같은 헤더의 삭제 단추 글리프가 `icon/download-simple` 로 잘못 꽂혀 있던 것을 `icon/trash-simple` 로 바로잡았다(14 변형).
+- parity 계약에 `HelpButton`(BOOLEAN)을 더하고, `Actions` 자식 수를 렌더된 단추 수 `actionsCount`(2, 브라우저 시험이 쓰는 값)가
+  아니라 새 측정 칸 `actionsSlots`(3)와 대조하게 했다 — 감춘 레이어도 자식으로 세어진다. 되읽기는 세션 기록에서 꺼내 병합했다.
+- node-shell · node-chrome-button 문서의 「Figma 도움말 변형은 아직 없다」를 걷었다.
+
 ## 2026-10-08 (217) — Figma 새 세트: Loading Word(글자 쉬머)
 
 - **`LoadingWord`** component set 이 DS · Components 「4 · 피드백」 구획에 섰다(InlineLoadingLabel 아래). 변형은 Figma 전용 축

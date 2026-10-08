@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-variants.mjs가 제품의 경쟁 정의를 이름 패턴으로 찾아 실제로 렌더하고 값이 같은 것끼리 묶는다. 직접 수정하지 않는다.",
   "$whyThisExists": "\"제품에 정본이 없다\"가 산문이었다 — 한 벌만 재고 나머지는 세지 않은 채 그렇게 적었다. 여기서는 몇 벌이 몇 묶음으로 갈리는지가 수로 남고, Figma의 Inventory 페이지가 그것을 나란히 그린다. 정본을 고르는 일은 눈으로 비교하는 일이어야 한다.",
   "$howToRead": "groups는 사용 횟수가 많은 순이다. rank 1이 가장 널리 쓰이는 벌이며 정본 후보다. members가 여럿이면 그 벌들이 값까지 동일하다는 뜻이다.",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "axes": [
     "height",
     "minHeight",
@@ -44,7 +44,7 @@
         "part": "HEADER_SLOT",
         "parts": null,
         "tag": "div",
-        "line": 172,
+        "line": 174,
         "text": "",
         "values": {
           "height": "auto",
@@ -85,7 +85,7 @@
           "$width": 0,
           "$height": 0,
           "$x": -24,
-          "$y": -11832
+          "$y": -11432
         },
         "children": []
       }
@@ -100,7 +100,7 @@
         "part": "AVATAR",
         "parts": null,
         "tag": "div",
-        "line": 223,
+        "line": 225,
         "text": "K",
         "values": {
           "height": "44px",
@@ -2155,7 +2155,7 @@
         "part": "LEGAL_AGREEMENT_LABEL",
         "parts": null,
         "tag": "label",
-        "line": 126,
+        "line": 136,
         "text": "",
         "values": {
           "height": "25px",
@@ -2203,7 +2203,7 @@
             "part": "LEGAL_CHECKBOX_OUTER",
             "parts": null,
             "tag": "span",
-            "line": 127,
+            "line": 137,
             "text": "",
             "values": {
               "height": "22px",
@@ -2251,7 +2251,7 @@
                 "part": "LEGAL_CHECKBOX_INPUT",
                 "parts": null,
                 "tag": "input",
-                "line": 129,
+                "line": 139,
                 "text": "",
                 "values": {
                   "height": "22px",
@@ -2300,7 +2300,7 @@
                 "part": "LEGAL_CHECKBOX_FACE",
                 "parts": null,
                 "tag": "span",
-                "line": 132,
+                "line": 142,
                 "text": "",
                 "values": {
                   "height": "22px",
@@ -2351,7 +2351,7 @@
             "part": "LEGAL_AGREEMENT_TEXT",
             "parts": null,
             "tag": "span",
-            "line": 161,
+            "line": 171,
             "text": "개인정보 처리방침에 동의합니다",
             "values": {
               "height": "25px",
@@ -3964,7 +3964,7 @@
         "part": "historyMoreButton",
         "parts": null,
         "tag": "button",
-        "line": 561,
+        "line": 194,
         "text": "",
         "values": {
           "height": "32px",
@@ -5311,7 +5311,7 @@
         "part": "INPUT_BOX",
         "parts": null,
         "tag": "div",
-        "line": 56,
+        "line": 57,
         "text": "",
         "values": {
           "height": "80px",
@@ -5359,7 +5359,7 @@
             "part": "INPUT",
             "parts": null,
             "tag": "input",
-            "line": 76,
+            "line": 77,
             "text": "",
             "values": {
               "height": "24px",
@@ -5408,7 +5408,7 @@
             "part": "FLOATING_LABEL_RESTING",
             "parts": null,
             "tag": "span",
-            "line": 105,
+            "line": 106,
             "text": "이름",
             "values": {
               "height": "auto",
@@ -5466,7 +5466,7 @@
         "part": "INPUT_BOX",
         "parts": null,
         "tag": "div",
-        "line": 56,
+        "line": 57,
         "text": "",
         "values": {
           "height": "80px",
@@ -5514,7 +5514,7 @@
             "part": "INPUT",
             "parts": null,
             "tag": "input",
-            "line": 76,
+            "line": 77,
             "text": "",
             "values": {
               "height": "24px",
@@ -5563,7 +5563,7 @@
             "part": "PASSWORD_TOGGLE",
             "parts": null,
             "tag": "button",
-            "line": 83,
+            "line": 84,
             "text": "",
             "values": {
               "height": "22px",
@@ -5611,7 +5611,7 @@
                 "part": "PASSWORD_TOGGLE_ICON",
                 "parts": null,
                 "tag": "img",
-                "line": 91,
+                "line": 92,
                 "text": "",
                 "values": {
                   "height": "18px",
@@ -5662,7 +5662,7 @@
             "part": "FLOATING_LABEL_FLOATED",
             "parts": null,
             "tag": "span",
-            "line": 110,
+            "line": 111,
             "text": "비밀번호",
             "values": {
               "height": "auto",
@@ -12890,310 +12890,6 @@
       }
     },
     {
-      "id": "selectable-list-row/highlightDetailClip",
-      "kind": "selectable-list-row",
-      "label": "하이라이트 상세 클립 행 — 행 자체가 버튼인 단일 선택 행",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:3206-3244",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "tree": {
-        "part": "clipDetailListItem",
-        "parts": null,
-        "tag": "button",
-        "line": 154,
-        "text": "",
-        "values": {
-          "height": "66px",
-          "minHeight": "auto",
-          "width": "368px",
-          "minWidth": "0px",
-          "maxWidth": "none",
-          "paddingTop": "6px",
-          "paddingRight": "6px",
-          "paddingBottom": "6px",
-          "paddingLeft": "6px",
-          "borderTopLeftRadius": "14px",
-          "borderTopWidth": "0px",
-          "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-          "borderTopStyle": "none",
-          "backgroundColor": "rgba(0, 0, 0, 0)",
-          "backgroundImage": "none",
-          "color": "color(srgb 0.980392 0.980392 0.980392)",
-          "boxShadow": "none",
-          "backdropFilter": "none",
-          "columnGap": "10px",
-          "fontSize": "14px",
-          "fontWeight": "500",
-          "lineHeight": "21px",
-          "opacity": "1",
-          "letterSpacing": "-0.14px",
-          "fontFamily": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-          "marginTop": "0px",
-          "marginRight": "0px",
-          "marginBottom": "0px",
-          "marginLeft": "0px",
-          "rowGap": "10px",
-          "textAlign": "start",
-          "justifyContent": "normal",
-          "flexDirection": "row",
-          "display": "flex",
-          "position": "relative",
-          "$width": 368,
-          "$height": 66,
-          "$x": 0,
-          "$y": 0
-        },
-        "children": [
-          {
-            "part": "clipDetailListThumb",
-            "parts": null,
-            "tag": "div",
-            "line": 185,
-            "text": "",
-            "values": {
-              "height": "54px",
-              "minHeight": "auto",
-              "width": "96px",
-              "minWidth": "auto",
-              "maxWidth": "none",
-              "paddingTop": "0px",
-              "paddingRight": "0px",
-              "paddingBottom": "0px",
-              "paddingLeft": "0px",
-              "borderTopLeftRadius": "10px",
-              "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-              "borderTopStyle": "none",
-              "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
-              "backgroundImage": "none",
-              "color": "color(srgb 0.980392 0.980392 0.980392)",
-              "boxShadow": "none",
-              "backdropFilter": "none",
-              "columnGap": "normal",
-              "fontSize": "14px",
-              "fontWeight": "500",
-              "lineHeight": "21px",
-              "opacity": "1",
-              "letterSpacing": "-0.14px",
-              "fontFamily": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-              "marginTop": "0px",
-              "marginRight": "0px",
-              "marginBottom": "0px",
-              "marginLeft": "0px",
-              "rowGap": "normal",
-              "textAlign": "start",
-              "justifyContent": "center",
-              "flexDirection": "row",
-              "display": "flex",
-              "position": "static",
-              "$width": 96,
-              "$height": 54,
-              "$x": 6,
-              "$y": 6
-            },
-            "children": [
-              {
-                "part": "clipVideo",
-                "parts": null,
-                "tag": "video",
-                "line": 279,
-                "text": "",
-                "values": {
-                  "height": "54px",
-                  "minHeight": "auto",
-                  "width": "96px",
-                  "minWidth": "auto",
-                  "maxWidth": "none",
-                  "paddingTop": "0px",
-                  "paddingRight": "0px",
-                  "paddingBottom": "0px",
-                  "paddingLeft": "0px",
-                  "borderTopLeftRadius": "0px",
-                  "borderTopWidth": "0px",
-                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-                  "borderTopStyle": "none",
-                  "backgroundColor": "rgb(0, 0, 0)",
-                  "backgroundImage": "none",
-                  "color": "color(srgb 0.980392 0.980392 0.980392)",
-                  "boxShadow": "none",
-                  "backdropFilter": "none",
-                  "columnGap": "normal",
-                  "fontSize": "14px",
-                  "fontWeight": "500",
-                  "lineHeight": "21px",
-                  "opacity": "1",
-                  "letterSpacing": "-0.14px",
-                  "fontFamily": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-                  "marginTop": "0px",
-                  "marginRight": "0px",
-                  "marginBottom": "0px",
-                  "marginLeft": "0px",
-                  "rowGap": "normal",
-                  "textAlign": "start",
-                  "justifyContent": "normal",
-                  "flexDirection": "row",
-                  "display": "block",
-                  "position": "static",
-                  "$width": 96,
-                  "$height": 54,
-                  "$x": 0,
-                  "$y": 0
-                },
-                "children": []
-              }
-            ]
-          },
-          {
-            "part": "clipDetailListInfo",
-            "parts": null,
-            "tag": "div",
-            "line": 135,
-            "text": "",
-            "values": {
-              "height": "41px",
-              "minHeight": "auto",
-              "width": "250px",
-              "minWidth": "0px",
-              "maxWidth": "none",
-              "paddingTop": "0px",
-              "paddingRight": "0px",
-              "paddingBottom": "0px",
-              "paddingLeft": "0px",
-              "borderTopLeftRadius": "0px",
-              "borderTopWidth": "0px",
-              "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-              "borderTopStyle": "none",
-              "backgroundColor": "rgba(0, 0, 0, 0)",
-              "backgroundImage": "none",
-              "color": "color(srgb 0.980392 0.980392 0.980392)",
-              "boxShadow": "none",
-              "backdropFilter": "none",
-              "columnGap": "2px",
-              "fontSize": "14px",
-              "fontWeight": "500",
-              "lineHeight": "21px",
-              "opacity": "1",
-              "letterSpacing": "-0.14px",
-              "fontFamily": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-              "marginTop": "0px",
-              "marginRight": "0px",
-              "marginBottom": "0px",
-              "marginLeft": "0px",
-              "rowGap": "2px",
-              "textAlign": "start",
-              "justifyContent": "normal",
-              "flexDirection": "column",
-              "display": "flex",
-              "position": "static",
-              "$width": 250,
-              "$height": 41,
-              "$x": 112,
-              "$y": 12.5
-            },
-            "children": [
-              {
-                "part": "clipDetailListTitle",
-                "parts": null,
-                "tag": "p",
-                "line": 201,
-                "text": "전반 하이라이트 모음",
-                "values": {
-                  "height": "21px",
-                  "minHeight": "auto",
-                  "width": "250px",
-                  "minWidth": "auto",
-                  "maxWidth": "none",
-                  "paddingTop": "0px",
-                  "paddingRight": "0px",
-                  "paddingBottom": "0px",
-                  "paddingLeft": "0px",
-                  "borderTopLeftRadius": "0px",
-                  "borderTopWidth": "0px",
-                  "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-                  "borderTopStyle": "none",
-                  "backgroundColor": "rgba(0, 0, 0, 0)",
-                  "backgroundImage": "none",
-                  "color": "color(srgb 0.980392 0.980392 0.980392)",
-                  "boxShadow": "none",
-                  "backdropFilter": "none",
-                  "columnGap": "normal",
-                  "fontSize": "14px",
-                  "fontWeight": "500",
-                  "lineHeight": "21px",
-                  "opacity": "1",
-                  "letterSpacing": "-0.14px",
-                  "fontFamily": "PretendardHarness",
-                  "marginTop": "0px",
-                  "marginRight": "0px",
-                  "marginBottom": "0px",
-                  "marginLeft": "0px",
-                  "rowGap": "normal",
-                  "textAlign": "start",
-                  "justifyContent": "normal",
-                  "flexDirection": "row",
-                  "display": "flow-root",
-                  "position": "static",
-                  "$width": 250,
-                  "$height": 21,
-                  "$x": 0,
-                  "$y": 0
-                },
-                "children": []
-              },
-              {
-                "part": "clipDetailListMeta",
-                "parts": null,
-                "tag": "span",
-                "line": 179,
-                "text": "00:00 – 00:15 · 15s",
-                "values": {
-                  "height": "18px",
-                  "minHeight": "auto",
-                  "width": "250px",
-                  "minWidth": "auto",
-                  "maxWidth": "none",
-                  "paddingTop": "0px",
-                  "paddingRight": "0px",
-                  "paddingBottom": "0px",
-                  "paddingLeft": "0px",
-                  "borderTopLeftRadius": "0px",
-                  "borderTopWidth": "0px",
-                  "borderTopColor": "color(srgb 0.447059 0.458824 0.482353)",
-                  "borderTopStyle": "none",
-                  "backgroundColor": "rgba(0, 0, 0, 0)",
-                  "backgroundImage": "none",
-                  "color": "color(srgb 0.447059 0.458824 0.482353)",
-                  "boxShadow": "none",
-                  "backdropFilter": "none",
-                  "columnGap": "normal",
-                  "fontSize": "12px",
-                  "fontWeight": "400",
-                  "lineHeight": "18px",
-                  "opacity": "1",
-                  "letterSpacing": "-0.12px",
-                  "fontFamily": "PretendardHarness",
-                  "marginTop": "0px",
-                  "marginRight": "0px",
-                  "marginBottom": "0px",
-                  "marginLeft": "0px",
-                  "rowGap": "normal",
-                  "textAlign": "start",
-                  "justifyContent": "normal",
-                  "flexDirection": "row",
-                  "display": "block",
-                  "position": "static",
-                  "$width": 250,
-                  "$height": 18,
-                  "$x": 0,
-                  "$y": 23
-                },
-                "children": []
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "slider/colorPopover",
       "kind": "slider",
       "label": "컬러 팝오버 색상·투명도 슬라이더 행",
@@ -13761,7 +13457,7 @@
         "part": "refinementInput",
         "parts": null,
         "tag": "input",
-        "line": 1344,
+        "line": 928,
         "text": "",
         "values": {
           "height": "39px",
@@ -13914,7 +13610,7 @@
           "$width": 108.34,
           "$height": 48,
           "$x": 665.83,
-          "$y": -20546.59
+          "$y": -20032.59
         },
         "children": [
           {
@@ -14020,7 +13716,7 @@
           "$width": 118.34,
           "$height": 50,
           "$x": 660.83,
-          "$y": -20596.59
+          "$y": -20082.59
         },
         "children": []
       }
@@ -14800,7 +14496,7 @@
             {
               "id": "toast/apps/web/components/scenes/highlightSceneStyles.ts.toast",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1800,
+              "line": 1091,
               "name": "toast",
               "uses": 108
             }
@@ -15065,7 +14761,7 @@
             {
               "id": "icon-button/apps/web/components/scenes/highlightSceneStyles.ts.historyMoreButton",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 561,
+              "line": 194,
               "name": "historyMoreButton",
               "uses": 1
             }
@@ -15216,54 +14912,6 @@
         },
         {
           "rank": 3,
-          "members": 2,
-          "uses": 2,
-          "values": {
-            "height": "auto",
-            "minHeight": "0px",
-            "width": "auto",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "color(srgb 0.980392 0.980392 0.980392)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.hiddenFileInput",
-              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 397,
-              "name": "hiddenFileInput",
-              "uses": 2
-            },
-            {
-              "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.avatarInput",
-              "file": "apps/web/components/scenes/myPageSceneStyles.ts",
-              "line": 21,
-              "name": "avatarInput",
-              "uses": 0
-            }
-          ]
-        },
-        {
-          "rank": 4,
           "members": 1,
           "uses": 1,
           "values": {
@@ -15304,24 +14952,24 @@
           ]
         },
         {
-          "rank": 5,
-          "members": 1,
-          "uses": 1,
+          "rank": 4,
+          "members": 2,
+          "uses": 0,
           "values": {
-            "height": "18px",
+            "height": "auto",
             "minHeight": "0px",
-            "width": "360px",
+            "width": "auto",
             "minWidth": "0px",
             "maxWidth": "none",
-            "paddingTop": "8px",
-            "paddingRight": "12px",
-            "paddingBottom": "8px",
-            "paddingLeft": "12px",
-            "borderTopLeftRadius": "12px",
-            "borderTopWidth": "1px",
-            "borderTopColor": "rgba(250, 250, 250, 0.16)",
-            "borderTopStyle": "solid",
-            "backgroundColor": "rgba(65, 69, 76, 0.56)",
+            "paddingTop": "0px",
+            "paddingRight": "0px",
+            "paddingBottom": "0px",
+            "paddingLeft": "0px",
+            "borderTopLeftRadius": "0px",
+            "borderTopWidth": "0px",
+            "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
+            "borderTopStyle": "none",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
             "backgroundImage": "none",
             "color": "color(srgb 0.980392 0.980392 0.980392)",
             "boxShadow": "none",
@@ -15336,16 +14984,23 @@
           },
           "sources": [
             {
-              "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.refinementInput",
+              "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.hiddenFileInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1344,
-              "name": "refinementInput",
-              "uses": 1
+              "line": 30,
+              "name": "hiddenFileInput",
+              "uses": 0
+            },
+            {
+              "id": "text-field/apps/web/components/scenes/myPageSceneStyles.ts.avatarInput",
+              "file": "apps/web/components/scenes/myPageSceneStyles.ts",
+              "line": 21,
+              "name": "avatarInput",
+              "uses": 0
             }
           ]
         },
         {
-          "rank": 6,
+          "rank": 5,
           "members": 1,
           "uses": 0,
           "values": {
@@ -15386,7 +15041,7 @@
           ]
         },
         {
-          "rank": 7,
+          "rank": 6,
           "members": 1,
           "uses": 0,
           "values": {
@@ -15427,7 +15082,7 @@
           ]
         },
         {
-          "rank": 8,
+          "rank": 7,
           "members": 1,
           "uses": 0,
           "values": {
@@ -15461,8 +15116,49 @@
             {
               "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.historyRenameInput",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 722,
+              "line": 355,
               "name": "historyRenameInput",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "18px",
+            "minHeight": "0px",
+            "width": "360px",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "8px",
+            "paddingRight": "12px",
+            "paddingBottom": "8px",
+            "paddingLeft": "12px",
+            "borderTopLeftRadius": "12px",
+            "borderTopWidth": "1px",
+            "borderTopColor": "rgba(250, 250, 250, 0.16)",
+            "borderTopStyle": "solid",
+            "backgroundColor": "rgba(65, 69, 76, 0.56)",
+            "backgroundImage": "none",
+            "color": "color(srgb 0.980392 0.980392 0.980392)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "text-field/apps/web/components/scenes/highlightSceneStyles.ts.refinementInput",
+              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+              "line": 928,
+              "name": "refinementInput",
               "uses": 0
             }
           ]
@@ -15761,7 +15457,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 559,
+              "line": 560,
               "name": "DURATION_SLIDER",
               "uses": 1
             }
@@ -15802,7 +15498,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_TRACK",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 561,
+              "line": 562,
               "name": "DURATION_SLIDER_TRACK",
               "uses": 1
             }
@@ -15843,7 +15539,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_RANGE",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 567,
+              "line": 568,
               "name": "DURATION_SLIDER_RANGE",
               "uses": 1
             }
@@ -15884,7 +15580,7 @@
             {
               "id": "slider/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx.DURATION_SLIDER_THUMB",
               "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
-              "line": 573,
+              "line": 574,
               "name": "DURATION_SLIDER_THUMB",
               "uses": 1
             }
@@ -16304,7 +16000,7 @@
     },
     "selectable-list-row": {
       "pattern": "/ListItem$|listItem$|SelectRow$|OptionRow$|DropdownItem$|MenuItem$/",
-      "definitions": 6,
+      "definitions": 5,
       "groups": [
         {
           "rank": 1,
@@ -16390,47 +16086,6 @@
         },
         {
           "rank": 3,
-          "members": 1,
-          "uses": 2,
-          "values": {
-            "height": "33px",
-            "minHeight": "0px",
-            "width": "360px",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "6px",
-            "paddingRight": "6px",
-            "paddingBottom": "6px",
-            "paddingLeft": "6px",
-            "borderTopLeftRadius": "14px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "color(srgb 0.980392 0.980392 0.980392)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "10px",
-            "fontSize": "14px",
-            "fontWeight": "500",
-            "lineHeight": "21px",
-            "opacity": "1",
-            "letterSpacing": "-0.14px",
-            "fontFamily": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif"
-          },
-          "sources": [
-            {
-              "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.clipDetailListItem",
-              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 154,
-              "name": "clipDetailListItem",
-              "uses": 2
-            }
-          ]
-        },
-        {
-          "rank": 4,
           "members": 2,
           "uses": 0,
           "values": {
@@ -16471,14 +16126,14 @@
             {
               "id": "selectable-list-row/apps/web/components/scenes/highlightSceneStyles.ts.historyDropdownItem",
               "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 492,
+              "line": 125,
               "name": "historyDropdownItem",
               "uses": 0
             }
           ]
         },
         {
-          "rank": 5,
+          "rank": 4,
           "members": 1,
           "uses": 0,
           "values": {
@@ -16522,7 +16177,7 @@
     },
     "badge": {
       "pattern": "/Badge$|Chip$|Pill$/",
-      "definitions": 11,
+      "definitions": 10,
       "groups": [
         {
           "rank": 1,
@@ -16691,88 +16346,6 @@
         {
           "rank": 5,
           "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "auto",
-            "minHeight": "0px",
-            "width": "auto",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "5px",
-            "paddingRight": "12px",
-            "paddingBottom": "5px",
-            "paddingLeft": "12px",
-            "borderTopLeftRadius": "999px",
-            "borderTopWidth": "1px",
-            "borderTopColor": "rgba(250, 250, 250, 0.16)",
-            "borderTopStyle": "solid",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "color(srgb 0.545098 0.556863 0.576471)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.refinementChip",
-              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 984,
-              "name": "refinementChip",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 6,
-          "members": 1,
-          "uses": 1,
-          "values": {
-            "height": "auto",
-            "minHeight": "0px",
-            "width": "auto",
-            "minWidth": "0px",
-            "maxWidth": "none",
-            "paddingTop": "0px",
-            "paddingRight": "0px",
-            "paddingBottom": "0px",
-            "paddingLeft": "0px",
-            "borderTopLeftRadius": "0px",
-            "borderTopWidth": "0px",
-            "borderTopColor": "color(srgb 0.980392 0.980392 0.980392)",
-            "borderTopStyle": "none",
-            "backgroundColor": "rgba(0, 0, 0, 0)",
-            "backgroundImage": "none",
-            "color": "color(srgb 0.980392 0.980392 0.980392)",
-            "boxShadow": "none",
-            "backdropFilter": "none",
-            "columnGap": "normal",
-            "fontSize": "16px",
-            "fontWeight": "400",
-            "lineHeight": "24px",
-            "opacity": "1",
-            "letterSpacing": "-0.16px",
-            "fontFamily": "PretendardHarness"
-          },
-          "sources": [
-            {
-              "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.themeChip",
-              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-              "line": 1635,
-              "name": "themeChip",
-              "uses": 1
-            }
-          ]
-        },
-        {
-          "rank": 7,
-          "members": 1,
           "uses": 0,
           "values": {
             "height": "26px",
@@ -16812,7 +16385,7 @@
           ]
         },
         {
-          "rank": 8,
+          "rank": 6,
           "members": 1,
           "uses": 0,
           "values": {
@@ -16853,7 +16426,7 @@
           ]
         },
         {
-          "rank": 9,
+          "rank": 7,
           "members": 1,
           "uses": 0,
           "values": {
@@ -16894,7 +16467,7 @@
           ]
         },
         {
-          "rank": 10,
+          "rank": 8,
           "members": 1,
           "uses": 0,
           "values": {
@@ -16935,7 +16508,48 @@
           ]
         },
         {
-          "rank": 11,
+          "rank": 9,
+          "members": 1,
+          "uses": 0,
+          "values": {
+            "height": "auto",
+            "minHeight": "0px",
+            "width": "auto",
+            "minWidth": "0px",
+            "maxWidth": "none",
+            "paddingTop": "5px",
+            "paddingRight": "12px",
+            "paddingBottom": "5px",
+            "paddingLeft": "12px",
+            "borderTopLeftRadius": "999px",
+            "borderTopWidth": "1px",
+            "borderTopColor": "rgba(250, 250, 250, 0.16)",
+            "borderTopStyle": "solid",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "color": "color(srgb 0.545098 0.556863 0.576471)",
+            "boxShadow": "none",
+            "backdropFilter": "none",
+            "columnGap": "normal",
+            "fontSize": "16px",
+            "fontWeight": "400",
+            "lineHeight": "24px",
+            "opacity": "1",
+            "letterSpacing": "-0.16px",
+            "fontFamily": "PretendardHarness"
+          },
+          "sources": [
+            {
+              "id": "badge/apps/web/components/scenes/highlightSceneStyles.ts.refinementChip",
+              "file": "apps/web/components/scenes/highlightSceneStyles.ts",
+              "line": 521,
+              "name": "refinementChip",
+              "uses": 0
+            }
+          ]
+        },
+        {
+          "rank": 10,
           "members": 1,
           "uses": 0,
           "values": {

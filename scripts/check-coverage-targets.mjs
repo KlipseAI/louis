@@ -118,7 +118,10 @@ const TOKEN_SOURCE = "packages/tokens/src/klipse.tokens.json";
 // `UpgradePlanPageClient` 가 그리므로 같은 화면을 두 칸으로 세던 결함이었다). 원장 커밋 21947b0 · b9c0b35.
 // 2026-10-07: 163 → 159 — **Figma 에 세웠다 4**: PageHeader · AdminSectionHeader · CustomDropdown · PlanComparisonTable 이 보드 생성기
 // PARTS 의 제품 세트(Product/Page Header · Admin Section Header · Select Dropdown · Plan Comparison Table)가 됐다(Updates (199)).
-const NEEDED_BASELINE = 159; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
+// 2026-10-08 밤: 159 → **172.** 앵커 76b6cf15 · 54b62a8a 두 이동의 발견을 함께 조인다(아침 이동은 이 수를 옮기지 않았다) — 지금 원장
+// (54b62a8a)의 needed 172(부품 60 · 화면 93 · 한자리 18 · 판단 대기 1). 저녁 판정 59종 중 needed 는 하이라이트 스튜디오 판 · 트랙,
+// 앰배서더 화면 · 지원서, 덱 화면군 · 머리 막대 등이다.
+const NEEDED_BASELINE = 172; // 하락만 잠근다(상승은 발견) — 오르면 그 자리에서 다시 조인다
 // 9 → 47 → 5. 47 로 올렸던 것은 미룬 것을 받아들여서가 아니라 래칫이 물게 하려는 것이었다
 // (재고정으로 드러난 38개가 판단 대기로 들어왔다). 2026-09-03 에 그 47 을 네 도메인이
 // 나눠 판정해 43 이 내려갔고 — figma 6 · scoped 15 · needed 22 — 5 만 남았다.
@@ -159,7 +162,9 @@ const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있�
 // 그래서 이 게이트는 그 커밋 이후로 계속 빨갰다.
 // 2026-09-26: 238 → 248 — 위 NEEDED_BASELINE 문단의 「범위 밖으로 옮겼다 10」이다(표면 총수 472 그대로). 열 칸 모두 사유에
 // 앵커 grep 근거를 적었고, 제품이 그 수출을 다시 쓰면 needed 로 되돌린다.
-const SCOPED_BASELINE = 248; // 표면 총수가 오른 만큼만 오를 수 있다
+// 2026-10-08 밤: 248 → **324** — 표면 총수 기준점을 612 로 옮기며(아래) 지금 scoped 로 맞춘다. 두 앵커 이동(76b6cf15 · 54b62a8a)의
+// 새 표면 판정(라우트 진입점 · 레이아웃 · 부모에 딸린 조각 · 시각 없는 호스트)이 쌓인 수다.
+const SCOPED_BASELINE = 324; // 표면 총수가 오른 만큼만 오를 수 있다
 // 2026-09-10: 434 → 468. 앵커가 5a67d692 → f19cc41c 로 옮기며 제품 표면이 34종 늘었다
 // (쿠폰·선물하기 화면 등). **기준점을 옮기지 않으면 그만큼 범위 밖 허용치가 벌어진 채로
 // 남아 그물이 무뎌진다** — 실제로 `needed reclassified as out of scope` 카나리아가 그래서
@@ -170,7 +175,9 @@ const SCOPED_BASELINE = 248; // 표면 총수가 오른 만큼만 오를 수 있
 // 실제 scoped 는 238 이므로 카나리아가 표면 하나를 needed → scoped 로 옮겨도 239 ≤ 242 여서
 // 통과했다 — `needed reclassified as out of scope` 가 또 물지 못한 이유다.
 // **앵커를 옮길 때는 이 기준점도 같은 커밋에서 옮긴다.** 두 회차 연속 잊었다.
-const SURFACE_TOTAL_BASELINE = 472; // 위 천장의 기준점
+// 2026-10-08 밤: 472 → **612.** 앵커가 a4125565 → 76b6cf15 → 54b62a8a 로 옮기며 표면이 555 → 612 로 늘었는데 기준점이 472 에 머물러
+// 범위 밖 허용치가 140칸 벌어져 있었다(위 주석이 두 번 경고한 그 재발). 이번 이동의 신규 62 · 소멸 5.
+const SURFACE_TOTAL_BASELINE = 612; // 위 천장의 기준점
 // 17 → 18 (2026-09-06): `alert` 가 partial 에서 done 으로 올라갔다. 레이아웃 축(block·inline·
 // banner)을 열며 계약에 `alert` 칸을 처음 세우고 geometry 를 붙였고,
 // packages/react/test/alert.browser.test.tsx 가 코드 쪽을 되재므로 DS-D-0035 의 (a)(b)(c) 가

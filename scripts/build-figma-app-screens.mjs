@@ -86,8 +86,12 @@ const LEDGERS = {
 // STATE_RECIPE_SCREENS) — 영역 작업이 이 파일의 보드 목록을 건드리지 않게. 원장 폴더가 없으면 아무것도 싣지 않아 출력이 종전과 같다.
 const statesLedgerDir = resolve(repoRoot, "migration/product-states");
 if (!LOUIS_EXAMPLES && existsSync(statesLedgerDir)) {
+  // 보드 레시피가 없는 영역의 원장은 싣지 않는다(2026-10-08 밤) — 그릴 것이 없는데 커밋 대조에는 걸려, 다른 작업이 옛 앵커로 잰 채
+  // 작업 트리에 둔 원장(하이라이트 · 분석 · 랜딩) 하나가 앵커 이동의 보드 생성을 통째로 막았다. 보드가 생기면 그때부터 대조한다.
   for (const name of readdirSync(statesLedgerDir).filter((entry) => entry.endsWith(".json")).sort()) {
-    LEDGERS[`states:${name.slice(0, -".json".length)}`] = JSON.parse(readFileSync(resolve(statesLedgerDir, name), "utf8"));
+    const area = name.slice(0, -".json".length);
+    if (!loadArea(area).recipes.some((recipe) => recipe.board)) continue;
+    LEDGERS[`states:${area}`] = JSON.parse(readFileSync(resolve(statesLedgerDir, name), "utf8"));
   }
 }
 const fixtureOf = (screen) => {
@@ -551,16 +555,9 @@ const PRODUCT_PARTS = [
   // (`CONNECT_NOTICE_BTN`)을 걷고 LOUIS Button(`inverse` · `lg`)으로 바꿔(76b6cf15 components/scenes/YoutubeAnalyticsScene.tsx 358행 주석)
   // 같은 버튼(지금 자리 .1.0.3)이 LOUIS 정본 Button 인스턴스로 치환된다(부품 뿌리가 다른 세트로 치환 — 제품 전용 자리가 아니다).
   // Figma 세트(2101:5880 · 5881)는 그대로 둔다.
-  {
-    // 칩 하나가 아니라 줄 하나다 — 제품이 테마 여섯을 고정 목록 하나로 그린다(themeChips 의 map). 칩마다 세트를 두면 라벨만 다른
-    // variant 가 열둘이 된다. 선택 칩(themeChipActive)은 측정 fixture 에 없다 — 업로드 단계의 기본 테마가 비어 있다.
-    set: "Product/Highlight Theme Chips",
-    about: "하이라이트 업로드 단계의 테마 칩 줄(components/scenes/HighlightProjectScene.tsx themeChips — 칩 여섯, h 18). 선택 칩은 측정되지 않았다.",
-    variants: [
-      ["Viewport=Desktop", "desktop-1920x1080", "body.1.0.0.1.0.1.0.1.2.1", ["Live Commerce", "Education", "Gaming", "Sports", "Vlog", "Interview"], "2101:5883"],
-      ["Viewport=Mobile", "mobile-402x874", "body.1.0.0.1.0.1.0.1.2.1", ["Live Commerce", "Education", "Gaming", "Sports", "Vlog", "Interview"], "2101:5884"],
-    ].map(([variant, context, path, anchor, component]) => ({ variant, route: "/highlight/[projectId]?__phase=upload", context, path, anchor, component })),
-  },
+  // 앵커 54b62a8a(2026-10-08 밤): `Product/Highlight Theme Chips`(옛 자리 `/highlight/[projectId]?__phase=upload` body.1.0.0.1.0.1.0.1.2.1)을 뺐다 —
+  // 하이라이트 새 화면 갈래가 업로드 단계를 스튜디오 판으로 바꾸고 테마 칩 줄과 그 스타일을 걷었다(제품 52fc0f268 · db90c09bf — `themeChips` 0건).
+  // Figma 세트(2101:5883 · 5884)는 그대로 둔다.
   {
     // 모바일 쿠폰 화면에는 결제 패널이 측정 화면 안에 없었다 — 세트는 데스크톱 variant 하나다.
     // 통합 판(2026-10-08): 요금제 선물 화면(`/subscription/coupons` body.1.0.0.1.0.1.1.2.5.1.1)이 원장에서 사라져(위 PRODUCT_PARTS 머리 주석)
@@ -2326,7 +2323,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   // 쿠폰 결제 동의 상자 × 데스크톱.
   // 2026-10-08: 2 → 0 — 통합 판에서 제품이 지역 알약을 LOUIS Button(inverse · lg)으로 바꿔 세트 항목을 뺐다(PRODUCT_PARTS 의 주석).
   "Product/Analytics Connect Button": 0,
-  "Product/Highlight Theme Chips": 2,
+  // 2026-10-08 밤: 2 → 0 — 앵커 54b62a8a 에서 하이라이트 업로드 단계의 테마 칩 줄이 걷혀 세트 항목을 뺐다(PRODUCT_PARTS 의 주석).
+  "Product/Highlight Theme Chips": 0,
   // 2026-09-29: 1 → 2 — 세션 원장 결제 진행(`/mypage/upgrade/checkout?plan=pro`) 데스크톱에도 같은 동의 상자가 선다.
   // 2026-10-08: 2 → 1 — 통합 판에서 쿠폰 화면이 원장에서 빠져 세션 결제 진행 데스크톱 하나만 남았다(variant 도 그 자리에서 찍는다).
   "Product/Checkout Agreement": 1,

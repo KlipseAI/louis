@@ -9,9 +9,9 @@
     "운영에서 그 상태에 이르는 경로 — 레시피 단계로 세운 개발 fixture 상태다"
   ],
   "$method": "상태 레시피(migration/measure-states/public.json, 모드 public-seeded): 각 화면은 그 모드의 기본 흐름(goto → 3초 → 안정화 → content-visibility 확정 → 안정화 → 글꼴)을 탄 뒤 레시피 단계(click · fill · press · waitFor …, park 를 뺀 마지막은 waitFor)를 돌고 다시 안정화한 다음 잰다. 레시피의 같은 출처 /api/* 항목은 브라우저에서 가로채 답하고(recipeApi 에 맞은 횟수), supabase 오버레이는 그 화면 동안만 가짜 Supabase 의 표 · RPC 를 바꾼다(recipeSupabase). clock 은 브라우저 Date 만 고정한다. 측정 뒤 assert(text · apiHit · css)가 어긋나거나, required api 가 한 번도 맞지 않거나, 가짜 Supabase 가 400 을 내면 실패한다. 레시피의 제품 줄 인용(cite)은 productCommit 에서 확인해 sourceQuotes 에 싣는다. fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다(세션 쿠키 없음). Supabase URL은 로컬 가짜 Supabase 이고, /rest/v1/* 조회는 fixture.seededTables 의 표만 자리표시 행으로(eq · order 를 PostgREST 처럼 적용) 나머지는 빈 목록으로 답한다. 외부 요청은 차단한다. fullPage 화면은 문서 끝까지의 노드를 잰다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "productRefSource": "product-evidence.lock.json",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "fixture": {
     "nodeEnv": "development",
     "devAuthBypass": false,
@@ -26221,205 +26221,205 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 235,
       "quote": "   * 이미 로그인된 사용자는 archive 페이지로 이동"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 237,
       "quote": "  useEffect(() => {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 238,
       "quote": "    if (!loading && user) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 239,
       "quote": "      router.replace(\"/archive\");"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 44,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 45,
       "quote": "  process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 46,
       "quote": "  process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 35,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 36,
       "quote": "    process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 37,
       "quote": "    process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/blog/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/blog/page.tsx",
       "path": "apps/web/app/blog/page.tsx",
       "line": 198,
       "quote": "  const posts = await getPublishedPosts();"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/blog/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/blog/page.tsx",
       "path": "apps/web/app/blog/page.tsx",
       "line": 201,
       "quote": "  if (posts.length === 0) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/blog/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/blog/page.tsx",
       "path": "apps/web/app/blog/page.tsx",
       "line": 232,
       "quote": "                  {p.excerpt ? ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/blog/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/blog/page.tsx",
       "path": "apps/web/app/blog/page.tsx",
       "line": 242,
       "quote": "                  {p.cover_image_url ? ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/blog/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/blog/page.tsx",
       "path": "apps/web/app/blog/page.tsx",
       "line": 169,
       "quote": "  \"line-clamp-2\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/blog/publicBlog.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/blog/publicBlog.ts",
       "path": "apps/web/app/lib/blog/publicBlog.ts",
       "line": 11,
       "quote": "  return { ...row, cover_image_url: servingUrlOrNull(row.cover_image_url) };"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/blog/publicBlog.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/blog/publicBlog.ts",
       "path": "apps/web/app/lib/blog/publicBlog.ts",
       "line": 15,
       "quote": "  \"id, slug, title, excerpt, cover_image_url, published, published_at, author_email, created_at, updated_at\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/blog/publicBlog.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/blog/publicBlog.ts",
       "path": "apps/web/app/lib/blog/publicBlog.ts",
       "line": 25,
       "quote": "      .from(\"blog_posts\")"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/blog/publicBlog.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/blog/publicBlog.ts",
       "path": "apps/web/app/lib/blog/publicBlog.ts",
       "line": 27,
       "quote": "      .eq(\"published\", true)"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/blog/publicBlog.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/blog/publicBlog.ts",
       "path": "apps/web/app/lib/blog/publicBlog.ts",
       "line": 28,
       "quote": "      .order(\"published_at\", { ascending: false });"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/storage/urls.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/storage/urls.ts",
       "path": "apps/web/app/lib/storage/urls.ts",
       "line": 283,
       "quote": "  if (/^https?:\\/\\//i.test(trimmed)) return trimmed;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
       "path": "apps/web/app/globals.css",
       "line": 2047,
       "quote": "@media (prefers-reduced-motion: no-preference) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
       "path": "apps/web/app/globals.css",
       "line": 2069,
       "quote": "  [data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/templates/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/templates/page.tsx",
       "path": "apps/web/app/templates/page.tsx",
       "line": 163,
       "quote": "          {templates.length === 0 ? ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/templates/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/templates/page.tsx",
       "path": "apps/web/app/templates/page.tsx",
       "line": 170,
       "quote": "                const cover = coverOf(t.media);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/templates/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/templates/page.tsx",
       "path": "apps/web/app/templates/page.tsx",
       "line": 177,
       "quote": "                    data-reveal"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/templates/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/templates/page.tsx",
       "path": "apps/web/app/templates/page.tsx",
       "line": 179,
       "quote": "                    {cover ? ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/templates/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/templates/page.tsx",
       "path": "apps/web/app/templates/page.tsx",
       "line": 200,
       "quote": "                    {mediaCount > 0 && ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/templates/publicTemplates.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/templates/publicTemplates.ts",
       "path": "apps/web/app/lib/templates/publicTemplates.ts",
       "line": 7,
       "quote": "  \"id, slug, title, description, media, published, published_at, sort_order, created_at\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/templates/publicTemplates.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/templates/publicTemplates.ts",
       "path": "apps/web/app/lib/templates/publicTemplates.ts",
       "line": 20,
       "quote": "    url: servingUrlOrNull(item.url) ?? item.url,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/templates/publicTemplates.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/templates/publicTemplates.ts",
       "path": "apps/web/app/lib/templates/publicTemplates.ts",
       "line": 49,
       "quote": "      .from(\"templates\")"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/templates/publicTemplates.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/templates/publicTemplates.ts",
       "path": "apps/web/app/lib/templates/publicTemplates.ts",
       "line": 52,
       "quote": "      .order(\"sort_order\", { ascending: true })"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/lib/templates/publicTemplates.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/lib/templates/publicTemplates.ts",
       "path": "apps/web/app/lib/templates/publicTemplates.ts",
       "line": 53,
       "quote": "      .order(\"created_at\", { ascending: false });"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
       "path": "apps/web/app/globals.css",
       "line": 2069,
       "quote": "  [data-page-root][data-reveal-ready] [data-reveal]:not(.is-visible) {"

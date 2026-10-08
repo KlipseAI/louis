@@ -60,6 +60,9 @@ const startServer = async () => {
       NEXT_PUBLIC_DEV_AUTH_BYPASS: "1",
       NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:9",
       NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "fixture-anon-key",
+      // 통합 판은 CDN 주소가 없으면 모듈 평가 중에 던져 화면이 오류 경계로 떨어진다 — 형제 측정기
+      // measure-product-auth-fixture.mjs 와 같은 닿지 않는 측정용 주소를 준다(2026-10-08).
+      NEXT_PUBLIC_CDN_BASE_URL: "https://cdn.fixture.invalid",
     },
     stdio: ["ignore", "pipe", "pipe"],
   });

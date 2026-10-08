@@ -7,9 +7,9 @@
     "API 성공 상태 parity"
   ],
   "$method": "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 직접 띄운다 — 로그인하지 않은 사용자의 화면이다. 인증 화면은 로그인된 사용자를 /archive 로 보내므로(sourceQuotes) 인증 우회 서버에서는 잴 수 없다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 한 뷰포트 안에서 끝나는 공개 화면만 싣는다(긴 공개 페이지는 전체 페이지 측정의 몫). 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "productRefSource": "product-evidence.lock.json",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "fixture": {
     "nodeEnv": "development",
     "devAuthBypass": false,
@@ -30353,61 +30353,61 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 235,
       "quote": "   * 이미 로그인된 사용자는 archive 페이지로 이동"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 237,
       "quote": "  useEffect(() => {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 238,
       "quote": "    if (!loading && user) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/(auth-brand)/login/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/(auth-brand)/login/page.tsx",
       "path": "apps/web/app/(auth-brand)/login/page.tsx",
       "line": 239,
       "quote": "      router.replace(\"/archive\");"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 44,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 45,
       "quote": "  process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 46,
       "quote": "  process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 35,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 36,
       "quote": "    process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 37,
       "quote": "    process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
@@ -32159,7 +32159,7 @@
             "path": "body.1.0.0.1.0.2.3",
             "parentPath": "body.1.0.0.1.0.2",
             "tag": "p",
-            "id": "_R_4lrknekne6lbH2_",
+            "id": "_R_ineitqitomlbH2_",
             "ownText": "Minimum 8 characters, including letters with numbers or special characters.",
             "rect": {
               "x": 1235,
@@ -33754,7 +33754,7 @@
             "path": "body.1.0.0.2.0.1.3",
             "parentPath": "body.1.0.0.2.0.1",
             "tag": "p",
-            "id": "_R_9bn5rkne6lbH2_",
+            "id": "_R_15esneitomlbH2_",
             "ownText": "Minimum 8 characters, including letters with numbers or special characters.",
             "rect": {
               "x": 1235,
@@ -39556,7 +39556,7 @@
             "path": "body.1.0.0.1.0.2.3",
             "parentPath": "body.1.0.0.1.0.2",
             "tag": "p",
-            "id": "_R_4lrknekne6lbH2_",
+            "id": "_R_ineitqitomlbH2_",
             "ownText": "Minimum 8 characters, including letters with numbers or special characters.",
             "wrapLines": [
               "Minimum 8 characters, including letters with numbers or special",
@@ -41060,7 +41060,7 @@
             "path": "body.1.0.0.2.0.1.3",
             "parentPath": "body.1.0.0.2.0.1",
             "tag": "p",
-            "id": "_R_9bn5rkne6lbH2_",
+            "id": "_R_15esneitomlbH2_",
             "ownText": "Minimum 8 characters, including letters with numbers or special characters.",
             "wrapLines": [
               "Minimum 8 characters, including letters with numbers or special",

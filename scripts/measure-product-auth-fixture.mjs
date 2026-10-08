@@ -797,6 +797,14 @@ const firstDifference = (recorded, measured, path = "$") => {
   return null;
 };
 
+// **서버를 띄우기 전에 본다(2026-10-08).** 서버를 띄운 뒤 여기서 측정 불가로 끝나면 `process.exit` 가 개발 서버를 남겨 두어
+// 그 fixture 의 다음 측정이 `.next/dev/lock` 에 막혔다(앵커 54b62a8a 이동 중 로캘 원장이 옛 앵커여서).
+// 로캘 원장을 처음 잴 때는 합칠 기록이 없다 — 화면 목록이 이미 `--only` 로 좁혀져 있다(SCREEN_SPECS 주석).
+const recordedForOnly = onlyIds.size > 0 && (!localeMode || existsSync(outputPath)) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+if (recordedForOnly) {
+  if (recordedForOnly.productCommit !== commit) unavailable(`--only 는 같은 앵커의 원장에만 합친다: 원장 ${recordedForOnly.productCommit} · 지금 ${commit}`);
+  for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
+}
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
 const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
@@ -821,12 +829,6 @@ const LOUIS_EXAMPLE_FONT_CSS = louisExamples
   ? '@font-face{font-family:"Pretendard Variable";src:url(data:font/woff2;base64,' + productFontFile(productRoot, commit).toString("base64") +
     ') format("woff2-variations");font-weight:45 920;font-style:normal;font-display:block}\n'
   : "";
-// 로캘 원장을 처음 잴 때는 합칠 기록이 없다 — 화면 목록이 이미 `--only` 로 좁혀져 있다(SCREEN_SPECS 주석).
-const recordedForOnly = onlyIds.size > 0 && (!localeMode || existsSync(outputPath)) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
-if (recordedForOnly) {
-  if (recordedForOnly.productCommit !== commit) unavailable(`--only 는 같은 앵커의 원장에만 합친다: 원장 ${recordedForOnly.productCommit} · 지금 ${commit}`);
-  for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
-}
 const styleById = new Map((recordedForOnly?.computedStyles ?? []).map((entry) => [entry.id, entry.value]));
 const rehydrate = (screen) => {
   const copy = structuredClone(screen);
@@ -1832,7 +1834,7 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/middleware.ts", 35),
     sourceQuote("apps/web/middleware.ts", 36),
     sourceQuote("apps/web/middleware.ts", 37),
-    sourceQuote("apps/web/middleware.ts", 237),
+    sourceQuote("apps/web/middleware.ts", 240),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 39),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 40),
@@ -1845,18 +1847,18 @@ const payload = JSON.stringify({
     // `sourceQuote` 는 좌표를 검증하지 않고 그 줄을 그대로 굽는다. 인용이 밀리면 실패하지 않고
     // **다른 코드를 근거로 굽는다**(조용히 틀린 데이터). 앵커를 옮길 때는 이 파일의 좌표
     // 스물다섯을 내용으로 다시 찾아라 — 그 대조가 이 회차에서 다섯 개를 잡았다.
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 369),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 370),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 371),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 372),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 373),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 374),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 375),
     // phase 강제 후크. 인증 바이패스와 **같은 플래그**를 쓴다는 것이 이 두 줄에 있다 —
     // 새 환경변수가 늘지 않았고, 운영에선 NODE_ENV 게이트로 켜지지 않는다.
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 156),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 157),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 158),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 694),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 126),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 127),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 128),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 316),
     // 결제 성공 화면 넷의 `?preview=` 후크 — 받는 값(사용 줄)과 운영 게이트(NODE_ENV 줄).
     sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 192),
     sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 195),

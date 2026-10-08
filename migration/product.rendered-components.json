@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "probes": [
     {
       "id": "button-lg",
@@ -294,15 +294,6 @@
       "html": "<span class=\"louis-avatar\"></span>"
     },
     {
-      "id": "drop-zone-upload",
-      "source": "highlightSceneStyles.ts uploadDropZone — 하이라이트 허브 · 프로젝트 상세의 업로드 면(누르면 파일 입력을 여는 button)",
-      "hover": false,
-      "from": "apps/web/components/scenes/highlightSceneStyles.ts → uploadDropZone",
-      "doc": "default",
-      "wrapper": null,
-      "html": "<button class=\"tw-hs-190 [.tw-hs-189_&:not(.tw-hs-191)]:[padding:24px_16px] [.tw-hs-189_&]:[flex:1] [.tw-hs-187_&]:[display:grid] [.tw-hs-187_&]:[grid-template-columns:auto_minmax(0,1fr)_auto] [.tw-hs-187_&]:[grid-template-rows:auto_auto] [.tw-hs-187_&]:[align-items:center] [.tw-hs-187_&]:[align-content:center] [.tw-hs-187_&]:[justify-items:start] [.tw-hs-187_&]:[column-gap:12px] [.tw-hs-187_&]:[row-gap:2px] [.tw-hs-187_&]:[text-align:left] [.tw-hs-187_&:not(.tw-hs-191)]:[padding:16px_20px] [@media(max-width:719px)]:[.tw-hs-187_&]:[grid-template-columns:auto_minmax(0,1fr)] [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:12px] [width:100%] [&:not(.tw-hs-191)]:[padding:56px_16px] [border:0] [border-radius:12px] [background:var(--louis-color-bg-inset)] [cursor:pointer] [font-family:inherit] [transition:background_140ms_ease] [box-sizing:border-box] [overflow:hidden] [&:hover:not(:disabled)]:[background:linear-gradient(var(--louis-color-accent-ghost-hover),var(--louis-color-accent-ghost-hover)),var(--louis-color-bg-inset)]\"></button>"
-    },
-    {
       "id": "avatar-settings",
       "source": "myPageSceneStyles.ts settingsAvatarFigure — .louis-avatar + 크기 40 · 면 gray-000 12% 덮어쓰기",
       "hover": false,
@@ -360,15 +351,6 @@
       "doc": "default",
       "wrapper": null,
       "html": "<input type=\"checkbox\" class=\"louis-checkbox__control\" />"
-    },
-    {
-      "id": "selectable-row",
-      "source": "highlightSceneStyles.ts clipDetailListItem",
-      "hover": false,
-      "from": "apps/web/components/scenes/highlightSceneStyles.ts → clipDetailListItem",
-      "doc": "default",
-      "wrapper": null,
-      "html": "<button class=\"louis-selectable-list-row before:hidden text-inherit tw-hs-012 [gap:10px] [width:100%] [padding:6px] [border-radius:14px] [transition:background_140ms_ease] [&:hover]:[background:rgb(var(--palette-gray-900-rgb)_/_4%)] [html[data-theme=dark]_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_4%)] [@media(max-width:900px)]:[flex:0_0_220px] [@media(max-width:900px)]:[width:220px] [@media(max-width:900px)]:[flex-direction:column] [@media(max-width:900px)]:[align-items:stretch]\">클립 1</button>"
     },
     {
       "id": "segmented-track",
@@ -935,7 +917,7 @@
       "from": "apps/web/components/landing/sections/FAQ.tsx → QUESTION_CLASS",
       "doc": "default",
       "wrapper": null,
-      "html": "<button class=\"flex items-center justify-between gap-8 w-full px-10 py-9 bg-transparent [border:0] cursor-pointer text-left appearance-none [-webkit-appearance:none]\"><span class=\"type-body-20-medium text-gray-000\">질문</span></button>"
+      "html": "<button class=\"flex items-center justify-between gap-8 w-full px-10 py-9 bg-transparent [border:0] cursor-pointer text-left appearance-none [-webkit-appearance:none]\"><span class=\"type-body-20-medium text-gray-000 min-w-0\">질문</span></button>"
     },
     {
       "id": "faq-row-icon",
@@ -971,7 +953,7 @@
       "from": "apps/web/components/landing/sections/FAQ.tsx → QUESTION_TEXT_CLASS",
       "doc": "default",
       "wrapper": null,
-      "html": "<span class=\"type-body-20-medium text-gray-000\">질문</span>"
+      "html": "<span class=\"type-body-20-medium text-gray-000 min-w-0\">질문</span>"
     },
     {
       "id": "news-card",
@@ -1731,13 +1713,6 @@
       "height": "28px",
       "borderTopLeftRadius": "999px"
     },
-    "drop-zone-upload": {
-      "paddingTop": "56px",
-      "paddingLeft": "16px",
-      "rowGap": "12px",
-      "borderTopLeftRadius": "12px",
-      "borderTopWidth": "0px"
-    },
     "avatar-settings": {
       "width": "40px",
       "height": "40px",
@@ -1763,12 +1738,6 @@
       "width": "20px",
       "height": "20px",
       "borderTopLeftRadius": "8px"
-    },
-    "selectable-row": {
-      "paddingTop": "6px",
-      "paddingLeft": "6px",
-      "columnGap": "10px",
-      "borderTopLeftRadius": "14px"
     },
     "segmented-track": {
       "paddingTop": "4px",
@@ -3980,59 +3949,6 @@
       "overflow-x": "hidden",
       "overflow-y": "hidden"
     },
-    "drop-zone-upload": {
-      "align-items": "center",
-      "background-attachment": "scroll",
-      "background-clip": "border-box",
-      "background-color": "color(srgb 0.05098 0.066666 0.094117)",
-      "background-image": "none",
-      "background-origin": "padding-box",
-      "background-position-x": "0%",
-      "background-position-y": "0%",
-      "background-repeat": "repeat",
-      "background-size": "auto",
-      "border-bottom-color": "rgb(255, 255, 255)",
-      "border-bottom-left-radius": "12px",
-      "border-bottom-right-radius": "12px",
-      "border-bottom-style": "none",
-      "border-bottom-width": "0px",
-      "border-image-outset": "0",
-      "border-image-repeat": "stretch",
-      "border-image-slice": "100%",
-      "border-image-source": "none",
-      "border-image-width": "1",
-      "border-left-color": "rgb(255, 255, 255)",
-      "border-left-style": "none",
-      "border-left-width": "0px",
-      "border-right-color": "rgb(255, 255, 255)",
-      "border-right-style": "none",
-      "border-right-width": "0px",
-      "border-top-color": "rgb(255, 255, 255)",
-      "border-top-left-radius": "12px",
-      "border-top-right-radius": "12px",
-      "border-top-style": "none",
-      "border-top-width": "0px",
-      "box-sizing": "border-box",
-      "column-gap": "12px",
-      "cursor": "pointer",
-      "display": "flex",
-      "flex-direction": "column",
-      "font-family": "PretendardHarness",
-      "justify-content": "center",
-      "overflow-x": "hidden",
-      "overflow-y": "hidden",
-      "padding-bottom": "56px",
-      "padding-left": "16px",
-      "padding-right": "16px",
-      "padding-top": "56px",
-      "row-gap": "12px",
-      "transition-behavior": "normal",
-      "transition-delay": "0s",
-      "transition-duration": "0.14s",
-      "transition-property": "background",
-      "transition-timing-function": "ease",
-      "width": "360px"
-    },
     "avatar-settings": {
       "align-items": "center",
       "background-attachment": "scroll",
@@ -4265,81 +4181,6 @@
       "margin-right": "0px",
       "margin-top": "0px",
       "position": "relative"
-    },
-    "selectable-row": {
-      "::before content": "\"\"",
-      "::before display": "none",
-      ":state background-attachment": "scroll",
-      ":state background-clip": "border-box",
-      ":state background-color": "rgba(0, 0, 0, 0)",
-      ":state background-image": "none",
-      ":state background-origin": "padding-box",
-      ":state background-position-x": "0%",
-      ":state background-position-y": "0%",
-      ":state background-repeat": "repeat",
-      ":state background-size": "auto",
-      ":state color": "color(srgb 0.980392 0.980392 0.980392)",
-      ":state cursor": "pointer",
-      "align-items": "center",
-      "background-attachment": "scroll",
-      "background-clip": "border-box",
-      "background-color": "rgba(0, 0, 0, 0)",
-      "background-image": "none",
-      "background-origin": "padding-box",
-      "background-position-x": "0%",
-      "background-position-y": "0%",
-      "background-repeat": "repeat",
-      "background-size": "auto",
-      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-bottom-left-radius": "14px",
-      "border-bottom-right-radius": "14px",
-      "border-bottom-style": "none",
-      "border-bottom-width": "0px",
-      "border-image-outset": "0",
-      "border-image-repeat": "stretch",
-      "border-image-slice": "100%",
-      "border-image-source": "none",
-      "border-image-width": "1",
-      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-left-style": "none",
-      "border-left-width": "0px",
-      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-right-style": "none",
-      "border-right-width": "0px",
-      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-top-left-radius": "14px",
-      "border-top-right-radius": "14px",
-      "border-top-style": "none",
-      "border-top-width": "0px",
-      "box-sizing": "border-box",
-      "color": "color(srgb 0.980392 0.980392 0.980392)",
-      "column-gap": "10px",
-      "cursor": "pointer",
-      "display": "flex",
-      "font-family": "\"Pretendard Variable\", Pretendard, Inter, \"Noto Sans KR\", \"Noto Sans JP\", system-ui, sans-serif",
-      "font-size": "14px",
-      "font-weight": "500",
-      "inline-size": "360px",
-      "letter-spacing": "-0.14px",
-      "line-height": "21px",
-      "margin-bottom": "0px",
-      "margin-left": "0px",
-      "margin-right": "0px",
-      "margin-top": "0px",
-      "min-inline-size": "0px",
-      "padding-bottom": "6px",
-      "padding-left": "6px",
-      "padding-right": "6px",
-      "padding-top": "6px",
-      "position": "relative",
-      "row-gap": "10px",
-      "text-align": "start",
-      "transition-behavior": "normal",
-      "transition-delay": "0s",
-      "transition-duration": "0.14s",
-      "transition-property": "background",
-      "transition-timing-function": "ease",
-      "width": "360px"
     },
     "segmented-track": {
       "align-items": "center",
@@ -5735,7 +5576,8 @@
       "font-size": "20px",
       "font-weight": "500",
       "letter-spacing": "-0.2px",
-      "line-height": "30px"
+      "line-height": "30px",
+      "min-width": "0px"
     },
     "news-card": {
       "align-items": "flex-start",
@@ -7819,24 +7661,6 @@
       "product": 0,
       "ds": 16,
       "why": "제품 0, DS 16. 제품의 빈 상태는 이미 좌우 여백이 있는 그리드 안에만 놓여 스스로 여백을 두지 않는다. DS 컴포넌트는 어디에 놓일지 모르므로 자기 여백을 갖는다."
-    },
-    {
-      "axis": "selectable-row.paddingTop",
-      "product": 6,
-      "ds": 8,
-      "why": "제품 6, DS 8. 제품 3벌이 전부 파일 로컬 상수이고 6·8·10으로 갈린다. DS는 space-control-sm 8로 사이드바 항목과 계단을 맞춘다."
-    },
-    {
-      "axis": "selectable-row.columnGap",
-      "product": 10,
-      "ds": 8,
-      "why": "제품 10, DS 8. 위와 같은 사유다 — 10은 DS 간격 계단에 없는 값이다."
-    },
-    {
-      "axis": "selectable-row.borderTopLeftRadius",
-      "product": 14,
-      "ds": 10,
-      "why": "제품 14, DS 10. radius-overlay-item 10을 쓴다 — 메뉴 항목·사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다."
     },
     {
       "axis": "segmented-segment.height",

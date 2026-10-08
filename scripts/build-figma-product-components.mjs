@@ -423,7 +423,9 @@ const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext
 // 2026-09-26: 걸친 라우트 수만 18 → 27(인증 fixture 에 bulk · coupons 셋과 결제 성공 미리보기 여섯이 들어와서). id · 6 노드는 그대로다.
 // 2026-10-08(통합 판 76b6cf15): 62c4e4642ab9 → 7f409c824481 · 27 → 26. 6노드의 path · tag · rect 는 그대로이고 styleRef 만 갈렸다 —
 // 바뀐 계산값은 `fontFamily` 하나(위 사이드바 가드의 글꼴 스택). 빠진 route 는 redirect 가 된 `/subscription/coupons` 하나다.
-if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 26) {
+// 2026-10-08 밤(앵커 54b62a8a): 26 → 20. id · 6노드 그대로이고 빠진 여섯은 하이라이트 상세 `?__phase=` 여섯이다 — 하이라이트 새 화면 갈래가
+// 그 단계들을 스튜디오 판(`HighlightStudioShell` — Gnb variant=create, 앱 사이드바 없음)으로 바꿔 브랜드 블록을 그리지 않는다.
+if (!brandCandidate || brandCandidate.nodeCount !== 6 || brandCandidate.routeCount !== 20) {
   fail("measured Gnb brand candidate changed; inspect before regenerating Figma");
 }
 const navNode = node("/settings", `${headerPath}.0`);
@@ -677,8 +679,8 @@ const GNB = "apps/web/components/navigation/Gnb.tsx";
 /* 줄번호와 커밋이 박혀 있어 앵커가 움직일 때마다 조용히 낡던 문장이다(4614-4615 · 564/570 이 `6f6282c1` 에서 4694-4695 ·
    592/598 로 옮겨 있었다). 이제 활성 판정 두 줄은 소스 인용으로 확인하고, 색 줄은 `colorEvidence` 의 역할을 가리킨다. */
 const activeRuleSource = [
-  quote.product(GNB, 4742, "                    const href = row.href;"),
-  quote.product(GNB, 4743, "                    const isActive = isSidebarMenuHrefActive(href);"),
+  quote.product(GNB, 4773, "                    const href = row.href;"),
+  quote.product(GNB, 4774, "                    const isActive = isSidebarMenuHrefActive(href);"),
 ];
 const sharedActiveColourNote =
   `No new visual value: Gnb.tsx:${activeRuleSource[0].line}-${activeRuleSource[1].line} applies the common isSidebarMenuHrefActive result ` +

@@ -225,9 +225,9 @@ const DECLARED_PROFILE = (() => {
 })();
 // 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5252–5254 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
 const toggleSvgSourceLines = [
-  [5330, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
-  [5331, "                      width={20}"],
-  [5332, "                      height={20}"],
+  [5367, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
+  [5368, "                      width={20}"],
+  [5369, "                      height={20}"],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 const DECLARED_TOGGLE_SVG = (() => {
   const [width, height] = [toggleSvgSourceLines[1], toggleSvgSourceLines[2]].map((entry) => Number(/=\{(\d+)\}/.exec(entry.quote)?.[1]));
@@ -321,7 +321,9 @@ const candidateContracts = [
   //   subtree-7afea61e7dab(6/27) → subtree-aa5a4115196f(6/26)
   //   subtree-9a75e0bd18d2(15/6) → subtree-32b7c0952c2b(15/5)
   //   subtree-8a8ec102efb8(14/6) → subtree-a528a644ec31(14/5)
-  ["subtree-aa5a4115196f", 6, 26],
+  // 2026-10-08 밤(앵커 54b62a8a): 프로필 묶음 26 → 20 — id · 6노드 그대로이고 빠진 여섯은 하이라이트 상세 `?__phase=` 여섯이다. 하이라이트 새 화면
+  // 갈래가 그 단계들을 스튜디오 판(`HighlightStudioShell`, Gnb variant=create)으로 바꿔 모바일 상단 바 프로필 묶음을 그리지 않는다.
+  ["subtree-aa5a4115196f", 6, 20],
   ["subtree-32b7c0952c2b", 15, 5],
   ["subtree-a528a644ec31", 14, 5],
 ].map(([id, nodeCount, routeCount]) => {
@@ -486,8 +488,11 @@ const barSpec = (kind) => (input) => {
 const variantInputs = [
   { width: "Full", breadcrumb: "Single", back: false, divider: true, route: "/settings", rootPath: "body.1.0.0.1.0.0.0" },
   { width: "Full", breadcrumb: "Trail", back: false, divider: true, route: "/analytics/youtube", rootPath: "body.1.0.0.1.0.0.0.0" },
-  // 하이라이트 phase 여섯의 바는 서브트리가 바이트까지 같다 — 하나(loading)면 된다.
-  { width: "Full", breadcrumb: "Trail", back: true, divider: true, route: "/highlight/[projectId]?__phase=loading", rootPath: "body.1.0.0.1.0.0.0" },
+  // **Full · Trail · 뒤로 조합은 측정에서 뺐다(2026-10-08 밤, 앵커 54b62a8a).** 출처였던 하이라이트 상세 `?__phase=` 여섯이 하이라이트 새 화면
+  // 갈래의 스튜디오 판(`HighlightStudioShell` — Gnb variant=create: 뒤로 단추 · 프로필만, 브레드크럼 없음)으로 바뀌어 이 바를 그리지 않는다.
+  // 같은 바를 그리는 측정 화면은 세션 원장의 쇼츠 결과(「Highlight / 자리표시 쇼츠 제목」)뿐인데, 그 글자의 Figma 글리프 경계
+  // (`figmaGlyphBounds`)는 라이브에 같은 글꼴 · 크기의 글자 노드가 없어 읽기만으로 잴 수 없다(2026-10-08 탐침 — 보드의 같은 글자는 28px 제목뿐).
+  // 렌더러는 계획에 없는 variant 를 건드리지 않으므로 라이브 세트의 그 칸은 그대로 남는다. 경계를 재면 쇼츠 결과를 출처로 되살린다.
   // 통합 판(76b6cf15)에서 `/mypage/topup/fail` 의 바 글자가 「Subscription」 이 됐다 — 「My Page」 바(위 15/5 · 14/5 후보)의 출처를 같은 충전
   // 흐름의 `/mypage/topup/success` 로 옮긴다(같은 root path, 후보 roots 에 있다).
   { width: "Inset", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/success", rootPath: "body.1.0.0.1.0.0" },
@@ -565,7 +570,8 @@ const desktopCandidateContracts = [
   //   subtree-ee83e5ff8b7f(17/5) → subtree-97349085415b
   //   subtree-b92008e236c0(16/5) → subtree-c80157b3010b
   //   subtree-869dcbe1a654(5/5)  → subtree-9cde2f3932a9
-  ["subtree-7f52f3f91e25", 6, 26],
+  // 2026-10-08 밤(앵커 54b62a8a): 프로필 묶음 26 → 20 — 모바일 가드와 같다(하이라이트 상세 `?__phase=` 여섯이 스튜디오 판으로 바뀌어 빠졌다).
+  ["subtree-7f52f3f91e25", 6, 20],
   ["subtree-91e6a1c240cd", 15, 5],
   ["subtree-d3cdd3988a01", 14, 5],
   ["subtree-97349085415b", 17, 5],
@@ -587,7 +593,7 @@ const desktopVariantInputs = [
   { content: "Subscription", breadcrumb: "Single", back: false, divider: true, route: "/subscription", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-fail", rootPath: "body.1.0.0.1.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
-  { content: "Highlight", breadcrumb: "Trail", back: true, divider: true, route: "/highlight/[projectId]?__phase=loading", rootPath: "body.1.0.0.1.0.0.0" },
+  // Highlight 칸은 뺐다 — 위 모바일 Full · Trail · 뒤로 조합과 같은 사유(2026-10-08 밤).
 ];
 const desktopPreservedInputs = [desktopVariantInputs[0]];
 

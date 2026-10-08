@@ -12,10 +12,10 @@
       "description": "커맨드 팔레트를 연 직후(입력 비움 — 그룹 목록, 입력에 포커스). 세션 모드에 /archive 기준 화면이 없어 pattern 으로 연다. 여는 길은 ⌘K/Ctrl+K — 모바일에서도 같은 길이다(사이드바 검색 버튼은 데스크톱 펼침 사이드바에만 보인다). 프로젝트 항목은 queryOnly 라 이 상태에서는 그려지지 않지만 팔레트가 열 때 두 목록을 부르므로 가로챈다.",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
       "cite": [
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2821, "expect": "isLetterShortcut(e, \"k\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2823, "expect": "setCommandPaletteOpen((prev) => !prev)" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2844, "expect": "fetch(\"/api/projects?limit=100\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2845, "expect": "fetch(\"/api/editor/projects\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2832, "expect": "isLetterShortcut(e, \"k\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2834, "expect": "setCommandPaletteOpen((prev) => !prev)" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2855, "expect": "fetch(\"/api/projects?limit=100\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2856, "expect": "fetch(\"/api/editor/projects\")" },
         { "path": "apps/web/app/api/projects/route.ts", "line": 149, "expect": "projects: await Promise.all(" },
         { "path": "apps/web/app/api/editor/projects/route.ts", "line": 45, "expect": "data: await withPlayableUrls(" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 572, "expect": "role=\"dialog\"" },
@@ -41,15 +41,15 @@
       "description": "팔레트의 「Change theme」 행을 눌러 오른쪽 플라이아웃(role=menu, 제목 Theme)을 연 상태. ArrowRight 는 활성 행에 하위 목록이 있을 때만 열려(CommandPalette.tsx:630) 활성 행이 첫 행(Home)인 처음 상태에서는 빗나간다 — 숨김 내비에 따라 행 번호가 바뀌므로 화살표 횟수 대신 그 행을 누른다. 누르면 그 행이 활성(onMouseMove)이 된다.",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
       "cite": [
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2821, "expect": "isLetterShortcut(e, \"k\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2844, "expect": "fetch(\"/api/projects?limit=100\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2845, "expect": "fetch(\"/api/editor/projects\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2832, "expect": "isLetterShortcut(e, \"k\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2855, "expect": "fetch(\"/api/projects?limit=100\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2856, "expect": "fetch(\"/api/editor/projects\")" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 630, "expect": "e.key === \"ArrowRight\" && !submenu" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 699, "expect": "aria-haspopup={item.submenu ? \"menu\" : undefined}" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 780, "expect": "role=\"menu\"" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 781, "expect": "aria-label={submenu.item.submenu.title}" },
         { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1086, "expect": "searchTheme: \"Change theme\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3730, "expect": "themeLabel: \"Theme\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3848, "expect": "themeLabel: \"Theme\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/projects", "query": { "limit": "100" }, "jsonFile": "data/shell/projects-list.json" },
@@ -70,9 +70,9 @@
       "description": "팔레트에 검색어를 넣어 서비스별 프로젝트 행(queryOnly)이 선 상태. 프로젝트 행은 검색어가 있을 때만 그려진다(CommandPalette.tsx:452, Gnb.tsx:2911). 검색어 Placeholder 는 가로챈 프로젝트 이름에만 맞고 명령 행에는 맞지 않아 캔버스 · 컴포지션 · 하이라이트 그룹의 프로젝트 행만 남는다. 입력 포커스는 그대로 둔다(검색 중인 실제 상태).",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
       "cite": [
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2844, "expect": "fetch(\"/api/projects?limit=100\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2845, "expect": "fetch(\"/api/editor/projects\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2911, "expect": "queryOnly: true" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2855, "expect": "fetch(\"/api/projects?limit=100\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2856, "expect": "fetch(\"/api/editor/projects\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2922, "expect": "queryOnly: true" },
         { "path": "apps/web/app/api/projects/route.ts", "line": 154, "expect": "type: project.type ?? \"canvas\"" },
         { "path": "apps/web/app/api/editor/projects/route.ts", "line": 30, "expect": ".select(\"id, name, source_type, status, result_url, thumbnail_url, created_at, updated_at\")" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 452, "expect": "!it.queryOnly" }
@@ -97,8 +97,8 @@
       "description": "어느 행에도 맞지 않는 검색어 — 팔레트 빈 상태(No results.).",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
       "cite": [
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2844, "expect": "fetch(\"/api/projects?limit=100\")" },
-        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2845, "expect": "fetch(\"/api/editor/projects\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2855, "expect": "fetch(\"/api/projects?limit=100\")" },
+        { "path": "apps/web/components/navigation/Gnb.tsx", "line": 2856, "expect": "fetch(\"/api/editor/projects\")" },
         { "path": "apps/web/components/navigation/CommandPalette.tsx", "line": 681, "expect": "{labels.empty}" },
         { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1074, "expect": "searchEmpty: \"No results.\"" }
       ],
@@ -125,22 +125,22 @@
         { "path": "apps/web/components/PastDueBanner.tsx", "line": 28, "expect": "backgroundColor: \"var(--accent-red-700)\"" },
         { "path": "apps/web/components/PastDueBanner.tsx", "line": 53, "expect": "aria-label=\"Dismiss\"" },
         { "path": "apps/web/app/layout.tsx", "line": 103, "expect": "<PastDueBanner />" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 230, "expect": "subscription_status: prev?.subscription_status ?? null" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 265, "expect": "fetch(\"/api/auth/me/billing\"" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 275, "expect": "if (!prev) return prev;" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 281, "expect": "subscription_status: result.subscription_status ?? null" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 321, "expect": "/api/auth/me/billing-details?" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 364, "expect": "fetch(\"/api/auth/me\"" },
-        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 387, "expect": "result.billing ? toBillingFromMe(result.billing, prev) : null" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 231, "expect": "subscription_status: prev?.subscription_status ?? null" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 266, "expect": "fetch(\"/api/auth/me/billing\"" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 276, "expect": "if (!prev) return prev;" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 282, "expect": "subscription_status: result.subscription_status ?? null" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 322, "expect": "/api/auth/me/billing-details?" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 365, "expect": "fetch(\"/api/auth/me\"" },
+        { "path": "apps/web/components/auth/AuthProvider.tsx", "line": 388, "expect": "result.billing ? toBillingFromMe(result.billing, prev) : null" },
         { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 279, "expect": "if (loading) return;" },
         { "path": "apps/web/components/scenes/SubscriptionScene.tsx", "line": 285, "expect": "void refreshSubscriptionPage();" },
         { "path": "apps/web/components/scenes/SettingsScene.tsx", "line": 84, "expect": "void Promise.all([refreshBilling(), refreshBillingDetails()]);" },
         { "path": "apps/web/app/api/auth/me/route.ts", "line": 65, "expect": "id, email, username, avatar_storage_key, is_ambassador, deleted_at, created_at, updated_at" },
         { "path": "apps/web/app/api/auth/me/route.ts", "line": 150, "expect": "billing: {" },
-        { "path": "apps/web/app/api/auth/me/billing/route.ts", "line": 143, "expect": "subscription_status: currentSubscription?.status ?? null" },
-        { "path": "apps/web/app/api/auth/me/billing-details/route.ts", "line": 428, "expect": "credit_history_meta: {" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4803, "expect": "Payment failed — please update your card to continue your plan." },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4804, "expect": "cta: \"Update payment method\"" }
+        { "path": "apps/web/app/api/auth/me/billing/route.ts", "line": 146, "expect": "subscription_status: currentSubscription?.status ?? null" },
+        { "path": "apps/web/app/api/auth/me/billing-details/route.ts", "line": 430, "expect": "credit_history_meta: {" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4931, "expect": "Payment failed — please update your card to continue your plan." },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4932, "expect": "cta: \"Update payment method\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/auth/me", "jsonFile": "data/shell/auth-me-past-due.json" },
@@ -171,7 +171,7 @@
         { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 302, "expect": "bannerSlides.length < 2" },
         { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 307, "expect": "(prefers-reduced-motion: reduce)" },
         { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 327, "expect": "/api/projects/home?limit=${limit}&offset=${offset}" },
-        { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 975, "expect": "bannerSlides.length > 0" },
+        { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 976, "expect": "bannerSlides.length > 0" },
         { "path": "apps/web/components/scenes/AppHomeScene.tsx", "line": 214, "expect": "setNow(Date.now());" },
         { "path": "apps/web/app/api/banners/route.ts", "line": 53, "expect": "{ ok: true, data: localized }" },
         { "path": "apps/web/app/api/projects/home/route.ts", "line": 447, "expect": "hasMore," },
@@ -182,7 +182,7 @@
         { "path": "apps/web/components/scenes/project-home/projectHomeModels.ts", "line": 244, "expect": "export function createDemoArchiveCards" },
         { "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts", "line": 8, "expect": "return 5;" },
         { "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts", "line": 11, "expect": "return 2;" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3515, "expect": "recentProjectsEyebrowHome: \"Recent projects\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3633, "expect": "recentProjectsEyebrowHome: \"Recent projects\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/banners", "query": { "tab": "home" }, "jsonFile": "data/shell/banners-home.json" },
@@ -240,7 +240,7 @@
         { "path": "apps/web/components/scenes/VideoEditScene.tsx", "line": 360, "expect": "opacity-100 pointer-events-auto" },
         { "path": "apps/web/components/scenes/VideoEditScene.tsx", "line": 809, "expect": "data-history-card" },
         { "path": "apps/web/components/scenes/VideoEditScene.tsx", "line": 872, "expect": "aria-label={messages.archive.card.moreAria}" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3460, "expect": "moreAria: \"More options\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3578, "expect": "moreAria: \"More options\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/editor/projects", "jsonFile": "data/shell/editor-projects.json" }
@@ -273,7 +273,7 @@
         { "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts", "line": 20, "expect": "return 14;" },
         { "path": "apps/web/app/api/projects/home/route.ts", "line": 507, "expect": "type: project.type ?? \"canvas\"" },
         { "path": "apps/web/components/scenes/project-home/projectHomeModels.ts", "line": 244, "expect": "export function createDemoArchiveCards" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3513, "expect": "recentProjectsEyebrow: \"Archive\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3631, "expect": "recentProjectsEyebrow: \"Archive\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/projects/home", "query": { "type": "canvas", "limit": "15", "offset": "0" }, "jsonFile": "data/shell/projects-home-canvas-limit15.json", "required": false,
@@ -308,7 +308,7 @@
         { "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx", "line": 1797, "expect": "(hasMore || loadingMore)" },
         { "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx", "line": 1800, "expect": "ref={loadMoreSentinelRef}" },
         { "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx", "line": 1807, "expect": "role=\"status\"" },
-        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3491, "expect": "loading: \"Loading\"" }
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3609, "expect": "loading: \"Loading\"" }
       ],
       "api": [
         { "method": "GET", "path": "/api/projects/home", "query": { "type": "canvas", "limit": "15", "offset": "0" }, "jsonFile": "data/shell/projects-home-canvas-limit15.json", "required": false },

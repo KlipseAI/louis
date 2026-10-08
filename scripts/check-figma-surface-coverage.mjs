@@ -122,10 +122,13 @@ const UNCLASSIFIED_BASELINE = 0;
 // Button · Start Card · LoadingWord · 노드 입력판 등)이 섰다.
 // 같은 날 저녁: 82 → 104 — 제품 세트 대응 22(아래 MAPPED_PRODUCT_BASELINE). 컴포넌트 대응은 그대로 47 이다.
 // 같은 날 뒤: 104 → 105 — CanvasZoomControl ← Product/Canvas Zoom Trigger(아래 MAPPED_PRODUCT_BASELINE).
-const MAPPED_BASELINE = 105;
+// 같은 날 밤: 105 → 114 · 컴포넌트 47 → 56 — 앵커를 54b62a8a 로 옮기며(빠진 작업 브랜치 여섯) 새 표면 59종을 판정했다(figma 9:
+// StudioAlert ← Alert · StudioListSheet ← Dialog · DeckCard ← ProjectCard · DeckLangSwitch ← FloatingShell · DeckNoticePage ← EmptyState ·
+// NoticeItem · CanvasFirstNodeCallout ← Toast · NodeMenuItem ← Menu · 앰배서더 SectionHead ← SectionHeader). 파일만 옮겨진 셋은 판정을 옮겼다.
+const MAPPED_BASELINE = 114;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 47;
+const MAPPED_COMPONENT_BASELINE = 56;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.

@@ -227,7 +227,9 @@ const REPLACEABLE_BASELINE = 0;
 // 모바일). 제품 `GlobeIcon.tsx:19-21` 이 제 원 · 타원을 그려 LOUIS `icon/globe` 를 물지 않는다(글리프 조인표 `globe`).
 // 2026-09-30: 15 → **114.** **발견이다.** 공개 페이지 보드(요금 · 약관 · 개인정보 · 문의 · 템플릿 · 블로그 · 크리에이티브 미디어 · 랜딩)가 서며 제품이
 // LOUIS 컴포넌트를 물지 않는 자리가 드러났다 — icon/plus 32 · Button/md 28 · icon/globe 14 · IconButton/md 10 순(검사 출력의 bespoke 표).
-const BESPOKE_BASELINE = 114; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
+// 2026-10-08 밤: 114 → **296.** 바닥이 늘어져 있었다(커밋된 원장도 265). 앵커 54b62a8a 의 지금 수로 조인다 — 상위는 IconButton/md 63 · Button/md 49 ·
+// icon/plus 33 · Avatar/sm 26(검사 출력의 bespoke 표).
+const BESPOKE_BASELINE = 296; // 하락만 잠근다(상승은 발견) — 오르면 이 수를 새 수로 올린다
 const UNCLASSIFIED_BASELINE = 0;
 // 2026-09-10: 76 → 84. **이득이다.** `buttonVariantOf` 가 secondary 를 「투명」으로 알아보고
 // 있었는데, 제품이 그 variant 에 8% 잉크 면을 준 뒤(5566ecd) 그 면이 테마를 따라 갈려서
@@ -285,7 +287,11 @@ const UNCLASSIFIED_BASELINE = 0;
 // 템플릿 · 블로그 · 블로그 글 · 템플릿 상세)의 타임라인 푸터가 `Product/Landing Footer` 모바일 variant 의 인스턴스가 됐고(+7, 감기는 줄에서
 // 혼자 한 줄을 차지한 감긴 주소 칸 — build-figma-app-screens 의 reconcileFigmaSizing), `/nodecanvas?project=` 데스크톱의 줌 비율 트리거가
 // `Product/Canvas Zoom Trigger` 의 인스턴스가 됐다(+1, 글자 + 캐럿 단추의 떼어낸 글자 — figma-tree-spec 의 flexRowTextRect).
-const INSTANCE_FLOOR = 340;
+// 2026-10-08 밤: 340 → **316.** 앵커를 54b62a8a(하이라이트 새 화면 갈래)로 옮긴 결과다 — 하이라이트 상세 `?__phase=` 보드 열둘의 셸 18
+// (데스크톱 상단 바 · 사이드바 각 6, 모바일 상단 바 6)과 완료 두 보드의 셸 3이 스튜디오 판(Figma 세트 없음)으로 바뀌어 빠졌고, 업로드 단계의
+// 테마 칩 줄(`Product/Highlight Theme Chips`) 2가 제품에서 걷혔다. 쇼츠 결과 두 보드의 상단 바 2는 **후퇴다** — 출처를 옮기려면 Figma 글리프
+// 경계가 필요하다(아래 SHELL_INSTANCES_BY_BOARD 의 쇼츠 주석). 나머지 +1 은 새 판 보드 안에서 새로 붙은 LOUIS 인스턴스다.
+const INSTANCE_FLOOR = 316;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -360,7 +366,10 @@ const INSTANCE_FLOOR = 340;
 // 각 instance +1 · bespoke −4(푸터 트랙 아이콘 넷 — 인라인 제품 글리프) · missing −23(푸터의 제품 전용 자리 — 눈금 · 링크 트랙 · 사업자 정보 줄),
 // `/nodecanvas?project=` 데스크톱이 instance +1 · bespoke −1(캐럿 글리프) · missing −1(반투명 알약)이다 — 합 instance +8 · bespoke −29 ·
 // missing −162. 수는 instance 340 + replaceable 0 + bespoke 265 + blocked 10 + missing 1703.
-const CANDIDATE_FLOOR = 2318;
+// 2026-10-08 밤: 2318 → **2422.** 앵커 54b62a8a — 셸 인스턴스가 빠진 하이라이트 보드 열넷(위 INSTANCE_FLOOR)의 사이드바 · 상단 바 자리가 아니라
+// 스튜디오 판 본문의 새 자리(트랙 · 인스펙터 · 무대 막대 · 느낌표 원 글리프 `alert-circle-studio`)가 후보로 들어왔다.
+// 수는 instance 316 + replaceable 0 + bespoke 296 + blocked 12 + missing 1798.
+const CANDIDATE_FLOOR = 2422;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
@@ -394,18 +403,9 @@ const SHELL_INSTANCES_BY_BOARD = {
   "analytics-youtube.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=False, Divider=On"],
   "archive.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
   "archive.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  "highlight--projectId-__phase-analyzing.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-analyzing.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
-  "highlight--projectId-__phase-extracting.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-extracting.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
-  "highlight--projectId-__phase-failed.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-failed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
-  "highlight--projectId-__phase-loading.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-loading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
-  "highlight--projectId-__phase-upload.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-upload.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
-  "highlight--projectId-__phase-uploading.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-__phase-uploading.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  // 2026-10-08 밤(앵커 54b62a8a): 하이라이트 상세 `?__phase=` 보드 열둘의 셸을 뺐다(데스크톱 상단 바 · 사이드바 각 6, 모바일 상단 바 6). 하이라이트 새
+  // 화면 갈래가 그 단계들을 스튜디오 판(`HighlightStudioShell` — Gnb variant=create: 뒤로 단추 · 프로필만, 앱 사이드바 없음)으로 바꿨고, 그
+  // 막대의 Figma 세트는 없다(표면 원장 HighlightStudioShell · HighlightStudioBoard 판정). 매처가 놓친 것이 아니라 제품이 다른 셸을 그린다.
   // 2026-09-26(뒤): 보드 없던 실제 화면 셋. 셋 다 `<Gnb currentPath="/subscription">`(figma-component-substitution.mjs 의
   // PRODUCT_CURRENT_PATH 인용) — 사이드바에 Subscription 항목이 없어 Current=Default, 상단 바는 `/subscription` 보드와 같은 조합이다.
   "mypage-upgrade-bulk-fail.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
@@ -460,14 +460,13 @@ const SHELL_INSTANCES_BY_BOARD = {
   // 잠시 뺐다가, fixture 에 CDN 주소(NEXT_PUBLIC_CDN_BASE_URL)를 세워 다시 재자 사이드바 · 상단 바가 돌아왔다.
   "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
   "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
-  // 2026-10-08: 하이라이트 완료 격자 두 보드의 셸을 표에 넣는다 — 커밋된 원장(HEAD)에도 이미 붙어 있었는데 이 표가 따라가지 못했다.
-  // 측정 글자(사이드바 · 「Highlight / Fixture highlight project」 뒤로 가기 바)와 조합이 `?__phase=` 보드 여섯과 같다.
-  "highlight--projectId-completed.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId-completed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  // 2026-10-08 밤(앵커 54b62a8a): 하이라이트 완료 두 보드의 셸도 뺐다 — 완료 상태도 스튜디오 판이 그린다(위 `?__phase=` 주석과 같은 사유).
   // 되살림(2026-10-08): 쇼츠 결과 두 보드의 셸 — 오류 경계로 재졌던 동안 셸이 없었다(위 INSTANCE_FLOOR 의 「쇼츠 결과 셸 −3」). 다시 잰 측정 바는
   // 뒤로 가기 단추 · 「Highlight / 자리표시 쇼츠 제목」 nav · 뒷머리의 세 자식이라 하이라이트 완료 보드와 같은 조합이고, 사이드바도 Highlight 다.
-  "highlight--projectId--shorts--shortId-.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
-  "highlight--projectId--shorts--shortId-.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  // 2026-10-08 밤(앵커 54b62a8a): 쇼츠 결과의 상단 바 둘(데스크톱 Content=Highlight · 모바일 Full · Trail · 뒤로)을 뺐다. 제품은 같은 바를 그대로
+  // 그리지만, 앱 셸 생성기가 그 조합의 출처(하이라이트 상세 `?__phase=`)를 잃었고 쇼츠 결과를 새 출처로 삼으려면 「자리표시 쇼츠 제목」의 Figma
+  // 글리프 경계가 필요한데 읽기만으로는 잴 수 없다(build-figma-product-app-shell.mjs 의 variantInputs 주석). 경계를 재면 되살린다 — 후퇴다.
+  "highlight--projectId--shorts--shortId-.desktop": ["Product/Gnb Desktop Shell · Current=Highlight"],
   "videoeditor.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
   "videoeditor.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-10-08 — 셸 상태 레시피 보드 20(migration/measure-states/shell.json 의 board). 셸은 기준 화면과 같은 조합이다 — 상태(팔레트 · 연체 배너 ·

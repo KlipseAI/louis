@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma component and composition; not a normative design-system contract",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "component": {
     "id": "product/checkout-status-content-and-scenes",
     "pageId": "240:3529",
@@ -2398,25 +2398,25 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 110,
             "quote": "  \"m-0 text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 157,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 169,
             "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "line": 114,
             "quote": "  \"[&_dd]:text-gray-000\","
@@ -2433,7 +2433,7 @@
       "gray000Alpha56": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 118,
             "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
@@ -2453,7 +2453,7 @@
       "gray000Alpha48": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "line": 111,
             "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
@@ -2473,7 +2473,7 @@
       "gray000Alpha08": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "line": 106,
             "quote": "  \"[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]\","
@@ -2493,7 +2493,7 @@
       "gray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 157,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
@@ -2510,7 +2510,7 @@
       "bgRaised": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 169,
             "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
@@ -2527,7 +2527,7 @@
       "red500": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 126,
             "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
@@ -2544,7 +2544,7 @@
       "red500Alpha08": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 126,
             "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
@@ -2561,7 +2561,7 @@
       "red500Alpha16": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 125,
             "quote": "  \"[border:1px_solid_rgb(var(--accent-red-500-rgb)/16%)]\","
@@ -2579,13 +2579,13 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 37,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 804,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
@@ -2602,13 +2602,13 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 37,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 966,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
@@ -2625,13 +2625,13 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 59,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
             "line": 805,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"

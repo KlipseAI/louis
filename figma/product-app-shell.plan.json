@@ -2,47 +2,47 @@
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
   "$figmaGlyphMeasurement": "Measured 2026-08-24 in OlYKERKOkgbxBEEoXGZW2c with temporary Pretendard Medium 14/21/-0.14 and 16/24/-0.16 text nodes; nodes were removed after reading natural WIDTH_AND_HEIGHT bounds. Highlight and Clips were added 2026-09-13 by a read-only use_figma read of existing auto-sized (WIDTH_AND_HEIGHT) Pretendard Medium TEXT nodes on the generated /highlight/[projectId]?__phase=loading boards: 14px (-0.14px, line height 150% = 21px) 1248:13051 Highlight 57x21 and 1248:13053 Clips 32x21; 16px (-0.16px, 150% = 24px) 1247:13150 Highlight 65x24 and 1247:13152 Clips 36x24. Cross-check in the same read: 1227:13358 Subscription 16px is 91x24, equal to the 2026-08-24 value. The bar is an Auto Layout row that hugs its declared controls (layoutContract); measured rects only check that the product formula closes. Breadcrumb labels before the last are auto-width inside a horizontal nav spaced by the product separator margin (4px); the last label fills the nav and truncates at the end, so a label set through a TEXT property reflows instead of clipping. The runner reports any auto-width default label whose Figma width differs from these bounds (glyphDrift).",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "profileVisualSource": {
     "avatar": {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "path": "apps/web/components/navigation/UserCircleDefaultAvatar.tsx",
       "line": 22,
       "quote": "  \"text-palette-gray-400\","
     },
     "ring": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1467,
         "quote": "    \"[--profile-avatar-size:24px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1470,
         "quote": "    \"[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1471,
         "quote": "    \"[--profile-ring-gap:2px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1472,
         "quote": "    \"[--profile-ring-width:2px]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1499,
         "quote": "    \"[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1501,
         "quote": "    \"[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]\","
@@ -50,19 +50,19 @@
     ],
     "size": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1473,
         "quote": "    \"[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1475,
         "quote": "    \"[width:var(--profile-ring-size)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 1476,
         "quote": "    \"[height:var(--profile-ring-size)]\","
@@ -71,25 +71,25 @@
   },
   "controlSource": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 359,
       "quote": "  mainChromeSidebarToggle: ["
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 360,
       "quote": "    \"gnb-mainChromeSidebarToggle\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 366,
       "quote": "    \"[width:32px]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 367,
       "quote": "    \"[height:32px]\","
@@ -97,57 +97,57 @@
   ],
   "controlGlyphSource": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5330,
+      "line": 5367,
       "quote": "                      className={gnbStyles.mainChromeSidebarToggleSvg}"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5331,
+      "line": 5368,
       "quote": "                      width={20}"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 5332,
+      "line": 5369,
       "quote": "                      height={20}"
     }
   ],
   "layoutSources": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 438,
       "quote": "    \"[min-block-size:0]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 461,
       "quote": "    \"[padding:8px_var(--mainchrome-pad-x)]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 315,
       "quote": "    \"louis-app-top-bar__title\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 317,
       "quote": "    \"[flex:1]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 347,
       "quote": "    \"[overflow:hidden]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 348,
       "quote": "    \"[text-overflow:ellipsis]\","
@@ -385,77 +385,11 @@
             "width": 32,
             "height": 32
           }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=loading",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=uploading",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=upload",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=analyzing",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=extracting",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        {
-          "route": "/highlight/[projectId]?__phase=failed",
-          "path": "body.1.0.0.1.0.0.0.2",
-          "tag": "div",
-          "rect": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
         }
       ],
-      "routeCount": 26,
-      "occurrenceCount": 26,
-      "score": 156
+      "routeCount": 20,
+      "occurrenceCount": 20,
+      "score": 120
     },
     {
       "id": "subtree-32b7c0952c2b",
@@ -655,19 +589,19 @@
   },
   "dividerSources": [
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
       "line": 476,
       "quote": "    \"[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]\","
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "line": 13,
       "quote": " * 달라 보였다**. CSS 기본값이 `var(--mainchrome-divider-progress, 1)` 이므로 손대지 않으면"
     },
     {
-      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
+      "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "path": "apps/web/components/scenes/useMainChromeHeaderScrollProgress.ts",
       "line": 14,
       "quote": " * 모든 화면에서 항상 켜진다 — 그게 통일된 정본이다(소유자 지정)."
@@ -693,7 +627,7 @@
         "name": "color/bg-surface"
       },
       "$surfaceSource": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
         "line": 467,
         "quote": "    \"[background:var(--louis-color-bg-surface)]\","
@@ -1154,211 +1088,6 @@
             ],
             "figmaBounds": {
               "width": 114,
-              "height": 21
-            }
-          }
-        ]
-      },
-      {
-        "name": "Width=Full, Breadcrumb=Trail, Back=True, Divider=On",
-        "width": "Full",
-        "breadcrumb": "Trail",
-        "back": true,
-        "divider": true,
-        "route": "/highlight/[projectId]?__phase=loading",
-        "rootPath": "body.1.0.0.1.0.0.0",
-        "theme": "light",
-        "rect": {
-          "width": 402,
-          "height": 49
-        },
-        "gap": 8,
-        "leadingGap": 4,
-        "navGap": 4,
-        "dividerWidth": 1,
-        "padding": {
-          "top": 8,
-          "right": 6,
-          "bottom": 8,
-          "left": 6
-        },
-        "fill": [
-          0.980392,
-          0.980392,
-          0.980392,
-          1
-        ],
-        "dividerColor": [
-          0.090196,
-          0.105882,
-          0.133333,
-          0.12
-        ],
-        "controlColor": [
-          0,
-          0,
-          0,
-          0.64
-        ],
-        "leading": {
-          "x": 6,
-          "y": 8,
-          "width": 68,
-          "height": 32
-        },
-        "nav": {
-          "x": 82,
-          "y": 13.1094,
-          "width": 274,
-          "height": 21.7813
-        },
-        "profile": {
-          "x": 364,
-          "y": 8,
-          "width": 32,
-          "height": 32
-        },
-        "labels": {
-          "menu": "Open navigation menu",
-          "back": "Highlight",
-          "profile": "Open profile"
-        },
-        "controls": {
-          "menu": {
-            "x": 6,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          },
-          "back": {
-            "x": 42,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          },
-          "profile": {
-            "x": 364,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          }
-        },
-        "profileVisual": {
-          "avatar": {
-            "rect": {
-              "x": 368,
-              "y": 12,
-              "width": 24,
-              "height": 24
-            },
-            "color": [
-              0.545098,
-              0.556863,
-              0.576471,
-              1
-            ],
-            "asset": ".glyph/UserCircleDefaultAvatar"
-          },
-          "ring": {
-            "rect": {
-              "x": 364,
-              "y": 8,
-              "width": 32,
-              "height": 32
-            },
-            "width": 2,
-            "gap": 2,
-            "progress": 0,
-            "fill": [
-              0,
-              0.7764705882352941,
-              0.5568627450980392,
-              1
-            ],
-            "track": [
-              0,
-              0,
-              0,
-              0.2
-            ],
-            "radius": 999,
-            "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
-            "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
-            "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
-          }
-        },
-        "text": [
-          {
-            "role": "parent",
-            "property": "Parent",
-            "text": "Highlight",
-            "rect": {
-              "x": 82,
-              "y": 15.1094,
-              "width": 55.8906,
-              "height": 16
-            },
-            "fontSize": 14,
-            "fontWeight": 500,
-            "lineHeight": 21,
-            "letterSpacing": -0.14,
-            "color": [
-              0,
-              0,
-              0,
-              0.48
-            ],
-            "figmaBounds": {
-              "width": 57,
-              "height": 21
-            }
-          },
-          {
-            "role": "separator",
-            "text": "/",
-            "rect": {
-              "x": 141.8906,
-              "y": 13.8906,
-              "width": 4.7188,
-              "height": 21
-            },
-            "fontSize": 14,
-            "fontWeight": 500,
-            "lineHeight": 21,
-            "letterSpacing": -0.14,
-            "color": [
-              0,
-              0,
-              0,
-              0.32
-            ],
-            "figmaBounds": {
-              "width": 5,
-              "height": 21
-            }
-          },
-          {
-            "role": "current",
-            "property": "Current",
-            "text": "Clips",
-            "rect": {
-              "x": 150.6094,
-              "y": 15.1094,
-              "width": 31.0156,
-              "height": 16
-            },
-            "fontSize": 14,
-            "fontWeight": 500,
-            "lineHeight": 21,
-            "letterSpacing": -0.14,
-            "color": [
-              0,
-              0,
-              0,
-              0.8
-            ],
-            "figmaBounds": {
-              "width": 32,
               "height": 21
             }
           }
@@ -2304,77 +2033,11 @@
                 "width": 32,
                 "height": 32
               }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=loading",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=uploading",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=upload",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=analyzing",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=extracting",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
-            },
-            {
-              "route": "/highlight/[projectId]?__phase=failed",
-              "path": "body.1.0.0.1.0.0.0.2",
-              "tag": "div",
-              "rect": {
-                "x": 1872,
-                "y": 16,
-                "width": 32,
-                "height": 32
-              }
             }
           ],
-          "routeCount": 26,
-          "occurrenceCount": 26,
-          "score": 156
+          "routeCount": 20,
+          "occurrenceCount": 20,
+          "score": 120
         },
         {
           "id": "subtree-91e6a1c240cd",
@@ -3938,211 +3601,6 @@
               ],
               "figmaBounds": {
                 "width": 90,
-                "height": 24
-              }
-            }
-          ]
-        },
-        {
-          "name": "Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On",
-          "content": "Highlight",
-          "breadcrumb": "Trail",
-          "back": true,
-          "divider": true,
-          "route": "/highlight/[projectId]?__phase=loading",
-          "rootPath": "body.1.0.0.1.0.0.0",
-          "theme": "light",
-          "rect": {
-            "width": 1672,
-            "height": 49
-          },
-          "gap": 8,
-          "leadingGap": 4,
-          "navGap": 4,
-          "dividerWidth": 1,
-          "padding": {
-            "top": 8,
-            "right": 8,
-            "bottom": 8,
-            "left": 8
-          },
-          "fill": [
-            0.980392,
-            0.980392,
-            0.980392,
-            1
-          ],
-          "dividerColor": [
-            0.090196,
-            0.105882,
-            0.133333,
-            0.12
-          ],
-          "controlColor": [
-            0,
-            0,
-            0,
-            0.64
-          ],
-          "leading": {
-            "x": 8,
-            "y": 8,
-            "width": 68,
-            "height": 32
-          },
-          "nav": {
-            "x": 84,
-            "y": 11.625,
-            "width": 1540,
-            "height": 24.75
-          },
-          "profile": {
-            "x": 1632,
-            "y": 8,
-            "width": 32,
-            "height": 32
-          },
-          "labels": {
-            "menu": "Collapse sidebar",
-            "back": "Highlight",
-            "profile": "Open profile"
-          },
-          "controls": {
-            "menu": {
-              "x": 8,
-              "y": 8,
-              "width": 32,
-              "height": 32
-            },
-            "back": {
-              "x": 44,
-              "y": 8,
-              "width": 32,
-              "height": 32
-            },
-            "profile": {
-              "x": 1632,
-              "y": 8,
-              "width": 32,
-              "height": 32
-            }
-          },
-          "profileVisual": {
-            "avatar": {
-              "rect": {
-                "x": 1636,
-                "y": 12,
-                "width": 24,
-                "height": 24
-              },
-              "color": [
-                0.545098,
-                0.556863,
-                0.576471,
-                1
-              ],
-              "asset": ".glyph/UserCircleDefaultAvatar"
-            },
-            "ring": {
-              "rect": {
-                "x": 1632,
-                "y": 8,
-                "width": 32,
-                "height": 32
-              },
-              "width": 2,
-              "gap": 2,
-              "progress": 0,
-              "fill": [
-                0,
-                0.7764705882352941,
-                0.5568627450980392,
-                1
-              ],
-              "track": [
-                0,
-                0,
-                0,
-                0.2
-              ],
-              "radius": 999,
-              "backgroundImage": "conic-gradient(rgb(0, 198, 142) 0deg, rgb(0, 198, 142) 0%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%)",
-              "maskImage": "radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 2px), rgb(0, 0, 0) calc(100% - 2px))",
-              "figmaMapping": "0% conic ring as a 2px INSIDE ellipse stroke"
-            }
-          },
-          "text": [
-            {
-              "role": "parent",
-              "property": "Parent",
-              "text": "Highlight",
-              "rect": {
-                "x": 84,
-                "y": 13.625,
-                "width": 63.875,
-                "height": 19
-              },
-              "fontSize": 16,
-              "fontWeight": 500,
-              "lineHeight": 24,
-              "letterSpacing": -0.16,
-              "color": [
-                0,
-                0,
-                0,
-                0.48
-              ],
-              "figmaBounds": {
-                "width": 65,
-                "height": 24
-              }
-            },
-            {
-              "role": "separator",
-              "text": "/",
-              "rect": {
-                "x": 151.875,
-                "y": 12.375,
-                "width": 5.3906,
-                "height": 24
-              },
-              "fontSize": 16,
-              "fontWeight": 500,
-              "lineHeight": 24,
-              "letterSpacing": -0.16,
-              "color": [
-                0,
-                0,
-                0,
-                0.32
-              ],
-              "figmaBounds": {
-                "width": 6,
-                "height": 24
-              }
-            },
-            {
-              "role": "current",
-              "property": "Current",
-              "text": "Clips",
-              "rect": {
-                "x": 161.2656,
-                "y": 13.625,
-                "width": 35.4375,
-                "height": 19
-              },
-              "fontSize": 16,
-              "fontWeight": 500,
-              "lineHeight": 24,
-              "letterSpacing": -0.16,
-              "color": [
-                0,
-                0,
-                0,
-                0.8
-              ],
-              "figmaBounds": {
-                "width": 36,
                 "height": 24
               }
             }

@@ -348,15 +348,10 @@ const PROBES = [
     html: `<span class="louis-avatar"></span>`,
     read: ["width", "height"],
   },
-  // **하이라이트 업로드 면(2026-09-26).** 제품에 공용 구현이 없는 지역 레시피다 — LOUIS DropZone 이 이 기하를 옮겼고
-  // 제품은 아직 그 컴포넌트를 쓰지 않는다(보드 원장이 bespoke 로 판정한다). 여기서는 두 값이 갈라지지 않는지를 잰다.
-  {
-    id: "drop-zone-upload",
-    source: "highlightSceneStyles.ts uploadDropZone — 하이라이트 허브 · 프로젝트 상세의 업로드 면(누르면 파일 입력을 여는 button)",
-    from: ["highlight", "uploadDropZone"],
-    tag: "button",
-    read: ["paddingTop", "paddingLeft", "rowGap", "borderTopLeftRadius", "borderTopWidth"],
-  },
+  // **`drop-zone-upload` 탐침은 걷었다(2026-10-08, 앵커 76b6cf15 → 54b62a8a).** 하이라이트 새 화면 갈래가 시작 화면을 작업 화면으로
+  // 바꾸고 옛 업로드 폼을 걷었다(제품 0f05b9b00 「시작 화면에서 쓰지 않는 옛 업로드 폼을 걷는다」 — 딸린 스타일 키 33개와 함께
+  // `highlightSceneStyles.ts uploadDropZone` · `uploadDropZoneWithThumb` 이 사라졌다). 잴 상수가 없어졌으므로 탐침을 남기면 재고정마다
+  // 하드 실패로 멈춘다.
   // **설정 화면 프로필 사진 칸(2026-09-26).** 제품은 여기서도 `.louis-avatar` 를 물지만 호출부가 크기 40 과 면
   // (`gray-000` 12%)을 덮고, 폴백 글리프를 78% 로 안쪽에 앉힌다(`myPageSceneStyles.ts settingsAvatarFigure` ·
   // `settingsAvatarFigureDefault`). 크기는 LOUIS `lg` 가 받고, 면과 글리프 크기는 이 자리만의 값이다.
@@ -404,14 +399,8 @@ const PROBES = [
     html: `<input type="checkbox" class="louis-checkbox__control" />`,
     read: ["width", "height", "borderTopLeftRadius"],
   },
-  {
-    id: "selectable-row",
-    source: "highlightSceneStyles.ts clipDetailListItem",
-    from: ["highlight", "clipDetailListItem"],
-    tag: "button",
-    text: "클립 1",
-    read: ["paddingTop", "paddingLeft", "columnGap", "borderTopLeftRadius"],
-  },
+  // **`selectable-row` 탐침은 걷었다(2026-10-08, 앵커 76b6cf15 → 54b62a8a).** 하이라이트 새 화면 갈래가 예전 리뷰 · 결과 화면을 판으로
+  // 합치며 그 스타일을 걷었다(제품 2b0f93d31 「판으로 합쳐진 예전 리뷰와 결과 화면의 스타일을 걷는다」 — `clipDetailListItem` 이 사라졌다).
   {
     id: "segmented-track",
     source: "myPageSceneStyles.ts settingsToggleWrap",
@@ -2007,11 +1996,6 @@ const EXPECT = [
 
   ["avatar", "width", ["avatar", "sizes", "md", "size"], "same"],
   ["avatar", "height", ["avatar", "sizes", "md", "size"], "same"],
-  ["drop-zone-upload", "paddingTop", ["drop-zone", "sizes", "base", "paddingBlock"], "same"],
-  ["drop-zone-upload", "paddingLeft", ["drop-zone", "sizes", "base", "paddingInline"], "same"],
-  ["drop-zone-upload", "rowGap", ["drop-zone", "sizes", "base", "gap"], "same"],
-  ["drop-zone-upload", "borderTopLeftRadius", ["drop-zone", "sizes", "base", "radius"], "same"],
-  ["drop-zone-upload", "borderTopWidth", ["drop-zone", "sizes", "base", "borderWidth"], "same"],
   ["avatar-settings", "width", ["avatar", "sizes", "lg", "size"], "same"],
   ["avatar-settings", "height", ["avatar", "sizes", "lg", "size"], "same"],
   ["avatar-settings", "borderTopLeftRadius", ["avatar", "sizes", "lg", "radius"], "same"],
@@ -2032,13 +2016,6 @@ const EXPECT = [
 
   ["checkbox", "width", ["checkbox", "sizes", "base", "boxSize"], "same"],
   ["checkbox", "height", ["checkbox", "sizes", "base", "boxSize"], "same"],
-
-  ["selectable-row", "paddingTop", ["selectable-list-row", "sizes", "base", "padding"], "deviates",
-    "제품 6, DS 8. 제품 3벌이 전부 파일 로컬 상수이고 6·8·10으로 갈린다. DS는 space-control-sm 8로 사이드바 항목과 계단을 맞춘다."],
-  ["selectable-row", "columnGap", ["selectable-list-row", "sizes", "base", "gap"], "deviates",
-    "제품 10, DS 8. 위와 같은 사유다 — 10은 DS 간격 계단에 없는 값이다."],
-  ["selectable-row", "borderTopLeftRadius", ["selectable-list-row", "sizes", "base", "radius"], "deviates",
-    "제품 14, DS 10. radius-overlay-item 10을 쓴다 — 메뉴 항목·사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다."],
 
   // 여기도 lg 다 — 아래 사유가 이미 "트랙을 40에 맞추고"라고 적고 있는데, 40 인 단의 이름이
   // 개명으로 md 에서 lg 로 바뀌었다. 사유는 그대로 참이고 가리키는 곳만 틀려 있었다.

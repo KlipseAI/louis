@@ -76,28 +76,28 @@ const declared = (quote, pattern, what) => {
 // 여기처럼 값 하나면 아래 sourceEvidence 의 클래스 인용이 드리프트를 잡는다 — 실제로 그렇게 잡혔다.
 const gridGap = 6;
 const sourceEvidence = [
-  // historyGrid(`styles.historyGrid`, 통합 판 519~527행 · 옛 763~771행) — 같은 문자열이 clipGrid(241~254행)에도 있어
+  // historyGrid(`styles.historyGrid`, 54b62a8a 152~160행 · 76b6cf15 519~527행) — 같은 문자열이 clipGrid(241~254행)에도 있어
   // 블록 시작(`historyGrid: [`)에서 센 오프셋으로 자리를 판정했다.
-  sourceQuote(HIGHLIGHT, 521, '    \"[display:grid]\",'),
-  sourceQuote(HIGHLIGHT, 523, '    \"gap-layout-project-grid-gap\",'),
-  sourceQuote(HIGHLIGHT, 526, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
-  // historySection(통합 판 736~744행 · 옛 980~986행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
+  sourceQuote(HIGHLIGHT, 154, '    \"[display:grid]\",'),
+  sourceQuote(HIGHLIGHT, 156, '    \"gap-layout-project-grid-gap\",'),
+  sourceQuote(HIGHLIGHT, 159, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
+  // historySection(54b62a8a 369~377행 · 76b6cf15 736~744행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
   // (`margin:40px_auto_0` · `padding-bottom:200px`)이 이 블록에만 있어 셋이 한 덩어리다.
-  sourceQuote(HIGHLIGHT, 738, '    \"[width:100%]\",'),
-  sourceQuote(HIGHLIGHT, 740, '    \"[margin:40px_auto_0]\",'),
+  sourceQuote(HIGHLIGHT, 371, '    \"[width:100%]\",'),
+  sourceQuote(HIGHLIGHT, 373, '    \"[margin:40px_auto_0]\",'),
   // 2026-10-08 통합 판(76b6cf15): 200 → 40. 옛 200 은 화면 아래 고정 업로드 카드에 마지막 줄이 가리지 않게 비운 몫이었고, 카드가
   // 목록 위 일반 흐름으로 올라와 그 몫이 필요 없어졌다(그 줄 위 제품 주석).
-  sourceQuote(HIGHLIGHT, 743, '    \"[padding-bottom:40px]\",'),
+  sourceQuote(HIGHLIGHT, 376, '    \"[padding-bottom:40px]\",'),
   // historySectionEyebrow(988~994행) — viewport Auto Layout 의 itemSpacing 근거.
-  sourceQuote(HIGHLIGHT, 758, '    \"[margin:0_0_12px]\",'),
+  sourceQuote(HIGHLIGHT, 391, '    \"[margin:0_0_12px]\",'),
   // historySectionEyebrowCount(996~1000행) — clipCountValue(63~67행)에도 같은 줄이 있으나
   // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
-  sourceQuote(HIGHLIGHT, 767, '    \"[margin-left:6px]\",'),
+  sourceQuote(HIGHLIGHT, 400, '    \"[margin-left:6px]\",'),
   ];
 // 허브 스크롤 영역(`main`)의 좌/우 패딩 — 좌 인셋과 우 `-end` 가 다른 토큰이다(값은 원장이 잰다).
 const MAIN_PADDING = [
-  sourceQuote(HIGHLIGHT, 795, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
-  sourceQuote(HIGHLIGHT, 796, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
+  sourceQuote(HIGHLIGHT, 428, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
+  sourceQuote(HIGHLIGHT, 429, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
 ];
 // **업로드 카드는 이 화면에서 걷혔다(2026-10-08, 통합 판 76b6cf15 · DS-D-0079).** 옛 `uploadCardCompact` 는 main 밖
 // `position:fixed` 로 화면 아래 가운데 400×140 에 떠서 그리드를 가렸다. 통합 판은 그 상수를 지웠고(`highlightSceneStyles.ts`
@@ -106,13 +106,13 @@ const MAIN_PADDING = [
 // 이 보드는 카드 다섯이 있는 목록 화면이라 그릴 업로드 카드가 없다 — 옮겨 간 것이 아니라 이 화면에서 없어진 부품이므로 계획에서
 // 빼고, 렌더러는 라이브의 옛 카드 노드를 지우지 않고 숨긴다(reconciler 는 노드를 만들거나 지우지 않는다).
 const at = (line) => sourceEvidence.find((entry) => entry.line === line) ?? fail(`missing quote ${HIGHLIGHT}:${line}`);
-const columns = declared(at(526), /repeat\((\d+),_1fr\)/, "grid columns");
-const sectionTop = declared(at(740), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
-const sectionBottom = declared(at(743), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
-const headingGap = declared(at(758), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
-const headingCountGap = declared(at(767), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
+const columns = declared(at(159), /repeat\((\d+),_1fr\)/, "grid columns");
+const sectionTop = declared(at(373), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
+const sectionBottom = declared(at(376), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
+const headingGap = declared(at(391), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
+const headingCountGap = declared(at(400), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
 // 5열은 `min-[1800px]` 에서다 — 원장 뷰포트가 그 폭 이상이어야 이 열 수를 쓸 수 있다.
-const breakpoint = declared(at(526), /min-\[(\d+)px\]/, "grid breakpoint");
+const breakpoint = declared(at(159), /min-\[(\d+)px\]/, "grid breakpoint");
 if (ledger.context.viewport.width < breakpoint) fail(`ledger viewport ${ledger.context.viewport.width} is below the ${breakpoint}px ${columns}-column breakpoint`);
 const mainCard = expanded.mainRect;
 const inlineStart = measuredPx("--app-gnb-main-inline-padding");

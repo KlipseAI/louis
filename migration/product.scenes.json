@@ -1,11 +1,11 @@
 {
-  "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 52개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 공개·법무·인증 18개 concrete route를 잰다. 직접 수정하지 않는다.",
+  "$comment": "생성물. scripts/measure-product-scenes.mjs가 고정 커밋의 58개 page.tsx route pattern을 전수 inventory하고, 프로덕션 빌드를 1920×1080·402×874에서 직접 렌더해 공개·법무·인증 18개 concrete route를 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "합성 랜딩 장면과 완성 페이지는 클래스 하나만 정적 하네스에 올리면 Next Image intrinsic ratio, viewport 높이, 지연 hydration, 중첩 컴포넌트, scene-scale, content-visibility 활성화 결과를 잃는다. Figma는 이 파일에 없는 수치나 색을 그릴 수 없다.",
   "$method": "KLIPSE_PRODUCT_BUILD_ROOT가 clean checkout이고 HEAD·standalone release 영수증·BUILD_ID가 productCommit의 빌드임을 확인한다. 측정기가 그 standalone server를 임시 localhost 포트에 직접 띄운 뒤 Playwright로 장면은 dark/ko-KR, 페이지는 light/en-US 문맥에서 연다. fonts·이미지·지연 hydration을 기다리고 일반 페이지는 끝까지 스크롤해 content-visibility 구간과 문서 높이가 안정된 뒤 노드를 측정한다. 랜딩 `/` 만은 prefers-reduced-motion: reduce 로 열어 networkidle 과 도는 애니메이션이 없어질 때까지 기다린다 — 스크롤 리빌의 출발 상태(opacity 0 · translate 32px)로 되감기는 도중을 재지 않기 위해서이고, 제품 renderHarness.mjs 의 --force-prefers-reduced-motion 과 같은 길이다. 아직 정밀 측정하지 않은 static route는 guest 문맥의 최종 path·redirect·theme·locale·heading·height가 안정될 때까지 기다려 별도 guestOutcomes에 기록한다.",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "buildEvidence": {
-    "releaseCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+    "releaseCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
     "sourcemapFingerprint": "unavailable(no page sourcemaps)",
     "$verified": "clean checkout HEAD와 두 required-server-files release가 productCommit이고, 원본·standalone BUILD_ID가 같음을 실행 시 확인했다. 장면 구성 소스의 sourcemap 원문 대조는 페이지 sourcemap 이 있을 때만 수행한다 — 없으면 `sourcemapFingerprint` 가 unavailable 이고, 커밋 고정은 _sentryRelease 가 진다. BUILD_ID와 빌드 파일 해시는 빌드 경로·실행마다 달라질 수 있어 생성물에는 넣지 않는다.",
     "sourceInputs": [
@@ -15,7 +15,7 @@
       },
       {
         "path": "apps/web/components/scenes/highlightSceneStyles.ts",
-        "sha256": "f5c76097f7d472a05e13dac8218730059b699be7be36e6472440017d1db1c1f9"
+        "sha256": "19f2142c517ea40c90a906919dd0e15486c56475d04d78c43f5da6c1c0797d06"
       },
       {
         "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
@@ -38,11 +38,11 @@
     }
   ],
   "routeInventory": {
-    "command": "git ls-tree -r --name-only 76b6cf154ab2295d6c4a5c95c29927105a3715e4 -- apps/web/app",
-    "pageFileCount": 52,
+    "command": "git ls-tree -r --name-only 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3 -- apps/web/app",
+    "pageFileCount": 58,
     "measuredConcreteRouteCount": 18,
-    "guestOutcomeRouteCount": 28,
-    "pendingDynamicPatternCount": 6,
+    "guestOutcomeRouteCount": 33,
+    "pendingDynamicPatternCount": 7,
     "pages": [
       {
         "path": "apps/web/app/(auth-brand)/login/page.tsx",
@@ -143,6 +143,13 @@
         "measuredContexts": []
       },
       {
+        "path": "apps/web/app/ambassador/page.tsx",
+        "routePattern": "/ambassador",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
         "path": "apps/web/app/analytics/instagram/page.tsx",
         "routePattern": "/analytics/instagram",
         "dynamic": false,
@@ -221,6 +228,34 @@
         ]
       },
       {
+        "path": "apps/web/app/deck/c/[course]/page.tsx",
+        "routePattern": "/deck/c/[course]",
+        "dynamic": true,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/deck/manage/page.tsx",
+        "routePattern": "/deck/manage",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/deck/notice/page.tsx",
+        "routePattern": "/deck/notice",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/deck/page.tsx",
+        "routePattern": "/deck",
+        "dynamic": false,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
         "path": "apps/web/app/explore/page.tsx",
         "routePattern": "/explore",
         "dynamic": false,
@@ -238,6 +273,13 @@
         "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx",
         "routePattern": "/highlight/[projectId]/shorts/[shortId]",
         "dynamic": true,
+        "concreteMeasurements": [],
+        "measuredContexts": []
+      },
+      {
+        "path": "apps/web/app/highlight/new/page.tsx",
+        "routePattern": "/highlight/new",
+        "dynamic": false,
         "concreteMeasurements": [],
         "measuredContexts": []
       },
@@ -520,6 +562,80 @@
           }
         ]
       },
+      "/ambassador": {
+        "route": "/ambassador",
+        "finalPath": "/ambassador",
+        "redirected": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 82650,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Join Klipsein the way that suits you"
+          },
+          {
+            "level": 2,
+            "text": "The same content you always make,only now made with Klipse."
+          },
+          {
+            "level": 1,
+            "text": "Join Klipsein the way that suits you"
+          },
+          {
+            "level": 2,
+            "text": "The same content you always make,only now made with Klipse."
+          },
+          {
+            "level": 2,
+            "text": "Ambassador benefits"
+          },
+          {
+            "level": 2,
+            "text": "Two typesof collaboration"
+          },
+          {
+            "level": 2,
+            "text": "Your content is never usedwithout your consent"
+          },
+          {
+            "level": 2,
+            "text": "We don't judge by follower count alone."
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Apply with the contentyou already make"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
+          },
+          {
+            "level": 2,
+            "text": "Which type are you applying for?"
+          }
+        ]
+      },
       "/analytics/instagram": {
         "route": "/analytics/instagram",
         "finalPath": "/login",
@@ -610,6 +726,60 @@
           }
         ]
       },
+      "/deck/manage": {
+        "route": "/deck/manage",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 1080,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
+      "/deck/notice": {
+        "route": "/deck/notice",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 1080,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
+      "/deck": {
+        "route": "/deck",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 1080,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
       "/explore": {
         "route": "/explore",
         "finalPath": "/login",
@@ -625,6 +795,72 @@
           {
             "level": 1,
             "text": "Log in"
+          }
+        ]
+      },
+      "/highlight/new": {
+        "route": "/highlight/new",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 30540,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "Join your clipsinto one video"
+          },
+          {
+            "level": 2,
+            "text": "From a long-form videoto standout short clips."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "Until every storybecomes a video."
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
           }
         ]
       },
@@ -1194,6 +1430,80 @@
           }
         ]
       },
+      "/ambassador": {
+        "route": "/ambassador",
+        "finalPath": "/ambassador",
+        "redirected": false,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 68789,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Join Klipsein the way that suits you"
+          },
+          {
+            "level": 2,
+            "text": "The same content you always make,only now made with Klipse."
+          },
+          {
+            "level": 1,
+            "text": "Join Klipsein the way that suits you"
+          },
+          {
+            "level": 2,
+            "text": "The same content you always make,only now made with Klipse."
+          },
+          {
+            "level": 2,
+            "text": "Ambassador benefits"
+          },
+          {
+            "level": 2,
+            "text": "Two typesof collaboration"
+          },
+          {
+            "level": 2,
+            "text": "Your content is never usedwithout your consent"
+          },
+          {
+            "level": 2,
+            "text": "We don't judge by follower count alone."
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "Apply with the contentyou already make"
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
+          },
+          {
+            "level": 2,
+            "text": "Which type are you applying for?"
+          }
+        ]
+      },
       "/analytics/instagram": {
         "route": "/analytics/instagram",
         "finalPath": "/login",
@@ -1284,6 +1594,60 @@
           }
         ]
       },
+      "/deck/manage": {
+        "route": "/deck/manage",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 874,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
+      "/deck/notice": {
+        "route": "/deck/notice",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 874,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
+      "/deck": {
+        "route": "/deck",
+        "finalPath": "/login",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 874,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Log in"
+          }
+        ]
+      },
       "/explore": {
         "route": "/explore",
         "finalPath": "/login",
@@ -1299,6 +1663,72 @@
           {
             "level": 1,
             "text": "Log in"
+          }
+        ]
+      },
+      "/highlight/new": {
+        "route": "/highlight/new",
+        "finalPath": "/",
+        "redirected": true,
+        "viewport": {
+          "width": 402,
+          "height": 874
+        },
+        "locale": "en",
+        "theme": "light",
+        "documentHeight": 26440,
+        "headings": [
+          {
+            "level": 1,
+            "text": "Every moment of AI video creation,in one workspace."
+          },
+          {
+            "level": 2,
+            "text": "The all-in-one AI video creation platformbuilt for creators."
+          },
+          {
+            "level": 2,
+            "text": "Join your clipsinto one video"
+          },
+          {
+            "level": 2,
+            "text": "From a long-form videoto standout short clips."
+          },
+          {
+            "level": 2,
+            "text": "“ Klipse reviews ”"
+          },
+          {
+            "level": 2,
+            "text": "What’s new"
+          },
+          {
+            "level": 2,
+            "text": "Frequently asked questions"
+          },
+          {
+            "level": 2,
+            "text": "We build Klipsetogether with creators"
+          },
+          {
+            "level": 2,
+            "text": "Until every storybecomes a video."
+          },
+          {
+            "level": 2,
+            "text": "Product"
+          },
+          {
+            "level": 2,
+            "text": "Resources"
+          },
+          {
+            "level": 2,
+            "text": "Social"
+          },
+          {
+            "level": 2,
+            "text": "Trust"
           }
         ]
       },
@@ -2040,22 +2470,22 @@
     "heroWordmark": {
       "path": "apps/web/public/klipse-wordmark-text-dark.svg",
       "sha256": "6024e3a27d33fbd3e61efe45c546518a99989d0ef59acb2b2746f68546d36131",
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/public/klipse-wordmark-text-dark.svg"
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/public/klipse-wordmark-text-dark.svg"
     },
     "demoBackground": {
       "path": "apps/web/public/images/hero/demo-bg-01.jpg",
       "sha256": "30865cf27be80471c18324433ae2ac349ef9d798bae8423a35992ca051e9c27b",
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/public/images/hero/demo-bg-01.jpg"
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/public/images/hero/demo-bg-01.jpg"
     },
     "highlightWordmark": {
       "path": "apps/web/public/highlight-wordmark.svg",
       "sha256": "68829a9f96c5dbef43126cdc91571ddfdc48212ce236bd9d7c1f8b3b5a558bfb",
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/public/highlight-wordmark.svg"
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/public/highlight-wordmark.svg"
     },
     "monitorArrowUp": {
       "path": "apps/web/public/icons/MonitorArrowUp.svg",
       "sha256": "8e2df0e6d3dd8332e595d4c4bed54f33940f946b8217895fcf32da8c8029d46d",
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/public/icons/MonitorArrowUp.svg"
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/public/icons/MonitorArrowUp.svg"
     },
     "themeDropdownChevron": {
       "$notMeasured": "liveOnly 표본이 0개입니다. 합성 장면 2문맥을 재지 않습니다. 랜딩에 합성 장면이 다시 서면 scripts/lib/product-scene-contract.mjs 의 LIVE_PRODUCT_SCENE_IDS 에 id 를 넣어 되살립니다. route 축은 이와 무관하게 잽니다."
@@ -2066,13 +2496,13 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/sections/Hero.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/sections/Hero.tsx",
       "path": "apps/web/components/landing/sections/Hero.tsx",
       "line": 54,
       "quote": ""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "line": 96,
       "quote": "        <span className={CONTENT}>"
@@ -139165,7 +139595,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Can I start for free?",
             "ownTextLines": [
               {
@@ -139197,7 +139627,7 @@
               "boxSizing": "border-box",
               "width": "173.266px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -139291,7 +139721,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -140086,7 +140517,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How are credits charged?",
             "ownTextLines": [
               {
@@ -140118,7 +140549,7 @@
               "boxSizing": "border-box",
               "width": "229.781px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -140212,7 +140643,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -141007,7 +141439,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "What if I run out of monthly credits?",
             "ownTextLines": [
               {
@@ -141039,7 +141471,7 @@
               "boxSizing": "border-box",
               "width": "317.547px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -141133,7 +141565,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -141928,7 +142361,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How does billing and renewal work?",
             "ownTextLines": [
               {
@@ -141960,7 +142393,7 @@
               "boxSizing": "border-box",
               "width": "320.219px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -142054,7 +142487,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -142849,7 +143283,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Where can I see my remaining credits?",
             "ownTextLines": [
               {
@@ -142881,7 +143315,7 @@
               "boxSizing": "border-box",
               "width": "344.203px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -142975,7 +143409,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -143770,7 +144205,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "What happens if I cancel?",
             "ownTextLines": [
               {
@@ -143802,7 +144237,7 @@
               "boxSizing": "border-box",
               "width": "231.047px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -143896,7 +144331,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -144691,7 +145127,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Which AI models can I use?",
             "ownTextLines": [
               {
@@ -144723,7 +145159,7 @@
               "boxSizing": "border-box",
               "width": "243.328px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -144817,7 +145253,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -145612,7 +146049,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Do unused credits roll over to next month?",
             "ownTextLines": [
               {
@@ -145644,7 +146081,7 @@
               "boxSizing": "border-box",
               "width": "375.609px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -145738,7 +146175,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -146533,7 +146971,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Can I use what I generate commercially?",
             "ownTextLines": [
               {
@@ -146565,7 +147003,7 @@
               "boxSizing": "border-box",
               "width": "362.391px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -146659,7 +147097,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -147454,7 +147893,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How do refunds work?",
             "ownTextLines": [
               {
@@ -147486,7 +147925,7 @@
               "boxSizing": "border-box",
               "width": "200.125px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -147580,7 +148019,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -148375,7 +148815,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How do I set this up for a team or company?",
             "ownTextLines": [
               {
@@ -148407,7 +148847,7 @@
               "boxSizing": "border-box",
               "width": "392.859px",
               "height": "30px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -148501,7 +148941,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -372901,7 +373342,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Can I start for free?",
             "ownTextLines": [
               {
@@ -372933,7 +373374,7 @@
               "boxSizing": "border-box",
               "width": "138.625px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -373027,7 +373468,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -373822,7 +374264,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How are credits charged?",
             "ownTextLines": [
               {
@@ -373854,7 +374296,7 @@
               "boxSizing": "border-box",
               "width": "183.828px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -373948,7 +374390,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -374743,7 +375186,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "What if I run out of monthly credits?",
             "ownTextLines": [
               {
@@ -374775,7 +375218,7 @@
               "boxSizing": "border-box",
               "width": "254.047px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -374869,7 +375312,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -375664,7 +376108,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How does billing and renewal work?",
             "ownTextLines": [
               {
@@ -375696,7 +376140,7 @@
               "boxSizing": "border-box",
               "width": "256.188px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -375790,7 +376234,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -376585,7 +377030,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Where can I see my remaining credits?",
             "ownTextLines": [
               {
@@ -376617,7 +377062,7 @@
               "boxSizing": "border-box",
               "width": "275.359px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -376711,7 +377156,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -377506,7 +377952,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "What happens if I cancel?",
             "ownTextLines": [
               {
@@ -377538,7 +377984,7 @@
               "boxSizing": "border-box",
               "width": "184.844px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -377632,7 +378078,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -378427,7 +378874,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Which AI models can I use?",
             "ownTextLines": [
               {
@@ -378459,7 +378906,7 @@
               "boxSizing": "border-box",
               "width": "194.656px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -378553,7 +379000,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -379348,7 +379796,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Do unused credits roll over to next month?",
             "ownTextLines": [
               {
@@ -379387,7 +379835,7 @@
               "boxSizing": "border-box",
               "width": "298px",
               "height": "48px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -379481,7 +379929,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -380276,7 +380725,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "Can I use what I generate commercially?",
             "ownTextLines": [
               {
@@ -380308,7 +380757,7 @@
               "boxSizing": "border-box",
               "width": "289.922px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -380402,7 +380851,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -381197,7 +381647,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How do refunds work?",
             "ownTextLines": [
               {
@@ -381229,7 +381679,7 @@
               "boxSizing": "border-box",
               "width": "160.109px",
               "height": "24px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -381323,7 +381773,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {
@@ -382118,7 +382569,7 @@
             "id": null,
             "role": null,
             "ariaLabel": null,
-            "classAttr": "type-body-20-medium text-gray-000",
+            "classAttr": "type-body-20-medium text-gray-000 min-w-0",
             "ownText": "How do I set this up for a team or company?",
             "ownTextLines": [
               {
@@ -382157,7 +382608,7 @@
               "boxSizing": "border-box",
               "width": "298px",
               "height": "48px",
-              "minWidth": "auto",
+              "minWidth": "0px",
               "minHeight": "auto",
               "maxWidth": "none",
               "maxHeight": "none",
@@ -382251,7 +382702,8 @@
               "margin-top": "0px",
               "margin-right": "0px",
               "margin-bottom": "0px",
-              "margin-left": "0px"
+              "margin-left": "0px",
+              "min-width": "0px"
             }
           },
           {

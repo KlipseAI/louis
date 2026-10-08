@@ -819,6 +819,14 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "쇼츠 결과 내보내기 목록의 「저장」 행 아이콘(`app/highlight/[projectId]/shorts/[shortId]/page.tsx:1899-1907` — 20 으로 그리는 24 상자, 획 1.7 을 `<g>` 에 둔 아래 화살표와 바닥 선)이다. LOUIS 에 같은 뜻의 `icon/download-simple` 이 있지만 그쪽은 열린 트레이고 제품은 바닥 선 하나를 제 인라인 그림으로 그린다.",
   },
+  // 2026-10-08 밤 — 앵커 54b62a8a(하이라이트 새 화면 갈래)에서 처음 잰 글리프.
+  {
+    id: "alert-circle-studio",
+    signature: "0 0 24 24|g()|circle(cx=12 cy=12 r=8.5)|path(d=M12 7.5v5.5)|path(d=M12 16.3v.2)",
+    louis: null,
+    verdict: "missing",
+    why: "하이라이트 스튜디오 판의 느낌표 원(`components/scenes/highlight/HighlightStudioBoard.tsx:200-202` StudioAlert 의 danger 아이콘 · `:994-996` 무대 아래 막대의 멈춤 안내 — 16 으로 그리는 24 상자, 획 1.8 을 `<g>` 에 둔 원 · 세로 선 · 점)이다. LOUIS 에는 점이 위 · 선이 아래인 `icon/info` 뿐이고 선이 위 · 점이 아래인 경고 원은 없다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

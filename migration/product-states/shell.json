@@ -10,9 +10,9 @@
     "운영에서 그 상태에 이르는 경로 — 레시피 단계로 세운 개발 fixture 상태다"
   ],
   "$method": "상태 레시피(migration/measure-states/shell.json, 모드 session): 각 화면은 그 모드의 기본 흐름(goto → 3초 → 안정화 → content-visibility 확정 → 안정화 → 글꼴)을 탄 뒤 레시피 단계(click · fill · press · waitFor …, park 를 뺀 마지막은 waitFor)를 돌고 다시 안정화한 다음 잰다. 레시피의 같은 출처 /api/* 항목은 브라우저에서 가로채 답하고(recipeApi 에 맞은 횟수), supabase 오버레이는 그 화면 동안만 가짜 Supabase 의 표 · RPC 를 바꾼다(recipeSupabase). clock 은 브라우저 Date 만 고정한다. 측정 뒤 assert(text · apiHit · css)가 어긋나거나, required api 가 한 번도 맞지 않거나, 가짜 Supabase 가 400 을 내면 실패한다. 레시피의 제품 줄 인용(cite)은 productCommit 에서 확인해 sourceQuotes 에 싣는다. fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. 3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).",
-  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productRef": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "productRefSource": "product-evidence.lock.json",
-  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "fixture": {
     "nodeEnv": "development",
     "devAuthBypass": true,
@@ -29,6 +29,8 @@
     "supabaseRequests": [
       "GET /auth/v1/user 200",
       "GET /rest/v1/editor_projects 200",
+      "GET /rest/v1/highlight_jobs 200",
+      "GET /rest/v1/highlight_shorts 200",
       "GET /rest/v1/instagram_accounts 200",
       "GET /rest/v1/landing_models 200",
       "GET /rest/v1/profiles 200",
@@ -43,7 +45,7 @@
     },
     "stateRecipes": {
       "file": "migration/measure-states/shell.json",
-      "sha256": "c7ac2143e9c14d86f323d81cfb4ee03c790ed28d721c75793edee88a165538b8",
+      "sha256": "c3a6669ae5dc0bf01d1d1f43b049850c1aee35b3a76fd4d9eb0e46fe45764369",
       "mode": "session",
       "authoredAgainst": "76b6cf154ab2"
     },
@@ -62743,801 +62745,801 @@
   },
   "sourceQuotes": [
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 31,
       "quote": " * 개발 전용 인증 바이패스 — 로그인 없이 로그인-후(보호) 페이지를 확인(반응형 작업 등)하기 위함."
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 32,
       "quote": " * 운영(production)에선 NODE_ENV 게이트로 절대 활성화되지 않는다(이중 안전장치)."
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 33,
       "quote": " * 활성화: 로컬 `apps/web/.env.local` 에 `NEXT_PUBLIC_DEV_AUTH_BYPASS=1`."
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 35,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 36,
       "quote": "    process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
       "line": 37,
       "quote": "    process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/middleware.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/middleware.ts",
       "path": "apps/web/middleware.ts",
-      "line": 237,
+      "line": 240,
       "quote": "    if (!user && isProtectedPage && !DEV_AUTH_BYPASS) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 38,
       "quote": ""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 39,
       "quote": "/**"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 40,
       "quote": " * 개발 전용 인증 바이패스 — 실제 세션이 없을 때 목 유저를 채워 로그인-후 화면을 확인(반응형 작업 등)."
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 44,
       "quote": "const DEV_AUTH_BYPASS ="
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 45,
       "quote": "  process.env.NODE_ENV !== \"production\" &&"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 46,
       "quote": "  process.env.NEXT_PUBLIC_DEV_AUTH_BYPASS === \"1\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 48,
       "quote": "const DEV_MOCK_USER: User = { id: \"dev-bypass-user\", email: \"dev@local.test\" };"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
       "line": 49,
       "quote": "const DEV_MOCK_PROFILE: Profile = {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 369,
+      "line": 370,
       "quote": "      const result = await response.json();"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 370,
+      "line": 371,
       "quote": ""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 371,
+      "line": 372,
       "quote": "      if (!response.ok || !result.ok) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 372,
+      "line": 373,
       "quote": "        if (DEV_AUTH_BYPASS) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 373,
+      "line": 374,
       "quote": "          setUser(DEV_MOCK_USER);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 374,
+      "line": 375,
       "quote": "          setProfile(DEV_MOCK_PROFILE);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
-      "line": 156,
+      "line": 126,
       "quote": " * 왜 필요한가. 이 화면의 `phase` 는 프로젝트 데이터에서 파생되므로 특정 단계를 재현하려면"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
-      "line": 157,
+      "line": 127,
       "quote": " * 그 단계에 있는 실제 프로젝트가 있어야 한다. 그래서 디자인 시스템 저장소의 화면 실측 하네스가"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
-      "line": 158,
+      "line": 128,
       "quote": " * 이 화면의 **한 단계(기본 진입)밖에 잴 수 없었다.** 재지 못하는 것은 Figma 에도 그려지지 않고"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/HighlightProjectScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/HighlightProjectScene.tsx",
       "path": "apps/web/components/scenes/HighlightProjectScene.tsx",
-      "line": 694,
+      "line": 316,
       "quote": "    requiredPlan: string;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/topup/success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/topup/success/page.tsx",
       "path": "apps/web/app/mypage/topup/success/page.tsx",
       "line": 192,
       "quote": "   *  사용: ?preview=processing | success | error */"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/topup/success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/topup/success/page.tsx",
       "path": "apps/web/app/mypage/topup/success/page.tsx",
       "line": 195,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "line": 184,
       "quote": "   *  사용: ?preview=processing | success | error */"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-change-success/page.tsx",
       "line": 187,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "line": 233,
       "quote": "   * 사용: ?preview=processing | success | partial | error"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
       "line": 237,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "line": 136,
       "quote": "   *  사용: ?preview=processing | success | issue-error | error */"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "path": "apps/web/app/mypage/upgrade/bulk-success/page.tsx",
       "line": 139,
       "quote": "    previewState !== \"\" && process.env.NODE_ENV !== \"production\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2821,
+      "line": 2832,
       "quote": "      if (!isLetterShortcut(e, \"k\")) return;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2823,
+      "line": 2834,
       "quote": "      setCommandPaletteOpen((prev) => !prev);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2844,
+      "line": 2855,
       "quote": "        fetch(\"/api/projects?limit=100\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2845,
+      "line": 2856,
       "quote": "        fetch(\"/api/editor/projects\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/route.ts",
       "path": "apps/web/app/api/projects/route.ts",
       "line": 149,
       "quote": "      projects: await Promise.all("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/editor/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/editor/projects/route.ts",
       "path": "apps/web/app/api/editor/projects/route.ts",
       "line": 45,
       "quote": "      data: await withPlayableUrls("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 572,
       "quote": "      role=\"dialog\""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 452,
       "quote": "        .map((g) => ({ ...g, items: g.items.filter((it) => !it.queryOnly) }))"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 660,
       "quote": "            placeholder={labels.placeholder}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
       "line": 1073,
       "quote": "    searchPlaceholder: \"Search or type a command...\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2821,
+      "line": 2832,
       "quote": "      if (!isLetterShortcut(e, \"k\")) return;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2844,
+      "line": 2855,
       "quote": "        fetch(\"/api/projects?limit=100\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2845,
+      "line": 2856,
       "quote": "        fetch(\"/api/editor/projects\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 630,
       "quote": "          } else if (e.key === \"ArrowRight\" && !submenu) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 699,
       "quote": "                        aria-haspopup={item.submenu ? \"menu\" : undefined}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 780,
       "quote": "              role=\"menu\""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 781,
       "quote": "              aria-label={submenu.item.submenu.title}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
       "line": 1086,
       "quote": "    searchTheme: \"Change theme\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 3730,
+      "line": 3848,
       "quote": "    themeLabel: \"Theme\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2844,
+      "line": 2855,
       "quote": "        fetch(\"/api/projects?limit=100\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2845,
+      "line": 2856,
       "quote": "        fetch(\"/api/editor/projects\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2911,
+      "line": 2922,
       "quote": "          queryOnly: true,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/route.ts",
       "path": "apps/web/app/api/projects/route.ts",
       "line": 154,
       "quote": "          type: project.type ?? \"canvas\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/editor/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/editor/projects/route.ts",
       "path": "apps/web/app/api/editor/projects/route.ts",
       "line": 30,
       "quote": "      .select(\"id, name, source_type, status, result_url, thumbnail_url, created_at, updated_at\")"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 452,
       "quote": "        .map((g) => ({ ...g, items: g.items.filter((it) => !it.queryOnly) }))"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2844,
+      "line": 2855,
       "quote": "        fetch(\"/api/projects?limit=100\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/Gnb.tsx",
       "path": "apps/web/components/navigation/Gnb.tsx",
-      "line": 2845,
+      "line": 2856,
       "quote": "        fetch(\"/api/editor/projects\").then((r) => r.json()),"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/CommandPalette.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/navigation/CommandPalette.tsx",
       "path": "apps/web/components/navigation/CommandPalette.tsx",
       "line": 681,
       "quote": "                {labels.empty}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
       "line": 1074,
       "quote": "    searchEmpty: \"No results.\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/PastDueBanner.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/PastDueBanner.tsx",
       "path": "apps/web/components/PastDueBanner.tsx",
       "line": 14,
       "quote": "  if (billing?.subscription_status !== \"past_due\" || dismissed) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/PastDueBanner.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/PastDueBanner.tsx",
       "path": "apps/web/components/PastDueBanner.tsx",
       "line": 28,
       "quote": "        backgroundColor: \"var(--accent-red-700)\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/PastDueBanner.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/PastDueBanner.tsx",
       "path": "apps/web/components/PastDueBanner.tsx",
       "line": 53,
       "quote": "        aria-label=\"Dismiss\""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/layout.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/layout.tsx",
       "path": "apps/web/app/layout.tsx",
       "line": 103,
       "quote": "                    <PastDueBanner />"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 230,
+      "line": 231,
       "quote": "    subscription_status: prev?.subscription_status ?? null,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 265,
+      "line": 266,
       "quote": "      const response = await fetch(\"/api/auth/me/billing\", {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 275,
+      "line": 276,
       "quote": "        if (!prev) return prev;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 281,
+      "line": 282,
       "quote": "          subscription_status: result.subscription_status ?? null,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 321,
+      "line": 322,
       "quote": "          `/api/auth/me/billing-details?${params.toString()}`,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 364,
+      "line": 365,
       "quote": "      const response = await fetch(\"/api/auth/me\", {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/auth/AuthProvider.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/auth/AuthProvider.tsx",
       "path": "apps/web/components/auth/AuthProvider.tsx",
-      "line": 387,
+      "line": 388,
       "quote": "        result.billing ? toBillingFromMe(result.billing, prev) : null,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/SubscriptionScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/SubscriptionScene.tsx",
       "path": "apps/web/components/scenes/SubscriptionScene.tsx",
       "line": 279,
       "quote": "    if (loading) return;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/SubscriptionScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/SubscriptionScene.tsx",
       "path": "apps/web/components/scenes/SubscriptionScene.tsx",
       "line": 285,
       "quote": "    void refreshSubscriptionPage();"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/SettingsScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/SettingsScene.tsx",
       "path": "apps/web/components/scenes/SettingsScene.tsx",
       "line": 84,
       "quote": "    void Promise.all([refreshBilling(), refreshBillingDetails()]);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/auth/me/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/auth/me/route.ts",
       "path": "apps/web/app/api/auth/me/route.ts",
       "line": 65,
       "quote": "      \"id, email, username, avatar_storage_key, is_ambassador, deleted_at, created_at, updated_at\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/auth/me/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/auth/me/route.ts",
       "path": "apps/web/app/api/auth/me/route.ts",
       "line": 150,
       "quote": "    billing: {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/auth/me/billing/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/auth/me/billing/route.ts",
       "path": "apps/web/app/api/auth/me/billing/route.ts",
-      "line": 143,
+      "line": 146,
       "quote": "    subscription_status: currentSubscription?.status ?? null,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/auth/me/billing-details/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/auth/me/billing-details/route.ts",
       "path": "apps/web/app/api/auth/me/billing-details/route.ts",
-      "line": 428,
+      "line": 430,
       "quote": "    credit_history_meta: {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 4803,
+      "line": 4931,
       "quote": "        \"Payment failed — please update your card to continue your plan.\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 4804,
+      "line": 4932,
       "quote": "      cta: \"Update payment method\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 262,
       "quote": "    fetch(`/api/banners?tab=home&locale=${locale}`)"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 266,
       "quote": "        setBannerSlides(json.data as HomeBanner[]);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 302,
       "quote": "    if (bannerAutoAdvancePaused || bannerSlides.length < 2) {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 307,
       "quote": "      window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 327,
       "quote": "        `/api/projects/home?limit=${limit}&offset=${offset}`,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
-      "line": 975,
+      "line": 976,
       "quote": "          {bannerSlides.length > 0 && ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/AppHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/AppHomeScene.tsx",
       "path": "apps/web/components/scenes/AppHomeScene.tsx",
       "line": 214,
       "quote": "    setNow(Date.now());"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/banners/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/banners/route.ts",
       "path": "apps/web/app/api/banners/route.ts",
       "line": 53,
       "quote": "    { ok: true, data: localized },"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/home/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/home/route.ts",
       "path": "apps/web/app/api/projects/home/route.ts",
       "line": 447,
       "quote": "      hasMore,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/home/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/home/route.ts",
       "path": "apps/web/app/api/projects/home/route.ts",
       "line": 448,
       "quote": "      totalCount,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/home/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/home/route.ts",
       "path": "apps/web/app/api/projects/home/route.ts",
       "line": 449,
       "quote": "      projects: await Promise.all(pageRows.map(async (row) => {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/project-home/projectHomeModels.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/project-home/projectHomeModels.ts",
       "path": "apps/web/components/scenes/project-home/projectHomeModels.ts",
       "line": 85,
       "quote": "export interface HomeProjectsResponse {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/project-home/projectHomeModels.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/project-home/projectHomeModels.ts",
       "path": "apps/web/components/scenes/project-home/projectHomeModels.ts",
       "line": 115,
       "quote": "  return Boolean(v2) && (v2?.nodes?.length ?? 0) === 0;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/project-home/projectHomeModels.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/project-home/projectHomeModels.ts",
       "path": "apps/web/components/scenes/project-home/projectHomeModels.ts",
       "line": 244,
       "quote": "export function createDemoArchiveCards(locale: Locale): ProjectCard[] {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "line": 8,
       "quote": "  if (window.matchMedia(\"(min-width: 1800px)\").matches) return 5;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "line": 11,
       "quote": "  return 2;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 3515,
+      "line": 3633,
       "quote": "    recentProjectsEyebrowHome: \"Recent projects\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 569,
       "quote": "        const res = await fetch(\"/api/editor/projects\");"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 572,
       "quote": "          setProjects(json.data);"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 697,
       "quote": "    if (status === \"done\") return ve.statusDone;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 698,
       "quote": "    if (status === \"rendering\") return ve.statusRendering;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 704,
       "quote": "    if (status === \"failed\") return HISTORY_CARD_STATUS_TONE_FAILED;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/editor/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/editor/projects/route.ts",
       "path": "apps/web/app/api/editor/projects/route.ts",
       "line": 30,
       "quote": "      .select(\"id, name, source_type, status, result_url, thumbnail_url, created_at, updated_at\")"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/editor/projects/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/editor/projects/route.ts",
       "path": "apps/web/app/api/editor/projects/route.ts",
       "line": 45,
       "quote": "      data: await withPlayableUrls("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 569,
       "quote": "        const res = await fetch(\"/api/editor/projects\");"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 333,
       "quote": "  \"[[data-history-card]:hover_&]:opacity-100\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 343,
       "quote": "  \"louis-popover [--louis-overlay-collision-padding:8px]\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 353,
       "quote": "  \"opacity-0 pointer-events-none [transform:scale(0.92)]\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 360,
       "quote": "  \"opacity-100 pointer-events-auto [transform:scale(1)]\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 809,
       "quote": "                        data-history-card"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/VideoEditScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/VideoEditScene.tsx",
       "path": "apps/web/components/scenes/VideoEditScene.tsx",
       "line": 872,
       "quote": "                              aria-label={messages.archive.card.moreAria}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 3460,
+      "line": 3578,
       "quote": "      moreAria: \"More options\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 774,
       "quote": "        `/api/projects/home?type=canvas&limit=${limit}&offset=${offset}`,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 714,
       "quote": "  const projectListPageSize = useArchiveProjectListPageSize();"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1481,
       "quote": "                {t.recentProjectsEyebrow}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1483,
       "quote": "                  {totalProjectCount ?? cards.length}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "line": 17,
       "quote": "  if (window.matchMedia(\"(min-width: 1800px)\").matches) return 15;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "path": "apps/web/components/scenes/useArchiveProjectListPageSize.ts",
       "line": 20,
       "quote": "  return 14;"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/api/projects/home/route.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/app/api/projects/home/route.ts",
       "path": "apps/web/app/api/projects/home/route.ts",
       "line": 507,
       "quote": "          type: project.type ?? \"canvas\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/project-home/projectHomeModels.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/project-home/projectHomeModels.ts",
       "path": "apps/web/components/scenes/project-home/projectHomeModels.ts",
       "line": 244,
       "quote": "export function createDemoArchiveCards(locale: Locale): ProjectCard[] {"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 3513,
+      "line": 3631,
       "quote": "    recentProjectsEyebrow: \"Archive\","
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 774,
       "quote": "        `/api/projects/home?type=canvas&limit=${limit}&offset=${offset}`,"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 848,
       "quote": "        const { cards: batch, hasMore: more } = await fetchProjectsPage("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 934,
       "quote": "        void tryLoadMore();"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 936,
       "quote": "      { root: null, rootMargin: \"400px 0px\", threshold: 0 },"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 244,
       "quote": "const ARCHIVE_SCROLL_SENTINEL = \"col-span-full h-px pointer-events-none\";"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1498,
       "quote": "              aria-labelledby=\"archive-home-recent-label\""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1797,
       "quote": "            {!demoMode && (hasMore || loadingMore) ? ("
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1800,
       "quote": "                  ref={loadMoreSentinelRef}"
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "path": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "line": 1807,
       "quote": "                    role=\"status\""
     },
     {
-      "command": "git show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/system/messages/en.ts",
+      "command": "git show 54b62a8aa9c9dba2c8e250c6e414c0487ec218a3:apps/web/components/landing/system/messages/en.ts",
       "path": "apps/web/components/landing/system/messages/en.ts",
-      "line": 3491,
+      "line": 3609,
       "quote": "    loading: \"Loading\","
     }
   ],
@@ -69296,6 +69298,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -69319,7 +69326,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "90f24036ae4c400642e2173ba4cf1ebb565f914fb02856da1493c181cd25fa3a"
+          "sha256": "39761fb5c8155898aecc54e96fe6fecbdd4325580bd33c378d24e5cc84ef3efd"
         },
         "recipeApi": [
           {
@@ -69343,6 +69350,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -75305,6 +75314,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -75328,7 +75342,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "1e886bf6919bcb415c6a3efae8b1c569d561203f3789027c167ea728a0782210"
+          "sha256": "05f6a2d6492807a21a9bf0928bb3a8b2f99729c806944ed3934eb5fbed8de0ac"
         },
         "recipeApi": [
           {
@@ -75352,6 +75366,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -79940,6 +79956,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -79963,7 +79984,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "a8b82bd23f6f5a2580aa70ace305e481d3a68d3c318b0d78393f8f19357b67b7"
+          "sha256": "2a0e1200ac7e71407791d7acc0e575db6b9e04b129a4e5d1a10487868d4aef80"
         },
         "recipeApi": [
           {
@@ -79987,6 +80008,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -83808,6 +83831,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -83831,7 +83859,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "6278665f8d74bc213878018943db7bc1a26a8e5d21fcd4dc413180e38ac13938"
+          "sha256": "dd0b66fef380b32c1081ab1876e74ab9a8ccac0a7a858b510776a174d4618981"
         },
         "recipeApi": [
           {
@@ -83855,6 +83883,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -87090,6 +87120,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/plans",
             "status": 200
           }
@@ -87098,7 +87133,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/subscription",
-          "sha256": "42bd817ff202f895e653cffd0701121890a76f192d25fc765c6b6a6e85f307f7"
+          "sha256": "a2c38bfef6e7e597fd70eb649d2744aa75e441799087ccaaed843b6dcdc9df22"
         },
         "recipeApi": [
           {
@@ -87124,6 +87159,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/subscription_plans 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -91990,6 +92027,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -92008,7 +92050,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "e322127a44ad1ba53fec73d22f0accbae0f09e97f84bd7e42019cfa3c467225f"
+          "sha256": "e2720e8810055fe4eda9d258aea334d2a8f5892d165974a6b14564198eb66037"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -92052,6 +92094,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -95838,6 +95882,11 @@
             "method": "GET",
             "path": "/api/editor/projects",
             "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
           }
         ],
         "localApiFailures": [],
@@ -95859,6 +95908,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -99894,13 +99945,18 @@
             "method": "GET",
             "path": "/api/editor/projects",
             "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
           }
         ],
         "localApiFailures": [],
         "stateRecipe": {
           "area": "shell",
           "base": "/videoeditor",
-          "sha256": "d564fd97d44efdc1aed24fbf5e06347a9131464f82a8952328f55ea2294afbb0"
+          "sha256": "311cbd6880cb2957df7e17dc912206aae2316996fe0b2dcba7f9c3a464c787f2"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -99915,6 +99971,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -106044,6 +106102,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/projects/home",
             "status": 200
           }
@@ -106052,7 +106115,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/nodecanvas",
-          "sha256": "3d9a871305476cf8146d5fff19cbcb3163f5a98ce301a4d14815cbea29182f73"
+          "sha256": "9d8e625e76f4fee60cf0bff8434f68a614933e41c1dd08a757e0a618b6305267"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -106105,6 +106168,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -112610,6 +112675,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/projects/home",
             "status": 200
           }
@@ -112618,7 +112688,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/nodecanvas",
-          "sha256": "9ae2626a9399d04c9e86fc4ce9516edc78bb4b3fdb63590a19ee2b7e4069cbef"
+          "sha256": "6e3f828ee20e08d10ca0ff54e88073d8a33ac6e2df4024cfb1d548c1a1ba05f7"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -112671,6 +112741,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -117037,6 +117109,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -117060,7 +117137,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "90f24036ae4c400642e2173ba4cf1ebb565f914fb02856da1493c181cd25fa3a"
+          "sha256": "39761fb5c8155898aecc54e96fe6fecbdd4325580bd33c378d24e5cc84ef3efd"
         },
         "recipeApi": [
           {
@@ -117084,6 +117161,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -121393,6 +121472,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -121416,7 +121500,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "1e886bf6919bcb415c6a3efae8b1c569d561203f3789027c167ea728a0782210"
+          "sha256": "05f6a2d6492807a21a9bf0928bb3a8b2f99729c806944ed3934eb5fbed8de0ac"
         },
         "recipeApi": [
           {
@@ -121440,6 +121524,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -124633,6 +124719,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -124656,7 +124747,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "a8b82bd23f6f5a2580aa70ace305e481d3a68d3c318b0d78393f8f19357b67b7"
+          "sha256": "2a0e1200ac7e71407791d7acc0e575db6b9e04b129a4e5d1a10487868d4aef80"
         },
         "recipeApi": [
           {
@@ -124680,6 +124771,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -127106,6 +127199,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -127129,7 +127227,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "6278665f8d74bc213878018943db7bc1a26a8e5d21fcd4dc413180e38ac13938"
+          "sha256": "dd0b66fef380b32c1081ab1876e74ab9a8ccac0a7a858b510776a174d4618981"
         },
         "recipeApi": [
           {
@@ -127153,6 +127251,8 @@
           "requests": [
             "GET /auth/v1/user 200",
             "GET /rest/v1/editor_projects 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -129029,6 +129129,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/plans",
             "status": 200
           }
@@ -129037,7 +129142,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/subscription",
-          "sha256": "42bd817ff202f895e653cffd0701121890a76f192d25fc765c6b6a6e85f307f7"
+          "sha256": "a2c38bfef6e7e597fd70eb649d2744aa75e441799087ccaaed843b6dcdc9df22"
         },
         "recipeApi": [
           {
@@ -129063,6 +129168,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/subscription_plans 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -131281,6 +131388,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/models",
             "status": 200
           },
@@ -131299,7 +131411,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/archive",
-          "sha256": "e322127a44ad1ba53fec73d22f0accbae0f09e97f84bd7e42019cfa3c467225f"
+          "sha256": "e2720e8810055fe4eda9d258aea334d2a8f5892d165974a6b14564198eb66037"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -131343,6 +131455,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/landing_models 200",
             "GET /rest/v1/profiles 200",
@@ -133731,6 +133845,11 @@
             "method": "GET",
             "path": "/api/editor/projects",
             "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
           }
         ],
         "localApiFailures": [],
@@ -133752,6 +133871,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -136389,13 +136510,18 @@
             "method": "GET",
             "path": "/api/editor/projects",
             "status": 200
+          },
+          {
+            "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
           }
         ],
         "localApiFailures": [],
         "stateRecipe": {
           "area": "shell",
           "base": "/videoeditor",
-          "sha256": "d564fd97d44efdc1aed24fbf5e06347a9131464f82a8952328f55ea2294afbb0"
+          "sha256": "311cbd6880cb2957df7e17dc912206aae2316996fe0b2dcba7f9c3a464c787f2"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -136410,6 +136536,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -139579,6 +139707,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/projects/home",
             "status": 200
           }
@@ -139587,7 +139720,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/nodecanvas",
-          "sha256": "3d9a871305476cf8146d5fff19cbcb3163f5a98ce301a4d14815cbea29182f73"
+          "sha256": "9d8e625e76f4fee60cf0bff8434f68a614933e41c1dd08a757e0a618b6305267"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -139640,6 +139773,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"
@@ -143071,6 +143206,11 @@
           },
           {
             "method": "GET",
+            "path": "/api/highlight/activity",
+            "status": 200
+          },
+          {
+            "method": "GET",
             "path": "/api/projects/home",
             "status": 200
           }
@@ -143079,7 +143219,7 @@
         "stateRecipe": {
           "area": "shell",
           "base": "/nodecanvas",
-          "sha256": "9ae2626a9399d04c9e86fc4ce9516edc78bb4b3fdb63590a19ee2b7e4069cbef"
+          "sha256": "6e3f828ee20e08d10ca0ff54e88073d8a33ac6e2df4024cfb1d548c1a1ba05f7"
         },
         "clock": "2026-04-01T09:00:00.000Z",
         "recipeApi": [
@@ -143132,6 +143272,8 @@
           "tables": {},
           "requests": [
             "GET /auth/v1/user 200",
+            "GET /rest/v1/highlight_jobs 200",
+            "GET /rest/v1/highlight_shorts 200",
             "GET /rest/v1/instagram_accounts 200",
             "GET /rest/v1/profiles 200",
             "GET /rest/v1/youtube_accounts 200"

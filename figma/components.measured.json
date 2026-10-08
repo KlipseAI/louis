@@ -1854,6 +1854,7 @@
           "radius": 12,
           "$radius": "radius-card 12 — 제품 border-radius 12px",
           "borderWidth": 0,
+          "$borderWidth": "테두리 없음 — 옛 앵커의 제품 uploadDropZone 도 테두리 0 이었다. 2026-10-08 앵커(54b62a8a)에서 그 레시피가 걷혀(제품 0f05b9b00) 지금은 대조할 제품 렌더가 없다($noProductRender)",
           "graphic": 56,
           "$graphic": "제품 uploadGlyphMask 56px(허브). 아이콘 계단에 56 이 없어 리터럴이다",
           "promptFontSize": 16,
@@ -2029,8 +2030,11 @@
       "sizes": {
         "base": {
           "padding": 8,
+          "$padding": "space-control-sm 8 — 사이드바 항목과 계단을 맞춘다($geometry). 옛 대조 상대(제품 clipDetailListItem 6)는 2026-10-08 앵커(54b62a8a)에서 걷혔다($noProductRender)",
           "gap": 8,
+          "$gap": "8 — 제품 10 은 DS 간격 계단에 없는 값이라 SidebarNavItem 과 같은 판단을 한다($geometry)",
           "radius": 10,
+          "$radius": "radius-overlay-item 10 — 메뉴 항목 · 사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다($geometry)",
           "titleFontSize": 14,
           "$titleFontSize": "body-sm 14px",
           "titleLineHeight": 21,
@@ -4659,6 +4663,8 @@
     "stat-tile": "제품 렌더 하네스가 이 조형에 닿지 못한다. 하네스는 등록된 제품 소스 파일의 상수 이름으로 클래스 문자열을 꺼내 컴파일하는데 app/admin/AdminSection.tsx 는 그 명부에 없고, 명부를 늘리는 것은 3천 줄짜리 공용 측정기를 고치는 일이라 이 회차의 변경 단위 밖이다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 앵커 5a67d692 의 어느 선언에서 왔는지를 적는다. 다음 회차가 AdminSection.tsx 를 소스로 등록하고 TILE·TILE_VALUE_LG·DELTA 세 탐침을 세우면 이 면제를 지운다.",
     "chart-card": "같은 이유다. analytics/OverviewTab.tsx 와 InstagramAnalyticsScene.tsx 가 소스 명부에 없다. 덧붙여 이 카드의 세로 값 하나(chartMinHeight)는 비율이 만드는 높이의 하한이라 하네스가 재는 계산값 height 와 같은 축이 아니다 — 탐침을 세울 때 min-block-size 를 직접 읽어야 한다.",
     "transform-frame": "제품 렌더 하네스가 이 조형에 닿지 못한다. 넷 다 **모달을 열고 매체를 올려 고른 뒤에만** 그려진다 — 크롭 모달 둘은 이미지를 선택한 다음에 열리고, ClipCropModal 은 비디오 에디터 안에서 클립을 고른 다음이며, PreviewOverlayLayer 의 상자는 오버레이를 클릭해야 나타난다. 라우트를 열어 계산 스타일을 뜨는 하네스로는 그 상태에 도달할 수 없어 EXPECT 행을 세울 수 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 앵커 5a67d692 의 어느 선언에서 왔는지를 적는다. 제품이 이 레시피를 물면 그때 소비처 한 자리를 EXPECT 로 세우고 이 면제를 지운다.",
+    "drop-zone": "대조하던 제품 자리가 사라졌다. 2026-10-08 앵커(54b62a8a)의 하이라이트 새 화면 갈래가 시작 화면을 작업 화면으로 바꾸며 옛 업로드 폼과 `highlightSceneStyles.ts uploadDropZone` 을 걷었다(제품 0f05b9b00) — measure-product-components 의 `drop-zone-upload` 탐침도 함께 걷었다. 값은 옛 앵커의 그 레시피에서 옮긴 것이고 칸마다 $ 사유를 갖는다. 제품이 업로드 면을 다시 세우거나 `.louis-drop-zone` 을 물면 그 자리를 EXPECT 로 세우고 이 면제를 지운다.",
+    "selectable-list-row": "대조하던 제품 자리가 사라졌다. 2026-10-08 앵커(54b62a8a)의 하이라이트 새 화면 갈래가 예전 리뷰 · 결과 화면을 판으로 합치며 `highlightSceneStyles.ts clipDetailListItem` 을 걷었다(제품 2b0f93d31) — `selectable-row` 탐침과 `selectable-list-row/highlightDetailClip` 표본도 함께 걷었다. 값은 SidebarNavItem 계단을 따른 것이고($geometry) 칸마다 $ 사유를 갖는다. 새 판의 클립 행을 JSX 에서 읽어 탐침을 다시 세우면 이 면제를 지운다.",
     "$comment": "제품 렌더와 한 축도 대조되지 않는 기록의 명부다. 여기 있는 이름은 값마다 $ 사유를 갖는다 — 면제는 검사를 빼는 것이 아니라 다른 근거로 옮기는 것이다.",
     "canvas-edge": "엣지는 클래스가 아니라 SVG path 속성과 JS 로 만든 문자열로 그려진다. measure-product-components 는 제품 Tailwind 클래스 문자열을 컴파일해 실브라우저에서 재는 하네스라 이 값들에 닿지 않는다. 값은 앵커 소스에서 읽은 것이고 칸마다 $ 사유를 갖는다.",
     "inspector-row": "제품 담지자에 꺼낼 상수가 없다. `.louis-inspector-row` 를 무는 자리는 videoEditParts/inspectorPrimitives.tsx 한 곳인데 클래스를 배열 상수가 아니라 템플릿 문자열로 그 자리에서 잇는다(`className={`louis-inspector-row ${VEM_CLASS.inspectorMetric}`}`). 하네스는 제품 소스의 **상수 이름**으로 클래스 배열을 꺼내므로 꺼낼 것이 없고, 손으로 옮겨 적으면 그 순간부터 제품과 갈라진다(이 스크립트 머리말). 더구나 이 행은 노드 인스펙터 안에서만 그려져 라우트 하네스가 닿지도 못한다 — node-shell·node-chrome-button 과 같은 사정이다. 제품이 이 클래스를 상수로 올리면 그때 `from` 으로 세우고 이 면제를 지운다.",

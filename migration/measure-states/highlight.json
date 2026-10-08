@@ -91,12 +91,23 @@
         { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 67, "expect": "title: \"전반전 결정적 기회 모음\"" },
         { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3048, "expect": "setReviewActiveIndex(seg.index)" },
         { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3127, "expect": "reviewActiveSeg.type === \"composite\" &&" },
-        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3131, "expect": "<CompositeSegmentPreview" }
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3131, "expect": "<CompositeSegmentPreview" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3469, "expect": "onClick={() => closeRefine()}" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3470, "expect": "aria-label={t.refinePanelClose}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1261, "expect": "refinePanelClose: \"Close AI clip refine\"" }
       ],
       "steps": [
         { "click": { "text": "전반전 결정적 기회 모음", "exact": true }, "description": "목록 행(div onClick)의 제목 — 클릭 전에는 목록에만 있다" },
         { "waitFor": { "role": "heading", "name": "전반전 결정적 기회 모음", "exact": true }, "description": "상세 제목(h3)이 묶음 클립으로 바뀐다" }
       ],
+      "stepsByContext": {
+        "mobile-402x874": [
+          { "click": { "role": "button", "name": "Close AI clip refine", "exact": true }, "description": "모바일(402)에서는 미리보기가 연 수정 창이 목록 줄을 덮어 행 클릭을 가로챈다(2026-10-08 측정 로그 — dialog subtree intercepts pointer events). 창의 닫기 버튼(3467–3471, en refinePanelClose)으로 먼저 접는다" },
+          { "waitFor": { "role": "dialog", "name": "AI clip refine", "exact": true }, "state": "hidden", "description": "닫히면 role=dialog 가 빠진다(3396)" },
+          { "click": { "text": "전반전 결정적 기회 모음", "exact": true }, "description": "목록 행(div onClick)의 제목" },
+          { "waitFor": { "role": "heading", "name": "전반전 결정적 기회 모음", "exact": true }, "description": "상세 제목(h3)이 묶음 클립으로 바뀐다" }
+        ]
+      },
       "assert": {
         "text": ["비슷한 장면 두 개를 이어 붙여 아쉬움이 쌓이는 흐름을 만든다."]
       }

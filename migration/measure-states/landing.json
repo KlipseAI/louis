@@ -44,6 +44,8 @@
         { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 440, "expect": "arrows={title == null ? undefined : {" },
         { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 445, "expect": "prevDisabled: drift ? false : atStart," },
         { "path": "apps/web/components/landing/system/CarouselArrows.tsx", "line": 99, "expect": "aria-label={label}" },
+        { "path": "apps/web/components/landing/system/CarouselArrows.tsx", "line": 12, "expect": "\"inline-flex items-center justify-center\"," },
+        { "path": "apps/web/components/landing/system/CarouselArrows.tsx", "line": 124, "expect": "<div className=\"flex flex-none items-center gap-2\">" },
         { "path": "apps/web/components/landing/system/messages/en.ts", "line": 515, "expect": "carousel: { prev: \"Previous\", next: \"Next\" }," },
         { "path": "apps/web/components/landing/system/messages/en.ts", "line": 542, "expect": "title: \"Try the newest AI models\"," },
         { "path": "apps/web/components/landing/system/messages/en.ts", "line": 543, "expect": "badgeNew: \"New\"," },
@@ -62,14 +64,14 @@
       "steps": [
         { "waitFor": { "role": "heading", "name": "Try the newest AI models", "exact": true }, "description": "응답이 와야 ModelCarousel 이 섹션을 그린다(ModelCarousel.tsx:129). 데스크톱 무대의 h2 도 같은 글자지만 이 레시피는 모바일 한 칸이다." },
         { "waitFor": { "role": "button", "name": "Previous", "exact": true, "within": { "css": "#models" } }, "description": "사용 후기 밴드(Testimonials.tsx:387)도 같은 라벨의 화살표를 쓰므로 섹션 id(SectionShell 의 section id=models)로 좁힌다. 통합 판에 data-testid 가 없어 마지막 수단의 CSS 다." },
-        { "waitFor": { "role": "button", "name": "Next", "exact": true, "within": { "css": "#models" } }, "description": "머리 행의 다음 화살표. 제목이 있으면 트랙 좌우의 떠 있는 화살표(edgeArrows)는 그리지 않으므로 섹션 안에 하나뿐이다(Carousel.tsx:412)." }
+        { "waitFor": { "role": "button", "name": "Next", "exact": true, "within": { "css": "#models" } }, "description": "머리 행의 다음 화살표. 제목이 있으면 트랙 좌우의 떠 있는 화살표(edgeArrows)는 그리지 않으므로 섹션 안에 하나뿐이다(Carousel.tsx:412). assert.css 의 display 기대값은 flex 다 — 버튼 클래스는 inline-flex(CarouselArrows.tsx:12)지만 부모가 flex 줄(CarouselArrows.tsx:124)이라 플렉스 항목으로 블록화되어 계산값이 flex 가 된다(2026-10-08 통합 판 측정에서 확인). 이 검사는 화살표가 숨지 않고 그려졌다는 뜻이다." }
       ],
       "pointer": "park",
       "assert": {
         "text": ["Try the newest AI models", "Veo 3.1", "New"],
         "apiHit": "all",
         "css": [
-          { "selector": "#models button[aria-label=\"Next\"]", "property": "display", "equals": "inline-flex" }
+          { "selector": "#models button[aria-label=\"Next\"]", "property": "display", "equals": "flex" }
         ]
       }
     }

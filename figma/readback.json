@@ -12622,7 +12622,7 @@
       "effects": {}
     },
     "Menu": {
-      "variantCount": 7,
+      "variantCount": 14,
       "hasDescription": true,
       "properties": {
         "HasIcon": {
@@ -12645,14 +12645,21 @@
             "Busy",
             "Selected"
           ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "description"
+          ]
         }
       },
       "binding": {
-        "boundFills": 19,
+        "boundFills": 45,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 14,
+        "textStyled": 35,
         "textUnstyled": 0
       },
       "geometry": {
@@ -12682,6 +12689,63 @@
           ],
           "cornerRadius": [
             10
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "descriptionItem": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "itemSpacing": [
+                2
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Description": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            57
+          ],
+          "width": [
+            76
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "counterAxisAlignItems": [
+            "MIN"
           ],
           "layoutMode": [
             "HORIZONTAL"

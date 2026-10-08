@@ -25,6 +25,19 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (214) — Figma 구조 맞춤: 메뉴 두 줄 항목(`Layout=description`)
+
+- **Menu**(항목 set)에 `Layout` = `base` · `description` 축이 섰다 — `State` 일곱 값과 곱해져 변형이 7 → 14. 기존 변형은 이름에
+  `Layout=base` 가 붙었을 뿐 노드 id 가 그대로라, 이미 놓인 인스턴스(MenuPanel 등)는 한 줄 항목으로 남는다.
+- `description` 은 CSS `.louis-menu__item` 에 `.louis-menu__item-description` 이 들어온 두 줄 항목이다 — 이름과 설명(caption-regular ·
+  `color/fg-tertiary`, Disabled 는 `color/fg-disabled`)을 `Text` 열(간격 2)에 담고, 항목을 위 정렬(MIN)로 바꿔 아이콘이 첫 줄에 붙는다.
+  높이 57. 설명을 감추는 BOOLEAN 이 아니라 축인 이유는 프레임이 자기 정렬을 다시 쓰기 때문이다(작성 규범 §2 시험 2).
+- **`Layout` 축을 [Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 어휘 표에 올렸다.** Toast · Tooltip ·
+  EmptyState · Alert 가 이미 쓰는 이름인데 표에 없었다.
+- parity 계약(`Layout` 축 · 정렬 · `Text`/`Description` 자손)과 채취 명세(`Layout` 키, base 는 기존 `panel` 키로 `map`)를 고치고,
+  `components.measured.json` 의 `menu-popover.sizes` 에 `descriptionItem` 과 두 칸의 `itemAlign` 을 더했다. 되읽기는 세션 기록에서
+  꺼내 병합했다. **아이콘 타일(`data-shape="tile"`)은 그리지 않았다** — 타일 면이 소유자 판정 대기다.
+
 ## 2026-10-08 (213) — Figma 구조 맞춤: Tabs 밑선 변형(`Variant=underline`)
 
 - **Tabs** 가 단일 컴포넌트에서 세트로 바뀌었다 — `Variant` = `default` · `underline`. 기존 컴포넌트가 `Variant=default` 로 들어가

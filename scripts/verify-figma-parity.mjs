@@ -449,10 +449,18 @@ const COMPONENT_CONTRACTS = [
         reason:
           "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다. Busy는 항목이 스스로 작업을 도는 동안이다 — 후행 자리에 스피너가 서고 항목이 비활성처럼 보이지만 disabled와 달리 취소가 열려 있다. Selected는 role=listbox의 값 목록에서 「지금 값」이다(aria-selected) — 면이 hover(4%) 위 한 칸인 12%이고, Checked(aria-checked)와 다른 것을 말한다: 저쪽은 행동 목록에서 켜고 끄는 축이라 글리프가 표현하고, 이쪽은 값 목록이라 늘 하나가 선택돼 있어 글리프 칸을 세우면 모든 행이 빈 칸을 들고 선다.",
       },
+      Layout: {
+        options: ["base", "description"],
+        reason:
+          "항목에 **담기는 것**이 갈린다(2026-10-08 Figma 에 세움) — base 는 이름 한 줄, description 은 이름 아래 결과 한 줄(`.louis-menu__item-description`)을 더한 두 줄 항목이다. Toast · Tooltip · EmptyState 의 Layout 과 같은 종류다. BOOLEAN 이 아닌 이유는 프레임이 자기 정렬을 다시 쓰기 때문이다(figma-component-authoring.md §2 시험 2) — CSS 는 설명 슬롯이 있는 항목만 `align-items: flex-start` 로 아이콘을 첫 줄에 붙이고, 설명을 감추기만 하면 아이콘이 두 줄 한가운데에 남는다. 코드에서는 속성이 아니라 `:has(.louis-menu__item-description)` 구조라 prop 도 data 속성도 없다. 아이콘 타일(`data-shape=\"tile\"`)은 이 축에 넣지 않았다 — 타일 면이 소유자 판정 대기다(menu-popover.md Known deviations 「아이콘 타일 면」).",
+      },
     },
     geometry: {
       measuredId: "menu-popover",
-      sizeKey: "panel",
+      // **두 칸을 다 돈다(2026-10-08).** base 는 지금까지의 `panel` 이고(되읽기가 `map` 으로 같은 키를 낸다) description 은
+      // `descriptionItem` 이다. 항목 필드 이름을 두 칸이 같이 쓰므로 한 규칙으로 둘을 대조한다 — 갈리는 것은 높이(37 ↔ 57)와
+      // 정렬(CENTER ↔ MIN) 둘이다.
+      sizeKeys: ["panel", "descriptionItem"],
       fields: {
         height: "itemHeight",
         paddingBlock: "itemPaddingBlock",
@@ -461,9 +469,20 @@ const COMPONENT_CONTRACTS = [
         paddingInlineEnd: "itemPaddingInline",
         itemSpacing: "itemGap",
         cornerRadius: "itemRadius",
+        counterAxisAlignItems: { enum: "itemAlign", table: { center: "CENTER", "flex-start": "MIN" } },
         layoutMode: { literal: "HORIZONTAL" },
       },
       slots: {},
+      parts: {
+        // 이름과 설명을 담는 열(`.louis-menu__item-text`). Figma 글자 노드에는 형제 간격이 없어 열 프레임의 itemSpacing 이
+        // CSS 의 gap 2 를 낸다. base 에는 열이 없다 — 이름이 항목에 바로 선다. `optional` 은 근거 값(panel 에 descriptionGap 없음)이
+        // 함께 없을 때만 통과한다.
+        Text: { fields: { itemSpacing: "descriptionGap", layoutMode: { literal: "VERTICAL" } }, optional: true },
+        Description: {
+          fields: { fontSize: "descriptionFontSize", lineHeightPercent: "descriptionLineHeightPercent" },
+          optional: true,
+        },
+      },
       extraStrokeWeights: [],
     },
   },

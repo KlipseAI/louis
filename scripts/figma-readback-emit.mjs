@@ -212,7 +212,10 @@ const CAPTURE = {
   "Keycap": {"key":{"by":["Kind"]},"parts":{"Label":["width","height","fontSize"]},"effects":["self"]},
   "MediaCard": {"key":{"name":"base"},"slots":{"Glyph":"size"},"parts":{"TopBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Badge":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"BadgeLabel":["fontSize","lineHeightPercent"],"InfoBar":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"NameRow":["height","itemSpacing"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"]},"effects":["Badge","InfoBar"]},
   "MediaScrubber": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Thumb":["width","height"]}},
-  "Menu": {"key":{"name":"panel"}},
+  // **두 줄 항목(2026-10-08)이 `Layout` 축을 열었다.** base 는 지금까지의 키 `panel` 을 그대로 쓰고(`map`) — 개명하면
+  // 계약 · 실측 · 브라우저 시험이 함께 움직인다 — description 은 `descriptionItem` 으로 간다. 정렬(`counterAxisAlignItems`)이
+  // 이 축에서 갈리는 값이라 담는다(base CENTER · description MIN). `Text` 는 이름과 설명을 담는 열이고 `Description` 은 설명 줄이다.
+  "Menu": {"key":{"by":["Layout"],"map":{"base":"panel","description":"descriptionItem"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Text":["itemSpacing","layoutMode"],"Description":["fontSize","lineHeightPercent"]}},
   "MenuTrigger": {"key":{"name":"trigger"},"parts":{"Glyph":["width","height"]}},
   "MenuPanel": {"key":{"name":"panel"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode"],"effects":["self"]},
   // 키가 `panel` 인 것은 **대조 상대의 자리 이름**이다(2026-09-01). 구분선에는 size 축이 없지만

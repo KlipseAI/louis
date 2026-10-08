@@ -15,7 +15,7 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | Surface       | 상태           | 근거                                                        |
 | ------------- | -------------- | ----------------------------------------------------------- |
 | Web           | `partial`      | `ActionMenu`·`CompositePopover` public export, 실브라우저 회귀 35건 |
-| Figma         | `done`      | 항목 set(State) + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`). 넷 다 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다(구분선 두께 0.5 포함). 서브메뉴·체크 상태는 아직 Figma 에 없다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | 항목 set(`State` × `Layout`, 두 줄 항목 `Layout=description` 2026-10-08) + 패널 component 셋(`MenuPanel`·`MenuSeparator`·`CompositePopover`). 넷 다 계약이 모든 property 를 pin 하고 기하가 붙었다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다(구분선 두께 0.5 포함). 서브메뉴·체크 상태는 아직 Figma 에 없다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                                     |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음            |
 
@@ -613,9 +613,17 @@ Anatomy 6번 안의 선행 아이콘 칩이다. 위 표에는 행이 없다.
 | 타일 면 | `color-accent-secondary-hover` | Known deviations |
 | 타일 세로 위치 | 두 줄 항목에서 `margin-block-start` 2px | 제품 `mt-1` |
 
-**Figma 변형은 아직 없다.** 항목 set(State)에 「설명 줄」·「타일」 축이 없고, 계약(`menu-popover.sizes`)도 이 슬롯을
-pin 하지 않는다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은 CSS 클래스만 있고 소비처가
-마크업을 직접 쓴다. 제품 `NodeNextStepMenu` 가 쓰는 동안 Figma 와 React 는 후속이다.
+**Figma 는 항목 set 의 `Layout=description` 이다(2026-10-08).** `Layout` = `base` · `description` 축이 `State` 일곱 값과 곱해져
+변형이 열넷이다. description 은 이름(`Label`)과 설명(`Description`, `typography/caption-regular` · `color/fg-tertiary`,
+Disabled 에서는 `color/fg-disabled`)을 `Text` 열(간격 `spacing/overlay-item-gap` 2)에 담고, 항목 정렬이 위(MIN)라 아이콘이
+첫 줄에 붙는다 — 높이 57(8 + 21 + 2 + 18 + 8). BOOLEAN 이 아니라 축인 이유는 프레임이 자기 정렬을 다시 쓰기 때문이다
+([Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 시험 2). 설명을 감추기만 하면 아이콘이 두 줄 한가운데에
+남는다. parity 계약은 `components.measured.json` 의 `menu-popover.sizes.descriptionItem`(높이 · 정렬 · 열 간격 · 설명 서체)과
+대조한다.
+
+**아이콘 타일(`data-shape="tile"`)은 Figma 에 아직 없다.** 타일 면(잉크 12% 로 닫은 값)이 Known deviations 「아이콘 타일 면」의
+소유자 판정을 기다리고 있어, 판정 전에 변형으로 굳히지 않았다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은
+CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
 
 ### 팝오버 밖 목록 — 정본으로 올리지 않고 편차로 둔다
 
@@ -690,7 +698,8 @@ submenu의 방향키가 부모 핸들러까지 실행해 focus가 부모로 튀�
   (320 CSS px · 200% 확대) 줄이 접히지 않고 패널이 `overlay.css` 의 `overflow: auto` 로 가로 스크롤된다 — WCAG
   1.4.10 reflow 와 어긋날 수 있다. 제품은 언어별 폭을 실측해 한계를 정했고(`MENU_WIDTH_PX = 300`) 접으면 두 줄 항목의
   높이가 제각각이 된다는 이유로 접지 않는다. 수동 확대 검토 뒤 접힘 허용 축(`data-wrap`)을 둘지 판정한다.
-- **두 줄 항목에는 React API 도 Figma 변형도 없다.** CSS 슬롯만 있다. 위 「두 줄 항목」 절.
+- **두 줄 항목에는 React API 가 없다.** CSS 슬롯과 Figma 변형(`Layout=description`, 2026-10-08)만 있다. 아이콘 타일은 Figma 에도
+  없다(타일 면 판정 대기). 위 「두 줄 항목」 절.
 - **팝오버 밖에서 크기를 키운 목록(`HomeCreateNewList`)은 정본이 아니다.** 위 「팝오버 밖 목록」 절.
 - **바깥 클릭이 드물게 배경 액션을 실행한다 — 간헐 결함.** 규범이 차단급으로 지정한 계약
   ("바깥 클릭은 메뉴만 닫고 배경 액션을 실행하지 않는다")이 전체 suite 실행 **36회 중 1회** 깨졌다. 실측한 증상은 **패널은 정상적으로 닫히는데 클릭이 배경까지 도달하는 것**이고,

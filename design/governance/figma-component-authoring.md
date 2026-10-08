@@ -41,6 +41,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | --- | --- | --- |
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` · (CSS `data-variant` 를 그대로 옮기는 자리는 그 철자) | **강조 단계만.** 부품 이름을 넣지 않는다. 예외 하나 — 강조 축이 없는 컴포넌트가 CSS 에서 `data-variant` 로 표현 갈래를 고르면 같은 이름 · 같은 철자로 옮긴다(Tabs `default` · `underline`, 2026-10-08). 이름을 따로 지으면 코드와 Figma 가 같은 갈래를 두 이름으로 부른다 |
+| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다 |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다 |
 | `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |

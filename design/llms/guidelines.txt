@@ -16187,7 +16187,101 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
-#### 2026-10-08 (226) — Figma: Dialog 닫기 글리프 · Menu 항목 가시성 참조
+#### 2026-10-08 (233) — Figma 100% 에 「늘리고 줄여도 제품처럼」을 넣는다 — 늘림 시험 게이트와 생성기 반응 수정
+
+소유자가 「있는 31%는 완벽한가, 화면 프레임을 가로 · 세로로 늘렸을 때 잘 반응하는가」를 물었다. 보드를 복제해 실제로 늘려 보니 아니었다 —
+요금 보드를 1440 으로 줄이면 고정 상단 바가 1920 에 묶여 오른쪽 언어 · 테마 · 시작 단추가 잘리고, 모바일 360 에서는 상단 바가 42 넘치고, 앱
+보드를 세로로 늘리면 화면이 1080 에 묶여 아래가 빈 회색이었다. 기존 게이트는 측정 폭의 위치만 봤다. 소유자는 반응을 100% 기준에 넣고 남은
+요소 채우기와 병행하라고 정했다.
+
+- 늘림 시험(045bbc54): 보드를 작업 페이지에 복제해 데스크톱 1440 · 2560 · 높이 +30%, 모바일 360 · 430 · 높이 +30% 로 바꾸고 넘침 ·
+  높이 추종 · 글자 잘림을 센 뒤 복제본을 지운다. 첫 실행(보드 142 × 세 크기): 높이 미추종 126, 공개 상단 바 일곱 화면 넘침. 원장
+  `figma/resize-check.json` 과 기준선 검사 `scripts/check-figma-resize.mjs`.
+- 생성기(d09ff6a1): 화면을 채우는 고정 레이어는 그 축에서 늘고(계산값 left · right / top · bottom 0), 화면 높이 뿌리는 보드 높이를 따르고,
+  제약 코드가 MIN · MAX 를 같은 글자로 싣던 것을 고치고, 뿌리 · 보드 틀의 폭 한계를 걷는다. 측정 폭의 위치 · 크기는 그대로다.
+- 남은 것: 가로 행 안의 한 줄 HUG 글자는 제품에서 줄며 감기지만 Figma 에서는 감기지 않는다(요금 FAQ +19 · 팔레트 결과 +30) — 측정 폭
+  parity 를 깨지 않는 규칙이 아직 없다. /terms 모바일은 측정 폭에서부터 넘친다(제품 줄 폭 맞춤 판정). 연체 배너 닫기 단추는 측정기가 겹침의
+  선언을 싣지 않아 오른쪽에 붙지 않는다.
+
+확인: 측정 폭 parity — 러너 P 가 바뀐 보드 132장에서 바뀐 칸은 크기 조합 · 최소 높이 · 제약 · 최대 폭뿐이다. 늘림 시험 재실행은 보드 재전송이 끝난 뒤(인계).
+
+#### 2026-10-08 (232) — 통합 판 측정의 오류 화면 넷은 fixture 의 CDN 주소가 없어서였다 · 사라진 글리프 「Pipeline Arrow」 를 걷는다
+
+통합 판으로 다시 잰 원장에서 랜딩(`/`) · 노드캔버스 · 편집기 · 쇼츠 넷이 제품 화면 대신 오류 경계(「Something went wrong」)로 기록됐다.
+통합 판은 영상 · 이미지 주소를 `NEXT_PUBLIC_CDN_BASE_URL` 로 만들고 값이 없으면 렌더 중에 던진다. 측정기의 fixture 서버 환경에 그 값이 없었다.
+
+- 측정기: fixture 서버 환경에 닿지 않는 측정용 주소(`https://cdn.fixture.invalid`)를 준다 — 바깥 요청은 원래 끊는다.
+- 원장: 네 화면을 다시 쟀다(결과는 아래 「확인」).
+- Figma: 제품 dbf12277 이 가이드 패널(`guide/`)을 폴더째 지워 `Product/Glyph · Name=Pipeline Arrow` 를 그리는 표면이 없어졌다. 생성기는
+  이미 variant 를 뺐고, LOUIS 세트에 남은 것은 러너가 「계획에 없는 variant」로 멈췄다. 인스턴스가 0 인 것을 센 뒤 지우고 러너를 다시 보냈다.
+
+확인: 다섯 화면을 세 번째 fixture(같은 커밋 작업 트리)로 다시 재 모두 정상 화면이다(데스크톱 / 396 · nodecanvas?project= 426 · videoeditor 468 · 쇼츠 160 노드). 막혀 있던 제품 세트 후보 26개의 서브트리가 원장에 섰다(세트는 다음 차례). 같은 원인으로 측정기에 상태 레시피 · 언어 측정을 합쳤다(e82574a7).
+
+#### 2026-10-08 (231) — 측정 상태 레시피: 탭 · 모달 · 시드가 있어야 서는 표면을 잴 준비(영역 9 · 레시피 74)
+
+「필요」 표면 가운데 상호작용(탭 · 모달 · 패널 열기)이 있어야 서는 것과 데이터(목록 · 카드)가 있어야 서는 것을 측정기가 잴 수 있게 상태 레시피를 세웠다.
+레시피는 영역 파일(`migration/measure-states/<영역>.json`)이고 결과는 영역 원장(`migration/product-states/`)에 따로 써서 기존 원장은 바이트로 그대로다.
+한 레시피가 원장 라우트 키 하나(「/admin jobs」처럼 공백 + 상태)를 만들고 주소 · 단계(역할+이름 선택자, 마지막은 waitFor) · `/api` 가로채기 · 가짜 Supabase
+오버레이 · 단언 · 통합 판 줄 인용을 갖는다. 통합 판의 어드민 탭은 주소(`?view=`)로 열린다. 스키마 · 검증기(`check-measure-states`)와 레시피 74(인용 906 확인)를
+먼저 썼고, 측정기에 끼우는 것은 다음 차례다.
+확인: 측정기에 끼웠다(e82574a7 에서 원본 측정기로 합침). 셸 영역 열 가지(커맨드 팔레트 넷 · 연체 배너 · 홈 · 편집기 · 노드캔버스 시드) × 두 뷰포트를 재고 보드 스무 장 자리를 세웠다(6218230d) — 생성기가 원장의 겹침(대화 상자 · 배너)을 앱 뿌리 마지막 자식으로 그린다. 공개 · 인증 영역도 원장이 섰다. 하이라이트 · 분석 · 랜딩 · 노드캔버스 영역은 레시피 단계가 통합 판 화면과 어긋나(클릭할 글자 없음 · 단언 실패) 고치는 중이다.
+
+#### 2026-10-08 (230) — Figma 보드의 언어를 「Klipse Locale」 변수 모드 한 번으로 바꾼다(DS-D-0081)
+
+소유자 요구 「Figma 에서 딸깍하면 언어가 바뀌게」에 변수 모드 방식을 골랐다. 제품은 en · ko · ja 를 낸다. 값은 제품이 그린 결과에서 얻는다 — 사전을
+역으로 맞추면 보드 글자의 64% 만 정확히 맞고 같은 영어가 키마다 다르게 번역된다(「Search」 → 검색 / 조회). 측정기가 로캘별로 화면을 재고 같은 DOM
+경로의 글자를 짝지어, 값이 언어마다 다른 글자만 STRING 컬렉션 「Klipse Locale」에 묶는다.
+
+Figma 동작을 먼저 실측했다(LOUIS 임시 페이지, 지운 것까지 확인): 마스터 글자 바인딩을 인스턴스가 따르고, TEXT 속성 별칭 · visible 바인딩 · 폭 맞춤
+재배치 · 페이지 단위 모드 전환이 되고, 변수 2,000개 × 3모드가 8초다. **부분 서식이 든 글자는 묶으면 첫 모드 전환에 서식이 영구히 무너진다** — 그런 글자는
+en 으로 둔다. 배치는 en 측정이라 ko/ja 는 「en 배치에 그 언어의 글자 · 줄바꿈」 미리보기다. 짝짓기 · 변수 계획 · 렌더러 바인딩(`P.locale` 이 있을 때만)을
+세웠고, 시범 보드는 `/inquiry` 다.
+확인: /inquiry 시범 계획 — 대상 7(보드 둘 · 부품 다섯) · 묶은 글자 72 · 변수 39(i18n 23 · 측정 16) · 세 값이 같아 리터럴 44 · 부분 서식이라 en 고정 12. 「Klipse Locale」 변수 러너는 LOUIS 에 보냈다. 원격 0d6d8969 가 DS-D-0080 을 먼저 써서 이 결정은 DS-D-0081 이다. 일본어 글꼴(Pretendard JP) 업로드는 소유자 권한이라 not-ready.
+
+#### 2026-10-08 (229) — 사이드바 아이콘 획을 제품처럼 1.25 로 — 생성기가 resize 로 줄여 획 2 가 남던 것
+
+소유자가 Figma 사이드바 아이콘(Search · Home · Canvas · Composition)이 제품보다 두껍다고 짚었다. 마스터는 맞았다(32 상자 · 획 2). 생성기 렌더러 다섯
+자리가 32 마스터를 20 자리에 `resize()` 로 놓아, 기하만 줄고 획 2 가 그대로 남았다 — 제품과 조립 규칙 4조의 정답은 2 × 20/32 = 1.25 다. 앱 셸 ·
+사이드바 상태 · 부품 · 업그레이드 장면 렌더러에 `fitLineIcon` 을 두어 크기를 맞춘 뒤 마스터 획에 「표시 크기 / 마스터 크기」를 곱한다(재사용 인스턴스도
+마스터에서 다시 계산). Home 의 「두 겹」은 겹친 레이어가 아니라 두꺼운 중심선 획 위에 편집기 윤곽이 포개진 것이었다.
+
+통합 판 사이드바는 Canvas · Composition 메뉴에 `Canvas.svg` · `FilmSlate.svg` 를 쓴다 — LOUIS 에 `icon/Canvas` · `icon/FilmSlate` 마스터를 세우고
+생성기 대응표를 바꿨다.
+
+**새 렌더러만으로는 라이브 세트가 바뀌지 않았다.** 사이드바 메뉴 세트(Gnb Sidebar Menu)와 접힌 레일 세트(Gnb Desktop Rail)는 이미 있어서 렌더러가 «기존
+세트» 경로를 탔는데, 그 경로는 행을 옮기고 잉크만 다시 칠해 아이콘 인스턴스를 그대로 뒀다. 러너는 성공을 냈지만 읽기 탐침에서 집 · 돋보기 인스턴스 28개 중
+25개가 획 2 였고 `icon/Canvas` · `icon/FilmSlate` 인스턴스는 0개였다(캔버스 · 컴포지션 행은 아직 옛 `icon/Graph` · `icon/MagicWand`).
+
+- 두 렌더러의 기존 세트 경로가 행 아이콘을 계획의 마스터로 `swapComponent` 하고 `fitLineIcon` 으로 맞춘다(f0e3afc8 · ac477185).
+- `swapComponent` 는 옛 아이콘 벡터의 칠 · 획 덮어쓰기를 같은 자리의 새 벡터로 옮긴다 — 캔버스 외곽 사각형이 검은 네모로 메워졌다(캡처). 매 실행 마스터의
+  칠 · 획 구성을 복사한 뒤 역할 색으로 다시 칠한다(cba0b470).
+- 사이드바 상태 러너는 편집기 보드 39:3 의 옛 손 조립 장면을 고치던 단계를 걷었다 — 그 보드는 이제 앱 화면 생성기가 소유하고, 옛 장면은 숨은 `legacy/…`
+  묶음 안에 있어 러너가 「Missing main card」로 멈췄다.
+
+확인: 메뉴 세트 집 · 돋보기 9개씩 · 캔버스 · 필름 6개씩이 20 자리 획 1.25, 캡처에서 캔버스 · 컴포지션이 외곽선 아이콘으로 선다. 접힌 레일 다섯 variant 의 행 아이콘 30개도 계획 마스터 · 획 1.25(하이라이트 기호는 획 없음)로 되읽혔다.
+
+#### 2026-10-08 (228) — 제품 측정 앵커를 작업 브랜치 통합 판으로 옮긴다(DS-D-0079) — 운영 판은 구식으로 본다
+
+소유자가 「운영 환경의 디자인은 구식이라고 보고, 지금 작업 중인 모든 브랜치를 기준으로 디자인을 생각한다」고 정했다. 작업은 `origin/dev` 위의
+원격에 없는 브랜치들에 있고, 쌓인 브랜치의 끝 일곱이 나머지를 품는다.
+
+- **통합 판.** `origin/dev`(70afc360) 위에 끝 브랜치 일곱(랜딩 · 온보딩/캔버스 도움말 · 컴포지션 전환 · 재생 · 사이드바 여백 · 포커스 링 · 어드민 운영)을
+  차례로 병합한 판 `76b6cf15` 를 앵커로 삼는다. 제품 저장소에는 쓰지 않으므로 병합은 별도 통합 저장소에만 있고, `migration/product-integration/build.sh` 가
+  같은 이름 · 날짜로 다시 만들어 같은 SHA 를 낸다(두 번 만들어 확인). 충돌 해소(문의 관리 · 배너 등 어드민 다섯은 갈래 수정 + 요소별 포커스 링 빼기, 코치마크
+  닫기는 소유자 지적 반영 판, 죽은 코드 둘은 삭제 유지)와 갈래끼리의 의미 충돌 보정 패치 하나(어드민 오류 사유 표의 새 키 둘)를 `integration.json` 이 갖는다.
+  `/docs`(정본은 klipse-docs) · 오류 보고 지연 로드는 넣지 않았다.
+- **측정을 옮겼다.** 원장 여섯(로그인 · 로그아웃 · 공개 · 공개 시드 · 세션 · 사이드바)과 regen 의 측정 열셋을 통합 판으로 다시 쟀다. 인증 화면이 `(auth-brand)`
+  라우트 그룹으로 옮겨져 측정기가 그룹 폴더를 뺀 경로로 페이지 파일을 찾게 했고, 출처 인용 28 + 생성기 인용 100여 곳을 구식 줄 글자로 통합 판에서 문맥으로 다시
+  찾았다. 통합 판의 유틸리티는 판 넷으로 나뉘어 컴포넌트 · 변형 측정기가 앱 판을 함께 컴파일한다.
+- **표면 원장.** 555종(새 표면 122 · 사라진 39). 파일만 옮겨진 10종은 판정을 옮기고, 새 112종을 판정했다(figma 22 · needed 32 · scoped 57 · unclear 1).
+  Figma 대응 64 → 82(컴포넌트 28 → 47 — 같은 날 LOUIS 세트 열셋 포함), 제품 세트 대응 33 → 30(랜딩 Footer · 요금 공지 알약 · 가이드 화살표가 제품에서 사라짐).
+- **라이브 자산 목록을 토큰 없이 뜬다.** `figma/live-assets.json`(08-23 REST 판)을 읽기 전용 플러그인 탐침(`scripts/figma-live-assets-probe.mjs`,
+  figma-sync 의 walk 와 같은 모양)으로 다시 떴다 — 컴포넌트 334 → 398, 새 마스터 `icon/Canvas` · `icon/FilmSlate` 가 들어와 보드의 마스크 아이콘 자리가 선다.
+- **인용 정규식이 라우트 그룹 괄호를 받는다.** `(auth-brand)/signup/page.tsx` 처럼 괄호 세그먼트가 든 경로를 줄로 인용한다(문서 인용 744 → 757, 자기시험 13).
+- 팔레트 사다리는 통합 판 제품의 리터럴 7자리 상승을 기준선에 기록했다(소유자 결정 — 제품 쪽 정리 후보).
+확인: 같은 날 보드 120장 · 제품 부품 41 을 통합 판 원장으로 다시 지었다(6c898a5b). 랜딩 · 노드캔버스 · 편집기 · 쇼츠 다섯 화면은 처음에 오류 경계로 재졌고 (232) 에서 되살렸다.
+
+#### 2026-10-08 (227) — Figma: Dialog 닫기 글리프 · Menu 항목 가시성 참조
 
 - `Dialog` 여섯 변형의 닫기(`Close`, IconButton ghost · md 인스턴스)가 IconButton 기본 글리프 `icon/plus` 를 그대로 물고 있어
   「+」로 보였다. `Glyph` 스왑을 LOUIS 아이콘 세트의 `icon/x`(`667:32`, IconButton 의 선호 글리프 목록에 있다)로 바꿨다.
@@ -16197,7 +16291,7 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 - 둘 다 되읽기 채취 축(기하 · 바인딩 · 속성 정의) 밖이라 `figma/readback.json` 은 되읽어 병합해도 바뀌지 않았고, parity ·
   snapshot 게이트도 이 두 결함을 잡지 못한다 — 인스턴스 안 글리프와 속성 참조를 세는 축은 아직 없다.
 
-#### 2026-10-08 (225) — Figma: FloatingShell 에 compact 변형(Size md · lg)
+#### 2026-10-08 (226) — Figma: FloatingShell 에 compact 변형(Size md · lg)
 
 - 단일 COMPONENT 이던 `FloatingShell` 이 component set(2 변형)이 됐다. 축은 `Size` 하나 — `md` 가 기존 변형(속성 없음, 조각 32 ·
   높이 40)이고 `lg` 가 코드의 `data-size="compact"`(휴대폰 폭 `≤719px` 캔버스 하단 바, 조각 40 · 높이 48)다. 기존 노드
@@ -16211,7 +16305,7 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
   축과 `sizeKeys` 를, `verify-recipe-record` 에 compact 조각 크기 대조 2건을 더했다. 되읽어 세션 기록에서 꺼내 병합했다(바인딩 fill
   2 · 원시 0). Figma 상태는 `partial` 그대로다(흐림 4 · 구분선 · 배지).
 
-#### 2026-10-08 (224) — Figma 새 컴포넌트: 노드 입력판(NodeComposer · NodeComposerError)
+#### 2026-10-08 (225) — Figma 새 컴포넌트: 노드 입력판(NodeComposer · NodeComposerError)
 
 - Node Shell 의 하위 부품 입력판(`.louis-node-shell__composer` 이하)이 DS · Components 「7 · 캔버스 · 에디터」 맨 아래에 **단일
   COMPONENT 둘**로 섰다 — `NodeComposer`(BOOLEAN `HasLead` 기본 켜짐 · `HasError` 기본 꺼짐)와 그 오류 칸 `NodeComposerError`(TEXT
@@ -16230,10 +16324,10 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 - parity 계약 둘 · 채취 명세 둘을 더하고 되읽어 세션 기록에서 꺼내 병합했다(NodeComposer 바인딩 fill 5 · NodeComposerError fill 2 ·
   텍스트 스타일 1 · 원시 0). 기록 `figma/components.measured.json` 에 `node-composer`(`composer` · `error`, 레시피 선언)를 세우고
   `verify-recipe-record` 에 한 항목(대조 16건과 면 · 헤어라인 이름 넷)을 더했다. Node Shell 의 Figma 상태는 `partial` 그대로다.
-- `figma/component-summaries.json` 을 생성기로 다시 만들었다 — (223) 이 손으로 적은 `StartCard` 줄이 문서 summary · manifest 순서와
+- `figma/component-summaries.json` 을 생성기로 다시 만들었다 — (224) 이 손으로 적은 `StartCard` 줄이 문서 summary · manifest 순서와
   달라 `check-figma-summaries` 가 어긋나 있던 것도 함께 맞았다.
 
-#### 2026-10-08 (223) — Figma 새 세트: Start Card(빈 캔버스 시작 카드), EmptyState canvas 카드를 인스턴스로
+#### 2026-10-08 (224) — Figma 새 세트: Start Card(빈 캔버스 시작 카드), EmptyState canvas 카드를 인스턴스로
 
 - **`StartCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(MediaCard 오른쪽, 2 변형). 축은 `Size` 하나 — `sm`(카드 폭
   240 미만: 이름 여백 14 · `typography/body-sm-semibold`) · `md`(240 이상: 여백 18 · `typography/body-md-semibold`)다. CSS 의 카드 폭
@@ -16254,7 +16348,7 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
   이름 여백 · 글자 크기 대조 3건과 면 · 잉크 · 굵기 이름 셋)을 더했다. md 의 18 · 16 은 컨테이너 질의 안이라 parity 만 맞댄다.
 - manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음).
 
-#### 2026-10-08 (222) — Figma 새 세트: Bare Button(맨 버튼 · 행 제목)
+#### 2026-10-08 (223) — Figma 새 세트: Bare Button(맨 버튼 · 행 제목)
 
 - **`BareButton`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(TextLink 아래, 2 변형). 축은 `Layout` 하나 — `base`
   (CSS `.louis-bare-button`) · `row-title`(CSS `.louis-row-title`)다. 두 변형 모두 면 · 테두리 · 여백이 없는 `Label` 한 줄이고 잉크는
@@ -16272,7 +16366,7 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 - manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **판정은 그대로 남는다** — 부모 글꼴을 물려받는
   `CaptionTemplateManagement` 제목을 어느 클래스로 받을지(bare-button.md Known deviations).
 
-#### 2026-10-08 (221) — Figma 새 세트: Text Link(글자 링크)
+#### 2026-10-08 (222) — Figma 새 세트: Text Link(글자 링크)
 
 - **`TextLink`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(PillTrigger 아래, 6 변형). 축은 `Tone`(default · inherit,
   CSS `data-tone`) · `Underline`(hover · none, CSS `data-underline`) · `State`(Default · Hover)다. 변형은 면 · 테두리 · 여백이 없는
@@ -16292,7 +16386,7 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 - manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **소유자 판정은 그대로 남는다** — BACK_LINK 의 밑줄
   없음(`Underline=none`)을 남길지(text-link.md Known deviations). 걷어내면 `Underline` 축 하나가 없어진다.
 
-#### 2026-10-08 (220) — Figma 새 세트: Record Card(어드민 기록 카드)
+#### 2026-10-08 (221) — Figma 새 세트: Record Card(어드민 기록 카드)
 
 - **`RecordCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(VideoPlayer 아래, 8 변형). 축은 `Layout`(base · raised,
   CSS `data-surface`) · `Expanded`(CSS `aria-expanded`) · `State`(Default · Hover)이고 텍스트 속성 `Title` · `Note` 가 있다. 머리는 Badge

@@ -269,7 +269,11 @@ const UNCLASSIFIED_BASELINE = 0;
 // 뷰포트) 4 를 빼면 +18 이다. 여기에 결제 진행 데스크톱 「Pay now」 가 Button 인스턴스가 됐다(+1, 대체가능 1 → 0) — 제품이 레이아웃 class 로
 // 최소 폭만 280 으로 넓혀 매처의 레시피 대조(min-width 48px 문자열)에서 빠지던 것을, min-width 를 바닥으로 읽게 고쳤다
 // (figma-component-substitution matchLouisPrimitive). 테마 순환 버튼 · 어드민 워드마크는 글자가 없어 보드에 묶이지 않는다(0).
-const INSTANCE_FLOOR = 281;
+// 같은 날 더 뒤: 281 → **317.** 보드가 늘어서다 — 셸 상태 레시피 보드 20(`migration/measure-states/shell.json` 의 `board`, 원장
+// `migration/product-states/shell.json`): 셸 26(사이드바 10 · 데스크톱 상단 바 6 · 모바일 상단 바 10 — 기준 화면 `/archive` · `/subscription` ·
+// `/videoeditor` · `/nodecanvas` 와 같은 조합), 허브 머리(`Product/Page Header`) 4(`/videoeditor seeded*` × 두 뷰포트), `/subscription past-due` 의
+// LOUIS Button 6(기준 `/subscription` 과 같은 본문).
+const INSTANCE_FLOOR = 317;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -324,7 +328,11 @@ const INSTANCE_FLOOR = 281;
 // replaceable −1(「Pay now」) · bespoke −2 · missing −40. 미보유 −40 은 인증 입력 칸 14 개의 `<input>`(LOUIS 사다리에 맞는 기하가 없던 미보유)
 // 14 · 가입 약관 체크 마크(22×22) 4, 나머지 22 와 bespoke 2 는 캐러셀(‹ › 둥근 버튼 · 도트) · 아티클 머리 · 드롭존(textarea · 툴바) 서브트리
 // 안의 자리다. 수는 instance 281 + replaceable 0 + bespoke 132 + blocked 10 + missing 1051.
-const CANDIDATE_FLOOR = 1474;
+// 같은 날 더 뒤: 1474 → **1933.** 보드가 늘어서다 — 셸 상태 레시피 보드 20: instance +36(위 INSTANCE_FLOOR) · bespoke +76(IconButton 13 ·
+// Button 9 · Avatar 4 · 제품 글리프 50 — 커맨드 팔레트 · 홈 카드 · 연체 배너의 인라인 그림, figma-glyph-identity 의 2026-10-08 항목) · missing +347
+// (칠해진 마크 213 · 상호작용 128 · 컨트롤 묶음 6 — 팔레트 행 · 시드 카드 그리드 · 컴포지션 카드 · 더보기 메뉴의 제품 전용 자리). 겹침(팔레트 ·
+// 연체 배너)을 이 판에서 처음 그린다(생성기 measuredTree). 수는 instance 317 + replaceable 0 + bespoke 208 + blocked 10 + missing 1398.
+const CANDIDATE_FLOOR = 1933;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
@@ -430,6 +438,29 @@ const SHELL_INSTANCES_BY_BOARD = {
   "highlight--projectId-completed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
   "videoeditor.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
   "videoeditor.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 2026-10-08 — 셸 상태 레시피 보드 20(migration/measure-states/shell.json 의 board). 셸은 기준 화면과 같은 조합이다 — 상태(팔레트 · 연체 배너 ·
+  // 시드 목록)는 본문 · 겹침에 서고 사이드바 · 상단 바는 바꾸지 않는다. 사이드바 서명이 기준과 같은 것은 생성기의 사이드바 서명 가드가 본다
+  // (`/nodecanvas` 는 기준이 오류 경계로 재져 ①만 — 위 nodecanvas 주석). 겹침은 앱 뿌리의 마지막 자식이라 셸 치환과 겹치지 않는다.
+  "archive-palette.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive-palette.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "archive-palette-flyout.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive-palette-flyout.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "archive-palette-query.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive-palette-query.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "archive-palette-empty.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive-palette-empty.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "archive-seeded.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
+  "archive-seeded.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "subscription-past-due.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Default"],
+  "subscription-past-due.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "videoeditor-seeded.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
+  "videoeditor-seeded.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "videoeditor-seeded-more-menu.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
+  "videoeditor-seeded-more-menu.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "nodecanvas-seeded.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
+  "nodecanvas-seeded.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  "nodecanvas-seeded-loading-more.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
+  "nodecanvas-seeded-loading-more.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
 };
 
 // 판정 어휘. 여기 없는 낱말은 판정이 아니라 오타이고, 오타는 어느 래칫에도 잡히지 않는다.

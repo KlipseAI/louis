@@ -38,8 +38,9 @@ const INDEX_FRAME = "266:2";
 const ALLOWED_X = [160, 2160, 2960, 4960, 5760, 7760, 8560, 10560];
 const ROW_TOP_0 = 240, ROW_GUT = 600, SEC_PAD_BOT = 200, SEC_GAP_Y = 800;
 const ceil100 = (value) => Math.ceil(value / 100) * 100;
-// 상태 보드 — 제품의 개발 전용 후크(`?__phase=` · `?preview=`)로 연 상태. 라우트 색인 항목이 아니라 검산식의 「상태 프레임」이다.
-const STATE_BOARD = /개발용 \S+ 후크/;
+// 상태 보드 — 제품의 개발 전용 후크(`?__phase=` · `?preview=`)로 연 상태, 그리고 상태 레시피(`migration/measure-states/*.json` 의 `board`,
+// 이름의 상태 판정이 「<상태> · 레시피 측정 · …」)로 잰 상태. 라우트 색인 항목이 아니라 검산식의 「상태 프레임」이다.
+const STATE_BOARD = /개발용 \S+ 후크|· 레시피 측정 ·/;
 
 const args = process.argv.slice(2);
 const die = (message) => {

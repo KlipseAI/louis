@@ -1881,8 +1881,14 @@ for (const screen of SCREENS) {
     // 인라인 색으로 선다. 그 화면만 검사에서 뺀다(측정 테마가 다른 화면은 여전히 멈춘다).
     if (measured.theme !== measuredTheme && !(measured.theme == null && screen.route === "global-error")) fail(`화면 테마 ${measured.theme} 가 fixture 테마 ${measuredTheme} 와 다릅니다: ${screen.route} @ ${context.id}`);
     if (measured.redirected) fail(`리다이렉트된 route는 대상이 아닙니다: ${screen.route}`);
+    // **겹침(2026-10-08, 상태 레시피).** 앱 뿌리 밖(body 바로 아래)에 서는 고정 겹침 — 커맨드 팔레트(role=dialog) · 연체 배너 — 은 측정기가
+    // `overlays` 에 따로 싣는다. 겹침 뿌리를 앱 뿌리의 자식으로 붙여 그린다: 겹침 뿌리는 position:fixed 이고 rect 가 뷰포트 기준이라 뿌리(0,0)
+    // 안의 절대 배치와 같고, 경로가 `overlay.N` 이라 문서 순서 정렬에서 `body.*` 형제 뒤 — 마지막 자식이 된다(조립 규칙 15조). 겹침을
+    // 싣지 않은 원장(상태 레시피 밖 전부)은 `overlays` 가 비어 있어 출력이 종전과 같다.
+    const measuredTree = [...measured.tree, ...(measured.overlays ?? []).flatMap((overlay) => overlay.tree.map((node) =>
+      (node.parentPath === null ? { ...node, parentPath: measured.rootPath } : node)))];
 
-    const tree = normalizeAuthFixtureTree(measured.tree, source.computedStyles);
+    const tree = normalizeAuthFixtureTree(measuredTree, source.computedStyles);
     const { spec, stats } = toFigmaTreeSpec(tree, {
       rootPath: measured.rootPath,
       contextId: context.id,
@@ -1896,9 +1902,9 @@ for (const screen of SCREENS) {
     // `color(srgb …)` 표기를 읽지 못해 헤어라인이 통째로 없어졌다(지금은 읽고, 안쪽 링은 획으로 옮긴다).
     // 그래서 spec 이 들고 있는 `path` 로 fixture 의 원래 계산 스타일을 다시 본다.
     const styleById = new Map(source.computedStyles.map((entry) => [entry.id, entry.value]));
-    const styleByPath = new Map(measured.tree.map((node) => [node.path, styleById.get(node.styleRef)]));
+    const styleByPath = new Map(measuredTree.map((node) => [node.path, styleById.get(node.styleRef)]));
     // 선언(`declared`)도 경로로 되찾는다 — 사이드바는 폭 수가 아니라 폭 선언으로 찾는다(figma-component-substitution.mjs).
-    const declaredByPath = new Map(measured.tree.map((node) => [node.path, node.declared ?? null]));
+    const declaredByPath = new Map(measuredTree.map((node) => [node.path, node.declared ?? null]));
     const shells = applyComponentInstances(spec, {
       route: screen.baseRoute ?? screen.route,
       context: context.id,
@@ -2064,7 +2070,15 @@ for (const screen of SCREENS) {
     }
     variantBySignature.set(signature, { route: entry.route, variant: sidebar.variant });
     const source = SIDEBAR_VARIANT_SOURCES[sidebar.variant];
-    if (source && measuredOf(source) && signatureOf(source, sidebar.path) !== signature) {
+    // 출처의 사이드바 경로는 출처 보드에서 읽는다 — 상태 레시피 화면은 앱 뿌리 앞에 겹침(연체 배너 · body 바로 아래)이 서면 뿌리가
+    // `body.2` 로 밀려 같은 사이드바가 다른 절대 경로에 있다(서명은 상대 경로라 그대로 견줄 수 있다). 출처 보드가 있는데 사이드바가
+    // 없으면(세션 원장 `/nodecanvas` 는 2026-10-08 판에서 오류 경계 「Something went wrong」로 쟀다) 출처가 사이드바를 재지 않은 것이라
+    // ②를 건너뛰고 ①만 받는다 — `Current=Highlight` 의 출처가 원장에 없을 때와 같다.
+    const sourceEntry = screens.find((other) => other.context === desktopContext && other.route === source);
+    const sourcePath = sourceEntry
+      ? sourceEntry.shells.applied.find((applied) => applied.set === COMPONENT_SETS.sidebar)?.path
+      : sidebar.path;
+    if (source && sourcePath && measuredOf(source) && signatureOf(source, sourcePath) !== signature) {
       fail(
         `${entry.route} 가 ${sidebar.variant} 를 받았지만 사이드바 서브트리가 그 variant 의 출처 ${source} 와 다릅니다. ` +
         "활성 항목이 다른 화면입니다 — PRODUCT_CURRENT_PATH 를 제품 <Gnb currentPath> 와 대조하세요.",
@@ -2124,7 +2138,8 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Landing Footer": 6,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
-  "Product/Page Header": 2,
+  // 2026-10-08: 2 → 6 — 셸 상태 레시피 `/videoeditor seeded` · `/videoeditor seeded.more-menu` × 두 뷰포트에도 같은 허브 머리가 선다.
+  "Product/Page Header": 6,
   "Product/Admin Section Header": 2,
   "Product/Select Dropdown": 4,
   "Product/Plan Comparison Table": 2,
@@ -2205,6 +2220,8 @@ const BOOTH_ADMIN_PENDING_WHY = "부스 운영 본문의 grow 자식 — 2026-09
 const LANDING_PENDING_WHY = "랜딩 개요 · 푸터의 세로 stretch 자식 — 2026-09-30 새 보드(가장 높은 형제가 HUG 로 서고 나머지가 그 높이로 늘어나는지 캡처 대조 전)";
 // 2026-10-06 앵커 a4125565 — 랜딩 노드 캔버스 목업의 두 자리는 감싸는 층이 하나 늘어 경로만 한 단계 깊어졌다(수 · 축 · 사유는 그대로).
 const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 · 하이라이트 완료(자리표시 시드)의 세로 stretch 자식 — 2026-10-07 새 보드, 캡처 대조 전";
+// 2026-10-08 — 셸 상태 레시피의 커맨드 팔레트 겹침(`overlay.1.1` 대화 상자 · 행 · 플라이아웃). 보드를 보낸 뒤 캡처로 대조한다.
+const PALETTE_PENDING_WHY = "커맨드 팔레트 대화 상자 · 행 · 플라이아웃의 stretch 자식 — 2026-10-08 새 상태 보드(겹침을 처음 그린다), 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
   // 2026-10-08 통합 판(DS-D-0079): 아래 두 자리는 잠시 0 이다 — 공개 원장의 `/` 와 세션의 `/videoeditor/[projectId]` 가 지금 오류 경계
@@ -2216,6 +2233,45 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.6.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.10.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.0 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.3 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.4 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ desktop-1920x1080 · overlay.1.1.1.0.7 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.0 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.3 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.4 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette @ mobile-402x874 · overlay.1.1.1.0.7 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1.0.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1.0.3 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1.0.4 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1.0.7 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1.0.3 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1.0.4 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1.0.7 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ desktop-1920x1080 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ desktop-1920x1080 · overlay.1.1.1.0.0 · horizontal": { count: 2, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ desktop-1920x1080 · overlay.1.1.1.0.1 · horizontal": { count: 4, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ desktop-1920x1080 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ mobile-402x874 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ mobile-402x874 · overlay.1.1.1.0.0 · horizontal": { count: 2, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ mobile-402x874 · overlay.1.1.1.0.1 · horizontal": { count: 4, why: PALETTE_PENDING_WHY },
+  "/archive palette.query @ mobile-402x874 · overlay.1.1.1.0.2 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.empty @ desktop-1920x1080 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
+  "/archive palette.empty @ mobile-402x874 · overlay.1.1 · horizontal": { count: 1, why: PALETTE_PENDING_WHY },
 };
 {
   const actual = {};

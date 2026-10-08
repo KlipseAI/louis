@@ -739,6 +739,64 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "missing",
     why: "공용 영상 플레이어의 음량 단추(`components/ui/VideoPlayerVolume.tsx` VolumeGlyph level=high — Lucide `volume-2` 패스를 몸통 · 안 물결 · 바깥 물결 셋으로 나눠 `<g>` 에 담았다)다. LOUIS 세트에 스피커 · 음량 아이콘이 없다(같은 그림의 한 패스 판은 `volume-2-lucide`). 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다.",
   },
+  // 2026-10-08 — 셸 상태 레시피 `/archive seeded`(홈에 최근 프로젝트가 있을 때만 서는 자리)에서 처음 잰 글리프 둘.
+  {
+    id: "chevron-down-12",
+    signature: "0 0 12 12|path(d=M3 4.5L6 7.5L9 4.5)",
+    louis: "icon/caret-down",
+    verdict: "bespoke",
+    why: "홈 최근 프로젝트 머리의 「새로 만들기」 버튼 오른쪽 꺾쇠(`components/scenes/HomeCreateNewMenu.tsx:123-138` — `rightIcon` 의 12 상자 1.5 획, 열리면 뒤집힌다)다. LOUIS 에 같은 뜻의 `icon/caret-down` 이 있지만 제품이 제 인라인 그림을 그린다(정본은 24 상자 polyline).",
+  },
+  {
+    id: "dots-three-vertical-circles",
+    signature: "0 0 24 24|circle(cx=12 cy=5.625 r=1.125)|circle(cx=12 cy=12 r=1.125)|circle(cx=12 cy=18.375 r=1.125)",
+    louis: "icon/dots-three-vertical",
+    verdict: "bespoke",
+    why: "홈 최근 프로젝트 카드의 더보기 버튼(`components/scenes/AppHomeScene.tsx:1371-1400` — `archiveMoreButton`, 20 으로 그리는 24 상자 원 셋)이다. 원 셋의 좌표가 LOUIS `icon/dots-three-vertical`(packages/react/src/icons/svg/dots-three-vertical.svg)과 같지만 순서가 다르고(위 · 가운데 · 아래) 제품은 그것을 물지 않고 인라인으로 그린다.",
+  },
+  // 같은 날 — 셸 상태 레시피의 겹침(커맨드 팔레트 `/archive palette*` · 연체 배너 `/subscription past-due`)에서 처음 잰 글리프 여섯.
+  {
+    id: "magnifying-glass-32-group",
+    signature: "0 0 32 32|g()|circle(cx=14 cy=14 r=10)|path(d=M21.0703 21.0703L28.0004 28.0004)",
+    louis: "icon/magnifying-glass",
+    verdict: "bespoke",
+    why: "커맨드 팔레트 검색 칸 앞 돋보기(`components/navigation/CommandPalette.tsx:858` SearchGlyph — 16 으로 그리는 32 격자, 획 2 를 `<g>` 에 둔다)다. 기하는 `magnifying-glass-32` 와 같고 `<g>` 한 겹만 다르다. LOUIS 에 같은 뜻의 `icon/magnifying-glass` 가 있지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "x-close-group",
+    signature: "0 0 24 24|g()|path(d=M18.75 5.25L5.25 18.75)|path(d=M18.75 18.75L5.25 5.25)",
+    louis: "icon/x",
+    verdict: "bespoke",
+    why: "커맨드 팔레트 머리의 닫기 단추(`components/navigation/CommandPalette.tsx:939` CloseGlyph — 16 으로 그리는 24 상자, 획 2.25 를 `<g>` 에 둔다)다. 좌표가 LOUIS `icon/x`(packages/react/src/icons/svg/x.svg)와 같지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "chevron-right-lucide-12",
+    signature: "0 0 24 24|path(d=m9 6 6 6-6 6)",
+    louis: "icon/caret-right",
+    verdict: "bespoke",
+    why: "커맨드 팔레트에서 하위 목록이 있는 행(「Change theme」 등) 오른쪽 꺾쇠(`components/navigation/CommandPalette.tsx:882` ChevronGlyph — 12 로 그리는 24 상자 lucide chevron-right, 획 2)다. LOUIS 에 같은 뜻의 `icon/caret-right` 가 있지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "key-arrow-up",
+    signature: "0 0 24 24|g()|path(d=M12 19V5)|path(d=m6 11 6-6 6 6)",
+    louis: "icon/arrow-up",
+    verdict: "bespoke",
+    why: "커맨드 팔레트 바닥 힌트의 ↑ · ↓ 키캡(`components/navigation/CommandPalette.tsx:905` KeyArrowGlyph — 12 로 그리는 24 상자, 획 2.2. 아래 화살은 같은 `<g>` 에 `rotate(180 12 12)` 를 걸 뿐이라 서명이 같다)이다. LOUIS 에 같은 뜻의 `icon/arrow-up` 이 있지만 제품이 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "key-enter",
+    signature: "0 0 24 24|g()|path(d=M20 6v6a3 3 0 0 1-3 3H5)|path(d=m9 11-4 4 4 4)",
+    louis: "icon/arrow-elbow-down-left",
+    verdict: "bespoke",
+    why: "커맨드 팔레트 바닥 힌트의 ⏎ 키캡(`components/navigation/CommandPalette.tsx:922` KeyEnterGlyph — 12 로 그리는 24 상자 둥근 꺾임 화살, 획 2.2)이다. LOUIS 에 같은 뜻의 `icon/arrow-elbow-down-left` 가 있지만 꺾임이 각지고 제품은 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "x-close-node-canvas",
+    signature: "0 0 24 24|path(d=M18.75 5.25L5.25 18.75)|path(d=M18.75 18.75L5.25 5.25)",
+    louis: "icon/x",
+    verdict: "bespoke",
+    why: "연체 배너의 닫기 단추(`aria-label` 「Dismiss」, `components/PastDueBanner.tsx:67` 이 `components/scenes/create/node-canvas/primitives.tsx:100` XIcon 을 20 으로 그린다)다. 좌표가 LOUIS `icon/x` 와 같지만 제품이 제 인라인 그림을 그린다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

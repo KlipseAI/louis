@@ -7,6 +7,7 @@
   "recipes": [
     {
       "id": "/archive palette",
+      "board": { "desktop": "2909:19777", "mobile": "2909:19778" },
       "pattern": "/archive",
       "description": "커맨드 팔레트를 연 직후(입력 비움 — 그룹 목록, 입력에 포커스). 세션 모드에 /archive 기준 화면이 없어 pattern 으로 연다. 여는 길은 ⌘K/Ctrl+K — 모바일에서도 같은 길이다(사이드바 검색 버튼은 데스크톱 펼침 사이드바에만 보인다). 프로젝트 항목은 queryOnly 라 이 상태에서는 그려지지 않지만 팔레트가 열 때 두 목록을 부르므로 가로챈다.",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
@@ -35,6 +36,7 @@
     },
     {
       "id": "/archive palette.flyout",
+      "board": { "desktop": "2909:19779", "mobile": "2909:19780" },
       "pattern": "/archive",
       "description": "팔레트의 「Change theme」 행을 눌러 오른쪽 플라이아웃(role=menu, 제목 Theme)을 연 상태. ArrowRight 는 활성 행에 하위 목록이 있을 때만 열려(CommandPalette.tsx:630) 활성 행이 첫 행(Home)인 처음 상태에서는 빗나간다 — 숨김 내비에 따라 행 번호가 바뀌므로 화살표 횟수 대신 그 행을 누른다. 누르면 그 행이 활성(onMouseMove)이 된다.",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
@@ -63,6 +65,7 @@
     },
     {
       "id": "/archive palette.query",
+      "board": { "desktop": "2909:19781", "mobile": "2909:19782" },
       "pattern": "/archive",
       "description": "팔레트에 검색어를 넣어 서비스별 프로젝트 행(queryOnly)이 선 상태. 프로젝트 행은 검색어가 있을 때만 그려진다(CommandPalette.tsx:452, Gnb.tsx:2911). 검색어 Placeholder 는 가로챈 프로젝트 이름에만 맞고 명령 행에는 맞지 않아 캔버스 · 컴포지션 · 하이라이트 그룹의 프로젝트 행만 남는다. 입력 포커스는 그대로 둔다(검색 중인 실제 상태).",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
@@ -89,6 +92,7 @@
     },
     {
       "id": "/archive palette.empty",
+      "board": { "desktop": "2909:19783", "mobile": "2909:19784" },
       "pattern": "/archive",
       "description": "어느 행에도 맞지 않는 검색어 — 팔레트 빈 상태(No results.).",
       "surfaces": ["apps/web/components/navigation/CommandPalette.tsx#CommandPalette"],
@@ -112,6 +116,7 @@
     },
     {
       "id": "/subscription past-due",
+      "board": { "desktop": "2909:19787", "mobile": "2909:19788" },
       "pattern": "/subscription",
       "description": "연체(past_due) 계정의 전폭 고정 배너. 설계서는 /archive 에 얹으라 했지만 통합 앵커에서 subscription_status 는 /api/auth/me/billing 응답(refreshBilling)에서만 채워지고(AuthProvider.tsx:281 — /api/auth/me 경량 응답은 이전 값을 물려받을 뿐이다, 230), refreshBilling 을 부르는 화면은 /subscription · /settings · /mypage/upgrade(·checkout) 뿐이다. 그 가운데 /settings · checkout 은 마운트 즉시 불러 /api/auth/me 보다 먼저 답이 오면 `if (!prev) return prev` 에서 버려진다(275, 제품 UpgradePlanPageClient.tsx 383–387 주석이 같은 경쟁을 적는다). /subscription 은 인증 로딩이 끝난 뒤에 불러(SubscriptionScene.tsx:279 · 285) 순서가 결정적이다. 세션 모드 /api/auth/me 는 프로필 시드가 없어 billing 이 null 이므로 세 응답을 모두 가로챈다. 배너는 body 바로 아래(루트 레이아웃, 앱 뿌리 밖)에 고정으로 서고 role=dialog 가 아니라 overlaySelectors 로 잡는다.",
       "surfaces": ["apps/web/components/PastDueBanner.tsx#PastDueBanner"],
@@ -154,6 +159,7 @@
     },
     {
       "id": "/archive seeded",
+      "board": { "desktop": "2909:19785", "mobile": "2909:19786" },
       "pattern": "/archive",
       "description": "홈 배너 캐러셀(배너 둘 — 점 두 개)과 최근 프로젝트 1행. 최근 프로젝트는 그리드 열 수만큼만 부른다(데스크톱 1920 → limit=5, 모바일 402 → limit=2, 하이드레이션 첫 렌더는 서버 스냅숏 3이라 한 번 더 부르고 버린다). 배너 둘이면 5.5초마다 자동으로 넘어가 잰 순간에 따라 슬라이드가 달라지므로 동작 줄이기(제품 자체가 자동 넘김을 끄는 길, AppHomeScene.tsx:307)로 잰다.",
       "reducedMotion": true,
@@ -196,6 +202,7 @@
     },
     {
       "id": "/videoeditor seeded",
+      "board": { "desktop": "2909:19789", "mobile": "2909:19790" },
       "base": "/videoeditor",
       "description": "컴포지션 허브의 히스토리 카드 그리드 — 상태 칩 셋(Done · Rendering · Editing, failed 는 Editing 글자에 위험 톤)과 썸네일 없는 카드. 목록은 클라이언트가 /api/editor/projects 로 받는다.",
       "clock": "2026-04-01T09:00:00.000Z",
@@ -220,6 +227,7 @@
     },
     {
       "id": "/videoeditor seeded.more-menu",
+      "board": { "desktop": "2909:19791", "mobile": "2909:19792" },
       "base": "/videoeditor",
       "description": "첫 카드의 더보기를 눌러 드롭다운이 열린 상태. 닫힌 드롭다운도 DOM 에 opacity 0 으로 남아(VideoEditScene.tsx:353) 글자 · 역할로는 열림을 가를 수 없어 열림 클래스(opacity-100, 360)를 CSS 로 기다리고 assert.css 로도 확인한다. 더보기 버튼은 카드 호버 때만 보이므로(333) 누른 자리에 포인터를 둔다(pointer keep) — 사용자가 메뉴를 연 직후의 모습이다.",
       "clock": "2026-04-01T09:00:00.000Z",
@@ -251,6 +259,7 @@
     },
     {
       "id": "/nodecanvas seeded",
+      "board": { "desktop": "2909:19793", "mobile": "2909:19794" },
       "base": "/nodecanvas",
       "description": "캔버스 허브의 아카이브 그리드 첫 쪽 — 머리(Canvas + 설명, 목록이 있을 때만 선다), 섹션 머리(Archive + 전체 개수), 카드 그리드. 첫 쪽은 페이지 크기만큼 꽉 차고 다음 쪽이 남는다(hasMore true — 실제 서버가 내는 꼴). 페이지 크기는 데스크톱 15 · 모바일 14(서버 스냅숏 15라 모바일은 15 요청 하나를 더 하고 버린다). 끝의 감시 줄이 화면 안에 들면 다음 쪽을 부르는데, 그 요청은 붙잡아(hold) 두 레시피 모두 결정적으로 만든다.",
       "clock": "2026-04-01T09:00:00.000Z",
@@ -284,6 +293,7 @@
     },
     {
       "id": "/nodecanvas seeded.loading-more",
+      "board": { "desktop": "2909:19795", "mobile": "2909:19796" },
       "base": "/nodecanvas",
       "description": "첫 쪽 끝까지 내려 감시 줄이 보이고 다음 쪽 요청이 진행 중인 상태 — 무한 스크롤 로딩 워드 쉬머(role=status, Loading). 감시 줄의 IntersectionObserver 는 뷰포트 기준(rootMargin 400px)이지만 그리드가 내부 스크롤 상자 안이라 내리지 않으면 잘려 보이지 않는다. 다음 쪽 요청은 hold 로 붙잡아 쉬머가 남게 한다. 감시 줄에는 역할 · 글자가 없어(aria-hidden 1px) CSS 로 찾는다.",
       "clock": "2026-04-01T09:00:00.000Z",

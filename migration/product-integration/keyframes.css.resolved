@@ -1,0 +1,1216 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+ * 전역 @keyframes — Tailwind 전환용
+ *
+ * CSS Modules 는 `@keyframes` 이름을 **파일별로 격리**한다. 그래서 같은 이름이 여러 파일에
+ * 서로 다른 본문으로 존재해도 충돌하지 않는다(저장소 전체로 보면 `toastIn` 이 7곳에
+ * 각기 다른 본문으로 있다). 유틸리티로 옮기면 그 격리가 사라지므로, 여기로 끌어올릴 때는
+ * **이름 충돌을 반드시 확인**해야 한다.
+ *
+ * 아래 117개는 옮길 때 전수 대조해 충돌이 없음을 확인한 것들이다.
+ * 앞으로 추가할 때도 같은 이름이 이미 있으면 본문을 비교하고, 다르면 네임스페이스를 붙여라
+ * (예: `videoEditModalToastIn`).
+ *
+ * 컴포넌트에서는 임의값으로 참조한다 — 지속시간·이징이 규칙마다 다르므로 `@theme` 의
+ * `--animate-*` 로 한 조합만 고정하지 않는다:
+ *   className="animate-[popoverOpen_130ms_ease-out_forwards]"
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+/* CommandPalette.module.css */
+@keyframes cmdSubmenuPopIn {
+  0% {
+  opacity: 0;
+  transform: translateY(-4px);
+  }
+  100% {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+
+/* CommandPalette.module.css */
+@keyframes cmdLabelMarquee {
+  0%,
+  12% {
+  transform: translateX(0);
+  }
+  88%,
+  100% {
+  transform: translateX(calc(var(--cmd-label-w, 0px) - 100% - 4px));
+  }
+  }
+
+/* YoutubeUploadModal.module.css */
+@keyframes yt-upload-spin {
+  to {
+  transform: rotate(360deg);
+  }
+  }
+
+
+/* VideoPlayer.module.css */
+@keyframes expandModalRootIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+  }
+
+/* VideoPlayer.module.css */
+@keyframes expandModalRootOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+  }
+
+/* VideoPlayer.module.css */
+@keyframes expandModalPanelIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+  }
+
+/* VideoPlayer.module.css */
+@keyframes expandModalPanelOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.96); }
+  }
+
+/* VideoEditProjectPicker.module.css */
+@keyframes drillSlideFwd {
+  from {
+  transform: translateX(36px);
+  opacity: 0;
+  }
+  to {
+  transform: translateX(0);
+  opacity: 1;
+  }
+  }
+
+/* VideoEditProjectPicker.module.css */
+@keyframes drillSlideBack {
+  from {
+  transform: translateX(-36px);
+  opacity: 0;
+  }
+  to {
+  transform: translateX(0);
+  opacity: 1;
+  }
+  }
+
+/* VideoEditProjectPicker.module.css */
+@keyframes pickerShimmer {
+  from {
+  background-position: 200% 50%;
+  }
+  to {
+  background-position: -200% 50%;
+  }
+  }
+
+
+
+/* HomeCreateNewMenu.module.css */
+@keyframes createMenuPopIn {
+  0% {
+  opacity: 0;
+  transform: scale(0.96) translateY(-4px);
+  }
+  100% {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  }
+  }
+
+/* HighlightTransition.module.css */
+@keyframes zoomOverlayFade {
+  from { background: rgb(0 0 0 / 0%); }
+  to { background: rgb(0 0 0 / 28%); }
+  }
+
+/* HighlightTransition.module.css */
+@keyframes zoomInExpand {
+  to {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  filter: blur(40px);
+  }
+  }
+
+/* HighlightTransition.module.css */
+@keyframes bgZoomOut {
+  from {
+  opacity: 1;
+  transform: scale(1);
+  }
+  to {
+  opacity: 0;
+  transform: scale(0.8);
+  }
+  }
+
+/* HighlightTransition.module.css */
+/* `10px` 에 `--louis-blur-surface` 라는 이름이 있지만 붙이지 않는다 — 그 이름은 표면 뒤를
+   흐리는 `backdrop-filter` 의 것이고 여기는 배경 이미지 자신의 `filter` 다. 짝이 되는 시작값
+   `40px` 에는 이름이 없어, 한 끝만 옮기면 곡선이 두 곳으로 갈린다. */
+@keyframes bgImgZoomOut {
+  from { filter: blur(40px) saturate(1.2); }
+  to { filter: blur(10px) saturate(1); }
+  }
+
+/* VideoEditorDemoPad.module.css */
+@keyframes windowFadeIn {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+
+/* InstagramNode.module.css */
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvFadePulse {
+  0% { opacity: 0; }
+  44% { opacity: 1; }
+  56% { opacity: 1; }
+  100% { opacity: 0; }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvSlideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvSlideRight {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvSlideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvWipeLeft {
+  from { clip-path: inset(0 0 0 100%); }
+  to { clip-path: inset(0 0 0 0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvWipeRight {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvWipeUp {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvWipeDown {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+  }
+
+/* VideoEditModal.module.css */
+@keyframes pvCircleOpen {
+  from { clip-path: circle(0% at 50% 50%); }
+  to { clip-path: circle(75% at 50% 50%); }
+  }
+
+
+
+
+
+/* VideoEditModal.module.css */
+@keyframes videoEditModalToastIn {
+  from {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  }
+  }
+
+/* VideoModelMenu.module.css */
+@keyframes descMarquee {
+  0%, 8% { transform: translateX(0); }
+  92%, 100% { transform: translateX(min(-300px, -50%)); }
+  }
+
+/* ColorPopover.module.css */
+@keyframes popoverOpen {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+
+
+/* NodeContextMenu.module.css */
+@keyframes menuPopIn {
+  0% {
+  opacity: 0;
+  transform: scale(0.94) translateY(-4px);
+  }
+  100% {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  }
+  }
+
+/* CanvasOnboardingHints.module.css */
+@keyframes hintRise {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+
+/* CanvasOnboardingHints.module.css */
+@keyframes firstNodeHintEnter {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+
+/* NodeLayersPanel.module.css */
+@keyframes layersBodyOpen {
+  from {
+  transform: scale(0.84);
+  }
+  72% {
+  transform: scale(1.015);
+  }
+  to {
+  transform: scale(1);
+  }
+  }
+
+/* NodeLayersPanel.module.css */
+@keyframes layersBodyClose {
+  from {
+  transform: scale(1);
+  }
+  to {
+  transform: scale(0.96);
+  }
+  }
+
+/* NodeGeneratingShimmer.module.css */
+@keyframes media-caption-fade-in {
+  from {
+  opacity: 0;
+  transform: translateY(2px);
+  }
+  to {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+
+/* 생성 중 글자 쉬머(node-canvas-v2/components/NodeGeneratingShimmer.tsx). 무늬는 요소 폭의 220%
+   (`background-size: 220%`)로 되풀이되고, 위치 p% 는 (폭 − 무늬) × p 만큼 민다. 한 바퀴의 이동이
+   무늬 폭의 정수배여야 끝 프레임과 첫 프레임이 같아 이음새 없이 돈다.
+   200% → −166.6667% 는 1.2 × 3.6667 = 4.4 폭, 무늬 두 장이다(빛 띠가 한 바퀴에 두 번 지나간다).
+   예전 값 200% → −120% 는 3.84 폭이라 무늬 1.75 장에서 끊겨, 바퀴마다 빛 띠가 다른 자리로 튀었다.
+   주기(호출부 2s)와 이 구간은 짝이다. */
+@keyframes media-caption-shimmer-sweep {
+  0% {
+  background-position: 200% 0;
+  }
+  100% {
+  background-position: -166.6667% 0;
+  }
+  }
+
+/* NodeGeneratingShimmer.module.css */
+@keyframes media-icon-grow-in {
+  from {
+  transform: scale(0.8);
+  opacity: 0;
+  }
+  to {
+  transform: scale(1);
+  opacity: 1;
+  }
+  }
+
+/* node-canvas-v2/components/NodeGeneratingShimmer.tsx — 아이콘 위 빛줄기.
+   `media-caption-shimmer-sweep` 과 같은 구간을 마스크로 흘린다(글자와 같은 박자, 같은 이음새 계산). */
+@keyframes media-icon-shimmer-sweep {
+  0% {
+  mask-position: 200% 0;
+  -webkit-mask-position: 200% 0;
+  }
+  100% {
+  mask-position: -166.6667% 0;
+  -webkit-mask-position: -166.6667% 0;
+  }
+  }
+
+/* BgmNode.module.css */
+@keyframes bgmAudioAreaGeneratingFill {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+  }
+
+/* TtsNode.module.css */
+@keyframes audioAreaGeneratingFill {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+  }
+
+/* NodeSideButtons.module.css */
+@keyframes videoInputUploadSpin {
+  to {
+  transform: rotate(360deg);
+  }
+  }
+
+/* AppHomeScene.module.css */
+@keyframes archiveCardEnter {
+  from {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  filter: saturate(92%) brightness(92%);
+  }
+  to {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: saturate(100%) brightness(100%);
+  }
+  }
+
+/* AppHomeScene.module.css */
+@keyframes archiveLoadingSweep {
+  from { background-position: 0% 50%; }
+  to { background-position: -100% 50%; }
+  }
+
+/* AppHomeScene.module.css */
+@keyframes archiveLoadingMoreShimmer {
+  from { background-position: 0% 50%; }
+  to { background-position: -100% 50%; }
+  }
+
+/* AppHomeScene.module.css 의 `toastIn` — 저장소에 같은 이름이 7곳에 서로 다른 본문으로
+   있어 네임스페이스를 붙였다(파일 헤더 규칙). */
+@keyframes appHomeToastIn {
+  from {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  }
+  }
+
+/* AppHomeScene.module.css 의 `toastOut` — 위와 같은 이유로 네임스페이스. */
+@keyframes appHomeToastOut {
+  from {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  }
+  }
+
+/* NodeCanvasV2.module.css */
+@keyframes connectHintHandlePulse {
+  0%,
+  100% {
+  box-shadow: 0 0 0 0 rgb(var(--primary-500-rgb) / 56%);
+  }
+  50% {
+  box-shadow: 0 0 0 5px rgb(var(--primary-500-rgb) / 0%);
+  }
+  }
+
+/* NodeCanvasV2.module.css */
+@keyframes bulkDownloadSpin {
+  to {
+  transform: rotate(360deg);
+  }
+  }
+
+/* NodeCanvasV2.module.css */
+@keyframes bulkDownloadPillIn {
+  from {
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(-50%);
+  }
+  }
+
+/* ArchiveAnalytics.module.css */
+@keyframes analyticsSkeletonShimmer {
+  0% {
+  transform: translateX(-100%);
+  opacity: 0;
+  }
+  50% {
+  opacity: 1;
+  }
+  100% {
+  transform: translateX(100%);
+  }
+  }
+
+
+
+/* archive/ArchiveAnalytics.module.css */
+@keyframes analyticsSkeletonFade {
+  0% {
+  opacity: 1;
+  }
+  100% {
+  opacity: 0.55;
+  }
+  }
+
+/* archive/ArchiveAnalytics.module.css */
+@keyframes detailPanelFadeIn {
+  from {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0) scale(0.992);
+  }
+  to {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  }
+  }
+
+/* AnalyticsShell.module.css */
+@keyframes dashboardBarReveal {
+  from {
+  transform: scaleX(0.08);
+  opacity: 0.4;
+  }
+  to {
+  transform: scaleX(1);
+  opacity: 1;
+  }
+  }
+
+/* AnalyticsShell.module.css */
+@keyframes dashboardBarGlow {
+  0%,
+  100% {
+  filter: saturate(1) brightness(1);
+  }
+  50% {
+  filter: saturate(1.16) brightness(1.11);
+  }
+  }
+
+/* AnalyticsShell.module.css */
+@keyframes dashboardBarSheen {
+  0%,
+  100% {
+  opacity: 0;
+  }
+  50% {
+  opacity: 1;
+  }
+  }
+
+/* nodecanvas/page.module.css */
+@keyframes projectLoadingSweep {
+  from { background-position: 0% 50%; }
+  to { background-position: -100% 50%; }
+  }
+
+/* nodecanvas/page.module.css · VideoEditScene.module.css (본문 동일) */
+@keyframes createToastIn {
+  from {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  }
+  to {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  }
+  }
+
+/* nodecanvas/page.module.css · VideoEditScene.module.css (본문 동일) */
+@keyframes createToastOut {
+  from {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  }
+  to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  }
+  }
+
+
+/* ── batch9: admin · upgrade · analytics 모듈에서 끌어올린 것 ───────────────── */
+
+/* app/admin/page.module.css 의 `suggestIn`  (원본 `suggestIn` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes adminSuggestIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* app/admin/page.module.css 의 `toastIn`  (원본 `toastIn` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes adminToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* app/admin/page.module.css 의 `fadeIn`  (원본 `fadeIn` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes adminFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* app/admin/page.module.css 의 `scaleIn`  (원본 `scaleIn` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes adminScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* app/mypage/upgrade/upgrade.module.css 의 `agreementShake` */
+@keyframes agreementShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+
+/* app/mypage/upgrade/upgrade.module.css 의 `statusLoadingSweep` */
+@keyframes statusLoadingSweep {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -100% 50%;
+  }
+}
+
+
+/* components/scenes/AnalyticsShell.module.css 의 `dashboardSkeletonPulse` */
+@keyframes dashboardSkeletonPulse {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+
+/* components/scenes/AnalyticsShell.module.css 의 `dashboardSkeletonFade` */
+@keyframes dashboardSkeletonFade {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* components/scenes/AnalyticsShell.module.css 의 `dashboardAreaReveal` */
+@keyframes dashboardAreaReveal {
+  from {
+    opacity: 0;
+    transform: scaleY(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+
+/* components/scenes/AnalyticsShell.module.css 의 `dashboardLineReveal` */
+/* `dashboardAreaBreathe` — ef17c358 에서 유실. 영역 그래프의 미세한 숨쉬기. */
+@keyframes dashboardAreaBreathe {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes dashboardLineReveal {
+  from {
+    stroke-dashoffset: 100;
+    opacity: 0.4;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* ── batch10: inquiry · highlight 모듈에서 끌어올린 것 ──────────────────────── */
+
+/* app/inquiry/page.module.css 의 `fadeUp`  (원본 `fadeUp` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes inquiryFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* app/inquiry/page.module.css 의 `toastIn`  (원본 `toastIn` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes inquiryToastIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* app/inquiry/page.module.css 의 `toastOut`  (원본 `toastOut` — 저장소에 같은 이름이 다른 본문으로 있어 네임스페이스를 붙였다) */
+@keyframes inquiryToastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+
+/* ── batch11: app/page.module.css · Gnb.module.css 에서 끌어올린 것 ────────────── */
+
+/* app/page.module.css 의 `overviewChipConverge` */
+@keyframes overviewChipConverge {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  100% {
+    transform: translate3d(var(--cx), var(--cy), 0) scale(1);
+    filter: brightness(3) saturate(0);
+  }
+}
+
+
+/* app/page.module.css 의 `overviewSymbolEmerge` */
+@keyframes overviewSymbolEmerge {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* app/page.module.css 의 `overviewSymbolShift` — ef17c358(랜딩 셸 전환)에서 유실.
+   BEAT 3: 심볼만 좌측 이동 + 25% 축소. 칩은 이 시점(3180ms) 이전에 페이드아웃돼 있어
+   함께 이동시키지 않는다. --lockup-shift 는 HomePageClient 가 공급(56px / ≤788px 42px).
+
+   ⚠ 원본에는 translateY 가 없어 `data-merge=done` / `motion-reduce` 의 상승량과
+   어긋났다(애니메이션이 죽어 있어 드러나지 않았다). 세 곳 모두 --lockup-symbol-rise 로
+   묶어 심볼이 워드마크 박스 중앙이 아니라 K 의 세로 중앙에 서게 한다. */
+@keyframes overviewSymbolShift {
+  to {
+    transform: translateX(calc(-1 * var(--lockup-shift)))
+      translateY(calc(-1 * var(--lockup-symbol-rise))) scale(0.75);
+  }
+}
+
+/* app/page.module.css 의 `overviewChipFade` — ef17c358 에서 함께 유실. */
+@keyframes overviewChipFade {
+  to {
+    opacity: 0;
+  }
+}
+
+/* app/page.module.css 의 `overviewSymbolGlint` */
+@keyframes overviewSymbolGlint {
+  0% {
+    opacity: 0;
+    background-position: 150% 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-position: -50% 0;
+  }
+}
+
+
+/* app/page.module.css 의 `overviewWordmarkIn` */
+@keyframes overviewWordmarkIn {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--lockup-shift)) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+
+/* app/page.module.css 의 `overviewBgReveal` */
+@keyframes overviewBgReveal {
+  to {
+    background-color: var(--palette-gray-000);
+  }
+}
+
+
+/* components/navigation/Gnb.module.css 의 `projectSaveCloudUploadNudge` */
+@keyframes projectSaveCloudUploadNudge {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.88;
+    transform: translateY(-1.5px);
+  }
+}
+
+
+
+
+@keyframes mobileMenuFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mobileMenuPanelIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0) scale(0.96);
+    filter: saturate(88%) blur(1px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: saturate(100%) blur(0);
+  }
+}
+
+
+/* components/scenes/AppHomeScene.module.css */
+@keyframes cardProgressSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* components/scenes/HighlightScene.module.css */
+@keyframes highlightLoadingShimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -100% 50%;
+  }
+}
+
+@keyframes sportFlyoutIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes refinementWidgetOpen {
+  from {
+    transform: scale(0.84);
+  }
+
+  72% {
+    transform: scale(1.015);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes refinementWidgetClose {
+  from {
+    transform: scale(1);
+  }
+
+  46% {
+    transform: scale(0.976);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes refineChipIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes refineThinkingIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes highlightToastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes highlightToastOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+
+/* components/scenes/MyPageScene.module.css — 전역 충돌을 피하려고 네임스페이스를 붙였다. */
+@keyframes myPageTopupPackReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes myPageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes myPageScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes myPageToastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes myPageToastOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+/* 랜딩 후기의 줄 등장 — `components/landing/sections/Testimonials.tsx`. 줄이 아래에서 한 줄씩
+   떠오른다. 함께 있던 가사 스윕(`testimonialLyricSweep`)은 소유자 지시로 걷었다(2026-09-21). */
+@keyframes testimonialLineRise {
+  from {
+    opacity: 0;
+    translate: 0 0.5em;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Hero.tsx — 랜딩 히어로 타이틀 등장. **toss.im 실측에서 온 값이다.**
+ * 토스의 「자산을 관리하는 일은 / 한껏 단순하게」 타이틀(`h2._5jkbx01`)은 CSS 가 아니라
+ * JS 인라인 스타일로 움직이고, 시작·끝 값이 정확히 이렇다:
+ *     opacity: 0 · transform: translateY(16px)  →  opacity: 1 · transform: translateY(0px)
+ * (같은 컴포넌트가 페이지 전체에 87곳 있고 전부 같은 서명이다. blur 은 양끝 모두 0 이라
+ *  실제로 움직이지 않는다 — 서명에 있다고 넣지 마라.)
+ *
+ * 곡선은 **스프링**이다. 형제 넷이 100ms 씩 스태거되는 자리에서 프레임 단위로 재 보니
+ * 120px 변형이 100ms 에 43% 를 갔고, 초반이 선형에 가깝다가 부드럽게 잦아든다 — 베지어
+ * 하나로는 정확히 못 맞춘다. `cubic-bezier(0,0,0.2,1)` 600ms 가 그 형태의 근사다. */
+@keyframes landingHeroTitleRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gnb.tsx(랜딩) — 전폭 메가 시트의 항목 등장. **toss.im 실측값이다.**
+ * 상단 내비 「서비스」 위에 실제 마우스를 올려 style 속성 변화를 프레임 단위로 받아 보니,
+ * 항목의 시작·끝 값이 정확히 이렇다:
+ *     opacity:0 · filter:blur(10px) · transform:translateY(-10px)
+ *   → opacity:1 · filter:blur(0px)  · transform:translateY(0)
+ * **위에서 아래로 내려오고, 흐릿하게 들어온다.** 히어로 타이틀(`landingHeroTitleRise`)이
+ * 아래에서 16px 올라오는 것과 방향도 거리도 블러 유무도 다르다 — 둘을 섞지 마라.
+ *
+ * 시작 시각이 31 → 96·96 → 133·133·133 → 179×4 로 **대각선 웨이브**다(열+행이 같은 항목끼리
+ * 함께 뜬다). 계단 간격은 45~65ms 이고 45ms 를 쓴다.
+ *
+ * 토스는 transform 만 스프링으로 굴리고 opacity·blur 은 끝에서 한 번에 뒤집는다
+ * (`transition-duration: 0s` 이라 CSS 전환이 아니다). 그대로 하면 내려오는 동안 아무것도
+ * 안 보이므로, 여기서는 셋을 함께 400ms 로 굴린다 — 보이는 결과는 같고 과정이 더 읽힌다.
+ *
+ * 시작 거리·흐림은 `--menu-drop-y`·`--menu-drop-blur` 로 호출부(`Gnb.tsx`)가 넘긴다.
+ * 여기 리터럴로 적으면 `10px` 이 `--louis-blur-surface`(같은 값, **다른 뜻** — 카드 면의
+ * 흐림이다)와 충돌한 것으로 잡힌다. 값이 같다고 이름을 빌리지 않는다(DS-D-0029). */
+@keyframes landingMenuItemDrop {
+  from {
+    opacity: 0;
+    filter: blur(var(--menu-drop-blur));
+    transform: translateY(var(--menu-drop-y));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* Gnb.tsx — 모바일 메뉴의 단계 이동. Apple 모바일 글로벌 내비의 `globalnav-flyout-slide-*`
+ * 네 키프레임과 같은 값이다: 거리 8px, 나가는 쪽 0ms · 들어오는 쪽 160ms 지연, 둘 다 240ms.
+ * 들어가기(forward)는 1단계가 왼쪽으로 나가고 2단계가 오른쪽에서 들어온다. 뒤로(back)는 거꾸로다.
+ * `VideoEditProjectPicker` 의 `drillSlideFwd`·`drillSlideBack`(36px, 들어오는 쪽만)과는 다른 움직임이다. */
+@keyframes gnbDrillForwardOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes gnbDrillForwardIn {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes gnbDrillBackOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+}
+
+@keyframes gnbDrillBackIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 설문(`components/analytics/ResearchOnboarding.tsx`)의 나타남 — 랜딩 개편의 리빌과 같은 모양이다. 흐릿한
+ * 채 24px 아래에서 떠올라 또렷해진다(랜딩 히어로 문구 값, 토스 섹션 문구 값). 길이 · 가감속 · 지연은 쓰는
+ * 쪽이 준다(`REVEAL`).
+ *
+ * `translate` 가 아니라 `transform` 을 움직인다 — 완료 화면 카드가 `translate` · `rotate` 로 자리를 잡는다.
+ * 끝 칸(`to`)을 두지 않는다 — 요소 자신의 값으로 끝나고, 쓰는 쪽이 `backwards` 로만 채워 끝난 뒤에는
+ * 애니메이션이 아무 값도 붙들지 않는다. `both` 로 채우면 끝 칸의 `transform` · `opacity` 가 남아 버튼의
+ * 누름 · 비활성 표현을 덮는다. 흐림은 `--reveal-blur` 로 받는다 — 리터럴 16px 은 LOUIS `blur-glass`(유리
+ * 면의 흐림, 다른 뜻)와 같은 값이라 게이트가 잡는다. */
+@keyframes surveyReveal {
+  from {
+    opacity: 0;
+    filter: blur(var(--reveal-blur));
+    transform: translateY(24px);
+  }
+}
+
+/* ModelShowcase.tsx — 지금 모델 행 아래 선이 다음 모델까지 남은 시간을 채운다. 선이 다 차는 순간(animationend)이
+ * 다음 모델로 넘어가는 신호다. */
+@keyframes modelShowcaseProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ModelShowcase.tsx — 무대 위 모델명 · 설명이 바뀔 때. 흐릿하게 12px 아래에서 떠올라 또렷해진다. 끝 칸을 두지 않아
+ * 끝난 뒤에는 요소 자신의 값으로 남는다. */
+@keyframes modelShowcaseCopy {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(12px);
+  }
+}
+
+/* Hero.tsx — 히어로 문구가 첫 페인트와 함께 흐릿한 채 24px 아래에서 떠오른다. 끝 칸을 두지 않아 끝난 뒤에는 요소 자신의
+ * 값(보임)으로 남는다 — 퇴장 전환이 그 값에서 출발한다. 흐림은 요소가 든 `--hero-text-blur` 를 읽는다.
+ *
+ * **시작 불투명도가 0 이 아니라 0.01 이다.** Chrome 은 자기 불투명도가 0 인 채로 처음 그려진 글자를 LCP 로 세지 않다가
+ * 애니메이션이 끝나 스타일이 바뀔 때에야 센다 — 헤드라인이 첫 페인트에 떠오르기 시작해도 LCP 는 800ms 뒤 끝난 순간(실측
+ * 1,172ms)으로 잡혔다. 0.01 은 16px 흐림 아래에서 눈에 보이지 않고, Chrome 은 첫 페인트를 센다(헤드리스 실측 2026-09-30). */
+@keyframes heroTextEnter {
+  from {
+    opacity: 0.01;
+    translate: 0 24px;
+    filter: blur(var(--hero-text-blur));
+  }
+}
+
+/* 앰버서더 지원서 — 질문이 넘어갈 때 다음 질문이 아래(앞으로) 또는 위(뒤로)에서 흐림을 풀며 들어온다.
+   방향은 요소의 `--amb-dir`(1 앞으로, −1 뒤로), 없으면 앞으로. `components/landing/sections/ambassador/ApplyFlow.tsx`. */
+@keyframes amb-question-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(var(--amb-dir, 1) * 28px);
+    filter: blur(var(--louis-blur-header));
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}

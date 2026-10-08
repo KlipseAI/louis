@@ -1,0 +1,1535 @@
+"use client";
+
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import Image from "next/image";
+import { preload } from "react-dom";
+import { NODE_CANVAS_HUB_PATH } from "@/lib/app-paths";
+import { gaEvent } from "@/lib/gtag";
+import { trackProductEvent } from "@/lib/product-events";
+import { useGeneration } from "../generation/GenerationProvider";
+import type { LandingDemoAction } from "../landing/demo-actions";
+import { useI18n } from "../landing/system/I18nProvider";
+import Gnb from "../navigation/Gnb";
+import Button from "../ui/Button";
+import {
+  HomeCreateNewList,
+  HomeCreateNewMenu,
+  type HomeCreateNewMenuItem,
+} from "./HomeCreateNewMenu";
+import { homeStartChoiceEvent, type HomeCreateNewMenuId } from "./homeStartChoice";
+import CreateProjectModal from "../projects/CreateProjectModal";
+import { useTheme } from "../theme/ThemeProvider";
+import { editorThumbnailUrlForTheme } from "./create/node-canvas-v2/lib/editorThumbnailVersion";
+import { canvasThumbnailUrlForTheme } from "./create/node-canvas-v2/lib/canvasThumbnailVersion";
+import type { ThemeMode } from "../theme/theme";
+import {
+  renderArchiveCanvasV2ThumbnailBlob,
+  parseNodeCanvasV2DocumentFromApi,
+} from "./create/node-canvas-v2/archiveThumbnail";
+import type { CanvasDocument } from "./create/node-canvas-v2/hooks/useCanvasPersistence";
+import { renderNodeCanvasThumbnailBlob } from "./create/node-canvas/thumbnail";
+import type { NodeCanvasDocument, ShotMode } from "./create/types";
+import {
+  canBuildDynamicThumbnail,
+  usesStoredCanvasThumbnail,
+  isEmptyNodeCanvasProject,
+  createDemoArchiveCards,
+  formatLastEditedRelative,
+  getDynamicThumbnailSignature,
+  getProjectCardLastEditedAt,
+  getProjectCardTypeEyebrow,
+  isGeneratingStatus,
+  isUploadedProject,
+  type DeleteProjectResponse,
+  type HomeProjectsResponse,
+  type ProjectCard,
+  type RenameProjectResponse,
+} from "./project-home/projectHomeModels";
+import styles from "./appHomeSceneStyles";
+import { ArchiveRailScrollShell } from "./ArchiveRailScrollShell";
+import { useArchiveGridColumnCount } from "./useArchiveProjectListPageSize";
+import { useMainChromeHeaderScrollProgress } from "./useMainChromeHeaderScrollProgress";
+import { HomeBannerSlide } from "../banners/HomeBannerSlide";
+import ModelCarousel from "../landing/sections/ModelCarousel";
+import type {
+  BannerMediaType,
+  BannerTextTone,
+  BannerVideoPlayback,
+} from "@/app/lib/banners/media";
+
+/** `/api/banners?tab=home` 응답 한 줄 — `media_type`·`text_tone`·`video_playback` 은 컬럼이다. */
+type HomeBanner = {
+  id: string;
+  title: string | null;
+  description: string | null;
+  image_url: string | null;
+  media_type: BannerMediaType;
+  text_tone: BannerTextTone | null;
+  video_playback: BannerVideoPlayback;
+};
+
+const BANNER_AUTO_ADVANCE_MS = 5_500;
+
+/** 홈 배너 아래로 옮겨 온 랜딩 「최신 AI 모델」 캐러셀의 자리.
+ *
+ *  랜딩 소유 컴포넌트를 그대로 쓰고, **랜딩 페이지에서만 성립하는 값**만 여기서 덮는다.
+ *
+ *  - `[&>section]:pt-20 pb-0` — `SectionShell` 의 `py-60`(120px)은 랜딩의 섹션 리듬이다.
+ *    앱 셸의 리듬은 40px(`styles.archiveSection` 의 `margin-top`)이라 위를 40 으로 맞추고,
+ *    아래는 0 으로 둔다(다음 블록이 자기 `margin-top:40px` 를 갖고 있어 겹치면 80 이 된다).
+ *    `SectionShell` 의 좁은 폭 대응(`≤959`·`≤640`)보다 선택자가 한 칸 길어 그대로 이긴다.
+ *  - `[&>section>div:first-child]:px-0` — `bleed` 섹션의 헤더는 트랙이 화면 끝까지 흐르는
+ *    랜딩에서 혼자 여백을 갖느라 `px-10`(20px)을 건다(`Carousel.tsx` `CarouselHeader`).
+ *    앱 셸은 이미 `--app-gnb-main-inline-padding` 으로 안쪽 여백을 갖고 있어, 그대로 두면
+ *    제목만 배너·프로젝트 카드보다 20px 안으로 들어간다. 헤더의 그 패딩만 되돌린다.
+ *
+ *  ⚠️ 355px 이하에서는 `INLINE` 마지막 단계가 `px-6!`(important)라 이 되돌리기가 지지 않는다
+ *  — 그 구간에서만 제목이 12px 더 들어간다. `important` 를 `important` 로 받아치는 대신
+ *  남겨 둔다(랜딩 쪽 값을 건드리지 않는 것이 이 변경의 조건이다).
+ *
+ *  ## `--text-muted` 한 줄이 여백보다 중요하다
+ *
+ *  `CarouselArrows` 는 비활성 글자를 `var(--text-muted)` 로 받는다. 그 값은 **`globals.css` 의
+ *  `[data-page-root]` 규칙 안에서만** 정의돼 있고, 앱 셸에는 `[data-page-root]` 가 없다
+ *  (`/archive` 에서 실측 — `document.querySelector('[data-page-root]')` 가 `null`).
+ *  그래서 그대로 옮기면 **정의되지 않은 var** 가 되어 선언 자체가 무효가 된다. 알약의 면도
+ *  한때 같은 사정이었는데(`bg-[var(--panel-strong)]` 이 라이트에서 `rgba(0, 0, 0, 0)` 으로
+ *  실측됐다), 면과 호버는 이제 랜딩 별칭이 아니라 컨트롤 시맨틱 `accent-secondary` 를 직접
+ *  읽으므로 여기 걸어 줄 필요가 없다 — 남은 것은 비활성 글자 하나다.
+ *
+ *  게이트는 이걸 못 잡는다 — 문법도 클래스명도 정상이고, 랜딩에서는 실제로 잘 나온다.
+ *
+ *  정본은 LOUIS `landing-*` 시맨틱이고 그 셋은 이미 `:root` 에 있으며 테마를 따른다
+ *  (라이트 `lab(0% 0 0 / .08)` = 잉크 8% · 다크 `lab(100% 0 0 / .08)` = 흰색 8%, 실측).
+ *  그래서 값을 새로 짓지 않고 **`[data-page-root]` 와 같은 별칭을 이 자리에만 다시 건다.**
+ *  `--gray-*` 를 팔레트로 못 박는 「핀」과는 다르다 — 그쪽은 `@theme inline` 이 값을 접어
+ *  넣어 유틸리티에 닿지 않지만, 이 셋은 애초에 임의값(`bg-[var(--panel-strong)]`)으로만
+ *  읽히므로 래퍼 선언이 그대로 도달한다. */
+const MODEL_CAROUSEL_SLOT = [
+  "[&>section]:pt-20",
+  "[&>section]:pb-0",
+  "[&>section>div:first-child]:px-0",
+  "[--text-muted:var(--louis-color-landing-text-muted)]",
+].join(" ");
+
+/**
+ * 로그인 후 앱 홈 (`/archive`): 배너·최근 프로젝트(그리드 1행 = 열 개수만큼)·플로팅 새 프로젝트.
+ * 노드 캔버스 전용 홈은 {@link NodeCanvasHomeScene} — 별도 파일이다.
+ */
+interface AppHomeSceneProps {
+  embedded?: boolean;
+  demoMode?: boolean;
+  gnbCurrentPath?: string;
+  onNavigate?: (href: string) => void;
+  onDemoAction?: (action: LandingDemoAction) => void;
+  forcedTheme?: ThemeMode;
+}
+
+/** 여는 중 잠금이 스스로 풀리기까지 — 프로젝트 생성과 화면 이동이 끝나기에 넉넉한 시간 */
+const OPENING_LOCK_SAFETY_MS = 15000;
+
+export default function AppHomeScene({
+  embedded = false,
+  demoMode = false,
+  gnbCurrentPath = "/archive",
+  onNavigate,
+  onDemoAction,
+  forcedTheme,
+}: AppHomeSceneProps) {
+  /* 미디어 없는 배너의 바닥 그림(`appHomeSceneStyles` 의 `--archive-hero-bg`). 예전에는 루트 레이아웃이 모든 경로에서
+     데스크톱 판을 미리 받았다 — 랜딩에서도 61KB 를 헛받고, 폰에서는 쓰지도 않는 판이었다. 이 화면에서, 폭에 맞는 판만. */
+  preload("/images/hero/hero-main-bg.webp", { as: "image", type: "image/webp", media: "(min-width: 961px)" });
+  preload("/images/hero/hero-main-bg-md.webp", { as: "image", type: "image/webp", media: "(max-width: 960px)" });
+  const { messages, locale } = useI18n();
+  const { theme } = useTheme();
+  const resolvedTheme = forcedTheme ?? theme;
+  const bannerTheme = resolvedTheme === "light" ? "light" : "dark";
+  const t = messages.archive;
+  const loadingLabel = t.loading;
+  const { jobs } = useGeneration();
+
+  const [cards, setCards] = useState<ProjectCard[]>([]);
+  /** db 전체 프로젝트 개수 — 페이지네이션과 무관, eyebrow 라벨용. */
+  const [totalProjectCount, setTotalProjectCount] = useState<number | null>(
+    null,
+  );
+  const [dynamicThumbnailUrls, setDynamicThumbnailUrls] = useState<
+    Record<string, string>
+  >({});
+  /**
+   * 라이트 변종 썸네일이 없는 카드.
+   *
+   * 저장된 썸네일은 다크·라이트 두 장으로 굽지만, 그 규약이 생기기 전에 만들어진 행은
+   * 다크 한 장뿐이다. 재생성은 그 프로젝트를 **열 때만** 일어나므로 허브만 보는 사람에게는
+   * 고쳐질 기회가 오지 않는다. 그래서 라이트에서는 일단 라이트 변종을 가리키고, 404 가 나면
+   * 그 카드만 원본으로 되돌린다. 실패는 카드당 한 번뿐이다.
+   */
+  const [lightThumbMissing, setLightThumbMissing] = useState<
+    Record<string, true>
+  >({});
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [renamingId, setRenamingId] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<{
+    id: string;
+    title: string;
+  } | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+  const [toastClosing, setToastClosing] = useState(false);
+  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
+    useState(false);
+  const [createProjectTriggerElement, setCreateProjectTriggerElement] =
+    useState<HTMLElement | null>(null);
+  /**
+   * 「새로 만들기」에서 고른 제품을 여는 중인 항목 — 캔버스, 컴포지션은 프로젝트를 만드는 동안과
+   * 그 뒤 화면이 바뀔 때까지, 하이라이트는 화면이 바뀔 때까지. 목록 머리 메뉴와 빈 홈 시작 자리가 함께 읽는 한 값이다.
+   * 그동안은 어느 항목도 다시 받지 않는다(프로젝트 중복 POST 방지). 만들기에 실패해 이 화면에 남을 때만 비운다 —
+   * `router.push` 는 이동이 끝나기 전에 돌아오므로 `finally` 에서 비우면 이동 중에 다시 눌린다.
+   */
+  const [openingItem, setOpeningItem] = useState<HomeCreateNewMenuId | null>(
+    null,
+  );
+  /* 목록 조회가 실패했다 — 그때 「아직 프로젝트가 없습니다」와 시작 자리를 보이면, 프로젝트가 있는 사람에게도 빈 홈이
+     보이고 거기서 고른 길이 첫 사용 기록(`onboarding_start_chosen`)에 섞인다. 실패 문구만 보인다. */
+  const [projectsLoadFailed, setProjectsLoadFailed] = useState(false);
+  /* 여는 중 잠금이 풀리지 않을 때 목록을 다시 불러오는 신호(아래 안전 타이머) */
+  const [projectsReloadTick, setProjectsReloadTick] = useState(0);
+  /** 「새로 만들기 › 하이라이트」 — 하이라이트 업로드 폼 모달 */
+  const [activeBannerIndex, setActiveBannerIndex] = useState(0);
+  const [bannerAutoAdvancePaused, setBannerAutoAdvancePaused] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [headerSlot, setHeaderSlot] = useState<HTMLDivElement | null>(null);
+  const [cardPressId, setCardPressId] = useState<string | null>(null);
+  // Date.now()를 초기값으로 쓰면 서버/클라이언트 시각이 달라 상대시간 라벨이
+  // hydration mismatch를 일으킨다. null로 시작해 첫 렌더를 일치시키고 마운트 후 채운다.
+  const [now, setNow] = useState<number | null>(null);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const id = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  /** 그리드 열 수만큼 1행(예: 5열 브레이크포인트면 5개). */
+  const recentProjectsFetchLimit = useArchiveGridColumnCount();
+
+  const menuRef = useRef<HTMLDivElement>(null);
+  const renameInputRef = useRef<HTMLInputElement>(null);
+  const archiveGridRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<ProjectCard[]>([]);
+  const pageLoadingRef = useRef(true);
+  const demoModeRef = useRef(demoMode);
+
+  cardsRef.current = cards;
+  demoModeRef.current = demoMode;
+  pageLoadingRef.current = pageLoading;
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toastFadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+    new Map(),
+  );
+  const dynamicThumbnailCacheRef = useRef<
+    Map<string, { signature: string; url: string }>
+  >(new Map());
+
+  const archiveRailScrollRef = useRef<HTMLDivElement>(null);
+
+  useMainChromeHeaderScrollProgress({
+    enabled: !embedded,
+    scrollViewportRef: archiveRailScrollRef,
+    headerSlot,
+  });
+
+  /* 홈 배너는 어드민이 관리하는 DB 행(`tab_banners`)이 정본이다.
+   *
+   * 예전에는 슬라이드 3개가 이 파일에 `as const` 상수로 박혀 있었고, `/api/banners` 응답은
+   * 제목 키워드로 그 3개의 **순서만** 바꿨다. 그래서 어드민에서 배너를 새로 추가해도 화면에
+   * 나오지 않고(매칭되는 id 가 없다), 비활성으로 바꿔도 슬라이드가 사라지지 않았다
+   * (없는 것은 뒤에 다시 붙였다). 올린 이미지도 한 번도 그려지지 않았다.
+   *
+   * CTA 버튼은 이 전환과 함께 사라진다 — 배너마다 링크·동작을 담을 컬럼이 없다. 되살리려면
+   * `tab_banners` 에 컬럼이 필요하고, 그건 스키마 변경이라 별건이다. */
+  const [bannerSlides, setBannerSlides] = useState<HomeBanner[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/banners?tab=home&locale=${locale}`)
+      .then((r) => r.json())
+      .then((json) => {
+        if (cancelled || !json.ok || !Array.isArray(json.data)) return;
+        setBannerSlides(json.data as HomeBanner[]);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [locale]);
+
+  /* 목록이 바뀌면 첫 장으로 되돌린다 — 지워진 배너의 자리에 머물면 점과 슬라이드가 어긋난다. */
+  useEffect(() => {
+    setActiveBannerIndex(0);
+  }, [bannerSlides.length]);
+
+  const activeBannerSlide = bannerSlides[activeBannerIndex] ?? bannerSlides[0] ?? null;
+
+  /* 앱 셸(.sceneAppSidebarRail)은 고정 `height:100dvh` + 내부 스크롤 모델이라, iOS Safari 등에서
+   * 100dvh 가 실제 가시 높이와 어긋나면 셸이 짧게 잡혀 하단에 흰 여백이 생긴다. 실제 가시 높이
+   * (visualViewport.height, 없으면 innerHeight)를 `--app-shell-vh` 로 주입해 셸이 정확히 화면을 채우게 한다.
+   * (CSS 는 `var(--app-shell-vh, 100dvh)` 로 폴백 — JS 미실행/하이드레이션 전에는 기존 동작 유지) */
+  useEffect(() => {
+    const root = document.documentElement;
+    const apply = () => {
+      const h = window.visualViewport?.height ?? window.innerHeight;
+      if (h > 0) root.style.setProperty("--app-shell-vh", `${Math.round(h)}px`);
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    window.visualViewport?.addEventListener("resize", apply);
+    return () => {
+      window.removeEventListener("resize", apply);
+      window.visualViewport?.removeEventListener("resize", apply);
+      root.style.removeProperty("--app-shell-vh");
+    };
+  }, []);
+
+  useEffect(() => {
+    if (bannerAutoAdvancePaused || bannerSlides.length < 2) {
+      return;
+    }
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+    const id = window.setTimeout(() => {
+      setActiveBannerIndex((prev) => (prev + 1) % bannerSlides.length);
+    }, BANNER_AUTO_ADVANCE_MS);
+    return () => window.clearTimeout(id);
+  }, [activeBannerIndex, bannerAutoAdvancePaused, bannerSlides.length]);
+
+  const fetchProjectsPage = useCallback(
+    async (
+      offset: number,
+      limit: number,
+    ): Promise<{
+      cards: ProjectCard[];
+      hasMore: boolean;
+      totalCount: number;
+    }> => {
+      const res = await fetch(
+        `/api/projects/home?limit=${limit}&offset=${offset}`,
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+        },
+      );
+
+      const result: HomeProjectsResponse = await res.json();
+      const projects = result.projects;
+
+      if (!res.ok || !result.ok || !projects) {
+        throw new Error(result.error || t.errors.loadProjectsFailed);
+      }
+
+      const pageCards: ProjectCard[] = projects.map((project) => {
+        const latestVideo = project.latestGeneratedVideo ?? null;
+        const latestUpload = project.youtubeUpload ?? null;
+
+        return {
+          id: project.id,
+          projectName: project.name?.trim() || "Untitled Project",
+          videoTitle: latestUpload?.title?.trim() || "",
+          videoDescription: latestUpload?.description?.trim() || "",
+          mainImageUrl: null,
+          nodeCanvasDocument: null,
+          nodeCanvasV2Document: parseNodeCanvasV2DocumentFromApi(
+            project.nodeCanvasV2Document ?? null,
+          ),
+          nodeCanvasV2UpdatedAt: project.nodeCanvasV2UpdatedAt ?? null,
+          nodeCanvasThumbnailUrl: project.nodeCanvasThumbnailUrl ?? null,
+          platformUrl: latestUpload?.youtubeUrl ?? null,
+          isUploaded: isUploadedProject(project),
+          createdAt:
+            project.createdAt ??
+            project.updatedAt ??
+            latestVideo?.createdAt ??
+            new Date().toISOString(),
+          updatedAt: project.updatedAt,
+          uploadedAt: latestUpload?.uploadedAt ?? project.uploadedAt ?? null,
+          scheduledFor:
+            latestUpload?.scheduledAt ?? project.scheduledFor ?? null,
+          generationStatus:
+            latestVideo?.generationStatus ?? project.status ?? null,
+          type: project.type ?? "canvas",
+          dominantColor: project.dominantColor ?? null,
+          shotMode: null,
+          soundEnabled: null,
+        };
+      });
+
+      return {
+        cards: pageCards,
+        hasMore:
+          typeof result.hasMore === "boolean"
+            ? result.hasMore
+            : pageCards.length === limit,
+        totalCount: result.totalCount ?? pageCards.length,
+      };
+    },
+    [t.errors.loadProjectsFailed],
+  );
+
+  useEffect(() => {
+    if (demoMode) {
+      const demoCards = createDemoArchiveCards(locale);
+      setCards(demoCards);
+      setPageLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    setPageLoading(true);
+    setProjectsLoadFailed(false);
+
+    (async () => {
+      try {
+        const { cards: pageCards, totalCount } = await fetchProjectsPage(
+          0,
+          recentProjectsFetchLimit,
+        );
+
+        if (cancelled) return;
+
+        setCards(pageCards);
+        setTotalProjectCount(totalCount);
+      } catch {
+        if (!cancelled) {
+          setCards([]);
+          setProjectsLoadFailed(true);
+        }
+      } finally {
+        if (!cancelled) {
+          setPageLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [demoMode, fetchProjectsPage, locale, recentProjectsFetchLimit, projectsReloadTick]);
+
+  useEffect(() => {
+    if (demoMode) return;
+
+    setCards((prev) => {
+      if (jobs.size === 0) return prev;
+
+      return prev.map((card) => {
+        const job = jobs.get(card.id);
+        if (!job) return card;
+
+        return {
+          ...card,
+          generationStatus:
+            job.status === "completed"
+              ? "completed"
+              : job.status === "generating"
+                ? "generating"
+                : job.status,
+        };
+      });
+    });
+  }, [demoMode, jobs]);
+
+  useEffect(() => {
+    if (demoMode) return;
+
+    const pending = sessionStorage.getItem("archive_toast");
+    if (pending) {
+      sessionStorage.removeItem("archive_toast");
+      showToast(pending);
+    }
+  }, [demoMode]);
+
+  useEffect(() => {
+    if (!openMenuId) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+    return () => window.removeEventListener("pointerdown", handlePointerDown);
+  }, [openMenuId]);
+
+  const startRename = (id: string, currentTitle: string) => {
+    if (demoMode && onDemoAction) {
+      onDemoAction("route-archive");
+      return;
+    }
+    setOpenMenuId(null);
+    setRenamingId(id);
+    setRenameValue(currentTitle);
+    setTimeout(() => renameInputRef.current?.focus(), 0);
+  };
+
+  const cancelRename = () => {
+    setRenamingId(null);
+    setRenameValue("");
+  };
+
+  const confirmRename = async () => {
+    if (demoMode && onDemoAction) {
+      cancelRename();
+      onDemoAction("route-archive");
+      return;
+    }
+
+    if (!renamingId || !renameValue.trim()) {
+      cancelRename();
+      return;
+    }
+
+    const trimmed = renameValue.trim();
+    const renameCard = cards.find((c) => c.id === renamingId);
+    const original = renameCard?.projectName;
+    /* 비디오 편집은 editor_projects 테이블 — /api/projects 로 보내면 404 가 된다 */
+    const isEditorRename = renameCard?.type === "videoedit";
+
+    try {
+      const res = await fetch(
+        isEditorRename
+          ? `/api/editor/projects/${renamingId}`
+          : `/api/projects/${renamingId}`,
+        {
+          method: isEditorRename ? "PUT" : "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: trimmed,
+          }),
+        },
+      );
+
+      const result: RenameProjectResponse = await res.json();
+      const renamedProject = result.project;
+
+      if (!res.ok || !result.ok || !renamedProject) {
+        throw new Error(result.error || t.errors.renameProjectFailed);
+      }
+
+      setCards((prev) =>
+        prev.map((c) =>
+          c.id === renamingId ? { ...c, projectName: renamedProject.name } : c,
+        ),
+      );
+
+      setRenamingId(null);
+      setRenameValue("");
+
+      if (renamedProject.name !== original) {
+        showToast(t.toast.renamed(renamedProject.name));
+      }
+    } catch {
+      showToast(t.errors.renameProjectFailed);
+      setRenamingId(null);
+      setRenameValue("");
+    }
+  };
+
+  const showToast = (message: string) => {
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    if (toastFadeTimer.current) clearTimeout(toastFadeTimer.current);
+
+    setToastClosing(false);
+    setToast(message);
+
+    toastTimer.current = setTimeout(() => {
+      setToastClosing(true);
+      toastFadeTimer.current = setTimeout(() => {
+        setToast(null);
+        setToastClosing(false);
+      }, 280);
+    }, 3000);
+  };
+
+  const handleCardMouseEnter = (cardId: string, el: HTMLElement) => {
+    if (demoMode) return;
+
+    const video = el.querySelector("video");
+    if (!video) return;
+
+    const timer = setTimeout(() => {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }, 400);
+
+    hoverTimers.current.set(cardId, timer);
+  };
+
+  const handleCardMouseLeave = (cardId: string, el: HTMLElement) => {
+    if (demoMode) return;
+
+    const timer = hoverTimers.current.get(cardId);
+    if (timer) {
+      clearTimeout(timer);
+      hoverTimers.current.delete(cardId);
+    }
+
+    const video = el.querySelector("video");
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (demoMode && onDemoAction) {
+      setDeleteTarget(null);
+      onDemoAction("route-archive");
+      return;
+    }
+
+    if (!deleteTarget) return;
+
+    try {
+      /* deleteTarget 은 {id,title} 뿐이라 카드 목록에서 타입을 찾아 엔드포인트를 고른다 */
+      const deleteIsEditor =
+        cards.find((c) => c.id === deleteTarget.id)?.type === "videoedit";
+      const res = await fetch(
+        deleteIsEditor
+          ? `/api/editor/projects/${deleteTarget.id}`
+          : `/api/projects/${deleteTarget.id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+
+      const result: DeleteProjectResponse = await res.json();
+
+      if (!res.ok || !result.ok) {
+        throw new Error(result.error || t.errors.deleteProjectFailed);
+      }
+
+      showToast(t.toast.deleted(deleteTarget.title));
+      setDeleteTarget(null);
+
+      const prevCount = cards.length;
+      if (prevCount <= 1) {
+        setCards([]);
+      } else {
+        const { cards: nextCards } = await fetchProjectsPage(
+          0,
+          recentProjectsFetchLimit,
+        );
+        setCards(nextCards);
+      }
+    } catch {
+      setDeleteTarget(null);
+    }
+  };
+
+  /** 이동을 시작했으면 true — 이동하지 않는 자리(랜딩 데모에 끼운 씬)에서는 false 라 여는 중 상태를 남기지 않는다. */
+  const navigate = (href: string): boolean => {
+    if (onNavigate) {
+      onNavigate(href);
+      return true;
+    }
+
+    if (!embedded && typeof window !== "undefined") {
+      window.location.href = href;
+      return true;
+    }
+    return false;
+  };
+
+  /* 여는 중 잠금의 안전 타이머 — 이동이 시작됐는데 이 장면이 내려가지 않는 경우가 있다(이동 중 사이드바로 같은
+     `/archive` 를 다시 누르면 같은 세그먼트라 언마운트되지 않는다). 그대로 두면 세 행이 쉬머로 굳고, 그사이 생긴
+     프로젝트도 목록에 오지 않는다. 일정 시간 뒤 잠금을 풀고 목록을 다시 불러온다. */
+  useEffect(() => {
+    if (!openingItem) return;
+    const timer = window.setTimeout(() => {
+      setOpeningItem(null);
+      setProjectsReloadTick((n) => n + 1);
+    }, OPENING_LOCK_SAFETY_MS);
+    return () => window.clearTimeout(timer);
+  }, [openingItem]);
+
+  /* `window.location` 으로 떠난 뒤 뒤로 가기로 bfcache 에서 되살아나면 여는 중 상태가 그대로 굳어 있다 — 풀어 준다. */
+  useEffect(() => {
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setOpeningItem(null);
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
+  const handleCreateProjectCreated = (projectId: string) =>
+    navigate(`${NODE_CANVAS_HUB_PATH}?project=${projectId}&new=1`);
+
+  /**
+   * 노드 캔버스 프로젝트를 **모달 없이 바로 생성**하고 캔버스로 진입한다.
+   * 이름은 서버가 "Untitled N"으로 자동 번호를 매긴다(빈 이름 전송).
+   * 한도 초과(403)·기타 실패 시에는 기존 생성 모달로 폴백해 한도/업그레이드 안내를 그대로 보여준다.
+   * (비디오 편집의 `handleCreateVideoEdit` 와 동일한 직접 생성-진입 패턴.)
+   */
+  const handleCreateProjectDirect = async () => {
+    if (openingItem) return;
+    setOpeningItem("canvas");
+    try {
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "draft" }),
+      });
+      if (res.status === 403) {
+        setOpeningItem(null);
+        setIsCreateProjectModalOpen(true);
+        return;
+      }
+      const result = (await res.json()) as {
+        ok?: boolean;
+        project?: { id?: string };
+      };
+      if (res.ok && result.ok && result.project?.id) {
+        gaEvent("create_project", { project_id: result.project.id });
+        /* 이동이 시작됐으면 화면이 바뀔 때까지 잠근 채로 둔다 */
+        if (!handleCreateProjectCreated(result.project.id)) setOpeningItem(null);
+        return;
+      }
+      setOpeningItem(null);
+      setIsCreateProjectModalOpen(true);
+    } catch {
+      setOpeningItem(null);
+      setIsCreateProjectModalOpen(true);
+    }
+  };
+
+  /**
+   * 비디오 편집은 목록이 아니라 **새 편집을 만들어 에디터로 바로 진입**한다.
+   * 생성 API·페이로드는 `VideoEditScene.handleNewProject` 와 동일(SSOT).
+   */
+  const handleCreateVideoEdit = async () => {
+    if (openingItem) return;
+    setOpeningItem("video-edit");
+    let href = "/videoeditor";
+    try {
+      const res = await fetch("/api/editor/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "", source_type: "upload" }),
+      });
+      const json = await res.json();
+      if (json.ok && json.data?.id) href = `/videoeditor/${json.data.id}`;
+      // 생성 실패 시에는 목록으로 폴백해 사용자가 직접 만들 수 있게 한다.
+    } catch {
+      /* 목록으로 폴백 */
+    }
+    /* 성공이든 폴백이든 이 화면을 떠나므로 화면이 바뀔 때까지 잠근 채로 둔다 */
+    if (!navigate(href)) setOpeningItem(null);
+  };
+
+  /** 하이라이트는 만들 것이 없어 바로 이동하지만, 화면이 바뀌기 전에 다시 눌리지 않게 같은 잠금을 쓴다. */
+  const handleOpenHighlight = () => {
+    if (openingItem) return;
+    if (navigate("/highlight/new")) setOpeningItem("highlight");
+  };
+
+  /** 「새로 만들기」 드롭다운 — 아이콘/이동 경로는 사이드바 내비와 동일한 3개 생성 섹션 */
+  const createNewMenuItems: ReadonlyArray<HomeCreateNewMenuItem> = [
+    {
+      id: "canvas",
+      label: t.createNewMenu.canvas,
+      hint: t.createNewMenu.hints.canvas,
+      pendingLabel:
+        openingItem === "canvas" ? t.createNewMenu.opening.canvas : null,
+      iconSrc: "/icons/Canvas.svg",
+      onSelect: (trigger) => {
+        if (demoMode && onDemoAction) {
+          onDemoAction("create-project");
+          return;
+        }
+        /* 모달 없이 바로 생성 — 실패·한도 초과 시에만 모달로 폴백한다. */
+        setCreateProjectTriggerElement(trigger);
+        void handleCreateProjectDirect();
+      },
+    },
+    {
+      id: "video-edit",
+      label: t.createNewMenu.videoEdit,
+      hint: t.createNewMenu.hints.videoEdit,
+      pendingLabel:
+        openingItem === "video-edit"
+          ? t.createNewMenu.opening.videoEdit
+          : null,
+      iconSrc: "/icons/FilmSlate.svg",
+      onSelect: () => void handleCreateVideoEdit(),
+    },
+    {
+      id: "highlight",
+      label: t.createNewMenu.highlight,
+      hint: t.createNewMenu.hints.highlight,
+      pendingLabel:
+        openingItem === "highlight" ? t.createNewMenu.opening.highlight : null,
+      iconSrc: "/highlight_symbol.svg",
+      // 하이라이트는 「새 하이라이트」 화면에서 만든다 — 허브에는 올리기 칸이 없어 한 번 더 눌러야 한다. GNB 검색의
+      // 「새 하이라이트」와 같은 곳이다
+      onSelect: handleOpenHighlight,
+    },
+  ];
+
+  /**
+   * 빈 홈 시작 자리(프로젝트 0개)의 세 행 — 목록 머리 메뉴와 같은 항목, 같은 핸들러다.
+   * 여기서 고른 길만 `onboarding_start_chosen { path }` 로 남긴다(관리자 지표의 조회와 재방문에서 빠지는 진단 기록,
+   * `lib/product-insights/metricEvents.ts`). 목록 머리 메뉴는 프로젝트가 있는 사람의 것이라 기록하지 않는다.
+   * 랜딩 데모는 보내지 않는다. 고른 제품을 여는 동안(`openingItem`, 화면이 바뀔 때까지)은 어느 행도 받지 않으므로
+   * 한 번 고른 것은 한 번만 남는다.
+   */
+  const homeStartItems: ReadonlyArray<HomeCreateNewMenuItem> =
+    createNewMenuItems.map((item) => ({
+      ...item,
+      onSelect: (trigger) => {
+        if (openingItem) return;
+        const event = homeStartChoiceEvent(item.id, { demoMode });
+        if (event) trackProductEvent("onboarding_start_chosen", event);
+        item.onSelect(trigger);
+      },
+    }));
+
+  /** 카드 타입별 목적지 경로 — 카드 클릭·새 탭 열기 공통 SSOT. */
+  const resolveCardHref = (card: ProjectCard): string => {
+    if (card.type === "highlight") return `/highlight/${card.id}`;
+    /* 비디오 편집은 별도 라우트 — 노드캔버스 허브로 보내면 빈 캔버스가 열린다 */
+    if (card.type === "videoedit") return `/videoeditor/${card.id}`;
+    return `${NODE_CANVAS_HUB_PATH}?project=${card.id}`;
+  };
+
+  const handleProjectCardClick = (card: ProjectCard) => {
+    if (renamingId) return;
+    navigate(resolveCardHref(card));
+  };
+
+  useEffect(() => {
+    const cache = dynamicThumbnailCacheRef.current;
+    const currentTheme: "dark" | "light" =
+      resolvedTheme === "light" ? "light" : "dark";
+    /* 두 테마로 구운 최신 저장본이 있는 카드는 재렌더하지 않는다 — 노드 미디어를 전부
+       내려받는 게 홈 로딩의 대부분이다(usesStoredCanvasThumbnail). */
+    const isDynamicCandidate = (card: ProjectCard) =>
+      canBuildDynamicThumbnail(card) && !usesStoredCanvasThumbnail(card);
+    const candidateIds = new Set(
+      cards.filter(isDynamicCandidate).map((card) => card.id),
+    );
+
+    for (const [cardId, entry] of cache.entries()) {
+      if (candidateIds.has(cardId)) continue;
+      URL.revokeObjectURL(entry.url);
+      cache.delete(cardId);
+    }
+
+    let cancelled = false;
+
+    async function buildDynamicThumbnails() {
+      await Promise.all(
+        cards.map(async (card) => {
+          if (!isDynamicCandidate(card)) return;
+
+          const signature = getDynamicThumbnailSignature(
+            card,
+            currentTheme,
+            locale,
+          );
+          const existing = cache.get(card.id);
+          if (existing?.signature === signature) {
+            return;
+          }
+
+          try {
+            const v2Doc = card.nodeCanvasV2Document;
+            let blob: Blob;
+            if (v2Doc && v2Doc.nodes.length > 0) {
+              blob = await renderArchiveCanvasV2ThumbnailBlob(v2Doc, {
+                theme: currentTheme,
+                locale,
+              });
+            } else {
+              const document = card.nodeCanvasDocument;
+              if (!document) return;
+              blob = await renderNodeCanvasThumbnailBlob(
+                document,
+                {
+                  sourceImage: document.sourceImageNode?.image ?? null,
+                  imageAssetNodes:
+                    document.imageAssetNodes?.map((assetNode) => ({
+                      id: assetNode.id,
+                      mainImage: assetNode.frontalImage ?? null,
+                      referenceImages: assetNode.referenceImages,
+                    })) ?? [],
+                  shotMode: card.shotMode ?? undefined,
+                  sourceImageUsage: document.sourceImageNode?.usage,
+                  withSound: card.soundEnabled ?? undefined,
+                },
+                { theme: currentTheme, transparentBackground: true },
+              );
+            }
+
+            if (cancelled) return;
+
+            const nextUrl = URL.createObjectURL(blob);
+            if (existing) {
+              URL.revokeObjectURL(existing.url);
+            }
+
+            cache.set(card.id, {
+              signature,
+              url: nextUrl,
+            });
+
+            setDynamicThumbnailUrls((prev) => ({
+              ...prev,
+              [card.id]: nextUrl,
+            }));
+          } catch {
+            // Fall back to the persisted thumbnail when dynamic rendering fails.
+          }
+        }),
+      );
+    }
+
+    void buildDynamicThumbnails();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cards, resolvedTheme, locale]);
+
+  useEffect(() => {
+    const cache = dynamicThumbnailCacheRef.current;
+
+    return () => {
+      for (const entry of cache.values()) {
+        URL.revokeObjectURL(entry.url);
+      }
+      cache.clear();
+    };
+  }, []);
+
+  return (
+    <div
+      className={
+        embedded
+          ? `${styles.scene} ${styles.sceneEmbedded}`
+          : `${styles.scene} ${styles.sceneAppSidebarRail}`
+      }
+    >
+      <Gnb
+        embedded={embedded}
+        currentPath={gnbCurrentPath}
+        createNavHub={false}
+        onNavigate={onNavigate}
+        demoPreset={demoMode ? "landing" : undefined}
+        forcedTheme={forcedTheme}
+        onDemoAction={onDemoAction}
+        mainChromeSlot={headerSlot}
+      />
+
+      <main
+        className={
+          embedded
+            ? `${styles.main} ${styles.mainEmbedded}`
+            : [
+                styles.main,
+                styles.mainWithAppSidebar,
+                pageLoading && cards.length === 0
+                  ? styles.mainWithAppSidebarLoading
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" ")
+        }
+      >
+        <ArchiveRailScrollShell
+          embedded={embedded}
+          viewportRef={archiveRailScrollRef}
+        >
+          {!embedded && (
+            <div ref={setHeaderSlot} className={styles.mainChromeHeaderSlot} />
+          )}
+          {/* 배너가 하나도 없으면 캐러셀 자체를 그리지 않는다 — 예전에는 슬라이드가 상수라
+              항상 3개였지만, 이제 DB 가 비어 있으면 보여 줄 것이 없다. */}
+          {bannerSlides.length > 0 && (
+          <section
+            className={styles.updateBanner}
+            aria-roledescription="carousel"
+            /* 제목이 없는 배너도 만들 수 있으므로 라벨은 있을 때만 붙인다 — 없는 자리를
+               새 한국어 리터럴로 메우지 않는다(사용자 노출 문구는 i18n 몫). */
+            aria-label={activeBannerSlide?.title ?? undefined}
+            onMouseEnter={() => setBannerAutoAdvancePaused(true)}
+            onMouseLeave={() => setBannerAutoAdvancePaused(false)}
+            onFocus={() => setBannerAutoAdvancePaused(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                setBannerAutoAdvancePaused(false);
+              }
+            }}
+          >
+            <div
+              className={styles.bannerTrack}
+              style={
+                {
+                  "--banner-active-index": activeBannerIndex,
+                } as CSSProperties
+              }
+            >
+              {bannerSlides.map((slide, index) => (
+                <HomeBannerSlide
+                  key={slide.id}
+                  slideId={slide.id}
+                  mediaUrl={slide.image_url}
+                  mediaType={slide.media_type}
+                  textTone={slide.text_tone}
+                  videoPlayback={slide.video_playback}
+                  theme={bannerTheme}
+                  active={activeBannerIndex === index}
+                  className={[
+                    styles.bannerSlide,
+                    activeBannerIndex === index ? styles.bannerSlideActive : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                  <div className={styles.bannerContent}>
+                    {slide.title && (
+                      <h1
+                        className={`type-heading-36-medium ${styles.bannerTitle} ${styles.bannerStaggerItem}`}
+                      >
+                        {slide.title}
+                      </h1>
+                    )}
+                    {slide.description && (
+                      <p
+                        className={`type-body-16-regular ${styles.bannerDescription} ${styles.bannerStaggerItem}`}
+                      >
+                        {slide.description}
+                      </p>
+                    )}
+                  </div>
+                </HomeBannerSlide>
+              ))}
+            </div>
+            <div className={styles.bannerControls}>
+              <div className={styles.bannerDots} role="tablist">
+                {bannerSlides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    className={styles.bannerDot}
+                    onClick={() => setActiveBannerIndex(index)}
+                    role="tab"
+                    aria-selected={activeBannerIndex === index}
+                    /* LOUIS `.louis-banner-carousel__dot` 의 활성 상태 훅 — 클래스가 아니라
+                       속성이 상태를 표현한다(DS-D-0004) */
+                    aria-current={
+                      activeBannerIndex === index ? "true" : undefined
+                    }
+                    aria-label={slide.title ?? undefined}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+          )}
+
+          {/* 랜딩의 「최신 AI 모델」 캐러셀을 배너 바로 아래에 그대로 세운다. 사진·브랜드
+              글리프·i18n 키까지 랜딩과 한 벌이고, 앱 셸에 맞지 않는 여백만 호출부에서 덮는다
+              (↑ `MODEL_CAROUSEL_SLOT`). `ModelCarousel` 자체는 랜딩 소유라 건드리지 않는다.
+              카드는 모델 페이지(`/models/[slug]`) 링크다 — 랜딩과 같은 부품이라 함께 따라왔고, 앱 홈에서도 모델을 고르는 입구로 둔다
+              (2026-10-07).
+
+              `id` 는 기본값(`models`)을 쓰지 않는다. 랜딩의 `#models` 는 그 페이지의 앵커고,
+              같은 id 를 다른 화면에 두면 나중에 이 씬이 랜딩 데모로 끼워질 때(`demoMode` 가
+              그 자리다) 문서에 같은 id 가 둘이 된다. 홈 전용 이름을 준다. */}
+          <div className={MODEL_CAROUSEL_SLOT}>
+            <ModelCarousel
+              id="home-models"
+              /* 시안(Figma 1134:4307)의 이 줄은 배너 바로 아래 붙는 카드 스트립이고
+                 「최신 AI 모델로 실험해 보세요」 같은 머리 행이 없다. */
+              title={null}
+            />
+          </div>
+
+          {pageLoading && cards.length === 0 ? (
+            <section className={styles.archiveLoadingState} aria-live="polite">
+              <span
+                className={`type-heading-28-medium ${styles.archiveLoadingWord}`}
+                role="status"
+                aria-label={loadingLabel}
+              >
+                {loadingLabel}
+              </span>
+            </section>
+          ) : cards.length === 0 && projectsLoadFailed ? (
+            <section className={styles.emptyState}>
+              <h2 className={styles.emptyTitle}>{t.errors.loadProjectsFailed}</h2>
+            </section>
+          ) : cards.length === 0 ? (
+            /* 시작 자리는 배너와 모델 캐러셀 아래, 목록이 설 자리에 그대로 둔다(소유자 2026-10-01 「모델 나열 밑에」).
+               캔버스나 컴포지션을 고르면 곧바로 프로젝트가 생기므로 이 자리는 한 번만 보인다. */
+            <section className={styles.emptyState}>
+              <h2 className={styles.emptyTitle}>
+                {t.empty.title}
+              </h2>
+              <div className={styles.emptyAction}>
+                <HomeCreateNewList items={homeStartItems} />
+              </div>
+            </section>
+          ) : (
+            <div className={styles.archiveSection}>
+              {/* 목록 라벨 ↔ 반대편(우측) 「새로 만들기」 체브론 드롭다운 */}
+              <div className={styles.archiveSectionHeader}>
+                <p
+                  id="archive-home-recent-label"
+                  className={`type-body-16-medium ${styles.archiveSectionEyebrow}`}
+                >
+                  {t.recentProjectsEyebrowHome}
+                </p>
+                <HomeCreateNewMenu
+                  triggerLabel={t.createNewMenu.trigger}
+                  items={createNewMenuItems}
+                />
+              </div>
+              <section
+                ref={archiveGridRef}
+                className={styles.archiveGrid}
+                aria-labelledby="archive-home-recent-label"
+              >
+                {cards.map((card, index) => {
+                  const cardJob = jobs.get(card.id);
+                  const isEmptyCanvas = isEmptyNodeCanvasProject(card);
+                  const hasMainImage =
+                    !isEmptyCanvas && Boolean(card.mainImageUrl);
+                  const canRenderDynamicThumbnail =
+                    canBuildDynamicThumbnail(card);
+                  /* 두 테마로 구운 최신 캔버스 저장본 — 재렌더 없이 바로 쓴다. */
+                  const storedCanvasThumbnailUsable =
+                    usesStoredCanvasThumbnail(card);
+                  const isWaitingForDynamicThumbnail =
+                    canRenderDynamicThumbnail &&
+                    !storedCanvasThumbnailUsable &&
+                    !dynamicThumbnailUrls[card.id];
+                  /* 비디오 편집 썸네일과 두 테마로 구운 캔버스 저장본은 다크·라이트 두 장이 함께
+                 구워져 있다. 현재 테마에 맞는 변종을 고른다. */
+                  const themeForStored =
+                    resolvedTheme === "light" ? "light" : "dark";
+                  const storedThumbnailUrl =
+                    card.type === "videoedit" && !lightThumbMissing[card.id]
+                      ? editorThumbnailUrlForTheme(
+                          card.nodeCanvasThumbnailUrl,
+                          themeForStored,
+                        )
+                      : storedCanvasThumbnailUsable &&
+                          card.nodeCanvasThumbnailUrl &&
+                          !lightThumbMissing[card.id]
+                        ? canvasThumbnailUrlForTheme(
+                            card.nodeCanvasThumbnailUrl,
+                            themeForStored,
+                          )
+                        : card.nodeCanvasThumbnailUrl;
+                  const resolvedNodeCanvasThumbnailUrl =
+                    dynamicThumbnailUrls[card.id] ??
+                    (isWaitingForDynamicThumbnail ? null : storedThumbnailUrl);
+                  const hasNodeCanvasThumbnail =
+                    !isEmptyCanvas && Boolean(resolvedNodeCanvasThumbnailUrl);
+                  const isGenerating =
+                    isGeneratingStatus(card.generationStatus) ||
+                    cardJob?.status === "generating";
+                  const shouldShowGeneratingMainImage =
+                    isGenerating && hasMainImage;
+
+                  return (
+                    <article
+                      key={card.id}
+                      className={`${styles.archiveCard} ${
+                        cardPressId === card.id ? styles.archiveCardPressed : ""
+                      }`}
+                      style={{ "--archive-card-index": index } as CSSProperties}
+                      onClick={() => handleProjectCardClick(card)}
+                      onContextMenu={(e) => {
+                        // 우클릭 = 더보기 버튼과 동일하게 카드 메뉴 열기
+                        if (renamingId === card.id) return;
+                        e.preventDefault();
+                        setOpenMenuId(card.id);
+                      }}
+                      onPointerDown={(e) => {
+                        const anchor = (e.target as HTMLElement).closest?.(
+                          "[data-menu-anchor]",
+                        );
+                        if (!anchor || !e.currentTarget.contains(anchor)) {
+                          setCardPressId(card.id);
+                        }
+                      }}
+                      onPointerUp={() => setCardPressId(null)}
+                      onPointerLeave={() => setCardPressId(null)}
+                      onMouseEnter={(e) =>
+                        handleCardMouseEnter(card.id, e.currentTarget)
+                      }
+                      onMouseLeave={(e) =>
+                        handleCardMouseLeave(card.id, e.currentTarget)
+                      }
+                    >
+                      <div
+                        className={`${styles.archivePreview}${card.type === "highlight" && card.dominantColor ? ` ${styles.archivePreviewHighlight}` : ""}`}
+                        style={{
+                          aspectRatio: "1 / 1",
+                          ...(card.type === "highlight" && card.dominantColor
+                            ? (() => {
+                                const [r, g, b] = card.dominantColor
+                                  .split(" ")
+                                  .map(Number);
+                                const luminance =
+                                  (0.299 * (r ?? 0) +
+                                    0.587 * (g ?? 0) +
+                                    0.114 * (b ?? 0)) /
+                                  255;
+                                return {
+                                  "--card-dominant-rgb": card.dominantColor,
+                                  "--card-text-color":
+                                    luminance > 0.5 ? "0 0 0" : "250 250 250",
+                                } as CSSProperties;
+                              })()
+                            : {}),
+                        }}
+                      >
+                        <div className={styles.archivePreviewClip}>
+                          {isWaitingForDynamicThumbnail ? (
+                            <div
+                              className={styles.nodeCanvasThumbnailSurface}
+                            />
+                          ) : hasNodeCanvasThumbnail ? (
+                            card.type === "highlight" ? (
+                              // 하이라이트 썸네일은 실사 이미지라 cover 가 자연스러움. node-canvas 미니맵용
+                              // .nodeCanvasThumbnailSurface(`.cardThumbnailImage` 를 `contain`으로 override) wrapper 를 건너뜀.
+                              <Image
+                                src={resolvedNodeCanvasThumbnailUrl ?? ""}
+                                alt=""
+                                fill
+                                sizes="(max-width: 719px) 50vw, (max-width: 1199px) 33vw, (max-width: 1799px) 25vw, 17vw"
+                                className={styles.cardThumbnailImage}
+                                unoptimized
+                              />
+                            ) : (
+                              <div
+                                className={styles.nodeCanvasThumbnailSurface}
+                              >
+                                <Image
+                                  src={resolvedNodeCanvasThumbnailUrl ?? ""}
+                                  alt=""
+                                  fill
+                                  sizes="(max-width: 719px) 50vw, (max-width: 1199px) 33vw, (max-width: 1799px) 25vw, 17vw"
+                                  className={styles.cardThumbnailImage}
+                                  unoptimized
+                                  /* 라이트 변종이 없는 구버전 썸네일 — 이 카드만 원본으로
+                                     되돌린다. `next/image` 는 `src` 를 직접 고치면 다시 덮으므로
+                                     상태로 표시해 다음 렌더에서 원본을 고르게 한다. */
+                                  onError={() =>
+                                    setLightThumbMissing((prev) =>
+                                      prev[card.id] ? prev : { ...prev, [card.id]: true },
+                                    )
+                                  }
+                                />
+                              </div>
+                            )
+                          ) : shouldShowGeneratingMainImage ? (
+                            <Image
+                              src={card.mainImageUrl ?? ""}
+                              alt=""
+                              fill
+                              sizes="(max-width: 719px) 50vw, (max-width: 1199px) 33vw, (max-width: 1799px) 25vw, 17vw"
+                              className={styles.cardThumbnailImage}
+                              unoptimized
+                            />
+                          ) : hasMainImage ? (
+                            <Image
+                              src={card.mainImageUrl ?? ""}
+                              alt=""
+                              fill
+                              sizes="(max-width: 719px) 50vw, (max-width: 1199px) 33vw, (max-width: 1799px) 25vw, 17vw"
+                              className={styles.cardThumbnailImage}
+                              unoptimized
+                            />
+                          ) : (
+                            <div
+                              className={styles.archivePreviewPlaceholder}
+                              aria-hidden="true"
+                            >
+                              {/* 빈 상태 카드 — 타입별 제품 워드마크(노드캔버스/비디오편집).
+                             하이라이트는 dominant 그라디언트 처리라 제외. */}
+                              <div
+                                className={`${styles.cardDraftThumbnail}${
+                                  card.type === "canvas"
+                                    ? ` ${styles.cardDraftWordmark} ${styles.cardDraftWordmarkCanvas}`
+                                    : card.type === "videoedit"
+                                      ? ` ${styles.cardDraftWordmark} ${styles.cardDraftWordmarkVideoEdit}`
+                                      : ""
+                                }`}
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        <div
+                          className={styles.archivePreviewTitleOverlay}
+                          aria-hidden={renamingId !== card.id}
+                        >
+                          <div
+                            className={styles.archivePreviewTitleOverlayInner}
+                          >
+                            <span
+                              className={`type-body-14-regular ${styles.archivePreviewEyebrow}${
+                                card.type === "highlight" && card.dominantColor
+                                  ? ` ${styles.archivePreviewEyebrowHighlight}`
+                                  : ""
+                              }`}
+                            >
+                              {getProjectCardTypeEyebrow(card.type, {
+                                nodeCanvas: messages.appNav.create,
+                                videoEdit: messages.appNav.videoEdit,
+                                highlight: messages.appNav.highlight,
+                              })}
+                            </span>
+                            {renamingId === card.id ? (
+                              <input
+                                ref={renameInputRef}
+                                type="text"
+                                className={`type-body-16-medium ${styles.archivePreviewTitleOverlayText} ${styles.archivePreviewTitleRenameInput}`}
+                                value={renameValue}
+                                onChange={(e) => setRenameValue(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    void confirmRename();
+                                  }
+                                  if (e.key === "Escape") {
+                                    e.preventDefault();
+                                    cancelRename();
+                                  }
+                                }}
+                                onBlur={() => void confirmRename()}
+                                onClick={(e) => e.stopPropagation()}
+                                onPointerDown={(e) => e.stopPropagation()}
+                              />
+                            ) : (
+                              <span
+                                className={`type-body-16-medium ${styles.archivePreviewTitleOverlayText}`}
+                              >
+                                {card.projectName || ""}
+                              </span>
+                            )}
+                            {(() => {
+                              const lastEditedAt =
+                                getProjectCardLastEditedAt(card);
+                              // now가 null인 첫 렌더(SSR·hydration)에서는 라벨을 렌더하지 않아
+                              // 서버/클라이언트 트리를 일치시킨다. 마운트 후 now가 채워지면 나타난다.
+                              if (!lastEditedAt || now === null) return null;
+                              const label = formatLastEditedRelative(
+                                lastEditedAt,
+                                t.card.lastEdited,
+                                now,
+                              );
+                              if (!label) return null;
+                              return (
+                                <span
+                                  className={`type-body-14-regular ${styles.archivePreviewLastEdited}`}
+                                >
+                                  {label}
+                                </span>
+                              );
+                            })()}
+                          </div>
+                        </div>
+
+                        <div
+                          className={`${styles.archiveMenuAnchor} ${styles.archiveMenuAnchorInThumbnail}`}
+                          ref={openMenuId === card.id ? menuRef : undefined}
+                          data-menu-anchor
+                        >
+                          <button
+                            type="button"
+                            className={styles.archiveMoreButton}
+                            aria-label={t.card.moreAria}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setOpenMenuId(
+                                openMenuId === card.id ? null : card.id,
+                              );
+                            }}
+                          >
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                cx="12"
+                                cy="5.625"
+                                r="1.125"
+                                fill="currentColor"
+                              />
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="1.125"
+                                fill="currentColor"
+                              />
+                              <circle
+                                cx="12"
+                                cy="18.375"
+                                r="1.125"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </button>
+
+                          <div
+                            className={`${styles.archiveDropdown} ${
+                              openMenuId === card.id
+                                ? styles.archiveDropdownOpen
+                                : ""
+                            }`}
+                          >
+                            <button
+                              type="button"
+                              className={`type-body-14-regular ${styles.archiveDropdownItem}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setOpenMenuId(null);
+                                window.open(
+                                  resolveCardHref(card),
+                                  "_blank",
+                                  "noopener,noreferrer",
+                                );
+                              }}
+                            >
+                              {t.card.openInNewTab}
+                            </button>
+                            <button
+                              type="button"
+                              className={`type-body-14-regular ${styles.archiveDropdownItem}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                startRename(card.id, card.projectName);
+                              }}
+                            >
+                              {t.card.rename}
+                            </button>
+                            <button
+                              type="button"
+                              className={`type-body-14-regular ${styles.archiveDropdownItem} ${styles.archiveDropdownItemDanger}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (demoMode && onDemoAction) {
+                                  setOpenMenuId(null);
+                                  onDemoAction("route-archive");
+                                  return;
+                                }
+                                setOpenMenuId(null);
+                                setDeleteTarget({
+                                  id: card.id,
+                                  title: card.projectName,
+                                });
+                              }}
+                            >
+                              {t.card.delete}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </section>
+            </div>
+          )}
+        </ArchiveRailScrollShell>
+      </main>
+
+      {!demoMode ? (
+        <CreateProjectModal
+          open={isCreateProjectModalOpen}
+          onClose={() => setIsCreateProjectModalOpen(false)}
+          onCreated={handleCreateProjectCreated}
+          triggerElement={createProjectTriggerElement}
+        />
+      ) : null}
+
+      {deleteTarget && (
+        <div
+          className={`${styles.modalOverlay} louis-glass-surface`}
+          onClick={() => setDeleteTarget(null)}
+        >
+          <div
+            className={`${styles.modalCard} louis-glass-surface`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className={`type-body-20-semibold ${styles.modalTitle}`}>
+              {t.deleteModal.title}
+            </h3>
+            <p className={`type-body-16-regular ${styles.modalDescription}`}>
+              {t.deleteModal.description(deleteTarget.title)}
+            </p>
+            <div className={styles.modalActions}>
+              <Button
+                variant="secondary"
+                className="flex-1"
+                onClick={() => setDeleteTarget(null)}
+              >
+                {t.deleteModal.cancel}
+              </Button>
+              <Button
+                variant="danger"
+                className="flex-1"
+                onClick={() => {
+                  void handleDeleteConfirm();
+                }}
+              >
+                {t.deleteModal.confirm}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toast && (
+        <div
+          className={
+            toastClosing
+              ? `${styles.toast} ${styles.toastClosing} louis-glass-surface`
+              : `${styles.toast} louis-glass-surface`
+          }
+        >
+          <span className={`type-body-16-regular ${styles.toastText}`}>
+            {toast}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}

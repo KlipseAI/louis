@@ -1,0 +1,2000 @@
+"use client";
+
+import {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useMemo,
+  type ChangeEvent,
+} from "react";
+import {
+  Handle,
+  Position,
+  useNodeId,
+  type NodeProps,
+  type Node as RFNode,
+} from "@xyflow/react";
+import { useI18n } from "@/components/landing/system/I18nProvider";
+import {
+  buildVideoGenerationErrorCopy,
+  mapVideoGenerationErrorToUserString,
+} from "@/lib/videoGenerationErrorMessage";
+import type { ImageNodeData } from "../types";
+import { MetaDropdownPanel } from "../components/MetaDropdownPanel";
+import { ChromeTooltip } from "../components/ChromeTooltip";
+import { NodeHeaderActions } from "../components/NodeHeaderActions";
+import {
+  NODE_GENERATING_CAPTION_SHIMMER,
+  NodeGeneratingIconSheen,
+} from "../components/NodeGeneratingShimmer";
+import { calculateImageGenerationCreditCost } from "@/app/lib/payments/token-cost";
+import { NodeSideButtons } from "./NodeSideButtons";
+import { SparkleIcon } from "../icons/SparkleIcon";
+import { wheelCaptureWhenFocusedScrollable } from "../lib/canvasWheelHelpers";
+import {
+  REACT_FLOW_NODE_NO_DRAG,
+  REACT_FLOW_NO_DRAG_PAN,
+} from "../lib/reactFlowNoDragPanClass";
+import { downloadMediaUrl } from "../lib/downloadMedia";
+import { uploadCanvasImage } from "../lib/uploadCanvasImage";
+import { aspectRatioStringToNumber } from "../lib/aspectRatio";
+import { useNodeInternalsOnLayoutResize } from "../lib/useNodeInternalsOnLayoutResize";
+import { useNodeHeaderMediaTone } from "../hooks/useNodeHeaderMediaTone";
+import { useGeneratingStageLabel } from "../hooks/useGeneratingStageLabel";
+import { useGeneratingWithTail } from "../hooks/useGeneratingWithTail";
+import { usePromptResize } from "../hooks/usePromptResize";
+import { NodePromptResizeHandle } from "../components/NodePromptResizeHandle";
+import { ToolbarChevronDown } from "../lib/nodeToolbarGlyphs";
+import { ImageIcon } from "../icons/ImageIcon";
+import {
+  NodeHandleGlyph,
+  NodeHeaderGlyph,
+  NodeTitleChipGlyph,
+} from "../icons/NodeChromeGlyphs";
+import { imageInputLocked } from "../lib/nodeChrome";
+import { VideoCameraIcon } from "../icons/VideoCameraIcon";
+import {
+  NodeNextStepMenu,
+  useCloseOnOutside,
+  useNextStepTrigger,
+} from "../components/NodeNextStepMenu";
+import { PromptLinkedImageStrip } from "../components/PromptLinkedImageStrip";
+import { CanvasFirstNodeHint, CanvasNextStepHint } from "../components/CanvasOnboardingHints";
+import { useFirstNodeHintSlot } from "../hooks/useFirstNodeHintSlot";
+import { useNextStepCoachmark } from "../hooks/useNextStepCoachmark";
+import { NodePromptGenerateButton } from "../components/NodePromptGenerateButton";
+import { NodePromptInputCopyButton } from "../components/NodePromptInputCopyButton";
+import {
+  ApiReturnedNonJsonError,
+  parseJsonFromApiResponse,
+} from "@/lib/parseApiJsonResponse";
+import { recoverImageGeneration } from "@/lib/recoverImageGeneration";
+import {
+  getClientVisibleImageModels,
+  getDefaultClientImageModel,
+  defaultQualityForModel,
+  isQualitySupported,
+  qualitiesForModel,
+} from "@/app/lib/providers/image/models";
+import type { ImageQuality } from "@/app/lib/providers/image/types";
+import {
+  NODE_CARD_SURFACE,
+  NODE_HEADER_ABOVE,
+  NODE_HEADER_ABOVE_ACTIONS,
+  NODE_TITLE_CHIP,
+  NODE_TITLE_CLIP,
+} from "../nodeShellStyles";
+
+/* ── 스타일 ────────────────────────────────────────────────────────────────────
+ * 이전 `ImageNode.module.css` (삭제) + 이 컴포넌트가 쓰던 공유 모듈 세 갈래
+ * (`NodeGeneratingShimmer.module.css` · `nodeSideHandleChrome.module.css` ·
+ * `ImageNode.module.css` 가 `composes` 로 끌어오던 `NodePromptArea.module.css`)
+ * 를 전부 유틸리티로 옮긴 것. 공유 모듈 파일 자체는 다른 노드가 계속 쓰므로 남는다.
+ *
+ * **네 갈래를 함께 옮긴 이유**: 레이어 밖 모듈 CSS 는 `@layer utilities` 를 특이도와
+ * 무관하게 무조건 이긴다. 한 요소에 유틸리티와 모듈을 섞으면 옮긴 선언이 조용히 죽는다
+ * (예: 쉬머의 `.mediaCaption{color}` 와 자체 `.generatingLabel{color}`).
+ *
+ * 원본은 다크 기본 + 라이트 오버라이드 구조다. 라이트 킬스위치 셀렉터
+ * `:is(html[data-theme="light"]:not(:has([data-landing-walkthrough-dark])), [data-landing-walkthrough-light])`
+ * 는 `tailwind.css` 에 `light:` 변형으로 그대로 등록되어 있으므로 테마 방향을 뒤집지 않는다.
+ *
+ * `hover:` 대신 `[&:hover]:` — 원본 모듈 CSS 의 `:hover` 에는 `@media (hover: hover)`
+ * 가드가 없었다. `@keyframes media-icon-*` · `media-caption-*` 는 `app/keyframes.css`
+ * 로 이미 전역화되어 있다(이름·본문 전수 대조 완료 — 추가 필요 없음).
+ *
+ * `type-*` 전역 클래스는 `globals.css` 의 `@layer base` 안이므로 `@layer utilities` 가
+ * `!` 없이 이긴다. 원본에서 모듈 CSS 가 type-* 를 덮던 선언(line-height·font-family·
+ * 워크스루 폰트)은 그래서 `!` 없는 평범한 유틸리티로 옮긴다.
+ *
+ * ## 레이어 밖 전역과 다투는 선언 — `!` 가 필요한 곳
+ *
+ * 같은 이유로, **특이도가 낮아도 레이어 밖이면 유틸리티를 이긴다**. 원본 모듈 CSS 는
+ * 레이어 밖이라 소스 순서로 이기고 있었으므로, 옮길 때 `!` 를 붙이지 않으면 조용히 죽는다:
+ *
+ *   1. `globals.css` 의 `* { scrollbar-width; scrollbar-color }` 와
+ *      `*::-webkit-scrollbar{,-track,-thumb,-thumb:hover}` — 특이도 0 이지만 레이어 밖이라
+ *      스크롤바 커스터마이즈가 전부 무력화된다. → 프롬프트 textarea 스크롤바 선언 전부 `!`
+ *      (width · background · border-radius). 전역 thumb 은 `background-clip: padding-box`
+ *      까지 깔아 두는데 원본은 `background` 단축으로 그걸 초기값(border-box)으로 되돌렸다
+ *      → `bg-clip-border!` 를 함께 준다. (전역 thumb 의 `border: 2px solid transparent`
+ *      는 원본에서도 살아 있던 값이라 그대로 둔다.)
+ *   2. 랜딩 `page.module.css` 의 `[data-page-root] :where(h1,…,span,button,…) { text-wrap: balance;
+ *      word-break: keep-all; overflow-wrap: break-word }` — `text-wrap` 이 `white-space`
+ *      와 `text-wrap-mode` 롱핸드를 공유해 `whitespace-nowrap` 이 무시된다.
+ *      → span/button 요소의 `whitespace-nowrap!` 6곳. (`div` 는 그 `:where()` 목록에
+ *      없으므로 `.metaToolbar`/`.dropdownEyebrow` 의 white-space 는 `!` 가 필요 없다.)
+ *   3. globals `[data-tooltip]:not([data-tooltip=""])::after` 가 position·top·white-space·
+ *      pointer-events·color·box-shadow·padding 을 레이어 밖에서 공급한다. 소스 핸들이
+ *      옮기는 것은 `left` 하나뿐이고 전역은 `left` 를 세우지 않으므로 충돌이 없다
+ *      (그 일곱 프로퍼티는 이 파일에서 아예 옮기지 않는다 — 전역 SSOT 그대로 둔다).
+ *   4. React Flow 자체 스타일시트(`@xyflow/react/dist/style.css`) 는 레이어 밖이라
+ *      `.react-flow__handle` 의 position·top·left·크기·배경·테두리·transform 을 이긴다.
+ *      원본 `.sourceHandle` 이 전 선언에 `!important` 를 달았던 이유가 그것이므로 그대로 옮긴다.
+ *   5. `NodePromptGenerateButton.module.css` 의 `.root{margin:0}` · `.chrome{transform;
+ *      transition;flex-shrink}` 도 레이어 밖 → 생성 FAB 의 `ml-4!` · `flex-[0_0_auto]!` ·
+ *      워크스루 프레스 변형 `!`.
+ *   6. `MetaDropdownPanel.module.css` 의 `.motion{opacity;transform}` · `.motionOpen
+ *      {pointer-events}` 도 레이어 밖 → 마케팅 정적 노출 오버라이드에 `!`.
+ *   7. ChromeTooltip 호스트의 기본 `inline-flex` 를 덮던 `display: contents` → `contents!`.
+ *
+ * 노드 카드 외곽선(2px) · 선택 accent · 사이드 핸들 비활성 배경은
+ * `NodeCanvasV2.module.css` 가 `data-node-chrome="wrap"` · `data-node-title="plain"` ·
+ * `data-side-handle-facet` 속성으로 공급한다 (SSOT) — 속성은 그대로 유지한다.
+ */
+
+/* ── Node Container ── */
+const NODE_CONTAINER = [
+  "[--node-card-width:400px]",
+  "[--node-side-outset:0px]",
+  "relative flex flex-col items-center gap-5",
+  "[transition:opacity_220ms_ease-out,transform_220ms_cubic-bezier(0.34,1.56,0.64,1)]",
+].join(" ");
+
+/* 등장(spawn) 전/후 — 같은 프로퍼티를 다투므로 상호배타 분기로 갈라 둔다. */
+const NODE_CONTAINER_IDLE = "opacity-0 [transform:scale(0.96)]";
+const NODE_CONTAINER_ANIMATE = "opacity-100 [transform:scale(1)]";
+
+/* 원본 `.nodeContainerChrome` 의 기본 선언(`--node-side-outset: 0px`, `align-items: center`)은
+   `.nodeContainer` 와 값이 같아 no-op 이라 생략한다. 실제로 달라지는 것은 마케팅 스코프뿐:
+   랜딩/마케팅(`data-node-canvas-marketing`) 에서만 좌우 크롬을 노드 박스 안에 포함한다. */
+const NODE_CONTAINER_CHROME = [
+  "[[data-node-canvas-marketing]_&]:[--node-side-outset:var(--node-side-leading-offset)]",
+  "[[data-node-canvas-marketing]_&]:items-stretch",
+].join(" ");
+
+const NODE_MAIN =
+  "relative w-[calc(var(--node-card-width)_+_2_*_var(--node-side-outset))]";
+
+/* 미디어 코너 반경 · 오버레이 타이틀 등 — 카드 크롬 기준은 NODE_WRAP */
+const NODE_MAIN_MEDIA_BAND = "relative w-full";
+
+/* ── Card ──
+ * 미디어·프롬프트 코너 곡률은 캔버스 `--node-inner-radius` 상속 (외곽 24px − border 2px).
+ * 외곽선(border)은 NodeCanvasV2.module.css 에서 일괄 관리한다 (SSOT). */
+const NODE_WRAP = [
+  "relative w-[var(--node-card-width)] ml-[var(--node-side-outset)] box-border",
+  "rounded-[var(--node-outer-radius,24px)] overflow-visible",
+  /* 카드 면 — 바닥의 한 칸 위(`NODE_CARD_SURFACE` 주석). */
+  NODE_CARD_SURFACE,
+  "cursor-default select-none",
+].join(" ");
+
+/* 아이콘·타이틀 한 줄 수직 정렬.
+   미선택 다크 헤더 색 — 라이트 gray-700 override 는 원본 `.nodeHeaderAbove .nodeTitleWrap`
+   규칙에서 왔다(이 파일의 유일한 사용처가 헤더 안이라 승자 선언만 남긴다).
+   선택 시 accent 는 NodeCanvasV2 가 `data-node-title="plain"` 으로 !important 로 덮는다.
+   `w-auto`~`p-0`: 내용폭만 차지(늘어나지 않음) → 편집 모드 칩이 타이틀 바로 옆에 붙는다. */
+const NODE_TITLE_WRAP = [
+  "flex items-center gap-[5px]",
+  "w-auto flex-[0_1_auto] min-w-0 m-0 p-0",
+  "text-[rgb(var(--palette-gray-400-rgb)/100%)]",
+  "light:text-[rgb(var(--palette-gray-700-rgb)/100%)]",
+].join(" ");
+
+const NODE_TITLE_ICON =
+  "inline-flex items-center justify-center flex-[0_0_auto] text-inherit";
+
+/* type-body-14 의 line-height 1.5 기본값을 헤더 한 줄에서 1 로 좁혀 아이콘과 시각 중앙 정렬
+   (`type-*` 는 `@layer base` 안이라 `leading-[1]` 이 `!` 없이 이긴다).
+   `whitespace-nowrap!` 의 `!` 는 랜딩
+   `[data-page-root] :where(span, …) { text-wrap: balance }` 때문 — 위 스타일 헤더 2번 참조. */
+const NODE_TITLE_LABEL = [
+  "text-inherit min-w-0",
+  NODE_TITLE_CLIP,
+  "leading-[1]",
+].join(" ");
+
+/* 미디어 상단 줄 밝기 샘플(`useNodeHeaderMediaTone`) — 미디어 기반 단일 SSOT(테마 무관).
+ * 원본에서 이 두 클래스의 규칙은 `.nodeMediaHeaderRow` 와 함께 걸릴 때만 성립했는데,
+ * 이 컴포넌트는 그 행을 렌더하지 않는다(값을 계산만 하고 어디에도 붙이지 않는다).
+ * 원본 선언을 그대로 옮겨 둔다 — 자식(아이콘·라벨·더보기 글리프)이 var() 로 받는 토큰 포함. */
+const NODE_TITLE_MEDIA_BACKDROP_BRIGHT = [
+  "text-[rgb(var(--palette-gray-900-rgb)/88%)]",
+  "[--header-icon-filter:drop-shadow(0_1px_1px_rgb(0_0_0/24%))]",
+  "[--header-text-shadow:0_1px_2px_rgb(0_0_0/12%)]",
+].join(" ");
+
+const NODE_TITLE_MEDIA_BACKDROP_DARK = [
+  "text-[rgb(var(--palette-gray-000-rgb)/96%)]",
+  "[--header-icon-filter:drop-shadow(0_1px_2px_rgb(0_0_0/40%))]",
+  "[--header-text-shadow:0_0_1px_rgb(0_0_0/40%),0_1px_3px_rgb(0_0_0/32%)]",
+].join(" ");
+
+/* ── Edit mode badge (헤더 행 — 타이틀 옆) ──
+ * 치수와 글자는 편집 노드의 재편집 필요 칩과 같은 `NODE_TITLE_CHIP` 이고, 여기는 색만 붙인다. */
+const EDIT_BADGE = [
+  NODE_TITLE_CHIP,
+  "bg-[rgb(139_92_246/16%)] text-[rgb(167_139_250)]",
+  "light:bg-[rgb(139_92_246/8%)] light:text-[rgb(109_40_217)]",
+].join(" ");
+
+/* ── Source Handle (우측 연결 버튼) ──
+ * 크롬·호버 SSOT 였던 `nodeSideHandleChrome` 의 `.shellTransition` · `.interactive` ·
+ * `.toneImage` 를 함께 인라인한다.
+ * 툴팁은 위치만 — surface/motion 은 globals `[data-tooltip]` SSOT
+ * (노드 우측 소스 핸들이라 툴팁은 버튼의 바깥=우측으로). */
+const SOURCE_HANDLE = [
+  "absolute! top-[50%]! left-[var(--node-handle-outbound-slot)]!",
+  "w-[var(--node-side-handle-size)]! h-[var(--node-side-handle-size)]!",
+  "min-w-[var(--node-side-handle-size)]! min-h-[var(--node-side-handle-size)]!",
+  "rounded-[var(--node-side-handle-radius)]! [border:none]! cursor-pointer!",
+  "[transform:translateY(-50%)]!",
+  "flex! items-center! justify-center!",
+  /* `.toneImage` — 채색은 facet 으로 이전, shell 은 투명 */
+  "[background:transparent]!",
+  /* `.shellTransition` */
+  "[transition:filter_0.13s_ease,color_0.13s_ease,border-color_0.13s_ease]",
+  /* `.interactive` — 디스크(facet) 전체 스케일. 자식은 facet 하나뿐이라 `> *` 로 집는다.
+     원본에서 active 규칙이 hover 보다 특이도가 높아 항상 이겼으므로 `!` 로 고정한다. */
+  "[&:hover>*]:[transform:scale(1.08)]",
+  "[&:active>*]:[transform:scale(0.94)]!",
+  /* 채색 활성 shell: 디스크에 filter(brightness)가 보이도록 shell 에 적용 */
+  "[&:hover]:[filter:brightness(1.1)]",
+  "[&:active]:[filter:brightness(0.94)]!",
+  "[&[data-tooltip]:not([data-tooltip=''])::after]:left-[calc(100%_+_9px)]",
+].join(" ");
+
+/* 「다음 단계」 안내가 떠 있는 동안 이 출력점만 깜빡인다 — 영상 노드의 `EDIT_OUT_HANDLE_HINT_PULSE` 와 같은 동작이고,
+   동작 줄이기면 깜빡임만 끈다(안내는 남는다). */
+const SOURCE_HANDLE_HINT_PULSE =
+  "motion-safe:animate-[connectHintHandlePulse_1.6s_ease-in-out_infinite]";
+
+/* 디스크(아이콘+채널 배경) — 항상 셀 꽉 채움, 포인터는 shell 이 받음.
+ * `::before` 는 Figma 이너 섀도(X/Y 0 · Blur 8 · Spread 0 · gray-000 100% · Overlay 블렌드)
+ * 근사 레이어 (::before 가 배경 아래·아이콘 아래 페인팅 순서).
+ * 배경·글자색은 `.toneImage > .facet` 의 승자 선언만 남긴다. */
+const SIDE_HANDLE_FACET = [
+  "inline-flex items-center justify-center box-border w-full h-full",
+  "rounded-[inherit] pointer-events-none",
+  "[transform:scale(1)] [transition:transform_0.1s_ease]",
+  "relative isolate overflow-hidden",
+  "[background:var(--node-handle-icon-image)]!",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]!",
+  "[&::before]:[content:'']",
+  "[&::before]:absolute [&::before]:inset-0 [&::before]:rounded-[inherit]",
+  "[&::before]:pointer-events-none",
+  "[&::before]:[box-shadow:inset_0_0_8px_0_rgb(var(--palette-gray-000-rgb)/100%)]",
+  "[&::before]:[mix-blend-mode:overlay]",
+  "[&::before]:[transform:translateZ(0)]",
+].join(" ");
+
+/* ── Image Area ──
+ * 상단 코너는 원본 `.nodeMainMediaBand .imageArea` — 이 파일에서 imageArea 는 항상
+ * 미디어 밴드 안이라 조합이 언제나 성립한다. */
+const IMAGE_AREA = [
+  "w-full bg-transparent flex items-center justify-center",
+  "relative overflow-hidden",
+  "rounded-t-[var(--node-inner-radius)]",
+].join(" ");
+
+/* 비율 변화 트랜지션 — 결과 프레임(`IMAGE_AREA_MEDIA_FRAMED`)의 `transition: none` 과
+   같은 프로퍼티를 다투므로 상호배타 분기로 갈라 둔다. */
+const IMAGE_AREA_ASPECT_TRANSITION = [
+  "[transition:aspect-ratio_0.42s_cubic-bezier(0.33,1,0.68,1)]",
+  "motion-reduce:[transition:none]",
+].join(" ");
+
+/* 결과 이미지(업로드·생성 공통): `imageFrameAspect` 프레임 + contain 대신 가로 채운 cover */
+const IMAGE_AREA_MEDIA_FRAMED = "max-h-[2000px] min-h-0 [transition:none]";
+
+/* 하단 코너: 임베드에서 카드 하단까지 미디어만 노출될 때만 적용. 본앱에서는 메타 툴바와 맞닿도록 미적용. */
+const IMAGE_AREA_CARD_BOTTOM_ROUND = "rounded-b-[var(--node-inner-radius)]";
+
+/* 생성 중에도 미디어 영역의 코너 곡률은 카드 내부 곡률(`--node-inner-radius`)을 그대로 따른다.
+   (상단은 `IMAGE_AREA` 가 이미 같은 값을 주고, 하단은 위 상수가 준다 — 원본과 결과가 같다) */
+const IMAGE_AREA_GENERATING = "rounded-t-[var(--node-inner-radius)]";
+
+/* `.imageAreaMediaFramed .imageEl` 조합은 결과 이미지가 있을 때만 렌더되므로
+   기본 `.imageEl` 과 합쳐 승자만 남긴다. */
+const IMAGE_EL = "w-full h-full max-w-none max-h-none object-cover block";
+
+const IMAGE_PLACEHOLDER = [
+  "flex flex-col items-center justify-center gap-2",
+  "opacity-[0.28] pointer-events-none",
+].join(" ");
+
+const IMAGE_PLACEHOLDER_ICON = [
+  "inline-flex items-center justify-center w-32 h-32",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]",
+  "light:text-[rgb(0_0_0/100%)]",
+].join(" ");
+
+const IMAGE_PLACEHOLDER_LABEL = [
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]",
+  "light:text-[rgb(0_0_0/100%)]",
+].join(" ");
+
+/* ── 생성 중 placeholder (`NodeGeneratingShimmer` SSOT 이식) ──
+ * `.mediaRootTranslucentInner` 는 호환용 별칭 — 베일/카드 레벨 파티클이 사라진 뒤로
+ * `border-radius: inherit` 만 다르고 나머지는 `.mediaRoot` 와 같다(같은 요소에 둘 다
+ * 붙으므로 radius 는 inherit 이 승자). */
+const MEDIA_ROOT = [
+  "relative flex flex-col items-center justify-center gap-2",
+  "w-full h-full min-h-60 overflow-hidden pointer-events-none",
+  "rounded-[inherit] bg-transparent",
+].join(" ");
+
+/* 아이콘 — idle → generating 전환 시 grow-in(1회) 뒤로는 크기가 변하지 않고, 글자와 같은
+   빛줄기(`NodeGeneratingIconSheen`)가 위로 지나간다.
+   매체별 accent(`.mediaIconImage`)는 `.mediaIcon` 의 gray-000 을 덮는다(원본 순서와 동일). */
+const MEDIA_ICON_IMAGE = [
+  "relative z-[1] isolate inline-flex items-center justify-center",
+  "w-32 h-32",
+  "text-[var(--accent-green-500)]",
+  "[filter:none] [transform-origin:center_center] [will-change:transform,opacity]",
+  "animate-[media-icon-grow-in_320ms_cubic-bezier(0.22,1,0.36,1)_both]",
+  "motion-reduce:animate-none",
+  "[&>svg]:w-full [&>svg]:h-full [&>svg]:block",
+].join(" ");
+
+/* 라벨 — 인접 아이콘(`.mediaIconImage ~ .mediaCaption`, 특이도 0,2,0)이 색을 정한다.
+   그 형제 셀렉터가 자체 `.generatingLabel{color}`(gray-000 56% / 라이트 0 0 0 48%)와
+   `.mediaCaptionFade{color:transparent}`(둘 다 0,1,0)를 항상 이겼으므로 accent-mint 승자만 남긴다.
+   `--caption-tone` 은 쉬머 그라디언트가 참조하는 보존 변수 — `color` 가 텍스트 클립용으로
+   transparent 될 수 있어 currentColor 대신 별도 커스텀 프로퍼티로 둔다.
+   라이트: 밝은 100 셰이드는 밝은 카드 표면에서 대비가 약해 700 셰이드로 낮춘다.
+   `key={label}` remount 시 fade-in + 대각선 하이라이트 스윕을 텍스트에 얹는다. 스윕의 그림은
+   `NODE_GENERATING_CAPTION_SHIMMER` 가 갖고(감속 모션에서 되돌리는 것까지), 여기는 흐르게만 한다. */
+const MEDIA_CAPTION_IMAGE = [
+  "relative z-[1] text-center max-w-[92%] inline-block",
+  "text-[var(--accent-green-100)] [--caption-tone:var(--accent-green-100)]",
+  "light:text-[var(--accent-green-700)] light:[--caption-tone:var(--accent-green-700)]",
+  NODE_GENERATING_CAPTION_SHIMMER,
+  "motion-safe:animate-[media-caption-fade-in_320ms_cubic-bezier(0.22,1,0.36,1)_both,media-caption-shimmer-sweep_2s_linear_infinite]",
+].join(" ");
+
+/* ── Prompt Area (`NodePromptArea` SSOT 이식) ──
+ * 원본 `.promptArea` 등은 `composes: … from "./NodePromptArea.module.css"` 순수 별칭이었다
+ * — 원본 정의를 그대로 옮긴다(라이트 오버라이드·scrollbar/placeholder/focus 포함). */
+const PROMPT_AREA = [
+  "relative flex flex-col items-stretch gap-4",
+  "p-[var(--node-inner-padding,8px)] bg-transparent",
+].join(" ");
+
+const PROMPT_AREA_CARD_BOTTOM_ROUND = "rounded-b-[var(--node-inner-radius)]";
+
+/* 기존 텍스트 노드의 생성 버튼 인셋과 호환한다(`--node-prompt-gen-btn-w`). */
+const PROMPT_COMPOSER = [
+  "relative w-full flex flex-col items-stretch min-w-0",
+  "[--node-prompt-gen-btn-w:48px]",
+].join(" ");
+
+/* 메타 툴바가 흐름에 들어오면 composer 자체 하단 패딩은 없앤다(원본도 0 = 기본값).
+   원본 `.promptComposerWithMetaFooter .promptSubmitFab{bottom}` 은
+   `.promptFooterGenerate button{bottom:auto !important}` 에 이미 지고 있던 죽은 선언이라 옮기지 않는다. */
+const PROMPT_COMPOSER_WITH_META_FOOTER = "pb-0";
+
+/* 둥근 인풋 셸 — 비디오 에디터와 동일한 테마별 글래스 섀도우 프레임 (다크/라이트 자동 전환).
+   원본 `.promptFieldShellFootTray`(padding-bottom) 는 기본 셸과 같은 값이라 no-op 로 합쳤다.
+   `min-height` 만 분기가 실제로 갈리므로 아래 두 상수로 상호배타 처리한다. */
+const PROMPT_FIELD_SHELL = [
+  "relative flex flex-col box-border w-full min-w-0",
+  "pt-[var(--node-inner-padding,8px)] pr-[var(--node-inner-padding,8px)]",
+  "pb-[var(--node-inner-padding,8px)] pl-[var(--node-inner-padding,8px)]",
+  "rounded-[var(--node-input-radius,16px)]",
+  "[box-shadow:var(--louis-hairline-inset)]",
+  /* 카드(NODE_WRAP)보다 «한 칸 위». 카드가 pg-800 → pg-900 으로 내려가서 이 셸도 같이
+     내렸다 — 계약은 pg-800 이라는 값이 아니라 카드와의 한 칸 차이다(불투명이라 카드를
+     저절로 따라가지 못한다). 라이트는 카드 pg-000 위 흰색으로 한 칸(2026-10-01 카드와 함께 pg-000 에서 올렸다). */
+  "bg-[var(--palette-gray-800)]",
+  /* 예전 `backdrop-filter: blur(--louis-blur-panel) saturate(120%)` 는 보이지 않는 효과라 뺐다.
+     면이 두 테마 모두 불투명이다 — pg-800 `color(srgb … / 1)` · pg-000 `color(srgb … / 1)`
+     (`@klipse-design/css` tokens.css, `:root` 한 곳에서만 선언되고 테마 블록이 덮지 않는다). 불투명 면
+     아래를 흐리게 해도 면이 전부 가리므로, 남는 것은 GPU 합성 레이어와 흐림 계산 비용뿐이었다.
+     `isolate` 는 backdrop-filter 가 덤으로 만들던 쌓임 맥락을 그대로 남긴다 — 셸 안 드롭다운 앵커
+     (`z-[100]`)가 셸 밖 형제와 z 를 겨루기 시작하면 겹침 순서가 바뀔 수 있다. 셸은 이미 `relative`
+     라 absolute 자손의 기준도 그대로다(fixed 자손은 없다 — 툴팁은 body 포털). */
+  "isolate",
+  "light:bg-[var(--palette-white)]",
+].join(" ");
+
+const PROMPT_FIELD_SHELL_MIN_H = "min-h-70 h-auto";
+
+/* 참조 미디어가 셸 안에 오면 최소 높이 해제 (원본에서 메타 푸터 규칙보다 뒤라 이겼다) */
+const PROMPT_FIELD_SHELL_WITH_REFERENCE_MEDIA = "min-h-0 h-auto";
+
+const PROMPT_FIELD_SHELL_WITH_META_FOOTER =
+  "h-auto pb-[var(--node-inner-padding,8px)]";
+
+/**
+ * 복사 버튼 + 글자 수 라벨 한 쌍 — 프롬프트 셸에서는 textarea **위**에 온다.
+ * 복사 버튼 ↔ 글자 수 라벨은 붙인다 — 버튼 자체 패딩이 이미 시각 간격을 만든다.
+ * `overflow: hidden` 금지 — 복사 버튼 툴팁(행 위쪽으로 뜬다)이 잘린다.
+ * 말줄임은 `PROMPT_CHAR_COUNT_IN_SHELL` 이 자체적으로 처리한다.
+ */
+const PROMPT_COPY_COUNT_ROW =
+  "flex-[0_0_28px] w-full min-h-14 flex flex-row items-center gap-0";
+
+/* 복사 버튼과 동일 톤 — gray-500 은 양 테마 공통값이라 라이트 오버라이드가 필요 없다. */
+const PROMPT_CHAR_COUNT_IN_SHELL = [
+  "pointer-events-none flex-[1_1_auto] min-w-0",
+  "whitespace-nowrap! overflow-hidden text-ellipsis tabular-nums",
+  "text-[var(--palette-gray-500)]",
+].join(" ");
+
+/* textarea: 타이포·스크롤만 담당, 좌우 8px 만 자체 인셋(상하 0 — 위 복사·글자수 행과 간격 0).
+   셸에 남는 세로 공간을 흡수한다(`flex: 1 1 auto`) — 덕분에 `PROMPT_FOOTER` 가 셸 바닥에 붙는다.
+   프롬프트가 길어지면 노드가 무한정 커지지 않고 내부에서 스크롤된다(`usePromptResize` 가
+   기본 6줄에서 높이를 캡한다).
+   워크스루 데모: 모든 프롬프트 입력 글자 크기를 body-14(regular) 로 통일 — 실제 앱 노드
+   프롬프트와 동일하고, 같은 노드의 헤더·생성 텍스트(14px)와도 맞는다.
+   (`type-*` 는 `@layer base` 안이라 `[font-family:inherit]` · 워크스루 `text-body-14` ·
+   `font-weight` 모두 `!` 없이 덮는다. 아래 스크롤바 `!` 는 레이어 밖 전역
+   `*::-webkit-scrollbar` 가 근거라 별개로 남는다.) */
+const PROMPT_TEXTAREA = [
+  "flex-[1_1_auto] self-stretch min-h-24 w-full m-0",
+  "py-0 px-[var(--node-inner-padding,8px)]",
+  "overflow-y-auto overscroll-contain",
+  "bg-transparent [border:none] resize-none",
+  "[font-family:inherit] box-border",
+  "[scrollbar-width:thin]!",
+  "[scrollbar-color:rgb(var(--palette-gray-000-rgb)/20%)_transparent]!",
+  "[&::-webkit-scrollbar]:w-2!",
+  "[&::-webkit-scrollbar-track]:bg-transparent!",
+  "[&::-webkit-scrollbar-thumb]:bg-[rgb(var(--palette-gray-000-rgb)/20%)]!",
+  /* 원본은 `background` 단축으로 덮어 전역의 `background-clip: padding-box` 까지 초기값으로
+     되돌렸다. `bg-*` 는 `background-color` 만 세우므로 clip 을 명시해야 같은 그림이 된다. */
+  "[&::-webkit-scrollbar-thumb]:bg-clip-border!",
+  "[&::-webkit-scrollbar-thumb]:rounded-full!",
+  "[&::-webkit-scrollbar-thumb:hover]:bg-[rgb(var(--palette-gray-000-rgb)/32%)]!",
+  "[&::-webkit-scrollbar-thumb:hover]:bg-clip-border!",
+  "light:[scrollbar-color:rgb(0_0_0/20%)_transparent]!",
+  "light:[&::-webkit-scrollbar-thumb]:bg-[rgb(0_0_0/20%)]!",
+  "light:[&::-webkit-scrollbar-thumb:hover]:bg-[rgb(0_0_0/32%)]!",
+].join(" ");
+
+/* 편집 가능 상태 톤 */
+const PROMPT_TEXTAREA_TONE = [
+  "cursor-text",
+  "text-[rgb(var(--palette-gray-000-rgb)/80%)]",
+  "placeholder:text-[rgb(var(--palette-gray-000-rgb)/28%)]",
+  "focus:text-[rgb(var(--palette-gray-000-rgb)/88%)]",
+  "light:text-[rgb(0_0_0/72%)]",
+  "light:placeholder:text-[rgb(0_0_0/28%)]",
+  "light:focus:text-[rgb(0_0_0/88%)]",
+].join(" ");
+
+/* 텍스트 핸들 연결 시 — 색·커서·placeholder 만 다르다(같은 프로퍼티라 위 톤과 배타).
+   `:focus` 색은 원본에서도 `.promptTextarea:focus`(0,2,0)가 이겨 두 분기 공통이다. */
+const PROMPT_TEXTAREA_CONNECTED = [
+  "cursor-default",
+  "text-[rgb(var(--palette-gray-000-rgb)/56%)]",
+  "placeholder:text-[rgb(var(--palette-gray-000-rgb)/20%)] placeholder:italic",
+  "focus:text-[rgb(var(--palette-gray-000-rgb)/88%)]",
+  "light:text-[rgb(0_0_0/48%)]",
+  "light:placeholder:text-[rgb(0_0_0/20%)]",
+  "light:focus:text-[rgb(0_0_0/88%)]",
+].join(" ");
+
+/* 이미지·비디오 노드는 Footer를 실제 DOM 흐름으로 구성한다 — 생성 설정과 실행 행동, 그 아래 오류 배너.
+   `margin-top: 8px` — textarea 와의 간격. 남는 세로 공간은 textarea 가 흡수한다. */
+const PROMPT_FOOTER = [
+  "flex flex-[0_0_auto] flex-col gap-4",
+  "mt-[var(--node-inner-padding,8px)] min-w-0",
+].join(" ");
+
+const PROMPT_FOOTER_CONTROLS = "flex items-center min-w-0 h-16";
+
+const PROMPT_FOOTER_GENERATE = "flex flex-[0_0_auto] items-center ml-4";
+
+/* ── 생성 버튼 FAB ──
+ * `.promptFooterGenerate :global(button)` 과 `.promptFooterControls .promptSubmitFab` 가
+ * 원본 `.promptSubmitFab` 의 absolute 인셋을 흐름 배치로 되돌리던 승자다 — 승자만 남긴다.
+ * `NodePromptGenerateButton.module.css` 의 `.root{margin:0}` · `.chrome{flex-shrink:0}` 은
+ * 레이어 밖이라 유틸리티를 이기므로 `ml-4!` · `flex-[0_0_auto]!`. */
+const PROMPT_SUBMIT_FAB = [
+  "static! right-auto bottom-auto z-[2]",
+  "flex-[0_0_auto]! ml-4!",
+].join(" ");
+
+const PROMPT_SUBMIT_FAB_DIMMED = "opacity-[0.35]!";
+
+/* ── 참조 미디어 · 연결 칩 — 프롬프트 셸 상단 ──
+ * 참조 이미지·영상은 생성 설정이 아니라 프롬프트의 입력 맥락이다.
+ * 따라서 별도 메타 밴드가 아닌 textarea 바로 위에 두고, 입력 흐름을 한 상자에 묶는다. */
+const PROMPT_REFERENCE_MEDIA_INSIDE_SHELL =
+  "flex-[0_0_auto] self-stretch w-full min-w-0 mb-4";
+
+/** 칩을 셸 안 상단에 둘 때 — 별도 56px 밴드 없음 */
+const PROMPT_CHIP_INSIDE_SHELL =
+  "flex-[0_0_auto] self-stretch w-full min-w-0 mb-0";
+
+/* LLM 텍스트 연결 칩 — NodeSideButtons 텍스트 측 래치(sideToneLatchText)와 톤 맞춤 */
+const PROMPT_CONNECTION_CHIP = [
+  "inline-flex items-center justify-start w-full min-w-0 gap-2",
+  "py-3 px-5 rounded-10 box-border",
+  "[box-shadow:var(--louis-hairline-inset)]",
+  "bg-[rgb(var(--accent-yellow-500-rgb)/8%)]",
+].join(" ");
+
+const PROMPT_CONNECTION_CHIP_TEXT = [
+  "type-body-14-regular min-w-0 max-w-full overflow-hidden text-ellipsis whitespace-nowrap!",
+  "text-[var(--accent-yellow-500)]",
+].join(" ");
+
+/**
+ * 오류/부족 크레딧 배너 — 메타 툴바 + 생성 버튼 행 아래, `PROMPT_FOOTER` gap(8) 만큼 띄워 배치.
+ * 폭은 셸을 채우고(fill) 높이는 28 고정 — 텍스트는 `type-body-14-regular` 로 JSX 에서 붙인다.
+ * 색은 양 테마 공통 red-500 계열(면 10% / 테두리 20% / 글자 100%).
+ */
+const PROMPT_ERROR_BANNER = [
+  "flex items-center gap-4 w-full min-h-14 py-4 px-4 box-border",
+  "[box-shadow:var(--louis-hairline-inset)]",
+  "rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)]",
+  "text-[var(--accent-red-500)]",
+].join(" ");
+
+/* 최대 3줄 클램프 — 더 길면 말줄임, 전문은 `title` 로 노출한다. */
+const PROMPT_ERROR_BANNER_TEXT =
+  "flex-[1_1_auto] min-w-0 line-clamp-3 break-words";
+
+/* ── Meta Toolbar (카드 내부 — VideoNode 패턴) ──
+   라이트 오버라이드도 `background: transparent` 로 값이 같아 별도 분기가 없다. */
+const META_TOOLBAR = [
+  "static flex-[1_1_auto] min-w-0 h-16",
+  "flex flex-row flex-nowrap items-center justify-start",
+  "gap-[var(--node-chrome-btn-gap)] p-0 w-auto max-w-none box-border",
+  "bg-transparent [border:none] rounded-none",
+  "whitespace-normal overflow-visible",
+].join(" ");
+
+const META_TOOLBAR_LEADING = "shrink min-w-0 flex items-center";
+
+const META_TOOLBAR_TRAILING = [
+  "flex items-center flex-nowrap justify-start",
+  "gap-[var(--node-chrome-btn-gap)] flex-[0_0_auto] min-w-0",
+].join(" ");
+
+const DROPDOWN_WRAP = [
+  "relative shrink-0 inline-flex items-center",
+  "min-h-[var(--node-chrome-btn-h)]",
+].join(" ");
+
+const DROPDOWN_WRAP_MODEL = "flex-[0_0_auto] max-w-none";
+
+const META_TOOLTIP_HOST_MODEL = "inline-flex flex-[0_0_auto] max-w-none";
+
+/* 마케팅 임베드, 첫 상호작용 전(정적 표시)만 즉시 전체 노출 강제 — 로드 시 등장 애니메이션
+ * 없이 열린 채로 표시. 사용자가 한 번이라도 누르면(`data-marketing-model-static` 제거)
+ * MetaDropdownPanel 의 열기/닫기 애니메이션이 그대로 동작한다.
+ * 원본의 `.nodeContainerChrome` 훅은 같은 요소가 이미 달고 있는
+ * `data-marketing-model-static` 속성으로 대체한다(그 속성을 다는 곳이 여기뿐). */
+const DROPDOWN_ANCHOR_MARKETING_STATIC = [
+  "[[data-node-canvas-marketing]_[data-marketing-model-static]_&>div]:opacity-100!",
+  "[[data-node-canvas-marketing]_[data-marketing-model-static]_&>div]:[transform:scale(1)]!",
+  "[[data-node-canvas-marketing]_[data-marketing-model-static]_&>div]:pointer-events-none!",
+].join(" ");
+
+const DROPDOWN_ANCHOR = [
+  "absolute bottom-[calc(100%_+_4px)] top-auto left-[50%] min-w-full z-[100]",
+  "[transform:translateX(-50%)_scale(calc(1_/_var(--node-canvas-zoom,1)))]",
+  "[transform-origin:bottom_center]",
+  DROPDOWN_ANCHOR_MARKETING_STATIC,
+].join(" ");
+
+/* 마케팅 임베드 모델 피커: 메뉴를 모델 버튼 좌측에 맞춤(기본 가운데정렬 대신).
+ * 메뉴가 노드 박스보다 왼쪽으로 튀어나와 카드에 잘리는 것을 막아, 메뉴·모델 버튼·
+ * 프롬프트 박스가 모두 같은 좌측선(카드 36px 여백)에 서게 한다.
+ * 원본 셀렉터의 `.dropdownWrapModel` 한정은 이 상수를 모델 드롭다운에서만 쓰므로 생략해도 같다. */
+const DROPDOWN_ANCHOR_BELOW = [
+  "absolute top-[calc(100%_+_4px)] bottom-auto left-[50%] min-w-full z-[100]",
+  "[transform:translateX(-50%)_scale(calc(1_/_var(--node-canvas-zoom,1)))]",
+  "[transform-origin:top_center]",
+  "[[data-node-canvas-marketing]_[data-marketing-model-picker]_&]:left-0!",
+  "[[data-node-canvas-marketing]_[data-marketing-model-picker]_&]:[transform:translateX(0)_scale(calc(1_/_var(--node-canvas-zoom,1)))]!",
+  "[[data-node-canvas-marketing]_[data-marketing-model-picker]_&]:[transform-origin:top_left]!",
+  DROPDOWN_ANCHOR_MARKETING_STATIC,
+].join(" ");
+
+/* 표면(면·라운드·그림자·패딩·항목 간격)은 LOUIS 정본 `.louis-popover`가 소유한다.
+   MetaDropdownPanel이 위치·모션을 잡는 Provider 밖 bare surface라, .louis-popover 의
+   min-inline-size 폴백이 풀리도록 collision-padding shim을 얹는다. 스크롤·터치는 유지. */
+const DROPDOWN_SURFACE = [
+  "louis-popover [--louis-overlay-collision-padding:8px]",
+  "overscroll-contain touch-pan-y",
+].join(" ");
+
+/* 드롭다운 상단 아이브로우(예: 품질) — inspectorTopbarEyebrow 톤. 옵션과 좌우 정렬.
+   `<div>` 라 랜딩 `[data-page-root] :where(…)` 대상이 아니므로 white-space 에 `!` 가 필요 없다. */
+const DROPDOWN_EYEBROW = [
+  "pt-2 px-6 pb-1",
+  "text-[rgb(var(--gray-500-rgb)/88%)]",
+  "whitespace-nowrap select-none",
+].join(" ");
+
+/* 항목은 LOUIS 정본 `.louis-menu__item`이 소유(패딩·라운드·색·hover·focus·disabled).
+   긴 옵션 라벨이 줄바꿈되지 않고 서피스를 넓히도록 whitespace-nowrap·min-w-max만 얹어
+   LOUIS의 keep-all 줄바꿈을 덮는다. */
+const DROPDOWN_OPTION = "louis-menu__item whitespace-nowrap! min-w-max";
+
+/* 미선택 배경은 LOUIS 항목 기본값(투명)이 소유한다. 유틸리티 `bg-transparent`를 얹으면
+   utilities 레이어가 `.louis-menu__item:hover`(louis.component 레이어)를 이겨 호버 면이 죽으므로
+   비운다(호출부 shape 유지). */
+const DROPDOWN_OPTION_IDLE = "";
+
+/* 선택된 옵션 표시 — 솔리드 배경으로 hover보다 강하게(선택=현재값). 색은 LOUIS 항목값을 상속. */
+const DROPDOWN_OPTION_ACTIVE = [
+  "bg-[var(--palette-gray-700)]",
+  "light:bg-[var(--palette-gray-025)]",
+].join(" ");
+
+const META_MODEL = [
+  "inline-flex items-center justify-start gap-2",
+  "h-[var(--node-chrome-btn-h)] py-0 px-[var(--node-chrome-btn-padding-x)]",
+  "[box-shadow:var(--louis-hairline-inset)]",
+  "[background:var(--node-chrome-btn-bg)]",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]",
+  "[font-family:inherit]! cursor-pointer",
+  "rounded-[var(--node-chrome-btn-radius)] select-none w-auto box-border",
+  "[transition:background_0.12s_ease,color_0.12s_ease]",
+  "[&:hover]:[background:var(--node-chrome-btn-bg-hover)]",
+  "[&:hover]:text-[rgb(var(--palette-gray-000-rgb)/100%)]",
+  "light:text-[rgb(var(--palette-gray-700-rgb)/100%)]",
+  /* 면·호버 필은 `--node-chrome-btn-*` 가 테마별로 이미 다른 값을 주므로 색만 조정. */
+  "light:[&:hover]:text-[rgb(var(--palette-gray-800-rgb)/100%)]",
+].join(" ");
+
+const META_MODEL_LABEL = "whitespace-nowrap! flex-[0_0_auto] text-left";
+
+const META_CHEVRON = "hidden";
+const META_CHEVRON_OPEN = "[transform:rotate(180deg)]";
+
+/* 메타 알약은 LOUIS 정본 `.louis-node-chip` 이 소유한다(높이·패딩·반경·면·헤어라인·호버·
+   비활성·타이포). 비활성은 클래스가 아니라 `aria-disabled` 로 표현한다 — LOUIS 가 그 상태를
+   그리고, 값만 보여주는 정적 알약과 눌러서 여는 트리거는 요소 종류로 구분된다. */
+const META_ITEM = "louis-node-chip";
+
+/* ChromeTooltip 호스트 — 원본 `.tooltipHostContents { display: contents }`.
+   호스트 기본 클래스(`inline-flex`)가 이제 같은 유틸리티 레이어라 `!` 로 승자를 고정한다. */
+const TOOLTIP_HOST_CONTENTS = "contents!";
+
+function ImagePlaceholder({ emptyLabel }: { emptyLabel: string }) {
+  return (
+    <div className={IMAGE_PLACEHOLDER}>
+      {/* public/icons/Image.svg 와 동일 실루엣 — ImageIcon(currentColor) */}
+      <span className={IMAGE_PLACEHOLDER_ICON}>
+        <ImageIcon size={64} strokeScreenPx={2} />
+      </span>
+      <span
+        className={`type-body-14-regular ${IMAGE_PLACEHOLDER_LABEL}`}
+      >
+        {emptyLabel}
+      </span>
+    </div>
+  );
+}
+
+/**
+ * 단계 간 경과 시간 — 외부 API가 진행률을 주지 않아 시간 기반으로만 전환(마지막 단계는 유지).
+ * 대부분의 이미지 생성은 이보다 먼저 끝나므로 완료 시 `IMAGE_GENERATING_TAIL_MS` 만큼
+ * 마지막 단계를 잠깐 보여주고 결과로 전환한다(`useGeneratingWithTail`).
+ */
+const IMAGE_GENERATING_STEP_MS = [3000, 6000, 12000, 24000] as const;
+const IMAGE_GENERATING_TAIL_MS = 900;
+
+function GeneratingState({
+  stages,
+  startedAt,
+  forceLastStage,
+}: {
+  stages: readonly string[];
+  startedAt?: number;
+  forceLastStage?: boolean;
+}) {
+  const computedLabel = useGeneratingStageLabel(
+    stages,
+    IMAGE_GENERATING_STEP_MS,
+    startedAt,
+  );
+  const label = forceLastStage
+    ? (stages[stages.length - 1] ?? computedLabel)
+    : computedLabel;
+  return (
+    <div
+      className={MEDIA_ROOT}
+      role="status"
+      aria-live="polite"
+    >
+      <span
+        aria-hidden
+        className={MEDIA_ICON_IMAGE}
+      >
+        <ImageIcon size={64} strokeScreenPx={2} />
+        <NodeGeneratingIconSheen key={label}>
+          <ImageIcon size={64} strokeScreenPx={2} />
+        </NodeGeneratingIconSheen>
+      </span>
+      <span
+        key={label}
+        data-label={label}
+        className={`type-body-14-medium ${MEDIA_CAPTION_IMAGE}`}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+const DEFAULT_MODEL = getDefaultClientImageModel();
+const IMAGE_MODEL_OPTIONS = getClientVisibleImageModels();
+
+const ASPECT_RATIOS = [
+  "1:1",
+  "2:3",
+  "3:2",
+  "3:4",
+  "4:3",
+  "4:5",
+  "5:4",
+  "9:16",
+  "16:9",
+  "21:9",
+] as const;
+type AspectRatio = (typeof ASPECT_RATIOS)[number];
+
+/** GPT Image 1.5는 1024x1024, 1536x1024, 1024x1536만 지원 */
+const GPT_IMAGE_ASPECT_RATIOS: readonly AspectRatio[] = ["1:1", "2:3", "3:2"];
+
+function getAspectRatiosForModel(modelId: string): readonly AspectRatio[] {
+  if (modelId === "gpt-image-1.5") return GPT_IMAGE_ASPECT_RATIOS;
+  // gpt-image-2·2.5는 자유 해상도(16의 배수, 1:3~3:1) — 전체 비율 지원.
+  // 2026-09-16 실측에서 2.5 가 매핑된 해상도를 전 항목 그대로 반환하는 것을 확인했다.
+  return ASPECT_RATIOS;
+}
+
+/** 현재 비율이 목록에 없을 때 숫자로 가장 가까운 지원 비율 선택(무조건 1:1로 떨어지는 현상 완화) */
+function pickNearestSupportedAspect(
+  currentLabel: AspectRatio,
+  supported: readonly AspectRatio[],
+): AspectRatio {
+  if (supported.length === 0) return "1:1";
+  if (supported.includes(currentLabel)) return currentLabel;
+  const cur = aspectRatioStringToNumber(currentLabel);
+  let best = supported[0]!;
+  let bestDiff = Number.POSITIVE_INFINITY;
+  for (const r of supported) {
+    const d = Math.abs(aspectRatioStringToNumber(r) - cur);
+    if (d < bestDiff) {
+      bestDiff = d;
+      best = r;
+    }
+  }
+  return best;
+}
+
+function nearestAspectRatioLabel(n: number): AspectRatio {
+  let best: AspectRatio = "1:1";
+  let bestDiff = Number.POSITIVE_INFINITY;
+  for (const r of ASPECT_RATIOS) {
+    const v = aspectRatioStringToNumber(r);
+    const d = Math.abs(v - n);
+    if (d < bestDiff) {
+      bestDiff = d;
+      best = r;
+    }
+  }
+  return best;
+}
+
+export function ImageNode({
+  data,
+  selected = false,
+}: NodeProps<RFNode<ImageNodeData, "image">>) {
+  const { messages, locale } = useI18n();
+  const tCreate = messages.create;
+  const tNC = messages.create.nodeCanvas;
+  /**
+   * 프로바이더 오류를 사용자 문구로 옮길 때 쓰는 문구 묶음 — 영상 경로와 같은 판정을 쓴다. 일반 실패만 이미지 문구로
+   * 바꾼다. 영상 묶음의 일반 실패는 「영상 생성에 실패했습니다」라, 알아보지 못한 이미지 실패에 그대로 뜨면 틀린 말이다.
+   */
+  const videoGenErr = useMemo(
+    () => ({
+      ...buildVideoGenerationErrorCopy(tCreate),
+      generationFailed: tNC.imageGenerationFailed,
+    }),
+    [tCreate, tNC.imageGenerationFailed],
+  );
+  const tV2 = tNC.toolbarV2;
+  const nodeId = useNodeId();
+  const prompt = data.prompt ?? "";
+  const isGenerating = Boolean(data.isGenerating);
+  const hasImage =
+    typeof data.imageUrl === "string"
+      ? Boolean(data.imageUrl.trim())
+      : Boolean(data.imageUrl);
+  const isLocked = Boolean(data.isLocked);
+  const [isSpawned, setIsSpawned] = useState(false);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      setIsSpawned(true);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const [error, setError] = useState<string | null>((data.lastGenerationError as string) ?? null);
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>(() =>
+    nearestAspectRatioLabel(
+      typeof data.mediaAspect === "number" && data.mediaAspect > 0
+        ? data.mediaAspect
+        : 1,
+    ),
+  );
+  /** 모델을 바꿔도 이전에 해당 모델에서 고른 비율 복원 (GPT 1.5 ↔ 다른 모델 왕복 시 1:1 고정 완화) */
+  const preferredAspectByModelRef = useRef<Partial<Record<string, AspectRatio>>>(
+    {},
+  );
+  const [ratioOpen, setRatioOpen] = useState(false);
+  const ratioRef = useRef<HTMLDivElement>(null);
+  const marketingModelMenuOpen = Boolean(data.embedMarketingModelMenuOpen);
+  const [modelOpen, setModelOpen] = useState(marketingModelMenuOpen);
+  /** 마케팅 쇼케이스: 첫 상호작용 전에는 정적(즉시 열림), 누른 뒤엔 열기/닫기 애니메이션 사용 */
+  const [marketingMenuInteracted, setMarketingMenuInteracted] = useState(false);
+  const modelRef = useRef<HTMLDivElement>(null);
+  /**
+   * 각도 변환 노드는 카탈로그(`IMAGE_MODEL_OPTIONS`) 밖 모델을 쓴다.
+   *
+   * 카탈로그에 없는 모델을 기본값으로 떨구는 폴백은 원래 "삭제된 모델을 가리키는 옛 노드가
+   * 깨지지 않게" 하려는 것인데, 각도 노드는 의도적으로 카탈로그에 없으므로 그대로 걸린다.
+   * 그러면 `qwen-angle` 이 GPT 로 바뀌어 프롬프트 없이 OpenAI 를 부르고 실패한다.
+   * `camera` 가 있으면 각도 노드이므로 폴백을 적용하지 않는다.
+   */
+  const isAngleNode = Boolean(data.camera);
+  const model = isAngleNode
+    ? (data.model as string)
+    : IMAGE_MODEL_OPTIONS.some((option) => option.id === data.model)
+      ? (data.model as string)
+      : DEFAULT_MODEL;
+  /**
+   * 선택지는 `qualitiesForModel` 하나에서만 온다 — 서버 검증도 같은 함수를 본다.
+   * 종전에는 여기 `credits` 필드(5/10/30)가 같이 있었는데 **어디서도 읽지 않는 죽은 값**인
+   * 데다 실제 크레딧의 1/10 이었다. KLI-227 의 ×10 재액면 때 따라오지 않은 잔재라 지웠다.
+   * 실제 견적은 아래 `estimatedCreditCost` 가 요금표에서 계산한다.
+   */
+  const QUALITY_OPTIONS: Array<{ id: ImageQuality; label: string }> = useMemo(
+    () =>
+      qualitiesForModel(model).map((id) => ({
+        id,
+        label: tNC.imageQualityOptions[id],
+      })),
+    [model, tNC],
+  );
+  /**
+   * 화질은 **노드에 저장한다** — 모델·비율과 같은 자리다.
+   *
+   * 로컬 상태였던 동안에는 노드가 리마운트될 때마다(새로고침 포함) 조용히 `medium` 으로
+   * 돌아갔다. 화질은 크레딧 단가에 그대로 들어간다 — gpt-image-2 기준 low 50 / medium 100.
+   * 그래서 low 를 골라 뒀다고 믿는 사용자가 되돌아간 줄도 모르고 두 배를 내게 된다.
+   * 2026-09-11 로컬 테스트에서 실제로 그렇게 청구됐다.
+   */
+  const quality: ImageQuality = isQualitySupported(model, data.quality)
+    ? data.quality
+    : defaultQualityForModel(model);
+  const [qualityOpen, setQualityOpen] = useState(false);
+  const qualityRef = useRef<HTMLDivElement>(null);
+  /**
+   * 고른 화질을 지원하지 않는 모델로 바꾸면 그 모델의 기본 화질로 되돌린다.
+   * 종전에는 gpt-image-1.5 의 low 한 가지만 막았는데, 2.5 에만 있는 `xhigh`·`max` 를 골라 둔
+   * 채 gpt-image-2 로 전환하는 경로가 생겨 모델별 허용 집합 전체로 넓혔다. 접지 않으면
+   * 요금표가 모르는 이름을 폴백으로 떨어뜨려 견적과 실제 차감이 어긋난다.
+   */
+  useEffect(() => {
+    // 값이 있는데 지원하지 않을 때만 접는다 — 미설정(undefined)까지 되돌리면 노드를 열기만
+    // 해도 저장이 일어난다.
+    if (data.quality && !isQualitySupported(model, data.quality)) {
+      data.onQualityChange?.(defaultQualityForModel(model));
+    }
+  }, [model, data]);
+  const isEditMode = !!data.connectedImageUrl;
+  // 연결된 입력(참조) 이미지 개수 — 서버 과금(images.length)과 일치시켜 divergence 방지
+  const inputImageCount = useMemo(() => {
+    const multi = data.connectedImageUrls;
+    if (multi && multi.length > 0) return multi.filter(Boolean).length;
+    return data.connectedImageUrl ? 1 : 0;
+  }, [data.connectedImageUrl, data.connectedImageUrls]);
+  const estimatedCreditCost = useMemo(
+    () => calculateImageGenerationCreditCost(model, quality, null, inputImageCount),
+    [model, quality, inputImageCount],
+  );
+  const availableCreditAmount =
+    typeof data.availableCreditAmount === "number"
+      ? Math.max(0, data.availableCreditAmount)
+      : null;
+  const insufficientCreditMessage =
+    availableCreditAmount !== null && availableCreditAmount < estimatedCreditCost
+      ? tNC.insufficientCreditsDetail(
+          estimatedCreditCost,
+          availableCreditAmount,
+        )
+      : null;
+
+  const graphTextConnected = data.connectedPromptFromText != null;
+  /* 첫 노드 안내 — 캔버스가 이 노드를 고르면 입력칸 위에 선다(`hooks/useFirstNodeHintSlot.ts`) */
+  const firstNodeHint = useFirstNodeHintSlot(nodeId);
+  /** `hasImage`만으로도 모델/비율 잠금 — 상위 동기화 누락 한 프레임도 방어 */
+  const metaSpecsLocked = isLocked || isGenerating || hasImage;
+
+  const isUploadOrigin = data.imageOrigin === "upload";
+  /**
+   * 업로드 전용 노드는 프롬프트가 없지만, 텍스트 연결·편집 모드일 때는 영역 유지.
+   * 각도 노드도 프롬프트가 없다 — 문장이 아니라 각도로 지시하고, fal 이 프롬프트를 조립한다.
+   */
+  const showPromptSection =
+    !isAngleNode && (!isUploadOrigin || isEditMode || graphTextConnected);
+  /** 각도 노드는 모델·비율·화질이 전부 고정이라 고를 것이 없다. */
+  const showModelAndRatioToolbar = !isUploadOrigin && !isAngleNode;
+
+  /* 출력점 「다음 단계」 메뉴 — 이미지가 있을 때만 */
+  const [nextStepOpen, setNextStepOpen] = useState(false);
+  const nextStepRef = useRef<HTMLDivElement>(null);
+  const closeNextStep = useCallback(() => setNextStepOpen(false), []);
+  useCloseOnOutside(nextStepOpen, nextStepRef, closeNextStep);
+  const canShowNextStep = hasImage && Boolean(data.onAddNextNode);
+  const nextStep = useNextStepTrigger({
+    open: nextStepOpen,
+    setOpen: setNextStepOpen,
+    enabled: canShowNextStep,
+  });
+  /* 「다음 단계」 안내 — 첫 이미지가 완성된 이 노드의 출력점 옆에 코치마크를 붙이고 그 출력점만 깜빡인다
+     (대상은 캔버스가 정한다, `lib/nextStepHint.ts`). 영상 노드와 같은 훅이다. */
+  const nextStepHint = useNextStepCoachmark({
+    nodeId,
+    enabled: canShowNextStep,
+    menuOpen: nextStepOpen,
+    handleRef: nextStep.handleRef,
+  });
+
+  /** 결과 이미지가 보이면 생성 FAB 숨김 */
+  const showGenerateButton = !isLocked && !hasImage;
+
+  const promptLinkedImageUrls = useMemo(() => {
+    const multi = data.connectedImageUrls;
+    if (multi && multi.length > 0) return multi.filter(Boolean) as string[];
+    return data.connectedImageUrl ? [data.connectedImageUrl] : [];
+  }, [data.connectedImageUrl, data.connectedImageUrls]);
+
+  const imageLayoutSyncExtra = useMemo(
+    () =>
+      [
+        aspectRatio,
+        String(graphTextConnected),
+        data.videoFrameTitle ?? "",
+        model,
+        String(Boolean(data.imageUrl)),
+        String(isGenerating),
+        data.imageOrigin ?? "",
+        String(showPromptSection),
+        String(showModelAndRatioToolbar),
+        String(data.mediaAspect ?? ""),
+        String(promptLinkedImageUrls.length),
+      ].join("|"),
+    [
+      aspectRatio,
+      graphTextConnected,
+      data.videoFrameTitle,
+      model,
+      data.imageUrl,
+      isGenerating,
+      data.imageOrigin,
+      showPromptSection,
+      showModelAndRatioToolbar,
+      data.mediaAspect,
+      promptLinkedImageUrls.length,
+    ],
+  );
+
+  const nodeLayoutRef = useNodeInternalsOnLayoutResize(
+    nodeId,
+    imageLayoutSyncExtra,
+  );
+
+  const effectivePrompt = graphTextConnected
+    ? (data.connectedPromptFromText ?? "")
+    : prompt;
+  const showConnectedChip = graphTextConnected;
+  const promptTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const promptResize = usePromptResize(promptTextareaRef, [
+    effectivePrompt,
+    showConnectedChip,
+  ]);
+
+  /** 비디오 노드(`VideoNode`)와 동일 — 연결 칩에는 프롬프트 본문 대신 고정 상태 문구만 표시 */
+  const imageConnectionChipLabel =
+    data.connectedTextMode === "llm"
+      ? tNC.imageConnectedChipAi
+      : tNC.textConnectedChip;
+  const isPromptReadOnly =
+    graphTextConnected && data.connectedTextMode === "text";
+
+  /** 비어 있는 편집 가능 프롬프트 영역에서는 pane 패닝(트랙패드 드래그) 허용 */
+  const promptTextareaFlowClass =
+    isPromptReadOnly ||
+    isLocked ||
+    isGenerating ||
+    effectivePrompt.trim().length > 0
+      ? REACT_FLOW_NO_DRAG_PAN
+      : REACT_FLOW_NODE_NO_DRAG;
+
+  useEffect(() => {
+    if (marketingModelMenuOpen) {
+      setModelOpen(true);
+    }
+  }, [marketingModelMenuOpen]);
+
+  useEffect(() => {
+    if (!modelOpen || marketingModelMenuOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        modelRef.current &&
+        !modelRef.current.contains(e.target as globalThis.Node)
+      ) {
+        setModelOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick, true);
+    return () => document.removeEventListener("mousedown", handleClick, true);
+  }, [modelOpen, marketingModelMenuOpen]);
+
+  useEffect(() => {
+    if (!ratioOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        ratioRef.current &&
+        !ratioRef.current.contains(e.target as globalThis.Node)
+      ) {
+        setRatioOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick, true);
+    return () => document.removeEventListener("mousedown", handleClick, true);
+  }, [ratioOpen]);
+
+  useEffect(() => {
+    if (!qualityOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        qualityRef.current &&
+        !qualityRef.current.contains(e.target as globalThis.Node)
+      ) {
+        setQualityOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick, true);
+    return () => document.removeEventListener("mousedown", handleClick, true);
+  }, [qualityOpen]);
+
+  useEffect(() => {
+    if (metaSpecsLocked) {
+      setModelOpen(false);
+      setRatioOpen(false);
+      setQualityOpen(false);
+    }
+  }, [metaSpecsLocked]);
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      if (isPromptReadOnly) return;
+      data.onPromptChange?.(e.target.value);
+      setError(null);
+    },
+    [isPromptReadOnly, data],
+  );
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    e.stopPropagation();
+  }, []);
+
+  const generateInflightRef = useRef(false);
+  /**
+   * 제출 단위 멱등키. **클릭마다 새로 만들지 않는다.**
+   *
+   * 매번 새로 만들면 연타가 서로 다른 제출로 보여 차감도 프로바이더 호출도 그만큼 반복된다.
+   * 한 번의 제출이 끝날 때까지 같은 값을 유지해, 가드가 뚫려 요청이 두 번 나가도 서버가
+   * 같은 제출로 알아보고 한 번만 처리하게 한다.
+   *
+   * 생성이 끝나면(성공이든 실패든) 비운다 — 같은 프롬프트로 다시 굴리는 것은 새 제출이다.
+   */
+  const submissionKeyRef = useRef<string | null>(null);
+  const doGenerate = useCallback(async () => {
+    if (isGenerating || generateInflightRef.current) return;
+    // 백스톱 — 게이트 부재·확인 사이 보유량 변동 시 서버 요청 전에 차단
+    if (insufficientCreditMessage) {
+      setError(insufficientCreditMessage);
+      return;
+    }
+    generateInflightRef.current = true;
+    data.onImageGenerateStart?.(nodeId!);
+    setError(null);
+
+    /** 서버가 실제로 환불한 크레딧. 0 이면 안내 문구에 환불을 붙이지 않는다. */
+    let refundedCredits = 0;
+    /** 응답이 끊겼을 때 결과를 되짚을 열쇠 — `finally` 가 ref 를 비우므로 따로 들고 있는다. */
+    let submissionKey: string | null = null;
+    /**
+     * 서버의 판정(JSON)을 실제로 받아봤는가.
+     *
+     * 못 받았다면 실패한 쪽은 생성이 아니라 **응답을 받아오는 길**이다 — 서버는 대개 그대로
+     * 끝내고 차감도 유지된다. 그 구분이 있어야 "되짚어 볼 건"과 "서버가 실패라고 말한 건"을
+     * 섞지 않는다.
+     */
+    let gotServerVerdict = false;
+
+    try {
+      const rawConnectedUrls =
+        data.onPruneEmptyImageInputs?.(nodeId!) ??
+        data.connectedImageUrls ??
+        (data.connectedImageUrl ? [data.connectedImageUrl] : []);
+
+      // base64 data URL → Storage 업로드 → public URL 변환 (Vercel 4.5MB 제한 회피)
+      const allConnectedUrls = await Promise.all(
+        rawConnectedUrls.map(async (url) => {
+          if (url.startsWith("data:")) {
+            try {
+              const { publicUrl } = await uploadCanvasImage(url, data.projectId);
+              return publicUrl;
+            } catch {
+              return url; // fallback
+            }
+          }
+          return url;
+        }),
+      );
+
+      submissionKey = submissionKeyRef.current ??= crypto.randomUUID();
+      const res = await fetch("/api/image/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // 멱등성 키 — 중복 도달 시 서버가 재차감하지 않도록 한다.
+          idempotencyKey: submissionKey,
+          // 서버가 결과를 어느 노드에 붙일지 알아야 기록이 완성된다.
+          nodeId,
+          prompt: effectivePrompt,
+          model,
+          aspectRatio,
+          quality,
+          ...(allConnectedUrls.length > 0 ? { images: allConnectedUrls } : {}),
+          // 각도 변환 노드만 싣는다. 서버가 격자로 다시 접고 범위를 검증한다.
+          ...(data.camera ? { camera: data.camera } : {}),
+        }),
+      });
+
+      const bodyText = await res.text();
+      const json = parseJsonFromApiResponse(res, bodyText) as {
+        ok: boolean;
+        error?: string;
+        refundedCredits?: number;
+        data?: {
+          mimeType: string;
+          /** 서버가 스토리지에 올린 경우 — 이 URL 을 그대로 쓴다 */
+          imageUrl?: string;
+          storageKey?: string;
+          /** 서버 업로드가 실패했을 때만 온다 (예전 경로 폴백) */
+          imageBase64?: string;
+          generatedImageId?: string;
+        };
+      };
+
+      gotServerVerdict = true;
+
+      // 실패 시 서버가 환불한 금액 — 아래 catch 에서 안내 문구에 붙인다.
+      // Error 로는 문구만 흐르므로 여기서 받아 둔다.
+      if (typeof json.refundedCredits === "number") {
+        refundedCredits = json.refundedCredits;
+      }
+
+      // 같은 제출이 이미 서버에서 돌고 있다는 응답. 이건 실패가 아니라 **중복 요청이
+      // 걸러진 것**이므로 조용히 물러난다. 오류로 처리하면 먼저 돌던 요청의 생성 중
+      // 상태까지 꺼 버려서, 정작 그 요청이 끝나도 결과가 붙을 자리가 없어진다.
+      if (!json.ok && json.error === "generation_in_progress") {
+        return;
+      }
+
+      if (!json.ok) {
+        throw new Error(json.error ?? tNC.imageGenerationFailed);
+      }
+      // 서버가 올렸으면 URL, 실패했으면 base64 — 둘 중 하나는 온다.
+      const resultUrl =
+        json.data?.imageUrl ??
+        (json.data?.mimeType && json.data?.imageBase64
+          ? `data:${json.data.mimeType};base64,${json.data.imageBase64}`
+          : null);
+      if (!resultUrl) {
+        throw new Error(tNC.imageGenerationFailed);
+      }
+
+      data.onImageGenerated?.(
+        nodeId!,
+        resultUrl,
+        json.data?.generatedImageId,
+        json.data?.storageKey,
+      );
+      data.onCreditBalanceMayHaveChanged?.();
+    } catch (err) {
+      // 요청은 나갔는데 서버의 판정을 못 받은 경우 — 끊긴 건 생성이 아니라 응답 경로다.
+      //
+      // 대표적으로 JSON 대신 HTML 이 온다: 앞단 게이트웨이(ALB idle timeout)가 우리 응답을
+      // 끊고 제 에러 페이지를 대신 돌려준 것이다. 네트워크 단절·탭 절전도 결과는 같다.
+      // 어느 쪽이든 **서버는 대개 그대로 끝까지 간다** — 크레딧은 이미 차감됐고 이미지도
+      // 스토리지에 올라간다. 여기서 바로 실패로 접으면 사용자는 돈만 내고 결과를 잃는다
+      // (게이트웨이 절단만 해도 30일간 약 30건). 제출 키로 그 행을 되짚어 온다.
+      if (submissionKey && !gotServerVerdict) {
+        const recovered = await recoverImageGeneration(submissionKey);
+
+        if (recovered.status === "completed") {
+          data.onImageGenerated?.(
+            nodeId!,
+            recovered.imageUrl,
+            recovered.generatedImageId || undefined,
+            recovered.storageKey ?? undefined,
+          );
+          data.onCreditBalanceMayHaveChanged?.();
+          return;
+        }
+
+        if (recovered.status === "failed") {
+          // 실패로 끝났다면 서버가 이미 환불했다 — 얼마가 돌아왔는지 같이 알린다.
+          const failedMessage =
+            recovered.refundedCredits > 0
+              ? `${tNC.imageGenerationFailed} ${tCreate.errors.creditsRefunded(recovered.refundedCredits)}`
+              : tNC.imageGenerationFailed;
+          setError(failedMessage);
+          data.onImageGenerationError?.(nodeId!, failedMessage);
+          data.onImageGenerated?.(nodeId!, "");
+          data.onCreditBalanceMayHaveChanged?.();
+          return;
+        }
+
+        // 되짚어도 결론이 안 났다. HTML 을 받은 경우에만 그 사정을 그대로 알리고,
+        // 나머지(네트워크 단절 등)는 아래 일반 경로가 사유에 맞는 문구를 고른다.
+        if (err instanceof ApiReturnedNonJsonError) {
+          setError(tNC.apiUnexpectedHtmlResponse);
+          data.onImageGenerationError?.(nodeId!, tNC.apiUnexpectedHtmlResponse);
+          data.onImageGenerated?.(nodeId!, "");
+          return;
+        }
+      }
+      const message = err instanceof Error ? err.message : tNC.imageGenerationFailed;
+      // 라우트는 크레딧 부족을 402 와 사유 코드(`insufficientCredits`)로 보낸다 — 원문 정규식으로 알아보지 않는다.
+      const isInsufficientCredits = message === "insufficientCredits";
+      // 429 는 낱말로만 본다 — 부분 문자열이면 공급사 request id 속 숫자에 걸린다(useNodeGeneration 과 같다).
+      const isProviderBusy = /provider_busy|\b429\b|too many requests/i.test(message);
+      const baseMessage = isProviderBusy
+        ? tCreate.errors.providerBusy
+        : isInsufficientCredits
+        ? (insufficientCreditMessage ?? tNC.insufficientCreditsShort)
+        // 안전 필터·저작권 차단 같은 프로바이더 사유를 그대로 흘리면 "실패했습니다" 로만
+        // 뜨고, 사용자는 같은 프롬프트로 다시 눌러 같은 이유로 또 실패한다. 영상이 쓰는
+        // 매퍼를 그대로 태운다 — 못 알아본 문구는 매퍼가 일반 문구로 떨어뜨리므로
+        // 프로바이더 원문이 화면에 새지 않는다.
+        : mapVideoGenerationErrorToUserString(message, videoGenErr);
+      // 크레딧 부족으로 아예 차감되지 않은 경우엔 환불도 없다 — 그때는 붙지 않는다(0).
+      const userMessage =
+        refundedCredits > 0
+          ? `${baseMessage} ${tCreate.errors.creditsRefunded(refundedCredits)}`
+          : baseMessage;
+      console.error("[ImageNode] image generation error:", err);
+      setError(userMessage);
+      data.onImageGenerationError?.(nodeId!, userMessage);
+      data.onImageGenerated?.(nodeId!, "");
+      // 환불이 실패했다면 잔액이 실제로 줄어든 상태다 — 표시된 숫자를 실제와 맞춘다.
+      data.onCreditBalanceMayHaveChanged?.();
+    } finally {
+      generateInflightRef.current = false;
+      // 다음 클릭은 새 제출이다 — 같은 프롬프트를 다시 굴리는 것도 포함해서.
+      submissionKeyRef.current = null;
+    }
+  }, [
+    effectivePrompt,
+    isGenerating,
+    insufficientCreditMessage,
+    locale,
+    data,
+    model,
+    aspectRatio,
+    nodeId,
+  ]);
+
+  /** 생성 버튼 → 부모 크레딧 게이트(사용 확인·부족 안내) 경유 후 실제 생성 */
+  const handleGenerate = useCallback(
+    (opts?: { preconfirmed?: boolean }) => {
+      /**
+       * 각도 변환은 프롬프트가 없다 — fal 이 각도 값에서 프롬프트를 직접 조립하므로
+       * 사용자가 쓸 문장이 애초에 없다. 프롬프트 요구는 일반 생성에만 건다.
+       */
+      const needsPrompt = !data.camera;
+      if (needsPrompt && !effectivePrompt.trim()) return;
+      if (isGenerating || generateInflightRef.current) return;
+      if (data.onCreditGateRequest) {
+        data.onCreditGateRequest({
+          cost: estimatedCreditCost,
+          proceed: () => void doGenerate(),
+          ...(opts?.preconfirmed ? { preconfirmed: true } : {}),
+        });
+        return;
+      }
+      void doGenerate();
+    },
+    [data, effectivePrompt, isGenerating, estimatedCreditCost, doGenerate],
+  );
+
+  /**
+   * 각도 모달이 만든 노드는 마운트 직후 한 번 스스로 생성한다.
+   *
+   * ref 로 1회를 못박는다 — StrictMode 이중 실행·리렌더·부모의 data 재생성 어디서도 두 번
+   * 돌면 그만큼 크레딧이 빠진다. 플래그 자체는 저장되지 않으므로(`TRANSIENT_KEYS`) 새로고침
+   * 으로 되살아나지도 않는다.
+   */
+  const autoGenerateFiredRef = useRef(false);
+  useEffect(() => {
+    if (!data.autoGenerateOnce || autoGenerateFiredRef.current) return;
+    if (isGenerating || generateInflightRef.current) return;
+    autoGenerateFiredRef.current = true;
+    data.onAutoGenerateConsumed?.(nodeId!);
+    handleGenerate({ preconfirmed: true });
+  }, [data, nodeId, isGenerating, handleGenerate]);
+
+  const modelLabel =
+    IMAGE_MODEL_OPTIONS.find((option) => option.id === model)?.label ?? model;
+
+  /** 툴바에서 고른 비율 — 생성 노드 플레이스홀더·생성 중 */
+  const toolbarAspect = aspectRatioStringToNumber(aspectRatio);
+  const storedMediaAspect =
+    typeof data.mediaAspect === "number" && data.mediaAspect > 0
+      ? data.mediaAspect
+      : toolbarAspect;
+  /** 업로드 노드는 저장된 크롭 비율, 생성 노드는 툴바 비율 */
+  const imageFrameAspect = isUploadOrigin ? storedMediaAspect : toolbarAspect;
+
+  const handleDownloadImage = useCallback(async () => {
+    const url = data.imageUrl;
+    if (!url) return;
+    const ext = url.startsWith("data:image/jpeg") ? "jpg" : "png";
+    try {
+      await downloadMediaUrl(url, `image-${Date.now()}.${ext}`);
+    } catch {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }, [data.imageUrl]);
+
+  /** 업로드 노드: 좌측 이미지 버튼 항상 비활성. 생성 노드: 이미지가 있으면(생성 완료) 비활성 */
+  const imageSideButtonDisabled = imageInputLocked({
+    isUploadOrigin,
+    hasImage: hasImage,
+  });
+  const imageSideButtonDisabledHint = isUploadOrigin
+    ? tNC.sideButtonsV2.imageSideDisabledUpload
+    : hasImage
+      ? tNC.sideButtonsV2.imageSideDisabledAfterGenerate
+      : undefined;
+
+  // 실제 생성이 단계 라벨보다 먼저 끝나도 결과가 뚝 끊겨 나타나지 않도록,
+  // 완료 후에도 잠깐 생성 중 표시를 유지(tail)하고 그 사이 라벨을 마지막 단계로 고정.
+  const { showGenerating: showRealImageGenerating, isTail: imageGeneratingTail } =
+    useGeneratingWithTail(isGenerating, IMAGE_GENERATING_TAIL_MS);
+  const showImageAreaGenerating = showRealImageGenerating;
+
+  const [headerToneImgEl, setHeaderToneImgEl] =
+    useState<HTMLImageElement | null>(null);
+  const attachHeaderToneImgRef = useCallback((node: HTMLImageElement | null) => {
+    setHeaderToneImgEl((prev) => (prev === node ? prev : node));
+  }, []);
+  const imageHeaderToneEnabled = hasImage && !showImageAreaGenerating;
+  const imageHeaderMediaTone = useNodeHeaderMediaTone(
+    headerToneImgEl,
+    imageHeaderToneEnabled,
+    data.imageUrl?.trim() ?? "",
+  );
+  const imageHeaderToneClass =
+    imageHeaderMediaTone === "bright"
+      ? NODE_TITLE_MEDIA_BACKDROP_BRIGHT
+      : imageHeaderMediaTone === "dark" || imageHeaderToneEnabled
+        ? NODE_TITLE_MEDIA_BACKDROP_DARK
+        : "";
+
+  const imagePromptActionSlot = showGenerateButton ? (
+    <ChromeTooltip
+      label={
+        isGenerating
+          ? tCreate.generateBusy
+          : !effectivePrompt.trim()
+            ? data.connectedTextMode === "llm"
+              ? tNC.generateHintLlmNotReady
+              : tNC.promptRequiredTitle
+            : insufficientCreditMessage ?? ""
+      }
+      placement="top"
+      invertCanvasZoom
+      hostClassName={TOOLTIP_HOST_CONTENTS}
+    >
+      <NodePromptGenerateButton
+        className={`${PROMPT_SUBMIT_FAB}${
+          isGenerating || !effectivePrompt.trim()
+            ? ` ${PROMPT_SUBMIT_FAB_DIMMED}`
+            : ""
+        }`}
+        onClick={() => handleGenerate()}
+        disabled={isGenerating || !effectivePrompt.trim()}
+        loading={isGenerating}
+        creditCost={estimatedCreditCost}
+        aria-label={
+          isGenerating
+            ? tCreate.generateBusy
+            : isEditMode
+              ? tNC.generateEdit
+              : tNC.imageToolbarGenerate
+        }
+      />
+    </ChromeTooltip>
+  ) : hasImage && !isUploadOrigin ? (
+    /** 생성 완료 — 같은 자리에 재생성(같은 설정으로 새 노드 복제) FAB */
+    <ChromeTooltip
+      label={tV2.regenerateClone}
+      placement="top"
+      invertCanvasZoom
+      hostClassName={TOOLTIP_HOST_CONTENTS}
+    >
+      <NodePromptGenerateButton
+        className={`${PROMPT_SUBMIT_FAB}${isGenerating ? ` ${PROMPT_SUBMIT_FAB_DIMMED}` : ""}`}
+        onClick={() => data.onRegenerateClone?.()}
+        disabled={isGenerating}
+        caption={tV2.regenerate}
+        aria-label={tV2.regenerateClone}
+      />
+    </ChromeTooltip>
+  ) : null;
+
+
+  /**
+   * 업로드 전용 노드(`isUploadOrigin && !showPromptSection`)는 모델/비율 툴바도 숨기고
+   * 미디어 밴드만 노출 → 미디어 영역 하단을 카드 곡률로 마감.
+   */
+  const showMetaToolbar = showModelAndRatioToolbar;
+
+  /**
+   * 업로드·생성 결과 모두 같은 프레임(비율 + cover). 미디어 아래 카드블록 유무로만 하단 라운드를 정함.
+   *
+   * 연결 이미지 스트립은 **프롬프트 섹션 안에서만** 그려지므로(아래 JSX) 독립 항으로 세지
+   * 않는다. 세면 섹션을 숨긴 노드(각도 변환)에서 아래에 아무것도 없는데 하단이 각지게 남아,
+   * 카드의 24px 모서리 밖으로 사진이 삐져나온다 — 셸이 `overflow-visible` 이라 잘리지도 않는다.
+   */
+  const blockAttachedBelowMediaBand =
+    showMetaToolbar || Boolean(showPromptSection);
+
+  const imageAreaCardBottomRounded = !error && !blockAttachedBelowMediaBand;
+
+  return (
+    <div
+      ref={nodeLayoutRef}
+      className={`${NODE_CONTAINER} ${NODE_CONTAINER_CHROME} ${isSpawned ? NODE_CONTAINER_ANIMATE : NODE_CONTAINER_IDLE}`}
+      data-node-accent="image"
+      {...(marketingModelMenuOpen
+        ? { "data-marketing-model-picker": "" }
+        : {})}
+      {...(marketingModelMenuOpen && !marketingMenuInteracted
+        ? { "data-marketing-model-static": "" }
+        : {})}
+    >
+      {/* 피그마식 — 헤더(아이콘+타이틀 / 다운로드·삭제)를 노드 카드 위로. 선택 시 accent 색은
+         오버레이 아닌 nodeTitleWrap 을 칠하는 기존 규칙(NodeCanvasV2.module.css)이 자동 적용. */}
+      <div className={NODE_HEADER_ABOVE}>
+        <div className={NODE_TITLE_WRAP} data-node-title="plain">
+          <span className={NODE_TITLE_ICON}>
+            <NodeHeaderGlyph kind="image" data={data} />
+          </span>
+          <span className={`type-body-14-medium ${NODE_TITLE_LABEL}`}>
+            {data.videoFrameTitle === "startFrame"
+              ? tNC.sideButtonsV2.startFrame
+              : data.videoFrameTitle === "endFrame"
+                ? tNC.sideButtonsV2.endFrame
+                : tNC.sideButtonsV2.image}
+          </span>
+        </div>
+        {/* 편집 모드 칩 — 타이틀 바로 옆에 붙인다(삭제 액션 묶음과 분리). */}
+        {isEditMode ? (
+          <div className={EDIT_BADGE}>
+            <NodeTitleChipGlyph kind="editMode" />
+            {tNC.editModeBadge}
+          </div>
+        ) : null}
+        <div className={`${NODE_HEADER_ABOVE_ACTIONS} ml-auto`}>
+            <NodeHeaderActions
+              download={{
+                label: tV2.download,
+                onClick: () => void handleDownloadImage(),
+                disabled: !hasImage,
+              }}
+              remove={{
+                label: tV2.delete,
+                disabledLabel: tNC.imageDeleteGeneratingHint,
+                onClick: () => data.onDeleteNode?.(),
+                disabled: isGenerating,
+              }}
+            />
+        </div>
+      </div>
+      <div className={NODE_MAIN}>
+        <div className={NODE_WRAP} data-node-chrome="wrap">
+          <NodeSideButtons
+            variant="image"
+            showImageHandle
+            showTextHandle
+            imageButtonDisabled={imageSideButtonDisabled}
+            imageButtonDisabledHint={imageSideButtonDisabledHint}
+            onAddImageNode={data.onAddImageNode}
+            onAddTextNode={data.onAddTextNode}
+            allDisabled={isLocked}
+            allDisabledHint={tNC.sideButtonsV2.lockedAfterGenerate}
+            projectId={data.projectId}
+          />
+
+          {/* 출력점을 누르면 「다음 단계」 메뉴 — 예전엔 눌러도 아무 일이 없고 끌어야만 이어졌다 */}
+          <div className="contents" ref={nextStepRef}>
+            <Handle
+              type="source"
+              position={Position.Right}
+              id="image"
+              className={nextStepHint.active ? `${SOURCE_HANDLE} ${SOURCE_HANDLE_HINT_PULSE}` : SOURCE_HANDLE}
+              {...nextStep.handleProps}
+            >
+              <span className={SIDE_HANDLE_FACET} data-side-handle-facet>
+                <NodeHandleGlyph id="image" />
+              </span>
+            </Handle>
+            {nextStepHint.visible ? (
+              <CanvasNextStepHint
+                kind="image"
+                side={nextStepHint.side}
+                onDismiss={nextStepHint.close}
+                announce={nextStepHint.announce}
+              />
+            ) : null}
+            {canShowNextStep ? (
+              <NodeNextStepMenu
+                id={nextStep.menuId}
+                open={nextStepOpen}
+                onClose={closeNextStep}
+                side={nextStep.side}
+                items={[
+                  {
+                    key: "video-start",
+                    icon: <VideoCameraIcon size={15} />,
+                    label: tNC.sideButtonsV2.nextStep.imageToVideo,
+                    hint: tNC.sideButtonsV2.nextStep.imageToVideoHint,
+                    onSelect: () => data.onAddNextNode?.("video-start"),
+                  },
+                  {
+                    key: "video-ref",
+                    icon: <VideoCameraIcon size={15} />,
+                    label: tNC.sideButtonsV2.nextStep.imageAsReference,
+                    hint: tNC.sideButtonsV2.nextStep.imageAsReferenceHint,
+                    onSelect: () => data.onAddNextNode?.("video-ref"),
+                  },
+                  {
+                    key: "image-ref",
+                    icon: <ImageIcon size={15} />,
+                    label: tNC.sideButtonsV2.nextStep.imageToImage,
+                    hint: tNC.sideButtonsV2.nextStep.imageToImageHint,
+                    onSelect: () => data.onAddNextNode?.("image-ref"),
+                  },
+                ]}
+              />
+            ) : null}
+          </div>
+
+          <div className={NODE_MAIN_MEDIA_BAND}>
+            <div
+              className={`${IMAGE_AREA} ${
+                hasImage
+                  ? IMAGE_AREA_MEDIA_FRAMED
+                  : IMAGE_AREA_ASPECT_TRANSITION
+              }${imageAreaCardBottomRounded ? ` ${IMAGE_AREA_CARD_BOTTOM_ROUND}` : ""}${showImageAreaGenerating && !hasImage ? ` ${IMAGE_AREA_GENERATING}` : ""}`}
+              style={{ aspectRatio: imageFrameAspect }}
+            >
+              {hasImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  ref={attachHeaderToneImgRef}
+                  src={data.imageUrl}
+                  alt={tNC.imageAltGenerated}
+                  className={IMAGE_EL}
+                />
+              ) : showImageAreaGenerating ? (
+                <GeneratingState
+                  stages={tNC.imageGeneratingStages}
+                  startedAt={data.generationStartedAt}
+                  forceLastStage={imageGeneratingTail}
+                />
+              ) : (
+                <ImagePlaceholder emptyLabel={tNC.imageNoImageYet} />
+              )}
+            </div>
+          </div>
+
+                      {showPromptSection ? (
+            <div
+              className={`${PROMPT_AREA} ${PROMPT_AREA_CARD_BOTTOM_ROUND}`}
+            >
+              {firstNodeHint ? (
+                <CanvasFirstNodeHint
+                  body={firstNodeHint.body}
+                  anchor="prompt"
+                  onDismiss={firstNodeHint.onDismiss}
+                  announce={firstNodeHint.announce}
+                />
+              ) : null}
+              <div
+                className={`${PROMPT_COMPOSER}${showMetaToolbar ? ` ${PROMPT_COMPOSER_WITH_META_FOOTER}` : ""}`}
+              >
+                <div
+                  className={`${PROMPT_FIELD_SHELL} ${
+                    showConnectedChip ||
+                    promptLinkedImageUrls.length > 0
+                      ? PROMPT_FIELD_SHELL_WITH_REFERENCE_MEDIA
+                      : PROMPT_FIELD_SHELL_MIN_H
+                  }${
+                    showMetaToolbar ? ` ${PROMPT_FIELD_SHELL_WITH_META_FOOTER}` : ""
+                  }`}
+                  {...(marketingModelMenuOpen
+                    ? { "data-embed-marketing-model-focus": "" }
+                    : {})}
+                >
+                  {promptLinkedImageUrls.length > 0 ? (
+                    <div className={PROMPT_REFERENCE_MEDIA_INSIDE_SHELL}>
+                      <PromptLinkedImageStrip urls={promptLinkedImageUrls} />
+                    </div>
+                  ) : null}
+                  {showConnectedChip ? (
+                    <div className={PROMPT_CHIP_INSIDE_SHELL}>
+                      <div className={PROMPT_CONNECTION_CHIP} role="status">
+                        <SparkleIcon size={16} className="shrink-0 text-[var(--accent-yellow-500)]" />
+                        <span
+                          className={PROMPT_CONNECTION_CHIP_TEXT}
+                          title={
+                            effectivePrompt.trim().length > 0
+                              ? effectivePrompt
+                              : undefined
+                          }
+                        >
+                          {imageConnectionChipLabel}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className={PROMPT_COPY_COUNT_ROW}>
+                        <NodePromptInputCopyButton
+                          textToCopy={effectivePrompt}
+                          tooltip={tNC.promptInputCopy}
+                          ariaLabel={tNC.promptInputCopyAria}
+                        />
+                        <span
+                          className={`type-caption-12-regular ${PROMPT_CHAR_COUNT_IN_SHELL}`}
+                          aria-live="polite"
+                        >
+                          {tV2.textNodeCharCount(effectivePrompt.length)}
+                        </span>
+                      </div>
+                      <textarea
+                        ref={promptTextareaRef}
+                        className={`type-body-14-regular ${PROMPT_TEXTAREA} ${isPromptReadOnly ? PROMPT_TEXTAREA_CONNECTED : PROMPT_TEXTAREA_TONE} ${promptTextareaFlowClass}`}
+                        value={effectivePrompt}
+                        onChange={handleChange}
+                        onKeyDown={handleKeyDown}
+                        onWheelCapture={wheelCaptureWhenFocusedScrollable}
+                        placeholder={
+                          isPromptReadOnly
+                            ? tNC.imagePromptReadonlyPlaceholder
+                            : isEditMode
+                              ? tNC.imagePromptEditPlaceholder
+                              : tNC.imagePromptPlaceholder
+                        }
+                        readOnly={isPromptReadOnly || isLocked}
+                        rows={3}
+                      />
+                    </>
+                  )}
+                  <div className={PROMPT_FOOTER}>
+                    <div className={PROMPT_FOOTER_CONTROLS}>
+                      {showMetaToolbar ? (
+            <div className={META_TOOLBAR}>
+              {/* VideoNode 와 동일한 space-between 패턴 — 좌측 모델 / 우측 비율 */}
+              <div className={META_TOOLBAR_LEADING}>
+                {showModelAndRatioToolbar ? (
+                  <div
+                    className={`${DROPDOWN_WRAP} ${DROPDOWN_WRAP_MODEL}`}
+                    ref={modelRef}
+                    {...(marketingModelMenuOpen
+                      ? { "data-embed-marketing-model-focus": "" }
+                      : {})}
+                  >
+                    <ChromeTooltip
+                      label={
+                        isGenerating ? tCreate.generateBusy : modelLabel
+                      }
+                      placement="top"
+                      invertCanvasZoom
+                      hostClassName={META_TOOLTIP_HOST_MODEL}
+                      // 마케팅 데모: 호버 시 버튼 위로 뜨는 모델명 툴팁(버튼 라벨과 중복)을 끈다.
+                      // 툴팁 박스+그림자가 버튼 상단을 어둡게 덮는 현상 제거. 실제 에디터에선 유지.
+                      suppress={modelOpen || marketingModelMenuOpen}
+                    >
+                      <button
+                        type="button"
+                        className={`type-caption-12-regular ${META_MODEL} ${REACT_FLOW_NODE_NO_DRAG}`}
+                        aria-disabled={metaSpecsLocked || undefined}
+                        onClick={() => {
+                          if (metaSpecsLocked) return;
+                          if (marketingModelMenuOpen) {
+                            setMarketingMenuInteracted(true);
+                          }
+                          setModelOpen((p) => {
+                            const next = !p;
+                            if (next) {
+                              setRatioOpen(false);
+                              setQualityOpen(false);
+                            }
+                            return next;
+                          });
+                        }}
+                        aria-expanded={modelOpen}
+                        disabled={metaSpecsLocked}
+                      >
+                        <span className={META_MODEL_LABEL}>{modelLabel}</span>
+                        <span className={`${META_CHEVRON}${modelOpen ? ` ${META_CHEVRON_OPEN}` : ""}`}>
+                          <ToolbarChevronDown />
+                        </span>
+                      </button>
+                    </ChromeTooltip>
+                    <MetaDropdownPanel
+                      open={modelOpen}
+                      staticOpen={
+                        marketingModelMenuOpen &&
+                        modelOpen &&
+                        !marketingMenuInteracted
+                      }
+                      anchorClassName={
+                        marketingModelMenuOpen
+                          ? DROPDOWN_ANCHOR_BELOW
+                          : DROPDOWN_ANCHOR
+                      }
+                      surfaceClassName={DROPDOWN_SURFACE}
+                      motionOrigin={
+                        marketingModelMenuOpen ? "top-center" : "bottom-center"
+                      }
+                      autoVerticalFlip={marketingModelMenuOpen ? false : undefined}
+                    >
+                      <div
+                        className={`type-caption-12-regular ${DROPDOWN_EYEBROW}`}
+                        aria-hidden="true"
+                      >
+                        {tNC.imageModelLabel}
+                      </div>
+                      {IMAGE_MODEL_OPTIONS.map(({ id, label }) => (
+                        <button
+                          key={id}
+                          type="button"
+                          className={`type-body-14-regular ${DROPDOWN_OPTION} ${id === model ? DROPDOWN_OPTION_ACTIVE : DROPDOWN_OPTION_IDLE}`}
+                          onClick={() => {
+                            const prevModelId = model;
+                            preferredAspectByModelRef.current[prevModelId] =
+                              aspectRatio;
+
+                            data.onModelChange?.(id);
+                            const supported = getAspectRatiosForModel(id);
+                            const remembered =
+                              preferredAspectByModelRef.current[id];
+                            let next: AspectRatio;
+                            if (
+                              remembered !== undefined &&
+                              supported.includes(remembered)
+                            ) {
+                              next = remembered;
+                            } else if (supported.includes(aspectRatio)) {
+                              next = aspectRatio;
+                            } else {
+                              next = pickNearestSupportedAspect(
+                                aspectRatio,
+                                supported,
+                              );
+                            }
+                            setAspectRatio(next);
+                            preferredAspectByModelRef.current[id] = next;
+                            data.onMediaAspectChange?.(
+                              aspectRatioStringToNumber(next),
+                            );
+                            setModelOpen(false);
+                          }}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </MetaDropdownPanel>
+                  </div>
+                ) : null}
+              </div>
+
+              {showModelAndRatioToolbar ? (
+                <div className={META_TOOLBAR_TRAILING}>
+                  <div className={DROPDOWN_WRAP} ref={ratioRef}>
+                    <ChromeTooltip
+                      label={tV2.metaAspectRatio}
+                      placement="top"
+                      invertCanvasZoom
+                      suppress={ratioOpen}
+                    >
+                      <button
+                        type="button"
+                        className={`type-caption-12-regular ${META_ITEM} ${REACT_FLOW_NODE_NO_DRAG}`}
+                        aria-disabled={metaSpecsLocked || undefined}
+                        onClick={() => {
+                          if (metaSpecsLocked) return;
+                          setRatioOpen((p) => {
+                            const next = !p;
+                            if (next) {
+                              setModelOpen(false);
+                              setQualityOpen(false);
+                            }
+                            return next;
+                          });
+                        }}
+                        disabled={metaSpecsLocked}
+                      >
+                        {aspectRatio}
+                        <span className={`${META_CHEVRON}${ratioOpen ? ` ${META_CHEVRON_OPEN}` : ""}`}>
+                          <ToolbarChevronDown />
+                        </span>
+                      </button>
+                    </ChromeTooltip>
+                    <MetaDropdownPanel
+                      open={ratioOpen}
+                      anchorClassName={DROPDOWN_ANCHOR}
+                      surfaceClassName={DROPDOWN_SURFACE}
+                      motionOrigin="bottom-center"
+                    >
+                      <div
+                        className={`type-caption-12-regular ${DROPDOWN_EYEBROW}`}
+                        aria-hidden="true"
+                      >
+                        {tV2.metaAspectRatio}
+                      </div>
+                      {getAspectRatiosForModel(model).map((r) => (
+                        <button
+                          key={r}
+                          type="button"
+                          className={`type-body-14-regular ${DROPDOWN_OPTION} ${r === aspectRatio ? DROPDOWN_OPTION_ACTIVE : DROPDOWN_OPTION_IDLE}`}
+                          onClick={() => {
+                            setAspectRatio(r);
+                            preferredAspectByModelRef.current[model] = r;
+                            data.onMediaAspectChange?.(aspectRatioStringToNumber(r));
+                            setRatioOpen(false);
+                          }}
+                        >
+                          {r}
+                        </button>
+                      ))}
+                    </MetaDropdownPanel>
+                  </div>
+
+                  {/* 품질 선택 (OpenAI 모델만) */}
+                  {model.startsWith("gpt-image") ? (
+                    <div className={DROPDOWN_WRAP} ref={qualityRef}>
+                      <ChromeTooltip
+                        label={tNC.imageQualityLabel}
+                        placement="top"
+                        invertCanvasZoom
+                        suppress={qualityOpen}
+                      >
+                        <button
+                          type="button"
+                          className={`type-caption-12-regular ${META_ITEM} ${REACT_FLOW_NODE_NO_DRAG}`}
+                        aria-disabled={metaSpecsLocked || undefined}
+                          onClick={() => {
+                            if (metaSpecsLocked) return;
+                            setQualityOpen((p) => {
+                              const next = !p;
+                              if (next) { setModelOpen(false); setRatioOpen(false); }
+                              return next;
+                            });
+                          }}
+                          disabled={metaSpecsLocked}
+                        >
+                          {QUALITY_OPTIONS.find((q) => q.id === quality)?.label ??
+                            tNC.imageQualityOptions[defaultQualityForModel(model)]}
+                          <span className={`${META_CHEVRON}${qualityOpen ? ` ${META_CHEVRON_OPEN}` : ""}`}>
+                            <ToolbarChevronDown />
+                          </span>
+                        </button>
+                      </ChromeTooltip>
+                      <MetaDropdownPanel
+                        open={qualityOpen}
+                        anchorClassName={DROPDOWN_ANCHOR}
+                        surfaceClassName={DROPDOWN_SURFACE}
+                        motionOrigin="bottom-center"
+                      >
+                        <div
+                          className={`type-caption-12-regular ${DROPDOWN_EYEBROW}`}
+                          aria-hidden="true"
+                        >
+                          {tNC.imageQualityLabel}
+                        </div>
+                        {QUALITY_OPTIONS.map(({ id: qId, label: qLabel }) => (
+                          <button
+                            key={qId}
+                            type="button"
+                            className={`type-body-14-regular ${DROPDOWN_OPTION} ${qId === quality ? DROPDOWN_OPTION_ACTIVE : DROPDOWN_OPTION_IDLE}`}
+                            onClick={() => {
+                              data.onQualityChange?.(qId);
+                              setQualityOpen(false);
+                            }}
+                          >
+                            {qLabel}
+                          </button>
+                        ))}
+                      </MetaDropdownPanel>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
+            </div>
+                                  ) : null}
+                      <div className={PROMPT_FOOTER_GENERATE}>
+                        {imagePromptActionSlot}
+                      </div>
+                    </div>
+                    {(() => {
+                      const promptError =
+                        error ||
+                        (effectivePrompt.trim() ? insufficientCreditMessage : null);
+                      return promptError ? (
+                        <div className={PROMPT_ERROR_BANNER} role="alert">
+                          <span
+                            className={`type-body-14-regular ${PROMPT_ERROR_BANNER_TEXT}`}
+                            title={promptError}
+                          >
+                            {promptError}
+                          </span>
+                        </div>
+                      ) : null;
+                    })()}
+                  </div>
+                        </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {promptResize.showHandle ? (
+        <NodePromptResizeHandle
+          onPointerDown={promptResize.onHandlePointerDown}
+          onDoubleClick={promptResize.onHandleDoubleClick}
+          ariaLabel={tNC.promptResizeAria}
+        />
+      ) : null}
+    </div>
+  );
+}

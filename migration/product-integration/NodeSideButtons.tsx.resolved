@@ -1,0 +1,949 @@
+"use client";
+
+import {
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  type ChangeEvent,
+  type ReactNode,
+} from "react";
+import { Handle, Position } from "@xyflow/react";
+import { useI18n } from "@/components/landing/system/I18nProvider";
+import { MetaDropdownPanel } from "../components/MetaDropdownPanel";
+import { getViewportAdaptiveMenuSide, type MenuSide } from "../components/metaDropdownViewport";
+import { ChromeTooltip } from "../components/ChromeTooltip";
+import { NodeMenuItem } from "../components/NodeMenuItem";
+import { imageInputMenuHints } from "../lib/inputMenuHints";
+import { NodeMenuChromeContext } from "../lib/nodeMenuChrome";
+import type { ImageTargetHandle, TextTargetHandle } from "../types";
+import { NodeHandleGlyph } from "../icons/NodeChromeGlyphs";
+import { SparkleIcon } from "../icons/SparkleIcon";
+import { TextIcon } from "../icons/TextIcon";
+import { UploadSimpleIcon } from "../icons/UploadSimpleIcon";
+import { videoFrameInputLocks } from "../lib/nodeChrome";
+import { CropModal, type CropModalResult } from "./CropModal";
+
+// ── Styles ─────────────────────────────────────────────────────────────────
+// 이 파일의 모듈 CSS 와 공유 크롬 SSOT `nodeSideHandleChrome` 를 함께 인라인한다.
+// (두 모듈이 같은 요소에 걸려 있어 한쪽만 옮기면 레이어 밖 모듈이 유틸리티를 이긴다.)
+
+/* ── Side Buttons Container ── */
+
+/* 패딩 박스 원점 왼쪽으로 `--node-side-leading-offset`; 마케팅 margin-outset 과 합산 중복 없음(`globals`/노드 `.nodeWrap` 규칙). */
+const SIDE_BUTTONS = [
+  "absolute left-[calc(-1_*_var(--node-side-leading-offset))] top-[50%]",
+  "[transform:translateY(-50%)]",
+  "flex flex-col items-center gap-[var(--node-side-stack-gap)] z-[5]",
+].join(" ");
+
+/*
+ * Image/Video: 부모를 nodeMain이 아니라 미디어 밴드(.nodeMainMediaBand)로 둘 때.
+ * 원본도 `.sideButtons` 와 같은 `left` 값을 다시 선언한다 — 계산값이 같은 중복이라
+ * 같은 유틸리티를 다시 얹는다.
+ */
+const SIDE_BUTTONS_ANCHOR_MEDIA_BAND =
+  "left-[calc(-1_*_var(--node-side-leading-offset))]";
+
+/* ── Button Wrap (for relative-positioned menus) ── */
+
+/*
+ * `ChromeTooltip` 호스트(span, inline-flex)를 블록 컨테이너 안에만 두면 line-height 줄 상자 때문에
+ * 버튼 아래쪽에 헛공간이 생김(Youtube 레일처럼 flex 아이템으로 두면 발생하지 않음).
+ * 같은 플레이블록을 사이드 스택 안에서도 재현하지 않도록 래핑 플렉으로 정리한다.
+ */
+const BUTTON_WRAP = "relative flex flex-col items-center";
+
+/* ── Toolbar Buttons — 사이즈/곡률: globals `--node-side-handle-*`. 전환은 아래 셸 유틸리티에 직접 ── */
+
+/* `.button` + 공유 크롬의 `.shellTransition`, 그리고 항상 함께 붙던
+ * `.toneImage/.toneText/.toneEdit { background: transparent !important }`(shell 은 투명,
+ * 채색은 facet 으로 이전) 을 한 덩어리로 합친다.
+ * `cursor` 는 활성/비활성이 서로 다른 값을 다투므로 여기 두지 않고 모드 문자열로 갈랐다. */
+const SIDE_BUTTON_SHELL = [
+  "relative",
+  "w-[var(--node-side-handle-size)] h-[var(--node-side-handle-size)]",
+  "rounded-[var(--node-side-handle-radius)] [border:none]",
+  "flex items-center justify-center p-0",
+  "[background:transparent]!",
+  /* `.shellTransition` */
+  "[transition:filter_0.13s_ease,color_0.13s_ease,border-color_0.13s_ease]",
+].join(" ");
+
+/* ── 좌측 타깃(노드 본체 기준 레일 안) ── RF 기본 변형 제거.
+ * React Flow 자체 스타일시트(`@xyflow/react/dist/style.css`)는 레이어 밖이라
+ * `.react-flow__handle` 의 위치·크기·배경·테두리를 유틸리티보다 먼저 이긴다 —
+ * 원본이 이 선언들에 `!important` 를 달았던 이유가 그것이므로 `!` 를 그대로 옮긴다.
+ * (원본의 `.rfTargetLeft:global(.react-flow__handle)` 은 **같은 요소**에 항상 붙는
+ *  클래스라 셀렉터 재현 없이 `!` 만으로 동등하다.)
+ * `overflow: visible` 만 원본에도 `!` 가 없었다 — RF 는 overflow 를 건드리지 않는다. */
+const RF_TARGET_LEFT = [
+  "relative! left-auto! top-auto! [transform:none]!",
+  "w-[var(--node-side-handle-size)]! h-[var(--node-side-handle-size)]!",
+  "min-w-[var(--node-side-handle-size)]! min-h-[var(--node-side-handle-size)]!",
+  "m-0! p-0! box-border!",
+  "rounded-[var(--node-side-handle-radius)]! [border:none]!",
+  "flex! items-center! justify-center!",
+  "cursor-pointer! no-underline",
+  "overflow-visible",
+].join(" ");
+
+/* `.interactive` — 호버/프레스는 디스크(facet) 전체 스케일 + shell filter.
+   자식은 facet 하나뿐이라 `> *` 로 집는다.
+   원본에서 active 규칙이 hover 보다 특이도가 높아 항상 이겼으므로 `!` 로 고정한다. */
+const SIDE_BUTTON_INTERACTIVE = [
+  "cursor-pointer",
+  "[&:hover>*]:[transform:scale(1.08)]",
+  "[&:active>*]:[transform:scale(0.94)]!",
+  "[&:hover]:[filter:brightness(1.1)]",
+  "[&:active]:[filter:brightness(0.94)]!",
+].join(" ");
+
+/* `.inert` + `.buttonDisabled` — 호버/액티브 스케일 차단.
+ * `cursor: not-allowed` 는 좌측 타깃(Handle)일 때 공유 크롬의
+ * `cursor: pointer !important` 에 밀린다(원본과 동일). */
+const SIDE_BUTTON_INERT = [
+  "cursor-not-allowed [filter:none]",
+  "[&:hover>*]:[transform:scale(1)]!",
+  "[&:active>*]:[transform:scale(1)]!",
+].join(" ");
+
+/* 디스크(아이콘+채널 배경) — 항상 셀 꽉 채움, 포인터는 shell 이 받음.
+   `.facet { background: transparent }` 는 아래 채널 톤(`!important`)에 항상 져서 옮기지 않는다. */
+const SIDE_BUTTON_FACET_BASE = [
+  "inline-flex items-center justify-center box-border w-full h-full",
+  "rounded-[inherit] pointer-events-none",
+  "[transform:scale(1)] [transition:transform_0.1s_ease]",
+  "relative isolate overflow-hidden",
+].join(" ");
+
+/**
+ * Figma 동등: 안쪽 그림자 X/Y 0 · Blur 8 · Spread 0 · var(--palette-gray-000) 100% · 블렌드 Overlay.
+ * 이너 섀도 단독 블렌드 미지원 → 오버레이 레이어로 근사 (::before 가 배경 아래·아이콘 아래 페인팅 순서).
+ * 비활성 사이드 버튼(`.inert` / `.buttonDisabled` / `[aria-disabled="true"]` / `:disabled`)에서는
+ * 채도 폭주 때문에 원본이 `display: none !important` 로 껐으므로 비활성 facet 문자열에는 아예 넣지 않는다.
+ */
+const SIDE_BUTTON_FACET_INNER_SHADOW = [
+  "[&::before]:[content:'']",
+  "[&::before]:absolute [&::before]:inset-0 [&::before]:rounded-[inherit]",
+  "[&::before]:pointer-events-none",
+  "[&::before]:[box-shadow:inset_0_0_8px_0_rgb(var(--palette-gray-000-rgb)/100%)]",
+  "[&::before]:[mix-blend-mode:overlay]",
+  "[&::before]:[transform:translateZ(0)]",
+].join(" ");
+
+/* 채널 톤 — globals `--node-handle-icon-*` (facet 에 적용) */
+const FACET_IMAGE = [
+  SIDE_BUTTON_FACET_BASE,
+  SIDE_BUTTON_FACET_INNER_SHADOW,
+  "[background:var(--node-handle-icon-image)]!",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]!",
+].join(" ");
+
+const FACET_TEXT = [
+  SIDE_BUTTON_FACET_BASE,
+  SIDE_BUTTON_FACET_INNER_SHADOW,
+  "[background:var(--node-handle-icon-text)]!",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]!",
+].join(" ");
+
+const FACET_EDIT = [
+  SIDE_BUTTON_FACET_BASE,
+  SIDE_BUTTON_FACET_INNER_SHADOW,
+  "[background:var(--node-handle-icon-edit)]!",
+  "text-[rgb(var(--palette-gray-000-rgb)/100%)]!",
+].join(" ");
+
+/* 메뉴 열림(`.buttonActive`) — 톤 래치(`.sideToneLatch*`)가 항상 함께 붙어
+ * `.sideToneLatch*.buttonActive > .facet`(0-3-0)가 `.buttonActive > .facet`(0-2-0, primary-500)을
+ * 항상 이긴다. 즉 배경/글자색은 기본 톤과 같은 값이고, 추가되는 선언은 `filter: none` 뿐이다.
+ * 라이트 오버라이드도 같은 값이라 분기하지 않는다(승자만 옮긴다). */
+const FACET_IMAGE_ACTIVE = `${FACET_IMAGE} [filter:none]`;
+const FACET_TEXT_ACTIVE = `${FACET_TEXT} [filter:none]`;
+const FACET_EDIT_ACTIVE = `${FACET_EDIT} [filter:none]`;
+
+/* 비활성 — 시각상 disc 는 facet 이라 shell 배경만으로는 안 보인다 → facet 자체에 채널별 비활성 톤.
+   라이트는 opacity 를 깎지 않고 활성 토큰을 `brightness(0.78) saturate(0.95)` 로만 톤다운한다.
+   (`.buttonActive` 와 겹칠 때는 원본 소스 순서상 `.buttonDisabled` 계열이 뒤라 이긴다 —
+    아래 `sideFacetClass` 가 비활성을 먼저 분기해 그 승부를 그대로 재현한다.) */
+const FACET_IMAGE_DISABLED = [
+  SIDE_BUTTON_FACET_BASE,
+  "[filter:none]!",
+  "[background:var(--node-handle-bg-disabled-image)]!",
+  "[color:var(--node-handle-icon-disabled-image)]!",
+  "light:[filter:brightness(0.78)_saturate(0.95)]!",
+  "light:[background:var(--node-handle-bg-image)]!",
+  "light:[color:var(--node-handle-icon-image)]!",
+].join(" ");
+
+const FACET_TEXT_DISABLED = [
+  SIDE_BUTTON_FACET_BASE,
+  "[filter:none]!",
+  "[background:var(--node-handle-bg-disabled-text)]!",
+  "[color:var(--node-handle-icon-disabled-text)]!",
+  "light:[filter:brightness(0.78)_saturate(0.95)]!",
+  "light:[background:var(--node-handle-bg-text)]!",
+  "light:[color:var(--node-handle-icon-text)]!",
+].join(" ");
+
+const FACET_EDIT_DISABLED = [
+  SIDE_BUTTON_FACET_BASE,
+  "[filter:none]!",
+  "[background:var(--node-handle-bg-disabled-edit)]!",
+  "[color:var(--node-handle-icon-disabled-edit)]!",
+  "light:[filter:brightness(0.78)_saturate(0.95)]!",
+  "light:[background:var(--node-handle-bg-edit)]!",
+  "light:[color:var(--node-handle-icon-edit)]!",
+].join(" ");
+
+/* 로컬 영상 업로드 진행 중 — 버튼 아이콘 자리에 회전 스피너 (edit/보라 톤, 다크·라이트 공용).
+   `border-top-color` 는 `border` 단축과 다투므로 `!` 로 승자를 고정한다. */
+const VIDEO_INPUT_SPINNER = [
+  "inline-block box-border w-7 h-7 rounded-[50%]",
+  "border-2 border-solid border-[var(--node-handle-icon-edit)] border-t-transparent",
+  "[animation:videoInputUploadSpin_640ms_linear_infinite]",
+].join(" ");
+
+/* ── Sub Menu ── */
+
+/* 드롭다운이 버튼의 왼쪽(캔버스 바깥쪽)으로 열림 — 시작/참조/이미지/텍스트 */
+const MENU_ANCHOR_LEFT = [
+  "absolute top-0 right-[calc(100%_+_6px)] left-auto z-10 min-w-80",
+  "[transform:scale(calc(1_/_var(--node-canvas-zoom,1)))]",
+  /* center면 줌 보정 시 세로로 가운데 맞춰져 버튼보다 아래로 보임 → 상단 정렬 */
+  "[transform-origin:right_top]",
+].join(" ");
+
+/* 드롭다운이 버튼의 오른쪽(노드 쪽)으로 열림 — 끝 프레임 */
+const MENU_ANCHOR_RIGHT = [
+  "absolute top-0 left-[calc(100%_+_6px)] z-10 min-w-80",
+  "[transform:scale(calc(1_/_var(--node-canvas-zoom,1)))]",
+  "[transform-origin:left_top]",
+].join(" ");
+
+/* GNB .projectDropdown — 표면(면·라운드·그림자·패딩·항목 gap)은 LOUIS 정본 `.louis-popover`가
+ * 소유한다. MetaDropdownPanel이 위치·모션을 잡는 overlay Provider 밖 bare div 라, `.louis-popover`
+ * min-inline-size 폴백이 풀리도록 collision-padding shim 을 얹는다(없으면 폭이 붕괴). */
+const MENU_SURFACE_COMMON = [
+  "louis-popover",
+  "[--louis-overlay-collision-padding:8px]",
+].join(" ");
+
+/* min-w-80(160)은 정본 preferred-inline-size(160)와 같아 생략 — 정본값으로 수렴. */
+const MENU_SURFACE = [
+  MENU_SURFACE_COMMON,
+].join(" ");
+
+/* 항목은 출력점 「다음 단계」 메뉴와 같은 정본 부품(`NodeMenuItem`)이다 — 이름과 결과 한 줄. */
+
+/**
+ * 좌우 판정(`getViewportAdaptiveMenuSide`)에 쓰는 메뉴 폭(px) — 가장 넓은 메뉴가 들어가는 값.
+ * 항목이 이름 한 줄이던 동안은 160(정본 popover 최소 폭)이었다. 결과 줄이 붙은 뒤 잰 폭(2026-10-08)은
+ * ko 251~305, en 277~346, ja 262~351 이고 가장 넓은 것은 참조 이미지 메뉴다.
+ * 좁은 메뉴는 조금 일찍 반대쪽으로 열릴 뿐 잘리지 않는다.
+ */
+const MENU_WIDTH_PX = 360;
+
+/* ── Hidden file input ── */
+
+const HIDDEN_FILE_INPUT =
+  "absolute w-0 h-0 opacity-0 pointer-events-none overflow-hidden";
+
+/* 업로드 메뉴 하단 지원 사양 안내 — 테마 색 상속 + 저대비.
+   `<div>` 는 랜딩 `[data-page-root] :where(…)` 목록에 없어 `word-break` 에 `!` 가 필요 없다. */
+const VIDEO_INPUT_SPEC_HINT = [
+  "pt-1 px-5 pb-4 max-w-[220px]",
+  "text-inherit opacity-[0.55] [word-break:keep-all]",
+].join(" ");
+
+// ── Icons ──────────────────────────────────────────────────────────────────
+
+/** 업로드 — Toolbar 와 각각 손으로 그려 두었던 것을 공용 래퍼 하나로 합쳤다 */
+const UploadIcon = (
+  <UploadSimpleIcon size={15} />
+);
+
+/** "AI ~생성" 메뉴 아이콘 — 별(Sparkle). 같은 메뉴의 「AI 프롬프트 생성」, 출력점 메뉴의 「AI로 편집하기」와 같은 기호다.
+ *  예전에는 위 화살표라 바로 위 「이미지 업로드」와 구별되지 않았다(2026-10-08 소유자 지적). */
+const GenerateIcon = (
+  <SparkleIcon size={15} />
+);
+
+// ── Sub-menu ───────────────────────────────────────────────────────────────
+
+type NodeSubMenuOption = {
+  label: string;
+  /** 고르면 무엇이 되는지 한 줄 — 누른 단추(대상 핸들)에 따라 다르다(`lib/inputMenuHints.ts`) */
+  hint?: string;
+  icon: React.ReactNode;
+  onClick: () => void;
+};
+
+function NodeSubMenu({
+  options,
+  onClose,
+}: {
+  options: NodeSubMenuOption[];
+  onClose: () => void;
+}) {
+  return (
+    <>
+      {options.map((opt) => (
+        <NodeMenuItem
+          key={opt.label}
+          icon={opt.icon}
+          label={opt.label}
+          hint={opt.hint}
+          onClick={() => {
+            opt.onClick();
+            onClose();
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
+// ── NodeSideButtons ────────────────────────────────────────────────────────
+
+interface NodeSideButtonsProps {
+  /**
+   * "video" — Start / End / Reference Images / Text (target handles 포함)
+   * "image" — Image / Text (target handles 없음)
+   */
+  variant?: "video" | "image";
+  /** VideoNode에서만 true — target Handle 표시 */
+  showHandles?: boolean;
+  /** ImageNode의 Image 버튼만 target Handle로 동작 */
+  showImageHandle?: boolean;
+  /** ImageNode의 Text 버튼도 target Handle로 동작 */
+  showTextHandle?: boolean;
+  /** image variant: 왼쪽 이미지 메뉴 버튼 비활성화 */
+  imageButtonDisabled?: boolean;
+  imageButtonDisabledHint?: string;
+  onAddImageNode?: (
+    imageUrl?: string,
+    targetHandle?: ImageTargetHandle,
+    mediaAspect?: number,
+  ) => void;
+  onAddTextNode?: (mode: "text" | "llm", targetHandle?: TextTargetHandle) => void;
+  /** When true, the Text / AI prompt menu cannot add another node (e.g. video already has a text connection). */
+  textAddDisabled?: boolean;
+  textAddDisabledHint?: string;
+  /** 생성 완료 후 모든 좌측 버튼 비활성화 (기존 연결 유지, 새 연결 차단) */
+  allDisabled?: boolean;
+  allDisabledHint?: string;
+  /**
+   * "nodeMain"(기본): 세로 중앙 = nodeMain 전체 높이 기준.
+   * "mediaBand": 미디어 프리뷰 밴드만 포함한 부모 기준 — 프롬프트/칩 높이 변화에 좌측 버튼이 움직이지 않음.
+   */
+  sideButtonsAnchorScope?: "nodeMain" | "mediaBand";
+  supportsEndFrame?: boolean;
+  supportsReferenceImages?: boolean;
+  exclusiveFrameAndRef?: boolean;
+  hasStartFrame?: boolean;
+  hasRefImages?: boolean;
+  hasVideoInput?: boolean;
+  /** 비디오 인풋 핸들 노출 — 모델이 비디오 인풋 역할을 하나라도 지원 */
+  supportsVideoInput?: boolean;
+  /** 로컬 업로드 메뉴 항목 노출 — 모델이 업로드(참조 소스) 지원 시 */
+  showVideoUpload?: boolean;
+  /** 비디오 인풋 한도 도달·업로드 중 등으로 비활성 */
+  videoInputDisabled?: boolean;
+  /** 로컬 영상 업로드 진행 중 — 버튼 아이콘 자리에 스피너 표시 */
+  videoInputUploading?: boolean;
+  videoInputDisabledHint?: string;
+  /** 업로드 메뉴에 표시할 지원 사양 요약 (형식·길이·용량·해상도·개수) */
+  videoInputSpecHint?: string;
+  /** 로컬 영상 업로드 — 노드를 만들지 않고 인라인 (참조 전용) */
+  onUploadVideoInput?: (file: File) => void;
+  projectId?: string;
+  /** 시작 프레임 버튼 옆에 붙일 안내 — 체험 단독 비디오 노드의 첫 노드 안내(`CanvasFirstNodeHint` 의 `startFrame` 자리).
+   *  버튼을 감싼 칸(relative) 안에 그려져 그 칸의 오른쪽 끝과 세로 가운데를 기준으로 선다. */
+  startFrameHint?: ReactNode;
+}
+
+/**
+ * 사이드 버튼의 톤 — 값은 캔버스의 채널 어휘(`V2EdgeTone`)와 같은 이름을 쓴다.
+ * 비디오 채널은 존재하지 않는다: 비디오가 오가는 이음새는 edit 채널이다(`lib/edgeTone.ts`).
+ */
+type SideTone = "image" | "text" | "edit";
+
+type TargetButtonProps = {
+  showHandle?: boolean;
+  handleId: string;
+  open: boolean;
+  label: string;
+  onToggle: () => void;
+  icon: React.ReactNode;
+  sideTone: SideTone;
+  disabled?: boolean;
+  disabledHint?: string;
+};
+
+function sideTargetChromeClass(opts: {
+  showHandle: boolean;
+  disabledStyle: boolean;
+}) {
+  const modeCls = opts.disabledStyle
+    ? SIDE_BUTTON_INERT
+    : SIDE_BUTTON_INTERACTIVE;
+  const rfCls = opts.showHandle ? ` ${RF_TARGET_LEFT}` : "";
+  return `${SIDE_BUTTON_SHELL}${rfCls} ${modeCls}`;
+}
+
+/**
+ * 톤 래치(`.sideToneLatch*`)는 원본에서도 내용이 빈 선택자 교차용 클래스였다 —
+ * 아이콘·디스크·스케일은 전부 facet 쪽 규칙이므로, 그 교차를 여기서 분기로 재현한다.
+ * 우선순위: 비활성 > 열림 > 기본 (원본 소스 순서상 `.buttonDisabled` 계열이 `.buttonActive` 뒤).
+ */
+function sideFacetClass(opts: {
+  sideTone: SideTone;
+  disabledStyle: boolean;
+  open: boolean;
+}) {
+  if (opts.disabledStyle) {
+    return opts.sideTone === "text"
+      ? FACET_TEXT_DISABLED
+      : opts.sideTone === "edit"
+        ? FACET_EDIT_DISABLED
+        : FACET_IMAGE_DISABLED;
+  }
+  if (opts.open) {
+    return opts.sideTone === "text"
+      ? FACET_TEXT_ACTIVE
+      : opts.sideTone === "edit"
+        ? FACET_EDIT_ACTIVE
+        : FACET_IMAGE_ACTIVE;
+  }
+  return opts.sideTone === "text"
+    ? FACET_TEXT
+    : opts.sideTone === "edit"
+      ? FACET_EDIT
+      : FACET_IMAGE;
+}
+
+function TargetButton({
+  showHandle,
+  handleId,
+  open,
+  label,
+  onToggle,
+  icon,
+  sideTone,
+  disabled,
+  disabledHint,
+}: TargetButtonProps) {
+  const showDisabledStyle = Boolean(disabled);
+  const canConnect = !disabled;
+
+  const tipLabel = showDisabledStyle && disabledHint ? disabledHint : label;
+
+  const handleClick = () => {
+    if (disabled) return;
+    onToggle();
+  };
+
+  const chromeCls = sideTargetChromeClass({
+    showHandle: Boolean(showHandle),
+    disabledStyle: showDisabledStyle,
+  });
+  const facetCls = sideFacetClass({
+    sideTone,
+    disabledStyle: showDisabledStyle,
+    open,
+  });
+
+  if (showHandle) {
+    return (
+      <ChromeTooltip
+        label={tipLabel}
+        placement="left"
+        invertCanvasZoom
+        suppress={open}
+      >
+        <Handle
+          type="target"
+          position={Position.Left}
+          id={handleId}
+          isConnectable={canConnect}
+          className={chromeCls}
+          role="button"
+          aria-label={showDisabledStyle && disabledHint ? disabledHint : label}
+          aria-expanded={open}
+          aria-disabled={showDisabledStyle}
+          onClick={handleClick}
+        >
+          <span className={facetCls} aria-hidden>
+            {icon}
+          </span>
+        </Handle>
+      </ChromeTooltip>
+    );
+  }
+
+  return (
+    <ChromeTooltip label={tipLabel} placement="left" invertCanvasZoom suppress={open}>
+      <button
+        type="button"
+        className={chromeCls}
+        aria-label={showDisabledStyle && disabledHint ? disabledHint : label}
+        aria-expanded={open}
+        aria-disabled={showDisabledStyle}
+        onClick={handleClick}
+      >
+        <span className={facetCls} aria-hidden>
+          {icon}
+        </span>
+      </button>
+    </ChromeTooltip>
+  );
+}
+
+export function NodeSideButtons({
+  variant = "video",
+  showHandles,
+  showImageHandle,
+  showTextHandle,
+  imageButtonDisabled,
+  imageButtonDisabledHint,
+  onAddImageNode,
+  onAddTextNode,
+  textAddDisabled,
+  textAddDisabledHint,
+  allDisabled,
+  allDisabledHint,
+  sideButtonsAnchorScope = "nodeMain",
+  supportsEndFrame = true,
+  supportsReferenceImages = true,
+  exclusiveFrameAndRef = false,
+  hasStartFrame = false,
+  hasRefImages = false,
+  hasVideoInput = false,
+  supportsVideoInput = false,
+  showVideoUpload = false,
+  videoInputDisabled = false,
+  videoInputUploading = false,
+  videoInputDisabledHint,
+  videoInputSpecHint,
+  onUploadVideoInput,
+  projectId,
+  startFrameHint,
+}: NodeSideButtonsProps) {
+  const { messages } = useI18n();
+  /* 좌우 판정이 펼친 레이어 패널, 도움말 패널을 빼고 잰다(`getViewportAdaptiveMenuSide`) — 인터랙티브 캔버스에서만 값이 있다 */
+  const nodeMenuChrome = useContext(NodeMenuChromeContext);
+  const sb = messages.create.nodeCanvas.sideButtonsV2;
+
+  // 프레임 ↔ 영상 인풋은 상시 배타 — 어떤 시나리오도 프레임+영상 인풋을 함께 지원하지 않는다.
+  // 프레임 ↔ 참조 이미지 배타는 모델별(exclusiveFrameAndRef)로만 적용.
+  // 규칙은 `videoFrameInputLocks` 한 곳에 있고, 아카이브 썸네일도 같은 함수로 잠긴 핸들을 그린다.
+  const {
+    startFrame: startFrameDisabledByExclusion,
+    referenceImages: refImagesDisabledByExclusion,
+    endFrame: endFrameDisabled,
+  } = videoFrameInputLocks({
+    allDisabled,
+    hasVideoInput,
+    exclusiveFrameAndRef,
+    hasStartFrame,
+    hasRefImages,
+  });
+
+  const effectiveImageButtonDisabled = allDisabled || imageButtonDisabled;
+  const effectiveImageButtonDisabledHint = allDisabled ? allDisabledHint : imageButtonDisabledHint;
+  const effectiveTextAddDisabled = allDisabled || textAddDisabled;
+  const effectiveTextAddDisabledHint = allDisabled ? allDisabledHint : textAddDisabledHint;
+
+  // ── open states ──────────────────────────────────────────────────────────
+  const [startFrameOpen, setStartFrameOpen] = useState(false);
+  const startFrameRef = useRef<HTMLDivElement>(null);
+
+  const [endFrameOpen, setEndFrameOpen] = useState(false);
+  const endFrameRef = useRef<HTMLDivElement>(null);
+
+  const [referenceOpen, setReferenceOpen] = useState(false);
+  const referenceRef = useRef<HTMLDivElement>(null);
+
+  const [referenceVideoOpen, setReferenceVideoOpen] = useState(false);
+  const referenceVideoRef = useRef<HTMLDivElement>(null);
+  const videoFileInputRef = useRef<HTMLInputElement>(null);
+
+  // "image" variant: single image button
+  const [imageOpen, setImageOpen] = useState(false);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  const [textOpen, setTextOpen] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
+
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
+  const pendingImageTargetHandleRef = useRef<ImageTargetHandle>("image");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (variant === "image" && effectiveImageButtonDisabled) {
+      setImageOpen(false);
+    }
+  }, [variant, effectiveImageButtonDisabled]);
+
+  useEffect(() => {
+    if (!startFrameOpen && !endFrameOpen && !referenceOpen && !referenceVideoOpen && !imageOpen && !textOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (startFrameOpen && startFrameRef.current && !startFrameRef.current.contains(e.target as globalThis.Node)) {
+        setStartFrameOpen(false);
+      }
+      if (endFrameOpen && endFrameRef.current && !endFrameRef.current.contains(e.target as globalThis.Node)) {
+        setEndFrameOpen(false);
+      }
+      if (referenceOpen && referenceRef.current && !referenceRef.current.contains(e.target as globalThis.Node)) {
+        setReferenceOpen(false);
+      }
+      if (referenceVideoOpen && referenceVideoRef.current && !referenceVideoRef.current.contains(e.target as globalThis.Node)) {
+        setReferenceVideoOpen(false);
+      }
+      if (imageOpen && imageRef.current && !imageRef.current.contains(e.target as globalThis.Node)) {
+        setImageOpen(false);
+      }
+      if (textOpen && textRef.current && !textRef.current.contains(e.target as globalThis.Node)) {
+        setTextOpen(false);
+      }
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => window.removeEventListener("pointerdown", onPointerDown);
+  }, [startFrameOpen, endFrameOpen, referenceOpen, referenceVideoOpen, imageOpen, textOpen]);
+
+  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      if (typeof ev.target?.result === "string") {
+        setCropSrc(ev.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  }, []);
+
+  const handleCropComplete = useCallback(
+    ({ dataUrl, mediaAspect }: CropModalResult) => {
+      setCropSrc(null);
+      onAddImageNode?.(dataUrl, pendingImageTargetHandleRef.current, mediaAspect);
+    },
+    [onAddImageNode],
+  );
+
+  const handleVideoFileChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      e.target.value = "";
+      onUploadVideoInput?.(file);
+    },
+    [onUploadVideoInput],
+  );
+
+  const imageMenuOptions = (targetHandle: ImageTargetHandle) => {
+    const hints = imageInputMenuHints(targetHandle, sb.inputMenu);
+    return [
+      {
+        label: sb.imageMenuUpload,
+        hint: hints.upload,
+        icon: UploadIcon,
+        onClick: () => {
+          pendingImageTargetHandleRef.current = targetHandle;
+          fileInputRef.current?.click();
+        },
+      },
+      {
+        label: sb.imageMenuGenerate,
+        hint: hints.generate,
+        icon: GenerateIcon,
+        onClick: () => {
+          pendingImageTargetHandleRef.current = targetHandle;
+          onAddImageNode?.(undefined, targetHandle);
+        },
+      },
+    ];
+  };
+
+  const textMenuOptions = [
+    {
+      label: sb.textMenuPlain,
+      hint: sb.inputMenu.text.plain,
+      icon: <TextIcon size={15} />,
+      onClick: () => onAddTextNode?.("text", "text"),
+    },
+    {
+      label: sb.textMenuAi,
+      hint: sb.inputMenu.text.ai,
+      icon: <SparkleIcon size={15} />,
+      onClick: () => onAddTextNode?.("llm", "text"),
+    },
+  ];
+
+  const getMenuAnchorClassName = (side: MenuSide) =>
+    side === "left" ? MENU_ANCHOR_LEFT : MENU_ANCHOR_RIGHT;
+  const getMenuMotionOrigin = (side: MenuSide) =>
+    side === "left" ? "right-top" : "left-top";
+
+  const startFrameMenuSide = getViewportAdaptiveMenuSide(startFrameRef.current, "left", MENU_WIDTH_PX, nodeMenuChrome);
+  const endFrameMenuSide = getViewportAdaptiveMenuSide(endFrameRef.current, "right", MENU_WIDTH_PX, nodeMenuChrome);
+  const referenceMenuSide = getViewportAdaptiveMenuSide(referenceRef.current, "left", MENU_WIDTH_PX, nodeMenuChrome);
+  const referenceVideoMenuSide = getViewportAdaptiveMenuSide(
+    referenceVideoRef.current,
+    "left",
+    MENU_WIDTH_PX,
+    nodeMenuChrome,
+  );
+  const imageMenuSide = getViewportAdaptiveMenuSide(imageRef.current, "left", MENU_WIDTH_PX, nodeMenuChrome);
+  const textMenuSide = getViewportAdaptiveMenuSide(textRef.current, "left", MENU_WIDTH_PX, nodeMenuChrome);
+
+  return (
+    <>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className={HIDDEN_FILE_INPUT}
+        onChange={handleFileChange}
+      />
+      <input
+        ref={videoFileInputRef}
+        type="file"
+        accept="video/mp4,video/quicktime,.mp4,.mov"
+        className={HIDDEN_FILE_INPUT}
+        onChange={handleVideoFileChange}
+      />
+
+      {cropSrc && (
+        <CropModal
+          src={cropSrc}
+          projectId={projectId}
+          onComplete={handleCropComplete}
+          onClose={() => setCropSrc(null)}
+        />
+      )}
+
+      <div
+        data-node-side-buttons-root
+        className={`${SIDE_BUTTONS}${
+          sideButtonsAnchorScope === "mediaBand"
+            ? ` ${SIDE_BUTTONS_ANCHOR_MEDIA_BAND}`
+            : ""
+        }`}
+      >
+        {variant === "video" ? (
+          <>
+            {/* Start Frame */}
+            <div className={BUTTON_WRAP} ref={startFrameRef}>
+              <TargetButton
+                showHandle={showHandles}
+                handleId="start-frame"
+                open={startFrameOpen}
+                sideTone="image"
+                label={sb.startFrame}
+                onToggle={() => setStartFrameOpen((p) => !p)}
+                disabled={startFrameDisabledByExclusion}
+                disabledHint={
+                  allDisabled
+                    ? allDisabledHint
+                    : hasVideoInput
+                      ? sb.frameRefExclusiveHint
+                      : sb.exclusiveRefHint
+                }
+                icon={<NodeHandleGlyph id="start-frame" />}
+              />
+                <MetaDropdownPanel
+                  open={startFrameOpen && !startFrameDisabledByExclusion}
+                  anchorClassName={getMenuAnchorClassName(startFrameMenuSide)}
+                  surfaceClassName={MENU_SURFACE}
+                  motionOrigin={getMenuMotionOrigin(startFrameMenuSide)}
+                >
+                  <NodeSubMenu
+                    options={imageMenuOptions("start-frame")}
+                    onClose={() => setStartFrameOpen(false)}
+                  />
+                </MetaDropdownPanel>
+              {startFrameHint}
+            </div>
+
+            {supportsEndFrame && (
+              <div className={BUTTON_WRAP} ref={endFrameRef}>
+                <TargetButton
+                  showHandle={showHandles}
+                  handleId="end-frame"
+                  open={endFrameOpen}
+                  sideTone="image"
+                  label={sb.endFrame}
+                  onToggle={() => setEndFrameOpen((p) => !p)}
+                  disabled={endFrameDisabled}
+                  disabledHint={
+                    allDisabled
+                      ? allDisabledHint
+                      : hasVideoInput
+                        ? sb.frameRefExclusiveHint
+                        : sb.endFrameNeedsStartHint
+                  }
+                  icon={<NodeHandleGlyph id="end-frame" />}
+                />
+                  <MetaDropdownPanel
+                    open={endFrameOpen && !endFrameDisabled}
+                    anchorClassName={getMenuAnchorClassName(endFrameMenuSide)}
+                    surfaceClassName={MENU_SURFACE}
+                    motionOrigin={getMenuMotionOrigin(endFrameMenuSide)}
+                  >
+                    <NodeSubMenu
+                      options={imageMenuOptions("end-frame")}
+                      onClose={() => setEndFrameOpen(false)}
+                    />
+                  </MetaDropdownPanel>
+              </div>
+            )}
+
+            {supportsReferenceImages && (
+              <div className={BUTTON_WRAP} ref={referenceRef}>
+                <TargetButton
+                  showHandle={showHandles}
+                  handleId="reference-images"
+                  open={referenceOpen}
+                  sideTone="image"
+                  label={sb.referenceImages}
+                  onToggle={() => setReferenceOpen((p) => !p)}
+                disabled={refImagesDisabledByExclusion}
+                disabledHint={allDisabled ? allDisabledHint : sb.exclusiveStartHint}
+                icon={<NodeHandleGlyph id="reference-images" />}
+              />
+                  <MetaDropdownPanel
+                    open={referenceOpen && !refImagesDisabledByExclusion}
+                    anchorClassName={getMenuAnchorClassName(referenceMenuSide)}
+                    surfaceClassName={MENU_SURFACE}
+                    motionOrigin={getMenuMotionOrigin(referenceMenuSide)}
+                  >
+                    <NodeSubMenu
+                      options={imageMenuOptions("reference-images")}
+                      onClose={() => setReferenceOpen(false)}
+                    />
+                  </MetaDropdownPanel>
+              </div>
+            )}
+
+            {/* Video Input — 완료 노드 출력을 드래그 연결(편집/참조/확장) + 로컬 업로드(참조 전용).
+             * 업로드 미지원 모델이면 순수 연결 타겟(클릭 메뉴 없음) */}
+            {supportsVideoInput && (
+              <div className={BUTTON_WRAP} ref={referenceVideoRef}>
+                <TargetButton
+                  showHandle={showHandles}
+                  handleId="video-input"
+                  open={referenceVideoOpen}
+                  sideTone="edit"
+                  label={sb.videoInput}
+                  onToggle={() => {
+                    // 업로드 지원 모델만 메뉴 토글, 아니면 순수 연결 타겟
+                    if (showVideoUpload) setReferenceVideoOpen((p) => !p);
+                  }}
+                  disabled={allDisabled || videoInputDisabled}
+                  disabledHint={
+                    allDisabled ? allDisabledHint : videoInputDisabledHint
+                  }
+                  icon={
+                    videoInputUploading ? (
+                      <span
+                        className={VIDEO_INPUT_SPINNER}
+                        aria-hidden
+                      />
+                    ) : (
+                      <NodeHandleGlyph id="video-input" />
+                    )
+                  }
+                />
+                {showVideoUpload && (
+                  <MetaDropdownPanel
+                    open={
+                      referenceVideoOpen && !allDisabled && !videoInputDisabled
+                    }
+                    anchorClassName={getMenuAnchorClassName(referenceVideoMenuSide)}
+                    surfaceClassName={MENU_SURFACE}
+                    motionOrigin={getMenuMotionOrigin(referenceVideoMenuSide)}
+                  >
+                    <NodeSubMenu
+                      options={[
+                        {
+                          label: sb.videoInputMenuUpload,
+                          icon: UploadIcon,
+                          onClick: () => videoFileInputRef.current?.click(),
+                        },
+                      ]}
+                      onClose={() => setReferenceVideoOpen(false)}
+                    />
+                    {/* 지원 사양 안내 — 모델 capability 기반(형식·길이·용량·해상도·개수) */}
+                    {videoInputSpecHint ? (
+                      <div
+                        className={`type-caption-12-regular ${VIDEO_INPUT_SPEC_HINT}`}
+                      >
+                        {videoInputSpecHint}
+                      </div>
+                    ) : null}
+                  </MetaDropdownPanel>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          /* Image button — image variant only */
+          <div className={BUTTON_WRAP} ref={imageRef}>
+            <TargetButton
+              showHandle={showImageHandle}
+              handleId="image"
+              open={imageOpen}
+              sideTone="image"
+              label={sb.image}
+              onToggle={() => setImageOpen((p) => !p)}
+              disabled={effectiveImageButtonDisabled}
+              disabledHint={effectiveImageButtonDisabledHint}
+              icon={<NodeHandleGlyph id="image" />}
+            />
+              <MetaDropdownPanel
+                open={imageOpen && !effectiveImageButtonDisabled}
+                anchorClassName={getMenuAnchorClassName(imageMenuSide)}
+                surfaceClassName={MENU_SURFACE}
+                motionOrigin={getMenuMotionOrigin(imageMenuSide)}
+              >
+                <NodeSubMenu
+                  options={imageMenuOptions("image")}
+                  onClose={() => setImageOpen(false)}
+                />
+              </MetaDropdownPanel>
+          </div>
+        )}
+
+        {/* Text button */}
+        <div className={BUTTON_WRAP} ref={textRef}>
+          <TargetButton
+            showHandle={showHandles || showTextHandle}
+            handleId="text"
+            open={textOpen}
+            sideTone="text"
+            label={sb.text}
+            disabled={effectiveTextAddDisabled}
+            disabledHint={effectiveTextAddDisabledHint}
+            onToggle={() => setTextOpen((p) => !p)}
+            icon={<NodeHandleGlyph id="text" />}
+          />
+            <MetaDropdownPanel
+              open={textOpen && !effectiveTextAddDisabled}
+              anchorClassName={getMenuAnchorClassName(textMenuSide)}
+              surfaceClassName={MENU_SURFACE}
+              motionOrigin={getMenuMotionOrigin(textMenuSide)}
+            >
+              <NodeSubMenu
+                options={textMenuOptions}
+                onClose={() => setTextOpen(false)}
+              />
+            </MetaDropdownPanel>
+        </div>
+      </div>
+    </>
+  );
+}

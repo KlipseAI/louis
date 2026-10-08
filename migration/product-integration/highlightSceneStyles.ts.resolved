@@ -1,0 +1,1897 @@
+/**
+ * HighlightScene.module.css의 실사용 규칙을 Tailwind v4 arbitrary utilities로 옮긴 정적 맵.
+ * opaque marker는 같은 요소의 modifier와 로컬 조상/자손 선택자 관계만 보존하며,
+ * 삭제 대상 CSS Module 이름을 노출하지 않아 hl-*의 부분문자열 호환 훅을 재생성하지 않는다.
+ */
+
+import { PROJECT_CARD_FACE } from "./projectCardSurface";
+
+const styles: Record<string, string> = {
+  /* source lines 126, 127, 128, 129, 130, 131, 132, 133, 134 */
+  container: [
+    "tw-hs-053",
+    "[position:relative]",
+    "[z-index:1]",
+    "[flex:1_1_auto]",
+    "[width:100%]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[align-items:stretch]",
+    "[gap:24px]",
+    "[min-height:0]",
+  ].join(" "),
+  /* source lines 244, 245 */
+  containerLoading: [
+    "tw-hs-055",
+    "[align-items:center]!",
+    "[justify-content:center]!",
+  ].join(" "),
+  /* source lines 505 */
+  hiddenFileInput: ["tw-hs-066", "[display:none]"].join(" "),
+  /* source lines 2136, 2137, 2138, 2139, 2140, 2142, 2143, 2144, 2146, 2147, 2153, 2154, 2155, 2156, 2157, 2158, 2159, 2164, 2165, 2166, 2167, 2168, 2169, 2172, 2173 */
+  /* 프레임은 LOUIS 정본 `.louis-project-card` 가 소유한다 — position·grid·inline-size·
+     min-inline-size·padding 0·radius(card=16)·overflow hidden·헤어라인 inset·forced-colors
+     폴백이 앱 홈 카드와 같은 실측값이다. `[border:none]` 도 함께 지운다(죽은 선언이었고
+     utilities 레이어라 정본의 forced-colors 폴백까지 이겼다).
+     이 씬 카드에는 진입 stagger·누름 scale 이 없다 — 정본도 `data-enter` 를 붙일 때만
+     애니메이션하고 누름은 액션 슬롯에 달려 있어 그대로 없는 채로 남는다. */
+  historyCard: [
+    "louis-project-card",
+    "tw-hs-067",
+    "[cursor:pointer]",
+    "[transition:transform_180ms_ease,_filter_180ms_ease,_box-shadow_180ms_ease]",
+    "[html[data-theme=dark]_&::before]:[content:'']",
+    "[html[data-theme=dark]_&::before]:[position:absolute]",
+    "[html[data-theme=dark]_&::before]:[inset:0]",
+    "[html[data-theme=dark]_&::before]:[border-radius:inherit]",
+    "[html[data-theme=dark]_&::before]:[pointer-events:none]",
+    "[html[data-theme=dark]_&::before]:[z-index:5]",
+    "[html[data-theme=dark]_&::before]:[box-shadow:var(--louis-hairline-inset)]",
+  ].join(" "),
+  /* source lines 2410, 2411, 2412, 2413, 2414, 2418, 2419 */
+  /* 상태 라벨의 껍데기는 LOUIS 정본 `.louis-badge` 가 소유한다 — 패딩 4/8, 반경 8,
+     caption-12-regular 가 여기 실측값과 **정확히 같아** 그대로 수렴한다(정본이 이 칩을
+     기준으로 세워졌다). 한 줄 말줄임(nowrap/ellipsis)은 정본이 새로 얹는 것이고, 짧은
+     상태 문구라 보이는 차이 없이 카드 행 높이가 흔들리는 경우만 막는다.
+     면·글자색은 호출부에 남긴다 — 정본 기본은 면과 글자를 짝지은 status 토큰이지만 이 칩은
+     썸네일 사진 위에 얹히고, 제품은 다섯 상태의 면을 `palette-gray-800` 으로 고정해
+     (라이트·다크 동일) 사진 대비를 잡는다. 정본 기본을 쓰면 라이트에서 밝은 칩이 뜬다. */
+  historyCardStatus: [
+    "louis-badge",
+    "tw-hs-068",
+    "[margin:0]",
+    "[background:var(--palette-gray-800)]",
+    "[color:var(--palette-gray-200)]",
+    "[html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-200)]",
+  ].join(" "),
+  /* source lines 2441, 2442 */
+  historyCardStatusAnalyzed: [
+    "tw-hs-069",
+    "[background:var(--palette-gray-800)]",
+    "[color:var(--primary-400)]",
+    "[html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+    "[html[data-theme=dark]_&]:[color:var(--primary-400)]",
+  ].join(" "),
+  /* source lines 2427, 2428 */
+  historyCardStatusDone: [
+    "tw-hs-070",
+    "[background:var(--palette-gray-800)]",
+    "[color:var(--accent-green-400)]",
+    "[html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+    "[html[data-theme=dark]_&]:[color:var(--accent-green-400)]",
+  ].join(" "),
+  /* source lines 2434, 2435 */
+  historyCardStatusFailed: [
+    "tw-hs-071",
+    "[background:var(--palette-gray-800)]",
+    "[color:var(--accent-red-400)]",
+    "[html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+    "[html[data-theme=dark]_&]:[color:var(--accent-red-400)]",
+  ].join(" "),
+  /* source lines 2448, 2449 */
+  historyCardStatusProcessing: [
+    "tw-hs-072",
+    "[background:var(--palette-gray-800)]",
+    "[color:var(--accent-yellow-400)]",
+    "[html[data-theme=dark]_&]:[background:var(--palette-gray-900)]",
+    "[html[data-theme=dark]_&]:[color:var(--accent-yellow-400)]",
+  ].join(" "),
+  /* source lines 2499, 2500, 2501, 2502, 2503, 2504, 2505, 2506, 2507, 2508, 2509, 2510, 2511, 2512, 2513, 2514, 2515, 2516, 2517, 2519, 3831, 3832 */
+  historyDropdown: [
+    /* 표면(면·라운드·그림자·패딩·항목 간격)은 LOUIS 정본 `.louis-popover`가 소유한다.
+       위치·모션을 잡는 bare surface(overlay Provider 밖)라 collision-padding shim을 얹어야
+       `.louis-popover`의 min-inline-size 폴백이 풀린다. min-width 160은 preferred-inline-size로. */
+    "louis-popover",
+    "[--louis-overlay-collision-padding:8px]",
+    "[position:absolute]",
+    "[top:calc(100%_+_8px)]",
+    "[right:0]",
+    "[--louis-popover-preferred-inline-size:160px]",
+    "[overscroll-behavior:contain]",
+    "[touch-action:pan-y]",
+    "[z-index:1100]",
+    "[pointer-events:none]",
+    "[opacity:0]",
+    "[transform:scale(0.92)]",
+    "[transform-origin:top_right]",
+    "[transition:opacity_130ms_ease-in,_transform_130ms_ease-in]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:opacity_120ms_ease]",
+  ].join(" "),
+  /* source lines 2532, 2533, 2534, 2535, 2536, 2537, 2538, 2539, 2540, 2541, 2542, 2543, 2544, 2548, 2552, 2556, 2568 */
+  /* 항목은 LOUIS 정본 `.louis-menu__item`이 소유(패딩·라운드·색·hover·font). 라벨이 짧아
+     nowrap/min-w-max shim은 불필요. danger 톤은 historyDropdownItemDanger가 겹쳐 얹는다. */
+  historyDropdownItem: ["louis-menu__item"].join(" "),
+  /* source lines 2560, 2564, 2572 */
+  historyDropdownItemDanger: [
+    "tw-hs-075",
+    "[color:var(--accent-red-500)]",
+    "[&:hover]:[background:rgb(var(--accent-red-500-rgb)_/_12%)]",
+    "[html[data-theme=light]_&:hover]:[background:rgb(var(--accent-red-500-rgb)_/_8%)]",
+  ].join(" "),
+  /* source lines 2523, 2524, 2525, 2528, 3831, 3832 */
+  historyDropdownOpen: [
+    "tw-hs-076",
+    "[pointer-events:auto]!",
+    "[opacity:1]!",
+    "[transform:scale(1)]!",
+    "[transition:transform_260ms_cubic-bezier(0.32,_0.72,_0,_1)]!",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]!",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:opacity_120ms_ease]!",
+  ].join(" "),
+  /* source lines 2102, 2103, 2104, 2105 */
+  historyEmpty: [
+    "tw-hs-077",
+    "[color:var(--palette-gray-400)]",
+    "[text-align:center]",
+    "[padding:32px_0]",
+    "[margin:0]",
+  ].join(" "),
+  /* source lines 2109, 2110, 2111, 2116, 2122, 2128 */
+  historyGrid: [
+    "tw-hs-078",
+    "[display:grid]",
+    "[grid-template-columns:repeat(2,_1fr)]",
+    "gap-layout-project-grid-gap",
+    "min-[720px]:[grid-template-columns:repeat(3,_1fr)]",
+    "min-[1200px]:[grid-template-columns:repeat(4,_1fr)]",
+    "min-[1800px]:[grid-template-columns:repeat(5,_1fr)]",
+  ].join(" "),
+  /* source lines 2096, 2097, 2098 */
+  historyLoading: [
+    "tw-hs-079",
+    "[display:flex]",
+    "[justify-content:center]",
+    "[padding:32px_0]",
+  ].join(" "),
+  /* source lines 2454, 2455 */
+  historyMenuAnchor: [
+    "tw-hs-080",
+    "[position:relative]",
+    "[flex-shrink:0]",
+  ].join(" "),
+  /* source lines 2459, 2460, 2461, 2462 */
+  /* LOUIS `.louis-project-card-adornment` 는 **얹지 않는다** — 정본의 모서리 슬롯이 아니라
+     드롭다운 앵커다. 정본의 `display:inline-flex` 가 앵커 높이를 라인박스(≈39px)에서 32px 로
+     줄여 `top: calc(100% + 8px)` 로 붙은 메뉴가 올라가고, 오프셋도 정본 16 ↔ 제품 8 이다. */
+  historyMenuAnchorInThumbnail: [
+    "tw-hs-081",
+    "[position:absolute]!",
+    "[top:8px]",
+    "[right:8px]",
+    "[z-index:3]",
+  ].join(" "),
+  /* source lines 2467, 2468, 2469, 2470, 2471, 2472, 2473, 2474, 2475, 2476, 2477, 2478, 2482, 2487, 2488, 2494 */
+  /* 썸네일 위 더보기는 LOUIS 정본 `.louis-project-card-more` 가 소유한다 — 32×32(control-sm),
+     반경 12(control), inline-flex 중앙정렬, 기본 `opacity:0`, 드러나는 조건(카드 hover +
+     `:focus-within` + 감소모션 상시 노출). 지금까지 초점 노출이 없어 키보드로 닿을 수 없었다.
+     호출부: `position:static` — 정본은 카드에 직접 absolute 로 붙이지만 제품은 드롭다운
+     앵커 안의 정적 자식이다. 면·글자색·트랜지션·누름 scale·카드 hover 훅은 제품 값 유지. */
+  /* hover 가 없는 기기(터치)에서는 늘 보인다 — 정본은 카드 hover · 초점 · 감소모션에서만 드러내
+     폰 · 태블릿에서는 이름 변경 · 삭제에 닿을 길이 보이지 않았다. 키보드 초점 노출은 정본의
+     `.louis-project-card:focus-within` 이 이미 맡는다. */
+  historyMoreButton: [
+    "louis-project-card-more",
+    "tw-hs-082",
+    "[position:static]",
+    "[background:rgb(var(--gray-800-rgb)_/_48%)]",
+    "[color:var(--gray-000)]",
+    "[transition:opacity_160ms_ease,_transform_160ms_ease,_box-shadow_160ms_ease]",
+    "[.tw-hs-067:hover_&]:[opacity:1]",
+    "[@media(hover:none)]:[opacity:1]",
+    "[&:hover]:[background:var(--louis-color-bg-menu)]",
+    "[&:active]:[transform:scale(0.97)]",
+  ].join(" "),
+  /* source lines 2177, 2178, 2179, 2180, 2181, 2185 */
+  /* 미디어 면은 LOUIS 정본 `.louis-project-card-media` 가 소유한다(position·inline-size 100%·
+     min-inline-size 0·aspect-ratio 훅·isolation). 비율은 호출부 인라인 `aspectRatio` 유지.
+     면 색은 네 화면 공용 `PROJECT_CARD_FACE`(`projectCardSurface.ts`). `overflow:visible` 도 유지 — 정본은 면에서 자르지만
+     제품은 클립 자식이 썸네일만 자른다. */
+  historyPreview: [
+    "louis-project-card-media",
+    "tw-hs-083",
+    PROJECT_CARD_FACE,
+    "[overflow:visible]",
+  ].join(" "),
+  /* source lines 2190, 2191, 2192, 2193, 2194 */
+  /* 썸네일 자리는 LOUIS 정본 `.louis-project-card-thumbnail`(absolute inset 0 + 자손
+     img/video 100%/cover). 클리핑만 제품 고유라 남는다. */
+  historyPreviewClip: [
+    "louis-project-card-thumbnail",
+    "tw-hs-084",
+    "[border-radius:inherit]",
+    "[overflow:hidden]",
+    "[isolation:isolate]",
+  ].join(" "),
+  /* source lines 2338, 2339, 2340, 2341, 2342, 2343, 2344, 2345 */
+  /* 한 줄 말줄임 구조는 LOUIS 정본 `.louis-project-card-eyebrow` 가 소유한다. 타이포는
+     호출부가 되가져온다 — 전역 `type-*` 는 base 레이어라 정본에 지고, 정본 font-family 는
+     리터럴 스택이라 제품 글꼴 변수(JP 폴백 포함)와 다르다. 색은 썸네일 위 dominant 대비 값. */
+  historyPreviewEyebrow: [
+    "louis-project-card-eyebrow",
+    "tw-hs-085",
+    "font-sans",
+    "text-body-14",
+    "[color:rgb(var(--card-text-color,_var(--palette-gray-000-rgb))_/_88%)]",
+    "[text-shadow:none]",
+    "[line-height:var(--project-card-overlay-line-height)]!",
+  ].join(" "),
+  /* source lines 2231, 2232, 2233, 2234, 2235, 2236, 2237, 2238, 2264 */
+  /* 썸네일 없는 카드의 eyebrow — 구조는 정본, 색만 제품 값. */
+  historyPreviewEyebrowPlain: [
+    "louis-project-card-eyebrow",
+    "tw-hs-086",
+    "font-sans",
+    "text-body-14",
+    "[color:var(--palette-gray-600)]",
+    "[text-shadow:none]",
+    "[line-height:var(--project-card-overlay-line-height)]!",
+    "[html[data-theme=dark]_&]:[color:var(--gray-400)]",
+  ].join(" "),
+  /* source lines 2206, 2207, 2208, 2212 */
+  /* `.louis-project-card-placeholder` — absolute inset 0. 비어 있는 면이라 정본이 함께 얹는
+     flex 중앙정렬·fg-tertiary 는 보이는 차이가 없다. 면은 카드 면과 같은 `PROJECT_CARD_FACE`. */
+  historyPreviewPlaceholder: [
+    "louis-project-card-placeholder",
+    "tw-hs-087",
+    PROJECT_CARD_FACE,
+  ].join(" "),
+  /* source lines 2393, 2394, 2395, 2396, 2397, 2398, 2399, 2400, 2401 */
+  /* 모서리 슬롯은 LOUIS 정본 `.louis-project-card-adornment[data-placement="top-start"]` 가
+     소유한다 — absolute·inline-flex·align-items center·inset 16(=layout-gutter) 이 제품
+     실측값과 **정확히 같다**. 여기엔 매달린 팝오버가 없어 앵커 높이 문제도 없다.
+     `data-placement` 는 호출부 JSX 가 준다. */
+  historyPreviewStatusCorner: [
+    "louis-project-card-adornment",
+    "tw-hs-088",
+    "[z-index:3]",
+    "[margin:0]",
+    "[padding:0]",
+    "[pointer-events:none]",
+  ].join(" "),
+  /* source lines 2198, 2199, 2200, 2201, 2202 */
+  historyPreviewThumb: [
+    "tw-hs-089",
+    "[position:absolute]",
+    "[inset:0]",
+    "[width:100%]",
+    "[height:100%]",
+    "[object-fit:cover]",
+  ].join(" "),
+  /* source lines 2324, 2326, 2327, 2328, 2329, 2330, 2331, 2332, 2333 */
+  /* `.louis-project-card-overlay-content` — position relative·flex 컬럼·하단 정렬·gap 4
+     (=stack-xs)·width 100%·min-inline-size 0 이 전부 같고, 정본이
+     `--louis-project-card-line-height: 1.2` 도 함께 세운다. `z-index:1` 만 제품 고유. */
+  historyPreviewTitleInner: [
+    "louis-project-card-overlay-content",
+    "tw-hs-090",
+    "[z-index:1]",
+  ].join(" "),
+  /* source lines 2278, 2279, 2280, 2281, 2282, 2283, 2284, 2285, 2286, 2287, 2288, 2296, 2297, 2298, 2299, 2300, 2301, 2302, 2303, 2320 */
+  /* 제목 띠는 LOUIS 정본 `.louis-project-card-overlay` 가 소유한다 — 하단 정렬·gutter 16
+     패딩·아래 두 모서리 16 반경, `::before` 의 프로그레시브 블러(blur 10px + 위로 사라지는
+     mask)까지 정지점이 같다. 호출부에 남기는 값: `height:30%`(정본은 fit-content + min 30%),
+     z-index, pointer-events, `::before` 의 z-index 0 과 투명 틴트. */
+  historyPreviewTitleOverlay: [
+    "louis-project-card-overlay",
+    "tw-hs-091",
+    "[height:30%]",
+    "[z-index:2]",
+    "[pointer-events:none]",
+    "[&::before]:[z-index:0]",
+    "[&::before]:[background:rgb(var(--palette-gray-000-rgb)_/_0%)]",
+  ].join(" "),
+  /* source lines 2217, 2218, 2219, 2220, 2221, 2222, 2223, 2224, 2225, 2226, 2227 */
+  /* 썸네일 없는 카드의 제목 띠. LOUIS `.louis-project-card-overlay` 는 **얹지 않는다** —
+     정본은 `::before` 로 프로그레시브 블러를 항상 그리는데 이 변종은 블러가 없는 것이 정본
+     디자인이고, 띠 높이도 30% 가 아니라 70% 다. 두 값을 다 무력화해야 해서 제품 마크업 유지. */
+  historyPreviewTitleOverlayPlain: [
+    "tw-hs-092",
+    "[position:absolute]",
+    "[left:0]",
+    "[right:0]",
+    "[bottom:0]",
+    "[height:70%]",
+    "[padding:16px]",
+    /* 카드 아래 모서리를 따라가는 오버레이라 카드 곡률(12)과 같아야 한다. */
+    "[border-radius:0_0_12px_12px]",
+    "[display:flex]",
+    "[align-items:flex-end]",
+    "[z-index:2]",
+    "[pointer-events:none]",
+  ].join(" "),
+  /* source lines 2242, 2243, 2244, 2245, 2246, 2247, 2248, 2249, 2268 */
+  /* `.louis-project-card-title` — 구조는 정본, 타이포·색은 호출부. `text-body-16` 은 정본의
+     16px 리터럴 대신 제품 토큰을 쓴다(`≤450px` 에서 14 로 내려가는 반응형이 정본엔 없다). */
+  historyPreviewTitlePlain: [
+    "louis-project-card-title",
+    "tw-hs-093",
+    "font-sans",
+    "text-body-16",
+    "[font-weight:var(--type-weight-medium)]",
+    "[color:var(--palette-gray-900)]",
+    "[text-shadow:none]",
+    "[line-height:var(--project-card-overlay-line-height)]!",
+    "[html[data-theme=dark]_&]:[color:var(--gray-000)]",
+  ].join(" "),
+  /* source lines 2349, 2350, 2351, 2352, 2353, 2354, 2355, 2356, 2377 */
+  /* `.louis-project-card-title` — 썸네일 위 변종. 색은 dominant 대비 값. */
+  historyPreviewTitleText: [
+    "louis-project-card-title",
+    "tw-hs-094",
+    "font-sans",
+    "text-body-16",
+    "[font-weight:var(--type-weight-medium)]",
+    "[color:rgb(var(--card-text-color,_var(--palette-gray-000-rgb))_/_100%)]",
+    "[text-shadow:none]",
+    "[line-height:var(--project-card-overlay-line-height)]!",
+    "[html[data-theme=dark]_&]:[color:rgb(var(--card-text-color,_var(--palette-gray-000-rgb)))]",
+  ].join(" "),
+  /* source lines 2360, 2361, 2362, 2363, 2364, 2365, 2366, 2367, 2368, 2372, 2373 */
+  /* LOUIS `.louis-project-card-rename` 은 **얹지 않는다** — 이 인풋은 정본의 "크롬 없는"
+     이름변경이 아니라 밑줄(border-bottom)이 있는 변종이라 정본의 `border: 0` 과
+     `border-radius: 8`(밑줄 끝이 말려 올라간다)을 둘 다 되돌려야 한다. */
+  historyRenameInput: [
+    "tw-hs-095",
+    "[display:block]",
+    "[width:100%]",
+    "[background:transparent]",
+    "[border:none]",
+    "[border-bottom:1px_solid_var(--palette-gray-400)]",
+    "[color:var(--palette-gray-900)]",
+    "[padding:0_0_2px]",
+    "[line-height:var(--project-card-overlay-line-height)]!",
+    "[html[data-theme=dark]_&]:[color:var(--gray-000)]",
+    "[html[data-theme=dark]_&]:[border-bottom-color:var(--gray-500)]",
+  ].join(" "),
+  /* source lines 2057, 2058, 2060, 2062 */
+  historySection: [
+    "tw-hs-096",
+    "[width:100%]",
+    "[max-width:none]",
+    "[margin:40px_auto_0]",
+    /* 예전 200 은 화면 아래 고정 업로드 카드에 마지막 줄이 가리지 않게 비워 둔 몫이었다. 카드가 목록 위
+       일반 흐름으로 올라와 그 몫이 필요 없다. */
+    "[padding-bottom:40px]",
+  ].join(" "),
+  /* 아카이브 머리 — 라벨 + 개수(좌) ↔ 「새 하이라이트」 버튼(우). 캔버스 · 컴포지션 허브와 같은 배치다
+     (`NodeCanvasHomeScene` 의 `ARCHIVE_SECTION_HEADER`). 행이 아래 여백을 갖고, 라벨의 여백은 지운다. */
+  historySectionHeader: [
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:space-between]",
+    "[gap:16px]",
+    "[margin:0_0_12px]",
+  ].join(" "),
+  historySectionEyebrowInHeader: "[margin:0]",
+  /* source lines 2066, 2067, 2068, 2072 */
+  historySectionEyebrow: [
+    "tw-hs-097",
+    "[margin:0_0_12px]",
+    "[padding:0]",
+    "[color:var(--palette-gray-800)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-200)]",
+  ].join(" "),
+  /* source lines 2077, 2078 */
+  historySectionEyebrowCount: [
+    "tw-hs-098",
+    "[color:var(--palette-gray-500)]",
+    "[margin-left:6px]",
+  ].join(" "),
+  /* source lines 250, 251, 252, 264, 265, 266, 268, 269, 273, 298 */
+  loadingShimmer: [
+    "tw-hs-099",
+    "[display:inline-block]",
+    "[color:transparent]",
+    "[background-image:linear-gradient(_90deg,_rgb(var(--palette-gray-900-rgb)_/_20%)_0%,_rgb(var(--palette-gray-900-rgb)_/_28%)_12%,_rgb(var(--palette-gray-900-rgb)_/_88%)_24%,_rgb(var(--palette-gray-900-rgb)_/_34%)_36%,_rgb(var(--palette-gray-900-rgb)_/_20%)_50%,_rgb(var(--palette-gray-900-rgb)_/_28%)_62%,_rgb(var(--palette-gray-900-rgb)_/_88%)_74%,_rgb(var(--palette-gray-900-rgb)_/_34%)_86%,_rgb(var(--palette-gray-900-rgb)_/_20%)_100%_)]",
+    "[background-size:200%_100%]",
+    "[background-position:0%_50%]",
+    "[background-clip:text]",
+    "[will-change:background-position]",
+    "[animation:highlightLoadingShimmer_2.2s_linear_infinite]",
+    "[html[data-theme=dark]_&]:[background-image:linear-gradient(_90deg,_rgb(var(--palette-gray-000-rgb)_/_20%)_0%,_rgb(var(--palette-gray-000-rgb)_/_28%)_12%,_rgb(var(--palette-gray-000-rgb)_/_88%)_24%,_rgb(var(--palette-gray-000-rgb)_/_34%)_36%,_rgb(var(--palette-gray-000-rgb)_/_20%)_50%,_rgb(var(--palette-gray-000-rgb)_/_28%)_62%,_rgb(var(--palette-gray-000-rgb)_/_88%)_74%,_rgb(var(--palette-gray-000-rgb)_/_34%)_86%,_rgb(var(--palette-gray-000-rgb)_/_20%)_100%_)]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+  ].join(" "),
+  /* source lines 7, 8, 9, 10, 11, 12, 13, 14, 16, 20, 21, 22, 3709, 3710, 3714 */
+  main: [
+    "tw-hs-100",
+    "[flex:1]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[min-height:0]",
+    "[box-sizing:border-box]",
+    "[position:relative]",
+    "[overflow-y:auto]",
+    "[overscroll-behavior:contain]",
+    "[margin-right:0]",
+    "[padding-left:var(--app-gnb-main-inline-padding)]",
+    "[padding-right:var(--app-gnb-main-inline-padding-end)]",
+    /* 원본 `.main > *` (source lines 31~35) — 전환 때 누락됐던 규칙.
+       공유 `.appSidebarMainLenisContent`(myPageSceneStyles `tw-mp-001`)는
+       `min-height: 100%` 라 이 래퍼가 패널 높이에 묶이고, 그 안에서
+       배너(360px, flex-shrink:1)가 눌린다. 원본은 import 순서상 여기 `min-content` 가
+       이겼다 — 레이어 안에선 순서를 보장할 수 없으므로 `!` 로 고정한다.
+       헤더 슬롯 예외는 아래 `mainChromeHeaderSlotFixed`(0,2,0)가 계속 이긴다. */
+    "[&>*]:[flex:1_1_auto]",
+    "[&>*]:[display:flex]",
+    "[&>*]:[flex-direction:column]",
+    "[&>*]:[min-height:min-content]!",
+    "[.tw-hs-102_&]:[background:transparent]!",
+    "[.tw-hs-102_&]:[box-shadow:none]!",
+    "[.tw-hs-102_&::before]:[display:none]!",
+  ].join(" "),
+  /* source lines 3552, 3553, 3555 */
+  refinementActions: [
+    "tw-hs-114",
+    "[display:flex]",
+    "[gap:8px]",
+    "[align-self:flex-start]",
+  ].join(" "),
+  /* source lines 3349, 3350, 3506, 3507, 3508, 3518, 3519, 3520, 3524, 3525 */
+  refinementAssistantMsg: [
+    "tw-hs-115",
+    "[.tw-hs-134_.tw-hs-118_&]:[background:rgb(var(--palette-gray-000-rgb)_/_12%)]",
+    "[.tw-hs-134_.tw-hs-118_&]:[color:var(--palette-gray-000)]",
+    "[padding:8px_12px]",
+    "[border-radius:12px]",
+    "[max-width:85%]",
+    "[align-self:flex-start]",
+    "[background:rgb(var(--palette-gray-900-rgb)_/_4%)]",
+    "[color:var(--palette-gray-800)]",
+    "[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-200)]",
+  ].join(" "),
+  /* source lines 3211, 3212, 3213, 3214, 3215, 3216, 3220, 3221, 3222, 3223, 3224, 3225 */
+  refinementChat: [
+    "tw-hs-116",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:10px]",
+    "[padding:14px]",
+    "[min-height:0]",
+    "[max-height:min(520px,_calc(100vh_-_160px))]",
+    "[&.tw-hs-118]:[flex:1_1_auto]",
+    "[&.tw-hs-118]:[min-height:0]",
+    "[&.tw-hs-118]:[max-height:none]",
+    "[&.tw-hs-118]:[height:100%]",
+    "[&.tw-hs-118]:[padding:0]",
+    "[&.tw-hs-118]:[gap:0]",
+  ].join(" "),
+  /* source lines 3243, 3244, 3245, 3246, 3247, 3248, 3249, 3254, 3255, 3256, 3257, 3258, 3259, 3260, 3261 */
+  refinementChatDock: [
+    "tw-hs-117",
+    "[position:relative]",
+    "[flex-shrink:0]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:10px]",
+    "[padding-top:10px]",
+    "[--refinement-divider:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[&:has(.tw-hs-122)::before]:[content:'']",
+    "[&:has(.tw-hs-122)::before]:[position:absolute]",
+    "[&:has(.tw-hs-122)::before]:[top:0]",
+    "[&:has(.tw-hs-122)::before]:[left:0]",
+    "[&:has(.tw-hs-122)::before]:[right:0]",
+    "[&:has(.tw-hs-122)::before]:[height:1px]",
+    "[&:has(.tw-hs-122)::before]:[pointer-events:none]",
+    "[&:has(.tw-hs-122)::before]:[background:linear-gradient(_to_right,_transparent_0%,_var(--refinement-divider)_10%,_var(--refinement-divider)_90%,_transparent_100%_)]",
+  ].join(" "),
+  /* source lines marker only */
+  refinementChatEmbedded: ["tw-hs-118"].join(" "),
+  /* source lines 3441, 3442, 3443, 3444, 3445 */
+  refinementChatHeader: [
+    "tw-hs-119",
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:space-between]",
+    "[gap:8px]",
+    "[flex-shrink:0]",
+  ].join(" "),
+  /* source lines 3230, 3231, 3232, 3233, 3234 */
+  refinementChatScroll: [
+    "tw-hs-120",
+    "[flex:1_1_auto]",
+    "[min-height:0]",
+    "[overflow-y:auto]",
+    "[overscroll-behavior:contain]",
+    "[padding:10px_var(--refinement-gutter,_14px)_0]",
+  ].join(" "),
+  /* source lines 3196, 3278, 3279, 3280, 3281, 3282, 3283, 3287, 3288, 3289, 3293, 3297, 3298, 3299, 3300, 3301, 3302, 3303, 3304, 3327, 3331, 3335, 3339, 3589, 3590, 3591, 3592, 3593, 3594, 3595, 3596, 3600, 3601, 3605, 3606, 3610, 3611, 3615, 3616 */
+  refinementChip: [
+    "tw-hs-121",
+    "[@media(prefers-reduced-motion:reduce)]:[.tw-hs-136_.tw-hs-118_&]:[animation:none]",
+    "[.tw-hs-134_.tw-hs-118_&]:[position:relative]",
+    "[.tw-hs-134_.tw-hs-118_&]:[padding:0]",
+    "[.tw-hs-134_.tw-hs-118_&]:[border:none]",
+    "[.tw-hs-134_.tw-hs-118_&]:[border-radius:0]",
+    "[.tw-hs-134_.tw-hs-118_&]:[background:transparent]",
+    "[.tw-hs-134_.tw-hs-118_&]:[color:var(--palette-gray-400)]",
+    "[.tw-hs-134_.tw-hs-118_&:hover]:[background:transparent]",
+    "[.tw-hs-134_.tw-hs-118_&:hover]:[color:var(--palette-gray-000)]",
+    "[.tw-hs-134_.tw-hs-118_&:hover]:[border-color:transparent]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&]:[margin-left:20px]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[content:'']",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[position:absolute]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[left:-10px]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[top:-10px]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[width:1px]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[height:calc(100%_+_10px)]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[pointer-events:none]",
+    "[.tw-hs-134_.tw-hs-118_.tw-hs-121_+_&::before]:[background:linear-gradient(_to_bottom,_var(--refinement-divider)_0%,_var(--refinement-divider)_90%,_transparent_100%_)]",
+    "[.tw-hs-136_.tw-hs-118_&]:[animation:refineChipIn_360ms_ease-out_both]",
+    "[.tw-hs-136_.tw-hs-118_&:nth-child(1)]:[animation-delay:340ms]",
+    "[.tw-hs-136_.tw-hs-118_&:nth-child(2)]:[animation-delay:440ms]",
+    "[.tw-hs-136_.tw-hs-118_&:nth-child(3)]:[animation-delay:540ms]",
+    "[padding:5px_12px]",
+    "[border:1px_solid_rgb(var(--palette-gray-900-rgb)_/_12%)]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[background:transparent]",
+    "[color:var(--palette-gray-600)]",
+    "[cursor:pointer]",
+    "[font-family:inherit]!",
+    "[transition:background_140ms_ease,_border-color_140ms_ease]",
+    "[&:hover]:[background:rgb(var(--palette-gray-900-rgb)_/_4%)]",
+    "[&:hover]:[border-color:rgb(var(--palette-gray-900-rgb)_/_20%)]",
+    "[&:disabled]:[opacity:0.5]",
+    "[&:disabled]:[cursor:not-allowed]",
+    "[html[data-theme=dark]_&]:[border-color:rgb(var(--palette-gray-000-rgb)_/_16%)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-400)]",
+    "[html[data-theme=dark]_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[html[data-theme=dark]_&:hover]:[border-color:rgb(var(--palette-gray-000-rgb)_/_24%)]",
+  ].join(" "),
+  /* source lines 3271, 3272, 3273, 3274, 3583, 3584, 3585 */
+  refinementChips: [
+    "tw-hs-122",
+    "[.tw-hs-118_&]:[flex-wrap:nowrap]",
+    "[.tw-hs-118_&]:[justify-content:center]",
+    "[.tw-hs-118_&]:[gap:0]",
+    "[.tw-hs-118_&]:[padding-inline:var(--refinement-gutter,_14px)]",
+    "[display:flex]",
+    "[flex-wrap:wrap]",
+    "[gap:6px]",
+  ].join(" "),
+  /* source lines 3406, 3407, 3538, 3539, 3540, 3541, 3542, 3543, 3544, 3548 */
+  refinementDiff: [
+    "tw-hs-123",
+    "[.tw-hs-134_.tw-hs-118_&]:[background:rgb(var(--palette-gray-000-rgb)_/_4%)]",
+    "[.tw-hs-134_.tw-hs-118_&]:[color:var(--palette-gray-200)]",
+    "[margin-top:6px]",
+    "[padding:6px_10px]",
+    "[border-radius:var(--louis-radius-control-sm)]",
+    "[background:rgb(var(--palette-gray-900-rgb)_/_4%)]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:6px]",
+    "[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+  ].join(" "),
+  /* source lines 3082, 3083, 3084, 3085, 3086, 3087, 3088, 3089, 3090, 3091, 3092, 3093, 3094, 3097, 3098, 3105, 3106, 3107, 3108, 3109, 3110, 3111, 3113, 3114, 3123, 3124, 3125, 3126, 3127, 3128, 3129, 3130, 3177, 3178, 3179 */
+  refinementExpandBody: [
+    "tw-hs-124",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[flex:0_0_auto]",
+    "[width:0]",
+    "[height:0]",
+    "[max-height:0]",
+    "[min-width:0]",
+    "[min-height:0]",
+    "[overflow:hidden]",
+    "[opacity:0]",
+    "[pointer-events:none]",
+    "[position:relative]",
+    "[z-index:4]",
+    "[align-self:flex-end]",
+    "[transition:width_var(--refinement-duration)_var(--refinement-ease),_max-height_var(--refinement-duration)_var(--refinement-ease),_opacity_160ms_ease]",
+    "[.tw-hs-136_&]:[flex:1_1_auto]",
+    "[.tw-hs-136_&]:[min-height:0]",
+    "[.tw-hs-136_&]:[width:100%]",
+    "[.tw-hs-136_&]:[height:auto]",
+    "[.tw-hs-136_&]:[max-height:none]",
+    "[.tw-hs-136_&]:[opacity:1]",
+    "[.tw-hs-136_&]:[pointer-events:auto]",
+    "[.tw-hs-136_&]:[z-index:102]",
+    "[.tw-hs-136_&]:[transition:width_var(--refinement-duration)_var(--refinement-ease),_max-height_var(--refinement-duration)_var(--refinement-ease),_opacity_260ms_ease_80ms]",
+    "[.tw-hs-135_&]:[flex:1_1_auto]",
+    "[.tw-hs-135_&]:[min-height:0]",
+    "[.tw-hs-135_&]:[width:100%]",
+    "[.tw-hs-135_&]:[height:auto]",
+    "[.tw-hs-135_&]:[max-height:none]",
+    "[.tw-hs-135_&]:[opacity:0]",
+    "[.tw-hs-135_&]:[pointer-events:none]",
+    "[.tw-hs-135_&]:[transition:opacity_200ms_ease]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+  ].join(" "),
+  /* source lines 3134, 3135, 3136, 3137, 3138, 3139, 3140, 3141, 3142, 3148, 3149, 3150, 3151, 3152, 3153, 3154, 3160, 3161, 3162, 3163, 3177, 3178, 3179, 3191, 3192 */
+  refinementExpandBodyInner: [
+    "tw-hs-125",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[flex:1_1_auto]",
+    "[overflow:hidden]",
+    "[min-height:0]",
+    "[min-width:0]",
+    "[transform:translateY(6px)]",
+    "[opacity:0]",
+    "[transition:transform_320ms_var(--refinement-ease),_opacity_180ms_ease]",
+    "[.tw-hs-136_&]:[min-width:0]",
+    "[.tw-hs-136_&]:[width:100%]",
+    "[.tw-hs-136_&]:[height:100%]",
+    "[.tw-hs-136_&]:[flex:1_1_auto]",
+    "[.tw-hs-136_&]:[transform:translateY(0)]",
+    "[.tw-hs-136_&]:[opacity:1]",
+    "[.tw-hs-136_&]:[transition:transform_420ms_var(--refinement-ease-spring)_100ms,_opacity_240ms_ease_120ms]",
+    "[.tw-hs-135_&]:[min-width:0]",
+    "[.tw-hs-135_&]:[transform:translateY(6px)]",
+    "[.tw-hs-135_&]:[opacity:0]",
+    "[.tw-hs-135_&]:[transition:transform_260ms_var(--refinement-ease),_opacity_200ms_ease]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[.tw-hs-136_&]:[opacity:1]",
+    "[@media(prefers-reduced-motion:reduce)]:[.tw-hs-136_&]:[transform:none]",
+  ].join(" "),
+  /* source lines 3047, 3048, 3049, 3050, 3051, 3052, 3053, 3054, 3055, 3056, 3057, 3058, 3059, 3060, 3061, 3062, 3063, 3064, 3067, 3068, 3069, 3073, 3077, 3078, 3177, 3178, 3179, 3205, 3206 */
+  refinementExpandShellClose: [
+    "tw-hs-126",
+    "[position:relative]",
+    "[flex:0_0_32px]",
+    "[box-sizing:border-box]",
+    "[width:32px]",
+    "[min-width:32px]",
+    "[max-width:32px]",
+    "[height:32px]",
+    "[min-height:32px]",
+    "[max-height:32px]",
+    "[padding:0]",
+    "[border:none]",
+    "[border-radius:var(--button-radius)]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[color:rgb(var(--palette-gray-000-rgb)_/_80%)]",
+    "[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[cursor:pointer]",
+    "[overflow:hidden]",
+    "[transition:filter_180ms_ease,_transform_120ms_var(--refinement-ease)]",
+    "[&:hover]:[filter:saturate(125%)_brightness(125%)]",
+    "[&:active]:[transform:scale(0.95)]",
+    "[&:active]:[filter:saturate(150%)_brightness(150%)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[filter:none]",
+  ].join(" "),
+  /* source lines 2951, 2952, 2953, 2954, 2955, 2956, 2957, 2958, 2959, 2965, 2966, 2967, 2968, 2974, 2975, 2976, 2977, 3177, 3178, 3179, 3200, 3201 */
+  refinementExpandShellControls: [
+    "tw-hs-127",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[flex-shrink:0]",
+    "[max-width:0]",
+    "[opacity:0]",
+    "[overflow:hidden]",
+    "[pointer-events:none]",
+    "[transition:opacity_220ms_var(--refinement-ease),_max-width_var(--refinement-duration)_var(--refinement-ease)]",
+    "[.tw-hs-136_&]:[max-width:128px]",
+    "[.tw-hs-136_&]:[opacity:1]",
+    "[.tw-hs-136_&]:[pointer-events:auto]",
+    "[.tw-hs-136_&]:[transition:opacity_260ms_var(--refinement-ease)_100ms,_max-width_var(--refinement-duration)_var(--refinement-ease)_60ms]",
+    "[.tw-hs-135_&]:[max-width:0]",
+    "[.tw-hs-135_&]:[opacity:0]",
+    "[.tw-hs-135_&]:[pointer-events:none]",
+    "[.tw-hs-135_&]:[transition:opacity_140ms_ease,_max-width_180ms_var(--refinement-ease)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[.tw-hs-136_&]:[max-width:128px]",
+    "[@media(prefers-reduced-motion:reduce)]:[.tw-hs-136_&]:[opacity:1]",
+  ].join(" "),
+  /* source lines 2897, 2898, 2907, 2908, 2909, 2910, 2911, 2912, 2913, 2914, 2915, 2916, 2917, 2918, 2922, 2926, 2927, 3177, 3178, 3179 */
+  refinementExpandShellHead: [
+    "tw-hs-128",
+    "[.tw-hs-136_&]:[cursor:default]",
+    "[.tw-hs-136_&]:[min-height:32px]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[min-width:0]",
+    "[min-height:40px]",
+    "[padding:0]",
+    "[border:none]",
+    "[background:transparent]",
+    "[color:inherit]",
+    "[cursor:pointer]",
+    "[font-family:inherit]",
+    "[text-align:left]",
+    "[&:disabled]:[cursor:default]",
+    "[&:active:not(:disabled)]:[transform:scale(0.98)]",
+    "[&:active:not(:disabled)]:[transition:transform_120ms_var(--refinement-ease)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+  ].join(" "),
+  /* source lines 2875, 2876, 2877, 2878, 2879, 2880, 2881, 2882, 2883, 2884, 2885, 2886, 2890, 2891, 2892, 2893, 2903, 3177, 3178, 3179 */
+  refinementExpandShellHeader: [
+    "tw-hs-129",
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:space-between]",
+    "[gap:8px]",
+    "[flex:none]",
+    "[align-self:flex-end]",
+    "[width:fit-content]",
+    "[min-height:40px]",
+    "[padding:0_16px]",
+    "[position:relative]",
+    "[z-index:4]",
+    "[transition:padding_var(--refinement-duration)_var(--refinement-ease)]",
+    "[.tw-hs-136_&]:[align-self:stretch]",
+    "[.tw-hs-136_&]:[width:auto]",
+    "[.tw-hs-136_&]:[min-height:0]",
+    "[.tw-hs-136_&]:[padding:8px]",
+    "[.tw-hs-134:not(.tw-hs-136):not(.tw-hs-135)_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+  ].join(" "),
+  /* source lines 2931, 2932, 2933, 2937, 2941, 2942, 3177, 3178, 3179 */
+  refinementExpandShellIcon: [
+    "tw-hs-130",
+    "[display:inline-flex]",
+    "[flex-shrink:0]",
+    "[transition:transform_var(--refinement-duration)_var(--refinement-ease)]",
+    "[.tw-hs-136_&]:[transform:scale(0.96)]",
+    "[.tw-hs-135_&]:[transform:scale(1)]",
+    "[.tw-hs-135_&]:[transition:transform_var(--refinement-duration)_var(--refinement-ease)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+  ].join(" "),
+  /* 불투명도 슬라이더 래퍼. source lines 2983, 2984. 레일·썸·포커스 링·비활성 표현은 LOUIS 정본
+   * `.louis-slider`(+`data-size="sm"` — 썸 12px 로 기존 제품 값과 같다)가 소유한다.
+   * 여기 남는 것은 헤더 안 배치·폭과 토큰 override 셋이다 — 이 위젯은 테마와 무관하게 항상
+   * gray-900 표면이라(refinementExpandWidget), 정본의 테마 적응 색을 그대로 두면 라이트에서
+   * 레일과 썸 테두리가 어두운 면 위에 잘못 앉는다. 구조는 정본 그대로 두고 색만 면에 맞춘다. */
+  refinementExpandShellOpacity: [
+    "tw-hs-131",
+    "[--louis-color-accent-primary:var(--palette-gray-100)]",
+    "[--louis-color-stroke-default:rgb(var(--palette-gray-000-rgb)_/_20%)]",
+    "[--louis-color-bg-surface:var(--palette-gray-900)]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[width:64px]",
+  ].join(" "),
+  /* source lines 2946, 2947 */
+  refinementExpandShellTitle: [
+    "tw-hs-133",
+    "[white-space:nowrap]",
+    "[transition:letter-spacing_var(--refinement-duration)_var(--refinement-ease)]",
+  ].join(" "),
+  /* source lines 2730, 2731, 2732, 2733, 2734, 2735, 2737, 2738, 2739, 2741, 2742, 2743, 2744, 2745, 2746, 2747, 2748, 2750, 2751, 2752, 2753, 2754, 2755, 2756, 2757, 2758, 2759, 2761, 2765, 2766, 2767, 2768, 2780, 2781, 2782, 2783, 2784, 2785, 2790, 2791, 2792, 2796, 2797, 2798, 3177, 3178, 3179 */
+  refinementExpandWidget: [
+    "tw-hs-134",
+    "[--refinement-ease:cubic-bezier(0.32,_0.72,_0,_1)]",
+    "[--refinement-ease-spring:cubic-bezier(0.34,_1.12,_0.64,_1)]",
+    "[--refinement-duration:440ms]",
+    "[--refinement-panel-width:min(360px,_calc(100vw_-_48px))]",
+    "[--refinement-panel-height:min(560px,_calc(100vh_-_48px))]",
+    "[--refinement-shell-padding:8px]",
+    "[--refinement-shell-radius:var(--button-radius)]",
+    "[--refinement-inner-radius:calc(var(--refinement-shell-radius)_-_var(--refinement-shell-padding))]",
+    "[--refinement-gutter:14px]",
+    "[position:fixed]",
+    "[right:24px]",
+    "[bottom:24px]",
+    "[z-index:1300]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[justify-content:flex-end]",
+    "[align-items:flex-end]",
+    "[width:var(--refine-pill-w,_fit-content)]",
+    "[max-width:var(--refinement-panel-width)]",
+    "[height:auto]",
+    "[max-height:40px]",
+    "[padding:0]",
+    "[box-sizing:border-box]",
+    "[border-radius:var(--refinement-shell-radius)]",
+    "[overflow:hidden]",
+    "[background:var(--palette-gray-900)]",
+    "[color:var(--palette-gray-000)]",
+    "[box-shadow:0_6px_20px_rgb(var(--palette-gray-1000-rgb)_/_20%)]",
+    "[transform-origin:bottom_right]",
+    "[transform:scale(1)_translateZ(0)]",
+    "[isolation:isolate]",
+    "[transition:width_var(--refinement-duration)_var(--refinement-ease),_max-height_var(--refinement-duration)_var(--refinement-ease),_padding_var(--refinement-duration)_var(--refinement-ease),_border-radius_var(--refinement-duration)_var(--refinement-ease),_box-shadow_var(--refinement-duration)_var(--refinement-ease)]",
+    "[&::before]:[content:'']",
+    "[&::before]:[position:absolute]",
+    "[&::before]:[inset:0]",
+    "[&::before]:[border-radius:inherit]",
+    "[&::before]:[pointer-events:none]",
+    "[&::before]:[transition:opacity_var(--refinement-duration)_var(--refinement-ease)]",
+    "[&::after]:[content:'']",
+    "[&::after]:[position:absolute]",
+    "[&::after]:[inset:0]",
+    "[&::after]:[border-radius:inherit]",
+    "[&::after]:[pointer-events:none]",
+    "[&::after]:[transition:opacity_var(--refinement-duration)_var(--refinement-ease)]",
+    "[&::before]:[z-index:100]",
+    "[&::before]:[opacity:1]",
+    "[&::before]:[box-shadow:inset_0_0_8px_0_rgb(var(--primary-500-rgb)_/_100%)]",
+    "[&::after]:[z-index:101]",
+    "[&::after]:[opacity:0]",
+    "[&::after]:[box-shadow:inset_0_0_0_1px_rgb(var(--palette-gray-000-rgb)_/_16%)]",
+    "[@media(prefers-reduced-motion:reduce)]:[transition:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[transform:none]",
+  ].join(" "),
+  /* 판의 AI 클립 수정 — 화면 오른쪽 아래가 아니라 무대 오른쪽 아래에 선다(`ClipRefinementWidget` placement="stage").
+     스튜디오에서 화면 오른쪽 아래는 인스펙터라 목록을 덮는다. 재생 막대 위로 띄우고 펼친 창은 무대 안으로 줄인다.
+     쌓인 배치(≤900)에서는 무대가 낮아(폰 213px) 창이 쓸 수 없이 작아지므로 프로젝트 화면처럼 화면 구석에 선다. 넓은 쪽
+     경계는 901 이 아니라 900.02 다 — 확대나 배율로 뷰포트 폭이 900.5 처럼 소수가 되면 둘 다 아니었다(`WIDE_STUDIO_QUERY`) */
+  refinementExpandWidgetAnchored: [
+    "[@media(min-width:900.02px)]:[position:absolute]!",
+    "[@media(min-width:900.02px)]:[right:12px]!",
+    "[@media(min-width:900.02px)]:[bottom:60px]!",
+    "[@media(min-width:900.02px)]:[--refinement-panel-width:min(360px,_calc(100%_-_24px))]!",
+    "[@media(min-width:900.02px)]:[--refinement-panel-height:min(560px,_calc(100%_-_72px))]!",
+    /* 폰 판: 닫힌 버튼은 무대 안 오른쪽 위 — 낮은 무대(폰 213)에서 재생 막대 위에 두면 영상 한가운데를 가렸다.
+       펼친 창은 무대 밖으로 나와 막대 아래부터 화면 아래까지 덮는다 — 무대를 보면서 고친다. 낮은 화면(가로 폰)은
+       예전처럼 화면 구석에 뜬다 */
+    "[@media(max-width:900px)_and_(min-height:560px)]:[position:absolute]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[right:8px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[top:8px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[bottom:auto]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[position:fixed]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[left:12px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[right:12px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[top:auto]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[bottom:calc(12px_+_env(safe-area-inset-bottom,_0px))]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[--refinement-panel-width:calc(100vw_-_24px)]!",
+    /* 펼친 창의 높이는 막대 아래 남는 만큼 — 판이 창을 열 때 막대의 아래 끝 + 8 을 재서 `--studio-refine-top` 으로 준다
+       (막대는 영어 320 처럼 좁으면 두 줄, 실패 줄이 붙으면 더 높다). 재기 전에는 상단 바 48, 바깥 여백, 무대(여백 뺀 폭의
+       16:9, 38svh 상한), 간격 8, 막대 56, 간격 8 로 셈한다. 아래는 창의 바닥 12 와 홈 표시줄. 막대가 화면 아래쪽에 있을 때
+       열어도 쓸 수 있게 160 은 남긴다. 동작 줄이기 설정이면 투명도 전환도 없다 */
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-136]:[--refinement-panel-height:min(560px,_max(160px,_calc(100svh_-_12px_-_env(safe-area-inset-bottom,_0px)_-_var(--studio-refine-top,_calc(120px_+_var(--app-gnb-main-inline-padding)_+_min((100vw_-_2_*_var(--app-gnb-main-inline-padding))_*_0.5625,_38svh))))))]!",
+    /* 폰 판에서는 알약(무대 안)과 창(화면 아래)의 자리가 달라 폭과 높이를 이어 바꾸면 자리가 튄다 — 알약에서 작게 시작해
+       화면 왼쪽 아래에서 자라고, 닫힐 때는 무대로 돌아가 잘린 판이 영상을 덮은 채 줄었다. 모양은 잇지 않고 투명도만
+       잇는다. 열 때는 창 자리에서 기존 열림 애니메이션(작게 시작해 튀어 커진다)만 돌고, 닫히는 동안에는 같은 자리와
+       모양에서 흐려지며, 다 닫히면 알약이 무대에 다시 흐려져 들어온다 */
+    "[@media(max-width:900px)_and_(min-height:560px)_and_(prefers-reduced-motion:no-preference)]:[transition:opacity_var(--louis-motion-modal-exit-duration)_var(--louis-motion-modal-exit-timing-function)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[position:fixed]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[left:12px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[right:12px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[top:auto]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[bottom:calc(12px_+_env(safe-area-inset-bottom,_0px))]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[--refinement-panel-width:calc(100vw_-_24px)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[--refinement-panel-height:min(560px,_max(160px,_calc(100svh_-_12px_-_env(safe-area-inset-bottom,_0px)_-_var(--studio-refine-top,_calc(120px_+_var(--app-gnb-main-inline-padding)_+_min((100vw_-_2_*_var(--app-gnb-main-inline-padding))_*_0.5625,_38svh))))))]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[width:var(--refinement-panel-width)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[max-height:var(--refinement-panel-height)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[padding:var(--refinement-shell-padding)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[--refinement-shell-radius:22px]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[border-radius:var(--refinement-shell-radius)]!",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[&.tw-hs-135]:[opacity:0]!",
+  ].join(" "),
+  /* source lines 2832, 2833, 2838, 2839, 2840, 3187 */
+  refinementExpandWidgetClosing: [
+    "tw-hs-135",
+    "[pointer-events:none]!",
+    "[animation:refinementWidgetClose_var(--refinement-duration)_var(--refinement-ease-spring)_both]!",
+    "[&.tw-hs-136]:[animation:refinementWidgetClose_var(--refinement-duration)_var(--refinement-ease-spring)_both]!",
+    "[height:var(--refinement-panel-height)]!",
+    "[align-items:stretch]!",
+    "[justify-content:flex-start]!",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]!",
+  ].join(" "),
+  /* source lines 2807, 2808, 2812, 2816, 2817, 2818, 2819, 2820, 2821, 2822, 2823, 2824, 2828, 3183 */
+  refinementExpandWidgetOpen: [
+    "tw-hs-136",
+    "[&::before]:[opacity:1]!",
+    "[&::before]:[box-shadow:inset_0_0_24px_0_rgb(var(--primary-500-rgb)_/_100%)]!",
+    "[&::after]:[opacity:1]!",
+    "[--refinement-shell-radius:22px]!",
+    "[align-items:stretch]!",
+    "[justify-content:flex-start]!",
+    "[width:var(--refinement-panel-width)]!",
+    "[height:var(--refinement-panel-height)]!",
+    "[max-height:var(--refinement-panel-height)]!",
+    "[padding:var(--refinement-shell-padding)]!",
+    "[border-radius:var(--refinement-shell-radius)]!",
+    "[box-shadow:0_0_0_1px_rgb(var(--palette-gray-000-rgb)_/_8%),_0_12px_40px_rgb(var(--palette-gray-1000-rgb)_/_28%),_0_32px_80px_rgb(var(--palette-gray-1000-rgb)_/_20%)]!",
+    "[animation:refinementWidgetOpen_var(--refinement-duration)_var(--refinement-ease-spring)_both]!",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]!",
+  ].join(" "),
+  /* source lines 3420, 3421, 3422, 3423, 3424, 3425, 3426, 3427, 3431, 3432, 3433, 3437, 3641, 3642, 3643, 3644, 3645, 3646, 3647, 3648, 3649, 3653, 3657, 3661, 3662, 3663, 3667, 3671 */
+  refinementInput: [
+    "tw-hs-137",
+    "[.tw-hs-134_.tw-hs-118_&]:[flex:1]",
+    "[.tw-hs-134_.tw-hs-118_&]:[min-width:0]",
+    "[.tw-hs-134_.tw-hs-118_&]:[height:var(--button-height)]",
+    "[.tw-hs-134_.tw-hs-118_&]:[padding:0]",
+    "[.tw-hs-134_.tw-hs-118_&]:[border:none]",
+    "[.tw-hs-134_.tw-hs-118_&]:[border-radius:0]",
+    "[.tw-hs-134_.tw-hs-118_&]:[background:transparent]",
+    "[.tw-hs-134_.tw-hs-118_&]:[color:var(--palette-gray-000)]",
+    "[.tw-hs-134_.tw-hs-118_&:focus]:[box-shadow:none]",
+    "[.tw-hs-134_.tw-hs-118_&:focus]:[border-color:transparent]",
+    "[.tw-hs-134_.tw-hs-118_&::placeholder]:[color:var(--palette-gray-400)]",
+    "[flex:1]",
+    "[padding:8px_12px]",
+    "[border:1px_solid_rgb(var(--palette-gray-900-rgb)_/_12%)]",
+    "[border-radius:var(--button-radius)]",
+    "[background:transparent]",
+    "[color:var(--palette-gray-900)]",
+    "[font-family:inherit]!",
+    "[transition:border-color_140ms_ease]",
+    "[&:focus]:[border-color:var(--primary-400)]",
+    "[&::placeholder]:[color:var(--palette-gray-400)]",
+    "[html[data-theme=dark]_&]:[border-color:rgb(var(--palette-gray-000-rgb)_/_16%)]",
+    "[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-700-rgb)_/_56%)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-000)]",
+    "[html[data-theme=dark]_&:focus]:[border-color:var(--primary-400)]",
+    "[html[data-theme=dark]_&::placeholder]:[color:var(--palette-gray-500)]",
+  ].join(" "),
+  /* source lines 3343, 3344, 3345, 3620, 3621, 3622, 3623 */
+  refinementInputRow: [
+    "tw-hs-138",
+    "[.tw-hs-134_.tw-hs-118_&]:[padding:8px]",
+    "[.tw-hs-134_.tw-hs-118_&]:[background:var(--palette-gray-800)]",
+    "[.tw-hs-134_.tw-hs-118_&]:[border-radius:var(--refinement-inner-radius)]",
+    "[display:flex]",
+    "[gap:8px]",
+    "[align-items:center]",
+    "[flex-shrink:0]",
+  ].join(" "),
+  /* source lines 3238, 3239, 3494, 3495, 3496, 3498, 3499, 3500, 3501 */
+  refinementMessages: [
+    "tw-hs-139",
+    "[.tw-hs-118_.tw-hs-120_&]:[flex:none]",
+    "[.tw-hs-118_.tw-hs-120_&]:[overflow:visible]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:8px]",
+    "[flex:1]",
+    "[min-height:0]",
+    "[overflow-y:auto]",
+    "[overscroll-behavior:contain]",
+  ].join(" "),
+  /* source lines 3456, 3457, 3458, 3459, 3460, 3461, 3462, 3463, 3464, 3465, 3466, 3467, 3471, 3472, 3476, 3480, 3481 */
+  refinementPanelClose: [
+    "tw-hs-140",
+    "[width:28px]",
+    "[height:28px]",
+    "[padding:0]",
+    "[border:none]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[background:transparent]",
+    "[color:var(--palette-gray-500)]",
+    "[cursor:pointer]",
+    "[transition:background_140ms_ease,_color_140ms_ease]",
+    "[&:hover]:[background:rgb(var(--palette-gray-900-rgb)_/_8%)]",
+    "[&:hover]:[color:var(--palette-gray-700)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-400)]",
+    "[html[data-theme=dark]_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_8%)]",
+    "[html[data-theme=dark]_&:hover]:[color:var(--palette-gray-100)]",
+  ].join(" "),
+  /* source lines 3530, 3531, 3532, 3533, 3534 */
+  refinementPreviewBubble: [
+    "tw-hs-141",
+    "[align-self:flex-start]",
+    "[width:100%]",
+    "[max-width:85%]",
+    "[border-radius:12px]",
+    "[overflow:hidden]",
+  ].join(" "),
+  /* source lines 3628
+     옛 모듈의 `::before` 두 줄(3636, 3637 — 흐림 8px 흰 광 + soft-light)은 옮기지 않는다.
+     `content` 가 없어 죽어 있던 선언인데, LOUIS DS-D-0066 이 활성 primary 의 `::before` 에
+     `content` 를 주면서 되살아나 그 가장자리 빛을 8px 광으로 덮었다.
+     버튼 자체에 걸던 안쪽 흰 광(3629, 흐림 8px · 48%)도 걷었다(소유자 결정 2026-09-22). LOUIS 빛
+     위에 한 겹 더 서서 가장자리가 번졌고, LOUIS 빛이 꺼지는 비활성 「전송」에도 남았다. 빛은 LOUIS
+     정본 하나만 둔다. */
+  refinementPrimaryBtn: [
+    "tw-hs-142",
+    "[isolation:isolate]",
+  ].join(" "),
+  /* source lines 3356, 3394 */
+  refinementThinking: [
+    "tw-hs-144",
+    "[animation:refineThinkingIn_220ms_ease-out_both]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+  ].join(" "),
+  /* source lines 3362, 3363, 3364, 3365, 3373, 3374, 3375, 3377, 3378, 3398, 3399, 3400, 3401 */
+  refinementThinkingShimmer: [
+    "tw-hs-145",
+    "[display:inline-block]",
+    "[color:transparent]",
+    "[-webkit-text-fill-color:transparent]",
+    "[background-image:linear-gradient(_90deg,_rgb(var(--palette-gray-000-rgb)_/_32%)_0%,_rgb(var(--palette-gray-000-rgb)_/_40%)_20%,_rgb(var(--palette-gray-000-rgb)_/_95%)_40%,_rgb(var(--palette-gray-000-rgb)_/_40%)_60%,_rgb(var(--palette-gray-000-rgb)_/_32%)_100%_)]",
+    "[background-size:200%_100%]",
+    "[background-position:0%_50%]",
+    "[background-clip:text]",
+    "[will-change:background-position]",
+    "[animation:highlightLoadingShimmer_1.6s_linear_infinite]",
+    "[@media(prefers-reduced-motion:reduce)]:[animation:none]",
+    "[@media(prefers-reduced-motion:reduce)]:[color:rgb(var(--palette-gray-000-rgb)_/_72%)]",
+    "[@media(prefers-reduced-motion:reduce)]:[-webkit-text-fill-color:rgb(var(--palette-gray-000-rgb)_/_72%)]",
+    "[@media(prefers-reduced-motion:reduce)]:[background:none]",
+  ].join(" "),
+  /* source lines 3485, 3486, 3490 */
+  refinementTitle: [
+    "tw-hs-146",
+    "[margin:0]",
+    "[color:var(--palette-gray-700)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-300)]",
+  ].join(" "),
+  /* source lines 3675, 3676, 3677, 3678, 3679, 3680, 3681, 3682, 3683, 3687, 3688, 3689, 3693, 3694, 3698, 3699, 3700 */
+  refinementUpgradeBtn: [
+    "tw-hs-147",
+    "[width:100%]",
+    "[padding:10px_16px]",
+    "[border:1px_dashed_rgb(var(--palette-gray-900-rgb)_/_16%)]",
+    "[border-radius:10px]",
+    "[background:transparent]",
+    "[color:var(--palette-gray-500)]",
+    "[cursor:pointer]",
+    "[font-family:inherit]!",
+    "[transition:background_140ms_ease,_border-color_140ms_ease]",
+    "[&:hover]:[background:rgb(var(--palette-gray-900-rgb)_/_4%)]",
+    "[&:hover]:[border-color:var(--primary-400)]",
+    "[&:hover]:[color:var(--primary-500)]",
+    "[html[data-theme=dark]_&]:[border-color:rgb(var(--palette-gray-000-rgb)_/_16%)]",
+    "[html[data-theme=dark]_&]:[color:var(--palette-gray-400)]",
+    "[html[data-theme=dark]_&:hover]:[background:rgb(var(--palette-gray-000-rgb)_/_4%)]",
+    "[html[data-theme=dark]_&:hover]:[border-color:var(--primary-400)]",
+    "[html[data-theme=dark]_&:hover]:[color:var(--primary-400)]",
+  ].join(" "),
+  /* source lines 3506, 3507, 3508, 3512, 3513, 3514 */
+  refinementUserMsg: [
+    "tw-hs-148",
+    "[padding:8px_12px]",
+    "[border-radius:12px]",
+    "[max-width:85%]",
+    "[align-self:flex-end]",
+    "[background:var(--primary-500)]",
+    "[color:var(--palette-gray-000)]",
+  ].join(" "),
+  /* source lines 3839, 3840, 3841, 3842, 3843, 3844, 3845, 3846, 3848, 3852, 3858, 3862 */
+  /* 표면은 LOUIS `.louis-toast` 가 소유한다(패딩 12/20 · 반경 16 · 글자색 fg-on-inverse —
+     전부 제품 실측값과 같다). 아래는 제품이 계속 소유하는 유틸리티다:
+       · 위치·스택·등장 애니메이션 — 레시피의 `.louis-toast-viewport` 는 쓰지 않는다.
+       · 면 색 — 레시피는 순수 흑/백 70%, 제품은 gray-800 / gray-200 70% 다.
+       · 그림자 — 레시피는 검정 고정, 제품은 다크에서 밝은 후광으로 뒤집힌다.
+       · `backdrop-filter` 10px — 레시피는 16px+saturate 다. 이 화면의 현재 값을 유지한다.
+       · `max-inline-size` 해제 — 420px 상한은 제품에 없고 본문이 `nowrap` 이라 넘친다. */
+  toast: [
+    "tw-hs-182",
+    "louis-toast",
+    "[position:fixed]",
+    "[bottom:32px]",
+    "[left:50%]",
+    "[transform:translateX(-50%)]",
+    "[z-index:1300]",
+    "[max-inline-size:none]",
+    "backdrop-blur-surface",
+    "[box-shadow:0_8px_20px_rgb(var(--gray-1000-rgb)_/_16%)]",
+    "[animation:highlightToastIn_280ms_ease]",
+    "[html[data-theme=light]_&]:[background:rgb(var(--palette-gray-800-rgb)_/_72%)]",
+    "[html[data-theme=dark]_&]:[background:rgb(var(--palette-gray-200-rgb)_/_72%)]",
+  ].join(" "),
+  /* source lines 3866 */
+  toastClosing: [
+    "tw-hs-183",
+    "[animation:highlightToastOut_280ms_ease_forwards]",
+  ].join(" "),
+  /* source lines 3870, 3874, 3878 */
+  /* 글자색은 `.louis-toast` 의 `--louis-color-fg-on-inverse` 를 상속받는다 — 제품의
+     palette-gray-000 / palette-gray-900 과 같은 값이라 테마 규칙 두 줄을 지웠다. */
+  toastText: [
+    "tw-hs-184",
+    "[white-space:nowrap]",
+  ].join(" "),
+  /* ── 「새 하이라이트」 스튜디오(`/highlight/new`) ────────────────────────────────────────────────────
+     사용자 결정: 캔버스 · 컴포지션처럼 하이라이트만의 풀화면 작업 화면. 셸(페이지 · 패널 · 본문)은 컴포지션
+     편집기(`app/videoeditor/[projectId]/EditorProjectWorkspace.tsx` 의 `PAGE` · `PANEL` · `MAIN`)와 같은 값이고,
+     안쪽은 무대 · 분석 설정 · 하이라이트 트랙 세 칸이다. 칸 안의 부품(인스펙터 머리 · 행, Select, Button)은
+     LOUIS 레시피가 소유한다 — 여기 있는 것은 배치와 무대 · 트랙의 면뿐이다. */
+  /* 상단 바(`variant="create"`)가 화면 맨 위를 `fixed` 로 덮으므로 그 높이 48 만큼 비킨다(컴포지션 `PAGE`) */
+  studioPage: [
+    "[position:relative]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[overflow:hidden]",
+    "[box-sizing:border-box]",
+    "[min-height:100dvh]",
+    "[height:100dvh]",
+    "[max-height:100dvh]",
+    "[padding-top:48px]",
+    "[padding-bottom:0]",
+  ].join(" "),
+  studioPanel: [
+    "appMainCardChromeSurface",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[flex:1_1_auto]",
+    "[min-height:0]",
+    "[min-width:0]",
+    "[margin:0]",
+    "[border-radius:0]",
+    "[overflow:hidden]!",
+  ].join(" "),
+  studioMain: [
+    "[position:relative]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[flex:1_1_auto]",
+    "[min-height:0]",
+    "[min-width:0]",
+    "[box-sizing:border-box]",
+    "[padding:0]",
+    "[overflow:hidden]",
+    "[--mainchrome-bleed-left:0px]",
+    "[--mainchrome-bleed-right:0px]",
+    "[@media(max-width:900px)]:[overflow-y:auto]",
+    "[@media(max-width:900px)]:[overscroll-behavior:contain]",
+  ].join(" "),
+  studioHeaderSlot: "appMainChromeHeaderSlot [display:flex] [flex-direction:column] empty:hidden",
+  /* [작업 열 | 인스펙터] 두 칸. 작업 열은 무대 · (리뷰의 AI 수정 막대) · 트랙을 세로로 쌓는다. 좁으면 한 줄로 쌓아
+     무대 → 트랙 → 인스펙터 순이 된다(단계마다 같은 순서).
+     간격은 컴포지션 도킹 셸과 같다 — 바깥은 `--app-gnb-main-inline-padding`(데스크톱 16 · 폰 6, `modalShellDocked`
+     의 margin), 패널 사이는 8(`modalBody` 의 열 간격 2 + 손잡이 칸 4 + 2). */
+  studio: [
+    "[flex:1_1_auto]",
+    "[min-height:0]",
+    "[box-sizing:border-box]",
+    "[display:grid]",
+    "[grid-template-columns:minmax(0,1fr)_320px]",
+    "[grid-template-rows:minmax(0,1fr)]",
+    "[gap:8px]",
+    "[padding:var(--app-gnb-main-inline-padding)]",
+    "[@media(max-width:900px)]:[grid-template-columns:minmax(0,1fr)]",
+    "[@media(max-width:900px)]:[grid-template-rows:auto]",
+    /* 쌓인 배치는 화면 높이에 묶지 않는다 — 묶으면 행이 남는 높이를 나눠 가져 무대(overflow:hidden 이라 최소가
+       0)부터 줄어든다. 구르는 것은 바깥 본문(`studioMain`)이다. */
+    "[@media(max-width:900px)]:[flex:none]",
+    /* 낮은 화면(가로 폰)에서 떠 있는 AI 클립 수정 버튼(아래 24px, 높이 40px)만큼 끝에 여유를 둔다 — 마지막 줄이 버튼
+       밑에 갇히지 않게. 폰 판에서는 버튼이 무대 안에 선다 */
+    "[@media(max-width:900px)_and_(max-height:559.98px)]:[&[data-refine-launcher]]:[padding-bottom:88px]",
+  ].join(" "),
+  /* 작업 열 — 무대가 남는 높이를 받고, 막대 · 트랙은 제 높이만큼 선다 */
+  studioColumn: [
+    "[grid-column:1]",
+    "[grid-row:1]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:8px]",
+    "[min-width:0]",
+    "[min-height:0]",
+    "[@media(max-width:900px)]:[min-height:auto]",
+  ].join(" "),
+  /* 무대 — 플레이어처럼 두 테마 모두 검은 바탕(LOUIS 고정 검정, `SHORT_RESULT_PLAYER` 와 같은 색) */
+  studioStage: [
+    "[flex:1_1_auto]",
+    "[position:relative]",
+    "[min-height:0]",
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    /* 반경은 컴포지션 패널과 같은 12(card) */
+    "[border-radius:var(--louis-radius-card)]",
+    "[background:var(--palette-gray-1000)]",
+    "[overflow:hidden]",
+    /* 좁으면 원본 비율로 선다. 바닥 높이를 함께 주면 16:9 가 폭을 되밀어 칸 밖으로 넘친다(390 에서 427) */
+    "[@media(max-width:900px)]:[flex:none]",
+    "[@media(max-width:900px)]:[aspect-ratio:16_/_9]",
+    "[@media(max-width:900px)]:[width:100%]",
+    /* 파일을 끌어 무대 위에 올린 동안 — 테두리를 강조색으로. 플레이어 위에 그려야 해서 ::after 로 긋는다
+       (위치를 가진 형제 가운데 문서 순서가 마지막이라 z-index 없이 위에 선다) */
+    "[&[data-dragging]]:after:[content:'']",
+    "[&[data-dragging]]:after:[position:absolute]",
+    "[&[data-dragging]]:after:[inset:0]",
+    "[&[data-dragging]]:after:[border:var(--louis-border-width-ring)_solid_var(--louis-color-accent-primary)]",
+    "[&[data-dragging]]:after:[border-radius:inherit]",
+    "[&[data-dragging]]:after:[pointer-events:none]",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[max-height:38svh]",
+    "[@media(max-width:900px)_and_(max-height:559.98px)]:[max-height:78svh]",
+  ].join(" "),
+  /* 무대의 영상은 잘리지 않고 통째로 선다 — 구간을 고르는 자리라 가장자리가 잘리면 판단이 틀린다. 원본과 무대의
+     비율이 달라도(가로 2:1 원본을 1.85 무대에, 세로 숏폼을 가로 무대에) 검은 무대가 남는 자리를 채운다 */
+  studioPlayer: "[width:100%] [height:100%] [--vp-object-fit:contain]",
+  /* 빈 무대 — 칸 전체가 파일 선택 버튼. 검은 바탕 위라 글자 · 글리프는 페이퍼 잉크로 고정한다 */
+  studioStageEmpty: [
+    "group",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[gap:8px]",
+    "[width:100%]",
+    "[height:100%]",
+    "[padding:24px]",
+    "[box-sizing:border-box]",
+    "[border:0]",
+    "[background:transparent]",
+    "[font-family:inherit]",
+    "[text-align:center]",
+    "[cursor:pointer]",
+    "[transition-property:background]",
+    "[transition-duration:var(--louis-motion-control-hover-duration)]",
+    "[transition-timing-function:var(--louis-motion-control-hover-timing-function)]",
+    "[&:hover:not(:disabled):not([aria-disabled=true])]:[background:rgb(var(--palette-gray-000-rgb)/4%)]",
+    "[&:focus-visible]:[outline:var(--louis-border-width-ring)_solid_var(--louis-color-stroke-focus)]",
+    "[&:focus-visible]:[outline-offset:-4px]",
+    "[&:disabled]:[cursor:default]",
+    /* 다시 올릴 준비를 하는 동안(막대가 쉬머로 알린다) — 누름을 받지 않는다 */
+    "[&[aria-disabled=true]]:[cursor:progress]",
+    "[&_.tw-hs-192]:[background-color:rgb(var(--palette-gray-000-rgb)/88%)]!",
+  ].join(" "),
+  studioStageTitle: "[margin-top:6px] [color:var(--palette-gray-000)]",
+  studioStageNote: [
+    "[color:rgb(var(--palette-gray-000-rgb)/56%)]",
+    "[white-space:pre-line]",
+    "[word-break:keep-all]",
+  ].join(" "),
+  /* 칸 안의 「파일 선택」 — 누름은 칸이 받는다. primary 의 hover 는 면이 아니라 밝기다(LOUIS Button) */
+  studioStageButton: [
+    "[pointer-events:none]",
+    "[margin-top:10px]",
+    "group-hover:[filter:brightness(1.06)]",
+    /* 칸이 잠긴 동안(다시 올릴 준비)은 hover 밝기도 없다 */
+    "[.group[aria-disabled=true]_&]:[filter:none]!",
+  ].join(" "),
+  /* 분석 설정 — 컴포지션 속성 패널 자리. 올라온 면 + 헤어라인, 칸이 넘치면 자기 안에서 구른다 */
+  studioInspector: [
+    "[grid-column:2]",
+    "[grid-row:1]",
+    "[min-height:0]",
+    "[overflow-y:auto]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:20px]",
+    "[padding:16px]",
+    "[box-sizing:border-box]",
+    "[border-radius:var(--louis-radius-card)]",
+    "[background:var(--louis-color-bg-raised)]",
+    "[box-shadow:var(--louis-hairline-inset)]",
+    "[@media(max-width:900px)]:[grid-column:1]",
+    "[@media(max-width:900px)]:[grid-row:auto]",
+    "[@media(max-width:900px)]:[overflow-y:visible]",
+    /* 쌓인 배치에서는 칸이 제 내용만큼 자라야 한다 — `min-height:0` 이면 행이 줄어 아래 칸이 위를 덮는다 */
+    "[@media(max-width:900px)]:[min-height:auto]",
+    /* 좁은 화면(≤900)의 인스펙터 컨트롤은 손가락 크기로 — 시작 화면 설정(Select, 「파일 바꾸기」)과 낮은 화면(가로
+       폰)의 판 목록 토글(정렬, 클립과 후보 탭). sm 24 는 칸이 20 이 된다. 폰 판의 판 목록은 시트가 같은 값을 갖는다 */
+    "[@media(max-width:900px)]:[--louis-layout-control-height-sm:36px]",
+    "[@media(max-width:900px)]:[--louis-layout-control-height-md:40px]",
+    "[@media(max-width:900px)]:[--louis-layout-settings-segment-height:36px]",
+  ].join(" "),
+  /* ── 폰 판 ── 좁고 충분히 높은 화면(≤900, 높이 ≥560). 데스크톱의 세 칸을 쌓지 않고 폰에서 하는 일(후보를 하나씩 보고
+     넣을지 정한 뒤 추출)에 맞춰 다시 짠다 — 무대, 막대, 트랙(후보를 고르는 길), 지금 칸의 설명, 화면 아래 행동 줄.
+     전체 목록은 아래에서 올라오는 시트다. 판이 한 화면에 들어서 무엇도 붙이지 않는다. 낮은 화면(가로 폰)은 예전처럼
+     쌓는다. 판은 CSS 로 가른다 — 스크립트로 고르면 첫 그리기에 다른 판이 보인다 */
+  /* 폰 판에서 빠지는 것 — 판의 인스펙터(목록은 시트로), 시작 화면 설정 끝의 「분석 시작」(아래 행동 줄이 같은 버튼을
+     든다) */
+  studioPhoneHidden: "[@media(max-width:900px)_and_(min-height:560px)]:[display:none]",
+  /* 지금 칸의 설명 — 데스크톱 인스펙터 받침(선정 이유)과 목록 행의 제목, 자리를 무대 쪽으로 모은다. 인스펙터와 같은
+     면(올라온 면 + 헤어라인) */
+  studioPhoneDetails: [
+    "[display:none]",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[display:flex]",
+    "[flex-direction:column]",
+    "[gap:16px]",
+    "[padding:16px]",
+    "[box-sizing:border-box]",
+    "[min-width:0]",
+    "[border-radius:var(--louis-radius-card)]",
+    "[background:var(--louis-color-bg-raised)]",
+    "[box-shadow:var(--louis-hairline-inset)]",
+  ].join(" "),
+  studioPhoneDetailsHead: "[display:flex] [flex-direction:column] [gap:4px] [min-width:0]",
+  studioPhoneDetailsTitle: [
+    "[margin:0]",
+    "[color:var(--louis-color-fg-primary)]",
+    "[word-break:keep-all]",
+  ].join(" "),
+  studioPhoneDetailsMeta: [
+    "[margin:0]",
+    "[color:var(--louis-color-fg-secondary)]",
+    "[font-variant-numeric:tabular-nums]",
+  ].join(" "),
+  /* 판의 알림(분석하지 못한 구간, 추출 실패) — 폰 판에서는 목록이 시트로 가므로 설명 위에 따로 선다 */
+  studioPhoneNotices: [
+    "[display:none]",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[display:flex]",
+    "[flex-direction:column]",
+    "[gap:8px]",
+  ].join(" "),
+  /* 화면 아래 행동 줄 — 본문(`studioMain`) 밖, 패널의 마지막 칸이라 구르지 않고 내용을 덮지 않는다. 시작 화면의
+     「분석 시작」, 판의 「목록 보기」와 「클립 추출」(또는 「전체 다운로드」). 넓은 화면과 낮은 화면에서는 서지 않는다 —
+     그 판의 행동은 상단 바와 인스펙터가 갖는다. 버튼은 손가락 크기(40) */
+  studioFooter: [
+    "[display:none]",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[display:flex]",
+    "[flex:none]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[padding-top:12px]",
+    "[padding-bottom:calc(12px_+_env(safe-area-inset-bottom,_0px))]",
+    /* 세로 태블릿과 좁은 창(820 안팎)에서 버튼이 화면 폭만큼 늘지 않게 가운데 560 안에 둔다 */
+    "[padding-inline:max(16px,_calc((100%_-_560px)_/_2))]",
+    "[box-sizing:border-box]",
+    "[background:var(--louis-color-bg-raised)]",
+    "[box-shadow:inset_0_1px_0_var(--louis-color-stroke-default)]",
+    "[--louis-layout-control-height-md:40px]",
+  ].join(" "),
+  /* 행동 줄에서 남는 폭을 받는 버튼 — 주 행동, 또는 혼자 선 버튼 */
+  studioFooterGrow: "[flex:1_1_auto] [min-width:0]",
+  /* 구간 목록 시트(LOUIS 대화창 sheet 변형) — 화면 위쪽은 남겨 시트인 것이 보이게 하고, 아래는 홈 표시줄만큼 비운다.
+     목록의 토글은 인스펙터처럼 손가락 크기 */
+  studioListSheetSurface: [
+    "[max-block-size:min(85svh,_calc(100svh_-_48px))]",
+    /* 첫 초점을 받는 판이다(누를 것이 아니다) — 링을 그리지 않는다 */
+    "[outline:none]",
+    "[padding-block-end:env(safe-area-inset-bottom,_0px)]",
+  ].join(" "),
+  studioListSheetBody: [
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:24px]",
+    "[--louis-layout-control-height-sm:36px]",
+    "[--louis-layout-control-height-md:40px]",
+    "[--louis-layout-settings-segment-height:36px]",
+  ].join(" "),
+  /* 숏폼 크게 보기 — 좁은 화면(≤900)에서 숏폼 완성 칸의 무대 오른쪽 위. 가로 무대 안의 세로 숏폼은 폭이 120 남짓이라
+     볼 수 없어 브라우저 전체 화면으로 본다. 막대의 글자 버튼으로 두면 영어와 일본어에서 막대가 세 줄로 접혔다.
+     검은 무대 위라 글리프는 페이퍼 잉크, 면은 옅은 검정(플레이어 조작부와 같은 말). 플레이어(`VideoPlayer`)의 누름 층과
+     조작부가 z 4 로 무대를 덮으므로 그보다 한 칸 위에 둔다 — 아래에 두면 보이기만 하고 누름은 재생 전환으로 갔다 */
+  studioStageFullscreen: [
+    "[display:none]",
+    "[@media(max-width:900px)]:[display:inline-flex]",
+    "[position:absolute]",
+    "[z-index:5]",
+    "[top:8px]",
+    "[right:8px]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[width:36px]",
+    "[height:36px]",
+    "[padding:0]",
+    "[border:0]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[background:rgb(var(--palette-gray-1000-rgb)/56%)]",
+    "[color:var(--palette-gray-000)]",
+    "[cursor:pointer]",
+    "focus-visible:[outline:var(--louis-border-width-ring)_solid_var(--louis-color-stroke-focus)]",
+    "focus-visible:[outline-offset:2px]",
+  ].join(" "),
+  studioInspectorTitle: "[margin:0] [color:var(--louis-color-fg-primary)]",
+  /* 판 목록의 절 제목 줄 — 제목 오른쪽에 클립 수나 고른 개수 */
+  studioInspectorHead: [
+    "[display:flex]",
+    "[align-items:baseline]",
+    "[justify-content:space-between]",
+    "[gap:8px]",
+    "[min-width:0]",
+  ].join(" "),
+  studioSection: "[display:flex] [flex-direction:column] [gap:8px]",
+  studioSelectRoot: "[display:block] [width:100%]",
+  studioSelectTrigger: "[width:100%]",
+  /* 아직 고르지 않은 Select 의 안내 — LOUIS 계약에 placeholder 가 없어(select.md) 잉크만 한 단 내린다 */
+  studioSelectValue: "[&[data-placeholder]]:[color:var(--louis-color-fg-tertiary)]",
+  /* 하이라이트 트랙 — 원본 길이의 눈금과 구간(`StudioSegmentTrack`). 「새 하이라이트」에서는 빈 트랙이고, 분석하면 AI 가
+     찾은 구간이 원본 시각 그대로의 자리에 채워진다 */
+  studioTimeline: [
+    "[flex:none]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[padding:12px_16px_14px]",
+    "[box-sizing:border-box]",
+    "[border-radius:var(--louis-radius-card)]",
+    "[background:var(--louis-color-bg-raised)]",
+    "[box-shadow:var(--louis-hairline-inset)]",
+    /* 좁은 화면: 확정한 모양(전체 지도 + 구간 줄)을 그대로 두고 이름 줄만 뺀다. 폰 판에서는 이 트랙이 후보를 고르는
+       길이다. 안쪽 여백을 줄이고, 구간이 없을 때의 빈 트랙도 남기되 낮게 선다 */
+    "[@media(max-width:900px)]:[padding:8px_12px_10px]",
+  ].join(" "),
+  /* 판의 무대 아래 막대 — 무대에 오른 칸의 상태와 그 칸의 다음 행동. 무대와 붙어 있어 인스펙터는 목록과 선정 이유만
+     갖는다 */
+  studioStageBar: [
+    "[flex:none]",
+    "[display:flex]",
+    "[flex-wrap:wrap]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[padding:8px]",
+    "[box-sizing:border-box]",
+    "[border-radius:var(--louis-radius-card)]",
+    "[background:var(--louis-color-bg-raised)]",
+    "[box-shadow:var(--louis-hairline-inset)]",
+  ].join(" "),
+  /* [트랙 이름 | 시간 열] 두 칸. 눈금은 시간 열 위, 재생헤드는 눈금 아래부터 구간 바닥까지 시간 열을 가로지른다 */
+  studioTrackGrid: [
+    "[display:grid]",
+    "[grid-template-columns:96px_minmax(0,1fr)]",
+    "[column-gap:12px]",
+    "[row-gap:6px]",
+    "[align-items:center]",
+    /* 좁은 화면(≤900)에서는 이름 줄을 빼고 한 칸으로 쌓는다(눈금, 지도, 구간 줄) — 이름을 옆에 두면 빈 트랙 안내가 세
+       줄로 접혔다 */
+    "[@media(max-width:900px)]:[grid-template-columns:minmax(0,1fr)]",
+    "[@media(max-width:900px)]:[row-gap:6px]",
+  ].join(" "),
+  /* 눈금 — 바닥의 잔눈금은 큰 눈금 한 칸을 다섯으로 나눈 간격이라 큰 눈금과 어긋나지 않는다(길이를 모르면 12px) */
+  studioRuler: [
+    "[grid-column:2]",
+    "[grid-row:1]",
+    "[position:relative]",
+    "[height:28px]",
+    "[color:var(--louis-color-fg-tertiary)]",
+    "[font-variant-numeric:tabular-nums]",
+    "[background-image:repeating-linear-gradient(to_right,var(--louis-color-stroke-subtle)_0_1px,transparent_1px_var(--studio-ruler-minor,12px))]",
+    "[background-size:100%_4px]",
+    "[background-repeat:no-repeat]",
+    "[background-position:left_bottom]",
+    "[@media(max-width:900px)]:[grid-column:1]",
+    "[@media(max-width:900px)]:[grid-row:1]",
+    /* 좁은 화면은 칸을 줄인다 — 다만 큰 눈금(시각 글자 18 아래 2 띄워 8)이 지도(간격 6 아래) 윗변에 닿지 않게 24 */
+    "[@media(max-width:900px)]:[height:24px]",
+  ].join(" "),
+  /* 시각 글자 — 닻을 시각 비율만큼 옮긴다(0%는 왼끝, 100%는 오른끝). 양끝에서도 칸 밖으로 나가지 않고, 같은 비율
+     자리에 긋는 큰 눈금은 시각의 정확한 자리에 떨어진다 */
+  studioRulerLabel: [
+    "[position:absolute]",
+    "[top:0]",
+    "[left:calc(var(--studio-tick,0)*1%)]",
+    "[transform:translateX(calc(var(--studio-tick,0)*-1%))]",
+    "[white-space:nowrap]",
+    "[&::after]:[content:'']",
+    "[&::after]:[position:absolute]",
+    "[&::after]:[top:calc(100%_+_2px)]",
+    "[&::after]:[left:calc(var(--studio-tick,0)*1%)]",
+    "[&::after]:[width:1px]",
+    "[&::after]:[height:8px]",
+    "[&::after]:[transform:translateX(calc(var(--studio-tick,0)*-1%))]",
+    "[&::after]:[background-color:var(--louis-color-stroke-default)]",
+  ].join(" "),
+  studioTrackLabel: [
+    "[grid-column:1]",
+    "[grid-row:2]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[gap:6px]",
+    "[min-width:0]",
+    "[color:var(--louis-color-fg-secondary)]",
+    "[@media(max-width:900px)]:[display:none]",
+  ].join(" "),
+  /* 사이드바 하이라이트 메뉴와 같은 글리프를 같은 방식(마스크 + currentColor)으로 칠한다 */
+  studioTrackGlyph: [
+    "[display:block]",
+    "[flex:none]",
+    "[width:16px]",
+    "[height:16px]",
+    "[background-color:currentColor]",
+    "[mask:url(/highlight_symbol.svg)_center_/_contain_no-repeat]",
+    "[-webkit-mask:url(/highlight_symbol.svg)_center_/_contain_no-repeat]",
+  ].join(" "),
+  /* 빈 트랙 — 아직 구간이 없다는 자리. 점선은 「아직」의 말이고, 추출에서 뺀 구간이 같은 점선으로 물러난다 */
+  studioTrackLane: [
+    "[grid-column:2]",
+    "[grid-row:2]",
+    "[min-width:0]",
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[min-height:56px]",
+    "[padding:0_12px]",
+    "[box-sizing:border-box]",
+    "[border-radius:var(--louis-radius-control)]",
+    "[border:var(--louis-border-width-default)_dashed_var(--louis-color-stroke-default)]",
+    "[text-align:center]",
+    "[@media(max-width:900px)]:[grid-column:1]",
+    "[@media(max-width:900px)]:[grid-row:2]",
+    "[@media(max-width:900px)]:[min-height:40px]",
+  ].join(" "),
+  /* 구간 줄의 칸 — 컴포지션 타임라인 클립의 말(반투명 면 + 1px 선, 반경 control-sm, `vemClass` 의 오디오 · 오버레이
+     클립). 면과 선은 변수 둘이 갖고 상태는 변수만 바꾼다. 최소 88px 에 남는 폭은 실제 길이 비율(`--studio-weight`).
+     background 는 longhand 만 쓴다(shorthand 가 섞이면 정렬 순서에 따라 longhand 가 지워진다) */
+  studioTrackBlock: [
+    "group/block",
+    "[position:relative]",
+    "[flex:var(--studio-weight,1)_1_88px]",
+    "[height:32px]",
+    "[min-width:88px]",
+    "[display:flex]",
+    "[align-items:center]",
+    "[padding:0_8px]",
+    "[box-sizing:border-box]",
+    "[margin:0]",
+    "[border:var(--louis-border-width-default)_solid_var(--studio-block-stroke)]",
+    "[border-radius:var(--louis-radius-control-sm)]",
+    "[background-color:var(--studio-block-fill)]",
+    "[color:var(--louis-color-fg-primary)]",
+    "[font-family:inherit]",
+    "[text-align:left]",
+    "[overflow:hidden]",
+    "[cursor:pointer]",
+    "[--studio-block-stroke:var(--primary-300)]",
+    "[--studio-block-fill:rgb(var(--primary-300-rgb)/48%)]",
+    "[html[data-theme=dark]_&]:[--studio-block-stroke:var(--primary-800)]",
+    "hover:[--studio-block-fill:rgb(var(--primary-400-rgb)/48%)]",
+    "[transition-property:background-color,border-color,outline-color]",
+    "[transition-duration:var(--louis-motion-control-hover-duration)]",
+    "[transition-timing-function:var(--louis-motion-control-hover-timing-function)]",
+    /* 추출에서 뺀 구간 — 빈 트랙과 같은 점선으로 물러난다. 테마 · hover 규칙보다 앞서야 해서 중요도를 건다 */
+    "[&[data-included=false]]:[--studio-block-stroke:var(--louis-color-stroke-default)]!",
+    "[&[data-included=false]]:[--studio-block-fill:transparent]!",
+    "hover:[&[data-included=false]]:[--studio-block-fill:var(--louis-color-accent-ghost-hover)]!",
+    "[&[data-included=false]]:[border-style:dashed]",
+    "[&[data-included=false]]:[color:var(--louis-color-fg-tertiary)]",
+    /* 판의 칸 모양(`studioBoard.ts` boardTrackLook) — 점선은 아직 만들지 않은 것, 면이 진할수록 더 만들어진 것.
+       후보(뺌)는 위의 회색 점선, 클립은 기본 면이다. 다음 추출에 넣은 후보는 강조색 점선, 숏폼까지 끝난 칸은
+       강조색 면(LOUIS primary 버튼과 같은 면 · 글자 짝) */
+    "[&[data-state=selected]]:[--studio-block-stroke:var(--louis-color-accent-primary)]!",
+    "[&[data-state=selected]]:[--studio-block-fill:transparent]!",
+    "hover:[&[data-state=selected]]:[--studio-block-fill:var(--louis-color-accent-ghost-hover)]!",
+    "[&[data-state=selected]]:[border-style:dashed]",
+    "[&[data-state=short]]:[--studio-block-stroke:var(--louis-color-accent-primary)]!",
+    "[&[data-state=short]]:[--studio-block-fill:var(--louis-color-accent-primary)]!",
+    "[&[data-state=short]]:[color:var(--louis-color-fg-inverse)]",
+    /* 무대에 올라 있는 구간 — 재생헤드와 같은 전경색 테두리. 포커스 링(파랑)과 갈린다 */
+    "[&[aria-current=true]]:[outline:2px_solid_var(--louis-color-fg-primary)]",
+    "[&[aria-current=true]]:[outline-offset:1px]",
+    "focus-visible:[outline:var(--louis-border-width-ring)_solid_var(--louis-color-stroke-focus)]",
+    "focus-visible:[outline-offset:2px]",
+    /* 폰 판의 칸 — 손가락 크기(높이 44)와 이름이 읽히는 폭. 줄은 옆으로 넘긴다 */
+    "[@media(max-width:900px)]:[height:44px]",
+    "[@media(max-width:900px)]:[min-width:136px]",
+    "[@media(max-width:900px)]:[flex:0_0_136px]",
+  ].join(" "),
+  /* 구간 이름 — 번호 + 제목. 칸 안 재생 위치(절대 배치) 아래에 자리를 잡는다. 좁으면 제목부터 잘리고 번호가 남아
+     목록의 같은 번호와 이어진다. 전체 이름은 title 이 갖는다 */
+  studioTrackBlockLabel: [
+    "[position:relative]",
+    "[display:flex]",
+    "[align-items:center]",
+    "[gap:6px]",
+    "[min-width:0]",
+    "[overflow:hidden]",
+    "[white-space:nowrap]",
+    "[pointer-events:none]",
+  ].join(" "),
+  studioTrackBlockNumber: "[flex:none] [font-variant-numeric:tabular-nums]",
+  studioTrackBlockTitle: "[min-width:0] [overflow:hidden] [text-overflow:ellipsis]",
+  /* ── 판 인스펙터 ── 구간 목록(체크박스 + LOUIS 선택 행)과 선정 이유. AI 클립 수정은 무대 위 창이, 칸의 행동은
+     무대 아래 막대가 갖는다 */
+  studioListToolbar: [
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:space-between]",
+    "[gap:8px]",
+    "[min-height:32px]",
+    "[padding-left:8px]",
+  ].join(" "),
+  studioCheckLabel: "[align-items:center]",
+  /* 목록 절 — 제 내용만큼 서고, 인스펙터가 모자라면 목록만 제 안에서 구른다. 받침(선정 이유)은 목록 바로
+     아래에 붙는다 — 바닥에 붙이면 구간이 적을 때 목록과 받침 사이가 크게 빈다.
+     쌓인 배치(≤900)에서는 구르지 않고 내용만큼 선다 */
+  studioListSection: [
+    "[flex:0_1_auto]",
+    "[min-height:180px]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:8px]",
+    "[@media(max-width:900px)]:[min-height:auto]",
+  ].join(" "),
+  /* 받침 — 무대에 오른 구간의 선정 이유. 구르는 목록과 헤어라인 하나로 갈린다 */
+  studioDock: [
+    "[flex:none]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:20px]",
+    "[padding-top:16px]",
+    "[border-top:var(--louis-border-width-hairline)_solid_var(--louis-color-stroke-subtle)]",
+  ].join(" "),
+  /* 한 줄 = 체크박스 + 선택 행. 행이 버튼이라 체크박스를 안에 넣지 않고(selectable-list-row.md — 컨트롤 중첩)
+     형제로 둔 채 행의 왼쪽 여백 위에 겹친다 — 선택 면 · 표식이 체크박스까지 한 줄로 감싼다. 체크박스는 보이는 순서대로
+     문서에서도 앞이라(탭 순서) 위치를 가진 행보다 위에 그리려면 겹 순서가 필요하다. 그 겹을 이 줄 안에 가둔다 */
+  studioSegmentItem: "[position:relative] [min-width:0] [isolation:isolate]",
+  /* 목록 행 — LOUIS 선택 행의 3px 선행 표식을 끈다(소유자 결정: 왼쪽 파란 막대가 흔한 AI 화면처럼 보인다).
+     선택은 면(bg-inset)과 글자 잉크가 갖는다 — 인스펙터가 올라온 면(bg-raised)이라 두 테마 모두 면이 갈린다.
+     보조기술에는 `aria-current` 가 그대로 전한다 */
+  studioListRow: "[&::before]:[content:none]",
+  studioSegmentRow: "[padding-left:36px]",
+  /* 체크박스의 누르는 자리 — 상자는 20 이지만 행 왼쪽 여백(36) 전체와 줄 높이 전체를 받는다(WCAG 2.5.8 의 24 이상).
+     상자는 예전과 같은 자리(왼쪽 8)에 선다 */
+  studioSegmentCheckHit: [
+    "[position:absolute]",
+    "[inset-block:0]",
+    "[left:0]",
+    "[width:36px]",
+    "[z-index:1]",
+    "[display:flex]",
+    "[align-items:center]",
+    "[justify-content:center]",
+    "[cursor:pointer]",
+    "[&:has(:disabled)]:[cursor:default]",
+  ].join(" "),
+  studioSegmentNumber: "[font-variant-numeric:tabular-nums]",
+  /* 목록 보조 줄 — 자리와 적합도(또는 길이)를 가운뎃점 대신 간격 8 과 한 단 옅은 글자로 가른다 */
+  studioRowMeta: "[display:flex] [gap:8px] [min-width:0]",
+  studioRowMetaExtra: "[color:var(--louis-color-fg-tertiary)]",
+  studioReason: [
+    "[margin:0]",
+    "[color:var(--louis-color-fg-secondary)]",
+    "[word-break:keep-all]",
+  ].join(" "),
+  /* ── 판 ── 리뷰와 결과를 합친 한 화면(`HighlightStudioBoardPreview`). 클립 절과 후보 절이 한 스크롤 안에 선다.
+     행의 포커스 링(2px + 간격 2px)이 잘리지 않게 안쪽 4px 을 비우고 그만큼 바깥으로 넓힌다. 아래 끝은 잘린 행이 글자
+     가운데서 끊기지 않게 흐려 사라진다(마스크 — 알파 면을 새로 만들지 않는다). 끝까지 굴리면 그 자리는 빈 여백이라
+     마지막 행은 흐려지지 않는다. 쌓인 배치(900 이하)에서는 구르지 않는다 */
+  studioBoardScroll: [
+    "[margin:-4px]",
+    "[padding:4px_4px_20px]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:24px]",
+    "[flex:1_1_auto]",
+    "[min-height:0]",
+    "[overflow-y:auto]",
+    "[overscroll-behavior:contain]",
+    "[mask-image:linear-gradient(to_bottom,#000_calc(100%_-_20px),transparent)]",
+    "[@media(max-width:900px)]:[overflow-y:visible]",
+    "[@media(max-width:900px)]:[mask-image:none]",
+    "[@media(max-width:900px)]:[padding-bottom:4px]",
+  ].join(" "),
+  studioBoardGroup: "[display:flex] [flex-direction:column] [gap:8px] [min-width:0]",
+  studioBoardList: [
+    "[list-style:none]",
+    "[margin:0]",
+    "[padding:0]",
+    "[display:flex]",
+    "[flex-direction:column]",
+    "[gap:2px]",
+  ].join(" "),
+  /* 무대 아래 막대의 한 줄. 왼쪽은 칸 상태, 오른쪽은 그 칸의 행동. 폰에서는 행동이 다음 줄로 넘어간다 */
+  studioStageBarRow: [
+    "[display:flex]",
+    "[flex:1_1_auto]",
+    "[flex-wrap:wrap]",
+    "[align-items:center]",
+    "[justify-content:space-between]",
+    "[gap:8px_12px]",
+    "[min-width:0]",
+    "[min-height:40px]",
+    "[padding-left:8px]",
+  ].join(" "),
+  studioStageBarState: [
+    "[display:inline-flex]",
+    "[align-items:baseline]",
+    "[gap:8px]",
+    "[min-width:0]",
+    "[color:var(--louis-color-fg-primary)]",
+  ].join(" "),
+  studioStageBarActions: "[display:flex] [flex-wrap:wrap] [gap:8px] [margin-left:auto]",
+  /* 올리는 중 · 분석 중의 막대 — [상태][한 문장 안내]가 왼쪽에 붙고 진행 막대나 「브라우저 알림 받기」가 오른쪽 끝에
+     선다. 폰에서는 안내가 줄을 넘기고 진행 막대는 제 줄을 다 쓴다. 칸의 막대와 같은 한 줄이라 분석이 끝나 판이
+     들어와도 무대 높이가 그대로다 */
+  /* 막대가 space-between 이라 오른쪽 끝 항목이 없을 때(알림을 이미 허용했거나 못 쓰는 브라우저) 안내가 끝으로
+     밀리지 않게 남는 폭을 오른쪽에 둔다 */
+  studioStageBarNote: [
+    "[margin:0_auto_0_0]",
+    "[min-width:0]",
+    "[color:var(--louis-color-fg-secondary)]",
+  ].join(" "),
+  /* 퍼센트 — 진행 막대 바로 앞에 선다. 자릿수가 바뀌어도 막대가 흔들리지 않게 고정폭 숫자와 너비를 준다 */
+  studioStageBarPercent: [
+    "[flex:none]",
+    "[min-width:4ch]",
+    "[text-align:right]",
+    "[font-variant-numeric:tabular-nums]",
+  ].join(" "),
+  /* [퍼센트 진행 막대] 한 묶음 — 막대 끝(오른쪽)에 선다. 폰에서는 제 줄을 받고 글자 줄과 같은 왼쪽에서 시작한다
+     (막대 폭은 LOUIS 상한 320 까지) */
+  studioStageBarProgress: [
+    "[display:flex]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[flex:0_1_280px]",
+    "[margin-left:auto]",
+    "[@media(max-width:719px)]:[flex-basis:100%]",
+    "[@media(max-width:719px)]:[margin-left:0]",
+  ].join(" "),
+  studioStageBarProgressTrack: "[flex:1_1_auto] [min-width:0]",
+  /* 멈춤 막대의 실패 글리프 — 면이 없는 LOUIS 인라인 알림처럼 글자 색을 따르고, 뜻은 글리프 모양과 문장이 전한다.
+     `fg-danger` 는 불투명 위험 면(`bg-danger`)의 짝이라 카드 위에서는 라이트에서 검정에 가깝고 다크에서 흰색이 된다 */
+  studioStageBarGlyph: "[flex:none] [align-self:center]",
+  /* `AnalysisWaitHint` 의 틀을 풀어 문장과 버튼이 막대 한 줄의 항목이 되게 한다. 버튼은 오른쪽 끝 */
+  studioStageBarHint: "[display:contents] [&>button]:[margin-left:auto]",
+  /* 판 목록 행의 썸네일 — 구간 첫 프레임. 운영 리뷰 목록과 같은 96 × 16:9, 영상 자리라 무대처럼 검은 바탕.
+     곡률 · 잘림은 LOUIS 선택 행의 미디어 슬롯(`louis-selectable-list-row__media`)이 갖는다 */
+  studioRowThumb: "[width:96px] [aspect-ratio:16_/_9] [background:var(--palette-gray-1000)]",
+  studioRowThumbVideo: "[display:block] [width:100%] [height:100%] [object-fit:cover]",
+  /* 무대 아래 막대의 더보기 — 드문 행동(숏폼 삭제)을 담는 LOUIS 메뉴. 막대가 화면 아래쪽이라 위로 연다 */
+  studioMoreRoot: "[position:relative] [display:inline-flex]",
+  studioMoreMenu: [
+    "[position:absolute]",
+    "[right:0]",
+    "[bottom:calc(100%_+_6px)]",
+    "[z-index:var(--louis-layer-popover)]",
+    "[--louis-overlay-collision-padding:8px]",
+    "[--louis-popover-preferred-inline-size:160px]",
+  ].join(" "),
+  /* 판 목록을 탭으로 나눈 시안 — [클립 N][후보 N]. 목록 머리 자리에 선다 */
+  studioListTabs: "[display:flex] [min-width:0]",
+
+  /* ── 트랙(`StudioSegmentTrack`) ── 눈금 아래 전체 지도, 그 아래 구간 줄. 자리는 지도가, 이름과 상태는 구간
+     줄이 늘 맡는다(영상 길이에 따라 모양을 바꾸지 않는다) */
+  studioTrackLabelFilled: [
+    "[grid-column:1]",
+    "[grid-row:3]",
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[gap:6px]",
+    "[min-width:0]",
+    "[color:var(--louis-color-fg-secondary)]",
+    "[@media(max-width:900px)]:[display:none]",
+  ].join(" "),
+  /* 전체 지도 — 눈금 바로 아래 얇은 줄. 구간마다 원본 자리와 길이를 가는 막대로(최소 3px). 겹치면 줄을 나눈다 */
+  studioTrackMap: [
+    "[grid-column:2]",
+    "[grid-row:2]",
+    "[position:relative]",
+    "[min-width:0]",
+    "[box-sizing:border-box]",
+    "[height:calc(var(--studio-map-lanes,1)*4px_+_(var(--studio-map-lanes,1)_-_1)*2px_+_6px)]",
+    "[border-radius:var(--louis-radius-control-sm)]",
+    "[background-color:var(--louis-color-bg-inset)]",
+    "[@media(max-width:900px)]:[grid-column:1]",
+    "[@media(max-width:900px)]:[grid-row:2]",
+  ].join(" "),
+  /* 지도 막대 — 색은 트랙 칸 모양과 같은 계열이고 후보가 가장 옅다(후보 회색, 클립 옅은 강조색, 다음 추출 · 숏폼
+     강조색). 무대에 오른 구간과 구간 줄에서 가리키는 구간은 색을 바꾸지 않고 막대를 키워 테두리를 두른다 — 색으로
+     표시하면 이미 강조색인 숏폼 · 다음 추출 막대에서 구별되지 않는다. 무대에 오른 구간은 전경색, 가리키는 구간은
+     강조색 테두리다(구간 줄 칸의 테두리 · 초점 링과 같은 짝) */
+  studioTrackMapBar: [
+    "[position:absolute]",
+    "[top:calc(3px_+_var(--studio-map-lane,0)*6px)]",
+    "[height:4px]",
+    "[min-width:3px]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[background-color:var(--primary-300)]",
+    "[html[data-theme=dark]_&]:[background-color:var(--primary-800)]",
+    "[&[data-included=false]]:[background-color:var(--louis-color-stroke-default)]!",
+    "[&[data-state=selected]]:[background-color:var(--louis-color-accent-primary)]!",
+    "[&[data-state=short]]:[background-color:var(--louis-color-accent-primary)]!",
+    "[&[data-current]]:[top:calc(1px_+_var(--studio-map-lane,0)*6px)]",
+    "[&[data-current]]:[height:8px]",
+    "[&[data-current]]:[min-width:6px]",
+    "[&[data-current]]:[box-shadow:0_0_0_1.5px_var(--louis-color-fg-primary)]",
+    "[&[data-hover]]:[top:calc(1px_+_var(--studio-map-lane,0)*6px)]",
+    "[&[data-hover]]:[height:8px]",
+    "[&[data-hover]]:[min-width:6px]",
+    "[&[data-hover]]:[box-shadow:0_0_0_1.5px_var(--louis-color-accent-primary)]",
+  ].join(" "),
+  /* 재생 위치 — 지도는 원본 시각 그대로, 구간 줄은 무대에 오른 칸 안에서 */
+  studioTrackMapPlayhead: [
+    "[position:absolute]",
+    "[top:-2px]",
+    "[bottom:-2px]",
+    "[width:2px]",
+    "[transform:translateX(-50%)]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[background-color:var(--louis-color-fg-primary)]",
+    "[pointer-events:none]",
+  ].join(" "),
+  studioStripPlayhead: [
+    "[position:absolute]",
+    "[top:4px]",
+    "[bottom:4px]",
+    "[width:2px]",
+    "[transform:translateX(-50%)]",
+    "[border-radius:var(--louis-radius-pill)]",
+    "[background-color:var(--louis-color-fg-primary)]",
+    "[pointer-events:none]",
+  ].join(" "),
+  studioTrackStrip: [
+    "[grid-column:2]",
+    "[grid-row:3]",
+    "[position:relative]",
+    "[display:flex]",
+    "[gap:4px]",
+    "[min-width:0]",
+    /* 칸이 많아 넘치면 가로로 구른다. 무대에 오른 칸의 테두리 · 초점 링이 잘리지 않게 안쪽을 비우고 그만큼 넓힌다 */
+    "[margin:-4px]",
+    "[padding:4px]",
+    "[overflow-x:auto]",
+    "[overscroll-behavior-x:contain]",
+    "[scrollbar-width:none]",
+    "[&::-webkit-scrollbar]:[display:none]",
+    /* 키보드로 옮긴 칸이 흐린 가장자리(40) 밑에 서지 않게, 초점이 굴리는 자리를 그만큼 안으로 들인다 */
+    "[scroll-padding-inline:40px]",
+    /* 넘친 쪽 가장자리는 흐려 더 있다는 것을 보인다(마스크 — 면을 새로 만들지 않는다) */
+    "[&[data-fade-end]]:[mask-image:linear-gradient(to_right,#000_calc(100%_-_40px),transparent)]",
+    "[&[data-fade-start]]:[mask-image:linear-gradient(to_left,#000_calc(100%_-_40px),transparent)]",
+    "[&[data-fade-start][data-fade-end]]:[mask-image:linear-gradient(to_right,transparent,#000_40px,#000_calc(100%_-_40px),transparent)]",
+    "[@media(max-width:900px)]:[grid-column:1]",
+    "[@media(max-width:900px)]:[grid-row:3]",
+  ].join(" "),
+  /* 「분석 시작」이 꺼진 이유 — 주제 메뉴 바로 아래 한 줄. 잘못한 것이 아니라 남은 한 걸음이라 경고색을 쓰지 않는다 */
+  studioHint: "[margin:0] [color:var(--louis-color-fg-secondary)]",
+  /* 판 목록 제목은 두 줄까지 접는다 — 썸네일과 체크박스가 폭을 먹어 한 줄 말줄임이면 후보 제목이 절반에서 끊긴다.
+     운영 리뷰 목록도 두 줄로 접힌다. 한국어는 어절에서 넘긴다 */
+  studioRowTitle: [
+    "[white-space:normal]",
+    "[display:-webkit-box]",
+    "[-webkit-box-orient:vertical]",
+    "[-webkit-line-clamp:2]",
+    "[word-break:keep-all]",
+  ].join(" "),
+  /* 안내가 두 문장이면 문장마다 줄을 나눈다 */
+  studioStageBarLine: "[display:block]",
+  /* 무대에 오른 칸의 행동이 실패한 한 줄(숏폼 만들기 · 삭제) — 막대 안에서 제 줄을 받는다. 실패할 때만 서므로 칸을
+     오가도 무대 높이가 그대로라는 막대의 약속은 평소에 지켜진다 */
+  studioStageBarError: [
+    "[flex-basis:100%]",
+    "[margin:0]",
+    "[padding:0_8px_4px]",
+    "[color:var(--louis-color-fg-danger)]",
+  ].join(" "),
+  /* 판 인스펙터 맨 위 알림(LOUIS alert) — 분석하지 못한 구간, 추출 실패 */
+  studioNotices: "[display:flex] [flex-direction:column] [gap:8px]",
+
+  studioMuted: "[margin:0] [color:var(--louis-color-fg-tertiary)]",
+  /* 폰 판에서는 아래 행동 줄(`studioFooter`)이 같은 행동을 든다 — 엄지가 닿는 자리, 시작 화면의 「분석 시작」과 같은 자리다 */
+  studioChromeActions: [
+    "[display:inline-flex]",
+    "[align-items:center]",
+    "[gap:8px]",
+    "[flex-shrink:0]",
+    "[@media(max-width:900px)_and_(min-height:560px)]:[display:none]",
+  ].join(" "),
+  /* 폰의 상단 바에는 행동 하나만 선다 — 둘이면 제목을 밀고 화면 밖으로 넘친다(390 에서 「클립 추출」이 잘렸다).
+     판에서 추출할 후보가 있으면 보조인 「전체 다운로드」를 이 폭에서 접고, 후보가 없을 때 다시 선다 */
+  studioChromeSecondaryWide: "[@media(max-width:719px)]:[display:none]",
+  /* 기록이 없는 허브의 빈 상태 — 캔버스 · 컴포지션 허브처럼 머리 아래 한가운데 */
+  hubEmpty: "[margin:64px_auto_0] [max-width:480px]",
+  /* source lines 401, 402, 403, 511, 512, 513, 514, 516, 518, 520, 522, 527, 531 */
+  uploadGlyphMask: [
+    "tw-hs-192",
+    "[display:inline-block]",
+    "[width:56px]",
+    "[height:56px]",
+    "[background-color:var(--palette-gray-500)]",
+    "[mask-image:var(--upload-glyph-mask)]",
+    "[mask-repeat:no-repeat]",
+    "[mask-position:center]",
+    "[mask-size:contain]",
+    "[html[data-theme=light]_&]:[background-color:var(--palette-gray-800)]",
+    "[html[data-theme=dark]_&]:[background-color:var(--palette-gray-100)]",
+  ].join(" "),
+};
+
+export default styles;

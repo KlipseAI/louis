@@ -1,0 +1,530 @@
+import "server-only";
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  DeleteObjectsCommand,
+  CopyObjectCommand,
+  ListObjectsV2Command,
+  HeadObjectCommand,
+  CreateMultipartUploadCommand,
+  UploadPartCommand,
+  UploadPartCopyCommand,
+  CompleteMultipartUploadCommand,
+  AbortMultipartUploadCommand,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { visibilityOf, type StoragePrefix } from "./buckets";
+
+/**
+ * S3 백엔드.
+ *
+ * Supabase Storage 는 버킷이 13개였지만 S3 에는 **두 개뿐**이다 — 공개(CloudFront OAC)와
+ * 비공개. 옛 버킷명은 그대로 **키 접두어**가 되므로, 우리가 쓰는 정규화 키
+ * (`{접두어}/{객체키}`)가 곧 S3 오브젝트 키다. 변환이 필요 없다.
+ *
+ * 어느 버킷에 들어가는지는 접두어의 `visibility` 가 정한다. 그래서 접두어 하나를
+ * 공개↔비공개로 옮기는 일이 `buckets.ts` 한 줄 수정이 된다.
+ *
+ * 자격증명은 **ECS 태스크 역할**에서 온다 — 액세스 키를 넣지 않는다.
+ * 기본 자격증명 체인이 알아서 찾으므로 여기서 다루지 않는다.
+ */
+
+let cached: S3Client | null = null;
+
+function client(): S3Client {
+  if (cached) return cached;
+  // `S3_ENDPOINT` 는 **S3 호환 저장소용**이다(검증·로컬). 운영에서는 비워 둔다 —
+  // 비어 있으면 SDK 가 실제 AWS 엔드포인트를 쓴다. 호환 저장소는 가상 호스트 방식
+  // 주소를 못 쓰는 경우가 많아 path-style 을 함께 켠다.
+  const endpoint = process.env.S3_ENDPOINT;
+  cached = new S3Client({
+    region: process.env.AWS_REGION,
+    ...(endpoint ? { endpoint, forcePathStyle: true } : {}),
+  });
+  return cached;
+}
+
+/** 접두어가 어느 버킷에 들어가는지. 공개/비공개 두 개뿐이다. */
+export function bucketFor(prefix: StoragePrefix): string {
+  const bucket =
+    visibilityOf(prefix) === "cdn"
+      ? process.env.S3_BUCKET_PUBLIC
+      : process.env.S3_BUCKET_PRIVATE;
+  if (!bucket) throw new Error(`S3 버킷 미설정 (prefix=${prefix})`);
+  return bucket;
+}
+
+export async function s3Put(
+  prefix: StoragePrefix,
+  key: string,
+  body: Buffer | Uint8Array | string,
+  options: { contentType?: string; cacheControl?: string } = {},
+): Promise<void> {
+  await client().send(
+    new PutObjectCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      Body: body,
+      ContentType: options.contentType,
+      CacheControl: options.cacheControl,
+    }),
+  );
+}
+
+/**
+ * 그 키에 아무것도 없을 때만 쓴다(`If-None-Match: *`). 썼으면 true, 이미 있으면 false.
+ * 한 번만 만들어져야 하는 기록(Klipse Deck 의 교안 판 파일 — 업로드 열쇠 하나에 판 하나)에 쓴다.
+ */
+export async function s3PutIfAbsent(
+  prefix: StoragePrefix,
+  key: string,
+  body: Buffer | Uint8Array | string,
+  options: { contentType?: string } = {},
+): Promise<boolean> {
+  try {
+    await client().send(
+      new PutObjectCommand({
+        Bucket: bucketFor(prefix),
+        Key: key,
+        Body: body,
+        ContentType: options.contentType,
+        IfNoneMatch: "*",
+      }),
+    );
+    return true;
+  } catch (err) {
+    const { name, status } = s3ErrorStatus(err);
+    // 412: 이미 있다. 409: 같은 키에 조건부 쓰기가 동시에 들어왔다 — 어느 쪽이든 이 요청이 만든 것이 아니다
+    if (status === 412 || name === "PreconditionFailed" || status === 409 || name === "ConditionalRequestConflict") return false;
+    throw err;
+  }
+}
+
+/** 비공개 오브젝트를 읽을 presigned GET. 공개 접두어는 호출측이 CDN URL 을 쓴다. */
+export async function s3SignedReadUrl(
+  prefix: StoragePrefix,
+  key: string,
+  expiresIn: number,
+): Promise<string> {
+  return getSignedUrl(
+    client(),
+    new GetObjectCommand({ Bucket: bucketFor(prefix), Key: key }),
+    { expiresIn },
+  );
+}
+
+/**
+ * 업로드용 presigned PUT.
+ *
+ * ⚠️ **클라이언트는 이 URL 에 `Authorization` 헤더를 붙이면 안 된다.** presigned URL 은
+ * 서명이 쿼리스트링에 있어서, 헤더가 함께 오면 S3 가 요청을 거부한다. Supabase 시절
+ * 습관으로 헤더를 붙이던 곳이 실제로 있었고 그건 어댑터 이전 때 제거했다.
+ *
+ * 단일 PUT 은 5GB 까지 되므로 원본(평균 600MB)도 올라간다. 다만 전송이 실패하면
+ * **처음부터 다시** 보내야 한다 — 멀티파트는 별건으로 뒤에 붙인다.
+ */
+export async function s3SignedUploadUrl(
+  prefix: StoragePrefix,
+  key: string,
+  options: { expiresIn: number; contentType?: string },
+): Promise<string> {
+  return getSignedUrl(
+    client(),
+    new PutObjectCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      ContentType: options.contentType,
+    }),
+    { expiresIn: options.expiresIn },
+  );
+}
+
+/**
+ * 내용 주소(키 = 내용 해시) 업로드용 presigned PUT — **한 번만, 정해진 내용으로.**
+ *
+ * 서명에 크기 · sha256 체크섬 · `If-None-Match: *` 를 묶는다. 올린 내용이 해시와 다르거나, 크기가 다르거나,
+ * 그 키에 이미 오브젝트가 있으면 S3 가 거절한다 — 같은 키를 다른 내용으로 먼저 차지하거나(선점) 덮어쓰지 못한다.
+ * 체크섬 · 조건 헤더는 쿼리로 올리지 않는다(unhoistable) — 클라이언트가 `Content-Type` · `x-amz-checksum-sha256` ·
+ * `If-None-Match` 헤더를 그대로 보내야 한다. 지금 쓰는 곳은 Klipse Deck 교안(`app/lib/deck/files.server.ts`).
+ */
+export async function s3SignedImmutableUploadUrl(
+  prefix: StoragePrefix,
+  key: string,
+  options: { expiresIn: number; contentType: string; contentLength: number; sha256Hex: string },
+): Promise<{ url: string; headers: Record<string, string> }> {
+  const checksum = Buffer.from(options.sha256Hex, "hex").toString("base64");
+  const url = await getSignedUrl(
+    client(),
+    new PutObjectCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      ContentType: options.contentType,
+      ContentLength: options.contentLength,
+      ChecksumSHA256: checksum,
+      IfNoneMatch: "*",
+    }),
+    { expiresIn: options.expiresIn, unhoistableHeaders: new Set(["x-amz-checksum-sha256", "if-none-match"]) },
+  );
+  return {
+    url,
+    headers: { "Content-Type": options.contentType, "x-amz-checksum-sha256": checksum, "If-None-Match": "*" },
+  };
+}
+
+/** 오브젝트를 서버로 내려받는다. 호출측 계약이 Blob 이라 그대로 맞춘다. */
+export async function s3Download(prefix: StoragePrefix, key: string): Promise<Blob> {
+  const out = await client().send(
+    new GetObjectCommand({ Bucket: bucketFor(prefix), Key: key }),
+  );
+  if (!out.Body) throw new Error(`[storage:${prefix}] 내려받기 실패: ${key}`);
+  const bytes = await out.Body.transformToByteArray();
+  return new Blob([bytes as BlobPart], { type: out.ContentType });
+}
+
+/**
+ * 오브젝트의 크기(바이트). 없으면 null.
+ *
+ * 서명 URL 로 브라우저가 직접 올린 파일을 **서버가 뒤늦게 검사**하기 위한 것이다. presigned
+ * PUT 은 서명에 크기가 들어가지 않아 발급 시점에는 상한을 걸 방법이 없다 — 저장 요청이
+ * 들어왔을 때 실제로 올라간 것을 재어 보는 수밖에 없다.
+ */
+export async function s3HeadSize(
+  prefix: StoragePrefix,
+  key: string,
+): Promise<number | null> {
+  try {
+    const out = await client().send(
+      new HeadObjectCommand({ Bucket: bucketFor(prefix), Key: key }),
+    );
+    return typeof out.ContentLength === "number" ? out.ContentLength : null;
+  } catch {
+    // 없는 키·권한 없음 모두 여기로 온다. 호출부가 "확인 불가"로 다루게 null 을 준다.
+    return null;
+  }
+}
+
+/** 존재 확인이 기다리는 한도 — 페이지를 여는 조회 안에서 부르므로 S3 가 답하지 않아도 조회를 붙잡지 않는다 */
+const EXISTS_TIMEOUT_MS = 3000;
+
+/**
+ * 오브젝트가 있는가. 없으면 false, 확인할 수 없으면(권한 · 네트워크 · 설정 · 시간 초과) null 이다 — 호출부가 「모름」으로
+ * 다룬다.
+ *
+ * 없는 키에 404 가 오려면 요청자에게 버킷의 `s3:ListBucket` 이 있어야 한다. 없으면 S3 는 403 을 주고, 여기서는 null 이
+ * 된다(없다고 단정하지 않는다). 그 경우를 운영에서 알아볼 수 있게 404 가 아닌 실패는 경고로 남긴다 — 키와 사용자는
+ * 적지 않는다.
+ *
+ * 브라우저에서는 이 확인을 할 수 없다. 비공개 원본의 주소는 GET 으로 서명한 것이라(`s3SignedReadUrl`) HEAD 로 보내면
+ * 서명이 맞지 않아 늘 실패한다 — SigV4 는 메서드까지 서명한다.
+ */
+export async function s3Exists(prefix: StoragePrefix, key: string): Promise<boolean | null> {
+  try {
+    await client().send(new HeadObjectCommand({ Bucket: bucketFor(prefix), Key: key }), {
+      abortSignal: AbortSignal.timeout(EXISTS_TIMEOUT_MS),
+    });
+    return true;
+  } catch (err) {
+    const status = (err as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode;
+    const name = (err as { name?: string }).name;
+    if (status === 404 || name === "NotFound") return false;
+    console.warn("[storage] exists check failed", { prefix, status: status ?? null, name: name ?? null });
+    return null;
+  }
+}
+
+
+/** HEAD 실패가 「그 키가 없다」(404)인가. 그 밖(5xx, 스로틀, 네트워크, 권한)은 「지금은 모른다」다. */
+export function isMissingObjectError(err: unknown): boolean {
+  const name = (err as { name?: unknown } | null)?.name;
+  const code = (err as { $metadata?: { httpStatusCode?: unknown } } | null)?.$metadata?.httpStatusCode;
+  return name === "NotFound" || name === "NoSuchKey" || code === 404;
+}
+
+/**
+ * 오브젝트의 크기 — 없는 키와 조회 실패를 가른다(`s3HeadEtag` 와 같은 기준). `s3HeadSize` 는 둘을 모두 null 로 준다.
+ * 「없음」으로 치면 안 되는 곳(Klipse Deck 올리기: 이미 있는 파일에 업로드 주소를 내주거나 「안 올라왔다」고 답하지 않게)에 쓴다.
+ */
+export async function s3HeadObjectSize(
+  prefix: StoragePrefix,
+  key: string,
+): Promise<{ status: "found"; size: number } | { status: "missing" } | { status: "unavailable" }> {
+  try {
+    const out = await client().send(
+      new HeadObjectCommand({ Bucket: bucketFor(prefix), Key: key }),
+    );
+    return typeof out.ContentLength === "number"
+      ? { status: "found", size: out.ContentLength }
+      : { status: "unavailable" };
+  } catch (err) {
+    return isMissingObjectError(err) ? { status: "missing" } : { status: "unavailable" };
+  }
+}
+
+/**
+ * 객체의 ETag — 같은 키에 다시 올린 다른 내용을 가르는 데 쓴다(하이라이트 원본은 프로젝트마다 키가 하나다).
+ * 없는 키와 조회 실패를 가른다: 없는 키는 「아직 안 올렸다」, 조회 실패는 「지금은 모른다」다.
+ */
+export async function s3HeadEtag(
+  prefix: StoragePrefix,
+  key: string,
+): Promise<{ status: "found"; etag: string } | { status: "missing" } | { status: "unavailable" }> {
+  try {
+    const out = await client().send(
+      new HeadObjectCommand({ Bucket: bucketFor(prefix), Key: key }),
+    );
+    return typeof out.ETag === "string" && out.ETag.length > 0
+      ? { status: "found", etag: out.ETag }
+      : { status: "unavailable" };
+  } catch (err) {
+    return isMissingObjectError(err) ? { status: "missing" } : { status: "unavailable" };
+  }
+}
+
+export async function s3Copy(
+  prefix: StoragePrefix,
+  fromKey: string,
+  toKey: string,
+): Promise<void> {
+  const bucket = bucketFor(prefix);
+  await client().send(
+    new CopyObjectCommand({
+      Bucket: bucket,
+      // CopySource 는 `버킷/키` 이고 **URL 인코딩이 필요하다** — 키에 공백이나 한글이
+      // 들어가면 인코딩 없이는 NoSuchKey 로 실패한다.
+      CopySource: encodeURI(`${bucket}/${fromKey}`),
+      Key: toKey,
+    }),
+  );
+}
+
+/** CopyObject 한 번이 옮길 수 있는 상한(5GiB). 넘으면 파트 복사(UploadPartCopy)로 나눈다. */
+const COPY_OBJECT_MAX_BYTES = 5 * 1024 ** 3;
+/** 파트 복사의 파트 크기와 동시 요청 수. 파트는 최대 10,000개라 이 크기면 5TB 까지다. */
+const COPY_PART_BYTES = 512 * 1024 ** 2;
+const COPY_PART_CONCURRENCY = 4;
+
+function s3ErrorStatus(err: unknown): { name: unknown; status: unknown } {
+  return {
+    name: (err as { name?: unknown } | null)?.name,
+    status: (err as { $metadata?: { httpStatusCode?: unknown } } | null)?.$metadata?.httpStatusCode,
+  };
+}
+
+/**
+ * `fromKey` 가 지금도 `etag` 인 객체일 때만 `toKey` 로 복사한다(`CopySourceIfMatch`). 판정한 뒤 같은 키에 다른 객체가
+ * 올라왔으면 `changed`, 없어졌으면 `missing` 이다. 그 밖의 실패는 던진다.
+ *
+ * 5GiB 를 넘는 객체는 CopyObject 한 번으로 옮길 수 없어 파트 복사로 나눈다 — 파트마다 같은 조건을 건다. 업로드는
+ * 크기 상한이 없다(`uploads.ts` 의 멀티파트는 한 파일 320GB 까지 받는다).
+ */
+export async function s3CopyIfMatch(
+  prefix: StoragePrefix,
+  fromKey: string,
+  toKey: string,
+  etag: string,
+): Promise<"copied" | "changed" | "missing"> {
+  const bucket = bucketFor(prefix);
+  // CopySource 는 `버킷/키` 이고 URL 인코딩이 필요하다(`s3Copy` 와 같다)
+  const copySource = encodeURI(`${bucket}/${fromKey}`);
+  try {
+    const head = await client().send(
+      new HeadObjectCommand({ Bucket: bucket, Key: fromKey, IfMatch: etag }),
+    );
+    const size = typeof head.ContentLength === "number" ? head.ContentLength : 0;
+    if (size <= COPY_OBJECT_MAX_BYTES) {
+      await client().send(
+        new CopyObjectCommand({
+          Bucket: bucket,
+          CopySource: copySource,
+          CopySourceIfMatch: etag,
+          Key: toKey,
+        }),
+      );
+      return "copied";
+    }
+
+    const created = await client().send(
+      new CreateMultipartUploadCommand({ Bucket: bucket, Key: toKey, ContentType: head.ContentType }),
+    );
+    const uploadId = created.UploadId;
+    if (!uploadId) throw new Error(`[storage:${prefix}] 파트 복사 시작 실패: ${toKey}`);
+    try {
+      const partCount = Math.ceil(size / COPY_PART_BYTES);
+      const parts: Array<{ PartNumber: number; ETag: string }> = [];
+      let next = 0;
+      const worker = async () => {
+        while (next < partCount) {
+          const index = next++;
+          const start = index * COPY_PART_BYTES;
+          const end = Math.min(size, start + COPY_PART_BYTES) - 1;
+          const out = await client().send(
+            new UploadPartCopyCommand({
+              Bucket: bucket,
+              Key: toKey,
+              UploadId: uploadId,
+              PartNumber: index + 1,
+              CopySource: copySource,
+              CopySourceIfMatch: etag,
+              CopySourceRange: `bytes=${start}-${end}`,
+            }),
+          );
+          const partEtag = out.CopyPartResult?.ETag;
+          if (!partEtag) throw new Error(`[storage:${prefix}] 파트 복사 실패: ${toKey} #${index + 1}`);
+          parts[index] = { PartNumber: index + 1, ETag: partEtag };
+        }
+      };
+      await Promise.all(
+        Array.from({ length: Math.min(COPY_PART_CONCURRENCY, partCount) }, () => worker()),
+      );
+      await client().send(
+        new CompleteMultipartUploadCommand({
+          Bucket: bucket,
+          Key: toKey,
+          UploadId: uploadId,
+          MultipartUpload: { Parts: parts },
+        }),
+      );
+      return "copied";
+    } catch (err) {
+      await client()
+        .send(new AbortMultipartUploadCommand({ Bucket: bucket, Key: toKey, UploadId: uploadId }))
+        .catch(() => undefined);
+      throw err;
+    }
+  } catch (err) {
+    const { name, status } = s3ErrorStatus(err);
+    if (status === 412 || name === "PreconditionFailed") return "changed";
+    if (status === 404 || name === "NotFound" || name === "NoSuchKey") return "missing";
+    throw err;
+  }
+}
+
+export async function s3Delete(prefix: StoragePrefix, keys: string[]): Promise<void> {
+  if (keys.length === 0) return;
+  // DeleteObjects 는 한 번에 1000개까지다.
+  for (let i = 0; i < keys.length; i += 1000) {
+    await client().send(
+      new DeleteObjectsCommand({
+        Bucket: bucketFor(prefix),
+        Delete: { Objects: keys.slice(i, i + 1000).map((Key) => ({ Key })) },
+      }),
+    );
+  }
+}
+
+/**
+ * 접두어 하위 **한 단계**의 키 목록. Supabase `list` 의 동작을 맞춘다 —
+ * `Delimiter` 를 주지 않으면 하위 전체가 재귀적으로 딸려 나와 계약이 달라진다.
+ */
+export async function s3List(
+  prefix: StoragePrefix,
+  folderKey: string,
+  limit: number,
+): Promise<string[]> {
+  const base = folderKey.endsWith("/") ? folderKey : `${folderKey}/`;
+  const out = await client().send(
+    new ListObjectsV2Command({
+      Bucket: bucketFor(prefix),
+      Prefix: base,
+      Delimiter: "/",
+      MaxKeys: limit,
+    }),
+  );
+  return (out.Contents ?? [])
+    .map((o) => o.Key)
+    .filter((k): k is string => Boolean(k) && k !== base);
+}
+
+/**
+ * 멀티파트 업로드.
+ *
+ * 단일 PUT 은 5GB 까지 되지만 **전송이 실패하면 처음부터 다시** 보내야 한다. 업로드
+ * 원본이 평균 600MB 라 회선이 흔들리는 환경에서는 그 대가가 크다. 파트 단위로 나누면
+ * 실패한 조각만 다시 보내면 된다.
+ *
+ * 완료(`CompleteMultipartUpload`)는 브라우저가 직접 호출할 수 없다 — 파트 목록과 ETag 를
+ * 담은 XML 본문에 서명이 필요해서, presigned URL 로는 안 된다. 그래서 완료·중단만
+ * 서버 라우트를 거친다.
+ *
+ * ⚠️ **버킷 CORS 에 `ExposeHeaders: ["ETag"]` 가 있어야 한다.** 브라우저가 파트 응답의
+ *    ETag 를 못 읽으면 완료 요청을 만들 수 없다. 이게 빠져 있으면 파트는 전부 올라가고
+ *    마지막 조립만 실패한다.
+ */
+
+export async function s3CreateMultipart(
+  prefix: StoragePrefix,
+  key: string,
+  contentType?: string,
+): Promise<string> {
+  const out = await client().send(
+    new CreateMultipartUploadCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      ContentType: contentType,
+    }),
+  );
+  if (!out.UploadId) throw new Error(`[storage:${prefix}] 멀티파트 시작 실패: ${key}`);
+  return out.UploadId;
+}
+
+/** 파트 번호는 1부터다. 파트마다 presigned PUT 을 만들어 한 번에 내려준다. */
+export async function s3SignPartUrls(
+  prefix: StoragePrefix,
+  key: string,
+  uploadId: string,
+  partCount: number,
+  expiresIn: number,
+): Promise<string[]> {
+  const bucket = bucketFor(prefix);
+  return Promise.all(
+    Array.from({ length: partCount }, (_, i) =>
+      getSignedUrl(
+        client(),
+        new UploadPartCommand({
+          Bucket: bucket,
+          Key: key,
+          UploadId: uploadId,
+          PartNumber: i + 1,
+        }),
+        { expiresIn },
+      ),
+    ),
+  );
+}
+
+export async function s3CompleteMultipart(
+  prefix: StoragePrefix,
+  key: string,
+  uploadId: string,
+  parts: Array<{ partNumber: number; etag: string }>,
+): Promise<void> {
+  await client().send(
+    new CompleteMultipartUploadCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      UploadId: uploadId,
+      // 번호 순서가 어긋나면 S3 가 거절한다.
+      MultipartUpload: {
+        Parts: [...parts]
+          .sort((a, b) => a.partNumber - b.partNumber)
+          .map((p) => ({ PartNumber: p.partNumber, ETag: p.etag })),
+      },
+    }),
+  );
+}
+
+/** 중단. 안 부르면 올라간 조각이 남아 과금된다(수명주기 규칙이 7일 뒤 정리한다). */
+export async function s3AbortMultipart(
+  prefix: StoragePrefix,
+  key: string,
+  uploadId: string,
+): Promise<void> {
+  await client().send(
+    new AbortMultipartUploadCommand({
+      Bucket: bucketFor(prefix),
+      Key: key,
+      UploadId: uploadId,
+    }),
+  );
+}

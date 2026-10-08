@@ -40,8 +40,8 @@ import { collectPins, readAnchor, samePin } from "./lib/product-anchor.mjs";
 // 판을 가리키므로 입력 핀을 하나씩 세지 않고 그 한 가지를 실패로 말한다.
 //
 // 범위는 좁게 잠근다: 이 파일의 `/base/commit` 과 `/branches/<n>/commit` 만, 그리고 40자 커밋만
-// (build.sh 는 브랜치 끝이 기록과 정확히 같아야 진행한다 — 짧은 접두로는 그 대조가 성립하지
-// 않는다). 같은 파일의 다른 자리에 핀이 생기면 보통 핀으로 다룬다.
+// (build.sh 는 고정 커밋을 40자 SHA 로 제품 저장소에서 가져온다 — 짧은 접두로는 가져올 수도,
+// 지금 브랜치 끝과 대조할 수도 없다). 같은 파일의 다른 자리에 핀이 생기면 보통 핀으로 다룬다.
 const INTEGRATION_FILE = "migration/product-integration/integration.json";
 const INTEGRATION_INPUT_PATH = /^\/(?:base|branches\/\d+)\/commit$/;
 const FULL_COMMIT = /^[0-9a-f]{40}$/;

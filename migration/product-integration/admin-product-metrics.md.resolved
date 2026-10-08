@@ -1,0 +1,462 @@
+# Admin Product Metrics Flow
+
+## Purpose
+
+This doc covers the admin-only product metrics dashboard used to inspect portfolio-friendly service outcomes such as activation, generated-result conversion, publish conversion, paid conversion, and retention.
+Read this before changing `/admin` metrics, admin product reporting APIs, or the interpretation of these metrics.
+The improvement-project and qualitative-metric records the dashboard used to keep were removed on 2026-06-23 (`33b930821`), together with their route and their tables (`product_metric_projects`, `product_qualitative_metrics`, dropped).
+
+## Main Entry Files
+
+- `apps/web/app/admin/AdminClient.tsx`
+- `apps/web/app/admin/ProductMetricsDashboard.tsx`
+- `apps/web/app/api/admin/product-metrics/route.ts`
+- `apps/web/lib/product-insights/cohortMetrics.ts`
+- `apps/web/app/api/admin/onboarding-survey/route.ts`
+- `apps/web/lib/product-insights/surveySummary.ts`
+- `apps/web/app/admin/AdAttributionPanel.tsx`
+- `apps/web/app/api/admin/ad-attribution/route.ts`
+- `apps/web/lib/product-insights/adAttribution.ts`
+- `apps/web/app/admin/AmbassadorManagement.tsx`
+- `apps/web/app/api/admin/ambassadors/route.ts`
+- `apps/web/app/api/admin/ambassadors/links/route.ts`
+- `apps/web/app/api/admin/ambassadors/links/[id]/route.ts`
+- `apps/web/app/r/[code]/route.ts`
+- `apps/web/lib/ambassador/links.ts`
+- `apps/web/lib/ambassador/performance.ts`
+- `apps/web/lib/ambassador/periods.ts`
+- `apps/web/lib/ambassador/export.ts`
+- `apps/web/lib/ambassador/benefits.ts`
+- `apps/web/app/lib/ambassador/referral.ts`
+- `apps/web/app/lib/ambassador/benefit.ts`
+- `apps/web/app/lib/ambassador/visit.ts`
+- `apps/web/app/api/admin/ambassadors/benefits/route.ts`
+- `apps/web/app/api/referral-code/route.ts`
+- `apps/web/app/api/product-events/route.ts`
+- `apps/web/app/lib/product-events.ts`
+- `apps/web/lib/product-events.ts`
+
+## Route Boundary
+
+- `GET /api/admin/product-metrics?from=<ISO>&to=<ISO>`
+  - Requires the `metrics` admin capability (`hasAdminCapability` in `app/lib/auth/adminAccess.ts`): accounts in `ADMIN_EMAILS` hold every capability, other accounts what `admin_permissions` grants them.
+  - Uses the Supabase admin client for read-only aggregate queries.
+  - Returns current-period DB metrics, event-based funnel/retention, segment options, and previous same-duration metrics for comparison.
+- `POST /api/product-events`
+  - Accepts product behavior events from the client and attaches `user_id` when a session exists.
+  - The route is public, so it accepts only the events the client actually sends —
+    `signup_started`, `signup_completed`, `payment_started`, the canvas diagnostics
+    `onboarding_hint_shown`, `onboarding_hint_closed`, `onboarding_hint_acted`, `plan_gate_shown`,
+    `canvas_help_used`, and the home-start diagnostic `onboarding_start_chosen`
+    (`lib/product-insights/eventInput.ts`). The canvas diagnostics carry source `canvas`, the home-start one `home`.
+    A source outside each event's list is stored as `client`, bodies over 4KB are refused (413) and
+    metadata is trimmed. Outcomes only the server can confirm (results, publishes, payments) are
+    recorded by their server routes. `signup_completed` is recorded both by `POST /api/auth/signup`
+    and by the signup screen's beacon; keeping the beacon keeps the funnel and retention numbers as
+    they were (one email signup counts as two actors, anonymous and user).
+- `GET /api/admin/onboarding-survey?from=<ISO>&to=<ISO>`
+  - Same `metrics` capability gate and the same date-boundary rule as the metrics route.
+  - Counts answers in `product_research_profiles`, filtered by **when the row appeared**, not by
+    when they answered. For a new account the row appears at signup (the signup request stores the
+    acquisition snapshot on it); for an account that existed before the table, when the survey first
+    showed. Answering later does not move somebody into today's column.
+  - The response rate's denominator is **people the survey was actually shown to** (`shown`,
+    `submitted`, `skipped`), not every row. Rows still `pending` — mostly signups that have not
+    verified their email or signed in yet and so never reached an app screen — are reported
+    separately as a count and left out of the rate, which would otherwise fall for reasons unrelated
+    to the survey.
+  - Returns `available: false` when the table has not been applied yet, so the panel says so instead
+    of drawing an empty table of zeros.
+- `GET /api/admin/ad-attribution?from=<ISO>&to=<ISO>`
+  - Same `metrics` capability gate and date-boundary rule. Reads one row per account from the SQL function
+    `admin_ad_attribution_rows` (email, signup time, `email_confirmed_at`, both acquisition columns,
+    paid total) and groups them in `lib/product-insights/adAttribution.ts`.
+  - Returns `available: false` (`PGRST202`) until `20260922130000_admin_ad_attribution.sql` is applied.
+  - Admin accounts are dropped before grouping and reported as `excludedAdmins`.
+- `GET /api/admin/ambassadors?from=<ISO>&to=<ISO>`
+  - Requires the `ambassador` admin capability (the same one as the application review; superadmin
+    passes), and the same date-boundary rule. Reads the links, the flagged ambassadors plus
+    anyone who has lost the flag but still owns a link, link visits in the period
+    (`admin_ambassador_link_visits`), and the same signup rows as the ad attribution route. Grouping
+    lives in `lib/ambassador/performance.ts`.
+  - Returns `available: false` until `20260928120000_ambassador_links.sql` is applied.
+- `PUT /api/admin/ambassadors/benefits`
+  - Same `ambassador` capability plus `bulk-grant` (a benefit hands out plans and credits; a missing `bulk-grant`
+    answers `403 BENEFIT_FORBIDDEN`), and the CSRF check. Saves the default benefit (`ambassadorId: null`) or one ambassador's; an
+    ambassador sent `benefit: null` goes back to the default. A plan must be a sold plan (not Trial).
+- `GET /api/referral-code?code=<code>` (public)
+  - Tells the signup form whether a code exists and what it gives. Codes are public already.
+- `POST /api/admin/ambassadors/links`, `PATCH /api/admin/ambassadors/links/<id>`
+  - Same `ambassador` capability, plus the CSRF origin check. Create takes the ambassador, a name, a code and a landing
+    path; `PATCH` changes only the name and the landing path. A taken code is `409 CODE_TAKEN`.
+- `GET /r/<code>` (public, outside the middleware matcher)
+  - Records one click, sets the ambassador cookie and redirects with `302` and `Cache-Control: no-store`.
+    See Ambassador Links.
+
+## Ad Attribution Panel
+
+「광고별 가입과 결제」 on the metrics screen. One row per ad; opening a row lists the accounts that
+signed up through it.
+
+- **Cohort:** accounts whose `auth.users.created_at` (the signup request) falls in the period.
+  Soft-deleted profiles are left out, as in the new-signup cohort above. The two totals can still
+  differ: this panel drops admin accounts (`excludedAdmins`), and the cohort above counts `profiles`
+  rows rather than `auth.users`. Not the research row's `created_at`: the survey creates rows for old
+  accounts later.
+- **Which ad a signup belongs to:** the last ad clicked. `countedTouch` looks for an ad-row value in
+  `last_acquisition`, then in `acquisition`, and only then falls back to whichever is tagged — so an
+  ad click followed by a newsletter link still counts for the ad. There is no switch for first-click;
+  both values stay stored.
+- **Rows:** an ad row needs an ad ID (`utm_content`) and an ad link (`isPaidLink`: a
+  `paid*`/`cpc`/`ppc`/`cpm` medium, or a Meta source such as `ig` with no medium at all — the Instagram
+  profile link is `ig` + `social` and lands in a campaign row), keyed by the campaign ID and the ad ID
+  together — a hand-tagged link can reuse one `utm_content` across campaigns, and keying by the ad ID
+  alone merged them and kept one campaign name. A record without a campaign ID (before `utm_id` was
+  captured, or saved in the legacy six-key shape) joins its ad's row when that ad ID appears under one
+  campaign only, and stays separate when it appears under several. Rows are named by the most
+  recent signup that carries an `ad_name`; when none does, the row title is the ad ID, so two unnamed
+  ads never share a title. When no ad row exists, the "no ad signups" notice still shows above any
+  campaign rows. Other tagged links are campaign rows. Google Ads auto-tagged clicks carry no ad ID, so
+  they are a campaign row titled 「구글 광고」 (see `auth-session.md`). Untagged signups are
+  split into 「다른 사이트의 링크」 (referrer host), 「바로 들어옴」 and 「어디서 왔는지 모름」 (no record) — lumping
+  them together would read as a capture failure rate.
+- **Numbers:** signups, email verified, people with a paid payment, and revenue = the sum of `paid`
+  payments since signup, of every type (subscription, renewal, credit pack, bulk coupon) — unlike the
+  paid-conversion tile above, which counts new subscriptions within 30 days. Refunded payments drop out because refunds flip the row to `refunded`;
+  Toss test-merchant payments (`raw_payload.mId` `tvivarepublica*`) are excluded. On the dev project
+  every payment uses the test merchant, so 결제한 사람 and 매출 always read 0 there; check them on prd.
+- **Copy** avoids analytics terms (최초 유입, 캠페인 태그) and names what the person did.
+- **Built from LOUIS parts:** both tables are `.louis-table` (numbers `data-align="end"`, rows
+  `data-interactive`, the expand button in the last cell carries `aria-expanded` so the shared
+  `ToolbarChevronDown` flips); narrow screens scroll the table sideways instead of hiding columns. The
+  period line uses the section header's `meta` slot (`AdminPanel` passes it through). Copy buttons are
+  `IconButton` with the product copy glyphs. The guide dialog is `.louis-dialog` at `z-[1400]`, the
+  same layer as the other admin modals, because LOUIS's modal layer (300) sits under the admin sidebar
+  (1001).
+- **Setup guide:** the question-mark button in the header's action slot opens 「광고 링크 거는 법」
+  (`app/admin/AdSetupGuide.tsx`): where the URL parameters go in Ads Manager, the landing URL and the
+  parameter line with copy buttons, how to check a live click, and the naming rules. The two values are
+  the constants `META_AD_LANDING_URL` and `META_AD_URL_PARAMETERS` in `adAttribution.ts`; a test feeds
+  the filled template through the parser, so the guide cannot drift from what the table reads.
+- **Known undercount:** only signups made in the browser that clicked the ad are attributed, so the
+  numbers are lower than the people the ads actually brought in. Ads Manager shows no signups to
+  compare against: the site sends Meta no conversion events.
+- **Reads in pages.** PostgREST caps function results at the project's Max Rows (Supabase default
+  1000) without an error, so the route reads 1000 at a time, skipping ahead by the rows received,
+  until an empty page or the function's 20000-row limit (`rowLimit` in the response, which the
+  truncation notice reads). `readAllPages` in `adAttribution.ts` owns that loop and the `user_id`
+  dedup, and is tested against a fake with a smaller Max Rows.
+- **Ambassador links** form one 「앰버서더 링크」 row between the campaign rows and the untagged
+  rows; the account list's 「누른 링크」 column shows the link code. Per-ambassador numbers are on the
+  ambassador screen below. When the last click was an ambassador link it wins over an earlier ad in
+  `acquisition` — without that rule a first-touch ad would beat the link clicked just before signup.
+
+## Ambassador Links
+
+「앰버서더」 in the admin sidebar (operations group, after 「청약철회」), sub-tab 「링크와 성과」 — the
+sub-tab 「지원서」 beside it is the application review (`docs/flows/ambassador.md`). One row per ambassador; opening a
+row lists that ambassador's links, and clicking a link row edits it.
+
+- **Short link:** `https://www.klipse-ai.com/r/<code>`. The address shown and copied comes from
+  `NEXT_PUBLIC_SITE_URL`, so the dev admin shows `dev.klipse-ai.com`, never the host the admin was
+  opened on. The route looks the code up, inserts one row into `ambassador_link_clicks`, sets the
+  ambassador cookie and redirects to
+  `<landing path>?utm_source=ambassador&utm_medium=affiliate&utm_campaign=<code>`. `affiliate` puts
+  these visits in GA4's default 「Affiliates」 channel instead of mixing them into 「Referral」. An
+  unknown code, a missing table or a failed lookup sends the visitor to `/` instead of an error page.
+- **The cookie is the ambassador record.** `klipse-ambassador` is first-party, `HttpOnly`,
+  `SameSite=Lax` and lasts 30 days; it holds only the code and the click time, signed with a key derived
+  from the server's service key (`app/lib/ambassador/cookie.ts`), and the last ambassador link opened in
+  that browser owns it. It is set only when the visit was recorded, so a cookie always has a click row
+  behind it, and the signup route trusts only a valid signature: nobody can mint one for a code without
+  opening the link. The server sets it on the redirect, so Safari's seven-day limit on script-written
+  storage does not apply. The signup route reads it and writes `ambassador_referrals` (see
+  `auth-session.md`), so an ad clicked later cannot erase the ambassador.
+- **Referral code at signup.** The signup form has a folded 「추천 코드가 있으신가요?」 row that opens a
+  field; any link's code works as a referral code. **The field is hidden until the plan is settled**
+  (`REFERRAL_CODE_FIELD_HIDDEN` in `lib/app-paths.ts`, owner decision 2026-09-29). While it is true the
+  form sends no code, the signup route ignores one, and `GET /api/referral-code` answers 404, so
+  nothing can use the endpoints to check which codes exist; the short link, the cookie and the screen
+  all keep working. Flipping it to false opens the field, the live check and the benefit together. An unknown code stops the signup before the account
+  is created (`REFERRAL_CODE_UNKNOWN`), while a missing table or a failed lookup lets the signup go on
+  without it. The code catches the people a link cannot: short-video captions have no clickable link,
+  people search for the site after watching, and people sign up on another device.
+- **Only a person opening the link is a visit** (`countsAsVisit`). Messengers and social apps open a
+  posted link once to build its preview; the known fetchers (Meta, Kakao, Naver Yeti, Iframely, headless
+  Chrome, curl) and requests with no user agent are redirected without an insert, and so are `HEAD`
+  requests (Next answers them with the `GET` handler) and browser prefetches (`Sec-Purpose`). In-app
+  browsers (Instagram, KakaoTalk, Naver) are people and count. Only a document navigation counts: an
+  `<img>` or `<iframe>` pointing at the short link on someone else's page would otherwise add a visit
+  for every reader. `Sec-Fetch-Dest` and `Sec-Fetch-Mode`, which page scripts cannot forge, must say
+  `document` and `navigate` when either is present; only browsers that send neither are judged by an
+  `Accept` that includes `text/html`. A browser that already carries the same link's cookie is stored as
+  `repeat_visit`, so 「방문」 counts browsers and the CSV also carries every click. It is an approximation: the cookie holds only the last link, so opening A, then B, then A again
+  counts A twice, and a browser whose first click fell before the period adds clicks but no visitor.
+  Requests that are not visits get no cookie either, so a prefetch cannot turn the real click into a
+  repeat. A test run in headless Chrome records nothing; set a normal user agent.
+- **Visit guard** (`app/lib/ambassador/visit.ts`, `ambassador_record_click`). A script that drops cookies
+  is caught by two keys, each mixed with the day's secret (HMAC):
+  - `visitor_key` is the IP plus the user agent, `Accept-Language` and the client hints. The same key on
+    the same link on the same Seoul day is a repeat visit, and more than 20 opens of one link in an hour
+    are not recorded. The extra headers keep different people behind one carrier IP (CGNAT) apart.
+  - `ip_key` is the IP alone, IPv6 cut to its /64. More than 60 opens of one link in an hour are not
+    recorded, which catches a script that rotates its user agent. The limit is higher than the visitor
+    limit because many phones share one public IP.
+  - Requests over a limit are only counted per link and day (`ambassador_link_blocked`). Requests for the
+    same link and IP are decided one at a time under a transaction lock, so a burst cannot all count as
+    first visits.
+  - The IP is the last `x-forwarded-for` entry, the one the load balancer added: `www` goes straight to
+    the ALB, and the earlier entries are whatever the client sent. It is read by `clientIpFrom` and grouped
+    by `ipBucket` in `app/lib/security/clientIp.ts`, the same functions the ambassador application rate
+    limit uses, so a port, brackets or an IPv4-mapped spelling resolve to one key and a value that is not
+    an IP counts as no IP. No raw IP is stored. Each day's secret
+    is deleted two days later; while it lives, and in any backup that still holds it, a key can be
+    matched by trying IPs, so the keys become irreversible only once the secret and those backups are
+    gone.
+- **Suspicion** is shown in red on the link row, and as a count on the ambassador row. It is shown when
+  requests were blocked, or when clicks reach 30 and five times the visitors (`linkSuspicion`). It says
+  the visits are hard to trust, not that anyone cheated. Someone rotating IP addresses still gets
+  through, so pay on verified signups and payments, not on visits. Self-referral with several verified
+  accounts is not blocked either; watch for spikes before settling.
+- **Codes and landing paths** follow `lib/ambassador/links.ts`, and the table's CHECKs repeat the
+  rules: 3 to 32 lowercase letters, digits and hyphens. The suggested code comes from the nickname only,
+  never the email, because the code becomes a public address and lands in every credited signup's
+  record; a Korean nickname leaves it blank. The landing path is a same-site path with no query, hash,
+  empty segment (`//`) or dot segment (`/./`, `/../`), and never a page that needs a sign-in: the
+  middleware's protected pages and `/admin` would put a first-time visitor in front of the login
+  screen, and `/nodecanvas`, `/highlight` and `/videoeditor` send a guest to `/` without the tags. A
+  code never changes after creation, because it is already printed in posted content. The route
+  re-checks the stored landing path and falls back to `/` when it does not pass, so a value written
+  straight into the table cannot send visitors elsewhere.
+- **Only current ambassadors get new links** (`profiles.is_ambassador`, set on the users screen or by selecting
+  an ambassador application, which also creates a default link — `docs/flows/ambassador.md`, "Operator flow").
+  Someone whose flag was turned off, or whose account was deleted, keeps their row, marked
+  「앰버서더 해제됨」, so past results stay; the add-link row is hidden for them, and the create
+  button disappears when nobody current is left.
+- **Who gets the signup** (`creditedLinkId`): the referral code entered at signup, then the ambassador
+  link in the cookie (even if an ad was clicked after it), then the last click (`countedTouch`, the ad
+  table's rule). A link that no longer exists is skipped. The ad table keeps last click, so a signup can
+  sit in an ad row there and an ambassador row here: the ad table answers which channel drove the
+  signup, this screen which ambassador brought the person (owner decision 2026-09-29). Codes are
+  compared in lowercase. Admin accounts are excluded.
+- **Numbers:** 「방문」 is browsers that opened the link in the period. Signups, email verified, payers
+  and revenue use the ad table's definitions for signups in the period (revenue is everything paid
+  since signup). 「첫 결과물」 is the part of those signups that made a result within 7 days of signup,
+  counting the same results as generated-result conversion (completed video generations other than
+  `canvas_edit`, canvas images, extracted highlights). Unlike that metric, the 7 days are not cut at the
+  end of the selected period, only at now: someone who signs up on the last day of the month still gets
+  all seven. The route reads the three tables 100 accounts at a time and page by page
+  (`readEveryRow`), so PostgREST's Max Rows cannot cut the count; a table that fails to load shows a
+  note under the table instead of blocking the screen.
+- **CSV:** 「CSV 다운로드」 exports the current table one link per row: ambassador, email, status, link,
+  full address, landing page, period, visitors, clicks, signups, email verified, first result, payers
+  and revenue (`lib/ambassador/export.ts`). It is UTF-8 with a BOM so Excel reads Korean, and a cell
+  that starts with `=`, `+`, `-` or `@` (full-width too) gets a leading `'` so a nickname cannot run as
+  a formula. It is an internal file with every ambassador's email and revenue; send an ambassador only
+  their own rows.
+- **Referral code benefit** (`lib/ambassador/benefits.ts`, `app/lib/ambassador/benefit.ts`). The admin
+  sets a default in the toolbar line 「추천 코드 혜택」 and can set one per ambassador from the expanded
+  row. A benefit is nothing, credits (an amount and a validity: none, 7, 30, 90 days or a year), or a
+  plan for one month, the same as a plan coupon, because a coupon plan does not renew and only the first
+  month's credits are granted. There is no first-payment discount; the payment flow has no discount
+  model. Only a signup that typed a code gets it, and only while its owner is a current ambassador: a
+  former or deleted ambassador's code still credits signups on this screen but carries no benefit,
+  because links cannot be deleted and stay in posted content. The signup writes the promise with the
+  benefit as it is then, so a change applies to later signups only, and it is granted once after email
+  verification. The live check caches a code's answer for a minute and allows 30 checks a minute per IP (IPv6 grouped by /64,
+  `app/lib/security/clientIp.ts`),
+  so a changed benefit shows on the form within a minute.
+  - Credits: `grant_ambassador_referral_credit` locks the signup record and, in one transaction, adds a
+    `promo` batch, a ledger row (`ambassador_referral`) and the balance cache, then marks it granted.
+    Users see 「추천 코드 혜택」 in their credit history.
+  - Plan: `claim_ambassador_referral_plan` marks the record `granting`. The app checks that the coupon
+    campaign still matches the promise (plan, one month, active), adds one code, stores the code's id in
+    `benefit_reference`, redeems it through `redeem_coupon_atomic`, then syncs the plan credits. Saving a
+    plan benefit creates that campaign (`AMB-` code), shown in the coupon screen as
+    「앰버서더 추천 혜택: <scope>」. The coupon screen cannot edit or delete it, and a foreign key keeps it
+    from being deleted; a campaign that no longer matches fails the grant as `campaign_changed` instead of
+    giving something else.
+  - Failures: a redemption the coupon function rejects is final (`failed`, reason in `benefit_error`,
+    e.g. `plan_already_subscribed`: a paying user is not given a plan), and its code is deleted.
+    `per_user_limit_reached` means an earlier attempt already went through, so it is marked granted. A
+    transient error (database, network) goes back to `pending` for the billing snapshot to retry, up to
+    five attempts. A record left in `granting` for ten minutes (a task stopped mid-grant) is claimed
+    again, and the code it stored is checked first: already redeemed means granted, unused means deleted
+    and retried.
+  - The screen shows a warning with the period's failed grants (and how many were paying users) and
+    grants stuck mid-way.
+- **Known undercount:** someone who signs up on a different device or browser from the one that opened
+  the link is credited only through a referral code. Visits have no such limit, so signups per visit
+  read low.
+- **Default period** is 「이번 달」 (Seoul calendar month): ambassador results are reviewed monthly.
+- **Migrations,** applied by hand to prd and dev, all service role only (RLS on, no policies):
+  - `20260928120000_ambassador_links.sql`, after `20260922130000_admin_ad_attribution.sql` (a guard
+    stops it otherwise): the links,
+    the clicks (with `repeat_visit`), `ambassador_referrals` (one row per signup that has a cookie or a
+    code) and `admin_ambassador_link_visits`. Until it runs, the screen says links cannot be made yet,
+    every `/r/<code>` redirects to `/`, and the signup route skips the referral check.
+  - `20260929120000_ambassador_visit_guard.sql`: day secrets, `visitor_key`, the blocked counts,
+    `ambassador_record_click`, and the visits function with `blocked`. Until it runs, repeat visits
+    are told by the cookie only.
+  - `20260929130000_ambassador_referral_benefits.sql`: `ambassador_benefits`, the benefit columns on
+    `ambassador_referrals`, and the two grant functions. Until it runs, the benefit line says it can be
+    set once the database is ready, and signups get no benefit. The last two files are independent of
+    each other.
+
+## Metric Definitions
+
+- New signup cohort: active `profiles` rows created in the selected period; soft-deleted profiles are excluded.
+- First project conversion: cohort users who created a `projects` row within 24 hours of signup and within the selected period.
+- First result within 24 hours: the generated-result rule below with a 24-hour window. This is the primary measure for the first-use guides: it is computed from the stored rows, so periods before the guides shipped already have a value to compare against.
+- Generated-result conversion: cohort users who completed at least one generated video, generated image, or extracted highlight within 7 days of signup and within the selected period.
+  - The time is each row's `created_at` — a video's generation request, an image's credit capture, a highlight's job creation — and "completed" is the row's current status: `generated_videos.generation_status = completed` excluding `canvas_edit`, `canvas_generated_images.generation_status` `completed` or empty, highlight `status` `extracted`/`completed`/`done`.
+  - **Image rows were counted whatever their status until 2026-10-01.** Since 2026-06-24 (`1227c0b35`) `/api/image/generate` writes a `generating` row at capture and turns it `failed` when the provider fails — it never deletes it — so a person whose image attempts all failed counted as a first result, and an image still generating counted too. `isCompletedGeneratedImage` now leaves `failed` and `generating` rows out, in both result windows and in the activity tile 「결과물을 만든 사람」. It takes effect when deployed, and because every request recomputes from the rows, every period — past ones included — then reads by the new rule: a value noted down before the deploy can be higher than the same period shows after it. An empty status still counts: the column came after the table, rows written before it existed were written only for a delivered image, and `POST /api/canvas/[projectId]/images` still inserts without a status when it cannot find the server's row (it is called only with a stored image). The column default is not in the repo.
+  - Both result windows go through one function (`addResultMatches` in `lib/product-insights/cohortMetrics.ts`), so the 24-hour count is always a subset of the 7-day count. The route only fetches rows; `cohortMetrics.test.ts` covers the window edges and the image statuses.
+  - Other admin screens still count every image row as a result: the per-user generation counts in `/api/admin/users` and `/api/admin/users/stats` (「행 존재=완료」).
+- Every cohort window ends at the period end, in the selected and in the preceding period alike: rows after the period are never fetched. Signups in the last 24 hours (or 7, or 30 days) of a period count in the denominator without their full window, so each rate undercounts by a margin that grows with the window. The preceding period is cut the same way. The comparison period has the same length as the selected one with one exception: 「오늘」 is shorter than a day so far, but its preceding period is a full 24 hours (`getPreviousRange` floors the length at one day), so on 「오늘」 the change leans negative. The conversion card's description says that shorter periods read lower (`conversionDescription`); the denominator was deliberately left as is rather than limited to signups whose window has elapsed, because that would redefine every cohort rate on the dashboard, not just the new 24-hour one.
+- SNS publish conversion: cohort users who completed a YouTube or Instagram upload within 30 days of signup and within the selected period.
+- Paid conversion: cohort users with a successful non-renewal subscription payment within 30 days of signup and within the selected period.
+- Event funnel: unique users/anonymous actors per product event step (`signup_started` through `payment_completed`), optionally filtered by locale, device, platform, plan, or source.
+- Retention: signup-completed actors who return with another product event in D1, D7, or D30 windows. Diagnostic events (`onboarding_hint_*`, `plan_gate_shown`, `canvas_help_used`, `onboarding_start_chosen`, classified in `lib/product-insights/metricEvents.ts`) are not a return: a first-use hint appearing is not the person coming back, and counting it would change D1, D7 and D30 on the day the hints started sending.
+
+## Data Sources
+
+- `profiles`
+- `projects`
+- `generated_videos`
+- `canvas_generated_images`
+- `highlight_jobs`
+- `youtube_upload_jobs`
+- `instagram_upload_jobs`
+- `payment_transactions`
+- `product_events`
+
+## Runtime Flow
+
+1. Admin opens `/admin` and selects the `성과 지표` sidebar tab.
+2. `ProductMetricsDashboard` resolves the selected period to `from` and `to` ISO timestamps.
+3. The client calls `GET /api/admin/product-metrics`, including optional segment filters.
+4. The route builds two snapshots:
+   - selected period
+   - immediately preceding same-duration period
+5. Each snapshot returns DB-based signup cohort outcomes, whole-period activity counts, payment totals, event funnel, retention, and diagnostics for unavailable or truncated tables.
+6. The client renders the signup-conversion tiles (new signups, first project in 24 hours, first result in 24 hours, first result in 7 days, first social upload, first payment), activity tiles, payment tiles, the event funnel and retention cards, and a partial-aggregation notice when a table is truncated or unavailable. The header carries the period picker, CSV export, and refresh. The onboarding survey panel and the ad attribution panel below fetch from their own routes.
+
+## Event Instrumentation
+
+Current event sources:
+
+- signup start/completion: signup UI and `/api/auth/signup`
+- login completion: `/api/auth/login`
+- project creation: `/api/projects`
+- image/video/highlight generation start/completion: generation and highlight routes
+
+`product_events.project_id` is a `uuid`, and the image route's project argument is a **billing key**
+that falls back to the string `"canvas"` when the node canvas has no project. Passing that key
+straight through made PostgREST reject the insert with `22P02`, and `recordProductEvent` swallows
+write errors, so the event vanished — `source = "image"` held 4 rows against 2,279 rows in
+`canvas_generated_images` (measured 2026-10-01), i.e. image generation read as zero on this
+dashboard while `[product-events] event write failed … 22P02` filled the task logs. Both branches of
+`/api/image/generate` now derive `projectIdOrNull` once and pass that to the event and storage
+writes, keeping the sentinel only where credits are captured. Any new event write that takes a
+project must do the same.
+- publish click/completion: YouTube and Instagram upload routes
+- payment start/completion: Toss checkout UI and payment confirmation routes
+- canvas first-use hints and the canvas upgrade dialog: canvas client, **diagnostic only**
+  (`hooks/useOnboardingTelemetry.ts`, flow in `project-generation.md`)
+  - `onboarding_hint_shown` `{ hint }`, once per hint per browser session; `onboarding_hint_closed`
+    `{ hint, via: close | esc }`; `onboarding_hint_acted` `{ hint, via: typed | menu | connect | go_to }`.
+    `hint` is `first_node`, `first_node_trial`, `video_prompt`, `video_next_step`, `offscreen_video`,
+    `image_next_step` or `offscreen_image`. Rows written before 2026-10-06 can also carry `hint: connect` and
+    `via: got_it` from the removed connection callout.
+  - `plan_gate_shown` `{ feature }` each time the canvas-level upgrade dialog opens, `feature` being the
+    blocked plan key (`model_text_to_video`, `prompt_assist`, `editor_*`); when the dialog was opened without a
+    feature key the payload is `{}`.
+  - `canvas_help_used` from the canvas help panel (`components/CanvasHelpPanel.tsx`, flow in `project-generation.md`):
+    `{ action: open, via: toolbar | empty | node }` when the panel opens (toolbar help button, 사용법 보기 on the
+    empty canvas, a node header's help button); `{ action: page, page }` when a page other than the first is chosen
+    (`page` is `node:<type>`, `task:<id>`, `nodes`, `shortcuts`, `models` or `faq`; opening from a node header sends
+    `open` and then `page`, while reopening on the page last viewed sends only `open`); `{ action: show_me, step:
+    image | startFrame | generate }` for 보여 주기 in 「처음 영상까지」.
+  - The plan goes in the `plan_code` column, only once billing has loaded; a hint drawn before that has none.
+- the empty-home start rows: home client, **diagnostic only** (`AppHomeScene`, flow in `auth-session.md`)
+  - `onboarding_start_chosen` `{ path: canvas | composition | highlight }`, source `home`, once each time one of the
+    three rows under 「아직 프로젝트가 없습니다」 is chosen. The rows ignore presses until the chosen product's page
+    has opened, so a double tap is one event. A person can still record more than one: 하이라이트 creates nothing
+    until a video is uploaded, so the rows come back on the next visit, and a failed canvas creation leaves them in
+    place. Count people by distinct `coalesce(user_id::text, anonymous_id)`, not by rows. The 「새로 만들기」 menu above a non-empty list sends
+    nothing. Landing demos do not send it.
+- the five diagnostic names above (four canvas, one home) are classified `diagnostic` in
+  `lib/product-insights/metricEvents.ts`. The dashboard does not read them: the event fetch excludes them by
+  name and retention skips them again. Read them with SQL against `product_events`. Adding a name to the
+  union in `app/lib/product-events.ts` fails type checking until it is classified there, so a new diagnostic
+  event cannot slip into the dashboard by default.
+  - They also go to GA4. `trackProductEvent` sends every event to GA under the same name, with the metadata
+    (`hint`, `via`, `feature`, `path`) as event parameters, so the GA property carries these five names as well.
+
+## Onboarding Survey Panel
+
+The dashboard carries one panel that does **not** come from the metrics pipeline: the optional
+onboarding survey (`components/analytics/ResearchOnboarding.tsx`). It counts what people picked and
+nothing else.
+
+- It is **not joined with the metrics above.** The survey is self-reported and existing users answer
+  it after months of use, so putting a picked option next to outcome or payment rates would read as
+  cause. The panel says so in a footnote.
+- It fetches separately and renders outside the metrics result, so a metrics failure does not hide it
+  and a survey failure does not hide the metrics.
+- Percentages are per question, against the people who answered **that** question — skipped questions
+  are not counted. 「주로 쓸 곳」 is multi-select, so its option counts add up to more than the number
+  of people; the panel states that.
+- Options with zero picks stay in the list. Dropping them would read as "nobody was offered this".
+- Aggregation is a pure function (`lib/product-insights/surveySummary.ts`) with its own tests; the
+  route only fetches rows and hands them over.
+- **The app owns the option lists** (`lib/product-insights/research.ts`). The table checks only the
+  shape of an answer (1–64 characters, 1–20 picks), so adding or removing an option is a code-only
+  change. A value outside the current options is refused on write and dropped from the tallies —
+  removing an option therefore drops its past answers from the panel, so rename its label instead
+  when the meaning should survive.
+- Under each question's 「기타」 row the panel lists what people typed there (`other_text`), one line
+  per distinct text with its count, most frequent first, up to 20 lines. Only answers that actually
+  picked 「기타」 contribute, so a text left behind after switching to another option never shows.
+  Text that looks like a phone number, resident registration number or email address is dropped on
+  write (`parseOtherText`) and never reaches the table. The creation-goal question has no 「기타」.
+- **Five migrations, applied by hand in this order:**
+  `20260917120000_create_product_research_profiles.sql` creates the table, then
+  `20260921120000_research_options_owned_by_app.sql` replaces the per-column option lists with those
+  shape checks. Where the first is already applied (the dev database), run the pre-check in the
+  second file's header before applying it. Third and fourth share the `20260922120000` stamp and are
+  independent of each other, so either order works:
+  `20260922120000_attribution_touches.sql` does the same for `acquisition` — the app owns its key
+  list (`parseAttribution`), the table checks only object and size — and adds `last_acquisition`;
+  `20260922120000_research_other_text.sql` adds `other_text`. Fifth,
+  `20260922130000_admin_ad_attribution.sql`, adds the read-only function behind the ad attribution
+  panel; it checks that `attribution_touches` is applied.
+- Both of the `20260922120000` files are optional for the code to run, and both lose data until
+  applied. Code deployed before `attribution_touches` still stores the first touch: the signup route
+  retries in the old six-key shape on `23514`/`PGRST204` and logs `[signup] research capture fell
+  back to the legacy shape` — seeing that line means the file is due. The survey write and this
+  panel both work without `other_text` — the write retries without the text and the panel reads
+  without it — so it can land after the code, but text typed in between is not kept.
+
+## Important Coupling Points
+
+- This dashboard does not read GA4. It uses server-side DB records and first-party `product_events`.
+- `product_events` are best-effort. Logging failures must never fail user-facing actions.
+- If `product_events` or another source table is absent, read paths should degrade to empty metrics and report the source under diagnostics rather than fail the whole response.
+- Generated video metrics exclude `generated_videos.provider = canvas_edit` to avoid counting editor materialization as provider generation.
+- Upload success is calculated from YouTube and Instagram job rows created in the selected period.
+- The API fetches up to 10,000 rows per source per period and reports partial aggregation if a source reaches that cap.
+  The `product_events` fetch is ordered oldest first, so anything that fills the cap cuts the end of the period;
+  that is why diagnostic events are excluded from it (`.not("event_name", "in", diagnosticEventsInFilter())`) rather than filtered after the fetch.
+- Changing signup, project creation, generation, upload, or subscription payment storage semantics may change metric meaning and should update this doc in the same change.
+
+### Survey UX and answer continuity
+
+Questions start with discovery, then creation goal, role, blocker and channels — discovery was last
+until the owner moved it to the front (2026-09-22). The panel lists questions in the same order
+(`RESEARCH_KEYS`), so it moved there too; stored answers are keyed by column, not position. New options cover
+students, personal use, undecided goals, beginners, no particular difficulty and unknown discovery.
+Existing answer keys remain valid so historical reports retain their meaning. Whole-survey skip
+discards in-progress answers and records `skipped`; individual skips remain null in a partial
+submission. Starting without saving after a request failure does not record completion.

@@ -19,8 +19,10 @@ git checkout -q -f -B integration "$base"
 n="$(field j.branches.length)"
 for i in $(seq 0 $((n - 1))); do
   ref="$(field "j.branches[$i].ref")"; commit="$(field "j.branches[$i].commit")"
-  git fetch -q "$PRODUCT" "refs/heads/${ref}"
-  [ "$(git rev-parse FETCH_HEAD)" = "$commit" ] || { echo "✗ ${ref} 가 integration.json 의 커밋과 다르다 — 브랜치가 움직였다($(git rev-parse --short FETCH_HEAD))"; exit 1; }
+  # 고정 커밋을 SHA 로 가져온다 — 브랜치가 그 뒤 움직이거나 다시 쌓여도(rebase) 같은 판이 나온다.
+  git fetch -q "$PRODUCT" "$commit" || { echo "✗ ${ref}: 고정 커밋 ${commit} 를 제품 저장소에서 찾을 수 없다"; exit 1; }
+  tip="$(git -C "$PRODUCT" rev-parse -q --verify "refs/heads/${ref}" || true)"
+  [ "$tip" = "$commit" ] || echo "· ${ref} 는 고정 뒤 움직였다(지금 ${tip:0:9}) — 고정 커밋 ${commit:0:9} 로 만든다"
   if ! git merge -q --no-edit -m "integrate ${ref}" "$commit" >/dev/null 2>&1; then
     for f in $(git diff --name-only --diff-filter=U); do
       how="$(node -e "const r=(require('$J').branches[$i].resolve||{})['$f'];process.stdout.write(r||'')")"

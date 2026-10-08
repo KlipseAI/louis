@@ -1,0 +1,60 @@
+diff --git a/apps/web/app/ambassador/AmbassadorClient.tsx b/apps/web/app/ambassador/AmbassadorClient.tsx
+index f13dcccaf..278137672 100644
+--- a/apps/web/app/ambassador/AmbassadorClient.tsx
++++ b/apps/web/app/ambassador/AmbassadorClient.tsx
+@@ -3,7 +3,7 @@
+ import { useCallback, useEffect, useState } from "react";
+ import Gnb from "@/components/landing/navigation/Gnb";
+ import FAQ from "@/components/landing/sections/FAQ";
+-import Footer from "@/components/landing/sections/Footer";
++import TimelineFooter from "@/components/landing/sections/TimelineFooter";
+ import SmoothScroll from "@/components/landing/system/SmoothScroll";
+ import { useI18n } from "@/components/landing/system/I18nProvider";
+ import type { CollabType } from "@/lib/ambassador/application";
+@@ -94,7 +94,7 @@ export default function AmbassadorClient() {
+       <FAQ copy={t.faq} id="ambassador-faq" reveal={false} appearance="rows" contentClassName={CONTAINER} />
+       <FinalNext title={t.final.title as [string, string]} body={t.final.body} label={t.hero.apply} onApply={openApplyAny} />
+ 
+-      <Footer />
++      <TimelineFooter lead={false} />
+       <ApplyFlow open={applyOpen} onClose={closeApply} initialType={applyType} />
+     </main>
+   );
+diff --git a/apps/web/components/scenes/create/node-canvas-v2/hooks/useFirstNodeHintSlot.ts b/apps/web/components/scenes/create/node-canvas-v2/hooks/useFirstNodeHintSlot.ts
+index 8b70641b5..7a527d845 100644
+--- a/apps/web/components/scenes/create/node-canvas-v2/hooks/useFirstNodeHintSlot.ts
++++ b/apps/web/components/scenes/create/node-canvas-v2/hooks/useFirstNodeHintSlot.ts
+@@ -4,17 +4,17 @@ import { firstNodeHintAnchor, type FirstNodeHintBody } from "../lib/onboardingHi
+ 
+ /**
+  * 이 노드가 첫 노드 안내를 그릴 차례인가 — 캔버스가 고른 노드와 본문(`FirstNodeHintContext`)을 읽어, 차례면 본문과 자리와
+- * 닫기를 돌려준다. 이미지 노드와 비디오 노드가 같은 규칙으로 읽는다. 랜딩 임베드 크롬에서는 그리지 않는다.
++ * 닫기를 돌려준다. 이미지 노드와 비디오 노드가 같은 규칙으로 읽는다. 랜딩 임베드는 캔버스가 안내를 고르지 않으므로
++ * (`onboardingCanvasMode`) 여기까지 오지 않는다.
+  *
+  * 스크린리더 알림은 한 번만 — 팬으로 노드가 화면 밖에 나갔다 돌아오면 다시 마운트되므로, 첫 마운트 때의 값을 쥐고
+  * 보인 뒤에 캔버스의 `announcedRef` 를 세운다(영상 입력 안내와 같다).
+  */
+ export function useFirstNodeHintSlot(
+   nodeId: string | null,
+-  embedChrome: boolean,
+ ): { body: FirstNodeHintBody; anchor: "prompt" | "startFrame"; announce: boolean; onDismiss: () => void } | null {
+   const slot = useContext(FirstNodeHintContext);
+-  const show = !embedChrome && nodeId != null && slot.nodeId === nodeId && slot.body != null;
++  const show = nodeId != null && slot.nodeId === nodeId && slot.body != null;
+   const [announce] = useState(() => !slot.announcedRef.current);
+   useEffect(() => {
+     if (show) slot.announcedRef.current = true;
+diff --git a/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx b/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx
+index 3a638f777..6582bd28f 100644
+--- a/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx
++++ b/apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx
+@@ -1029,7 +1029,7 @@ export function VideoNode({
+     if (showVideoPromptHint) videoPromptHint.announcedRef.current = true;
+   }, [showVideoPromptHint, videoPromptHint.announcedRef]);
+   /* 첫 노드 안내 — 입력칸 위, 또는 체험 단독 노드면 시작 프레임 버튼 옆(`hooks/useFirstNodeHintSlot.ts`) */
+-  const firstNodeHint = useFirstNodeHintSlot(nodeId, embedChrome);
++  const firstNodeHint = useFirstNodeHintSlot(nodeId);
+ 
+   /**
+    * 새로고침·재진입 시 캔버스가 같은 노드 id로 복원된 `data.prompt`를 주입해도

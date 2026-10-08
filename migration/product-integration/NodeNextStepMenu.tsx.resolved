@@ -1,0 +1,255 @@
+"use client";
+
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type Dispatch,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+  type RefObject,
+  type SetStateAction,
+} from "react";
+import { useI18n } from "@/components/landing/system/I18nProvider";
+import { MetaDropdownPanel } from "./MetaDropdownPanel";
+import { NodeMenuItem } from "./NodeMenuItem";
+import { getViewportAdaptiveMenuSide, type MenuSide } from "./metaDropdownViewport";
+import { REACT_FLOW_NODE_NO_DRAG } from "../lib/reactFlowNoDragPanClass";
+import { NodeMenuChromeContext } from "../lib/nodeMenuChrome";
+
+/* ── 출력점 「다음 단계」 메뉴 ──
+ * 규칙: 노드 오른쪽 출력점은 노드마다 하나이고, 누르면 이 메뉴가 뜬다. 왼쪽 입력 버튼이 전부 메뉴인 것과
+ * 같게, 같은 모양의 버튼은 같은 일을 한다. 항목은 무엇이 생기고 어디에 이어지는지를 한 줄로 먼저 말하고,
+ * 고르면 새 노드가 이어진 채 생긴 뒤 화면이 두 노드를 보여 준다(`index.tsx` `revealNewNode`).
+ * 갈 곳이 하나뿐인 출력점(사운드, TTS)도 메뉴를 거친다 — 메뉴의 값은 고르기보다 미리 보기다.
+ *
+ * 모양과 여는 자리는 예전 TextNode 출력 메뉴를 그대로 옮겼다 — 출력점 오른쪽 6px, 카드 세로 가운데,
+ * 캔버스 줌 역보정. 출력점은 모두 카드 세로 가운데에 있으므로 한 자리로 된다.
+ * 이 메뉴는 카드 컨테이너 바로 아래 자식으로 둔다 — 출력점 묶음 안에 두면 앵커가 묶음 기준이 된다.
+ * 오른쪽에 메뉴 폭만큼의 자리가 없으면 출력점 왼쪽(카드 위)으로 연다 — 입력 버튼 메뉴와 같은 좌우 판정이다
+ * (`getViewportAdaptiveMenuSide`). 여는 순간 한 번 정하고 픽셀 단위로 밀지는 않는다(`MetaDropdownPanel` 의 결정). */
+const ANCHOR = [
+  "absolute z-[30] min-w-80",
+  "[transform:translateY(-50%)_scale(calc(1_/_var(--node-canvas-zoom,1)))]",
+].join(" ");
+const ANCHOR_SIDE: Record<MenuSide, string> = {
+  right: [
+    "left-[calc(var(--node-handle-outbound-slot)_+_var(--node-side-handle-size)_+_6px)]",
+    "[transform-origin:left_center]",
+  ].join(" "),
+  left: [
+    "right-[calc(100%_-_var(--node-handle-outbound-slot)_+_6px)]",
+    "[transform-origin:right_center]",
+  ].join(" "),
+};
+
+/**
+ * 좌우 판정에 쓰는 메뉴 폭(px) — 가장 넓은 메뉴가 들어가는 값. 잰 폭(2026-09-29)은 ko 201~235,
+ * en 264~277, ja 251~285 다. 좁은 메뉴는 조금 일찍 왼쪽으로 열릴 뿐 잘리지 않는다.
+ */
+const MENU_WIDTH_PX = 300;
+
+const SURFACE = ["louis-popover", "[--louis-overlay-collision-padding:8px]"].join(" ");
+
+/* 항목은 왼쪽 입력 단추 메뉴와 같은 정본 부품(`NodeMenuItem`)이다 — 이름과 결과 한 줄. */
+
+export type NextStepItem = {
+  key: string;
+  icon: ReactNode;
+  label: string;
+  /** 고르면 무엇이 생기고 어디에 이어지는지 */
+  hint?: string;
+  disabled?: boolean;
+  onSelect: () => void;
+};
+
+export function NodeNextStepMenu({
+  id,
+  open,
+  items,
+  onClose,
+  side = "right",
+}: {
+  /** 메뉴 요소 id — 출력점의 `aria-controls` 와 닫힐 때 초점 돌려주기가 읽는다(`useNextStepTrigger` 의 `menuId`) */
+  id: string;
+  open: boolean;
+  items: readonly NextStepItem[];
+  onClose: () => void;
+  /** 메뉴를 여는 쪽 — 출력점이 여는 순간 정한다(`useNextStepTrigger` 의 `side`) */
+  side?: MenuSide;
+}) {
+  return (
+    <MetaDropdownPanel
+      open={open}
+      anchorClassName={`${ANCHOR} ${ANCHOR_SIDE[side]} top-[50%] ${REACT_FLOW_NODE_NO_DRAG}`}
+      surfaceClassName={SURFACE}
+      motionOrigin={side === "left" ? "right-center" : "left-center"}
+    >
+      {/* 펼침 단추(disclosure)가 여는 단추 묶음이라 menu, menuitem 역할을 두지 않는다 — `useNextStepTrigger` 주석 */}
+      <div id={id} className="flex flex-col gap-1">
+        {items.map((it) => (
+          <NodeMenuItem
+            key={it.key}
+            dataKey={it.key}
+            icon={it.icon}
+            label={it.label}
+            hint={it.hint}
+            disabled={it.disabled}
+            onClick={() => {
+              onClose();
+              it.onSelect();
+            }}
+          />
+        ))}
+      </div>
+    </MetaDropdownPanel>
+  );
+}
+
+/**
+ * 출력점(`<Handle>`)을 「다음 단계」 메뉴를 여는 단추로 만든다 — 이미지, 비디오, 컴포지션, AI 프롬프트,
+ * 사운드와 TTS 노드의 출력점이 이름, 툴팁, 누름과 키보드 동작, 메뉴를 열 쪽을 여기서 함께 얻는다.
+ * 노드마다 적던 동안 이름(`aria-label`)이 노드마다 갈라져, 화면 낭독기는 메뉴가 열리는 출력점을
+ * 「드래그하여 연결」로 읽었다.
+ *
+ * - 이름과 툴팁은 같은 문구(`nextStep.tooltip`)다. 메뉴가 열려 있으면 툴팁만 비운다.
+ * - 펼침 단추(disclosure)다 — `aria-expanded` 와, 열려 있는 동안 메뉴를 가리키는 `aria-controls`(`menuId`).
+ *   메뉴 역할(`aria-haspopup="menu"`, `menu`, `menuitem`)은 여는 즉시 첫 항목에 초점을 두고 화살표로 움직인다고
+ *   약속하는데, 이 메뉴는 초점을 출력점에 둔 채 열고 항목 사이를 Tab 으로 움직여 그 역할을 쓰지 않는다.
+ * - 키보드: Tab 으로 닿고 Enter 나 Space 로 연다. 메뉴 항목은 DOM 에서 출력점 바로 뒤라 Tab 으로 이어진다.
+ *   그 두 키는 캔버스 단축키로 넘기지 않는다. React 는 이벤트를 루트(App Router 는 `document`)에 붙은 리스너에서
+ *   나눠 주므로, `stopPropagation` 은 노드 래퍼(React Flow)가 Enter, Space 로 노드를 고르는 React 핸들러와
+ *   `window` 의 리스너(React Flow 의 팬 키 Space 가 여기서 듣는다)까지 막는다. 같은 `document` 에 루트 뒤로 붙은
+ *   리스너(React Flow 의 지우기, 확대 키 훅이 여기 붙는다)는 그것으로 멈추지 않아 `stopImmediatePropagation` 을
+ *   더한다. 루트 리스너는 `hydrateRoot` 가 루트를 만들 때 붙어, 마운트 뒤 이펙트에서 붙는 리스너보다 늘 먼저 돈다.
+ * - 닫힐 때 초점이 메뉴 안에 있었으면(항목을 고르거나 Escape) 출력점으로 돌려준다. 메뉴는 닫힘 모션 뒤 언마운트되어
+ *   그대로 두면 초점이 body 로 떨어진다. React Flow 래퍼가 overflow hidden 이라 초점을 옮기며 스크롤하면 캔버스가
+ *   밀리므로 `preventScroll` 로 옮긴다. 초점이 이미 밖으로 나가 닫힌 때(`useCloseOnOutside`)는 돌려주지 않는다.
+ * - 끌어 잇기와 겹치지 않는다. React Flow 는 마우스, 터치 누름에서 연결을 시작하고(`XYHandle.onPointerDown`)
+ *   초점과 키 입력은 그 경로를 지나지 않는다. 누름으로 잇기(`connectOnClick`)는 캔버스가 껐다.
+ * - 열 때 오른쪽이 모자라면 왼쪽으로 연다(`side`, 위 `ANCHOR_SIDE`). 펼친 도움말 패널이 오른쪽을 차지하면 그 앞까지가 자리다.
+ * - `enabled` 가 거짓이면(결과 전처럼 메뉴가 없는 자리) 끌어 잇기만 되는 출력점의 이름을 준다.
+ */
+export function useNextStepTrigger({
+  open,
+  setOpen,
+  enabled = true,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  enabled?: boolean;
+}) {
+  const t = useI18n().messages.create.nodeCanvas.sideButtonsV2;
+  const handleRef = useRef<HTMLDivElement>(null);
+  const menuId = useId();
+  const [side, setSide] = useState<MenuSide>("right");
+  /* 펼친 도움말 패널(오른쪽)과 레이어 패널(왼쪽)이 차지한 폭을 빼고 잰다 — 인터랙티브 캔버스에서만 값이 있다 */
+  const nodeMenuChrome = useContext(NodeMenuChromeContext);
+
+  const toggle = useCallback(() => {
+    if (!open) {
+      setSide(getViewportAdaptiveMenuSide(handleRef.current, "right", MENU_WIDTH_PX, nodeMenuChrome));
+    }
+    setOpen((prev) => !prev);
+  }, [open, setOpen, nodeMenuChrome]);
+
+  /* 출력점 표시 조건(`enabled`)이 꺼지면 열린 메뉴도 닫는다. 표시 조건은 노드마다 결과물 유무나
+     처리중 상태로 바뀌는데(예: 되돌리기로 결과 이미지가 사라짐, 편집 노드 폴링으로 처리중이 켜짐/꺼짐),
+     그 전환에 메뉴를 닫는 곳이 따로 없으면 `open` 상태만 남아 조건이 다시 켜졌을 때(다시 실행) 누르지도
+     않은 메뉴가 펼쳐진 채 나타난다. */
+  useEffect(() => {
+    if (!enabled) setOpen(false);
+  }, [enabled, setOpen]);
+
+  /* 닫힐 때 메뉴 안에 있던 초점을 출력점으로 돌려준다(위 주석). 메뉴는 닫힘 모션 동안 DOM 에 남아 있어 여기서 읽힌다.
+     바깥을 눌러 닫힐 때도 여기서 잠깐 출력점으로 오지만, 이어지는 mousedown 이 초점을 누른 곳으로 옮기고
+     그 사이에 화면을 그리지 않아 보이지 않는다. */
+  useEffect(() => {
+    if (open) return;
+    if (document.getElementById(menuId)?.contains(document.activeElement)) {
+      handleRef.current?.focus({ preventScroll: true });
+    }
+  }, [open, menuId]);
+
+  const onKeyDown = useCallback(
+    (e: ReactKeyboardEvent) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      e.stopPropagation();
+      e.nativeEvent.stopImmediatePropagation();
+      if (!e.repeat) toggle();
+    },
+    [toggle],
+  );
+
+  if (!enabled) {
+    return {
+      side,
+      menuId,
+      handleRef,
+      handleProps: {
+        "aria-label": t.sourceOutputTooltip,
+        "data-tooltip": t.sourceOutputTooltip,
+      },
+    };
+  }
+  return {
+    side,
+    menuId,
+    /** 출력점 요소 — 출력점 옆에 서는 안내가 메뉴와 같은 좌우 판정을 하려고 읽는다 */
+    handleRef,
+    handleProps: {
+      ref: handleRef,
+      role: "button",
+      tabIndex: 0,
+      "aria-expanded": open,
+      "aria-controls": open ? menuId : undefined,
+      "aria-label": t.nextStep.tooltip,
+      "data-tooltip": !open ? t.nextStep.tooltip : "",
+      onClick: toggle,
+      onKeyDown,
+    },
+  } as const;
+}
+
+/** 메뉴와 출력점을 감싼 요소 바깥을 누르거나, Escape 를 누르거나, 초점이 그 밖으로 나가면(Tab) 닫는다 */
+export function useCloseOnOutside(
+  open: boolean,
+  ref: RefObject<HTMLElement | null>,
+  onClose: () => void,
+) {
+  useEffect(() => {
+    if (!open) return;
+    const wrap = ref.current;
+    const onDown = (e: PointerEvent) => {
+      if (!ref.current?.contains(e.target as Node)) onClose();
+    };
+    /* Enter, Space 를 여는 쪽(`useNextStepTrigger` 의 `onKeyDown`)과 같게, 다른 document 리스너
+       (React Flow 의 지우기, 확대 키 훅)로 번지지 않게 막는다. */
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      onClose();
+    };
+    /* 초점을 받는 쪽이 감싼 요소의 조상이거나 없으면 닫지 않는다 — 메뉴 안을 누른 것이다. 초점을 받지 않는 곳
+       (메뉴의 빈 곳, 비활성 항목, 누른 단추에 초점을 주지 않는 브라우저의 항목)을 누르면 초점은 가장 가까운 초점
+       가능한 조상(React Flow 노드 래퍼)이나 body 로 간다. 거기서 닫으면 누르던 항목의 click 이 닫힌 메뉴에 닿지
+       못한다. 바깥을 누른 것은 위 pointerdown 이 닫는다. */
+    const onFocusOut = (e: FocusEvent) => {
+      const next = e.relatedTarget;
+      if (next instanceof Node && !wrap?.contains(next) && !next.contains(wrap)) onClose();
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    wrap?.addEventListener("focusout", onFocusOut);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+      wrap?.removeEventListener("focusout", onFocusOut);
+    };
+  }, [open, ref, onClose]);
+}

@@ -1,35 +1,102 @@
 {
   "$comment": "생성물. `node ./scripts/check-palette-ladder-collision.mjs --update-baseline` 이 만든다. 손으로 고치지 않는다. 파일마다 **사다리 칸과 값이 같은데 팔레트 이름으로 적힌 면**의 수다.",
-  "$rule": "한 방향이다. 파일의 수는 내려갈 수 있고 절대 오를 수 없으며, 여기 없는 파일은 0 이다. 새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다.",
+  "$rule": "한 방향이다. 파일의 수는 내려갈 수 있고 절대 오를 수 없으며, 여기 없는 파일은 0 이다. 새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다. 예외는 소유자 결정뿐이고, 그것은 아래 productCleanupCandidates 에 사유와 함께 남는다.",
   "$whyPerFile": "합계 하나로 잠그면 A 에서 하나 고치고 B 에 하나 넣는 것이 통과한다. 제품 저장소의 `lint-baseline.json` 이 per file 로 얼린 것과 같은 이유다.",
   "measuredAt": {
-    "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+    "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
     "refSource": "product-evidence.lock.json"
   },
   "files": {
-    "apps/web/app/admin/AdminClient.tsx": 1,
+    "apps/web/app/admin/ModelManagement.tsx": 1,
     "apps/web/app/aws/signup/page.tsx": 1,
     "apps/web/app/keyframes.css": 1,
-    "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx": 1,
     "apps/web/app/recover/page.tsx": 1,
     "apps/web/components/creative-media/CreativeMediaAdminClient.tsx": 1,
     "apps/web/components/creative-media/CreativeMediaClient.tsx": 6,
     "apps/web/components/landing/navigation/Gnb.tsx": 3,
-    "apps/web/components/landing/sections/PricingSection.tsx": 2,
     "apps/web/components/legal/LegalDocumentPage.tsx": 1,
-    "apps/web/components/navigation/Gnb.tsx": 9,
+    "apps/web/components/navigation/Gnb.tsx": 10,
     "apps/web/components/scenes/appHomeSceneStyles.ts": 3,
     "apps/web/components/scenes/create/node-canvas-v2/components/ActionButton.tsx": 1,
-    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx": 2,
+    "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx": 1,
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx": 2,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/mobileTimelineClass.ts": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx": 1,
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts": 11,
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx": 1,
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx": 2,
+    "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx": 1,
     "apps/web/components/scenes/CreateScene.tsx": 2,
-    "apps/web/components/scenes/highlightSceneStyles.ts": 13,
+    "apps/web/components/scenes/highlightSceneStyles.ts": 7,
     "apps/web/components/scenes/NodeCanvasHomeScene.tsx": 1,
-    "apps/web/components/scenes/VideoEditScene.tsx": 4,
     "apps/web/components/youtube/YoutubeUploadModal.tsx": 2
+  },
+  "productCleanupCandidates": {
+    "$comment": "소유자가 기준선에 받아들인 상승(제품 쪽 정리 후보). 면제가 아니다. 정본은 scripts/check-palette-ladder-collision.mjs 의 PRODUCT_CLEANUP_CANDIDATES 다.",
+    "decidedAt": "2026-10-08",
+    "decidedBy": "owner",
+    "decision": "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
+    "measuredAt": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+    "previousAnchor": "a4125565e15367aee8212dafbdf758964261a201",
+    "why": "앵커 이동으로 드러난 제품 코드의 팔레트 리터럴. 사다리 칸과 값이 같으므로 사다리 이름(`var(--louis-color-bg-*)` · `bg-bg-*`)으로 바꿀 후보다. 바꾸는 일은 제품 PR 몫이다.",
+    "entries": [
+      {
+        "file": "apps/web/app/admin/ModelManagement.tsx",
+        "was": 0,
+        "now": 1,
+        "sites": [
+          "80 [dark] bg-palette-gray-900 (LOGO_TILE) = bg-surface/bg-raised/bg-menu/bg-overlay"
+        ],
+        "countNow": 1
+      },
+      {
+        "file": "apps/web/components/navigation/Gnb.tsx",
+        "was": 9,
+        "now": 10,
+        "sites": [
+          "1095 [light] background: --palette-gray-050 = bg-inset (2026-09-22 소유자 판정으로 pg-100 → pg-050 이 되며 사다리 칸과 겹쳤다)"
+        ],
+        "countNow": 10
+      },
+      {
+        "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+        "was": 0,
+        "now": 1,
+        "sites": [
+          "185 [light] background: --palette-gray-025 (MODE_SEGMENT_TRACK_LIGHT) = bg-canvas/bg-menu"
+        ],
+        "countNow": 1
+      },
+      {
+        "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx",
+        "was": 0,
+        "now": 1,
+        "sites": [
+          "168 [light] hover:bg-palette-gray-025 (ROW_HOVER) = bg-canvas/bg-menu"
+        ],
+        "countNow": 1
+      },
+      {
+        "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+        "was": 0,
+        "now": 2,
+        "sites": [
+          "809 [light] background: rgb(--palette-gray-025-rgb / 100%) = bg-canvas/bg-menu",
+          "850 [light] background: --palette-gray-025 (세그먼트 트랙) = bg-canvas/bg-menu"
+        ],
+        "countNow": 2
+      },
+      {
+        "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+        "was": 0,
+        "now": 1,
+        "sites": [
+          "500 [light] background: --palette-gray-025 = bg-canvas/bg-menu"
+        ],
+        "countNow": 1
+      }
+    ]
   }
 }

@@ -129,6 +129,24 @@ const propertiesInner = need(
 const propertiesRows = propertiesInner.children.filter((entry) => entry.visible && entry.type === "FRAME" && entry.layoutMode === "HORIZONTAL");
 
 // ── 2. 쓰기 ──────────────────────────────────────────────────────────────────────────
+// **선 아이콘의 획은 표시 크기를 따른다(2026-10-08).** `resize()` 는 기하만 줄이고 획을 그대로 둔다 — 32 마스터(획 2)를 20 자리에
+// 놓자 사이드바 아이콘이 제품(1.25)보다 1.6 배 두꺼웠다(조립 규칙 4조 · 소유자 지적). 크기를 맞춘 뒤 마스터 획에 「표시 크기 / 마스터
+// 크기」를 곱해 넣는다 — 재사용한 인스턴스도 마스터에서 다시 계산하므로 몇 번을 돌려도 같다.
+const fitLineIcon = (instance, width, height = width) => {
+  instance.resize(width, height);
+  const master = instance.mainComponent;
+  if (!master || !master.width) return instance;
+  const factor = width / master.width;
+  const masterParts = master.findAll((node) => "strokeWeight" in node);
+  const parts = instance.findAll((node) => "strokeWeight" in node);
+  parts.forEach((part, index) => {
+    const source = masterParts[index];
+    if (source && typeof source.strokeWeight === "number" && Array.isArray(source.strokes) && source.strokes.length > 0) {
+      part.strokeWeight = source.strokeWeight * factor;
+    }
+  });
+  return instance;
+};
 const recolor = (node, role) => {
   for (const field of ["fills", "strokes"]) {
     if (field in node && Array.isArray(node[field])) {
@@ -262,7 +280,7 @@ const buildRailVariant = (current) => {
     fixed(row, 32, 32);
     const icon = icons[key].createInstance();
     icon.name = `icon/${key}`;
-    icon.resize(20, 20);
+    fitLineIcon(icon, 20);
     const selected = current === key || (current === "YouTube" && key === "YouTube");
     recolor(icon, selected ? F.paints.active : F.paints.inactive);
     row.appendChild(icon);
@@ -358,7 +376,10 @@ for (const control of leadingCluster.children) {
     control.layoutMode = "HORIZONTAL";
     control.primaryAxisSizingMode = control.counterAxisSizingMode = "FIXED";
     control.primaryAxisAlignItems = control.counterAxisAlignItems = "CENTER";
-    for (const glyph of control.children) glyph.resize(T.iconSize, T.iconSize);
+    for (const glyph of control.children) {
+      if (glyph.type === "INSTANCE") fitLineIcon(glyph, T.iconSize);
+      else glyph.resize(T.iconSize, T.iconSize);
+    }
   }
 }
 breadcrumbNode.layoutGrow = 1;

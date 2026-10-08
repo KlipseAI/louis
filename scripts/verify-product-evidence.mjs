@@ -239,7 +239,7 @@ function collectMeasuredCitations(node, out) {
   if (Array.isArray(node)) return node.forEach((item) => collectMeasuredCitations(item, out));
   for (const value of Object.values(node)) {
     if (typeof value === "string") {
-      const matches = value.match(/apps\/web\/[A-Za-z0-9_\-/.[\]]+/g);
+      const matches = value.match(/apps\/web\/[A-Za-z0-9_\-/.[\]()]+/g); // `()` — 통합 판(DS-D-0079)의 라우트 그룹 폴더 `app/(auth-brand)/…`
       if (matches) for (const match of matches) out.add(match);
     }
     collectMeasuredCitations(value, out);

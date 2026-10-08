@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "request": {
+    "startDate": "2026-02-15",
+    "endDate": "2026-03-14"
+  },
+  "audience": {
+    "ageGender": [
+      {
+        "ageGroup": "age13-17",
+        "ageGroupLabel": "13-17세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 3.1
+      },
+      {
+        "ageGroup": "age18-24",
+        "ageGroupLabel": "18-24세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 14.6
+      },
+      {
+        "ageGroup": "age25-34",
+        "ageGroupLabel": "25-34세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 12.2
+      },
+      {
+        "ageGroup": "age35-44",
+        "ageGroupLabel": "35-44세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 5.4
+      },
+      {
+        "ageGroup": "age45-54",
+        "ageGroupLabel": "45-54세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 2.1
+      },
+      {
+        "ageGroup": "age55-64",
+        "ageGroupLabel": "55-64세",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 0.8
+      },
+      {
+        "ageGroup": "age65-",
+        "ageGroupLabel": "65세 이상",
+        "gender": "female",
+        "genderLabel": "여성",
+        "viewerPercentage": 0.4
+      },
+      {
+        "ageGroup": "age13-17",
+        "ageGroupLabel": "13-17세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 4.2
+      },
+      {
+        "ageGroup": "age18-24",
+        "ageGroupLabel": "18-24세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 19.8
+      },
+      {
+        "ageGroup": "age25-34",
+        "ageGroupLabel": "25-34세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 21.5
+      },
+      {
+        "ageGroup": "age35-44",
+        "ageGroupLabel": "35-44세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 9.7
+      },
+      {
+        "ageGroup": "age45-54",
+        "ageGroupLabel": "45-54세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 3.9
+      },
+      {
+        "ageGroup": "age55-64",
+        "ageGroupLabel": "55-64세",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 1.6
+      },
+      {
+        "ageGroup": "age65-",
+        "ageGroupLabel": "65세 이상",
+        "gender": "male",
+        "genderLabel": "남성",
+        "viewerPercentage": 0.7
+      }
+    ],
+    "status": {
+      "ageGender": "ok"
+    }
+  }
+}

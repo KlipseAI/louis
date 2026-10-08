@@ -8,6 +8,7 @@ import { delimiter, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { atomicWriteBatch } from "./lib/atomic-output.mjs";
+import { overlayLouisCss } from "./lib/louis-css-overlay.mjs";
 import { productFontFile } from "./lib/product-font.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
@@ -373,9 +374,26 @@ const sourceQuote = (path, line) => ({
 
 // 파일 확인에는 **패턴**을 쓴다. 열 URL 은 동적 세그먼트가 구체값으로 바뀌어 있어 경로가 되지
 // 않는다(`/highlight/fixture-no-such-project` 라는 디렉터리는 없다).
+// **라우트 그룹(2026-10-08, DS-D-0079).** Next 의 `(그룹)` 폴더는 URL 에 나타나지 않는다 — 통합 판은 인증 화면을
+// `app/(auth-brand)/…` 로 옮겼다. 패턴 경로에 파일이 없으면 그룹 폴더를 뺀 경로가 같은 파일을 찾는다. 하나일 때만 —
+// 둘 이상이면 모호하므로 패턴 경로를 그대로 두어 아래 확인이 측정 불가로 멈추게 한다.
+let committedAppFiles = null;
+const routePagePath = (spec) => {
+  if (spec.file) return spec.file;
+  const plain = "apps/web/app" + spec.pattern + "/page.tsx";
+  if (louisExamples) return plain;
+  try {
+    execFileSync("git", ["cat-file", "-e", commit + ":" + plain], { cwd: productRoot, stdio: "ignore" });
+    return plain;
+  } catch {
+    committedAppFiles ??= String(gitAt(productRoot, ["ls-tree", "-r", "--name-only", commit, "apps/web/app"])).split("\n");
+    const grouped = committedAppFiles.filter((path) => path.replace(/\/\([^/]+\)/g, "") === plain);
+    return grouped.length === 1 ? grouped[0] : plain;
+  }
+};
 const routeFiles = SCREEN_SPECS.map((spec) => ({
   route: spec.id,
-  path: spec.file ?? "apps/web/app" + spec.pattern + "/page.tsx",
+  path: routePagePath(spec),
 }));
 for (const routeFile of routeFiles) {
   if (louisExamples) {
@@ -703,6 +721,8 @@ const firstDifference = (recorded, measured, path = "$") => {
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
 const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
+// LOUIS CSS 는 제품 고정 판이 아니라 이 저장소 판으로 잰다(2026-10-07, 소유자 결정) — `lib/louis-css-overlay.mjs`.
+const louisCss = louisExamples ? null : overlayLouisCss({ repoRoot, fixtureRoot, fail: unavailable });
 const fixtureServer = await startFixtureServer();
 // 예시 모드의 글꼴 — 예시 CSS 가 쓰는 이름(`Pretendard Variable`)으로 제품 글꼴 파일을 싣는다.
 const LOUIS_EXAMPLE_FONT_CSS = louisExamples
@@ -1526,7 +1546,7 @@ for (const contextSpec of CONTEXTS) {
 }
 
 const MEASURE_METHOD =
-  "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다.";
+  "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).";
 const payload = JSON.stringify({
   $comment: louisExamples
     ? "생성물. scripts/measure-product-auth-fixture.mjs --louis-examples 가 이 저장소의 LOUIS 문서 예시(packages/css/examples)를 정적 서버로 내 1920×1080 · 402×874 에서 문서 전체를 잰다. 글꼴은 제품 PretendardVariable.woff2. 직접 수정하지 않는다."
@@ -1571,6 +1591,7 @@ const payload = JSON.stringify({
     ...(fakeSupabase ? { seededTables: Object.fromEntries(Object.entries(publicSeeded ? FIXTURE_PUBLIC_SEEDS : FIXTURE_SEEDS).map(([table, rows]) => [table, (Array.isArray(rows) ? rows : rows.rows).length])) } : {}),
     ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),
       ...fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`)])].sort() } : {}),
+    ...(louisCss ? { louisCss: louisCss.record } : {}),
     externalRequests: "blocked",
     locale: "en",
     theme: "light",
@@ -1589,14 +1610,14 @@ const payload = JSON.stringify({
   },
   sourceQuotes: louisExamples ? [] : anonymous || publicMode ? [
     // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
-    sourceQuote("apps/web/app/login/page.tsx", 316),
-    sourceQuote("apps/web/app/login/page.tsx", 318),
-    sourceQuote("apps/web/app/login/page.tsx", 319),
-    sourceQuote("apps/web/app/login/page.tsx", 320),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 235),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 237),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 238),
+    sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 239),
     // 우회 플래그는 `=== "1"` 로만 켜진다 — 빈 문자열이 끈다.
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 36),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 37),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 44),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 45),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 46),
     sourceQuote("apps/web/middleware.ts", 35),
     sourceQuote("apps/web/middleware.ts", 36),
     sourceQuote("apps/web/middleware.ts", 37),
@@ -1607,31 +1628,31 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/middleware.ts", 35),
     sourceQuote("apps/web/middleware.ts", 36),
     sourceQuote("apps/web/middleware.ts", 37),
-    sourceQuote("apps/web/middleware.ts", 215),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 30),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 31),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 32),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 36),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 37),
+    sourceQuote("apps/web/middleware.ts", 237),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 38),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 39),
     sourceQuote("apps/web/components/auth/AuthProvider.tsx", 40),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 41),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 44),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 45),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 46),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 48),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 49),
     // 앵커 91e5ea2a 기준. 이 여섯 줄은 5a67d692 에서 345~350 이었고 **내용 대조로** 옮겼다 —
     // `sourceQuote` 는 좌표를 검증하지 않고 그 줄을 그대로 굽는다. 인용이 밀리면 실패하지 않고
     // **다른 코드를 근거로 굽는다**(조용히 틀린 데이터). 앵커를 옮길 때는 이 파일의 좌표
     // 스물다섯을 내용으로 다시 찾아라 — 그 대조가 이 회차에서 다섯 개를 잡았다.
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 352),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 353),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 354),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 355),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 356),
-    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 357),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 369),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 370),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 371),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 372),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 373),
+    sourceQuote("apps/web/components/auth/AuthProvider.tsx", 374),
     // phase 강제 후크. 인증 바이패스와 **같은 플래그**를 쓴다는 것이 이 두 줄에 있다 —
     // 새 환경변수가 늘지 않았고, 운영에선 NODE_ENV 게이트로 켜지지 않는다.
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 128),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 129),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 130),
-    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 878),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 156),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 157),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 158),
+    sourceQuote("apps/web/components/scenes/HighlightProjectScene.tsx", 694),
     // 결제 성공 화면 넷의 `?preview=` 후크 — 받는 값(사용 줄)과 운영 게이트(NODE_ENV 줄).
     sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 192),
     sourceQuote("apps/web/app/mypage/topup/success/page.tsx", 195),
@@ -1639,8 +1660,8 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/app/mypage/upgrade/billing-change-success/page.tsx", 187),
     sourceQuote("apps/web/app/mypage/upgrade/billing-success/page.tsx", 233),
     sourceQuote("apps/web/app/mypage/upgrade/billing-success/page.tsx", 237),
-    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 124),
-    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 127),
+    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 136),
+    sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 139),
   ],
   screens,
 }, null, 2) + "\n";

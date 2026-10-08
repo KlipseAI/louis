@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "sources": [
+    {
+      "id": "video_node:seed-video",
+      "url": "https://fixture.invalid/import-video-node.mp4",
+      "label": "Video clip (seed-v)",
+      "kind": "video_node",
+      "thumbUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg=="
+    },
+    {
+      "id": "edit_output:seed-edit",
+      "url": "https://fixture.invalid/import-edit-output.mp4",
+      "label": "Edit output",
+      "kind": "edit_output",
+      "thumbUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8+P9/PQAJYwN4d1E2KAAAAABJRU5ErkJggg=="
+    },
+    {
+      "id": "generated:00000000-0000-4000-8000-0000000e0001",
+      "url": "https://fixture.invalid/import-generated.mp4",
+      "label": "Generated · 000000",
+      "kind": "generated"
+    }
+  ]
+}

@@ -88,8 +88,15 @@ try {
   });
   writeFileSync(join(workspace, "product.css"), productTheme);
   writeFileSync(join(workspace, "ds.css"), readFileSync(themePath, "utf8"));
-  writeFileSync(join(workspace, "ds-first.css"), '@import "./ds.css";\n@import "./product.css";\n');
-  writeFileSync(join(workspace, "product-first.css"), '@import "./product.css";\n@import "./ds.css";\n');
+  // **통합 판(76b6cf15, DS-D-0079)부터 제품 진입 CSS 는 유틸리티를 만들지 않는다.** 설정(테마 · 변형)과 레이어 순서만 갖고, 유틸리티는
+  // 판 넷(`utilities-app.css` 등)이 `@reference "./tailwind.css"` 로 읽어 만든다. 진입만 컴파일하면 어느 순서든 유틸리티가 0개라
+  // 탐침 · 대조군이 전부 사라진다(2026-10-08 실측). 앱 판과 같은 `tailwindcss/utilities.css` 를 두 순서 모두 **맨 뒤에** 똑같이 붙여
+  // 예전 한 벌과 같은 조건을 만든다 — 순서 실험의 변수(제품 reset ↔ DS theme)는 그대로다. 진입이 스스로 유틸리티를 부르는 옛 커밋은 그대로다.
+  const utilitiesTail = /@import\s+"tailwindcss\/utilities\.css"/.test(productTheme)
+    ? ""
+    : '@import "tailwindcss/utilities.css" layer(utilities);\n';
+  writeFileSync(join(workspace, "ds-first.css"), '@import "./ds.css";\n@import "./product.css";\n' + utilitiesTail);
+  writeFileSync(join(workspace, "product-first.css"), '@import "./product.css";\n@import "./ds.css";\n' + utilitiesTail);
 
   const dsFirst = await build("ds-first.css");
   const productFirst = await build("product-first.css");

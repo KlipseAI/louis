@@ -14,7 +14,18 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { collectDocCitations, resolveCitation } from "./lib/doc-citations.mjs";
+import {
+  checkCitationCases,
+  collectDocCitations,
+  resolveCitation,
+} from "./lib/doc-citations.mjs";
+
+// 정규식이 받아야 할 형태를 먼저 시험한다. 여기서 어긋나면 아래 수집 결과(인용 수)를 믿을 수 없다.
+const caseFailures = checkCitationCases();
+if (caseFailures.length > 0) {
+  for (const failure of caseFailures) console.error("[citations] 정규식 시험 실패 — " + failure);
+  process.exit(1);
+}
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";

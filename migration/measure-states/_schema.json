@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://klipse.design/schemas/measure-states.json",
+  "title": "Klipse 측정 상태 레시피 영역 파일",
+  "description": "migration/measure-states/<area>.json 의 꼴. 파일 하나 = 영역 하나 = 측정 모드 하나. 이 스키마는 scripts/lib/json-schema.mjs 가 지원하는 키워드만 쓴다(그래서 not · if · maxItems 가 없다). 스키마로 말할 수 없는 규칙(키 = 기준 키 + 공백 + 상태, 영역 사이 키 중복, park 를 뺀 마지막 단계는 waitFor, assert 하나 이상, jsonFile 실재와 소유 폴더, drag hold 와 pointer keep)은 scripts/lib/state-recipes.mjs 의 validateRecipes 가 판정한다. 정본 설계: 2026-10-08 상태 레시피 설계서 1절.",
+  "type": "object",
+  "required": ["area", "mode", "authoredAgainst", "recipes"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string", "const": "./_schema.json" },
+    "description": { "type": "string" },
+    "area": {
+      "description": "영역 이름. 파일 이름(<area>.json)과 같아야 한다(검증기).",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "mode": {
+      "description": "측정 서버 환경. 측정기의 모드 판정(--session 등)과 1:1.",
+      "enum": ["auth", "session", "anonymous", "public", "public-seeded"]
+    },
+    "authoredAgainst": {
+      "description": "레시피를 쓸 때 읽은 제품 커밋(통합 앵커). checkCites 의 기본 커밋.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "recipes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/recipe" }
+    }
+  },
+  "$defs": {
+    "contextId": { "enum": ["desktop-1920x1080", "mobile-402x874"] },
+    "routePath": { "type": "string", "pattern": "^/[^#@\\s]*$" },
+    "point": {
+      "type": "object",
+      "required": ["x", "y"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number", "minimum": 0 },
+        "y": { "type": "number", "minimum": 0 }
+      }
+    },
+    "parkPoint": {
+      "description": "[x, y]. 길이 2 는 검증기가 본다(maxItems 미지원).",
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "httpMethod": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+    "query": {
+      "description": "쿼리 부분집합. 요청 쿼리에 이 키들이 이 값으로 있으면 맞는다.",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "timeoutMs": { "type": "integer", "minimum": 1 },
+    "locator": {
+      "description": "위치 지정자 L. role · text · label · placeholder · css 가운데 정확히 하나. name 은 role 과만(검증기), exact 는 css 와 함께 쓸 수 없다(검증기). Playwright getBy* 엄격 모드로 푼다.",
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["role"] },
+        { "required": ["text"] },
+        { "required": ["label"] },
+        { "required": ["placeholder"] },
+        { "required": ["css"] }
+      ],
+      "properties": {
+        "role": { "type": "string", "pattern": "^[a-z]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "exact": { "type": "boolean" },
+        "text": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "placeholder": { "type": "string", "minLength": 1 },
+        "css": { "type": "string", "minLength": 1 },
+        "nth": { "type": "integer", "minimum": 0 },
+        "within": { "$ref": "#/$defs/locator" }
+      }
+    },
+    "responseMatch": {
+      "type": "object",
+      "required": ["method", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "method": { "$ref": "#/$defs/httpMethod" },
+        "path": { "$ref": "#/$defs/routePath" },
+        "query": { "$ref": "#/$defs/query" },
+        "status": { "type": "integer", "minimum": 100 }
+      }
+    },
+    "stepClick": {
+      "type": "object",
+      "required": ["click"],
+      "additionalProperties": false,
+      "properties": {
+        "click": { "$ref": "#/$defs/locator" },
+        "position": { "$ref": "#/$defs/point" },
+        "expectResponse": { "$ref": "#/$defs/responseMatch" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepDblclick": {
+      "type": "object",
+      "required": ["dblclick"],
+      "additionalProperties": false,
+      "properties": {
+        "dblclick": { "$ref": "#/$defs/locator" },
+        "position": { "$ref": "#/$defs/point" },
+        "expectResponse": { "$ref": "#/$defs/responseMatch" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepHover": {
+      "type": "object",
+      "required": ["hover"],
+      "additionalProperties": false,
+      "properties": {
+        "hover": { "$ref": "#/$defs/locator" },
+        "position": { "$ref": "#/$defs/point" },
+        "expectResponse": { "$ref": "#/$defs/responseMatch" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepFill": {
+      "type": "object",
+      "required": ["fill", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "fill": { "$ref": "#/$defs/locator" },
+        "value": { "type": "string" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepPress": {
+      "type": "object",
+      "required": ["press"],
+      "additionalProperties": false,
+      "properties": {
+        "press": { "type": "string", "minLength": 1 },
+        "on": { "$ref": "#/$defs/locator" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepScrollIntoView": {
+      "type": "object",
+      "required": ["scrollIntoView"],
+      "additionalProperties": false,
+      "properties": {
+        "scrollIntoView": { "$ref": "#/$defs/locator" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepWaitFor": {
+      "type": "object",
+      "required": ["waitFor"],
+      "additionalProperties": false,
+      "properties": {
+        "waitFor": { "$ref": "#/$defs/locator" },
+        "state": { "enum": ["visible", "hidden", "attached", "detached"] },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepBlur": {
+      "type": "object",
+      "required": ["blur"],
+      "additionalProperties": false,
+      "properties": {
+        "blur": { "const": true },
+        "description": { "type": "string" }
+      }
+    },
+    "stepPark": {
+      "type": "object",
+      "required": ["park"],
+      "additionalProperties": false,
+      "properties": {
+        "park": { "$ref": "#/$defs/parkPoint" },
+        "description": { "type": "string" }
+      }
+    },
+    "stepDrag": {
+      "type": "object",
+      "required": ["drag", "by"],
+      "additionalProperties": false,
+      "properties": {
+        "drag": { "$ref": "#/$defs/locator" },
+        "by": {
+          "type": "object",
+          "required": ["dx", "dy"],
+          "additionalProperties": false,
+          "properties": {
+            "dx": { "type": "number" },
+            "dy": { "type": "number" }
+          }
+        },
+        "hold": { "type": "boolean" },
+        "timeoutMs": { "$ref": "#/$defs/timeoutMs" },
+        "description": { "type": "string" }
+      }
+    },
+    "step": {
+      "description": "단계 하나 = 동작 키 하나. 동작 키가 둘이면 어느 갈래에도 맞지 않는다(additionalProperties false).",
+      "oneOf": [
+        { "$ref": "#/$defs/stepClick" },
+        { "$ref": "#/$defs/stepDblclick" },
+        { "$ref": "#/$defs/stepHover" },
+        { "$ref": "#/$defs/stepFill" },
+        { "$ref": "#/$defs/stepPress" },
+        { "$ref": "#/$defs/stepScrollIntoView" },
+        { "$ref": "#/$defs/stepWaitFor" },
+        { "$ref": "#/$defs/stepBlur" },
+        { "$ref": "#/$defs/stepPark" },
+        { "$ref": "#/$defs/stepDrag" }
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/step" }
+    },
+    "apiEntry": {
+      "description": "같은 출처 /api/* 가로채기. method · path 는 정확히, query 는 부분집합으로 맞는다. 먼저 맞은 항목이 이긴다. hold 가 아니면 json 과 jsonFile 가운데 하나(검증기, 204 · 304 는 본문 없음 허용).",
+      "type": "object",
+      "required": ["method", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "method": { "$ref": "#/$defs/httpMethod" },
+        "path": { "type": "string", "pattern": "^/api/[^#@\\s?]*$" },
+        "query": { "$ref": "#/$defs/query" },
+        "status": { "type": "integer", "minimum": 100 },
+        "json": true,
+        "jsonFile": {
+          "description": "migration/measure-states/ 기준 상대 경로. data/<area>/ 아래여야 한다(검증기).",
+          "type": "string",
+          "pattern": "^data/[a-z][a-z0-9-]*/[^#@\\s]+\\.json$"
+        },
+        "hold": { "type": "boolean" },
+        "required": { "type": "boolean" },
+        "description": { "type": "string" }
+      }
+    },
+    "tableName": { "type": "string", "pattern": "^[a-z_][a-z0-9_]*$" },
+    "tableSeed": {
+      "oneOf": [
+        { "type": "array", "items": { "type": "object" } },
+        {
+          "type": "object",
+          "required": ["rows"],
+          "additionalProperties": false,
+          "properties": {
+            "rows": { "type": "array", "items": { "type": "object" } },
+            "requireFilter": { "type": "string", "pattern": "^[a-z_][a-z0-9_]*$" },
+            "extendBase": { "type": "boolean" },
+            "description": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "supabase": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tables": {
+          "description": "이 화면 동안만 가짜 Supabase 의 표를 통째로 바꾼다. extendBase 면 FIXTURE_SEEDS 의 행 뒤에 붙인다.",
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/tableName" },
+          "additionalProperties": { "$ref": "#/$defs/tableSeed" }
+        },
+        "rpc": {
+          "description": "/rest/v1/rpc/<fn> 응답. 없으면 null(가짜 Supabase 의 기본).",
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/tableName" },
+          "additionalProperties": true
+        },
+        "module": {
+          "description": "scripts/lib/state-seeds/<area>.mjs#<export>. 그 export 는 FIXTURE_SEEDS 를 받아 늘린 시드를 돌려준다.",
+          "type": "string",
+          "pattern": "^scripts/lib/state-seeds/[a-z][a-z0-9-]*\\.mjs#[A-Za-z_$][A-Za-z0-9_$]*$"
+        }
+      }
+    },
+    "cite": {
+      "description": "제품 줄 인용. git show <commit>:<path> 의 그 줄에 expect 가 들어 있어야 한다.",
+      "type": "object",
+      "required": ["path", "line", "expect"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.)\\S+$" },
+        "line": { "type": "integer", "minimum": 1 },
+        "expect": { "type": "string", "minLength": 1 }
+      }
+    },
+    "cssAssert": {
+      "description": "측정 뒤 계산 스타일 검증. equals 와 sameAsBase 가운데 하나(검증기). 예: .react-flow__viewport 의 transform 이 기준 화면과 같다.",
+      "type": "object",
+      "required": ["selector", "property"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": { "type": "string", "minLength": 1 },
+        "property": { "type": "string", "minLength": 1 },
+        "equals": { "type": "string" },
+        "sameAsBase": { "const": true }
+      }
+    },
+    "assert": {
+      "description": "레시피당 검증 하나 이상(검증기). text 는 잰 트리(겹침창 포함)의 ownText 에 있어야 하고, apiHit all 이면 모든 api 항목이 한 번 이상 맞아야 한다.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "apiHit": { "enum": ["all"] },
+        "css": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/cssAssert" }
+        }
+      }
+    },
+    "recipe": {
+      "type": "object",
+      "required": ["id", "assert"],
+      "additionalProperties": false,
+      "oneOf": [{ "required": ["base"] }, { "required": ["pattern"] }],
+      "properties": {
+        "id": {
+          "description": "\"<기준 키> <상태>\". # 와 @ 금지(보드 구성 id 가 route@context#path 꼴). 상태는 ^[a-z0-9][a-z0-9-]*(\\.[a-z0-9-]+)*$.",
+          "type": "string",
+          "pattern": "^[^#@\\s][^#@]* [a-z0-9][a-z0-9-]*(\\.[a-z0-9-]+)*$"
+        },
+        "base": {
+          "description": "같은 모드의 화면 id. pattern · url · file · fullPage · reducedMotion 을 물려받는다.",
+          "type": "string",
+          "pattern": "^[^#@]+$"
+        },
+        "pattern": { "$ref": "#/$defs/routePath" },
+        "url": { "$ref": "#/$defs/routePath" },
+        "file": {
+          "description": "라우트 그룹 등으로 apps/web/app<pattern>/page.tsx 가 아닐 때의 화면 파일.",
+          "type": "string",
+          "pattern": "^apps/web/\\S+\\.(tsx|ts|jsx|js)$"
+        },
+        "fullPage": { "type": "boolean" },
+        "reducedMotion": { "type": "boolean" },
+        "contexts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/contextId" }
+        },
+        "stepsByContext": {
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/contextId" },
+          "additionalProperties": { "$ref": "#/$defs/steps" }
+        },
+        "surfaces": {
+          "description": "이 상태가 덮는 표면. 제품 경로#정의 이름(키가 아니므로 # 를 쓴다).",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^apps/web/[^#@\\s]+\\.(tsx|ts|jsx|js)#[A-Za-z_$][A-Za-z0-9_$]*$"
+          }
+        },
+        "cite": { "type": "array", "items": { "$ref": "#/$defs/cite" } },
+        "clock": {
+          "description": "context.clock.setFixedTime 에 줄 고정 절대 시각(UTC).",
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z$"
+        },
+        "api": { "type": "array", "items": { "$ref": "#/$defs/apiEntry" } },
+        "supabase": { "$ref": "#/$defs/supabase" },
+        "steps": { "$ref": "#/$defs/steps" },
+        "pointer": { "enum": ["park", "keep"] },
+        "overlaySelectors": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "settleAfter": { "type": "boolean" },
+        "expectUrl": { "$ref": "#/$defs/routePath" },
+        "assert": { "$ref": "#/$defs/assert" },
+        "board": {
+          "description": "생성기가 붙일 보드 이름(설계서 3절). 영역 작업이 공유 생성기를 건드리지 않게 한다.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "desktop": { "type": "string", "minLength": 1 },
+            "mobile": { "type": "string", "minLength": 1 }
+          }
+        },
+        "contentNote": {
+          "description": "시드 내용의 의도(지어낸 것은 내용뿐, 크기 · 색 · 간격은 측정값).",
+          "type": "string"
+        },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

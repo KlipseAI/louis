@@ -85,6 +85,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LOCALE_READ_SNIPPET } from "./lib/figma-locale-read-snippet.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PLAN = "figma/app-screens.plan.json";
@@ -283,11 +284,12 @@ const page = ${page ? `await figma.getNodeByIdAsync(${JSON.stringify(page)})` : 
 if (!page || page.type !== "PAGE") throw new Error("페이지를 정하지 못했습니다");
 await figma.setCurrentPageAsync(page);
 const fnv = (text) => { let h = 0x811c9dc5; for (let i = 0; i < text.length; i += 1) { h ^= text.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, "0"); };
-const boards = {};
+${LOCALE_READ_SNIPPET}const boards = {};
 const elsewhere = {};
 const missing = [];
 for (const target of TARGETS) {
   const frame = await figma.getNodeByIdAsync(target.frameId);
+  if (LOCALE) LOCALE.scope = target.frameId;
   if (!frame) { missing.push(target.frameId); continue; }
   const home = pageOf(frame);
   if (!home || home.id !== page.id) { elsewhere[target.frameId] = home ? home.id : null; continue; }
@@ -316,7 +318,7 @@ for (const target of TARGETS) {
         const set = main && main.parent && main.parent.type === "COMPONENT_SET" ? main.parent : null;
         const text = {};
         for (const [key, property] of Object.entries(node.componentProperties || {})) {
-          if (property.type === "TEXT") text[key.includes("#") ? key.slice(0, key.indexOf("#")) : key] = property.value;
+          if (property.type === "TEXT") text[key.includes("#") ? key.slice(0, key.indexOf("#")) : key] = propertyValueOf(property);
         }
         instances.push({ set: set ? set.name : (main ? main.name : null), variant: main ? main.name : null, text, visible: node.visible });
         return;
@@ -329,7 +331,8 @@ for (const target of TARGETS) {
   }
   boards[target.frameId] = record;
 }
-return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boards, elsewhere, missing };
+const localeBound = localeBoundOf();
+return { kind: "figma-screens-live", page: { id: page.id, name: page.name }, boards, elsewhere, missing, ...(localeBound ? { localeBound } : {}) };
 `);
   if (!args.includes("--quiet")) {
     process.stderr.write(
@@ -370,7 +373,7 @@ const LIMIT=19000;
 const page = await figma.getNodeByIdAsync(${JSON.stringify(page)});
 if (!page || page.type !== "PAGE") throw new Error("페이지를 찾지 못했습니다: ${page}");
 await figma.setCurrentPageAsync(page);
-const round = (value) => Math.round(value * 100) / 100;
+${LOCALE_READ_SNIPPET}const round = (value) => Math.round(value * 100) / 100;
 const hex = (paints) => { const paint = Array.isArray(paints) ? paints.find((entry) => entry.type === "SOLID" && entry.visible !== false) : null; return paint ? "#" + [paint.color.r, paint.color.g, paint.color.b].map((v) => Math.round(v * 255).toString(16).padStart(2, "0")).join("") : null; };
 const boards = {};
 const boardOf = (node) => { let at = node; while (at.parent && at.parent.type !== "SECTION" && at.parent.type !== "PAGE") at = at.parent; boards[at.id] = at.name.slice(0, 48); return at.id; };
@@ -417,8 +420,10 @@ for (const name of NAMES) {
       // generated 트리 안은 보드 러너가 다시 짓고 --check 가 본다 — 수만 센다.
       if (spot.where === "generated") { generated[name] += 1; continue; }
       const props = {};
+      const boardId = boardOf(spot.host || instance);
+      if (LOCALE) LOCALE.scope = boardId;
       for (const [key, property] of Object.entries(instance.componentProperties || {})) {
-        if (property.type === "TEXT") props[key.split("#")[0]] = property.value;
+        if (property.type === "TEXT") props[key.split("#")[0]] = propertyValueOf(property);
       }
       const overrides = new Set();
       for (const entry of instance.overrides || []) {
@@ -429,16 +434,17 @@ for (const name of NAMES) {
         }
       }
       consumers.push({
-        id: instance.id, set: name, v, where: spot.where, visible: spot.visible, board: boardOf(spot.host || instance),
+        id: instance.id, set: name, v, where: spot.where, visible: spot.visible, board: boardId,
         host: spot.host ? { id: spot.host.id, name: spot.host.name.slice(0, 40), placements: await placementsOf(spot.host, 1) } : null,
-        texts: instance.findAllWithCriteria({ types: ["TEXT"] }).filter((text) => text.visible).map((text) => text.characters).join(" "),
+        texts: instance.findAllWithCriteria({ types: ["TEXT"] }).filter((text) => text.visible).map((text) => charactersOf(text)).join(" "),
         props, size: round(instance.width) + "×" + round(instance.height), fill: hex(instance.fills),
         sizing: instance.layoutSizingHorizontal, overrides: [...overrides].sort(),
       });
     }
   }
 }
-const result = { kind: "figma-screens-live-consumers", page: { id: page.id, name: page.name }, sets, generated, boards, consumers };
+const localeBound = localeBoundOf();
+const result = { kind: "figma-screens-live-consumers", page: { id: page.id, name: page.name }, sets, generated, boards, consumers, ...(localeBound ? { localeBound } : {}) };
 // 한도는 UTF-8 바이트다 — 보드 이름의 한글은 3 바이트씩 센다.
 const bytes = [...JSON.stringify(result)].reduce((sum, ch) => sum + (ch.codePointAt(0) > 0xffff ? 4 : ch.codePointAt(0) > 0x7ff ? 3 : ch.codePointAt(0) > 0x7f ? 2 : 1), 0);
 if (bytes > LIMIT) throw new Error("응답이 " + bytes + " 바이트다 — use_figma 응답 한도에 잘려 기준선이 불완전해진다. 소비처가 늘었으면 이 탐침을 세트별로 나눠야 한다.");

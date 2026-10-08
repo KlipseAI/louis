@@ -2,8 +2,8 @@
   "$comment": "생성물. scripts/measure-product-components.mjs가 제품 클래스를 제품 Tailwind로 컴파일해 실브라우저에서 잰다. 직접 수정하지 않는다.",
   "$whyThisExists": "그전까지 제품 값은 전부 소스 읽기였다. product.measured.json의 187축 중 기계 대조는 12축뿐이고 나머지는 사람이 코드를 읽고 옮긴 값이다. 여기 값은 브라우저가 실제로 계산한 것이다.",
   "$method": "제품 서버를 띄우지 않는다. 클래스 문자열은 손으로 옮기지 않고 제품 소스의 상수 이름을 가리켜 커밋에서 직접 꺼낸다. 그것을 제품 Tailwind로 컴파일하고 제품 CSS와 함께 빈 문서에 올려 계산값을 읽는다.",
-  "productRef": "a4125565e15367aee8212dafbdf758964261a201",
-  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+  "productRef": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "probes": [
     {
       "id": "button-lg",
@@ -165,7 +165,7 @@
       "from": "apps/web/components/scenes/appHomeSceneStyles.ts → archivePreview",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"louis-project-card-media tw-ah-013 [--archive-overlay-rgb:var(--palette-gray-900-rgb)] [--archive-node-canvas-bg:var(--louis-color-bg-canvas)] rounded-12 [background:var(--louis-color-bg-inset)] [overflow:visible] [html[data-theme=light]_&]:[--archive-overlay-rgb:var(--palette-gray-050-rgb)] [html[data-theme=light]_&]:[--archive-node-canvas-bg:var(--palette-gray-100)]\"></div>"
+      "html": "<div class=\"louis-project-card-media tw-ah-013 [--archive-overlay-rgb:var(--palette-gray-900-rgb)] [--archive-node-canvas-bg:var(--louis-color-bg-canvas)] rounded-12 [overflow:visible] [html[data-theme=light]_&]:[--archive-overlay-rgb:var(--palette-gray-025-rgb)] [html[data-theme=light]_&]:[--archive-node-canvas-bg:var(--palette-gray-025)]\"></div>"
     },
     {
       "id": "project-grid",
@@ -300,7 +300,7 @@
       "from": "apps/web/components/scenes/highlightSceneStyles.ts → uploadDropZone",
       "doc": "default",
       "wrapper": null,
-      "html": "<button class=\"tw-hs-190 [.tw-hs-189_&]:[padding:0_16px] [.tw-hs-189_&]:[flex:1] [.tw-hs-187_&]:[display:grid] [.tw-hs-187_&]:[grid-template-columns:auto_auto] [.tw-hs-187_&]:[grid-template-rows:auto_auto] [.tw-hs-187_&]:[align-items:center] [.tw-hs-187_&]:[align-content:center] [.tw-hs-187_&]:[justify-content:center] [.tw-hs-187_&]:[justify-items:start] [.tw-hs-187_&]:[column-gap:12px] [.tw-hs-187_&]:[row-gap:2px] [.tw-hs-187_&]:[text-align:left] [.tw-hs-187_&]:[padding:0_16px] [.tw-hs-187_&]:[flex:1] [.tw-hs-187_&]:[min-height:0] [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:12px] [width:100%] [&:not(.tw-hs-191)]:[padding:56px_16px] [border:0] [border-radius:12px] [background:var(--palette-gray-100)] [cursor:pointer] [font-family:inherit] [transition:background_140ms_ease] [box-sizing:border-box] [overflow:hidden] [&:hover]:[background:var(--palette-gray-150)] [&:focus-visible]:[outline:none] [&:focus-visible]:[background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-600)] [html[data-theme=dark]_&:hover]:[background:var(--palette-gray-500)] [html[data-theme=dark]_&:focus-visible]:[background:var(--palette-gray-600)]\"></button>"
+      "html": "<button class=\"tw-hs-190 [.tw-hs-189_&:not(.tw-hs-191)]:[padding:24px_16px] [.tw-hs-189_&]:[flex:1] [.tw-hs-187_&]:[display:grid] [.tw-hs-187_&]:[grid-template-columns:auto_minmax(0,1fr)_auto] [.tw-hs-187_&]:[grid-template-rows:auto_auto] [.tw-hs-187_&]:[align-items:center] [.tw-hs-187_&]:[align-content:center] [.tw-hs-187_&]:[justify-items:start] [.tw-hs-187_&]:[column-gap:12px] [.tw-hs-187_&]:[row-gap:2px] [.tw-hs-187_&]:[text-align:left] [.tw-hs-187_&:not(.tw-hs-191)]:[padding:16px_20px] [@media(max-width:719px)]:[.tw-hs-187_&]:[grid-template-columns:auto_minmax(0,1fr)] [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:12px] [width:100%] [&:not(.tw-hs-191)]:[padding:56px_16px] [border:0] [border-radius:12px] [background:var(--louis-color-bg-inset)] [cursor:pointer] [font-family:inherit] [transition:background_140ms_ease] [box-sizing:border-box] [overflow:hidden] [&:hover:not(:disabled)]:[background:linear-gradient(var(--louis-color-accent-ghost-hover),var(--louis-color-accent-ghost-hover)),var(--louis-color-bg-inset)]\"></button>"
     },
     {
       "id": "avatar-settings",
@@ -449,7 +449,7 @@
       "from": "apps/web/app/admin/AdminSection.tsx → HEADER",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"louis-section-header\" data-level=\"page\"></div>"
+      "html": "<div class=\"louis-section-header gap-8! items-start! pb-0!\" data-level=\"page\"></div>"
     },
     {
       "id": "select-trigger-md",
@@ -496,7 +496,7 @@
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarHeaderRow",
       "doc": "default",
       "wrapper": [
-        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
+        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-bottom:var(--app-gnb-safe-bottom)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
       ],
       "html": "<div class=\"louis-sidebar-brand gnb-sidebarHeaderRow [padding-left:0] [box-sizing:border-box] [transition:padding-left_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
     },
@@ -507,7 +507,7 @@
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarHeaderRow",
       "doc": "collapsed",
       "wrapper": [
-        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
+        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-bottom:var(--app-gnb-safe-bottom)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
       ],
       "html": "<div class=\"louis-sidebar-brand gnb-sidebarHeaderRow [padding-left:0] [box-sizing:border-box] [transition:padding-left_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [html:not([data-app-gnb-sidebar-collapsed=true])_&]:[padding-left:calc(_var(--app-gnb-main-inline-padding)_-_var(--app-gnb-sidebar-padding-x)_)] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [@media(prefers-reduced-motion:reduce)]:[transition-duration:0.01ms]!\"></div>"
     },
@@ -536,7 +536,7 @@
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
       "doc": "default",
       "wrapper": [
-        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
+        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-bottom:var(--app-gnb-safe-bottom)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
       ],
       "html": "<button class=\"louis-sidebar-cta__button gnb-sidebarUpgradeButton text-body-14 [text-decoration:none] [font-family:inherit] [font-weight:var(--type-weight-medium)] [background:rgb(var(--accent-green-500-rgb)_/_16%)] [color:var(--accent-green-700)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_padding_320ms_cubic-bezier(0.4,_0,_0.2,_1),_gap_320ms_cubic-bezier(0.4,_0,_0.2,_1),_background_160ms_ease,_color_160ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:fit-content] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[gap:0] [&:hover]:[background:rgb(var(--accent-green-500-rgb)_/_24%)] [&:hover]:[color:var(--accent-green-800)]\">업그레이드</button>"
     },
@@ -547,7 +547,7 @@
       "from": "apps/web/components/navigation/Gnb.tsx → sidebarUpgradeButton",
       "doc": "collapsed",
       "wrapper": [
-        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
+        "gnb-wrapperSidebar [.gnb-wrapper:not(&)]:[width:100%] [left:0] [right:auto] [width:var(--app-gnb-sidebar-width)] [max-width:100%] [height:100dvh] [box-sizing:border-box] [display:flex] [flex-direction:column] [padding-top:var(--app-gnb-safe-top)] [padding-bottom:var(--app-gnb-safe-bottom)] [padding-left:var(--app-gnb-sidebar-padding-x)] [padding-right:var(--app-gnb-sidebar-padding-x)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [transform-origin:left_center] [@media(max-width:719px)]:[z-index:1400] [@media(max-width:719px)]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[padding-left:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[padding-right:var(--app-gnb-sidebar-padding-x)] [@media(max-width:719px)]:[transform:translateX(calc(-100%_-_48px))] [@media(max-width:719px)]:[transition:transform_320ms_cubic-bezier(0.4,_0,_0.2,_1)] [@media(max-width:719px)]:[will-change:transform] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:min(240px,_calc(100vw_-_40px))] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:stretch] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[transform:translateX(0)] [@media(max-width:719px)]:[html[data-app-gnb-sidebar-mobile-open=true]_&]:[box-shadow:none] [@media(max-width:719px)]:before:content-[''] [@media(max-width:719px)]:before:[position:absolute] [@media(max-width:719px)]:before:[inset:0_-48px_0_0] [@media(max-width:719px)]:before:[z-index:-1] [@media(max-width:719px)]:before:[pointer-events:none] [@media(max-width:719px)]:before:[backdrop-filter:var(--louis-progressive-blur)] [@media(max-width:719px)]:before:[mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[-webkit-mask-image:var(--louis-progressive-blur-mask-inline-start)] [@media(max-width:719px)]:before:[background:linear-gradient(to_right,rgb(var(--app-main-card-bg-rgb)/48%),rgb(var(--app-main-card-bg-rgb)/0%))] [@media(max-width:719px)]:motion-reduce:[transition:none]! [html[data-app-gnb-sidebar-collapsed=true]_&]:[align-items:flex-start]"
       ],
       "html": "<button class=\"louis-sidebar-cta__button gnb-sidebarUpgradeButton text-body-14 [text-decoration:none] [font-family:inherit] [font-weight:var(--type-weight-medium)] [background:rgb(var(--accent-green-500-rgb)_/_16%)] [color:var(--accent-green-700)] [transition:width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_max-width_320ms_cubic-bezier(0.4,_0,_0.2,_1),_min-height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_height_320ms_cubic-bezier(0.4,_0,_0.2,_1),_padding_320ms_cubic-bezier(0.4,_0,_0.2,_1),_gap_320ms_cubic-bezier(0.4,_0,_0.2,_1),_background_160ms_ease,_color_160ms_ease] [html[data-app-gnb-sidebar-collapsed=true]_&]:[width:fit-content] [html[data-app-gnb-sidebar-collapsed=true]_&]:[max-width:100%] [html[data-app-gnb-sidebar-collapsed=true]_&]:[min-height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[height:32px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[padding:0_10px] [html[data-app-gnb-sidebar-collapsed=true]_&]:[justify-content:center] [html[data-app-gnb-sidebar-collapsed=true]_&]:[gap:0] [&:hover]:[background:rgb(var(--accent-green-500-rgb)_/_24%)] [&:hover]:[color:var(--accent-green-800)]\">업그레이드</button>"
     },
@@ -701,7 +701,7 @@
       "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ClipCropModal.tsx → CROP_SLIDER_THUMB",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"block w-8 h-8 rounded-full bg-primary-500 shadow-[0_2px_8px_rgb(0_0_0/20%)] border-2 border-solid border-palette-gray-100 dark:border-palette-gray-900 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-primary-500 focus-visible:outline-offset-[3px]\"></div>"
+      "html": "<div class=\"block w-8 h-8 rounded-full bg-primary-500 shadow-[0_2px_8px_rgb(0_0_0/20%)] border-2 border-solid border-palette-gray-100 dark:border-palette-gray-900\"></div>"
     },
     {
       "id": "slider-track-root",
@@ -926,7 +926,7 @@
       "from": "apps/web/components/landing/sections/FAQ.tsx → ITEM_CLASS",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"rounded-12 bg-[var(--panel-strong)] overflow-hidden\"></div>"
+      "html": "<div class=\"rounded-12 overflow-hidden bg-[var(--louis-color-bg-raised)] [box-shadow:var(--louis-hairline-inset)]\"></div>"
     },
     {
       "id": "faq-row-question",
@@ -980,9 +980,9 @@
       "from": "apps/web/components/landing/sections/NewsCarousel.tsx → CARD",
       "doc": "default",
       "wrapper": [
-        "grid w-max gap-3 [grid-auto-flow:column] [grid-auto-columns:346px] [grid-template-rows:repeat(2,160px)] [@media(max-width:959px)]:w-full [@media(max-width:959px)]:[grid-auto-flow:row] [@media(max-width:959px)]:grid-cols-2 [@media(max-width:959px)]:[grid-auto-rows:160px]"
+        "grid w-full gap-3 grid-cols-4 [grid-auto-rows:160px] [@media(max-width:959px)]:grid-cols-2"
       ],
-      "html": "<div class=\"relative flex flex-col items-start justify-start rounded-12 px-8 py-10 bg-[var(--panel-strong,rgb(var(--gray-000-rgb)/8%))] [scroll-snap-align:start]\"></div>"
+      "html": "<div class=\"relative flex flex-col items-start justify-start rounded-12 px-8 py-10 bg-[var(--panel-strong,rgb(var(--gray-000-rgb)/8%))]\"></div>"
     },
     {
       "id": "news-card-featured",
@@ -991,9 +991,9 @@
       "from": "apps/web/components/landing/sections/NewsCarousel.tsx → FEATURED_CARD",
       "doc": "default",
       "wrapper": [
-        "grid w-max gap-3 [grid-auto-flow:column] [grid-auto-columns:346px] [grid-template-rows:repeat(2,160px)] [@media(max-width:959px)]:w-full [@media(max-width:959px)]:[grid-auto-flow:row] [@media(max-width:959px)]:grid-cols-2 [@media(max-width:959px)]:[grid-auto-rows:160px]"
+        "grid w-full gap-3 grid-cols-4 [grid-auto-rows:160px] [@media(max-width:959px)]:grid-cols-2"
       ],
-      "html": "<div class=\"relative col-span-2 row-span-2 flex flex-col items-start justify-start overflow-hidden rounded-12 px-8 py-10 [scroll-snap-align:start]\"></div>"
+      "html": "<div class=\"relative col-span-2 row-span-2 flex flex-col items-start justify-start overflow-hidden rounded-12 px-8 py-10\"></div>"
     },
     {
       "id": "news-card-body",
@@ -1029,7 +1029,7 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MENU_LINK",
       "doc": "default",
       "wrapper": null,
-      "html": "<a class=\"inline-flex items-center justify-center h-14 px-6 py-0 rounded-pill bg-transparent [-webkit-user-drag:none] select-none [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [transition:color_320ms_ease,opacity_200ms_ease]\">제품</a>"
+      "html": "<a class=\"inline-flex items-center justify-center h-14 px-6 py-0 [@media(max-width:959px)]:px-4 rounded-pill bg-transparent [-webkit-user-drag:none] select-none [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [transition:color_320ms_ease,opacity_200ms_ease]\">제품</a>"
     },
     {
       "id": "inline-loading-slot-md",
@@ -1074,7 +1074,7 @@
       "from": "apps/web/components/ui/SegmentedCodeInput.tsx → BOX",
       "doc": "default",
       "wrapper": null,
-      "html": "<input class=\"flex-1 min-w-0 max-w-14 h-18 rounded-8 text-center uppercase bg-[rgb(var(--gray-000-rgb)/4%)] [border:1px_solid_rgb(var(--gray-000-rgb)/12%)] text-[rgb(var(--gray-000-rgb)/88%)] outline-none [transition:border-color_120ms_ease,background_120ms_ease] [&:focus]:[border-color:rgb(var(--primary-400-rgb)/72%)] [&:focus]:bg-[rgb(var(--gray-000-rgb)/8%)] [&:disabled]:opacity-40\"></input>"
+      "html": "<input class=\"flex-1 min-w-0 max-w-14 h-18 rounded-8 text-center uppercase bg-[rgb(var(--gray-000-rgb)/4%)] [border:1px_solid_rgb(var(--gray-000-rgb)/12%)] text-[rgb(var(--gray-000-rgb)/88%)] [transition:border-color_120ms_ease,background_120ms_ease] [&:focus]:[border-color:rgb(var(--primary-400-rgb)/72%)] [&:focus]:bg-[rgb(var(--gray-000-rgb)/8%)] [&:disabled]:opacity-40\"></input>"
     },
     {
       "id": "status-card-product",
@@ -1150,30 +1150,30 @@
     },
     {
       "id": "auth-page-root-product",
-      "source": "AuthStatusCard.tsx PAGE — 인증 화면 페이지 루트. 720px 에서 1열 ↔ 2열이 갈린다",
+      "source": "(auth-brand)/layout.tsx PAGE — 인증 화면 페이지 루트. 720px 에서 1열 ↔ 2열이 갈린다",
       "hover": false,
-      "from": "apps/web/components/auth/AuthStatusCard.tsx → PAGE",
+      "from": "apps/web/app/(auth-brand)/layout.tsx → PAGE",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"min-h-[100svh] grid place-items-center p-10 bg-bg-canvas text-fg-primary [@media(min-width:720px)]:[grid-template-columns:minmax(0,1fr)_minmax(0,1fr)] [@media(min-width:720px)]:place-items-stretch [@media(min-width:720px)]:p-10 [@media(min-width:720px)]:gap-10 [@media(min-width:720px)]:bg-bg-canvas\"></div>"
+      "html": "<div class=\"min-h-[100svh] grid place-items-center p-10 bg-bg-canvas text-fg-primary [@media(max-width:719px)]:p-8 [@media(min-width:720px)]:[grid-template-columns:minmax(0,1fr)_minmax(0,1fr)] [@media(min-width:720px)]:place-items-stretch [@media(min-width:720px)]:gap-10\"></div>"
     },
     {
       "id": "auth-brand-panel-product",
-      "source": "AuthStatusCard.tsx BRAND_PANEL — 좌측 브랜드 면. 마크업이 aside 다(AuthStatusCard.tsx:110)",
+      "source": "AuthBrandPanel.tsx BRAND_PANEL — 좌측 브랜드 면. 마크업이 aside 다(AuthBrandPanel.tsx:83)",
       "hover": false,
-      "from": "apps/web/components/auth/AuthStatusCard.tsx → BRAND_PANEL",
+      "from": "apps/web/components/auth/AuthBrandPanel.tsx → BRAND_PANEL",
       "doc": "default",
       "wrapper": null,
-      "html": "<aside class=\"hidden [@media(min-width:720px)]:relative [@media(min-width:720px)]:flex [@media(min-width:720px)]:flex-col [@media(min-width:720px)]:items-start [@media(min-width:720px)]:justify-between [@media(min-width:720px)]:min-w-0 [@media(min-width:720px)]:overflow-hidden [@media(min-width:720px)]:p-10 [@media(min-width:720px)]:rounded-control [@media(min-width:720px)]:bg-accent-primary [@media(min-width:720px)]:[background-image:url(/footer-logo-bg.svg)] [@media(min-width:720px)]:[background-size:100%_100%] [@media(min-width:720px)]:bg-no-repeat [@media(min-width:720px)]:bg-center\"></aside>"
+      "html": "<aside class=\"[@media(max-width:719px)]:hidden [@media(min-width:720px)]:relative [@media(min-width:720px)]:flex [@media(min-width:720px)]:flex-col [@media(min-width:720px)]:items-start [@media(min-width:720px)]:justify-between [@media(min-width:720px)]:min-w-0 [@media(min-width:720px)]:overflow-hidden [@media(min-width:720px)]:p-10 [@media(min-width:720px)]:rounded-control [@media(min-width:720px)]:bg-accent-primary\"></aside>"
     },
     {
       "id": "auth-brand-slogan-product",
-      "source": "AuthStatusCard.tsx BRAND_SLOGAN — 하단 슬로건(p). 1200px 에서 타입이 승급한다",
+      "source": "AuthBrandPanel.tsx BRAND_SLOGAN — 하단 슬로건(p). 타이포는 JSX 가 붙이는 type-heading-48-semibold 가 갖는다",
       "hover": false,
-      "from": "apps/web/components/auth/AuthStatusCard.tsx → BRAND_SLOGAN",
+      "from": "apps/web/components/auth/AuthBrandPanel.tsx → BRAND_SLOGAN",
       "doc": "default",
       "wrapper": null,
-      "html": "<p class=\"hidden [@media(min-width:720px)]:block [@media(min-width:720px)]:m-0 [@media(min-width:720px)]:max-w-[18ch] [@media(min-width:720px)]:text-fg-inverse [@media(min-width:1200px)]:text-heading-48\">AI 영상 제작의 모든 순간을 하나의 워크스페이스로.</p>"
+      "html": "<p class=\"type-heading-48-semibold relative [@media(max-width:719px)]:hidden [@media(min-width:720px)]:block [@media(min-width:720px)]:m-0 [@media(min-width:720px)]:max-w-[18ch] [@media(min-width:720px)]:text-[var(--louis-color-media-foreground-dark)]\">AI 영상 제작의 모든 순간을 하나의 워크스페이스로.</p>"
     },
     {
       "id": "auth-card-product",
@@ -1362,7 +1362,7 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → HEADER_BLUR",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"fixed top-0 left-0 right-0 h-[120px] pointer-events-none z-[1000] [backdrop-filter:var(--louis-progressive-blur-header)] [mask-image:var(--louis-progressive-blur-mask-header)] [-webkit-mask-image:var(--louis-progressive-blur-mask-header)]\"></div>"
+      "html": "<div class=\"fixed top-0 left-0 right-0 h-[120px] pointer-events-none z-[999] [backdrop-filter:var(--louis-progressive-blur-header)] [mask-image:var(--louis-progressive-blur-mask-header)] [-webkit-mask-image:var(--louis-progressive-blur-mask-header)] motion-reduce:[transition:none]\"></div>"
     },
     {
       "id": "landing-header-wrapper-product",
@@ -1380,7 +1380,7 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → NAV",
       "doc": "default",
       "wrapper": null,
-      "html": "<nav class=\"relative z-2 grid [grid-template-columns:1fr_auto_1fr] items-center min-h-12 [transition:color_320ms_ease] [@media(max-width:719px)]:[grid-template-columns:1fr_auto]!\"></nav>"
+      "html": "<nav class=\"relative z-2 grid [grid-template-columns:1fr_auto_1fr] items-center min-h-12 [transition:color_320ms_ease] [--gnb-menu-ease:cubic-bezier(0.4,0,0.6,1)] [@media(max-width:719px)]:[grid-template-columns:1fr_auto]!\"></nav>"
     },
     {
       "id": "landing-header-menu-product",
@@ -1389,7 +1389,7 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MENU",
       "doc": "default",
       "wrapper": null,
-      "html": "<ul class=\"justify-self-center [list-style:none] flex items-center gap-8 [@media(max-width:719px)]:[display:none]!\"></ul>"
+      "html": "<ul class=\"justify-self-center [list-style:none] flex items-center gap-8 [@media(max-width:959px)]:gap-2 [@media(max-width:719px)]:[display:none]!\"></ul>"
     },
     {
       "id": "landing-menu-link-black-product",
@@ -1398,7 +1398,7 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MENU_LINK + MENU_LINK_TONE_BLACK + MENU_LINK_OPACITY_BLACK",
       "doc": "default",
       "wrapper": null,
-      "html": "<a class=\"inline-flex items-center justify-center h-14 px-6 py-0 rounded-pill bg-transparent [-webkit-user-drag:none] select-none [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [transition:color_320ms_ease,opacity_200ms_ease] text-[var(--palette-gray-900)]! opacity-65 [&:hover]:opacity-80\">가격</a>"
+      "html": "<a class=\"inline-flex items-center justify-center h-14 px-6 py-0 [@media(max-width:959px)]:px-4 rounded-pill bg-transparent [-webkit-user-drag:none] select-none [font-family:var(--type-font-family)] [font-feature-settings:var(--type-feature-settings)] [transition:color_320ms_ease,opacity_200ms_ease] text-[var(--palette-gray-900)]! opacity-65 [&:hover]:opacity-80\">가격</a>"
     },
     {
       "id": "landing-header-actions-product",
@@ -1416,16 +1416,23 @@
       "from": "apps/web/components/landing/navigation/Gnb.tsx → MOBILE_MENU",
       "doc": "default",
       "wrapper": null,
-      "html": "<div class=\"[display:none] fixed inset-0 z-[-1] [transition:opacity_220ms_ease] [@media(max-width:719px)]:[display:block]!\"></div>"
+      "html": "<div class=\"[display:none] fixed inset-0 z-[-1] [--type-heading-28-size:var(--louis-type-heading-28-size)] [@media(max-width:719px)]:[display:block]!\"></div>"
     },
     {
       "id": "landing-mobile-menu-panel-product",
-      "source": "landing/navigation/Gnb.tsx:392-398 MOBILE_MENU_INNER — 풀스크린 메뉴의 면. 흐림 없이 불투명 100% 다",
+      "source": "landing/navigation/Gnb.tsx:607-614 MOBILE_MENU_PANEL — 풀스크린 메뉴의 면. 흐림 없이 불투명 100% 다",
       "hover": false,
-      "from": "apps/web/components/landing/navigation/Gnb.tsx → MOBILE_MENU_INNER",
+      "from": "apps/web/components/landing/navigation/Gnb.tsx → MOBILE_MENU_PANEL",
       "doc": "default",
-      "wrapper": null,
-      "html": "<div class=\"h-full flex flex-col gap-1 [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto [border:none] [border-radius:0] [background:var(--palette-gray-100)] [html[data-theme=dark]_&]:[background:var(--palette-gray-950)]\"></div>"
+      "wrapper": [
+        {
+          "class": "",
+          "attrs": {
+            "data-menu-theme": "follow"
+          }
+        }
+      ],
+      "html": "<div class=\"absolute inset-0 flex flex-col [padding:78px_18px_calc(28px_+_env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain [background:var(--palette-gray-100)] [html[data-theme=dark]_[data-menu-theme=follow]_&]:[background:var(--palette-gray-950)] motion-reduce:[transition:none]\"></div>"
     },
     {
       "id": "editor-workspace-floor-product",
@@ -1507,6 +1514,46 @@
       "doc": "default",
       "wrapper": null,
       "html": "<div class=\"vem-timeline-divider [grid-area:divider] louis-pane-divider louis-pane-divider--horizontal\"></div>"
+    },
+    {
+      "id": "text-link-user-product",
+      "source": "admin/AdminSection.tsx:1127 USER_LINK — 표 칸의 이메일을 누르면 사용자 상세가 열리는 글자 링크(button)",
+      "hover": false,
+      "from": "apps/web/app/admin/AdminSection.tsx → USER_LINK",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<button class=\"p-0 bg-transparent [color:inherit] text-left cursor-pointer underline-offset-2 hover:underline louis-focus-ring\">user@example.com</button>"
+    },
+    {
+      "id": "start-card-label-sm-product",
+      "source": "CanvasEmptyState.tsx:198 CARD_LABEL (조상 :138 CARD, 카드 폭 200) — 빈 캔버스 시작 카드의 이름",
+      "hover": false,
+      "from": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx → CARD_LABEL",
+      "doc": "default",
+      "wrapper": [
+        "group/card @container/card relative isolate block w-full aspect-[320/403] overflow-hidden text-left rounded-overlay cursor-pointer pointer-events-auto @min-[600px]:rounded-card-lg bg-[rgb(var(--palette-gray-950-rgb))] after:pointer-events-none after:absolute after:inset-0 after:z-4 after:rounded-[inherit] after:shadow-[var(--louis-hairline-inset)]"
+      ],
+      "html": "<span class=\"absolute left-0 top-0 z-5 [transform:translateZ(0)] p-7 @min-[240px]/card:p-9 type-body-14-semibold @min-[240px]/card:text-body-16 text-[var(--louis-color-media-foreground-dark)]\">이미지</span>"
+    },
+    {
+      "id": "start-card-label-md-product",
+      "source": "CanvasEmptyState.tsx:198 CARD_LABEL (조상 :138 CARD, 카드 폭 360) — 빈 캔버스 시작 카드의 이름",
+      "hover": false,
+      "from": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx → CARD_LABEL",
+      "doc": "default",
+      "wrapper": [
+        "group/card @container/card relative isolate block w-full aspect-[320/403] overflow-hidden text-left rounded-overlay cursor-pointer pointer-events-auto @min-[600px]:rounded-card-lg bg-[rgb(var(--palette-gray-950-rgb))] after:pointer-events-none after:absolute after:inset-0 after:z-4 after:rounded-[inherit] after:shadow-[var(--louis-hairline-inset)]"
+      ],
+      "html": "<span class=\"absolute left-0 top-0 z-5 [transform:translateZ(0)] p-7 @min-[240px]/card:p-9 type-body-14-semibold @min-[240px]/card:text-body-16 text-[var(--louis-color-media-foreground-dark)]\">이미지</span>"
+    },
+    {
+      "id": "dialog-sheet-grabber-bar-product",
+      "source": "videoEditParts/vemClass.ts:1597 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
+      "hover": false,
+      "from": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/vemClass.ts → mobileSheetGrabberBar",
+      "doc": "default",
+      "wrapper": null,
+      "html": "<div class=\"vem-mobile-sheet-grabber-bar [width:36px] [height:4px] [border-radius:var(--louis-radius-pill)] [background:var(--louis-color-stroke-hairline)]\"></div>"
     }
   ],
   "rendered": {
@@ -1663,7 +1710,7 @@
       "borderTopWidth": "0px"
     },
     "dialog-overlay": {
-      "backgroundColor": "color(srgb 0.090196 0.105882 0.133333 / 0.72)",
+      "backgroundColor": "color(srgb 0.05098 0.066666 0.094117 / 0.72)",
       "zIndex": "1200"
     },
     "input-box": {
@@ -1781,7 +1828,7 @@
       "columnGap": "8px"
     },
     "section-header-page": {
-      "rowGap": "12px",
+      "rowGap": "16px",
       "marginBlockEnd": "12px"
     },
     "select-trigger-md": {
@@ -2015,14 +2062,14 @@
       "lineHeight": "30px"
     },
     "news-card": {
-      "width": "346px",
+      "width": "345.5px",
       "height": "160px",
       "paddingTop": "20px",
       "paddingLeft": "16px",
       "borderTopLeftRadius": "12px"
     },
     "news-card-featured": {
-      "width": "698px",
+      "width": "697px",
       "height": "326px",
       "paddingTop": "20px",
       "paddingLeft": "16px",
@@ -2130,13 +2177,13 @@
       "paddingLeft": "20px",
       "borderTopLeftRadius": "12px",
       "backgroundColor": "color(srgb 0 0.533333 1)",
-      "backgroundSize": "100% 100%"
+      "backgroundSize": "auto"
     },
     "auth-brand-slogan-product": {
       "fontSize": "48px",
       "lineHeight": "64.8px",
       "letterSpacing": "-0.96px",
-      "maxWidth": "514.688px",
+      "maxWidth": "551.812px",
       "color": "color(srgb 0.980392 0.980392 0.980392)",
       "marginTop": "0px"
     },
@@ -2262,7 +2309,7 @@
       "top": "0px",
       "left": "0px",
       "right": "0px",
-      "zIndex": "1000",
+      "zIndex": "999",
       "pointerEvents": "none",
       "backdropFilter": "blur(12px)",
       "maskImage": "linear-gradient(rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0) 100%)"
@@ -2320,16 +2367,16 @@
       "right": "0px",
       "bottom": "0px",
       "zIndex": "-1",
-      "transitionProperty": "opacity",
-      "transitionDuration": "0.22s"
+      "transitionProperty": "all",
+      "transitionDuration": "0s"
     },
     "landing-mobile-menu-panel-product": {
       "paddingTop": "78px",
       "paddingRight": "18px",
       "paddingBottom": "28px",
       "paddingLeft": "18px",
-      "rowGap": "2px",
-      "columnGap": "2px",
+      "rowGap": "normal",
+      "columnGap": "normal",
       "backgroundColor": "color(srgb 0.05098 0.066666 0.094117)",
       "borderTopLeftRadius": "0px",
       "borderTopWidth": "0px",
@@ -2457,6 +2504,26 @@
       "::before:zIndex": "0",
       "::after:insetBlockStart": "-4px",
       "::after:insetInlineStart": "0px"
+    },
+    "text-link-user-product": {
+      "paddingTop": "0px",
+      "paddingLeft": "0px",
+      "textUnderlineOffset": "2px"
+    },
+    "start-card-label-sm-product": {
+      "paddingTop": "14px",
+      "paddingLeft": "14px",
+      "fontSize": "14px"
+    },
+    "start-card-label-md-product": {
+      "paddingTop": "18px",
+      "paddingLeft": "18px",
+      "fontSize": "16px"
+    },
+    "dialog-sheet-grabber-bar-product": {
+      "width": "36px",
+      "height": "4px",
+      "borderTopLeftRadius": "999px"
     },
     "button-secondary-light": {
       "backgroundColor": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
@@ -3815,7 +3882,7 @@
       "align-items": "center",
       "background-attachment": "scroll",
       "background-clip": "border-box",
-      "background-color": "color(srgb 0.090196 0.105882 0.133333 / 0.72)",
+      "background-color": "color(srgb 0.05098 0.066666 0.094117 / 0.72)",
       "background-image": "none",
       "background-origin": "padding-box",
       "background-position-x": "0%",
@@ -3914,19 +3981,10 @@
       "overflow-y": "hidden"
     },
     "drop-zone-upload": {
-      ":state background-attachment": "scroll",
-      ":state background-clip": "border-box",
-      ":state background-color": "color(srgb 0.345098 0.360784 0.388235)",
-      ":state background-image": "none",
-      ":state background-origin": "padding-box",
-      ":state background-position-x": "0%",
-      ":state background-position-y": "0%",
-      ":state background-repeat": "repeat",
-      ":state background-size": "auto",
       "align-items": "center",
       "background-attachment": "scroll",
       "background-clip": "border-box",
-      "background-color": "color(srgb 0.345098 0.360784 0.388235)",
+      "background-color": "color(srgb 0.05098 0.066666 0.094117)",
       "background-image": "none",
       "background-origin": "padding-box",
       "background-position-x": "0%",
@@ -4592,16 +4650,17 @@
       "word-break": "keep-all"
     },
     "section-header-page": {
-      "align-items": "flex-end",
+      "align-items": "flex-start",
       "box-sizing": "border-box",
-      "column-gap": "12px",
+      "column-gap": "16px",
       "display": "flex",
       "flex-direction": "row",
       "flex-wrap": "wrap",
       "inline-size": "360px",
       "margin-block-end": "12px",
       "min-inline-size": "0px",
-      "row-gap": "12px"
+      "padding-bottom": "0px",
+      "row-gap": "16px"
     },
     "select-trigger-md": {
       ":state background-attachment": "scroll",
@@ -5594,11 +5653,12 @@
       "margin-top": "0px"
     },
     "faq-row": {
-      "background-color": "rgba(0, 0, 0, 0)",
+      "background-color": "color(srgb 0.090196 0.105882 0.133333)",
       "border-bottom-left-radius": "12px",
       "border-bottom-right-radius": "12px",
       "border-top-left-radius": "12px",
       "border-top-right-radius": "12px",
+      "box-shadow": "color(srgb 0.980392 0.980392 0.980392 / 0.08) 0px 0px 0px 0.5px inset",
       "overflow-x": "hidden",
       "overflow-y": "hidden"
     },
@@ -5690,8 +5750,7 @@
       "padding-block-start": "20px",
       "padding-inline-end": "16px",
       "padding-inline-start": "16px",
-      "position": "relative",
-      "scroll-snap-align": "start"
+      "position": "relative"
     },
     "news-card-featured": {
       "align-items": "flex-start",
@@ -5712,8 +5771,7 @@
       "padding-block-start": "20px",
       "padding-inline-end": "16px",
       "padding-inline-start": "16px",
-      "position": "relative",
-      "scroll-snap-align": "start"
+      "position": "relative"
     },
     "news-card-body": {
       "column-gap": "10px",
@@ -5823,7 +5881,6 @@
       "min-width": "0px"
     },
     "segmented-code-cell": {
-      "--tw-outline-style": "none",
       ":state background-color": "rgba(250, 250, 250, 0.04)",
       ":state border-bottom-color": "rgba(250, 250, 250, 0.12)",
       ":state border-left-color": "rgba(250, 250, 250, 0.12)",
@@ -5859,7 +5916,6 @@
       "height": "36px",
       "max-width": "28px",
       "min-width": "0px",
-      "outline-style": "none",
       "text-align": "center",
       "text-transform": "uppercase"
     },
@@ -6044,11 +6100,6 @@
     "auth-brand-panel-product": {
       "align-items": "flex-start",
       "background-color": "color(srgb 0 0.533333 1)",
-      "background-image": "url(\"/footer-logo-bg.svg\")",
-      "background-position-x": "50%",
-      "background-position-y": "50%",
-      "background-repeat": "no-repeat",
-      "background-size": "100% 100%",
       "border-bottom-left-radius": "12px",
       "border-bottom-right-radius": "12px",
       "border-top-left-radius": "12px",
@@ -6068,14 +6119,18 @@
     "auth-brand-slogan-product": {
       "color": "color(srgb 0.980392 0.980392 0.980392)",
       "display": "block",
+      "font-family": "PretendardHarness",
+      "font-feature-settings": "\"ss07\"",
       "font-size": "48px",
+      "font-weight": "600",
       "letter-spacing": "-0.96px",
       "line-height": "64.8px",
       "margin-bottom": "0px",
       "margin-left": "0px",
       "margin-right": "0px",
       "margin-top": "0px",
-      "max-width": "514.688px"
+      "max-width": "551.812px",
+      "position": "relative"
     },
     "auth-card-product": {
       "column-gap": "24px",
@@ -6289,7 +6344,7 @@
       "position": "fixed",
       "right": "0px",
       "top": "0px",
-      "z-index": "1000"
+      "z-index": "999"
     },
     "landing-header-wrapper-product": {
       "background-attachment": "scroll",
@@ -6312,6 +6367,7 @@
       "z-index": "1001"
     },
     "landing-header-rail-product": {
+      "--gnb-menu-ease": "cubic-bezier(0.4,0,0.6,1)",
       "align-items": "center",
       "display": "grid",
       "grid-template-columns": "180px 0px 180px",
@@ -6364,17 +6420,13 @@
       "row-gap": "8px"
     },
     "landing-mobile-menu-product": {
+      "--type-heading-28-size": "28px",
       "bottom": "0px",
       "display": "none",
       "left": "0px",
       "position": "fixed",
       "right": "0px",
       "top": "0px",
-      "transition-behavior": "normal",
-      "transition-delay": "0s",
-      "transition-duration": "0.22s",
-      "transition-property": "opacity",
-      "transition-timing-function": "ease",
       "z-index": "-1"
     },
     "landing-mobile-menu-panel-product": {
@@ -6387,37 +6439,20 @@
       "background-position-y": "0%",
       "background-repeat": "repeat",
       "background-size": "auto",
-      "border-bottom-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-bottom-left-radius": "0px",
-      "border-bottom-right-radius": "0px",
-      "border-bottom-style": "none",
-      "border-bottom-width": "0px",
-      "border-image-outset": "0",
-      "border-image-repeat": "stretch",
-      "border-image-slice": "100%",
-      "border-image-source": "none",
-      "border-image-width": "1",
-      "border-left-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-left-style": "none",
-      "border-left-width": "0px",
-      "border-right-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-right-style": "none",
-      "border-right-width": "0px",
-      "border-top-color": "color(srgb 0.980392 0.980392 0.980392)",
-      "border-top-left-radius": "0px",
-      "border-top-right-radius": "0px",
-      "border-top-style": "none",
-      "border-top-width": "0px",
-      "column-gap": "2px",
+      "bottom": "0px",
       "display": "flex",
       "flex-direction": "column",
-      "height": "360px",
+      "left": "0px",
       "overflow-y": "auto",
+      "overscroll-behavior-x": "contain",
+      "overscroll-behavior-y": "contain",
       "padding-bottom": "28px",
       "padding-left": "18px",
       "padding-right": "18px",
       "padding-top": "78px",
-      "row-gap": "2px"
+      "position": "absolute",
+      "right": "0px",
+      "top": "0px"
     },
     "editor-workspace-floor-product": {
       "background-attachment": "scroll",
@@ -6788,6 +6823,71 @@
       "margin-top": "0px",
       "position": "relative",
       "touch-action": "none"
+    },
+    "text-link-user-product": {
+      ":state text-decoration-line": "none",
+      "background-color": "rgba(0, 0, 0, 0)",
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "cursor": "pointer",
+      "padding-bottom": "0px",
+      "padding-left": "0px",
+      "padding-right": "0px",
+      "padding-top": "0px",
+      "text-align": "left",
+      "text-underline-offset": "2px"
+    },
+    "start-card-label-sm-product": {
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "font-family": "PretendardHarness",
+      "font-feature-settings": "\"ss07\"",
+      "font-size": "14px",
+      "font-weight": "600",
+      "left": "0px",
+      "letter-spacing": "-0.14px",
+      "line-height": "21px",
+      "padding-bottom": "14px",
+      "padding-left": "14px",
+      "padding-right": "14px",
+      "padding-top": "14px",
+      "position": "absolute",
+      "top": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "z-index": "5"
+    },
+    "start-card-label-md-product": {
+      "color": "color(srgb 0.980392 0.980392 0.980392)",
+      "font-family": "PretendardHarness",
+      "font-feature-settings": "\"ss07\"",
+      "font-size": "16px",
+      "font-weight": "600",
+      "left": "0px",
+      "letter-spacing": "-0.16px",
+      "line-height": "24px",
+      "padding-bottom": "18px",
+      "padding-left": "18px",
+      "padding-right": "18px",
+      "padding-top": "18px",
+      "position": "absolute",
+      "top": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "z-index": "5"
+    },
+    "dialog-sheet-grabber-bar-product": {
+      "background-attachment": "scroll",
+      "background-clip": "border-box",
+      "background-color": "color(srgb 0.980392 0.980392 0.980392 / 0.08)",
+      "background-image": "none",
+      "background-origin": "padding-box",
+      "background-position-x": "0%",
+      "background-position-y": "0%",
+      "background-repeat": "repeat",
+      "background-size": "auto",
+      "border-bottom-left-radius": "999px",
+      "border-bottom-right-radius": "999px",
+      "border-top-left-radius": "999px",
+      "border-top-right-radius": "999px",
+      "height": "4px",
+      "width": "36px"
     },
     "button-secondary-light": {
       ":state color": "color(srgb 0.345098 0.360784 0.388235)",
@@ -7763,6 +7863,12 @@
       "why": "제품 1300ms, DS 1600ms. 제품 shimmer 정의가 1.3s·1.5s·1.6s로 갈리고 DS는 motion-loop 계단의 1600을 쓴다."
     },
     {
+      "axis": "section-header-page.rowGap",
+      "product": 16,
+      "ds": 12,
+      "why": "제품 16, DS 12. 통합 판 어드민 HEADER 가 louis-section-header 위에 gap-8!(제품 격자 2px × 8)을 얹어 레시피의 12 를 덮는다(AdminSection.tsx:199). DS 레시피는 12 그대로다."
+    },
+    {
       "axis": "top-bar.paddingLeft",
       "product": 8,
       "ds": 16,
@@ -7839,6 +7945,18 @@
       "product": 20,
       "ds": 24,
       "why": "boxed 와 같은 사유다 — 셸이 하나뿐이라 두 열이 같은 요소를 가리킨다."
+    },
+    {
+      "axis": "news-card.width",
+      "product": 345.5,
+      "ds": 346,
+      "why": "제품 345.5, DS 346. 통합 판 트랙이 1fr 4열 fill(gap 6)이라 폭은 (1400 − 18) / 4 = 345.5 로 계산된다. DS 는 1400 시안의 정수 폭 346 이다."
+    },
+    {
+      "axis": "news-card-featured.width",
+      "product": 697,
+      "ds": 698,
+      "why": "제품 697, DS 698. 통합 판 트랙이 1fr 4열 fill(gap 6)이라 피처드 폭은 345.5×2 + 6 = 697 로 계산된다. DS 는 1400 시안의 정수 폭 698 이다."
     },
     {
       "axis": "sidebar-cta-hover-light.color",

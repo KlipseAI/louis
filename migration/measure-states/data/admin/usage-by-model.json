@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "category": "video",
+      "model": "veo-3.1-fast",
+      "cnt": 120,
+      "total_credits": 360000,
+      "refunded_cnt": 4,
+      "refunded_credits": 12000
+    },
+    {
+      "category": "video",
+      "model": "kling-3.0-pro",
+      "cnt": 64,
+      "total_credits": 192000,
+      "refunded_cnt": 0,
+      "refunded_credits": 0
+    },
+    {
+      "category": "image",
+      "model": "nano-banana-pro",
+      "cnt": 310,
+      "total_credits": 31000,
+      "refunded_cnt": 0,
+      "refunded_credits": 0
+    },
+    {
+      "category": "image",
+      "model": "gpt-image-2",
+      "cnt": 88,
+      "total_credits": 13200,
+      "refunded_cnt": 2,
+      "refunded_credits": 300
+    }
+  ],
+  "range": {
+    "from": "2025-12-16T09:00:00.000Z",
+    "to": "2026-01-15T09:00:00.000Z"
+  }
+}

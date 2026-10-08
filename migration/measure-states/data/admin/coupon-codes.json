@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "code": "FXR1AAAAAAAA",
+      "sequenceNo": 1,
+      "batchLabel": "A",
+      "distributed": true,
+      "used": true,
+      "redeemedBy": "placeholder.redeemer-1@klipse.test",
+      "redeemedAt": "2026-01-11T12:00:00.000Z",
+      "grantedPlanCode": null,
+      "grantedTokenAmount": 300
+    },
+    {
+      "code": "FXR2AAAAAAAA",
+      "sequenceNo": 2,
+      "batchLabel": "A",
+      "distributed": true,
+      "used": true,
+      "redeemedBy": "placeholder.redeemer-2@klipse.test",
+      "redeemedAt": "2026-01-12T12:00:00.000Z",
+      "grantedPlanCode": null,
+      "grantedTokenAmount": 300
+    },
+    {
+      "code": "FXR3AAAAAAAA",
+      "sequenceNo": 3,
+      "batchLabel": "A",
+      "distributed": true,
+      "used": true,
+      "redeemedBy": "placeholder.redeemer-3@klipse.test",
+      "redeemedAt": "2026-01-13T12:00:00.000Z",
+      "grantedPlanCode": null,
+      "grantedTokenAmount": 300
+    }
+  ],
+  "page": 0,
+  "pageSize": 50,
+  "total": 3
+}

@@ -117,10 +117,13 @@ const UNCLASSIFIED_BASELINE = 0;
 // 대응이 사라졌다. Footer 는 needed(primitive)로 돌아갔고, 측정 원장에서 생성기로 다시 세울 자리다.
 // 2026-10-07: 59 → 60 — 그 자리를 측정 원장에서 다시 세웠다. Footer ← Product/Landing Footer(보드 생성기 PARTS, 공개 원장 랜딩 서브트리).
 // 같은 날 뒤: 60 → 64 — 편집기 밖 부품 조사의 바로 세울 수 있는 자리 넷: PageHeader · AdminSectionHeader · CustomDropdown · PlanComparisonTable.
-const MAPPED_BASELINE = 64;
+// 2026-10-08: 64 → 82 · 컴포넌트 28 → 47 — 앵커를 작업 브랜치 통합 판으로 옮기며(DS-D-0079) 새로 생긴 표면 112종을 판정했고
+// (figma 22 — auth-two-panel 이 덮는 인증 레이아웃 · 브랜드 패널 등), 같은 날 LOUIS 세트 열셋(Choice · Record Card · Text Link · Bare
+// Button · Start Card · LoadingWord · 노드 입력판 등)이 섰다.
+const MAPPED_BASELINE = 82;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 28;
+const MAPPED_COMPONENT_BASELINE = 47;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.
@@ -128,7 +131,9 @@ const MAPPED_COMPONENT_BASELINE = 28;
 // 같은 날 뒤: 28 → 29 — PlanSparkleGlyph(위 MAPPED_BASELINE 주석).
 // 2026-10-06: 29 → 28 — 위 MAPPED_BASELINE 과 같은 사유(Product/Public Footer 은퇴).
 // 2026-10-07: 28 → 29 — Product/Landing Footer(위 MAPPED_BASELINE 주석). 같은 날 뒤 29 → 33(위 주석의 넷).
-const MAPPED_PRODUCT_BASELINE = 33;
+// 2026-10-08: 33 → 30 — **제품이 바뀐 몫(후퇴 아님).** 통합 판(DS-D-0079)에서 표면 셋이 사라졌다: 랜딩 Footer(공용 타임라인 푸터로
+// 바뀜 — Product/Landing Footer 는 새 푸터를 다시 재서 세울 자리) · 요금 PricingNotice(공지 알약을 걷음) · 가이드 패널 PipelineArrow(도움말 개편으로 패널째 삭제).
+const MAPPED_PRODUCT_BASELINE = 30;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

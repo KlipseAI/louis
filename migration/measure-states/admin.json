@@ -1,0 +1,1487 @@
+{
+  "$schema": "./_schema.json",
+  "area": "admin",
+  "mode": "session",
+  "authoredAgainst": "76b6cf154ab2",
+  "description": "어드민(/admin)의 탭 · 하위 탭 · 펼침 · 대화상자 상태. 세션 모드의 기준 화면 /admin 을 물려받는다. 어드민 탭은 ?view= 로 첫 렌더에 열리고(page.tsx · useAdminNavigation.ts), 하위 탭 · 펼친 행 · 대화상자는 메모리 상태라 클릭한다. 어드민 데이터는 모두 브라우저 fetch 라 /api 가로채기로만 답하고 Supabase 오버레이는 쓰지 않는다. 측정 로캘은 en(측정기 facen-language 쿠키)이라 어드민 사전도 영어(admin-en.ts)다 — 앵커 a4125565 원장의 한국어 라벨과 다르다. 사용자 상세(?user=)는 덮을 표면이 없어 레시피를 두지 않았다(통합 판에서 PlanBadge · AdminStatTile 은 상세에 쓰이지 않는다).",
+  "recipes": [
+    {
+      "id": "/admin users",
+      "base": "/admin",
+      "url": "/admin?view=users",
+      "description": "사용자 목록(기본 화면)에 구독 상태가 다른 세 행 — 요금제 배지 셋(테스터 · 구독 중 · 결제 실패)이 선다.",
+      "contentNote": "행 셋: provider admin(테스터 배지) · active+Pro · past_due+Lite. 이름 · 이메일 · 크레딧 · 생성 수는 지어낸 내용, 요금제 이름(Pro · Lite)은 제품 표기(toss/plans.ts tierName).",
+      "surfaces": [
+        "apps/web/app/admin/AdminClient.tsx#PlanBadge"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 890,
+          "expect": "`/api/admin/users?limit="
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 404,
+          "expect": "type UsersListResponse"
+        },
+        {
+          "path": "apps/web/app/api/admin/users/route.ts",
+          "line": 437,
+          "expect": "nextOffset: offset + users.length"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1734,
+          "expect": "<PlanBadge status="
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/users",
+          "jsonFile": "data/admin/users.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder tester",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder tester",
+          "Tester",
+          "Pro Active",
+          "Payment failed"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin users.loading",
+      "base": "/admin",
+      "url": "/admin?view=users",
+      "description": "사용자 목록 요청을 붙잡아 첫 로딩 상태(AdminState kind=loading → LoadingWord 쉬머 제목)를 잰다. 쉬머의 background-clip:text 는 측정 축에 없다(설계서 5절 11번, 이번 범위 밖).",
+      "surfaces": [
+        "apps/web/components/ui/LoadingWord.tsx#LoadingWord",
+        "apps/web/app/admin/AdminSection.tsx#AdminState"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 890,
+          "expect": "`/api/admin/users?limit="
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1757,
+          "expect": "title={copy.users.loading}"
+        },
+        {
+          "path": "apps/web/app/admin/AdminSection.tsx",
+          "line": 940,
+          "expect": "<LoadingWord>{title}</LoadingWord>"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/users",
+          "hold": true,
+          "description": "답하지 않는다 — 목록이 0행 · usersLoading 인 채로 남는다."
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Loading users",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Loading users"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin metrics",
+      "base": "/admin",
+      "url": "/admin?view=metrics",
+      "description": "서비스 지표 — 전환 칸(lg) 다섯 장에 증감 알약 셋(up · down · flat)과 보조 칸(md), 결제 칸, 단계 막대, 재방문 칸. 기간은 기본 30일이고 끝 시각은 브라우저 지금이라 clock 으로 고정한다.",
+      "contentNote": "가입 128(직전 96, up) · 첫 프로젝트 50%(직전 62.5%, down) · 24시간 첫 결과물 25%(직전 25%, flat). 단계 키 · 재방문 키 · 결제 유형 키는 제품 route.ts 의 것, 수는 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/ProductMetricsDashboard.tsx#ProductMetricsDashboard",
+        "apps/web/app/admin/AdminSection.tsx#AdminStatTile"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1463,
+          "expect": "{activeTab === \"metrics\""
+        },
+        {
+          "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+          "line": 229,
+          "expect": "const now = new Date();"
+        },
+        {
+          "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+          "line": 359,
+          "expect": "params.set(\"segmentKey\", segmentKey)"
+        },
+        {
+          "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+          "line": 370,
+          "expect": "`/api/admin/product-metrics?"
+        },
+        {
+          "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+          "line": 194,
+          "expect": "type ProductMetricsData"
+        },
+        {
+          "path": "apps/web/app/api/admin/product-metrics/route.ts",
+          "line": 820,
+          "expect": "segmentOptions: buildSegmentOptions"
+        },
+        {
+          "path": "apps/web/app/admin/ProductMetricsDashboard.tsx",
+          "line": 709,
+          "expect": "deltaTone={card.tone}"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/product-metrics",
+          "jsonFile": "data/admin/product-metrics.json",
+          "query": {
+            "segmentKey": "all"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "New sign-ups",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "New sign-ups",
+          "+32"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin usage",
+      "base": "/admin",
+      "url": "/admin?view=usage",
+      "description": "모델 사용량 — 제목 아래 합계 두 줄, 카테고리 둘(영상 · 이미지)에 모델 넷의 막대 행. 환불이 있는 묶음은 머리에 두 줄로 적힌다.",
+      "contentNote": "모델 id 는 제품 modelLabels.ts 의 키(veo-3.1-fast · kling-3.0-pro · nano-banana-pro · gpt-image-2), 건수 · 크레딧은 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/UsageByModelDashboard.tsx#UsageByModelDashboard"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1471,
+          "expect": "{activeTab === \"usage\" && <UsageByModelDashboard"
+        },
+        {
+          "path": "apps/web/app/admin/UsageByModelDashboard.tsx",
+          "line": 112,
+          "expect": "useAdminViewState<Period>(\"usage.period\", \"30d\")"
+        },
+        {
+          "path": "apps/web/app/admin/UsageByModelDashboard.tsx",
+          "line": 125,
+          "expect": "`/api/admin/usage-by-model?period="
+        },
+        {
+          "path": "apps/web/app/api/admin/usage-by-model/route.ts",
+          "line": 110,
+          "expect": "data: (data ?? []) as UsageRow[]"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/usage-by-model",
+          "jsonFile": "data/admin/usage-by-model.json",
+          "query": {
+            "period": "30d"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Veo 3.1 Fast",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Video generation",
+          "Veo 3.1 Fast",
+          "Image generation"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin refunds",
+      "base": "/admin",
+      "url": "/admin?view=refunds",
+      "description": "청약철회 — 상태가 다른 신청 카드 셋(대기 · 완료 · 반려). 사이드바 건수 요청(useSidebarCounts)도 같은 경로라 같은 본문을 받는다.",
+      "contentNote": "금액 29,900 · 9,900 원과 크레딧 수는 지어낸 내용. 신청 시각은 clock 기준 2시간 전 · 2일 전 · 13일 전(7일부터 날짜 표기).",
+      "surfaces": [
+        "apps/web/app/admin/RefundManagement.tsx#RefundManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1460,
+          "expect": "{activeTab === \"refunds\" && ("
+        },
+        {
+          "path": "apps/web/app/admin/RefundManagement.tsx",
+          "line": 253,
+          "expect": "fetch(\"/api/admin/refund-requests\")"
+        },
+        {
+          "path": "apps/web/app/admin/RefundManagement.tsx",
+          "line": 27,
+          "expect": "type RefundRequest"
+        },
+        {
+          "path": "apps/web/app/api/admin/refund-requests/route.ts",
+          "line": 57,
+          "expect": "return NextResponse.json({ ok: true, data });"
+        },
+        {
+          "path": "apps/web/app/admin/useSidebarCounts.ts",
+          "line": 37,
+          "expect": "fetch(\"/api/admin/refund-requests\")"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/refund-requests",
+          "jsonFile": "data/admin/refund-requests.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "placeholder.pending@klipse.test",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Pending",
+          "Completed",
+          "Rejected",
+          "₩29,900"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin refunds.confirm",
+      "base": "/admin",
+      "url": "/admin?view=refunds",
+      "description": "대기 신청을 펼쳐 「Refund」를 눌러 처리 확인 창(role=dialog, 구독 결제라 세 줄 설명 + 토스 취소 체크)을 연다.",
+      "surfaces": [
+        "apps/web/app/admin/RefundManagement.tsx#RefundManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/RefundManagement.tsx",
+          "line": 253,
+          "expect": "fetch(\"/api/admin/refund-requests\")"
+        },
+        {
+          "path": "apps/web/app/api/admin/refund-requests/route.ts",
+          "line": 57,
+          "expect": "return NextResponse.json({ ok: true, data });"
+        },
+        {
+          "path": "apps/web/app/admin/RefundManagement.tsx",
+          "line": 524,
+          "expect": "action: \"complete\","
+        },
+        {
+          "path": "apps/web/app/admin/RefundManagement.tsx",
+          "line": 562,
+          "expect": "role=\"dialog\""
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/refund-requests",
+          "jsonFile": "data/admin/refund-requests.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "placeholder.pending@klipse.test"
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "placeholder.pending@klipse.test"
+          },
+          "description": "대기 카드 머리(aria-expanded) — 이메일이 든 버튼은 이것 하나"
+        },
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Refund",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Refund",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "dialog",
+            "name": "Process this refund?"
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Process this refund?",
+          "I cancelled the payment in the Toss merchant console"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin inquiries",
+      "base": "/admin",
+      "url": "/admin?view=inquiries",
+      "description": "고객 문의 — 카테고리가 다른 미해결 문의 둘, 첨부가 있는 첫 문의를 펼쳐 첨부 이미지(같은 출처 예시 이미지)까지 세운다.",
+      "contentNote": "첨부는 제품 public/image-edit/examples/example-1.jpg. 제목 · 본문 · 이메일은 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/InquiryManagement.tsx#InquiryManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1457,
+          "expect": "{activeTab === \"inquiries\" && ("
+        },
+        {
+          "path": "apps/web/app/admin/InquiryManagement.tsx",
+          "line": 235,
+          "expect": ": \"/api/admin/inquiries\","
+        },
+        {
+          "path": "apps/web/app/admin/InquiryManagement.tsx",
+          "line": 28,
+          "expect": "type Inquiry = {"
+        },
+        {
+          "path": "apps/web/app/api/admin/inquiries/route.ts",
+          "line": 75,
+          "expect": "return NextResponse.json({ ok: true, data: withSignedUrls });"
+        },
+        {
+          "path": "apps/web/app/admin/useSidebarCounts.ts",
+          "line": 26,
+          "expect": "fetch(\"/api/admin/inquiries\")"
+        },
+        {
+          "path": "apps/web/app/admin/InquiryManagement.tsx",
+          "line": 419,
+          "expect": "copy.inquiries.attachments"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/inquiries",
+          "jsonFile": "data/admin/inquiries.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Placeholder inquiry A"
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Placeholder inquiry A"
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Attached images (1)",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Bug report",
+          "Payment",
+          "Placeholder inquiry A",
+          "Attached images (1)"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin coupons",
+      "base": "/admin",
+      "url": "/admin?view=coupons",
+      "description": "쿠폰 — 운영자 발급 캠페인 둘(크레딧 혜택 진행 중 · 플랜 혜택 일시 중지).",
+      "contentNote": "플랜 코드 pro 는 제품 플랜 코드. 이름 · 코드 · 수량은 지어낸 내용. /api/plans(발급 폼 드롭다운 전용)는 가로채지 않는다.",
+      "surfaces": [
+        "apps/web/app/admin/CouponManagement.tsx#CouponManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1465,
+          "expect": "{activeTab === \"coupons\" && <CouponManagement"
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 411,
+          "expect": "fetch(\"/api/admin/coupons\")"
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 38,
+          "expect": "interface CouponCampaign"
+        },
+        {
+          "path": "apps/web/app/api/admin/coupons/route.ts",
+          "line": 88,
+          "expect": "return NextResponse.json({ ok: true, data });"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/coupons",
+          "jsonFile": "data/admin/coupons.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder campaign A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder campaign A",
+          "300 credits",
+          "Paused"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin coupons.detail",
+      "base": "/admin",
+      "url": "/admin?view=coupons",
+      "description": "첫 캠페인의 「Redemptions」로 코드 사용 내역 창(AdminEditorDialog)을 연다 — 사용한 코드 셋.",
+      "surfaces": [
+        "apps/web/app/admin/CouponManagement.tsx#CouponManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 411,
+          "expect": "fetch(\"/api/admin/coupons\")"
+        },
+        {
+          "path": "apps/web/app/api/admin/coupons/route.ts",
+          "line": 88,
+          "expect": "return NextResponse.json({ ok: true, data });"
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 1620,
+          "expect": "openBatchPanel(campaign, \"codes\")"
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 521,
+          "expect": "/codes?page=${page}&usedOnly="
+        },
+        {
+          "path": "apps/web/app/admin/CouponManagement.tsx",
+          "line": 67,
+          "expect": "interface CouponCodeRow"
+        },
+        {
+          "path": "apps/web/app/api/admin/coupons/[id]/codes/route.ts",
+          "line": 135,
+          "expect": "pageSize: PAGE_SIZE"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/coupons/00000000-0000-4000-8000-0000ad000501/codes",
+          "jsonFile": "data/admin/coupon-codes.json",
+          "query": {
+            "page": "0"
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/coupons",
+          "jsonFile": "data/admin/coupons.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Redemptions",
+            "exact": true,
+            "nth": 0
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Redemptions",
+            "exact": true,
+            "nth": 0
+          },
+          "expectResponse": {
+            "method": "GET",
+            "path": "/api/admin/coupons/00000000-0000-4000-8000-0000ad000501/codes"
+          },
+          "description": "행마다 같은 이름의 버튼이 있어 첫 행(Placeholder campaign A)을 nth 0 으로 고른다"
+        },
+        {
+          "waitFor": {
+            "text": "FXR1-AAAA-AAAA",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "FXR1-AAAA-AAAA",
+          "placeholder.redeemer-1@klipse.test"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin banners",
+      "base": "/admin",
+      "url": "/admin?view=banners",
+      "description": "홈과 랜딩 — 하위 탭 바(기본 「Home banners」 선택)와 배너 두 행(이미지 공개 · 영상 숨김).",
+      "contentNote": "썸네일은 제품 public 의 같은 출처 파일(example-2.jpg · videos/showcase-hero.mp4). 제목 · 설명은 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/ContentManagement.tsx#ContentManagement",
+        "apps/web/app/admin/BannerManagement.tsx#BannerManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1466,
+          "expect": "{activeTab === \"banners\" && <ContentManagement"
+        },
+        {
+          "path": "apps/web/app/admin/ContentManagement.tsx",
+          "line": 28,
+          "expect": "useAdminViewState<ContentTab>(\"banners.tab\", \"banners\")"
+        },
+        {
+          "path": "apps/web/app/admin/BannerManagement.tsx",
+          "line": 195,
+          "expect": "fetch(\"/api/admin/banners\")"
+        },
+        {
+          "path": "apps/web/app/admin/BannerManagement.tsx",
+          "line": 50,
+          "expect": "interface Banner"
+        },
+        {
+          "path": "apps/web/app/api/admin/banners/route.ts",
+          "line": 43,
+          "expect": "data: (data ?? []).map(withMedia)"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/banners",
+          "jsonFile": "data/admin/banners.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder banner A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Home banners",
+          "Placeholder banner A",
+          "Hidden"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin banners.models",
+      "base": "/admin",
+      "url": "/admin?view=banners",
+      "description": "하위 탭 「AI model cards」를 눌러 모델 카드 세 행(영상 + New 딱지 · 이미지 · 숨김 + Top 딱지)을 세운다. 하위 탭은 메모리 저장소라 클릭해야 한다.",
+      "contentNote": "모델 이름은 제품 표기(modelLabels.ts), 로고는 제품 public 의 seedance_logo.webp · gemini.svg · kling.svg. 설명은 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/ModelManagement.tsx#ModelManagement",
+        "apps/web/app/admin/ContentManagement.tsx#ContentManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/ContentManagement.tsx",
+          "line": 28,
+          "expect": "useAdminViewState<ContentTab>(\"banners.tab\", \"banners\")"
+        },
+        {
+          "path": "apps/web/app/admin/ContentManagement.tsx",
+          "line": 39,
+          "expect": "id={`content-tab-${t.id}`}"
+        },
+        {
+          "path": "apps/web/app/admin/ModelManagement.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/admin/models\")"
+        },
+        {
+          "path": "apps/web/app/admin/ModelManagement.tsx",
+          "line": 56,
+          "expect": "interface Model {"
+        },
+        {
+          "path": "apps/web/app/api/admin/models/route.ts",
+          "line": 44,
+          "expect": "data: (data ?? []).map(withUrls)"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/models",
+          "jsonFile": "data/admin/models.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/banners",
+          "jsonFile": "data/admin/banners.json",
+          "description": "기본 하위 탭이 먼저 마운트되며 부른다 — 서버로 보내지 않게 같은 본문으로 답한다."
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "AI model cards"
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "AI model cards"
+          },
+          "expectResponse": {
+            "method": "GET",
+            "path": "/api/admin/models"
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Seedance 2.0 Mini",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Seedance 2.0 Mini",
+          "New",
+          "Top"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin banners.landing",
+      "base": "/admin",
+      "url": "/admin?view=banners",
+      "description": "하위 탭 「Landing page」 — 배경 영상 슬롯(미리보기)과 공지 알약 미리보기 · 입력 세 벌.",
+      "contentNote": "배경 영상은 제품 기본 브랜드 영상(public/videos/login-brand.mp4), 로고는 public/symbol.png. 공지 문구는 짧은 자리표시.",
+      "surfaces": [
+        "apps/web/app/admin/LandingManagement.tsx#LandingManagement",
+        "apps/web/app/admin/ContentManagement.tsx#ContentManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/ContentManagement.tsx",
+          "line": 39,
+          "expect": "id={`content-tab-${t.id}`}"
+        },
+        {
+          "path": "apps/web/app/admin/LandingManagement.tsx",
+          "line": 78,
+          "expect": "fetch(\"/api/admin/landing-hero\")"
+        },
+        {
+          "path": "apps/web/app/api/admin/landing-hero/route.ts",
+          "line": 58,
+          "expect": "url: servingUrlOrNull(media.storage_key)"
+        },
+        {
+          "path": "apps/web/app/api/admin/landing-hero/route.ts",
+          "line": 69,
+          "expect": "logo_url: servingUrlOrNull(notice.logo_key)"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/landing-hero",
+          "jsonFile": "data/admin/landing-hero.json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/banners",
+          "jsonFile": "data/admin/banners.json",
+          "description": "기본 하위 탭이 먼저 마운트되며 부른다."
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Landing page"
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Landing page"
+          },
+          "expectResponse": {
+            "method": "GET",
+            "path": "/api/admin/landing-hero"
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Placeholder notice",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Top notice",
+          "Placeholder notice"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin templates",
+      "base": "/admin",
+      "url": "/admin?view=templates",
+      "description": "리소스 템플릿 — 세 행(이미지 커버 발행 · 영상 커버 발행 · 미디어 없는 초안).",
+      "contentNote": "커버는 제품 public 의 같은 출처 파일. 제목 · 슬러그 · 설명은 지어낸 내용.",
+      "surfaces": [
+        "apps/web/app/admin/TemplateManagement.tsx#TemplateManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1469,
+          "expect": "{activeTab === \"templates\" && <TemplateManagement"
+        },
+        {
+          "path": "apps/web/app/admin/TemplateManagement.tsx",
+          "line": 337,
+          "expect": "fetch(\"/api/admin/templates\")"
+        },
+        {
+          "path": "apps/web/app/lib/templates/types.ts",
+          "line": 11,
+          "expect": "export interface Template {"
+        },
+        {
+          "path": "apps/web/app/api/admin/templates/route.ts",
+          "line": 32,
+          "expect": "data: (data as Template[]).map(withServedMediaUrls)"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/templates",
+          "jsonFile": "data/admin/templates.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder template A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder template A",
+          "Draft"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin captions",
+      "base": "/admin",
+      "url": "/admin?view=captions",
+      "description": "자막 템플릿 — louis-table 두 행(기본 템플릿 · 한영 둘 다).",
+      "contentNote": "이름 · 라벨은 지어낸 내용. 글꼴 · 크기 · 위치는 제품 편집 창 기본값(EMPTY_POSITIONS · FONT_OPTIONS)과 같은 꼴.",
+      "surfaces": [
+        "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1467,
+          "expect": "{activeTab === \"captions\" && <CaptionTemplateManagement"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 518,
+          "expect": "fetch(\"/api/admin/caption-templates\")"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 224,
+          "expect": "interface CaptionTemplate {"
+        },
+        {
+          "path": "apps/web/app/api/admin/caption-templates/route.ts",
+          "line": 42,
+          "expect": "watermark_url: servableWatermarkUrl(row.watermark_url)"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/caption-templates",
+          "jsonFile": "data/admin/caption-templates.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Korean and English",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder A",
+          "Korean and English",
+          "#000000"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin captions.create",
+      "base": "/admin",
+      "url": "/admin?view=captions",
+      "description": "「Add template」로 새 템플릿 편집 창(AdminEditorDialog)을 연다 — 기본 폼 값, 설정 탭 「Basics」(레터박스 색 칸 = ColorSwatchRow). 모바일에서는 미리보기 열이 먼저 쌓여 색 칸이 뷰포트 밖일 수 있어 assert 는 창 제목만 본다.",
+      "surfaces": [
+        "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement",
+        "apps/web/app/admin/CaptionTemplateManagement.tsx#ColorSwatchRow"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 518,
+          "expect": "fetch(\"/api/admin/caption-templates\")"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 564,
+          "expect": "const openCreate = () =>"
+        },
+        {
+          "path": "apps/web/app/admin/AdminEditorDialog.tsx",
+          "line": 69,
+          "expect": "role=\"dialog\""
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 1200,
+          "expect": "<ColorSwatchRow value={form.letterbox_color}"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/caption-templates",
+          "jsonFile": "data/admin/caption-templates.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Add template",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Add template",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "dialog",
+            "name": "New template"
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "New template"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin captions.settings",
+      "base": "/admin",
+      "url": "/admin?view=captions",
+      "contexts": [
+        "desktop-1920x1080"
+      ],
+      "description": "편집 창의 설정 탭을 「Title」로 옮긴다 — 글꼴 · 크기 · 굵기 줄 아래 글자색 · 배경색 · 테두리색 ColorSwatchRow. 데스크톱만(모바일은 폼 열이 미리보기 아래라 뷰포트 밖).",
+      "surfaces": [
+        "apps/web/app/admin/CaptionTemplateManagement.tsx#CaptionTemplateManagement",
+        "apps/web/app/admin/CaptionTemplateManagement.tsx#ColorSwatchRow"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 564,
+          "expect": "const openCreate = () =>"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 1169,
+          "expect": "label={copy.captions.settings}"
+        },
+        {
+          "path": "apps/web/app/admin/CaptionTemplateManagement.tsx",
+          "line": 1246,
+          "expect": "<ColorSwatchRow value={form.title_font_color}"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/caption-templates",
+          "jsonFile": "data/admin/caption-templates.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Add template",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Add template",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "dialog",
+            "name": "New template"
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Title",
+            "exact": true,
+            "within": {
+              "role": "group",
+              "name": "Settings"
+            }
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Text color",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "New template",
+          "Text color"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin blog",
+      "base": "/admin",
+      "url": "/admin?view=blog",
+      "description": "블로그 — 글 두 행(발행 · 초안). 목록 행에는 커버가 그려지지 않는다(커버는 편집 폼에만).",
+      "surfaces": [
+        "apps/web/app/admin/BlogManagement.tsx#BlogManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1468,
+          "expect": "{activeTab === \"blog\" && <BlogManagement"
+        },
+        {
+          "path": "apps/web/app/admin/BlogManagement.tsx",
+          "line": 210,
+          "expect": "fetch(\"/api/admin/blog\")"
+        },
+        {
+          "path": "apps/web/app/lib/blog/types.ts",
+          "line": 2,
+          "expect": "export interface BlogPost"
+        },
+        {
+          "path": "apps/web/app/api/admin/blog/route.ts",
+          "line": 30,
+          "expect": "return NextResponse.json({ ok: true, data: rows });"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/blog",
+          "jsonFile": "data/admin/blog.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Placeholder post A",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder post A",
+          "Draft"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin blog.new",
+      "base": "/admin",
+      "url": "/admin?view=blog",
+      "description": "「Write post」로 새 글 편집 화면(editingId=\"new\") — 데이터 없이 서는 편집 폼.",
+      "surfaces": [
+        "apps/web/app/admin/BlogManagement.tsx#BlogManagement"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/BlogManagement.tsx",
+          "line": 210,
+          "expect": "fetch(\"/api/admin/blog\")"
+        },
+        {
+          "path": "apps/web/app/admin/BlogManagement.tsx",
+          "line": 230,
+          "expect": "setEditingId(\"new\");"
+        },
+        {
+          "path": "apps/web/app/admin/BlogManagement.tsx",
+          "line": 405,
+          "expect": "{editingId === \"new\" ? copy.blog.newPost"
+        },
+        {
+          "path": "apps/web/app/admin/BlogManagement.tsx",
+          "line": 440,
+          "expect": "placeholder={copy.blog.titlePlaceholder}"
+        }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/blog",
+          "jsonFile": "data/admin/blog.json"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Write post",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Write post",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "placeholder": "Post title"
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "New post"
+        ],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/admin jobs",
+      "base": "/admin",
+      "url": "/admin?view=jobs",
+      "description": "작업 현황(기본 48시간) — 출처가 다른 작업 셋(영상 생성 완료 · 이미지 생성 실패 · 하이라이트 추출), 완료 영상 행을 펼쳐 결과 영상 미리보기와 상세 목록을 세운다.",
+      "contentNote": "결과 영상은 제품 public/videos/showcase-hero.mp4. 모델 id 는 제품 키, 이메일 · 이름 · 프롬프트 · 오류 문구는 지어낸 내용. 시각은 clock 기준 5분 · 1시간 · 4시간 전.",
+      "surfaces": [
+        "apps/web/app/admin/JobMonitor.tsx#JobMonitor"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/app/admin/page.tsx",
+          "line": 28,
+          "expect": "initialView={typeof view"
+        },
+        {
+          "path": "apps/web/app/admin/useAdminNavigation.ts",
+          "line": 18,
+          "expect": "resolveAdminView(initialView"
+        },
+        {
+          "path": "apps/web/app/admin/AdminClient.tsx",
+          "line": 1470,
+          "expect": "{activeTab === \"jobs\" && <JobMonitor"
+        },
+        {
+          "path": "apps/web/app/admin/JobMonitor.tsx",
+          "line": 449,
+          "expect": "useAdminViewState(\"jobs.period\", \"48\")"
+        },
+        {
+          "path": "apps/web/app/admin/JobMonitor.tsx",
+          "line": 540,
+          "expect": "`/api/admin/job-monitor?"
+        },
+        {
+          "path": "apps/web/app/admin/JobMonitor.tsx",
+          "line": 155,
+          "expect": "type JobMonitorResponse"
+        },
+        {
+          "path": "apps/web/app/api/admin/job-monitor/route.ts",
+          "line": 534,
+          "expect": "jobs: await Promise.all(jobs.map(resolveJob))"
+        },
+        {
+          "path": "apps/web/app/admin/JobMonitor.tsx",
+          "line": 790,
+          "expect": "{isExpanded && <JobDetail"
+        }
+      ],
+      "clock": "2026-01-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/admin/job-monitor",
+          "jsonFile": "data/admin/job-monitor.json",
+          "query": {
+            "hours": "48"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Placeholder user A"
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Placeholder user A"
+          }
+        },
+        {
+          "waitFor": {
+            "text": "Placeholder prompt",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder user A",
+          "Failed",
+          "Placeholder prompt"
+        ],
+        "apiHit": "all"
+      }
+    }
+  ]
+}

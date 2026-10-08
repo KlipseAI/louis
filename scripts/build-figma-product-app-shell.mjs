@@ -183,18 +183,18 @@ const avatarSource = sourceQuote(avatarSourcePath, 22, '  "text-palette-gray-400
 // 나머지 문자열 다섯은 글자 그대로다.
 // a4125565 에서 줄만 −1 밀렸다(1433 → 1432) — 1094행 근처 크레딧 팝오버 주석이 한 줄 줄었다(`git diff -U0 2c6bdacf a4125565`).
 const ringSourceLines = [
-  [1432, '    "[--profile-avatar-size:24px]",'],
-  [1435, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
-  [1436, '    "[--profile-ring-gap:2px]",'],
-  [1437, '    "[--profile-ring-width:2px]",'],
-  [1464, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
-  [1466, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
+  [1467, '    "[--profile-avatar-size:24px]",'],
+  [1470, '    "[--profile-ring-track:rgb(var(--gray-000-rgb)_/_20%)]",'],
+  [1471, '    "[--profile-ring-gap:2px]",'],
+  [1472, '    "[--profile-ring-width:2px]",'],
+  [1499, '    "[&::after]:[background:conic-gradient(_from_0deg,_var(--profile-ring-fill)_0_var(--profile-ring-progress),_var(--profile-ring-track)_var(--profile-ring-progress)_100%_)]",'],
+  [1501, '    "[&::after]:[mask:radial-gradient(_farthest-side,_transparent_calc(100%_-_var(--profile-ring-width)),_#000_calc(100%_-_var(--profile-ring-width))_)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // 버튼 한 변이 식이라는 선언 셋 — `--profile-ring-size` calc 와 그것을 폭·높이로 쓰는 두 줄.
 const profileSizeSourceLines = [
-  [1438, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
-  [1440, '    "[width:var(--profile-ring-size)]",'],
-  [1441, '    "[height:var(--profile-ring-size)]",'],
+  [1473, '    "[--profile-ring-size:calc(_var(--profile-avatar-size)_+_(var(--profile-ring-gap)_+_var(--profile-ring-width))_*_2_)]",'],
+  [1475, '    "[width:var(--profile-ring-size)]",'],
+  [1476, '    "[height:var(--profile-ring-size)]",'],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 // **앞머리 컨트롤 한 변도 선언이다.** `mainChromeSidebarToggle`(Gnb.tsx:359) 의 `[width:32px]` ·
 // `[height:32px]`. 두 문자열은 파일에 네 번씩 나오므로 블록 머리(:359–360)를 함께 인용해 자리를 고정한다.
@@ -225,9 +225,9 @@ const DECLARED_PROFILE = (() => {
 })();
 // 토글 글리프의 표시 크기도 선언이다(Gnb.tsx:5252–5254 `<svg className={…mainChromeSidebarToggleSvg} width={20} height={20}>`).
 const toggleSvgSourceLines = [
-  [5251, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
-  [5252, "                      width={20}"],
-  [5253, "                      height={20}"],
+  [5330, "                      className={gnbStyles.mainChromeSidebarToggleSvg}"],
+  [5331, "                      width={20}"],
+  [5332, "                      height={20}"],
 ].map(([line, quote]) => sourceQuote(ringSourcePath, line, quote));
 const DECLARED_TOGGLE_SVG = (() => {
   const [width, height] = [toggleSvgSourceLines[1], toggleSvgSourceLines[2]].map((entry) => Number(/=\{(\d+)\}/.exec(entry.quote)?.[1]));
@@ -313,9 +313,17 @@ const candidateContracts = [
   // 2026-09-26: id 는 그대로이고 **걸친 라우트 수만** 늘었다 — 인증 fixture 에 화면이 늘어서다(같은 앵커 2c6bdacf). 보드 없던
   // 실제 화면 셋(bulk-success · bulk-fail · coupons)이 프로필 묶음을 18 → 21 로, 결제 성공 화면 넷의 `?preview=` 상태 여섯이
   // 21 → 27 로 늘렸고, 새 상태 화면 여섯은 MyPage · Subscription 바를 써서 두 바가 4 → 6 이 됐다. nodeCount 는 셋 다 그대로다.
-  ["subtree-7afea61e7dab", 6, 27],
-  ["subtree-9a75e0bd18d2", 15, 6],
-  ["subtree-8a8ec102efb8", 14, 6],
+  //
+  // 2026-10-08 재고정(a4125565 → 통합 판 76b6cf15, DS-D-0079): 셋 다 갈렸다. 서명 대조에서 구조 · rect 는 그대로이고 바뀐 계산값은
+  // 노드 전부의 `fontFamily` 하나다(통합 판의 글꼴 스택 `"Pretendard Variable", -apple-system, …`). 걸친 라우트는 두 가지로 줄었다 —
+  // 프로필 묶음 27 → 26 은 redirect 가 된 `/subscription/coupons`(구매 내역이 구독 허브 탭으로 갔다), 두 바 6 → 5 는 `/mypage/topup/fail`
+  // 이 빠져서다. 통합 판에서 그 화면의 바 글자가 「My Page」 → 「Subscription」 으로 바뀌어(rect 폭 55 → 78.69) 같은 서명이 아니다.
+  //   subtree-7afea61e7dab(6/27) → subtree-aa5a4115196f(6/26)
+  //   subtree-9a75e0bd18d2(15/6) → subtree-32b7c0952c2b(15/5)
+  //   subtree-8a8ec102efb8(14/6) → subtree-a528a644ec31(14/5)
+  ["subtree-aa5a4115196f", 6, 26],
+  ["subtree-32b7c0952c2b", 15, 5],
+  ["subtree-a528a644ec31", 14, 5],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -480,7 +488,9 @@ const variantInputs = [
   { width: "Full", breadcrumb: "Trail", back: false, divider: true, route: "/analytics/youtube", rootPath: "body.1.0.0.1.0.0.0.0" },
   // 하이라이트 phase 여섯의 바는 서브트리가 바이트까지 같다 — 하나(loading)면 된다.
   { width: "Full", breadcrumb: "Trail", back: true, divider: true, route: "/highlight/[projectId]?__phase=loading", rootPath: "body.1.0.0.1.0.0.0" },
-  { width: "Inset", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/fail", rootPath: "body.1.0.0.1.0.0" },
+  // 통합 판(76b6cf15)에서 `/mypage/topup/fail` 의 바 글자가 「Subscription」 이 됐다 — 「My Page」 바(위 15/5 · 14/5 후보)의 출처를 같은 충전
+  // 흐름의 `/mypage/topup/success` 로 옮긴다(같은 root path, 후보 roots 에 있다).
+  { width: "Inset", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/success", rootPath: "body.1.0.0.1.0.0" },
   { width: "Inset", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-success", rootPath: "body.1.0.0.1.0.0" },
   { width: "Inset", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
 ];
@@ -546,12 +556,21 @@ const desktopCandidateContracts = [
   //   subtree-8ac04d3f1453(16/3) → subtree-b92008e236c0
   //   subtree-8e576a12733a(5/3)  → subtree-869dcbe1a654
   // 2026-09-26: 모바일 가드와 같은 사유로 걸친 라우트 수만 늘었다(18 → 27 · 4 → 6 · 3 → 5). id 와 nodeCount 는 그대로다.
-  ["subtree-11bba9db9ef0", 6, 27],
-  ["subtree-9650ff03cd07", 15, 6],
-  ["subtree-bab0168c7bfe", 14, 6],
-  ["subtree-ee83e5ff8b7f", 17, 5],
-  ["subtree-b92008e236c0", 16, 5],
-  ["subtree-869dcbe1a654", 5, 5],
+  // 2026-10-08 재고정(a4125565 → 통합 판 76b6cf15): 모바일 가드와 같은 둘이다 — 노드 전부의 `fontFamily` 로 id 가 갈렸고, 프로필 묶음은
+  // `/subscription/coupons` redirect 로 27 → 26, MyPage 바 둘은 바 글자가 「Subscription」 이 된 `/mypage/topup/fail` 이 빠져 6 → 5 다.
+  // 17/5 · 16/5 · 5/5 는 라우트 수까지 그대로다. 구조 · rect 는 여섯 다 그대로다.
+  //   subtree-11bba9db9ef0(6/27) → subtree-7f52f3f91e25(6/26)
+  //   subtree-9650ff03cd07(15/6) → subtree-91e6a1c240cd(15/5)
+  //   subtree-bab0168c7bfe(14/6) → subtree-d3cdd3988a01(14/5)
+  //   subtree-ee83e5ff8b7f(17/5) → subtree-97349085415b
+  //   subtree-b92008e236c0(16/5) → subtree-c80157b3010b
+  //   subtree-869dcbe1a654(5/5)  → subtree-9cde2f3932a9
+  ["subtree-7f52f3f91e25", 6, 26],
+  ["subtree-91e6a1c240cd", 15, 5],
+  ["subtree-d3cdd3988a01", 14, 5],
+  ["subtree-97349085415b", 17, 5],
+  ["subtree-c80157b3010b", 16, 5],
+  ["subtree-9cde2f3932a9", 5, 5],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -563,7 +582,8 @@ const desktopVariantInputs = [
   { content: "Home", breadcrumb: "Single", back: false, divider: true, route: "/archive", rootPath: "body.1.0.0.1.0.0.0.0" },
   { content: "Settings", breadcrumb: "Single", back: false, divider: true, route: "/settings", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Analytics", breadcrumb: "Trail", back: false, divider: true, route: "/analytics/youtube", rootPath: "body.1.0.0.1.0.0.0.0" },
-  { content: "MyPage", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/fail", rootPath: "body.1.0.0.1.0.0" },
+  // 출처를 `/mypage/topup/fail` 에서 `/mypage/topup/success` 로 옮겼다 — 위 모바일 Inset · Single 과 같은 사유(통합 판에서 그 화면 바가 Subscription).
+  { content: "MyPage", breadcrumb: "Single", back: false, divider: true, route: "/mypage/topup/success", rootPath: "body.1.0.0.1.0.0" },
   { content: "Subscription", breadcrumb: "Single", back: false, divider: true, route: "/subscription", rootPath: "body.1.0.0.1.0.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: false, divider: true, route: "/mypage/upgrade/billing-fail", rootPath: "body.1.0.0.1.0.0" },
   { content: "Subscription", breadcrumb: "Trail", back: true, divider: true, route: "/mypage/upgrade", rootPath: "body.1.0.0.1.0.0.0.0" },
@@ -693,7 +713,7 @@ const profileVisualConstants = {
 const dividerSources = [
   sourceQuote(
     "apps/web/components/navigation/Gnb.tsx",
-    478,
+    476,
     '    "[border-bottom:var(--louis-border-width-hairline)_solid_color-mix(_in_srgb,_var(--louis-color-stroke-hairline)_calc(var(--mainchrome-divider-progress,_1)_*_100%),_transparent_)]",',
   ),
   sourceQuote(
@@ -712,8 +732,8 @@ const bindingOf = (role) => ({ collection: FIGMA_COLOR_COLLECTION, name: FIGMA_C
 // **바의 Auto Layout 은 제품 선언이 정한다(2026-09-14).** 인용 여섯이 식의 출처다: 높이 하한을 끄고
 // (`min-block-size:0`) 세로 패딩 8 을 주는 바, 남는 폭을 차지하고(`flex:1`) 넘치면 말줄임하는 제목.
 const layoutSources = [
-  [441, '    "[min-block-size:0]",'],
-  [464, '    "[padding:8px_var(--mainchrome-pad-x)]",'],
+  [438, '    "[min-block-size:0]",'],
+  [461, '    "[padding:8px_var(--mainchrome-pad-x)]",'],
   [315, '    "louis-app-top-bar__title",'],
   [317, '    "[flex:1]",'],
   [347, '    "[overflow:hidden]",'],
@@ -822,7 +842,7 @@ const plan = {
       surface: bindingOf("surface"),
       $surfaceSource: sourceQuote(
         "apps/web/components/navigation/Gnb.tsx",
-        470,
+        467,
         '    "[background:var(--louis-color-bg-surface)]",',
       ),
       // 제품 `border-bottom … var(--louis-color-stroke-hairline)`(Gnb.tsx:478). 알파는 변수가 갖는다.

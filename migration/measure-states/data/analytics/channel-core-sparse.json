@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "section": "core",
+  "request": {
+    "startDate": "2026-02-15",
+    "endDate": "2026-03-14",
+    "topVideoLimit": 10
+  },
+  "overview": {
+    "views": 19165,
+    "watchMinutes": 31602,
+    "averageViewDuration": 99,
+    "averageViewPercentage": 41.1,
+    "likes": 1283,
+    "comments": 78,
+    "shares": 59,
+    "subscribersGained": 320,
+    "subscribersLost": 56,
+    "netSubscribers": 264
+  },
+  "previousSummary": {
+    "totalViews": 15971,
+    "totalWatchMinutes": 34350,
+    "totalLikes": 1069,
+    "totalComments": 94,
+    "totalShares": 59,
+    "averageViewDuration": 94,
+    "averageViewPercentage": 43.6,
+    "subscribersGained": 278,
+    "subscribersLost": 62,
+    "netSubscribers": 216
+  },
+  "audience": null,
+  "timeseries": {
+    "daily": [],
+    "status": {
+      "daily": "empty"
+    }
+  },
+  "topVideos": {
+    "items": [],
+    "count": 0,
+    "status": {
+      "base": "empty"
+    }
+  },
+  "traffic": null,
+  "geography": null,
+  "devices": null
+}

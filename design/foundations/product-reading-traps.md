@@ -239,15 +239,19 @@ legacy 목록(`check-tailwind-theme.mjs:239`)이다.
 데모가 켜진 문서에서는 **렌더된 값 자체가 다크로 나오기** 때문이다.
 
 **대응.** 라이트를 재기 전에 `document.querySelector('[data-landing-walkthrough-dark]')`가
-`null`인지 확인한다. null이 아니면 그 스냅샷에서 잰 라이트 값은 전부 버린다. 이 문자열은 여러
-파일에 흩어져 있지만 **속성을 실제로 다는 곳은 한 곳**이다 — `StaticCreateDemo.tsx:541`
-(`data-landing-walkthrough-dark={darkWalkthrough ? "" : undefined}`). 나머지 히트는 주석과
-Tailwind 임의 변형 셀렉터 문자열이다. 짝인 `-light`는 같은 파일 `:540` **하나뿐이다** — `NodeMockupCard.tsx` 는 랜딩 개편(`8802565e`)에서
-지워졌고 배포본 `df414c24` 에 없다.
+`null`인지 확인한다. null이 아니면 그 스냅샷에서 잰 라이트 값은 전부 버린다. **통합 판 `76b6cf15`
+에는 이 속성을 다는 곳이 하나도 없다** — 유일한 대입처였던 `StaticCreateDemo.tsx@a4125565:541`
+(`data-landing-walkthrough-dark={darkWalkthrough ? "" : undefined}`)이 렌더되지 않는 워크스루
+데모째 걷혔다(`3edd4c61`). 남은 히트는 전부 주석과 Tailwind 임의 변형 셀렉터 문자열이라 이 판에서는
+게이트가 늘 닫혀 있다. 그래도 확인은 남긴다 — 셀렉터는 그대로 살아 있어 대입처가 다시 생기면 같은
+함정이 돌아온다. 짝인 `-light`는 이제 홈 루트에 고정으로 붙는다(`HomePageClient.tsx` 의
+`<main data-page-root data-landing-walkthrough-light data-theme="light">`) — 예전 대입처(같은 데모 파일
+`@a4125565:540`)도, 랜딩 개편(`8802565e`)에서 지워진 `NodeMockupCard.tsx` 도 이 판에 없다.
 
-**제품 주석을 근거로 삼지 않는다.** `WalkthroughGenerateCursor.tsx:24`는 그 속성을 다는 곳이
-`GettingStartedPanel`이라고 적어 두었지만 실제 대입처는 `StaticCreateDemo.tsx:541`이다. 주석이
-낡았고, 그 주석을 믿으면 게이트가 풀리는 조건을 잘못 짚는다.
+**제품 주석을 근거로 삼지 않는다.** `WalkthroughGenerateCursor.tsx@a4125565:24`는 그 속성을 다는 곳이
+`GettingStartedPanel`이라고 적어 두었지만 실제 대입처는 `StaticCreateDemo.tsx@a4125565:541`이었다.
+주석이 낡았고, 그 주석을 믿으면 게이트가 풀리는 조건을 잘못 짚는다. 두 파일 모두 통합 판에서
+걷혔지만(`b3cdeed4` · `3edd4c61`) 교훈은 그대로다.
 
 ## 6. portal은 스코프를 반만 벗어난다
 

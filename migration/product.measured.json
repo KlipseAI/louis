@@ -1251,7 +1251,7 @@
           "product": "A 인증 floating-label 9벌(시각적 필드가 감싸는 div, input은 투명) · B 테두리 박스 5벌 · C 테두리 없는 채운 면 9벌 · D 투명 인라인 rename 8벌 · E 캔버스 프롬프트 textarea 5벌",
           "ds": "단일 계열. 테두리 있는 박스형 하나이며 slot으로 접두·접미를 받는다",
           "match": "different",
-          "evidence": "apps/web/app/login/page.tsx:112-140 · apps/web/components/projects/CreateProjectModal.tsx:94-103 · apps/web/components/scenes/create/PublishFlow.tsx:60-68",
+          "evidence": "apps/web/app/(auth-brand)/login/page.tsx:31-59 · apps/web/components/projects/CreateProjectModal.tsx:94-103 · apps/web/components/scenes/create/PublishFlow.tsx:60-68",
           "status": "no-canon"
         },
         "높이": {
@@ -1265,21 +1265,21 @@
           "product": "12px이 다수(인증·CreateProjectModal·Inquiry) · 10px(블로그 댓글·드롭다운 검색) · 8px(구독 해지·레이어 검색) · 999px(설정 닉네임)",
           "ds": "radius-control 12px",
           "match": "partial",
-          "evidence": "apps/web/app/login/page.tsx:112 · apps/web/components/blog/BlogComments.tsx:40",
+          "evidence": "apps/web/app/(auth-brand)/login/page.tsx:31 · apps/web/components/blog/BlogComments.tsx:40",
           "status": "no-canon"
         },
         "테두리": {
           "product": "1px이 다수. 색은 gray-000/12%(인증·CreateProjectModal) · palette-gray-600(구독 해지) · palette-gray-900/12%(하이라이트 보정). 테두리가 아예 없는 계열이 C·D·E 22벌",
           "ds": "border-width-hairline 0.5px + color-stroke-control",
           "match": "different",
-          "evidence": "apps/web/app/login/page.tsx:118 · apps/web/components/scenes/myPageSceneStyles.ts:1418-1439",
+          "evidence": "apps/web/app/(auth-brand)/login/page.tsx:37 · apps/web/components/scenes/myPageSceneStyles.ts:1418-1439",
           "status": "no-canon"
         },
         "포커스 표현": {
           "product": "통일돼 있지 않다. 인증 계열은 outline 없이 wrapper border-color 변경 + box-shadow inset 0 0 0 1px. `outline: 2px solid rgb(var(--gray-000-rgb)/22%)` + offset 1px을 문자 단위로 같이 갖는 것이 5벌. outline:none만 두고 배경색으로만 표현하는 것이 다수. 포커스 표시를 의도적으로 없앤 것도 있다",
           "ds": "공유 .louis-focus-ring — outline: var(--louis-border-width-ring) solid var(--louis-color-stroke-focus), offset 2px",
           "match": "different",
-          "evidence": "apps/web/app/login/page.tsx:133 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
+          "evidence": "apps/web/app/(auth-brand)/login/page.tsx:52 · apps/web/components/scenes/create/node-canvas-v2/components/NodeLayersPanel.tsx:178",
           "status": "accepted-deviation",
           "reason": "제품은 포커스 표현이 계열마다 다르고 일부는 의도적으로 제거했다. 키보드 사용자가 지금 어디에 있는지 알 수 없는 상태를 DS가 옮기지 않는다. 공유 링 하나로 통일한다"
         },
@@ -1538,7 +1538,7 @@
           "product": "accent-color(A · C · D) · 숨긴 input + ::after 회전 테두리 체크마크(B 6벌) · 브라우저 기본(E)",
           "ds": "appearance: none으로 입력 자신을 칠하고 ::before가 표시를 그린다",
           "match": "partial",
-          "evidence": "apps/web/app/globals.css:1032 · apps/web/app/signup/page.tsx:170-179",
+          "evidence": "apps/web/app/globals.css:1032 · apps/web/app/(auth-brand)/signup/page.tsx:136-145",
           "status": "accepted-deviation",
           "reason": "accent-color는 면 색 하나만 주고 체크 표시의 굵기·반경·포커스 링·부분 선택 막대를 전부 브라우저가 정한다. 제품의 signup 계열 6벌이 이미 직접 그리는 것도 같은 이유다"
         },
@@ -1554,7 +1554,7 @@
           "product": "A·C·D·E는 테두리를 선언하지 않는다(accent-color와 브라우저 기본). B만 1px rgb(gray-000/26%)",
           "ds": "border-width-hairline + color-stroke-strong",
           "match": "different",
-          "evidence": "apps/web/app/signup/page.tsx:186",
+          "evidence": "apps/web/app/(auth-brand)/signup/page.tsx:152",
           "status": "accepted-deviation",
           "reason": "선택하지 않은 체크박스는 테두리가 어포던스의 전부다. 상자 면 대비 실측 — control 1.27/1.63 · default 1.38/2.93 · strong 2.52/4.61(라이트/다크)이고 셋 다 SC 1.4.11의 3:1에 라이트에서 미달한다. 가장 가까운 것을 골랐고 남은 격차는 규범에 수치로 적었다"
         },
@@ -1578,7 +1578,7 @@
           "product": "B는 label로 감싼다. A·C·D·E는 형제 텍스트를 두고 연결하지 않은 것이 다수다",
           "ds": "label이 상자와 글자를 함께 감싼다. id가 아니라 포함 관계가 연결을 만든다",
           "match": "partial",
-          "evidence": "apps/web/app/signup/page.tsx:630-660 · apps/web/app/admin/BlogManagement.tsx:368",
+          "evidence": "apps/web/app/(auth-brand)/signup/page.tsx:582-612 · apps/web/app/admin/BlogManagement.tsx:368",
           "status": "accepted-deviation",
           "reason": "연결이 없으면 20px 상자만 클릭 영역이 되고 스크린 리더가 라벨을 읽지 못한다. id로 잇는 방식은 같은 화면에 여럿일 때 겹친다"
         }

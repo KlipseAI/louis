@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "data": {
+    "users": [
+      {
+        "profile": {
+          "id": "00000000-0000-4000-8000-0000ad000101",
+          "email": "placeholder.tester@klipse.test",
+          "username": "Placeholder tester",
+          "created_at": "2026-01-10T12:00:00.000Z",
+          "is_ambassador": false
+        },
+        "subscription": {
+          "id": "00000000-0000-4000-8000-0000ad000201",
+          "status": "active",
+          "provider": "admin",
+          "auto_renew_enabled": false,
+          "plan_code": "pro",
+          "plan_name": "Pro",
+          "current_period_end": null
+        },
+        "balance": {
+          "available": 120000,
+          "reserved": 0
+        },
+        "payment": {
+          "paidCount": 0,
+          "paidAmount": 0,
+          "refundedAmount": 0
+        },
+        "generations": {
+          "video": {
+            "total": 12,
+            "byModel": {
+              "veo": 12
+            }
+          },
+          "image": {
+            "total": 30,
+            "byModel": {
+              "nano-banana-pro": 30
+            }
+          },
+          "highlight": {
+            "total": 2
+          }
+        }
+      },
+      {
+        "profile": {
+          "id": "00000000-0000-4000-8000-0000ad000102",
+          "email": "placeholder.active@klipse.test",
+          "username": "Placeholder active",
+          "created_at": "2026-01-05T12:00:00.000Z",
+          "is_ambassador": false
+        },
+        "subscription": {
+          "id": "00000000-0000-4000-8000-0000ad000202",
+          "status": "active",
+          "provider": "toss",
+          "auto_renew_enabled": true,
+          "plan_code": "pro",
+          "plan_name": "Pro",
+          "current_period_end": "2026-02-05T12:00:00.000Z"
+        },
+        "balance": {
+          "available": 8400,
+          "reserved": 0
+        },
+        "payment": {
+          "paidCount": 2,
+          "paidAmount": 59800,
+          "refundedAmount": 0
+        },
+        "generations": {
+          "video": {
+            "total": 4,
+            "byModel": {
+              "veo": 4
+            }
+          },
+          "image": {
+            "total": 9,
+            "byModel": {
+              "nano-banana-pro": 9
+            }
+          },
+          "highlight": {
+            "total": 1
+          }
+        }
+      },
+      {
+        "profile": {
+          "id": "00000000-0000-4000-8000-0000ad000103",
+          "email": "placeholder.pastdue@klipse.test",
+          "username": null,
+          "created_at": "2025-12-20T12:00:00.000Z",
+          "is_ambassador": false
+        },
+        "subscription": {
+          "id": "00000000-0000-4000-8000-0000ad000203",
+          "status": "past_due",
+          "provider": "toss",
+          "auto_renew_enabled": true,
+          "plan_code": "lite",
+          "plan_name": "Lite",
+          "current_period_end": "2026-01-14T12:00:00.000Z"
+        },
+        "balance": {
+          "available": 300,
+          "reserved": 0
+        },
+        "payment": {
+          "paidCount": 1,
+          "paidAmount": 9900,
+          "refundedAmount": 0
+        },
+        "generations": {
+          "video": {
+            "total": 0,
+            "byModel": {}
+          },
+          "image": {
+            "total": 1,
+            "byModel": {
+              "nano-banana-pro": 1
+            }
+          },
+          "highlight": {
+            "total": 0
+          }
+        }
+      }
+    ],
+    "nextOffset": 3,
+    "hasMore": false,
+    "total": 3
+  }
+}

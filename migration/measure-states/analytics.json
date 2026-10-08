@@ -1,0 +1,1658 @@
+{
+  "$schema": "./_schema.json",
+  "area": "analytics",
+  "mode": "session",
+  "authoredAgainst": "76b6cf154ab2",
+  "description": "YouTube 분석(/analytics/youtube)의 연결 뒤 상태. 세션 모드 SESSION_ROUTES 에 이 라우트가 없어 pattern 으로 연다. 분석 API 는 모두 브라우저 fetch 라 /api 가로채기로 답하고 Supabase 오버레이는 쓰지 않는다. 통합 앵커에는 「콘텐츠」 탭이 없다(탭 셋 — YoutubeAnalyticsScene.tsx 1065–1069). 콘텐츠 표는 개요 탭 안에서 선다.",
+  "recipes": [
+    {
+      "id": "/analytics/youtube overview",
+      "pattern": "/analytics/youtube",
+      "description": "연결된 채널의 개요 탭(기본 탭) — 채널 헤더 · 기간 선택기 · 지연 안내 · 지표 차트 둘 · KPI 넷 · 콘텐츠 표.",
+      "surfaces": [
+        "apps/web/components/scenes/YoutubeAnalyticsScene.tsx#YoutubeAnalyticsScene",
+        "apps/web/components/scenes/analytics/OverviewTab.tsx#AnalyticsOverviewTab",
+        "apps/web/components/scenes/analytics/shared.tsx#KpiSparkline",
+        "apps/web/components/scenes/analytics/shared.tsx#AreaChart",
+        "apps/web/components/scenes/analytics/ContentTable.tsx#AnalyticsContentTable"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 443,
+          "expect": "useState<DashboardTab>(\"overview\")"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/KpiCard.tsx",
+          "line": 106,
+          "expect": "item.trend.length > 1"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Shares",
+            "exact": true
+          },
+          "description": "KPI 카드(core 응답 뒤에만 선다)"
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder Channel",
+          "Shares",
+          "Channel content",
+          "Placeholder video 1"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "지어낸 것은 내용(채널 · 영상 이름, 수치)뿐이다. 제품에 이 씬의 데모 값이 없어(통합 앵커에 createLandingDashboardDemoState 없음) 이름은 「Placeholder …」, 이미지는 같은 출처 public 자산이다. 영상 제목 하나는 일부러 길게 넣어 말줄임 상태를 잰다. 증감은 조회 +20% · 시청 -8% · 좋아요 +20% · 댓글 -17% · 공유 0% 로 맞춰 KPI 스파크라인의 상승 · 하락 · 중립 세 갈래와 차트 색 두 갈래를 모두 세운다. 공개범위 칩은 public · unlisted · private · draft(null) 넷이고 썸네일 없는 행이 하나 있다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube performance",
+      "pattern": "/analytics/youtube",
+      "description": "성과 탭 — 평균 시청 KPI 둘 · 인기 콘텐츠 목록 · 트래픽 소스 막대.",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/PerformanceTab.tsx#AnalyticsPerformanceTab",
+        "apps/web/components/scenes/analytics/shared.tsx#KpiSparkline"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AnalyticsTabs.tsx",
+          "line": 65,
+          "expect": "role=\"tab\""
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1067,
+          "expect": "{ key: \"performance\", label: t.performance }"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Performance",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Performance",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Traffic sources",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Traffic sources",
+          "Shorts feed",
+          "Placeholder video 1"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "지어낸 것은 내용(채널 · 영상 이름, 수치)뿐이다. 제품에 이 씬의 데모 값이 없어(통합 앵커에 createLandingDashboardDemoState 없음) 이름은 「Placeholder …」, 이미지는 같은 출처 public 자산이다. 영상 제목 하나는 일부러 길게 넣어 말줄임 상태를 잰다. 인기 영상 다섯 중 하나는 projectId 가 있어 Klipse 배지가 선다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube audience",
+      "pattern": "/analytics/youtube",
+      "description": "시청자 탭 — 구독 KPI 둘 · 구독 상태 도넛 · 나이 × 성별 피라미드 · 지역 · 기기 · 운영체제 막대.",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/AudienceTab.tsx#AnalyticsAudienceTab",
+        "apps/web/components/scenes/analytics/shared.tsx#KpiSparkline"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AnalyticsTabs.tsx",
+          "line": 65,
+          "expect": "role=\"tab\""
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1068,
+          "expect": "{ key: \"audience\", label: t.audience }"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Audience",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Audience",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Top geographies",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Top geographies",
+          "Age and gender",
+          "Subscribed",
+          "Not subscribed"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "지어낸 것은 내용(채널 · 영상 이름, 수치)뿐이다. 제품에 이 씬의 데모 값이 없어(통합 앵커에 createLandingDashboardDemoState 없음) 이름은 「Placeholder …」, 이미지는 같은 출처 public 자산이다. 영상 제목 하나는 일부러 길게 넣어 말줄임 상태를 잰다. 나라 코드는 KR · US · JP · VN · ID(이름은 브라우저 Intl.DisplayNames 가 en 으로 푼다). 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube insufficient",
+      "pattern": "/analytics/youtube",
+      "description": "개요 탭의 데이터 부족 — 요약 값은 있으나 일별 시계열이 비어 두 차트 자리에 InsufficientNotice(plain).",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/shared.tsx#InsufficientNotice"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/OverviewTab.tsx",
+          "line": 290,
+          "expect": "<InsufficientNotice message={insufficientData} />"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core-sparse.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended-sparse.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics-empty.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Shares",
+            "exact": true
+          },
+          "description": "KPI 카드(core 응답 뒤) — 스파크라인은 시계열이 없어 서지 않는다"
+        }
+      ],
+      "assert": {
+        "text": [
+          "Not enough data to display. Analytics will appear once your content receives more views.",
+          "Shares"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "요약(overview)은 core 와 같고 timeseries.daily 와 topVideos 가 빈 응답 — 제품 route 가 status daily \"empty\" · base \"empty\" 로 낼 수 있는 꼴(channel/route.ts 723–744). 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube insufficient.performance",
+      "pattern": "/analytics/youtube",
+      "description": "성과 탭의 데이터 부족 — 인기 콘텐츠 자리에 InsufficientNotice(innerPanel), 트래픽 소스 자리에 plain.",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/shared.tsx#InsufficientNotice"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AnalyticsTabs.tsx",
+          "line": 65,
+          "expect": "role=\"tab\""
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/PerformanceTab.tsx",
+          "line": 596,
+          "expect": "surface=\"innerPanel\""
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core-sparse.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended-sparse.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics-empty.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Performance",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Performance",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Traffic sources",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Traffic sources",
+          "Not enough data to display. Analytics will appear once your content receives more views."
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "insufficient 와 같은 응답. 조회 수가 0 보다 커서 performanceHasContent 가 참이고(YoutubeAnalyticsScene.tsx 1088–1101) 목록만 빈다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube insufficient.audience",
+      "pattern": "/analytics/youtube",
+      "description": "시청자 탭의 데이터 부족 — 구독 상태 도넛 자리에 InsufficientNotice(donutCard), 나이 × 성별 · 지역 · 기기 · 운영체제 자리에 plain.",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/shared.tsx#InsufficientNotice"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AnalyticsTabs.tsx",
+          "line": 65,
+          "expect": "role=\"tab\""
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+          "line": 691,
+          "expect": "{subscribedStatus.totalViews > 0 ? ("
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/AudienceTab.tsx",
+          "line": 815,
+          "expect": "surface=\"donutCard\""
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core-sparse.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended-sparse.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics-empty.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "tab",
+            "name": "Audience",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "tab",
+            "name": "Audience",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Top geographies",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Subscribed status data returned empty for this channel or range.",
+          "Age and gender data returned empty for this channel or range.",
+          "Not enough data to display. Analytics will appear once your content receives more views."
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "insufficient 와 같은 응답 + 나이 × 성별 status \"empty\"(demographics/route.ts 82). 구독자 증가가 0 보다 커서 audienceHasContent 가 참이다(YoutubeAnalyticsScene.tsx 1103–1110). 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube loading",
+      "pattern": "/analytics/youtube",
+      "description": "core · extended 응답을 붙잡아 둔 로딩 — 개요 스켈레톤(ReportPrimaryBlockSkeleton 둘 + ReportKpiRowSkeleton 4) · 콘텐츠 표 스켈레톤. 채널 헤더는 응답해 선다.",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/shared.tsx#ReportKpiRowSkeleton"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 797,
+          "expect": "const showDashboardSkeleton ="
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 788,
+          "expect": "traffic: channelExtData?.traffic ?? null"
+        },
+        {
+          "path": "apps/web/components/scenes/analytics/OverviewTab.tsx",
+          "line": 196,
+          "expect": "<ReportKpiRowSkeleton count={4} />"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "hold": true,
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744 — 답하지 않고 붙잡는다(로딩 유지)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "hold": true,
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772 — 답하지 않고 붙잡는다(로딩 유지)"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "heading",
+            "name": "Placeholder Channel",
+            "exact": true
+          },
+          "description": "헤더 응답 뒤 — core 는 붙잡혀 스켈레톤이 남는다"
+        }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder Channel",
+          "Channel content"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "extended 도 붙잡는다 — extended 만 오면 mergedChannelData 가 생겨 스켈레톤이 걷힌다(YoutubeAnalyticsScene.tsx 780–800). 스켈레톤 쉬머는 측정기 finish() 로 0프레임에 선다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube fatal",
+      "pattern": "/analytics/youtube",
+      "description": "연결은 됐으나 분석 API 가 모두 500 — 지연 안내 자리의 오류 문구 · 개요 탭 오류 패널 · 페이지 끝 치명 오류 패널(AnalyticsStatePanel tone error).",
+      "surfaces": [
+        "apps/web/components/scenes/analytics/shared.tsx#AnalyticsStatePanel"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1310,
+          "expect": "const showFatalError ="
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1636,
+          "expect": "{showFatalError && headerError && ("
+        },
+        {
+          "path": "apps/web/app/lib/youtube/analytics.ts",
+          "line": 539,
+          "expect": "code: \"INTERNAL_ERROR\","
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 181,
+          "expect": "return NextResponse.json(payload, { status: payload.status ?? 500 });"
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "status": 500,
+          "jsonFile": "data/analytics/error-500.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "status": 500,
+          "jsonFile": "data/analytics/error-500.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "status": 500,
+          "jsonFile": "data/analytics/error-500.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "status": 500,
+          "jsonFile": "data/analytics/error-500.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "status": 500,
+          "jsonFile": "data/analytics/videos-error-500.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "text": "Failed to load analytics",
+            "exact": true
+          },
+          "description": "치명 오류 패널 본문(headerError) — 「…channel analytics」 와 다른 글자"
+        }
+      ],
+      "assert": {
+        "text": [
+          "Unable to load analytics",
+          "Failed to load analytics",
+          "Failed to load channel analytics"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "넷 다 500 으로 답해 응답 순서와 무관하게 같은 화면으로 수렴한다 — 헤더만 실패시키면 core 가 늦게 와서 개요가 다시 차는 경합이 있다(YoutubeAnalyticsScene.tsx 544–664). 화면은 서버 원문을 내지 않고 로케일 문구를 쓴다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    },
+    {
+      "id": "/analytics/youtube channel-info",
+      "pattern": "/analytics/youtube",
+      "description": "채널 헤더의 설명 버튼을 눌러 연 채널 정보 모달(배너 · 아바타 · 수치 셋 · 설명).",
+      "surfaces": [
+        "apps/web/components/scenes/YoutubeAnalyticsScene.tsx#YoutubeAnalyticsScene"
+      ],
+      "cite": [
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 122,
+          "expect": "fetch(\"/api/auth/youtube/me\""
+        },
+        {
+          "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx",
+          "line": 156,
+          "expect": "fetch(\"/api/youtube/channel\""
+        },
+        {
+          "path": "apps/web/app/api/auth/youtube/me/route.ts",
+          "line": 69,
+          "expect": "youtubeAccount: connected"
+        },
+        {
+          "path": "apps/web/app/api/youtube/channel/route.ts",
+          "line": 70,
+          "expect": "thumbnailUrl:"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 545,
+          "expect": "/api/youtube/analytics/channel/header?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 559,
+          "expect": "&topVideoLimit=10&sections=core"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 579,
+          "expect": "&sections=extended"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 593,
+          "expect": "/api/youtube/analytics/channel/demographics?${periodQuery}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 732,
+          "expect": "/api/youtube/analytics/channel/videos?${params}"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/header/route.ts",
+          "line": 24,
+          "expect": "bannerExternalUrl: channelMeta.bannerExternalUrl ?? null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 715,
+          "expect": "overview: needCore ? overview : null"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/route.ts",
+          "line": 745,
+          "expect": "traffic: needExtended"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/demographics/route.ts",
+          "line": 80,
+          "expect": "ageGender: demographics,"
+        },
+        {
+          "path": "apps/web/app/api/youtube/analytics/channel/videos/route.ts",
+          "line": 175,
+          "expect": "totalCount,"
+        },
+        {
+          "path": "apps/web/components/auth/usePlanGating.ts",
+          "line": 64,
+          "expect": "if (!isReady) return true;"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1420,
+          "expect": "onDescriptionClick={() => setChannelInfoModalOpen(true)}"
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1647,
+          "expect": "{channelInfoModalOpen && channel && ("
+        },
+        {
+          "path": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
+          "line": 1652,
+          "expect": "role=\"dialog\""
+        }
+      ],
+      "clock": "2026-03-15T09:00:00.000Z",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/auth/youtube/me",
+          "jsonFile": "data/analytics/youtube-me.json",
+          "description": "연결됨 — YoutubeConnectionProvider.tsx 122 · 134–153, 라우트 auth/youtube/me/route.ts 66–78"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/channel",
+          "jsonFile": "data/analytics/youtube-channel.json",
+          "description": "연결 뒤 채널 이름 · 아바타 — YoutubeConnectionProvider.tsx 156–177, 라우트 youtube/channel/route.ts 64–81"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/header",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-header.json",
+          "description": "채널 헤더 — YoutubeAnalyticsScene.tsx 544–556, 라우트 channel/header/route.ts 18–30"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "core"
+          },
+          "jsonFile": "data/analytics/channel-core.json",
+          "description": "core 번들 — YoutubeAnalyticsScene.tsx 558–576, 라우트 channel/route.ts 707–744"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel",
+          "query": {
+            "period": "28d",
+            "sections": "extended"
+          },
+          "jsonFile": "data/analytics/channel-extended.json",
+          "description": "extended 번들 — YoutubeAnalyticsScene.tsx 578–590, 라우트 channel/route.ts 717–722 · 745–772"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/demographics",
+          "query": {
+            "period": "28d"
+          },
+          "jsonFile": "data/analytics/channel-demographics.json",
+          "description": "나이 × 성별 — YoutubeAnalyticsScene.tsx 592–606, 라우트 channel/demographics/route.ts 73–84"
+        },
+        {
+          "method": "GET",
+          "path": "/api/youtube/analytics/channel/videos",
+          "jsonFile": "data/analytics/channel-videos.json",
+          "description": "업로드 목록 첫 쪽 — YoutubeAnalyticsScene.tsx 725–753, 라우트 channel/videos/route.ts 146–178"
+        }
+      ],
+      "steps": [
+        {
+          "waitFor": {
+            "role": "button",
+            "name": "Placeholder channel description",
+            "exact": true
+          }
+        },
+        {
+          "click": {
+            "role": "button",
+            "name": "Placeholder channel description",
+            "exact": true
+          }
+        },
+        {
+          "waitFor": {
+            "role": "dialog",
+            "name": "Channel Info",
+            "exact": true
+          }
+        }
+      ],
+      "assert": {
+        "text": [
+          "Channel Info",
+          "Description",
+          "Total views"
+        ],
+        "apiHit": "all"
+      },
+      "contentNote": "모달은 씬 루트 안의 fixed 층(role=dialog)이라 overlaySelectors 가 필요 없다. 지어낸 것은 내용(채널 · 영상 이름, 수치)뿐이다. 제품에 이 씬의 데모 값이 없어(통합 앵커에 createLandingDashboardDemoState 없음) 이름은 「Placeholder …」, 이미지는 같은 출처 public 자산이다. 영상 제목 하나는 일부러 길게 넣어 말줄임 상태를 잰다. 시각은 브라우저 clock 2026-03-15T09:00Z 고정 — 기간 28d(어제까지 28일)에 맞춰 시계열은 2026-02-15~03-14, 날짜 범위 라벨이 같은 해라 연도 없이 선다(helpers.ts buildDateRangeLabel)."
+    }
+  ]
+}

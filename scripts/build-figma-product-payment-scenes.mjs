@@ -133,19 +133,35 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 //   subtree-dbfe1829e8a7(79, body.1, success 짝)     → subtree-aee6939b662f(77)
 //   subtree-1ae30fbe2788(25, body.1.0.0.1, fail)     → subtree-d5d4fe4d8a34
 //   subtree-ffbed6e9546f(21, body.1.0.0.1, success)  → subtree-8728712c4402
+// 2026-10-08 재고정(a4125565 → 통합 판 76b6cf15, DS-D-0079). **fail 짝은 더는 반복 후보가 아니다.** 통합 판에서 `/mypage/topup/fail` 이
+// 상단 바 글자를 「Subscription」 으로 바꾸고 결과 액션 줄에 「Try again」 링크를 하나 더 얹어(노드 +1) billing-change-fail 과 같은
+// 서명이 아니게 됐다 — 반복 후보는 route 둘 이상만 싣는다. Failure 변형이 그리는 화면(billing-change-fail)은 그대로이므로 변형은 두고,
+// fail 쪽 근거를 **그 화면의 서브트리 노드 수를 직접 센 것**으로 바꾼다(81 · 25 — 옛 후보와 같은 수, 움직이면 여기서 멈춘다).
+// success 짝 둘은 구조 그대로 id 만 갈렸다 — 77 은 헤더 `paddingBottom` 0 → 8(레일 1072 → 1064) · 사이드바 아이콘 마스크 둘
+// (`Graph.svg` → `Canvas.svg` · `MagicWand.svg` → `FilmSlate.svg`) · 글꼴 스택, 21 은 글꼴 스택(`fontFamily`)뿐이다:
+//   subtree-aee6939b662f(77, body.1, success 짝)     → subtree-b80dfc739aad
+//   subtree-8728712c4402(21, body.1.0.0.1, success)  → subtree-670cbd56cc87
+const directFailSubtree = (ctx, path, nodeCount) => {
+  const route = "/mypage/upgrade/billing-change-fail";
+  const tree = fixture.screens[ctx]?.[route]?.tree ?? [];
+  const counted = tree.filter((entry) => entry.path === path || entry.path.startsWith(path + ".")).length;
+  if (counted !== nodeCount) fail(`measured payment fail scene ${ctx} ${route} ${path} changed (${counted} nodes); inspect before regenerating Figma`);
+  return { context: ctx, route, path, nodeCount: counted, routeCount: 1 };
+};
 const candidateContracts = [
-  ["subtree-848f5c9d9c56", 81, 2],
-  ["subtree-aee6939b662f", 77, 2],
-  ["subtree-d5d4fe4d8a34", 25, 2],
-  ["subtree-8728712c4402", 21, 2],
-].map(([id, nodeCount, routeCount]) => {
-  const candidate = candidates.find((entry) => entry.id === id);
+  directFailSubtree(context, "body.1", 81),
+  ["subtree-b80dfc739aad", 77, 2],
+  directFailSubtree(context, "body.1.0.0.1", 25),
+  ["subtree-670cbd56cc87", 21, 2],
+].map((entry) => {
+  if (!Array.isArray(entry)) return entry;
+  const [id, nodeCount, routeCount] = entry;
+  const candidate = candidates.find((item) => item.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
     fail(`measured payment scene candidate ${id} changed; inspect before regenerating Figma`);
   }
   return candidate;
 });
-const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByContext["mobile-402x874"];
 // 모바일도 같은 아바타 span 한 개 때문에 네 후보가 전부 노드 +1 · id 변경이다.
 // 넷 다 fail 짝(billing-change-fail · topup/fail)이고 root path 로 대응한다:
 //   subtree-73a30a28794e(27, body.1)       → subtree-9640dfc0e390(28)
@@ -169,18 +185,14 @@ const mobileCandidates = fixture.componentCandidateAudit.repeatedSubtreesByConte
 //   subtree-50076969733f(27, body.1.0)     → subtree-54960c3c0d87
 //   subtree-a6ba0dac2ab4(26, body.1.0.0)   → subtree-20e63d295b79
 //   subtree-60ed0dd6bac4(25, body.1.0.0.1) → subtree-cbbe72fde43b
+// 2026-10-08 재고정(통합 판 76b6cf15): 모바일 넷은 전부 fail 짝이라 넷 다 반복 후보에서 빠졌다(위 데스크톱 주석의 topup/fail 변화).
+// billing-change-fail 서브트리를 root path 마다 직접 센다 — 28 · 27 · 26 · 25 로 옛 후보와 같은 수다.
 const mobileCandidateContracts = [
-  ["subtree-c3e5d0ca4f18", 28, 2],
-  ["subtree-54960c3c0d87", 27, 2],
-  ["subtree-20e63d295b79", 26, 2],
-  ["subtree-cbbe72fde43b", 25, 2],
-].map(([id, nodeCount, routeCount]) => {
-  const candidate = mobileCandidates.find((entry) => entry.id === id);
-  if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
-    fail(`measured mobile payment scene candidate ${id} changed; inspect before regenerating Figma`);
-  }
-  return candidate;
-});
+  directFailSubtree("mobile-402x874", "body.1", 28),
+  directFailSubtree("mobile-402x874", "body.1.0", 27),
+  directFailSubtree("mobile-402x874", "body.1.0.0", 26),
+  directFailSubtree("mobile-402x874", "body.1.0.0.1", 25),
+];
 
 /* **메인 표면과 장면은 흐름이다(2026-09-14, 크기 굳힘 감사 묶음 3).** 옛 가드는 page · main 의 측정 rect 를
    `!== 1920/1080 · 1632/1012 · 402/874 · 402/814` 로 물었고, 렌더러가 그 rect 로 resize 하고 상단 바 · 본문을 측정
@@ -341,15 +353,15 @@ const roles = live.colorRoles({
   roles: {
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 32, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 33, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(PAGE, 53, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(PAGE, 54, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

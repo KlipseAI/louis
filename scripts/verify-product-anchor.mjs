@@ -19,7 +19,43 @@
 // **여기서 잡지 못하는 것**: 「lock 자신이 제품보다 낡았다」. 그것은 제품 저장소를 읽어야
 // 알 수 있어 `verify-product-evidence`(verify:product 레인)가 잰다 — 앵커 이후 제품에 새로
 // 생긴 `.tsx`/`.css` 를 세는 래칫이 그 일을 한다. 두 게이트는 같은 앵커의 앞뒤다.
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { collectPins, readAnchor, samePin } from "./lib/product-anchor.mjs";
+
+// ── 통합 판의 입력(DS-D-0079) ──────────────────────────────────────────────
+// **이것은 면제가 아니라 다른 규칙이다.** 아래 DECLARED_HISTORICAL_PINS 는 「앵커를 따라오지
+// 않는 것이 맞는 기록」이고, 이 파일은 **앵커를 만드는 입력**이다. DS-D-0079 Decision 1·2 —
+// 앵커는 `origin/dev` + 작업 갈래 끝 브랜치를 차례로 병합한 통합 판이고, 그 갈래 목록 · 커밋은
+// `integration.json` 이 갖고, `build.sh` 가 그것으로 병합해 나온 커밋을 `result` 에 적는다.
+// 그러니 `base.commit` · `branches[].commit` 은 **정의상** 앵커와 다르다(앵커는 그것들의 병합
+// 결과다). 앵커와 같기를 요구하면 이 게이트는 영원히 빨갛고, 면제 목록에 값으로 적으면 갈래가
+// 움직일 때마다(Decision 6) 면제를 손봐야 해 래칫이 무의미해진다.
+//
+// 그래서 입력 핀은 **결과로 판정한다**: `result` 가 lock 앵커와 같은 40자 커밋이면 그 입력들은
+// 앵커를 만든 재료로서 앵커를 따르고 있는 것이다. `build-product-evidence` 도 원격에 없는
+// 커밋 가운데 이 `result` 하나만 기준선으로 받는다(scripts/build-product-evidence.mjs 머리말
+// 「예외 하나」) — 같은 필드를 같은 뜻으로 읽는다. `result` 가 앵커와 다르면 입력 전체가 다른
+// 판을 가리키므로 입력 핀을 하나씩 세지 않고 그 한 가지를 실패로 말한다.
+//
+// 범위는 좁게 잠근다: 이 파일의 `/base/commit` 과 `/branches/<n>/commit` 만, 그리고 40자 커밋만
+// (build.sh 는 브랜치 끝이 기록과 정확히 같아야 진행한다 — 짧은 접두로는 그 대조가 성립하지
+// 않는다). 같은 파일의 다른 자리에 핀이 생기면 보통 핀으로 다룬다.
+const INTEGRATION_FILE = "migration/product-integration/integration.json";
+const INTEGRATION_INPUT_PATH = /^\/(?:base|branches\/\d+)\/commit$/;
+const FULL_COMMIT = /^[0-9a-f]{40}$/;
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+
+function readIntegrationRecipe() {
+  try {
+    const recipe = JSON.parse(readFileSync(resolve(repoRoot, INTEGRATION_FILE), "utf8"));
+    return { present: true, result: recipe?.result ?? null };
+  } catch {
+    // 파일이 없으면 통합 판을 쓰지 않는 것이다(DS-D-0079 Rollback). 입력 핀도 없으므로 규칙이 할 일이 없다.
+    return { present: false, result: null };
+  }
+}
 
 // ── 역사 기록으로 선언된 핀 ────────────────────────────────────────────────
 // 앵커를 따라오지 **않는 것이 맞는** 핀만 여기 적는다. 판정 기준은 하나다 —
@@ -208,7 +244,8 @@ if (typeof anchor.commit !== "string" || !/^[0-9a-f]{40}$/.test(anchor.commit)) 
 }
 
 const FIXTURE = { commit: FIXTURE_COMMIT, files: FIXTURE_AXIS };
-const primary = compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE);
+const RECIPE = readIntegrationRecipe();
+const primary = compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE, RECIPE);
 failures.push(...primary.found);
 
 // 선언이 늘지 않았는지. 이것만은 compare 밖에 둔다 — 변조 canary 가 선언 목록을 흔들기 때문에
@@ -260,7 +297,27 @@ const baseline = new Set(failures);
 const TAMPERS = [
   {
     label: "앵커가 움직인 것 — 따라오지 않은 핀이 새로 드러나야 한다",
-    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE).found,
+    run: () => compare("0".repeat(40), pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE, RECIPE).found,
+  },
+  {
+    label: "통합 판의 result 가 앵커와 달라진 것 — 입력 핀은 결과로 판정해야 한다",
+    run: () =>
+      compare(anchor.commit, pins, DECLARED_HISTORICAL_PINS, KNOWN_STALE, FIXTURE, {
+        present: true,
+        result: "d".repeat(40),
+      }).found,
+  },
+  {
+    label: "통합 판 파일의 입력 필드가 아닌 자리에 핀이 생긴 것 — 파일 면제가 아니라 필드 규칙이어야 한다",
+    run: () =>
+      compare(
+        anchor.commit,
+        [...pins, { file: INTEGRATION_FILE, path: "/fixups/0/commit", key: "commit", value: "c".repeat(40) }],
+        DECLARED_HISTORICAL_PINS,
+        KNOWN_STALE,
+        FIXTURE,
+        RECIPE,
+      ).found,
   },
   {
     label: "생성물의 핀이 아무 값으로나 바뀐 것",
@@ -271,6 +328,7 @@ const TAMPERS = [
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
         FIXTURE,
+        RECIPE,
       ).found,
   },
   {
@@ -284,6 +342,7 @@ const TAMPERS = [
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
         FIXTURE,
+        RECIPE,
       ).found,
   },
   // fixture 축 canary 는 걷었다. FIXTURE_AXIS 가 비어 면제가 하나도 없으므로 변조할 대상이
@@ -298,6 +357,7 @@ const TAMPERS = [
         DECLARED_HISTORICAL_PINS,
         KNOWN_STALE,
         FIXTURE,
+        RECIPE,
       ).found,
   },
 ];
@@ -360,14 +420,43 @@ console.log(
     TAMPERS.length + "종)",
 );
 
-function compare(canon, allPins, declared, allowance, fixture) {
+function compare(canon, allPins, declared, allowance, fixture, recipe) {
   const found = [];
   const known = [];
   const onFixtureAxis = [];
   const used = new Set();
   const byFile = new Map();
 
+  // 통합 판 입력 핀(DS-D-0079)은 결과로 판정한다 — 머리의 INTEGRATION_FILE 주석.
+  const inputs = allPins.filter(
+    (pin) => pin.file === INTEGRATION_FILE && INTEGRATION_INPUT_PATH.test(pin.path),
+  );
+  if (inputs.length > 0) {
+    const result = recipe?.present ? recipe.result : null;
+    const resultIsAnchor =
+      typeof result === "string" && FULL_COMMIT.test(result) && result === canon;
+    if (!resultIsAnchor) {
+      found.push(
+        "통합 판의 결과가 앵커가 아닙니다: " + INTEGRATION_FILE + " /result = " +
+          (typeof result === "string" ? result.slice(0, 8) : String(result)) + " ≠ 앵커 " +
+          String(canon).slice(0, 8) + ". 이 파일의 base · branches[].commit 입력 " + inputs.length +
+          "개는 앵커를 만드는 재료라 결과(result)로만 판정됩니다(DS-D-0079 Decision 2). " +
+          "갈래가 움직였으면 커밋을 올리고 build.sh 로 다시 만든 뒤 result 와 lock 을 함께 옮기고, " +
+          "통합 판을 그만 쓰기로 했다면(Rollback) 이 파일을 거두세요.",
+      );
+    }
+    const short = inputs.filter((pin) => !FULL_COMMIT.test(pin.value));
+    if (short.length > 0) {
+      found.push(
+        "통합 판 입력이 40자 커밋이 아닙니다: " + INTEGRATION_FILE + " (" +
+          short.map((pin) => pin.path + " = " + pin.value).join(", ") +
+          "). build.sh 는 브랜치 끝이 기록과 정확히 같아야 진행합니다 — 접두로는 같은 판임을 보증하지 못합니다.",
+      );
+    }
+  }
+
   for (const pin of allPins) {
+    if (inputs.includes(pin)) continue;
     const exempt = declared.find(
       (entry) => entry.file === pin.file && entry.path === pin.path && entry.value === pin.value,
     );

@@ -486,6 +486,17 @@ rowTop(r+1)  = rowTop(r) + ceil100( 그 행 프레임 높이의 최댓값 ) + 60
 | 로그아웃 | `product.anonymous-fixture.json` · 같은 측정기 `--anonymous` | 인증 화면 · 404 · 한 뷰포트짜리 공개 화면 | 보호 앱 화면 |
 | 서버가 확인하는 로그인 | **없다** — 서버가 받는 가짜 세션이 필요하다 | 허브 셋 · 편집기 · 어드민(서버 컴포넌트가 `getUser()` → `redirect("/")`) | 인증 우회로는 못 넘는다(우회는 브라우저 쪽이다) |
 
+- **LOUIS CSS 는 이 저장소 판으로 잰다(2026-10-07, 소유자 결정).** 제품 앵커는 `@klipse-design/css` 를 자기 package.json 의 SHA 로
+  고정해 받는다(a4125565 → 021c2b63, 9월 중순). 그 판으로 재면 그 뒤 LOUIS 작업(메뉴 면 · 헤어라인 · 선택 행 표식 · 표 hover ·
+  primary 빛 · 모달 가림막 · 코치마크 · 포커스 링 없음 …)이 보드에 빠진다 — 제품의 작업 브랜치들은 이미 더 새 판을 고정해 쓴다.
+  측정기 둘(`measure-product-auth-fixture` 전 모드 · `measure-product-sidebar-states`)은 개발 서버를 띄우기 전에 픽스처의
+  `generated/` 를 `packages/css/generated` 로 덮고, 판이 바뀌면 `.next` 를 지운다(webpack 은 node_modules 를 버전으로 캐시한다).
+  원장의 `louisCss` 는 출처와 제품이 고정한 SHA(`productPinned`)만 적는다 — **판의 해시는 적지 않는다.** 적으면 LOUIS CSS 를 고친
+  모든 커밋이 값이 그대로인 원장의 `--check` 까지 빨갛게 만든다(로그인 원장 한 벌이 2시간 넘게 걸린다). 판이 화면 값을 바꿨는지는
+  `--check` 가 값으로 잡는다. **LOUIS CSS 를 고치면 그 부품이 보이는 화면을 다시 잰다** — 게이트가 없는 원장(세션 · 공개)은 아무도
+  대신 알려 주지 않는다. 제품 코드는 앵커 그대로다(dev 의 화면 개편은
+  들어가지 않는다). 제품과 DS 의 차이를 재는 `measure-product-components` 는 일부러 고정 판과 비교하므로 덮지 않는다.
+  구현은 `scripts/lib/louis-css-overlay.mjs`.
 - **넘어간 화면은 그리지 않는다.** 생성기는 `redirected` 인 화면을 대상으로 받지 않는다. 측정기는 그 화면을 별칭(`screenAliases`)으로
   기록해 둔다 — 왜 못 그렸는지가 원장에 남는다.
 - **쿼리가 있어야 제 화면이 나오는 진입은 쿼리를 싣는다.** `/aws/signup` 은 `token` 이 없으면 `/signup` 으로 보낸다 — 토큰은 제출할 때만

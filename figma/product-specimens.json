@@ -24,7 +24,7 @@
       "id": "avatar/adminUser",
       "kind": "avatar",
       "label": "관리자 사용자 머리글자 아바타",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1721-1721",
+      "jsx": "apps/web/app/admin/AdminClient.tsx:1805-1805",
       "jsxQuote": "                        <div className={AVATAR}>{initial}</div>",
       "file": "apps/web/app/admin/AdminClient.tsx",
       "node": {
@@ -35,31 +35,7 @@
       "host": [
         {
           "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "USER_HEADER"
-        }
-      ]
-    },
-    {
-      "id": "avatar/instagramChannel",
-      "kind": "avatar",
-      "label": "인스타그램 대시보드 채널 아바타 — 유튜브와 같은 정의를 한 벌 더 갖는다",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1780-1793",
-      "jsxQuote": "                  <div className={CHANNEL_AVATAR} aria-hidden=\"true\">",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "CHANNEL_AVATAR",
-        "tag": "div",
-        "children": [
-          {
-            "part": "CHANNEL_AVATAR_PLACEHOLDER",
-            "tag": "div"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR_LEFT"
+          "part": "USER_DETAIL_HEAD"
         }
       ]
     },
@@ -84,30 +60,6 @@
         {
           "file": "apps/web/components/scenes/myPageSceneStyles.ts",
           "part": "settingsAvatarMain"
-        }
-      ]
-    },
-    {
-      "id": "avatar/youtubeChannel",
-      "kind": "avatar",
-      "label": "유튜브 대시보드 채널 아바타",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1980-1999",
-      "jsxQuote": "                    className={CHANNEL_AVATAR}",
-      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-      "node": {
-        "part": "CHANNEL_AVATAR",
-        "tag": "div",
-        "children": [
-          {
-            "part": "CHANNEL_AVATAR_PLACEHOLDER",
-            "tag": "div"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR_LEFT"
         }
       ]
     },
@@ -434,9 +386,9 @@
       "id": "checkbox/signupLegal",
       "kind": "checkbox",
       "label": "가입 약관 동의 체크박스",
-      "jsx": "apps/web/app/signup/page.tsx:632-655",
+      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:584-607",
       "jsxQuote": "                <label className={LEGAL_AGREEMENT_LABEL}>",
-      "file": "apps/web/app/signup/page.tsx",
+      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
       "node": {
         "part": "LEGAL_AGREEMENT_LABEL",
         "tag": "label",
@@ -465,7 +417,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/signup/page.tsx",
+          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
           "part": "LEGAL_AGREEMENT_ROW"
         }
       ]
@@ -522,8 +474,8 @@
     {
       "id": "empty-state/appHomeArchive",
       "kind": "empty-state",
-      "label": "앱 홈 아카이브 빈 상태 — 제목 + 설명",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1003-1010",
+      "label": "앱 홈 아카이브 빈 상태 — 제목 (통합 판에서 설명 문단이 빠지고 시작 행 목록이 섰다)",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1093-1100",
       "jsxQuote": "            <section className={styles.emptyState}>",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
@@ -535,12 +487,6 @@
             "tag": "h2",
             "typography": "type-body-20-semibold",
             "text": "아직 프로젝트가 없어요"
-          },
-          {
-            "part": "emptyDescription",
-            "tag": "p",
-            "typography": "type-body-16-regular",
-            "text": "첫 영상을 만들어 보세요."
           }
         ]
       },
@@ -933,8 +879,8 @@
       "id": "input-form/loginEmailResting",
       "kind": "input-form",
       "label": "로그인 이메일 입력 — 라벨 쉬는 상태 (그룹 상단 상자, 둘째 벌)",
-      "jsx": "apps/web/app/login/page.tsx:423-487",
-      "file": "apps/web/app/login/page.tsx",
+      "jsx": "apps/web/app/(auth-brand)/login/page.tsx:314-378",
+      "file": "apps/web/app/(auth-brand)/login/page.tsx",
       "node": {
         "part": "INPUT_BOX",
         "tag": "div",
@@ -953,7 +899,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/login/page.tsx",
+          "file": "apps/web/app/(auth-brand)/login/page.tsx",
           "part": "FORM"
         }
       ]
@@ -962,8 +908,8 @@
       "id": "input-form/loginPasswordFloated",
       "kind": "input-form",
       "label": "로그인 비밀번호 입력 — 라벨 뜬 상태 + 지우기·보기 토글 두 개 (그룹 하단 상자)",
-      "jsx": "apps/web/app/login/page.tsx:489-578",
-      "file": "apps/web/app/login/page.tsx",
+      "jsx": "apps/web/app/(auth-brand)/login/page.tsx:380-469",
+      "file": "apps/web/app/(auth-brand)/login/page.tsx",
       "node": {
         "part": "INPUT_BOX",
         "tag": "div",
@@ -1002,7 +948,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/login/page.tsx",
+          "file": "apps/web/app/(auth-brand)/login/page.tsx",
           "part": "FORM"
         }
       ]
@@ -1039,8 +985,8 @@
       "id": "input-form/resetPasswordEmailResting",
       "kind": "input-form",
       "label": "비밀번호 재설정 이메일 입력 — 반경을 제 몸에 갖는 벌",
-      "jsx": "apps/web/app/reset-password/page.tsx:196-224",
-      "file": "apps/web/app/reset-password/page.tsx",
+      "jsx": "apps/web/app/(auth-brand)/reset-password/page.tsx:196-224",
+      "file": "apps/web/app/(auth-brand)/reset-password/page.tsx",
       "node": {
         "part": "INPUT_BOX",
         "tag": "div",
@@ -1059,7 +1005,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/reset-password/page.tsx",
+          "file": "apps/web/app/(auth-brand)/reset-password/page.tsx",
           "part": "FORM"
         }
       ]
@@ -1068,8 +1014,8 @@
       "id": "input-form/signupNameResting",
       "kind": "input-form",
       "label": "회원가입 이름 입력 — 라벨 쉬는 상태 (단일 라운드 상자)",
-      "jsx": "apps/web/app/signup/page.tsx:424-456",
-      "file": "apps/web/app/signup/page.tsx",
+      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:376-408",
+      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
       "node": {
         "part": "INPUT_BOX",
         "tag": "div",
@@ -1088,7 +1034,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/signup/page.tsx",
+          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
           "part": "FORM"
         }
       ]
@@ -1097,8 +1043,8 @@
       "id": "input-form/signupPasswordFloated",
       "kind": "input-form",
       "label": "회원가입 비밀번호 입력 — 라벨 뜬 상태 + 비밀번호 보기 토글 (그룹 상단 상자)",
-      "jsx": "apps/web/app/signup/page.tsx:492-548",
-      "file": "apps/web/app/signup/page.tsx",
+      "jsx": "apps/web/app/(auth-brand)/signup/page.tsx:444-500",
+      "file": "apps/web/app/(auth-brand)/signup/page.tsx",
       "node": {
         "part": "INPUT_BOX",
         "tag": "div",
@@ -1127,7 +1073,7 @@
       },
       "host": [
         {
-          "file": "apps/web/app/signup/page.tsx",
+          "file": "apps/web/app/(auth-brand)/signup/page.tsx",
           "part": "FORM"
         }
       ]
@@ -1677,40 +1623,6 @@
       "hostNone": "why 의 '부모 없음'이 맞다는 것을 확인했다. ProjectVideosPopover.tsx 308행이 `return createPortal(node, document.body);` 라 표본 루트(238~305행 `<div className={POPOVER} style={{left, top, width: POPOVER_WIDTH_PX}}>`)의 DOM 부모는 <body> 다 — 클래스 상수로 된 부모가 존재하지 않는다. 게다"
     },
     {
-      "id": "progress-bar/compositeSegmentPreview",
-      "kind": "progress-bar",
-      "label": "합본 미리보기 재생 진행바 — 트랙·게이지·핸들",
-      "jsx": "apps/web/components/scenes/HighlightProjectScene.tsx:444-455",
-      "jsxQuote": "          <div className={styles.compositeProgressBar} onClick={handleBarClick}>",
-      "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-      "node": {
-        "part": "compositeProgressBar",
-        "tag": "div",
-        "children": [
-          {
-            "part": "compositeProgressTrack",
-            "tag": "div",
-            "children": [
-              {
-                "part": "compositeProgressFill",
-                "tag": "div"
-              }
-            ]
-          },
-          {
-            "part": "compositeProgressThumb",
-            "tag": "div"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/highlightSceneStyles.ts",
-          "part": "compositeBottomPill"
-        }
-      ]
-    },
-    {
       "id": "progress-bar/editNodeProcessing",
       "kind": "progress-bar",
       "label": "편집 노드 처리 진행바 — 퍼센트 글자를 옆에 갖는다",
@@ -1796,7 +1708,7 @@
       "id": "project-card/appHome",
       "kind": "project-card",
       "label": "앱 홈 · 프로젝트 카드",
-      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1061-1352",
+      "jsx": "apps/web/components/scenes/AppHomeScene.tsx:1170-1461",
       "jsxQuote": "                      className={`${styles.archiveCard} ${",
       "file": "apps/web/components/scenes/appHomeSceneStyles.ts",
       "node": {
@@ -1888,7 +1800,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1089"
+            "inlineAt": "apps/web/components/scenes/AppHomeScene.tsx:1198"
           }
         ]
       },
@@ -1903,7 +1815,7 @@
       "id": "project-card/nodeCanvasHome",
       "kind": "project-card",
       "label": "노드캔버스 홈 · 프로젝트 카드 — 아이브로우가 없다",
-      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1355-1595",
+      "jsx": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1349-1619",
       "jsxQuote": "                  className={`${ARCHIVE_CARD} ${",
       "file": "apps/web/components/scenes/NodeCanvasHomeScene.tsx",
       "node": {
@@ -1989,7 +1901,7 @@
                 ]
               }
             ],
-            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1563"
+            "inlineAt": "apps/web/components/scenes/NodeCanvasHomeScene.tsx:1573"
           }
         ]
       },
@@ -2243,230 +2155,6 @@
       ]
     },
     {
-      "id": "skeleton/analysisModalIg",
-      "kind": "skeleton",
-      "label": "노드 캔버스 분석 모달 · 인스타그램 로딩 뼈대",
-      "jsx": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx:616-670",
-      "jsxQuote": "                className={IG_SKELETON_ROOT}",
-      "file": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx",
-      "node": {
-        "part": "IG_SKELETON_ROOT",
-        "tag": "div",
-        "children": [
-          {
-            "part": "IG_SKELETON_WRAPPER",
-            "tag": "div",
-            "children": [
-              {
-                "part": "IG_SKELETON_SECTION",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "IG_SKELETON_HEADER",
-                    "tag": "div",
-                    "children": [
-                      {
-                        "part": "SKELETON_IG_ICON",
-                        "tag": "span"
-                      },
-                      {
-                        "part": "SKELETON_HEADER_TEXT",
-                        "tag": "div",
-                        "children": [
-                          {
-                            "part": "SKELETON_LINE_TITLE",
-                            "tag": "span"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "part": "IG_SKELETON_META",
-                    "tag": "div",
-                    "children": [
-                      {
-                        "part": "SKELETON_LINE_TITLE",
-                        "tag": "span"
-                      },
-                      {
-                        "part": "SKELETON_LINE_WIDE",
-                        "tag": "span"
-                      },
-                      {
-                        "part": "SKELETON_LINE_WIDE",
-                        "tag": "span"
-                      }
-                    ]
-                  },
-                  {
-                    "part": "IG_SKELETON_UPLOADED_ROW",
-                    "tag": "div",
-                    "children": [
-                      {
-                        "part": "SKELETON_DATE_GROUP",
-                        "tag": "div",
-                        "children": [
-                          {
-                            "part": "SKELETON_LINE_SHORT",
-                            "tag": "span"
-                          },
-                          {
-                            "part": "SKELETON_LINE_VALUE",
-                            "tag": "span"
-                          }
-                        ]
-                      },
-                      {
-                        "part": "SKELETON_DATE_GROUP",
-                        "tag": "div",
-                        "children": [
-                          {
-                            "part": "SKELETON_LINE_SHORT",
-                            "tag": "span"
-                          },
-                          {
-                            "part": "SKELETON_LINE_VALUE",
-                            "tag": "span"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [],
-      "hostNone": "IG_SCROLL 에 display 선언이 없다 — flex/inline-flex/grid 중 어느 것도 아니고 기본 block 이다. \"[flex:1_1_auto]\" 는 자기 자신이 CARD(54)의 flex 자식일 때 적용되는 항목 속성이지 컨테이너를 만드는 선언이 아니다. 레이아웃을 만드는 조상은 CARD(54, \"flex flex-col items-stretch min-h-0\")이고 IG_SCROLL 은 그 사이의 스크"
-    },
-    {
-      "id": "skeleton/channelAvatarIg",
-      "kind": "skeleton",
-      "label": "인스타그램 대시보드 채널 아바타 로딩 뼈대",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1772-1772",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "CHANNEL_AVATAR_SKELETON",
-        "tag": "div"
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR_LEFT"
-        }
-      ]
-    },
-    {
-      "id": "skeleton/channelInfoIg",
-      "kind": "skeleton",
-      "label": "인스타그램 대시보드 채널 정보 로딩 뼈대 — SKELETON_BLOCK 막대 두 줄",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1773-1776",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "CHANNEL_INFO_SKELETON",
-        "tag": "div",
-        "children": [
-          {
-            "part": "SKELETON_CHANNEL_TITLE",
-            "tag": "div"
-          },
-          {
-            "part": "SKELETON_CHANNEL_DESC",
-            "tag": "div"
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR_LEFT"
-        }
-      ]
-    },
-    {
-      "id": "skeleton/instagramTopBar",
-      "kind": "skeleton",
-      "label": "인스타그램 분석 상단바 로딩 뼈대 — 같은 상수 이름의 두 번째 벌",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1769-1776",
-      "jsxQuote": "            <div className={DASHBOARD_TOP_BAR_LEFT}>",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "DASHBOARD_TOP_BAR_LEFT",
-        "tag": "div",
-        "children": [
-          {
-            "part": "CHANNEL_AVATAR_SKELETON",
-            "tag": "div"
-          },
-          {
-            "part": "CHANNEL_INFO_SKELETON",
-            "tag": "div",
-            "children": [
-              {
-                "part": "SKELETON_CHANNEL_TITLE",
-                "tag": "div"
-              },
-              {
-                "part": "SKELETON_CHANNEL_DESC",
-                "tag": "div"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR"
-        }
-      ]
-    },
-    {
-      "id": "skeleton/youtubeTopBar",
-      "kind": "skeleton",
-      "label": "유튜브 분석 상단바 로딩 뼈대 — 아바타 원 + 줄 셋",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1959-1977",
-      "jsxQuote": "            <div className={DASHBOARD_TOP_BAR_LEFT}>",
-      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-      "node": {
-        "part": "DASHBOARD_TOP_BAR_LEFT",
-        "tag": "div",
-        "children": [
-          {
-            "part": "CHANNEL_AVATAR_SKELETON",
-            "tag": "div"
-          },
-          {
-            "part": "CHANNEL_INFO_SKELETON",
-            "tag": "div",
-            "children": [
-              {
-                "part": "SKELETON_CHANNEL_TITLE",
-                "tag": "div"
-              },
-              {
-                "part": "SKELETON_CHANNEL_DESC",
-                "tag": "div"
-              },
-              {
-                "part": "SKELETON_CHANNEL_DESC_SHORT",
-                "tag": "div"
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-          "part": "DASHBOARD_TOP_BAR_CARD"
-        }
-      ]
-    },
-    {
       "id": "slider/colorPopover",
       "kind": "slider",
       "label": "컬러 팝오버 색상·투명도 슬라이더 행",
@@ -2509,27 +2197,6 @@
         {
           "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ColorPopover.tsx",
           "part": "POPOVER"
-        }
-      ]
-    },
-    {
-      "id": "text-field/adminSearch",
-      "kind": "text-field",
-      "label": "관리자 검색 입력 — 알약형 유리 입력(FIELD_CONTROL), 이메일·이름 검색",
-      "jsx": "apps/web/app/admin/AdminClient.tsx:1391-1406",
-      "file": "apps/web/app/admin/AdminClient.tsx",
-      "node": {
-        "part": "FIELD_CONTROL",
-        "tag": "input"
-      },
-      "host": [
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "SEARCH_ROW"
-        },
-        {
-          "file": "apps/web/app/admin/AdminClient.tsx",
-          "part": "SEARCH_INPUT_WRAPPER"
         }
       ]
     },
@@ -2780,109 +2447,6 @@
           "part": "nav"
         }
       ]
-    },
-    {
-      "id": "top-bar/instagramAnalytics",
-      "kind": "top-bar",
-      "label": "인스타그램 분석 채널 배너 상단 바",
-      "jsx": "apps/web/components/scenes/InstagramAnalyticsScene.tsx:1768-1802",
-      "file": "apps/web/components/scenes/InstagramAnalyticsScene.tsx",
-      "node": {
-        "part": "DASHBOARD_TOP_BAR",
-        "tag": "header",
-        "children": [
-          {
-            "part": "DASHBOARD_TOP_BAR_LEFT",
-            "tag": "div",
-            "children": [
-              {
-                "part": "CHANNEL_AVATAR",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "CHANNEL_AVATAR_PLACEHOLDER",
-                    "tag": "div"
-                  }
-                ]
-              },
-              {
-                "part": "CHANNEL_INFO",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "CHANNEL_NAME",
-                    "tag": "span",
-                    "typography": "type-heading-48-medium",
-                    "text": "@instagram"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
-          "part": "ANALYTICS_SCROLL_STACK"
-        }
-      ]
-    },
-    {
-      "id": "top-bar/youtubeAnalytics",
-      "kind": "top-bar",
-      "label": "유튜브 분석 채널 배너 상단 바",
-      "jsx": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx:1936-2059",
-      "file": "apps/web/components/scenes/YoutubeAnalyticsScene.tsx",
-      "node": {
-        "part": "DASHBOARD_TOP_BAR_CARD",
-        "tag": "header",
-        "children": [
-          {
-            "part": "DASHBOARD_TOP_BAR_OVERLAY",
-            "tag": "div"
-          },
-          {
-            "part": "DASHBOARD_TOP_BAR_LEFT",
-            "tag": "div",
-            "children": [
-              {
-                "part": "CHANNEL_AVATAR",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "CHANNEL_AVATAR_PLACEHOLDER",
-                    "tag": "div"
-                  }
-                ]
-              },
-              {
-                "part": "CHANNEL_INFO",
-                "tag": "div",
-                "children": [
-                  {
-                    "part": "CHANNEL_NAME",
-                    "tag": "span",
-                    "typography": "type-heading-48-medium",
-                    "text": "채널 이름"
-                  },
-                  {
-                    "part": "CHANNEL_DESC_BUTTON",
-                    "tag": "button",
-                    "text": "채널 소개 문구가 여기에 표시됩니다."
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "host": [
-        {
-          "file": "apps/web/components/scenes/analytics/AnalyticsMainScrollRegion.tsx",
-          "part": "ANALYTICS_SCROLL_STACK"
-        }
-      ]
     }
   ],
   "$correctionLog": "첫 판에서 넷을 상상했다 — ① 모달 카드에 typography 클래스가 있다고 적었다(없다) ② 마이페이지 토스트에 toastText 자식이 있다고 적었다(없다. 토스트 자신이 글자를 갖는다) ③ 토스트 글자를 body-14-medium이라고 적었다(body-16-regular다) ④ 마이페이지 모달의 버튼 글자를 body-16이라고 적었다(그 소비처는 body-14다). 스크립트가 없는 상수를 만나면 죽는다 — ②가 그렇게 잡혔다. 나머지 셋은 JSX를 읽어 고쳤다. 2026-08-21 재기준선(6337ad54 → ada1b939)에서 하나를 더 뺐다 — 배포본이 `Button.tsx`의 `PRIMARY_HOOK`을 지웠다. hl-* 라우트의 CSS 모듈 훅이라 스타일을 정의한 적이 없고, 그 라우트가 삭제 예정이라 함께 사라졌다. 표본 둘의 parts에서 뺐고 값 변화는 없다.",
@@ -2999,6 +2563,61 @@
       "id": "gnb-sidebar/rail",
       "retired": "2026-09-15",
       "reason": "재던 것이 레일 안의 「분석」 아이브로우 행(`menuSidebarEyebrowRow` > `menuSidebarEyebrow`)뿐이었는데 제품 2c6bdacf 가 그 행과 두 상수를 걷었다(소유자 지정, `SIDEBAR_MENU_ROWS` 가 link 행만 싣는다). 옮겨 간 것이 아니라 없어진 부품이다. 레일 기둥(`menuSidebarOuter` · `menuSidebar`)은 `gnb-sidebar/menuLinkRow` · `createCompoundRow` 의 host 로 이미 선다 — 빈 `ul` 을 재면 제품에 없는 상자를 그린다."
+    },
+    {
+      "id": "avatar/instagramChannel",
+      "retired": "2026-10-08",
+      "reason": "통합 판(76b6cf15, DS-D-0079)에서 분석 화면의 채널 상단 바가 공용 `analytics/AnalyticsChannelHeader.tsx` 로 다시 만들어졌다(배너 + 프로필 행, 아바타는 LOUIS `.louis-avatar`). `InstagramAnalyticsScene.tsx` 의 `DASHBOARD_TOP_BAR_LEFT` · `CHANNEL_AVATAR` · `CHANNEL_AVATAR_PLACEHOLDER` 가 모두 사라졌다(유튜브 파일 머리 주석 「DASHBOARD_TOP_BAR_* … 둘 다 지금은 없다」). 개명이 아니라 구조가 바뀐 자리라 옮길 상수가 없다 — 새 구조를 JSX 에서 읽어 `AnalyticsChannelHeader` 표본을 다시 세워야 열린다."
+    },
+    {
+      "id": "avatar/youtubeChannel",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — `YoutubeAnalyticsScene.tsx` 의 `CHANNEL_AVATAR` · `CHANNEL_AVATAR_PLACEHOLDER` · `DASHBOARD_TOP_BAR_LEFT` 가 `AnalyticsChannelHeader` 로 다시 만들어지며 사라졌다."
+    },
+    {
+      "id": "top-bar/instagramAnalytics",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — 인스타그램 채널 상단 바(`DASHBOARD_TOP_BAR` · `CHANNEL_INFO` · `CHANNEL_NAME`)가 `AnalyticsChannelHeader` 의 `HEADER_CARD` · `PROFILE_ROW` · `NAME` 으로 다시 만들어졌다(40076a5f 「인스타그램 분석을 유튜브 분석과 같은 규칙으로」). 트리 모양이 달라(배너 밴드가 생겼다) 상수 이름만 바꿔 끼우면 제품에 없는 상자를 그린다."
+    },
+    {
+      "id": "top-bar/youtubeAnalytics",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — `DASHBOARD_TOP_BAR_CARD` · `DASHBOARD_TOP_BAR_OVERLAY` · `CHANNEL_INFO` · `CHANNEL_NAME` · `CHANNEL_DESC_BUTTON` 이 `AnalyticsChannelHeader` 로 옮겨 다시 만들어졌다(유튜브 파일 머리 주석 「채널 헤더가 AnalyticsChannelHeader 로 옮겨지면서 이 버튼과 360px 배너 상수는 이 파일에서 사라졌다」)."
+    },
+    {
+      "id": "skeleton/channelAvatarIg",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — 로딩 뼈대도 `AnalyticsChannelHeader` 의 `SKELETON_AVATAR` · `SKELETON_LINE` 으로 다시 만들어졌고 `CHANNEL_AVATAR_SKELETON` 은 사라졌다."
+    },
+    {
+      "id": "skeleton/channelInfoIg",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — `CHANNEL_INFO_SKELETON` · `SKELETON_CHANNEL_TITLE` · `SKELETON_CHANNEL_DESC` 가 사라졌다."
+    },
+    {
+      "id": "skeleton/instagramTopBar",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — 인스타그램 상단 바 로딩 뼈대 전체가 `AnalyticsChannelHeader` 의 `loading` 분기로 옮겼다."
+    },
+    {
+      "id": "skeleton/youtubeTopBar",
+      "retired": "2026-10-08",
+      "reason": "위와 같다 — 유튜브 상단 바 로딩 뼈대(`DASHBOARD_TOP_BAR_CARD` 아래 아바타 원 + 줄 셋)가 `AnalyticsChannelHeader` 의 `loading` 분기로 옮겼다."
+    },
+    {
+      "id": "progress-bar/compositeSegmentPreview",
+      "retired": "2026-10-08",
+      "reason": "통합 판(76b6cf15)에서 합본 미리보기가 `scenes/highlight/CompositeSegmentPreview.tsx` 로 다시 만들어지며 재생 진행바(`compositeProgressBar` · `Track` · `Fill` · `Thumb`)와 그 받침 `compositeBottomPill` 이 `highlightSceneStyles.ts` 에서 사라졌다. 새 컴포넌트는 틀(`COMPOSITE_FRAME`)만 갖고 진행바가 없다 — 옮겨 간 것이 아니라 없어진 부품이다(product-surfaces 도 `HighlightProjectScene.tsx#CompositeSegmentPreview` 를 앵커에서 사라진 표면으로 적는다)."
+    },
+    {
+      "id": "skeleton/analysisModalIg",
+      "retired": "2026-10-08",
+      "reason": "통합 판(76b6cf15)에서 노드 캔버스 분석 모달이 분석 페이지와 같은 탭 · KPI 카드 · 빈 상태로 다시 그려졌다(8de20c9c 「영상 분석 모달을 분석 페이지와 같은 탭·KPI 카드·빈 상태·면으로 다시 그린다」). 인스타그램 로딩 뼈대의 `IG_SKELETON_*` · `SKELETON_*` 상수 열셋이 모두 사라지고 그 자리는 공용 `AnalyticsKpiCardSkeleton`(LOUIS `.louis-skeleton`)이 섰다. 새 구조를 JSX 에서 읽어 다시 세워야 열린다."
+    },
+    {
+      "id": "text-field/adminSearch",
+      "retired": "2026-10-08",
+      "reason": "통합 판(76b6cf15)에서 어드민 검색 칸이 `app/admin/AdminSearch.tsx` 로 나가며 지역 래퍼 `SEARCH_ROW` · `SEARCH_INPUT_WRAPPER` 가 `AdminClient.tsx` 에서 사라졌다. 새 칸은 LOUIS text-field 정본을 그대로 쓴다(`AdminSection.tsx` 의 `ADMIN_FIELD.box` · `.control`, 나머지는 JSX 템플릿 리터럴의 배치 유틸리티뿐) — LOUIS 채택으로 옮겨 간 자리라 상수 표본으로 다시 세울 것이 없다."
     }
   ],
   "$retiredNote": "표본이 가리키던 제품 상수가 **LOUIS 채택으로 사라진** 자리다. 지운 것이 아니라 옮겨 간 것이며, 같은 자리를 이제 LOUIS 후크 탐침(measure-product-components.mjs)이 잰다. 표본을 남겨 두면 측정기가 「상수가 없습니다」로 죽고, 그 빨강이 환경 탓처럼 보인다 — 실제로 verify-product-variants 가 오래 그 상태였다. 2026-09-03 앵커 재고정(ae8fd627 → 5a67d692)에서 셋이 더 내려갔다. 앞의 열여덟과 성격이 다르다 — 저것들은 **LOUIS 채택**으로 옮겨 간 자리이고, 이 셋은 제품이 그 UI 를 **다시 만든** 자리다(어드민 토스트 → AdminAlert · 크레딧 내역 리스트 → 표). 옮겨 간 것은 LOUIS 후크 탐침이 이어서 재지만, 다시 만든 것은 아무도 재지 않는다 — 새 구조를 JSX 에서 읽어 표본을 다시 세워야 열린다."

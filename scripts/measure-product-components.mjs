@@ -1161,8 +1161,9 @@ const PROBES = [
   // 하고 분류는 `figma/product-coverage.json` 이 「DS 가 아직 소유하지 않는다」로 받는다.
   {
     id: "auth-page-root-product",
-    source: "AuthStatusCard.tsx PAGE — 인증 화면 페이지 루트. 720px 에서 1열 ↔ 2열이 갈린다",
-    from: ["authStatusCard", "PAGE"],
+    // 통합 판(76b6cf15)에서 `PAGE` 는 카드를 떠나 `app/(auth-brand)/layout.tsx` 로 갔다(product-files.mjs 의 authBrandLayout).
+    source: "(auth-brand)/layout.tsx PAGE — 인증 화면 페이지 루트. 720px 에서 1열 ↔ 2열이 갈린다",
+    from: ["authBrandLayout", "PAGE"],
     // 2열 격자가 실제로 서야 열 사이 간격이 제 뜻대로 잡힌다 — host 360 이면 두 열이 한 칸에 눌린다.
     hostWidth: 1440,
     // `min-h-[100svh]` 와 `grid-template-columns` 는 **읽지 않는다.** 계산값이 각각 뷰포트 높이와
@@ -1171,16 +1172,22 @@ const PROBES = [
   },
   {
     id: "auth-brand-panel-product",
-    source: "AuthStatusCard.tsx BRAND_PANEL — 좌측 브랜드 면. 마크업이 aside 다(AuthStatusCard.tsx:110)",
-    from: ["authStatusCard", "BRAND_PANEL"],
+    // 통합 판(76b6cf15)에서 패널은 `AuthBrandPanel.tsx` 로 갔다. 면은 영상이 덮고 `bg-accent-primary` 는
+    // 영상 전의 바닥으로 남는다(그 파일 주석) — 로고 무늬 배경 SVG 는 걷혔으므로 backgroundSize 는 기본값으로 잡힌다.
+    source: "AuthBrandPanel.tsx BRAND_PANEL — 좌측 브랜드 면. 마크업이 aside 다(AuthBrandPanel.tsx:83)",
+    from: ["authBrandPanel", "BRAND_PANEL"],
     tag: "aside",
     hostWidth: 1440,
     read: ["paddingTop", "paddingLeft", "borderTopLeftRadius", "backgroundColor", "backgroundSize"],
   },
   {
     id: "auth-brand-slogan-product",
-    source: "AuthStatusCard.tsx BRAND_SLOGAN — 하단 슬로건(p). 1200px 에서 타입이 승급한다",
-    from: ["authStatusCard", "BRAND_SLOGAN"],
+    source: "AuthBrandPanel.tsx BRAND_SLOGAN — 하단 슬로건(p). 타이포는 JSX 가 붙이는 type-heading-48-semibold 가 갖는다",
+    from: ["authBrandPanel", "BRAND_SLOGAN"],
+    // 통합 판에서 타입 승급이 상수(`[@media(min-width:1200px)]:text-heading-48`)를 떠나 JSX 리터럴
+    // `type-heading-48-semibold` 로 갔다(AuthBrandPanel.tsx:96). 상수만 그리면 글자 축 셋이 하네스 기본값을
+    // 재게 되므로, 제품이 그 p 에 붙이는 리터럴을 그대로 앞에 붙인다(값이 아니라 후크 이름이다).
+    jsxClass: "type-heading-48-semibold",
     tag: "p",
     // 제품이 `messages.footer.tagline` 로 넣는 그 문장이다(ko.ts:540). 폭이 18ch 라 글자가 필요하다.
     text: "AI 영상 제작의 모든 순간을 하나의 워크스페이스로.",
@@ -1232,7 +1239,7 @@ const PROBES = [
     // `w-full` 의 계산값은 host 폭이라 읽지 않는다 — 제품 값이 아니라 문서 폭을 재게 된다.
     read: ["rowGap", "columnGap"],
   },
-  // 로고 링크는 `next/link` 가 그리는 **`<a>`** 다(AuthStatusCard.tsx:118). `button` 으로 재면
+  // 로고 링크는 `next/link` 가 그리는 **`<a>`** 다(AuthStatusCard.tsx:74). `button` 으로 재면
   // 레이어 밖 전역 `a` 규칙과의 다툼이 사라져 제품에 없는 값을 재게 된다(status 액션 버튼과 같은 이유).
   // ≥720px 에서는 `display: none` 이라 기하가 아니라 여백·전이만 재진다.
   {
@@ -1550,8 +1557,14 @@ const PROBES = [
   },
   {
     id: "landing-mobile-menu-panel-product",
-    source: "landing/navigation/Gnb.tsx:392-398 MOBILE_MENU_INNER — 풀스크린 메뉴의 면. 흐림 없이 불투명 100% 다",
-    from: ["landingGnb", "MOBILE_MENU_INNER"],
+    // 통합 판(76b6cf15)에서 `MOBILE_MENU_INNER` 가 `MOBILE_MENU_PANEL` 이 됐다 — 같은 면(헤더 아래 78px 부터 ·
+    // 하단 세이프에어리어 · 불투명 gray-100/950)이고 자라는 모양만 clip-path 로 낸다(Gnb.tsx:604-614 주석).
+    // 다크 변형은 이제 `html[data-theme=dark]` 만이 아니라 `[data-menu-theme=follow]` 조상 안에서만 걸린다.
+    // 제품은 그 속성을 `MOBILE_MENU` 요소에 단다(Gnb.tsx:1583, 랜딩 홈 밖의 기본값 `follow`) — 그래서
+    // 조상으로 그 속성 하나를 세운다. 없으면 다크 문서가 라이트 면을 재 제품에 없는 조합이 된다.
+    source: "landing/navigation/Gnb.tsx:607-614 MOBILE_MENU_PANEL — 풀스크린 메뉴의 면. 흐림 없이 불투명 100% 다",
+    from: ["landingGnb", "MOBILE_MENU_PANEL"],
+    wrapper: [{ class: "", attrs: { "data-menu-theme": "follow" } }],
     tag: "div",
     // **라이트 문서로 한 벌 더 재지 않는다.** 이 면은 `palette-gray-100 ↔ palette-gray-900` 으로
     // 테마를 따르는데, 하네스는 모든 문서에 `wrapperSidebar` 표식(bodyMarker)을 깔아 둔다 —
@@ -1801,6 +1814,50 @@ const PROBES = [
       "::after:insetInlineStart",
     ],
   },
+  // ── 2026-10-08 LOUIS Figma 세트를 통합 판(76b6cf15, DS-D-0079) 제품 렌더와 잇는다 ──
+  // 그날 세운 세트 가운데 **등록된 제품 파일(scripts/lib/product-files.mjs)에 소비처 상수가 있는 것**만 여기 선다.
+  // 나머지(record-card · bare-button · node-composer)는 소비처 파일이 명부 밖이라 `$noProductRender` 에 근거와 함께 있다.
+  {
+    id: "text-link-user-product",
+    // 어드민 표 칸의 이메일(AdminUserLink). text-link 레시피의 출처 셋(USER_LINK · RECEIPT · BACK_LINK) 중
+    // 등록 파일(`admin`)에 있는 하나다. `louis-focus-ring` 은 초점 고리라 기하 축이 아니다.
+    source: "admin/AdminSection.tsx:1127 USER_LINK — 표 칸의 이메일을 누르면 사용자 상세가 열리는 글자 링크(button)",
+    from: ["admin", "USER_LINK"],
+    tag: "button",
+    text: "user@example.com",
+    read: ["paddingTop", "paddingLeft", "textUnderlineOffset"],
+  },
+  // 시작 카드의 이름. 크기 기준선(카드 폭 240)은 카드 자신의 `@container/card` 가 정하므로 카드 상수를 조상으로
+  // 세우고 host 폭으로 카드 폭을 고른다 — 200 이면 sm(여백 14 · 이름 14), 360 이면 md(여백 18 · 이름 16).
+  {
+    id: "start-card-label-sm-product",
+    source: "CanvasEmptyState.tsx:198 CARD_LABEL (조상 :138 CARD, 카드 폭 200) — 빈 캔버스 시작 카드의 이름",
+    from: ["canvasEmpty", "CARD_LABEL"],
+    wrapperFrom: [["canvasEmpty", "CARD"]],
+    tag: "span",
+    text: "이미지",
+    hostWidth: 200,
+    read: ["paddingTop", "paddingLeft", "fontSize"],
+  },
+  {
+    id: "start-card-label-md-product",
+    source: "CanvasEmptyState.tsx:198 CARD_LABEL (조상 :138 CARD, 카드 폭 360) — 빈 캔버스 시작 카드의 이름",
+    from: ["canvasEmpty", "CARD_LABEL"],
+    wrapperFrom: [["canvasEmpty", "CARD"]],
+    tag: "span",
+    text: "이미지",
+    hostWidth: 360,
+    read: ["paddingTop", "paddingLeft", "fontSize"],
+  },
+  // 시트 손잡이의 막대. 제품은 손잡이 단추(flex) 안의 span 이라 블록화된 flex 자식이다 — 손잡이 단추를 조상으로
+  // 세우면 넓은 뷰포트(1440)에서 `display:none` 이라 박스가 없으므로, 같은 블록 박스를 내는 div 로 잰다.
+  {
+    id: "dialog-sheet-grabber-bar-product",
+    source: "videoEditParts/vemClass.ts:1597 mobileSheetGrabberBar — 편집 모달 모바일 시트 손잡이의 막대(MobileSheetGrabber.tsx:71)",
+    from: ["vem", "mobileSheetGrabberBar"],
+    tag: "div",
+    read: ["width", "height", "borderTopLeftRadius"],
+  },
 ];
 
 // ── DS와 무엇을 어떻게 맞출지 ──────────────────────────────────────────────
@@ -2032,7 +2089,10 @@ const EXPECT = [
   ["alert-block-warning", "paddingLeft", ["alert", "sizes", "block", "paddingInline"], "same"],
   ["alert-block-warning", "borderTopLeftRadius", ["alert", "sizes", "block", "radius"], "same"],
   ["alert-block-warning", "columnGap", ["alert", "sizes", "block", "gap"], "same"],
-  ["section-header-page", "rowGap", ["section-header", "sizes", "page", "rowGap"], "same"],
+  // 통합 판(76b6cf15)에서 어드민 HEADER 가 레시피 위에 `gap-8! items-start! pb-0!` 를 얹었다(AdminSection.tsx:199).
+  // 그래서 제목 줄 ↔ 액션 사이가 12 가 아니라 16 이다 — 호출부가 레시피를 덮는 자리라 편차로 둔다.
+  ["section-header-page", "rowGap", ["section-header", "sizes", "page", "rowGap"], "deviates",
+    "제품 16, DS 12. 통합 판 어드민 HEADER 가 louis-section-header 위에 gap-8!(제품 격자 2px × 8)을 얹어 레시피의 12 를 덮는다(AdminSection.tsx:199). DS 레시피는 12 그대로다."],
   ["select-trigger-md", "height", ["select", "sizes", "md", "height"], "same"],
   ["select-trigger-md", "paddingTop", ["select", "sizes", "md", "paddingBlock"], "same"],
   ["select-trigger-md", "paddingLeft", ["select", "sizes", "md", "paddingInline"], "same"],
@@ -2319,7 +2379,14 @@ const EXPECT = [
   ]),
 
   ...[["false", "news-card"], ["true", "news-card-featured"]].flatMap(([featured, probe]) => [
-    [probe, "width", ["news-card", "sizes", featured, "width"], "same"],
+    // 통합 판(76b6cf15)에서 트랙이 고정 346 열 + 열 흐름에서 `grid-cols-4 gap-3`(1fr 4열, 6px) fill 로 바뀌었다
+    // (NewsCarousel.tsx:121-124, 소유자 지시 2026-09-21 「데스크탑에서 최신 소식이 가로 스크롤된다, fill 로」).
+    // 그래서 폭은 고정값이 아니라 트랙 폭의 몫이고, host 1400 에서 (1400 − 3×6) / 4 = 345.5 · 피처드 345.5×2 + 6 = 697 이다.
+    // DS 기록 346 · 698 은 1400 시안의 정수 폭이라 0.5 · 1 갈린다 — 기록을 고치는 일은 DS 세트 소유 작업이 한다.
+    [probe, "width", ["news-card", "sizes", featured, "width"], "deviates",
+      featured === "true"
+        ? "제품 697, DS 698. 통합 판 트랙이 1fr 4열 fill(gap 6)이라 피처드 폭은 345.5×2 + 6 = 697 로 계산된다. DS 는 1400 시안의 정수 폭 698 이다."
+        : "제품 345.5, DS 346. 통합 판 트랙이 1fr 4열 fill(gap 6)이라 폭은 (1400 − 18) / 4 = 345.5 로 계산된다. DS 는 1400 시안의 정수 폭 346 이다."],
     [probe, "height", ["news-card", "sizes", featured, "height"], "same"],
     [probe, "paddingTop", ["news-card", "sizes", featured, "paddingBlock"], "same"],
     [probe, "paddingLeft", ["news-card", "sizes", featured, "paddingInline"], "same"],
@@ -2422,6 +2489,18 @@ const EXPECT = [
   ["landing-menu-link-black-product", "paddingTop", ["gnb-menu-item", "sizes", "light/Default", "paddingBlock"], "same"],
   ["landing-menu-link-black-product", "paddingLeft", ["gnb-menu-item", "sizes", "light/Default", "paddingInline"], "same"],
   ["landing-menu-link-black-product", "borderTopLeftRadius", ["gnb-menu-item", "sizes", "light/Default", "radius"], "same"],
+  // ── 2026-10-08 LOUIS Figma 세트 ↔ 통합 판(76b6cf15) 제품 렌더 ──
+  ["text-link-user-product", "paddingTop", ["text-link", "sizes", "hover/Default", "paddingBlock"], "same"],
+  ["text-link-user-product", "paddingLeft", ["text-link", "sizes", "hover/Default", "paddingInline"], "same"],
+  ["text-link-user-product", "textUnderlineOffset", ["text-link", "sizes", "hover/Default", "underlineOffset"], "same"],
+  ...[["sm", "start-card-label-sm-product"], ["md", "start-card-label-md-product"]].flatMap(([size, probe]) => [
+    [probe, "paddingTop", ["start-card", "sizes", size, "labelPadding"], "same"],
+    [probe, "paddingLeft", ["start-card", "sizes", size, "labelPadding"], "same"],
+    [probe, "fontSize", ["start-card", "sizes", size, "labelFontSize"], "same"],
+  ]),
+  ["dialog-sheet-grabber-bar-product", "width", ["dialog", "sizes", "sheet/grabber", "grabberBarWidth"], "same"],
+  ["dialog-sheet-grabber-bar-product", "height", ["dialog", "sizes", "sheet/grabber", "grabberBarHeight"], "same"],
+  ["dialog-sheet-grabber-bar-product", "borderTopLeftRadius", ["dialog", "sizes", "sheet/grabber", "grabberBarRadius"], "same"],
 ];
 
 // 채움(`fill`) 행이 읽는 조상 축. 가로 쓰기 기준 — 내용 폭 = 조상 폭 − 왼쪽 패딩 − 오른쪽 패딩.
@@ -2477,7 +2556,8 @@ const normalize = (source) =>
   source
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/@import\s+["'][^;]*;/g, "")
-    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+    // 통합 판(76b6cf15)부터 `@theme inline static {` 이다 — 수식어가 하나 늘어도 같은 블록으로 받는다.
+    .replace(/@theme(?:\s+(?:inline|static))*\s*\{/g, ":root {");
 
 // 제품 소스에서 클래스 상수를 꺼낸다. `key: [...]`와 `const KEY = [...]` 둘 다 받는다.
 // 문자열 안에도 대괄호가 들어가므로(임의값 유틸리티) 따옴표 경계를 지키며 스캔한다.
@@ -2564,9 +2644,11 @@ try {
   for (const probe of PROBES) {
     if (!probe.from) continue;
     const [alias, ...keys] = probe.from;
-    probe.classes = keys
-      .map((key) => extractClassList(sources[alias], key, FILES[alias]))
-      .join(" ");
+    // `jsxClass` 는 제품 JSX 가 상수 앞에 리터럴로 붙이는 전역 클래스(타입 후크)다 — 상수가 아니라 꺼낼 자리가 없다.
+    probe.classes = [
+      ...(probe.jsxClass ? [probe.jsxClass] : []),
+      ...keys.map((key) => extractClassList(sources[alias], key, FILES[alias])),
+    ].join(" ");
     const inline = probe.inlineFrom ? inlineStyleOf(probe.inlineFrom[0], probe.inlineFrom[1]) : "";
     // **조상도 제품 상수에서 가져온다.** `wrapper`는 클래스 이름을 문자열로 받는데, 그것으로는
     // 「조상 선택자를 만족시킨다」까지만 되고 **조상이 실제로 만드는 기하**(레일 폭 280px 등)는
@@ -2639,7 +2721,26 @@ try {
     }
   }
   for (const token of bodyMarker.split(/\s+/)) if (token) candidates.add(token);
-  const utilities = compiled.build([...candidates]);
+  // **통합 판(76b6cf15)부터 `tailwind.css` 는 유틸리티를 만들지 않는다.** 설정(테마 · 변형) · 레이어 순서 · LOUIS 만
+  // 갖고, 유틸리티는 판 넷(`utilities-app.css` · `-landing` · `-canvas` · `-important`)이 `@reference "./tailwind.css"`
+  // 로 읽어 `utilities.*` 하위 레이어에 만든다(그 파일 머리 주석 「유틸리티는 이 파일이 만들지 않는다」). 진입만
+  // 컴파일하면 후보를 아무리 넣어도 유틸리티가 0개라 모든 축이 기본값으로 잡힌다(2026-10-08 실측 — 패딩 · 반경 0).
+  // 앱 판은 「유틸리티는 예전 한 벌과 같다」고 스스로 적으므로 그 판을 같은 후보로 컴파일해 이어 붙인다.
+  // 랜딩 판은 같은 규칙의 부분집합(하위 레이어만 다르다)이라 따로 세우지 않는다. 앱 판이 없는 옛 커밋은 그대로다.
+  let appUtilities = "";
+  const appSheetPath = "apps/web/app/utilities-app.css";
+  if (git(["ls-tree", "--name-only", commit, appSheetPath]).trim() === appSheetPath) {
+    writeFileSync(join(workspace, "tailwind.css"), tailwindEntry);
+    const compiledApp = await compile(git(["show", commit + ":" + appSheetPath]), {
+      base: workspace,
+      loadStylesheet: async (id, base) => {
+        const path = id.startsWith("tailwindcss") ? require_.resolve(id) : resolve(base, id);
+        return { path, base: dirname(path), content: readFileSync(path, "utf8") };
+      },
+    });
+    appUtilities = compiledApp.build([...candidates]);
+  }
+  const utilities = compiled.build([...candidates]) + (appUtilities ? "\n" + appUtilities : "");
   if (process.env.LOUIS_DUMP_RULE) {
     for (const line of utilities.split("\n")) {
       if (line.includes("body:has")) console.log(line.slice(0, 200));
@@ -2654,8 +2755,9 @@ try {
   // 반대로 LOUIS 가 호출부 유틸리티를 이기는 문서가 된다. 이름을 손으로 적지 않고 컴파일
   // 산출물이 실제로 선언한 LOUIS 순서를 꺼내 쓴다.
   const louisLayerOrder = /@layer\s+(louis\.[^;]*);/.exec(utilities)?.[1] ?? "";
+  // `properties`(옛 브라우저용 `--tw-*` 기본값)는 제품이 가장 약한 자리에 먼저 선언한다(통합 판 tailwind.css).
   const layerOrder =
-    "@layer theme, base, components" +
+    "@layer properties, theme, base, components" +
     (louisLayerOrder ? ", " + louisLayerOrder : "") +
     ", utilities;";
 

@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "projects": [
+    {
+      "id": "00000000-0000-4000-8000-0000000ed1a1",
+      "name": "Placeholder project A",
+      "status": "draft",
+      "type": "canvas",
+      "nodeCanvasThumbnailUrl": null,
+      "createdAt": "2026-01-03T00:00:00.000Z",
+      "updatedAt": "2026-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ed1a2",
+      "name": "Placeholder project B",
+      "status": "draft",
+      "type": "canvas",
+      "nodeCanvasThumbnailUrl": null,
+      "createdAt": "2026-01-02T00:00:00.000Z",
+      "updatedAt": "2026-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000ed1a3",
+      "name": "Placeholder project C",
+      "status": "draft",
+      "type": "canvas",
+      "nodeCanvasThumbnailUrl": null,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "totalCount": 3
+}

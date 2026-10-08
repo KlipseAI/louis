@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "section": "extended",
+  "request": {
+    "startDate": "2026-02-15",
+    "endDate": "2026-03-14",
+    "topVideoLimit": 10
+  },
+  "overview": null,
+  "previousSummary": null,
+  "audience": {
+    "subscribedStatus": {
+      "subscribedViews": 0,
+      "unsubscribedViews": 0,
+      "subscribedPercentage": 0,
+      "unsubscribedPercentage": 0,
+      "totalViews": 0
+    },
+    "subscribedStatusStatus": "empty"
+  },
+  "timeseries": null,
+  "topVideos": null,
+  "traffic": {
+    "items": [],
+    "status": {
+      "base": "empty"
+    }
+  },
+  "geography": {
+    "countries": [],
+    "totalViews": 0,
+    "status": {
+      "countries": "empty"
+    }
+  },
+  "devices": {
+    "deviceType": [],
+    "operatingSystem": [],
+    "status": {
+      "deviceType": "empty",
+      "operatingSystem": "empty"
+    }
+  }
+}

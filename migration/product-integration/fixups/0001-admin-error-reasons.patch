@@ -1,0 +1,26 @@
+diff --git a/apps/web/components/landing/system/messages/admin-en.ts b/apps/web/components/landing/system/messages/admin-en.ts
+index 463d4c696..b21f44706 100644
+--- a/apps/web/components/landing/system/messages/admin-en.ts
++++ b/apps/web/components/landing/system/messages/admin-en.ts
+@@ -1091,6 +1091,8 @@ const admin = {
+       "generationTimedOut": "Did not finish in time",
+       "projectNotFound": "The project was deleted",
+       "authRequired": "The session had expired",
++      "generationProviderUnavailable": "The provider was unavailable",
++      "insufficientCredits": "Not enough credits",
+       "generationProviderBusy": "The provider was busy and refused"
+     },
+     "sources": {
+diff --git a/apps/web/components/landing/system/messages/admin-ko.ts b/apps/web/components/landing/system/messages/admin-ko.ts
+index f19d0d7b4..e522ae18f 100644
+--- a/apps/web/components/landing/system/messages/admin-ko.ts
++++ b/apps/web/components/landing/system/messages/admin-ko.ts
+@@ -1091,6 +1091,8 @@ const admin = {
+       "generationTimedOut": "시간 안에 끝나지 않았습니다",
+       "projectNotFound": "프로젝트가 지워졌습니다",
+       "authRequired": "로그인이 풀려 있었습니다",
++      "generationProviderUnavailable": "공급사를 쓸 수 없었습니다",
++      "insufficientCredits": "크레딧이 모자랐습니다",
+       "generationProviderBusy": "공급사가 붐벼 거절했습니다"
+     },
+     "sources": {

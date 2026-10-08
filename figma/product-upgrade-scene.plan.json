@@ -10,19 +10,19 @@
     "verified": "git show 4ad47868 -- apps/web/app/mypage/upgrade/page.tsx 가 그 22줄의 삭제와 `+ \"bg-gray-900\"` 를 함께 보여준다. 커밋은 ae8fd627..5a67d692 구간 안에 있다.",
     "stillMeasuredNotDesigned": "면 rgb(221,222,224) 는 실측값 그대로 옮긴 것이다. 제품 소스 주석은 이 자리를 「라이트 #f1f1f3」로 적고 있어 값이 어긋나 있는데, 그 차이의 원인은 이 생성기가 확인하지 않았다 — 지어내지 않고 실측만 적는다."
   },
-  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "currentPlanOutlineSource": {
     "lines": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 232,
+        "line": 242,
         "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 233,
+        "line": 243,
         "quote": "  \"[outline-offset:-2px]\","
       }
     ],
@@ -90,7 +90,6 @@
     "sectionName": "O · product/Upgrade plans · measured desktop scene",
     "cardSetName": "Product/Upgrade Plan Card",
     "mobileVisibleCardSetName": "Product/Upgrade Plan Card Visible Slice",
-    "noticeSetName": "Product/Pricing Notice",
     "mainComponentName": "Product/Desktop Upgrade Main Surface",
     "sceneComponentName": "Product/Desktop Upgrade Scene",
     "mobileMainComponentName": "Product/Mobile Upgrade Main Surface",
@@ -119,15 +118,15 @@
     },
     "deckSource": [
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 206,
+        "line": 212,
         "quote": "  \"grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch\","
       },
       {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
         "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-        "line": 212,
+        "line": 220,
         "quote": "  \"min-h-[560px] [@media(max-width:788px)]:[min-height:auto]\","
       }
     ],
@@ -180,41 +179,6 @@
           "maxWidth": 820,
           "maxWidthDeclared": "820px",
           "paddingBottom": 28,
-          "notice": {
-            "height": 32,
-            "heightDeclared": "calc(32px)",
-            "padding": {
-              "top": 0,
-              "right": 12,
-              "bottom": 0,
-              "left": 12
-            },
-            "paddingBottom": 24,
-            "surface": {
-              "color": [
-                0,
-                0,
-                0,
-                0.48
-              ],
-              "radius": 12,
-              "blur": 16,
-              "paint": "noticeSurface"
-            },
-            "dot": {
-              "size": 4,
-              "radius": 999,
-              "gap": 10,
-              "color": [
-                0,
-                0.7764705882352941,
-                0.5568627450980392,
-                1
-              ],
-              "paint": "green500"
-            },
-            "textMaxWidth": null
-          },
           "titlePaddingBottom": 18,
           "bodyMaxWidth": 686.25,
           "bodyMaxWidthDeclared": "72ch",
@@ -222,7 +186,7 @@
             "paddingTop": 20,
             "paddingTopDeclared": "calc(20px)",
             "height": 32,
-            "label": "Gift a plan",
+            "label": "Group purchase",
             "button": {
               "padding": {
                 "top": 0,
@@ -255,11 +219,11 @@
                 }
               ],
               "text": {
-                "text": "Gift a plan",
+                "text": "Group purchase",
                 "rect": {
                   "x": 12,
                   "y": 5.5,
-                  "width": 65,
+                  "width": 100.5938,
                   "height": 21
                 },
                 "fontSize": 14,
@@ -282,6 +246,7 @@
         "deck": {
           "columns": 5,
           "gap": 4,
+          "rowGap": 4,
           "declared": "repeat(5, minmax(0px, 1fr))"
         },
         "compare": {
@@ -293,32 +258,11 @@
         "Parent": "Subscription",
         "Current": "Change plan"
       },
-      "headerNotice": {
-        "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
-        "rect": {
-          "x": 190,
-          "y": 89,
-          "width": 419.5,
-          "height": 32
-        },
-        "fontSize": 14,
-        "fontWeight": 500,
-        "lineHeight": 21,
-        "letterSpacing": -0.14,
-        "textAlign": "start",
-        "color": [
-          0.980392,
-          0.980392,
-          0.980392,
-          1
-        ],
-        "paint": "mediaForegroundDark"
-      },
       "headerTitle": {
         "text": "Start free, upgrade or cancel anytime.",
         "rect": {
           "x": 190,
-          "y": 145,
+          "y": 89,
           "width": 820,
           "height": 48.5938
         },
@@ -339,7 +283,7 @@
         "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
         "rect": {
           "x": 190,
-          "y": 211.5938,
+          "y": 155.5938,
           "width": 686.25,
           "height": 48
         },
@@ -361,7 +305,7 @@
         "text": "Compare Plans",
         "rect": {
           "x": 190,
-          "y": 1011.7813,
+          "y": 949.7813,
           "width": 1300,
           "height": 48.5938
         },
@@ -382,9 +326,9 @@
     },
     "cardGrid": {
       "x": 190,
-      "y": 339.5938,
+      "y": 283.5938,
       "width": 1300,
-      "height": 608.1875
+      "height": 602.1875
     },
     "cards": [
       {
@@ -392,13 +336,13 @@
         "route": "/mypage/upgrade",
         "rect": {
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "position": {
           "x": 190,
-          "y": 339.5938,
+          "y": 283.5938,
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "padding": {
           "top": 16,
@@ -639,7 +583,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -677,7 +621,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -691,7 +635,7 @@
                   "text": "1 Composition upload, 2 imports",
                   "rect": {
                     "x": 42,
-                    "y": 229.5937,
+                    "y": 228.5937,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -715,7 +659,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -729,7 +673,7 @@
                   "text": "AI video generation trial",
                   "rect": {
                     "x": 42,
-                    "y": 255.5937,
+                    "y": 253.5937,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -753,7 +697,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -767,7 +711,7 @@
                   "text": "Basic video cut editing",
                   "rect": {
                     "x": 42,
-                    "y": 281.5937,
+                    "y": 278.5937,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -791,7 +735,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -805,7 +749,7 @@
                   "text": "Highlight input videos up to 10 min",
                   "rect": {
                     "x": 42,
-                    "y": 307.5937,
+                    "y": 303.5937,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -829,7 +773,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -843,7 +787,7 @@
                   "text": "Watermark included",
                   "rect": {
                     "x": 42,
-                    "y": 353.5937,
+                    "y": 349.5937,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -869,7 +813,7 @@
           "text": "Current plan",
           "rect": {
             "x": 16,
-            "y": 560.1875,
+            "y": 554.1875,
             "width": 224.7969,
             "height": 32
           },
@@ -892,7 +836,7 @@
             "text": "Current plan",
             "rect": {
               "x": 89.375,
-              "y": 565.6875,
+              "y": 559.6875,
               "width": 78.0313,
               "height": 21
             },
@@ -919,13 +863,13 @@
         "route": "/mypage/upgrade",
         "rect": {
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "position": {
           "x": 450.79690000000005,
-          "y": 339.5938,
+          "y": 283.5938,
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "padding": {
           "top": 16,
@@ -1192,7 +1136,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1230,7 +1174,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1244,7 +1188,7 @@
                   "text": "3 Composition uploads, 3 imports",
                   "rect": {
                     "x": 42,
-                    "y": 278.1875,
+                    "y": 277.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -1268,7 +1212,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1282,7 +1226,7 @@
                   "text": "All AI models unlocked",
                   "rect": {
                     "x": 42,
-                    "y": 324.1875,
+                    "y": 323.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1306,7 +1250,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1320,7 +1264,7 @@
                   "text": "Text/image overlay, TTS",
                   "rect": {
                     "x": 42,
-                    "y": 350.1875,
+                    "y": 348.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1344,7 +1288,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1358,7 +1302,7 @@
                   "text": "YouTube/Instagram upload",
                   "rect": {
                     "x": 42,
-                    "y": 376.1875,
+                    "y": 373.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1382,7 +1326,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1396,7 +1340,7 @@
                   "text": "Highlight input videos up to 10 min",
                   "rect": {
                     "x": 42,
-                    "y": 402.1875,
+                    "y": 398.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -1420,7 +1364,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1434,7 +1378,7 @@
                   "text": "Bronze credit top-up",
                   "rect": {
                     "x": 42,
-                    "y": 448.1875,
+                    "y": 444.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1458,7 +1402,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1472,7 +1416,7 @@
                   "text": "No watermark",
                   "rect": {
                     "x": 42,
-                    "y": 474.1875,
+                    "y": 469.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1498,7 +1442,7 @@
           "text": "Choose Lite",
           "rect": {
             "x": 16,
-            "y": 560.1875,
+            "y": 554.1875,
             "width": 224.7969,
             "height": 32
           },
@@ -1521,7 +1465,7 @@
             "text": "Choose Lite",
             "rect": {
               "x": 91.25,
-              "y": 565.6875,
+              "y": 559.6875,
               "width": 74.2969,
               "height": 21
             },
@@ -1548,13 +1492,13 @@
         "route": "/mypage/upgrade",
         "rect": {
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "position": {
           "x": 711.5938,
-          "y": 339.5938,
+          "y": 283.5938,
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "padding": {
           "top": 16,
@@ -1821,7 +1765,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1859,7 +1803,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1873,7 +1817,7 @@
                   "text": "5 Composition uploads, 5 imports",
                   "rect": {
                     "x": 42,
-                    "y": 278.1875,
+                    "y": 277.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -1897,7 +1841,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1911,7 +1855,7 @@
                   "text": "All AI models unlocked",
                   "rect": {
                     "x": 42,
-                    "y": 324.1875,
+                    "y": 323.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1935,7 +1879,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1949,7 +1893,7 @@
                   "text": "Text/image overlay, TTS",
                   "rect": {
                     "x": 42,
-                    "y": 350.1875,
+                    "y": 348.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -1973,7 +1917,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -1987,7 +1931,7 @@
                   "text": "YouTube/Instagram upload, schedule & analytics",
                   "rect": {
                     "x": 42,
-                    "y": 376.1875,
+                    "y": 373.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -2011,7 +1955,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2025,7 +1969,7 @@
                   "text": "AI prompt & caption assist",
                   "rect": {
                     "x": 42,
-                    "y": 422.1875,
+                    "y": 419.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -2049,7 +1993,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2063,7 +2007,7 @@
                   "text": "Highlight input videos up to 30 min",
                   "rect": {
                     "x": 42,
-                    "y": 448.1875,
+                    "y": 444.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -2087,7 +2031,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2101,7 +2045,7 @@
                   "text": "Credit top-up available",
                   "rect": {
                     "x": 42,
-                    "y": 494.1875,
+                    "y": 490.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -2125,7 +2069,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2139,7 +2083,7 @@
                   "text": "No watermark",
                   "rect": {
                     "x": 42,
-                    "y": 520.1875,
+                    "y": 515.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -2165,7 +2109,7 @@
           "text": "Choose Plus",
           "rect": {
             "x": 16,
-            "y": 560.1875,
+            "y": 554.1875,
             "width": 224.7969,
             "height": 32
           },
@@ -2188,7 +2132,7 @@
             "text": "Choose Plus",
             "rect": {
               "x": 89.53120000000001,
-              "y": 565.6875,
+              "y": 559.6875,
               "width": 77.7344,
               "height": 21
             },
@@ -2215,13 +2159,13 @@
         "route": "/mypage/upgrade",
         "rect": {
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "position": {
           "x": 972.3906,
-          "y": 339.5938,
+          "y": 283.5938,
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "padding": {
           "top": 16,
@@ -2488,7 +2432,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2526,7 +2470,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2540,7 +2484,7 @@
                   "text": "7 Composition uploads, 7 imports",
                   "rect": {
                     "x": 42,
-                    "y": 278.1875,
+                    "y": 277.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -2564,7 +2508,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2578,7 +2522,7 @@
                   "text": "Highlight input videos up to 120 min",
                   "rect": {
                     "x": 42,
-                    "y": 324.1875,
+                    "y": 323.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -2602,7 +2546,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2616,7 +2560,7 @@
                   "text": "3 concurrent jobs",
                   "rect": {
                     "x": 42,
-                    "y": 370.1875,
+                    "y": 369.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -2640,7 +2584,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -2654,7 +2598,7 @@
                   "text": "Priority queue processing",
                   "rect": {
                     "x": 42,
-                    "y": 396.1875,
+                    "y": 394.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -2680,7 +2624,7 @@
           "text": "Choose Pro",
           "rect": {
             "x": 16,
-            "y": 560.1875,
+            "y": 554.1875,
             "width": 224.7969,
             "height": 32
           },
@@ -2703,7 +2647,7 @@
             "text": "Choose Pro",
             "rect": {
               "x": 92.17190000000005,
-              "y": 565.6875,
+              "y": 559.6875,
               "width": 72.4531,
               "height": 21
             },
@@ -2730,13 +2674,13 @@
         "route": "/mypage/upgrade",
         "rect": {
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "position": {
           "x": 1233.1875,
-          "y": 339.5938,
+          "y": 283.5938,
           "width": 256.7969,
-          "height": 608.1875
+          "height": 602.1875
         },
         "padding": {
           "top": 16,
@@ -3003,7 +2947,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -3041,7 +2985,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -3055,7 +2999,7 @@
                   "text": "10 Composition uploads, 10 imports",
                   "rect": {
                     "x": 42,
-                    "y": 278.1875,
+                    "y": 277.1875,
                     "width": 198.7969,
                     "height": 42
                   },
@@ -3079,7 +3023,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -3093,7 +3037,7 @@
                   "text": "10 highlight clip selections",
                   "rect": {
                     "x": 42,
-                    "y": 324.1875,
+                    "y": 323.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -3117,7 +3061,7 @@
                 "iconTrack": 18,
                 "icon": {
                   "size": 18,
-                  "marginTop": 4,
+                  "marginTop": 1.5,
                   "color": [
                     0,
                     0.7764705882352941,
@@ -3131,7 +3075,7 @@
                   "text": "Maximum monthly credits",
                   "rect": {
                     "x": 42,
-                    "y": 350.1875,
+                    "y": 348.1875,
                     "width": 198.7969,
                     "height": 21
                   },
@@ -3157,7 +3101,7 @@
           "text": "Choose Ultra",
           "rect": {
             "x": 16,
-            "y": 560.1875,
+            "y": 554.1875,
             "width": 224.7969,
             "height": 32
           },
@@ -3180,7 +3124,7 @@
             "text": "Choose Ultra",
             "rect": {
               "x": 87.42190000000005,
-              "y": 565.6875,
+              "y": 559.6875,
               "width": 81.9531,
               "height": 21
             },
@@ -3266,41 +3210,6 @@
             "maxWidth": 820,
             "maxWidthDeclared": "820px",
             "paddingBottom": 28,
-            "notice": {
-              "height": 32,
-              "heightDeclared": "calc(32px)",
-              "padding": {
-                "top": 0,
-                "right": 12,
-                "bottom": 0,
-                "left": 12
-              },
-              "paddingBottom": 24,
-              "surface": {
-                "color": [
-                  0,
-                  0,
-                  0,
-                  0.48
-                ],
-                "radius": 12,
-                "blur": 16,
-                "paint": "noticeSurface"
-              },
-              "dot": {
-                "size": 4,
-                "radius": 999,
-                "gap": 10,
-                "color": [
-                  0,
-                  0.7764705882352941,
-                  0.5568627450980392,
-                  1
-                ],
-                "paint": "green500"
-              },
-              "textMaxWidth": 352
-            },
             "titlePaddingBottom": 18,
             "bodyMaxWidth": 600.469,
             "bodyMaxWidthDeclared": "72ch",
@@ -3308,7 +3217,7 @@
               "paddingTop": 20,
               "paddingTopDeclared": "calc(20px)",
               "height": 32,
-              "label": "Gift a plan",
+              "label": "Group purchase",
               "button": {
                 "padding": {
                   "top": 0,
@@ -3341,11 +3250,11 @@
                   }
                 ],
                 "text": {
-                  "text": "Gift a plan",
+                  "text": "Group purchase",
                   "rect": {
                     "x": 12,
                     "y": 5.5,
-                    "width": 65,
+                    "width": 100.5938,
                     "height": 21
                   },
                   "fontSize": 14,
@@ -3366,9 +3275,10 @@
             }
           },
           "deck": {
-            "columns": 2,
+            "columns": 1,
             "gap": 4,
-            "declared": "repeat(2, minmax(0px, 1fr))"
+            "rowGap": 4,
+            "declared": "minmax(0px, 1fr) !important"
           },
           "compare": null
         },
@@ -3377,32 +3287,11 @@
           "Parent": "Subscription",
           "Current": "Change plan"
         },
-        "headerNotice": {
-          "text": "All plans on sale to mark the Lite launch (2026.09.01 - 09.30)",
-          "rect": {
-            "x": 6,
-            "y": 73,
-            "width": 390,
-            "height": 32
-          },
-          "fontSize": 14,
-          "fontWeight": 500,
-          "lineHeight": 21,
-          "letterSpacing": -0.14,
-          "textAlign": "start",
-          "color": [
-            0.980392,
-            0.980392,
-            0.980392,
-            1
-          ],
-          "paint": "mediaForegroundDark"
-        },
         "headerTitle": {
           "text": "Start free, upgrade or cancel anytime.",
           "rect": {
             "x": 6,
-            "y": 129,
+            "y": 73,
             "width": 390,
             "height": 97.1875
           },
@@ -3423,7 +3312,7 @@
           "text": "Monthly billed plans are available for one month from each billing date. After that, payment renews automatically on the same billing date each month.",
           "rect": {
             "x": 6,
-            "y": 244.1875,
+            "y": 188.1875,
             "width": 390,
             "height": 84
           },
@@ -3445,9 +3334,9 @@
       },
       "cardGrid": {
         "x": 6,
-        "y": 408.1875,
+        "y": 352.1875,
         "width": 390,
-        "height": 1668.7813
+        "height": 2049.9844
       },
       "cards": [
         {
@@ -3455,18 +3344,18 @@
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 193,
-            "height": 572.5938
+            "width": 390,
+            "height": 396.7969
           },
           "position": {
             "x": 6,
-            "y": 408.1875,
-            "width": 193,
-            "height": 572.5938
+            "y": 352.1875,
+            "width": 390,
+            "height": 396.7969
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 465.8125
+            "bottom": 396.7969
           },
           "padding": {
             "top": 12,
@@ -3525,7 +3414,7 @@
                   "rect": {
                     "x": 12,
                     "y": 12,
-                    "width": 169,
+                    "width": 366,
                     "height": 30
                   },
                   "fontSize": 20,
@@ -3673,9 +3562,9 @@
                   "text": "Core features for trying Klipse",
                   "rect": {
                     "x": 12,
-                    "y": 159.79690000000005,
-                    "width": 169,
-                    "height": 42
+                    "y": 159.7969,
+                    "width": 366,
+                    "height": 21
                   },
                   "fontSize": 14,
                   "fontWeight": 500,
@@ -3706,7 +3595,7 @@
                   "iconTrack": 18,
                   "icon": {
                     "size": 18,
-                    "marginTop": 4,
+                    "marginTop": 1.5,
                     "color": [
                       0,
                       0.7764705882352941,
@@ -3720,8 +3609,8 @@
                     "text": "Up to 3 projects",
                     "rect": {
                       "x": 38,
-                      "y": 209.79690000000005,
-                      "width": 143,
+                      "y": 188.79690000000005,
+                      "width": 340,
                       "height": 21
                     },
                     "fontSize": 14,
@@ -3744,7 +3633,7 @@
                   "iconTrack": 18,
                   "icon": {
                     "size": 18,
-                    "marginTop": 4,
+                    "marginTop": 1.5,
                     "color": [
                       0,
                       0.7764705882352941,
@@ -3758,84 +3647,8 @@
                     "text": "1 Composition upload, 2 imports",
                     "rect": {
                       "x": 38,
-                      "y": 235.79690000000005,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "AI video generation trial",
-                    "rect": {
-                      "x": 38,
-                      "y": 281.79690000000005,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "Basic video cut editing",
-                    "rect": {
-                      "x": 38,
-                      "y": 327.79690000000005,
-                      "width": 143,
+                      "y": 213.79690000000005,
+                      "width": 340,
                       "height": 21
                     },
                     "fontSize": 14,
@@ -3858,7 +3671,7 @@
                   "iconTrack": 18,
                   "icon": {
                     "size": 18,
-                    "marginTop": 4,
+                    "marginTop": 1.5,
                     "color": [
                       0,
                       0.7764705882352941,
@@ -3869,12 +3682,12 @@
                     "paint": "green500"
                   },
                   "text": {
-                    "text": "Highlight input videos up to 10 min",
+                    "text": "AI video generation trial",
                     "rect": {
                       "x": 38,
-                      "y": 353.79690000000005,
-                      "width": 143,
-                      "height": 42
+                      "y": 238.79690000000005,
+                      "width": 340,
+                      "height": 21
                     },
                     "fontSize": 14,
                     "fontWeight": 400,
@@ -3896,7 +3709,83 @@
                   "iconTrack": 18,
                   "icon": {
                     "size": 18,
-                    "marginTop": 4,
+                    "marginTop": 1.5,
+                    "color": [
+                      0,
+                      0.7764705882352941,
+                      0.5568627450980392,
+                      1
+                    ],
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
+                  },
+                  "text": {
+                    "text": "Basic video cut editing",
+                    "rect": {
+                      "x": 38,
+                      "y": 263.79690000000005,
+                      "width": 340,
+                      "height": 21
+                    },
+                    "fontSize": 14,
+                    "fontWeight": 400,
+                    "lineHeight": 21,
+                    "letterSpacing": -0.14,
+                    "textAlign": "start",
+                    "color": [
+                      0.254902,
+                      0.270588,
+                      0.298039,
+                      1
+                    ],
+                    "sizing": "FILL",
+                    "paint": "gray300"
+                  }
+                },
+                {
+                  "gap": 8,
+                  "iconTrack": 18,
+                  "icon": {
+                    "size": 18,
+                    "marginTop": 1.5,
+                    "color": [
+                      0,
+                      0.7764705882352941,
+                      0.5568627450980392,
+                      1
+                    ],
+                    "asset": "/icons/CheckCircle.svg",
+                    "paint": "green500"
+                  },
+                  "text": {
+                    "text": "Highlight input videos up to 10 min",
+                    "rect": {
+                      "x": 38,
+                      "y": 288.79690000000005,
+                      "width": 340,
+                      "height": 21
+                    },
+                    "fontSize": 14,
+                    "fontWeight": 400,
+                    "lineHeight": 21,
+                    "letterSpacing": -0.14,
+                    "textAlign": "start",
+                    "color": [
+                      0.254902,
+                      0.270588,
+                      0.298039,
+                      1
+                    ],
+                    "sizing": "FILL",
+                    "paint": "gray300"
+                  }
+                },
+                {
+                  "gap": 8,
+                  "iconTrack": 18,
+                  "icon": {
+                    "size": 18,
+                    "marginTop": 1.5,
                     "color": [
                       0,
                       0.7764705882352941,
@@ -3910,8 +3799,8 @@
                     "text": "Watermark included",
                     "rect": {
                       "x": 38,
-                      "y": 399.79690000000005,
-                      "width": 143,
+                      "y": 313.79690000000005,
+                      "width": 340,
                       "height": 21
                     },
                     "fontSize": 14,
@@ -3932,8 +3821,53 @@
               ]
             }
           ],
-          "action": null,
-          "actionMeasured": false,
+          "action": {
+            "text": "Current plan",
+            "rect": {
+              "x": 12,
+              "y": 352.79690000000005,
+              "width": 366,
+              "height": 32
+            },
+            "height": 32,
+            "radius": 12,
+            "padding": {
+              "top": 0,
+              "right": 12,
+              "bottom": 0,
+              "left": 12
+            },
+            "fill": [
+              0.921569,
+              0.92549,
+              0.933333,
+              1
+            ],
+            "opacity": 1,
+            "label": {
+              "text": "Current plan",
+              "rect": {
+                "x": 155.9844,
+                "y": 358.29690000000005,
+                "width": 78.0313,
+                "height": 21
+              },
+              "fontSize": 14,
+              "fontWeight": 500,
+              "lineHeight": 21,
+              "letterSpacing": -0.14,
+              "textAlign": "center",
+              "color": [
+                0.447059,
+                0.458824,
+                0.482353,
+                1
+              ],
+              "paint": "fgDisabled"
+            },
+            "fillPaint": "bgInset"
+          },
+          "actionMeasured": true,
           "paint": "bgRaised"
         },
         {
@@ -3941,18 +3875,18 @@
           "route": "/mypage/upgrade",
           "viewport": "MobileVisibleSlice",
           "rect": {
-            "width": 193,
-            "height": 572.5938
+            "width": 390,
+            "height": 446.7969
           },
           "position": {
-            "x": 203,
-            "y": 408.1875,
-            "width": 193,
-            "height": 572.5938
+            "x": 6,
+            "y": 752.9844,
+            "width": 390,
+            "height": 446.7969
           },
           "visibleIntersection": {
             "top": 0,
-            "bottom": 465.8125
+            "bottom": 121.01559999999995
           },
           "padding": {
             "top": 12,
@@ -3999,7 +3933,7 @@
                   "rect": {
                     "x": 12,
                     "y": 12,
-                    "width": 169,
+                    "width": 366,
                     "height": 30
                   },
                   "fontSize": 20,
@@ -4038,8 +3972,8 @@
                   "rect": {
                     "x": 12,
                     "y": 52,
-                    "width": 114.2813,
-                    "height": 75.5938
+                    "width": 154.5781,
+                    "height": 37.7969
                   },
                   "fontSize": 28,
                   "fontWeight": 600,
@@ -4058,21 +3992,16 @@
                     "bottom": 0,
                     "left": 0
                   },
-                  "sizing": "FIXED",
-                  "box": 114.2813,
-                  "$lineNaturalWidths": {
-                    "12,900": 88,
-                    "KRW": 62
-                  },
+                  "sizing": "HUG",
                   "paint": "gray200"
                 },
                 {
                   "text": "per month",
                   "rect": {
-                    "x": 134.2813,
-                    "y": 81.59379999999999,
-                    "width": 46.7188,
-                    "height": 46
+                    "x": 174.5781,
+                    "y": 64.79689999999994,
+                    "width": 63.2031,
+                    "height": 25
                   },
                   "fontSize": 14,
                   "fontWeight": 400,
@@ -4091,12 +4020,7 @@
                     "bottom": 4,
                     "left": 0
                   },
-                  "sizing": "FIXED",
-                  "box": 46.7188,
-                  "$lineNaturalWidths": {
-                    "per": 21,
-                    "month": 40
-                  },
+                  "sizing": "HUG",
                   "paint": "gray300Alpha88"
                 }
               ]
@@ -4120,7 +4044,7 @@
                   "text": "5,000",
                   "rect": {
                     "x": 12,
-                    "y": 131.5938,
+                    "y": 93.79689999999994,
                     "width": 52.5,
                     "height": 30
                   },
@@ -4148,7 +4072,7 @@
                   "text": "credits",
                   "rect": {
                     "x": 72.5,
-                    "y": 131.5938,
+                    "y": 93.79689999999994,
                     "width": 61.1406,
                     "height": 30
                   },
@@ -4173,302 +4097,6 @@
                   "paint": "gray300"
                 }
               ]
-            },
-            {
-              "kind": "includes",
-              "margin": {
-                "top": 12,
-                "bottom": 0
-              },
-              "texts": [
-                {
-                  "text": "Everything in Trial",
-                  "rect": {
-                    "x": 12,
-                    "y": 197.5938,
-                    "width": 169,
-                    "height": 21
-                  },
-                  "fontSize": 14,
-                  "fontWeight": 500,
-                  "lineHeight": 21,
-                  "letterSpacing": -0.14,
-                  "textAlign": "start",
-                  "color": [
-                    0.254902,
-                    0.270588,
-                    0.298039,
-                    1
-                  ],
-                  "sizing": "FILL",
-                  "paint": "gray300"
-                }
-              ]
-            },
-            {
-              "kind": "features",
-              "margin": {
-                "top": 8,
-                "bottom": 18
-              },
-              "gap": 4,
-              "items": [
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "Up to 5 projects",
-                    "rect": {
-                      "x": 38,
-                      "y": 226.5938,
-                      "width": 143,
-                      "height": 21
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "3 Composition uploads, 3 imports",
-                    "rect": {
-                      "x": 38,
-                      "y": 252.5938,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "All AI models unlocked",
-                    "rect": {
-                      "x": 38,
-                      "y": 298.5938,
-                      "width": 143,
-                      "height": 21
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "Text/image overlay, TTS",
-                    "rect": {
-                      "x": 38,
-                      "y": 324.5938,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "YouTube/Instagram upload",
-                    "rect": {
-                      "x": 38,
-                      "y": 370.5938,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": {
-                    "size": 18,
-                    "marginTop": 4,
-                    "color": [
-                      0,
-                      0.7764705882352941,
-                      0.5568627450980392,
-                      1
-                    ],
-                    "asset": "/icons/CheckCircle.svg",
-                    "paint": "green500"
-                  },
-                  "text": {
-                    "text": "Highlight input videos up to 10 min",
-                    "rect": {
-                      "x": 38,
-                      "y": 416.5938,
-                      "width": 143,
-                      "height": 42
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                },
-                {
-                  "gap": 8,
-                  "iconTrack": 18,
-                  "icon": null,
-                  "text": {
-                    "text": "Bronze credit top-up",
-                    "rect": {
-                      "x": 38,
-                      "y": 462.5938,
-                      "width": 143,
-                      "height": 21
-                    },
-                    "fontSize": 14,
-                    "fontWeight": 400,
-                    "lineHeight": 21,
-                    "letterSpacing": -0.14,
-                    "textAlign": "start",
-                    "color": [
-                      0.254902,
-                      0.270588,
-                      0.298039,
-                      1
-                    ],
-                    "sizing": "FILL",
-                    "paint": "gray300"
-                  }
-                }
-              ]
             }
           ],
           "action": null,
@@ -4476,7 +4104,7 @@
           "paint": "bgRaised"
         }
       ],
-      "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent; the two visible cards keep their measured height and clip."
+      "evidenceBoundary": "Only nodes present in the 402x874 fixture are drawn. The deck is one column at this width, so the cards stack; Plus, Pro, Ultra and the Lite action were outside the measured viewport and are absent; the two visible cards keep their measured height and clip."
     },
     "$bindingPolicy": "Paints bind to the live LOUIS collections (Klipse Primitive[Base] · Klipse Semantic[Global] · Klipse Semantic Color[Light/Dark]); the retired 1 · Palette / 2 · Semantic are gone. The measured theme picks the pinned Klipse Semantic Color mode. Every measured paint takes the colour role its product declaration names, and the role binds only when the measured colour equals the live value (colorEvidence). Approximate roles (product rgb(var(--x-rgb) / N%) against a live alpha ramp with other RGB) and unbound roles (no live variable for the product token) are listed with a reason; unbound roles paint the measured colour and the runner reports them as unboundColors.",
     "bindings": {
@@ -4502,10 +4130,6 @@
         "collection": "Klipse Semantic Color",
         "name": "color/gray/000-alpha/72"
       },
-      "mediaForegroundDark": {
-        "collection": "Klipse Semantic Color",
-        "name": "color/media-foreground-dark"
-      },
       "bgRaised": {
         "collection": "Klipse Semantic Color",
         "name": "color/bg-raised"
@@ -4521,10 +4145,6 @@
       "green500": {
         "collection": "Klipse Primitive",
         "name": "color/green/500"
-      },
-      "noticeSurface": {
-        "collection": "Klipse Primitive",
-        "name": "color/static-black-alpha/48"
       },
       "accentInverse": {
         "collection": "Klipse Semantic Color",
@@ -4655,15 +4275,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 68,
+            "line": 69,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 794,
+            "line": 804,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -4678,15 +4298,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 68,
+            "line": 69,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 1071,
+            "line": 966,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -4701,15 +4321,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 110,
+            "line": 111,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 795,
+            "line": 805,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -4724,15 +4344,15 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 125,
+            "line": 98,
             "quote": "  \"m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!\";"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 359,
+            "line": 331,
             "quote": "  \"m-0 mb-16 type-heading-36-semibold text-gray-000 text-center\";"
           }
         ],
@@ -4747,9 +4367,9 @@
       "gray000Alpha72": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 177,
+            "line": 178,
             "quote": "  \"text-[rgb(var(--gray-000-rgb)/72%)]!\","
           }
         ],
@@ -4764,29 +4384,12 @@
         "reason": "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
         "liveValueTwins": []
       },
-      "mediaForegroundDark": {
-        "declared": [
-          {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
-            "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 90,
-            "quote": "  \"type-body-14-medium text-[var(--louis-color-media-foreground-dark)]\","
-          }
-        ],
-        "measured": "#fafafa",
-        "measuredAlpha": 1,
-        "sites": 2,
-        "figma": "Klipse Semantic Color[Light]/color/media-foreground-dark → Klipse Primitive/color/palette-gray/000",
-        "figmaValue": "#fafafa",
-        "figmaAlpha": 1,
-        "exact": true
-      },
       "bgRaised": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 223,
+            "line": 233,
             "quote": "  \"bg-[var(--louis-color-bg-raised)]\","
           }
         ],
@@ -4801,9 +4404,9 @@
       "gray200": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 215,
+            "line": 223,
             "quote": "  \"flex flex-col text-gray-200 overflow-hidden\","
           }
         ],
@@ -4818,27 +4421,27 @@
       "gray300": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 268,
+            "line": 278,
             "quote": "  \"mt-2 flex w-full pb-12 items-end gap-4 text-gray-300\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 278,
+            "line": 289,
             "quote": "const TIER_INCLUDES = \"[margin:12px_0_0] p-0 block text-gray-300\";"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 284,
+            "line": 295,
             "quote": "  \"[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300\","
           }
         ],
         "measured": "#41454c",
         "measuredAlpha": 1,
-        "sites": 66,
+        "sites": 58,
         "figma": "Klipse Semantic Color[Light]/color/gray/300 → Klipse Primitive/color/palette-gray/700",
         "figmaValue": "#41454c",
         "figmaAlpha": 1,
@@ -4847,9 +4450,9 @@
       "gray300Alpha88": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 264,
+            "line": 274,
             "quote": "  \"[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2\","
           }
         ],
@@ -4865,52 +4468,32 @@
       "green500": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 298,
-            "quote": "  \"block w-9 h-9 mt-2 bg-accent-green-500\","
+            "line": 809,
+            "quote": "                              className={TIER_FEATURE_ICON}"
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/landing/sections/PricingSection.tsx",
             "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 95,
-            "quote": "const NOTICE_DOT = \"size-2 flex-none rounded-full bg-accent-green-500 mr-5\";"
+            "line": 223,
+            "quote": "  \"bg-accent-green-500\","
           }
         ],
         "measured": "#00c68e",
         "measuredAlpha": 1,
-        "sites": 46,
+        "sites": 38,
         "figma": "Klipse Primitive/color/green/500",
         "figmaValue": "#00c68e",
         "figmaAlpha": 1,
         "exact": true
       },
-      "noticeSurface": {
-        "declared": [
-          {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/landing/sections/PricingSection.tsx",
-            "path": "apps/web/components/landing/sections/PricingSection.tsx",
-            "line": 91,
-            "quote": "  \"bg-[color-mix(in_srgb,var(--louis-color-media-scrim-dark)_48%,transparent)]\","
-          }
-        ],
-        "measured": "#000000",
-        "measuredAlpha": 0.48,
-        "sites": 2,
-        "figma": "Klipse Primitive/color/static-black-alpha/48",
-        "figmaValue": "#171b22",
-        "figmaAlpha": 0.48,
-        "productMix": "Klipse Semantic Color[Light]/color/media-scrim-dark → Klipse Primitive/color/static/black × 0.48",
-        "exact": false,
-        "reason": "The event pill mixes media-scrim-dark (pure black) at 48%. The live file has no black-at-48% twin; static-black-alpha/48 is the same step on the #171b22 base, so the surface binds to it and records the RGB gap (as gray000Alpha72).",
-        "liveValueTwins": []
-      },
       "primary200Alpha40": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 232,
+            "line": 242,
             "quote": "  \"[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]\","
           }
         ],
@@ -4926,9 +4509,9 @@
       "accentInverse": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 715,
+            "line": 874,
             "quote": "                      variant=\"inverse\""
           },
           {
@@ -4964,20 +4547,20 @@
       "bgInset": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 723,
+            "line": 882,
             "quote": "                      disabled={"
           },
           {
             "path": "packages/css/src/component/button.css",
-            "line": 333,
+            "line": 366,
             "quote": "  background: var(--louis-color-bg-inset);"
           }
         ],
         "measured": "#ebecee",
         "measuredAlpha": 1,
-        "sites": 1,
+        "sites": 2,
         "figma": "Klipse Semantic Color[Light]/color/bg-inset → Klipse Primitive/color/palette-gray/050",
         "figmaValue": "#ebecee",
         "figmaAlpha": 1,
@@ -4987,13 +4570,13 @@
         "declared": [
           {
             "path": "packages/css/src/component/button.css",
-            "line": 318,
+            "line": 349,
             "quote": "  color: var(--louis-color-fg-disabled);"
           }
         ],
         "measured": "#72757b",
         "measuredAlpha": 1,
-        "sites": 1,
+        "sites": 2,
         "figma": "Klipse Semantic Color[Light]/color/fg-disabled → Klipse Primitive/color/palette-gray/500",
         "figmaValue": "#72757b",
         "figmaAlpha": 1,
@@ -5002,9 +4585,9 @@
       "accentSecondary": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
             "path": "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx",
-            "line": 602,
+            "line": 722,
             "quote": "                  variant=\"secondary\""
           },
           {

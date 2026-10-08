@@ -66,6 +66,12 @@ export const PRODUCT_FILES = {
   // 문서가 「복제 부채이지 이 패턴의 계약이 아니다」라고 이미 판정했고, 갈린 값은 탐침 사유와
   // figma/product-coverage.json 에 적는다. 복제 셋 세 파일은 문서 인용으로 이미 lock 에 있다.
   authStatusCard: "apps/web/components/auth/AuthStatusCard.tsx",
+  // 통합 판(76b6cf15, DS-D-0079)에서 두 칸 틀과 왼쪽 브랜드 패널이 카드 밖으로 나갔다. 인증 일곱 화면이
+  // `app/(auth-brand)/` 경로 그룹 아래로 모였고, 틀(`PAGE`)은 그 레이아웃이, 패널(`BRAND_PANEL` ·
+  // `BRAND_SLOGAN`)은 `AuthBrandPanel.tsx` 가 한 벌로 갖는다 — 화면을 오가도 패널 영상이 다시 돌지
+  // 않게 하려는 것이다(두 파일 머리 주석). 상수 이름과 뜻은 그대로라 탐침은 파일만 옮긴다.
+  authBrandLayout: "apps/web/app/(auth-brand)/layout.tsx",
+  authBrandPanel: "apps/web/components/auth/AuthBrandPanel.tsx",
   // ── 라우트 경계(route-boundary) ───────────────────────────────────────────
   // `design/patterns/route-boundary.md` 가 404 · 오류 · 최후 경계 셋을 계약하는데 **실측 하네스가
   // 이 계열도 한 축도 재지 않았다.** status-result · auth-two-panel 과 같은 침묵이다.

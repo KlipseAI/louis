@@ -110,7 +110,8 @@ const normalize = (source) =>
   source
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/@import\s+["'][^;]*;/g, "")
-    .replace(/@theme\s+(?:inline\s+)?\{/g, ":root {");
+    // 통합 판(76b6cf15)부터 `@theme inline static {` 이다 — 수식어가 하나 늘어도 같은 블록으로 받는다.
+    .replace(/@theme(?:\s+(?:inline|static))*\s*\{/g, ":root {");
 
 /**
  * **주석을 같은 길이의 공백으로 바꾼다.** 지우지 않고 덮어쓰는 이유는 인덱스와 줄 번호를
@@ -226,6 +227,25 @@ function extractAll(rawSource, resolveExternal) {
     const line = source.slice(0, index).split("\n").length;
     found.push({ name, line, parts });
   }
+  // **템플릿 리터럴 상수는 참조될 때만 푼다(2026-10-08).** 통합 판(76b6cf15)의 CanvasHelpPanel.tsx 가
+  // `const ROW = \`${ROW_SHAPE} items-start gap-5 p-4\`` 를 정의하고 `LINK_ROW = [ROW, …].join(" ")` 가 그것을 합친다.
+  // 위 패턴은 `[` 와 `"` 만 받아 `ROW` 를 못 보고, 그러면 LINK_ROW 가 ROW 의 클래스를 잃은 채 잰다. 조각이
+  // `${식별자}` 와 글자뿐인 것만 받는다(조건식이 든 템플릿은 정적으로 풀 수 없다). 후보(`found`)에는 넣지 않는다 —
+  // 넣으면 이 측정이 세는 변형 후보가 늘어 원장의 뜻이 바뀐다. 참조를 풀 때만 쓴다.
+  const templates = new Map();
+  for (const m of source.matchAll(/(?:^|\n)(?:export\s+)?const\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*`([^`]*)`\s*;/g)) {
+    const body = m[2];
+    if (/\$\{(?![A-Za-z_][A-Za-z0-9_]*\})/.test(body)) continue;
+    const parts = [];
+    let last = 0;
+    for (const r of body.matchAll(/\$\{([A-Za-z_][A-Za-z0-9_]*)\}/g)) {
+      if (body.slice(last, r.index).trim()) parts.push({ literal: body.slice(last, r.index).trim() });
+      parts.push({ ref: r[1] });
+      last = r.index + r[0].length;
+    }
+    if (body.slice(last).trim()) parts.push({ literal: body.slice(last).trim() });
+    templates.set(m[1], { name: m[1], line: source.slice(0, m.index).split("\n").length + 1, parts });
+  }
   // 참조를 해석한다. 같은 파일 안의 상수만 본다. 순환은 끊고 못 찾은 참조는 버린다.
   const byName = new Map(found.map((e) => [e.name, e]));
   const resolve = (entry, seen) => {
@@ -236,6 +256,7 @@ function extractAll(rawSource, resolveExternal) {
     for (const part of entry.parts) {
       if (part.literal !== undefined) out.push(part.literal);
       else if (byName.has(part.ref)) out.push(resolve(byName.get(part.ref), seen));
+      else if (templates.has(part.ref)) out.push(resolve(templates.get(part.ref), seen));
       else {
         // 같은 파일에 없다 — import 를 따라간다. 그래도 없으면 **버리지 않고 적어 둔다.**
         const external = resolveExternal?.(part.ref);
@@ -524,7 +545,24 @@ try {
       for (const token of literal.slice(1, -1).split(/\s+/)) if (token) tokens.add(token);
     }
   }
-  const utilities = compiled.build([...tokens]);
+  // **통합 판(76b6cf15)부터 `tailwind.css` 는 유틸리티를 만들지 않는다** — 판 넷이 `@reference` 로 읽어 만든다
+  // (measure-product-components.mjs 의 같은 자리에 사유). 앱 판(「유틸리티는 예전 한 벌과 같다」)을 같은 후보로
+  // 컴파일해 이어 붙인다. 앱 판이 없는 옛 커밋은 그대로다.
+  let appUtilities = "";
+  const appSheetPath = "apps/web/app/utilities-app.css";
+  const appSheet = gitTry(["show", commit + ":" + appSheetPath]);
+  if (appSheet !== null) {
+    writeFileSync(join(workspace, "tailwind.css"), tailwindEntry);
+    const compiledApp = await compile(appSheet, {
+      base: workspace,
+      loadStylesheet: async (id, base) => {
+        const path = id.startsWith("tailwindcss") ? require_.resolve(id) : resolve(base, id);
+        return { path, base: dirname(path), content: readFileSync(path, "utf8") };
+      },
+    });
+    appUtilities = compiledApp.build([...tokens]);
+  }
+  const utilities = compiled.build([...tokens]) + (appUtilities ? "\n" + appUtilities : "");
   // **레이어 순서를 문서 맨 앞에 못 박는다.** 제품에서는 `tailwind.css` 가
   // theme → base → components → LOUIS → utilities 순으로 선언하는데, 그 순서의 LOUIS 구간은
   // `@import "@klipse-design/css/layers.css"` 가 갖고 있고 위 `normalize` 가 그 import 를 지운다.
@@ -533,7 +571,8 @@ try {
   // 산출물이 실제로 선언한 LOUIS 순서를 꺼내 쓴다.
   const louisLayerOrder = /@layer\s+(louis\.[^;]*);/.exec(utilities)?.[1] ?? "";
   const productCss = [
-    "@layer theme, base, components" + (louisLayerOrder ? ", " + louisLayerOrder : "") + ", utilities;",
+    // `properties` 는 제품이 가장 약한 자리에 먼저 선언한다(통합 판 tailwind.css).
+    "@layer properties, theme, base, components" + (louisLayerOrder ? ", " + louisLayerOrder : "") + ", utilities;",
     productFontFace(productRoot, commit),
     normalize(tailwindEntry),
     git(["show", commit + ":apps/web/app/globals.css"]),

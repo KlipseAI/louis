@@ -566,9 +566,9 @@ gap과 아이콘 슬롯도 세 크기가 같은 값이다(`column-gap`은 셋 �
   무조건 이기기 때문이다(`globals.css:982-985`).
 - **인증 화면 버튼은 대부분 넘어왔다 — 남은 것은 상태 카드의 secondary 하나다.** 이 항목은 원래
   「어떤 인증 화면도 공용 Button을 import 하지 않는다」였는데 **그 명제가 뒤집혔다.** 배포본
-  `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이고(`login/page.tsx:542-554`,
-  `variant="inverse" size="lg"`), 비밀번호 재설정의 상태 카드 primary 도 그렇다
-  (`reset-password/page.tsx:220`). 그래서 그 둘의 라벨은 이제 LOUIS 의 `body-sm-medium` 14/21 이고,
+  `df414c24` 에서 로그인 제출 CTA 는 LOUIS `Button` 이 됐고 통합 판 `76b6cf15` 에서도 그대로다
+  (`login/page.tsx:481-493`, `variant="inverse" size="lg"`). 비밀번호 재설정의 상태 카드 primary 도
+  그렇다(`reset-password/page.tsx:219`). 그래서 그 둘의 라벨은 이제 LOUIS 의 `body-sm-medium` 14/21 이고,
   아래에 적힌 48px 고정·16px 라벨은 **채택 전 값**이다
   (`login/page.tsx@a3ed8e03:206-211` · `:594-596`).
 

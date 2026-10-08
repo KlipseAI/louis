@@ -18,7 +18,7 @@ import { atomicWriteBatch } from "./lib/atomic-output.mjs";
 //   main 카드 · 사이드바 폭 · 본문 좌/우 인셋 — `migration/product.sidebar-states.json`(펼침 상태 측정)
 //   상단 바                                    — HUG 인스턴스. 뷰포트는 그 바로 아래를 채운다
 //   격자 열 수 · 간격 · 섹션 여백              — 선언 인용(아래 sourceEvidence)
-//   업로드 카드 400×140 · bottom 20 · 가운데   — 선언 인용. 좌표는 원장 main 카드와 뷰포트에서 푼다
+//   업로드 카드                                — 2026-10-08 통합 판에서 이 화면에서 걷혔다(아래 `upload` 주석). 렌더러가 숨긴다
 //
 // 인용 좌표는 `migration/product-evidence.lock.json` 의 `productCommit` 기준이다. 형제 생성기
 // 일곱은 각자의 측정 생성물(`product.auth-fixture.json` 등)에서 커밋을 읽는데, 그쪽이 맞다 —
@@ -76,57 +76,43 @@ const declared = (quote, pattern, what) => {
 // 여기처럼 값 하나면 아래 sourceEvidence 의 클래스 인용이 드리프트를 잡는다 — 실제로 그렇게 잡혔다.
 const gridGap = 6;
 const sourceEvidence = [
-  // historyGrid(`styles.historyGrid`, 763~771행) — 같은 문자열이 clipGrid(241~254행)에도 있어
+  // historyGrid(`styles.historyGrid`, 통합 판 519~527행 · 옛 763~771행) — 같은 문자열이 clipGrid(241~254행)에도 있어
   // 블록 시작(`historyGrid: [`)에서 센 오프셋으로 자리를 판정했다.
-  sourceQuote(HIGHLIGHT, 765, '    \"[display:grid]\",'),
-  sourceQuote(HIGHLIGHT, 767, '    \"gap-layout-project-grid-gap\",'),
-  sourceQuote(HIGHLIGHT, 770, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
-  // historySection(980~986행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
+  sourceQuote(HIGHLIGHT, 521, '    \"[display:grid]\",'),
+  sourceQuote(HIGHLIGHT, 523, '    \"gap-layout-project-grid-gap\",'),
+  sourceQuote(HIGHLIGHT, 526, '    \"min-[1800px]:[grid-template-columns:repeat(5,_1fr)]\",'),
+  // historySection(통합 판 736~744행 · 옛 980~986행) — `"[width:100%]"` 는 파일에 26번 나오지만, 바로 뒤 두 줄
   // (`margin:40px_auto_0` · `padding-bottom:200px`)이 이 블록에만 있어 셋이 한 덩어리다.
-  sourceQuote(HIGHLIGHT, 982, '    \"[width:100%]\",'),
-  sourceQuote(HIGHLIGHT, 984, '    \"[margin:40px_auto_0]\",'),
-  sourceQuote(HIGHLIGHT, 985, '    \"[padding-bottom:200px]\",'),
+  sourceQuote(HIGHLIGHT, 738, '    \"[width:100%]\",'),
+  sourceQuote(HIGHLIGHT, 740, '    \"[margin:40px_auto_0]\",'),
+  // 2026-10-08 통합 판(76b6cf15): 200 → 40. 옛 200 은 화면 아래 고정 업로드 카드에 마지막 줄이 가리지 않게 비운 몫이었고, 카드가
+  // 목록 위 일반 흐름으로 올라와 그 몫이 필요 없어졌다(그 줄 위 제품 주석).
+  sourceQuote(HIGHLIGHT, 743, '    \"[padding-bottom:40px]\",'),
   // historySectionEyebrow(988~994행) — viewport Auto Layout 의 itemSpacing 근거.
-  sourceQuote(HIGHLIGHT, 990, '    \"[margin:0_0_12px]\",'),
+  sourceQuote(HIGHLIGHT, 758, '    \"[margin:0_0_12px]\",'),
   // historySectionEyebrowCount(996~1000행) — clipCountValue(63~67행)에도 같은 줄이 있으나
   // 이쪽만 historySectionEyebrow 바로 다음 블록이다.
-  sourceQuote(HIGHLIGHT, 999, '    \"[margin-left:6px]\",'),
-  // uploadCardCompact(2071~2088행).
-  sourceQuote(HIGHLIGHT, 2078, '    \"[&:not(.tw-hs-188)]:[width:400px]!\",'),
-  sourceQuote(HIGHLIGHT, 2080, '    \"[&:not(.tw-hs-188)]:[height:140px]!\",'),
-  sourceQuote(HIGHLIGHT, 2082, '    \"[padding:8px]!\",'),
-  sourceQuote(HIGHLIGHT, 2083, '    \"[gap:8px]!\",'),
-  // 제품이 이 값을 LOUIS 로 넘겼다(`ae8fd627`) — 20px 은 그대로이고 소유자만 바뀌었다.
-  // `--louis-radius-card-lg: 20px`(tokens.css:568). 리터럴을 계속 인용하면 채택 사실이 지워진다.
-  sourceQuote(HIGHLIGHT, 2084, '    \"[border-radius:var(--louis-radius-card-lg)]!\",'),
+  sourceQuote(HIGHLIGHT, 767, '    \"[margin-left:6px]\",'),
   ];
 // 허브 스크롤 영역(`main`)의 좌/우 패딩 — 좌 인셋과 우 `-end` 가 다른 토큰이다(값은 원장이 잰다).
 const MAIN_PADDING = [
-  sourceQuote(HIGHLIGHT, 1027, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
-  sourceQuote(HIGHLIGHT, 1028, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
+  sourceQuote(HIGHLIGHT, 795, '    "[padding-left:var(--app-gnb-main-inline-padding)]",'),
+  sourceQuote(HIGHLIGHT, 796, '    "[padding-right:var(--app-gnb-main-inline-padding-end)]",'),
 ];
-// 업로드 카드는 뷰포트에 고정된다 — 사이드바 오른쪽 영역의 가운데, 바닥에서 20.
-const UPLOAD_POSITION = [
-  sourceQuote(HIGHLIGHT, 2071, "  uploadCardCompact: ["),
-  sourceQuote(HIGHLIGHT, 2073, '    "[&:not(.tw-hs-188)]:[position:fixed]!",'),
-  sourceQuote(HIGHLIGHT, 2074, '    "[bottom:20px]",'),
-  sourceQuote(HIGHLIGHT, 2075, '    "[left:var(--app-gnb-sidebar-width,_0px)]",'),
-  sourceQuote(HIGHLIGHT, 2076, '    "[right:0]",'),
-  sourceQuote(HIGHLIGHT, 2077, '    "[margin:0_auto]",'),
-];
+// **업로드 카드는 이 화면에서 걷혔다(2026-10-08, 통합 판 76b6cf15 · DS-D-0079).** 옛 `uploadCardCompact` 는 main 밖
+// `position:fixed` 로 화면 아래 가운데 400×140 에 떠서 그리드를 가렸다. 통합 판은 그 상수를 지웠고(`highlightSceneStyles.ts`
+// 1861~1867행 주석), 목록이 있을 때는 카드를 그리지 않는다 — 목록 머리 오른쪽 「새 하이라이트」 버튼이 모달을 열고 카드는 그 안
+// (`uploadCardInDialog`)이나 빈 상태(`uploadCardEmpty`)에만 선다(`HighlightScene.tsx:1432` 의 `isHistoryEmpty && !uploadModalOpen`).
+// 이 보드는 카드 다섯이 있는 목록 화면이라 그릴 업로드 카드가 없다 — 옮겨 간 것이 아니라 이 화면에서 없어진 부품이므로 계획에서
+// 빼고, 렌더러는 라이브의 옛 카드 노드를 지우지 않고 숨긴다(reconciler 는 노드를 만들거나 지우지 않는다).
 const at = (line) => sourceEvidence.find((entry) => entry.line === line) ?? fail(`missing quote ${HIGHLIGHT}:${line}`);
-const columns = declared(at(770), /repeat\((\d+),_1fr\)/, "grid columns");
-const sectionTop = declared(at(984), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
-const sectionBottom = declared(at(985), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
-const headingGap = declared(at(990), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
-const headingCountGap = declared(at(999), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
-const uploadWidth = declared(at(2078), /\[width:(\d+)px\]/, "upload width");
-const uploadHeight = declared(at(2080), /\[height:(\d+)px\]/, "upload height");
-const uploadPadding = declared(at(2082), /\[padding:(\d+)px\]/, "upload padding");
-const uploadGap = declared(at(2083), /\[gap:(\d+)px\]/, "upload gap");
-const uploadBottom = declared(UPLOAD_POSITION[2], /\[bottom:(\d+)px\]/, "upload bottom");
+const columns = declared(at(526), /repeat\((\d+),_1fr\)/, "grid columns");
+const sectionTop = declared(at(740), /\[margin:(\d+)px_auto_0\]/, "section margin-top");
+const sectionBottom = declared(at(743), /\[padding-bottom:(\d+)px\]/, "section padding-bottom");
+const headingGap = declared(at(758), /\[margin:0_0_(\d+)px\]/, "eyebrow margin-bottom");
+const headingCountGap = declared(at(767), /\[margin-left:(\d+)px\]/, "eyebrow count margin-left");
 // 5열은 `min-[1800px]` 에서다 — 원장 뷰포트가 그 폭 이상이어야 이 열 수를 쓸 수 있다.
-const breakpoint = declared(at(770), /min-\[(\d+)px\]/, "grid breakpoint");
+const breakpoint = declared(at(526), /min-\[(\d+)px\]/, "grid breakpoint");
 if (ledger.context.viewport.width < breakpoint) fail(`ledger viewport ${ledger.context.viewport.width} is below the ${breakpoint}px ${columns}-column breakpoint`);
 const mainCard = expanded.mainRect;
 const inlineStart = measuredPx("--app-gnb-main-inline-padding");
@@ -139,17 +125,9 @@ const derived = {
   gridWidth: mainCard.width - inlineStart - inlineEnd,
   cardSide: (mainCard.width - inlineStart - inlineEnd - gridGap * (columns - 1)) / columns,
 };
-// 업로드 카드 좌표 — 뷰포트 기준(사이드바 오른쪽 영역 가운데 · 바닥 20)을 main 카드 기준으로 옮긴다.
 const upload = {
-  width: uploadWidth,
-  height: uploadHeight,
-  x: expanded.sidebarRect.width + (ledger.context.viewport.width - expanded.sidebarRect.width - uploadWidth) / 2 - mainCard.x,
-  y: ledger.context.viewport.height - uploadBottom - uploadHeight - mainCard.y,
-  constraints: { horizontal: "CENTER", vertical: "MAX" },
-  // `--louis-radius-card-lg` 20(인용 :2071 — 값은 LOUIS tokens.css 가 갖는다). 크기 축이 아니다.
-  radius: 20,
-  padding: uploadPadding,
-  gap: uploadGap,
+  retired: true,
+  $why: "통합 판(76b6cf15)에서 목록이 있는 /highlight 화면은 업로드 카드를 그리지 않는다 — 옛 고정 카드(uploadCardCompact 400×140 · bottom 20)가 걷히고 목록 머리 버튼이 모달을 연다. 렌더러는 옛 카드 노드를 숨긴다.",
 };
 const plan = {
   $comment: "Generated by scripts/build-figma-product-highlight-hub.mjs. Do not edit by hand.",
@@ -172,7 +150,6 @@ const plan = {
     },
   },
   mainPaddingEvidence: MAIN_PADDING,
-  uploadPositionEvidence: UPLOAD_POSITION,
   layout: {
     viewport: { mode: "VERTICAL", padding: [sectionTop, inlineEnd, sectionBottom, inlineStart], gap: headingGap, sizing: "FILL main card below the top bar" },
     heading: { mode: "HORIZONTAL", gap: headingCountGap, sizing: "FILL width · HUG height" },
@@ -184,7 +161,7 @@ const plan = {
 };
 
 const runnerPlan = structuredClone(plan);
-for (const key of ["sourceEvidence", "mainPaddingEvidence", "uploadPositionEvidence"]) {
+for (const key of ["sourceEvidence", "mainPaddingEvidence"]) {
   runnerPlan[key] = plan[key].map(({ path, line, quote }) => ({ path, line, quote }));
 }
 const draw = `// Generated by scripts/build-figma-product-highlight-hub.mjs. Do not edit by hand.\nconst PLAN=${JSON.stringify(runnerPlan)};\n${readFileSync(templatePath, "utf8")}`;

@@ -1,7 +1,7 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma component and composition; not a normative design-system contract",
-  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "component": {
     "id": "product/checkout-status-content-and-scenes",
     "pageId": "240:3529",
@@ -28,7 +28,7 @@
         "kind": "alert",
         "rect": {
           "width": 520,
-          "height": 322.1875
+          "height": 328.1875
         },
         "width": {
           "mode": "FIXED",
@@ -38,14 +38,14 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment confirmed, but plan\nupdate delayed",
+          "text": "We couldn't complete the\npayment",
           "rect": {
             "x": 0,
             "y": 0,
             "width": 520,
             "height": 97.1875
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -60,14 +60,14 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "Billing authorization information is missing from the success URL.",
+          "text": "Check the reason below. Before paying again, check on the plans page\nwhether your plan already changed. If you see a charge but your plan did\nnot change, contact support.",
           "rect": {
             "x": 0,
             "y": 121.1875,
             "width": 520,
-            "height": 24
+            "height": 72
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 16,
           "fontWeight": 400,
           "lineHeight": 24,
@@ -84,9 +84,9 @@
         "actionGroup": {
           "rect": {
             "x": 0,
-            "y": 248.1875,
+            "y": 296.1875,
             "width": 520,
-            "height": 74
+            "height": 32
           },
           "direction": "VERTICAL",
           "gap": 10,
@@ -98,57 +98,10 @@
           },
           "actions": [
             {
-              "text": "Back to plans",
-              "rect": {
-                "x": 0,
-                "y": 248.1875,
-                "width": 520,
-                "height": 32
-              },
-              "height": 32,
-              "heightDeclared": "calc(32px)",
-              "radius": 12,
-              "padding": {
-                "top": 0,
-                "right": 12,
-                "bottom": 0,
-                "left": 12
-              },
-              "fill": [
-                1,
-                1,
-                1,
-                1
-              ],
-              "textStyle": {
-                "text": "Back to plans",
-                "rect": {
-                  "x": 0,
-                  "y": 248.1875,
-                  "width": 520,
-                  "height": 32
-                },
-                "fontFamily": "pretendard",
-                "fontSize": 14,
-                "fontWeight": 400,
-                "lineHeight": 21,
-                "letterSpacing": -0.16,
-                "color": [
-                  0,
-                  0,
-                  0,
-                  1
-                ],
-                "textAlign": "start",
-                "paint": "gray000"
-              },
-              "fillPaint": "bgRaised"
-            },
-            {
               "text": "Try again",
               "rect": {
                 "x": 0,
-                "y": 290.1875,
+                "y": 296.1875,
                 "width": 520,
                 "height": 32
               },
@@ -171,11 +124,11 @@
                 "text": "Try again",
                 "rect": {
                   "x": 0,
-                  "y": 290.1875,
+                  "y": 296.1875,
                   "width": 520,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -197,7 +150,7 @@
           "text": "Billing authorization information is missing from the success URL.",
           "rect": {
             "x": 0,
-            "y": 169.1875,
+            "y": 217.1875,
             "width": 520,
             "height": 47
           },
@@ -225,11 +178,11 @@
             "text": "Billing authorization information is missing from the success URL.",
             "rect": {
               "x": 0,
-              "y": 169.1875,
+              "y": 217.1875,
               "width": 520,
               "height": 47
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 400,
             "lineHeight": 21,
@@ -271,7 +224,7 @@
             "width": 520,
             "height": 48.5938
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -293,7 +246,7 @@
             "width": 520,
             "height": 72
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 16,
           "fontWeight": 400,
           "lineHeight": 24,
@@ -354,7 +307,7 @@
                   "width": 520,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -401,7 +354,7 @@
                   "width": 520,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -463,7 +416,7 @@
                   "width": 63.6094,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -485,7 +438,7 @@
                   "width": 119.7188,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -526,7 +479,7 @@
                   "width": 56.5625,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -548,7 +501,7 @@
                   "width": 142.0156,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -590,7 +543,7 @@
             "width": 520,
             "height": 48.5938
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -612,7 +565,7 @@
             "width": 520,
             "height": 72
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 16,
           "fontWeight": 400,
           "lineHeight": 24,
@@ -673,7 +626,7 @@
                   "width": 520,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -720,7 +673,7 @@
                   "width": 520,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -782,7 +735,7 @@
                   "width": 63.6094,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -804,7 +757,7 @@
                   "width": 119.7188,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -854,7 +807,7 @@
                   "width": 56.5625,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -876,7 +829,7 @@
                   "width": 142.0156,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -917,7 +870,7 @@
                   "width": 50.9844,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -939,7 +892,7 @@
                   "width": 5.9063,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -964,7 +917,7 @@
         "kind": "alert",
         "rect": {
           "width": 390,
-          "height": 409.7813
+          "height": 340.1875
         },
         "width": {
           "mode": "FILL",
@@ -974,14 +927,14 @@
         "gap": 24,
         "gapDeclared": "calc(2px * 12)",
         "title": {
-          "text": "Payment confirmed,\nbut plan update\ndelayed",
+          "text": "We couldn't complete\nthe payment",
           "rect": {
             "x": 0,
             "y": 0,
             "width": 390,
-            "height": 145.7813
+            "height": 97.1875
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -996,14 +949,14 @@
           "paint": "gray000"
         },
         "body": {
-          "text": "Billing authorization information is missing from the success\nURL.",
+          "text": "Check the reason below. Before paying again, check on the\nplans page whether your plan already changed. If you see a\ncharge but your plan did not change, contact support.",
           "rect": {
             "x": 0,
-            "y": 169.7813,
+            "y": 121.1875,
             "width": 390,
-            "height": 42
+            "height": 63
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 400,
           "lineHeight": 21,
@@ -1020,9 +973,9 @@
         "actionGroup": {
           "rect": {
             "x": 0,
-            "y": 335.7813,
+            "y": 308.1875,
             "width": 390,
-            "height": 74
+            "height": 32
           },
           "direction": "VERTICAL",
           "gap": 10,
@@ -1034,57 +987,10 @@
           },
           "actions": [
             {
-              "text": "Back to plans",
-              "rect": {
-                "x": 0,
-                "y": 335.7813,
-                "width": 390,
-                "height": 32
-              },
-              "height": 32,
-              "heightDeclared": "calc(32px)",
-              "radius": 12,
-              "padding": {
-                "top": 0,
-                "right": 12,
-                "bottom": 0,
-                "left": 12
-              },
-              "fill": [
-                1,
-                1,
-                1,
-                1
-              ],
-              "textStyle": {
-                "text": "Back to plans",
-                "rect": {
-                  "x": 0,
-                  "y": 335.7813,
-                  "width": 390,
-                  "height": 32
-                },
-                "fontFamily": "pretendard",
-                "fontSize": 14,
-                "fontWeight": 400,
-                "lineHeight": 21,
-                "letterSpacing": -0.14,
-                "color": [
-                  0,
-                  0,
-                  0,
-                  1
-                ],
-                "textAlign": "start",
-                "paint": "gray000"
-              },
-              "fillPaint": "bgRaised"
-            },
-            {
               "text": "Try again",
               "rect": {
                 "x": 0,
-                "y": 377.7813,
+                "y": 308.1875,
                 "width": 390,
                 "height": 32
               },
@@ -1107,11 +1013,11 @@
                 "text": "Try again",
                 "rect": {
                   "x": 0,
-                  "y": 377.7813,
+                  "y": 308.1875,
                   "width": 390,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1133,7 +1039,7 @@
           "text": "Billing authorization information is missing from the\nsuccess URL.",
           "rect": {
             "x": 0,
-            "y": 235.7813,
+            "y": 208.1875,
             "width": 390,
             "height": 68
           },
@@ -1161,11 +1067,11 @@
             "text": "Billing authorization information is missing from the\nsuccess URL.",
             "rect": {
               "x": 0,
-              "y": 235.7813,
+              "y": 208.1875,
               "width": 390,
               "height": 68
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 400,
             "lineHeight": 21,
@@ -1207,7 +1113,7 @@
             "width": 390,
             "height": 97.1875
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -1229,7 +1135,7 @@
             "width": 390,
             "height": 84
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 400,
           "lineHeight": 21,
@@ -1290,7 +1196,7 @@
                   "width": 390,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1337,7 +1243,7 @@
                   "width": 390,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1399,7 +1305,7 @@
                   "width": 63.8125,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1421,7 +1327,7 @@
                   "width": 119.9844,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1462,7 +1368,7 @@
                   "width": 56.7031,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1484,7 +1390,7 @@
                   "width": 142.4531,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1526,7 +1432,7 @@
             "width": 390,
             "height": 97.1875
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 36,
           "fontWeight": 500,
           "lineHeight": 48.6,
@@ -1548,7 +1454,7 @@
             "width": 390,
             "height": 84
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 400,
           "lineHeight": 21,
@@ -1609,7 +1515,7 @@
                   "width": 390,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1656,7 +1562,7 @@
                   "width": 390,
                   "height": 32
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1718,7 +1624,7 @@
                   "width": 63.8125,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1740,7 +1646,7 @@
                   "width": 119.9844,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1790,7 +1696,7 @@
                   "width": 56.7031,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1812,7 +1718,7 @@
                   "width": 142.4531,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1853,7 +1759,7 @@
                   "width": 51.1563,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1875,7 +1781,7 @@
                   "width": 5.9219,
                   "height": 21
                 },
-                "fontFamily": "pretendard",
+                "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
                 "fontSize": 14,
                 "fontWeight": 400,
                 "lineHeight": 21,
@@ -1972,7 +1878,7 @@
           "x": 576,
           "y": 157,
           "width": 520,
-          "height": 322.1875
+          "height": 328.1875
         }
       },
       {
@@ -2212,7 +2118,7 @@
           "x": 6,
           "y": 105,
           "width": 390,
-          "height": 409.7813
+          "height": 340.1875
         }
       },
       {
@@ -2492,33 +2398,33 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 110,
             "quote": "  \"m-0 text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 157,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 169,
             "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
-            "line": 113,
+            "line": 114,
             "quote": "  \"[&_dd]:text-gray-000\","
           }
         ],
         "measured": "#000000",
         "measuredAlpha": 1,
-        "sites": 28,
+        "sites": 26,
         "figma": "Klipse Semantic Color[Light]/color/gray/000 → Klipse Primitive/color/static/black",
         "figmaValue": "#000000",
         "figmaAlpha": 1,
@@ -2527,7 +2433,7 @@
       "gray000Alpha56": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 118,
             "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
@@ -2547,9 +2453,9 @@
       "gray000Alpha48": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
-            "line": 110,
+            "line": 111,
             "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
           }
         ],
@@ -2567,9 +2473,9 @@
       "gray000Alpha08": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-fail/page.tsx",
-            "line": 105,
+            "line": 106,
             "quote": "  \"[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]\","
           }
         ],
@@ -2587,7 +2493,7 @@
       "gray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 157,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
@@ -2604,7 +2510,7 @@
       "bgRaised": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 169,
             "quote": "  \"[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!\","
@@ -2612,7 +2518,7 @@
         ],
         "measured": "#ffffff",
         "measuredAlpha": 1,
-        "sites": 6,
+        "sites": 4,
         "figma": "Klipse Semantic Color[Light]/color/bg-raised → Klipse Primitive/color/static/white",
         "figmaValue": "#ffffff",
         "figmaAlpha": 1,
@@ -2621,7 +2527,7 @@
       "red500": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 126,
             "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
@@ -2638,7 +2544,7 @@
       "red500Alpha08": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 126,
             "quote": "  \"rounded-12 bg-[rgb(var(--accent-red-500-rgb)/8%)] text-accent-red-500\","
@@ -2655,7 +2561,7 @@
       "red500Alpha16": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 125,
             "quote": "  \"[border:1px_solid_rgb(var(--accent-red-500-rgb)/16%)]\","
@@ -2673,15 +2579,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 37,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 794,
+            "line": 804,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -2696,15 +2602,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 37,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 1071,
+            "line": 966,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -2719,15 +2625,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-success/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-success/page.tsx",
             "line": 59,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 795,
+            "line": 805,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],

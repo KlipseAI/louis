@@ -191,7 +191,11 @@ const contentSpec = ({ context, viewport }, { outcome, route, kind }) => {
 const variants = contexts.flatMap((context) => outcomeRoutes.map((route) => contentSpec(context, route)));
 for (const spec of variants) {
   // 구조 가드 — 크기는 묻지 않는다(폭 · 높이는 위에서 선언으로 판정했다).
-  if (spec.actionGroup.actions.length !== 2) fail(`checkout content action count changed ${spec.route} ${spec.viewport}`);
+  // 액션 수는 결과마다 정해 둔다. 2026-10-08 통합 판(76b6cf15, DS-D-0079)에서 billing-success 의 이 상태(빌링 승인 알림)가 제목을
+  // 「We couldn't complete…」 로 바꾸고 액션을 「Try again」 하나로 줄였다(옛 「Back to plans」 · 「Try again」 둘). 렌더러는 액션
+  // 배열을 그대로 그리므로 수만 맞춘다 — 나머지 둘(billing-fail · fail)은 두 판 모두 둘 그대로다.
+  const expectedActions = spec.outcome === "BillingSuccess" ? 1 : 2;
+  if (spec.actionGroup.actions.length !== expectedActions) fail(`checkout content action count changed ${spec.route} ${spec.viewport}`);
   if (spec.kind === "alert" && !spec.alert) fail(`missing measured alert ${spec.route} ${spec.viewport}`);
   if (spec.kind === "details" && ![2, 3].includes(spec.details?.rows.length)) fail(`detail row drift ${spec.route} ${spec.viewport}`);
 }
@@ -317,7 +321,7 @@ const roles = live.colorRoles({
     gray000: {
       name: "color/gray/000",
       declared: [quote.product(SUCCESS, 110, '  "m-0 text-gray-000",'), quote.product(SUCCESS, 157, '  "[border:none] bg-gray-000 text-gray-900!",'),
-        quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",'), quote.product(FAIL, 113, '  "[&_dd]:text-gray-000",')],
+        quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",'), quote.product(FAIL, 114, '  "[&_dd]:text-gray-000",')],
     },
     gray000Alpha56: {
       name: "color/gray/000-alpha/56", mix: { name: "color/gray/000", alpha: 0.56 },
@@ -325,11 +329,11 @@ const roles = live.colorRoles({
     },
     gray000Alpha48: {
       name: "color/gray/000-alpha/48", mix: { name: "color/gray/000", alpha: 0.48 },
-      declared: [quote.product(FAIL, 110, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
+      declared: [quote.product(FAIL, 111, '  "[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]",')], reason: alphaReason("--gray-000-rgb", 48),
     },
     gray000Alpha08: {
       name: "color/gray/000-alpha/08", mix: { name: "color/gray/000", alpha: 0.08 },
-      declared: [quote.product(FAIL, 105, '  "[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]",')], reason: alphaReason("--gray-000-rgb", 8),
+      declared: [quote.product(FAIL, 106, '  "[&>div]:[border-bottom:1px_solid_rgb(var(--gray-000-rgb)/8%)]",')], reason: alphaReason("--gray-000-rgb", 8),
     },
     gray900: { name: "color/gray/900", declared: [quote.product(SUCCESS, 157, '  "[border:none] bg-gray-000 text-gray-900!",')] },
     bgRaised: { name: "color/bg-raised", declared: [quote.product(SUCCESS, 169, '  "[border:0] bg-[var(--louis-color-bg-raised)] text-gray-000!",')] },
@@ -348,15 +352,15 @@ const roles = live.colorRoles({
     },
     appPageBg: {
       name: "color/bg-canvas",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")],
     },
     appPageBgNarrow: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 37, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")],
     },
     appMainCardBg: {
       name: "color/bg-surface",
-      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
+      declared: [quote.product(SUCCESS, 59, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")],
     },
     boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
     docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },

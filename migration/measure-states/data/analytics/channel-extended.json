@@ -1,0 +1,176 @@
+{
+  "ok": true,
+  "section": "extended",
+  "request": {
+    "startDate": "2026-02-15",
+    "endDate": "2026-03-14",
+    "topVideoLimit": 10
+  },
+  "overview": null,
+  "previousSummary": null,
+  "audience": {
+    "subscribedStatus": {
+      "subscribedViews": 5941,
+      "unsubscribedViews": 13224,
+      "subscribedPercentage": 31,
+      "unsubscribedPercentage": 69,
+      "totalViews": 19165
+    },
+    "subscribedStatusStatus": "ok"
+  },
+  "timeseries": null,
+  "topVideos": null,
+  "traffic": {
+    "items": [
+      {
+        "source": "SHORTS",
+        "label": "쇼츠 피드",
+        "views": 8120,
+        "engagedViews": 6210,
+        "engagementRate": 0.7647783251231527,
+        "estimatedMinutesWatched": 12840
+      },
+      {
+        "source": "YT_SEARCH",
+        "label": "YouTube 검색",
+        "views": 3940,
+        "engagedViews": 3020,
+        "engagementRate": 0.766497461928934,
+        "estimatedMinutesWatched": 7110
+      },
+      {
+        "source": "SUGGESTED_VIDEO",
+        "label": "SUGGESTED_VIDEO",
+        "views": 2610,
+        "engagedViews": 1980,
+        "engagementRate": 0.7586206896551724,
+        "estimatedMinutesWatched": 4630
+      },
+      {
+        "source": "SUBSCRIBER",
+        "label": "구독 피드",
+        "views": 1450,
+        "engagedViews": 1210,
+        "engagementRate": 0.8344827586206897,
+        "estimatedMinutesWatched": 2690
+      },
+      {
+        "source": "EXT_URL",
+        "label": "외부 링크",
+        "views": 620,
+        "engagedViews": 410,
+        "engagementRate": 0.6612903225806451,
+        "estimatedMinutesWatched": 980
+      }
+    ],
+    "status": {
+      "base": "ok"
+    }
+  },
+  "geography": {
+    "countries": [
+      {
+        "country": "KR",
+        "views": 9820,
+        "watchMinutes": 16694,
+        "averageViewDuration": 102,
+        "label": "대한민국",
+        "shareOfViews": 59.62
+      },
+      {
+        "country": "US",
+        "views": 2840,
+        "watchMinutes": 4828,
+        "averageViewDuration": 102,
+        "label": "미국",
+        "shareOfViews": 17.24
+      },
+      {
+        "country": "JP",
+        "views": 1960,
+        "watchMinutes": 3332,
+        "averageViewDuration": 102,
+        "label": "일본",
+        "shareOfViews": 11.9
+      },
+      {
+        "country": "VN",
+        "views": 1110,
+        "watchMinutes": 1887,
+        "averageViewDuration": 102,
+        "label": "베트남",
+        "shareOfViews": 6.74
+      },
+      {
+        "country": "ID",
+        "views": 740,
+        "watchMinutes": 1258,
+        "averageViewDuration": 102,
+        "label": "인도네시아",
+        "shareOfViews": 4.49
+      }
+    ],
+    "totalViews": 16470,
+    "status": {
+      "countries": "ok"
+    }
+  },
+  "devices": {
+    "deviceType": [
+      {
+        "deviceType": "MOBILE",
+        "deviceTypeLabel": "모바일",
+        "views": 13240,
+        "estimatedMinutesWatched": 21080
+      },
+      {
+        "deviceType": "DESKTOP",
+        "deviceTypeLabel": "데스크톱",
+        "views": 2980,
+        "estimatedMinutesWatched": 5820
+      },
+      {
+        "deviceType": "TABLET",
+        "deviceTypeLabel": "태블릿",
+        "views": 1120,
+        "estimatedMinutesWatched": 1940
+      },
+      {
+        "deviceType": "TV",
+        "deviceTypeLabel": "TV",
+        "views": 640,
+        "estimatedMinutesWatched": 1460
+      }
+    ],
+    "operatingSystem": [
+      {
+        "operatingSystem": "ANDROID",
+        "operatingSystemLabel": "Android",
+        "views": 8420,
+        "estimatedMinutesWatched": 13310
+      },
+      {
+        "operatingSystem": "IOS",
+        "operatingSystemLabel": "iOS",
+        "views": 5890,
+        "estimatedMinutesWatched": 9640
+      },
+      {
+        "operatingSystem": "WINDOWS",
+        "operatingSystemLabel": "Windows",
+        "views": 2210,
+        "estimatedMinutesWatched": 4280
+      },
+      {
+        "operatingSystem": "MACINTOSH",
+        "operatingSystemLabel": "macOS",
+        "views": 840,
+        "estimatedMinutesWatched": 1620
+      }
+    ],
+    "status": {
+      "deviceType": "ok",
+      "operatingSystem": "ok"
+    }
+  }
+}

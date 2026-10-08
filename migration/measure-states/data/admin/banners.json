@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "00000000-0000-4000-8000-0000ad000601",
+      "tab_id": "home",
+      "title": "Placeholder banner A",
+      "title_en": "Placeholder banner A",
+      "description": "Placeholder description A",
+      "description_en": "Placeholder description A",
+      "image_url": "/image-edit/examples/example-2.jpg",
+      "media_type": "image",
+      "text_tone": null,
+      "video_playback": "loop",
+      "display_order": 0,
+      "is_active": true,
+      "created_at": "2026-01-10T12:00:00.000Z",
+      "updated_at": "2026-01-10T12:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000ad000602",
+      "tab_id": "home",
+      "title": "Placeholder banner B",
+      "title_en": "Placeholder banner B",
+      "description": "Placeholder description B",
+      "description_en": "Placeholder description B",
+      "image_url": "/videos/showcase-hero.mp4",
+      "media_type": "video",
+      "text_tone": "light",
+      "video_playback": "loop",
+      "display_order": 1,
+      "is_active": false,
+      "created_at": "2026-01-11T12:00:00.000Z",
+      "updated_at": "2026-01-11T12:00:00.000Z"
+    }
+  ]
+}

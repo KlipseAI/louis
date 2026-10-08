@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "items": [
+    {
+      "videoId": "placeholder-video-1",
+      "title": "Placeholder video 1",
+      "thumbnailUrl": "/images/capabilities/stages/stage-01.webp",
+      "publishedAt": "2026-03-10T10:00:00Z",
+      "duration": "PT40S",
+      "privacyStatus": "public",
+      "projectId": "00000000-0000-4000-8000-0000000a1001",
+      "isPlatformUpload": true,
+      "views": 6420,
+      "likes": 438,
+      "comments": 33
+    },
+    {
+      "videoId": "placeholder-video-2",
+      "title": "Placeholder video 2",
+      "thumbnailUrl": "/images/capabilities/stages/stage-02.webp",
+      "publishedAt": "2026-03-06T10:00:00Z",
+      "duration": "PT47S",
+      "privacyStatus": "unlisted",
+      "projectId": null,
+      "isPlatformUpload": false,
+      "views": 4710,
+      "likes": 281,
+      "comments": 19
+    },
+    {
+      "videoId": "placeholder-video-3",
+      "title": "Placeholder video with a long title that runs past the column so the title cell truncates",
+      "thumbnailUrl": "/images/capabilities/stages/stage-03.webp",
+      "publishedAt": "2026-02-26T10:00:00Z",
+      "duration": "PT54S",
+      "privacyStatus": "public",
+      "projectId": null,
+      "isPlatformUpload": false,
+      "views": 3670,
+      "likes": 204,
+      "comments": 14
+    },
+    {
+      "videoId": "placeholder-video-4",
+      "title": "Placeholder video 4",
+      "thumbnailUrl": null,
+      "publishedAt": "2026-02-21T10:00:00Z",
+      "duration": "PT61S",
+      "privacyStatus": "private",
+      "projectId": null,
+      "isPlatformUpload": false,
+      "views": 0,
+      "likes": 0,
+      "comments": 0
+    },
+    {
+      "videoId": "placeholder-video-5",
+      "title": "Placeholder video 5",
+      "thumbnailUrl": "/image-edit/examples/example-3.jpg",
+      "publishedAt": null,
+      "duration": "PT68S",
+      "privacyStatus": null,
+      "projectId": null,
+      "isPlatformUpload": false,
+      "views": 0,
+      "likes": 0,
+      "comments": 0
+    }
+  ],
+  "hasMore": false,
+  "nextCursor": null,
+  "totalCount": 5
+}

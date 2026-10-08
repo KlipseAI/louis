@@ -1,0 +1,562 @@
+"use client";
+
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { Button } from "../../components/ui/Button";
+import { IconButton } from "../../components/ui/IconButton";
+import { ToolbarChevronDown } from "../../components/scenes/create/node-canvas-v2/lib/nodeToolbarGlyphs";
+import {
+  isPaidLink,
+  type AdAttributionSummary,
+  type AdGroup,
+  type AdGroupKind,
+} from "../../lib/product-insights/adAttribution";
+import { ADMIN_SURFACE, AdminLines, AdminPanel, AdminState, AdminUserLink } from "./AdminSection";
+import AdSetupGuideButton, { CopyIconButton } from "./AdSetupGuide";
+import { useAdminDateLocale, useAdminMessages, formatAdminMessage } from "./useAdminMessages";
+
+/* ── 광고별 가입과 결제 ────────────────────────────────────────────────────────────
+ * 광고(소재)마다 가입, 메일 인증, 결제한 사람, 매출을 한 줄로 보이고, 줄을 누르면 그 광고로 가입한 계정이
+ * 펼쳐진다. 묶는 규칙(마지막에 누른 광고 기준)은 `lib/product-insights/adAttribution.ts` 가 갖는다.
+ *
+ * 두 표 모두 LOUIS `.louis-table` 레시피다(`design/components/table.md`). 레시피는 골격만 갖으므로 열 폭은
+ * `<col>` 로, 좁은 화면은 가로 스크롤 래퍼로 쓰는 쪽이 정한다. 줄을 누르는 표라 행에 `data-interactive` 를
+ * 두고, 키보드 경로는 마지막 칸의 펼침 버튼이 갖는다(레시피는 키보드 경로를 만들지 않는다).
+ *
+ * 문구는 분석 용어를 쓰지 않는다. 「최초 유입」「캠페인 태그」 대신 사람이 한 일(광고를 누름, 다른 사이트의
+ * 링크, 바로 들어옴)로 적고, 설명은 문장마다 줄을 바꾼다. 문구는 어드민의 다른 화면처럼 사전
+ * (`metrics.ads`)에 있다.
+ *
+ * 조회는 성과 지표와 따로다(`/api/admin/ad-attribution`) — 함수가 아직 DB 에 없어도 위 지표는 나와야 한다.
+ */
+
+type Range = { from: string; to: string };
+
+type AdAttributionPayload =
+  | { available: false; range: Range; generatedAt: string }
+  | {
+      available: true;
+      range: Range;
+      generatedAt: string;
+      truncated: boolean;
+      rowLimit: number;
+      excludedAdmins: number;
+      summary: AdAttributionSummary;
+    };
+
+type AdAttributionResponse =
+  | { ok: true; data: AdAttributionPayload }
+  | { ok: false; error: string };
+
+/** 가입 기록을 모으기 시작한 때(#233 배포). 이보다 앞선 가입에는 유입 기록이 없다. */
+const CAPTURE_STARTED_AT = Date.parse("2026-09-21T16:41:00+09:00");
+
+/** 펼쳤을 때 먼저 보이는 계정 수. 「더 보기」는 한 번에 `PEOPLE_STEP` 명씩 더 연다. */
+const PEOPLE_PREVIEW = 5;
+const PEOPLE_STEP = 50;
+
+type AdsCopy = ReturnType<typeof useAdminMessages>["metrics"]["ads"];
+
+const numberFormat = new Intl.NumberFormat("ko-KR");
+
+/** 날짜 형식은 사전 언어를 따른다(`useAdminDateLocale`). 시간대는 운영 기준인 서울로 고정한다. */
+function useDateFormats() {
+  const locale = useAdminDateLocale();
+  return useMemo(
+    () => ({
+      day: new Intl.DateTimeFormat(locale, { month: "long", day: "numeric", timeZone: "Asia/Seoul" }),
+      time: new Intl.DateTimeFormat(locale, {
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone: "Asia/Seoul",
+      }),
+    }),
+    [locale],
+  );
+}
+
+function useFormatWon() {
+  const copy = useAdminMessages();
+  return (value: number) => formatAdminMessage(copy.common.currency, { amount: numberFormat.format(value) });
+}
+
+
+/* ── 스타일 ── */
+
+/* 좁은 화면에서는 열을 숨기지 않고 가로로 민다. 열마다 뜻이 달라 한 칸에 뭉치면 읽을 수 없다. */
+const TABLE_WRAP = "overflow-x-auto";
+const AD_TABLE = "louis-table min-w-[600px]";
+const PEOPLE_TABLE = "louis-table min-w-[560px]";
+
+const ZERO = "text-fg-tertiary";
+
+/* 펼친 계정 목록의 면. 카드 위에서 올라온 면은 이것 하나다(`ADMIN_SURFACE`). */
+const DRAWER = `${ADMIN_SURFACE} rounded-16 p-8 flex flex-col gap-6`;
+
+const NOTES = "flex flex-col gap-3 max-w-[720px] text-fg-tertiary";
+
+/* 새 기간을 불러오는 동안 이전 표를 흐리게 둔다 — 설문 표의 `STATS_GRID_LOADING` 과 같은 값이다. */
+const RELOADING =
+  "opacity-[0.55] [transition:opacity_var(--louis-motion-control-hover-duration)_var(--louis-motion-control-hover-timing-function)]";
+
+/* ── 문구 ── */
+
+/* 구글 광고는 광고 ID 를 싣지 않아 늘 캠페인 줄이다(`acquisition.ts` 의 `GOOGLE_CLICK_PARAMS`). 「광고 ID가 빠진
+   광고 링크」는 태그를 잘못 단 링크를 뜻하므로, 구글 광고에는 그 말 대신 이유를 적는다. */
+const isGoogleAds = (group: AdGroup) => group.source === "google" && isPaidLink(group.source, group.medium);
+
+function groupTitle(group: AdGroup, ads: AdsCopy): string {
+  switch (group.kind) {
+    case "ad":
+      /* 이름을 못 읽은 광고끼리도 줄마다 구별되게 광고 ID 를 제목에 쓴다. */
+      return group.adName ?? (group.adId ? formatAdminMessage(ads.titles.adWithId, { id: group.adId }) : ads.titles.adUnnamed);
+    case "campaign":
+      return (
+        group.campaign ??
+        (isGoogleAds(group) ? ads.titles.googleAds : null) ??
+        (group.source
+          ? formatAdminMessage(ads.titles.campaignLink, { source: sourceLabel(group.source, ads) })
+          : ads.titles.campaignUnnamed)
+      );
+    case "referral":
+      return ads.titles.referral;
+    case "direct":
+      return ads.titles.direct;
+    case "unknown":
+      return ads.titles.unknown;
+  }
+}
+
+/** 제목 아래 줄들. 첫 줄은 값(캠페인 이름 등)이라 마침표가 없고, 다음 줄부터 사유 문장이다. */
+function groupDescription(group: AdGroup, rangeFrom: string, ads: AdsCopy): string[] {
+  const lines = ads.lines;
+  switch (group.kind) {
+    case "ad": {
+      const campaign = group.campaign ? formatAdminMessage(lines.campaign, { name: group.campaign }) : lines.noCampaign;
+      return group.adName ? [campaign] : [campaign, lines.adIdOnly];
+    }
+    case "campaign": {
+      if (isGoogleAds(group)) return [lines.googleAds];
+      if (isPaidLink(group.source, group.medium)) return [lines.paidLinkNoAd];
+      return [
+        lines.notAd,
+        group.source ? formatAdminMessage(lines.fromSource, { source: sourceLabel(group.source, ads) }) : lines.noSource,
+        ...(group.content ? [formatAdminMessage(lines.linkName, { content: group.content })] : []),
+      ];
+    }
+    case "referral": {
+      const top = group.hosts
+        .slice(0, 3)
+        .map((h) => formatAdminMessage(lines.host, { host: h.host, count: numberFormat.format(h.count) }));
+      const rest = group.hosts.length - top.length;
+      return [rest > 0 ? formatAdminMessage(lines.hostsMore, { list: top.join(", "), rest }) : top.join(", ")];
+    }
+    case "direct":
+      return [lines.direct];
+    case "unknown":
+      return [Date.parse(rangeFrom) < CAPTURE_STARTED_AT ? lines.unknownBefore : lines.unknownAfter];
+  }
+}
+
+function drawerTitle(group: AdGroup, ads: AdsCopy): string {
+  return formatAdminMessage(ads.drawer[group.kind], { count: numberFormat.format(group.signups) });
+}
+
+/** 계정 목록의 「어디서」 칸. 광고는 광고가 나온 곳, 링크는 출처, 추천은 사이트다. 나머지는 칸이 없다. */
+function originColumn(kind: AdGroupKind, ads: AdsCopy): string | null {
+  if (kind === "ad" || kind === "campaign" || kind === "referral") return ads.origin[kind];
+  return null;
+}
+
+/** 출처 값을 사람이 읽는 이름으로. Meta 의 약칭(ig, fb)은 풀어 쓰고, 나머지는 적힌 대로 둔다. */
+function sourceLabel(source: string, ads: AdsCopy): string {
+  return (ads.platforms as Record<string, string>)[source] ?? source;
+}
+
+function originLabel(kind: AdGroupKind, origin: string | null, ads: AdsCopy): string {
+  if (!origin) return ads.unknownOrigin;
+  return kind === "referral" ? origin : sourceLabel(origin, ads);
+}
+
+/* ── 화면 ── */
+
+export default function AdAttributionPanel({
+  range,
+  refreshNonce,
+}: {
+  readonly range: Range | null;
+  readonly refreshNonce: number;
+}) {
+  const copy = useAdminMessages();
+  const ads = copy.metrics.ads;
+  const formats = useDateFormats();
+  const [payload, setPayload] = useState<AdAttributionPayload | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  /* 오류에서 「다시 불러오기」를 누를 때마다 올린다. 기간이 그대로여도 조회를 다시 돌리는 열쇠다. */
+  const [retry, setRetry] = useState(0);
+
+  useEffect(() => {
+    if (!range) {
+      setPayload(null);
+      setError(null);
+      setLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const params = new URLSearchParams({ from: range.from, to: range.to });
+    setLoading(true);
+    setError(null);
+
+    (async () => {
+      try {
+        const res = await fetch(`/api/admin/ad-attribution?${params.toString()}`, {
+          signal: controller.signal,
+        });
+        /* 실패는 어느 경우든 한 문구로 알린다. 게이트웨이 오류 페이지처럼 JSON 이 아닌 답도 같다. */
+        const json = (await res.json().catch(() => null)) as AdAttributionResponse | null;
+        if (!res.ok || !json || !json.ok) throw new Error(ads.loadError);
+        setPayload(json.data);
+      } catch {
+        if (controller.signal.aborted) return;
+        setPayload(null);
+        setError(ads.loadError);
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [range, refreshNonce, retry, ads]);
+
+  const ready = payload?.available ? payload : null;
+
+  return (
+    <AdminPanel
+      className="max-w-[960px]"
+      title={ads.title}
+      meta={
+        ready && ready.summary.signups > 0
+          ? formatAdminMessage(ads.periodMeta, {
+              from: formats.day.format(new Date(ready.range.from)),
+              to: formats.day.format(new Date(ready.range.to)),
+              count: numberFormat.format(ready.summary.signups),
+            })
+          : undefined
+      }
+      actions={<AdSetupGuideButton />}
+    >
+      {error ? (
+        <AdminState
+          kind="error"
+          dense
+          title={error}
+          action={
+            <Button variant="secondary" onClick={() => setRetry((count) => count + 1)}>
+              {copy.common.retry}
+            </Button>
+          }
+        />
+      ) : loading && !payload ? (
+        <AdminState kind="loading" dense title={ads.loading} />
+      ) : !payload ? (
+        <AdminState kind="empty" dense title={ads.pickRange} />
+      ) : !payload.available ? (
+        <AdminState
+          kind="empty"
+          dense
+          title={ads.unavailableTitle}
+          description={<AdminLines lines={ads.unavailable} />}
+        />
+      ) : payload.summary.signups === 0 ? (
+        <AdminState
+          kind="empty"
+          dense
+          title={ads.noneTitle}
+          description={
+            payload.excludedAdmins > 0
+              ? formatAdminMessage(ads.excludedAdmins, { count: numberFormat.format(payload.excludedAdmins) })
+              : undefined
+          }
+        />
+      ) : (
+        <div aria-busy={loading || undefined} className={loading ? RELOADING : undefined}>
+          <AdAttributionTable
+            summary={payload.summary}
+            range={payload.range}
+            truncated={payload.truncated}
+            rowLimit={payload.rowLimit}
+            excludedAdmins={payload.excludedAdmins}
+          />
+        </div>
+      )}
+    </AdminPanel>
+  );
+}
+
+function AdAttributionTable({
+  summary,
+  range,
+  truncated,
+  rowLimit,
+  excludedAdmins,
+}: {
+  readonly summary: AdAttributionSummary;
+  readonly range: Range;
+  readonly truncated: boolean;
+  readonly rowLimit: number;
+  readonly excludedAdmins: number;
+}) {
+  const ads = useAdminMessages().metrics.ads;
+  const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set());
+  const toggle = (key: string) =>
+    setOpen((current) => {
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+
+  const linked = summary.groups.filter((g) => g.kind === "ad" || g.kind === "campaign");
+  /* 광고가 아닌 태그 링크(인스타그램 프로필 링크 등)만 있어도 광고가 없다는 안내는 보인다. 그 링크 줄은
+     안내 아래에 그대로 선다. */
+  const hasAd = linked.some((g) => g.kind === "ad");
+  const untagged = summary.groups.filter((g) => g.kind !== "ad" && g.kind !== "campaign");
+
+  const rows = (group: AdGroup) => (
+    <GroupRows
+      key={group.key}
+      group={group}
+      rangeFrom={range.from}
+      open={open.has(group.key)}
+      onToggle={() => toggle(group.key)}
+    />
+  );
+
+  return (
+    <div className="flex flex-col gap-10">
+      <div className={TABLE_WRAP}>
+        <table className={AD_TABLE}>
+          <colgroup>
+            <col />
+            <col className="w-[72px]" />
+            <col className="w-[96px]" />
+            <col className="w-[104px]" />
+            <col className="w-[112px]" />
+            <col className="w-[48px]" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">{ads.columns.path}</th>
+              <th scope="col" data-align="end">
+                {ads.columns.signups}
+              </th>
+              <th scope="col" data-align="end">
+                {ads.columns.verified}
+              </th>
+              <th scope="col" data-align="end">
+                {ads.columns.payers}
+              </th>
+              <th scope="col" data-align="end">
+                {ads.columns.revenue}
+              </th>
+              <th scope="col">
+                <span className="sr-only">{ads.columns.accounts}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {hasAd ? null : (
+              <tr>
+                <td colSpan={6} className={ZERO}>
+                  {ads.noAds}
+                </td>
+              </tr>
+            )}
+            {linked.map(rows)}
+          </tbody>
+          {untagged.length > 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={6} className="pt-14 type-body-14-medium text-fg-secondary">
+                  {ads.untaggedHeading}
+                </td>
+              </tr>
+              {untagged.map(rows)}
+            </tbody>
+          ) : null}
+        </table>
+      </div>
+
+      <div className={`${NOTES} type-caption-12-regular`}>
+        {ads.notes.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+        {excludedAdmins > 0 ? (
+          <p>{formatAdminMessage(ads.excludedAdmins, { count: numberFormat.format(excludedAdmins) })}</p>
+        ) : null}
+        {truncated
+          ? ads.truncated.map((line) => (
+              <p key={line}>{formatAdminMessage(line, { limit: numberFormat.format(rowLimit) })}</p>
+            ))
+          : null}
+      </div>
+    </div>
+  );
+}
+
+/** 광고 한 줄과, 펼쳤을 때 그 아래에 붙는 계정 목록 한 줄. */
+function GroupRows({
+  group,
+  rangeFrom,
+  open,
+  onToggle,
+}: {
+  readonly group: AdGroup;
+  readonly rangeFrom: string;
+  readonly open: boolean;
+  readonly onToggle: () => void;
+}) {
+  const ads = useAdminMessages().metrics.ads;
+  const formatWon = useFormatWon();
+  const drawerId = useId();
+  const title = groupTitle(group, ads);
+  const count = (value: number) => (value === 0 ? ZERO : undefined);
+
+  return (
+    <>
+      {/* 줄 어디를 눌러도 펼친다. 키보드는 마지막 칸의 버튼으로 같은 일을 한다 — 버튼의 클릭이 줄로 올라와
+          한 번만 토글된다. */}
+      <tr data-interactive="true" onClick={onToggle}>
+        <td>
+          <span className="block type-body-14-medium text-fg-primary">{title}</span>
+          {groupDescription(group, rangeFrom, ads).map((line) => (
+            <span key={line} className="block type-caption-12-regular text-fg-tertiary">
+              {line}
+            </span>
+          ))}
+        </td>
+        <td data-align="end">{numberFormat.format(group.signups)}</td>
+        <td data-align="end" className={count(group.verified)}>
+          {numberFormat.format(group.verified)}
+        </td>
+        <td data-align="end" className={count(group.payers)}>
+          {numberFormat.format(group.payers)}
+        </td>
+        <td data-align="end" className={count(group.revenue)}>
+          {formatWon(group.revenue)}
+        </td>
+        <td data-align="end">
+          <IconButton
+            variant="ghost"
+            aria-label={formatAdminMessage(ads.showAccounts, { title })}
+            aria-expanded={open}
+            aria-controls={open ? drawerId : undefined}
+          >
+            <ToolbarChevronDown size={16} />
+          </IconButton>
+        </td>
+      </tr>
+      {open ? (
+        <tr>
+          <td colSpan={6}>
+            <GroupDrawer id={drawerId} group={group} />
+          </td>
+        </tr>
+      ) : null}
+    </>
+  );
+}
+
+function GroupDrawer({ id, group }: { readonly id: string; readonly group: AdGroup }) {
+  const ads = useAdminMessages().metrics.ads;
+  const formats = useDateFormats();
+  const formatWon = useFormatWon();
+  const [visible, setVisible] = useState(PEOPLE_PREVIEW);
+  /* 「더 보기」를 누르면 새로 열린 첫 줄로 초점을 옮긴다. 마지막 묶음을 열면 버튼이 사라져 초점이 문서
+     처음으로 튀기 때문이다. */
+  const [focusFrom, setFocusFrom] = useState<number | null>(null);
+  const listRef = useRef<HTMLTableSectionElement | null>(null);
+  const origin = originColumn(group.kind, ads);
+  const people = group.people.slice(0, visible);
+  const remaining = group.people.length - people.length;
+
+  useEffect(() => {
+    if (focusFrom === null) return;
+    listRef.current
+      ?.querySelectorAll<HTMLElement>("[data-person-row]")
+      [focusFrom]?.focus();
+  }, [focusFrom]);
+
+  const showMore = () => {
+    setFocusFrom(visible);
+    setVisible((current) => current + PEOPLE_STEP);
+  };
+
+  return (
+    <div id={id} className={DRAWER}>
+      <div className="flex items-center justify-between gap-6 flex-wrap">
+        <span className="type-body-14-medium text-fg-primary">{drawerTitle(group, ads)}</span>
+        {group.adId ? (
+          <span className="flex items-center gap-2 type-caption-12-regular text-fg-tertiary">
+            {formatAdminMessage(ads.adId, { id: group.adId })}
+            <CopyIconButton value={group.adId} label={ads.adIdLabel} />
+          </span>
+        ) : null}
+      </div>
+
+      <div className={TABLE_WRAP}>
+        <table className={PEOPLE_TABLE}>
+          <colgroup>
+            <col className="w-[136px]" />
+            <col />
+            {origin ? <col className="w-[112px]" /> : null}
+            <col className="w-[96px]" />
+            <col className="w-[96px]" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">{ads.peopleColumns.signedUp}</th>
+              <th scope="col">{ads.peopleColumns.account}</th>
+              {origin ? <th scope="col">{origin}</th> : null}
+              <th scope="col">{ads.peopleColumns.verified}</th>
+              <th scope="col" data-align="end">
+                {ads.peopleColumns.revenue}
+              </th>
+            </tr>
+          </thead>
+          <tbody ref={listRef}>
+            {people.map((person) => (
+              <tr key={person.userId}>
+                <td className="type-caption-12-regular text-fg-tertiary">
+                  {formats.time.format(new Date(person.signedUpAt))}
+                </td>
+                {/* 「더 보기」 뒤 초점이 오는 칸. */}
+                <td data-person-row tabIndex={-1} className="truncate">
+                  {person.email ? <AdminUserLink email={person.email} /> : ads.noEmail}
+                </td>
+                {origin ? (
+                  <td className="text-fg-secondary">{originLabel(group.kind, person.origin, ads)}</td>
+                ) : null}
+                <td className={person.verified ? "text-fg-secondary" : ZERO}>
+                  {person.verified ? ads.verifiedDone : ads.verifiedNot}
+                </td>
+                <td data-align="end" className={person.revenue > 0 ? undefined : ZERO}>
+                  {person.revenue > 0 ? formatWon(person.revenue) : ads.noRevenue}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {remaining > 0 ? (
+        <Button variant="secondary" className="self-start" onClick={showMore}>
+          {formatAdminMessage(ads.showMore, { count: numberFormat.format(Math.min(remaining, PEOPLE_STEP)) })}
+        </Button>
+      ) : null}
+    </div>
+  );
+}

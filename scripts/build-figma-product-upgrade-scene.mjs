@@ -259,7 +259,7 @@ const cardStructure = (tree, root, lines, where) => {
      · 장면: 셸 패딩(`pt-[var(--app-gnb-safe-top)]` · `pb-[…rail-padding-bottom]`), main 의 `ml-[var(--app-gnb-sidebar-width)]` ·
        `pr-[var(--app-gnb-main-inline-padding-end)]`(계산값). 셸은 `h-[100dvh]` 라 main 이 위아래를 채운다.
      · 메인 표면(가격 섹션 · 뷰포트 크롭): 스크롤 칸 패딩, 상단 바 bleed, 컨테이너 `max-width: min(1300px, 100%)` 와 위 패딩,
-       헤더 `max-width: 820px` · 아래 여백, 알림 알약 높이(`height: calc(32px)`) · 아래 여백, 제목 아래 여백, 본문 `max-width: 72ch`,
+       헤더 `max-width: 820px` · 아래 여백, 제목 아래 여백, 본문 `max-width: 72ch`,
        선물 구매 줄의 위 여백(`mt-10`)과 버튼 높이(Button md 레시피 — 면 · 글자는 그리지 않고 자리만),
        덱 `repeat(N, minmax(0px, 1fr))` · gap, 비교 블록 위 여백(블록 margin 이 겹쳐 큰 쪽 하나만 남는다).
    숫자 가드는 없다 — 선언이 있는지와 rect 가 그 값들로 **닫히는지**(원장 대조)만 본다. 헤더는 렌더러가 그리는 자식의 합으로
@@ -280,33 +280,37 @@ const upgradeLayout = (tree, where) => {
   const bar = at("body.1.0.0.1.0.0.0.0");
   const container = at("body.1.0.0.1.0.0.1");
   const header = at("body.1.0.0.1.0.0.1.0");
-  const notice = at("body.1.0.0.1.0.0.1.0.0");
-  // 알약의 초록 점(`PricingSection.tsx NOTICE_DOT` — 「진행 중」 표시). 알약 안의 유일한 자식 요소다.
-  const noticeDot = at("body.1.0.0.1.0.0.1.0.0.0");
-  const title = at("body.1.0.0.1.0.0.1.0.1");
-  const body = at("body.1.0.0.1.0.0.1.0.2");
+  // **이벤트 알약은 없다(DS-D-0079 통합 판 `76b6cf15`).** 제품 `f0527efc6 chore(pricing): Lite 출시 기념 할인 공지 알약을 걷는다` 가
+  // `PricingNotice` 를 지웠다 — 통합 판의 `UpgradePlanPageClient.tsx` `<header className={PRICING_HEADER}>` 직계 자식은 제목(h2) ·
+  // 본문(p) · 선물 구매(div) 셋이고, 측정 원장(`product.auth-fixture.json` 의 `/mypage/upgrade`, 데스크톱 · 모바일)도 같다.
+  // 알약이 돌아오면 아래 헤더 자식 대조가 멈춘다 — 그때 슬롯을 되살린다.
+  const title = at("body.1.0.0.1.0.0.1.0.0");
+  const body = at("body.1.0.0.1.0.0.1.0.1");
   const deck = at("body.1.0.0.1.0.0.1.1");
   // 비교 블록은 뷰포트(모바일 402×874) 밖이면 측정 트리에 없다 — 없으면 그리지 않는다.
   const optional = (path) => tree.find((entry) => entry.path === path) ?? null;
   const kids = (path) => tree.filter((entry) => entry.parentPath === path);
   // 선물 구매 줄(KLI-264, `<div className="mt-10"><Button variant="secondary">`) — 아래 `giftSlot` 이 자리를 싣는다.
-  const giftRow = optional("body.1.0.0.1.0.0.1.0.3");
+  const giftRow = optional("body.1.0.0.1.0.0.1.0.2");
   const compare = optional("body.1.0.0.1.0.0.1.2");
   const compareInner = optional("body.1.0.0.1.0.0.1.2.0");
   const compareTitle = optional("body.1.0.0.1.0.0.1.2.0.0");
-  const [shellStyle, outerStyle, scrollStyle, barStyle, containerStyle, headerStyle, noticeStyle, titleStyle, bodyStyle, deckStyle] =
-    [shell, outer, scroll, bar, container, header, notice, title, body, deck].map(style);
+  const [shellStyle, outerStyle, scrollStyle, barStyle, containerStyle, headerStyle, titleStyle, bodyStyle, deckStyle] =
+    [shell, outer, scroll, bar, container, header, title, body, deck].map(style);
   declaredValue(shell, "height", /^100dvh$/, where);
   declaredValue(outer, "margin-left", /--app-gnb-sidebar-width/, where);
   declaredValue(section, "flex", /^1 1 0%$/, where);
   declaredValue(bar, "margin-left", /--mainchrome-bleed-left/, where);
-  const deckColumns = declaredValue(deck, "grid-template-columns", /^repeat\(\d+, minmax\(0px, 1fr\)\)$/, where);
+  // 덱 열 선언은 둘 중 하나다: `repeat(N, minmax(0px, 1fr))`(데스크톱 5 · ≤1199 2) 또는 한 열 `minmax(0px, 1fr) !important`
+  // (≤559 — 통합 판 `UpgradePlanPageClient.tsx` `PRICING_DECK` 의 `[@media(max-width:559px)]:[grid-template-columns:minmax(0,1fr)]!`).
+  // 모바일 402 는 한 열이라 카드가 세로로 쌓인다 — 렌더러는 열이 하나면 덱을 세로 흐름(row-gap)으로 짓는다.
+  const deckColumns = declaredValue(deck, "grid-template-columns", /^(?:repeat\(\d+, minmax\(0px, 1fr\)\)|minmax\(0px, 1fr\))(?: !important)?$/, where);
   // **헤더의 직계 자식은 렌더러가 그리는 것과 같아야 한다.** 헤더는 흐름이라 그 높이가 덱 · 비교 제목의 자리를 정한다 —
   // 렌더러가 모르는 자식이 끼면 Figma 헤더가 그만큼 짧아져 아래가 전부 위로 선다. 모르는 자식이 나오면 슬롯을 더한다.
-  const drawnHeaderKids = [notice, title, body, ...(giftRow ? [giftRow] : [])];
+  const drawnHeaderKids = [title, body, ...(giftRow ? [giftRow] : [])];
   const headerKids = kids(header.path);
   if (headerKids.length !== drawnHeaderKids.length || headerKids.some((entry, index) => entry !== drawnHeaderKids[index])) {
-    fail(`${where}: header children ${headerKids.map((entry) => `${entry.path.split(".").at(-1)}:${entry.tag}`).join(" · ")} are not the ones the renderer draws (notice · title · body · gift row) — add the slot`);
+    fail(`${where}: header children ${headerKids.map((entry) => `${entry.path.split(".").at(-1)}:${entry.tag}`).join(" · ")} are not the ones the renderer draws (title · body · gift row) — add the slot`);
   }
   // 선물 구매 줄: 줄의 위 여백(`mt-10`, 칠 없는 감싸개 패딩)과 **버튼**(Button secondary md — 2026-09-14 컬렉션 이전부터
   // 면 · 글자를 라이브 변수로 칠한다). 높이는 Button md 레시피(카드 CTA 와 같은 출처), 폭은 내용 HUG + 좌우 패딩.
@@ -346,42 +350,18 @@ const upgradeLayout = (tree, where) => {
       maxWidth: px(headerStyle.maxWidth),
       maxWidthDeclared: declaredValue(header, "max-width", /^\d+px$/, where),
       paddingBottom: px(headerStyle.marginBottom),
-      notice: {
-        height: px(noticeStyle.height),
-        heightDeclared: declaredValue(notice, "height", /px\)?$/, where),
-        padding: paddingOf(noticeStyle),
-        paddingBottom: px(noticeStyle.marginBottom),
-        // **알약은 제품 컴포넌트다(2026-09-26, `Product/Pricing Notice`).** 옛 러너는 글자만 그려 면(검정 48% · 뒤 흐림)과
-        // 초록 점이 빠져 있었다. 면 · 반경 · 흐림은 `PricingSection.tsx NOTICE`, 점은 `NOTICE_DOT`(4 · 오른쪽 여백 10)다.
-        surface: {
-          color: color(noticeStyle.backgroundColor),
-          radius: px(noticeStyle.borderTopLeftRadius),
-          blur: Number(/blur\(([\d.]+)px\)/.exec(noticeStyle.backdropFilter ?? "")?.[1] ?? fail(`${where}: notice has no backdrop blur`)),
-        },
-        dot: {
-          size: px(style(noticeDot).width),
-          radius: px(style(noticeDot).borderTopLeftRadius),
-          gap: px(style(noticeDot).marginRight),
-          color: color(style(noticeDot).backgroundColor),
-        },
-        // 컨테이너 폭에 닿으면(모바일 390) 알약이 줄고 글자가 감긴다 — 글자의 최대 폭은 알약 폭에서 패딩 · 점 · 간격을 뺀 것이다.
-        textMaxWidth: notice.rect.width >= header.rect.width - 0.5
-          ? notice.rect.width - px(noticeStyle.paddingLeft) - px(noticeStyle.paddingRight) - px(style(noticeDot).width) - px(style(noticeDot).marginRight)
-          : null,
-      },
       titlePaddingBottom: px(titleStyle.marginBottom),
       bodyMaxWidth: px(bodyStyle.maxWidth),
       bodyMaxWidthDeclared: declaredValue(body, "max-width", /ch$/, where),
       gift: giftSlot,
     },
-    deck: { columns: Number(/^repeat\((\d+),/.exec(deckColumns)[1]), gap: px(deckStyle.columnGap), declared: deckColumns },
+    deck: { columns: Number(/^repeat\((\d+),/.exec(deckColumns)?.[1] ?? 1), gap: px(deckStyle.columnGap), rowGap: px(deckStyle.rowGap), declared: deckColumns },
     compare: compare && compareInner && compareTitle ? { paddingTop: Math.max(px(style(compare).marginTop), px(style(compareInner).marginTop)) } : null,
   };
   const deckBottom = deck.rect.y + deck.rect.height;
-  // 헤더 높이는 **렌더러가 그리는 자식**(알약 높이 + 아래 여백 · 제목 + 아래 여백 · 본문 · 선물 구매 줄의 위 여백 + 버튼 높이)으로
+  // 헤더 높이는 **렌더러가 그리는 자식**(제목 + 아래 여백 · 본문 · 선물 구매 줄의 위 여백 + 버튼 높이)으로
   // 닫혀야 한다. 측정 header 높이만으로 덱 자리를 대조하면 그리지 않는 자식이 끼어도 초록이다 — 선물 구매 줄이 그랬다.
   const drawnHeaderHeight =
-    layout.header.notice.height + layout.header.notice.paddingBottom +
     title.rect.height + layout.header.titlePaddingBottom +
     body.rect.height +
     (layout.header.gift ? layout.header.gift.paddingTop + layout.header.gift.height : 0);
@@ -395,16 +375,27 @@ const upgradeLayout = (tree, where) => {
     bar.rect.width === section.rect.width - layout.main.padding.left - layout.main.padding.right &&
     container.rect.y === bar.rect.y + bar.rect.height + layout.main.barGap &&
     header.rect.y === container.rect.y + layout.container.paddingTop &&
-    notice.rect.height === layout.header.notice.height &&
     header.rect.height === drawnHeaderHeight &&
     deck.rect.y === header.rect.y + header.rect.height + layout.header.paddingBottom &&
     (!layout.compare || compare.rect.y === deckBottom + layout.compare.paddingTop);
   if (!closes) fail(`${where}: measured upgrade rects no longer close over the declared layout values`);
+  // 덱 안의 카드 자리도 선언(열 수 · gap)으로 닫혀야 한다 — 한 열이면 세로로 row-gap 만큼 떨어져 쌓이고, 여러 열이면 한 줄에 선다.
+  // 렌더러는 한 줄(가로 흐름) 아니면 한 열(세로 흐름)만 짓는다 — 여러 열에 줄바꿈이 생기면 여기서 멈춘다.
+  const deckCards = kids(deck.path).filter((entry) => entry.tag === "article");
+  const deckCloses = deckCards.every((card, index) => {
+    if (index === 0) return card.rect.x === deck.rect.x && card.rect.y === deck.rect.y;
+    const prev = deckCards[index - 1];
+    return layout.deck.columns === 1
+      ? card.rect.x === deck.rect.x && Math.abs(card.rect.y - (prev.rect.y + prev.rect.height + layout.deck.rowGap)) < 0.01
+      : card.rect.y === deck.rect.y && Math.abs(card.rect.x - (prev.rect.x + prev.rect.width + layout.deck.gap)) < 0.01;
+  });
+  if (!deckCloses || (layout.deck.columns > 1 && deckCards.length > layout.deck.columns)) {
+    fail(`${where}: measured plan cards no longer sit in one row or one column of the declared deck (${layout.deck.declared})`);
+  }
   return {
     layout,
     rects: { page, section, bar, deck },
     texts: {
-      headerNotice: textSpec(notice, section.rect),
       headerTitle: textSpec(title, section.rect),
       headerBody: { ...textSpec(body, section.rect), maxWidth: layout.header.bodyMaxWidth },
       ...(layout.compare ? { compareTitle: textSpec(compareTitle, section.rect) } : {}),
@@ -413,9 +404,9 @@ const upgradeLayout = (tree, where) => {
 };
 
 // **헤더가 다시 평평해졌다.** 그전에는 이벤트 알약이 제목 옆에 서서 제목·본문이 한 겹 더 들어가 있었는데
-// (`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었다(UpgradePlanPageClient.tsx `<header className={PRICING_HEADER}>`
-// 위 주석). 지금 `<header>` 의 직속 자식은 넷이다: .0 알약(p>span) · .1 제목(h2) · .2 본문(p) · .3 선물 구매(div>button>span).
-// `.3` 의 선물 구매 버튼(KLI-264)은 2026-09-14 컬렉션 이전까지 면과 글자를 그리지 않았다 — 버튼 색이 옛 로컬 변수 표에
+// (`6c5af2d9`), 제품이 알약을 **제목 위로** 올리며 그 겹을 걷었고, 통합 판(`76b6cf15`, DS-D-0079)에서는 알약 자체가
+// 없어졌다(`f0527efc6`). 지금 `<header>` 의 직속 자식은 셋이다: .0 제목(h2) · .1 본문(p) · .2 선물 구매(div>button>span).
+// `.2` 의 선물 구매 버튼(KLI-264)은 2026-09-14 컬렉션 이전까지 면과 글자를 그리지 않았다 — 버튼 색이 옛 로컬 변수 표에
 // 없었다. 이제 Button secondary 레시피의 라이브 변수(`accent-secondary` · `accent-secondary-foreground`)로 칠한다.
 // **자리는 그린다(2026-09-14).** 메인 표면이 흐름이 된 뒤로 헤더 높이가 덱 · 비교 제목의 자리를 정한다. 옛 러너는 카드를
 // 측정 position 에 박아 이 누락이 위치를 흔들지 않았지만, 흐름에서 줄을 통째로 빼면 덱 · 비교 제목이 그 줄(위 여백 + 버튼
@@ -471,7 +462,7 @@ const cardSpecs = cardRoots.map((root) => {
 // 스냅했다. 값이 바뀐 것은 제품 쪽 결정이므로 여기서는 실측을 따라간다.
 // 근거 인용은 아래 currentPlanOutlineSource 가 같은 커밋의 소스 줄로 다시 확인한다.
 const expectedCurrentPlanOutline = {
-  width: 2, // 선언: apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:232
+  width: 2, // 선언: apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx:242
   style: "solid",
   color: [163 / 255, 213 / 255, 255 / 255, 0.4],
   offset: -2,
@@ -521,7 +512,8 @@ const mobileCardSpecs = mobileCardRoots.map((root) => {
   const where = `${mobileContext} ${root.path}`;
   const rootStyle = style(root);
   const structure = cardStructure(mobileScreen.tree, root, mobileFigmaLineMeasurements, where);
-  if (structure.action) fail(`mobile fixture unexpectedly contains an action ${root.path}`);
+  // **버튼이 뷰포트 안이면 싣는다(통합 판 `76b6cf15`).** 덱이 한 열(≤559)이 되자 Trial 카드가 402×874 안에 통째로 들어와 버튼까지
+  // 측정됐다. 버튼이 측정 트리에 있을 때만 싣고(`actionMeasured`), 뷰포트 밖이면(지금은 Lite) 그리지 않는다 — 지어내지 않는다.
   const title = structure.sections[0]?.kind === "head" ? structure.sections[0].texts[0].text : fail(`${where}: missing mobile plan title`);
   return {
     plan: title,
@@ -543,7 +535,7 @@ const mobileCardSpecs = mobileCardRoots.map((root) => {
     effects: shadows(rootStyle.boxShadow),
     outline: outline(rootStyle),
     ...structure,
-    actionMeasured: false,
+    actionMeasured: Boolean(structure.action),
   };
 });
 if (
@@ -562,13 +554,13 @@ const upgradeSourcePath = "apps/web/app/mypage/upgrade/UpgradePlanPageClient.tsx
 // 좌표는 내용으로 다시 찾았다 — 두 문자열 모두 이 파일에서 유일하고 `TIER_CARD_CURRENT`
 // 안에서 서로 붙어 있다. 파일이 바뀌었을 뿐 문자열은 한 글자도 안 움직였다.
 const currentPlanOutlineSource = [
-  sourceQuote(upgradeSourcePath, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
-  sourceQuote(upgradeSourcePath, 233, '  "[outline-offset:-2px]",'),
+  sourceQuote(upgradeSourcePath, 242, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",'),
+  sourceQuote(upgradeSourcePath, 243, '  "[outline-offset:-2px]",'),
 ];
 // 덱 · 카드 크기 축의 선언 원문 — 측정 원장의 `declared` 칸과 같은 뜻을 소스 줄로 한 번 더 못박는다.
 const deckSource = [
-  sourceQuote(upgradeSourcePath, 206, '  "grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch",'),
-  sourceQuote(upgradeSourcePath, 212, '  "min-h-[560px] [@media(max-width:788px)]:[min-height:auto]",'),
+  sourceQuote(upgradeSourcePath, 212, '  "grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-2 items-stretch",'),
+  sourceQuote(upgradeSourcePath, 220, '  "min-h-[560px] [@media(max-width:788px)]:[min-height:auto]",'),
 ];
 // **간격 · 패딩은 값이 같은 `Klipse Primitive/spacing/<n>` 에 묶는다** — 이름과 값을 되읽기(`figma/readback.json`)에서
 // 확인한다(공용 헬퍼 `liveVariables`). 토큰이 없는 값(뷰포트 계산값 · 제품 지역 여백)은 숫자로 둔다 — 렌더러는 계획에
@@ -583,9 +575,9 @@ const cardSpacing = (spec) => [
 ];
 const layoutSpacing = (layout) => [
   ...Object.values(layout.main.padding), layout.main.bleed.left, layout.main.bleed.right, layout.main.barGap,
-  layout.container.paddingTop, layout.header.paddingBottom, layout.header.notice.paddingBottom, ...Object.values(layout.header.notice.padding),
+  layout.container.paddingTop, layout.header.paddingBottom,
   layout.header.titlePaddingBottom, layout.header.gift?.paddingTop ?? 0, ...Object.values(layout.header.gift?.button.padding ?? {}),
-  layout.deck.gap, layout.compare?.paddingTop ?? 0,
+  layout.deck.columns === 1 ? layout.deck.rowGap : layout.deck.gap, layout.compare?.paddingTop ?? 0,
 ];
 const spacingBindings = Object.fromEntries([...new Set([
   ...cardSpecs.flatMap(cardSpacing), ...mobileCardSpecs.flatMap(cardSpacing), ...layoutSpacing(desktop.layout), ...layoutSpacing(mobile.layout),
@@ -630,8 +622,6 @@ const plan = {
     sectionName: "O · product/Upgrade plans · measured desktop scene",
     cardSetName: "Product/Upgrade Plan Card",
     mobileVisibleCardSetName: "Product/Upgrade Plan Card Visible Slice",
-    // 「진행 중 이벤트 알약」 — 제품 `PricingNotice`(랜딩 · `/mypage/upgrade` 공용). Viewport 축은 글자 최대 폭 하나가 갈린다.
-    noticeSetName: "Product/Pricing Notice",
     mainComponentName: "Product/Desktop Upgrade Main Surface",
     sceneComponentName: "Product/Desktop Upgrade Scene",
     mobileMainComponentName: "Product/Mobile Upgrade Main Surface",
@@ -671,7 +661,7 @@ const plan = {
       },
       cardGrid: relRect(mobileCardGrid, mobileMain.rect),
       cards: mobileCardSpecs,
-      evidenceBoundary: "Only nodes present in the 402x874 fixture are drawn. Plus, Pro, Ultra, and card actions were outside the measured viewport and are absent; the two visible cards keep their measured height and clip.",
+      evidenceBoundary: `Only nodes present in the 402x874 fixture are drawn. The deck is one column at this width, so the cards stack; Plus, Pro, Ultra${mobileCardSpecs.some((entry) => !entry.actionMeasured) ? ` and the ${mobileCardSpecs.filter((entry) => !entry.actionMeasured).map((entry) => entry.plan).join(", ")} action` : ""} were outside the measured viewport and are absent; the two visible cards keep their measured height and clip.`,
     },
     $bindingPolicy: BINDING_POLICY,
     // 색 역할(`colors.bindings`)은 아래에서 앞에 합친다.
@@ -700,50 +690,46 @@ const plan = {
     theme: "light",
     where: "upgrade-scene",
     roles: {
-      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 794, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
-      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 68, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 1071, "    --app-page-bg: var(--louis-color-bg-surface);")] },
-      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 110, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 795, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
+      appPageBg: { name: "color/bg-canvas", declared: [quote.product(PAGE, 69, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 804, "  --app-page-bg: var(--louis-color-bg-canvas);")] },
+      appPageBgNarrow: { name: "color/bg-surface", declared: [quote.product(PAGE, 69, '  "bg-[var(--app-page-bg)]!",'), quote.product(GLOBALS, 966, "    --app-page-bg: var(--louis-color-bg-surface);")] },
+      appMainCardBg: { name: "color/bg-surface", declared: [quote.product(PAGE, 111, '  "bg-[var(--app-main-card-bg)]",'), quote.product(GLOBALS, 805, "  --app-main-card-bg: var(--louis-color-bg-surface);")] },
       gray000: {
         name: "color/gray/000",
-        declared: [quote.product(PRICING, 125, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 359, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
+        declared: [quote.product(PRICING, 98, '  "m-0 mb-9 type-heading-36-semibold text-gray-000 text-balance!";'), quote.product(PRICING, 331, '  "m-0 mb-16 type-heading-36-semibold text-gray-000 text-center";')],
       },
       gray000Alpha72: {
         name: "color/gray/000-alpha/72", mix: { name: "color/gray/000", alpha: 0.72 },
-        declared: [quote.product(PAGE, 177, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
+        declared: [quote.product(PAGE, 178, '  "text-[rgb(var(--gray-000-rgb)/72%)]!",')],
         reason: "Product paints rgb(var(--gray-000-rgb) / 72%) — pure black at 72% in light. The live color/gray/000-alpha/72 resolves to static-black-alpha/72 (#171b22 base), so the paint binds to that same-named live step and records the RGB gap (as the app-shell plan's exact=false inks).",
       },
-      mediaForegroundDark: { name: "color/media-foreground-dark", declared: [quote.product(PRICING, 90, '  "type-body-14-medium text-[var(--louis-color-media-foreground-dark)]",')] },
-      bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 223, '  "bg-[var(--louis-color-bg-raised)]",')] },
-      gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 215, '  "flex flex-col text-gray-200 overflow-hidden",')] },
+      bgRaised: { name: "color/bg-raised", declared: [quote.product(PAGE, 233, '  "bg-[var(--louis-color-bg-raised)]",')] },
+      gray200: { name: "color/gray/200", declared: [quote.product(PAGE, 223, '  "flex flex-col text-gray-200 overflow-hidden",')] },
       gray300: {
         name: "color/gray/300",
-        declared: [quote.product(PAGE, 268, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 278, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
-          quote.product(PAGE, 284, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
+        declared: [quote.product(PAGE, 278, '  "mt-2 flex w-full pb-12 items-end gap-4 text-gray-300",'), quote.product(PAGE, 289, 'const TIER_INCLUDES = "[margin:12px_0_0] p-0 block text-gray-300";'),
+          quote.product(PAGE, 295, '  "[&_li]:[font-weight:var(--type-weight-regular)] [&_li]:text-gray-300",')],
       },
       gray300Alpha88: {
         unbound: true, mix: { name: "color/gray/300", alpha: 0.88 },
-        declared: [quote.product(PAGE, 264, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
+        declared: [quote.product(PAGE, 274, '  "[&_span]:text-[rgb(var(--gray-300-rgb)/88%)] [&_span]:pb-2",')],
         reason: "The price row unit paints rgb(var(--gray-300-rgb) / 88%). The live file has no gray/300 alpha ramp and no variable resolves to gray-300 (palette-gray/700 in Light) at 88%, so the text keeps the measured colour as a fixed paint.",
       },
       green500: {
         collection: "Klipse Primitive", name: "color/green/500",
-        declared: [quote.product(PAGE, 298, '  "block w-9 h-9 mt-2 bg-accent-green-500",'), quote.product(PRICING, 95, 'const NOTICE_DOT = "size-2 flex-none rounded-full bg-accent-green-500 mr-5";')],
-      },
-      noticeSurface: {
-        collection: "Klipse Primitive", name: "color/static-black-alpha/48", mix: { name: "color/media-scrim-dark", alpha: 0.48 },
-        declared: [quote.product(PRICING, 91, '  "bg-[color-mix(in_srgb,var(--louis-color-media-scrim-dark)_48%,transparent)]",')],
-        reason: "The event pill mixes media-scrim-dark (pure black) at 48%. The live file has no black-at-48% twin; static-black-alpha/48 is the same step on the #171b22 base, so the surface binds to it and records the RGB gap (as gray000Alpha72).",
+        // 기능 체크 아이콘은 이 화면이 `PricingSection.tsx` 의 `TIER_FEATURE_ICON` 상수를 가져다 쓴다(제품 `a8f1d86e4` — 두 벌이던
+        // `block w-9 h-9 mt-2 bg-accent-green-500` 을 한 상수로 모았다). 칠은 그 상수의 `bg-accent-green-500` 이다.
+        declared: [quote.product(PAGE, 809, "                              className={TIER_FEATURE_ICON}"), quote.product(PRICING, 223, '  "bg-accent-green-500",')],
       },
       primary200Alpha40: {
         unbound: true, mix: { collection: "Klipse Primitive", name: "color/blue/200", alpha: 0.4 },
-        declared: [quote.product(PAGE, 232, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
+        declared: [quote.product(PAGE, 242, '  "[outline:2px_solid_rgb(var(--primary-200-rgb)/40%)]",')],
         reason: "The current-plan outline is rgb(var(--primary-200-rgb) / 40%). The live file has no blue alpha ramp and no variable resolves to blue-200 at 40%, so the stroke keeps the measured colour as a fixed paint.",
       },
-      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 715, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
+      accentInverse: { name: "color/accent-inverse", declared: [quote.product(PAGE, 874, '                      variant="inverse"'), quote.ds(BUTTON, 203, "  background: var(--louis-color-accent-inverse);")] },
       fgOnAccentInverse: { name: "color/fg-on-accent-inverse", declared: [quote.ds(BUTTON, 204, "  color: var(--louis-color-fg-on-accent-inverse);")] },
-      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 723, "                      disabled={"), quote.ds(BUTTON, 333, "  background: var(--louis-color-bg-inset);")] },
-      fgDisabled: { name: "color/fg-disabled", declared: [quote.ds(BUTTON, 318, "  color: var(--louis-color-fg-disabled);")] },
-      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 602, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
+      bgInset: { name: "color/bg-inset", declared: [quote.product(PAGE, 882, "                      disabled={"), quote.ds(BUTTON, 366, "  background: var(--louis-color-bg-inset);")] },
+      fgDisabled: { name: "color/fg-disabled", declared: [quote.ds(BUTTON, 349, "  color: var(--louis-color-fg-disabled);")] },
+      accentSecondary: { name: "color/accent-secondary", declared: [quote.product(PAGE, 722, '                  variant="secondary"'), quote.ds(BUTTON, 211, "  background: var(--louis-color-accent-secondary);")] },
       accentSecondaryForeground: { name: "color/accent-secondary-foreground", declared: [quote.ds(BUTTON, 215, "  color: var(--louis-color-accent-secondary-foreground);")] },
       boardSurface: { name: "color/bg-canvas", annotation: "section fill behind the sets (board canvas, not a product surface)" },
       docsTitle: { name: "color/fg-primary", annotation: "documentation frame title" },
@@ -770,10 +756,6 @@ const plan = {
   for (const [surface, name] of [[C, "desktop"], [C.mobile, "mobile"]]) {
     surface.page.paint = roles.paintFor(["appPageBg", "appPageBgNarrow"], surface.page.background, `${name} page`);
     surface.main.paint = roles.paintFor(["appMainCardBg"], surface.main.background, `${name} main`);
-    surface.main.headerNotice.paint = roles.paintFor(["mediaForegroundDark"], surface.main.headerNotice.color, `${name} notice`);
-    const notice = surface.main.layout.header.notice;
-    notice.surface.paint = roles.paintFor(["noticeSurface"], notice.surface.color, `${name} notice surface`);
-    notice.dot.paint = roles.paintFor(["green500"], notice.dot.color, `${name} notice dot`);
     surface.main.headerTitle.paint = roles.paintFor(["gray000"], surface.main.headerTitle.color, `${name} title`);
     surface.main.headerBody.paint = roles.paintFor(["gray000Alpha72"], surface.main.headerBody.color, `${name} body`);
     if (surface.main.compareTitle) surface.main.compareTitle.paint = roles.paintFor(["gray000"], surface.main.compareTitle.color, `${name} compare title`);
@@ -817,14 +799,11 @@ const runnerPlan = stripAnnotations(plan);
     if (card.action) { delete card.action.rect; dropText(card.action.label); }
   }
   for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
-    for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) dropText(surface[key]);
+    for (const key of ["headerTitle", "headerBody", "compareTitle"]) dropText(surface[key]);
     if (surface.layout.header.gift) { dropText(surface.layout.header.gift.button.text); delete surface.layout.header.gift.button.fill; }
     delete surface.layout.container.width.declared;
     delete surface.layout.header.maxWidthDeclared;
     delete surface.layout.header.bodyMaxWidthDeclared;
-    delete surface.layout.header.notice.heightDeclared;
-    delete surface.layout.header.notice.surface.color;
-    delete surface.layout.header.notice.dot.color;
     if (surface.layout.header.gift) delete surface.layout.header.gift.paddingTopDeclared;
     delete surface.layout.deck.declared;
   }
@@ -855,7 +834,7 @@ const runnerPlan = stripAnnotations(plan);
     if (card.outline) delete card.outline.color;
   }
   for (const surface of [runnerPlan.component.main, runnerPlan.component.mobile.main]) {
-    for (const key of ["headerNotice", "headerTitle", "headerBody", "compareTitle"]) intern(surface[key]);
+    for (const key of ["headerTitle", "headerBody", "compareTitle"]) intern(surface[key]);
     if (surface.layout.header.gift) intern(surface.layout.header.gift.button.text);
     delete surface.background;
   }

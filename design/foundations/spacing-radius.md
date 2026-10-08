@@ -59,11 +59,12 @@ Dimension primitive, semantic spacing/radius와 responsive profile은 단일 DTC
 | 세로 padding | `clamp(32px, 6svh, 72px)`     | 미적용 |
 | 가로 padding | `32px` 고정                   | 미적용 |
 
-근거는 `components/auth/AuthStatusCard.tsx:57`, `app/signup/page.tsx:62`,
-`app/aws/signup/page.tsx:119`다. `/login`만 같은 값을 `py-[clamp(32px,6svh,72px)]`와 `px-16` 두
-유틸리티로 나눠 적지만 계산값은 같다(`app/login/page.tsx:75-76`). 이 clamp는 뷰포트 높이 533px
+근거는 `components/auth/AuthStatusCard.tsx:21`, 회원가입 `(auth-brand)/signup/page.tsx:22-27`(`FORM_PANEL`),
+`app/aws/signup/page.tsx:115`다. `/login`만 같은 값을 `py-[clamp(32px,6svh,72px)]`와 `px-16` 두
+유틸리티로 나눠 적지만 계산값은 같다(`login/page.tsx:27-28`). 통합 판 `76b6cf15` 에서 페이지 그리드와
+브랜드 패널은 `(auth-brand)` 레이아웃 한 벌로 모였지만 폼 패널은 여전히 화면마다 제 것이다. 이 clamp는 뷰포트 높이 533px
 이하에서 32px로 붙고 1200px에서 72px로 포화한다. 719px 이하에서 미적용인 이유는 폼 패널이
-`display: contents`로 녹아 상자 자체가 사라지기 때문이다(`components/auth/AuthStatusCard.tsx:54`) —
+`display: contents`로 녹아 상자 자체가 사라지기 때문이다(`components/auth/AuthStatusCard.tsx:18`) —
 모바일 프레임에 이 padding을 그리면 틀린다.
 
 **Figma 고정 프레임에는 1080 높이 기준 단일 값 65px를 쓴다.** 뷰포트형 프레임 높이를 1080으로 통일한

@@ -1,3 +1,21 @@
+// **선 아이콘의 획은 표시 크기를 따른다(2026-10-08).** `resize()` 는 기하만 줄이고 획을 그대로 둔다 — 32 마스터(획 2)를 20 자리에
+// 놓자 사이드바 아이콘이 제품(1.25)보다 1.6 배 두꺼웠다(조립 규칙 4조 · 소유자 지적). 크기를 맞춘 뒤 마스터 획에 「표시 크기 / 마스터
+// 크기」를 곱해 넣는다 — 재사용한 인스턴스도 마스터에서 다시 계산하므로 몇 번을 돌려도 같다.
+const fitLineIcon = (instance, width, height = width) => {
+  instance.resize(width, height);
+  const master = instance.mainComponent;
+  if (!master || !master.width) return instance;
+  const factor = width / master.width;
+  const masterParts = master.findAll((node) => "strokeWeight" in node);
+  const parts = instance.findAll((node) => "strokeWeight" in node);
+  parts.forEach((part, index) => {
+    const source = masterParts[index];
+    if (source && typeof source.strokeWeight === "number" && Array.isArray(source.strokes) && source.strokes.length > 0) {
+      part.strokeWeight = source.strokeWeight * factor;
+    }
+  });
+  return instance;
+};
 const C = PLAN.component;
 const D = C.desktopTopBar;
 const page =
@@ -111,7 +129,7 @@ const makeControl = (name, master, iconSize, size) => {
   control.fills = [];
   const icon = master.createInstance();
   icon.name = "icon";
-  icon.resize(iconSize, iconSize);
+  fitLineIcon(icon, iconSize);
   icon.x = (size - iconSize) / 2;
   icon.y = (size - iconSize) / 2;
   control.appendChild(icon);

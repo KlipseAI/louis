@@ -1,0 +1,469 @@
+{
+  "$schema": "./_schema.json",
+  "area": "nodecanvas",
+  "mode": "session",
+  "authoredAgainst": "76b6cf154ab2",
+  "description": "노드캔버스 편집기(/nodecanvas?project=)의 상호작용 · 응답 · 시드로만 서는 상태. 설계서 4-7절 표가 출발점이고 통합 앵커 76b6cf15 코드로 확인했다. 시드가 필요한 레시피는 새 프로젝트 id 를 열고(scripts/lib/state-seeds/nodecanvas.mjs — 캔버스 하나에 노드 3개 이하), 시드가 필요 없는 레시피는 기준 화면의 문서(fixture-seeds.mjs canvasDocument: seed-text → seed-image → seed-video)를 그대로 쓴다. 설계서 표의 pricing(PricingModal)은 앵커에 여는 길이 없어 넣지 않았다 — 유일한 진입점인 모델 메뉴의 가격($) 단추가 주석 처리돼 있다(VideoModelMenu.tsx:491). IgAreaChartBlock 도 넣지 않았다 — 분석 모달이 그리는 YoutubeVideoAnalyticsView 는 그 정의를 쓰지 않는 다른 그림이다.",
+  "recipes": [
+    {
+      "id": "/nodecanvas?project= nodes.publish",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0101",
+      "description": "영상(결과 있음) → 유튜브(예약 업로드, 업로드 전 · 채널 연결됨) · 인스타그램(계정 연결 전) 게시 노드 둘.",
+      "contentNote": "문구는 제품 랜딩 쇼케이스 문서의 영어판 데모 값(제목 · 설명 · 태그 · 채널 Klipse Studio · 예약 19:00)이고, 예약 날짜는 쇼케이스처럼 clock 의 다음 날(2026-01-16)이다. 영상은 제품 public 의 쇼케이스 클립(같은 출처)이다. 인스타그램은 연결을 가로채지 않아 제품 기본(연결 전)이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx#YoutubeNode",
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/InstagramNode.tsx#InstagramNode"
+      ],
+      "cite": [
+        { "path": "apps/web/app/api/projects/[projectId]/route.ts", "line": 177, "expect": ".eq(\"id\", projectId)" },
+        { "path": "apps/web/app/api/canvas/[projectId]/route.ts", "line": 303, "expect": ".select(\"id, document, updated_at\")" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 1569, "expect": "const youtubeOutVisualReady = videoOutputsReady({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6936, "expect": "sourceHandle: \"youtube-out\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7014, "expect": "sourceHandle: \"instagram-out\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/hooks/useCanvasPersistence.ts", "line": 111, "expect": "\"connectedChannelTitle\"," },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 122, "expect": "fetch(\"/api/auth/youtube/me\"" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 146, "expect": "result.youtubeAccount.channel_id" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 156, "expect": "fetch(\"/api/youtube/channel\"" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 171, "expect": "channelResult.channel?.title" },
+        { "path": "apps/web/app/api/auth/youtube/me/route.ts", "line": 75, "expect": "connected_at: youtubeAccount?.connected_at" },
+        { "path": "apps/web/app/api/youtube/channel/route.ts", "line": 68, "expect": "title: channel.snippet?.title" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 241, "expect": "en: \"Hydra Glow Sofa Launch Teaser\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 250, "expect": "en: \"Meet the Hydra Glow" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 421, "expect": "en: [\"HydraGlow\", \"sofa\", \"homedecor\"]" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 428, "expect": "connectedChannelTitle: \"Klipse Studio\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 432, "expect": "scheduleTime: \"19:00\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 28, "expect": "export const SHOWCASE_VIDEO_URL" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2263, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2278, "expect": "uploadButton: \"Post to Instagram\"" }
+      ],
+      "clock": "2026-01-15T03:00:00.000Z",
+      "api": [
+        { "method": "GET", "path": "/api/auth/youtube/me", "jsonFile": "data/nodecanvas/youtube-me-connected.json" },
+        { "method": "GET", "path": "/api/youtube/channel", "jsonFile": "data/nodecanvas/youtube-channel.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#publishCanvas" },
+      "steps": [
+        { "waitFor": { "text": "Klipse Studio", "exact": true }, "description": "채널 연결 응답이 노드에 반영될 때까지" }
+      ],
+      "assert": { "text": ["Klipse Studio", "Schedule upload", "Post to Instagram"], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= nodes.publish.date-popover",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0101",
+      "description": "예약 업로드 드롭다운을 열고 날짜 칸을 눌러 달력 팝오버(role=dialog, body 포털)를 연 상태.",
+      "contentNote": "nodes.publish 와 같은 시드. 달력의 「오늘」은 clock(2026-01-15), 고른 날은 2026-01-16 이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleDatePopover"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1379, "expect": "? t.scheduledUploadCheckbox" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1438, "expect": "aria-label={t.scheduleDateLabel}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1504, "expect": "ariaLabel={t.schedulePickerDateAria}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 389, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 458, "expect": "{todayLabel}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2263, "expect": "scheduledUploadCheckbox: \"Schedule upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2245, "expect": "scheduleDateLabel: \"Date\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2256, "expect": "schedulePickerDateAria: \"Choose schedule date\"" }
+      ],
+      "clock": "2026-01-15T03:00:00.000Z",
+      "api": [
+        { "method": "GET", "path": "/api/auth/youtube/me", "jsonFile": "data/nodecanvas/youtube-me-connected.json" },
+        { "method": "GET", "path": "/api/youtube/channel", "jsonFile": "data/nodecanvas/youtube-channel.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#publishCanvas" },
+      "steps": [
+        { "waitFor": { "text": "Klipse Studio", "exact": true } },
+        { "click": { "role": "button", "name": "Schedule upload", "exact": true }, "description": "예약 업로드 드롭다운(aria-haspopup=menu)" },
+        { "waitFor": { "role": "menuitemradio", "name": "Schedule upload", "exact": true } },
+        { "click": { "role": "button", "name": "Date", "exact": true } },
+        { "waitFor": { "role": "dialog", "name": "Choose schedule date" } }
+      ],
+      "assert": { "text": ["Today"], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= nodes.publish.time-popover",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0101",
+      "description": "예약 업로드 드롭다운을 열고 시각 칸을 눌러 시 · 분 스크롤 팝오버(role=dialog, body 포털)를 연 상태.",
+      "contentNote": "nodes.publish 와 같은 시드. 시각 값 19:00 은 쇼케이스 데모 값이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleTimePopover"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1468, "expect": "aria-label={t.scheduleTimeLabel}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1518, "expect": "ariaLabel={t.schedulePickerTimeAria}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 620, "expect": "role=\"dialog\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx", "line": 656, "expect": "{hourColLabel}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2249, "expect": "scheduleTimeLabel: \"Time\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2257, "expect": "schedulePickerTimeAria: \"Choose schedule time\"" }
+      ],
+      "clock": "2026-01-15T03:00:00.000Z",
+      "api": [
+        { "method": "GET", "path": "/api/auth/youtube/me", "jsonFile": "data/nodecanvas/youtube-me-connected.json" },
+        { "method": "GET", "path": "/api/youtube/channel", "jsonFile": "data/nodecanvas/youtube-channel.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#publishCanvas" },
+      "steps": [
+        { "waitFor": { "text": "Klipse Studio", "exact": true } },
+        { "click": { "role": "button", "name": "Schedule upload", "exact": true } },
+        { "waitFor": { "role": "menuitemradio", "name": "Schedule upload", "exact": true } },
+        { "click": { "role": "button", "name": "Time", "exact": true } },
+        { "waitFor": { "role": "dialog", "name": "Choose schedule time" } }
+      ],
+      "assert": { "text": ["Hour", "Min"], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= nodes.audio",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0103",
+      "description": "대본 텍스트(LLM) → TTS(음성 선택됨, 생성 전) 와 사운드(음악, 생성 전) 노드.",
+      "contentNote": "대본 · 음성(Kore (Chirp3 HD), en-US)은 쇼케이스 데모 값이다. 같은 출처 오디오 파일이 제품에 없어 두 노드 모두 생성 전 상태다. 사운드 프롬프트 한 줄만 자리표시다. 음성 목록 응답은 미리듣기 URL(previewUrl, 스토리지 서빙 주소)을 뺐다 — 소비 코드가 선택 칸으로 읽는다(TtsNode.tsx:711–715).",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx#TtsNode",
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx#BgmNode"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 708, "expect": "fetch(`/api/tts/voices?language=" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 710, "expect": "if (json.ok && json.data?.voices)" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 814, "expect": "fetchVoices(data.language ?? \"ko-KR\")" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1251, "expect": "? data.voiceName || tTts.voiceLoadingLabel" },
+        { "path": "apps/web/app/api/tts/voices/route.ts", "line": 45, "expect": "return NextResponse.json({ ok: true, data: { voices: voicesWithPreview } });" },
+        { "path": "apps/web/app/lib/providers/tts/google/index.ts", "line": 95, "expect": "name: formatVoiceName(v.name)," },
+        { "path": "apps/web/app/lib/providers/tts/types.ts", "line": 6, "expect": "export interface TtsVoice" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx", "line": 1082, "expect": "id=\"text\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6456, "expect": "provider: \"elevenlabs\"," },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 385, "expect": "en: \"en-US-Chirp3-HD-Kore\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 400, "expect": "voiceName: \"Kore (Chirp3 HD)\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 143, "expect": "const SCRIPT_INPUT_EN" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 145, "expect": "const SCRIPT_OUTPUT_EN" }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/tts/voices", "query": { "language": "en-US" }, "jsonFile": "data/nodecanvas/tts-voices-en-us.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#audioCanvas" },
+      "steps": [
+        { "waitFor": { "text": "Kore (Chirp3 HD)", "exact": true } }
+      ],
+      "assert": { "text": ["Kore (Chirp3 HD)", "Sound"], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= nodes.section-edit",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0104",
+      "description": "섹션 프레임(자식 = 빈 편집 노드) + 6줄을 넘는 프롬프트의 이미지 노드(프롬프트 리사이즈 핸들 role=separator 가 선다).",
+      "contentNote": "섹션 이름 「Section 01」은 제품 기본 이름 규칙, 크기 880×560 은 기본값, 색은 프리셋 파랑이다. 이미지 프롬프트는 쇼케이스 텍스트 노드 결과(5문단)를 그대로 썼다. 편집 노드 자식의 자리(240, 64)만 지은 값이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx#SectionNode",
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx#EditNode",
+        "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx#NodePromptResizeHandle"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx", "line": 197, "expect": "const label = sectionName.trim().length ? sectionName : t.addSectionTitle;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx", "line": 23, "expect": "\"rgba(59, 130, 246, 0.16)\", // blue" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/sectionHelpers.ts", "line": 17, "expect": "return `Section ${String(max + 1).padStart(2, \"0\")}`;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/constants.ts", "line": 19, "expect": "export const SECTION_DEFAULT_WIDTH = 880;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/constants.ts", "line": 20, "expect": "export const SECTION_DEFAULT_HEIGHT = 560;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 6389, "expect": "data: { width, height, name: nextSectionName(nodesRef.current) }," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/EditNode.tsx", "line": 1086, "expect": "{hasSources ? tEdit.sourceNotReady : tEdit.noSourceVideos}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx", "line": 1980, "expect": "promptResize.showHandle" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx", "line": 73, "expect": "role=\"separator\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 92, "expect": "const TEXT_OUTPUT_EN" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2194, "expect": "noSourceVideos: \"No videos connected." }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#sectionEditCanvas" },
+      "steps": [
+        { "waitFor": { "role": "separator", "within": { "css": ".react-flow__node[data-id=\"nc-section-image\"]" } }, "state": "attached", "description": "6줄을 넘는 프롬프트라 핸들이 섰다(usePromptResize showHandle)" }
+      ],
+      "assert": { "text": ["Section 01", "No videos connected. Connect completed video nodes to edit."] }
+    },
+    {
+      "id": "/nodecanvas?project= analysis",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0102",
+      "description": "업로드를 마친 유튜브 노드에서 「Analyze」를 눌러 연 분석 모달(유튜브 갈래, 개요 탭 — KPI 카드와 스파크라인).",
+      "contentNote": "영상 제목 · 설명 · 태그 · 채널은 쇼케이스 데모 값, 영상 id 는 「Placeholder」다. 지표(조회 1240 · 5일 시계열 · 트래픽 3 · 지역 3 · 기기 2 · 연령 2 · 시청 지속 5점)는 지은 개수이고, 라벨은 제품 라우트의 사전값(getTrafficSourceLabel · getCountryLabel · getDeviceTypeLabel)이다. 업로드 시각 2026-01-10T03:00Z, clock 2026-01-15T03:00Z.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx#NodeCanvasAnalysisModal",
+        "apps/web/components/scenes/archive/YoutubeVideoAnalyticsView.tsx#YoutubeVideoAnalyticsView"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 818, "expect": "const uploadDone = youtubeUploadDone({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx", "line": 1616, "expect": "idleLabel={t.analyzeButton}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7746, "expect": "fetch(\"/api/youtube/videos/check\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7789, "expect": "if (!hasCurrentYoutubeIdentity || channelMismatch) return;" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7799, "expect": "platform: \"youtube\"," },
+        { "path": "apps/web/app/api/youtube/videos/check/route.ts", "line": 78, "expect": "return NextResponse.json({ ok: true, existing, deleted });" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 477, "expect": "`/api/youtube/analytics/video/header?videoId=" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 536, "expect": "`/api/youtube/analytics/video?${params.toString()}`" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 568, "expect": "`/api/youtube/analytics/video/retention?${params.toString()}`" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/NodeCanvasAnalysisModal.tsx", "line": 722, "expect": "<YoutubeVideoAnalyticsView" },
+        { "path": "apps/web/components/scenes/archive/types.ts", "line": 163, "expect": "export interface VideoHeaderData" },
+        { "path": "apps/web/components/scenes/archive/types.ts", "line": 254, "expect": "export interface VideoAnalyticsApiResponse" },
+        { "path": "apps/web/components/scenes/archive/types.ts", "line": 285, "expect": "export interface RetentionItem" },
+        { "path": "apps/web/components/scenes/archive/utils.ts", "line": 38, "expect": "daily: json.timeseries?.daily ?? []," },
+        { "path": "apps/web/app/api/youtube/analytics/video/header/route.ts", "line": 46, "expect": "privacyStatus: video.status?.privacyStatus ?? null," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 611, "expect": "return NextResponse.json({" },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 376, "expect": "subscribersLost: toNumber(overviewRow.subscribersLost)," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 659, "expect": "operatingSystem: operatingSystemItems," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 517, "expect": "? Number(((item.views / geographyTotalViews) * 100).toFixed(2))" },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 100, "expect": "SHORTS: \"쇼츠 피드\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 102, "expect": "SUBSCRIBER: \"구독 피드\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 105, "expect": "YT_SEARCH: \"YouTube 검색\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 116, "expect": "KR: \"대한민국\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 117, "expect": "US: \"미국\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 118, "expect": "JP: \"일본\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 143, "expect": "MOBILE: \"모바일\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 144, "expect": "DESKTOP: \"데스크톱\"," },
+        { "path": "apps/web/app/api/youtube/analytics/video/route.ts", "line": 604, "expect": "ageGroup: ag.replace(\"age\", \"\")," },
+        { "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts", "line": 59, "expect": "totalSegmentImpressions: toNumber(parsed.totalSegmentImpressions)," },
+        { "path": "apps/web/app/api/youtube/analytics/video/retention/route.ts", "line": 72, "expect": "retention: items.length > 0 ? \"ok\" : \"empty\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3674, "expect": "avgViewDuration: \"Avg. view duration\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 3672, "expect": "subscribersGained: \"Subscribers gained\"" }
+      ],
+      "clock": "2026-01-15T03:00:00.000Z",
+      "api": [
+        { "method": "GET", "path": "/api/auth/youtube/me", "jsonFile": "data/nodecanvas/youtube-me-connected.json" },
+        { "method": "GET", "path": "/api/youtube/channel", "jsonFile": "data/nodecanvas/youtube-channel.json" },
+        { "method": "POST", "path": "/api/youtube/videos/check", "jsonFile": "data/nodecanvas/youtube-videos-check.json" },
+        { "method": "GET", "path": "/api/youtube/analytics/video/header", "query": { "videoId": "Placeholder" }, "jsonFile": "data/nodecanvas/youtube-video-header.json" },
+        { "method": "GET", "path": "/api/youtube/analytics/video", "query": { "videoId": "Placeholder" }, "jsonFile": "data/nodecanvas/youtube-video-analytics.json" },
+        { "method": "GET", "path": "/api/youtube/analytics/video/retention", "query": { "videoId": "Placeholder" }, "jsonFile": "data/nodecanvas/youtube-video-retention.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#analysisCanvas" },
+      "steps": [
+        {
+          "click": { "role": "button", "name": "Analyze" },
+          "expectResponse": { "method": "GET", "path": "/api/youtube/analytics/video" },
+          "description": "채널 연결이 서야 활성 — click 이 활성을 기다린다. 이름은 부분 일치(InlineLoadingLabel 이 숨은 바쁨 라벨을 함께 그릴 수 있다)"
+        },
+        { "waitFor": { "text": "Avg. view duration", "exact": true } }
+      ],
+      "assert": { "text": ["Avg. view duration", "Subscribers gained", "Hydra Glow Sofa Launch Teaser"], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= video-model-menu",
+      "base": "/nodecanvas?project=",
+      "description": "기준 문서의 영상 노드에서 모델 트리거 「Seedance 2.0 Mini」를 눌러 연 모델 선택 팝오버(검색 · 필터 칩 · 옵션 목록, 노드 안 MetaDropdownPanel).",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx#VideoModelMenu"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx", "line": 2294, "expect": "<span className={META_MODEL_LABEL}>{model.label}</span>" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/types.ts", "line": 223, "expect": "label: \"Seedance 2.0 Mini\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx", "line": 485, "expect": "placeholder={copy.searchPlaceholder}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1916, "expect": "searchPlaceholder: \"Search all models.\"" }
+      ],
+      "steps": [
+        { "click": { "role": "button", "name": "Seedance 2.0 Mini", "exact": true } },
+        { "waitFor": { "placeholder": "Search all models." } }
+      ],
+      "assert": { "text": ["Kling", "Veo"] }
+    },
+    {
+      "id": "/nodecanvas?project= image-edit.crop",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
+      "description": "이미지 노드 우클릭 메뉴 「Edit image」로 연 이미지 편집 모달(ImageEditModal = CropModalInner stickerEnabled, 크롭 탭 · 비율 툴바 · 크롭 영역).",
+      "contentNote": "이미지는 쇼케이스 이미지(제품 public 같은 출처, 1088×1920)이고 프롬프트도 쇼케이스 값이다. **진입이 우클릭(contextmenu) 하나뿐**이다(NodeContextMenu.tsx:286, 다른 길 없음). 단계 어휘에 우클릭이 없어 Shift+F10(초점 요소에 contextmenu)으로 대신했다 — macOS Chromium 은 이 키로 contextmenu 를 만들지 않을 수 있다(미확인). 기반에 click 의 button: right 가 생기면 그것으로 바꾼다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#ImageEditModal",
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx#CropModalInner"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11872, "expect": "onNodeContextMenu={staticInSection ? undefined : handleNodeContextMenu}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 7886, "expect": "const handleRequestImageEdit = useCallback" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 286, "expect": "onEditImage?.(menu.node);" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 293, "expect": "{messages.create.nodeCanvas.nodeContextMenu.editImage}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 961, "expect": "export function ImageEditModal({" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 798, "expect": "{tEdit.tabSticker}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1809, "expect": "editImage: \"Edit image\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1784, "expect": "tabSticker: \"Sticker\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 26, "expect": "export const SHOWCASE_IMAGE_URL" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 113, "expect": "const IMAGE_PROMPT_EN" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#imageEditCanvas" },
+      "steps": [
+        { "press": "Shift+F10", "on": { "css": ".react-flow__node[data-id=\"nc-image-edit\"]" }, "description": "노드에 초점을 두고 키보드 contextmenu — 우클릭 대신" },
+        { "waitFor": { "role": "button", "name": "Edit image", "exact": true } },
+        { "click": { "role": "button", "name": "Edit image", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Sticker", "exact": true } }
+      ],
+      "assert": { "text": ["Edit image", "Crop", "Sticker"] }
+    },
+    {
+      "id": "/nodecanvas?project= image-edit.sticker",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
+      "description": "이미지 편집 모달의 스티커 탭에서 스티커(Grid) 하나를 얹어 고른 상태 — StickerCanvas(선택 핸들) + StickerPalette(회전 · 불투명도 칸).",
+      "contentNote": "image-edit.crop 과 같은 시드 · 같은 진입(Shift+F10 대체, 그 레시피의 contentNote 참고). 스티커는 제품의 유일한 에셋(grid)이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx#StickerPalette",
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerCanvas.tsx#StickerCanvas"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/NodeContextMenu.tsx", "line": 286, "expect": "onEditImage?.(menu.node);" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 798, "expect": "{tEdit.tabSticker}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 174, "expect": "<span className={FIELD_LABEL}>{t.rotation}</span>" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/imageEdit/stickerAssets.ts", "line": 26, "expect": "labelKey: \"grid\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1787, "expect": "paletteTitle: \"Stickers\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1790, "expect": "rotation: \"Rotation\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1805, "expect": "grid: \"Grid\"" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#imageEditCanvas" },
+      "steps": [
+        { "press": "Shift+F10", "on": { "css": ".react-flow__node[data-id=\"nc-image-edit\"]" } },
+        { "waitFor": { "role": "button", "name": "Edit image", "exact": true } },
+        { "click": { "role": "button", "name": "Edit image", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Sticker", "exact": true } },
+        { "click": { "role": "button", "name": "Sticker", "exact": true } },
+        { "waitFor": { "text": "Stickers", "exact": true }, "description": "미리보기가 준비돼야 팔레트가 선다(CropModal.tsx 「Preparing preview...」 다음)" },
+        { "click": { "role": "button", "name": "Grid", "exact": true } },
+        { "waitFor": { "text": "Rotation", "exact": true } }
+      ],
+      "assert": { "text": ["Stickers", "Rotation", "Opacity"] }
+    },
+    {
+      "id": "/nodecanvas?project= image-edit.sticker.examples",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0105",
+      "description": "스티커 탭에서 「Usage examples」를 눌러 모달 안을 덮는 사용 예시 패널(role=dialog)을 연 상태.",
+      "contentNote": "image-edit.crop 과 같은 시드 · 같은 진입(Shift+F10 대체). 예시 그림 다섯 장은 제품 public 의 같은 출처 파일이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx#ExampleGallery"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/CropModal.tsx", "line": 883, "expect": "{stickerEnabled && examplesOpen && (" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/StickerPalette.tsx", "line": 156, "expect": "{t.examplesButton}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/imageEditParts/ExampleGallery.tsx", "line": 81, "expect": "aria-label={t.examplesClose}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1798, "expect": "examplesButton: \"Usage examples\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1800, "expect": "examplesClose: \"Close examples\"" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#imageEditCanvas" },
+      "steps": [
+        { "press": "Shift+F10", "on": { "css": ".react-flow__node[data-id=\"nc-image-edit\"]" } },
+        { "waitFor": { "role": "button", "name": "Edit image", "exact": true } },
+        { "click": { "role": "button", "name": "Edit image", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Sticker", "exact": true } },
+        { "click": { "role": "button", "name": "Sticker", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Usage examples", "exact": true } },
+        { "click": { "role": "button", "name": "Usage examples", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Close examples", "exact": true } }
+      ],
+      "assert": { "text": ["Usage examples", "Examples made with Klipse's own character. Place the sticker, then adjust its size, angle and opacity."] }
+    },
+    {
+      "id": "/nodecanvas?project= prompt-variants",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0106",
+      "description": "텍스트(LLM) 노드에서 생성 → 변형 두 개를 받고, 변형 카드를 눌러 연 프롬프트 비교 모달(880px, body 포털 role=dialog).",
+      "contentNote": "요청문은 쇼케이스 텍스트 노드 입력(영어판)이다. 생성 응답의 변형 두 개(스타일 이름 · 프롬프트)는 자리표시이고, model · reasoning 은 라우트 기본값(gemini-3.5-flash-lite · minimal), charCount 는 첫 변형 길이다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx#PromptVariantCompareModal"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 975, "expect": "const res = await fetch(\"/api/prompt/assist\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 992, "expect": "const list: PromptVariant[] = Array.isArray(json.data?.variants)" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1007, "expect": "if (list.length >= 2) {" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 683, "expect": "onClick={() => onOpenCompare?.()}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1108, "expect": ": llmPromptGenerateLabel" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx", "line": 1319, "expect": "open={compareOpen && variants.length > 0}" },
+        { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 536, "expect": "variants," },
+        { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 539, "expect": "charCount: variants[0]!.prompt.length," },
+        { "path": "apps/web/app/api/prompt/assist/route.ts", "line": 44, "expect": "if (!value) return \"gemini-3.5-flash-lite\";" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx", "line": 190, "expect": "aria-labelledby=\"prompt-variant-compare-title\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2039, "expect": "llmPromptGenerateImage: \"Generate AI image prompt\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2051, "expect": "llmVariantPick: \"Tap to compare and choose\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2053, "expect": "llmVariantCompareTitle: \"Compare prompts\"" },
+        { "path": "apps/web/components/landing/sections/nodeShowcase.ts", "line": 90, "expect": "const TEXT_INPUT_EN" }
+      ],
+      "api": [
+        { "method": "POST", "path": "/api/prompt/assist", "jsonFile": "data/nodecanvas/prompt-assist-variants.json" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#promptVariantsCanvas" },
+      "steps": [
+        {
+          "click": { "role": "button", "name": "Generate AI image prompt", "exact": true },
+          "expectResponse": { "method": "POST", "path": "/api/prompt/assist" }
+        },
+        { "waitFor": { "text": "Tap to compare and choose", "exact": true } },
+        { "click": { "text": "Placeholder style A", "exact": true } },
+        { "waitFor": { "role": "dialog", "name": "Compare prompts" } }
+      ],
+      "assert": { "text": ["Compare prompts", "Placeholder prompt variant B."], "apiHit": "all" }
+    },
+    {
+      "id": "/nodecanvas?project= edge-hover",
+      "base": "/nodecanvas?project=",
+      "description": "기준 문서의 연결선(seed-text → seed-image)에 포인터를 올려 원형 삭제 단추가 보이는 상태. 포인터를 그대로 둔다.",
+      "contentNote": "호버 대상은 44px 투명 호버 경로(DeletableEdge.tsx:139–148)다. 삭제 단추 자체는 숨김일 때 pointer-events:none 이라 Playwright hover 가 닿지 않는다. 경로 상자의 가운데가 곡선 위에 오는지(두 핸들 높이가 다르면 S자 곡선의 중점)는 측정으로 확인해야 한다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx#DeletableEdge"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 147, "expect": "onPointerEnter={() => setHovered(true)}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 25, "expect": "const LABEL_WRAP_VISIBLE = \"opacity-100 pointer-events-auto\";" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/edges/DeletableEdge.tsx", "line": 165, "expect": "aria-label={messages.create.nodeCanvas.edgeDeleteAria}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1824, "expect": "edgeDeleteAria: \"Delete connection\"" }
+      ],
+      "steps": [
+        { "hover": { "css": ".react-flow__edge[data-id=\"edge-seed-text-seed-image-text\"] > path.cursor-pointer" } },
+        { "waitFor": { "css": ".react-flow__edgelabel-renderer .opacity-100 > button[aria-label=\"Delete connection\"]" } }
+      ],
+      "pointer": "keep",
+      "assert": {
+        "css": [
+          { "selector": ".react-flow__edgelabel-renderer .opacity-100 > button[aria-label=\"Delete connection\"]", "property": "pointer-events", "equals": "auto" }
+        ]
+      }
+    },
+    {
+      "id": "/nodecanvas?project= empty",
+      "base": "/nodecanvas?project=",
+      "url": "/nodecanvas?project=00000000-0000-4000-8000-0000000c0107",
+      "description": "문서가 아직 없는 새 프로젝트(노드 0개) — 캔버스 가운데 빈 상태 시작 안내(h2 + 버튼 둘).",
+      "contentNote": "캔버스 세션 행을 넣지 않았다 — 제품은 세션이 없으면 빈 캔버스로 연다(실제 첫 진입과 같다). 글자는 모두 제품 문구다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx#CanvasEmptyState"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/CanvasEmptyState.tsx", "line": 343, "expect": "{t.heading}" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 12004, "expect": "{emptyStateShown ? (" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2404, "expect": "heading: \"Start with your first node\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2405, "expect": "imageLabel: \"Create image\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 2406, "expect": "videoLabel: \"Create video\"" }
+      ],
+      "supabase": { "module": "scripts/lib/state-seeds/nodecanvas.mjs#emptyCanvas" },
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Start with your first node" } }
+      ],
+      "assert": { "text": ["Start with your first node", "Create image", "Create video"] }
+    },
+    {
+      "id": "/nodecanvas?project= drag-snap",
+      "base": "/nodecanvas?project=",
+      "contexts": ["desktop-1920x1080"],
+      "description": "(선택) 기준 문서의 영상 노드를 가로로 끄는 도중 — 위 가장자리가 다른 노드와 맞아 스마트 가이드 선(SmartGuideOverlay)이 선 순간. 버튼을 누른 채 잰다.",
+      "contentNote": "설계서 4-7절은 이 상태를 토큰 결정(#ff2d55 선 · guideGlow)으로 대신하기를 권한다. 측정할 때만 쓴다. 세 노드의 y 가 모두 0 이라 가로로만 끌면 위 가장자리 정렬 가이드가 선다(스냅 반경 6px). 모바일은 배율이 작아 끄는 거리 해석이 달라 데스크톱만 잰다.",
+      "surfaces": [
+        "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx#SmartGuideOverlay"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/index.tsx", "line": 11981, "expect": "<SmartGuideOverlay guides={activeGuides} />" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/components/SmartGuideOverlay.tsx", "line": 31, "expect": "<filter id=\"guideGlow\"" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/useSmartGuideSnapping.ts", "line": 21, "expect": "const DEFAULT_SNAP_THRESHOLD = 6;" }
+      ],
+      "steps": [
+        { "drag": { "css": ".react-flow__node[data-id=\"seed-video\"]" }, "by": { "dx": 60, "dy": 0 }, "hold": true },
+        { "waitFor": { "css": "#guideGlow" }, "state": "attached" }
+      ],
+      "pointer": "keep",
+      "assert": {
+        "css": [
+          { "selector": "#guideGlow > feDropShadow", "property": "flood-color", "equals": "rgb(255, 45, 85)" }
+        ]
+      }
+    }
+  ]
+}

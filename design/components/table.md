@@ -13,7 +13,8 @@ summary: 여러 항목을 행과 열로 늘어놓고 값끼리 비교하게 합�
 콘텐츠 표 `ContentTable.tsx` 이며 CSS 파일 상단이 그렇게 적어 두었다
 ([table.css:3-5](../../packages/css/src/component/table.css)). 나머지 넷은 각자 다른 표다 —
 헤어라인·반경·`z-[1]` 까지 손으로 재현한 랜딩 스냅샷 1벌, 치수가 맞지 않아 **명시적으로 채택을
-거부한** 가이드 모델 사양 표 1벌(`ModelSpecPanel.tsx:42`), 그리고 아직 검토되지 않은 관리자 캡션
+거부한** 가이드 모델 사양 표 1벌(`ModelSpecPanel.tsx@a4125565:42` — 통합 판 `76b6cf15` 에서는 가이드 패널째
+걷혔다, `dbf12277`), 그리고 아직 검토되지 않은 관리자 캡션
 템플릿 표와 요금제 모달 표 2벌. **여섯 중 거부 기록이 있는 것은 그 하나뿐이다** — 관리자 사용자
 목록(`JobMonitor.tsx:62`)도 같은 거부를 적었지만 그것은 `<table>` 이 아니라 div 스택이라 여섯에
 들어 있지 않다.
@@ -54,7 +55,8 @@ Known deviations 첫 항목이 그 실측이다.
   스택이라 정본이 요구하는 thead/tbody/tr/td 골격이 없다"고 스스로 적어 두었다.
 - **열 폭을 데이터가 정해야 할 때.** 이 레시피(기본 조판)는 `table-layout: fixed` 다. 폭을 주지 않은
   열이 균등 분할되므로 `nowrap` 셀이 넘친다. 가이드의 모델 사양 표
-  (`components/scenes/create/guide/ModelSpecPanel.tsx:42-51`)가 정확히 그 이유로 채택을 거부했다 —
+  (`components/scenes/create/guide/ModelSpecPanel.tsx@a4125565:42-51`)가 정확히 그 이유로 채택을 거부했다(그 표는 통합 판에서
+  가이드 패널째 걷혔다) —
   8열에 폭을 주지 않고 내용 폭 + `min-w-[860px]` 으로 가로 스크롤하는 표다. 열 폭 정책은 소비처의
   것이므로 그 표도 래퍼에서 `table-layout: auto` 를 주면 이 레시피를 물 수 있다 — 문서가 그렇게 한다(위 문단).
 - **고정 헤더가 필요할 때.** sticky 헤더 축이 없다. 아래 Known deviations.
@@ -138,7 +140,7 @@ deviations.
 | 정본 `ContentTable.tsx:72,93` | 8/12 | 10/12 |
 | `InstagramAnalyticsScene.tsx:586,605` | 8/12 | 10/12 |
 | 랜딩 스냅샷 `StaticAnalyticsDemo.tsx@a3ed8e03:508-509,531-532` — **없어졌다**(↓) | 8/12 | 10/12 |
-| 가이드 모델 사양 `ModelSpecPanel.tsx:52-53` | 8/12 | 8/12 |
+| 가이드 모델 사양 `ModelSpecPanel.tsx@a4125565:52-53` — **없어졌다**(가이드 패널 철거 `dbf12277`) | 8/12 | 8/12 |
 | 관리자 캡션 템플릿 `CaptionTemplateManagement.tsx@ae8fd627:45,54` — **`louis-table` 로 넘어갔다**(↓) | 10/14 | 10/14 |
 | 요금제 모달 `PricingModal.tsx:90,95` | 5/8 | 6/8 |
 

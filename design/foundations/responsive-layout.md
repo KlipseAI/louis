@@ -68,17 +68,19 @@ compact 구조 또는 명시적인 지원 범위 안내로 전환한다. 문서 
 중첩 그리드가 하나 더 생겨 `place-items`가 두 번 적용되고 카드가 이중으로 중앙 정렬된다.
 **둘 다 틀린다.**
 
-인증 표면 3벌(로그인·회원가입·상태 카드)이 720px 경계에서 이 규칙을 그대로 쓴다.
+인증 표면이 720px 경계에서 이 규칙을 그대로 쓴다. 통합 판 `76b6cf15` 에서 페이지 그리드와 브랜드
+패널은 라우트 그룹 `(auth-brand)` 의 레이아웃 한 벌로 모였고(일곱 화면), 폼 패널(래퍼)은 로그인 ·
+회원가입 · 상태 카드 세 벌이 각자 갖는다.
 
 | 요소          | `≤719px`                                                                         | `≥720px`                                                                                               |
 | ------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| 페이지 그리드 | 1열 `grid` · `place-items: center` · 패딩 16px(로그인·회원가입) / 20px(상태 카드) | `grid-template-columns: minmax(0,1fr) minmax(0,1fr)` · `place-items: stretch` · `gap: 20px` · 패딩 20px |
+| 페이지 그리드 | 1열 `grid` · `place-items: center` · 패딩 16px | `grid-template-columns: minmax(0,1fr) minmax(0,1fr)` · `place-items: stretch` · `gap: 20px` · 패딩 20px |
 | 브랜드 패널   | `display: none`                                                                    | `display: flex`                                                                                            |
 | 폼 패널(래퍼) | **`display: contents`**                                                            | `display: grid` · `place-items: center` · `min-width: 0` · `overflow-y: auto`                            |
 
-근거: `AuthStatusCard.tsx:18-21`·`:26`·`:54-56` · `login/page.tsx:22-27`·`:33`·`:70-74` ·
-`app/signup/page.tsx:22-26`·`:31`·`:59-61`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라
-용해해도 안전하다 — `AuthStatusCard.tsx:120`.
+근거: 페이지 그리드는 `(auth-brand)/layout.tsx:21-28` 의 `PAGE` 한 벌, 브랜드 패널 `AuthBrandPanel.tsx:18`·`:20`,
+폼 패널 `AuthStatusCard.tsx:18-20` · `login/page.tsx:22-26` · `(auth-brand)/signup/page.tsx:22-27`. 폼 패널 래퍼가 `role`도 `aria-*`도 없는 평범한 `<div>`라 용해해도 안전하다 —
+`AuthStatusCard.tsx:72`.
 
 작성 형태는 두 가지가 병존한다. 기본값을 `contents`로 두고 `min-width: 720px` 한 분기만 얹는
 형태와, `max-width: 719px` / `min-width: 720px` 상호배타 두 분기로 가르는 형태다. 계산 결과가
@@ -127,35 +129,31 @@ container 기반이어야 하지만 기준 viewport와 기본 shell 상태에서
 
 위 표는 App Shell 안쪽, 즉 **로그인 후** 제품 화면의 결과다. 인증 표면은 셸 밖에 있어 같은
 경계값에서 다른 일을 한다 — 719/720은 셸의 compact 경계가 아니라 **자기 자신의 2열↔1열
-경계**이고, 1200은 그리드 열 수와 무관하게 **슬로건 타입스케일 한 단계 승급**만 뜻한다.
-경계값이 같으니 행동도 같다고 읽으면 틀린다.
+경계**이고, 그 밖의 폭 변화는 슬로건 글자 크기 계단뿐인데 그 계단은 auth 표면이 아니라 슬로건의
+타입 클래스(`type-heading-48-semibold`)가 갖는다. 경계값이 같으니 행동도 같다고 읽으면 틀린다.
 
 | 기준 viewport 구간 | Auth surface outcome                                                                                                                                       |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `≤719px`           | 브랜드 패널 `display: none` · 폼 패널 `display: contents` · 페이지 1열 `place-items: center` · 페이지 패딩 16px(로그인·회원가입) / 20px(상태 카드) · 카드 안 로고 링크 노출 |
-| `720–959px`        | 브랜드/폼 2열 `minmax(0,1fr) minmax(0,1fr)` · `gap: 20px` · `place-items: stretch` · 페이지 패딩 20px · 카드 안 로고 링크 숨김                            |
-| `960–1199px`       | `720–959px`와 같다. 셸이 persistent navigation으로 바뀌는 것과 무관하다                                                                                    |
-| `1200–1799px`      | 2열 유지. 슬로건이 `heading-36-medium` → `heading-48`로 승급한다 — 선언 중 실제로 달라지는 값은 size뿐이다                                                |
+| `≤719px`           | 브랜드 패널 `display: none` · 폼 패널 `display: contents` · 페이지 1열 `place-items: center` · 페이지 패딩 16px · 카드 안 로고 링크 노출 |
+| `720–959px`        | 브랜드/폼 2열 `minmax(0,1fr) minmax(0,1fr)` · `gap: 20px` · `place-items: stretch` · 페이지 패딩 20px · 카드 안 로고 링크 숨김 · 슬로건 32px(~767) → 36px(768~) |
+| `960–1199px`       | 2열 유지. 슬로건이 1024px에서 36px → 48px로 커진다 — 타입 클래스의 계단이고, 셸이 persistent navigation으로 바뀌는 것과 무관하다 |
+| `1200–1799px`      | `1024px` 이후와 같다. 예전의 1200 슬로건 승급은 통합 판에서 걷혔다                                                                                          |
 | `≥1800px`          | `1200–1799px`와 같다. grid profile 5열에 대응하는 auth 변화는 없다                                                                                         |
 
 카드 안 로고 링크는 `≥720px`에서 브랜드 패널이 로고를 대신 들기 때문에 숨긴다. 이 대체 관계를
-모르고 로고를 항상 노출하면 데스크톱에서 브랜드 마크가 두 번 나온다. 1200 경계를 그리드 열
-수만의 경계로 읽으면 슬로건이 `heading-36`에 고정되어 넓은 화면에서 브랜드 패널이 비어 보인다.
+모르고 로고를 항상 노출하면 데스크톱에서 브랜드 마크가 두 번 나온다.
 
-승급은 `font-size`·`line-height`·`letter-spacing` 세 선언을 함께 다시 내보내지만, 두 단계의
-line-height(`1.35`)와 letter-spacing(`-0.02em`)이 같은 값이라 **선언값이 실제로 달라지는 것은
-size(36px → 48px)뿐이다.** 나머지 둘은 상대 단위라 계산된 px만 size를 따라 커진다. 「셋 다
-바뀐다」로 읽고 line-height·letter-spacing을 별도 토큰 변화로 취급하면 안 된다. 타입스케일 토큰
-`globals.css:292-294`(heading-48) · `:302-304`(heading-36), 단일 유틸리티가 세 프로퍼티를 함께
-내보내는 근거는 `tailwind.css:185-187`.
+**슬로건 크기는 auth 표면의 분기가 아니다.** 슬로건은 `type-heading-48-semibold` 하나를 쓰고, 크기
+계단은 그 타입 클래스가 갖는다 — 기본 48px, `≤1023px` 36px, `≤767px` 32px, `≤479px` 28px
+(`globals.css:369-371` · `:844` · `:859` · `:874`). 패널이 `≤719px`에서 숨으므로 28px 단은 보이지 않는다.
+예전의 1200 승급(`heading-36-medium` → `heading-48`)은 통합 판에서 걷혔다 — 자기 계단을 가진
+클래스 위에 계단을 하나 더 얹으면 서로를 덮기 때문이다. 계단마다 바뀌는 선언은 size뿐이다 —
+letter-spacing은 네 단 모두 `-0.02em`, line-height는 `1.35`라 계산된 px만 size를 따라간다.
 
-근거(배포본 a9ead58b): 2열 분할 `AuthStatusCard.tsx:19` · `login/page.tsx:25` ·
-`app/signup/page.tsx:24`. 브랜드 패널 소거 `AuthStatusCard.tsx:26` · `login/page.tsx:33` ·
-`app/signup/page.tsx:31`. 1열 축약 `AuthStatusCard.tsx:54` · `login/page.tsx:70` ·
-`app/signup/page.tsx:59`. 기본 슬로건 스케일 `AuthStatusCard.tsx:115`, 1200 승급
-`AuthStatusCard.tsx:47-49` · `app/signup/page.tsx:52-54` · `login/page.tsx:65`. 페이지 패딩
-`login/page.tsx:22,24` · `app/signup/page.tsx:22,23,25`. 로고 링크 숨김 `AuthStatusCard.tsx:67` ·
-`login/page.tsx:86` · `app/signup/page.tsx:71`.
+근거(통합 판 76b6cf15): 2열 분할 · 페이지 패딩은 `(auth-brand)/layout.tsx:21-28` 한 벌(일곱 화면).
+브랜드 패널 소거 `AuthBrandPanel.tsx:18`. 1열 축약 `AuthStatusCard.tsx:18` · `login/page.tsx:22` ·
+`(auth-brand)/signup/page.tsx:23`. 슬로건 `AuthBrandPanel.tsx:96`. 로고 링크 숨김 `AuthStatusCard.tsx:31` ·
+`login/page.tsx:38` · `(auth-brand)/signup/page.tsx:35`.
 
 ## Viewport height and safe area
 

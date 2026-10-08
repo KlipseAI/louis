@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "00000000-0000-4000-8000-0000ad000301",
+      "user_id": "00000000-0000-4000-8000-0000ad000311",
+      "payment_transaction_id": "00000000-0000-4000-8000-0000ad000321",
+      "token_batch_id": "00000000-0000-4000-8000-0000ad000331",
+      "reason": "Placeholder reason A",
+      "status": "pending",
+      "requested_at": "2026-01-15T07:00:00.000Z",
+      "processed_at": null,
+      "admin_note": null,
+      "user": {
+        "email": "placeholder.pending@klipse.test",
+        "username": null
+      },
+      "payment": {
+        "amount": "29900",
+        "currency": "KRW",
+        "provider_payment_id": "placeholder_payment_key_1",
+        "provider_order_id": "placeholder_order_1",
+        "paid_at": "2026-01-13T12:00:00.000Z"
+      },
+      "batch": {
+        "granted_token_amount": 3000,
+        "remaining_token_amount": 3000,
+        "source_type": "subscription_cycle"
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000ad000302",
+      "user_id": "00000000-0000-4000-8000-0000ad000312",
+      "payment_transaction_id": "00000000-0000-4000-8000-0000ad000322",
+      "token_batch_id": "00000000-0000-4000-8000-0000ad000332",
+      "reason": "Placeholder reason B",
+      "status": "completed",
+      "requested_at": "2026-01-13T12:00:00.000Z",
+      "processed_at": "2026-01-14T12:00:00.000Z",
+      "admin_note": "Placeholder note",
+      "user": {
+        "email": "placeholder.completed@klipse.test",
+        "username": null
+      },
+      "payment": {
+        "amount": "9900",
+        "currency": "KRW",
+        "provider_payment_id": "placeholder_payment_key_2",
+        "provider_order_id": "placeholder_order_2",
+        "paid_at": "2026-01-12T12:00:00.000Z"
+      },
+      "batch": {
+        "granted_token_amount": 1000,
+        "remaining_token_amount": 0,
+        "source_type": "topup"
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000ad000303",
+      "user_id": "00000000-0000-4000-8000-0000ad000313",
+      "payment_transaction_id": "00000000-0000-4000-8000-0000ad000323",
+      "token_batch_id": "00000000-0000-4000-8000-0000ad000333",
+      "reason": "Placeholder reason C",
+      "status": "rejected",
+      "requested_at": "2026-01-02T12:00:00.000Z",
+      "processed_at": "2026-01-03T12:00:00.000Z",
+      "admin_note": "Placeholder note",
+      "user": {
+        "email": "placeholder.rejected@klipse.test",
+        "username": null
+      },
+      "payment": {
+        "amount": "9900",
+        "currency": "KRW",
+        "provider_payment_id": "placeholder_payment_key_3",
+        "provider_order_id": "placeholder_order_3",
+        "paid_at": "2025-12-20T12:00:00.000Z"
+      },
+      "batch": {
+        "granted_token_amount": 1000,
+        "remaining_token_amount": 400,
+        "source_type": "topup"
+      }
+    }
+  ]
+}

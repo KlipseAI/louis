@@ -97,6 +97,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { LOCALE_READ_SNIPPET } from "./lib/figma-locale-read-snippet.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const READBACK_PATH = "figma/readback.json";
@@ -1261,6 +1262,7 @@ await page.loadAsync();
 
 const childrenOf = (node) => (node && "children" in node ? node.children : []);
 
+${LOCALE_READ_SNIPPET}
 // 이름 머리 — 「SidebarNavItem · 홈」 의 「SidebarNavItem」. 라이브 부품 이름은 머리 · 설명 꼴이다.
 const headOf = (name) => {
   const cut = name.indexOf(" · ");
@@ -1305,7 +1307,7 @@ function field(node, name, path) {
     }
     return r2(lh.value);
   }
-  const value = node[name];
+  const value = name === "characters" && node.type === "TEXT" ? charactersOf(node) : node[name];
   if (value === undefined) {
     throw new Error(
       "되읽기 실패 — 필드가 없습니다: " + path + "." + name + " (노드 type " + node.type + ")",
@@ -1355,7 +1357,7 @@ const textOf = (node) => {
   const parts = [];
   while (stack.length > 0) {
     const current = stack.pop();
-    if (current.type === "TEXT") parts.push(current.characters);
+    if (current.type === "TEXT") parts.push(charactersOf(current));
     for (const kid of childrenOf(current)) stack.push(kid);
   }
   return parts.join(" ").trim();
@@ -1474,7 +1476,7 @@ function readAxis(root, probe, axisName, spec) {
       const current = stack.pop();
       if (current.type === "TEXT") {
         for (const pattern of p.patterns) {
-          if (current.characters.indexOf(pattern) !== -1) { hits += 1; break; }
+          if (charactersOf(current).indexOf(pattern) !== -1) { hits += 1; break; }
         }
       }
       for (const kid of childrenOf(current)) stack.push(kid);
@@ -1530,12 +1532,15 @@ for (const [templateName, spec] of Object.entries(SPEC)) {
     );
   }
   const block = {};
+  if (LOCALE) LOCALE.scope = templateName;
   for (const [axisName, probe] of Object.entries(spec.axes)) {
     block[axisName] = readAxis(root, probe, templateName + "." + axisName, spec);
   }
   out[templateName] = block;
 }
-return out;
+// 묶인 글자를 읽었을 때만 결과에 바인딩 사실을 더한다(--merge-templates 가 templates 만 병합한다). 없으면 지금과 같은 모양이다.
+const localeBound = localeBoundOf();
+return localeBound ? { templates: out, localeBound } : out;
 `;
 }
 
@@ -1551,10 +1556,14 @@ async function templateExecutionCanaries() {
     return made;
   };
   const at = (y) => ({ absoluteBoundingBox: { x: 0, y, width: 10, height: 10 } });
-  const run = (roots, table) =>
+  const run = (roots, table, locale = null) =>
     new AsyncFunction("figma", templatesPluginSource(table))({
       root: { children: [{ name: TEMPLATE_PAGE, loadAsync: async () => {}, children: roots }] },
       getNodeByIdAsync: async () => null,
+      variables: {
+        getLocalVariableCollectionsAsync: async () => locale?.collections ?? [],
+        getLocalVariablesAsync: async () => locale?.variables ?? [],
+      },
     });
   const grid = (width, count) =>
     node(
@@ -1651,6 +1660,48 @@ async function templateExecutionCanaries() {
   } catch (error) {
     failures.push(`실행 canary(밴드 불일치)가 던졌습니다: ${error.message}`);
   }
+  // DS-D-0080 — 글자가 Locale 변수에 묶여 있으면 노드가 ko 로 풀려 있어도 en 값을 읽고, 읽은 변수를 따로 적는다.
+  // 컬렉션이 없거나 묶인 글자가 없으면 결과는 지금과 같은 모양이다.
+  const localeTable = {
+    copy: {
+      $frame: "Canary · locale",
+      axes: {
+        distinct: { distinctText: { under: "", named: "caption" } },
+        placeholders: { placeholders: { under: "", patterns: ["Placeholder"] } },
+      },
+    },
+  };
+  const localeCollections = [
+    { id: "C:1", name: "Klipse Locale", defaultModeId: "M:en", modes: [{ modeId: "M:en", name: "en" }, { modeId: "M:ko", name: "ko" }] },
+  ];
+  const localeVariables = [
+    { id: "V:1", name: "i18n/greet", variableCollectionId: "C:1", valuesByMode: { "M:en": "Hello Placeholder", "M:ko": "안녕 자리표시" } },
+  ];
+  const localeFrame = (characters, boundVariables) =>
+    node("FRAME", "Canary · locale", {}, [node("TEXT", "caption", { characters, ...(boundVariables ? { boundVariables } : {}) })]);
+  try {
+    const bound = localeFrame("안녕 자리표시", { characters: { type: "VARIABLE_ALIAS", id: "V:1" } });
+    const withLocale = await run([bound], localeTable, { collections: localeCollections, variables: localeVariables });
+    const boundResult = withLocale.templates?.copy;
+    if (!boundResult || boundResult.distinct !== 1 || boundResult.placeholders !== 1) {
+      failures.push(`실행 canary(Locale): 묶인 글자를 en 값으로 읽지 않았습니다 — ${JSON.stringify(withLocale)}`);
+    }
+    if (withLocale.localeBound?.variables?.copy?.["i18n/greet"] !== 2) {
+      failures.push(`실행 canary(Locale): 읽은 변수를 기록하지 않았습니다 — ${JSON.stringify(withLocale.localeBound)}`);
+    }
+    // 컬렉션이 없으면 노드가 가진 글자 그대로(ko) — 결과 모양도 그대로다.
+    const without = await run([bound], localeTable);
+    if (JSON.stringify(without) !== JSON.stringify({ copy: { distinct: 1, placeholders: 0 } })) {
+      failures.push(`실행 canary(Locale): 컬렉션이 없는데 결과가 지금과 달라졌습니다 — ${JSON.stringify(without)}`);
+    }
+    // 컬렉션은 있어도 묶인 글자가 없으면 결과에 아무것도 더하지 않는다.
+    const unbound = await run([localeFrame("Hello Placeholder")], localeTable, { collections: localeCollections, variables: localeVariables });
+    if (JSON.stringify(unbound) !== JSON.stringify({ copy: { distinct: 1, placeholders: 1 } })) {
+      failures.push(`실행 canary(Locale): 묶인 글자가 없는데 결과가 달라졌습니다 — ${JSON.stringify(unbound)}`);
+    }
+  } catch (error) {
+    failures.push(`실행 canary(Locale)가 던졌습니다: ${error.message}`);
+  }
   // 못 읽은 경로는 부분 결과가 아니라 throw 다.
   let threw = false;
   try {
@@ -1659,7 +1710,7 @@ async function templateExecutionCanaries() {
     threw = /경로를 찾지 못했습니다/.test(error.message);
   }
   if (!threw) failures.push("실행 canary: 없는 경로(Main/Nope)를 읽고도 던지지 않았습니다.");
-  return { failures, count: Object.values(expected).reduce((sum, axes) => sum + Object.keys(axes).length, 0) + 2 };
+  return { failures, count: Object.values(expected).reduce((sum, axes) => sum + Object.keys(axes).length, 0) + 5 };
 }
 
 /** 자기시험 — **이 경로가 조용히 초록이 되지 않는다는 것**을 매번 다시 증명한다.
@@ -1779,6 +1830,11 @@ function mergeTemplates(resultPath, acceptUnverified) {
   const readback = JSON.parse(readFileSync(readbackFile, "utf8"));
   const incomingRaw = JSON.parse(readFileSync(resolve(process.cwd(), resultPath), "utf8"));
   const incoming = incomingRaw.templates ?? incomingRaw;
+  if (incomingRaw.localeBound) {
+    // DS-D-0080: 글자가 Locale 변수에 묶여 있었고 en 모드로 푼 값을 읽었다 — 병합본은 en 값이다.
+    const variables = Object.values(incomingRaw.localeBound.variables ?? {}).flatMap((bag) => Object.keys(bag));
+    console.error(`[readback-emit] 글자 ${new Set(variables).size}개 변수를 ${incomingRaw.localeBound.collection} ${incomingRaw.localeBound.mode} 모드 값으로 읽었습니다.`);
+  }
   const names = Object.keys(incoming);
   if (names.length === 0) {
     console.error("[readback-emit] 병합할 template 이 결과 파일에 없습니다.");

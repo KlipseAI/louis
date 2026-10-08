@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
+// 토큰이 없으면: scripts/figma-live-assets-probe.mjs 가 같은 walk 를 use_figma 읽기 탐침으로 돌려 세션 기록에서 합친다(lastModified · version 은 null).
+
 // 토큰에 리터럴 폴백을 두지 않는다. 예전에는 `process.env.X || "figd_…"` 형태로 개인 토큰이
 // 박혀 있었고, 그대로 원격에 푸시돼 유출됐다. 폴백이 있으면 환경변수를 잊어도 조용히 남의
 // 계정 권한으로 돌아가기 때문에 잘못을 알아챌 방법이 없다 — 없으면 즉시 실패한다.

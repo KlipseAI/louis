@@ -1,18 +1,106 @@
 {
   "fileKey": "OlYKERKOkgbxBEEoXGZW2c",
-  "name": "제목 없음",
-  "lastModified": "2026-08-23T11:03:49Z",
-  "version": "2390876511227301595",
-  "fetchedAt": "2026-08-23T12:16:47.152Z",
+  "name": "Document",
+  "lastModified": null,
+  "version": null,
+  "source": "plugin probe (figma-sync.mjs walk 와 같은 모양)",
+  "fetchedAt": "2026-10-08T05:14:14.604Z",
   "pages": [
     {
       "id": "246:3446",
-      "name": "00 · START HERE — 보드 규약 · 라우트 색인",
+      "name": "00 · START HERE — 규약 · 라우트 색인",
+      "sections": []
+    },
+    {
+      "id": "2176:5",
+      "name": "---",
+      "sections": []
+    },
+    {
+      "id": "657:2",
+      "name": "DS · Foundations",
+      "sections": [
+        {
+          "id": "657:3",
+          "name": "Color",
+          "items": []
+        },
+        {
+          "id": "657:347",
+          "name": "Typography",
+          "items": []
+        },
+        {
+          "id": "658:2",
+          "name": "Spacing & Radius",
+          "items": []
+        },
+        {
+          "id": "658:133",
+          "name": "Elevation",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "663:2",
+      "name": "DS · Icons",
+      "sections": []
+    },
+    {
+      "id": "659:2",
+      "name": "DS · Components",
+      "sections": [
+        {
+          "id": "2178:1489",
+          "name": "1 · 액션 — 버튼 · 트리거",
+          "items": []
+        },
+        {
+          "id": "2178:1490",
+          "name": "2 · 입력 — 필드 · 선택 · 슬라이더",
+          "items": []
+        },
+        {
+          "id": "2178:1491",
+          "name": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+          "items": []
+        },
+        {
+          "id": "2178:1492",
+          "name": "4 · 피드백 — 알림 · 상태 · 로딩",
+          "items": []
+        },
+        {
+          "id": "2178:1493",
+          "name": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+          "items": []
+        },
+        {
+          "id": "2178:1494",
+          "name": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+          "items": []
+        },
+        {
+          "id": "2178:1495",
+          "name": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "683:170",
+      "name": "DS · Templates",
+      "sections": []
+    },
+    {
+      "id": "2176:6",
+      "name": "---",
       "sections": []
     },
     {
       "id": "246:3447",
-      "name": "01 · 획득 — 랜딩 · 마케팅 · 법무 (§10.2 · 10.3 · 10.4 · 10.5)",
+      "name": "01 · 공개 — 랜딩 · 요금 · 템플릿 · 블로그 · 약관 · 문의",
       "sections": [
         {
           "id": "255:1830",
@@ -48,7 +136,7 @@
     },
     {
       "id": "246:3448",
-      "name": "02 · 가입 — 인증 (§10.6)",
+      "name": "02 · 인증 — 로그인 · 가입 · 비밀번호",
       "sections": [
         {
           "id": "255:1842",
@@ -69,7 +157,7 @@
     },
     {
       "id": "246:3449",
-      "name": "03 · 제작 — 앱 셸 (§10.1 · 10.7 · 10.9 · 10.10 · 10.11 · 10.12)",
+      "name": "03 · 앱 — 홈 · 설정 · 캔버스 · 에디터 · 하이라이트 · 분석",
       "sections": [
         {
           "id": "255:1848",
@@ -83,7 +171,7 @@
         },
         {
           "id": "255:1852",
-          "name": "10.9.1 · /nodecanvas{,?project=} · 노드 캔버스 허브 · 에디터  ·  L2",
+          "name": "10.9.1 · /nodecanvas{,?project=} · 캔버스 허브 · 에디터  ·  L2",
           "items": []
         },
         {
@@ -98,14 +186,19 @@
         },
         {
           "id": "255:1858",
-          "name": "10.12.1 · /analytics/{youtube,instagram} · 애널리틱스  ·  L3",
+          "name": "10.12.1 · /analytics/youtube · 애널리틱스  ·  L3",
+          "items": []
+        },
+        {
+          "id": "2076:3369",
+          "name": "⚠ 미등록 · /subscription/coupons · 요금제 선물 · 구매한 쿠폰 — 대응 §10.N 문서 없음 · 커버리지 등급 없음 (등급을 지어내지 말 것)  ·  등급 없음",
           "items": []
         }
       ]
     },
     {
       "id": "246:3450",
-      "name": "04 · 결제 — 과금 (§10.8)",
+      "name": "04 · 결제 — 요금제 · 결제 결과 · 대량 구매",
       "sections": [
         {
           "id": "255:1860",
@@ -116,12 +209,17 @@
           "id": "255:1862",
           "name": "10.8.2 · /mypage/{upgrade/*,topup/*} · 결제 결과 7종  ·  L3",
           "items": []
+        },
+        {
+          "id": "2075:2241",
+          "name": "⚠ 미등록 · /mypage/upgrade/bulk-{success,fail} · 대량 구매 결과 — 대응 §10.N 문서 없음 · 커버리지 등급 없음 (등급을 지어내지 말 것)  ·  등급 없음",
+          "items": []
         }
       ]
     },
     {
       "id": "246:3451",
-      "name": "05 · 운영 — 어드민 · 라우트 경계 (§10.12 · 결번 · 미등록)",
+      "name": "05 · 운영 — 어드민 · 오류 화면 · 부스 체험",
       "sections": [
         {
           "id": "255:1864",
@@ -142,7 +240,7 @@
     },
     {
       "id": "240:3529",
-      "name": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "name": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "sections": [
         {
           "id": "261:2",
@@ -156,7 +254,7 @@
         },
         {
           "id": "261:6",
-          "name": "C · icon/  ·  public/icons 원본  ·  61개",
+          "name": "C · icon/  ·  public/icons 원본  ·  63개",
           "items": []
         },
         {
@@ -183,6 +281,66 @@
           "id": "305:2",
           "name": "H · 제품 장면 · 측정 생성본 · 1개 세트",
           "items": []
+        },
+        {
+          "id": "381:22",
+          "name": "I · product/Gnb sidebar · measured component",
+          "items": []
+        },
+        {
+          "id": "395:591",
+          "name": "J · product/Payment result · measured component",
+          "items": []
+        },
+        {
+          "id": "400:591",
+          "name": "K · product/Mobile app top bar · measured component",
+          "items": []
+        },
+        {
+          "id": "405:610",
+          "name": "L · product/Desktop app top bar · measured component",
+          "items": []
+        },
+        {
+          "id": "406:629",
+          "name": "M · product/Desktop payment result scenes · measured composition",
+          "items": []
+        },
+        {
+          "id": "410:1118",
+          "name": "N · product/Checkout status · measured component and scenes",
+          "items": []
+        },
+        {
+          "id": "417:1982",
+          "name": "O · product/Upgrade plans · measured desktop scene",
+          "items": []
+        },
+        {
+          "id": "1885:5972",
+          "name": "Q · product/Desktop collapsed shell · measured component",
+          "items": []
+        },
+        {
+          "id": "2074:5880",
+          "name": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+          "items": []
+        },
+        {
+          "id": "2086:5880",
+          "name": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+          "items": []
+        },
+        {
+          "id": "2179:5895",
+          "name": "T · product/Landing capture · 옛 랜딩 캡처(a3ed8e03) — 01 페이지 / 보드 두 장이 인스턴스로 쓴다",
+          "items": []
+        },
+        {
+          "id": "2418:5894",
+          "name": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+          "items": []
         }
       ]
     },
@@ -194,2044 +352,3603 @@
           "id": "255:1828",
           "name": "⚠ 권위 충돌 · /docs · 범위 밖 — §10.4 는 /docs 를 소유한다고 적지만 화면 정본은 klipse-docs 레포다  ·  L3",
           "items": []
+        },
+        {
+          "id": "2766:4329",
+          "name": "⚠ 숨김 기능 · /analytics/instagram · 범위 밖 — 제품이 INSTAGRAM_ANALYTICS_HIDDEN 으로 숨기고 미들웨어가 /analytics/youtube 로 돌린다  ·  L3",
+          "items": []
         }
       ]
+    },
+    {
+      "id": "2176:7",
+      "name": "---",
+      "sections": []
+    },
+    {
+      "id": "791:12834",
+      "name": "작업 · 시안",
+      "sections": []
+    },
+    {
+      "id": "1327:982",
+      "name": "작업 · 서비스소개서",
+      "sections": []
+    },
+    {
+      "id": "1412:13698",
+      "name": "작업 · 콘텐츠 디자인",
+      "sections": [
+        {
+          "id": "2168:10057",
+          "name": "7월4주차_highlight",
+          "items": []
+        },
+        {
+          "id": "2534:2",
+          "name": "카드뉴스 2 캔버스",
+          "items": []
+        },
+        {
+          "id": "2536:2",
+          "name": "카드뉴스 1 Klipse 소개",
+          "items": []
+        },
+        {
+          "id": "2536:16586",
+          "name": "카드뉴스 3 컴포지션",
+          "items": []
+        },
+        {
+          "id": "2536:16684",
+          "name": "카드뉴스 4 하이라이트",
+          "items": []
+        },
+        {
+          "id": "2536:16782",
+          "name": "카드뉴스 5 YouTube 업로드와 분석",
+          "items": []
+        },
+        {
+          "id": "2557:2632",
+          "name": "9월 업데이트 1 한눈에",
+          "items": []
+        },
+        {
+          "id": "2558:2",
+          "name": "9월 업데이트 2 요금제와 구독",
+          "items": []
+        },
+        {
+          "id": "2558:89",
+          "name": "9월 업데이트 3 AI 모델",
+          "items": []
+        },
+        {
+          "id": "2558:176",
+          "name": "9월 업데이트 4 캔버스",
+          "items": []
+        },
+        {
+          "id": "2558:18638",
+          "name": "9월 업데이트 5 하이라이트",
+          "items": []
+        },
+        {
+          "id": "2558:18741",
+          "name": "9월 업데이트 6 YouTube 분석",
+          "items": []
+        }
+      ]
+    },
+    {
+      "id": "699:2",
+      "name": "작업 · DS 정리 검토",
+      "sections": []
     }
   ],
   "components": {
+    "664:2": {
+      "id": "664:2",
+      "name": "icon/arrow-up",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "f680e7a6e11a430871fd776691afcfa49347b1e8"
+    },
+    "664:6": {
+      "id": "664:6",
+      "name": "icon/arrows-left-right",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "c356a74525f989be1ec1380f88f9d77dad49558a"
+    },
+    "664:12": {
+      "id": "664:12",
+      "name": "icon/caret-down",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "3096ca2f8c9fad30bd5a60f650dbf24ca1a25fc6"
+    },
+    "664:15": {
+      "id": "664:15",
+      "name": "icon/caret-left",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "8637ea7f485bbfd69298945c112f4744d8e3bcb8"
+    },
+    "664:18": {
+      "id": "664:18",
+      "name": "icon/caret-right",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "573891b1ba0f19bb7eda1a6ca73038af19ebe802"
+    },
+    "664:21": {
+      "id": "664:21",
+      "name": "icon/check-circle",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "4637a061df38d3916a56d55667405dccd631dc28"
+    },
+    "664:25": {
+      "id": "664:25",
+      "name": "icon/copy",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "64019d1120669245c34f9e98ec9fb4cee74e473d"
+    },
+    "664:29": {
+      "id": "664:29",
+      "name": "icon/copy-check",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "f574b292ab3621f3888d13a708819c94c447a560"
+    },
+    "665:6": {
+      "id": "665:6",
+      "name": "icon/dots-three-vertical",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "b46cc9210e8f7434ef7df303692ac0871cb6b1af"
+    },
+    "665:11": {
+      "id": "665:11",
+      "name": "icon/download-simple",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "3b6a4b883ebd9de8ed4066cb93fa51a486072a09"
+    },
+    "665:15": {
+      "id": "665:15",
+      "name": "icon/eye",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "60874929a0633829951926723ab2ef9ba4694b6b"
+    },
+    "665:21": {
+      "id": "665:21",
+      "name": "icon/eye-slash",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "8c1bf25ca05bde914a92f4582098708b03cafcc0"
+    },
+    "665:28": {
+      "id": "665:28",
+      "name": "icon/file-zip",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "85a654e94034ffb4105d88f50aa167c0dc89a8dd"
+    },
+    "665:32": {
+      "id": "665:32",
+      "name": "icon/folder",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "d3823015742e16690d9adb39c2ac6dee104d0542"
+    },
+    "665:43": {
+      "id": "665:43",
+      "name": "icon/graph",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "ab82777eeaed604f48b662c0e9480d6f59d19a8d"
+    },
+    "665:47": {
+      "id": "665:47",
+      "name": "icon/hand",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "54bc48be1e38f07ccdfae41d61b1e981a65db605"
+    },
+    "666:4": {
+      "id": "666:4",
+      "name": "icon/house",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "a516caa308fa3b9e85857004aba46e55de9a2e63"
+    },
+    "666:9": {
+      "id": "666:9",
+      "name": "icon/image",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "510869ffbd882df36ca46116006397b4e68fbbb4"
+    },
+    "666:14": {
+      "id": "666:14",
+      "name": "icon/info",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "7c307f7124990c41e97a343bdf09429f2676583f"
+    },
+    "666:18": {
+      "id": "666:18",
+      "name": "icon/magnifying-glass",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "27fbda888ce06849ad81742d5818081874d3dfff"
+    },
+    "666:24": {
+      "id": "666:24",
+      "name": "icon/monitor-arrow-up",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "c90be3e1e583e03da0bfbaf5257f68168fa6372f"
+    },
+    "666:29": {
+      "id": "666:29",
+      "name": "icon/music-notes-simple",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "1d1264401acd87b8a36037b0abbeb06d4656b149"
+    },
+    "666:33": {
+      "id": "666:33",
+      "name": "icon/pause",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "0d48f385bfdf1d326774c33322c87bbe9d49b623"
+    },
+    "666:36": {
+      "id": "666:36",
+      "name": "icon/play",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "5cb0711d002a3dfa4b399df0e4c1f4bdc4a3cd04"
+    },
+    "667:5": {
+      "id": "667:5",
+      "name": "icon/plus",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "40ec5e97873acab9552c6bd66f4b78c1b08596f8"
+    },
+    "667:10": {
+      "id": "667:10",
+      "name": "icon/text",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "0ee13618725665283859121e9d4be2dddb55e2c4"
+    },
+    "667:15": {
+      "id": "667:15",
+      "name": "icon/trash-simple",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "2c7e9eafcfc28613e78950ac1ce1dae85bb14661"
+    },
+    "667:21": {
+      "id": "667:21",
+      "name": "icon/user-sound",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "3eb14b71f1290650203d104388d2e07e4d1a817c"
+    },
+    "667:28": {
+      "id": "667:28",
+      "name": "icon/waveform",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "d1505a001802a5c048e3e02934474dda80eb198d"
+    },
+    "667:32": {
+      "id": "667:32",
+      "name": "icon/x",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "168f6da9570d922fc9960c62eb7a2d721d120402"
+    },
+    "667:37": {
+      "id": "667:37",
+      "name": "icon/x-circle",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "706f0efb205ee66ec6a387b7265724721a678136"
+    },
+    "1362:1391": {
+      "id": "1362:1391",
+      "name": "icon/minus",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "5f6f924678f475902b0d05c3b7be441bc8f05051"
+    },
+    "1362:15948": {
+      "id": "1362:15948",
+      "name": "icon/arrow-elbow-down-left",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "563fc68f0455c60094acde112e9c5edbb97b50fd"
+    },
+    "1362:15952": {
+      "id": "1362:15952",
+      "name": "icon/arrow-right",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "8c0d4ca5b588e7af0c0fac880d291544740fc540"
+    },
+    "1362:15958": {
+      "id": "1362:15958",
+      "name": "icon/cloud-arrow-up",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "194951e383a5edeec275fad731f10f338e4f59ed"
+    },
+    "1362:15962": {
+      "id": "1362:15962",
+      "name": "icon/cloud-check",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "59298a0dcbacef933ff842127824439699b14570"
+    },
+    "1362:15986": {
+      "id": "1362:15986",
+      "name": "icon/cloud-warning",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "93587a153125c76320e2ce1cfd9eabc40ced1222"
+    },
+    "1362:15992": {
+      "id": "1362:15992",
+      "name": "icon/desktop",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "ca5feecc102c89ea25156eea841b9da1a72321bc"
+    },
+    "1362:15997": {
+      "id": "1362:15997",
+      "name": "icon/globe",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "6d8d9489778e41a70e18ceb7bcd83d6144631264"
+    },
+    "1362:16147": {
+      "id": "1362:16147",
+      "name": "icon/moon",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "78904fc8c3a94d297ea6d839d3e3a7c3a518f835"
+    },
+    "1362:16158": {
+      "id": "1362:16158",
+      "name": "icon/sun",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "0042e7ab61f5ea845157a1c417081d0acd2469dd"
+    },
+    "1362:16164": {
+      "id": "1362:16164",
+      "name": "icon/video-stack",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "44f84979c3e6e67a2c2fa28aa570c7893fbfd99c"
+    },
+    "2765:6": {
+      "id": "2765:6",
+      "name": "icon/nodes-linked",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "adcc51b7c0f3f49ea6d63a14ab3436b749d28782"
+    },
+    "2765:10": {
+      "id": "2765:10",
+      "name": "icon/book-open",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "84dac63b7111585d49594559604b5ce5de2013d3"
+    },
+    "2765:14": {
+      "id": "2765:14",
+      "name": "icon/chat-bubbles",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "7ee3c076daaa15e674e5b9ccc071d1164a5a23fd"
+    },
+    "2765:18": {
+      "id": "2765:18",
+      "name": "icon/shield-check",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "00f32eba008ede5d104b65d9454f7b26bff5e553"
+    },
+    "2824:6": {
+      "id": "2824:6",
+      "name": "icon/question-circle",
+      "page": "DS · Icons",
+      "section": null,
+      "key": "c93c50f01919b26e2a71e94b23f8a5a0fb1b832a"
+    },
+    "674:12042": {
+      "id": "674:12042",
+      "name": "MenuPanel",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "key": "373019ce53fd7b8c9e6cd33e2951910f32c8a7bb"
+    },
+    "764:754": {
+      "id": "764:754",
+      "name": "MenuSeparator",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "key": "67d6c437f39a2bbb991e597b741168016bbfa074"
+    },
+    "1002:838": {
+      "id": "1002:838",
+      "name": "CompositePopover",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "key": "87bb737171a153c6e199ef56911c8cf240dc66dd"
+    },
+    "674:12377": {
+      "id": "674:12377",
+      "name": "ProgressRing",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "key": "1fd9eb73a9ee82cc333dabb2de03119fc9d4cd2c"
+    },
+    "849:834": {
+      "id": "849:834",
+      "name": "StepTile",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "key": "0a0120d6dc74ab4bc1007443e1042b4637847657"
+    },
+    "781:801": {
+      "id": "781:801",
+      "name": "Table",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "key": "291f1f61724f69c82273fc1b897500f2e202cf49"
+    },
+    "674:12286": {
+      "id": "674:12286",
+      "name": "AppTopBar",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "key": "50fb7e2f320771c8c4a36b78273e36c7dabaf81c"
+    },
+    "675:158": {
+      "id": "675:158",
+      "name": "SidebarNavRow",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "key": "adc38b623a98184d284126088917c571af7e2778"
+    },
+    "2872:1724": {
+      "id": "2872:1724",
+      "name": "NodeComposerError",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "key": "683ffeb929e4efad85c469e2411209f1b438126c"
+    },
+    "2872:1726": {
+      "id": "2872:1726",
+      "name": "NodeComposer",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "key": "b236217a48e509698002c486d70b06fed3fbaf62"
+    },
     "173:652": {
       "id": "173:652",
       "name": "logo/InquiryClient-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "9b258e2a5c259a53b2af290c10436921627bd998"
     },
     "173:684": {
       "id": "173:684",
       "name": "logo/PlatformSection-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "8dbb9d0291e376c78506eb42813e4fc08228d087"
     },
     "171:591": {
       "id": "171:591",
       "name": "logo/YouTube (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "2dd5cbb89ec78764b18c350a26be2bf043abb4a4"
     },
     "173:766": {
       "id": "173:766",
       "name": "logo/YoutubeUploadModal-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "f8196c6465e6b0f9c5808bef7f8fe0b5e66e5b19"
     },
     "171:595": {
       "id": "171:595",
       "name": "logo/gemini (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "93d0e5ee2b50f0243843510052b6f6c53a7b202d"
     },
     "171:600": {
       "id": "171:600",
       "name": "logo/google (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "c0c1550106ffd23abd5a1b2b2e94218bcddbc537"
     },
     "171:601": {
       "id": "171:601",
       "name": "logo/highlight-symbol-gradient (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "53ae8000e92559629dee6ec1b7bb3b59e116084e"
     },
     "171:602": {
       "id": "171:602",
       "name": "logo/highlight-wordmark (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "095d40780938c06a16cd2b862621d2536825bd70"
     },
     "171:592": {
       "id": "171:592",
       "name": "logo/highlight-wordmark-dark (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "05546cc83af395cedd8cf7f7ab291e9e2320f267"
     },
     "171:597": {
       "id": "171:597",
       "name": "logo/highlight-wordmark-gradient (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "a5d8c376a8cb950e81b0b0791f8872b4bed75c5b"
     },
     "171:603": {
       "id": "171:603",
       "name": "logo/instagram (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "b636c231aca9fbf4ee5d7ce1759f9c82012eff99"
     },
     "171:606": {
       "id": "171:606",
       "name": "logo/kling (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "fdd2ed016cf008f5dfbe3892356c636ad0cc8624"
     },
     "171:604": {
       "id": "171:604",
       "name": "logo/klipse-admin-wordmark-black (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "5437713245768f99c61a08308314303c3d27e2c5"
     },
     "57:11": {
       "id": "57:11",
       "name": "logo/klipse-dark (291×85 · 다크 서피스용 · 워드마크 white)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "3c6dedb44dfe6af39791e3eb4f57ae0a780c6265"
     },
     "208:1887": {
       "id": "208:1887",
       "name": "logo/klipse-footer-wordmark (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "09c0f87a9f3bcca66ca28d59695da990c6006712"
     },
     "57:10": {
       "id": "57:10",
       "name": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "56e524b2e7aee8228def3bd13de20b20a591d286"
     },
     "57:12": {
       "id": "57:12",
       "name": "logo/klipse-symbol (72×72 · object-contain)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "173e83635112b02377bd11b59a0d5b3061635711"
     },
     "171:605": {
       "id": "171:605",
       "name": "logo/klipse_Admin_black (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "3520029e614824e4d86bc6a4f874fb2838865e1b"
     },
     "173:778": {
       "id": "173:778",
       "name": "logo/page-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "A · logo/  ·  브랜드 자산 (색 고정)  ·  19개",
+      "key": "cc06c5ad918e9f906c08752f992e19b8ec99bc78"
     },
     "205:1896": {
       "id": "205:1896",
       "name": "tile/Audio",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+      "key": "5060f935e3a96e1bd571a9effd48b4c68b4f8b12"
     },
     "205:1897": {
       "id": "205:1897",
       "name": "tile/Image",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+      "key": "1b3ef233d79984d4ba766544459cbd37846a1f9b"
     },
     "205:1895": {
       "id": "205:1895",
       "name": "tile/Text",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+      "key": "397c75ce27d71abe1801c9c37eaf5bf03565d916"
     },
     "205:1893": {
       "id": "205:1893",
       "name": "tile/Video",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+      "key": "cece53dd8b88f3b467d8404fc380e09551721140"
     },
     "205:1894": {
       "id": "205:1894",
       "name": "tile/Composition",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
-      "source": "2026-09-30 라이브 이름 되읽기 — figma-sync 스냅숏(2026-08-23)의 tile/VideoEditor 가 제품 이름(Composition)으로 바뀌어 있었다. 원본은 그대로 public/VideoEditor.svg"
+      "key": "e021e01c91154dcae38a4da7f6f1c35c1cf3fd6b"
     },
     "205:1898": {
       "id": "205:1898",
       "name": "tile/YouTube",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "B · tile/  ·  앱 타일 (다색)  ·  6개",
+      "key": "c1bc027cdd89b0ed05cd0cae453a4cb12b9f3def"
     },
     "61:381": {
       "id": "61:381",
       "name": "icon/Adjustment",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "770f076f40db0f28913b5bcf075a8defe566b9f4"
     },
     "61:382": {
       "id": "61:382",
       "name": "icon/AlignLeftSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "a6d4640716e16436fb8234d6ec5a75f1ab9e00b7"
     },
     "61:383": {
       "id": "61:383",
       "name": "icon/AlignRightSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "556a4f3d29471deee5e09c3beab6f39c84eae03b"
     },
     "61:384": {
       "id": "61:384",
       "name": "icon/ArrowUp",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "2e22919a4efd68a38622230cfa022d5dd1d1e8a6"
     },
     "61:385": {
       "id": "61:385",
       "name": "icon/ArrowsLeftRight",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "b991f49f768e2d706df92038f845a9efcfacf5e5"
     },
     "61:386": {
       "id": "61:386",
       "name": "icon/CaretDoubleRight",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "136699c3e1f2c1771bcca292e977a343be5eba07"
     },
     "61:387": {
       "id": "61:387",
       "name": "icon/ChatCircle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "f5d76b384888c7cb35a3a87a6b69768cb792d0ca"
     },
     "61:388": {
       "id": "61:388",
       "name": "icon/CheckCircle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "cef2ebec454f37dbd32bfd289375200a71053a76"
     },
     "61:389": {
       "id": "61:389",
       "name": "icon/CheckCircle2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "9914e44989adb59f4ced97da4b37cc328ed0e2c9"
     },
     "61:390": {
       "id": "61:390",
       "name": "icon/CircleHalf",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "91c48dfd044cd481243df09b50f38924eecaafba"
     },
     "61:391": {
       "id": "61:391",
       "name": "icon/Copy",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "c737d7eec345aa04be5a16f0f8c354ea191c4863"
     },
     "61:392": {
       "id": "61:392",
       "name": "icon/CreditCard",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "1eec782ae508c95a029c6e78ea7f4ecd170738a1"
     },
     "61:393": {
       "id": "61:393",
       "name": "icon/Diamond",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "0f64d17539613e2ab4b7b6aa63a5a0b852fdc5a6"
     },
     "61:394": {
       "id": "61:394",
       "name": "icon/DotsSixVertical",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "f5c583b0bc19868ef3b73544f059c20817801c37"
     },
     "61:395": {
       "id": "61:395",
       "name": "icon/DotsThreeVertical",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "bedaf3cf17dd745e13e16c39882453ff9d6ecdda"
     },
     "61:396": {
       "id": "61:396",
       "name": "icon/DownloadSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "db8bd604eb730cf8eb45a4480fbf3f7a73d9be2a"
     },
     "61:397": {
       "id": "61:397",
       "name": "icon/Explore",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "ca772d02dc0a0485b1bdeac1501afa8d4c1f639d"
     },
     "61:398": {
       "id": "61:398",
       "name": "icon/FileZip",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "4a2bcf918f36da7c6bfcfc3d469d9eaf339aadad"
     },
     "61:399": {
       "id": "61:399",
       "name": "icon/Folder",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "8e27faf747f4f7ccb2409bb83228a23dd0df96f6"
     },
     "61:400": {
       "id": "61:400",
       "name": "icon/Gear",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "f5f842855791992fc280f76869522f75ba899b82"
     },
     "61:401": {
       "id": "61:401",
       "name": "icon/Graph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "051dc74515b741124adb2778038c9f234a210c62"
     },
     "61:402": {
       "id": "61:402",
       "name": "icon/Hand",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "09f40c7a3f961c3adcb4bbc4b0175f1d725e920a"
     },
     "61:403": {
       "id": "61:403",
       "name": "icon/House",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "6ceb955042a2757a92e77ca4fc0e399322cb66b4"
     },
     "61:404": {
       "id": "61:404",
       "name": "icon/Image",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "f6d6940538e30f088e59f43cce528727058d1d94"
     },
     "61:405": {
       "id": "61:405",
       "name": "icon/Info",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "06de228cb1532821a82e87ea9d98c4a3fee5d8b6"
     },
     "61:406": {
       "id": "61:406",
       "name": "icon/InstagramLogo",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "a8fbf37f9a545eb06fcaef58ec190a2ce67b654f"
     },
     "61:407": {
       "id": "61:407",
       "name": "icon/Lightbulb",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "6fa9da6a7e044d14a08f3e3989bf4f307e298059"
     },
     "61:408": {
       "id": "61:408",
       "name": "icon/MagicWand",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "396fb1d09c0221e624433b5f2aca309336cbc43c"
     },
     "61:409": {
       "id": "61:409",
       "name": "icon/MagnifyingGlass",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "a373c4ee64188c55a46ce42a8c2095d00cae6c43"
     },
     "61:410": {
       "id": "61:410",
       "name": "icon/Monitor",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "c6b07b9d5c0d0af2f01a9e88006a902e3e0da310"
     },
     "61:411": {
       "id": "61:411",
       "name": "icon/MonitorArrowUp",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "d37b73b98871f35f64e1f3e37e17b240c98a5027"
     },
     "61:412": {
       "id": "61:412",
       "name": "icon/Moon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "953a24933fef1ec45e36b79d19d2625638ebbb46"
     },
     "61:413": {
       "id": "61:413",
       "name": "icon/MusicNotesSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "9f71b9cb72b2cbdeb03d7ad2bd36d5be4f1921d6"
     },
     "61:414": {
       "id": "61:414",
       "name": "icon/PaintRoller",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "562518805af68c6dfbde9ea3a3a3ac4b3a66d1c8"
     },
     "61:415": {
       "id": "61:415",
       "name": "icon/Plus",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "4842bd117ddf1d121717b87b9b91d0a0920839ee"
     },
     "61:416": {
       "id": "61:416",
       "name": "icon/SignOut",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "eb64975eaddb63101f068cfae9233b3640d9b657"
     },
     "61:417": {
       "id": "61:417",
       "name": "icon/Sparkle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "a1679fea4d7234a054f3c65cbc42ed12128acf80"
     },
     "61:418": {
       "id": "61:418",
       "name": "icon/SpeakerHigh",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "26e98614d9c6f2aacaf13ecfa6af36f3cf6d041f"
     },
     "61:419": {
       "id": "61:419",
       "name": "icon/SpeakerX",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "efc7318f46dab4289a8901f115b0844452355cde"
     },
     "61:420": {
       "id": "61:420",
       "name": "icon/Sun",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "44e4789dcd826b6027cdc028e7285fe28936af52"
     },
     "61:421": {
       "id": "61:421",
       "name": "icon/Template",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "4c218be212e19dacf472a6960142ca4df8694a95"
     },
     "61:422": {
       "id": "61:422",
       "name": "icon/Translate",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "6eb2af0e96bb6dc38ac608224b5c85202fe5c9ec"
     },
     "61:423": {
       "id": "61:423",
       "name": "icon/TrashSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "789af12811883c9d1fecacfc6313f8d2896715e8"
     },
     "61:424": {
       "id": "61:424",
       "name": "icon/UserSound",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "bf079927ec00859567ac58db901abcbc03085d01"
     },
     "61:425": {
       "id": "61:425",
-      "name": "icon/VideoEditor",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "name": "icon/Composition",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "6fe6d0edaeadd329155d5fc04aeff161a0656059"
     },
     "61:426": {
       "id": "61:426",
       "name": "icon/Waveform",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "221418e937dfcddea2cd1f2a672b44819c1be667"
     },
     "61:427": {
       "id": "61:427",
       "name": "icon/X",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "d87510d422ac26bee57935280b6990133029f7fe"
     },
     "61:428": {
       "id": "61:428",
       "name": "icon/XCircle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "037febe9131dee10a0d32d291c07c42f6ae49a24"
     },
     "61:429": {
       "id": "61:429",
       "name": "icon/XCircle2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "e97a535cd92d3b54cec3f7fe3b9ca4a125d4440b"
     },
     "61:431": {
       "id": "61:431",
       "name": "icon/aws-logo",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "6162313234bb7b74a7799a02bfac03948b700e86"
     },
     "61:430": {
       "id": "61:430",
       "name": "icon/aws-logo-dark",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "daf1723d0a88a249f8242856f09da1733e66239e"
     },
     "61:432": {
       "id": "61:432",
       "name": "icon/copy-check",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "2451b84a6e06e5630dc4abb821a0a24c84041e78"
     },
     "61:433": {
       "id": "61:433",
       "name": "icon/eye",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "61da148492b9ee3a7825c0094edc60f60b72c152"
     },
     "61:434": {
       "id": "61:434",
       "name": "icon/eyeslash",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "09dd91b458c3719bc997f374bf9ba6840d314113"
     },
     "61:435": {
       "id": "61:435",
       "name": "icon/iconamoon_cursor-fill",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "11929867f5a647348d90c3f00fd8dcea0efacd57"
     },
     "61:436": {
       "id": "61:436",
       "name": "icon/text",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "8930c409ba48fc115d1a0eae29659d6bacbc4fd8"
     },
     "61:437": {
       "id": "61:437",
       "name": "icon/user-default-profile",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "00ab9f426b84efd35f8961682b689171f8a1eed0"
     },
     "61:438": {
       "id": "61:438",
       "name": "icon/video",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "de39011a5471c1ce103b6e4cfb5ccbc745e5f88c"
     },
     "61:439": {
       "id": "61:439",
       "name": "icon/volume-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "a15818a6cb2c042564db56bb127d213f1fb9790a"
     },
     "61:440": {
       "id": "61:440",
       "name": "icon/volume-x",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "c0278914a8d098df1fb9f5cb8a5d515bdc17b46c"
     },
     "61:441": {
       "id": "61:441",
       "name": "icon/youtube",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "C · icon/  ·  public/icons 원본  ·  61개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "e066b010e8fcf9d453f59272c22e19b3e7e787a7"
+    },
+    "2884:21075": {
+      "id": "2884:21075",
+      "name": "icon/Canvas",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "db80ffaaa025792db99d5eddf08ef68e7ca7395a"
+    },
+    "2884:21076": {
+      "id": "2884:21076",
+      "name": "icon/FilmSlate",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "C · icon/  ·  public/icons 원본  ·  63개",
+      "key": "521cd8f0811eb35cfc640bd6ca8c831e0e388b4d"
     },
     "171:590": {
       "id": "171:590",
       "name": "root/file-text",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "D · root/  ·  public 루트 원본  ·  3개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "D · root/  ·  public 루트 원본  ·  3개",
+      "key": "0dc173f686a24e5b5e54e52287931ccbf3259f76"
     },
     "171:599": {
       "id": "171:599",
       "name": "root/globe",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "D · root/  ·  public 루트 원본  ·  3개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "D · root/  ·  public 루트 원본  ·  3개",
+      "key": "8cadb806f83fdb31c563ad37442881017d08d4ea"
     },
     "66:386": {
       "id": "66:386",
       "name": "root/highlight_symbol",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "D · root/  ·  public 루트 원본  ·  3개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "D · root/  ·  public 루트 원본  ·  3개",
+      "key": "72329395f2a80876693c4501546abd0cc28792ba"
     },
     "173:609": {
       "id": "173:609",
       "name": ".glyph/ActionButton-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "c02fc3605db2b4e0ea1d28213cff285f443d4030"
     },
     "173:597": {
       "id": "173:597",
       "name": ".glyph/AlignLeftSimpleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8b4fe5087c0ef7903cdb1d1e413b50d4119b1cfb"
     },
     "173:591": {
       "id": "173:591",
       "name": ".glyph/AlignRightSimpleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "69fb7629d586b6677a6360328710b72a1a24f5bf"
     },
     "173:603": {
       "id": "173:603",
       "name": ".glyph/AppHomeScene-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "52e4f07811ebba65fc8338de8c92b605c7f128b9"
     },
     "194:1616": {
       "id": "194:1616",
       "name": ".glyph/ArrowLeftLong",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f891240c753f257ba563bd96b9c34f4f61ab2761"
     },
     "173:594": {
       "id": "173:594",
       "name": ".glyph/ArrowUpSimpleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "28097df23640ceb11681a43c706492afb110fa3e"
     },
     "173:596": {
       "id": "173:596",
       "name": ".glyph/AssetPanel-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "985aec221b5090607adbee3ef2b705d0603eb113"
     },
     "173:602": {
       "id": "173:602",
       "name": ".glyph/AssetPanel-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6b1fb86c1f603786a7effe2f1daa7427305c706f"
     },
     "173:604": {
       "id": "173:604",
       "name": ".glyph/AssetPanel-5",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9ee1747dc54e3412b0bf865bc7e53b9008795222"
     },
     "173:608": {
       "id": "173:608",
       "name": ".glyph/CapabilitiesShowcase-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8963eab7ebcaac9085189635760083029b1b42d2"
     },
     "173:601": {
       "id": "173:601",
       "name": ".glyph/CheckCircleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "845ee985f8ff575198e2bc92547e0217b9a6c482"
     },
     "195:2694": {
       "id": "195:2694",
       "name": ".glyph/CheckSimple",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4a20c111049e2bacdce8822d112752e5a348856c"
     },
     "173:606": {
       "id": "173:606",
       "name": ".glyph/ChevronGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "336656491c03de7a83cc1c68de593cf133b9072b"
     },
     "173:592": {
       "id": "173:592",
       "name": ".glyph/ChevronLeftIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b7d0f80e8b3f48990369f28fa02e5c33b2c42c19"
     },
     "173:708": {
       "id": "173:708",
       "name": ".glyph/ChevronRightGlyph-10",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d153015703ad0f08ba24d44bf2783831ca37f347"
     },
     "173:600": {
       "id": "173:600",
       "name": ".glyph/ChevronRightIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8e32db1ecf5e16eadfa7f814df78b23caff8a6e7"
     },
     "173:590": {
       "id": "173:590",
       "name": ".glyph/ClipCropModal-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "08d2abb0d7db18b6727fda93ac4f4402ae9a9ca1"
     },
     "173:599": {
       "id": "173:599",
       "name": ".glyph/ClipCropModal-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4159499323c7f4fccbd5d48606eb7702d320882e"
     },
     "173:593": {
       "id": "173:593",
       "name": ".glyph/ClipCropModal-5",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f96f4378b06434c5008d767d2f5777e0b3a5d7fb"
     },
     "173:595": {
       "id": "173:595",
       "name": ".glyph/ClipCropModal-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "618d304d9d199fa5659ce770e2e91af705477c2a"
     },
     "173:598": {
       "id": "173:598",
       "name": ".glyph/ClipCropModal-7",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "469781023756cd26542a659a9705a86880b03f1b"
     },
     "173:607": {
       "id": "173:607",
       "name": ".glyph/ClipCropModal-8",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "582bfdd32ed252feb9abb3512c829309d9d07c96"
     },
     "173:605": {
       "id": "173:605",
       "name": ".glyph/CloseGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "48e401e57db07f06a2cc5c1ccf0dd918e5de0cfd"
     },
     "173:610": {
       "id": "173:610",
       "name": ".glyph/CloseIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8760d3b09eb6a84f46d73eabf93bad9ab5025283"
     },
     "173:612": {
       "id": "173:612",
       "name": ".glyph/CloudArrowUpSvg",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e78ba3f0c2891ee8301d1d668c435ba2042a30ce"
     },
     "63:240": {
       "id": "63:240",
       "name": ".glyph/CloudCheck",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8f14327e16fdae9b54be12e0014e248ea057ff93"
     },
     "173:611": {
       "id": "173:611",
       "name": ".glyph/CloudCheckSvg",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ce42a4f5da5edf1028648aedfd6035761ff75464"
     },
     "173:616": {
       "id": "173:616",
       "name": ".glyph/CloudWarningSvg",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e81419a9c488bda579452d3957ec6ff08d626628"
     },
     "173:614": {
       "id": "173:614",
       "name": ".glyph/ContentTable-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "453e10d97ab67a8541107ffdf163cbaa77b383d8"
     },
     "173:615": {
       "id": "173:615",
       "name": ".glyph/CropModal-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b7c2e450e37bb9c5293c28d7bf7a4511e9c4f011"
     },
     "173:617": {
       "id": "173:617",
       "name": ".glyph/DeletableEdge-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e73111a0e344bfbcf623ddb275ca2337ab2627d9"
     },
     "173:620": {
       "id": "173:620",
       "name": ".glyph/EditNode-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "74b3950ffcec05ffbf61087c545e741d68cad8b4"
     },
     "173:618": {
       "id": "173:618",
       "name": ".glyph/EditNode-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "89897ad50998859a7f6a9562360f5888363e7817"
     },
     "173:622": {
       "id": "173:622",
       "name": ".glyph/EyedropperIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "1d356f527355554586e4d1a37418aa810050c056"
     },
     "173:619": {
       "id": "173:619",
       "name": ".glyph/FinderChevronRightGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "02b4ad4f956098f8512c31fd358e6ea3074f0f03"
     },
     "173:626": {
       "id": "173:626",
       "name": ".glyph/FinderFolderGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "553c041fa1df0aa8e23162b30c866c5e2414d7c4"
     },
     "173:623": {
       "id": "173:623",
       "name": ".glyph/Footer-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "851661edd74808aa44a6068066c22b1a266b0dde"
     },
     "227:3471": {
       "id": "227:3471",
       "name": ".glyph/FullscreenGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "677e265ac88c27fcd31ee3f9b6ddfc83b218710b"
     },
     "173:621": {
       "id": "173:621",
       "name": ".glyph/GenerateSparkleGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9ea24d3d66eb7835c58b451be08c3f6cc0cb59eb"
     },
     "173:628": {
       "id": "173:628",
       "name": ".glyph/GettingStartedPanel-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "2ac15fcb4eab59dcab5414de059a6b02438d4d78"
     },
     "173:627": {
       "id": "173:627",
       "name": ".glyph/GlobeIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "93eb93f782e4fcf5625b58daca30b27f4724789e"
     },
     "173:638": {
       "id": "173:638",
       "name": ".glyph/GnbArrowRight",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "55235db7e211d35d9b8a15d6dcf62f175cbcf01e"
     },
     "173:637": {
       "id": "173:637",
       "name": ".glyph/GnbChatCircle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "63da3c8308426fbd2a476e9642303bfcda80ec2f"
     },
     "173:634": {
       "id": "173:634",
       "name": ".glyph/GnbDiamond",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6f50ed3b42ccddfbf7e807028376fc2d9bbc3d1f"
     },
     "173:631": {
       "id": "173:631",
       "name": ".glyph/GnbFileText",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e06c6a8859c3b0cfe3cd180ae6c08bae54c00b01"
     },
     "173:636": {
       "id": "173:636",
       "name": ".glyph/GnbGear",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "08bb87d1f7a1eab14878e6b0a9488a1edd338111"
     },
     "173:629": {
       "id": "173:629",
       "name": ".glyph/GnbGlobe",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d2631181d0320e0fb1c71728ded7effb893d44b3"
     },
     "173:643": {
       "id": "173:643",
       "name": ".glyph/GnbMonitor",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "590cdeb60a74894fe1c5e4b0facff9387d32789c"
     },
     "173:630": {
       "id": "173:630",
       "name": ".glyph/GnbMoon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ae98270143b82140d02c8e6d65131dd7d8a2957a"
     },
     "173:639": {
       "id": "173:639",
       "name": ".glyph/GnbPaintRoller",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "0015626da9aa54ca691f1dac3b8eb4988734da2a"
     },
     "173:641": {
       "id": "173:641",
       "name": ".glyph/GnbShield",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4648caec69ed802d53c85c09245fe1ed39de82ff"
     },
     "173:633": {
       "id": "173:633",
       "name": ".glyph/GnbSidebarPanel",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "54ed083bb038797b51454d7f51d2d8a87795c378"
     },
     "173:632": {
       "id": "173:632",
       "name": ".glyph/GnbSignOut",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ddac8157a19e182c408e4819abc839f197736fd9"
     },
     "173:635": {
       "id": "173:635",
       "name": ".glyph/GnbSun",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "2f8de13aaac3f5ac68b147f3f56dccae9c25549c"
     },
     "173:625": {
       "id": "173:625",
       "name": ".glyph/GridFourGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "adf46f8efbffc965250db15a88aa1f267ee385fc"
     },
     "173:645": {
       "id": "173:645",
       "name": ".glyph/HighlightCreateModal-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fe29cda6d44f7acaf8fd14db5b71adaa3c6b104b"
     },
     "173:640": {
       "id": "173:640",
       "name": ".glyph/HighlightProjectScene-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fa0e211d4e85917ba67d29b6ed607493af30a477"
     },
     "173:649": {
       "id": "173:649",
       "name": ".glyph/HighlightProjectScene-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d345641ff2e29910f475b2cb322612ade85a86d6"
     },
     "173:648": {
       "id": "173:648",
       "name": ".glyph/HomeCreateNewMenu-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "da7b053618e8668838873e4ae4dad24633a9a035"
     },
     "173:646": {
       "id": "173:646",
       "name": ".glyph/ImageIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "63a469636537a2d5dcfcd601626e11cba2e077a4"
     },
     "173:647": {
       "id": "173:647",
       "name": ".glyph/ImageLightbox-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "3dd56ebde5500298977dfb94fed185c3a44e9b21"
     },
     "173:644": {
       "id": "173:644",
       "name": ".glyph/ImageNode-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8b5e476e3313a0586e61bd209aaf17862380bd32"
     },
     "173:642": {
       "id": "173:642",
       "name": ".glyph/InfoCircleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "344febebb714721c75e37a6323417033cdd44a5c"
     },
     "173:651": {
       "id": "173:651",
       "name": ".glyph/InquiryClient-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "49257baf70e68ee420636704b4d964c830d11419"
     },
     "173:658": {
       "id": "173:658",
       "name": ".glyph/InquiryClient-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8e804f64e782bef44eaa722b8f03f8e957b5d6f5"
     },
     "173:650": {
       "id": "173:650",
       "name": ".glyph/InquiryManagement-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b9e477d63558847992b36275808ab84102affeb8"
     },
     "173:653": {
       "id": "173:653",
       "name": ".glyph/InquiryManagement-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b11472b696bc6011002b6ae23b9d7bfc2f47f1c0"
     },
     "173:656": {
       "id": "173:656",
       "name": ".glyph/InquiryManagement-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "3ff53080cb48527fb9ead66ccb922597c6665ff4"
     },
     "173:654": {
       "id": "173:654",
       "name": ".glyph/InstagramAnalyticsScene-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "53cda376f1f352821b7ab5f6181fd3618e301d68"
     },
     "174:610": {
       "id": "174:610",
       "name": ".glyph/InstagramIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ce916b958cf5f9871153f01cb2561775672d8877"
     },
     "174:611": {
       "id": "174:611",
       "name": ".glyph/KeyArrowGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e90431ca4d079b575f3e5fc592473b8e5f04981f"
     },
     "173:657": {
       "id": "173:657",
       "name": ".glyph/KeyEnterGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d5dae3ed0561bd82a93c577a229c1fdf747e1c65"
     },
     "173:655": {
       "id": "173:655",
       "name": ".glyph/LegalDocumentBackButton-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b444a0e9141dc159d6b909aecc903f8b83c5c7af"
     },
     "173:659": {
       "id": "173:659",
       "name": ".glyph/LightbulbIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e16a0807decef464f6714adade841e05c18203b7"
     },
     "211:2297": {
       "id": "211:2297",
       "name": ".glyph/LightningFill",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9d4b99b2fb2f8ea63be80712922a5c524afc935e"
     },
     "173:624": {
       "id": "173:624",
       "name": ".glyph/ListRowsGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9b10832b12688969945f282bb5a6b38e515737a7"
     },
     "173:660": {
       "id": "173:660",
       "name": ".glyph/LoopIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "74853c9c9793d9337f1c61d7dbf37cdeb9606b6c"
     },
     "173:661": {
       "id": "173:661",
       "name": ".glyph/MagicWandIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "632d43804077dd5c47abe036aad088881faedf69"
     },
     "173:666": {
       "id": "173:666",
       "name": ".glyph/MagnifyingGlassIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "55aed0b18b371b559a4797abef6345398b743df3"
     },
     "173:662": {
       "id": "173:662",
       "name": ".glyph/MenuIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "0a6b3afede076d24ef92f3754bd24219f23dd137"
     },
     "173:664": {
       "id": "173:664",
       "name": ".glyph/MicIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f18a81b305b28401e979a7272bb2b13987c1bc4c"
     },
     "173:665": {
       "id": "173:665",
       "name": ".glyph/MinusIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ec7ddd00a30b0385eb52c067af7f5133180242ce"
     },
     "173:663": {
       "id": "173:663",
       "name": ".glyph/ModeEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "47367d028a13547443a02acbec8efdf53c017104"
     },
     "173:667": {
       "id": "173:667",
       "name": ".glyph/MonitorArrowUpIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d8a09a08b6685360a7a26616516d090c4ebb5a6c"
     },
     "173:669": {
       "id": "173:669",
       "name": ".glyph/MusicNotesSimpleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "0e44d99cccfdf5869dbf5749a3bcb5010f8ca990"
     },
     "180:636": {
       "id": "180:636",
       "name": ".glyph/NavPlusGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ed375039cfc060e23d61c99cb86cea50c99db952"
     },
     "173:671": {
       "id": "173:671",
       "name": ".glyph/OutputEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "930101857614acde4ad9387673cafece549eb924"
     },
     "173:674": {
       "id": "173:674",
       "name": ".glyph/OverlayInspector-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "50b9e9e9738ec8b569691c329e45bb423175c7bf"
     },
     "173:670": {
       "id": "173:670",
       "name": ".glyph/OverlayInspector-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "c24e7700fc6740b0ffb9280082a903ea591caf85"
     },
     "173:672": {
       "id": "173:672",
       "name": ".glyph/OverlayInspector-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9d21f74284c462837e002564df6425f48fda6738"
     },
     "173:673": {
       "id": "173:673",
       "name": ".glyph/OverlayInspector-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "eeb56a5ac89ecced33073bcdb9ce3ccf0e1efe69"
     },
     "173:677": {
       "id": "173:677",
       "name": ".glyph/PauseIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6a99c7fbbfcd23fc205b87a356c06f8e4cc7a59b"
     },
     "173:679": {
       "id": "173:679",
       "name": ".glyph/PhotoIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "1479222e72cf3e6b797efa17c1b5db2df81b012c"
     },
     "173:676": {
       "id": "173:676",
       "name": ".glyph/PlatformSection-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "65dcc79be4fbed2c5f30c7d8898cf1c67e9f60ed"
     },
     "173:682": {
       "id": "173:682",
       "name": ".glyph/PlatformSection-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8aed6fe910cbb5bacdb47a59924d13cd6da802b2"
     },
     "173:680": {
       "id": "173:680",
       "name": ".glyph/PlatformSection-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fa60f3c4c1dd3d152e2cd56439e88628678e08b4"
     },
     "173:675": {
       "id": "173:675",
       "name": ".glyph/PlatformSection-5",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "52b5218f46f060da00e044e75c19d19438260342"
     },
     "173:678": {
       "id": "173:678",
       "name": ".glyph/PlatformSection-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6b60eda041eff7ad5bb3259d9c3dfd0e294ec633"
     },
     "173:683": {
       "id": "173:683",
       "name": ".glyph/PlatformSection-8",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "512dfd73740768001c8b0f806e91235dee642ded"
     },
     "173:686": {
       "id": "173:686",
       "name": ".glyph/PlatformSection-9",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "22463ba264e0efd4ab6baf793bb522f0f0bf1bec"
     },
     "227:3464": {
       "id": "227:3464",
       "name": ".glyph/PlayGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "cbc04e0c3669305f99c1dce3c321cc31202d8998"
     },
     "173:681": {
       "id": "173:681",
       "name": ".glyph/PlayIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f7b7cd527fb2d7b9e0479ee777907e0f71cf753e"
     },
     "173:668": {
       "id": "173:668",
       "name": ".glyph/PlusGlyph-32",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "a838f300c9c1f81c8571588317c4fb63426c9451"
     },
     "173:685": {
       "id": "173:685",
       "name": ".glyph/PlusIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "407bb058a75748b21a27af368bf5edc43ff65cd8"
     },
     "173:687": {
       "id": "173:687",
       "name": ".glyph/PricingSection-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7b9aafcece4f896023c816ccb9ba7ba22069077c"
     },
     "173:688": {
       "id": "173:688",
       "name": ".glyph/ProjectVideosIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "30b78da8c2f25f858b1a68f15116fe2325bf945a"
     },
     "173:689": {
       "id": "173:689",
       "name": ".glyph/PromptEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5a2d25d35b13ebee41623b14bced93da4d4f0ac7"
     },
     "173:696": {
       "id": "173:696",
       "name": ".glyph/PromptTitleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b296c71c6e0b004f06fcbf84b245b893baca9387"
     },
     "173:695": {
       "id": "173:695",
       "name": ".glyph/ReferencesEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4d856aac4f75ef8284a95f207cfa498f1d4115b8"
     },
     "173:693": {
       "id": "173:693",
       "name": ".glyph/SearchGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ab3f74db4adea8ad140410fc790479fe140fce1f"
     },
     "173:691": {
       "id": "173:691",
       "name": ".glyph/SettingsEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8ef7081ccbe659ebd91c035433aa4f341d86fd6a"
     },
     "173:698": {
       "id": "173:698",
       "name": ".glyph/ShotEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f34041b5bd8bf1ce585fbf3a8b8ab8457e91d9c8"
     },
     "63:244": {
       "id": "63:244",
       "name": ".glyph/SidebarToggle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "21c2291652e67544ab386515da7d5fde7a94577d"
     },
     "173:700": {
       "id": "173:700",
       "name": ".glyph/SidebarToggleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5cc98e23fb0210098d2d04db8ead437c41ce0d5a"
     },
     "173:690": {
       "id": "173:690",
       "name": ".glyph/SourceEyebrowIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "833d65dca9b15ea54c7d2ebc9373f03852681412"
     },
     "173:694": {
       "id": "173:694",
       "name": ".glyph/SparkleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "331430ca072806162e541c5a72632d69aa54d013"
     },
     "173:709": {
       "id": "173:709",
       "name": ".glyph/StaticArchiveDemo-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "3bba20724c20cf57e3338fbd6a71855675858c0b"
     },
     "173:706": {
       "id": "173:706",
       "name": ".glyph/StaticHighlightDemo-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "27b6d379222fbd79b710a63906cbd234c46a2c6d"
     },
     "173:705": {
       "id": "173:705",
       "name": ".glyph/TabBannerCarousel-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "39e281b83bf27703157d4318b20676da62a51550"
     },
     "173:704": {
       "id": "173:704",
       "name": ".glyph/TabBannerCarousel-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ba16a61edde427cf6f10b73d6830f9d7b626643c"
     },
     "173:703": {
       "id": "173:703",
       "name": ".glyph/TemplateIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ee842384a183f6745f14f645cf38680929124c1b"
     },
     "173:702": {
       "id": "173:702",
       "name": ".glyph/TextIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "775eb06176f76d0a65dab425a0ea83cad0d49846"
     },
     "227:3457": {
       "id": "227:3457",
       "name": ".glyph/ThemeDarkGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d979306e99da838653b0e96b3c0f6610135971fe"
     },
     "227:3434": {
       "id": "227:3434",
       "name": ".glyph/ThemeLightGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5dd0d9c861d7b1d59274ab34f8bccfbc6ab49ed9"
     },
     "227:3413": {
       "id": "227:3413",
       "name": ".glyph/ThemeSystemGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "83167f7c65a96e6af3e1f5f81755b354e4e2a1ee"
     },
     "173:697": {
       "id": "173:697",
       "name": ".glyph/ThumbGenerateIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "719927a1be95adc8c4bf70fe074568a587ee0747"
     },
     "173:692": {
       "id": "173:692",
       "name": ".glyph/ToolCursor",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4e5f7d37edba759cde30fe77398df387a9fef5c6"
     },
     "173:701": {
       "id": "173:701",
       "name": ".glyph/ToolHand",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8b3f5b7404474af97d3d5678785f7f863c7af66a"
     },
     "173:699": {
       "id": "173:699",
       "name": ".glyph/ToolZoomIn",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ed2972611253427e29005bcb736f96307e893f00"
     },
     "63:247": {
       "id": "63:247",
       "name": ".glyph/ToolbarChevronDown",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "bfb916df6ff8e6a168476036fa35822903cd49e6"
     },
     "180:667": {
       "id": "180:667",
       "name": ".glyph/UploadGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ac6613a598c40c52824c10d6d5c81e7dd2aa55d4"
     },
     "173:707": {
       "id": "173:707",
       "name": ".glyph/UploadSimpleIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6544690140aadb723055ec2a6c2cf89affd9ab8a"
     },
     "173:710": {
       "id": "173:710",
       "name": ".glyph/UserCircleDefaultAvatar",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4f4196da49dbc48077352e90926fee5561e99448"
     },
     "173:711": {
       "id": "173:711",
       "name": ".glyph/UserSoundIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ed0fa15e3506ebb5d58bfe0d26dd91db7eeb6870"
     },
     "173:713": {
       "id": "173:713",
       "name": ".glyph/VideoCameraIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5216dbdc1dd3bdd9d2b8147e3e7307c3ed8b6753"
     },
     "173:721": {
       "id": "173:721",
       "name": ".glyph/VideoEditModal-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e7f9e2fa5e5b110f1d07e948745df6892b8a9241"
     },
     "173:712": {
       "id": "173:712",
       "name": ".glyph/VideoEditModal-10",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "a67d9845b87dd98b814c8e16ab7d5b6fa7e49f92"
     },
     "173:714": {
       "id": "173:714",
       "name": ".glyph/VideoEditModal-11",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "4f5816bb6042ba73a4858d2ce15439ba4d518e6e"
     },
     "173:716": {
       "id": "173:716",
       "name": ".glyph/VideoEditModal-12",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "2daf271e2d9fa0ef99d741c50a1d1f391fe9e4c9"
     },
     "173:715": {
       "id": "173:715",
       "name": ".glyph/VideoEditModal-13",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f86ed996bafdd254f23dde4d343db8a26a39d1fb"
     },
     "174:606": {
       "id": "174:606",
       "name": ".glyph/VideoEditModal-14",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "664019297244cf8e000f5ce9a7e732bf8559aa82"
     },
     "173:720": {
       "id": "173:720",
       "name": ".glyph/VideoEditModal-15",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "cb6f256f673f60b791a231d4dd10c122d589aa08"
     },
     "173:719": {
       "id": "173:719",
       "name": ".glyph/VideoEditModal-16",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8a59f3d9fa3d3a50f099730b7dd6933a37919094"
     },
     "173:723": {
       "id": "173:723",
       "name": ".glyph/VideoEditModal-17",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f21bc7eb51096ad2997e7aaa8f709e3ef79bb025"
     },
     "173:717": {
       "id": "173:717",
       "name": ".glyph/VideoEditModal-18",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "c5531e7f35af77a9f90d329296a2ff5ab913b3b5"
     },
     "173:722": {
       "id": "173:722",
       "name": ".glyph/VideoEditModal-19",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "a9981352cfc9c48a1160bd853c5da8d14c0eb15b"
     },
     "173:732": {
       "id": "173:732",
       "name": ".glyph/VideoEditModal-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fa668ea039f97dbebadece5f143f00f78de529c2"
     },
     "173:718": {
       "id": "173:718",
       "name": ".glyph/VideoEditModal-20",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "633571bf6ffabc8f29f4cb0a0eb7313ef171fa9c"
     },
     "173:726": {
       "id": "173:726",
       "name": ".glyph/VideoEditModal-21",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "348fbc39e2fb7a49ce29b49bfaa11715fcd66c27"
     },
     "173:724": {
       "id": "173:724",
       "name": ".glyph/VideoEditModal-24",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "cf50e141ec052dc49f7555280d363a63bc2b41f5"
     },
     "173:727": {
       "id": "173:727",
       "name": ".glyph/VideoEditModal-25",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "350eb7309a37abcbc80e94d49596937a6a017630"
     },
     "173:725": {
       "id": "173:725",
       "name": ".glyph/VideoEditModal-26",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "bc4d038cf410032cdfb7d6b7fea1e950abf62d9e"
     },
     "173:728": {
       "id": "173:728",
       "name": ".glyph/VideoEditModal-27",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8cd2e33428714893ef51f8c9e98d5f1e48fd2362"
     },
     "173:738": {
       "id": "173:738",
       "name": ".glyph/VideoEditModal-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "0acc527c03d8cc999fcab4c6565c1fce055fe07b"
     },
     "173:744": {
       "id": "173:744",
       "name": ".glyph/VideoEditModal-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "0e245dcafd145e22d910576bdbf477d38e286f50"
     },
     "173:730": {
       "id": "173:730",
       "name": ".glyph/VideoEditModal-5",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e3a6de531c7e5b67baa54cf8b87407a6fcd54249"
     },
     "173:729": {
       "id": "173:729",
       "name": ".glyph/VideoEditModal-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "3a66ca14b2ddbd22e458170c9cc5b47a1bee6d18"
     },
     "173:737": {
       "id": "173:737",
       "name": ".glyph/VideoEditModal-7",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "2e5a0d72bafcda5ea0ea91f63855b831f99e256d"
     },
     "173:736": {
       "id": "173:736",
       "name": ".glyph/VideoEditModal-8",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "414aceff973dcb1d08ca0a30d2b3adf26b25c727"
     },
     "173:734": {
       "id": "173:734",
       "name": ".glyph/VideoEditModal-9",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "8533304d5e97864ec2228ea1af87f3b532a59048"
     },
     "173:733": {
       "id": "173:733",
       "name": ".glyph/VideoNode-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "41579f22ffed7febcedc03ac10e1489c1ef2bdd2"
     },
     "173:731": {
       "id": "173:731",
       "name": ".glyph/VideoNode-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "3b79afb03fd24534a5087973c35a7f0ec61c3f1a"
     },
     "173:740": {
       "id": "173:740",
       "name": ".glyph/VideoPlayer-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "cc35386753e992bc405e2d94afd221d57711b70d"
     },
     "173:739": {
       "id": "173:739",
       "name": ".glyph/VideoPlayer-10",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "f8cbfa82a4f5cc9e6815c57af5243dd832e7c4d0"
     },
     "173:735": {
       "id": "173:735",
       "name": ".glyph/VideoPlayer-11",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "71f124dda981bf94c71afd0ed18783639111d6c6"
     },
     "173:741": {
       "id": "173:741",
       "name": ".glyph/VideoPlayer-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "18129e9854c4ecf932a115ccea2ded1d18d1fe4e"
     },
     "173:743": {
       "id": "173:743",
       "name": ".glyph/VideoPlayer-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fe69c0928181fda6b0cbb57e0fee83a526ea7014"
     },
     "173:742": {
       "id": "173:742",
       "name": ".glyph/VideoPlayer-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7147f526bfbb3d705a6ffb908d3c990743745b37"
     },
     "173:745": {
       "id": "173:745",
       "name": ".glyph/VideoPlayer-7",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "1de971664086af87e6e8c6869f6789e248be193d"
     },
     "173:746": {
       "id": "173:746",
       "name": ".glyph/VideoPlayer-8",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "c9540277aca1da773ad76ae3490bda38f86d895b"
     },
     "173:748": {
       "id": "173:748",
       "name": ".glyph/VideoPlayer-9",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b4fd7854a5d989385cba52398507e5666da046da"
     },
     "173:747": {
       "id": "173:747",
       "name": ".glyph/VisibilityPrivate",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7825e70004dbb90a7edf3f1e4714d62e85f3a608"
     },
     "173:749": {
       "id": "173:749",
       "name": ".glyph/VisibilityPublic",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "71ad1c37171bb0cfef42ba3096b969e717a05373"
     },
     "173:750": {
       "id": "173:750",
       "name": ".glyph/VisibilityUnlisted",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "fca62d7b3ecca5157034bf79f7e6d4e9b2b2d5cc"
     },
     "173:761": {
       "id": "173:761",
       "name": ".glyph/VolumeOffIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6eb5c7c4068bf3b97e73b059a06f2faa4fcb5042"
     },
     "173:755": {
       "id": "173:755",
       "name": ".glyph/VolumeOnIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b0c57d6634d018d0e1f0ee169c6112ec92126c97"
     },
     "173:759": {
       "id": "173:759",
       "name": ".glyph/WalkthroughImageToVideoPromptConnect",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "b347ccb43c468544da8a887c3206633a59f812bf"
     },
     "173:765": {
       "id": "173:765",
       "name": ".glyph/WalkthroughVideoToYoutubeButtonPress",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "d06e9c8f1d075cc6712becacaf38348e47544f0e"
     },
     "173:753": {
       "id": "173:753",
       "name": ".glyph/WaveformIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "ce3bd3b73aab99d5f8c2a898d24dc10b843e287c"
     },
     "173:751": {
       "id": "173:751",
       "name": ".glyph/XIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "94aa701f1cef177a0853618a6346161aff0a8d26"
     },
     "173:756": {
       "id": "173:756",
       "name": ".glyph/YoutubeGlyph",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7e3eb41bc04f55ac19a407137c3a0fd8d960613b"
     },
     "173:754": {
       "id": "173:754",
       "name": ".glyph/YoutubeIcon",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9ab2cedfd15a91bf81a6d4f9ec424f217c10f1e3"
     },
     "174:607": {
       "id": "174:607",
       "name": ".glyph/YoutubePlayTriangle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "128c6731ca381d4bb2ed3a08bf1d1bf659bd6032"
     },
     "173:760": {
       "id": "173:760",
       "name": ".glyph/YoutubeUploadModal-11",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "603e17ea8c3b052054a342e82ef41b2c9ca7429a"
     },
     "173:752": {
       "id": "173:752",
       "name": ".glyph/YoutubeUploadModal-12",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5b8499bd0f1a2bb94edde2efabcb902f47475c16"
     },
     "173:763": {
       "id": "173:763",
       "name": ".glyph/YoutubeUploadModal-13",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "2099df0325e4afc0c7e5504590716c85ebda740c"
     },
     "173:757": {
       "id": "173:757",
       "name": ".glyph/YoutubeUploadModal-14",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7285418189e6f4d77a424d2dc1bc2bac8ab54b11"
     },
     "173:758": {
       "id": "173:758",
       "name": ".glyph/YoutubeUploadModal-15",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "6ede42e86cad9a464bdd2e12011fbe3b2a8e49c3"
     },
     "173:762": {
       "id": "173:762",
       "name": ".glyph/YoutubeUploadModal-16",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "5f3d9032394e7520ec8c2c8966d9a03eee80483a"
     },
     "173:764": {
       "id": "173:764",
       "name": ".glyph/YoutubeUploadModal-17",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "53cd5ffeec713e6f8d469ab21a420ac880bb3285"
     },
     "173:767": {
       "id": "173:767",
       "name": ".glyph/YoutubeUploadModal-4",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "92611d3ae4a1b30b65f59d9109a19d6f9de961db"
     },
     "173:768": {
       "id": "173:768",
       "name": ".glyph/YoutubeUploadModal-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9755b926a4cf4961d103a7f435877edac31a96db"
     },
     "173:769": {
       "id": "173:769",
       "name": ".glyph/YoutubeUploadModal-7",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "78a1f0faea90910182083d82e6f65775c74303f9"
     },
     "173:772": {
       "id": "173:772",
       "name": ".glyph/YoutubeUploadModal-8",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "9da36e41e52859a237879c3a19a25fc1a9a02960"
     },
     "173:773": {
       "id": "173:773",
       "name": ".glyph/YoutubeVideoAnalyticsView-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "eb04d8e7e0cb9cef8362d97dbc287bbb0fbe3682"
     },
     "173:771": {
       "id": "173:771",
       "name": ".glyph/nodeToolbarGlyphs-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "bc82bb6a0af737dfdd9ca50bfbba7d374b345361"
     },
     "173:776": {
       "id": "173:776",
       "name": ".glyph/nodeToolbarGlyphs-10",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "32ccb899ccec33c03009fa672e7c5ab75027aa31"
     },
     "173:775": {
       "id": "173:775",
       "name": ".glyph/nodeToolbarGlyphs-11",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "53b97dc26839aab00d13394a9509b2ada95eefaa"
     },
     "173:770": {
       "id": "173:770",
       "name": ".glyph/nodeToolbarGlyphs-12",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "52d57e6bfb47019e0af29c327c68753d0fdc90c2"
     },
     "173:774": {
       "id": "173:774",
       "name": ".glyph/nodeToolbarGlyphs-13",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "a18b673d718aaa3efd8668f600b2d237eb030cb8"
     },
     "174:609": {
       "id": "174:609",
       "name": ".glyph/nodeToolbarGlyphs-14",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "7b79216c8645d42e74ba40aa09117296176e4a19"
     },
     "173:783": {
       "id": "173:783",
       "name": ".glyph/nodeToolbarGlyphs-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "787beee820fad67fd0fab35c13f3d7289a72f820"
     },
     "173:784": {
       "id": "173:784",
       "name": ".glyph/nodeToolbarGlyphs-3",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "94b7d05ffabd745492973606a9d0b2bd187ba7a1"
     },
     "173:777": {
       "id": "173:777",
       "name": ".glyph/nodeToolbarGlyphs-5",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "16016c588ec0a5ed21176d496db45c1d8d301ad3"
     },
     "173:780": {
       "id": "173:780",
       "name": ".glyph/nodeToolbarGlyphs-6",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e99bdd274ccac77641f00aa79552ac524f912f68"
     },
     "173:782": {
       "id": "173:782",
       "name": ".glyph/nodeToolbarGlyphs-7",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "42731f71b7b6c83f3cc66940730d6803b58a1e26"
     },
     "173:781": {
       "id": "173:781",
       "name": ".glyph/nodeToolbarGlyphs-9",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "09628f14a21a9ad55da30956be011f3172c5bbe9"
     },
     "173:779": {
       "id": "173:779",
       "name": ".glyph/page-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "e707eade6fd877c996848f9ac9e0c7b2a6191575"
     },
     "173:785": {
       "id": "173:785",
       "name": ".glyph/shared-1",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "E · .glyph/  ·  제품 .tsx 인라인 추출  ·  209개",
+      "key": "1c70668699d634b73f33a8505c726e67f3ead48e"
     },
     "180:829": {
       "id": "180:829",
       "name": ".authored/alignL",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "9cf20e744cbfdb132217bc85afd17cc2273e0141"
     },
     "180:839": {
       "id": "180:839",
       "name": ".authored/alignR",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "79ce22c1bca23a58677e5d798c45feeacf870a96"
     },
     "180:786": {
       "id": "180:786",
       "name": ".authored/crop",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "c8b6809bac765cc01536f575ed5bb2f0f477060c"
     },
     "180:888": {
       "id": "180:888",
       "name": ".authored/guides",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "f9a2b1c6eff1dedb47ea1b4b4c7608ab389247bd"
     },
     "180:860": {
       "id": "180:860",
       "name": ".authored/kbd",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "f686a12fc30fb3e69e51b07f7cf7d321988214fc"
     },
     "180:705": {
       "id": "180:705",
       "name": ".authored/lucide download",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "b1effe14e8857e3829cf4cf970515124b07ce932"
     },
     "180:736": {
       "id": "180:736",
       "name": ".authored/lucide trash-2",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "15e66d52f046d73915de7d429a74ac6c786c1d62"
     },
     "180:878": {
       "id": "180:878",
       "name": ".authored/magnet",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "053f9fe31a8eba0f6ed1448316c2f7106466eb5b"
     },
     "180:806": {
       "id": "180:806",
       "name": ".authored/redo",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "48fb09e2c840d012c2a6ef86d566f0d2acc5bef0"
     },
     "180:817": {
       "id": "180:817",
       "name": ".authored/split",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "4da2ec45f86b72fbc61c7357e420b7e04d09c1d5"
     },
     "180:898": {
       "id": "180:898",
       "name": ".authored/tlToggle",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "ee2d6481580f2a3b3a225d1568686042c99d755a"
     },
     "180:848": {
       "id": "180:848",
       "name": ".authored/trash",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "e9f501392ff0327b84933493ada0441b13818cc7"
     },
     "180:796": {
       "id": "180:796",
       "name": ".authored/undo",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "F · .authored/  ·  ⚠ 출처 없음 — 값을 재지 말 것  ·  13개",
+      "key": "8e9b5745bb5fd4fd6adf5e2670da859ca8a10f7c"
     },
     "171:596": {
       "id": "171:596",
       "name": "logo/aws-footer-logo-bg (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "d8e7f8187c2d3c7855cb7295f003df3c7ec43a89"
     },
     "208:1888": {
       "id": "208:1888",
       "name": "logo/footer-logo-bg (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "6c3bb8d0a71d637a04f46a3aa07958a18a524a53"
     },
     "171:607": {
       "id": "171:607",
       "name": "logo/klipse-wordmark-overview-dark (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "092ef349aaaee87996faad17695ecc87f5a5acda"
     },
     "171:609": {
       "id": "171:609",
-      "name": "logo/node-canvas (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "name": "logo/canvas (브랜드 자산 · 색 고정)",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "e393d3f0972e653ec739fa010d310c21d7ee6ce9"
     },
     "171:612": {
       "id": "171:612",
-      "name": "logo/node-canvas-dark (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "name": "logo/canvas-dark (브랜드 자산 · 색 고정)",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "4dcf99c13a4fa5e01886ca690802ff250f71e442"
     },
     "171:608": {
       "id": "171:608",
       "name": "logo/openai (브랜드 자산 · 색 고정)",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "f301c3f124bc87d91280384256a3ac3153748f5b"
     },
     "66:387": {
       "id": "66:387",
-      "name": "root/node-canvas-wordmark",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "name": "root/canvas-wordmark",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "645221dc39e34ff73996a4dc70ac23ebdaf146e1"
     },
     "66:388": {
       "id": "66:388",
-      "name": "root/node-canvas-wordmark-dark",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개"
+      "name": "root/canvas-wordmark-dark",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "G · 대형 자산 (원본 크기 유지)  ·  8개",
+      "key": "df3efe62837284334e26662cbd7563de14b57f2d"
     },
-    "332:22": {
-      "id": "332:22",
-      "name": "Viewport=Desktop",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": null
+    "405:614": {
+      "id": "405:614",
+      "name": "Product/.glyph/SidebarToggle · Expanded measured",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "L · product/Desktop app top bar · measured component",
+      "key": "27d9ccc0a5d852af657600ede712a77333700018"
     },
-    "332:138": {
-      "id": "332:138",
-      "name": "Viewport=Mobile",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": null
+    "417:2214": {
+      "id": "417:2214",
+      "name": "Product/Desktop Upgrade Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "key": "6db5f1426173f401b6889bc7e5674a5c02e7b56e"
+    },
+    "417:2461": {
+      "id": "417:2461",
+      "name": "Product/Desktop Upgrade Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "key": "89d1ba0f7a665c8fcf09b57dd066caef9c13955d"
+    },
+    "422:2568": {
+      "id": "422:2568",
+      "name": "Product/Mobile Upgrade Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "key": "a264404582d6ec4a79f6056a47b589fa1aa4df8e"
+    },
+    "422:2696": {
+      "id": "422:2696",
+      "name": "Product/Mobile Upgrade Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "key": "c765af12127ccd65d7991a5ae32a208443b420af"
+    },
+    "500:5344": {
+      "id": "500:5344",
+      "name": "Product/Gnb Collapsed Upgrade CTA",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "Q · product/Desktop collapsed shell · measured component",
+      "key": "8b4cbd62649b1b68a9f122701bb62408eeca6173"
+    },
+    "477:4999": {
+      "id": "477:4999",
+      "name": "Product/Desktop Composition Top Bar · Sidebar=Collapsed",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "Q · product/Desktop collapsed shell · measured component",
+      "key": "869683dba449756457169615a6ce0084641f8ba7"
     },
     "2418:5896": {
       "id": "2418:5896",
       "name": "image/landing/testimonials-backdrop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-09-30 use_figma 로 만들고 upload_assets 로 채움 — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "584c96ea6fcfbd3e1dad982367f8b2980ad07bf0"
     },
     "2418:5897": {
       "id": "2418:5897",
       "name": "image/landing/creator-program-backdrop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-09-30 use_figma 로 만들고 upload_assets 로 채움 — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "2da212c9703d6289ef2f23f5020b76d3c68bdedc"
     },
     "2418:5898": {
       "id": "2418:5898",
       "name": "image/landing/ambassador-seal",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-09-30 use_figma 로 만들고 upload_assets 로 채움 — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "003ade18dc2c79252867ed658938f5ced70dcf73"
     },
     "2418:5899": {
       "id": "2418:5899",
       "name": "image/landing/news-featured",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-09-30 use_figma 로 만들고 upload_assets 로 채움 — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "ea40115c95da1a8c812b6b1961028502267ca1e1"
     },
     "2716:4193": {
       "id": "2716:4193",
       "name": "image/examples/example-1",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(제품 public /image-edit/examples 원본 600×900) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "d20e718cff610111abeb20cdd3570e1ca79c2abf"
     },
     "2716:4194": {
       "id": "2716:4194",
       "name": "image/examples/example-2",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(제품 public /image-edit/examples 원본 600×900) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "490b134e0eb92a5dc0f1b1e3818d7700658ba019"
     },
     "2716:4195": {
       "id": "2716:4195",
       "name": "image/examples/example-3",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(제품 public /image-edit/examples 원본 600×900) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "5508431c7e82d9466791f505fe3b3ce22c1391ca"
     },
     "2716:4196": {
       "id": "2716:4196",
       "name": "image/examples/example-4",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(제품 public /image-edit/examples 원본 600×900) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "dfa5d19813e6cf6e99de631dbcec5a65904ddf4d"
     },
     "2716:4197": {
       "id": "2716:4197",
       "name": "image/examples/example-5",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(제품 public /image-edit/examples 원본 600×900) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "73b67a446ed396e8a874e12da3afd4ddbba6393d"
     },
     "2724:4193": {
       "id": "2724:4193",
       "name": "image/louis-examples/brand-mark",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(packages/css/examples 원본) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "6d3fc0a5aee3e0b94b35af8c4fefbe69c22623f9"
     },
     "2724:4194": {
       "id": "2724:4194",
       "name": "image/louis-examples/login-product-mobile",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(packages/css/examples 원본) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "ce992640ad319fad99fdf039f73eb6d2b01d5b32"
     },
     "2724:4195": {
       "id": "2724:4195",
       "name": "image/louis-examples/login-board-mobile",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(packages/css/examples 원본) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "9d3d2fc1746465388bda62f03c4e700b1654ca30"
     },
     "2724:4196": {
       "id": "2724:4196",
       "name": "image/louis-examples/data-deletion-board-crop",
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
-      "source": "2026-10-07 use_figma 로 만들고 upload_assets 로 채움(packages/css/examples 원본) — figma-sync 스냅숏(fetchedAt) 뒤에 더한 항목"
+      "key": "75d59752aef7ae474a49f352f7a3e15aa79e7eb7"
     }
   },
   "componentSets": {
+    "672:552": {
+      "id": "672:552",
+      "name": "Button",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "674:12040": {
+      "id": "674:12040",
+      "name": "IconButton",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "831:852": {
+      "id": "831:852",
+      "name": "CarouselArrow",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "1352:16047": {
+      "id": "1352:16047",
+      "name": "MenuTrigger",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "1363:16006": {
+      "id": "1363:16006",
+      "name": "SelectTrigger",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "1375:16007": {
+      "id": "1375:16007",
+      "name": "PillTrigger",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "2858:1728": {
+      "id": "2858:1728",
+      "name": "TextLink",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "2861:1720": {
+      "id": "2861:1720",
+      "name": "BareButton",
+      "page": "DS · Components",
+      "section": "1 · 액션 — 버튼 · 트리거",
+      "variantsCount": 0
+    },
+    "674:12235": {
+      "id": "674:12235",
+      "name": "TextField",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "674:12366": {
+      "id": "674:12366",
+      "name": "Checkbox",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "776:809": {
+      "id": "776:809",
+      "name": "Switch",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "674:12367": {
+      "id": "674:12367",
+      "name": "Slider",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "771:867": {
+      "id": "771:867",
+      "name": "SegmentedControl",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "771:809": {
+      "id": "771:809",
+      "name": "SegmentedControlItem",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "871:838": {
+      "id": "871:838",
+      "name": "SegmentedCodeInput",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "2055:1505": {
+      "id": "2055:1505",
+      "name": "DropZone",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "802:825": {
+      "id": "802:825",
+      "name": "MediaScrubber",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "2849:1828": {
+      "id": "2849:1828",
+      "name": "ChoiceCard",
+      "page": "DS · Components",
+      "section": "2 · 입력 — 필드 · 선택 · 슬라이더",
+      "variantsCount": 0
+    },
+    "674:12": {
+      "id": "674:12",
+      "name": "Menu",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "variantsCount": 0
+    },
+    "674:12150": {
+      "id": "674:12150",
+      "name": "Dialog",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "variantsCount": 0
+    },
+    "674:12041": {
+      "id": "674:12041",
+      "name": "Tooltip",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "variantsCount": 0
+    },
+    "674:12035": {
+      "id": "674:12035",
+      "name": "Toast",
+      "page": "DS · Components",
+      "section": "3 · 오버레이 — 메뉴 · 대화상자 · 툴팁 · 토스트",
+      "variantsCount": 0
+    },
+    "776:800": {
+      "id": "776:800",
+      "name": "Alert",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "675:12007": {
+      "id": "675:12007",
+      "name": "Badge",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "766:759": {
+      "id": "766:759",
+      "name": "FormMessage",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "674:12270": {
+      "id": "674:12270",
+      "name": "Spinner",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "674:12376": {
+      "id": "674:12376",
+      "name": "ProgressBar",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "675:11961": {
+      "id": "675:11961",
+      "name": "Skeleton",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "1351:1223": {
+      "id": "1351:1223",
+      "name": "EmptyState",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "868:838": {
+      "id": "868:838",
+      "name": "InlineLoadingLabel",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "2843:1656": {
+      "id": "2843:1656",
+      "name": "LoadingWord",
+      "page": "DS · Components",
+      "section": "4 · 피드백 — 알림 · 상태 · 로딩",
+      "variantsCount": 0
+    },
+    "674:12351": {
+      "id": "674:12351",
+      "name": "Avatar",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "766:768": {
+      "id": "766:768",
+      "name": "Breadcrumb",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "766:752": {
+      "id": "766:752",
+      "name": "Keycap",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "675:11957": {
+      "id": "675:11957",
+      "name": "BannerCarousel",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "682:190": {
+      "id": "682:190",
+      "name": "ProjectCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "828:846": {
+      "id": "828:846",
+      "name": "MediaCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "853:1143": {
+      "id": "853:1143",
+      "name": "NewsCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "1368:1490": {
+      "id": "1368:1490",
+      "name": "StatTile",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "1370:1512": {
+      "id": "1370:1512",
+      "name": "ChartCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "851:846": {
+      "id": "851:846",
+      "name": "FaqRow",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "777:802": {
+      "id": "777:802",
+      "name": "TabItem",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "777:832": {
+      "id": "777:832",
+      "name": "TableCell",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "777:819": {
+      "id": "777:819",
+      "name": "TableHeaderCell",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "1362:1388": {
+      "id": "1362:1388",
+      "name": "SectionHeader",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "809:853": {
+      "id": "809:853",
+      "name": "VideoPlayer",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "2832:1633": {
+      "id": "2832:1633",
+      "name": "Tabs",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "2853:1948": {
+      "id": "2853:1948",
+      "name": "RecordCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "2867:1726": {
+      "id": "2867:1726",
+      "name": "StartCard",
+      "page": "DS · Components",
+      "section": "5 · 내용 — 카드 · 표 · 탭 · 미디어",
+      "variantsCount": 0
+    },
+    "674:34": {
+      "id": "674:34",
+      "name": "SidebarNavItem",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "675:11967": {
+      "id": "675:11967",
+      "name": "SidebarBrand",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "675:11971": {
+      "id": "675:11971",
+      "name": "SidebarCta",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "855:850": {
+      "id": "855:850",
+      "name": "GnbMenuItem",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "674:12344": {
+      "id": "674:12344",
+      "name": "SelectableListRow",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "947:13024": {
+      "id": "947:13024",
+      "name": "PaneDivider",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "2875:1754": {
+      "id": "2875:1754",
+      "name": "FloatingShell",
+      "page": "DS · Components",
+      "section": "6 · 셸 — 상단 바 · 사이드바 · 분할",
+      "variantsCount": 0
+    },
+    "1362:16312": {
+      "id": "1362:16312",
+      "name": "NodeShell",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "776:843": {
+      "id": "776:843",
+      "name": "NodeChip",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1362:1422": {
+      "id": "1362:1422",
+      "name": "NodeChromeButton",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1362:15981": {
+      "id": "1362:15981",
+      "name": "NodeSideHandle",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1362:1271": {
+      "id": "1362:1271",
+      "name": "CanvasEdge",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1362:1297": {
+      "id": "1362:1297",
+      "name": "TransformFrame",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1363:16026": {
+      "id": "1363:16026",
+      "name": "InspectorRow",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
+    "1364:15978": {
+      "id": "1364:15978",
+      "name": "InspectorSectionHead",
+      "page": "DS · Components",
+      "section": "7 · 캔버스 · 에디터 — 노드 · 엣지 · 인스펙터",
+      "variantsCount": 0
+    },
     "310:3502": {
       "id": "310:3502",
       "name": "scene/StaticHighlightDemo",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "H · 제품 장면 · 측정 생성본 · 1개 세트",
+      "variantsCount": 0
+    },
+    "384:215": {
+      "id": "384:215",
+      "name": "Product/Gnb Sidebar Menu",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "I · product/Gnb sidebar · measured component",
+      "variantsCount": 0
+    },
+    "390:215": {
+      "id": "390:215",
+      "name": "Product/Gnb Upgrade CTA",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "I · product/Gnb sidebar · measured component",
+      "variantsCount": 0
+    },
+    "392:611": {
+      "id": "392:611",
+      "name": "Product/Gnb Desktop Shell",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "I · product/Gnb sidebar · measured component",
+      "variantsCount": 0
+    },
+    "395:628": {
+      "id": "395:628",
+      "name": "Product/Payment Result Content",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "J · product/Payment result · measured component",
+      "variantsCount": 0
+    },
+    "400:670": {
+      "id": "400:670",
+      "name": "Product/Mobile App Top Bar",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "K · product/Mobile app top bar · measured component",
+      "variantsCount": 0
+    },
+    "405:692": {
+      "id": "405:692",
+      "name": "Product/Desktop App Top Bar",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "L · product/Desktop app top bar · measured component",
+      "variantsCount": 0
+    },
+    "406:687": {
+      "id": "406:687",
+      "name": "Product/Desktop Payment Result Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "M · product/Desktop payment result scenes · measured composition",
+      "variantsCount": 0
+    },
+    "406:1045": {
+      "id": "406:1045",
+      "name": "Product/Desktop Payment Result Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "M · product/Desktop payment result scenes · measured composition",
+      "variantsCount": 0
+    },
+    "407:1076": {
+      "id": "407:1076",
+      "name": "Product/Mobile Payment Result Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "M · product/Desktop payment result scenes · measured composition",
+      "variantsCount": 0
+    },
+    "407:1134": {
+      "id": "407:1134",
+      "name": "Product/Mobile Payment Result Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "M · product/Desktop payment result scenes · measured composition",
+      "variantsCount": 0
+    },
+    "410:1208": {
+      "id": "410:1208",
+      "name": "Product/Checkout Status Content",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "N · product/Checkout status · measured component and scenes",
+      "variantsCount": 0
+    },
+    "410:1294": {
+      "id": "410:1294",
+      "name": "Product/Desktop Checkout Status Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "N · product/Checkout status · measured component and scenes",
+      "variantsCount": 0
+    },
+    "410:1380": {
+      "id": "410:1380",
+      "name": "Product/Mobile Checkout Status Main Surface",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "N · product/Checkout status · measured component and scenes",
+      "variantsCount": 0
+    },
+    "410:1769": {
+      "id": "410:1769",
+      "name": "Product/Desktop Checkout Status Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "N · product/Checkout status · measured component and scenes",
+      "variantsCount": 0
+    },
+    "410:1858": {
+      "id": "410:1858",
+      "name": "Product/Mobile Checkout Status Scene",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "N · product/Checkout status · measured component and scenes",
+      "variantsCount": 0
+    },
+    "417:2213": {
+      "id": "417:2213",
+      "name": "Product/Upgrade Plan Card",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "variantsCount": 0
+    },
+    "422:2567": {
+      "id": "422:2567",
+      "name": "Product/Upgrade Plan Card Visible Slice",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "variantsCount": 0
+    },
+    "2053:5874": {
+      "id": "2053:5874",
+      "name": "Product/Pricing Notice",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "O · product/Upgrade plans · measured desktop scene",
+      "variantsCount": 0
+    },
+    "476:4956": {
+      "id": "476:4956",
+      "name": "Product/Gnb Desktop Rail",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "Q · product/Desktop collapsed shell · measured component",
+      "variantsCount": 0
+    },
+    "2074:5896": {
+      "id": "2074:5896",
+      "name": "Product/Save Cloud Glyph",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+      "variantsCount": 0
+    },
+    "2074:5917": {
+      "id": "2074:5917",
+      "name": "Product/Theme Glyph",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+      "variantsCount": 0
+    },
+    "2074:5940": {
+      "id": "2074:5940",
+      "name": "Product/Glyph",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+      "variantsCount": 0
+    },
+    "2074:6007": {
+      "id": "2074:6007",
+      "name": "Product/Mobile Action Glyph",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "R · product/Glyphs · 제품 인라인 SVG 글리프 — build-figma-product-glyphs 생성물",
+      "variantsCount": 0
+    },
+    "2086:5889": {
+      "id": "2086:5889",
+      "name": "Product/Gift Plan Option",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2086:5892": {
+      "id": "2086:5892",
+      "name": "Product/Quantity Stepper",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2101:5882": {
+      "id": "2101:5882",
+      "name": "Product/Analytics Connect Button",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2101:5885": {
+      "id": "2101:5885",
+      "name": "Product/Highlight Theme Chips",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2101:5887": {
+      "id": "2101:5887",
+      "name": "Product/Checkout Agreement",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2109:5882": {
+      "id": "2109:5882",
+      "name": "Product/Billing Status Alert",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2109:5885": {
+      "id": "2109:5885",
+      "name": "Product/Bulk Coupon Notice",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2115:5882": {
+      "id": "2115:5882",
+      "name": "Product/Coupon Code Chip",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2677:4187": {
+      "id": "2677:4187",
+      "name": "Product/Landing Footer",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2683:4187": {
+      "id": "2683:4187",
+      "name": "Product/Page Header",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2683:4190": {
+      "id": "2683:4190",
+      "name": "Product/Admin Section Header",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2683:4195": {
+      "id": "2683:4195",
+      "name": "Product/Select Dropdown",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
+      "variantsCount": 0
+    },
+    "2683:4198": {
+      "id": "2683:4198",
+      "name": "Product/Plan Comparison Table",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "S · product/Parts · 측정 서브트리 — build-figma-app-screens 생성물",
       "variantsCount": 0
     },
     "332:187": {
       "id": "332:187",
       "name": "product/VideoEditorLandingCapture",
-      "page": "90 · ASSETS — 출처별 (logo · tile · icon · root · .glyph · .authored)",
-      "section": null,
-      "variantsCount": 2
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "T · product/Landing capture · 옛 랜딩 캡처(a3ed8e03) — 01 페이지 / 보드 두 장이 인스턴스로 쓴다",
+      "variantsCount": 0
     }
   }
 }

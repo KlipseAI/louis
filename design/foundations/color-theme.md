@@ -78,22 +78,26 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 | `--gray-000` (semantic) | `#000000` | `#fafafa` |
 | `--palette-gray-000` (primitive) | `#fafafa` | `#fafafa` |
 
-제품 정본 — auth 브랜드 패널의 면은 `bg-accent-primary`에 `/footer-logo-bg.svg`를 얹고 테마 분기가 없다
-(`AuthStatusCard.tsx:27-30` · `login/page.tsx:43-47` · `app/signup/page.tsx:37-40`). 그 위 슬로건 전경은
-`text-fg-inverse`, 즉 두 mode 모두 `#fafafa`다(`AuthStatusCard.tsx:41` · `login/page.tsx:63` ·
-`app/signup/page.tsx:51`). 같은 부류로 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
+제품 정본 — auth 브랜드 패널은 통합 판 `76b6cf15` 에서 인증 일곱 화면이 한 벌로 나눠 쓰는 `AuthBrandPanel`
+로 모였다(라우트 그룹 `(auth-brand)` 의 레이아웃이 갖는다). 면은 배경 영상과 고정 스크림
+(`media-scrim-dark` 40%)이 덮고, `bg-accent-primary` 는 영상이 오기 전이나 재생이 막혔을 때의 바닥으로
+남아 테마 분기가 없다(`AuthBrandPanel.tsx:31` · 영상과 스크림 `:40-51`). 예전에 얹던 `/footer-logo-bg.svg` 는
+걷혔다. 그 위 슬로건 전경은 `text-fg-inverse` 에서 `media-foreground-dark` 로 옮겨 갔다 — 영상 위라
+테마를 따라 뒤집히는 잉크를 쓰면 안 되는 자리이고, 두 mode 모두 `#fafafa`다(`AuthBrandPanel.tsx:77`).
+같은 부류로 캔버스 카드 외곽선도 semantic이 아니라 `--palette-gray-600-rgb` /
 `--palette-gray-000-rgb`을 쓴다(`components/scenes/create/node-canvas-v2/index.tsx:358-359`).
 
 **이 두 축은 2026-08-24 배포본에서 이미 위 결손을 메웠다.** 예전에는 면이 `bg-[#0093ff]` 리터럴이고
 전경이 `text-palette-gray-000` primitive 별칭이었으며, 이 문단도 「브랜드 면 색 `#0093ff` 자체는 토큰화
 대상이 아니다 — 리터럴로 남긴다」고 적고 있었다. 지금은 둘 다 **light/dark 두 mode가 같은 값인 semantic**
-이다 — `--louis-color-accent-primary`는 양쪽 `#0088ff`, `--louis-color-fg-inverse`는 양쪽 `#fafafa`다.
+이다 — `--louis-color-accent-primary`는 양쪽 `#0088ff`, 전경은 `--louis-color-fg-inverse`(양쪽 `#fafafa`)를
+거쳐 통합 판에서는 `--louis-color-media-foreground-dark`(양쪽 `#fafafa`)다.
 `#0093ff`는 배포본 코드에 더는 없고 `/node-canvas.svg` 같은 자산 안에만 남아 있다. 다만 `color-media-*`
 계열의 일반화는 여전히 결손이다 — 코브랜드 면(`/aws/signup`의 `#ff9900`)은 아직 리터럴이다
 (`aws/signup/page.tsx:89`).
 
 **규칙은 「항상 고정을 써라」가 아니다.** 같은 카드 안에서 축이 갈린다 — 면이 테마를 따르는 폼 패널의
-제목은 시맨틱 `text-fg-primary`가 맞다(`AuthStatusCard.tsx:78`). 면이 고정이면 전경도 고정, 면이 테마를
+제목은 시맨틱 `text-fg-primary`가 맞다(`AuthStatusCard.tsx:49`). 면이 고정이면 전경도 고정, 면이 테마를
 따르면 전경도 따른다.
 
 **이걸 모르면 틀린다.** 슬로건 색을 이름만 보고 `--gray-000`에 매핑하면 라이트 테마에서 파란 면 위 글자가

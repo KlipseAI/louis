@@ -1,0 +1,264 @@
+{
+  "$schema": "./_schema.json",
+  "area": "highlight",
+  "mode": "session",
+  "authoredAgainst": "76b6cf154ab2",
+  "description": "하이라이트 영역 상태 레시피(설계서 4-6). 리뷰 단계 셋은 제품의 개발 전용 미리보기 후크 ?preview=review · review-chat(HighlightProjectScene.tsx:669, NODE_ENV 게이트)로 연다 — 제품이 직접 쓴 데모 값(reviewPreview.ts)이라 시드 · API 가 필요 없고, 화면이 요청을 하나도 보내지 않는다(reviewPreview.ts 12–13 주석). 쇼츠 셋은 세션 기준 화면(결과 보기, 시드 쇼츠 한 행) 위에서 클릭한다 — 쇼츠의 ?preview=result 는 결과 버튼이 아무것도 하지 않아(page.tsx 1472) 업로드 창 · 편집기를 열 수 없다.",
+  "recipes": [
+    {
+      "id": "/highlight/[projectId] reviewed.refine",
+      "pattern": "/highlight/[projectId]",
+      "url": "/highlight/fixture-no-such-project?preview=review-chat",
+      "fullPage": true,
+      "description": "리뷰 단계 + AI 클립 수정 창이 열린 채 두 번 주고받은 대화(마지막 제안이 적용 대기 — 미리보기 말풍선과 Apply · Revert 가 함께 선다). 미리보기는 창을 연 채로 시작한다(1529).",
+      "contentNote": "글자는 전부 제품 데모 값(reviewPreview.ts SEGMENTS · CONVERSATION)이다. 지어낸 내용 없음. 프로젝트 id 는 측정기의 ?__phase 화면과 같은 뜻 없는 값(fixture-no-such-project) — 미리보기는 프로젝트를 조회하지 않는다.",
+      "surfaces": [
+        "apps/web/components/scenes/HighlightProjectScene.tsx#ClipRefinementChat",
+        "apps/web/components/scenes/highlight/CompositeSegmentPreview.tsx#CompositeSegmentPreview"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 669, "expect": "reviewPreviewStateOf(searchParams.get(\"preview\"))" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 24, "expect": "trimmed === \"review\" || trimmed === \"review-chat\"" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 1501, "expect": "reviewPreview === \"review-chat\" &&" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 1529, "expect": "if (reviewPreview && phase === \"reviewed\") openRefine();" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3396, "expect": "role={refineOpen ? \"dialog\" : undefined}" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3397, "expect": "aria-label={refineOpen ? t.refineTitle : undefined}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1260, "expect": "refineTitle: \"AI clip refine\"" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 415, "expect": "isPendingDecision && videoUrl && msg.refinedHighlight" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 417, "expect": "<CompositeSegmentPreview" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 441, "expect": "(t as Record<string, string>).refineApply" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1266, "expect": "refineApply: \"Apply\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1267, "expect": "refineRevert: \"Revert\"" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 110, "expect": "content: \"관중 환호 빼기\"" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 114, "expect": "content: \"골망이 흔들린 직후에서 끝나도록 마지막 1초를 줄인 수정안입니다.\"" }
+      ],
+      "steps": [
+        { "waitFor": { "role": "dialog", "name": "AI clip refine", "exact": true }, "description": "미리보기는 창을 연 채로 시작한다 — 열렸는지 확인" },
+        { "waitFor": { "role": "button", "name": "Apply", "exact": true }, "description": "적용 대기 제안의 Apply — 대화가 붙은 클립(0)이 포커스" }
+      ],
+      "assert": {
+        "text": [
+          "관중 환호 빼기",
+          "골망이 흔들린 직후에서 끝나도록 마지막 1초를 줄인 수정안입니다.",
+          "Apply",
+          "Revert"
+        ]
+      }
+    },
+    {
+      "id": "/highlight/[projectId] reviewed.refine-empty",
+      "pattern": "/highlight/[projectId]",
+      "url": "/highlight/fixture-no-such-project?preview=review",
+      "fullPage": true,
+      "description": "리뷰 단계 + AI 클립 수정 창이 열린 빈 대화 — 제안 칩 행(주제가 sports 라 「Remove replay」 칩까지 셋)과 입력 줄.",
+      "contentNote": "글자는 제품 데모 값(reviewPreview.ts)과 en 메시지다. 지어낸 내용 없음.",
+      "surfaces": [
+        "apps/web/components/scenes/HighlightProjectScene.tsx#ClipRefinementChat"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 669, "expect": "reviewPreviewStateOf(searchParams.get(\"preview\"))" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 24, "expect": "trimmed === \"review\" || trimmed === \"review-chat\"" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 1529, "expect": "if (reviewPreview && phase === \"reviewed\") openRefine();" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3396, "expect": "role={refineOpen ? \"dialog\" : undefined}" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 467, "expect": "msgs.length === 0 ? (" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 373, "expect": "...(showReplayChip" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3510, "expect": "uploadTheme === \"sports\" || uploadTheme === \"gaming\"" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 121, "expect": "themeId: \"sports\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1270, "expect": "refineChipFront5: \"Add 5s to start\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1271, "expect": "refineChipBack3: \"Trim 3s from end\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1272, "expect": "refineChipReplay: \"Remove replay\"" }
+      ],
+      "steps": [
+        { "waitFor": { "role": "dialog", "name": "AI clip refine", "exact": true } },
+        { "waitFor": { "role": "button", "name": "Remove replay", "exact": true }, "description": "빈 대화일 때만 서는 칩 행" }
+      ],
+      "assert": {
+        "text": ["Add 5s to start", "Trim 3s from end", "Remove replay"]
+      }
+    },
+    {
+      "id": "/highlight/[projectId] reviewed.composite",
+      "pattern": "/highlight/[projectId]",
+      "url": "/highlight/fixture-no-such-project?preview=review",
+      "fullPage": true,
+      "description": "리뷰 상세의 포커스를 묶음(composite, 하위 구간 둘) 클립으로 옮긴 상태 — 큰 프리뷰가 VideoPlayer 대신 CompositeSegmentPreview 로 선다(3127–3134). 클립을 바꾸면 수정 창은 접힌다(1520–1524).",
+      "contentNote": "글자는 제품 데모 값(reviewPreview.ts SEGMENTS[3])이다. 지어낸 내용 없음. 모바일(≤900)에서는 목록이 가로 스크롤 줄이 되어 클릭이 그 줄을 스크롤한다 — 결정적이지만 기준 화면과 스크롤 위치가 다르다.",
+      "surfaces": [
+        "apps/web/components/scenes/highlight/CompositeSegmentPreview.tsx#CompositeSegmentPreview"
+      ],
+      "cite": [
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 669, "expect": "reviewPreviewStateOf(searchParams.get(\"preview\"))" },
+        { "path": "apps/web/components/scenes/highlight/reviewPreview.ts", "line": 67, "expect": "title: \"전반전 결정적 기회 모음\"" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3048, "expect": "setReviewActiveIndex(seg.index)" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3127, "expect": "reviewActiveSeg.type === \"composite\" &&" },
+        { "path": "apps/web/components/scenes/HighlightProjectScene.tsx", "line": 3131, "expect": "<CompositeSegmentPreview" }
+      ],
+      "steps": [
+        { "click": { "text": "전반전 결정적 기회 모음", "exact": true }, "description": "목록 행(div onClick)의 제목 — 클릭 전에는 목록에만 있다" },
+        { "waitFor": { "role": "heading", "name": "전반전 결정적 기회 모음", "exact": true }, "description": "상세 제목(h3)이 묶음 클립으로 바뀐다" }
+      ],
+      "assert": {
+        "text": ["비슷한 장면 두 개를 이어 붙여 아쉬움이 쌓이는 흐름을 만든다."]
+      }
+    },
+    {
+      "id": "/highlight/[projectId]/shorts/[shortId] upload",
+      "base": "/highlight/[projectId]/shorts/[shortId]",
+      "description": "유튜브 업로드 창 — 채널 연결됨 · phase form(watch 모사 미리보기 + 제목 · 설명 · 태그). 창을 열면 연결 상태를 다시 묻는다(YoutubeUploadModal.tsx 847) — 두 응답 모두 가로챈다. 플랜 게이트는 열린다: 세션 fixture 는 profiles 가 비어 /api/auth/me 의 billing 이 null 이고(route.ts 86–92), 판정 불가면 막지 않는다(usePlanGating.ts 64).",
+      "contentNote": "채널 이름은 제품 데모 값(shortResultPreview.ts 58 「풋볼 클립 스튜디오」). 채널 id 는 자리표시, 썸네일은 비워 아바타가 빈 원이다(바깥 이미지는 측정기가 끊는다). 결과 영상은 기준 시드의 바깥 주소라 플레이어는 검은 면이다. 시각 connected_at 은 고정 절대 시각이고 화면에 그려지지 않는다.",
+      "surfaces": [
+        "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeUploadModal",
+        "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeStylePlayer"
+      ],
+      "cite": [
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 122, "expect": "fetch(\"/api/auth/youtube/me\"" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 137, "expect": "!result.connected ||" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 156, "expect": "fetch(\"/api/youtube/channel\"" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 171, "expect": "channelResult.channel?.title ||" },
+        { "path": "apps/web/components/youtube/YoutubeConnectionProvider.tsx", "line": 176, "expect": "channelResult.channel?.thumbnailUrl" },
+        { "path": "apps/web/app/api/auth/youtube/me/route.ts", "line": 68, "expect": "connected," },
+        { "path": "apps/web/app/api/auth/youtube/me/route.ts", "line": 69, "expect": "youtubeAccount: connected" },
+        { "path": "apps/web/app/api/auth/youtube/me/route.ts", "line": 75, "expect": "connected_at: youtubeAccount?.connected_at ?? null" },
+        { "path": "apps/web/app/api/youtube/channel/route.ts", "line": 68, "expect": "title: channel.snippet?.title ?? \"\"" },
+        { "path": "apps/web/app/api/youtube/channel/route.ts", "line": 75, "expect": "subscriberCount: Number(channel.statistics?.subscriberCount ?? 0)" },
+        { "path": "apps/web/app/api/youtube/channel/route.ts", "line": 78, "expect": "uploadsPlaylistId:" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/shortResultPreview.ts", "line": 58, "expect": "channelTitle: \"풋볼 클립 스튜디오\"" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1893, "expect": "onClick={openYoutubeAction}" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1895, "expect": "{youtubeRowLabel}" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 2074, "expect": "{youtubeBarLabel}" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 308, "expect": "[@media(max-width:719px)]:hidden" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 323, "expect": "[@media(max-width:719px)]:flex" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1240, "expect": "youtubeUploadButton: \"Upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1229, "expect": "uploadYoutube: \"Upload to YouTube\"" },
+        { "path": "apps/web/components/youtube/YoutubeUploadModal.tsx", "line": 847, "expect": "void refreshYoutubeStatus({ force: true });" },
+        { "path": "apps/web/components/youtube/YoutubeUploadModal.tsx", "line": 1087, "expect": "<YoutubeStylePlayer src={sourceVideoUrl} labels={t} />" },
+        { "path": "apps/web/components/youtube/YoutubeUploadModal.tsx", "line": 1111, "expect": "{youtubeChannelTitle || \" \"}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4849, "expect": "viewsHint: \"No views · just now\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4854, "expect": "publish: \"Publish\"" }
+      ],
+      "api": [
+        { "method": "GET", "path": "/api/auth/youtube/me", "jsonFile": "data/highlight/youtube-me-connected.json", "description": "app/api/auth/youtube/me/route.ts 66–78 의 연결됨 꼴" },
+        { "method": "GET", "path": "/api/youtube/channel", "jsonFile": "data/highlight/youtube-channel.json", "description": "app/api/youtube/channel/route.ts 64–81 의 꼴 — 가로채지 않으면 서버가 Google 을 부른다" }
+      ],
+      "stepsByContext": {
+        "desktop-1920x1080": [
+          { "click": { "role": "button", "name": "Upload", "exact": true }, "description": "내보내기 행의 버튼 — 연결되면 「Upload」(page.tsx 1458–1464). 719 이하에서는 숨는다" },
+          { "waitFor": { "text": "No views · just now", "exact": true }, "description": "phase form 의 watch 모사 설명 상자" }
+        ],
+        "mobile-402x874": [
+          { "click": { "role": "button", "name": "Upload to YouTube", "exact": true }, "description": "719 이하 하단 고정 바의 주 행동(page.tsx 2073–2074)" },
+          { "waitFor": { "text": "No views · just now", "exact": true } }
+        ]
+      },
+      "assert": {
+        "text": ["No views · just now", "Publish", "풋볼 클립 스튜디오"],
+        "apiHit": "all"
+      }
+    },
+    {
+      "id": "/highlight/[projectId]/shorts/[shortId] upload.connect",
+      "base": "/highlight/[projectId]/shorts/[shortId]",
+      "description": "유튜브 업로드 창 — 채널 미연결(연결 상자). 가로채기 없이 세션 fixture 그대로다: youtube_accounts 가 비어 /api/auth/youtube/me 가 connected:false 로 답한다(route.ts 60–64).",
+      "contentNote": "지어낸 내용 없음 — 글자는 en 메시지다.",
+      "surfaces": [
+        "apps/web/components/youtube/YoutubeUploadModal.tsx#YoutubeUploadModal"
+      ],
+      "cite": [
+        { "path": "apps/web/app/api/auth/youtube/me/route.ts", "line": 69, "expect": "youtubeAccount: connected" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1893, "expect": "onClick={openYoutubeAction}" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 2074, "expect": "{youtubeBarLabel}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1239, "expect": "youtubeConnectAndUpload: \"Connect and upload\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1229, "expect": "uploadYoutube: \"Upload to YouTube\"" },
+        { "path": "apps/web/components/youtube/YoutubeUploadModal.tsx", "line": 1040, "expect": "{!youtubeConnected ? (" },
+        { "path": "apps/web/components/youtube/YoutubeUploadModal.tsx", "line": 1043, "expect": "{t.connectDesc}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4851, "expect": "connectDesc: \"Connect your YouTube account to upload this video.\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 4852, "expect": "connectButton: \"Connect YouTube\"" }
+      ],
+      "stepsByContext": {
+        "desktop-1920x1080": [
+          { "click": { "role": "button", "name": "Connect and upload", "exact": true }, "description": "미연결이면 행 버튼이 「Connect and upload」(page.tsx 1458–1464)" },
+          { "waitFor": { "text": "Connect your YouTube account to upload this video.", "exact": true } }
+        ],
+        "mobile-402x874": [
+          { "click": { "role": "button", "name": "Upload to YouTube", "exact": true } },
+          { "waitFor": { "text": "Connect your YouTube account to upload this video.", "exact": true } }
+        ]
+      },
+      "assert": {
+        "text": ["Connect your YouTube account to upload this video.", "Connect YouTube"]
+      }
+    },
+    {
+      "id": "/highlight/[projectId]/shorts/[shortId] edit.templates",
+      "base": "/highlight/[projectId]/shorts/[shortId]",
+      "contexts": ["desktop-1920x1080"],
+      "description": "결과 보기 → 「Re-edit」 → 편집기(VideoEditModal) 왼쪽 레일의 「Templates」 탭. 템플릿 목록 둘(기본 · 추천 배지) · 레이아웃 줄(LayoutThumb 일곱) · 색 패널(제목 · 부제목 · 자막 세 줄, 스와치 값 있음 / 없음 두 상태, 배경 여백 슬라이더). 데스크톱만 — 719 이하에서는 에셋 레일이 시트(mobileSheet)라 여는 길이 다르다(VideoEditModal.tsx AssetPanel sheetOpen).",
+      "contentNote": "템플릿 스타일 칸은 제품 어드민 「새 템플릿」 초기값(CaptionTemplateManagement.tsx 276 · 545–554), 기본 템플릿의 제목 배경 #000000 은 색 패널의 배경 기본값(CaptionColorPanel.tsx 38). 이름 bold-bg · clean 은 제품 추천표 키(captionLayoutPresets.ts 231–232), 보이는 이름은 「Placeholder template A/B」. 오버레이 글자는 기준 시드 쇼츠의 caption_ko · caption_en 과 「Placeholder caption line」. 행은 scripts/lib/state-seeds/highlight.mjs#editTemplatesSeeds 가 만든다.",
+      "surfaces": [
+        "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx#CaptionColorPanel",
+        "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx#Swatch",
+        "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx#LayoutThumb"
+      ],
+      "cite": [
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1070, "expect": "fetch(`/api/highlight/shorts/${shortId}`)" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1076, "expect": "const state = (json.data.editor_state || {}) as Partial<EditorState>;" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1090, "expect": "if (state.overlays) setOverlays(state.overlays);" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1128, "expect": "setModalOpen(!json.data.result_url);" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 915, "expect": "if (overlays.length > 0) { autoAppliedRef.current = true; return; }" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 925, "expect": "captions: []" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 356, "expect": "interface EditorState {" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 548, "expect": "x: pos.title_x ?? (1 - w) / 2, y: pos.title_y ?? 0.06, width: w, height: 0.1," },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 550, "expect": "rowIndex: 4," },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 562, "expect": "rowIndex: 5," },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 569, "expect": "const w = pos.caption_width ?? 0.85;" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 579, "expect": "rowIndex: 3," },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 774, "expect": "fetch(\"/api/caption-templates\")" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 778, "expect": "t.is_default" },
+        { "path": "apps/web/app/api/caption-templates/route.ts", "line": 19, "expect": ".order(\"is_default\", { ascending: false })" },
+        { "path": "apps/web/app/api/highlight/shorts/[shortId]/route.ts", "line": 42, "expect": ".select(\"id, status, editor_state, result_url, caption_ko, caption_en, clip_index\")" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1979, "expect": "if (!isDesignPreview) setModalOpen(true);" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1981, "expect": "{tShort.reEdit}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1230, "expect": "reEdit: \"Re-edit\"" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1722, "expect": "title: messages.highlight.templateTab," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1195, "expect": "templateTab: \"Templates\"" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1768, "expect": "CAPTION_LAYOUT_RECOMMENDED[selectedTemplate.name]" },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/captionLayoutPresets.ts", "line": 232, "expect": "\"bold-bg\": [\"news\", \"lecture\"]" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1784, "expect": "<LayoutThumb id={lid} />" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/page.tsx", "line": 1803, "expect": "<CaptionColorPanel" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx", "line": 30, "expect": "{ key: \"caption\", rowIndex: 3, labelKey: \"caption\" }" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx", "line": 38, "expect": "const DEFAULT_BG_COLOR = \"#000000\";" },
+        { "path": "apps/web/app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx", "line": 132, "expect": "{style.backgroundColor ? (" },
+        { "path": "apps/web/app/admin/CaptionTemplateManagement.tsx", "line": 276, "expect": "\"9:16\": { title_y: 0.08, caption_y: 0.88" },
+        { "path": "apps/web/app/admin/CaptionTemplateManagement.tsx", "line": 546, "expect": "title_font_color: \"#fafafa\", title_bg_color: \"\", title_bg_radius: 0, title_bg_padding: 8," },
+        { "path": "apps/web/app/admin/CaptionTemplateManagement.tsx", "line": 554, "expect": "max_chars_per_line: 12, fade_duration: 0.15, letterbox_color: \"#000000\", lang_mode: \"ko\"," },
+        { "path": "apps/web/components/scenes/create/node-canvas-v2/lib/captionTemplateStyle.ts", "line": 79, "expect": "pick(t.title_bg_color, t.subtitle_bg_color, t.caption_bg_color) || undefined," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1213, "expect": "section: \"Colors\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1221, "expect": "padding: \"Padding\"" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 1202, "expect": "layoutRecommended: \"Suggested\"" }
+      ],
+      "supabase": {
+        "module": "scripts/lib/state-seeds/highlight.mjs#editTemplatesSeeds"
+      },
+      "steps": [
+        { "click": { "role": "button", "name": "Re-edit", "exact": true }, "description": "결과 보기의 「Make changes」 줄 — 편집기를 연다" },
+        { "waitFor": { "role": "tab", "name": "Templates", "exact": true }, "description": "편집기 왼쪽 레일의 추가 탭(AssetPanel.tsx 259–268, aria-label = tab.title)" },
+        { "click": { "role": "tab", "name": "Templates", "exact": true } },
+        { "waitFor": { "text": "Padding", "exact": true }, "description": "색 패널의 배경 여백 줄 — 제목 배경이 켜져 있을 때만 선다(CaptionColorPanel.tsx 132)" }
+      ],
+      "assert": {
+        "text": [
+          "Placeholder template A",
+          "Placeholder template B",
+          "Suggested",
+          "Standard",
+          "Colors",
+          "Subtitle",
+          "Caption",
+          "Box border",
+          "Text outline",
+          "Padding"
+        ]
+      }
+    }
+  ]
+}

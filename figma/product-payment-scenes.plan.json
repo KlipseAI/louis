@@ -1,42 +1,18 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma composition; not a normative design-system contract",
-  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "context": "desktop-1920x1080",
   "sourceCandidates": [
     {
-      "id": "subtree-848f5c9d9c56",
+      "context": "desktop-1920x1080",
+      "route": "/mypage/upgrade/billing-change-fail",
+      "path": "body.1",
       "nodeCount": 81,
-      "roots": [
-        {
-          "route": "/mypage/upgrade/billing-change-fail",
-          "path": "body.1",
-          "tag": "div",
-          "rect": {
-            "x": 0,
-            "y": 0,
-            "width": 1920,
-            "height": 1080
-          }
-        },
-        {
-          "route": "/mypage/topup/fail",
-          "path": "body.1",
-          "tag": "div",
-          "rect": {
-            "x": 0,
-            "y": 0,
-            "width": 1920,
-            "height": 1080
-          }
-        }
-      ],
-      "routeCount": 2,
-      "occurrenceCount": 2,
-      "score": 162
+      "routeCount": 1
     },
     {
-      "id": "subtree-aee6939b662f",
+      "id": "subtree-b80dfc739aad",
       "nodeCount": 77,
       "roots": [
         {
@@ -67,38 +43,14 @@
       "score": 154
     },
     {
-      "id": "subtree-d5d4fe4d8a34",
+      "context": "desktop-1920x1080",
+      "route": "/mypage/upgrade/billing-change-fail",
+      "path": "body.1.0.0.1",
       "nodeCount": 25,
-      "roots": [
-        {
-          "route": "/mypage/upgrade/billing-change-fail",
-          "path": "body.1.0.0.1",
-          "tag": "main",
-          "rect": {
-            "x": 240,
-            "y": 8,
-            "width": 1672,
-            "height": 1012
-          }
-        },
-        {
-          "route": "/mypage/topup/fail",
-          "path": "body.1.0.0.1",
-          "tag": "main",
-          "rect": {
-            "x": 240,
-            "y": 8,
-            "width": 1672,
-            "height": 1012
-          }
-        }
-      ],
-      "routeCount": 2,
-      "occurrenceCount": 2,
-      "score": 50
+      "routeCount": 1
     },
     {
-      "id": "subtree-8728712c4402",
+      "id": "subtree-670cbd56cc87",
       "nodeCount": 21,
       "roots": [
         {
@@ -300,128 +252,32 @@
       "sceneSetName": "Product/Mobile Payment Result Scene",
       "sourceCandidates": [
         {
-          "id": "subtree-c3e5d0ca4f18",
+          "context": "mobile-402x874",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1",
           "nodeCount": 28,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 56
+          "routeCount": 1
         },
         {
-          "id": "subtree-54960c3c0d87",
+          "context": "mobile-402x874",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0",
           "nodeCount": 27,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 54
+          "routeCount": 1
         },
         {
-          "id": "subtree-20e63d295b79",
+          "context": "mobile-402x874",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0",
           "nodeCount": 26,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 874
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 52
+          "routeCount": 1
         },
         {
-          "id": "subtree-cbbe72fde43b",
+          "context": "mobile-402x874",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0.1",
           "nodeCount": 25,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0.1",
-              "tag": "main",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 814
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0.1",
-              "tag": "main",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 402,
-                "height": 814
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 50
+          "routeCount": 1
         }
       ],
       "page": {
@@ -536,7 +392,7 @@
             "x": 6,
             "y": 105,
             "width": 390,
-            "height": 275.7813
+            "height": 227.1875
           },
           "topBarText": {
             "Label": "My Page",
@@ -628,15 +484,15 @@
       "appPageBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 32,
+            "line": 33,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 794,
+            "line": 804,
             "quote": "  --app-page-bg: var(--louis-color-bg-canvas);"
           }
         ],
@@ -651,15 +507,15 @@
       "appPageBgNarrow": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 32,
+            "line": 33,
             "quote": "  \"bg-[var(--app-page-bg)]!\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 1071,
+            "line": 966,
             "quote": "    --app-page-bg: var(--louis-color-bg-surface);"
           }
         ],
@@ -674,15 +530,15 @@
       "appMainCardBg": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 53,
+            "line": 54,
             "quote": "  \"bg-[var(--app-main-card-bg)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/globals.css",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/globals.css",
             "path": "apps/web/app/globals.css",
-            "line": 795,
+            "line": 805,
             "quote": "  --app-main-card-bg: var(--louis-color-bg-surface);"
           }
         ],

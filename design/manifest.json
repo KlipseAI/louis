@@ -266,6 +266,24 @@
       "generated": false
     },
     {
+      "id": "decision-measure-the-work-branch-integration",
+      "path": "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
+      "title": "DS-D-0079 제품 측정 앵커는 작업 브랜치 통합 판이다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "decision-locale-string-collection",
+      "path": "design/governance/decisions/DS-D-0080-locale-string-collection.md",
+      "title": "DS-D-0080 Figma 보드의 언어는 「Klipse Locale」 변수 모드 한 번으로 바꾼다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1811,6 +1829,8 @@
         "design/governance/decisions/DS-D-0076-layer-follows-product-ladder.md",
         "design/governance/decisions/DS-D-0077-hover-only-on-hover-devices.md",
         "design/governance/decisions/DS-D-0078-icon-provenance-per-set.md",
+        "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
+        "design/governance/decisions/DS-D-0080-locale-string-collection.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

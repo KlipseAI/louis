@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "user": {
+    "id": "00000000-0000-4000-8000-00000000f1c5",
+    "email": "fixture@klipse.test"
+  },
+  "profile": {
+    "id": "00000000-0000-4000-8000-00000000f1c5",
+    "email": "fixture@klipse.test",
+    "username": "Placeholder user",
+    "avatar_storage_key": null,
+    "is_ambassador": false,
+    "deleted_at": null,
+    "created_at": "2026-01-01T00:00:00.000Z",
+    "updated_at": "2026-01-01T00:00:00.000Z",
+    "avatar_url": null,
+    "is_admin": false
+  },
+  "billing": {
+    "current_plan_code": "pro",
+    "current_plan_name": "Pro",
+    "current_plan_display_name": "Pro",
+    "available_token_amount": 1200,
+    "credit_pools": {
+      "plan": {
+        "granted": 2000,
+        "remaining": 1200,
+        "schedule": [
+          {
+            "at": "2026-04-01T00:00:00.000Z",
+            "amount": 1200
+          }
+        ]
+      },
+      "topup": {
+        "granted": 0,
+        "remaining": 0,
+        "schedule": []
+      }
+    },
+    "feature_flags": null,
+    "limits": null
+  }
+}

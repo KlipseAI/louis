@@ -1,0 +1,1017 @@
+"use client";
+
+import { ITEM as CONTENT_ITEM, LIST as CONTENT_LIST } from "./contentListStyles";
+import { useAdminMessages, formatAdminMessage } from "./useAdminMessages";
+import { useConfirmDialog } from "@/components/ui/useConfirmDialog";
+import { useDirtySinceOpen, useUnsavedGuard } from "./useUnsavedGuard";
+import { useDragReorder } from "./useDragReorder";
+import { slugify } from "@/app/lib/blog/slugify";
+
+import {
+  Fragment,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
+import {
+  type Template,
+  type TemplateMedia,
+} from "@/app/lib/templates/types";
+import { Button } from "../../components/ui/Button";
+import { IconButton } from "../../components/ui/IconButton";
+import InlineLoadingLabel from "../../components/ui/InlineLoadingLabel";
+import {
+  ADMIN_SURFACE,
+  AdminAlert,
+  AdminMoreMenu,
+  AdminSectionHeader,
+  AdminSegmented,
+  AdminState,
+  AdminLoadError,
+  AdminLines,
+  isRowClickIgnored,
+  AdminStatus,
+} from "./AdminSection";
+
+/* ── 스타일 ─────────────────────────────────────────────────────────────────────────
+ * `app/admin/page.module.css` 가 이 파일에 공급하던 몫을 그대로 유틸리티로 옮긴 것이다
+ * (배너 목록/드래그 크롬 · 블로그 에디터 폼 · 리소스 템플릿 전용 클래스).
+ * 모듈 파일 자체는 다른 어드민 화면이 계속 쓰므로 남긴다(인라인 전개).
+ *
+ * · 간격은 `--spacing: 2px` 기준 — `p-6`=12px, `gap-4`=8px, `min-h-19`=38px.
+ * · 라이트 분기 `:global(html[data-theme="light"]) .foo` 는 랜딩 워크스루 킬스위치가
+ *   아니라 평범한 후손 셀렉터라 `[html[data-theme=light]_&]:` 임의 변형으로 옮긴다.
+ *   `:where()` 를 쓰지 않는 변형이라 원본과 특이도가 같고, base / :hover / 라이트의
+ *   승패가 Tailwind 정렬이 아니라 특이도로 그대로 재현된다.
+ * · `-webkit-backdrop-filter` 는 표준 속성과 병기하지 않는다 — 한 선언 블록에서 둘을
+ *   만나면 lightningcss 가 양쪽 다 떨어뜨린다. 그래서 `.bannerItem` 의 블러는 전환 뒤
+ *   실제로 살아난다(문서 §11 에 기록된 의도된 복원). 반면 마스크는 프리픽스와 표준이
+ *   서로 다른 유틸리티 규칙으로 나뉘어 나가므로 원본대로 둘 다 유지했다.
+ */
+
+/* ── 배너 목록 크롬(리소스 템플릿 목록이 그대로 재사용) ── */
+
+const BANNER_LIST = CONTENT_LIST;
+
+const BANNER_LIST_DRAGGING = "select-none cursor-grabbing";
+
+const BANNER_ITEM = CONTENT_ITEM;
+
+const BANNER_ITEM_PLACEHOLDER = [
+  "min-h-36 rounded-12",
+  "[border:1px_dashed_rgb(var(--gray-000-rgb)/16%)]",
+  "bg-[rgb(var(--gray-000-rgb)/4%)]",
+  "[transition:min-height_180ms_cubic-bezier(0.22,1,0.36,1)]",
+].join(" ");
+
+const BANNER_INSERTION_LINE = [
+  "h-1 -my-3 mx-4 rounded-full",
+  "bg-[rgb(var(--primary-400-rgb)/88%)]",
+  "[box-shadow:0_0_0_1px_rgb(var(--primary-500-rgb)/28%)]",
+  "list-none pointer-events-none [transition:opacity_120ms_ease]",
+].join(" ");
+
+/* 집어 든 행. 면은 두 테마 모두에서 바닥보다 밝은 유일한 단(`bg-raised`)을 쓴다 —
+   `--gray-800` 은 `--gray-000` 처럼 뒤집히지 않아 라이트에서 어두운 카드가 됐다.
+   겹과 들어올림도 LOUIS 토큰이 갖는다(리터럴 z-index 는 겹 계약 밖이다). */
+const BANNER_DRAG_GHOST = [
+  "fixed top-0 left-0 [z-index:var(--louis-layer-modal)]",
+  "flex items-center gap-6 p-6 rounded-12",
+  "bg-bg-raised",
+  "[border:1px_solid_rgb(var(--gray-000-rgb)/12%)]",
+  "[box-shadow:var(--louis-elevation-modal)]",
+  "pointer-events-none opacity-[0.98] will-change-transform",
+].join(" ");
+
+const BANNER_DRAG_HANDLE = [
+  "inline-flex items-center justify-center w-14 h-14 p-0",
+  "[border:none] rounded-6 bg-transparent",
+  "text-[rgb(var(--gray-000-rgb)/48%)] cursor-grab shrink-0 touch-none",
+  "[&:hover:not(:disabled)]:bg-[rgb(var(--gray-000-rgb)/8%)]",
+  "[&:hover:not(:disabled)]:text-[rgb(var(--gray-000-rgb)/72%)]",
+  "[&:active:not(:disabled)]:cursor-grabbing",
+  "[&[aria-disabled=true]]:opacity-[0.35]",
+  "[&[aria-disabled=true]]:cursor-default",
+  "[&[aria-disabled=true]]:pointer-events-none",
+].join(" ");
+
+/* 원본의 `mask` / `-webkit-mask` 단축 두 줄을 롱핸드로 편 것. 단축이 되돌리던 나머지
+   롱핸드(mask-origin·mask-clip·mask-composite·mask-mode)는 전부 초기값이라 계산값이 같다.
+   프리픽스와 표준을 **각각 다른 유틸리티 규칙**으로 내보내므로 한 선언 블록 안에서
+   둘을 만나 lightningcss 가 양쪽을 떨어뜨리는 함정에는 걸리지 않는다. */
+const BANNER_DRAG_HANDLE_ICON = [
+  "w-8 h-8 bg-current",
+  '[mask-image:url("/icons/DotsSixVertical.svg")] [mask-repeat:no-repeat]',
+  "[mask-position:center] [mask-size:contain]",
+  '[-webkit-mask-image:url("/icons/DotsSixVertical.svg")] [-webkit-mask-repeat:no-repeat]',
+  "[-webkit-mask-position:center] [-webkit-mask-size:contain]",
+].join(" ");
+
+/* 목록 썸네일과 편집기 타일은 같은 반경(10)을 쓴다 — 같은 일을 하는 자리다. */
+const BANNER_THUMB_BOX = [
+  "w-40 h-24 rounded-10 shrink-0",
+  "bg-[rgb(var(--gray-000-rgb)/4%)]",
+].join(" ");
+
+const BANNER_THUMB = `${BANNER_THUMB_BOX} object-cover`;
+
+/* 「미디어가 없다」와 「썸네일이 깨졌다」가 같은 회색 사각형으로 보이면 안 된다. */
+const BANNER_THUMB_EMPTY = [
+  BANNER_THUMB_BOX,
+  "flex items-center justify-center",
+  "[border:1px_dashed_rgb(var(--gray-000-rgb)/16%)]",
+  "text-[rgb(var(--gray-000-rgb)/32%)]",
+  "[html[data-theme=light]_&]:text-palette-gray-500",
+].join(" ");
+
+/* 마스크 롱핸드는 위 `BANNER_DRAG_HANDLE_ICON` 과 같은 형태다. **아이콘 이름을 끼워 넣어
+   조립하지 않는다** — Tailwind 스캐너는 소스의 리터럴 문자열만 보므로 템플릿 보간으로 만든
+   클래스는 생성되지 않고 마스크가 통째로 사라진다. */
+const BANNER_THUMB_EMPTY_ICON = [
+  "w-8 h-8 bg-current shrink-0",
+  '[mask-image:url("/icons/Image.svg")] [mask-repeat:no-repeat]',
+  "[mask-position:center] [mask-size:contain]",
+  '[-webkit-mask-image:url("/icons/Image.svg")] [-webkit-mask-repeat:no-repeat]',
+  "[-webkit-mask-position:center] [-webkit-mask-size:contain]",
+].join(" ");
+
+const BANNER_ITEM_INFO = "flex-1 min-w-0 flex flex-col gap-1";
+
+/* 행 제목 잉크는 다른 목록(문의, 블로그, 자막, 쿠폰)과 같은 `fg-primary` 다. 예전 값(다크 흰색 88%, 라이트
+   pg-900)은 라이트에서는 같았지만 다크에서만 한 단 옅었다. */
+const BANNER_ITEM_TITLE = [
+  "text-fg-primary",
+  "whitespace-nowrap overflow-hidden text-ellipsis",
+].join(" ");
+
+const BANNER_ITEM_DESC = [
+  "text-[rgb(var(--gray-000-rgb)/48%)]",
+  "whitespace-nowrap overflow-hidden text-ellipsis",
+  "[html[data-theme=light]_&]:text-palette-gray-500",
+].join(" ");
+
+/* 목록 행 제목 — 누르면 수정이 열린다(행 전체도 같다). 키보드로 열 수 있게 버튼이다.
+   글꼴은 함께 걸린 `type-body-14-medium` 이 정한다. 예전의 `[font:inherit]` 는 유틸리티 층이라 그 클래스를
+   이겨, 제목이 부모의 16px 보통 굵기로 그려졌다(문의, 블로그, 자막 목록의 14px 과 달랐다). */
+const ROW_TITLE = "block max-w-full p-0 m-0 border-0 bg-transparent text-left cursor-pointer rounded-4";
+
+/* ── 블로그 에디터 크롬(리소스 템플릿 편집 화면이 그대로 재사용) ──
+ * 값은 `BlogManagement` 의 같은 이름 상수와 같다. 폭(760px)과 세로 리듬(필드 사이 24px)을
+ * 컨테이너 하나가 갖는다 — 예전에는 필드마다 `mb-8` 을 달아 블로그 편집기와 간격이 갈렸다. */
+
+const BLOG_EDITOR = "flex flex-col gap-12 w-full max-w-[760px]";
+
+const BLOG_EDITOR_BAR = "flex items-center justify-between gap-6";
+
+const BLOG_EDITOR_BAR_LEFT = "flex items-center gap-4 min-w-0";
+
+/* 편집 중인 템플릿 이름. 이것이 없으면 「새 템플릿」과 「수정」이 구분되지 않는다. */
+const BLOG_EDITOR_TITLE = "m-0 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-fg-primary";
+
+const BLOG_EDITOR_BAR_RIGHT = "flex items-center gap-6";
+
+/* 공용 텍스트 입력은 LOUIS 정본 `.louis-text-field` 가 소유한다 — `__box` 가 높이·여백·반경·
+   면·헤어라인·`:focus-within` 링을, `__control` 이 타이포·placeholder 를 그린다. 관리자 화면은
+   내부 도구라 알약(999px)·gray 10% 면을 LOUIS 값으로 넘겼고 라이트 분기도 토큰이 대신한다. */
+const FIELD_BOX = "louis-text-field__box";
+const FIELD_CONTROL = "louis-text-field__control";
+
+/* 라벨+힌트+박스 묶음은 LOUIS 정본 `.louis-text-field` 가 소유한다(세로 배치 · gap 4).
+   필드 사이 간격은 `BLOG_EDITOR` 의 gap 이 낸다. 미디어·영상처럼 텍스트 입력이 아닌 묶음도
+   같은 리듬을 쓰라고 그대로 공유한다. */
+const BLOG_FIELD = "louis-text-field";
+
+const BLOG_LABEL = "louis-text-field__label";
+
+/* `justify-between` 은 자식이 정확히 둘일 때만 뜻이 통한다 — 라벨과 버튼 묶음. */
+const BLOG_CONTENT_HEAD = "flex items-center justify-between gap-6";
+
+/* 여러 줄 입력 — `__box` 의 40px·가운데 정렬은 한 줄 컨트롤 기준이라 최소 높이·세로 여백·
+   stretch 만 호출부 값으로 남긴다. 등폭 글꼴은 프롬프트를 읽기 위한 제품 값이라 유지한다. */
+const BLOG_TEXTAREA_BOX = `${FIELD_BOX} items-stretch min-h-180 py-7`;
+
+const BLOG_TEXTAREA = [
+  FIELD_CONTROL,
+  "[font-family:ui-monospace,SFMono-Regular,Menlo,monospace]",
+  "resize-y",
+].join(" ");
+
+/* 「소개」는 목록 카드와 상세 페이지에 그대로 나가는 문장이라 등폭이 아니라 본문 글꼴로 쓴다. */
+const PROSE_TEXTAREA = `${FIELD_CONTROL} resize-y`;
+
+const BLOG_COVER_ACTIONS = "flex items-center gap-4";
+
+/* ── 리소스 템플릿 전용 ── */
+
+/* 보조 설명 — 정본의 `__message` 자리다(caption · fg-secondary). 인라인 코드 조각의 알약은
+   레시피에 없는 이 화면만의 표기라 호출부에 남긴다. */
+const TPL_FIELD_HINT = [
+  "louis-text-field__message",
+  "[&_code]:py-[1px] [&_code]:px-[5px] [&_code]:rounded-[5px]",
+  "[&_code]:bg-[rgb(var(--gray-000-rgb)/8%)]",
+  "[&_code]:text-[rgb(var(--gray-000-rgb)/72%)]",
+].join(" ");
+
+/* 세로 여백은 `.louis-text-field` 의 4px 간격이 갖는다 — 여기서 `mt` 를 더하면 빈 상태와
+   채워진 상태의 간격이 갈려 첫 업로드가 끝나는 순간 블록이 8px 아래로 뛴다. */
+const TPL_MEDIA_GRID = [
+  "grid [grid-template-columns:repeat(auto-fill,minmax(120px,1fr))]",
+  "gap-5",
+].join(" ");
+
+/* 타일 비율은 목록 썸네일(80×48)과 같다 — 편집기에서 확인한 크롭이 목록에 그대로 발행된다. */
+const TPL_MEDIA_ITEM = [
+  "relative rounded-10 overflow-hidden aspect-[5/3]",
+  ADMIN_SURFACE,
+].join(" ");
+
+/* 빈 상태는 채워질 것과 같은 모양이다 — 격자 한 칸이 파선으로 자리를 잡고 있다가
+   첫 타일이 그 자리에 들어온다. */
+const TPL_MEDIA_EMPTY = [
+  "flex items-center justify-center text-center px-4",
+  "rounded-10 aspect-[5/3]",
+  "[border:1px_dashed_rgb(var(--gray-000-rgb)/16%)]",
+  "text-[rgb(var(--gray-000-rgb)/40%)]",
+  "[html[data-theme=light]_&]:text-palette-gray-500",
+].join(" ");
+
+const TPL_MEDIA_THUMB = "w-full h-full object-cover block";
+
+const TPL_MEDIA_KIND = [
+  "absolute left-3 bottom-3 py-1 px-3 rounded-6",
+  "bg-[rgb(0_0_0/56%)] text-palette-gray-000",
+].join(" ");
+
+/* 목록 커버로 나가는 첫 항목을 타일 위에서 밝힌다 — 그 규칙이 힌트 한 줄에만 있었다. */
+const TPL_MEDIA_COVER = [
+  "absolute left-3 top-3 py-1 px-3 rounded-6",
+  "bg-[rgb(0_0_0/56%)] text-palette-gray-000",
+].join(" ");
+
+const TPL_MEDIA_REMOVE = "louis-hit-target absolute top-3 right-3";
+
+const TPL_MEDIA_REMOVE_ICON = [
+  "w-8 h-8 bg-current shrink-0",
+  '[mask-image:url("/icons/X.svg")] [mask-repeat:no-repeat]',
+  "[mask-position:center] [mask-size:contain]",
+  '[-webkit-mask-image:url("/icons/X.svg")] [-webkit-mask-repeat:no-repeat]',
+  "[-webkit-mask-position:center] [-webkit-mask-size:contain]",
+].join(" ");
+
+/* `mt-4` 제거 사유는 위 `TPL_MEDIA_GRID` 와 같다. */
+const TPL_WORKFLOW_PREVIEW = "w-full max-w-[480px] rounded-12 bg-[#000] block";
+
+const TPL_WORKFLOW_EMPTY = [
+  "w-full max-w-[480px] aspect-[16/9] rounded-12",
+  "flex items-center justify-center text-center px-6",
+  "[border:1px_dashed_rgb(var(--gray-000-rgb)/16%)]",
+  "text-[rgb(var(--gray-000-rgb)/40%)]",
+  "[html[data-theme=light]_&]:text-palette-gray-500",
+].join(" ");
+
+type FormState = {
+  title: string;
+  slug: string;
+  description: string;
+  prompt: string;
+  media: TemplateMedia[];
+  workflowVideoUrl: string;
+  published: boolean;
+};
+
+const EMPTY_FORM: FormState = {
+  title: "",
+  slug: "",
+  description: "",
+  prompt: "",
+  media: [],
+  workflowVideoUrl: "",
+  published: false,
+};
+
+function fmtDate(iso: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+}
+
+export default function TemplateManagement() {
+  const copy = useAdminMessages();
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [loading, setLoading] = useState(true);
+  /* 목록 조회 실패는 3초 뒤 사라지는 알림(`toast`)이 아니라 목록 자리의 오류가 갖는다. 알림에 두면
+     사라진 뒤 빈 목록 안내만 남아, 불러오지 못한 것이 「없음」으로 읽혔다. */
+  const [loadError, setLoadError] = useState<string | null>(null);
+  /* 한 번이라도 받아 왔는지. 건수는 받아 온 뒤에만 적되, 다시 읽는 동안에는 직전 건수를 둔다(깜빡이지 않게). */
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+  /** null = 목록, "new" = 새 템플릿, 그 외 = 해당 id 수정 */
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const { confirm, confirmDialog } = useConfirmDialog();
+  // 닫기 전 확인: 템플릿 편집 화면을 연 순간의 값과 비교한다. 저장한 뒤에는 묻지 않고 목록으로 간다.
+  const requestLeave = useUnsavedGuard(useDirtySinceOpen(editingId, form), confirm, "list");
+  const [saving, setSaving] = useState(false);
+  const [uploadingMedia, setUploadingMedia] = useState(false);
+  const [uploadingWorkflow, setUploadingWorkflow] = useState(false);
+  const mediaInputRef = useRef<HTMLInputElement>(null);
+  const workflowInputRef = useRef<HTMLInputElement>(null);
+
+  const templatesRef = useRef(templates);
+  templatesRef.current = templates;
+
+  const toast = (type: "success" | "error", text: string) => {
+    setMessage({ type, text });
+    window.setTimeout(() => setMessage(null), 3000);
+  };
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setLoadError(null);
+    try {
+      const res = await fetch("/api/admin/templates");
+      const json = await res.json();
+      if (json.ok) {
+        setTemplates(json.data ?? []);
+        setHasLoaded(true);
+      } else setLoadError(json.error ?? copy.common.loadError);
+    } catch {
+      setLoadError(copy.common.networkError);
+    } finally {
+      setLoading(false);
+    }
+  }, [copy]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  // sort_order 오름차순, 동률은 최신 생성순 (공개 페이지와 동일 정렬)
+  const ordered = useMemo(
+    () =>
+      [...templates].sort(
+        (a, b) =>
+          a.sort_order - b.sort_order ||
+          b.created_at.localeCompare(a.created_at),
+      ),
+    [templates],
+  );
+  const templateById = useMemo(
+    () => new Map(ordered.map((t) => [t.id, t])),
+    [ordered],
+  );
+
+  const openNew = () => {
+    setForm(EMPTY_FORM);
+    setEditingId("new");
+  };
+  const openEdit = (t: Template) => {
+    setForm({
+      title: t.title,
+      slug: t.slug,
+      description: t.description ?? "",
+      prompt: t.prompt ?? "",
+      media: Array.isArray(t.media) ? t.media : [],
+      workflowVideoUrl: t.workflow_video_url ?? "",
+      published: t.published,
+    });
+    setEditingId(t.id);
+  };
+
+  /** 파일 1개를 template-assets 로 업로드하고 { type, url } 반환. */
+  const uploadFile = async (
+    file: File,
+  ): Promise<{ type: "image" | "video"; url: string }> => {
+    const res = await fetch("/api/admin/templates/upload-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contentType: file.type }),
+    });
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error ?? copy.common.uploadError);
+
+    // 서버가 내려준 티켓을 그대로 실행한다 — 스토리지 종류·버킷을 클라이언트가 알지 않는다.
+    const uploadRes = await fetch(json.data.uploadUrl, {
+      method: json.data.uploadMethod ?? "PUT",
+      headers: json.data.uploadHeaders ?? { "Content-Type": file.type },
+      body: file,
+    });
+    if (!uploadRes.ok) {
+      throw new Error(`${copy.common.uploadError} (${uploadRes.status})`);
+    }
+
+    return { type: json.data.type, url: json.data.publicUrl };
+  };
+
+  const addMedia = async (files: FileList) => {
+    setUploadingMedia(true);
+    try {
+      const uploaded: TemplateMedia[] = [];
+      for (const file of Array.from(files)) {
+        uploaded.push(await uploadFile(file));
+      }
+      setForm((f) => ({ ...f, media: [...f.media, ...uploaded] }));
+    } catch (e) {
+      toast("error", e instanceof Error ? e.message : copy.common.uploadError);
+    } finally {
+      setUploadingMedia(false);
+    }
+  };
+
+  const addWorkflowVideo = async (file: File) => {
+    setUploadingWorkflow(true);
+    try {
+      const { type, url } = await uploadFile(file);
+      if (type !== "video") {
+        toast("error", copy.templates.workflowVideoOnly);
+        return;
+      }
+      setForm((f) => ({ ...f, workflowVideoUrl: url }));
+    } catch (e) {
+      toast("error", e instanceof Error ? e.message : copy.common.uploadError);
+    } finally {
+      setUploadingWorkflow(false);
+    }
+  };
+
+  const removeMediaAt = (idx: number) => {
+    setForm((f) => ({ ...f, media: f.media.filter((_, i) => i !== idx) }));
+  };
+
+  const save = async () => {
+    if (!form.title.trim()) {
+      toast("error", copy.common.titleRequired);
+      return;
+    }
+    setSaving(true);
+    try {
+      const isNew = editingId === "new";
+      const res = await fetch(
+        isNew ? "/api/admin/templates" : `/api/admin/templates/${editingId}`,
+        {
+          method: isNew ? "POST" : "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
+      const json = await res.json();
+      if (json.ok) {
+        toast("success", isNew ? copy.templates.created : copy.common.saved);
+        setEditingId(null);
+        void load();
+      } else {
+        toast("error", json.error ?? copy.common.saveError);
+      }
+    } catch {
+      toast("error", copy.common.networkError);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const togglePublish = async (t: Template) => {
+    try {
+      const res = await fetch(`/api/admin/templates/${t.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ published: !t.published }),
+      });
+      const json = await res.json();
+      if (json.ok) {
+        toast("success", t.published ? copy.common.unpublishedToast : copy.common.publishedToast);
+        void load();
+      } else {
+        toast("error", json.error ?? copy.common.saveError);
+      }
+    } catch {
+      toast("error", copy.common.networkError);
+    }
+  };
+
+  /* 목록 행의 삭제는 더보기 메뉴에서 오므로, 행 안의 두 단계 확인 대신 확인 창으로 묻는다. */
+  const confirmRemove = async (t: Template) => {
+    const confirmed = await confirm({
+      title: formatAdminMessage(copy.templates.deleteTitle, { name: t.title || copy.common.untitled }),
+      description: copy.common.deleteForeverDescription,
+      confirmLabel: copy.common.deleteForever,
+      variant: "danger",
+      defaultFocus: "cancel",
+    });
+    if (confirmed) void remove(t.id);
+  };
+
+  const remove = async (id: string) => {
+    try {
+      const res = await fetch(`/api/admin/templates/${id}`, {
+        method: "DELETE",
+      });
+      const json = await res.json();
+      if (json.ok) {
+        toast("success", copy.common.deleted);
+        void load();
+      } else {
+        toast("error", json.error ?? copy.common.deleteError);
+      }
+    } catch {
+      toast("error", copy.common.networkError);
+    }
+  };
+
+  // ── 순서 저장: 새 순서대로 각 항목 sort_order = index 로 PATCH ──
+  const commitReorderIds = useCallback(async (orderedIds: string[]) => {
+    const current = [...templatesRef.current].sort(
+      (a, b) =>
+        a.sort_order - b.sort_order || b.created_at.localeCompare(a.created_at),
+    );
+    const currentIds = current.map((t) => t.id);
+    if (orderedIds.join("|") === currentIds.join("|")) return;
+
+    const orderMap = new Map(orderedIds.map((id, idx) => [id, idx]));
+    const prev = templatesRef.current;
+
+    // 낙관적 반영
+    setTemplates((list) =>
+      list.map((t) =>
+        orderMap.has(t.id) ? { ...t, sort_order: orderMap.get(t.id)! } : t,
+      ),
+    );
+
+    try {
+      const results = await Promise.all(
+        orderedIds.map((id, idx) =>
+          fetch(`/api/admin/templates/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sortOrder: idx }),
+          }),
+        ),
+      );
+      if (results.some((res) => !res.ok)) throw new Error("reorder failed");
+    } catch {
+      setTemplates(prev);
+      toast("error", copy.common.reorderError);
+      void load();
+    }
+  }, [copy, load]);
+
+  /* 끌기와 방향키 순서 바꾸기는 배너, 모델 카드와 같은 훅이 갖는다. 예전에는 이 목록만 끌기를 따로 구현해
+     손잡이에 초점은 가는데 방향키가 없었고, 안내 문장도 달랐다. */
+  const orderedIds = useMemo(() => ordered.map((t) => t.id), [ordered]);
+  const {
+    listRef,
+    previewIds,
+    draggingId,
+    insertionIndex,
+    ghost,
+    reordering,
+    handlePointerDown,
+    moveItem,
+  } = useDragReorder({ orderedIds, commit: commitReorderIds });
+
+  const displayIds = previewIds ?? orderedIds;
+  const draggingTemplate = draggingId ? (templateById.get(draggingId) ?? null) : null;
+
+  /* 아래 여백은 이 요소가 갖지 않는다 — 목록 화면은 스택의 gap 이, 에디터 화면은 호출부가
+     낸다. 같은 요소에 margin 유틸리티와 컨테이너 gap 이 겹치면 간격이 두 번 더해진다. */
+  const toastEl = message ? (
+    <AdminAlert tone={message.type === "success" ? "success" : "danger"}>
+      {message.text}
+    </AdminAlert>
+  ) : null;
+
+  const renderRowContent = (t: Template, options?: { compact?: boolean }) => {
+    const cover = Array.isArray(t.media) && t.media.length > 0 ? t.media[0]! : null;
+    const mediaCount = Array.isArray(t.media) ? t.media.length : 0;
+    return (
+      <>
+        {ordered.length > 1 && (
+          <div
+            role="button"
+            tabIndex={reordering || draggingId ? -1 : 0}
+            className={BANNER_DRAG_HANDLE}
+            aria-label={copy.templates.reorder}
+            title={copy.common.reorderHint}
+            aria-disabled={reordering || !!draggingId}
+            data-reorder-handle
+            onPointerDown={(e) => handlePointerDown(e, t.id)}
+            onKeyDown={(event) => {
+              if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+              event.preventDefault();
+              moveItem(t.id, event.key === "ArrowUp" ? -1 : 1);
+            }}
+          >
+            <span className={BANNER_DRAG_HANDLE_ICON} aria-hidden />
+          </div>
+        )}
+        {cover ? (
+          cover.type === "video" ? (
+            <video className={BANNER_THUMB} src={cover.url} muted playsInline preload="metadata" />
+          ) : (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img className={BANNER_THUMB} src={cover.url} alt="" />
+          )
+        ) : (
+          <div className={BANNER_THUMB_EMPTY} aria-hidden>
+            <span className={BANNER_THUMB_EMPTY_ICON} />
+          </div>
+        )}
+        <div className={BANNER_ITEM_INFO}>
+          {options?.compact ? (
+            <span className={`type-body-14-medium ${BANNER_ITEM_TITLE}`}>
+              {t.title || copy.common.untitled}
+            </span>
+          ) : (
+            <button type="button" className={`type-body-14-medium ${BANNER_ITEM_TITLE} ${ROW_TITLE}`} onClick={() => openEdit(t)}>
+              {t.title || copy.common.untitled}
+            </button>
+          )}
+          {!options?.compact && (
+            <span className={`type-caption-12-regular ${BANNER_ITEM_DESC} flex items-center gap-4 max-sm:flex-wrap max-sm:gap-y-1`}>
+              {/* 좁은 폭에서는 주소가 한 줄을 통째로 쓰고 미디어 수와 날짜가 다음 줄로 내려간다. 한 줄에 셋을
+                  두면 주소가 「/」 한 글자만 남았다. */}
+              <span className="min-w-0 truncate max-sm:basis-full">/{t.slug}</span>
+              <span className="flex-none">{formatAdminMessage(copy.templates.mediaCount, { count: mediaCount })}</span>
+              <span className="flex-none tabular-nums">
+                {t.published ? fmtDate(t.published_at) : fmtDate(t.created_at)}
+              </span>
+            </span>
+          )}
+        </div>
+        {!options?.compact && (
+          <>
+            {/* 블로그 목록과 같은 이름을 쓴다 — 같은 발행 상태가 화면마다 「발행됨」과 「공개」로
+                갈려 있었다. */}
+            <span className="shrink-0"><AdminStatus exception={!t.published} label={t.published ? copy.common.published : copy.common.draft} /></span>
+            {/* 행을 누르면 수정이 열린다. 미리보기, 공개 전환, 삭제는 더보기 메뉴가 갖는다 — 행마다 버튼 넷이
+                서면 목록이 버튼 벽이 되고, 버튼 폭이 달라 열이 들쭉날쭉했다. */}
+            <AdminMoreMenu
+              label={formatAdminMessage(copy.common.moreFor, { name: t.title || copy.common.untitled })}
+              items={[
+                { key: "edit", label: copy.common.edit, onSelect: () => openEdit(t) },
+                { key: "preview", label: copy.common.preview, href: `/templates/${t.slug}${t.published ? "" : "?preview=1"}`, newTab: true },
+                { key: "publish", label: t.published ? copy.common.unpublish : copy.common.publish, onSelect: () => void togglePublish(t) },
+                { key: "delete", label: copy.common.delete, tone: "danger", onSelect: () => void confirmRemove(t) },
+              ]}
+            />
+          </>
+        )}
+      </>
+    );
+  };
+
+  // ── 에디터 화면 ──
+  if (editingId !== null) {
+    /* 저장될 주소를 API 와 같은 규칙(`slugify`)으로 보인다. 예전에는 칸이 비면 「제목으로-만듦」이라는 자리 표시
+       글이 실제 주소처럼 보였다. 제목도 비었으면 보일 주소가 없다. */
+    const slugSource = form.slug.trim() || form.title.trim();
+    const slugPreview = slugSource ? slugify(slugSource) : null;
+    return (
+      <div className={BLOG_EDITOR}>
+        {toastEl}
+        {confirmDialog}
+        <div className={BLOG_EDITOR_BAR}>
+          <div className={BLOG_EDITOR_BAR_LEFT}>
+            <Button variant="ghost" onClick={() => void requestLeave(() => setEditingId(null))}>
+              ← {copy.common.backToList}
+            </Button>
+            <h2 className={`${BLOG_EDITOR_TITLE} type-body-20-semibold`}>
+              {editingId === "new" ? copy.templates.newTemplate : form.title.trim() || copy.common.untitled}
+            </h2>
+          </div>
+          <div className={BLOG_EDITOR_BAR_RIGHT}>
+            {/* 공개 여부는 두 상태 중 하나를 고르는 자리라 켜고 끄는 칸이 아니라 두 칸이다. 목록의
+                메뉴는 동작 이름(「공개로 전환」)이다. */}
+            <AdminSegmented
+              label={copy.common.publishState}
+              value={form.published ? "published" : "draft"}
+              options={[
+                { key: "draft", label: copy.common.draft },
+                { key: "published", label: copy.common.published },
+              ]}
+              onChange={(key) => setForm((f) => ({ ...f, published: key === "published" }))}
+            />
+            <Button
+              variant="inverse"
+              onClick={() => void save()}
+              disabled={saving}
+            >
+              <InlineLoadingLabel
+                loading={saving}
+                idleLabel={copy.common.save}
+                loadingLabel={copy.common.saving}
+              />
+            </Button>
+          </div>
+        </div>
+
+        <label className={BLOG_FIELD}>
+          <span className={BLOG_LABEL}>{copy.templates.title}</span>
+          <span className={FIELD_BOX}>
+            <input
+              className={FIELD_CONTROL}
+              value={form.title}
+              placeholder={copy.templates.titlePlaceholder}
+              onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+            />
+          </span>
+          <span className={TPL_FIELD_HINT}>{copy.templates.titleHint}</span>
+        </label>
+
+        <label className={BLOG_FIELD}>
+          <span className={BLOG_LABEL}>{copy.templates.slug}</span>
+          <span className={FIELD_BOX}>
+            <input
+              className={FIELD_CONTROL}
+              value={form.slug}
+              placeholder="cinematic-city"
+              onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
+            />
+          </span>
+          <span className={TPL_FIELD_HINT}>
+            <AdminLines lines={copy.templates.slugHint} />
+            {slugPreview && <code>/templates/{slugPreview}</code>}
+          </span>
+        </label>
+
+        <label className={BLOG_FIELD}>
+          <span className={BLOG_LABEL}>{copy.templates.description}</span>
+          <span className={BLOG_TEXTAREA_BOX}>
+            <textarea
+              className={PROSE_TEXTAREA}
+              value={form.description}
+              placeholder={copy.templates.descriptionPlaceholder}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, description: e.target.value }))
+              }
+              rows={4}
+            />
+          </span>
+          <span className={TPL_FIELD_HINT}>
+            <AdminLines lines={copy.templates.descriptionHint} />
+          </span>
+        </label>
+
+        <label className={BLOG_FIELD}>
+          <span className={BLOG_LABEL}>{copy.templates.prompt}</span>
+          <span className={BLOG_TEXTAREA_BOX}>
+            <textarea
+              className={BLOG_TEXTAREA}
+              value={form.prompt}
+              placeholder={copy.templates.promptPlaceholder}
+              onChange={(e) => setForm((f) => ({ ...f, prompt: e.target.value }))}
+              rows={6}
+            />
+          </span>
+          <span className={TPL_FIELD_HINT}>{copy.templates.promptHint}</span>
+        </label>
+
+        <div className={BLOG_FIELD}>
+          <div className={BLOG_CONTENT_HEAD}>
+            <span className={BLOG_LABEL}>{copy.templates.media}</span>
+            <Button
+              variant="ghost"
+              size="md"
+              onClick={() => mediaInputRef.current?.click()}
+              disabled={uploadingMedia}
+            >
+              <InlineLoadingLabel
+                loading={uploadingMedia}
+                idleLabel={copy.templates.addMedia}
+                loadingLabel={copy.common.uploading}
+              />
+            </Button>
+          </div>
+          <span className={TPL_FIELD_HINT}>
+            <AdminLines lines={copy.templates.mediaHint} />
+          </span>
+          {form.media.length > 0 ? (
+            <div className={TPL_MEDIA_GRID}>
+              {form.media.map((m, idx) => (
+                <div key={`${m.url}-${idx}`} className={TPL_MEDIA_ITEM}>
+                  {m.type === "video" ? (
+                    <video
+                      className={TPL_MEDIA_THUMB}
+                      src={m.url}
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  ) : (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img className={TPL_MEDIA_THUMB} src={m.url} alt="" />
+                  )}
+                  <span className={`${TPL_MEDIA_KIND} type-caption-12-medium`}>
+                    {m.type === "video" ? copy.templates.video : copy.templates.image}
+                  </span>
+                  {idx === 0 && (
+                    <span className={`${TPL_MEDIA_COVER} type-caption-12-medium`}>
+                      {copy.templates.cover}
+                    </span>
+                  )}
+                  <IconButton
+                    variant="danger"
+                    size="sm"
+                    className={TPL_MEDIA_REMOVE}
+                    onClick={() => removeMediaAt(idx)}
+                    aria-label={copy.templates.removeMedia}
+                  >
+                    <span className={TPL_MEDIA_REMOVE_ICON} />
+                  </IconButton>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={TPL_MEDIA_GRID}>
+              <div className={`${TPL_MEDIA_EMPTY} type-caption-12-regular`}>
+                {copy.templates.noMedia}
+              </div>
+            </div>
+          )}
+          <input
+            ref={mediaInputRef}
+            type="file"
+            accept="image/*,video/*"
+            multiple
+            hidden
+            onChange={(e) => {
+              const files = e.target.files;
+              if (files && files.length > 0) void addMedia(files);
+              e.target.value = "";
+            }}
+          />
+        </div>
+
+        <div className={BLOG_FIELD}>
+          <div className={BLOG_CONTENT_HEAD}>
+            <span className={BLOG_LABEL}>{copy.templates.workflow}</span>
+            <div className={BLOG_COVER_ACTIONS}>
+              <Button
+                variant="ghost"
+                size="md"
+                onClick={() => workflowInputRef.current?.click()}
+                disabled={uploadingWorkflow}
+              >
+                <InlineLoadingLabel
+                  loading={uploadingWorkflow}
+                  idleLabel={copy.templates.uploadVideo}
+                  loadingLabel={copy.common.uploading}
+                />
+              </Button>
+              {form.workflowVideoUrl && (
+                <Button
+                  variant="ghost"
+                  size="md"
+                  onClick={() =>
+                    setForm((f) => ({ ...f, workflowVideoUrl: "" }))
+                  }
+                >
+                  {copy.common.remove}
+                </Button>
+              )}
+            </div>
+          </div>
+          <span className={TPL_FIELD_HINT}>
+            <AdminLines lines={copy.templates.workflowHint} />
+          </span>
+          {form.workflowVideoUrl ? (
+            <video
+              className={TPL_WORKFLOW_PREVIEW}
+              src={form.workflowVideoUrl}
+              controls
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <div className={`${TPL_WORKFLOW_EMPTY} type-caption-12-regular`}>
+              {copy.templates.noWorkflow}
+            </div>
+          )}
+          <input
+            ref={workflowInputRef}
+            type="file"
+            accept="video/*"
+            hidden
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) void addWorkflowVideo(file);
+              e.target.value = "";
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // ── 목록 화면 ──
+  const listFailed = !loading && loadError !== null && templates.length === 0;
+
+  return (
+    /* 세로 리듬은 이 스택의 gap 이 단독으로 소유한다 — 헤더가 자기 `mb-*` 를 함께 갖고
+       있으면 같은 요소에 margin-bottom 유틸리티가 둘 붙어 승패가 Tailwind 정렬에 맡겨진다.
+       20px 은 `AdminSection` 머리주석이 문서화한 감싸는 스택 간격이고, `level="page"` 가
+       내는 12px 과 합쳐 제목 아래가 32px 이 된다(제품 `PageHeader` 와 같은 값). */
+    <div className="flex flex-col gap-10 min-w-0">
+      {confirmDialog}
+      <AdminSectionHeader
+        level="page"
+        title={copy.nav.templates}
+        description={!hasLoaded || listFailed || ordered.length < 2 ? undefined : copy.common.reorderHint}
+        meta={!hasLoaded || listFailed ? undefined : formatAdminMessage(copy.common.count, { count: templates.length })}
+        actions={
+          <Button variant="inverse" onClick={openNew}>
+            {copy.common.addTemplate}
+          </Button>
+        }
+      />
+
+      {/* 알림은 제목 아래에 선다 — 예전에는 제목보다 위에 떠서 화면 틀이 흔들렸다. */}
+      {toastEl}
+      {loadError !== null && !listFailed && (
+        <AdminAlert
+          tone="danger"
+          action={<Button variant="secondary" onClick={() => void load()} disabled={loading}>{copy.common.retry}</Button>}
+        >
+          {loadError}
+        </AdminAlert>
+      )}
+
+      {loading ? (
+        <AdminState kind="loading" title={copy.templates.loading} />
+      ) : listFailed ? (
+        <AdminLoadError
+          title={copy.templates.loadFailed}
+          reason={loadError === copy.common.loadError ? undefined : loadError}
+          onRetry={() => void load()}
+        />
+      ) : ordered.length === 0 ? (
+        <AdminState
+          kind="empty"
+          title={copy.templates.empty}
+          description={copy.templates.emptyDescription}
+          action={
+            <Button variant="inverse" onClick={openNew}>
+              {copy.common.addTemplate}
+            </Button>
+          }
+        />
+      ) : (
+        <ul
+          ref={listRef}
+          className={`${BANNER_LIST}${draggingId ? ` ${BANNER_LIST_DRAGGING}` : ""}`}
+        >
+          {displayIds.map((id, idx) => {
+            const t = templateById.get(id);
+            if (!t) return null;
+            const isDraggingRow = draggingId === id;
+            return (
+              <Fragment key={id}>
+                {draggingId && insertionIndex === idx && (
+                  <li className={BANNER_INSERTION_LINE} aria-hidden />
+                )}
+                {isDraggingRow ? (
+                  <li
+                    data-reorder-row={id}
+                    className={BANNER_ITEM_PLACEHOLDER}
+                    aria-hidden
+                  />
+                ) : (
+                  <li
+                    data-reorder-row={id}
+                    className={`${BANNER_ITEM} cursor-pointer`}
+                    onClick={(event) => {
+                      if (isRowClickIgnored(event)) return;
+                      openEdit(t);
+                    }}
+                  >
+                    {renderRowContent(t)}
+                  </li>
+                )}
+              </Fragment>
+            );
+          })}
+          {draggingId && insertionIndex === displayIds.length && (
+            <li className={BANNER_INSERTION_LINE} aria-hidden />
+          )}
+        </ul>
+      )}
+
+      {ghost && draggingTemplate && (
+        <div
+          className={BANNER_DRAG_GHOST}
+          style={{
+            width: ghost.width,
+            transform: `translate3d(${ghost.x - ghost.offsetX}px, ${ghost.y - ghost.offsetY}px, 0)`,
+          }}
+          aria-hidden
+        >
+          {renderRowContent(draggingTemplate, { compact: true })}
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,340 @@
+{
+  "ok": true,
+  "data": {
+    "generatedAt": "2026-01-15T09:00:00.000Z",
+    "range": {
+      "from": "2025-12-16T09:00:00.000Z",
+      "to": "2026-01-15T09:00:00.000Z"
+    },
+    "previousRange": {
+      "from": "2025-11-16T09:00:00.000Z",
+      "to": "2025-12-16T09:00:00.000Z"
+    },
+    "current": {
+      "cohort": {
+        "signups": 128,
+        "project24h": 64,
+        "result24h": 32,
+        "result7d": 48,
+        "publish30d": 16,
+        "paid30d": 8,
+        "project24hRate": 0.5,
+        "result24hRate": 0.25,
+        "result7dRate": 0.375,
+        "publish30dRate": 0.125,
+        "paid30dRate": 0.0625
+      },
+      "activity": {
+        "projectCreators": 210,
+        "resultCreators": 180,
+        "publishers": 42,
+        "subscriptionPayers": 12,
+        "videoAttempts": 400,
+        "videoCompleted": 372,
+        "uploadJobs": 60,
+        "uploadedJobs": 57,
+        "videoCompletionRate": 0.93,
+        "uploadSuccessRate": 0.95
+      },
+      "payments": {
+        "byType": [
+          {
+            "type": "subscription",
+            "label": "구독",
+            "payers": 10,
+            "transactions": 12,
+            "amount": 358800
+          },
+          {
+            "type": "topup",
+            "label": "크레딧 충전",
+            "payers": 6,
+            "transactions": 7,
+            "amount": 69300
+          }
+        ],
+        "paid": {
+          "payers": 16,
+          "transactions": 19,
+          "amount": 428100
+        },
+        "refunded": {
+          "transactions": 1,
+          "amount": 29900
+        }
+      },
+      "diagnostics": {
+        "truncated": [],
+        "unavailable": []
+      }
+    },
+    "previous": {
+      "cohort": {
+        "signups": 96,
+        "project24h": 60,
+        "result24h": 24,
+        "result7d": 30,
+        "publish30d": 10,
+        "paid30d": 4,
+        "project24hRate": 0.625,
+        "result24hRate": 0.25,
+        "result7dRate": 0.3125,
+        "publish30dRate": 0.10416666666666667,
+        "paid30dRate": 0.041666666666666664
+      },
+      "activity": {
+        "projectCreators": 180,
+        "resultCreators": 150,
+        "publishers": 30,
+        "subscriptionPayers": 9,
+        "videoAttempts": 320,
+        "videoCompleted": 290,
+        "uploadJobs": 40,
+        "uploadedJobs": 36,
+        "videoCompletionRate": 0.90625,
+        "uploadSuccessRate": 0.9
+      },
+      "payments": {
+        "byType": [
+          {
+            "type": "subscription",
+            "label": "구독",
+            "payers": 8,
+            "transactions": 9,
+            "amount": 269100
+          }
+        ],
+        "paid": {
+          "payers": 8,
+          "transactions": 9,
+          "amount": 269100
+        },
+        "refunded": {
+          "transactions": 0,
+          "amount": 0
+        }
+      },
+      "diagnostics": {
+        "truncated": [],
+        "unavailable": []
+      }
+    },
+    "segment": {
+      "key": "all",
+      "value": null
+    },
+    "segmentOptions": {},
+    "advanced": {
+      "current": {
+        "funnel": [
+          {
+            "key": "signup_started",
+            "label": "가입 시작",
+            "count": 150,
+            "previousRate": null,
+            "signupRate": 1.171875
+          },
+          {
+            "key": "signup_completed",
+            "label": "가입 완료",
+            "count": 128,
+            "previousRate": 0.8533333333333334,
+            "signupRate": 1
+          },
+          {
+            "key": "project_created",
+            "label": "첫 프로젝트",
+            "count": 96,
+            "previousRate": 0.75,
+            "signupRate": 0.75
+          },
+          {
+            "key": "generation_started",
+            "label": "생성 시작",
+            "count": 80,
+            "previousRate": 0.8333333333333334,
+            "signupRate": 0.625
+          },
+          {
+            "key": "generation_completed",
+            "label": "결과물 생성",
+            "count": 64,
+            "previousRate": 0.8,
+            "signupRate": 0.5
+          },
+          {
+            "key": "publish_clicked",
+            "label": "업로드 시도",
+            "count": 30,
+            "previousRate": 0.46875,
+            "signupRate": 0.234375
+          },
+          {
+            "key": "publish_completed",
+            "label": "업로드 완료",
+            "count": 24,
+            "previousRate": 0.8,
+            "signupRate": 0.1875
+          },
+          {
+            "key": "payment_started",
+            "label": "결제 시작",
+            "count": 14,
+            "previousRate": 0.5833333333333334,
+            "signupRate": 0.109375
+          },
+          {
+            "key": "payment_completed",
+            "label": "결제 완료",
+            "count": 8,
+            "previousRate": 0.5714285714285714,
+            "signupRate": 0.0625
+          }
+        ],
+        "retention": [
+          {
+            "key": "d1",
+            "label": "D1 재방문",
+            "retained": 40,
+            "eligible": 110,
+            "rate": 0.36363636363636365
+          },
+          {
+            "key": "d7",
+            "label": "D7 내 재방문",
+            "retained": 52,
+            "eligible": 96,
+            "rate": 0.5416666666666666
+          },
+          {
+            "key": "d30",
+            "label": "D30 내 재방문",
+            "retained": 30,
+            "eligible": 60,
+            "rate": 0.5
+          }
+        ],
+        "eventCounts": {
+          "signup_started": 150,
+          "signup_completed": 128,
+          "project_created": 96,
+          "generation_started": 80,
+          "generation_completed": 64,
+          "publish_clicked": 30,
+          "publish_completed": 24,
+          "payment_started": 14,
+          "payment_completed": 8
+        },
+        "diagnostics": {
+          "truncated": [],
+          "unavailable": []
+        }
+      },
+      "previous": {
+        "funnel": [
+          {
+            "key": "signup_started",
+            "label": "가입 시작",
+            "count": 110,
+            "previousRate": null,
+            "signupRate": 1.1458333333333333
+          },
+          {
+            "key": "signup_completed",
+            "label": "가입 완료",
+            "count": 96,
+            "previousRate": 0.8727272727272727,
+            "signupRate": 1
+          },
+          {
+            "key": "project_created",
+            "label": "첫 프로젝트",
+            "count": 70,
+            "previousRate": 0.7291666666666666,
+            "signupRate": 0.7291666666666666
+          },
+          {
+            "key": "generation_started",
+            "label": "생성 시작",
+            "count": 60,
+            "previousRate": 0.8571428571428571,
+            "signupRate": 0.625
+          },
+          {
+            "key": "generation_completed",
+            "label": "결과물 생성",
+            "count": 48,
+            "previousRate": 0.8,
+            "signupRate": 0.5
+          },
+          {
+            "key": "publish_clicked",
+            "label": "업로드 시도",
+            "count": 20,
+            "previousRate": 0.4166666666666667,
+            "signupRate": 0.20833333333333334
+          },
+          {
+            "key": "publish_completed",
+            "label": "업로드 완료",
+            "count": 16,
+            "previousRate": 0.8,
+            "signupRate": 0.16666666666666666
+          },
+          {
+            "key": "payment_started",
+            "label": "결제 시작",
+            "count": 9,
+            "previousRate": 0.5625,
+            "signupRate": 0.09375
+          },
+          {
+            "key": "payment_completed",
+            "label": "결제 완료",
+            "count": 4,
+            "previousRate": 0.4444444444444444,
+            "signupRate": 0.041666666666666664
+          }
+        ],
+        "retention": [
+          {
+            "key": "d1",
+            "label": "D1 재방문",
+            "retained": 30,
+            "eligible": 90,
+            "rate": 0.3333333333333333
+          },
+          {
+            "key": "d7",
+            "label": "D7 내 재방문",
+            "retained": 40,
+            "eligible": 80,
+            "rate": 0.5
+          },
+          {
+            "key": "d30",
+            "label": "D30 내 재방문",
+            "retained": 22,
+            "eligible": 50,
+            "rate": 0.44
+          }
+        ],
+        "eventCounts": {
+          "signup_started": 110,
+          "signup_completed": 96,
+          "project_created": 70,
+          "generation_started": 60,
+          "generation_completed": 48,
+          "publish_clicked": 20,
+          "publish_completed": 16,
+          "payment_started": 9,
+          "payment_completed": 4
+        },
+        "diagnostics": {
+          "truncated": [],
+          "unavailable": []
+        }
+      }
+    }
+  }
+}

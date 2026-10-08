@@ -1,0 +1,783 @@
+"use client";
+
+import { useAdminMessages, formatAdminMessage, formatAdminLines } from "./useAdminMessages";
+import { AdminEditorDialog } from "./AdminEditorDialog";
+import { useDirtySinceOpen, useUnsavedGuard } from "./useUnsavedGuard";
+import InlineLoadingLabel from "@/components/ui/InlineLoadingLabel";
+
+import { Fragment, useMemo, useState, useEffect, useCallback, useRef } from "react";
+
+import { Button } from "../../components/ui/Button";
+import {
+  SECTION,
+  LIST,
+  LIST_DRAGGING,
+  ITEM,
+  ITEM_PLACEHOLDER,
+  INSERTION_LINE,
+  DRAG_GHOST,
+  DRAG_HANDLE,
+  DRAG_HANDLE_ICON,
+  THUMB,
+  ITEM_INFO,
+  ITEM_TITLE,
+  ITEM_DESC,
+  FORM_GROUP,
+  FIELD_LABEL,
+  FORM_BOX,
+  FORM_INPUT,
+  FORM_TEXTAREA_BOX,
+  FORM_TEXTAREA,
+  FORM_HINT,
+  FORM_ERROR,
+} from "./contentListStyles";
+import { AdminSelect, AdminAlert, AdminActionFailureAlert, AdminState, AdminLoadError, AdminSectionHeader, AdminLines, AdminMoreMenu, AdminFilePicker, isRowClickIgnored, type AdminActionFailure, AdminStatus, AdminSegmented } from "./AdminSection";
+import { BannerPreview } from "./BannerPreview";
+import { useDragReorder } from "./useDragReorder";
+import { type CustomDropdownOption } from "@/components/scenes/create/CustomDropdown";
+import { useConfirmDialog } from "@/components/ui/useConfirmDialog";
+import {
+  BANNER_IMAGE_MAX_BYTES,
+  BANNER_VIDEO_MAX_BYTES,
+  type BannerMediaType,
+  type BannerTextTone,
+  type BannerVideoPlayback,
+} from "@/app/lib/banners/media";
+
+/* 배너는 홈에만 남는다 — 탭 배너 기능 제거. `tab_banners.tab_id` 컬럼은 그대로다. */
+type TabId = "home";
+
+interface Banner {
+  id: string;
+  tab_id: TabId;
+  title: string | null;
+  title_en: string | null;
+  description: string | null;
+  description_en: string | null;
+  image_url: string | null;
+  media_type: BannerMediaType;
+  /** null 이면 자동 판정(이미지 샘플링). 영상은 샘플링이 안 돼 지정이 사실상 필수다. */
+  text_tone: BannerTextTone | null;
+  video_playback: BannerVideoPlayback;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/* ── 스타일 ────────────────────────────────────────────────────────────────────
+ * 이전 `app/admin/page.module.css` 의 배너 관리 구간을 유틸리티로 옮긴 것.
+ * 모듈 파일 자체는 어드민의 다른 소비자가 아직 쓰므로 남는다(인라인 전개).
+ *
+ * 라이트 오버라이드 셀렉터는 평범한 후손 `html[data-theme="light"] .foo` 라서
+ * `[html[data-theme=light]_&]:` 임의 변형으로 옮긴다(`light:` 가 아니다).
+ * 원본 `:hover` 에는 `@media (hover: hover)` 가드가 없어 `hover:` 대신 `[&:hover]:` 를 쓴다.
+ *
+ * 정렬로 승패가 뒤집힐 자리는 상호배타 분기로 갈랐다:
+ *  · 서브탭의 기본/활성 톤(배경·글자색·테두리색)은 원본에서 소스 순서로 갈리던 자리다.
+ *    호버 배경은 특이도가 한 단계 높아 다크 활성 배경을 이기고, 라이트 활성 배경(후손
+ *    셀렉터라 한 단계 더 높다)에는 진다 — 원본 관계가 특이도만으로 그대로 재현된다.
+ *
+ * 드래그 핸들 아이콘의 마스크는 단축 대신 롱핸드로 옮긴다(저장소의 다른 마스크 아이콘과
+ * 같은 방식). 표준·`-webkit-` 접두를 각각 별도 유틸리티로 싣는다.
+ *
+ * 레이어 밖 전역과의 충돌은 없다 — 스크롤바·툴팁·셰브런 마커 의사요소/속성을 쓰지 않고,
+ * 타이포를 덮는 선언도 이 구간에는 없다(전역 `type-*` 클래스가 붙은 요소들은 색·여백만
+ * 덮는다).
+ *
+ * 원본은 `.bannerItem` 에 표준·`-webkit-` 접두 backdrop-filter 를 병기해 lightningcss 가
+ * 둘 다 떨어뜨렸다(계산값 `none`). 표준 속성만 쓰는 이 변환본은 선언대로 블러가 동작한다.
+ */
+
+/* 업로드 허용 형식·상한.
+ *
+ * 형식은 `api/admin/banners/upload-url` 의 `EXT` 화이트리스트와 짝이다 — 한쪽만 넓히면 방금 고른
+ * 파일이 티켓 발급에서 거절된다. 영상이 mp4·webm 뿐인 이유는 그 라우트 주석에 적혀 있다.
+ *
+ * 상한은 **안내이자 사전 차단**이다. 서명 PUT 은 서명에 크기가 들어가지 않으므로 이 검사가
+ * 최종 방어선은 아니다 — 진짜 상한이 필요해지면 저장 시점에 HeadObject 로 확인해야 한다. */
+const ACCEPT_MEDIA = "image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm";
+const MAX_IMAGE_BYTES = BANNER_IMAGE_MAX_BYTES;
+const MAX_VIDEO_BYTES = BANNER_VIDEO_MAX_BYTES;
+const MB = (bytes: number) => `${Math.round(bytes / 1024 / 1024)}MB`;
+
+/* 빈 값이 「자동 판정」 자리다 — 네이티브 `<option value="">` 과 같은 표현이라 저장으로
+   나가는 형식(`text_tone` 빈 문자열)이 그대로 유지된다. */
+
+
+
+
+/* 스타일 정의는 `contentListStyles` 로 옮겼다 — 모델 카드 관리가 같은 조형을 쓴다.
+   호출부를 건드리지 않으려고 이름만 여기서 잇는다. */
+const BANNER_SECTION = SECTION;
+const BANNER_LIST = LIST;
+const BANNER_LIST_DRAGGING = LIST_DRAGGING;
+const BANNER_ITEM = ITEM;
+const BANNER_ITEM_PLACEHOLDER = ITEM_PLACEHOLDER;
+const BANNER_INSERTION_LINE = INSERTION_LINE;
+const BANNER_DRAG_GHOST = DRAG_GHOST;
+const BANNER_DRAG_HANDLE = DRAG_HANDLE;
+const BANNER_DRAG_HANDLE_ICON = DRAG_HANDLE_ICON;
+const BANNER_THUMB = THUMB;
+const BANNER_ITEM_INFO = ITEM_INFO;
+const BANNER_ITEM_TITLE = ITEM_TITLE;
+const BANNER_ITEM_DESC = ITEM_DESC;
+/* 목록 행 제목 — 누르면 수정이 열린다(행 전체도 같다). 키보드로 열 수 있게 버튼이다.
+   글꼴은 함께 걸린 `type-body-14-medium` 이 정한다. 예전의 `[font:inherit]` 는 유틸리티 층이라 그 클래스를
+   이겨, 제목이 부모의 16px 보통 굵기로 그려졌다(문의, 블로그, 자막 목록의 14px 과 달랐다). */
+const ROW_TITLE = "block max-w-full p-0 m-0 border-0 bg-transparent text-left cursor-pointer rounded-4";
+const BANNER_FORM_GROUP = FORM_GROUP;
+const BANNER_FIELD_LABEL = FIELD_LABEL;
+const BANNER_FORM_BOX = FORM_BOX;
+const BANNER_FORM_INPUT = FORM_INPUT;
+const BANNER_FORM_TEXTAREA_BOX = FORM_TEXTAREA_BOX;
+const BANNER_FORM_TEXTAREA = FORM_TEXTAREA;
+const BANNER_FORM_HINT = FORM_HINT;
+const BANNER_FORM_ERROR = FORM_ERROR;
+
+export default function BannerManagement() {
+  const copy = useAdminMessages();
+  const VIDEO_PLAYBACK_OPTIONS = [
+  { value: "loop", label: copy.content.loop },
+  { value: "once", label: copy.content.once },
+  { value: "still", label: copy.content.still },
+] satisfies readonly CustomDropdownOption<BannerVideoPlayback>[];
+  const TEXT_TONE_OPTIONS = [
+  { value: "", label: copy.content.automatic },
+  { value: "light", label: copy.content.lightText },
+  { value: "dark", label: copy.content.darkText },
+] satisfies readonly CustomDropdownOption<BannerTextTone | "">[];
+  const [listError, setListError] = useState<string | null>(null);
+  /* 숨기기, 삭제, 순서 저장의 실패. 불러오기 실패(`listError`)와 칸을 나눈다 — 다시 시도가 향하는 곳이 다르다. */
+  const [actionFailure, setActionFailure] = useState<AdminActionFailure | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const { confirm, confirmDialog } = useConfirmDialog();
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [loading, setLoading] = useState(true);
+  /* 탭이 하나뿐이라 선택 상태가 없다. 하류 로직(필터·업로드 tab_id)은 그대로 둔다. */
+  const selectedTab: TabId = "home";
+
+  const [editing, setEditing] = useState<Banner | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formTitle, setFormTitle] = useState("");
+  const [formTitleEn, setFormTitleEn] = useState("");
+  const [formDesc, setFormDesc] = useState("");
+  const [formDescEn, setFormDescEn] = useState("");
+  const [formActive, setFormActive] = useState(true);
+  /* 빈 문자열 = 자동 판정. 드롭다운이 null 을 값으로 못 실어서 폼 안에서만 이렇게 표현한다. */
+  const [formTextTone, setFormTextTone] = useState<BannerTextTone | "">("");
+  const [formVideoPlayback, setFormVideoPlayback] =
+    useState<BannerVideoPlayback>("loop");
+  /* 업로드는 저장이 아니라 **파일 선택 시점**에 끝난다 — 서명 URL 로 브라우저가 스토리지에
+     직접 올리고, 저장 요청에는 그 키만 실어 보낸다. */
+  const [formMediaKey, setFormMediaKey] = useState<string | null>(null);
+  const [formMediaType, setFormMediaType] = useState<"image" | "video">("image");
+  const [formMediaPreview, setFormMediaPreview] = useState<string | null>(null);
+  /* 이번에 고른 파일 이름 — 파일 선택 옆에 보인다. 저장된 파일은 이름이 무작위 키라 비워 둔다. */
+  const [formMediaName, setFormMediaName] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  /* `URL.createObjectURL` 은 되돌리지 않으면 문서가 살아 있는 동안 원본을 붙잡는다. 이미지에서는
+     티가 안 났지만 영상은 수십 MB 라 폼을 몇 번 여닫으면 그대로 쌓인다. */
+  const previewObjectUrlRef = useRef<string | null>(null);
+  const bannersRef = useRef(banners);
+  const selectedTabRef = useRef(selectedTab);
+
+  bannersRef.current = banners;
+  selectedTabRef.current = selectedTab;
+
+  const fetchBanners = useCallback(async () => {
+    setLoading(true);
+    setListError(null);
+    try {
+      const res = await fetch("/api/admin/banners");
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error();
+      setBanners(json.data);
+    } catch {
+      setListError(copy.common.loadError);
+    } finally {
+      setLoading(false);
+    }
+  }, [copy.common.loadError]);
+
+  useEffect(() => {
+    fetchBanners();
+  }, [fetchBanners]);
+
+  const filtered = banners
+    .filter((b) => b.tab_id === selectedTab)
+    .sort((a, b) => a.display_order - b.display_order);
+  /* 목록을 한 번도 받지 못했으면 그 자리는 오류가 갖는다. 다시 읽기가 실패한 것은 목록을 남기고 위
+     알림으로 알린다. 숨기기, 삭제, 순서 저장의 실패는 이 칸이 아니라 `actionFailure` 가 갖는다. */
+  const listFailed = !loading && listError !== null && banners.length === 0;
+
+  const bannerById = useMemo(() => new Map(filtered.map((b) => [b.id, b])), [filtered]);
+
+  const orderedIds = filtered.map((b) => b.id);
+
+  // 닫기 전 확인: 사람이 고칠 수 있는 값만 비교한다. 미디어는 새로 올린 키와, 기존 미디어를 지웠는지로 본다.
+  const bannerDirty = useDirtySinceOpen(formOpen ? (editing?.id ?? "new") : null, {
+    title: formTitle,
+    titleEn: formTitleEn,
+    desc: formDesc,
+    descEn: formDescEn,
+    active: formActive,
+    textTone: formTextTone,
+    playback: formVideoPlayback,
+    media: formMediaKey ?? (formMediaPreview ? "kept" : "none"),
+  });
+  const requestClose = useUnsavedGuard(bannerDirty, confirm);
+
+  const openCreate = () => {
+    setEditing(null);
+    setFormTitle("");
+    setFormTitleEn("");
+    setFormDesc("");
+    setFormDescEn("");
+    setFormActive(true);
+    setFormTextTone("");
+    setFormVideoPlayback("loop");
+    resetMedia(null, "image");
+    setFormOpen(true);
+  };
+
+  const openEdit = (banner: Banner) => {
+    setEditing(banner);
+    setFormTitle(banner.title ?? "");
+    setFormTitleEn(banner.title_en ?? "");
+    setFormDesc(banner.description ?? "");
+    setFormDescEn(banner.description_en ?? "");
+    setFormActive(banner.is_active);
+    setFormTextTone(banner.text_tone ?? "");
+    setFormVideoPlayback(banner.video_playback);
+    resetMedia(banner.image_url, banner.media_type);
+    setFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setFormOpen(false);
+    setEditing(null);
+    resetMedia(null, "image");
+  };
+
+  /** 미리보기를 갈아끼우며 직전 blob URL 을 되돌린다. */
+  const resetMedia = (preview: string | null, mediaType: "image" | "video") => {
+    if (previewObjectUrlRef.current) {
+      URL.revokeObjectURL(previewObjectUrlRef.current);
+      previewObjectUrlRef.current = null;
+    }
+    setFormMediaKey(null);
+    setFormMediaType(mediaType);
+    setFormMediaPreview(preview);
+    setFormMediaName(null);
+    setFormError(null);
+  };
+
+  /**
+   * 파일을 고르는 즉시 올린다 — 서명 URL 을 받아 브라우저가 스토리지에 직접 PUT 한다.
+   * 저장 요청은 파일이 아니라 키만 나른다(`TemplateManagement.uploadFile` 과 같은 형태).
+   */
+  const handleMediaChange = async (file: File | null) => {
+    if (!file) return;
+
+    const isVideo = file.type.startsWith("video/");
+    const limit = isVideo ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES;
+    if (file.size > limit) {
+      setFormError(formatAdminMessage(copy.content.fileTooLarge, { limit: MB(limit) }));
+      return;
+    }
+
+    /* 올리기에 실패하면 고르기 전 미디어로 되돌린다. 미리보기만 새 파일로 남기면 저장될 값(원래
+       미디어)과 어긋나서 예전에는 저장을 잠갔는데, 잠금을 풀 길이 없었다. 직전 blob 은 새 파일이
+       올라간 뒤에 되돌린다 — 실패하면 다시 보여 줘야 한다. */
+    const previous = {
+      preview: formMediaPreview,
+      type: formMediaType,
+      key: formMediaKey,
+      name: formMediaName,
+      objectUrl: previewObjectUrlRef.current,
+    };
+
+    /* 미리보기는 업로드 결과를 기다리지 않는다 — 고른 파일을 바로 보여 준다. */
+    const objectUrl = URL.createObjectURL(file);
+    previewObjectUrlRef.current = objectUrl;
+    setFormMediaPreview(objectUrl);
+    setFormMediaType(isVideo ? "video" : "image");
+    setFormMediaKey(null);
+    setFormMediaName(file.name);
+    setFormError(null);
+    setUploading(true);
+
+    try {
+      const ticketRes = await fetch("/api/admin/banners/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tabId: selectedTab, contentType: file.type }),
+      });
+      const ticket = await ticketRes.json();
+      if (!ticketRes.ok || !ticket.ok) {
+        throw new Error(ticket.error ?? copy.common.uploadError);
+      }
+
+      // 서버가 준 티켓을 그대로 실행한다 — 스토리지 종류를 클라이언트가 알지 않는다.
+      const uploadRes = await fetch(ticket.data.uploadUrl, {
+        method: ticket.data.uploadMethod ?? "PUT",
+        headers: ticket.data.uploadHeaders ?? { "Content-Type": file.type },
+        body: file,
+      });
+      if (!uploadRes.ok) {
+        throw new Error(`${copy.common.uploadError} (${uploadRes.status})`);
+      }
+
+      setFormMediaKey(ticket.data.storageKey);
+      setFormMediaType(ticket.data.mediaType);
+      if (previous.objectUrl) URL.revokeObjectURL(previous.objectUrl);
+    } catch (e) {
+      URL.revokeObjectURL(objectUrl);
+      previewObjectUrlRef.current = previous.objectUrl;
+      setFormMediaPreview(previous.preview);
+      setFormMediaType(previous.type);
+      setFormMediaKey(previous.key);
+      setFormMediaName(previous.name);
+      /* 서버가 준 사유(형식, 용량, 주소 만료)와 스토리지 상태 코드를 그대로 보인다. 한 줄로 뭉개면 무엇을
+         고쳐야 할지 알 수 없다. */
+      setFormError(e instanceof Error ? e.message : copy.common.uploadError);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setFormError(null);
+    /* 앞서 실패한 숨기기, 삭제, 순서 저장의 알림을 지운다. 그 알림(「저장하지 못했습니다」)이 편집 저장의
+       실패와 같은 말이라, 남겨 두면 저장에 성공한 뒤에도 이 저장이 실패한 것처럼 읽히고, 그 다시 시도는
+       다른 배너의 노출을 바꾼다. */
+    setActionFailure(null);
+    try {
+      const fd = new FormData();
+      fd.append("tab_id", selectedTab);
+      fd.append("title", formTitle);
+      fd.append("title_en", formTitleEn);
+      fd.append("description", formDesc);
+      fd.append("description_en", formDescEn);
+      fd.append("is_active", String(formActive));
+      fd.append("text_tone", formTextTone);
+      fd.append("video_playback", formVideoPlayback);
+      /* 파일이 아니라 키다 — 업로드는 파일을 고를 때 이미 끝났다. */
+      if (formMediaKey) fd.append("image_key", formMediaKey);
+
+      const url = editing ? `/api/admin/banners/${editing.id}` : "/api/admin/banners";
+      const method = editing ? "PATCH" : "POST";
+
+      const res = await fetch(url, { method, body: fd });
+      const json = await res.json();
+      /* 예전에는 `json.ok` 만 보고 실패를 통째로 삼켰다 — 실패해도 모달이 그대로 열려 있어
+         관리자에게는 아무 일도 일어나지 않은 것처럼 보였다. 영상은 실패가 정상 범주다. */
+      if (!res.ok || !json.ok) {
+        setFormError(copy.common.saveError);
+        return;
+      }
+      closeForm();
+      await fetchBanners();
+    } catch {
+      setFormError(copy.common.saveError);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  /* 노출과 숨김만 바꾼다 — PATCH 는 보낸 칸만 고치므로 다른 값은 그대로다. */
+  const toggleActive = async (banner: Banner) => {
+    setActionFailure(null);
+    try {
+      const fd = new FormData();
+      fd.append("is_active", String(!banner.is_active));
+      const res = await fetch(`/api/admin/banners/${banner.id}`, { method: "PATCH", body: fd });
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error();
+      setBanners((prev) => prev.map((b) => (b.id === banner.id ? { ...b, is_active: !banner.is_active } : b)));
+    } catch {
+      /* 다시 시도는 같은 배너를 누른 순간의 값에서 다시 뒤집는다 — 그사이 목록을 다시 읽어 값이
+         바뀌었어도 원래 가려던 쪽으로 보낸다. 목록도 다시 읽어, 그사이 지워진 배너면 알림이 사라지게 한다
+         (없는 배너에 PATCH 를 되풀이하면 500 만 거듭된다). */
+      setActionFailure({ text: copy.common.saveError, targetId: banner.id, retry: () => void toggleActive(banner) });
+      void fetchBanners();
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const ok = await confirm({
+      title: copy.content.deleteBanner,
+      description: copy.content.deleteDescription,
+      confirmLabel: copy.common.delete,
+      variant: "danger",
+    });
+    if (!ok || deleting) return;
+    setDeleting(true);
+    setActionFailure(null);
+    try {
+      const response = await fetch(`/api/admin/banners/${id}`, { method: "DELETE" });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error();
+      await fetchBanners();
+    } catch {
+      /* 다시 시도는 같은 배너의 삭제를 다시 묻는다. */
+      setActionFailure({ text: copy.common.deleteError, targetId: id, retry: () => void handleDelete(id) });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  /* 낙관적으로 먼저 그리고, 하나라도 실패하면 통째로 되돌린다. 중복 실행과 "순서가 그대로면
+     저장하지 않는다" 는 훅이 맡는다. */
+  const commitReorderIds = useCallback(async (orderedIds: string[]) => {
+    const tab = selectedTabRef.current;
+    const orderMap = new Map(orderedIds.map((id, idx) => [id, idx]));
+    const prevBanners = bannersRef.current;
+    setActionFailure(null);
+
+    setBanners((prev) =>
+      prev
+        .map((banner) =>
+          banner.tab_id === tab && orderMap.has(banner.id)
+            ? { ...banner, display_order: orderMap.get(banner.id)! }
+            : banner,
+        )
+        .sort((a, b) => a.display_order - b.display_order),
+    );
+
+    try {
+      const results = await Promise.all(
+        orderedIds.map((id, idx) =>
+          fetch(`/api/admin/banners/${id}`, {
+            method: "PATCH",
+            body: (() => {
+              const fd = new FormData();
+              fd.append("display_order", String(idx));
+              return fd;
+            })(),
+          }),
+        ),
+      );
+      if (results.some((res) => !res.ok)) throw new Error("reorder failed");
+    } catch {
+      setBanners(prevBanners);
+      await fetchBanners();
+      /* 목록은 저장된 순서로 되돌려 놓았다. 다시 시도할 것이 없어 버튼을 달지 않는다 — 다시 끌면 된다.
+         예전에는 이 알림의 다시 시도가 목록만 한 번 더 읽고 알림을 지웠다. */
+      setActionFailure({ text: copy.common.reorderError });
+    }
+  }, [fetchBanners, copy.common.reorderError]);
+
+  const {
+    listRef,
+    previewIds,
+    draggingId,
+    insertionIndex,
+    ghost,
+    reordering,
+    handlePointerDown,
+    moveItem,
+  } = useDragReorder({ orderedIds, commit: commitReorderIds });
+
+  const displayIds = previewIds ?? orderedIds;
+  const draggingBanner = draggingId ? bannerById.get(draggingId) ?? null : null;
+
+  const renderBannerRowContent = (banner: Banner, options?: { compact?: boolean }) => (
+    <>
+      <div
+        role="button"
+        tabIndex={reordering || draggingId ? -1 : 0}
+        className={BANNER_DRAG_HANDLE}
+        aria-label={copy.common.reorder}
+        title={copy.common.reorderHint}
+        aria-disabled={reordering || !!draggingId}
+        data-reorder-handle
+        onPointerDown={(e) => handlePointerDown(e, banner.id)}
+        onKeyDown={(event) => {
+          if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+          event.preventDefault();
+          moveItem(banner.id, event.key === "ArrowUp" ? -1 : 1);
+        }}
+      >
+        <span className={BANNER_DRAG_HANDLE_ICON} aria-hidden />
+      </div>
+      {banner.image_url &&
+        (banner.media_type === "video" ? (
+          /* 썸네일은 재생하지 않는다 — `preload="metadata"` 로 첫 프레임만 받는다. */
+          <video
+            src={banner.image_url}
+            className={`${BANNER_THUMB}${banner.is_active ? "" : " opacity-50"}`}
+            preload="metadata"
+            muted
+            playsInline
+            aria-hidden
+          />
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={banner.image_url} alt="" className={`${BANNER_THUMB}${banner.is_active ? "" : " opacity-50"}`} />
+        ))}
+      <div className={BANNER_ITEM_INFO}>
+        {options?.compact ? (
+          <span className={`type-body-14-medium ${BANNER_ITEM_TITLE}`}>
+            {banner.title || copy.common.untitled}
+          </span>
+        ) : (
+          <button type="button" className={`type-body-14-medium ${BANNER_ITEM_TITLE} ${ROW_TITLE}`} disabled={deleting || reordering} onClick={() => openEdit(banner)}>
+            {banner.title || copy.common.untitled}
+          </button>
+        )}
+        {!options?.compact && (
+          <span className={`type-caption-12-regular ${BANNER_ITEM_DESC}`}>
+            {banner.description || ""}
+          </span>
+        )}
+      </div>
+      {!options?.compact && (
+        <>
+          {/* 평소(공개)는 글자로, 찾아야 할 숨김만 알약으로 세우고 썸네일을 흐리게 둔다. */}
+          <AdminStatus exception={!banner.is_active} label={banner.is_active ? copy.common.published : copy.common.hidden} />
+          {/* 행을 누르면 수정이 열린다. 숨기기와 삭제는 더보기 메뉴가 갖는다. */}
+          <AdminMoreMenu
+            label={formatAdminMessage(copy.common.moreFor, { name: banner.title || copy.common.untitled })}
+            items={[
+              { key: "edit", label: copy.common.edit, onSelect: () => openEdit(banner), disabled: deleting || reordering },
+              { key: "visibility", label: banner.is_active ? copy.content.hide : copy.content.show, onSelect: () => void toggleActive(banner), disabled: deleting || reordering },
+              { key: "delete", label: copy.common.delete, tone: "danger", onSelect: () => void handleDelete(banner.id), disabled: deleting || reordering },
+            ]}
+          />
+        </>
+      )}
+    </>
+  );
+
+  return (
+    <div className={BANNER_SECTION}>
+      {/* 순서 안내는 설명 줄 끝에 둔다(모델 카드, 리소스 템플릿과 같은 자리). 건수는 그 아래 마지막 줄이다 —
+          예전에는 안내가 머리 밖 따로 한 줄이라 건수가 두 문장 사이에 끼었다. */}
+      <AdminSectionHeader level="section" title={copy.content.banners}
+        description={filtered.length > 1 ? <AdminLines lines={[copy.content.bannerPlacement, copy.common.reorderHint]} /> : copy.content.bannerPlacement}
+        meta={loading || listFailed ? undefined : formatAdminMessage(copy.common.count, { count: filtered.length })}
+        actions={<Button variant="inverse" onClick={openCreate} disabled={deleting || reordering}>{copy.content.addBanner}</Button>}
+      />
+      <AdminActionFailureAlert failure={actionFailure} listedIds={orderedIds} disabled={loading || deleting || reordering} />
+      {listError && !listFailed && <AdminAlert action={<Button variant="secondary" onClick={fetchBanners} disabled={loading}>{copy.common.retry}</Button>}>{listError}</AdminAlert>}
+
+      {loading ? (
+        <AdminState kind="loading" title={copy.content.bannersLoading} />
+      ) : listFailed ? (
+        <AdminLoadError title={copy.content.bannersLoadFailed} onRetry={() => void fetchBanners()} />
+      ) : filtered.length === 0 ? (
+        !listError && <AdminState kind="empty" title={copy.content.noBanners} description={copy.content.emptyDescription} />
+      ) : (
+        <ul
+          ref={listRef}
+          className={`${BANNER_LIST}${draggingId ? ` ${BANNER_LIST_DRAGGING}` : ""}`}
+        >
+          {displayIds.map((id, idx) => {
+            const banner = bannerById.get(id);
+            if (!banner) return null;
+            const isDraggingRow = draggingId === id;
+
+            return (
+              <Fragment key={id}>
+                {draggingId && insertionIndex === idx && (
+                  <li className={BANNER_INSERTION_LINE} aria-hidden />
+                )}
+                {isDraggingRow ? (
+                  <li
+                    data-reorder-row={id}
+                    className={BANNER_ITEM_PLACEHOLDER}
+                    aria-hidden
+                  />
+                ) : (
+                  <li
+                    data-reorder-row={id}
+                    className={`${BANNER_ITEM} cursor-pointer`}
+                    onClick={(event) => {
+                      /* 삭제나 순서 저장이 도는 동안에는 메뉴의 「수정」처럼 열지 않는다. */
+                      if (deleting || reordering || isRowClickIgnored(event)) return;
+                      openEdit(banner);
+                    }}
+                  >
+                    {renderBannerRowContent(banner)}
+                  </li>
+                )}
+              </Fragment>
+            );
+          })}
+          {draggingId && insertionIndex === displayIds.length && (
+            <li className={BANNER_INSERTION_LINE} aria-hidden />
+          )}
+        </ul>
+      )}
+
+      {ghost && draggingBanner && (
+        <div
+          className={BANNER_DRAG_GHOST}
+          style={{
+            width: ghost.width,
+            transform: `translate3d(${ghost.x - ghost.offsetX}px, ${ghost.y - ghost.offsetY}px, 0)`,
+          }}
+          aria-hidden
+        >
+          {renderBannerRowContent(draggingBanner, { compact: true })}
+        </div>
+      )}
+
+      {formOpen && (
+        <AdminEditorDialog title={editing ? copy.content.editBanner : copy.content.addBanner}
+          description={copy.content.publishHint} onClose={() => void requestClose(closeForm)} busy={saving || uploading}
+          actions={<>
+              <Button variant="secondary" onClick={() => void requestClose(closeForm)} disabled={saving || uploading}>
+                {copy.common.cancel}
+              </Button>
+              <Button variant="inverse" onClick={handleSave} disabled={saving || uploading}>
+                <InlineLoadingLabel loading={saving} loadingLabel={copy.common.saving} idleLabel={copy.common.save} />
+              </Button></>}>
+            {/* 미리보기 — 홈 상단 배너와 같은 슬라이드로 그린다. 예전에는 미디어만 입력칸 밑에 띄워,
+                글자가 사진 위에서 어떻게 읽히는지는 저장하고 홈을 열어야 알았다. */}
+            <div className="md:col-span-2 flex flex-col gap-4">
+              <span className={BANNER_FIELD_LABEL}>{copy.common.preview}</span>
+              <BannerPreview
+                mediaUrl={formMediaPreview}
+                mediaType={formMediaType}
+                textTone={formTextTone === "" ? null : formTextTone}
+                videoPlayback={formVideoPlayback}
+                title={formTitle}
+                description={formDesc}
+              />
+            </div>
+
+            <label className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.common.titleKo}</span>
+              <span className={BANNER_FORM_BOX}>
+                <input
+                  className={BANNER_FORM_INPUT}
+                  value={formTitle}
+                  onChange={(e) => setFormTitle(e.target.value)}
+                  placeholder={copy.common.titleKo}
+                />
+              </span>
+            </label>
+
+            <label className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.common.titleEn}</span>
+              <span className={BANNER_FORM_BOX}>
+                <input
+                  className={BANNER_FORM_INPUT}
+                  value={formTitleEn}
+                  onChange={(e) => setFormTitleEn(e.target.value)}
+                  placeholder="Banner title"
+                />
+              </span>
+            </label>
+
+            <label className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.common.descriptionKo}</span>
+              <span className={BANNER_FORM_TEXTAREA_BOX}>
+                <textarea
+                  className={BANNER_FORM_TEXTAREA}
+                  value={formDesc}
+                  onChange={(e) => setFormDesc(e.target.value)}
+                  placeholder={copy.common.descriptionKo}
+                  rows={3}
+                />
+              </span>
+            </label>
+
+            <label className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.common.descriptionEn}</span>
+              <span className={BANNER_FORM_TEXTAREA_BOX}>
+                <textarea
+                  className={BANNER_FORM_TEXTAREA}
+                  value={formDescEn}
+                  onChange={(e) => setFormDescEn(e.target.value)}
+                  placeholder="Banner description"
+                  rows={3}
+                />
+              </span>
+            </label>
+
+            {/* 파일 칸은 텍스트 필드가 아니라 `__box` 를 두지 않는다 — 라벨과의 묶음만 정본을 쓰고,
+                라벨이 파일 대화상자를 열지 않도록 `div` 로 둔다. 고른 파일은 위 미리보기가 보여 준다. */}
+            <div className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.common.media}</span>
+              <AdminFilePicker
+                label={copy.common.media}
+                accept={ACCEPT_MEDIA}
+                disabled={uploading}
+                fileName={formMediaName}
+                hasFile={formMediaPreview !== null}
+                onPick={(file) => void handleMediaChange(file)}
+              />
+              <span className={`type-caption-12-regular ${BANNER_FORM_HINT}`}>
+                <AdminLines lines={formatAdminLines(copy.content.fileLimit, { formats: "PNG, JPG, WebP, GIF, MP4, WebM", image: MB(MAX_IMAGE_BYTES), video: MB(MAX_VIDEO_BYTES) })} />
+              </span>
+              {uploading && (
+                <span className={`type-caption-12-regular ${BANNER_FORM_HINT}`}><InlineLoadingLabel loading loadingLabel={copy.common.uploading} idleLabel={copy.common.uploading} /></span>
+              )}
+            </div>
+
+            {/* 트리거가 `button` 이라 `label` 로는 묶을 대상이 없다 — 접근성 이름은
+                `ariaLabel` 이 진다. */}
+            <div className={BANNER_FORM_GROUP}>
+              <span className={BANNER_FIELD_LABEL}>{copy.content.textTone}</span>
+              <AdminSelect
+                ariaLabel={copy.content.textTone}
+                value={formTextTone}
+                options={TEXT_TONE_OPTIONS}
+                onChange={(v) => setFormTextTone(v)}
+              />
+              {formMediaType === "video" && formTextTone === "" && (
+                <span className={`type-caption-12-regular ${BANNER_FORM_HINT}`}>
+                  <AdminLines lines={copy.content.videoToneHint} />
+                </span>
+              )}
+            </div>
+
+            {formMediaType === "video" && (
+              <div className={BANNER_FORM_GROUP}>
+                <span className={BANNER_FIELD_LABEL}>{copy.content.playback}</span>
+                <AdminSelect
+                  ariaLabel={copy.content.playback}
+                  value={formVideoPlayback}
+                  options={VIDEO_PLAYBACK_OPTIONS}
+                  onChange={(v) => setFormVideoPlayback(v)}
+                />
+                <span className={`type-caption-12-regular ${BANNER_FORM_HINT}`}>
+                  {copy.content.reducedMotionHint}
+                </span>
+              </div>
+            )}
+
+            {formError && (
+              <p className={`md:col-span-2 type-caption-12-regular ${BANNER_FORM_ERROR}`} role="alert">
+                {formError}
+              </p>
+            )}
+
+            {/* 공개 여부는 템플릿, 블로그와 같은 두 칸 선택이다. 예전에는 여기만 「홈에 노출」 체크 칸이었다. */}
+            <div className="md:col-span-2 flex flex-col gap-4">
+              <span className={BANNER_FIELD_LABEL}>{copy.common.publishState}</span>
+              <AdminSegmented
+                label={copy.common.publishState}
+                value={formActive ? "published" : "hidden"}
+                options={[
+                  { key: "hidden", label: copy.common.hidden },
+                  { key: "published", label: copy.common.published },
+                ]}
+                onChange={(key) => setFormActive(key === "published")}
+              />
+            </div>
+
+        </AdminEditorDialog>
+      )}
+      {confirmDialog}
+    </div>
+  );
+}

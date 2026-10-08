@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "00000000-0000-4000-8000-0000ad000701",
+      "name": "Seedance 2.0 Mini",
+      "description": "Placeholder description A",
+      "description_en": "Placeholder description A",
+      "description_ja": null,
+      "media_url": "/videos/node-showcase-sofa.mp4",
+      "media_type": "video",
+      "video_playback": "loop",
+      "logo_url": "/seedance_logo.webp",
+      "badge": "new",
+      "display_order": 0,
+      "is_active": true
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000ad000702",
+      "name": "Veo 3.1 Fast",
+      "description": "Placeholder description B",
+      "description_en": "Placeholder description B",
+      "description_ja": null,
+      "media_url": "/image-edit/examples/example-3.jpg",
+      "media_type": "image",
+      "video_playback": "loop",
+      "logo_url": "/gemini.svg",
+      "badge": null,
+      "display_order": 1,
+      "is_active": true
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000ad000703",
+      "name": "Kling 3.0",
+      "description": "Placeholder description C",
+      "description_en": "Placeholder description C",
+      "description_ja": null,
+      "media_url": "/image-edit/examples/example-4.jpg",
+      "media_type": "image",
+      "video_playback": "still",
+      "logo_url": "/kling.svg",
+      "badge": "top",
+      "display_order": 2,
+      "is_active": false
+    }
+  ]
+}

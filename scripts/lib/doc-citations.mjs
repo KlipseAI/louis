@@ -19,7 +19,15 @@ import { join, relative } from "node:path";
 // 이 형태가 필요한 이유: 제품이 파일을 지우거나 통째로 갈아엎으면 그 줄은 **어느 배포본에도
 // 없다.** 좌표를 지우면 「그런 선언이 있었다」는 사실까지 사라지고, 현재형으로 옮기면 거짓이 된다.
 // 커밋에 묶어 두면 둘 다 피하면서 사람이 손으로 확인할 수 있다(그 커밋이 원격에 있는 한).
-const CITATION = /`?([A-Za-z0-9_.\-/]+\.(?:tsx?|jsx?|css|mjs))`?\s*:\s*(\d+)(?:\s*[-–]\s*(\d+))?/g;
+//
+// **라우트 그룹 세그먼트 `(이름)/` 도 경로의 일부로 받는다** — 예: `(auth-brand)/signup/page.tsx:22`.
+// 제품이 인증 화면을 `app/(auth-brand)/…` 로 옮기자(통합 판 76b6cf15) 괄호를 못 받는 이 정규식
+// 때문에 회원가입 · 그룹 레이아웃을 줄로 인용하지 못하고 상수 이름으로만 적어 두었다(인용 773 → 744).
+// 괄호는 **`/` 가 바로 뒤따르는 온전한 세그먼트일 때만** 받는다. 아무 괄호나 받으면 백틱 없이
+// 적힌 `(login/page.tsx:38)` 의 여는 괄호까지 파일명에 들러붙는다. 그룹을 빼고 `signup/page.tsx`
+// 로만 적으면 `aws/signup/page.tsx` 와 겹쳐 「이름이 모호함」이 된다 — 모호성은 경로 전체로 가린다.
+const CITATION =
+  /`?((?:[A-Za-z0-9_.\-/]|\([A-Za-z0-9_\-]+\)\/)+\.(?:tsx?|jsx?|css|mjs))`?\s*:\s*(\d+)(?:\s*[-–]\s*(\d+))?/g;
 
 // LOUIS 자신의 파일은 제품 인용이 아니다.
 const OWN_PREFIXES = ["scripts/", "packages/", "figma/", "test/"];
@@ -38,6 +46,60 @@ const targetsOwnTree = (rest) => {
   return OWN_PREFIXES.some((prefix) => path.startsWith(prefix));
 };
 
+/** 문서 한 줄에서 제품 인용을 뽑는다. 수집과 자기 검사(`CITATION_CASES`)가 같은 길을 탄다. */
+export function citationsInLine(line) {
+  const out = [];
+  for (const match of line.matchAll(CITATION)) {
+    const file = match[1];
+    if (OWN_PREFIXES.some((prefix) => file.startsWith(prefix))) continue;
+    if (targetsOwnTree(line.slice(match.index + match[0].length))) continue;
+    if (/\.mjs$/.test(file) && !file.includes("/")) continue; // 우리 스크립트 이름
+    out.push({ file, line: Number(match[2]), end: match[3] ? Number(match[3]) : null });
+  }
+  return out;
+}
+
+// **정규식의 시험.** 줄 하나 → 기대하는 `파일:줄[-끝]` 목록. `verify-citations` 가 수집 전에 돌려
+// 하나라도 어긋나면 실패한다 — 정규식을 고친 사람이 인용 수가 조용히 줄어든 것을 모르고 지나가지
+// 않게 한다(라우트 그룹 괄호를 못 받아 인용이 773 → 744 로 줄었다).
+export const CITATION_CASES = [
+  ["`globals.css:63`", ["globals.css:63"]],
+  ["`Gnb.tsx:1911-1925`", ["Gnb.tsx:1911-1925"]],
+  ["`apps/web/app/globals.css:104`", ["apps/web/app/globals.css:104"]],
+  ["(`(auth-brand)/layout.tsx:21-28` 의 `PAGE`)", ["(auth-brand)/layout.tsx:21-28"]],
+  ["`(auth-brand)/signup/page.tsx:344` · `aws/signup/page.tsx:451`", ["(auth-brand)/signup/page.tsx:344", "aws/signup/page.tsx:451"]],
+  ["`app/(auth-brand)/(inner)/x.tsx:3`", ["app/(auth-brand)/(inner)/x.tsx:3"]],
+  // 백틱 없이 괄호 안에 적어도 여는 괄호가 파일명에 들러붙지 않는다.
+  ["근거(login/page.tsx:38)", ["login/page.tsx:38"]],
+  // 세그먼트가 아닌 괄호(뒤에 `/` 가 없음)는 경로가 아니다.
+  ["`(auth-brand).tsx:3`", []],
+  ["`Button.tsx@a3ed8e03:82-83`", []],
+  ["[table.css:3-5](../../packages/css/src/component/table.css)", []],
+];
+
+export function checkCitationCases() {
+  const failures = [];
+  for (const [line, expected] of CITATION_CASES) {
+    const got = citationsInLine(line).map((c) => `${c.file}:${c.line}${c.end ? "-" + c.end : ""}`);
+    if (JSON.stringify(got) !== JSON.stringify(expected)) {
+      failures.push(`${JSON.stringify(line)} → ${JSON.stringify(got)} (기대 ${JSON.stringify(expected)})`);
+    }
+  }
+  // 모호성은 경로 전체로 가린다 — 그룹을 뺀 `signup/page.tsx` 는 둘에 걸리고, 그룹을 적으면 하나다.
+  const tree = new Set(["apps/web/app/(auth-brand)/signup/page.tsx", "apps/web/app/aws/signup/page.tsx"]);
+  const resolutions = [
+    ["signup/page.tsx", "이름이 모호함"],
+    ["(auth-brand)/signup/page.tsx", "apps/web/app/(auth-brand)/signup/page.tsx"],
+    ["aws/signup/page.tsx", "apps/web/app/aws/signup/page.tsx"],
+  ];
+  for (const [file, expected] of resolutions) {
+    const result = resolveCitation(file, tree);
+    const got = result.path ?? result.error;
+    if (got !== expected) failures.push(`resolveCitation(${file}) → ${got} (기대 ${expected})`);
+  }
+  return failures;
+}
+
 export function collectDocCitations(repoRoot, { includeUpdates = false } = {}) {
   const out = [];
   const walk = (dir) => {
@@ -54,19 +116,8 @@ export function collectDocCitations(repoRoot, { includeUpdates = false } = {}) {
       if (!includeUpdates && rel.startsWith("design/updates/")) continue;
       const lines = readFileSync(path, "utf8").split("\n");
       lines.forEach((line, index) => {
-        for (const match of line.matchAll(CITATION)) {
-          const file = match[1];
-          if (OWN_PREFIXES.some((prefix) => file.startsWith(prefix))) continue;
-          if (targetsOwnTree(line.slice(match.index + match[0].length))) continue;
-          if (/\.mjs$/.test(file) && !file.includes("/")) continue; // 우리 스크립트 이름
-          out.push({
-            doc: rel,
-            docLine: index + 1,
-            file,
-            line: Number(match[2]),
-            end: match[3] ? Number(match[3]) : null,
-            context: line.trim().slice(0, 200),
-          });
+        for (const citation of citationsInLine(line)) {
+          out.push({ doc: rel, docLine: index + 1, ...citation, context: line.trim().slice(0, 200) });
         }
       });
     }

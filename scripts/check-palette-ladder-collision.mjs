@@ -60,6 +60,69 @@ const TREES = ["apps/web", "packages"];
 
 const read = (relative) => readFileSync(resolve(repoRoot, relative), "utf8");
 
+// ── 소유자가 받아들인 상승 = 제품 쪽 정리 후보 ─────────────────────────────
+// 래칫은 한 방향이다. 그런데 측정 앵커를 a4125565 → 작업 브랜치 통합 판 76b6cf15 로 옮기자
+// (DS-D-0079) 아래 7 자리가 새로 잡혔다 — 이 저장소가 아니라 **제품 코드에서** 늘어난 것이다.
+// 소유자 결정(2026-10-08): 기준선에 기록해 래칫을 그 수에서 다시 잠그고, 토큰으로 바꾸는 일은
+// 제품 PR 몫으로 남긴다. 그래서 기준선 `files` 는 이 수를 담고, 생성기는 이 목록을
+// `productCleanupCandidates` 로 함께 적어 「왜 올랐는가」가 기준선 파일에서 사라지지 않게 한다.
+// 이 목록은 면제(`palette-ladder-exemptions.json`)가 아니다 — 고정색이 의도라는 판정이 없고,
+// 사다리 이름으로 바꿔야 할 자리라는 판정이다. 제품에서 고쳐 수가 `was` 로 돌아오면 지운다.
+// `line` 은 76b6cf15 기준이고 제품이 움직이면 낡는다 — 정체는 파일과 수다.
+const PRODUCT_CLEANUP_CANDIDATES = {
+  decidedAt: "2026-10-08",
+  decidedBy: "owner",
+  decision: "design/governance/decisions/DS-D-0079-measure-the-work-branch-integration.md",
+  measuredAt: "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
+  previousAnchor: "a4125565e15367aee8212dafbdf758964261a201",
+  why:
+    "앵커 이동으로 드러난 제품 코드의 팔레트 리터럴. 사다리 칸과 값이 같으므로 사다리 이름" +
+    "(`var(--louis-color-bg-*)` · `bg-bg-*`)으로 바꿀 후보다. 바꾸는 일은 제품 PR 몫이다.",
+  entries: [
+    {
+      file: "apps/web/app/admin/ModelManagement.tsx",
+      was: 0,
+      now: 1,
+      sites: ["80 [dark] bg-palette-gray-900 (LOGO_TILE) = bg-surface/bg-raised/bg-menu/bg-overlay"],
+    },
+    {
+      file: "apps/web/components/navigation/Gnb.tsx",
+      was: 9,
+      now: 10,
+      sites: [
+        "1095 [light] background: --palette-gray-050 = bg-inset (2026-09-22 소유자 판정으로 pg-100 → pg-050 이 되며 사다리 칸과 겹쳤다)",
+      ],
+    },
+    {
+      file: "apps/web/components/scenes/create/node-canvas-v2/nodes/BgmNode.tsx",
+      was: 0,
+      now: 1,
+      sites: ["185 [light] background: --palette-gray-025 (MODE_SEGMENT_TRACK_LIGHT) = bg-canvas/bg-menu"],
+    },
+    {
+      file: "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoModelMenu.tsx",
+      was: 0,
+      now: 1,
+      sites: ["168 [light] hover:bg-palette-gray-025 (ROW_HOVER) = bg-canvas/bg-menu"],
+    },
+    {
+      file: "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
+      was: 0,
+      now: 2,
+      sites: [
+        "809 [light] background: rgb(--palette-gray-025-rgb / 100%) = bg-canvas/bg-menu",
+        "850 [light] background: --palette-gray-025 (세그먼트 트랙) = bg-canvas/bg-menu",
+      ],
+    },
+    {
+      file: "apps/web/components/scenes/create/node-canvas-v2/nodes/YoutubeNode.tsx",
+      was: 0,
+      now: 1,
+      sites: ["500 [light] background: --palette-gray-025 = bg-canvas/bg-menu"],
+    },
+  ],
+};
+
 if (!existsSync(resolve(productRoot, ".git"))) {
   unavailable(
     TAG,
@@ -157,12 +220,21 @@ if (updateBaseline) {
       "손으로 고치지 않는다. 파일마다 **사다리 칸과 값이 같은데 팔레트 이름으로 적힌 면**의 수다.",
     $rule:
       "한 방향이다. 파일의 수는 내려갈 수 있고 절대 오를 수 없으며, 여기 없는 파일은 0 이다. " +
-      "새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다.",
+      "새 위반을 받아들이려고 재생성하지 마라 — 수는 한쪽으로만 움직인다. 예외는 소유자 결정뿐이고, " +
+      "그것은 아래 productCleanupCandidates 에 사유와 함께 남는다.",
     $whyPerFile:
       "합계 하나로 잠그면 A 에서 하나 고치고 B 에 하나 넣는 것이 통과한다. 제품 저장소의 " +
       "`lint-baseline.json` 이 per file 로 얼린 것과 같은 이유다.",
     measuredAt: { productCommit: commit, refSource },
     files: Object.fromEntries(Object.entries(counts).sort(([a], [b]) => a.localeCompare(b))),
+    // 손으로 적지 않는다 — 위 `PRODUCT_CLEANUP_CANDIDATES` 를 옮기고 지금 수(`countNow`)를 붙인다.
+    productCleanupCandidates: {
+      $comment:
+        "소유자가 기준선에 받아들인 상승(제품 쪽 정리 후보). 면제가 아니다. 정본은 " +
+        "scripts/check-palette-ladder-collision.mjs 의 PRODUCT_CLEANUP_CANDIDATES 다.",
+      ...PRODUCT_CLEANUP_CANDIDATES,
+      entries: PRODUCT_CLEANUP_CANDIDATES.entries.map((e) => ({ ...e, countNow: counts[e.file] ?? 0 })),
+    },
   };
   writeFileSync(resolve(repoRoot, BASELINE), JSON.stringify(next, null, 2) + "\n");
   console.log(
@@ -219,3 +291,10 @@ if (shrank.length > 0) {
   );
   for (const { file, was, now } of shrank) console.log("    " + file + " " + was + " → " + now);
 }
+// 정리 후보는 실패가 아니다(소유자 결정). 다만 조용히 묻히지 않게 남은 수를 매번 찍는다.
+const pending = PRODUCT_CLEANUP_CANDIDATES.entries.filter((e) => (counts[e.file] ?? 0) > e.was);
+console.log(
+  "  제품 쪽 정리 후보 " + pending.length + "/" + PRODUCT_CLEANUP_CANDIDATES.entries.length +
+    " 파일 남음(" + PRODUCT_CLEANUP_CANDIDATES.decidedAt + " 소유자 결정 · " +
+    "PRODUCT_CLEANUP_CANDIDATES). 고쳐져 수가 was 로 돌아온 항목은 목록에서 지우세요.",
+);

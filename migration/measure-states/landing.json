@@ -1,0 +1,77 @@
+{
+  "$schema": "./_schema.json",
+  "area": "landing",
+  "mode": "public-seeded",
+  "authoredAgainst": "76b6cf154ab2",
+  "description": "랜딩 영역(공개 시드 모드 --public-seeded). 설계서 4-9절. 매핑의 needs-state · needs-seed 가운데 이 영역 몫은 CarouselHeader 하나다(StaticCreateDemo 는 통합 판에 파일이 없어 제외 11건에 든다). 랜딩 / 은 PUBLIC_ROUTES(공개 모드)의 화면이고 PUBLIC_SEEDED_ROUTES 에는 없다 — 그래서 base 가 아니라 pattern · file · fullPage · reducedMotion 을 직접 적는다(값은 PUBLIC_ROUTES 의 / 항목과 같다).",
+  "recipes": [
+    {
+      "id": "/ models",
+      "pattern": "/",
+      "file": "apps/web/app/page.tsx",
+      "fullPage": true,
+      "reducedMotion": true,
+      "contexts": ["mobile-402x874"],
+      "description": "랜딩의 「최신 AI 모델」 가로 캐러셀이 선 상태 — CarouselHeader 의 「제목 + 화살표 쌍」 변형(constrain=true, arrows 있음)의 출처. 그 변형을 그리는 곳은 ModelCarousel 하나뿐이고, ModelCarousel 은 /api/models 가 빈 목록이면 섹션째 null 이다(공개 원장의 / 에 이 제목이 없는 까닭). 데스크톱(1024 이상)에서는 같은 자리에 캐러셀이 아니라 무대와 목록(ModelShowcase 의 Stage)이 서서 CarouselHeader 가 그려지지 않으므로 모바일 한 칸만 잰다. 동작 줄이기라 자동 흐름(drift)은 걸리지 않고, drift prop 이 참이라 이음매용 복제본(aria-hidden)은 깔리며 화살표는 비활성으로 죽지 않는다. 화살표 없는 변형(NewsCarousel, constrain=false)은 이미 공개 원장의 / 에 있다.",
+      "contentNote": "지어낸 것은 카드 내용뿐이다. 카드 9장(원래 하드코딩 규모, 모바일 402 에서 트랙이 넘친다). 이름은 제품의 공개 모델 목록(publicModelList.ts PUBLIC_MODELS 의 landingName)에서 9개를 골랐다 — 실제 이름이라 publicModelHrefForCard 가 링크를 달고, 카드가 제품처럼 링크(CARD_LINK)로 감싸인다. 사진은 제품 public 의 같은 출처 파일이다: 8장은 ModelCarousel 머리 주석이 옛 model-*.jpg 의 짝이라고 적은 images/landing/template-*.jpg, 짝 없는 Veo 자리는 image-edit/examples/example-2.jpg. 설명은 제품 데모 값이 없어 짧은 「Placeholder description」 한 가지다(MediaCard 설명 칸은 말줄임이 아니라 줄바꿈이라 넘치는 줄을 넣지 않았다). 배지는 new 1 · top 1 · 없음 7. 로고는 제품 실값이 바깥 CDN 이라 null 로 두었다(아이콘 칸은 이 레시피의 대상이 아니다). 크기 · 색 · 간격은 측정값이다.",
+      "surfaces": [
+        "apps/web/components/landing/system/Carousel.tsx#CarouselHeader"
+      ],
+      "cite": [
+        { "path": "apps/web/app/HomePageClient.tsx", "line": 87, "expect": "<ModelShowcase />" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 33, "expect": "const SHOWCASE_QUERY = \"(min-width: 1024px)\";" },
+        { "path": "apps/web/components/landing/sections/ModelShowcase.tsx", "line": 84, "expect": "return showcase ? <Stage /> : <ModelCarousel />;" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 125, "expect": "const cards = useLandingModels(locale);" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 129, "expect": "if (cards.length === 0) return null;" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 134, "expect": "title={title === undefined ? models.title : (title ?? undefined)}" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 137, "expect": "drift" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 140, "expect": "if (!card.media_url) return null;" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 151, "expect": "badge={card.badge ? models[card.badge === \"new\" ? \"badgeNew\" : \"badgeTop\"] : undefined}" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 158, "expect": "name={card.name}" },
+        { "path": "apps/web/components/landing/sections/ModelCarousel.tsx", "line": 159, "expect": "sub={card.description ?? undefined}" },
+        { "path": "apps/web/components/landing/sections/landingModels.ts", "line": 12, "expect": "export type LandingModel = {" },
+        { "path": "apps/web/components/landing/sections/landingModels.ts", "line": 30, "expect": "fetch(`/api/models?locale=${locale}`)" },
+        { "path": "apps/web/components/landing/sections/landingModels.ts", "line": 33, "expect": "if (!json.ok || !Array.isArray(json.data)) throw new Error(\"models response\");" },
+        { "path": "apps/web/app/api/models/route.ts", "line": 12, "expect": "request.nextUrl.searchParams.get(\"locale\")" },
+        { "path": "apps/web/app/api/models/route.ts", "line": 20, "expect": "{ ok: true, data: cards }," },
+        { "path": "apps/web/app/lib/models/landingModelCards.ts", "line": 8, "expect": "export type LandingModelCard = {" },
+        { "path": "apps/web/app/lib/models/publicModelList.ts", "line": 49, "expect": "landingName: \"Veo 3.1\"" },
+        { "path": "apps/web/app/lib/models/publicModelList.ts", "line": 112, "expect": "export function publicModelHrefForCard(cardName: string): string | null {" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 137, "expect": "if (title == null && !arrows) return null;" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 145, "expect": "<h2 className=\"m-0 flex-1 min-w-0 type-heading-36-semibold text-gray-000\">{title}</h2>" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 147, "expect": "{arrows ? <CarouselArrows {...arrows} /> : null}" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 328, "expect": "if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return;" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 440, "expect": "arrows={title == null ? undefined : {" },
+        { "path": "apps/web/components/landing/system/Carousel.tsx", "line": 445, "expect": "prevDisabled: drift ? false : atStart," },
+        { "path": "apps/web/components/landing/system/CarouselArrows.tsx", "line": 99, "expect": "aria-label={label}" },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 515, "expect": "carousel: { prev: \"Previous\", next: \"Next\" }," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 542, "expect": "title: \"Try the newest AI models\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 543, "expect": "badgeNew: \"New\"," },
+        { "path": "apps/web/components/landing/system/messages/en.ts", "line": 544, "expect": "badgeTop: \"Top\"," }
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/models",
+          "query": { "locale": "en" },
+          "status": 200,
+          "jsonFile": "data/landing/models.json",
+          "description": "브라우저 fetch(landingModels.ts:30). 응답 모양은 라우트 route.ts:20 의 { ok: true, data: cards } 와 행 타입 landingModelCards.ts:8-18(LandingModelCard, display_order 포함)을 따른다. 소비 쪽 검사는 landingModels.ts:33(json.ok · Array.isArray(json.data)). 측정기가 언어 쿠키 facen-language=en 을 넣으므로 locale=en 으로 온다. media_url · logo_url 은 라우트가 servingUrlOrNull 을 거친 뒤의 값이라 같은 출처 경로를 그대로 둔다. 행 순서는 라우트가 display_order 로 정렬한 순서다."
+        }
+      ],
+      "steps": [
+        { "waitFor": { "role": "heading", "name": "Try the newest AI models", "exact": true }, "description": "응답이 와야 ModelCarousel 이 섹션을 그린다(ModelCarousel.tsx:129). 데스크톱 무대의 h2 도 같은 글자지만 이 레시피는 모바일 한 칸이다." },
+        { "waitFor": { "role": "button", "name": "Previous", "exact": true, "within": { "css": "#models" } }, "description": "사용 후기 밴드(Testimonials.tsx:387)도 같은 라벨의 화살표를 쓰므로 섹션 id(SectionShell 의 section id=models)로 좁힌다. 통합 판에 data-testid 가 없어 마지막 수단의 CSS 다." },
+        { "waitFor": { "role": "button", "name": "Next", "exact": true, "within": { "css": "#models" } }, "description": "머리 행의 다음 화살표. 제목이 있으면 트랙 좌우의 떠 있는 화살표(edgeArrows)는 그리지 않으므로 섹션 안에 하나뿐이다(Carousel.tsx:412)." }
+      ],
+      "pointer": "park",
+      "assert": {
+        "text": ["Try the newest AI models", "Veo 3.1", "New"],
+        "apiHit": "all",
+        "css": [
+          { "selector": "#models button[aria-label=\"Next\"]", "property": "display", "equals": "inline-flex" }
+        ]
+      }
+    }
+  ]
+}

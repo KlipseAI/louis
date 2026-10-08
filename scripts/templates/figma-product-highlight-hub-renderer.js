@@ -5,7 +5,7 @@ const L = PLAN.layout;
 // 지우지 않는다 — 이미 올바른 라이브에 돌리면 no-op이고, 재빌드로 구조가 흐트러졌을 때만 값이 바뀐다.
 //
 // **계산된 크기는 박지 않는다(2026-09-14).** 뷰포트 · 제목 줄 · 격자는 main 카드를 채우고(FILL), 카드 한 변은
-// 라이브 격자 폭에서 계산한다. 고정하는 것은 제품이 고른 값뿐이다 — 업로드 카드 400×140, 여백 · 간격.
+// 라이브 격자 폭에서 계산한다. 고정하는 것은 제품이 고른 값뿐이다 — 여백 · 간격(업로드 카드는 통합 판에서 걷혀 숨긴다).
 const need = async (id, expectName) => {
   const node = await figma.getNodeByIdAsync(id);
   if (!node) throw new Error(`Missing node ${id} (${expectName ?? "?"})`);
@@ -82,7 +82,10 @@ for (const cardId of F.cardIds) {
 // ── fixed upload card (main 카드의 ABSOLUTE child) ──────────────────────────
 // 400×140 은 선언이다. 자리는 제품의 `position:fixed; bottom:20; left:sidebar; right:0; margin:0 auto` —
 // 뷰포트에서 푼 좌표를 처음 한 번 놓고, 카드 크기가 바뀌어도 가운데 · 아래에 붙게 제약을 건다.
+// **계획이 `retired` 면 숨기기만 한다(2026-10-08, 통합 판).** 제품의 목록 화면에서 카드가 걷혔다 — 지우지 않는다(reconciler).
 const upload = await need(F.uploadId);
+if (L.upload.retired) upload.visible = false;
+else {
 if (isAuto(upload.parent)) upload.layoutPositioning = "ABSOLUTE";
 upload.layoutMode = "VERTICAL";
 upload.paddingTop = upload.paddingRight = upload.paddingBottom = upload.paddingLeft = L.upload.padding;
@@ -94,6 +97,7 @@ upload.resize(L.upload.width, L.upload.height);
 upload.x = L.upload.x;
 upload.y = L.upload.y;
 upload.constraints = L.upload.constraints;
+}
 
 return {
   reconciled: {
@@ -103,6 +107,6 @@ return {
     cardSide: side,
     cards: F.cardIds.length,
     reparented,
-    upload: [Math.round(upload.width), Math.round(upload.height), Math.round(upload.x), Math.round(upload.y)],
+    upload: L.upload.retired ? "hidden (retired)" : [Math.round(upload.width), Math.round(upload.height), Math.round(upload.x), Math.round(upload.y)],
   },
 };

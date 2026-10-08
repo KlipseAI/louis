@@ -1,10 +1,10 @@
 {
   "$comment": "Generated from migration/product.auth-fixture.json. Do not edit by hand.",
   "$evidenceClass": "product-only measured Figma candidate; not a normative design-system contract",
-  "productCommit": "a4125565e15367aee8212dafbdf758964261a201",
+  "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "context": "desktop-1920x1080",
   "sourceCandidate": {
-    "id": "subtree-9c4c0327c2b0",
+    "id": "subtree-9a272be57f7f",
     "nodeCount": 41,
     "roots": [
       {
@@ -140,17 +140,6 @@
         }
       },
       {
-        "route": "/subscription/coupons",
-        "path": "body.1.0.0.0.0.1",
-        "tag": "div",
-        "rect": {
-          "x": 12,
-          "y": 60,
-          "width": 216,
-          "height": 212
-        }
-      },
-      {
         "route": "/mypage/upgrade/billing-success?preview=success",
         "path": "body.1.0.0.0.0.1",
         "tag": "div",
@@ -217,9 +206,9 @@
         }
       }
     ],
-    "routeCount": 19,
-    "occurrenceCount": 19,
-    "score": 779
+    "routeCount": 18,
+    "occurrenceCount": 18,
+    "score": 738
   },
   "component": {
     "id": "product/gnb-sidebar-menu",
@@ -281,7 +270,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
+        "$note": "No new visual value: Gnb.tsx:4742-4743 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 76b6cf154ab2295d6c4a5c95c29927105a3715e4.",
         "activePaint": "gray000"
       },
       {
@@ -295,7 +284,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
+        "$note": "No new visual value: Gnb.tsx:4742-4743 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 76b6cf154ab2295d6c4a5c95c29927105a3715e4.",
         "activePaint": "gray000"
       },
       {
@@ -309,7 +298,7 @@
           1
         ],
         "activeIconOpacity": 1,
-        "$note": "No new visual value: Gnb.tsx:4663-4664 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit a4125565e15367aee8212dafbdf758964261a201.",
+        "$note": "No new visual value: Gnb.tsx:4742-4743 applies the common isSidebarMenuHrefActive result and the shared inactive/active colours are the colorEvidence roles gray300 · gray000 at pinned commit 76b6cf154ab2295d6c4a5c95c29927105a3715e4.",
         "activePaint": "gray000"
       }
     ],
@@ -331,7 +320,7 @@
             "width": 44.4531,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -386,7 +375,7 @@
             "width": 37.1719,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -441,7 +430,7 @@
             "width": 48.75,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -461,7 +450,7 @@
             "width": 20,
             "height": 20
           },
-          "asset": "/icons/Graph.svg",
+          "asset": "/icons/Canvas.svg",
           "color": [
             0.254902,
             0.270588,
@@ -496,7 +485,7 @@
             "width": 80.625,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -516,7 +505,7 @@
             "width": 20,
             "height": 20
           },
-          "asset": "/icons/MagicWand.svg",
+          "asset": "/icons/FilmSlate.svg",
           "color": [
             0.254902,
             0.270588,
@@ -551,7 +540,7 @@
             "width": 55.8906,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -604,7 +593,7 @@
               "width": 28.4063,
               "height": 18
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 12,
             "fontWeight": 500,
             "lineHeight": 18,
@@ -650,7 +639,7 @@
             "width": 114.5,
             "height": 21
           },
-          "fontFamily": "pretendard",
+          "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
           "fontSize": 14,
           "fontWeight": 500,
           "lineHeight": 21,
@@ -802,6 +791,8 @@
       "/icons/House.svg": "icon/House",
       "/icons/Graph.svg": "icon/Graph",
       "/icons/MagicWand.svg": "icon/MagicWand",
+      "/icons/Canvas.svg": "icon/Canvas",
+      "/icons/FilmSlate.svg": "icon/FilmSlate",
       "/highlight_symbol.svg": "root/highlight_symbol",
       "/icons/youtube.svg": "icon/youtube",
       "/klipse-light.svg": "logo/klipse-light (291×85 · 라이트 서피스용 · 워드마크 black)",
@@ -812,7 +803,7 @@
       "componentSetName": "Product/Gnb Upgrade CTA",
       "sourceCandidates": [
         {
-          "id": "subtree-aa1c1412d5c4",
+          "id": "subtree-fe194dab7cd2",
           "nodeCount": 53,
           "roots": [
             {
@@ -904,17 +895,6 @@
               }
             },
             {
-              "route": "/subscription/coupons",
-              "path": "body.1.0.0.0",
-              "tag": "header",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 240,
-                "height": 1080
-              }
-            },
-            {
               "route": "/mypage/upgrade/billing-change-success?preview=success",
               "path": "body.1.0.0.0",
               "tag": "header",
@@ -959,12 +939,12 @@
               }
             }
           ],
-          "routeCount": 13,
-          "occurrenceCount": 13,
-          "score": 689
+          "routeCount": 12,
+          "occurrenceCount": 12,
+          "score": 636
         },
         {
-          "id": "subtree-31a49ffcdd32",
+          "id": "subtree-dbd11b0d31fa",
           "nodeCount": 53,
           "roots": [
             {
@@ -1107,7 +1087,7 @@
               "width": 54.8281,
               "height": 21
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 500,
             "lineHeight": 21,
@@ -1168,7 +1148,7 @@
               "width": 54.8281,
               "height": 21
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 500,
             "lineHeight": 21,
@@ -1184,7 +1164,7 @@
       "componentSetName": "Product/Gnb Desktop Shell",
       "sourceCandidates": [
         {
-          "id": "subtree-62c4e4642ab9",
+          "id": "subtree-7f409c824481",
           "nodeCount": 6,
           "roots": [
             {
@@ -1342,17 +1322,6 @@
               }
             },
             {
-              "route": "/subscription/coupons",
-              "path": "body.1.0.0.0.0.0",
-              "tag": "div",
-              "rect": {
-                "x": 12,
-                "y": 8,
-                "width": 216,
-                "height": 40
-              }
-            },
-            {
               "route": "/mypage/upgrade/billing-success?preview=success",
               "path": "body.1.0.0.0.0.0",
               "tag": "div",
@@ -1485,12 +1454,12 @@
               }
             }
           ],
-          "routeCount": 27,
-          "occurrenceCount": 27,
-          "score": 162
+          "routeCount": 26,
+          "occurrenceCount": 26,
+          "score": 156
         },
         {
-          "id": "subtree-aa1c1412d5c4",
+          "id": "subtree-fe194dab7cd2",
           "nodeCount": 53,
           "roots": [
             {
@@ -1582,17 +1551,6 @@
               }
             },
             {
-              "route": "/subscription/coupons",
-              "path": "body.1.0.0.0",
-              "tag": "header",
-              "rect": {
-                "x": 0,
-                "y": 0,
-                "width": 240,
-                "height": 1080
-              }
-            },
-            {
               "route": "/mypage/upgrade/billing-change-success?preview=success",
               "path": "body.1.0.0.0",
               "tag": "header",
@@ -1637,12 +1595,12 @@
               }
             }
           ],
-          "routeCount": 13,
-          "occurrenceCount": 13,
-          "score": 689
+          "routeCount": 12,
+          "occurrenceCount": 12,
+          "score": 636
         },
         {
-          "id": "subtree-31a49ffcdd32",
+          "id": "subtree-dbd11b0d31fa",
           "nodeCount": 53,
           "roots": [
             {
@@ -1723,7 +1681,7 @@
         "padding": {
           "top": 8,
           "right": 12,
-          "bottom": 0,
+          "bottom": 8,
           "left": 12
         },
         "background": [
@@ -1737,7 +1695,7 @@
         "x": 12,
         "y": 8,
         "width": 216,
-        "height": 1072
+        "height": 1064
       },
       "brand": {
         "rect": {
@@ -1758,7 +1716,7 @@
           "asset": "/klipse-light.svg",
           "darkAsset": "/klipse-dark.svg",
           "darkAssetSource": {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/ui/BrandLogo.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/ui/BrandLogo.tsx",
             "path": "apps/web/components/ui/BrandLogo.tsx",
             "line": 97,
             "quote": "        src=\"/klipse-dark.svg\""
@@ -1774,7 +1732,7 @@
       },
       "upgradeCta": {
         "x": 12,
-        "y": 1039,
+        "y": 1031,
         "width": 216,
         "height": 41
       },
@@ -1829,69 +1787,7 @@
       "componentSetName": "Product/Payment Result Content",
       "sourceCandidates": [
         {
-          "id": "subtree-8d24ecec085d",
-          "nodeCount": 9,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0.1.1",
-              "tag": "section",
-              "rect": {
-                "x": 816,
-                "y": 165,
-                "width": 520,
-                "height": 229.5938
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0.1.1",
-              "tag": "section",
-              "rect": {
-                "x": 816,
-                "y": 165,
-                "width": 520,
-                "height": 229.5938
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 18
-        },
-        {
-          "id": "subtree-4d3434d8b90b",
-          "nodeCount": 9,
-          "roots": [
-            {
-              "route": "/mypage/upgrade/billing-change-fail",
-              "path": "body.1.0.0.1.1",
-              "tag": "section",
-              "rect": {
-                "x": 6,
-                "y": 105,
-                "width": 390,
-                "height": 312.1875
-              }
-            },
-            {
-              "route": "/mypage/topup/fail",
-              "path": "body.1.0.0.1.1",
-              "tag": "section",
-              "rect": {
-                "x": 6,
-                "y": 105,
-                "width": 390,
-                "height": 312.1875
-              }
-            }
-          ],
-          "routeCount": 2,
-          "occurrenceCount": 2,
-          "score": 18
-        },
-        {
-          "id": "subtree-d53f06a79810",
+          "id": "subtree-c400e3ba235f",
           "nodeCount": 5,
           "roots": [
             {
@@ -1920,6 +1816,18 @@
           "routeCount": 2,
           "occurrenceCount": 2,
           "score": 10
+        },
+        {
+          "context": "desktop-1920x1080",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0.1.1",
+          "nodeCount": 9
+        },
+        {
+          "context": "mobile-402x874",
+          "route": "/mypage/upgrade/billing-change-fail",
+          "path": "body.1.0.0.1.1",
+          "nodeCount": 9
         }
       ],
       "variants": [
@@ -1952,7 +1860,7 @@
               "width": 520,
               "height": 48.5938
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -1974,7 +1882,7 @@
               "width": 520,
               "height": 24
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 16,
             "fontWeight": 400,
             "lineHeight": 24,
@@ -2021,14 +1929,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
                 "y": 197.5938,
                 "width": 520,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2070,7 +1978,7 @@
                 "width": 63.6094,
                 "height": 21
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2092,7 +2000,7 @@
                 "width": 119.7188,
                 "height": 21
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2137,7 +2045,7 @@
               "width": 390,
               "height": 97.1875
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -2159,7 +2067,7 @@
               "width": 390,
               "height": 21
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 400,
             "lineHeight": 21,
@@ -2206,14 +2114,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
                 "y": 280.1875,
                 "width": 390,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2255,7 +2163,7 @@
                 "width": 63.8125,
                 "height": 21
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2277,7 +2185,7 @@
                 "width": 119.9844,
                 "height": 21
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2315,14 +2223,14 @@
             0
           ],
           "title": {
-            "text": "Payment confirmed, but plan\nupdate delayed",
+            "text": "Couldn't update the payment\nmethod",
             "rect": {
               "x": 0,
               "y": 0,
               "width": 520,
               "height": 97.1875
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -2344,7 +2252,7 @@
               "width": 520,
               "height": 24
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 16,
             "fontWeight": 400,
             "lineHeight": 24,
@@ -2391,14 +2299,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
                 "y": 177.1875,
                 "width": 520,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2421,7 +2329,7 @@
           "route": "/mypage/upgrade/billing-change-success",
           "rect": {
             "width": 390,
-            "height": 275.7813
+            "height": 227.1875
           },
           "width": {
             "mode": "FILL",
@@ -2437,14 +2345,14 @@
             0
           ],
           "title": {
-            "text": "Payment confirmed,\nbut plan update\ndelayed",
+            "text": "Couldn't update the\npayment method",
             "rect": {
               "x": 0,
               "y": 0,
               "width": 390,
-              "height": 145.7813
+              "height": 97.1875
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -2462,11 +2370,11 @@
             "text": "Billing authorization information is missing from the success\nURL.",
             "rect": {
               "x": 0,
-              "y": 169.7813,
+              "y": 121.1875,
               "width": 390,
               "height": 42
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 400,
             "lineHeight": 21,
@@ -2493,7 +2401,7 @@
           "action": {
             "rect": {
               "x": 0,
-              "y": 243.7813,
+              "y": 195.1875,
               "width": 390,
               "height": 32
             },
@@ -2513,14 +2421,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
-                "y": 243.7813,
+                "y": 195.1875,
                 "width": 390,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2566,7 +2474,7 @@
               "width": 520,
               "height": 97.1875
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -2588,7 +2496,7 @@
               "width": 520,
               "height": 24
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 16,
             "fontWeight": 400,
             "lineHeight": 24,
@@ -2635,14 +2543,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
                 "y": 177.1875,
                 "width": 520,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2688,7 +2596,7 @@
               "width": 390,
               "height": 145.7813
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 36,
             "fontWeight": 500,
             "lineHeight": 48.6,
@@ -2710,7 +2618,7 @@
               "width": 390,
               "height": 21
             },
-            "fontFamily": "pretendard",
+            "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
             "fontSize": 14,
             "fontWeight": 400,
             "lineHeight": 21,
@@ -2757,14 +2665,14 @@
               1
             ],
             "label": {
-              "text": "Go to My Page",
+              "text": "Back to subscription",
               "rect": {
                 "x": 0,
                 "y": 222.7813,
                 "width": 390,
                 "height": 32
               },
-              "fontFamily": "pretendard",
+              "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
               "fontSize": 14,
               "fontWeight": 400,
               "lineHeight": 21,
@@ -2789,9 +2697,9 @@
       "iconOpacity": 0.92,
       "activeSurface": null,
       "activeSurfaceSource": {
-        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+        "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
         "path": "apps/web/components/navigation/Gnb.tsx",
-        "line": 585,
+        "line": 583,
         "quote": "    \"[html[data-theme=light]_.gnb-menuSidebar_&]:[background-color:transparent]\","
       }
     },
@@ -2799,9 +2707,9 @@
       "gray300": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 573,
+            "line": 571,
             "quote": "    \"[.gnb-menuSidebar_.gnb-menuLink:not(&)]:[color:var(--gray-300)]\","
           }
         ],
@@ -2816,33 +2724,33 @@
       "gray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 579,
+            "line": 577,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1970,
+            "line": 2006,
             "quote": "    \"[color:var(--gray-000)]\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 88,
+            "line": 89,
             "quote": "  \"m-0 text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 113,
+            "line": 114,
             "quote": "  \"[&_dd]:text-gray-000\","
           },
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 128,
+            "line": 129,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
           }
         ],
@@ -2857,7 +2765,7 @@
       "paletteGray600": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 171,
             "quote": "    \"[color:var(--palette-gray-600)]\","
@@ -2874,7 +2782,7 @@
       "paletteGray500Alpha12": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
             "line": 172,
             "quote": "    \"[background:rgb(var(--palette-gray-500-rgb)_/_12%)]\","
@@ -2892,9 +2800,9 @@
       "paletteGray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1959,
+            "line": 1995,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[background:var(--palette-gray-900)]\","
           }
         ],
@@ -2909,9 +2817,9 @@
       "paletteGray100": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1960,
+            "line": 1996,
             "quote": "    \"[html[data-theme=light]_.gnb-sidebarUpgradeButton:not(&)]:[color:var(--palette-gray-100)]\","
           }
         ],
@@ -2926,9 +2834,9 @@
       "paletteGray000": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/components/navigation/Gnb.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/components/navigation/Gnb.tsx",
             "path": "apps/web/components/navigation/Gnb.tsx",
-            "line": 1969,
+            "line": 2005,
             "quote": "    \"[background:var(--palette-gray-000)]\","
           }
         ],
@@ -2943,9 +2851,9 @@
       "gray000Alpha56": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 96,
+            "line": 97,
             "quote": "  \"m-0 text-[rgb(var(--gray-000-rgb)/56%)]\","
           }
         ],
@@ -2963,9 +2871,9 @@
       "gray000Alpha48": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 110,
+            "line": 111,
             "quote": "  \"[&_dt]:text-[rgb(var(--gray-000-rgb)/48%)]\","
           }
         ],
@@ -2983,9 +2891,9 @@
       "gray900": {
         "declared": [
           {
-            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show a4125565e15367aee8212dafbdf758964261a201:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
+            "command": "git -C \"$KLIPSE_PRODUCT_REPO\" show 76b6cf154ab2295d6c4a5c95c29927105a3715e4:apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
             "path": "apps/web/app/mypage/upgrade/billing-change-fail/page.tsx",
-            "line": 128,
+            "line": 129,
             "quote": "  \"[border:none] bg-gray-000 text-gray-900!\","
           }
         ],

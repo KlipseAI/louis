@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "data": {
+    "variants": [
+      { "styleLabel": "Placeholder style A", "prompt": "Placeholder prompt variant A." },
+      { "styleLabel": "Placeholder style B", "prompt": "Placeholder prompt variant B." }
+    ],
+    "prompt": "Placeholder prompt variant A.",
+    "charCount": 29,
+    "model": "gemini-3.5-flash-lite",
+    "reasoning": "minimal",
+    "targetKind": "image"
+  }
+}

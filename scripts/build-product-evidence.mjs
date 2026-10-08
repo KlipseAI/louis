@@ -34,7 +34,13 @@ const commit = git(["rev-parse", productRef]);
 // 통째로 검증 불가가 되고 `verify:product` 13게이트가 죽는다. 그런데 hosted CI도
 // `pnpm clean-room`도 제품 저장소를 읽지 않으므로 **이 결함에 대해서는 영원히 초록이다.**
 // 사람이 눈치챌 자리가 없으므로 기준선을 박는 이 자리에서 막는다.
-if (git(["branch", "-r", "--contains", commit]) === "") {
+// **예외 하나 — 작업 브랜치 통합 판(DS-D-0079).** 통합 판은 제품 저장소에 없는 병합 커밋이다. `integration.json` 의 `result` 와
+// 같은 커밋만 받는다 — `migration/product-integration/build.sh` 가 같은 이름 · 날짜로 다시 만들어 같은 SHA 가 나온다. 갈래 브랜치가
+// 원저자 맥에만 있으면 다른 맥은 재현할 수 없다는 한계는 그 Decision 이 적는다.
+const integrationResult = (() => {
+  try { return JSON.parse(readFileSync(resolve(repoRoot, "migration/product-integration/integration.json"), "utf8")).result ?? null; } catch { return null; }
+})();
+if (commit !== integrationResult && git(["branch", "-r", "--contains", commit]) === "") {
   console.error(
     "[product-evidence] 원격에 없는 커밋을 기준선으로 박을 수 없습니다: " +
       commit.slice(0, 8) +
@@ -114,7 +120,7 @@ function collect(node) {
   if (Array.isArray(node)) return node.forEach(collect);
   for (const value of Object.values(node)) {
     if (typeof value === "string") {
-      const matches = value.match(/apps\/web\/[A-Za-z0-9_\-/.[\]]+/g);
+      const matches = value.match(/apps\/web\/[A-Za-z0-9_\-/.[\]()]+/g); // `()` — 통합 판(DS-D-0079)의 라우트 그룹 폴더 `app/(auth-brand)/…`
       if (matches) for (const match of matches) cited.add(match);
     }
     collect(value);

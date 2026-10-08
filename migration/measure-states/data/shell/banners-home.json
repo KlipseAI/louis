@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "id": "00000000-0000-4000-8000-0000000b0001",
+      "tab_id": "home",
+      "title": "Placeholder banner A",
+      "description": "Placeholder banner description",
+      "image_url": "/images/capabilities/stages/stage-03.webp",
+      "media_type": "image",
+      "text_tone": "light",
+      "video_playback": "loop",
+      "display_order": 1
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000b0002",
+      "tab_id": "home",
+      "title": "Placeholder banner B",
+      "description": "Placeholder banner description",
+      "image_url": "/images/capabilities/stages/stage-02.webp",
+      "media_type": "image",
+      "text_tone": "dark",
+      "video_playback": "loop",
+      "display_order": 2
+    }
+  ]
+}

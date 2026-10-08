@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "request": {
+    "startDate": "2026-01-10",
+    "endDate": "2026-01-15",
+    "videoId": "Placeholder"
+  },
+  "overview": {
+    "data": {
+      "views": 1240,
+      "watchMinutes": 62,
+      "averageViewDuration": 3,
+      "likes": 86,
+      "comments": 12,
+      "shares": 9,
+      "subscribersGained": 14,
+      "subscribersLost": 2,
+      "netSubscribers": 12,
+      "impressions": 9800,
+      "ctr": 6.2
+    },
+    "status": {
+      "overview": "ok",
+      "impressions": "ok"
+    }
+  },
+  "timeseries": {
+    "daily": [
+      { "date": "2026-01-10", "views": 180, "watchMinutes": 9, "likes": 12, "comments": 2, "shares": 1 },
+      { "date": "2026-01-11", "views": 320, "watchMinutes": 16, "likes": 22, "comments": 3, "shares": 3 },
+      { "date": "2026-01-12", "views": 260, "watchMinutes": 13, "likes": 18, "comments": 3, "shares": 2 },
+      { "date": "2026-01-13", "views": 290, "watchMinutes": 14, "likes": 20, "comments": 2, "shares": 2 },
+      { "date": "2026-01-14", "views": 190, "watchMinutes": 10, "likes": 14, "comments": 2, "shares": 1 }
+    ],
+    "dailyImpressions": null,
+    "status": {
+      "daily": "ok",
+      "impressions": "unavailable"
+    }
+  },
+  "traffic": {
+    "items": [
+      { "source": "SHORTS", "label": "쇼츠 피드", "views": 620, "engagedViews": 540, "estimatedMinutesWatched": 31, "impressions": null, "ctr": null },
+      { "source": "YT_SEARCH", "label": "YouTube 검색", "views": 380, "engagedViews": 330, "estimatedMinutesWatched": 19, "impressions": null, "ctr": null },
+      { "source": "SUBSCRIBER", "label": "구독 피드", "views": 240, "engagedViews": 210, "estimatedMinutesWatched": 12, "impressions": null, "ctr": null }
+    ],
+    "status": {
+      "base": "ok",
+      "reach": "unavailable"
+    }
+  },
+  "geography": {
+    "items": [
+      { "country": "KR", "views": 740, "watchMinutes": 37, "averageViewDuration": 3, "label": "대한민국", "shareOfViews": 59.68 },
+      { "country": "US", "views": 310, "watchMinutes": 16, "averageViewDuration": 3, "label": "미국", "shareOfViews": 25 },
+      { "country": "JP", "views": 190, "watchMinutes": 9, "averageViewDuration": 3, "label": "일본", "shareOfViews": 15.32 }
+    ],
+    "totalViews": 1240,
+    "status": {
+      "base": "ok"
+    }
+  },
+  "devices": {
+    "deviceType": [
+      { "deviceType": "MOBILE", "deviceTypeLabel": "모바일", "views": 980, "estimatedMinutesWatched": 49 },
+      { "deviceType": "DESKTOP", "deviceTypeLabel": "데스크톱", "views": 260, "estimatedMinutesWatched": 13 }
+    ],
+    "operatingSystem": [],
+    "status": {
+      "deviceType": "ok",
+      "operatingSystem": "empty"
+    }
+  },
+  "demographics": {
+    "items": [
+      { "ageGroup": "18-24", "male": 22.4, "female": 18.1 },
+      { "ageGroup": "25-34", "male": 28.3, "female": 31.2 }
+    ],
+    "status": {
+      "demographics": "ok"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "request": {
+    "startDate": "2026-01-10",
+    "endDate": "2026-01-15",
+    "videoId": "Placeholder"
+  },
+  "items": [
+    { "elapsedVideoTimeRatio": 0, "audienceWatchRatio": 1, "relativeRetentionPerformance": 0.5, "startedWatching": 0, "stoppedWatching": 0, "totalSegmentImpressions": 0 },
+    { "elapsedVideoTimeRatio": 0.25, "audienceWatchRatio": 0.82, "relativeRetentionPerformance": 0.55, "startedWatching": 0, "stoppedWatching": 0, "totalSegmentImpressions": 0 },
+    { "elapsedVideoTimeRatio": 0.5, "audienceWatchRatio": 0.68, "relativeRetentionPerformance": 0.52, "startedWatching": 0, "stoppedWatching": 0, "totalSegmentImpressions": 0 },
+    { "elapsedVideoTimeRatio": 0.75, "audienceWatchRatio": 0.57, "relativeRetentionPerformance": 0.49, "startedWatching": 0, "stoppedWatching": 0, "totalSegmentImpressions": 0 },
+    { "elapsedVideoTimeRatio": 1, "audienceWatchRatio": 0.41, "relativeRetentionPerformance": 0.46, "startedWatching": 0, "stoppedWatching": 0, "totalSegmentImpressions": 0 }
+  ],
+  "status": {
+    "retention": "ok"
+  }
+}

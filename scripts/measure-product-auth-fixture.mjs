@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmdirSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { delimiter, dirname, resolve } from "node:path";
@@ -13,6 +13,7 @@ import { productFontFile } from "./lib/product-font.mjs";
 import { captureDeclaredStylesForHandles } from "./lib/declared-styles.mjs";
 import { resolveProductRef } from "./lib/product-ref.mjs";
 import { sessionCookie, startFakeSupabase } from "./lib/fixture-fake-supabase.mjs";
+import { checkCites, createRecipeRouter, loadArea, readRecipeCss, recipeAssertProblems, recipeDigest, runRecipeSteps, specFromRecipe, supabaseOverlayOf, validateRecipes } from "./lib/state-recipes.mjs";
 import { FIXTURE_CANVAS_PROJECT_ID, FIXTURE_COUPON_CAMPAIGN_ID, FIXTURE_EDITOR_PROJECT_ID, FIXTURE_HIGHLIGHT_PROJECT_ID, FIXTURE_HIGHLIGHT_SHORT_ID, FIXTURE_PUBLIC_SEEDS, FIXTURE_SEEDS } from "./lib/fixture-seeds.mjs";
 
 // 이 측정기는 운영 인증을 재현하지 않는다. 제품이 소스에서 명시한 development-only bypass로
@@ -23,27 +24,55 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 // (앵커 `login/page.tsx:318-322` — `if (!loading && user) router.replace("/archive")`). 인증 우회 서버에서는 가짜 사용자가 있어
 // 그 화면이 재지지 않는다. 이 모드는 **우회를 끈** 서버로 `ANONYMOUS_ROUTES` 만 재 별도 원장에 쓴다 — 측정 · 안정화 · 정규화 코드는
 // 인증 fixture 와 한 벌이라 규칙이 갈라지지 않는다.
-const anonymous = process.argv.includes("--anonymous");
+// **상태 레시피 모드(`--states=<영역>`, 2026-10-08 — 상태 레시피 설계서 2절).** `migration/measure-states/<영역>.json` 의 레시피를
+// 화면으로 펴서, 영역 파일의 `mode` 가 정하는 서버 환경(아래 네 불리언)에서 잰다. 결과는 기존 원장이 아니라 영역 원장
+// (`migration/product-states/<영역>.json`)에 쓴다 — 같은 원장에 넣으면 스타일 표 · 요청 목록 · 상위 60 후보가 바뀐다. 레시피 로직은
+// `lib/state-recipes.mjs` 에 있고, 이 파일의 새 갈래는 모두 `statesArea` 나 `spec.recipe` 가 있을 때만 돈다.
+const statesArg = process.argv.find((arg) => arg.startsWith("--states="));
+const statesArea = statesArg ? loadArea(statesArg.slice("--states=".length)) : null;
+const statesMode = statesArea?.mode ?? null;
+// **`--dump-static=<파일>`(디버그, 2026-10-08).** 화면 명세(SCREEN_SPECS)와 측정에 기대지 않는 원장 머리를 JSON 으로 쏟고 끝낸다 —
+// 개발 서버 · 브라우저 · LOUIS CSS 덮기를 하지 않는다. 상태 레시피 갈래를 더하기 전후로 각 모드의 결과가 같은지 보는 확인 1(설계서 2절)용.
+const dumpStaticArg = process.argv.find((arg) => arg.startsWith("--dump-static="));
+const dumpStatic = dumpStaticArg ? resolve(dumpStaticArg.slice("--dump-static=".length)) : null;
+const anonymous = process.argv.includes("--anonymous") || statesMode === "anonymous";
 // **세션 모드(`--session`, 2026-09-29).** 서버 컴포넌트가 `supabase.auth.getUser()` 로 사용자를 확인하는 화면(허브 셋)을 서버가 받는
 // 가짜 세션으로 잰다 — 로컬 가짜 Supabase(`lib/fixture-fake-supabase.mjs`)가 인증에 고정 사용자로 답하고 데이터 조회에는 빈 목록으로
 // 답한다. **공개 모드(`--public`, 2026-09-29).** 뷰포트보다 긴 공개 페이지를 로그아웃 상태로 문서 전체까지 잰다(`fullPage`). 둘 다
 // 별도 원장에 쓴다 — 인증 · 로그아웃 원장과 환경이 달라 섞으면 기존 보드가 흔들린다.
-const session = process.argv.includes("--session");
+const session = process.argv.includes("--session") || statesMode === "session";
 // `--public-seeded`(2026-10-07): 공개 모드와 같은 로그아웃 서버에 가짜 Supabase(세션 쿠키 없음) + 공개 시드를 붙여 상세 화면을 잰다. 원장을 따로 쓴다.
-const publicSeeded = process.argv.includes("--public-seeded");
-const publicMode = process.argv.includes("--public") || publicSeeded;
+const publicSeeded = process.argv.includes("--public-seeded") || statesMode === "public-seeded";
+const publicMode = process.argv.includes("--public") || publicSeeded || statesMode === "public";
 // **LOUIS 예시 모드(`--louis-examples`, 2026-10-07).** 제품 화면이 아니라 이 저장소의 정적 예시(`packages/css/examples/*.html`)를 같은
 // 측정 · 안정화 · 정규화 코드로 잰다 — 문서 패턴 예시를 Figma 레이어로 생성하려고(소유자 「그냥 이미지를 갖다 넣어 놨네」). Next 서버 대신
 // `packages/css` 를 정적으로 내고, 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일(`apps/web/app/fonts/PretendardVariable.woff2`)로
 // 대 준다(바깥 요청은 끊는다). 제품 원장들과 같은 `productCommit` 을 적는다 — 글꼴의 출처이고 생성기가 원장끼리 같은 앵커인지 본다.
 const louisExamples = process.argv.includes("--louis-examples");
 if ([anonymous, session, publicMode, louisExamples].filter(Boolean).length > 1) throw new Error("[product-auth-fixture] --anonymous · --session · --public · --louis-examples 는 하나만 줍니다");
-const outputRelative = louisExamples ? "migration/louis.document-examples.json"
+if (statesArea && ["--anonymous", "--session", "--public", "--public-seeded", "--louis-examples"].some((flag) => process.argv.includes(flag))) {
+  throw new Error("[product-auth-fixture] --states 는 모드 인자와 함께 쓰지 않습니다 — 모드는 영역 파일의 mode 가 정합니다(" + statesArea.file + ": " + statesMode + ")");
+}
+const enOutputRelative = statesArea ? `migration/product-states/${statesArea.area}.json`
+  : louisExamples ? "migration/louis.document-examples.json"
   : anonymous ? "migration/product.anonymous-fixture.json"
   : session ? "migration/product.session-fixture.json"
   : publicSeeded ? "migration/product.public-seeded-fixture.json"
   : publicMode ? "migration/product.public-fixture.json"
   : "migration/product.auth-fixture.json";
+// **로캘 측정(`--locale=en|ko|ja`, 2026-10-08 · DS-D-0081).** 같은 화면을 그 언어로 열어 `migration/product-locale/<모드>.<로캘>.json` 에
+// 따로 쓴다 — en 원장(위 경로)은 건드리지 않는다. Figma 보드의 「Klipse Locale」 변수 값은 이 원장의 같은 DOM 경로 글자에서 온다
+// (scripts/build-figma-locale-strings.mjs). 제품은 공유 쿠키 `klipse-locale` → 호스트 쿠키 `facen-language` → Accept-Language → en
+// 순서로 언어를 고르므로(apps/web/lib/serverLocale.ts) 셋을 모두 세운다. 인자가 없으면 전과 같다(en 원장 · 쿠키 · 헤더 그대로).
+const localeArg = process.argv.find((arg) => arg.startsWith("--locale="));
+const localeMode = Boolean(localeArg);
+const LOCALE = localeMode ? localeArg.slice("--locale=".length) : "en";
+const LOCALE_TAGS = { en: "en-US", ko: "ko-KR", ja: "ja-JP" };
+if (!LOCALE_TAGS[LOCALE]) throw new Error("[product-auth-fixture] --locale 은 en · ko · ja 가운데 하나입니다: " + LOCALE);
+if (localeMode && louisExamples) throw new Error("[product-auth-fixture] --locale 은 LOUIS 예시 모드에 쓰지 않습니다");
+if (localeMode && statesArea) throw new Error("[product-auth-fixture] --locale 은 아직 상태 레시피(--states)와 함께 쓰지 않습니다");
+const localeModeName = anonymous ? "anonymous" : session ? "session" : publicSeeded ? "public-seeded" : publicMode ? "public" : "auth";
+const outputRelative = localeMode ? `migration/product-locale/${localeModeName}.${LOCALE}.json` : enOutputRelative;
 const outputPath = resolve(repoRoot, outputRelative);
 const productRoot = process.env.KLIPSE_PRODUCT_REPO ?? "/Users/sejunki/klipse-web";
 const fixtureRoot =
@@ -81,6 +110,13 @@ if (!louisExamples && !existsSync(resolve(fixtureRoot, ".git"))) {
 const gitAt = (cwd, args, encoding = "utf8") =>
   execFileSync("git", args, { cwd, encoding, maxBuffer: 128 * 1024 * 1024 });
 const commit = gitAt(productRoot, ["rev-parse", productRef]).trim();
+// 로캘 원장은 en 원장과 같은 커밋에서만 잰다 — 경로로 짝짓는 두 원장이 다른 제품을 보면 짝이 조용히 어긋난다.
+if (localeMode) {
+  const enLedgerPath = resolve(repoRoot, enOutputRelative);
+  if (!existsSync(enLedgerPath)) unavailable("--locale: en 원장이 없습니다 — 먼저 같은 모드의 en 원장을 잰다: " + enOutputRelative);
+  const enCommit = JSON.parse(readFileSync(enLedgerPath, "utf8")).productCommit;
+  if (enCommit !== commit) unavailable("--locale: en 원장의 커밋(" + String(enCommit).slice(0, 12) + ")이 지금 앵커(" + commit.slice(0, 12) + ")와 다릅니다 — en 원장을 같은 앵커에서 다시 잰다");
+}
 const fixtureCommit = louisExamples ? commit : gitAt(fixtureRoot, ["rev-parse", "HEAD"]).trim();
 if (fixtureCommit !== commit) {
   unavailable(
@@ -309,7 +345,7 @@ const LOUIS_EXAMPLE_ROUTES = [
   { pattern: "/examples/document-report.html", id: "document-report", file: "packages/css/examples/document-report.html", fullPage: true },
   { pattern: "/examples/document.html", id: "document", file: "packages/css/examples/document.html", fullPage: true },
 ];
-const SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
+const MODE_SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMOUS_ROUTES : session ? SESSION_ROUTES : publicSeeded ? PUBLIC_SEEDED_ROUTES : publicMode ? PUBLIC_ROUTES : ROUTES).map((entry) => {
   const spec = typeof entry === "string" ? { pattern: entry } : entry;
   const url = spec.url ?? spec.pattern;
   const target = new URL(url, "http://fixture.invalid");
@@ -326,6 +362,34 @@ const SCREEN_SPECS = (louisExamples ? LOUIS_EXAMPLE_ROUTES : anonymous ? ANONYMO
     expectedSearch: target.search,
   };
 });
+// 상태 레시피 모드는 그 모드의 화면이 아니라 레시피를 잰다 — `base` 는 위 명세에서 pattern · url · file · fullPage · reducedMotion 을
+// 물려받고, 명세에는 `recipe` 키가 하나 더 붙는다(lib/state-recipes.mjs specFromRecipe). 레시피가 없으면 명세는 종전과 같다.
+// **로캘 원장은 화면을 모아 간다(2026-10-08).** 시범은 화면 하나(`--only=/inquiry`)부터 잰다 — 로캘 원장의 화면 목록은 `--only` 와 이미 기록된
+// 화면의 합이다(기록된 화면은 en 처럼 기록에서 싣는다). 아직 재지 않은 화면을 en 실행처럼 「다시 재야 한다」로 멈추지 않는다.
+// en(기본) 실행 · `--only` 없는 로캘 실행은 전과 같이 모드의 화면 전부다.
+const localePartial = localeMode && onlyIds.size > 0;
+const localeRecordedIds = localePartial && existsSync(outputPath)
+  ? new Set(Object.values(JSON.parse(readFileSync(outputPath, "utf8")).screens ?? {}).flatMap((byId) => Object.keys(byId)))
+  : new Set();
+if (localePartial && [...onlyIds].some((id) => !MODE_SCREEN_SPECS.some((spec) => spec.id === id))) {
+  throw new Error("[product-auth-fixture] --only 의 화면이 이 모드에 없습니다: " + [...onlyIds].filter((id) => !MODE_SCREEN_SPECS.some((spec) => spec.id === id)).join(", "));
+}
+const SCREEN_SPECS = statesArea ? statesArea.recipes.map((recipe) => specFromRecipe(recipe, MODE_SCREEN_SPECS))
+  : localePartial ? MODE_SCREEN_SPECS.filter((spec) => onlyIds.has(spec.id) || localeRecordedIds.has(spec.id))
+  : MODE_SCREEN_SPECS;
+if (statesArea) {
+  const problems = validateRecipes([statesArea]);
+  for (const spec of SCREEN_SPECS) {
+    if (spec.recipe.supabase.module || Object.keys(spec.recipe.supabase.tables).length || Object.keys(spec.recipe.supabase.rpc).length) {
+      if (!session && !publicSeeded) problems.push(`${spec.id}: supabase 오버레이는 가짜 Supabase 가 있는 모드(session · public-seeded)에서만 — 지금 ${statesMode}`);
+    }
+    if ((spec.recipe.assert.css ?? []).some((entry) => entry.sameAsBase) && !spec.recipe.base) problems.push(`${spec.id}: assert.css sameAsBase 는 base 가 있는 레시피에서만`);
+  }
+  if (problems.length > 0) {
+    console.error("[product-auth-fixture] 상태 레시피 검증 실패 " + problems.length + "건:\n  " + problems.join("\n  "));
+    process.exit(1);
+  }
+}
 // 키가 겹치면 뒤 항목이 앞 항목을 조용히 덮어써 화면 하나가 사라진다.
 const duplicateId = SCREEN_SPECS.map((spec) => spec.id)
   .find((id, index, all) => all.indexOf(id) !== index);
@@ -406,6 +470,18 @@ for (const routeFile of routeFiles) {
     unavailable("고정 커밋에 route page가 없습니다: " + routeFile.path);
   }
 }
+// 상태 레시피의 제품 줄 인용 · file · surfaces 를 고정 커밋에서 확인한다 — 아래 sourceQuotes 주석이 말하는 「인용이 밀리면 다른 코드를
+// 근거로 굽는다」를 레시피에서는 기계로 막는다. 확인한 인용은 원장 sourceQuotes 에 싣는다.
+const recipeQuotes = [];
+if (statesArea) {
+  const problems = [];
+  for (const spec of SCREEN_SPECS) {
+    const checked = checkCites(spec.recipe, productRoot, commit);
+    problems.push(...checked.problems);
+    recipeQuotes.push(...checked.quotes);
+  }
+  if (problems.length > 0) unavailable("상태 레시피 인용이 고정 커밋과 맞지 않습니다:\n  " + problems.join("\n  "));
+}
 
 const delay = (milliseconds) => new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 const reservePort = async () => {
@@ -462,6 +538,9 @@ const startFixtureServer = async () => {
         NEXT_PUBLIC_DEV_AUTH_BYPASS: anonymous || publicMode ? "" : "1",
         NEXT_PUBLIC_SUPABASE_URL: fakeSupabase ? fakeSupabase.url : "http://127.0.0.1:9",
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "fixture-anon-key",
+        // 통합 판(76b6cf15)은 영상 · 이미지 주소를 `NEXT_PUBLIC_CDN_BASE_URL` 로 만들고, 값이 없으면 렌더 중에 던져 화면이 오류 경계로
+        // 떨어졌다(랜딩 · 노드캔버스 · 편집기 · 쇼츠, 2026-10-08). 바깥 요청은 끊으므로 닿지 않는 측정용 주소면 된다.
+        NEXT_PUBLIC_CDN_BASE_URL: "https://cdn.fixture.invalid",
         // 세션 모드의 게이트 둘 — 실제 비밀이 아니라 측정용 값이다(가짜 사용자 이메일 · 픽스처 키).
         // 관리자 Supabase 클라이언트(`app/lib/supabase/admin.ts`)는 `SUPABASE_SECRET_KEY` 가 없으면 던진다 — 어드민 유저 목록 · 부스 운영 ·
         // 결제수단 API 가 본문 없는 500 으로 끝나 화면에 「Failed to execute 'json'」 원문이 찍혔다. 가짜 Supabase 는 키를 보지 않는다.
@@ -721,15 +800,29 @@ const firstDifference = (recorded, measured, path = "$") => {
 // 세션 모드만 가짜 Supabase 를 띄운다 — 서버 기동 환경(`NEXT_PUBLIC_SUPABASE_URL`)이 이 주소를 쓴다.
 const fakeSupabase = session ? await startFakeSupabase({ seeds: FIXTURE_SEEDS })
   : publicSeeded ? await startFakeSupabase({ seeds: FIXTURE_PUBLIC_SEEDS }) : null;
+// **상태 레시피 측정은 직렬로 돈다(설계서 3절).** 모든 실행이 같은 fixture 의 `apps/web` 에서 `next dev` 를 띄워 `.next` 를 함께 쓴다 —
+// 잠금 폴더가 잡혀 있으면 기다린다. 기존 모드 실행은 잠금을 잡지 않는다(그 실행과 겹치지 않게 돌리는 것은 사람의 몫이다).
+const fixtureLock = statesArea && !dumpStatic ? resolve(tmpdir(), "kds-measure-fixture.lock") : null;
+if (fixtureLock) {
+  for (let waited = 0; ; waited += 1) {
+    try { mkdirSync(fixtureLock); break; } catch (error) { if (error.code !== "EEXIST") throw error; }
+    if (waited % 20 === 0) process.stderr.write(`[product-auth-fixture] 다른 상태 레시피 측정이 fixture 를 쓰는 중 — 기다린다(${fixtureLock}, 죽은 실행이 남긴 잠금이면 rmdir)\n`);
+    await delay(3_000);
+  }
+  process.on("exit", () => { try { rmdirSync(fixtureLock); } catch { /* 이미 풀림 */ } });
+}
 // LOUIS CSS 는 제품 고정 판이 아니라 이 저장소 판으로 잰다(2026-10-07, 소유자 결정) — `lib/louis-css-overlay.mjs`.
-const louisCss = louisExamples ? null : overlayLouisCss({ repoRoot, fixtureRoot, fail: unavailable });
-const fixtureServer = await startFixtureServer();
+const louisCss = louisExamples || dumpStatic ? null : overlayLouisCss({ repoRoot, fixtureRoot, fail: unavailable });
+const fixtureServer = dumpStatic ? { url: "http://127.0.0.1:0", stop: async () => {} } : await startFixtureServer();
+// 레시피 화면의 가짜 Supabase 오버레이가 늘리는 기본 시드 — 그 모드가 가짜 Supabase 에 준 시드와 같다.
+const recipeBaseSeeds = session ? FIXTURE_SEEDS : publicSeeded ? FIXTURE_PUBLIC_SEEDS : null;
 // 예시 모드의 글꼴 — 예시 CSS 가 쓰는 이름(`Pretendard Variable`)으로 제품 글꼴 파일을 싣는다.
 const LOUIS_EXAMPLE_FONT_CSS = louisExamples
   ? '@font-face{font-family:"Pretendard Variable";src:url(data:font/woff2;base64,' + productFontFile(productRoot, commit).toString("base64") +
     ') format("woff2-variations");font-weight:45 920;font-style:normal;font-display:block}\n'
   : "";
-const recordedForOnly = onlyIds.size > 0 ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
+// 로캘 원장을 처음 잴 때는 합칠 기록이 없다 — 화면 목록이 이미 `--only` 로 좁혀져 있다(SCREEN_SPECS 주석).
+const recordedForOnly = onlyIds.size > 0 && (!localeMode || existsSync(outputPath)) ? JSON.parse(readFileSync(outputPath, "utf8")) : null;
 if (recordedForOnly) {
   if (recordedForOnly.productCommit !== commit) unavailable(`--only 는 같은 앵커의 원장에만 합친다: 원장 ${recordedForOnly.productCommit} · 지금 ${commit}`);
   for (const id of onlyIds) if (!SCREEN_SPECS.some((spec) => spec.id === id)) unavailable("--only 의 화면이 이 모드에 없습니다: " + id);
@@ -753,10 +846,16 @@ let browser = null;
 const screens = {};
 const round = (value) => Math.round(value * 10_000) / 10_000;
 try {
-  browser = await chromium.launch({ headless: true });
+  browser = dumpStatic ? null : await chromium.launch({ headless: true });
   for (const contextSpec of CONTEXTS) {
     screens[contextSpec.id] = {};
     for (const spec of SCREEN_SPECS) {
+      // 데스크톱 전용 같은 레시피(`contexts`)는 그 밖의 뷰포트에 화면을 두지 않는다 — 원장 머리의 집계는 빈 칸을 건너뛴다.
+      if (spec.recipe?.contexts && !spec.recipe.contexts.includes(contextSpec.id)) continue;
+      if (dumpStatic) {
+        screens[contextSpec.id][spec.id] = { requestedRoute: spec.id, headings: [], tree: [], overlays: [], redirected: false };
+        continue;
+      }
       if (recordedForOnly && !onlyIds.has(spec.id)) {
         const recorded = recordedForOnly.screens?.[contextSpec.id]?.[spec.id];
         if (!recorded) unavailable(`--only: 기록된 원장에 ${spec.id} @ ${contextSpec.id} 가 없어 다시 재야 합니다`);
@@ -766,29 +865,37 @@ try {
       // 진행을 stderr 로 찍는다(2026-10-07) — 측정기는 끝날 때까지 아무것도 내지 않아, 한 화면이 안정화 한도(180초)를 몇 번씩 돌며 멈춰도
       // 어느 화면인지 보이지 않았다(시드 화면을 더한 세션 측정이 46분 동안 조용했다). 원장에는 영향이 없다.
       const startedAt = Date.now();
-      process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} …\n`);
+      process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} …${spec.recipe ? ` (상태 레시피 단계 ${(spec.recipe.stepsByContext?.[contextSpec.id] ?? spec.recipe.steps).length})` : ""}\n`);
       const context = await browser.newContext({
         viewport: { width: contextSpec.width, height: contextSpec.height },
         colorScheme: "light",
         // 동작 줄이기로 재는 화면(PUBLIC_ROUTES 의 랜딩 주석) — 스크롤 리빌 · 자동 재생의 도착 상태.
         ...(spec.reducedMotion ? { reducedMotion: "reduce" } : {}),
-        locale: "en-US",
-        extraHTTPHeaders: { "Accept-Language": "en-US,en;q=0.9" },
+        locale: LOCALE_TAGS[LOCALE],
+        extraHTTPHeaders: { "Accept-Language": LOCALE_TAGS[LOCALE] + "," + LOCALE + ";q=0.9" },
         serviceWorkers: "block",
       });
       const localResponses = [];
       const localFailures = [];
+      // 레시피 화면만 — 같은 출처 `/api/*` 가로채기(설계서 2절 7번)와 가짜 Supabase 오버레이(5번). 레시피가 없으면 둘 다 null 이다.
+      const recipeRouter = spec.recipe ? createRecipeRouter(spec.recipe, { origin: fixtureServer.url }) : null;
+      const recipeOverlay = spec.recipe ? await supabaseOverlayOf(spec.recipe, recipeBaseSeeds ?? {}) : null;
+      let supabaseMark = null;
       try {
+        // 브라우저의 `Date` 만 고정한다(타이머는 그대로 돈다) — 서버가 렌더하는 상대 시각은 시드의 절대 시각이 정한다(설계서 5절 2번).
+        if (spec.recipe?.clock) await context.clock.setFixedTime(new Date(spec.recipe.clock));
         await context.addCookies([
-          { name: "facen-language", value: "en", url: fixtureServer.url },
+          { name: "facen-language", value: LOCALE, url: fixtureServer.url },
+          // 공유 쿠키가 호스트 쿠키보다 먼저 읽힌다(serverLocale.ts). 로캘 측정에서만 세운다 — 기본 실행의 문맥은 전과 같다.
+          ...(localeMode ? [{ name: "klipse-locale", value: LOCALE, url: fixtureServer.url }] : []),
           { name: "klipse-theme", value: "light", url: fixtureServer.url },
           // 세션 쿠키는 세션 모드만 넣는다 — 공개 시드 모드는 로그아웃 사용자다.
           ...(session && fakeSupabase ? [sessionCookie(fakeSupabase.url, fixtureServer.url)] : []),
         ]);
-        await context.addInitScript(() => {
-          localStorage.setItem("facen-language", "en");
+        await context.addInitScript((locale) => {
+          localStorage.setItem("facen-language", locale);
           localStorage.setItem("klipse-theme", "light");
-        });
+        }, LOCALE);
         // 저장소가 막힌 브라우저 — `localStorage` 접근이 던진다(위의 언어 · 테마 기록 뒤에 건다). `global-error` 화면만 쓴다.
         if (spec.blockStorage) {
           await context.addInitScript(() => {
@@ -814,6 +921,8 @@ try {
             await intercepted.fulfill({ status: 200, contentType: "text/css", body: LOUIS_EXAMPLE_FONT_CSS });
             return;
           }
+          // 레시피의 `api` 항목에 맞는 같은 출처 요청은 바깥 판정 **앞에서** 가로채 답한다(hold 면 답하지 않고 붙잡는다).
+          if (recipeRouter && await recipeRouter.handle(intercepted)) return;
           if (target.origin === fixtureServer.url || target.origin === fakeSupabase?.url || target.protocol === "data:") {
             await intercepted.continue();
           } else {
@@ -830,7 +939,8 @@ try {
         });
         page.on("requestfinished", (request) => inflight.delete(request));
         page.on("requestfailed", (request) => inflight.delete(request));
-        const isQuiet = () => inflight.size === 0;
+        // 레시피의 `hold` 요청(로딩 상태용)은 영영 끝나지 않으므로 진행 중으로 세지 않는다 — 레시피 화면만(설계서 1-5 4번).
+        const isQuiet = recipeRouter ? () => [...inflight].every((request) => recipeRouter.isHeld(request)) : () => inflight.size === 0;
         page.on("response", (response) => {
           const target = new URL(response.url());
           if (target.origin === fixtureServer.url && target.pathname.startsWith("/api/")) {
@@ -854,6 +964,11 @@ try {
 
         // 개발 서버는 화면을 처음 열 때 컴파일한다 — 무거운 화면(결제 · bulk)이 60초를 넘겨 측정이 통째로 멈춘 일이 두 번 있었다
         // (2026-09-28, 매번 다른 화면). 제한을 넉넉히 둔다. 값이 아니라 기다림의 한도라 원장은 바뀌지 않는다.
+        // 레시피의 표 오버레이는 `goto` **전에** 건다 — 서버 렌더도 그 표를 읽는다. 표시 뒤의 요청이 이 화면의 가짜 Supabase 요청이다.
+        if (spec.recipe) {
+          fakeSupabase?.setOverlay(recipeOverlay);
+          supabaseMark = fakeSupabase ? fakeSupabase.beginMark() : null;
+        }
         await page.goto(fixtureServer.url + spec.url, {
           waitUntil: "domcontentloaded",
           timeout: 180_000,
@@ -871,9 +986,20 @@ try {
         await settleContentVisibility(page);
         await stabilize(page, spec.id + " (content-visibility 확정 후)", isQuiet);
         await page.evaluate(async () => { await document.fonts.ready; });
+        // **레시피 단계는 기본 흐름 다음에 돈다(설계서 1-5).** 훑기가 스크롤을 움직여 호버 · 팝오버가 풀리지 않게. 단계가 끝나면 다시
+        // 가라앉히고(필요하면 훑기를 한 번 더) 글꼴을 기다린다. 그 뒤는 아래 재시도 루프 그대로다.
+        if (spec.recipe) {
+          await runRecipeSteps(page, spec.recipe, contextSpec.id);
+          await stabilize(page, spec.id + " (상태 레시피 후)", isQuiet);
+          if (spec.recipe.settleAfter) {
+            await settleContentVisibility(page);
+            await stabilize(page, spec.id + " (상태 레시피 · content-visibility 확정 후)", isQuiet);
+          }
+          await page.evaluate(async () => { await document.fonts.ready; });
+        }
 
         // 이 패스는 **여러 번 돌 수 있다**(아래 재시도 루프). 그래서 즉시 실행이 아니라 닫힘이다.
-        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage, rootBody }) => {
+        const runMeasurePass = () => page.evaluate(({ styleAxes, pseudoStyleAxes, fullPage, rootBody, overlaySelector }) => {
           // **읽기 직전에 애니메이션을 얼린다.** 회전 중인 요소의 `getBoundingClientRect()` 는
           // 잰 순간의 각도를 담는다 — 16×16 스피너는 축 정렬 경계가 16×(|cos|+|sin|) 이라
           // 16 과 22.63 사이를 오간다. 실측: `?__phase=analyzing` 의 스피너가 한 번은
@@ -1157,13 +1283,15 @@ try {
             throw new Error("app root 측정 노드가 상한을 넘었습니다: " + rootTree.length);
           }
           const rootSet = new Set(rootTree.map((entry) => entry.path));
-          const overlays = [...document.querySelectorAll('[role="dialog"]')]
+          const overlays = [...document.querySelectorAll(overlaySelector)]
             .filter((node) => {
               const rect = node.getBoundingClientRect();
               return rect.width > 0 && rect.height > 0 &&
                 rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight &&
                 !rootCandidate.node.contains(node);
             })
+            // 레시피의 `overlaySelectors` 를 합친 선택자는 서로 품은 요소를 함께 잡을 수 있다 — 바깥 것만 남긴다(기본 선택자는 종전 그대로).
+            .filter((node, _, all) => overlaySelector === '[role="dialog"]' || !all.some((other) => other !== node && other.contains(node)))
             .map((node, index) => ({
               index,
               tree: describe(node, "overlay." + index),
@@ -1272,7 +1400,9 @@ try {
             tree: rootTree,
             overlays,
           };
-        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage), rootBody: Boolean(spec.rootBody) });
+        }, { styleAxes: STYLE_AXES, pseudoStyleAxes: PSEUDO_STYLE_AXES, fullPage: Boolean(spec.fullPage), rootBody: Boolean(spec.rootBody),
+          // 겹침창은 `role=dialog` 만 잡는다. 레시피가 포털 메뉴 · 팝오버의 선택자를 주면 그것도 함께 잡는다(설계서 2절 10번).
+          overlaySelector: spec.recipe?.overlaySelectors.length ? ['[role="dialog"]', ...spec.recipe.overlaySelectors].join(",") : '[role="dialog"]' });
 
         // **두 패스는 서로 다른 시각의 DOM 을 본다.** 그 사이에 mount/unmount 가 일어나면
         // 조인이 성립하지 않는다. 그래서 한 번 얼려 여파를 끄집어내고, 가라앉히고, 재고,
@@ -1378,6 +1508,11 @@ try {
         }
         if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + spec.id + ")");
 
+        // 로캘 측정은 그 언어로 그려졌는지 단언한다 — 쿠키가 먹지 않으면 en 화면을 ko 원장에 쓰게 된다. 전체 오류 화면은 제 `<html lang="ko">` 로
+        // 서므로(app/global-error.tsx) 단언에서 뺀다.
+        if (localeMode && spec.id !== "global-error" && !String(measured.locale ?? "").toLowerCase().startsWith(LOCALE)) {
+          throw new Error("[product-auth-fixture] --locale=" + LOCALE + " 인데 화면이 " + measured.locale + " 로 그려졌습니다 (" + spec.id + " @ " + contextSpec.id + ")");
+        }
         const uniqueRecords = (records) => [...new Map(records
           .map((entry) => [JSON.stringify(entry), entry])).values()]
           .sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)));
@@ -1400,12 +1535,59 @@ try {
           localApiResponses: uniqueRecords(localResponses),
           localApiFailures: uniqueRecords(localFailures),
         };
+        // **레시피 화면의 검증과 기록(설계서 2절 11번 · 5절 9번).** 검증이 하나라도 어긋나면 크게 실패한다 — 클릭이 빗나가 기본 화면이
+        // 조용히 안정된 것을 그 상태로 잘못 적지 않게. 통과하면 무엇으로 그 상태를 세웠는지를 화면 기록에 덧붙인다.
+        if (spec.recipe) {
+          const problems = recipeAssertProblems(spec.recipe, measured, recipeRouter);
+          const supabaseSeen = supabaseMark === null ? [] : fakeSupabase.requests.slice(supabaseMark);
+          for (const request of supabaseSeen) {
+            if (request.status === 400) problems.push(`가짜 Supabase 가 모르는 조회 모양(400): ${request.method} ${request.path}${request.search}`);
+          }
+          const cssEntries = spec.recipe.assert.css ?? [];
+          if (cssEntries.length > 0) {
+            const values = await readRecipeCss(page, cssEntries);
+            let baseValues = null;
+            if (cssEntries.some((entry) => entry.sameAsBase)) {
+              // 기준 화면의 값 — 같은 문맥의 새 탭에서 기준 화면을 열어 같은 선택자를 읽는다(레시피의 가로채기 · 오버레이는 그대로 걸려 있다).
+              const base = MODE_SCREEN_SPECS.find((entry) => entry.id === spec.recipe.base);
+              const basePage = await context.newPage();
+              try {
+                await basePage.goto(fixtureServer.url + base.url, { waitUntil: "domcontentloaded", timeout: 180_000 });
+                await delay(3_000);
+                await stabilize(basePage, spec.id + " (sameAsBase 기준 화면 " + base.id + ")");
+                baseValues = await readRecipeCss(basePage, cssEntries);
+              } finally {
+                await basePage.close();
+              }
+            }
+            cssEntries.forEach((entry, index) => {
+              const label = `assert.css ${entry.selector} ${entry.property}`;
+              const got = values[index];
+              const want = entry.sameAsBase ? baseValues[index] : { value: entry.equals };
+              if (got.error || want.error) problems.push(`${label}: ${got.error ?? ""}${want.error ? " (기준 화면) " + want.error : ""}`);
+              else if (got.value !== want.value) problems.push(`${label}: ${JSON.stringify(got.value)} ≠ ${entry.sameAsBase ? "기준 화면 " : ""}${JSON.stringify(want.value)}`);
+            });
+          }
+          if (problems.length > 0) {
+            throw new Error(`[product-auth-fixture] 상태 레시피 검증 실패 (${spec.id} @ ${contextSpec.id}):\n  ` + problems.join("\n  "));
+          }
+          Object.assign(screens[contextSpec.id][spec.id], {
+            stateRecipe: { area: statesArea.area, base: spec.recipe.baseKey, sha256: recipeDigest(spec.recipe) },
+            ...(spec.recipe.clock ? { clock: spec.recipe.clock } : {}),
+            recipeApi: recipeRouter.summary(),
+            ...(fakeSupabase ? { recipeSupabase: {
+              tables: Object.fromEntries(Object.entries(recipeOverlay?.tables ?? {}).map(([table, entry]) => [table, (Array.isArray(entry) ? entry : entry.rows).length])),
+              requests: [...new Set(supabaseSeen.map((request) => `${request.method} ${request.path} ${request.status}`))].sort(),
+            } } : {}),
+          });
+        }
         if (shotsDir) {
           const file = resolve(shotsDir, `${contextSpec.id}__${spec.id.replace(/[^A-Za-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")}.png`);
           await page.screenshot({ path: file, fullPage: Boolean(spec.fullPage) });
           process.stderr.write(`[product-auth-fixture] 캡처 ${file}\n`);
         }
       } finally {
+        if (spec.recipe) fakeSupabase?.setOverlay(null);
         await context.close();
         process.stderr.write(`[product-auth-fixture] ${contextSpec.id} ${spec.id} ${Math.round((Date.now() - startedAt) / 1000)}초\n`);
       }
@@ -1458,6 +1640,7 @@ const internStyle = (entry) => {
 for (const contextSpec of CONTEXTS) {
   for (const spec of SCREEN_SPECS) {
     const screen = screens[contextSpec.id][spec.id];
+    if (!screen) continue; // 레시피의 contexts 밖 뷰포트
     for (const heading of screen.headings) internStyle(heading);
     for (const node of screen.tree) internStyle(node);
     for (const overlay of screen.overlays) {
@@ -1474,7 +1657,7 @@ const screenAliases = CONTEXTS.map((contextSpec) => ({
   context: contextSpec.id,
   aliases: SCREEN_SPECS
     .map((spec) => screens[contextSpec.id][spec.id])
-    .filter((screen) => screen.redirected)
+    .filter((screen) => screen?.redirected)
     .map((screen) => ({
       requestedRoute: screen.requestedRoute,
       finalPath: screen.finalPath,
@@ -1489,7 +1672,7 @@ for (const contextSpec of CONTEXTS) {
     const screen = screens[contextSpec.id][spec.id];
     // redirect source를 함께 넣으면 archive/settings 등 화면 전체가 “반복 component”처럼 부풀려진다.
     // 실제 최종 route에서 한 번만 후보를 찾고 redirect는 screenAliases로 따로 기록한다.
-    if (screen.redirected) continue;
+    if (!screen || screen.redirected) continue;
     for (const root of screen.tree) {
       const prefix = root.path + ".";
       const subtree = screen.tree.filter((entry) =>
@@ -1547,8 +1730,14 @@ for (const contextSpec of CONTEXTS) {
 
 const MEASURE_METHOD =
   "3초 이상 기다린 뒤 path·theme·locale·height·root text·element/dialog count가 6회 연속 안정되면 app root와 외부 dialog 중 viewport와 교차하는 노드의 geometry·computed styles·SVG vector 속성, heading·landmark, localhost API status를 기록한다. 동일 computed-style 객체는 무손실 style table로 정규화하고, 그 id 는 자리번호가 아니라 값의 sha256 앞 12자다(표는 id 사전순). 이 fixture의 실패·빈 상태는 의도적으로 보존한다. LOUIS CSS(`@klipse-design/css`)는 제품이 고정한 판이 아니라 이 저장소 `packages/css/generated` 판으로 덮어 잰다(`fixture.louisCss` 의 source · productPinned, scripts/lib/louis-css-overlay.mjs).";
+// 상태 레시피 원장의 머리 — 모드의 문장 앞에 레시피 문장을 붙이고, 증거 등급을 따로 둔다(설계서 2절 12번).
+const STATES_METHOD = statesArea
+  ? `상태 레시피(${statesArea.file}, 모드 ${statesMode}): 각 화면은 그 모드의 기본 흐름(goto → 3초 → 안정화 → content-visibility 확정 → 안정화 → 글꼴)을 탄 뒤 레시피 단계(click · fill · press · waitFor …, park 를 뺀 마지막은 waitFor)를 돌고 다시 안정화한 다음 잰다. 레시피의 같은 출처 /api/* 항목은 브라우저에서 가로채 답하고(recipeApi 에 맞은 횟수), supabase 오버레이는 그 화면 동안만 가짜 Supabase 의 표 · RPC 를 바꾼다(recipeSupabase). clock 은 브라우저 Date 만 고정한다. 측정 뒤 assert(text · apiHit · css)가 어긋나거나, required api 가 한 번도 맞지 않거나, 가짜 Supabase 가 400 을 내면 실패한다. 레시피의 제품 줄 인용(cite)은 productCommit 에서 확인해 sourceQuotes 에 싣는다. `
+  : "";
 const payload = JSON.stringify({
-  $comment: louisExamples
+  $comment: statesArea
+    ? `생성물. scripts/measure-product-auth-fixture.mjs --states=${statesArea.area} 가 ${statesArea.file} 의 상태 레시피를 그 모드(${statesMode})의 clean Next dev server 에서 열고 레시피 단계 · 가로챈 /api 응답 · 가짜 Supabase 오버레이로 세운 상태를 직접 렌더한다. 기존 모드 원장과 따로 쓴다. 직접 수정하지 않는다.`
+    : louisExamples
     ? "생성물. scripts/measure-product-auth-fixture.mjs --louis-examples 가 이 저장소의 LOUIS 문서 예시(packages/css/examples)를 정적 서버로 내 1920×1080 · 402×874 에서 문서 전체를 잰다. 글꼴은 제품 PretendardVariable.woff2. 직접 수정하지 않는다."
     : session
     ? "생성물. scripts/measure-product-auth-fixture.mjs --session 이 고정 커밋의 clean Next dev server를 로컬 가짜 Supabase(인증은 고정 사용자, 데이터 조회는 빈 목록)에 붙여 띄우고 세션 쿠키를 넣어, 서버가 로그인을 확인하는 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
@@ -1557,9 +1746,15 @@ const payload = JSON.stringify({
     : anonymous
     ? "생성물. scripts/measure-product-auth-fixture.mjs --anonymous 가 고정 커밋의 clean Next dev server를 인증 우회 없이(로그아웃) 띄워 공개 화면의 기본 상태를 직접 렌더한다. 직접 수정하지 않는다."
     : "생성물. scripts/measure-product-auth-fixture.mjs가 고정 커밋의 development-only auth bypass를 켠 clean Next dev server에서 보호 route 기본 상태를 직접 렌더한다. 직접 수정하지 않는다.",
-  $evidenceClass: louisExamples ? "louis-static-example" : session ? "development-session-fixture" : publicMode ? "development-public-fixture"
+  $evidenceClass: statesArea ? "development-state-recipe-fixture" : louisExamples ? "louis-static-example" : session ? "development-session-fixture" : publicMode ? "development-public-fixture"
     : anonymous ? "development-anonymous-fixture" : "development-auth-fixture",
-  $notEvidenceFor: louisExamples
+  $notEvidenceFor: statesArea ? [
+    ...(anonymous || publicMode
+      ? ["운영 인증 흐름(OAuth · 메일 발송) parity", "실사용자 데이터 parity", "API 성공 상태 parity"]
+      : ["운영 인증 세션 parity", "실사용자·실결제·실프로젝트 데이터 parity", "API 성공 상태 parity", "인증 후 페이지 완료 판정"]),
+    "가로챈 /api 응답 · 레시피 시드 행의 내용 — 글자 · 수치는 자리표시다(크기 · 색 · 간격은 측정값)",
+    "운영에서 그 상태에 이르는 경로 — 레시피 단계로 세운 개발 fixture 상태다",
+  ] : louisExamples
     ? ["제품 화면 parity", "문서 내용 — 예시 문장 · 수치는 패턴 시연용이다"]
     : anonymous || publicMode
     ? ["운영 인증 흐름(OAuth · 메일 발송) parity", "실사용자 데이터 parity", "API 성공 상태 parity"]
@@ -1569,7 +1764,7 @@ const payload = JSON.stringify({
       "API 성공 상태 parity",
       "인증 후 페이지 완료 판정",
     ],
-  $method: louisExamples
+  $method: STATES_METHOD + (louisExamples
     ? "packages/css 를 로컬 정적 서버로 내고 예시 문서를 연다. 예시가 CDN 에서 읽는 Pretendard Variable 은 제품 글꼴 파일로 대 주고 나머지 바깥 요청은 끊는다. fullPage 로 문서 끝까지의 노드를 잰다. " + MEASURE_METHOD
     : session
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1 과 로컬 가짜 Supabase URL로 Next development server를 임시 localhost 포트에 띄운다. 가짜 Supabase는 /auth/v1/user 에 고정 사용자로, /rest/v1/* 조회에 빈 목록으로 답하고 요청을 기록한다 — 예외는 fixture.seededTables 의 표뿐이다(자리표시 내용, eq · order 를 PostgREST 처럼 적용). 브라우저 문맥에는 @supabase/ssr 세션 쿠키를 넣는다 — 서버 컴포넌트의 supabase.auth.getUser() 가 사용자를 돌려받는다. 외부 요청은 fixture 서버와 가짜 Supabase 밖이면 차단한다. " + MEASURE_METHOD
@@ -1579,7 +1774,7 @@ const payload = JSON.stringify({
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 띄운다 — 로그인하지 않은 사용자의 화면이다. Supabase URL은 연결되지 않는 localhost endpoint로 고정하고 외부 요청을 차단한다. fullPage 화면은 뷰포트가 아니라 문서 끝까지의 노드를 잰다(가로는 뷰포트 안). " + MEASURE_METHOD
     : anonymous
     ? "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS 를 끈(빈 문자열) Next development server를 임시 localhost 포트에 직접 띄운다 — 로그인하지 않은 사용자의 화면이다. 인증 화면은 로그인된 사용자를 /archive 로 보내므로(sourceQuotes) 인증 우회 서버에서는 잴 수 없다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 한 뷰포트 안에서 끝나는 공개 화면만 싣는다(긴 공개 페이지는 전체 페이지 측정의 몫). " + MEASURE_METHOD
-    : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD,
+    : "fixture checkout의 clean HEAD가 productCommit인지 확인하고 NEXT_PUBLIC_DEV_AUTH_BYPASS=1인 Next development server를 임시 localhost 포트에 직접 띄운다. Supabase URL은 연결되지 않는 localhost endpoint로 고정한다. 각 화면은 격리된 light/en-US 브라우저 문맥에서 열고 외부 요청을 차단한다. 측정 단위는 route가 아니라 **화면 상태**다 — 한 route의 여러 상태는 URL 쿼리로 구분해 각각 잰다. `/highlight/[projectId]`의 phase는 제품의 development-only 후크 `?__phase=<이름>`으로 연다(같은 NEXT_PUBLIC_DEV_AUTH_BYPASS 게이트). 데이터가 있어야 본문이 나오는 phase(reviewed·completed)는 fixture에 시드가 없어 빈 화면이 되므로 채택하지 않았다. " + MEASURE_METHOD),
   productRef,
   productRefSource,
   productCommit: commit,
@@ -1592,8 +1787,10 @@ const payload = JSON.stringify({
     ...(fakeSupabase ? { supabaseRequests: [...new Set([...(recordedForOnly?.fixture?.supabaseRequests ?? []),
       ...fakeSupabase.requests.map((request) => `${request.method} ${request.path} ${request.status}`)])].sort() } : {}),
     ...(louisCss ? { louisCss: louisCss.record } : {}),
+    // 상태 레시피 원장 — 어느 영역 파일의 어느 판으로 쟀는지(화면마다 stateRecipe.sha256 은 그 레시피 하나의 해시).
+    ...(statesArea ? { stateRecipes: { file: statesArea.file, sha256: statesArea.sha256, mode: statesMode, authoredAgainst: statesArea.authoredAgainst } } : {}),
     externalRequests: "blocked",
-    locale: "en",
+    locale: LOCALE,
     theme: "light",
   },
   contexts: CONTEXTS,
@@ -1608,7 +1805,7 @@ const payload = JSON.stringify({
     screenAliases,
     repeatedSubtreesByContext,
   },
-  sourceQuotes: louisExamples ? [] : anonymous || publicMode ? [
+  sourceQuotes: [...(louisExamples ? [] : anonymous || publicMode ? [
     // 로그인된 사용자를 되돌려 보내는 줄 — 인증 화면을 인증 우회 서버에서 잴 수 없는 이유다.
     sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 235),
     sourceQuote("apps/web/app/(auth-brand)/login/page.tsx", 237),
@@ -1662,10 +1859,19 @@ const payload = JSON.stringify({
     sourceQuote("apps/web/app/mypage/upgrade/billing-success/page.tsx", 237),
     sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 136),
     sourceQuote("apps/web/app/mypage/upgrade/bulk-success/page.tsx", 139),
-  ],
+  ]), ...recipeQuotes],
   screens,
 }, null, 2) + "\n";
 
+if (dumpStatic) {
+  // 확인 1(설계서 2절) — 화면 명세와 측정에 기대지 않는 원장 머리. 레시피 객체는 키 · 해시로 줄인다.
+  writeFileSync(dumpStatic, JSON.stringify({
+    screenSpecs: SCREEN_SPECS.map(({ recipe, ...spec }) => (recipe ? { ...spec, recipe: { id: recipe.id, sha256: recipeDigest(recipe) } } : spec)),
+    payload: JSON.parse(payload),
+  }, null, 2) + "\n");
+  console.error("[product-auth-fixture] --dump-static: " + dumpStatic);
+  process.exit(0);
+}
 if (checkOnly) {
   if (!existsSync(outputPath)) {
     console.error("[product-auth-fixture] 생성물이 없습니다: " + outputRelative);
@@ -1690,10 +1896,11 @@ if (checkOnly) {
 } else if (shotsDir) {
   console.error("[product-auth-fixture] --shots: 캡처만 남기고 원장은 쓰지 않았다 — " + shotsDir);
 } else {
+  if (statesArea) mkdirSync(dirname(outputPath), { recursive: true });
   atomicWriteBatch([{ absolute: outputPath, expected: payload }]);
 }
 
 console.log(
-  "[product-auth-fixture] " + (louisExamples ? "(LOUIS 예시 · 전체 페이지) " : anonymous ? "(로그아웃) " : session ? "(세션) " : publicSeeded ? "(공개 시드 · 전체 페이지) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
+  "[product-auth-fixture] " + (statesArea ? `(상태 레시피 ${statesArea.area} · ${statesMode}) ` : louisExamples ? "(LOUIS 예시 · 전체 페이지) " : anonymous ? "(로그아웃) " : session ? "(세션) " : publicSeeded ? "(공개 시드 · 전체 페이지) " : publicMode ? "(공개 · 전체 페이지) " : "") + (checkOnly ? "checked" : "built") + ": " +
     SCREEN_SPECS.length + " screens · " + CONTEXTS.length + "문맥 @ " + commit.slice(0, 8),
 );

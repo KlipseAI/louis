@@ -797,6 +797,28 @@ export const PRODUCT_GLYPHS = Object.freeze([
     verdict: "bespoke",
     why: "연체 배너의 닫기 단추(`aria-label` 「Dismiss」, `components/PastDueBanner.tsx:67` 이 `components/scenes/create/node-canvas/primitives.tsx:100` XIcon 을 20 으로 그린다)다. 좌표가 LOUIS `icon/x` 와 같지만 제품이 제 인라인 그림을 그린다.",
   },
+  // 2026-10-08 — 오류 경계였던 세션 화면(`/nodecanvas?project=` · `/highlight/[projectId]/shorts/[shortId]`)을 fixture CDN 주소를 세워 다시 잰 뒤 처음 잰 글리프 셋.
+  {
+    id: "question-circle-lucide",
+    signature: "0 0 24 24|path(d=M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20Z)|path(d=M9.1 9a3 3 0 0 1 5.8 1c0 2-2.9 3-2.9 3)|path(d=M12 17h.01)",
+    louis: "icon/question-circle",
+    verdict: "bespoke",
+    why: "노드 머리의 도움말 단추(`aria-label` 「Help for Text node」, `components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx:104-125` NodeHelpAction 이 `ToolbarIconQuestion` 으로 `icons/nodeGlyphs.ts:240-248` 의 lucide `circle-help` 경로를 그린다 — 원도 `<path>` 다)다. LOUIS 에 같은 뜻의 `icon/question-circle` 이 있지만 좌표가 조금 다르고(9.09 · 5.83 대 9.1 · 5.8) 제품은 그것을 물지 않고 제 인라인 그림을 그린다.",
+  },
+  {
+    id: "check-stroke-badge",
+    signature: "0 0 24 24|path(d=M5 12.5l4.5 4.5L19 7.5)",
+    louis: null,
+    verdict: "missing",
+    why: "쇼츠 결과 머리의 「완료」 배지 아이콘(`app/highlight/[projectId]/shorts/[shortId]/page.tsx:1856-1860` — `louis-badge__icon` 안 24 상자 획 2.2 선 체크 하나)이다. 요금 화면의 `check-stroke` 와 같은 결의 다른 좌표다. LOUIS 에는 원 안의 체크(`check-circle`)뿐이라 같은 그림이 없다.",
+  },
+  {
+    id: "download-tray-line",
+    signature: "0 0 24 24|g()|path(d=M12 4v11)|path(d=M7.5 10.5L12 15l4.5-4.5)|path(d=M5 19.5h14)",
+    louis: "icon/download-simple",
+    verdict: "bespoke",
+    why: "쇼츠 결과 내보내기 목록의 「저장」 행 아이콘(`app/highlight/[projectId]/shorts/[shortId]/page.tsx:1899-1907` — 20 으로 그리는 24 상자, 획 1.7 을 `<g>` 에 둔 아래 화살표와 바닥 선)이다. LOUIS 에 같은 뜻의 `icon/download-simple` 이 있지만 그쪽은 열린 트레이고 제품은 바닥 선 하나를 제 인라인 그림으로 그린다.",
+  },
 ]);
 
 const bySignature = new Map(PRODUCT_GLYPHS.map((glyph) => [glyph.signature, glyph]));

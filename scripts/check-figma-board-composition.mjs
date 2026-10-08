@@ -262,7 +262,7 @@ const UNCLASSIFIED_BASELINE = 0;
 // 「Try again」 Button 이 `/nodecanvas` · `/nodecanvas?project=` · `/videoeditor/[projectId]` 에 +6(−2). 쇼츠 결과 셸 −3 · Button +2(−1),
 // 하이라이트 완료 Button +2, 어드민 Button −2 · 쿠폰 인쇄 Button +2, `/subscription` Button −3(구독 정보를 못 불러온 오류 상태로 재졌다),
 // 결제 진행 데스크톱 「Pay now」 Button −1(대체가능 1 — 남은 빨강). 유튜브 연결 버튼은 부품 −2 · LOUIS Button +2 로 0 이다.
-// 오류 경계 화면이 돌아오면 다시 오른다.
+// 오류 경계로 재진 보드의 몫은 아래 「되살림(2026-10-08)」 문단에서 다시 올랐다.
 // 같은 날 뒤: 262 → **281.** **이득이다.** 통합 판 원장에서 세운 제품 부품 일곱 세트(보드 생성기 PARTS) — 인증 입력 칸 14
 // (`Product/Auth Floating Field` — 로그인 · 가입 · 비밀번호 찾기 · 새 비밀번호, 두 뷰포트), 가입 약관 동의 줄 2(`Product/Signup Legal Agreements`),
 // 템플릿 상세 캐러셀 2 · 블로그 글 머리 2 · 문의 첨부 드롭존 2. 22 에서 가입 약관 줄 안으로 들어간 LOUIS Button(ghost md 「View」 둘 × 두
@@ -273,7 +273,11 @@ const UNCLASSIFIED_BASELINE = 0;
 // `migration/product-states/shell.json`): 셸 26(사이드바 10 · 데스크톱 상단 바 6 · 모바일 상단 바 10 — 기준 화면 `/archive` · `/subscription` ·
 // `/videoeditor` · `/nodecanvas` 와 같은 조합), 허브 머리(`Product/Page Header`) 4(`/videoeditor seeded*` × 두 뷰포트), `/subscription past-due` 의
 // LOUIS Button 6(기준 `/subscription` 과 같은 본문).
-const INSTANCE_FLOOR = 317;
+// 되살림(2026-10-08): 317 → **326.** 오류 경계(「Something went wrong」)로 재졌던 화면 다섯을 fixture 에 CDN 주소(NEXT_PUBLIC_CDN_BASE_URL)를
+// 세워 다시 잰 결과다 — 보드별로 쇼츠 결과 데스크톱 +5(Button 3 · 사이드바 · 상단 바) · 모바일 +4(Button 3 · 상단 바), 공개 `/` 데스크톱 +3
+// (Button 2 · Landing Footer) · 모바일 +1(Button), `/nodecanvas` 두 보드 ±0(경계의 「Try again」 Button −1 · 사이드바 또는 상단 바 +1),
+// `/nodecanvas?project=` · `/videoeditor/[projectId]` 네 보드 각 −1(「Try again」 Button 이 걷혔고 편집기 화면에는 셸이 없다). 합 +9.
+const INSTANCE_FLOOR = 326;
 // 2026-09-13: 198 → 218. **20칸이 늘어져 있었다.** 이 검사는 `후보 < 바닥` 만 보므로 후보가 오른
 // 만큼 바닥이 따라오지 않으면, 그 수만큼 후보를 구조로 재분류해도 조용히 통과한다(위 87행이
 // 막겠다고 한 바로 그 길). 수는 instance 84 + replaceable 0 + bespoke 50 + blocked 3 + missing 81.
@@ -322,7 +326,7 @@ const INSTANCE_FLOOR = 317;
 // 2026-10-08: 1616 → **1498.** 통합 판 앵커(76b6cf15, DS-D-0079)로 다시 잰 결과 — 커밋된 원장(HEAD, 1882)과 견주면 −384 이고 대부분이
 // 오류 경계로 재진 보드다: `/videoeditor/[projectId]` 데스크톱 244 → 2 · 모바일 30 → 2, `/nodecanvas?project=` 88 · 86 → 2 · 2, 공개 `/`
 // 70 · 50 → 2 · 2, `/nodecanvas` 5 → 2(합 −559). 반대로 공개 모바일 보드 여섯의 새 타임라인 푸터가 부품 인스턴스가 아니라 날노드로 서며
-// 미보유가 늘었다(문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세 모바일 각 +26 ~ +27). 오류 경계 화면이 돌아오면 이 바닥을 다시 올린다.
+// 미보유가 늘었다(문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세 모바일 각 +26 ~ +27). 오류 경계 화면의 몫은 아래 「되살림」 문단에서 다시 올렸다.
 // 수는 instance 262 + replaceable 1 + bespoke 134 + blocked 10 + missing 1091.
 // 같은 날 뒤: 1498 → **1474.** 보드가 준 것이 아니라 부품 인스턴스(위 INSTANCE_FLOOR, +19) 안으로 후보가 들어가 가지치기됐다 — instance +19 ·
 // replaceable −1(「Pay now」) · bespoke −2 · missing −40. 미보유 −40 은 인증 입력 칸 14 개의 `<input>`(LOUIS 사다리에 맞는 기하가 없던 미보유)
@@ -332,7 +336,13 @@ const INSTANCE_FLOOR = 317;
 // Button 9 · Avatar 4 · 제품 글리프 50 — 커맨드 팔레트 · 홈 카드 · 연체 배너의 인라인 그림, figma-glyph-identity 의 2026-10-08 항목) · missing +347
 // (칠해진 마크 213 · 상호작용 128 · 컨트롤 묶음 6 — 팔레트 행 · 시드 카드 그리드 · 컴포지션 카드 · 더보기 메뉴의 제품 전용 자리). 겹침(팔레트 ·
 // 연체 배너)을 이 판에서 처음 그린다(생성기 measuredTree). 수는 instance 317 + replaceable 0 + bespoke 208 + blocked 10 + missing 1398.
-const CANDIDATE_FLOOR = 1933;
+// 되살림(2026-10-08): 1933 → **2555.** 오류 경계로 재졌던 화면 다섯을 다시 재 정상 화면이 보드에 섰다 — instance +9(위 INSTANCE_FLOOR) ·
+// bespoke +111 · missing +502. 보드별로 `/videoeditor/[projectId]` 데스크톱 bespoke +26 · missing +217, 모바일 +6 · +23, `/nodecanvas?project=`
+// 데스크톱 +27 · +67, 모바일 +26 · +66, 공개 `/` 데스크톱 +7 · +47, 모바일 +11 · +69, 쇼츠 결과 두 보드 각 +3 · +6, `/nodecanvas` 데스크톱
+// +2 · +1. bespoke 는 대부분 편집기 · 노드 캔버스의 인라인 제품 글리프(figma-glyph-identity — 이번에 더한 question-circle-lucide ·
+// check-stroke-badge · download-tray-line 포함) · IconButton 레시피이고, missing 은 편집기 타임라인 · 노드 카드 · 랜딩 개요의 제품 전용 자리다.
+// 수는 instance 326 + replaceable 0 + bespoke 319 + blocked 10 + missing 1900.
+const CANDIDATE_FLOOR = 2555;
 // 2026-09-26(뒤): 36 → 42 — 보드 없던 실제 화면 셋의 보드 여섯(「⚠ 미등록」 섹션, 조립 규칙 20조).
 // 같은 날 밤: 42 → 54 — 결제 성공 화면 넷의 `?preview=` 상태 보드 12(라우트 섹션 안, 조립 규칙 23조 「상태 프레임」).
 // 2026-09-28: 54 → 76 — 로그아웃 fixture 보드 22(측정 세션 셋째 갈래, 조립 규칙 24조). 손 조립 보드를 대신한다.
@@ -428,19 +438,23 @@ const SHELL_INSTANCES_BY_BOARD = {
   "highlight.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "mypage-upgrade-checkout.desktop": ["Product/Desktop App Top Bar · Content=Subscription, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Upgrade"],
   "mypage-upgrade-checkout.mobile": ["Product/Mobile App Top Bar · Width=Inset, Breadcrumb=Trail, Back=True, Divider=On"],
-  // 2026-10-08: `nodecanvas` 두 보드의 셸은 잠시 뺀다 — 통합 판 원장에서 세션 `/nodecanvas` 가 오류 경계 화면(노드 11 · 「Something went
-  // wrong」)으로 재져 사이드바 · 상단 바가 없다(원인은 따로 고치는 중). 화면이 돌아오면 두 줄을 되살린다.
-  // "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
-  // "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
+  // 되살림(2026-10-08): `nodecanvas` 두 보드의 셸 — 통합 판 원장에서 세션 `/nodecanvas` 가 오류 경계 화면(「Something went wrong」)으로 재져
+  // 잠시 뺐다가, fixture 에 CDN 주소(NEXT_PUBLIC_CDN_BASE_URL)를 세워 다시 재자 사이드바 · 상단 바가 돌아왔다.
+  "nodecanvas.desktop": ["Product/Gnb Desktop Shell · Current=Canvas"],
+  "nodecanvas.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-10-08: 하이라이트 완료 격자 두 보드의 셸을 표에 넣는다 — 커밋된 원장(HEAD)에도 이미 붙어 있었는데 이 표가 따라가지 못했다.
   // 측정 글자(사이드바 · 「Highlight / Fixture highlight project」 뒤로 가기 바)와 조합이 `?__phase=` 보드 여섯과 같다.
   "highlight--projectId-completed.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
   "highlight--projectId-completed.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
+  // 되살림(2026-10-08): 쇼츠 결과 두 보드의 셸 — 오류 경계로 재졌던 동안 셸이 없었다(위 INSTANCE_FLOOR 의 「쇼츠 결과 셸 −3」). 다시 잰 측정 바는
+  // 뒤로 가기 단추 · 「Highlight / 자리표시 쇼츠 제목」 nav · 뒷머리의 세 자식이라 하이라이트 완료 보드와 같은 조합이고, 사이드바도 Highlight 다.
+  "highlight--projectId--shorts--shortId-.desktop": ["Product/Desktop App Top Bar · Content=Highlight, Breadcrumb=Trail, Back=True, Divider=On", "Product/Gnb Desktop Shell · Current=Highlight"],
+  "highlight--projectId--shorts--shortId-.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Trail, Back=True, Divider=On"],
   "videoeditor.desktop": ["Product/Gnb Desktop Shell · Current=Composition"],
   "videoeditor.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   // 2026-10-08 — 셸 상태 레시피 보드 20(migration/measure-states/shell.json 의 board). 셸은 기준 화면과 같은 조합이다 — 상태(팔레트 · 연체 배너 ·
   // 시드 목록)는 본문 · 겹침에 서고 사이드바 · 상단 바는 바꾸지 않는다. 사이드바 서명이 기준과 같은 것은 생성기의 사이드바 서명 가드가 본다
-  // (`/nodecanvas` 는 기준이 오류 경계로 재져 ①만 — 위 nodecanvas 주석). 겹침은 앱 뿌리의 마지막 자식이라 셸 치환과 겹치지 않는다.
+  // (`/nodecanvas` 도 되살린 기준과 대조한다 — 위 nodecanvas 주석). 겹침은 앱 뿌리의 마지막 자식이라 셸 치환과 겹치지 않는다.
   "archive-palette.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],
   "archive-palette.mobile": ["Product/Mobile App Top Bar · Width=Full, Breadcrumb=Single, Back=False, Divider=On"],
   "archive-palette-flyout.desktop": ["Product/Desktop App Top Bar · Content=Home, Breadcrumb=Single, Back=False, Divider=On", "Product/Gnb Desktop Shell · Current=Home"],

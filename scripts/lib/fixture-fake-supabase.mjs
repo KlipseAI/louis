@@ -103,6 +103,9 @@ const queryRows = (rows, params) => {
 
 export async function startFakeSupabase({ seeds = {} } = {}) {
   const requests = [];
+  // **상태 레시피 오버레이(2026-10-08, 상태 레시피 설계서 2절 5번).** 한 화면 동안만 표(`tables` — 시드와 같은 꼴, 그 표는 통째로 바뀐다)와
+  // RPC 응답(`rpc`)을 바꾼다. 측정기가 레시피 화면의 `goto` 전에 걸고 `finally` 에서 `null` 로 푼다. `null` 이면 아래 분기는 종전과 같다.
+  let overlay = null;
   const server = createServer((request, response) => {
     const url = new URL(request.url ?? "/", "http://fixture.invalid");
     const origin = request.headers.origin;
@@ -126,7 +129,7 @@ export async function startFakeSupabase({ seeds = {} } = {}) {
     if (path === "/auth/v1/user") return send(200, fixtureUser());
     if (path === "/auth/v1/token") return send(200, fixtureSession());
     if (path === "/auth/v1/logout") return send(204);
-    if (path.startsWith("/rest/v1/rpc/")) return send(200, null);
+    if (path.startsWith("/rest/v1/rpc/")) return send(200, overlay?.rpc && Object.hasOwn(overlay.rpc, path.slice("/rest/v1/rpc/".length)) ? overlay.rpc[path.slice("/rest/v1/rpc/".length)] : null);
     if (path.startsWith("/rest/v1/")) {
       // PostgREST: 한 행을 요구하면(`application/vnd.pgrst.object+json`) 행이 정확히 하나가 아닐 때 406 PGRST116, 목록이면 배열.
       // `maybeSingle()` 은 GET 에 `application/json` 을 보내고 길이 1 배열에서 행을 꺼낸다(postgrest-js 2.98) — 목록 갈래가 맞다.
@@ -134,7 +137,7 @@ export async function startFakeSupabase({ seeds = {} } = {}) {
       const table = path.slice("/rest/v1/".length);
       // 시드는 행 배열이거나 `{ rows, requireFilter }` 다 — `requireFilter` 열로 집어 읽을 때만(`<열>=eq.…`) 행을 내고, 목록 조회에는 빈 목록이다.
       // 같은 세션 측정의 허브(`/nodecanvas` 목록)가 같은 표를 `user_id` 로만 읽으므로, 상세용 시드가 허브 보드의 빈 상태를 바꾸지 않게 한다(2026-10-07).
-      const entry = Object.hasOwn(seeds, table) ? seeds[table] : null;
+      const entry = overlay?.tables && Object.hasOwn(overlay.tables, table) ? overlay.tables[table] : (Object.hasOwn(seeds, table) ? seeds[table] : null);
       const rowsOf = Array.isArray(entry) ? entry : entry?.rows ?? null;
       const gated = entry && !Array.isArray(entry) && entry.requireFilter && !url.searchParams.has(entry.requireFilter);
       const result = rowsOf && !gated ? queryRows(rowsOf, url.searchParams) : { rows: [] };
@@ -156,6 +159,10 @@ export async function startFakeSupabase({ seeds = {} } = {}) {
   return {
     url: `http://127.0.0.1:${port}`,
     requests,
-    close: () => new Promise((resolve) => server.close(() => resolve())),
+    /** 레시피 화면의 표 · RPC 오버레이를 건다(`null` 이면 푼다). */
+    setOverlay: (next) => { overlay = next; },
+    /** 지금까지의 요청 수 — `requests.slice(mark)` 가 이 화면 동안의 요청이다. */
+    beginMark: () => requests.length,
+    close:() => new Promise((resolve) => server.close(() => resolve())),
   };
 }

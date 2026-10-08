@@ -612,8 +612,9 @@ const PRODUCT_PARTS = [
     set: "Product/Landing Footer",
     about: "공개 화면 공용 타임라인 푸터(components/landing/sections/TimelineFooter.tsx — 문구 · 시간 눈금 · 링크 묶음 넷을 트랙으로 · 사업자 정보 · 저작권 줄, 늘 다크). 폰(720 아래)은 트랙 이름이 아이콘만 남는다.",
     // 통합 판(2026-10-08): 푸터가 공용 타임라인 푸터로 바뀌어(문구 · 눈금 타임코드 · 링크 · 회사 정보, 데스크톱 노드 124 · 모바일 89) 글자 서열이
-    // 길어져(데스크톱 서명 62) 앵커를 `{ length, fnv }` 로 준다. 트랙 아이콘 넷은 figma-glyph-identity 의 footer-track-* 이다. 공개 원장의 `/` 는 지금 오류 경계 화면(노드 11)으로 재져 푸터가 없다 —
-    // 같은 푸터가 같은 경로(body.1.0.0.3)에 선 `/inquiry` 에서 찍는다(문의 · 요금 · 템플릿 · 블로그 · 공개 시드 둘이 같은 글자 서열).
+    // 길어져(데스크톱 서명 62) 앵커를 `{ length, fnv }` 로 준다. 트랙 아이콘 넷은 figma-glyph-identity 의 footer-track-* 이다. variant 는 같은 푸터가
+    // 같은 경로(body.1.0.0.3)에 선 `/inquiry` 에서 찍는다(랜딩 · 문의 · 요금 · 템플릿 · 블로그 · 공개 시드 둘이 같은 글자 서열). 되살림(2026-10-08):
+    // 공개 `/` 가 한때 오류 경계로 재져 푸터가 없었다가 다시 재자 랜딩 데스크톱 푸터도 이 세트의 인스턴스가 됐다(CONTENT_INSTANCES_BY_SET).
     variants: [
       ["Viewport=Desktop", "desktop-1920x1080", { length: 62, fnv: "f262472e" }, "2677:4185"],
       // 모바일(2677:4186)은 잠시 뺀다 — 새 푸터의 사업자 정보 줄(flex-wrap ul)에서 주소 칸(body.1.0.0.3.2.0.3 li, 362×36)이 두 줄로 감기는데
@@ -2149,8 +2150,8 @@ for (const screen of SCREENS) {
     const source = SIDEBAR_VARIANT_SOURCES[sidebar.variant];
     // 출처의 사이드바 경로는 출처 보드에서 읽는다 — 상태 레시피 화면은 앱 뿌리 앞에 겹침(연체 배너 · body 바로 아래)이 서면 뿌리가
     // `body.2` 로 밀려 같은 사이드바가 다른 절대 경로에 있다(서명은 상대 경로라 그대로 견줄 수 있다). 출처 보드가 있는데 사이드바가
-    // 없으면(세션 원장 `/nodecanvas` 는 2026-10-08 판에서 오류 경계 「Something went wrong」로 쟀다) 출처가 사이드바를 재지 않은 것이라
-    // ②를 건너뛰고 ①만 받는다 — `Current=Highlight` 의 출처가 원장에 없을 때와 같다.
+    // 없으면 출처가 사이드바를 재지 않은 것이라 ②를 건너뛰고 ①만 받는다 — `Current=Highlight` 의 출처가 원장에 없을 때와 같다.
+    // (세션 원장 `/nodecanvas` 가 한때 오류 경계 「Something went wrong」로 재져 이 길을 탔다. 되살림(2026-10-08): 다시 재 사이드바가 돌아왔다.)
     const sourceEntry = screens.find((other) => other.context === desktopContext && other.route === source);
     const sourcePath = sourceEntry
       ? sourceEntry.shells.applied.find((applied) => applied.set === COMPONENT_SETS.sidebar)?.path
@@ -2210,9 +2211,10 @@ const CONTENT_INSTANCES_BY_SET = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_CONTENT_INSTANCE
   "Product/Coupon Code Chip": 45,
   // 다섯째 묶음(2026-10-07): 공개 화면 푸터 — 랜딩 · 문의 · 요금 · 블로그 · 템플릿 × 두 뷰포트(같은 컴포넌트 · 같은 글자 서열).
   // 같은 날 뒤: 10 → 14 — 공개 시드 원장의 블로그 글 · 템플릿 상세 × 두 뷰포트에도 같은 푸터가 선다.
-  // 2026-10-08: 14 → 6 — 통합 판에서 공개 `/` 가 오류 경계 화면으로 재져 푸터가 없고(−2), 모바일 variant 를 잠시 뺐다(감긴 주소 칸,
-  // PRODUCT_PARTS 의 주석 — 모바일 −6). 남은 것은 문의 · 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세의 데스크톱 여섯이다.
-  "Product/Landing Footer": 6,
+  // 2026-10-08: 14 → 7 — 통합 판에서 모바일 variant 를 잠시 뺐다(감긴 주소 칸, PRODUCT_PARTS 의 주석 — 모바일 −7). 남은 것은 랜딩 · 문의 ·
+  // 요금 · 템플릿 · 블로그 · 블로그 글 · 템플릿 상세의 데스크톱 일곱이다. 되살림(2026-10-08): 공개 `/` 가 한때 오류 경계로 재져 6 이었다가
+  // fixture 에 CDN 주소를 세워 다시 재자 랜딩 데스크톱 푸터가 돌아왔다(+1).
+  "Product/Landing Footer": 7,
   // 같은 날 뒤: 앱 허브 머리(/videoeditor) · 어드민 머리(/admin) × 두 뷰포트, 선택 칸 — 문의(Field) · 부스 운영(Admin) × 두 뷰포트,
   // 요금제 비교표(/pricing) × 두 뷰포트. /mypage/upgrade 의 비교표는 측정 화면 밖이라(노드 2) 인스턴스가 아니다.
   // 2026-10-08: 2 → 6 — 셸 상태 레시피 `/videoeditor seeded` · `/videoeditor seeded.more-menu` × 두 뷰포트에도 같은 허브 머리가 선다.
@@ -2301,10 +2303,10 @@ const EDITOR_SEED_PENDING_WHY = "노드캔버스 편집기 · 영상 편집기 �
 const PALETTE_PENDING_WHY = "커맨드 팔레트 대화 상자 · 행 · 플라이아웃의 stretch 자식 — 2026-10-08 새 상태 보드(겹침을 처음 그린다), 캡처 대조 전";
 const SHORT_RESULT_PLAYER_WHY = "쇼츠 결과 플레이어 상자 — 높이를 `aspect-ratio: 9/16` 이 폭에서 얻고 자식이 그 높이를 채운다(Figma 는 비율 상자가 없다). 2026-10-07 새 보드, 캡처 대조 전";
 const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLVED_FILL_IN_HUG : {
-  // 2026-10-08 통합 판(DS-D-0079): 아래 두 자리는 잠시 0 이다 — 공개 원장의 `/` 와 세션의 `/videoeditor/[projectId]` 가 지금 오류 경계
-  // 화면으로 재져 그 서브트리가 없다(원인은 따로 고치는 중). 화면이 돌아오면 두 줄을 되살린다.
-  // "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
-  // "/ @ desktop-1920x1080 · body.1.0.0.2.1.0.1 · vertical": { count: 1, why: LANDING_PENDING_WHY },
+  // 되살림(2026-10-08): 아래 자리는 통합 판(DS-D-0079)에서 세션 `/videoeditor/[projectId]` 가 오류 경계로 재져 잠시 빠졌다가, fixture 에
+  // CDN 주소를 세워 다시 재자 서브트리가 돌아와 되살렸다. 같이 빠졌던 공개 `/` 데스크톱 `body.1.0.0.2.1.0.1 · vertical`(LANDING_PENDING_WHY)은
+  // 다시 잰 랜딩에서 0 이다 — 통합 판 랜딩 개요에는 풀지 못한 HUG 부모 · FILL 자식이 남지 않아 되살리지 않는다.
+  "/videoeditor/[projectId] @ mobile-402x874 · body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2 · vertical": { count: 1, why: EDITOR_SEED_PENDING_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.1.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.4.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },

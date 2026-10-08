@@ -39,12 +39,16 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 0.769 = 1/1.3). overflow 의 뿌리는 대부분 고정 폭 상단 바(`header`, 1920 · 402 에 묶여 1440 에서 +480, 360 에서 +42)다.
 // clamped 6 은 랜딩 · /privacy · /terms 의 데스크톱 2560 · 모바일 430(보드가 넓어지지 않는다), noRoot 16 은 03 앱의
 // 레시피 측정 보드(2909:*)로 보이는 자식이 없었다. baseOverflow 4 는 측정 크기에서 이미 넘친다(/privacy 모바일 550 노드 등).
+// run 2026-10-08b(d09ff6a1 반응 수정 · e82574a7 재측정을 보낸 뒤): 높이 미추종 126 → 24(공개 17 은 문서 길이 페이지라 기대값 —
+// 높이 +30% 에서 루트가 내용 높이에 머문다). 03-app 의 넘침 2 → 10 · 부모 밖 14 → 23 은 처음 그린 상태 보드(커맨드 팔레트 넷 · 연체 배너)가
+// 잴 수 있게 된 몫이다(전에는 noRoot 16) — 팔레트 배경 div 가 1440 에서 +480, 연체 배너 닫기 단추가 +468/+30. 공개 모바일 360 의 상단 바
+// +42 는 /pricing · /inquiry · /blog/[slug] 모바일이 안전 검사로 재전송되지 못한 옛 렌더라 남았다.
 const BASELINE = {
-  "01-public": { overflow: 19, childOutside: 15, textClip: 1, heightFollow: 20, clamped: 6, baseOverflow: 3 },
-  "02-auth": { overflow: 2, childOutside: 6, heightFollow: 18 },
-  "03-app": { overflow: 2, childOutside: 14, heightFollow: 40, noRoot: 16 },
-  "04-billing": { childOutside: 8, heightFollow: 34 },
-  "05-ops": { overflow: 4, childOutside: 3, heightFollow: 14, widthFollow: 2, baseOverflow: 1 },
+  "01-public": { overflow: 12, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "02-auth": { childOutside: 5 },
+  "03-app": { overflow: 10, childOutside: 23, heightFollow: 4, noRoot: 6 },
+  "04-billing": { childOutside: 8, heightFollow: 2 },
+  "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
 };
 
 const fail = (message) => {

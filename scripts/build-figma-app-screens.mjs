@@ -286,6 +286,66 @@ const centreInlineBlocks = (node, styleOf, centred) => {
   node.layout = { ...node.layout, align: { ...node.layout.align, counterAxis: "CENTER" } };
   centred.push(node.path);
 };
+// **화면 높이 뿌리는 보드 높이를 따른다(2026-10-08, 조립 규칙 15조의 3).** 앱 셸은 뿌리가 `min-height: 100svh`, 그 안의 셸이
+// `height: var(--app-shell-vh, 100dvh)` 처럼 뷰포트 높이 단위로 화면을 채운다. 크기 판정은 뷰포트 단위를 측정 뷰포트 상수(1080 · 874)로
+// 풀어 뿌리를 세로 HUG + 최소 높이 1080, 셸을 FIXED 1080 으로 굳혔다 — 보드 높이를 1080 → 1400 으로 늘리자 아래 320 이 빈 회색으로
+// 남았다(제품은 화면 높이를 채운다). 그래서 뷰포트 높이 단위를 «보드 높이»로 옮긴다:
+//   1. 뿌리 — 높이 · 최소 높이 선언에 뷰포트 높이 단위가 있고 측정 높이 = 보드 높이 = 뷰포트 높이(내용이 아니라 그 단위가 높이를 정했다)면
+//      세로 FILL(보드 틀은 세로 자동 배치라 FILL 이 틀 높이다). 문서 길이 페이지(측정 높이 > 뷰포트, `fullPage` 의 긴 문서)는 내용이
+//      높이를 정했으므로 HUG 그대로다.
+//   2. 사슬 — FILL 이 된 노드의 흐름 자식 가운데 측정 높이가 부모 안쪽 높이(패딩 · 제 margin 을 뺀)와 같고 높이 · 최소 높이 · 최대 높이
+//      선언에 뷰포트 높이 단위나 `100%` 가 있는 자식을 세로 FILL 로 잇는다(세로 부모에서는 흐름 자식이 하나일 때만 — FILL 이 남는 자리를
+//      다 받는다). 이미 FILL 인 자식은 판정 없이 사슬을 잇는다. 인스턴스 · 절대 배치는 잇지 않는다(절대 배치 셸은 제약이 맡는다).
+//   3. 사슬 위 노드의 뷰포트 단위 최소 · 최대 높이(측정값 1080 고정)는 걷는다 — FILL 이 그 뜻을 대신하고, 남기면 보드를 줄이거나 늘릴 때
+//      1080 에 묶인다.
+// 측정 크기에서는 FILL 이 측정 높이와 같은 값으로 풀리므로 노드 자리 · 크기는 바뀌지 않는다.
+const VIEWPORT_HEIGHT_UNIT = /(?:^|[^\w.-])[\d.]+(?:dvh|svh|lvh|vh)\b/;
+const fillScreenHeight = (root, declaredOf, viewportHeight, frameHeight, filled) => {
+  const viewportDeclared = (node, keys) => keys.some((key) => VIEWPORT_HEIGHT_UNIT.test(String(declaredOf(node.path)?.[key] ?? "")));
+  const near = (a, b) => Math.abs(a - b) <= HALF_PIXEL;
+  const release = (node) => {
+    const sizing = { ...node.sizing };
+    if (sizing.minHeight && viewportDeclared(node, ["min-height"])) delete sizing.minHeight;
+    if (sizing.maxHeight && viewportDeclared(node, ["max-height"])) delete sizing.maxHeight;
+    node.sizing = sizing;
+  };
+  // 뿌리의 뷰포트 폭 한계(`max-width: 100vw` — 전체 오류 화면 body)도 같은 이유로 걷는다. 측정 폭(1920 · 402)으로 풀린 상한이 남아 보드를
+  // 2560 으로 넓히자 뿌리가 1920 에 멈췄다(늘림 시험 폭 추종 0.75). 뿌리는 이미 틀 폭을 채운다(FILL).
+  if (!root.instance && root.sizing.layoutSizingHorizontal === "FILL") {
+    const viewportWide = (key) => /(?:^|[^\w.-])[\d.]+(?:dvw|svw|lvw|vw)\b/.test(String(declaredOf(root.path)?.[key] ?? ""));
+    const sizing = { ...root.sizing };
+    let released = false;
+    if (sizing.maxWidth && viewportWide("max-width")) { delete sizing.maxWidth; released = true; }
+    if (sizing.minWidth && viewportWide("min-width")) { delete sizing.minWidth; released = true; }
+    if (released) { root.sizing = sizing; filled.push(`${root.path} width`); }
+  }
+  if (root.instance || !near(root.rect.height, frameHeight) || !near(frameHeight, viewportHeight)) return;
+  if (!viewportDeclared(root, ["height", "min-height"])) return;
+  if (root.sizing.layoutSizingVertical !== "FILL") { root.sizing = { ...root.sizing, layoutSizingVertical: "FILL" }; filled.push(root.path); }
+  release(root);
+  const walk = (node) => {
+    const mode = node.layout?.layoutMode;
+    if (node.instance || (mode !== "VERTICAL" && mode !== "HORIZONTAL")) return;
+    const flow = (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+    if (mode === "VERTICAL" && flow.length !== 1) return;
+    const padding = node.layout.padding ?? {};
+    for (const child of flow) {
+      if (child.instance) continue;
+      const room = node.rect.height - (padding.top ?? 0) - (padding.bottom ?? 0) - (child.margin?.top ?? 0) - (child.margin?.bottom ?? 0);
+      if (!near(child.rect.height, room)) continue;
+      if (child.sizing.layoutSizingVertical !== "FILL") {
+        const declared = declaredOf(child.path) ?? {};
+        const full = ["height", "min-height", "max-height"].some((key) => /^100%/.test(String(declared[key] ?? "").trim()));
+        if (!full && !viewportDeclared(child, ["height", "min-height", "max-height"])) continue;
+        child.sizing = { ...child.sizing, layoutSizingVertical: "FILL" };
+        filled.push(child.path);
+      }
+      release(child);
+      walk(child);
+    }
+  };
+  walk(root);
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
@@ -759,6 +819,15 @@ const SIZING_CODE = (verdict) => {
   if (!code) throw new Error(`[figma-app-screens] 알 수 없는 sizing 판정: ${verdict}`);
   return code;
 };
+// **제약 코드도 같은 함정이다(2026-10-08).** 첫 글자만 쓰면 `MIN` 과 `MAX` 가 둘 다 `"M"` 이 되어 렌더러(`CONSTRAINT` — M · A · S · C)가
+// 오른쪽에 붙은 절대 배치를 모두 왼쪽 고정으로 읽었다 — `/aws/signup` 오른쪽 위 모서리 단추(`right: 20px`)가 보드를 1440 으로 줄이자
+// 1864 에 남아 보드 밖으로 460 나갔다(늘림 시험). 렌더러와 같은 표로 옮긴다.
+const CONSTRAINT_CODES = { MIN: "M", MAX: "A", STRETCH: "S", CENTER: "C" };
+const CONSTRAINT_CODE = (value) => {
+  const code = CONSTRAINT_CODES[value];
+  if (!code) throw new Error(`[figma-app-screens] 알 수 없는 제약: ${value}`);
+  return code;
+};
 
 /**
  * 색·타이포 축약 키.
@@ -875,7 +944,7 @@ const slimNode = (node) => ({
   s: SIZING_CODE(node.sizing.layoutSizingHorizontal) + SIZING_CODE(node.sizing.layoutSizingVertical),
   ...(node.positioning === "ABSOLUTE" ? { p: 1 } : {}),
   ...(node.offset ? { o: [round(node.offset.x), round(node.offset.y)] } : {}),
-  ...(node.constraints ? { n: node.constraints.horizontal[0] + node.constraints.vertical[0] } : {}),
+  ...(node.constraints ? { n: CONSTRAINT_CODE(node.constraints.horizontal) + CONSTRAINT_CODE(node.constraints.vertical) } : {}),
   // margin은 0이 아닐 때만 담는다(대부분 0이라 payload를 아낀다).
   ...(node.margin && (node.margin.top || node.margin.right || node.margin.bottom || node.margin.left)
     ? { m: [round(node.margin.top), round(node.margin.right), round(node.margin.bottom), round(node.margin.left)] }
@@ -1031,6 +1100,8 @@ let totalBleedUnresolved = 0;
 let totalGapsPaired = 0;
 let totalGapsUnresolved = 0;
 let totalUnresolvedFillInHug = 0;
+let totalScreenHeightFilled = 0;
+let screenHeightBoards = 0;
 
 /**
  * **`<svg>` 자리에 이름을 붙인다.** 서명은 `glyphSignature`(figma-tree-spec.mjs)가 측정에서
@@ -1956,6 +2027,12 @@ for (const screen of SCREENS) {
     totalSpaceBetweenHug += spaceBetweenHug.length;
     totalCarriedLinesHugged += hugCarriedLines(spec).length;
     totalCollapsedTables += halveCollapsedBorders(spec).length;
+    // 화면 높이 뿌리(fillScreenHeight 주석) — 크기 조합 풀이 · 감싸개가 다 끝난 뒤, 보드 틀 높이(아래 frameSize 와 같은 식)에 묶는다.
+    const frameHeight = round(measured.fullPage ? measured.rootRect.height : Math.min(measured.rootRect.height, Number(context.id.split("x").pop())));
+    const screenHeightFilled = [];
+    fillScreenHeight(spec, (path) => declaredByPath.get(path) ?? null, Number(context.id.split("x").pop()), frameHeight, screenHeightFilled);
+    totalScreenHeightFilled += screenHeightFilled.length;
+    if (screenHeightFilled.length) screenHeightBoards += 1;
     totalSizingReconciled += sizingFix.reconciled.length;
     totalUnresolvedFillInHug += sizingFix.unresolvedFillInHug.length;
     totalNodes += stats.kept;
@@ -2537,5 +2614,5 @@ if (checkOnly) {
 
 console.log(
   `[figma-app-screens] ${checkOnly ? "checked" : "built"} @ ${fixture.productCommit.slice(0, 8)}: ` +
-  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 줄어드는 상자 글자 ${totalShrinkFixed} · 가운데 인라인 블록 ${totalInlineCentred} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
+  `${screens.length} screens · 부품 ${parts.length} · ${totalNodes} nodes · UNRESOLVED ${totalUnresolved} · 인스턴스 ${totalShells}(공백 ${totalShellGaps}) · 아이콘 ${totalGlyphs} · 자산 이미지 ${totalImageInstances} · 칠 순서 정렬 ${totalStackingMoved} · 빈 HUG 고정 ${totalEmptyHugFixed} · 비율 상자 고정 ${totalAspectFixed} · 줄어드는 상자 글자 ${totalShrinkFixed} · 가운데 인라인 블록 ${totalInlineCentred} · 늘어난 grid 행 ${totalGridRows} · 크기 조합 풀이 ${totalSizingReconciled}(못 푼 HUG·FILL ${totalUnresolvedFillInHug}) · auto 여백 가운데 ${totalAutoMarginCentred} · margin 감싸개 ${totalMarginWrapped} · 번짐 올림 ${totalBleedHoisted}(못 옮김 ${totalBleedUnresolved}) · 음수 간격 묶음 ${totalGapsPaired}(못 묶음 ${totalGapsUnresolved}) · HUG space-between ${totalSpaceBetweenHug} · 제품 줄 폭 맞춤 ${totalCarriedLinesHugged} · 겹친 표 ${totalCollapsedTables} · 화면 크기 묶음 ${totalScreenHeightFilled}(보드 ${screenHeightBoards}) · 면 ${paintStats.fills}+${paintStats.gradients}g/${paintStats.strokes}/${paintStats.radii}/${paintStats.shadows} · 텍스트 ${paintStats.textStyled}/${paintStats.texts} 스타일 매칭 · 런너 ${SCREENS.length}개`,
 );

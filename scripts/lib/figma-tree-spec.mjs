@@ -1031,7 +1031,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       offset: decision.absolute && parent
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
-      constraints: decision.absolute ? constraintsFor(node.declared ?? {}) : null,
+      constraints: decision.absolute ? constraintsFor(node.declared ?? {}, node.style ?? null) : null,
       why: { horizontal: decision.h, vertical: decision.v },
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
@@ -1134,13 +1134,24 @@ export function collapseWrappers(node, stats = null) {
  * 절대 배치 노드의 Figma 제약을 CSS `left/right/top/bottom` 선언에서 정한다.
  * 양쪽이 다 있으면 늘어나고(STRETCH), 한쪽만 있으면 그쪽에 붙는다.
  * 제품 사이드바처럼 `left`만 있는 fixed 요소는 MIN(왼쪽 고정)이 정답이다.
+ *
+ * **뷰포트를 채우는 고정 레이어는 그 축에서 늘어난다(2026-10-08, 조립 규칙 15조의 2).** 공개 페이지 상단 바는 `left: 0;
+ * width: 100%` 로 한쪽만 선언해 MIN 이 됐다 — 보드 폭을 1920 → 1440 으로 줄이자 바가 1920 그대로 남아 오른쪽 480(언어 · 테마 ·
+ * Get started)이 잘렸다. `position: fixed` 의 포함 블록은 뷰포트라, 계산값(`getComputedStyle` 은 위치 지정 요소의 네 변을 쓰인
+ * 값 px 로 푼다)에서 양쪽 변이 모두 0 이면 그 축을 뷰포트 끝에서 끝까지 채운 것이다(`width: 100%` · `inset-x-0` · `100vw` ·
+ * `100dvh` 의 공통 결과). 그 축을 STRETCH 로 둔다. 측정 폭에서의 자리 · 크기는 바뀌지 않는다(제약은 부모가 커지거나 줄 때만
+ * 일한다). 앱 사이드바(`top: 0; height: 100dvh`)는 세로만 늘어나고 가로는 왼쪽에 붙는다(계산값 right 1680). 겹침 뿌리(측정기
+ * `overlays` — 팔레트 배경 · 연체 배너)는 선언이 비어도 계산값으로 같은 판정을 받는다.
  */
-export function constraintsFor(declared) {
+export function constraintsFor(declared, computed = null) {
   const has = (value) => value != null && value !== "auto" && value !== "";
+  const fixed = computed?.position === "fixed";
+  const zero = (value) => px(value) === 0;
+  const spans = (start, end) => fixed && zero(computed[start]) && zero(computed[end]);
   return {
-    horizontal: has(declared.left) && has(declared.right) ? "STRETCH"
+    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right") ? "STRETCH"
       : has(declared.right) ? "MAX" : "MIN",
-    vertical: has(declared.top) && has(declared.bottom) ? "STRETCH"
+    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom") ? "STRETCH"
       : has(declared.bottom) ? "MAX" : "MIN",
   };
 }

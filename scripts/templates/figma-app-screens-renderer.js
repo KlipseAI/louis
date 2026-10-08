@@ -693,6 +693,10 @@ if (P.head) {
   frame.itemSpacing = 0;
   frame.paddingTop = frame.paddingRight = frame.paddingBottom = frame.paddingLeft = 0;
   frame.resize(P.frameSize[0], P.frameSize[1]);
+  // **보드 틀의 크기 한계를 걷는다(2026-10-08, 조립 규칙 15조의 2).** 손 조립 시절의 틀(랜딩 · 약관 둘)에 최소 · 최대 폭(960 · 1920, 모바일
+  // 402)이 남아 있어 보드를 2560 · 430 으로 넓혀도 틀이 1920 · 402 에 멈췄다(늘림 시험). 틀 크기는 이 러너가 정하고, 늘리고 줄이는 것은
+  // 보는 사람의 몫이다.
+  for (const key of ["minWidth", "maxWidth", "minHeight", "maxHeight"]) { try { frame[key] = null; } catch (error) {} }
   if (legacy) legacy.layoutPositioning = "ABSOLUTE";
   await preloadVariants(P.head);
   const root = buildNode(P.head, frame);

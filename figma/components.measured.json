@@ -4474,6 +4474,54 @@
           "$actionsPaddingBlockStart": "space-control-xs 4. 행동 줄 위 — 상세 간격 12 에 더해 16 이 된다(제품 `pt-2`)."
         }
       }
+    },
+    "text-link": {
+      "$doc": "design/components/text-link.md",
+      "$source": "packages/css/src/component/text-link.css",
+      "$note": "글자 링크(2026-10-07 레시피, 2026-10-08 Figma). 값은 브라우저 실측이 아니라 **레시피 선언**이다 — React 표면이 없어 component-geometry 브라우저 시험이 이 칸을 되재지 않고, 대신 verify-recipe-record 가 밑줄 간격과 잉크 이름을 레시피와 대조한다(record-card · choice-card 와 같은 처지다). 출처는 제품 작업 브랜치 feat/admin-ops-review 의 AdminSection.tsx@0b25d15a3:1118(USER_LINK) · PaymentManagement.tsx@0b25d15a3:181(RECEIPT), feat/deck 의 DeckParts.tsx@918133166:37(BACK_LINK)이다. 글자 크기 · 폭은 담지 않는다 — 레시피가 글꼴을 쥐지 않고 소비처의 type 클래스가 준다.",
+      "$keyRule": "키가 `Underline/State` 다(hover · none × Default · Hover). 밑줄의 유무를 가르는 축은 그 둘뿐이다 — `Tone`(default · inherit)은 잉크만 바꿔 같은 키에 모이고, 잉크는 이름 계약이라 verify-recipe-record 의 surfaces 가 본다. `textDecoration` 은 Figma 어휘 그대로 적는다(`UNDERLINE:2` = 밑줄 + 간격 2, `NONE`) — CSS 는 `text-decoration-line: underline` 과 `text-underline-offset` 두 선언으로 적는 것을 되읽기가 한 문자열로 접는다.",
+      "sizes": {
+        "hover/Default": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 글자 링크는 여백이 없다 — 레시피 `padding: 0`(버튼일 때 UA 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다.",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "underlineOffset": 2,
+          "$underlineOffset": "space-underline-gap 2. 밑줄과 글자 사이, 레시피 `text-underline-offset`(제품 `underline-offset-2`). 밑줄이 서는 칸은 Figma `textDecorationOffset` 2px 이고 verify-recipe-record 가 레시피 선언과 이 수를 맞댄다.",
+          "textDecoration": "NONE",
+          "$textDecoration": "NONE. 평소에는 밑줄이 없다 — 레시피 `.louis-text-link { text-decoration: none }`."
+        },
+        "hover/Hover": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 글자 링크는 여백이 없다 — 레시피 `padding: 0`(버튼일 때 UA 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다.",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "underlineOffset": 2,
+          "$underlineOffset": "space-underline-gap 2. 밑줄과 글자 사이, 레시피 `text-underline-offset`(제품 `underline-offset-2`). 밑줄이 서는 칸은 Figma `textDecorationOffset` 2px 이고 verify-recipe-record 가 레시피 선언과 이 수를 맞댄다.",
+          "textDecoration": "UNDERLINE:2",
+          "$textDecoration": "UNDERLINE:2. 호버에 밑줄이 서고 간격은 위 underlineOffset 2 다 — 레시피 `@media (hover: hover) { .louis-text-link:hover { text-decoration-line: underline } }`(DS-D-0077)."
+        },
+        "none/Default": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 글자 링크는 여백이 없다 — 레시피 `padding: 0`(버튼일 때 UA 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다.",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "underlineOffset": 2,
+          "$underlineOffset": "space-underline-gap 2. 밑줄과 글자 사이, 레시피 `text-underline-offset`(제품 `underline-offset-2`). 밑줄이 서는 칸은 Figma `textDecorationOffset` 2px 이고 verify-recipe-record 가 레시피 선언과 이 수를 맞댄다.",
+          "textDecoration": "NONE",
+          "$textDecoration": "NONE. 평소에는 밑줄이 없다(위와 같다)."
+        },
+        "none/Hover": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 글자 링크는 여백이 없다 — 레시피 `padding: 0`(버튼일 때 UA 여백을 지운다, 제품 `p-0`). 면도 테두리도 없다.",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "underlineOffset": 2,
+          "$underlineOffset": "space-underline-gap 2. 밑줄과 글자 사이, 레시피 `text-underline-offset`(제품 `underline-offset-2`). 밑줄이 서는 칸은 Figma `textDecorationOffset` 2px 이고 verify-recipe-record 가 레시피 선언과 이 수를 맞댄다.",
+          "textDecoration": "NONE",
+          "$textDecoration": "NONE. 밑줄 없는 이동 링크는 호버에도 밑줄이 없고 색만 바뀐다 — 레시피 `.louis-text-link[data-underline=\"none\"]:hover { text-decoration-line: none }`. 이 갈래를 남길지는 소유자 판정이다(text-link.md Known deviations)."
+        }
+      }
     }
   },
   "$noProductRender": {

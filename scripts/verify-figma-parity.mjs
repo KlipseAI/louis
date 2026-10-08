@@ -1665,6 +1665,57 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "text-link",
+    figmaName: "TextLink",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/text-link.css 의 .louis-text-link 가 정본이다(2026-10-07). 제품 작업 브랜치 feat/admin-ops-review 의 USER_LINK · RECEIPT 와 feat/deck 의 BACK_LINK 가 출처다.",
+    variantProperties: {},
+    // **선도 효과도 없다.** 글자 링크는 면 · 테두리 · 여백이 없는 한 줄의 글자다(레시피 `border: 0` · `background: transparent`).
+    // 밑줄은 테두리가 아니라 글자 꾸밈이라 `Label` 의 textDecoration 으로 잰다(아래 기하).
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Tone: {
+        options: ["default", "inherit"],
+        reason:
+          "CSS `data-tone` 을 옮긴 축(figma-component-authoring.md §2 Tone — CSS 속성값을 그대로 옮기는 자리는 그 철자). 없음 = fg-secondary → 호버 fg-primary 라 기본 갈래 이름 `default` 로, `inherit` = 주변 잉크를 물려받아 호버에 밑줄만 선다(USER_LINK). Figma 는 상속을 그릴 수 없어 표 몸 칸의 잉크 fg-primary 로 대신 그린다 — 다른 자리에서는 인스턴스의 글자 색을 그 자리 잉크로 바꾼다.",
+      },
+      Underline: {
+        options: ["hover", "none"],
+        reason:
+          "CSS `data-underline` 을 옮긴 축(figma-component-authoring.md §2 Underline). 없음 = 호버에 밑줄이 서서 `hover`, `none` = 밑줄 없이 색만 바뀌는 이동 링크(BACK_LINK)다. 계속 보이는 글자의 꾸밈이 바뀌므로 BOOLEAN 이 아니다(시험 1). `inherit × none` 은 호버가 아무것도 바꾸지 않아(색도 밑줄도 그대로) 세우지 않았다 — set 이 희소하다. `none` 을 남길지는 소유자 판정이다(text-link.md Known deviations).",
+      },
+      State: {
+        options: ["Default", "Hover"],
+        reason:
+          "상호작용 상태. Hover 는 `@media (hover: hover)` 안에서만 걸린다(DS-D-0077). 레시피에 Disabled 선언이 없고 Focus 는 그리지 않는다(DS-D-0074).",
+      },
+    },
+    // **TEXT 속성이 없다.** 글자는 인스턴스에서 Label 레이어를 바로 고친다 — TEXT 속성을 걸면 Figma 가 글자 꾸밈(밑줄)을
+    // 속성 값과 함께 전 변형에 맞춰 Hover 만의 밑줄을 그릴 수 없었다(2026-10-08 실측: 한 변형에 밑줄을 걸자 여섯이 다 섰고,
+    // 속성을 다시 걸자 다 지워졌다).
+    geometry: {
+      // **네 칸을 다 건다.** 기록의 값은 레시피 선언이고 verify-recipe-record 가 맞댄다 — React 표면이 없어 브라우저 시험이
+      // 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`).
+      measuredId: "text-link",
+      sizeKeys: ["hover/Default", "hover/Hover", "none/Default", "none/Hover"],
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        itemSpacing: { literal: 0 },
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 밑줄의 유무와 간격. 글자 크기는 재지 않는다 — 레시피가 글꼴을 쥐지 않는다.
+        Label: { fields: { textDecoration: "textDecoration" } },
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:

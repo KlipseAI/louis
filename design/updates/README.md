@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (221) — Figma 새 세트: Text Link(글자 링크)
+
+- **`TextLink`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(PillTrigger 아래, 6 변형). 축은 `Tone`(default · inherit,
+  CSS `data-tone`) · `Underline`(hover · none, CSS `data-underline`) · `State`(Default · Hover)다. 변형은 면 · 테두리 · 여백이 없는
+  한 줄의 글자(`Label`, 텍스트 스타일 `typography/body-sm-regular`)이고, `Underline=hover` 의 Hover 칸만 밑줄(간격 2 =
+  `space-underline-gap`)이 선다. 잉크는 default 가 `fg-secondary` → 호버 `fg-primary`, inherit 은 두 칸 모두 `fg-primary` 다.
+- **`inherit × none` 은 세우지 않았다** — 호버가 색도 밑줄도 바꾸지 않아 그릴 것이 없다(set 이 희소하다). inherit 은 주변 잉크를
+  물려받는다는 뜻이라 Figma 는 표 몸 칸의 잉크 `fg-primary` 로 대신 그린다. 글꼴은 레시피가 쥐지 않으므로 body-sm-regular 는
+  표 칸 자리의 대표이고, 소비처의 type 클래스대로 인스턴스의 텍스트 스타일을 바꾼다.
+- **TEXT 속성을 두지 않았다.** TEXT 속성을 걸면 Figma 가 글자 꾸밈(밑줄)을 속성 값과 함께 전 변형에 맞춰 Hover 만의 밑줄을 그릴
+  수 없었다(실측 — 한 변형에 밑줄을 걸자 여섯 변형에 다 섰다). 글자는 인스턴스에서 `Label` 레이어를 바로 고친다.
+- **축 어휘를 넓혔다**(figma-component-authoring.md §2) — `Tone` 에 CSS `data-tone` 철자를 옮기는 자리(`default` · `inherit`)를
+  적고, 새 축 `Underline`(`hover` · `none`)을 열었다.
+- 되읽기에 글자 꾸밈 칸 `textDecoration`(`UNDERLINE:2` · `NONE`)을 열었다(figma-readback-emit). parity 계약(축 · 여백 · 밑줄 네 칸
+  `hover/Default` · `hover/Hover` · `none/Default` · `none/Hover`)과 채취 명세를 더하고 되읽기를 세션 기록에서 꺼내 병합했다
+  (6 변형 · 바인딩 fill 6 · 원시 0 · 텍스트 스타일 6). 기록 `figma/components.measured.json` 에 `text-link` 를 세웠고 값은 레시피
+  선언이다 — `verify-recipe-record` 에 한 항목(밑줄 간격 대조 4건 · 잉크 이름 둘)을 더했다.
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음). **소유자 판정은 그대로 남는다** — BACK_LINK 의 밑줄
+  없음(`Underline=none`)을 남길지(text-link.md Known deviations). 걷어내면 `Underline` 축 하나가 없어진다.
+
 ## 2026-10-08 (220) — Figma 새 세트: Record Card(어드민 기록 카드)
 
 - **`RecordCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(VideoPlayer 아래, 8 변형). 축은 `Layout`(base · raised,

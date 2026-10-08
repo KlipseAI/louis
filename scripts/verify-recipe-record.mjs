@@ -395,6 +395,27 @@ const RECIPES = [
       [".louis-record-card__detail", "var(--louis-hairline-inset-block-start)"],
     ],
   },
+  // ── 글자 링크(2026-10-08) ─────────────────────────────────────────────────
+  //
+  // record-card 와 같은 처지다 — React 표면이 없어 이 표가 기록의 유일한 반대편이다. 밑줄 간격은 크기마다 다시 적지
+  // 않으므로 같은 선언을 네 칸과 맞댄다. 여백 0 은 `padding: 0` 이라 이 게이트가 수로 풀지 않는다(`<수>px` · `var()` 만
+  // 읽는다) — parity 계약이 리터럴로 본다. 호버 규칙은 `@media (hover: hover)` 안에 들여 써 있어 이 게이트의 규칙
+  // 찾기(줄 첫머리의 선택자)에 걸리지 않는다 — 호버 잉크 fg-primary 와 밑줄은 Figma 쪽 parity 의 textDecoration 이 본다.
+  {
+    component: "text-link",
+    recipe: "packages/css/src/component/text-link.css",
+    geometry: ["hover/Default", "hover/Hover", "none/Default", "none/Hover"].map((key) => [
+      ".louis-text-link",
+      "text-underline-offset",
+      key,
+      "underlineOffset",
+    ]),
+    // 평소 잉크는 이름이 계약이다 — 보조 글자 fg-secondary, 상속 갈래는 inherit.
+    surfaces: [
+      [".louis-text-link", "var(--louis-color-fg-secondary)"],
+      ['.louis-text-link[data-tone="inherit"]', "color: inherit"],
+    ],
+  },
 ];
 
 const errors = [];

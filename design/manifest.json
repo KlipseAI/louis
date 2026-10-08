@@ -2512,9 +2512,10 @@
       "id": "text-link",
       "name": "Text Link",
       "doc": "design/components/text-link.md",
-      "note": "문장이나 표 칸 안의 글자 링크 — 면도 여백도 없고 호버에만 밑줄이 선다. 제품 feat/admin-ops-review 의 USER_LINK(소비처 3) · RECEIPT 와 feat/deck 의 BACK_LINK(블로그 · 템플릿 상세 포함 3)가 같은 뼈대의 조합이다. 2026-10-07 CSS 레시피 `.louis-text-link` 가 섰다(`data-tone=\"inherit\"` 색 상속, `data-underline=\"none\"` 밑줄 없는 이동 링크). 글꼴은 쥐지 않는다. 포커스 링은 그리지 않아 호버 밑줄이 유일한 시각 단서다. 소비처가 이 클래스를 물지 않고 브라우저 시험 · Figma 변형이 없다. 판정 필요: BACK_LINK 의 밑줄 없음을 남길지.",
+      "note": "문장이나 표 칸 안의 글자 링크 — 면도 여백도 없고 호버에만 밑줄이 선다. 제품 feat/admin-ops-review 의 USER_LINK(소비처 3) · RECEIPT 와 feat/deck 의 BACK_LINK(블로그 · 템플릿 상세 포함 3)가 같은 뼈대의 조합이다. 2026-10-07 CSS 레시피 `.louis-text-link` 가 섰다(`data-tone=\"inherit\"` 색 상속, `data-underline=\"none\"` 밑줄 없는 이동 링크). 글꼴은 쥐지 않는다. 포커스 링은 그리지 않아 호버 밑줄이 유일한 시각 단서다. 소비처가 이 클래스를 물지 않고 브라우저 시험이 없다. Figma 는 2026-10-08 에 component set TextLink(6 변형 — Tone default · inherit × Underline hover · none × State Default · Hover, inherit × none 은 세우지 않음)가 섰고 되읽기 등재 + parity 계약(축 · 여백 · 밑줄 네 칸)이 있다. 기록은 레시피 선언이고 verify-recipe-record 가 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 판정 필요: BACK_LINK 의 밑줄 없음을 남길지.",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
+      "figmaName": "TextLink",
       "web": "not-ready",
       "docs": "partial"
     },

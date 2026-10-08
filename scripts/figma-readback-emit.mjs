@@ -269,6 +269,9 @@ const CAPTURE = {
   // `self` effect 는 줄(base)의 아래 헤어라인(-0.5)과 면 카드(raised)의 사방 헤어라인(0.5)이고, `Detail` effect 는 상세 위
   // 헤어라인(+0.5)이다. 그 둘이 렌더되도록 루트(base) · Detail 에 불투명도 0 의 운반 fill 이 있다 — 되읽기는 그 fill 을 세지 않는다.
   "RecordCard": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Head":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"Top":["itemSpacing"],"Meta":["itemSpacing"],"Title":["fontSize"],"Note":["fontSize"],"Sub":["itemSpacing","counterAxisSpacing"],"SubItem":["fontSize"],"Chevron":["width","height"],"Detail":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"Grid":["gridColumnGap","gridRowGap","layoutMode"],"Label":["fontSize"],"Value":["fontSize"],"Actions":["itemSpacing","paddingBlock","primaryAxisAlignItems"]},"effects":["self","Detail"]},
+  // 글자 링크(2026-10-08). 키가 `Underline/State` 인 것은 그 두 축만 밑줄의 유무를 가르기 때문이다 — `Tone` 은 잉크만
+  // 바꾸고(같은 키에 모인다) 잉크 바인딩은 되읽기가 세지 않는다. 글자 크기 · 폭은 담지 않는다 — 레시피가 글꼴을 쥐지 않는다.
+  "TextLink": {"key":{"by":["Underline","State"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode","strokeWeight"],"parts":{"Label":["textDecoration"]}},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"]}},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},
@@ -481,6 +484,13 @@ const rootField = (node, field) => {
 
 const partField = (node, field) => {
   if (field === "fontSize") return num(node.fontSize);
+  // 글자 꾸밈(2026-10-08 TextLink). 밑줄은 호버 한 칸에만 서서 그 유무와 간격이 계약 그 자체다. 간격은 꾸밈이
+  // 있을 때만 값이 있어(없으면 null) 한 문자열로 접는다 — UNDERLINE:2 · NONE.
+  if (field === "textDecoration") {
+    if (typeof node.textDecoration !== "string") return undefined;
+    const off = node.textDecorationOffset;
+    return off && off.unit === "PIXELS" && node.textDecoration !== "NONE" ? node.textDecoration + ":" + num(off.value) : node.textDecoration;
+  }
   if (field === "fontStyle") return node.fontName && node.fontName.style;
   if (field === "lineHeightPercent") {
     const lh = node.lineHeight;

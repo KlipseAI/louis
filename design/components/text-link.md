@@ -18,7 +18,7 @@ LOUIS 레시피는 `packages/css/src/component/text-link.css`(2026-10-07)다. Re
 | Surface       | 상태           | 근거                                                                          |
 | ------------- | -------------- | ----------------------------------------------------------------------------- |
 | Web           | `not-ready`    | `packages/css/src/component/text-link.css` 레시피는 있다. 제품 세 곳은 아직 자기 상수로 그린다 — 소비 증거도 브라우저 시험도 없다 |
-| Figma         | `not-ready`    | **Figma 변형은 아직 없다**                                                    |
+| Figma         | `partial`      | component set `TextLink`(DS · Components 「1 · 액션」, 2026-10-08, 6 변형). 되읽기 등재 + parity 계약(축 · 여백 · 밑줄 네 칸)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial`      | 이 문서 — States · Content · Acceptance tests 절이 아직 없다 |
 | Maturity      | `experimental` | 소비처가 이 클래스를 물면 승격을 다시 판정한다                                |
 
@@ -67,6 +67,24 @@ LOUIS 레시피는 `packages/css/src/component/text-link.css`(2026-10-07)다. Re
 | 전환 | color | `motion-control-hover` |
 | 버튼일 때 | 면 · 테두리 · 여백 0 | 제품 `p-0 bg-transparent` |
 
+## Figma
+
+component set `TextLink`(2026-10-08, DS · Components 「1 · 액션」). 축은 CSS 속성을 같은 철자로 옮긴다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Tone` | `default` · `inherit` | `data-tone` 없음 · `"inherit"` |
+| `Underline` | `hover` · `none` | `data-underline` 없음 · `"none"` |
+| `State` | `Default` · `Hover` | 평소 · `:hover`(`@media (hover: hover)` 안) |
+
+- 6 변형이다 — `inherit × none` 은 호버가 아무것도 바꾸지 않아 세우지 않았다.
+- `Label` 하나가 전부다. 면 · 테두리 · 여백 0, 텍스트 스타일 `typography/body-sm-regular`(표 칸 자리의 대표 — 글꼴은 소비처가
+  준다), `Underline=hover` 의 Hover 칸만 밑줄(`textDecorationOffset` 2 = `space-underline-gap`).
+- `inherit` 은 Figma 가 상속을 그릴 수 없어 표 몸 칸의 잉크 `fg-primary` 로 대신 그린다. 다른 자리에서는 인스턴스의 글자 색을 그
+  자리 잉크로 바꾼다.
+- **TEXT 속성이 없다.** TEXT 속성을 걸면 Figma 가 밑줄을 속성 값과 함께 전 변형에 맞춰 Hover 만의 밑줄을 그릴 수 없었다
+  (2026-10-08 실측). 글자는 인스턴스에서 `Label` 레이어를 바로 고친다 — 레이어 이름이 같아 변형을 바꿔도 고친 글자는 남는다.
+
 ## Accessibility
 
 - **포커스 링을 그리지 않는다(DS-D-0074).** 제품 세 곳이 붙이던 `louis-focus-ring` 은 base.css 규칙으로 흡수돼 없어졌다.
@@ -83,7 +101,7 @@ LOUIS 레시피는 `packages/css/src/component/text-link.css`(2026-10-07)다. Re
   열어 두었고, 이 축을 남길지는 소유자 판정이다.
 - **영수증이 다른 제품 파일에서는 파란 밑줄이다.** `origin/dev` 의 `RECEIPT` 는 `primary-400` + 항상 밑줄(라이트
   `primary-600`)이고 `feat/admin-ops-review` 가 이것을 이 모양으로 바꿨다 — 후자가 합쳐지면 정본이 된다.
-- **소비처가 이 클래스를 물지 않는다.** 브라우저 시험과 Figma 변형이 없다.
+- **소비처가 이 클래스를 물지 않는다.** 브라우저 시험이 없다.
 
 ## 출처
 

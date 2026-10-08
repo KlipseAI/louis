@@ -1964,6 +1964,821 @@
         }
       ],
       "boardInstances": 2
+    },
+    {
+      "setName": "Product/Canvas Text Node",
+      "about": "캔버스 텍스트 노드 카드(node-canvas-v2/nodes/TextNode.tsx — 머리 · 생성된 프롬프트 결과 · 요청 프롬프트 셸 · 좌우 연결 버튼). 측정은 생성이 끝난 LLM 프롬프트 모드이고 캔버스 줌 0.815 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0",
+          "componentId": "2949:3617",
+          "frameSize": [
+            326.08,
+            481.79
+          ],
+          "signature": {
+            "texts": [
+              "AI image prompt",
+              "Placeholder generated prompt paragraph.",
+              "39 chars",
+              "29 chars",
+              "Placeholder request sentence.",
+              "Image",
+              "Video",
+              "Regenerate"
+            ],
+            "structure": [
+              8
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 70,
+            "unresolved": [],
+            "sizingReconciled": 5,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0",
+                "margin": [
+                  6.5216,
+                  5.3168,
+                  0,
+                  5.3168
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.5.0.0.2",
+                "margin": [
+                  6.5216,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.5.0.0.2.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  127.0955
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0"
+                ],
+                "gap": 3.26,
+                "overlap": -4.8912
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-text-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 1
+    },
+    {
+      "setName": "Product/Canvas Image Node",
+      "about": "캔버스 이미지 노드 카드(node-canvas-v2/nodes/ImageNode.tsx — 머리 · 결과 이미지 · 연결된 프롬프트 상태 · 모델 · 비율 · 품질 · Regenerate). 측정은 생성이 끝난 상태이고 캔버스 줌 0.815 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1",
+          "componentId": "2949:3619",
+          "frameSize": [
+            326.08,
+            441.03
+          ],
+          "signature": {
+            "texts": [
+              "Image",
+              "AI image prompt connected",
+              "GPT Image 2.5 Flare",
+              "1:1",
+              "High",
+              "Regenerate"
+            ],
+            "structure": [
+              6
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 65,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  188.9876
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1",
+                "margin": [
+                  6.5216,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0.5.0.0.1.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  6.5216
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0"
+                ],
+                "gap": 3.26,
+                "overlap": -4.8912
+              }
+            ],
+            "unmappedImages": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.1.0.4.0.0",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  323,
+                  323
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-image-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 1
+    },
+    {
+      "setName": "Product/Canvas Video Node",
+      "about": "캔버스 비디오 노드 카드(node-canvas-v2/nodes/VideoNode.tsx — 머리 · 빈 결과 자리 · 연결 이미지 줄 · 프롬프트 · 모델 · 길이 · 비율 · 해상도 · 생성 알약). 측정은 생성 전 상태이고 캔버스 줌 0.815 배다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2",
+          "componentId": "2949:3621",
+          "frameSize": [
+            326.08,
+            772
+          ],
+          "signature": {
+            "texts": [
+              "Video",
+              "Your generated video will appear here.",
+              "0 chars",
+              "Describe the video you want to create.",
+              "Seedance 2.0 Mini",
+              "8s",
+              "9:16",
+              "1080p",
+              "2250"
+            ],
+            "structure": [
+              9
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 96,
+            "unresolved": [],
+            "sizingReconciled": 4,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.0",
+                "margin": [
+                  0,
+                  0,
+                  6.5216,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3",
+                "margin": [
+                  6.5216,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1",
+                "margin": [
+                  0,
+                  0,
+                  0,
+                  6.5216
+                ]
+              }
+            ],
+            "negativeGapsPaired": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0~pair",
+                "pair": [
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.0",
+                  "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0"
+                ],
+                "gap": 3.26,
+                "overlap": -4.8912
+              }
+            ],
+            "unmappedImages": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.0.0.0.0.0",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  26,
+                  26
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-video-node-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 1
+    },
+    {
+      "setName": "Product/Project Header",
+      "about": "캔버스 상단 프로젝트 머리(scenes/create/ProjectHeader.tsx — 진행형 블러 띠 · 뒤로 · 구분선 · 프로젝트 이름 · 저장 · 프로필). 줌을 타지 않는 크롬이라 두 뷰포트다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.0",
+          "componentId": "2949:3623",
+          "frameSize": [
+            1920,
+            48
+          ],
+          "signature": {
+            "texts": [
+              "Fixture canvas project"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 20,
+            "unresolved": [],
+            "sizingReconciled": 4
+          },
+          "runner": "figma/product-parts.project-header-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/nodecanvas?project=",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.0.0",
+          "componentId": "2949:3624",
+          "frameSize": [
+            402,
+            48
+          ],
+          "signature": {
+            "texts": [
+              "Fixture canvas project"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 20,
+            "unresolved": [],
+            "sizingReconciled": 4
+          },
+          "runner": "figma/product-parts.project-header-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 2
+    },
+    {
+      "setName": "Product/Node Target Button",
+      "about": "노드 좌우의 채널 연결 버튼(node-canvas-v2/nodes/NodeSideButtons.tsx TargetButton). Input 은 텍스트 노드 왼쪽의 잠긴 입력(생성 뒤 수정 불가), Output 은 오른쪽 출력 핸들이다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Side=Input, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.2.0.0",
+          "componentId": "2949:3626",
+          "frameSize": [
+            22.83,
+            22.83
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 4,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-target-button-side-input-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Side=Output, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.3.0",
+          "componentId": "2949:3627",
+          "frameSize": [
+            22.83,
+            22.83
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 3,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-target-button-side-output-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Canvas Toolbar",
+      "about": "캔버스 하단 플로팅 툴바 알약(node-canvas-v2/components/Toolbar.tsx — 이동 · 손 도구 · 구분선 · 노드 추가 여섯 · 도움말). 줌을 타지 않는 크롬이라 두 뷰포트다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.2",
+          "componentId": "2949:3629",
+          "frameSize": [
+            349,
+            40
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 34,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.2.0.3",
+                "margin": [
+                  0,
+                  2,
+                  0,
+                  2
+                ]
+              }
+            ],
+            "unmappedMasks": [
+              {
+                "path": "body.1.0.0.0.7.0.0.2.0.4.0.0.0",
+                "mask": "/icons/text.svg",
+                "rect": [
+                  20,
+                  20
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-toolbar-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/nodecanvas?project=",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.0.7.0.0.2",
+          "componentId": "2949:3630",
+          "frameSize": [
+            349,
+            40
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 34,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "marginWrapped": [
+              {
+                "path": "body.1.0.0.0.7.0.0.2.0.3",
+                "margin": [
+                  0,
+                  2,
+                  0,
+                  2
+                ]
+              }
+            ],
+            "unmappedMasks": [
+              {
+                "path": "body.1.0.0.0.7.0.0.2.0.4.0.0.0",
+                "mask": "/icons/text.svg",
+                "rect": [
+                  20,
+                  20
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.canvas-toolbar-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Node Header Actions",
+      "about": "노드 머리 우측 아이콘 버튼 묶음(node-canvas-v2/components/NodeHeaderActions.tsx — 도움말 · 다운로드 · 삭제). 결과가 있는 이미지 · 비디오 노드는 셋, 텍스트 노드는 다운로드가 없어 둘이다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Buttons=3, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.1.0.0.1.0",
+          "componentId": "2949:3632",
+          "frameSize": [
+            78.26,
+            26.09
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 10,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-header-actions-buttons-3-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "Buttons=2, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0.1.0",
+          "componentId": "2949:3633",
+          "frameSize": [
+            52.17,
+            26.09
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 7,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-header-actions-buttons-2-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Node Generate Button",
+      "about": "노드 프롬프트의 생성 알약(node-canvas-v2/components/NodePromptGenerateButton.tsx — 그라디언트 면 · 별 아이콘 · 크레딧). Generate 는 생성 전 비디오 노드(크레딧 후행), Regenerate 는 생성이 끝난 텍스트 · 이미지 노드다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "State=Generate, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.3.0.1.0.0",
+          "componentId": "2949:3635",
+          "frameSize": [
+            52.64,
+            26.09
+          ],
+          "signature": {
+            "texts": [
+              "2250"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-generate-button-state-generate-viewport-desktop.00.draw.js"
+        },
+        {
+          "variant": "State=Regenerate, Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.5.0.0.2.1.0",
+          "componentId": "2949:3636",
+          "frameSize": [
+            84.39,
+            26.09
+          ],
+          "signature": {
+            "texts": [
+              "Regenerate"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-generate-button-state-regenerate-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Node Prompt Copy Button",
+      "about": "프롬프트 입력 복사 버튼(node-canvas-v2/components/NodePromptInputCopyButton.tsx — 정사각 · 복사 글리프, 성공 뒤 체크로 바뀐다). 측정은 쉼 상태다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4.0.0.1.0",
+          "componentId": "2949:3638",
+          "frameSize": [
+            22.83,
+            22.83
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-prompt-copy-button-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Node Title Label",
+      "about": "노드 제목(node-canvas-v2/components/NodeTitleEditableLabel.tsx — 타입 글리프 · 말줄임 제목, 더블클릭하면 같은 자리에서 입력으로 바뀐다). 측정은 텍스트 노드의 읽기 상태다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.0.0",
+          "componentId": "2949:3640",
+          "frameSize": [
+            264.13,
+            19.56
+          ],
+          "signature": {
+            "texts": [
+              "AI image prompt"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.node-title-label-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Prompt Image Strip",
+      "about": "프롬프트에 연결된 입력 이미지 썸네일 줄(node-canvas-v2/components/PromptLinkedImageStrip.tsx — 정사각 썸네일 · 가로 스크롤). 측정은 비디오 노드의 연결 이미지 하나다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.0",
+          "componentId": "2949:3642",
+          "frameSize": [
+            296.74,
+            26.09
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 5,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "unmappedImages": [
+              {
+                "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.2.0.1.0.5.0.0.0.0.0.0.0",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  26,
+                  26
+                ]
+              }
+            ]
+          },
+          "runner": "figma/product-parts.prompt-image-strip-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/LLM Response Area",
+      "about": "텍스트 노드의 LLM 결과 영역(node-canvas-v2/nodes/TextNode.tsx LlmResponseArea — 생성된 프롬프트 편집 칸 · 복사 · 글자 수). 측정은 결과가 있는 갈래이고 생성 중 · 오류 · 변형 비교 갈래는 원장에 없다. 캔버스 줌 0.815 배.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/nodecanvas?project=",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.0.7.0.0.0.0.0.0.0.2.0.0.1.0.4",
+          "componentId": "2949:3644",
+          "frameSize": [
+            322.82,
+            316.3
+          ],
+          "signature": {
+            "texts": [
+              "Placeholder generated prompt paragraph.",
+              "39 chars"
+            ],
+            "structure": [
+              1,
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 12,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.llm-response-area-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
+    },
+    {
+      "setName": "Product/Mobile Timeline",
+      "about": "편집기 모바일 타임라인(node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx — 가운데 고정 재생헤드 · 흐르는 트랙 · 클립 필름 줄 · 길이 배지). 데스크톱은 다른 타임라인이라 모바일 하나다.",
+      "variants": [
+        {
+          "variant": "Viewport=Mobile",
+          "route": "/videoeditor/[projectId]",
+          "context": "mobile-402x874",
+          "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0",
+          "componentId": "2949:3646",
+          "frameSize": [
+            402,
+            472.84
+          ],
+          "signature": {
+            "texts": [
+              "5.0s"
+            ],
+            "structure": [
+              1
+            ]
+          },
+          "instances": [],
+          "stats": {
+            "kept": 15,
+            "unresolved": [],
+            "sizingReconciled": 0,
+            "unmappedImages": [
+              {
+                "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0.1.1.1.1.0.0.0",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  44,
+                  44
+                ]
+              },
+              {
+                "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0.1.1.1.1.0.0.1",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  44,
+                  44
+                ]
+              },
+              {
+                "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0.1.1.1.1.0.0.2",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  44,
+                  44
+                ]
+              },
+              {
+                "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0.1.1.1.1.0.0.3",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  44,
+                  44
+                ]
+              },
+              {
+                "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0.1.1.1.1.0.0.4",
+                "src": "data-sha256:0a3db79d805888c9",
+                "rect": [
+                  44,
+                  44
+                ]
+              }
+            ],
+            "stackingMoved": [
+              "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0"
+            ]
+          },
+          "runner": "figma/product-parts.mobile-timeline-viewport-mobile.00.draw.js"
+        }
+      ],
+      "boardInstances": 1
+    },
+    {
+      "setName": "Product/Sequence Ruler",
+      "about": "편집기 데스크톱 타임라인 눈금자(node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx PremiereSequenceRuler — ppRuler · ppRulerFace 의 보조 · 중간 눈금). 모바일은 다른 타임라인(Mobile Timeline)이라 데스크톱 하나다.",
+      "variants": [
+        {
+          "variant": "Viewport=Desktop",
+          "route": "/videoeditor/[projectId]",
+          "context": "desktop-1920x1080",
+          "path": "body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.1.0.0.0.1.1",
+          "componentId": "2949:3648",
+          "frameSize": [
+            1824,
+            40
+          ],
+          "signature": {
+            "texts": [],
+            "structure": []
+          },
+          "instances": [],
+          "stats": {
+            "kept": 167,
+            "unresolved": [],
+            "sizingReconciled": 0
+          },
+          "runner": "figma/product-parts.sequence-ruler-viewport-desktop.00.draw.js"
+        }
+      ],
+      "boardInstances": 0
     }
   ]
 }

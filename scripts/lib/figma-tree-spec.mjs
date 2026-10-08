@@ -957,10 +957,14 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
     const wrappedRows = layoutMode === "HORIZONTAL" && style.flexWrap === "wrap" && sizing.layoutSizingHorizontal === "HUG"
       && parent != null && !decision.absolute && wrapsIntoRows(children) && stacksChildren(parent.style ?? {});
     if (wrappedRows) stats.wrappedRows = (stats.wrappedRows ?? 0) + 1;
+    // **빈 자리 상자의 가로 FILL 은 남긴다(2026-10-08, 조립 규칙 15조의 4).** 빈 상자는 HUG 로 두면 0 으로 접혀 측정 크기(FIXED)로
+    // 남기는데, 가로까지 굳히자 랜딩의 스크롤 자리 상자(`height: 3040px` · 폭 선언 없는 block — 부모를 채운다)가 보드를 1920 → 1440 으로
+    // 줄여도 1920 에 남아 480 넘쳤다(늘림 시험, 모바일 402 → 360 은 42 · 공개 모바일 메뉴 판의 grid 칸 366 도 같다). 판정이 FILL 이면
+    // 가로는 FILL 로 둔다 — 측정 폭에서는 부모 안쪽 폭 = 측정 폭이라 자리 · 크기가 같다. 세로는 지금처럼 측정 높이(FIXED)다.
     const nodeSizing = floatingLine
       ? { ...sizing, layoutSizingHorizontal: "HUG", layoutSizingVertical: "HUG" }
       : placeholder
-        ? { ...sizing, layoutSizingHorizontal: "FIXED", layoutSizingVertical: "FIXED" }
+        ? { ...sizing, layoutSizingHorizontal: sizing.layoutSizingHorizontal === "FILL" ? "FILL" : "FIXED", layoutSizingVertical: "FIXED" }
         : wrappedRows
           ? { ...sizing, layoutSizingHorizontal: "FILL" }
           : sizing;
@@ -1142,17 +1146,31 @@ export function collapseWrappers(node, stats = null) {
  * `100dvh` 의 공통 결과). 그 축을 STRETCH 로 둔다. 측정 폭에서의 자리 · 크기는 바뀌지 않는다(제약은 부모가 커지거나 줄 때만
  * 일한다). 앱 사이드바(`top: 0; height: 100dvh`)는 세로만 늘어나고 가로는 왼쪽에 붙는다(계산값 right 1680). 겹침 뿌리(측정기
  * `overlays` — 팔레트 배경 · 연체 배너)는 선언이 비어도 계산값으로 같은 판정을 받는다.
+ *
+ * **포함 블록을 채우는 절대 배치도 그 축에서 늘어난다(2026-10-08, 15조의 2).** `position: absolute` 의 계산값 네 변도 쓰인 값 px 라,
+ * 양쪽이 0 이면 포함 블록을 끝에서 끝까지 채운 것이다(`inset-0` · `inset-x-0` · `left: 0; width: 100%`). 팔레트 배경(겹침 뿌리 안의
+ * `absolute` · 선언 없음)이 MIN 으로 서서 1440 에서 480, 랜딩 푸터의 페이드(`bottom: 100%` · 계산값 left · right 0)가 모바일 360 에서
+ * 42 넘쳤다. 다만 그 축의 크기를 고정 길이로 선언했으면(`width: 400px` 이 마침 부모 폭과 같은 경우) 늘어나지 않으므로 뺀다.
+ *
+ * **가운데에 둔 절대 배치는 CENTER 다(2026-10-08, 15조의 2).** `left: 50%`(또는 `top: 50%`)는 자기 왼쪽 변을 포함 블록 가운데에 두고,
+ * 흔히 `translate: -50%` 로 자기 가운데를 맞춘다. 어느 쪽이든 부모가 커지거나 줄 때 노드 가운데와 부모 가운데의 거리가 그대로다 — Figma
+ * 의 CENTER 가 그 뜻이다. MIN 으로 두면 부모를 줄여도 왼쪽 거리가 측정 폭의 절반에 묶인다. 측정 폭의 자리는 바뀌지 않는다.
  */
 export function constraintsFor(declared, computed = null) {
   const has = (value) => value != null && value !== "auto" && value !== "";
-  const fixed = computed?.position === "fixed";
+  const position = computed?.position;
   const zero = (value) => px(value) === 0;
-  const spans = (start, end) => fixed && zero(computed[start]) && zero(computed[end]);
+  const lengthDeclared = (value) => has(value) && px(String(value).replace(/\s*!\s*important\s*$/i, "")) != null;
+  const spans = (start, end, size) => (position === "fixed" || (position === "absolute" && !lengthDeclared(declared[size])))
+    && zero(computed[start]) && zero(computed[end]);
+  const centred = (value) => /^(calc\(\s*50%\s*\)|50%)$/.test(String(value ?? "").replace(/\s*!\s*important\s*$/i, "").trim());
   return {
-    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right") ? "STRETCH"
-      : has(declared.right) ? "MAX" : "MIN",
-    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom") ? "STRETCH"
-      : has(declared.bottom) ? "MAX" : "MIN",
+    horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") ? "STRETCH"
+      : centred(declared.left) || (centred(declared.right) && !has(declared.left)) ? "CENTER"
+        : has(declared.right) ? "MAX" : "MIN",
+    vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") ? "STRETCH"
+      : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) ? "CENTER"
+        : has(declared.bottom) ? "MAX" : "MIN",
   };
 }
 

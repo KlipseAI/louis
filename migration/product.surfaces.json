@@ -13,16 +13,16 @@
   "filesScanned": 360,
   "counts": {
     "total": 555,
-    "mapped": 82,
+    "mapped": 104,
     "scoped": 292,
-    "needed": 179,
+    "needed": 157,
     "unclear": 2,
     "unclassified": 0
   },
   "neededKinds": {
-    "primitive": 74,
+    "primitive": 57,
     "screen": 80,
-    "oneoff": 24,
+    "oneoff": 19,
     "unclear": 1,
     "kindless": 0
   },
@@ -42,12 +42,12 @@
       "file": "apps/web/app/(auth-brand)/login/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Figma 의 auth-two-panel 패턴은 셸까지만 계약한다 — requiredParts 의 폼 자리는 `Form (children)` 슬롯이고, 문서도 「로그인 전 인증 화면의 **껍데기**」라고 스스로 적는다. 그 슬롯을 채우는 실제 폼 벌 — 플로팅 라벨이 뜨는 입력 상자(idle/focus 가 border-color·box-shadow·z-index 를 함께 뒤집는다), 비밀번호 표시 토글과 지우기 버튼 — 은 51개 어디에도 없다. LOUIS TextField 와도 다른 벌이다. 이 폼 벌을 다섯 라우트가 각자 복제해 들고 있어서(auth-two-panel.md 가 이미 갈린 축을 표로 적어 두었다) 컨트롤 하나를 세우면 다섯이 동시에 수렴한다. 그중 소셜 로그인 버튼 행까지 가진 것은 이 화면이다. (2026-10-08 통합 판에서 app/login/page.tsx → app/(auth-brand)/login/page.tsx 로 옮겨졌을 뿐이라 판정을 옮겼다.)",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "표면 자체는 라우트 화면이지만 needed 사유가 되는 미충족분은 «하나의 컨트롤»이다 — 플로팅 라벨 입력 상자 + 표시토글 + 지우기. 실측: `git grep -ln 'absolute left-8'`·`showPassword` 로 login·signup·recover·reset-password·reset-password/new·aws/signup **6 파일이 각자 다시 적는다**(login 576줄, signup 724줄, recover 373, reset-password 252, reset-password/new 333, aws/signup 674). Figma auth-two-panel 은 껍데기까지만 계약하고 폼 자리는 `Form (children)` 슬롯이다. 지을 것은 화면이 아니라 이 필드 한 벌이고, 하나를 세우면 여섯이 수렴한다. 이 화면만 소셜 로그인 버튼 행을 더 갖는다."
+      "verdict": "figma",
+      "figma": "Product/Auth Floating Field",
+      "reason": "Figma 제품 세트 `Product/Auth Floating Field` 가 이 표면의 미충족분(플로팅 라벨 입력 상자 — 위 · 아래 · 단칸 × 포커스 · 쉼)이다 — 로그아웃 원장 `/login` body.1.0.0.1.0.2.0.0 · .0.1 등 측정 다섯 조합 × 두 뷰포트. 값이 있을 때만 서는 지우기 · 비밀번호 표시 토글은 측정에 없어 세트에 없다(값 입력 상태를 재면 State 축으로 받는다). 소셜 로그인 버튼 행은 LOUIS Button 몫이다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/(auth-brand)/reset-password/new/page.tsx#ResetPasswordNewPage": {
       "file": "apps/web/app/(auth-brand)/reset-password/new/page.tsx",
@@ -64,12 +64,12 @@
       "file": "apps/web/app/(auth-brand)/reset-password/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Figma 의 auth-two-panel 패턴은 셸까지만 계약한다 — requiredParts 의 폼 자리는 `Form (children)` 슬롯이고, 문서도 「로그인 전 인증 화면의 **껍데기**」라고 스스로 적는다. 그 슬롯을 채우는 실제 폼 벌 — 플로팅 라벨이 뜨는 입력 상자(idle/focus 가 border-color·box-shadow·z-index 를 함께 뒤집는다), 비밀번호 표시 토글과 지우기 버튼 — 은 51개 어디에도 없다. LOUIS TextField 와도 다른 벌이다. 공용 AuthStatusCard 를 셸로 쓰는 다섯 중 하나지만 폼 벌은 자기 파일에 다시 적는다 — 같은 입력 상자가 여기서 또 한 벌이다. (2026-10-08 통합 판에서 app/reset-password/page.tsx → app/(auth-brand)/reset-password/page.tsx 로 옮겨졌을 뿐이라 판정을 옮겼다.)",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "같은 인증 필드 벌의 최소 표본(252줄, 이메일 한 칸). 공용 AuthStatusCard 를 셸로 쓰면서도 필드는 자기 파일에 또 적는다 — 셸 공용화가 필드 복제를 막지 못했다는 증거다. 세울 것은 화면이 아니라 필드다."
+      "verdict": "figma",
+      "figma": "Product/Auth Floating Field",
+      "reason": "Figma 제품 세트 `Product/Auth Floating Field` 의 `Shape=Single, State=Idle` 이 이 화면의 입력 상자 그대로다 — 로그아웃 원장 `/reset-password` body.1.0.0.1.0.2.0.0(「Email」, 두 뷰포트). 이 화면은 이메일 단칸 하나라 표시 토글이 없다. 지우기 버튼은 값이 있을 때만 서서 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/(auth-brand)/signup/check-email/page.tsx#SignupCheckEmailPage": {
       "file": "apps/web/app/(auth-brand)/signup/check-email/page.tsx",
@@ -108,12 +108,12 @@
       "file": "apps/web/app/(auth-brand)/signup/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "Figma 의 auth-two-panel 패턴은 셸까지만 계약한다 — requiredParts 의 폼 자리는 `Form (children)` 슬롯이고, 문서도 「로그인 전 인증 화면의 **껍데기**」라고 스스로 적는다. 그 슬롯을 채우는 실제 폼 벌 — 플로팅 라벨이 뜨는 입력 상자(idle/focus 가 border-color·box-shadow·z-index 를 함께 뒤집는다), 비밀번호 표시 토글과 지우기 버튼 — 은 51개 어디에도 없다. LOUIS TextField 와도 다른 벌이다. 여기에 약관 동의 행과 SignupLegalModal 트리거가 더 붙는다. 724줄로 복제 셋 중 가장 크고, /login 과 카드 세로 간격(gap-7 vs gap-5)이 이미 갈려 있다. (2026-10-08 통합 판에서 app/signup/page.tsx → app/(auth-brand)/signup/page.tsx 로 옮겨졌을 뿐이라 판정을 옮겼다.)",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Checkbox (약관 동의 행 몫)] 같은 인증 필드 벌의 여섯 복제 중 가장 큰 것(724줄). 실측으로 비밀번호 토글이 둘(showPassword·showPasswordConfirm)이라 필드 컨트롤의 최대 변형을 갖는다. /login 과 카드 세로 간격이 이미 갈렸다고 원장이 적는다 — 컴포넌트가 없어 게이트가 조용한 드리프트다. 추가로 약관 동의 행이 붙지만 그건 Checkbox 로 접힌다."
+      "verdict": "figma",
+      "figma": "Product/Signup Legal Agreements",
+      "reason": "Figma 제품 세트 `Product/Signup Legal Agreements`(약관 동의 두 줄 — 체크박스 면 · 문구 · ghost View)와 `Product/Auth Floating Field`(Username 단칸 포커스 · Password 위 칸 쉼)가 이 표면의 미충족분이다 — 로그아웃 원장 `/signup` body.1.0.0.1.0.2.4 · .2.0 · .2.2.0(두 뷰포트). 체크된 면 · SignupLegalModal 열림 · 값이 있을 때의 토글은 측정에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/(auth-brand)/signup/verified/page.tsx#SignupVerifiedPage": {
       "file": "apps/web/app/(auth-brand)/signup/verified/page.tsx",
@@ -862,12 +862,12 @@
       "file": "apps/web/app/blog/[slug]/page.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "블로그 상세의 아티클 조판(뒤로가기 링크 · heading-36 제목 · body-20 부제 · 밑줄 메타 행 · 라운드 커버 · 구분선)을 이 화면만 갖고 있고 어느 컴포넌트도 덮지 않는다. 본문은 MarkdownContent, 댓글은 BlogComments 가 따로 소유하므로 남는 것은 이 헤더 조판이다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "실측: 이 파일과 `app/templates/[slug]/page.tsx` 가 BACK_LINK_CLASS · ARTICLE_WRAP_CLASS · ARTICLE_HEAD_CLASS · ARTICLE_TITLE_CLASS · ARTICLE_SUBTITLE_CLASS 를 **같은 이름의 상수 벌로 각자 복제**한다(둘 다 `grep -n 'const [A-Z_]* ='` 로 확인). 두 라우트에 같은 아티클 헤더 조판이 서 있다 — ArticleHeader(뒤로 링크 + heading-36 제목 + body-20 부제 + 메타 행 + 구분선)를 세우면 둘이 수렴한다. 본문은 MarkdownContent, 댓글은 BlogComments 가 따로 소유하므로 남는 건 헤더뿐이다."
+      "verdict": "figma",
+      "figma": "Product/Article Header",
+      "reason": "Figma 제품 세트 `Product/Article Header` 가 이 표면의 남는 시각(아티클 머리 조판 — heading-36 제목 · body-20 부제 · 밑줄 메타 행)이다 — 공개 시드 원장 `/blog/[slug]` body.1.0.0.2.0.0.1(데스크톱 · 모바일). 본문은 MarkdownContent, 뒤로가기는 LOUIS Button 몫이고, reason 의 커버와 구분선은 측정에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/blog/page.tsx#BlogPage": {
       "file": "apps/web/app/blog/page.tsx",
@@ -1076,12 +1076,12 @@
       "louis": [
         "louis-select"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "문의 폼 본문이다. 카테고리 칩(활성 시 불투명도가 갈리는 상호배타 분기) · 파일 드래그앤드롭 영역(드래그 중 테두리색 전환) · 등장/퇴장 애니메이션을 갖는 토스트를 소유한다. 안내 배너는 louis-alert 를 물지만 칩·드롭존·토스트 셋 다 51개에 없다. 드롭존과 토스트는 다른 업로드 화면에도 같은 것이 필요하므로 컴포넌트로 세울 값이 크다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Tabs (칩) · Toast · Alert (안내 배너)] 세 부분 중 둘은 이미 LOUIS 가 갖고 있다 — 카테고리 칩은 소스에서 `CATEGORY_CHIPS = \"louis-tabs …\"` 로 이미 louis-tabs 를 물고, 토스트는 51 의 Toast 로 접힌다. **남는 하나가 파일 드래그앤드롭 영역**이고 이건 실측 3 파일이다 — `git grep -ln 'dragOver\\|onDrop='` 가 inquiry · node-canvas-v2/nodes/VideoEditModal · videoEditParts/AssetPanel 을 준다. Dropzone(idle/dragover 테두리 전환)이 이 표면이 세울 것이다."
+      "verdict": "figma",
+      "figma": "Product/Attachment Dropzone",
+      "reason": "Figma 제품 세트 `Product/Attachment Dropzone` 이 이 표면의 남는 컨트롤(작성 그룹 겸 드롭존 — textarea · 첨부 툴바 · 카운터)이다 — 공개 원장 `/inquiry` body.1.0.0.2.0.0.1.1.0.2.1(데스크톱 · 모바일). 카테고리 칩은 louis-tabs, 토스트는 Toast 로 이미 접혔다. 측정은 idle 뿐이라 dragover 테두리와 썸네일 줄은 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/app/inquiry/page.tsx#InquiryPage": {
       "file": "apps/web/app/inquiry/page.tsx",
@@ -2462,12 +2462,12 @@
       "file": "apps/web/components/landing/system/ThemeSelector.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "랜딩 GNB 우측의 테마 순환 버튼(system → light → dark). Figma 에 자리가 없다는 것이 되읽기로 확인된다 — landing-shell 패턴의 `actionParts` 가 [\"Button\", \"LanguageSelector\"] 둘뿐이고 compactActionParts 도 [\"Hamburger\", \"LanguageSelector\"] 라 이 버튼이 빠져 있다. 조형은 IconButton 정본(32×32 · glyph 16 · radius 12)과도 어긋난다 — 높이 32에 좌우 8 패딩(폭 36) · 면 투명 · 글리프 20 · stroke 1.5 이고, 기하 정본을 LanguageSelector.tsx 의 TRIGGER/ICON 상수에서 가져온다. 글리프 3종(해·달·모니터)도 Figma 아이콘 31종에 없다. 마케팅 GNB 한 벌에만 서므로 낮게 잡는다.",
-      "weight": "low",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: icon-button] 실측: `<ThemeSelector` 렌더 자리 하나 — Gnb.tsx:947, 랜딩 GNB 우측 액션 열뿐이다. 본문은 47줄이고 자기 기하를 하나도 갖지 않는다 — TRIGGER·TRIGGER_COMPACT·ICON·ICON_COMPACT 를 LanguageSelector 에서 import 해 쓰고(그 파일이 「같은 크기·같은 두께여야 해서 값을 베끼는 대신 여기서 가져간다」고 명시), 아이콘은 앱 GNB 프로필 팝오버와 같은 ThemeIcons 다. 즉 이 표면 고유의 조형이 없다. 되풀이 0 + 고유 조형 0 이면 짓는 대상이 아니다. 남는 진짜 결손은 둘뿐이고 둘 다 컴포넌트가 아니다 — (1) IconButton 정본(32×32 · 글리프 16 · radius 12)과 이 버튼(높이 32 · 좌우 8 → 폭 36 · 면 투명 · 글리프 20 · stroke 1.5)의 기하 수렴, (2) 글리프 3종(해·달·모니터)이 Figma 아이콘 31종에 없다는 자산 결손. figma/templates.measured.json 의 landing-shell 계약을 직접 읽어 확인했다 — actionParts 에 이 버튼 자리가 없다."
+      "verdict": "figma",
+      "figma": "Product/Theme Cycle Button",
+      "reason": "Figma 제품 세트 `Product/Theme Cycle Button` 이 이 표면이다 — 공개 `/pricing` GNB 액션 열 body.1.0.0.1.0.3.1(데스크톱 · 모바일, 높이 32 · 폭 36 · 글리프 20). 측정은 현재 preference(light)의 글리프 하나라 system · dark 글리프는 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/landing/system/Wordmark.tsx#Wordmark": {
       "file": "apps/web/components/landing/system/Wordmark.tsx",
@@ -2756,12 +2756,12 @@
       "file": "apps/web/components/navigation/Gnb.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "일반 변형은 BrandLogo 를 그대로 통과시키지만 admin 변형이 Figma 에 없는 조합을 만든다 — 심볼만 남기는 클립 + 계산된 갭(28px 높이 기준) + klipse-admin-wordmark-black 자산을 이어 붙인 어드민 전용 브랜드 행이다. Figma SidebarBrand 는 Collapsed(false/true) 축뿐이라 이 벌을 담지 못하고, 어드민 보드가 이미 05 · 운영 페이지에 있으므로 범위 밖도 아니다. 자산 둘은 90·ASSETS 에 이미 있으니(logo/klipse-light · logo/klipse-admin-wordmark-black) SidebarBrand 에 Brand=klipse|admin 축을 더하는 변형으로 세우면 된다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: SidebarBrand (Brand 축 추가 필요)] import 실측은 Gnb 한 파일(로컬)이지만 Gnb 자체가 30 파일에 실리고, 그 안에서 admin 변형이 51 에 없는 조합을 만든다 — 심볼만 남기는 클립 + 28px 높이 기준 계산 갭 + klipse-admin-wordmark-black 을 이어 붙인 어드민 전용 브랜드 행. 51 의 SidebarBrand 는 Collapsed(false/true) 축뿐이라 담지 못한다. 자산 둘은 90·ASSETS 에 이미 있으므로 SidebarBrand 에 Brand=klipse|admin 축을 더하는 변형 작업이다 — 새로 짓는 게 아니다."
+      "verdict": "figma",
+      "figma": "Product/Admin Wordmark Logo",
+      "reason": "Figma 제품 세트 `Product/Admin Wordmark Logo` 가 이 표면이다 — 세션 원장 `/admin` 데스크톱 사이드바 body.1.0.0.0.0.0.0.0.0.0(심볼 클립 24×28 · 계산된 갭 · admin 워드마크 78×28). 모바일 `/admin` 은 사이드바가 닫힌 드로어라 데스크톱 하나다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/navigation/Gnb.tsx#PlanSparkleGlyph": {
       "file": "apps/web/components/navigation/Gnb.tsx",
@@ -3522,12 +3522,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 헤더 우측 아이콘 버튼 쌍(다운로드·삭제). 치수를 `--node-chrome-btn-h`/`-radius` 라는 노드 전용 축에서 받고 면은 투명·호버에서만 틴트(삭제는 붉은 틴트)라 IconButton 정본과 다른 계열이다. 노드 9종이 전부 이 쌍을 쓰므로 노드 컴포넌트의 공통 슬롯으로 세워야 한다.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: IconButton] 이 묶음에서 가장 강한 재사용 — JSX 실측 **9 노드 파일 전부**(Bgm·Edit·Image·Instagram·Section·Text·Tts·Video·Youtube). 치수를 `--node-chrome-btn-h`/`-radius` 노드 전용 축에서 받고 면은 투명·호버에서만 틴트(삭제는 붉은 틴트)라 IconButton 정본과 계열이 다르다. 노드 셸의 공통 슬롯으로 세우거나 IconButton 에 node-chrome 크기·틴트 축을 더해야 한다."
+      "verdict": "figma",
+      "figma": "Product/Node Header Actions",
+      "reason": "Figma 제품 세트 `Product/Node Header Actions` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 이미지 노드의 셋(도움말 · 다운로드 · 삭제, Buttons=3) · 텍스트 노드의 둘(Buttons=2). 호버 틴트(삭제는 붉은 틴트)는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx#NodeHelpAction": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx",
@@ -3599,23 +3599,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptGenerateButton.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 프롬프트의 생성 알약 — `--node-prompt-generate-gradient` 그라디언트 면 + inset 0 0 8 흰 오버레이 스트로크(mix-blend overlay) + 별 아이콘 + 크레딧 후행 슬롯 + 스피너 상태. Button 정본에 그라디언트/브랜드 변형이 없고 Image·Video·Text·Bgm·Tts 노드와 홈 CTA 가 모두 쓴다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: Button] JSX 실측 6 (Bgm·Image·Text·Tts·Video 노드 5 + **HighlightScene** — /highlight 라우트, 주석에 「캔버스 그대로 사용」)에, `creative-media/CreativeMediaClient.tsx:876` 이 「NodePromptGenerateButton 크롬·치수 복제」라 적고 **손으로 베낀** 자리가 하나 더 = 7. 공유물이 없어 복제된 직접 증거다. 그라디언트 면(`--node-prompt-generate-gradient`) + mix-blend overlay inset 스트로크 + 후행 크레딧 슬롯 + 스피너 상태는 Button 정본에 없는 축이다."
+      "verdict": "figma",
+      "figma": "Product/Node Generate Button",
+      "reason": "Figma 제품 세트 `Product/Node Generate Button` 이 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 비디오 노드의 생성 전 알약(State=Generate, 크레딧 후행) · 텍스트 노드의 Regenerate(State=Regenerate). 생성 중 · 비활성 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx#NodePromptInputCopyButton": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptInputCopyButton.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "프롬프트 입력 복사 버튼 — 28px 정사각에 복사→체크 글리프가 같은 grid 셀에서 교차 페이드하는 성공 상태를 갖는다. IconButton 정본에는 이 '성공 후 되돌아오는' 상태 축이 없고, 노드 4종이 같은 버튼을 쓴다. IconButton 에 Success 상태를 더하는 형태가 유력.",
-      "weight": "medium",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: IconButton] JSX 실측 5 노드 파일(Bgm·Image·Text×2·Tts·Video). 28px 정사각에서 복사→체크 글리프가 같은 grid 셀을 교차 페이드하는 「성공 후 되돌아오는」 일시 상태가 핵심인데 IconButton 정본에 그 상태 축이 없다. 새 컴포넌트보다 IconButton 에 Success(transient) 상태를 더하는 쪽."
+      "verdict": "figma",
+      "figma": "Product/Node Prompt Copy Button",
+      "reason": "Figma 제품 세트 `Product/Node Prompt Copy Button` 이 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 텍스트 노드 결과 칸의 복사 버튼(쉼). 복사 뒤 체크 글리프로 바뀌는 성공 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx#NodePromptResizeHandle": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodePromptResizeHandle.tsx",
@@ -3632,12 +3632,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/NodeTitleEditableLabel.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 제목 — 평소에는 말줄임 `<span>`, 더블클릭하면 같은 자리에서 `<input>` 으로 바뀌는 인라인 편집 라벨이고 우측에 더보기 슬롯을 단다. TextField 정본은 테두리 있는 폼 컨트롤이라 '읽기와 편집이 같은 무게로 보여야 한다'는 이 표면의 핵심 요구를 담지 못한다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 3 — EditNode · VideoNode · **VideoEditModal**(영상 편집기, 캔버스 밖 화면). 화면 계열이 둘이다. 평소 말줄임 span, 더블클릭하면 같은 자리에서 input 으로 바뀌는 인라인 편집 라벨이고 우측 더보기 슬롯을 단다. TextField 정본은 테두리 있는 폼 컨트롤이라 「읽기와 편집이 같은 무게로 보여야 한다」는 이 표면의 핵심 요구를 담지 못한다 — 새 부품이 맞다."
+      "verdict": "figma",
+      "figma": "Product/Node Title Label",
+      "reason": "Figma 제품 세트 `Product/Node Title Label` 이 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 텍스트 노드 머리의 제목(타입 글리프 · 말줄임 제목, 읽기 상태). 더블클릭 편집 입력 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/PageMetaDropdownPanel.tsx#PageMetaDropdownPanel": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/PageMetaDropdownPanel.tsx",
@@ -3709,12 +3709,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/PromptLinkedImageStrip.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "프롬프트에 연결된 입력 이미지 썸네일 가로 스트립(32×32 · radius 12 · 우측 페이드 · 가로 스크롤). 노드 여러 종의 프롬프트 셸이 공유하는 시각 단위이고 51종 어디에도 대응이 없다.",
-      "weight": "low",
-      "kind": "primitive",
-      "kindReason": "JSX 실측 3 (ImageNode·TextNode·VideoNode)에 EditNode 가 import 로 하나 더 — 노드 프롬프트 셸이 공유하는 시각 단위다. 32×32 · radius 12 · 우측 페이드 · 가로 스크롤의 썸네일 스트립이고 51종 어디에도 대응이 없다(MediaCard 는 카드, Avatar 는 원형이라 둘 다 아니다)."
+      "verdict": "figma",
+      "figma": "Product/Prompt Image Strip",
+      "reason": "Figma 제품 세트 `Product/Prompt Image Strip` 이 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 비디오 노드 프롬프트 셸의 연결 이미지 줄(썸네일 하나). 여러 장일 때의 가로 스크롤 · 우측 페이드는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx#PromptVariantCompareModal": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/PromptVariantCompareModal.tsx",
@@ -3747,12 +3747,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 하단 플로팅 툴바 알약 — 원장이 적은 세 항목(툴바 알약 · 그라디언트 구분선 · 도움말 점 뱃지)이 모두 여기 있다. gray-800/72% + blur 4 + `--louis-hairline-inset` 표면에 32px 버튼이 늘어서는 캔버스의 대표 컨트롤이고 정본이 없다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "JSX 1 (index.tsx) × 라우트 계열 2 (/create · 랜딩). 표면 `TOOLBAR_WRAP` 은 gray-800/72% + blur(4px) + `--louis-hairline-inset` 로 CanvasZoomControl·CommandPalette·NodeCanvasHomeScene·VideoEditScene 과 **같은 6 파일 집합**에 속하고, 파일 주석이 「상단 brand/actions shell 과 동일」이라 적어 뒀다. 게다가 `navigation/Gnb.tsx:2156` 이 이 툴바의 글리프를 손으로 베꼈다. 툴바 알약 · 그라디언트 구분선 · 도움말 점 뱃지 세 조각을 한 벌로 세울 자리."
+      "verdict": "figma",
+      "figma": "Product/Canvas Toolbar",
+      "reason": "Figma 제품 세트 `Product/Canvas Toolbar` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` body.1.0.0.0.7.0.0.2(툴바 알약 · 그라디언트 구분선 · 노드 추가 여섯 · 도움말, 데스크톱 · 모바일). 도움말 점 뱃지가 켜진 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx#YoutubeScheduleDatePopover": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/components/YoutubeSchedulePickers.tsx",
@@ -4533,12 +4533,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 이미지 노드는 결과 미디어 위 헤더(백드롭 톤 자동 전환)·프롬프트 셸·크레딧 오류 배너를 갖는다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "NODE_TYPES 등록 1 (index.tsx:839 `image: memo(ImageNode)`). 셸 공유는 같은 실측으로 보증된다 — 이 노드 하나가 NodeHeaderActions·NodePromptGenerateButton(3자리)·CopyButton·ResizeHandle·PromptLinkedImageStrip 을 전부 문다. 고유분은 결과 미디어 위 헤더의 백드롭 톤 자동 전환(useNodeHeaderMediaTone)과 크레딧 오류 배너다. 노드 9종 중 프롬프트 셸을 가장 온전히 쓰는 참조 구현이라 셸 정본의 기준으로 삼기 좋다."
+      "verdict": "figma",
+      "figma": "Product/Canvas Image Node",
+      "reason": "Figma 제품 세트 `Product/Canvas Image Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 .1(생성이 끝난 상태: 결과 이미지 · 연결된 프롬프트 상태 · 모델 · 비율 · 품질 · Regenerate). 생성 전 · 생성 중 · 오류 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx#ImagePlaceholder": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/ImageNode.tsx",
@@ -4588,12 +4588,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "노드 좌우의 채널 연결 버튼 — 채널 톤(image/text/youtube/instagram/edit/audio)별 면 + 연결 핸들 + 눌림/비활성/열림 상태 + 툴팁. Figma NodeChip 은 라벨+글리프의 사각 칩이라 이 원형 톤 버튼과 치수·구성이 다르다. 노드 9종 전부가 쓰는 핵심 조작 단위다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "reuse=라우트 실측 2 — NodeCanvasV2 는 /nodecanvas(CreateScene)와 랜딩 Overview(NodeMockupCard)에서 렌더된다. 화면 안 배수는 훨씬 크다: NodeSideButtons 를 import 하는 노드 모듈 3(ImageNode·TextNode·VideoNode)이고, TargetButton 은 그 파일 안에서 6곳(1353·1388·1424·1495·1558·1589)에 인스턴스화된다. 파일 지역 컴포넌트라 이름 grep 은 0 이지만 실제로는 캔버스의 원자 조작 단위다. 톤 6종·눌림/비활성/열림 상태를 갖는 컨트롤이라 보드 그림으로 표현이 안 된다."
+      "verdict": "figma",
+      "figma": "Product/Node Target Button",
+      "reason": "Figma 제품 세트 `Product/Node Target Button` 이 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 텍스트 노드의 잠긴 입력(Side=Input) · 출력 핸들(Side=Output). 채널 톤별 면 · 눌림 · 열림 상태와 툴팁은 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx#SectionNode": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx",
@@ -4610,23 +4610,23 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
       "binding": "local",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "텍스트 노드의 LLM 결과 영역이다. DS-D-0040 의 시험 ①에 걸린다 — 네 갈래가 자식의 «집합»을 서로 바꾼다: 생성 중(시머 면 + 64px 글리프 + 캡션) · 오류(LLM_ERROR 문단) · 변형 선택(LLM_VARIANT_CARD 를 variants.map 으로 «N개» 반복 + 스타일 배지 + 확장 글리프) · 결과(높이 자동확장 textarea + 복사/글자수 행). 그중 변형 카드는 본 상태에 없던 종류의 자식이고 개수가 데이터로 정해진다. 그 카드를 소유한 표면도 따로 없다 — PromptVariantCompareModal 은 카드가 아니라 2열 비교 본문이다. 부모 TextNode 의 State 축으로 접으면 그 축이 반복 목록을 통째로 갖게 되므로 별 표면이다. §2 의 1번(노드 카드 한 벌 + 타입 축)과 같은 삽에서 그린다.",
-      "weight": "high",
-      "kind": "oneoff",
-      "kindReason": "TextNode.tsx 파일 지역이고 인스턴스화 1회. 같은 모양이 다른 화면에 없다 — PromptVariantCompareModal 은 2열 비교 본문이라 다른 물건이다. 네 갈래(생성중 시머 · 오류 · 변형 선택 · 결과)는 부모 노드 카드의 State 축으로 접히고, 시머/빈/오류는 LOUIS skeleton·empty-state 영역이다. 다만 안의 LLM_VARIANT_CARD 는 variants.map 으로 N개 반복되므로 «그 카드»만 별도 primitive 후보다 — 영역 전체가 아니다."
+      "verdict": "figma",
+      "figma": "Product/LLM Response Area",
+      "reason": "Figma 제품 세트 `Product/LLM Response Area` 가 이 표면의 결과 갈래다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 텍스트 노드 .0.0.1.0.4(생성된 프롬프트 편집 칸 · 복사 · 글자 수). 생성 중(시머 · 글리프) · 오류 · 변형 비교 갈래는 원장에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx#TextNode": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TextNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 텍스트 노드는 순수 텍스트 모드와 LLM 프롬프트 모드 두 벌을 한 카드에서 전환한다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "reuse=2 라우트(/nodecanvas · 랜딩 Overview). 캔버스에 데이터 수만큼 반복되는 카드이고 원장이 「노드 타입 9종」이라 적은 한 벌의 하나. 다만 LOUIS 가 가져야 할 것은 TextNode 컴포넌트가 아니라 «노드 카드 한 벌 + 타입 축»이다 — 네 노드의 원장 사유 문장이 동일하고, 넷 다 같은 헤더·프롬프트 셸·사이드 채널 버튼·상태를 쓴다."
+      "verdict": "figma",
+      "figma": "Product/Canvas Text Node",
+      "reason": "Figma 제품 세트 `Product/Canvas Text Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 .0(생성이 끝난 LLM 프롬프트 모드: 머리 · 생성된 프롬프트 · 요청 셸 · 좌우 연결 버튼). 모바일(줌 0.19)은 읽을 수 없는 축소판이라 variant 를 세우지 않았고, 순수 텍스트 모드 · 생성 중 · 오류 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx#PauseIcon": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/TtsNode.tsx",
@@ -5212,12 +5212,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/MobileTimeline.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "1,022줄짜리 모바일 전용 타임라인이고, 데스크톱 타임라인의 배치 변형이 아니라 좌표계가 다른 별 조형이다. 파일 머리말이 스스로 「원점을 바꾼다 — 화면 가운데 = 현재 시각, 트랙은 translateX(center − time × pxPerSec)」라고 적고, 데스크톱 쪽 등록부는 「좁은 화면에서는 MobileTimeline 이 대신 선다」며 자기 트리가 스크롤 컨테이너 + 2열 격자 + % 배치임을 밝힌다. 자식 구성도 «없던 종류»가 들어온다(DS-D-0040 ①) — 중앙 고정 재생헤드, 눈금자(눈금·라벨), 클립 양끝 트림 손잡이 두 짝, 오버레이 레인(텍스트·이미지), 오디오 레인과 파형, 필름스트립 타일, 끝의 추가 버튼. 전용 클래스 등록부가 그 스물넷 칸을 갖는다. Figma 65종에 타임라인이 없고 MediaScrubber 로 대체되지도 않는다 — 그쪽은 Track 200×3~5 에 Thumb 12 하나뿐인 재생 스크러버다. 형제인 sequenceRuler#PremiereSequenceRuler(눈금자)와 ColorRulerSlider 가 이미 같은 이유로 needed 다. 종류는 화면(screen) 쪽으로 본다 — 부모 VideoEditModal 보드의 좁은 폭 프레임에서 그 자리를 통째로 차지한다.",
-      "weight": "high",
-      "kind": "oneoff",
-      "kindReason": "모바일 전용 타임라인 1,022줄이다. 데스크톱 타임라인의 배치 변형이 아니라 좌표계가 다른 별 조형이고(원점이 화면 가운데 = 현재 시각), 중앙 고정 재생헤드·눈금자처럼 «없던 종류»의 자식이 들어온다(DS-D-0040 ①). 되풀이 증거가 없어 부품이 아니고 라우트도 아니므로 한자리다."
+      "verdict": "figma",
+      "figma": "Product/Mobile Timeline",
+      "reason": "Figma 제품 세트 `Product/Mobile Timeline` 이 이 표면이다 — 세션 원장 `/videoeditor/[projectId]` 모바일 body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.0(가운데 고정 재생헤드 · 흐르는 트랙 · 클립 필름 줄 · 길이 배지). 눈금 라벨은 원장에 실리지 않았고 여러 트랙 · 선택 상태는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx#OverlayInspector": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/OverlayInspector.tsx",
@@ -5256,12 +5256,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "`…/nodes/VideoEditModal.tsx#VideoEditModal` 안의 독립 영역이다. 타임라인 눈금자 — 줌에 따라 초/프레임 스텝이 바뀌는 눈금과 라벨, 플레이헤드 캡. 타임라인의 좌표계를 눈으로 보여 주는 표면이고 51종에 대응이 없다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "import 1곳(VideoEditModal), 인스턴스화 1회, 라우트 3(모달을 따라감). 제품 어디에도 두 번째 타임라인 눈금자가 없다 — 이 묶음의 다른 '자'인 ColorRulerSlider 와도 좌표계·조작이 다른 물건이다(줌에 따라 초/프레임 스텝이 바뀌는 눈금 + 플레이헤드 캡). 편집기 화면의 고유 크롬이라 컴포넌트 라이브러리가 아니라 에디터 보드에 그릴 그림이다. 이미 louis-radius-pill 을 문다."
+      "verdict": "figma",
+      "figma": "Product/Sequence Ruler",
+      "reason": "Figma 제품 세트 `Product/Sequence Ruler` 가 이 표면이다 — 세션 원장 `/videoeditor/[projectId]` 데스크톱 body.1.0.0.2.0.1.0.0.1.0.0.4.1.0.2.1.0.0.0.1.1(ppRuler · ppRulerFace 의 보조 · 중간 눈금). 주 눈금 라벨과 플레이헤드 캡은 원장의 이 서브트리에 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx#SequenceGridLines": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/sequenceRuler.tsx",
@@ -5355,12 +5355,12 @@
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
       "binding": "named",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 노드 타입 — 원장이 적은 「노드 타입 9종」의 하나다. 헤더(아이콘·제목·더보기)·본문·프롬프트 셸·사이드 채널 버튼·선택/생성/오류 상태를 갖는 캔버스의 가장 큰 반복 시각 단위이고 51종 어디에도 대응이 없다. 비디오 노드는 결과 영상 플레이어·음소거 토글·모델 선택 메뉴까지 품어 노드 중 가장 무겁다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: segmented-control] reuse=2 라우트, 노드 카드 한 벌의 하나(2,849줄로 가장 무겁다). 실측하면 이미 louis-segmented-control(__segment) · louis-node-chip · louis-popover · louis-menu__item · louis-blur-panel · louis-hairline-inset · louis-color-fg-disabled · louis-color-node-chip-surface 를 문다 — 원장 louis 필드는 [] 다. 안의 컨트롤 대부분이 이미 LOUIS 이므로 남는 것은 카드 셸과 결과 플레이어다."
+      "verdict": "figma",
+      "figma": "Product/Canvas Video Node",
+      "reason": "Figma 제품 세트 `Product/Canvas Video Node` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` 데스크톱(캔버스 맞춤 줌 0.815 배) 노드 카드 층 .2(생성 전 상태: 빈 결과 자리 · 연결 이미지 줄 · 프롬프트 · 모델 · 길이 · 비율 · 해상도 · 생성 알약). 생성 후 · 생성 중 상태와 모바일 variant 는 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx#VideoPlaceholder": {
       "file": "apps/web/components/scenes/create/node-canvas-v2/nodes/VideoNode.tsx",
@@ -5621,12 +5621,12 @@
       "louis": [
         "louis-spinner"
       ],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "캔버스 상단 헤더 전체 — 진행형 블러 띠(--louis-progressive-blur) · 브랜드 알약 셸 · 인라인 이름변경 입력과 제목 슬롯 · 저장 스피너(열림/닫힘 폭 전이) · 저장 클라우드 글리프 · 가이드 토글(idle/active) · 액션 셸 · 아바타 슬롯이 한 줄에 붙는다. Figma AppTopBar 는 높이 40 의 Title + Leading/Trailing 슬롯 골격뿐이라 이 조립을 담지 못한다. 제품에서 가장 눈에 띄는 앱 셸 표면이다.",
-      "weight": "high",
-      "kind": "primitive",
-      "kindReason": "[LOUIS 대응 후보: AppTopBar] 앵커 실측: JSX 1곳(CreateScene.tsx:676)이지만 앱 셸 상단 바라 시스템 소유가 자연스럽고, 두 번째 사본이 실재한다 — landing/demo-snapshots/StaticCreateDemo.tsx:63~68 이 `.nodeProjectHeader` 를 NODE_PROJECT_HEADER 상수로 모사해 랜딩 라우트에 그린다. 게다가 navigation/Gnb.tsx:92 주석이 「두 벌(ProjectHeader.tsx · appHomeSceneStyles.ts)은 판정이 필요해 남겨 두었다」고 미해결 중복을 자백한다. LOUIS AppTopBar 는 높이 40 의 Title + Leading/Trailing 골격뿐이라 진행형 블러 띠·브랜드 알약·인라인 이름변경·저장 스피너 폭 전이·가이드 토글·아바타 슬롯 조립을 담지 못한다 — 그 축을 열어라."
+      "verdict": "figma",
+      "figma": "Product/Project Header",
+      "reason": "Figma 제품 세트 `Product/Project Header` 가 이 표면이다 — 세션 원장 `/nodecanvas?project=` body.1.0.0.0.0(진행형 블러 띠 · 뒤로 · 구분선 · 프로젝트 이름 · 저장 · 프로필, 데스크톱 · 모바일). 인라인 이름 변경 입력 · 저장 중 스피너는 측정에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/scenes/create/ProjectHeader.tsx#ProjectVideosIcon": {
       "file": "apps/web/components/scenes/create/ProjectHeader.tsx",
@@ -6053,12 +6053,12 @@
       "file": "apps/web/components/templates/TemplateResultCarousel.tsx",
       "binding": "default",
       "louis": [],
-      "verdict": "needed",
-      "figma": null,
-      "reason": "템플릿 상세의 3D 커버플로 캐러셀 — perspective 스테이지 · 4:5 카드 그림자 두 단 · 사진 위 라벨 배지 · 원형 nav 버튼 · 도트. 랜딩 Carousel 과도 CarouselArrow 와도 다른 벌이라 Figma 에 대응이 없다.",
-      "weight": "medium",
-      "kind": "oneoff",
-      "kindReason": "[LOUIS 대응 후보: CarouselArrow · Badge (부분 몫)] 실측 소비처 1(templates/[slug]). 3D 커버플로(perspective 스테이지 · 4:5 카드 그림자 두 단 · 사진 위 라벨 배지 · 원형 nav · 도트)인데 원장이 랜딩 Carousel 과도 BannerCarousel 과도 다른 벌이라고 판정했다 — 기존 계열의 변형 축으로 접히지 않고 형제도 없다. 원형 nav 버튼은 CarouselArrow 로, 라벨은 Badge 로 수렴시키고 커버플로 자체는 이 화면의 것으로 둔다. 두 번째 커버플로가 생기면 그때 승격."
+      "verdict": "figma",
+      "figma": "Product/Template Result Carousel",
+      "reason": "Figma 제품 세트 `Product/Template Result Carousel` 이 이 표면이다 — 공개 시드 원장 `/templates/[slug]` body.1.0.0.2.0.0.3(perspective 스테이지 · 원형 nav · 도트, 데스크톱 · 모바일). 카드 좌하단 라벨 배지는 측정 항목에 label 이 없어 세트에 없다. 보드 생성기 PRODUCT_PARTS 가 통합 판(76b6cf15) 측정 서브트리로 채운다(DS-D-0071 「Figma 먼저 · 생성기로 묶어서」, 90 · 자산 「S · product/Parts」).",
+      "weight": null,
+      "kind": null,
+      "kindReason": null
     },
     "apps/web/components/templates/TemplateShell.tsx#TemplateShell": {
       "file": "apps/web/components/templates/TemplateShell.tsx",

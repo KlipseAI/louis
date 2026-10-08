@@ -120,7 +120,8 @@ const UNCLASSIFIED_BASELINE = 0;
 // 2026-10-08: 64 → 82 · 컴포넌트 28 → 47 — 앵커를 작업 브랜치 통합 판으로 옮기며(DS-D-0079) 새로 생긴 표면 112종을 판정했고
 // (figma 22 — auth-two-panel 이 덮는 인증 레이아웃 · 브랜드 패널 등), 같은 날 LOUIS 세트 열셋(Choice · Record Card · Text Link · Bare
 // Button · Start Card · LoadingWord · 노드 입력판 등)이 섰다.
-const MAPPED_BASELINE = 82;
+// 같은 날 저녁: 82 → 104 — 제품 세트 대응 22(아래 MAPPED_PRODUCT_BASELINE). 컴포넌트 대응은 그대로 47 이다.
+const MAPPED_BASELINE = 104;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
 const MAPPED_COMPONENT_BASELINE = 47;
@@ -133,7 +134,11 @@ const MAPPED_COMPONENT_BASELINE = 47;
 // 2026-10-07: 28 → 29 — Product/Landing Footer(위 MAPPED_BASELINE 주석). 같은 날 뒤 29 → 33(위 주석의 넷).
 // 2026-10-08: 33 → 30 — **제품이 바뀐 몫(후퇴 아님).** 통합 판(DS-D-0079)에서 표면 셋이 사라졌다: 랜딩 Footer(공용 타임라인 푸터로
 // 바뀜 — Product/Landing Footer 는 새 푸터를 다시 재서 세울 자리) · 요금 PricingNotice(공지 알약을 걷음) · 가이드 패널 PipelineArrow(도움말 개편으로 패널째 삭제).
-const MAPPED_PRODUCT_BASELINE = 30;
+// 같은 날 저녁: 30 → 52 — 보드 생성기 PRODUCT_PARTS 의 통합 판 세트가 표면 22 를 그린다. 오전 일곱 세트가 여덟(테마 순환 버튼 ·
+// 템플릿 캐러셀 · 블로그 아티클 머리 · 문의 드롭존 · 어드민 워드마크 · 인증 입력 칸이 로그인 · 비밀번호 찾기 둘 · 가입 약관 줄이 가입),
+// 오류 경계에서 돌아온 세션 화면 열넷(노드 카드 셋 · 프로젝트 머리 · 연결 버튼 · 툴바 · 머리 동작 · 생성 알약 · 복사 · 제목 · 이미지 줄 ·
+// LLM 결과 · 모바일 타임라인 · 눈금자). 화면 종류(레이어 · 에셋 패널 · 쇼츠 결과 · 히어로 · 후기 밴드)와 줌 트리거(트리 변환이 멈춤)는 needed 다.
+const MAPPED_PRODUCT_BASELINE = 52;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

@@ -455,8 +455,10 @@ const buildNode = (spec, parent) => {
   const parentAuto = parent && "layoutMode" in parent && parent.layoutMode && parent.layoutMode !== "NONE";
 
   const isAbsolute = Boolean(spec.p) && parentAuto;
-  if (isAbsolute) {
-    node.layoutPositioning = "ABSOLUTE";
+  if (isAbsolute) node.layoutPositioning = "ABSOLUTE";
+  // **자동 배치 없는 부모 안의 절대 자식도 제약을 건다(2026-10-08).** 절대 자식만 모인 부모(NONE)는 위 갈래를 타지 않아 제약이 기본(MIN)
+  // 으로 남았다 — 공개 모바일 메뉴 판(`inset: 0` 안의 `inset: 0`)이 부모를 따라 줄지 않아 360 에서 42 넘쳤다(늘림 시험).
+  if (isAbsolute || (!parentAuto && parent && spec.p)) {
     if (spec.n) {
       try { node.constraints = { horizontal: CONSTRAINT[spec.n[0]], vertical: CONSTRAINT[spec.n[1]] }; }
       catch (error) { /* 제약이 없는 노드 타입은 건너뛴다 */ }

@@ -53,10 +53,13 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 남은 넷은 모바일 360 · 430: 분석 중 · 업로드 중 모바일의 안내 문구 감싸개(감기는 줄에서 혼자 한 줄 — 15조의 7 밖)와 가운데 정렬 두 줄 글자
 // (340 · 줄을 옮긴 HUG), 업로드 중 430 의 진행 막대(`flex-basis: 100%` 가 감기 줄에서 앞 줄로 붙는다), /highlight 모바일 설명 문단(제품 줄을
 // 옮긴 글자 hugCarriedLines 의 HUG 390).
+// run 2026-10-09b(56d60213 auto 여백 감싸개를 보낸 뒤): 03-app 부모 밖 22 → 18(하이라이트 데스크톱 1440 넷 해소, 모바일 넷 남음 — 조립 규칙
+// 15조의 7 주석). 03-app 글자 잘림 0 → 1 은 /subscription/coupons 데스크톱(2076:3371) — 생성기가 더는 그리지 않는 옛 보드(리다이렉트된 화면)다.
+// 은퇴 판정 전까지 기준선에 둔다.
 const BASELINE = {
   "01-public": { overflow: 11, childOutside: 15, textClip: 8, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { overflow: 1, childOutside: 22, heightFollow: 4, noRoot: 6 },
+  "03-app": { overflow: 1, childOutside: 18, textClip: 1, heightFollow: 4, noRoot: 6 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
   "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
 };

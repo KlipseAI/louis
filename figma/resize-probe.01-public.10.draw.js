@@ -1,5 +1,5 @@
 // 시험용 복제본, 끝에 지움 — 보드 반응 탐침(scripts/build-figma-resize-probe.mjs 가 쓴다). 원본 보드는 복제만 한다.
-const RUN = "2026-10-09a", PAGE_ID = "246:3447", OFFSET = 10, LIMIT = 10, SLOT = 1;
+const RUN = "2026-10-09b", PAGE_ID = "246:3447", OFFSET = 10, LIMIT = 10, SLOT = 1;
 const RE = /^(desktop|mobile) \d+×\d+ — /;
 const work = await figma.getNodeByIdAsync("699:2");
 if (!work || work.type !== "PAGE") throw new Error("work page not found");

@@ -25,6 +25,19 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (215) — Figma 구조 맞춤: 시트 손잡이(Dialog `Layout=grabber`)
+
+- **Dialog** set 에 `Layout` = `base` · `grabber` 축이 섰다. 기존 다섯 변형은 이름에 `Layout=base` 가 붙었을 뿐 노드 id 가
+  그대로라 이미 놓인 인스턴스는 손잡이 없는 대화상자로 남는다. 새 변형은 `Size=sheet, Tone=neutral, Layout=grabber` 하나다 —
+  손잡이는 시트 전용 부품이라 set 이 희소하다.
+- grabber 는 CSS `.louis-dialog__grabber` 가 surface 첫 자식으로 들어온 시트다(2026-10-07 레시피) — 위 가장자리에 절대 배치된
+  띠(`Grabber`, 폭 × 32)와 그 가운데의 막대(`Bar`, 36 × 4, `radius/pill`, `color/stroke-hairline`). 띠가 흐름에 끼지 않으므로
+  표면의 위 패딩이 56.5(띠 32 + 안쪽 여백 24 + 헤어라인 0.5)이고 닫기도 32 내려간다. BOOLEAN 이 아니라 축인 이유는 프레임이
+  자기 위 패딩을 다시 쓰기 때문이다(작성 규범 §2 시험 2). 작성 규범 §2 의 `Layout` 어휘에 `grabber` 를 더했다.
+- parity 계약(`Layout` 축 · 위 패딩 `bySize` · `Grabber`/`Bar` 자손)과 채취 명세(키 `{Size, Layout}`, base 는 `omit` 으로 기존 키
+  유지 → `sheet/grabber`)를 고치고 `components.measured.json` 의 `dialog.sizes` 에 `sheet/grabber` 를 더했다. 되읽기는 세션
+  기록에서 꺼내 병합했다. 탭 · 아래로 40px 쓸기 동작과 React 손잡이 part 는 여전히 소비자 몫이다.
+
 ## 2026-10-08 (214) — Figma 구조 맞춤: 메뉴 두 줄 항목(`Layout=description`)
 
 - **Menu**(항목 set)에 `Layout` = `base` · `description` 축이 섰다 — `State` 일곱 값과 곱해져 변형이 7 → 14. 기존 변형은 이름에

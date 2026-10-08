@@ -510,12 +510,27 @@ const COMPONENT_CONTRACTS = [
         reason:
           "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다. sheet는 반대 방향의 추가다 — 좁은 화면에서 아래에서 올라오는 시트가 제품에 실재하는데 코드 축에 이름이 없어, 디자이너가 그것을 그릴 자리가 없었다.",
       },
+      Layout: {
+        options: ["base", "grabber"],
+        reason:
+          "표면에 **담기는 것**이 갈린다(2026-10-08 Figma 에 세움) — grabber 는 surface 첫 자식 `.louis-dialog__grabber`(위 가장자리의 닫기 띠 + 36×4 막대)가 들어온 시트다. Toast · Tooltip · EmptyState · Menu 의 Layout 과 같은 종류다. BOOLEAN 이 아닌 이유는 프레임이 자기 위 패딩을 다시 쓰기 때문이다(figma-component-authoring.md §2 시험 2) — 띠는 절대 배치라 흐름에 끼지 않고 CSS `:has(> .louis-dialog__grabber)` 가 surface 위 패딩을 띠 높이 32 만큼 둔다. 띠를 감추기만 하면 헤더 위에 빈 32 가 남거나 띠가 헤더를 덮는다. 손잡이는 sheet 전용 부품이라 grabber 는 `Size=sheet` 하나에만 선다(set 이 희소하다 — Tone=danger 가 compact 에만 있는 것과 같다). 코드에는 prop 이 없다 — React `Dialog` 에 손잡이 part 가 아직 없어 소비자가 마크업을 직접 쓴다(dialog.md 「Sheet 손잡이」).",
+      },
     },
     geometry: {
       measuredId: "dialog",
       fields: {
         width: "width",
-        paddingBlock: ["surfaceInset", "borderWidth"],
+        // **손잡이 시트만 위 패딩에 띠 높이를 더한다(2026-10-08).** 띠가 절대 배치라 흐름에 끼지 않고, CSS 가 손잡이 있는
+        // surface 의 위 패딩을 띠 높이만큼 둔다 — 헤더는 그 아래에서 제 여백 24 를 그대로 갖는다. 아래 패딩은 그대로다.
+        paddingBlock: {
+          bySize: {
+            compact: ["surfaceInset", "borderWidth"],
+            medium: ["surfaceInset", "borderWidth"],
+            large: ["surfaceInset", "borderWidth"],
+            sheet: ["surfaceInset", "borderWidth"],
+            "sheet/grabber": ["grabberBlockSize", "surfaceInset", "borderWidth"],
+          },
+        },
         paddingBlockEnd: ["surfaceInset", "borderWidth"],
         paddingInline: ["surfaceInset", "borderWidth"],
         paddingInlineEnd: ["surfaceInset", "borderWidth"],
@@ -530,6 +545,14 @@ const COMPONENT_CONTRACTS = [
       },
       slots: {},
       parts: {
+        // **시트 손잡이(2026-10-08, `Layout=grabber`).** 띠(`Grabber`)는 위 가장자리에 절대 배치된 폭 × 32 칸이고 막대(`Bar`)는
+        // 그 가운데의 36 × 4 알약이다. 손잡이가 없는 칸에는 두 자손도 근거 값(grabberBlockSize · grabberBarWidth)도 없어
+        // optional 로 통과한다. 위 패딩 56.5 는 root 의 paddingBlock 이 bySize 로 대조한다.
+        Grabber: { fields: { height: "grabberBlockSize", width: "width" }, optional: true },
+        Bar: {
+          fields: { width: "grabberBarWidth", height: "grabberBarHeight", cornerRadius: "grabberBarRadius" },
+          optional: true,
+        },
         // 확인 대화상자가 성립하려면 Footer와 액션 둘이 있어야 한다. 없으면 디자이너가
         // 확인 대화상자를 Figma로 만들 수 없다(2026-08-18 실무 감사).
         Footer: { fields: { paddingTop: "footerPaddingTop", paddingInline: "footerInset", children: "footerChildren" } },

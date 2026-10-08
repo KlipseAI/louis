@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 66,
-        "variants": 793
+        "variants": 794
       },
       "icons": 47,
       "templates": 9
@@ -7950,7 +7950,7 @@
     "Dialog": {
       "outsideParts": [],
       "tokenId": "dialog",
-      "variantCount": 5,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -7977,14 +7977,21 @@
             "neutral",
             "danger"
           ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "grabber"
+          ]
         }
       },
       "binding": {
-        "boundFills": 25,
+        "boundFills": 31,
         "rawFills": 0,
-        "boundStrokes": 5,
+        "boundStrokes": 6,
         "rawStrokes": 0,
-        "textStyled": 10,
+        "textStyled": 12,
         "textUnstyled": 0
       },
       "geometry": {
@@ -8244,6 +8251,96 @@
           ],
           "paddingBlock": [
             24.5
+          ],
+          "paddingBlockEnd": [
+            24.5
+          ],
+          "paddingInline": [
+            24.5
+          ],
+          "paddingInlineEnd": [
+            24.5
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "topLeftRadius": [
+            20
+          ],
+          "bottomLeftRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sheet/grabber": {
+          "slots": {},
+          "parts": {
+            "Grabber": {
+              "height": [
+                32
+              ],
+              "width": [
+                480
+              ]
+            },
+            "Bar": {
+              "width": [
+                36
+              ],
+              "height": [
+                4
+              ],
+              "cornerRadius": [
+                999
+              ]
+            },
+            "Footer": {
+              "paddingTop": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "paddingBottom": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
+          "height": [
+            239
+          ],
+          "width": [
+            480
+          ],
+          "paddingBlock": [
+            56.5
           ],
           "paddingBlockEnd": [
             24.5

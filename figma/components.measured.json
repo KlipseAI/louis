@@ -1047,6 +1047,31 @@
           "$surfaceInset": "24(space-layout-section). size 가 medium 이므로 medium 과 같다.",
           "footerInset": 8,
           "$footerInset": "8. medium 과 같다 — 액션 행은 variant 로 갈리지 않는다."
+        },
+        "sheet/grabber": {
+          "$sheet/grabber": "손잡이가 있는 시트(2026-10-08 Figma `Layout=grabber`). surface 첫 자식 `.louis-dialog__grabber` 가 들어온 sheet 다(dialog.css 「손잡이(grabber)」 블록, 제품 캔버스 모바일 작업 브랜치 `MobileSheetGrabber.tsx`). 띠는 절대 배치라 흐름에 끼지 않고, `:has(> .louis-dialog__grabber)` 가 surface 위 패딩을 띠 높이만큼 둔다 — 그래서 위 패딩만 sheet 와 다르고 나머지 칸은 sheet 와 같은 수다.",
+          "width": 480,
+          "$width": "480. sheet 와 같은 좁은 화면 대표값이다 — 시트는 폭이 곧 뷰포트다.",
+          "paddingBlock": 20,
+          "paddingInline": 0,
+          "borderWidth": 0.5,
+          "radius": 20,
+          "radiusBottom": 0,
+          "gap": 8,
+          "footerPaddingTop": 24,
+          "actionsGap": 8,
+          "actionCount": 2,
+          "footerChildren": 1,
+          "surfaceInset": 24,
+          "footerInset": 8,
+          "grabberBlockSize": 32,
+          "$grabberBlockSize": "32. 띠 높이 `--louis-dialog-grabber-block-size`(dialog.css). 토큰이 없어 리터럴이다 — `layout-control-height-md` 도 32 지만 컨트롤 높이라 뜻이 다르다. 제품이 16 에서 「손가락이 못 잡았다」며 32 로 올렸다(dialog.css 주석). Figma 는 이 값을 표면 위 패딩에 더한다 — 위 패딩 = 띠 32 + surfaceInset 24 + 헤어라인 0.5 = 56.5. 띠 아래 헤더가 제 여백 24 를 그대로 갖기 때문이다.",
+          "grabberBarWidth": 36,
+          "$grabberBarWidth": "36. 막대 폭(dialog.css `.louis-dialog__grabber-bar`, 제품 실측).",
+          "grabberBarHeight": 4,
+          "$grabberBarHeight": "4. 막대 두께. `space-control-xs` 와 같은 수지만 간격이 아니라 두께라 묶지 않는다(dialog.css 주석).",
+          "grabberBarRadius": 999,
+          "$grabberBarRadius": "radius-pill 999. 막대는 알약이다. 색은 `color-stroke-hairline` 이고 Figma 는 막대 채움을 `color/stroke-hairline` 변수에 묶는다."
         }
       },
       "states": {

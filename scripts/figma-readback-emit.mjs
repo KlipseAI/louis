@@ -183,7 +183,10 @@ const CAPTURE = {
   // `mixed` 가 되어 `undefined` 로 떨어지고, 그러면 그 칸은 **아무 값도 대조되지 않은 채**
   // 되읽기에 빈 배열로 남는다 — 2026-09-01 에 실제로 그 상태였다. 좌우는 대칭이므로 왼쪽
   // 두 모서리만 담는다.
-  "Dialog": {"key":{"by":["Size"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode","strokeWeight"],"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"]},"strokes":["self"],"effects":["self"]},
+  // **시트 손잡이(2026-10-08)가 `Layout` 축을 열었다.** `omit` 으로 base 는 키에 칸을 만들지 않아 기존 넷(compact · medium ·
+  // large · sheet)이 개명되지 않고, 손잡이 변형만 `sheet/grabber` 로 간다. `Grabber` 는 위 가장자리에 절대 배치된 띠(폭 ×
+  // 32), `Bar` 는 그 안의 36 × 4 알약 막대다 — 띠가 흐름에 끼지 않으므로 표면이 위 패딩을 띠 높이만큼 더 갖는다.
+  "Dialog": {"key":{"by":["Size","Layout"],"omit":{"Layout":"base"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode","strokeWeight"],"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"],"Grabber":["height","width"],"Bar":["width","height","cornerRadius"]},"strokes":["self"],"effects":["self"]},
   // `Layout` 축을 열며 키를 `base` 고정에서 variant 값으로 옮겼다(2026-09-06). 세 칸은 기하가
   // 서로 다르다 — compact 은 면·테두리·반경을 갖고 좌측 정렬이며, canvas 는 여백·간격·제목
   // 크기가 다르다. `counterAxisAlignItems` 를 담는 이유는 **정렬이 이 축에서 가장 눈에 띄는

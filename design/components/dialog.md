@@ -16,7 +16,7 @@ summary: 결정을 받거나 짧은 작업을 마칠 때 맥락 위에 띄우는
 | Surface       | 상태           | 근거                                           |
 | ------------- | -------------- | ---------------------------------------------- |
 | Web           | `partial`      | `Dialog` compound public export, 실브라우저 회귀 15건 |
-| Figma         | `done`      | component set(Size). `fullscreen` 은 표면이 뷰포트 자체라 고정 폭 variant 로 그릴 수 없어 **사유와 함께 Figma 축에서 뺐고**, 반대로 `sheet` 는 Figma 에만 있다 — 둘 다 계약이 선언한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
+| Figma         | `done`      | component set(`Size` × `Tone` × `Layout`, 시트 손잡이 `Layout=grabber` 2026-10-08). `fullscreen` 은 표면이 뷰포트 자체라 고정 폭 variant 로 그릴 수 없어 **사유와 함께 Figma 축에서 뺐고**, 반대로 `sheet` 는 Figma 에만 있다 — 둘 다 계약이 선언한다. 기하는 양방향이다 — `surface-geometry.browser.test.tsx` 가 코드 쪽에서 같은 실측을 되잰다. 게시 없이 판정한다([DS-D-0035](../governance/decisions/DS-D-0035-figma-done-without-publish.md)) |
 | Documentation | `done`         | 이 문서                                        |
 | Maturity      | `experimental` | 시각 회귀와 수동 screen-reader 검토가 아직 없음 |
 
@@ -280,7 +280,16 @@ Tab과 Shift+Tab은 최상위 Dialog 내부에서 순환한다. nested Popover�
 
 **현재 구현 범위.** CSS 는 `dialog.css` 에 있다. React `Dialog` 에는 손잡이 part 가 **아직 없다** — 새 public export
 (`api-surface.json`) 와 쓸기 제스처 계약이 함께 들어가야 해서 이 변경에서 넣지 않았다. 소비자는 위 마크업과 제스처 규칙을
-직접 구현한다. **Figma 변형도 아직 없다**(손잡이 막대 · 띠 높이는 코드에만 있다).
+직접 구현한다.
+
+**Figma 는 `Size=sheet, Layout=grabber` 변형이다(2026-10-08).** `Layout` = `base` · `grabber` 축이 섰고 grabber 는 sheet 하나에만
+있다(손잡이는 시트 전용 부품이다 — set 이 희소하다). 띠(`Grabber`)는 위 가장자리에 절대 배치된 폭 × 32 칸이고 그 가운데에
+막대(`Bar`, 36 × 4, 곡률 `radius/pill`, 채움 `color/stroke-hairline`)가 선다. 띠가 흐름에 끼지 않으므로 표면의 위 패딩이
+띠 32 + 안쪽 여백 24 + 헤어라인 0.5 = 56.5 이고, 닫기도 같은 32 만큼 내려간다 — CSS 의 `:has(> .louis-dialog__grabber)` 가
+surface 위 패딩을 두는 것과 같은 결과다. BOOLEAN 이 아니라 축인 이유는 프레임이 자기 위 패딩을 다시 쓰기 때문이다
+([Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 시험 2). parity 계약은
+`components.measured.json` 의 `dialog.sizes["sheet/grabber"]`(띠 높이 · 막대 치수 · 위 패딩)와 대조한다. 탭 · 쓸기 동작은
+Figma 에 그리지 않는다 — 위 동작 계약이 소유한다.
 
 ## Modal and Workspace separation
 

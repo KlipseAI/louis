@@ -29,7 +29,7 @@ summary: 빈 캔버스에서 첫 노드를 만드는 생성 카드입니다. 미
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다(`packages/css/src/component/start-card.css` — `.louis-start-card`). React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `not-ready` | **Figma 변형은 아직 없다.** component set 도 되읽기 계약도 없다 |
+| Figma | `partial` | component set `StartCard`(DS · Components 「5 · 내용」 MediaCard 오른쪽, 2026-10-08, 2 변형). EmptyState `Layout=canvas` 의 카드 둘이 그 인스턴스다. 되읽기 등재 + parity 계약(반경 · 이름 여백 · 글자 크기 · 헤어라인 획 · 위쪽 점진 흐림)이 있다. 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 
@@ -118,11 +118,37 @@ prop 이 없다. 클래스 넷, 데이터 속성 하나, 공개 사용자 정의
 | 호버 이동 | 1600ms · 앱 표준 패널 곡선 | 시간은 motion 토큰에 없는 제품 리터럴, 곡선은 `motion-overlay-enter` |
 | 영상 확대 | `scale(1.04)` | 제품 `VIDEO_MEDIA`, `CanvasEmptyState.tsx@d564ed435:170` |
 
+## Figma
+
+component set `StartCard`(2026-10-08, DS · Components 「5 · 내용」 MediaCard 오른쪽). 축 하나가 카드 폭의 컨테이너 질의를 옮긴다.
+
+| 축 | 값 | 코드 |
+| --- | --- | --- |
+| `Size` | `sm` · `md` | 카드 폭 240 미만 · 이상(`@container louis-start-card (min-width: 240px)`) |
+
+- 2 변형이다. 대표 폭은 `sm` 190(빈 캔버스 칸) · `md` 320(제품 기준)이고 높이는 비율 320/403 이다(`sm` 은 239.3 으로 접었다).
+  Figma 에 컨테이너 질의가 없어 폭을 바꿔도 이름 크기가 저절로 바뀌지 않는다 — **인스턴스의 폭이 240 을 넘나들면 `Size` 를 함께 바꾼다.**
+- 자식은 칠하는 순서대로 `Media` → `Blur` → `Label` 이고 루트는 auto-layout 이 아니다(슬롯 셋이 모두 절대 배치). 인스턴스를 늘리면
+  `Media` 는 늘어나고 `Blur` 는 높이 비율을 지킨다.
+- **`Media` 는 비어 있다.** 안은 제품 콘텐츠라 레시피가 규정하지 않는다 — 비어 있으면 면 `color/media-stage-surface`(두 테마 같은 검정)가
+  보이고, 시안에서는 인스턴스의 `Media` 에 그림을 채운다.
+- `Blur` 는 바탕 없는 점진 배경 흐림이다 — `blur/surface`(10), 위 가장자리에서 55% 까지 온전하고 아래 끝에서 0
+  (`BACKGROUND_BLUR:PROGRESSIVE … 0.5,1:0.5,0.55`). 배경 흐림이 렌더되도록 완전 투명 fill 하나를 갖는데 색이 아니다.
+- `Label` 은 여백 14(`sm`) · 18(`md`)의 auto-layout 프레임이고 안의 `Name` 이 `typography/body-sm-semibold` ·
+  `typography/body-md-semibold`, 잉크 `color/media-foreground-dark` 다. TEXT 속성 `Label` 이 이름을 바꾼다.
+- **헤어라인은 루트의 INSIDE 획 0.5 다**(`border-width/hairline` · `color/stroke-hairline`). 규범은 헤어라인을 INNER_SHADOW 로 그리지만
+  (figma-component-authoring.md) 이 카드의 헤어라인은 `::after` 로 **미디어 위**에 칠해진다. Figma 의 INNER_SHADOW 는 프레임 면 위 ·
+  자식 아래라 `Media` 를 채우면 가려지고, 프레임의 획은 자식 위에 그려진다.
+- 반경은 `radius/overlay`(16)다. 조상 컨테이너 600 이상의 `radius-card-lg`(20)는 놓인 칸의 값이라 변형이 아니다 — 그런 자리의
+  인스턴스는 반경 변수를 바꾼다.
+- **상태 축이 없다.** 호버에서 움직이는 것은 슬롯 안의 미디어(제품 몫)와 `data-media-motion="zoom"` 의 확대뿐이고 면 · 이름은 그대로다.
+  Focus 는 그리지 않는다(DS-D-0074).
+
 ## Implementation
 
 - Web source: `packages/css/src/component/start-card.css` — `.louis-start-card` · `__media` · `__blur` · `__label`. React 표면 없음.
 - Public import: 없음. 소비처가 클래스를 직접 쓴다.
-- Figma component: 없다. **Figma 변형은 아직 없다.**
+- Figma component: `StartCard`(Size `sm` · `md`). 위 Figma 절.
 - 제품 정본: `CanvasEmptyState.tsx@d564ed435:138`(`CARD`) · `CanvasEmptyState.tsx@d564ed435:188`(`CARD_BLUR`) ·
   `CanvasEmptyState.tsx@d564ed435:198`(`CARD_LABEL`) · `CanvasEmptyState.tsx@d564ed435:255`(`StartCard` — 영상 재생을
   마우스 포인터에서만 시작하고 떠나면 첫 장면으로 되돌리는 것은 제품 코드다).
@@ -143,7 +169,8 @@ prop 이 없다. 클래스 넷, 데이터 속성 하나, 공개 사용자 정의
 4. **이름 여백 14 · 18 이 토큰 계단에 없다.** 제품 격자(`p-7` · `p-9`)의 값을 리터럴로 옮겼다.
 5. **슬롯 안 콘텐츠의 호버 움직임은 레시피 밖이다.** 확대(`data-media-motion="zoom"`)만 레시피가 갖고, 이미지 카드의 줄마다 엇갈려 흐르는
    이동과 영상 띠 · 진행선은 제품 CSS 가 `.louis-start-card:hover` 를 읽어 단다.
-6. **Figma 변형은 아직 없다.**
+6. **Figma 의 헤어라인이 INNER_SHADOW 가 아니라 획이다.** 위 Figma 절 — 미디어 위에 칠해지는 `::after` 를 옮기려면 자식 위에
+   그려지는 획이어야 한다. 값(0.5 · `stroke-hairline`)은 같다.
 
 ## Acceptance tests
 
@@ -170,4 +197,4 @@ prop 이 없다. 클래스 넷, 데이터 속성 하나, 공개 사용자 정의
 - [x] LOUIS CSS recipe 작성 (2026-10-07)
 - [ ] 실브라우저 acceptance test
 - [ ] 제품을 그 recipe 로 이관(`CanvasEmptyState.tsx` 의 카드 둘)
-- [ ] Figma component set
+- [x] Figma component set (2026-10-08)

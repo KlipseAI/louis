@@ -10762,11 +10762,11 @@
         }
       },
       "binding": {
-        "boundFills": 11,
+        "boundFills": 9,
         "rawFills": 0,
-        "boundStrokes": 1,
+        "boundStrokes": 3,
         "rawStrokes": 0,
-        "textStyled": 7,
+        "textStyled": 5,
         "textUnstyled": 0
       },
       "geometry": {
@@ -10996,7 +10996,9 @@
           "layoutMode": [
             "VERTICAL"
           ],
-          "strokeWeight": [],
+          "strokeWeight": [
+            0.5
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }
@@ -19919,6 +19921,140 @@
       },
       "strokes": {},
       "effects": {}
+    },
+    "StartCard": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "sm",
+            "md"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "paddingBlock": [
+                14
+              ],
+              "paddingBlockEnd": [
+                14
+              ],
+              "paddingInline": [
+                14
+              ],
+              "paddingInlineEnd": [
+                14
+              ],
+              "itemSpacing": [
+                0
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "childOrder": [
+            "Media",
+            "Blur",
+            "Label"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                18
+              ],
+              "paddingInline": [
+                18
+              ],
+              "paddingInlineEnd": [
+                18
+              ],
+              "itemSpacing": [
+                0
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "childOrder": [
+            "Media",
+            "Blur",
+            "Label"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
+      "effects": {
+        "Blur": [
+          "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,1:0.5,0.55"
+        ]
+      }
     },
     "StatTile": {
       "variantCount": 8,

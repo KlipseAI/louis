@@ -194,7 +194,7 @@ aspect 320/403 · 반경 `radius-overlay`(칸 600 이상 `radius-card-lg`) · �
 **별도 부품 [Start Card](./start-card.md) 로 세웠다 — 소유자 결정(2026-10-07).** 이 컴포넌트의 변형도 [Media Card](./media-card.md) 의
 변형도 아니다. Media Card 는 `<article>` 이고 상태가 없는 표시용인데 이 카드는 `<button>` 이고 호버 · 키보드 상태를 갖고, 기하도
 정사각 + 아래 정보 띠 대 320/403 + **위쪽** 이름으로 달랐다. 이 컴포넌트는 카드 줄의 «자리»(`__action` 슬롯)만 소유하고 칸 안은
-Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. Figma 변형은 아직 없다.
+Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. Figma 의 canvas 카드 둘은 `StartCard` `Size=sm` 인스턴스다(2026-10-08).
 
 ## States
 
@@ -318,8 +318,9 @@ Start Card 가 그린다. 안의 미디어(스틸 흐름 · 영상 재생)는 �
   `__action` 클래스를 직접 써서 슬롯을 둘 세운다. `secondaryAction` 을 여는지, 소비처가 클래스로 계속 쓰는지는
   소유자 판정이다 — 이 문서는 CSS 계약만 갱신했다.
 - **Figma `canvas` 변형은 세 줄이다(2026-10-07).** 제목 · 카드 줄(`CardGrid · 자리표시` — 시작 카드 둘, 사이 4) · 글자 단추 줄(ghost
-  「사용법 보기」)이다. 카드는 Start Card 세트가 서기 전까지의 자리표시이고 레이어 이름이 그렇게 적는다. 제목 · 줄 간격 · 여백 값은
-  `figma/components.measured.json` 의 canvas 계약과 같아 계약 값은 바꾸지 않았다.
+  「사용법 보기」)이다. 제목 · 줄 간격 · 여백 값은 `figma/components.measured.json` 의 canvas 계약과 같아 계약 값은 바꾸지 않았다.
+  카드 둘은 2026-10-08 에 자리표시 프레임에서 `StartCard` `Size=sm` 인스턴스(190 × 239.3, 「이미지 생성」 · 「비디오 생성」)로 바뀌었다 —
+  카드 값은 Start Card 계약이 소유한다. 줄 프레임 이름 `CardGrid · 자리표시` 는 칸 수 · 격자가 소비처 몫이라는 뜻으로 남겼다.
 - **`Graphic`·`Actions` 를 Figma variant 축으로 열지 않았다.** 자리의 유무는 이미
   `HasGraphic`·`HasDescription`·`HasAction` 불리언이 담고, 액션 «개수»는 소비처가 정하므로 코드
   쪽에 되잴 근거가 없다. 한 방향만 걸리는 값은 계약에 넣지 않는다.

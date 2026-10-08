@@ -1805,7 +1805,7 @@
           "$radius": "0. 같은 이유다",
           "align": "center",
           "$align": "center. 제품 `items-center` + `text-center`",
-          "$slots": "그래픽과 설명의 값이 없다. 제품의 캔버스 빈 상태는 제목 한 줄 아래 액션 슬롯 둘(생성 카드 줄 · 글자 단추 줄)이다(2026-10-07, empty-state.md 「canvas 의 줄 계약」) — 그림을 넣으면 캔버스가 비었다는 사실보다 그림이 먼저 읽힌다. 두 슬롯은 같은 `__action` 이라 actionGap 12 · actionMarginBlockStart 0 을 함께 받는다. 카드 줄 안의 칸 사이(layout-project-grid-gap 4)와 칸 수는 소비처가 정하므로 이 기록에 두지 않는다 — Figma 의 카드 둘은 Start Card 세트가 서기 전까지의 자리표시다"
+          "$slots": "그래픽과 설명의 값이 없다. 제품의 캔버스 빈 상태는 제목 한 줄 아래 액션 슬롯 둘(생성 카드 줄 · 글자 단추 줄)이다(2026-10-07, empty-state.md 「canvas 의 줄 계약」) — 그림을 넣으면 캔버스가 비었다는 사실보다 그림이 먼저 읽힌다. 두 슬롯은 같은 `__action` 이라 actionGap 12 · actionMarginBlockStart 0 을 함께 받는다. 카드 줄 안의 칸 사이(layout-project-grid-gap 4)와 칸 수는 소비처가 정하므로 이 기록에 두지 않는다 — Figma 의 카드 둘은 StartCard Size=sm 인스턴스이고(2026-10-08) 카드 값은 이 파일의 start-card 가 소유한다"
         }
       },
       "states": {
@@ -4548,6 +4548,30 @@
           "$radius": "4. 레시피 `.louis-row-title { border-radius: 4px }` 리터럴 — 반경 계단에 4 의 이름이 없다. 강제 색(고대비)에서 되살아나는 링이 글자 상자에 맞게 둥글도록 제품 `rounded-4` 를 옮겼다.",
           "labelFontSize": 14,
           "$labelFontSize": "14. typography-body-sm-medium(14/1.5, 500) — 레시피가 `.louis-row-title` 자신에게 선언한다(type 클래스를 함께 붙이지 않는다). 커밋 ce9af3491 이 일곱 목록을 맞춘 값이다."
+        }
+      }
+    },
+    "start-card": {
+      "$doc": "design/components/start-card.md",
+      "$source": "packages/css/src/component/start-card.css",
+      "$note": "시작 카드(2026-10-07 레시피, 2026-10-08 Figma). 값은 브라우저 실측이 아니라 **레시피 선언**이다 — React 표면이 없어 component-geometry 브라우저 시험이 이 칸을 되재지 않는다(bare-button · text-link 와 같은 처지). 출처는 제품 작업 브랜치 chore/landing-dead-walkthrough 의 CanvasEmptyState.tsx CARD · CARD_LABEL(CanvasEmptyState.tsx@d564ed435:138 · CanvasEmptyState.tsx@d564ed435:198, 도입 a31f808c5)이다. 폭 · 높이는 담지 않는다 — 폭은 칸이 정하고 높이는 비율 320/403 이 정한다. 블러 띠 높이(카드 폭의 26%)도 같은 이유로 담지 않는다.",
+      "$keyRule": "키가 `Size` 다(sm = 카드 폭 240 미만 · md = 240 이상, 레시피 `@container louis-start-card (min-width: 240px)`). 반경은 두 칸이 같은 기본값 16 이고 조상 컨테이너 600 이상의 20 은 놓인 칸의 값이라 키가 아니다.",
+      "sizes": {
+        "sm": {
+          "radius": 16,
+          "$radius": "16. 레시피 `border-radius: var(--louis-radius-overlay)`. 조상 컨테이너가 600 이상이면 `radius-card-lg`(20)로 바뀌는데(`@container (min-width: 600px)`) 그것은 카드가 아니라 칸의 폭이 정한다.",
+          "labelPadding": 14,
+          "$labelPadding": "14. 레시피 `.louis-start-card__label { padding: 14px }` 리터럴 — 제품 `p-7`(격자 2px). 토큰 계단 최대 `space-control-lg`(16)에 없다(start-card.md Known deviations 4).",
+          "labelFontSize": 14,
+          "$labelFontSize": "14. typography-body-sm-semibold(14/1.5, 600) — 카드 폭 240 미만의 이름."
+        },
+        "md": {
+          "radius": 16,
+          "$radius": "16. sm 과 같다 — 카드 폭 기준선(240)은 반경을 바꾸지 않는다.",
+          "labelPadding": 18,
+          "$labelPadding": "18. 레시피 `@container louis-start-card (min-width: 240px) { .louis-start-card__label { padding: 18px } }` 리터럴 — 제품 `p-9`.",
+          "labelFontSize": 16,
+          "$labelFontSize": "16. typography-body-md-semibold(16/1.5, 600) — 카드 폭 240 이상의 이름."
         }
       }
     }

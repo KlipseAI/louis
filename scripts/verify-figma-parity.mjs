@@ -1758,6 +1758,63 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "start-card",
+    figmaName: "StartCard",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/start-card.css 의 .louis-start-card 가 정본이다(2026-10-07). 제품 작업 브랜치 chore/landing-dead-walkthrough 의 CanvasEmptyState.tsx CARD · CARD_BLUR · CARD_LABEL(CanvasEmptyState.tsx@d564ed435:138)이 출처다.",
+    variantProperties: {},
+    // **헤어라인은 루트의 INSIDE 획 0.5 다.** CSS 는 `::after` 의 `box-shadow: var(--louis-hairline-inset)` 이고 그 층이
+    // **미디어 위에** 칠해진다(미디어가 카드 box-shadow 를 덮기 때문). Figma 의 INNER_SHADOW 는 프레임 면 위 · 자식 아래에
+    // 그려져 Media 슬롯이 채워지면 가려지고, 프레임의 획은 자식 위에 그려진다 — 그래서 규범의 INNER_SHADOW 대신 획
+    // (`border-width/hairline` · `color/stroke-hairline`)이다(start-card.md Figma 절).
+    strokes: { self: { weight: 0.5, align: "INSIDE" } },
+    // **위쪽 점진 흐림.** `--louis-progressive-blur`(blur-surface 10) + `--louis-progressive-blur-mask-block-start` — 위
+    // 가장자리 0~55% 온전, 100% 에서 0. Figma 좌표는 위가 0 이라 흐림이 0 인 점(start)이 y=1, 온전해지는 점(end)이
+    // y=0.55 다. 카드 정보 바(`--louis-progressive-blur-mask`, to top)의 대칭이다. 띠에 바탕색 · 틴트를 깔지 않는다 —
+    // Figma 의 완전 투명 fill 하나는 배경 흐림이 렌더되려고 있는 것이고 되읽기가 색으로 세지 않는다.
+    effects: {
+      Blur: "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,1:0.5,0.55",
+    },
+    figmaOnlyProperties: {
+      Size: {
+        options: ["sm", "md"],
+        reason:
+          "카드 폭의 컨테이너 질의(`@container louis-start-card (min-width: 240px)`)를 옮긴 축. sm = 폭 240 미만(이름 여백 14 · body-sm-semibold 14), md = 240 이상(여백 18 · body-md-semibold 16). 사다리 값과 순서가 같아(sm 이 작다) 쓰임새 이름을 열지 않았다. Figma 에 컨테이너 질의가 없어 폭에 따라 이름이 저절로 바뀌지 않으므로 축으로 둔다 — 대표 폭은 190(빈 캔버스 칸) · 320(제품 기준)이고 비율 320/403 이다. 반경 16 → 20(조상 컨테이너 600 이상)은 카드가 아니라 놓인 칸의 값이라 축이 아니다. 상태 축은 없다 — 호버에서 움직이는 것은 슬롯 안 미디어(제품 몫)와 `data-media-motion=\"zoom\"` 의 확대뿐이고 면 · 이름은 그대로다. Focus 는 그리지 않는다(DS-D-0074).",
+      },
+      Label: { type: "TEXT", reason: "카드 이름 한 줄(「이미지 생성」 · 「비디오 생성」). 코드에서는 `.louis-start-card__label` 의 텍스트이고 카드의 접근성 이름이다." },
+    },
+    geometry: {
+      // **두 칸을 다 건다.** 기록의 값은 브라우저 실측이 아니라 레시피 선언이다 — React 표면이 없어 브라우저 시험이
+      // 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`). 폭 · 높이 · 블러 띠 높이는 담지 않는다 —
+      // 폭은 칸이 정하고 띠는 폭의 26% 로 따라간다.
+      measuredId: "start-card",
+      sizeKeys: ["sm", "md"],
+      fields: {
+        cornerRadius: "radius",
+        // 루트는 auto-layout 이 아니다 — 슬롯 셋이 모두 절대 배치(CSS `position: absolute`)이고 칠 순서가 트리 순서다.
+        layoutMode: { literal: "NONE" },
+      },
+      slots: {},
+      // 헤어라인 획 0.5(`border-width/hairline`). 기록에 borderWidth 칸이 없다 — CSS 는 border 가 아니라 `::after` 의
+      // inset box-shadow 이고, 그 두께가 토큰 하나라 여기 예외로 적는다(위 `strokes.self` 의 사유).
+      extraStrokeWeights: [0.5],
+      parts: {
+        // `.louis-start-card__label` 의 여백. Figma 는 Label 프레임(auto-layout)의 padding 으로 갖는다.
+        Label: {
+          fields: {
+            paddingBlock: "labelPadding",
+            paddingBlockEnd: "labelPadding",
+            paddingInline: "labelPadding",
+            paddingInlineEnd: "labelPadding",
+            itemSpacing: { literal: 0 },
+            layoutMode: { literal: "HORIZONTAL" },
+          },
+        },
+        Name: { fields: { fontSize: "labelFontSize", lineHeightPercent: { literal: 150 } } },
+      },
+    },
+  },
+  {
     id: "segmented-code-input",
     figmaName: "SegmentedCodeInput",
     figmaAhead:
@@ -2763,7 +2820,9 @@ const COMPONENT_CONTRACTS = [
         layoutMode: { literal: "VERTICAL" },
       },
       slots: {},
-      extraStrokeWeights: [],
+      // canvas 의 카드 줄에 선 StartCard 인스턴스 둘의 헤어라인 획 0.5(2026-10-08). 되읽기는 instance 노드 자신의 획을
+      // 세고 안으로는 들어가지 않으므로 이 값이 canvas 칸에 잡힌다 — 그 값은 StartCard 계약이 소유한다.
+      extraStrokeWeights: [0.5],
       parts: {
         // **자손 셋이 layout마다 사라진다.** compact은 제목·본문 2슬롯이고(제품의 그 자리에
         // 그림도 버튼도 없다) canvas는 설명이 없다. `optional`은 **근거 값이 함께 없을 때만**
@@ -2776,8 +2835,8 @@ const COMPONENT_CONTRACTS = [
         // canvas는 그 추가 간격이 0이다 — 제품이 제목과 버튼을 같은 gap으로 둔다.
         // **canvas 에는 `Action` 이 둘 선다(2026-10-07).** 생성 카드 줄과 글자 단추 줄이 둘 다 같은 `__action` 슬롯이라
         // 이름이 같고, 되읽기가 두 프레임의 값을 한 칸에 모으므로 두 줄이 같은 간격·추가 간격을 가져야 초록이다.
-        // 카드 줄 안의 격자(칸 사이 4)는 소비처 몫이라 이 계약 밖이며, Figma 의 카드 둘은 Start Card 세트가 서기 전의
-        // 자리표시다.
+        // 카드 줄 안의 격자(칸 사이 4)는 소비처 몫이라 이 계약 밖이며, Figma 의 카드 둘은 StartCard `Size=sm` 인스턴스다
+        // (2026-10-08 — 자리표시 프레임을 바꿨다). 카드 값은 StartCard 계약이 소유한다.
         Action: {
           optional: true,
           fields: {

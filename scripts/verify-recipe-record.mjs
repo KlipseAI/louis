@@ -439,6 +439,26 @@ const RECIPES = [
       [".louis-row-title", "background: transparent"],
     ],
   },
+  // ── 시작 카드(2026-10-08) ─────────────────────────────────────────────────
+  //
+  // bare-button 과 같은 처지다 — React 표면이 없어 이 표가 기록의 유일한 반대편이다. 대조하는 칸은 sm 의 반경 · 이름
+  // 여백 · 이름 글자 크기다. md 의 18 · 16 은 `@container louis-start-card (min-width: 240px)` 안의 규칙이라 이 게이트의
+  // 최상위 규칙 찾기에 걸리지 않는다 — parity 계약이 기록과 Figma 를 맞대고, 기록의 `$labelPadding` 사유가 그 선언을
+  // 인용한다. 면 · 이름 잉크는 이름이 계약이다 — 두 테마에서 같은 검정 무대와 미디어 전경.
+  {
+    component: "start-card",
+    recipe: "packages/css/src/component/start-card.css",
+    geometry: [
+      [".louis-start-card", "border-radius", "sm", "radius"],
+      [".louis-start-card__label", "padding", "sm", "labelPadding"],
+      [".louis-start-card__label", "font-size", "sm", "labelFontSize"],
+    ],
+    surfaces: [
+      [".louis-start-card", "var(--louis-color-media-stage-surface)"],
+      [".louis-start-card__label", "var(--louis-color-media-foreground-dark)"],
+      [".louis-start-card__label", "var(--louis-typography-body-sm-semibold-font-weight)"],
+    ],
+  },
 ];
 
 const errors = [];

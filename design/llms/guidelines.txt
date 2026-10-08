@@ -16044,6 +16044,27 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+#### 2026-10-08 (223) — Figma 새 세트: Start Card(빈 캔버스 시작 카드), EmptyState canvas 카드를 인스턴스로
+
+- **`StartCard`** component set 이 DS · Components 「5 · 내용」 구획에 섰다(MediaCard 오른쪽, 2 변형). 축은 `Size` 하나 — `sm`(카드 폭
+  240 미만: 이름 여백 14 · `typography/body-sm-semibold`) · `md`(240 이상: 여백 18 · `typography/body-md-semibold`)다. CSS 의 카드 폭
+  컨테이너 질의(`@container louis-start-card (min-width: 240px)`)를 옮긴 축이라 **인스턴스 폭이 240 을 넘나들면 `Size` 를 함께 바꾼다.**
+  대표 폭은 190 · 320, 비율 320/403.
+- 자식은 칠 순서대로 `Media`(빈 제품 콘텐츠 슬롯 — 비면 `color/media-stage-surface` 검정이 보인다) → `Blur`(바탕 없는 위쪽 점진 흐림,
+  `blur/surface`, 55% 아래로 걷힘) → `Label`(이름 한 줄, `color/media-foreground-dark`)이다. 반경은 `radius/overlay`(16)이고 조상
+  600 이상의 20 은 놓인 칸의 값이라 변형이 아니다. TEXT 속성 `Label` 이 이름을 바꾼다. 상태 축이 없다 — 호버에서 움직이는 것은
+  슬롯 안 미디어뿐이고 Focus 는 그리지 않는다(DS-D-0074).
+- **헤어라인은 루트의 INSIDE 획 0.5 다.** CSS 의 `::after` 헤어라인은 미디어 **위**에 칠해지는데 Figma 의 INNER_SHADOW 는 자식 아래라
+  `Media` 를 채우면 가려진다 — 자식 위에 그려지는 획으로 옮겼다(start-card.md Known deviations 6).
+- **EmptyState `Layout=canvas` 의 카드 둘**(`CardGrid · 자리표시` 안)이 자리표시 프레임에서 `StartCard` `Size=sm` 인스턴스로 바뀌었다
+  (190 × 239.3, 「이미지 생성」 · 「비디오 생성」). 제목 · 줄 간격 · 여백과 canvas 높이는 그대로다. 인스턴스의 헤어라인 0.5 가 canvas
+  칸의 획 두께로 잡혀 EmptyState 계약에 그 예외를 적었다.
+- parity 계약(축 · 반경 · 이름 여백 · 글자 크기 두 칸 · 헤어라인 획 · 위쪽 점진 흐림)과 채취 명세를 더하고 StartCard · EmptyState 를
+  다시 떠 세션 기록에서 꺼내 병합했다(StartCard 2 변형 · 바인딩 fill 4 · 원시 0 · 획 2 · 텍스트 스타일 2). 기록
+  `figma/components.measured.json` 에 `start-card` 를 세웠고 값은 레시피 선언이다 — `verify-recipe-record` 에 한 항목(sm 의 반경 ·
+  이름 여백 · 글자 크기 대조 3건과 면 · 잉크 · 굵기 이름 셋)을 더했다. md 의 18 · 16 은 컨테이너 질의 안이라 parity 만 맞댄다.
+- manifest 의 Figma 상태는 `not-ready` → `partial` 이다(브라우저 되재기 없음).
+
 #### 2026-10-08 (222) — Figma 새 세트: Bare Button(맨 버튼 · 행 제목)
 
 - **`BareButton`** component set 이 DS · Components 「1 · 액션」 구획에 섰다(TextLink 아래, 2 변형). 축은 `Layout` 하나 — `base`

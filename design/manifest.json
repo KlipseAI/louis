@@ -2132,9 +2132,10 @@
       "id": "start-card",
       "name": "Start Card",
       "doc": "design/components/start-card.md",
-      "note": "빈 캔버스에서 첫 노드를 만드는 생성 카드(「이미지 생성」 · 「비디오 생성」) — 미디어가 면을 채우고 위쪽 점진 블러 띠 위에 이름이 얹히는 `<button>` 이고 호버에서 안의 미디어가 움직인다. 2026-10-07 제품 chore/landing-dead-walkthrough 의 CanvasEmptyState.tsx CARD · CARD_BLUR · CARD_LABEL(CanvasEmptyState.tsx@d564ed435:138)이 출처이고, 소유자가 Media Card 의 변형이 아니라 별도 부품으로 세우기로 결정했다 — Media Card 는 상태 없는 `<article>` 이고 정사각 + 아래 띠인데 이 카드는 눌리는 `<button>` 이고 320/403 + 위쪽 이름이다. LOUIS 는 상자(비율 · 반경 radius-overlay → 조상 600 이상 radius-card-lg · 면 color-media-stage-surface · 헤어라인 · 위쪽 블러 · 이름 · 슬롯의 호버 박자)를 소유하고 슬롯 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. 호버 규칙은 처음부터 @media (hover: hover) 안에 있다(DS-D-0077). CSS recipe .louis-start-card(packages/css/src/component/start-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거 · Figma 변형은 아직 없다.",
+      "note": "빈 캔버스에서 첫 노드를 만드는 생성 카드(「이미지 생성」 · 「비디오 생성」) — 미디어가 면을 채우고 위쪽 점진 블러 띠 위에 이름이 얹히는 `<button>` 이고 호버에서 안의 미디어가 움직인다. 2026-10-07 제품 chore/landing-dead-walkthrough 의 CanvasEmptyState.tsx CARD · CARD_BLUR · CARD_LABEL(CanvasEmptyState.tsx@d564ed435:138)이 출처이고, 소유자가 Media Card 의 변형이 아니라 별도 부품으로 세우기로 결정했다 — Media Card 는 상태 없는 `<article>` 이고 정사각 + 아래 띠인데 이 카드는 눌리는 `<button>` 이고 320/403 + 위쪽 이름이다. LOUIS 는 상자(비율 · 반경 radius-overlay → 조상 600 이상 radius-card-lg · 면 color-media-stage-surface · 헤어라인 · 위쪽 블러 · 이름 · 슬롯의 호버 박자)를 소유하고 슬롯 안의 미디어(스틸 흐름 · 영상 재생)는 제품 콘텐츠다. 호버 규칙은 처음부터 @media (hover: hover) 안에 있다(DS-D-0077). CSS recipe .louis-start-card(packages/css/src/component/start-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거는 아직 없다. Figma 는 2026-10-08 에 component set StartCard(2 변형 — Size sm · md = 카드 폭 240 미만 · 이상, 상태 축 없음)가 섰고 EmptyState canvas 의 카드 둘이 그 인스턴스다. 되읽기 등재 + parity 계약(반경 · 이름 여백 · 글자 크기 · 헤어라인 획 · 위쪽 점진 흐림)이 있다. 기록은 레시피 선언이고 verify-recipe-record 가 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다.",
       "maturity": "experimental",
-      "figma": "not-ready",
+      "figma": "partial",
+      "figmaName": "StartCard",
       "web": "not-ready",
       "docs": "partial"
     },

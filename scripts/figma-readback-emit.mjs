@@ -276,6 +276,10 @@ const CAPTURE = {
   // 상태 축이 없다(레시피에 호버 · 비활성 선언이 없다). 글자 폭은 담지 않는다(글꼴 렌더링에 달렸다). base 의 글자 크기는
   // 레시피가 쥐지 않는 대표값이고 row-title 의 14 만 레시피 선언이다(verify-recipe-record 가 맞댄다).
   "BareButton": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"]}},
+  // 시작 카드(2026-10-08). 키가 `Size`(sm · md)인 것은 그 축 하나가 이름 여백과 글자를 다시 쓰기 때문이다 — 카드 폭의
+  // 컨테이너 질의(240)를 옮긴 축이다. 루트의 폭 · 높이와 Blur 높이는 담지 않는다 — 폭은 칸이 정하고(대표 190 · 320)
+  // 블러 띠는 폭의 26% 라 같이 움직인다. Blur 의 점진 흐림과 루트 헤어라인 획을 담는다. 상태 축이 없다.
+  "StartCard": {"key":{"by":["Size"]},"fields":["cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"],"Name":["fontSize","lineHeightPercent"]},"strokes":["self"],"effects":["Blur"],"childOrder":true},
   "SegmentedControl": {"key":{"by":["Size"]},"slots":{"Item 1":"size","Item 2":"size","Item 3":"size"},"parts":{"Item 1":["width","height"],"Item 2":["width","height"],"Item 3":["width","height"]},"effects":["self"]},
   "SegmentedControlItem": {"key":{"by":["Size"]},"parts":{"Label":["width","height","fontSize"]}},
   "SegmentedCodeInput": {"key":{"by":["State"]},"parts":{"Cell 1":["width","height","cornerRadius"],"Separator":["width","height"],"Dash":["fontSize"],"Char":["height","fontSize"]},"strokes":["Cell 1"]},

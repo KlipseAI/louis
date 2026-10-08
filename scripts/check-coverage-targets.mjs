@@ -130,7 +130,9 @@ const NEEDED_BASELINE = 172; // 하락만 잠근다(상승은 발견) — 오르
 // 않아 아무도 열어 보지 않은 네 자리(HomePageClient#LandingContent ·
 // nodeToolbarGlyphs#ToolbarIconVideoFrame · node-canvas/primitives#SelectionChrome ·
 // PhotoGrid#ImageStrip). 방향과 목표는 그대로다(↓ · 0).
-const UNCLEAR_BASELINE = 1; // 하락만 잠근다(소유자만 줄일 수 있다)
+// 2026-10-09: 1 → 2 — 새 앵커 54b62a8a 재판정(ed650b2b)에서 판단 대기 하나가 더 들어왔다. 기준선이 지금 수와 같아야 하락 canary 가 문다
+// (verify-gates 「coverage targets unclear fell without locking」).
+const UNCLEAR_BASELINE = 2; // 하락만 잠근다(소유자만 줄일 수 있다)
 // 210 → 225. 표면 총수는 434 그대로이므로 이 상승은 천장이 허락한 것이 아니라 **판정이
 // 만든 것이다** — unclear 15 건이 「그릴 것이 없다」로 내려갔다(부모의 조각 · 순수 배치
 // 래퍼 · defs · 사용자 콘텐츠 슬롯). 그 15 건은 needed 에서 옮겨 온 것이 아니라 판단 대기에서

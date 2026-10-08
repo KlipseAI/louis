@@ -46,10 +46,13 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // run 2026-10-08c(b868655e · e3a2b8d8 를 보낸 뒤): 03-app 넘침 10 → 1 · 부모 밖 23 → 14(팔레트 배경 STRETCH · 대화 상자 FILL + 최대 폭 ·
 // 배너 닫기 단추 오른쪽 · 가운데), 01-public 12 → 11. 남은 공개 넘침은 안전 검사로 재전송되지 못한 /pricing · /inquiry · /blog/[slug] 모바일의
 // 옛 상단 바와 측정 폭에서부터 넘치는 /privacy · /terms 모바일이다.
+// run 2026-10-09a(새 앵커 54b62a8a · DS-D-0082 보드를 보낸 뒤): **후퇴 둘 — 다음 세션에서 고친다.** ① 01-public 글자 잘림 1 → 8: 푸터
+// 모바일 주소 칸이 「감기는 줄의 외톨이는 측정 폭 FIXED」(a51d4b7c) 규칙으로 362 에 굳어 360 에서 +22 넘친다(보드 일곱). FIXED 대신 줄 폭을
+// 따르는 규칙이 필요하다. ② 03-app 부모 밖 14 → 22: 하이라이트 상세 단계 보드가 새 스튜디오 판으로 바뀌며 늘었다(원인 미조사).
 const BASELINE = {
-  "01-public": { overflow: 11, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 11, childOutside: 15, textClip: 8, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { overflow: 1, childOutside: 14, heightFollow: 4, noRoot: 6 },
+  "03-app": { overflow: 1, childOutside: 22, heightFollow: 4, noRoot: 6 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
   "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
 };

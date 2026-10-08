@@ -1278,11 +1278,11 @@ try {
           // 잰 노드를 페이지에 남겨 둔다. 다음 CDP 패스가 **이 노드들 자체**를 조인 키로 쓴다.
           const measuredNodes = [];
           const rootTree = describe(rootCandidate.node, rootPath, null, measuredNodes);
-          window.__louisAuthFixtureNodes = measuredNodes;
           if (rootTree.length > (fullPage ? 12_000 : 2_000)) {
             throw new Error("app root 측정 노드가 상한을 넘었습니다: " + rootTree.length);
           }
           const rootSet = new Set(rootTree.map((entry) => entry.path));
+          const overlayNodes = [];
           const overlays = [...document.querySelectorAll(overlaySelector)]
             .filter((node) => {
               const rect = node.getBoundingClientRect();
@@ -1294,8 +1294,12 @@ try {
             .filter((node, _, all) => overlaySelector === '[role="dialog"]' || !all.some((other) => other !== node && other.contains(node)))
             .map((node, index) => ({
               index,
-              tree: describe(node, "overlay." + index),
+              tree: describe(node, "overlay." + index, null, overlayNodes),
             }));
+          // **겹침도 선언을 받는다(2026-10-08).** 겹침 노드는 조인 배열에 없어 계산값만 실렸다 — 연체 배너 닫기 단추(`right: 12px`)가
+          // 오른쪽 붙음인지 가를 수 없어 MIN 으로, 팔레트 대화 상자(`w-[560px] max-w-full`)가 FIXED 로 풀렸다. 겹침 노드를 뿌리 트리 뒤에
+          // 겹침 순서대로 잇는다 — 붙이는 쪽도 `[...tree, ...overlays[].tree]` 순번으로 읽는다. 겹침이 없으면 배열은 종전 그대로다.
+          window.__louisAuthFixtureNodes = [...measuredNodes, ...overlayNodes];
 
           const landmarkSelector = "header,nav,main,aside,footer,section,[role=dialog]";
           const landmarks = [...document.querySelectorAll(landmarkSelector)]
@@ -1473,14 +1477,16 @@ try {
 
           let attached = 0;
           const unresolved = [];
-          for (const [index, node] of measured.tree.entries()) {
+          // 조인 배열과 같은 순번 — 뿌리 트리 다음에 겹침 트리들(측정 evaluate 의 `__louisAuthFixtureNodes`).
+          const joined = [...measured.tree, ...measured.overlays.flatMap((overlay) => overlay.tree)];
+          for (const [index, node] of joined.entries()) {
             const entry = declared.get(index);
             if (!entry) { unresolved.push(index); continue; }
             if (Object.keys(entry).length > 0) { node.declared = entry; attached += 1; }
           }
           if (detached.length > 0 || unresolved.length > 0) {
             const name = (index) => {
-              const node = measured.tree[index];
+              const node = joined[index];
               return node ? node.path + "(" + node.tag + ")" : "#" + index;
             };
             const report =
@@ -1504,6 +1510,7 @@ try {
             throw new Error("[product-auth-fixture] 선언 스타일이 하나도 붙지 않았습니다 (" + spec.id + ")");
           }
           settleCentredMargins(measured.tree);
+          for (const overlay of measured.overlays) settleCentredMargins(overlay.tree);
           break;
         }
         if (!measured) throw new Error("[product-auth-fixture] 측정이 성립하지 않았습니다 (" + spec.id + ")");

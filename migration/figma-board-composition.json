@@ -14,22 +14,22 @@
   "productCommit": "76b6cf154ab2295d6c4a5c95c29927105a3715e4",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 140,
-  "rawNodesBeforePruning": 9366,
+  "rawNodesBeforePruning": 9374,
   "counts": {
-    "total": 9485,
+    "total": 9493,
     "instance": 332,
     "replaceable": 0,
     "bespoke": 294,
     "blocked": 10,
-    "missing": 1849,
-    "structural": 7000,
+    "missing": 1865,
+    "structural": 6992,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
-    "instanceOverCandidates": 13.4,
+    "instanceOverCandidates": 13.3,
     "target": 332,
-    "candidates": 2485
+    "candidates": 2501
   },
   "byInstanceSet": {
     "Button": 84,
@@ -98,15 +98,15 @@
     "icon/music-notes-simple": 1
   },
   "structuralByKind": {
-    "surface": 1247,
+    "surface": 1239,
     "frame": 3459,
     "text": 2160,
     "image": 134
   },
   "missingByCandidateClause": {
     "c-painted-mark": 1211,
-    "a-interactive": 525,
-    "d-control-group": 29,
+    "a-interactive": 533,
+    "d-control-group": 37,
     "b-vector": 84
   },
   "matchRules": [
@@ -372,13 +372,13 @@
         "figma/app-screens.archive-palette-empty.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 60,
+        "total": 61,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 5,
         "blocked": 0,
-        "missing": 12,
-        "structural": 41,
+        "missing": 14,
+        "structural": 40,
         "unclassified": 0
       }
     },
@@ -391,13 +391,13 @@
         "figma/app-screens.archive-palette-empty.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 59,
+        "total": 60,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 5,
         "blocked": 0,
-        "missing": 12,
-        "structural": 41,
+        "missing": 14,
+        "structural": 40,
         "unclassified": 0
       }
     },
@@ -410,13 +410,13 @@
         "figma/app-screens.archive-palette-flyout.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 168,
+        "total": 169,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 7,
         "blocked": 0,
-        "missing": 45,
-        "structural": 114,
+        "missing": 47,
+        "structural": 113,
         "unclassified": 0
       }
     },
@@ -429,13 +429,13 @@
         "figma/app-screens.archive-palette-flyout.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 154,
+        "total": 155,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 7,
         "blocked": 0,
-        "missing": 41,
-        "structural": 105,
+        "missing": 43,
+        "structural": 104,
         "unclassified": 0
       }
     },
@@ -448,13 +448,13 @@
         "figma/app-screens.archive-palette-query.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 97,
+        "total": 98,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 5,
         "blocked": 0,
-        "missing": 26,
-        "structural": 64,
+        "missing": 28,
+        "structural": 63,
         "unclassified": 0
       }
     },
@@ -467,13 +467,13 @@
         "figma/app-screens.archive-palette-query.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 96,
+        "total": 97,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 5,
         "blocked": 0,
-        "missing": 26,
-        "structural": 64,
+        "missing": 28,
+        "structural": 63,
         "unclassified": 0
       }
     },
@@ -486,13 +486,13 @@
         "figma/app-screens.archive-palette.desktop.00.draw.js"
       ],
       "counts": {
-        "total": 159,
+        "total": 160,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 7,
         "blocked": 0,
-        "missing": 40,
-        "structural": 110,
+        "missing": 42,
+        "structural": 109,
         "unclassified": 0
       }
     },
@@ -505,13 +505,13 @@
         "figma/app-screens.archive-palette.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 158,
+        "total": 159,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 7,
         "blocked": 0,
-        "missing": 40,
-        "structural": 110,
+        "missing": 42,
+        "structural": 109,
         "unclassified": 0
       }
     },
@@ -6765,9 +6765,10 @@
         560,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.empty@desktop-1920x1080#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-empty.desktop.00.draw.js",
@@ -6796,6 +6797,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.empty@desktop-1920x1080#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-empty.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.empty@desktop-1920x1080#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-empty.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -7443,9 +7456,10 @@
         378,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.empty@mobile-402x874#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-empty.mobile.00.draw.js",
@@ -7474,6 +7488,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.empty@mobile-402x874#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-empty.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.empty@mobile-402x874#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-empty.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -8134,9 +8160,10 @@
         560,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.flyout@desktop-1920x1080#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-flyout.desktop.00.draw.js",
@@ -8165,6 +8192,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.flyout@desktop-1920x1080#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-flyout.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.flyout@desktop-1920x1080#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-flyout.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -10039,9 +10078,10 @@
         378,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.flyout@mobile-402x874#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-flyout.mobile.00.draw.js",
@@ -10070,6 +10110,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.flyout@mobile-402x874#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-flyout.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.flyout@mobile-402x874#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-flyout.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -11810,9 +11862,10 @@
         560,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.query@desktop-1920x1080#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-query.desktop.00.draw.js",
@@ -11841,6 +11894,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.query@desktop-1920x1080#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-query.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.query@desktop-1920x1080#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-query.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -12909,9 +12974,10 @@
         378,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette.query@mobile-402x874#1.1.0.0": {
       "board": "figma/app-screens.archive-palette-query.mobile.00.draw.js",
@@ -12940,6 +13006,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette.query@mobile-402x874#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette-query.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette.query@mobile-402x874#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette-query.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -14021,9 +14099,10 @@
         560,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette@desktop-1920x1080#1.1.0.0": {
       "board": "figma/app-screens.archive-palette.desktop.00.draw.js",
@@ -14052,6 +14131,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette@desktop-1920x1080#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette.desktop.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette@desktop-1920x1080#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette.desktop.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -15822,9 +15913,10 @@
         378,
         51
       ],
-      "verdict": "structural",
-      "rule": "surface",
-      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
+      "verdict": "missing",
+      "rule": "unmatched-d-control-group",
+      "candidateClause": "d-control-group",
+      "reason": "칠해진 컨트롤 묶음인데 묶음 기하가 LOUIS SegmentedControl 사다리에 없다. 자식만 인스턴스로 바꾸면 묶음의 패딩·간격·선택 표시는 손으로 그린 도형으로 남는다."
     },
     "/archive palette@mobile-402x874#1.1.0.0": {
       "board": "figma/app-screens.archive-palette.mobile.00.draw.js",
@@ -15853,6 +15945,18 @@
       "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
     },
     "/archive palette@mobile-402x874#1.1.0.2": {
+      "board": "figma/app-screens.archive-palette.mobile.00.draw.js",
+      "tag": "button",
+      "rect": [
+        24,
+        24
+      ],
+      "verdict": "missing",
+      "rule": "unmatched-a-interactive",
+      "candidateClause": "a-interactive",
+      "reason": "상호작용 요소인데 높이·반경이 LOUIS 컨트롤 사다리(Button·IconButton·SegmentedControlItem) 어디에도 앉지 않는다. 세워야 할 것은 새 컴포넌트이거나 기존 컴포넌트의 새 size 축이다."
+    },
+    "/archive palette@mobile-402x874#1.1.0.2.0": {
       "board": "figma/app-screens.archive-palette.mobile.00.draw.js",
       "tag": "svg",
       "rect": [

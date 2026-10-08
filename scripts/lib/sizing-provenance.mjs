@@ -177,6 +177,14 @@ export function decideAxis({ declared: rawDeclared, computed, axis, parentComput
       return { verdict: AXIS.HUG, reason: `${declared} — 콘텐츠가 결정한다`, source: `${horizontal ? "width" : "height"}:${declared}`, value: null };
     }
     const fixed = px(declared);
+    // **고정 폭 + `max-width: 100%` 는 FILL + maxWidth 다(2026-10-08, 조립 규칙 15조의 6).** 「그 폭이되 포함 블록보다 넓어지지 않는다」 —
+    // 부모가 넓으면 그 폭, 좁으면 부모 폭이다. Figma 의 FILL + maxWidth(그 폭)가 같은 뜻이다. FIXED 로 굳히면 팔레트 대화 상자
+    // (`w-[560px] max-w-full`)가 모바일 360 에서 부모를 9.5 넘쳤다. 다만 FILL 은 포함 블록이 아니라 Figma 부모의 남는 자리를 채우므로,
+    // 측정 폭에서 결과 폭이 측정값과 같은지(parity)는 부모 · 형제를 아는 호출자(`figma-tree-spec` convert)가 확인하고 어긋나면 FIXED 로 되돌린다.
+    if (fixed != null && horizontal && percent(computed?.maxWidth) === 100) {
+      return { verdict: AXIS.FILL, reason: `${declared} + max-width:100% — 부모를 채우되 ${fixed} 를 넘지 않는다`, source: `width:${declared} · max-width:100%`, value: fixed, limit: { max: fixed }, cappedFixed: fixed,
+        fixedFallback: { verdict: AXIS.FIXED, reason: `${declared} 고정 선언`, source: `width:${declared}`, value: fixed } };
+    }
     if (fixed != null) {
       return { verdict: AXIS.FIXED, reason: `${declared} 고정 선언`, source: `${horizontal ? "width" : "height"}:${declared}`, value: fixed };
     }

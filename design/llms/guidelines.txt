@@ -4291,6 +4291,33 @@ GNB · 상단 블러 판 · 토스트처럼 `position: fixed` 이고 z-index 가
   내용이 숨어 빈 상자)도 같았다.
 - 측정 폭에서는 부모 안쪽 폭(grid 면 칸 폭) = 측정 폭이라 자리 · 크기가 같다.
 
+##### 15조의 5. 겹침도 선언을 싣고, flex 교차축 가운데에 선 절대 배치는 CENTER 다
+
+제약 판정(15조의 2)은 선언을 본다 — 계산값은 네 변을 전부 px 로 풀어 `right: 12px` 와 「왼쪽 1880」을 가르지 못한다. 측정기는 앱 뿌리
+트리에만 선언(CDP)을 붙이고 겹침(`overlays` — 커맨드 팔레트 · 연체 배너)은 계산값만 실었다. 그래서 겹침 노드도 같은 조인 배열에
+뿌리 트리 뒤로 잇는다(`measure-product-auth-fixture.mjs` — `__louisAuthFixtureNodes = [...뿌리, ...겹침]`, 붙이는 쪽도 같은 순번).
+겹침이 없는 원장은 출력이 바이트로 같다.
+
+- **실측 사고(2026-10-08 늘림 시험).** 연체 배너 닫기 단추(제품 `PastDueBanner.tsx` — `position: absolute; right: 12px`)가 선언 없이
+  계산값 left 1880 · right 12 만 있어 MIN 으로 섰고, 보드를 1440 으로 줄이자 468 넘쳤다. 선언이 실리면 가로는 `MAX` 다.
+- **flex 교차축 정적 자리.** 한 축의 두 변을 다 비운(`auto` · 선언 없음) 절대 배치는 그 축에서 정적 자리에 선다. flex 부모 안의 정적
+  자리는 그 요소가 유일한 flex 항목인 것처럼 정렬한 자리라, 교차축 정렬(`align-self`, 없으면 부모 `align-items`)이 `center` 면 부모
+  교차축 가운데다 — 그 축을 `CENTER` 로 건다. 가로 flex 면 세로, 세로 flex 면 가로가 교차축이다. 주축(`justify-content`)은 보지 않는다.
+  배너 닫기 단추(배너는 가로 flex · `align-items: center`)는 세로 CENTER, 입력칸 안 아이콘(`left: 8px` · 위아래 선언 없음, 노드 캔버스 ·
+  영상 편집기 · 쇼츠 편집 템플릿)도 세로 CENTER 가 된다(`constraintsFor` 의 셋째 인자 — 부모 계산값).
+- 측정 폭의 자리 · 크기는 바뀌지 않는다.
+
+##### 15조의 6. 고정 폭 + `max-width: 100%` 는 FILL + 최대 폭이다 — 측정 폭에서 같을 때만
+
+`width: 560px; max-width: 100%`(`w-[560px] max-w-full`)는 「그 폭이되 포함 블록보다 넓어지지 않는다」다. Figma 의 FILL + maxWidth(그 폭)가
+같은 뜻이다 — 부모가 넓으면 그 폭, 좁으면 부모 폭. FIXED 로 굳히면 부모가 줄어도 그 폭에 남는다(`sizing-provenance.mjs` 의 `decideAxis`).
+
+- **실측 사고(2026-10-08 늘림 시험).** 커맨드 팔레트 대화 상자(제품 `CommandPalette.tsx` — `w-[560px] max-w-full`)가 겹침 선언이 없어
+  FIXED 로 풀렸고, 모바일 보드를 360 으로 줄이자 9.5 넘쳤다.
+- **parity.** Figma 의 FILL 은 포함 블록이 아니라 Figma 부모의 남는 자리를 채운다 — 세로로 쌓는 부모(세로 flex · block)는 안쪽 폭, 가로 flex
+  부모는 안쪽 폭에서 흐름 형제 폭과 간격을 뺀 자리다. 그 자리와 그 폭 중 작은 쪽이 측정 폭과 1 안으로 같을 때만 FILL 로 두고, 아니면(grid
+  칸 · 그 밖의 부모 · 형제가 나눠 가짐) FIXED 로 되돌린다(`figma-tree-spec.mjs` convert). 측정 폭의 그림은 바뀌지 않는다.
+
 #### 16. 획 규칙은 단색 UI 아이콘에만 적용한다
 
 4번의 「획 = 표시 크기 / 16」은 `currentColor` 를 따르는 **단색 선 아이콘**의 규칙이다.
@@ -4991,7 +5018,7 @@ var(--louis-color-stroke-hairline)`(`packages/css/src/base.css`). 선택 표시 
 - 13번은 제품의 아이콘 출처 세 곳을 각각 세어 라이브러리 개수와 대조한다.
 - 14번은 프레임 높이가 내용보다 작은지로 확인한다 — 잘린 화면은 검토된 화면이 아니다.
 - 15번은 프레임 자식 목록의 마지막 두 칸이 고정 레이어인지로 확인한다.
-- 15조의 2 · 3 · 4 는 늘림 시험이 센다 — `scripts/build-figma-resize-probe.mjs` 가 보드 복제본을 데스크톱 1440 · 2560 · 높이 130%,
+- 15조의 2 ~ 6 은 늘림 시험이 센다 — `scripts/build-figma-resize-probe.mjs` 가 보드 복제본을 데스크톱 1440 · 2560 · 높이 130%,
   모바일 360 · 430 · 높이 130% 로 바꿔 넘침 · 폭 추종 · 높이 추종을 재고(`figma/resize-check.json`), `scripts/check-figma-resize.mjs`
   가 기준선과 대조한다(Figma 접근이 필요해 CI 밖). 생성기에서는 `build-figma-app-screens` 요약에 「화면 크기 묶음」 수(FILL 로 옮긴 자리 ·
   걷은 뷰포트 폭 한계)가 나오고, 바뀐 sizing · 제약 칸은 러너 대조(`--check`)가 잠근다. 문서 길이 보드의 높이 미추종은 15조의 3 의 4 에 따라 기대값이다.

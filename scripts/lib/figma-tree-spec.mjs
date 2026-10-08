@@ -799,6 +799,30 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       contextId,
     });
     const sizing = toFigmaSizing(decision);
+    // **고정 폭 + `max-width: 100%` 의 FILL 은 측정 폭에서 같을 때만(2026-10-08, 조립 규칙 15조의 6).** 판정기는 FILL + maxWidth(그 폭)를
+    // 내지만 Figma 의 FILL 은 부모의 남는 자리를 채운다 — 세로로 쌓는 부모(세로 flex · block)는 안쪽 폭, 가로 flex 부모는 안쪽 폭에서 흐름
+    // 형제와 간격을 뺀 자리다. 그 자리와 그 폭 중 작은 쪽이 측정 폭과 1 안으로 같지 않으면(grid 칸 · 다른 부모 · 형제가 나눠 가짐) FIXED 로
+    // 되돌린다 — 측정 폭의 그림은 바뀌지 않아야 한다.
+    if (decision.h.cappedFixed != null) {
+      const outer = parent?.style ?? {};
+      const edge = (side) => (px(outer[`padding${side}`]) ?? 0) + (px(outer[`border${side}Width`]) ?? 0);
+      const inner = parent?.rect ? parent.rect.width - edge("Left") - edge("Right") : null;
+      const flex = /flex/.test(outer.display ?? "");
+      const row = flex && (outer.flexDirection ?? "row").startsWith("row");
+      const stacks = (flex && !row) || /^(block|flow-root|list-item)$/.test(outer.display ?? "");
+      const flowSiblings = row ? (childrenOf.get(parent.path) ?? [])
+        .filter((sibling) => sibling !== node && isVisible(sibling) && !["absolute", "fixed"].includes(sibling.style?.position)) : [];
+      const room = inner == null || (!row && !stacks) ? null
+        : inner - flowSiblings.reduce((sum, sibling) => sum + sibling.rect.width, 0) - flowSiblings.length * (px(outer.columnGap ?? outer.gap) ?? 0);
+      if (room != null && Math.abs(Math.min(room, decision.h.cappedFixed) - node.rect.width) <= 1) {
+        stats.cappedFixedFill = (stats.cappedFixedFill ?? 0) + 1;
+        decision.h = Object.fromEntries(Object.entries(decision.h).filter(([key]) => key !== "cappedFixed" && key !== "fixedFallback"));
+      } else {
+        sizing.layoutSizingHorizontal = "FIXED";
+        sizing.maxWidth = decision.minMax.maxWidth === decision.h.cappedFixed ? null : decision.minMax.maxWidth;
+        decision.h = decision.h.fixedFallback;
+      }
+    }
     // **퍼센트 최소 높이(2026-09-29).** `min-height: 100%` 는 계산값에서도 %라 크기 판정(limitPx)이 풀지 못해 버렸다 — 구독 데스크톱
     // 본문 열(`min-height: 100%` = main 안쪽 1044)이 내용 높이(1009)로 서, 가운데 정렬 section 이 35 짧아지고 그 안의 안내가 9 위에
     // 섰다. 부모 안쪽 높이의 P% 가 측정 높이와 같으면(최소 높이가 걸려 있었다) 그 높이를 최소 높이로 싣는다.
@@ -1035,7 +1059,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       offset: decision.absolute && parent
         ? { x: node.rect.x - parent.rect.x, y: node.rect.y - parent.rect.y }
         : null,
-      constraints: decision.absolute ? constraintsFor(node.declared ?? {}, node.style ?? null) : null,
+      constraints: decision.absolute ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null) : null,
       why: { horizontal: decision.h, vertical: decision.v },
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
@@ -1155,8 +1179,14 @@ export function collapseWrappers(node, stats = null) {
  * **가운데에 둔 절대 배치는 CENTER 다(2026-10-08, 15조의 2).** `left: 50%`(또는 `top: 50%`)는 자기 왼쪽 변을 포함 블록 가운데에 두고,
  * 흔히 `translate: -50%` 로 자기 가운데를 맞춘다. 어느 쪽이든 부모가 커지거나 줄 때 노드 가운데와 부모 가운데의 거리가 그대로다 — Figma
  * 의 CENTER 가 그 뜻이다. MIN 으로 두면 부모를 줄여도 왼쪽 거리가 측정 폭의 절반에 묶인다. 측정 폭의 자리는 바뀌지 않는다.
+ *
+ * **flex 교차축 가운데에 선 절대 배치도 CENTER 다(2026-10-08, 15조의 5).** 한 축의 두 변을 다 비운(`auto` · 선언 없음) 절대 배치는 그
+ * 축에서 정적 자리에 선다 — flex 부모 안의 정적 자리는 그 요소가 유일한 flex 항목인 것처럼 정렬한 자리라, 교차축 정렬(`align-self`,
+ * 없으면 부모 `align-items`)이 `center` 면 부모 교차축 가운데다. 연체 배너 닫기 단추(`position: absolute; right: 12px` · 배너는 가로
+ * flex · `align-items: center`)가 MIN 으로 서면 배너 높이가 바뀔 때 위에 붙는다. 가로 flex 면 세로, 세로 flex 면 가로가 교차축이다.
+ * 주축 정적 자리(`justify-content`)는 보지 않는다. 측정 폭의 자리는 바뀌지 않는다.
  */
-export function constraintsFor(declared, computed = null) {
+export function constraintsFor(declared, computed = null, parentComputed = null) {
   const has = (value) => value != null && value !== "auto" && value !== "";
   const position = computed?.position;
   const zero = (value) => px(value) === 0;
@@ -1164,12 +1194,19 @@ export function constraintsFor(declared, computed = null) {
   const spans = (start, end, size) => (position === "fixed" || (position === "absolute" && !lengthDeclared(declared[size])))
     && zero(computed[start]) && zero(computed[end]);
   const centred = (value) => /^(calc\(\s*50%\s*\)|50%)$/.test(String(value ?? "").replace(/\s*!\s*important\s*$/i, "").trim());
+  // flex 교차축 정적 자리가 가운데인가 — 그 축의 두 변이 다 비었을 때만(위 주석).
+  const flexRow = /flex/.test(parentComputed?.display ?? "") && (parentComputed?.flexDirection ?? "row").startsWith("row");
+  const flexColumn = /flex/.test(parentComputed?.display ?? "") && (parentComputed?.flexDirection ?? "").startsWith("column");
+  const ownAlign = String(declared["align-self"] ?? computed?.alignSelf ?? "auto").trim();
+  const crossAlign = /^(auto|normal)$/.test(ownAlign) ? parentComputed?.alignItems : ownAlign;
+  const staticCentre = (cross, start, end) => cross && position === "absolute" && !has(declared[start]) && !has(declared[end])
+    && /^(safe\s+|unsafe\s+)?center$/.test(String(crossAlign ?? "").trim());
   return {
     horizontal: (has(declared.left) && has(declared.right)) || spans("left", "right", "width") ? "STRETCH"
-      : centred(declared.left) || (centred(declared.right) && !has(declared.left)) ? "CENTER"
+      : centred(declared.left) || (centred(declared.right) && !has(declared.left)) || staticCentre(flexColumn, "left", "right") ? "CENTER"
         : has(declared.right) ? "MAX" : "MIN",
     vertical: (has(declared.top) && has(declared.bottom)) || spans("top", "bottom", "height") ? "STRETCH"
-      : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) ? "CENTER"
+      : centred(declared.top) || (centred(declared.bottom) && !has(declared.top)) || staticCentre(flexRow, "top", "bottom") ? "CENTER"
         : has(declared.bottom) ? "MAX" : "MIN",
   };
 }

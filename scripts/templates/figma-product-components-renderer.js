@@ -643,6 +643,15 @@ const reconcileMenuRow = async (variant, row, spec) => {
   const iconMaster = componentByName.get(P.iconComponents[spec.icon.asset]);
   if (!iconMaster) throw new Error(`Missing icon master for ${spec.icon.asset} in Gnb menu ${row.name}`);
   if (icon.mainComponent?.id !== iconMaster.id) icon.swapComponent(iconMaster);
+  // swapComponent 는 옛 아이콘 벡터의 칠 · 획 덮어쓰기를 같은 자리의 새 벡터에 옮긴다 — 옛 집 아이콘의 면 칠이 캔버스의 외곽 사각형을
+  // 메워 검은 네모로 보였다(LOUIS 캡처, 2026-10-08). 칠 · 획의 «있고 없음»은 매 실행 마스터에서 다시 가져온다(색은 아래에서 다시 칠한다).
+  const iconMasterParts = iconMaster.findAll((node) => "fills" in node && "strokes" in node);
+  icon.findAll((node) => "fills" in node && "strokes" in node).forEach((part, index) => {
+    const source = iconMasterParts[index];
+    if (!source || !Array.isArray(source.fills) || !Array.isArray(source.strokes)) return;
+    part.fills = source.fills.map((entry) => ({ ...entry }));
+    part.strokes = source.strokes.map((entry) => ({ ...entry }));
+  });
   fitLineIcon(icon, spec.icon.rect.width, spec.icon.rect.height);
   const keep = [place(row, icon, 0)];
   if (spec.kind === "highlight") {

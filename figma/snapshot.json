@@ -19,7 +19,7 @@
       },
       "components": {
         "sets": 66,
-        "variants": 785
+        "variants": 786
       },
       "icons": 47,
       "templates": 9
@@ -18280,19 +18280,27 @@
     "Tabs": {
       "outsideParts": [],
       "tokenId": "tabs",
-      "variantCount": 1,
+      "variantCount": 2,
       "hasDescription": true,
-      "properties": {},
+      "properties": {
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "default",
+            "underline"
+          ]
+        }
+      },
       "binding": {
         "boundFills": 0,
         "rawFills": 0,
-        "boundStrokes": 0,
+        "boundStrokes": 1,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
       },
       "geometry": {
-        "base": {
+        "default": {
           "slots": {
             "TabItem": [
               "52x28",
@@ -18340,9 +18348,64 @@
           "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "underline": {
+          "slots": {
+            "TabItem": [
+              "52x28",
+              "69x28"
+            ]
+          },
+          "parts": {
+            "TabItem": {
+              "width": [
+                52,
+                69
+              ],
+              "height": [
+                28
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            173
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
-      "strokes": {},
+      "strokes": {
+        "self": [
+          "0.5|INSIDE"
+        ]
+      },
       "effects": {}
     },
     "TextField": {

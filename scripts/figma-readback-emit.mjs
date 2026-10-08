@@ -285,7 +285,8 @@ const CAPTURE = {
   "Table": {"key":{"name":"base"},"parts":{"HeaderRow":["width","height"],"Row 1":["width","height"],"Row 2":["width","height"],"Row 3":["width","height"]},"strokes":["TableCell"],"effects":["HeaderRow"]},
   "TableCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]},"strokes":["self"]},
   "TableHeaderCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]}},
-  "Tabs": {"key":{"name":"base"},"slots":{"TabItem":"size"},"parts":{"TabItem":["width","height"]}},
+  // 밑선 변형(2026-10-08)이 `Variant` 축을 열었다. 밑선은 아래 한 변 INSIDE 획이라 `strokes:["self"]` 로 담는다.
+  "Tabs": {"key":{"by":["Variant"]},"slots":{"TabItem":"size"},"parts":{"TabItem":["width","height"]},"strokes":["self"]},
   // **TextField 의 Box 만 `cornerRadius` 대신 모서리 둘을 담는다.** 결합 칸(`Join`)은 맞닿는 변의
   // 곡률을 펴므로 네 모서리가 갈리고, 그러면 Figma 의 `cornerRadius` 는 `mixed` 가 되어
   // `undefined` 로 떨어진다 — 그 칸의 곡률이 **아무 값과도 대조되지 않는다.** Dialog 의 sheet 가
@@ -372,6 +373,12 @@ const DEFAULT_FIELDS = ${JSON.stringify(DEFAULT_FIELDS)};
 const r6 = (n) => (typeof n === "number" ? Math.round(n * 1e6) / 1e6 : n);
 const r1 = (n) => (typeof n === "number" ? Math.round(n * 10) / 10 : n);
 const num = (n) => (typeof n === "number" && Number.isFinite(n) ? r1(n) : undefined);
+// 변마다 두께가 다르면(한 변 헤어라인 — Tabs underline 의 아래 변, 2026-10-08) \`strokeWeight\` 가 figma.mixed(Symbol)다.
+// 문자열에 이으면 던지므로 네 변 중 가장 두꺼운 값으로 읽는다 — 그 획이 실제로 그리는 선의 두께다.
+const strokeW = (node) =>
+  typeof node.strokeWeight === "number"
+    ? r1(node.strokeWeight)
+    : r1(Math.max(node.strokeTopWeight || 0, node.strokeRightWeight || 0, node.strokeBottomWeight || 0, node.strokeLeftWeight || 0));
 
 const page = figma.root.children.find((p) => p.name === PAGE);
 if (!page) throw new Error("페이지를 찾지 못했습니다: " + PAGE);
@@ -576,7 +583,7 @@ for (const name of Object.keys(SPEC)) {
         }
         const role = node.name;
         if ((spec.strokes || []).indexOf(role) !== -1 && hasPaint(node.strokes)) {
-          push(strokes, role, r1(node.strokeWeight) + "|" + node.strokeAlign);
+          push(strokes, role, strokeW(node) + "|" + node.strokeAlign);
         }
         if ((spec.effects || []).indexOf(role) !== -1) push(effects, role, effectString(node.effects));
         const slotKind = (spec.slots || {})[node.name];
@@ -605,8 +612,8 @@ for (const name of Object.keys(SPEC)) {
 
     countNode(variant);
     if ((spec.strokes || []).indexOf("self") !== -1 && hasPaint(variant.strokes)) {
-      push(strokes, "self", r1(variant.strokeWeight) + "|" + variant.strokeAlign);
-      if (bag.weights.indexOf(r1(variant.strokeWeight)) === -1) bag.weights.push(r1(variant.strokeWeight));
+      push(strokes, "self", strokeW(variant) + "|" + variant.strokeAlign);
+      if (bag.weights.indexOf(strokeW(variant)) === -1) bag.weights.push(strokeW(variant));
     }
     if ((spec.effects || []).indexOf("self") !== -1) push(effects, "self", effectString(variant.effects));
     for (const child of variant.children || []) visit(child, false);

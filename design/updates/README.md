@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-08 (213) — Figma 구조 맞춤: Tabs 밑선 변형(`Variant=underline`)
+
+- **Tabs** 가 단일 컴포넌트에서 세트로 바뀌었다 — `Variant` = `default` · `underline`. 기존 컴포넌트가 `Variant=default` 로 들어가
+  노드 id 가 그대로라 이미 놓인 인스턴스는 기본 줄로 남는다. `underline` 은 CSS `data-variant="underline"`(분석 화면 밑선 탭 줄)과
+  같다 — 간격 0 · 아래 한 변 헤어라인. 480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 그리지 않는다.
+- **밑선은 그림자가 아니라 아래 한 변의 INSIDE 획**(`border-width/hairline` 0.5 · `color/stroke-hairline`, 레이아웃 밖)이다. Figma 의
+  INNER_SHADOW 는 면이 있는 자리에만 그려져 면이 없는 탭 줄에서는 선이 보이지 않았다. 이 예외와 「CSS `data-variant` 를 옮기는
+  `Variant` 축은 그 철자를 쓴다」를 [Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 · 헤어라인 절에 적었다.
+- parity 계약(`Variant` 축 · 밑선 획 0.5 INSIDE) · 채취 명세(`Variant` 키 · `strokes:["self"]`)를 고치고 되읽어 병합했다. 채취 코드는
+  변마다 두께가 다른 획(`strokeWeight` 가 mixed)을 네 변 중 가장 두꺼운 값으로 읽는다 — 전에는 문자열에 이으며 던질 자리였다.
+
 ## 2026-10-08 (212) — 아이콘 출처를 세트 단위로(DS-D-0078)
 
 소유자가 글리프마다 일곱 칸을 적는 출처 기록(DS-D-0008 3항)이 무겁다고 했다. [DS-D-0078](../governance/decisions/DS-D-0078-icon-provenance-per-set.md)

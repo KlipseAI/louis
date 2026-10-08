@@ -40,7 +40,7 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | 축 | 허용값 | 무엇을 담나 |
 | --- | --- | --- |
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
-| `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` | **강조 단계만.** 부품 이름을 넣지 않는다 |
+| `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` · (CSS `data-variant` 를 그대로 옮기는 자리는 그 철자) | **강조 단계만.** 부품 이름을 넣지 않는다. 예외 하나 — 강조 축이 없는 컴포넌트가 CSS 에서 `data-variant` 로 표현 갈래를 고르면 같은 이름 · 같은 철자로 옮긴다(Tabs `default` · `underline`, 2026-10-08). 이름을 따로 지으면 코드와 Figma 가 같은 갈래를 두 이름으로 부른다 |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다 |
 | `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
 | `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
@@ -556,6 +556,11 @@ Button 은 `border: 0` 이고 헤어라인은 레이아웃을 건드리지 않�
 같은 이유로 **헤어라인은 stroke 가 아니라 INNER_SHADOW 로 그린다.** CSS 가
 `inset 0 0 0 0.5px var(--louis-color-stroke-hairline)` 이면 Figma 도 spread 0.5 의 inner shadow 여야
 한다. stroke 로 두면 기법도 다르고, 실제로 토큰도 엉뚱한 것(`stroke-control`)에 물려 있었다.
+
+**예외 — 면이 없는 프레임의 한 변 헤어라인은 INSIDE 획이다(2026-10-08).** Figma 의 INNER_SHADOW 는 칠(fill)이 있는 자리에만
+그려진다. 면이 없는 탭 줄(Tabs `Variant=underline`, CSS `--louis-hairline-inset-block-end`)에 그림자를 걸었더니 선이 보이지 않았다.
+그런 자리는 그 변만 두께를 준 INSIDE 획(`border-width/hairline` · `color/stroke-hairline`, `strokesIncludedInLayout = false`)으로
+그린다 — 화면 조립 30조와 TableCell 행 구분선이 같은 기법이다. 면이 있는 자리는 위 규칙대로 INNER_SHADOW 다.
 
 ## INSTANCE_SWAP 은 노드 id 를 받는다 — 그리고 후보를 채워야 쓸 수 있다
 

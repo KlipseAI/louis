@@ -32,7 +32,7 @@ summary: 같은 화면 안에서 보이는 뷰를 바꿉니다.
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | CSS 레시피 `packages/css/src/component/tabs.css`. **React 표면이 없다** — `packages/react/src/`에 `tabs` 디렉터리가 없고 public export도 acceptance test도 없다. 제품 `design` 브랜치 4파일이 이 클래스를 소비한다 |
-| Figma         | `partial`      | TabItem(State 4개) · Tabs(조립 COMPONENT). 둘 다 parity 계약(`scripts/verify-figma-parity.mjs`)에 등재돼 있고 게이트가 돈다 — **다만 기하 대조가 없다**. 아래 Known deviations |
+| Figma         | `partial`      | TabItem(State 4개) · Tabs(`Variant` = `default` · `underline`, 2026-10-08). 둘 다 parity 계약(`scripts/verify-figma-parity.mjs`)에 등재돼 있고 게이트가 돈다 — **다만 기하 대조가 없다**. 아래 Known deviations |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범이 구현보다 뒤에 선다. React 표면과 parity 기하 대조가 서야 승격한다 |
 
@@ -124,7 +124,13 @@ option이 생긴다.
 
 밑선은 **목록 자기 폭만큼** 그려진다. 제품의 선은 목록이 아니라 그 바깥 줄(탭 + 오른쪽 기간
 선택기)에 있어 선택기 아래까지 이어진다 — 그 줄은 호출부가 갖는다(「일부러 하지 않은 것」의 줄 배치와 같은 이유).
-출처: 2026-10-07, 제품 origin/dev AnalyticsTabs. **Figma 변형은 아직 없다**(TabItem · Tabs에 이 축이 없다).
+출처: 2026-10-07, 제품 origin/dev AnalyticsTabs.
+
+**Figma 는 Tabs 세트의 `Variant=underline` 이다(2026-10-08).** 간격 0 · 아래 한 변 헤어라인이고, 탭(TabItem)은 기본 줄과 같은
+인스턴스다. 밑선은 CSS 처럼 그림자가 아니라 **아래 한 변의 INSIDE 획**(`border-width/hairline` 0.5 · `color/stroke-hairline`,
+레이아웃 밖)이다 — Figma 의 INNER_SHADOW 는 면이 있는 자리에만 그려지는데 탭 줄은 면이 없어 그림자로는 선이 보이지 않았다.
+480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 Figma 변형이 없다. 축 이름이 `Variant` 인 것은 CSS
+`data-variant` 와 같은 철자를 쓰기 위해서다([Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 의 `Variant` 행).
 
 **크기 축도 없다.** 높이가 28 하나다. 이 값은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의
 컨트롤 사다리(`lg` 40 · `md` 32)를 **따르지 않는다** — 탭은 나란히 서는 컨트롤이 아니라 내비게이션
@@ -258,7 +264,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - Web source: `packages/css/src/component/tabs.css`
 - Public import: **없다.** 소비처가 `styles.layer.css`를 통해 클래스를 받는다
 - React source: **없다**
-- Figma: TabItem · Tabs
+- Figma: TabItem · Tabs(`Variant` = `default` · `underline`)
 - Tests: **없다**(밑선 변형 포함). 하네스는 있다 — 아래 「일부러 하지 않은 것」
 
 - **호출부가 투명도를 덮어쓸 수 있는 것은 특이도가 아니라 레이어 순서 덕이다.** 선택 규칙
@@ -310,7 +316,8 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
   순검정 8% 다. 새 토큰을 만들지 않고 DS-D-0023 헤어라인을 받았다 — 라이트에서 4%p 짙다. 같게
   하려면 밑선 전용 알파 토큰이 필요하고, 쓰는 곳이 이 변형 하나다.
 - **밑선이 목록 폭까지만 그려진다.** 제품은 탭 + 기간 선택기를 담는 바깥 줄이 선을 갖는다.
-- **Figma에 밑선 변형이 없다.** TabItem · Tabs 어느 쪽도 이 축을 갖지 않는다. 코드가 앞서 있다.
+- ~~**Figma에 밑선 변형이 없다.**~~ **해소됐다**(2026-10-08) — Tabs 세트에 `Variant=underline` 이 섰다. 다만 480px 이하 규칙은
+  Figma 에 그리지 않는다(뷰포트 조건).
 - **토큰 게이트가 이 수치를 계산하지 않는다.** 토큰 소스의 `contrastPairs`는 전부 토큰 대
   토큰이고, **요소 투명도를 얹은 뒤의 색을 보는 쌍이 하나도 없다.** 위 실측은 손으로 잰 것이다.
   이 결손은 이 컴포넌트가 만든 것이 아니라 드러낸 것이다.

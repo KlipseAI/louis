@@ -795,10 +795,20 @@ const COMPONENT_CONTRACTS = [
     id: "tabs",
     figmaName: "Tabs",
     figmaAhead: "React 표면 없음 — packages/css/src/component/tabs.css 의 .louis-tabs 가 정본이다.",
-    // 트랙은 축이 없다. TabItem 인스턴스를 붙이고 빼서 조립하며 auto-layout 이 폭을 정한다.
+    // 트랙은 탭 개수 축이 없다. TabItem 인스턴스를 붙이고 빼서 조립하며 auto-layout 이 폭을 정한다.
     variantProperties: {},
-    figmaOnlyProperties: {},
-    strokes: {},
+    figmaOnlyProperties: {
+      Variant: {
+        options: ["default", "underline"],
+        reason:
+          "CSS 의 `data-variant` 이고 속성이 없을 때가 default 다(2026-10-08 Figma 에 세움). underline 은 분석 화면의 밑선 탭 줄 — 간격이 4 에서 0 으로 줄고 아래 한 변에 헤어라인이 선다. 기하(간격)가 갈리므로 BOOLEAN 이 아니라 축이다. 값을 소문자로 적은 것은 CSS 속성값과 같은 철자를 쓰기 위해서다. 480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 Figma 변형이 없다.",
+      },
+    },
+    // **밑선은 아래 한 변의 INSIDE 획 0.5 다(underline 만).** CSS 는 `box-shadow: var(--louis-hairline-inset-block-end)`
+    // 인데 Figma 의 INNER_SHADOW 는 면(fill)이 있는 자리에만 그려지고 탭 줄은 면이 없다 — 그림자로 두면 선이 보이지 않는다
+    // (2026-10-08 실측). 그래서 화면 조립 30조와 TableCell 의 행 구분선처럼 한 변 획(`border-width/hairline` ·
+    // `color/stroke-hairline`, 레이아웃 밖)으로 그린다. default 는 획이 없어 되읽기에 값을 보태지 않는다.
+    strokes: { self: { weight: 0.5, align: "INSIDE" } },
     effects: {},
   },
   {

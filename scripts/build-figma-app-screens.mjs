@@ -2838,8 +2838,12 @@ for (const part of parts) {
       if (last && last.size + size <= budget) { last.slots.push({ path: chunk.path, spec: chunk.spec }); last.size += size; }
       else groups.push({ size, slots: [{ path: chunk.path, spec: chunk.spec }] });
     }
+    // **부품 머리의 바깥 margin 은 싣지 않는다(2026-10-12 오후).** 렌더러는 흐름 자식 하나의 margin 을 부모 padding 으로 옮기는데, 부품 머리의
+    // 부모는 마스터 틀이라 쓰는 자리의 여백(요금제 비교표 `margin-top: 64`)이 마스터 padding 이 됐다. 마스터는 높이 고정이라 보이지 않았지만,
+    // 내용 맞춤 인스턴스(/pricing 데스크톱)는 64 커졌다 — 그 여백은 보드의 감싸개가 이미 갖는다.
+    const { m: _outerMargin, ...partHead } = head;
     const payloads = [
-      { ...base, frameSize: part.frameSize, ...(part.hugHeight ? { hugHeight: true } : {}), colour, head, ...(part.label ? { label: part.label } : {}), ...(locale ? { locale } : {}) },
+      { ...base, frameSize: part.frameSize, ...(part.hugHeight ? { hugHeight: true } : {}), colour, head: partHead, ...(part.label ? { label: part.label } : {}), ...(locale ? { locale } : {}) },
       ...groups.map((group) => ({ ...base, colour, slots: group.slots, ...(locale ? { locale } : {}) })),
     ];
     return payloads.map((payload, index) => {

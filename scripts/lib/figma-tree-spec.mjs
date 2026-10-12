@@ -806,7 +806,9 @@ function applyTransformScale(tree) {
     scaled += 1;
     const style = Object.fromEntries(Object.entries(node.style ?? {}).map(([key, value]) => [key, key === "transform" ? value : scalePx(value, factor)]));
     const declared = node.declared ? Object.fromEntries(Object.entries(node.declared).map(([key, value]) => [key, scalePx(value, factor)])) : node.declared;
-    return { ...node, style, declared };
+    // 가상 요소 · 덮개 자식에서 올린 그림자도 같은 배율로 줄인다 — 빠뜨리면 캔버스 줌 0.815 에서 흐림 8 이 그대로 8 로 섰다.
+    const pseudoShadows = node.pseudoShadows ? node.pseudoShadows.map((entry) => ({ ...entry, boxShadow: scalePx(entry.boxShadow, factor) })) : node.pseudoShadows;
+    return { ...node, style, declared, ...(pseudoShadows ? { pseudoShadows } : {}) };
   });
   return { tree: next, scaled };
 }
@@ -885,13 +887,46 @@ function applyColorFilters(tree) {
   return { tree: next, filtered };
 }
 
+// **그림자만 칠하는 덮개 자식을 부모 그림자로 올린다(2026-10-12).** 노드 생성 버튼은 가상 요소가 아니라 진짜 `<span>`
+// (`absolute inset-0 rounded-[inherit]`, 칠 · 글자 · 자식 없음)에 `inset 0 0 8px 흰색` 과 `mix-blend-mode: overlay` 를 건다
+// (NodePromptGenerateButton `OVERLAY_STROKE`). Figma 는 칠이 없는 층의 이너 섀도를 그리지 않아 보드 버튼이 평평했다. 부모를
+// 그대로 덮는 이런 자식은 가상 요소와 같은 처지라 `pseudoShadows` 항목으로 바꿔 부모에 싣고(withPseudoShadows 가 섞기 모드째
+// 옮긴다) 자식은 뺀다. 칠 · 테두리 · 글자 · 자식 · 덮지 않는 자리 가운데 하나라도 있으면 건드리지 않는다.
+function hoistShadowOverlays(tree) {
+  const parents = new Set(tree.map((node) => node.parentPath).filter(Boolean));
+  const byPath = new Map(tree.map((node) => [node.path, node]));
+  const hoisted = new Map();
+  const near = (a, b) => Math.abs((a ?? 0) - (b ?? 0)) <= 0.5;
+  for (const node of tree) {
+    const style = node.style ?? {};
+    const parent = byPath.get(node.parentPath);
+    if (!parent || parents.has(node.path) || node.ownText || node.vector) continue;
+    if (style.position !== "absolute" || !style.boxShadow || style.boxShadow === "none") continue;
+    if (cssColorToHex(style.backgroundColor) || (style.backgroundImage && style.backgroundImage !== "none")) continue;
+    if (["Top", "Right", "Bottom", "Left"].some((side) => px(style[`border${side}Width`]) > 0 && style[`border${side}Style`] !== "none")) continue;
+    const a = node.rect; const b = parent.rect;
+    if (!a || !b || !near(a.x, b.x) || !near(a.y, b.y) || !near(a.width, b.width) || !near(a.height, b.height)) continue;
+    const entry = { pseudo: "child", boxShadow: style.boxShadow, mixBlendMode: style.mixBlendMode ?? "normal", position: "absolute", inset: ["0px", "0px", "0px", "0px"] };
+    hoisted.set(parent.path, [...(hoisted.get(parent.path) ?? []), entry]);
+    hoisted.set(node.path, null);
+  }
+  if (hoisted.size === 0) return { tree, overlays: 0 };
+  const next = tree.flatMap((node) => {
+    if (hoisted.get(node.path) === null) return [];
+    const extra = hoisted.get(node.path);
+    return extra ? [{ ...node, pseudoShadows: [...(node.pseudoShadows ?? []), ...extra] }] : [node];
+  });
+  return { tree: next, overlays: [...hoisted.values()].filter((value) => value === null).length };
+}
+
 export function toFigmaTreeSpec(inputTree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
-  const { tree: filteredTree, filtered: colorFiltered } = applyColorFilters(inputTree);
+  const { tree: liftedTree, overlays: shadowOverlays } = hoistShadowOverlays(inputTree);
+  const { tree: filteredTree, filtered: colorFiltered } = applyColorFilters(liftedTree);
   const { tree, scaled: transformScaled } = applyTransformScale(filteredTree);
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}), ...(colorFiltered ? { colorFiltered } : {}) };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}), ...(colorFiltered ? { colorFiltered } : {}), ...(shadowOverlays ? { shadowOverlays } : {}) };
 
   // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
   const convert = (node, parent, inStretchedRow = false) => {

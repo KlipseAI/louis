@@ -411,7 +411,7 @@ const STYLE_AXES = [
   "borderTopStyle", "borderRightStyle", "borderBottomStyle", "borderLeftStyle",
   "outlineWidth", "outlineStyle", "outlineColor", "outlineOffset",
   "backgroundColor", "backgroundImage", "backgroundRepeat", "backgroundSize",
-  "backgroundPosition", "color", "opacity", "boxShadow", "filter", "backdropFilter",
+  "backgroundPosition", "color", "opacity", "boxShadow", "filter", "backdropFilter", "mixBlendMode",
   "transform", "transformOrigin", "overflow", "overflowX", "overflowY",
   "aspectRatio", "objectFit", "objectPosition", "clipPath",
   "maskImage", "maskRepeat", "maskPosition", "maskSize",

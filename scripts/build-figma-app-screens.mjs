@@ -1091,7 +1091,7 @@ const slimNode = (node) => ({
       // 늘어난 grid 행(figma-tree-spec gridStretchedRow) — 있을 때만 11번째 칸으로 싣는다(없는 보드의 payload 는 그대로다).
       // 크기가 다른 grid 열(figma-tree-spec gridColumnTracks)은 12번째 칸이다 — 그때 행이 없으면 11번째는 0 이다.
       ...(node.layout.rows || node.layout.columnTracks ? [node.layout.rows ?? 0] : []),
-      ...(node.layout.columnTracks ? [node.layout.columnTracks] : []),
+      ...(node.layout.columnTracks ? [emptyAutoColumnsToZero(node)] : []),
     ],
   } : {}),
   // 감긴 가로 줄의 줄 간격(`row-gap`) — Figma `counterAxisSpacing`. 렌더러가 걸지 않아 감긴 줄 사이가 붙었다(2026-09-30, 공개 페이지
@@ -1296,6 +1296,22 @@ const AXIS_OF = {
   vertical: { sizing: "layoutSizingVertical", extent: "height", min: "minHeight", start: "top", end: "bottom", mode: "VERTICAL" },
 };
 const flowChildren = (node) => (node.children ?? []).filter((child) => child.positioning !== "ABSOLUTE");
+/**
+ * **빈 `auto` 열은 폭 0 이다(2026-10-12 오후).** CSS grid 의 `auto` 열에 놓인 항목이 없으면 그 열은 0 이 되지만, Figma 의 빈 HUG 열은 FLEX 열과
+ * 남은 폭을 똑같이 나눈다(작업 페이지 임시 프레임 — 하이라이트 단계 모바일 상단 바 `auto 1fr auto` 에 항목 둘: 프로필이 제품 x 354 대신 가운데
+ * 173 에 섰다). 항목이 없는 HUG 열을 FIXED 0 으로 싣는다. 칸 자리(`gridPlace`)가 있으면 그것을, 없으면 흐름 순서(i % 열 수)를 따른다.
+ */
+const emptyAutoColumnsToZero = (node) => {
+  const tracks = node.layout.columnTracks;
+  const columns = node.layout.columns || tracks.length;
+  const used = new Set();
+  flowChildren(node).forEach((child, index) => {
+    const place = child.gridPlace;
+    if (Array.isArray(place)) { for (let c = place[1]; c < place[1] + (place[3] || 1); c += 1) used.add(c); }
+    else used.add(index % columns);
+  });
+  return tracks.map((track, index) => (track[0] === "H" && !used.has(index) ? ["X", 0] : track));
+};
 /** 감긴 가로 줄이 측정에서 실제로 몇 줄로 섰는가 — 흐름 자식의 y 로 가른다(한 줄이면 줄 간격 · 줄 안 stretch 가 그림에 뜻이 없다). */
 const wrapRowCount = (node) => {
   if (!node.layout?.wrap || node.layout.layoutMode !== "HORIZONTAL") return 0;

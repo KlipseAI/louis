@@ -56,6 +56,9 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // run 2026-10-09b(56d60213 auto 여백 감싸개를 보낸 뒤): 03-app 부모 밖 22 → 18(하이라이트 데스크톱 1440 넷 해소, 모바일 넷 남음 — 조립 규칙
 // 15조의 7 주석). 03-app 글자 잘림 0 → 1 은 /subscription/coupons 데스크톱(2076:3371) — 생성기가 더는 그리지 않는 옛 보드(리다이렉트된 화면)다.
 // 은퇴 판정 전까지 기준선에 둔다.
+// 2026-10-12(재측정 전, 기준선 그대로): 남은 하이라이트 모바일 넷 중 분석 중 · 업로드 중의 안내 문구 감싸개와 업로드 중 430 의 진행 막대를
+// 「감기는 줄을 끊는 항목」(auto · basis, 조립 규칙 28조 표)으로 고쳤다. 가운데 정렬 두 줄 안내(340)와 /highlight 설명 문단(390)은
+// 줄을 옮긴 HUG 를 FILL 로 돌리면 측정 폭 parity 를 잃어(hugCarriedLines 주석의 2026-10-12 판단) 남겼다.
 const BASELINE = {
   "01-public": { overflow: 11, childOutside: 15, textClip: 8, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },

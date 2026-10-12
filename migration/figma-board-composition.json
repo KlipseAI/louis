@@ -14,15 +14,15 @@
   "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 140,
-  "rawNodesBeforePruning": 9307,
+  "rawNodesBeforePruning": 9308,
   "counts": {
-    "total": 9379,
+    "total": 9380,
     "instance": 316,
     "replaceable": 0,
     "bespoke": 296,
     "blocked": 12,
     "missing": 1798,
-    "structural": 6957,
+    "structural": 6958,
     "unclassified": 0
   },
   "ratio": {
@@ -91,7 +91,7 @@
   },
   "structuralByKind": {
     "surface": 1229,
-    "frame": 3540,
+    "frame": 3541,
     "text": 2056,
     "image": 132
   },
@@ -307,13 +307,13 @@
         "figma/app-screens.admin.mobile.00.draw.js"
       ],
       "counts": {
-        "total": 23,
+        "total": 24,
         "instance": 2,
         "replaceable": 0,
         "bespoke": 3,
         "blocked": 0,
         "missing": 1,
-        "structural": 17,
+        "structural": 18,
         "unclassified": 0
       }
     },
@@ -5838,6 +5838,17 @@
     },
     "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0": {
       "board": "figma/app-screens.admin.mobile.00.draw.js",
+      "tag": "lines",
+      "rect": [
+        390,
+        40
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0": {
+      "board": "figma/app-screens.admin.mobile.00.draw.js",
       "tag": "label",
       "rect": [
         390,
@@ -5847,7 +5858,7 @@
       "rule": "surface",
       "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
-    "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0": {
+    "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0.0": {
       "board": "figma/app-screens.admin.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -5861,7 +5872,7 @@
       "icon": "icon/magnifying-glass",
       "reason": "어드민 검색 칸 앞 돋보기(`app/admin/AdminSearch.tsx:26` — `@phosphor-icons/react` 의 `MagnifyingGlass` 16px, 256 격자 채운 패스)다. LOUIS 에 같은 뜻의 `icon/magnifying-glass` 가 있지만 제품은 그것을 물지 않고 Phosphor 를 직접 쓴다. 통합 판 앵커(2026-10-08, DS-D-0079)에서 들어왔다."
     },
-    "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0.1": {
+    "/admin@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0.1": {
       "board": "figma/app-screens.admin.mobile.00.draw.js",
       "tag": "input",
       "rect": [
@@ -28252,6 +28263,17 @@
     },
     "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.1.0.0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
+      "tag": "lines",
+      "rect": [
+        366,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.1.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         99.72,
@@ -28263,17 +28285,6 @@
       "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.1.0.0.0.1.0.1": {
-      "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
-      "tag": "margin",
-      "rect": [
-        366,
-        21
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/highlight/[projectId]?__phase=analyzing@mobile-402x874#0.0.1.0.0.0.1.0.1.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-analyzing.mobile.00.draw.js",
       "tag": "p",
       "rect": [
@@ -31891,6 +31902,17 @@
     },
     "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
+      "tag": "lines",
+      "rect": [
+        366,
+        21
+      ],
+      "verdict": "structural",
+      "rule": "frame",
+      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
+    },
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.0.0": {
+      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "span",
       "rect": [
         101.98,
@@ -31903,17 +31925,6 @@
     },
     "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
-      "tag": "margin",
-      "rect": [
-        366,
-        42
-      ],
-      "verdict": "structural",
-      "rule": "frame",
-      "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
-    },
-    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1.0": {
-      "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "p",
       "rect": [
         331.02,
@@ -31923,7 +31934,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1.0.0": {
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1.0": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -31934,7 +31945,7 @@
       "rule": "text",
       "reason": "Figma TEXT 노드가 정본이다. 글자는 컴포넌트가 아니라 레이어다."
     },
-    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1.0.1": {
+    "/highlight/[projectId]?__phase=uploading@mobile-402x874#0.0.1.0.0.0.1.0.1.1": {
       "board": "figma/app-screens.highlight--projectId-__phase-uploading.mobile.00.draw.js",
       "tag": "span",
       "rect": [

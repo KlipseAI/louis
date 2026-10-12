@@ -1355,16 +1355,44 @@ const UNRESOLVED_FILL_KIND = {
  * 400.23(max-content)이라 줄 폭 400 아래(모바일 시험 360 · 430 의 줄 320 · 390)에서는 제품도 늘 혼자 한 줄이고, 같은 글꼴(Pretendard 12 ·
  * 자간 −0.12) 한 줄 표본 55 로 맞춘 글자 폭(잔차 RMS 0.83 · 상대 최대 4.3%)으로 옮긴 두 줄은 약 180 · 221(오차를 얹어 188 · 231)이다 —
  * 측정 줄 362 에서 131, 360 시험의 줄 320 에서 89 남는다.
+ *
+ * **끊는 항목은 셋이다(2026-10-12).** 감긴 글자 말고도 두 가지가 감기는 줄에서 혼자 한 줄을 차지하고 Figma 감기가 그 자리를 못 지킨다
+ * (늘림 시험 run 2026-10-09b, 하이라이트 분석 중 · 업로드 중 모바일):
+ *   · 「auto」 오른쪽 auto margin(`margin-right: auto`)으로 줄을 채운 글자 — 안내 문구 p(274.39 + auto 91.61 = 줄 366). margin 감싸개가
+ *     그 auto 를 padding 으로 굳혀 감싸개가 366 HUG 로 서서 360 에서 줄(324) 밖으로 나갔다. CSS 에서 그 p 는 내용 폭(줄 폭까지 줄어든다) +
+ *     남는 폭이다 — 끊은 세로 쌓기에서 줄 폭 FILL 로 두고 auto margin 은 버린다(글자는 왼쪽에서 시작한다). 칠이 없고 정렬 없는 글자 잎, 또는
+ *     그런 글자만 쌓은 칠 없는 세로 상자만(상자 안 글자도 FILL — 블록 글자를 「줄어드는 상자」 보정이 HUG 로 돌려 둔 것을 되돌린다).
+ *     측정 폭에서는 글자가 왼쪽 정렬 · 칠 없음이라 상자 폭이 늘어도 그림이 같고, 여유는 auto margin 만큼이다(분석 중 91.61 · 업로드 중 34.98).
+ *   · 「basis」 기본 크기가 줄 폭 100% 인 항목(`flex-basis: 100%`, 또는 `flex-basis: auto` + `width: 100%`) — 어느 폭에서도 혼자 한 줄이다.
+ *     감기 줄의 FILL 은 줄을 고를 때 폭 0 처럼 앞 항목 뒤에 붙어(업로드 중 430 의 진행 막대가 안내 문구 줄로 올라왔다) 끊어서 세운다. 판정은
+ *     그대로(FILL)이고 세로 쌓기에서 줄 폭을 차지한다.
+ * 끊는 항목이 여럿이면 줄 하나에서 모두 끊는다 — 그 사이 항목은 `~lines-before` · `~lines-after` · `~lines-after-2` … 묶음이다.
+ * 알려진 차이: 분석 중 모바일 430 은 제품에서 「Analyzing video」(99.72) + 간격 12 + 안내 문구(274.39) = 386.1 이 줄 394 에 들어가 한 줄이 되지만
+ * 끊은 구조는 두 줄로 남는다(넘침 · 잘림은 없다). 측정 폭(줄 366)과 그보다 좁은 폭에서는 제품도 두 줄이다.
  */
-function splitWrapRowsAtLoneText(spec) {
-  const loneWrappedText = (node, parent) => {
-    const lineHeight = node.typography?.lineHeight;
-    if (!node.text || node.paint || node.layout || node.instance || node.positioning === "ABSOLUTE" || !lineHeight) return false;
-    if (node.sizing.layoutSizingHorizontal !== "HUG" || node.rect.height < lineHeight * 2 - HALF_PIXEL) return false;
+function splitWrapRowsAtLoneText(spec, declaredOf = () => null) {
+  const isAuto = (value) => /^auto$/.test(String(value ?? "").replace(/!important/g, "").trim());
+  const isFull = (value) => /^100%$/.test(String(value ?? "").replace(/!important/g, "").trim());
+  const outerWidth = (node) => node.rect.width + (node.margin?.left ?? 0) + (node.margin?.right ?? 0);
+  const plainText = (node) => node.text && !node.paint && !node.layout && !node.instance && !node.typography?.align;
+  // 혼자 한 줄을 차지한 항목의 종류 — 「wrapped」 감긴 글자, 「auto」 오른쪽 auto margin 으로 줄을 채운 글자(또는 글자만 쌓은 칠 없는 상자),
+  // 「basis」 기본 크기가 줄 폭 100% 인 항목. 아니면 null.
+  const loneKind = (node, parent) => {
+    if (node.instance || node.positioning === "ABSOLUTE") return null;
     const room = parent.rect.width - parent.layout.padding.left - parent.layout.padding.right;
-    return flowChildren(parent).every((child) => child === node
-      || child.rect.y >= node.rect.y + node.rect.height - HALF_PIXEL || child.rect.y + child.rect.height <= node.rect.y + HALF_PIXEL)
-      && Math.abs(node.rect.width + (node.margin?.left ?? 0) + (node.margin?.right ?? 0) - room) <= HALF_PIXEL;
+    const alone = flowChildren(parent).every((child) => child === node
+      || child.rect.y >= node.rect.y + node.rect.height - HALF_PIXEL || child.rect.y + child.rect.height <= node.rect.y + HALF_PIXEL);
+    if (!alone || Math.abs(outerWidth(node) - room) > HALF_PIXEL) return null;
+    const lineHeight = node.typography?.lineHeight;
+    if (node.text && !node.paint && !node.layout && lineHeight && node.sizing.layoutSizingHorizontal === "HUG"
+      && node.rect.height >= lineHeight * 2 - HALF_PIXEL) return "wrapped";
+    const declared = declaredOf(node.path) ?? {};
+    if (node.sizing.layoutSizingHorizontal === "HUG" && !node.paint && isAuto(declared["margin-right"]) && !isAuto(declared["margin-left"])
+      && (plainText(node) || (node.layout?.layoutMode === "VERTICAL" && !node.text && flowChildren(node).length > 0
+        && (node.children ?? []).every((child) => plainText(child) && child.positioning !== "ABSOLUTE")))) return "auto";
+    const basis = String(declared["flex-basis"] ?? "auto").replace(/!important/g, "").trim();
+    if (node.sizing.layoutSizingHorizontal === "FILL" && (isFull(basis) || (basis === "auto" && isFull(declared.width)))) return "basis";
+    return null;
   };
   const walk = (node) => {
     if (node.instance) return;
@@ -1373,14 +1401,14 @@ function splitWrapRowsAtLoneText(spec) {
     // 자식이 하나면 끊을 줄이 없다(그 글자는 「가로 줄 안에서 줄어들어 감긴 글자」 판정이 남은 폭 FILL 로 푼다).
     if (layout?.layoutMode === "HORIZONTAL" && layout.wrap && node.sizing.layoutSizingHorizontal !== "HUG" && children.length > 1
       && children.every((child) => child.positioning !== "ABSOLUTE")) {
-      const at = children.findIndex((child) => loneWrappedText(child, node));
-      if (at >= 0) {
-        const lone = children[at];
+      const kinds = children.map((child) => loneKind(child, node));
+      if (kinds.some(Boolean)) {
+        const lonePaths = children.filter((_, index) => kinds[index]).map((child) => child.path).join(" · ");
         const group = (items, suffix) => {
           if (items.length === 0) return [];
           const top = Math.min(...items.map((child) => child.rect.y - (child.margin?.top ?? 0)));
           const bottom = Math.max(...items.map((child) => child.rect.y + child.rect.height + (child.margin?.bottom ?? 0)));
-          const reason = `감기는 줄(${node.path})을 혼자 한 줄을 차지한 감긴 글자(${lone.path}) 자리에서 끊은 줄 — 줄 폭을 따른다(FILL), 높이는 내용(HUG)`;
+          const reason = `감기는 줄(${node.path})을 혼자 한 줄을 차지한 항목(${lonePaths}) 자리에서 끊은 줄 — 줄 폭을 따른다(FILL), 높이는 내용(HUG)`;
           return [{
             path: `${node.path}~lines-${suffix}`, tag: "lines", name: `lines ${suffix} ${node.path}`, text: null, textLines: null, paints: false,
             rect: { x: node.rect.x + layout.padding.left, y: top, width: node.rect.width - layout.padding.left - layout.padding.right, height: bottom - top },
@@ -1392,9 +1420,41 @@ function splitWrapRowsAtLoneText(spec) {
             children: items,
           }];
         };
-        // 끊은 자리의 글자는 줄 폭을 따른다 — 「제품 줄을 옮긴 글자」의 폭 맞춤(hugCarriedLines)이 세로 쌓기 안의 글자로 보고 HUG 로 돌리지 않게 표시한다.
-        lone.splitWrapLine = node.path;
-        node.children = [...group(children.slice(0, at), "before"), lone, ...group(children.slice(at + 1), "after")];
+        const out = [];
+        let run = [];
+        // 첫 묶음은 「before」, 끊은 항목 뒤의 묶음은 「after」 — 끊는 항목이 여럿이면 그 사이 묶음은 「after-2」 · 「after-3」 … 이다.
+        let afterCount = 0;
+        const flush = () => {
+          if (run.length === 0) return;
+          const suffix = out.length === 0 ? "before" : (afterCount += 1) === 1 ? "after" : `after-${afterCount}`;
+          out.push(...group(run, suffix));
+          run = [];
+        };
+        children.forEach((child, index) => {
+          const kind = kinds[index];
+          if (!kind) { run.push(child); return; }
+          flush();
+          // 끊은 자리의 글자는 줄 폭을 따른다 — 「제품 줄을 옮긴 글자」의 폭 맞춤(hugCarriedLines)이 세로 쌓기 안의 글자로 보고 HUG 로 돌리지 않게 표시한다.
+          if (kind !== "basis") child.splitWrapLine = node.path;
+          if (kind === "auto") {
+            // 오른쪽 auto margin 은 그 줄의 남는 폭이다 — 세로 쌓기에서는 줄 폭 FILL 이 그 자리를 갖는다(글자는 왼쪽에서 시작한다).
+            const reason = `감기는 줄(${node.path})에서 오른쪽 auto margin 으로 혼자 한 줄을 채운 글자 — CSS 는 내용 폭(줄 폭까지 줄어든다) + 남는 폭이다. 끊은 세로 쌓기에서 줄 폭(FILL)을 따르고 margin 은 버린다`;
+            child.margin = { ...child.margin, right: 0 };
+            child.why = { ...child.why, horizontal: { verdict: "FILL", reason, source: `margin-right auto · measured ${child.rect.width}`, value: null, previous: child.why?.horizontal ?? null } };
+            child.sizing = { ...child.sizing, layoutSizingHorizontal: "FILL" };
+            // 글자를 쌓은 상자면 그 글자도 줄 폭을 따른다 — 블록 글자(CSS 기본 FILL)를 「줄어드는 상자」 보정(fixShrinkToFit)이 HUG 로
+            // 돌려 둔 것을 되돌린다. 줄이 좁아지면 글자가 상자 폭에서 감긴다(제품은 상자가 줄 폭까지 줄어들며 감긴다).
+            for (const text of child.layout ? child.children : []) {
+              text.splitWrapLine = node.path;
+              if (text.sizing.layoutSizingHorizontal === "FILL") continue;
+              text.why = { ...text.why, horizontal: { verdict: "FILL", reason: `${reason} — 그 상자 안의 글자`, source: `measured ${text.rect.width}`, value: null, previous: text.why?.horizontal ?? null } };
+              text.sizing = { ...text.sizing, layoutSizingHorizontal: "FILL" };
+            }
+          }
+          out.push(child);
+        });
+        flush();
+        node.children = out;
         node.layout = { ...layout, layoutMode: "VERTICAL", itemSpacing: layout.counterAxisSpacing ?? 0, counterAxisSpacing: null, wrap: false,
           align: { counterAxis: "MIN", primaryAxis: null } };
       }
@@ -1403,8 +1463,8 @@ function splitWrapRowsAtLoneText(spec) {
   };
   walk(spec);
 }
-function reconcileFigmaSizing(spec) {
-  splitWrapRowsAtLoneText(spec);
+function reconcileFigmaSizing(spec, declaredOf = () => null) {
+  splitWrapRowsAtLoneText(spec, declaredOf);
   const reconciled = [];
   const unresolvedWraps = [];
   const unresolvedFillInHug = [];
@@ -1641,7 +1701,8 @@ function wrapSiblingMargins(spec, declaredOf = () => null) {
   // margin 이라 자리가 같다(auto 둘이 나눈 남는 폭도 FILL 둘이 똑같이 나눈다). 폭이 정해진(HUG 아닌) 가로 줄에서만 —
   // HUG 줄에는 남는 폭이 없다. **감기는 줄에서 혼자 한 줄을 차지한 감싸개는 그대로 둔다** — 감기 줄의 FILL 은 줄을 고를 때 폭이 0 인
   // 것처럼 앞 항목 뒤에 붙어(splitWrapRowsAtLoneText 주석의 라이브 탐침), 뒤 항목(업로드 진행 막대, `flex-basis: 100%`)이 그 줄로
-  // 올라온다.
+  // 올라온다. 오른쪽 auto 로 줄을 채운 글자는 그보다 앞서 splitWrapRowsAtLoneText 가 줄을 끊어 margin 을 버리므로(2026-10-12) 여기까지
+  // 오지 않는다 — 남는 것은 그 규칙 밖(칠 · 정렬 · 왼쪽 auto 등)의 감싸개다.
   const autoSidesOf = (node, child) => {
     if (node.layout.layoutMode !== "HORIZONTAL" || node.sizing.layoutSizingHorizontal === "HUG" || child.sizing.layoutSizingHorizontal === "FILL") return [];
     const declared = declaredOf(child.path) ?? {};
@@ -1802,7 +1863,12 @@ function hoistBleed(spec) {
  * 줄을 옮긴 글자를 가로 · 세로 HUG(폭 맞춤)로 둬 줄바꿈이 제품 자리에서만 일어나게 한다. **상자 폭이 바뀌어도 자리가 같은 경우만** —
  * 시작 정렬 글자이고, 부모가 폭이 정해진(HUG 아닌) 세로 쌓기이며 교차축이 시작이거나 글자가 부모의 흐름 자식 하나이고, 측정 상자가 부모
  * 내용의 시작선에 붙어 있을 때. 가운데 · 끝 정렬 글자, 여러 자식이 선 가로 줄 안의 글자, grid 칸의 글자는 그대로 둔다. 감기는 줄을 끊은
- * 자리의 글자(splitWrapRowsAtLoneText)도 그대로 둔다 — 줄 폭을 따르게 끊은 것이다.
+ * 자리의 글자(splitWrapRowsAtLoneText)도 그대로 둔다 — 줄 폭을 따르게 끊은 것이다. *
+ * **폭이 부모 안쪽 폭과 같아도 FILL 로 돌리지 않는다(2026-10-12 판단).** 늘림 시험에서 이 HUG 가 줄이 좁아지면 부모 밖으로 나간다
+ * (/highlight 모바일 설명 문단 390 · 세 줄, 하이라이트 단계 모바일의 가운데 정렬 두 줄 안내 340 / 칸 342 — 이쪽은 이 규칙이 아니라 flex 항목 판정의 HUG 다). 「여유 ≤ 2px 이거나 부모가 FILL 축이면
+ * FILL + 같은 줄 나눔」은 측정 폭 parity 를 지키지 못한다 — 다시 감기는 위험은 상자 여유가 아니라 «줄» 여유로 정해지고, 원장에는 줄마다의 폭이
+ * 없다. 이 규칙을 낳은 개인정보 데스크톱 문단이 바로 폭 720 = 부모 720(모바일 483.61 = 483.61)이라 그 조건이 이 사고를 그대로 되살린다.
+ * Figma 에서 옮긴 줄의 폭을 재기 전(탐침)에는 HUG 로 둔다.
  */
 function hugCarriedLines(spec) {
   const changed = [];
@@ -2080,7 +2146,7 @@ const pendingAnchors = {};
       totalShrinkFixed += shrinkFixed.length;
       totalAspectFixed += aspectFixed.length;
       totalEmptyHugFixed += emptyHugFixed.length;
-      const sizingFix = reconcileFigmaSizing(spec);
+      const sizingFix = reconcileFigmaSizing(spec, (path) => declaredByPath.get(path) ?? null);
       // 부품은 모든 인스턴스가 따라 그리는 원본이다 — 풀지 못한 감긴 글자(한 줄로 늘어난다)를 보드처럼 통계로만 두지 않고 멈춘다.
       if (sizingFix.unresolvedWraps.length > 0 && !LOUIS_EXAMPLES) {
         fail(`부품 ${part.set} ${variant.variant} 에 풀지 못한 감긴 글자가 있습니다 — Figma 에서 한 줄로 늘어납니다: ${JSON.stringify(sizingFix.unresolvedWraps)}`);
@@ -2218,7 +2284,7 @@ for (const screen of SCREENS) {
     totalImageInstances += countImageComponents(spec);
     totalGridRows += stats.gridRows.filter((entry) => entry.rows).length;
     // 인스턴스 치환 뒤에 돈다 — 인스턴스로 바뀐 서브트리 안의 판정은 컴포넌트가 갖는다.
-    const sizingFix = reconcileFigmaSizing(spec);
+    const sizingFix = reconcileFigmaSizing(spec, (path) => declaredByPath.get(path) ?? null);
     const autoMarginCentred = centreAutoMargins(spec);
     totalAutoMarginCentred += autoMarginCentred.length;
     const marginWrapped = wrapSiblingMargins(spec, (path) => declaredByPath.get(path) ?? null);

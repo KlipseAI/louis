@@ -168,9 +168,11 @@ const imageKeyOf = (src) => (/^(null|data:)/.test(src) ? `data-sha256:${createHa
 // 그려진다. 측정 트리에는 바탕색 상자만 남아, 보드가 그 자리를 색 네모로 그렸다(하이라이트 완료 「Download all」 · 구독 결제 · 요금의
 // CheckCircle 등 보드 116곳과 부품 안, 캡처로 확인). public/icons 원본은 `90 · 자산` 에 `icon/<파일 이름>` 컴포넌트로 있으므로 그 인스턴스로
 // 바꾸고(`im`), 렌더러가 인스턴스 안의 면 · 획을 그 자리의 바탕색으로 덮는다(`mt`) — mask 는 모양만 주고 색은 바탕이 준다.
-// 자식이 있는 자리 · 셸 안 · `/icons/` 밖 원본은 건드리지 않고 감사본에 남긴다.
+// 자식이 있는 자리 · 셸 안 · `/icons/` 와 public 루트 밖 원본은 건드리지 않고 감사본에 남긴다.
 // 같은 이름이 둘이면(`DS · Icons` 의 DS 아이콘과 `90 · 자산` 「C · icon/」 의 제품 원본 — `icon/text`) mask 원본인 「C · icon/」 섹션을
 // 고른다. 예전에는 하나가 아니면 버려, 노드캔버스의 `/icons/text.svg` 자리가 색 네모로 남았다(2026-10-12).
+// public 루트 원본(`/X.svg`)은 `90 · 자산` 「D · root/」 의 `root/X` 로 잇는다 — 하이라이트 표식 `/highlight_symbol.svg` 21곳이 색 네모로
+// 남았다(2026-10-12). 그 섹션에 없는 이름은 예전처럼 감사본에 남는다.
 const assetComponentByName = (name) => {
   let hits = Object.values(liveAssets.components ?? {}).filter((entry) => entry.name === name);
   if (hits.length > 1) hits = hits.filter((entry) => /^C · icon\//.test(entry.section ?? ""));
@@ -181,7 +183,8 @@ const attachMaskIcons = (node, styleOf, unmapped) => {
   const mask = styleOf(node.path)?.maskImage;
   const url = mask && /^url\("([^"]+)"\)$/.exec(mask)?.[1];
   if (url && !node.imageComponent) {
-    const name = url.startsWith("/icons/") && url.endsWith(".svg") ? `icon/${url.slice("/icons/".length, -".svg".length)}` : null;
+    const name = url.startsWith("/icons/") && url.endsWith(".svg") ? `icon/${url.slice("/icons/".length, -".svg".length)}`
+      : /^\/[^/]+\.svg$/.test(url) ? `root/${url.slice(1, -".svg".length)}` : null;
     const component = name && !(node.children ?? []).length ? assetComponentByName(name) : null;
     if (component && node.paint?.fill) { node.imageComponent = component; node.maskTint = true; }
     else unmapped.push({ path: node.path, mask: url, rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });

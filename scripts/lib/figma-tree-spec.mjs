@@ -811,12 +811,87 @@ function applyTransformScale(tree) {
   return { tree: next, scaled };
 }
 
+// **색 필터를 색에 굽는다(2026-10-12).** 제품은 라이트 비활성 연결점을 활성 색(채널 200 면 · 500 글리프)에
+// `filter: brightness(0.78) saturate(0.95)` 를 걸어 어둡게 그린다(NodeSideButtons · VideoNode · EditNode). 측정은 필터 전
+// 계산 색을 싣고 Figma 에는 같은 효과가 없어, 보드의 비활성 연결점이 활성처럼 밝은 파스텔로 섰다. 색만 바꾸는 필터 함수
+// (brightness · saturate · contrast · grayscale)는 sRGB 채널의 선형 변환이고 알파를 건드리지 않으므로, 노드와 자손의
+// 모든 색 리터럴에 미리 곱하면 필터를 건 그림과 같다 — 제품 `archiveThumbnail/theme.ts` 의 `toneDownLightInactive` 가
+// 같은 방식이며 라이브 DOM 과 차이 0 을 실측했다. 흐림 · 그림자 · url() 이 섞인 필터는 건드리지 않는다. 겹친 필터는 안쪽부터.
+const COLOR_FILTER_FN = /^(brightness|saturate|contrast|grayscale)\(\s*(-?\d*\.?\d+)(%?)\s*\)$/;
+function colorFilterSteps(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw || raw === "none") return null;
+  const parts = raw.match(/[a-z-]+\([^)]*\)/g);
+  if (!parts || parts.join(" ").replace(/\s+/g, "") !== raw.replace(/\s+/g, "")) return null;
+  const steps = [];
+  for (const part of parts) {
+    const match = COLOR_FILTER_FN.exec(part);
+    if (!match) return null;
+    steps.push([match[1], Number(match[2]) / (match[3] ? 100 : 1)]);
+  }
+  return steps.length ? steps : null;
+}
+function filterChannels([r, g, b], steps) {
+  for (const [fn, amount] of steps) {
+    if (fn === "brightness") { r *= amount; g *= amount; b *= amount; continue; }
+    if (fn === "contrast") { const f = (c) => (c - 127.5) * amount + 127.5; r = f(r); g = f(g); b = f(b); continue; }
+    const s = fn === "grayscale" ? 1 - Math.min(1, amount) : amount;
+    [r, g, b] = [
+      (0.213 + 0.787 * s) * r + (0.715 - 0.715 * s) * g + (0.072 - 0.072 * s) * b,
+      (0.213 - 0.213 * s) * r + (0.715 + 0.285 * s) * g + (0.072 - 0.072 * s) * b,
+      (0.213 - 0.213 * s) * r + (0.715 - 0.715 * s) * g + (0.072 + 0.928 * s) * b,
+    ];
+  }
+  return [r, g, b].map((c) => Math.round(Math.min(255, Math.max(0, c))));
+}
+const COLOR_LITERAL = /rgba?\([^)]*\)|color\(srgb[^)]*\)/g;
+function filterColorLiterals(value, steps) {
+  if (typeof value !== "string" || !/rgba?\(|color\(srgb/.test(value)) return value;
+  return value.replace(COLOR_LITERAL, (literal) => {
+    let channels;
+    let alpha = 1;
+    const legacy = /^rgba?\(([^)]+)\)$/.exec(literal);
+    if (legacy) {
+      const parts = legacy[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+      channels = parts.slice(0, 3);
+      if (parts.length > 3) alpha = parts[3];
+    } else {
+      const parts = literal.slice("color(srgb".length, -1).split(/[\s/]+/).filter(Boolean).map(Number);
+      channels = parts.slice(0, 3).map((part) => part * 255);
+      if (parts.length > 3) alpha = parts[3];
+    }
+    if (channels.length < 3 || !channels.every(Number.isFinite)) return literal;
+    const [r, g, b] = filterChannels(channels, steps);
+    return alpha >= 1 ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  });
+}
+function applyColorFilters(tree) {
+  const roots = tree
+    .map((node) => ({ node, steps: colorFilterSteps(node.style?.filter) }))
+    .filter((entry) => entry.steps != null)
+    .sort((a, b) => b.node.path.split(".").length - a.node.path.split(".").length);
+  if (roots.length === 0) return { tree, filtered: 0 };
+  let filtered = 0;
+  const next = tree.map((node) => {
+    const chain = roots.filter(({ node: root }) => node.path === root.path || node.path.startsWith(`${root.path}.`));
+    if (chain.length === 0) return node;
+    filtered += 1;
+    const style = Object.fromEntries(Object.entries(node.style ?? {}).map(([key, value]) => [
+      key,
+      key === "filter" ? value : chain.reduce((acc, { steps }) => filterColorLiterals(acc, steps), value),
+    ]));
+    return { ...node, style };
+  });
+  return { tree: next, filtered };
+}
+
 export function toFigmaTreeSpec(inputTree, options = {}) {
   const rootPath = options.rootPath ?? "main";
   const contextId = options.contextId ?? null;
-  const { tree, scaled: transformScaled } = applyTransformScale(inputTree);
+  const { tree: filteredTree, filtered: colorFiltered } = applyColorFilters(inputTree);
+  const { tree, scaled: transformScaled } = applyTransformScale(filteredTree);
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}) };
+  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}), ...(colorFiltered ? { colorFiltered } : {}) };
 
   // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
   const convert = (node, parent, inStretchedRow = false) => {

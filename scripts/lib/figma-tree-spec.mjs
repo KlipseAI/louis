@@ -1155,9 +1155,13 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         },
       },
       // 스크롤 칸(`overflow-x: auto · scroll`)은 자식이 실제로 넘칠 때만 자른다 — 스크롤 전 첫 화면이 그 칸 안만 보인다(요금제 비교표).
+      // 세로 스크롤 칸(`overflow-y: auto · scroll`)도 같다(2026-10-12 오후) — 커맨드 팔레트 목록(최대 높이 520 패널 안)이 자르지 않아 뒤 그룹이
+      // 아래 단축키 줄을 덮었다.
       clipsContent: style.overflow === "hidden" || style.overflowX === "hidden"
         || (/^(auto|scroll)$/.test(style.overflowX ?? "") && children.some((child) => child.positioning !== "ABSOLUTE"
-          && child.rect.x + child.rect.width > node.rect.x + node.rect.width + 1)),
+          && child.rect.x + child.rect.width > node.rect.x + node.rect.width + 1))
+        || (/^(auto|scroll)$/.test(style.overflowY ?? "") && children.some((child) => child.positioning !== "ABSOLUTE"
+          && child.rect.y + child.rect.height > node.rect.y + node.rect.height + 1)),
       children,
     };
   };
@@ -1514,8 +1518,12 @@ function paintOf(style) {
   }
   const rawOpacity = Number(style.opacity);
   const opacity = Number.isFinite(rawOpacity) && rawOpacity < 1 ? rawOpacity : null;
-  if (!fill && !gradient && !stroke && !radius && !shadow && opacity == null) return null;
-  return { fill, gradient, stroke, radius, shadow, opacity };
+  // **뒤 흐림(`backdrop-filter: blur(Npx)`, 2026-10-12 오후).** 반투명 면 뒤를 흐리는 패널(커맨드 팔레트 72% · blur 4)이 보드에서 흐림 없이 그려져
+  // 뒤의 빈 상태 글자가 그대로 비쳤다. Figma 의 배경 흐림(BACKGROUND_BLUR)으로 옮긴다 — 반경은 렌더러가 정한다.
+  const backdropMatch = /blur\(\s*([\d.]+)px\s*\)/.exec(style.backdropFilter ?? "");
+  const backdropBlur = backdropMatch ? Number(backdropMatch[1]) : null;
+  if (!fill && !gradient && !stroke && !radius && !shadow && opacity == null && !backdropBlur) return null;
+  return { fill, gradient, stroke, radius, shadow, opacity, ...(backdropBlur ? { backdropBlur } : {}) };
 }
 
 /**

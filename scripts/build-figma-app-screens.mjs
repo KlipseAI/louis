@@ -972,6 +972,8 @@ const paintKeys = (node) => {
     ...(paint.shadow ? { e: paint.shadow.map((shadow) =>
       [shadow.inset ? 1 : 0, shadow.color, round(shadow.x), round(shadow.y), round(shadow.blur), round(shadow.spread)]) } : {}),
     ...(paint.opacity != null ? { a: round(paint.opacity) } : {}),
+    // 뒤 흐림 px(figma-tree-spec backdropBlur) — 렌더러가 BACKGROUND_BLUR 로 건다.
+    ...(paint.backdropBlur ? { bb: round(paint.backdropBlur) } : {}),
   };
 };
 
@@ -1622,9 +1624,20 @@ function reconcileFigmaSizing(spec, declaredOf = () => null) {
           }
           continue;
         }
+        // **최대 크기에 막힌 HUG 부모의 스크롤 칸(2026-10-12 오후).** 부모가 `max-height` 에 닿아 섰고(측정 = 상한) 주축 FILL 자식의 내용이 측정보다
+        // 크면, 그 자식은 남은 자리를 채우고 넘치는 내용을 스크롤한다. Figma 는 HUG 부모의 FILL 자식을 내용보다 작게 접어(작업 페이지 임시 프레임:
+        // 커맨드 팔레트 520 패널이 479 · 목록 428 이 387) 아래 단축키 줄이 올라왔다. 자식을 측정 크기 FIXED 로 세우면 부모가 상한에 선다.
+        const parentMax = node.sizing?.[axisName === "vertical" ? "maxHeight" : "maxWidth"];
+        const clamped = primary && parentMax && Math.abs(node.rect[axis.extent] - parentMax) <= HALF_PIXEL;
         for (const child of fills) {
           const measured = child.rect[axis.extent];
           const content = contentExtent(child, axisName);
+          if (clamped && content != null && content > measured + HALF_PIXEL) {
+            change(child, axisName, "FIXED",
+              `최대 크기(${parentMax})에 막힌 HUG 부모(${node.path})의 주축 FILL — 내용 ${Math.round(content * 100) / 100} 이 측정보다 커 넘치는 만큼 스크롤한다. Figma 는 이 FILL 을 내용보다 작게 접는다`,
+              `measured ${measured}`);
+            continue;
+          }
           if (content != null && Math.abs(measured - content) <= HALF_PIXEL) {
             change(child, axisName, "HUG",
               `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 가 아무 일도 하지 않았다 — 측정 ${measured} 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다`,
@@ -2642,8 +2655,9 @@ const UNRESOLVED_FILL_IN_HUG_BY_PARENT = LOUIS_EXAMPLES ? LOUIS_EXAMPLE_UNRESOLV
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.5.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.6.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
   "/settings @ mobile-402x874 · body.1.0.0.1.0.1.10.1 · horizontal": { count: 1, why: ROW_ACTION_BUTTON_WHY },
-  "/archive palette @ desktop-1920x1080 · overlay.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
-  "/archive palette @ mobile-402x874 · overlay.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
+  // 2026-10-12(오후): 커맨드 팔레트 대화 상자 세로 자리 둘(`overlay.1.1`, 데스크톱 · 모바일)을 뺐다 — 캡처에서 목록이 아래 단축키 줄을 덮고
+  // 패널이 520 대신 479 로 섰다. 대화 상자가 최대 높이에 막힌 HUG 이고 목록(FILL)의 내용이 측정보다 커, 목록을 측정 크기 FIXED 로 세우는
+  // 규칙(최대 크기에 막힌 HUG 부모의 스크롤 칸)이 풀었다. 플라이아웃 둘은 그 조건이 아니라 남는다.
   "/archive palette.flyout @ desktop-1920x1080 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
   "/archive palette.flyout @ mobile-402x874 · overlay.1.1.1 · vertical": { count: 1, why: PALETTE_PENDING_WHY },
 };

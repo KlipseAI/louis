@@ -189,6 +189,9 @@ const applyPaint = (node, spec) => {
       };
     });
   }
+  // **뒤 흐림(2026-10-12 오후).** CSS `blur(σ)` 의 σ 는 가우스 표준편차이고 Figma 배경 흐림은 반경을 받는다 — 반경 = 2σ 로 근사한다(정량 대조 전,
+  // 근사 표기). 그림자와 함께 effects 에 더한다.
+  if (spec.bb) node.effects = [...(node.effects || []), { type: "BACKGROUND_BLUR", radius: spec.bb * 2, visible: true }];
   if (spec.a != null) node.opacity = spec.a;
 };
 
@@ -348,7 +351,7 @@ const buildNode = (spec, parent) => {
   // **글자와 면을 같이 가진 노드는 TEXT로 만들면 안 된다.** Figma TEXT에는 배경·radius·그림자가 없다.
   // 제품의 버튼(`<button>검은 알약</button>`)이 그런 경우다 — 프레임 + 안쪽 텍스트로 만든다.
   // 실측 사고: `/analytics/youtube`의 `Connect Google Account` 검은 알약이 통째로 사라졌다.
-  const wantsSurface = Boolean(spec.f || spec.b || spec.d != null || spec.e);
+  const wantsSurface = Boolean(spec.f || spec.b || spec.d != null || spec.e || spec.bb);
   const textInSurface = Boolean(spec.x) && !spec.k && wantsSurface;
   const isText = Boolean(spec.x) && !spec.k && !wantsSurface;
   if (isText) {

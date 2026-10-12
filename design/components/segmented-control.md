@@ -137,6 +137,8 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
   제품 A는 `<span aria-label>`을 쓰는데, role 없는 span의 `aria-label`은 보조기술이 무시한다.
 - **포커스 링은 그리지 않는다**([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
   강제 색에서만 세그먼트가 `Highlight` 링을 받는다 — radio는 숨겨져 있어 거기 걸면 화면 밖에 그려진다.
+  칸을 `<button>` 으로 만든 소비처(숨긴 radio 가 없다)도 칸의 `:focus-visible` 로 같은 링을 받는다. **선택된 칸에 초점이 오면
+  링이 선택 표시(hairline `CanvasText` outline)를 이긴다** — 둘 다 outline 이라 한 칸에 하나만 서므로 규칙 순서로 정한다(2026-10-12).
 - forced-colors에서는 면 색이 시스템 색으로 치환돼 선택이 사라지므로 테두리로 다시 세운다.
 - radio 그룹 이름은 컴포넌트가 인스턴스마다 발급한다. 호출부가 만들면 같은 화면에 컨트롤이 둘일
   때 그룹이 합쳐져 한쪽을 고르면 다른 쪽 선택이 풀린다.

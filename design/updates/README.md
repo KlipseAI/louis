@@ -25,6 +25,27 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-12 (242) — Figma: grid 행 트랙은 resize 뒤에 건다 · 어드민 사이드바 · 캔버스 툴바 mask 아이콘
+
+- 크기 모드가 AUTO 인 GRID 를 `resize()` 하면 Figma 가 HUG 행을 FLEX 로 되돌린다. 렌더러가 행을 건 뒤 측정 크기로 resize 해, 하이라이트
+  분석 중 · 업로드 중 모바일의 한 열 grid 가 반반으로 나뉘어 빈 칸이 안내 카드를 덮었다. 행 크기를 크기 · 최소 · 최대 다음에 건다
+  (`settleGridRows`, 조립 규칙 표 「CSS grid 의 행」, d3c4aafe). 라이브 전수에서 깨진 grid 는 그 두 보드의 넷뿐이었다.
+- `90 · 자산` 「C · icon/」 에 통합 판 public/icons 원본 열(Users · Receipt · Ticket · Gift · Subtitles · SquaresFour · NotePencil · ChartLineUp ·
+  ChartBar · Pulse)을 세웠다 — 어드민 데스크톱 사이드바가 검은 네모였다. 같은 이름이 둘인 `icon/text`(DS · Icons 와 90 · 자산)는 mask
+  원본 섹션을 고른다(6018489b). 남은 mask 공백은 public 루트의 `/highlight_symbol.svg` 21곳.
+- 늘림 시험 6회차(run 2026-10-12a): 03-app 부모 밖 18 → 17 · 글자 잘림 1 → 0.
+
+## 2026-10-12 (241) — 세그먼트: 강제 색에서 선택된 칸의 초점 링 · 점진 블러 마스크 `-inline-end`
+
+**Segmented Control.** 강제 색에서 선택된 칸에 초점이 와도 모양이 바뀌지 않았다. 칸을 `<button>` 으로 만든 소비처(제품 랜딩의 모델 목록
+추천기 · 비교 탭 · 모델 상세 계산기)는 숨긴 radio 가 없어 칸 링 규칙(`:has(:focus-visible)`)이 닿지 않았고, base.css 의 공용 강제 색 링은
+`:where()` 라 명시도가 0 이어서 선택 표시(1px `CanvasText` outline)에 졌다. 칸의 `:focus-visible` 을 같은 링 규칙에 넣고 선택 규칙 뒤에
+둔다 — 선택된 칸에 초점이 오면 `Highlight` 링이 이긴다. 소비처가 할 일은 없다.
+
+**`--louis-progressive-blur-mask-inline-end` 를 낸다.** `-inline-start`(`to right`)의 거울상(`to left`)이고 정지점은 같다. `-block-start` 와
+같은 붙는 변 접미사 규칙이다. 제품은 오른쪽 띠를 `-inline-start` 층에 `scaleX(-1)` 을 걸어 쓰고 있다(랜딩 컴포지션 패널 설명 띠 · 모델
+무대의 좌우 호버 블러) — 그 뒤집기를 걷는 일은 다음 핀 상향 때 제품 쪽에서 한다.
+
 ## 2026-10-09 (240) — auto 여백 감싸개는 줄 폭을 따른다 · 늘림 시험 5회차
 
 늘림 시험 4회차에서 하이라이트 스튜디오 판 보드의 부모 밖 자식이 14 → 22 로 늘었다. 데스크톱 1440 넷은 `margin-left/right: auto` 의 계산값

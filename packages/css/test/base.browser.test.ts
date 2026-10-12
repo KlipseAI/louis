@@ -93,6 +93,24 @@ test("강제 색에서만 Highlight 링이 선다", async () => {
 // 풀린 값을 상속한다. `:root` 에만 두면 중첩된 테마 스코프가 바깥 테마의 색을 물려받는다 — 제품 홈
 // (`html[data-theme=dark] > main[data-theme=light]`)에서 라이트 면 위 헤어라인이 다크의 흰색 8% 로
 // 칠해져 윤곽이 사라졌다. 색 토큰 자체는 tokens.css 가 테마 스코프마다 다시 선언하므로 멀쩡하다.
+// 붙는 변 접미사 규칙 — `-inline-end` 는 `-inline-start` 의 거울상이다. 정지점은 한 글자도 다르지 않고 방향만
+// 뒤집는다. 제품은 짝이 없어 오른쪽 띠를 `-inline-start` 층에 `scaleX(-1)` 을 걸어 썼다(2026-10-12).
+test("점진 블러 마스크의 inline-end 가 inline-start 의 거울상이다", () => {
+  const root = getComputedStyle(document.documentElement);
+  const start = root.getPropertyValue("--louis-progressive-blur-mask-inline-start").trim();
+  const end = root.getPropertyValue("--louis-progressive-blur-mask-inline-end").trim();
+  expect(end, "inline-end 가 발행된다").not.toBe("");
+  expect(start).toContain("to right");
+  expect(end, "방향만 다르고 정지점은 같다").toBe(start.replace("to right", "to left"));
+  // 값이 실제 마스크로 풀리는지 — 선언이 무효면 계산값이 none 으로 떨어진다.
+  const host = mount(`<div style="mask-image: var(--louis-progressive-blur-mask-inline-end)"></div>`);
+  try {
+    expect(getComputedStyle(host.firstElementChild as HTMLElement).maskImage).toMatch(/^linear-gradient\(to left/);
+  } finally {
+    host.remove();
+  }
+});
+
 test("헤어라인 recipe 가 중첩된 테마 스코프의 색을 칠한다", () => {
   const RECIPES = [
     "--louis-hairline-inset",

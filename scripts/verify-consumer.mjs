@@ -84,10 +84,11 @@ try {
     // 실패다. 그래도 예외인 이유는 이름이 recipe라 소비자가 직접 쓰지 않고, 위 import 안내
     // 검사가 tokens.css 누락을 따로 잡기 때문이다.
     // 마스크 곡선은 자리마다 갈린다 — 카드 정보 바(무접미) · 헤더 띠(`-header`) · 가로로 접히는
-    // 레이어 패널(`-inline-start`) · 배너의 위 밴드(`-block-start`). 앞의 둘은 값이 다르고 뒤의
-    // 둘은 카드와 같은 값의 방향 변형이다. 넷 다 같은 recipe 이므로 예외 사유가 그대로 적용된다.
+    // 레이어 패널(`-inline-start`) · 배너의 위 밴드(`-block-start`) · 오른쪽 가장자리 띠(`-inline-end`,
+    // 2026-10-12 — 제품이 `-inline-start` 를 scaleX(-1) 로 뒤집어 쓰던 자리). 앞의 둘은 값이 다르고 뒤의
+    // 셋은 카드와 같은 값의 방향 변형이다. 다섯 다 같은 recipe 이므로 예외 사유가 그대로 적용된다.
     const ROOT_RECIPE_ALLOW =
-      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-header|-mask(-(header|inline-start|block-start))?)?)$/;
+      /^--louis-(hairline-inset(-block-(start|end))?|progressive-blur(-header|-mask(-(header|inline-start|inline-end|block-start))?)?)$/;
     for (const block of stylesCss.match(/:root(?:,\s*\[data-theme\])?\s*\{[^}]*\}/g) ?? []) {
       const leaked = [...block.matchAll(/(--louis-[a-z0-9-]+)\s*:/g)]
         .map((match) => match[1])

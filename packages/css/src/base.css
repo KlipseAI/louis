@@ -189,6 +189,21 @@
     color-mix(in srgb, black 40%, transparent) 85%,
     transparent 100%
   );
+  /* **오른쪽 가장자리. `-inline-start` 의 거울상이다(2026-10-12).**
+   *
+   * 짝이 없어서 제품은 오른쪽 띠를 `-inline-start` 층에 `scaleX(-1)` 을 걸어 뒤집어 썼다 — 랜딩
+   * 컴포지션 패널의 설명 띠, 모델 무대의 좌우 호버 블러. 뒤집기는 층 안의 내용까지 뒤집으므로 흐림만
+   * 칠하는 `::before` 에서만 성립하고, 읽는 사람은 곡선이 어느 변에 붙는지를 변환을 풀어야 안다.
+   * `-block-start` 와 같은 규칙으로 붙는 변의 이름을 접미사로 쓰고, 정지점은 한 글자도 다르지 않게
+   * 방향만 뒤집는다. 제품의 뒤집기를 걷는 일은 다음 핀 상향 때 제품 쪽에서 한다. */
+  --louis-progressive-blur-mask-inline-end: linear-gradient(
+    to left,
+    black 0%,
+    black 55%,
+    color-mix(in srgb, black 80%, transparent) 70%,
+    color-mix(in srgb, black 40%, transparent) 85%,
+    transparent 100%
+  );
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */

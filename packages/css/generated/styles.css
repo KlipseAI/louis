@@ -190,6 +190,21 @@
     color-mix(in srgb, black 40%, transparent) 85%,
     transparent 100%
   );
+  /* **오른쪽 가장자리. `-inline-start` 의 거울상이다(2026-10-12).**
+   *
+   * 짝이 없어서 제품은 오른쪽 띠를 `-inline-start` 층에 `scaleX(-1)` 을 걸어 뒤집어 썼다 — 랜딩
+   * 컴포지션 패널의 설명 띠, 모델 무대의 좌우 호버 블러. 뒤집기는 층 안의 내용까지 뒤집으므로 흐림만
+   * 칠하는 `::before` 에서만 성립하고, 읽는 사람은 곡선이 어느 변에 붙는지를 변환을 풀어야 안다.
+   * `-block-start` 와 같은 규칙으로 붙는 변의 이름을 접미사로 쓰고, 정지점은 한 글자도 다르지 않게
+   * 방향만 뒤집는다. 제품의 뒤집기를 걷는 일은 다음 핀 상향 때 제품 쪽에서 한다. */
+  --louis-progressive-blur-mask-inline-end: linear-gradient(
+    to left,
+    black 0%,
+    black 55%,
+    color-mix(in srgb, black 80%, transparent) 70%,
+    color-mix(in srgb, black 40%, transparent) 85%,
+    transparent 100%
+  );
 }
 
 /* overlay가 놓이는 stacking 문맥. 숫자 z-index 대신 layer 토큰만 쓴다. */
@@ -7447,16 +7462,23 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
     border: var(--louis-border-width-default) solid currentColor;
   }
 
-  /* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서만 되살리고, **라벨이 받는다**
-   * — radio 는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. 모양은 base.css 의 강제 색 링과 같다. */
-  .louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible) {
-    outline: var(--louis-border-width-ring) solid Highlight;
-    outline-offset: 2px;
-  }
-
   /* forced-colors에서는 면 색이 시스템 색으로 치환돼 선택이 사라진다. 테두리로 다시 세운다. */
   .louis-segmented-control__segment[data-selected="true"] {
     outline: var(--louis-border-width-hairline) solid CanvasText;
+  }
+
+  /* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서만 되살리고, **칸이 받는다**
+   * — radio 는 숨겨져 있어 거기 걸면 화면 밖에 그려진다. 모양은 base.css 의 강제 색 링과 같다.
+   *
+   * **선택 표시 뒤에 둔다(2026-10-12).** 둘 다 outline 이라 한 칸에 하나만 선다 — 선택된 칸에 초점이
+   * 오면 링이 이겨야 한다. 칸을 `<button>` 으로 만든 소비처(제품 랜딩의 모델 목록 추천기 · 비교 탭 ·
+   * 모델 상세 계산기)는 숨긴 radio 가 없어 `:has()` 갈래가 닿지 않고, base.css 의 공용 링은 `:where()`
+   * 라 명시도가 0 이어서 위 선택 outline(1px CanvasText)에 졌다 — 선택된 칸에 초점이 와도 모양이 그대로였다.
+   * 버튼 칸의 `:focus-visible` 을 같은 규칙에 넣고, 명시도가 선택 규칙과 같으므로 순서로 이긴다. */
+  .louis-segmented-control__segment:has(.louis-segmented-control__input:focus-visible),
+  .louis-segmented-control__segment:focus-visible {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
   }
 }
 

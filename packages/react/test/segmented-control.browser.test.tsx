@@ -315,6 +315,48 @@ test("포커스 링은 키보드에도 없고 강제 색에서만 라벨이 받�
   }
 });
 
+// 칸을 `<button>` 으로 만든 소비처(제품 랜딩의 모델 목록 추천기 · 비교 탭 · 모델 상세 계산기)는 숨긴 radio 가
+// 없어 `:has()` 갈래가 닿지 않는다. 강제 색에서 선택된 칸에 초점이 오면 선택 outline(hairline CanvasText)이 아니라
+// Highlight 링이 서야 한다(2026-10-12).
+test("버튼으로 만든 칸도 강제 색에서 선택 위에 초점 링을 받는다", async () => {
+  await render(
+    <>
+      <button type="button">앞</button>
+      <div className="louis-segmented-control" role="group" aria-label="보기">
+        <button type="button" className="louis-segmented-control__segment" data-selected="true" aria-pressed="true">
+          <span className="louis-segmented-control__label">목록</span>
+        </button>
+        <button type="button" className="louis-segmented-control__segment" data-selected="false" aria-pressed="false">
+          <span className="louis-segmented-control__label">비교</span>
+        </button>
+      </div>
+    </>,
+  );
+  const [selected, other] = all(".louis-segmented-control__segment");
+  await setForcedColors(true);
+  try {
+    // 헤어라인(0.5)은 브라우저가 기기 픽셀로 올려 그리므로 값이 아니라 링보다 가는지만 본다.
+    const before = getComputedStyle(selected!);
+    expect(before.outlineStyle, "초점 전에는 선택 표시가 선다").toBe("solid");
+    expect(px(before.outlineWidth)).toBeLessThan(tokenPx("border-width-ring"));
+    find("button").focus();
+    await userEvent.tab();
+    expect(selected!.matches(":focus-visible"), "선택된 버튼 칸에 키보드 포커스").toBe(true);
+    const style = getComputedStyle(selected!);
+    expect(style.outlineStyle).toBe("solid");
+    expect(px(style.outlineWidth), "선택 outline 이 아니라 링이 이긴다").toBe(tokenPx("border-width-ring"));
+    expect(style.outlineOffset).toBe("2px");
+
+    await userEvent.tab();
+    expect(other!.matches(":focus-visible"), "선택 안 된 버튼 칸").toBe(true);
+    expect(px(getComputedStyle(other!).outlineWidth), "선택 안 된 칸도 링을 받는다").toBe(
+      tokenPx("border-width-ring"),
+    );
+  } finally {
+    await setForcedColors(false);
+  }
+});
+
 test("그룹 disabled가 항목 전부를 막는다", async () => {
   await render(<Fixture disabled />);
   const segments = all(".louis-segmented-control__segment");

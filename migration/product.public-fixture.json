@@ -160169,6 +160169,106 @@
         "textTransform": "none",
         "whiteSpace": "normal"
       }
+    },
+    {
+      "id": "sfff499a49030",
+      "value": {
+        "display": "block",
+        "position": "absolute",
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px",
+        "zIndex": "auto",
+        "boxSizing": "border-box",
+        "width": "402px",
+        "height": "874px",
+        "minWidth": "0px",
+        "minHeight": "0px",
+        "maxWidth": "none",
+        "maxHeight": "none",
+        "flexDirection": "row",
+        "flexWrap": "nowrap",
+        "flexGrow": "0",
+        "flexShrink": "1",
+        "flexBasis": "auto",
+        "alignSelf": "auto",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gridAutoFlow": "row",
+        "gap": "normal",
+        "rowGap": "normal",
+        "columnGap": "normal",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderTopWidth": "0px",
+        "borderRightWidth": "0px",
+        "borderBottomWidth": "0px",
+        "borderLeftWidth": "0px",
+        "borderTopColor": "color(srgb 0 0 0)",
+        "borderRightColor": "color(srgb 0 0 0)",
+        "borderBottomColor": "color(srgb 0 0 0)",
+        "borderLeftColor": "color(srgb 0 0 0)",
+        "borderTopStyle": "none",
+        "borderRightStyle": "none",
+        "borderBottomStyle": "none",
+        "borderLeftStyle": "none",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineColor": "color(srgb 0 0 0)",
+        "outlineOffset": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "backgroundRepeat": "repeat",
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "color": "color(srgb 0 0 0)",
+        "opacity": "0.21",
+        "boxShadow": "none",
+        "filter": "none",
+        "backdropFilter": "none",
+        "transform": "none",
+        "transformOrigin": "201px 437px",
+        "overflow": "clip",
+        "overflowX": "clip",
+        "overflowY": "clip",
+        "aspectRatio": "auto",
+        "objectFit": "cover",
+        "objectPosition": "50% 20%",
+        "clipPath": "none",
+        "maskImage": "none",
+        "maskRepeat": "repeat",
+        "maskPosition": "0% 0%",
+        "maskSize": "auto",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none",
+        "strokeWidth": "1px",
+        "strokeLinecap": "butt",
+        "strokeLinejoin": "miter",
+        "strokeDasharray": "none",
+        "strokeDashoffset": "0px",
+        "fontFamily": "\"Pretendard Variable\", -apple-system, \"system-ui\", system-ui, Roboto, \"Helvetica Neue\", \"Segoe UI\", \"Apple SD Gothic Neo\", \"Noto Sans KR\", \"Malgun Gothic\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "-0.14px",
+        "textAlign": "start",
+        "textDecorationLine": "none",
+        "textTransform": "none",
+        "whiteSpace": "normal"
+      }
     }
   ],
   "componentCandidateAudit": {
@@ -163605,6 +163705,20 @@
               "width": 95.5469,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -163960,6 +164074,20 @@
               "width": 104.1875,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -164312,14 +164440,14 @@
             "parentPath": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0",
             "tag": "path",
             "vector": {
-              "d": "M473.99984378727277,309.99988613357294 C517.9999229203754,309.99988613357294 517.9999229203754,460.4998401228305 562.000002053478,460.4998401228305",
-              "bbox": "474 310 88 150.5"
+              "d": "M473.99909970961625,309.9993635985376 C517.9995770107131,309.9993635985376 517.9995770107131,460.49902768346357 562.0000543118099,460.49902768346357",
+              "bbox": "473.999 309.999 88.001 150.5"
             },
             "rect": {
-              "x": 1515.7917,
-              "y": 6845.4961,
-              "width": 85.5361,
-              "height": 146.2856
+              "x": 1515.791,
+              "y": 6845.4951,
+              "width": 85.537,
+              "height": 146.2861
             },
             "declared": {
               "padding": "0",
@@ -164336,14 +164464,14 @@
             "parentPath": "body.1.0.0.2.1.1.0.1.0.0.0.0.0.0",
             "tag": "path",
             "vector": {
-              "d": "M473.99984378727277,309.99988613357294 C517.9999229203754,309.99988613357294 517.9999229203754,460.4998401228305 562.000002053478,460.4998401228305",
-              "bbox": "474 310 88 150.5"
+              "d": "M473.99909970961625,309.9993635985376 C517.9995770107131,309.9993635985376 517.9995770107131,460.49902768346357 562.0000543118099,460.49902768346357",
+              "bbox": "473.999 309.999 88.001 150.5"
             },
             "rect": {
-              "x": 1515.7917,
-              "y": 6845.4961,
-              "width": 85.5361,
-              "height": 146.2856
+              "x": 1515.791,
+              "y": 6845.4951,
+              "width": 85.537,
+              "height": 146.2861
             },
             "declared": {
               "padding": "0",
@@ -168707,8 +168835,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 194.8,
-              "y": 26082.3379,
+              "x": 201.6,
+              "y": 26095.2383,
               "width": 440,
               "height": 247.5
             },
@@ -168733,8 +168861,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.0",
             "tag": "video",
             "rect": {
-              "x": 194.8,
-              "y": 26082.3379,
+              "x": 201.6,
+              "y": 26095.2383,
               "width": 440,
               "height": 247.5
             },
@@ -168755,8 +168883,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 1239.4875,
-              "y": 26344.2734,
+              "x": 1249.1875,
+              "y": 26356.0742,
               "width": 350.625,
               "height": 197.2188
             },
@@ -168781,8 +168909,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.1",
             "tag": "video",
             "rect": {
-              "x": 1239.4875,
-              "y": 26344.2734,
+              "x": 1249.1875,
+              "y": 26356.0742,
               "width": 350.625,
               "height": 197.2188
             },
@@ -168803,8 +168931,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 507.2,
-              "y": 26667.0742,
+              "x": 521.4,
+              "y": 26679.4746,
               "width": 506,
               "height": 284.625
             },
@@ -168829,8 +168957,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.2",
             "tag": "video",
             "rect": {
-              "x": 507.2,
-              "y": 26667.0742,
+              "x": 521.4,
+              "y": 26679.4746,
               "width": 506,
               "height": 284.625
             },
@@ -168851,8 +168979,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 1345.475,
-              "y": 26970.5742,
+              "x": 1354.775,
+              "y": 26971.2734,
               "width": 371.25,
               "height": 208.8281
             },
@@ -168877,8 +169005,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.3",
             "tag": "video",
             "rect": {
-              "x": 1345.475,
-              "y": 26970.5742,
+              "x": 1354.775,
+              "y": 26971.2734,
               "width": 371.25,
               "height": 208.8281
             },
@@ -168899,8 +169027,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 188.2,
-              "y": 27228.625,
+              "x": 191.2,
+              "y": 27221.8242,
               "width": 312.3906,
               "height": 175.7188
             },
@@ -168925,8 +169053,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.4",
             "tag": "video",
             "rect": {
-              "x": 188.2,
-              "y": 27228.625,
+              "x": 191.2,
+              "y": 27221.8242,
               "width": 312.3906,
               "height": 175.7188
             },
@@ -196374,6 +196502,20 @@
               "width": 95.5469,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -202231,6 +202373,20 @@
               "width": 95.5469,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -229503,6 +229659,20 @@
               "width": 95.5469,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -232875,6 +233045,20 @@
               "width": 109.9688,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "calc(12px) !important",
               "margin-right": "0px",
@@ -233962,6 +234146,20 @@
               "width": 95.5469,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -237341,6 +237539,20 @@
               "width": 83.1875,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -238573,7 +238785,7 @@
               "height": "100%",
               "width": "100%"
             },
-            "styleRef": "s2729c77ae111"
+            "styleRef": "sfff499a49030"
           },
           {
             "path": "body.1.0.0.2.0.0.3",
@@ -238771,6 +238983,20 @@
               "width": 104.1875,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",
@@ -243514,8 +243740,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 17.004,
-              "y": 22095.2891,
+              "x": 27.504,
+              "y": 22097.1875,
               "width": 225.1094,
               "height": 126.625
             },
@@ -243540,8 +243766,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.0",
             "tag": "video",
             "rect": {
-              "x": 17.004,
-              "y": 22095.2891,
+              "x": 27.504,
+              "y": 22097.1875,
               "width": 225.1094,
               "height": 126.625
             },
@@ -243562,8 +243788,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 172.2918,
-              "y": 22305.2285,
+              "x": 174.6918,
+              "y": 22305.0293,
               "width": 179.3906,
               "height": 100.9063
             },
@@ -243588,8 +243814,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.1",
             "tag": "video",
             "rect": {
-              "x": 172.2918,
-              "y": 22305.2285,
+              "x": 174.6918,
+              "y": 22305.0293,
               "width": 179.3906,
               "height": 100.9063
             },
@@ -243610,8 +243836,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 55.336,
-              "y": 22575.7305,
+              "x": 55.436,
+              "y": 22579.8301,
               "width": 258.875,
               "height": 145.6094
             },
@@ -243636,8 +243862,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.2",
             "tag": "video",
             "rect": {
-              "x": 55.336,
-              "y": 22575.7305,
+              "x": 55.436,
+              "y": 22579.8301,
               "width": 258.875,
               "height": 145.6094
             },
@@ -243706,8 +243932,8 @@
             "parentPath": "body.1.0.0.2.8.0.0",
             "tag": "div",
             "rect": {
-              "x": 39.6984,
-              "y": 23002.1289,
+              "x": 43.2984,
+              "y": 22999.5293,
               "width": 159.8281,
               "height": 89.9063
             },
@@ -243732,8 +243958,8 @@
             "parentPath": "body.1.0.0.2.8.0.0.4",
             "tag": "video",
             "rect": {
-              "x": 39.6984,
-              "y": 23002.1289,
+              "x": 43.2984,
+              "y": 22999.5293,
               "width": 159.8281,
               "height": 89.9063
             },
@@ -298578,6 +298804,20 @@
               "width": 109.9688,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "calc(12px) !important",
               "margin-right": "0px",
@@ -302170,6 +302410,20 @@
               "width": 83.1875,
               "height": 32
             },
+            "pseudoShadows": [
+              {
+                "pseudo": "::before",
+                "boxShadow": "color(srgb 0.980392 0.980392 0.980392) 0px 1px 1px -0.5px inset, color(srgb 0.980392 0.980392 0.980392) 0px -1px 1px -0.5px inset",
+                "mixBlendMode": "overlay",
+                "position": "absolute",
+                "inset": [
+                  "0px",
+                  "0px",
+                  "0px",
+                  "0px"
+                ]
+              }
+            ],
             "declared": {
               "margin-top": "0px",
               "margin-right": "0px",

@@ -14,14 +14,14 @@
   "productCommit": "54b62a8aa9c9dba2c8e250c6e414c0487ec218a3",
   "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
   "boardCount": 140,
-  "rawNodesBeforePruning": 9308,
+  "rawNodesBeforePruning": 9305,
   "counts": {
-    "total": 9380,
+    "total": 9377,
     "instance": 316,
     "replaceable": 0,
     "bespoke": 296,
     "blocked": 12,
-    "missing": 1811,
+    "missing": 1808,
     "structural": 6945,
     "unclassified": 0
   },
@@ -29,7 +29,7 @@
     "instanceOverTarget": 100,
     "instanceOverCandidates": 13,
     "target": 316,
-    "candidates": 2435
+    "candidates": 2432
   },
   "byInstanceSet": {
     "Button": 87,
@@ -96,7 +96,7 @@
     "image": 113
   },
   "missingByCandidateClause": {
-    "c-painted-mark": 1235,
+    "c-painted-mark": 1232,
     "a-interactive": 491,
     "d-control-group": 18,
     "b-vector": 67
@@ -2019,12 +2019,12 @@
         "figma/app-screens.nodecanvas-project-.mobile.02.draw.js"
       ],
       "counts": {
-        "total": 293,
+        "total": 290,
         "instance": 1,
         "replaceable": 0,
         "bespoke": 25,
         "blocked": 0,
-        "missing": 75,
+        "missing": 72,
         "structural": 192,
         "unclassified": 0
       }
@@ -49533,8 +49533,8 @@
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
       "tag": "path",
       "rect": [
-        72.91,
-        7.02
+        72.83,
+        7.01
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -49544,8 +49544,8 @@
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
       "tag": "path",
       "rect": [
-        72.24,
-        166.83
+        72.12,
+        166.82
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -50437,8 +50437,8 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "path",
       "rect": [
-        16.75,
-        1.4
+        16.58,
+        1.38
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -50448,8 +50448,8 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "path",
       "rect": [
-        16.75,
-        38.53
+        16.44,
+        38.54
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -51201,18 +51201,6 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
-        19.61,
-        6.06
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.2.0.1.0.0.1": {
-      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
         16.58,
         3.98
       ],
@@ -51220,7 +51208,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.2.0.1.0.0.1.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.2.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -51233,7 +51221,7 @@
       "glyph": "sparkle-fill-256",
       "reason": "하이라이트 허브의 「Generate」 버튼 앞 반짝임(Phosphor Sparkle 채움, 256 상자). LOUIS 31종에 반짝임 계열이 없다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.2.0.1.0.0.1.1": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.0.0.0.1.3.0.2.0.1.0.0.0.1": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -51920,18 +51908,6 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
-        19.61,
-        6.06
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3.0.1.0.0.1.0.0.1": {
-      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
         16.58,
         3.98
       ],
@@ -51939,7 +51915,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3.0.1.0.0.1.0.0.1.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3.0.1.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -51952,7 +51928,7 @@
       "glyph": "sparkle-fill-256",
       "reason": "하이라이트 허브의 「Generate」 버튼 앞 반짝임(Phosphor Sparkle 채움, 256 상자). LOUIS 31종에 반짝임 계열이 없다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3.0.1.0.0.1.0.0.1.1": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3.0.1.0.0.1.0.0.0.1": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
@@ -52960,18 +52936,6 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [
-        12.24,
-        6.06
-      ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
-    },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.3.0.0.1.0.0.1": {
-      "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
-      "tag": "span",
-      "rect": [
         9.2,
         3.98
       ],
@@ -52979,7 +52943,7 @@
       "rule": "frame",
       "reason": "칠 없는 auto-layout 프레임 — Linear 도 Issue Page 안에 frame 21 개를 그대로 둔다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.3.0.0.1.0.0.1.0": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.3.0.0.1.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "svg",
       "rect": [
@@ -52992,7 +52956,7 @@
       "glyph": "sparkle-fill-256",
       "reason": "하이라이트 허브의 「Generate」 버튼 앞 반짝임(Phosphor Sparkle 채움, 256 상자). LOUIS 31종에 반짝임 계열이 없다."
     },
-    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.3.0.0.1.0.0.1.1": {
+    "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.3.0.0.1.0.0.0.1": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "span",
       "rect": [

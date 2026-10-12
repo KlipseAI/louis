@@ -4086,7 +4086,7 @@
       "$source": "제품 apps/web/components/scenes/create/node-canvas-v2/nodes/NodeSideButtons.tsx 의 TargetButton (앵커 5a67d692)",
       "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 앵커 소스에서 읽었다($noProductRender). 칸마다 어느 선언에서 온 값인지를 $ 사유가 갖는다.",
       "$sizesNote": "키가 `Channel` 하나다. 셋의 기하가 같고 갈리는 것은 디스크의 면뿐이다 — `$states` 가 그것을 갖는다.",
-      "$whyThreeChannels": "원장은 이 표면을 「채널 톤(image/text/youtube/instagram/edit/audio)별 면」이라 적었는데 **소스는 셋이다.** `NodeSideButtons.tsx:518` 의 `type SideTone = \"image\" | \"text\" | \"edit\"` 이 정본이고 `sideFacetClass` 가 그 셋만 분기한다. 나머지 셋(youtube · instagram · audio)은 사이드 버튼이 아니라 **노드 액센트** 축에서만 쓰인다. 원장의 문장이 틀렸다는 사실을 여기 남긴다.",
+      "$whyThreeChannels": "**2026-10-12 고침(DS-D-0083) — 채널은 여섯이다.** 예전 문장은 `NodeSideButtons.tsx` 의 `type SideTone = \"image\" | \"text\" | \"edit\"` 만 보고 셋이라 적었지만, 제품 origin/main 의 노드 파일들이 나머지 셋도 원판 면으로 칠한다(`BgmNode.tsx:690` · `TtsNode.tsx:219` audio, `YoutubeNode.tsx:210` · `VideoNode.tsx:401` youtube, `InstagramNode.tsx:208` instagram — 모두 `[background:var(--node-handle-icon-{ch})]!`). 레시피는 여섯을 칠한다. 이 계약의 `sizes` 는 기하가 같아 셋만 적고, Figma Channel variant 셋을 더하는 일은 남았다. 비디오 채널은 제품에도 없다(globals.css 「비디오 채널은 없다」).",
       "$whyNoDisabledVariant": "비활성 면은 **라이트와 다크가 서로 다른 토큰을 쓴다** — 다크는 `--node-handle-bg-disabled-{ch}`(채널 900), 라이트는 활성 토큰 `--node-handle-bg-{ch}`(채널 200)에 `brightness(0.78) saturate(0.95)` 를 건다. Figma 변수는 모드 쌍 하나라 그 둘을 한 변수로 담을 수 없고, 라이트 쪽은 필터라 값 자체가 없다. 새 세만틱 변수와 토큰 재생성이 선행 조건이라 이 회차는 Default 만 세운다.",
       "$whyNoHoverVariant": "호버는 `filter: brightness(1.1)` 이고 프레스는 `brightness(0.94)` 다. 둘 다 색이 아니라 필터라 옮길 변수가 없고, Figma 에 같은 면으로 그리면 「호버가 기본과 같다」는 거짓을 파일에 새긴다. 메뉴가 열린 상태(`aria-expanded`)는 소스가 `filter: none` 만 더해 **기본과 시각이 같다** — 그래서 축을 열지 않는 것이 옳다.",
       "sizes": {

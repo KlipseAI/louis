@@ -1418,6 +1418,326 @@ export const primitives = {
       "alpha": 1
     }
   },
+  "color-node-handle-disabled-light-green-bg": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-green-bg": "color(srgb 0.568627 0.756863 0.701961 / 1)",
+      "--louis-color-node-handle-disabled-light-green-bg-rgb": "145 193 179"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-green-bg",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.568627,
+        0.756863,
+        0.701961
+      ],
+      "hex": "#91c1b3"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.green-bg",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.568627,
+        0.756863,
+        0.701961
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-green-icon": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-green-icon": "color(srgb 0.023529 0.6 0.435294 / 1)",
+      "--louis-color-node-handle-disabled-light-green-icon-rgb": "6 153 111"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-green-icon",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.023529,
+        0.6,
+        0.435294
+      ],
+      "hex": "#06996f"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.green-icon",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.023529,
+        0.6,
+        0.435294
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-pink-bg": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-pink-bg": "color(srgb 0.772549 0.592157 0.654902 / 1)",
+      "--louis-color-node-handle-disabled-light-pink-bg-rgb": "197 151 167"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-pink-bg",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.772549,
+        0.592157,
+        0.654902
+      ],
+      "hex": "#c597a7"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.pink-bg",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.772549,
+        0.592157,
+        0.654902
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-pink-icon": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-pink-icon": "color(srgb 0.760784 0.243137 0.411765 / 1)",
+      "--louis-color-node-handle-disabled-light-pink-icon-rgb": "194 62 105"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-pink-icon",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.760784,
+        0.243137,
+        0.411765
+      ],
+      "hex": "#c23e69"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.pink-icon",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.760784,
+        0.243137,
+        0.411765
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-red-bg": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-red-bg": "color(srgb 0.772549 0.6 0.619608 / 1)",
+      "--louis-color-node-handle-disabled-light-red-bg-rgb": "197 153 158"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-red-bg",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.772549,
+        0.6,
+        0.619608
+      ],
+      "hex": "#c5999e"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.red-bg",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.772549,
+        0.6,
+        0.619608
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-red-icon": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-red-icon": "color(srgb 0.756863 0.235294 0.27451 / 1)",
+      "--louis-color-node-handle-disabled-light-red-icon-rgb": "193 60 70"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-red-icon",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.756863,
+        0.235294,
+        0.27451
+      ],
+      "hex": "#c13c46"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.red-icon",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.756863,
+        0.235294,
+        0.27451
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-violet-bg": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-violet-bg": "color(srgb 0.615686 0.596078 0.772549 / 1)",
+      "--louis-color-node-handle-disabled-light-violet-bg-rgb": "157 152 197"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-violet-bg",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.615686,
+        0.596078,
+        0.772549
+      ],
+      "hex": "#9d98c5"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.violet-bg",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.615686,
+        0.596078,
+        0.772549
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-violet-icon": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-violet-icon": "color(srgb 0.294118 0.262745 0.756863 / 1)",
+      "--louis-color-node-handle-disabled-light-violet-icon-rgb": "75 67 193"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-violet-icon",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.294118,
+        0.262745,
+        0.756863
+      ],
+      "hex": "#4b43c1"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.violet-icon",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.294118,
+        0.262745,
+        0.756863
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-yellow-bg": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-yellow-bg": "color(srgb 0.776471 0.709804 0.509804 / 1)",
+      "--louis-color-node-handle-disabled-light-yellow-bg-rgb": "198 181 130"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-yellow-bg",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.776471,
+        0.709804,
+        0.509804
+      ],
+      "hex": "#c6b582"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.yellow-bg",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.776471,
+        0.709804,
+        0.509804
+      ],
+      "alpha": 1
+    }
+  },
+  "color-node-handle-disabled-light-yellow-icon": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-node-handle-disabled-light-yellow-icon": "color(srgb 0.768627 0.545098 0.027451 / 1)",
+      "--louis-color-node-handle-disabled-light-yellow-icon-rgb": "196 139 7"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-node-handle-disabled-light-yellow-icon",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.768627,
+        0.545098,
+        0.027451
+      ],
+      "hex": "#c48b07"
+    },
+    "sourcePath": "primitive.color.node-handle-disabled-light.yellow-icon",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.768627,
+        0.545098,
+        0.027451
+      ],
+      "alpha": 1
+    }
+  },
   "color-palette-gray-000": {
     "aliasTarget": null,
     "cssProperties": {
@@ -4541,6 +4861,72 @@ export const primitives = {
         0.301961
       ],
       "alpha": 1
+    }
+  },
+  "color-violet-alpha-08": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-violet-alpha-08": "color(srgb 0.376471 0.333333 1 / 0.08)",
+      "--louis-color-violet-alpha-08-rgb": "96 85 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-violet-alpha-08",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.376471,
+        0.333333,
+        1
+      ],
+      "alpha": 0.08,
+      "hex": "#6055ff"
+    },
+    "sourcePath": "primitive.color.violet-alpha.08",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.376471,
+        0.333333,
+        1
+      ],
+      "alpha": 0.08
+    }
+  },
+  "color-violet-alpha-16": {
+    "aliasTarget": null,
+    "cssProperties": {
+      "--louis-color-violet-alpha-16": "color(srgb 0.376471 0.333333 1 / 0.16)",
+      "--louis-color-violet-alpha-16-rgb": "96 85 255"
+    },
+    "deprecated": null,
+    "description": null,
+    "id": "color-violet-alpha-16",
+    "mode": "base",
+    "rawValue": {
+      "colorSpace": "srgb",
+      "components": [
+        0.376471,
+        0.333333,
+        1
+      ],
+      "alpha": 0.16,
+      "hex": "#6055ff"
+    },
+    "sourcePath": "primitive.color.violet-alpha.16",
+    "tier": "primitive",
+    "type": "color",
+    "value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.376471,
+        0.333333,
+        1
+      ],
+      "alpha": 0.16
     }
   },
   "color-yellow-100": {
@@ -13768,6 +14154,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-accent-red-500-alpha-08": {
+      "aliasTarget": {
+        "id": "color-red-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-red-500-alpha-08": "color(srgb 1 0.294118 0.34902 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-red-500-alpha-08",
+      "mode": "light",
+      "rawValue": "{primitive.color.red-alpha.08}",
+      "sourcePath": "semantic.light.color.accent.red.500-alpha.08",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.08
+      }
+    },
     "color-accent-secondary": {
       "aliasTarget": {
         "id": "color-static-black-alpha-08",
@@ -16316,6 +16728,162 @@ export const tokens = {
         "alpha": 0.72
       }
     },
+    "color-media-badge-foreground": {
+      "aliasTarget": {
+        "id": "color-palette-gray-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground": "color(srgb 0.756863 0.764706 0.776471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.200}",
+      "sourcePath": "semantic.light.color.media-badge-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.756863,
+          0.764706,
+          0.776471
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-danger": {
+      "aliasTarget": {
+        "id": "color-red-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-danger": "color(srgb 1 0.435294 0.486275 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-danger",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.400}",
+      "sourcePath": "semantic.light.color.media-badge-foreground-danger",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-info": {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-info": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-info",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.400}",
+      "sourcePath": "semantic.light.color.media-badge-foreground-info",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-success": {
+      "aliasTarget": {
+        "id": "color-green-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-success": "color(srgb 0.156863 0.85098 0.647059 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-success",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.400}",
+      "sourcePath": "semantic.light.color.media-badge-foreground-success",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.156863,
+          0.85098,
+          0.647059
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-warning": {
+      "aliasTarget": {
+        "id": "color-yellow-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-warning": "color(srgb 1 0.760784 0.2 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-warning",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.400}",
+      "sourcePath": "semantic.light.color.media-badge-foreground-warning",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.760784,
+          0.2
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-surface": {
+      "aliasTarget": {
+        "id": "color-palette-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-surface": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.800}",
+      "sourcePath": "semantic.light.color.media-badge-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.168627,
+          0.184314,
+          0.211765
+        ],
+        "alpha": 1
+      }
+    },
     "color-media-control-foreground": {
       "aliasTarget": {
         "id": "color-static-white-alpha-88",
@@ -16418,6 +16986,32 @@ export const tokens = {
           0.133333
         ],
         "alpha": 1
+      }
+    },
+    "color-media-foreground-bright-soft": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-bright-soft": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-bright-soft",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "sourcePath": "semantic.light.color.media-foreground-bright-soft",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.72
       }
     },
     "color-media-foreground-dark": {
@@ -16836,6 +17430,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-node-composer-surface": {
+      "aliasTarget": {
+        "id": "color-static-white",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-composer-surface": "color(srgb 1 1 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-composer-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.static.white}",
+      "sourcePath": "semantic.light.color.node-composer-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      }
+    },
     "color-node-edit-accent": {
       "aliasTarget": {
         "id": "color-violet-500",
@@ -16860,6 +17480,58 @@ export const tokens = {
           1
         ],
         "alpha": 1
+      }
+    },
+    "color-node-edit-chip-foreground": {
+      "aliasTarget": {
+        "id": "color-violet-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-edit-chip-foreground": "color(srgb 0.207843 0.156863 0.721569 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-chip-foreground",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.700}",
+      "sourcePath": "semantic.light.color.node-edit-chip-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.207843,
+          0.156863,
+          0.721569
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-edit-chip-surface": {
+      "aliasTarget": {
+        "id": "color-violet-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-edit-chip-surface": "color(srgb 0.376471 0.333333 1 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-chip-surface",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet-alpha.08}",
+      "sourcePath": "semantic.light.color.node-edit-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ],
+        "alpha": 0.08
       }
     },
     "color-node-edit-icon": {
@@ -16942,156 +17614,156 @@ export const tokens = {
     },
     "color-node-handle-bg-disabled-audio": {
       "aliasTarget": {
-        "id": "color-pink-900",
+        "id": "color-node-handle-disabled-light-pink-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-audio": "color(srgb 0.329412 0.066667 0.164706 / 1)"
+        "--louis-color-node-handle-bg-disabled-audio": "color(srgb 0.772549 0.592157 0.654902 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-audio",
       "mode": "light",
-      "rawValue": "{primitive.color.pink.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.pink-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-audio",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.329412,
-          0.066667,
-          0.164706
+          0.772549,
+          0.592157,
+          0.654902
         ],
         "alpha": 1
       }
     },
     "color-node-handle-bg-disabled-edit": {
       "aliasTarget": {
-        "id": "color-violet-900",
+        "id": "color-node-handle-disabled-light-violet-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-edit": "color(srgb 0.082353 0.062745 0.301961 / 1)"
+        "--louis-color-node-handle-bg-disabled-edit": "color(srgb 0.615686 0.596078 0.772549 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-edit",
       "mode": "light",
-      "rawValue": "{primitive.color.violet.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.violet-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-edit",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.082353,
-          0.062745,
-          0.301961
+          0.615686,
+          0.596078,
+          0.772549
         ],
         "alpha": 1
       }
     },
     "color-node-handle-bg-disabled-image": {
       "aliasTarget": {
-        "id": "color-green-900",
+        "id": "color-node-handle-disabled-light-green-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-image": "color(srgb 0 0.298039 0.223529 / 1)"
+        "--louis-color-node-handle-bg-disabled-image": "color(srgb 0.568627 0.756863 0.701961 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-image",
       "mode": "light",
-      "rawValue": "{primitive.color.green.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.green-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-image",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.298039,
-          0.223529
+          0.568627,
+          0.756863,
+          0.701961
         ],
         "alpha": 1
       }
     },
     "color-node-handle-bg-disabled-instagram": {
       "aliasTarget": {
-        "id": "color-red-900",
+        "id": "color-node-handle-disabled-light-red-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-instagram": "color(srgb 0.329412 0.066667 0.098039 / 1)"
+        "--louis-color-node-handle-bg-disabled-instagram": "color(srgb 0.772549 0.6 0.619608 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-instagram",
       "mode": "light",
-      "rawValue": "{primitive.color.red.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.red-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-instagram",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.329412,
-          0.066667,
-          0.098039
+          0.772549,
+          0.6,
+          0.619608
         ],
         "alpha": 1
       }
     },
     "color-node-handle-bg-disabled-text": {
       "aliasTarget": {
-        "id": "color-yellow-900",
+        "id": "color-node-handle-disabled-light-yellow-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-text": "color(srgb 0.298039 0.2 0 / 1)"
+        "--louis-color-node-handle-bg-disabled-text": "color(srgb 0.776471 0.709804 0.509804 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-text",
       "mode": "light",
-      "rawValue": "{primitive.color.yellow.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.yellow-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-text",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.298039,
-          0.2,
-          0
+          0.776471,
+          0.709804,
+          0.509804
         ],
         "alpha": 1
       }
     },
     "color-node-handle-bg-disabled-youtube": {
       "aliasTarget": {
-        "id": "color-red-900",
+        "id": "color-node-handle-disabled-light-red-bg",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-bg-disabled-youtube": "color(srgb 0.329412 0.066667 0.098039 / 1)"
+        "--louis-color-node-handle-bg-disabled-youtube": "color(srgb 0.772549 0.6 0.619608 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-bg-disabled-youtube",
       "mode": "light",
-      "rawValue": "{primitive.color.red.900}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.red-bg}",
       "sourcePath": "semantic.light.color.node.handle-bg-disabled-youtube",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.329412,
-          0.066667,
-          0.098039
+          0.772549,
+          0.6,
+          0.619608
         ],
         "alpha": 1
       }
@@ -17254,156 +17926,156 @@ export const tokens = {
     },
     "color-node-handle-icon-disabled-audio": {
       "aliasTarget": {
-        "id": "color-pink-700",
+        "id": "color-node-handle-disabled-light-pink-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-audio": "color(srgb 0.717647 0.141176 0.345098 / 1)"
+        "--louis-color-node-handle-icon-disabled-audio": "color(srgb 0.760784 0.243137 0.411765 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-audio",
       "mode": "light",
-      "rawValue": "{primitive.color.pink.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.pink-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-audio",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.717647,
-          0.141176,
-          0.345098
+          0.760784,
+          0.243137,
+          0.411765
         ],
         "alpha": 1
       }
     },
     "color-node-handle-icon-disabled-edit": {
       "aliasTarget": {
-        "id": "color-violet-700",
+        "id": "color-node-handle-disabled-light-violet-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-edit": "color(srgb 0.207843 0.156863 0.721569 / 1)"
+        "--louis-color-node-handle-icon-disabled-edit": "color(srgb 0.294118 0.262745 0.756863 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-edit",
       "mode": "light",
-      "rawValue": "{primitive.color.violet.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.violet-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-edit",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.207843,
-          0.156863,
-          0.721569
+          0.294118,
+          0.262745,
+          0.756863
         ],
         "alpha": 1
       }
     },
     "color-node-handle-icon-disabled-image": {
       "aliasTarget": {
-        "id": "color-green-700",
+        "id": "color-node-handle-disabled-light-green-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-image": "color(srgb 0 0.560784 0.403922 / 1)"
+        "--louis-color-node-handle-icon-disabled-image": "color(srgb 0.023529 0.6 0.435294 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-image",
       "mode": "light",
-      "rawValue": "{primitive.color.green.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.green-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-image",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0,
-          0.560784,
-          0.403922
+          0.023529,
+          0.6,
+          0.435294
         ],
         "alpha": 1
       }
     },
     "color-node-handle-icon-disabled-instagram": {
       "aliasTarget": {
-        "id": "color-red-700",
+        "id": "color-node-handle-disabled-light-red-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-instagram": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+        "--louis-color-node-handle-icon-disabled-instagram": "color(srgb 0.756863 0.235294 0.27451 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-instagram",
       "mode": "light",
-      "rawValue": "{primitive.color.red.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.red-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-instagram",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.717647,
-          0.141176,
-          0.192157
+          0.756863,
+          0.235294,
+          0.27451
         ],
         "alpha": 1
       }
     },
     "color-node-handle-icon-disabled-text": {
       "aliasTarget": {
-        "id": "color-yellow-700",
+        "id": "color-node-handle-disabled-light-yellow-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-text": "color(srgb 0.721569 0.462745 0 / 1)"
+        "--louis-color-node-handle-icon-disabled-text": "color(srgb 0.768627 0.545098 0.027451 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-text",
       "mode": "light",
-      "rawValue": "{primitive.color.yellow.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.yellow-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-text",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.721569,
-          0.462745,
-          0
+          0.768627,
+          0.545098,
+          0.027451
         ],
         "alpha": 1
       }
     },
     "color-node-handle-icon-disabled-youtube": {
       "aliasTarget": {
-        "id": "color-red-700",
+        "id": "color-node-handle-disabled-light-red-icon",
         "mode": "base"
       },
       "cssProperties": {
-        "--louis-color-node-handle-icon-disabled-youtube": "color(srgb 0.717647 0.141176 0.192157 / 1)"
+        "--louis-color-node-handle-icon-disabled-youtube": "color(srgb 0.756863 0.235294 0.27451 / 1)"
       },
       "deprecated": null,
       "description": null,
       "id": "color-node-handle-icon-disabled-youtube",
       "mode": "light",
-      "rawValue": "{primitive.color.red.700}",
+      "rawValue": "{primitive.color.node-handle-disabled-light.red-icon}",
       "sourcePath": "semantic.light.color.node.handle-icon-disabled-youtube",
       "tier": "semantic",
       "type": "color",
       "value": {
         "colorSpace": "srgb",
         "components": [
-          0.717647,
-          0.141176,
-          0.192157
+          0.756863,
+          0.235294,
+          0.27451
         ],
         "alpha": 1
       }
@@ -18875,6 +19547,32 @@ export const tokens = {
           1
         ],
         "alpha": 1
+      }
+    },
+    "color-accent-red-500-alpha-08": {
+      "aliasTarget": {
+        "id": "color-red-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-accent-red-500-alpha-08": "color(srgb 1 0.294118 0.34902 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-accent-red-500-alpha-08",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red-alpha.08}",
+      "sourcePath": "semantic.dark.color.accent.red.500-alpha.08",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 0.08
       }
     },
     "color-accent-secondary": {
@@ -21425,6 +22123,162 @@ export const tokens = {
         "alpha": 0.72
       }
     },
+    "color-media-badge-foreground": {
+      "aliasTarget": {
+        "id": "color-palette-gray-200",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground": "color(srgb 0.756863 0.764706 0.776471 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.200}",
+      "sourcePath": "semantic.dark.color.media-badge-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.756863,
+          0.764706,
+          0.776471
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-danger": {
+      "aliasTarget": {
+        "id": "color-red-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-danger": "color(srgb 1 0.435294 0.486275 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-danger",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.400}",
+      "sourcePath": "semantic.dark.color.media-badge-foreground-danger",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.435294,
+          0.486275
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-info": {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-info": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-info",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.400}",
+      "sourcePath": "semantic.dark.color.media-badge-foreground-info",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-success": {
+      "aliasTarget": {
+        "id": "color-green-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-success": "color(srgb 0.156863 0.85098 0.647059 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-success",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.400}",
+      "sourcePath": "semantic.dark.color.media-badge-foreground-success",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.156863,
+          0.85098,
+          0.647059
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-foreground-warning": {
+      "aliasTarget": {
+        "id": "color-yellow-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-foreground-warning": "color(srgb 1 0.760784 0.2 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-foreground-warning",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.400}",
+      "sourcePath": "semantic.dark.color.media-badge-foreground-warning",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.760784,
+          0.2
+        ],
+        "alpha": 1
+      }
+    },
+    "color-media-badge-surface": {
+      "aliasTarget": {
+        "id": "color-palette-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-badge-surface": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-badge-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.800}",
+      "sourcePath": "semantic.dark.color.media-badge-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.168627,
+          0.184314,
+          0.211765
+        ],
+        "alpha": 1
+      }
+    },
     "color-media-control-foreground": {
       "aliasTarget": {
         "id": "color-static-white-alpha-88",
@@ -21527,6 +22381,32 @@ export const tokens = {
           0.133333
         ],
         "alpha": 1
+      }
+    },
+    "color-media-foreground-bright-soft": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-72",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-media-foreground-bright-soft": "color(srgb 0.090196 0.105882 0.133333 / 0.72)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-media-foreground-bright-soft",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-black-alpha.72}",
+      "sourcePath": "semantic.dark.color.media-foreground-bright-soft",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.72
       }
     },
     "color-media-foreground-dark": {
@@ -21945,6 +22825,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-node-composer-surface": {
+      "aliasTarget": {
+        "id": "color-palette-gray-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-composer-surface": "color(srgb 0.168627 0.184314 0.211765 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-composer-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.800}",
+      "sourcePath": "semantic.dark.color.node-composer-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.168627,
+          0.184314,
+          0.211765
+        ],
+        "alpha": 1
+      }
+    },
     "color-node-edit-accent": {
       "aliasTarget": {
         "id": "color-violet-500",
@@ -21969,6 +22875,58 @@ export const tokens = {
           1
         ],
         "alpha": 1
+      }
+    },
+    "color-node-edit-chip-foreground": {
+      "aliasTarget": {
+        "id": "color-violet-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-edit-chip-foreground": "color(srgb 0.615686 0.568627 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-chip-foreground",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.300}",
+      "sourcePath": "semantic.dark.color.node-edit-chip-foreground",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.615686,
+          0.568627,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-node-edit-chip-surface": {
+      "aliasTarget": {
+        "id": "color-violet-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-node-edit-chip-surface": "color(srgb 0.376471 0.333333 1 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-node-edit-chip-surface",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet-alpha.16}",
+      "sourcePath": "semantic.dark.color.node-edit-chip-surface",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ],
+        "alpha": 0.16
       }
     },
     "color-node-edit-icon": {

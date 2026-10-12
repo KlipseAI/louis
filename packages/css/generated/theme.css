@@ -30,6 +30,7 @@
   --color-accent-primary: var(--louis-color-accent-primary);
   --color-accent-primary-active: var(--louis-color-accent-primary-active);
   --color-accent-primary-hover: var(--louis-color-accent-primary-hover);
+  --color-accent-red-500-alpha-08: var(--louis-color-accent-red-500-alpha-08);
   --color-accent-secondary: var(--louis-color-accent-secondary);
   --color-accent-secondary-foreground: var(--louis-color-accent-secondary-foreground);
   --color-accent-secondary-hover: var(--louis-color-accent-secondary-hover);
@@ -128,10 +129,17 @@
   --color-landing-panel-strong: var(--louis-color-landing-panel-strong);
   --color-landing-text-muted: var(--louis-color-landing-text-muted);
   --color-landing-text-soft: var(--louis-color-landing-text-soft);
+  --color-media-badge-foreground: var(--louis-color-media-badge-foreground);
+  --color-media-badge-foreground-danger: var(--louis-color-media-badge-foreground-danger);
+  --color-media-badge-foreground-info: var(--louis-color-media-badge-foreground-info);
+  --color-media-badge-foreground-success: var(--louis-color-media-badge-foreground-success);
+  --color-media-badge-foreground-warning: var(--louis-color-media-badge-foreground-warning);
+  --color-media-badge-surface: var(--louis-color-media-badge-surface);
   --color-media-control-foreground: var(--louis-color-media-control-foreground);
   --color-media-control-hover: var(--louis-color-media-control-hover);
   --color-media-control-surface: var(--louis-color-media-control-surface);
   --color-media-foreground-bright: var(--louis-color-media-foreground-bright);
+  --color-media-foreground-bright-soft: var(--louis-color-media-foreground-bright-soft);
   --color-media-foreground-dark: var(--louis-color-media-foreground-dark);
   --color-media-foreground-dark-muted: var(--louis-color-media-foreground-dark-muted);
   --color-media-foreground-dark-soft: var(--louis-color-media-foreground-dark-soft);
@@ -148,7 +156,10 @@
   --color-node-chip-surface: var(--louis-color-node-chip-surface);
   --color-node-chip-surface-hover: var(--louis-color-node-chip-surface-hover);
   --color-node-chrome-btn-bg: var(--louis-color-node-chrome-btn-bg);
+  --color-node-composer-surface: var(--louis-color-node-composer-surface);
   --color-node-edit-accent: var(--louis-color-node-edit-accent);
+  --color-node-edit-chip-foreground: var(--louis-color-node-edit-chip-foreground);
+  --color-node-edit-chip-surface: var(--louis-color-node-edit-chip-surface);
   --color-node-edit-icon: var(--louis-color-node-edit-icon);
   --color-node-edit-surface: var(--louis-color-node-edit-surface);
   --color-node-handle-bg-audio: var(--louis-color-node-handle-bg-audio);

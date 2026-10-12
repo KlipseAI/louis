@@ -138,6 +138,47 @@
   letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
+/* **제목 옆 칩** — 이미지 노드의 「편집 모드」, 편집 노드의 「재편집 필요」(DS-D-0083).
+ *
+ * Badge 가 아니다. 높이가 헤더에 묶이고(최대 24) 기하가 배지(4/8 · 반경 8 · regular)와 축 하나로
+ * 접히지 않는다 — 제품 `NODE_TITLE_CHIP` 의 1/6 · 반경 10 · caption medium · 글리프 10 이다.
+ * 1 · 6 · 10 은 간격 · 아이콘 사다리에 없어 실측을 옮긴다.
+ *
+ * 색은 제품 값이 아니다. 제품 편집 모드는 Tailwind 보라 리터럴이고, 덱이 그 자리에 `node-edit-accent`
+ * 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다. 테마마다 잉크가 다른 `node-edit-chip-*` 쌍을
+ * 세웠다(라이트 violet-700 on 8% · 다크 violet-300 on 16%). 재편집 필요는 제품 `yellow-600` on
+ * `yellow-200` 이 1.94:1 이라 status 쌍(`bg-warning` · `fg-warning`)으로 간다. */
+.louis-node-shell__title-chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+  max-block-size: 24px;
+  padding-block: 1px;
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-overlay-item);
+  background: var(--louis-color-node-edit-chip-surface);
+  color: var(--louis-color-node-edit-chip-foreground);
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-node-shell__title-chip[data-tone="warning"] {
+  background: var(--louis-color-bg-warning);
+  color: var(--louis-color-fg-warning);
+}
+
+.louis-node-shell__title-chip > :where(svg) {
+  flex: none;
+  inline-size: 10px;
+  block-size: 10px;
+}
+
 /* 액션 묶음. **간격 0 이 계약이다** — 제품이 `--node-chrome-btn-gap` 을 쓰지 않고 `gap-0` 을
  * 쓰며 「의도적으로 붙인다」를 주석으로 남겼다. 잘못 누르는 쪽이 삭제라는 점에서 이 값은
  * 다시 볼 만하고, 그 판정은 문서 Accessibility 절이 소유자에게 남겨 두었다.
@@ -268,7 +309,9 @@
   padding-block: var(--louis-space-control-sm);
   padding-inline: var(--louis-space-control-sm);
   border-radius: var(--louis-radius-overlay);
-  background: var(--louis-color-bg-raised);
+  /* 카드 면보다 한 칸 위 — 라이트 흰색 · 다크 palette-gray-800(제품 PROMPT_FIELD_SHELL). `bg-raised` 는 다크가 카드 면과
+   * 같은 칸이라 경계를 헤어라인만 만들었다(2026-10-12, DS-D-0083). */
+  background: var(--louis-color-node-composer-surface);
   /* 경계는 border 가 아니라 안쪽 헤어라인 한 겹이다 — 카드의 2px 진짜 테두리와 다른 기법이고
    * 레이아웃 박스를 접지 않는다(DS-D-0023). */
   box-shadow: var(--louis-hairline-inset);

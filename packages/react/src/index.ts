@@ -26,6 +26,7 @@ export type {
   ProjectCardAdornmentProps,
   ProjectCardMediaProps,
   ProjectCardMoreProps,
+  ProjectCardOverlayInk,
   ProjectCardOverlayProps,
   ProjectCardPlaceholderProps,
   ProjectCardProps,
@@ -48,7 +49,7 @@ export type {
 export { Avatar } from "./avatar/avatar.js";
 export type { AvatarProps, AvatarSize } from "./avatar/avatar.js";
 export { Badge } from "./badge/badge.js";
-export type { BadgeProps, BadgeTone } from "./badge/badge.js";
+export type { BadgeProps, BadgeSurface, BadgeTone } from "./badge/badge.js";
 export { Checkbox } from "./checkbox/checkbox.js";
 export type { CheckboxProps } from "./checkbox/checkbox.js";
 export { DropZone } from "./drop-zone/drop-zone.js";

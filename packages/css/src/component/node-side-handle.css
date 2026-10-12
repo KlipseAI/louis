@@ -10,9 +10,11 @@
  * (`__facet`)가 갖는다. 제품이 그렇게 나눈 이유는 호버·프레스가 디스크만 키우고 줄이기
  * 때문이다 — 셸이 채색을 가지면 스케일이 클릭 영역까지 흔든다.
  *
- * **채널이 셋이다.** 표면 원장은 여섯이라 적었지만 소스는 `type SideTone = "image" | "text" |
- * "edit"` 셋이고, 나머지 셋(youtube · instagram · audio)은 사이드 버튼이 아니라 노드 액센트
- * 축에서만 쓰인다(계약의 `$whyThreeChannels`).
+ * **채널이 여섯이다(2026-10-12 고침).** 예전에는 `NodeSideButtons.tsx` 의 `type SideTone = "image" |
+ * "text" | "edit"` 만 보고 셋이라 적었지만, 노드 파일들이 나머지 셋도 원판 면으로 칠한다 — BgmNode ·
+ * TtsNode 의 audio, YoutubeNode · VideoNode 의 youtube, InstagramNode · VideoNode 의 instagram(DS-D-0083).
+ * **비디오 채널은 없다** — 비디오는 매체이지 채널이 아니다. edit 입력에 닿는 비디오는 edit, 게시 노드로
+ * 나가는 비디오는 youtube · instagram 이다(제품 globals.css 의 채널 주석).
  *
  * **레일 좌표는 이 컴포넌트가 갖지 않는다.** 카드 패딩 박스에서 바깥으로 `--node-side-gap`,
  * 버튼끼리 세로 간격은 `--node-side-stack-gap` 이며 둘 다 캔버스가 소유한다. 어느 채널 버튼이
@@ -45,7 +47,7 @@
   --louis-node-side-handle-ink: var(--louis-color-fg-on-danger);
 }
 
-/* 채널 셋. 면 토큰의 이름이 `handle-icon-*` 인 것은 제품 어휘를 그대로 옮긴 결과다 — 그 값이
+/* 채널. 면 토큰의 이름이 `handle-icon-*` 인 것은 제품 어휘를 그대로 옮긴 결과다 — 그 값이
  * 디스크의 **면**에 붙는다(`FACET_IMAGE` 의 `[background:var(--node-handle-icon-image)]`).
  * `handle-bg-*` 는 라이트 비활성이 밝기를 깎는 기준으로만 쓰인다. */
 .louis-node-side-handle[data-channel="image"] {
@@ -58,6 +60,18 @@
 
 .louis-node-side-handle[data-channel="edit"] {
   --louis-node-side-handle-face: var(--louis-color-node-handle-icon-edit);
+}
+
+.louis-node-side-handle[data-channel="audio"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-audio);
+}
+
+.louis-node-side-handle[data-channel="youtube"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-youtube);
+}
+
+.louis-node-side-handle[data-channel="instagram"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-instagram);
 }
 
 /* 디스크. 셸을 꽉 채우고 곡률을 그대로 물려받는다 — 그래서 이 두 값은 수가 아니라 관계이고,
@@ -135,10 +149,11 @@
 
 /* 비활성 — 면과 잉크가 채널별 비활성 토큰으로 간다.
  *
- * **라이트에서 제품과 갈린다.** 제품은 다크에서만 이 토큰을 쓰고 라이트에서는 활성 토큰에
- * `brightness(0.78) saturate(0.95)` 를 걸어 어둡게 만든다. 필터로 만든 색은 값이 아니라
- * 연산이라 옮길 변수가 없고, 테마마다 팔레트 칸을 직접 고르는 분기는 이 저장소가 하지 않는다
- * — 그래서 두 테마 다 같은 비활성 토큰을 읽고, 갈리는 칸은 문서 Known deviations 가 소유한다.
+ * **라이트 값은 제품 필터를 구운 색이다(2026-10-12, DS-D-0083).** 제품은 라이트에서 활성 면(채널 200) ·
+ * 글리프(채널 500)에 `brightness(0.78) saturate(0.95)` 를 건다. 그 필터를 원시값에 미리 곱한 색
+ * (`primitive.color.node-handle-disabled-light.*`, 제품 archiveThumbnail `toneDownLightInactive` 와 같은 식 —
+ * 제품이 라이브 DOM 필터와 차이 0 으로 실측했다)을 라이트 비활성 토큰이 가리킨다. 다크는 채널 900 · 700 그대로다.
+ * 레시피는 두 테마 다 같은 비활성 토큰을 읽는다 — 갈리는 것은 토큰의 모드 값이다.
  *
  * 안쪽 광은 끈다. 비활성 면 위에서 채도가 폭주하는 것을 제품도 같은 이유로 껐다. */
 .louis-node-side-handle:disabled,
@@ -171,6 +186,27 @@
   .louis-node-side-handle__facet {
   background: var(--louis-color-node-handle-bg-disabled-edit);
   color: var(--louis-color-node-handle-icon-disabled-edit);
+}
+
+.louis-node-side-handle[data-channel="audio"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="audio"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-audio);
+  color: var(--louis-color-node-handle-icon-disabled-audio);
+}
+
+.louis-node-side-handle[data-channel="youtube"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="youtube"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-youtube);
+  color: var(--louis-color-node-handle-icon-disabled-youtube);
+}
+
+.louis-node-side-handle[data-channel="instagram"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="instagram"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-instagram);
+  color: var(--louis-color-node-handle-icon-disabled-instagram);
 }
 
 @media (prefers-reduced-motion: reduce) {

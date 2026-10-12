@@ -228,6 +228,29 @@
   letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
+/* **사진 위 잉크** — `data-ink` 를 띠(`.louis-project-card-overlay`)에 단다(DS-D-0083).
+ *
+ * 띠는 썸네일 위라 밑면이 테마를 따르지 않는다. 그런데 위 기본 잉크는 `fg-*` 라 테마를 따른다 — 다크
+ * 테마의 밝은 썸네일, 라이트 테마의 어두운 썸네일에서 글자가 묻힌다. 어느 잉크를 쓸지는 **썸네일의
+ * 밝기가 정하고, 그 밝기를 재는 일은 런타임이라 소비처의 것이다**(project-card.md 「오버레이 대비」).
+ * 이 레시피는 결과 둘만 받는다: 어두운 사진 → `on-dark`, 밝은 사진 → `on-bright`.
+ * 보조 두 줄(eyebrow · meta)은 soft(72%) 한 칸이다. */
+.louis-project-card-overlay[data-ink="on-dark"] .louis-project-card-title {
+  color: var(--louis-color-media-foreground-dark);
+}
+
+.louis-project-card-overlay[data-ink="on-dark"] :is(.louis-project-card-eyebrow, .louis-project-card-meta) {
+  color: var(--louis-color-media-foreground-dark-soft);
+}
+
+.louis-project-card-overlay[data-ink="on-bright"] .louis-project-card-title {
+  color: var(--louis-color-media-foreground-bright);
+}
+
+.louis-project-card-overlay[data-ink="on-bright"] :is(.louis-project-card-eyebrow, .louis-project-card-meta) {
+  color: var(--louis-color-media-foreground-bright-soft);
+}
+
 /* 카드 모서리에 붙는 슬롯 — 상태 칩과 더보기 메뉴가 여기 들어간다.
  *
  * **`.louis-project-card-action` 뒤에 둔다.** 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서이고,

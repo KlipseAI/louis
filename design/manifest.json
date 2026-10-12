@@ -302,6 +302,15 @@
       "generated": false
     },
     {
+      "id": "decision-deck-feedback-triage",
+      "path": "design/governance/decisions/DS-D-0083-deck-feedback-triage.md",
+      "title": "DS-D-0083 덱 키트 피드백 22건 분류 — 사진 위 배지 · 띠 잉크 · 목록 머리 · 제목 옆 칩을 더하고, 제품 수정 목록과 화면 고유 사유를 적는다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1851,6 +1860,7 @@
         "design/governance/decisions/DS-D-0080-coachmark-border-removed.md",
         "design/governance/decisions/DS-D-0081-locale-string-collection.md",
         "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
+        "design/governance/decisions/DS-D-0083-deck-feedback-triage.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

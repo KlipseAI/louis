@@ -14,20 +14,24 @@ summary: 노드 카드 좌우 레일에 서는 28px 채널 연결 버튼.
 (`Facet`)가 갖는다. 제품이 그렇게 나눈 이유는 호버·프레스가 디스크만 키우고 줄이기 때문이다 —
 셸이 채색을 가지면 스케일이 클릭 영역까지 흔든다.
 
-## 채널이 여섯이 아니라 셋이다
+## 채널은 여섯이다 — 비디오 채널은 없다
 
-표면 원장은 이 버튼을 「채널 톤(image/text/youtube/instagram/edit/audio)별 면」이라 적었다.
-**소스는 셋이다.** `NodeSideButtons.tsx` 의 `type SideTone = "image" | "text" | "edit"` 이 정본이고
-`sideFacetClass` 가 그 셋만 분기한다. 나머지 셋(`youtube` · `instagram` · `audio`)은 사이드
-버튼이 아니라 [Node Shell](node-shell.md)의 액센트 축에서만 쓰인다. 원장의 그 문장은 틀렸고,
-고치는 것은 원장을 소유한 회차의 몫이라 여기에 사실만 남긴다.
+**2026-10-12 고침([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)).** 이 절은 「소스는 셋이다」라고
+적고 있었다. `NodeSideButtons.tsx` 의 `type SideTone = "image" | "text" | "edit"` 만 본 결론이었고, 제품 origin/main 의
+노드 파일들은 나머지 셋도 원판 면으로 칠한다 — BgmNode · TtsNode 의 `audio`, YoutubeNode · VideoNode 의 `youtube`,
+InstagramNode · VideoNode 의 `instagram`(`[background:var(--node-handle-icon-{ch})]!`). 레시피는 이제 여섯을 칠한다
+(`data-channel="image|text|edit|audio|youtube|instagram"`), 비활성도 여섯이다.
+
+**비디오 채널은 없다.** 톤은 그 핸들에 꽂히는 **엣지의 채널**이다 — 자기 노드 타입이 아니다. 비디오는 매체이지 채널이
+아니어서, edit 입력에 닿는 비디오는 `edit`(보라), 게시 노드로 나가는 비디오는 `youtube` · `instagram` 이다(제품 globals.css
+채널 주석). 비디오 노드의 출력점을 보라로 칠하는 것이 맞다.
 
 ## Availability
 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/node-side-handle.css`. React 표면은 없다 — 연결 핸들 배선은 소비처(React Flow)의 몫이라 감싸는 컴포넌트를 두면 그 배선이 LOUIS 로 넘어온다 |
-| Figma         | `partial`      | NodeSideHandle — Channel(image·text·edit) = 3 variant. 슬롯: Glyph(INSTANCE_SWAP). 상태 축은 열지 않았다(아래) |
+| Figma         | `partial`      | NodeSideHandle — Channel(image·text·edit) = 3 variant(audio · youtube · instagram 셋은 아직 — DS-D-0083). 슬롯: Glyph(INSTANCE_SWAP). 상태 축은 열지 않았다(아래) |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 상태 축 셋이 담기지 않았고 그 이유가 전부 「담을 수 없다」이다 |
 
@@ -108,18 +112,15 @@ summary: 노드 카드 좌우 레일에 서는 28px 채널 연결 버튼.
 
 ## Known deviations
 
-1. **비활성 면이 라이트에서 제품과 갈린다.** 제품은 다크에서만
-   `--node-handle-bg-disabled-{채널}` 을 쓰고, 라이트에서는 활성 토큰에
-   `brightness(0.78) saturate(0.95)` 를 걸어 어둡게 만든다. 필터가 만든 색은 값이 아니라
-   **연산**이라 옮길 변수가 없고, 테마마다 팔레트 칸을 직접 고르는 분기는 이 저장소가 하지
-   않는다. 그래서 레시피는 두 테마 다 같은 비활성 토큰을 읽는다 — 라이트에서 채널 900 면이
-   서고, 제품의 「채널 200 을 어둡게」와 다르다. 세만틱 변수 여섯이 서면 풀린다(위 상태 축
-   1번과 같은 조건이다).
+1. ~~**비활성 면이 라이트에서 제품과 갈린다.**~~ **2026-10-12 해소(DS-D-0083).** 라이트 비활성 토큰
+   `color-node-handle-{bg,icon}-disabled-{채널}` 이 이제 제품 필터(`brightness(0.78) saturate(0.95)`)를 채널 200 ·
+   500 에 미리 곱한 색을 가리킨다(`primitive.color.node-handle-disabled-light.*`). 식은 제품 archiveThumbnail
+   `toneDownLightInactive` 와 같고, 제품이 그 식과 라이브 DOM 필터의 차이를 0 으로 실측했다. 다크는 그대로다.
 2. **흰 잉크가 `fg-on-danger` 에서 온다.** 두 테마에서 같은 흰색을 갖는 세만틱이 그 이름
    하나뿐이다. 「채널 면 위의 잉크」라는 이름이 아직 없다는 사실을 여기 적는다 — 값은 제품의
    `palette-gray-000` 과 같다.
 3. **`data-channel` 을 붙이지 않으면 시스템 강조색이 면이 된다.** 채널은 기본값 없는 축이라
-   CSS 에는 「축을 지정하지 않은 상태」가 실재한다. 셋 중 하나로 채우면 **거짓 채널**이 되므로
+   CSS 에는 「축을 지정하지 않은 상태」가 실재한다. 여섯 중 하나로 채우면 **거짓 채널**이 되므로
    `accent-primary` 로 둔다.
 4. **글리프 기본값이 채널을 주장하지 않는다.** 같은 채널 안에서도 자리마다 글리프가 다르다 —
    image 채널이 시작 프레임에서는 align-left, 끝 프레임에서는 align-right 를 쓴다. 그래서

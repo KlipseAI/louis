@@ -167,6 +167,17 @@ token이 아니라 리터럴·이미지·mode 불변 값으로 칠해졌으면 �
 쓰는 자리가 없다. 값은 `media-foreground-dark`(`palette-gray-000` `#fafafa`)의 알파가 아니라 `static-white-alpha`(`#ffffff`)
 라 5/255 쯤 밝지만, `media-control-foreground`(`static-white-alpha/88`)가 이미 같은 방식이다.
 
+**2026-10-12 보강 — 사진 위 배지와 밝은 쪽 soft**([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)).
+위에서 「쓰는 자리가 없다」던 `-bright` 쪽 soft 를 프로젝트 카드 띠(`data-ink="on-bright"`)가 연다. 사진 위 상태 배지
+(`badge[data-surface="media"]`)의 면과 글자 여섯 칸도 같은 원칙(두 mode 같은 값)으로 세운다.
+
+| 이름 | light | dark | 근거 |
+| --- | --- | --- | --- |
+| `color-media-foreground-bright-soft` | `static-black-alpha/72` | `static-black-alpha/72` | `-dark-soft` 의 짝. `static-black-alpha` 바탕이 `palette-gray-900` 이라 `media-foreground-bright` 의 72% 다 |
+| `color-media-badge-surface` | `palette-gray-800` | `palette-gray-800` | 하이라이트 아카이브 카드 상태 칩 면 |
+| `color-media-badge-foreground` | `palette-gray-200` | `palette-gray-200` | 중립 글자 |
+| `color-media-badge-foreground-success` · `-warning` · `-danger` · `-info` | `green-400` · `yellow-400` · `red-400` · `blue-400` | 같음 | 면 위 7.40 · 8.33 · 5.00 · 5.07 |
+
 **88% · 86% 는 모으지 않았다.** `FinalCtaScene` · `CompositionShowcase` 88%(소유자가 시안을 보고 고른 값)와 모델 배너 86% 는
 72 에서 16 · 14 점 떨어져 눈에 띄게 밝다 — soft 로 모으면 값이 바뀐다. 헤드라인 바로 아래 한 줄 설명 자리라, 세 번째 칸(`-lede`)을
 열지, 기존 `media-control-foreground`(88%)로 보낼지, soft 로 내릴지는 **판정 필요**다.

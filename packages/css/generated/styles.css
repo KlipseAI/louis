@@ -1187,6 +1187,34 @@
   color: var(--louis-color-fg-info);
 }
 
+/* **사진 위 배지** — `data-surface="media"`. 썸네일 모서리에 얹히는 상태 칩이다(DS-D-0083).
+ *
+ * 위 「면을 칠하는 것이 제품과 다르다」의 거부는 **페이지 면 위** 배지의 이야기다. 사진 위에서는 밑면이
+ * 테마를 따르지 않으므로 그 위 칩도 두 mode 에서 같아야 한다(color-theme.md 「예외 — 면이 테마를 따르지
+ * 않으면」). 그래서 면은 고정 `gray-800` 하나, 상태는 글자색으로만 가른다 — 하이라이트 아카이브 카드의
+ * 그 모양이다. 대비(면 gray-800 위): success 7.40 · warning 8.33 · danger 5.00 · info 5.07, 중립 gray-200.
+ * 상태 축(`data-tone`)은 그대로 쓴다. */
+.louis-badge[data-surface="media"] {
+  background: var(--louis-color-media-badge-surface);
+  color: var(--louis-color-media-badge-foreground);
+}
+
+.louis-badge[data-surface="media"][data-tone="success"] {
+  color: var(--louis-color-media-badge-foreground-success);
+}
+
+.louis-badge[data-surface="media"][data-tone="warning"] {
+  color: var(--louis-color-media-badge-foreground-warning);
+}
+
+.louis-badge[data-surface="media"][data-tone="danger"] {
+  color: var(--louis-color-media-badge-foreground-danger);
+}
+
+.louis-badge[data-surface="media"][data-tone="info"] {
+  color: var(--louis-color-media-badge-foreground-info);
+}
+
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,
  * iconography.md가 4px 격자 밖이라며 거부해 둔 12px을 다시 열 이유도 없다. */
 .louis-badge__icon {
@@ -2182,6 +2210,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  /* spark 의 수치 묶음은 내용 폭 아래로 줄지 않는다 — 줄어드는 쪽은 미니 차트다(아래 `__spark`).
+   * 예전에는 수치가 `min-inline-size: 0` 으로 줄어 좁은 카드에서 「+1,284」 가 곡선에 닿았다(DS-D-0083). */
+  flex: 0 0 auto;
 }
 
 .louis-chart-card__value {
@@ -2209,11 +2240,13 @@
 
 /* 미니 차트. 축도 툴팁도 없이 곡선 하나만 그린다.
  * 폭이 44% 인 것은 수치가 길어질수록 차트가 양보해야 하기 때문이고, 상한 130 은 넓은
- * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. */
+ * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. **양보가 실제로 일어나게 한다**(2026-10-12,
+ * DS-D-0083) — 예전 `flex: 0 0 auto; inline-size: 44%` 는 차트가 줄지 않아 주석과 반대로 수치가 밀렸고,
+ * 제품도 같은 겹침을 실측했다(KpiCard 「84.8%」 곡선 위 28px). 기준 폭 44% 에서 줄어들고 바닥은 0 이다. */
 .louis-chart-card__spark {
   box-sizing: border-box;
-  flex: 0 0 auto;
-  inline-size: 44%;
+  flex: 0 1 44%;
+  min-inline-size: 0;
   max-inline-size: 130px;
   block-size: 46px;
   align-self: flex-end;
@@ -5506,6 +5539,47 @@
   letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
 }
 
+/* **제목 옆 칩** — 이미지 노드의 「편집 모드」, 편집 노드의 「재편집 필요」(DS-D-0083).
+ *
+ * Badge 가 아니다. 높이가 헤더에 묶이고(최대 24) 기하가 배지(4/8 · 반경 8 · regular)와 축 하나로
+ * 접히지 않는다 — 제품 `NODE_TITLE_CHIP` 의 1/6 · 반경 10 · caption medium · 글리프 10 이다.
+ * 1 · 6 · 10 은 간격 · 아이콘 사다리에 없어 실측을 옮긴다.
+ *
+ * 색은 제품 값이 아니다. 제품 편집 모드는 Tailwind 보라 리터럴이고, 덱이 그 자리에 `node-edit-accent`
+ * 를 같은 색 16% 위에 얹으면 다크에서 3.00:1 이다. 테마마다 잉크가 다른 `node-edit-chip-*` 쌍을
+ * 세웠다(라이트 violet-700 on 8% · 다크 violet-300 on 16%). 재편집 필요는 제품 `yellow-600` on
+ * `yellow-200` 이 1.94:1 이라 status 쌍(`bg-warning` · `fg-warning`)으로 간다. */
+.louis-node-shell__title-chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+  max-block-size: 24px;
+  padding-block: 1px;
+  padding-inline: 6px;
+  border-radius: var(--louis-radius-overlay-item);
+  background: var(--louis-color-node-edit-chip-surface);
+  color: var(--louis-color-node-edit-chip-foreground);
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-node-shell__title-chip[data-tone="warning"] {
+  background: var(--louis-color-bg-warning);
+  color: var(--louis-color-fg-warning);
+}
+
+.louis-node-shell__title-chip > :where(svg) {
+  flex: none;
+  inline-size: 10px;
+  block-size: 10px;
+}
+
 /* 액션 묶음. **간격 0 이 계약이다** — 제품이 `--node-chrome-btn-gap` 을 쓰지 않고 `gap-0` 을
  * 쓰며 「의도적으로 붙인다」를 주석으로 남겼다. 잘못 누르는 쪽이 삭제라는 점에서 이 값은
  * 다시 볼 만하고, 그 판정은 문서 Accessibility 절이 소유자에게 남겨 두었다.
@@ -5636,7 +5710,9 @@
   padding-block: var(--louis-space-control-sm);
   padding-inline: var(--louis-space-control-sm);
   border-radius: var(--louis-radius-overlay);
-  background: var(--louis-color-bg-raised);
+  /* 카드 면보다 한 칸 위 — 라이트 흰색 · 다크 palette-gray-800(제품 PROMPT_FIELD_SHELL). `bg-raised` 는 다크가 카드 면과
+   * 같은 칸이라 경계를 헤어라인만 만들었다(2026-10-12, DS-D-0083). */
+  background: var(--louis-color-node-composer-surface);
   /* 경계는 border 가 아니라 안쪽 헤어라인 한 겹이다 — 카드의 2px 진짜 테두리와 다른 기법이고
    * 레이아웃 박스를 접지 않는다(DS-D-0023). */
   box-shadow: var(--louis-hairline-inset);
@@ -5768,9 +5844,11 @@
  * (`__facet`)가 갖는다. 제품이 그렇게 나눈 이유는 호버·프레스가 디스크만 키우고 줄이기
  * 때문이다 — 셸이 채색을 가지면 스케일이 클릭 영역까지 흔든다.
  *
- * **채널이 셋이다.** 표면 원장은 여섯이라 적었지만 소스는 `type SideTone = "image" | "text" |
- * "edit"` 셋이고, 나머지 셋(youtube · instagram · audio)은 사이드 버튼이 아니라 노드 액센트
- * 축에서만 쓰인다(계약의 `$whyThreeChannels`).
+ * **채널이 여섯이다(2026-10-12 고침).** 예전에는 `NodeSideButtons.tsx` 의 `type SideTone = "image" |
+ * "text" | "edit"` 만 보고 셋이라 적었지만, 노드 파일들이 나머지 셋도 원판 면으로 칠한다 — BgmNode ·
+ * TtsNode 의 audio, YoutubeNode · VideoNode 의 youtube, InstagramNode · VideoNode 의 instagram(DS-D-0083).
+ * **비디오 채널은 없다** — 비디오는 매체이지 채널이 아니다. edit 입력에 닿는 비디오는 edit, 게시 노드로
+ * 나가는 비디오는 youtube · instagram 이다(제품 globals.css 의 채널 주석).
  *
  * **레일 좌표는 이 컴포넌트가 갖지 않는다.** 카드 패딩 박스에서 바깥으로 `--node-side-gap`,
  * 버튼끼리 세로 간격은 `--node-side-stack-gap` 이며 둘 다 캔버스가 소유한다. 어느 채널 버튼이
@@ -5803,7 +5881,7 @@
   --louis-node-side-handle-ink: var(--louis-color-fg-on-danger);
 }
 
-/* 채널 셋. 면 토큰의 이름이 `handle-icon-*` 인 것은 제품 어휘를 그대로 옮긴 결과다 — 그 값이
+/* 채널. 면 토큰의 이름이 `handle-icon-*` 인 것은 제품 어휘를 그대로 옮긴 결과다 — 그 값이
  * 디스크의 **면**에 붙는다(`FACET_IMAGE` 의 `[background:var(--node-handle-icon-image)]`).
  * `handle-bg-*` 는 라이트 비활성이 밝기를 깎는 기준으로만 쓰인다. */
 .louis-node-side-handle[data-channel="image"] {
@@ -5816,6 +5894,18 @@
 
 .louis-node-side-handle[data-channel="edit"] {
   --louis-node-side-handle-face: var(--louis-color-node-handle-icon-edit);
+}
+
+.louis-node-side-handle[data-channel="audio"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-audio);
+}
+
+.louis-node-side-handle[data-channel="youtube"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-youtube);
+}
+
+.louis-node-side-handle[data-channel="instagram"] {
+  --louis-node-side-handle-face: var(--louis-color-node-handle-icon-instagram);
 }
 
 /* 디스크. 셸을 꽉 채우고 곡률을 그대로 물려받는다 — 그래서 이 두 값은 수가 아니라 관계이고,
@@ -5893,10 +5983,11 @@
 
 /* 비활성 — 면과 잉크가 채널별 비활성 토큰으로 간다.
  *
- * **라이트에서 제품과 갈린다.** 제품은 다크에서만 이 토큰을 쓰고 라이트에서는 활성 토큰에
- * `brightness(0.78) saturate(0.95)` 를 걸어 어둡게 만든다. 필터로 만든 색은 값이 아니라
- * 연산이라 옮길 변수가 없고, 테마마다 팔레트 칸을 직접 고르는 분기는 이 저장소가 하지 않는다
- * — 그래서 두 테마 다 같은 비활성 토큰을 읽고, 갈리는 칸은 문서 Known deviations 가 소유한다.
+ * **라이트 값은 제품 필터를 구운 색이다(2026-10-12, DS-D-0083).** 제품은 라이트에서 활성 면(채널 200) ·
+ * 글리프(채널 500)에 `brightness(0.78) saturate(0.95)` 를 건다. 그 필터를 원시값에 미리 곱한 색
+ * (`primitive.color.node-handle-disabled-light.*`, 제품 archiveThumbnail `toneDownLightInactive` 와 같은 식 —
+ * 제품이 라이브 DOM 필터와 차이 0 으로 실측했다)을 라이트 비활성 토큰이 가리킨다. 다크는 채널 900 · 700 그대로다.
+ * 레시피는 두 테마 다 같은 비활성 토큰을 읽는다 — 갈리는 것은 토큰의 모드 값이다.
  *
  * 안쪽 광은 끈다. 비활성 면 위에서 채도가 폭주하는 것을 제품도 같은 이유로 껐다. */
 .louis-node-side-handle:disabled,
@@ -5929,6 +6020,27 @@
   .louis-node-side-handle__facet {
   background: var(--louis-color-node-handle-bg-disabled-edit);
   color: var(--louis-color-node-handle-icon-disabled-edit);
+}
+
+.louis-node-side-handle[data-channel="audio"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="audio"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-audio);
+  color: var(--louis-color-node-handle-icon-disabled-audio);
+}
+
+.louis-node-side-handle[data-channel="youtube"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="youtube"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-youtube);
+  color: var(--louis-color-node-handle-icon-disabled-youtube);
+}
+
+.louis-node-side-handle[data-channel="instagram"]:disabled .louis-node-side-handle__facet,
+.louis-node-side-handle[data-channel="instagram"][aria-disabled="true"]
+  .louis-node-side-handle__facet {
+  background: var(--louis-color-node-handle-bg-disabled-instagram);
+  color: var(--louis-color-node-handle-icon-disabled-instagram);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6584,6 +6696,29 @@
   letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
 }
 
+/* **사진 위 잉크** — `data-ink` 를 띠(`.louis-project-card-overlay`)에 단다(DS-D-0083).
+ *
+ * 띠는 썸네일 위라 밑면이 테마를 따르지 않는다. 그런데 위 기본 잉크는 `fg-*` 라 테마를 따른다 — 다크
+ * 테마의 밝은 썸네일, 라이트 테마의 어두운 썸네일에서 글자가 묻힌다. 어느 잉크를 쓸지는 **썸네일의
+ * 밝기가 정하고, 그 밝기를 재는 일은 런타임이라 소비처의 것이다**(project-card.md 「오버레이 대비」).
+ * 이 레시피는 결과 둘만 받는다: 어두운 사진 → `on-dark`, 밝은 사진 → `on-bright`.
+ * 보조 두 줄(eyebrow · meta)은 soft(72%) 한 칸이다. */
+.louis-project-card-overlay[data-ink="on-dark"] .louis-project-card-title {
+  color: var(--louis-color-media-foreground-dark);
+}
+
+.louis-project-card-overlay[data-ink="on-dark"] :is(.louis-project-card-eyebrow, .louis-project-card-meta) {
+  color: var(--louis-color-media-foreground-dark-soft);
+}
+
+.louis-project-card-overlay[data-ink="on-bright"] .louis-project-card-title {
+  color: var(--louis-color-media-foreground-bright);
+}
+
+.louis-project-card-overlay[data-ink="on-bright"] :is(.louis-project-card-eyebrow, .louis-project-card-meta) {
+  color: var(--louis-color-media-foreground-bright-soft);
+}
+
 /* 카드 모서리에 붙는 슬롯 — 상태 칩과 더보기 메뉴가 여기 들어간다.
  *
  * **`.louis-project-card-action` 뒤에 둔다.** 숫자 z-index를 쓰지 않으므로 칠 순서는 DOM 순서이고,
@@ -7134,6 +7269,35 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
+/* **목록 머리** — `data-level="list"`. 허브의 「아카이브 8 ↔ 새 하이라이트」 한 줄이다(DS-D-0083).
+ *
+ * 하이라이트 허브와 노드 캔버스 허브가 같은 배치를 각자 그린다: 제목 16 Medium 과 그 안의 개수,
+ * 오른쪽 끝 버튼 하나, **가운데 정렬**, 사이 16. 세 단 중 어느 것에도 맞지 않는다 — 크기(20 · 36 · 12),
+ * 정렬(아래쪽), 719 접힘이 전부 다르다. 버튼이 제목보다 커서(32 대 24) 아래쪽 정렬이면 제목이
+ * 버튼 바닥에 붙어 떠 보인다.
+ *
+ * 아래 여백은 두 허브가 다르다(12 · 8) — 소비처가 진다. */
+.louis-section-header[data-level="list"] {
+  align-items: center;
+  gap: var(--louis-space-layout-gutter);
+}
+
+.louis-section-header[data-level="list"] .louis-section-header__title {
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+/* 제목 안의 개수. 글자 크기는 제목을 따르고 잉크만 한 단 내린다. `__meta` 와 다른 것은 자리다 —
+ * 메타는 제목 아래 줄, 개수는 제목과 같은 줄이다. 6 은 제품 두 허브의 값(`ml-3` · `margin-left:6px`). */
+.louis-section-header__count {
+  margin-inline-start: 6px;
+  color: var(--louis-color-fg-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
 /* 아래 여백은 `page` 만 진다.
  *
  * **12 의 유도는 제품이 두 곳에서 같은 식으로 적어 두었다.** 화면 제목 아래는 32 여야 하고
@@ -7200,6 +7364,13 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   .louis-section-header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  /* 목록 머리는 접지 않는다. 제목과 버튼 하나뿐이라 한 줄에 들어가고, 허브 둘이 모바일에서도
+   * 한 줄을 지킨다. */
+  .louis-section-header[data-level="list"] {
+    flex-direction: row;
+    align-items: center;
   }
 }
 
@@ -7482,15 +7653,23 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   }
 }
 
-.louis-segmented-control__segment:has(.louis-segmented-control__input:disabled) {
+/* 잠긴 칸. radio 폼은 숨긴 input 의 `:disabled`, 버튼 폼(`<button>` 칸)은 칸 자신의 `:disabled` ·
+ * `aria-disabled="true"` 로 잠긴다(2026-10-12, DS-D-0083 — 예전에는 radio 갈래뿐이라 버튼 폼 소비처가
+ * 글자색을 직접 덮었다). hover 보다 뒤에 두어 잠긴 칸이 hover 로 밝아지지 않는다. */
+.louis-segmented-control__segment:has(.louis-segmented-control__input:disabled),
+.louis-segmented-control__segment:is(:disabled, [aria-disabled="true"]) {
   color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
+/* **선택된 잠긴 칸은 `fg-secondary` 다.** 잠겨 있어도 지금 무엇이 골라져 있는지는 읽혀야 한다 —
+ * 선택 칸까지 `fg-disabled` 로 내리면 알약 면 위 글자가 사실상 사라진다(제품 SegmentedToggle 의 다크 실측,
+ * DS-D-0083). 예전 LOUIS 는 여기를 `fg-disabled` 로 칠했다. */
 .louis-segmented-control__segment[data-selected="true"]:has(
     .louis-segmented-control__input:disabled
-  ) {
-  color: var(--louis-color-fg-disabled);
+  ),
+.louis-segmented-control__segment[data-selected="true"]:is(:disabled, [aria-disabled="true"]) {
+  color: var(--louis-color-fg-secondary);
 }
 
 /* 그룹 이름. 시각적으로는 숨기고 보조기술에는 남긴다 — fieldset의 legend가 그룹 이름이 되는
@@ -8746,13 +8925,11 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   --louis-delta-pill-ink: var(--louis-color-alert-success-stroke);
 }
 
-/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다.
- * 면은 **정본이 8% 인데 LOUIS 의 가장 가까운 semantic 이 12% 다**(`accent-danger-secondary`,
- * Button 의 연한 danger 가 세운 값). 초록만 8% 칸이 있고 붉은쪽은 없다 — 두 톤의 알파가
- * 갈리는 것은 결함이며 해소는 소유자 판정이다. 그때까지 소비처는
- * `--louis-delta-pill-surface` 하나를 덮어 8% 를 유지할 수 있다. */
+/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다. 면은 오름과 같은 8% 붉은 500 이다
+ * (`accent-red-500-alpha-08`, 2026-10-12 DS-D-0083 — 예전에는 붉은 8% semantic 이 없어 12% 인
+ * `accent-danger-secondary` 를 쓰고 소비처 넷이 8% 로 덮어 칠했다). */
 .louis-delta-pill[data-tone="down"] {
-  --louis-delta-pill-surface: var(--louis-color-accent-danger-secondary);
+  --louis-delta-pill-surface: var(--louis-color-accent-red-500-alpha-08);
   --louis-delta-pill-ink: var(--louis-color-accent-danger);
 }
 

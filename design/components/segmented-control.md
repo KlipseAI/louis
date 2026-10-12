@@ -103,7 +103,7 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 | Default | 면 없음(트랙 색이 보인다), 전경 `color-fg-secondary` |
 | Hover | 전경 `color-fg-primary`. **면은 바뀌지 않는다** |
 | Selected | 면 `color-accent-secondary-selected`, 전경 `color-fg-primary` |
-| Disabled | 전경 `color-fg-disabled`, `cursor: not-allowed` |
+| Disabled(잠김) | 전경 `color-fg-disabled`, `cursor: not-allowed`. **선택된 잠긴 칸은 `color-fg-secondary`** — 잠겨도 현재 값이 읽혀야 한다(2026-10-12, DS-D-0083). radio 폼은 숨긴 input 의 `disabled`, 버튼 폼은 칸의 `disabled` · `aria-disabled="true"` 로 건다 |
 | Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 세그먼트가 `Highlight` 링을 받는다 |
 
 **hover에서 면을 바꾸지 않는다.** 바꾸면 얹은 것과 선택된 것이 같은 표현이 되어 어느 쪽이 현재

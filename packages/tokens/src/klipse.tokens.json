@@ -1582,6 +1582,45 @@
           }
         }
       },
+      "violet-alpha": {
+        "$type": "color",
+        "08": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.376471,
+              0.333333,
+              1
+            ],
+            "alpha": 0.08,
+            "hex": "#6055ff"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-violet-alpha-08",
+              "tier": "primitive"
+            }
+          }
+        },
+        "16": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.376471,
+              0.333333,
+              1
+            ],
+            "alpha": 0.16,
+            "hex": "#6055ff"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-violet-alpha-16",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
       "static": {
         "$type": "color",
         "black": {
@@ -2799,6 +2838,179 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-yellow-900",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
+      "node-handle-disabled-light": {
+        "$type": "color",
+        "green-bg": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.568627,
+              0.756863,
+              0.701961
+            ],
+            "hex": "#91c1b3"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-green-bg",
+              "tier": "primitive"
+            }
+          }
+        },
+        "green-icon": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.023529,
+              0.6,
+              0.435294
+            ],
+            "hex": "#06996f"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-green-icon",
+              "tier": "primitive"
+            }
+          }
+        },
+        "yellow-bg": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.776471,
+              0.709804,
+              0.509804
+            ],
+            "hex": "#c6b582"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-yellow-bg",
+              "tier": "primitive"
+            }
+          }
+        },
+        "yellow-icon": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.768627,
+              0.545098,
+              0.027451
+            ],
+            "hex": "#c48b07"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-yellow-icon",
+              "tier": "primitive"
+            }
+          }
+        },
+        "red-bg": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.772549,
+              0.6,
+              0.619608
+            ],
+            "hex": "#c5999e"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-red-bg",
+              "tier": "primitive"
+            }
+          }
+        },
+        "red-icon": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.756863,
+              0.235294,
+              0.27451
+            ],
+            "hex": "#c13c46"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-red-icon",
+              "tier": "primitive"
+            }
+          }
+        },
+        "violet-bg": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.615686,
+              0.596078,
+              0.772549
+            ],
+            "hex": "#9d98c5"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-violet-bg",
+              "tier": "primitive"
+            }
+          }
+        },
+        "violet-icon": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.294118,
+              0.262745,
+              0.756863
+            ],
+            "hex": "#4b43c1"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-violet-icon",
+              "tier": "primitive"
+            }
+          }
+        },
+        "pink-bg": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.772549,
+              0.592157,
+              0.654902
+            ],
+            "hex": "#c597a7"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-pink-bg",
+              "tier": "primitive"
+            }
+          }
+        },
+        "pink-icon": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.760784,
+              0.243137,
+              0.411765
+            ],
+            "hex": "#c23e69"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-handle-disabled-light-pink-icon",
               "tier": "primitive"
             }
           }
@@ -7761,6 +7973,66 @@
             }
           }
         },
+        "media-badge-surface": {
+          "$value": "{primitive.color.palette-gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-badge-foreground": {
+          "$value": "{primitive.color.palette-gray.200}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-badge-foreground-success": {
+          "$value": "{primitive.color.green.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-success",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-badge-foreground-warning": {
+          "$value": "{primitive.color.yellow.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-warning",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-badge-foreground-danger": {
+          "$value": "{primitive.color.red.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-danger",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-badge-foreground-info": {
+          "$value": "{primitive.color.blue.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-info",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "media-control-foreground": {
           "$value": "{primitive.color.static-white-alpha.88}",
           "$extensions": {
@@ -7806,6 +8078,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-foreground-dark",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-foreground-bright-soft": {
+          "$value": "{primitive.color.static-black-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-bright-soft",
               "tier": "semantic",
               "mode": "light"
             }
@@ -7921,6 +8203,16 @@
             }
           }
         },
+        "node-composer-surface": {
+          "$value": "{primitive.color.static.white}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-composer-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "node-chip-fg-disabled": {
           "$value": "{primitive.color.palette-gray.500}",
           "$extensions": {
@@ -7966,6 +8258,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-edit-icon",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-edit-chip-surface": {
+          "$value": "{primitive.color.violet-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-edit-chip-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-edit-chip-foreground": {
+          "$value": "{primitive.color.violet.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-edit-chip-foreground",
               "tier": "semantic",
               "mode": "light"
             }
@@ -8310,6 +8622,20 @@
                 "$extensions": {
                   "com.klipse-design": {
                     "id": "color-accent-green-500-alpha-08",
+                    "tier": "semantic",
+                    "mode": "light"
+                  }
+                }
+              }
+            }
+          },
+          "red": {
+            "500-alpha": {
+              "08": {
+                "$value": "{primitive.color.red-alpha.08}",
+                "$extensions": {
+                  "com.klipse-design": {
+                    "id": "color-accent-red-500-alpha-08",
                     "tier": "semantic",
                     "mode": "light"
                   }
@@ -8792,7 +9118,7 @@
             }
           },
           "handle-bg-disabled-audio": {
-            "$value": "{primitive.color.pink.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.pink-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-audio",
@@ -8802,7 +9128,7 @@
             }
           },
           "handle-bg-disabled-edit": {
-            "$value": "{primitive.color.violet.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.violet-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-edit",
@@ -8812,7 +9138,7 @@
             }
           },
           "handle-bg-disabled-image": {
-            "$value": "{primitive.color.green.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.green-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-image",
@@ -8822,7 +9148,7 @@
             }
           },
           "handle-bg-disabled-instagram": {
-            "$value": "{primitive.color.red.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.red-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-instagram",
@@ -8832,7 +9158,7 @@
             }
           },
           "handle-bg-disabled-text": {
-            "$value": "{primitive.color.yellow.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.yellow-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-text",
@@ -8842,7 +9168,7 @@
             }
           },
           "handle-bg-disabled-youtube": {
-            "$value": "{primitive.color.red.900}",
+            "$value": "{primitive.color.node-handle-disabled-light.red-bg}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-bg-disabled-youtube",
@@ -8912,7 +9238,7 @@
             }
           },
           "handle-icon-disabled-audio": {
-            "$value": "{primitive.color.pink.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.pink-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-audio",
@@ -8922,7 +9248,7 @@
             }
           },
           "handle-icon-disabled-edit": {
-            "$value": "{primitive.color.violet.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.violet-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-edit",
@@ -8932,7 +9258,7 @@
             }
           },
           "handle-icon-disabled-image": {
-            "$value": "{primitive.color.green.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.green-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-image",
@@ -8942,7 +9268,7 @@
             }
           },
           "handle-icon-disabled-instagram": {
-            "$value": "{primitive.color.red.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.red-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-instagram",
@@ -8952,7 +9278,7 @@
             }
           },
           "handle-icon-disabled-text": {
-            "$value": "{primitive.color.yellow.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.yellow-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-text",
@@ -8962,7 +9288,7 @@
             }
           },
           "handle-icon-disabled-youtube": {
-            "$value": "{primitive.color.red.700}",
+            "$value": "{primitive.color.node-handle-disabled-light.red-icon}",
             "$extensions": {
               "com.klipse-design": {
                 "id": "color-node-handle-icon-disabled-youtube",
@@ -9722,6 +10048,66 @@
             }
           }
         },
+        "media-badge-surface": {
+          "$value": "{primitive.color.palette-gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-badge-foreground": {
+          "$value": "{primitive.color.palette-gray.200}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-badge-foreground-success": {
+          "$value": "{primitive.color.green.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-success",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-badge-foreground-warning": {
+          "$value": "{primitive.color.yellow.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-warning",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-badge-foreground-danger": {
+          "$value": "{primitive.color.red.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-danger",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-badge-foreground-info": {
+          "$value": "{primitive.color.blue.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-badge-foreground-info",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "media-control-foreground": {
           "$value": "{primitive.color.static-white-alpha.88}",
           "$extensions": {
@@ -9767,6 +10153,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-foreground-dark",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-foreground-bright-soft": {
+          "$value": "{primitive.color.static-black-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-foreground-bright-soft",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -9882,6 +10278,16 @@
             }
           }
         },
+        "node-composer-surface": {
+          "$value": "{primitive.color.palette-gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-composer-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "node-chip-fg-disabled": {
           "$value": "{primitive.color.palette-gray.400}",
           "$extensions": {
@@ -9927,6 +10333,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-edit-icon",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-edit-chip-surface": {
+          "$value": "{primitive.color.violet-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-edit-chip-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-edit-chip-foreground": {
+          "$value": "{primitive.color.violet.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-edit-chip-foreground",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -10271,6 +10697,20 @@
                 "$extensions": {
                   "com.klipse-design": {
                     "id": "color-accent-green-500-alpha-08",
+                    "tier": "semantic",
+                    "mode": "dark"
+                  }
+                }
+              }
+            }
+          },
+          "red": {
+            "500-alpha": {
+              "08": {
+                "$value": "{primitive.color.red-alpha.08}",
+                "$extensions": {
+                  "com.klipse-design": {
+                    "id": "color-accent-red-500-alpha-08",
                     "tier": "semantic",
                     "mode": "dark"
                   }

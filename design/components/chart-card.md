@@ -39,7 +39,10 @@ summary: 지표 하나를 바깥 프레임과 안쪽 면 두 겹으로 싣고 �
 
 - **곡선 자체를 그리는 컴포넌트가 아니다.** 이 카드는 액자와 슬롯이고, 경로·축·툴팁은
   소비처의 SVG 다. 데이터에서 좌표를 내는 일은 DS 가 소유할 수 없다 — 표본 수, 결측,
-  로케일별 축 라벨이 전부 화면의 것이다.
+  로케일별 축 라벨이 전부 화면의 것이다. 곡선 뒤의 **점 바닥(격자)** 도 소비처의 것이다 — 제품은 공용
+  `AreaChart` 하나가 `::before` 로 깐다(점 1px · 간격 18 · 잉크 16%). 점 색은 무손실 토큰
+  `gray-000-alpha-16` 이 있고, 축 라벨 색은 `fg-tertiary` 가 제품 `--gray-400` 과 두 테마 모두 같다
+  ([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)).
 - **면이 필요 없는 자리.** 카드 안에 이미 면이 둘 있는데 그 안에 또 카드를 넣으면 세 겹이
   된다. 정본이 그것을 겪고 「단은 둘이면 충분하다」로 되돌아왔다.
 
@@ -115,6 +118,11 @@ hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 
 `spark` 면의 `min-block-size: 92px` 가 KPI 행의 실질 행 높이를 정한다. 알약이 없는 카드가
 주저앉지 않게 하는 하한이다.
 
+**좁은 카드에서는 미니 차트가 줄어든다**(2026-10-12, DS-D-0083). 수치 묶음은 내용 폭 아래로 줄지 않고
+(`flex: 0 0 auto`), 미니 차트가 기준 폭 44% 에서 0 까지 양보한다(`flex: 0 1 44%; min-inline-size: 0`). 예전 구현은
+차트가 줄지 않아 「+1,284」 같은 긴 수치가 곡선에 닿았다 — 제품도 같은 겹침을 실측하고 한 화면에서만 480px 이하에서
+차트를 숨겼다. 차트를 아예 숨길지는 여전히 소비처 몫이다(카드 폭 질의가 아니라 뷰포트 질의라서).
+
 ## Content
 
 - 라벨은 지표 이름. 기간(`Meta`)은 이미 서식이 끝난 문자열을 받는다.
@@ -139,7 +147,7 @@ hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 
 | Frame 간격 | `space-control-sm` 8 | 정본 `gap-4` |
 | Frame 면 | `color-bg-canvas` | 값이 정본과 바이트 단위로 같다 — 정본이 `--dashboard-card-bg` 로 이 토큰을 직접 물기 때문에 **동일성으로** 같다. 팔레트 칸은 라이트 `palette-gray-025` · 다크 `palette-gray-900` 이다(적어 둔 「라이트 palette-gray-100」은 라이트 사다리 `0279520`·`fe31e52` 이전 값이고, 다크는 `93353f9` 가 `palette-gray-850` 으로 내렸다가 2026-09-09 의 사다리 이동이 `900` 으로 되돌렸다) |
 | Panel 반경 | `radius-overlay-item` 10 | 16 − 6 동심 정렬 |
-| Panel 면 | `color-bg-overlay` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-000 · 다크 palette-gray-800) |
+| Panel 면 | `color-bg-overlay` | 값이 정본과 바이트 단위로 같다(라이트 palette-gray-000 · 다크 palette-gray-900 — 예전에 800 으로 적었던 것을 생성물 값으로 고쳤다, 2026-10-12) |
 | Panel 여백 `area` | `space-control-md` 12 / 14px | 정본 `py-6 px-7` |
 | Panel 여백 `spark` | 14px / `space-control-lg` 16 | 정본 `py-7 px-8` |
 | Header 여백 | `space-overlay-inset` 6 / `space-overlay-item-gap` 2 | 정본 `pt-3 px-3 pb-1` |

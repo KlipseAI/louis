@@ -128,6 +128,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  /* spark 의 수치 묶음은 내용 폭 아래로 줄지 않는다 — 줄어드는 쪽은 미니 차트다(아래 `__spark`).
+   * 예전에는 수치가 `min-inline-size: 0` 으로 줄어 좁은 카드에서 「+1,284」 가 곡선에 닿았다(DS-D-0083). */
+  flex: 0 0 auto;
 }
 
 .louis-chart-card__value {
@@ -155,11 +158,13 @@
 
 /* 미니 차트. 축도 툴팁도 없이 곡선 하나만 그린다.
  * 폭이 44% 인 것은 수치가 길어질수록 차트가 양보해야 하기 때문이고, 상한 130 은 넓은
- * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. */
+ * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. **양보가 실제로 일어나게 한다**(2026-10-12,
+ * DS-D-0083) — 예전 `flex: 0 0 auto; inline-size: 44%` 는 차트가 줄지 않아 주석과 반대로 수치가 밀렸고,
+ * 제품도 같은 겹침을 실측했다(KpiCard 「84.8%」 곡선 위 28px). 기준 폭 44% 에서 줄어들고 바닥은 0 이다. */
 .louis-chart-card__spark {
   box-sizing: border-box;
-  flex: 0 0 auto;
-  inline-size: 44%;
+  flex: 0 1 44%;
+  min-inline-size: 0;
   max-inline-size: 130px;
   block-size: 46px;
   align-self: flex-end;

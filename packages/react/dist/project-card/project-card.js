@@ -71,8 +71,8 @@ export function ProjectCardThumbnail({ className, ...rest }) {
  * 흐림은 `::before`가 칠하므로 DOM 자식이 아니다. 텍스트는 별도 wrapper 안에 들어가야
  * `align-items: flex-end`와 stack의 `gap`이 서로 간섭하지 않는다.
  */
-export function ProjectCardOverlay({ className, children, ...rest }) {
-    return (_jsx("div", { ...rest, className: join("louis-project-card-overlay", className), children: _jsx("div", { className: "louis-project-card-overlay-content", children: children }) }));
+export function ProjectCardOverlay({ ink, className, children, ...rest }) {
+    return (_jsx("div", { ...rest, className: join("louis-project-card-overlay", className), "data-ink": ink, children: _jsx("div", { className: "louis-project-card-overlay-content", children: children }) }));
 }
 /** 제목 위 한 줄 — 종류나 분류. 없어도 된다. */
 export function ProjectCardEyebrow({ className, ...rest }) {

@@ -25,6 +25,21 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-12 (243) — 덱 키트 피드백 22건 분류(DS-D-0083) — 사진 위 배지 · 띠 잉크 · 목록 머리 · 제목 옆 칩 · 연결점 채널 여섯
+
+덱 키트가 LOUIS 부품만으로 제품 화면을 짓다 막힌 22곳을 (가) LOUIS 에 더함 · (나) 제품이 돌아옴 · (다) 화면 고유로 나눴다.
+판정 표와 제품 수정 목록은 [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md) 이 소유한다.
+
+- **Badge** `data-surface="media"`(React `surface="media"`) — 사진 위 상태 칩. 면은 두 mode 고정 `media-badge-surface`, `tone` 은 글자색만.
+- **Project Card** 띠에 `data-ink="on-dark|on-bright"`(React `ink`) — 썸네일 밝기 결과를 받는 자리. 새 `media-foreground-bright-soft`.
+- **Section Header** `data-level="list"` + `__count` — 허브의 「아카이브 8 ↔ 새 하이라이트」 한 줄. 가운데 정렬, 사이 16, 719 이하에서도 한 줄.
+- **Node Shell** `__title-chip`(+ `data-tone="warning"`) — 편집 모드 · 재편집 필요 칩. 새 적응 쌍 `node-edit-chip-*`(라이트 8.78 · 다크 5.61)
+  과 primitive `violet-alpha/{08,16}`. 입력판 면은 새 `node-composer-surface`(다크 `palette-gray-800`).
+- **Node Side Handle** 채널이 여섯이다(audio · youtube · instagram 추가, 비디오 채널은 없다). 라이트 비활성 면 · 글리프는 제품이 구운 색.
+- **Segmented Control** 잠긴 칸, **Chart Card** spark 가 44% 로 양보, **Stat Tile** down 면 8%.
+- 남긴 (가): 비디오 플레이어 recipe(hover 시맨틱 · 유리 칩 소유 · 흐림 2px), TTS 오디오 칸(슬라이더 계약).
+- Figma 변형 · 변수는 아직 없다. 덱은 제품 핀을 따르므로 (나) 의 「핀을 올리면 풀린다」는 제품 핀 갱신 뒤 덱에 들어온다.
+
 ## 2026-10-12 (242) — Figma: grid 행 트랙은 resize 뒤에 건다 · 어드민 사이드바 · 캔버스 툴바 mask 아이콘
 
 - 크기 모드가 AUTO 인 GRID 를 `resize()` 하면 Figma 가 HUG 행을 FLEX 로 되돌린다. 렌더러가 행을 건 뒤 측정 크기로 resize 해, 하이라이트

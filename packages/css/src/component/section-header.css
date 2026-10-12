@@ -92,6 +92,35 @@
   letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
 }
 
+/* **목록 머리** — `data-level="list"`. 허브의 「아카이브 8 ↔ 새 하이라이트」 한 줄이다(DS-D-0083).
+ *
+ * 하이라이트 허브와 노드 캔버스 허브가 같은 배치를 각자 그린다: 제목 16 Medium 과 그 안의 개수,
+ * 오른쪽 끝 버튼 하나, **가운데 정렬**, 사이 16. 세 단 중 어느 것에도 맞지 않는다 — 크기(20 · 36 · 12),
+ * 정렬(아래쪽), 719 접힘이 전부 다르다. 버튼이 제목보다 커서(32 대 24) 아래쪽 정렬이면 제목이
+ * 버튼 바닥에 붙어 떠 보인다.
+ *
+ * 아래 여백은 두 허브가 다르다(12 · 8) — 소비처가 진다. */
+.louis-section-header[data-level="list"] {
+  align-items: center;
+  gap: var(--louis-space-layout-gutter);
+}
+
+.louis-section-header[data-level="list"] .louis-section-header__title {
+  font-family: var(--louis-typography-body-md-medium-font-family);
+  font-size: var(--louis-typography-body-md-medium-font-size);
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+  line-height: var(--louis-typography-body-md-medium-line-height);
+  letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+}
+
+/* 제목 안의 개수. 글자 크기는 제목을 따르고 잉크만 한 단 내린다. `__meta` 와 다른 것은 자리다 —
+ * 메타는 제목 아래 줄, 개수는 제목과 같은 줄이다. 6 은 제품 두 허브의 값(`ml-3` · `margin-left:6px`). */
+.louis-section-header__count {
+  margin-inline-start: 6px;
+  color: var(--louis-color-fg-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
 /* 아래 여백은 `page` 만 진다.
  *
  * **12 의 유도는 제품이 두 곳에서 같은 식으로 적어 두었다.** 화면 제목 아래는 32 여야 하고
@@ -158,5 +187,12 @@
   .louis-section-header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  /* 목록 머리는 접지 않는다. 제목과 버튼 하나뿐이라 한 줄에 들어가고, 허브 둘이 모바일에서도
+   * 한 줄을 지킨다. */
+  .louis-section-header[data-level="list"] {
+    flex-direction: row;
+    align-items: center;
   }
 }

@@ -277,15 +277,23 @@
   }
 }
 
-.louis-segmented-control__segment:has(.louis-segmented-control__input:disabled) {
+/* 잠긴 칸. radio 폼은 숨긴 input 의 `:disabled`, 버튼 폼(`<button>` 칸)은 칸 자신의 `:disabled` ·
+ * `aria-disabled="true"` 로 잠긴다(2026-10-12, DS-D-0083 — 예전에는 radio 갈래뿐이라 버튼 폼 소비처가
+ * 글자색을 직접 덮었다). hover 보다 뒤에 두어 잠긴 칸이 hover 로 밝아지지 않는다. */
+.louis-segmented-control__segment:has(.louis-segmented-control__input:disabled),
+.louis-segmented-control__segment:is(:disabled, [aria-disabled="true"]) {
   color: var(--louis-color-fg-disabled);
   cursor: not-allowed;
 }
 
+/* **선택된 잠긴 칸은 `fg-secondary` 다.** 잠겨 있어도 지금 무엇이 골라져 있는지는 읽혀야 한다 —
+ * 선택 칸까지 `fg-disabled` 로 내리면 알약 면 위 글자가 사실상 사라진다(제품 SegmentedToggle 의 다크 실측,
+ * DS-D-0083). 예전 LOUIS 는 여기를 `fg-disabled` 로 칠했다. */
 .louis-segmented-control__segment[data-selected="true"]:has(
     .louis-segmented-control__input:disabled
-  ) {
-  color: var(--louis-color-fg-disabled);
+  ),
+.louis-segmented-control__segment[data-selected="true"]:is(:disabled, [aria-disabled="true"]) {
+  color: var(--louis-color-fg-secondary);
 }
 
 /* 그룹 이름. 시각적으로는 숨기고 보조기술에는 남긴다 — fieldset의 legend가 그룹 이름이 되는

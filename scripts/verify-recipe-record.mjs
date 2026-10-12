@@ -469,7 +469,9 @@ const RECIPES = [
   // Node Shell 의 하위 부품이고 기록 칸은 따로(`node-composer`) 둔다. start-card 와 같은 처지다 — node-chrome 브라우저
   // 시험이 입력판을 렌더하지 않아 이 표가 기록의 유일한 반대편이다. 푸터의 위 여백 8(`footerOffset`)은 형제 선택자
   // 규칙 안의 선언이라 최상위 규칙 찾기에 걸리지 않는다 — parity 계약이 기록과 Figma 를 맞대고 기록의 사유가 그 선언을
-  // 인용한다. 면 · 배너의 이름(bg-raised · accent-danger)은 수가 아니라 결정이라 surfaces 로 고정한다.
+  // 인용한다. 면 · 배너의 이름(node-composer-surface · accent-danger)은 수가 아니라 결정이라 surfaces 로 고정한다.
+  // 2026-10-12: 면 이름이 bg-raised → node-composer-surface(DS-D-0083) — 다크에서 카드와 같은 칸이던 것을 제품의
+  // 라이트 흰색 · 다크 palette-gray-800 쌍으로 옮겼다.
   {
     component: "node-composer",
     recipe: "packages/css/src/component/node-shell.css",
@@ -492,7 +494,7 @@ const RECIPES = [
       [".louis-node-shell__error", "border-radius", "error", "radius"],
     ],
     surfaces: [
-      [".louis-node-shell__field", "var(--louis-color-bg-raised)"],
+      [".louis-node-shell__field", "var(--louis-color-node-composer-surface)"],
       [".louis-node-shell__field", "var(--louis-hairline-inset)"],
       [".louis-node-shell__error", "var(--louis-color-accent-danger) 8%"],
       [".louis-node-shell__error", "var(--louis-hairline-inset)"],

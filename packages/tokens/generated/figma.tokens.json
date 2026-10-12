@@ -1674,6 +1674,396 @@
             }
           }
         },
+        "color-node-handle-disabled-light-green-bg": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/green-bg",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.568627,
+                  0.756863,
+                  0.701961
+                ],
+                "hex": "#91c1b3"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.568627,
+                  0.756863,
+                  0.701961
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.green-bg"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-green-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/green-icon",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.023529,
+                  0.6,
+                  0.435294
+                ],
+                "hex": "#06996f"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.023529,
+                  0.6,
+                  0.435294
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.green-icon"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-pink-bg": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/pink-bg",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.772549,
+                  0.592157,
+                  0.654902
+                ],
+                "hex": "#c597a7"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.772549,
+                  0.592157,
+                  0.654902
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.pink-bg"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-pink-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/pink-icon",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.760784,
+                  0.243137,
+                  0.411765
+                ],
+                "hex": "#c23e69"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.760784,
+                  0.243137,
+                  0.411765
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.pink-icon"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-red-bg": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/red-bg",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.772549,
+                  0.6,
+                  0.619608
+                ],
+                "hex": "#c5999e"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.772549,
+                  0.6,
+                  0.619608
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.red-bg"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-red-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/red-icon",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.756863,
+                  0.235294,
+                  0.27451
+                ],
+                "hex": "#c13c46"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.756863,
+                  0.235294,
+                  0.27451
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.red-icon"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-violet-bg": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/violet-bg",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.615686,
+                  0.596078,
+                  0.772549
+                ],
+                "hex": "#9d98c5"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.615686,
+                  0.596078,
+                  0.772549
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.violet-bg"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-violet-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/violet-icon",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.294118,
+                  0.262745,
+                  0.756863
+                ],
+                "hex": "#4b43c1"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.294118,
+                  0.262745,
+                  0.756863
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.violet-icon"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-yellow-bg": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/yellow-bg",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.776471,
+                  0.709804,
+                  0.509804
+                ],
+                "hex": "#c6b582"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.776471,
+                  0.709804,
+                  0.509804
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.yellow-bg"
+            }
+          }
+        },
+        "color-node-handle-disabled-light-yellow-icon": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-handle-disabled-light/yellow-icon",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  0.768627,
+                  0.545098,
+                  0.027451
+                ],
+                "hex": "#c48b07"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.768627,
+                  0.545098,
+                  0.027451
+                ]
+              },
+              "sourcePath": "primitive.color.node-handle-disabled-light.yellow-icon"
+            }
+          }
+        },
         "color-palette-gray-000": {
           "$type": "color",
           "fields": [],
@@ -5469,6 +5859,86 @@
                 ]
               },
               "sourcePath": "primitive.color.violet.900"
+            }
+          }
+        },
+        "color-violet-alpha-08": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/violet-alpha/08",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ],
+                "hex": "#6055ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.violet-alpha.08"
+            }
+          }
+        },
+        "color-violet-alpha-16": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/violet-alpha/16",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ],
+                "hex": "#6055ff"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.color.violet-alpha.16"
             }
           }
         },
@@ -17517,6 +17987,57 @@
             }
           }
         },
+        "color-accent-red-500-alpha-08": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/accent/red/500-alpha/08",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red-alpha.08}",
+              "aliasTarget": {
+                "id": "color-red-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.accent.red.500-alpha.08"
+            },
+            "Light": {
+              "$value": "{primitive.color.red-alpha.08}",
+              "aliasTarget": {
+                "id": "color-red-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.accent.red.500-alpha.08"
+            }
+          }
+        },
         "color-accent-secondary": {
           "$type": "color",
           "fields": [],
@@ -22518,6 +23039,312 @@
             }
           }
         },
+        "color-media-badge-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.200}",
+              "aliasTarget": {
+                "id": "color-palette-gray-200",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.756863,
+                  0.764706,
+                  0.776471
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.200}",
+              "aliasTarget": {
+                "id": "color-palette-gray-200",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.756863,
+                  0.764706,
+                  0.776471
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-foreground"
+            }
+          }
+        },
+        "color-media-badge-foreground-danger": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-foreground-danger",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red.400}",
+              "aliasTarget": {
+                "id": "color-red-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.435294,
+                  0.486275
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-foreground-danger"
+            },
+            "Light": {
+              "$value": "{primitive.color.red.400}",
+              "aliasTarget": {
+                "id": "color-red-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.435294,
+                  0.486275
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-foreground-danger"
+            }
+          }
+        },
+        "color-media-badge-foreground-info": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-foreground-info",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.400}",
+              "aliasTarget": {
+                "id": "color-blue-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.643137,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-foreground-info"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.400}",
+              "aliasTarget": {
+                "id": "color-blue-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.643137,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-foreground-info"
+            }
+          }
+        },
+        "color-media-badge-foreground-success": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-foreground-success",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.green.400}",
+              "aliasTarget": {
+                "id": "color-green-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.156863,
+                  0.85098,
+                  0.647059
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-foreground-success"
+            },
+            "Light": {
+              "$value": "{primitive.color.green.400}",
+              "aliasTarget": {
+                "id": "color-green-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.156863,
+                  0.85098,
+                  0.647059
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-foreground-success"
+            }
+          }
+        },
+        "color-media-badge-foreground-warning": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-foreground-warning",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.400}",
+              "aliasTarget": {
+                "id": "color-yellow-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.760784,
+                  0.2
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-foreground-warning"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.400}",
+              "aliasTarget": {
+                "id": "color-yellow-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.760784,
+                  0.2
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-foreground-warning"
+            }
+          }
+        },
+        "color-media-badge-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-badge-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.800}",
+              "aliasTarget": {
+                "id": "color-palette-gray-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.168627,
+                  0.184314,
+                  0.211765
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-badge-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.800}",
+              "aliasTarget": {
+                "id": "color-palette-gray-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.168627,
+                  0.184314,
+                  0.211765
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-badge-surface"
+            }
+          }
+        },
         "color-media-control-foreground": {
           "$type": "color",
           "fields": [],
@@ -22719,6 +23546,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.media-foreground-bright"
+            }
+          }
+        },
+        "color-media-foreground-bright-soft": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-foreground-bright-soft",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-black-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-foreground-bright-soft"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-foreground-bright-soft"
             }
           }
         },
@@ -23538,6 +24416,57 @@
             }
           }
         },
+        "color-node-composer-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-composer-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.800}",
+              "aliasTarget": {
+                "id": "color-palette-gray-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.168627,
+                  0.184314,
+                  0.211765
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-composer-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.static.white}",
+              "aliasTarget": {
+                "id": "color-static-white",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-composer-surface"
+            }
+          }
+        },
         "color-node-edit-accent": {
           "$type": "color",
           "fields": [],
@@ -23586,6 +24515,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-edit-accent"
+            }
+          }
+        },
+        "color-node-edit-chip-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-edit-chip-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.violet.300}",
+              "aliasTarget": {
+                "id": "color-violet-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.615686,
+                  0.568627,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-edit-chip-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.violet.700}",
+              "aliasTarget": {
+                "id": "color-violet-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.207843,
+                  0.156863,
+                  0.721569
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-edit-chip-foreground"
+            }
+          }
+        },
+        "color-node-edit-chip-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-edit-chip-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.violet-alpha.16}",
+              "aliasTarget": {
+                "id": "color-violet-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-edit-chip-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.violet-alpha.08}",
+              "aliasTarget": {
+                "id": "color-violet-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-edit-chip-surface"
             }
           }
         },
@@ -23775,18 +24806,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-audio"
             },
             "Light": {
-              "$value": "{primitive.color.pink.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.pink-bg}",
               "aliasTarget": {
-                "id": "color-pink-900",
+                "id": "color-node-handle-disabled-light-pink-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.329412,
-                  0.066667,
-                  0.164706
+                  0.772549,
+                  0.592157,
+                  0.654902
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-audio"
@@ -23826,18 +24857,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-edit"
             },
             "Light": {
-              "$value": "{primitive.color.violet.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.violet-bg}",
               "aliasTarget": {
-                "id": "color-violet-900",
+                "id": "color-node-handle-disabled-light-violet-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.082353,
-                  0.062745,
-                  0.301961
+                  0.615686,
+                  0.596078,
+                  0.772549
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-edit"
@@ -23877,18 +24908,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-image"
             },
             "Light": {
-              "$value": "{primitive.color.green.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.green-bg}",
               "aliasTarget": {
-                "id": "color-green-900",
+                "id": "color-node-handle-disabled-light-green-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0,
-                  0.298039,
-                  0.223529
+                  0.568627,
+                  0.756863,
+                  0.701961
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-image"
@@ -23928,18 +24959,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-instagram"
             },
             "Light": {
-              "$value": "{primitive.color.red.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.red-bg}",
               "aliasTarget": {
-                "id": "color-red-900",
+                "id": "color-node-handle-disabled-light-red-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.329412,
-                  0.066667,
-                  0.098039
+                  0.772549,
+                  0.6,
+                  0.619608
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-instagram"
@@ -23979,18 +25010,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-text"
             },
             "Light": {
-              "$value": "{primitive.color.yellow.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.yellow-bg}",
               "aliasTarget": {
-                "id": "color-yellow-900",
+                "id": "color-node-handle-disabled-light-yellow-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.298039,
-                  0.2,
-                  0
+                  0.776471,
+                  0.709804,
+                  0.509804
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-text"
@@ -24030,18 +25061,18 @@
               "sourcePath": "semantic.dark.color.node.handle-bg-disabled-youtube"
             },
             "Light": {
-              "$value": "{primitive.color.red.900}",
+              "$value": "{primitive.color.node-handle-disabled-light.red-bg}",
               "aliasTarget": {
-                "id": "color-red-900",
+                "id": "color-node-handle-disabled-light-red-bg",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.329412,
-                  0.066667,
-                  0.098039
+                  0.772549,
+                  0.6,
+                  0.619608
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-bg-disabled-youtube"
@@ -24387,18 +25418,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-audio"
             },
             "Light": {
-              "$value": "{primitive.color.pink.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.pink-icon}",
               "aliasTarget": {
-                "id": "color-pink-700",
+                "id": "color-node-handle-disabled-light-pink-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.717647,
-                  0.141176,
-                  0.345098
+                  0.760784,
+                  0.243137,
+                  0.411765
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-audio"
@@ -24438,18 +25469,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-edit"
             },
             "Light": {
-              "$value": "{primitive.color.violet.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.violet-icon}",
               "aliasTarget": {
-                "id": "color-violet-700",
+                "id": "color-node-handle-disabled-light-violet-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.207843,
-                  0.156863,
-                  0.721569
+                  0.294118,
+                  0.262745,
+                  0.756863
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-edit"
@@ -24489,18 +25520,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-image"
             },
             "Light": {
-              "$value": "{primitive.color.green.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.green-icon}",
               "aliasTarget": {
-                "id": "color-green-700",
+                "id": "color-node-handle-disabled-light-green-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0,
-                  0.560784,
-                  0.403922
+                  0.023529,
+                  0.6,
+                  0.435294
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-image"
@@ -24540,18 +25571,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-instagram"
             },
             "Light": {
-              "$value": "{primitive.color.red.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.red-icon}",
               "aliasTarget": {
-                "id": "color-red-700",
+                "id": "color-node-handle-disabled-light-red-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.717647,
-                  0.141176,
-                  0.192157
+                  0.756863,
+                  0.235294,
+                  0.27451
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-instagram"
@@ -24591,18 +25622,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-text"
             },
             "Light": {
-              "$value": "{primitive.color.yellow.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.yellow-icon}",
               "aliasTarget": {
-                "id": "color-yellow-700",
+                "id": "color-node-handle-disabled-light-yellow-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.721569,
-                  0.462745,
-                  0
+                  0.768627,
+                  0.545098,
+                  0.027451
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-text"
@@ -24642,18 +25673,18 @@
               "sourcePath": "semantic.dark.color.node.handle-icon-disabled-youtube"
             },
             "Light": {
-              "$value": "{primitive.color.red.700}",
+              "$value": "{primitive.color.node-handle-disabled-light.red-icon}",
               "aliasTarget": {
-                "id": "color-red-700",
+                "id": "color-node-handle-disabled-light-red-icon",
                 "mode": "base"
               },
               "resolvedValue": {
                 "alpha": 1,
                 "colorSpace": "srgb",
                 "components": [
-                  0.717647,
-                  0.141176,
-                  0.192157
+                  0.756863,
+                  0.235294,
+                  0.27451
                 ]
               },
               "sourcePath": "semantic.light.color.node.handle-icon-disabled-youtube"

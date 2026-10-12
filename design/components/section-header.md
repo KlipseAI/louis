@@ -90,6 +90,16 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
     <h3 class="louis-section-header__title">지급 결과</h3>
   </div>
 </div>
+
+<!-- 허브 목록 머리 — 제목 안 개수, 오른쪽 버튼 하나 -->
+<div class="louis-section-header" data-level="list">
+  <div class="louis-section-header__text">
+    <h2 class="louis-section-header__title">아카이브<span class="louis-section-header__count">8</span></h2>
+  </div>
+  <div class="louis-section-header__actions">
+    <button class="louis-button" data-variant="primary" data-size="md">새 하이라이트</button>
+  </div>
+</div>
 ```
 
 **`__text` 를 생략하지 않는다.** 제목·설명·메타가 루트의 직계 자식이 되면 flex 자식이 넷이 되고,
@@ -124,7 +134,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 
 | 속성 | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
-| `data-level` | `page` · `section` · `label` | `section` | 문서 위계 |
+| `data-level` | `page` · `section` · `label` · `list` | `section` | 문서 위계 |
 
 ## Hierarchy와 variants
 
@@ -136,6 +146,14 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | `page` | 화면 맨 위 | 36 SemiBold | `AdminSection.tsx` `TITLE_PAGE` · `components/ui/PageHeader` |
 | `section` | 카드 안 묶음 | 20 SemiBold | `AdminSection.tsx` `TITLE_SECTION` |
 | `label` | 패널 아이브로우 | 12 Medium | `AdminSection.tsx` `TITLE_LABEL` |
+| `list` | 허브의 목록 머리(제목 안 개수 + 버튼 하나) | 16 Medium | `highlightSceneStyles.ts` `historySectionHeader` · `NodeCanvasHomeScene.tsx` `ARCHIVE_SECTION_HEADER` |
+
+**`list` 는 2026-10-12 에 열었다**([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)). 하이라이트 ·
+노드 캔버스 두 허브가 같은 배치를 각자 그린다 — 가운데 정렬, 사이 16, 719 이하에서도 한 줄. 세 단과 크기 · 정렬 · 접힘이
+모두 달라 값 하나를 바꿔 끼울 수 없다. 제목 안 개수는 `__count`(왼쪽 6, `fg-tertiary`, `tabular-nums`)다 — `__meta` 는 제목
+**아래** 줄이고 개수는 **같은** 줄이다. 제품 제목 잉크 `palette-gray-800/200` 과 개수 `palette-gray-500` 은 역할이 없어
+`fg-primary` · `fg-tertiary` 로 간다(Known deviation 3 과 같은 판단). 아래 여백은 두 허브가 달라(12 · 8) 소비처가 진다.
+**Figma 변형은 아직 없다.**
 
 **축 이름이 `Size` 가 아닌 이유.** 값이 밀도가 아니다 — 아래 여백을 `page` 만 진다는 것이 그
 증거다. 사다리 어휘(`sm`·`md`·`lg`)를 빌리면 순서를 주장하게 되는데, 이 셋의 관계는 순서가
@@ -155,7 +173,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 ## Interaction and responsive behavior
 
 - 폭은 부모가 정한다. 머리는 `inline-size: 100%` 다.
-- **719px 이하에서 접힌다** — 가로가 세로가 되고 교차축 정렬이 `flex-end` → `stretch` 로 바뀌어
+- **719px 이하에서 접힌다**(`list` 는 접지 않는다) — 가로가 세로가 되고 교차축 정렬이 `flex-end` → `stretch` 로 바뀌어
   액션이 폭을 채운다. 719/720 은 이 저장소가 이미 «행동 경계»로 인정한 폭이다
   ([responsive-layout.md](../foundations/responsive-layout.md) §4).
 - 제목이 아주 길면 액션이 다음 줄로 내려간다(`flex-wrap`). 액션은 줄지 않는다 — 제목이

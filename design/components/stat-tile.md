@@ -176,11 +176,10 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이다 — 면·잉크가 �
    애널리틱스 6(`px-3`). 6 을 정본으로 삼았다 — 알약이 실제로 그려지는 자리가 애널리틱스
    9 곳 · 4 파일 · 2 라우트이고 어드민은 한 파일이다(DS-D-0043). 제품 어드민이 이 값을
    물면 8 → 6 으로 2px 좁아진다.
-3. **`down` 톤의 면이 8% 가 아니라 12% 다.** 정본은 붉은 500 을 8% 로 깔지만 LOUIS 에
-   8% 붉은 semantic 이 없다 — 초록만 `color-accent-green-500-alpha-08` 이 있고 붉은쪽의
-   가장 가까운 칸은 `color-accent-danger-secondary`(12%, Button 의 연한 danger 가 세운 값)다.
-   두 톤의 알파가 갈리는 것은 결함이고 해소는 소유자 판정이다. 그때까지 소비처는
-   `--louis-delta-pill-surface` 하나를 덮어 8% 를 유지할 수 있다.
+3. ~~**`down` 톤의 면이 8% 가 아니라 12% 다.**~~ **2026-10-12 해소(DS-D-0083).** 붉은 8% semantic
+   `color-accent-red-500-alpha-08` 을 세워 오름과 같은 알파가 됐다. 제품이 면을 덮어 칠하던 네 자리
+   (`AdminSection.tsx` `DELTA_DOWN_8` · `KpiCard.tsx` · `OverviewTab.tsx` · `InstagramAnalyticsScene.tsx`)는 핀을 올릴 때
+   덮기를 지운다.
 4. **`up` 톤의 잉크가 `alert-success-stroke` 다.** 이름은 선이지만 값이 success 강조색
    정본이고 두 테마에서 같아 정본 픽셀과 일치한다. `fg-success` 는 라이트에서 짙은 초록이라
    정본이 아니다. 잉크로 쓸 semantic 이름이 없다는 것이 이 자리의 결함이며,

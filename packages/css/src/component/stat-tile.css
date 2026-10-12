@@ -126,13 +126,11 @@
   --louis-delta-pill-ink: var(--louis-color-alert-success-stroke);
 }
 
-/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다.
- * 면은 **정본이 8% 인데 LOUIS 의 가장 가까운 semantic 이 12% 다**(`accent-danger-secondary`,
- * Button 의 연한 danger 가 세운 값). 초록만 8% 칸이 있고 붉은쪽은 없다 — 두 톤의 알파가
- * 갈리는 것은 결함이며 해소는 소유자 판정이다. 그때까지 소비처는
- * `--louis-delta-pill-surface` 하나를 덮어 8% 를 유지할 수 있다. */
+/* 내림. 잉크는 `accent-danger` 가 정본 붉은색과 정확히 같다. 면은 오름과 같은 8% 붉은 500 이다
+ * (`accent-red-500-alpha-08`, 2026-10-12 DS-D-0083 — 예전에는 붉은 8% semantic 이 없어 12% 인
+ * `accent-danger-secondary` 를 쓰고 소비처 넷이 8% 로 덮어 칠했다). */
 .louis-delta-pill[data-tone="down"] {
-  --louis-delta-pill-surface: var(--louis-color-accent-danger-secondary);
+  --louis-delta-pill-surface: var(--louis-color-accent-red-500-alpha-08);
   --louis-delta-pill-ink: var(--louis-color-accent-danger);
 }
 

@@ -53,6 +53,7 @@ summary: 상태나 분류를 한 조각의 라벨로 붙입니다.
 <Badge tone="danger" icon={<IconXCircle />}>실패</Badge>
 <Badge tone="warning" dot>처리 중</Badge>
 <Badge>초안</Badge>
+<Badge surface="media" tone="success">추출 완료</Badge>
 ```
 
 ## Anatomy
@@ -66,15 +67,27 @@ summary: 상태나 분류를 한 조각의 라벨로 붙입니다.
 | prop | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
 | `tone` | `neutral` \| `success` \| `warning` \| `danger` \| `info` | `neutral` | 의미 축 |
+| `surface` | `page` \| `media` | `page` | 밑면. `media` 는 사진 · 썸네일 위다(아래 「사진 위 배지」) |
 | `icon` | ReactNode | 없음 | 라벨 앞 아이콘(`1em`) |
 | `dot` | boolean | `false` | 라벨 앞 점(`0.5em`). `icon`이 있으면 무시된다 |
 
 **기본이 `neutral`인 이유.** 상태가 없는 배지가 다수다(분류·개수 라벨). 색을 기본값으로 두면 아무
 뜻도 없는 곳에 의미가 붙는다.
 
+## 사진 위 배지 — `surface="media"`
+
+썸네일 모서리에 얹히는 상태 칩이다(하이라이트 아카이브 카드). 밑면이 사진이라 테마를 따르지 않으므로 칩도 두 mode 에서
+같아야 한다([색 · 테마](../foundations/color-theme.md) 「예외 — 면이 테마를 따르지 않으면」). 그래서 면은 고정
+`color-media-badge-surface`(`palette-gray-800`) 하나이고 `tone` 은 **글자색만** 바꾼다 — 아래 Known deviations 1 이 페이지
+면에서 거부한 바로 그 방식이 사진 위에서는 맞다. 대비(면 위): 중립 `palette-gray-200`, success 7.40 · warning 8.33 ·
+danger 5.00 · info 5.07. [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md).
+
+이 축은 「공개 예정」 칩이 기다리는 `surface="light|dark"`(위 판정 필요)와 다르다 — 그쪽은 밑면이 **테마가 아닌 다른 잉크**를
+따르는 경우이고, 여기는 밑면이 사진이라 **아무것도 따르지 않는** 경우다. **Figma 변형은 아직 없다.**
+
 ## Hierarchy와 variants
 
-`tone`이 유일한 축이다. 제품의 상태 어휘는 최소 17벌이고 화면마다 다른데, 그것을 그대로 옮기면
+`tone`이 의미 축이다(`surface` 는 의미가 아니라 밑면 입력이다). 제품의 상태 어휘는 최소 17벌이고 화면마다 다른데, 그것을 그대로 옮기면
 DS가 제품의 도메인을 떠안는다. **네 상태 + 중립으로 접고**, 어느 도메인 값이 어느 tone인지는
 호출부가 정한다.
 

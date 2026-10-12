@@ -63,6 +63,34 @@
   color: var(--louis-color-fg-info);
 }
 
+/* **사진 위 배지** — `data-surface="media"`. 썸네일 모서리에 얹히는 상태 칩이다(DS-D-0083).
+ *
+ * 위 「면을 칠하는 것이 제품과 다르다」의 거부는 **페이지 면 위** 배지의 이야기다. 사진 위에서는 밑면이
+ * 테마를 따르지 않으므로 그 위 칩도 두 mode 에서 같아야 한다(color-theme.md 「예외 — 면이 테마를 따르지
+ * 않으면」). 그래서 면은 고정 `gray-800` 하나, 상태는 글자색으로만 가른다 — 하이라이트 아카이브 카드의
+ * 그 모양이다. 대비(면 gray-800 위): success 7.40 · warning 8.33 · danger 5.00 · info 5.07, 중립 gray-200.
+ * 상태 축(`data-tone`)은 그대로 쓴다. */
+.louis-badge[data-surface="media"] {
+  background: var(--louis-color-media-badge-surface);
+  color: var(--louis-color-media-badge-foreground);
+}
+
+.louis-badge[data-surface="media"][data-tone="success"] {
+  color: var(--louis-color-media-badge-foreground-success);
+}
+
+.louis-badge[data-surface="media"][data-tone="warning"] {
+  color: var(--louis-color-media-badge-foreground-warning);
+}
+
+.louis-badge[data-surface="media"][data-tone="danger"] {
+  color: var(--louis-color-media-badge-foreground-danger);
+}
+
+.louis-badge[data-surface="media"][data-tone="info"] {
+  color: var(--louis-color-media-badge-foreground-info);
+}
+
 /* 아이콘 슬롯. **크기가 글자를 따라간다** — `1em`이라 12px 아이콘 토큰을 새로 만들지 않아도 되고,
  * iconography.md가 4px 격자 밖이라며 거부해 둔 12px을 다시 열 이유도 없다. */
 .louis-badge__icon {

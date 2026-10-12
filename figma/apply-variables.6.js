@@ -1,5 +1,5 @@
 // 생성물. scripts/build-figma-variables.mjs가 만든다. 직접 수정하지 않는다.
-// use_figma에 그대로 넘긴다. 6/10 — Klipse Semantic 2/3 (변수 64개).
+// use_figma에 그대로 넘긴다. 6/11 — Klipse Semantic 2/3 (변수 64개).
 // **번호 순서대로 실행한다.** 별칭이 대상 변수를 이름으로 찾으므로 대상이 먼저 있어야 한다.
 // idempotent — 있으면 값만 맞추고 없으면 만든다. 이름으로 찾으므로 변수 ID가 유지된다.
 const NAME={"scale-tooltip-rest":"Klipse Primitive::scale/tooltip-rest","space-4":"Klipse Primitive::spacing/4","space-32":"Klipse Primitive::spacing/32","space-10":"Klipse Primitive::spacing/10","radius-12":"Klipse Primitive::radius/12","space-28":"Klipse Primitive::spacing/28","radius-8":"Klipse Primitive::radius/8","space-8":"Klipse Primitive::spacing/8","radius-20":"Klipse Primitive::radius/20","radius-10":"Klipse Primitive::radius/10","radius-16":"Klipse Primitive::radius/16","radius-24":"Klipse Primitive::radius/24","radius-full":"Klipse Primitive::radius/full","radius-4":"Klipse Primitive::radius/4","space-16":"Klipse Primitive::spacing/16","space-12":"Klipse Primitive::spacing/12","space-24":"Klipse Primitive::spacing/24","space-20":"Klipse Primitive::spacing/20","space-6":"Klipse Primitive::spacing/6","space-2":"Klipse Primitive::spacing/2","font-size-body-sm":"Klipse Primitive::font-size/body-sm","font-size-body-md":"Klipse Primitive::font-size/body-md"};

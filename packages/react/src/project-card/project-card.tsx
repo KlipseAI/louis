@@ -186,7 +186,12 @@ export function ProjectCardThumbnail({
   return <div {...rest} className={join("louis-project-card-thumbnail", className)} />;
 }
 
+/** 띠 글자의 잉크. 썸네일 밝기를 재는 일은 호출부의 것이고, 결과만 받는다(DS-D-0083). */
+export type ProjectCardOverlayInk = "on-dark" | "on-bright";
+
 export interface ProjectCardOverlayProps extends HTMLAttributes<HTMLDivElement> {
+  /** 생략하면 테마를 따르는 기본 잉크(`fg-*`)다. */
+  readonly ink?: ProjectCardOverlayInk;
   readonly ref?: Ref<HTMLDivElement>;
 }
 
@@ -197,12 +202,13 @@ export interface ProjectCardOverlayProps extends HTMLAttributes<HTMLDivElement> 
  * `align-items: flex-end`와 stack의 `gap`이 서로 간섭하지 않는다.
  */
 export function ProjectCardOverlay({
+  ink,
   className,
   children,
   ...rest
 }: ProjectCardOverlayProps): JSX.Element {
   return (
-    <div {...rest} className={join("louis-project-card-overlay", className)}>
+    <div {...rest} className={join("louis-project-card-overlay", className)} data-ink={ink}>
       <div className="louis-project-card-overlay-content">{children}</div>
     </div>
   );

@@ -5,7 +5,7 @@ export type { IconButtonProps, IconButtonSize } from "./icon-button/icon-button.
 export { Tooltip } from "./tooltip/tooltip.js";
 export type { TooltipLayout, TooltipProps } from "./tooltip/tooltip.js";
 export { ProjectCard, ProjectCardAction, ProjectCardAdornment, ProjectCardEyebrow, ProjectCardMedia, ProjectCardMeta, ProjectCardMore, ProjectCardOverlay, ProjectCardPlaceholder, ProjectCardRename, ProjectCardThumbnail, ProjectCardTitle, } from "./project-card/project-card.js";
-export type { ProjectCardActionButtonProps, ProjectCardActionLinkProps, ProjectCardActionProps, ProjectCardAdornmentPlacement, ProjectCardAdornmentProps, ProjectCardMediaProps, ProjectCardMoreProps, ProjectCardOverlayProps, ProjectCardPlaceholderProps, ProjectCardProps, ProjectCardRenameProps, ProjectCardTextProps, ProjectCardThumbnailProps, } from "./project-card/project-card.js";
+export type { ProjectCardActionButtonProps, ProjectCardActionLinkProps, ProjectCardActionProps, ProjectCardAdornmentPlacement, ProjectCardAdornmentProps, ProjectCardMediaProps, ProjectCardMoreProps, ProjectCardOverlayInk, ProjectCardOverlayProps, ProjectCardPlaceholderProps, ProjectCardProps, ProjectCardRenameProps, ProjectCardTextProps, ProjectCardThumbnailProps, } from "./project-card/project-card.js";
 export { AppShell } from "./app-shell/app-shell.js";
 export type { AppShellProps, AppShellVariant } from "./app-shell/app-shell.js";
 export { AppTopBar, SidebarBrand, SidebarCta, SidebarNavItem, SidebarNavRow } from "./app-shell/app-shell-parts.js";
@@ -13,7 +13,7 @@ export type { AppTopBarProps, SidebarBrandProps, SidebarCtaProps, SidebarNavItem
 export { Avatar } from "./avatar/avatar.js";
 export type { AvatarProps, AvatarSize } from "./avatar/avatar.js";
 export { Badge } from "./badge/badge.js";
-export type { BadgeProps, BadgeTone } from "./badge/badge.js";
+export type { BadgeProps, BadgeSurface, BadgeTone } from "./badge/badge.js";
 export { Checkbox } from "./checkbox/checkbox.js";
 export type { CheckboxProps } from "./checkbox/checkbox.js";
 export { DropZone } from "./drop-zone/drop-zone.js";

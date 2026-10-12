@@ -55,7 +55,8 @@ NodeShell (세로, 간격 4, 폭 400)
 ├─ HeaderRow (가로, 높이 32, 좌우 여백 2, 간격 8, 양끝 정렬)
 │  ├─ Title (가로, 간격 5)
 │  │  ├─ TypeGlyph  16×16  ← INSTANCE_SWAP
-│  │  └─ Label      body-14 medium · 줄 높이 1
+│  │  ├─ Label      body-14 medium · 줄 높이 1
+│  │  └─ TitleChip  (선택, 여백 1/6, 반경 10, caption medium, 글리프 10)   ← 편집 모드 · 재편집 필요
 │  └─ Actions (가로, 간격 0)   ← 셋을 의도적으로 붙인다
 │     ├─ Help = NodeChromeButton  Tone=neutral  (도움말)   ← 조건부 칸(HelpButton), 글리프 question-circle
 │     ├─ NodeChromeButton  Tone=neutral  (다운로드)
@@ -63,7 +64,7 @@ NodeShell (세로, 간격 4, 폭 400)
 └─ Card (폭 400, 반경 24, 테두리 2 안쪽)
    └─ Body  ← 노드 타입이 채우는 슬롯
       └─ Composer (세로, 간격 8, 사방 8)   ← 입력판. 쓰는 노드만
-         └─ Field (면 bg-raised, 반경 16, 사방 8, 헤어라인)
+         └─ Field (면 node-composer-surface, 반경 16, 사방 8, 헤어라인)
             ├─ (첫 줄 · 글 입력칸)  ← 슬롯. 이 부품이 소유하지 않는다
             └─ Footer (세로, 간격 8)   ← 앞에 무엇이 있으면 위로 8
                ├─ FooterControls (가로, 높이 32)
@@ -98,6 +99,21 @@ NodeShell (세로, 간격 4, 폭 400)
 `-mb-3`(−6)을 겹쳐 4를 만든다. Figma 오토레이아웃에는 음수 여백이 없으므로 결과값 4를
 컨테이너 간격으로 세웠다. 값은 같고 만드는 방법이 다르다.
 
+## 제목 옆 칩
+
+이미지 노드의 「편집 모드」와 편집 노드의 「재편집 필요」가 제목 바로 옆에 붙는 칩이다(`.louis-node-shell__title-chip`).
+[Badge](./badge.md) 가 아니다 — 높이가 헤더에 묶이고(최대 24) 기하(여백 1/6 · 반경 10 · caption medium · 글리프 10)가
+배지(4/8 · 8 · regular · `1em`)와 축 하나로 접히지 않는다. 1 · 6 · 10 은 사다리 밖이라 제품 실측(`nodeChrome.ts:289-304`)을 옮긴다.
+
+| 칩 | 속성 | 면 | 글자 | 대비 |
+| --- | --- | --- | --- | --- |
+| 편집 모드 | (기본) | `node-edit-chip-surface` — 라이트 `violet-alpha/08` · 다크 `/16` | `node-edit-chip-foreground` — 라이트 `violet-700` · 다크 `violet-300` | 8.78 · 5.61 |
+| 재편집 필요 | `data-tone="warning"` | `bg-warning` | `fg-warning` | 10.83 |
+
+색은 제품 값이 아니다. 제품 편집 모드는 Tailwind 보라 리터럴이고(`ImageNode.tsx:227-228`), `node-edit-accent` 를 같은 색 16%
+위에 얹으면 다크에서 3.00:1 이다. 재편집 필요는 제품 `yellow-600` on `yellow-200` 이 1.94:1 이다.
+[DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md). **Figma 부품은 아직 없다.**
+
 ## 입력판
 
 카드 슬롯 바닥에 서는 입력 영역이다. 클래스는 `.louis-node-shell__composer` 이하 일곱이고 노드가 쓸
@@ -111,7 +127,7 @@ NodeShell (세로, 간격 4, 폭 400)
 | 클래스 | 무엇 | 값 · 출처 |
 | --- | --- | --- |
 | `__composer` | 영역. 세로 flex, 투명 | 사방 `8` · 줄 사이 `8` — `--node-inner-padding` · `gap-4` |
-| `__field` | **면.** 카드보다 한 칸 위 | `bg-raised` · 반경 `16`(`--node-input-radius`) · 사방 `8` · 헤어라인 · `isolation: isolate` |
+| `__field` | **면.** 카드보다 한 칸 위 | `node-composer-surface`(라이트 흰색 · 다크 `palette-gray-800`, DS-D-0083) · 반경 `16`(`--node-input-radius`) · 사방 `8` · 헤어라인 · `isolation: isolate` |
 | `__footer` | 설정 줄 + 오류 배너 | 줄 사이 `8`. 앞에 형제가 있을 때만 위로 `8` |
 | `__footer-controls` | 한 줄 | 높이 `32`(`layout-node-chip-height`) |
 | `__meta` | 알약 줄 | 간격 `4`(`--node-chrome-btn-gap`) · 남는 폭 · 넘침 보임(드롭다운) |
@@ -315,14 +331,10 @@ NodeShell (세로, 간격 4, 폭 400)
      반경 8 · 테두리 `palette-gray-000` 12% · 배지 `rgb(0 0 0 / 56%)` 에 흰 글자. 소비처가 둘이지만
      리터럴 검정 알파가 있어 면 토큰이 먼저 정해져야 한다. 노드 첨부 썸네일 조각으로 올릴지는 **판정
      필요**다(우선순위 낮음).
-10. **입력판 면이 다크에서 카드와 같은 칸이다.** 제품은 다크 `palette-gray-800` · 라이트 `palette-white`
-    이다(`origin/dev` `VideoNode.tsx:689`). 그 쌍을 가진 세만틱이 없다 — `color-bg-raised` 는 라이트가
-    흰색으로 정확히 같고 다크가 `palette-gray-900` 이라 카드 면(`color-bg-surface`, 다크 같은 칸)과
-    **같아진다.** 면의 「한 칸 위」는 라이트에서만 보이고 다크에서는 헤어라인이 경계를 만든다. 팔레트 칸을
-    테마마다 직접 고르는 길은 막혀 있다(component CSS 는 테마 선택자를 쓰지 않는다). **판정 필요**:
-    `node-composer-surface`(다크 `palette-gray-800` · 라이트 흰색) 시맨틱을 세울지 — 토큰 생성물을 다시
-    내야 하는 변경이라 이번에 하지 않았다. Figma `NodeComposer` 의 `Field` 도 같은 판정으로 `color/bg-raised` 에 물렸다(2026-10-08) —
-    시맨틱이 서면 레시피와 함께 옮긴다.
+10. ~~**입력판 면이 다크에서 카드와 같은 칸이다.**~~ **2026-10-12 해소(DS-D-0083).** `color-node-composer-surface`
+    (라이트 `static-white` · 다크 `palette-gray-800`)를 세우고 `.louis-node-shell__field` 가 그것을 읽는다 — 제품
+    `PROMPT_FIELD_SHELL`(`ImageNode.tsx` 의 `bg-[var(--palette-gray-800)]` · `light:bg-[var(--palette-white)]`)과 같은 쌍이다.
+    Figma `NodeComposer` 의 `Field` 는 아직 `color/bg-raised` 에 물려 있다 — 변수 `node-composer-surface` 를 세우고 옮기는 일이 남았다.
 11. **오류 배너 글자 대비가 AA 에 못 미친다 — 제품 값 그대로다.** 글자 `accent-danger`(제품
     `--accent-red-500`) 위에 같은 색 8% 면이라 라이트 2.98:1 · 다크 3.78:1 이다(면 흰색 ·
     `palette-gray-800` 기준. LOUIS 면으로 바꾸면 다크는 4.85:1). 같은 자리를 위한 `fg-danger-on-surface`

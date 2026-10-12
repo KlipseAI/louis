@@ -9,6 +9,11 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 
 파일을 받는 큰 눌림 면이다. 누르면 파일 선택 창이 열리고, 파일을 끌어다 놓아도 받는다.
 
+> **2026-10-12 — 아래 첫 문단은 앵커 `2c6bdacf` 의 기록이다.** 제품 `origin/main`(`5d96d101c`)에서 업로드 카드와 모달이
+> 사라졌고 `uploadDropZone` 도 없다. 하이라이트는 이제 검은 무대(`studioStage`)의 빈 상태가 파일 버튼이고, 끌어다 놓기 ·
+> 플레이어 · 트랙이 한 무대에 겹친다. 그 무대는 페이지 면 위 drop-zone 이 아니라 화면 고유로 둔다
+> ([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md) 3c). 이 컴포넌트의 제품 소비처는 지금 없다.
+
 **제품에 공용 구현이 없다(제품 앵커 `2c6bdacf`).** 하이라이트 두 화면 — 허브(`HighlightScene.tsx`)와 프로젝트 상세의
 업로드 대기(`HighlightProjectScene.tsx`) — 가 `highlightSceneStyles.ts` 의 `uploadDropZone` 지역 레시피를 쓴다. 그 면은
 이름과 달리 **끌어다 놓기를 받지 않는다** — 누르면 숨긴 `input[type=file]` 을 여는 `<button>` 이다. 그리고

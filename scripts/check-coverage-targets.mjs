@@ -199,7 +199,10 @@ const MANIFEST_DONE_FLOOR = 24; // 바닥. 오르면 올려 이득을 잠근다
 // `-hover` 둘이 소비자 없이 들어와 기준선보다 하나 많은 채 빨갰다. DS-D-0082 로 `node-chip.css` 가 캔버스 범위에서
 // 그 둘을 처음 물어 71 이 됐다. 같은 회차에 세운 `canvas-menu-surface` · `node-card-stroke` 는 레시피가 바로 읽어
 // 죽은 채로 들어오지 않았다. 이득 방향이라 잠근다.
-const DEAD_TOKEN_BASELINE = 71; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
+// 2026-10-12: 71 → 61. DS-D-0083 — `node-side-handle` 이 audio · youtube · instagram 채널을 물면서 그 채널의
+// 손잡이 면 · 글리프 · 비활성 시맨틱이 처음 소비자를 얻었다. 같은 회차에 세운 사진 위 배지 · 띠 잉크 · 제목 칩 ·
+// 입력판 면 토큰은 레시피가 바로 읽어 죽은 채로 들어오지 않았다. 이득 방향이라 잠근다.
+const DEAD_TOKEN_BASELINE = 61; // 양방향, 목표 0. 단위는 **원천 토큰**이다 — DS-D-0047
 // 95 → 94 (stat-tile · chart-card 가 서면서). 이득 방향이라 잠근다.
 // 2026-09-21: 73 → 72. Document 패턴(DS-D-0067)의 바닥이 화면 가장자리와 시트 사이를
 // `layout-app-shell-outer-gap` 으로 띄우면서 LOUIS CSS 가 그 토큰을 처음 문다. 이득 방향이라 잠근다.

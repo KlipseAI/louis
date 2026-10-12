@@ -8,8 +8,15 @@ import type { HTMLAttributes, JSX, ReactNode, Ref } from "react";
  */
 export type BadgeTone = "neutral" | "success" | "warning" | "danger" | "info";
 
+/**
+ * 배지가 놓이는 밑면. 기본은 페이지 면(테마를 따르는 status 쌍)이고, `media` 는 사진 · 썸네일 위다 —
+ * 면이 테마와 무관한 고정 `gray-800` 이 되고 tone 은 글자색만 바꾼다(DS-D-0083).
+ */
+export type BadgeSurface = "page" | "media";
+
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   readonly tone?: BadgeTone;
+  readonly surface?: BadgeSurface;
   /** 라벨 앞 아이콘. 크기는 글자를 따라간다(`1em`). */
   readonly icon?: ReactNode;
   /**
@@ -37,6 +44,7 @@ function join(...values: readonly (string | undefined)[]): string {
  */
 export function Badge({
   tone = "neutral",
+  surface = "page",
   icon,
   dot = false,
   className,
@@ -44,7 +52,12 @@ export function Badge({
   ...rest
 }: BadgeProps): JSX.Element {
   return (
-    <span {...rest} className={join("louis-badge", className)} data-tone={tone}>
+    <span
+      {...rest}
+      className={join("louis-badge", className)}
+      data-tone={tone}
+      data-surface={surface === "media" ? "media" : undefined}
+    >
       {icon === undefined ? null : (
         // 아이콘은 라벨이 말하는 것을 반복하는 장식이다.
         <span className="louis-badge__icon" aria-hidden="true">

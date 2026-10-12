@@ -65,7 +65,11 @@ export interface ProjectCardThumbnailProps extends HTMLAttributes<HTMLDivElement
  * 컴포넌트**를 넣는 순간 선택자가 빗나가 썸네일이 면을 못 채운다. 그 자리를 이 요소가 대신 잡는다.
  */
 export declare function ProjectCardThumbnail({ className, ...rest }: ProjectCardThumbnailProps): JSX.Element;
+/** 띠 글자의 잉크. 썸네일 밝기를 재는 일은 호출부의 것이고, 결과만 받는다(DS-D-0083). */
+export type ProjectCardOverlayInk = "on-dark" | "on-bright";
 export interface ProjectCardOverlayProps extends HTMLAttributes<HTMLDivElement> {
+    /** 생략하면 테마를 따르는 기본 잉크(`fg-*`)다. */
+    readonly ink?: ProjectCardOverlayInk;
     readonly ref?: Ref<HTMLDivElement>;
 }
 /**
@@ -74,7 +78,7 @@ export interface ProjectCardOverlayProps extends HTMLAttributes<HTMLDivElement> 
  * 흐림은 `::before`가 칠하므로 DOM 자식이 아니다. 텍스트는 별도 wrapper 안에 들어가야
  * `align-items: flex-end`와 stack의 `gap`이 서로 간섭하지 않는다.
  */
-export declare function ProjectCardOverlay({ className, children, ...rest }: ProjectCardOverlayProps): JSX.Element;
+export declare function ProjectCardOverlay({ ink, className, children, ...rest }: ProjectCardOverlayProps): JSX.Element;
 export interface ProjectCardTextProps extends HTMLAttributes<HTMLSpanElement> {
     readonly ref?: Ref<HTMLSpanElement>;
 }

@@ -21,15 +21,15 @@
     "replaceable": 0,
     "bespoke": 296,
     "blocked": 12,
-    "missing": 1798,
-    "structural": 6958,
+    "missing": 1811,
+    "structural": 6945,
     "unclassified": 0
   },
   "ratio": {
     "instanceOverTarget": 100,
     "instanceOverCandidates": 13,
     "target": 316,
-    "candidates": 2422
+    "candidates": 2435
   },
   "byInstanceSet": {
     "Button": 87,
@@ -90,13 +90,13 @@
     "icon/music-notes-simple": 1
   },
   "structuralByKind": {
-    "surface": 1229,
+    "surface": 1235,
     "frame": 3541,
     "text": 2056,
-    "image": 132
+    "image": 113
   },
   "missingByCandidateClause": {
-    "c-painted-mark": 1222,
+    "c-painted-mark": 1235,
     "a-interactive": 491,
     "d-control-group": 18,
     "b-vector": 67
@@ -2149,7 +2149,8 @@
       "frameId": "213:2297",
       "file": "figma/app-screens.pricing.desktop.00.draw.js",
       "files": [
-        "figma/app-screens.pricing.desktop.00.draw.js"
+        "figma/app-screens.pricing.desktop.00.draw.js",
+        "figma/app-screens.pricing.desktop.01.draw.js"
       ],
       "counts": {
         "total": 176,
@@ -2744,8 +2745,8 @@
         "replaceable": 0,
         "bespoke": 27,
         "blocked": 0,
-        "missing": 219,
-        "structural": 112,
+        "missing": 232,
+        "structural": 99,
         "unclassified": 0
       }
     },
@@ -49816,10 +49817,9 @@
         20,
         20
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/nodecanvas?project=@desktop-1920x1080#0.0.0.0.0.0.1.0.1.0.0.1.1.0": {
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
@@ -49828,9 +49828,10 @@
         20,
         20
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/nodecanvas?project=@desktop-1920x1080#0.0.0.0.0.0.1.0.1.0.0.1.2": {
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
@@ -51640,10 +51641,9 @@
         75.03,
         75.03
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.2.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -51652,9 +51652,10 @@
         75.03,
         75.03
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.1.0.0.1.3": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -52552,10 +52553,9 @@
         6.06,
         6.06
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.0.0.0.0.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -52564,9 +52564,10 @@
         6.06,
         6.06
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.0.0.1.0.0.2.2.0.0.1.2.0.1": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -53218,10 +53219,9 @@
         20,
         20
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0.1.1.0": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -53230,9 +53230,10 @@
         20,
         20
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/nodecanvas?project=@mobile-402x874#0.0.0.0.0.0.1.0.1.0.0.1.2": {
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
@@ -104960,10 +104961,9 @@
         303.98,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -104983,9 +104983,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -104994,9 +104995,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105005,9 +105007,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105016,9 +105019,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105027,9 +105031,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105038,9 +105043,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105049,9 +105055,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.0.0.7": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105060,9 +105067,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105094,10 +105102,9 @@
         243.19,
         40
       ],
-      "verdict": "missing",
-      "rule": "unmatched-c-painted-mark",
-      "candidateClause": "c-painted-mark",
-      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
+      "verdict": "structural",
+      "rule": "surface",
+      "reason": "자기가 감싸는 것을 칠하는 프레임. Figma FRAME 이 채움·반경·테두리를 이미 갖는다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105117,9 +105124,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105128,9 +105136,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.2": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105139,9 +105148,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.3": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105150,9 +105160,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.4": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105161,9 +105172,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.5": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105172,9 +105184,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.0.0.6": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",
@@ -105183,9 +105196,10 @@
         40,
         40
       ],
-      "verdict": "structural",
-      "rule": "image",
-      "reason": "이미지는 자산 축이 소유한다(DS-D-0038). 컴포넌트로 감싸도 나르는 계약이 없다."
+      "verdict": "missing",
+      "rule": "unmatched-c-painted-mark",
+      "candidateClause": "c-painted-mark",
+      "reason": "담은 것이 내용이 아닌데 칠해진 마크 — 그려진 원자인데 대응 기하를 가진 LOUIS 컴포넌트가 없다."
     },
     "/videoeditor/[projectId]@desktop-1920x1080#0.0.1.0.0.0.0.1.0.4.1.0.0.0.1.5.0.1.1": {
       "board": "figma/app-screens.videoeditor--projectId-.desktop.00.draw.js",

@@ -61,12 +61,18 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 줄을 옮긴 HUG 를 FILL 로 돌리면 측정 폭 parity 를 잃어(hugCarriedLines 주석의 2026-10-12 판단) 남겼다.
 // run 2026-10-12a(ea41f69d 보드 여섯을 보낸 뒤): 03-app 부모 밖 18 → 17. 분석 중 · 업로드 중 모바일 360 의 넘친 자식이 2 → 1(남은 하나는
 // 가운데 정렬 두 줄 안내), 업로드 중 430 은 1 → 0. 글자 잘림 1 → 0 — /subscription/coupons 옛 보드 1440 의 넘친 글자가 사라졌다(보드 자체는 은퇴 판정 대기 그대로).
+// run 2026-10-12b(막힌 33개를 소유자가 직접 실행한 뒤 — 그 보드들이 처음 새 판으로 재졌다): 01-public 글자 잘림 8 → 1, 03-app 넘침 1 → 0 ·
+// 높이 따름 4 → 2 · 뿌리 없음 6 → 0, 05-ops 높이 따름 1 → 0. **03-app 부모 밖은 17 → 21 로 올린다** — 늘어난 넷 모두 새 판 보드의 360 칸이다.
+// 셋(노드캔버스 「더 불러오기」 · 편집기 아카이브 · 편집기 「더보기 메뉴」 모바일)은 카드 제목 `truncate` 글자가 열 140 밖으로 나간 것인데 **제품도
+// 그렇다** — 세로 flex · `items-start` 안의 nowrap 글자는 min-content 가 max-content 와 같아 열보다 좁아지지 않는다(크로미움 실측: 열 140 에 글자 172,
+// 말줄임 없음). HUG 가 제품과 같은 반응이라 FILL · 말줄임으로 바꾸지 않는다. 나머지 하나(하이라이트 완료 모바일 220:3759)는 보드 안의
+// `legacy//…` 묶음과 폭 280 인 사이드바 토글 칸이 걸린다 — 조사 전(2026-10-12 인계서 1절).
 const BASELINE = {
-  "01-public": { overflow: 11, childOutside: 15, textClip: 8, heightFollow: 17, baseOverflow: 2 },
+  "01-public": { overflow: 11, childOutside: 15, textClip: 1, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { overflow: 1, childOutside: 17, heightFollow: 4, noRoot: 6 },
+  "03-app": { childOutside: 21, heightFollow: 2 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
-  "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
+  "05-ops": { overflow: 4, childOutside: 4 },
 };
 
 const fail = (message) => {

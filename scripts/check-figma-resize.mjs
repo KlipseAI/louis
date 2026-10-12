@@ -59,10 +59,12 @@ const BOARDS = { "01-public": 20, "02-auth": 18, "03-app": 56, "04-billing": 34,
 // 2026-10-12(재측정 전, 기준선 그대로): 남은 하이라이트 모바일 넷 중 분석 중 · 업로드 중의 안내 문구 감싸개와 업로드 중 430 의 진행 막대를
 // 「감기는 줄을 끊는 항목」(auto · basis, 조립 규칙 28조 표)으로 고쳤다. 가운데 정렬 두 줄 안내(340)와 /highlight 설명 문단(390)은
 // 줄을 옮긴 HUG 를 FILL 로 돌리면 측정 폭 parity 를 잃어(hugCarriedLines 주석의 2026-10-12 판단) 남겼다.
+// run 2026-10-12a(ea41f69d 보드 여섯을 보낸 뒤): 03-app 부모 밖 18 → 17. 분석 중 · 업로드 중 모바일 360 의 넘친 자식이 2 → 1(남은 하나는
+// 가운데 정렬 두 줄 안내), 업로드 중 430 은 1 → 0. 글자 잘림 1 → 0 — /subscription/coupons 옛 보드 1440 의 넘친 글자가 사라졌다(보드 자체는 은퇴 판정 대기 그대로).
 const BASELINE = {
   "01-public": { overflow: 11, childOutside: 15, textClip: 8, heightFollow: 17, baseOverflow: 2 },
   "02-auth": { childOutside: 5 },
-  "03-app": { overflow: 1, childOutside: 18, textClip: 1, heightFollow: 4, noRoot: 6 },
+  "03-app": { overflow: 1, childOutside: 17, heightFollow: 4, noRoot: 6 },
   "04-billing": { childOutside: 8, heightFollow: 2 },
   "05-ops": { overflow: 4, childOutside: 4, heightFollow: 1 },
 };

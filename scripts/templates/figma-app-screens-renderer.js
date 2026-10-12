@@ -316,8 +316,22 @@ const applyTypography = (node, spec) => {
 // 프레임으로 확인 — 설정 → 부모에 붙임 → resize 에서 HUG,HUG → FLEX,FLEX). 예전에는 행을 레이아웃 설정 때 걸고 그 뒤에 측정 크기로 resize 해,
 // 하이라이트 분석 중 · 업로드 중 모바일의 한 열 grid 가 반반(211 · 211)으로 나뉘어 빈 둘째 칸이 첫 칸의 안내 카드를 덮었다. 열은
 // `repeat(N, 1fr)` 라 FLEX 그대로 둔다. 늘어난 행은 FIXED(figma-tree-spec gridStretchedRow).
+// **열도 같다(2026-10-12 오후).** `resize()` 는 HUG 열도 FLEX 로 되돌린다(FIXED 는 남는다 — 작업 페이지 임시 프레임으로 확인). 크기가 다른 열
+// (`auto 1fr auto` · `0.8fr 1.2fr` · `18px 1fr`, 계획의 12번째 칸)을 레이아웃 설정 때 걸어, 상단 바 `nav`(`auto 1fr auto`)가 셋으로 똑같이
+// 나뉘어 제목이 x 480 · 버튼이 x 1300 에 섰다(편집기 · 하이라이트 상단 바 — 제품은 56 · 1729). 열도 여기서 건다. 못 건 열은 결과의
+// `gridTrackFailures` 로 드러낸다.
 const settleGridRows = (node, spec) => {
   if (node.type !== "FRAME" || node.layoutMode !== "GRID" || !spec.l || !spec.l[9]) return;
+  if (Array.isArray(spec.l[11])) {
+    spec.l[11].forEach(([type, value], index) => {
+      const track = node.gridColumnSizes[index];
+      try {
+        if (!track) throw new Error("열이 없다");
+        track.type = type === "X" ? "FIXED" : type === "H" ? "HUG" : "FLEX";
+        if (type !== "H" && value != null) track.value = value;
+      } catch (error) { gridTrackFailures.push(`${spec.t} 열 ${index} ${type}${value ?? ""}: ${error.message || error}`); }
+    });
+  }
   try { for (const track of node.gridRowSizes) track.type = "HUG"; } catch (error) {}
   if (Array.isArray(spec.l[10])) {
     spec.l[10].forEach((size, index) => {
@@ -403,18 +417,7 @@ const buildNode = (spec, parent) => {
         const columns = spec.l[9];
         const cells = (spec.k || []).filter((child) => !child.p).length;
         try { node.gridColumnCount = columns; } catch (error) {}
-        // **열마다의 크기(2026-09-30).** 크기가 다른 열(`1fr auto 1fr` · `0.8fr 1.2fr` · `18px 1fr`)은 계획이 12번째 칸에 싣는다 — 싣지 않으면
-        // Figma 가 모든 열을 같은 FLEX 로 깐다. 못 건 열은 결과의 `gridTrackFailures` 로 드러낸다.
-        if (Array.isArray(spec.l[11])) {
-          spec.l[11].forEach(([type, value], index) => {
-            const track = node.gridColumnSizes[index];
-            try {
-              if (!track) throw new Error("열이 없다");
-              track.type = type === "X" ? "FIXED" : type === "H" ? "HUG" : "FLEX";
-              if (type !== "H" && value != null) track.value = value;
-            } catch (error) { gridTrackFailures.push(`${spec.t} 열 ${index} ${type}${value ?? ""}: ${error.message || error}`); }
-          });
-        }
+        // 열마다의 크기(`l[11]`)는 행처럼 측정 크기를 깐 뒤에 건다 — settleGridRows 주석.
         try { node.gridRowCount = spec.gr || Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
         // 행 크기(HUG · 늘어난 행 FIXED)는 측정 크기를 깐 뒤에 건다 — settleGridRows 주석.
         // **간격도 격자의 것이다.** 아래 `itemSpacing` 은 GRID 에 뜻이 없어 건너뛰는데, 그 자리를 메우지 않아 격자 칸이 붙어

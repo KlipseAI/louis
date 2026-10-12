@@ -169,8 +169,11 @@ const imageKeyOf = (src) => (/^(null|data:)/.test(src) ? `data-sha256:${createHa
 // CheckCircle 등 보드 116곳과 부품 안, 캡처로 확인). public/icons 원본은 `90 · 자산` 에 `icon/<파일 이름>` 컴포넌트로 있으므로 그 인스턴스로
 // 바꾸고(`im`), 렌더러가 인스턴스 안의 면 · 획을 그 자리의 바탕색으로 덮는다(`mt`) — mask 는 모양만 주고 색은 바탕이 준다.
 // 자식이 있는 자리 · 셸 안 · `/icons/` 밖 원본은 건드리지 않고 감사본에 남긴다.
+// 같은 이름이 둘이면(`DS · Icons` 의 DS 아이콘과 `90 · 자산` 「C · icon/」 의 제품 원본 — `icon/text`) mask 원본인 「C · icon/」 섹션을
+// 고른다. 예전에는 하나가 아니면 버려, 노드캔버스의 `/icons/text.svg` 자리가 색 네모로 남았다(2026-10-12).
 const assetComponentByName = (name) => {
-  const hits = Object.values(liveAssets.components ?? {}).filter((entry) => entry.name === name);
+  let hits = Object.values(liveAssets.components ?? {}).filter((entry) => entry.name === name);
+  if (hits.length > 1) hits = hits.filter((entry) => /^C · icon\//.test(entry.section ?? ""));
   return hits.length === 1 ? { id: hits[0].id, name: hits[0].name } : null;
 };
 const attachMaskIcons = (node, styleOf, unmapped) => {

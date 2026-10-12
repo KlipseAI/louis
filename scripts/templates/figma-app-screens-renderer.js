@@ -419,7 +419,8 @@ const buildNode = (spec, parent) => {
         // 행 크기(HUG · 늘어난 행 FIXED)는 측정 크기를 깐 뒤에 건다 — settleGridRows 주석.
         // **간격도 격자의 것이다.** 아래 `itemSpacing` 은 GRID 에 뜻이 없어 건너뛰는데, 그 자리를 메우지 않아 격자 칸이 붙어
         // 그려졌다(`/subscription` 알림과 요금제 카드 사이 24 가 0). 계획의 간격 하나를 행 · 열 간격에 같이 건다(CSS `gap`).
-        try { node.gridRowGap = spec.l[1] || 0; node.gridColumnGap = spec.l[1] || 0; } catch (error) {}
+        // 행 간격이 다르면(`row-gap` ≠ `column-gap`) 계획이 `cg` 로 따로 싣는다(2026-10-12 — 하이라이트 단계 안내 grid 6 ↔ 12).
+        try { node.gridRowGap = (spec.cg != null ? spec.cg : spec.l[1]) || 0; node.gridColumnGap = spec.l[1] || 0; } catch (error) {}
       }
       if (node.layoutMode !== "GRID") {
         node.itemSpacing = spec.l[1];

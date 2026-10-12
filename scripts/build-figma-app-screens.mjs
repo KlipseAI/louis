@@ -1099,10 +1099,10 @@ const slimNode = (node) => ({
   ...(node.layout?.wrap && node.layout.counterAxisSpacing && wrapRowCount(node) > 1 ? { cg: round(node.layout.counterAxisSpacing) } : {}),
   // grid 의 행 간격(`row-gap`)이 열 간격과 다를 때만 — 측정은 GRID 의 `itemSpacing` 에 column-gap, `counterAxisSpacing` 에 row-gap 을 싣는데
   // 렌더러가 간격 하나(l[1])를 행 · 열에 같이 걸어, 하이라이트 단계 모바일의 안내 grid(`row-gap 6 · column-gap 12`)가 6 커졌다(2026-10-12).
-  // 같거나 행이 하나면 싣지 않는다(다른 보드의 payload 는 그대로다).
-  ...(node.layout?.layoutMode === "GRID" && node.layout.counterAxisSpacing != null
-    && round(node.layout.counterAxisSpacing) !== round(node.layout.itemSpacing)
-    && flowChildren(node).length > (node.layout.columns || 1) ? { cg: round(node.layout.counterAxisSpacing) } : {}),
+  // 같거나 행이 하나면 싣지 않는다(다른 보드의 payload 는 그대로다). **row-gap 이 `normal`(측정 null)이면 0 이다** — grid 의 `normal` 은 0 인데
+  // 열 간격만 선언한 목록(LOUIS 문서 목차 `ol`, column-gap 24)이 행 사이에 24 를 받아 모바일 목차가 309 → 453 으로 섰다.
+  ...(node.layout?.layoutMode === "GRID" && flowChildren(node).length > (node.layout.columns || 1)
+    && round(node.layout.counterAxisSpacing ?? 0) !== round(node.layout.itemSpacing) ? { cg: round(node.layout.counterAxisSpacing ?? 0) } : {}),
   // grid 칸 안 정렬 [가로, 세로](figma-tree-spec gridCellAlign) — 칸을 채우지 않은 자식만. **`g` 가 아니다** — `g` 는 그라디언트 키다(paintKeys).
   ...(node.gridAlign ? { ga: [node.gridAlign.horizontal ?? "", node.gridAlign.vertical ?? ""] } : {}),
   // grid 칸 자리와 span [행, 열, 행 span, 열 span](figma-tree-spec gridPlacements) · 그 grid 의 행 수.

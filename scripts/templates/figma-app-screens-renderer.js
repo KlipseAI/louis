@@ -310,6 +310,25 @@ const applyTypography = (node, spec) => {
   if (P.locale && spec.xv && !spec.xr) pendingLocaleTexts.push([node, spec.xv]);
 };
 
+// **grid 행 크기는 측정 크기를 깐 뒤에 건다(2026-10-12).** CSS grid 는 행 템플릿을 선언하지 않으면 행이 auto(내용 높이)인데, Figma 는 새 행을
+// FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다(실측 사고: `/subscription` 모바일의 요금제 카드(456)가 281 짜리 행에 담겨 다음
+// 행을 덮었다). 그래서 행을 HUG 로 두는데, **크기 모드가 AUTO 인 grid 를 `resize()` 하면 Figma 가 HUG 행을 FLEX 로 되돌린다**(작업 페이지 임시
+// 프레임으로 확인 — 설정 → 부모에 붙임 → resize 에서 HUG,HUG → FLEX,FLEX). 예전에는 행을 레이아웃 설정 때 걸고 그 뒤에 측정 크기로 resize 해,
+// 하이라이트 분석 중 · 업로드 중 모바일의 한 열 grid 가 반반(211 · 211)으로 나뉘어 빈 둘째 칸이 첫 칸의 안내 카드를 덮었다. 열은
+// `repeat(N, 1fr)` 라 FLEX 그대로 둔다. 늘어난 행은 FIXED(figma-tree-spec gridStretchedRow).
+const settleGridRows = (node, spec) => {
+  if (node.type !== "FRAME" || node.layoutMode !== "GRID" || !spec.l || !spec.l[9]) return;
+  try { for (const track of node.gridRowSizes) track.type = "HUG"; } catch (error) {}
+  if (Array.isArray(spec.l[10])) {
+    spec.l[10].forEach((size, index) => {
+      const track = node.gridRowSizes[index];
+      if (!track) throw new Error(`grid 행 ${index} 가 없습니다: ${spec.t} (행 ${node.gridRowCount})`);
+      track.type = "FIXED";
+      track.value = size;
+    });
+  }
+};
+
 const buildNode = (spec, parent) => {
   let node;
   // **글자와 면을 같이 가진 노드는 TEXT로 만들면 안 된다.** Figma TEXT에는 배경·radius·그림자가 없다.
@@ -397,19 +416,7 @@ const buildNode = (spec, parent) => {
           });
         }
         try { node.gridRowCount = spec.gr || Math.max(1, Math.ceil(cells / columns)); } catch (error) {}
-        // **행은 내용 높이다.** CSS grid 는 행 템플릿을 선언하지 않으면 행이 auto(내용 높이)인데, Figma 는 새 행을
-        // FLEX(1fr)로 깔아 HUG 컨테이너의 높이를 행 수로 똑같이 나눈다. 실측 사고: `/subscription` 모바일의 요금제
-        // 카드(456)가 281 짜리 행에 담겨 다음 행(크레딧 이력)을 덮었다. 열은 `repeat(N, 1fr)` 라 FLEX 그대로 둔다.
-        try { for (const track of node.gridRowSizes) track.type = "HUG"; } catch (error) {}
-        // 늘어난 행은 FIXED(figma-tree-spec gridStretchedRow).
-        if (Array.isArray(spec.l[10])) {
-          spec.l[10].forEach((size, index) => {
-            const track = node.gridRowSizes[index];
-            if (!track) throw new Error(`grid 행 ${index} 가 없습니다: ${spec.t} (행 ${node.gridRowCount})`);
-            track.type = "FIXED";
-            track.value = size;
-          });
-        }
+        // 행 크기(HUG · 늘어난 행 FIXED)는 측정 크기를 깐 뒤에 건다 — settleGridRows 주석.
         // **간격도 격자의 것이다.** 아래 `itemSpacing` 은 GRID 에 뜻이 없어 건너뛰는데, 그 자리를 메우지 않아 격자 칸이 붙어
         // 그려졌다(`/subscription` 알림과 요금제 카드 사이 24 가 0). 계획의 간격 하나를 행 · 열 간격에 같이 건다(CSS `gap`).
         try { node.gridRowGap = spec.l[1] || 0; node.gridColumnGap = spec.l[1] || 0; } catch (error) {}
@@ -504,6 +511,7 @@ const buildNode = (spec, parent) => {
   if (spec.mw) { try { node.maxWidth = spec.mw; } catch (error) {} }
   if (spec.mn) { try { node.minWidth = spec.mn; } catch (error) {} }
   if (spec.xh) { try { node.maxHeight = spec.xh; } catch (error) {} }
+  settleGridRows(node, spec);
 
   // margin — Figma Auto Layout에는 margin이 없다. 흐름 자식이 하나면 부모 padding으로 옮긴다.
   // **음수 margin은 0으로 막는다.** Figma는 음수 padding을 거부한다. CSS에서 음수 margin은 자식이

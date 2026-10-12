@@ -1252,6 +1252,21 @@ try {
               ...(runs ? { inlineRuns: runs } : {}),
               rect: rectOf(node),
               style: styleOf(node),
+              // **말줄임이 실제로 일어났는가(2026-10-12 오후).** `text-overflow: ellipsis` 글자는 상자 폭으로만 재지면 잘렸는지 알 수 없다 — 노드캔버스
+              // 영상 노드 모델 칩 「Seedance 2.0 …」 이 보드에서 끝까지 나왔다. 넘친 경우만 싣는다.
+              ...(computed.textOverflow === "ellipsis" && node.scrollWidth > node.clientWidth + 1 ? { truncated: true } : {}),
+              // **가상 요소의 그림자(2026-10-12 오후).** 제품은 노드캔버스 포트 원판 · 옆 버튼 · 생성 버튼 · 하이라이트 장면 등에 Figma 이너
+              // 섀도(blur 8 · 흰색 100% · Overlay)를 `::before { box-shadow: inset … ; mix-blend-mode: overlay }` 로 근사한다. 측정이 가상 요소를
+              // 재지 않아 보드가 납작했다(소유자 지적). 내용이 있고 그림자가 있는 `::before` · `::after` 만 싣는다 — 없는 노드의 원장은 그대로다.
+              ...(() => {
+                const shadows = ["::before", "::after"].flatMap((pseudo) => {
+                  const computed = getComputedStyle(node, pseudo);
+                  if (!computed.content || computed.content === "none" || !computed.boxShadow || computed.boxShadow === "none") return [];
+                  return [{ pseudo, boxShadow: computed.boxShadow, mixBlendMode: computed.mixBlendMode, position: computed.position,
+                    inset: [computed.top, computed.right, computed.bottom, computed.left] }];
+                });
+                return shadows.length ? { pseudoShadows: shadows } : {};
+              })(),
             }] : [];
             if (sink && current.length > 0) sink.push(node);
             const descendants = [...node.children].flatMap((child, index) =>

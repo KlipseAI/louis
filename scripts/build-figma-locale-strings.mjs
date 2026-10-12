@@ -150,12 +150,17 @@ for (const [key, value] of Object.entries(dictionary.en)) {
 
 // ── 짝짓기 ───────────────────────────────────────────────────────────────────
 const slugOf = (route) => (route === "/" ? "home" : route.replace(/^\//, "").replace(/\//g, "-").replace(/[^A-Za-z0-9_-]+/g, "-"));
-const selected = boardPlan.screens.filter((screen) => scope === "all" || scope.includes(screen.route));
+// **상태 레시피 화면은 전체 범위에서 뺀다(2026-10-12 오후).** 측정기가 `--states` 와 `--locale` 을 함께 받지 않아(measure-product-auth-fixture
+// 「--locale 은 아직 상태 레시피와 함께 쓰지 않습니다」) 그 화면(경로 뒤에 상태 이름이 붙는다 — `/archive palette`)의 로캘 원장이 없다. 조용히
+// 건너뛰지 않고 계획 보고 `stateScreensUnmeasured` 와 콘솔에 남긴다 — 그 화면의 글자는 en 리터럴로 남는다.
+const isStateScreen = (screen) => screen.route.includes(" ");
+const stateScreensUnmeasured = scope === "all" ? boardPlan.screens.filter(isStateScreen).map((screen) => `${screen.route} @ ${screen.context}`) : [];
+const selected = boardPlan.screens.filter((screen) => (scope === "all" ? !isStateScreen(screen) : scope.includes(screen.route)));
 if (scope !== "all") for (const route of scope) if (!selected.some((screen) => screen.route === route)) fail(`보드 계획에 화면이 없습니다: ${route}`);
 const partSets = new Map(partsPlan.sets.map((set) => [set.setName, set]));
 
 const targets = []; // { key, route(이름용), result }
-const report = { enDrift: [], textMissing: [], tagMismatch: [], labelUnresolved: [], localeRichLost: [], localeOnly: [], richTextEnFixed: [], labelledPartsSkipped: [] };
+const report = { enDrift: [], textMissing: [], tagMismatch: [], labelUnresolved: [], localeRichLost: [], localeOnly: [], richTextEnFixed: [], labelledPartsSkipped: [], stateScreensUnmeasured };
 const absorb = (key, result) => {
   for (const [name, list] of Object.entries(result.issues)) report[name].push(...list.map((item) => ({ target: key, ...item })));
   report.localeOnly.push(...result.localeOnly.map((item) => ({ target: key, ...item })));

@@ -4,7 +4,7 @@
   "lastModified": null,
   "version": null,
   "source": "plugin probe (figma-sync.mjs walk 와 같은 모양)",
-  "fetchedAt": "2026-10-12T01:04:15.144Z",
+  "fetchedAt": "2026-10-12T06:07:54.339Z",
   "pages": [
     {
       "id": "246:3446",
@@ -340,6 +340,11 @@
         {
           "id": "2418:5894",
           "name": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
+          "items": []
+        },
+        {
+          "id": "3154:3681",
+          "name": "V · pattern/  ·  반복 칠 원본(Pattern fill 의 타일)  ·  1개",
           "items": []
         }
       ]
@@ -3303,6 +3308,13 @@
       "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
       "section": "U · image/  ·  랜딩 사진 · 제품 예시 이미지 · LOUIS 문서 예시 (원본 · 이미지 채움)  ·  13개",
       "key": "75d59752aef7ae474a49f352f7a3e15aa79e7eb7"
+    },
+    "3154:3682": {
+      "id": "3154:3682",
+      "name": "pattern/canvas-dot",
+      "page": "90 · 자산 — 아이콘 · 로고 · 제품 부품",
+      "section": "V · pattern/  ·  반복 칠 원본(Pattern fill 의 타일)  ·  1개",
+      "key": "3abe9ec12fcf9839eb4c94bc02c86fbd645d9dfd"
     }
   },
   "componentSets": {

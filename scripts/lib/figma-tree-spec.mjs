@@ -1047,7 +1047,7 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
       : layoutMode === "VERTICAL" && !split && !stackedText && !padded
         ? flowSlack(node, style, children, rawChildren, nodeSizing, options.recordedBottom ?? null, parent, parent ? (childrenOf.get(parent.path) ?? []) : []) : null;
     const clearBorder = clearBorderPadding(style);
-    const paint = paintOf(style);
+    const paint = withPseudoShadows(paintOf(style), node);
     // 테두리에 합친 링의 두께 — 획이 레이아웃에 드므로 패딩에서 뺀다(paintOf 주석).
     const ringWithin = paint?.stroke?.ringWithin ?? [0, 0, 0, 0];
     if (slack && layoutMode === "HORIZONTAL") stats.lineBoxSlack.push({ path: node.path, ...slack });
@@ -1087,7 +1087,9 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         ? (() => {
           const typography = floatingLine ? { ...typographyOf(style), align: null } : typographyOf(style);
           const clipped = typography ? clippedTextPaint(style, node.rect) : null;
-          return clipped ? { ...typography, color: clipped.color ?? null, ...(clipped.gradient ? { gradient: clipped.gradient } : {}) } : typography;
+          const painted = clipped ? { ...typography, color: clipped.color ?? null, ...(clipped.gradient ? { gradient: clipped.gradient } : {}) } : typography;
+          // 측정기가 본 실제 말줄임(`truncated`, 넘친 말줄임 글자) — 렌더러가 측정 폭을 최대 폭으로 걸고 끝을 자른다.
+          return painted && painted.truncate && node.truncated ? { ...painted, truncated: true } : painted;
         })()
         : null,
       // **절대 배치는 spec에 반드시 남긴다.** 안 남기면 Figma에서 일반 auto-layout 자식이 되어
@@ -1112,6 +1114,11 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
         : null,
       constraints: decision.absolute ? constraintsFor(node.declared ?? {}, node.style ?? null, parent?.style ?? null) : null,
       why: { horizontal: decision.h, vertical: decision.v },
+      // **자동 배치 없는 글자 상자의 안쪽 여백(2026-10-12 오후).** 입력칸처럼 자식 없이 글자(placeholder)를 그리는 면은 layout 이 null 이라
+      // padding 이 실리지 않아, 렌더러가 글자를 면 전체에 펼쳤다 — 노드캔버스 레이어 검색칸(pl 28)의 「Search layers」 가 x 0 에서 돋보기와 겹쳤다.
+      ...(layoutMode === "NONE" && node.ownText
+        && [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].some((value) => (px(value) ?? 0) > 0)
+        ? { textInset: [px(style.paddingTop) ?? 0, px(style.paddingRight) ?? 0, px(style.paddingBottom) ?? 0, px(style.paddingLeft) ?? 0] } : {}),
       layout: layoutMode === "NONE" ? null : {
         layoutMode,
         // itemSpacing은 **주축** 간격이다 — 세로 배치면 row-gap, 가로 배치면 column-gap.
@@ -1442,6 +1449,20 @@ function clippedTextPaint(style, rect) {
   const stops = [{ color: colorAt(t0), position: 0 }, ...inside.map((stop) => ({ color: stop.color, position: Math.round(((stop.position - t0) / (t1 - t0)) * 10000) / 10000 })), { color: colorAt(t1), position: 1 }];
   if (stops.every((stop) => stop.color === stops[0].color)) return { color: stops[0].color };
   return { gradient: { angle: gradient.angle, stops } };
+}
+
+/**
+ * **가상 요소 그림자를 숙주 그림자에 더한다(2026-10-12 오후).** 측정기가 싣는 `pseudoShadows`(내용 · 그림자가 있는 `::before` · `::after`) 가운데
+ * 숙주를 그대로 덮는 것(`position: absolute` · 네 변 0)만 숙주의 그림자로 옮긴다 — 노드캔버스 포트 원판의 `inset 0 0 8px 흰색 · overlay` 가
+ * Figma 이너 섀도(Overlay 블렌드) 한 겹이 된다. 섞기 모드는 그림자에 싣는다(`blend`). 덮지 않는 가상 요소는 옮기지 않는다(자리가 다르다).
+ */
+function withPseudoShadows(paint, node) {
+  const covering = (node.pseudoShadows ?? []).filter((entry) => entry.position === "absolute"
+    && (entry.inset ?? []).every((value) => px(value) === 0));
+  const extra = covering.flatMap((entry) => (parseBoxShadow(entry.boxShadow) ?? [])
+    .map((shadow) => ({ ...shadow, ...(entry.mixBlendMode && entry.mixBlendMode !== "normal" ? { blend: entry.mixBlendMode } : {}) })));
+  if (extra.length === 0) return paint;
+  return { ...(paint ?? { fill: null, gradient: null, stroke: null, radius: null, shadow: null, opacity: null }), shadow: [...(paint?.shadow ?? []), ...extra] };
 }
 
 function paintOf(style) {

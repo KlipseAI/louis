@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
+import { inflateRawSync } from "node:zlib";
 // **측정된 앱 화면을 Figma Auto Layout 계층으로 생성한다.**
 //
 // ## 왜 이 생성기인가
@@ -178,6 +179,8 @@ const assetComponentByName = (name) => {
   if (hits.length > 1) hits = hits.filter((entry) => /^C · icon\//.test(entry.section ?? ""));
   return hits.length === 1 ? { id: hits[0].id, name: hits[0].name } : null;
 };
+const canvasDotTile = () => assetComponentByName("pattern/canvas-dot")
+  ?? fail("자산 컴포넌트 pattern/canvas-dot 가 figma/live-assets.json 에 없습니다 — 90 · 자산 「V · pattern/」 에 세운 뒤 figma-live-assets-probe 로 다시 뜨세요");
 const attachMaskIcons = (node, styleOf, unmapped) => {
   if (node.instance) return;
   const mask = styleOf(node.path)?.maskImage;
@@ -356,11 +359,60 @@ const fillScreenHeight = (root, declaredOf, viewportHeight, frameHeight, filled)
   };
   walk(root);
 };
+// **한 점짜리 자리표시 그림은 그 색 면이다(2026-10-12 오후).** 측정 fixture 의 시드 그림(노드캔버스 이미지 노드 · 영상 노드 참조 썸네일 · 레이어 패널
+// 썸네일)은 1×1 PNG data URL 이라 이어질 자산이 없어 보드가 그 자리를 비워 두었다 — 제품 캡처는 옅은 하늘색으로 차 있었다(소유자 캔버스 대조).
+// `object-fit: cover` 로 칸을 채우는 한 점 그림이므로 그 화소 색의 면과 같다. 1×1 RGB · RGBA(8비트)만 푼다.
+const onePixelColor = (src) => {
+  // 측정기가 src 에서 페이지 origin 을 걷어 data URL 이 `nullimage/png;base64,…` 로 남는다(origin 이 「null:」 로 잡힌다) — 둘 다 받는다.
+  const match = /^(?:null)?(?:data:)?image\/png;base64,(.+)$/.exec(src ?? "");
+  if (!match) return null;
+  const bytes = Buffer.from(match[1], "base64");
+  if (bytes.readUInt32BE(16) !== 1 || bytes.readUInt32BE(20) !== 1 || bytes[24] !== 8 || ![2, 6].includes(bytes[25])) return null;
+  const idat = [];
+  for (let at = 8; at < bytes.length;) {
+    const length = bytes.readUInt32BE(at);
+    if (bytes.toString("latin1", at + 4, at + 8) === "IDAT") idat.push(bytes.subarray(at + 8, at + 8 + length));
+    at += 12 + length;
+  }
+  // zlib 머리(2) · 꼬리 검사합(4)을 떼고 푼다 — fixture 의 한 점 PNG(fixture-seeds ONE_PIXEL_PNG)는 검사합이 틀려도 브라우저가 그린다.
+  const stream = Buffer.concat(idat);
+  const raw = inflateRawSync(stream.subarray(2, stream.length - 4));
+  // raw[0] 은 줄 필터 — 한 점 그림은 왼쪽 · 위 이웃이 없어 어느 필터든 화소가 그대로다.
+  const hex = (value) => value.toString(16).padStart(2, "0");
+  const rgb = hex(raw[1]) + hex(raw[2]) + hex(raw[3]);
+  return bytes[25] === 6 && raw[4] !== 255 ? rgb + hex(raw[4]) : rgb;
+};
+// **노드캔버스 점 격자(2026-10-12 오후).** 제품 배경은 React Flow `<Background variant=Dots gap={24} size={2}>`(CanvasBackground.tsx)의
+// `<pattern>` 채움인데, 측정은 무늬를 담지 못해 보드가 바탕색 면만 그렸다(소유자 캔버스 대조). 무늬는 `90 · 자산` 「V · pattern/」 의
+// `pattern/canvas-dot`(줌 1 기준 24 칸 가운데 지름 2 점, color/canvas-dot)을 PATTERN 칠로 깔아 옮긴다. 줌 · 위상은 같은 화면의 React Flow
+// 뷰포트 변환(`matrix(z, 0, 0, z, tx, ty)`)에서 얻는다 — @xyflow/react BackgroundComponent 가 점 중심을 x = (tx mod G) − G/2 − 1 + s/2 + kG
+// (G = 24z, s = 2z) 에 둔다. 렌더러는 그 위상에 맞춘 무늬 사각형을 배경 틀(잘림) 안에 G 만큼 넉넉히 깐다.
+const CANVAS_DOT_GAP = 24; // CanvasBackground.tsx DEFAULT_CANVAS_DOT_GAP
+const CANVAS_DOT_SIZE = 2; // CanvasBackground.tsx DEFAULT_CANVAS_DOT_SIZE
+const attachDotGrid = (spec, measuredTree, styleOf) => {
+  const grids = [];
+  const walk = (node) => { if (node.glyphId === "canvas-dot-grid-background") grids.push(node); for (const child of node.children ?? []) walk(child); };
+  walk(spec);
+  for (const grid of grids) {
+    const scope = grid.path.split(".").slice(0, -1).join(".");
+    const viewport = measuredTree
+      .filter((node) => node.path.startsWith(`${scope}.`))
+      .map((node) => /^matrix\(([-\d.e]+), 0, 0, ([-\d.e]+), ([-\d.e]+), ([-\d.e]+)\)$/.exec(styleOf(node.path)?.transform ?? ""))
+      .find((match) => match && match[1] === match[2]);
+    if (!viewport) fail(`점 격자 ${grid.path} 의 React Flow 뷰포트 변환을 찾지 못했습니다 — 측정 원장에 matrix(z, 0, 0, z, tx, ty) 가 있어야 합니다`);
+    const [zoom, tx, ty] = [Number(viewport[1]), Number(viewport[3]), Number(viewport[4])];
+    const gap = CANVAS_DOT_GAP * zoom, half = (CANVAS_DOT_SIZE * zoom) / 2;
+    const phase = (t) => (((t % gap) + gap) % gap) - gap / 2 - 1 + half; // 점 중심의 위상
+    grid.dotGrid = { zoom, centerX: phase(tx), centerY: phase(ty) };
+  }
+};
 // spec 을 돌며 이어진 `<img>` 에 컴포넌트를 붙인다. 이어지지 않은 src 는 plan 감사본에 남긴다.
 const attachImageComponents = (node, unmapped) => {
   if (node.tag === "img" && node.src) {
     const component = imageComponentBySrc.get(imageKeyOf(node.src));
+    const pixel = component ? null : onePixelColor(node.src);
     if (component) node.imageComponent = component;
+    else if (pixel) node.paint = { ...(node.paint ?? { gradient: null, stroke: null, radius: null, shadow: null, opacity: null }), fill: pixel };
     else unmapped.push({ path: node.path, src: imageKeyOf(node.src), rect: [Math.round(node.rect.width), Math.round(node.rect.height)] });
   }
   for (const child of node.children ?? []) attachImageComponents(child, unmapped);
@@ -969,9 +1021,14 @@ const paintKeys = (node) => {
     // 획 역할 중 첫째가 `color/stroke-control` 이었고, LOUIS 는 헤어라인을 `--louis-color-stroke-hairline` 으로 정의한다(base.css).
     ...(paint.stroke ? { b: [paint.stroke.color, ...paint.stroke.widths.map(round), ...(paint.stroke.inset ? [1] : paint.stroke.outside ? [2] : [])] } : {}),
     ...(radius ? { d: Array.isArray(radius) ? radius.map(round) : round(radius) } : {}),
+    // 그림자의 섞기 모드(가상 요소 그림자, figma-tree-spec withPseudoShadows)는 7번째 칸 — 보통 섞기면 싣지 않는다(다른 보드 payload 그대로).
     ...(paint.shadow ? { e: paint.shadow.map((shadow) =>
-      [shadow.inset ? 1 : 0, shadow.color, round(shadow.x), round(shadow.y), round(shadow.blur), round(shadow.spread)]) } : {}),
+      [shadow.inset ? 1 : 0, shadow.color, round(shadow.x), round(shadow.y), round(shadow.blur), round(shadow.spread), ...(shadow.blend ? [shadow.blend] : [])]) } : {}),
     ...(paint.opacity != null ? { a: round(paint.opacity) } : {}),
+    // 자동 배치 없는 글자 상자의 안쪽 여백 [위, 오른쪽, 아래, 왼쪽](figma-tree-spec textInset) — 렌더러가 글자를 그만큼 들인다.
+    ...(node.textInset ? { ti: node.textInset.map(round) } : {}),
+    // 점 격자 [줌, 점 중심 x 위상, y 위상, 타일 컴포넌트 id](attachDotGrid) — 렌더러가 PATTERN 칠로 깐다.
+    ...(node.dotGrid ? { dg: [round(node.dotGrid.zoom * 1000) / 1000, round(node.dotGrid.centerX), round(node.dotGrid.centerY), canvasDotTile().id] } : {}),
     // 뒤 흐림 px(figma-tree-spec backdropBlur) — 렌더러가 BACKGROUND_BLUR 로 건다.
     ...(paint.backdropBlur ? { bb: round(paint.backdropBlur) } : {}),
   };
@@ -986,7 +1043,8 @@ const typographyKeys = (node) => {
       : [round(typography.size), typography.weight, round(typography.lineHeight ?? 0), round(typography.letterSpacing ?? 0)],
     ...(typography.color ? { tc: typography.color } : {}),
     ...(typography.align ? { ta: typography.align } : {}),
-    ...(typography.truncate ? { tt: 1 } : {}),
+    // 1 = 말줄임 글자, 2 = 제품에서 실제로 잘린 말줄임 글자(측정기 truncated) — 렌더러가 2 면 측정 폭을 최대 폭으로 둔다.
+    ...(typography.truncate ? { tt: typography.truncated ? 2 : 1 } : {}),
     // 글자 모양으로 오린 그라디언트(figma-tree-spec clippedTextPaint) — [각도, [색, 위치], …].
     ...(typography.gradient ? { tg: [round(typography.gradient.angle), ...typography.gradient.stops.map((stop) => [stop.color, round(stop.position)])] } : {}),
   };
@@ -2172,6 +2230,7 @@ const pendingAnchors = {};
       attachImageComponents(spec, unmappedImages);
       const unmappedMasks = [];
       attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
+      attachDotGrid(spec, measured.tree, (path) => styleByPath.get(path) ?? null);
       const stackingMoved = [];
       orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
       totalStackingMoved += stackingMoved.length;
@@ -2307,6 +2366,7 @@ for (const screen of SCREENS) {
     attachImageComponents(spec, unmappedImages);
     const unmappedMasks = [];
     attachMaskIcons(spec, (path) => styleByPath.get(path) ?? null, unmappedMasks);
+    attachDotGrid(spec, measuredTree, (path) => styleByPath.get(path) ?? null);
     const stackingMoved = [];
     orderByStacking(spec, (path) => styleByPath.get(path) ?? null, stackingMoved);
     totalStackingMoved += stackingMoved.length;

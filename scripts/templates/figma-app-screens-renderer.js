@@ -180,12 +180,13 @@ const applyPaint = (node, spec) => {
     }
   }
   if (spec.e) {
-    node.effects = spec.e.map(([inset, hex, x, y, blur, spread]) => {
+    // 7번째 칸은 CSS `mix-blend-mode`(가상 요소 그림자) — Figma 섞기 이름으로(overlay → OVERLAY, soft-light → SOFT_LIGHT).
+    node.effects = spec.e.map(([inset, hex, x, y, blur, spread, blend]) => {
       const parse = (offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255;
       return {
         type: inset ? "INNER_SHADOW" : "DROP_SHADOW",
         color: { r: parse(0), g: parse(2), b: parse(4), a: hex.length >= 8 ? parse(6) : 1 },
-        offset: { x, y }, radius: blur, spread, visible: true, blendMode: "NORMAL",
+        offset: { x, y }, radius: blur, spread, visible: true, blendMode: blend ? String(blend).toUpperCase().replace(/-/g, "_") : "NORMAL",
       };
     });
   }
@@ -512,6 +513,8 @@ const buildNode = (spec, parent) => {
     if (isText) node.textAutoResize = (h === "HUG" && v === "HUG") ? "WIDTH_AND_HEIGHT" : "HEIGHT";
     // 줄바꿈 없이 잘리는 글자(`white-space: nowrap` + `overflow: hidden`) — 한 줄에서 말줄임으로 자른다.
     if (isText && spec.tt && h !== "HUG") { try { node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
+    // **제품에서 실제로 잘린 내용 맞춤 글자(`tt` 2, 2026-10-12 오후)** — 측정 폭을 최대 폭으로 두고 끝을 자른다(영상 노드 모델 칩 「Seedance 2.0 …」).
+    if (isText && spec.tt === 2 && h === "HUG") { try { node.maxWidth = Math.max(0.01, spec.r[0]); node.textTruncation = "ENDING"; node.maxLines = 1; } catch (error) {} }
   }
 
   if (spec.mh) { try { node.minHeight = spec.mh; } catch (error) {} }
@@ -573,10 +576,30 @@ const buildNode = (spec, parent) => {
       // 이 왼쪽으로 밀려 "edeem a coupon" 으로 잘렸다(스크린샷으로 확인).
       // 면을 가득 채우고 세로 가운데로 맞춰 블록 버튼과 같은 결과를 만든다.
       label.textAutoResize = "NONE";
-      label.resize(Math.max(0.01, node.width), Math.max(0.01, node.height));
+      // 면의 안쪽 여백(`ti`, 입력칸의 왼쪽 아이콘 자리 등)만큼 들인다(2026-10-12 오후).
+      const [insetTop, insetRight, insetBottom, insetLeft] = spec.ti || [0, 0, 0, 0];
+      label.resize(Math.max(0.01, node.width - insetLeft - insetRight), Math.max(0.01, node.height - insetTop - insetBottom));
+      label.x = insetLeft; label.y = insetTop;
       label.textAlignVertical = "CENTER";
       try { label.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
     }
+  }
+
+  // **점 격자(`dg`, 2026-10-12 오후)** — 자산 타일(줌 1 기준 24 칸 가운데 점)을 PATTERN 칠로 깐 사각형을 배경 틀 안에 넣는다. 타일 점 중심(칸의
+  // 가운데)이 생성기가 준 위상에 오도록 한 칸 더 왼쪽 · 위에서 시작하고, 틀이 자른다(생성기 attachDotGrid 주석).
+  if (spec.dg) {
+    const [zoom, centerX, centerY, tileId] = spec.dg;
+    const gap = 24 * zoom;
+    const dots = figma.createRectangle();
+    dots.name = "canvas dots";
+    node.appendChild(dots);
+    try { dots.layoutPositioning = "ABSOLUTE"; } catch (error) {}
+    const left = centerX - gap / 2 - gap, top = centerY - gap / 2 - gap;
+    dots.x = left; dots.y = top;
+    dots.resize(Math.max(0.01, node.width - left + gap), Math.max(0.01, node.height - top + gap));
+    dots.fills = [{ type: "PATTERN", sourceNodeId: tileId, tileType: "RECTANGULAR", scalingFactor: zoom, spacing: { x: 0, y: 0 }, horizontalAlignment: "START", visible: true, opacity: 1, blendMode: "NORMAL" }];
+    try { dots.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
+    node.clipsContent = true;
   }
 
   // 헤어라인 b[5]: 박스 밖 선(레이아웃 뒤에만 걸린다)

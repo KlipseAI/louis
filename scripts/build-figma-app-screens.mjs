@@ -179,8 +179,6 @@ const assetComponentByName = (name) => {
   if (hits.length > 1) hits = hits.filter((entry) => /^C · icon\//.test(entry.section ?? ""));
   return hits.length === 1 ? { id: hits[0].id, name: hits[0].name } : null;
 };
-const canvasDotTile = () => assetComponentByName("pattern/canvas-dot")
-  ?? fail("자산 컴포넌트 pattern/canvas-dot 가 figma/live-assets.json 에 없습니다 — 90 · 자산 「V · pattern/」 에 세운 뒤 figma-live-assets-probe 로 다시 뜨세요");
 const attachMaskIcons = (node, styleOf, unmapped) => {
   if (node.instance) return;
   const mask = styleOf(node.path)?.maskImage;
@@ -384,7 +382,7 @@ const onePixelColor = (src) => {
 };
 // **노드캔버스 점 격자(2026-10-12 오후).** 제품 배경은 React Flow `<Background variant=Dots gap={24} size={2}>`(CanvasBackground.tsx)의
 // `<pattern>` 채움인데, 측정은 무늬를 담지 못해 보드가 바탕색 면만 그렸다(소유자 캔버스 대조). 무늬는 `90 · 자산` 「V · pattern/」 의
-// `pattern/canvas-dot`(줌 1 기준 24 칸 가운데 지름 2 점, color/canvas-dot)을 PATTERN 칠로 깔아 옮긴다. 줌 · 위상은 같은 화면의 React Flow
+// `pattern/canvas-dot`(줌 1 기준 24 칸 가운데 지름 2 점, color/canvas-dot)과 같은 모양의 타일을 깔아 옮긴다(렌더러 `dg` 주석 — PATTERN 칠은 use_figma 가 받지 않는다). 줌 · 위상은 같은 화면의 React Flow
 // 뷰포트 변환(`matrix(z, 0, 0, z, tx, ty)`)에서 얻는다 — @xyflow/react BackgroundComponent 가 점 중심을 x = (tx mod G) − G/2 − 1 + s/2 + kG
 // (G = 24z, s = 2z) 에 둔다. 렌더러는 그 위상에 맞춘 무늬 사각형을 배경 틀(잘림) 안에 G 만큼 넉넉히 깐다.
 const CANVAS_DOT_GAP = 24; // CanvasBackground.tsx DEFAULT_CANVAS_DOT_GAP
@@ -1027,8 +1025,8 @@ const paintKeys = (node) => {
     ...(paint.opacity != null ? { a: round(paint.opacity) } : {}),
     // 자동 배치 없는 글자 상자의 안쪽 여백 [위, 오른쪽, 아래, 왼쪽](figma-tree-spec textInset) — 렌더러가 글자를 그만큼 들인다.
     ...(node.textInset ? { ti: node.textInset.map(round) } : {}),
-    // 점 격자 [줌, 점 중심 x 위상, y 위상, 타일 컴포넌트 id](attachDotGrid) — 렌더러가 PATTERN 칠로 깐다.
-    ...(node.dotGrid ? { dg: [round(node.dotGrid.zoom * 1000) / 1000, round(node.dotGrid.centerX), round(node.dotGrid.centerY), canvasDotTile().id] } : {}),
+    // 점 격자 [줌, 점 중심 x 위상, y 위상](attachDotGrid) — 렌더러가 점 타일 그림을 TILE 로 깐다(자산 pattern/canvas-dot 과 같은 모양).
+    ...(node.dotGrid ? { dg: [Math.round(node.dotGrid.zoom * 100000) / 100000, round(node.dotGrid.centerX), round(node.dotGrid.centerY)] } : {}),
     // 뒤 흐림 px(figma-tree-spec backdropBlur) — 렌더러가 BACKGROUND_BLUR 로 건다.
     ...(paint.backdropBlur ? { bb: round(paint.backdropBlur) } : {}),
   };

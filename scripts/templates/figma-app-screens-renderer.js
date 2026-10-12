@@ -324,6 +324,9 @@ const applyTypography = (node, spec) => {
 // (`auto 1fr auto` · `0.8fr 1.2fr` · `18px 1fr`, 계획의 12번째 칸)을 레이아웃 설정 때 걸어, 상단 바 `nav`(`auto 1fr auto`)가 셋으로 똑같이
 // 나뉘어 제목이 x 480 · 버튼이 x 1300 에 섰다(편집기 · 하이라이트 상단 바 — 제품은 56 · 1729). 열도 여기서 건다. 못 건 열은 결과의
 // `gridTrackFailures` 로 드러낸다.
+// 노드캔버스 점 격자 타일(4배 96×96, 가운데 지름 8 점, 88,92,99 · 0.28) — 위 `dg` 주석.
+const CANVAS_DOT_TILE_PNG = "iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAz0lEQVR42u3WvQ2AIBRGURZwGGagYAWK17H/DjaYUJjY+BPiKW5j+Z0IpBY96buMAACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAOgHAFuLnlv0OsrjG4CXxi/T+EdlRYQVAfLJ+POfAODh6kUAADiCALiEPUMBCAAAAQAgAAAEAIAAABAAAAIAQAAACAAAAEYAAEAAAAgAAAEAIAAABACAAAAQAAACAEAAAAgAAAEAoFvbAUrWTF54yI6SAAAAAElFTkSuQmCC";
+
 const settleGridRows = (node, spec) => {
   if (node.type !== "FRAME" || node.layoutMode !== "GRID" || !spec.l || !spec.l[9]) return;
   if (Array.isArray(spec.l[11])) {
@@ -585,11 +588,14 @@ const buildNode = (spec, parent) => {
     }
   }
 
-  // **점 격자(`dg`, 2026-10-12 오후)** — 자산 타일(줌 1 기준 24 칸 가운데 점)을 PATTERN 칠로 깐 사각형을 배경 틀 안에 넣는다. 타일 점 중심(칸의
-  // 가운데)이 생성기가 준 위상에 오도록 한 칸 더 왼쪽 · 위에서 시작하고, 틀이 자른다(생성기 attachDotGrid 주석).
+  // **점 격자(`dg`, 2026-10-12 오후)** — 점 하나짜리 타일 그림을 TILE 로 깐 사각형을 배경 틀 안에 넣는다. 타일 점 중심(칸의 가운데)이 생성기가
+  // 준 위상에 오도록 한 칸 더 왼쪽 · 위에서 시작하고, 틀이 자른다(생성기 attachDotGrid 주석). PATTERN 칠(자산 pattern/canvas-dot)이 맞는 표현이지만
+  // use_figma 경로의 fills 검사가 PATTERN 을 받지 않아(2026-10-12 실측 — 「Expected 'SOLID' | … | 'IMAGE' | 'VIDEO'」) 같은 모양의 PNG 를 쓴다:
+  // 4배 해상도 96 칸 가운데 지름 8 점, 색 color/canvas-dot 라이트 값(palette-gray-600 28% = 88,92,99 · 0.28). 다크 보드에서는 색이 따라가지 않는다.
   if (spec.dg) {
-    const [zoom, centerX, centerY, tileId] = spec.dg;
+    const [zoom, centerX, centerY] = spec.dg;
     const gap = 24 * zoom;
+    const tile = figma.createImage(figma.base64Decode(CANVAS_DOT_TILE_PNG));
     const dots = figma.createRectangle();
     dots.name = "canvas dots";
     node.appendChild(dots);
@@ -597,7 +603,7 @@ const buildNode = (spec, parent) => {
     const left = centerX - gap / 2 - gap, top = centerY - gap / 2 - gap;
     dots.x = left; dots.y = top;
     dots.resize(Math.max(0.01, node.width - left + gap), Math.max(0.01, node.height - top + gap));
-    dots.fills = [{ type: "PATTERN", sourceNodeId: tileId, tileType: "RECTANGULAR", scalingFactor: zoom, spacing: { x: 0, y: 0 }, horizontalAlignment: "START", visible: true, opacity: 1, blendMode: "NORMAL" }];
+    dots.fills = [{ type: "IMAGE", imageHash: tile.hash, scaleMode: "TILE", scalingFactor: zoom / 4 }];
     try { dots.constraints = { horizontal: "STRETCH", vertical: "STRETCH" }; } catch (error) {}
     node.clipsContent = true;
   }

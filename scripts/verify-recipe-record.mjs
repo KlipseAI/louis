@@ -208,11 +208,11 @@ const RECIPES = [
     component: "node-chrome-button",
     recipe: "packages/css/src/component/node-chrome-button.css",
     geometry: [
-      [".louis-node-chrome-button", "inline-size", "neutral/Default", "width"],
-      [".louis-node-chrome-button", "block-size", "neutral/Default", "height"],
-      [".louis-node-chrome-button", "border-radius", "neutral/Default", "radius"],
-      [".louis-node-chrome-button__glyph", "inline-size", "neutral/Default", "glyphSize"],
-      [".louis-node-chrome-button__glyph", "block-size", "neutral/Default", "glyphSize"],
+      [".louis-node-chrome-button", "inline-size", "md/neutral/Default", "width"],
+      [".louis-node-chrome-button", "block-size", "md/neutral/Default", "height"],
+      [".louis-node-chrome-button", "border-radius", "md/neutral/Default", "radius"],
+      [".louis-node-chrome-button__glyph", "inline-size", "md/neutral/Default", "glyphSize"],
+      [".louis-node-chrome-button__glyph", "block-size", "md/neutral/Default", "glyphSize"],
     ],
     // **면이 없는 것이 이 버튼의 정체다.** 기본에 면을 하나 얹으면 IconButton 의 ghost 와
     // 구분이 사라지고, 그 순간 노드 크롬 축을 따로 두는 이유도 사라진다.
@@ -508,13 +508,13 @@ const RECIPES = [
     component: "node-generate-button",
     recipe: "packages/css/src/component/node-shell.css",
     geometry: [
-      [".louis-node-shell__generate-button", "block-size", "Default", "height"],
-      [".louis-node-shell__generate-button", "min-inline-size", "Default", "minWidth"],
-      [".louis-node-shell__generate-button", "padding-inline", "Default", "paddingInline"],
-      [".louis-node-shell__generate-button", "border-radius", "Default", "radius"],
-      [".louis-node-shell__generate-content", "gap", "Default", "gap"],
-      [".louis-node-shell__generate-icon", "inline-size", "Default", "iconSize"],
-      [".louis-node-shell__generate-icon", "block-size", "Default", "iconSize"],
+      [".louis-node-shell__generate-button", "block-size", "Credit/Default", "height"],
+      [".louis-node-shell__generate-button", "min-inline-size", "Credit/Default", "minWidth"],
+      [".louis-node-shell__generate-button", "padding-inline", "Credit/Default", "paddingInline"],
+      [".louis-node-shell__generate-button", "border-radius", "Credit/Default", "radius"],
+      [".louis-node-shell__generate-content", "gap", "Credit/Default", "gap"],
+      [".louis-node-shell__generate-icon", "inline-size", "Credit/Default", "iconSize"],
+      [".louis-node-shell__generate-icon", "block-size", "Credit/Default", "iconSize"],
     ],
     surfaces: [
       [".louis-node-shell__generate-button", "var(--louis-color-node-generate-surface-edge)"],

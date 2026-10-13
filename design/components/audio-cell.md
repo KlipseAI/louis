@@ -50,7 +50,7 @@ TTS 노드와 BGM 노드가 결과 오디오를 카드 위쪽 미디어 띠에 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/audio-cell.css`. React 표면은 없다 — 소비처(TTS · BGM 노드)가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | 부품이 아직 없다 |
+| Figma         | `partial`      | AudioCell — State(Ready · Playing · Pending), TEXT Current · Duration. 진행률은 40% 정지 그림이다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 
@@ -82,7 +82,7 @@ TTS 노드와 BGM 노드가 결과 오디오를 카드 위쪽 미디어 띠에 �
 - 이름은 「재생 위치」다. 「길이」는 전체 길이를 말하는 이름이라 조작 대상과 다르다.
 - 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)). 강제 색에서만 `base.css` 가 링을 그린다.
 - 보이는 막대는 4 이지만 맞힘 영역은 24 다(`::after`).
-- **Figma 부품은 아직 없다.** 세울 때는 `AudioCell`(State `Ready` · `Playing` · `Pending`)이다.
+- **Figma** 는 `AudioCell`(State `Ready` · `Playing` · `Pending`)이다.
 
 ## Acceptance tests
 

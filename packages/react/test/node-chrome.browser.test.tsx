@@ -41,9 +41,9 @@ const shell = (key: string): number =>
   sizeOf(shellSpec["video/false"] as Record<string, unknown>, key, "node-shell.sizes.video/false");
 const button = (key: string): number =>
   sizeOf(
-    buttonSpec["neutral/Default"] as Record<string, unknown>,
+    buttonSpec["md/neutral/Default"] as Record<string, unknown>,
     key,
-    "node-chrome-button.sizes.neutral/Default",
+    "node-chrome-button.sizes.md/neutral/Default",
   );
 const handle = (key: string): number =>
   sizeOf(handleSpec.image as Record<string, unknown>, key, "node-side-handle.sizes.image");
@@ -405,7 +405,7 @@ test("비활성 디스크가 채널별 비활성 토큰을 문다", async () => 
 // 입력판 오른쪽 끝의 별 + 크레딧 알약. 기록은 `node-generate-button`(레시피 선언)이고 Figma 는 NodeGenerateButton 이다.
 const generateSpec = measured.components["node-generate-button"].sizes;
 const generate = (key: string): number =>
-  sizeOf(generateSpec.Default as Record<string, unknown>, key, "node-generate-button.sizes.Default");
+  sizeOf(generateSpec["Credit/Default"] as Record<string, unknown>, key, "node-generate-button.sizes.Credit/Default");
 
 function GenerateButton({ disabled = false, testId }: { readonly disabled?: boolean; readonly testId: string }): JSX.Element {
   return (

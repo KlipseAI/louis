@@ -16837,7 +16837,10 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 - **Node Chrome Button `data-size="sm"`**(28 복사 버튼 · 복사됨 교차)과 **Node Chip `data-variant="ghost"`**(예약 트리거).
 - 새 토큰 21(색 20 · `node-chrome-btn-h-sm`), Figma 변수도 세웠다. 대비 미달은 고쳐서 올렸다(복사 잉크 · 응답 글 · 생성 중 문구 · 인스타 채널 글 ·
   크기 손잡이 그립) — 갈림은 각 문서 Known deviations. 저작 게이트가 시맨틱 `color-gray-000-alpha-*` 를 원시로 잘못 막던 것을 풀었다.
-- Figma 부품과 실브라우저 시험은 다음 묶음이다.
+- **Figma 부품(같은 날 뒤).** 새 세트 일곱 — `MediaSlot` · `AudioCell` · `NodeCountRow` · `NodeResponse`(Layout 넷) · `NodeMedia` ·
+  `NodeChannel` · `NodeResizeHandle` — 을 「7 · 캔버스 · 에디터」에 세우고, 기존 세트 셋에 축을 열었다: `NodeGenerateButton` Content(Credit · Label),
+  `NodeChromeButton` Size(md · sm — sm 은 neutral 만), `NodeChip` Variant(default · ghost). 계약 · 채취 명세 · 기록 키를 맞췄다. 새 세트의 기하 계약과
+  실브라우저 시험은 다음 묶음이다.
 
 #### 2026-10-13 (244) — 제품에 보이는 부품은 LOUIS 부품으로(DS-D-0084) · 노드 생성 버튼
 

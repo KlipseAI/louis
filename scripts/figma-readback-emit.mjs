@@ -241,10 +241,10 @@ const CAPTURE = {
   // 「기하가 snapshot 에 없습니다」가 된다. MenuPanel 이 같은 이유로 같은 키를 쓴다.
   "MenuSeparator": {"key":{"name":"panel"}},
   "GnbMenuItem": {"key":{"by":["Surface","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Label":["width","height","fontSize","lineHeightPercent"]}},
-  "NodeChip": {"key":{"by":["Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
+  "NodeChip": {"key":{"by":["Variant","Shape"]},"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"],"Label":["width","height","fontSize"]},"effects":["self"]},
   // 노드 크롬 버튼 — 면이 상태로 갈리고 Disabled 는 **불투명도**로만 갈린다. 그래서 기본 필드에
   // 없는 `opacity` 를 명시로 넣는다(GnbMenuItem 과 같은 이유).
-  "NodeChromeButton": {"key":{"by":["Tone","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
+  "NodeChromeButton": {"key":{"by":["Size","Tone","State"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight","opacity"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
   // 노드 셸 — 채색이 갈리는 것은 카드 stroke 하나뿐이라 stroke 역할은 `Card` 다(`self` 아님).
   // 헤더는 카드 **바깥**에 있고 컨테이너 gap 이 그 사이를 정한다. `Actions` 의 `children` 은 감춘 레이어까지 센다 —
   // 도움말 칸(`Help`, BOOLEAN `HelpButton` 기본 꺼짐, 2026-10-08)이 감춘 채로 셋째 자식이고, 감춘 칸의 치수는 visit 가 건너뛴다.
@@ -256,10 +256,18 @@ const CAPTURE = {
   "NodeComposer": {"key":{"name":"composer"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Field":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"Footer":["itemSpacing","layoutMode"],"FooterControls":["height","itemSpacing","layoutMode"],"Meta":["height","itemSpacing","layoutMode"]},"effects":["Field"]},
   // 입력판 오류 배너(2026-10-08). 키는 `error` — 기록 node-composer 의 두 칸 중 하나다. 최소 높이 28 을 `minHeight` 로 담고
   // 실제 높이(글자 한 줄 18 + 여백 16 = 34)는 담지 않는다. 글자 크기는 레시피가 선언하지 않아(상속) 담지 않는다.
-  // 생성 버튼(2026-10-13, DS-D-0084) — 입력판 Generate 자리의 정본. 키는 `State`(Default · Disabled · Loading). 폭은 후행 글자가 정해
+  // 생성 버튼(2026-10-13, DS-D-0084) — 입력판 Generate 자리의 정본. 키는 `Content`(Credit · Label) × `State`(Default · Disabled · Loading). 폭은 후행 글자가 정해
   // 담지 않고 최소 폭 32 를 `minWidth` 로 담는다. 안쪽 빛(overlay)은 루트의 INNER_SHADOW 다. Disabled 는 불투명도로만 갈린다.
   // `Content`(별 + 후행 슬롯)는 Loading 에 없다 — 그 칸에는 Spinner 인스턴스가 선다.
-  "NodeGenerateButton": {"key":{"by":["State"]},"fields":["height","minWidth","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Content":["itemSpacing"],"Icon":["width","height"]},"effects":["self"]},
+  "NodeGenerateButton": {"key":{"by":["Content","State"]},"fields":["height","minWidth","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode","strokeWeight","opacity"],"parts":{"Content":["itemSpacing"],"Icon":["width","height"]},"effects":["self"]},
+  // 노드 캔버스 하위 부품(2026-10-13, DS-D-0084) — 축 키만 담는 첫 채취다. 기하 계약은 기록이 서면 넓힌다.
+  "NodeCountRow": {"key":{"name":"row"},"fields":["height","itemSpacing","layoutMode"]},
+  "NodeResponse": {"key":{"by":["Layout"]},"fields":["width","height","layoutMode"]},
+  "NodeMedia": {"key":{"by":["State"]},"fields":["width","height","layoutMode"]},
+  "NodeChannel": {"key":{"by":["Size"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"]},
+  "NodeResizeHandle": {"key":{"by":["State"]},"fields":["height","paddingInline","paddingInlineEnd","layoutMode"],"outsideParts":["Hint"]},
+  "MediaSlot": {"key":{"by":["Size","Layout","State"]},"fields":["width","height","cornerRadius","strokeWeight"]},
+  "AudioCell": {"key":{"by":["State"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode"],"effects":["self"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

@@ -51,7 +51,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/media-slot.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | 부품이 아직 없다 |
+| Figma         | `partial`      | MediaSlot — Size(md · video · fill) × Layout(base · empty) × State, BOOLEAN RemoveButton. 기하 계약 · 실브라우저 시험은 아직이다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

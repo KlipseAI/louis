@@ -3367,13 +3367,13 @@
       "$doc": "design/components/node-chrome-button.md",
       "$source": "제품 apps/web/components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx (앵커 5a67d692)",
       "$why": "제품이 정본이고 LOUIS recipe 가 없다. 값은 앵커 소스에서 읽었다 — 이 버튼은 캔버스에 노드가 있어야 그려져 라우트 하네스가 닿지 못한다($noProductRender). 칸마다 어느 선언에서 온 값인지를 $ 사유가 갖는다.",
-      "$sizesNote": "키가 `{Tone}/{State}` 복합이고 여섯 칸의 **기하가 전부 같다.** 갈리는 것은 면(호버 틴트)과 불투명도(비활성) 둘뿐이다 — 앞은 $states 가, 뒤는 계약의 opacity 블록이 갖는다.",
+      "$sizesNote": "키가 `{Size}/{Tone}/{State}` 복합이다(2026-10-13 Size 축 — sm 은 neutral 에만 선다). md 여섯 칸의 기하는 전부 같고 sm 셋은 28 · 반경 8 · 글리프 14 다. 갈리는 것은 면(호버 틴트)과 불투명도(비활성)다 — 앞은 $states 가, 뒤는 계약의 opacity 블록이 소유한다.",
       "$whyNoActive": "제품의 `:active` 는 `transform: scale(0.94)` 다. 변형으로 그리려면 프레임을 0.94 배로 줄여야 하는데 그러면 기하 계약이 「눌린 크기」를 정본처럼 말하게 된다. 프레스는 크기가 아니라 **동작**이므로 축을 열지 않고 규범 문서가 값을 갖는다.",
       "$whyNoSuccess": "`NodePromptInputCopyButton` 의 복사→체크 성공 상태는 이 세트에 없다. 그 버튼은 28 정사각이라 크기 축을 하나 더 열어야 하고, `Success` 는 `figma-component-authoring.md` §2 의 닫힌 `State` 어휘(Default·Hover·Active·Focus·Disabled)에 없어 규범을 먼저 고쳐야 한다. 둘 다 이 회차의 범위 밖이라 열지 않고 결손으로 남긴다.",
       "$divergence": "호버 틴트의 알파가 다크에서 갈린다. 제품은 중립 호버를 라이트 검정 8% · 다크 흰 12% 로, 삭제 호버를 라이트 8% · 다크 12% 로 칠한다. Figma 는 `color/accent-ghost-hover`(양쪽 8%)와 `color/red-alpha/08`(양쪽 8%)에 물렸다 — 라이트는 정확히 같고 다크만 4%p 얕다. 12/8 쌍을 담을 변수가 없고 새 변수는 토큰 재생성을 요구한다.",
       "$opacityNote": "**불투명도는 이 기록이 갖지 않는다.** 비활성의 0.35 는 `verify-figma-parity.mjs` 의 COMPONENT_CONTRACTS 에 있는 `opacity` 블록이 소유하고 되읽기와 직접 대조된다 — GnbMenuItem 과 같은 규약이다. 여기에 같은 수를 두면 정본이 둘이 되고, 실제로 그렇게 두었을 때 이 기록의 값을 바꿔도 게이트가 통과하는 것을 음성 시험으로 확인했다. 제품 근거는 `NodeHeaderActions.tsx` 의 `disabled:opacity-35` 이고 그 문장은 design/components/node-chrome-button.md 의 States 표가 갖는다.",
       "sizes": {
-        "neutral/Default": {
+        "md/neutral/Default": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3391,7 +3391,7 @@
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         },
-        "neutral/Hover": {
+        "md/neutral/Hover": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3409,7 +3409,7 @@
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         },
-        "neutral/Disabled": {
+        "md/neutral/Disabled": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3427,7 +3427,7 @@
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         },
-        "danger/Default": {
+        "md/danger/Default": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3445,7 +3445,7 @@
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         },
-        "danger/Hover": {
+        "md/danger/Hover": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3463,7 +3463,7 @@
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         },
-        "danger/Disabled": {
+        "md/danger/Disabled": {
           "height": 32,
           "$height": "`--node-chrome-btn-h` 32. globals.css:536 이 노드 크롬 버튼 계열의 SSOT 로 세운 값이다.",
           "width": 32,
@@ -3478,6 +3478,60 @@
           "$gap": "0. 자식이 글리프 하나뿐이라 간격이 나타나지 않지만 오토레이아웃은 값을 갖는다.",
           "glyphSize": 16,
           "$glyphSize": "`HEADER_GLYPH_PX = 16`. 32 버튼 안의 16 글리프가 한 쌍이라고 소스 주석이 적는다.",
+          "borderWidth": 0,
+          "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
+        },
+        "sm/neutral/Default": {
+          "height": 28,
+          "$height": "node-chrome-btn-h-sm 28. 레시피 `[data-size=\"sm\"] { block-size }` — 제품 `h-14`(NodePromptInputCopyButton.tsx:22, 격자 2px).",
+          "width": 28,
+          "$width": "28. 정사각 — 제품 `w-14`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 `rounded-8`(:23). md 의 노드 크롬 반경(12)이 아니다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. `p-0`.",
+          "paddingInline": 0,
+          "$paddingInline": "0. `p-0`. 정사각이라 좌우 여백이 없다.",
+          "gap": 0,
+          "$gap": "0. 자식이 글리프 하나뿐이라 간격이 나타나지 않지만 오토레이아웃은 값을 갖는다.",
+          "glyphSize": 14,
+          "$glyphSize": "14. 제품 `COPY_GLYPH_PX`(:8). 아이콘 사다리(16 · 20 · 24) 밖.",
+          "borderWidth": 0,
+          "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
+        },
+        "sm/neutral/Hover": {
+          "height": 28,
+          "$height": "node-chrome-btn-h-sm 28. 레시피 `[data-size=\"sm\"] { block-size }` — 제품 `h-14`(NodePromptInputCopyButton.tsx:22, 격자 2px).",
+          "width": 28,
+          "$width": "28. 정사각 — 제품 `w-14`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 `rounded-8`(:23). md 의 노드 크롬 반경(12)이 아니다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. `p-0`.",
+          "paddingInline": 0,
+          "$paddingInline": "0. `p-0`. 정사각이라 좌우 여백이 없다.",
+          "gap": 0,
+          "$gap": "0. 자식이 글리프 하나뿐이라 간격이 나타나지 않지만 오토레이아웃은 값을 갖는다.",
+          "glyphSize": 14,
+          "$glyphSize": "14. 제품 `COPY_GLYPH_PX`(:8). 아이콘 사다리(16 · 20 · 24) 밖.",
+          "borderWidth": 0,
+          "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
+        },
+        "sm/neutral/Disabled": {
+          "height": 28,
+          "$height": "node-chrome-btn-h-sm 28. 레시피 `[data-size=\"sm\"] { block-size }` — 제품 `h-14`(NodePromptInputCopyButton.tsx:22, 격자 2px).",
+          "width": 28,
+          "$width": "28. 정사각 — 제품 `w-14`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 `rounded-8`(:23). md 의 노드 크롬 반경(12)이 아니다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. `p-0`.",
+          "paddingInline": 0,
+          "$paddingInline": "0. `p-0`. 정사각이라 좌우 여백이 없다.",
+          "gap": 0,
+          "$gap": "0. 자식이 글리프 하나뿐이라 간격이 나타나지 않지만 오토레이아웃은 값을 갖는다.",
+          "glyphSize": 14,
+          "$glyphSize": "14. 제품 `COPY_GLYPH_PX`(:8). 아이콘 사다리(16 · 20 · 24) 밖.",
           "borderWidth": 0,
           "$borderWidth": "0. `border-0`. 면은 투명이고 호버에서만 틴트가 뜬다 — 이 버튼에는 테두리가 없는 것이 계약이다."
         }
@@ -4659,9 +4713,9 @@
       "$doc": "design/components/node-shell.md",
       "$source": "packages/css/src/component/node-shell.css",
       "$note": "노드 생성 버튼(2026-10-13, DS-D-0084) — Node Shell 의 하위 부품 `.louis-node-shell__generate-button`. 값은 브라우저 실측이 아니라 레시피 선언이다(입력판과 같은 처지 — React 표면 없음). 출처는 제품 NodePromptGenerateButton.tsx 의 CHROME · ROOT · CONTENT · OVERLAY_STROKE 와 소비처의 PROMPT_SUBMIT_FAB_DIMMED.",
-      "$keyRule": "키가 `State` 다 — Default · Disabled(불투명도 0.35, 계약의 opacity 블록이 소유) · Loading(별 · 후행 슬롯 대신 Spinner sm). 기하는 셋이 같다.",
+      "$keyRule": "키가 `Content/State` 다 — Content 는 Credit(별 + 크레딧 · 캡션 후행 슬롯) · Label(「편집」 같은 글자 버튼, 좌우 14 · 간격 4), State 는 Default · Disabled(불투명도 0.35, 계약의 opacity 블록이 소유) · Loading(Spinner sm). 글자 버튼의 Loading 은 흐리지 않는다(EditNode 처리 중 계약).",
       "sizes": {
-        "Default": {
+        "Credit/Default": {
           "height": 32,
           "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
           "minWidth": 32,
@@ -4677,7 +4731,23 @@
           "iconSize": 14,
           "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
         },
-        "Disabled": {
+        "Label/Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 글자 버튼 레시피 `[data-content=\"label\"] { padding-inline: 14px }` — 제품 `px-7`(EditNode.tsx:517 · InstagramNode.tsx:302 · YoutubeNode.tsx:621). 간격 사다리 밖.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`.",
+          "gap": 4,
+          "$gap": "space-control-xs 4. 글자 버튼의 글리프와 글자 사이 — 제품 `gap-2`(EditNode.tsx:516).",
+          "iconSize": 14,
+          "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
+        },
+        "Credit/Disabled": {
           "height": 32,
           "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
           "minWidth": 32,
@@ -4693,7 +4763,23 @@
           "iconSize": 14,
           "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
         },
-        "Loading": {
+        "Label/Disabled": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 글자 버튼 레시피 `[data-content=\"label\"] { padding-inline: 14px }` — 제품 `px-7`(EditNode.tsx:517 · InstagramNode.tsx:302 · YoutubeNode.tsx:621). 간격 사다리 밖.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`.",
+          "gap": 4,
+          "$gap": "space-control-xs 4. 글자 버튼의 글리프와 글자 사이 — 제품 `gap-2`(EditNode.tsx:516).",
+          "iconSize": 14,
+          "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
+        },
+        "Credit/Loading": {
           "height": 32,
           "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
           "minWidth": 32,
@@ -4702,6 +4788,18 @@
           "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
           "paddingInline": 8,
           "$paddingInline": "space-control-sm 8. 레시피 `padding-inline` — 제품 `px-4`.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`."
+        },
+        "Label/Loading": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 글자 버튼 레시피 `[data-content=\"label\"] { padding-inline: 14px }` — 제품 `px-7`(EditNode.tsx:517 · InstagramNode.tsx:302 · YoutubeNode.tsx:621). 간격 사다리 밖.",
           "radius": 12,
           "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`."
         }

@@ -769,6 +769,10 @@ const COMPONENT_CONTRACTS = [
     figmaAhead: "React 표면 없음 — packages/css/src/component/node-chip.css 가 정본이다.",
     variantProperties: {},
     figmaOnlyProperties: {
+      Variant: {
+        options: ["default", "ghost"],
+        reason: "코드의 `data-variant` 다(없음 = default, `ghost`, 2026-10-13 DS-D-0084). ghost 는 면 · 헤어라인이 없는 YouTube 예약 트리거이고 높이 28 · 간격 6 · 글자 caption medium · 비활성 0.48 로 상자와 칠이 다시 쓰인다.",
+      },
       Shape: {
         options: ["default", "square"],
         reason: "square 는 폭과 좌우 패딩을 함께 바꾼다(32 고정 · 패딩 0). 기하가 갈리므로 boolean 슬롯이 아니라 축이다.",
@@ -3329,6 +3333,10 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     iconSlots: ["Glyph"],
     figmaOnlyProperties: {
+      Size: {
+        options: ["md", "sm"],
+        reason: "코드의 `data-size` 다(없음 = md, `sm`, 2026-10-13 DS-D-0084). sm 은 글 입력칸 · 응답 칸의 28 복사 버튼이고 반경 8 · 글리프 14 로 기하가 다시 쓰인다. 중립 톤에만 선다(희소 세트 — 삭제 톤의 28 버튼은 제품에 없다).",
+      },
       Glyph: {
         type: "INSTANCE_SWAP",
         reason:
@@ -3348,12 +3356,15 @@ const COMPONENT_CONTRACTS = [
     // 비활성이 **면이 아니라 불투명도로만** 갈린다. 되읽기에 opacity 가 있으므로 여섯 칸을
     // 전부 선언해야 한다 — 하나라도 빠지면 「되읽기에 불투명도가 있는데 계약에 없습니다」다.
     opacity: {
-      "neutral/Default": 1,
-      "neutral/Hover": 1,
-      "neutral/Disabled": 0.35,
-      "danger/Default": 1,
-      "danger/Hover": 1,
-      "danger/Disabled": 0.35,
+      "md/neutral/Default": 1,
+      "md/neutral/Hover": 1,
+      "md/neutral/Disabled": 0.35,
+      "md/danger/Default": 1,
+      "md/danger/Hover": 1,
+      "md/danger/Disabled": 0.35,
+      "sm/neutral/Default": 1,
+      "sm/neutral/Hover": 1,
+      "sm/neutral/Disabled": 0.35,
     },
     geometry: {
       measuredId: "node-chrome-button",
@@ -3543,9 +3554,18 @@ const COMPONENT_CONTRACTS = [
         type: "TEXT",
         reason: "별 오른쪽 후행 슬롯의 글자 — 예상 크레딧 숫자나 「Regenerate」 같은 캡션이다. 코드에서는 `.louis-node-shell__generate-trailing` 의 텍스트이고 Loading 에는 없다.",
       },
+      Content: {
+        options: ["Credit", "Label"],
+        reason:
+          "코드의 `data-content` 다(없음 = Credit, `label`). Credit 은 별 + 후행 슬롯(크레딧 · 캡션), Label 은 「편집」 · 「업로드」 같은 글자 버튼이고 좌우 14 · 간격 4 · 흰 글자로 상자와 내용이 다시 쓰인다. 코드에서는 prop 이 아니라 마크업 속성이라 계약 축이 Figma 에만 있다.",
+      },
+      Label: {
+        type: "TEXT",
+        reason: "글자 버튼의 글자(`.louis-node-shell__generate-label`). Content=Label 에만 있다.",
+      },
     },
-    // 비활성이 불투명도로만 갈린다. 되읽기에 opacity 가 있으므로 세 칸을 다 선언한다.
-    opacity: { Default: 1, Disabled: 0.35, Loading: 1 },
+    // 비활성이 불투명도로만 갈린다. 되읽기에 opacity 가 있으므로 여섯 칸을 다 선언한다. 글자 버튼의 Loading 은 흐리지 않는다.
+    opacity: { "Credit/Default": 1, "Credit/Disabled": 0.35, "Credit/Loading": 1, "Label/Default": 1, "Label/Disabled": 0.35, "Label/Loading": 1 },
     geometry: {
       measuredId: "node-generate-button",
       // 폭은 후행 글자가 정한다 — 최소 폭만 맞댄다.
@@ -3566,6 +3586,97 @@ const COMPONENT_CONTRACTS = [
         Content: { fields: { itemSpacing: "gap" }, optional: true },
         Icon: { fields: { width: "iconSize", height: "iconSize" }, optional: true },
       },
+    },
+  },
+  {
+    id: "media-slot",
+    figmaName: "MediaSlot",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/media-slot.css 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Size: { options: ["md", "video", "fill"], reason: "코드의 `data-size` 다(없음 = md). 32 정사각 · 76×52 영상 참조 · 열 채움 정사각으로 상자가 다시 쓰인다." },
+      Layout: { options: ["base", "empty"], reason: "코드의 `data-empty` 다. 빈 칸은 점선 테두리 · 면 · 더하기 글리프로 테두리 모양과 내용이 바뀌어 BOOLEAN 이 아니다. fill 에만 선다." },
+      State: { options: ["Default", "Hover"], reason: "Hover 는 CSS 상태다(빈 칸의 점선 · 글리프가 한 단 진해진다). Figma 에 CSS 상태가 없어 변형으로 둔다." },
+      RemoveButton: { type: "BOOLEAN", reason: "지우기 버튼 레이어의 가시성. 코드에서는 칸 안 `__remove` 버튼의 렌더 조건이다." },
+    },
+  },
+  {
+    id: "audio-cell",
+    figmaName: "AudioCell",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:0:0.5" },
+    figmaOnlyProperties: {
+      State: { options: ["Ready", "Playing", "Pending"], reason: "Ready · Playing 은 재생 원 글리프(재생 · 일시정지)가, Pending 은 `data-state=\"pending\"` 의 대기 게이지가 갈린다. 진행률은 매개변수가 없어 40% 정지 그림이다." },
+      Current: { type: "TEXT", reason: "시간 줄의 현재 시각." },
+      Duration: { type: "TEXT", reason: "시간 줄의 전체 길이." },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeCountRow",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__count-row 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Count: { type: "TEXT", reason: "글자 수 표기(「312자」)." },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeResponse",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__response 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: { options: ["empty", "generating", "filled", "error"], reason: "코드의 `data-state` 다. 넷은 상호작용 상태가 아니라 담기는 것과 면 · 여백이 다시 쓰이는 배치라 State 가 아니라 Layout 에 둔다(철자 판정은 소유자 몫)." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "빈 칸 · 생성 중의 노드 글리프." },
+      Message: { type: "TEXT", reason: "빈 칸 안내 · 오류 문구." },
+      Result: { type: "TEXT", reason: "채움 상태의 결과 글." },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeMedia",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__media 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Empty", "Result"], reason: "코드의 `data-empty` 다. 빈 칸은 글리프 · 안내 글 묶음, 결과는 미디어 칠 자리로 담기는 것이 바뀐다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "빈 칸 글리프(이미지 · 영상)." },
+      Label: { type: "TEXT", reason: "빈 칸 안내 글." },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeChannel",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__channel 이 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Size: { options: ["md", "sm"], reason: "코드의 `data-size` 다. md 는 YouTube 줄(아바타 32 · body-md), sm 은 Instagram 줄(아바타 20 · caption)로 상자와 글자가 다시 쓰인다." },
+      Name: { type: "TEXT", reason: "채널 이름. 한 줄 말줄임이다." },
+      HasImage: { type: "BOOLEAN", reason: "아바타 그림이 있는가. 없으면 글리프가 보인다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "아바타 자리의 채널 글리프(YouTube · Instagram)." },
+    },
+  },
+  {
+    id: "node-shell",
+    figmaName: "NodeResizeHandle",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__resize 가 정본이다(2026-10-13, DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Rest", "Hover"], reason: "Hover 는 CSS 상태다(그립이 진해지고 안내 글이 보인다). Figma 에 CSS 상태가 없어 변형으로 둔다." },
+      Label: { type: "TEXT", reason: "안내 글(「드래그하여 크기 조절」). 그립 폭이 이 글자 폭에 묶인다." },
     },
   },
   {

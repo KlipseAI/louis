@@ -4,7 +4,7 @@
     "figmaFileKey": "OlYKERKOkgbxBEEoXGZW2c",
     "figmaFileName": "LOUIS",
     "capturedAt": "2026-09-07",
-    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다. 2026-09-03 accent-secondary: `color/accent-secondary` 를 라이브에 세우고(`build-figma-variables --only` 가 낸 적용 코드) `color/accent-secondary-hover` 를 4%/8% 에서 12% 로 옮겼다 — 둘 다 `5566ecd` 가 CSS·토큰만 바꾸고 두고 간 자리다. Button set 의 secondary 60칸 중 면이 없던 48칸(Default·Active·Disabled·Loading)에 그 변수를 물렸다(boundFills 612 → 660). 변수 2행은 `--variables`/`--merge-variables` 로, Button 블록은 `--components --only Button` 으로 같은 작업에서 다시 떴다. **Klipse Primitive 블록은 이 작업이 건드리지 않았고 라이브와 어긋난 채다** — 라이브에는 `palette-gray/050`·`/150` 이 없는데 되읽기는 그 두 행을 갖고 있고(180행 vs 라이브 178), 회색 열 값도 서로 다르다. `color/bg-surface-translucent` 는 그 반대로 라이브에 있는데 되읽기에 없다. 2026-09-03 DS-D-0047: 죽은 역할 토큰 여덟(`color/dropdown/*` 넷 · `color/surface/*` 셋 · `color/vem/properties-label`)을 `figma/remove-variables.js` 로 라이브에서 지우고 같은 작업에서 이 되읽기의 행 여덟을 뺐다 — 라이브 508 → 500, Klipse Semantic Color 189 → 181. 지우기 전에 이 여덟을 alias 로 가리키는 변수가 0건임을 라이브 전수로 확인했다. 이 되읽기의 Semantic Color 는 그 전부터 라이브보다 한 행 적었다(`color/bg-surface-translucent` 가 라이브에 있고 여기 없다) — 이번 작업이 만든 차이가 아니고 그대로 남아 있다. 2026-09-03 전수 재대조: 세 컬렉션 500행을 use_figma 로 전부 읽어 행 지문(FNV-1a)으로 맞췄다 — 위 2026-09-03 accent-secondary 문단이 「Klipse Primitive 블록은 라이브와 어긋난 채다」로 남겨 둔 자리를 닫는다. 어긋남은 세 종류였다: (1) 되읽기에만 있던 행 둘 — color/palette-gray/050 · /150 (라이브에 없다), (2) 라이브에만 있던 행 하나 — color/bg-surface-translucent, (3) 값·별칭이 갈린 행 열셋 — palette-gray 100·300·400·600·700 과 bg-inset · bg-upgrade-current · fg-upgrade · fg-upgrade-hover · landing/text-muted · node-chip-surface-hover · table-row-hover · table-row-line. 셋 다 되읽기 쪽이 낡은 것이었고 **라이브를 정본으로 삼아** 갱신했다(--variables/--merge-variables 로 열넷, 새로 연 --remove-variables 로 둘). 501 → 500 행이 되어 라이브와 같아졌다. landing/text-muted 는 라이브가 이미 alpha/64 여서 되읽기만 56 을 들고 있었다 — parity 가 「Figma 가 낡았다」로 읽던 두 줄이 실은 되읽기의 거짓이었다. 재대조 뒤 라이브와 갈리는 행은 위 주석이 이미 예외로 적어 둔 float 정밀도 둘(scale/tooltip-rest · color/green-500-alpha/08)뿐이다. 이 갱신으로 verify-figma-parity 진단이 20 → 23 으로 **늘었다** — 되읽기가 가리고 있던 어긋남(palette-gray/050·/150 이 Figma 에 없다는 사실과 그것을 가리키는 별칭 여섯)이 드러난 것이라 정상이다. Figma 에는 쓰지 않았다. 2026-09-07 아이콘 승격 11종: DS · Icons 에 icon/arrow-elbow-down-left · arrow-right · cloud-arrow-up · cloud-check · cloud-warning · desktop · globe · minus · moon · sun · video-stack 을 세우고(31 → 42) 같은 작업에서 icons 블록 전수를 다시 떴다. 채취 절차는 아직 emitter 가 없어 use_figma 로 직접 돌렸고, **기존 31행을 바이트 단위로 재현하는 것을 먼저 확인한 뒤** 42행으로 교체했다 — 절차가 같다는 증거 없이 새 행을 섞으면 어느 쪽 규칙으로 뜬 값인지 알 수 없게 된다(이 파일이 components 에서 이미 겪은 일이다). 벡터는 createNodeFromSvg 로 정본 SVG 에서 만들고 stroke·fill 을 color/icon 변수(VariableID:341:4467)에 물렸다 — rawStrokes·rawFills 는 42행 전부 0 이다. 2026-09-07 SelectTrigger 등재: 새 component set 하나를 scripts/figma-readback-emit.mjs --components --only SelectTrigger 가 낸 채취 코드로 떠 --merge 했다. 채취 명세도 같은 작업에서 그 파일에 적었다(key.by=[Size] · parts Glyph·Caret · effects self). 변수는 새로 만들지 않았다 — 면·잉크는 color/bg-inset · color/accent-secondary-hover · color/fg-primary · color/fg-disabled 를, 헤어라인은 color/stroke-hairline 을 물렸고 캐럿은 기존 icon/caret-down 인스턴스다. rawFills·rawStrokes·textUnstyled 는 여덟 변형 전부 0 이다. 2026-09-22 DS-D-0070: SelectableListRow 세트(674:12344) Selected 변형의 Marker 사각형(674:12325)을 지우고 세트 설명에서 marker 3 과 선행 표식 문장을 걷었다. 채취 명세에서 Marker 파트를 빼고 scripts/figma-readback-emit.mjs --components --only SelectableListRow 가 낸 코드를 그대로 읽기 전용으로 돌려 --merge 했다 — boundFills 14 → 13(막대의 accent-primary 채움), rawFills 0 그대로. 2026-10-07 아이콘 넷 등재(42 → 46): DS · Icons 에 icon/nodes-linked, book-open, chat-bubbles, shield-check 를 세웠다 — 제품 랜딩 타임라인 푸터의 트랙 머리 아이콘(소유자가 새로 그려 달라고 한 것)을 정본으로 올린 것이다. 09-07 과 같은 절차로 벡터는 createNodeFromSvg 로 정본 SVG 에서 만들고 stroke 를 color/icon 변수(VariableID:341:4467)에 물렸다. 같은 작업에서 icons 블록 전수를 다시 떴고, 쓰기 전에 같은 채취 코드가 기존 42행을 바이트 단위로 재현하는 것(FNV-1a 0xc712b9e3)을 먼저 확인했다. 46행의 지문은 0x3cf99017 이다. rawStrokes 와 rawFills 는 넷 다 0 이다. 페이지 격자는 이름순 8열로 다시 놓았다. 2026-10-09 DS-D-0082 부품 결합: NodeShell Selected=false Card 테두리 일곱을 color/stroke-default 에서 color/node-card-stroke 로, NodeComposer 칩 인스턴스 둘의 칠을 color/canvas-chip-surface 로 옮기고 FloatingShell · PillTrigger 칠 불투명도를 0.72(호버 0.88)로 맞췄다. 이 블록은 결합 수 · 기하만 담으므로 네 컴포넌트를 figma-readback-emit --components 채취 코드로 다시 떠 기존 값과 FNV-1a 지문이 같음을 확인했다(NodeShell 882932cc · NodeComposer dc714db1 · FloatingShell b2a8a7ca · PillTrigger 787c6a55) — components 블록은 바뀌지 않는다. 같은 작업에서 DS-D-0082 변수 42행(신설 19 · 갱신 23)을 --variables 형식으로 라이브에서 떠 --merge-variables 했다. 2026-10-12 DS-D-0083: build-figma-variables --delta(신설 23 — primitive 12 · semantic 11)와 --only(node/handle-*-disabled-* 12행의 Light 별칭을 node-handle-disabled-light/* 로)를 라이브에 적용하고, 같은 35행을 --variables 형식으로 떠 --merge-variables 했다(missing 0). 2026-10-13 DS-D-0084: 생성 버튼 시맨틱 넷(node-generate-surface-edge · -surface-center · -foreground · -trailing)을 --delta 로 라이브에 세우고(created 4) 같은 넷을 --variables 로 떠 --merge-variables 했다(missing 0). 같은 날 DS · Components 「7 · 캔버스 · 에디터」 에 NodeGenerateButton 세트(State Default · Disabled · Loading, TEXT Trailing)를 세우고 NodeComposer 의 Generate 를 IconButton 에서 그 인스턴스로 바꿨으며 Field 면을 color/node-composer-surface 로 옮겼다 — 둘을 figma-readback-emit --components --only 채취 코드로 떠(세션 기록에서 꺼내) --merge 했다. 같은 날 노드 하위 부품(DS-D-0084) 변수 21행(color 20 · node/chrome-btn-h-sm)을 --delta 로 라이브에 세우고 --variables 로 떠 --merge-variables 했다(missing 0).",
+    "capturedBy": "use_figma 전수 캡처 + proposal 대조. 변수는 이름·값·alias 를 Figma 실물과 대조해 확인했다(FNV-1a 정본 해시 · 516행). scopes 문자열과 float 정밀도(예: line-height/heading 을 Figma 는 1.350000023841858 로 보관)는 Figma 쪽 저장 형태라 proposal 값을 쓴다 — 게이트가 보는 축이 아니다. components 41개는 use_figma 로 각 set 을 순회해 뜬 값이고, MediaCard·CarouselArrow 2개와 랜딩 4개(StepTile·FaqRow·NewsCard·GnbMenuItem)는 scripts/figma-readback-emit.mjs 가 낸 채취 코드로 떴다(2026-08-26). 그 emitter 로 Keycap·Badge 를 다시 떠 기존 값과 정규화 바이트 일치를 확인했다. Button·IconButton·Slider·ProjectCard 는 일치하지 않으며 사유는 emitter 머리말의 「알려진 어긋남」에 적었다 — 되읽기가 낡은 것이지 emitter 가 틀린 것이 아니다. 2026-08-27 DS-D-0029 재캡처: 변수 24개를 라이브에서 옮기고(이름 14 · 삭제 10) 되읽기 행을 같은 작업에서 맞췄다. 전수 덤프 대신 **행 지문 대조**로 확인했다 — 라이브에서 [이름, resolvedType, mode 값]을 mode 이름순으로 정규화해 행마다 FNV-1a 를 내고 되읽기에서 같은 방식으로 낸 집합과 맞췄다(응답 20KB 제한 때문에 전수 덤프는 잘린다). 라이브 506행 중 어긋난 것은 2행이고 둘 다 이 주석이 이미 예외로 적어 둔 float 정밀도다 — scale/tooltip-rest(Figma 0.9700000286102295 vs 0.97) · color/green-500-alpha/08(Figma 0.7765,0.5569 vs 0.776471,0.556863). scopes 열은 여전히 proposal 값이다. 2026-08-29 PaneDivider 등재: 새 component set 하나를 `--components --only PaneDivider` 채취 코드로 떠 `--merge` 했고(49 → 50), 새 변수 7개 행을 `--variables`/`--merge-variables` 로 넣었다(497 → 504 · scopes 는 규칙대로 proposal 값). **이 기록은 전수가 아니다** — 위 열거(41 + 2 + 4)가 47 이라 InlineLoadingLabel · SegmentedCodeInput 두 개는 채취 경로가 적혀 있지 않다. 다음 사람이 이 문단을 명부로 읽지 않도록 적어 둔다. 2026-09-03 accent-secondary: `color/accent-secondary` 를 라이브에 세우고(`build-figma-variables --only` 가 낸 적용 코드) `color/accent-secondary-hover` 를 4%/8% 에서 12% 로 옮겼다 — 둘 다 `5566ecd` 가 CSS·토큰만 바꾸고 두고 간 자리다. Button set 의 secondary 60칸 중 면이 없던 48칸(Default·Active·Disabled·Loading)에 그 변수를 물렸다(boundFills 612 → 660). 변수 2행은 `--variables`/`--merge-variables` 로, Button 블록은 `--components --only Button` 으로 같은 작업에서 다시 떴다. **Klipse Primitive 블록은 이 작업이 건드리지 않았고 라이브와 어긋난 채다** — 라이브에는 `palette-gray/050`·`/150` 이 없는데 되읽기는 그 두 행을 갖고 있고(180행 vs 라이브 178), 회색 열 값도 서로 다르다. `color/bg-surface-translucent` 는 그 반대로 라이브에 있는데 되읽기에 없다. 2026-09-03 DS-D-0047: 죽은 역할 토큰 여덟(`color/dropdown/*` 넷 · `color/surface/*` 셋 · `color/vem/properties-label`)을 `figma/remove-variables.js` 로 라이브에서 지우고 같은 작업에서 이 되읽기의 행 여덟을 뺐다 — 라이브 508 → 500, Klipse Semantic Color 189 → 181. 지우기 전에 이 여덟을 alias 로 가리키는 변수가 0건임을 라이브 전수로 확인했다. 이 되읽기의 Semantic Color 는 그 전부터 라이브보다 한 행 적었다(`color/bg-surface-translucent` 가 라이브에 있고 여기 없다) — 이번 작업이 만든 차이가 아니고 그대로 남아 있다. 2026-09-03 전수 재대조: 세 컬렉션 500행을 use_figma 로 전부 읽어 행 지문(FNV-1a)으로 맞췄다 — 위 2026-09-03 accent-secondary 문단이 「Klipse Primitive 블록은 라이브와 어긋난 채다」로 남겨 둔 자리를 닫는다. 어긋남은 세 종류였다: (1) 되읽기에만 있던 행 둘 — color/palette-gray/050 · /150 (라이브에 없다), (2) 라이브에만 있던 행 하나 — color/bg-surface-translucent, (3) 값·별칭이 갈린 행 열셋 — palette-gray 100·300·400·600·700 과 bg-inset · bg-upgrade-current · fg-upgrade · fg-upgrade-hover · landing/text-muted · node-chip-surface-hover · table-row-hover · table-row-line. 셋 다 되읽기 쪽이 낡은 것이었고 **라이브를 정본으로 삼아** 갱신했다(--variables/--merge-variables 로 열넷, 새로 연 --remove-variables 로 둘). 501 → 500 행이 되어 라이브와 같아졌다. landing/text-muted 는 라이브가 이미 alpha/64 여서 되읽기만 56 을 들고 있었다 — parity 가 「Figma 가 낡았다」로 읽던 두 줄이 실은 되읽기의 거짓이었다. 재대조 뒤 라이브와 갈리는 행은 위 주석이 이미 예외로 적어 둔 float 정밀도 둘(scale/tooltip-rest · color/green-500-alpha/08)뿐이다. 이 갱신으로 verify-figma-parity 진단이 20 → 23 으로 **늘었다** — 되읽기가 가리고 있던 어긋남(palette-gray/050·/150 이 Figma 에 없다는 사실과 그것을 가리키는 별칭 여섯)이 드러난 것이라 정상이다. Figma 에는 쓰지 않았다. 2026-09-07 아이콘 승격 11종: DS · Icons 에 icon/arrow-elbow-down-left · arrow-right · cloud-arrow-up · cloud-check · cloud-warning · desktop · globe · minus · moon · sun · video-stack 을 세우고(31 → 42) 같은 작업에서 icons 블록 전수를 다시 떴다. 채취 절차는 아직 emitter 가 없어 use_figma 로 직접 돌렸고, **기존 31행을 바이트 단위로 재현하는 것을 먼저 확인한 뒤** 42행으로 교체했다 — 절차가 같다는 증거 없이 새 행을 섞으면 어느 쪽 규칙으로 뜬 값인지 알 수 없게 된다(이 파일이 components 에서 이미 겪은 일이다). 벡터는 createNodeFromSvg 로 정본 SVG 에서 만들고 stroke·fill 을 color/icon 변수(VariableID:341:4467)에 물렸다 — rawStrokes·rawFills 는 42행 전부 0 이다. 2026-09-07 SelectTrigger 등재: 새 component set 하나를 scripts/figma-readback-emit.mjs --components --only SelectTrigger 가 낸 채취 코드로 떠 --merge 했다. 채취 명세도 같은 작업에서 그 파일에 적었다(key.by=[Size] · parts Glyph·Caret · effects self). 변수는 새로 만들지 않았다 — 면·잉크는 color/bg-inset · color/accent-secondary-hover · color/fg-primary · color/fg-disabled 를, 헤어라인은 color/stroke-hairline 을 물렸고 캐럿은 기존 icon/caret-down 인스턴스다. rawFills·rawStrokes·textUnstyled 는 여덟 변형 전부 0 이다. 2026-09-22 DS-D-0070: SelectableListRow 세트(674:12344) Selected 변형의 Marker 사각형(674:12325)을 지우고 세트 설명에서 marker 3 과 선행 표식 문장을 걷었다. 채취 명세에서 Marker 파트를 빼고 scripts/figma-readback-emit.mjs --components --only SelectableListRow 가 낸 코드를 그대로 읽기 전용으로 돌려 --merge 했다 — boundFills 14 → 13(막대의 accent-primary 채움), rawFills 0 그대로. 2026-10-07 아이콘 넷 등재(42 → 46): DS · Icons 에 icon/nodes-linked, book-open, chat-bubbles, shield-check 를 세웠다 — 제품 랜딩 타임라인 푸터의 트랙 머리 아이콘(소유자가 새로 그려 달라고 한 것)을 정본으로 올린 것이다. 09-07 과 같은 절차로 벡터는 createNodeFromSvg 로 정본 SVG 에서 만들고 stroke 를 color/icon 변수(VariableID:341:4467)에 물렸다. 같은 작업에서 icons 블록 전수를 다시 떴고, 쓰기 전에 같은 채취 코드가 기존 42행을 바이트 단위로 재현하는 것(FNV-1a 0xc712b9e3)을 먼저 확인했다. 46행의 지문은 0x3cf99017 이다. rawStrokes 와 rawFills 는 넷 다 0 이다. 페이지 격자는 이름순 8열로 다시 놓았다. 2026-10-09 DS-D-0082 부품 결합: NodeShell Selected=false Card 테두리 일곱을 color/stroke-default 에서 color/node-card-stroke 로, NodeComposer 칩 인스턴스 둘의 칠을 color/canvas-chip-surface 로 옮기고 FloatingShell · PillTrigger 칠 불투명도를 0.72(호버 0.88)로 맞췄다. 이 블록은 결합 수 · 기하만 담으므로 네 컴포넌트를 figma-readback-emit --components 채취 코드로 다시 떠 기존 값과 FNV-1a 지문이 같음을 확인했다(NodeShell 882932cc · NodeComposer dc714db1 · FloatingShell b2a8a7ca · PillTrigger 787c6a55) — components 블록은 바뀌지 않는다. 같은 작업에서 DS-D-0082 변수 42행(신설 19 · 갱신 23)을 --variables 형식으로 라이브에서 떠 --merge-variables 했다. 2026-10-12 DS-D-0083: build-figma-variables --delta(신설 23 — primitive 12 · semantic 11)와 --only(node/handle-*-disabled-* 12행의 Light 별칭을 node-handle-disabled-light/* 로)를 라이브에 적용하고, 같은 35행을 --variables 형식으로 떠 --merge-variables 했다(missing 0). 2026-10-13 DS-D-0084: 생성 버튼 시맨틱 넷(node-generate-surface-edge · -surface-center · -foreground · -trailing)을 --delta 로 라이브에 세우고(created 4) 같은 넷을 --variables 로 떠 --merge-variables 했다(missing 0). 같은 날 DS · Components 「7 · 캔버스 · 에디터」 에 NodeGenerateButton 세트(State Default · Disabled · Loading, TEXT Trailing)를 세우고 NodeComposer 의 Generate 를 IconButton 에서 그 인스턴스로 바꿨으며 Field 면을 color/node-composer-surface 로 옮겼다 — 둘을 figma-readback-emit --components --only 채취 코드로 떠(세션 기록에서 꺼내) --merge 했다. 같은 날 노드 하위 부품(DS-D-0084) 변수 21행(color 20 · node/chrome-btn-h-sm)을 --delta 로 라이브에 세우고 --variables 로 떠 --merge-variables 했다(missing 0). 같은 날 노드 캔버스 하위 부품 Figma 세트 일곱(MediaSlot · AudioCell · NodeCountRow · NodeResponse · NodeMedia · NodeChannel · NodeResizeHandle)을 세우고 NodeGenerateButton(Content 축) · NodeChromeButton(Size 축) · NodeChip(Variant 축)을 넓혀 열을 --components 채취 코드로 떠(하위 에이전트 기록에서 꺼내) --merge 했다.",
     "published": false,
     "tokenSourceSha256": "1ffb9ecb9e3d3a9008c3d789da804b75ee6e45d350f4f458f2c34e8fe0998063",
     "proposalSha256": "38a5c9713c09f06a3e99834eb0fd972707d25a6eba1e77d2b6762e9186e76374",
@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 75,
-        "variants": 870
+        "sets": 82,
+        "variants": 898
       },
       "icons": 47,
       "templates": 9
@@ -7338,6 +7338,134 @@
       "strokes": {},
       "effects": {}
     },
+    "AudioCell": {
+      "outsideParts": [],
+      "tokenId": "audio-cell",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Current": {
+          "type": "TEXT"
+        },
+        "Duration": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Ready",
+            "Playing",
+            "Pending"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 22,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 6,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Pending": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            380
+          ],
+          "height": [
+            48
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Playing": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            380
+          ],
+          "height": [
+            48
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Ready": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            380
+          ],
+          "height": [
+            48
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "INNER_SHADOW:0:0:0.5"
+        ]
+      }
+    },
     "Avatar": {
       "outsideParts": [],
       "tokenId": "avatar",
@@ -12271,6 +12399,131 @@
       "strokes": {},
       "effects": {}
     },
+    "MediaSlot": {
+      "outsideParts": [],
+      "tokenId": "media-slot",
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "RemoveButton": {
+          "type": "BOOLEAN"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "video",
+            "fill"
+          ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "empty"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "fill/base/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            96
+          ],
+          "height": [
+            96
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "fill/empty/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            96
+          ],
+          "height": [
+            96
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "fill/empty/Hover": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            96
+          ],
+          "height": [
+            96
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/base/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "video/base/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            76
+          ],
+          "height": [
+            52
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Menu": {
       "outsideParts": [],
       "tokenId": "menu-popover",
@@ -12794,10 +13047,100 @@
       "strokes": {},
       "effects": {}
     },
+    "NodeChannel": {
+      "outsideParts": [],
+      "tokenId": "node-shell",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Name": {
+          "type": "TEXT"
+        },
+        "HasImage": {
+          "type": "BOOLEAN"
+        },
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            48
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            40
+          ],
+          "paddingBlock": [
+            14
+          ],
+          "paddingBlockEnd": [
+            6
+          ],
+          "paddingInline": [
+            14
+          ],
+          "paddingInlineEnd": [
+            14
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "NodeChip": {
       "outsideParts": [],
       "tokenId": "node-chip",
-      "variantCount": 6,
+      "variantCount": 9,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -12808,6 +13151,13 @@
         },
         "Glyph": {
           "type": "INSTANCE_SWAP"
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "default",
+            "ghost"
+          ]
         },
         "Shape": {
           "type": "VARIANT",
@@ -12826,15 +13176,15 @@
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 13,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 3,
+        "textStyled": 6,
         "textUnstyled": 0
       },
       "geometry": {
-        "default": {
+        "default/default": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -12892,7 +13242,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "square": {
+        "default/square": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -12938,6 +13288,64 @@
           "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "ghost/default": {
+          "slots": {
+            "Glyph": [
+              "12x12"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            },
+            "Label": {
+              "width": [
+                11
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            45
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -12950,11 +13358,18 @@
     "NodeChromeButton": {
       "outsideParts": [],
       "tokenId": "node-chrome-button",
-      "variantCount": 6,
+      "variantCount": 9,
       "hasDescription": true,
       "properties": {
         "Glyph": {
           "type": "INSTANCE_SWAP"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
         },
         "Tone": {
           "type": "VARIANT",
@@ -12973,7 +13388,7 @@
         }
       },
       "binding": {
-        "boundFills": 2,
+        "boundFills": 3,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -12981,7 +13396,7 @@
         "textUnstyled": 0
       },
       "geometry": {
-        "danger/Default": {
+        "md/danger/Default": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13031,7 +13446,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "danger/Disabled": {
+        "md/danger/Disabled": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13081,7 +13496,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "danger/Hover": {
+        "md/danger/Hover": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13131,7 +13546,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "neutral/Default": {
+        "md/neutral/Default": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13181,7 +13596,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "neutral/Disabled": {
+        "md/neutral/Disabled": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13231,7 +13646,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "neutral/Hover": {
+        "md/neutral/Hover": {
           "slots": {
             "Glyph": [
               "16x16"
@@ -13270,6 +13685,156 @@
           ],
           "cornerRadius": [
             12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/neutral/Default": {
+          "slots": {
+            "Glyph": [
+              "14x14"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/neutral/Disabled": {
+          "slots": {
+            "Glyph": [
+              "14x14"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            0.35
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/neutral/Hover": {
+          "slots": {
+            "Glyph": [
+              "14x14"
+            ]
+          },
+          "parts": {
+            "Glyph": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            28
+          ],
+          "width": [
+            28
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -13455,14 +14020,62 @@
         ]
       }
     },
+    "NodeCountRow": {
+      "outsideParts": [],
+      "tokenId": "node-shell",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Count": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "row": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            28
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "NodeGenerateButton": {
       "outsideParts": [],
       "tokenId": "node-shell",
-      "variantCount": 3,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "Trailing": {
           "type": "TEXT"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "Content": {
+          "type": "VARIANT",
+          "options": [
+            "Credit",
+            "Label"
+          ]
         },
         "State": {
           "type": "VARIANT",
@@ -13474,15 +14087,15 @@
         }
       },
       "binding": {
-        "boundFills": 13,
+        "boundFills": 26,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 2,
+        "textStyled": 4,
         "textUnstyled": 0
       },
       "geometry": {
-        "Default": {
+        "Credit/Default": {
           "slots": {},
           "parts": {
             "Content": {
@@ -13530,7 +14143,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "Disabled": {
+        "Credit/Disabled": {
           "slots": {},
           "parts": {
             "Content": {
@@ -13578,7 +14191,7 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
-        "Loading": {
+        "Credit/Loading": {
           "slots": {},
           "parts": {},
           "height": [
@@ -13611,6 +14224,136 @@
           ],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "Label/Default": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Icon": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            14
+          ],
+          "paddingInlineEnd": [
+            14
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Label/Disabled": {
+          "slots": {},
+          "parts": {
+            "Content": {
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Icon": {
+              "width": [
+                14
+              ],
+              "height": [
+                14
+              ]
+            }
+          },
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            14
+          ],
+          "paddingInlineEnd": [
+            14
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            0.35
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Label/Loading": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            14
+          ],
+          "paddingInlineEnd": [
+            14
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -13619,6 +14362,239 @@
           "INNER_SHADOW:0:8:0"
         ]
       }
+    },
+    "NodeMedia": {
+      "outsideParts": [],
+      "tokenId": "node-shell",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Empty",
+            "Result"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Empty": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            223
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Result": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            223
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "NodeResizeHandle": {
+      "outsideParts": [
+        "Hint"
+      ],
+      "tokenId": "node-shell",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Rest",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            16
+          ],
+          "paddingInline": [
+            2
+          ],
+          "paddingInlineEnd": [
+            2
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Hint"
+          ],
+          "offCenterMarks": []
+        },
+        "Rest": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            16
+          ],
+          "paddingInline": [
+            2
+          ],
+          "paddingInlineEnd": [
+            2
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Hint"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "NodeResponse": {
+      "outsideParts": [],
+      "tokenId": "node-shell",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Message": {
+          "type": "TEXT"
+        },
+        "Result": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "empty",
+            "generating",
+            "filled",
+            "error"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "empty": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            396
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "error": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            396
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "filled": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            388
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "generating": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            396
+          ],
+          "height": [
+            396
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "NodeShell": {
       "outsideParts": [],

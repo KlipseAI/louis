@@ -231,7 +231,15 @@ const CAPTURE = {
   // **두 줄 항목(2026-10-08)이 `Layout` 축을 열었다.** base 는 지금까지의 키 `panel` 을 그대로 쓰고(`map`) — 개명하면
   // 계약 · 실측 · 브라우저 시험이 함께 움직인다 — description 은 `descriptionItem` 으로 간다. 정렬(`counterAxisAlignItems`)이
   // 이 축에서 갈리는 값이라 담는다(base CENTER · description MIN). `Text` 는 이름과 설명을 담는 열이고 `Description` 은 설명 줄이다.
-  "Menu": {"key":{"by":["Layout"],"map":{"base":"panel","description":"descriptionItem"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Text":["itemSpacing","layoutMode"],"Description":["fontSize","lineHeightPercent"]}},
+  // **한 줄 항목(2026-10-14, DS-D-0095)** — `inline` 은 `inlineItem` 으로 간다. 이름 옆에 설명이 같은 줄(FILL · 말줄임)로 서고 정렬은 CENTER 다.
+  // 열(`Text`)이 없다 — 이름 · 설명 · 현재값이 항목에 바로 선다. 폭 200 은 표본이라 계약이 담지 않는다.
+  "Menu": {"key":{"by":["Layout"],"map":{"base":"panel","description":"descriptionItem","inline":"inlineItem"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Text":["itemSpacing","layoutMode"],"Description":["fontSize","lineHeightPercent"]}},
+  // Command Palette(2026-10-14, DS-D-0095). 패널 560 · 반경 16. 검색줄 48 · 위아래 12 · 좌 18 · 우 14 · 사이 6, 목록 안쪽 6 · 그룹 사이 4, 그룹 안 행 사이 2,
+  // 그룹 제목 위아래 4 · 좌우 12, 발 38 · 위아래 8 · 좌우 18 · 묶음 16, 안내 키와 글 6 · 키 사이 4. 검색 글리프 16. 행 · 닫기 · 키캡은 인스턴스라 훑기가 멈춘다.
+  // 유리 면(bg-menu 88% · 배경 흐림 4)과 헤어라인(INNER_SHADOW)은 효과라 계약 밖 — 시험이 코드를 잰다.
+  "CommandPalette": {"key":{"name":"base"},"fields":["width","cornerRadius","layoutMode"],"parts":{"Search":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"SearchIcon":["width","height"],"List":["paddingBlock","paddingInline","itemSpacing"],"예시 · 캔버스":["itemSpacing"],"GroupLabel":["paddingBlock","paddingInline"],"Footer":["height","paddingBlock","paddingInline","itemSpacing"],"Hint":["itemSpacing"],"Keys":["itemSpacing"]}},
+  // 결과 없음 — 위아래 28 · 좌우 12 · 글 14.
+  "CommandPaletteEmpty": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","layoutMode"],"parts":{"Label":["fontSize"]}},
   "MenuTrigger": {"key":{"name":"trigger"},"parts":{"Glyph":["width","height"]}},
   "MenuPanel": {"key":{"name":"panel"},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","minWidth","layoutMode"],"effects":["self"]},
   // 키가 `panel` 인 것은 **대조 상대의 자리 이름**이다(2026-09-01). 구분선에는 size 축이 없지만

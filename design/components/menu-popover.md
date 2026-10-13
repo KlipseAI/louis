@@ -109,6 +109,7 @@ summary: 트리거 옆에서 액션 목록이나 설정을 펼쳐 보여 줍니�
 | `closeOnSelect`    | `boolean`                                | action-menu `true` / composite-popover `false` | item 단위로 덮을 수 있다          |
 | `disabled`         | `boolean`                                | `false`                        | trigger와 모든 열기 경로를 비활성화한다. **panel과 item으로 전파하지 않는다** |
 | `disabledItems`    | `skip`, `announce`                       | `announce`                     | menu 단위 단일 전략. item이 개별로 고르지 않는다          |
+| `data-layout` (item) | `inline`                               | 없음                           | **prop이 아니다.** CSS 클래스 마크업의 항목 속성 — 이름 옆에 설명이 같은 줄로 선다(아래 「한 줄 항목」, DS-D-0095) |
 
 `onOpenChange`의 reason은 분석용 장식이 아니다. 닫힌 뒤 포커스를 어디에 둘지, route 이동 전에 닫을지,
 선택 콜백을 중복 실행하지 않을지를 결정하는 계약이다.
@@ -627,6 +628,31 @@ Disabled 에서는 `color/fg-disabled`)을 `Text` 열(간격 `spacing/overlay-it
 **아이콘 타일(`data-shape="tile"`)은 Figma 에 아직 없다.** 타일 면(잉크 12% 로 닫은 값)이 Known deviations 「아이콘 타일 면」의
 소유자 판정을 기다리고 있어, 판정 전에 변형으로 굳히지 않았다. React `MenuItem` 도 설명 슬롯을 prop 으로 열지 않았다 — 지금은
 CSS 클래스만 있고 소비처가 마크업을 직접 쓴다.
+
+### 한 줄 항목 (`data-layout="inline"`)
+
+**출처: 2026-10-14, 커맨드 팔레트(통합 판 `54b62a8aa` `components/navigation/CommandPalette.tsx:214-245`, [DS-D-0095](../governance/decisions/DS-D-0095-command-palette.md)).**
+팔레트 행은 이름 **옆에** 설명이 같은 줄로 선다. 두 줄 항목과 같은 슬롯(`__item-description`)을 쓰므로 `:has` 로 추론할 수 없다 — 속성으로 고른다.
+[Command Palette](command-palette.md) 의 행이 이 변형이다.
+
+```
+.louis-menu__item[data-layout="inline"]   가운데 정렬 · nowrap
+├─ .louis-menu__item-icon                  글리프(타일이면 내림 2px 없음)
+├─ .louis-menu__item-label                 이름 — flex 0 1 auto · 말줄임
+├─ .louis-menu__item-description           설명 — flex 1 1 auto · 말줄임 · color-fg-secondary
+└─ .louis-menu__item-trailing              현재값(선택)
+```
+
+| 속성 | 값 | 근거 |
+| --- | --- | --- |
+| 정렬 | `align-items: center` — `:has` 규칙(0,1,0)의 flex-start 를 (0,2,0)으로 되돌린다 | 한 줄이다 |
+| 줄바꿈 | `white-space: nowrap`, 넘치면 설명부터 말줄임(이름 `0 1 auto` · 설명 `1 1 auto`) | 제품 `components/navigation/CommandPalette.tsx:214-237` |
+| 현재값 | `__item-trailing` 에 `margin-inline-start: auto` — 설명이 없는 행에서도 끝에 선다(설명이 있으면 0) | 제품 `shrink-0 ml-auto`(`components/navigation/CommandPalette.tsx:240-245`) |
+| 설명 색 | **`color-fg-secondary`**. disabled · forced-colors 에서는 `inherit` | 두 줄 항목의 tertiary 는 하이라이트 면(다크 8%) 위 4.28 로 미달하고, 한 줄에서는 설명이 현재값(`__item-trailing`, secondary)과 같은 층위다 — 제품도 둘을 같은 48% 로 칠한다 |
+| 높이 | 37(Menu 항목 그대로) | 제품 32 → 37, DS-D-0095 판정 5 |
+
+**Figma 는 항목 set 의 `Layout=inline` 이다(2026-10-14).** `State` 일곱 값과 곱해 변형 일곱이 더해진다(희소 세트를 받지 않는다). 프레임은 가로 · 가운데 정렬,
+이름은 HUG + 말줄임, 설명은 FILL + 말줄임(`color/fg-secondary`), 높이 37.
 
 ### 팝오버 밖 목록 — 정본으로 올리지 않고 편차로 둔다
 

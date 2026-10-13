@@ -410,6 +410,15 @@
       "generated": false
     },
     {
+      "id": "decision-command-palette",
+      "path": "design/governance/decisions/DS-D-0095-command-palette.md",
+      "title": "DS-D-0095 입력 하나로 앱의 행동을 찾아 실행하는 모달을 새 부품 command-palette 로 — Dialog 의 변형이 아니다, Menu 항목에 한 줄 변형",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1903,6 +1912,7 @@
         "design/components/plan-comparison.md",
         "design/components/canvas-section.md",
         "design/components/chat-panel.md",
+        "design/components/command-palette.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1989,6 +1999,7 @@
         "design/governance/decisions/DS-D-0092-plan-comparison.md",
         "design/governance/decisions/DS-D-0093-canvas-section.md",
         "design/governance/decisions/DS-D-0094-chat-panel.md",
+        "design/governance/decisions/DS-D-0095-command-palette.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2233,6 +2244,15 @@
       "id": "chat-panel",
       "path": "design/components/chat-panel.md",
       "title": "Chat Panel",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "command-palette",
+      "path": "design/components/command-palette.md",
+      "title": "Command Palette",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3207,6 +3227,20 @@
         "ChatDock",
         "ChatSuggestion",
         "ChatGate"
+      ]
+    },
+    {
+      "id": "command-palette",
+      "name": "Command Palette",
+      "doc": "design/components/command-palette.md",
+      "note": "입력 하나로 앱 전체의 행동을 찾아 실행하는 모달(DS-D-0095, DS-D-0084). 사이드바 검색과 ⌘K 가 여는 CommandPalette 의 상수 서른여 개를 한 레시피(packages/css/src/component/command-palette.css)로 옮겼다 — 셸(딤 dim-modal · 유리 패널 bg-menu 88% + 흐림 4 · 위 14vh · 560 · 반경 16 · 겹 layer-critical) · 검색줄(48 · 좌 18 · 우 14) · 목록 자리(안쪽 6 · 그룹 사이 4) · 셰브론 · 결과 없음 · 플라이아웃 자리(오른쪽 6 · 180) · 키 안내 발(38). 안의 조각은 기존 부품의 조합이다 — 행 Menu 항목의 새 한 줄 변형 data-layout=inline(설명 같은 줄 fg-secondary) · 그룹 제목 · 닫기 Icon Button sm ghost · Keycap · 플라이아웃 면 Popover · 글리프 Icon. Dialog(제목 · 액션의 과업 면, 가운데)의 변형이 아니다. 열림은 여는 버튼 자리에서 translate + 두 축 scale(소비처 변수 다섯), 시간은 modal 토큰, 루트는 페이드하지 않는다. 접근성은 combobox + listbox + aria-activedescendant + Dialog 모달 계약 + 결과 수 status. 새 토큰 0, 새 아이콘 arrow-down. 고쳐 올린 값 — 보조 글자 라이트 2.40 ~ 2.96 → fg-secondary · fg-tertiary, 키캡 3.60 → Keycap, 위험 행 2.55 → fg-danger-on-surface, 숫자 z-index 셋, 닫힘 타이머. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 CommandPalette(560 · bg-menu 88% + 배경 흐림 4 · 반경 16, TEXT Placeholder, 시드 그룹 셋 · Menu Layout=inline 인스턴스 · 발 Keycap 인스턴스)와 CommandPaletteEmpty(TEXT Label, 팔레트 안 숨긴 인스턴스), Menu 세트 Layout=inline 일곱 변형, 아이콘 icon/arrow-down, 예시 보드 둘(열림 · 테마 플라이아웃, 결과 없음)로 섰다. 원시 칠 0. 기록 command-palette · command-palette-empty 와 menu-popover inlineItem, parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "CommandPalette",
+        "CommandPaletteEmpty"
       ]
     },
     {

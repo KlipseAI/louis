@@ -1,0 +1,370 @@
+/* Command Palette — design/components/command-palette.md
+ *
+ * 입력 하나로 앱 전체의 행동을 찾아 실행하는 모달(DS-D-0084 · DS-D-0095). 제품 정본은 사이드바 검색과 ⌘K 가 여는
+ * `components/navigation/CommandPalette.tsx:45-302`(통합 판 `54b62a8aa`)다.
+ *
+ * **이 파일이 소유하는 것은 셸과 자리뿐이다.** 행은 `.louis-menu__item[data-layout="inline"]`, 그룹 제목은
+ * `.louis-menu__group-label`, 닫기는 `.louis-icon-button[data-size="sm"][data-variant="ghost"]`, 키는 `.louis-keycap`,
+ * 플라이아웃 면은 `.louis-popover`, 글리프는 `.louis-icon` 이다 — 같은 값을 여기 다시 적지 않는다.
+ *
+ * **Dialog 의 변형이 아니다.** 제목 · 액션 행이 없고, 면이 유리(반투명 + 흐림)이며, 화면 위쪽에 선다. 모달 행동
+ * (가둠 · inert · Esc · 복귀 · 스크롤 잠금)은 Dialog 와 같은 계약을 문서가 가리킨다.
+ *
+ * **루트는 페이드하지 않는다.** 딤과 패널이 각자 opacity 를 전이한다. 조상에 `opacity < 1` 이 걸리면 그 조상이 패널의
+ * 배경 흐림 기준(backdrop root)이 되어, 페이드하는 동안 패널이 페이지가 아니라 딤만 흐린다 — 제품이 딤을 따로 둔 이유와
+ * 같다(`CommandPalette.tsx:17-18`). 루트는 시간만 발행하고, 두 자식이 `inherit` 로 같은 시간을 받는다(dialog.css:96-104 과 같은
+ * 꼴) — `readExitDuration` 이 읽는 값과 시각 전이가 한 선언에서 나온다(DS-D-0011 결정 3).
+ *
+ * 수명은 overlay 의 `data-louis-state`(opening → open → closing → closed) 어휘다. */
+
+.louis-command-palette {
+  /* ── 소비처가 주는 값(데이터) ── 기본값은 「여는 버튼 없음」(⌘K) — 제품 `useState` 기본값(:371). */
+  /* 여는 버튼 중심 − 패널 중심(px). opening · closing 에서만 패널에 걸린다. */
+  --louis-command-palette-from-x: 0px;
+  --louis-command-palette-from-y: -24px;
+  /* 버튼 폭 ÷ 패널 폭 · 버튼 높이 ÷ 패널 높이. 두 축을 따로 받는다 — 넓고 낮은 버튼에서 펼쳐지는 모양이 제품의 성격이다(:408-409). */
+  --louis-command-palette-from-scale-x: 0.32;
+  --louis-command-palette-from-scale-y: 0.18;
+  /* 플라이아웃의 세로 자리 — 트리거 행의 목록 안 위치. 소비처가 본문 아래로 넘치지 않게 잘라서 준다. */
+  --louis-command-palette-flyout-top: 0px;
+
+  /* ── 레시피 내부 ── */
+  /* 14vh — 제품 위쪽 여백(:48). 사다리 밖 값이고 화면 높이를 따른다. 좁은 화면은 아래 미디어 쿼리. */
+  --louis-command-palette-offset-block: 14vh;
+  --louis-command-palette-gutter: var(--louis-space-layout-gutter);
+  /* 560 · min(70dvh, 520) — 제품(:71). 세로는 모바일 주소창을 따라가도록 dvh. */
+  --louis-command-palette-inline-size: 560px;
+  --louis-command-palette-max-block-size: min(70dvh, 520px);
+  /* 유리 — 메뉴 면 88% + 흐림 4. 제품 72%(:73 · :85)는 라이트에서 어두운 그림 위에 열리면 보조 글자가 미달한다(소유자 판정 2).
+   * 흐림 4 는 floating-shell 과 같은 이름 없는 값이다(floating-shell.md Known deviations 1). */
+  --louis-command-palette-surface: color-mix(in srgb, var(--louis-color-bg-menu) 88%, transparent);
+  --louis-command-palette-blur: 4px;
+  /* 머리 · 발의 좌우 = 목록 안쪽 6 + 행 좌우 12 = 18. 검색 글리프 · 키캡이 행 글리프와 같은 세로 줄에 선다(제품은 14 대 16 으로 2 어긋났다). */
+  --louis-command-palette-edge: calc(var(--louis-space-overlay-inset) + var(--louis-space-control-md));
+  /* 180 — 제품 플라이아웃 폭(:152). 테마 · 언어 라벨이 짧아 줄였다는 제품 주석을 따른다. */
+  --louis-command-palette-flyout-inline-size: 180px;
+  /* 28 — 제품 결과 없음 위아래(`py-14`, :255). 사다리 밖이고 소비처가 이 한 줄뿐이다. */
+  --louis-command-palette-empty-block: 28px;
+
+  position: fixed;
+  inset: 0;
+  /* 제품 13000 = `layer-critical`. Foundation 표가 이미 이 자리를 critical 로 정했다(elevation-layer.md:187) — 비디오 편집기 모달 위에서도 ⌘K 가 열린다. */
+  z-index: var(--louis-layer-critical);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-block: var(--louis-command-palette-offset-block) var(--louis-command-palette-gutter);
+  padding-inline: var(--louis-command-palette-gutter);
+  /* 패널 밖에서 굴러도 뒤 페이지가 따라오지 않게 — 잠금 자체는 스크롤 주인의 `data-louis-scroll-locked` 가 한다. */
+  overscroll-behavior: contain;
+  /* 루트는 아무것도 전이하지 않는다 — 시간만 발행한다(머리 주석). */
+  transition-property: none;
+  transition-duration: var(--louis-motion-modal-enter-duration);
+  transition-timing-function: var(--louis-motion-modal-enter-timing-function);
+}
+
+.louis-command-palette[data-louis-state="closing"] {
+  transition-duration: var(--louis-motion-modal-exit-duration);
+  transition-timing-function: var(--louis-motion-modal-exit-timing-function);
+}
+
+/* 좁은 화면 — 제품 8vh · 12(:51). 지역 변수만 바꾼다. */
+@media (max-width: 719px) {
+  .louis-command-palette {
+    --louis-command-palette-offset-block: 8vh;
+    /* 12 — 제품 좁은 화면 여백. 사다리 `space-control-md` 와 값이 같지만 컨트롤 이름이라 빌리지 않는다(DS-D-0029). */
+    --louis-command-palette-gutter: 12px;
+  }
+}
+
+/* use-overlay 로 띄울 때(`.louis-overlay-panel` 이 함께 붙는다) overlay.css 의 anchored 전용 값을 되돌린다.
+ * 루트의 opacity · scale 은 위 「루트는 페이드하지 않는다」 때문에 고정한다 — (0,3,0)이 overlay 의 (0,2,0)을 이긴다.
+ * 모달 시간(320 · 200)은 overlay.css 의 `[data-louis-overlay-mode="modal"]` 규칙이 같은 토큰으로 준다 — 그래서 소비처는 mode 를 modal 로 단다. */
+.louis-overlay-panel.louis-command-palette {
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+}
+
+.louis-overlay-panel.louis-command-palette[data-louis-state] {
+  opacity: 1;
+  scale: 1;
+}
+
+/* 딤. 포인터를 받는다 — 누르면 닫힌다(제품은 루트 mousedown 으로 같은 일을 한다, :574-577). 패널은 뒤 형제라 위에 칠해진다. */
+.louis-command-palette__scrim {
+  position: absolute;
+  inset: 0;
+  /* 모달 공통 딤. 제품 검정 40% / 24%(:64-65)보다 짙다(소유자 판정 3). */
+  background: var(--louis-color-dim-modal);
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+}
+
+.louis-command-palette__panel {
+  /* 딤 위로 — positioned 뒤 형제라 숫자 z-index 가 필요 없다(제품 `z-[1]`, :70). */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  inline-size: min(var(--louis-command-palette-inline-size), 100%);
+  max-block-size: var(--louis-command-palette-max-block-size);
+  overflow: hidden;
+  border-radius: var(--louis-radius-overlay);
+  background: var(--louis-command-palette-surface);
+  /* 표준 속성만 — `-webkit-` 병기 시 제품 빌드(lightningcss)가 표준 선언을 떨군다(:19-20, floating-shell.css 같은 이유). */
+  backdrop-filter: blur(var(--louis-command-palette-blur));
+  /* 떠 있는 메뉴와 같은 그림자 + 헤어라인 한 겹(DS-D-0023) — 제품도 같은 두 토큰을 문다(:77). */
+  box-shadow: var(--louis-elevation-menu), var(--louis-hairline-inset);
+  color: var(--louis-color-fg-menu-item);
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  /* modal 레시피의 허용 속성 셋(opacity · translate · scale, motion.md Token model). */
+  transition-property: opacity, translate, scale;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+}
+
+.louis-command-palette[data-louis-state="opening"] .louis-command-palette__scrim,
+.louis-command-palette[data-louis-state="closing"] .louis-command-palette__scrim {
+  opacity: 0;
+}
+
+/* 버튼 자리에서 펼쳐진다. translate 다음 scale 이고 원점은 가운데 — 제품 `translate3d(...) scale(sx, sy)` 와 같은 합성 순서다. */
+.louis-command-palette[data-louis-state="opening"] .louis-command-palette__panel,
+.louis-command-palette[data-louis-state="closing"] .louis-command-palette__panel {
+  opacity: 0;
+  translate: var(--louis-command-palette-from-x) var(--louis-command-palette-from-y);
+  scale: var(--louis-command-palette-from-scale-x) var(--louis-command-palette-from-scale-y);
+}
+
+/* ── 검색줄 ── */
+.louis-command-palette__search {
+  display: flex;
+  flex: none;
+  align-items: center;
+  /* 6 — 행의 글리프 · 이름 간격과 같은 토큰이라 입력 글자가 행 이름과 같은 세로 줄에 선다. 제품 10(:103). */
+  gap: var(--louis-space-overlay-item-content-gap);
+  /* 12 · 12 — 제품 14 · 12(:103). 높이 = 12 + 닫기 24 + 12 = 48. */
+  padding-block: var(--louis-space-control-md);
+  padding-inline-start: var(--louis-command-palette-edge);
+  /* 닫기(24)의 글리프(16)가 안쪽 4 를 갖고 있어 끝 여백을 4 줄인다 — 글리프 오른쪽 끝이 행의 현재값 끝(18)과 맞는다. 결과 14 = 제품 값. */
+  padding-inline-end: calc(var(--louis-command-palette-edge) - var(--louis-space-control-xs));
+  /* 한 면 구분선 — 방향성 헤어라인(DS-D-0023). 제품 1px 잉크 8%(:104). */
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+/* `.louis-icon` 의 `color: inherit`(icon.css, 이 파일보다 뒤에 방출)를 (0,2,0)으로 이긴다. 그래픽이라 3:1 이면 된다. */
+.louis-command-palette__search > .louis-command-palette__search-icon {
+  color: var(--louis-color-fg-tertiary);
+}
+
+.louis-command-palette__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  /* 강제 색의 링은 검색줄이 `:focus-within` 으로 그린다(text-field.css 와 같은 이유 — 입력에 걸면 글자 주위에만 뜬다). */
+  outline: none;
+}
+
+/* 안내 문구는 tertiary 가 아니라 secondary — TextField 와 같은 판정(text-field.css `::placeholder`). 제품 40%(:117)는 라이트 2.40. */
+.louis-command-palette__input::placeholder {
+  color: var(--louis-color-fg-secondary);
+  opacity: 1;
+}
+
+/* ── 본문(목록 + 플라이아웃의 위치 기준) ── */
+.louis-command-palette__body {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.louis-command-palette__list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  /* 4 — 그룹 사이. 제품은 그룹 2 + 제목 위 8(:169 · :173), LOUIS 그룹 제목은 위 4 를 갖는다 → 행 끝에서 다음 제목 글자까지 8. */
+  gap: var(--louis-space-control-xs);
+  /* min-width 0 필수 — 긴 행이 목록을 패널보다 넓히면 말줄임이 걸리지 않는다(제품 주석 :139-140). */
+  min-inline-size: 0;
+  min-block-size: 0;
+  box-sizing: border-box;
+  padding: var(--louis-space-overlay-inset);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* `scrollIntoView({ block: "nearest" })` 가 행을 목록 안쪽 여백까지 끌어온다. */
+  scroll-padding-block: var(--louis-space-overlay-inset);
+}
+
+.louis-command-palette__group {
+  display: flex;
+  flex-direction: column;
+  /* 2 — 메뉴 면의 행 간격(`.louis-popover` 와 같은 토큰). 제품 행은 붙어 있었다. */
+  gap: var(--louis-space-overlay-item-gap);
+}
+
+/* 결과 없음 — 목록 자리 한 줄. 항목이 아니므로 role 이 없다. */
+.louis-command-palette__empty {
+  margin: 0;
+  padding-block: var(--louis-command-palette-empty-block);
+  padding-inline: var(--louis-space-control-md);
+  color: var(--louis-color-fg-secondary);
+  text-align: center;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* 하위 목록이 있는 행의 셰브론. 아이콘 사다리(16 · 20 · 24)가 아니라 행 안의 장식이라 12 — select 캐럿과 같은 판정(select.css `--louis-select-caret-size`). */
+.louis-command-palette__chevron {
+  flex: none;
+  inline-size: 12px;
+  block-size: 12px;
+  color: var(--louis-color-fg-tertiary);
+}
+
+/* 팔레트의 위험 행은 중립 면용 위험 잉크다. menu 의 `accent-danger`(#ff4b59)는 유리 위 라이트 2.59 — 미달(menu-popover.md Known deviations 와 같은 결함).
+ * (0,3,0)이 menu 의 (0,2,0)을 이긴다. 꺼진 행은 `:where()` 로 빼서 menu 의 `fg-disabled` 가 남는다. */
+.louis-command-palette__panel .louis-menu__item[data-tone="danger"]:where(:not(:disabled):not([aria-disabled="true"])) {
+  color: var(--louis-color-fg-danger-on-surface);
+}
+
+/* **커서는 한 행이다.** 팔레트의 하이라이트는 포인터 이동이 옮긴다(소비처 계약) — 그래서 hover 면을 따로 그리면 키보드로 옮긴 직후
+ * 포인터가 멈춰 있던 행과 새 행이 둘 다 켜진다. 하이라이트되지 않은 행의 hover 면을 지운다. 지금 값(`aria-selected`)의 면은 남긴다.
+ * (0,5,0) — menu 의 danger hover (0,3,0)와 강제 색 hover 를 함께 이긴다. */
+@media (hover: hover) {
+  :is(.louis-command-palette__list, .louis-command-palette__flyout) .louis-menu__item:not([data-highlighted="true"]):not([aria-selected="true"]):hover {
+    background: transparent;
+  }
+}
+
+/* ── 플라이아웃 — `.louis-popover` 면 위에 자리만 얹는다 ── */
+.louis-command-palette__flyout {
+  position: absolute;
+  inset-block-start: var(--louis-command-palette-flyout-top);
+  inset-inline-end: var(--louis-space-overlay-inset);
+  box-sizing: border-box;
+  inline-size: var(--louis-command-palette-flyout-inline-size);
+  /* 본문 안쪽 위아래 6 을 뺀 높이 — 제품 `calc(100% - 12px)`(:152). popover 의 min-inline-size(160 하한)는 180 보다 작아 다투지 않는다. */
+  max-block-size: calc(100% - var(--louis-space-overlay-inset) - var(--louis-space-overlay-inset));
+  overflow-y: auto;
+  /* 위에서 4 내려오며 나타난다. scale 로 부풀리지 않는다 — 유리 테두리가 반짝인다(제품 주석 :158). */
+  animation-name: louis-command-palette-flyout-enter;
+  animation-duration: var(--louis-motion-overlay-enter-duration);
+  animation-timing-function: var(--louis-motion-overlay-enter-timing-function);
+  animation-fill-mode: both;
+}
+
+@keyframes louis-command-palette-flyout-enter {
+  from {
+    opacity: 0;
+    translate: 0 calc(0px - var(--louis-space-control-xs));
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ── 발 — 키 안내 ── */
+.louis-command-palette__footer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  /* 16 — 묶음 사이(제품 `gap-8`, :262). */
+  gap: var(--louis-space-control-lg);
+  /* 8 — 제품 10(:262). 높이 = 8 + 키캡 22 + 8 = 38. */
+  padding-block: var(--louis-space-control-sm);
+  padding-inline: var(--louis-command-palette-edge);
+  box-shadow: var(--louis-hairline-inset-block-start);
+  color: var(--louis-color-fg-tertiary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+.louis-command-palette__hint {
+  display: inline-flex;
+  align-items: center;
+  /* 6 — 키캡과 글자 사이. 제품 「4 는 칩에 글자가 붙어 보였다」(:269). */
+  gap: var(--louis-space-overlay-item-content-gap);
+}
+
+/* 실행 안내는 발 끝에 선다(제품 `HINT_END`, :275). `:last-child` 로 추론하지 않고 속성으로 적는다 — select.css `data-searchable` 과 같은 이유. */
+.louis-command-palette__hint[data-align="end"] {
+  margin-inline-start: auto;
+}
+
+/* 키끼리(↑ ↓)는 한 묶음으로 읽히게 4 로 좁힌다 — 간격 6 에서 2 를 되먹는다. (0,3,0), keycap.css 는 margin 을 갖지 않는다. */
+.louis-command-palette__hint > .louis-keycap + .louis-keycap {
+  margin-inline-start: calc(var(--louis-space-control-xs) - var(--louis-space-overlay-item-content-gap));
+}
+
+/* ── 줄인 모션 ── DS-D-0011 결정 3: 시간을 0 으로 붕괴시키되 순서는 바꾸지 않는다. 패널 이동 · 배율도 뺀다.
+ * 위 opening/closing 규칙과 같은 (0,3,0) 형태라 뒤에 와서 이긴다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-command-palette,
+  .louis-command-palette[data-louis-state] {
+    transition-duration: var(--louis-motion-reduced-duration);
+    transition-timing-function: var(--louis-motion-reduced-timing-function);
+  }
+
+  .louis-command-palette[data-louis-state] .louis-command-palette__panel {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  .louis-command-palette__flyout {
+    animation-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* 장식 pseudo-element 는 포인터를 막지 않는다(elevation-layer.md). */
+.louis-command-palette__panel::before,
+.louis-command-palette__panel::after {
+  pointer-events: none;
+}
+
+/* forced-colors — 사라지는 것만 되살린다. 헤어라인 · 그림자는 box-shadow 라 사라진다. */
+@media (forced-colors: active) {
+  .louis-command-palette__panel {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-command-palette__search {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid currentColor;
+  }
+
+  .louis-command-palette__footer {
+    box-shadow: none;
+    border-block-start: var(--louis-border-width-default) solid currentColor;
+  }
+
+  /* 포커스 링은 평상 렌더링에서 그리지 않는다(DS-D-0074). 강제 색에서만 검색줄이 받는다 — text-field.css 와 같은 모양. */
+  .louis-command-palette__search:focus-within {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: calc(0px - var(--louis-border-width-ring));
+  }
+}

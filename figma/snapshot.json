@@ -18,10 +18,10 @@
         "effect": 11
       },
       "components": {
-        "sets": 129,
-        "variants": 1129
+        "sets": 131,
+        "variants": 1138
       },
-      "icons": 71,
+      "icons": 72,
       "templates": 9
     }
   },
@@ -11804,6 +11804,165 @@
       "strokes": {},
       "effects": {}
     },
+    "CommandPalette": {
+      "outsideParts": [],
+      "tokenId": "command-palette",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Placeholder": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 16,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 7,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Search": {
+              "height": [
+                48
+              ],
+              "paddingBlock": [
+                12
+              ],
+              "paddingBlockEnd": [
+                12
+              ],
+              "paddingInline": [
+                18
+              ],
+              "paddingInlineEnd": [
+                14
+              ],
+              "itemSpacing": [
+                6
+              ]
+            },
+            "SearchIcon": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            },
+            "List": {
+              "paddingBlock": [
+                6
+              ],
+              "paddingInline": [
+                6
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "예시 · 캔버스": {
+              "itemSpacing": [
+                2
+              ]
+            },
+            "GroupLabel": {
+              "paddingBlock": [
+                4
+              ],
+              "paddingInline": [
+                12
+              ]
+            },
+            "Footer": {
+              "height": [
+                38
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingInline": [
+                18
+              ],
+              "itemSpacing": [
+                16
+              ]
+            },
+            "Hint": {
+              "itemSpacing": [
+                6
+              ]
+            },
+            "Keys": {
+              "itemSpacing": [
+                4
+              ]
+            }
+          },
+          "width": [
+            560
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CommandPaletteEmpty": {
+      "outsideParts": [],
+      "tokenId": "command-palette",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            28
+          ],
+          "paddingInline": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "CompositePopover": {
       "outsideParts": [],
       "tokenId": "menu-popover",
@@ -16569,7 +16728,7 @@
     "Menu": {
       "outsideParts": [],
       "tokenId": "menu-popover",
-      "variantCount": 14,
+      "variantCount": 21,
       "hasDescription": true,
       "properties": {
         "HasIcon": {
@@ -16597,16 +16756,17 @@
           "type": "VARIANT",
           "options": [
             "base",
-            "description"
+            "description",
+            "inline"
           ]
         }
       },
       "binding": {
-        "boundFills": 45,
+        "boundFills": 71,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 35,
+        "textStyled": 56,
         "textUnstyled": 0
       },
       "geometry": {
@@ -16656,6 +16816,52 @@
           ],
           "counterAxisAlignItems": [
             "MIN"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "inlineItem": {
+          "slots": {},
+          "parts": {
+            "Description": {
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            37
+          ],
+          "width": [
+            200
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -30830,6 +31036,33 @@
     }
   },
   "icons": {
+    "arrow-down": {
+      "figmaName": "icon/arrow-down",
+      "width": 24,
+      "height": 24,
+      "vectors": 2,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "arrow",
+        "down",
+        "아래 화살표",
+        "아래로",
+        "하단",
+        "화살표"
+      ]
+    },
     "arrow-elbow-down-left": {
       "figmaName": "icon/arrow-elbow-down-left",
       "width": 24,

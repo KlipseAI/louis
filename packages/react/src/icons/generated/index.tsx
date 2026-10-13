@@ -7,6 +7,7 @@ import type { IconProps } from "../types.js";
 export type { IconComponent, IconProps, IconSize } from "../types.js";
 
 export type IconName =
+  | "arrow-down"
   | "arrow-elbow-down-left"
   | "arrow-right"
   | "arrow-u-up-left"
@@ -78,6 +79,15 @@ export type IconName =
   | "x"
   | "x-circle"
   | "youtube-logo";
+
+export function IconArrowDown(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="arrow-down">
+      <line x1="12" y1="3.75" x2="12" y2="20.25" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="5.25 13.5 12 20.25 18.75 13.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
 
 export function IconArrowElbowDownLeft(props: IconProps): JSX.Element {
   return (

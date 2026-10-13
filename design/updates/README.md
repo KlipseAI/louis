@@ -25,6 +25,30 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (261) — 입력 하나로 앱의 행동을 찾아 실행하는 모달을 새 부품 `command-palette` 로, Menu 항목에 한 줄 변형(DS-D-0095, DS-D-0084)
+
+- **새 부품 `command-palette`.** 사이드바 「검색」과 ⌘K 가 여는 전역 검색 · 실행 모달(`.louis-command-palette` · `__scrim` · `__panel` · `__search` ·
+  `__search-icon` · `__input` · `__body` · `__list` · `__group` · `__empty` · `__chevron` · `__flyout` · `__footer` · `__hint`). 제품 `CommandPalette` 의 상수
+  서른여 개를 한 레시피로 옮겼다. 부품이 소유하는 것은 셸과 자리뿐이다 — 위 14vh(720 미만 8vh) · 560 · 높이 ≤ min(70dvh, 520) · 반경 16 · 유리 면
+  `bg-menu` 88% + 흐림 4 · 딤 `dim-modal` · 겹 `layer-critical`, 검색줄 48(좌 18 · 우 14), 목록(안쪽 6 · 그룹 사이 4), 발 38(좌우 18 · 묶음 16).
+  Dialog(제목 · 액션의 과업 면, 가운데)의 변형이 아니다.
+- **안의 조각은 있는 부품 그대로** — 행 Menu 항목 · 그룹 제목, 닫기 Icon Button `sm` `ghost`, 키 Keycap, 플라이아웃 면 Popover, 글리프 Icon.
+- **Menu 항목에 한 줄 변형 `data-layout="inline"`.** 이름 옆에 설명이 같은 줄로 서고 넘치면 설명부터 말줄임, 설명 잉크 `fg-secondary`, 현재값은 끝
+  (`margin-inline-start: auto`). Menu 를 쓰는 다른 화면은 그 속성을 달지 않는 한 그대로다.
+- **수명 · 시작 자리** — overlay 어휘 `data-louis-state`. 열림은 여는 버튼 자리에서 translate + 두 축 scale(소비처 변수 넷 `--louis-command-palette-from-*`),
+  시간은 `motion-modal-enter/exit`, 루트는 페이드하지 않는다(배경 흐림 기준). 플라이아웃 위치는 `--louis-command-palette-flyout-top`.
+- **접근성 계약** — combobox + listbox + `aria-activedescendant`, Dialog 모달 계약(가둠 · inert · Esc · 복귀 · 스크롤 잠금), 결과 수 `role="status"`,
+  한글 조합 중 Enter 무시. 마크업 계약은 문서가 소유하고 React 표면은 만들지 않았다.
+- **새 토큰 0, 새 아이콘 `arrow-down`**(phosphor, 발의 ↓ 키 — 제품은 ↑ 를 돌려 그렸다). 키워드 · 출처 · 고지문 한 줄씩, Figma DS · Icons 에 `icon/arrow-down`.
+- **고쳐 올린 값(DS-D-0084 3항)** — 보조 글자 잉크 40 · 48%(라이트 2.40 ~ 2.96) → `fg-secondary` · `fg-tertiary`, 키캡 3.60 → Keycap, 위험 행 `accent-red-500`
+  (라이트 2.55) → `fg-danger-on-surface`, 면 72% → 88%, 숫자 z-index 셋 → `layer-critical` + DOM 순서, 닫힘 타이머 220(전이 300 보다 짧다) → 계산된 전이 시간.
+- **보이는 변화(제품이 클래스를 물 때)** — 행 32 → 37 · 이름 regular, 라이트 보조 글자 · 위험 행이 짙어짐, 다크 면 pg-800 → pg-900, 딤이 짙어짐, 열림 320 · 200,
+  플라이아웃 모서리 16 · 지금 값 12% 면.
+- **Figma.** DS · Components 「3 · 오버레이」에 `CommandPalette`(TEXT `Placeholder`, 시드 그룹 셋 · 숨긴 Empty) · `CommandPaletteEmpty`(TEXT `Label`),
+  `Menu` 세트 `Layout=inline` 일곱 변형(희소 세트를 받지 않는다), 예시 보드 둘(열림 · 테마 플라이아웃, 결과 없음). 원시 칠 0. 기록 둘 · menu-popover `inlineItem` 과
+  parity 기하 계약(figma `partial`), §2 Layout 에 `inline` 한 단어.
+- 소유자 판정 열하나는 초안의 기본값으로 — DS-D-0095 표. 실브라우저 시험 `command-palette.browser.test.tsx` · `command-palette-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (260) — 접힌 알약이 대화 창으로 자라는 떠 있는 대화 셸을 새 부품 `chat-panel` 로, 모션 lifecycle `morph`(DS-D-0094, DS-D-0084)
 
 - **새 부품 `chat-panel`.** 화면 구석의 알약이 같은 요소 그대로 대화 창으로 자란다(`.louis-chat-panel` · `__header` · `__trigger` · `__trigger-icon` · `__title` ·

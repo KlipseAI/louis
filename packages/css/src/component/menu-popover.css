@@ -282,6 +282,52 @@
   margin-block-start: var(--louis-space-overlay-item-gap);
 }
 
+/* ── 한 줄 항목 (`data-layout="inline"`) ─────────────────────────────────────
+ *
+ * 근거: 2026-10-13, 커맨드 팔레트(통합 판 `54b62a8aa` `components/navigation/CommandPalette.tsx:214-245`, DS-D-0084 · DS-D-0095).
+ * 이름 **옆에** 설명이 같은 줄로 서고, 넘치면 설명부터 말줄임이 걸린다(이름 `flex: 0 1 auto` · 설명 `flex: 1 1 auto`). 두 줄 항목과
+ * 같은 슬롯(`__item-description`)을 쓰므로 `:has` 로 추론할 수 없다 — 속성으로 고른다.
+ *
+ * **설명 잉크가 secondary 다.** 두 줄 항목의 tertiary 는 하이라이트 면(다크 8%) 위에서 4.28 로 미달하고, 한 줄 항목은 설명이
+ * 이름과 같은 줄이라 현재값(`__item-trailing`, secondary)과 같은 층위다 — 제품도 설명 · 현재값을 같은 48% 로 칠한다(:235 · :243).
+ * 특이도는 `:where()` 로 (0,2,0)에 묶는다 — 꺼진 항목의 `color: inherit`(0,3,0)가 이긴다. */
+.louis-menu__item[data-layout="inline"] {
+  /* `:has` 규칙(0,1,0)의 flex-start 를 되돌린다 — 한 줄이라 가운데다. */
+  align-items: center;
+  white-space: nowrap;
+}
+
+.louis-menu__item[data-layout="inline"] .louis-menu__item-label {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 이름이 `0 1 auto` 라 설명이 없는 행(테마 · 언어)에서는 남는 폭이 아무에게도 가지 않는다 — 현재값을 끝으로 민다
+ * (제품 `shrink-0 ml-auto`, CommandPalette.tsx:240-245). 설명이 있으면 설명이 남는 폭을 먹어 이 auto 는 0 이다. */
+.louis-menu__item[data-layout="inline"] > .louis-menu__item-trailing {
+  margin-inline-start: auto;
+}
+
+.louis-menu__item:where([data-layout="inline"]) .louis-menu__item-description {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--louis-color-fg-secondary);
+}
+
+/* 두 줄 항목의 타일 내림(2px)은 한 줄에서 쓰지 않는다. */
+.louis-menu__item[data-layout="inline"] > .louis-menu__item-icon[data-shape="tile"] {
+  margin-block-start: 0;
+}
+
+@media (forced-colors: active) {
+  .louis-menu__item:where([data-layout="inline"]) .louis-menu__item-description {
+    color: inherit;
+  }
+}
+
 .louis-menu__item-trailing {
   flex: none;
   color: var(--louis-color-fg-secondary);

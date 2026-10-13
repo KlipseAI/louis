@@ -445,9 +445,9 @@ const COMPONENT_CONTRACTS = [
           "Default/Hover는 CSS 상태이고 Danger는 tone prop, Disabled는 disabled prop이다. Figma에는 CSS 상태가 없어 한 축에 합친다. DangerHover가 따로 있는 이유는 danger 항목의 hover 면이 일반 항목과 다른 토큰을 쓰기 때문이다. Busy는 항목이 스스로 작업을 도는 동안이다 — 후행 자리에 스피너가 서고 항목이 비활성처럼 보이지만 disabled와 달리 취소가 열려 있다. Selected는 role=listbox의 값 목록에서 「지금 값」이다(aria-selected) — 면이 hover(4%) 위 한 칸인 12%이고, Checked(aria-checked)와 다른 것을 말한다: 저쪽은 행동 목록에서 켜고 끄는 축이라 글리프가 표현하고, 이쪽은 값 목록이라 늘 하나가 선택돼 있어 글리프 칸을 세우면 모든 행이 빈 칸을 들고 선다.",
       },
       Layout: {
-        options: ["base", "description"],
+        options: ["base", "description", "inline"],
         reason:
-          "항목에 **담기는 것**이 갈린다(2026-10-08 Figma 에 세움) — base 는 이름 한 줄, description 은 이름 아래 결과 한 줄(`.louis-menu__item-description`)을 더한 두 줄 항목이다. Toast · Tooltip · EmptyState 의 Layout 과 같은 종류다. BOOLEAN 이 아닌 이유는 프레임이 자기 정렬을 다시 쓰기 때문이다(figma-component-authoring.md §2 시험 2) — CSS 는 설명 슬롯이 있는 항목만 `align-items: flex-start` 로 아이콘을 첫 줄에 붙이고, 설명을 감추기만 하면 아이콘이 두 줄 한가운데에 남는다. 코드에서는 속성이 아니라 `:has(.louis-menu__item-description)` 구조라 prop 도 data 속성도 없다. 아이콘 타일(`data-shape=\"tile\"`)은 이 축에 넣지 않았다 — 타일 면이 소유자 판정 대기다(menu-popover.md Known deviations 「아이콘 타일 면」).",
+          "항목에 **담기는 것**이 갈린다(2026-10-08 Figma 에 세움) — base 는 이름 한 줄, description 은 이름 아래 결과 한 줄(`.louis-menu__item-description`)을 더한 두 줄 항목이다. inline(2026-10-14, DS-D-0095)은 같은 설명 슬롯을 이름 **옆** 같은 줄에 FILL · 말줄임 · fg-secondary 로 세우는 한 줄 항목이다 — CSS `data-layout=\"inline\"` 의 철자이고 Command Palette 의 행이다. 같은 슬롯이라 `:has` 로 추론할 수 없어 속성으로 고른다. Toast · Tooltip · EmptyState 의 Layout 과 같은 종류다. BOOLEAN 이 아닌 이유는 프레임이 자기 정렬을 다시 쓰기 때문이다(figma-component-authoring.md §2 시험 2) — CSS 는 설명 슬롯이 있는 항목만 `align-items: flex-start` 로 아이콘을 첫 줄에 붙이고, 설명을 감추기만 하면 아이콘이 두 줄 한가운데에 남는다. 코드에서는 속성이 아니라 `:has(.louis-menu__item-description)` 구조라 prop 도 data 속성도 없다. 아이콘 타일(`data-shape=\"tile\"`)은 이 축에 넣지 않았다 — 타일 면이 소유자 판정 대기다(menu-popover.md Known deviations 「아이콘 타일 면」).",
       },
     },
     geometry: {
@@ -455,7 +455,8 @@ const COMPONENT_CONTRACTS = [
       // **두 칸을 다 돈다(2026-10-08).** base 는 지금까지의 `panel` 이고(되읽기가 `map` 으로 같은 키를 낸다) description 은
       // `descriptionItem` 이다. 항목 필드 이름을 두 칸이 같이 쓰므로 한 규칙으로 둘을 대조한다 — 갈리는 것은 높이(37 ↔ 57)와
       // 정렬(CENTER ↔ MIN) 둘이다.
-      sizeKeys: ["panel", "descriptionItem"],
+      // inline(2026-10-14)은 `inlineItem` — 높이 37 · 정렬 CENTER 는 panel 과 같고 설명 글자 계약을 descriptionItem 과 같이 갖는다.
+      sizeKeys: ["panel", "descriptionItem", "inlineItem"],
       fields: {
         height: "itemHeight",
         paddingBlock: "itemPaddingBlock",
@@ -4870,6 +4871,63 @@ const COMPONENT_CONTRACTS = [
         paddingInline: ["paddingInline", "borderWidth"],
         cornerRadius: "radius",
         layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Label: { fields: { fontSize: "fontSize" } },
+      },
+    },
+  },
+  {
+    id: "command-palette",
+    figmaName: "CommandPalette",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/command-palette.css 가 정본이다(2026-10-14, DS-D-0095). 패널 한 장이다 — 딤 · 루트 배치(위 14vh)는 예시 보드 「Command Palette — 열림 · 테마 플라이아웃」 이 그린다. 유리 면은 bg-menu 88% 칠 + BACKGROUND_BLUR 4(흐림 4 는 이름 없는 값, Floating Shell 과 같은 빚), 그림자는 elevation/menu 의 DROP_SHADOW 와 헤어라인 INNER_SHADOW 를 효과로 옮겼다 — 배경 흐림을 함께 걸어야 해서 효과 스타일 하나로 묶지 못한다. 검색줄 아래 · 발 위 헤어라인은 방향성 INNER_SHADOW(±0.5)다 — 효과라 역할 계약 밖이고 command-palette.browser.test.tsx 가 코드를 잰다. 행은 Menu Layout=inline · 닫기는 IconButton sm ghost · 키는 Keycap 인스턴스다. 하위 목록 셰브론(`__chevron`)은 Menu 인스턴스 안에 넣을 수 없어 그리지 않았다. 목록은 시드 데이터(그룹 이름 「예시 · …」), 결과 없음은 숨긴 CommandPaletteEmpty 인스턴스(Empty)를 켜고 그룹을 끈다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Placeholder: { type: "TEXT", reason: "검색 입력(`__input`)의 placeholder 글. 코드에서는 input 의 placeholder 속성이고 접근 이름(aria-label)은 따로 단다." },
+    },
+    geometry: {
+      measuredId: "command-palette",
+      sizeKeys: ["base"],
+      fields: {
+        width: "width",
+        cornerRadius: "radius",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Search: { fields: { height: "searchHeight", paddingBlock: "searchPaddingBlock", paddingBlockEnd: "searchPaddingBlock", paddingInline: "searchPaddingStart", paddingInlineEnd: "searchPaddingEnd", itemSpacing: "searchGap" } },
+        SearchIcon: { fields: { width: "searchIcon", height: "searchIcon" } },
+        List: { fields: { paddingBlock: "listPadding", paddingInline: "listPadding", itemSpacing: "groupGap" } },
+        "예시 · 캔버스": { fields: { itemSpacing: "rowGap" } },
+        GroupLabel: { fields: { paddingBlock: "groupLabelPaddingBlock", paddingInline: "groupLabelPaddingInline" } },
+        Footer: { fields: { height: "footerHeight", paddingBlock: "footerPaddingBlock", paddingInline: "footerPaddingInline", itemSpacing: "footerGap" } },
+        Hint: { fields: { itemSpacing: "hintGap" } },
+        Keys: { fields: { itemSpacing: "keyGap" } },
+      },
+    },
+  },
+  {
+    id: "command-palette",
+    figmaName: "CommandPaletteEmpty",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/command-palette.css 가 정본이다(2026-10-14, DS-D-0095). 목록 자리를 대신하는 한 줄(`__empty`)이다. 폭 548 은 패널 560 − 목록 안쪽 6 × 2 표본이다. `Layout=empty` 축으로 CommandPalette 에 접지 않은 이유 — 빈 줄과 그룹 목록은 반대 가시성이라 BOOLEAN 이 못 그리고, 축 어휘를 하나 더 열 근거가 이 한 칸뿐이다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Label: { type: "TEXT", reason: "결과 없음 문구 — 무엇을 못 찾았는지(KO 「검색 결과가 없습니다」)." },
+    },
+    geometry: {
+      measuredId: "command-palette-empty",
+      sizeKeys: ["base"],
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingInline: "paddingInline",
+        layoutMode: { literal: "VERTICAL" },
       },
       slots: {},
       extraStrokeWeights: [],

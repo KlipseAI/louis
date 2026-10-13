@@ -26,6 +26,27 @@
   },
   "icons": [
     {
+      "name": "arrow-down",
+      "symbol": "IconArrowDown",
+      "figmaName": "icon/arrow-down",
+      "source": "packages/react/src/icons/svg/arrow-down.svg",
+      "geometryHash": "a6ef2879336267ac",
+      "elementCount": 2,
+      "keywords": [
+        "arrow",
+        "down",
+        "아래로",
+        "화살표",
+        "아래 화살표",
+        "하단"
+      ],
+      "provenance": {
+        "origin": "upstream",
+        "set": "phosphor",
+        "icon": "arrow-down"
+      }
+    },
+    {
       "name": "arrow-elbow-down-left",
       "symbol": "IconArrowElbowDownLeft",
       "figmaName": "icon/arrow-elbow-down-left",

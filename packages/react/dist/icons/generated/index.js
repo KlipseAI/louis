@@ -1,5 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IconRoot } from "../icon-root.js";
+export function IconArrowDown(props) {
+    return (_jsxs(IconRoot, { ...props, name: "arrow-down", children: [_jsx("line", { x1: "12", y1: "3.75", x2: "12", y2: "20.25", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("polyline", { points: "5.25 13.5 12 20.25 18.75 13.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+}
 export function IconArrowElbowDownLeft(props) {
     return (_jsxs(IconRoot, { ...props, name: "arrow-elbow-down-left", children: [_jsx("polyline", { points: "9 12 4.5 16.5 9 21", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("polyline", { points: "18 3 18 16.5 4.5 16.5", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 }

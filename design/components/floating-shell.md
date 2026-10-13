@@ -35,7 +35,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 계획서가 함께 센 `NodeCanvasHomeScene` 과 `VideoEditScene` 의 두 자리는 이 셸이 아니라 **이미
 `.louis-toast` 를 무는 토스트**다. `gray-800/72%` 라는 문자열만 같다. `CommandPalette` 의 패널도
 같은 재료를 쓰지만 560px 모달이고 `--louis-elevation-menu` 를 한 겹 더 얹는다 — 알약이 아니라
-[Dialog](dialog.md) 쪽 문법이라 이 세트에 담지 않았다.
+[Command Palette](command-palette.md) 라는 따로 선 부품이라(DS-D-0095) 이 세트에 담지 않았다.
 
 **「같은 값을 쓴다」와 「같은 부품이다」는 다르다.** 이 표가 그 구분이다.
 
@@ -75,7 +75,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
   감싸는 래퍼가 갖는다. 여기서 층을 정하면 호출부가 이미 세운 순서를 레시피가 조용히 이긴다.
 - **그림자.** 경계는 안쪽 헤어라인 **한 겹**이 전부다(계약의 `borderWidth: 0`, DS-D-0023).
   `--louis-elevation-menu` 를 한 겹 더 얹는 것은 `CommandPalette` 의 560 모달이고 그것은
-  [Dialog](dialog.md) 쪽 문법이다.
+  [Command Palette](command-palette.md) 다.
 - **조각의 내용.** 속성 없는 `__item` 이 갖는 것은 자리의 겉 크기와 곡률뿐이다. 그 자리를 버튼으로
   채우는 툴 버튼은 `data-variant="ghost"` 가 갖는다(아래 「툴 버튼」) — 글리프 그림과 메뉴는 호출부의 것이다.
 

@@ -32,7 +32,8 @@ authority: normative
   「화면 코드 복사가 아니라 부품으로 추상화하고 부채는 고쳐서 올린다」로 고쳐 썼다.
 - **Node Shell `__generate-button`.** 입력판 오른쪽 끝의 별 + 크레딧 알약. 가로 그라디언트(blue-450 · 500 · 450, 새 시맨틱 `node-generate-surface-edge` ·
   `-center`), `::before` 의 안쪽 8px 빛(overlay), 별 14 · 후행 슬롯(`node-generate-trailing` blue-100), hover 1.06 · 누름 0.95 · 비활성 0.35.
-  그라디언트 토큰 형식 없이 시맨틱 둘로 조합한다. Figma DS 부품과 브라우저 시험은 다음 작업.
+  그라디언트 토큰 형식 없이 시맨틱 둘로 조합한다. Figma DS 부품 `NodeGenerateButton`(State 셋 · TEXT Trailing)을 세우고 `NodeComposer` 의
+  Generate 자리를 그 인스턴스로 바꿨다. 입력판 Field 면도 `node-composer-surface` 로 옮겼다(DS-D-0083 남은 일). 실브라우저 시험 셋.
 
 ## 2026-10-12 (243) — 덱 키트 피드백 22건 분류(DS-D-0083) — 사진 위 배지 · 띠 잉크 · 목록 머리 · 제목 옆 칩 · 연결점 채널 여섯
 

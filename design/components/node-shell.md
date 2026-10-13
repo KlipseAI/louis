@@ -123,7 +123,10 @@ NodeShell (세로, 간격 4, 폭 400)
 | 상태 | hover `brightness(1.06)`(호버 기기만) · 누름 0.95 · `:disabled`/`aria-disabled` 불투명도 0.35 · 생성 중은 안에 `louis-spinner` `data-size="sm"` 을 두고 `aria-busy="true"` |
 
 후행 슬롯은 예상 크레딧 숫자와 「Regenerate」 같은 캡션이 같은 자리 · 같은 서식을 쓴다. 숫자만 보이는 버튼은 `aria-label` 로 행동을 말한다.
-**Figma DS 부품과 브라우저 시험은 아직 없다.**
+**Figma** 는 DS · Components 「7 · 캔버스 · 에디터」 의 `NodeGenerateButton` 세트다 — State `Default` · `Disabled`(불투명도 0.35) ·
+`Loading`(Spinner sm, 고리 흰색 · 트랙 22%), TEXT 속성 `Trailing`. 면 그라디언트 정지점 셋 · 안쪽 빛 · 별 · 글자가 전부 위 시맨틱에 묶였다.
+`NodeComposer` 의 `Generate` 자리도 이 인스턴스다. 값은 기록 `node-generate-button`(레시피 선언)과 parity 로 맞대고, 실브라우저 시험은
+`packages/react/test/node-chrome.browser.test.tsx` 의 생성 버튼 셋(기하 · 그라디언트와 overlay 빛 · 비활성)이다.
 
 ## 제목 옆 칩
 
@@ -201,7 +204,7 @@ NodeShell (세로, 간격 4, 폭 400)
   Figma 에는 자식별 여백이 없어 간격으로 옮겼고, `HasLead` 를 끄면 간격도 함께 사라져 같은 결과가 난다. 생성 버튼 자리의 왼쪽
   8(`margin-inline-start`)도 같은 이유로 `FooterControls` 의 간격이다.
 - **`Lead` 는 비어 있는 자리표시(높이 48)다.** 첫 줄은 이 부품이 소유하지 않는다 — 시안에서는 인스턴스의 `Lead` 에 입력칸을 채운다.
-  `Meta` 의 NodeChip 둘과 `Generate` 의 IconButton 도 자리 표시이지 정본이 아니다(생성 버튼 정본은 `__generate-button` — Figma 부품은 아직 없다).
+  `Meta` 의 NodeChip 둘은 자리 표시이지 정본이 아니다. `Generate` 는 2026-10-13 부터 `NodeGenerateButton` 인스턴스다(DS-D-0084).
 - 높이는 내용의 합이다 — 기본 120(8 + 면 104 + 8), `HasError` 를 켜면 162, `HasLead` 를 끄면 64.
 - **오류 배너는 따로 선 컴포넌트다.** 배너가 `NodeComposer` 안에서는 기본 꺼짐이라 되읽기가 감춘 칸의 치수를 보지 않는다 —
   원본을 따로 세워 반경 `radius/control`(12) · 사방 8 · 줄 사이 8 · 최소 높이 28 · 헤어라인을 맞댄다. 글자는

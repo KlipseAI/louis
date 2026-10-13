@@ -3524,6 +3524,51 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    // 생성 버튼(2026-10-13, DS-D-0084) — 입력판 Generate 자리의 정본. 입력판과 같이 manifest 항목은 node-shell 이고 기록 칸은 따로 둔다.
+    id: "node-shell",
+    figmaName: "NodeGenerateButton",
+    figmaAhead:
+      "React 표면 없음 — packages/css/src/component/node-shell.css 의 .louis-node-shell__generate-button 이하 네 클래스가 정본이다(2026-10-13). 값의 출처는 제품 NodePromptGenerateButton.tsx 다.",
+    variantProperties: {},
+    // 테두리가 없다. 면은 그라디언트이고 가장자리의 빛은 안쪽 그림자(overlay)다.
+    strokes: {},
+    effects: { self: "INNER_SHADOW:0:8:0" },
+    figmaOnlyProperties: {
+      State: {
+        options: ["Default", "Disabled", "Loading"],
+        reason:
+          "Disabled 는 DOM 속성(`:disabled` · `aria-disabled`)이고 Loading 은 소비처가 안에 `louis-spinner` 를 두고 `aria-busy` 를 다는 렌더 조건이다. Figma 에는 둘을 담을 자리가 없어 variant 로 둔다. Hover(brightness 1.06)와 누름(0.95)은 열지 않았다 — 필터 · 축소는 기하가 아니라 그리는 방식이라 변형으로 그리면 기하 계약이 그 값을 정본처럼 말하게 된다.",
+      },
+      Trailing: {
+        type: "TEXT",
+        reason: "별 오른쪽 후행 슬롯의 글자 — 예상 크레딧 숫자나 「Regenerate」 같은 캡션이다. 코드에서는 `.louis-node-shell__generate-trailing` 의 텍스트이고 Loading 에는 없다.",
+      },
+    },
+    // 비활성이 불투명도로만 갈린다. 되읽기에 opacity 가 있으므로 세 칸을 다 선언한다.
+    opacity: { Default: 1, Disabled: 0.35, Loading: 1 },
+    geometry: {
+      measuredId: "node-generate-button",
+      // 폭은 후행 글자가 정한다 — 최소 폭만 맞댄다.
+      fields: {
+        height: "height",
+        minWidth: "minWidth",
+        paddingBlock: "paddingBlock",
+        paddingBlockEnd: "paddingBlock",
+        paddingInline: "paddingInline",
+        paddingInlineEnd: "paddingInline",
+        cornerRadius: "radius",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      // Loading 에는 별 · 후행 슬롯 대신 Spinner 가 선다 — 두 자손은 Default · Disabled 에만 있고 Loading 칸에는 근거 값도 없다.
+      parts: {
+        Content: { fields: { itemSpacing: "gap" }, optional: true },
+        Icon: { fields: { width: "iconSize", height: "iconSize" }, optional: true },
+      },
+    },
+  },
+  {
     id: "node-shell",
     figmaName: "NodeComposerError",
     figmaAhead:

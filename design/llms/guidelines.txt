@@ -3096,7 +3096,8 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 #### Consequences
 
 - 새 시맨틱 넷(`node-generate-surface-edge` · `-surface-center` · `-foreground` · `-trailing`, 두 mode 같은 값). Figma 변수는 다음 동기화.
-- Figma DS 부품(`NodeGenerateButton`)과 브라우저 시험은 다음 작업이다 — 그 전까지 `figma` 상태는 node-shell 의 기존 값 그대로.
+- Figma DS 부품 `NodeGenerateButton`(State Default · Disabled · Loading, TEXT Trailing)을 같은 날 세웠고 `NodeComposer` 의 Generate 자리를
+  그 인스턴스로 바꿨다. 기록 `node-generate-button` · parity 계약 · 레시피 대조 · 실브라우저 시험 셋이 함께 섰다.
 - 제품 (나): `NodePromptGenerateButton` 이 이 클래스를 물면 `CHROME` · `OVERLAY_STROKE` · `TRAILING` 상수와 소비처의 `opacity-[0.35]` 덮어쓰기를 지운다.
   같은 빛을 `::before/::after` 로 복사한 BgmNode · EditNode · ImageNode · InstagramNode 의 다른 버튼은 각자 부품으로 올릴 때 이 빛을 공유한다.
 
@@ -16818,7 +16819,8 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
   「화면 코드 복사가 아니라 부품으로 추상화하고 부채는 고쳐서 올린다」로 고쳐 썼다.
 - **Node Shell `__generate-button`.** 입력판 오른쪽 끝의 별 + 크레딧 알약. 가로 그라디언트(blue-450 · 500 · 450, 새 시맨틱 `node-generate-surface-edge` ·
   `-center`), `::before` 의 안쪽 8px 빛(overlay), 별 14 · 후행 슬롯(`node-generate-trailing` blue-100), hover 1.06 · 누름 0.95 · 비활성 0.35.
-  그라디언트 토큰 형식 없이 시맨틱 둘로 조합한다. Figma DS 부품과 브라우저 시험은 다음 작업.
+  그라디언트 토큰 형식 없이 시맨틱 둘로 조합한다. Figma DS 부품 `NodeGenerateButton`(State 셋 · TEXT Trailing)을 세우고 `NodeComposer` 의
+  Generate 자리를 그 인스턴스로 바꿨다. 입력판 Field 면도 `node-composer-surface` 로 옮겼다(DS-D-0083 남은 일). 실브라우저 시험 셋.
 
 #### 2026-10-12 (243) — 덱 키트 피드백 22건 분류(DS-D-0083) — 사진 위 배지 · 띠 잉크 · 목록 머리 · 제목 옆 칩 · 연결점 채널 여섯
 

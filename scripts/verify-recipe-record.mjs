@@ -500,6 +500,29 @@ const RECIPES = [
       [".louis-node-shell__error", "var(--louis-hairline-inset)"],
     ],
   },
+  // ── 노드 생성 버튼(2026-10-13, DS-D-0084) ─────────────────────────────────
+  //
+  // Node Shell 의 하위 부품이고 기록 칸은 따로(`node-generate-button`) 둔다. 입력판과 같은 처지 — 브라우저 시험이 없어 이 표가
+  // 기록의 유일한 반대편이다. 세 State 의 기하가 같아 Default 칸으로 맞댄다. 면 · 빛의 이름은 결정이라 surfaces 로 고정한다.
+  {
+    component: "node-generate-button",
+    recipe: "packages/css/src/component/node-shell.css",
+    geometry: [
+      [".louis-node-shell__generate-button", "block-size", "Default", "height"],
+      [".louis-node-shell__generate-button", "min-inline-size", "Default", "minWidth"],
+      [".louis-node-shell__generate-button", "padding-inline", "Default", "paddingInline"],
+      [".louis-node-shell__generate-button", "border-radius", "Default", "radius"],
+      [".louis-node-shell__generate-content", "gap", "Default", "gap"],
+      [".louis-node-shell__generate-icon", "inline-size", "Default", "iconSize"],
+      [".louis-node-shell__generate-icon", "block-size", "Default", "iconSize"],
+    ],
+    surfaces: [
+      [".louis-node-shell__generate-button", "var(--louis-color-node-generate-surface-edge)"],
+      [".louis-node-shell__generate-button", "var(--louis-color-node-generate-surface-center)"],
+      [".louis-node-shell__generate-button::before", "mix-blend-mode: overlay"],
+      [".louis-node-shell__generate-trailing", "var(--louis-color-node-generate-trailing)"],
+    ],
+  },
 ];
 
 const errors = [];

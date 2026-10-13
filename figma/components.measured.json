@@ -4654,6 +4654,58 @@
           "$radius": "radius-control 12. 제품 `rounded-12`. Alert block(반경 20 · 1px · 12/18)과 다른 밀도라 따로 갖는다(node-shell.md 「입력판」)."
         }
       }
+    },
+    "node-generate-button": {
+      "$doc": "design/components/node-shell.md",
+      "$source": "packages/css/src/component/node-shell.css",
+      "$note": "노드 생성 버튼(2026-10-13, DS-D-0084) — Node Shell 의 하위 부품 `.louis-node-shell__generate-button`. 값은 브라우저 실측이 아니라 레시피 선언이다(입력판과 같은 처지 — React 표면 없음). 출처는 제품 NodePromptGenerateButton.tsx 의 CHROME · ROOT · CONTENT · OVERLAY_STROKE 와 소비처의 PROMPT_SUBMIT_FAB_DIMMED.",
+      "$keyRule": "키가 `State` 다 — Default · Disabled(불투명도 0.35, 계약의 opacity 블록이 소유) · Loading(별 · 후행 슬롯 대신 Spinner sm). 기하는 셋이 같다.",
+      "sizes": {
+        "Default": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. 레시피 `padding-inline` — 제품 `px-4`.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`.",
+          "gap": 2,
+          "$gap": "2. 레시피 `.louis-node-shell__generate-content { gap: 2px }` — 제품 `gap-1`. 간격 사다리에 2 가 없다.",
+          "iconSize": 14,
+          "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
+        },
+        "Disabled": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. 레시피 `padding-inline` — 제품 `px-4`.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`.",
+          "gap": 2,
+          "$gap": "2. 레시피 `.louis-node-shell__generate-content { gap: 2px }` — 제품 `gap-1`. 간격 사다리에 2 가 없다.",
+          "iconSize": 14,
+          "$iconSize": "14. 제품 Phosphor Sparkle `size={14}` — 아이콘 사다리(16 · 20 · 24) 밖."
+        },
+        "Loading": {
+          "height": 32,
+          "$height": "layout-control-height-md 32. 레시피 `block-size` — 제품 `h-16`(격자 2px).",
+          "minWidth": 32,
+          "$minWidth": "layout-control-height-md 32. 레시피 `min-inline-size` — 제품 `min-w-16`. 폭은 후행 글자가 정해 담지 않는다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 레시피 `padding-block: 0` — 제품 `py-0`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. 레시피 `padding-inline` — 제품 `px-4`.",
+          "radius": 12,
+          "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -4673,6 +4725,7 @@
     "choice-card": "제품 렌더 하네스가 닿지 못한다. 두 출처(ApplyFlow.tsx · ResearchOnboarding.tsx)가 제품 앵커가 아니라 **아직 합쳐지지 않은 작업 브랜치**에만 있다 — 하네스는 근거 lock 이 고정한 앵커 커밋의 소스에서 상수를 꺼내므로 꺼낼 파일이 없다. 값은 그 브랜치의 클래스 문자열을 레시피로 옮긴 것이고 verify-recipe-record 가 레시피 ↔ 이 기록을 대조한다. 브랜치가 합쳐지고 앵커가 그 뒤로 옮겨지면 그때 EXPECT 로 세우고 이 면제를 지운다.",
     "record-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 하네스는 등록된 제품 소스(scripts/lib/product-files.mjs)의 상수 이름으로 클래스를 꺼내는데, 통합 판(76b6cf15)에서 이 카드의 소비처는 어드민 목록 두 파일 — 줄(base)은 InquiryManagement.tsx:81 · RefundManagement.tsx:77 의 머리(`px-10 py-7`) — 이고 둘 다 명부 밖이다. 면 카드(raised)의 출처 AmbassadorApplications.tsx(feat/ambassador-links@2ceec4ed3)는 통합 판 갈래(migration/product-integration/integration.json branches)에 없어 제품에 아예 렌더되지 않는다. 명부를 늘리는 것은 lock 이 고정하는 파일을 늘리는 일이라 이 회차의 변경 단위 밖이다(stat-tile 과 같은 사정). 값은 레시피 선언이고 칸마다 $ 사유를 가지며 verify-recipe-record 가 레시피 ↔ 이 기록을 대조한다. 다음 회차가 InquiryManagement.tsx 를 명부에 올리고 머리 상수 한 탐침을 세우면 이 면제를 지운다.",
     "bare-button": "같은 이유다. 통합 판(76b6cf15)의 소비처 ROW_TITLE 은 어드민 목록 네 파일(BannerManagement.tsx:128 · ModelManagement.tsx:75 · TemplateManagement.tsx:158 · CaptionTemplateManagement.tsx:82)에만 있고 넷 다 측정 명부(scripts/lib/product-files.mjs) 밖이다 — 등록된 AdminSection.tsx 에는 ROW_TITLE 이 없다. 덧붙여 row-title 의 글자 크기 14 는 제품에서 상수가 아니라 JSX 리터럴 `type-body-14-medium`(BannerManagement.tsx:530)이 준다 — 탐침을 세울 때 `jsxClass` 로 그 후크를 붙여야 한다. 값은 레시피 선언이고 칸마다 $ 사유를 갖는다. 명부에 BannerManagement.tsx 를 올리면 이 면제를 지운다.",
+    "node-generate-button": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 입력판과 같은 사정이다. 생성 버튼은 캔버스에 노드를 만든 뒤 입력판 안에서만 그려지고, 정본 NodePromptGenerateButton.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. 명부에 그 파일을 올리고 ROOT 한 탐침을 세우면 이 면제를 지운다.",
     "node-composer": "제품 렌더 하네스가 이 조형에 닿지 못한다 — node-shell 과 같은 사정이다. 입력판은 프로젝트를 열고 캔버스에 노드를 만든 뒤에만 그려지고, 통합 판(76b6cf15)의 소비처 상수(VideoNode.tsx:622 PROMPT_AREA · :644 PROMPT_FIELD_SHELL · :742 PROMPT_FOOTER · :767 PROMPT_ERROR_BANNER)가 있는 nodes/VideoNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. node-shell 의 면제를 지울 회차가 VideoNode.tsx 를 명부에 올릴 때 PROMPT_FIELD_SHELL · PROMPT_ERROR_BANNER 두 탐침을 함께 세우면 이 면제를 지운다."
   },
   "$noRecipe": {

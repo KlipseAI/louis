@@ -58,7 +58,8 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 ## Consequences
 
 - 새 시맨틱 넷(`node-generate-surface-edge` · `-surface-center` · `-foreground` · `-trailing`, 두 mode 같은 값). Figma 변수는 다음 동기화.
-- Figma DS 부품(`NodeGenerateButton`)과 브라우저 시험은 다음 작업이다 — 그 전까지 `figma` 상태는 node-shell 의 기존 값 그대로.
+- Figma DS 부품 `NodeGenerateButton`(State Default · Disabled · Loading, TEXT Trailing)을 같은 날 세웠고 `NodeComposer` 의 Generate 자리를
+  그 인스턴스로 바꿨다. 기록 `node-generate-button` · parity 계약 · 레시피 대조 · 실브라우저 시험 셋이 함께 섰다.
 - 제품 (나): `NodePromptGenerateButton` 이 이 클래스를 물면 `CHROME` · `OVERLAY_STROKE` · `TRAILING` 상수와 소비처의 `opacity-[0.35]` 덮어쓰기를 지운다.
   같은 빛을 `::before/::after` 로 복사한 BgmNode · EditNode · ImageNode · InstagramNode 의 다른 버튼은 각자 부품으로 올릴 때 이 빛을 공유한다.
 

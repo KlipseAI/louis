@@ -400,3 +400,59 @@ test("비활성 디스크가 채널별 비활성 토큰을 문다", async () => 
   expect(facet.backgroundColor).toBe(tokenColor("color-node-handle-bg-disabled-image"));
   expect(facet.color).toBe(tokenColor("color-node-handle-icon-disabled-image"));
 });
+
+// ── 생성 버튼(2026-10-13, DS-D-0084) ────────────────────────────────────────
+// 입력판 오른쪽 끝의 별 + 크레딧 알약. 기록은 `node-generate-button`(레시피 선언)이고 Figma 는 NodeGenerateButton 이다.
+const generateSpec = measured.components["node-generate-button"].sizes;
+const generate = (key: string): number =>
+  sizeOf(generateSpec.Default as Record<string, unknown>, key, "node-generate-button.sizes.Default");
+
+function GenerateButton({ disabled = false, testId }: { readonly disabled?: boolean; readonly testId: string }): JSX.Element {
+  return (
+    <button type="button" className="louis-node-shell__generate-button" data-testid={testId} disabled={disabled}>
+      <span className="louis-node-shell__generate-content" data-testid={`${testId}-content`}>
+        <svg className="louis-node-shell__generate-icon" data-testid={`${testId}-icon`} viewBox="0 0 256 256" aria-hidden="true" />
+        <span className="louis-node-shell__generate-trailing" data-testid={`${testId}-trailing`}>
+          2250
+        </span>
+      </span>
+    </button>
+  );
+}
+
+test("생성 버튼의 기하가 기록과 같다", async () => {
+  await render(<GenerateButton testId="gen" />);
+  const style = getComputedStyle(find("gen"));
+  expect(find("gen").getBoundingClientRect().height).toBe(generate("height"));
+  expect(px(style.minWidth)).toBe(generate("minWidth"));
+  expect(px(style.paddingTop)).toBe(generate("paddingBlock"));
+  expect(px(style.paddingLeft)).toBe(generate("paddingInline"));
+  expect(px(style.borderTopLeftRadius)).toBe(generate("radius"));
+  expect(px(getComputedStyle(find("gen-content")).columnGap)).toBe(generate("gap"));
+  const icon = find("gen-icon").getBoundingClientRect();
+  expect(icon.width).toBe(generate("iconSize"));
+  expect(icon.height).toBe(generate("iconSize"));
+});
+
+// 면은 시맨틱 둘의 가로 그라디언트이고, 안쪽 빛은 `::before` 의 흰 8px 안쪽 그림자를 overlay 로 섞는다.
+// 이 둘이 생성 버튼을 primary Button(단색 · 위아래 1px 빛)과 가르는 정체다.
+test("생성 버튼의 면이 그라디언트이고 빛이 overlay 로 섞인다", async () => {
+  await render(<GenerateButton testId="gen2" />);
+  const image = getComputedStyle(find("gen2")).backgroundImage;
+  expect(image).toContain("linear-gradient(90deg");
+  expect(image).toContain(tokenColor("color-node-generate-surface-edge"));
+  expect(image).toContain(tokenColor("color-node-generate-surface-center"));
+  const glow = getComputedStyle(find("gen2"), "::before");
+  expect(glow.mixBlendMode).toBe("overlay");
+  expect(glow.boxShadow).toContain("inset");
+  expect(glow.boxShadow).toContain("8px");
+  expect(glow.boxShadow).toContain(tokenColor("color-node-generate-foreground"));
+  expect(getComputedStyle(find("gen2-trailing")).color).toBe(tokenColor("color-node-generate-trailing"));
+});
+
+test("비활성 생성 버튼이 불투명도로만 갈린다", async () => {
+  await render(<GenerateButton testId="gen3" disabled />);
+  const style = getComputedStyle(find("gen3"));
+  expect(Number(style.opacity)).toBeCloseTo(0.35, 3);
+  expect(style.backgroundImage).toContain("linear-gradient(90deg");
+});

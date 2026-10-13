@@ -4173,6 +4173,281 @@
   }
 }
 
+/* Coverflow — design/components/coverflow.md
+ *
+ * 카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 세우는 넘김 묶음(DS-D-0090 · DS-D-0084). 제품 정본은
+ * `components/templates/TemplateResultCarousel.tsx`(통합 판 `54b62a8aa`)이고 소비처는 공개 템플릿 상세의 결과 미디어 한 자리다.
+ *
+ * **거리만 데이터다.** 카드마다의 자리는 가운데에서 몇 칸 떨어졌느냐 하나로 정해지고, 그 수는 상태에서 온다 — 소비처가
+ * `--louis-coverflow-offset` · `-depth` 로 준다. 거리를 옆 · 뒤 · 기울기 · 크기로 바꾸는 식은 레시피가 소유한다(제품은 JS 인라인
+ * `transform` 이었다, :169). 시간축처럼 쓰기 방향을 따르지 않는다 — 왼쪽이 이전이고 ←/→ 키도 물리 방향이다.
+ *
+ * **겹 순서는 깊이다.** 숫자 z-index 없이 `__deck` 의 3D 문맥이 카드를 깊이로 정렬한다. 무대(`__stage`)가 자르기(`overflow`)를
+ * 맡고 덱이 3D 를 맡는 두 겹인 이유 — `overflow: hidden` 은 묶음 속성이라 같은 요소의 `preserve-3d` 를 평면으로 접는다(제품의
+ * `preserve-3d` 가 그렇게 죽어 있어 `zIndex: 100 − abs` 가 순서를 정했다, :31 · :170). 한 칸 옆 카드의 안쪽 끝은 가운데 카드보다
+ * 늘 뒤에 있어(평면이 서로 꿰뚫지 않는다) 깊이 정렬과 제품의 z-index 순서가 같다.
+ *
+ * 면은 페이지 바닥이다. 조작 줄의 잉크는 테마를 따라 뒤집히는 `color-gray-000-alpha-*`(DS-D-0082)이고, 카드 면은 사진 무대라
+ * 두 테마에서 같은 `media-stage-surface` 다. */
+
+.louis-coverflow {
+  /* ── 소비처가 주는 거리(데이터) ── 카드가 인라인으로 덮는다. 기본값은 「가운데」다. */
+  /* 가운데에서의 칸 수, 부호 있음 — 왼쪽이 음수(제품 `offset = i − active`, :163). */
+  --louis-coverflow-offset: 0;
+  /* 그 절댓값(:164). CSS `abs()` 가 모든 엔진에 서면 지운다. */
+  --louis-coverflow-depth: 0;
+
+  /* ── 레시피 상수 ── 제품 식의 계수(:169). 덮는 자리가 아니다 — 바꾸면 옆 카드끼리 평면이 꿰뚫어 깊이 정렬이 깨질 수 있다. */
+  /* 옆으로 카드 폭의 52%. */
+  --louis-coverflow-shift: 52%;
+  /* 한 칸마다 140 뒤로. */
+  --louis-coverflow-recede: -140px;
+  /* 한 칸마다 34° 돌린다 — 오른쪽 카드는 왼쪽 끝이 뒤로 간다. */
+  --louis-coverflow-tilt: -34deg;
+  /* 한 칸마다 8% 작게, 70% 아래로는 줄지 않는다. */
+  --louis-coverflow-shrink: 0.08;
+  --louis-coverflow-scale-min: 0.7;
+  /* 카드 높이 — 폭은 4:5 로 따라온다(400). 좁은 판은 아래 컨테이너 질의가 400(폭 320)으로 바꾼다(제품 `h-[500px]`, :39). */
+  --louis-coverflow-card-block-size: 500px;
+
+  /* 좁은 판의 경계는 화면이 아니라 이 묶음의 폭이다 — 아래 @container. */
+  container: louis-coverflow / inline-size;
+  display: block;
+}
+
+/* ── 무대 ── 자르기와 끌기 방향만 갖는다. 포커스를 받는 요소다(`tabindex="0"`) — 포커스 링은 그리지 않는다(DS-D-0074). */
+.louis-coverflow__stage {
+  position: relative;
+  /* 카드 + 40 — 위아래 20 씩 그림자가 잘리지 않는 자리(제품 540 · 440, :30). */
+  block-size: calc(var(--louis-coverflow-card-block-size) + 40px);
+  overflow: hidden;
+  /* 가로 끌기는 넘김이 갖고 세로는 페이지 스크롤에 남긴다(:32). */
+  touch-action: pan-y;
+}
+
+/* ── 덱 ── 3D 문맥. 원근도 여기서 건다(원근은 자식에게 걸린다). 묶음 속성(overflow · opacity · filter · clip-path · isolation ·
+ * mask)을 여기에 더하지 않는다 — 하나라도 서면 평면으로 접혀 겹 순서가 문서 순서가 된다. */
+.louis-coverflow__deck {
+  position: absolute;
+  inset: 0;
+  /* 1400 — 제품 `[perspective:1400px]`(:31). */
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  /* 덱 자신의 상자도 3D 문맥에 z = 0 평면으로 선다 — 뒤로 물러난 옆 카드(z < 0) 앞을 막아 누름이 덱에 걸린다. 덱은 누름을
+   * 받지 않고 카드가 받는다(아래 `__card`). 실브라우저 시험이 겹친 자리를 `elementFromPoint` 로 센다. */
+  pointer-events: none;
+}
+
+/* ── 카드 ── 가운데 정렬 뒤에 거리만큼 옆 · 뒤 · 기울기 · 크기. 개별 변형 속성의 적용 순서(translate → rotate → scale)가 제품
+ * `transform` 목록의 순서와 같아 결과 행렬이 같다. motion.md 가 허용하는 이름(translate · rotate · scale)으로 전이한다. */
+.louis-coverflow__card {
+  position: absolute;
+  inset-block-start: 50%;
+  /* 물리 `left` — 넘김의 방향은 쓰기 방향을 따르지 않는다(머리 주석). */
+  left: 50%;
+  box-sizing: border-box;
+  block-size: var(--louis-coverflow-card-block-size);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  /* 16 — 제품 `rounded-16`(:40). 사진 카드의 16 은 record-card · chart-card 와 같은 `radius-overlay` 다. */
+  border-radius: var(--louis-radius-overlay);
+  background-color: var(--louis-color-media-stage-surface);
+  box-shadow: var(--louis-elevation-coverflow-card);
+  cursor: pointer;
+  pointer-events: auto;
+  translate:
+    calc(-50% + var(--louis-coverflow-offset)*var(--louis-coverflow-shift))
+    -50%
+    calc(var(--louis-coverflow-depth)*var(--louis-coverflow-recede));
+  rotate: y calc(var(--louis-coverflow-offset)*var(--louis-coverflow-tilt));
+  scale: max(var(--louis-coverflow-scale-min), calc(1 - var(--louis-coverflow-depth)*var(--louis-coverflow-shrink)));
+  will-change: translate, rotate, scale, opacity;
+  /* 자리 · 그림자는 넘김 모션(520), 나타남은 교차 페이드(420 ease — 제품 400 ease). motionProperties 는 translate · rotate · scale 을
+   * 선언한다 — box-shadow 는 선언 어휘 밖이라 같은 시간에 함께 따라간다(choice-card 와 같은 방식). */
+  transition-property: translate, rotate, scale, box-shadow, opacity;
+  transition-duration:
+    var(--louis-motion-coverflow-shift-duration),
+    var(--louis-motion-coverflow-shift-duration),
+    var(--louis-motion-coverflow-shift-duration),
+    var(--louis-motion-coverflow-shift-duration),
+    var(--louis-motion-crossfade-enter-duration);
+  transition-timing-function:
+    var(--louis-motion-coverflow-shift-timing-function),
+    var(--louis-motion-coverflow-shift-timing-function),
+    var(--louis-motion-coverflow-shift-timing-function),
+    var(--louis-motion-coverflow-shift-timing-function),
+    var(--louis-motion-crossfade-enter-timing-function);
+}
+
+/* 가운데 카드 — 더 깊은 그림자, 누를 일이 없다(이미 가운데). */
+.louis-coverflow__card[data-active="true"] {
+  box-shadow: var(--louis-elevation-coverflow-card-active);
+  cursor: default;
+}
+
+/* 세 칸 넘게 떨어진 카드 — DOM 에 남겨 넘길 때 전이가 이어지게 하고, 보이지도 눌리지도 않게 한다(:166-172). */
+.louis-coverflow__card[data-far="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 미디어 — 카드를 덮는다. 끌기와 겹치지 않게 고르기를 끈다(:49). 그림의 `draggable="false"` 는 마크업 계약이다. */
+.louis-coverflow__media {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* 라벨 자리 — 안에는 `louis-badge[data-surface="media"]` 를 그대로 둔다(사진과 무관한 불투명 면, 7.61). 이 블록은 자리만 준다. */
+.louis-coverflow__label {
+  position: absolute;
+  /* 12 — 제품 `left-6 bottom-6`(:59). */
+  inset-inline-start: var(--louis-space-control-md);
+  inset-block-end: var(--louis-space-control-md);
+  max-inline-size: calc(100% - var(--louis-space-control-md)*2);
+  pointer-events: none;
+}
+
+/* ── 조작 줄 ── 페이지 바닥 위. 미디어가 하나면 소비처가 그리지 않는다(:210). */
+.louis-coverflow__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--louis-space-control-lg);
+  /* 20 — 제품 `mt-10`(:65). `space-media-inset`(20)은 미디어 안쪽 여백의 이름이라 쓰지 않는다. */
+  margin-block-start: 20px;
+}
+
+/* 이동 버튼 — 40 원형, 잉크 4% 면 + 1px 잉크 16% 실선. 글리프는 아이콘 세트 caret-left · caret-right 16. */
+.louis-coverflow__nav {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-layout-control-height-lg);
+  block-size: var(--louis-layout-control-height-lg);
+  margin: 0;
+  padding: 0;
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-16);
+  /* 50% — 제품 `rounded-[50%]`(:69). 정사각이라 pill 과 모양이 같지만 제품 철자를 따른다. */
+  border-radius: 50%;
+  background-color: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-primary);
+  font: inherit;
+  cursor: pointer;
+  transition-property: background-color, border-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-coverflow__nav-glyph {
+  display: block;
+  flex: none;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+/* 처음 · 끝 — 넘길 곳이 없다. LOUIS 비활성 잉크(icon-button 과 같은 말). 제품의 `opacity: 0.3` 은 옮기지 않는다. */
+.louis-coverflow__nav:disabled,
+.louis-coverflow__nav[aria-disabled="true"] {
+  color: var(--louis-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* 점 묶음 · 점 — 8 원. 상태는 색과 크기(1.35 배)가 함께 말한다. */
+.louis-coverflow__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+}
+
+.louis-coverflow__dot {
+  position: relative;
+  flex: none;
+  /* 8 — 제품 `w-4 h-4`(:82). */
+  inline-size: 8px;
+  block-size: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  /* 48% — 제품 20%(:89)는 바닥 위 1.60 · 1.64 로 3:1 미달이라 고쳐 올린다(3.68 · 4.76). */
+  background-color: var(--louis-color-gray-000-alpha-48);
+  cursor: pointer;
+  transition-property: background-color, scale;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 누르는 자리 — 보이는 점은 8 이라 그대로는 누를 수 없다. 위아래 8 씩(24) · 옆으로 틈의 절반 4 씩(16) 넓혀 이웃과 겹치지 않는
+ * 16 × 24 타깃을 만든다(banner-carousel 점과 같은 방법). 24 에 못 미치는 폭은 같은 일을 하는 40 이동 버튼이 메운다(2.5.8 대체 예외). */
+.louis-coverflow__dot::before {
+  content: "";
+  position: absolute;
+  inset-block: -8px;
+  inset-inline: calc(0px - var(--louis-space-control-xs));
+}
+
+.louis-coverflow__dot[aria-current="true"] {
+  background-color: var(--louis-color-accent-primary);
+  /* 1.35 — 제품 `scale(1.35)`(:90). 자리를 밀지 않는 크기 변화라 점 줄이 흔들리지 않는다. */
+  scale: 1.35;
+}
+
+@media (hover: hover) {
+  .louis-coverflow__nav:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    background-color: var(--louis-color-gray-000-alpha-12);
+    border-color: var(--louis-color-gray-000-alpha-24);
+  }
+
+  /* 활성 점은 호버로 바뀌지 않는다 — 제품은 특이도 사고로 활성 점이 호버 때 파랑을 잃었다(:22-24). */
+  .louis-coverflow__dot:not([aria-current="true"]):hover {
+    background-color: var(--louis-color-gray-000-alpha-64);
+  }
+}
+
+/* ── 좁은 판 ── 이 묶음이 608 이하 — 제품의 화면 640 경계(:30 · :39)에서 상세 페이지 좌우 여백 16 씩을 뺀 폭이다. 카드 400(폭 320),
+ * 무대 440. 화면 폭이 아니라 제 폭으로 묻는 이유 — 가운데 카드와 옆 카드의 엿보기가 들어가느냐가 이 묶음의 폭에 달렸다. */
+@container louis-coverflow (max-width: 608px) {
+  .louis-coverflow__stage {
+    --louis-coverflow-card-block-size: 400px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-coverflow__card,
+  .louis-coverflow__nav,
+  .louis-coverflow__dot {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+@media (forced-colors: active) {
+  /* 그림자는 강제 색에서 사라진다 — 카드 경계를 시스템 색 실선으로(border-box 라 크기 그대로). */
+  .louis-coverflow__card {
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  /* 점은 배경색뿐이라 강제 색이 지운다. */
+  .louis-coverflow__dot {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+
+  .louis-coverflow__dot[aria-current="true"] {
+    background-color: Highlight;
+  }
+
+  .louis-coverflow__nav:disabled,
+  .louis-coverflow__nav[aria-disabled="true"] {
+    color: GrayText;
+    border-color: GrayText;
+  }
+}
+
 /* Dialog / Modal — design/components/dialog.md
  *
  * root의 모션 lifecycle(duration/timing/opacity)과 --louis-overlay-* seam은 overlay.css가

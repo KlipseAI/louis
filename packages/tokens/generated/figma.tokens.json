@@ -354,6 +354,14 @@
             "opacity",
             "translate"
           ]
+        },
+        {
+          "motion": "motion-coverflow-shift",
+          "properties": [
+            "translate",
+            "rotate",
+            "scale"
+          ]
         }
       ],
       "proposalNotice": "REVIEW PROPOSAL — validate in Figma before publishing variables or styles.",
@@ -444,6 +452,10 @@
         },
         {
           "motion": "motion-tab-select",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-coverflow-shift",
           "reduced": "motion-reduced"
         }
       ],
@@ -7407,6 +7419,176 @@
             }
           }
         },
+        "shadow-coverflow-card": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/coverflow-card",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 60
+                  },
+                  "color": {
+                    "alpha": 0.28,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 24
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 60
+                  },
+                  "color": {
+                    "alpha": 0.28,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 24
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.coverflow-card"
+            }
+          }
+        },
+        "shadow-coverflow-card-active": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "shadow/coverflow-card-active",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive shadow은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 80
+                  },
+                  "color": {
+                    "alpha": 0.4,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "hex": "#000000"
+                  },
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 32
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "aliasTarget": null,
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 80
+                  },
+                  "color": {
+                    "alpha": 0.4,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 32
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "primitive.shadow.coverflow-card-active"
+            }
+          }
+        },
         "shadow-focus-ring": {
           "$type": "shadow",
           "fields": [
@@ -9456,6 +9638,60 @@
                 ]
               },
               "sourcePath": "primitive.transition.control-hover"
+            }
+          }
+        },
+        "transition-coverflow-shift": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/coverflow-shift",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 520
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 520
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.coverflow-shift"
             }
           }
         },
@@ -12542,6 +12778,124 @@
             }
           }
         },
+        "elevation-coverflow-card": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/coverflow-card",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.coverflow-card}",
+              "aliasTarget": {
+                "id": "shadow-coverflow-card",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 60
+                  },
+                  "color": {
+                    "alpha": 0.28,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 24
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.global.elevation.coverflow-card"
+            }
+          }
+        },
+        "elevation-coverflow-card-active": {
+          "$type": "shadow",
+          "fields": [
+            "blur",
+            "color",
+            "inset",
+            "offsetX",
+            "offsetY",
+            "spread"
+          ],
+          "figmaName": "elevation/coverflow-card-active",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG shadow composite는 단일 native variable로 표현되지 않아 effect-style로 만들고 내부 속성을 변수에 바인딩합니다."
+          ],
+          "nativeVariableType": null,
+          "representation": "effect-style",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.shadow.coverflow-card-active}",
+              "aliasTarget": {
+                "id": "shadow-coverflow-card-active",
+                "mode": "base"
+              },
+              "resolvedValue": [
+                {
+                  "blur": {
+                    "unit": "px",
+                    "value": 80
+                  },
+                  "color": {
+                    "alpha": 0.4,
+                    "colorSpace": "srgb",
+                    "components": [
+                      0,
+                      0,
+                      0
+                    ]
+                  },
+                  "inset": false,
+                  "offsetX": {
+                    "unit": "px",
+                    "value": 0
+                  },
+                  "offsetY": {
+                    "unit": "px",
+                    "value": 32
+                  },
+                  "spread": {
+                    "unit": "px",
+                    "value": 0
+                  }
+                }
+              ],
+              "sourcePath": "semantic.global.elevation.coverflow-card-active"
+            }
+          }
+        },
         "elevation-focus-ring": {
           "$type": "shadow",
           "fields": [
@@ -14096,6 +14450,48 @@
                 ]
               },
               "sourcePath": "semantic.global.motion.control-hover"
+            }
+          }
+        },
+        "motion-coverflow-shift": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/coverflow-shift",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.coverflow-shift}",
+              "aliasTarget": {
+                "id": "transition-coverflow-shift",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 520
+                },
+                "timingFunction": [
+                  0.22,
+                  1,
+                  0.36,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.coverflow-shift"
             }
           }
         },

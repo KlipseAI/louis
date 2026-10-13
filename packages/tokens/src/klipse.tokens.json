@@ -257,6 +257,10 @@
         {
           "motion": "motion-tab-select",
           "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-coverflow-shift",
+          "reduced": "motion-reduced"
         }
       ],
       "motionProperties": [
@@ -443,6 +447,14 @@
           "properties": [
             "opacity",
             "translate"
+          ]
+        },
+        {
+          "motion": "motion-coverflow-shift",
+          "properties": [
+            "translate",
+            "rotate",
+            "scale"
           ]
         }
       ],
@@ -4221,6 +4233,82 @@
       }
     },
     "shadow": {
+      "coverflow-card": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.28,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 24,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 60,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            }
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-coverflow-card",
+            "tier": "primitive"
+          }
+        }
+      },
+      "coverflow-card-active": {
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "srgb",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.4,
+              "hex": "#000000"
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 32,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 80,
+              "unit": "px"
+            },
+            "spread": {
+              "value": 0,
+              "unit": "px"
+            }
+          }
+        ],
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "shadow-coverflow-card-active",
+            "tier": "primitive"
+          }
+        }
+      },
       "focus-ring": {
         "$value": {
           "color": {
@@ -4951,6 +5039,30 @@
         "$extensions": {
           "com.klipse-design": {
             "id": "transition-control-hover",
+            "tier": "primitive"
+          }
+        }
+      },
+      "coverflow-shift": {
+        "$value": {
+          "duration": {
+            "value": 520,
+            "unit": "ms"
+          },
+          "delay": {
+            "value": 0,
+            "unit": "ms"
+          },
+          "timingFunction": [
+            0.22,
+            1,
+            0.36,
+            1
+          ]
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "transition-coverflow-shift",
             "tier": "primitive"
           }
         }
@@ -5857,6 +5969,26 @@
         }
       },
       "elevation": {
+        "coverflow-card": {
+          "$value": "{primitive.shadow.coverflow-card}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-coverflow-card",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "coverflow-card-active": {
+          "$value": "{primitive.shadow.coverflow-card-active}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "elevation-coverflow-card-active",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "focus-ring": {
           "$value": "{primitive.shadow.focus-ring}",
           "$deprecated": "DS-D-0074 (2026-10-06): focus rings are not drawn; forced-colors uses the system color Highlight. No replacement. Remove after one migration window once product references are 0.",
@@ -6363,6 +6495,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "motion-control-hover",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "coverflow-shift": {
+          "$value": "{primitive.transition.coverflow-shift}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "motion-coverflow-shift",
               "tier": "semantic",
               "mode": "global"
             }

@@ -25,6 +25,25 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (256) — 결과 미디어를 3D 로 늘어놓고 넘기는 커버플로를 새 부품 `coverflow` 로(DS-D-0090, DS-D-0084)
+
+- **새 부품 `coverflow`.** 가운데 카드는 정면, 옆 카드는 뒤로 물러나 기울어 「더 있다」를 보이는 넘김 묶음(`.louis-coverflow` · `__stage` · `__deck` ·
+  `__card` · `__media` · `__label` · `__controls` · `__nav` · `__nav-glyph` · `__dots` · `__dot`). 공개 템플릿 상세의 `TemplateResultCarousel` 이 들던 상수를
+  한 레시피로 옮겼다. Banner Carousel(사진 배너가 한 장씩 겹쳐 사라짐)의 변형이 아니다.
+- **거리만 데이터다.** 소비처가 카드마다 `--louis-coverflow-offset` · `-depth` 와 `data-active` · `data-far` 를 준다. 거리를 옆 52% · 뒤 140 · −34° ·
+  8% 작게(하한 70%)로 바꾸는 식은 레시피가 소유한다 — 제품은 JS 인라인 `transform` 이라 클래스만으로는 카드가 한 점에 겹쳤다.
+- **겹 순서는 깊이다.** 숫자 z-index 없이 `__deck` 의 3D 문맥이 정렬한다. 자르기(`__stage`)와 3D(`__deck`)를 두 겹으로 갈랐다 — 제품의
+  `preserve-3d` 는 같은 요소의 `overflow: hidden` 에 접혀 죽어 있었다.
+- **좁은 판은 컨테이너 질의**(묶음 ≤ 608) — 카드 320 × 400 · 무대 440. 화면 640 을 breakpoint 로 세우지 않았다.
+- **새 토큰 셋** — `elevation-coverflow-card`(0 24 60 28%) · `-active`(0 32 80 40%) · `motion-coverflow-shift`(520 · 0.22/1/0.36/1), 원시 셋.
+  `motionProperties`(translate · rotate · scale)와 `reducedMotionPairs` 한 줄씩.
+- **고쳐 올린 값(DS-D-0084 3항)** — 쉬는 점 20% → `gray-000-alpha-48`(라이트 1.60 → 3.68) · 호버 점 40% → `-64`, 활성 점은 호버로 바뀌지 않는다,
+  라벨은 `badge[data-surface="media"]`(흰 사진 위 4.73 → 7.61), 글자 글리프 `‹` · `›` → `caret-left` · `caret-right`, 비활성 버튼은 `opacity: 0.3` 대신 `fg-disabled`.
+- **Figma.** DS · Components 「5 · 내용」에 `CoverflowCard`(Layout × Selected = 4, BOOLEAN `HasLabel`) · `CoverflowNav`(Direction × State = 6) ·
+  `CoverflowDot`(Selected × State = 4) 세트와 시드 데이터 보드 `Coverflow`(Layout base · compact — 옆 카드는 평면 근사), 효과 스타일 `elevation/coverflow-card` · `-active` ·
+  변수 `motion/coverflow-shift`. 원시 칠 0. 기록 넷과 parity 기하 계약(figma `partial`).
+- 소유자 판정 열하나는 초안의 기본값으로 — DS-D-0090 표. 실브라우저 시험 `coverflow.browser.test.tsx` · `coverflow-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (255) — 시간축 위에 클립을 놓는 편집 타임라인을 새 부품 `timeline` 으로, 짝 블록 `timeline-ruler`(DS-D-0089, DS-D-0084)
 
 - **새 부품 `timeline`.** 화면 가운데 고정 재생헤드 아래로 트랙이 흐르는 편집 타임라인(`.louis-timeline` · `__viewport` · `__spacer` · `__flow` ·

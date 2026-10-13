@@ -564,6 +564,8 @@
   --louis-color-timeline-clip-audio: color(srgb 1 0.607843 0.745098 / 1);
   --louis-color-timeline-clip-caption: color(srgb 1 0.85098 0.501961 / 1);
   --louis-color-timeline-clip-image: color(srgb 0.47451 0.92549 0.8 / 1);
+  --louis-elevation-coverflow-card: 0px 24px 60px 0px color(srgb 0 0 0 / 0.28);
+  --louis-elevation-coverflow-card-active: 0px 32px 80px 0px color(srgb 0 0 0 / 0.4);
   --louis-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.24);
   --louis-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
@@ -622,6 +624,9 @@
   --louis-motion-control-hover-delay: 0ms;
   --louis-motion-control-hover-duration: 160ms;
   --louis-motion-control-hover-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --louis-motion-coverflow-shift-delay: 0ms;
+  --louis-motion-coverflow-shift-duration: 520ms;
+  --louis-motion-coverflow-shift-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   --louis-motion-crossfade-enter-delay: 0ms;
   --louis-motion-crossfade-enter-duration: 420ms;
   --louis-motion-crossfade-enter-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);

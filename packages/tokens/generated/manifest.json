@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "1ec8e8dd79b91292748ee608e0627f8d0b2111a092efb9148e405ea48d3cedc6"
+      "sha256": "dfd09bfb24694154741d9f1b9c824d1562b2a12d3146e966ebf0e407394d2dc6"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "c4a7945ca0598e3454e807213f8258d7bedd55faed46765e70b6fdf03ead92d1"
+      "sha256": "a3d1659449f48f59dec58d424ff0e3ba97c94694df48922f1c6858fb760f9427"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "0366c238927415a628f5ad86dbd791ec28a45b0b849d139c311a40adda0fc049"
+      "sha256": "32555f4f05aea5ebd0687a63ff5956b044bceebb5dcbfdaa0b649f993930aa8e"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "659cab5291230d2ce23c650aaac721abe3d0dfba5e1d09705bc0c6cf1f37d531"
+      "sha256": "e4c0b68eb482e4aa45d5a9f1a9ed2c9cc8f8c69ec1f32346095aa53fb51994d9"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "ff38db24dc05213ea1387ad3c9634598e8c5e2ae62f4623955eb5305b952bbc9"
+      "sha256": "ca8392c64130df0517d35f378a2d676d3b63d03fdd16ff27bf6cc1ecb2030d01"
     }
   ],
   "contrastPairs": [
@@ -370,6 +370,14 @@
         "opacity",
         "translate"
       ]
+    },
+    {
+      "motion": "motion-coverflow-shift",
+      "properties": [
+        "translate",
+        "rotate",
+        "scale"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -460,6 +468,10 @@
     {
       "motion": "motion-tab-select",
       "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-coverflow-shift",
+      "reduced": "motion-reduced"
     }
   ],
   "responsiveProfiles": {
@@ -503,13 +515,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "a84f86a9f8ede775a7caa1e40b98d665a180434168567b6a2098fbb23267e708"
+    "sha256": "182203cbbf6302ac5cbd642715e9b90fc33e4302103e15144b407ce005b9922c"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 942,
+  "tokenCount": 948,
   "tokens": [
     {
       "aliasTarget": {
@@ -18702,6 +18714,100 @@
     },
     {
       "aliasTarget": {
+        "id": "shadow-coverflow-card",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-coverflow-card": "0px 24px 60px 0px color(srgb 0 0 0 / 0.28)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-coverflow-card",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.coverflow-card}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 60
+          },
+          "color": {
+            "alpha": 0.28,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 24
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.global.elevation.coverflow-card",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
+        "id": "shadow-coverflow-card-active",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-coverflow-card-active": "0px 32px 80px 0px color(srgb 0 0 0 / 0.4)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-coverflow-card-active",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.coverflow-card-active}",
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 80
+          },
+          "color": {
+            "alpha": 0.4,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 32
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "semantic.global.elevation.coverflow-card-active",
+      "tier": "semantic",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": {
         "id": "shadow-focus-ring",
         "mode": "base"
       },
@@ -20570,6 +20676,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-coverflow-shift",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-coverflow-shift-delay": "0ms",
+        "--louis-motion-coverflow-shift-duration": "520ms",
+        "--louis-motion-coverflow-shift-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-coverflow-shift",
+      "mode": "global",
+      "rawValue": "{primitive.transition.coverflow-shift}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 520
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.coverflow-shift",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-crossfade-enter",
         "mode": "base"
       },
@@ -22074,6 +22215,148 @@
       "sourcePath": "primitive.scale.tooltip-rest",
       "tier": "primitive",
       "type": "number"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-coverflow-card",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 60
+          },
+          "color": {
+            "alpha": 0.28,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 24
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 60
+          },
+          "color": {
+            "alpha": 0.28,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 24
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.coverflow-card",
+      "tier": "primitive",
+      "type": "shadow"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "shadow-coverflow-card-active",
+      "mode": "base",
+      "rawValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 80
+          },
+          "color": {
+            "alpha": 0.4,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "hex": "#000000"
+          },
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 32
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "resolvedValue": [
+        {
+          "blur": {
+            "unit": "px",
+            "value": 80
+          },
+          "color": {
+            "alpha": 0.4,
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ]
+          },
+          "inset": false,
+          "offsetX": {
+            "unit": "px",
+            "value": 0
+          },
+          "offsetY": {
+            "unit": "px",
+            "value": 32
+          },
+          "spread": {
+            "unit": "px",
+            "value": 0
+          }
+        }
+      ],
+      "sourcePath": "primitive.shadow.coverflow-card-active",
+      "tier": "primitive",
+      "type": "shadow"
     },
     {
       "aliasTarget": null,
@@ -23988,6 +24271,49 @@
         ]
       },
       "sourcePath": "primitive.transition.control-hover",
+      "tier": "primitive",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-coverflow-shift",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 520
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 520
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.coverflow-shift",
       "tier": "primitive",
       "type": "transition"
     },

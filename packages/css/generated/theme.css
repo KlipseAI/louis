@@ -281,6 +281,8 @@
   --radius-table-header: var(--louis-radius-table-header);
 
   /* 그림자 — shadow-* 유틸리티가 된다 */
+  --shadow-coverflow-card: var(--louis-elevation-coverflow-card);
+  --shadow-coverflow-card-active: var(--louis-elevation-coverflow-card-active);
   --shadow-focus-ring: var(--louis-elevation-focus-ring);
   --shadow-menu: var(--louis-elevation-menu);
   --shadow-modal: var(--louis-elevation-modal);
@@ -445,6 +447,7 @@
   --louis-motion-content-fade: var(--louis-motion-content-fade);
   --louis-motion-content-rise: var(--louis-motion-content-rise);
   --louis-motion-control-hover: var(--louis-motion-control-hover);
+  --louis-motion-coverflow-shift: var(--louis-motion-coverflow-shift);
   --louis-motion-crossfade-enter: var(--louis-motion-crossfade-enter);
   --louis-motion-layout-change: var(--louis-motion-layout-change);
   --louis-motion-list-enter: var(--louis-motion-list-enter);

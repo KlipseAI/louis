@@ -349,6 +349,14 @@ export const metadata = Object.freeze({
         "opacity",
         "translate"
       ]
+    },
+    {
+      "motion": "motion-coverflow-shift",
+      "properties": [
+        "translate",
+        "rotate",
+        "scale"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -438,6 +446,10 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-tab-select",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-coverflow-shift",
       "reduced": "motion-reduced"
     }
   ],
@@ -6002,6 +6014,148 @@ export const primitives = {
     "type": "number",
     "value": 0.97
   },
+  "shadow-coverflow-card": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-coverflow-card",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.28,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 24,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 60,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.coverflow-card",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.28
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 24,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 60,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
+  "shadow-coverflow-card-active": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "shadow-coverflow-card-active",
+    "mode": "base",
+    "rawValue": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.4,
+          "hex": "#000000"
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 32,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 80,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    ],
+    "sourcePath": "primitive.shadow.coverflow-card-active",
+    "tier": "primitive",
+    "type": "shadow",
+    "value": [
+      {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.4
+        },
+        "offsetX": {
+          "value": 0,
+          "unit": "px"
+        },
+        "offsetY": {
+          "value": 32,
+          "unit": "px"
+        },
+        "blur": {
+          "value": 80,
+          "unit": "px"
+        },
+        "spread": {
+          "value": 0,
+          "unit": "px"
+        },
+        "inset": false
+      }
+    ]
+  },
   "shadow-focus-ring": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -7578,6 +7732,49 @@ export const primitives = {
         0.25,
         0.1,
         0.25,
+        1
+      ]
+    }
+  },
+  "transition-coverflow-shift": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-coverflow-shift",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 520,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.coverflow-shift",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 520,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.22,
+        1,
+        0.36,
         1
       ]
     }
@@ -10011,6 +10208,100 @@ export const tokens = {
         "unit": "px"
       }
     },
+    "elevation-coverflow-card": {
+      "aliasTarget": {
+        "id": "shadow-coverflow-card",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-coverflow-card": "0px 24px 60px 0px color(srgb 0 0 0 / 0.28)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-coverflow-card",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.coverflow-card}",
+      "sourcePath": "semantic.global.elevation.coverflow-card",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.28
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 24,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 60,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
+    },
+    "elevation-coverflow-card-active": {
+      "aliasTarget": {
+        "id": "shadow-coverflow-card-active",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-elevation-coverflow-card-active": "0px 32px 80px 0px color(srgb 0 0 0 / 0.4)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "elevation-coverflow-card-active",
+      "mode": "global",
+      "rawValue": "{primitive.shadow.coverflow-card-active}",
+      "sourcePath": "semantic.global.elevation.coverflow-card-active",
+      "tier": "semantic",
+      "type": "shadow",
+      "value": [
+        {
+          "color": {
+            "colorSpace": "srgb",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.4
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 32,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 80,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ]
+    },
     "elevation-focus-ring": {
       "aliasTarget": {
         "id": "shadow-focus-ring",
@@ -11209,6 +11500,41 @@ export const tokens = {
           0.25,
           0.1,
           0.25,
+          1
+        ]
+      }
+    },
+    "motion-coverflow-shift": {
+      "aliasTarget": {
+        "id": "transition-coverflow-shift",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-coverflow-shift-duration": "520ms",
+        "--louis-motion-coverflow-shift-delay": "0ms",
+        "--louis-motion-coverflow-shift-timing-function": "cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-coverflow-shift",
+      "mode": "global",
+      "rawValue": "{primitive.transition.coverflow-shift}",
+      "sourcePath": "semantic.global.motion.coverflow-shift",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 520,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.22,
+          1,
+          0.36,
           1
         ]
       }

@@ -4133,6 +4133,18 @@
           ]
         ],
         [
+          "motion/coverflow-shift",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "520ms cubic-bezier(0.22, 1, 0.36, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
           "motion/crossfade-enter",
           "STRING",
           "",
@@ -9483,6 +9495,38 @@
       }
     },
     "effect": {
+      "elevation/coverflow-card": {
+        "layers": [
+          {
+            "offsetY": 24,
+            "blur": 60,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.28
+            ]
+          }
+        ]
+      },
+      "elevation/coverflow-card-active": {
+        "layers": [
+          {
+            "offsetY": 32,
+            "blur": 80,
+            "spread": 0,
+            "inset": false,
+            "color": [
+              0,
+              0,
+              0,
+              0.4
+            ]
+          }
+        ]
+      },
       "elevation/focus-ring": {
         "type": "DROP_SHADOW",
         "offsetY": 0,
@@ -13150,6 +13194,457 @@
           ],
           "cornerRadius": [
             16
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Coverflow": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "compact"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 24,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Stage": {
+              "height": [
+                540
+              ]
+            },
+            "Controls": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Dots": {
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "itemSpacing": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact": {
+          "slots": {},
+          "parts": {
+            "Stage": {
+              "height": [
+                440
+              ]
+            },
+            "Controls": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Dots": {
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "itemSpacing": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [
+            "Card 예시 · 평면 근사 -2",
+            "Card 예시 · 평면 근사 +2"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {},
+      "outsideParts": [
+        "Card 예시 · 평면 근사 -2",
+        "Card 예시 · 평면 근사 +2"
+      ]
+    },
+    "CoverflowCard": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "HasLabel": {
+          "type": "BOOLEAN"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "compact"
+          ]
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 12,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base/false": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            400
+          ],
+          "height": [
+            500
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "base/true": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            400
+          ],
+          "height": [
+            500
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact/false": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            320
+          ],
+          "height": [
+            400
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact/true": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            320
+          ],
+          "height": [
+            400
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {
+        "self": [
+          "DROP_SHADOW:24:60:0",
+          "DROP_SHADOW:32:80:0"
+        ]
+      }
+    },
+    "CoverflowDot": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            8
+          ],
+          "height": [
+            8
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/Hover": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            8
+          ],
+          "height": [
+            8
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            10.8
+          ],
+          "height": [
+            10.8
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Hover": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            10.8
+          ],
+          "height": [
+            10.8
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CoverflowNav": {
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Direction": {
+          "type": "VARIANT",
+          "options": [
+            "prev",
+            "next"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 6,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "prev/Default": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "prev/Hover": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "prev/Disabled": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "next/Default": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "next/Hover": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "next/Disabled": {
+          "slots": {
+            "Glyph": [
+              "16x16"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
           ],
           "strokeWeight": [],
           "overflowingParts": [],

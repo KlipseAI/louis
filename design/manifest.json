@@ -365,6 +365,15 @@
       "generated": false
     },
     {
+      "id": "decision-coverflow",
+      "path": "design/governance/decisions/DS-D-0090-coverflow.md",
+      "title": "DS-D-0090 결과 미디어를 3D 로 늘어놓고 넘기는 커버플로를 새 부품 coverflow 로 — Banner Carousel 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1853,6 +1862,7 @@
         "design/components/channel-header.md",
         "design/components/content-card.md",
         "design/components/timeline.md",
+        "design/components/coverflow.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1934,6 +1944,7 @@
         "design/governance/decisions/DS-D-0087-channel-header.md",
         "design/governance/decisions/DS-D-0088-content-card.md",
         "design/governance/decisions/DS-D-0089-timeline.md",
+        "design/governance/decisions/DS-D-0090-coverflow.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2133,6 +2144,15 @@
       "id": "timeline",
       "path": "design/components/timeline.md",
       "title": "Timeline",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "coverflow",
+      "path": "design/components/coverflow.md",
+      "title": "Coverflow",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3027,6 +3047,22 @@
         "TimelineClip",
         "TimelineTrimHandle",
         "TimelineRuler"
+      ]
+    },
+    {
+      "id": "coverflow",
+      "name": "Coverflow",
+      "doc": "design/components/coverflow.md",
+      "note": "카드 여럿을 3D 로 늘어놓고 가운데 한 장을 정면으로 세워 넘기는 커버플로(DS-D-0090, DS-D-0084). 공개 템플릿 상세의 결과 캐러셀 TemplateResultCarousel 이 화면 파일 안에 들던 Tailwind 상수와 JS 인라인 transform 을 한 레시피(packages/css/src/component/coverflow.css)로 옮겼다 — 무대(자르기 · 끌기 방향 · 포커스) · 덱(3D 문맥, 원근 1400) · 카드(4:5 · 400 × 500 · 반경 16 · 그림자 둘) · 라벨 자리(badge[data-surface=media] 조합) · 조작 줄(40 원형 이동 버튼 둘 · 8 점). 가운데에서의 거리는 데이터라 소비처가 --louis-coverflow-offset · -depth 와 data-active · data-far 로 주고, 거리를 옆 52% · 뒤 140 · −34° · 8% 작게(하한 70%)로 바꾸는 식은 레시피가 소유한다. 겹 순서는 숫자 z-index 가 아니라 덱의 깊이 정렬이다(제품의 preserve-3d 는 같은 요소의 overflow 에 접혀 죽어 있었다). 좁은 판은 묶음 폭 608 이하 컨테이너 질의(카드 320 × 400 · 무대 440). Banner Carousel(사진 배너가 한 장씩 겹쳐 사라짐)의 변형이 아니다. 새 시맨틱 셋 — elevation-coverflow-card · -active 와 motion-coverflow-shift(520 · 0.22/1/0.36/1). 고쳐 올린 값 — 쉬는 점 20% → 48%(라이트 1.60 → 3.68) · 호버 점 40% → 64%, 활성 점 호버 사고 제거, 라벨은 media 배지, 글자 글리프는 caret 아이콘, 비활성 버튼은 fg-disabled. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 CoverflowCard 세트(Layout base · compact × Selected false · true — 코드 data-active, BOOLEAN HasLabel), CoverflowNav(Direction prev · next × State Default · Hover · Disabled), CoverflowDot(Selected false · true — 코드 aria-current × State Default · Hover, 활성 점 Hover 는 Default 와 같은 칸)와 시드 데이터 보드 Coverflow(Layout base 1120 · compact 600)로 섰다 — 그림자는 효과 스타일 elevation/coverflow-card · -active, 라벨은 Badge 인스턴스를 media-badge 변수로 덮었고, 옆 카드는 원근을 그리지 못해 평면 근사(데이터)다. 기록 coverflow-card · coverflow-nav · coverflow-dot · coverflow 와 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "Coverflow",
+        "CoverflowCard",
+        "CoverflowNav",
+        "CoverflowDot"
       ]
     },
     {

@@ -6438,6 +6438,146 @@
           "$playheadWidth": "2. `.louis-timeline__playhead { inline-size: 2px }` — 제품 mobileTimelineClass.ts:52 `[width:2px]`."
         }
       }
+    },
+    "coverflow-card": {
+      "$doc": "design/components/coverflow.md",
+      "$source": "packages/css/src/component/coverflow.css — 2026-10-14 DS-D-0090",
+      "$note": "Coverflow 카드(`.louis-coverflow__card`). 키는 Figma CoverflowCard 의 Layout/Selected 축 — Selected(코드 data-active)는 그림자만 바꾼다. 3D 자리는 소비처의 거리 데이터라 담지 않는다. packages/react/test/coverflow-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "base/false": {
+          "width": 400,
+          "$width": "400. 높이 × 4/5 — `.louis-coverflow__card { aspect-ratio: 4 / 5 }` · 제품 TemplateResultCarousel.tsx:40 `aspect-[4/5]`.",
+          "height": 500,
+          "$height": "500. `--louis-coverflow-card-block-size: 500px` — 제품 TemplateResultCarousel.tsx:39 `h-[500px]`.",
+          "labelInset": 12,
+          "$labelInset": "space-control-md 12. `.louis-coverflow__label { inset-inline-start · inset-block-end }` — 제품 TemplateResultCarousel.tsx:59 `left-6 bottom-6`(단위당 2px).",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-coverflow__card { border-radius }` — 제품 TemplateResultCarousel.tsx:40 `rounded-16`."
+        },
+        "base/true": {
+          "width": 400,
+          "$width": "400. 높이 × 4/5 — `.louis-coverflow__card { aspect-ratio: 4 / 5 }` · 제품 TemplateResultCarousel.tsx:40 `aspect-[4/5]`.",
+          "height": 500,
+          "$height": "500. `--louis-coverflow-card-block-size: 500px` — 제품 TemplateResultCarousel.tsx:39 `h-[500px]`.",
+          "labelInset": 12,
+          "$labelInset": "space-control-md 12. `.louis-coverflow__label { inset-inline-start · inset-block-end }` — 제품 TemplateResultCarousel.tsx:59 `left-6 bottom-6`(단위당 2px).",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-coverflow__card { border-radius }` — 제품 TemplateResultCarousel.tsx:40 `rounded-16`. Selected = data-active — 그림자만 -active 로 바뀌고 기하는 같다."
+        },
+        "compact/false": {
+          "width": 320,
+          "$width": "320. 높이 × 4/5 — `.louis-coverflow__card { aspect-ratio: 4 / 5 }` · 제품 TemplateResultCarousel.tsx:40 `aspect-[4/5]`.",
+          "height": 400,
+          "$height": "400. 묶음 폭 ≤ 608 컨테이너 질의가 `--louis-coverflow-card-block-size: 400px` — 제품 TemplateResultCarousel.tsx:39 `[@media(max-width:640px)]:h-[400px]`(화면 640 − 상세 페이지 여백 16 × 2).",
+          "labelInset": 12,
+          "$labelInset": "space-control-md 12. `.louis-coverflow__label { inset-inline-start · inset-block-end }` — 제품 TemplateResultCarousel.tsx:59 `left-6 bottom-6`(단위당 2px).",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-coverflow__card { border-radius }` — 제품 TemplateResultCarousel.tsx:40 `rounded-16`."
+        },
+        "compact/true": {
+          "width": 320,
+          "$width": "320. 높이 × 4/5 — `.louis-coverflow__card { aspect-ratio: 4 / 5 }` · 제품 TemplateResultCarousel.tsx:40 `aspect-[4/5]`.",
+          "height": 400,
+          "$height": "400. 묶음 폭 ≤ 608 컨테이너 질의가 `--louis-coverflow-card-block-size: 400px` — 제품 TemplateResultCarousel.tsx:39 `[@media(max-width:640px)]:h-[400px]`(화면 640 − 상세 페이지 여백 16 × 2).",
+          "labelInset": 12,
+          "$labelInset": "space-control-md 12. `.louis-coverflow__label { inset-inline-start · inset-block-end }` — 제품 TemplateResultCarousel.tsx:59 `left-6 bottom-6`(단위당 2px).",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-coverflow__card { border-radius }` — 제품 TemplateResultCarousel.tsx:40 `rounded-16`. Selected = data-active — 그림자만 -active 로 바뀌고 기하는 같다."
+        }
+      }
+    },
+    "coverflow-nav": {
+      "$doc": "design/components/coverflow.md",
+      "$source": "packages/css/src/component/coverflow.css — 2026-10-14 DS-D-0090",
+      "$note": "Coverflow 이동 버튼(`.louis-coverflow__nav`). 키는 Figma CoverflowNav 의 Direction/State 축 — 기하는 여섯 칸이 같다(Hover 는 면 · 테두리 알파, Disabled 는 글리프 잉크).",
+      "sizes": {
+        "prev/Default": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        },
+        "prev/Hover": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        },
+        "prev/Disabled": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        },
+        "next/Default": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        },
+        "next/Hover": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        },
+        "next/Disabled": {
+          "size": 40,
+          "$size": "layout-control-height-lg 40. `.louis-coverflow__nav { inline-size · block-size }` — 제품 TemplateResultCarousel.tsx:69 `w-20 h-20`(단위당 2px).",
+          "glyphSize": 16,
+          "$glyphSize": "icon-size-sm 16. `.louis-coverflow__nav-glyph` — 제품은 글자 ‹ · ›(:219 · :241)였고 아이콘 caret 16 으로 고쳐 올렸다(DS-D-0090 판단 7)."
+        }
+      }
+    },
+    "coverflow-dot": {
+      "$doc": "design/components/coverflow.md",
+      "$source": "packages/css/src/component/coverflow.css — 2026-10-14 DS-D-0090",
+      "$note": "Coverflow 점(`.louis-coverflow__dot`). 키는 Figma CoverflowDot 의 Selected/State 축(Selected = 코드 aria-current).",
+      "sizes": {
+        "false/Default": {
+          "size": 8,
+          "$size": "8. `.louis-coverflow__dot { inline-size · block-size: 8px }` — 제품 TemplateResultCarousel.tsx:82 `w-4 h-4`(단위당 2px)."
+        },
+        "false/Hover": {
+          "size": 8,
+          "$size": "8. `.louis-coverflow__dot { inline-size · block-size: 8px }` — 제품 TemplateResultCarousel.tsx:82 `w-4 h-4`(단위당 2px)."
+        },
+        "true/Default": {
+          "size": 10.8,
+          "$size": "8 × 1.35 = 10.8. `.louis-coverflow__dot[aria-current=\"true\"] { scale: 1.35 }` — 제품 TemplateResultCarousel.tsx:90 `[transform:scale(1.35)]`. 상자는 8 그대로이고 그리는 크기가 10.8 이다(getBoundingClientRect). 활성 점은 호버로 바뀌지 않는다."
+        },
+        "true/Hover": {
+          "size": 10.8,
+          "$size": "8 × 1.35 = 10.8. `.louis-coverflow__dot[aria-current=\"true\"] { scale: 1.35 }` — 제품 TemplateResultCarousel.tsx:90 `[transform:scale(1.35)]`. 상자는 8 그대로이고 그리는 크기가 10.8 이다(getBoundingClientRect). 활성 점은 호버로 바뀌지 않는다."
+        }
+      }
+    },
+    "coverflow": {
+      "$doc": "design/components/coverflow.md",
+      "$source": "packages/css/src/component/coverflow.css — 2026-10-14 DS-D-0090",
+      "$note": "Coverflow 묶음(`.louis-coverflow`). Figma Coverflow 는 시드 데이터 보드라 키가 Layout(base · compact) 둘이다. 옆 카드 자리는 평면 근사(데이터)라 담지 않는다.",
+      "sizes": {
+        "base": {
+          "stageHeight": 540,
+          "$stageHeight": "540. `.louis-coverflow__stage { block-size: calc(카드 + 40px) }` — 제품 TemplateResultCarousel.tsx:30 `h-[540px]`.",
+          "controlsOffset": 20,
+          "$controlsOffset": "20. `.louis-coverflow__controls { margin-block-start: 20px }` — 제품 TemplateResultCarousel.tsx:65 `mt-10`(단위당 2px). Figma 는 루트 사이 20.",
+          "controlsGap": 16,
+          "$controlsGap": "space-control-lg 16. `.louis-coverflow__controls { gap }` — 제품 TemplateResultCarousel.tsx:65 `gap-8`.",
+          "dotsGap": 8,
+          "$dotsGap": "space-control-sm 8. `.louis-coverflow__dots { gap }` — 제품 TemplateResultCarousel.tsx:79 `gap-4`."
+        },
+        "compact": {
+          "stageHeight": 440,
+          "$stageHeight": "440. `.louis-coverflow__stage { block-size: calc(카드 + 40px) }` — 제품 TemplateResultCarousel.tsx:30 `[@media(max-width:640px)]:h-[440px]`(묶음 ≤ 608 컨테이너 질의).",
+          "controlsOffset": 20,
+          "$controlsOffset": "20. `.louis-coverflow__controls { margin-block-start: 20px }` — 제품 TemplateResultCarousel.tsx:65 `mt-10`(단위당 2px). Figma 는 루트 사이 20.",
+          "controlsGap": 16,
+          "$controlsGap": "space-control-lg 16. `.louis-coverflow__controls { gap }` — 제품 TemplateResultCarousel.tsx:65 `gap-8`.",
+          "dotsGap": 8,
+          "$dotsGap": "space-control-sm 8. `.louis-coverflow__dots { gap }` — 제품 TemplateResultCarousel.tsx:79 `gap-4`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -6492,7 +6632,11 @@
     "timeline-clip": "제품 렌더 하네스가 이 조형에 닿지 못한다. 모바일 타임라인은 편집기 모달을 719 이하 폭으로 열고 프로젝트에 클립이 있어야 그려지는데 measure-product-components 는 라우트를 열어 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스라 그 상태에 도달하지 못하고, videoEditParts/mobileTimelineClass.ts · sequenceRuler.tsx 는 명부(scripts/lib/product-files.mjs)에도 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 두 파일을 소스로 등록하고 clip · trimHandle · flow · playhead · 눈금 탐침을 세우면 이 면제를 지운다.",
     "timeline-trim-handle": "위(timeline-clip)와 같은 이유다.",
     "timeline-ruler": "위(timeline-clip)와 같은 이유다.",
-    "timeline": "위(timeline-clip)와 같은 이유다."
+    "timeline": "위(timeline-clip)와 같은 이유다.",
+    "coverflow-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 결과 캐러셀은 공개 템플릿 상세(/templates/[slug])에 결과 미디어가 둘 이상 있을 때 그려지는데 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 components/templates/TemplateResultCarousel.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없으며 카드 자리는 JS 인라인 transform 이다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 TemplateResultCarousel.tsx 를 소스로 등록하고 CARD_CLASS · NAV_BTN_CLASS · DOT_CLASS · STAGE_CLASS 탐침을 세우면 이 면제를 지운다.",
+    "coverflow-nav": "위(coverflow-card)와 같은 이유다.",
+    "coverflow-dot": "위(coverflow-card)와 같은 이유다.",
+    "coverflow": "위(coverflow-card)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

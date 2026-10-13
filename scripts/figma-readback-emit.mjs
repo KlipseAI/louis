@@ -311,6 +311,16 @@ const CAPTURE = {
   "TimelineRuler": {"key":{"by":["Layout"]},"fields":["height"],"parts":{"Tick major":["width","height"]}},
   // 시드 보드 — 흐르는 층 사이 · 위아래, 「+」 크기, 재생헤드 폭. 흐르는 층과 그 안(눈금 · 레인 · 클립 · 「+」)은 스크롤 창 밖으로 이어지는 것이 의도라 outsideParts 다(웹은 창이 자른다).
   "Timeline": {"key":{"name":"base"},"fields":["layoutMode"],"parts":{"Flow":["itemSpacing","paddingBlock","paddingBlockEnd","layoutMode"],"Add":["width","height","cornerRadius"],"Playhead":["width"]},"outsideParts":["Flow","Ruler","Lane 예시 자막","Lane 예시 영상","Lane 예시 오디오","TimelineClip","Add","Glyph"]},
+  // Coverflow(2026-10-14, DS-D-0090). 카드 — 4:5 크기 · 반경 · 라벨 자리(안쪽 12, 아래 정렬) · 그림자. Media 는 자리표시 덮개라 담지 않는다.
+  // `Label` 은 Badge 인스턴스(HasLabel 기본 꺼짐)라 훑기가 그 안으로 들어가지 않는다.
+  "CoverflowCard": {"key":{"by":["Layout","Selected"]},"fields":["width","height","paddingInline","paddingBlockEnd","cornerRadius","layoutMode"],"effects":["self"]},
+  // 이동 버튼 — 40 원형, 테두리 1(INSIDE, 레이아웃 밖), 글리프 16. 글리프는 아이콘 인스턴스다.
+  "CoverflowNav": {"key":{"by":["Direction","State"]},"fields":["width","height","strokeWeight"],"slots":{"Glyph":"size"}},
+  // 점 — 8 원, 지금 카드는 1.35 배(10.8).
+  "CoverflowDot": {"key":{"by":["Selected","State"]},"fields":["width","height"]},
+  // 시드 보드 — 무대 높이 · 조작 줄 위(루트 사이 20) · 사이 16 · 점 사이 8. 옆 카드는 평면 근사(데이터)라 담지 않고,
+  // compact 의 ±2 카드는 무대가 자르는 것이 의도라 outsideParts 다(웹도 무대가 자른다).
+  "Coverflow": {"key":{"by":["Layout"]},"fields":["itemSpacing","layoutMode"],"parts":{"Stage":["height"],"Controls":["itemSpacing","layoutMode"],"Dots":["itemSpacing","layoutMode"]},"outsideParts":["Card 예시 · 평면 근사 -2","Card 예시 · 평면 근사 +2"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

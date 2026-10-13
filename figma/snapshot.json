@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 93,
-        "variants": 1014
+        "sets": 95,
+        "variants": 1025
       },
       "icons": 70,
       "templates": 9
@@ -13404,7 +13404,7 @@
         }
       },
       "binding": {
-        "boundFills": 6,
+        "boundFills": 7,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -13433,8 +13433,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             20
           ],
@@ -13462,7 +13460,9 @@
           "layoutMode": [
             "HORIZONTAL"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -25916,7 +25916,7 @@
     "VideoPlayer": {
       "outsideParts": [],
       "tokenId": "video-player",
-      "variantCount": 4,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "SkipButtons": {
@@ -25944,14 +25944,21 @@
             "dark",
             "bright"
           ]
+        },
+        "Platform": {
+          "type": "VARIANT",
+          "options": [
+            "default",
+            "youtube"
+          ]
         }
       },
       "binding": {
-        "boundFills": 36,
+        "boundFills": 78,
         "rawFills": 0,
-        "boundStrokes": 12,
+        "boundStrokes": 22,
         "rawStrokes": 0,
-        "textStyled": 8,
+        "textStyled": 12,
         "textUnstyled": 0
       },
       "geometry": {
@@ -25991,8 +25998,6 @@
               ]
             }
           },
-          "overflowingParts": [],
-          "offCenterMarks": [],
           "height": [
             180
           ],
@@ -26020,31 +26025,246 @@
           "layoutMode": [
             "NONE"
           ],
-          "strokeWeight": []
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "youtube": {
+          "slots": {},
+          "parts": {
+            "Video (placeholder)": {
+              "width": [
+                640
+              ],
+              "height": [
+                360
+              ]
+            },
+            "Bottom chrome": {
+              "width": [
+                616
+              ],
+              "height": [
+                62
+              ]
+            }
+          },
+          "height": [
+            360
+          ],
+          "width": [
+            640
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {
         "Vector": [
-          "1.5|CENTER"
+          "1.5|CENTER",
+          "1.7|CENTER",
+          "2|CENTER"
         ]
       },
       "effects": {
         "Expand": [
-          "INNER_SHADOW:0:0:0.5"
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0"
         ],
         "Play": [
-          "INNER_SHADOW:0:0:0.5"
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
+          "BACKGROUND_BLUR:NORMAL:var(blur/panel)",
+          "BACKGROUND_BLUR:NORMAL:0"
         ],
         "Progress pill": [
-          "INNER_SHADOW:0:0:0.5"
-        ],
-        "Skip back 10s": [
-          "INNER_SHADOW:0:0:0.5"
-        ],
-        "Skip forward 10s": [
-          "INNER_SHADOW:0:0:0.5"
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+          "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0"
         ]
       }
+    },
+    "VideoPlayerChip": {
+      "outsideParts": [],
+      "tokenId": "video-player",
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Pressed"
+          ]
+        },
+        "Standalone": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Pressed": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "VideoPlayerVolume": {
+      "outsideParts": [
+        "Panel",
+        "Surface",
+        "Slider",
+        "Track",
+        "Fill",
+        "Thumb"
+      ],
+      "tokenId": "video-player",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Closed",
+            "Open",
+            "Muted"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 12,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Closed": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Muted": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Open": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "overflowingParts": [
+            "Panel",
+            "Surface",
+            "Slider",
+            "Track",
+            "Fill",
+            "Thumb"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     }
   },
   "icons": {

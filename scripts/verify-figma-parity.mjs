@@ -598,16 +598,35 @@ const COMPONENT_CONTRACTS = [
       ExpandButton: { type: "BOOLEAN", reason: "확대 버튼의 유무. 8곳 중 3곳만 쓴다." },
       DownloadButton: { type: "BOOLEAN", reason: "다운로드 버튼의 유무. PublishFlow 하나만 쓴다 — 기본은 꺼짐이다." },
       PlayGlyph: { type: "INSTANCE_SWAP", reason: "재생·일시정지 글리프를 바꿔 끼운다." },
+      Platform: {
+        options: ["default", "youtube"],
+        reason:
+          "코드의 `data-platform` 이다(2026-10-13, DS-D-0083 2a). youtube 는 업로드 미리보기의 YouTube 판 — 무대 · 진행 막대 4 → 6 · 컨트롤 40 · 가로 볼륨 · 장식 아이콘 · HD 배지 · 플랫폼 빨강으로 담기는 것이 바뀐다. 잉크가 늘 흰색이라 `Tone=dark` 에만 선다.",
+      },
     },
-    // 스킵·확대 글리프는 라이브러리에 없어 벡터로 그렸다. 두께는 아이콘 정본을 따른다.
-    strokes: { Vector: { weight: "icon", align: "CENTER" } },
-    // 유리 알약 다섯이 같은 헤어라인을 쓴다 — Button secondary 와 같은 레시피다.
+    // 스킵·확대 글리프는 라이브러리에 없어 벡터로 그렸다. 두께는 아이콘 정본(1.5)을 따른다. **YouTube 판(2026-10-13)의 글리프는
+    // 제품 `YoutubeUploadModal.tsx` 의 인라인 SVG 경로를 옮겨 그 획(1.7 · 2)을 그대로 둔다** — YouTube 플레이어 크롬의 재현이라
+    // LOUIS 아이콘 정본이 아니다(video-player.md Known deviations).
+    strokes: { Vector: { weight: [1.5, 1.7, 2], align: "CENTER", reason: "LOUIS 판은 아이콘 정본 1.5, YouTube 판은 제품 SVG 의 1.7 · 2 다." } },
+    // 유리 알약이 같은 헤어라인을 쓴다 — Button secondary 와 같은 레시피다. **2026-10-13 부터 배경 흐림 2 가 함께 선다**
+    // (`blur/media-control` — 레시피의 `blur-media-control`, `Chrome=Hidden` 은 0). 스킵 둘은 BOOLEAN `SkipButtons` 기본 꺼짐이라
+    // 되읽기가 감춘 레이어를 건너뛰어 역할이 잡히지 않는다 — 같은 유리이고 Play 와 한 프레임 규칙이다.
+    // YouTube 판의 재생 버튼은 면 없이 흐림만(`blur/panel`, Hidden 은 0) — 레시피의 `data-platform="youtube"` 재생 단추다.
     effects: {
-      "Skip back 10s": "INNER_SHADOW:0:0:0.5",
-      Play: "INNER_SHADOW:0:0:0.5",
-      "Skip forward 10s": "INNER_SHADOW:0:0:0.5",
-      "Progress pill": "INNER_SHADOW:0:0:0.5",
-      Expand: "INNER_SHADOW:0:0:0.5",
+      Play: [
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
+        "BACKGROUND_BLUR:NORMAL:var(blur/panel)",
+        "BACKGROUND_BLUR:NORMAL:0",
+      ],
+      "Progress pill": [
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
+      ],
+      Expand: [
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:var(blur/media-control)",
+        "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:0",
+      ],
     },
   },
   // ── CSS 레시피는 있고 React 표면이 없는 것들 ────────────────────────────────
@@ -3777,6 +3796,30 @@ const COMPONENT_CONTRACTS = [
       Layout: { options: ["board", "waiting", "stopped"], reason: "무대 아래 막대의 세 판 — 작업판(버튼 · 체크) · 기다림(글자 쉬머 · 진행) · 멈춤(안내 · 다시) 으로 담기는 것이 바뀐다." },
       Error: { type: "BOOLEAN", reason: "실패 줄(`__error`, fg-danger-on-surface) 가시성." },
       Progress: { type: "BOOLEAN", reason: "진행 묶음(`__progress` — 퍼센트 · 진행 막대) 가시성." },
+    },
+  },
+  {
+    id: "video-player",
+    figmaName: "VideoPlayerChip",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/video-player.css 의 `__chip` 이 정본이다(2026-10-13, DS-D-0083 2a).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Default", "Hover", "Pressed"], reason: "Hover 는 유리 틴트가 진해지고(`media-control-surface-hover`) Pressed 는 0.94 로 줄어든다 — CSS 상태라 변형으로 둔다." },
+      Standalone: { options: ["false", "true"], reason: "코드의 `data-standalone` — 플레이어 밖에 홀로 선 칩. 겉모습은 같고 값을 누가 갖는지만 다르다(세트 설명)." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "칩 글리프(확대 · 볼륨 · 내려받기)." },
+    },
+  },
+  {
+    id: "video-player",
+    figmaName: "VideoPlayerVolume",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/video-player.css 의 `__volume` 이 정본이다(2026-10-13, DS-D-0083 2a).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Closed", "Open", "Muted"], reason: "코드의 `data-open` · 음소거 — 패널(64 ~ 112, 칩 위 8)이 열리고 글리프가 바뀐다." },
     },
   },
   {

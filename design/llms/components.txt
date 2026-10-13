@@ -11682,9 +11682,9 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
 | Web           | `partial`      | `packages/css/src/component/video-player.css` 레시피와 실브라우저 시험 `packages/react/test/video-player-recipe.browser.test.tsx`(크롬 기하 · 상태 · 볼륨 · 홀로 선 칩 · YouTube 판 · 대비). **React 표면은 없다** — 행동은 제품 `VideoPlayer` 가 갖고 이 레시피의 클래스를 입는다. 2026-08-30 에 레시피가 없어 `not-ready` 로 내렸던 것을 레시피가 서서 다시 올렸다 |
-| Figma         | `partial`      | `MediaScrubber` 2 variant(State, ON_HOVER 프로토타입) · `VideoPlayer` 4 variant(Chrome × Tone) + BOOLEAN 슬롯 3 · INSTANCE_SWAP 1. **볼륨 칩 · 볼륨 패널 · 칩 hover · YouTube 판의 Figma 변형은 아직 없다**(이 문서가 먼저 섰다) |
+| Figma         | `partial`      | `MediaScrubber` 2 variant(State, ON_HOVER 프로토타입) · `VideoPlayer` 6 variant(Chrome × Tone × Platform — youtube 는 dark 에만, 2026-10-13) + BOOLEAN 슬롯 3 · INSTANCE_SWAP 1 · `VideoPlayerChip`(State × Standalone, 2026-10-13) · `VideoPlayerVolume`(Closed · Open · Muted, 2026-10-13). 유리 다섯에 흐림 `blur/media-control` 을 묶었다. 기존 변형의 확대 칩은 아직 새 칩 인스턴스가 아니다 |
 | Documentation | `done`         | 이 문서                                                        |
-| Maturity      | `experimental` | 레시피는 섰고 React 표면과 Figma 의 볼륨 · hover · 플랫폼 변형이 아직이다 |
+| Maturity      | `experimental` | 레시피 · Figma(볼륨 · 칩 hover · YouTube 판)는 섰고 React 표면이 아직이다 |
 
 #### When to use
 
@@ -12167,9 +12167,9 @@ LOUIS `Slider` 가 아니라 이 컴포넌트의 부품이다 — 아래 「세�
    제품이 300 을 남기던 것을 높이 제한 없음으로 고쳤다. 제품 경계 720 은 LOUIS 표준 경계 719 로 맞췄다.
 9. **YouTube 판 구분 「 / 」 대비 4.34** — 흰 80% 라 중간 회색 영상 위에서 4.5 에 못 미친다. 뜻을 갖지 않는 구두점이고 양옆 숫자(5.70)가
    읽히므로 제품 값 그대로 둔다.
-10. **볼륨 칩 · 볼륨 패널 · 칩 hover · YouTube 판의 Figma 변형이 없다.** 이 문서가 적는 Figma 변형(`Chrome` × `Tone`)
-    과 BOOLEAN 슬롯 목록에 볼륨 칩이 없고 칩 둘 + 패널 구조도 옮겨지지 않았다. 코드가 Figma 보다 앞서 있다.
-    패널은 상태(닫힘 · 열림 · 음소거) 셋과 길이(64~112)를 가진다.
+10. **볼륨 · 칩 hover · YouTube 판은 2026-10-13 에 Figma 에 섰지만 `VideoPlayer` 안의 칩은 아직 손으로 그린 프레임이다.** `VideoPlayerChip` ·
+    `VideoPlayerVolume`(닫힘 · 열림 · 음소거, 패널 112 표본) 세트가 따로 섰고, 플레이어 변형의 확대 칩을 그 인스턴스로 바꾸는 것과 볼륨 칩을
+    고정 자식으로 넣는 것이 남았다. 진행 막대 레일은 Figma 가 흰 24% 로 레시피(잉크 28%)와 갈린다. YouTube 판의 HD 배지는 `scale(0.78)` 없이 그려 제품보다 크다.
 11. **볼륨 칩이 `ExpandButton`(BOOLEAN) 옆의 새 슬롯이다.** 제품에서 소리 칩은 늘 있고 끄는 prop 이 없다 —
     Figma 에 올릴 때 BOOLEAN 이 아니라 **고정 자식**이다.
 12. **슬라이더의 키보드 · 가용 조건은 Figma 로 표현되지 않는다.** 계약은 이 문서가 갖고, Figma 는 열린 상태의

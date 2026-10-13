@@ -281,6 +281,9 @@ const CAPTURE = {
   "SegmentTrackBlock": {"key":{"by":["Look","Selected"]},"fields":["height","paddingInline","itemSpacing","cornerRadius","layoutMode"],"outsideParts":["Current ring"]},
   "SegmentTrackMapBar": {"key":{"by":["Look","Emphasis"]},"fields":["height","cornerRadius"]},
   "StageBar": {"key":{"by":["Layout"]},"fields":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
+  "VideoPlayerChip": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"]},
+  // 볼륨 패널은 칩 위로 열려(틈 8 · 64 ~ 112) 칩 프레임 밖에 선다 — 패널과 그 자손 전부가 계약된 바깥 부품이다.
+  "VideoPlayerVolume": {"key":{"by":["State"]},"fields":["width","height"],"outsideParts":["Panel","Surface","Slider","Track","Fill","Thumb"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},
@@ -383,7 +386,7 @@ const CAPTURE = {
   // 손잡이는 **일부러** 변의 바깥으로 절반 나간다 — 잡는 곳이 창 안쪽에 있으면 창의 마지막
   // 몇 px 을 손가락이 덮는다. 그래서 셋 다 `outsideParts` 다.
   "TransformFrame": {"key":{"by":["Handles"]},"fields":["cornerRadius","layoutMode","strokeWeight"],"parts":{"Grid":["width","height"],"GridLineV":["width"],"GridLineH":["height"],"HandleCorner":["width","height","cornerRadius"],"HandleEdgeH":["width","height","cornerRadius"],"HandleEdgeV":["width","height","cornerRadius"]},"strokes":["self","HandleCorner","HandleEdgeH","HandleEdgeV"],"outsideParts":["HandleCorner","HandleEdgeH","HandleEdgeV"]},
-  "VideoPlayer": {"key":{"name":"base"},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
+  "VideoPlayer": {"key":{"by":["Platform"],"map":{"default":"base"}},"parts":{"Video (placeholder)":["width","height"],"Scrim (opacity 0)":["width","height"],"Center chrome":["width","height"],"Bottom chrome":["width","height"]},"strokes":["Vector"],"effects":["Skip back 10s","Play","Skip forward 10s","Progress pill","Expand"]},
 };
 
 function usage(message) {

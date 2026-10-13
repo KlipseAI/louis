@@ -267,8 +267,9 @@ if (Math.abs(betaNode.rect.x - (betaLabel.rect.x + betaLabel.rect.width) - betaG
    `"Pretendard Variable", -apple-system, …` 스택으로(통합 판이 글꼴 스택을 고쳤다). 서명이 styleRef 를 품으므로 id 가 바뀐다.
    걸친 라우트는 19 → 18 이다. 빠진 하나는 `/subscription/coupons` 다 — 통합 판에서 그 페이지가 `redirect("/subscription?tab=group")`
    만 하는 옛 주소가 됐고(구매 내역이 구독 허브의 「단체 구매」 탭으로 갔다), 측정은 redirect 된 화면을 후보에서 뺀다. */
+/* 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다. 9a272be57f7f → ab77de093887 · fe194dab7cd2 → fd6e21d06774 · dbd11b0d31fa → 713bdbca6c0c · 7f409c824481 → c90e25bed317 · c400e3ba235f → 42b2418293fc. */
 const candidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-9a272be57f7f",
+  (entry) => entry.id === "subtree-ab77de093887",
 );
 if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 18) {
   fail("measured repeated sidebar candidate changed; inspect before regenerating Figma");
@@ -327,7 +328,7 @@ if (!candidate || candidate.nodeCount !== 41 || candidate.routeCount !== 18) {
    바닥 CTA 묶음 `marginTop` 767 → 759(같은 8) ③ 사이드바 Canvas · Composition 행 아이콘 마스크가 `Graph.svg` → `Canvas.svg` ·
    `MagicWand.svg` → `FilmSlate.svg` ④ 그에 딸린 nav `transformOrigin`. Current=Default 쪽 라우트 13 → 12 는 사이드바 가드의
    `/subscription/coupons` redirect 와 같은 하나다. */
-const headerCandidates = ["subtree-fe194dab7cd2", "subtree-dbd11b0d31fa"].map((id) =>
+const headerCandidates = ["subtree-fd6e21d06774", "subtree-713bdbca6c0c"].map((id) =>
   fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find((entry) => entry.id === id),
 );
 // 2026-09-26: 사이드바 가드와 같은 사유로 걸친 라우트 수만 늘었다 — Current=Default 헤더 6 → 13(bulk 둘 · coupons ·
@@ -418,7 +419,7 @@ const upgradeSpec = (route, state) => {
    rect 는 18개 모두 폭만 256 → 216 이다 — 브랜드 행이 레일 내용 폭을 채우고(`.louis-sidebar-brand` 의 `inline-size: 100%`) 레일이
    280 → 240 으로 줄었다(`bc3e6fa3`). 서브트리 6노드는 path · 글자 그대로이고 폭을 채우는 넷의 rect 만 움직였다. */
 const brandCandidate = fixture.componentCandidateAudit.repeatedSubtreesByContext[contextName].find(
-  (entry) => entry.id === "subtree-7f409c824481",
+  (entry) => entry.id === "subtree-c90e25bed317",
 );
 // 2026-09-26: 걸친 라우트 수만 18 → 27(인증 fixture 에 bulk · coupons 셋과 결제 성공 미리보기 여섯이 들어와서). id · 6 노드는 그대로다.
 // 2026-10-08(통합 판 76b6cf15): 62c4e4642ab9 → 7f409c824481 · 27 → 26. 6노드의 path · tag · rect 는 그대로이고 styleRef 만 갈렸다 —
@@ -632,7 +633,7 @@ const repeatedCandidates = fixture.componentCandidateAudit.repeatedSubtreesByCon
    `routeCount >= 2`). 실패 변형이 그리는 화면(billing-change-fail)은 그대로 있으므로 변형을 지우지 않고, 근거를 반복 후보 대신
    **그 화면의 결과 단 9노드를 직접 센 것**으로 바꾼다 — 노드 수가 움직이면 여기서 다시 멈춘다.
    성공 쪽 `d53f06a79810` → `c400e3ba235f`(5노드 · 2 route)는 글꼴 스택(`fontFamily`)만 바뀌었다 — 위 사이드바 가드와 같다. */
-const resultCandidateIds = ["subtree-c400e3ba235f"];
+const resultCandidateIds = ["subtree-42b2418293fc"];
 const resultCandidates = resultCandidateIds.map(
   (id) =>
     repeatedCandidates[contextName].find((entry) => entry.id === id) ??

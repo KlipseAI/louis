@@ -323,9 +323,11 @@ const candidateContracts = [
   //   subtree-8a8ec102efb8(14/6) → subtree-a528a644ec31(14/5)
   // 2026-10-08 밤(앵커 54b62a8a): 프로필 묶음 26 → 20 — id · 6노드 그대로이고 빠진 여섯은 하이라이트 상세 `?__phase=` 여섯이다. 하이라이트 새 화면
   // 갈래가 그 단계들을 스튜디오 판(`HighlightStudioShell`, Gnb variant=create)으로 바꿔 모바일 상단 바 프로필 묶음을 그리지 않는다.
-  ["subtree-aa5a4115196f", 6, 20],
-  ["subtree-32b7c0952c2b", 15, 5],
-  ["subtree-a528a644ec31", 14, 5],
+  // 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다.
+  //   aa5a4115196f → 632274df515e · 32b7c0952c2b → b0f6b1ec412c · a528a644ec31 → 992b0d8fe5b1
+  ["subtree-632274df515e", 6, 20],
+  ["subtree-b0f6b1ec412c", 15, 5],
+  ["subtree-992b0d8fe5b1", 14, 5],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = candidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {
@@ -580,12 +582,14 @@ const desktopCandidateContracts = [
   //   subtree-b92008e236c0(16/5) → subtree-c80157b3010b
   //   subtree-869dcbe1a654(5/5)  → subtree-9cde2f3932a9
   // 2026-10-08 밤(앵커 54b62a8a): 프로필 묶음 26 → 20 — 모바일 가드와 같다(하이라이트 상세 `?__phase=` 여섯이 스튜디오 판으로 바뀌어 빠졌다).
-  ["subtree-7f52f3f91e25", 6, 20],
-  ["subtree-91e6a1c240cd", 15, 5],
-  ["subtree-d3cdd3988a01", 14, 5],
-  ["subtree-97349085415b", 17, 5],
-  ["subtree-c80157b3010b", 16, 5],
-  ["subtree-9cde2f3932a9", 5, 5],
+  // 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다.
+  //   7f52f3f91e25 → 8093c370c7ad · 91e6a1c240cd → 56c7a931b3d5 · d3cdd3988a01 → f50941b59b41 · 97349085415b → 7ac492e8ce49 · c80157b3010b → a860f3580aab · 9cde2f3932a9 → c6520be0a8bd
+  ["subtree-8093c370c7ad", 6, 20],
+  ["subtree-56c7a931b3d5", 15, 5],
+  ["subtree-f50941b59b41", 14, 5],
+  ["subtree-7ac492e8ce49", 17, 5],
+  ["subtree-a860f3580aab", 16, 5],
+  ["subtree-c6520be0a8bd", 5, 5],
 ].map(([id, nodeCount, routeCount]) => {
   const candidate = desktopCandidates.find((entry) => entry.id === id);
   if (!candidate || candidate.nodeCount !== nodeCount || candidate.routeCount !== routeCount) {

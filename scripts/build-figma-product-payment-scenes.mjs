@@ -141,6 +141,8 @@ const candidates = fixture.componentCandidateAudit.repeatedSubtreesByContext[con
 // (`Graph.svg` → `Canvas.svg` · `MagicWand.svg` → `FilmSlate.svg`) · 글꼴 스택, 21 은 글꼴 스택(`fontFamily`)뿐이다:
 //   subtree-aee6939b662f(77, body.1, success 짝)     → subtree-b80dfc739aad
 //   subtree-8728712c4402(21, body.1.0.0.1, success)  → subtree-670cbd56cc87
+// 2026-10-13(측정기에 mixBlendMode 키를 더한 재측정, f54f2c91): 구조는 그대로이고 id 만 갈렸다 — 노드 수 · 라우트 수 · occurrence · roots 의 route·path·tag 가 옛 원장과 바이트 같고 styleRef 만 새 계산값 키 하나 때문에 다시 계산됐다.
+//   subtree-b80dfc739aad → subtree-3321fc40dbe3 · subtree-670cbd56cc87 → subtree-7641df9ae215
 const directFailSubtree = (ctx, path, nodeCount) => {
   const route = "/mypage/upgrade/billing-change-fail";
   const tree = fixture.screens[ctx]?.[route]?.tree ?? [];
@@ -150,9 +152,9 @@ const directFailSubtree = (ctx, path, nodeCount) => {
 };
 const candidateContracts = [
   directFailSubtree(context, "body.1", 81),
-  ["subtree-b80dfc739aad", 77, 2],
+  ["subtree-3321fc40dbe3", 77, 2],
   directFailSubtree(context, "body.1.0.0.1", 25),
-  ["subtree-670cbd56cc87", 21, 2],
+  ["subtree-7641df9ae215", 21, 2],
 ].map((entry) => {
   if (!Array.isArray(entry)) return entry;
   const [id, nodeCount, routeCount] = entry;

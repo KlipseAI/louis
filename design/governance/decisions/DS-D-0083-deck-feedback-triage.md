@@ -167,7 +167,7 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 
 ### 덱 쪽에 알릴 것
 
-- 덱 편집 모드 칩(`deck.css:4248-4250`)은 다크 장에서 3.00:1 이다. `louis-node-shell__title-chip` 으로 바꾼다.
+- 덱 편집 모드 칩(덱 키트 스타일시트 4248~4250행)은 다크 장에서 3.00:1 이다. `louis-node-shell__title-chip` 으로 바꾼다.
 - 3d 의 「덱은 막대를 LOUIS 그대로 둔다」는 「LOUIS 에 막대가 없다」가 맞다.
 - 1b 는 `data-theme="dark"` 중첩 대신 `data-ink` 를 쓴다.
 

@@ -4186,6 +4186,46 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "content-card",
+    figmaName: "ContentCard",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/content-card.css 가 정본이다(2026-10-14, DS-D-0088). Figma 는 row 720 · stack 300(격자 최소 트랙) 폭의 표본이다 — 카드 폭은 놓이는 자리의 데이터라 계약이 아니다. stack 커버 298 × 223.5 는 그 표본 폭에서 나온 값이다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: { options: ["row", "stack"], reason: "CSS `data-layout`(없음 = row). 방향 · 면 · 테두리 · 반경 · 커버 비율 · 제목 글자가 함께 바뀐다(시험 2) — VARIANT." },
+      State: { options: ["Default", "Hover"], reason: "CSS `:hover`(호버 기기만). row 는 제목 잉크 content-card-title-hover, stack 은 선 8% → 16%. 움직임(row 그림 105% · stack 4 떠오름)은 그리지 않는다 — 확대한 그림은 변형 상자 밖으로 나가고 변형 루트는 제자리를 옮길 수 없다(줄인 모션에서도 서지 않는 장식)." },
+      Title: { type: "TEXT", reason: "제목 — 코드에서 `__title` 의 글자다." },
+      Description: { type: "TEXT", reason: "설명 — 코드에서 `__description` 의 글자다." },
+      Meta: { type: "TEXT", reason: "날짜 — 코드에서 `__meta` 안 `<time>` 의 글자다(서식은 소비처)." },
+      HasDescription: { type: "BOOLEAN", reason: "CSS 는 `__description` 요소 생략으로 말한다." },
+      HasMeta: { type: "BOOLEAN", reason: "CSS 는 `__meta` 요소 생략으로 말한다(row 칸에만 있다)." },
+      HasBadge: { type: "BOOLEAN", reason: "CSS 는 `.louis-badge.louis-content-card__badge[data-surface=media]` 요소 생략으로 말한다(stack 칸에만 있다). 칠 · 글자는 Badge 인스턴스를 media-badge 변수로 덮었다(DS-D-0088 판단 8)." },
+      EmptyCover: { type: "BOOLEAN", reason: "CSS `__cover[data-empty=\"true\"]` 그라디언트. Figma 는 랜딩 바닥 + 잉크 4% + 강조 20%(휘도 마스크 135°) 세 겹 근사다." },
+    },
+    geometry: {
+      measuredId: "content-card",
+      sizeKeys: ["row/Default", "row/Hover", "stack/Default", "stack/Hover"],
+      fields: {
+        itemSpacing: "gap",
+        // stack 은 테두리 1 을 패딩에 접는다(strokesIncludedInLayout false, §10).
+        paddingBlock: ["padding", "borderWidth"],
+        paddingInline: ["padding", "borderWidth"],
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+        cornerRadius: "radius",
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Cover: { fields: { width: "coverWidth", height: "coverHeight", cornerRadius: "coverRadius" } },
+        Body: { fields: { itemSpacing: "bodyGap", paddingBlock: "bodyPaddingTop", paddingBlockEnd: "bodyPaddingBottom", paddingInline: "bodyPaddingInline" } },
+        Title: { fields: { fontSize: "titleSize" } },
+        // row 칸에만 선다 — 날짜를 본문 사이 8 에 더해 2 띄운다.
+        Meta: { fields: { paddingBlock: "metaOffset" }, optional: true },
+      },
+    },
+  },
+  {
     id: "audio-cell",
     figmaName: "AudioCell",
     figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",

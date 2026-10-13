@@ -6134,6 +6134,23 @@
           ]
         ],
         [
+          "color/content-card-title-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/620",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
           "color/dim-modal",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -12798,6 +12815,281 @@
           "DROP_SHADOW:8:15:0 + INNER_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "ContentCard": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Description": {
+          "type": "TEXT"
+        },
+        "Meta": {
+          "type": "TEXT"
+        },
+        "HasDescription": {
+          "type": "BOOLEAN"
+        },
+        "HasMeta": {
+          "type": "BOOLEAN"
+        },
+        "HasBadge": {
+          "type": "BOOLEAN"
+        },
+        "EmptyCover": {
+          "type": "BOOLEAN"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "row",
+            "stack"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 40,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 10,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "row/Default": {
+          "slots": {},
+          "parts": {
+            "Body": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
+              ],
+              "paddingInline": [
+                0
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                28
+              ]
+            },
+            "Meta": {
+              "paddingBlock": [
+                2
+              ]
+            },
+            "Cover": {
+              "width": [
+                320
+              ],
+              "height": [
+                180
+              ],
+              "cornerRadius": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            24
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/Hover": {
+          "slots": {},
+          "parts": {
+            "Body": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
+              ],
+              "paddingInline": [
+                0
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                28
+              ]
+            },
+            "Meta": {
+              "paddingBlock": [
+                2
+              ]
+            },
+            "Cover": {
+              "width": [
+                320
+              ],
+              "height": [
+                180
+              ],
+              "cornerRadius": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            24
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/Default": {
+          "slots": {},
+          "parts": {
+            "Cover": {
+              "width": [
+                298
+              ],
+              "height": [
+                223.5
+              ],
+              "cornerRadius": [
+                0
+              ]
+            },
+            "Body": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                20
+              ],
+              "paddingInline": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                20
+              ]
+            }
+          },
+          "paddingBlock": [
+            1
+          ],
+          "paddingInline": [
+            1
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/Hover": {
+          "slots": {},
+          "parts": {
+            "Cover": {
+              "width": [
+                298
+              ],
+              "height": [
+                223.5
+              ],
+              "cornerRadius": [
+                0
+              ]
+            },
+            "Body": {
+              "itemSpacing": [
+                8
+              ],
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                20
+              ],
+              "paddingInline": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                20
+              ]
+            }
+          },
+          "paddingBlock": [
+            1
+          ],
+          "paddingInline": [
+            1
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "Dialog": {
       "variantCount": 8,

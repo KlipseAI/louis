@@ -299,6 +299,9 @@ const CAPTURE = {
   // Description · Actions 는 인스턴스라 훑기가 그 안으로 들어가지 않는다.
   "ChannelHeader": {"key":{"by":["Loading","Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode"],"parts":{"Banner":["cornerRadius"],"Profile":["itemSpacing","layoutMode"],"Avatar":["width","height"],"Text":["itemSpacing","layoutMode"],"Name":["fontSize"],"Stats":["itemSpacing"],"NameLine":["height"],"StatsLine":["height"],"DescriptionLine":["height"]}},
   "ChannelHeaderDescription": {"key":{"by":["State"]},"fields":["height","layoutMode"],"parts":{"Text":["fontSize"]}},
+  // Content Card(2026-10-14, DS-D-0088). 루트 사이 · 방향 · 패딩(stack 은 테두리 1 을 접는다) · 반경 · 선 두께, 커버 크기 · 반경, 본문 사이 · 여백,
+  // 제목 크기, 메타 위 2. 배지는 Badge 인스턴스라 훑기가 그 안으로 들어가지 않는다.
+  "ContentCard": {"key":{"by":["Layout","State"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode","cornerRadius","strokeWeight"],"parts":{"Cover":["width","height","cornerRadius"],"Body":["itemSpacing","paddingBlock","paddingBlockEnd","paddingInline"],"Title":["fontSize"],"Meta":["paddingBlock"]}},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

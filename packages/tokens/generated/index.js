@@ -4,6 +4,11 @@ export const themes = Object.freeze(["light","dark"]);
 export const metadata = Object.freeze({
   "contrastPairs": [
     {
+      "foreground": "color-content-card-title-hover",
+      "background": "color-landing-page-bg",
+      "minimum": 4.5
+    },
+    {
       "foreground": "color-fg-primary",
       "background": "color-bg-canvas",
       "minimum": 4.5
@@ -15522,6 +15527,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-content-card-title-hover": {
+      "aliasTarget": {
+        "id": "color-blue-620",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-content-card-title-hover": "color(srgb 0 0.431373 0.768627 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-content-card-title-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.620}",
+      "sourcePath": "semantic.light.color.content-card-title-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.431373,
+          0.768627
+        ],
+        "alpha": 1
+      }
+    },
     "color-dim-modal": {
       "aliasTarget": {
         "id": "color-static-black-alpha-56",
@@ -21927,6 +21958,32 @@ export const tokens = {
           0.090196,
           0.105882,
           0.133333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-content-card-title-hover": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-content-card-title-hover": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-content-card-title-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.dark.color.content-card-title-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
         ],
         "alpha": 1
       }

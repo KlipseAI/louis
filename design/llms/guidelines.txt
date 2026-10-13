@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 99
+- Documents: 100
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -42,6 +42,7 @@
 - design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md
 - design/governance/decisions/DS-D-0086-lightbox.md
 - design/governance/decisions/DS-D-0087-channel-header.md
+- design/governance/decisions/DS-D-0088-content-card.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -173,9 +174,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 195 |
+| Normative documents | 197 |
 | Generated documents | 5 |
-| Components | 69 |
+| Components | 70 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -3118,7 +3119,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼). video-player 크롬 레시피 · 볼륨(B2 #60) · YouTube 미리보기(B2 O19)는 섰다((250) — 아래 기본값 표) |
-| 새 부품 | 약 21 | 작은 것: color-swatch(섰다, (251)) · logo-tile(섰다, (251)) · notice-pill(섰다, (251)) · media-slot(섰다, (245); 예시 갤러리 칸 `fill` 2:3 은 (251)) · prompt-variant(섰다, (248)) · asset-tile(섰다, (251)) · canvas-guide(섰다, (251)) · audio-cell(섰다, (245)). 작은 것은 모두 섰다 — 아래 기본값 표. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox(섰다, (252) · DS-D-0086) · content-card · plan-tier-card · channel-header(섰다, (253) · DS-D-0087) · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch(섰다, (251)) · logo-tile(섰다, (251)) · notice-pill(섰다, (251)) · media-slot(섰다, (245); 예시 갤러리 칸 `fill` 2:3 은 (251)) · prompt-variant(섰다, (248)) · asset-tile(섰다, (251)) · canvas-guide(섰다, (251)) · audio-cell(섰다, (245)). 작은 것은 모두 섰다 — 아래 기본값 표. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox(섰다, (252) · DS-D-0086) · content-card(섰다, (254) · DS-D-0088) · plan-tier-card · channel-header(섰다, (253) · DS-D-0087) · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -3423,6 +3424,83 @@ avatar 의 사람 글리프. 제품 글자 줄 스켈레톤 유틸 문자열(`in
 
 `channel-header.css` · 문서 · manifest 세 자리 · Figma 두 세트 · 기록 · parity 계약을 지우면 끝난다. skeleton `line` 은 소비처가 넷이라 남긴다. 토큰을 더하지 않아
 생성 토큰과 기준선이 움직이지 않는다. 제품은 앵커의 상수로 돌아간다.
+
+## DS-D-0088 커버 밖에 글이 서는 링크 카드를 새 부품 content-card 로 — Project Card · Media Card 의 변형이 아니다
+
+- Source: design/governance/decisions/DS-D-0088-content-card.md
+- Maturity: experimental
+
+### DS-D-0088 커버 밖에 글이 서는 링크 카드를 새 부품 `content-card` 로 — Project Card · Media Card 의 변형이 아니다
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-14)
+- Date: 2026-10-14
+- Owners: repository owner, design system maintainer
+- Affects: `content-card`, `badge`, `project-card`, `media-card`, `decision-product-parts-become-louis`
+
+#### Context
+
+[DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `content-card` 가 있다. 공개 블로그 인덱스
+(`app/blog/page.tsx:78-176`)와 템플릿 인덱스(`app/templates/page.tsx:77-130`, 통합 판 `54b62a8aa`)가 「커버 그림 + 그 **밖**의 제목 · 설명 +
+카드 전체가 링크 하나」인 카드를 각자 Tailwind 상수로 들고 있다. 표면 원장의 「16:9 격자 카드 · translateY 호버」 서술은 낡았다 — 블로그는
+2026-09 에 글 왼쪽 · 썸네일 오른쪽의 가로 행이 됐고, 두 화면의 호버 · 비율 · 면이 이미 갈렸다.
+
+LOUIS 의 카드 넷은 이 해부가 아니다. [Project Card](../components/project-card.md) 는 제목을 그림 **위**에 점진 블러로 얹고 링크를 형제 층으로
+깔아 슬롯 메뉴를 품는다(설명 · 날짜 자리가 없다). [Media Card](../components/media-card.md) · [News Card](../components/news-card.md) 는 레시피가
+없고(web `not-ready`) 둘 다 사진 위 정보 판이다. [Start Card](../components/start-card.md) 는 빈 캔버스의 `<button>` 이다.
+
+대비 미달이 둘 있다. 블로그 날짜 잉크 `gray-000` 40%(랜딩 바닥 위 라이트 2.83 · 다크 3.55)와 블로그 제목 호버 `--primary-500`(라이트 3.37) —
+후자는 1024 이상의 28px 에서는 큰 글자라 3:1 을 넘지만 1023 아래 랜딩 계단이 제목을 18px medium 으로 줄이면 큰 글자가 아니다.
+
+#### Decision
+
+1. **새 부품 `content-card` 한 벌, 갈래 둘(`data-layout`).** `row`(기본, 블로그) — 글 왼쪽 · 16:9 썸네일 오른쪽, 면 없음, 719 아래에서 그림이
+   위로 접힌다. `stack`(템플릿) — 잉크 4% 면 + 1px 선의 세로 카드, 4:3 커버, 오른쪽 위 개수 배지. 해부(커버 + 바깥 본문 + 통째 링크)가 같고
+   갈리는 것은 배치 · 면 · 호버뿐이라 한 부품이다.
+2. **비율은 축이 아니라 갈래의 기본값**이다 — 지역 변수 `--louis-content-card-ratio`(row `16 / 9` · stack `4 / 3`)를 소비처가 덮는다.
+3. **카드 전체가 `<a href>` 하나다.** 안에 대화형 자손을 두지 않는다 — 그래서 project-card 처럼 링크를 형제 층으로 깔 필요가 없다.
+4. **짝 블록 `.louis-content-card-list`** — row 줄 32(719 아래 40), `data-layout="grid"` 최소 300 트랙 · 줄 28 · 열 24. 폭 1120 은 landing-shell 몫이다.
+5. **대비 미달 둘을 고쳐 올린다**(DS-D-0084 3항) — 날짜는 `landing-text-muted`(64%), row 호버 제목은 새 시맨틱 `color-content-card-title-hover`
+   (라이트 `blue-620` · 다크 `blue-500`).
+6. **호버는 호버 기기에서만, 움직임은 줄이지 않은 모션에서만**([DS-D-0077](../governance/decisions/DS-D-0077-hover-only-on-hover-devices.md)). 포커스 링은 그리지 않는다([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md)).
+7. **커버 위 배지는 기존 `badge[data-surface="media"]`** 를 그대로 쓴다 — 레시피는 자리만 준다.
+8. **React 표면은 만들지 않는다.** 마크업 계약을 문서가 소유한다.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+초안(`scratchpad/promote/big/content-card.md`, 작업 폴더)이 남긴 판정 아홉을 소유자 지시로 초안이 권한 기본값으로 정했다. 뒤집으면 레시피 한 곳을 고친다.
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 부품의 형태 | 새 부품 한 벌 + 갈래 `row` · `stack` | 두 부품(블로그 행 · 템플릿 카드) · MediaCard 레시피를 세우며 변형으로 흡수 |
+| 2 | 비율 | 갈래의 기본값 + `--louis-content-card-ratio` 로 덮기 | `data-ratio`(16:9 · 4:3) 축 — §2 어휘에 `Ratio` 축 개정까지 부른다 |
+| 3 | row 호버 제목 잉크 | 새 시맨틱 `content-card-title-hover`(라이트 `blue-620` 5.00 · 다크 `blue-500` 5.97) | `accent-primary` 그대로 + Known deviation(라이트 3.37) · 색을 빼고 밑줄 |
+| 4 | 날짜 잉크 | `landing-text-muted` 64%(5.10 · 8.03) | `fg-tertiary`(6.44 · 6.39) · 제품 40%(2.83 · 3.55) |
+| 5 | 호버 표현 | 갈래마다 — row 제목색 + 그림 확대, stack 떠오름 + 선 | 하나로 통일 |
+| 6 | 호버 박자 | 제품 리터럴 320 · 220ms + 토큰 곡선 | 토큰 길이 zoom-settle 680 · content-rise 360 |
+| 7 | 템플릿 배지 | `badge[data-surface="media"]` 정본(불투명, 높이 26) | 제품 덮어쓰기(검정 56% · 상하 3 · medium, 24) |
+| 8 | Figma 배지 | Badge 인스턴스의 칠 · 글자를 media-badge 변수로 덮는다 | Badge 세트에 media 갈래 축을 연다(§2 어휘 개정) |
+| 9 | 목록 블록 | 짝 블록 `.louis-content-card-list` | 소비처 몫으로 문서 스니펫만 |
+
+##### 경계와 하지 않는 것
+
+- 부품이 소유한다 — 카드 상자(갈래별 배치 · 면 · 선 · 반경), 커버 상자(비율 · 반경 · 빈 커버 그라디언트 · 그림 채움), 본문 슬롯의 글자 · 잉크 ·
+  줄 수, 호버와 박자, 719 접힘, 랜딩 제목 계단, 목록 간격.
+- 화면이 소유한다 — 데이터 · 빈 목록 폴백 · 섹션 머리 · 콘텐츠 폭 1120 · 스크롤 리빌(`data-reveal`) · 날짜 서식 · 커버가 영상인지 그림인지.
+- 하지 않는 것 — React 표면, MediaCard 와의 병합(제목 자리 · 데이터가 다르다), 랜딩 `TemplateGrid` 를 이 카드로 바꾸기, 제품 `≤450` 본문
+  축소 규칙(타이포 기초의 몫), Badge 세트의 media 축.
+
+#### Consequences
+
+- 새 토큰 `color-content-card-title-hover` 하나(원시 0)와 `contrastPairs` 한 줄(랜딩 바닥 위 4.5).
+- 제품 (나): 블로그 `LIST_CLASS` · 카드 상수 여덟 → `louis-content-card-list` · `louis-content-card*`, 템플릿 `GRID_CLASS` · 카드 상수 →
+  `[data-layout="grid"]` · `[data-layout="stack"]`, 배지 덮어쓰기를 지우고 `data-surface="media"`. 보이는 변화 — 날짜가 진해진다(40 → 64%),
+  라이트 호버 제목이 한 단 진한 파랑, 템플릿 배지가 불투명 회색 · 2 높아진다, 터치 기기에서 호버가 붙지 않는다, 줄인 모션에서 확대 · 떠오름이 없다.
+- Figma 에 `ContentCard`(Layout × State) 세트와 변수 `content-card/title-hover` 가 선다.
+
+#### Rollback
+
+`content-card.css` · 문서 · manifest 세 자리 · 토큰 한 칸 · `contrastPairs` 한 줄 · Figma 세트 · 변수 · 기록 · parity 계약을 지운다. 제품은 앵커의
+상수로 돌아간다(클래스만 바꾸므로 기하 변화는 없다).
 
 ## Contributing
 
@@ -17133,6 +17211,23 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-14 (254) — 커버 밖에 글이 서는 링크 카드를 새 부품 `content-card` 로(DS-D-0088, DS-D-0084)
+
+- **새 부품 `content-card`.** 커버 그림과 그 **밖**의 제목 · 설명 · 날짜를 카드 전체가 링크 하나로 누른다(`.louis-content-card` · `__cover` ·
+  `__media` · `__badge` · `__body` · `__title` · `__description` · `__meta`). 공개 블로그 인덱스와 템플릿 인덱스가 각자 들던 Tailwind 상수를 한
+  레시피로 옮겼다. Project Card(제목이 그림 위 · 형제 링크 층)의 변형이 아니다.
+- **갈래 둘(`data-layout`).** `row`(기본) — 글 왼쪽 · 16:9 썸네일(320) 오른쪽, 719 아래에서 그림이 위로 접힌다. `stack` — 잉크 4% 면 + 1px 선 ·
+  반경 16 · 4:3 커버 · 오른쪽 위 `badge[data-surface="media"]`. 비율은 축이 아니라 갈래의 기본값이고 `--louis-content-card-ratio` 로 덮는다.
+- **짝 블록 `.louis-content-card-list`** — 세로 줄 32(719 아래 40), `data-layout="grid"` 는 최소 300 트랙 · 줄 28 · 열 24. 폭 1120 은 소비처.
+- **새 토큰 `color-content-card-title-hover`**(라이트 `blue-620` · 다크 `blue-500`) — row 호버 제목. 제품 `--primary-500` 은 라이트 3.37 이라
+  1023 아래 18px 제목에서 미달이었다. `contrastPairs` 에 랜딩 바닥 위 4.5 한 줄. 날짜 잉크는 40% → `landing-text-muted`(5.10 · 8.03).
+- **호버는 호버 기기에서만, 움직임(그림 105% · 4 떠오름)은 줄이지 않은 모션에서만.** 랜딩 제목 계단(1023 · 767)을 지역 변수로 옮겼다.
+- **Figma.** DS · Components 「5 · 내용」에 `ContentCard`(Layout `row` · `stack` × State `Default` · `Hover`, TEXT `Title` · `Description` · `Meta`,
+  BOOLEAN `HasDescription` · `HasMeta` · `HasBadge` · `EmptyCover`)와 변수 `color/content-card-title-hover`. 배지는 Badge 인스턴스를 media-badge 변수로
+  덮었고 빈 커버는 휘도 마스크 근사다. 원시 칠 0. 움직임 · 719 접힘 · 랜딩 계단은 그리지 않는다(규칙).
+- 소유자 판정 아홉은 초안의 기본값으로 — DS-D-0088 표. 실브라우저 시험 `content-card.browser.test.tsx` · `content-card-geometry.browser.test.tsx`,
+  기록 `content-card` 와 parity 계약(figma `partial`).
 
 #### 2026-10-13 (253) — 채널 머리를 얇은 새 부품 `channel-header` 로, skeleton 에 `line`(DS-D-0087, DS-D-0084)
 

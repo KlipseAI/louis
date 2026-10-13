@@ -347,6 +347,15 @@
       "generated": false
     },
     {
+      "id": "decision-content-card",
+      "path": "design/governance/decisions/DS-D-0088-content-card.md",
+      "title": "DS-D-0088 커버 밖에 글이 서는 링크 카드를 새 부품 content-card 로 — Project Card · Media Card 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1833,6 +1842,7 @@
         "design/components/canvas-guide.md",
         "design/components/lightbox.md",
         "design/components/channel-header.md",
+        "design/components/content-card.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1912,6 +1922,7 @@
         "design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md",
         "design/governance/decisions/DS-D-0086-lightbox.md",
         "design/governance/decisions/DS-D-0087-channel-header.md",
+        "design/governance/decisions/DS-D-0088-content-card.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2093,6 +2104,15 @@
       "id": "channel-header",
       "path": "design/components/channel-header.md",
       "title": "Channel Header",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "content-card",
+      "path": "design/components/content-card.md",
+      "title": "Content Card",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -2961,6 +2981,17 @@
         "ChannelHeader",
         "ChannelHeaderDescription"
       ]
+    },
+    {
+      "id": "content-card",
+      "name": "Content Card",
+      "doc": "design/components/content-card.md",
+      "note": "커버 그림과 그 밖의 제목 · 설명을 통째로 누르는 링크 카드(DS-D-0088, DS-D-0084). 공개 블로그 인덱스와 템플릿 인덱스가 각자 들던 Tailwind 상수를 한 레시피(packages/css/src/component/content-card.css)로 옮겼다. 갈래 둘(data-layout) — row(기본, 글 왼쪽 · 16:9 썸네일 오른쪽, 719 아래 그림이 위로 접힘)와 stack(잉크 4% 면 + 1px 선, 4:3 커버, 오른쪽 위 media 배지). 비율은 축이 아니라 갈래의 기본값이고 --louis-content-card-ratio 로 덮는다. 짝 블록 .louis-content-card-list 가 줄 32/40 · 격자 300 을 갖는다. Project Card(제목이 그림 위 · 형제 링크 층)의 변형이 아니다. 고쳐 올린 대비 둘 — 날짜 40% → landing-text-muted, row 호버 제목은 새 시맨틱 content-card-title-hover(라이트 blue-620 · 다크 blue-500). web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 ContentCard 세트(Layout row · stack × State Default · Hover, TEXT Title · Description · Meta, BOOLEAN HasDescription · HasMeta · HasBadge · EmptyCover)로 섰다 — 배지는 Badge 인스턴스를 media-badge 변수로 덮었고 빈 커버는 랜딩 바닥 + 잉크 4% + 강조 20% 휘도 마스크 근사다. 움직임(그림 105% · 4 떠오름)은 그리지 않는다. 기록 content-card 와 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaName": "ContentCard"
     },
     {
       "id": "audio-cell",

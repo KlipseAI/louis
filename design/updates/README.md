@@ -25,6 +25,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (254) — 커버 밖에 글이 서는 링크 카드를 새 부품 `content-card` 로(DS-D-0088, DS-D-0084)
+
+- **새 부품 `content-card`.** 커버 그림과 그 **밖**의 제목 · 설명 · 날짜를 카드 전체가 링크 하나로 누른다(`.louis-content-card` · `__cover` ·
+  `__media` · `__badge` · `__body` · `__title` · `__description` · `__meta`). 공개 블로그 인덱스와 템플릿 인덱스가 각자 들던 Tailwind 상수를 한
+  레시피로 옮겼다. Project Card(제목이 그림 위 · 형제 링크 층)의 변형이 아니다.
+- **갈래 둘(`data-layout`).** `row`(기본) — 글 왼쪽 · 16:9 썸네일(320) 오른쪽, 719 아래에서 그림이 위로 접힌다. `stack` — 잉크 4% 면 + 1px 선 ·
+  반경 16 · 4:3 커버 · 오른쪽 위 `badge[data-surface="media"]`. 비율은 축이 아니라 갈래의 기본값이고 `--louis-content-card-ratio` 로 덮는다.
+- **짝 블록 `.louis-content-card-list`** — 세로 줄 32(719 아래 40), `data-layout="grid"` 는 최소 300 트랙 · 줄 28 · 열 24. 폭 1120 은 소비처.
+- **새 토큰 `color-content-card-title-hover`**(라이트 `blue-620` · 다크 `blue-500`) — row 호버 제목. 제품 `--primary-500` 은 라이트 3.37 이라
+  1023 아래 18px 제목에서 미달이었다. `contrastPairs` 에 랜딩 바닥 위 4.5 한 줄. 날짜 잉크는 40% → `landing-text-muted`(5.10 · 8.03).
+- **호버는 호버 기기에서만, 움직임(그림 105% · 4 떠오름)은 줄이지 않은 모션에서만.** 랜딩 제목 계단(1023 · 767)을 지역 변수로 옮겼다.
+- **Figma.** DS · Components 「5 · 내용」에 `ContentCard`(Layout `row` · `stack` × State `Default` · `Hover`, TEXT `Title` · `Description` · `Meta`,
+  BOOLEAN `HasDescription` · `HasMeta` · `HasBadge` · `EmptyCover`)와 변수 `color/content-card-title-hover`. 배지는 Badge 인스턴스를 media-badge 변수로
+  덮었고 빈 커버는 휘도 마스크 근사다. 원시 칠 0. 움직임 · 719 접힘 · 랜딩 계단은 그리지 않는다(규칙).
+- 소유자 판정 아홉은 초안의 기본값으로 — DS-D-0088 표. 실브라우저 시험 `content-card.browser.test.tsx` · `content-card-geometry.browser.test.tsx`,
+  기록 `content-card` 와 parity 계약(figma `partial`).
+
 ## 2026-10-13 (253) — 채널 머리를 얇은 새 부품 `channel-header` 로, skeleton 에 `line`(DS-D-0087, DS-D-0084)
 
 - **새 부품 `channel-header`.** 배너 띠 아래 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다(`.louis-channel-header` · `__banner` ·

@@ -3900,6 +3900,314 @@
 }
 
 @layer louis.component {
+  /* Content Card — design/components/content-card.md
+   *
+   * 커버 그림과 그 **밖**의 제목 · 설명을 통째로 누르는 링크 카드(DS-D-0084, DS-D-0088). 제품 정본은 통합 판 `54b62a8aa` 의
+   * 블로그 인덱스(`app/blog/page.tsx:78-176`)와 템플릿 인덱스(`app/templates/page.tsx:77-130`) — 두 화면이 같은 해부를
+   * 각자 상수로 들고 있다. 아래 주석의 약칭 — `BP` = `app/blog/page.tsx`, `TP` = `app/templates/page.tsx`, `GC` = `app/globals.css`.
+   *
+   * **갈래 둘(`data-layout`).** `row`(기본) — 글 왼쪽 · 16:9 썸네일 오른쪽, 면 없음, 719 아래에서 그림이 위로 접힌다.
+   * `stack` — 잉크 4% 면 + 1px 선의 세로 카드, 4:3 커버, 모서리 개수 배지. 비율은 축이 아니라 갈래의 기본값이고
+   * 소비처가 `--louis-content-card-ratio` 로 덮는다.
+   *
+   * **카드 전체가 링크 하나다.** 안에 다른 대화형 자손을 두지 않는다 — 그래야 루트가 `<a>` 일 수 있다(project-card 와 다른 점).
+   * 포커스 링은 그리지 않는다(DS-D-0074, base.css 소유).
+   *
+   * **호버는 갈래마다 다르다.** 면이 없는 row 는 제목 색과 그림 확대로, 면이 있는 stack 은 떠오름과 선으로 답한다. 둘 다
+   * `@media (hover: hover)` 안이고(DS-D-0077), 움직임은 줄인 모션에서 서지 않는다(motion.md 「위치 · 크기 · scale 비필수 motion 제거」).
+   *
+   * **잉크는 테마를 따른다** — 랜딩 셸의 `gray-000` 알파 · `landing-text-*` 와 같은 값이다. 커버 위의 배지만 사진 위라 media 색이다. */
+
+  .louis-content-card {
+    /* ── 소비처가 덮는 값 ── 커버 비율. 갈래가 기본값을 바꾼다. */
+    --louis-content-card-ratio: 16 / 9;
+
+    /* ── 레시피 내부 ── 제목 글자는 갈래와 랜딩 계단이 바꾼다(아래 @media). */
+    --louis-content-card-title-size: var(--louis-typography-heading-sm-medium-font-size);
+    --louis-content-card-title-weight: var(--louis-typography-heading-sm-medium-font-weight);
+    --louis-content-card-title-line-height: var(--louis-typography-heading-sm-medium-line-height);
+    --louis-content-card-title-tracking: var(--louis-typography-heading-sm-medium-letter-spacing);
+    /* 호버 박자 — 제품 리터럴(`BP:137` 320ms · `TP:89` 220ms). 곡선은 같은 `cubic-bezier(0.22,1,0.36,1)` 를 가진 토큰을 읽는다.
+     * 토큰의 길이(zoom-settle 680 · content-rise 360)는 배너 정착 · 콘텐츠 등장의 박자라 호버 반응에 길다(DS-D-0088 판단 6). */
+    --louis-content-card-zoom-duration: 320ms;
+    --louis-content-card-lift-duration: 220ms;
+
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* 24 — 제품 `gap-12`(BP:112). `space-layout-section`(24)은 섹션 사이의 이름이라 쓰지 않는다. */
+    gap: 24px;
+    min-inline-size: 0;
+    margin: 0;
+    color: var(--louis-color-fg-primary);
+    text-decoration: none;
+  }
+
+  /* ── 커버 ── 비율 상자. 그림이 넘치면 반경으로 깎는다. 칠 순서를 상자 안에 가둔다 — 확대된 그림이 배지 위로 올라오지 않는다. */
+  .louis-content-card__cover {
+    position: relative;
+    box-sizing: border-box;
+    flex: none;
+    /* 320 — 제품 `w-[320px]`(BP:126). */
+    inline-size: 320px;
+    aspect-ratio: var(--louis-content-card-ratio);
+    overflow: hidden;
+    border-radius: var(--louis-radius-card);
+    isolation: isolate;
+  }
+
+  .louis-content-card__media {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition-property: scale;
+    transition-duration: var(--louis-content-card-zoom-duration);
+    transition-timing-function: var(--louis-motion-zoom-settle-timing-function);
+  }
+
+  /* 빈 커버 — 그림이 없는 글 · 템플릿. 강조색 20% 에서 잉크 4% 로(BP:144 · TP:100). 장식이라 소비처가 `aria-hidden` 을 단다. */
+  .louis-content-card__cover[data-empty="true"] {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--louis-color-accent-primary) 20%, transparent),
+      var(--louis-color-gray-000-alpha-04)
+    );
+  }
+
+  /* 커버 위 배지 — `.louis-badge[data-surface="media"]` 에 자리만 준다(오른쪽 위 12, TP:112). 면 · 글자는 Badge 가 소유한다. */
+  .louis-content-card__badge {
+    position: absolute;
+    inset-block-start: var(--louis-space-control-md);
+    inset-inline-end: var(--louis-space-control-md);
+  }
+
+  /* ── 본문 ── */
+  .louis-content-card__body {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--louis-space-control-sm);
+    min-inline-size: 0;
+  }
+
+  .louis-content-card__title {
+    margin: 0;
+    color: var(--louis-color-fg-primary);
+    text-wrap: balance;
+    font-family: var(--louis-typography-heading-sm-medium-font-family);
+    font-size: var(--louis-content-card-title-size);
+    font-weight: var(--louis-content-card-title-weight);
+    line-height: var(--louis-content-card-title-line-height);
+    letter-spacing: var(--louis-content-card-title-tracking);
+    transition-property: color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* row 제목은 두 줄에서 자른다(BP:156). stack 제목은 자르지 않는다(TP:119-123). */
+  .louis-content-card:not([data-layout="stack"]) .louis-content-card__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  /* 설명 — 두 줄 클램프. row 는 body-md(BP:166), stack 은 body-sm(TP:126). */
+  .louis-content-card__description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 0;
+    color: var(--louis-color-landing-text-soft);
+    font-family: var(--louis-typography-body-md-regular-font-family);
+    font-size: var(--louis-typography-body-md-regular-font-size);
+    font-weight: var(--louis-typography-body-md-regular-font-weight);
+    line-height: var(--louis-typography-body-md-regular-line-height);
+    letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  }
+
+  /* 메타(날짜) — 제품 잉크 40%(라이트 2.83 · 다크 3.55)를 `landing-text-muted` 64%(5.10 · 8.03)로 고쳐 올린다(DS-D-0084 3항). */
+  .louis-content-card__meta {
+    /* 2 — 제품 `mt-1`(BP:174). 본문 사이 8 에 더해 날짜를 한 박 띄운다. `space-underline-gap`(2)은 밑줄의 이름이라 쓰지 않는다. */
+    margin: 2px 0 0;
+    color: var(--louis-color-landing-text-muted);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  /* ── stack ── 면 있는 세로 카드. 커버가 위 가장자리까지 차고 카드 반경이 깎는다. */
+  .louis-content-card[data-layout="stack"] {
+    --louis-content-card-ratio: 4 / 3;
+    --louis-content-card-title-size: var(--louis-typography-body-lg-medium-font-size);
+    --louis-content-card-title-weight: var(--louis-typography-body-lg-medium-font-weight);
+    --louis-content-card-title-line-height: var(--louis-typography-body-lg-medium-line-height);
+    --louis-content-card-title-tracking: var(--louis-typography-body-lg-medium-letter-spacing);
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    overflow: hidden;
+    /* 1px 선은 0.5 헤어라인(DS-D-0023)이 아니라 제품의 진짜 테두리다(TP:87). */
+    border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+    /* 16 — 제품 `rounded-16`(TP:85). start-card 와 같은 카드 반경 판단. */
+    border-radius: var(--louis-radius-overlay);
+    background: var(--louis-color-gray-000-alpha-04);
+    transition:
+      translate var(--louis-content-card-lift-duration) var(--louis-motion-content-rise-timing-function),
+      border-color var(--louis-content-card-lift-duration) var(--louis-motion-control-hover-timing-function);
+  }
+
+  .louis-content-card[data-layout="stack"] > .louis-content-card__cover {
+    inline-size: 100%;
+    border-radius: 0;
+    /* 검정 바닥 — 영상 커버의 레터박스(TP:97 `bg-[#000]`). 두 테마 같은 무대 면. */
+    background: var(--louis-color-media-stage-surface);
+  }
+
+  .louis-content-card[data-layout="stack"] > .louis-content-card__cover[data-empty="true"] {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--louis-color-accent-primary) 20%, transparent),
+      var(--louis-color-gray-000-alpha-04)
+    );
+  }
+
+  .louis-content-card[data-layout="stack"] > .louis-content-card__body {
+    flex: none;
+    justify-content: flex-start;
+    /* 18 · 18 · 20 — 제품 `pt-9 px-9 pb-10`(TP:117). 사다리에 없다(18). `space-media-inset`(20)은 사진 위 여백의 이름이라 쓰지 않는다. */
+    padding: 18px 18px 20px;
+  }
+
+  .louis-content-card[data-layout="stack"] .louis-content-card__description {
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  /* ── 호버 ── 색 · 선은 호버 기기에서, 움직임은 호버 기기 + 줄이지 않은 모션에서만. */
+  @media (hover: hover) {
+    /* row — 제목이 링크임을 강조 잉크로 말한다. 제품 `--primary-500`(라이트 3.37)을 고쳐 올린 값(라이트 5.00 · 다크 5.97). */
+    .louis-content-card:not([data-layout="stack"]):hover .louis-content-card__title {
+      color: var(--louis-color-content-card-title-hover);
+    }
+
+    /* stack — 선이 8% → 16%(TP:91). */
+    .louis-content-card[data-layout="stack"]:hover {
+      border-color: var(--louis-color-gray-000-alpha-16);
+    }
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    /* row — 그림만 상자 안에서 105%(BP:122). 빈 커버는 움직이지 않는다. */
+    .louis-content-card:not([data-layout="stack"]):hover .louis-content-card__media {
+      scale: 1.05;
+    }
+
+    /* stack — 4 떠오름(TP:90). `transform` 이 아니라 `translate` 라 랜딩 리빌의 `transform: none`(GC:2020)과 다투지 않는다. */
+    .louis-content-card[data-layout="stack"]:hover {
+      translate: 0 calc(0px - var(--louis-space-control-xs));
+    }
+  }
+
+  /* ── 랜딩 제목 계단 ── 랜딩 셸이 제목을 폭마다 줄인다(GC:842-878). LOUIS 타이포 토큰은 반응형이 아니라 지역 변수로만 다시 쓴다 —
+   * section-header `article` · `display` 와 같은 판단(section-header.css:217-255). 토큰으로 올리는 것은 landing-shell 패턴 회차의 몫. */
+  @media (max-width: 1023px) {
+    /* row 28 → 18. 제품은 `var(--type-body-20-size)` 를 물고 같은 규칙에서 그것을 18 로 덮어 계산값이 18 이다(GC:848 · :851). */
+    .louis-content-card {
+      --louis-content-card-title-size: 18px;
+      --louis-content-card-title-tracking: -0.01em;
+    }
+
+    /* stack 20 → 18(GC:851-853). */
+    .louis-content-card[data-layout="stack"] {
+      --louis-content-card-title-size: 18px;
+      --louis-content-card-title-tracking: -0.01em;
+    }
+  }
+
+  @media (max-width: 767px) {
+    /* stack 18 → 16(GC:866-868). row 는 18 그대로다(GC:864). */
+    .louis-content-card[data-layout="stack"] {
+      --louis-content-card-title-size: 16px;
+    }
+  }
+
+  /* ── 719 접힘 ── row 만. 썸네일 옆에 글을 둘 폭이 모자라 세로로 쌓되 그림을 위로 올린다(BP:113-116). 719/720 은 이미 행동 경계다
+   * (responsive-layout.md §4, section-header.css:318 선례). DOM 순서는 제목이 먼저라 읽는 순서는 바뀌지 않는다 — 그림은 `alt=""` 장식이다. */
+  @media (max-width: 719px) {
+    .louis-content-card:not([data-layout="stack"]) {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: var(--louis-space-stack-md);
+    }
+
+    .louis-content-card:not([data-layout="stack"]) > .louis-content-card__cover {
+      inline-size: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-content-card {
+      --louis-content-card-zoom-duration: var(--louis-motion-reduced-duration);
+      --louis-content-card-lift-duration: var(--louis-motion-reduced-duration);
+    }
+
+    .louis-content-card__title {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .louis-content-card[data-layout="stack"] {
+      border-color: CanvasText;
+    }
+
+    .louis-content-card__cover[data-empty="true"] {
+      border: var(--louis-border-width-default) solid CanvasText;
+    }
+  }
+
+  /* ── 목록 (짝 블록) ──────────────────────────────────────────────────────────
+   * 두 화면이 카드와 함께 복제하는 줄 배치. 폭 상한(1120)은 landing-shell 패턴의 콘텐츠 폭이라 여기 두지 않는다. */
+  .louis-content-card-list {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* 32 — 제품 `gap-16`(BP:83). 구분선이 없어 이 여백이 행을 가른다. 사다리에 없다. */
+    gap: 32px;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* stack 격자 — 최소 300 트랙을 채울 만큼(TP:79), 줄 28 · 열 24(TP:80). */
+  .louis-content-card-list[data-layout="grid"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px 24px;
+  }
+
+  /* 접힌 row 는 그림이 위로 와 글이 서로 붙어 보인다 — 줄 사이를 40 으로 넓힌다(BP:84). */
+  @media (max-width: 719px) {
+    .louis-content-card-list:not([data-layout="grid"]) {
+      gap: 40px;
+    }
+  }
+}
+
+@layer louis.component {
   /* Dialog / Modal — design/components/dialog.md
    *
    * root의 모션 lifecycle(duration/timing/opacity)과 --louis-overlay-* seam은 overlay.css가

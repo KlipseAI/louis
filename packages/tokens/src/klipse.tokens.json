@@ -11,6 +11,11 @@
       "figmaCollection": "Klipse",
       "contrastPairs": [
         {
+          "foreground": "color-content-card-title-hover",
+          "background": "color-landing-page-bg",
+          "minimum": 4.5
+        },
+        {
           "foreground": "color-fg-primary",
           "background": "color-bg-canvas",
           "minimum": 4.5
@@ -7836,6 +7841,16 @@
             }
           }
         },
+        "content-card-title-hover": {
+          "$value": "{primitive.color.blue.620}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-content-card-title-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "notice-pill-dot": {
           "$value": "{primitive.color.green.500}",
           "$extensions": {
@@ -10296,6 +10311,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-canvas-guide",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "content-card-title-hover": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-content-card-title-hover",
               "tier": "semantic",
               "mode": "dark"
             }

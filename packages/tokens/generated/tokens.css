@@ -379,6 +379,7 @@
   --louis-color-canvas-dot: color(srgb 0.345098 0.360784 0.388235 / 0.28);
   --louis-color-canvas-guide: color(srgb 0.886275 0.211765 0.443137 / 1);
   --louis-color-canvas-menu-surface: color(srgb 1 1 1 / 1);
+  --louis-color-content-card-title-hover: color(srgb 0 0.431373 0.768627 / 1);
   --louis-color-dim-modal: color(srgb 0.090196 0.105882 0.133333 / 0.56);
   --louis-color-fg-danger: color(srgb 0.329412 0.066667 0.098039 / 1);
   --louis-color-fg-danger-on-surface: color(srgb 0.717647 0.141176 0.192157 / 1);
@@ -899,6 +900,7 @@
   --louis-color-canvas-dot: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --louis-color-canvas-guide: color(srgb 1 0.301961 0.533333 / 1);
   --louis-color-canvas-menu-surface: color(srgb 0.090196 0.105882 0.133333 / 1);
+  --louis-color-content-card-title-hover: color(srgb 0 0.533333 1 / 1);
   --louis-color-dim-modal: color(srgb 0.05098 0.066666 0.094117 / 0.72);
   --louis-color-fg-danger: color(srgb 1 0.898039 0.909804 / 1);
   --louis-color-fg-danger-on-surface: color(srgb 1 0.435294 0.486275 / 1);

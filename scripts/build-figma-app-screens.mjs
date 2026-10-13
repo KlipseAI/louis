@@ -1694,6 +1694,15 @@ function reconcileFigmaSizing(spec, declaredOf = () => null) {
               `measured ${measured}`);
             continue;
           }
+          // **textarea 는 HUG 로 접지 않는다(2026-10-13).** 그 「내용 크기」는 측정한 글자 상자(= textarea 내용 상자)라 측정과 같아 보이지만
+          // Figma 의 HUG 는 글자 줄 수로 접는다 — 텍스트 노드 입력판 본문 칸이 63 → 최소 48 로 줄어, `min-height: 140` 칸이 모자란 8 을 설정 줄
+          // (Image · Video · 생성 버튼) **아래** 빈칸으로 남겼다(소유자 캡처). textarea 의 높이는 CSS(행 수 · grow · 높이 선언)가 정하므로 측정 크기로 굳힌다.
+          if (child.tag === "textarea") {
+            change(child, axisName, "FIXED",
+              `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 자식이 textarea 다 — 높이는 내용이 아니라 CSS 가 정하므로 측정 ${measured} 으로 굳힌다`,
+              "textarea");
+            continue;
+          }
           if (content != null && Math.abs(measured - content) <= HALF_PIXEL) {
             change(child, axisName, "HUG",
               `HUG 부모(${node.path})의 ${primary ? "주축 grow" : "교차축 stretch"} 가 아무 일도 하지 않았다 — 측정 ${measured} 이 자기 내용 크기와 같다. Figma 는 HUG 부모의 FILL 자식을 최소 크기로 접는다`,

@@ -130,7 +130,7 @@ const CAPTURE = {
   // 담으면 parity 가 「계약에 없는 자손」으로 문다 — 실제로 그렇게 물렸다. 계약 밖의 값을
   // 되읽기에 담아 두면 다음 사람이 그것을 계약으로 착각한다.
   "Alert": {"key":{"by":["Layout"]},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Icon":["width","height"]},"strokes":["self"]},
-  "AppTopBar": {"key":{"name":"topBar"},"slots":{"LeadingSlot":"present","TrailingSlot":"present"},"parts":{"Leading":["height"],"Trailing":["height"]}},
+  "AppTopBar": {"key":{"by":["Layout"],"map":{"base":"topBar"}},"slots":{"LeadingSlot":"present","TrailingSlot":"present"},"parts":{"Leading":["height"],"Trailing":["height"]}},
   "Avatar": {"key":{"by":["Size"]},"slots":{"Fallback":"size"},"parts":{"Fallback":["width","height"]}},
   "Badge": {"key":{"name":"base"},"slots":{"Icon":"size","Dot":"size"},"parts":{"Label":["fontSize"]}},
   "BannerCarousel": {"key":{"by":["Bleed"]},"fields":["width","height","cornerRadius","layoutMode","strokeWeight"],"parts":{"Content":["width","height","paddingLeft","paddingTop"],"Controls":["width","height","itemSpacing"],"DotActive":["width","height","cornerRadius"],"DotRest1":["width","height","cornerRadius"],"PlaybackToggle":["width","height","cornerRadius","children"]}},
@@ -194,7 +194,7 @@ const CAPTURE = {
   // **시트 손잡이(2026-10-08)가 `Layout` 축을 열었다.** `omit` 으로 base 는 키에 칸을 만들지 않아 기존 넷(compact · medium ·
   // large · sheet)이 개명되지 않고, 손잡이 변형만 `sheet/grabber` 로 간다. `Grabber` 는 위 가장자리에 절대 배치된 띠(폭 ×
   // 32), `Bar` 는 그 안의 36 × 4 알약 막대다 — 띠가 흐름에 끼지 않으므로 표면이 위 패딩을 띠 높이만큼 더 갖는다.
-  "Dialog": {"key":{"by":["Size","Layout"],"omit":{"Layout":"base"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode","strokeWeight"],"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"],"Grabber":["height","width"],"Bar":["width","height","cornerRadius"]},"strokes":["self"],"effects":["self"]},
+  "Dialog": {"key":{"by":["Size","Layout","Dividers"],"omit":{"Layout":"base","Dividers":"false"}},"fields":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode","strokeWeight"],"parts":{"Footer":["paddingTop","paddingInline","paddingInlineEnd","paddingBottom","children"],"Actions":["itemSpacing","children","layoutMode","primaryAxisAlignItems"],"Grabber":["height","width"],"Bar":["width","height","cornerRadius"]},"strokes":["self"],"effects":["self"]},
   // `Layout` 축을 열며 키를 `base` 고정에서 variant 값으로 옮겼다(2026-09-06). 세 칸은 기하가
   // 서로 다르다 — compact 은 면·테두리·반경을 갖고 좌측 정렬이며, canvas 는 여백·간격·제목
   // 크기가 다르다. `counterAxisAlignItems` 를 담는 이유는 **정렬이 이 축에서 가장 눈에 띄는
@@ -202,7 +202,7 @@ const CAPTURE = {
   // 정렬로 그려도 게이트가 초록이다. `strokes:["self"]` 는 compact 의 1px 테두리를 담는다:
   // 기하의 `strokeWeight` 는 stroke 가 **있을 때** 두께만 보므로, 테두리가 사라진 경우를
   // 잡으려면 역할이 계약에 있어야 한다.
-  "DropZone": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Prompt":["fontSize"],"Caption":["fontSize"]},"strokes":["self"]},
+  "DropZone": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Prompt":["fontSize"],"Caption":["fontSize"]},"strokes":["self"]},
   "EmptyState": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode","strokeWeight"],"parts":{"Graphic":["width","height"],"Title":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"],"Action":["width","height","paddingBlock","itemSpacing","layoutMode"]},"strokes":["self"]},
   "FaqRow": {"key":{"by":["Expanded","Size"]},"parts":{"Question":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing"],"QuestionText":["width","height","fontSize","lineHeightPercent"],"Icon":["width","height"],"Glyph":["fontSize"]},"effects":["self"]},
   "FormMessage": {"key":{"by":["Tone"]},"parts":{"Message":["width","height","fontSize"]}},
@@ -268,6 +268,13 @@ const CAPTURE = {
   "NodeResizeHandle": {"key":{"by":["State"]},"fields":["height","paddingInline","paddingInlineEnd","layoutMode"],"outsideParts":["Hint"]},
   "MediaSlot": {"key":{"by":["Size","Layout","State"]},"fields":["width","height","cornerRadius","strokeWeight"]},
   "AudioCell": {"key":{"by":["State"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode"],"effects":["self"]},
+  // 변형 묶음(2026-10-13, DS-D-0084)이 세운 새 세트 · 하위 컴포넌트 — 노드 캔버스 묶음처럼 축 키와 겉 치수만 담는 첫 채취다.
+  "FloatingShellItem": {"key":{"by":["Size","State"]},"fields":["width","height","cornerRadius","opacity"],"slots":{"Glyph":"size"}},
+  "FloatingShellDivider": {"key":{"name":"divider"},"fields":["width","height"]},
+  "AppTopBarTitle": {"key":{"by":["State"]},"fields":["height","paddingInline","paddingInlineEnd","layoutMode"]},
+  "AppTopBarHome": {"key":{"by":["State"]},"fields":["height","minWidth","paddingInline","paddingInlineEnd","layoutMode"]},
+  "SliderRulerTicks": {"key":{"name":"ticks"},"fields":["width","height"]},
+  "ChartCardDotTile": {"key":{"name":"tile"},"fields":["width","height"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},
@@ -280,7 +287,7 @@ const CAPTURE = {
   // 고정 36 이라 라벨이 기하를 만들지 않는다.
   "PillTrigger": {"key":{"by":["State"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"],"Caret":["width","height","opacity"]},"effects":["self"]},
   "ProgressBar": {"key":{"name":"base"},"parts":{"Fill":["width","height","cornerRadius","layoutMode"]}},
-  "ProgressRing": {"key":{"name":"base"},"parts":{"Track":["width","height"],"Content":["width","height"]}},
+  "ProgressRing": {"key":{"by":["Mode"],"map":{"determinate":"base"}},"parts":{"Track":["width","height"],"Content":["width","height"]}},
   // `Rename` 은 **반경 하나만** 담는다(2026-09-03, DS-D-0050). 이름 변경 상자는 크롬이 없어
   // (테두리도 면도 없다) 담을 값이 반경뿐이고, 폭·높이는 오버레이 안쪽 폭과 글자 metrics 에서
   // 나오는 파생값이라 담으면 계약이 되지 않은 채 스냅숏에만 앉는다. 부품이 `State=Renaming`
@@ -312,7 +319,7 @@ const CAPTURE = {
   // `counterAxisAlignItems` 를 담는 이유는 EmptyState 와 같다 — 정렬이 가장 눈에 띄는 값인데
   // 담는 자리가 없으면 Figma 가 가운데 정렬로 그려도 게이트가 초록이다.
   "SectionHeader": {"key":{"by":["Level"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","counterAxisAlignItems","layoutMode"],"parts":{"Text":["itemSpacing","layoutMode"],"Title":["fontSize","lineHeightPercent"],"Description":["fontSize","lineHeightPercent"],"Meta":["fontSize","lineHeightPercent"],"Actions":["itemSpacing","layoutMode"]}},
-  "SelectableListRow": {"key":{"name":"base"},"parts":{"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
+  "SelectableListRow": {"key":{"by":["Layout"]},"parts":{"Media":["width","height","cornerRadius"],"Text":["width","height","itemSpacing","cornerRadius"],"Title":["width","height","fontSize"],"Meta":["width","height","fontSize"],"Trailing":["width","height","fontSize"]}},
   // Size 축이 키다. 두 칸(sm 24 · md 32)이 모두 제품 실측 자리를 갖는다 — 계약의 select.sizes 와
   // 같은 축이다. `Glyph` 는 MenuTrigger 와 같은 빈 슬롯이고 `Caret` 은 icon/caret-down 인스턴스를
   // 담은 12 정사각이다. 규칙 1 대로 INSTANCE 안으로는 들어가지 않으므로 캐럿 획은 여기 담기지
@@ -341,7 +348,7 @@ const CAPTURE = {
   "StatTile": {"key":{"by":["Size"]},"fields":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize","lineHeightPercent"],"Value":["fontSize","lineHeightPercent"],"Hint":["fontSize","lineHeightPercent"],"Delta":["paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius"],"DeltaLabel":["fontSize"]},"effects":["self"]},
   "StepTile": {"key":{"name":"base"},"slots":{"Description":"present"},"parts":{"Tile":["width","height","cornerRadius"],"Caption":["width","height","itemSpacing","layoutMode"],"Label":["width","height","fontSize","lineHeightPercent"],"Description":["width","height","fontSize","lineHeightPercent"]}},
   "Switch": {"key":{"by":["Checked"]},"parts":{"Thumb":["width","height"]},"effects":["Thumb"]},
-  "TabItem": {"key":{"by":["State"]},"parts":{"Label":["width","height","fontSize"]}},
+  "TabItem": {"key":{"by":["Variant","State"],"omit":{"Variant":"default"}},"parts":{"Label":["width","height","fontSize"]}},
   "Table": {"key":{"name":"base"},"parts":{"HeaderRow":["width","height"],"Row 1":["width","height"],"Row 2":["width","height"],"Row 3":["width","height"]},"strokes":["TableCell"],"effects":["HeaderRow"]},
   "TableCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]},"strokes":["self"]},
   "TableHeaderCell": {"key":{"by":["Align"]},"parts":{"Label":["width","height","fontSize"]}},
@@ -351,7 +358,7 @@ const CAPTURE = {
   // 곡률을 펴므로 네 모서리가 갈리고, 그러면 Figma 의 `cornerRadius` 는 `mixed` 가 되어
   // `undefined` 로 떨어진다 — 그 칸의 곡률이 **아무 값과도 대조되지 않는다.** Dialog 의 sheet 가
   // 같은 이유로 같은 모양을 쓴다. 좌우는 대칭이라 왼쪽 두 모서리만 건다 (DS-D-0052).
-  "TextField": {"key":{"by":["Size","LabelBehavior","Join"],"omit":{"Join":"none"}},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
+  "TextField": {"key":{"by":["Size","LabelBehavior","Join","Layout"],"omit":{"Join":"none","Layout":"base"}},"parts":{"Box":["height","width","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","topLeftRadius","bottomLeftRadius","layoutMode"],"Label":["height","width","fontSize","lineHeightPercent"],"Value":["height","width","fontSize","lineHeightPercent"],"Message":["height","width","fontSize","lineHeightPercent"]},"strokes":["Box"]},
   // `Actions` 는 callout 의 행동 단추와 닫기를 묶는 줄이고 `Close` 는 그 안의 닫기 칸이다(2026-10-07). 닫기의 쉬는
   // 불투명도 72% 는 담지 않는다 — 자손 값은 소수 한 자리(r1)에서 접혀 0.7 로 돌아오므로 계약 값과 만날 수 없다.
   "Toast": {"key":{"by":["Layout"]},"effects":["self"],"parts":{"Content":["itemSpacing"],"Actions":["itemSpacing","layoutMode"],"Action":["height","cornerRadius","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd"],"Close":["width","height"]}},

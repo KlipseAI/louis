@@ -9519,7 +9519,7 @@
       "effects": {}
     },
     "AppTopBar": {
-      "variantCount": 1,
+      "variantCount": 2,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -9536,10 +9536,17 @@
         },
         "Trailing": {
           "type": "BOOLEAN"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "canvas"
+          ]
         }
       },
       "binding": {
-        "boundFills": 2,
+        "boundFills": 6,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -9589,6 +9596,245 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "canvas": {
+          "slots": {},
+          "parts": {
+            "Leading": {
+              "height": [
+                32
+              ]
+            },
+            "Trailing": {
+              "height": [
+                32
+              ]
+            }
+          },
+          "height": [
+            48
+          ],
+          "width": [
+            480
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "paddingInlineEnd": [
+            12
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "AppTopBarHome": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Mark": {
+          "type": "INSTANCE_SWAP"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingInline": [
+            6
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingInline": [
+            6
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Active": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "minWidth": [
+            32
+          ],
+          "paddingInline": [
+            6
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "AppTopBarTitle": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active",
+            "Focus"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            10
+          ],
+          "paddingInlineEnd": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            10
+          ],
+          "paddingInlineEnd": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Active": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            10
+          ],
+          "paddingInlineEnd": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Focus": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            10
+          ],
+          "paddingInlineEnd": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }
@@ -10847,6 +11093,9 @@
         "DeltaLabel": {
           "type": "TEXT"
         },
+        "HasCrosshair": {
+          "type": "BOOLEAN"
+        },
         "Chart": {
           "type": "VARIANT",
           "options": [
@@ -10864,11 +11113,11 @@
         }
       },
       "binding": {
-        "boundFills": 40,
+        "boundFills": 48,
         "rawFills": 0,
         "boundStrokes": 2,
         "rawStrokes": 0,
-        "textStyled": 17,
+        "textStyled": 23,
         "textUnstyled": 0
       },
       "geometry": {
@@ -11093,6 +11342,35 @@
         ]
       }
     },
+    "ChartCardDotTile": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 1,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "tile": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            18
+          ],
+          "height": [
+            18
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "Checkbox": {
       "variantCount": 4,
       "hasDescription": true,
@@ -11213,7 +11491,7 @@
       "effects": {}
     },
     "ChoiceCard": {
-      "variantCount": 42,
+      "variantCount": 74,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -11229,7 +11507,8 @@
           "type": "VARIANT",
           "options": [
             "card",
-            "row"
+            "row",
+            "list"
           ]
         },
         "Size": {
@@ -11270,11 +11549,11 @@
         }
       },
       "binding": {
-        "boundFills": 106,
+        "boundFills": 178,
         "rawFills": 0,
-        "boundStrokes": 8,
+        "boundStrokes": 32,
         "rawStrokes": 0,
-        "textStyled": 56,
+        "textStyled": 104,
         "textUnstyled": 0
       },
       "geometry": {
@@ -11478,6 +11757,156 @@
           "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "list/md": {
+          "slots": {},
+          "parts": {
+            "Marker": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ],
+              "cornerRadius": [
+                999,
+                6
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Description": {
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Check": {
+              "width": [
+                4
+              ],
+              "height": [
+                7
+              ]
+            }
+          },
+          "minHeight": [
+            44
+          ],
+          "paddingBlock": [
+            20
+          ],
+          "paddingBlockEnd": [
+            20
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "list/sm": {
+          "slots": {},
+          "parts": {
+            "Marker": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ],
+              "cornerRadius": [
+                999,
+                6
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Label": {
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Check": {
+              "width": [
+                4
+              ],
+              "height": [
+                7
+              ]
+            }
+          },
+          "minHeight": [
+            44
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -11546,7 +11975,7 @@
       }
     },
     "Dialog": {
-      "variantCount": 6,
+      "variantCount": 8,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -11564,7 +11993,8 @@
             "compact",
             "medium",
             "large",
-            "sheet"
+            "sheet",
+            "compare"
           ]
         },
         "Tone": {
@@ -11580,14 +12010,21 @@
             "base",
             "grabber"
           ]
+        },
+        "Dividers": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
         }
       },
       "binding": {
-        "boundFills": 31,
+        "boundFills": 41,
         "rawFills": 0,
-        "boundStrokes": 6,
+        "boundStrokes": 10,
         "rawStrokes": 0,
-        "textStyled": 12,
+        "textStyled": 16,
         "textUnstyled": 0
       },
       "geometry": {
@@ -11804,6 +12241,77 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
+        "compare": {
+          "slots": {},
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                24
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "paddingBottom": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
+          "height": [
+            207
+          ],
+          "width": [
+            880
+          ],
+          "paddingBlock": [
+            24.5
+          ],
+          "paddingBlockEnd": [
+            24.5
+          ],
+          "paddingInline": [
+            24.5
+          ],
+          "paddingInlineEnd": [
+            24.5
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "topLeftRadius": [
+            20
+          ],
+          "bottomLeftRadius": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
         "sheet": {
           "slots": {},
           "parts": {
@@ -11964,6 +12472,77 @@
           ],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "large/true": {
+          "slots": {},
+          "parts": {
+            "Footer": {
+              "paddingTop": [
+                8
+              ],
+              "paddingInline": [
+                8
+              ],
+              "paddingInlineEnd": [
+                8
+              ],
+              "paddingBottom": [
+                8
+              ],
+              "children": [
+                1
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "children": [
+                2
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ],
+              "primaryAxisAlignItems": [
+                "MAX"
+              ]
+            }
+          },
+          "height": [
+            191
+          ],
+          "width": [
+            720
+          ],
+          "paddingBlock": [
+            24.5
+          ],
+          "paddingBlockEnd": [
+            24.5
+          ],
+          "paddingInline": [
+            24.5
+          ],
+          "paddingInlineEnd": [
+            24.5
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "topLeftRadius": [
+            20
+          ],
+          "bottomLeftRadius": [
+            20
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {
@@ -11978,7 +12557,7 @@
       }
     },
     "DropZone": {
-      "variantCount": 4,
+      "variantCount": 8,
       "hasDescription": true,
       "properties": {
         "Glyph": {
@@ -11996,6 +12575,13 @@
         "HasCaption": {
           "type": "BOOLEAN"
         },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "media",
+            "base"
+          ]
+        },
         "State": {
           "type": "VARIANT",
           "options": [
@@ -12007,11 +12593,11 @@
         }
       },
       "binding": {
-        "boundFills": 12,
+        "boundFills": 25,
         "rawFills": 0,
-        "boundStrokes": 1,
+        "boundStrokes": 2,
         "rawStrokes": 0,
-        "textStyled": 8,
+        "textStyled": 16,
         "textUnstyled": 0
       },
       "geometry": {
@@ -12051,6 +12637,58 @@
           ],
           "itemSpacing": [
             12
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            2
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "media": {
+          "slots": {},
+          "parts": {
+            "Graphic": {
+              "width": [
+                56
+              ],
+              "height": [
+                56
+              ]
+            },
+            "Prompt": {
+              "fontSize": [
+                16
+              ]
+            },
+            "Caption": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            24
+          ],
+          "paddingBlockEnd": [
+            24
+          ],
+          "paddingInline": [
+            24
+          ],
+          "paddingInlineEnd": [
+            24
+          ],
+          "itemSpacing": [
+            8
           ],
           "cornerRadius": [
             12
@@ -12750,7 +13388,7 @@
         }
       },
       "binding": {
-        "boundFills": 2,
+        "boundFills": 10,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -12879,6 +13517,251 @@
           "INNER_SHADOW:0:0:0.5 + BACKGROUND_BLUR:NORMAL:4"
         ]
       }
+    },
+    "FloatingShellDivider": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "divider": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            1
+          ],
+          "height": [
+            22
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "FloatingShellItem": {
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Glyph": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Spotlight": {
+          "type": "BOOLEAN"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "lg"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 8,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/Hover": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/Pressed": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/Default": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/Hover": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/Pressed": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/Disabled": {
+          "slots": {
+            "Glyph": [
+              "20x20"
+            ]
+          },
+          "parts": {},
+          "width": [
+            40
+          ],
+          "height": [
+            40
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "FormMessage": {
       "variantCount": 2,
@@ -14602,7 +15485,7 @@
       "effects": {}
     },
     "MediaSlot": {
-      "variantCount": 5,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "RemoveButton": {
@@ -14613,7 +15496,8 @@
           "options": [
             "md",
             "video",
-            "fill"
+            "fill",
+            "attachment"
           ]
         },
         "Layout": {
@@ -14632,9 +15516,9 @@
         }
       },
       "binding": {
-        "boundFills": 8,
+        "boundFills": 10,
         "rawFills": 0,
-        "boundStrokes": 5,
+        "boundStrokes": 6,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
@@ -14680,6 +15564,22 @@
           ],
           "height": [
             96
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "attachment/base/Default": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            72
+          ],
+          "height": [
+            72
           ],
           "cornerRadius": [
             12
@@ -19367,19 +20267,43 @@
       "effects": {}
     },
     "ProgressRing": {
-      "variantCount": 1,
+      "variantCount": 5,
       "hasDescription": true,
       "properties": {
         "Content": {
           "type": "INSTANCE_SWAP"
+        },
+        "Glyph": {
+          "type": "TEXT"
+        },
+        "Mode": {
+          "type": "VARIANT",
+          "options": [
+            "determinate",
+            "bipolar"
+          ]
+        },
+        "Direction": {
+          "type": "VARIANT",
+          "options": [
+            "next",
+            "prev"
+          ]
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
         }
       },
       "binding": {
-        "boundFills": 3,
+        "boundFills": 15,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 0,
+        "textStyled": 4,
         "textUnstyled": 0
       },
       "geometry": {
@@ -19420,6 +20344,49 @@
           ],
           "paddingInlineEnd": [
             4
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "bipolar": {
+          "slots": {},
+          "parts": {
+            "Track": {
+              "width": [
+                32
+              ],
+              "height": [
+                32
+              ]
+            }
+          },
+          "height": [
+            32
+          ],
+          "width": [
+            32
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
           ],
           "itemSpacing": [
             0
@@ -19956,7 +20923,7 @@
       }
     },
     "SectionHeader": {
-      "variantCount": 3,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -19982,16 +20949,19 @@
           "options": [
             "page",
             "section",
-            "label"
+            "label",
+            "list",
+            "article",
+            "display"
           ]
         }
       },
       "binding": {
-        "boundFills": 9,
+        "boundFills": 17,
         "rawFills": 0,
-        "boundStrokes": 0,
+        "boundStrokes": 1,
         "rawStrokes": 0,
-        "textStyled": 6,
+        "textStyled": 11,
         "textUnstyled": 0
       },
       "geometry": {
@@ -20169,6 +21139,179 @@
           ],
           "counterAxisAlignItems": [
             "MAX"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "list": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                16
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                8
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "article": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "itemSpacing": [
+                12
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                36
+              ],
+              "lineHeightPercent": [
+                135
+              ]
+            },
+            "Description": {
+              "fontSize": [
+                20
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Meta": {
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            28
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "counterAxisAlignItems": [
+            "MAX"
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "display": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                36
+              ],
+              "lineHeightPercent": [
+                135
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            40
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "counterAxisAlignItems": [
+            "CENTER"
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -21029,7 +22172,7 @@
       "effects": {}
     },
     "SelectTrigger": {
-      "variantCount": 16,
+      "variantCount": 24,
       "hasDescription": true,
       "properties": {
         "Value": {
@@ -21039,7 +22182,8 @@
           "type": "VARIANT",
           "options": [
             "md",
-            "sm"
+            "sm",
+            "lg"
           ]
         },
         "State": {
@@ -21060,11 +22204,11 @@
         }
       },
       "binding": {
-        "boundFills": 32,
+        "boundFills": 48,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 16,
+        "textStyled": 24,
         "textUnstyled": 0
       },
       "geometry": {
@@ -21169,6 +22313,57 @@
           "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "lg": {
+          "slots": {},
+          "parts": {
+            "Glyph": {
+              "width": [
+                20
+              ],
+              "height": [
+                20
+              ]
+            },
+            "Caret": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "height": [
+            40
+          ],
+          "width": [
+            160
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            16
+          ],
+          "paddingInlineEnd": [
+            16
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {},
@@ -21179,7 +22374,7 @@
       }
     },
     "SelectableListRow": {
-      "variantCount": 3,
+      "variantCount": 6,
       "hasDescription": true,
       "properties": {
         "Title": {
@@ -21194,21 +22389,29 @@
         "Media": {
           "type": "BOOLEAN"
         },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "link",
+            "base"
+          ]
+        },
         "State": {
           "type": "VARIANT",
           "options": [
             "Default",
             "Selected",
-            "Disabled"
+            "Disabled",
+            "Hover"
           ]
         }
       },
       "binding": {
-        "boundFills": 13,
+        "boundFills": 26,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
-        "textStyled": 9,
+        "textStyled": 18,
         "textUnstyled": 0
       },
       "geometry": {
@@ -21271,6 +22474,96 @@
               ],
               "fontSize": [
                 14
+              ]
+            }
+          },
+          "height": [
+            70
+          ],
+          "width": [
+            320
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingBlockEnd": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "link": {
+          "slots": {},
+          "parts": {
+            "Media": {
+              "width": [
+                96
+              ],
+              "height": [
+                54
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Text": {
+              "width": [
+                151
+              ],
+              "height": [
+                43
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "cornerRadius": [
+                0
+              ]
+            },
+            "Title": {
+              "width": [
+                151
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            },
+            "Meta": {
+              "width": [
+                151
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ]
+            },
+            "Trailing": {
+              "width": [
+                41
+              ],
+              "height": [
+                54
               ]
             }
           },
@@ -21872,7 +23165,7 @@
       "effects": {}
     },
     "Slider": {
-      "variantCount": 12,
+      "variantCount": 14,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -21893,7 +23186,8 @@
           "type": "VARIANT",
           "options": [
             "thumb",
-            "track"
+            "track",
+            "ruler"
           ]
         },
         "State": {
@@ -21905,11 +23199,11 @@
         }
       },
       "binding": {
-        "boundFills": 48,
+        "boundFills": 56,
         "rawFills": 0,
         "boundStrokes": 6,
         "rawStrokes": 0,
-        "textStyled": 12,
+        "textStyled": 16,
         "textUnstyled": 0
       },
       "geometry": {
@@ -22404,6 +23698,55 @@
           "strokeWeight": [],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "lg/ruler": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                30
+              ],
+              "height": [
+                18
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            65
+          ],
+          "width": [
+            240
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {
@@ -22411,6 +23754,35 @@
           "2|INSIDE"
         ]
       },
+      "effects": {}
+    },
+    "SliderRulerTicks": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 25,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "ticks": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            240
+          ],
+          "height": [
+            16
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
       "effects": {}
     },
     "Spinner": {
@@ -23075,11 +24447,18 @@
       }
     },
     "TabItem": {
-      "variantCount": 4,
+      "variantCount": 8,
       "hasDescription": true,
       "properties": {
         "Label": {
           "type": "TEXT"
+        },
+        "Variant": {
+          "type": "VARIANT",
+          "options": [
+            "default",
+            "bar"
+          ]
         },
         "State": {
           "type": "VARIANT",
@@ -23092,11 +24471,11 @@
         }
       },
       "binding": {
-        "boundFills": 4,
+        "boundFills": 8,
         "rawFills": 0,
-        "boundStrokes": 0,
+        "boundStrokes": 4,
         "rawStrokes": 0,
-        "textStyled": 4,
+        "textStyled": 8,
         "textUnstyled": 0
       },
       "geometry": {
@@ -23276,6 +24655,190 @@
           ],
           "cornerRadius": [
             999
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "bar/Default": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                13
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            47
+          ],
+          "width": [
+            13
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "bar/Hover": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                13
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            47
+          ],
+          "width": [
+            13
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "bar/Selected": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                13
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            47
+          ],
+          "width": [
+            13
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "bar/Disabled": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "width": [
+                13
+              ],
+              "height": [
+                21
+              ],
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            47
+          ],
+          "width": [
+            13
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingBlockEnd": [
+            12
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            0
           ],
           "layoutMode": [
             "HORIZONTAL"
@@ -23733,21 +25296,22 @@
       "effects": {}
     },
     "Tabs": {
-      "variantCount": 2,
+      "variantCount": 3,
       "hasDescription": true,
       "properties": {
         "Variant": {
           "type": "VARIANT",
           "options": [
             "default",
-            "underline"
+            "underline",
+            "bar"
           ]
         }
       },
       "binding": {
         "boundFills": 0,
         "rawFills": 0,
-        "boundStrokes": 1,
+        "boundStrokes": 5,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
@@ -23852,6 +25416,57 @@
           ],
           "overflowingParts": [],
           "offCenterMarks": []
+        },
+        "bar": {
+          "slots": {
+            "TabItem": [
+              "25x47",
+              "40x47"
+            ]
+          },
+          "parts": {
+            "TabItem": {
+              "width": [
+                25,
+                40
+              ],
+              "height": [
+                47
+              ]
+            }
+          },
+          "height": [
+            47
+          ],
+          "width": [
+            130
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            20
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
         }
       },
       "strokes": {
@@ -23862,7 +25477,7 @@
       "effects": {}
     },
     "TextField": {
-      "variantCount": 22,
+      "variantCount": 27,
       "hasDescription": true,
       "properties": {
         "Label": {
@@ -23892,6 +25507,12 @@
         "HasMessage": {
           "type": "BOOLEAN"
         },
+        "HasAttachments": {
+          "type": "BOOLEAN"
+        },
+        "HasToolbar": {
+          "type": "BOOLEAN"
+        },
         "Size": {
           "type": "VARIANT",
           "options": [
@@ -23906,7 +25527,8 @@
             "Default",
             "Invalid",
             "Disabled",
-            "Placeholder"
+            "Placeholder",
+            "DragOver"
           ]
         },
         "LabelBehavior": {
@@ -23924,14 +25546,21 @@
             "middle",
             "end"
           ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "multiline"
+          ]
         }
       },
       "binding": {
-        "boundFills": 88,
+        "boundFills": 128,
         "rawFills": 0,
-        "boundStrokes": 22,
+        "boundStrokes": 42,
         "rawStrokes": 0,
-        "textStyled": 66,
+        "textStyled": 86,
         "textUnstyled": 0
       },
       "geometry": {
@@ -24720,6 +26349,119 @@
           ],
           "strokeWeight": [
             0.5
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/stacked/multiline": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "height": [
+                21
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Box": {
+              "height": [
+                340
+              ],
+              "width": [
+                320
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingBlockEnd": [
+                0
+              ],
+              "paddingInline": [
+                0
+              ],
+              "paddingInlineEnd": [
+                0
+              ],
+              "itemSpacing": [
+                0
+              ],
+              "topLeftRadius": [
+                12
+              ],
+              "bottomLeftRadius": [
+                12
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Value": {
+              "height": [
+                168
+              ],
+              "width": [
+                288
+              ],
+              "fontSize": [
+                14
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            },
+            "Message": {
+              "height": [
+                18
+              ],
+              "width": [
+                320
+              ],
+              "fontSize": [
+                12
+              ],
+              "lineHeightPercent": [
+                150
+              ]
+            }
+          },
+          "height": [
+            395
+          ],
+          "width": [
+            328
+          ],
+          "paddingBlock": [
+            4
+          ],
+          "paddingBlockEnd": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "strokeWeight": [
+            0.5,
+            1,
+            2
           ],
           "overflowingParts": [],
           "offCenterMarks": []

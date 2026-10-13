@@ -291,8 +291,9 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고, 데이터 부족 안
 9. **점(`__marker`) 반지름이 늘린 그림에서 타원이 된다.** 제품 `r="4"` 는 viewBox 단위라 `preserveAspectRatio="none"` 으로
    늘리면 가로세로가 달리 늘어난다(`shared.tsx:421`). 레시피는 반지름을 갖지 않는다 — 소비처가 점을 SVG 밖 HTML 로 두거나
    `r` 을 화면 px 로 환산해야 한다.
-10. **영역 차트 부품에 Figma 층 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 의 선 · 면 분리와
-    `HasCrosshair` 는 다음 회차다.
+10. **영역 차트 부품의 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Chart=area` 안에 점 바닥(`ChartCardDotTile` 반복, 격자 18 을
+    기록 `chart-card-dot-tile` 과 실브라우저 시험이 잰다) · 선 · 면 분리 · 축 글자 줄, BOOLEAN `HasCrosshair`. Figma 패턴 채움이 변수를 받지
+    못해 점은 타일 반복이고, 바닥 안 20 × 5 칸만 그린다.
 
 ## Implementation
 

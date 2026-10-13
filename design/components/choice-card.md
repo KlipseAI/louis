@@ -171,8 +171,9 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 **쓰는 자리:** 한 화면에 질문 하나를 크게 묻는 폼에서, 면이 겹겹이 쌓이면 무거운 자리(모달 안 지원서).
 
-**Figma 는 아직 없다.** 세트 `ChoiceCard` 의 `Variant` 에 `list` 를 더하는 것(`list` × `Size` × `Role` × `Checked` × `State`, 표식이
-앞에 서는 프레임 — 자식 순서가 바뀐다, §2 시험 2)과 기록 `choice-card` 의 `list/md` · `list/sm` 칸은 Figma 회차의 몫이다.
+**Figma 는 2026-10-13 에 섰다.** 세트 `ChoiceCard` 의 `Variant` 에 `list` 를 더했다 — `list` × `Size`(md · sm) × `Role` × 쉼 · 호버 · 비활성 ·
+오류 쉼 · 호버 · 고름 쉼 · 호버 · 비활성 32 칸(레시피가 고른 줄에도 호버를 걸고 오류 링을 가져 card · row 보다 넓다). 표식이 앞에 서는 프레임이다
+(자식 순서가 바뀐다, §2 시험 2). 기록 `choice-card` 의 `list/md` · `list/sm` 칸은 아직 없어 기하는 대조되지 않는다.
 
 ## Interaction and responsive behavior
 

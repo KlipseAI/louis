@@ -503,9 +503,9 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   `radius-card-lg`(20px)로 자기 이름을 갖는다 — [DS-D-0014](../governance/decisions/DS-D-0014-card-radius.md)
   전까지는 `radius-card`를 빌려 썼고, 제품의 프로젝트 카드가 4벌 전부 16px이라 그 이름이 16으로
   내려갔다. "compact가 large보다 둥글다"는 서열은 유지된다.
-- **`compare` 와 `data-dividers` 는 레시피에만 있다.** React `DialogSize` union(`compact` · `medium` · `large` ·
-  `fullscreen`)과 Figma `Size` 축에 `compare` 를 올리고 조건 축 `Dividers` 를 세우는 것은 다음 회차다. 그때까지 소비처는
-  `data-size` · `data-dividers` 를 직접 건다. 제품 반경 24 와 선 12% 는 LOUIS 유도값 20 · 공용 헤어라인으로 접었다.
+- **`compare` 와 `data-dividers` 에 React 표면이 없다.** React `DialogSize` union(`compact` · `medium` · `large` ·
+  `fullscreen`)에 `compare` 를 올리는 것은 다음 회차라, 그때까지 소비처는 `data-size` · `data-dividers` 를 직접 건다. Figma 는
+  2026-10-13 에 섰다 — `Size=compare` 와 조건 축 `Dividers`(`large` 에만 `true`, 머리 묶음 아래 · 발 위 헤어라인, 발 위 8). 제품 반경 24 와 선 12% 는 LOUIS 유도값 20 · 공용 헤어라인으로 접었다.
 - **최대폭과 viewport 여백이 토큰이 아니라 리터럴이다.** content tier 토큰과 20px spacing 토큰이 없다.
   Specification의 `viewport - 40px`을 맞추려면 20px이 필요해 값을 지키고 리터럴을 한 줄에 격리했다.
 - **surface padding이 `space-layout-*`에서 온다.** `space-surface-*` tier가 없다. `space-control-*`는

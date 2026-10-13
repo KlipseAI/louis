@@ -276,8 +276,9 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 - **`ruler` 의 지시선이 라이트에서 제품보다 짙다(DS-D-0084 §3).** 제품 `accent-yellow-500` 은 라이트 #fafafa 위 1.73:1 로 그래픽 3:1 에
   미달한다. `inspector-adjust-accent` 가 라이트를 yellow-700(3.57:1)으로 올리고 다크는 제품 값 그대로다(소유자 판정 9, 2026-10-13 기본값).
 - **`ruler` 의 눈금 잉크를 시맨틱 칸으로 접었다.** 제품 22% · 34%(`ColorRulerSlider.tsx:287-297`)를 가장 가까운 `gray-000-alpha-20` · `-32` 로 쓴다.
-- **`ruler` 에 React 표면 · Figma 변형 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Variant=ruler`(`Size` 없는 희소
-  set, 40 하나 × `State` Default · Disabled)와 눈금 하위 컴포넌트 `SliderRulerTicks` 로 세운다.
+- **`ruler` 에 React 표면이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Size=lg, Variant=ruler` × `State`(Default · Disabled, Figma 가 희소 세트를
+  받지 않아 `Size=lg` 가 붙는다)와 눈금 하위 컴포넌트 `SliderRulerTicks`(큰 눈금 16 을 기록 `slider-ruler-ticks` 와 실브라우저 시험이 잰다).
+  자 · 지시선 · 값 머리의 나머지 기하는 Figma 되읽기에서 옮긴 기록이라 실브라우저로 다시 재기 전이다. Disabled 칸은 레시피에 규칙이 없어 thumb 의 Disabled 를 본떴다.
 - **세로 방향(`data-orientation="vertical"`)을 열지 않았다**(2026-10-07 판정). 열려면 네이티브 range 의 세로
   방식(`writing-mode: vertical-lr` + `direction: rtl`)과 WebKit · Gecko 의 썸 정렬 보정 · 키 방향을 두 브라우저에서
   재야 하는데 harness 가 Chromium 단독이고 pseudo-element 의 렌더 결과를 게이트가 읽지 못한다. 소비처도

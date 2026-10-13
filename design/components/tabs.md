@@ -163,8 +163,8 @@ option이 생긴다. `bar` 는 그 일곱 벌 밖의 어드민 서브탭이 실�
 **쉼 잉크가 역할 잉크라 기본 탭의 알려진 대비 미달이 이 변형에는 없다** — 다크 `fg-secondary` on `bg-surface` 7.24:1 ·
 라이트 9.23:1. B2 감사가 이 상수를 「underline」으로 읽었는데 underline 에는 막대가 없어 맞지 않는다.
 
-**Figma 는 아직 없다.** Tabs 세트의 `Variant` 에 `bar` 를 더하고(§2 의 `data-variant` 철자 예외), 탭 하나의 상태를 가진
-`TabItem` 에 `Variant`(`default` · `bar`)를 연다 — 막대 · 잉크 · 여백이 바뀌어 프레임이 자기 값을 다시 쓴다(§2 시험 2).
+**Figma 는 2026-10-13 에 섰다.** Tabs 세트의 `Variant` 에 `bar` 를 더하고(§2 의 `data-variant` 철자 예외), 탭 하나의 상태를 가진
+`TabItem` 에 `Variant`(`default` · `bar`)를 열었다 — 막대 · 잉크 · 여백이 바뀌어 프레임이 자기 값을 다시 쓴다(§2 시험 2).
 `bar` × `State`(Default · Hover · Selected · Disabled) = 4. 막대는 프레임의 아래 획(2 · `color/fg-primary`), 쉼은 같은 획을 투명으로.
 
 **크기 축도 없다.** 높이가 28 하나다. 이 값은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의

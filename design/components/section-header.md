@@ -181,7 +181,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 모두 달라 값 하나를 바꿔 끼울 수 없다. 제목 안 개수는 `__count`(왼쪽 6, `fg-tertiary`, `tabular-nums`)다 — `__meta` 는 제목
 **아래** 줄이고 개수는 **같은** 줄이다. 제품 제목 잉크 `palette-gray-800/200` 과 개수 `palette-gray-500` 은 역할이 없어
 `fg-primary` · `fg-tertiary` 로 간다(Known deviation 3 과 같은 판단). 아래 여백은 두 허브가 달라(12 · 8) 소비처가 진다.
-**Figma 변형은 아직 없다.**
+Figma 는 `Level=list` 로 2026-10-13 에 섰다(아래 「Figma」).
 
 ## 글 머리 — `data-level="article"`
 
@@ -211,7 +211,7 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 앱 화면의 화면 제목은 `page` 다. 계단은 제품 `app/globals.css:842-878` 의 값을 레시피 지역 변수
 (`--louis-section-header-title-size` · `-title-tracking` · `-lead-size`)로 옮긴 것이다(Known deviations 10).
 
-**Figma 는 아직 없다.** 세트 `SectionHeader` 의 `Level` 에 `list` · `article` · `display` 를 더하는 것은 Figma 회차의 몫이다 —
+**Figma 는 2026-10-13 에 섰다.** 세트 `SectionHeader` 의 `Level` 에 `list` · `article` · `display` 를 더했고 기록 `section-header` 의 세 칸을 parity 가 대조한다 —
 축 표([figma-component-authoring.md](../governance/figma-component-authoring.md) §2)의 `Level` 허용값은 2026-10-13 에 이 셋까지 늘렸다.
 `article` 은 `HasActions` 가 없는 희소 set(`HasDescription` · `HasMeta` 둘만, 아래 구분선은 프레임 아래 헤어라인 + 아래 28),
 `display` 는 `HasDescription` · `HasMeta` 없이 `HasActions` 만이다(기본 인스턴스는 `CarouselArrow` 쌍). 반응형 계단은 그리지

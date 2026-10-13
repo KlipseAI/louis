@@ -400,8 +400,9 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
   레시피는 Drop Zone 과 같은 안쪽 링이다 — 바깥 outline 은 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로 말하게 된다.
   첨부 지우기도 제품 28 원 · 칸 밖 6 · inverse 면(:192-193)에서 Media Slot 의 22 원 · 안쪽 5 · 미디어 스크림으로 접힌다
   (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).
-- **여러 줄 판에 React 표면 · Figma 변형 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Layout`(`base` ·
-  `multiline`, `Size=lg` 에만) · BOOLEAN `HasAttachments` · `HasToolbar` · `State=DragOver` 로 세운다.
+- **여러 줄 판에 React 표면 · 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Layout`(`base` · `multiline`, `Size=lg` 에만) ·
+  BOOLEAN `HasAttachments` · `HasToolbar` · `State=DragOver`(multiline 에만). 기록 `input.lg/stacked/multiline` 은 Figma 되읽기에서 옮긴
+  값(상자 높이 340 = 본문 최소 200 + 첨부 줄 + 도구 줄)이라 실브라우저로 다시 재기 전이다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로
   남았다. 도구 줄의 `sm` 필드는 보통 시각 라벨 없이 `aria-label`로 서므로 지금은 부딪히지
   않는다. 라벨을 가진 `sm` 필드가 실제로 생기면 **그때 재서** 정한다 — 여기서 유도하면 재지 않은

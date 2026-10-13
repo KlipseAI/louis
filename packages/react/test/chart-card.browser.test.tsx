@@ -185,3 +185,16 @@ test("chart-card: 두 축의 안쪽 여백이 실제로 갈려 있다", async ()
   expect(spec.area.panelPaddingBlock).not.toBe(spec.spark.panelPaddingBlock);
   expect(spec.area.panelPaddingInline).not.toBe(spec.spark.panelPaddingInline);
 });
+
+// 점 바닥(2026-10-13, DS-D-0084) — Figma 의 ChartCardDotTile 한 칸이 이 격자 간격이다. 기록 `chart-card-dot-tile.tile.pitch` 를
+// 코드가 여전히 만드는지 잰다. 층은 `::before` 라 그 계산값의 `background-size` 를 읽는다.
+test("chart-card 점 바닥: 격자 간격이 ChartCardDotTile 기록과 같다", async () => {
+  await render(
+    <div className="louis-chart-card" data-chart="area">
+      <div className="louis-chart-card__chart" data-floor="dots" data-testid="dots-chart" />
+    </div>,
+  );
+  const pitch = measured.components["chart-card-dot-tile"].sizes.tile.pitch;
+  const size = getComputedStyle(find("dots-chart"), "::before").backgroundSize.split(" ").map(px);
+  expect(size).toEqual([pitch, pitch]);
+});

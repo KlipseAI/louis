@@ -85,8 +85,11 @@ const sizeScope = (size: SliderSize): string =>
 
 // **measured의 키가 `{size}/{variant}` 복합이다.** Variant 축이 레일 두께와 썸 크기를 바꾸므로
 // size 하나로 묶으면 두 값이 한 항목에 섞여 어느 쪽이 어느 변형의 것인지 사라진다.
+// 키를 `thumb` · `track` 칸으로 좁힌다 — 같은 기록에 눈금자(`lg/ruler`, 2026-10-13)가 섰는데 그 칸에는 레일 · 썸이 없어
+// 넓은 키 타입으로 색인하면 모든 칸의 공통 필드만 남는다.
+type BarKey = `${SliderSize}/${"thumb" | "track"}`;
 const specOf = (size: SliderSize, variant: "thumb" | "track") =>
-  measured.components.slider.sizes[`${size}/${variant}` as keyof typeof measured.components.slider.sizes];
+  measured.components.slider.sizes[`${size}/${variant}` as BarKey & keyof typeof measured.components.slider.sizes];
 
 for (const size of SIZES) {
   const spec = specOf(size, "thumb");
@@ -350,3 +353,18 @@ test("두 변형 모두 접근성 위반이 없다", async () => {
 });
 
 export type _EnsureTsx = JSX.Element;
+
+// 눈금자(2026-10-13, DS-D-0084) — Figma 의 SliderRulerTicks 높이가 큰 눈금 높이다. 기록 `slider-ruler-ticks.ticks.height` 를
+// 코드가 여전히 만드는지 잰다. React prop 이 아직 없어 클래스 마크업을 렌더하고, 큰 눈금 층 `::after` 의 높이를 읽는다.
+test("slider ruler: 큰 눈금 높이가 SliderRulerTicks 기록과 같다", async () => {
+  await render(
+    <div className="louis-slider" data-variant="ruler">
+      <div className="louis-slider__ruler">
+        <div className="louis-slider__ruler-strip" data-testid="ruler-strip" />
+      </div>
+    </div>,
+  );
+  const strip = document.querySelector('[data-testid="ruler-strip"]') as HTMLElement;
+  const height = Number.parseFloat(getComputedStyle(strip, "::after").height);
+  expect(height).toBe(measured.components["slider-ruler-ticks"].sizes.ticks.height);
+});

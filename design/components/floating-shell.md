@@ -258,7 +258,7 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 | `Label` | 슬롯 (TEXT) | 배율 문구. 코드에서 계산돼 들어오는 값이라 축이 아니다 |
 | `State` | 축 (3) | `Default` · `Hover` · `Open` |
 
-**FloatingShellItem**(툴 버튼 — Figma 는 아직 세우지 않았다, 다음 Figma 회차)
+**FloatingShellItem**(툴 버튼 — 2026-10-13 Figma 에 섰다. 켜짐 호버 · 누름 축소는 프로토타입 상태라 변형이 아니다)
 
 | 이름 | 종류 | 뜻 |
 | --- | --- | --- |

@@ -1089,6 +1089,62 @@
           "$grabberBarHeight": "4. 막대 두께. `space-control-xs` 와 같은 수지만 간격이 아니라 두께라 묶지 않는다(dialog.css 주석).",
           "grabberBarRadius": 999,
           "$grabberBarRadius": "radius-pill 999. 막대는 알약이다. 색은 `color-stroke-hairline` 이고 Figma 는 막대 채움을 `color/stroke-hairline` 변수에 묶는다."
+        },
+        "compare": {
+          "width": 880,
+          "$width": "880. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(dialog.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "paddingBlock": 20,
+          "paddingInline": 20,
+          "$paddingInline": "**뷰포트 가로 여백이다.** 화면 가장자리와 surface 사이",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰",
+          "radius": 20,
+          "$radius": "소유자가 2026-09-03 에 곡률을 «안쪽 버튼에서 유도» 로 바꿨다(facdd3a) — `--louis-dialog-surface-radius: calc(radius-control 12 + space-control-sm 8)` = 20 이고 네 모서리에 그대로 걸린다. 값을 20 으로 적지 않고 두 입력의 합으로 둔 이유는 버튼 곡률이나 푸터 여백이 움직이면 따라와야 하기 때문이다(dialog.css:16-24).",
+          "gap": 8,
+          "$gap": "space-control-sm 8 (header/body 사이 간격). space-stack 계단에는 sm 칸이 없다 — xs 4 와 md 12 뿐이라 같은 값의 control 칸을 쓴다",
+          "footerPaddingTop": 24,
+          "actionsGap": 8,
+          "$actionsGap": "space-control-sm 8 (액션 버튼 사이 간격)",
+          "actionCount": 2,
+          "$actionCount": "기본 액션 수 2 (취소/확인)",
+          "footerChildren": 1,
+          "$footerChildren": "기본 푸터 자식 1 (Actions 행)",
+          "$paddingBlock": "**뷰포트 여백이다.** 화면 가장자리와 surface 사이이며 `.louis-dialog` 루트가 갖는다. surface 안쪽 여백은 `surfaceInset`이 따로 갖는다 — 한 이름으로 둘을 가리키다가 Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.",
+          "surfaceInset": 24,
+          "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다.",
+          "footerInset": 8,
+          "$footerPaddingTop": "24. 배포본 modalActions의 `margin-top: 24`다. 8로 두고 있었는데 그것은 제품을 재지 않고 control 간격을 빌려 쓴 값이었다.",
+          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다.",
+          "radiusBottom": 20,
+          "$radiusBottom": "소유자가 2026-09-03 에 곡률을 «안쪽 버튼에서 유도» 로 바꿨다(facdd3a) — `--louis-dialog-surface-radius: calc(radius-control 12 + space-control-sm 8)` = 20 이고 네 모서리에 그대로 걸린다. 값을 20 으로 적지 않고 두 입력의 합으로 둔 이유는 버튼 곡률이나 푸터 여백이 움직이면 따라와야 하기 때문이다(dialog.css:16-24)."
+        },
+        "large/true": {
+          "width": 720,
+          "$width": "720px. large 대화상자 폭 (DS 정의)",
+          "paddingBlock": 20,
+          "paddingInline": 20,
+          "$paddingInline": "**뷰포트 가로 여백이다.** 화면 가장자리와 surface 사이",
+          "borderWidth": 0.5,
+          "$borderWidth": "0.5px. hairline 선언 토큰",
+          "radius": 20,
+          "$radius": "소유자가 2026-09-03 에 곡률을 «안쪽 버튼에서 유도» 로 바꿨다(facdd3a) — `--louis-dialog-surface-radius: calc(radius-control 12 + space-control-sm 8)` = 20 이고 네 모서리에 그대로 걸린다. 값을 20 으로 적지 않고 두 입력의 합으로 둔 이유는 버튼 곡률이나 푸터 여백이 움직이면 따라와야 하기 때문이다(dialog.css:16-24).",
+          "gap": 8,
+          "$gap": "space-control-sm 8 (header/body 사이 간격). space-stack 계단에는 sm 칸이 없다 — xs 4 와 md 12 뿐이라 같은 값의 control 칸을 쓴다",
+          "footerPaddingTop": 8,
+          "actionsGap": 8,
+          "$actionsGap": "space-control-sm 8 (액션 버튼 사이 간격)",
+          "actionCount": 2,
+          "$actionCount": "기본 액션 수 2 (취소/확인)",
+          "footerChildren": 1,
+          "$footerChildren": "기본 푸터 자식 1 (Actions 행)",
+          "$paddingBlock": "**뷰포트 여백이다.** 화면 가장자리와 surface 사이이며 `.louis-dialog` 루트가 갖는다. surface 안쪽 여백은 `surfaceInset`이 따로 갖는다 — 한 이름으로 둘을 가리키다가 Figma가 20.5로 그려진 채 CSS는 16·24를 렌더하고 있었다.",
+          "surfaceInset": 24,
+          "$surfaceInset": "24(space-layout-section). 제품에는 360 모달 한 벌뿐이라 이 둘은 DS가 정한 값이다 — compact만 좁힌다.",
+          "footerInset": 8,
+          "$footerPaddingTop": "8. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(dialog.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "$footerInset": "8. 배포본은 액션 행에 `margin: -8px`을 걸어 카드의 16 여백 밖으로 되밀어 낸다 — 결과가 8이고 제목·설명은 16에 남는다. 음수 마진 대신 여백을 직접 적어 같은 결과를 만든다.",
+          "radiusBottom": 20,
+          "$radiusBottom": "소유자가 2026-09-03 에 곡률을 «안쪽 버튼에서 유도» 로 바꿨다(facdd3a) — `--louis-dialog-surface-radius: calc(radius-control 12 + space-control-sm 8)` = 20 이고 네 모서리에 그대로 걸린다. 값을 20 으로 적지 않고 두 입력의 합으로 둔 이유는 버튼 곡률이나 푸터 여백이 움직이면 따라와야 하기 때문이다(dialog.css:16-24)."
         }
       },
       "states": {
@@ -1403,6 +1459,30 @@
           "$iconSize": "icon-size-sm 16. **이 값만 실측이 아니라 사다리 유도값이다.** 앵커의 sm 자리(프리뷰 줌 칩)에는 선행 글리프가 없어 잴 것이 없었다. 24 높이에 20 을 넣으면 위아래로 2px 만 남아 글리프가 상자를 꽉 채운다 — 한 칸 내린다. 실측이 생기면 그때 고친다.",
           "caretSize": 12,
           "$caretSize": "12px. **크기 축을 따라 줄지 않는다.** md 와 같은 값이고, 그 이유는 캐럿이 이미 사다리 밖의 작은 값이기 때문이다 — 여기서 더 줄이면 10 이하가 되어 1.5px 획이 화면 격자에 걸린다."
+        },
+        "lg": {
+          "height": 40,
+          "$height": "40. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(select.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. 높이를 block-size 가 정하므로 세로 여백이 없다 — menu-popover 의 trigger 칸과 같은 형태다.",
+          "paddingInline": 16,
+          "$paddingInline": "16. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(select.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "paddingInlineEnd": 16,
+          "$paddingInlineEnd": "16. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(select.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "gap": 8,
+          "$gap": "8. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(select.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "borderWidth": 0,
+          "$borderWidth": "0. 경계는 border 가 아니라 inset 헤어라인이다 (DS-D-0023).",
+          "radius": 12,
+          "$radius": "radius-control 12. 비디오 에디터 인스펙터 네 자리가 `var(--louis-radius-control)` 를 이미 직접 문다. Gnb 의 10 은 radius-overlay-item 이라 항목 곡률이고, 트리거는 항목이 아니다.",
+          "fontSize": 12,
+          "$fontSize": "caption 12px. 아홉 자리 중 여섯이 `type-caption-12-*` 를 건다(Gnb medium · Subscription regular · 인스펙터 넷 regular). ComposerBar 만 body-14 다.",
+          "lineHeight": 18,
+          "$lineHeight": "caption 의 배수 1.5 를 12 에 곱해 18px. menu-popover 의 trigger 칸과 같다.",
+          "iconSize": 20,
+          "$iconSize": "icon-size-md 20. menu-popover 의 trigger 글리프 슬롯과 같은 칸이고 담는 것도 같은 종류다 — aws 가입의 글로브, 인스펙터 비율의 미니 프레임.",
+          "caretSize": 12,
+          "$caretSize": "12px. **아이콘 사다리(icon-size-sm 16 · icon-size-md 20 · icon-size-lg 24)에 없는 값이라 그 사다리를 쓰지 않는다** — 캐럿은 자산이 아니라 컨트롤 안의 획 두 개다. 제품 실측도 사다리 밖이다: 프리뷰 줌 12(lucide chevron) · ComposerBar 12(▼ 글자 크기) · SubscriptionScene 10 · Gnb 6(테두리로 그린 정사각). 두 번 나오는 유일한 값이 12 이고, select.css 가 `--louis-select-caret-size` 로 이름을 붙여 한 자리에 둔다."
         }
       },
       "states": {
@@ -1715,6 +1795,40 @@
           "$frameWidth": "328. focus 링 4px 여백 포함. `lg/floating` 과 같다 — 링이 안으로 들어가도 프레임은 형제 칸과 같은 폭이어야 격자가 어긋나지 않는다",
           "boxWidth": 320,
           "$boxWidth": "320. 측정용 필드 폭. `lg/floating` 과 같다"
+        },
+        "lg/stacked/multiline": {
+          "height": 340,
+          "paddingInline": 0,
+          "gap": 0,
+          "borderWidth": 0.5,
+          "radius": 12,
+          "radiusBottom": 12,
+          "$radiusBottom": "12. radius 와 같다 — 결합하지 않은 필드는 네 모서리가 모두 같다. 계약이 Figma 의 cornerRadius 하나가 아니라 왼쪽 두 모서리를 보는 이유는 결합 칸에서 네 모서리가 갈려 cornerRadius 가 mixed 로 떨어지고 그 칸의 곡률이 아무것과도 대조되지 않기 때문이다 — Dialog 의 sheet 가 같은 이유로 같은 모양을 쓴다 (DS-D-0052)",
+          "fontSize": 14,
+          "$fontSize": "body-sm 14px",
+          "lineHeight": 21,
+          "$lineHeight": "body-sm line-height 21px",
+          "labelFontSize": 14,
+          "$labelFontSize": "body-sm 14px 라벨",
+          "messageFontSize": 12,
+          "$messageFontSize": "caption-12 12px 도움말/에러",
+          "stackGap": 4,
+          "$height": "340. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(text-field.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "$gap": "0. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(text-field.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "$stackGap": "space-control-xs 4. 라벨·박스·메시지 사이",
+          "frameWidth": 328,
+          "$frameWidth": "328. focus 링 4px 여백 포함",
+          "boxWidth": 320,
+          "$boxWidth": "320. 측정용 필드 폭",
+          "paddingBlock": 0,
+          "$paddingBlock": "0. stacked 의 박스는 세로 여백이 없다 — 높이는 min-block-size 와 align-items:center 가 만든다. Figma 의 Box 도 paddingTop/Bottom 이 0 이다",
+          "labelRow": 0,
+          "$labelRow": "0. 떠오른 라벨이 앉을 행. stacked 에는 그 행이 없다 — 라벨이 박스 밖이다. 계약이 Figma 의 paddingTop 을 paddingBlock + labelRow 로 접으므로 두 칸 다 값을 가져야 한다",
+          "labelFloatedFontSize": 14,
+          "$labelFloatedFontSize": "labelFontSize 와 같다. stacked 에서 라벨은 떠오르지 않으므로 두 상태가 없고, 계약의 집합 대조가 {14} 한 값으로 접는다",
+          "$paddingInline": "0. 2026-10-13 변형 묶음 — 여러 줄 상자는 본문 · 첨부 줄 · 도구 줄이 각자 안쪽 여백을 갖고 상자 자신은 0 이다(text-field.css 여러 줄 블록). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "$borderWidth": "0.5. 2026-10-13 변형 묶음 — 상자 테두리는 한 줄 상자와 같은 헤어라인이다(text-field.css `__box`). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "$radius": "12. 2026-10-13 변형 묶음 — 상자 반경은 한 줄 lg 와 같다(text-field.css `__box`). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다."
         }
       },
       "states": {
@@ -1853,6 +1967,28 @@
           "$paddingInline": "space-layout-gutter 16",
           "gap": 12,
           "$gap": "space-stack-md 12 — 제품 gap 12px",
+          "radius": 12,
+          "$radius": "radius-card 12 — 제품 border-radius 12px",
+          "borderWidth": 0,
+          "$borderWidth": "테두리 없음 — 옛 앵커의 제품 uploadDropZone 도 테두리 0 이었다. 2026-10-08 앵커(54b62a8a)에서 그 레시피가 걷혀(제품 0f05b9b00) 지금은 대조할 제품 렌더가 없다($noProductRender)",
+          "graphic": 56,
+          "$graphic": "제품 uploadGlyphMask 56px(허브). 아이콘 계단에 56 이 없어 리터럴이다",
+          "promptFontSize": 16,
+          "$promptFontSize": "body-md 16 — 제품 type-body-16-regular",
+          "promptLineHeight": 24,
+          "captionFontSize": 12,
+          "$captionFontSize": "caption 12 — 제품 type-caption-12-regular",
+          "captionLineHeight": 18,
+          "$promptLineHeight": "body-md line-height 24 (150%) — 제품 type-body-16-regular 과 같다",
+          "$captionLineHeight": "caption line-height 18 (150%) — 제품 type-caption-12-regular 과 같다"
+        },
+        "media": {
+          "paddingBlock": 24,
+          "$paddingBlock": "24. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(drop-zone.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "paddingInline": 24,
+          "$paddingInline": "24. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(drop-zone.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "gap": 8,
+          "$gap": "8. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(drop-zone.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
           "radius": 12,
           "$radius": "radius-card 12 — 제품 border-radius 12px",
           "borderWidth": 0,
@@ -2031,6 +2167,24 @@
       "$geometry": "기하는 제품 값을 그대로 옮기지 않았다. gap 10px과 반경 14px에 맞는 semantic 토큰이 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. DS에 이미 있는 선택 가능한 행(SidebarNavItem)의 값을 따랐다 — 같은 성질의 두 컴포넌트가 다른 기하를 갖지 않게 하는 것이 더 중요하다.",
       "sizes": {
         "base": {
+          "padding": 8,
+          "$padding": "space-control-sm 8 — 사이드바 항목과 계단을 맞춘다($geometry). 옛 대조 상대(제품 clipDetailListItem 6)는 2026-10-08 앵커(54b62a8a)에서 걷혔다($noProductRender)",
+          "gap": 8,
+          "$gap": "8 — 제품 10 은 DS 간격 계단에 없는 값이라 SidebarNavItem 과 같은 판단을 한다($geometry)",
+          "radius": 10,
+          "$radius": "radius-overlay-item 10 — 메뉴 항목 · 사이드바 항목과 같은 반경이어야 목록 행끼리 어긋나지 않는다($geometry)",
+          "titleFontSize": 14,
+          "$titleFontSize": "body-sm 14px",
+          "titleLineHeight": 21,
+          "$titleLineHeight": "body-sm line-height 21px",
+          "metaFontSize": 12,
+          "$metaFontSize": "caption-12 12px",
+          "metaLineHeight": 18,
+          "$metaLineHeight": "caption-12 line-height 18px",
+          "textGap": 4,
+          "$textGap": "space-control-xs 4"
+        },
+        "link": {
           "padding": 8,
           "$padding": "space-control-sm 8 — 사이드바 항목과 계단을 맞춘다($geometry). 옛 대조 상대(제품 clipDetailListItem 6)는 2026-10-08 앵커(54b62a8a)에서 걷혔다($noProductRender)",
           "gap": 8,
@@ -2357,6 +2511,16 @@
           "$thumbBorderWidth": "0. 테두리 없음",
           "thumbRadius": 999,
           "$thumbRadius": "radius-pill 999"
+        },
+        "lg/ruler": {
+          "stackGap": 4,
+          "$stackGap": "space-control-xs 4",
+          "labelFontSize": 12,
+          "$labelFontSize": "12. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(slider.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "thumbBorderWidth": 0,
+          "$thumbBorderWidth": "0. 테두리 없음",
+          "thumbRadius": 999,
+          "$thumbRadius": "알약이다. 각진 2×14로 두고 있었는데 배포본 표식이 999다 — 2px 폭에서 끝 모양이 눈에 띈다. 열거 게이트가 `::after` 반경을 세면서 드러났다."
         }
       },
       "$sizeOrder": "**값의 순서가 이름의 순서와 다르다** — lg(40) > sm(24) > md(16)이다. md만 사다리 토큰이 아니라 리터럴 16이고, DS-D-0027이 「한 컴포넌트만 옮기면 함정이 생긴다」고 적은 그 함정이 이 컴포넌트에는 이미 열려 있었다. sm(24)을 여는 일이 그것을 만든 것이 아니라 보이게 만들었다. 여기서 md를 32로 되돌리지 않은 이유는 16이라는 판정을 소유한 기록이 migration/product.measured.json이고, 그것을 함께 옮기지 않은 채 이 계약만 바꾸면 게이트는 초록인데 근거가 사라지기 때문이다. design/components/slider.md의 Known deviations가 미결로 갖는다.",
@@ -3196,6 +3360,62 @@
           "align": "flex-end",
           "$align": "flex-end. page 와 같은 HEADER_ROW 다",
           "$slots": "설명·메타·액션의 값이 없다. 제품에서 이 level 을 쓰는 자리는 AdminClient.tsx:1176 하나이고 제목만 넘긴다 — 없는 값을 page 에서 빌려 오면 그리지 않는 것을 계약하게 된다. Figma 의 label 변형에도 그 세 자손이 아예 없다"
+        },
+        "list": {
+          "titleFontSize": 16,
+          "$titleFontSize": "16. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "titleLineHeight": 30,
+          "$titleLineHeight": "20 x 1.5 = 30",
+          "metaLineHeight": 18,
+          "$metaLineHeight": "12 x 1.5 = 18",
+          "textGap": 4,
+          "$textGap": "space-stack-xs 4. 제목 블록의 간격은 level 을 타지 않는다 — 제품 TITLE_BLOCK 이 한 벌이다",
+          "rowGap": 16,
+          "$rowGap": "16. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "actionsGap": 8,
+          "$actionsGap": "space-control-sm 8. 같은 HEADER_ACTIONS 를 쓴다 — AdminPanel 이 이 자리에 액션을 넘긴다",
+          "marginBlockEnd": 0,
+          "$marginBlockEnd": "0. 아래 여백은 page 만 진다. 제품 HEADER_ROW_PAGE 가 `level === \"page\"` 일 때만 붙는다 — 묶음 제목 아래 간격은 감싸는 스택이 소유한다",
+          "align": "center",
+          "$align": "center. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다."
+        },
+        "article": {
+          "titleFontSize": 36,
+          "$titleFontSize": "36. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "titleLineHeight": 30,
+          "$titleLineHeight": "20 x 1.5 = 30",
+          "metaFontSize": 14,
+          "$metaFontSize": "14. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "metaLineHeight": 18,
+          "$metaLineHeight": "12 x 1.5 = 18",
+          "textGap": 12,
+          "$textGap": "12. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "rowGap": 12,
+          "$rowGap": "space-stack-md 12. 같은 HEADER_ROW 를 쓴다",
+          "marginBlockEnd": 28,
+          "$marginBlockEnd": "28. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "align": "flex-end",
+          "$align": "flex-end. page 와 같은 HEADER_ROW 다",
+          "descriptionFontSize": 20,
+          "$descriptionFontSize": "20. 2026-10-13 변형 묶음 — 글 머리 리드는 body-lg(section-header.css article 블록, 제품 블로그 body-20 regular). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다."
+        },
+        "display": {
+          "titleFontSize": 36,
+          "$titleFontSize": "36. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "titleLineHeight": 30,
+          "$titleLineHeight": "20 x 1.5 = 30",
+          "metaLineHeight": 18,
+          "$metaLineHeight": "12 x 1.5 = 18",
+          "textGap": 4,
+          "$textGap": "space-stack-xs 4. 제목 블록의 간격은 level 을 타지 않는다 — 제품 TITLE_BLOCK 이 한 벌이다",
+          "rowGap": 40,
+          "$rowGap": "40. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "actionsGap": 4,
+          "$actionsGap": "4. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다.",
+          "marginBlockEnd": 0,
+          "$marginBlockEnd": "0. 아래 여백은 page 만 진다. 제품 HEADER_ROW_PAGE 가 `level === \"page\"` 일 때만 붙는다 — 묶음 제목 아래 간격은 감싸는 스택이 소유한다",
+          "align": "center",
+          "$align": "center. 2026-10-13 변형 묶음 — 이 칸의 CSS 레시피 값(section-header.css). Figma 되읽기에서 옮겼고 실브라우저로 다시 재기 전이다."
         }
       }
     },
@@ -4804,6 +5024,28 @@
           "$radius": "radius-control 12. 제품 `rounded-[var(--button-radius)]` = `--louis-radius-control`."
         }
       }
+    },
+    "slider-ruler-ticks": {
+      "$doc": "design/components/slider.md",
+      "$source": "packages/css/src/component/slider.css 의 .louis-slider__ruler-strip ::after(큰 눈금 16) — 2026-10-13 DS-D-0084",
+      "$note": "Figma 는 반복 그라디언트를 그리지 못해 눈금을 1px 사각형으로 늘어놓은 하위 컴포넌트 SliderRulerTicks 로 둔다. 폭은 한 화면 분의 그림 범위라 계약이 아니고, 높이만 큰 눈금 높이와 맞댄다.",
+      "sizes": {
+        "ticks": {
+          "height": 16,
+          "$height": "16. `.louis-slider__ruler-strip::after { block-size: 16px }` — 제품 `h-8`(격자 2px)."
+        }
+      }
+    },
+    "chart-card-dot-tile": {
+      "$doc": "design/components/chart-card.md",
+      "$source": "packages/css/src/component/chart-card.css 의 --louis-chart-card-dot-pitch(18) — 2026-10-13 DS-D-0084",
+      "$note": "점 바닥 한 칸. Figma 패턴 채움이 변수를 받지 못해 타일 컴포넌트를 반복한다. 칸 크기가 격자 간격이다.",
+      "sizes": {
+        "tile": {
+          "pitch": 18,
+          "$pitch": "18. `--louis-chart-card-dot-pitch: 18px` — 제품 `bg-[length:18px_18px]`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -4824,7 +5066,9 @@
     "record-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 하네스는 등록된 제품 소스(scripts/lib/product-files.mjs)의 상수 이름으로 클래스를 꺼내는데, 통합 판(76b6cf15)에서 이 카드의 소비처는 어드민 목록 두 파일 — 줄(base)은 InquiryManagement.tsx:81 · RefundManagement.tsx:77 의 머리(`px-10 py-7`) — 이고 둘 다 명부 밖이다. 면 카드(raised)의 출처 AmbassadorApplications.tsx(feat/ambassador-links@2ceec4ed3)는 통합 판 갈래(migration/product-integration/integration.json branches)에 없어 제품에 아예 렌더되지 않는다. 명부를 늘리는 것은 lock 이 고정하는 파일을 늘리는 일이라 이 회차의 변경 단위 밖이다(stat-tile 과 같은 사정). 값은 레시피 선언이고 칸마다 $ 사유를 가지며 verify-recipe-record 가 레시피 ↔ 이 기록을 대조한다. 다음 회차가 InquiryManagement.tsx 를 명부에 올리고 머리 상수 한 탐침을 세우면 이 면제를 지운다.",
     "bare-button": "같은 이유다. 통합 판(76b6cf15)의 소비처 ROW_TITLE 은 어드민 목록 네 파일(BannerManagement.tsx:128 · ModelManagement.tsx:75 · TemplateManagement.tsx:158 · CaptionTemplateManagement.tsx:82)에만 있고 넷 다 측정 명부(scripts/lib/product-files.mjs) 밖이다 — 등록된 AdminSection.tsx 에는 ROW_TITLE 이 없다. 덧붙여 row-title 의 글자 크기 14 는 제품에서 상수가 아니라 JSX 리터럴 `type-body-14-medium`(BannerManagement.tsx:530)이 준다 — 탐침을 세울 때 `jsxClass` 로 그 후크를 붙여야 한다. 값은 레시피 선언이고 칸마다 $ 사유를 갖는다. 명부에 BannerManagement.tsx 를 올리면 이 면제를 지운다.",
     "node-generate-button": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 입력판과 같은 사정이다. 생성 버튼은 캔버스에 노드를 만든 뒤 입력판 안에서만 그려지고, 정본 NodePromptGenerateButton.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. 명부에 그 파일을 올리고 ROOT 한 탐침을 세우면 이 면제를 지운다.",
-    "node-composer": "제품 렌더 하네스가 이 조형에 닿지 못한다 — node-shell 과 같은 사정이다. 입력판은 프로젝트를 열고 캔버스에 노드를 만든 뒤에만 그려지고, 통합 판(76b6cf15)의 소비처 상수(VideoNode.tsx:622 PROMPT_AREA · :644 PROMPT_FIELD_SHELL · :742 PROMPT_FOOTER · :767 PROMPT_ERROR_BANNER)가 있는 nodes/VideoNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. node-shell 의 면제를 지울 회차가 VideoNode.tsx 를 명부에 올릴 때 PROMPT_FIELD_SHELL · PROMPT_ERROR_BANNER 두 탐침을 함께 세우면 이 면제를 지운다."
+    "node-composer": "제품 렌더 하네스가 이 조형에 닿지 못한다 — node-shell 과 같은 사정이다. 입력판은 프로젝트를 열고 캔버스에 노드를 만든 뒤에만 그려지고, 통합 판(76b6cf15)의 소비처 상수(VideoNode.tsx:622 PROMPT_AREA · :644 PROMPT_FIELD_SHELL · :742 PROMPT_FOOTER · :767 PROMPT_ERROR_BANNER)가 있는 nodes/VideoNode.tsx 는 측정 명부(scripts/lib/product-files.mjs) 밖이다. 값은 레시피 선언이고 칸마다 $ 사유가 제품 상수의 어느 유틸리티에서 왔는지를 적는다. node-shell 의 면제를 지울 회차가 VideoNode.tsx 를 명부에 올릴 때 PROMPT_FIELD_SHELL · PROMPT_ERROR_BANNER 두 탐침을 함께 세우면 이 면제를 지운다.",
+    "chart-card-dot-tile": "제품 렌더 하네스가 이 조형을 하나의 노드로 잴 수 없다 — 점 바닥은 차트 칸의 `::before` 배경(반복 원형 그라디언트)이라 칸 크기가 DOM 노드가 아니다. 값은 레시피 선언 `--louis-chart-card-dot-pitch: 18px`(제품 `bg-[length:18px_18px]`, analytics/shared.tsx:42)이고 실브라우저 시험이 그 선언을 잰다(2026-10-13).",
+    "slider-ruler-ticks": "제품 렌더 하네스가 이 조형에 닿지 못한다 — 눈금자는 비디오 편집기의 보정 슬라이더(ColorRulerSlider.tsx)로 영상을 올린 뒤에만 그려지고, 큰 눈금은 `::after` 배경이라 DOM 노드가 아니다. 값은 레시피 선언 16(제품 `h-8`, :294)이고 실브라우저 시험이 그 선언을 잰다(2026-10-13)."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

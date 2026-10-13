@@ -499,11 +499,12 @@ const COMPONENT_CONTRACTS = [
     // 목록에 없다 — 계약이 되지 못하는 표현은 대조되지 않는 표현이다(DS-D-0035).
     variantProperties: { Tone: "DialogTone" },
     figmaOnlyProperties: {
+      Dividers: { options: ["false", "true"], reason: "코드의 `data-dividers` 다(2026-10-13, DS-D-0084 변형 묶음). 머리 아래 · 발 위에 헤어라인을 긋고 발 위 여백이 24 → 8 로 함께 바뀌어(§2 시험 2) BOOLEAN 이 아니라 조건 축이다. 크롭 모달 폭 720 이라 `Size=large` 에만 선다. React prop 은 아직 없다 — dialog.md Known deviations." },
       HasClose: { type: "BOOLEAN", reason: "닫기 버튼이 없는 대화상자가 있다 — 결정을 강제하는 확인 창이다. 코드에서는 onClose의 유무다." },
       Size: {
-        options: ["compact", "medium", "large", "sheet"],
+        options: ["compact", "medium", "large", "sheet", "compare"],
         reason:
-          "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다. sheet는 반대 방향의 추가다 — 좁은 화면에서 아래에서 올라오는 시트가 제품에 실재하는데 코드 축에 이름이 없어, 디자이너가 그것을 그릴 자리가 없었다.",
+          "코드의 DialogSize는 fullscreen을 포함해 넷이다. fullscreen은 표면이 뷰포트 자체이고 radius가 0이며 border가 없어 **고정 폭 variant로 그릴 수 없다** — Figma에서 그리면 어떤 폭을 골라도 거짓이 된다. 그래서 코드 축의 부분집합을 Figma 전용으로 선언한다. compare 는 두 열을 견주는 880 대화다 — 사다리 밖 값이라 쓰임새 이름이고(§2), React `DialogSize` 에는 아직 없다(dialog.md Known deviations). sheet는 반대 방향의 추가다 — 좁은 화면에서 아래에서 올라오는 시트가 제품에 실재하는데 코드 축에 이름이 없어, 디자이너가 그것을 그릴 자리가 없었다.",
       },
       Layout: {
         options: ["base", "grabber"],
@@ -524,6 +525,8 @@ const COMPONENT_CONTRACTS = [
             large: ["surfaceInset", "borderWidth"],
             sheet: ["surfaceInset", "borderWidth"],
             "sheet/grabber": ["grabberBlockSize", "surfaceInset", "borderWidth"],
+            compare: ["surfaceInset", "borderWidth"],
+            "large/true": ["surfaceInset", "borderWidth"],
           },
         },
         paddingBlockEnd: ["surfaceInset", "borderWidth"],
@@ -689,7 +692,7 @@ const COMPONENT_CONTRACTS = [
     variantProperties: {},
     figmaOnlyProperties: {
       Size: {
-        options: ["md", "sm"],
+        options: ["md", "sm", "lg"],
         reason:
           "CSS 에서 `data-size` 이고 **속성이 없을 때가 md 다** — Alert 의 `Layout=block` 과 같은 규칙이라 md 를 이름으로 적어 두는 것이 계약이다. 두 칸 다 DS-D-0027 의 컨트롤 사다리 칸이고 각각 제품 실측 자리를 갖는다(md 32 = Gnb 프로필 언어·ComposerBar 모델, sm 24 = VideoEditModal 프리뷰 줌 칩). 갈리는 것은 높이만이 아니다 — 곡률(12 ↔ 8) · 좌우 여백(12·12 ↔ 8·6) · 간격(6 ↔ 4) · 글리프(20 ↔ 16)가 함께 움직인다. 사다리 밖의 28 을 세 번째 칸으로 열지 않은 이유는 `components.measured.json` 의 select `$note` 가 갖는다.",
       },
@@ -827,6 +830,7 @@ const COMPONENT_CONTRACTS = [
     figmaAhead: "React 표면 없음 — packages/css/src/component/tabs.css 의 .louis-tabs__tab 이 정본이다.",
     variantProperties: {},
     figmaOnlyProperties: {
+      Variant: { options: ["default", "bar"], reason: "Tabs 의 `data-variant` 를 탭 하나가 받는다(2026-10-13, DS-D-0084 변형 묶음). bar 는 위아래 12 · 좌우 0 · 아래 2px 막대이고 잉크로 상태가 갈려 프레임이 자기 값을 다시 쓴다(§2 시험 2)." },
       State: {
         options: ["Default", "Hover", "Selected", "Disabled"],
         reason:
@@ -845,9 +849,9 @@ const COMPONENT_CONTRACTS = [
     variantProperties: {},
     figmaOnlyProperties: {
       Variant: {
-        options: ["default", "underline"],
+        options: ["default", "underline", "bar"],
         reason:
-          "CSS 의 `data-variant` 이고 속성이 없을 때가 default 다(2026-10-08 Figma 에 세움). underline 은 분석 화면의 밑선 탭 줄 — 간격이 4 에서 0 으로 줄고 아래 한 변에 헤어라인이 선다. 기하(간격)가 갈리므로 BOOLEAN 이 아니라 축이다. 값을 소문자로 적은 것은 CSS 속성값과 같은 철자를 쓰기 위해서다. 480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 Figma 변형이 없다.",
+          "CSS 의 `data-variant` 이고 속성이 없을 때가 default 다(2026-10-08 Figma 에 세움). underline 은 분석 화면의 밑선 탭 줄 — 간격이 4 에서 0 으로 줄고 아래 한 변에 헤어라인이 선다. 기하(간격)가 갈리므로 BOOLEAN 이 아니라 축이다. 값을 소문자로 적은 것은 CSS 속성값과 같은 철자를 쓰기 위해서다. bar 는 어드민 막대 탭 줄이다(간격 20, 탭이 아래 2px 막대를 갖는다 — 2026-10-13). 480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 Figma 변형이 없다.",
       },
     },
     // **밑선은 아래 한 변의 INSIDE 획 0.5 다(underline 만).** CSS 는 `box-shadow: var(--louis-hairline-inset-block-end)`
@@ -1503,7 +1507,7 @@ const COMPONENT_CONTRACTS = [
     },
     figmaOnlyProperties: {
       Variant: {
-        options: ["card", "row"],
+        options: ["card", "row", "list"],
         reason:
           "CSS `data-variant` 를 그대로 옮긴 축(figma-component-authoring.md §2 Variant 예외). 고른 면을 말하는 방식이 갈린다 — card 는 accent-secondary-selected 면 + 2px accent-primary 링 + 표식, row 는 accent-inverse 면 뒤집기(소유자 결정 2026-10-07). 패딩 · 반경 · 이름 타이포도 함께 갈린다.",
       },
@@ -2127,11 +2131,14 @@ const COMPONENT_CONTRACTS = [
       Join: "TextFieldJoin",
     },
     figmaOnlyProperties: {
+      Layout: { options: ["base", "multiline"], reason: "코드의 `data-multiline` 이다(2026-10-13, DS-D-0084 변형 묶음). 여러 줄 본문(최소 200) · 첨부 줄 · 도구 줄이 상자 안에 서서 담기는 것이 바뀐다. `Size=lg` 에만 선다." },
+      HasAttachments: { type: "BOOLEAN", reason: "여러 줄 상자의 첨부 줄(`__attachments`) 가시성." },
+      HasToolbar: { type: "BOOLEAN", reason: "여러 줄 상자의 도구 줄(`__toolbar` — 첨부 단추 · 글자 수) 가시성." },
       HasLabel: { type: "BOOLEAN", reason: "라벨 없는 필드가 실재한다 — 검색창이 그것이다." },
       HasMessage: { type: "BOOLEAN", reason: "도움말·오류 문구의 유무. 있고 없고에 따라 아래 여백이 달라진다." },
       Value: { type: "TEXT", reason: "코드에서 children이라 타입 선언에 항목으로 나타나지 않는다(React가 준다)." },
       State: {
-        options: ["Default", "Invalid", "Disabled", "Placeholder"],
+        options: ["Default", "Invalid", "Disabled", "Placeholder", "DragOver"],
         reason:
           "Invalid/Disabled는 boolean prop이다. Focus 는 없다 — 포커스 링을 그리지 않아 Default 와 같다(DS-D-0074). Figma에는 CSS 상태가 없어 variant로 둔다. Hover 축은 없다 — 필드는 hover에서 아무것도 바꾸지 않는다. Placeholder는 값이 비어 있는 쉼 상태다 — 코드에서는 :placeholder-shown 이라 prop이 아니고, 디자이너가 「빈 필드」를 그리려면 Figma에 자리가 있어야 한다.",
       },
@@ -2161,8 +2168,9 @@ const COMPONENT_CONTRACTS = [
       },
       slots: {},
       // Focus 링의 2px 를 적어 두던 자리다. DS-D-0074 로 Focus 변형과 링이 없어졌고, DS-D-0075 로 오류 칸의
-      // 2px 위험색 링이 같은 굵기로 돌아왔다.
-      extraStrokeWeights: [2],
+      // 2px 위험색 링이 같은 굵기로 돌아왔다. 1 은 여러 줄 상자(2026-10-13)의 첨부 줄에 든 MediaSlot 인스턴스 자신의 테두리다 —
+      // media-slot.css 의 `border: var(--louis-border-width-default)`(1). 상자의 획이 아니라 담긴 부품의 획이다.
+      extraStrokeWeights: [2, 1],
       parts: {
         Box: {
           fields: {
@@ -2187,7 +2195,7 @@ const COMPONENT_CONTRACTS = [
             // 같은 모양을 먼저 세웠다. 좌우는 대칭이므로 왼쪽 두 모서리만 건다 (DS-D-0052).
             topLeftRadius: "radius",
             bottomLeftRadius: "radiusBottom",
-            layoutMode: { literal: "HORIZONTAL" },
+            layoutMode: { literal: "HORIZONTAL", literalBySize: { "lg/stacked/multiline": "VERTICAL" } },
           },
         },
         // **한 축이 이 필드를 바꾸는 것이 계약이다.** floating 에서 라벨은 쉴 때 14, 떠오르면
@@ -2248,6 +2256,8 @@ const COMPONENT_CONTRACTS = [
   },
   {
     figmaOnlyProperties: {
+      Layout: { options: ["base", "canvas"], reason: "코드의 `data-surface` 다(2026-10-13, DS-D-0084 변형 묶음). canvas 는 노드 캔버스 위 상단 바 — 칠 없이 흐림 띠 · 홈 · 제목 단추 · 툴 버튼이 서서 담기는 것과 여백이 바뀐다." },
+
       Leading: { type: "BOOLEAN", reason: "선행 슬롯을 켜고 끈다. LeadingSlot(무엇을)과 짝이다 — 코드에서는 leading prop이 undefined인 것과 같다." },
       Trailing: { type: "BOOLEAN", reason: "후행 슬롯을 켜고 끈다. TrailingSlot과 짝이다. 코드 API에는 처음부터 있었는데 Figma에 자리가 없어 조립하면 상단바가 제목만 남았다." },
     },
@@ -2350,9 +2360,10 @@ const COMPONENT_CONTRACTS = [
     // 코드에 union 축이 없다. 선택은 boolean prop이고 Figma에는 그 표현이 없어 variant로 둔다.
     variantProperties: {},
     figmaOnlyProperties: {
+      Layout: { options: ["base", "link"], reason: "코드의 `data-layout` 이다(2026-10-13, DS-D-0084 변형 묶음). link 는 고르지 않고 이동하는 행이라 Selected 가 없고 끝에 부가 글 · 체브론이 서며 위 정렬로 바뀐다. Hover 는 link 에만 선다." },
       Media: { type: "BOOLEAN", reason: "왼쪽 섬네일의 유무. 미디어 없는 목록 행이 실재한다." },
       State: {
-        options: ["Default", "Selected", "Disabled"],
+        options: ["Default", "Selected", "Disabled", "Hover"],
         reason:
           "코드에서 selected는 boolean prop이고 disabled는 <button>의 네이티브 속성이다. Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다. Default와 Selected를 가르는 것은 면과 전경이다 — 선행 표식은 없다(DS-D-0070).",
       },
@@ -2361,7 +2372,7 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "selectable-list-row",
-      sizeKey: "base",
+      sizeKeys: ["base", "link"],
       fields: {
         paddingBlock: "padding",
         paddingBlockEnd: "padding",
@@ -2435,7 +2446,15 @@ const COMPONENT_CONTRACTS = [
     figmaName: "Slider",
     propProperties: { Label: "label" },
     declaration: "packages/react/dist/slider/slider.d.ts",
-    variantProperties: { Size: "SliderSize", Variant: "SliderVariant" },
+    variantProperties: {
+      Size: "SliderSize",
+      Variant: {
+        type: "SliderVariant",
+        figmaAheadOptions: {
+          ruler: "눈금자 보정 슬라이더(2026-10-13, DS-D-0084)는 CSS 레시피 `.louis-slider[data-variant=\"ruler\"]` 에만 있고 React prop 이 아직 없다 — slider.md Known deviations. 40 하나라 `Size=lg` 에만 선다.",
+        },
+      },
+    },
     // 썸의 링은 CSS border다. track 변형의 표식에는 테두리가 없어 이 역할이 thumb 변형에만 있다.
     strokes: { Thumb: { weight: 2, align: "INSIDE" } },
     effects: {},
@@ -2453,7 +2472,9 @@ const COMPONENT_CONTRACTS = [
       extraStrokeWeights: [2],
       parts: {
         Label: { fields: { fontSize: "labelFontSize" } },
-        Control: { fields: { height: "height" } },
+        // 눈금자(`ruler`, 2026-10-13)에는 컨트롤 · 레일 · 채움 · 썸이 없다 — 자 · 눈금 · 지시선이 선다. 그 칸의 기록도 이 넷의 근거 값이 없어
+        // optional 이 통과한다(근거 값이 함께 없을 때만 통과한다).
+        Control: { optional: true, fields: { height: "height" } },
         // 굵은 막대는 레일이고 얇은 표식은 썸이다 — 두 변형이 **같은 부품의 다른 값**을 갖는다.
         //
         // **`md/track`에서만 레일이 컨트롤보다 두껍다** — railHeight 20 > height 16. 두 값 다
@@ -2463,9 +2484,9 @@ const COMPONENT_CONTRACTS = [
         // 세 State 전부). 라이브를 고쳤다 — 컨트롤의 클립을 끄고 변형 프레임에 아래 padding 2를
         // 줘서 막대의 삐져나온 만큼을 프레임이 품는다. 그래서 `md/track`만 높이가 41이 아니라
         // 43이다. 이 계약은 프레임 높이도 padding도 보지 않으므로 여기서 걸리지 않는다.
-        Rail: { fields: { height: "railHeight" } },
-        Fill: { fields: { height: "railHeight" } },
-        Thumb: { fields: { width: "thumbInline", height: "thumbBlock" } },
+        Rail: { optional: true, fields: { height: "railHeight" } },
+        Fill: { optional: true, fields: { height: "railHeight" } },
+        Thumb: { optional: true, fields: { width: "thumbInline", height: "thumbBlock" } },
       },
     },
   },
@@ -2587,6 +2608,10 @@ const COMPONENT_CONTRACTS = [
   },
   {
     figmaOnlyProperties: {
+      Mode: { options: ["determinate", "bipolar"], reason: "코드의 `data-mode` 다(2026-10-13, DS-D-0084 변형 묶음). bipolar 는 0 을 가운데 둔 양 · 음 값 링(보정 슬라이더 짝)으로 호의 원리가 다르다." },
+      Direction: { options: ["next", "prev"], reason: "bipolar 호의 향(`data-direction`). 기하는 그대로이고 향만 바뀐다. determinate 에는 의미가 없지만 Figma 가 희소 세트를 받지 않아 기본값 next 가 붙는다." },
+      Selected: { options: ["false", "true"], reason: "bipolar 링의 고름(`data-active`). 링 잉크가 바뀐다(시험 1). determinate 에는 기본값 false 가 붙는다." },
+      Glyph: { type: "TEXT", reason: "bipolar 링 가운데 표식 글자." },
       Content: { type: "INSTANCE_SWAP", reason: "링 가운데에 들어가는 것. 퍼센트 글자일 수도 글리프일 수도 있어 코드에서는 children이다." },
     },
     id: "progress",
@@ -2850,6 +2875,8 @@ const COMPONENT_CONTRACTS = [
   {
     // **DropZone(2026-09-26 신설).** 제품에 공용 구현이 없고(하이라이트 지역 레시피) 기하만 옮겼다 — design/components/drop-zone.md.
     figmaOnlyProperties: {
+      Layout: { options: ["base", "media"], reason: "코드의 `data-surface` 다(2026-10-13, DS-D-0084 변형 묶음). media 는 업로드 무대 — 미디어 면 · 미디어 잉크 · 여백 24 로 면과 글자가 다시 쓰인다." },
+
       State: {
         options: ["Default", "Hover", "DragOver", "Disabled"],
         reason:
@@ -2872,7 +2899,7 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "drop-zone",
-      sizeKey: "base",
+      sizeKeys: ["base", "media"],
       fields: {
         paddingBlock: "paddingBlock",
         paddingBlockEnd: "paddingBlock",
@@ -3228,7 +3255,7 @@ const COMPONENT_CONTRACTS = [
     variantProperties: {},
     figmaOnlyProperties: {
       Level: {
-        options: ["page", "section", "label"],
+        options: ["page", "section", "label", "list", "article", "display"],
         reason:
           "제목 사다리 세 단. **`Size` 가 아니라 `Level` 이다** — 값이 밀도가 아니라 문서 위계다. page 는 화면 제목(36 SemiBold), section 은 카드 안 묶음의 제목(20 SemiBold), label 은 패널 아이브로우(12 Medium)이고, 셋은 「같은 것을 더/덜 크게」가 아니라 서로 다른 자리에 산다 — 아래 여백을 page 만 지는 것이 그 증거다. 값이 사다리 어휘(sm·md·lg)가 아닌 이유도 같다: 사다리 어휘를 빌리면 순서를 주장하게 되는데 이 셋의 관계는 순서가 아니라 포함이다. 값은 제품 prop 의 값 그대로다(AdminSectionLevel = page | section | label). 축 이름은 figma-component-authoring.md §2 의 표에 2026-09-07 에 열렸다. **BOOLEAN 이 아닌 이유**: 계속 보이는 제목의 타이포와 잉크가 달라지고(시험 1) 프레임이 자기 아래 padding 을 다시 쓴다(시험 2).",
       },
@@ -3272,7 +3299,7 @@ const COMPONENT_CONTRACTS = [
       measuredId: "section-header",
       // 세 칸을 전부 건다. 하나로 좁히면 나머지 둘은 Figma 가 무슨 값을 그리든 초록이고,
       // verify-figma-done 의 「대조 범위 밖」 검사가 그 상태를 잡는다.
-      sizeKeys: ["page", "section", "label"],
+      sizeKeys: ["page", "section", "label", "list", "article", "display"],
       fields: {
         itemSpacing: "rowGap",
         // CSS 의 `margin-block-end` 를 Figma 의 아래 padding 으로 그린다 — Figma auto-layout 에
@@ -3293,7 +3320,7 @@ const COMPONENT_CONTRACTS = [
         // (contract 의 `$foldRule` 이 그 사실을 소유한다).
         counterAxisAlignItems: {
           enum: "align",
-          table: { "flex-end": "MAX", stretch: "STRETCH" },
+          table: { "flex-end": "MAX", stretch: "STRETCH", center: "CENTER", "flex-start": "MIN" },
         },
         layoutMode: { literal: "HORIZONTAL" },
       },
@@ -3596,10 +3623,91 @@ const COMPONENT_CONTRACTS = [
     strokes: {},
     effects: {},
     figmaOnlyProperties: {
-      Size: { options: ["md", "video", "fill"], reason: "코드의 `data-size` 다(없음 = md). 32 정사각 · 76×52 영상 참조 · 열 채움 정사각으로 상자가 다시 쓰인다." },
+      Size: { options: ["md", "video", "fill", "attachment"], reason: "코드의 `data-size` 다(없음 = md). 32 정사각 · 76×52 영상 참조 · 열 채움 정사각 · 72 첨부 칸(2026-10-13)으로 상자가 다시 쓰인다." },
       Layout: { options: ["base", "empty"], reason: "코드의 `data-empty` 다. 빈 칸은 점선 테두리 · 면 · 더하기 글리프로 테두리 모양과 내용이 바뀌어 BOOLEAN 이 아니다. fill 에만 선다." },
       State: { options: ["Default", "Hover"], reason: "Hover 는 CSS 상태다(빈 칸의 점선 · 글리프가 한 단 진해진다). Figma 에 CSS 상태가 없어 변형으로 둔다." },
       RemoveButton: { type: "BOOLEAN", reason: "지우기 버튼 레이어의 가시성. 코드에서는 칸 안 `__remove` 버튼의 렌더 조건이다." },
+    },
+  },
+  {
+    id: "floating-shell",
+    figmaName: "FloatingShellItem",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/floating-shell.css 의 .louis-floating-shell__item[data-variant=\"ghost\"] 가 정본이다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Size: { options: ["md", "lg"], reason: "셸의 Size 와 같은 쌍 — 32 · 40 상자." },
+      State: { options: ["Default", "Hover", "Pressed", "Disabled"], reason: "Hover 는 CSS 상태, Pressed 는 `aria-pressed` · `aria-expanded` 켜짐, Disabled 는 `fg-disabled` 잉크다. Figma 에 CSS 상태가 없어 변형으로 둔다." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "툴 글리프 20." },
+      Spotlight: { type: "BOOLEAN", reason: "`data-spotlight` 의 바깥 2px 강조 링 레이어 가시성." },
+    },
+  },
+  {
+    id: "floating-shell",
+    figmaName: "FloatingShellDivider",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/floating-shell.css 의 .louis-floating-shell__divider 가 정본이다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+  },
+  {
+    id: "app-shell-parts",
+    figmaName: "AppTopBarTitle",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/app-shell.css 의 .louis-app-top-bar__title-button · __title-input 이 정본이다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Default", "Hover", "Active", "Focus"], reason: "Hover · Active 는 CSS 상태, Focus 는 편집 입력(`__title-input`)으로 바뀐 자리다." },
+      Title: { type: "TEXT", reason: "프로젝트 제목. 한 줄 말줄임이다." },
+    },
+  },
+  {
+    id: "app-shell-parts",
+    figmaName: "AppTopBarHome",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/app-shell.css 의 .louis-app-top-bar__home 이 정본이다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Default", "Hover", "Active"], reason: "Hover · Active 는 CSS 상태다." },
+      Mark: { type: "INSTANCE_SWAP", reason: "브랜드 심볼 20." },
+    },
+  },
+  {
+    id: "slider",
+    figmaName: "SliderRulerTicks",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/slider.css 의 .louis-slider__ruler-strip 반복 그라디언트를 Figma 가 그리지 못해 1px 사각형으로 늘어놓은 하위 컴포넌트다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "slider-ruler-ticks",
+      sizeKeys: ["ticks"],
+      fields: { height: "height" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
+    },
+  },
+  {
+    id: "chart-card",
+    figmaName: "ChartCardDotTile",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/chart-card.css 의 점 바닥(`__chart[data-floor=\"dots\"]`) 한 칸이다. Figma 패턴 채움이 변수를 받지 못해 타일을 반복한다(2026-10-13, DS-D-0084 변형 묶음).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {},
+    geometry: {
+      measuredId: "chart-card-dot-tile",
+      sizeKeys: ["tile"],
+      fields: { width: "pitch", height: "pitch" },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {},
     },
   },
   {
@@ -3930,6 +4038,7 @@ const COMPONENT_CONTRACTS = [
     // 사실 자체가 정보이고, 안쪽 헤어라인이 사라지면 카드가 한 겹으로 읽힌다.
     effects: { self: "INNER_SHADOW:0:0:0.5", Panel: "INNER_SHADOW:0:0:0.5" },
     figmaOnlyProperties: {
+      HasCrosshair: { type: "BOOLEAN", reason: "영역 차트의 십자선 · 점(`__crosshair` · `__marker`) 가시성(2026-10-13, DS-D-0084 변형 묶음). 코드에서는 가리킬 때만 렌더된다." },
       Chart: {
         options: ["area", "spark"],
         reason:
@@ -5074,7 +5183,11 @@ function compareComponentGeometry(contract, got) {
           want = members.some((value) => value === undefined || Number.isNaN(value))
             ? undefined
             : { set: members };
-        } else want = rule.literal;
+        } else {
+          // **크기마다 다른 literal `{ literal, literalBySize: { <size>: 값 } }`(2026-10-13).** 여러 줄 입력의 상자는
+          // 본문 · 첨부 줄 · 도구 줄을 세로로 쌓아 한 칸만 방향이 다르다. 규칙에 없는 크기는 기본 literal 이다.
+          want = rule?.literalBySize?.[size] ?? rule.literal;
+        }
         if (want === undefined || Number.isNaN(want)) {
           issues.push(
             `${COMPONENTS_MEASURED_PATH}의 ${plan.measuredId}.${size}에 ${partName}.${field}의 근거 값이 없습니다.`,
@@ -5431,9 +5544,17 @@ function compareComponents(actualComponents) {
         );
         continue;
       }
-      if (JSON.stringify([...figmaOptions].sort()) !== JSON.stringify([...codeOptions].sort())) {
+      // **Figma 가 앞선 값(2026-10-13).** CSS 레시피에만 있고 React prop 이 아직 없는 값은 계약이 사유와 함께 적어야만 받는다 —
+      // React 타입을 거짓으로 늘리지 않으려는 자리다. 사유 없는 값은 여전히 불일치다.
+      const ahead = typeof entry === "string" ? {} : (entry.figmaAheadOptions ?? {});
+      for (const [option, reason] of Object.entries(ahead)) {
+        if (typeof reason !== "string" || reason.length < 20) issues.push(`Figma 가 앞선 값의 사유가 없습니다: ${contract.figmaName}.${figmaProperty}.${option}`);
+        if (codeOptions.includes(option)) issues.push(`Figma 가 앞선 값이 이미 코드에 있습니다 — 계약에서 지우세요: ${contract.figmaName}.${figmaProperty}.${option}`);
+      }
+      const expectedOptions = [...codeOptions, ...Object.keys(ahead).filter((option) => !codeOptions.includes(option))];
+      if (JSON.stringify([...figmaOptions].sort()) !== JSON.stringify([...expectedOptions].sort())) {
         issues.push(
-          `variant 옵션 불일치: ${contract.figmaName}.${figmaProperty} — 코드 ${codeType}=[${codeOptions.join(", ")}], Figma=[${figmaOptions.join(", ")}]`,
+          `variant 옵션 불일치: ${contract.figmaName}.${figmaProperty} — 코드 ${codeType}=[${codeOptions.join(", ")}]${Object.keys(ahead).length ? ` + Figma 가 앞선 값 [${Object.keys(ahead).join(", ")}]` : ""}, Figma=[${figmaOptions.join(", ")}]`,
         );
       }
     }

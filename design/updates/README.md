@@ -25,6 +25,22 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (259) — 노드 캔버스의 영역 프레임을 새 부품 `canvas-section` 으로(DS-D-0093, DS-D-0084)
+
+- **새 부품 `canvas-section`.** 노드들을 감싸는 배경 프레임(`.louis-canvas-section` · `__edge` · `__header` · `__title-bar` · `__title` · `__title-input` ·
+  `__color-button` · `__color-swatch` · `__actions` · `__palette` · `__tint-option`). 제품 `node-canvas-v2` 의 `SectionNode` 가 들던 Tailwind 상수를 한 레시피로
+  옮겼다. Node Shell 의 변형이 아니고(카드가 아니다) Color Swatch 의 고르기가 아니다.
+- **있는 부품 셋을 그대로** — 크기 조절의 선 · 모서리 손잡이는 Transform Frame `Handles=corners`, 도움말 · 삭제는 Node Chrome Button, 팔레트 면은
+  Popover(`data-louis-scope="canvas"`). 크기 · 자리 · 층 · 소속 · 끌기 수학은 캔버스의 데이터다 — 숫자 z-index 가 없다.
+- **새 토큰 여섯** — `color-canvas-section-tint-red` · `-yellow` · `-green` · `-blue` · `-violet` · `-pink`(두 모드 `*-500`), 원시 0. 16% 는 레시피의 `color-mix`.
+  제품 프리셋 열셋은 가장 가까운 색상으로 접힌다(문서 Properties 표).
+- **고쳐 올린 값(DS-D-0084 3항)** — 쉼 경계 12% → `gray-000-alpha-40`(라이트 1.38 → 3.03 · 다크 1.47 → 4.02), 견본 · 칸 테두리 → `stroke-strong`,
+  칸 접근 이름 rgba 문자열 → 색 이름(`radiogroup` · `radio`), 긴 이름이 액션을 덮던 배치 → `__header` 한 줄, 이름 바꾸기에 Enter · F2(제목이 `<button>`),
+  색 버튼의 `aria-haspopup` 제거, 액션 72% 덮기 → Node Chrome Button 기본 잉크.
+- **Figma.** DS · Components 「7 · 캔버스 · 에디터」에 `CanvasSection`(Selected = 2) · `CanvasSectionTitleBar`(State = 2, TEXT `Name`) · `CanvasSectionColorButton`(State × Placeholder = 4) ·
+  `CanvasSectionTintOption`(Selected = 2, BOOLEAN `Clear`) 세트와 `CanvasSectionPalette`, 변수 `color/canvas-section-tint-*` 여섯. 원시 칠 0. 기록 다섯과 parity 기하 계약(figma `partial`).
+- 소유자 판정 열하나는 초안의 기본값으로 — DS-D-0093 표. 실브라우저 시험 `canvas-section.browser.test.tsx` · `canvas-section-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (258) — 요금제마다 한 열을 세우는 비교표를 새 부품 `plan-comparison` 으로, 아이콘 `check`(DS-D-0092, DS-D-0084)
 
 - **새 부품 `plan-comparison`.** 제목 · 가로 스크롤 · 격자 · 열 · 머리 · 본문 · 묶음 · 묶음 이름 · 항목(기능 이름 | 값) · 표시 칸(`.louis-plan-comparison` · `__title` ·

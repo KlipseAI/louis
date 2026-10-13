@@ -6146,6 +6146,108 @@
           ]
         ],
         [
+          "color/canvas-section-tint-blue",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-section-tint-green",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-section-tint-pink",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-section-tint-red",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/red/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-section-tint-violet",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/violet/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/violet/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-section-tint-yellow",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/500",
+              null
+            ]
+          ]
+        ],
+        [
           "color/content-card-title-hover",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -11495,6 +11597,465 @@
           ],
           "height": [
             1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CanvasSection": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                32
+              ],
+              "primaryAxisAlignItems": [
+                "SPACE_BETWEEN"
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                0
+              ]
+            },
+            "Frame": {
+              "cornerRadius": [
+                16
+              ],
+              "strokeWeight": [
+                1
+              ]
+            }
+          },
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                32
+              ],
+              "primaryAxisAlignItems": [
+                "SPACE_BETWEEN"
+              ]
+            },
+            "Actions": {
+              "itemSpacing": [
+                0
+              ]
+            },
+            "Frame": {
+              "cornerRadius": [
+                16
+              ],
+              "strokeWeight": [
+                2
+              ]
+            }
+          },
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CanvasSectionColorButton": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        },
+        "Placeholder": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default/false": {
+          "slots": {},
+          "parts": {
+            "Swatch": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ],
+              "cornerRadius": [
+                4
+              ],
+              "strokeWeight": [
+                1
+              ]
+            }
+          },
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Default/true": {
+          "slots": {},
+          "parts": {
+            "Swatch": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ],
+              "cornerRadius": [
+                4
+              ],
+              "strokeWeight": [
+                1
+              ]
+            }
+          },
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover/false": {
+          "slots": {},
+          "parts": {
+            "Swatch": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ],
+              "cornerRadius": [
+                4
+              ],
+              "strokeWeight": [
+                1
+              ]
+            }
+          },
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover/true": {
+          "slots": {},
+          "parts": {
+            "Swatch": {
+              "width": [
+                12
+              ],
+              "height": [
+                12
+              ],
+              "cornerRadius": [
+                4
+              ],
+              "strokeWeight": [
+                1
+              ]
+            }
+          },
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CanvasSectionPalette": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 7,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Grid": {
+              "itemSpacing": [
+                6
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            }
+          },
+          "paddingBlock": [
+            6
+          ],
+          "paddingInline": [
+            6
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CanvasSectionTintOption": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Clear": {
+          "type": "BOOLEAN"
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            20
+          ],
+          "height": [
+            20
+          ],
+          "cornerRadius": [
+            6
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "CanvasSectionTitleBar": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Name": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Name": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            25
+          ],
+          "paddingBlock": [
+            2
+          ],
+          "paddingBlockEnd": [
+            2
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            6
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {
+            "Name": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            25
+          ],
+          "paddingBlock": [
+            2
+          ],
+          "paddingBlockEnd": [
+            2
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            6
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
           ],
           "overflowingParts": [],
           "offCenterMarks": []

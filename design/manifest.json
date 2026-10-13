@@ -392,6 +392,15 @@
       "generated": false
     },
     {
+      "id": "decision-canvas-section",
+      "path": "design/governance/decisions/DS-D-0093-canvas-section.md",
+      "title": "DS-D-0093 노드 캔버스의 영역 프레임을 새 부품 canvas-section 으로 — Node Shell 의 변형이 아니고 Color Swatch 의 고르기가 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1883,6 +1892,7 @@
         "design/components/coverflow.md",
         "design/components/plan-tier-card.md",
         "design/components/plan-comparison.md",
+        "design/components/canvas-section.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1967,6 +1977,7 @@
         "design/governance/decisions/DS-D-0090-coverflow.md",
         "design/governance/decisions/DS-D-0091-plan-tier-card.md",
         "design/governance/decisions/DS-D-0092-plan-comparison.md",
+        "design/governance/decisions/DS-D-0093-canvas-section.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2193,6 +2204,15 @@
       "id": "plan-comparison",
       "path": "design/components/plan-comparison.md",
       "title": "Plan Comparison",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "canvas-section",
+      "path": "design/components/canvas-section.md",
+      "title": "Canvas Section",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3133,6 +3153,23 @@
         "PlanComparison",
         "PlanComparisonColumn",
         "PlanComparisonItem"
+      ]
+    },
+    {
+      "id": "canvas-section",
+      "name": "Canvas Section",
+      "doc": "design/components/canvas-section.md",
+      "note": "노드 캔버스에서 노드들을 감싸는 배경 프레임(DS-D-0093, DS-D-0084). 제품 node-canvas-v2 의 SectionNode 가 들던 Tailwind 상수를 한 레시피(packages/css/src/component/canvas-section.css)로 옮겼다 — 프레임(전경 4% 면 · 안쪽 경계 1px 40% · 선택 2px 88% · 반경 16) · 변 끌기 띠 16 · 프레임 바깥 위 6 의 제목 머리 한 줄(제목 바 · 이름 버튼 · 이름 입력 · 색 버튼 20 · 견본 12 · 액션) · 팔레트 격자(7 × 20 · 사이 6)와 칸. 크기 · 자리 · 층 · 소속 · 끌기 수학은 캔버스의 데이터다. 크기 조절 크롬은 Transform Frame(Handles=corners), 액션은 Node Chrome Button, 팔레트 면은 Popover(캔버스 면)를 그대로 받는다. Node Shell 의 변형이 아니고(node-shell 이 이 칸을 뺐다) Color Swatch 의 고르기가 아니다. 색조는 LOUIS 원시에 있는 여섯으로 줄였다 — 새 시맨틱 canvas-section-tint-red · -yellow · -green · -blue · -violet · -pink(두 모드 *-500), 16% 는 color-mix. 고쳐 올린 값 — 쉼 경계 12% → 40%(라이트 1.38 → 3.03), 견본 · 칸 테두리 → stroke-strong, 칸 접근 이름 rgba → 색 이름(radiogroup), 긴 이름이 액션을 덮던 배치 → 한 줄 머리, 이름 바꾸기 키보드 진입. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 CanvasSection 세트(Selected false · true — 코드 data-selected, 880 × 560 표본, 머리는 루트 세로 쌓기 사이 6, Selected=true 는 TransformFrame Handles=corners 인스턴스)와 제목 바 CanvasSectionTitleBar(State Default · Hover, TEXT Name), 색 버튼 CanvasSectionColorButton(State × Placeholder — 색조 없음), 팔레트 칸 CanvasSectionTintOption(Selected — 코드 aria-checked, BOOLEAN Clear — 색 없음 빗금), 팔레트 CanvasSectionPalette(캔버스 메뉴 면 · 칸 일곱 시드)로 섰다 — 액션은 NodeChromeButton 인스턴스 둘, 색조는 인스턴스에서 칠을 color/canvas-section-tint-* 16% 로 바꾼다. 원시 칠 0. 기록 canvas-section · -title-bar · -color-button · -tint-option · -palette 와 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "CanvasSection",
+        "CanvasSectionTitleBar",
+        "CanvasSectionColorButton",
+        "CanvasSectionTintOption",
+        "CanvasSectionPalette"
       ]
     },
     {

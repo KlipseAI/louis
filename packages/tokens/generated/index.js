@@ -15864,6 +15864,162 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-canvas-section-tint-blue": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-blue": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-blue",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-blue",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-green": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-green": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-green",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-green",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-pink": {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-pink": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-pink",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-pink",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-red": {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-red": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-red",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-red",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-violet": {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-violet": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-violet",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-violet",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-yellow": {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-yellow": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-yellow",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "sourcePath": "semantic.light.color.canvas-section-tint-yellow",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ],
+        "alpha": 1
+      }
+    },
     "color-content-card-title-hover": {
       "aliasTarget": {
         "id": "color-blue-620",
@@ -22451,6 +22607,162 @@ export const tokens = {
           0.090196,
           0.105882,
           0.133333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-blue": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-blue": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-blue",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-blue",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-green": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-green": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-green",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-green",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-pink": {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-pink": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-pink",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-pink",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-red": {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-red": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-red",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-red",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-violet": {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-violet": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-violet",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-violet",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-canvas-section-tint-yellow": {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-yellow": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-yellow",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "sourcePath": "semantic.dark.color.canvas-section-tint-yellow",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
         ],
         "alpha": 1
       }

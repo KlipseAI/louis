@@ -21023,6 +21023,312 @@
             }
           }
         },
+        "color-canvas-section-tint-blue": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-blue",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-blue"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-blue"
+            }
+          }
+        },
+        "color-canvas-section-tint-green": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-green",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.green.500}",
+              "aliasTarget": {
+                "id": "color-green-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-green"
+            },
+            "Light": {
+              "$value": "{primitive.color.green.500}",
+              "aliasTarget": {
+                "id": "color-green-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.776471,
+                  0.556863
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-green"
+            }
+          }
+        },
+        "color-canvas-section-tint-pink": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-pink",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.pink.500}",
+              "aliasTarget": {
+                "id": "color-pink-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.301961,
+                  0.533333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-pink"
+            },
+            "Light": {
+              "$value": "{primitive.color.pink.500}",
+              "aliasTarget": {
+                "id": "color-pink-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.301961,
+                  0.533333
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-pink"
+            }
+          }
+        },
+        "color-canvas-section-tint-red": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-red",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-red"
+            },
+            "Light": {
+              "$value": "{primitive.color.red.500}",
+              "aliasTarget": {
+                "id": "color-red-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.294118,
+                  0.34902
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-red"
+            }
+          }
+        },
+        "color-canvas-section-tint-violet": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-violet",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.violet.500}",
+              "aliasTarget": {
+                "id": "color-violet-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-violet"
+            },
+            "Light": {
+              "$value": "{primitive.color.violet.500}",
+              "aliasTarget": {
+                "id": "color-violet-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.376471,
+                  0.333333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-violet"
+            }
+          }
+        },
+        "color-canvas-section-tint-yellow": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/canvas-section-tint-yellow",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.500}",
+              "aliasTarget": {
+                "id": "color-yellow-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.698039,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.canvas-section-tint-yellow"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.500}",
+              "aliasTarget": {
+                "id": "color-yellow-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.698039,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.canvas-section-tint-yellow"
+            }
+          }
+        },
         "color-content-card-title-hover": {
           "$type": "color",
           "fields": [],

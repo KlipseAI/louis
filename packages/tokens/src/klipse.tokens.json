@@ -8064,6 +8064,66 @@
             }
           }
         },
+        "canvas-section-tint-red": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-red",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-section-tint-yellow": {
+          "$value": "{primitive.color.yellow.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-yellow",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-section-tint-green": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-green",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-section-tint-blue": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-blue",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-section-tint-violet": {
+          "$value": "{primitive.color.violet.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-violet",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-section-tint-pink": {
+          "$value": "{primitive.color.pink.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-pink",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "notice-pill-dot": {
           "$value": "{primitive.color.green.500}",
           "$extensions": {
@@ -10594,6 +10654,66 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-plan-tier-card-feature-icon",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-red": {
+          "$value": "{primitive.color.red.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-red",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-yellow": {
+          "$value": "{primitive.color.yellow.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-yellow",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-green": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-green",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-blue": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-blue",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-violet": {
+          "$value": "{primitive.color.violet.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-violet",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-section-tint-pink": {
+          "$value": "{primitive.color.pink.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-section-tint-pink",
               "tier": "semantic",
               "mode": "dark"
             }

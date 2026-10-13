@@ -2644,6 +2644,354 @@
 }
 
 @layer louis.component {
+  /* Canvas Section — design/components/canvas-section.md
+   *
+   * 노드 캔버스에서 노드들을 감싸는 배경 프레임(DS-D-0093, DS-D-0084). 제품 정본은
+   * `node-canvas-v2/nodes/SectionNode.tsx`(통합 판 `54b62a8aa`). 카드가 아니다 — 노드 셸의 계약(400 폭 · 반경 24 · 2px 테두리 ·
+   * 카드 위 헤더)이 한 줄도 참이 아니라서 node-shell 이 이 칸을 뺐다(node-shell.md).
+   *
+   * **크기 · 자리 · 층은 데이터다.** 폭 · 높이는 소비처가 루트에 인라인으로 주고, 섹션이 다른 노드 뒤에 깔리는 것은 캔버스의 노드 순서가 정한다
+   * (제품 `zIndex: -1001`). 숫자 z-index 를 두지 않는다. 캔버스 좌표는 쓰기 방향을 따르지 않는다 — 그래서 물리 `left` · `right` 다(canvas-guide.css 와 같은 판단).
+   *
+   * **조합으로 받는 것.** 크기 조절의 선 · 모서리 손잡이는 Transform Frame(`Handles=corners`), 도움말 · 삭제는 Node Chrome Button,
+   * 팔레트의 면은 Popover(`data-louis-scope="canvas"`). 이 파일은 프레임 · 제목 머리 · 색 버튼 · 팔레트 격자와 칸 · 변 끌기 띠만 소유한다.
+   *
+   * **색조.** 루트(또는 팔레트 칸)의 `data-tint` 가 불투명 시맨틱 하나를 고르고, 면 · 견본 · 칸은 그 16% 를 `color-mix` 로 만든다
+   * (알파 원시를 새로 세우지 않는다 — segment-track.css · audio-cell.css 선례). */
+
+  .louis-canvas-section {
+    /* 색조 하나의 불투명 색 — `data-tint` 가 바꾼다. 없으면 투명. */
+    --louis-canvas-section-tint: transparent;
+    /* 프레임 면 — 색조가 없으면 전경 4%(캔버스 바닥보다 한 톤, SN:53). */
+    --louis-canvas-section-fill: var(--louis-color-gray-000-alpha-04);
+    /* 제목 바 견본의 칠 — 색조가 없으면 비운다(테두리만, SN:142-146). */
+    --louis-canvas-section-swatch: transparent;
+    /* 제목 머리와 프레임 윗변 사이 6 — 제품 `bottom-[calc(100%_+_6px)]`(SN:102 · :128). */
+    --louis-canvas-section-header-gap: 6px;
+
+    position: relative;
+    box-sizing: border-box;
+    /* 16 — 제품 `rounded-16`(SN:52). `radius-overlay` 도 16 이지만 오버레이의 이름이라 쓰지 않는다. */
+    border-radius: 16px;
+    background: var(--louis-canvas-section-fill);
+    /* 쉼 경계 — 제품 12%(캔버스 대비 1.38 · 1.47)를 40% 로 고쳐 올린다(라이트 3.03 · 다크 4.02, DS-D-0084 3항). 안쪽 그림자라 기하가 그대로다. */
+    box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-color-gray-000-alpha-40);
+    cursor: grab;
+  }
+
+  .louis-canvas-section:active {
+    cursor: grabbing;
+  }
+
+  /* 선택 — 안쪽 2px 88%(SN:65-68). 크기 조절 크롬은 소비처가 선택일 때만 그린다. */
+  .louis-canvas-section[data-selected="true"] {
+    box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-gray-000-alpha-88);
+  }
+
+  /* ── 색조 ── 여섯 시맨틱. 루트와 팔레트 칸이 같은 이름을 쓴다(팔레트는 오버레이 층에 떠 루트 밖일 수 있다). */
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="red"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-red);
+  }
+
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="yellow"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-yellow);
+  }
+
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="green"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-green);
+  }
+
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="blue"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-blue);
+  }
+
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="violet"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-violet);
+  }
+
+  :is(.louis-canvas-section, .louis-canvas-section__tint-option)[data-tint="pink"] {
+    --louis-canvas-section-tint: var(--louis-color-canvas-section-tint-pink);
+  }
+
+  /* 색조가 있으면 면 · 견본이 그 16% — 제품 프리셋의 알파(SN:15-27). */
+  .louis-canvas-section:where([data-tint]:not([data-tint="none"])) {
+    --louis-canvas-section-fill: color-mix(in srgb, var(--louis-canvas-section-tint) 16%, transparent);
+    --louis-canvas-section-swatch: color-mix(in srgb, var(--louis-canvas-section-tint) 16%, transparent);
+  }
+
+  /* ── 변 끌기 띠 ── 보이지 않는 16 띠. 사용자는 손잡이가 아니라 경계선을 잡아 늘린다(SN:71-74). 보이는 1px 선은 Transform Frame 의 테두리다.
+   * 마크업 순서: 띠 넷 → Transform Frame → 제목 머리. 뒤에 오는 것이 위에 칠해진다(숫자 z-index 없음). */
+  .louis-canvas-section__edge {
+    position: absolute;
+    pointer-events: auto;
+  }
+
+  .louis-canvas-section__edge:is([data-edge="top"], [data-edge="bottom"]) {
+    left: 0;
+    right: 0;
+    /* 16 — 제품 `h-8!`(SN:85). */
+    block-size: 16px;
+    cursor: ns-resize;
+  }
+
+  .louis-canvas-section__edge:is([data-edge="left"], [data-edge="right"]) {
+    top: 0;
+    bottom: 0;
+    /* 16 — 제품 `w-8!`(SN:79). */
+    inline-size: 16px;
+    cursor: ew-resize;
+  }
+
+  .louis-canvas-section__edge[data-edge="top"] {
+    top: 0;
+    transform: translateY(-50%);
+  }
+
+  .louis-canvas-section__edge[data-edge="bottom"] {
+    bottom: 0;
+    transform: translateY(50%);
+  }
+
+  .louis-canvas-section__edge[data-edge="left"] {
+    left: 0;
+    transform: translateX(-50%);
+  }
+
+  .louis-canvas-section__edge[data-edge="right"] {
+    right: 0;
+    transform: translateX(50%);
+  }
+
+  /* 크기 조절 크롬 — Transform Frame 을 프레임에 꽉 채운다. 직각 1px 강조 선은 제품의 네 변 선과 같은 그림이다(SN:78, 직선이라 모서리가 둥글지 않다).
+   * 몸통은 누름을 통과시켜 섹션 끌기를 막지 않고, 손잡이만 잡힌다. */
+  .louis-canvas-section > .louis-transform-frame {
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .louis-canvas-section > .louis-transform-frame > .louis-transform-frame__handle {
+    pointer-events: auto;
+  }
+
+  /* ── 제목 머리 ── 프레임 바깥 위 한 줄. 이름 바는 왼쪽, 액션은 오른쪽 — 한 줄이라 긴 이름이 액션을 덮지 않고 말줄임된다
+   * (제품은 둘이 각자 absolute 라 겹친다, SN:102-103 · :128). 줄 자체는 누름을 통과시킨다 — 섹션 위 캔버스를 막지 않게. */
+  .louis-canvas-section__header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% + var(--louis-canvas-section-header-gap));
+    display: flex;
+    align-items: flex-end;
+    gap: var(--louis-space-control-sm);
+    min-inline-size: 0;
+    pointer-events: none;
+  }
+
+  .louis-canvas-section__title-bar {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 1 auto;
+    align-items: center;
+    /* 6 — 제품 `gap-3`(SN:103). 8 로 접지 않는다(color-swatch 의 6 과 같은 처리). */
+    gap: 6px;
+    min-inline-size: 0;
+    /* 2 · 6 · 2 · 8 — 제품 `py-1 pr-3 pl-4`(SN:104). 2 · 6 은 사다리에 없다. 바 높이 25 = 줄 21 + 2 + 2. */
+    padding: 2px 6px 2px var(--louis-space-control-sm);
+    border-radius: var(--louis-radius-control-sm);
+    background: var(--louis-color-gray-000-alpha-08);
+    color: var(--louis-color-gray-000-alpha-72);
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+    cursor: grab;
+    pointer-events: auto;
+    transition-property: background-color, color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  .louis-canvas-section__title-bar:active {
+    cursor: grabbing;
+  }
+
+  /* 이름 — 누르면(더블클릭 · Enter · F2) 이름 바꾸기로 들어가는 버튼. 모양은 글 한 줄이다. */
+  .louis-canvas-section__title {
+    display: block;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: inherit;
+  }
+
+  /* 이름 입력 — 틀 없이 바 안에 그대로 선다. 80 ~ 240(제품 `min-w-40 max-w-120`, SN:121). */
+  .louis-canvas-section__title-input {
+    box-sizing: border-box;
+    min-inline-size: 80px;
+    max-inline-size: 240px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: text;
+  }
+
+  /* 색 버튼 — 20 정사각 · 반경 6(SN:137). 면 없음, 호버에서만 틴트. */
+  .louis-canvas-section__color-button {
+    box-sizing: border-box;
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    /* 20 — 제품 `w-10 h-10`(SN:137). 바 줄높이(21) 안에 든다. */
+    inline-size: 20px;
+    block-size: 20px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    /* 6 — 제품 `rounded-6`(SN:137). 사다리에 없다. */
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 견본 — 12 · 반경 4(SN:144). 테두리는 제품 40%(라이트 2.74)를 `stroke-strong`(3.48 · 3.39)으로 고쳐 올린다 — color-swatch 와 같은 판단. */
+  .louis-canvas-section__color-swatch {
+    box-sizing: border-box;
+    display: block;
+    inline-size: 12px;
+    block-size: 12px;
+    border-radius: 4px;
+    background: var(--louis-canvas-section-swatch);
+    box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-color-stroke-strong);
+  }
+
+  /* 액션 — Node Chrome Button 묶음을 오른쪽 끝에. 잉크는 그 부품의 기본(`fg-secondary`)을 그대로 쓴다 — 제품의 72% 덮기(SN:129)는 옮기지 않는다. */
+  .louis-canvas-section__actions {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    margin-inline-start: auto;
+    pointer-events: auto;
+  }
+
+  /* ── 팔레트 ── Popover(`data-louis-scope="canvas"`) 안의 격자. 자리는 소비처가 오버레이 층에서 정한다 — 섹션 쌓임 맥락 안에 두면 섹션 안 노드 밑에 깔린다. */
+  .louis-canvas-section__palette {
+    --louis-canvas-section-tint: transparent;
+
+    display: grid;
+    /* 7 × 20 — 제품 `grid-cols-[repeat(7,20px)]`(SN:160). 색조 여섯 + 없음이 한 줄이다. */
+    grid-template-columns: repeat(7, 20px);
+    /* 6 — 제품 `gap-3`(SN:160). Popover 기본 사이 2 는 메뉴 항목용이라 격자가 좁아진다(SN:154-155 주석). */
+    gap: 6px;
+  }
+
+  .louis-canvas-section__tint-option {
+    box-sizing: border-box;
+    display: block;
+    inline-size: 20px;
+    block-size: 20px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--louis-canvas-section-tint) 16%, transparent);
+    /* 테두리 — 제품 12%(메뉴 면 대비 1.32 · 1.42)를 `stroke-strong`(4.62 · 3.74)으로. 16% 칸은 면 위에서 1.10~1.39 라 경계가 칸을 말한다. */
+    box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-color-stroke-strong);
+    cursor: pointer;
+    transition-property: transform, box-shadow;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 없음 — 135° 빗금 2px(위험색 80%) + 전경 4%(SN:181-182). 「색 없음」의 표식이다. */
+  .louis-canvas-section__tint-option[data-tint="none"] {
+    background:
+      linear-gradient(
+        135deg,
+        transparent calc(50% - 1px),
+        color-mix(in srgb, var(--louis-color-accent-danger) 80%, transparent) calc(50% - 1px),
+        color-mix(in srgb, var(--louis-color-accent-danger) 80%, transparent) calc(50% + 1px),
+        transparent calc(50% + 1px)
+      ),
+      var(--louis-color-gray-000-alpha-04);
+  }
+
+  /* 고른 칸 — 면색 1px 틈 + 강조 2px 고리(SN:177-178). 틈은 캔버스 메뉴 면을 따른다. */
+  .louis-canvas-section__tint-option[aria-checked="true"] {
+    box-shadow:
+      inset 0 0 0 var(--louis-border-width-default) var(--louis-color-canvas-menu-surface),
+      0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);
+  }
+
+  @media (hover: hover) {
+    .louis-canvas-section__title-bar:hover {
+      background: var(--louis-color-gray-000-alpha-12);
+      color: var(--louis-color-fg-primary);
+    }
+
+    .louis-canvas-section__color-button:hover {
+      background: var(--louis-color-gray-000-alpha-16);
+    }
+
+    /* 1.08 — 제품 `scale(1.08)`(SN:166). */
+    .louis-canvas-section__tint-option:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-canvas-section__title-bar,
+    .louis-canvas-section__color-button,
+    .louis-canvas-section__tint-option {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  @media (forced-colors: active) {
+    /* 안쪽 그림자는 강제 색에서 지워진다 — 경계를 outline 으로 되살린다. */
+    .louis-canvas-section {
+      outline: var(--louis-border-width-default) solid CanvasText;
+      outline-offset: calc(0px - var(--louis-border-width-default));
+    }
+
+    .louis-canvas-section[data-selected="true"] {
+      outline: var(--louis-border-width-ring) solid Highlight;
+      outline-offset: calc(0px - var(--louis-border-width-ring));
+    }
+
+    .louis-canvas-section__color-swatch {
+      outline: var(--louis-border-width-default) solid ButtonText;
+    }
+
+    /* 색조 칸은 색 자체가 선택지라 강제 치환을 막고 테두리만 시스템 색으로. */
+    .louis-canvas-section__tint-option {
+      forced-color-adjust: none;
+      outline: var(--louis-border-width-default) solid ButtonText;
+    }
+
+    .louis-canvas-section__tint-option[aria-checked="true"] {
+      outline: var(--louis-border-width-ring) solid Highlight;
+    }
+  }
+}
+
+@layer louis.component {
   /* Channel Header — design/components/channel-header.md
    *
    * 채널 · 계정 하나의 머리(DS-D-0084, DS-D-0087). 배너 띠 아래에 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다.

@@ -6950,6 +6950,167 @@
           "$titleSize": "heading-md semibold 36. `__title` — 제품 PS:331 `type-heading-36-semibold`."
         }
       }
+    },
+    "canvas-section": {
+      "$doc": "design/components/canvas-section.md",
+      "$source": "packages/css/src/component/canvas-section.css — 2026-10-14 DS-D-0093",
+      "$note": "Canvas Section(`.louis-canvas-section`). 키는 Figma CanvasSection 의 Selected 축 — 코드 `data-selected=\"true\"`. 880 × 560 은 제품 기본 크기 표본(데이터)이라 칸이 아니다. packages/react/test/canvas-section-geometry.browser.test.tsx 가 되잰다. 약칭 SN = components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx(통합 판 54b62a8aa), NHA = components/scenes/create/node-canvas-v2/components/NodeHeaderActions.tsx.",
+      "sizes": {
+        "false": {
+          "radius": 16,
+          "$radius": "16. `.louis-canvas-section { border-radius: 16px }` — 제품 SN:52 `rounded-16`. `radius-overlay` 도 16 이지만 오버레이의 이름이라 쓰지 않는다(Figma 는 원시 radius/16).",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 쉼 경계 `box-shadow: inset 0 0 0 1px gray-000-alpha-40` — 제품 SN:60-63 12% 를 40% 로 고쳐 올렸다(DS-D-0093 판정 3). Figma 는 Frame 의 INSIDE 획.",
+          "headerGap": 6,
+          "$headerGap": "6. `--louis-canvas-section-header-gap` — 제품 SN:102 · :128 `bottom-[calc(100%_+_6px)]`. CSS 는 머리가 프레임 밖 위 6 에 absolute 로 서고, Figma 는 루트 세로 쌓기의 사이 6 이다.",
+          "headerHeight": 32,
+          "$headerHeight": "32. `__header` 의 높이 = 액션(Node Chrome Button md 32)이고 바(25)는 아래 맞춤 — 제품 NodeHeaderActions 32(NHA:42-45).",
+          "actionsGap": 0,
+          "$actionsGap": "0. `__actions` 에 gap 이 없다 — 제품 NodeHeaderActions 도 버튼을 붙여 세운다."
+        },
+        "true": {
+          "radius": 16,
+          "$radius": "16. `.louis-canvas-section { border-radius: 16px }` — 제품 SN:52 `rounded-16`. `radius-overlay` 도 16 이지만 오버레이의 이름이라 쓰지 않는다(Figma 는 원시 radius/16).",
+          "borderWidth": 2,
+          "$borderWidth": "border-width-ring 2. 선택 경계 `[data-selected=\"true\"] { box-shadow: inset 0 0 0 2px gray-000-alpha-88 }` — 제품 SN:65-68. Figma 는 Frame 의 INSIDE 획.",
+          "headerGap": 6,
+          "$headerGap": "6. `--louis-canvas-section-header-gap` — 제품 SN:102 · :128 `bottom-[calc(100%_+_6px)]`. CSS 는 머리가 프레임 밖 위 6 에 absolute 로 서고, Figma 는 루트 세로 쌓기의 사이 6 이다.",
+          "headerHeight": 32,
+          "$headerHeight": "32. `__header` 의 높이 = 액션(Node Chrome Button md 32)이고 바(25)는 아래 맞춤 — 제품 NodeHeaderActions 32(NHA:42-45).",
+          "actionsGap": 0,
+          "$actionsGap": "0. `__actions` 에 gap 이 없다 — 제품 NodeHeaderActions 도 버튼을 붙여 세운다."
+        }
+      }
+    },
+    "canvas-section-title-bar": {
+      "$doc": "design/components/canvas-section.md",
+      "$source": "packages/css/src/component/canvas-section.css — 2026-10-14 DS-D-0093",
+      "$note": "Canvas Section 의 제목 바(`__title-bar`). 키는 Figma CanvasSectionTitleBar 의 State 축 — Hover 는 면(8% → 12%)과 글 잉크만 바꿔 기하가 같다. canvas-section-geometry.browser.test.tsx 가 되잰다. 약칭 SN = components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "Default": {
+          "height": 25,
+          "$height": "25 = 줄 21(body-sm medium 14 × 1.5) + 2 + 2. 제품 SN:104 `py-1` · SN:279 `type-body-14-medium`.",
+          "paddingBlock": 2,
+          "$paddingBlock": "2. `__title-bar { padding: 2px 6px 2px 8px }` — 제품 SN:104 `py-1`(단위당 2px). 사다리에 없다.",
+          "paddingInlineStart": 8,
+          "$paddingInlineStart": "space-control-sm 8. 제품 SN:104 `pl-4`.",
+          "paddingInlineEnd": 6,
+          "$paddingInlineEnd": "6. 제품 SN:104 `pr-3`. 사다리에 없다.",
+          "gap": 6,
+          "$gap": "6. `__title-bar { gap: 6px }` — 제품 SN:103 `gap-3`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 SN:104 `rounded-8`.",
+          "fontSize": 14,
+          "$fontSize": "body-sm medium 14. 제품 SN:279 · :288 `type-body-14-medium`."
+        },
+        "Hover": {
+          "height": 25,
+          "$height": "25 = 줄 21(body-sm medium 14 × 1.5) + 2 + 2. 제품 SN:104 `py-1` · SN:279 `type-body-14-medium`.",
+          "paddingBlock": 2,
+          "$paddingBlock": "2. `__title-bar { padding: 2px 6px 2px 8px }` — 제품 SN:104 `py-1`(단위당 2px). 사다리에 없다.",
+          "paddingInlineStart": 8,
+          "$paddingInlineStart": "space-control-sm 8. 제품 SN:104 `pl-4`.",
+          "paddingInlineEnd": 6,
+          "$paddingInlineEnd": "6. 제품 SN:104 `pr-3`. 사다리에 없다.",
+          "gap": 6,
+          "$gap": "6. `__title-bar { gap: 6px }` — 제품 SN:103 `gap-3`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 SN:104 `rounded-8`.",
+          "fontSize": 14,
+          "$fontSize": "body-sm medium 14. 제품 SN:279 · :288 `type-body-14-medium`."
+        }
+      }
+    },
+    "canvas-section-color-button": {
+      "$doc": "design/components/canvas-section.md",
+      "$source": "packages/css/src/component/canvas-section.css — 2026-10-14 DS-D-0093",
+      "$note": "Canvas Section 의 색 버튼(`__color-button` · `__color-swatch`). 키는 Figma CanvasSectionColorButton 의 State/Placeholder — Hover 는 면 16%, Placeholder=true 는 견본 칠이 없다(테두리만). 넷 모두 기하가 같다. canvas-section-geometry.browser.test.tsx 가 되잰다. 약칭 SN = components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "Default/false": {
+          "size": 20,
+          "$size": "20. `__color-button { inline-size · block-size: 20px }` — 제품 SN:137 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__color-button { border-radius: 6px }` — 제품 SN:137 `rounded-6`. 사다리에 없다(Figma 는 원시 radius/6).",
+          "swatchSize": 12,
+          "$swatchSize": "12. `__color-swatch` — 제품 SN:144 `w-6 h-6`.",
+          "swatchRadius": 4,
+          "$swatchRadius": "4. `__color-swatch { border-radius: 4px }` — 제품 SN:144 `rounded-4`.",
+          "swatchBorder": 1,
+          "$swatchBorder": "border-width-default 1. `box-shadow: inset 0 0 0 1px stroke-strong` — 제품 SN:145 40% 를 stroke-strong 으로 고쳐 올렸다(DS-D-0093 판정 10). Figma 는 Swatch 의 INSIDE 획."
+        },
+        "Default/true": {
+          "size": 20,
+          "$size": "20. `__color-button { inline-size · block-size: 20px }` — 제품 SN:137 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__color-button { border-radius: 6px }` — 제품 SN:137 `rounded-6`. 사다리에 없다(Figma 는 원시 radius/6).",
+          "swatchSize": 12,
+          "$swatchSize": "12. `__color-swatch` — 제품 SN:144 `w-6 h-6`.",
+          "swatchRadius": 4,
+          "$swatchRadius": "4. `__color-swatch { border-radius: 4px }` — 제품 SN:144 `rounded-4`.",
+          "swatchBorder": 1,
+          "$swatchBorder": "border-width-default 1. `box-shadow: inset 0 0 0 1px stroke-strong` — 제품 SN:145 40% 를 stroke-strong 으로 고쳐 올렸다(DS-D-0093 판정 10). Figma 는 Swatch 의 INSIDE 획."
+        },
+        "Hover/false": {
+          "size": 20,
+          "$size": "20. `__color-button { inline-size · block-size: 20px }` — 제품 SN:137 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__color-button { border-radius: 6px }` — 제품 SN:137 `rounded-6`. 사다리에 없다(Figma 는 원시 radius/6).",
+          "swatchSize": 12,
+          "$swatchSize": "12. `__color-swatch` — 제품 SN:144 `w-6 h-6`.",
+          "swatchRadius": 4,
+          "$swatchRadius": "4. `__color-swatch { border-radius: 4px }` — 제품 SN:144 `rounded-4`.",
+          "swatchBorder": 1,
+          "$swatchBorder": "border-width-default 1. `box-shadow: inset 0 0 0 1px stroke-strong` — 제품 SN:145 40% 를 stroke-strong 으로 고쳐 올렸다(DS-D-0093 판정 10). Figma 는 Swatch 의 INSIDE 획."
+        },
+        "Hover/true": {
+          "size": 20,
+          "$size": "20. `__color-button { inline-size · block-size: 20px }` — 제품 SN:137 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__color-button { border-radius: 6px }` — 제품 SN:137 `rounded-6`. 사다리에 없다(Figma 는 원시 radius/6).",
+          "swatchSize": 12,
+          "$swatchSize": "12. `__color-swatch` — 제품 SN:144 `w-6 h-6`.",
+          "swatchRadius": 4,
+          "$swatchRadius": "4. `__color-swatch { border-radius: 4px }` — 제품 SN:144 `rounded-4`.",
+          "swatchBorder": 1,
+          "$swatchBorder": "border-width-default 1. `box-shadow: inset 0 0 0 1px stroke-strong` — 제품 SN:145 40% 를 stroke-strong 으로 고쳐 올렸다(DS-D-0093 판정 10). Figma 는 Swatch 의 INSIDE 획."
+        }
+      }
+    },
+    "canvas-section-tint-option": {
+      "$doc": "design/components/canvas-section.md",
+      "$source": "packages/css/src/component/canvas-section.css — 2026-10-14 DS-D-0093",
+      "$note": "Canvas Section 팔레트의 칸(`__tint-option`). 키는 Figma CanvasSectionTintOption 의 Selected 축 — 코드 `aria-checked=\"true\"`. 고름의 바깥 고리 2 · 면색 틈 1 은 box-shadow 라 기하를 바꾸지 않는다. canvas-section-geometry.browser.test.tsx 가 되잰다. 약칭 SN = components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "false": {
+          "size": 20,
+          "$size": "20. `__tint-option { inline-size · block-size: 20px }` — 제품 SN:164 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__tint-option { border-radius: 6px }` — 제품 SN:164 `rounded-6`."
+        },
+        "true": {
+          "size": 20,
+          "$size": "20. `__tint-option { inline-size · block-size: 20px }` — 제품 SN:164 `w-10 h-10`.",
+          "radius": 6,
+          "$radius": "6. `__tint-option { border-radius: 6px }` — 제품 SN:164 `rounded-6`."
+        }
+      }
+    },
+    "canvas-section-palette": {
+      "$doc": "design/components/canvas-section.md",
+      "$source": "packages/css/src/component/canvas-section.css — 2026-10-14 DS-D-0093",
+      "$note": "Canvas Section 의 색조 팔레트(`.louis-popover[data-louis-scope=canvas] > __palette`). 축이 없어 키는 base. 면 · 안쪽 · 반경은 Popover 의 것이고 격자 사이는 이 레시피의 것이다. canvas-section-geometry.browser.test.tsx 가 되잰다. 약칭 SN = components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "base": {
+          "inset": 6,
+          "$inset": "space-overlay-inset 6. `.louis-popover { padding }` — 제품 SN:157-158 `louis-popover` 그대로.",
+          "radius": 16,
+          "$radius": "radius-overlay 16. `.louis-popover { border-radius }`.",
+          "gap": 6,
+          "$gap": "6. `__palette { gap: 6px }` — 제품 SN:160 `gap-3`. Popover 기본 사이 2 는 메뉴 항목용이다.",
+          "columns": 7,
+          "$columns": "7. `grid-template-columns: repeat(7, 20px)` — 제품 SN:160. 색조 여섯 + 없음이 한 줄이다(DS-D-0093 판정 1). Figma 는 가로 자동 배치 한 줄."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -7014,7 +7175,12 @@
     "plan-tier-card-notice": "위와 같은 이유다. 예약 안내(PENDING_DOWNGRADE_NOTICE)는 로그인 뒤 업그레이드 화면에서 예약이 있을 때만 그려진다.",
     "plan-comparison": "제품 렌더 하네스가 이 조형에 닿지 못한다. 공개 /pricing 은 렌더되지만 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 components/landing/sections/PricingSection.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 PricingSection.tsx 를 소스로 등록하고 COMPARISON_GRID · COMPARISON_COL_HEAD · COMPARISON_COL_ITEM 탐침을 세우면 이 면제를 지운다.",
     "plan-comparison-column": "위(plan-comparison)와 같은 이유다.",
-    "plan-comparison-item": "위(plan-comparison)와 같은 이유다."
+    "plan-comparison-item": "위(plan-comparison)와 같은 이유다.",
+    "canvas-section": "제품 렌더 하네스가 이 조형에 닿지 못한다. 섹션은 노드 캔버스(로그인 뒤 /create)에서 섹션 노드를 만들어야 그려지고, measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스인데 components/scenes/create/node-canvas-v2/nodes/SectionNode.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 SectionNode.tsx 를 소스로 등록하고 SECTION · TITLE_BAR · COLOR_BTN · PALETTE_ITEM 탐침을 세우면 이 면제를 지운다.",
+    "canvas-section-title-bar": "위(canvas-section)와 같은 이유다.",
+    "canvas-section-color-button": "위(canvas-section)와 같은 이유다.",
+    "canvas-section-tint-option": "위(canvas-section)와 같은 이유다. 팔레트 칸은 색 버튼을 눌러 팔레트가 열려야 그려진다.",
+    "canvas-section-palette": "위(canvas-section-tint-option)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

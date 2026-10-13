@@ -330,6 +330,18 @@ const CAPTURE = {
   "PlanTierCardNotice": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"]},"strokes":["self"]},
   // Plan Comparison(2026-10-14, DS-D-0092). 항목 한 줄 — 안쪽 · 사이, 표시 칸 16(체크는 icon/check 인스턴스, 대시는 16 프레임 — text 칸에는 없다), 기능 14.
   "PlanComparisonItem": {"key":{"by":["Layout","Size"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode"],"parts":{"Mark":["width","height"],"Feature":["fontSize"]}},
+  // Canvas Section(2026-10-14, DS-D-0093). 루트는 머리 · 프레임을 세로로 쌓고 사이 6 이다(CSS 는 머리가 `bottom: calc(100% + 6px)` 로 프레임 밖 위에 선다).
+  // 프레임 880 × 560 은 제품 기본 크기 표본이라 담지 않는다. 경계(쉼 1 · 선택 2, INSIDE)는 Frame 의 획 두께로 담는다. Selected=true 의
+  // TransformFrame · 머리의 TitleBar · Node Chrome Button 은 인스턴스라 훑기가 그 안으로 들어가지 않는다.
+  "CanvasSection": {"key":{"by":["Selected"]},"fields":["itemSpacing","layoutMode"],"parts":{"Header":["height","counterAxisAlignItems","primaryAxisAlignItems"],"Frame":["cornerRadius","strokeWeight"],"Actions":["itemSpacing"]}},
+  // 제목 바 — 여백 2 · 6 · 2 · 8, 사이 6, 반경 8, 높이 25(줄 21 + 2 + 2). 색 버튼은 인스턴스다.
+  "CanvasSectionTitleBar": {"key":{"by":["State"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode"],"parts":{"Name":["fontSize"]}},
+  // 색 버튼 20 · 반경 6, 견본 12 · 반경 4 · 테두리 1(stroke-strong).
+  "CanvasSectionColorButton": {"key":{"by":["State","Placeholder"]},"fields":["width","height","cornerRadius","layoutMode"],"parts":{"Swatch":["width","height","cornerRadius","strokeWeight"]}},
+  // 팔레트 칸 20 · 반경 6. 고름의 바깥 고리 2(OUTSIDE)와 면색 틈 1(INNER_SHADOW)은 계약 밖 — 시험이 코드를 잰다. Clear 층(빗금)은 기본 꺼짐이다.
+  "CanvasSectionTintOption": {"key":{"by":["Selected"]},"fields":["width","height","cornerRadius"]},
+  // 팔레트 — 캔버스 메뉴 면 · 안쪽 6 · 반경 overlay(16), 격자 사이 6. 칸은 시드 인스턴스 일곱이다.
+  "CanvasSectionPalette": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","cornerRadius","layoutMode"],"parts":{"Grid":["itemSpacing","layoutMode"]}},
   // 한 열 — 열 사이 1px Divider(BOOLEAN), 머리(아래 한 변 INSIDE 획, 패딩 아래 = 16 + 1) · 본문 · 묶음 · 묶음 이름. 항목은 인스턴스라 훑기가 그 안으로 들어가지 않는다.
   "PlanComparisonColumn": {"key":{"by":["Size"]},"fields":["layoutMode"],"parts":{"Divider":["width"],"Head":["paddingBlock","paddingBlockEnd","paddingInline"],"Plan":["fontSize"],"Body":["paddingBlock","paddingBlockEnd"],"Group 예시":["paddingBlock","paddingBlockEnd"],"GroupName":["paddingBlock","paddingBlockEnd","paddingInline"],"Name":["fontSize"]},"strokes":["Head"]},
   // 비교표 — 제목 아래 32, 격자(바깥 INSIDE 획 1 · 패딩 0 + 1 · 반경 16 · 최소 폭). 열은 시드 데이터 인스턴스다.

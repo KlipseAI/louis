@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "17a7df1ea9238c10653ffebff46e782bf5cb75c04a6cec6069608025bd97927e"
+      "sha256": "324f05a7a89077836155dc453a6f96b064bb7cd1ca8407cf105188efb8ef6d62"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "3f9c6503e79feacc1911589a3b1b5c4eb929af83ec84a355e182dce312457f40"
+      "sha256": "1578537dd25a84f57f2126fd9753da15e7d166573e2e213a8cf1103c778eab6d"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "654818e13035066c2936ea79bc7c4ec88e70fe595b40c16e976b7a4a2d4648fc"
+      "sha256": "3f6362b43d532a3cab1d712bda6c40cb86715d704a4d869eb24bbf043542de10"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "62c6018af910ab80098f2ff7c76dd81a170c2459a84a09532376ec37cb84c64a"
+      "sha256": "92dff6d758f7878875cfe7dde5f597962cff7f721dc471eeb7c8cd6f8bedd946"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "c9e65be9d27fe26e1f980024b631d0c5e9ec0834b9df8bd44e8c71f5c3bafc38"
+      "sha256": "22ff8020cd9a55ce45f0d8f89e1f4b88319bd54b9247ed627da7b82a4b10ac4a"
     }
   ],
   "contrastPairs": [
@@ -520,13 +520,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "eea591535a3e98f4d747c3f2fd8c63d9009bb035e729cbe74a4cda0261661392"
+    "sha256": "d9a8632b2a7c6f6d8d7f299f47285b4cded10e6ec9f9ba125f86032d5340de7a"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 952,
+  "tokenCount": 964,
   "tokens": [
     {
       "aliasTarget": {
@@ -4773,6 +4773,318 @@
         ]
       },
       "sourcePath": "semantic.dark.color.canvas-menu-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-blue": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-blue",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-blue",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-blue": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-blue",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-blue",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-green": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-green",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-green",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-green": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-green",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-green",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-pink": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-pink",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-pink",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-pink": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-pink",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-pink",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-red": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-red",
+      "mode": "light",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-red",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-red-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-red": "color(srgb 1 0.294118 0.34902 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-red",
+      "mode": "dark",
+      "rawValue": "{primitive.color.red.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.294118,
+          0.34902
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-red",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-violet": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-violet",
+      "mode": "light",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-violet",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-violet-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-violet": "color(srgb 0.376471 0.333333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-violet",
+      "mode": "dark",
+      "rawValue": "{primitive.color.violet.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.376471,
+          0.333333,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-violet",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-yellow": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-yellow",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-section-tint-yellow",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-section-tint-yellow": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-section-tint-yellow",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-section-tint-yellow",
       "tier": "semantic",
       "type": "color"
     },

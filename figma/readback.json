@@ -4097,6 +4097,18 @@
           ]
         ],
         [
+          "motion/chat-panel-morph",
+          "STRING",
+          "",
+          [
+            [
+              "Global",
+              null,
+              "440ms cubic-bezier(0.32, 0.72, 0, 1) delay 0ms"
+            ]
+          ]
+        ],
+        [
           "motion/content-fade",
           "STRING",
           "",
@@ -12804,6 +12816,595 @@
           ],
           "height": [
             18
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ChatBubble": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Text": {
+          "type": "TEXT"
+        },
+        "Diff": {
+          "type": "BOOLEAN"
+        },
+        "DiffText": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "user",
+            "assistant",
+            "media"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "user": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "assistant": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "media": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ChatDock": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {
+        "Suggestions": {
+          "type": "BOOLEAN"
+        },
+        "Placeholder": {
+          "type": "TEXT"
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 1,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Suggestions": {
+              "paddingInline": [
+                14
+              ],
+              "itemSpacing": [
+                20
+              ]
+            },
+            "Composer": {
+              "height": [
+                48
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingInline": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ],
+              "cornerRadius": [
+                14
+              ]
+            },
+            "Input": {
+              "height": [
+                32
+              ]
+            }
+          },
+          "paddingBlock": [
+            10
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "itemSpacing": [
+            10
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ChatGate": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            43
+          ],
+          "paddingBlock": [
+            11
+          ],
+          "paddingInline": [
+            17
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            43
+          ],
+          "paddingBlock": [
+            11
+          ],
+          "paddingInline": [
+            17
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "strokeWeight": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "self": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "ChatPanel": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Controls": {
+          "type": "BOOLEAN"
+        },
+        "Expanded": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 21,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/Default": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                40
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingInline": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/Hover": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                40
+              ],
+              "paddingBlock": [
+                0
+              ],
+              "paddingInline": [
+                16
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            40
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Default": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                48
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingInline": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            560
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "cornerRadius": [
+            22
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Hover": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                48
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingInline": [
+                8
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Glyph": {
+              "width": [
+                18
+              ],
+              "height": [
+                18
+              ]
+            },
+            "Title": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            560
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "cornerRadius": [
+            22
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ChatSuggestion": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 3,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "height": [
+            18
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "height": [
+            18
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "opacity": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Disabled": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "height": [
+            18
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "opacity": [
+            0.5
           ],
           "overflowingParts": [],
           "offCenterMarks": []

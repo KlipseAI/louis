@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (260) — 접힌 알약이 대화 창으로 자라는 떠 있는 대화 셸을 새 부품 `chat-panel` 로, 모션 lifecycle `morph`(DS-D-0094, DS-D-0084)
+
+- **새 부품 `chat-panel`.** 화면 구석의 알약이 같은 요소 그대로 대화 창으로 자란다(`.louis-chat-panel` · `__header` · `__trigger` · `__trigger-icon` · `__title` ·
+  `__controls` · `__opacity` · `__close` · `__body` · `__log` · `__bubble` · `__text` · `__diff` · `__media` · `__actions` · `__dock` · `__suggestions` · `__suggestion` ·
+  `__composer` · `__input` · `__gate`). 하이라이트 판 「AI 클립 수정」(`ClipRefinementWidget`)의 상수 서른넷과 keyframe 넷을 한 레시피로 옮겼다.
+  Dialog(가운데 모달 · 가둠) · Floating Shell(유리 재료)의 변형이 아니다.
+- **축** — 루트 `data-state="closed|open|closing"`, 말풍선 `data-from="user|assistant"` · 생각 중 `aria-busy`. 창 크기 · 알약 폭은 변수 셋
+  (`--louis-chat-panel-inline-size` · `-block-size` · `-pill-inline-size`). 자리 · 겹 순서 · 전체 투명도 · 초점 · 닫힘 타이머는 소비처 몫이다.
+- **있는 부품 다섯을 그대로** — Button(보내기 · 적용 · 취소) · Inline Loading Label · Slider(투명도) · Icon Button `ghost`(닫기) · Loading Word(생각 중).
+- **늘 어두운 면은 스코프로** — 소비처가 루트에 `data-theme="dark"` 를 단다. 레시피는 일반 시맨틱만 쓰고, 제품 고정값 열일곱 자리 가운데 열이 바이트 같다.
+- **새 토큰 하나** — `motion-chat-panel-morph`(440ms · `menu-enter` 곡선, 원시 `transition-chat-panel-morph`), `motionProperties` · `reducedMotionPairs` 한 줄씩.
+  **다섯째 lifecycle `morph`** — 폭 · 높이 상한 · 안쪽 · 반경 · 그림자 · opacity · translate · scale. `layout-change` 는 넓히지 않았다(Motion Token model 갱신).
+- **고쳐 올린 값(DS-D-0084 3항)** — placeholder `palette-gray-400` 4.09 → `fg-secondary` 5.63, 잠김 단추의 라이트 결함(글 3.74 · 점선이 면과 같은 색) →
+  다크 스코프 `fg-tertiary` 5.25 · `gray-000-alpha-16`, 슬라이더 토큰 덮기 셋 제거. 사용자 말풍선 3.37 은 Button primary 수용 편차를 따른다(Known deviation).
+- **보이는 변화(제품이 클래스를 물 때)** — 차이 상자 글 6.12 → 4.53, 닫기 글리프 한 칸 어둡게, 슬라이더가 LOUIS 파랑, 그림자 가볍게, 제안 지연 340 · 380 · 450, 스프링 곡선 접음, Esc 로 닫기 · `role="log"` 더함.
+- **Figma.** DS · Components 「3 · 오버레이」에 `ChatPanel`(Expanded × State = 4, 열린 창 Hover 는 채움 칸, TEXT `Title`, BOOLEAN `Controls`) · `ChatBubble`(Layout `user` · `assistant` · `media`) ·
+  `ChatDock`(BOOLEAN `Suggestions`) · `ChatSuggestion`(State = 3) · `ChatGate`(State = 2), 변수 `motion/chat-panel-morph`. 세트마다 Semantic Color 모드 Dark 고정, 원시 칠 0.
+  기록 다섯과 parity 기하 계약(figma `partial`), §2 Layout 에 `data-from` 철자 한 줄.
+- 소유자 판정 열다섯은 초안의 기본값으로 — DS-D-0094 표. 실브라우저 시험 `chat-panel.browser.test.tsx` · `chat-panel-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (259) — 노드 캔버스의 영역 프레임을 새 부품 `canvas-section` 으로(DS-D-0093, DS-D-0084)
 
 - **새 부품 `canvas-section`.** 노드들을 감싸는 배경 프레임(`.louis-canvas-section` · `__edge` · `__header` · `__title-bar` · `__title` · `__title-input` ·

@@ -7111,6 +7111,225 @@
           "$columns": "7. `grid-template-columns: repeat(7, 20px)` — 제품 SN:160. 색조 여섯 + 없음이 한 줄이다(DS-D-0093 판정 1). Figma 는 가로 자동 배치 한 줄."
         }
       }
+    },
+    "chat-panel": {
+      "$doc": "design/components/chat-panel.md",
+      "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
+      "$note": "Chat Panel 셸(`.louis-chat-panel`). 키는 Figma ChatPanel 의 Expanded/State — Expanded 는 코드 `data-state=\"closed|open\"`, State=Hover 는 닫힌 알약에만 실재하고(머리 면 흰 8%) 열린 창의 Hover 는 채움 칸이다. 기하는 State 와 무관하다. 폭(알약 = 제목 폭 · 창 360)은 데이터라 칸이 아니다. packages/react/test/chat-panel-geometry.browser.test.tsx 가 되잰다. 약칭 HSS = components/scenes/highlightSceneStyles.ts, CRW = components/scenes/highlight/ClipRefinementWidget.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "false/Default": {
+          "height": 40,
+          "$height": "layout-control-height-lg 40. 닫힌 알약 `max-block-size: var(--louis-layout-control-height-lg)` — 제품 HSS:817 `max-height:40px`. 머리 `min-block-size` 40 이 채운다.",
+          "padding": 0,
+          "$padding": "0. 닫힌 셸 `padding: 0` — 제품 HSS:818.",
+          "radius": 12,
+          "$radius": "radius-control 12. 닫힌 셸 `border-radius: var(--louis-radius-control)` — 제품 HSS:820 `var(--button-radius)`(globals.css 12).",
+          "headerHeight": 40,
+          "$headerHeight": "40. `__header { min-block-size: layout-control-height-lg }` — 제품 HSS:747 `min-height:40px`.",
+          "headerPaddingBlock": 0,
+          "$headerPaddingBlock": "0. `__header { padding: 0 space-control-lg }` — 제품 HSS:748 `padding:0 16px`.",
+          "headerPaddingInline": 16,
+          "$headerPaddingInline": "space-control-lg 16. 제품 HSS:748.",
+          "headerGap": 8,
+          "$headerGap": "space-control-sm 8. `__header` · `__trigger` 의 gap — 제품 HSS:743 · :720 `gap:8px`.",
+          "glyph": 18,
+          "$glyph": "18. `__trigger-icon` 18 × 18 — 제품 CRW:56-57 SVG 18. 아이콘 사다리(16 · 20) 사이라 리터럴.",
+          "titleSize": 14,
+          "$titleSize": "body-sm 14. 닫힘 medium — 제품 CRW:483 `type-body-14-medium`."
+        },
+        "false/Hover": {
+          "height": 40,
+          "$height": "layout-control-height-lg 40. 닫힌 알약 `max-block-size: var(--louis-layout-control-height-lg)` — 제품 HSS:817 `max-height:40px`. 머리 `min-block-size` 40 이 채운다.",
+          "padding": 0,
+          "$padding": "0. 닫힌 셸 `padding: 0` — 제품 HSS:818.",
+          "radius": 12,
+          "$radius": "radius-control 12. 닫힌 셸 `border-radius: var(--louis-radius-control)` — 제품 HSS:820 `var(--button-radius)`(globals.css 12).",
+          "headerHeight": 40,
+          "$headerHeight": "40. `__header { min-block-size: layout-control-height-lg }` — 제품 HSS:747 `min-height:40px`.",
+          "headerPaddingBlock": 0,
+          "$headerPaddingBlock": "0. `__header { padding: 0 space-control-lg }` — 제품 HSS:748 `padding:0 16px`.",
+          "headerPaddingInline": 16,
+          "$headerPaddingInline": "space-control-lg 16. 제품 HSS:748.",
+          "headerGap": 8,
+          "$headerGap": "space-control-sm 8. `__header` · `__trigger` 의 gap — 제품 HSS:743 · :720 `gap:8px`.",
+          "glyph": 18,
+          "$glyph": "18. `__trigger-icon` 18 × 18 — 제품 CRW:56-57 SVG 18. 아이콘 사다리(16 · 20) 사이라 리터럴.",
+          "titleSize": 14,
+          "$titleSize": "body-sm 14. 닫힘 medium — 제품 CRW:483 `type-body-14-medium`."
+        },
+        "true/Default": {
+          "height": 560,
+          "$height": "560. 열린 셸 `block-size: var(--louis-chat-panel-block-size)` 기본 `min(560px, 100vh − 48px)` — 제품 HSS:801. 넓은 화면의 값이다(데이터 변수의 기본값).",
+          "padding": 8,
+          "$padding": "space-control-sm 8. 열린 셸 `padding` — 제품 HSS:802 `--refinement-shell-padding:8px`.",
+          "radius": 22,
+          "$radius": "22. `--louis-chat-panel-radius` — 제품 HSS:915 `--refinement-shell-radius:22px`. 반경 사다리(20 · 24) 사이라 리터럴(Figma 도 리터럴).",
+          "headerHeight": 48,
+          "$headerHeight": "48 = 안 8 + 알약 단추 32 + 8. 열린 `__header { padding: space-control-sm }` · `__trigger { min-block-size: layout-control-height-md }` — 제품 HSS:754-757 · :716.",
+          "headerPaddingBlock": 8,
+          "$headerPaddingBlock": "space-control-sm 8. 제품 HSS:757 `padding:8px`.",
+          "headerPaddingInline": 8,
+          "$headerPaddingInline": "space-control-sm 8. 제품 HSS:757.",
+          "headerGap": 8,
+          "$headerGap": "space-control-sm 8. 머리 gap — 제품 HSS:743. 열린 머리는 `justify-content` 가 양끝 정렬이라 단추와 조작 묶음이 양끝에 붙는다.",
+          "glyph": 18,
+          "$glyph": "18. 열리면 `scale: 0.96` 이 걸리지만 상자는 18 이다 — 제품 HSS:767.",
+          "titleSize": 14,
+          "$titleSize": "body-sm 14. 열림 semibold — 제품 CRW:483 `type-body-14-semibold`."
+        },
+        "true/Hover": {
+          "height": 560,
+          "$height": "560. 열린 셸 `block-size: var(--louis-chat-panel-block-size)` 기본 `min(560px, 100vh − 48px)` — 제품 HSS:801. 넓은 화면의 값이다(데이터 변수의 기본값).",
+          "padding": 8,
+          "$padding": "space-control-sm 8. 열린 셸 `padding` — 제품 HSS:802 `--refinement-shell-padding:8px`.",
+          "radius": 22,
+          "$radius": "22. `--louis-chat-panel-radius` — 제품 HSS:915 `--refinement-shell-radius:22px`. 반경 사다리(20 · 24) 사이라 리터럴(Figma 도 리터럴).",
+          "headerHeight": 48,
+          "$headerHeight": "48 = 안 8 + 알약 단추 32 + 8. 열린 `__header { padding: space-control-sm }` · `__trigger { min-block-size: layout-control-height-md }` — 제품 HSS:754-757 · :716.",
+          "headerPaddingBlock": 8,
+          "$headerPaddingBlock": "space-control-sm 8. 제품 HSS:757 `padding:8px`.",
+          "headerPaddingInline": 8,
+          "$headerPaddingInline": "space-control-sm 8. 제품 HSS:757.",
+          "headerGap": 8,
+          "$headerGap": "space-control-sm 8. 머리 gap — 제품 HSS:743. 열린 머리는 `justify-content` 가 양끝 정렬이라 단추와 조작 묶음이 양끝에 붙는다.",
+          "glyph": 18,
+          "$glyph": "18. 열리면 `scale: 0.96` 이 걸리지만 상자는 18 이다 — 제품 HSS:767.",
+          "titleSize": 14,
+          "$titleSize": "body-sm 14. 열림 semibold — 제품 CRW:483 `type-body-14-semibold`."
+        }
+      }
+    },
+    "chat-bubble": {
+      "$doc": "design/components/chat-panel.md",
+      "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
+      "$note": "Chat Panel 의 말풍선(`__bubble[data-from]` · `__media`). 키는 Figma ChatBubble 의 Layout — user · assistant 는 코드 data-from 철자, media 는 미리보기 틀. 최대 폭 85% 는 기록 폭에 달린 값이라 칸이 아니다. chat-panel-geometry.browser.test.tsx 가 되잰다. 약칭 HSS = components/scenes/highlightSceneStyles.ts, CRW = components/scenes/highlight/ClipRefinementWidget.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "user": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. `__bubble { padding: 8px 12px }` — 제품 HSS:456 `padding:8px_12px`.",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. 제품 HSS:456.",
+          "gap": 6,
+          "$gap": "6. 차이 상자 `__diff { margin-block-start: 6px }` — 제품 HSS:579 `margin-top:6px`. Figma 는 말풍선 세로 쌓기의 사이 6.",
+          "radius": 12,
+          "$radius": "radius-card 12. 제품 HSS:457 `border-radius:12px`."
+        },
+        "assistant": {
+          "paddingBlock": 8,
+          "$paddingBlock": "space-control-sm 8. `__bubble { padding: 8px 12px }` — 제품 HSS:456 `padding:8px_12px`.",
+          "paddingInline": 12,
+          "$paddingInline": "space-control-md 12. 제품 HSS:456.",
+          "gap": 6,
+          "$gap": "6. 차이 상자 `__diff { margin-block-start: 6px }` — 제품 HSS:579 `margin-top:6px`. Figma 는 말풍선 세로 쌓기의 사이 6.",
+          "radius": 12,
+          "$radius": "radius-card 12. 제품 HSS:457 `border-radius:12px`."
+        },
+        "media": {
+          "paddingBlock": 0,
+          "$paddingBlock": "0. `__media` 는 안쪽이 없다 — 미리보기가 틀을 채운다(제품 HSS:1003-1010).",
+          "paddingInline": 0,
+          "$paddingInline": "0. 위와 같다.",
+          "gap": 0,
+          "$gap": "0. 자식이 미리보기 하나다.",
+          "radius": 12,
+          "$radius": "radius-card 12. `__media { border-radius }` — 제품 HSS:1008 `border-radius:12px`."
+        }
+      }
+    },
+    "chat-dock": {
+      "$doc": "design/components/chat-panel.md",
+      "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
+      "$note": "Chat Panel 의 독(`__dock` · `__suggestions` · `__composer` · `__input`). 축이 없어 키는 base. chat-panel-geometry.browser.test.tsx 가 되잰다. 약칭 HSS = components/scenes/highlightSceneStyles.ts, CRW = components/scenes/highlight/ClipRefinementWidget.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "base": {
+          "paddingTop": 10,
+          "$paddingTop": "10. `__dock { padding-block-start: 10px }` — 제품 HSS:489 `padding-top:10px`. 사다리(8 · 12) 사이라 리터럴.",
+          "paddingBottom": 0,
+          "$paddingBottom": "0. 독은 창 안쪽 8 위에 붙는다.",
+          "gap": 10,
+          "$gap": "10. `__dock { gap: 10px }` — 제품 HSS:488.",
+          "suggestionsInline": 14,
+          "$suggestionsInline": "14. `__suggestions { padding-inline: var(--louis-chat-panel-gutter) }` — 제품 HSS:805 `--refinement-gutter:14px` · :569.",
+          "suggestionsGap": 20,
+          "$suggestionsGap": "20. 둘째 제안부터 `margin-inline-start: 20px` — 제품 HSS:533 `margin-left:20px`. Figma 는 줄의 사이 20.",
+          "composerHeight": 48,
+          "$composerHeight": "48 = 안 8 + 입력칸 32 + 8. 제품 HSS:960 `padding:8px` · HSS:932 `height:var(--button-height)`(32).",
+          "composerPadding": 8,
+          "$composerPadding": "space-control-sm 8. 제품 HSS:960.",
+          "composerGap": 8,
+          "$composerGap": "space-control-sm 8. 제품 HSS:964 `gap:8px`.",
+          "composerRadius": 14,
+          "$composerRadius": "14 = 창 반경 22 − 창 안쪽 8. `--louis-chat-panel-inner-radius` — 제품 HSS:804 · :962. 사다리에 없어 Figma 는 리터럴.",
+          "inputHeight": 32,
+          "$inputHeight": "layout-control-height-md 32. `__input { block-size }` — 제품 HSS:932 `--button-height`(globals.css:81, 32)."
+        }
+      }
+    },
+    "chat-suggestion": {
+      "$doc": "design/components/chat-panel.md",
+      "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
+      "$note": "Chat Panel 독의 제안 하나(`__suggestion`). 키는 Figma ChatSuggestion 의 State. chat-panel-geometry.browser.test.tsx 가 되잰다. 약칭 HSS = components/scenes/highlightSceneStyles.ts, CRW = components/scenes/highlight/ClipRefinementWidget.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "Default": {
+          "height": 18,
+          "$height": "18 = caption 12 × 1.5. `__suggestion` 은 안쪽 0 — 제품 HSS:525 `padding:0` · CRW:237 `type-caption-12-regular`.",
+          "fontSize": 12,
+          "$fontSize": "caption 12. 제품 CRW:237.",
+          "opacity": 1,
+          "$opacity": "1. 쉼 · 호버는 잉크만 바뀐다(fg-tertiary → fg-primary)."
+        },
+        "Hover": {
+          "height": 18,
+          "$height": "18 = caption 12 × 1.5. `__suggestion` 은 안쪽 0 — 제품 HSS:525 `padding:0` · CRW:237 `type-caption-12-regular`.",
+          "fontSize": 12,
+          "$fontSize": "caption 12. 제품 CRW:237.",
+          "opacity": 1,
+          "$opacity": "1. 쉼 · 호버는 잉크만 바뀐다(fg-tertiary → fg-primary)."
+        },
+        "Disabled": {
+          "height": 18,
+          "$height": "18 = caption 12 × 1.5. `__suggestion` 은 안쪽 0 — 제품 HSS:525 `padding:0` · CRW:237 `type-caption-12-regular`.",
+          "fontSize": 12,
+          "$fontSize": "caption 12. 제품 CRW:237.",
+          "opacity": 0.5,
+          "$opacity": "0.5. `__suggestion:disabled { opacity: 0.5 }` — 제품 HSS:556."
+        }
+      }
+    },
+    "chat-gate": {
+      "$doc": "design/components/chat-panel.md",
+      "$source": "packages/css/src/component/chat-panel.css — 2026-10-14 DS-D-0094",
+      "$note": "Chat Panel 의 잠김 단추(`__gate`). 키는 Figma ChatGate 의 State — Hover 는 점선 · 글 잉크와 면 4% 만 바꿔 기하가 같다. chat-panel-geometry.browser.test.tsx 가 되잰다. 약칭 HSS = components/scenes/highlightSceneStyles.ts, CRW = components/scenes/highlight/ClipRefinementWidget.tsx(통합 판 54b62a8aa).",
+      "sizes": {
+        "Default": {
+          "height": 43,
+          "$height": "43 = 10 + 줄 21(body-sm 14 × 1.5) + 10 + 테두리 1 × 2. 제품 HSS:1056-1058.",
+          "paddingBlock": 10,
+          "$paddingBlock": "10. `__gate { padding: 10px space-control-lg }` — 제품 HSS:1056 `padding:10px_16px`. Figma 는 테두리를 더해 11.",
+          "paddingInline": 16,
+          "$paddingInline": "space-control-lg 16. 제품 HSS:1056. Figma 는 테두리를 더해 17.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 점선 — 제품 HSS:1057 `border:1px_dashed`.",
+          "radius": 10,
+          "$radius": "radius-overlay-item 10. 제품 HSS:1058 `border-radius:10px`.",
+          "fontSize": 14,
+          "$fontSize": "body-sm medium 14. 제품 HPS:2544 `type-body-14-medium`(HPS = components/scenes/HighlightProjectScene.tsx)."
+        },
+        "Hover": {
+          "height": 43,
+          "$height": "43 = 10 + 줄 21(body-sm 14 × 1.5) + 10 + 테두리 1 × 2. 제품 HSS:1056-1058.",
+          "paddingBlock": 10,
+          "$paddingBlock": "10. `__gate { padding: 10px space-control-lg }` — 제품 HSS:1056 `padding:10px_16px`. Figma 는 테두리를 더해 11.",
+          "paddingInline": 16,
+          "$paddingInline": "space-control-lg 16. 제품 HSS:1056. Figma 는 테두리를 더해 17.",
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 점선 — 제품 HSS:1057 `border:1px_dashed`.",
+          "radius": 10,
+          "$radius": "radius-overlay-item 10. 제품 HSS:1058 `border-radius:10px`.",
+          "fontSize": 14,
+          "$fontSize": "body-sm medium 14. 제품 HPS:2544 `type-body-14-medium`(HPS = components/scenes/HighlightProjectScene.tsx)."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -7180,7 +7399,12 @@
     "canvas-section-title-bar": "위(canvas-section)와 같은 이유다.",
     "canvas-section-color-button": "위(canvas-section)와 같은 이유다.",
     "canvas-section-tint-option": "위(canvas-section)와 같은 이유다. 팔레트 칸은 색 버튼을 눌러 팔레트가 열려야 그려진다.",
-    "canvas-section-palette": "위(canvas-section-tint-option)와 같은 이유다."
+    "canvas-section-palette": "위(canvas-section-tint-option)와 같은 이유다.",
+    "chat-panel": "제품 렌더 하네스가 이 조형의 실효 값에 닿지 못한다. measure-product-components 는 highlightSceneStyles.ts 를 등록해 두었지만 상수 하나를 홀로 렌더하는 하네스이고, 이 위젯의 칸마다 이기는 값은 `.tw-hs-134 .tw-hs-118 &`(특이도 0,3,0) 위젯 갈래 — 위젯 셸 안에 대화를 넣었을 때만 서는 중첩 선택자 — 다. 상수 하나를 홀로 그리면 쓰이지 않는 라이트 · `html[data-theme=dark]` 갈래가 이긴다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 위젯(refinementExpandWidget) 안에 대화를 넣는 중첩 탐침을 세우면 이 면제를 지운다.",
+    "chat-bubble": "위(chat-panel)와 같은 이유다.",
+    "chat-dock": "위(chat-panel)와 같은 이유다.",
+    "chat-suggestion": "위(chat-panel)와 같은 이유다.",
+    "chat-gate": "위(chat-panel)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

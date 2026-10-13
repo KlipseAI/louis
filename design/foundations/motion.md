@@ -32,7 +32,9 @@ Motion primitive와 semantic recipe는 단일 DTCG source 안의 논리적 계�
 - semantic recipe는 overlay-enter, overlay-exit, modal-enter, modal-exit, layout-change처럼 목적을 소유한다.
 - Klipse `motionProperties` extension은 lifecycle마다 duration, easing과 함께 허용 CSS property를
   선언한다. 선언되지 않은 property를 component가 임의로 animation하지 않는다.
-- lifecycle은 셋이다 — `enter`, `exit`, **`loop`**. 항목에 `lifecycle`이 없으면 enter/exit로 본다.
+- lifecycle은 다섯이다 — `enter`, `exit`, **`loop`**, `layout-change`([DS-D-0019](../governance/decisions/DS-D-0019-layout-change-motion.md) — 크기가 상태인 컨트롤),
+  `morph`([DS-D-0094](../governance/decisions/DS-D-0094-chat-panel.md) — 한 요소가 다른 모양으로 자라는 셸: 폭 · 높이 상한 · 안쪽 · 반경 · 그림자 ·
+  opacity · translate · scale). 항목에 `lifecycle`이 없으면 enter/exit로 본다.
 - unmount timer와 interaction lock은 시각 transition과 같은 resolved recipe를 읽는다.
 - loading처럼 지속 시간이 작업 완료에 달린 상태를 고정 animation duration으로 가장하지 않는다.
 

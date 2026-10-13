@@ -37,7 +37,7 @@ const motionTypeSet = new Set(["duration", "cubicBezier", "transition"]);
  * 합성되므로 회전 하나 때문에 transform 축을 통째로 잡지 않는다. 반대로 enter/exit은 위치와
  * 크기를 함께 움직이므로 `transform`이 맞다.
  */
-const MOTION_LIFECYCLES = new Set(["enter", "exit", "loop", "layout-change"]);
+const MOTION_LIFECYCLES = new Set(["enter", "exit", "loop", "layout-change", "morph"]);
 const allowedMotionPropertiesByLifecycle = {
   // 개별 속성(`translate`·`scale`·`rotate`)을 함께 둔다 (DS-D-0017). 컴포넌트가 이미 그것을
   // 애니메이션하고 있었고 — 선언은 `transform`인데 실제는 `translate`/`scale`이었다 — 개별
@@ -52,6 +52,20 @@ const allowedMotionPropertiesByLifecycle = {
   // 표현할 수 없다 — scale은 두께와 반경까지 함께 늘려 알약이 찌그러진다.
   // 레이아웃을 실제로 다시 계산시키므로 enter/exit과 섞지 않고 별도 lifecycle로 가둔다.
   "layout-change": new Set(["inline-size", "block-size", "background-color"]),
+  // morph는 **한 요소가 다른 모양으로 자라는** 셸을 위한 것이다 (DS-D-0094). 접힌 알약이 같은 요소
+  // 그대로 대화 창이 되며 폭 · 높이 상한 · 안쪽 · 반경 · 그림자가 함께 옮겨 가고, 끝에서 한 번 튄다.
+  // layout-change(크기가 상태인 컨트롤)를 넓히면 그 세 항목의 검출력이 함께 풀리므로 따로 가둔다.
+  morph: new Set([
+    "inline-size",
+    "max-inline-size",
+    "max-block-size",
+    "padding",
+    "border-radius",
+    "box-shadow",
+    "opacity",
+    "translate",
+    "scale",
+  ]),
 };
 const motionLifecycleOf = (entry) =>
   typeof entry?.lifecycle === "string" ? entry.lifecycle : "enter";

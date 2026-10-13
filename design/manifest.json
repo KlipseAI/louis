@@ -401,6 +401,15 @@
       "generated": false
     },
     {
+      "id": "decision-chat-panel",
+      "path": "design/governance/decisions/DS-D-0094-chat-panel.md",
+      "title": "DS-D-0094 접힌 알약이 대화 창으로 자라는 떠 있는 대화 셸을 새 부품 chat-panel 로 — Dialog · Floating Shell 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1893,6 +1902,7 @@
         "design/components/plan-tier-card.md",
         "design/components/plan-comparison.md",
         "design/components/canvas-section.md",
+        "design/components/chat-panel.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1978,6 +1988,7 @@
         "design/governance/decisions/DS-D-0091-plan-tier-card.md",
         "design/governance/decisions/DS-D-0092-plan-comparison.md",
         "design/governance/decisions/DS-D-0093-canvas-section.md",
+        "design/governance/decisions/DS-D-0094-chat-panel.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2213,6 +2224,15 @@
       "id": "canvas-section",
       "path": "design/components/canvas-section.md",
       "title": "Canvas Section",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "chat-panel",
+      "path": "design/components/chat-panel.md",
+      "title": "Chat Panel",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3170,6 +3190,23 @@
         "CanvasSectionColorButton",
         "CanvasSectionTintOption",
         "CanvasSectionPalette"
+      ]
+    },
+    {
+      "id": "chat-panel",
+      "name": "Chat Panel",
+      "doc": "design/components/chat-panel.md",
+      "note": "화면 구석에 접힌 알약으로 쉬다가 누르면 같은 요소 그대로 대화 창으로 자라는 떠 있는 대화 셸(DS-D-0094, DS-D-0084). 하이라이트 판 「AI 클립 수정」 ClipRefinementWidget 의 상수 서른넷과 keyframe 넷을 한 레시피(packages/css/src/component/chat-panel.css)로 옮겼다 — 셸(data-state closed · open · closing, 알약 40 · 반경 12 ↔ 창 360 × 560 · 안 8 · 반경 22) · 빛과 고리 · 머리(알약 단추 · 제목 · 조작 묶음) · 본문 · 기록(role=log) · 말풍선(data-from user · assistant) · 차이 상자 · 미디어 틀 · 결정 줄 · 독(제안 줄 · 입력 줄 48 · 반경 14) · 잠김 점선 단추. 안의 조작은 Button · Inline Loading Label · Slider · Icon Button ghost · Loading Word 를 그대로 앉힌다. 늘 어두운 면은 토큰이 아니라 루트 data-theme=dark 스코프로 받는다. 자리 · 겹 순서 · 전체 투명도는 소비처 몫이다. Dialog(가운데 모달 · 가둠) · Floating Shell(유리 재료)의 변형이 아니다. 새 토큰 하나 — motion-chat-panel-morph(440 · menu-enter 곡선)와 다섯째 lifecycle morph. 고쳐 올린 값 — placeholder 4.09 → 5.63, 잠김 라이트 결함 3.74 → 5.25, 슬라이더 덮기 셋 제거. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 ChatPanel 세트(Expanded false · true — 코드 data-state closed · open × State Default · Hover, 열린 창의 Hover 는 채움 칸, TEXT Title, BOOLEAN Controls)와 말풍선 ChatBubble(Layout user · assistant — 코드 data-from 철자 · media, TEXT Text · DiffText, BOOLEAN Diff), 독 ChatDock(BOOLEAN Suggestions, TEXT Placeholder), 제안 ChatSuggestion(State Default · Hover · Disabled), 잠김 ChatGate(State Default · Hover)로 섰다 — 늘 어두운 창이라 Semantic Color 모드를 Dark 로 고정했고, 빛은 Glow 층의 안쪽 그림자(accent-primary), 고리는 Ring 층의 INSIDE 획, 본문은 시드 데이터 인스턴스다. 변수 motion/chat-panel-morph. 원시 칠 0. 기록 chat-panel · chat-bubble · chat-dock · chat-suggestion · chat-gate 와 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "ChatPanel",
+        "ChatBubble",
+        "ChatDock",
+        "ChatSuggestion",
+        "ChatGate"
       ]
     },
     {

@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "324f05a7a89077836155dc453a6f96b064bb7cd1ca8407cf105188efb8ef6d62"
+      "sha256": "26126fff75a62e1627fd48fc6c224b956028651c46c8d894ed78acc13775386a"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "1578537dd25a84f57f2126fd9753da15e7d166573e2e213a8cf1103c778eab6d"
+      "sha256": "2e775a466f2e6ab125fb3fab65641a7c9f4848dbe1e439bb2dbe283e60a2bfb8"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "3f6362b43d532a3cab1d712bda6c40cb86715d704a4d869eb24bbf043542de10"
+      "sha256": "271b2f4a2b017c4c433ac21c0014b85076525764e8cdc8ea9482234885a51464"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "92dff6d758f7878875cfe7dde5f597962cff7f721dc471eeb7c8cd6f8bedd946"
+      "sha256": "0c32141971b6d491fc14d8e758b47ce547bb60b8c6c9963e68e9ebf03eb1a9c9"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "22ff8020cd9a55ce45f0d8f89e1f4b88319bd54b9247ed627da7b82a4b10ac4a"
+      "sha256": "bf8cd6bacdc26c841cc04ef88f9349e88829c5f05a15216ba30edd9ea444d9e9"
     }
   ],
   "contrastPairs": [
@@ -383,6 +383,21 @@
         "rotate",
         "scale"
       ]
+    },
+    {
+      "lifecycle": "morph",
+      "motion": "motion-chat-panel-morph",
+      "properties": [
+        "inline-size",
+        "max-inline-size",
+        "max-block-size",
+        "padding",
+        "border-radius",
+        "box-shadow",
+        "opacity",
+        "translate",
+        "scale"
+      ]
     }
   ],
   "reducedMotionPairs": [
@@ -477,6 +492,10 @@
     {
       "motion": "motion-coverflow-shift",
       "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-chat-panel-morph",
+      "reduced": "motion-reduced"
     }
   ],
   "responsiveProfiles": {
@@ -520,13 +539,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "d9a8632b2a7c6f6d8d7f299f47285b4cded10e6ec9f9ba125f86032d5340de7a"
+    "sha256": "8c0f3f580dd9f52c318832b71674a4c21cd47026fe50a5c5913bc9f6f4d1624a"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 964,
+  "tokenCount": 966,
   "tokens": [
     {
       "aliasTarget": {
@@ -20992,6 +21011,41 @@
     },
     {
       "aliasTarget": {
+        "id": "transition-chat-panel-morph",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-chat-panel-morph-delay": "0ms",
+        "--louis-motion-chat-panel-morph-duration": "440ms",
+        "--louis-motion-chat-panel-morph-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-chat-panel-morph",
+      "mode": "global",
+      "rawValue": "{primitive.transition.chat-panel-morph}",
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 440
+        },
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "semantic.global.motion.chat-panel-morph",
+      "tier": "semantic",
+      "type": "transition"
+    },
+    {
+      "aliasTarget": {
         "id": "transition-content-fade",
         "mode": "base"
       },
@@ -24565,6 +24619,49 @@
       "sourcePath": "semantic.global.spacing.underline-gap",
       "tier": "semantic",
       "type": "dimension"
+    },
+    {
+      "aliasTarget": null,
+      "cssProperties": {},
+      "deprecated": null,
+      "description": null,
+      "id": "transition-chat-panel-morph",
+      "mode": "base",
+      "rawValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 440
+        },
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ]
+      },
+      "resolvedValue": {
+        "delay": {
+          "unit": "ms",
+          "value": 0
+        },
+        "duration": {
+          "unit": "ms",
+          "value": 440
+        },
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ]
+      },
+      "sourcePath": "primitive.transition.chat-panel-morph",
+      "tier": "primitive",
+      "type": "transition"
     },
     {
       "aliasTarget": null,

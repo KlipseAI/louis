@@ -342,6 +342,17 @@ const CAPTURE = {
   "CanvasSectionTintOption": {"key":{"by":["Selected"]},"fields":["width","height","cornerRadius"]},
   // 팔레트 — 캔버스 메뉴 면 · 안쪽 6 · 반경 overlay(16), 격자 사이 6. 칸은 시드 인스턴스 일곱이다.
   "CanvasSectionPalette": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","cornerRadius","layoutMode"],"parts":{"Grid":["itemSpacing","layoutMode"]}},
+  // Chat Panel(2026-10-14, DS-D-0094). 셸 — 알약(Expanded=false: 높이 40 · 안 0 · 반경 12) ↔ 창(Expanded=true: 560 · 안 8 · 반경 22). 머리 높이 40 → 48 · 안 0 16 → 8 · 사이 8,
+  // 글리프 18(아이콘 인스턴스), 제목 14. 폭은 제목(알약) · 창 크기 변수(데이터)라 담지 않는다. 빛 · 고리는 Glow · Ring 층이라 계약 밖 — 시험이 코드를 잰다.
+  "ChatPanel": {"key":{"by":["Expanded","State"]},"fields":["height","paddingBlock","paddingInline","cornerRadius","layoutMode"],"parts":{"Header":["height","paddingBlock","paddingInline","itemSpacing"],"Glyph":["width","height"],"Title":["fontSize"]}},
+  // 말풍선 — 안 8 · 12 · 반경 12 · 차이 상자 사이 6(media 는 안 0 · 사이 0). 폭(최대 85%)은 시드 폭이라 담지 않는다.
+  "ChatBubble": {"key":{"by":["Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
+  // 독 — 위 10 · 사이 10, 제안 줄 안 14 · 간격 20, 입력 줄 48 · 안 8 · 사이 8 · 반경 14, 입력칸 32. 제안 · 보내기는 인스턴스다.
+  "ChatDock": {"key":{"name":"base"},"fields":["paddingBlock","paddingBlockEnd","itemSpacing","layoutMode"],"parts":{"Suggestions":["paddingInline","itemSpacing"],"Composer":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius"],"Input":["height"]}},
+  // 제안 하나 — 높이 18(caption 12 × 1.5), 글 12. Disabled 는 불투명도 50%.
+  "ChatSuggestion": {"key":{"by":["State"]},"fields":["height","layoutMode","opacity"],"parts":{"Label":["fontSize"]}},
+  // 잠김 — 높이 43, 안 10 · 16 + 테두리 1(strokesIncludedInLayout=false → 11 · 17), 반경 10, 점선 1.
+  "ChatGate": {"key":{"by":["State"]},"fields":["height","paddingBlock","paddingInline","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"]},"strokes":["self"]},
   // 한 열 — 열 사이 1px Divider(BOOLEAN), 머리(아래 한 변 INSIDE 획, 패딩 아래 = 16 + 1) · 본문 · 묶음 · 묶음 이름. 항목은 인스턴스라 훑기가 그 안으로 들어가지 않는다.
   "PlanComparisonColumn": {"key":{"by":["Size"]},"fields":["layoutMode"],"parts":{"Divider":["width"],"Head":["paddingBlock","paddingBlockEnd","paddingInline"],"Plan":["fontSize"],"Body":["paddingBlock","paddingBlockEnd"],"Group 예시":["paddingBlock","paddingBlockEnd"],"GroupName":["paddingBlock","paddingBlockEnd","paddingInline"],"Name":["fontSize"]},"strokes":["Head"]},
   // 비교표 — 제목 아래 32, 격자(바깥 INSIDE 획 1 · 패딩 0 + 1 · 반경 16 · 최소 폭). 열은 시드 데이터 인스턴스다.

@@ -1,0 +1,647 @@
+/* Chat Panel — design/components/chat-panel.md
+ *
+ * 떠 있는 대화 셸(DS-D-0094, DS-D-0084). 접힌 알약이 **같은 요소 그대로** 대화 창으로 자란다 — 알약 단추가 머리가 되고, 그 아래 본문이
+ * 열린다. 제품 정본은 하이라이트 판의 「AI 클립 수정」(`ClipRefinementWidget.tsx` · `highlightSceneStyles.ts:445-1082`, 통합 판
+ * `54b62a8aa`).
+ *
+ * **늘 어두운 면은 스코프로 받는다.** 제품은 테마와 무관하게 고정 `palette-gray-900` 면에 고정 잉크를 칠한다. 이 레시피는 고정값을
+ * 쓰지 않고 **일반 시맨틱만** 쓴다 — 소비처가 루트에 `data-theme="dark"` 를 달면 `tokens.css` 의 다크 선언이 그 아래에서 풀려
+ * 제품과 같은 색이 나오고(DS-D-0068 — 조합값도 스코프마다 다시 풀린다), 안에 앉는 버튼 · 슬라이더 · 로딩 글자도 덮어쓰기 없이
+ * 다크 값으로 선다. 그 속성을 빼면 창은 테마를 따라 밝아진다 — 레시피는 테마를 모른다.
+ *
+ * **자리 · 겹 순서 · 투명도는 소비처 몫이다.** 화면 구석(`fixed`)인지 무대 구석(`absolute`)인지, 폰 판에서 어디로 옮기는지,
+ * `--louis-layer-popover` 를 쓸지는 화면의 배치다(floating-shell 선례). 사용자가 고른 전체 투명도는 루트 `opacity` 로 준다.
+ *
+ * **안쪽 겹 순서는 칠 순서로 정한다 — 숫자 z-index 없음.** 빛(`::before`)은 머리 · 본문보다 먼저, 고리(`::after`)는 나중에 칠한다.
+ * 제품은 빛 100 · 고리 101 · 본문 102 · 머리 4 였다 — 머리는 면이 투명해 빛이 위에 있든 아래 있든 같고, 본문은 안 8 안쪽이라
+ * 고리와 겹치지 않는다. `isolation` 이 그 순서를 이 상자 안에서 끝낸다.
+ *
+ * **모핑은 새 모션 레시피 하나를 쓴다.** 알약 ↔ 창은 폭 · 높이 · 안쪽 · 반경 · 그림자를 함께 옮긴다. LOUIS 의 어떤 레시피도
+ * 그 속성들을 허용하지 않아 `motion-chat-panel-morph`(440ms, `menu-enter` 곡선)를 세우고, 그 허용 속성을 다섯째 lifecycle
+ * `morph` 에 가둔다(DS-D-0094 — `layout-change` 를 넓히지 않는다). 제품의 스프링 곡선은
+ * 접는다 — 넘침은 keyframe 의 72% 칸(1.015)이 이미 그린다. 닫힘 타이머는 같은 토큰의 duration 을 읽는다(motion.md). */
+
+.louis-chat-panel {
+  /* ── 소비처가 주는 데이터 ── */
+  /* 창 크기 — 제품 `--refinement-panel-width/height`(HSS:800-801). 무대 안 · 폰 판은 소비처가 덮는다(HSS:859-860 · :873-878). */
+  --louis-chat-panel-inline-size: min(360px, calc(100vw - 48px));
+  --louis-chat-panel-block-size: min(560px, calc(100vh - 48px));
+  /* 접힌 알약 폭 — `fit-content` 는 보간되지 않는다. 소비처가 접힌 머리를 재서 px 로 준다(CRW:381-389). */
+  --louis-chat-panel-pill-inline-size: fit-content;
+
+  /* ── 레시피 내부 ── */
+  /* 열린 창 반경 22 — 반경 사다리(20 `radius-card-lg` · 24 `radius-overlay-lg`) 사이라 리터럴(HSS:915). */
+  --louis-chat-panel-radius: 22px;
+  /* 기록 · 제안의 좌우 거터 14 — 사다리(12 · 16) 사이라 리터럴(HSS:805). */
+  --louis-chat-panel-gutter: 14px;
+  /* 입력 줄 반경 = 창 반경 − 창 안쪽 8. 동심 모서리(HSS:804). */
+  --louis-chat-panel-inner-radius: calc(var(--louis-chat-panel-radius) - var(--louis-space-control-sm));
+  /* 독 위 선 · 제안 사이 선의 잉크(HSS:490). */
+  --louis-chat-panel-divider: var(--louis-color-gray-000-alpha-08);
+
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  inline-size: var(--louis-chat-panel-pill-inline-size);
+  max-inline-size: var(--louis-chat-panel-inline-size);
+  /* 알약 높이 40(HSS:817). */
+  max-block-size: var(--louis-layout-control-height-lg);
+  padding: 0;
+  border-radius: var(--louis-radius-control);
+  overflow: hidden;
+  background: var(--louis-color-bg-overlay);
+  color: var(--louis-color-fg-primary);
+  /* 제품 `0 6px 20px 검정 20%`(HSS:824) → 떠 있는 한 줄의 그림자(판정 12). */
+  box-shadow: var(--louis-elevation-toast);
+  /* 오른쪽 아래에 붙어 자란다(HSS:825). transform-origin 은 논리 키워드가 없다 — RTL 소비처는 덮는다. */
+  transform-origin: bottom right;
+  transition-property: inline-size, max-block-size, padding, border-radius, box-shadow;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+/* 빛 — 사방 안쪽 파란 빛. 닫힘 8 · 열림 24(HSS:843 · :913). 머리 · 본문보다 먼저 칠한다. */
+.louis-chat-panel::before,
+.louis-chat-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+.louis-chat-panel::before {
+  /* 8 — 흐림 반경. node-shell 생성 버튼의 안쪽 빛과 같은 값이다(node-shell.css:709). */
+  box-shadow: inset 0 0 8px 0 var(--louis-color-accent-primary);
+}
+
+/* 고리 — 열린 창의 안쪽 1px 흰 16%(HSS:846). 닫힌 알약에는 없다. */
+.louis-chat-panel::after {
+  opacity: 0;
+  box-shadow: inset 0 0 0 var(--louis-border-width-default) var(--louis-color-gray-000-alpha-16);
+}
+
+/* ── 열림 ── 360 × 560 · 안 8 · 반경 22(HSS:910-924). */
+.louis-chat-panel[data-state="open"] {
+  align-items: stretch;
+  justify-content: flex-start;
+  inline-size: var(--louis-chat-panel-inline-size);
+  block-size: var(--louis-chat-panel-block-size);
+  max-block-size: var(--louis-chat-panel-block-size);
+  padding: var(--louis-space-control-sm);
+  border-radius: var(--louis-chat-panel-radius);
+  /* 바깥 1px 흰 8% + 모달 그림자(HSS:923 의 두 겹 → elevation-modal, 판정 12). */
+  box-shadow:
+    0 0 0 var(--louis-border-width-default) var(--louis-color-gray-000-alpha-08),
+    var(--louis-elevation-modal);
+  animation-name: louis-chat-panel-open;
+  animation-duration: var(--louis-motion-chat-panel-morph-duration);
+  animation-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+  animation-fill-mode: both;
+}
+
+.louis-chat-panel[data-state="open"]::before {
+  /* 24 — 열린 창의 빛(HSS:913). */
+  box-shadow: inset 0 0 24px 0 var(--louis-color-accent-primary);
+}
+
+.louis-chat-panel[data-state="open"]::after {
+  opacity: 1;
+}
+
+/* ── 닫힘 중 ── 높이를 창에 둔 채 `max-block-size` 가 40 으로 줄며 접힌다. 누를 수 없다(HSS:899-906). */
+.louis-chat-panel[data-state="closing"] {
+  align-items: stretch;
+  justify-content: flex-start;
+  block-size: var(--louis-chat-panel-block-size);
+  pointer-events: none;
+  animation-name: louis-chat-panel-close;
+  animation-duration: var(--louis-motion-chat-panel-morph-duration);
+  animation-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+  animation-fill-mode: both;
+}
+
+/* 작게 시작해 살짝 넘쳤다 선다 — .84 · 72% 1.015(KF:911-923). */
+@keyframes louis-chat-panel-open {
+  from {
+    scale: 0.84;
+  }
+
+  72% {
+    scale: 1.015;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+/* 접히며 한 번 움츠린다 — 46% .976(KF:925-937). */
+@keyframes louis-chat-panel-close {
+  from {
+    scale: 1;
+  }
+
+  46% {
+    scale: 0.976;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+/* ── 머리 ── 닫힘에는 알약 자체(16 · 글리프 · 8 · 제목 · 16, 높이 40), 열림에는 창의 첫 줄(안 8, 높이 48) — HSS:738-755. */
+.louis-chat-panel__header {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-end;
+  gap: var(--louis-space-control-sm);
+  inline-size: fit-content;
+  min-block-size: var(--louis-layout-control-height-lg);
+  padding: 0 var(--louis-space-control-lg);
+  transition-property: padding;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__header {
+  align-self: stretch;
+  inline-size: auto;
+  min-block-size: 0;
+  padding: var(--louis-space-control-sm);
+}
+
+/* 알약 단추 — 닫힘에서 창을 연다. 열려 있는 동안 꺼진다(`disabled`) — 머리 제목 노릇만 한다(CRW:466-475). */
+.louis-chat-panel__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+  min-block-size: var(--louis-layout-control-height-lg);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition-property: scale;
+  transition-duration: var(--louis-motion-overlay-exit-duration);
+  transition-timing-function: var(--louis-motion-overlay-exit-timing-function);
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__trigger {
+  min-block-size: var(--louis-layout-control-height-md);
+}
+
+.louis-chat-panel__trigger:disabled {
+  cursor: default;
+}
+
+/* 누름 .98(HSS:731). */
+.louis-chat-panel__trigger:not(:disabled):active {
+  scale: 0.98;
+}
+
+/* 글리프 칸 18 — 아이콘 사다리(16 · 20) 사이라 리터럴(CRW:56-57). 열리면 .96 으로 물러난다(HSS:767). */
+.louis-chat-panel__trigger-icon {
+  display: inline-flex;
+  flex: none;
+  inline-size: 18px;
+  block-size: 18px;
+  transition-property: scale;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__trigger-icon {
+  scale: 0.96;
+}
+
+/* 제목 — 닫힘 medium · 열림 semibold(CRW:483). 제품의 자간 전이(HSS:792)는 허용 속성이 아니라 옮기지 않는다. */
+.louis-chat-panel__title {
+  white-space: nowrap;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-chat-panel:where([data-state="open"], [data-state="closing"]) .louis-chat-panel__title {
+  font-weight: var(--louis-typography-body-sm-semibold-font-weight);
+  letter-spacing: var(--louis-typography-body-sm-semibold-letter-spacing);
+}
+
+/* 조작 묶음 — 투명도 + 닫기. 닫힘에서는 폭 0 · 투명(HSS:688-712). 128 은 제품 상한 — 실제 폭은 64 + 8 + 32 = 104. */
+.louis-chat-panel__controls {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  max-inline-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity, max-inline-size;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__controls {
+  max-inline-size: 128px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 투명도 슬라이더 자리 — `louis-slider[data-size="md"]` 를 이 폭 64 에 앉힌다(HSS:786). 색은 슬라이더 자신의 것(판정 6). */
+.louis-chat-panel__opacity {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  inline-size: 64px;
+}
+
+/* 닫기 — `louis-icon-button[data-variant="ghost"]` 위에 얹어 쉴 때 면 8% 를 더한다(HSS:675, 판정 7).
+ * 다크 스코프에서 `accent-ghost-hover` 가 정확히 흰 8% 다. 호버는 한 단 진한 12%(제품의 밝기 필터 대신).
+ * 루트 · variant 를 함께 적는다 — icon-button 의 ghost 규칙(0,2,0)과 호버 규칙(0,3,0)을 파일 순서가 아니라 특이도로 이긴다. */
+.louis-chat-panel .louis-chat-panel__close[data-variant="ghost"] {
+  background: var(--louis-color-accent-ghost-hover);
+}
+
+/* ── 본문 ── 닫힘에는 크기 0 이라 알약 크기에 끼지 않는다. 6px 올라오며 나타난다(HSS:589-655). */
+.louis-chat-panel__body {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-self: flex-end;
+  inline-size: 0;
+  block-size: 0;
+  max-block-size: 0;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  /* 6 — 사다리(4 · 8) 사이라 리터럴(HSS:636). */
+  translate: 0 6px;
+  pointer-events: none;
+  transition-property: opacity, translate;
+  transition-duration: var(--louis-motion-chat-panel-morph-duration);
+  transition-timing-function: var(--louis-motion-chat-panel-morph-timing-function);
+}
+
+.louis-chat-panel:where([data-state="open"], [data-state="closing"]) .louis-chat-panel__body {
+  flex: 1 1 auto;
+  inline-size: 100%;
+  block-size: auto;
+  max-block-size: none;
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__body {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+  /* 창이 먼저 자라고 내용이 뒤따른다 — 제품 지연 80~120(HSS:614 · :645). */
+  transition-delay: var(--louis-motion-stagger-2-delay);
+}
+
+/* ── 기록 ── 굴러가는 칸이 곧 메시지 열이다(제품의 두 겹을 한 겹으로). 위 10 · 좌우 14 · 말풍선 사이 8(HSS:512-519 · :969-980). */
+.louis-chat-panel__log {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--louis-space-control-sm);
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* 10 — 사다리(8 · 12) 사이라 리터럴(HSS:518). */
+  padding: 10px var(--louis-chat-panel-gutter) 0;
+}
+
+/* ── 말풍선 ── 8 · 12 · 반경 12 · 최대 85%(HSS:452-464 · :1074-1082). */
+.louis-chat-panel__bubble {
+  box-sizing: border-box;
+  max-inline-size: 85%;
+  padding: var(--louis-space-control-sm) var(--louis-space-control-md);
+  border-radius: var(--louis-radius-card);
+}
+
+/* 도우미 — 흰 12% 면(다크 스코프). 글 11.66. */
+.louis-chat-panel__bubble[data-from="assistant"] {
+  align-self: flex-start;
+  background: var(--louis-color-gray-000-alpha-12);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 사용자 — 강조 면. 글 3.37 은 Button primary 의 수용 편차와 같은 쌍이다(판정 3). */
+.louis-chat-panel__bubble[data-from="user"] {
+  align-self: flex-end;
+  background: var(--louis-color-accent-primary);
+  color: var(--louis-color-fg-inverse);
+}
+
+/* 생각 중 — `aria-busy` 말풍선이 4px 올라오며 들어온다(KF:950-958). 글자는 `louis-loading-word`. */
+.louis-chat-panel__bubble[aria-busy="true"] {
+  animation-name: louis-chat-panel-rise-sm;
+  animation-duration: var(--louis-motion-overlay-enter-duration);
+  animation-timing-function: var(--louis-motion-overlay-enter-timing-function);
+  animation-fill-mode: backwards;
+}
+
+.louis-chat-panel__text {
+  margin: 0;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  overflow-wrap: anywhere;
+}
+
+/* 차이 상자 — 수정안의 새 구간. 위 6 · 6 · 10 · 반경 8 · 흰 4% 를 말풍선 면 위에 한 겹 더(HSS:575-587).
+ * 잉크는 `fg-secondary`(4.53) — 제품 gray-200(6.12)은 다크 스코프에 같은 칸이 없다(판정 10). */
+.louis-chat-panel__diff {
+  display: flex;
+  flex-direction: column;
+  /* 6 — 사다리(4 · 8) 사이라 리터럴(HSS:579 · :585). */
+  gap: 6px;
+  margin-block-start: 6px;
+  padding: 6px 10px;
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 미디어 말풍선 — 수정안 미리보기를 담는 틀. 안의 플레이어는 소비처 것이다(HSS:1003-1010). */
+.louis-chat-panel__media {
+  align-self: flex-start;
+  inline-size: 100%;
+  max-inline-size: 85%;
+  border-radius: var(--louis-radius-card);
+  overflow: hidden;
+}
+
+/* 결정 줄 — 적용(primary) · 취소(ghost) `louis-button` 둘(HSS:445-450). */
+.louis-chat-panel__actions {
+  display: flex;
+  align-self: flex-start;
+  gap: var(--louis-space-control-sm);
+}
+
+/* ── 독 ── 제안 줄 + 입력 줄. 위 10 · 사이 10(HSS:482-489). */
+.louis-chat-panel__dock {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 10px;
+  padding-block-start: 10px;
+}
+
+/* 독 위 선 — 제안 줄이 있을 때만. 양끝이 사라지는 1px(HSS:490-498). */
+.louis-chat-panel__dock:has(> .louis-chat-panel__suggestions)::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--louis-border-width-default);
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--louis-chat-panel-divider) 10%,
+    var(--louis-chat-panel-divider) 90%,
+    transparent 100%
+  );
+}
+
+/* 제안 줄 — 가운데 한 줄, 접지 않는다(HSS:564-573). */
+.louis-chat-panel__suggestions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding-inline: var(--louis-chat-panel-gutter);
+}
+
+/* 제안 — 글자만 있는 단추. 누르면 그 글이 사용자 말풍선이 된다(CRW:126-128). */
+.louis-chat-panel__suggestion {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--louis-color-fg-tertiary);
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 둘째부터 — 간격 20 의 가운데에 독 위 선까지 닿는 세로 선(HSS:533-541). */
+.louis-chat-panel__suggestion + .louis-chat-panel__suggestion {
+  margin-inline-start: 20px;
+}
+
+.louis-chat-panel__suggestion + .louis-chat-panel__suggestion::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -10px;
+  inset-inline-start: -10px;
+  inline-size: var(--louis-border-width-default);
+  block-size: calc(100% + 10px);
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--louis-chat-panel-divider) 0%, var(--louis-chat-panel-divider) 90%, transparent 100%);
+}
+
+.louis-chat-panel__suggestion:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 창이 열리면 하나씩 올라온다 — 360ms 계열 stagger 토큰. 제품 지연 340 · 440 · 540(HSS:543-545) 중 첫 칸만 맞추고
+ * 뒤는 토큰 간격(40 · 80 · 150)을 따른다 — 340 · 380 · 450. 300 은 창이 거의 다 자란 시점(440 의 68%). */
+.louis-chat-panel[data-state="open"] .louis-chat-panel__suggestion {
+  animation-name: louis-chat-panel-rise;
+  animation-duration: var(--louis-motion-stagger-1-duration);
+  animation-timing-function: var(--louis-motion-stagger-1-timing-function);
+  /* backwards — 지연 동안만 시작 값을 붙든다. both 면 끝난 뒤에도 opacity 1 이 남아 비활성 제안(0.5)이 켜진 것처럼 보인다. */
+  animation-fill-mode: backwards;
+  animation-delay: calc(300ms + var(--louis-motion-stagger-1-delay));
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__suggestion:nth-child(2) {
+  animation-delay: calc(300ms + var(--louis-motion-stagger-2-delay));
+}
+
+.louis-chat-panel[data-state="open"] .louis-chat-panel__suggestion:nth-child(3) {
+  animation-delay: calc(300ms + var(--louis-motion-stagger-3-delay));
+}
+
+@keyframes louis-chat-panel-rise {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes louis-chat-panel-rise-sm {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ── 입력 줄 ── 8 · 반경 14 · 면 한 칸 위(HSS:958-967). 면은 창 면 위 흰 8% 를 **불투명하게** 합성한다 — #292d33,
+ * 제품 gray-800 #2b2f36 과 눈으로 같다. 반투명으로 두면 아래 모서리로 빛이 비친다. 새 색 토큰 없이 선다(판정 4). */
+.louis-chat-panel__composer {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-space-control-sm);
+  border-radius: var(--louis-chat-panel-inner-radius);
+  background:
+    linear-gradient(var(--louis-color-gray-000-alpha-08), var(--louis-color-gray-000-alpha-08)),
+    var(--louis-color-bg-overlay);
+}
+
+/* 입력칸 — 테두리 · 면 없는 한 줄. 높이 32 는 옆 보내기 버튼과 같다(HSS:928-940). */
+.louis-chat-panel__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  block-size: var(--louis-layout-control-height-md);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* placeholder — `fg-secondary`(text-field 규칙). 제품 gray-400 은 입력 줄 위 4.09 라 고쳐 올린다 → 5.63. */
+.louis-chat-panel__input::placeholder {
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-chat-panel__input:disabled {
+  cursor: not-allowed;
+}
+
+/* ── 잠김 ── 요금제가 없을 때 대화 대신 서는 점선 단추. 안 10 · 16 · 반경 10 · 높이 43(HSS:1053-1072). */
+.louis-chat-panel__gate {
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin: 0;
+  /* 10 — 사다리(8 · 12) 사이라 리터럴(HSS:1056). */
+  padding: 10px var(--louis-space-control-lg);
+  border: var(--louis-border-width-default) dashed var(--louis-color-gray-000-alpha-16);
+  border-radius: var(--louis-radius-overlay-item);
+  background: transparent;
+  color: var(--louis-color-fg-tertiary);
+  cursor: pointer;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* ── 호버 ── 가리키는 장치에서만. */
+@media (hover: hover) {
+  /* 닫힌 알약 전체가 흰 8%(HSS:756). 열린 머리는 바뀌지 않는다. */
+  .louis-chat-panel[data-state="closed"] .louis-chat-panel__header:hover {
+    background: var(--louis-color-gray-000-alpha-08);
+  }
+
+  .louis-chat-panel .louis-chat-panel__close[data-variant="ghost"]:not(:disabled):hover {
+    background: var(--louis-color-gray-000-alpha-12);
+  }
+
+  .louis-chat-panel__suggestion:not(:disabled):hover {
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 잠김 — 면 4% · 점선과 글이 강조 hover 색(HSS:1069-1071). 5.88. */
+  .louis-chat-panel__gate:hover {
+    border-color: var(--louis-color-accent-primary-hover);
+    background: var(--louis-color-gray-000-alpha-04);
+    color: var(--louis-color-accent-primary-hover);
+  }
+}
+
+/* ── 줄인 모션 ── 모핑 · 튐 · 올라옴 없이 즉시(HSS:847-849 · :623-625 · :650-654). */
+@media (prefers-reduced-motion: reduce) {
+  .louis-chat-panel,
+  .louis-chat-panel::before,
+  .louis-chat-panel::after,
+  .louis-chat-panel__header,
+  .louis-chat-panel__trigger,
+  .louis-chat-panel__trigger-icon,
+  .louis-chat-panel__controls,
+  .louis-chat-panel__body {
+    transition-duration: var(--louis-motion-reduced-duration);
+    transition-delay: 0ms;
+  }
+
+  .louis-chat-panel[data-state],
+  .louis-chat-panel__bubble[aria-busy="true"],
+  .louis-chat-panel[data-state="open"] .louis-chat-panel__suggestion {
+    animation: none;
+  }
+
+  .louis-chat-panel__trigger:not(:disabled):active,
+  .louis-chat-panel[data-state="open"] .louis-chat-panel__trigger-icon {
+    scale: none;
+  }
+}
+
+/* ── 강제 색 ── 그림자 · 빛이 사라지면 창 경계 · 말풍선 · 입력 줄이 남지 않는다. 테두리로 되살린다. */
+@media (forced-colors: active) {
+  .louis-chat-panel,
+  .louis-chat-panel__bubble,
+  .louis-chat-panel__composer {
+    outline: var(--louis-border-width-default) solid CanvasText;
+    outline-offset: calc(0px - var(--louis-border-width-default));
+  }
+
+  /* 포커스는 입력칸이 받고 링은 입력 줄이 그린다(text-field 상자 선례, base.css 머리말). */
+  .louis-chat-panel__composer:focus-within {
+    outline: var(--louis-border-width-ring) solid Highlight;
+  }
+}

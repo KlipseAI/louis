@@ -367,6 +367,21 @@
             "rotate",
             "scale"
           ]
+        },
+        {
+          "lifecycle": "morph",
+          "motion": "motion-chat-panel-morph",
+          "properties": [
+            "inline-size",
+            "max-inline-size",
+            "max-block-size",
+            "padding",
+            "border-radius",
+            "box-shadow",
+            "opacity",
+            "translate",
+            "scale"
+          ]
         }
       ],
       "proposalNotice": "REVIEW PROPOSAL — validate in Figma before publishing variables or styles.",
@@ -461,6 +476,10 @@
         },
         {
           "motion": "motion-coverflow-shift",
+          "reduced": "motion-reduced"
+        },
+        {
+          "motion": "motion-chat-panel-morph",
           "reduced": "motion-reduced"
         }
       ],
@@ -9484,6 +9503,60 @@
             }
           }
         },
+        "transition-chat-panel-morph": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "transition/chat-panel-morph",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "primitive transition은 Figma에 만들지 않습니다. Figma에는 style→style alias가 없어 semantic→primitive tier 관계를 보존할 수 없습니다 (DS-D-0007)."
+          ],
+          "nativeVariableType": null,
+          "representation": "unrepresented",
+          "scopes": [],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 440
+                },
+                "timingFunction": [
+                  0.32,
+                  0.72,
+                  0,
+                  1
+                ]
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 440
+                },
+                "timingFunction": [
+                  0.32,
+                  0.72,
+                  0,
+                  1
+                ]
+              },
+              "sourcePath": "primitive.transition.chat-panel-morph"
+            }
+          }
+        },
         "transition-content-fade": {
           "$type": "transition",
           "fields": [
@@ -14329,6 +14402,48 @@
                 "value": 10
               },
               "sourcePath": "semantic.global.misc.scrollbar-size"
+            }
+          }
+        },
+        "motion-chat-panel-morph": {
+          "$type": "transition",
+          "fields": [
+            "delay",
+            "duration",
+            "timingFunction"
+          ],
+          "figmaName": "motion/chat-panel-morph",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "DTCG transition은 Figma가 해석하지 않는 문서용 STRING 변수로 격하됩니다."
+          ],
+          "nativeVariableType": "STRING",
+          "representation": "variable-documentation",
+          "scopes": [],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.transition.chat-panel-morph}",
+              "aliasTarget": {
+                "id": "transition-chat-panel-morph",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "delay": {
+                  "unit": "ms",
+                  "value": 0
+                },
+                "duration": {
+                  "unit": "ms",
+                  "value": 440
+                },
+                "timingFunction": [
+                  0.32,
+                  0.72,
+                  0,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.global.motion.chat-panel-morph"
             }
           }
         },

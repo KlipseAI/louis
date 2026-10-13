@@ -362,6 +362,21 @@ export const metadata = Object.freeze({
         "rotate",
         "scale"
       ]
+    },
+    {
+      "motion": "motion-chat-panel-morph",
+      "properties": [
+        "inline-size",
+        "max-inline-size",
+        "max-block-size",
+        "padding",
+        "border-radius",
+        "box-shadow",
+        "opacity",
+        "translate",
+        "scale"
+      ],
+      "lifecycle": "morph"
     }
   ],
   "reducedMotionPairs": [
@@ -455,6 +470,10 @@ export const metadata = Object.freeze({
     },
     {
       "motion": "motion-coverflow-shift",
+      "reduced": "motion-reduced"
+    },
+    {
+      "motion": "motion-chat-panel-morph",
       "reduced": "motion-reduced"
     }
   ],
@@ -7612,6 +7631,49 @@ export const primitives = {
       "unit": "px"
     }
   },
+  "transition-chat-panel-morph": {
+    "aliasTarget": null,
+    "cssProperties": {},
+    "deprecated": null,
+    "description": null,
+    "id": "transition-chat-panel-morph",
+    "mode": "base",
+    "rawValue": {
+      "duration": {
+        "value": 440,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.32,
+        0.72,
+        0,
+        1
+      ]
+    },
+    "sourcePath": "primitive.transition.chat-panel-morph",
+    "tier": "primitive",
+    "type": "transition",
+    "value": {
+      "duration": {
+        "value": 440,
+        "unit": "ms"
+      },
+      "delay": {
+        "value": 0,
+        "unit": "ms"
+      },
+      "timingFunction": [
+        0.32,
+        0.72,
+        0,
+        1
+      ]
+    }
+  },
   "transition-content-fade": {
     "aliasTarget": null,
     "cssProperties": {},
@@ -11402,6 +11464,41 @@ export const tokens = {
       "value": {
         "value": 10,
         "unit": "px"
+      }
+    },
+    "motion-chat-panel-morph": {
+      "aliasTarget": {
+        "id": "transition-chat-panel-morph",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-motion-chat-panel-morph-duration": "440ms",
+        "--louis-motion-chat-panel-morph-delay": "0ms",
+        "--louis-motion-chat-panel-morph-timing-function": "cubic-bezier(0.32, 0.72, 0, 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "motion-chat-panel-morph",
+      "mode": "global",
+      "rawValue": "{primitive.transition.chat-panel-morph}",
+      "sourcePath": "semantic.global.motion.chat-panel-morph",
+      "tier": "semantic",
+      "type": "transition",
+      "value": {
+        "duration": {
+          "value": 440,
+          "unit": "ms"
+        },
+        "delay": {
+          "value": 0,
+          "unit": "ms"
+        },
+        "timingFunction": [
+          0.32,
+          0.72,
+          0,
+          1
+        ]
       }
     },
     "motion-content-fade": {

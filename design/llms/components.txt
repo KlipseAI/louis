@@ -369,7 +369,7 @@ Klipse 화면을 이루는 재사용 가능한 UI 단위다. 컴포넌트가 코
 | [SegmentedControlItem](../components/segmented-control-item.md) | `experimental` | `partial` | `not-ready` | `partial` | 세그먼트 하나. hover·selected·focus 는 컨트롤이 아니라 여기가 받으므로 별도 component set 으로 뽑고 프로토타입 반응(ON_HOVER → Hover, ON_CLICK → Selected)을 건다. hover 는 글자색만 바꾼다. 2026-09-01 DS-D-0035 재판정: Figma 는 `partial` 로 남는다 — geometry 는 붙었고 되재기도 있으나 계약이 `lg`·`md` 두 칸만 걸고 **Figma 가 그리는 `xs` 는 대조 범위 밖**이다. 그 `xs` 는 제품 정본·CSS·Figma 세 곳이 서로 다른 값을 갖는 미결 축이라(계약 주석이 그 셋을 나란히 적어 두었다) 값 판정이 선행한다. `sm` 은 반대로 코드에만 있고 Figma Item 에 없다. |
 | [Select](../components/select.md) | `experimental` | `done` | `partial` | `done` | 2026-08-18 에 not-planned 였다 — 「고르기는 Menu 가 소유한다」. DS-D-0053 이 그 판정을 뒤집었다: 그 판정은 네이티브 <select> 엘리먼트를 셌는데(14벌 / 5파일 · 전부 admin 계열) 제품이 값을 고르는 방식은 그것이 아니다. 앵커 5a67d692 에서 components/scenes/create/CustomDropdown.tsx 가 JSX 아홉 자리 / 여덟 파일에 서 있고 Gnb 가 물기 때문에 사실상 전 라우트에 뜬다. **여는 것은 트리거 하나다** — 패널은 MenuPanel, 항목과 「지금 값」 표시는 Menu, 검색 필드는 TextField(HasLabel=false) 가 이미 소유한다. CSS 레시피(.louis-select-trigger)는 있고 React 표면은 없다. Figma component set 8 variant(Size × State) 이고 계약에 geometry 가 붙어 양방향이다 — select.browser.test.tsx 가 코드 쪽에서 같은 실측을 되잰다. 제품 원장의 CustomDropdown 항은 이 회차에 움직이지 않는다: 제품이 아직 이 트리거를 물지 않았고, 커버리지가 오르는 것은 채택하는 회차다. |
 | [Selectable List Row](../components/selectable-list-row.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 12건이 두 motion context에서 각각 돈다. master-detail의 좌측 열이며 제품 3벌 중 2벌(행의 면이 선택을 갖는 쪽)을 덮는다 — 나머지 1벌은 선택을 체크박스가 가지므로 Checkbox + 행 레이아웃이다. 선택은 aria-current가 소유하고 **면이 갖는다**(bg-inset + fg-primary). 3px 선행 표식은 2026-09-22 에 걷었다(DS-D-0070) — 제품 세 소비처가 모두 표식을 끄고 있었고 소유자가 왼쪽 막대를 거부했다. 지금 다크 bg-inset 은 canvas 와 같고 올라온 면들과 갈리므로, 목록은 캔버스가 아니라 올라온 면 위에 둔다. listbox가 아니며 Tab이 목록을 훑는다. Figma component set 3 variant(State)가 섰고 parity 게이트가 Text·Title·Meta·Media·Trailing을 자손으로 대조한다 — raw fill 0. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(selectable-list-row · selectable-list-row.browser.test.tsx). |
-| [Choice Card](../components/choice-card.md) | `experimental` | `partial` | `not-ready` | `partial` | 한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다 — 두 표현을 둘 다 두는 것은 2026-10-07 소유자 결정이다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거는 아직 없다. Figma 는 2026-10-08 에 component set ChoiceCard(42 변형 — Variant · Size · Role · Checked · Invalid · State)가 섰고 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피와 맞댄다 — 되재는 브라우저 시험이 없어 DS-D-0035 (c) 를 채우지 못하므로 partial 이다. 소유자 판정 남음: 카드 안쪽 여백 32·28 이 의도인지, 쉬는 면을 accent-secondary 로 닫은 것이 맞는지. |
+| [Choice Card](../components/choice-card.md) | `experimental` | `partial` | `not-ready` | `partial` | 한 질문의 선택지를 카드나 행 하나씩으로 늘어놓고 하나(radio) 또는 여럿(checkbox)을 고르는 묶음. 2026-10-07 제품 감사에서 두 작업 브랜치가 서로 모르고 같은 것을 두 번 짠 것이 확인됐다 — 앰배서더 지원서 Choice(feat/ambassador-links ApplyFlow.tsx@2ceec4ed3:94-157, 고른 면 accent-secondary-selected + 2px 주색 링)와 지표 온보딩 OPTION(codex/actionable-product-metrics ResearchOnboarding.tsx@e80c86ee7:77, 고른 면 accent-inverse 뒤집기). 골격(role · aria-checked · 로빙 tabindex · 오류 링 · 상태별 box-shadow 한 줄)은 같고 고른 면의 표현만 갈려 data-variant card · row 한 컴포넌트로 묶었다 — 두 표현을 둘 다 두는 것은 2026-10-07 소유자 결정이다. 오류 링은 DS-D-0075 와 같은 값이다. CSS recipe .louis-choice-group · .louis-choice-card(packages/css/src/component/choice-card.css)가 2026-10-07 에 섰다. React 표면 · acceptance test · 제품 소비 증거는 아직 없다. Figma 는 2026-10-08 에 component set ChoiceCard(42 변형 — Variant · Size · Role · Checked · Invalid · State)가 섰고 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록은 레시피 선언이고 verify-recipe-record 가 레시피와 맞댄다. 2026-10-13 에 줄 목록 칸(list/md · list/sm)을 기록 · 계약에 더했고 packages/react/test/choice-card.browser.test.tsx 가 다섯 칸을 계산값으로 되재 DS-D-0035 (c) 조건이 선다 — done 승격 판정이 남아 partial 이다. 소유자 판정 남음: 카드 안쪽 여백 32·28 이 의도인지, 쉬는 면을 accent-secondary 로 닫은 것이 맞는지. |
 | [Section Header](../components/section-header.md) | `experimental` | `done` | `partial` | `done` | 화면·묶음·패널의 머리. 정본은 제품 app/admin/AdminSection.tsx 의 AdminSectionHeader 이고 호출 지점이 11 파일 17 자리다(page 11 · section 5 · label 1). 같은 조형이 어드민 밖에도 있다 — components/ui/PageHeader 가 앱 허브 넷에서 같은 제목 36 SemiBold + 설명 16 Medium 을 그린다. **그 「같다」를 실측으로 대조했고 갈리는 자리는 아래 여백 하나였다**: PageHeader 는 32 를 통째로 지고 page 는 12 만 지며, 어드민 쪽은 감싸는 스택의 gap-10(20)이 나머지를 내 합이 두 곳 다 32 다(제품이 BlogManagement.tsx:50-52 · TemplateManagement.tsx:1009-1012 에 그 셈을 적어 두었다). Level 축은 밀도가 아니라 문서 위계라 Size 가 아니고, 그 축 이름이 2026-09-07 에 figma-component-authoring.md §2 표에 열렸다. React 표면이 없어 정본이 CSS 레시피이고 브라우저 테스트가 클래스 마크업을 렌더한다(alert 와 같다). 719px 접힘은 Figma 에 그릴 자리가 없어 계약의 $foldRule 이 규칙으로 갖고 브라우저 테스트만 되잰다 — 한쪽만 있는 근거다. typography-heading-md-semibold 토큰이 이 컴포넌트와 함께 열렸다: LOUIS heading 계열에 semibold 가 하나도 없었고 제품 스케일에는 실재하는 칸이라 지어낸 역할이 아니라 빠져 있던 칸을 채운 것이다. **/admin 은 제품의 대비·타이포·표면 게이트가 하나도 재지 않는 영역이라** 제품이 문 뒤에도 회귀는 사람이 봐야 한다. DS-D-0035 판정: Figma done — readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(section-header · section-header.browser.test.tsx). |
 | [Skeleton](../components/skeleton.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 5건이 두 motion context에서 각각 돈다. **면 색을 고르지 않는다** — 제품 실측(면 8% · 하이라이트 9%, 전경색 기준)대로 currentColor를 낮은 알파로 깐다. 인계서 (1c)의 "면 색 판정"은 solid 토큰이 필요하다는 전제 위에 있었고 실측이 그것을 부정했다. 흐름은 background-position이며 loop 허용 property(DS-D-0016)와 제품 우세 기법이 같은 곳을 가리킨다. 크기는 호출부가 정한다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(skeleton · skeleton.browser.test.tsx). |
 | [Slider](../components/slider.md) | `experimental` | `done` | `partial` | `done` | public export와 실브라우저 acceptance test 16건이 두 motion context에서 각각 돈다. **제품에 공용 구현이 없다** — 정의 37벌이 일곱 레시피로 갈리고 합의하는 축이 하나도 없어 값은 DS가 정했다. 네이티브 <input type="range">이며 track 변형이 제품 인스펙터의 채움 막대를 흡수한다(제품은 그 자리에서 썸을 지웠고 DS는 표식을 곧 썸으로 만든다). 레일·썸의 렌더 결과는 섀도우 pseudo-element라 계산값을 읽을 수 없어 CSSOM 선언을 대조한다. Figma component set 4 variant(Size×Variant)가 섰고 **복합 키 `{size}/{variant}`를 쓰는 유일한 컴포넌트**다 — Variant 축이 레일 두께 4↔28과 썸 16↔2×14를 바꾼다. parity 게이트가 Rail·Fill·Thumb·Control·Label을 그룹별로 대조하고 변조 canary가 한 variant만 어긋난 경우를 잡는다. publish는 DS-F-008이다 2026-09-01 DS-D-0035 재판정: Figma `done`. readback 등재 + 계약이 모든 property 를 pin + 기하 evidence 가 두 방향이다(slider · slider.browser.test.tsx). |
@@ -3586,9 +3586,13 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
   레시피는 Drop Zone 과 같은 안쪽 링이다 — 바깥 outline 은 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로 말하게 된다.
   첨부 지우기도 제품 28 원 · 칸 밖 6 · inverse 면(:192-193)에서 Media Slot 의 22 원 · 안쪽 5 · 미디어 스크림으로 접힌다
   (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).
-- **여러 줄 판에 React 표면 · 실브라우저 시험이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Layout`(`base` · `multiline`, `Size=lg` 에만) ·
-  BOOLEAN `HasAttachments` · `HasToolbar` · `State=DragOver`(multiline 에만). 기록 `input.lg/stacked/multiline` 은 Figma 되읽기에서 옮긴
-  값(상자 높이 340 = 본문 최소 200 + 첨부 줄 + 도구 줄)이라 실브라우저로 다시 재기 전이다.
+- **여러 줄 판에 React 표면이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Layout`(`base` · `multiline`, `Size=lg` 에만) ·
+  BOOLEAN `HasAttachments` · `HasToolbar` · `State=DragOver`(multiline 에만). 기록 `input.lg/stacked/multiline` 은 실브라우저 시험
+  (`packages/react/test/text-field.browser.test.tsx`)이 문서 마크업 조립(본문 · 첨부 한 칸 · 툴바)으로 잰다.
+- **여러 줄 본문은 border-box 다(2026-10-13 고침).** 실브라우저 시험이 본문 `.louis-text-field__control` 이 content-box 로 서서
+  `min-block-size: 200px` 에 여백 16 × 2 가 더해진 232 를 만드는 것을 찾았다(상자 372 대 Figma 340). 제품 `min-h-[200px]`
+  (`app/inquiry/InquiryClient.tsx:185`)는 Tailwind preflight 의 border-box 아래 값이고 레시피는 전역 reset 을 기대하지 않으므로
+  ([DS-D-0004](../governance/decisions/DS-D-0004-css-authoring.md)) 여러 줄 본문에 `box-sizing: border-box` 를 선언해 340 으로 맞췄다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로
   남았다. 도구 줄의 `sm` 필드는 보통 시각 라벨 없이 `aria-label`로 서므로 지금은 부딪히지
   않는다. 라벨을 가진 `sm` 필드가 실제로 생기면 **그때 재서** 정한다 — 여기서 유도하면 재지 않은
@@ -5757,7 +5761,7 @@ Figma 는 세트 `SelectableListRow` 에 `Layout`(`base` · `link`)을 연다. `
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
+| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 다섯 칸)이 있다. 기하 기록은 레시피 선언이고(verify-recipe-record 가 맞댄다) 2026-10-13 부터 `packages/react/test/choice-card.browser.test.tsx` 가 다섯 칸을 계산값으로 되잰다 — DS-D-0035 (c) 조건은 서고 `done` 승격 판정이 남았다 |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 
@@ -5866,7 +5870,8 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 **Figma 는 2026-10-13 에 섰다.** 세트 `ChoiceCard` 의 `Variant` 에 `list` 를 더했다 — `list` × `Size`(md · sm) × `Role` × 쉼 · 호버 · 비활성 ·
 오류 쉼 · 호버 · 고름 쉼 · 호버 · 비활성 32 칸(레시피가 고른 줄에도 호버를 걸고 오류 링을 가져 card · row 보다 넓다). 표식이 앞에 서는 프레임이다
-(자식 순서가 바뀐다, §2 시험 2). 기록 `choice-card` 의 `list/md` · `list/sm` 칸은 아직 없어 기하는 대조되지 않는다.
+(자식 순서가 바뀐다, §2 시험 2). 기록 `choice-card` 의 `list/md` · `list/sm` 칸(2026-10-13)을 parity 가 대조하고, 다섯 칸 모두를
+실브라우저 시험(`packages/react/test/choice-card.browser.test.tsx`)이 클래스 마크업의 계산값으로 되잰다.
 
 #### Interaction and responsive behavior
 
@@ -6053,7 +6058,8 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 
 #### Acceptance tests
 
-아직 없다. 서면 다음을 되잰다.
+기하 되재기만 섰다(2026-10-13, `packages/react/test/choice-card.browser.test.tsx` — 기록 다섯 칸의 계산값과 줄 목록의 표식 자리).
+아래 동작 · 상태 시험은 아직 없다. 서면 다음을 되잰다.
 
 1. 쉬는 · 고른 · 오류 상태의 면 · 링이 States 표와 같다. **한 요소에서 `box-shadow` 가 상태마다 정확히 하나만 맞는다**(쉼 / 고름 /
    오류가 서로를 가리지 않는다).
@@ -7324,7 +7330,8 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 - **`ruler` 의 눈금 잉크를 시맨틱 칸으로 접었다.** 제품 22% · 34%(`ColorRulerSlider.tsx:287-297`)를 가장 가까운 `gray-000-alpha-20` · `-32` 로 쓴다.
 - **`ruler` 에 React 표면이 아직 없다.** Figma 는 2026-10-13 에 섰다 — `Size=lg, Variant=ruler` × `State`(Default · Disabled, Figma 가 희소 세트를
   받지 않아 `Size=lg` 가 붙는다)와 눈금 하위 컴포넌트 `SliderRulerTicks`(큰 눈금 16 을 기록 `slider-ruler-ticks` 와 실브라우저 시험이 잰다).
-  자 · 지시선 · 값 머리의 나머지 기하는 Figma 되읽기에서 옮긴 기록이라 실브라우저로 다시 재기 전이다. Disabled 칸은 레시피에 규칙이 없어 thumb 의 Disabled 를 본떴다.
+  기록 `slider.lg/ruler` 의 쌓기 간격 4 · 이름 12 는 실브라우저 시험(`packages/react/test/slider.browser.test.tsx`)이 문서 마크업으로 잰다.
+  자 40 · 지시선 28 · 기본값 점 12 는 기록 칸이 없어 레시피와 이 문서가 소유한다. Disabled 칸은 레시피에 규칙이 없어 thumb 의 Disabled 를 본떴다.
 - **세로 방향(`data-orientation="vertical"`)을 열지 않았다**(2026-10-07 판정). 열려면 네이티브 range 의 세로
   방식(`writing-mode: vertical-lr` + `direction: rtl`)과 WebKit · Gecko 의 썸 정렬 보정 · 키 방향을 두 브라우저에서
   재야 하는데 harness 가 Chromium 단독이고 pseudo-element 의 렌더 결과를 게이트가 읽지 못한다. 소비처도
@@ -17959,7 +17966,8 @@ TextField lg 와 한 줄에 나란히 서는 트리거다(`data-size="lg"`, 2026
 **48 칸은 열지 않는다.** 문의 화면의 48 은 입력칸까지 48 로 덮은 화면이라 lg 가 아니다 — 아래 Known deviations 8.
 
 **Figma `SelectTrigger Size=lg` 는 2026-10-13 에 섰다.** `lg` × `State` 4 × `Placeholder` 2 = 8 칸이고, 기록 `select.lg`(40 · 16 · 8)를
-parity 가 대조한다. 실브라우저 시험은 아직 md · sm 만 잰다.
+parity 가 대조하고 실브라우저 시험(`packages/react/test/select.browser.test.tsx`)이 lg 까지 세 칸을 잰다. 되읽기에서 옮길 때 md 칸의
+값 글자(caption 12/18)가 따라왔던 것을 그 시험이 잡아 기록을 레시피 값 14/21 로 고쳤다(2026-10-13).
 
 `Disabled` 와 `Hover`·`Open` 은 곱하지 않는다 — 꺼진 트리거 위에서 그 둘이 서지 않으므로
 한 축으로 접었다(figma-component-authoring.md 의 접기 시험).

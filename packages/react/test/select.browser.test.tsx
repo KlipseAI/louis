@@ -17,9 +17,11 @@ import "@klipse-design/css/layers.css";
 import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
-type Size = "md" | "sm";
+type Size = "md" | "sm" | "lg";
 
-const SIZES: readonly Size[] = ["md", "sm"];
+// lg(2026-10-13, DS-D-0084)는 폼 안에서 TextField lg 와 나란히 서는 칸이다. 기록 `select.lg` 는 Figma 되읽기에서
+// 옮긴 값이라 이 시험이 서기 전에는 코드 쪽 반대편이 없었다.
+const SIZES: readonly Size[] = ["md", "sm", "lg"];
 
 const px = (value: string): number => Number.parseFloat(value);
 const rect = (node: Element): DOMRect => node.getBoundingClientRect();
@@ -62,7 +64,7 @@ function Specimen({
       <button
         type="button"
         className="louis-select-trigger"
-        data-size={size === "sm" ? "sm" : undefined}
+        data-size={size === "md" ? undefined : size}
         data-testid="trigger"
         aria-haspopup="listbox"
         aria-expanded={open}

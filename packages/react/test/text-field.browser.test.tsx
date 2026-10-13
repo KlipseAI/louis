@@ -542,3 +542,67 @@ test("결합하지 않은 필드는 겹치지 않고 네 모서리가 모두 둥
   expect(px(getComputedStyle(box).borderStartStartRadius), "위 반경").toBe(spec.radius);
   expect(px(getComputedStyle(box).borderEndStartRadius), "아래 반경").toBe(spec.radiusBottom);
 });
+
+// 여러 줄 판 `lg/stacked/multiline`(2026-10-13, DS-D-0084). React prop 이 없어 문서 「여러 줄 판」 마크업 그대로 렌더한다 — 본문 ·
+// 첨부 줄(Media Slot attachment 하나) · 툴바(Node Chip + 개수)가 다 선 모습이 Figma 의 `HasAttachments=true, HasToolbar=true` 다.
+// **상자 높이는 CSS 선언이 아니라 조립의 합이다** — 본문 최소 200 + 첨부 줄(72 + 아래 12) + 툴바(사방 12 + 칩 32). 그래서 같은
+// 조립을 세워 그 합을 잰다. 칸 하나의 값이 움직이면(첨부 칸 72, 칩 높이, 툴바 여백) 이 합이 기록과 갈린다.
+test("TextField lg/stacked/multiline의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components.input.sizes["lg/stacked/multiline"];
+  await render(
+    <div style={{ inlineSize: `${spec.boxWidth}px` }}>
+      <div className="louis-text-field" data-multiline="true" data-testid="multiline">
+        <label className="louis-text-field__label" htmlFor="multiline-body">
+          내용
+        </label>
+        <div className="louis-text-field__box" data-drag-over="false">
+          <textarea id="multiline-body" className="louis-text-field__control" rows={8} />
+          <div className="louis-text-field__attachments louis-media-slot-strip" data-layout="wrap">
+            <div className="louis-media-slot" data-size="attachment">
+              <img className="louis-media-slot__media" alt="screenshot.png" />
+              <button type="button" className="louis-media-slot__remove" aria-label="첨부 지우기: screenshot.png" />
+            </div>
+          </div>
+          <div className="louis-text-field__toolbar">
+            <button type="button" className="louis-node-chip">
+              그림 첨부
+            </button>
+            <span className="louis-text-field__counter" aria-live="polite">
+              1 / 5
+            </span>
+          </div>
+        </div>
+        <p className="louis-text-field__message">최대 다섯 장까지 붙입니다</p>
+      </div>
+    </div>,
+  );
+  const root = find('[data-testid="multiline"]');
+  const box = root.querySelector(".louis-text-field__box") as HTMLElement;
+  const boxStyle = getComputedStyle(box);
+  expect(box.offsetHeight, "height — 본문 최소 + 첨부 줄 + 툴바").toBe(spec.height);
+  expect(box.offsetWidth, "boxWidth").toBe(spec.boxWidth);
+  expect(boxStyle.flexDirection, "layoutMode VERTICAL").toBe("column");
+  expect(px(boxStyle.paddingTop), "paddingBlock").toBe(spec.paddingBlock);
+  expect(px(boxStyle.paddingBottom), "paddingBlockEnd").toBe(spec.paddingBlock);
+  expect(px(boxStyle.paddingInlineStart), "paddingInline").toBe(spec.paddingInline);
+  expect(px(boxStyle.paddingInlineEnd), "paddingInlineEnd").toBe(spec.paddingInline);
+  expect(px(boxStyle.rowGap), "gap").toBe(spec.gap);
+  expect(px(boxStyle.borderStartStartRadius), "radius").toBe(spec.radius);
+  expect(px(boxStyle.borderEndStartRadius), "radiusBottom").toBe(spec.radiusBottom);
+  expect(declaredBorderWidth(), "borderWidth").toBe(spec.borderWidth);
+  expect(boxStyle.borderTopWidth, "border 제거").toBe("0px");
+  expect(boxStyle.boxShadow, "inset 헤어라인").toContain("inset");
+
+  const control = getComputedStyle(root.querySelector(".louis-text-field__control") as HTMLElement);
+  expect(px(control.fontSize), "fontSize").toBe(spec.fontSize);
+  expect(round(px(control.lineHeight)), "lineHeight").toBe(spec.lineHeight);
+  expect(
+    px(getComputedStyle(root.querySelector(".louis-text-field__label") as HTMLElement).fontSize),
+    "labelFontSize",
+  ).toBe(spec.labelFontSize);
+  expect(
+    px(getComputedStyle(root.querySelector(".louis-text-field__message") as HTMLElement).fontSize),
+    "messageFontSize",
+  ).toBe(spec.messageFontSize);
+  expect(px(getComputedStyle(root).rowGap), "stackGap").toBe(spec.stackGap);
+});

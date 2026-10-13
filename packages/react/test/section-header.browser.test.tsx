@@ -23,6 +23,8 @@ import "@klipse-design/css/tokens.css";
 import "@klipse-design/css/styles.css";
 
 type Level = "page" | "section" | "label";
+/** 어드민 밖 자리의 세 단(2026-10-13, DS-D-0084). 슬롯 구성이 단마다 달라 위 세 단의 루프와 따로 잰다. */
+type PlaceLevel = "list" | "article" | "display";
 
 const LEVELS: readonly Level[] = ["page", "section", "label"];
 
@@ -34,7 +36,37 @@ const NARROW = 719;
 const px = (value: string): number => Number.parseFloat(value);
 const round = (value: number): number => Math.round(value * 1000) / 1000;
 
-const markup = (level: Level): string => {
+/** 문서 Usage 절의 세 마크업 그대로다(section-header.md 「목록 머리」 · 「글 머리」 · 「전시 머리」). */
+const placeMarkup = (level: PlaceLevel): string => {
+  if (level === "list") {
+    return [
+      `<div class="louis-section-header" data-level="list" id="header">`,
+      `<div class="louis-section-header__text" id="text"><h2 class="louis-section-header__title" id="title">아카이브<span class="louis-section-header__count">8</span></h2></div>`,
+      `<div class="louis-section-header__actions" id="actions"><button type="button">새 하이라이트</button></div>`,
+      `</div>`,
+    ].join("");
+  }
+  if (level === "article") {
+    return [
+      `<header class="louis-section-header" data-level="article" id="header">`,
+      `<div class="louis-section-header__text" id="text">`,
+      `<h1 class="louis-section-header__title" id="title">제목</h1>`,
+      `<p class="louis-section-header__description" id="description">리드 한 단락</p>`,
+      `<div class="louis-section-header__meta" id="meta"><time datetime="2026-10-13">2026.10.13</time></div>`,
+      `</div>`,
+      `</header>`,
+    ].join("");
+  }
+  return [
+    `<div class="louis-section-header" data-level="display" id="header">`,
+    `<div class="louis-section-header__text" id="text"><h2 class="louis-section-header__title" id="title">새 소식</h2></div>`,
+    `<div class="louis-section-header__actions" id="actions"><button type="button">이전</button><button type="button">다음</button></div>`,
+    `</div>`,
+  ].join("");
+};
+
+const markup = (level: Level | PlaceLevel): string => {
+  if (level === "list" || level === "article" || level === "display") return placeMarkup(level);
   const rows = [`<h2 class="louis-section-header__title" id="title">성과 지표</h2>`];
   if (level === "page") {
     rows.push(
@@ -72,7 +104,7 @@ interface Mounted {
  * 스타일시트는 문서의 `<style>`·`<link>` 를 복제해 넣는다 — vite 가 테스트 문서에 주입한
  * 것과 **같은 내용**이어야 하고, 따로 import 하면 두 벌이 갈릴 수 있다.
  */
-function mount(level: Level, width: number): Mounted {
+function mount(level: Level | PlaceLevel, width: number): Mounted {
   const frame = document.createElement("iframe");
   frame.style.inlineSize = `${width}px`;
   frame.style.blockSize = "400px";
@@ -224,6 +256,84 @@ test("SectionHeader 는 719px 이하에서 세로로 접히고 액션이 폭을 
     expect(round(dom.widthOf("actions")), "액션이 폭을 채운다").toBe(
       round(dom.widthOf("header")),
     );
+  } finally {
+    dom.dispose();
+  }
+});
+
+/* ── 어드민 밖 자리의 세 단 ────────────────────────────────────────────────────
+ *
+ * 기록 `list` · `article` · `display` 칸은 2026-10-13 변형 묶음에서 Figma 되읽기로 옮긴 값이다. 그 값을 레시피가 여전히
+ * 만드는지 여기서 잰다 — 1024 폭이라 랜딩 제목 계단(≤1023)은 서지 않고 정본 값(36)이 선다. */
+
+/** 세 단이 같이 갖는 머리 · 제목 블록 · 제목 축을 잰다. 슬롯 축은 단마다 따로다. */
+function expectHeadAxes(
+  dom: Mounted,
+  spec: {
+    readonly align: string;
+    readonly rowGap: number;
+    readonly marginBlockEnd: number;
+    readonly textGap: number;
+    readonly titleFontSize: number;
+    readonly titleLineHeight: number;
+  },
+): void {
+  const style = dom.styleOf("header");
+  expect(style.flexDirection, "가로로 선다").toBe("row");
+  expect(style.alignItems, "align").toBe(spec.align);
+  expect(px(style.columnGap), "rowGap").toBe(spec.rowGap);
+  expect(px(style.marginBlockEnd), "marginBlockEnd").toBe(spec.marginBlockEnd);
+  expect(px(style.paddingTop), "paddingBlock").toBe(0);
+  expect(px(style.paddingLeft), "paddingInline").toBe(0);
+  expect(px(style.paddingRight), "paddingInlineEnd").toBe(0);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(0);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(0);
+
+  const text = dom.styleOf("text");
+  expect(text.flexDirection, "제목 블록은 세로").toBe("column");
+  expect(px(text.rowGap), "textGap").toBe(spec.textGap);
+
+  const title = dom.styleOf("title");
+  expect(px(title.fontSize), "titleFontSize").toBe(spec.titleFontSize);
+  expect(round(px(title.lineHeight)), "titleLineHeight").toBe(round(spec.titleLineHeight));
+}
+
+test("SectionHeader list의 구조값이 components.measured.json과 같다", () => {
+  const spec = measured.components["section-header"].sizes.list;
+  const dom = mount("list", WIDE);
+  try {
+    expectHeadAxes(dom, spec);
+    expect(px(dom.styleOf("header").paddingBottom), "paddingBlockEnd").toBe(0);
+    expect(px(dom.styleOf("actions").columnGap), "actionsGap").toBe(spec.actionsGap);
+  } finally {
+    dom.dispose();
+  }
+});
+
+test("SectionHeader article의 구조값이 components.measured.json과 같다", () => {
+  const spec = measured.components["section-header"].sizes.article;
+  const dom = mount("article", WIDE);
+  try {
+    expectHeadAxes(dom, spec);
+    expect(px(dom.styleOf("description").fontSize), "descriptionFontSize").toBe(
+      spec.descriptionFontSize,
+    );
+    const meta = dom.styleOf("meta");
+    expect(px(meta.fontSize), "metaFontSize").toBe(spec.metaFontSize);
+    expect(px(meta.lineHeight), "metaLineHeight").toBe(spec.metaLineHeight);
+    expect(dom.maybe("actions"), "액션 자리가 없다").toBeNull();
+  } finally {
+    dom.dispose();
+  }
+});
+
+test("SectionHeader display의 구조값이 components.measured.json과 같다", () => {
+  const spec = measured.components["section-header"].sizes.display;
+  const dom = mount("display", WIDE);
+  try {
+    expectHeadAxes(dom, spec);
+    expect(px(dom.styleOf("header").paddingBottom), "paddingBlockEnd").toBe(0);
+    expect(px(dom.styleOf("actions").columnGap), "actionsGap").toBe(spec.actionsGap);
   } finally {
     dom.dispose();
   }

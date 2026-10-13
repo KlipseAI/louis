@@ -299,3 +299,38 @@ test("접근성 위반이 없다", async () => {
 });
 
 export type _EnsureTsx = JSX.Element;
+
+// 이동 행 `link`(2026-10-13, DS-D-0084). React prop 이 없어 문서 「이동 행」 마크업 그대로 렌더한다. 기록 `link` 칸을 레시피가
+// 여전히 만드는지 잰다 — 여백 · 간격 · 반경 · 글자는 기본 행에서 물려받고 정렬만 위로 바뀐다.
+test("이동 행 link의 구조값이 components.measured.json과 같다", async () => {
+  const link = measured.components["selectable-list-row"].sizes.link;
+  await render(
+    <div data-louis-fixture style={{ inlineSize: 320 }}>
+      <button type="button" className="louis-selectable-list-row" data-layout="link">
+        <span className="louis-selectable-list-row__text">
+          <span className="louis-selectable-list-row__title">노드 둘러보기</span>
+          <span className="louis-selectable-list-row__meta">캔버스에 놓을 수 있는 노드와 쓰임새</span>
+        </span>
+        <span className="louis-selectable-list-row__trailing">
+          <span>24</span>
+          <svg aria-hidden="true" width="16" height="16" />
+        </span>
+      </button>
+    </div>,
+  );
+  const style = getComputedStyle(row());
+  expect(style.alignItems, "위 정렬").toBe("flex-start");
+  expect(px(style.paddingTop), "padding").toBe(link.padding);
+  expect(px(style.paddingLeft), "padding (가로)").toBe(link.padding);
+  expect(px(style.columnGap), "gap").toBe(link.gap);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(link.radius);
+  expect(px(style.fontSize), "titleFontSize").toBe(link.titleFontSize);
+  expect(round(px(style.lineHeight)), "titleLineHeight").toBe(link.titleLineHeight);
+
+  const meta = getComputedStyle(find(".louis-selectable-list-row__meta"));
+  expect(px(meta.fontSize), "metaFontSize").toBe(link.metaFontSize);
+  expect(round(px(meta.lineHeight)), "metaLineHeight").toBe(link.metaLineHeight);
+  expect(px(getComputedStyle(find(".louis-selectable-list-row__text")).rowGap), "textGap").toBe(
+    link.textGap,
+  );
+});

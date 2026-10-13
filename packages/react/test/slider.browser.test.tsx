@@ -368,3 +368,40 @@ test("slider ruler: 큰 눈금 높이가 SliderRulerTicks 기록과 같다", asy
   const height = Number.parseFloat(getComputedStyle(strip, "::after").height);
   expect(height).toBe(measured.components["slider-ruler-ticks"].sizes.ticks.height);
 });
+
+// 눈금자 칸 `lg/ruler`(2026-10-13, DS-D-0084) — 기록은 Figma 되읽기에서 옮겼다. 그 값을 레시피가 여전히 만드는지 문서 마크업
+// (slider.md 「눈금자」) 그대로 렌더해 잰다. 이 칸에는 네이티브 컨트롤 · 레일 · 썸이 없어 쌓기 간격과 이름 글자만 잴 것이 있다.
+test("Slider lg/ruler의 구조값이 components.measured.json과 같다", async () => {
+  const spec = measured.components.slider.sizes["lg/ruler"];
+  await render(
+    <div style={{ inlineSize: "320px" }}>
+      <div className="louis-slider" data-variant="ruler" data-testid="ruler-root">
+        <div className="louis-slider__head">
+          <span className="louis-slider__label" id="ruler-exp" data-testid="ruler-label">
+            노출
+          </span>
+          <span className="louis-slider__value">+0.4</span>
+        </div>
+        <div
+          className="louis-slider__ruler"
+          role="slider"
+          tabIndex={0}
+          aria-labelledby="ruler-exp"
+          aria-valuemin={-2}
+          aria-valuemax={2}
+          aria-valuenow={0.4}
+        >
+          <div className="louis-slider__ruler-strip">
+            <span className="louis-slider__ruler-neutral" />
+          </div>
+          <span className="louis-slider__ruler-indicator" />
+        </div>
+      </div>
+    </div>,
+  );
+  const root = find('[data-testid="ruler-root"]');
+  expect(px(getComputedStyle(root).rowGap), "stackGap").toBe(spec.stackGap);
+  expect(px(getComputedStyle(find('[data-testid="ruler-label"]')).fontSize), "labelFontSize").toBe(
+    spec.labelFontSize,
+  );
+});

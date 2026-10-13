@@ -64,7 +64,7 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
 | Surface | 상태 | 근거 |
 | --- | --- | --- |
 | Web | `not-ready` | CSS recipe 만 있다. React 표면 · 실브라우저 acceptance test · 제품 소비 증거 없음 |
-| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 세 칸)이 있다. 기하 기록이 브라우저 실측이 아니라 레시피 선언이고(verify-recipe-record 가 맞댄다) React 표면이 없어 되재는 브라우저 시험이 없으므로 DS-D-0035 (c) 를 채우지 못해 `done` 이 아니다 |
+| Figma | `partial` | component set `ChoiceCard`(DS · Components 「2 · 입력」, 2026-10-08). 되읽기 등재 + parity 계약(축 · 효과 · 기하 다섯 칸)이 있다. 기하 기록은 레시피 선언이고(verify-recipe-record 가 맞댄다) 2026-10-13 부터 `packages/react/test/choice-card.browser.test.tsx` 가 다섯 칸을 계산값으로 되잰다 — DS-D-0035 (c) 조건은 서고 `done` 승격 판정이 남았다 |
 | Documentation | `partial` | 이 문서. 제품이 이 클래스를 물고 acceptance test 가 서면 `done` |
 | Maturity | `experimental` | 레시피와 문서가 처음 선다. 승격 조건은 되재기(Acceptance tests)가 서고 제품이 이 클래스를 무는 것이다 |
 
@@ -173,7 +173,8 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 **Figma 는 2026-10-13 에 섰다.** 세트 `ChoiceCard` 의 `Variant` 에 `list` 를 더했다 — `list` × `Size`(md · sm) × `Role` × 쉼 · 호버 · 비활성 ·
 오류 쉼 · 호버 · 고름 쉼 · 호버 · 비활성 32 칸(레시피가 고른 줄에도 호버를 걸고 오류 링을 가져 card · row 보다 넓다). 표식이 앞에 서는 프레임이다
-(자식 순서가 바뀐다, §2 시험 2). 기록 `choice-card` 의 `list/md` · `list/sm` 칸은 아직 없어 기하는 대조되지 않는다.
+(자식 순서가 바뀐다, §2 시험 2). 기록 `choice-card` 의 `list/md` · `list/sm` 칸(2026-10-13)을 parity 가 대조하고, 다섯 칸 모두를
+실브라우저 시험(`packages/react/test/choice-card.browser.test.tsx`)이 클래스 마크업의 계산값으로 되잰다.
 
 ## Interaction and responsive behavior
 
@@ -360,7 +361,8 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 
 ## Acceptance tests
 
-아직 없다. 서면 다음을 되잰다.
+기하 되재기만 섰다(2026-10-13, `packages/react/test/choice-card.browser.test.tsx` — 기록 다섯 칸의 계산값과 줄 목록의 표식 자리).
+아래 동작 · 상태 시험은 아직 없다. 서면 다음을 되잰다.
 
 1. 쉬는 · 고른 · 오류 상태의 면 · 링이 States 표와 같다. **한 요소에서 `box-shadow` 가 상태마다 정확히 하나만 맞는다**(쉼 / 고름 /
    오류가 서로를 가리지 않는다).

@@ -12842,6 +12842,9 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
 }
 
 .louis-text-field[data-multiline="true"] .louis-text-field__control {
+  /* 제품 `min-h-[200px]` 은 Tailwind 의 border-box 아래 값이라 본문 전체(여백 포함)가 200 이다. 선언하지 않으면 content-box 로
+   * 200 + 여백 16 × 2 = 232 가 된다(2026-10-13 실브라우저 시험이 찾았다 — DS-D-0004 4항, 상자 크기 방식은 컴포넌트가 선언한다). */
+  box-sizing: border-box;
   /* 200. 제품 `min-h-[200px]`(InquiryClient.tsx:185) — 문의 본문 여덟 줄. */
   min-block-size: 200px;
   padding: var(--louis-space-control-lg);

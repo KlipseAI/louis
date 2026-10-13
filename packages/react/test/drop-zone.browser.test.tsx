@@ -197,3 +197,26 @@ test("접근성 위반이 없다", async () => {
 });
 
 export type _EnsureTsx = JSX.Element;
+
+// 미디어 무대 `media`(2026-10-13, DS-D-0084). React prop 이 없어 레시피 속성 `data-surface="media"` 를 루트에 직접 건다 — 컴포넌트가
+// 나머지 속성을 루트 `<button>` 에 그대로 넘기므로 소비처가 거는 마크업과 같다. 기록 `media` 칸을 레시피가 여전히 만드는지 잰다.
+test("DropZone media 의 구조값이 components.measured.json 과 같다", async () => {
+  const media = measured.components["drop-zone"].sizes.media;
+  await render(<Fixture data-surface="media" graphic={<svg viewBox="0 0 10 10" />} />);
+  const style = getComputedStyle(zone());
+  expect(zone().getAttribute("data-surface"), "속성이 루트에 선다").toBe("media");
+  expect(px(style.paddingTop), "paddingBlock").toBe(media.paddingBlock);
+  expect(px(style.paddingBottom), "paddingBlock").toBe(media.paddingBlock);
+  expect(px(style.paddingLeft), "paddingInline").toBe(media.paddingInline);
+  expect(px(style.paddingRight), "paddingInline").toBe(media.paddingInline);
+  expect(px(style.rowGap), "gap").toBe(media.gap);
+  expect(px(style.borderTopLeftRadius), "radius").toBe(media.radius);
+  expect(px(style.borderTopWidth), "borderWidth").toBe(media.borderWidth);
+  expect(find(".louis-drop-zone__graphic").offsetWidth, "graphic").toBe(media.graphic);
+  const prompt = getComputedStyle(find(".louis-drop-zone__prompt"));
+  expect(px(prompt.fontSize), "promptFontSize").toBe(media.promptFontSize);
+  expect(px(prompt.lineHeight), "promptLineHeight").toBe(media.promptLineHeight);
+  const caption = getComputedStyle(find(".louis-drop-zone__caption"));
+  expect(px(caption.fontSize), "captionFontSize").toBe(media.captionFontSize);
+  expect(px(caption.lineHeight), "captionLineHeight").toBe(media.captionLineHeight);
+});

@@ -122,7 +122,8 @@ TextField lg 와 한 줄에 나란히 서는 트리거다(`data-size="lg"`, 2026
 **48 칸은 열지 않는다.** 문의 화면의 48 은 입력칸까지 48 로 덮은 화면이라 lg 가 아니다 — 아래 Known deviations 8.
 
 **Figma `SelectTrigger Size=lg` 는 2026-10-13 에 섰다.** `lg` × `State` 4 × `Placeholder` 2 = 8 칸이고, 기록 `select.lg`(40 · 16 · 8)를
-parity 가 대조한다. 실브라우저 시험은 아직 md · sm 만 잰다.
+parity 가 대조하고 실브라우저 시험(`packages/react/test/select.browser.test.tsx`)이 lg 까지 세 칸을 잰다. 되읽기에서 옮길 때 md 칸의
+값 글자(caption 12/18)가 따라왔던 것을 그 시험이 잡아 기록을 레시피 값 14/21 로 고쳤다(2026-10-13).
 
 `Disabled` 와 `Hover`·`Open` 은 곱하지 않는다 — 꺼진 트리거 위에서 그 둘이 서지 않으므로
 한 축으로 접었다(figma-component-authoring.md 의 접기 시험).

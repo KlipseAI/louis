@@ -83,14 +83,20 @@ const hairlineColor = (): string => {
 // **폭이 곧 뷰포트다.** Figma가 480으로 그린 것은 좁은 화면의 대표값이므로, 같은 뜻이 되도록
 // 여기서도 480 뷰포트로 몬다. 1280에서 재면 1280이 나오고 그것은 계약이 틀린 게 아니라
 // 두 매체가 다른 화면을 말하는 것이다.
+//
+// **`attrs` 는 React prop 이 없는 레시피 속성이다(2026-10-13, DS-D-0084).** `compare`(880 폭)와 구분선(`large/true` — Figma
+// `Dividers=true`)은 `DialogSize` union 과 prop 에 없고 소비처가 `.louis-dialog` 루트에 `data-size` · `data-dividers` 를 직접 건다.
+// 그래서 같은 루트에 렌더 뒤 속성을 얹어 그 칸의 기록을 레시피가 여전히 만드는지 잰다.
 const DIALOG_CASES = [
-  { key: "compact", props: { size: "compact" }, viewport: 1280 },
-  { key: "medium", props: { size: "medium" }, viewport: 1280 },
-  { key: "large", props: { size: "large" }, viewport: 1280 },
-  { key: "sheet", props: { variant: "sheet" }, viewport: 480 },
+  { key: "compact", props: { size: "compact" }, attrs: {}, viewport: 1280 },
+  { key: "medium", props: { size: "medium" }, attrs: {}, viewport: 1280 },
+  { key: "large", props: { size: "large" }, attrs: {}, viewport: 1280 },
+  { key: "sheet", props: { variant: "sheet" }, attrs: {}, viewport: 480 },
+  { key: "compare", props: { size: "large" }, attrs: { "data-size": "compare" }, viewport: 1280 },
+  { key: "large/true", props: { size: "large" }, attrs: { "data-dividers": "true" }, viewport: 1280 },
 ] as const;
 
-for (const { key, props, viewport } of DIALOG_CASES) {
+for (const { key, props, attrs, viewport } of DIALOG_CASES) {
   const size = key;
   const spec = measured.components.dialog.sizes[size];
 
@@ -115,6 +121,10 @@ for (const { key, props, viewport } of DIALOG_CASES) {
         </Dialog>
       </OverlayProvider>,
     );
+
+    for (const [name, value] of Object.entries(attrs)) {
+      find(".louis-dialog").setAttribute(name, value);
+    }
 
     const surface = find(".louis-dialog__surface");
     const style = getComputedStyle(surface);

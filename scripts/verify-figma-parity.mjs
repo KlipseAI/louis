@@ -1563,11 +1563,11 @@ const COMPONENT_CONTRACTS = [
       },
     },
     geometry: {
-      // **세 칸을 전부 건다.** 기하를 다시 쓰는 축은 Variant · Size 둘이라 되읽기 키가 그 둘의 곱(행형은 md 하나)이다.
-      // 기록의 값은 브라우저 실측이 아니라 레시피 선언이고 verify-recipe-record 가 레시피 ↔ 기록을 맞댄다 — React 표면이
-      // 없어 component-geometry 브라우저 시험이 이 칸을 되재지 않으므로 DS-D-0035 (c) 를 채우지 못한다(manifest Figma `partial`).
+      // **다섯 칸을 전부 건다.** 기하를 다시 쓰는 축은 Variant · Size 둘이라 되읽기 키가 그 둘의 곱(행형은 md 하나)이다.
+      // 줄 목록(`list/md` · `list/sm`, 2026-10-13)이 더해졌다. 기록의 card · row 칸은 레시피 선언이고 verify-recipe-record 가
+      // 레시피 ↔ 기록을 맞대며, 다섯 칸 모두를 packages/react/test/choice-card.browser.test.tsx 가 클래스 마크업의 계산값으로 되잰다.
       measuredId: "choice-card",
-      sizeKeys: ["card/md", "card/sm", "row/md"],
+      sizeKeys: ["card/md", "card/sm", "row/md", "list/md", "list/sm"],
       fields: {
         // 레시피의 `min-block-size: layout-control-hit-target-minimum` — 높이는 문구가 정하므로 하한만 계약이다.
         minHeight: "minHeight",

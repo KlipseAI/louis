@@ -1,0 +1,45 @@
+/* Editor Workspace — design/patterns/editor-workspace.md
+ *
+ * 캔버스 바닥 점 격자 `.louis-canvas-dots` (DS-D-0084). 노드 캔버스의 바닥이 지름 2 점을 24 격자로 깔고, 그 점이 줌 배율로
+ * 함께 커지며 화면을 끌면 함께 흐른다. 컴포넌트가 아니라 **작업 면의 채움**이다(canvas-edge.md 「패턴 채움」) — DS-D-0084 가
+ * 그것도 정본을 갖게 했다.
+ *
+ * 정본: 제품 `apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx`(xyflow `<Background variant=Dots
+ * gap=24 size=2>`, xyflow 는 반지름을 `size / 2` 로 그린다). 색은 `color-canvas-dot`(제품 `--canvas-dot`, `node-canvas-v2/index.tsx:505` ·
+ * `:530` 과 바이트가 같다, DS-D-0082). 실제 캔버스는 xyflow SVG 를 그대로 쓰고 이 클래스는 **값의 정본**이다 — 랜딩 목업 ·
+ * 정적 데모 · Figma 대조가 이 클래스를 쓴다. 살아 있는 캔버스에 쓰려면 소비처가 배율과 이동량을 넣는다(아래 지역 변수).
+ *
+ * 랜딩 정적 임베드의 20% 점(`node-canvas-v2/index.tsx:542`, 어두운 랜딩 면 위)은 이 클래스의 칸이 아니다 — 새 이름
+ * (`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(소유자 판정 11, 2026-10-13 기본값).
+ *
+ * 차트 점 바닥(`chart-card` `data-floor="dots"`)과 같은 기법이고 격자 · 잉크 · 줌 추종만 다르다. */
+.louis-canvas-dots {
+  /* 24 · 1. 제품 `DEFAULT_CANVAS_DOT_GAP` · `DEFAULT_CANVAS_DOT_SIZE / 2`(CanvasBackground.tsx:5-6). */
+  --louis-canvas-dots-pitch: 24px;
+  --louis-canvas-dots-radius: 1px;
+  /* 캔버스 줌 배율과 화면 이동량. xyflow `transform[2]` · `transform[0..1]` 이 같은 자리다. */
+  --louis-canvas-dots-scale: 1;
+  --louis-canvas-dots-x: 0px;
+  --louis-canvas-dots-y: 0px;
+
+  background-color: var(--louis-color-bg-canvas);
+  background-image: radial-gradient(
+    circle,
+    var(--louis-color-canvas-dot) 0 calc(var(--louis-canvas-dots-radius)*var(--louis-canvas-dots-scale)),
+    transparent calc(var(--louis-canvas-dots-radius)*var(--louis-canvas-dots-scale))
+  );
+  background-size:
+    calc(var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale))
+    calc(var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale));
+  /* radial-gradient 의 점은 칸 가운데에 서므로 반 칸을 되빼 xyflow 처럼 원점에 점을 둔다. */
+  background-position:
+    calc(var(--louis-canvas-dots-x) - var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale) / 2)
+    calc(var(--louis-canvas-dots-y) - var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale) / 2);
+}
+
+/* 강제 색 — 점은 장식이라 걷고 면만 남긴다(면은 시스템 색이 된다). */
+@media (forced-colors: active) {
+  .louis-canvas-dots {
+    background-image: none;
+  }
+}

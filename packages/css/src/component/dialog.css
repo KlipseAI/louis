@@ -270,6 +270,51 @@
   --louis-dialog-inline-size: 720px;
 }
 
+/* compare — 두 열을 견주는 대화(프롬프트 후보 비교, 제품 `PromptVariantCompareModal.tsx:34-38`). 880 은 large 720 밖이다.
+ *
+ * **이름이 `xlarge` 가 아닌 이유.** `compact`·`medium`·`large` 는 Figma 축 어휘에서 폐기된 밀도 형용사다
+ * (figma-component-authoring §2 — 사다리 `sm`·`md`·`lg` 와 같은 뜻을 두 어휘로 부르면 두 벌이 된다). `xlarge` 는
+ * 그 폐기된 계열을 한 칸 늘리는 이름이라, 사다리 밖 값은 쓰임새로 부른다는 같은 절의 규칙대로 `compare` 로 연다.
+ *
+ * 반경은 기본의 유도값(버튼 12 + 발 여백 8 = 20)을 그대로 쓴다 — 제품 `rounded-24` 는 접는다(소유자 판정 12). */
+.louis-dialog[data-size="compare"] {
+  /* 880. 제품 `[inline-size:min(880px,100%)]`(:36). surface 가 `min(…, 100%)` 로 받으므로 좁은 화면에서 줄어든다. */
+  --louis-dialog-inline-size: 880px;
+}
+
+/* 발이 없는 대화 — 본문이 surface 의 마지막 자식이면 카드 아래 여백을 본문이 진다(제품 `PromptVariantCompareModal.tsx:41-44`).
+ * 기본 본문 아래 8 은 발(위 24 · 아래 8)이 뒤따른다는 전제의 값이라, 발이 없으면 카드 바닥이 8 로 붙는다.
+ * 크기와 무관한 일반 규칙이다. 빈 본문은 위 `:empty` 규칙이 이미 접는다. */
+.louis-dialog__body:last-child {
+  padding-block-end: var(--louis-dialog-surface-inset);
+}
+
+/* 구분선 `data-dividers="true"` — 머리 아래 · 발 위 한 면 헤어라인(DS-D-0023). 본문이 스크롤하는 큰 작업 면(크롭)에서
+ * 머리 · 발이 본문과 갈려 보이게 한다. 제품은 1px 12%(`ImageCropModal.tsx:42` · `:68`, 캔버스 `CropModal.tsx:72` · `:190`)이고
+ * 레시피는 공용 헤어라인으로 접는다. 테두리가 아니라 안쪽 그림자라 머리 · 발 높이가 그대로다. */
+.louis-dialog[data-dividers="true"] .louis-dialog__header {
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+/* 발 위 24(본문과 액션 사이)는 선이 이미 갈라 주므로 8 로 줄인다. */
+.louis-dialog[data-dividers="true"] .louis-dialog__footer {
+  padding-block-start: var(--louis-space-control-sm);
+  box-shadow: var(--louis-hairline-inset-block-start);
+}
+
+@media (forced-colors: active) {
+  /* 안쪽 그림자는 강제 색에서 사라지므로 시스템 색 실선으로 되살린다(DS-D-0023). */
+  .louis-dialog[data-dividers="true"] .louis-dialog__header {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-dialog[data-dividers="true"] .louis-dialog__footer {
+    box-shadow: none;
+    border-block-start: var(--louis-border-width-default) solid CanvasText;
+  }
+}
+
 .louis-dialog[data-size="fullscreen"] {
   --louis-dialog-surface-radius: 0;
   padding: 0;

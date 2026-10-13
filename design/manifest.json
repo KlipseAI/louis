@@ -2869,7 +2869,7 @@
       "web": "not-ready",
       "docs": "done",
       "doc": "design/patterns/editor-workspace.md",
-      "note": "Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다."
+      "note": "Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다. 2026-10-13 첫 레시피 `packages/css/src/pattern/editor-workspace.css` — 캔버스 바닥 점 격자 `.louis-canvas-dots`(점 잉크 `gray-000-alpha-12`, 소비처가 간격 · 배율 · 원점을 변수로 준다, DS-D-0084 변형 묶음). 셸 레시피는 아직 없어 web 은 `not-ready` 로 둔다."
     },
     {
       "id": "document",

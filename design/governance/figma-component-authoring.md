@@ -41,14 +41,14 @@ Figma 컴포넌트를 만들거나 고칠 때 지키는 규칙. 기준선은 이
 | --- | --- | --- |
 | `Size` | `sm` · `md` · `lg` · (지역 예외는 **쓰임새 이름**) | 밀도. **`compact`/`medium`/`large`는 폐기** — 같은 뜻을 두 어휘로 부르면 두 벌이 된다. 사다리에 없는 한 컴포넌트의 값은 아래 「사다리 밖 값은 쓰임새로 부른다」 |
 | `Variant` | `primary` · `secondary` · `ghost` · `danger` · `inverse` · (CSS `data-variant` 를 그대로 옮기는 자리는 그 철자) | **강조 단계만.** 부품 이름을 넣지 않는다. 예외 하나 — 강조 축이 없는 컴포넌트가 CSS 에서 `data-variant` 로 표현 갈래를 고르면 같은 이름 · 같은 철자로 옮긴다(Tabs `default` · `underline`, 2026-10-08). 이름을 따로 지으면 코드와 Figma 가 같은 갈래를 두 이름으로 부른다 |
-| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`, RecordCard `raised` = `data-surface`) · (CSS 클래스 이름을 그대로 옮기는 자리는 그 철자 — BareButton `row-title` = `.louis-row-title`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08). 카드가 자기 면을 갖느냐도 이 축이다 — RecordCard `base`(면 없는 줄) · `raised`(올린 면 카드, 2026-10-08). `Surface` 는 아래 깔린 면의 밝기라 쓰지 않는다. 한 레시피 파일의 두 클래스가 같은 뼈대 위에서 반경 · 글자를 다시 쓰는 것도 이 축이다 — BareButton `base`(초기화만) · `row-title`(행 제목, 2026-10-08) |
+| `Layout` | `base` 와 쓰임새 이름(`callout` · `coachmark` · `compact` · `canvas` · `description` · `grabber` · `multiline` · `link` · `media`) · (CSS 속성값을 그대로 옮기는 자리는 그 철자 — Alert `block` · `inline` · `banner`, RecordCard `raised` = `data-surface`) · (CSS 클래스 이름을 그대로 옮기는 자리는 그 철자 — BareButton `row-title` = `.louis-row-title`) | **표면에 담기는 것 · 배치.** 크기 사다리가 아니다 — 같은 부품이 담는 슬롯이나 배치가 갈려 프레임이 자기 값(정렬 · 방향 · 간격)을 다시 쓰는 자리다. Toast · Tooltip · EmptyState · Alert 가 먼저 썼는데 이 표에 없었다(2026-10-08 Menu 두 줄 항목 `description` 을 세우며 올림). 기본 갈래는 `base` 로 부른다. 한 갈래에만 서는 값은 set 을 희소하게 둔다 — Dialog `grabber` 는 `Size=sheet` 에만 있다(2026-10-08). 카드가 자기 면을 갖느냐도 이 축이다 — RecordCard `base`(면 없는 줄) · `raised`(올린 면 카드, 2026-10-08). `Surface` 는 아래 깔린 면의 밝기라 쓰지 않는다. 한 레시피 파일의 두 클래스가 같은 뼈대 위에서 반경 · 글자를 다시 쓰는 것도 이 축이다 — BareButton `base`(초기화만) · `row-title`(행 제목, 2026-10-08) |
 | `Tone` | `neutral` · `info` · `success` · `warning` · `danger` · (CSS `data-tone` 을 그대로 옮기는 자리는 그 철자 — TextLink `default` · `inherit`) | **의미 톤만.** 밝기(`bright`/`dark`)는 톤이 아니다 — 테마면 모드로(§4), 한 테마 안에서 자리마다 갈리면 `Surface` 로 뺀다. 예외 하나 — 의미 톤이 없는 컴포넌트가 CSS 에서 `data-tone` 으로 잉크의 출처를 고르면 같은 철자로 옮긴다(TextLink `inherit` = 주변 잉크 상속, 2026-10-08). `Variant` 의 `data-variant` 예외와 같은 사유다 |
-| `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다 |
-| `Mode` | `determinate` · `indeterminate` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다 |
+| `State` | `Default` · `Hover` · `Active` · `Focus` · `Open` · `DragOver` · `Disabled` | **상호작용 상태만.** `Active` 는 `:active`(누르는 중)다 — `Pressed`(aria-pressed)와 다르며 Button 에는 후자가 없다. 이 뜻은 `design/foundations/interaction-states.md` 가 소유한다. `Open` 은 아래 「`Open` 은 2026-09-07 에 표에 올랐다」를 본다. `DragOver` 는 파일을 끌어 위에 둔 동안이다 — DropZone 이 먼저 썼는데 이 표에 없었다(2026-10-13 TextField `Layout=multiline` 의 첨부 상자를 세우며 올림) |
+| `Mode` | `determinate` · `indeterminate` · `bipolar` | **작동 방식.** 같은 컴포넌트가 서로 다른 원리로 도는 것. 진행률을 아는 막대와 모르는 막대는 상태가 아니라 다른 기계다. `bipolar` 는 0 을 가운데 두고 양 · 음으로 갈리는 값 링이다(2026-10-13 ProgressRing, 보정 슬라이더 짝) |
 | `Direction` | `prev` · `next` | **방향.** 기하는 그대로고 글리프의 향만 바뀐다. 값은 **트랙의 진행 방향**이지 화살표가 가리키는 쪽(`left`/`right`)이 아니다 — 세로 트랙이 생겨도 이름이 산다 |
 | `Surface` | `light` · `dark` | **아래 깔린 면의 밝기.** 테마가 아니다 — 경계는 「`Surface` 는 테마가 아니다」가 정한다. 값은 잉크가 아니라 **면**을 가리킨다: `light` = 밝은 면 위 = 어두운 잉크 |
 | `LabelBehavior` | `stacked` · `floating` | **라벨이 어디 사는가.** `stacked` 은 라벨이 컨트롤 **위**의 형제이고 움직이지 않는다. `floating` 은 라벨이 컨트롤 **안**에서 placeholder 노릇을 하다가 값이나 포커스가 오면 떠오른다. 조건 축이 아니다 — 「지금 떠 있는가」는 `State` 가 담고(`Placeholder` 가 쉼), 이 축은 **디자이너가 고르는** 것이라 `Size` 와 같은 종류다 |
-| `Level` | `page` · `section` · `label` | **문서 위계.** 그 부품이 «무엇의» 머리인가 — 화면 · 카드 안 묶음 · 패널. `Size` 가 아니다: 값이 밀도가 아니고, 셋의 관계가 순서가 아니라 **포함**이다(화면이 묶음을 품고 묶음이 패널을 품는다). 그 차이가 크기 밖으로 새는 자리가 있다 — SectionHeader 는 아래 여백을 `page` 만 지고 `label` 에는 설명·메타·액션 자리가 아예 없다 |
+| `Level` | `page` · `section` · `label` · `list` · `article` · `display` | **문서 위계.** 그 부품이 «무엇의» 머리인가 — 화면 · 카드 안 묶음 · 패널. `Size` 가 아니다: 값이 밀도가 아니고, 셋의 관계가 순서가 아니라 **포함**이다(화면이 묶음을 품고 묶음이 패널을 품는다). 그 차이가 크기 밖으로 새는 자리가 있다 — SectionHeader 는 아래 여백을 `page` 만 지고 `label` 에는 설명·메타·액션 자리가 아예 없다. 어드민 밖 자리의 머리 셋은 2026-10-13 에 올렸다(DS-D-0084) — `list`(허브 목록 머리, CSS 에는 2026-10-12 에 섰는데 이 표에 없었다) · `article`(읽는 글의 머리) · `display`(랜딩 캐러셀 · 섹션 머리). 셋 다 정렬 · 간격 · 접힘이 갈려 프레임이 자기 값을 다시 쓴다(시험 2) |
 | `Orientation` | `vertical` · `horizontal` | **긴 축이 어디로 놓이나.** `Direction` 과 다르다 — `Direction` 은 기하가 그대로고 향만 바뀌지만 여기서는 **기하가 90° 전치된다**(4×60 ↔ 60×4). 축이 바뀌면 커서와 전환 프로퍼티도 함께 바뀐다 |
 | `Role` | `radio` · `checkbox` | **하나를 고르는가, 여럿을 고르는가.** 항목의 ARIA `role` 을 철자 그대로 옮긴다(CSS 가 `[role="checkbox"]` 로 표식의 모양을 가른다). 상태가 아니라 마크업 계약이고, 시각으로는 선택 표식의 모양(원 · 사각)만 바꾼다. 2026-10-08 ChoiceCard 에서 열렸다 |
 | `Underline` | `hover` · `none` | **글자 꾸밈이 언제 서는가.** CSS `data-underline` 을 철자 그대로 옮긴다 — `hover` 는 호버에 밑줄(속성 없음), `none` 은 호버에도 밑줄 없이 색만 바뀐다. 계속 보이는 글자의 꾸밈이 바뀌어 BOOLEAN 이 아니다(시험 1). 2026-10-08 TextLink 에서 열렸다 |
@@ -144,7 +144,7 @@ BOOLEAN 이 못 그리는 조건은 **그 조건 이름을 그대로 쓰는 2값
 Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서 있고, 이 표가 그것을
 인정하지 않고 있었을 뿐이다.
 
-**현재 열려 있는 조건 축 이름은 여덟이다.**
+**현재 열려 있는 조건 축 이름은 아홉이다.**
 
 | 조건 축 | 어디에 | 왜 BOOLEAN 이 아닌가 |
 | --- | --- | --- |
@@ -156,8 +156,9 @@ Switch 의 `Checked` 와 SidebarNavItem 의 `Collapsed` 가 이미 그렇게 서
 | `Collapsed` | 접히는 내비 | 라벨이 사라지고 프레임 폭이 다시 쓰인다(시험 1·2) |
 | `Loading` | 작업이 도는 동안 자리를 여는 라벨 | 프레임이 자기 `itemSpacing` 을 다시 쓰고 두 조건 사이에 전이가 걸린다(시험 2·3) |
 | `Placeholder` | 값이 아직 없는 선택 트리거 | 계속 보이는 값 레이어의 잉크가 바뀐다(시험 1). SelectTrigger 에서 열렸다(2026-10-08) — CSS `data-placeholder` 와 같은 철자다 |
+| `Dividers` | 머리 · 발에 구분선을 긋는 대화 | 선을 켜면 발 위 여백이 24 → 8 로 함께 바뀐다(시험 2). Dialog 에서 열렸다(2026-10-13) — CSS `data-dividers` 와 같은 철자다 |
 
-이 여덟 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
+이 아홉 밖의 조건 이름을 쓰려면 이 표를 먼저 늘린다. `Current` 는 `Selected` 의 두 번째
 어휘이므로 **쓰지 않는다** — 같은 뜻에 이름이 둘이면 두 벌이 된다.
 
 **`LabelBehavior` 는 2026-09-03 에 열렸다** ([DS-D-0049](decisions/DS-D-0049-label-placement-is-an-axis.md)).

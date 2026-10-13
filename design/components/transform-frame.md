@@ -32,6 +32,27 @@ authority: normative
 3. **Handle** — 잡을 곳. 모서리 넷 또는 모서리 넷 + 변 넷. **여덟 자리가 같은 점 하나다** —
    한때 변만 알약으로 눕혔고, 접은 사유는 DS-D-0062 가 갖는다.
 4. **Scrim**(선택) — 버려질 바깥을 덮는 층. 프레임이 아니라 **무대**의 값이라 소비처가 켠다.
+5. **Rotate zone**(선택) — `.louis-transform-frame__rotate-zone[data-position="nw|ne|sw|se"]`. 모서리 **바깥**의
+   보이지 않는 잡이. 그리지 않고 잡히기만 한다. 아래 「회전 자리」.
+
+### 회전 자리 — `__rotate-zone`
+
+스티커 편집처럼 상자를 돌릴 수 있는 자리에서 쓴다(통합 판 `54b62a8aa` `StickerCanvas.tsx:95` 의 `ROTATE_ZONE`,
+자리 `:97-106`). 네 모서리 바깥에 24 × 24 의 보이지 않는 띠가 놓인다.
+
+- **상자 밖에만 놓인다.** 크기와 바깥 오프셋이 같은 값 하나(`--louis-transform-frame-rotate-zone`, 24)라 띠가 상자
+  안쪽으로 넘어오지 않는다 — 넘어오면 모서리를 눌렀을 때 이동 대신 회전이 걸린다. 자리는 프레임 선의 바깥
+  가장자리에서 잰다. 무대 배율(`--louis-transform-frame-scale`)로 손잡이처럼 나눈다.
+- **손잡이보다 먼저 마크업한다.** 모서리 손잡이(±6)와 겹치는 구간에서 손잡이가 문서 순서로 위에 선다 — z-index 없음.
+  정리하면 바깥 띠 = 회전, 모서리 ±6 = 크기, 그 안쪽 = 이동이다(제품 `StickerCanvas.tsx:88-94` 주석과 같은 배치).
+- **커서는 소비처가 넣는다.** 회전 커서는 그림 자산이라 레시피가 갖지 않는다(DS-D-0008) —
+  `--louis-transform-frame-rotate-cursor` 에 커서 url 을 넣는다. 기본은 `crosshair` 다. 제품은 흰 후광 + 검은 획
+  SVG 를 쓴다(`StickerCanvas.tsx:76-86`).
+- **회전 각도는 소비처가 프레임에 건다**(`rotate()`). 회전 수학도 끌기 수학과 같이 소비처 몫이다.
+- 띠는 `touch-action: none` 이다.
+
+Figma 는 바꿀 것이 없다. 보이지 않는 히트 영역은 그리지 않는다 — `Handles` 축과 같은 「그리지 않는 것은 노드를
+지운다」 규칙이다.
 
 ## Properties
 
@@ -126,6 +147,8 @@ DS-D-0060 이 갖는다.
 | 안내선 두께   | `border-width-default`             | 삼분할 선                                     |
 | 안내선 색     | `color-media-indicator-rest`       | 매체 위의 쉬는 표식                           |
 | 스크림        | `color-dim-modal`                  | 소비처가 켠다                                 |
+| 회전 자리     | 24 × 24 · 모서리 바깥 24           | 제품 `w-12 h-12` · `-24px`. 보이지 않는다      |
+| 회전 커서     | `--louis-transform-frame-rotate-cursor` | 기본 `crosshair`. 소비처가 그림을 넣는다  |
 
 ## Implementation
 
@@ -147,6 +170,17 @@ DS-D-0060 이 갖는다.
   </div>
   <span class="louis-transform-frame__handle" data-position="nw"></span>
   <!-- … 내놓을 자리만 -->
+</div>
+```
+
+회전을 받는 자리는 회전 띠를 손잡이 **앞에** 둔다.
+
+```html
+<div class="louis-transform-frame" style="rotate: 12deg">
+  <span class="louis-transform-frame__rotate-zone" data-position="nw"></span>
+  <!-- … ne · sw · se -->
+  <span class="louis-transform-frame__handle" data-position="nw"></span>
+  <!-- … -->
 </div>
 ```
 

@@ -50,6 +50,10 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 2. **Label** — 시각 라벨. `htmlFor`로 컨트롤에 연결된다.
 3. **Control** — 실제 `<input type="range">`. 레일·채움·썸을 전부 이 요소가 그린다.
 
+`ruler` 변형은 Control 대신 다른 부품을 쓴다(아래 「눈금자」) — **Head**(`__head`, 이름 · 지금 값 **Value**(`__value`)가 양 끝),
+**Ruler**(`__ruler`, `role="slider"` 요소), 그 안의 **Strip**(`__ruler-strip`, 눈금 두 겹) · **Neutral**(`__ruler-neutral`, 기본값 점) ·
+**Indicator**(`__ruler-indicator`, 가운데 지시선).
+
 **값 표시는 이 컴포넌트의 부품이 아니다.** 제품은 값 문구의 자리와 형식이 벌마다 다르고(오른쪽
 알약, 라벨 옆, 아래 눈금) 그 배치는 호출부의 격자에 달려 있다. 컴포넌트는 `formatValue`로
 스크린 리더용 표현만 소유한다.
@@ -60,7 +64,7 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 | --- | --- | --- | --- |
 | `label` | ReactNode | 없음 | 시각 라벨. 없으면 `aria-label`이 필수다 |
 | `size` | `lg` \| `md` \| `sm` | `lg` | 컨트롤 높이. 레일 두께는 바뀌지 않는다. **값의 순서가 이름의 순서와 다르다** — 아래 Specification |
-| `variant` | `thumb` \| `track` | `thumb` | 아래 Hierarchy와 variants |
+| `variant` | `thumb` \| `track` | `thumb` | 아래 Hierarchy와 variants. `ruler` 는 CSS 레시피(`data-variant="ruler"`)에만 있고 React prop 이 없다 |
 | `min` / `max` / `step` | number | `0` / `100` / `1` | 범위와 눈금 |
 | `value` | number | 없음 | 주면 controlled가 된다 |
 | `defaultValue` | number | `min` | 비제어 초기값 |
@@ -75,10 +79,44 @@ summary: 정해진 범위 안에서 값 하나를 고릅니다.
 | --- | --- | --- |
 | `thumb` | 4px 레일 위의 둥근 손잡이 | 기본. 값이 한 점으로 읽히면 된다 |
 | `track` | 28/20px 굵은 막대를 채우고 채움 끝에 얇은 표식 | 좁은 인스펙터에서 값이 **양**으로 읽혀야 할 때 |
+| `ruler` | 가운데 고정 지시선 아래로 눈금이 흐르는 40 자 · 기본값 점 | 중립에서 **얼마나 벗어났는지**가 읽혀야 하는 보정값(비디오 편집기 색 보정) |
 
 `track`은 제품 인스펙터 17벌의 형태다. **다른 점이 하나 있다** — 제품은 그 표식을 장식으로
 그리고 진짜 손잡이를 `width:0; opacity:0; pointer-events:none`으로 지웠다. 여기서는 표식이 곧
 손잡이라 모양은 같고 포커스와 방향키가 살아 있다.
+
+## 눈금자 — `data-variant="ruler"`
+
+**지시선이 가운데에 고정되고 눈금이 흐르는** 슬라이더다(비디오 편집기 색 보정, `components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx:253-313`,
+소비처 `ClipColorControls.tsx:180 · :248`). 자를 잡아 끄는 상대 드래그라 네이티브 range 가 아니라 `role="slider"` 요소이고(:8-18),
+기본값 자리는 눈금과 함께 움직이는 점이라 가운데에서 그 점까지가 조정량이다.
+
+```html
+<div class="louis-slider" data-variant="ruler">
+  <div class="louis-slider__head">
+    <span class="louis-slider__label" id="exp">노출</span>
+    <span class="louis-slider__value">+0.4</span>
+  </div>
+  <div class="louis-slider__ruler" role="slider" tabindex="0" aria-labelledby="exp"
+       aria-valuemin="-2" aria-valuemax="2" aria-valuenow="0.4" aria-valuetext="+0.4"
+       style="--louis-slider-ruler-offset:-60%; --louis-slider-ruler-neutral:50%">
+    <div class="louis-slider__ruler-strip"><span class="louis-slider__ruler-neutral"></span></div>
+    <span class="louis-slider__ruler-indicator"></span>
+  </div>
+</div>
+```
+
+| 부분 | 값 |
+| --- | --- |
+| 자 | 40(`layout-control-height-lg`) · 넘침 숨김 · `ew-resize` |
+| 눈금 | 작은 10(`gray-000-alpha-20`) · 큰 16(`-32`, 다섯 칸마다) · 1px(`border-width-default`) · 반복 그라디언트 한 겹씩 |
+| 기본값 점 | 12 원 · `fg-primary` · 위 |
+| 지시선 | 2(`border-width-ring`) × 28 · `inspector-adjust-accent` · 가운데 고정 |
+| 머리 | 이름 caption medium `fg-secondary` · 값 body-sm medium 고정폭 숫자 · 머리와 자 사이 4 |
+
+**소비처가 주는 것:** `--louis-slider-ruler-offset`(띠 왼쪽, 자 폭 기준 %) · `-neutral`(점 자리, 띠 폭 기준 %) · 필요하면 `-span`(띠 폭 =
+범위 길이, 기본 200%) · `-minor`(작은 눈금 주기, 기본 2%). 드래그 배속 · 관성 · 키보드(←→ 한 칸, PageUp/Down 열 칸, Home/End) ·
+`aria-value*` 와 실행취소 묶음은 호출부 JS 다. 좌표는 물리(`left`)다 — 쓰기 방향이 바뀌어도 왼쪽이 작은 값이다.
 
 ## States
 
@@ -101,6 +139,7 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 
 - 폭은 호출부가 정한다. 컨트롤은 `inline-size: 100%`이며 스스로 폭을 갖지 않는다.
 - 레일 어디를 눌러도 그 지점으로 값이 간다. 네이티브 동작이며 손잡이를 정확히 집을 필요가 없다.
+  **`ruler` 는 반대다** — 누른 자리로 값이 뛰지 않고, 끈 거리만큼 눈금이 흐른다(상대 드래그).
 - `touch-action: none`이라 드래그 중에 화면이 따라 스크롤되지 않는다. 스크롤이 따라오면 값이 튄다.
 - **세로 방향은 지원하지 않는다.** 이 컴포넌트(네이티브 range)의 소비처 중 세로가 0벌이다. 제품에 세로
   슬라이더가 **하나 생겼지만**(영상 플레이어의 볼륨 패널, 2026-10-07) 그것은 `role="slider"` `div` 에
@@ -118,6 +157,8 @@ states 표를 두지 않는다. 칠해지는 면(레일·채움·썸)이 전부 
 - **네이티브 `<input type="range">`다.** `role="slider"`, `aria-valuenow`/`valuemin`/`valuemax`,
   방향키·Home/End·PageUp/PageDown, 터치, forced-colors, RTL이 전부 브라우저의 것이다. Button이
   활성화를 네이티브 `<button>`에 맡긴 것과 같은 이유로 여기도 직접 만들지 않는다.
+- **`ruler` 는 네이티브가 아니다.** `__ruler` 가 `role="slider"` · `tabindex="0"` · `aria-labelledby` · `aria-valuemin`/`max`/`now`/`text` 를
+  갖고 키보드를 소비처 JS 가 받는다. 강제 색에서만 `__ruler` 가 `:focus-visible` 로 `Highlight` 링을 받고, 지시선과 점은 `CanvasText` 로 되살아난다.
 - **라벨이 필수다.** 시각 라벨이 없으면 `aria-label`을 준다.
 - `formatValue`는 **숫자가 그 자체로 뜻을 갖지 않을 때만** 준다. `0.5`가 아니라 `50%`,
   `1.5`가 아니라 `1.5배`. 늘 붙이면 `aria-valuetext`가 `aria-valuenow`를 덮어 원래 값을 잃는다.
@@ -232,6 +273,11 @@ Segmented Control이 밀도가 낮은 칸에서 같은 `typography-caption-mediu
 - **제품과 거의 모든 축이 다르다.** 정본이 없으므로 "다르다"가 결함이 아니다. 각 축의 판정은
   [`product.measured.json`](../../migration/product.measured.json)의 `slider`에 있다.
 - **범위(두 손잡이) 선택이 없다.** 제품에 0벌이라 이번 범위가 아니다.
+- **`ruler` 의 지시선이 라이트에서 제품보다 짙다(DS-D-0084 §3).** 제품 `accent-yellow-500` 은 라이트 #fafafa 위 1.73:1 로 그래픽 3:1 에
+  미달한다. `inspector-adjust-accent` 가 라이트를 yellow-700(3.57:1)으로 올리고 다크는 제품 값 그대로다(소유자 판정 9, 2026-10-13 기본값).
+- **`ruler` 의 눈금 잉크를 시맨틱 칸으로 접었다.** 제품 22% · 34%(`ColorRulerSlider.tsx:287-297`)를 가장 가까운 `gray-000-alpha-20` · `-32` 로 쓴다.
+- **`ruler` 에 React 표면 · Figma 변형 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Variant=ruler`(`Size` 없는 희소
+  set, 40 하나 × `State` Default · Disabled)와 눈금 하위 컴포넌트 `SliderRulerTicks` 로 세운다.
 - **세로 방향(`data-orientation="vertical"`)을 열지 않았다**(2026-10-07 판정). 열려면 네이티브 range 의 세로
   방식(`writing-mode: vertical-lr` + `direction: rtl`)과 WebKit · Gecko 의 썸 정렬 보정 · 키 방향을 두 브라우저에서
   재야 하는데 harness 가 Chromium 단독이고 pseudo-element 의 렌더 결과를 게이트가 읽지 못한다. 소비처도

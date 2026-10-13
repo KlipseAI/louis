@@ -99,3 +99,80 @@
 .louis-drop-zone__input {
   display: none;
 }
+
+/* ── 미디어 무대 `data-surface="media"` ───────────────────────────────────────
+ *
+ * 정본: 제품 하이라이트 스튜디오 업로드 무대(`highlightSceneStyles.ts:1197-1259`, `HighlightScene.tsx:943-975`). 파일을 고르면
+ * **같은 무대가 플레이어가 된다** — 그래서 면이 페이지 면이 아니라 플레이어와 같은 검정(`media-stage-surface`)이고,
+ * 글자 · 글리프는 미디어 잉크다.
+ *
+ * 끄는 중의 링은 안쪽 그림자가 아니라 `::after` 다 — 플레이어(자식)가 무대를 다 덮어도 그 **위**에 그려야 해서다.
+ * `::after` 는 위치를 가진 마지막 자손이라 문서 순서로 위에 선다(제품 :1212-1213 주석과 같은 판단, z-index 없음).
+ * 놓기를 받는 것은 이 요소이므로 소비처는 플레이어가 선 뒤에도 이 요소에 `data-drag-over` 를 건다 — 빈 무대에서는
+ * 이 요소가 `<button>`, 플레이어가 서면 `<section>` 이다. */
+.louis-drop-zone[data-surface="media"] {
+  position: relative;
+  gap: var(--louis-space-control-sm);
+  padding-block: var(--louis-space-layout-section);
+  padding-inline: var(--louis-space-layout-section);
+  overflow: hidden;
+  background: var(--louis-color-media-stage-surface);
+  color: var(--louis-color-media-foreground-dark);
+}
+
+@media (hover: hover) {
+  /* 검정 위 흰 4% — 제품 `rgb(palette-gray-000/4%)`(:1246). 투명 면이 아니라 무대 면과 섞은 불투명 값이다(결과가 같다). */
+  .louis-drop-zone[data-surface="media"]:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    background: color-mix(
+      in srgb,
+      var(--louis-color-media-foreground-dark) 4%,
+      var(--louis-color-media-stage-surface)
+    );
+  }
+}
+
+/* 끄는 중 — 면은 무대 그대로, 링만 위에 선다. 링 색은 drop-zone 기본의 `stroke-focus` 다(제품 `accent-primary` 는
+ * 다크에서 한 단 짙다). 기본의 안쪽 그림자는 자식(플레이어)에 가려지므로 끈다. */
+.louis-drop-zone[data-surface="media"][data-drag-over="true"] {
+  background: var(--louis-color-media-stage-surface);
+  box-shadow: none;
+}
+
+.louis-drop-zone[data-surface="media"][data-drag-over="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-stroke-focus);
+  pointer-events: none;
+}
+
+/* 잠김 — 무대는 검정 그대로. 기본의 `bg-inset` 으로 바꾸면 무대가 회색 판이 된다. */
+.louis-drop-zone[data-surface="media"]:is(:disabled, [aria-disabled="true"]) {
+  background: var(--louis-color-media-stage-surface);
+  color: var(--louis-color-media-foreground-dark-muted);
+}
+
+/* 다시 올릴 준비 중 — 누름을 받지 않고 커서로 기다림을 말한다(제품 :1251). */
+.louis-drop-zone[data-surface="media"][aria-disabled="true"] {
+  cursor: progress;
+}
+
+.louis-drop-zone[data-surface="media"] .louis-drop-zone__prompt {
+  /* 6. 제품 `margin-top:6px`(:1254) — 글리프와 제목 사이를 8 + 6 으로 띄운다. */
+  margin-block-start: 6px;
+  font-weight: var(--louis-typography-body-md-medium-font-weight);
+}
+
+/* 안내는 제품 56% 대신 `media-foreground-dark-muted`(64%)다 — 둘 다 미달이 아니고 시맨틱 칸이 64 다. */
+.louis-drop-zone[data-surface="media"] .louis-drop-zone__caption {
+  color: var(--louis-color-media-foreground-dark-muted);
+}
+
+@media (forced-colors: active) {
+  /* 안쪽 그림자 링은 강제 색에서 사라진다 — 시스템 강조색 실선으로 되살린다. */
+  .louis-drop-zone[data-surface="media"][data-drag-over="true"]::after {
+    box-shadow: none;
+    border: var(--louis-border-width-ring) solid Highlight;
+  }
+}

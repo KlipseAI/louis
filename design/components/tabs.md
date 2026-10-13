@@ -92,7 +92,7 @@ React prop이 없으므로 **계약면은 DOM 속성이다.** 레시피가 실�
 | `aria-selected` | `"true"` \| `"false"` | 없음 | 선택된 탭. `"true"`가 투명도를 1로 올린다 |
 | `disabled` | boolean 속성 | 없음 | 비활성. 투명도 0.32 · `cursor: not-allowed` |
 | `aria-disabled` | `"true"` | 없음 | `disabled`와 **같은 선언**을 받는다 |
-| `data-variant` | `"underline"` | 없음 | `.louis-tabs`(목록)에 붙는다. 밑선 탭 줄. 아래 Hierarchy와 variants |
+| `data-variant` | `"underline"` \| `"bar"` | 없음 | `.louis-tabs`(목록)에 붙는다. 밑선 탭 줄 · 막대 탭 줄(2026-10-13). 아래 Hierarchy와 variants |
 
 `aria-selected` 없이 클래스만 붙이면 **선택 상태가 그려지지 않는다.** 지속 상태를 ARIA 속성이
 소유하는 것은 [Interaction states](../foundations/interaction-states.md)의 계약이며, 그래서
@@ -102,9 +102,9 @@ React prop이 없으므로 **계약면은 DOM 속성이다.** 레시피가 실�
 
 ## Hierarchy와 variants
 
-**variant는 `underline` 하나다.** 박스 탭·알약 탭 같은 갈래는 두지 않았다. 제품 일곱 벌이 전부
+**variant는 `underline` · `bar` 둘이다.** 박스 탭·알약 탭 같은 갈래는 두지 않았다. 대시보드 계열 일곱 벌이 전부
 같은 표현(면 없는 텍스트 + 투명도)이며, 실재하지 않는 갈래를 축으로 만들면 Figma에 그릴 수 없는
-option이 생긴다.
+option이 생긴다. `bar` 는 그 일곱 벌 밖의 어드민 서브탭이 실재해서 열었다(아래 「막대 줄」).
 
 **밑선 탭 줄 — `<nav class="louis-tabs" data-variant="underline" role="tablist">`.**
 2026-10-07, 제품 origin/dev `AnalyticsTabs.tsx`(구독 허브 · 유튜브 · 인스타 · 영상 분석 네 화면)가
@@ -132,6 +132,41 @@ option이 생긴다.
 480px 이하 규칙(wrap · 탭 좌우 8 · 첫 탭 시작 0)은 뷰포트 조건이라 Figma 변형이 없다. 축 이름이 `Variant` 인 것은 CSS
 `data-variant` 와 같은 철자를 쓰기 위해서다([Figma 컴포넌트 작성 규범](../governance/figma-component-authoring.md) §2 의 `Variant` 행).
 
+## 막대 줄 — `data-variant="bar"`
+
+페이지 안 서브 탐색(어드민 콘텐츠 관리 · 앰배서더)의 탭 줄이다(2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
+고른 탭 아래 **2px 막대**가 서고, 쉬는 탭은 투명도가 아니라 잉크 `fg-secondary` 로 내린다. 탭은 면도 반경도 좌우 여백도 없이
+글자만 서고, 사이 20, 줄 아래 헤어라인 한 줄.
+
+```html
+<nav class="louis-tabs" data-variant="bar" role="tablist" aria-label="콘텐츠 종류">
+  <button class="louis-tabs__tab" type="button" role="tab" aria-selected="true" tabindex="0">블로그</button>
+  <button class="louis-tabs__tab" type="button" role="tab" aria-selected="false" tabindex="-1">템플릿</button>
+</nav>
+```
+
+| 부분 | 기본 · underline | bar |
+| --- | --- | --- |
+| 탭 | 높이 28 · 좌우 12 · 알약 · body-md | 위아래 12 · 좌우 0 · 반경 0 · body-sm medium(높이 47) |
+| 쉼 · 호버 | 불투명도 0.48 · 0.9 | 잉크 `fg-secondary` · `fg-primary` |
+| 고름 | 불투명도 1 | 잉크 `fg-primary` + 막대 `border-width-ring`(2) `fg-primary` |
+| 비활성 | 불투명도 0.32 | 잉크 `fg-disabled` |
+| 줄 | 간격 4 · 0 | 간격 20 · 가로 스크롤 · 밑선 헤어라인 |
+
+**쓰는 자리:** 화면 머리 아래, 같은 화면의 하위 묶음을 바꾸는 줄. 화면 전환 · 대시보드 탭은 기본 · underline 이다.
+
+출처는 제품 통합 판 `app/admin/contentListStyles.ts:171-174`(소비처 `AmbassadorAdmin.tsx:30` · `ContentManagement.tsx:33`)다.
+줄 밑선은 제품이 이미 `--louis-hairline` 토큰을 바이트 단위로 같게 적고 있었다. **막대는 box-shadow 가 아니라 테두리다** — 제품이
+`border-b-2` 로 높이 47 을 만들고, 강제 색 모드에서도 남는다. 쉬는 탭도 투명 막대를 가져 고를 때 높이가 2px 튀지 않는다.
+전환은 잉크 · 막대 색이라 `motion-tab-select`(opacity 전용)가 아니라 `motion-control-hover` 를 쓴다.
+
+**쉼 잉크가 역할 잉크라 기본 탭의 알려진 대비 미달이 이 변형에는 없다** — 다크 `fg-secondary` on `bg-surface` 7.24:1 ·
+라이트 9.23:1. B2 감사가 이 상수를 「underline」으로 읽었는데 underline 에는 막대가 없어 맞지 않는다.
+
+**Figma 는 아직 없다.** Tabs 세트의 `Variant` 에 `bar` 를 더하고(§2 의 `data-variant` 철자 예외), 탭 하나의 상태를 가진
+`TabItem` 에 `Variant`(`default` · `bar`)를 연다 — 막대 · 잉크 · 여백이 바뀌어 프레임이 자기 값을 다시 쓴다(§2 시험 2).
+`bar` × `State`(Default · Hover · Selected · Disabled) = 4. 막대는 프레임의 아래 획(2 · `color/fg-primary`), 쉼은 같은 획을 투명으로.
+
 **크기 축도 없다.** 높이가 28 하나다. 이 값은 [DS-D-0027](../governance/decisions/DS-D-0027-control-size-ladder.md)의
 컨트롤 사다리(`lg` 40 · `md` 32)를 **따르지 않는다** — 탭은 나란히 서는 컨트롤이 아니라 내비게이션
 줄이고, 제품 일곱 벌이 전부 28이다. 그래서 `control-height-*`가 아니라 자기 토큰
@@ -146,6 +181,9 @@ option이 생긴다.
 | Selected | 투명도 `1` |
 | Disabled | 투명도 `0.32` · `cursor: not-allowed` |
 | Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
+
+막대 줄(`bar`)은 투명도 대신 잉크와 막대로 같은 네 칸을 말한다 — 위 「막대 줄」 표. 강제 색에서는 고른 탭의 막대가
+`Highlight` 로 남고 밑줄 글자 꾸밈은 끈다(막대와 겹친다).
 
 **선택을 면이 아니라 전경 대비로 말한다.** 면을 칠하면 Segmented Control과 같은 표현이 되고,
 같은 화면에 둘이 함께 서는 대시보드 상단에서 어느 쪽이 값이고 어느 쪽이 화면 전환인지 읽히지
@@ -168,7 +206,8 @@ Implementation.
   `min-inline-size: 0`은 이 줄이 flex 부모 안에서 자기 내용 크기 아래로 줄 수 있게 열어 둔 것이며,
   실제 처리(줄바꿈·가로 스크롤)는 호출부가 정한다. 분석 계열 세 파일은 480px 이하에서
   `flex-wrap`하고 문의 폼은 상시 wrap한다. **밑선 변형은 480px 이하 규칙을 레시피가 갖는다** —
-  wrap · 탭 좌우 8px(`space-control-sm`) · 첫 탭 시작 인셋 0.
+  wrap · 탭 좌우 8px(`space-control-sm`) · 첫 탭 시작 인셋 0. **막대 변형은 가로 스크롤이다**(`overflow-x: auto`,
+  제품 `overflow-x-auto`) — 서브탭 줄은 화면 머리 아래 한 줄을 지켜야 해서 줄바꿈하지 않는다.
 - 탭 사이 간격은 4px이지만 **제품 어느 소비처도 이 값을 쓰지 않는다.** 밑선 변형은 0이다. 아래 Known deviations.
 - 전환은 `opacity` 하나다. 폭·위치가 움직이지 않으므로 레이아웃 재계산이 없다.
 - `prefers-reduced-motion: reduce`에서 전환 시간이 0ms가 된다. 상태 자체는 남는다.
@@ -205,9 +244,14 @@ Implementation.
 | 세로 인셋 | 0 | 리터럴 |
 | 반경 | 999px | `radius-pill` |
 | 커서 | `pointer` · 비활성 `not-allowed` | 리터럴 |
-| 탭 사이 간격 | 4px · 밑선 변형 0 | `space-control-xs` · 리터럴 |
+| 탭 사이 간격 | 4px · 밑선 변형 0 · 막대 변형 20 | `space-control-xs` · 리터럴 · 리터럴(제품 `gap-10`) |
 | 밑선(변형) | 헤어라인 inset 1면 | `hairline-inset-block-end` |
 | 480px 이하(변형) | 탭 좌우 8px · 첫 탭 시작 0 · wrap | `space-control-sm` |
+| 막대 변형 탭 | 위아래 12 · 좌우 0 · 반경 0 · 높이 47 | `space-control-md` |
+| 막대 변형 막대 | 2px 아래 테두리 · 고름 `fg-primary` | `border-width-ring` · `color-fg-primary` |
+| 막대 변형 잉크 | 쉼 `fg-secondary` · 호버 · 고름 `fg-primary` · 비활성 `fg-disabled` | `color-fg-*` |
+| 막대 변형 타이포 | 14 · 500 | `typography-body-sm-medium` |
+| 막대 변형 전환 | 잉크 · 막대 색 160ms | `motion-control-hover` |
 | 타이포 | 16/1.5 · 500 · −0.16px | `typography-body-md-medium` |
 | 전경 | light `#171B22` · dark `#FAFAFA` | `color-fg-primary` |
 | 면 | `transparent` | 리터럴 |
@@ -264,7 +308,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - Web source: `packages/css/src/component/tabs.css`
 - Public import: **없다.** 소비처가 `styles.layer.css`를 통해 클래스를 받는다
 - React source: **없다**
-- Figma: TabItem · Tabs(`Variant` = `default` · `underline`)
+- Figma: TabItem · Tabs(`Variant` = `default` · `underline`). 막대 변형(`bar`)은 아직 없다
 - Tests: **없다**(밑선 변형 포함). 하네스는 있다 — 아래 「일부러 하지 않은 것」
 
 - **호출부가 투명도를 덮어쓸 수 있는 것은 특이도가 아니라 레이어 순서 덕이다.** 선택 규칙
@@ -285,7 +329,7 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
 - **패널 컴포넌트.** `role="tabpanel"`과 탭↔패널 연결을 레시피가 갖지 않는다. 패널은 화면마다
   구조가 다르고, DS가 껍데기를 쥐면 소비처가 그 안에 자기 레이아웃을 다시 만든다.
 - **키보드 좌우 이동과 roving tabindex.** 위 Accessibility의 이유. 소유자가 하나여야 한다.
-- **오버플로 전략.** 가로 스크롤도 「더 보기」 메뉴도 두지 않았다. 제품은 줄바꿈을 택했는데 그
+- **오버플로 전략.** 기본 · 밑선 줄에는 가로 스크롤도 「더 보기」 메뉴도 두지 않았다(막대 줄만 제품대로 가로 스크롤이다). 제품은 줄바꿈을 택했는데 그
   판단은 상단 줄의 높이가 변해도 되는 화면에서만 옳다.
 - **아이콘·배지 슬롯.** 제품의 탭 라벨은 전부 글자만이다. 슬롯을 열면 크기 계약을 함께 정해야
   하고, 쓰지 않는 계약은 Figma에서 빈 자리로 남는다.
@@ -376,3 +420,5 @@ Segmented Control이 `layout-change`에서 한 판단과 같다. `motion-tab-sel
     탭 좌우가 8px · 첫 탭 시작이 0 · 줄이 wrap한다. forced-colors에서는 `border-block-end` 실선이 선다.
 18. 레시피에 `:focus-visible` 선언이 없다. 키보드 포커스에 링이 없고 강제 색에서만 `base.css`의
     링이 선다(DS-D-0074).
+19. (미작성) `data-variant="bar"` 의 `gap` 이 20px 이고 탭의 위아래가 12 · 좌우 0 · 아래 테두리 2px 이며 높이가 47px 이다.
+    쉬는 탭은 `opacity` 1 · 잉크 `fg-secondary`, 고른 탭은 막대 · 잉크가 `fg-primary` 이고, 고를 때 높이가 변하지 않는다.

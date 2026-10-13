@@ -335,7 +335,8 @@ export const metadata = Object.freeze({
     {
       "motion": "motion-tab-select",
       "properties": [
-        "opacity"
+        "opacity",
+        "translate"
       ]
     }
   ],
@@ -15865,6 +15866,110 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-floating-divider-mid": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-divider-mid": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-divider-mid",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "sourcePath": "semantic.light.color.floating-divider-mid",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.08
+      }
+    },
+    "color-floating-divider-peak": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-divider-peak": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-divider-peak",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
+      "sourcePath": "semantic.light.color.floating-divider-peak",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-floating-item-selected": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-08",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-item-selected": "color(srgb 0.090196 0.105882 0.133333 / 0.08)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-item-selected",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.08}",
+      "sourcePath": "semantic.light.color.floating-item-selected",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.08
+      }
+    },
+    "color-floating-item-selected-hover": {
+      "aliasTarget": {
+        "id": "color-static-black-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-item-selected-hover": "color(srgb 0.090196 0.105882 0.133333 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-item-selected-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.static-black-alpha.12}",
+      "sourcePath": "semantic.light.color.floating-item-selected-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.090196,
+          0.105882,
+          0.133333
+        ],
+        "alpha": 0.12
+      }
+    },
     "color-gray-000": {
       "aliasTarget": {
         "id": "color-static-black",
@@ -16591,6 +16696,32 @@ export const tokens = {
           0.133333
         ],
         "alpha": 0.4
+      }
+    },
+    "color-inspector-adjust-accent": {
+      "aliasTarget": {
+        "id": "color-yellow-700",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-inspector-adjust-accent": "color(srgb 0.721569 0.462745 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-inspector-adjust-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.700}",
+      "sourcePath": "semantic.light.color.inspector-adjust-accent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.721569,
+          0.462745,
+          0
+        ],
+        "alpha": 1
       }
     },
     "color-landing-line": {
@@ -21884,6 +22015,110 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-floating-divider-mid": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-divider-mid": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-divider-mid",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
+      "sourcePath": "semantic.dark.color.floating-divider-mid",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-floating-divider-peak": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-20",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-divider-peak": "color(srgb 0.980392 0.980392 0.980392 / 0.2)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-divider-peak",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.20}",
+      "sourcePath": "semantic.dark.color.floating-divider-peak",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.2
+      }
+    },
+    "color-floating-item-selected": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-12",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-item-selected": "color(srgb 0.980392 0.980392 0.980392 / 0.12)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-item-selected",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.12}",
+      "sourcePath": "semantic.dark.color.floating-item-selected",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.12
+      }
+    },
+    "color-floating-item-selected-hover": {
+      "aliasTarget": {
+        "id": "color-static-white-alpha-16",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-floating-item-selected-hover": "color(srgb 0.980392 0.980392 0.980392 / 0.16)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-floating-item-selected-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.static-white-alpha.16}",
+      "sourcePath": "semantic.dark.color.floating-item-selected-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.980392,
+          0.980392,
+          0.980392
+        ],
+        "alpha": 0.16
+      }
+    },
     "color-gray-000": {
       "aliasTarget": {
         "id": "color-palette-gray-000",
@@ -22610,6 +22845,32 @@ export const tokens = {
           0.980392
         ],
         "alpha": 0.56
+      }
+    },
+    "color-inspector-adjust-accent": {
+      "aliasTarget": {
+        "id": "color-yellow-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-inspector-adjust-accent": "color(srgb 1 0.698039 0 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-inspector-adjust-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.500}",
+      "sourcePath": "semantic.dark.color.inspector-adjust-accent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.698039,
+          0
+        ],
+        "alpha": 1
       }
     },
     "color-landing-line": {

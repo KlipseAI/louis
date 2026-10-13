@@ -96,6 +96,26 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 오디오 대기 게이지 · 미디어 비율 전환 | 소비처 값 · 기존 `motion-layout-change` | 새 모션 토큰 둘 |
 | 저작 게이트 | 시맨틱 `color-gray-000-alpha-*` 를 연다 | 빈 칸 토큰 다섯 |
 
+## 변형 묶음에서 기본값으로 정한 판단(2026-10-13)
+
+기존 부품의 변형 20개(Updates (247))도 같은 방식이다. 작은 편차는 LOUIS 로 접고 제품 쪽 고침은 (나)로 넘긴다.
+
+| 판단 | 기본값 | 대안 |
+| --- | --- | --- |
+| 문의 화면 48 높이 | Select lg 는 40, 48 칸을 열지 않는다 | TextField · Select 에 48 칸 |
+| lg 캐럿 · 빈 값 잉크 | 캐럿 12 · `fg-tertiary` | 제품 10 · 48%/56% |
+| 템플릿 상세 부제 | 글 머리 리드(body-lg)로 접음 | body-14 칸을 따로 |
+| 랜딩 제목 계단 | 레시피 지역 변수(출처 주석) | `landing-shell` 의 반응형 타이포 토큰 |
+| 줄 목록 선 · 표식 | 헤어라인 · LOUIS 표식 값 | 제품 선 · 반경 4 · 1.5px |
+| 캔버스 상단 바 흐림 | LOUIS 헤더 띠(12 · 직선) | 제품 곡선에 새 마스크 이름 |
+| 툴 버튼 잉크 · 이름 | `fg-secondary` · 켜짐 호버 12% · `fg-disabled`, `floating-shell__item` 하나 | 제품 값 · `canvas-tool-button` 따로 |
+| 끄는 중 · 첨부 지우기 | Drop Zone 안쪽 링 · Media Slot 22 안쪽 | 제품 바깥 outline |
+| 조정 강조 · 양방향 링 | 라이트 yellow-700 · conic 한 겹 | 제품 yellow-500 · SVG 계약 |
+| 모션 메타 | `motion-tab-select` 에 translate 만. scale · 크기는 lifecycle 규칙이 막아 전이로 둔다 | lifecycle 을 고쳐 연다 |
+| 차트 점 · 미디어 위 점 | `gray-000-alpha-12` 로 접음 | `color-canvas-dot-on-media` |
+| 넓은 대화 | `data-size="compare"` · 반경 유도값 20 | `xlarge` · 24 |
+| 미룬 것 | 라이트박스 버튼(`lightbox` 회차) · 타임라인 푸터 · canvas-edge 삭제 · 플레이어 볼륨 · stat-tile cell(어드민 뒤) | — |
+
 ## Rollback
 
 생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). 방침(1~5)은 소유자 지시라 되돌리지 않는다.

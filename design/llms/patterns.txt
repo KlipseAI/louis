@@ -45,7 +45,7 @@
 | [Status Result](../patterns/status-result.md) | `experimental` | `partial` | `not-ready` | `done` | 결제·구독 결과 7화면의 콘텐츠 컬럼. **셸이 아니라 App Shell 카드 안이다.** 세로 리듬이 24px 하나뿐이고 처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다. 액션 버튼이 전폭이라 세로로 쌓인다. 900px 분기는 셸 경계가 아니라 이 화면 계열 전용이며 승인 여부가 blocker다 Figma 에 `DS · Templates` 의 `Pattern · StatusResult`(993:379)로 섰다(2026-08-30). Success·Failure·Processing 세 벌이고(Processing 컬럼 1056:13368 은 2026-08-30 에 더했다 — 문서가 「처리 중에는 위에서 밀지 않고 카드 안 세로 중앙에 온다」고 계약하므로 상태 하나가 아니라 컬럼 하나가 필요하다) **세로 간격이 24 하나뿐**인 것이 계약이라 컬럼 전체를 그 리듬으로만 세웠다. 폭 520(=min(520,100%)) · Alert 는 실패 화면에만 · 액션은 전폭 버튼 세로 쌓기 · Meta list 는 dt/dd 행이다. **아직 없는 것**: 900px 에서 meta 가 세로로 접히는 변형. 그래서 `partial` 이다. |
 | [Route Boundary](../patterns/route-boundary.md) | `experimental` | `partial` | `not-ready` | `done` | 404 · 오류 · 최후 경계 셋. **셋 중 하나는 디자인 시스템을 쓸 수 없다** — 최후 경계는 루트 레이아웃이 실패한 뒤라 토큰도 i18n도 전역 CSS도 없고, 토큰을 참조하도록 「고치면」 그 화면이 막으려던 실패에 함께 휩쓸린다. 앞의 둘은 같은 뼈대를 공용 컴포넌트가 아니라 복제로 쓴다. 값은 전부 제품 인용이며 DS 계약이 아니다 Figma 에 `DS · Templates` 의 `Pattern · RouteBoundary`(993:431)로 섰다(2026-08-30). 세 갈래를 그대로 그렸다 — 404 · 오류는 토큰과 공용 Button 을 쓰고, **최후 경계는 토큰을 쓰지 않는다**. 문서가 「루트 레이아웃이 실패한 뒤라 전역 CSS 도 i18n 도 로드되지 않았다」고 적으므로 그 프레임만 리터럴(#0a0a0a · #ededed · #a1a1a1 · 폭 420)로 그렸다 — 토큰으로 그렸다면 그림이 거짓말을 한다. **아직 없는 것**: ≤719px 좌우 패딩 16 변형. 그래서 `partial` 이다. |
 | [Project Grid](../patterns/project-grid.md) | `experimental` | `partial` | `partial` | `done` | Figma 에 `DS · Templates` 의 `Pattern · ProjectGrid`(991:252)로 섰다(2026-08-30). **열 수를 viewport 표로 그리지 않았다** — 레시피가 `auto-fill minmax(240px, 1fr)` 이라 열 수는 container 폭에서 유도된다(`floor((W + 6) / 246)`). 문서 자신도 viewport 표는 호환 프로파일이고 container 가 좁으면 줄 수 있다고 적는다. 그래서 container 600·850·1116·1300 → 2·3·4·5열로 그렸고, 1116/4열은 `Template · AppHome` 의 격자와 같은 값이다. 상태 셋(Loading=Skeleton block · Error=Alert danger · Empty=EmptyState)도 함께 그렸다. **아직 없는 것**: section header(label·count·action)와 pagination/load-more sentinel. 그래서 `partial` 이다. 2026-09-22 앵커 2c6bdacf 라이브 적용: 4열 밴드가 1116 → 1160 · 카드 287 이 됐고, `Template · AppHome` 의 격자 카드도 같은 287 로 맞췄다(Updates (155)). |
-| [Editor Workspace](../patterns/editor-workspace.md) | `experimental` | `partial` | `not-ready` | `done` | Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다. |
+| [Editor Workspace](../patterns/editor-workspace.md) | `experimental` | `partial` | `not-ready` | `done` | Figma 에 `DS · Templates` 의 `Pattern · EditorWorkspace`(1000:1252)로 섰다(2026-08-30). Regular 은 레시피 그대로 `assets · divider · preview · divider · properties` 상단 행 + 가로 divider + 하단 timeline 이고, 구분자는 전부 `PaneDivider` 인스턴스다. Compact 는 한 열이며 **assets 에도 명시적 진입점**을 두었다(문서가 「숨은 implicit grid track 에 우연히 배치하는 구현을 허용하지 않는다」고 적는다). **pane 폭과 timeline 높이는 예시로 표시했다** — 문서가 「임의 fallback 숫자를 토큰으로 승격하지 않는다」고 하고 실제로 승인된 pane 폭 토큰이 없으므로, 숫자를 그려 넣으면 없는 계약을 만드는 것이 된다. 계약인 것은 구조와 순서다. **아직 없는 것**: Modal editor mode(backdrop · inert · focus trap) · Constrained mode · 캔버스 노드 사이드 컨트롤(`28 · 10 · 8 · 38 · 476` 한 세트). 그래서 `partial` 이다. 2026-10-13 첫 레시피 `packages/css/src/pattern/editor-workspace.css` — 캔버스 바닥 점 격자 `.louis-canvas-dots`(점 잉크 `gray-000-alpha-12`, 소비처가 간격 · 배율 · 원점을 변수로 준다, DS-D-0084 변형 묶음). 셸 레시피는 아직 없어 web 은 `not-ready` 로 둔다. |
 | [Document](../patterns/document.md) | `experimental` | `not-ready` | `partial` | `done` | 보고서 · 운영안 · 제안서처럼 스크롤로 끝까지 읽는 문서. 정본은 소유자가 2026-09-21 에 승인한 「Klipse Meta 광고 운영안」이고, LOUIS 앱 부품(Alert · StatTile · 카드마다 테두리)을 얹은 첫 시안이 거절된 뒤 klipse-deck-kit 구성 규칙으로 다시 짠 것이다. **깊이는 시트 헤어라인 한 겹뿐**이고 시트 안의 면은 `fg-primary` 알파(4 · 8%)로만 선다 — 테두리 · 그림자 없음, 강조색 하나, 초록은 앞선 값 · 노랑은 비용 지점에만. 레시피 `packages/css/src/pattern/document.css`(`.louis-document*`)가 셸 · 머리 · 결정 요청 · 절 · 카드 · 수치 · 비교 막대 · 판정 알약 · 타임라인 · 흐름 · 콜아웃 · 맺음을 갖고, 기존 컴포넌트는 표 하나를 변형 없이 그대로 쓴다(LOUIS 기본 표 `.louis-table` — 2026-09-29 소유자 결정으로 문서용 규선 변형을 걷어냈다, 표만 머리 행의 면 · 헤어라인을 갖는 예외). 나머지를 얹지 않은 이유는 DS-D-0067 판정표. 2026-09-29 에 추이(`.louis-document-trend` — 선 · 계단, 점 목록이 값을 읽힌다)와 캡처(`.louis-document-media` · 나란히 보기 `.louis-document-compare`, 캡처를 실은 카드는 면 8%)를 세웠다. 같은 날 둘째 묶음 일곱(누적 막대 · 표 칸 안의 상태 알약 · 각주와 출처 · 목차 · 코드 표기와 블록 · 인용 · 캡처 위 번호 핀)을 더해 운영 보고 부록이 적은 모자란 부품 아홉이 다 섰다. 예시 `packages/css/examples/document.html` 을 승인 캡처와 데스크톱 · 모바일 · 다크로 나란히 대조했고 실브라우저 테스트 `packages/css/test/document.browser.test.ts` 가 깊이 · 면 합성색 · 간격 · 타이포 · 좁은 화면(카드 여백 20 · 넓은 카드 24/20 · 콜아웃 24)과 목록 롤을 잰다. 레시피는 목록 표식을 모두 지우므로 목록 마크업은 `role="list"` 를 단다(WebKit/VoiceOver 가 롤을 벗기지 않게). **아직 없는 것**: 문서 규칙 값(박스 간격 8 · 카드 여백 24/32 · 시트 폭 · 절 간격)의 토큰 — Figma 변수와 같은 작업에서 세워야 해서(DS-D-0028) 지금은 레시피 루트의 이름이다. Figma 템플릿 보드. 제품 소비처. 강조색 글자(라이트 3.37:1)와 앞선 값 초록(라이트 2.12:1)의 대비. 다른 부품에서 빌린 토큰 셋(`layout-app-shell-outer-gap` · `progress-track` · `alert-warning-stroke` — 루트 이름으로만 읽는다)의 문서 역할 이전과 360 이하에서 4열 수치가 카드를 넘는 것(document.md Known deviations 5 · 6). 그래서 web `partial` · figma `not-ready` 다. |
 <!-- GENERATED:pattern-progress END -->
 <!-- prettier-ignore-end -->
@@ -2700,6 +2700,29 @@ Panel (aside, aria-label)
 - 도움말 쪽 문구를 LOUIS 가 소유하지 않는다. 문구 · 쪽 구성 · 플랜 판정은 제품 데이터 계층이다.
 
 Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` 의 클래스 리터럴을 이 저장소의 토큰 이름으로 읽은 것이다.
+
+#### 바닥 점 격자 — `.louis-canvas-dots`
+
+캔버스 작업 면의 채움이다(레시피 `packages/css/src/pattern/editor-workspace.css`). 지름 2 점 · 24 격자 · `color-canvas-dot`(다크 #fafafa 16% ·
+라이트 pg-600 28%) 위 `bg-canvas`. 정본은 제품 `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:5-6 · :15-20`(xyflow
+`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:505` · `:530`)과 바이트가 같다(DS-D-0082).
+
+점은 **캔버스 좌표**에 박혀 있다 — 줌하면 격자와 점이 함께 커지고, 끌면 함께 흐른다. 살아 있는 캔버스는 `--louis-canvas-dots-scale` ·
+`-x` · `-y` 를 넣고, 목업 · 정적 데모는 클래스만 붙인다. 노드 캔버스 자체는 xyflow 바닥(SVG 패턴)을 같은 값으로 그린다 — 이 클래스는
+**값의 정본**이고 랜딩 목업 · 정적 데모 · Figma 대조가 쓴다.
+
+| 지역 변수 | 기본 | 뜻 |
+| --- | --- | --- |
+| `--louis-canvas-dots-pitch` | 24px | 격자(제품 `gap`) |
+| `--louis-canvas-dots-radius` | 1px | 점 반지름(제품 `size / 2`) |
+| `--louis-canvas-dots-scale` | 1 | 캔버스 줌 배율(xyflow `transform[2]`) |
+| `--louis-canvas-dots-x` · `-y` | 0px | 화면 이동량(xyflow `transform[0..1]`) |
+
+강제 색에서는 점을 걷고 면만 남긴다. [Chart Card](../components/chart-card.md) 의 점 바닥(`data-floor="dots"`)과 같은 기법이고 격자 ·
+잉크 · 줌 추종만 다르다.
+
+**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:542`)라 테마를 따르는
+캔버스 점과 다른 칸이다. 새 이름(`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값).
 
 #### Overlay and portal contract
 

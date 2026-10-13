@@ -17,7 +17,7 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 
 | Surface       | 상태           | 근거                                                          |
 | ------------- | -------------- | -------------------------------------------------------------- |
-| Web           | `partial`      | 브랜드 행·CTA 포함. public export와 실브라우저 acceptance test 10건; 셸 composition은 없다 |
+| Web           | `partial`      | 브랜드 행·CTA 포함. public export와 실브라우저 acceptance test 10건; 셸 composition은 없다. 상단 바 캔버스 판(`data-surface="canvas"`)은 CSS recipe만 섰다(2026-10-13) |
 | Figma         | `partial`      | component 둘 — SidebarNavItem 6 variant(State×Collapsed)와 AppTopBar. publish는 DS-F-008 |
 | Documentation | `done`         | 이 문서                                                        |
 | Maturity      | `experimental` | 규범과 구현이 같은 변경 단위에서 처음 선다                     |
@@ -108,10 +108,58 @@ summary: 앱 셸을 이루는 사이드바 행과 상단 바입니다.
 | | `collapsed` | boolean | `false` | rail이 접혔는가 |
 | AppTopBar | `leading` / `title` / `trailing` | ReactNode | 없음 | 세 슬롯 |
 | | `divider` | boolean | `false` | 아래 경계선 |
+| | `data-surface` | `"canvas"` | 없음 | 캔버스 위에 뜨는 판. React prop 이 아니라 HTML 속성으로 넘긴다(나머지 속성이 루트에 펼쳐진다). 아래 「캔버스 판」 |
 
 ## Hierarchy와 variants
 
-variant 축이 없다. rail 안의 행은 전부 같은 무게이며, 강조는 `current` 하나다.
+SidebarNavItem 에는 variant 축이 없다. rail 안의 행은 전부 같은 무게이며, 강조는 `current` 하나다.
+
+AppTopBar 는 **판(surface) 하나**를 갖는다 — 속성 없음(앱 셸 본문 위) · `data-surface="canvas"`(노드 캔버스 위). 아래 「캔버스 판」.
+
+## 캔버스 판 — `data-surface="canvas"`
+
+2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md). 정본은 제품 통합 판 `54b62a8a`
+`components/scenes/create/ProjectHeader.tsx`(노드 캔버스 상단 바, 자리는 `components/scenes/CreateScene.tsx:133-134`).
+
+캔버스 **위에** 떠 있는 상단 바다. 면이 없고, 위가 진하고 아래로 사라지는 흐림 띠(`progressive-blur-header`)와
+캔버스 바닥색 48% 틴트가 글자를 받친다. 높이 48(위아래 8 · 좌우 12), 앞 묶음 사이 4, 잉크 `fg-primary` 88%.
+
+```html
+<header class="louis-app-top-bar" data-surface="canvas">
+  <a class="louis-app-top-bar__home" href="/nodecanvas" aria-label="아카이브로">…심볼 20…</a>
+  <span class="louis-floating-shell__divider" aria-hidden="true"></span>
+  <div class="louis-app-top-bar__title">
+    <button type="button" class="louis-app-top-bar__title-button" aria-label="프로젝트 이름 바꾸기">새 프로젝트</button>
+  </div>
+  <button type="button" class="louis-floating-shell__item" data-variant="ghost" aria-label="저장">…cloud-check…</button>
+  <div class="louis-app-top-bar__trailing">…툴 버튼들…</div>
+</header>
+```
+
+| 부분 | 값 | 제품 |
+| --- | --- | --- |
+| 바 | 높이 48(파생) · 위아래 8 · 좌우 12 · 사이 4 · 잉크 `fg-primary` 88% | `CreateScene.tsx:134` `py-4 px-6` · `ProjectHeader.tsx:86` · `:323` |
+| 흐림 띠 | `::before` · `progressive-blur-header` · `-mask-header` · `bg-canvas` 48% → 0 | `ProjectHeader.tsx:42-62` |
+| 홈 `__home` | 32 이상 · 왼쪽 6 · 호버 `accent-ghost-hover` · 누름 `accent-secondary-hover` + 0.95 | `:94-99` |
+| 제목 칸 `__title` | 최대 280 · body-md **regular** | `:182-185` · `:543` |
+| 제목 `__title-button` | 32 · 좌우 10 · 반경 12 · 말줄임 · 호버 `accent-ghost-hover` · 누름 `accent-secondary-hover` | `:210-218` |
+| 편집 `__title-input` | 같은 자리 · 투명 · 캐럿 `currentColor` · 링 없음 | `:188-192` |
+| 툴 버튼 · 구분선 | [Floating Shell](floating-shell.md) `__item[data-variant="ghost"]` · `__divider`(바 안에서 좌우 여백 0) | `:174-180` · `:225-282` |
+| 뒤 묶음 `__trailing` | 오른쪽 끝 · 사이 4 | `:320-324` |
+
+마크업 순서는 `__home` · `__divider` · `__title` · 저장 버튼 · `__trailing` 이다. 흐림 층이 `::before` 라 바의 직계 자식(위 다섯과
+툴 버튼 · 구분선)은 `position: relative` 로 그 위에 칠한다 — 숫자 z-index 없이 문서 순서로 쌓인다.
+
+**흐림은 LOUIS 헤더 띠 값으로 접었다.** 제품은 카드 반경 10(`--louis-progressive-blur`)에 지역 곡선(40% 까지 불투명 · 60% 0.8 ·
+80% 0.4, `ProjectHeader.tsx:46-50`)을 쓴다. 같은 「화면 위에 고정된 띠」라 레시피는 `base.css` 가 이미 발행한
+`--louis-progressive-blur-header`(12) · `--louis-progressive-blur-mask-header`(40% → 0 직선)를 읽고 두 번째 마스크 이름을 세우지
+않는다. 직선 곡선은 같은 자리에서 0.67 · 0.33 이다(Known deviations).
+
+**제목은 regular 다.** 기본 바의 제목은 현재 위치를 말하는 medium 이고, 캔버스 위 문서 이름은 위치 표시가 아니라 값이다.
+
+**자리는 소비처가 정한다** — 캔버스 위 `fixed` · 쌓임 순서. 레시피는 흐림 층의 포함 블록이 되려고 `position: relative` 만
+두고, 소비처가 `fixed` 를 주면 그쪽이 이긴다. 이름 바꾸기는 `__title-button` 을 누르면 같은 칸에 `__title-input` 을 두고,
+Enter 는 확정 · Escape 는 취소다(호출부 JS).
 
 ## States
 
@@ -140,7 +188,14 @@ hover에서 전경이 바뀔 때 값이 어긋난다.
 `Gnb.tsx:615`(`currentColor`) · `:615`(`opacity:0.92`) · `:624`(활성에서 `1`) ·
 라벨 `Gnb.tsx:651-669`에 `opacity` 선언 0건.
 
-AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다.
+AppTopBar는 상태 축이 **없다.** 대화형이 아니고 안의 슬롯이 자기 상태를 갖는다. 캔버스 판의 홈 · 제목은 자기 상태를 갖는다.
+
+| state | 캔버스 판 `__home` | 캔버스 판 `__title-button` |
+| --- | --- | --- |
+| Default | 투명 | 투명 |
+| Hover | `color-accent-ghost-hover` | `color-accent-ghost-hover` |
+| Active | `color-accent-secondary-hover` · 크기 0.95 | `color-accent-secondary-hover` |
+| 편집 | — | 같은 자리가 `__title-input`(투명 · 캐럿) |
 
 ## Interaction and responsive behavior
 
@@ -404,6 +459,11 @@ mint를 두 번째로 틀린 이유가 중요하다. `sidebarUpgradeButton`은 �
 | 브랜드 좌측 여백 | 4px → 접힘 0 | `space-control-xs` |
 | 상단 바 제목 | 16px | `typography-body-md-medium` |
 | 상단 바 선행 슬롯 간격 | 4px | `space-control-xs` |
+| 캔버스 판 높이 | 48px — 선언 없음, 8 + 32 + 8 의 파생값 | `space-control-sm` · `layout-control-height-md` |
+| 캔버스 판 여백 · 간격 | 위아래 8 · 좌우 12 · 사이 4 | `space-control-sm` · `space-control-md` · `space-control-xs` |
+| 캔버스 판 제목 | 16px regular · 최대 280 · 32 · 좌우 10 | `typography-body-md-regular` · `layout-control-height-md` · 리터럴 280 · 10(제품 출처 주석) |
+| 캔버스 판 홈 | 최소 32 · 왼쪽 6 · 반경 12 | `layout-control-height-md` · 리터럴 6 · `radius-control` |
+| 캔버스 판 흐림 | 반경 12 · 40% → 0 직선 | `progressive-blur-header` · `progressive-blur-mask-header` |
 
 **상단 바 40px은 DS 계약이지 제품 실측이 아니다(2026-08-21 조립 검증).** 제품의 카드 안(in-panel)
 바는 **높이를 선언하지 않는다** — `Gnb.tsx:460` 이 레시피의 하한을 `[min-block-size:0]` 으로 끄고
@@ -660,6 +720,15 @@ style이다.
   이웃 계단은 `palette-gray-100` `#f1f1f3`과 `palette-gray-150` `#eaebee`다). 그래서 Figma는 이
   면을 변수 없이 raw hex로 그린다. 선택지는 둘이다 — primitive를 세우거나, `.louis-app-shell`의 면을 `bg-canvas`가 아닌 셸
   전용 역할 토큰으로 가르거나. **어느 쪽도 토큰 계약을 바꾸므로 소유자 판정이 남아 있다.**
+- **캔버스 판의 흐림 곡선 · 반경이 제품과 다르다.** 제품은 카드 반경 10 에 지역 곡선(60% 0.8 · 80% 0.4,
+  `ProjectHeader.tsx:46-50`)이고 레시피는 헤더 띠 값(12 · 40% → 0 직선, 같은 자리에서 0.67 · 0.33)이다. 새 마스크 이름을 세우지
+  않고 LOUIS 헤더 띠로 접었다(DS-D-0084 소유자 판정 6).
+- **캔버스 판의 누름 면이 다크에서 옅다** — 제목 · 홈의 제품 누름은 다크 20% · 라이트 12%(`ProjectHeader.tsx:216-217`)이고 레시피는
+  `accent-secondary-hover` 12% 한 칸이다. 홈 버튼 누름의 `filter: saturate brightness` 는 받지 않는다.
+- **제품 제목은 `<span onClick>` 이라 키보드로 이름을 바꿀 수 없다**(`ProjectHeader.tsx:541-554`). 레시피는 `<button>`
+  (`__title-button`)을 계약으로 둔다.
+- **캔버스 판의 React 표면이 없다.** `AppTopBar` 는 나머지 속성을 루트에 펼치므로 `data-surface="canvas"` 를 넘길 수는 있지만,
+  홈 · 제목 버튼 · 편집 입력은 prop 이 아니라 클래스 마크업이다. 브라우저 시험도 아직 이 판을 재지 않는다.
 - **`SidebarBrand` · `SidebarCta` 의 되읽기는 emitter 로 다시 떴다(2026-09-23).** 앵커 `2c6bdacf` 적용 때
   두 세트가 기록과 여러 축에서 갈려 펼친 폭만 옮겨 두었던 것을, 소유자 판정 「Figma 를 계약에 맞춘다」에
   따라 Figma 를 고친 뒤 통째로 다시 떴다. 브랜드는 28 레일을 `Mark` 로 이름 붙이고 그 안의 글리프를

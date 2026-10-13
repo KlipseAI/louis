@@ -56,6 +56,9 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
 **두 표현을 둘 다 둔다 — 소유자 결정(2026-10-07).** 카드형은 링, 행형은 뒤집기로 변형마다 다르게 두고 하나로 합치지
 않는다.
 
+**셋째 변형 `list`(2026-10-13).** 통합 판의 앰배서더 지원서가 카드형을 버리고 면 없는 줄 목록으로 바뀌었다 — 고르면 면은 그대로
+두고 앞에 선 표식만 채운다. 아래 「줄 목록」.
+
 ## Availability
 
 | Surface | 상태 | 근거 |
@@ -90,7 +93,7 @@ summary: 한 질문의 선택지를 카드나 행으로 늘어놓고 하나 또�
    - **Label** — `.louis-choice-card__label`. 선택지 이름.
    - **Description** — `.louis-choice-card__description`. 선택지 설명(선택).
 4. **Marker** — `.louis-choice-card__marker`(`aria-hidden`). 선택 표식. 모양은 항목의 `role` 이 정한다 — `radio` 는 원,
-   `checkbox` 는 반경 6 의 사각. 행형은 보통 두지 않는다.
+   `checkbox` 는 반경 6 의 사각. 행형은 보통 두지 않는다. 줄 목록은 줄 **앞**에 20 으로 선다.
 5. **Message** — 오류 문구. 이 레시피가 아니라 [FormMessage](form-message.md)가 소유한다.
 
 ```html
@@ -112,8 +115,8 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 | 속성 | 자리 | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- | --- |
-| `data-variant` | Item · Group | `card` · `row` | `card` | 고른 면을 말하는 방식. **Group 에도 같은 값을 단다** — 간격이 갈린다(카드 12 · 행 8) |
-| `data-size` | Item | `md` · `sm` | `md` | `sm` 은 compact — 한 줄 이름만 있는 작은 칸. 반경 12 · 안쪽 여백 20 · 24 · 표식 20 |
+| `data-variant` | Item · Group | `card` · `row` · `list` | `card` | 고른 면을 말하는 방식. **Group 에도 같은 값을 단다** — 간격이 갈린다(카드 12 · 행 8 · 줄 목록 0 + 위 헤어라인) |
+| `data-size` | Item · Group(`list` 만) | `md` · `sm` | `md` | `sm` 은 compact — 한 줄 이름만 있는 작은 칸. 카드는 반경 12 · 안쪽 여백 20 · 24 · 표식 20. 줄 목록은 반경 8 · 12 · 8 · 선 없음이고 **묶음에도 단다** — 2열(560 이상 3열) |
 | `data-columns` | Group | `auto` | 한 열 | 칸 폭 148 이상으로 여러 열을 채운다. compact 카드를 쓸 때 |
 | `aria-checked` | Item | `true` · `false` | 필수 | **선택의 유일한 소유자.** 시각 전용 속성을 따로 두지 않는다 |
 | `data-invalid` | Item · Group | 있으면 오류 | 없음 | `"false"` 만 예외다([DS-D-0075](../governance/decisions/DS-D-0075-text-field-invalid-ring.md) 2항과 같은 규칙) |
@@ -121,17 +124,55 @@ React 표면이 없어 속성은 마크업 속성이다.
 
 ## States
 
-| state | 카드형 | 행형 |
-| --- | --- | --- |
-| Rest | 면 `accent-secondary`, 헤어라인 `stroke-hairline`(0.5px), 글자 `fg-primary` | 면 `accent-secondary`, 헤어라인, 글자 `fg-secondary` |
-| Hover | 면 `accent-secondary-hover`. **고른 항목에는 걸지 않는다** | 같다 |
-| Selected | 면 `accent-secondary-selected` + `border-width-ring`(2px) `accent-primary` 링. 표식이 주색으로 찬다 | 면 `accent-inverse`, 글자 `fg-on-accent-inverse`. 헤어라인은 쉴 때 것을 그대로 둔다 |
-| Invalid | **고르지 않은** 항목에 `border-width-ring` 의 `fg-danger-on-surface` 링 한 줄 | 같다 |
-| Disabled | 투명도 0.4, `cursor: not-allowed`, hover 없음 | 같다 |
-| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 | 같다 |
+| state | 카드형 | 행형 | 줄 목록 |
+| --- | --- | --- | --- |
+| Rest | 면 `accent-secondary`, 헤어라인 `stroke-hairline`(0.5px), 글자 `fg-primary` | 면 `accent-secondary`, 헤어라인, 글자 `fg-secondary` | 면 없음, 아래 헤어라인(compact 는 없음), 글자 `fg-primary` |
+| Hover | 면 `accent-secondary-hover`. **고른 항목에는 걸지 않는다** | 같다 | 면 `gray-000-alpha-04`. **고른 줄에도 건다** — 면이 고름을 말하지 않는다 |
+| Selected | 면 `accent-secondary-selected` + `border-width-ring`(2px) `accent-primary` 링. 표식이 주색으로 찬다 | 면 `accent-inverse`, 글자 `fg-on-accent-inverse`. 헤어라인은 쉴 때 것을 그대로 둔다 | **표식만** 주색으로 찬다. 면 · 선은 그대로다 |
+| Invalid | **고르지 않은** 항목에 `border-width-ring` 의 `fg-danger-on-surface` 링 한 줄 | 같다 | 같다 — 고르지 않은 줄의 아래 선이 링으로 바뀐다 |
+| Disabled | 투명도 0.4, `cursor: not-allowed`, hover 없음 | 같다 | 같다 |
+| Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 | 같다 | 같다 |
 
 **오류 링은 [DS-D-0075](../governance/decisions/DS-D-0075-text-field-invalid-ring.md)(TextField 오류 = ring 두께의
 `fg-danger-on-surface`)와 같은 값이다.** 입력칸과 선택 카드가 한 폼에 섞여도 틀린 곳이 같은 말로 보인다.
+
+## 줄 목록 — `data-variant="list"`
+
+면 없이 **선으로 가른 줄**에 선택지를 늘어놓는다(앰배서더 지원서, 2026-10-13 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
+표식(원 · 사각 20)이 줄 **앞**에 서고, 고르면 표식만 주색으로 채운다 — 줄의 면은 바뀌지 않는다. 묶음 위 · 줄마다 아래에 헤어라인.
+
+정본은 제품 통합 판 `components/landing/sections/ambassador/ApplyFlow.tsx:102-171`(`<Choice` 1파일 6자리)이다. 통합 판의
+`Choice` 는 카드형을 버리고 이 줄 목록만 쓴다 — 위 「왜 있는가」 표의 카드형 출처는 `feat/ambassador-links` 시절 값이다.
+
+```html
+<div class="louis-choice-group" data-variant="list" role="radiogroup" aria-label="활동 채널">
+  <button type="button" class="louis-choice-card" data-variant="list" role="radio" aria-checked="true" tabindex="0">
+    <span class="louis-choice-card__text">
+      <span class="louis-choice-card__label">유튜브</span>
+      <span class="louis-choice-card__description">긴 영상과 쇼츠를 올려요</span>
+    </span>
+    <span class="louis-choice-card__marker" aria-hidden="true"></span>
+  </button>
+  <!-- … -->
+</div>
+```
+
+| 부분 | card | row | list |
+| --- | --- | --- | --- |
+| 쉬는 면 | `accent-secondary` + 헤어라인 | `accent-secondary` | 없음 · 아래 헤어라인 |
+| 호버 | `accent-secondary-hover` | 같음 | `gray-000-alpha-04`(고른 줄에도) |
+| 고름 | 올린 면 + 2px 링 | inverse 면 | 표식만 채움 |
+| 표식 | 뒤 · 24(sm 20) | 없음 | **앞** · 20 |
+| 여백(세로 · 가로) | 28 · 32 | 8 · 16 | 20 · 8(sm 12 · 8, 반경 8, 선 없음) |
+
+`data-size="sm"` 은 한 줄 이름만 있는 칸을 2열(560 이상 3열, 열 사이 16 · 줄 사이 0)로 깐다 — 묶음에도
+`data-variant="list" data-size="sm"` 를 준다. 마크업 순서는 card 와 같고(이름 묶음 → 표식) CSS `order` 가 표식을 앞으로 옮긴다 —
+표식은 `aria-hidden` 이라 읽는 순서와 무관하다.
+
+**쓰는 자리:** 한 화면에 질문 하나를 크게 묻는 폼에서, 면이 겹겹이 쌓이면 무거운 자리(모달 안 지원서).
+
+**Figma 는 아직 없다.** 세트 `ChoiceCard` 의 `Variant` 에 `list` 를 더하는 것(`list` × `Size` × `Role` × `Checked` × `State`, 표식이
+앞에 서는 프레임 — 자식 순서가 바뀐다, §2 시험 2)과 기록 `choice-card` 의 `list/md` · `list/sm` 칸은 Figma 회차의 몫이다.
 
 ## Interaction and responsive behavior
 
@@ -147,6 +188,8 @@ React 표면이 없어 속성은 마크업 속성이다.
 - 전환은 160ms(`motion-control-hover`)이고 reduced-motion 에서는 `motion-reduced-duration`(0ms)이다.
 - 반응형: 카드형은 한 열이 기본이고, compact 는 `data-columns="auto"` 로 칸 폭 148 이상을 채워 열 수가 폭을 따른다.
   행형은 폭과 무관하게 **한 열**이다 — 한 줄에 몇 개가 서는지가 폭마다 달라지면 목록으로 읽히지 않는다(제품 주석).
+  줄 목록은 한 열이고, compact(`sm`)만 2열 → 560 이상 3열이다(제품 `grid-cols-2 min-[560px]:grid-cols-3`). 560 은 레이아웃 경계
+  (719 · 1023) 밖의 값이다 — 한 줄 이름 셋이 들어가는 최소 폭.
 - 설명이 길면 줄바꿈으로 항목이 늘어난다. 말줄임을 쓰지 않는다 — 선택지의 뜻이 잘리면 고를 수 없다.
 
 ## Content
@@ -165,6 +208,7 @@ React 표면이 없어 속성은 마크업 속성이다.
   지원한다), ③ 문구를 `role="alert"` 로 알리고 묶음의 `aria-describedby` 가 가리킨다. **`role="group"` 은 `aria-invalid` 를
   지원하지 않으므로** 여럿 고르는 묶음은 ①과 ③ 으로 알린다.
 - **선택도 색 하나로만 알리지 않는다.** 카드형은 링 + 표식(체크)이, 행형은 면의 명암 뒤집힘(밝은 면 ↔ 검은 면)이 함께 말한다.
+  줄 목록은 표식의 채움 + 체크가 말한다.
 - 표식은 `aria-hidden` 장식이다. 상태는 `aria-checked` 가 전한다.
 - **누름 영역 44px 이상.** 행형은 `layout-control-hit-target-minimum`(44)이 최소 높이이고, 카드형은 안쪽 여백이 이미 넘는다.
 - 키보드: 위 Interaction 의 로빙 규칙. Space 가 선택(복수는 토글)한다. 버튼이므로 Enter 도 같다.
@@ -192,6 +236,21 @@ React 표면이 없어 속성은 마크업 속성이다.
 | 고른 링 | 2px `accent-primary` | 같다 | 없다 | `border-width-ring` |
 | 오류 링 | 2px `fg-danger-on-surface` | 같다 | 같다 | `border-width-ring` |
 | 전환 | 160ms | 같다 | 같다 | `motion-control-hover-*` |
+
+줄 목록(`list`)의 값은 따로 적는다.
+
+| 축 | 줄 | compact 줄 | 토큰 |
+| --- | ---: | ---: | --- |
+| 안쪽 여백(가로 · 세로) | 8 · 20 | 8 · 12 | `space-control-sm` · 20 리터럴(제품 `py-10`) · `space-control-md` |
+| 표식과 이름 사이 | 16 | 16 | `space-control-lg` |
+| 반경 | 0 | 8 | `radius-control-sm` |
+| 선 | 아래 헤어라인 · 묶음 위 헤어라인 | 없음 | `hairline-inset-block-end` · `hairline-inset-block-start` |
+| 항목 사이 | 없음(줄이 맞닿는다) | 열 16 · 줄 0 | compact 열 `space-control-lg` |
+| 열 | 1 | 2 → 560 이상 3 | 560 리터럴(제품 `min-[560px]`) |
+| 이름 타이포 | 20/600 | 16/500 | `typography-body-lg-semibold` · `typography-body-md-medium` |
+| 표식 | 20 · 앞 | 20 · 앞 | — |
+| 호버 면 | `gray-000-alpha-04` | 같다 | |
+| 고름 | 표식만 | 같다 | `accent-primary` |
 
 제품 간격 격자는 `--spacing: 2px` 라 `px-16` = 32px · `py-14` = 28px · `size-12` = 24px · `min-h-22` = 44px 다(곡률은 px
 그대로다). **카드의 안쪽 여백(32 · 28 / 24 · 20), 이름과 표식 사이 24, 반경 16, 열 최소 폭 148, 표식 반경 6 은 토큰
@@ -289,6 +348,13 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
   두께(2)만 대조되고 색은 변수 바인딩(원시값 0)이 나른다.
 - **Figma 의 `Role` 축은 행형에서 그림이 같다.** 행형은 표식이 없으므로 `radio` · `checkbox` 두 칸이 시각적으로 같다 — 묶음의 역할이
   마크업 계약이라 축은 남겼다.
+- **줄 목록의 선이 제품보다 얇고 다크에서 옅다.** 제품은 1px `landing-line`(라이트 #171b22 12% · 다크 #fafafa 12%,
+  `ApplyFlow.tsx:147` · `:162`)이고 레시피는 헤어라인(0.5 · 다크 8%)이다(DS-D-0023, 2026-10-13 판정).
+- **줄 목록의 표식이 제품과 셋이 다르다.** 사각 반경 4(레시피 6), 쉼 테두리 1.5px(레시피 헤어라인), 원 고름의 흰 점 8(레시피는
+  체크) — 원 · 사각 모두 같은 체크를 쓰는 기존 편차와 같은 칸이다(`ApplyFlow.tsx:106-116`). 호버에서 표식 테두리가 짙어지는 것
+  (`--text-muted`)도 받지 않았다(2026-10-13 판정).
+- **줄 목록의 호버 면이 라이트에서 순검정 4% 다.** 제품 `landing-panel` 은 #171b22 4% 이고 다크는 같다. 랜딩 전용 토큰을 일반
+  컴포넌트가 읽지 않는다는 위 판정 3 과 같은 이유다.
 - **`aria-invalid` 는 `role="group"` 에 쓸 수 없다.** 여럿 고르는 묶음의 오류는 문구와 `role="alert"` 가 맡는다(접근성 절).
 
 ## Acceptance tests
@@ -306,6 +372,8 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 8. forced-colors 에서 항목 경계와 고른 항목의 윤곽이 서고, 고른 항목에 포커스가 들어도 포커스 링이 선다.
 9. reduced-motion 에서 전환이 0ms 다.
 10. 자동 접근성 검사에 위반이 없다.
+11. 줄 목록에서 고른 줄의 면 · `box-shadow` 가 쉬는 줄과 같고 표식만 찬다. 표식이 이름 묶음보다 앞(왼쪽)에 선다. 호버가 고른 줄에도 선다.
+12. 줄 목록 compact 묶음이 560 미만 2열 · 이상 3열이다.
 
 ## 다음
 
@@ -315,10 +383,13 @@ component 가 아니다 — 묶음의 간격(카드 12 · 행 8)과 열 격자�
 - [ ] 실브라우저 acceptance test
 - [ ] 제품을 그 recipe 로 이관(앰배서더 `Choice` · 온보딩 `OPTION`)
 - [x] Figma component set `ChoiceCard` (2026-10-08) — 브라우저 되재기가 서면 `done` 판정
+- [x] 줄 목록 변형 `data-variant="list"` CSS (2026-10-13) — Figma `Variant=list` 는 아직
 
 ## 출처
 
 - 2026-10-07 — CSS recipe 신설. 두 소비처(`ApplyFlow.tsx@2ceec4ed3:94-157` · `ResearchOnboarding.tsx@b57cd1f95:77`)의 공통 재료를 한 컴포넌트로 묶고
   갈리는 값(고른 면의 표현)은 변형으로 두었다. 오류 링은 DS-D-0075 와 같은 값이다.
+- 2026-10-13 — 줄 목록 변형 `data-variant="list"`(+ compact `sm`). 통합 판 `ApplyFlow.tsx:102-171` 의 `Choice` 가 카드형을 버리고
+  쓰는 모양이다. 카드 고름 규칙의 제외 목록에 `list` 를 넣었다([DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
 - 2026-10-08 — Figma component set `ChoiceCard`(42 변형)와 parity 계약 · 되읽기 · 기록 `choice-card` 세 칸. 레시피의 패딩 선언을
   세로 · 가로 둘로 갈랐다(값은 같다 — `verify-recipe-record` 가 선언 하나를 수 하나로 읽는다).

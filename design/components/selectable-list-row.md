@@ -36,7 +36,8 @@ master-detail의 좌측 열에서 하나를 고른다.
   만들면서 안에 체크박스를 넣으면 **컨트롤이 중첩된다.** 제품의 에디터 소스 목록이 그 형태이고,
   그것은 이 컴포넌트가 아니라 Checkbox + 행 레이아웃이다.
 - 메뉴 항목. 그것은 [Menu / Popover](menu-popover.md)이며 열렸다 닫히는 표면 안에 있다.
-- 앱 셸 사이드바. 그것은 [Sidebar Nav Item](app-shell-parts.md)이며 목적지로 이동한다.
+- 앱 셸 사이드바. 그것은 [Sidebar Nav Item](app-shell-parts.md)이며 목적지로 이동한다. 패널 **안에서**
+  다른 화면 · 다른 단계로 가는 행은 이 컴포넌트의 이동 행(`data-layout="link"`, 아래)이다.
 - 카드 격자. 그것은 [Project Card](project-card.md)다.
 - 행 안에 버튼이 여럿 필요할 때. 행을 버튼으로 만들 수 없으므로 다른 구조가 필요하다.
 
@@ -65,6 +66,8 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 선행 표식(왼쪽 3px 막대)은 없다. 2026-09-22 에 걷었다([DS-D-0070](../governance/decisions/DS-D-0070-list-row-selection-is-the-surface.md)).
 
+이동 행(`data-layout="link"`)도 같은 넷이다. Trailing 에 부가 글(caption)과 체브론 16(`icon/caret-right`)이 들어간다.
+
 ## Properties
 
 | prop | 값 | 기본 | 뜻 |
@@ -75,6 +78,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 | `media` | ReactNode | 없음 | 선행 슬롯 |
 | `trailing` | ReactNode | 없음 | 후행 슬롯. **버튼을 넣지 않는다** |
 | `disabled` | boolean | `false` | 비활성 |
+| `data-layout` (레시피 속성) | `link` | 없음(고르는 행) | **이동 행.** 선택 상태가 없고 제목이 처음부터 `fg-primary` 이며 끝 슬롯이 가운데로 선다. 아래 「이동 행」. React prop 은 아직 없다 — 소비처가 속성으로 건다 |
 
 나머지는 `<button>`의 네이티브 속성을 그대로 받는다. `title`은 HTML 전역 속성과 이름이 겹치므로
 행의 제목 쪽 뜻으로 덮어썼다.
@@ -91,9 +95,49 @@ master-detail의 좌측 열에서 하나를 고른다.
 | Selected | 면 `color-bg-inset`, 전경 `color-fg-primary`. 선행 표식은 없다 |
 | Disabled | 전경 `color-fg-disabled`, hover가 면을 칠하지 않는다 |
 | Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 `Highlight` 링 |
+| Link · Default | 면 없음, 전경 `color-fg-primary`, 보조 문구 · 끝 슬롯 `color-fg-tertiary` |
+| Link · Hover | 면 `color-accent-ghost-hover`(기본 행과 같다) |
+| Link · Disabled | 전경 · 보조 문구 · 끝 슬롯 `color-fg-disabled` |
 
 **선택된 행에서도 보조 문구는 `color-fg-secondary`로 남는다.** 둘 다 primary가 되면
 제목과 보조의 위계가 사라진다.
+
+## 이동 행 — `data-layout="link"`
+
+고르는 행이 아니라 **누르면 다른 곳으로 가는** 행이다. 캔버스 도움말 패널의 목록(노드 · 단축키 · 모델 · 자주 묻는 질문으로
+가는 행)과 영상 편집기 프로젝트 피커가 그 자리다. 제품은 `LinkRow` 하나가 그린다(통합 판 `54b62a8aa`
+`CanvasHelpPanel.tsx:131-135` 의 `LINK_ROW`, 소비 `:547` · `:628` · `:638-641` · `:686`).
+
+| 칸 | 제품 | LOUIS |
+| --- | --- | --- |
+| 행 정렬 | `items-start`(`CanvasHelpPanel.tsx:116`) | **위 정렬** — 부제가 두 줄로 감겨도 제목이 위에 붙는다 |
+| 잉크 | `fg-primary`(`:133`) | `color-fg-primary`. 선택이 없으므로 쉼 · 호버가 같은 잉크다 |
+| 호버 면 | `bg-inset`(`:134`) | `color-accent-ghost-hover` — 기본 행과 같다. `bg-inset` 은 다크에서 패널 바닥과 같은 값이라 접는다 |
+| 여백 · 행 간격 | 사방 8 · 간격 10(`:116`) | 사방 8 · 간격 8(기본 행) |
+| 글자 사이 | 2(`:137`) | 4(기본 행 `space-stack-xs`) |
+| 부제 | caption · `fg-tertiary`(`:139`) | caption · `color-fg-tertiary`. **말줄임 대신 감긴다** |
+| 끝 | 부가 글 caption + 체브론 16 · 간격 4 · 가운데(`:143`) | 같다. 체브론은 `icon/caret-right` |
+
+**선택 상태가 없다.** `aria-current` 를 걸지 않는다 — 이동 행은 「지금 고른 것」을 말하지 않고, 걸면 보조기술이
+현재 위치로 읽는다. 대비: `fg-tertiary` 는 다크 `bg-menu` 위 5.25:1 · 라이트 6.05:1 로 caption 기준을 넘는다.
+
+마크업:
+
+```html
+<button type="button" class="louis-selectable-list-row" data-layout="link">
+  <span class="louis-selectable-list-row__text">
+    <span class="louis-selectable-list-row__title">노드 둘러보기</span>
+    <span class="louis-selectable-list-row__meta">캔버스에 놓을 수 있는 노드와 쓰임새</span>
+  </span>
+  <span class="louis-selectable-list-row__trailing">
+    <span>24</span>
+    <svg aria-hidden="true" width="16" height="16"><!-- icon/caret-right --></svg>
+  </span>
+</button>
+```
+
+Figma 는 세트 `SelectableListRow` 에 `Layout`(`base` · `link`)을 연다. `link` 는 `State`(Default · Hover · Disabled)만
+갖는 희소 set 이다 — `Selected` 가 없다. 끝 슬롯의 기본 인스턴스는 `icon/caret-right`.
 
 ## Interaction and responsive behavior
 
@@ -108,6 +152,7 @@ master-detail의 좌측 열에서 하나를 고른다.
 
 - 제목은 그 항목을 **구별하는 것**이다. 순번이 아니라 이름이다.
 - 보조 문구에는 시각·길이처럼 **비교에 쓰는 값**을 둔다. 설명 문장을 넣지 않는다 — 잘린다.
+  이동 행은 예외다 — 보조 문구가 감기므로 이동할 곳을 한 문장으로 설명해도 된다.
 - 후행 슬롯은 한두 글자다. 그보다 길면 보조 문구로 내린다.
 
 ## Accessibility
@@ -131,6 +176,10 @@ master-detail의 좌측 열에서 하나를 고른다.
 | 제목 타이포 | 14/1.5 | `typography-body-sm-medium` |
 | 보조 타이포 | 12/1.5 | `typography-caption-regular` |
 | 미디어 반경 | 8px | `radius-control-sm` |
+| 이동 행 정렬 | 위 | `align-items: flex-start` |
+| 이동 행 보조 · 끝 잉크 | — | `color-fg-tertiary` |
+| 이동 행 끝 간격 | 4px | `space-control-xs` |
+| 이동 행 끝 타이포 | 12/1.5 | `typography-caption-regular` |
 
 **기하는 제품 값을 그대로 옮기지 않았다.** 제품의 gap 10px과 반경 14px에 맞는 semantic 토큰이
 없고, 새 토큰은 token source를 바꿔 Figma 재적용이 따라온다. 대신 **DS에 이미 있는 선택 가능한
@@ -179,6 +228,10 @@ master-detail의 좌측 열에서 하나를 고른다.
   바뀌는데, 그것은 행이 아니라 **다른 컴포넌트로의 전환**이라 패턴이 소유할 문제다.
 - **다크에서 캔버스 위에 둔 목록은 선택이 보이지 않는다.** 선택 면(`bg-inset`)이 캔버스와 같은 값이다.
   레시피가 막지 않으므로 호출부가 목록을 올라온 면 위에 둔다.
+- **이동 행의 간격 10 · 글자 사이 2 · 호버 `bg-inset` 을 기본 행 값으로 접었다.** 제품 `LINK_ROW` 와 픽셀이
+  다르다. 제품 상수를 레시피 클래스로 바꾸는 일은 제품 쪽 몫이다(DS-D-0084 (나)).
+- **이동 행에 React prop 이 없다.** 레시피 속성 `data-layout="link"` 만 섰다. `SelectableListRow` 가 `aria-current`
+  를 소유하므로 prop 으로 열 때 `layout="link"` 와 `selected` 를 함께 받지 않게 막아야 한다.
 - **Figma의 State는 코드에 없는 축이다.** 코드에서 `selected`는 boolean prop이고 `disabled`는
   `<button>`의 네이티브 속성인데, Figma에는 boolean 상태의 시각 표현이 없어 variant로 둔다.
   parity 계약이 그 사유와 함께 `figmaOnlyProperties`로 선언한다.

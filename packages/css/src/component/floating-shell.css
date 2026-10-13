@@ -82,9 +82,9 @@
   box-shadow: var(--louis-hairline-inset);
 }
 
-/* 조각의 **자리**. 안에 무엇이 서는지는 이 셸의 계약이 아니다 — 계약이 담는 것은 그 자리의
- * 겉 크기 32 와 곡률 12 뿐이고, 호버 틴트가 갈리는 툴바 버튼의 레시피는 아직 없다(문서
- * Known deviations 4). 32 는 컨트롤 사다리의 `md` 이고 정사각이라 두 축이 같은 토큰을 읽는다 —
+/* 조각의 **자리**. 속성이 없는 `__item` 이 갖는 것은 그 자리의 겉 크기 32 와 곡률 12 뿐이다.
+ * 자리를 버튼으로 채우는 툴 버튼은 아래 `__item[data-variant="ghost"]` 가 따로 갖는다(2026-10-13,
+ * DS-D-0084). 32 는 컨트롤 사다리의 `md` 이고 정사각이라 두 축이 같은 토큰을 읽는다 —
  * `.louis-inspector-section-head__action` 이 24 정사각에 `sm` 을 읽는 것과 같은 형태다. */
 .louis-floating-shell__item {
   box-sizing: border-box;
@@ -121,6 +121,124 @@
 .louis-floating-shell[data-size="compact"] .louis-floating-shell__item {
   inline-size: var(--louis-layout-control-height-lg);
   block-size: var(--louis-layout-control-height-lg);
+}
+
+/* ── 툴 버튼 `__item[data-variant="ghost"]` ────────────────────────────────────
+ *
+ * 정본: 제품 통합 판 `54b62a8a`
+ *   apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx:49-97   캔버스 하단 툴바
+ *   apps/web/components/scenes/create/ProjectHeader.tsx:225-282                     캔버스 상단 바의 저장 · 도움말 · 영상 버튼
+ * 두 파일이 같은 버튼을 따로 든다. 면 없이 서고, 호버에 8% 틴트, 켜지면 한 단 짙은 틴트, 누르면
+ * 0.95 로 줄어든다(2026-10-13, DS-D-0084).
+ *
+ * **IconButton ghost 를 끼우지 않는다.** 갈리는 값이 다섯이다 — 호버 면(`bg-inset` 대 8% 틴트) ·
+ * 켜짐 면 · 누름(0.98 대 0.95) · 글리프(16 대 20) · 쉼 잉크. 다섯을 덮어 쓰는 IconButton 은 IconButton
+ * 이 아니다. `__item` 이 이미 32 · 반경 12 자리를 갖고 있어 그 자리를 버튼으로 채운다.
+ *
+ * **이름은 `__item` 하나다.** 캔버스 상단 바(`.louis-app-top-bar[data-surface="canvas"]`)도 셸 밖에서
+ * 이 클래스를 그대로 쓴다 — 따로 `canvas-tool-button` 을 세우지 않는다(소유자 판정 7).
+ *
+ * **켜짐은 `aria-pressed` 와 `aria-expanded` 둘 다 받는다** — 툴바의 모드 버튼(선택 · 이동)은 토글이고
+ * 추가 버튼(글 · 그림 · 소리)은 메뉴를 연다. 제품은 둘을 같은 `TOOLBAR_BUTTON_ACTIVE` 로 칠한다(:272 · :308). */
+.louis-floating-shell__item[data-variant="ghost"] {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  /* 쉼 잉크는 컨트롤 보조 잉크다. 제품은 다크 pg-200 · 라이트 pg-800 으로 한 단 더 밝다/짙다(:63 · :67) —
+   * 다크 유리 면 위 7.24:1 · 라이트 8.67:1 로 둘 다 충분해 역할 잉크로 접는다(소유자 판정 7). */
+  color: var(--louis-color-fg-secondary);
+  cursor: pointer;
+  /* 제품은 120ms(:54). 컨트롤 호버 역할의 토큰(160ms)으로 접는다 — `.louis-pill-trigger` 와 같은 판정이다. */
+  transition-property: background-color, color, scale;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 글리프 20 — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. */
+.louis-floating-shell__glyph {
+  display: block;
+  flex: none;
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
+}
+
+.louis-floating-shell__glyph :where(svg) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+@media (hover: hover) {
+  /* 호버 면 8% · 잉크 `fg-primary` — 제품 다크 gray-000 8% · 라이트 pg-900 8%(Toolbar.tsx:64-71)가
+   * `accent-ghost-hover` 와 두 테마 모두 바이트 단위로 같다. 켜진 버튼은 아래 자기 호버를 갖는다. */
+  .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):not(
+      [aria-pressed="true"],
+      [aria-expanded="true"]
+    ):hover {
+    background: var(--louis-color-accent-ghost-hover);
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 켜짐 호버 — 다크 16% · 라이트 12%. 라이트는 ProjectHeader 의 12%(ProjectHeader.tsx:279)를 고른다 — Toolbar 의 8% 는
+   * 원본 CSS 순서에 진 선언을 옮긴 것이라 호버가 보이지 않는다(Toolbar.tsx:76-80 주석, 소유자 판정 7). */
+  .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):is(
+      [aria-pressed="true"],
+      [aria-expanded="true"]
+    ):hover {
+    background: var(--louis-color-floating-item-selected-hover);
+  }
+}
+
+/* 켜짐 — 다크 12% · 라이트 8%(Toolbar.tsx:77 · :80). 두 테마의 알파가 달라 새 시맨틱이다. */
+.louis-floating-shell__item[data-variant="ghost"]:is([aria-pressed="true"], [aria-expanded="true"]) {
+  background: var(--louis-color-floating-item-selected);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 누름 0.95 — 제품 `[&:active]:[transform:scale(0.95)]`(Toolbar.tsx:56). */
+.louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+  scale: 0.95;
+}
+
+/* 비활성 — 제품 상단 바는 불투명도 0.56(ProjectHeader.tsx:231)이다. 역할 잉크 `fg-disabled` 로 접는다(소유자 판정 7). */
+.louis-floating-shell__item[data-variant="ghost"]:is(:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+  color: var(--louis-color-fg-disabled);
+}
+
+/* 강조 — 도움말 「보여 주기」가 짚은 버튼에 잠시 두르는 바깥 2px 주색(Toolbar.tsx:88). 시간은 캔버스가 정한다.
+ * 포커스 링을 걷었으므로(DS-D-0074) 같은 두께의 링과 겹쳐 헷갈릴 자리가 없다. */
+.louis-floating-shell__item[data-spotlight="true"] {
+  box-shadow: 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);
+}
+
+/* ── 구분선 `__divider` ──────────────────────────────────────────────────────
+ *
+ * 조각 묶음 사이의 세로 1px. 위아래 끝이 사라지는 그라디언트라 셸의 곡률 안에서 선이 끊겨 보이지 않는다.
+ * 제품 `Toolbar.tsx:99-103` · `ProjectHeader.tsx:174-180` 이 같은 칠을 두 번 든다. 정지점 다섯
+ * (0 · 22 · 50 · 78 · 100 %)의 가운데 셋을 두 시맨틱(`floating-divider-mid` · `-peak`)이 나른다. */
+.louis-floating-shell__divider {
+  flex: none;
+  align-self: center;
+  inline-size: var(--louis-border-width-default);
+  /* 22. 제품 `h-11`(Toolbar.tsx:100). 조각 32 의 위아래 5 를 비운다. */
+  block-size: 22px;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--louis-color-floating-divider-mid) 22%,
+    var(--louis-color-floating-divider-peak) 50%,
+    var(--louis-color-floating-divider-mid) 78%,
+    transparent 100%
+  );
+}
+
+/* 셸 안에서만 좌우 2 — 제품 `mx-1`(Toolbar.tsx:100). 셸 간격 4 에 더해 구분선 양쪽이 6 이 된다.
+ * 캔버스 상단 바(`app-top-bar[data-surface="canvas"]`)는 0 이다(ProjectHeader.tsx:176 `m-0`). */
+.louis-floating-shell > .louis-floating-shell__divider {
+  /* 2. 제품 `mx-1`. */
+  margin-inline: 2px;
 }
 
 /* ── Pill Trigger ────────────────────────────────────────────────────────────
@@ -241,8 +359,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   .louis-pill-trigger,
-  .louis-pill-trigger__caret {
+  .louis-pill-trigger__caret,
+  .louis-floating-shell__item[data-variant="ghost"] {
     transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+    scale: 1;
   }
 }
 
@@ -262,5 +385,16 @@
   /* 고대비 모드가 보장한 대비를 opacity 로 깎지 않는다. 방향은 회전이 나른다. */
   .louis-pill-trigger__caret {
     opacity: 1;
+  }
+
+  /* 켜짐의 면 틴트는 강제 색에서 사라진다 — 안쪽 실선으로 되살린다. */
+  .louis-floating-shell__item[data-variant="ghost"]:is([aria-pressed="true"], [aria-expanded="true"]) {
+    outline: var(--louis-border-width-default) solid CanvasText;
+    outline-offset: calc(0px - var(--louis-border-width-default));
+  }
+
+  .louis-floating-shell__divider {
+    background-image: none;
+    background-color: CanvasText;
   }
 }

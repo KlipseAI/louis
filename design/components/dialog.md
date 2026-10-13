@@ -167,7 +167,8 @@ Dialog가 Workspace로 변장하는 통로가 된다.
 | `closeOnBackdrop`  | `boolean`                                    | variant 기반 | danger·busy 상태에서는 보통 false                         |
 | `busy`             | `boolean`                                    | `false`      | 중복 실행·dismiss 차단, `aria-busy`                       |
 | `tone`             | `neutral`, `danger`                          | variant 기반 | 확인 액션의 의미 톤. `neutral`은 Button `primary`로 내려간다 |
-| `size`             | `compact`, `medium`, `large`, `fullscreen`   | variant 기반 | content 요구에 따른 크기                                  |
+| `size`             | `compact`, `medium`, `large`, `fullscreen`   | variant 기반 | content 요구에 따른 크기. 레시피에는 쓰임새 값 `compare`(880, 아래 「넓은 판」)가 더 있다 — React union 에는 아직 없다 |
+| `data-dividers` (레시피 속성) | `true`                       | 없음         | 머리 아래 · 발 위 헤어라인. 아래 「구분선」. React prop 은 아직 없다 |
 | `onDismissBlocked` | `(reason) => void`                           | 없음         | **추가** 훅. 기본 안내는 Dialog가 스스로 제공한다         |
 
 제목과 설명은 prop이 아니라 하위 컴포넌트가 소유한다. 제목은 호출부가 heading level을 정해야 페이지
@@ -318,6 +319,41 @@ Dialog는 modal behavior만 소유한다. route가 주 작업을 소유하면
 - viewport safe area와 virtual keyboard를 고려한다. `100vh`보다 visual viewport/`100dvh`와 safe-area
   padding을 우선한다.
 
+## 넓은 판 — `data-size="compare"`
+
+두 열을 견주는 대화다 — 프롬프트 후보 비교(통합 판 `54b62a8aa` `PromptVariantCompareModal.tsx:34-38`). 폭 880 은 `large`
+720 밖이라 새 값이 필요하다. surface 가 `min(…, 100%)` 로 받으므로 좁은 화면에서는 뷰포트를 따라 줄어든다.
+
+**이름이 `xlarge` 가 아니다.** `compact`·`medium`·`large` 는
+[figma-component-authoring §2](../governance/figma-component-authoring.md)가 Figma 축 어휘에서 **폐기한 밀도 형용사**다 —
+사다리 `sm`·`md`·`lg` 와 같은 뜻을 두 어휘로 부르면 두 벌이 된다. `xlarge` 는 그 폐기된 계열을 한 칸 늘리는 이름이라
+같은 절의 「사다리 밖 값은 쓰임새로 부른다」 규칙(조건 3 — 값이나 밀도 형용사가 아니라 장소나 쓰임새)에 걸린다. 그래서
+쓰임새 이름 `compare` 로 연다. 기존 세 값의 이름은 이 회차에서 바꾸지 않는다.
+
+**반경은 기본의 유도값 20 이다**(버튼 `radius-control` 12 + 발 여백 `space-control-sm` 8). 제품의 `rounded-24` 는 접는다 —
+`compact` 가 24 를 무른 2026-09-03 판정과 같은 근거다.
+
+**발이 없는 대화.** 비교 모달은 액션 행이 없다. 본문이 surface 의 마지막 자식이면 카드 아래 여백을 본문이 진다
+(`padding-block-end: var(--louis-dialog-surface-inset)`, 제품 `PromptVariantCompareModal.tsx:41-44`). 기본 본문 아래 8 은
+발이 뒤따른다는 전제의 값이라, 발이 없으면 카드 바닥이 8 로 붙기 때문이다. 크기와 무관한 일반 규칙이다.
+
+Figma 는 `Size` 축에 `compare` 를 더한다(쓰임새 값이라 사다리 순서를 주장하지 않는다).
+
+## 구분선 — `data-dividers="true"`
+
+본문이 스크롤하는 큰 작업 면(크롭)에서 머리 · 발이 본문과 갈려 보이게 한다. 머리 아래 · 발 위에 한 면 헤어라인
+(`hairline-inset-block-end` · `-block-start`, [DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md))이 서고,
+테두리가 아니라 안쪽 그림자라 머리 · 발의 높이가 그대로다. 제품은 크롭 모달 셋 중 둘이 1px 12% 선을 갖는다
+(통합 판 `54b62a8aa` `ImageCropModal.tsx:42` · `:68`, 캔버스 `nodes/CropModal.tsx:72` · `:190`) — 클립 크롭은 전용 덮개라
+셈하지 않는다. 선 값은 공용 헤어라인으로 접는다.
+
+**선이 서면 발 위 24 가 8 이 된다.** 24 는 「본문과 액션 사이」를 여백으로 가르는 값인데, 선이 이미 가르므로 여백까지
+넓게 둘 이유가 없다. 강제 색에서는 안쪽 그림자가 사라지므로 `CanvasText` 실선으로 되살린다.
+
+**Figma 에서는 BOOLEAN 이 될 수 없다.** 선만 켜고 끄면 레이어 가시성이지만, 발 위 여백이 24 → 8 로 함께 바뀌어 프레임이
+자기 패딩을 다시 쓴다(BOOLEAN 시험 2). 그래서 조건 축 `Dividers`(`false` · `true`)로 내야 하고, 그 이름은
+[figma-component-authoring §2](../governance/figma-component-authoring.md)의 조건 축 표에 먼저 올라야 한다. Figma 작업은 그 회차다.
+
 ## Responsive behavior
 
 - compact confirm: `min(360px, viewport - 40px)` 기준. 320px에서도 좌우 여백을 유지한다.
@@ -425,7 +461,10 @@ DS는 음수 마진 대신 footer의 여백을 직접 적어 같은 결과를 �
 | Action height   | 44px 이상                                            | pointer/touch target              |
 | Action gap      | 8px                                                  | 200% zoom reflow                  |
 | Action inset    | 8px — 글자보다 가장자리에 가깝다                      | surface-geometry 실측             |
-| Action 위 간격  | 24px                                                 | surface-geometry 실측             |
+| Action 위 간격  | 24px · 구분선이 서면 8px                             | surface-geometry 실측             |
+| Compare width   | `min(880px, 100%)` · 반경 20(유도값)                 | 두 열 비교 모달                   |
+| 발 없는 본문    | 아래 여백 `--louis-dialog-surface-inset`              | 본문이 마지막 자식일 때           |
+| 구분선          | `hairline-inset-block-end` · `-block-start`          | 강제 색 `CanvasText` 실선         |
 | Elevation       | `elevation-modal`                                    | overlay hierarchy                 |
 | Layer           | `layer-modal`, 숫자 리터럴 금지                      | nested overlay stack              |
 | Enter motion    | `motion-modal-enter`: opacity + translate/scale      | reduced-motion 대체               |
@@ -464,6 +503,9 @@ host의 두 번째 직속 자식이 되고, primitive의 중첩 격리가 자기
   `radius-card-lg`(20px)로 자기 이름을 갖는다 — [DS-D-0014](../governance/decisions/DS-D-0014-card-radius.md)
   전까지는 `radius-card`를 빌려 썼고, 제품의 프로젝트 카드가 4벌 전부 16px이라 그 이름이 16으로
   내려갔다. "compact가 large보다 둥글다"는 서열은 유지된다.
+- **`compare` 와 `data-dividers` 는 레시피에만 있다.** React `DialogSize` union(`compact` · `medium` · `large` ·
+  `fullscreen`)과 Figma `Size` 축에 `compare` 를 올리고 조건 축 `Dividers` 를 세우는 것은 다음 회차다. 그때까지 소비처는
+  `data-size` · `data-dividers` 를 직접 건다. 제품 반경 24 와 선 12% 는 LOUIS 유도값 20 · 공용 헤어라인으로 접었다.
 - **최대폭과 viewport 여백이 토큰이 아니라 리터럴이다.** content tier 토큰과 20px spacing 토큰이 없다.
   Specification의 `viewport - 40px`을 맞추려면 20px이 필요해 값을 지키고 리터럴을 한 줄에 격리했다.
 - **surface padding이 `space-layout-*`에서 온다.** `space-surface-*` tier가 없다. `space-control-*`는

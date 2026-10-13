@@ -37,8 +37,9 @@ summary: 지표 하나를 바깥 프레임과 안쪽 면 두 겹으로 싣고 �
 
 쓰지 않는 자리.
 
-- **곡선 자체를 그리는 컴포넌트가 아니다.** 이 카드는 액자와 슬롯이고, 경로·축·툴팁은
-  소비처의 SVG 다. 데이터에서 좌표를 내는 일은 DS 가 소유할 수 없다 — 표본 수, 결측,
+- **곡선 자체를 그리는 컴포넌트가 아니다.** 이 카드는 액자와 슬롯이고, 경로의 좌표 · 축 라벨의 값 · 툴팁은
+  소비처의 것이다. 그 둘레의 모양(선 · 면 · 십자선 · 점 · 축 글자)은 레시피 부품이 갖는다 — 아래
+  「영역 차트의 그림 부품」. 데이터에서 좌표를 내는 일은 DS 가 소유할 수 없다 — 표본 수, 결측,
   로케일별 축 라벨이 전부 화면의 것이다. 곡선 뒤의 **점 바닥(격자)** 도 소비처의 것이다 — 제품은 공용
   `AreaChart` 하나가 `::before` 로 깐다(점 1px · 간격 18 · 잉크 16%). 점 색은 무손실 토큰
   `gray-000-alpha-16` 이 있고, 축 라벨 색은 `fg-tertiary` 가 제품 `--gray-400` 과 두 테마 모두 같다
@@ -55,14 +56,20 @@ summary: 지표 하나를 바깥 프레임과 안쪽 면 두 겹으로 싣고 �
 5. **Metric** — `.louis-chart-card__metric`. 수치와 증감 알약 한 묶음.
 6. **Value** — `.louis-chart-card__value`. 36 Medium.
 7. **Delta** — `.louis-delta-pill`. `stat-tile` 이 소유하는 알약을 그대로 쓴다.
-8. **Chart** / **Spark** — `.louis-chart-card__chart` / `__spark`. 곡선이 들어갈 슬롯.
+8. **Chart** / **Spark** — `.louis-chart-card__chart` / `__spark`. 곡선이 들어갈 슬롯. `__chart` 는 점 바닥(`data-floor="dots"`)을 `::before` 로 깔 수 있다.
 9. **Notice** — 데이터가 모자랄 때 그 슬롯을 대신하는 인라인 `Alert`(`Layout=inline`).
+10. **Plot** — `.louis-chart-card__plot`. 슬롯을 채우는 `<svg>`. 그 안에 Line · Area stop · Crosshair · Marker.
+11. **Line** — `.louis-chart-card__line`. 곡선 경로. 굵기 2 · 둥근 끝.
+12. **Area stop** — `.louis-chart-card__area-stop[data-stop="start|end"]`. 면 그라디언트의 정지점.
+13. **Crosshair** / **Marker** — `.louis-chart-card__crosshair` / `__marker`. 가리킨 날의 세로선과 점.
+14. **Axis** / **Axis label** — `.louis-chart-card__axis` / `__axis-label`. 슬롯 바닥의 날짜 글자 줄.
 
 ## Properties
 
 | Property | 값 | 기본값 | 설명 |
 | -------- | --- | ------ | ---- |
 | `data-chart` | `area` · `spark` | `area` | 차트가 붙는 자리. `area` 는 수치 아래 전폭, `spark` 는 수치 옆 미니 곡선 |
+| `__chart` 의 `data-floor` | `dots` | 없음 | 넓은 차트 아래 점 바닥. 아래 「점 바닥」 |
 
 ## Variants, sizes, and states
 
@@ -83,6 +90,20 @@ Figma 는 여기에 `State` 축을 하나 더 갖는다. 여섯 칸은 전부 �
 
 CSS 에는 `State` 가 없다. 세 상태는 슬롯에 무엇이 들어가느냐이지 카드의 속성이 아니다.
 
+### 점 바닥 — `__chart data-floor="dots"`
+
+넓은 차트(`data-chart="area"`) 아래에 지름 2 점을 18 격자로 깐다(제품 `components/scenes/analytics/shared.tsx:40-43`). 잉크
+`gray-000-alpha-12`, 위 12 · 아래 26(축 글자 줄)을 비운 자리, 반경 12(`radius-card`). 곡선과 축은 그 위에 선다 — 숫자 z-index 없이
+칠 순서로 서므로 슬롯 안 `svg` 는 `position: relative` 를 받는다(레시피가 준다). 로딩 스켈레톤의 점(20 격자 · 8%, `shared.tsx:289-290`)은
+이 바닥이 아니라 [Skeleton](skeleton.md) 의 몫이다. 강제 색에서는 점을 걷는다. 같은 기법의 캔버스 바닥은
+[Editor Workspace](../patterns/editor-workspace.md) 의 `.louis-canvas-dots` 다.
+
+```html
+<div class="louis-chart-card__chart" data-floor="dots">
+  <svg viewBox="0 0 600 150" aria-hidden="true">…곡선…</svg>
+</div>
+```
+
 ## States
 
 **CSS 에는 상태가 없다.** 세 상태는 카드의 속성이 아니라 **슬롯에 무엇이 들어가느냐**이고,
@@ -100,14 +121,61 @@ CSS 에는 `State` 가 없다. 세 상태는 슬롯에 무엇이 들어가느냐
 가 그 하한이고, 그것이 이 축을 상태가 아니라 슬롯으로 둘 수 있는 이유다.
 
 카드 자신은 **대화형이 아니다.** hover · focus · disabled 선언이 하나도 없고, `area` 곡선의
-hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 매체 질의는
+hover(세로선 + 점 + 툴팁)는 소비처가 가리킨 날을 계산해 그린다 — 모양은 `__crosshair` · `__marker` 가 갖는다. 유일한 매체 질의는
 `forced-colors: active` 이고 거기서 두 면의 헤어라인이 시스템 색 실선으로 되살아난다 —
 두 겹이라는 사실 자체가 정보이기 때문이다.
 
+## 영역 차트의 그림 부품 — `__plot` · `__line` · `__area-stop` · `__crosshair` · `__marker` · `__axis*`
+
+**경로 좌표는 소비처, 그 둘레는 레시피다.** 곡선의 `d` 는 데이터 좌표라 화면이 계산하고(DS-D-0084 §2 예외), 선 굵기 · 면
+그라디언트 알파 · 십자선 · 점 · 축 글자는 화면마다 같아야 하므로 레시피가 갖는다. 제품은 공용 `AreaChart` 하나가
+그린다(통합 판 `54b62a8aa` `analytics/shared.tsx:375-433`, 스파크 `:489-498`).
+
+| 부품 | 레시피 | 제품 |
+| --- | --- | --- |
+| `__plot` | 슬롯을 `inset: 0` 으로 채운다. `overflow: visible` | `CHART_SVG`(`shared.tsx:50`) · `preserveAspectRatio="none"`(`:378`) |
+| `__line` | `stroke: currentColor` · 2 · 둥근 끝 · `vector-effect: non-scaling-stroke` | `strokeWidth="2"`(`:401`) |
+| `__area-stop` | `stop-color: currentColor` · 시작 18% → `data-stop="end"` 0. `__spark` 안에서는 22% | `:386-387` · 스파크 `:489-490` |
+| `__crosshair` | `color-gray-000-alpha-20` · `border-width-default` · non-scaling | 테마 잉크 20% · 1(`:415-416`) |
+| `__marker` | `fill: currentColor` | `r="4"` · 시리즈 색(`:421`) |
+| `__axis` | 슬롯 바닥 · 양 끝 고르게(`space-between`) · 좌우 `space-control-xs` 4. 480 이하 좌우 1 · 사이 2 | `CHART_X_AXIS`(`:64-67`) · `CHART_AXIS_NARROW_MQ`(`:305`) |
+| `__axis-label` | caption · `color-fg-tertiary` · `tabular-nums` · 줄바꿈 없음 | `CHART_X_LABEL`(`:71`) · `--dashboard-muted-color` = `--gray-400`(`dashboardScope.ts:16`) |
+
+**시리즈 색은 `currentColor` 다.** 슬롯(`__chart` · `__spark`)의 `color` 가 선 · 면 · 점을 함께 칠한다. 기본은 `fg-primary`
+이고(제품 기본 `accentColor = "var(--gray-000)"`, `:333`), 증감 색은 소비처가 슬롯의 `color` 로 넘긴다 — stat-tile 의 delta
+잉크와 같은 값이다. 면 알파는 색이 아니라 불투명도라 색 토큰을 세우지 않고 지역 변수 `--louis-chart-card-area-opacity` 로 둔다.
+
+축 글자 대비: 다크 `fg-tertiary` on `bg-overlay` 5.25:1 · 라이트 6.44:1 — caption 기준을 넘는다. 고르는 날짜 수(넓으면 6 ·
+좁으면 4)와 툴팁(이미 `louis-tooltip`)은 소비처다.
+
+```html
+<div class="louis-chart-card__chart">
+  <svg class="louis-chart-card__plot" viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+        <stop class="louis-chart-card__area-stop" data-stop="start" offset="0%" />
+        <stop class="louis-chart-card__area-stop" data-stop="end" offset="100%" />
+      </linearGradient>
+    </defs>
+    <path d="…" fill="url(#area)" />
+    <path class="louis-chart-card__line" d="…" />
+    <line class="louis-chart-card__crosshair" x1="…" x2="…" y1="…" y2="…" />
+    <circle class="louis-chart-card__marker" cx="…" cy="…" r="4" />
+  </svg>
+  <div class="louis-chart-card__axis">
+    <span class="louis-chart-card__axis-label">10.01</span>
+    <!-- … -->
+  </div>
+</div>
+```
+
+Figma 는 `ChartCard Chart=area` 의 곡선 층을 선(2 · 둥근) · 면(그라디언트 18% → 0)으로 나누고 축 글자 줄을 둔다. 십자선 · 점은
+가리킬 때만 보이므로 BOOLEAN `HasCrosshair`(레이어 가시성만 바꾼다). `State` 축(default · insufficient · loading)은 건드리지 않는다.
+
 ## Interaction and responsive behavior
 
-카드 자체는 대화형이 아니다. `area` 곡선의 hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가
-소유한다.
+카드 자체는 대화형이 아니다. `area` 곡선의 hover(세로선 + 점 + 툴팁)는 소비처가 가리킨 날을 계산해
+그리고, 모양은 위 `__crosshair` · `__marker` 가 갖는다.
 
 `area` 슬롯의 높이는 **비율**이다(`aspect-ratio: 4 / 1`). 카드가 격자에서 어떤 폭을 받든
 곡선의 기울기가 같아야 두 카드를 눈으로 비교할 수 있기 때문이다. `min-block-size: 140px` 는
@@ -156,6 +224,12 @@ hover(세로선 + 점 + 툴팁)는 소비처의 SVG 가 소유한다. 유일한 
 | Value | `typography-heading-md-medium` · `color-fg-primary` | |
 | Delta | `.louis-delta-pill` | `stat-tile` 이 소유한다 |
 | Spark 슬롯 | 44% · 최대 130px · 46px | 정본 `w-[44%] max-w-65 h-23` |
+| 선 | 2 · 둥근 끝 · `currentColor` · non-scaling | 정본 `strokeWidth="2"` |
+| 면 | `currentColor` 18% → 0 · 스파크 22% → 0 | 정본 `stopOpacity` 0.18 · 0.22 |
+| 십자선 | `color-gray-000-alpha-20` · `border-width-default` | 정본 테마 잉크 20% · 1 |
+| 축 글자 줄 | 좌우 `space-control-xs` 4 · 480 이하 1 · 사이 2 | 정본 `px-2` · `px-[1px] gap-1` |
+| 축 글자 | `typography-caption-regular` · `color-fg-tertiary` · `tabular-nums` | 정본 `--gray-400` 과 두 테마 같다 |
+| 점 바닥 | 지름 2 · 격자 18 · `color-gray-000-alpha-12` · 위 `space-control-md` 12 · 아래 26 · `radius-card` 12 | 정본 `before:inset-[12px_0_26px] before:rounded-12` · 16% × 불투명 0.78 |
 
 ## Acceptance tests
 
@@ -209,6 +283,16 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고, 데이터 부족 안
    `spark` 변형에는 `Meta` 노드를 두지 않는다 — 불리언으로 숨기면 component set 단위로
    합쳐져 `area` 의 기간까지 사라진다.
 6. **React 표면이 없다.** `stat-tile` 과 같다.
+7. **점 바닥의 잉크를 한 칸으로 접었다.** 제품은 16% 점에 층 불투명 0.78 을 곱해 실효 12.5% 다(`shared.tsx:41-43`). 레시피는
+   `gray-000-alpha-12` 한 칸에 불투명을 걷는다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값). 제품의 폭 구간별 비율(5/1 · 3/1 · 2.5/1,
+   :44-46)은 위 3 과 같이 카드 밖이다.
+8. **점 바닥에 Figma 층 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Chart=area` 변형의 차트 자리에 점 바닥
+   층(새 축이 아니다)을 더한다.
+9. **점(`__marker`) 반지름이 늘린 그림에서 타원이 된다.** 제품 `r="4"` 는 viewBox 단위라 `preserveAspectRatio="none"` 으로
+   늘리면 가로세로가 달리 늘어난다(`shared.tsx:421`). 레시피는 반지름을 갖지 않는다 — 소비처가 점을 SVG 밖 HTML 로 두거나
+   `r` 을 화면 px 로 환산해야 한다.
+10. **영역 차트 부품에 Figma 층 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 의 선 · 면 분리와
+    `HasCrosshair` 는 다음 회차다.
 
 ## Implementation
 

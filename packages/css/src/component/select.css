@@ -18,7 +18,7 @@
  *
  * ## 그래서 새로 서는 것은 트리거 하나다
  *
- * 캐럿(열림 180°) · 값이 남는 폭을 먹는 배치 · 크기 축 둘. 이 셋이 `.louis-menu-trigger` 와
+ * 캐럿(열림 180°) · 값이 남는 폭을 먹는 배치 · 크기 축(sm · md · lg). 이 셋이 `.louis-menu-trigger` 와
  * 갈리는 전부이고, 그중 어느 것도 그 클래스에 없다.
  */
 
@@ -76,6 +76,32 @@
   padding-inline-start: var(--louis-space-control-sm);
   padding-inline-end: var(--louis-space-overlay-inset);
   border-radius: var(--louis-radius-control-sm);
+}
+
+/* lg — h-40. 폼 안에서 TextField lg 와 **한 줄에 나란히 서는** 트리거(2026-10-13, DS-D-0084).
+ *
+ * 정본은 제품 어드민 선택 필드(`apps/web/app/admin/AdminSection.tsx:100-103`, 12파일 35자리)다 — 트리거가
+ * `.louis-text-field__box` 를 그대로 입고 「옆 입력칸들과 같은 면 · 높이 · 헤어라인」을 갖는다. 그래서 이 칸의 값은
+ * 전부 text-field lg 에서 온다: 높이 40 · 좌우 16 · 간격 8 · 값 body-sm. 면 · 반경 · 헤어라인 · 호버 · 캐럿 회전은 md 를 물려받는다.
+ *
+ * **값 글자가 caption 에서 body-sm 으로 오르는 것은 크기 축이 아니라 이웃 계약이다.** 옆 입력칸의 값이 body-sm 이라
+ * 한 줄에 선 두 칸의 글자가 달라지면 안 된다(어드민 :105 주석 「한 조회 줄에서 선택 필드 글자만 한 단 컸다」).
+ *
+ * 캐럿은 12 그대로다 — 제품은 10(어드민) · 16(문의)으로 갈렸고, 아래 캐럿 주석의 「아이콘 사다리를 쓰지 않는다」가
+ * 여기도 맞다. 글리프 칸(`__icon`)도 md 의 20 그대로다. 빈 값 잉크는 `[data-placeholder]` 규칙의 `fg-tertiary` 가 맡는다 —
+ * 어드민의 48% 알파는 접는다(select.md Known deviations 7).
+ *
+ * **48 칸은 열지 않는다.** 문의 화면(`apps/web/app/inquiry/InquiryClient.tsx:160-181`)의 48 은 입력칸까지 48 로 덮은 화면이라
+ * lg 가 아니다 — 그 화면을 40 으로 내리는 것은 제품 쪽 일이다(select.md Known deviations 8). */
+.louis-select-trigger[data-size="lg"] {
+  gap: var(--louis-space-control-sm);
+  block-size: var(--louis-layout-control-height-lg);
+  padding-inline: var(--louis-space-control-lg);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
 }
 
 /* hover 는 면 한 칸 위다. **`.louis-menu-trigger` 의 ghost 8% 가 아니라 secondary 12%** 인
@@ -161,7 +187,7 @@
 /* 캐럿. **아이콘 슬롯이 아니라 컨트롤 안의 장식이라 아이콘 사다리(16·20·24)를 쓰지 않는다.**
  * 제품 실측도 그 사다리에 없다 — 프리뷰 줌 12(lucide chevron) · ComposerBar 12(▼ 글자 크기)
  * · SubscriptionScene 10 · Gnb 6(테두리로 그린 정사각). 두 번 나오는 유일한 값이 12 이고
- * 그것을 두 크기 칸 모두에서 쓴다: 캐럿이 크기 축을 따라 줄면 sm 에서 10 이하가 되어
+ * 그것을 모든 크기 칸(sm · md · lg)에서 쓴다: 캐럿이 크기 축을 따라 줄면 sm 에서 10 이하가 되어
  * 스트로크가 화면 격자에 걸린다.
  *
  * **아이콘 사다리에 12 칸을 열지 않는다.** 여는 순간 아이콘 자산 전체가 그 칸을 그려야

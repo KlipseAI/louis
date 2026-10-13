@@ -25,6 +25,20 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (247) — 기존 부품의 변형 20개를 LOUIS 로(DS-D-0084 변형 묶음)
+
+- **CSS 레시피 · 문서.** Select `data-size="lg"` · Tabs `data-variant="bar"`(2px 막대 줄) · Section Header `data-level="article"` · `"display"`(랜딩 제목 계단) ·
+  Choice Card `data-variant="list"` · Floating Shell `__item[data-variant="ghost"]` · `__divider` · App Top Bar `data-surface="canvas"` ·
+  Text Field `data-multiline`(첨부 · 도구 줄 · 글자 수) · Media Slot `data-size="attachment"` · Slider `data-variant="ruler"` · Progress Ring `data-mode="bipolar"` ·
+  Chart Card 점 바닥 · 영역 차트 하위 부품 · 패턴 `.louis-canvas-dots`(editor-workspace) · Segmented Control `__thumb` · Selectable List Row `data-layout="link"` ·
+  Drop Zone `data-surface="media"` · Dialog `data-size="compare"`(880) · `data-dividers` · Transform Frame `__rotate-zone`.
+- **새 토큰 다섯.** `color-floating-item-selected` · `-selected-hover` · `color-floating-divider-mid` · `-peak`(툴 버튼 · 구분선), `color-inspector-adjust-accent`
+  (보정 강조 — 라이트는 대비를 고친 yellow-700). 모션 메타 `motion-tab-select` 에 `translate` 를 더했다.
+- **Figma 축 어휘(§2).** `Level` 에 list · article · display, `State` 에 `DragOver`, `Mode` 에 `bipolar`, `Layout` 에 multiline · link · media, 조건 축 `Dividers`(아홉째).
+  넓은 대화는 폐기된 밀도 형용사 `xlarge` 대신 쓰임새 이름 `compare` 다.
+- 소유자 판정 열다섯은 기본값으로 정했다(DS-D-0084 「변형 묶음에서 기본값으로 정한 판단」). Figma 세트 · 기록 · 실브라우저 시험과 React prop 은 다음이다 —
+  각 문서 Known deviations. 제품 쪽 교체((나))는 이 묶음 밖이다.
+
 ## 2026-10-13 (246) — 아이콘 23개 · 채운 글리프와 한 색 브랜드 로고(DS-D-0085)
 
 - 아이콘 47 → 70. 노드 캔버스: `sparkle-fill` · `play-fill` · `pause-fill` · `youtube-logo` · `instagram-logo` · `film-slate` · `video-camera`.

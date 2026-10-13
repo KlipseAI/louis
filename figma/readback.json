@@ -6365,6 +6365,74 @@
           ]
         ],
         [
+          "color/floating-divider-mid",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/floating-divider-peak",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/20",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/floating-item-selected",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/08",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/floating-item-selected-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/12",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-white-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
           "color/gray/000",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL,EFFECT_COLOR",
@@ -6836,6 +6904,23 @@
             [
               "Light",
               "Klipse Primitive::color/static-black-alpha/40",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/inspector-adjust-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/700",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/500",
               null
             ]
           ]

@@ -95,6 +95,10 @@
   --color-fg-upgrade-current: var(--louis-color-fg-upgrade-current);
   --color-fg-upgrade-hover: var(--louis-color-fg-upgrade-hover);
   --color-fg-warning: var(--louis-color-fg-warning);
+  --color-floating-divider-mid: var(--louis-color-floating-divider-mid);
+  --color-floating-divider-peak: var(--louis-color-floating-divider-peak);
+  --color-floating-item-selected: var(--louis-color-floating-item-selected);
+  --color-floating-item-selected-hover: var(--louis-color-floating-item-selected-hover);
   --color-gray-000: var(--louis-color-gray-000);
   --color-gray-000-alpha-04: var(--louis-color-gray-000-alpha-04);
   --color-gray-000-alpha-08: var(--louis-color-gray-000-alpha-08);
@@ -123,6 +127,7 @@
   --color-gray-800: var(--louis-color-gray-800);
   --color-gray-900: var(--louis-color-gray-900);
   --color-icon-input-glyph: var(--louis-color-icon-input-glyph);
+  --color-inspector-adjust-accent: var(--louis-color-inspector-adjust-accent);
   --color-landing-line: var(--louis-color-landing-line);
   --color-landing-page-bg: var(--louis-color-landing-page-bg);
   --color-landing-panel: var(--louis-color-landing-panel);

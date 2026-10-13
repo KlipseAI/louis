@@ -314,3 +314,149 @@
 .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
   margin-block-start: calc((20px - 14px) / 2);
 }
+
+/* ── 눈금자 변형 `data-variant="ruler"` (DS-D-0084) ─────────────────────────
+ *
+ * 정본: 제품 비디오 편집기 색 보정(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx:253-313`,
+ * 소비처 `ClipColorControls.tsx:180 · :248`). **지시선은 가운데 고정이고 눈금이 흐른다** — 시선이 한 자리에 머물고, 되돌릴
+ * 자리(기본값)는 눈금과 함께 움직이는 점이라 가운데에서 그 점까지가 곧 조정량이다.
+ *
+ * **네이티브 range 가 아니다.** 누른 자리로 값이 뛰는 절대 위치 방식이 「자를 민다」와 반대라 제품이 `role="slider"` div 로
+ * 포인터를 직접 받는다(:8-18). 그래서 이 변형은 `__control` 을 쓰지 않고 `__ruler` 를 쓴다. 레시피는 모양만 — 드래그 · 관성 · 배속 ·
+ * 키보드 · `aria-value*` 는 소비처다. 위 머리말의 「네이티브 `<input type="range">`다」는 thumb · track 두 변형의 계약이다.
+ *
+ * **좌표는 물리(left)다.** 띠의 자리가 값 비율의 일차식이고 제품이 `left` 로 준다. 쓰기 방향이 바뀌어도 눈금자는 왼쪽이 작은 값이다. */
+.louis-slider[data-variant="ruler"] {
+  /* 위 12 는 소비처의 쌓기 간격이다(제품 `mt-6`, :255). 머리와 자 사이 4 는 슬라이더 기본 간격 그대로다(`mb-2`, :256). */
+  gap: var(--louis-space-control-xs);
+}
+
+/* 머리 — 이름과 지금 값이 양 끝에(제품 `flex items-baseline justify-between`, :256). */
+.louis-slider__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--louis-space-control-sm);
+  min-inline-size: 0;
+}
+
+/* 이름은 caption medium · `fg-secondary` — 제품 `type-caption-12-medium text-[var(--text-soft)]`(:257). sm 라벨과 같은 글자다. */
+.louis-slider[data-variant="ruler"] .louis-slider__label {
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 지금 값 — 제품 `type-body-14-medium tabular-nums`(:258). */
+.louis-slider__value {
+  color: var(--louis-color-fg-primary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-slider__ruler {
+  /* 소비처가 인라인으로 덮는 값 넷. 기본값은 CSS 만 실은 정적 마크업(Figma 캡처 fixture)에서도 자가 깨지지 않게 하는 자리다.
+   *   offset  — 띠의 왼쪽(%, 자 폭 기준). 제품 `left`(:281).
+   *   span    — 띠 폭 = 범위 길이(자 폭의 배수). 제품 `STRIP_WIDTH = 1 / VIEW_SPAN`(:42) = 200%.
+   *   minor   — 작은 눈금 주기(띠 폭의 %). 제품 `MINOR_PCT`(:44) = 2%.
+   *   neutral — 기본값 점의 자리(띠 폭의 %). 제품 `stripFraction(neutral)`(:303). */
+  --louis-slider-ruler-offset: -50%;
+  --louis-slider-ruler-span: 200%;
+  --louis-slider-ruler-minor: 2%;
+  --louis-slider-ruler-neutral: 50%;
+
+  position: relative;
+  /* 40 — 제품 `h-20`(:271). 폼 슬라이더(lg)와 같은 칸이다. */
+  block-size: var(--louis-layout-control-height-lg);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  cursor: ew-resize;
+}
+
+.louis-slider__ruler-strip {
+  position: absolute;
+  inset-block: 0;
+  left: var(--louis-slider-ruler-offset);
+  inline-size: var(--louis-slider-ruler-span);
+  pointer-events: none;
+}
+
+/* 작은 눈금 · 큰 눈금 — 요소 수백 개 대신 반복 그라디언트 한 겹씩(제품 :284-286 주석). 1px 선 · 위는 투명.
+ * 높이 10 · 16 은 제품 `h-5` · `h-8`(:288 · :294). 잉크는 제품 22% · 34% 에 가장 가까운 시맨틱 칸 20 · 32 다. */
+.louis-slider__ruler-strip::before,
+.louis-slider__ruler-strip::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+}
+
+.louis-slider__ruler-strip::before {
+  /* 10. 제품 `h-5`(:288). */
+  block-size: 10px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--louis-color-gray-000-alpha-20) 0 var(--louis-border-width-default),
+    transparent var(--louis-border-width-default) var(--louis-slider-ruler-minor)
+  );
+}
+
+.louis-slider__ruler-strip::after {
+  /* 16. 제품 `h-8`(:294). 다섯 칸마다. */
+  block-size: 16px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--louis-color-gray-000-alpha-32) 0 var(--louis-border-width-default),
+    transparent var(--louis-border-width-default) calc(var(--louis-slider-ruler-minor)*5)
+  );
+}
+
+/* 기본값 점 — 눈금과 함께 흐른다. 12 원 · 테마 잉크(제품 `w-6 h-6 rounded-full bg-gray-000`, :301-304). */
+.louis-slider__ruler-neutral {
+  position: absolute;
+  inset-block-start: 0;
+  left: var(--louis-slider-ruler-neutral);
+  /* 12. 제품 `w-6 h-6`(:302). */
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-primary);
+  translate: -50% 0;
+}
+
+/* 지시선 — 늘 가운데. 지금 값이 여기다. 2 × 28(제품 `h-14 w-[2px]`, :309-311).
+ * 잉크는 `inspector-adjust-accent` — 제품 yellow-500 은 라이트 #fafafa 위 1.73:1 이라 그래픽 3:1 미달이고, 라이트를
+ * yellow-700(3.57:1)으로 올린 값이다(DS-D-0084 §3 · 소유자 판정 9, 2026-10-13 기본값). 다크는 제품 값 그대로다. */
+.louis-slider__ruler-indicator {
+  position: absolute;
+  inset-block-end: 0;
+  left: 50%;
+  inline-size: var(--louis-border-width-ring);
+  /* 28. 제품 `h-14`(:310). 큰 눈금(16)보다 길어 눈금에 묻히지 않는다. */
+  block-size: 28px;
+  background: var(--louis-color-inspector-adjust-accent);
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+/* 포커스 링은 그리지 않는다(DS-D-0074). 강제 색에서만 자가 받는다 — 칠 그라디언트가 사라지므로 지시선과 점을 시스템 색으로 되살린다. */
+@media (forced-colors: active) {
+  .louis-slider__ruler:focus-visible {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .louis-slider__ruler-indicator,
+  .louis-slider__ruler-neutral {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}

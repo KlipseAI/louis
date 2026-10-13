@@ -108,6 +108,84 @@
   }
 }
 
+/* ── 막대 탭 줄(`data-variant="bar"`) ────────────────────────────────────────
+ * 출처: 2026-10-13(DS-D-0084), 제품 통합 판 `apps/web/app/admin/contentListStyles.ts:171-174`(어드민 콘텐츠 관리 ·
+ * 앰배서더 두 화면의 서브탭). 고른 탭을 **2px 막대**가 말하고, 쉬는 탭은 불투명도가 아니라 잉크 한 단(`fg-secondary`)으로 내린다.
+ *
+ * underline 과 다른 변형인 이유: 막대 · 잉크 · 간격 20 · 좌우 0 · 위아래 12 · 반경 0 — 탭 자신의 값 여섯이 다시 쓰인다.
+ * 줄 밑선 하나만 같다(같은 헤어라인 토큰을 여기서 다시 적는다).
+ *
+ * 막대는 box-shadow 가 아니라 **테두리**다 — 제품이 `border-b-2` 로 높이 47 을 만들고, 강제 색 모드에서도 남는다.
+ * 쉬는 탭도 투명 막대를 갖는다: 고를 때 높이가 2px 튀지 않게.
+ *
+ * 쉼 잉크가 `fg-secondary` 라 기본 탭의 알려진 대비 미달(tabs.md Known deviations)이 이 변형에는 없다 —
+ * 다크 7.24:1 · 라이트 9.23:1(`bg-surface` 위). */
+.louis-tabs[data-variant="bar"] {
+  /* 20. 제품 `gap-10`(contentListStyles.ts:171). 간격 사다리에 없다. */
+  gap: 20px;
+  overflow-x: auto;
+  box-shadow: var(--louis-hairline-inset-block-end);
+}
+
+.louis-tabs[data-variant="bar"] > .louis-tabs__tab {
+  block-size: auto;
+  /* 12. 제품 `py-6`(:172). */
+  padding-block: var(--louis-space-control-md);
+  padding-inline: 0;
+  border-radius: 0;
+  border-block-end: var(--louis-border-width-ring) solid transparent;
+  color: var(--louis-color-fg-secondary);
+  opacity: 1;
+  transition-property: color, border-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  /* 제품 `type-body-14-medium`(AmbassadorAdmin.tsx:50 · ContentManagement.tsx:53). 기본 탭의 body-md 보다 한 단 작다 — 페이지 안 서브 탐색이다. */
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 특이도: 기본 호버(0,2,0)를 막대 호버(0,4,0)가 이긴다 — 기본의 불투명도 0.9 가 새지 않게 `opacity: 1` 을 다시 적는다.
+ * `aria-disabled` 탭도 호버에서 잉크가 오르지 않게 가드에 넣는다. */
+@media (hover: hover) {
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled):not([aria-disabled="true"])):hover {
+    color: var(--louis-color-fg-primary);
+    opacity: 1;
+  }
+}
+
+.louis-tabs[data-variant="bar"] > .louis-tabs__tab[aria-selected="true"] {
+  border-block-end-color: var(--louis-color-fg-primary);
+  color: var(--louis-color-fg-primary);
+}
+
+.louis-tabs[data-variant="bar"] > .louis-tabs__tab:is(:disabled, [aria-disabled="true"]) {
+  color: var(--louis-color-fg-disabled);
+  opacity: 1;
+}
+
+/* reduced-motion — 기본 블록의 `.louis-tabs__tab`(0,1,0)이 이 변형의 전이 선언(0,3,0)에 지므로 여기서 다시 적는다. */
+@media (prefers-reduced-motion: reduce) {
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+@media (forced-colors: active) {
+  .louis-tabs[data-variant="bar"] {
+    box-shadow: none;
+    border-block-end: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  /* 막대가 선택을 말하므로 기본 변형의 밑줄 글자 꾸밈은 겹친다 — 끈다. */
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab[aria-selected="true"] {
+    border-block-end-color: Highlight;
+    text-decoration: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .louis-tabs__tab {
     transition-duration: var(--louis-motion-reduced-duration);

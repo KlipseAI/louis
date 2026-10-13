@@ -430,7 +430,8 @@
         {
           "motion": "motion-tab-select",
           "properties": [
-            "opacity"
+            "opacity",
+            "translate"
           ]
         }
       ],
@@ -8193,6 +8194,56 @@
             }
           }
         },
+        "floating-item-selected": {
+          "$value": "{primitive.color.static-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-item-selected",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "floating-item-selected-hover": {
+          "$value": "{primitive.color.static-black-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-item-selected-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "floating-divider-mid": {
+          "$value": "{primitive.color.static-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-divider-mid",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "floating-divider-peak": {
+          "$value": "{primitive.color.static-black-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-divider-peak",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "inspector-adjust-accent": {
+          "$value": "{primitive.color.yellow.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-inspector-adjust-accent",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "node-audio-accent": {
           "$value": "{primitive.color.pink.500}",
           "$extensions": {
@@ -10503,6 +10554,56 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-slot-stroke",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "floating-item-selected": {
+          "$value": "{primitive.color.static-white-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-item-selected",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "floating-item-selected-hover": {
+          "$value": "{primitive.color.static-white-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-item-selected-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "floating-divider-mid": {
+          "$value": "{primitive.color.static-white-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-divider-mid",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "floating-divider-peak": {
+          "$value": "{primitive.color.static-white-alpha.20}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-floating-divider-peak",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "inspector-adjust-accent": {
+          "$value": "{primitive.color.yellow.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-inspector-adjust-accent",
               "tier": "semantic",
               "mode": "dark"
             }

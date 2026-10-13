@@ -43,7 +43,7 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
-| Web           | `partial`      | CSS recipe(`packages/css/src/component/floating-shell.css`)가 섰다. React 표면은 없고 제품은 아직 물지 않았다 — `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 여전히 그리고 있다 |
+| Web           | `partial`      | CSS recipe(`packages/css/src/component/floating-shell.css`)가 섰다 — 셸 · 알약 · 툴 버튼(`__item[data-variant="ghost"]`) · 구분선(`__divider`). React 표면은 없고 제품은 아직 물지 않았다 — `Toolbar.tsx` · `index.tsx` 의 `TOOLBAR_WRAP` 과 `CanvasZoomControl.tsx` 의 `ZOOM_LABEL_BUTTON` 이 여전히 그리고 있다 |
 | Figma         | `partial`      | FloatingShell 2 variant(`Size` = `md` · `lg`, `lg` 가 compact) · PillTrigger 3 variant(State). 흐림 4 가 변수에 묶이지 않고 구분선·배지가 빠져 있다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 계획서가 제안한 네 축 중 하나도 열지 않았고 그 이유가 전부 실측이다 |
@@ -62,6 +62,9 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | --- | --- |
 | `.louis-floating-shell` | 조각을 담는 셸. 여백 4 · 간격 4 · 반경 16 · 재료 한 벌 |
 | `.louis-floating-shell__item` | 조각이 서는 **자리**. 겉 크기 32 와 곡률 12 만 갖는다 |
+| `.louis-floating-shell__item[data-variant="ghost"]` | 자리를 채우는 **툴 버튼**. 면 없이 서고 호버 8% · 켜짐 한 단 짙은 틴트 · 누름 0.95. 아래 「툴 버튼」 |
+| `.louis-floating-shell__glyph` | 툴 버튼의 글리프 칸 20 |
+| `.louis-floating-shell__divider` | 조각 묶음 사이의 세로 1 × 22 그라디언트. 셸 안에서 좌우 2. 아래 「구분선」 |
 | `.louis-floating-shell[data-size="compact"]` | 휴대폰 폭의 하단 바. 자리가 **40** 이 된다(여백 · 간격 · 재료 · 곡률은 그대로). 아래 「compact」 |
 | `.louis-pill-trigger` | 알약 트리거. 높이 36 · 좌우 12 · 간격 4 · 반경 16 · 재료 한 벌 |
 | `.louis-pill-trigger__caret` | 방향 표시 10 · 불투명도 0.7. 열림에서 180° 뒤집힌다 |
@@ -73,8 +76,8 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 - **그림자.** 경계는 안쪽 헤어라인 **한 겹**이 전부다(계약의 `borderWidth: 0`, DS-D-0023).
   `--louis-elevation-menu` 를 한 겹 더 얹는 것은 `CommandPalette` 의 560 모달이고 그것은
   [Dialog](dialog.md) 쪽 문법이다.
-- **조각.** `__item` 이 갖는 것은 자리의 겉 크기와 곡률뿐이다. 호버 틴트가 갈리는 툴바 버튼의
-  레시피는 아직 없다(Known deviations 4).
+- **조각의 내용.** 속성 없는 `__item` 이 갖는 것은 자리의 겉 크기와 곡률뿐이다. 그 자리를 버튼으로
+  채우는 툴 버튼은 `data-variant="ghost"` 가 갖는다(아래 「툴 버튼」) — 글리프 그림과 메뉴는 호출부의 것이다.
 
 **재료는 두 규칙에 각각 적힌다.** 트리거가 셸의 자손이 아니라서다 — 배율 트리거는 캔버스 우측
 하단에 홀로 서므로 상속으로 한 벌을 물려줄 수 없다. 값이 두 번 적히는 대신 갈리지 않는 것을
@@ -101,6 +104,24 @@ summary: 캔버스 위에 뜨는 크롬의 재료 한 벌과 그 재료로 선 �
 | 조각 | `40` 정사각 · 반경 `12` | `--louis-layout-control-height-lg` · 곡률은 기본과 같다 |
 | 높이 | `48` | 선언 없음 — `4 + 40 + 4` 의 파생값 |
 | 누르는 영역 | `44` | 조각에 `.louis-hit-target`(compact 에서만) |
+
+**툴 버튼**(`__item[data-variant="ghost"]`) — 자리 하나에 글리프 하나.
+
+| 축 | 값 | 출처 |
+| --- | --- | --- |
+| 크기 · 반경 | `32` 정사각 · `12`(compact `40`) | 자리와 같다 — `TOOLBAR_BUTTON_BASE` `w-16 h-16` · `rounded-[var(--button-radius)]` |
+| 여백 · 테두리 | `0` · 없음 | `p-0` · `[border:none]` |
+| 글리프 | `20` | `TOOLBAR_ICON_MASK` `w-10 h-10` = `icon-size-md` |
+| 누름 | 크기 `0.95` | `[&:active]:[transform:scale(0.95)]` |
+| 강조 | 바깥 `2` 주색 | `TOOLBAR_BUTTON_SPOTLIGHT` = `border-width-ring` · `accent-primary` |
+
+**구분선**(`__divider`)
+
+| 축 | 값 | 출처 |
+| --- | --- | --- |
+| 크기 | `1 × 22` | `w-px h-11` |
+| 좌우 여백 | 셸 안 `2` · 상단 바 `0` | `Toolbar.tsx:100` `mx-1` · `ProjectHeader.tsx:176` `m-0` |
+| 칠 | 0 → mid 22% → peak 50% → mid 78% → 0 | `floating-divider-mid` · `-peak` |
 
 **PillTrigger** — 문구와 캐럿 한 줄.
 
@@ -146,6 +167,65 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 같은 행이 갖는다 — 셸이 아니라 행의 선언이다. 구성과 시트의 배치는
 [Editor Workspace](../patterns/editor-workspace.md)의 「캔버스 하단 바」가 적는다.
 
+## 툴 버튼 — `__item data-variant="ghost"`
+
+2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md). 정본은 제품 통합 판 `54b62a8a`
+`components/scenes/create/node-canvas-v2/components/Toolbar.tsx:49-97`(캔버스 하단 툴바)과
+`components/scenes/create/ProjectHeader.tsx:225-282`(캔버스 상단 바의 저장 · 도움말 · 영상 버튼) — 두 파일이 같은
+버튼을 따로 든다.
+
+셸 안 조각 자리(32 · 반경 12)를 버튼으로 채운다. 면 없이 서고 호버에 8% 틴트, 켜지면(`aria-pressed` · `aria-expanded`)
+한 단 짙은 틴트, 누르면 0.95. 글리프는 20 이다.
+
+```html
+<div class="louis-floating-shell">
+  <button type="button" class="louis-floating-shell__item" data-variant="ghost" aria-pressed="true" aria-label="선택">
+    <span class="louis-floating-shell__glyph" aria-hidden="true">…</span>
+  </button>
+  <span class="louis-floating-shell__divider" aria-hidden="true"></span>
+  <button type="button" class="louis-floating-shell__item" data-variant="ghost" aria-expanded="false" aria-haspopup="menu" aria-label="글 추가">…</button>
+</div>
+```
+
+| 상태 | 면 | 잉크 |
+| --- | --- | --- |
+| 쉼 | 투명 | `fg-secondary` |
+| 호버 | `accent-ghost-hover` | `fg-primary` |
+| 켜짐 | `floating-item-selected` | `fg-primary` |
+| 켜짐 호버 | `floating-item-selected-hover` | `fg-primary` |
+| 누름 | 크기 0.95 | — |
+| 비활성 | 투명 | `fg-disabled` |
+
+**켜짐은 `aria-pressed` 와 `aria-expanded` 둘 다 받는다.** 툴바의 모드 버튼(선택 · 이동)은 토글이고 추가 버튼(글 · 그림 · 소리)은
+메뉴를 연다. 제품은 둘을 같은 `TOOLBAR_BUTTON_ACTIVE` 로 칠한다(`Toolbar.tsx:272` · `:308`). 켜짐 면은 다크 12% · 라이트 8%,
+켜짐 호버는 다크 16% · 라이트 12% 다 — 두 테마의 알파가 달라 기존 시맨틱에 맞는 칸이 없어 `color-floating-item-selected` ·
+`-selected-hover` 를 세웠다. 라이트 켜짐 호버는 `ProjectHeader.tsx:279` 의 12% 를 고른다 — `Toolbar.tsx:76-80` 의 8% 는 원본 CSS
+순서에 진 선언을 옮긴 것이라 호버가 보이지 않는다.
+
+**IconButton ghost 를 끼우지 않는다.** 갈리는 값이 다섯이다 — 호버 면(`bg-inset` 대 8% 틴트) · 켜짐 면 · 누름(0.98 대 0.95) ·
+글리프(16 대 20) · 쉼 잉크. 다섯을 덮어 쓰는 IconButton 은 IconButton 이 아니다.
+
+**이름은 `__item` 하나다.** 같은 버튼을 캔버스 상단 바([App Top Bar `canvas`](app-shell-parts.md))도
+쓴다 — 셸 밖에 서도 이 클래스이고, 따로 `canvas-tool-button` 을 세우지 않는다.
+
+`data-spotlight="true"` 는 도움말 「보여 주기」가 짚은 버튼에 바깥 2px 주색(`border-width-ring` · `accent-primary`)을 잠시
+두른다(`Toolbar.tsx:88`). 시간은 캔버스가 정한다. 포커스 링을 걷었으므로([DS-D-0074](../governance/decisions/DS-D-0074-focus-ring-removed.md))
+같은 링과 겹칠 자리가 없다.
+
+## 구분선 — `__divider`
+
+조각 묶음 사이의 세로 1 × 22. 위아래 끝이 사라지는 그라디언트(0 → mid → peak → mid → 0, 정지점 0 · 22 · 50 · 78 · 100 %)라
+셸의 곡률 안에서 선이 끊겨 보이지 않는다. 셸 안에서는 좌우 2 를 더 띄워(`Toolbar.tsx:100` `mx-1`) 셸 간격 4 와 합쳐 양쪽이
+6 이 되고, 상단 바에서는 0 이다(`ProjectHeader.tsx:176` `m-0`). 장식이라 `aria-hidden` 이다.
+
+| 정지점 | 라이트 | 다크 |
+| --- | --- | --- |
+| 22% · 78% `floating-divider-mid` | 잉크 8% | 잉크 12% |
+| 50% `floating-divider-peak` | 잉크 12% | 잉크 20% |
+
+`static-black-alpha.*` 의 바탕이 `#171b22`(= 제품 `palette-gray-900`), `static-white-alpha.*` 가 `#fafafa`(= 제품 다크 `gray-000`)라
+제품 칠과 바이트 단위로 같다.
+
 ## 36 은 컨트롤 높이가 아니다
 
 트리거의 36 을 보고 `Size` 축을 열고 싶어지는 자리다. **열지 않는다.**
@@ -178,14 +258,28 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 | `Label` | 슬롯 (TEXT) | 배율 문구. 코드에서 계산돼 들어오는 값이라 축이 아니다 |
 | `State` | 축 (3) | `Default` · `Hover` · `Open` |
 
+**FloatingShellItem**(툴 버튼 — Figma 는 아직 세우지 않았다, 다음 Figma 회차)
+
+| 이름 | 종류 | 뜻 |
+| --- | --- | --- |
+| `Size` | 축 (2) | `md` 32 · `lg` 40 — 셸의 `Size` 와 같은 쌍 |
+| `State` | 축 (4) | `Default` · `Hover` · `Pressed`(켜짐 — `aria-pressed` · `aria-expanded`) · `Disabled` |
+| `Glyph` | 슬롯 (INSTANCE_SWAP) | 글리프 20 |
+| `Spotlight` | 불리언 | 바깥 2 주색 테두리 |
+
+`Variant` 축은 열지 않는다 — 값이 `ghost` 하나라 축이 아니다. CSS 의 `data-variant="ghost"` 는 이 문서가 적는다. 켜짐 호버는
+프로토타입 상태라 변형으로 세우지 않는다.
+
+**FloatingShellDivider** — 축 없음. 1 × 22, 그라디언트 정지점에 변수 `color/floating-divider-mid` · `-peak` 를 묶는다.
+
 ## 축을 열지 않은 것 넷
 
 | 축 | 계획서의 제안 | 열지 않은 이유 |
 | --- | --- | --- |
 | `Orientation` | `Horizontal` · `Vertical` | 앵커 전수에서 이 재료로 선 셸이 **전부 가로**다. 없는 자리를 위한 축은 재고이지 값이 아니다([DS-D-0030](../governance/decisions/DS-D-0030-no-duplicate-role-tokens.md)) |
-| `Divider` | `None` · `Gradient` | 구분선은 실재한다(폭 1 · 높이 22 · 좌우 여백 2). 그런데 그 면이 **다섯 정지점 세로 그라디언트**이고 양 끝 두 정지점이 알파 0 이다 — 그 색을 담을 변수가 파일에 없어 지금 그리면 되읽기가 `rawFills` 로 센다. 저작 규범 §1 의 「원시값 0 — 타협 없음」을 깨지 않으려고 미룬다 |
+| `Divider` | `None` · `Gradient` | 구분선은 셸의 축이 아니라 **하위 부품 `__divider`** 로 섰다(2026-10-13, 위 「구분선」). 정지점의 색은 `color-floating-divider-mid` · `-peak` 가 나른다 — 그 변수가 없어 미루던 사유가 걷혔다. Figma 컴포넌트 `FloatingShellDivider` 는 다음 Figma 회차다 |
 | `Caret` | 불리언 | 앵커의 유일한 소비처가 캐럿을 **언제나** 그린다. 캐럿 없는 자리가 없다 |
-| `Badge` | `None` · `Dot` | 점 배지(6×6 · `primary-500` · 버튼 우상단 6/6)는 셸 **안의 32 툴바 버튼**에 붙지 이 트리거에 붙지 않는다. 그 버튼은 아직 컴포넌트가 아니다 |
+| `Badge` | `None` · `Dot` | 점 배지(6×6 · `primary-500` · 버튼 우상단 6/6)는 셸 **안의 32 툴바 버튼**에 붙지 이 트리거에 붙지 않는다. 그 버튼은 이제 `__item[data-variant="ghost"]` 이지만 배지는 아직 레시피에 없다 |
 
 넷 다 「깜빡했다」가 아니다. 앞의 셋은 **없는 것**이고 넷째는 **다른 부품의 것**이다.
 
@@ -197,6 +291,8 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 | 호버 | 면 88% — 색이 아니라 **같은 면의 알파**가 오른다 | 있다 — `PillTrigger` `State=Hover` 칠 불투명도 0.88(2026-10-09) |
 | 열림 | 캐럿이 180° 뒤집힌다. 면·잉크는 그대로 | 있다(위를 가리키는 갈매기) |
 | 비활성 | 제품에 선언이 **없다** | 없는 것이 옳다 |
+
+툴 버튼의 상태는 위 「툴 버튼」 표가 갖는다(쉼 · 호버 · 켜짐 · 켜짐 호버 · 누름 · 비활성).
 
 되읽기의 필드는 면의 알파도 캐럿의 향도 담지 않는다. 세 변형의 **기하가 같다**는 사실만 담기고,
 그것은 `NodeChromeButton` 의 `Default`/`Hover` 가 이미 서 있는 자리다.
@@ -260,8 +356,8 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 `--louis-floating-shell-blur` 로 한 번 발행하고 그 선언을 기록의 `blurRadius` 와 맞춘다 —
 이름 없는 값이 게이트 밖에 남지 않게 하는 방법이다.
 
-**아직 재지 못하는 것**: 구분선과 점 배지. 둘 다 이 세트에 없는 것이고(아래 「축을 열지 않은 것
-넷」) 없는 것을 잴 수는 없다. 열지 않은 네 축의 사유는 `figma/components.measured.json` 의
+**아직 재지 못하는 것**: 툴 버튼 · 구분선(2026-10-13 레시피가 섰지만 브라우저 시험과 기록
+`figma/components.measured.json` 의 `item` · `divider` 칸이 아직 없다)과 점 배지(레시피에 없다). 열지 않은 네 축의 사유는 `figma/components.measured.json` 의
 `$whyNoOrientationAxis` · `$whyNoDividerAxis` · `$whyNoCaretAxis` · `$whyNoBadgeAxis` 가 갖는다.
 
 ## Known deviations
@@ -281,9 +377,10 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 3. **캐럿이 같은 벡터가 아니다.** Figma 는 라이브러리의 `icon/caret-down` 인스턴스를 10 으로
    줄여 쓰고, 제품은 10 뷰박스에 획 1.5 로 직접 그린 갈매기를 쓴다. 방향과 크기는 같고 획의
    출처가 다르다.
-4. **셸 안의 조각이 정본이 아니다.** Figma 의 `Item 1~3` 은 `NodeChromeButton` 인스턴스인데 그것은
-   자리 표시다. 제품 툴바 버튼은 호버 틴트가 갈리는 다른 레시피이고 아직 컴포넌트가 없다 —
-   계약이 담는 것은 그 자리의 **겉 크기 32 와 곡률 12** 뿐이다.
+4. **툴 버튼의 쉼 잉크 · 비활성 · 전이가 제품과 다르다.** 제품 쉼은 다크 pg-200 · 라이트 pg-800(`Toolbar.tsx:63` · `:67`)이고
+   레시피는 `fg-secondary` 다(다크 유리 면 위 7.24:1 · 라이트 8.67:1 로 둘 다 충분하다). 상단 바 버튼의 비활성은 제품이
+   불투명도 0.56(`ProjectHeader.tsx:231`)이고 레시피는 `fg-disabled` 다. 전이는 제품 120ms 가 `motion-control-hover`(160ms)로
+   접힌다. Figma 의 셸 `Item 1~3` 은 아직 `NodeChromeButton` 자리 표시다 — `FloatingShellItem` 이 서면 바꾼다.
 5. **`transform: translateZ(0)` 를 Figma 가 담지 못한다.** 제품은 세 자리 모두에 그것을 함께
    적는다. 합성 레이어로 올려 배경 흐림이 안정적으로 걸리게 하는 선언이고, iOS 의 중첩 스크롤에서
    같은 레이어의 글자가 흐려지는 결함을 막는 자리이기도 하다. 정지 화면에는 나타나지 않는 값이라
@@ -298,7 +395,9 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
    감쌀 근거가 생기기 전에 감싸면 아무도 쓰지 않는 API 가 된다. `Alert` · `Switch` ·
    `NodeChip` · `Inspector Row` 가 같은 형태이고, 브라우저 시험은 클래스 마크업을 직접 렌더해
    잰다. 소비처가 생기고 상태 관리(`aria-expanded` 의 소유)가 필요해지면 그때 연다.
-8. **툴바 단추의 「보여 주기」 강조(spotlight)가 정본이 없다 — 판정 필요.** 제품
+8. **툴바 단추의 「보여 주기」 강조(spotlight)는 2026-10-13 레시피 `data-spotlight="true"` 로 섰다**(바깥
+   `border-width-ring` 주색 — 리터럴 2 를 토큰으로 바꿨고, (c)의 「상태를 가진 버튼 레시피」가 툴 버튼으로 섰다).
+   (a)의 포커스 링 혼동은 DS-D-0074 로 링이 걷혀 사라졌다. 아래는 그 전의 기록이다. 제품
    `Toolbar.tsx:89`(`chore/landing-dead-walkthrough` @d040dce15)의 `TOOLBAR_BUTTON_SPOTLIGHT` 가
    `[box-shadow:0_0_0_2px_var(--louis-color-accent-primary)]` 로 도움말 「보여 주기」가 짚은 단추(이미지 ·
    영상 둘)에 잠시 강조색 2px 테두리를 두른다. 시간은 캔버스가 정한다. 세 가지가 걸린다. (a) **포커스
@@ -324,5 +423,6 @@ compact 로 들어가는 **`≤719px`**(`responsive-layout` 의 경계)에서 �
 
 - [Menu Popover](menu-popover.md) — 트리거가 여는 패널. 여기서 다시 만들지 않는다
 - [Node Chrome Button](node-chrome-button.md) — 셸 안에 서는 32 정사각의 이웃 문법
+- [App Shell Parts](app-shell-parts.md) — 캔버스 상단 바(`data-surface="canvas"`)가 툴 버튼 · 구분선을 셸 밖에서 쓴다
 - [Toast](toast.md) — 같은 「반투명 + 흐림」 재료를 쓰지만 반전 면이고 층이 다르다
 - [Editor Workspace](../patterns/editor-workspace.md) — 캔버스 하단 바(compact)와 측면 패널의 배치

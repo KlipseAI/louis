@@ -67,14 +67,14 @@ summary: 목록에서 값 하나를 골라 지금 값을 스스로 보여 줍니
 | 계약 | 어디에 | 값 | 뜻 |
 | --- | --- | --- | --- |
 | `.louis-select-trigger` | 트리거 요소 | — | 면·경계·기하를 갖는다. `<button>` 이다 |
-| `data-size` | 트리거 | `sm` · (없음) | **없을 때가 `md`(32)** 이고 `sm` 은 24 다. Alert 의 `Layout=block` 과 같은 규칙 |
+| `data-size` | 트리거 | `sm` · (없음) · `lg` | **없을 때가 `md`(32)** 이고 `sm` 은 24, `lg` 는 40 이다(2026-10-13). Alert 의 `Layout=block` 과 같은 규칙 |
 | `aria-expanded` | 트리거 | `true` · `false` | 열림. 면을 hover 값으로 유지하고 캐럿을 180° 돌린다 |
 | `aria-haspopup` | 트리거 | `listbox` | 여는 것이 명령 메뉴가 아니라 값 목록임을 말한다 |
 | `disabled` · `aria-disabled` | 트리거 | — | 잉크만 내리고 면은 그대로 둔다. 커서가 `not-allowed` 가 된다 |
 | `.louis-select-trigger__icon` | 트리거 자식 | — | 선행 글리프 슬롯. 고정 치수라 행이 좁아져도 줄지 않는다 |
 | `.louis-select-trigger__value` | 트리거 자식 | — | 지금 값. 남는 폭을 먹고 넘치면 말줄임한다 |
 | `data-placeholder` | 값 요소 | (있음) | 값이 아직 없다. 안내 문구를 넣고 잉크를 `fg-tertiary` 로 내린다. 꺼진 트리거에서는 `fg-disabled` 가 이긴다. Figma 에서는 `Placeholder=true` |
-| `.louis-select-trigger__caret` | 트리거 자식 | — | 캐럿. `aria-hidden` 이고 크기 축을 따르지 않는다(두 칸 다 12) |
+| `.louis-select-trigger__caret` | 트리거 자식 | — | 캐럿. `aria-hidden` 이고 크기 축을 따르지 않는다(세 칸 다 12) |
 | `.louis-select-search` | 패널 자식 | — | 스크롤 밖 고정 헤더. 안에 `TextField` 가 앉는다 |
 | `.louis-select-list` | 패널 자식 | — | 구르는 항목 목록. 패널 안쪽 여백을 되먹어 스크롤바가 곡률 안쪽까지 닿는다 |
 | `data-searchable` | `.louis-popover` | `true` | 검색줄이 있을 때 **패널 자신의 스크롤을 끈다** — 구르는 것은 목록이다. `:has()` 로 추론하지 않는 이유는 그러면 마크업의 우연이 이 규칙을 뒤집기 때문이다 |
@@ -85,12 +85,12 @@ summary: 목록에서 값 하나를 골라 지금 값을 스스로 보여 줍니
 
 ## Variants, sizes, and states
 
-`Size` 는 `md`(32) · `sm`(24) 둘이다. **속성이 없을 때가 `md`** 이고, 그 사실 자체가 계약이다 —
-Alert 의 `Layout=block` 과 같은 규칙이다.
+`Size` 는 `md`(32) · `sm`(24) · `lg`(40) 셋이다. **속성이 없을 때가 `md`** 이고, 그 사실 자체가 계약이다 —
+Alert 의 `Layout=block` 과 같은 규칙이다. `lg` 는 2026-10-13 에 열었다(아래 「크기 lg — 폼 안의 선택 필드」).
 
 | 축 | 값 | 무엇이 갈리나 |
 | --- | --- | --- |
-| `Size` | `md` · `sm` | 높이 32 ↔ 24 · 곡률 12 ↔ 8 · 좌우 여백 12·12 ↔ 8·6 · 간격 6 ↔ 4 · 글리프 20 ↔ 16. 캐럿은 12 로 **갈리지 않는다** |
+| `Size` | `md` · `sm` · `lg` | 높이 32 ↔ 24 ↔ 40 · 곡률 12 ↔ 8 ↔ 12 · 좌우 여백 12·12 ↔ 8·6 ↔ 16·16 · 간격 6 ↔ 4 ↔ 8 · 글리프 20 ↔ 16 ↔ 20 · 값 글자 caption ↔ caption ↔ body-sm. 캐럿은 12 로 **갈리지 않는다** |
 | `State` | `Default` · `Hover` · `Open` · `Disabled` | 면과 잉크, 그리고 캐럿의 회전 |
 | `Placeholder` | `false` · `true` | 값 요소의 잉크만. `true` 면 `fg-tertiary`(Disabled 에서는 `fg-disabled`), 면 · 기하는 그대로다 |
 
@@ -100,6 +100,29 @@ Alert 의 `Layout=block` 과 같은 규칙이다.
 
 `Disabled` 에서 **면은 그대로 두고 잉크만 내린다.** 값 목록은 꺼져 있어도 「지금 값」을 계속
 읽혀야 하므로 상자가 사라지면 안 된다.
+
+### 크기 lg — 폼 안의 선택 필드
+
+TextField lg 와 한 줄에 나란히 서는 트리거다(`data-size="lg"`, 2026-10-13, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
+높이 · 좌우 여백 · 값 글자가 TextField lg 와 같아서 조회 줄 · 폼 줄에서 입력칸과 선택칸의 바닥선 · 글자가 맞는다. 정본은 제품
+어드민의 선택 필드(`app/admin/AdminSection.tsx:100-103`, 12파일 35자리)다 — 트리거가 `.louis-text-field__box` 를 그대로
+입고 있었다.
+
+| 크기 | 높이 | 좌우 | 간격 | 값 | 반경 |
+| --- | --- | --- | --- | --- | --- |
+| sm | 24 | 8 · 6 | 4 | caption | `radius-control-sm` |
+| md(기본) | 32 | 12 | 6 | caption | `radius-control` |
+| lg | 40(`control-height-lg`) | 16(`space-control-lg`) | 8(`space-control-sm`) | body-sm | `radius-control` |
+
+**값 글자가 caption 에서 body-sm 으로 오르는 것은 크기 축이 아니라 이웃 계약이다.** 옆 입력칸의 값이 body-sm 이라 한 줄에 선
+두 칸의 글자가 달라지면 안 된다. 면 · 반경 · 헤어라인 · 호버 · 캐럿 회전 · 글리프 20 · 캐럿 12 는 md 를 물려받는다.
+
+**쓰는 자리:** 폼과 어드민 조회 줄 — 옆에 TextField lg 가 있을 때. 툴바 · 인스펙터는 md · sm 이다.
+
+**48 칸은 열지 않는다.** 문의 화면의 48 은 입력칸까지 48 로 덮은 화면이라 lg 가 아니다 — 아래 Known deviations 8.
+
+**Figma `SelectTrigger Size=lg` 는 아직 없다.** 세트에 `lg` × `State` 4 × `Placeholder` 2 = 8 칸을 더하고
+`figma/components.measured.json` 의 `select` 에 `lg` 칸(40 · 16 · 8 · 14/21)을 더하는 것은 Figma 회차의 몫이다.
 
 `Disabled` 와 `Hover`·`Open` 은 곱하지 않는다 — 꺼진 트리거 위에서 그 둘이 서지 않으므로
 한 축으로 접었다(figma-component-authoring.md 의 접기 시험).
@@ -171,11 +194,14 @@ Alert 의 `Layout=block` 과 같은 규칙이다.
 | ---------- | --------------- | --------- |
 | 트리거 높이 md | `layout-control-height-md` | 32. Gnb 프로필 언어 · ComposerBar 모델 |
 | 트리거 높이 sm | `layout-control-height-sm` | 24. VideoEditModal 프리뷰 줌 칩 |
-| 곡률 md · sm | `radius-control` · `radius-control-sm` | 12 · 8 |
+| 트리거 높이 lg | `layout-control-height-lg` | 40. 어드민 선택 필드(`AdminSection.tsx:100-103`) — TextField lg 와 같은 칸 |
+| 곡률 md · sm · lg | `radius-control` · `radius-control-sm` · `radius-control` | 12 · 8 · 12 |
 | 좌우 여백 md | `space-control-md` | 12 · 12 (대칭) |
 | 좌우 여백 sm | `space-control-sm` · `space-overlay-inset` | 8 · 6 (비대칭) |
-| 간격 md · sm | `space-overlay-item-content-gap` · `space-control-xs` | 6 · 4 |
-| 글리프 md · sm | `icon-size-md` · `icon-size-sm` | 20 · 16 |
+| 좌우 여백 lg | `space-control-lg` | 16 · 16 (대칭) |
+| 간격 md · sm · lg | `space-overlay-item-content-gap` · `space-control-xs` · `space-control-sm` | 6 · 4 · 8 |
+| 값 글자 md · sm · lg | `typography-caption-regular` · 같음 · `typography-body-sm-regular` | lg 만 body-sm — 옆 TextField lg 의 값 글자와 맞춘다 |
+| 글리프 md · sm · lg | `icon-size-md` · `icon-size-sm` · `icon-size-md` | 20 · 16 · 20 |
 | 캐럿 | `--louis-select-caret-size` | 12. 아이콘 사다리 밖이라 지역 변수가 이름을 갖는다 |
 | 경계 | `hairline-inset` | 0.5 inset. border 가 아니다 ([DS-D-0023](../governance/decisions/DS-D-0023-hairline-inset.md)) |
 | Default 면 · 잉크 | `color-bg-inset` · `color-fg-primary` | 면 사다리의 inset 칸 |
@@ -193,7 +219,8 @@ Figma 쪽은 `verify-figma-parity`, 코드 쪽은 `packages/react/test/select.br
 `surface-states.browser.test.tsx` 의 「states 표를 코드가 빠짐없이 읽는다」 래칫이 이 파일을
 `select` 의 담당으로 셈하므로, 네 상태를 하나도 빠뜨릴 수 없다.
 
-두 칸(`md` · `sm`) 각각에서.
+두 칸(`md` · `sm`) 각각에서. `lg`(2026-10-13)는 measured 기록에 칸이 아직 없어 되재지 않는다 — 기록에 칸이 서면
+같은 세 항목을 세 칸에서 잰다.
 
 1. 높이 · 위아래 여백 · 간격 · 테두리 두께 · 반경 · 글자 크기 · 행간이 계약과 같다.
 2. **시작 여백과 끝 여백을 따로 잰다.** `sm` 이 시작 8 · 끝 6 으로 갈리므로 한 칸으로 접으면
@@ -240,6 +267,13 @@ Figma 쪽에서는 `rawFills` · `rawStrokes` 가 0 이고 `textUnstyled` 가 0 
    기본값이 하나라 칸마다 안내 문구를 따로 둘 수 없다. 인스턴스에서 안내 문구로 바꿔 쓴다.
 6. **트리거에 `justify-content: space-between` 을 두지 않는다.** 값이 남는 폭을 먹는 이상 그
    선언은 한 번도 적용되지 않는 죽은 값이고, Figma 에는 그릴 자리가 없어 두 곳이 어긋나 보인다.
+7. **lg 의 캐럿과 빈 값 잉크가 제품과 다르다.** 제품 어드민은 캐럿 10 · 잉크 56%, 빈 값 48% 알파
+   (`app/admin/AdminSection.tsx:108-109`)이고 문의 화면은 캐럿 16(`app/inquiry/InquiryClient.tsx:546`)이다.
+   레시피는 크기마다 캐럿 12 · 트리거 잉크, 빈 값 `fg-tertiary` 로 접었다(2026-10-13 판정).
+8. **문의 화면은 lg 가 아니라 48 이다.** 같은 줄의 입력칸까지 `min-h-24`(48)로 덮은 화면이라
+   (`app/inquiry/InquiryClient.tsx:175`) 트리거만 lg 로 내리면 줄이 어긋난다. **48 칸은 열지 않는다(2026-10-13 판정)** —
+   화면 전체(트리거와 입력칸의 `min-h-24`)를 lg 40 으로 내리는 것은 제품 쪽 일이다. 제품 주석(`InquiryClient.tsx:162-170`)의
+   「md 40 · lg 48」은 틀렸다 — LOUIS md 는 32, lg 는 40 이다.
 
 ## Implementation
 

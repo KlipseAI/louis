@@ -7,7 +7,7 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 # Text Field
 
-한 줄 텍스트를 입력받는다.
+한 줄 텍스트를 입력받는다. 여러 줄 판(`data-multiline="true"`)은 본문에 첨부 썸네일 줄과 툴바가 붙는 입력이다(아래 「여러 줄 판」).
 
 **제품에 공용 구현이 없다.** 텍스트 입력 정의가 약 40벌이고 다섯 계열로 갈리며 계열 사이에 합의가
 없다 — 인증 floating-label 9벌, 테두리 박스 5벌, 테두리 없는 채운 면 9벌, 투명 인라인 rename 8벌,
@@ -33,7 +33,8 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 쓰지 않는 자리.
 
-- 여러 줄. 그것은 Textarea이며 이 컴포넌트의 축이 아니다.
+- 첨부도 툴바도 없는 맨 여러 줄 입력. 여러 줄 판은 **첨부 · 툴바가 붙는 본문**(문의 본문)의 계약이고, 맨 Textarea 의
+  정본은 아직 없다(Known deviations).
 - 정해진 목록에서 고르는 것. 그것은 Select다.
 - 체크박스·라디오·파일. 각자 다른 컴포넌트다.
 - **폼·대화상자·본문 흐름의 `sm`.** 그 자리에서 24는 누르기 어렵고 `md`가 이미 맞다. 도구 줄이
@@ -63,6 +64,9 @@ summary: 한 줄 텍스트를 입력받습니다.
 4. **Prefix / Suffix** — 박스 안의 슬롯. 아이콘과 버튼이 들어간다.
 5. **Control** — 실제 `<input>`. 박스가 시각을 소유하므로 여기는 비어 있다.
 6. **Message** — 도움말 또는 오류. 한 자리를 나눠 쓴다.
+7. **Attachments** — 여러 줄 판에서만. Box 안 Control 아래의 첨부 썸네일 줄(`__attachments`). [Media Slot](media-slot.md) 줄
+   (`.louis-media-slot-strip[data-layout="wrap"]`)을 같은 요소에 얹고 칸은 `attachment` 72 다.
+8. **Toolbar** — 여러 줄 판에서만. Box 맨 아래 줄(`__toolbar`) — 첨부 버튼과 **Counter**(`__counter`, 첨부 개수 `n / 5`)가 양 끝에 선다.
 
 **시각적 필드가 `<input>`이 아닌 이유.** 접두 아이콘과 접미 버튼을 필드 *안에* 두려면 `<input>`
 하나로는 안 된다. 제품의 가장 큰 계열(인증 9벌)도 같은 구조를 쓴다.
@@ -82,12 +86,19 @@ summary: 한 줄 텍스트를 입력받습니다.
 
 나머지는 `<input>`의 네이티브 속성을 그대로 받는다.
 
+**여러 줄 판은 CSS 레시피에만 있다** — React prop 이 없다. 소비처가 클래스와 data 속성을 붙인다.
+
+| data 속성 | 값 | 붙는 곳 | 뜻 |
+| --- | --- | --- | --- |
+| `data-multiline` | `true` | 뿌리 | 여러 줄 판 — 본문(textarea) · 첨부 줄 · 툴바가 상자 안에서 위에서 아래로 선다 |
+| `data-drag-over` | `true` \| `false` | `__box` | 파일을 끌어 상자 위에 올린 동안 `true`. 놓기는 상자 전체가 받는다 |
+
 ## Hierarchy와 variants
 
 **강조 축이 없다.** 필드는 강조 단계를 갖지 않는다 — 한 폼 안에서 어떤 필드가 다른 필드보다
 "주요"하다는 표현은 시각이 아니라 순서와 라벨이 맡는다.
 
-**크기 말고 있는 축은 둘이다 — `LabelBehavior` 와 `Join`.**
+**크기 말고 있는 축은 셋이다 — `LabelBehavior` · `Join` · `Layout`(여러 줄 판).** 셋째는 아래 「여러 줄 판」이 갖는다.
 
 첫째는 `LabelBehavior`([DS-D-0049](../governance/decisions/DS-D-0049-label-placement-is-an-axis.md)).
 `stacked`(기본)에서 라벨은 박스 위의 형제이고 움직이지 않는다 — 제품의 `/admin` 여덟 화면이 이
@@ -115,6 +126,47 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 사는 곳이 바로 그 화면이다. md·sm 플로팅은 제품에 잰 자리가 없다 — 그리면 값을 지어내는 일이
 된다. 그래서 변형은 전수 30이 아니라 20이다.
 
+## 여러 줄 판 — `data-multiline="true"`
+
+본문(textarea)에 첨부 썸네일 줄과 툴바가 붙는 입력이다(문의 본문, `app/inquiry/InquiryClient.tsx:183-198 · :625-720`).
+상자는 한 줄 판과 같은 면 · 반경 · 헤어라인이고, 안에서 위에서 아래로 본문 → 첨부 줄 → 툴바가 선다. 파일을 끌어다 놓으면
+**상자 전체**가 받는다.
+
+**Drop Zone 의 변형이 아니다.** [Drop Zone](drop-zone.md) 은 페이지 면 위의 큰 눌림 면이고, 이 입력은 라벨 · 오류 · 헤어라인을 가진
+TextField 상자 안에 본문 · 첨부 · 툴바가 든 것이다. Drop Zone 으로 세우면 그것들을 다시 그려야 한다. 그래서 TextField 의 판으로 세우고
+드래그 표현만 Drop Zone 의 말(안쪽 링)을 빌린다.
+
+```html
+<div class="louis-text-field" data-multiline="true">
+  <label class="louis-text-field__label" for="body">내용</label>
+  <div class="louis-text-field__box" data-drag-over="false">
+    <textarea id="body" class="louis-text-field__control" rows="8"></textarea>
+    <div class="louis-text-field__attachments louis-media-slot-strip" data-layout="wrap">
+      <div class="louis-media-slot" data-size="attachment">
+        <img class="louis-media-slot__media" src="…" alt="screenshot.png">
+        <button type="button" class="louis-media-slot__remove" aria-label="첨부 지우기: screenshot.png">…x…</button>
+      </div>
+    </div>
+    <div class="louis-text-field__toolbar">
+      <button type="button" class="louis-node-chip">…그림 첨부…</button>
+      <span class="louis-text-field__counter" aria-live="polite">1 / 5</span>
+    </div>
+  </div>
+</div>
+```
+
+| 부분 | 값 |
+| --- | --- |
+| 상자 | 세로 · 여백 0(여백은 칸마다 갖는다 — 툴바의 위 선이 상자 가장자리까지 닿아야 한다) |
+| 본문 | 최소 200 · 사방 16(`space-control-lg`) · 세로 늘림 |
+| 첨부 줄 | 간격 12 · 좌우 16 · 아래 12 · 칸 [Media Slot](media-slot.md) `attachment` 72 |
+| 툴바 | 사방 12 · 사이 8 · 위 헤어라인(`--louis-hairline-inset-block-start`) · 개수 caption `fg-secondary` 고정폭 숫자 |
+| 끄는 중 | `data-drag-over="true"` — 안쪽 2px(`border-width-ring`) `stroke-focus` 링이 헤어라인을 대신한다 |
+
+첨부 버튼은 이미 LOUIS 부품인 [Node Chip](node-chip.md) 이다. 개수는 `aria-live="polite"` 로 바뀔 때 읽힌다. 첨부 지우기 버튼의
+`aria-label` 에 무엇을 지우는지 적는다. 끄는 중 링과 invalid 링이 겹치면 끄는 중이 이긴다 — 놓는 동안에는 「여기에 놓인다」가
+먼저 읽혀야 한다.
+
 ## States
 
 | state | 표현 |
@@ -124,6 +176,7 @@ CSS가 판정한다(`:not(:placeholder-shown)` · `:focus`). Figma에서는 `Sta
 | Focus | **그리지 않는다**(DS-D-0074). 강제 색에서만 박스가 `:focus-within`으로 `Highlight` 링을 받는다 |
 | Invalid | 상자에 **ring 두께(2px)의 `fg-danger-on-surface` 링**이 헤어라인을 대신한다([DS-D-0075](../governance/decisions/DS-D-0075-text-field-invalid-ring.md), 2026-10-07). 오류 문구 + `aria-invalid` + `role="alert"` 도 함께 간다. `data-invalid` 는 있으면 오류이고 `"false"` 만 예외다 |
 | Disabled | generic 헤어라인 유지, 전경 `color-fg-disabled`이 상태를 전달한다 |
+| DragOver | 여러 줄 판에서만. `__box[data-drag-over="true"]` — 안쪽 2px `stroke-focus` 링이 헤어라인을 대신한다([Drop Zone](drop-zone.md) 과 같은 말). Invalid 와 겹치면 이것이 이긴다 |
 
 **결합한 필드의 Focus 는 링의 «자리»가 다르다.** 링은 밖이 아니라 상자 **안**에 선다 —
 맞닿는 변의 바깥은 이웃의 자리이고, 이웃이 DOM 에서 뒤에 와 나중에 칠해지므로 바깥 링은
@@ -341,8 +394,14 @@ Chromium 실측(DPR 1·2·3, 라이트, 이 컴포넌트의 면·헤어라인 �
 - **Figma 에 Focus 변형이 없다(2026-10-06).** 포커스 링을 그리지 않으므로(DS-D-0074) Focus 는
   Default 와 같고, 링을 바깥 stroke 로 그리던 일곱 변형을 걷었다. 프레임 폭 328(박스 320 + 좌우 4)은
   그대로 둔다 — 강제 색 링의 자리이고, 줄이면 형제 칸 격자와 계약 `frameWidth` 가 함께 움직인다.
-- **Textarea가 없다.** 제품에는 여러 줄 입력이 최소 5벌 있다(캔버스 프롬프트 계열). 같은
-  박스 구조로 확장할 수 있으나 이번 범위가 아니다.
+- **맨 Textarea 가 없다.** 여러 줄 판(`data-multiline`)은 첨부 · 툴바가 붙는 문의 본문 하나를 옮긴 것이다(DS-D-0084).
+  제품의 다른 여러 줄 입력(캔버스 프롬프트 계열 최소 5벌)은 같은 박스 구조로 확장할 수 있으나 이번 범위가 아니다.
+- **여러 줄 판의 끄는 중 표현이 제품과 다르다.** 제품은 바깥 2px outline 2 띄움(`app/inquiry/InquiryClient.tsx:186-187`)이고
+  레시피는 Drop Zone 과 같은 안쪽 링이다 — 바깥 outline 은 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로 말하게 된다.
+  첨부 지우기도 제품 28 원 · 칸 밖 6 · inverse 면(:192-193)에서 Media Slot 의 22 원 · 안쪽 5 · 미디어 스크림으로 접힌다
+  (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).
+- **여러 줄 판에 React 표면 · Figma 변형 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `Layout`(`base` ·
+  `multiline`, `Size=lg` 에만) · BOOLEAN `HasAttachments` · `HasToolbar` · `State=DragOver` 로 세운다.
 - **`sm`에서 라벨(14)이 값(12)보다 크다.** 값은 실측으로 내려갔고 라벨은 재지 못해 비례대로
   남았다. 도구 줄의 `sm` 필드는 보통 시각 라벨 없이 `aria-label`로 서므로 지금은 부딪히지
   않는다. 라벨을 가진 `sm` 필드가 실제로 생기면 **그때 재서** 정한다 — 여기서 유도하면 재지 않은

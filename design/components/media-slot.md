@@ -36,7 +36,8 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 | 칸 `md`(기본) | 32 × 32 · 반경 `radius-card`(12) · 테두리 1 `media-slot-stroke` · 면 `media-slot-surface` |
 | 칸 `video` | 76 × 52 · 반경 `radius-control-sm`(8) |
 | 칸 `fill` | 열 폭 정사각 · 반경 12 |
-| 지우기 | `media-scrim-dark` 56%(호버 80%, 호버 기기만) · 잉크 `media-foreground-dark` · 글리프 `icon/x` 10. 크기 — md 16 모서리 탭(왼쪽 아래 4) · video 18 원 위 · 오른쪽 3 · fill 22 원 5, 글리프 16 |
+| 칸 `attachment` | 72 × 72 · 반경 `radius-control`(12) — 문의 본문 첨부([Text Field](text-field.md) 여러 줄 판의 `__attachments`) |
+| 지우기 | `media-scrim-dark` 56%(호버 80%, 호버 기기만) · 잉크 `media-foreground-dark` · 글리프 `icon/x` 10. 크기 — md 16 모서리 탭(왼쪽 아래 4) · video 18 원 위 · 오른쪽 3 · fill · attachment 22 원 5, 글리프 16 |
 | 빈 칸 | `data-empty="true"` — 점선 `media-slot-empty-stroke`(호버 `-hover`) · 면 `-empty-surface` · `icon/plus` 16 `-empty-foreground`(호버 `-hover`) |
 | 줄 | 기본 한 줄 가로 스크롤 · 막대 없음 · 간격 4. `data-layout="wrap"` 줄바꿈 · 간격 4, `"grid"` 3열(`--louis-media-slot-strip-columns`) · 간격 8 |
 
@@ -59,7 +60,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 
 | 이름 | 값 | 뜻 |
 | --- | --- | --- |
-| `data-size` | `md`(기본) · `video` · `fill` | 칸 크기 — 32 정사각 · 76×52 · 열 폭 정사각 |
+| `data-size` | `md`(기본) · `video` · `fill` · `attachment` | 칸 크기 — 32 정사각 · 76×52 · 열 폭 정사각 · 72 정사각 |
 | `data-empty` | `true` | 미디어 없이 더하기 글리프만 선 빈 칸 |
 | 줄 `data-layout` | 없음(가로 스크롤) · `wrap` · `grid` | 칸들이 서는 방식 |
 
@@ -93,3 +94,6 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 3. **만들기 화면 참조 칸의 색과 반경을 접었다.** 제품 면이 다크 검정 12% · 라이트 `#fafafa` 12%, 테두리 8%, 반경 14 다(`PhotoGrid.tsx:86-89`).
 4. **지우기 버튼 셋을 하나로 모았다.** 라이트 40%(EditNode) · 라이트 뒤집힘(PhotoGrid) · 붉은 호버(EditNode) · 글자 `×`(VideoNode)를 접었다.
 5. **줄 간격 6 · 9 를 4 · 8 로 모았다**(`VideoNode.tsx:800` · `PhotoGrid.tsx:71`).
+6. **첨부 지우기를 칸 안 22 원으로 접었다.** 문의 화면은 28 원 · 칸 밖 6 · inverse 면이다(`app/inquiry/InquiryClient.tsx:192-193`).
+   칸의 `overflow: hidden` 이 바깥 버튼을 자르고, 사진 위 지우기는 한 모양이어야 해서 `fill` 의 22 원 · 안쪽 5 · 미디어 스크림을 쓴다
+   (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).

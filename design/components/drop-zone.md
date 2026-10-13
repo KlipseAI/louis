@@ -11,8 +11,9 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 
 > **2026-10-12 — 아래 첫 문단은 앵커 `2c6bdacf` 의 기록이다.** 제품 `origin/main`(`5d96d101c`)에서 업로드 카드와 모달이
 > 사라졌고 `uploadDropZone` 도 없다. 하이라이트는 이제 검은 무대(`studioStage`)의 빈 상태가 파일 버튼이고, 끌어다 놓기 ·
-> 플레이어 · 트랙이 한 무대에 겹친다. 그 무대는 페이지 면 위 drop-zone 이 아니라 화면 고유로 둔다
-> ([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md) 3c). 이 컴포넌트의 제품 소비처는 지금 없다.
+> 플레이어 · 트랙이 한 무대에 겹친다. [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md) 3c 는 그 무대를
+> 화면 고유로 두었는데, 2026-10-13 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 가 그것을 이
+> 컴포넌트의 변형 **미디어 무대**(`data-surface="media"`, 아래)로 올렸다. 페이지 면 위 기본 면의 제품 소비처는 지금 없다.
 
 **제품에 공용 구현이 없다(제품 앵커 `2c6bdacf`).** 하이라이트 두 화면 — 허브(`HighlightScene.tsx`)와 프로젝트 상세의
 업로드 대기(`HighlightProjectScene.tsx`) — 가 `highlightSceneStyles.ts` 의 `uploadDropZone` 지역 레시피를 쓴다. 그 면은
@@ -72,6 +73,7 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 | `multiple` | boolean | `false` | 여러 파일을 받는가. 아니면 놓은 파일 가운데 첫 것만 준다 |
 | `onFiles` | `(files: readonly File[]) => void` | 필수 | 선택 창과 끌어다 놓기가 **같은 콜백**으로 온다 |
 | `disabled` | boolean | `false` | 누름도 놓기도 받지 않는다 |
+| `data-surface` (레시피 속성) | `media` | 없음(페이지 면) | **미디어 무대.** 플레이어와 같은 검정 면 위에 미디어 잉크로 선다. 아래 「미디어 무대」. React prop 은 아직 없다 |
 
 **끌어다 놓은 파일은 `accept` 로 거르지 않는다.** 브라우저가 `accept` 를 선택 창에서만 적용하기 때문이다. 형식 검사는
 받은 쪽이 한 곳에서 한다 — 두 경로가 같은 콜백으로 오는 이유가 그것이다.
@@ -87,6 +89,42 @@ summary: 파일을 받는 큰 눌림 면입니다. 누르면 파일 선택 창�
 | Disabled | 면 `color-bg-inset`, 글자 `color-fg-disabled`, 커서 `not-allowed` |
 
 DragOver 의 링은 테두리가 아니라 **안쪽 그림자**다 — 테두리를 그리면 두께만큼 상자가 커져 끌어다 놓는 순간 화면이 흔들린다.
+
+미디어 무대(`data-surface="media"`)의 상태는 면이 바뀌지 않는다 — 무대는 늘 플레이어의 검정이다.
+
+| state | 표현 |
+| --- | --- |
+| Default | 면 `color-media-stage-surface`, 안내 `color-media-foreground-dark`, 보조 `color-media-foreground-dark-muted` |
+| Hover | 면 = `media-foreground-dark` 4% 를 무대 면에 섞은 값(검정 위 흰 4%) |
+| DragOver | 면 그대로 + `::after` 안쪽 링 `color-stroke-focus`(`border-width-ring`). 플레이어(자식) **위**에 선다 |
+| Disabled | 면 그대로, 글자 `color-media-foreground-dark-muted`. `aria-disabled="true"`(다시 올릴 준비 중)는 커서 `progress` |
+
+## 미디어 무대 — `data-surface="media"`
+
+하이라이트 스튜디오의 업로드 무대다. 파일을 고르기 전에는 무대 전체가 파일 선택 버튼이고, 고르면 **같은 무대가
+플레이어가 된다**(통합 판 `54b62a8aa` `highlightSceneStyles.ts:1197-1259` 의 `studioStage*`, `HighlightScene.tsx:943-975`).
+그래서 면이 페이지 면이 아니라 플레이어와 같은 검정이고, 글자 · 글리프는 미디어 잉크다.
+
+| 칸 | 제품 | LOUIS |
+| --- | --- | --- |
+| 무대 면 · 반경 | `palette-gray-1000` · `radius-card`(`highlightSceneStyles.ts:1205-1206`) | `color-media-stage-surface` · `radius-card` 12 — 두 테마 순검정으로 같다 |
+| 끄는 중 | `::after` 2px `accent-primary` 테두리 · `inset: 0` · `radius: inherit`(`:1214-1219`) | `::after` 안쪽 링 `border-width-ring` · `color-stroke-focus` — 기본 DragOver 와 같은 색 |
+| 빈 무대 여백 · 간격 | 사방 24 · 8(`:1233` · `:1236`) | `space-layout-section` 24 · `space-control-sm` 8 |
+| 호버 | 흰 4%(`:1246`) | `media-foreground-dark` 4% 섞기 |
+| 포커스 | 안쪽 outline(`:1247-1248`) | 그리지 않는다(DS-D-0074) — 강제 색 링만 `base.css` |
+| 제목 | body-16-medium · 위 6 · 흰색(`:1254`, `HighlightScene.tsx:966`) | `typography-body-md` medium · 위 6 · `color-media-foreground-dark` |
+| 안내 | caption · 흰 56%(`:1256`) | caption · `color-media-foreground-dark-muted`(64%) |
+| 버튼 | `louis-button` primary(`HighlightScene.tsx:975`) | 그대로 — 무대 안의 장식 버튼이고 누름은 무대가 받는다 |
+
+**끄는 중의 링은 안쪽 그림자가 아니라 `::after` 다.** 플레이어가 무대를 다 덮어도 링이 그 **위**에 그려져야 하기 때문이다.
+`::after` 는 위치를 가진 마지막 자손이라 z-index 없이 문서 순서로 위에 선다. 놓기를 받는 것은 이 요소이므로 소비처는
+플레이어가 선 뒤에도 이 요소에 `data-drag-over` 를 건다 — 빈 무대에서는 이 요소가 `<button>`, 플레이어가 서면
+`<section>` 이다.
+
+안내 잉크는 제품 56%(6.25:1) 대신 시맨틱 칸 `media-foreground-dark-muted`(64%, 8.03:1)다 — 둘 다 caption 기준을 넘는다.
+
+Figma 는 세트 `DropZone` 에 `Layout`(`base` · `media`)을 연다(RecordCard `raised` 선례). `media` × `State`(Default · Hover ·
+DragOver · Disabled). 칠은 `color/media/stage-surface`, 글자는 `color/media/foreground-dark` · `-muted`.
 
 ## Interaction and responsive behavior
 
@@ -121,6 +159,10 @@ DragOver 의 링은 테두리가 아니라 **안쪽 그림자**다 — 테두리
 | 글리프 | 56px | 리터럴 — 아이콘 계단에 56 이 없다 |
 | 안내 | 16 / 24 | `typography-body-md-regular` |
 | 보조 | 12 / 18 | `typography-caption-regular` · 최대 폭 `36ch` |
+| 미디어 무대 여백 | 24px | `space-layout-section` |
+| 미디어 무대 간격 | 8px | `space-control-sm` |
+| 미디어 무대 제목 위 | 6px | 리터럴 — 제품 `margin-top:6px` |
+| 미디어 무대 면 | — | `color-media-stage-surface` |
 
 수는 [`components.measured.json`](../../figma/components.measured.json)의 `drop-zone` 이 갖는다.
 
@@ -143,6 +185,10 @@ DragOver 의 안쪽 링 하나뿐이다. 그림자 · 흐림은 없다.
   LOUIS 에는 그 값과 같은 일반 역할 토큰이 없어 눌림 면 역할을 골랐다(라이트 잉크 8% · 12%). 안내 글자도 제품은
   `palette-gray-800`(#2B2F36)이고 LOUIS 는 `color-fg-primary` 다. 보조 문구 색(`fg-tertiary`)은 같다.
 - **제품 면은 끌어다 놓기를 받지 않고 포커스가 보이지 않는다.** 이 컴포넌트는 둘 다 한다 — 제품의 결함을 옮기지 않았다.
+- **미디어 무대의 끄는 중 링이 제품과 다르다.** 제품은 `accent-primary` 테두리, LOUIS 는 기본 DragOver 와 같은
+  `stroke-focus` 안쪽 링이다(소유자 판정 8). 포커스 outline 도 옮기지 않았다(DS-D-0074).
+- **미디어 무대에 React prop 이 없다.** 레시피 속성 `data-surface="media"` 만 섰고, 플레이어가 선 뒤 루트가 `<section>`
+  이 되는 형태는 지금의 `DropZone`(늘 `<button>`)이 그리지 못한다 — 소비처가 레시피 클래스를 직접 쓴다.
 - **제품의 썸네일 미리보기 변형(`uploadDropZoneWithThumb`)과 허브 하단 고정 카드의 2열 배치는 옮기지 않았다.** 둘 다 올린
   **뒤**의 화면(미리보기)이거나 한 화면의 배치라, 면의 계약이 아니다.
 

@@ -51,6 +51,9 @@ summary: 화면·묶음·패널의 머리. 제목 사다리 세 단과 설명·�
 - 화면 하나의 이름을 말할 때 (`page`).
 - 카드나 패널 **안**에서 묶음의 이름을 말할 때 (`section`).
 - 표·목록 바로 위에 「무엇의 목록인가」 한 줄이 필요할 때 (`label`).
+- 허브에서 목록 이름 · 개수와 버튼 하나를 한 줄에 둘 때 (`list`).
+- 읽는 글 한 편(블로그 글 · 템플릿 상세)의 머리 (`article`).
+- 랜딩 캐러셀 · 섹션의 머리 — 제목과 화살표 쌍 (`display`).
 
 쓰지 않는 자리.
 
@@ -102,6 +105,26 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 </div>
 ```
 
+```html
+<!-- 글 머리 — 뒤로 링크는 머리 앞의 형제다 -->
+<a class="louis-text-link" href="/blog">← 블로그</a>
+<header class="louis-section-header" data-level="article">
+  <div class="louis-section-header__text">
+    <h1 class="louis-section-header__title">제목</h1>
+    <p class="louis-section-header__description">리드 한 단락</p>
+    <div class="louis-section-header__meta"><time datetime="2026-10-13">2026.10.13</time></div>
+  </div>
+</header>
+
+<!-- 전시 머리 — 오른쪽 화살표 쌍 -->
+<div class="louis-section-header" data-level="display">
+  <div class="louis-section-header__text">
+    <h2 class="louis-section-header__title">새 소식</h2>
+  </div>
+  <div class="louis-section-header__actions"><!-- 이전 · 다음 IconButton --></div>
+</div>
+```
+
 **`__text` 를 생략하지 않는다.** 제목·설명·메타가 루트의 직계 자식이 되면 flex 자식이 넷이 되고,
 액션 묶음이 「마지막 하나」가 아니게 된다 — 아래 [Anatomy](#anatomy) 의 이유가 그것이다.
 
@@ -126,15 +149,18 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | `page` | 필수 | 선택 | 선택 | 선택 |
 | `section` | 필수 | — | 선택 | 선택 |
 | `label` | 필수 | — | — | — |
+| `list` | 필수(안에 `__count`) | — | — | 버튼 하나 |
+| `article` | 필수 | 리드 | 선택 | — |
+| `display` | 필수 | — | — | 선택(화살표 쌍) |
 
-이 표는 취향이 아니라 제품 17 자리의 전수다. `section` 에 설명을 넘기는 자리가 0 이고,
+위 세 줄은 취향이 아니라 제품 17 자리의 전수다(아래 세 줄은 각 단의 제품 원천 — 「Hierarchy와 variants」). `section` 에 설명을 넘기는 자리가 0 이고,
 `label` 은 제목만 넘기는 자리 하나뿐이다(`AdminClient.tsx:1176`).
 
 ## Properties
 
 | 속성 | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
-| `data-level` | `page` · `section` · `label` · `list` | `section` | 문서 위계 |
+| `data-level` | `page` · `section` · `label` · `list` · `article` · `display` | `section` | 문서 위계 |
 
 ## Hierarchy와 variants
 
@@ -147,6 +173,8 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | `section` | 카드 안 묶음 | 20 SemiBold | `AdminSection.tsx` `TITLE_SECTION` |
 | `label` | 패널 아이브로우 | 12 Medium | `AdminSection.tsx` `TITLE_LABEL` |
 | `list` | 허브의 목록 머리(제목 안 개수 + 버튼 하나) | 16 Medium | `highlightSceneStyles.ts` `historySectionHeader` · `NodeCanvasHomeScene.tsx` `ARCHIVE_SECTION_HEADER` |
+| `article` | 읽는 글의 머리(리드 · 메타 · 아래 구분선) | 36 **Medium** | `app/blog/[slug]/page.tsx` 73-104행 · `app/templates/[slug]/page.tsx` 83-103행 |
+| `display` | 랜딩 캐러셀 · 섹션 머리(가운데 정렬 · 화살표 쌍) | 36 SemiBold | `components/landing/system/Carousel.tsx:128-150` `CarouselHeader` |
 
 **`list` 는 2026-10-12 에 열었다**([DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md)). 하이라이트 ·
 노드 캔버스 두 허브가 같은 배치를 각자 그린다 — 가운데 정렬, 사이 16, 719 이하에서도 한 줄. 세 단과 크기 · 정렬 · 접힘이
@@ -154,6 +182,40 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 **아래** 줄이고 개수는 **같은** 줄이다. 제품 제목 잉크 `palette-gray-800/200` 과 개수 `palette-gray-500` 은 역할이 없어
 `fg-primary` · `fg-tertiary` 로 간다(Known deviation 3 과 같은 판단). 아래 여백은 두 허브가 달라(12 · 8) 소비처가 진다.
 **Figma 변형은 아직 없다.**
+
+## 글 머리 — `data-level="article"`
+
+읽는 글 한 편의 머리다(블로그 글 · 템플릿 상세, 2026-10-13 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
+제목 36 **Medium**, 그 아래 리드 한 단락(body-lg), 날짜 같은 메타 줄, 그리고 머리 아래 구분선 한 줄. 위아래 28 · 28 이 글 본문과
+머리를 가른다. 두 제품 화면이 같은 상수 이름으로 서로를 복제하고 있었다.
+
+| 부분 | 값 |
+| --- | --- |
+| 제목 | heading-md **medium**(36) · `fg-primary` · 균형 줄바꿈 |
+| 리드 | body-lg regular(20) · `fg-secondary` · 균형 줄바꿈 |
+| 메타 | body-sm regular · `fg-tertiary` · 위 8 · 사이 10 · 줄바꿈 허용 |
+| 사이 | 제목 → 리드 12 · 리드 → 메타 20 |
+| 아래 | 28 + 헤어라인 + 28 |
+
+**구분선은 머리 루트가 진다.** 블로그는 메타 줄이, 템플릿은 머리가 선을 긋지만 위아래가 28 · 28 로 같다 — 마지막 자식이 무엇이든
+같은 자리에 선다. **뒤로 링크는 머리 앞의 형제**로 [TextLink](text-link.md)를 둔다 — 머리의 해부가 아니다. 액션 자리가 없어
+719 이하에서 접혀도 모양이 같다.
+
+## 전시 머리 — `data-level="display"`
+
+랜딩 캐러셀 · 섹션의 머리다. 제목 36 SemiBold 와 오른쪽 액션(캐러셀 화살표 쌍, 사이 4)이 **가운데 정렬**로 한 줄에 서고 사이가
+40 이다. `page` 와 제목 값은 같지만 정렬 · 간격 · 아래 여백(없다) · 접힘(접지 않는다)이 다르다. 719 아래에서도 접지 않는다 —
+제품도 모바일에서 한 줄이다.
+
+**두 단은 랜딩 셸 안에서 제목이 줄어든다** — ≤1023 32 · ≤767 28 · ≤479 20(글 머리 리드는 18 · 16). 앱 화면에서는 쓰지 않는다 —
+앱 화면의 화면 제목은 `page` 다. 계단은 제품 `app/globals.css:842-878` 의 값을 레시피 지역 변수
+(`--louis-section-header-title-size` · `-title-tracking` · `-lead-size`)로 옮긴 것이다(Known deviations 10).
+
+**Figma 는 아직 없다.** 세트 `SectionHeader` 의 `Level` 에 `list` · `article` · `display` 를 더하는 것은 Figma 회차의 몫이다 —
+축 표([figma-component-authoring.md](../governance/figma-component-authoring.md) §2)의 `Level` 허용값은 2026-10-13 에 이 셋까지 늘렸다.
+`article` 은 `HasActions` 가 없는 희소 set(`HasDescription` · `HasMeta` 둘만, 아래 구분선은 프레임 아래 헤어라인 + 아래 28),
+`display` 는 `HasDescription` · `HasMeta` 없이 `HasActions` 만이다(기본 인스턴스는 `CarouselArrow` 쌍). 반응형 계단은 그리지
+않는다 — 719 접힘처럼 계약의 `$foldRule` 이 규칙으로 소유한다.
 
 **축 이름이 `Size` 가 아닌 이유.** 값이 밀도가 아니다 — 아래 여백을 `page` 만 진다는 것이 그
 증거다. 사다리 어휘(`sm`·`md`·`lg`)를 빌리면 순서를 주장하게 되는데, 이 셋의 관계는 순서가
@@ -173,9 +235,10 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 ## Interaction and responsive behavior
 
 - 폭은 부모가 정한다. 머리는 `inline-size: 100%` 다.
-- **719px 이하에서 접힌다**(`list` 는 접지 않는다) — 가로가 세로가 되고 교차축 정렬이 `flex-end` → `stretch` 로 바뀌어
+- **719px 이하에서 접힌다**(`list` · `display` 는 접지 않는다) — 가로가 세로가 되고 교차축 정렬이 `flex-end` → `stretch` 로 바뀌어
   액션이 폭을 채운다. 719/720 은 이 저장소가 이미 «행동 경계»로 인정한 폭이다
   ([responsive-layout.md](../foundations/responsive-layout.md) §4).
+- `article` · `display` 는 랜딩 셸의 제목 계단을 따른다 — ≤1023 · ≤767 · ≤479 에서 제목(과 리드)이 줄어든다.
 - 제목이 아주 길면 액션이 다음 줄로 내려간다(`flex-wrap`). 액션은 줄지 않는다 — 제목이
   길어졌다고 버튼이 찌그러지면 누를 것이 사라진다.
 
@@ -207,6 +270,17 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 | 아래 여백 | 12 | 0 | 0 | `space-stack-md` |
 | 교차축 정렬 | flex-end | flex-end | flex-end | — |
 | 배경·테두리·반경 | 없음 | 없음 | 없음 | — |
+
+| 축 | `list` | `article` | `display` | 토큰 |
+| --- | ---: | ---: | ---: | --- |
+| 제목 | 16/500 | 36/500(계단 32 · 28 · 20) | 36/600(계단 32 · 28 · 20) | `typography-body-md-medium` · `-heading-md-medium` · `-heading-md-semibold` |
+| 리드(설명) | — | 20/400(계단 18 · 16) | — | `typography-body-lg-regular` |
+| 메타 | — | 14/400 · 사이 10 · 위 8 | — | `typography-body-sm-regular` · `space-control-sm` · 10 리터럴 |
+| 제목 블록 간격 | 4 | 12 | 4 | `space-stack-xs` · `space-stack-md` |
+| 행 간격 | 16 | 12 | 40 | `space-layout-gutter` · `space-stack-md` · 40 리터럴(제품 `gap-20`) |
+| 액션 간격 | 8 | — | 4 | `space-control-sm` · `space-control-xs` |
+| 아래 | 0(소비처) | 28 + 헤어라인 + 28 | 0 | 28 리터럴(제품 `pb-14` · `mb-14`) · `hairline-inset-block-end` |
+| 교차축 정렬 | center | flex-end | center | — |
 
 **행 간격이 `space-control-md`(12) 가 아니라 `space-stack-md`(12) 인 이유.** 값은 같지만
 이름이 다르고, 719px 아래에서 이 gap 이 그대로 **세로** 간격이 된다 — 한 값이 두 방향을 다
@@ -265,6 +339,14 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 7. **제품이 아직 물지 않았다.** 이 회차는 LOUIS·계약·Figma 셋을 세웠고 제품은 건드리지 않았다
    (소유자가 그 트리에서 작업 중이다). 물게 하는 diff 는 회차 산출물
    `adopt9-section-header.md` 에 있다.
+8. **글 머리 메타 잉크가 제품과 다르다(DS-D-0084 §3).** 제품 날짜는 `gray-000` 40%(라이트 2.83:1 · 다크 3.55:1,
+   `app/blog/[slug]/page.tsx` 101-104행)라 body 14 의 4.5 미달이다. 레시피는 `fg-tertiary`(6.44 · 6.39)다. 구분선도 제품
+   1px 8% 대신 헤어라인(DS-D-0023)이고, 리드 잉크는 제품 `--text-soft`(72% 알파) 대신 `fg-secondary` 다(Known deviation 2 와 같은 판단).
+9. **템플릿 상세의 부제는 body-14 다**(`app/templates/[slug]/page.tsx` 99-103행). 글 머리 리드는 body-lg 하나로 두고 이 부제를
+   그 리드로 접었다(2026-10-13 판정). 템플릿 상세가 레시피를 물면 부제가 20 으로 커진다.
+10. **두 단(`article` · `display`)의 제목 계단은 레시피의 리터럴이다.** LOUIS 타이포 토큰은 반응형이 아니고, 제품 랜딩 셸이 같은
+    계단을 `--type-*` 변수로 덮는다(`app/globals.css:842-878`). 지금은 지역 변수에 출처 주석과 함께 두고, 토큰으로 올리는
+    것은 `landing-shell` 패턴 회차의 몫이다(2026-10-13 판정).
 
 ## Acceptance tests
 
@@ -278,3 +360,6 @@ React 표면이 없다. 소비처는 클래스를 직접 쓴다 — `alert` · `
 8. 제목이 `fg-primary`, 설명이 `fg-secondary`, 메타와 아이브로우가 `fg-tertiary` 다.
 9. 액션 묶음이 `flex-shrink: 0` 이다.
 10. **719px 에서 세로로 접히고 액션이 폭을 채운다.**
+11. (미작성) `article` 의 제목이 36/500 · 리드 20/400 · 메타 14/400 `fg-tertiary` 이고, 아래가 28 + 헤어라인 + 28 이다.
+    1023 · 767 · 479 아래에서 제목이 32 · 28 · 20, 리드가 18 · 16 으로 줄어든다.
+12. (미작성) `display` 가 가운데 정렬 · 사이 40 · 액션 간격 4 이고, 719 아래에서도 가로 한 줄이다.

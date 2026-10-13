@@ -340,7 +340,8 @@
         {
           "motion": "motion-tab-select",
           "properties": [
-            "opacity"
+            "opacity",
+            "translate"
           ]
         }
       ],
@@ -21331,6 +21332,210 @@
             }
           }
         },
+        "color-floating-divider-mid": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/floating-divider-mid",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.floating-divider-mid"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.floating-divider-mid"
+            }
+          }
+        },
+        "color-floating-divider-peak": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/floating-divider-peak",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.20}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-20",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.2,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.floating-divider-peak"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.floating-divider-peak"
+            }
+          }
+        },
+        "color-floating-item-selected": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/floating-item-selected",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.floating-item-selected"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.floating-item-selected"
+            }
+          }
+        },
+        "color-floating-item-selected-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/floating-item-selected-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.floating-item-selected-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.floating-item-selected-hover"
+            }
+          }
+        },
         "color-gray-000": {
           "$type": "color",
           "fields": [],
@@ -22758,6 +22963,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.icon.input-glyph"
+            }
+          }
+        },
+        "color-inspector-adjust-accent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/inspector-adjust-accent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.500}",
+              "aliasTarget": {
+                "id": "color-yellow-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.698039,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.inspector-adjust-accent"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.700}",
+              "aliasTarget": {
+                "id": "color-yellow-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.721569,
+                  0.462745,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.inspector-adjust-accent"
             }
           }
         },

@@ -50,6 +50,7 @@ authority: normative
 | 트랙 | **값을 갖는다.** `role="progressbar"`와 `aria-value*`가 여기 붙는다 |
 | 채움 | 장식이다. `aria-hidden`이며 폭만 바뀐다 |
 | 링 | 트랙과 채움을 conic-gradient 한 층으로 그린다. 가운데는 mask로 뚫는다 |
+| 링 가운데 글리프 | 양방향 링(`data-mode="bipolar"`)에서만. `__label` — 링이 감싼 아이콘 · 글자 |
 
 **채움에 role을 걸지 않는다.** 폭이 0일 때 요소가 사라지는 구현에서 이름째 사라진다.
 
@@ -64,8 +65,43 @@ authority: normative
 | 둘 다 | `valueText` | string | 없음 | 숫자만으로 뜻이 서지 않을 때 |
 | `ProgressRing` | `children` | ReactNode | — | 링이 감쌀 것. 보통 Avatar |
 
+**양방향 값 링은 CSS 레시피에만 있다** — React prop 이 없다. 소비처가 data 속성과 `--louis-progress-value` 를 준다.
+
+| data 속성 | 값 | 뜻 |
+| --- | --- | --- |
+| `data-mode` | `bipolar` | 양방향 값 링 — 아래 「양방향 값 링」 |
+| `data-direction` | `next` \| `prev` | 양(시계) · 음(반시계). 없으면 `next` |
+| `data-active` | `true` | 고른 항목 — 바탕이 짙어지고 1.1 배 |
+
 이름은 소비처가 준다(`aria-label` 또는 `aria-labelledby`). "진행률"은 무엇의 진행률인지 말하지
 않으므로 컴포넌트가 만들 수 없다. 이름이 없으면 개발 중에 경고한다.
+
+## 양방향 값 링 — `data-mode="bipolar"`
+
+아이콘을 감싼 호가 **중립에서 얼마나 · 어느 쪽으로** 벗어났는지 보인다(비디오 편집기 조절 줄,
+`components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx`, 소비처 `ClipColorControls.tsx:223`).
+12시에서 시작해 양은 시계, 음은 반시계로 최대 150° — 아래 60° 를 비워 시작점이 보인다. 32 고정 상자 안에 글리프가 앉고,
+고른 항목은 바탕 링이 짙어지며 1.1 배가 된다.
+
+```html
+<button type="button" aria-pressed="true" aria-label="노출 +0.4">
+  <span class="louis-progress-ring" data-mode="bipolar" data-direction="next" data-active="true"
+        style="--louis-progress-value:27" aria-hidden="true">
+    <span class="louis-progress-ring__label">…글리프…</span>
+  </span>
+</button>
+```
+
+| 속성 | 값 |
+| --- | --- |
+| `--louis-progress-value` | 크기 0~100(= 0~150°). 범위가 항목마다 비대칭이라(감마 0.5~2, 중립 1) 비율로 바꾸는 계산은 소비처의 것이다 |
+| `data-direction` | `next`(양 · `inspector-adjust-accent`) · `prev`(음 · `fg-primary`) |
+| `data-active` | `true` 면 바탕 `gray-000-alpha-40` · 1.1 배 |
+| 상자 | 32(`layout-control-height-md`) 고정 · 링은 2(`space-progress-ring-gap`) 안쪽 · 두께 2(`border-width-ring`) · 바탕 `gray-000-alpha-20` |
+| 호버 | 링을 담은 버튼을 가리키면 1.1 배(호버 기기만) |
+
+값을 전하는 것은 링이 아니라 그 항목의 이름 · 값 글자다 — 링은 장식(`aria-hidden`)이고, 담는 버튼이 `aria-pressed` 와 이름을 갖는다.
+그래서 이 판은 위 「트랙이 `role="progressbar"`를 갖는다」 계약 밖이다.
 
 ## States
 
@@ -76,7 +112,7 @@ authority: normative
 | reduced-motion | indeterminate의 흐름이 1회로 멈춘다. role과 이름은 남는다 |
 
 hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이다** — 상호작용이 필요하면 그것은
-슬라이더이지 진행률이 아니다.
+슬라이더이지 진행률이 아니다. 양방향 값 링의 호버 · 고름(`data-active`)은 링 자신이 아니라 **링을 담은 버튼**의 상태를 비춘 것이다.
 
 ## Accessibility
 
@@ -135,6 +171,7 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
 | --- | --- | --- |
 | 채움 폭 · 링 각도 | layout-change | `motion-layout-change` (220ms) |
 | indeterminate | loop | `motion-shimmer` (1600ms) |
+| 양방향 링 확대(`scale`) | control-hover | `motion-control-hover` |
 
 **indeterminate가 폭을 옮기지 않는다.** loop이 허용하는 property는 opacity·rotate·background-position
 셋이고([DS-D-0016](../governance/decisions/DS-D-0016-loop-motion.md)) transform은 그 밖이다.
@@ -166,6 +203,14 @@ hover·focus·disabled 상태가 없다. **진행률은 누를 수 없는 것이
   번진다** — 그 계약은 후행 슬롯 높이를 이 기록의 `progress-ring.sizes.base.size` 에서 읽고(슬롯은 링을
   hug 한다, [Figma 화면 조립 규칙](../governance/figma-screen-assembly.md) 28번), 라이브 표본(`components.AppTopBar.geometry.topBar.parts.Trailing`)은
   아직 옛 링 크기다. 마스터를 옮길 때 AppTopBar 의 되읽기도 함께 다시 뜬다.
+
+- **양방향 링의 호 끝이 둥글지 않고 바탕 · 호 두께가 같다.** 제품은 SVG 호에 둥근 마개 · 바탕 1.2 / 호 1.6 이고(`ColorValueRing.tsx:60-83`),
+  레시피는 conic 한 겹이라 마개가 각지고 두 겹이 `border-width-ring` 한 두께다(소유자 판정 9, 2026-10-13 기본값). 고른 바탕 38% 는 40% 칸으로 접는다.
+- **양(+) 호가 라이트에서 제품보다 짙다(DS-D-0084 §3)** — yellow-500 1.73:1 → `inspector-adjust-accent` yellow-700 3.57:1. 다크는 제품 값 그대로다.
+- **양방향 링의 `scale` 전이가 `motion-control-hover` 의 선언 property 밖이다.** `node-chrome-button` · `icon-button` 과 같은 방식이고, 전이는
+  keyframe 게이트가 보지 않는다(소유자 판정 10).
+- **양방향 링에 React 표면 · Figma 변형 · 실브라우저 시험이 아직 없다.** CSS 레시피와 이 문서만 섰다. Figma 는 `ProgressRing` 에 `Mode`(`determinate` ·
+  `bipolar`) · `Direction`(`next` · `prev`) · `Selected` 로 세운다.
 
 ## Acceptance tests
 

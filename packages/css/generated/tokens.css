@@ -392,6 +392,10 @@
   --louis-color-fg-upgrade-current: color(srgb 0 0 0 / 1);
   --louis-color-fg-upgrade-hover: color(srgb 0.921569 0.92549 0.933333 / 1);
   --louis-color-fg-warning: color(srgb 0.298039 0.2 0 / 1);
+  --louis-color-floating-divider-mid: color(srgb 0.090196 0.105882 0.133333 / 0.08);
+  --louis-color-floating-divider-peak: color(srgb 0.090196 0.105882 0.133333 / 0.12);
+  --louis-color-floating-item-selected: color(srgb 0.090196 0.105882 0.133333 / 0.08);
+  --louis-color-floating-item-selected-hover: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --louis-color-gray-000: color(srgb 0 0 0 / 1);
   --louis-color-gray-000-alpha-04: color(srgb 0 0 0 / 0.04);
   --louis-color-gray-000-alpha-08: color(srgb 0 0 0 / 0.08);
@@ -420,6 +424,7 @@
   --louis-color-gray-800: color(srgb 0.756863 0.764706 0.776471 / 1);
   --louis-color-gray-900: color(srgb 0.862745 0.870588 0.882353 / 1);
   --louis-color-icon-input-glyph: color(srgb 0.090196 0.105882 0.133333 / 0.4);
+  --louis-color-inspector-adjust-accent: color(srgb 0.721569 0.462745 0 / 1);
   --louis-color-landing-line: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --louis-color-landing-page-bg: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-landing-panel: color(srgb 0.090196 0.105882 0.133333 / 0.04);
@@ -897,6 +902,10 @@
   --louis-color-fg-upgrade-current: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-fg-upgrade-hover: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-fg-warning: color(srgb 1 0.960784 0.839216 / 1);
+  --louis-color-floating-divider-mid: color(srgb 0.980392 0.980392 0.980392 / 0.12);
+  --louis-color-floating-divider-peak: color(srgb 0.980392 0.980392 0.980392 / 0.2);
+  --louis-color-floating-item-selected: color(srgb 0.980392 0.980392 0.980392 / 0.12);
+  --louis-color-floating-item-selected-hover: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --louis-color-gray-000: color(srgb 0.980392 0.980392 0.980392 / 1);
   --louis-color-gray-000-alpha-04: color(srgb 0.980392 0.980392 0.980392 / 0.04);
   --louis-color-gray-000-alpha-08: color(srgb 0.980392 0.980392 0.980392 / 0.08);
@@ -925,6 +934,7 @@
   --louis-color-gray-800: color(srgb 0.168627 0.184314 0.211765 / 1);
   --louis-color-gray-900: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-icon-input-glyph: color(srgb 0.980392 0.980392 0.980392 / 0.56);
+  --louis-color-inspector-adjust-accent: color(srgb 1 0.698039 0 / 1);
   --louis-color-landing-line: color(srgb 0.980392 0.980392 0.980392 / 0.12);
   --louis-color-landing-page-bg: color(srgb 0 0 0 / 1);
   --louis-color-landing-panel: color(srgb 0.980392 0.980392 0.980392 / 0.04);

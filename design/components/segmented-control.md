@@ -55,6 +55,8 @@ summary: 한 줄에 놓인 두셋 중 하나를 고릅니다.
 2. **Legend** — 그룹 이름. 시각적으로 숨기고 보조기술에 남긴다.
 3. **Segment** — `<label>`. 시각을 소유한다.
 4. **Input** — 숨겨진 `<input type="radio">`. 선택 상태와 키보드를 소유한다.
+5. **Thumb**(선택) — `<span class="louis-segmented-control__thumb" aria-hidden="true">`. 고른 칸 아래로 미끄러지는
+   알약. 아래 「미끄러지는 알약」.
 
 **시각적 세그먼트가 `<input>`이 아닌 이유.** radio를 그대로 그릴 수 없고, 라벨이 면·반경·포커스
 링을 받아야 아이콘과 글자를 함께 담을 수 있다. Text Field가 박스를 `<input>` 바깥에 둔 것과 같은
@@ -117,7 +119,49 @@ variant 축이 없다. 세그먼트 컨트롤은 강조 단계를 갖지 않는�
 - 폭은 호출부가 정한다. 트랙은 내용 크기로 자라되 `max-inline-size: 100%`라 컨테이너를 넘지 않는다.
 - 세그먼트는 내용 크기를 기준으로 늘고 준다. 좁아지면 라벨이 **줄바꿈이 아니라 말줄임**으로
   줄어든다 — 줄바꿈하면 트랙 높이가 변해 옆에 선 컨트롤과 어긋난다.
-- 선택 면이 움직이는 전환이 **없다.** 아래 Known deviations.
+- 선택 면은 칸에 붙어 있으면 움직이지 않는다. **움직이게 하려면 알약(`__thumb`)을 둔다** — 아래 「미끄러지는 알약」.
+
+## 미끄러지는 알약 — `__thumb`
+
+고른 칸이 면을 칠하는 대신 **트랙 안의 알약 하나**가 고른 칸 아래로 미끄러진다. 제품은 `SegmentedThumb` 하나가 그리고
+17파일이 쓴다(통합 판 `54b62a8aa` `SegmentedThumb.tsx:240` 트랙 · `:246` 칸 · `:271-279` 알약 · `:283` 면).
+
+마크업은 트랙의 칸들보다 **앞에** 알약을 둔다. 칸은 이미 `position: relative` 라 글자가 문서 순서로 알약 위에 칠해진다 —
+z-index 없음. 알약이 서면(`:has(> __thumb)`) 트랙이 `position: relative` 가 되고 고른 칸은 면을 끈다. 글자색과 강제 색
+선택 윤곽은 칸에 남는다.
+
+```html
+<fieldset class="louis-segmented-control" data-size="lg">
+  <legend class="louis-segmented-control__legend louis-visually-hidden">테마</legend>
+  <span
+    class="louis-segmented-control__thumb"
+    aria-hidden="true"
+    data-animate="true"
+    style="--louis-segmented-control-thumb-x: 4px; --louis-segmented-control-thumb-y: 4px;
+           --louis-segmented-control-thumb-inline-size: 72px; --louis-segmented-control-thumb-block-size: 32px"
+  ></span>
+  <label class="louis-segmented-control__segment" data-selected="true">…</label>
+  <!-- … -->
+</fieldset>
+```
+
+**자리는 소비처가 잰다.** 고른 칸의 `offsetLeft` · `offsetTop` · `offsetWidth` · `offsetHeight` 다 — 줌 아래에서도 불변인
+레이아웃 px 이다. 레시피는 그 넷을 지역 변수로 받아 **translate + 크기**로 그린다. 제품은 `left/top/width/height` 를 직접
+전이하지만 위치를 `translate` 로 옮기면 레이아웃을 흔들지 않는다.
+
+| 지역 변수 · 속성 | 뜻 |
+| --- | --- |
+| `--louis-segmented-control-thumb-x` · `-y` | 고른 칸의 `offsetLeft` · `offsetTop`. 원점은 트랙 패딩 상자 왼쪽 위(물리 좌표) |
+| `--louis-segmented-control-thumb-inline-size` · `-block-size` | 고른 칸의 `offsetWidth` · `offsetHeight` |
+| `--louis-segmented-control-thumb-radius` | 칸 반경. 기본 8, `xs` 7 · `sm` 6 은 레시피가 맞춘다 |
+| `data-animate="true"` | 미끄러짐을 켠다. 없으면 나타남 · 사라짐(`opacity`)만 전이한다 — 첫 배치 · 리사이즈 재측정에서 0 에서 헤엄쳐 들어오지 않게 |
+| `data-visible="false"` | 고른 칸이 없을 때 알약을 감춘다 |
+
+전이는 `motion-tab-select`(200ms)의 시간 · 곡선이다. 줄인 움직임에서는 `motion-reduced-duration` 으로 줄고, 강제 색에서는
+알약을 감춘다 — 면이 시스템 색 덩어리가 되고, 선택은 칸의 윤곽이 이미 말한다.
+
+Figma 는 바꿀 것이 없다. 정지 화면에서 알약은 고른 칸의 면과 같은 자리 · 같은 칠이다. 미끄러짐은 세그먼트
+`State=Selected` 사이의 Smart Animate 프로토타입으로만 보인다.
 
 ## Content
 
@@ -260,15 +304,14 @@ Figma는 INNER_SHADOW로 대응한다 — 이전 OUTSIDE stroke에서 바뀐 것
 
 ## Known deviations
 
-- **선택 면이 움직이지 않는다.** 제품 여섯 중 넷이 220~240ms 슬라이딩 썸을 갖고 그것이 이
-  컴포넌트에서 가장 널리 합의된 축인데, DS에 그 전환을 부를 토큰이 없다.
-  [Motion](../foundations/motion.md)은 semantic recipe로 `layout-change`를 **이름만 예약해 두고**
-  실제 토큰은 없으며, lifecycle도 `enter`·`exit`·`loop` 셋뿐이다. 넷째 lifecycle을 세우는 것은
-  DS-D-0016이 `loop`에 한 것과 같은 크기의 변경이고, token source가 바뀌면 Figma 변수·style을 다시
-  적용해야 하므로 이 변경 단위 밖이다. 이름이 맞지 않는 기존 motion 토큰(`overlay-enter` 등)을
-  빌려 쓰지 않는다 — `radius-card`와 같은 함정이 된다.
-- **제품의 슬라이딩 썸 구현이 셋으로 갈린다.** JS `offsetWidth`(A), JS `getBoundingClientRect` +
-  ResizeObserver(B), CSS만(C). 위 토큰이 서면 어느 쪽을 채택할지 함께 정한다.
+- **미끄러지는 알약은 레시피에만 있다(2026-10-13, DS-D-0084).** 예전에는 「선택 면이 움직이지 않는다」가 이 자리의
+  결손이었다 — 제품 여섯 중 넷이 슬라이딩 썸을 갖는데 DS 에 그 전환이 없었다. 제품이 그 사이 `SegmentedThumb` 하나로
+  모으며 `motion-tab-select` 를 썼고, 레시피가 같은 토큰으로 `__thumb` 을 세웠다. 남은 것은 둘이다. `SegmentedControl`
+  React 표면은 아직 알약을 그리지 않는다(자리를 재는 일이 소비처 몫이라). 그리고 `motion-tab-select` 의
+  `motionProperties` 는 `opacity` 하나인데 알약은 `translate` · `inline-size` · `block-size` 도 전이한다 — 게이트는
+  transition 을 보지 않지만 메타를 맞추는 것은 토큰 쪽 회차다(소유자 판정 10).
+- **제품의 슬라이딩 썸 구현은 하나로 모였다.** 예전에는 JS `offsetWidth`(A), JS `getBoundingClientRect` +
+  ResizeObserver(B), CSS만(C) 셋으로 갈렸다. 지금 정본은 A 계열(`offset*`)이고 레시피도 그것을 받는다.
 - **Tabs가 없다.** 제품의 `DASHBOARD_TABS` 다섯 자리는 패널을 바꾸므로 이 컴포넌트가 아니다.
 - **아이콘 슬롯의 크기 계약이 없다.** `gap`만 정해 두었고 아이콘은 호출부가 넣는다.
 - **RTL에서 방향키 방향을 검증하지 않았다.** 네이티브 radio의 동작에 맡긴다.

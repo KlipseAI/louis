@@ -409,6 +409,29 @@ Panel (aside, aria-label)
 
 Figma 변형은 아직 없다. 위 표의 값은 제품 `CanvasHelpPanel.tsx` 의 클래스 리터럴을 이 저장소의 토큰 이름으로 읽은 것이다.
 
+## 바닥 점 격자 — `.louis-canvas-dots`
+
+캔버스 작업 면의 채움이다(레시피 `packages/css/src/pattern/editor-workspace.css`). 지름 2 점 · 24 격자 · `color-canvas-dot`(다크 #fafafa 16% ·
+라이트 pg-600 28%) 위 `bg-canvas`. 정본은 제품 `components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx:5-6 · :15-20`(xyflow
+`<Background variant=Dots gap=24 size=2>`)이고 색은 `--canvas-dot`(`node-canvas-v2/index.tsx:505` · `:530`)과 바이트가 같다(DS-D-0082).
+
+점은 **캔버스 좌표**에 박혀 있다 — 줌하면 격자와 점이 함께 커지고, 끌면 함께 흐른다. 살아 있는 캔버스는 `--louis-canvas-dots-scale` ·
+`-x` · `-y` 를 넣고, 목업 · 정적 데모는 클래스만 붙인다. 노드 캔버스 자체는 xyflow 바닥(SVG 패턴)을 같은 값으로 그린다 — 이 클래스는
+**값의 정본**이고 랜딩 목업 · 정적 데모 · Figma 대조가 쓴다.
+
+| 지역 변수 | 기본 | 뜻 |
+| --- | --- | --- |
+| `--louis-canvas-dots-pitch` | 24px | 격자(제품 `gap`) |
+| `--louis-canvas-dots-radius` | 1px | 점 반지름(제품 `size / 2`) |
+| `--louis-canvas-dots-scale` | 1 | 캔버스 줌 배율(xyflow `transform[2]`) |
+| `--louis-canvas-dots-x` · `-y` | 0px | 화면 이동량(xyflow `transform[0..1]`) |
+
+강제 색에서는 점을 걷고 면만 남긴다. [Chart Card](../components/chart-card.md) 의 점 바닥(`data-floor="dots"`)과 같은 기법이고 격자 ·
+잉크 · 줌 추종만 다르다.
+
+**랜딩 정적 임베드의 20% 점은 이 칸이 아니다.** 어두운 랜딩 면 위 `palette-gray-000` 20%(`node-canvas-v2/index.tsx:542`)라 테마를 따르는
+캔버스 점과 다른 칸이다. 새 이름(`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(DS-D-0084 소유자 판정 11, 2026-10-13 기본값).
+
 ## Overlay and portal contract
 
 ### Local overlays

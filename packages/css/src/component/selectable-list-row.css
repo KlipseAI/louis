@@ -143,3 +143,39 @@
   align-items: center;
   color: var(--louis-color-fg-secondary);
 }
+
+/* ── 이동 행 `data-layout="link"` ─────────────────────────────────────────────
+ * 고르는 행이 아니라 **누르면 다른 곳으로 가는** 행이다(캔버스 도움말 패널 `CanvasHelpPanel.tsx:131-135` 의 `LINK_ROW`,
+ * 영상 편집기 프로젝트 피커). 선택 상태가 없고(`aria-current` 를 쓰지 않는다), 제목이 첫 잉크부터 `fg-primary` 이며,
+ * 끝에 부가 글과 체브론이 가운데로 선다. 부제가 두 줄로 감겨도 제목이 위에 붙도록 행은 위 정렬이다(제품 `items-start`).
+ *
+ * 호버는 기본 행의 `accent-ghost-hover` 를 그대로 쓴다 — 제품 `bg-inset` 은 다크에서 패널 바닥과 같은 값이라 접는다.
+ * 행 간격 10 · 글자 사이 2 도 기본 8 · 4 로 접는다(DS-D-0084 원칙: 작은 편차는 LOUIS 로). */
+.louis-selectable-list-row[data-layout="link"] {
+  align-items: flex-start;
+  color: var(--louis-color-fg-primary);
+}
+
+/* 부제는 말줄임 대신 감긴다 — 도움말 문장은 한 줄에 다 들어가지 않고, 잘리면 이동할 곳을 고를 근거가 사라진다. */
+.louis-selectable-list-row[data-layout="link"] .louis-selectable-list-row__meta {
+  color: var(--louis-color-fg-tertiary);
+  white-space: normal;
+}
+
+/* 끝 — 부가 글(caption) + 체브론 16. 행이 위 정렬이어도 이것만 가운데로 선다(제품 `TRAIL` `self-center gap-2`). */
+.louis-selectable-list-row[data-layout="link"] .louis-selectable-list-row__trailing {
+  align-self: center;
+  gap: var(--louis-space-control-xs);
+  color: var(--louis-color-fg-tertiary);
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+.louis-selectable-list-row[data-layout="link"]:disabled .louis-selectable-list-row__meta,
+.louis-selectable-list-row[data-layout="link"]:disabled .louis-selectable-list-row__trailing {
+  color: var(--louis-color-fg-disabled);
+}

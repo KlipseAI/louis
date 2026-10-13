@@ -207,6 +207,83 @@
   color: var(--louis-color-fg-danger);
 }
 
+/* ── 여러 줄 판 `data-multiline="true"` (DS-D-0084) ─────────────────────────
+ *
+ * 정본: 제품 문의 화면(`apps/web/app/inquiry/InquiryClient.tsx:183-198 · :625-720`). 상자 하나 안에 본문(textarea) ·
+ * 첨부 썸네일 줄 · 툴바가 위에서 아래로 선다. 놓기(drag & drop)는 **상자 전체**가 받는다 — 본문 위에 놓든 툴바 위에
+ * 놓든 같은 곳에 붙는다.
+ *
+ * 상자의 면 · 반경 · 헤어라인 · 오류 표현은 한 줄 판 그대로다. 여백은 상자가 아니라 칸마다 갖는다 — 툴바의 위 선이 상자
+ * 가장자리까지 닿아야 하기 때문이다.
+ *
+ * 이 블록은 크기 블록 뒤가 아니라 invalid 규칙 **뒤**에 선다. 끄는 중 링과 invalid 링이 같은 특이도(0,4,0)라 문서 순서가
+ * 이긴다 — 놓는 동안에는 「여기에 놓인다」가 오류보다 먼저 읽혀야 한다. 크기 축(`md` 의 좌우 여백)도 같은 이유로 이
+ * 블록이 덮는다. */
+.louis-text-field[data-multiline="true"] .louis-text-field__box {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+
+.louis-text-field[data-multiline="true"] .louis-text-field__control {
+  /* 200. 제품 `min-h-[200px]`(InquiryClient.tsx:185) — 문의 본문 여덟 줄. */
+  min-block-size: 200px;
+  padding: var(--louis-space-control-lg);
+  resize: vertical;
+}
+
+/* 첨부 썸네일 줄 — [Media Slot](media-slot.md) 줄(`.louis-media-slot-strip[data-layout="wrap"]`)을 같은 요소에 얹는다.
+ * 간격 12 · 좌우 16 · 아래 12 는 제품 `gap-6 px-8 pb-6`(:188). 줄의 기본 간격 4 를 이 자리에서만 넓힌다 — 72 칸 사이 4 는
+ * 붙어 보인다. */
+.louis-text-field[data-multiline="true"] .louis-text-field__attachments {
+  gap: var(--louis-space-control-md);
+  padding-block: 0 var(--louis-space-control-md);
+  padding-inline: var(--louis-space-control-lg);
+}
+
+/* 툴바 — 첨부 버튼과 개수가 양 끝에(제품 :194-195). 위 선은 한 면 헤어라인(DS-D-0023, 제품은 1px 같은 색). */
+.louis-text-field__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-sm);
+  padding: var(--louis-space-control-md);
+  box-shadow: var(--louis-hairline-inset-block-start);
+  cursor: default;
+}
+
+/* 첨부 개수 `n / 5` — 제품 `type-caption-12-regular text-fg-secondary`(:714-718). `aria-live="polite"` 는 소비처가 단다. */
+.louis-text-field__counter {
+  color: var(--louis-color-fg-secondary);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 끌어다 놓는 중 — [Drop Zone](drop-zone.md) 과 같은 말: 안쪽 `border-width-ring` · `stroke-focus` 링이 헤어라인을 대신한다.
+ * 제품의 바깥 outline(2 띄움, :186-187)은 받지 않는다 — 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로
+ * 말하게 된다(소유자 판정 8, 2026-10-13 기본값). */
+.louis-text-field[data-multiline="true"] .louis-text-field__box[data-drag-over="true"] {
+  box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-stroke-focus);
+}
+
+@media (forced-colors: active) {
+  .louis-text-field__toolbar {
+    box-shadow: none;
+    border-block-start: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-text-field[data-multiline="true"] .louis-text-field__box[data-drag-over="true"] {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: calc(0px - var(--louis-border-width-ring));
+  }
+}
+
 /* ── 플로팅 라벨 — `data-label-behavior="floating"` (DS-D-0049) ──────────────
  *
  * ## 무엇이 다른가 — 라벨이 어디 사는가 하나다

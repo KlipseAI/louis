@@ -696,6 +696,204 @@
     }
   }
 
+  /* ── 캔버스 판 `data-surface="canvas"` ────────────────────────────────────────
+   *
+   * 정본: 제품 통합 판 `54b62a8a` `apps/web/components/scenes/create/ProjectHeader.tsx`(노드 캔버스 상단 바,
+   * 자리는 `apps/web/components/scenes/CreateScene.tsx:133-134`). 2026-10-13, DS-D-0084.
+   * 캔버스 **위에** 떠서 그 아래가 지나가는 바다. 면이 없고, 대신 위가 진하고 아래로 사라지는 흐림 띠 한 겹과
+   * 캔버스 바닥색 틴트가 글자를 받친다. 앞 묶음(홈 · 구분선 · 제목 · 저장)이 사이 4 로 붙고, 뒤 묶음이
+   * 오른쪽 끝에 선다. 툴 버튼과 구분선은 Floating Shell 의 `__item[data-variant="ghost"]` · `__divider` 를
+   * 셸 밖에서 그대로 쓴다 — 같은 버튼을 두 이름으로 세우지 않는다(소유자 판정 7).
+   *
+   * **자리(fixed · 쌓임)는 소비처의 것이다** — 기본 바와 같다. 흐림 층이 `::before` 라 바가 포함 블록이어야
+   * 해서 `relative` 를 두지만, 소비처가 `fixed` 를 주면 그쪽이 이긴다(유틸리티 레이어).
+   *
+   * **흐림은 LOUIS 헤더 띠 값이다.** 제품의 지역 곡선(ProjectHeader.tsx:46-50 — 40% 까지 불투명, 60% 0.8 ·
+   * 80% 0.4)과 카드 반경 10(`--louis-progressive-blur`) 대신 `progressive-blur-header`(12) · `-mask-header`(40% → 0
+   * 직선)를 읽는다. 같은 「화면 위에 고정된 띠」라 두 번째 마스크 이름을 세우지 않는다(소유자 판정 6). */
+  .louis-app-top-bar[data-surface="canvas"] {
+    position: relative;
+    gap: var(--louis-space-control-xs);
+    /* 위아래 8 · 좌우 12 — 제품 `py-4 px-6`(CreateScene.tsx:134). 높이는 8 + 32 + 8 = 48 로 파생된다 —
+     * 기본 바의 하한 40(`layout-app-shell-top-bar-height`)보다 크므로 하한이 이기지 않는다. */
+    padding-block: var(--louis-space-control-sm);
+    padding-inline: var(--louis-space-control-md);
+    /* 잉크 88% — 제품 `BRAND_SHELL` · `ACTIONS_SHELL` 의 gray-000 88%(ProjectHeader.tsx:86 · :323).
+     * `fg-primary` 가 그 두 칸(다크 #fafafa · 라이트 #171b22)이다. */
+    color: color-mix(in srgb, var(--louis-color-fg-primary) 88%, transparent);
+  }
+
+  .louis-app-top-bar[data-surface="canvas"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    backdrop-filter: var(--louis-progressive-blur-header);
+    mask-image: var(--louis-progressive-blur-mask-header);
+    /* 틴트 — 「그 아래 화면 바닥과 같은 칸」(ProjectHeader.tsx:51-62). 캔버스 바닥이 `bg-canvas` 다. */
+    background-image: linear-gradient(
+      to top,
+      transparent,
+      color-mix(in srgb, var(--louis-color-bg-canvas) 48%, transparent)
+    );
+  }
+
+  /* 내용은 흐림 층 **위**에 칠한다. `::before` 가 위치를 가진 첫 자식이라, 자식이 위치를 가지면 문서 순서로
+   * 그 위에 선다 — 숫자 z-index 없이. */
+  .louis-app-top-bar[data-surface="canvas"] > :where(
+      .louis-app-top-bar__home,
+      .louis-app-top-bar__leading,
+      .louis-app-top-bar__title,
+      .louis-app-top-bar__trailing,
+      .louis-floating-shell__item,
+      .louis-floating-shell__divider
+    ) {
+    position: relative;
+  }
+
+  /* 뒤 묶음은 오른쪽 끝, 버튼 사이 4 — 제품 `ACTIONS_SHELL gap-2`(ProjectHeader.tsx:321). */
+  .louis-app-top-bar[data-surface="canvas"] > .louis-app-top-bar__trailing {
+    gap: var(--louis-space-control-xs);
+    margin-inline-start: auto;
+  }
+
+  /* 제목 칸 — 남는 폭을 다 먹지 않는다. 바로 뒤에 저장 버튼이 붙어야 해서 최대 280 에서 멈춘다
+   * (제품 `max-w-[280px]`, ProjectHeader.tsx:183). */
+  .louis-app-top-bar[data-surface="canvas"] > .louis-app-top-bar__title {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    /* 280. 제품 `TITLE_SLOT max-w-[280px]`(ProjectHeader.tsx:183). */
+    max-inline-size: 280px;
+    overflow: visible;
+    color: inherit;
+    /* 제품 `type-body-16-regular`(ProjectHeader.tsx:516 · :543). 기본 바의 medium 이 아니다 — 캔버스 위 문서
+     * 이름은 위치 표시가 아니라 값이다. */
+    font-family: var(--louis-typography-body-md-regular-font-family);
+    font-size: var(--louis-typography-body-md-regular-font-size);
+    font-weight: var(--louis-typography-body-md-regular-font-weight);
+    line-height: var(--louis-typography-body-md-regular-line-height);
+    letter-spacing: var(--louis-typography-body-md-regular-letter-spacing);
+  }
+
+  /* 눌러 이름을 바꾸는 제목. **`<button>` 이다** — 제품은 `<span onClick>`(ProjectHeader.tsx:541-554)이라
+   * 키보드로 닿지 않는다(문서 Known deviations). 편집은 같은 자리의 `__title-input` 이다. */
+  .louis-app-top-bar__title-button,
+  .louis-app-top-bar__title-input {
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    block-size: var(--louis-layout-control-height-md);
+    margin: 0;
+    padding-block: 0;
+    /* 10. 제품 `px-5`(ProjectHeader.tsx:189 · :212). */
+    padding-inline: 10px;
+    border: 0;
+    border-radius: var(--louis-radius-control);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+  }
+
+  .louis-app-top-bar__title-button {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: start;
+    /* 32 — 한 줄 글자를 상자 가운데에 둔다(제품 `[line-height:32px]!`, ProjectHeader.tsx:212). */
+    line-height: var(--louis-layout-control-height-md);
+    cursor: text;
+    transition-property: background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  @media (hover: hover) {
+    /* 호버 8% — 제품 다크 gray-000 8% · 라이트 pg-900 8%(ProjectHeader.tsx:214-215) = `accent-ghost-hover`. */
+    .louis-app-top-bar__title-button:hover {
+      background: var(--louis-color-accent-ghost-hover);
+    }
+  }
+
+  /* 누름 — 제품 다크 20% · 라이트 12%(ProjectHeader.tsx:216-217). 한 칸 시맨틱이 없어
+   * `accent-secondary-hover`(12 · 12)로 접는다(문서 Known deviations). */
+  .louis-app-top-bar__title-button:active {
+    background: var(--louis-color-accent-secondary-hover);
+  }
+
+  .louis-app-top-bar__title-input {
+    caret-color: currentColor;
+    /* 편집 중임은 캐럿과 선택 영역이 말한다 — 제품도 링 · 면을 두지 않는다(ProjectHeader.tsx:190).
+     * 강제 색 링만 base.css 가 그린다. */
+    outline: none;
+  }
+
+  /* 홈 버튼 — 브랜드 심볼(20)과 저장 · 뒤로가기 스피너가 앞에서부터 선다. 32 이상이고 내용이 길어지면
+   * 늘어난다(ProjectHeader.tsx:94-97). */
+  .louis-app-top-bar__home {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: flex-start;
+    min-inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
+    margin: 0;
+    padding-block: 0;
+    /* 6. 제품 `pl-3`(ProjectHeader.tsx:96) — 심볼 20 이 32 안에서 가운데처럼 보이는 자리. */
+    padding-inline: 6px 0;
+    border: 0;
+    border-radius: var(--louis-radius-control);
+    background: transparent;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition-property: background-color, scale;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  @media (hover: hover) {
+    .louis-app-top-bar__home:where(:not(:disabled)):hover {
+      background: var(--louis-color-accent-ghost-hover);
+    }
+  }
+
+  /* 누름 — 면 `accent-secondary-hover` + 0.95. 제품의 `filter: saturate brightness` 는 받지 않는다(Known deviations). */
+  .louis-app-top-bar__home:where(:not(:disabled)):active {
+    background: var(--louis-color-accent-secondary-hover);
+    scale: 0.95;
+  }
+
+  .louis-app-top-bar__home:disabled {
+    cursor: default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-app-top-bar__title-button,
+    .louis-app-top-bar__home {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+
+    .louis-app-top-bar__home:where(:not(:disabled)):active {
+      scale: 1;
+    }
+  }
+
+  /* forced-colors — 흐림 · 틴트는 강제 색에서 대비 보장을 되돌리므로 걷는다(Floating Shell 과 같은 판정). */
+  @media (forced-colors: active) {
+    .louis-app-top-bar[data-surface="canvas"] {
+      color: CanvasText;
+    }
+
+    .louis-app-top-bar[data-surface="canvas"]::before {
+      backdrop-filter: none;
+      background: Canvas;
+      mask-image: none;
+    }
+  }
+
   /* ── 복합 내비 행 ────────────────────────────────────────────────────────────
    * 내비 항목 하나와 보조 액션이 한 줄을 나눠 쓴다. 배포본의 캔버스 · 컴포지션 행이 「+」 생성
    * 버튼으로 이 모양을 썼으나 제품 `658ece13` 에서 걷혀, 지금 쓰는 배포본 화면은 없다(DS 역량으로 남긴다).
@@ -2451,6 +2649,46 @@
     padding-block: var(--louis-space-control-md);
   }
 
+  /* 점 바닥 `data-floor="dots"` (DS-D-0084) — 넓은 차트 아래 깔리는 점 격자. 곡선이 읽힐 눈금 대신 면의 리듬만 준다.
+   *
+   * 정본: 제품 `apps/web/components/scenes/analytics/shared.tsx:40-43`. 점은 지름 2 · 격자 18 · 테마 잉크. 제품은 16% 점에 층 불투명
+   * 0.78 을 곱해 12.5% 를 만든다 — 시맨틱 한 칸(`gray-000-alpha-12`)으로 접고 불투명을 걷는다(소유자 판정 11, 2026-10-13 기본값).
+   *
+   * 층은 `::before` 다. 곡선은 그 위에 서야 하는데 숫자 z-index 를 쓰지 않으므로(제품은 `z-[1]`, :51) **칠 순서**로 세운다 —
+   * 위치를 가진 요소끼리는 문서 순서대로 칠하므로, 슬롯 안 SVG 에 `position: relative` 를 주면 `::before` 뒤에 칠해진다.
+   * 위치가 없는(static) SVG 는 위치를 가진 `::before` 보다 **먼저** 칠해져 점 아래에 깔린다 — 그래서 아래 규칙이 필요하다.
+   * 아래 26 은 축 글자 줄(caption 18 + 8)을 비운다 — 제품 `inset-[12px_0_26px]`(:40). */
+  .louis-chart-card__chart[data-floor="dots"]::before {
+    --louis-chart-card-dot-pitch: 18px;
+
+    content: "";
+    position: absolute;
+    inset-block-start: var(--louis-space-control-md);
+    /* 26. 제품 `inset-[12px_0_26px]`(:40). */
+    inset-block-end: 26px;
+    inset-inline: 0;
+    border-radius: var(--louis-radius-card);
+    background-image: radial-gradient(
+      circle,
+      var(--louis-color-gray-000-alpha-12) 0 var(--louis-border-width-default),
+      transparent var(--louis-border-width-default)
+    );
+    /* 18. 제품 `background-size:18px_18px`(:42). */
+    background-size: var(--louis-chart-card-dot-pitch) var(--louis-chart-card-dot-pitch);
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .louis-chart-card__chart[data-floor="dots"] > :where(svg) {
+    position: relative;
+  }
+
+  @media (forced-colors: active) {
+    .louis-chart-card__chart[data-floor="dots"]::before {
+      display: none;
+    }
+  }
+
   /* 미니 차트. 축도 툴팁도 없이 곡선 하나만 그린다.
    * 폭이 44% 인 것은 수치가 길어질수록 차트가 양보해야 하기 때문이고, 상한 130 은 넓은
    * 카드에서 차트가 수치보다 커지지 않게 하는 뚜껑이다. **양보가 실제로 일어나게 한다**(2026-10-12,
@@ -2472,6 +2710,125 @@
     .louis-chart-card__panel {
       box-shadow: none;
       border: var(--louis-border-width-default) solid currentColor;
+    }
+  }
+
+  /* ── 영역 차트의 그림 부품 ─────────────────────────────────────────────────────
+   * 곡선 경로(`d`)는 데이터 좌표라 소비처가 계산한다(DS-D-0084 §2 예외, chart-card.md 「곡선을 그리는 컴포넌트가 아니다」).
+   * 그 둘레 — 선 굵기 · 면 그라디언트 알파 · 십자선 · 점 · 축 글자 — 는 화면마다 같아야 하므로 여기 둔다.
+   * 정본: 제품 `components/scenes/analytics/shared.tsx` 의 공용 `AreaChart`(:375-433) · 스파크(:489-498).
+   *
+   * 시리즈 색은 `currentColor` 다: 차트 자리의 `color` 가 선 · 면 · 점을 함께 칠하고, 증감 색은 소비처가 `color` 로
+   * 넘긴다(stat-tile 의 delta 잉크와 같은 값). 기본은 테마 잉크 — 제품 `accentColor = "var(--gray-000)"`(:333)를
+   * 값 잉크와 같은 `fg-primary` 로 접는다(Known deviations 4 와 같은 판정). */
+  .louis-chart-card__chart,
+  .louis-chart-card__spark {
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 그림 — 슬롯을 채운다(제품 `CHART_SVG`, :50). 소비처는 `preserveAspectRatio="none"` 으로 늘린다. */
+  .louis-chart-card__plot {
+    position: absolute;
+    inset: 0;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+
+  /* 점 바닥의 `> :where(svg) { position: relative }`(위)보다 뒤에서 같은 명시도로 이긴다 — 레시피 그림은 슬롯을 채운 채
+   * (absolute) 위치를 가진 요소로서 칠 순서상 점 `::before` 위에 선다. */
+  .louis-chart-card__chart > .louis-chart-card__plot {
+    position: absolute;
+  }
+
+  /* 스파크 슬롯은 위치를 갖지 않는다 — 그림이 슬롯 상자를 그대로 채운다. */
+  .louis-chart-card__spark > .louis-chart-card__plot {
+    position: static;
+  }
+
+  /* 면 그라디언트 정지점 — `<stop class="louis-chart-card__area-stop" data-stop="start|end">`. 18% → 0(:386-387).
+   * 알파는 색이 아니라 불투명도라 색 토큰을 세우지 않고 지역 변수로 둔다. */
+  .louis-chart-card__area-stop {
+    --louis-chart-card-area-opacity: 0.18;
+
+    stop-color: currentColor;
+    stop-opacity: var(--louis-chart-card-area-opacity);
+  }
+
+  .louis-chart-card__area-stop[data-stop="end"] {
+    stop-opacity: 0;
+  }
+
+  /* 스파크 면은 22% 다(:489) — 작은 그림에서 면이 묻히지 않게 한 단 짙다. */
+  .louis-chart-card__spark .louis-chart-card__area-stop {
+    --louis-chart-card-area-opacity: 0.22;
+  }
+
+  /* 선 — 2 · 둥근 끝. `preserveAspectRatio="none"` 으로 늘린 그림에서 굵기가 따라 늘지 않게 `non-scaling-stroke`. */
+  .louis-chart-card__line {
+    fill: none;
+    stroke: currentColor;
+    /* 2. 제품 `strokeWidth="2"`(:401) — 선 굵기 토큰이 없어 리터럴이다. */
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* 가리킨 날의 세로선 — 테마 잉크 20% · 1(:415-416). */
+  .louis-chart-card__crosshair {
+    stroke: var(--louis-color-gray-000-alpha-20);
+    stroke-width: var(--louis-border-width-default);
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* 가리킨 날의 점 — 시리즈 색(:421-422). 반지름은 소비처의 `r` 이다(Known deviations 7). */
+  .louis-chart-card__marker {
+    fill: currentColor;
+  }
+
+  /* 축 글자 줄 — 슬롯 바닥에 붙고 글자를 양 끝까지 고르게 놓는다(제품 `CHART_X_AXIS`, :64-67). 고르는 개수(넓으면 6 · 좁으면 4)는 소비처다. */
+  .louis-chart-card__axis {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-inline: var(--louis-space-control-xs);
+  }
+
+  /* 축 글자 — caption · `fg-tertiary`. 제품 `--dashboard-muted-color`(= `--gray-400`)와 두 테마 모두 바이트가 같다(:71 · :432). */
+  .louis-chart-card__axis-label {
+    color: var(--louis-color-fg-tertiary);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  /* 480. 제품 `CHART_AXIS_NARROW_MQ`(:305) · `[@media(max-width:480px)]:px-[1px] gap-1`(:66). 뷰포트 질의인 것도 제품을 따른다. */
+  @media (max-width: 480px) {
+    .louis-chart-card__axis {
+      /* 1 · 2. 제품 `px-[1px]` · `gap-1`(Tailwind 2px 단위) — 간격 계단에 없는 값이라 리터럴이다. */
+      padding-inline: 1px;
+      gap: 2px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    /* 면 그라디언트는 강제 색에서도 남지만 선 · 점이 시스템 잉크로 바뀌어야 읽힌다. */
+    .louis-chart-card__line,
+    .louis-chart-card__crosshair {
+      stroke: CanvasText;
+    }
+
+    .louis-chart-card__marker {
+      fill: CanvasText;
     }
   }
 }
@@ -2666,7 +3023,7 @@
    * ## 한 컴포넌트, 변형 둘
    *
    * 갈리는 것은 **고른 면을 어떻게 말하느냐** 하나뿐이고 나머지(역할 · aria-checked · 로빙 · 오류 링 · 한 줄 규칙)는
-   * 같다. 그래서 `data-variant="card"`(기본) · `"row"` 로 묶었다. **두 표현을 둘 다 둔다(2026-10-07 소유자 결정 — 카드형은 링, 행형은 뒤집기)**
+   * 같다. 그래서 `data-variant="card"`(기본) · `"row"` 로 묶었다. 셋째 `"list"`(2026-10-13)는 고르면 표식만 채우는 면 없는 줄이다(아래 블록). **두 표현을 둘 다 둔다(2026-10-07 소유자 결정 — 카드형은 링, 행형은 뒤집기)**
    * (choice-card.md) — 큰 카드는 링이, 좁은 행은 뒤집기가 눈에 잘 띈다.
    *
    * ## 상태별로 box-shadow 를 **한 줄만** 붙인다
@@ -2770,8 +3127,10 @@
   }
 
   /* 고름 — 카드: 올린 면 + 2px 주색 링. 링은 헤어라인을 **대신**한다(box-shadow 한 줄). 색 하나로만 알리지
-   * 않도록 표식이 함께 선다. 제품은 링 색을 `--primary-500`(blue-500)로 적었고 토큰 `accent-primary` 와 같은 값이다. */
-  .louis-choice-card:not([data-variant="row"])[aria-checked="true"] {
+   * 않도록 표식이 함께 선다. 제품은 링 색을 `--primary-500`(blue-500)로 적었고 토큰 `accent-primary` 와 같은 값이다.
+   * 줄 목록(`list`)도 제외한다 — 그 변형은 고르면 표식만 채운다. `:not()` 의 인자 목록은 가장 높은 인자의 특이도만 세므로
+   * (0,3,0) 그대로다. */
+  .louis-choice-card:not([data-variant="row"], [data-variant="list"])[aria-checked="true"] {
     background: var(--louis-color-accent-secondary-selected);
     box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);
   }
@@ -2780,6 +3139,73 @@
   .louis-choice-card[data-variant="row"][aria-checked="true"] {
     background: var(--louis-color-accent-inverse);
     color: var(--louis-color-fg-on-accent-inverse);
+  }
+
+  /* ── 줄 목록 `data-variant="list"` ──────────────────────────────────────────
+   *
+   * 2026-10-13(DS-D-0084). 정본: 제품 통합 판 `apps/web/components/landing/sections/ambassador/ApplyFlow.tsx:102-171`(앰배서더
+   * 지원서, `<Choice` 6자리). 통합 판의 `Choice` 는 카드형을 버리고 이 모양만 남았다 — 위 머리말 표의 카드형은
+   * `feat/ambassador-links` 시절 값이다. **면이 없고 줄 사이 선이 항목을 가르며, 고르면 면은 그대로 두고 표식만 채운다** —
+   * card 의 링도 row 의 뒤집기도 쓰지 않는다. 표식이 앞에 선다: 면이 없는 줄에서 무엇을 골랐는지 말하는 것은 표식뿐이고, 왼쪽
+   * 끝에 줄 맞춰 서야 위아래로 훑어 읽힌다.
+   *
+   * 선은 제품의 1px `landing-line`(12%) 대신 헤어라인이다(DS-D-0023) — 다크에서 12% → 8% 로 옅어진다(문서 Known deviations).
+   * 표식의 제품 편차 셋(사각 반경 4 · 쉼 테두리 1.5px · 원 고름의 흰 점)도 LOUIS 표식 값으로 접었다(2026-10-13 판정). */
+  .louis-choice-group[data-variant="list"] {
+    gap: 0;
+    box-shadow: var(--louis-hairline-inset-block-start);
+  }
+
+  /* compact — 선 없이 2열, 560 이상 3열. 제품 `grid-cols-2 gap-x-8 min-[560px]:grid-cols-3`(:146). */
+  .louis-choice-group[data-variant="list"][data-size="sm"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--louis-space-control-lg);
+    row-gap: 0;
+    box-shadow: none;
+  }
+
+  /* 560. 제품 `min-[560px]:`(:146). 레이아웃 경계(719 · 1023) 밖의 값이다 — 한 줄 이름 셋이 들어가는 최소 폭. */
+  @media (min-width: 560px) {
+    .louis-choice-group[data-variant="list"][data-size="sm"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .louis-choice-card[data-variant="list"] {
+    justify-content: flex-start;
+    /* 16. 제품 `gap-8`(:161). */
+    gap: var(--louis-space-control-lg);
+    /* 20 · 8. 제품 `py-10 px-4`(:162). 20 은 간격 사다리에 없다. */
+    padding-block: 20px;
+    padding-inline: var(--louis-space-control-sm);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: var(--louis-hairline-inset-block-end);
+  }
+
+  /* compact 줄 — 반경 8 · 12 · 8 · 선 없음. 제품 `rounded-8 px-4 py-6`(:162). */
+  .louis-choice-card[data-variant="list"][data-size="sm"] {
+    padding-block: var(--louis-space-control-md);
+    padding-inline: var(--louis-space-control-sm);
+    border-radius: var(--louis-radius-control-sm);
+    box-shadow: none;
+  }
+
+  /* 표식은 앞 · 20. 마크업 순서를 card 와 같게 두고(이름 묶음 → 표식) 자리만 옮긴다 — 장식(`aria-hidden`)이라 읽는 순서와 무관하다.
+   * 20 은 제품 `size-10`(:106)이고 card sm 의 표식과 같은 수다. */
+  .louis-choice-card[data-variant="list"] .louis-choice-card__marker {
+    order: -1;
+    inline-size: 20px;
+    block-size: 20px;
+  }
+
+  @media (hover: hover) {
+    /* 고른 줄에도 호버가 선다 — 제품 `hover:bg-[var(--panel)]`(:161)은 고름과 무관하다. 면이 고름을 말하지 않으므로 겹칠 것이 없다.
+     * 기본 호버(0,5,0)와 특이도가 같아 이 블록이 그 뒤에 있어야 이긴다. 호버 면 `gray-000-alpha-04` 는 제품 `landing-panel`(4%)과
+     * 다크에서 같고 라이트에서 바탕색만 순검정이다. */
+    .louis-choice-card[data-variant="list"]:not(:disabled):not([aria-disabled="true"]):hover {
+      background: var(--louis-color-gray-000-alpha-04);
+    }
   }
 
   /* 오류 — 고르지 않은 항목에 `border-width-ring` 두께의 `fg-danger-on-surface` 링 한 줄(DS-D-0075 와 같은 값).
@@ -2911,6 +3337,20 @@
     .louis-choice-card__marker {
       box-shadow: none;
       border: var(--louis-border-width-default) solid currentColor;
+    }
+
+    /* 줄 목록은 상자가 아니라 줄이다 — 경계를 아래 한 변(compact 는 없음)과 묶음 위 한 변으로만 되살린다. */
+    .louis-choice-group[data-variant="list"]:not([data-size="sm"]) {
+      box-shadow: none;
+      border-block-start: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    .louis-choice-card[data-variant="list"] {
+      border: 0;
+    }
+
+    .louis-choice-card[data-variant="list"]:not([data-size="sm"]) {
+      border-block-end: var(--louis-border-width-default) solid CanvasText;
     }
 
     .louis-choice-card[aria-checked="true"] {
@@ -3204,6 +3644,51 @@
     --louis-dialog-inline-size: 720px;
   }
 
+  /* compare — 두 열을 견주는 대화(프롬프트 후보 비교, 제품 `PromptVariantCompareModal.tsx:34-38`). 880 은 large 720 밖이다.
+   *
+   * **이름이 `xlarge` 가 아닌 이유.** `compact`·`medium`·`large` 는 Figma 축 어휘에서 폐기된 밀도 형용사다
+   * (figma-component-authoring §2 — 사다리 `sm`·`md`·`lg` 와 같은 뜻을 두 어휘로 부르면 두 벌이 된다). `xlarge` 는
+   * 그 폐기된 계열을 한 칸 늘리는 이름이라, 사다리 밖 값은 쓰임새로 부른다는 같은 절의 규칙대로 `compare` 로 연다.
+   *
+   * 반경은 기본의 유도값(버튼 12 + 발 여백 8 = 20)을 그대로 쓴다 — 제품 `rounded-24` 는 접는다(소유자 판정 12). */
+  .louis-dialog[data-size="compare"] {
+    /* 880. 제품 `[inline-size:min(880px,100%)]`(:36). surface 가 `min(…, 100%)` 로 받으므로 좁은 화면에서 줄어든다. */
+    --louis-dialog-inline-size: 880px;
+  }
+
+  /* 발이 없는 대화 — 본문이 surface 의 마지막 자식이면 카드 아래 여백을 본문이 진다(제품 `PromptVariantCompareModal.tsx:41-44`).
+   * 기본 본문 아래 8 은 발(위 24 · 아래 8)이 뒤따른다는 전제의 값이라, 발이 없으면 카드 바닥이 8 로 붙는다.
+   * 크기와 무관한 일반 규칙이다. 빈 본문은 위 `:empty` 규칙이 이미 접는다. */
+  .louis-dialog__body:last-child {
+    padding-block-end: var(--louis-dialog-surface-inset);
+  }
+
+  /* 구분선 `data-dividers="true"` — 머리 아래 · 발 위 한 면 헤어라인(DS-D-0023). 본문이 스크롤하는 큰 작업 면(크롭)에서
+   * 머리 · 발이 본문과 갈려 보이게 한다. 제품은 1px 12%(`ImageCropModal.tsx:42` · `:68`, 캔버스 `CropModal.tsx:72` · `:190`)이고
+   * 레시피는 공용 헤어라인으로 접는다. 테두리가 아니라 안쪽 그림자라 머리 · 발 높이가 그대로다. */
+  .louis-dialog[data-dividers="true"] .louis-dialog__header {
+    box-shadow: var(--louis-hairline-inset-block-end);
+  }
+
+  /* 발 위 24(본문과 액션 사이)는 선이 이미 갈라 주므로 8 로 줄인다. */
+  .louis-dialog[data-dividers="true"] .louis-dialog__footer {
+    padding-block-start: var(--louis-space-control-sm);
+    box-shadow: var(--louis-hairline-inset-block-start);
+  }
+
+  @media (forced-colors: active) {
+    /* 안쪽 그림자는 강제 색에서 사라지므로 시스템 색 실선으로 되살린다(DS-D-0023). */
+    .louis-dialog[data-dividers="true"] .louis-dialog__header {
+      box-shadow: none;
+      border-block-end: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    .louis-dialog[data-dividers="true"] .louis-dialog__footer {
+      box-shadow: none;
+      border-block-start: var(--louis-border-width-default) solid CanvasText;
+    }
+  }
+
   .louis-dialog[data-size="fullscreen"] {
     --louis-dialog-surface-radius: 0;
     padding: 0;
@@ -3418,6 +3903,83 @@
   /* 파일 입력은 보이지 않는다 — 누름은 면이 받는다. `hidden` 으로 두어 탭 순서와 접근성 트리에서 빠진다. */
   .louis-drop-zone__input {
     display: none;
+  }
+
+  /* ── 미디어 무대 `data-surface="media"` ───────────────────────────────────────
+   *
+   * 정본: 제품 하이라이트 스튜디오 업로드 무대(`highlightSceneStyles.ts:1197-1259`, `HighlightScene.tsx:943-975`). 파일을 고르면
+   * **같은 무대가 플레이어가 된다** — 그래서 면이 페이지 면이 아니라 플레이어와 같은 검정(`media-stage-surface`)이고,
+   * 글자 · 글리프는 미디어 잉크다.
+   *
+   * 끄는 중의 링은 안쪽 그림자가 아니라 `::after` 다 — 플레이어(자식)가 무대를 다 덮어도 그 **위**에 그려야 해서다.
+   * `::after` 는 위치를 가진 마지막 자손이라 문서 순서로 위에 선다(제품 :1212-1213 주석과 같은 판단, z-index 없음).
+   * 놓기를 받는 것은 이 요소이므로 소비처는 플레이어가 선 뒤에도 이 요소에 `data-drag-over` 를 건다 — 빈 무대에서는
+   * 이 요소가 `<button>`, 플레이어가 서면 `<section>` 이다. */
+  .louis-drop-zone[data-surface="media"] {
+    position: relative;
+    gap: var(--louis-space-control-sm);
+    padding-block: var(--louis-space-layout-section);
+    padding-inline: var(--louis-space-layout-section);
+    overflow: hidden;
+    background: var(--louis-color-media-stage-surface);
+    color: var(--louis-color-media-foreground-dark);
+  }
+
+  @media (hover: hover) {
+    /* 검정 위 흰 4% — 제품 `rgb(palette-gray-000/4%)`(:1246). 투명 면이 아니라 무대 면과 섞은 불투명 값이다(결과가 같다). */
+    .louis-drop-zone[data-surface="media"]:where(:not(:disabled):not([aria-disabled="true"])):hover {
+      background: color-mix(
+        in srgb,
+        var(--louis-color-media-foreground-dark) 4%,
+        var(--louis-color-media-stage-surface)
+      );
+    }
+  }
+
+  /* 끄는 중 — 면은 무대 그대로, 링만 위에 선다. 링 색은 drop-zone 기본의 `stroke-focus` 다(제품 `accent-primary` 는
+   * 다크에서 한 단 짙다). 기본의 안쪽 그림자는 자식(플레이어)에 가려지므로 끈다. */
+  .louis-drop-zone[data-surface="media"][data-drag-over="true"] {
+    background: var(--louis-color-media-stage-surface);
+    box-shadow: none;
+  }
+
+  .louis-drop-zone[data-surface="media"][data-drag-over="true"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-stroke-focus);
+    pointer-events: none;
+  }
+
+  /* 잠김 — 무대는 검정 그대로. 기본의 `bg-inset` 으로 바꾸면 무대가 회색 판이 된다. */
+  .louis-drop-zone[data-surface="media"]:is(:disabled, [aria-disabled="true"]) {
+    background: var(--louis-color-media-stage-surface);
+    color: var(--louis-color-media-foreground-dark-muted);
+  }
+
+  /* 다시 올릴 준비 중 — 누름을 받지 않고 커서로 기다림을 말한다(제품 :1251). */
+  .louis-drop-zone[data-surface="media"][aria-disabled="true"] {
+    cursor: progress;
+  }
+
+  .louis-drop-zone[data-surface="media"] .louis-drop-zone__prompt {
+    /* 6. 제품 `margin-top:6px`(:1254) — 글리프와 제목 사이를 8 + 6 으로 띄운다. */
+    margin-block-start: 6px;
+    font-weight: var(--louis-typography-body-md-medium-font-weight);
+  }
+
+  /* 안내는 제품 56% 대신 `media-foreground-dark-muted`(64%)다 — 둘 다 미달이 아니고 시맨틱 칸이 64 다. */
+  .louis-drop-zone[data-surface="media"] .louis-drop-zone__caption {
+    color: var(--louis-color-media-foreground-dark-muted);
+  }
+
+  @media (forced-colors: active) {
+    /* 안쪽 그림자 링은 강제 색에서 사라진다 — 시스템 강조색 실선으로 되살린다. */
+    .louis-drop-zone[data-surface="media"][data-drag-over="true"]::after {
+      box-shadow: none;
+      border: var(--louis-border-width-ring) solid Highlight;
+    }
   }
 }
 
@@ -3927,9 +4489,9 @@
     box-shadow: var(--louis-hairline-inset);
   }
 
-  /* 조각의 **자리**. 안에 무엇이 서는지는 이 셸의 계약이 아니다 — 계약이 담는 것은 그 자리의
-   * 겉 크기 32 와 곡률 12 뿐이고, 호버 틴트가 갈리는 툴바 버튼의 레시피는 아직 없다(문서
-   * Known deviations 4). 32 는 컨트롤 사다리의 `md` 이고 정사각이라 두 축이 같은 토큰을 읽는다 —
+  /* 조각의 **자리**. 속성이 없는 `__item` 이 갖는 것은 그 자리의 겉 크기 32 와 곡률 12 뿐이다.
+   * 자리를 버튼으로 채우는 툴 버튼은 아래 `__item[data-variant="ghost"]` 가 따로 갖는다(2026-10-13,
+   * DS-D-0084). 32 는 컨트롤 사다리의 `md` 이고 정사각이라 두 축이 같은 토큰을 읽는다 —
    * `.louis-inspector-section-head__action` 이 24 정사각에 `sm` 을 읽는 것과 같은 형태다. */
   .louis-floating-shell__item {
     box-sizing: border-box;
@@ -3966,6 +4528,124 @@
   .louis-floating-shell[data-size="compact"] .louis-floating-shell__item {
     inline-size: var(--louis-layout-control-height-lg);
     block-size: var(--louis-layout-control-height-lg);
+  }
+
+  /* ── 툴 버튼 `__item[data-variant="ghost"]` ────────────────────────────────────
+   *
+   * 정본: 제품 통합 판 `54b62a8a`
+   *   apps/web/components/scenes/create/node-canvas-v2/components/Toolbar.tsx:49-97   캔버스 하단 툴바
+   *   apps/web/components/scenes/create/ProjectHeader.tsx:225-282                     캔버스 상단 바의 저장 · 도움말 · 영상 버튼
+   * 두 파일이 같은 버튼을 따로 든다. 면 없이 서고, 호버에 8% 틴트, 켜지면 한 단 짙은 틴트, 누르면
+   * 0.95 로 줄어든다(2026-10-13, DS-D-0084).
+   *
+   * **IconButton ghost 를 끼우지 않는다.** 갈리는 값이 다섯이다 — 호버 면(`bg-inset` 대 8% 틴트) ·
+   * 켜짐 면 · 누름(0.98 대 0.95) · 글리프(16 대 20) · 쉼 잉크. 다섯을 덮어 쓰는 IconButton 은 IconButton
+   * 이 아니다. `__item` 이 이미 32 · 반경 12 자리를 갖고 있어 그 자리를 버튼으로 채운다.
+   *
+   * **이름은 `__item` 하나다.** 캔버스 상단 바(`.louis-app-top-bar[data-surface="canvas"]`)도 셸 밖에서
+   * 이 클래스를 그대로 쓴다 — 따로 `canvas-tool-button` 을 세우지 않는다(소유자 판정 7).
+   *
+   * **켜짐은 `aria-pressed` 와 `aria-expanded` 둘 다 받는다** — 툴바의 모드 버튼(선택 · 이동)은 토글이고
+   * 추가 버튼(글 · 그림 · 소리)은 메뉴를 연다. 제품은 둘을 같은 `TOOLBAR_BUTTON_ACTIVE` 로 칠한다(:272 · :308). */
+  .louis-floating-shell__item[data-variant="ghost"] {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    /* 쉼 잉크는 컨트롤 보조 잉크다. 제품은 다크 pg-200 · 라이트 pg-800 으로 한 단 더 밝다/짙다(:63 · :67) —
+     * 다크 유리 면 위 7.24:1 · 라이트 8.67:1 로 둘 다 충분해 역할 잉크로 접는다(소유자 판정 7). */
+    color: var(--louis-color-fg-secondary);
+    cursor: pointer;
+    /* 제품은 120ms(:54). 컨트롤 호버 역할의 토큰(160ms)으로 접는다 — `.louis-pill-trigger` 와 같은 판정이다. */
+    transition-property: background-color, color, scale;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 글리프 20 — 제품 `TOOLBAR_ICON_MASK` `w-10 h-10`(Toolbar.tsx:92). IconButton 의 16 이 아니다. */
+  .louis-floating-shell__glyph {
+    display: block;
+    flex: none;
+    inline-size: var(--louis-icon-size-md);
+    block-size: var(--louis-icon-size-md);
+  }
+
+  .louis-floating-shell__glyph :where(svg) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  @media (hover: hover) {
+    /* 호버 면 8% · 잉크 `fg-primary` — 제품 다크 gray-000 8% · 라이트 pg-900 8%(Toolbar.tsx:64-71)가
+     * `accent-ghost-hover` 와 두 테마 모두 바이트 단위로 같다. 켜진 버튼은 아래 자기 호버를 갖는다. */
+    .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):not(
+        [aria-pressed="true"],
+        [aria-expanded="true"]
+      ):hover {
+      background: var(--louis-color-accent-ghost-hover);
+      color: var(--louis-color-fg-primary);
+    }
+
+    /* 켜짐 호버 — 다크 16% · 라이트 12%. 라이트는 ProjectHeader 의 12%(ProjectHeader.tsx:279)를 고른다 — Toolbar 의 8% 는
+     * 원본 CSS 순서에 진 선언을 옮긴 것이라 호버가 보이지 않는다(Toolbar.tsx:76-80 주석, 소유자 판정 7). */
+    .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):is(
+        [aria-pressed="true"],
+        [aria-expanded="true"]
+      ):hover {
+      background: var(--louis-color-floating-item-selected-hover);
+    }
+  }
+
+  /* 켜짐 — 다크 12% · 라이트 8%(Toolbar.tsx:77 · :80). 두 테마의 알파가 달라 새 시맨틱이다. */
+  .louis-floating-shell__item[data-variant="ghost"]:is([aria-pressed="true"], [aria-expanded="true"]) {
+    background: var(--louis-color-floating-item-selected);
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 누름 0.95 — 제품 `[&:active]:[transform:scale(0.95)]`(Toolbar.tsx:56). */
+  .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+    scale: 0.95;
+  }
+
+  /* 비활성 — 제품 상단 바는 불투명도 0.56(ProjectHeader.tsx:231)이다. 역할 잉크 `fg-disabled` 로 접는다(소유자 판정 7). */
+  .louis-floating-shell__item[data-variant="ghost"]:is(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+    color: var(--louis-color-fg-disabled);
+  }
+
+  /* 강조 — 도움말 「보여 주기」가 짚은 버튼에 잠시 두르는 바깥 2px 주색(Toolbar.tsx:88). 시간은 캔버스가 정한다.
+   * 포커스 링을 걷었으므로(DS-D-0074) 같은 두께의 링과 겹쳐 헷갈릴 자리가 없다. */
+  .louis-floating-shell__item[data-spotlight="true"] {
+    box-shadow: 0 0 0 var(--louis-border-width-ring) var(--louis-color-accent-primary);
+  }
+
+  /* ── 구분선 `__divider` ──────────────────────────────────────────────────────
+   *
+   * 조각 묶음 사이의 세로 1px. 위아래 끝이 사라지는 그라디언트라 셸의 곡률 안에서 선이 끊겨 보이지 않는다.
+   * 제품 `Toolbar.tsx:99-103` · `ProjectHeader.tsx:174-180` 이 같은 칠을 두 번 든다. 정지점 다섯
+   * (0 · 22 · 50 · 78 · 100 %)의 가운데 셋을 두 시맨틱(`floating-divider-mid` · `-peak`)이 나른다. */
+  .louis-floating-shell__divider {
+    flex: none;
+    align-self: center;
+    inline-size: var(--louis-border-width-default);
+    /* 22. 제품 `h-11`(Toolbar.tsx:100). 조각 32 의 위아래 5 를 비운다. */
+    block-size: 22px;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--louis-color-floating-divider-mid) 22%,
+      var(--louis-color-floating-divider-peak) 50%,
+      var(--louis-color-floating-divider-mid) 78%,
+      transparent 100%
+    );
+  }
+
+  /* 셸 안에서만 좌우 2 — 제품 `mx-1`(Toolbar.tsx:100). 셸 간격 4 에 더해 구분선 양쪽이 6 이 된다.
+   * 캔버스 상단 바(`app-top-bar[data-surface="canvas"]`)는 0 이다(ProjectHeader.tsx:176 `m-0`). */
+  .louis-floating-shell > .louis-floating-shell__divider {
+    /* 2. 제품 `mx-1`. */
+    margin-inline: 2px;
   }
 
   /* ── Pill Trigger ────────────────────────────────────────────────────────────
@@ -4086,8 +4766,13 @@
 
   @media (prefers-reduced-motion: reduce) {
     .louis-pill-trigger,
-    .louis-pill-trigger__caret {
+    .louis-pill-trigger__caret,
+    .louis-floating-shell__item[data-variant="ghost"] {
       transition-duration: var(--louis-motion-reduced-duration);
+    }
+
+    .louis-floating-shell__item[data-variant="ghost"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+      scale: 1;
     }
   }
 
@@ -4107,6 +4792,17 @@
     /* 고대비 모드가 보장한 대비를 opacity 로 깎지 않는다. 방향은 회전이 나른다. */
     .louis-pill-trigger__caret {
       opacity: 1;
+    }
+
+    /* 켜짐의 면 틴트는 강제 색에서 사라진다 — 안쪽 실선으로 되살린다. */
+    .louis-floating-shell__item[data-variant="ghost"]:is([aria-pressed="true"], [aria-expanded="true"]) {
+      outline: var(--louis-border-width-default) solid CanvasText;
+      outline-offset: calc(0px - var(--louis-border-width-default));
+    }
+
+    .louis-floating-shell__divider {
+      background-image: none;
+      background-color: CanvasText;
     }
   }
 }
@@ -4821,8 +5517,8 @@
    * **왜 부품인가(DS-D-0084).** 넷이 테두리 1 · 반투명 면 · 덮어 그린 지우기 버튼이라는 같은 조형을 각자 상수로 들고,
    * 그 사이에 값이 이미 갈렸다 — EditNode 머리 주석은 「PromptLinkedImageStrip 과 동일 토큰(32px)」이라 적고 칸은 28 이다.
    *
-   * **크기는 셋이다.** `md` 32(기본) · `video` 76×52 · `fill`(칸을 채우는 정사각). 28 은 접는다 — 위 주석과 그림 32(:477)가
-   * 그 칸이 32 였어야 한다는 증거다. 76×52 는 사다리에 없어 쓰임새 이름이다(작성 규범 §2).
+   * **크기는 넷이다.** `md` 32(기본) · `video` 76×52 · `fill`(칸을 채우는 정사각) · `attachment` 72(문의 첨부). 28 은 접는다 — 위 주석과
+   * 그림 32(:477)가 그 칸이 32 였어야 한다는 증거다. 76×52 · 72 는 사다리에 없어 쓰임새 이름이다(작성 규범 §2).
    *
    * **면은 미디어 위가 아니라 테마 면 위에 선다** — 그림이 비거나 투명할 때 비치는 면이라 테마를 따른다(media-slot-*).
    * **지우기 버튼은 미디어 위에 선다** — 그래서 테마 색이 아니라 media 색이다(project-card 더보기와 같은 판정). */
@@ -4861,6 +5557,16 @@
     inline-size: 100%;
     block-size: auto;
     aspect-ratio: 1;
+  }
+
+  /* 첨부 — 문의 본문에 붙인 그림(apps/web/app/inquiry/InquiryClient.tsx:189-191). 72 정사각 · 반경 12.
+   * 72 는 간격 사다리에 없어 쓰임새 이름이다(DS-D-0084). 줄은 [Text Field](text-field.md) 여러 줄 판의 `__attachments` 다. */
+  .louis-media-slot[data-size="attachment"] {
+    --louis-media-slot-radius: var(--louis-radius-control);
+
+    /* 72. 제품 `w-36 h-36`(:189). */
+    inline-size: 72px;
+    block-size: 72px;
   }
 
   /* 누르면 무언가 열리는 칸(PhotoGrid 라이트박스, :225-233). 장식 칸(연결 이미지 줄)은 이 속성을 갖지 않는다. */
@@ -4927,15 +5633,17 @@
     border-end-start-radius: 4px;
   }
 
-  /* 칸 채움 지우기 — 제품 `top-[5px] right-[5px] w-11 h-11` · 글리프 16(PhotoGrid.tsx:107 · :245). */
-  .louis-media-slot[data-size="fill"] > .louis-media-slot__remove {
+  /* 칸 채움 · 첨부 지우기 — 22 원 · 안쪽 5 · 글리프 16(제품 `top-[5px] right-[5px] w-11 h-11`, PhotoGrid.tsx:107 · :245).
+   * 첨부의 제품 지우기(28 원 · 칸 밖 6 · inverse 면, apps/web/app/inquiry/InquiryClient.tsx:192-193)는 접는다 — 칸의
+   * `overflow: hidden` 이 바깥 버튼을 자르고, 사진 위 지우기는 한 모양이어야 한다(소유자 판정 8, 2026-10-13 기본값). */
+  .louis-media-slot:is([data-size="fill"], [data-size="attachment"]) > .louis-media-slot__remove {
     inset-block-start: 5px;
     inset-inline-end: 5px;
     inline-size: 22px;
     block-size: 22px;
   }
 
-  .louis-media-slot[data-size="fill"] > .louis-media-slot__remove > :where(svg) {
+  .louis-media-slot:is([data-size="fill"], [data-size="attachment"]) > .louis-media-slot__remove > :where(svg) {
     inline-size: var(--louis-icon-size-sm);
     block-size: var(--louis-icon-size-sm);
   }
@@ -7684,9 +8392,86 @@
       var(--louis-motion-layout-change-timing-function);
   }
 
+  /* ── 양방향 값 링 `data-mode="bipolar"` (DS-D-0084) ─────────────────────────
+   *
+   * 정본: 제품 비디오 편집기 색 보정 조절 줄(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorValueRing.tsx`,
+   * 소비처 `ClipColorControls.tsx:223`). 아이콘을 감싼 호가 **중립에서 얼마나 · 어느 쪽으로** 벗어났는지 보인다. 12시에서 시작해
+   * 양(+)은 시계 방향, 음(−)은 반시계 방향으로 최대 150° 까지 간다 — 아래 60° 를 비워 두어 시작점이 보인다.
+   *
+   * 소비처가 주는 것: `--louis-progress-value` 에 **크기**(0~100 = 0~150°), `data-direction` 에 방향(`next` = 양 · `prev` = 음).
+   * 범위가 항목마다 비대칭이라(감마 0.5~2, 중립 1) 비율로 바꾸는 계산은 소비처의 것이다(제품 `neutralFraction`).
+   *
+   * 사용량 링(아바타 둘레)과 달리 **크기가 고정**이다 — 32 상자 안에 글리프가 앉는다. 호는 conic 한 겹이다(소유자 판정 9,
+   * 2026-10-13 기본값) — 호 끝의 둥근 마개(제품 `strokeLinecap round`)와 바탕 · 호의 두께 차이는 그리지 않는다(progress.md Known deviations).
+   *
+   * 특이도: 기본 `.louis-progress-ring::after`(0,1,1)의 `inset: 0` · `background-image` 를 양방향(0,2,1)이 이긴다. 기본 링의
+   * `transition: background-image` 는 그대로 남는데 그라디언트는 보간되지 않으므로 아무 일도 하지 않는다(기존과 같다). */
+  .louis-progress-ring[data-mode="bipolar"] {
+    --louis-progress-ring-sweep: 150deg;
+    --louis-progress-ring-start: 0deg;
+    --louis-progress-ring-arc: var(--louis-color-inspector-adjust-accent);
+    --louis-progress-ring-base: var(--louis-color-gray-000-alpha-20);
+
+    box-sizing: border-box;
+    /* 32. 제품 `w-16 h-16`(:52) — 패널 324 에 항목 일곱이 1.1 배로 커져도 겹치지 않는 값(:47-50 주석). */
+    inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
+    padding: 0;
+    transition-property: scale;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 음(−) — 같은 길이의 호를 12시 **앞**에서 시작한다. 잉크는 테마 잉크(제품 `rgb(var(--gray-000-rgb))`, :81). */
+  .louis-progress-ring[data-mode="bipolar"][data-direction="prev"] {
+    --louis-progress-ring-start: calc(
+      0deg - var(--louis-progress-value)*var(--louis-progress-ring-sweep) / 100
+    );
+    --louis-progress-ring-arc: var(--louis-color-fg-primary);
+  }
+
+  /* 바탕 링은 칠(`background-color`)이고 호는 그 위 conic 한 겹이다 — 기본 링의 mask 가 둘을 함께 링으로 뚫는다.
+   * 링은 상자보다 2(`space-progress-ring-gap`) 안쪽에 선다: 제품 링의 바깥 지름이 32 안에서 ≈ 29 다(반경 13.6 + 획 0.8, :14-16 · :58). */
+  .louis-progress-ring[data-mode="bipolar"]::after {
+    inset: var(--louis-progress-ring-gap);
+    background-color: var(--louis-progress-ring-base);
+    background-image: conic-gradient(
+      from var(--louis-progress-ring-start),
+      var(--louis-progress-ring-arc) 0
+        calc(var(--louis-progress-value)*var(--louis-progress-ring-sweep) / 100),
+      transparent calc(var(--louis-progress-value)*var(--louis-progress-ring-sweep) / 100) 100%
+    );
+  }
+
+  /* 고른 항목 — 바탕 링이 짙어지고(제품 38%, :66 → 가장 가까운 칸 40) 1.1 배. 이름이 늘 떠 있지 않아 크기가 「지금 만지는 것」을
+   * 말한다(:42-46). */
+  .louis-progress-ring[data-mode="bipolar"][data-active="true"] {
+    --louis-progress-ring-base: var(--louis-color-gray-000-alpha-40);
+
+    scale: 1.1;
+  }
+
+  @media (hover: hover) {
+    /* 링을 담은 버튼을 가리킬 때 — 제품 `group-hover:scale-110`(:53). */
+    :where(button, [role="button"]):where(:not(:disabled)):hover > .louis-progress-ring[data-mode="bipolar"] {
+      scale: 1.1;
+    }
+  }
+
+  /* 가운데 글리프 — 제품 `relative type-body-14-medium`(:85). */
+  .louis-progress-ring__label {
+    position: relative;
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .louis-progress-bar__fill,
-    .louis-progress-ring::after {
+    .louis-progress-ring::after,
+    .louis-progress-ring[data-mode="bipolar"] {
       transition-duration: var(--louis-motion-reduced-duration);
     }
 
@@ -8472,7 +9257,8 @@
 
   /* 제목 사다리 세 단. 어드민에 없던 것이 이 위계였다 — 예전에는 화면 제목도 묶음 제목도
    * 메타데이터도 전부 12px 캡션이라, 화면에서 가장 큰 글자가 KPI 숫자이고 가장 작은 글자가
-   * 화면 이름이었다. 기본값은 `section` 이고 나머지 둘은 `data-level` 이 연다. */
+   * 화면 이름이었다. 기본값은 `section` 이고 나머지 둘은 `data-level` 이 연다. 어드민 밖 자리의 단
+   * (`list` · `article` · `display`)은 아래 자기 블록이 갖는다. */
   .louis-section-header__title {
     margin: 0;
     color: var(--louis-color-fg-primary);
@@ -8533,7 +9319,138 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* 아래 여백은 `page` 만 진다.
+  /* ── 글 머리 `data-level="article"` ──────────────────────────────────────────
+   *
+   * 2026-10-13(DS-D-0084). 블로그 글(`apps/web/app/blog/[slug]/page.tsx:73-104`)과 템플릿 상세
+   * (`apps/web/app/templates/[slug]/page.tsx:83-103`)의 머리다. 제목 36 **Medium**(page 의 SemiBold 가 아니다) · 리드 한 단락 ·
+   * 메타 줄, 그리고 머리 아래 구분선. 두 화면이 같은 상수 이름으로 서로를 복제하고 있었다.
+   *
+   * **구분선은 머리 루트가 진다.** 블로그는 메타 줄이, 템플릿은 머리가 선을 긋지만 위아래가 28 · 28 로 같다 —
+   * 마지막 자식이 무엇이든 같은 자리에 선다. 28 은 제품 `pb-14` · `mb-14` 이고 간격 사다리에 없다. 구분선은 제품 1px 8% 대신
+   * 헤어라인이다(DS-D-0023).
+   *
+   * 제목 · 리드의 크기는 지역 변수로 받는다 — 아래 랜딩 계단(≤1023 · ≤767 · ≤479)이 그 둘만 다시 쓴다. */
+  .louis-section-header[data-level="article"] {
+    --louis-section-header-title-size: var(--louis-typography-heading-md-medium-font-size);
+    --louis-section-header-title-tracking: var(--louis-typography-heading-md-medium-letter-spacing);
+    --louis-section-header-lead-size: var(--louis-typography-body-lg-regular-font-size);
+
+    /* 28. 제품 `pb-14` · `mb-14`(blog :73 · :97, templates :84). */
+    padding-block-end: 28px;
+    margin-block-end: 28px;
+    box-shadow: var(--louis-hairline-inset-block-end);
+  }
+
+  /* 제목 → 리드 12(제품 `mb-6`). 리드 → 메타 20 은 아래 `__meta` 가 8 을 더해 만든다. */
+  .louis-section-header[data-level="article"] .louis-section-header__text {
+    gap: var(--louis-space-stack-md);
+  }
+
+  .louis-section-header[data-level="article"] .louis-section-header__title {
+    font-family: var(--louis-typography-heading-md-medium-font-family);
+    font-size: var(--louis-section-header-title-size);
+    font-weight: var(--louis-typography-heading-md-medium-font-weight);
+    line-height: var(--louis-typography-heading-md-medium-line-height);
+    letter-spacing: var(--louis-section-header-title-tracking);
+    /* 제품 `text-balance!`(blog :84). 두 줄로 넘어가는 긴 글 제목의 마지막 줄이 한 단어로 남지 않게 한다. */
+    text-wrap: balance;
+  }
+
+  /* 리드. 제품 블로그는 body-20 regular(:88)다 — 같은 자리의 템플릿 부제 body-14(templates :99-103)는 이 리드로 접는다
+   * (2026-10-13 판정, section-header.md Known deviations 9). 잉크는 `__description` 기본의 `fg-secondary` 다 — 제품
+   * `--text-soft`(72% 알파)를 역할 잉크로 바꾼 것이고 대비 때문이 아니다. */
+  .louis-section-header[data-level="article"] .louis-section-header__description {
+    font-family: var(--louis-typography-body-lg-regular-font-family);
+    font-size: var(--louis-section-header-lead-size);
+    font-weight: var(--louis-typography-body-lg-regular-font-weight);
+    line-height: var(--louis-typography-body-lg-regular-line-height);
+    letter-spacing: var(--louis-typography-body-lg-regular-letter-spacing);
+    text-wrap: balance;
+  }
+
+  /* 메타 줄 — 날짜 · 글쓴이 · 읽는 시간처럼 짧은 것들이 한 줄에 선다. 글자는 body-sm(제품 `type-body-14-regular`, blog :102)이고
+   * 잉크는 `__meta` 기본의 `fg-tertiary` 그대로다 — 제품의 40% 알파(라이트 2.83:1 · 다크 3.55:1)는 대비 미달이라 받지 않는다
+   * (DS-D-0084 §3, section-header.md Known deviations 8). */
+  .louis-section-header[data-level="article"] .louis-section-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* 10. 제품 `gap-5`(blog :96). */
+    gap: 10px;
+    margin-block-start: var(--louis-space-control-sm);
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  /* ── 전시 머리 `data-level="display"` ────────────────────────────────────────
+   *
+   * 2026-10-13(DS-D-0084). 랜딩 캐러셀 머리(`apps/web/components/landing/system/Carousel.tsx:128-150`, 소비처 Carousel :438 ·
+   * NewsCarousel :258)다. 제목 36 SemiBold 와 오른쪽 화살표 쌍이 **가운데 정렬**로 한 줄에 서고 사이가 40 이다. page 와 제목 값은
+   * 같지만 정렬 · 간격 · 아래 여백(없다) · 접힘(접지 않는다)이 다르다. */
+  .louis-section-header[data-level="display"] {
+    --louis-section-header-title-size: var(--louis-typography-heading-md-semibold-font-size);
+    --louis-section-header-title-tracking: var(--louis-typography-heading-md-semibold-letter-spacing);
+
+    align-items: center;
+    /* 40. 제품 `gap-20`(Carousel.tsx:140). 간격 사다리에 없다. */
+    gap: 40px;
+  }
+
+  .louis-section-header[data-level="display"] .louis-section-header__title {
+    font-family: var(--louis-typography-heading-md-semibold-font-family);
+    font-size: var(--louis-section-header-title-size);
+    font-weight: var(--louis-typography-heading-md-semibold-font-weight);
+    line-height: var(--louis-typography-heading-md-semibold-line-height);
+    letter-spacing: var(--louis-section-header-title-tracking);
+  }
+
+  /* 화살표 쌍 사이 4 — 제품 `CarouselArrows` 의 `gap-2`(Carousel.tsx:122-124). 기본 액션 묶음의 8 이 아니다. */
+  .louis-section-header[data-level="display"] .louis-section-header__actions {
+    gap: var(--louis-space-control-xs);
+  }
+
+  /* ── 랜딩 제목 계단 ────────────────────────────────────────────────────────────
+   * 두 단은 랜딩 셸(`[data-page-root]`) 안에만 서고, 그 셸이 제목을 폭마다 줄인다(`apps/web/app/globals.css:842-878`).
+   * LOUIS 타이포 토큰은 반응형이 아니라 그 계단을 이 두 단의 지역 변수로만 다시 쓴다 — 다른 단은 건드리지 않는다.
+   * 토큰으로 올리는 것은 `landing-shell` 패턴 회차의 몫이다(2026-10-13 판정, section-header.md Known deviations 10).
+   * 이 블록들은 위 두 단의 변수 선언(특이도 같음) **뒤**에 있어야 이긴다. */
+  @media (max-width: 1023px) {
+    .louis-section-header:is([data-level="article"], [data-level="display"]) {
+      /* 32 · -0.02em. globals.css:846-847. */
+      --louis-section-header-title-size: 32px;
+      --louis-section-header-title-tracking: -0.02em;
+    }
+
+    .louis-section-header[data-level="article"] {
+      /* 18. globals.css:851. */
+      --louis-section-header-lead-size: 18px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .louis-section-header:is([data-level="article"], [data-level="display"]) {
+      /* 28. globals.css:861. */
+      --louis-section-header-title-size: 28px;
+    }
+
+    .louis-section-header[data-level="article"] {
+      /* 16. globals.css:866. */
+      --louis-section-header-lead-size: 16px;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .louis-section-header:is([data-level="article"], [data-level="display"]) {
+      /* 20 · -0.01em. globals.css:876-877. */
+      --louis-section-header-title-size: 20px;
+      --louis-section-header-title-tracking: -0.01em;
+    }
+  }
+
+  /* 아래 여백은 `page` 만 진다(글 머리 `article` 은 위 자기 블록에서 28 + 구분선 + 28 을 따로 진다).
    *
    * **12 의 유도는 제품이 두 곳에서 같은 식으로 적어 두었다.** 화면 제목 아래는 32 여야 하고
    * (`components/ui/PageHeader` 의 유도: 부모 auto-layout 20 + 헤더 자신의 padding-bottom 12),
@@ -8601,9 +9518,9 @@
       align-items: stretch;
     }
 
-    /* 목록 머리는 접지 않는다. 제목과 버튼 하나뿐이라 한 줄에 들어가고, 허브 둘이 모바일에서도
-     * 한 줄을 지킨다. */
-    .louis-section-header[data-level="list"] {
+    /* 목록 머리 · 전시 머리는 접지 않는다. 제목과 버튼(화살표 쌍) 하나뿐이라 한 줄에 들어가고, 허브 둘과
+     * 랜딩 캐러셀이 모바일에서도 한 줄을 지킨다. 글 머리는 액션 자리가 없어 접혀도 모양이 같다. */
+    .louis-section-header:is([data-level="list"], [data-level="display"]) {
       flex-direction: row;
       align-items: center;
     }
@@ -8914,6 +9831,82 @@
   .louis-segmented-control__legend {
     padding: 0;
   }
+
+  /* ── 미끄러지는 알약 `__thumb` ────────────────────────────────────────────────
+   *
+   * 정본: 제품 `components/ui/SegmentedThumb.tsx`(소비처 17파일). 고른 칸이 면을 칠하는 대신 **트랙 안의 알약 하나**가
+   * 고른 칸 아래로 미끄러진다 — 문서 Known deviations 의 「선택 면이 움직이지 않는다」 결손을 메운다.
+   *
+   * 자리는 소비처가 잰다(고른 칸의 `offsetLeft/Top/Width/Height`, 줌 아래에서도 불변인 레이아웃 px). 레시피는 그 넷을
+   * 지역 변수로 받아 **translate + 크기**로 그린다 — 제품은 `left/top/width/height` 를 직접 전이하지만 위치를
+   * `translate` 로 옮기면 레이아웃을 흔들지 않는다. 알약을 칸들보다 **먼저** 마크업하고 칸은 이미
+   * `position: relative` 라, 글자가 문서 순서로 알약 위에 칠해진다 — z-index 없음.
+   *
+   * 미끄러짐은 `data-animate="true"` 일 때만 — 첫 배치 · 리사이즈 재측정에서 0 에서 헤엄쳐 들어오지 않게(제품 :248-262 주석). */
+  .louis-segmented-control:has(> .louis-segmented-control__thumb) {
+    position: relative;
+  }
+
+  /* 알약이 서면 고른 칸은 면을 끈다(제품 `SEGMENTED_THUMB_SEGMENT`). 글자색과 강제 색 선택 윤곽은 칸에 남는다. */
+  .louis-segmented-control:has(> .louis-segmented-control__thumb)
+    > .louis-segmented-control__segment[data-selected="true"] {
+    background: transparent;
+  }
+
+  .louis-segmented-control__thumb {
+    --louis-segmented-control-thumb-x: 0px;
+    --louis-segmented-control-thumb-y: 0px;
+    --louis-segmented-control-thumb-inline-size: 0px;
+    --louis-segmented-control-thumb-block-size: 0px;
+    /* 칸의 반경과 같다 — 크기 축마다 칸 반경이 갈리므로(아래) 기본은 lg · md · settings 의 8. */
+    --louis-segmented-control-thumb-radius: var(--louis-radius-control-sm);
+
+    position: absolute;
+    /* 원점은 트랙의 패딩 상자 왼쪽 위 — `offsetLeft/Top` 이 물리 좌표라 물리 속성으로 받는다. */
+    top: 0;
+    left: 0;
+    inline-size: var(--louis-segmented-control-thumb-inline-size);
+    block-size: var(--louis-segmented-control-thumb-block-size);
+    border-radius: var(--louis-segmented-control-thumb-radius);
+    background: var(--louis-color-accent-secondary-selected);
+    translate: var(--louis-segmented-control-thumb-x) var(--louis-segmented-control-thumb-y);
+    pointer-events: none;
+    /* 쉴 때는 나타남 · 사라짐만 전이한다(제품 `[transition-property:opacity]`). */
+    transition-property: opacity;
+    transition-duration: var(--louis-motion-tab-select-duration);
+    transition-timing-function: var(--louis-motion-tab-select-timing-function);
+  }
+
+  .louis-segmented-control__thumb[data-animate="true"] {
+    transition-property: translate, inline-size, block-size, opacity;
+  }
+
+  /* 고른 칸이 없을 때(값이 비었거나 아직 재지 못했을 때) 알약을 감춘다. */
+  .louis-segmented-control__thumb[data-visible="false"] {
+    opacity: 0;
+  }
+
+  /* 칸 반경과 같게 — xs 7 · sm 6(위 칸 규칙의 바깥 − padding). */
+  .louis-segmented-control[data-size="xs"] > .louis-segmented-control__thumb {
+    --louis-segmented-control-thumb-radius: 7px;
+  }
+
+  .louis-segmented-control[data-size="sm"] > .louis-segmented-control__thumb {
+    --louis-segmented-control-thumb-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-segmented-control__thumb {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  /* 강제 색 — 알약이 시스템 색 덩어리가 된다. 선택은 칸의 `[data-selected] { outline }` 이 이미 말한다. */
+  @media (forced-colors: active) {
+    .louis-segmented-control__thumb {
+      display: none;
+    }
+  }
 }
 
 @layer louis.component {
@@ -8937,7 +9930,7 @@
    *
    * ## 그래서 새로 서는 것은 트리거 하나다
    *
-   * 캐럿(열림 180°) · 값이 남는 폭을 먹는 배치 · 크기 축 둘. 이 셋이 `.louis-menu-trigger` 와
+   * 캐럿(열림 180°) · 값이 남는 폭을 먹는 배치 · 크기 축(sm · md · lg). 이 셋이 `.louis-menu-trigger` 와
    * 갈리는 전부이고, 그중 어느 것도 그 클래스에 없다.
    */
 
@@ -8995,6 +9988,32 @@
     padding-inline-start: var(--louis-space-control-sm);
     padding-inline-end: var(--louis-space-overlay-inset);
     border-radius: var(--louis-radius-control-sm);
+  }
+
+  /* lg — h-40. 폼 안에서 TextField lg 와 **한 줄에 나란히 서는** 트리거(2026-10-13, DS-D-0084).
+   *
+   * 정본은 제품 어드민 선택 필드(`apps/web/app/admin/AdminSection.tsx:100-103`, 12파일 35자리)다 — 트리거가
+   * `.louis-text-field__box` 를 그대로 입고 「옆 입력칸들과 같은 면 · 높이 · 헤어라인」을 갖는다. 그래서 이 칸의 값은
+   * 전부 text-field lg 에서 온다: 높이 40 · 좌우 16 · 간격 8 · 값 body-sm. 면 · 반경 · 헤어라인 · 호버 · 캐럿 회전은 md 를 물려받는다.
+   *
+   * **값 글자가 caption 에서 body-sm 으로 오르는 것은 크기 축이 아니라 이웃 계약이다.** 옆 입력칸의 값이 body-sm 이라
+   * 한 줄에 선 두 칸의 글자가 달라지면 안 된다(어드민 :105 주석 「한 조회 줄에서 선택 필드 글자만 한 단 컸다」).
+   *
+   * 캐럿은 12 그대로다 — 제품은 10(어드민) · 16(문의)으로 갈렸고, 아래 캐럿 주석의 「아이콘 사다리를 쓰지 않는다」가
+   * 여기도 맞다. 글리프 칸(`__icon`)도 md 의 20 그대로다. 빈 값 잉크는 `[data-placeholder]` 규칙의 `fg-tertiary` 가 맡는다 —
+   * 어드민의 48% 알파는 접는다(select.md Known deviations 7).
+   *
+   * **48 칸은 열지 않는다.** 문의 화면(`apps/web/app/inquiry/InquiryClient.tsx:160-181`)의 48 은 입력칸까지 48 로 덮은 화면이라
+   * lg 가 아니다 — 그 화면을 40 으로 내리는 것은 제품 쪽 일이다(select.md Known deviations 8). */
+  .louis-select-trigger[data-size="lg"] {
+    gap: var(--louis-space-control-sm);
+    block-size: var(--louis-layout-control-height-lg);
+    padding-inline: var(--louis-space-control-lg);
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
   }
 
   /* hover 는 면 한 칸 위다. **`.louis-menu-trigger` 의 ghost 8% 가 아니라 secondary 12%** 인
@@ -9080,7 +10099,7 @@
   /* 캐럿. **아이콘 슬롯이 아니라 컨트롤 안의 장식이라 아이콘 사다리(16·20·24)를 쓰지 않는다.**
    * 제품 실측도 그 사다리에 없다 — 프리뷰 줌 12(lucide chevron) · ComposerBar 12(▼ 글자 크기)
    * · SubscriptionScene 10 · Gnb 6(테두리로 그린 정사각). 두 번 나오는 유일한 값이 12 이고
-   * 그것을 두 크기 칸 모두에서 쓴다: 캐럿이 크기 축을 따라 줄면 sm 에서 10 이하가 되어
+   * 그것을 모든 크기 칸(sm · md · lg)에서 쓴다: 캐럿이 크기 축을 따라 줄면 sm 에서 10 이하가 되어
    * 스트로크가 화면 격자에 걸린다.
    *
    * **아이콘 사다리에 12 칸을 열지 않는다.** 여는 순간 아이콘 자산 전체가 그 칸을 그려야
@@ -9338,6 +10357,42 @@
     flex: none;
     align-items: center;
     color: var(--louis-color-fg-secondary);
+  }
+
+  /* ── 이동 행 `data-layout="link"` ─────────────────────────────────────────────
+   * 고르는 행이 아니라 **누르면 다른 곳으로 가는** 행이다(캔버스 도움말 패널 `CanvasHelpPanel.tsx:131-135` 의 `LINK_ROW`,
+   * 영상 편집기 프로젝트 피커). 선택 상태가 없고(`aria-current` 를 쓰지 않는다), 제목이 첫 잉크부터 `fg-primary` 이며,
+   * 끝에 부가 글과 체브론이 가운데로 선다. 부제가 두 줄로 감겨도 제목이 위에 붙도록 행은 위 정렬이다(제품 `items-start`).
+   *
+   * 호버는 기본 행의 `accent-ghost-hover` 를 그대로 쓴다 — 제품 `bg-inset` 은 다크에서 패널 바닥과 같은 값이라 접는다.
+   * 행 간격 10 · 글자 사이 2 도 기본 8 · 4 로 접는다(DS-D-0084 원칙: 작은 편차는 LOUIS 로). */
+  .louis-selectable-list-row[data-layout="link"] {
+    align-items: flex-start;
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 부제는 말줄임 대신 감긴다 — 도움말 문장은 한 줄에 다 들어가지 않고, 잘리면 이동할 곳을 고를 근거가 사라진다. */
+  .louis-selectable-list-row[data-layout="link"] .louis-selectable-list-row__meta {
+    color: var(--louis-color-fg-tertiary);
+    white-space: normal;
+  }
+
+  /* 끝 — 부가 글(caption) + 체브론 16. 행이 위 정렬이어도 이것만 가운데로 선다(제품 `TRAIL` `self-center gap-2`). */
+  .louis-selectable-list-row[data-layout="link"] .louis-selectable-list-row__trailing {
+    align-self: center;
+    gap: var(--louis-space-control-xs);
+    color: var(--louis-color-fg-tertiary);
+    white-space: nowrap;
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  .louis-selectable-list-row[data-layout="link"]:disabled .louis-selectable-list-row__meta,
+  .louis-selectable-list-row[data-layout="link"]:disabled .louis-selectable-list-row__trailing {
+    color: var(--louis-color-fg-disabled);
   }
 }
 
@@ -9763,6 +10818,152 @@
   /* 막대가 md와 같은 20이므로 표식을 올리는 양도 같다. */
   .louis-slider[data-variant="track"][data-size="sm"] .louis-slider__control::-webkit-slider-thumb {
     margin-block-start: calc((20px - 14px) / 2);
+  }
+
+  /* ── 눈금자 변형 `data-variant="ruler"` (DS-D-0084) ─────────────────────────
+   *
+   * 정본: 제품 비디오 편집기 색 보정(`apps/web/components/scenes/create/node-canvas-v2/nodes/videoEditParts/ColorRulerSlider.tsx:253-313`,
+   * 소비처 `ClipColorControls.tsx:180 · :248`). **지시선은 가운데 고정이고 눈금이 흐른다** — 시선이 한 자리에 머물고, 되돌릴
+   * 자리(기본값)는 눈금과 함께 움직이는 점이라 가운데에서 그 점까지가 곧 조정량이다.
+   *
+   * **네이티브 range 가 아니다.** 누른 자리로 값이 뛰는 절대 위치 방식이 「자를 민다」와 반대라 제품이 `role="slider"` div 로
+   * 포인터를 직접 받는다(:8-18). 그래서 이 변형은 `__control` 을 쓰지 않고 `__ruler` 를 쓴다. 레시피는 모양만 — 드래그 · 관성 · 배속 ·
+   * 키보드 · `aria-value*` 는 소비처다. 위 머리말의 「네이티브 `<input type="range">`다」는 thumb · track 두 변형의 계약이다.
+   *
+   * **좌표는 물리(left)다.** 띠의 자리가 값 비율의 일차식이고 제품이 `left` 로 준다. 쓰기 방향이 바뀌어도 눈금자는 왼쪽이 작은 값이다. */
+  .louis-slider[data-variant="ruler"] {
+    /* 위 12 는 소비처의 쌓기 간격이다(제품 `mt-6`, :255). 머리와 자 사이 4 는 슬라이더 기본 간격 그대로다(`mb-2`, :256). */
+    gap: var(--louis-space-control-xs);
+  }
+
+  /* 머리 — 이름과 지금 값이 양 끝에(제품 `flex items-baseline justify-between`, :256). */
+  .louis-slider__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--louis-space-control-sm);
+    min-inline-size: 0;
+  }
+
+  /* 이름은 caption medium · `fg-secondary` — 제품 `type-caption-12-medium text-[var(--text-soft)]`(:257). sm 라벨과 같은 글자다. */
+  .louis-slider[data-variant="ruler"] .louis-slider__label {
+    color: var(--louis-color-fg-secondary);
+    font-family: var(--louis-typography-caption-medium-font-family);
+    font-size: var(--louis-typography-caption-medium-font-size);
+    font-weight: var(--louis-typography-caption-medium-font-weight);
+    line-height: var(--louis-typography-caption-medium-line-height);
+    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+  }
+
+  /* 지금 값 — 제품 `type-body-14-medium tabular-nums`(:258). */
+  .louis-slider__value {
+    color: var(--louis-color-fg-primary);
+    font-variant-numeric: tabular-nums;
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  }
+
+  .louis-slider__ruler {
+    /* 소비처가 인라인으로 덮는 값 넷. 기본값은 CSS 만 실은 정적 마크업(Figma 캡처 fixture)에서도 자가 깨지지 않게 하는 자리다.
+     *   offset  — 띠의 왼쪽(%, 자 폭 기준). 제품 `left`(:281).
+     *   span    — 띠 폭 = 범위 길이(자 폭의 배수). 제품 `STRIP_WIDTH = 1 / VIEW_SPAN`(:42) = 200%.
+     *   minor   — 작은 눈금 주기(띠 폭의 %). 제품 `MINOR_PCT`(:44) = 2%.
+     *   neutral — 기본값 점의 자리(띠 폭의 %). 제품 `stripFraction(neutral)`(:303). */
+    --louis-slider-ruler-offset: -50%;
+    --louis-slider-ruler-span: 200%;
+    --louis-slider-ruler-minor: 2%;
+    --louis-slider-ruler-neutral: 50%;
+
+    position: relative;
+    /* 40 — 제품 `h-20`(:271). 폼 슬라이더(lg)와 같은 칸이다. */
+    block-size: var(--louis-layout-control-height-lg);
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    cursor: ew-resize;
+  }
+
+  .louis-slider__ruler-strip {
+    position: absolute;
+    inset-block: 0;
+    left: var(--louis-slider-ruler-offset);
+    inline-size: var(--louis-slider-ruler-span);
+    pointer-events: none;
+  }
+
+  /* 작은 눈금 · 큰 눈금 — 요소 수백 개 대신 반복 그라디언트 한 겹씩(제품 :284-286 주석). 1px 선 · 위는 투명.
+   * 높이 10 · 16 은 제품 `h-5` · `h-8`(:288 · :294). 잉크는 제품 22% · 34% 에 가장 가까운 시맨틱 칸 20 · 32 다. */
+  .louis-slider__ruler-strip::before,
+  .louis-slider__ruler-strip::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+  }
+
+  .louis-slider__ruler-strip::before {
+    /* 10. 제품 `h-5`(:288). */
+    block-size: 10px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--louis-color-gray-000-alpha-20) 0 var(--louis-border-width-default),
+      transparent var(--louis-border-width-default) var(--louis-slider-ruler-minor)
+    );
+  }
+
+  .louis-slider__ruler-strip::after {
+    /* 16. 제품 `h-8`(:294). 다섯 칸마다. */
+    block-size: 16px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--louis-color-gray-000-alpha-32) 0 var(--louis-border-width-default),
+      transparent var(--louis-border-width-default) calc(var(--louis-slider-ruler-minor)*5)
+    );
+  }
+
+  /* 기본값 점 — 눈금과 함께 흐른다. 12 원 · 테마 잉크(제품 `w-6 h-6 rounded-full bg-gray-000`, :301-304). */
+  .louis-slider__ruler-neutral {
+    position: absolute;
+    inset-block-start: 0;
+    left: var(--louis-slider-ruler-neutral);
+    /* 12. 제품 `w-6 h-6`(:302). */
+    inline-size: 12px;
+    block-size: 12px;
+    border-radius: var(--louis-radius-pill);
+    background: var(--louis-color-fg-primary);
+    translate: -50% 0;
+  }
+
+  /* 지시선 — 늘 가운데. 지금 값이 여기다. 2 × 28(제품 `h-14 w-[2px]`, :309-311).
+   * 잉크는 `inspector-adjust-accent` — 제품 yellow-500 은 라이트 #fafafa 위 1.73:1 이라 그래픽 3:1 미달이고, 라이트를
+   * yellow-700(3.57:1)으로 올린 값이다(DS-D-0084 §3 · 소유자 판정 9, 2026-10-13 기본값). 다크는 제품 값 그대로다. */
+  .louis-slider__ruler-indicator {
+    position: absolute;
+    inset-block-end: 0;
+    left: 50%;
+    inline-size: var(--louis-border-width-ring);
+    /* 28. 제품 `h-14`(:310). 큰 눈금(16)보다 길어 눈금에 묻히지 않는다. */
+    block-size: 28px;
+    background: var(--louis-color-inspector-adjust-accent);
+    translate: -50% 0;
+    pointer-events: none;
+  }
+
+  /* 포커스 링은 그리지 않는다(DS-D-0074). 강제 색에서만 자가 받는다 — 칠 그라디언트가 사라지므로 지시선과 점을 시스템 색으로 되살린다. */
+  @media (forced-colors: active) {
+    .louis-slider__ruler:focus-visible {
+      outline: var(--louis-border-width-ring) solid Highlight;
+      outline-offset: 2px;
+    }
+
+    .louis-slider__ruler-indicator,
+    .louis-slider__ruler-neutral {
+      forced-color-adjust: none;
+      background: CanvasText;
+    }
   }
 }
 
@@ -10631,6 +11832,84 @@
     }
   }
 
+  /* ── 막대 탭 줄(`data-variant="bar"`) ────────────────────────────────────────
+   * 출처: 2026-10-13(DS-D-0084), 제품 통합 판 `apps/web/app/admin/contentListStyles.ts:171-174`(어드민 콘텐츠 관리 ·
+   * 앰배서더 두 화면의 서브탭). 고른 탭을 **2px 막대**가 말하고, 쉬는 탭은 불투명도가 아니라 잉크 한 단(`fg-secondary`)으로 내린다.
+   *
+   * underline 과 다른 변형인 이유: 막대 · 잉크 · 간격 20 · 좌우 0 · 위아래 12 · 반경 0 — 탭 자신의 값 여섯이 다시 쓰인다.
+   * 줄 밑선 하나만 같다(같은 헤어라인 토큰을 여기서 다시 적는다).
+   *
+   * 막대는 box-shadow 가 아니라 **테두리**다 — 제품이 `border-b-2` 로 높이 47 을 만들고, 강제 색 모드에서도 남는다.
+   * 쉬는 탭도 투명 막대를 갖는다: 고를 때 높이가 2px 튀지 않게.
+   *
+   * 쉼 잉크가 `fg-secondary` 라 기본 탭의 알려진 대비 미달(tabs.md Known deviations)이 이 변형에는 없다 —
+   * 다크 7.24:1 · 라이트 9.23:1(`bg-surface` 위). */
+  .louis-tabs[data-variant="bar"] {
+    /* 20. 제품 `gap-10`(contentListStyles.ts:171). 간격 사다리에 없다. */
+    gap: 20px;
+    overflow-x: auto;
+    box-shadow: var(--louis-hairline-inset-block-end);
+  }
+
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab {
+    block-size: auto;
+    /* 12. 제품 `py-6`(:172). */
+    padding-block: var(--louis-space-control-md);
+    padding-inline: 0;
+    border-radius: 0;
+    border-block-end: var(--louis-border-width-ring) solid transparent;
+    color: var(--louis-color-fg-secondary);
+    opacity: 1;
+    transition-property: color, border-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+    /* 제품 `type-body-14-medium`(AmbassadorAdmin.tsx:50 · ContentManagement.tsx:53). 기본 탭의 body-md 보다 한 단 작다 — 페이지 안 서브 탐색이다. */
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  }
+
+  /* 특이도: 기본 호버(0,2,0)를 막대 호버(0,4,0)가 이긴다 — 기본의 불투명도 0.9 가 새지 않게 `opacity: 1` 을 다시 적는다.
+   * `aria-disabled` 탭도 호버에서 잉크가 오르지 않게 가드에 넣는다. */
+  @media (hover: hover) {
+    .louis-tabs[data-variant="bar"] > .louis-tabs__tab:where(:not([aria-selected="true"]):not(:disabled):not([aria-disabled="true"])):hover {
+      color: var(--louis-color-fg-primary);
+      opacity: 1;
+    }
+  }
+
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab[aria-selected="true"] {
+    border-block-end-color: var(--louis-color-fg-primary);
+    color: var(--louis-color-fg-primary);
+  }
+
+  .louis-tabs[data-variant="bar"] > .louis-tabs__tab:is(:disabled, [aria-disabled="true"]) {
+    color: var(--louis-color-fg-disabled);
+    opacity: 1;
+  }
+
+  /* reduced-motion — 기본 블록의 `.louis-tabs__tab`(0,1,0)이 이 변형의 전이 선언(0,3,0)에 지므로 여기서 다시 적는다. */
+  @media (prefers-reduced-motion: reduce) {
+    .louis-tabs[data-variant="bar"] > .louis-tabs__tab {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .louis-tabs[data-variant="bar"] {
+      box-shadow: none;
+      border-block-end: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    /* 막대가 선택을 말하므로 기본 변형의 밑줄 글자 꾸밈은 겹친다 — 끈다. */
+    .louis-tabs[data-variant="bar"] > .louis-tabs__tab[aria-selected="true"] {
+      border-block-end-color: Highlight;
+      text-decoration: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .louis-tabs__tab {
       transition-duration: var(--louis-motion-reduced-duration);
@@ -10860,6 +12139,83 @@
 
   .louis-text-field[data-invalid]:not([data-invalid="false"]) .louis-text-field__message {
     color: var(--louis-color-fg-danger);
+  }
+
+  /* ── 여러 줄 판 `data-multiline="true"` (DS-D-0084) ─────────────────────────
+   *
+   * 정본: 제품 문의 화면(`apps/web/app/inquiry/InquiryClient.tsx:183-198 · :625-720`). 상자 하나 안에 본문(textarea) ·
+   * 첨부 썸네일 줄 · 툴바가 위에서 아래로 선다. 놓기(drag & drop)는 **상자 전체**가 받는다 — 본문 위에 놓든 툴바 위에
+   * 놓든 같은 곳에 붙는다.
+   *
+   * 상자의 면 · 반경 · 헤어라인 · 오류 표현은 한 줄 판 그대로다. 여백은 상자가 아니라 칸마다 갖는다 — 툴바의 위 선이 상자
+   * 가장자리까지 닿아야 하기 때문이다.
+   *
+   * 이 블록은 크기 블록 뒤가 아니라 invalid 규칙 **뒤**에 선다. 끄는 중 링과 invalid 링이 같은 특이도(0,4,0)라 문서 순서가
+   * 이긴다 — 놓는 동안에는 「여기에 놓인다」가 오류보다 먼저 읽혀야 한다. 크기 축(`md` 의 좌우 여백)도 같은 이유로 이
+   * 블록이 덮는다. */
+  .louis-text-field[data-multiline="true"] .louis-text-field__box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+  }
+
+  .louis-text-field[data-multiline="true"] .louis-text-field__control {
+    /* 200. 제품 `min-h-[200px]`(InquiryClient.tsx:185) — 문의 본문 여덟 줄. */
+    min-block-size: 200px;
+    padding: var(--louis-space-control-lg);
+    resize: vertical;
+  }
+
+  /* 첨부 썸네일 줄 — [Media Slot](media-slot.md) 줄(`.louis-media-slot-strip[data-layout="wrap"]`)을 같은 요소에 얹는다.
+   * 간격 12 · 좌우 16 · 아래 12 는 제품 `gap-6 px-8 pb-6`(:188). 줄의 기본 간격 4 를 이 자리에서만 넓힌다 — 72 칸 사이 4 는
+   * 붙어 보인다. */
+  .louis-text-field[data-multiline="true"] .louis-text-field__attachments {
+    gap: var(--louis-space-control-md);
+    padding-block: 0 var(--louis-space-control-md);
+    padding-inline: var(--louis-space-control-lg);
+  }
+
+  /* 툴바 — 첨부 버튼과 개수가 양 끝에(제품 :194-195). 위 선은 한 면 헤어라인(DS-D-0023, 제품은 1px 같은 색). */
+  .louis-text-field__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--louis-space-control-sm);
+    padding: var(--louis-space-control-md);
+    box-shadow: var(--louis-hairline-inset-block-start);
+    cursor: default;
+  }
+
+  /* 첨부 개수 `n / 5` — 제품 `type-caption-12-regular text-fg-secondary`(:714-718). `aria-live="polite"` 는 소비처가 단다. */
+  .louis-text-field__counter {
+    color: var(--louis-color-fg-secondary);
+    font-variant-numeric: tabular-nums;
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  /* 끌어다 놓는 중 — [Drop Zone](drop-zone.md) 과 같은 말: 안쪽 `border-width-ring` · `stroke-focus` 링이 헤어라인을 대신한다.
+   * 제품의 바깥 outline(2 띄움, :186-187)은 받지 않는다 — 이웃 칸 위로 넘쳐 그려지고, 같은 「여기에 놓인다」를 두 모양으로
+   * 말하게 된다(소유자 판정 8, 2026-10-13 기본값). */
+  .louis-text-field[data-multiline="true"] .louis-text-field__box[data-drag-over="true"] {
+    box-shadow: inset 0 0 0 var(--louis-border-width-ring) var(--louis-color-stroke-focus);
+  }
+
+  @media (forced-colors: active) {
+    .louis-text-field__toolbar {
+      box-shadow: none;
+      border-block-start: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    .louis-text-field[data-multiline="true"] .louis-text-field__box[data-drag-over="true"] {
+      outline: var(--louis-border-width-ring) solid Highlight;
+      outline-offset: calc(0px - var(--louis-border-width-ring));
+    }
   }
 
   /* ── 플로팅 라벨 — `data-label-behavior="floating"` (DS-D-0049) ──────────────
@@ -11865,6 +13221,53 @@
     inset-inline-start: var(--louis-transform-frame-edge-start);
     inset-block-start: 50%;
     cursor: ew-resize;
+  }
+
+  /* ── 회전 자리 `__rotate-zone` ───────────────────────────────────────────── */
+
+  /* 모서리 **바깥**의 보이지 않는 잡이(스티커 편집, 제품 `StickerCanvas.tsx:88-106`). 상자 밖에만 놓여야 모서리를 눌렀을 때
+     이동 대신 회전이 걸리지 않는다 — 크기와 바깥 오프셋이 같은 값 하나라 그 짝이 깨지지 않는다. 자리는 프레임 선의
+     바깥 가장자리(`edge-start` · `edge-end`)에서 재므로 선 두께만큼도 안으로 들어오지 않는다.
+
+     손잡이보다 **먼저** 마크업한다. 손잡이(모서리에서 ±6)와 겹치는 구간에서 손잡이가 문서 순서로 위에 선다 — z-index 없음.
+     정리하면 바깥 띠 = 회전, 모서리 ±6 = 크기, 그 안쪽 = 이동이다(제품 :91-93 주석과 같은 배치).
+
+     커서는 그림 자산이라 레시피가 갖지 않는다(DS-D-0008) — 소비처가 `--louis-transform-frame-rotate-cursor` 에 회전 커서
+     url 을 넣는다(제품은 흰 후광 + 검은 획 SVG, :76-86). 회전 각도(`rotate()`)도 소비처가 프레임에 건다. */
+  .louis-transform-frame__rotate-zone {
+    /* 24. 제품 `w-12 h-12`(:95, Tailwind 2px 단위) — 처음 11 이었다가 아무도 못 찾아 넓혔다(:93-94 주석). */
+    --louis-transform-frame-rotate-zone: 24px;
+    --louis-transform-frame-rotate-cursor: crosshair;
+    --louis-transform-frame-rotate-offset: calc(
+      var(--louis-transform-frame-rotate-zone) / var(--louis-transform-frame-scale)
+    );
+
+    position: absolute;
+    display: block;
+    inline-size: var(--louis-transform-frame-rotate-offset);
+    block-size: var(--louis-transform-frame-rotate-offset);
+    touch-action: none;
+    cursor: var(--louis-transform-frame-rotate-cursor);
+  }
+
+  .louis-transform-frame__rotate-zone[data-position="nw"] {
+    inset-inline-start: calc(var(--louis-transform-frame-edge-start) - var(--louis-transform-frame-rotate-offset));
+    inset-block-start: calc(var(--louis-transform-frame-edge-start) - var(--louis-transform-frame-rotate-offset));
+  }
+
+  .louis-transform-frame__rotate-zone[data-position="ne"] {
+    inset-inline-start: var(--louis-transform-frame-edge-end);
+    inset-block-start: calc(var(--louis-transform-frame-edge-start) - var(--louis-transform-frame-rotate-offset));
+  }
+
+  .louis-transform-frame__rotate-zone[data-position="sw"] {
+    inset-inline-start: calc(var(--louis-transform-frame-edge-start) - var(--louis-transform-frame-rotate-offset));
+    inset-block-start: var(--louis-transform-frame-edge-end);
+  }
+
+  .louis-transform-frame__rotate-zone[data-position="se"] {
+    inset-inline-start: var(--louis-transform-frame-edge-end);
+    inset-block-start: var(--louis-transform-frame-edge-end);
   }
 }
 
@@ -13435,6 +14838,54 @@
     .louis-document__foot {
       box-shadow: none;
       border-block-start: var(--louis-border-width-default) solid CanvasText;
+    }
+  }
+}
+
+@layer louis.component {
+  /* Editor Workspace — design/patterns/editor-workspace.md
+   *
+   * 캔버스 바닥 점 격자 `.louis-canvas-dots` (DS-D-0084). 노드 캔버스의 바닥이 지름 2 점을 24 격자로 깔고, 그 점이 줌 배율로
+   * 함께 커지며 화면을 끌면 함께 흐른다. 컴포넌트가 아니라 **작업 면의 채움**이다(canvas-edge.md 「패턴 채움」) — DS-D-0084 가
+   * 그것도 정본을 갖게 했다.
+   *
+   * 정본: 제품 `apps/web/components/scenes/create/node-canvas-v2/components/CanvasBackground.tsx`(xyflow `<Background variant=Dots
+   * gap=24 size=2>`, xyflow 는 반지름을 `size / 2` 로 그린다). 색은 `color-canvas-dot`(제품 `--canvas-dot`, `node-canvas-v2/index.tsx:505` ·
+   * `:530` 과 바이트가 같다, DS-D-0082). 실제 캔버스는 xyflow SVG 를 그대로 쓰고 이 클래스는 **값의 정본**이다 — 랜딩 목업 ·
+   * 정적 데모 · Figma 대조가 이 클래스를 쓴다. 살아 있는 캔버스에 쓰려면 소비처가 배율과 이동량을 넣는다(아래 지역 변수).
+   *
+   * 랜딩 정적 임베드의 20% 점(`node-canvas-v2/index.tsx:542`, 어두운 랜딩 면 위)은 이 클래스의 칸이 아니다 — 새 이름
+   * (`color-canvas-dot-on-media`)을 세우지 않고 랜딩 회차로 미룬다(소유자 판정 11, 2026-10-13 기본값).
+   *
+   * 차트 점 바닥(`chart-card` `data-floor="dots"`)과 같은 기법이고 격자 · 잉크 · 줌 추종만 다르다. */
+  .louis-canvas-dots {
+    /* 24 · 1. 제품 `DEFAULT_CANVAS_DOT_GAP` · `DEFAULT_CANVAS_DOT_SIZE / 2`(CanvasBackground.tsx:5-6). */
+    --louis-canvas-dots-pitch: 24px;
+    --louis-canvas-dots-radius: 1px;
+    /* 캔버스 줌 배율과 화면 이동량. xyflow `transform[2]` · `transform[0..1]` 이 같은 자리다. */
+    --louis-canvas-dots-scale: 1;
+    --louis-canvas-dots-x: 0px;
+    --louis-canvas-dots-y: 0px;
+
+    background-color: var(--louis-color-bg-canvas);
+    background-image: radial-gradient(
+      circle,
+      var(--louis-color-canvas-dot) 0 calc(var(--louis-canvas-dots-radius)*var(--louis-canvas-dots-scale)),
+      transparent calc(var(--louis-canvas-dots-radius)*var(--louis-canvas-dots-scale))
+    );
+    background-size:
+      calc(var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale))
+      calc(var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale));
+    /* radial-gradient 의 점은 칸 가운데에 서므로 반 칸을 되빼 xyflow 처럼 원점에 점을 둔다. */
+    background-position:
+      calc(var(--louis-canvas-dots-x) - var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale) / 2)
+      calc(var(--louis-canvas-dots-y) - var(--louis-canvas-dots-pitch)*var(--louis-canvas-dots-scale) / 2);
+  }
+
+  /* 강제 색 — 점은 장식이라 걷고 면만 남긴다(면은 시스템 색이 된다). */
+  @media (forced-colors: active) {
+    .louis-canvas-dots {
+      background-image: none;
     }
   }
 }

@@ -3664,7 +3664,7 @@ const COMPONENT_CONTRACTS = [
       Size: { options: ["md", "sm"], reason: "코드의 `data-size` 다. md 는 YouTube 줄(아바타 32 · body-md), sm 은 Instagram 줄(아바타 20 · caption)로 상자와 글자가 다시 쓰인다." },
       Name: { type: "TEXT", reason: "채널 이름. 한 줄 말줄임이다." },
       HasImage: { type: "BOOLEAN", reason: "아바타 그림이 있는가. 없으면 글리프가 보인다." },
-      Glyph: { type: "INSTANCE_SWAP", reason: "아바타 자리의 채널 글리프(YouTube · Instagram)." },
+      Glyph: { type: "INSTANCE_SWAP", reason: "아바타 자리의 채널 글리프. 기본은 `icon/youtube-logo`(md)이고, sm 변형은 속성에 묶지 않은 `icon/instagram-logo` 다 — INSTANCE_SWAP 기본값은 세트에 하나뿐이라 두 크기가 다른 로고를 보이려면 한쪽을 떼야 한다(DS-D-0085)." },
     },
   },
   {

@@ -80,7 +80,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 ## Accessibility
 
 - 장식 줄(연결선이 이미 말하는 것을 되풀이하는 노드 입력판 줄)은 `aria-hidden` 이다.
-- 누르면 무언가 열리는 칸과 빈 칸은 `button` 이다. 지우기 버튼은 칸 안의 별도 `button` 이다.
+- 누르면 무언가 열리는 칸과 빈 칸은 `button` 이다. 지우기 버튼은 칸 안의 별도 `button` 이다. 누르면 그림을 크게 보는 창은 [Lightbox](lightbox.md)다.
 - 지우기 글리프는 media 색이라 그림 밝기와 무관하게 대비가 고정이다.
 
 ## Acceptance tests

@@ -25,6 +25,25 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (253) — 채널 머리를 얇은 새 부품 `channel-header` 로, skeleton 에 `line`(DS-D-0087, DS-D-0084)
+
+- **새 부품 `channel-header`.** 배너 띠 아래 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다(`.louis-channel-header` · `__banner` ·
+  `__banner-image` · `__profile` · `__avatar` · `__text` · `__name` · `__stats` · `__description` · `__actions`). 분석 화면 채널 머리의 Tailwind
+  상수 열넷을 한 레시피로 옮겼다. **배치만 소유한다** — 아바타 · 스켈레톤 · 설명 버튼 초기화 · 숨은 구분 · 액션 버튼은 기존 LOUIS 클래스를
+  같은 요소에 함께 단다. Section Header 의 단이 아니다(루트가 세로 · 앞쪽 아바타 · 가운데 정렬).
+- **좁은 화면 단은 뷰포트 질의다.** 560 이하 띠 6:1 → 4:1 · 아바타 64 → 48, 480 이하 이름 heading-sm medium 28 → body-lg medium 20.
+- **로딩은 루트 `aria-busy="true"` 하나.** 글자 자리 막대는 실제 글자 줄 안에 서서 로딩 전후 머리 높이가 같다(실브라우저로 잰다).
+- **skeleton 에 새 모양 `data-shape="line"`.** 글자 줄 안의 인라인 막대(높이 `0.75em` · 가운데). React `SkeletonShape` 에 `line` 이 더해졌다.
+  제품 네 파일이 복제하던 `inline-block align-middle h-[0.75em]` 유틸 문자열을 대신한다.
+- **새 토큰은 없다.** 고쳐 올린 것(DS-D-0084 3항) — 설명 호버 88% 알파 → `fg-primary`(호버 기기에서만), 라이트 이름 `static-black` → `fg-primary`,
+  아바타 폴백 빈 회색 원 → avatar 의 사람 글리프. 다크 띠 면(그림 전)은 `gray-700` → `bg-inset`, 480 이하 이름 행간 27 → 30.
+- **바깥 여백은 소비처가 진다** — 좌우 셸 인셋 · 아래 16 · 위 0.
+- **Figma.** DS · Components 「5 · 내용」에 `ChannelHeader`(Loading × Layout `base` · `compact`, BOOLEAN `HasBanner` · `HasDescription` · `HasActions`,
+  TEXT `Name` · `Stat1`~`3`, INSTANCE_SWAP `Actions`)와 `ChannelHeaderDescription`(State `Default` · `Hover`, ON_HOVER). Skeleton 세트에 `Shape=line`
+  칸을 더하고, 기록 16 과 어긋나 21 이던 `text` 칸을 16 으로 되돌렸다. 원시 칠 0 — 스켈레톤 인스턴스의 8% 는 Figma 가 1 로 되돌려 인스턴스에서 다시 걸었다.
+- 소유자 판정 아홉은 초안의 기본값으로 — DS-D-0087 표. 실브라우저 시험 `channel-header.browser.test.tsx` · `channel-header-geometry.browser.test.tsx`,
+  skeleton 시험에 `line` 한 케이스. 기록 `channel-header` · `channel-header-description` · `skeleton.line` 과 parity 계약(figma `partial`).
+
 ## 2026-10-13 (252) — 그림 크게 보기를 새 부품 `lightbox` 로(DS-D-0086, DS-D-0084)
 
 - **새 부품 `lightbox`.** 스크림 · 그림 비율 창 · 그림 위 액션(`.louis-lightbox` · `__scrim` · `__frame` · `__media` · `__actions` · `__action`).

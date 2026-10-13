@@ -84,6 +84,20 @@
   block-size: 16px;
 }
 
+/* 글자 줄 안 — `data-shape="line"`(DS-D-0087). 대신할 글자와 **같은 줄 상자 안**에 인라인으로 놓는다. 줄 높이는 그 줄의 행간이
+ * 정하고 막대는 글자 크기의 0.75 로 가운데에 선다 — 로딩 전후 행 높이가 같다. `text` 의 고정 16 과 다른 점이 그것이다: 16 은 어느
+ * 줄에도 속하지 않는 막대고, 이것은 줄에 속한다.
+ *
+ * 제품 네 파일이 같은 유틸 문자열(`louis-skeleton inline-block align-middle h-[0.75em]`)을 복제한다 — 분석 채널 머리 · KPI 카드 ·
+ * 영상 분석 모달 머리 · 영상 분석 본문(통합 판 `54b62a8aa`). 그 넷이 `data-shape="text"` 를 달고 유틸로 높이를 덮어 왔다. 폭은 문단마다
+ * 달라 호출부가 정한다(`text` 와 같다). */
+.louis-skeleton[data-shape="line"] {
+  display: inline-block;
+  vertical-align: middle;
+  block-size: 0.75em;
+  border-radius: var(--louis-radius-control-sm);
+}
+
 @keyframes louis-shimmer {
   from {
     background-position: 200% 0;

@@ -63,7 +63,12 @@ summary: 아직 오지 않은 내용의 자리를 지킵니다.
 
 | prop | 값 | 기본 | 뜻 |
 | --- | --- | --- | --- |
-| `shape` | `block` \| `text` \| `circle` | `block` | 반경과 기본 높이 |
+| `shape` | `block` \| `text` \| `circle` \| `line` | `block` | 반경과 기본 높이 |
+
+**`line` — 글자 줄 안의 막대**(2026-10-13, [DS-D-0087](../governance/decisions/DS-D-0087-channel-header.md)). 대신할 글자와 **같은 줄 상자
+안**에 인라인으로 놓는다(`display: inline-block` · `vertical-align: middle` · 높이 `0.75em`). 줄 높이는 그 줄의 행간이 정하므로 로딩 전후 행
+높이가 같다 — `text` 의 고정 16 은 어느 줄에도 속하지 않는 막대고, `line` 은 줄에 속한다. 제품 네 파일(분석 채널 머리 · KPI 카드 · 영상 분석
+모달 머리 · 영상 분석 본문)이 같은 유틸 문자열로 복제하던 모양이다. 폭은 호출부가 정한다.
 
 나머지는 `<span>`의 네이티브 속성을 그대로 받는다. 크기는 `style`이나 `className`으로 준다.
 
@@ -100,6 +105,7 @@ summary: 아직 오지 않은 내용의 자리를 지킵니다.
 | 하이라이트 | `currentcolor` 9% | 제품 값 그대로 |
 | 반경 | `radius-control-sm` 8px (`circle`은 `radius-pill`) | — |
 | `text` 높이 | `16px` 리터럴 | Figma·기록·제품 셋이 16이다 — 아래 Known deviations 1번 |
+| `line` 높이 | `0.75em` · 인라인 · 가운데 | 놓인 줄의 글자 크기를 따른다(제품 네 파일 그대로) |
 | 흐름 | `motion-shimmer` 1600ms | 아래 |
 
 ## 흐름은 `background-position`이다
@@ -160,7 +166,7 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 - **알파 값이 제품 안에서도 한 값이 아니다.** 실측한 자리는 8%/9%였고 다른 자리는 다를 수 있다.
   한 값으로 고정한 이유는 자리표시의 진하기가 화면마다 달라야 할 근거가 없기 때문이다.
 - **흐름이 `background-position` 애니메이션이라 Figma에서는 정지 상태만 표현된다.** component
-  set 자체는 있다 — 위 Availability 표대로 `text`·`block`·`circle` 세 마스터를 가진 세트다.
+  set 자체는 있다 — 위 Availability 표대로 `text`·`block`·`circle`·`line` 네 마스터를 가진 세트다(`line` 은 2026-10-13, 같은 날 21 로 어긋나 있던 `text` 칸을 기록 16 으로 되돌렸다).
   (2026-08-30 정정: 이 자리에 「Figma component set이 없다」고 적혀 있었고 같은 문서 Availability
   표와 정면으로 어긋났다. 세트는 `figma/readback.json`의 `components.Skeleton`에 세 shape로
   들어 있다.)
@@ -191,3 +197,5 @@ DS 쪽 정본이고, 제품의 이 자리는 **결함으로 기록한다.**
 7. **`text`의 기본 높이가 계약과 같다** — 인라인 `blockSize` 없이 잰다. 다른 케이스들이 전부
    인라인 높이를 주고 있어서 이 축만 가려져 있었다.
 8. `aria-hidden`이다.
+9. **`line` 높이는 글자 크기 × 0.75 이고 줄 상자 높이는 그 줄의 행간이다** — body-sm 줄 안에서 막대 10.5 · 줄 21
+   ([Channel Header](channel-header.md) 시험이 이름 · 수치 · 설명 줄에서 잰다).

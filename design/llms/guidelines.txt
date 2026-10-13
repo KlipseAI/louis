@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 98
+- Documents: 99
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -41,6 +41,7 @@
 - design/governance/decisions/DS-D-0084-product-parts-become-louis.md
 - design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md
 - design/governance/decisions/DS-D-0086-lightbox.md
+- design/governance/decisions/DS-D-0087-channel-header.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -172,9 +173,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 193 |
+| Normative documents | 195 |
 | Generated documents | 5 |
-| Components | 68 |
+| Components | 69 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -3117,7 +3118,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼). video-player 크롬 레시피 · 볼륨(B2 #60) · YouTube 미리보기(B2 O19)는 섰다((250) — 아래 기본값 표) |
-| 새 부품 | 약 21 | 작은 것: color-swatch(섰다, (251)) · logo-tile(섰다, (251)) · notice-pill(섰다, (251)) · media-slot(섰다, (245); 예시 갤러리 칸 `fill` 2:3 은 (251)) · prompt-variant(섰다, (248)) · asset-tile(섰다, (251)) · canvas-guide(섰다, (251)) · audio-cell(섰다, (245)). 작은 것은 모두 섰다 — 아래 기본값 표. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox(섰다, (252) · DS-D-0086) · content-card · plan-tier-card · channel-header · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch(섰다, (251)) · logo-tile(섰다, (251)) · notice-pill(섰다, (251)) · media-slot(섰다, (245); 예시 갤러리 칸 `fill` 2:3 은 (251)) · prompt-variant(섰다, (248)) · asset-tile(섰다, (251)) · canvas-guide(섰다, (251)) · audio-cell(섰다, (245)). 작은 것은 모두 섰다 — 아래 기본값 표. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox(섰다, (252) · DS-D-0086) · content-card · plan-tier-card · channel-header(섰다, (253) · DS-D-0087) · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -3347,6 +3348,81 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 #### Rollback
 
 `lightbox.css` · 문서 · manifest 항목 · Figma 둘 · 기록 · parity 계약을 지우면 끝난다. 토큰을 더하지 않아 생성 토큰과 기준선이 움직이지 않는다.
+
+## DS-D-0087 채널 머리를 배치만 소유하는 얇은 새 부품 channel-header 로 — Section Header 의 단이 아니다
+
+- Source: design/governance/decisions/DS-D-0087-channel-header.md
+- Maturity: experimental
+
+### DS-D-0087 채널 머리를 배치만 소유하는 얇은 새 부품 `channel-header` 로 — Section Header 의 단이 아니다
+
+- Status: accepted (소유자 지시로 초안의 기본값을 받는다, 2026-10-13)
+- Date: 2026-10-13
+- Owners: repository owner, design system maintainer
+- Affects: `channel-header`, `skeleton`, `section-header`, `avatar`, `decision-product-parts-become-louis`
+
+#### Context
+
+[DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 승격 목록의 「큰 것(각각 Decision 먼저)」에 `channel-header` 가 있다. 유튜브 · 인스타그램
+분석 화면이 함께 쓰는 채널 머리(`components/scenes/analytics/AnalyticsChannelHeader.tsx`, 통합 판 `54b62a8aa`)는 제품 안에서 이미 한
+컴포넌트로 모였지만, 그 조형 — 띠 비율 6:1(560 이하 4:1) · 아바타 64(560 이하 48) · 이름 28(480 이하 20) · 간격으로 뗀 수치 · 한 줄 설명 ·
+줄 안 스켈레톤 — 은 Tailwind 상수 열넷(`:26-92`)으로만 있고 LOUIS 에는 없다. 덱 키트 · Figma 보드는 이 머리를 부품으로 쓸 수 없다.
+
+안의 조각은 이미 LOUIS 다 — `avatar` · `skeleton` · `bare-button` · `louis-visually-hidden` · `icon-button` + `menu-popover`. 비어 있는 것은
+그 조각을 세우는 **배치**와 **좁은 화면 단**, **로딩 전후 줄 높이를 같게 하는 규칙**이다.
+
+글자 대비 미달은 없다(이름 `fg-primary`, 수치 · 설명은 제품 `--dashboard-muted-color` 가 두 테마 모두 `fg-tertiary` 와 같은 값). 고쳐 올리는
+것은 역할 잉크다 — 설명 호버의 88% 알파(`:69`) → `fg-primary`, 라이트 이름 `static-black` → `fg-primary`, 아바타 폴백의 빈 회색 원(`:47`) →
+avatar 의 사람 글리프. 제품 글자 줄 스켈레톤 유틸 문자열(`inline-block align-middle h-[0.75em]`)은 이 머리 밖의 세 파일에도 복제돼 있다.
+
+#### Decision
+
+1. **새 부품 `channel-header` — 배치만 소유하는 얇은 CSS 레시피.** 안의 조각은 기존 LOUIS 클래스를 같은 요소에 함께 단다. Section Header 의
+   단(`data-level`)으로 넣지 않는다 — 그 레시피는 「제목 블록 + 액션」 한 줄 flex 이고, 채널 머리는 루트가 세로(띠 위 · 줄 아래)이며 줄 앞쪽에
+   아바타가 서고 정렬이 가운데이며 좁은 화면에서 띠 비율과 아바타 크기가 함께 바뀐다. 단 하나로 넣으면 다른 여섯 단이 쓰지 않을 해부가 생긴다.
+   반대로 「부품 아님」으로 두면 상수 열넷이 제품에 남아 DS-D-0084 3항(복사 금지)에 어긋난다.
+2. **글자를 사진 위에 얹지 않는다**를 계약으로 올린다 — 스크림 · 미디어 잉크가 없다. 띠는 장식이다.
+3. **로딩은 같은 표면의 상태다**([DS-D-0040](../governance/decisions/DS-D-0040-state-is-a-variant-axis.md)) — 루트 `aria-busy="true"`, 글자 자리는 줄 안 스켈레톤.
+   [Skeleton](../components/skeleton.md) 에 `data-shape="line"`(높이 `0.75em` · 인라인 · 가운데)을 연다. React `SkeletonShape` 에 `line` 이 더해진다.
+4. **바깥 여백 · 셸 인셋은 소비처**가 진다.
+5. **새 토큰은 없다.** 바뀌는 것은 역할 잉크 셋과 다크 띠 면 · 480 이하 이름 행간(Known deviations).
+6. **React 표면은 만들지 않는다.** 마크업 계약을 문서 Properties 절이 소유한다.
+
+##### 소유자 판정 — 초안의 기본값으로 정했다
+
+초안(`scratchpad/promote/big/channel-header.md`, 작업 폴더)이 남긴 판정 아홉을 소유자 지시로 초안이 권한 기본값으로 정했다. 뒤집으면 레시피 한 곳을 고친다.
+
+| # | 판단 | 기본값 | 대안 |
+| --- | --- | --- | --- |
+| 1 | 형태 | 새 부품 `channel-header`(배치만 소유) | `section-header[data-level="profile"]` + `__banner` · `__avatar` · 부품 아님(조합 스니펫, 제품 상수 유지) |
+| 2 | 아바타 64 · 48 의 소유 | 머리의 `__avatar` 가 크기를 갖고 `.louis-avatar` 와 같은 요소에 단다 | avatar 에 쓰임새 크기 `data-size="channel"` |
+| 3 | 좁은 화면 단의 경계 | 뷰포트 560 · 480(제품 그대로, 선례 tabs · chart-card) | 머리 폭 컨테이너 쿼리 · 소비처 `data-layout="compact"` |
+| 4 | 글자 줄 스켈레톤 | skeleton 에 `data-shape="line"`(제품 네 파일) | 머리 지역 `__line` |
+| 5 | 띠 면(그림 전) | `bg-inset`, 새 토큰 0(다크 `gray-700` → `gray-950`) | 새 시맨틱 `channel-header-banner-surface`(라이트 `gray-050` · 다크 `gray-700`) |
+| 6 | 바깥 여백 | 소비처 — 좌우 셸 인셋 · 아래 16 · 위 0 | 레시피가 `padding-block-end: 16` 과 셸 인셋을 갖는다 |
+| 7 | 480 이하 이름 행간 | body-lg medium 통째(20 / 1.5 = 30) | 제품처럼 크기 · 자간만(20 / 1.35 = 27) — 글자 스타일이 없어 Figma 가 그릴 수 없다 |
+| 8 | 영상 분석 모달 머리 | 이번 범위 밖 — 문서 「제품에서 발견한 것」 | 띠 · 아바타 없는 판 + 제목 두 줄 축으로 함께 올린다 |
+| 9 | 수치 줄 간격 떼기(`SpacedItems`) | 이 머리의 `__stats` 가 먼저 갖는다 | 새 작은 부품(`spaced-list` 류) |
+
+##### 경계와 하지 않는 것
+
+- React 컴포넌트 · 그림 실패 기억 · 자리 미리 잡기 판단(`reserveBanner` · `reserveDescription`) — 소비처의 상태다.
+- 채널 정보 대화상자 · 계정 더보기 메뉴의 행동 — [Dialog](../components/dialog.md) · [Menu Popover](../components/menu-popover.md) 가 갖는다.
+- 영상 분석 모달 머리를 이 부품에 넣지 않는다(제목 두 줄 · grid 링크 배치가 다르다) — 셋째 소비처가 되는지는 따로 판정한다.
+- `SpacedItems` 를 독립 부품으로 세우지 않는다 — 콘텐츠 표가 같은 값을 쓰는 것이 확인되면 떼어낸다.
+- 새 breakpoint 를 세우지 않는다 — 560 · 480 은 제품 값 그대로이고 LOUIS 의 셸 경계가 아니다.
+
+#### Consequences
+
+- 제품 (나): 상수 열넷을 `louis-channel-header*` 클래스로 바꾸고 헤더 카드에는 소비처 몫(아래 16 · 좌우 인셋 · 719 이하 오른쪽 8)만 남긴다.
+  로딩 판에 루트 `aria-busy`, 막대를 `data-shape="line"` 으로(유틸 높이 · 잉크 · 폭 삭제). 머리 밖 세 파일(KPI 카드 · 영상 분석 모달 머리 ·
+  영상 분석 본문)의 같은 유틸 문자열도 `line` 으로. 보이는 변화 — 아바타 폴백 글리프, 다크 설명 호버 88% → 100%, 480 이하 이름 줄 3px.
+- Figma 에 `ChannelHeader`(Loading × Layout) · `ChannelHeaderDescription`(State) 세트와 Skeleton `line` 칸이 선다. 새 변수는 없다.
+
+#### Rollback
+
+`channel-header.css` · 문서 · manifest 세 자리 · Figma 두 세트 · 기록 · parity 계약을 지우면 끝난다. skeleton `line` 은 소비처가 넷이라 남긴다. 토큰을 더하지 않아
+생성 토큰과 기준선이 움직이지 않는다. 제품은 앵커의 상수로 돌아간다.
 
 ## Contributing
 
@@ -17057,6 +17133,25 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-13 (253) — 채널 머리를 얇은 새 부품 `channel-header` 로, skeleton 에 `line`(DS-D-0087, DS-D-0084)
+
+- **새 부품 `channel-header`.** 배너 띠 아래 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다(`.louis-channel-header` · `__banner` ·
+  `__banner-image` · `__profile` · `__avatar` · `__text` · `__name` · `__stats` · `__description` · `__actions`). 분석 화면 채널 머리의 Tailwind
+  상수 열넷을 한 레시피로 옮겼다. **배치만 소유한다** — 아바타 · 스켈레톤 · 설명 버튼 초기화 · 숨은 구분 · 액션 버튼은 기존 LOUIS 클래스를
+  같은 요소에 함께 단다. Section Header 의 단이 아니다(루트가 세로 · 앞쪽 아바타 · 가운데 정렬).
+- **좁은 화면 단은 뷰포트 질의다.** 560 이하 띠 6:1 → 4:1 · 아바타 64 → 48, 480 이하 이름 heading-sm medium 28 → body-lg medium 20.
+- **로딩은 루트 `aria-busy="true"` 하나.** 글자 자리 막대는 실제 글자 줄 안에 서서 로딩 전후 머리 높이가 같다(실브라우저로 잰다).
+- **skeleton 에 새 모양 `data-shape="line"`.** 글자 줄 안의 인라인 막대(높이 `0.75em` · 가운데). React `SkeletonShape` 에 `line` 이 더해졌다.
+  제품 네 파일이 복제하던 `inline-block align-middle h-[0.75em]` 유틸 문자열을 대신한다.
+- **새 토큰은 없다.** 고쳐 올린 것(DS-D-0084 3항) — 설명 호버 88% 알파 → `fg-primary`(호버 기기에서만), 라이트 이름 `static-black` → `fg-primary`,
+  아바타 폴백 빈 회색 원 → avatar 의 사람 글리프. 다크 띠 면(그림 전)은 `gray-700` → `bg-inset`, 480 이하 이름 행간 27 → 30.
+- **바깥 여백은 소비처가 진다** — 좌우 셸 인셋 · 아래 16 · 위 0.
+- **Figma.** DS · Components 「5 · 내용」에 `ChannelHeader`(Loading × Layout `base` · `compact`, BOOLEAN `HasBanner` · `HasDescription` · `HasActions`,
+  TEXT `Name` · `Stat1`~`3`, INSTANCE_SWAP `Actions`)와 `ChannelHeaderDescription`(State `Default` · `Hover`, ON_HOVER). Skeleton 세트에 `Shape=line`
+  칸을 더하고, 기록 16 과 어긋나 21 이던 `text` 칸을 16 으로 되돌렸다. 원시 칠 0 — 스켈레톤 인스턴스의 8% 는 Figma 가 1 로 되돌려 인스턴스에서 다시 걸었다.
+- 소유자 판정 아홉은 초안의 기본값으로 — DS-D-0087 표. 실브라우저 시험 `channel-header.browser.test.tsx` · `channel-header-geometry.browser.test.tsx`,
+  skeleton 시험에 `line` 한 케이스. 기록 `channel-header` · `channel-header-description` · `skeleton.line` 과 parity 계약(figma `partial`).
 
 #### 2026-10-13 (252) — 그림 크게 보기를 새 부품 `lightbox` 로(DS-D-0086, DS-D-0084)
 

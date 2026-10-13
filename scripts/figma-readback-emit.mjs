@@ -294,6 +294,11 @@ const CAPTURE = {
   // `Delete` · `Close` 는 LightboxAction 인스턴스라 훑기가 그 안으로 들어가지 않는다.
   "LightboxAction": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"],"slots":{"Glyph":"size"},"parts":{"Glyph":["width","height"]}},
   "Lightbox": {"key":{"name":"base"},"fields":["layoutMode"],"parts":{"Frame":["cornerRadius","paddingBlock","paddingInlineEnd"],"Actions":["itemSpacing","layoutMode"]}},
+  // 채널 머리(2026-10-13, DS-D-0087). 배치만 담는다 — 루트 사이 · 줄 사이 · 글 칸 사이 · 수치 사이, 띠 반경, 아바타 크기, 이름 크기,
+  // 로딩 줄 높이(NameLine · StatsLine · DescriptionLine). 띠 높이 · 폭은 표본 폭(데이터)이 정해 담지 않는다. Avatar · Banner(로딩) · Bar ·
+  // Description · Actions 는 인스턴스라 훑기가 그 안으로 들어가지 않는다.
+  "ChannelHeader": {"key":{"by":["Loading","Layout"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode"],"parts":{"Banner":["cornerRadius"],"Profile":["itemSpacing","layoutMode"],"Avatar":["width","height"],"Text":["itemSpacing","layoutMode"],"Name":["fontSize"],"Stats":["itemSpacing"],"NameLine":["height"],"StatsLine":["height"],"DescriptionLine":["height"]}},
+  "ChannelHeaderDescription": {"key":{"by":["State"]},"fields":["height","layoutMode"],"parts":{"Text":["fontSize"]}},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

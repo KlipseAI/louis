@@ -119,6 +119,26 @@ test("text 의 기본 높이가 계약과 같다 — 인라인 blockSize 없이 
   expect(px(getComputedStyle(skeleton()).blockSize), "text 기본 높이").toBe(sizes.text.height);
 });
 
+test("line 은 놓인 줄의 글자 크기 × 0.75 이고 줄 상자 높이는 그 줄의 행간이다 — 기록과 같다", async () => {
+  // DS-D-0087. body-sm(14 / 1.5) 줄 안에 인라인으로 놓는다 — 막대 10.5 · 줄 21. 높이는 인라인으로 주지 않는다.
+  await render(
+    <div data-louis-fixture>
+      <div data-testid="line" style={{ fontSize: "14px", lineHeight: 1.5 }}>
+        <Skeleton shape="line" style={{ inlineSize: `${sizes.line.width}px` }} />
+      </div>
+    </div>,
+  );
+  const bar = skeleton();
+  const style = getComputedStyle(bar);
+  expect(style.display, "인라인 막대").toBe("inline-block");
+  expect(style.verticalAlign, "줄 가운데").toBe("middle");
+  expect(bar.getBoundingClientRect().height, "line 높이").toBeCloseTo(sizes.line.height, 1);
+  expect(bar.getBoundingClientRect().width, "line 폭").toBe(sizes.line.width);
+  expect(px(style.borderTopLeftRadius), "line 반경").toBe(sizes.line.radius);
+  const line = document.querySelector('[data-testid="line"]')!.getBoundingClientRect();
+  expect(line.height, "줄 상자는 행간").toBeCloseTo(21, 0);
+});
+
 test("읽히지 않는다", async () => {
   // 로딩을 알리는 것은 감싸는 영역의 일이다. 스켈레톤마다 읽히면 소음이 된다.
   await render(

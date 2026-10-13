@@ -1,6 +1,6 @@
 import type { HTMLAttributes, JSX, Ref } from "react";
 
-export type SkeletonShape = "block" | "text" | "circle";
+export type SkeletonShape = "block" | "text" | "circle" | "line";
 
 export interface SkeletonProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
   readonly shape?: SkeletonShape;

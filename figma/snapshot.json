@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 102,
-        "variants": 1048
+        "sets": 104,
+        "variants": 1055
       },
       "icons": 70,
       "templates": 9
@@ -9200,6 +9200,372 @@
           "INNER_SHADOW:0:0:0.5"
         ]
       }
+    },
+    "ChannelHeader": {
+      "outsideParts": [],
+      "tokenId": "channel-header",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "HasBanner": {
+          "type": "BOOLEAN"
+        },
+        "HasDescription": {
+          "type": "BOOLEAN"
+        },
+        "HasActions": {
+          "type": "BOOLEAN"
+        },
+        "Name": {
+          "type": "TEXT"
+        },
+        "Stat1": {
+          "type": "TEXT"
+        },
+        "Stat2": {
+          "type": "TEXT"
+        },
+        "Stat3": {
+          "type": "TEXT"
+        },
+        "Actions": {
+          "type": "INSTANCE_SWAP"
+        },
+        "Loading": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "compact"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 22,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 8,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/base": {
+          "slots": {},
+          "parts": {
+            "Banner": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Profile": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Avatar": {
+              "width": [
+                64
+              ],
+              "height": [
+                64
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                28
+              ]
+            },
+            "Stats": {
+              "itemSpacing": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/compact": {
+          "slots": {},
+          "parts": {
+            "Banner": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Profile": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Avatar": {
+              "width": [
+                48
+              ],
+              "height": [
+                48
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                20
+              ]
+            },
+            "Stats": {
+              "itemSpacing": [
+                12
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/base": {
+          "slots": {},
+          "parts": {
+            "Banner": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Profile": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Avatar": {
+              "width": [
+                64
+              ],
+              "height": [
+                64
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "NameLine": {
+              "height": [
+                37.8
+              ]
+            },
+            "StatsLine": {
+              "height": [
+                21
+              ]
+            },
+            "DescriptionLine": {
+              "height": [
+                21
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/compact": {
+          "slots": {},
+          "parts": {
+            "Banner": {
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Profile": {
+              "itemSpacing": [
+                16
+              ],
+              "layoutMode": [
+                "HORIZONTAL"
+              ]
+            },
+            "Avatar": {
+              "width": [
+                48
+              ],
+              "height": [
+                48
+              ]
+            },
+            "Text": {
+              "itemSpacing": [
+                4
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "NameLine": {
+              "height": [
+                30
+              ]
+            },
+            "StatsLine": {
+              "height": [
+                21
+              ]
+            },
+            "DescriptionLine": {
+              "height": [
+                21
+              ]
+            }
+          },
+          "paddingBlock": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "itemSpacing": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "ChannelHeaderDescription": {
+      "outsideParts": [],
+      "tokenId": "channel-header",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Text": {
+          "type": "TEXT"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Default": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {
+            "Text": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            21
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "ChartCard": {
       "outsideParts": [],
@@ -22366,7 +22732,7 @@
     "Skeleton": {
       "outsideParts": [],
       "tokenId": "skeleton",
-      "variantCount": 3,
+      "variantCount": 4,
       "hasDescription": true,
       "properties": {
         "Shape": {
@@ -22374,12 +22740,13 @@
           "options": [
             "block",
             "text",
-            "circle"
+            "circle",
+            "line"
           ]
         }
       },
       "binding": {
-        "boundFills": 3,
+        "boundFills": 4,
         "rawFills": 0,
         "boundStrokes": 0,
         "rawStrokes": 0,
@@ -22389,6 +22756,7 @@
       "geometry": {
         "block": {
           "slots": {},
+          "parts": {},
           "height": [
             120
           ],
@@ -22422,6 +22790,7 @@
         },
         "circle": {
           "slots": {},
+          "parts": {},
           "height": [
             40
           ],
@@ -22453,8 +22822,43 @@
           "overflowingParts": [],
           "offCenterMarks": []
         },
+        "line": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            10.5
+          ],
+          "width": [
+            200
+          ],
+          "paddingBlock": [
+            0
+          ],
+          "paddingBlockEnd": [
+            0
+          ],
+          "paddingInline": [
+            0
+          ],
+          "paddingInlineEnd": [
+            0
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "NONE"
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
         "text": {
           "slots": {},
+          "parts": {},
           "height": [
             16
           ],

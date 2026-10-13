@@ -2777,8 +2777,8 @@ const COMPONENT_CONTRACTS = [
     effects: {},
     geometry: {
       measuredId: "skeleton",
-      // `base`는 색 계약(알파)만 갖고 기하가 없다. Figma의 shape 세 벌만 기하를 대조한다.
-      sizeKeys: ["text", "block", "circle"],
+      // `base`는 색 계약(알파)만 갖고 기하가 없다. Figma의 shape 네 벌만 기하를 대조한다(line 은 2026-10-13, DS-D-0087).
+      sizeKeys: ["text", "block", "circle", "line"],
       fields: { width: "width", height: "height", cornerRadius: "radius", layoutMode: { literal: "NONE" } },
       slots: {},
       extraStrokeWeights: [],
@@ -4117,6 +4117,72 @@ const COMPONENT_CONTRACTS = [
         Frame: { fields: { cornerRadius: "frameRadius", paddingBlock: "actionsInset", paddingInlineEnd: "actionsInset" } },
         Actions: { fields: { itemSpacing: "actionGap", layoutMode: { enum: "actionsDirection", table: { row: "HORIZONTAL", column: "VERTICAL" } } } },
       },
+    },
+  },
+  {
+    id: "channel-header",
+    figmaName: "ChannelHeader",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/channel-header.css 가 정본이다(2026-10-13, DS-D-0087). Figma 는 960(base) · 448(compact) 폭의 표본이다 — 띠 높이 · 폭은 표본 폭이 정하는 데이터라 계약이 아니다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Loading: { options: ["false", "true"], reason: "CSS 는 루트 `aria-busy=\"true\"` 하나다. 이름 · 수치 TEXT 와 스켈레톤 인스턴스가 반대 가시성으로 바뀌어 BOOLEAN 이 아니다(§2 조건 축 Loading)." },
+      Layout: { options: ["base", "compact"], reason: "좁은 화면 단 — CSS 는 뷰포트 질의(560 이하 띠 4:1 · 아바타 48, 480 이하 이름 body-lg medium)라 속성이 없다. compact 가 두 단을 한 칸으로 그린다." },
+      HasBanner: { type: "BOOLEAN", reason: "CSS 는 `__banner` 요소 생략으로 말한다(인스타그램 · 그림 없음 · 실패)." },
+      HasDescription: { type: "BOOLEAN", reason: "CSS 는 `__description` 요소 생략으로 말한다." },
+      HasActions: { type: "BOOLEAN", reason: "CSS 는 `__actions` 요소 생략으로 말한다." },
+      Name: { type: "TEXT", reason: "채널 이름 — 코드에서 `__name` 의 글자다." },
+      Stat1: { type: "TEXT", reason: "수치 항목 — 코드에서 `__stats` 안 span 의 글자다(소비처가 로케일 문구로 조립한다)." },
+      Stat2: { type: "TEXT", reason: "수치 항목 — Stat1 과 같다." },
+      Stat3: { type: "TEXT", reason: "수치 항목 — Stat1 과 같다." },
+      Actions: { type: "INSTANCE_SWAP", reason: "액션 슬롯 — 코드는 `__actions` 안의 소비처 마크업(IconButton ghost + 메뉴)이다." },
+    },
+    geometry: {
+      measuredId: "channel-header",
+      sizeKeys: ["false/base", "false/compact", "true/base", "true/compact"],
+      fields: {
+        itemSpacing: "gap",
+        paddingBlock: "padding",
+        paddingInline: "padding",
+        layoutMode: { enum: "direction", table: { row: "HORIZONTAL", column: "VERTICAL" } },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 띠는 로딩 칸에서 Skeleton block 인스턴스다 — 반경은 인스턴스 덮어쓰기로 12(CSS 0-3-0 규칙과 같은 자리).
+        Banner: { fields: { cornerRadius: "bannerRadius" } },
+        Profile: { fields: { itemSpacing: "profileGap", layoutMode: { enum: "profileDirection", table: { row: "HORIZONTAL", column: "VERTICAL" } } } },
+        Avatar: { fields: { width: "avatarSize", height: "avatarSize" } },
+        Text: { fields: { itemSpacing: "textGap", layoutMode: { enum: "textDirection", table: { row: "HORIZONTAL", column: "VERTICAL" } } } },
+        // 불러온 칸에만 선다.
+        Name: { fields: { fontSize: "nameSize" }, optional: true },
+        Stats: { fields: { itemSpacing: "statsGap" }, optional: true },
+        // 로딩 칸에만 선다 — 줄 안 막대의 줄 높이(그 줄의 행간).
+        NameLine: { fields: { height: "nameLeading" }, optional: true },
+        StatsLine: { fields: { height: "statsLeading" }, optional: true },
+        DescriptionLine: { fields: { height: "descriptionLeading" }, optional: true },
+      },
+    },
+  },
+  {
+    id: "channel-header",
+    figmaName: "ChannelHeaderDescription",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/channel-header.css 의 `__description` 이 정본이다(2026-10-13, DS-D-0087). 누르는 판의 호버를 이 세트가 소유한다.",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      State: { options: ["Default", "Hover"], reason: "CSS 상태 — 누르는 판(`<button>`)의 호버 잉크 fg-tertiary → fg-primary(호버 기기만). 정적 판(`<p>`)은 Default 와 같은 그림이다." },
+      Text: { type: "TEXT", reason: "설명 원문 — 코드에서 `__description` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "channel-header-description",
+      sizeKeys: ["Default", "Hover"],
+      fields: { height: "height", layoutMode: { literal: "HORIZONTAL" } },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: { Text: { fields: { fontSize: "fontSize" } } },
     },
   },
   {

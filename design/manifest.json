@@ -338,6 +338,15 @@
       "generated": false
     },
     {
+      "id": "decision-channel-header",
+      "path": "design/governance/decisions/DS-D-0087-channel-header.md",
+      "title": "DS-D-0087 채널 머리를 배치만 소유하는 얇은 새 부품 channel-header 로 — Section Header 의 단이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1823,6 +1832,7 @@
         "design/components/notice-pill.md",
         "design/components/canvas-guide.md",
         "design/components/lightbox.md",
+        "design/components/channel-header.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1901,6 +1911,7 @@
         "design/governance/decisions/DS-D-0084-product-parts-become-louis.md",
         "design/governance/decisions/DS-D-0085-filled-glyphs-and-monochrome-brand.md",
         "design/governance/decisions/DS-D-0086-lightbox.md",
+        "design/governance/decisions/DS-D-0087-channel-header.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2073,6 +2084,15 @@
       "id": "lightbox",
       "path": "design/components/lightbox.md",
       "title": "Lightbox",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "channel-header",
+      "path": "design/components/channel-header.md",
+      "title": "Channel Header",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -2926,6 +2946,20 @@
       "figmaNames": [
         "LightboxAction",
         "Lightbox"
+      ]
+    },
+    {
+      "id": "channel-header",
+      "name": "Channel Header",
+      "doc": "design/components/channel-header.md",
+      "note": "채널 · 계정 하나의 머리 — 배너 띠 아래 아바타 · 이름 · 수치 · 설명 한 줄 · 액션이 한 줄로 선다(DS-D-0087, DS-D-0084). 분석 화면 AnalyticsChannelHeader 의 Tailwind 상수 열넷을 한 레시피(packages/css/src/component/channel-header.css)로 옮겼다. 배치만 소유하는 얇은 부품이다 — 안의 조각(avatar · skeleton · bare-button · visually-hidden · icon-button + menu-popover)은 기존 LOUIS 를 같은 요소에 함께 단다. Section Header 의 단이 아니다 — 루트가 세로이고 앞쪽 아바타 · 가운데 정렬 · 좁은 화면 단(띠 6:1 → 4:1 · 아바타 64 → 48 · 이름 28 → 20)이 다르다. 로딩은 루트 aria-busy 와 줄 안 스켈레톤(skeleton 의 새 모양 line)이라 로딩 전후 높이가 같다. 새 토큰 없음. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 ChannelHeader 세트(Loading false · true × Layout base · compact, BOOLEAN HasBanner · HasDescription · HasActions, TEXT Name · Stat1~3, INSTANCE_SWAP Actions)와 설명 한 줄의 상호작용을 가진 ChannelHeaderDescription(State Default · Hover, ON_HOVER)으로 섰다 — 띠 · 아바타 · 줄 막대는 Skeleton(line 칸을 이 회차에 더했다) · Avatar 인스턴스다. 기록 channel-header · channel-header-description 과 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "ChannelHeader",
+        "ChannelHeaderDescription"
       ]
     },
     {

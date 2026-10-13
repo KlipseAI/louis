@@ -69,6 +69,18 @@
           ]
         ],
         [
+          "blur/2",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Base",
+              null,
+              2
+            ]
+          ]
+        ],
+        [
           "border-width/default",
           "FLOAT",
           "WIDTH_HEIGHT",
@@ -2536,6 +2548,23 @@
           ]
         ],
         [
+          "color/youtube/red",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Base",
+              null,
+              [
+                1,
+                0,
+                0.2,
+                1
+              ]
+            ]
+          ]
+        ],
+        [
           "duration/fast",
           "FLOAT",
           "",
@@ -3415,6 +3444,18 @@
             [
               "Global",
               "Klipse Primitive::blur/12",
+              null
+            ]
+          ]
+        ],
+        [
+          "blur/media-control",
+          "FLOAT",
+          "WIDTH_HEIGHT",
+          [
+            [
+              "Global",
+              "Klipse Primitive::blur/2",
               null
             ]
           ]
@@ -7147,6 +7188,23 @@
           ]
         ],
         [
+          "color/media-control-foreground-bright",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-pure-black-alpha/88",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-pure-black-alpha/88",
+              null
+            ]
+          ]
+        ],
+        [
           "color/media-control-hover",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -7176,6 +7234,23 @@
             [
               "Light",
               "Klipse Primitive::color/static-black-alpha/28",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/media-control-surface-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/40",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-black-alpha/40",
               null
             ]
           ]
@@ -8621,6 +8696,40 @@
             [
               "Light",
               "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/platform-youtube-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/youtube/red",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/youtube/red",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/platform-youtube-rail",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/static-black-alpha/56",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/static-black-alpha/56",
               null
             ]
           ]

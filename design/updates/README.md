@@ -25,6 +25,28 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (250) — 비디오 플레이어 크롬을 LOUIS 레시피로(DS-D-0084, DS-D-0083 2a)
+
+- **레시피 `.louis-video-player`.** 제품 `VideoPlayer` 의 크롬 한 벌을 한 파일(`video-player.css`)로 — 루트(`data-tone` · `data-chrome` ·
+  `data-surface="stage"`) · 영상 · 가운데(재생 58 · 스킵 48, 사이 `clamp(28px, 12%, 52px)`) · 하단 줄(알약 32 · 좌우 12 · 사이 10, 진행 막대 히트 20 ·
+  트랙 3 → 5 · 썸 12) · 칩 32(볼륨 · 확대 · 다운로드) · 볼륨 칩과 세로 패널(`__volume`, `data-open` · `data-intent="hover"`, 높이 64~112).
+  층은 칠 순서다(숫자 z-index 없음). 행동은 제품 몫이고 React 표면은 옮기지 않았다 — web `not-ready` → `partial`.
+- **유리는 하나다.** 다섯 표면이 면 `media-control-surface` · 헤어라인 · 흐림을 나눠 쓴다. `data-tone` 은 잉크만 바꾼다.
+- **YouTube 미리보기 `data-platform="youtube"`.** 업로드 전 재현 — 떠 있는 알약 셋 · 진행 4 → 6 · 플랫폼 빨강 재생분 · 가로 볼륨 0 ↔ 62 ·
+  무대 최대 360(≤719 에서 300). 축 이름이 `chrome` 이 아닌 것은 `Chrome` 이 이미 표시 상태의 이름이기 때문이다.
+- **새 토큰 일곱.** 시맨틱 색 넷 — `color-media-control-surface-hover`(`static-black-alpha-40`, 두 mode) · `color-media-control-foreground-bright`
+  (`static-pure-black-alpha-88`) · `color-platform-youtube-accent`(원시 `youtube-red` `#ff0033`) · `color-platform-youtube-rail`(`static-black-alpha-56`),
+  흐림 역할 `blur-media-control`(원시 `blur.2` = 2px). hover 는 **틴트를 진하게** 한다 — 카드 · 배너의 `media-control-hover`(흰 12% 로 갈아 끼움)와
+  방향이 반대라 이름을 갈랐다. 중간 회색 영상 위 시간 글자 쉼 4.85 · hover 5.77(흰 12% 였다면 2.78).
+- **고쳐 올린 것.** 진행 막대 펼침을 호버 기기의 `:hover` + 누르는 동안의 `:active` 로(제품은 터치에서 탭 뒤 펼침이 남았다). YouTube 판의
+  장식 버튼 넷을 `aria-hidden` 장식으로(탭 정지 넷이 사라진다), 두 슬라이더에 플레이어 키 계약을, 진행 값을 초로.
+- **보이는 변화(제품이 클래스를 입을 때).** 다운로드 버튼이 검정 32% 면에서 칩 유리로, bright 유리 틴트가 순검정에서 `#171b22` 로(채널당 ≤ 9.5/255),
+  모션이 모션 토큰으로(240 → 300 · 120/140 → 160 · 흐림 520 + 60 → 360).
+- **문서의 낡은 사실을 고쳤다.** 834줄 · 소비처 8 → 1231줄 · 9 파일 12 자리, 「dark 톤은 근사」 → `static-black-alpha-28` 이 정확히 같다(근사는 bright),
+  슬라이더 포커스 윤곽 `2px currentColor` → 제품에 없다(DS-D-0074 를 따른다), 3D 모델 칩 → 작업 브랜치에서만, 홀로 선 확대 칩 → 정의만 있다(호출 0).
+- 소유자 판정 열넷과 막힘 셋은 초안의 기본값으로 — DS-D-0084 「video-player 에서 기본값으로 정한 판단」. 실브라우저 시험
+  `video-player-recipe.browser.test.tsx`(기하 · 상태 · 볼륨 · 홀로 선 칩 · YouTube 판 · 대비). Figma 의 볼륨 · hover · 플랫폼 변형과 새 변수는 다음이다(figma `partial` 그대로).
+
 ## 2026-10-13 (249) — 하이라이트 트랙 · 무대 아래 막대를 새 부품 `segment-track` 으로(DS-D-0084, DS-D-0083 2b)
 
 - **새 부품 `segment-track`.** 원본 영상의 시간축 위 구간 트랙 한 벌을 한 레시피로 — 틀(올린 면 · 줄 머리 96 격자) · 눈금(28, 시각 글자 닻 ·

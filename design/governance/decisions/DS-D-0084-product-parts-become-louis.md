@@ -71,7 +71,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 판정 | 수 | 처리 |
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
-| 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼) |
+| 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼). video-player 크롬 레시피 · 볼륨(B2 #60) · YouTube 미리보기(B2 O19)는 섰다((250) — 아래 기본값 표) |
 | 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
@@ -114,7 +114,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 모션 메타 | `motion-tab-select` 에 translate 만. scale · 크기는 lifecycle 규칙이 막아 전이로 둔다 | lifecycle 을 고쳐 연다 |
 | 차트 점 · 미디어 위 점 | `gray-000-alpha-12` 로 접음 | `color-canvas-dot-on-media` |
 | 넓은 대화 | `data-size="compare"` · 반경 유도값 20 | `xlarge` · 24 |
-| 미룬 것 | 라이트박스 버튼(`lightbox` 회차) · 타임라인 푸터 · canvas-edge 삭제 · 플레이어 볼륨 · stat-tile cell(어드민 뒤) | — |
+| 미룬 것 | 라이트박스 버튼(`lightbox` 회차) · 타임라인 푸터 · canvas-edge 삭제 · 플레이어 볼륨(섰다, (250)) · stat-tile cell(어드민 뒤) | — |
 
 ## segment-track 에서 기본값으로 정한 판단(2026-10-13)
 
@@ -132,6 +132,31 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 칸 상태 속성 | `data-look` 하나(candidate · selected · clip · short) | 제품처럼 `data-included` + `data-state` |
 | 숏폼 칸 글자 3.37 | Button primary 의 소유자 수용 편차를 따른다 | 이 칸만 다른 짝 |
 
+## video-player 에서 기본값으로 정한 판단(2026-10-13)
+
+비디오 플레이어 크롬(Updates (250), DS-D-0083 2a)은 기존 컴포넌트라 새 Decision 이 필요 없었고, 초안(`scratchpad/promote/video-player.md`,
+작업 폴더)이 남긴 막힘 셋(아래 1 · 3 · 4)과 소유자 판정 열넷을 소유자 지시로 초안의 기본값으로 정했다. 뒤집으면 레시피 · 토큰 한 곳을 고친다.
+
+| 판단 | 기본값 | 대안 |
+| --- | --- | --- |
+| 1 hover 시맨틱(막힘) | 새 `media-control-surface-hover` = `static-black-alpha-40`, 틴트를 진하게(시간 글자 4.85 → 5.77) | 기존 `media-control-hover`(흰 12% 로 갈아 끼움, 2.78) · hover 없음 |
+| 2 bright 유리 틴트 | 두 톤 모두 `media-control-surface`(`#171b22`)로 접음(채널당 ≤ 9.5/255) | `-surface-bright` · `-hover-bright`(순검정 28 · 40) 두 칸 |
+| 3 유리 칩 소유(막힘) | 플레이어 소유 `__chip` + 밖에서는 `data-standalone`(앵커에서 밖 소비처 0) | 별개 부품(`media-chip` · IconButton 미디어 변형) · 소비처마다 값 |
+| 4 흐림 2px(막힘) | 원시 `blur.2` + 역할 `blur-media-control`(뒤를 남기는 얕은 흐림, 사다리의 새 단이 아니다) | `blur-surface`(10)로 접기 · 흐림 없음 |
+| 5 하이라이트 크게 보기 버튼(36 알약 · 검정 56%) | `__chip[data-standalone]`(32 · 12 · 28%)로 접음 — 제품 (나) | 별개로 둔다(IconButton 미디어 변형 판정과 함께) |
+| 6 다운로드 버튼 면 | 칩 유리로 접음 — 보이는 변화 | 제품 값(검정 32% · 흰 80% · `brightness(125%)`)에 시맨틱 둘 |
+| 7 크게 보기 모달의 틀 | Dialog 배경막(`dim-modal`) + 닫기 `__chip[data-standalone]` — 배경이 조금 더 어두워진다 | 제품 값(`gray-900/48%` · 닫기 36 원)을 레시피 `__expand` 로 |
+| 8 모션 | 240 → `content-fade` · 120/140/160 → `control-hover` · 흐림 520 + 60 지연 → `content-rise` | 제품 ms 리터럴 |
+| 9 React 표면 | 이번에는 CSS 만 — 제품 `VideoPlayer` 가 클래스를 입는다(web `partial`) | `packages/react` 에 `VideoPlayer` 를 함께 |
+| 10 터치에서 진행 막대 펼침 | `:active` 로 누르는 동안 펼침 + 호버는 호버 기기만 | 호버 기기에서만(터치에서 썸이 영영 안 보인다) |
+| 11 스크림 | 옮기지 않는다(켜는 분기 없음) — 제품에서 지운다 | `__scrim` 을 남긴다 |
+| 12 YouTube 판을 LOUIS 에 | `data-platform="youtube"` 변형(장식 · 키 부채를 함께 고친다) | 화면에 둔다(플랫폼 재현은 부품이 아니다) |
+| 13 플랫폼 빨강 | 원시 `youtube-red`(`#ff0033`) + 시맨틱 `platform-youtube-accent` · 레일 `platform-youtube-rail`(`static-black-alpha-56`) | `red-500`(`#ff4b59`)로 접기 |
+| 14 축 이름 | `data-platform` | B2 의 `data-chrome="youtube"`(`Chrome` 은 표시 상태의 이름이다) |
+
+초안이 남긴 작은 판단 하나도 기본값을 벗어났다 — YouTube 판의 받은 분 변수 `--louis-video-player-buffer` 는 `var(…, 0)` 폴백 대신
+저작 규칙(지역 커스텀 속성은 루트에 선언)을 따라 루트에 선언했다.
+
 ## Rollback
 
-생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). 방침(1~5)은 소유자 지시라 되돌리지 않는다.
+생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). video-player 레시피와 새 토큰 일곱도 같다 — 제품이 클래스를 입기 전에는 소비처가 없다. 방침(1~5)은 소유자 지시라 되돌리지 않는다.

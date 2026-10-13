@@ -14,6 +14,7 @@
   /* 흐림 — blur-*, backdrop-blur-* 유틸리티가 된다 */
   --blur-glass: var(--louis-blur-glass);
   --blur-header: var(--louis-blur-header);
+  --blur-media-control: var(--louis-blur-media-control);
   --blur-panel: var(--louis-blur-panel);
   --blur-surface: var(--louis-blur-surface);
   --blur-toast: var(--louis-blur-toast);
@@ -141,8 +142,10 @@
   --color-media-badge-foreground-warning: var(--louis-color-media-badge-foreground-warning);
   --color-media-badge-surface: var(--louis-color-media-badge-surface);
   --color-media-control-foreground: var(--louis-color-media-control-foreground);
+  --color-media-control-foreground-bright: var(--louis-color-media-control-foreground-bright);
   --color-media-control-hover: var(--louis-color-media-control-hover);
   --color-media-control-surface: var(--louis-color-media-control-surface);
+  --color-media-control-surface-hover: var(--louis-color-media-control-surface-hover);
   --color-media-foreground-bright: var(--louis-color-media-foreground-bright);
   --color-media-foreground-bright-soft: var(--louis-color-media-foreground-bright-soft);
   --color-media-foreground-dark: var(--louis-color-media-foreground-dark);
@@ -228,6 +231,8 @@
   --color-node-youtube-accent: var(--louis-color-node-youtube-accent);
   --color-node-youtube-icon: var(--louis-color-node-youtube-icon);
   --color-node-youtube-surface: var(--louis-color-node-youtube-surface);
+  --color-platform-youtube-accent: var(--louis-color-platform-youtube-accent);
+  --color-platform-youtube-rail: var(--louis-color-platform-youtube-rail);
   --color-progress-fill: var(--louis-color-progress-fill);
   --color-progress-ring-fill: var(--louis-color-progress-ring-fill);
   --color-progress-ring-track: var(--louis-color-progress-ring-track);

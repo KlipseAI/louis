@@ -565,7 +565,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "video-player",
     figmaName: "MediaScrubber",
-    figmaAhead: "LOUIS recipe 없음 — apps/web/components/ui/VideoPlayer.tsx 의 진행 바가 정본이다.",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/video-player.css 의 `__scrubber` 가 정본이다(2026-10-13, DS-D-0083 2a). 행동은 제품 VideoPlayer.tsx 가 계속 갖고 클래스를 입는다.",
     variantProperties: {},
     figmaOnlyProperties: {
       State: {
@@ -580,7 +580,7 @@ const COMPONENT_CONTRACTS = [
   {
     id: "video-player",
     figmaName: "VideoPlayer",
-    figmaAhead: "LOUIS recipe 없음 — 제품 VideoPlayer.tsx 가 정본이고 소비처가 8곳이다.",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/video-player.css 가 정본이다(2026-10-13, DS-D-0083 2a). 행동은 제품 VideoPlayer.tsx(9 파일 · 12 자리)가 계속 갖고 클래스를 입는다.",
     variantProperties: {},
     // **스킨 축이 없다.** 제품에 두 벌이 있었고 그중 한 벌만 여덟 자리 중 일곱에서 쓰였다 —
     // 나머지 한 자리(PublishFlow)도 같은 조형으로 통합해 지금은 플레이어가 하나다.

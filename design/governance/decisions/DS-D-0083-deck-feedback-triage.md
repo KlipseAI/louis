@@ -39,7 +39,7 @@ authority: normative
 | 1a 사진 위 상태 배지 | (가) | `.louis-badge[data-surface="media"]` + `media-badge-*` 시맨틱 여섯 |
 | 1b 카드 썸네일 글자 띠 | (가) | `.louis-project-card-overlay[data-ink="on-dark\|on-bright"]` + `media-foreground-bright-soft` |
 | 1c 카드 더보기 버튼 | (나) | 없음 — 레시피 inset 이 이미 8 이다 |
-| 2a 비디오 플레이어 크롬 | (가), 다음 작업 | 없음 — 막힘 셋이 남았다(아래) |
+| 2a 비디오 플레이어 크롬 | (가) | 레시피 `.louis-video-player`(볼륨 `__volume` · `data-platform="youtube"` · `data-standalone` 칩) — 막힘 셋은 기본값으로(DS-D-0084), Updates (250) |
 | 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) → (가) DS-D-0084 | 새 부품 `.louis-segment-track` + 짝 블록 `.louis-stage-bar`(무대는 기존 `drop-zone[data-surface="media"]`) — Updates (249) |
 | 2c AI 프롬프트 후보 카드 | (다) → (가) DS-D-0084 | 새 부품 `.louis-prompt-variant`(`data-layout` card · column) — Updates (248) |
 | 2d-1 TTS 오디오 칸 | (가), 다음 작업 | 없음 — 슬라이더 접근성 계약을 새로 가진다 |
@@ -121,6 +121,8 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
   CSS 를 세우는 일이다. 막힘은 셋이다 — hover 시맨틱이 없다, 유리 칩의 소유(플레이어 대 소비처)가 정해지지 않았다,
   흐림 2px 가 흐림 사다리 밖이다. `video-player.md` 가 적은 다크 근사 · 834줄 · 소비처 8 은 지금 사실이 아니다
   (`static-black-alpha-28` 이 정확히 맞고, 제품은 1234줄 · 9 파일이다).
+  **2026-10-13 섰다(Updates (250))** — 막힘 셋은 초안의 기본값으로: hover 는 새 시맨틱 `media-control-surface-hover`(틴트를 진하게),
+  유리 칩은 플레이어가 소유(`data-standalone`), 흐림 2px 는 역할 이름 `blur-media-control`. 통합 판에서 다시 센 제품은 1231줄 · 9 파일 12 자리다.
 - 2d-1 TTS 오디오 칸: 소비처 둘(TtsNode · BgmNode)이 같은 상수를 복사했고 이미 갈렸다(포커스 링이 BgmNode
   `:421-422` 에만 있다). `role="slider"` 접근성 계약을 새로 갖는 부품이라 따로 세운다.
 

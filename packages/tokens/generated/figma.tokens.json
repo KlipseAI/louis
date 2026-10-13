@@ -575,6 +575,34 @@
             }
           }
         },
+        "blur-2": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/2",
+          "hiddenFromPublishing": true,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "unit": "px",
+                "value": 2
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "primitive.blur.2"
+            }
+          }
+        },
         "border-width-default-base": {
           "$type": "dimension",
           "fields": [],
@@ -6291,6 +6319,45 @@
                 ]
               },
               "sourcePath": "primitive.color.yellow.900"
+            }
+          }
+        },
+        "color-youtube-red": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/youtube/red",
+          "hiddenFromPublishing": true,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Base": {
+              "$value": {
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0,
+                  0.2
+                ],
+                "hex": "#ff0033"
+              },
+              "aliasTarget": null,
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0,
+                  0.2
+                ]
+              },
+              "sourcePath": "primitive.color.youtube.red"
             }
           }
         },
@@ -12097,6 +12164,34 @@
                 "value": 12
               },
               "sourcePath": "semantic.global.blur.header"
+            }
+          }
+        },
+        "blur-media-control": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "blur/media-control",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.blur.2}",
+              "aliasTarget": {
+                "id": "blur-2",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 2
+              },
+              "sourcePath": "semantic.global.blur.media-control"
             }
           }
         },
@@ -23680,6 +23775,57 @@
             }
           }
         },
+        "color-media-control-foreground-bright": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-control-foreground-bright",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-pure-black-alpha.88}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-88",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.88,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-control-foreground-bright"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.88}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-88",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.88,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-control-foreground-bright"
+            }
+          }
+        },
         "color-media-control-hover": {
           "$type": "color",
           "fields": [],
@@ -23779,6 +23925,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.media-control-surface"
+            }
+          }
+        },
+        "color-media-control-surface-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-control-surface-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-black-alpha.40}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-40",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.4,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-control-surface-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.40}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-40",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.4,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-control-surface-hover"
             }
           }
         },
@@ -28114,6 +28311,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-youtube-surface"
+            }
+          }
+        },
+        "color-platform-youtube-accent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/platform-youtube-accent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.youtube.red}",
+              "aliasTarget": {
+                "id": "color-youtube-red",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0,
+                  0.2
+                ]
+              },
+              "sourcePath": "semantic.dark.color.platform-youtube-accent"
+            },
+            "Light": {
+              "$value": "{primitive.color.youtube.red}",
+              "aliasTarget": {
+                "id": "color-youtube-red",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0,
+                  0.2
+                ]
+              },
+              "sourcePath": "semantic.light.color.platform-youtube-accent"
+            }
+          }
+        },
+        "color-platform-youtube-rail": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/platform-youtube-rail",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-black-alpha.56}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-56",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.56,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.platform-youtube-rail"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-black-alpha.56}",
+              "aliasTarget": {
+                "id": "color-static-black-alpha-56",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.56,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.light.color.platform-youtube-rail"
             }
           }
         },

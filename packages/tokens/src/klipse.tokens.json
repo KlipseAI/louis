@@ -2844,6 +2844,26 @@
           }
         }
       },
+      "youtube": {
+        "$type": "color",
+        "red": {
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              0,
+              0.2
+            ],
+            "hex": "#ff0033"
+          },
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-youtube-red",
+              "tier": "primitive"
+            }
+          }
+        }
+      },
       "node-handle-disabled-light": {
         "$type": "color",
         "green-bg": {
@@ -5479,6 +5499,18 @@
       "$type": "transition"
     },
     "blur": {
+      "2": {
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "$extensions": {
+          "com.klipse-design": {
+            "id": "blur-2",
+            "tier": "primitive"
+          }
+        }
+      },
       "10": {
         "$value": {
           "value": 10,
@@ -5671,6 +5703,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "blur-header",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
+        "media-control": {
+          "$value": "{primitive.blur.2}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "blur-media-control",
               "tier": "semantic",
               "mode": "global"
             }
@@ -8054,6 +8096,16 @@
             }
           }
         },
+        "media-control-foreground-bright": {
+          "$value": "{primitive.color.static-pure-black-alpha.88}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-control-foreground-bright",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "media-control-hover": {
           "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
@@ -8069,6 +8121,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-control-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-control-surface-hover": {
+          "$value": "{primitive.color.static-black-alpha.40}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-control-surface-hover",
               "tier": "semantic",
               "mode": "light"
             }
@@ -8719,6 +8781,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-youtube-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "platform-youtube-accent": {
+          "$value": "{primitive.color.youtube.red}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-platform-youtube-accent",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "platform-youtube-rail": {
+          "$value": "{primitive.color.static-black-alpha.56}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-platform-youtube-rail",
               "tier": "semantic",
               "mode": "light"
             }
@@ -10449,6 +10531,16 @@
             }
           }
         },
+        "media-control-foreground-bright": {
+          "$value": "{primitive.color.static-pure-black-alpha.88}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-control-foreground-bright",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "media-control-hover": {
           "$value": "{primitive.color.static-white-alpha.12}",
           "$extensions": {
@@ -10464,6 +10556,16 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-media-control-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-control-surface-hover": {
+          "$value": "{primitive.color.static-black-alpha.40}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-control-surface-hover",
               "tier": "semantic",
               "mode": "dark"
             }
@@ -11114,6 +11216,26 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-youtube-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "platform-youtube-accent": {
+          "$value": "{primitive.color.youtube.red}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-platform-youtube-accent",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "platform-youtube-rail": {
+          "$value": "{primitive.color.static-black-alpha.56}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-platform-youtube-rail",
               "tier": "semantic",
               "mode": "dark"
             }

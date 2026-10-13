@@ -13943,6 +13943,712 @@ details[open] > .louis-record-card__head .louis-record-card__chevron {
   inset-block-start: var(--louis-transform-frame-edge-end);
 }
 
+/* Video Player — design/components/video-player.md
+ *
+ * 영상 위 재생 크롬(DS-D-0084, DS-D-0083 2a). 제품 정본은 `VideoPlayer.tsx` · `VideoPlayerVolume.tsx` · `videoPlayerChrome.ts`
+ * (통합 판 `54b62a8aa`). 행동(자동 숨김 · 소리 저장소 · 키 계약 · 크게 보기 모달 · 캔버스 경계)은 소비처 몫이고 문서가 계약을 갖는다.
+ *
+ * **유리는 하나다.** 재생 · 스킵 · 알약 · 칩 · 볼륨 패널이 같은 면(틴트 28%, hover 40%) · 헤어라인 · 흐림을 나눠 쓴다(VP:72-75).
+ * 톤(`data-tone`)은 **잉크만** 바꾼다 — bright 는 밝은 유리가 아니다(문서 「함정」).
+ *
+ * **hover 는 틴트를 진하게 한다.** 카드 · 배너의 `media-control-hover`(흰 12% 로 갈아 끼움)와 방향이 반대다 — 알약에는 계속 읽히는
+ * 시간 글자가 있어, 밝게 갈아 끼우면 중간 회색 영상 위에서 4.5 아래로 떨어진다. 그래서 이름이 다른 시맨틱(`-surface-hover`)을 쓴다.
+ *
+ * **층은 칠 순서다.** 숫자 z-index 없이 마크업 차례가 층을 정한다: 영상 → 가운데 → 하단 줄 → 다운로드. 루트의 `isolation` 이 그 쌓임을
+ * 플레이어 안에 가둔다(제품 `z-0 · z-[4] · z-[6]`, VP:105 · :126 · :224).
+ *
+ * 같은 파일 끝의 `data-platform="youtube"` 는 업로드 전 「YouTube 에서 이렇게 보인다」 재현이다 — 행동(키 계약 포함)은 같고 겉모습만
+ * 플랫폼을 따른다(YoutubeUploadModal.tsx:104-228). `Chrome` 은 표시 상태의 이름이라 축 이름이 `platform` 이다. */
+
+.louis-video-player {
+  /* ── 소비처가 주는 값 ── */
+  /* 재생 위치 · 받은 분(YouTube 판) · 보이는 볼륨 수준 — 모두 0~100(음소거면 볼륨 0). */
+  --louis-video-player-progress: 0;
+  --louis-video-player-buffer: 0;
+  --louis-video-player-volume: 0;
+  /* 펼친 볼륨 패널의 높이 64~112 — 칩 위에 남은 높이를 펼치는 순간 소비처가 잰다(VPV:86-88). */
+  --louis-video-player-volume-length: 112px;
+  /* 비율 · 맞춤 — 제품 `--vp-aspect-override` · `--vp-object-fit`(VP:85 · :101). */
+  --louis-video-player-aspect: auto;
+  --louis-video-player-fit: cover;
+  /* 거친 포인터의 볼륨 칩 히트 — 캔버스 셸은 배율을 나눈 값으로 덮는다(제품 `--node-touch-hit`, VPC:46-55). */
+  --louis-video-player-touch-hit: var(--louis-layout-control-hit-target-minimum);
+
+  /* ── 레시피 내부 ── 톤 · 표시 상태 · 플랫폼은 이 넷만 바꾼다. */
+  --louis-video-player-ink: var(--louis-color-media-control-foreground);
+  --louis-video-player-glass: var(--louis-color-media-control-surface);
+  --louis-video-player-glass-hover: var(--louis-color-media-control-surface-hover);
+  --louis-video-player-blur: var(--louis-blur-media-control);
+
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  aspect-ratio: var(--louis-video-player-aspect);
+  overflow: hidden;
+  border-radius: inherit;
+  color: var(--louis-video-player-ink);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.louis-video-player[data-tone="bright"] {
+  --louis-video-player-ink: var(--louis-color-media-control-foreground-bright);
+}
+
+/* 무대 판 — 검은 판 위에 영상 전체를 담는다(contain). 크게 보기 모달 · 하이라이트 합성 미리보기(VP:289-296, CompositeSegmentPreview.tsx:53-58). */
+.louis-video-player[data-surface="stage"] {
+  --louis-video-player-fit: contain;
+  background: var(--louis-color-media-stage-surface);
+}
+
+/* 크롬 숨김 — 재생 중 2.5초 뒤 소비처가 단다. 조작부는 사라지고 포인터를 받지 않으며, 유리의 흐림도 0 으로 풀린다(VPC:67). */
+.louis-video-player[data-chrome="hidden"] {
+  --louis-video-player-blur: 0px;
+}
+
+.louis-video-player[data-chrome="hidden"] > :is(.louis-video-player__center, .louis-video-player__bottom) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.louis-video-player__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: var(--louis-video-player-fit);
+  border-radius: inherit;
+  -webkit-user-drag: none;
+}
+
+/* ── 유리 ── 다섯 표면이 한 면을 쓴다. */
+.louis-video-player__play,
+.louis-video-player__skip,
+.louis-video-player__bar,
+.louis-video-player__chip,
+.louis-video-player__volume-surface {
+  background: var(--louis-video-player-glass);
+  box-shadow: var(--louis-hairline-inset);
+  backdrop-filter: blur(var(--louis-video-player-blur));
+}
+
+/* ── 가운데 크롬 ── 스킵 ← 재생 → 스킵. */
+.louis-video-player__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 28~52 — 플레이어 폭의 12%(VP:127). 작은 노드 카드에서 버튼끼리 붙지 않고 모달에서 벌어지지 않게. */
+  gap: clamp(28px, 12%, 52px);
+  transition: opacity var(--louis-motion-content-fade-duration) var(--louis-motion-content-fade-timing-function);
+}
+
+.louis-video-player__play,
+.louis-video-player__skip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  color: inherit;
+  line-height: 0;
+  cursor: pointer;
+  transition:
+    background-color var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    transform var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    backdrop-filter var(--louis-motion-content-rise-duration) var(--louis-motion-content-rise-timing-function);
+}
+
+/* 58 — 제품 `w-29 h-29`(VP:143). 사다리에 없다. 글리프 재생 34 · 일시정지 30. */
+.louis-video-player__play {
+  inline-size: 58px;
+  block-size: 58px;
+}
+
+/* 48 — 제품 `w-24 h-24`(VP:132). 글리프 22. */
+.louis-video-player__skip {
+  inline-size: 48px;
+  block-size: 48px;
+}
+
+/* ── 하단 줄 ── 알약 → 볼륨 칩 → 확대 칩. 줄이 좁아지면 알약이 먼저 준다(칩은 줄지 않는다). */
+.louis-video-player__bottom {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-control-sm);
+  /* 위 6 · 좌우 8 · 아래 8 — 제품 `pt-3 px-4 pb-4`(VP:158). 위 6 은 칩 · 패널 틈(8)보다 얕다. */
+  padding: 6px var(--louis-space-control-sm) var(--louis-space-control-sm);
+  transition: opacity var(--louis-motion-content-fade-duration) var(--louis-motion-content-fade-timing-function);
+}
+
+/* 알약 — 시간 · 진행 막대 · 남은 시간. 높이 · 곡률이 칩과 같아 한 줄에 나란히 선다. hover 면 변화가 없다(VP:171-178). */
+.louis-video-player__bar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* 10 — 제품 `gap-5`(VP:172). */
+  gap: 10px;
+  inline-size: 100%;
+  min-inline-size: 0;
+  block-size: var(--louis-layout-control-height-md);
+  padding-inline: var(--louis-space-control-md);
+  border-radius: var(--louis-radius-control);
+  transition: backdrop-filter var(--louis-motion-content-rise-duration) var(--louis-motion-content-rise-timing-function);
+}
+
+.louis-video-player__time {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  /* 1 — 32 알약 안에서 글자를 정확히 가운데 둔다(VP:180-182). */
+  line-height: 1;
+}
+
+/* ── 진행 막대 ── `role="slider"` div. 히트 20 안에 트랙 3. 트랙 · 채움 · 썸이 알약의 글자색(currentColor)을 따른다 — 톤이 잉크만 바꿔도
+ * 함께 온다. 포커스 링은 그리지 않는다 — 전역 규칙(DS-D-0074)이 소유한다. */
+.louis-video-player__scrubber {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-inline-size: 0;
+  /* 20 — 제품 `h-10`(VP:185). */
+  block-size: 20px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.louis-video-player__scrubber[aria-disabled="true"] {
+  cursor: default;
+}
+
+.louis-video-player__scrubber-track {
+  position: relative;
+  inline-size: 100%;
+  /* 3 → 5 — 제품 `h-[3px]` · `h-[5px]`(VP:196 · :198). */
+  block-size: 3px;
+  overflow: hidden;
+  border-radius: var(--louis-radius-pill);
+  background: color-mix(in srgb, currentcolor 28%, transparent);
+  transition: block-size var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-video-player__scrubber-fill {
+  position: relative;
+  inline-size: calc(var(--louis-video-player-progress)*1%);
+  block-size: 100%;
+  border-radius: inherit;
+  background: currentcolor;
+}
+
+.louis-video-player__scrubber-thumb {
+  position: absolute;
+  inset-block-start: 50%;
+  left: calc(var(--louis-video-player-progress)*1%);
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 50%;
+  background: currentcolor;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function);
+}
+
+/* 펼침 — 바깥 히트 하나가 소유한다(트랙 · 썸에는 반응이 없다). 누르는 동안(:active)도 펼친다: 호버가 없는 터치에서
+ * 끄는 동안 썸이 보이게. 제품은 가드 없는 `:hover` 라 터치에서 탭 뒤 펼침이 남았다(VP:47-49). */
+.louis-video-player__scrubber:active > .louis-video-player__scrubber-track {
+  block-size: 5px;
+}
+
+.louis-video-player__scrubber:active > .louis-video-player__scrubber-thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ── 칩 ── 볼륨 · 확대 · 다운로드가 같은 모양 · 같은 크기 · 같은 눌림. 글리프 16 · 획 2. */
+.louis-video-player__chip {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-control);
+  color: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    transform var(--louis-motion-control-hover-duration) var(--louis-motion-control-hover-timing-function),
+    backdrop-filter var(--louis-motion-content-rise-duration) var(--louis-motion-content-rise-timing-function);
+}
+
+/* 홀로 선 칩 — 플레이어 밖(영상 · 이미지 위)에서 같은 칩을 쓸 때. 유리 · 잉크 · 흐림을 칩이 스스로 들고, 크롬 표시 여부가 없으니
+ * 흐림은 늘 켠다(VP:309-310). */
+.louis-video-player__chip[data-standalone="true"] {
+  --louis-video-player-ink: var(--louis-color-media-control-foreground);
+  --louis-video-player-glass: var(--louis-color-media-control-surface);
+  --louis-video-player-glass-hover: var(--louis-color-media-control-surface-hover);
+  --louis-video-player-blur: var(--louis-blur-media-control);
+  color: var(--louis-video-player-ink);
+}
+
+/* 다운로드 — 오른쪽 위 10. 칩과 같은 면으로 접는다(제품은 검정 32% · 흰 80%, 문서 Known deviations).
+ * 마크업에서 하단 줄 뒤에 두어 가운데 크롬 위에 칠한다. 크롬 숨김과 무관하게 늘 보인다(제품과 같다). */
+.louis-video-player__download {
+  position: absolute;
+  /* 10 — 제품 `top-5 right-5`(VP:214). */
+  inset-block-start: 10px;
+  inset-inline-end: 10px;
+}
+
+/* ── 볼륨 ── 칩 한 칸. 패널은 늘 칩 위로, 세로로 펼친다 — 흐름 밖이라 알약을 밀지 않는다(VPV:68-71).
+ * DOM 차례는 칩 → 패널(그림 차례는 반대). 칩과 패널 사이 틈 8 은 패널의 히트 박스가 덮는다(VPV:80-81).
+ * `data-open` · `data-intent` 는 소비처가 단다. 가용 조건(마우스 · 트랙패드 · `:volume-locked` 아님)이 거짓이면 패널을 그리지 않는다 —
+ * 레시피는 패널이 없을 때 칩만으로 완결된다. */
+.louis-video-player__volume {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
+}
+
+.louis-video-player__volume-panel {
+  position: absolute;
+  inset-block-end: 100%;
+  left: 50%;
+  translate: -50% 0;
+  inline-size: var(--louis-layout-control-height-md);
+  /* 8 — 칩과의 틈. 하단 줄의 알약 ↔ 칩 간격과 같다(VPV:89-90). */
+  padding-block-end: var(--louis-space-control-sm);
+  pointer-events: none;
+}
+
+.louis-video-player__volume[data-open="true"] > .louis-video-player__volume-panel {
+  pointer-events: auto;
+}
+
+.louis-video-player__volume-surface {
+  position: relative;
+  inline-size: var(--louis-layout-control-height-md);
+  block-size: 0;
+  overflow: hidden;
+  border-radius: var(--louis-radius-control);
+  transition:
+    block-size var(--louis-motion-layout-change-duration) var(--louis-motion-layout-change-timing-function),
+    backdrop-filter var(--louis-motion-content-rise-duration) var(--louis-motion-content-rise-timing-function);
+}
+
+.louis-video-player__volume[data-open="true"] .louis-video-player__volume-surface {
+  block-size: var(--louis-video-player-volume-length);
+}
+
+/* 호버만으로 열 때는 컨트롤 호버 한 박자를 기다린다 — 확대 칩으로 가며 스쳐 지나가도 슬라이더가 튀어 오르지 않게(VPV:114-118).
+ * 키보드 포커스 · 끌기로 열 때와 닫을 때는 소비처가 `data-intent` 를 달지 않는다. */
+.louis-video-player__volume[data-open="true"][data-intent="hover"] .louis-video-player__volume-surface {
+  transition-delay: var(--louis-motion-control-hover-duration);
+}
+
+.louis-video-player__volume-slider {
+  position: absolute;
+  inset-inline: 0;
+  inset-block: var(--louis-space-control-sm);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.louis-video-player__volume-track {
+  position: relative;
+  /* 3 — 진행 막대의 쉼 트랙과 같다. hover 확장이 없다(열린 동안 늘 보인다). */
+  inline-size: 3px;
+  block-size: 100%;
+  overflow: hidden;
+  border-radius: var(--louis-radius-pill);
+  background: color-mix(in srgb, currentcolor 28%, transparent);
+}
+
+.louis-video-player__volume-fill {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: calc(var(--louis-video-player-volume)*1%);
+  border-radius: inherit;
+  background: currentcolor;
+}
+
+.louis-video-player__volume-thumb {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--louis-video-player-volume)*1%);
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 50%;
+  background: currentcolor;
+  pointer-events: none;
+  transform: translate(-50%, 50%);
+}
+
+/* 거친 포인터 — 볼륨 칩만 화면 44 로 넓힌다. 확대 칩은 줄의 마지막이라 44 가 오른쪽 여백 8 을 넘겨 가로 넘침이 난다(VP:311-313).
+ * `.louis-hit-target`(base.css)이 `::after` 를 쓰는 것과 겹치지 않게 `::before` 다. */
+@media (pointer: coarse) {
+  .louis-video-player__volume > .louis-video-player__chip::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    inline-size: max(100%, var(--louis-video-player-touch-hit));
+    block-size: max(100%, var(--louis-video-player-touch-hit));
+  }
+}
+
+@media (hover: hover) {
+  .louis-video-player__scrubber:hover > .louis-video-player__scrubber-track {
+    block-size: 5px;
+  }
+
+  .louis-video-player__scrubber:hover > .louis-video-player__scrubber-thumb {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* 틴트를 진하게 — 밝게 갈아 끼우지 않는다. 알약은 hover 가 없다. */
+  :is(.louis-video-player__play, .louis-video-player__skip, .louis-video-player__chip):hover {
+    background: var(--louis-video-player-glass-hover);
+  }
+}
+
+/* 눌림 — 재생 · 스킵 0.96(VP:138 · :149), 칩 0.94(VPC:43). `node-chrome-button.css` 와 같은 두 값. */
+:is(.louis-video-player__play, .louis-video-player__skip):active {
+  transform: scale(0.96);
+}
+
+.louis-video-player__chip:active {
+  transform: scale(0.94);
+}
+
+/* ── 플랫폼 미리보기 — YouTube(`data-platform="youtube"`) ───────────────────
+ * 잉크는 늘 흰색(영상 위 고정), 유리는 `media-control-surface` + `blur-panel`(12), 재생분 · 점 · 배지만 플랫폼 빨강이다.
+ * 장식 넷(자동재생 · 자막 · 설정 · 미니플레이어)은 버튼이 아니다 — `__deco`(aria-hidden, 포인터 없음). */
+.louis-video-player[data-platform="youtube"] {
+  --louis-video-player-ink: var(--louis-color-media-foreground-dark);
+  --louis-video-player-blur: var(--louis-blur-panel);
+  display: grid;
+  place-items: center;
+  block-size: auto;
+  /* 360 — 제품 `max-h-180`(YUM:111). 업로드 모달 안 미리보기의 화면 값이다. */
+  max-block-size: 360px;
+  border-radius: var(--louis-radius-card);
+  background: var(--louis-color-media-stage-surface);
+}
+
+.louis-video-player[data-platform="youtube"][data-fullscreen="true"] {
+  max-block-size: none;
+  border-radius: 0;
+}
+
+.louis-video-player[data-platform="youtube"] > .louis-video-player__media {
+  position: static;
+  block-size: auto;
+  max-block-size: inherit;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.louis-video-player[data-platform="youtube"] > .louis-video-player__bottom {
+  inset-inline: var(--louis-space-control-md);
+  inset-block-end: var(--louis-space-control-md);
+  flex-direction: column;
+  align-items: stretch;
+  /* 6 — 제품 `gap-3`(YUM:130). */
+  gap: 6px;
+  padding: 0;
+}
+
+/* 진행 — 히트 16, 트랙 4 → 6, 받은 분 흰 40%, 재생분 · 점은 플랫폼 빨강. 점은 늘 보이고 호버에서 7/6 배. */
+.louis-video-player[data-platform="youtube"] .louis-video-player__scrubber {
+  flex: none;
+  block-size: var(--louis-space-control-lg);
+}
+
+.louis-video-player[data-platform="youtube"] .louis-video-player__scrubber-track {
+  block-size: var(--louis-space-control-xs);
+  background: var(--louis-color-platform-youtube-rail);
+}
+
+.louis-video-player__scrubber-buffer {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: calc(var(--louis-video-player-buffer)*1%);
+  background: color-mix(in srgb, currentcolor 40%, transparent);
+}
+
+.louis-video-player[data-platform="youtube"] .louis-video-player__scrubber-fill {
+  background: var(--louis-color-platform-youtube-accent);
+}
+
+.louis-video-player[data-platform="youtube"] .louis-video-player__scrubber-thumb {
+  background: var(--louis-color-platform-youtube-accent);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 컨트롤 줄 — [재생][볼륨 알약][시간 알약] …… [장식 · 전체화면 알약]. */
+.louis-video-player__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--louis-layout-control-height-lg);
+}
+
+.louis-video-player__controls-start {
+  display: flex;
+  align-items: center;
+  gap: var(--louis-space-control-md);
+  min-inline-size: 0;
+}
+
+/* 알약 — 높이 40 위 반경 28 은 끝이 둥근 알약이다(YUM:171) → `radius-pill`. */
+.louis-video-player__cluster {
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-video-player-glass);
+  backdrop-filter: blur(var(--louis-video-player-blur));
+}
+
+.louis-video-player__cluster[data-align="end"] {
+  /* 6 — 제품 `px-3`(YUM:168). */
+  padding-inline: 6px;
+}
+
+.louis-video-player__button,
+.louis-video-player__deco {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  inline-size: var(--louis-layout-control-height-lg);
+  block-size: var(--louis-layout-control-height-lg);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: transparent;
+  color: inherit;
+  /* 0.92 → 1 — 플랫폼의 쉼 · 호버(YUM:175 · :177). */
+  opacity: 0.92;
+}
+
+/* 글리프 30 — 제품 `[&_svg]:w-15`(YUM:176). */
+.louis-video-player__button > svg,
+.louis-video-player__deco > svg {
+  display: block;
+  inline-size: 30px;
+  block-size: 30px;
+}
+
+.louis-video-player__button {
+  cursor: pointer;
+}
+
+/* 장식 — 플랫폼에 있지만 여기서는 아무 일도 하지 않는 자리. 버튼이 아니다(aria-hidden, 포인터 없음). */
+.louis-video-player__deco {
+  pointer-events: none;
+}
+
+/* 설정 장식의 HD 배지 — 플랫폼 빨강 위 흰 글자, 0.78 로 줄인다(YUM:195-199). 장식 안이라 글자 대비 예외(1.4.3)다. */
+.louis-video-player__badge {
+  position: absolute;
+  inset-block-start: 1px;
+  inset-inline-end: -1px;
+  padding-inline: 3px;
+  /* 4 — 제품 `rounded-4`(YUM:196). 배지 한 칸이라 리터럴이다. */
+  border-radius: 4px;
+  background: var(--louis-color-platform-youtube-accent);
+  color: var(--louis-color-media-foreground-dark);
+  font-family: var(--louis-typography-caption-semibold-font-family);
+  font-size: var(--louis-typography-caption-semibold-font-size);
+  font-weight: var(--louis-typography-caption-semibold-font-weight);
+  line-height: var(--louis-typography-caption-semibold-line-height);
+  letter-spacing: var(--louis-typography-caption-semibold-letter-spacing);
+  transform: scale(0.78);
+  transform-origin: top right;
+}
+
+/* 재생 버튼은 면 없이 흐림만 — 플랫폼 그대로(YUM:180-183). */
+.louis-video-player__button[data-role="play"] {
+  backdrop-filter: blur(var(--louis-video-player-blur));
+}
+
+.louis-video-player__clock {
+  display: inline-flex;
+  align-items: center;
+  block-size: var(--louis-layout-control-height-lg);
+  /* 14 — 제품 `px-7`(YUM:187). */
+  padding-inline: 14px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* 구분 「 / 」은 흰 80% · Regular, 길이는 흰 100% · Regular(YUM:662-670). */
+.louis-video-player__clock-separator,
+.louis-video-player__clock-total {
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+}
+
+.louis-video-player__clock-separator {
+  color: color-mix(in srgb, currentcolor 80%, transparent);
+}
+
+/* 가로 볼륨 — 칩 옆으로 0 ↔ 62 펼친다(호버 · 끌기). 세로 패널과 다른 플랫폼 조형이다. */
+.louis-video-player__level {
+  inline-size: 0;
+  overflow: hidden;
+  transition: inline-size var(--louis-motion-layout-change-duration) var(--louis-motion-layout-change-timing-function);
+}
+
+.louis-video-player__cluster[data-open="true"] > .louis-video-player__level {
+  /* 62 — 슬라이더 48 + 왼쪽 6 + 오른쪽 8(YUM:208 · :211). */
+  inline-size: 62px;
+}
+
+.louis-video-player__level-slider {
+  position: relative;
+  inline-size: 48px;
+  block-size: var(--louis-layout-control-height-lg);
+  margin-inline: 6px var(--louis-space-control-sm);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.louis-video-player__level-slider::before,
+.louis-video-player__level-fill {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+  block-size: 3px;
+  translate: 0 -50%;
+}
+
+.louis-video-player__level-slider::before {
+  inset-inline-end: 0;
+  background: color-mix(in srgb, currentcolor 20%, transparent);
+}
+
+.louis-video-player__level-fill {
+  inline-size: calc(var(--louis-video-player-volume)*1%);
+  background: currentcolor;
+}
+
+.louis-video-player__level-thumb {
+  position: absolute;
+  inset-block-start: 50%;
+  left: calc(var(--louis-video-player-volume)*1%);
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 50%;
+  background: currentcolor;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) {
+  .louis-video-player[data-platform="youtube"] .louis-video-player__scrubber:hover > .louis-video-player__scrubber-track {
+    block-size: 6px;
+  }
+
+  .louis-video-player[data-platform="youtube"] .louis-video-player__scrubber:hover > .louis-video-player__scrubber-thumb {
+    transform: translate(-50%, -50%) scale(1.167);
+  }
+
+  .louis-video-player__button:hover {
+    opacity: 1;
+  }
+
+  .louis-video-player__cluster:hover > .louis-video-player__level {
+    inline-size: 62px;
+  }
+}
+
+@media (max-width: 719px) {
+  .louis-video-player[data-platform="youtube"] {
+    /* 300 — 제품 `max-h-150`(YUM:111 · :116). 제품 경계는 720 이하, LOUIS 표준 경계 719 로 맞춘다. */
+    max-block-size: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    .louis-video-player__center,
+    .louis-video-player__bottom,
+    .louis-video-player__play,
+    .louis-video-player__skip,
+    .louis-video-player__bar,
+    .louis-video-player__chip,
+    .louis-video-player__scrubber-track,
+    .louis-video-player__scrubber-thumb,
+    .louis-video-player__volume-surface,
+    .louis-video-player__level
+  ) {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+@media (forced-colors: active) {
+  :is(
+    .louis-video-player__play,
+    .louis-video-player__skip,
+    .louis-video-player__bar,
+    .louis-video-player__chip,
+    .louis-video-player__volume-surface,
+    .louis-video-player__cluster
+  ) {
+    box-shadow: none;
+    border: var(--louis-border-width-default) solid ButtonText;
+  }
+
+  :is(
+    .louis-video-player__scrubber-fill,
+    .louis-video-player__scrubber-thumb,
+    .louis-video-player__volume-fill,
+    .louis-video-player__volume-thumb,
+    .louis-video-player__level-fill,
+    .louis-video-player__level-thumb
+  ) {
+    background: ButtonText;
+    forced-color-adjust: none;
+  }
+}
+
 /* Document — design/patterns/document.md · DS-D-0067
  *
  * 보고서 · 운영안 · 제안서처럼 **스크롤로 읽는 문서**의 레시피다. 앱 화면이 아니다 — 누를 것이

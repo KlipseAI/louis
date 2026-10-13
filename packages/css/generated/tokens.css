@@ -287,6 +287,8 @@
   --louis-color-yellow-800-rgb: 122 82 0;
   --louis-color-yellow-900: color(srgb 0.298039 0.2 0 / 1);
   --louis-color-yellow-900-rgb: 76 51 0;
+  --louis-color-youtube-red: color(srgb 1 0 0.2 / 1);
+  --louis-color-youtube-red-rgb: 255 0 51;
   --louis-font-family-mono: "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
   --louis-font-family-sans: "Pretendard Variable", "Pretendard", "Inter", "Noto Sans KR", "Noto Sans JP", system-ui, sans-serif;
 }
@@ -304,6 +306,7 @@
   --louis-app-shell-min-width: 960px;
   --louis-blur-glass: 16px;
   --louis-blur-header: 12px;
+  --louis-blur-media-control: 2px;
   --louis-blur-panel: 12px;
   --louis-blur-surface: 10px;
   --louis-blur-toast: 16px;
@@ -438,8 +441,10 @@
   --louis-color-media-badge-foreground-warning: color(srgb 1 0.760784 0.2 / 1);
   --louis-color-media-badge-surface: color(srgb 0.168627 0.184314 0.211765 / 1);
   --louis-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);
+  --louis-color-media-control-foreground-bright: color(srgb 0 0 0 / 0.88);
   --louis-color-media-control-hover: color(srgb 0.980392 0.980392 0.980392 / 0.12);
   --louis-color-media-control-surface: color(srgb 0.090196 0.105882 0.133333 / 0.28);
+  --louis-color-media-control-surface-hover: color(srgb 0.090196 0.105882 0.133333 / 0.4);
   --louis-color-media-foreground-bright: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-media-foreground-bright-soft: color(srgb 0.090196 0.105882 0.133333 / 0.72);
   --louis-color-media-foreground-dark: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -525,6 +530,8 @@
   --louis-color-node-youtube-accent: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-node-youtube-icon: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-node-youtube-surface: color(srgb 1 0.768627 0.792157 / 1);
+  --louis-color-platform-youtube-accent: color(srgb 1 0 0.2 / 1);
+  --louis-color-platform-youtube-rail: color(srgb 0.090196 0.105882 0.133333 / 0.56);
   --louis-color-progress-fill: color(srgb 0 0.533333 1 / 1);
   --louis-color-progress-ring-fill: color(srgb 0 0.776471 0.556863 / 1);
   --louis-color-progress-ring-track: color(srgb 0.090196 0.105882 0.133333 / 0.2);
@@ -951,8 +958,10 @@
   --louis-color-media-badge-foreground-warning: color(srgb 1 0.760784 0.2 / 1);
   --louis-color-media-badge-surface: color(srgb 0.168627 0.184314 0.211765 / 1);
   --louis-color-media-control-foreground: color(srgb 0.980392 0.980392 0.980392 / 0.88);
+  --louis-color-media-control-foreground-bright: color(srgb 0 0 0 / 0.88);
   --louis-color-media-control-hover: color(srgb 0.980392 0.980392 0.980392 / 0.12);
   --louis-color-media-control-surface: color(srgb 0.090196 0.105882 0.133333 / 0.28);
+  --louis-color-media-control-surface-hover: color(srgb 0.090196 0.105882 0.133333 / 0.4);
   --louis-color-media-foreground-bright: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-media-foreground-bright-soft: color(srgb 0.090196 0.105882 0.133333 / 0.72);
   --louis-color-media-foreground-dark: color(srgb 0.980392 0.980392 0.980392 / 1);
@@ -1038,6 +1047,8 @@
   --louis-color-node-youtube-accent: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-node-youtube-icon: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-node-youtube-surface: color(srgb 0.517647 0.101961 0.141176 / 1);
+  --louis-color-platform-youtube-accent: color(srgb 1 0 0.2 / 1);
+  --louis-color-platform-youtube-rail: color(srgb 0.090196 0.105882 0.133333 / 0.56);
   --louis-color-progress-fill: color(srgb 0 0.533333 1 / 1);
   --louis-color-progress-ring-fill: color(srgb 0 0.776471 0.556863 / 1);
   --louis-color-progress-ring-track: color(srgb 0.980392 0.980392 0.980392 / 0.2);

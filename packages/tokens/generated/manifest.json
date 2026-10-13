@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "c7a1ea6ca1f4a022ed71bf1714e78a634a53bdc8c98eb4376270ad925ca51706"
+      "sha256": "4d9cbcb4a49b151d8e0b355a64d292de862e81cd947f5eaa6c8618716824f5b0"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "86e7fb04cbd8c304efb5b5d22b17431bafcbdb5cbc79780891115b7c3ed0fcdd"
+      "sha256": "d6a2cad53712dd836abc82394ae2573c5fbf4b9e092f4c69375c18b959d133d3"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "aa3b9cab1c5a723dae87e42122be10e63ba6636dc4ff20d63c35df1efb43ffcd"
+      "sha256": "c9e3ccfab76dae24308d2d8b317673d95c3dbf8eba2b8a9eebf29237aba13b88"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "ee69c327085483d3ca6ff2eb5c074125a73864c358f8d48331d5c56523fabec3"
+      "sha256": "77e8245f5afd03b1373c07e719b8b309f264362e228747a9acd1f4e63bc9ff17"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "cc0cb88b1e4df1fd3daacb3ec08381febd9675853a3b3b5cfa411df108ee811b"
+      "sha256": "4edad18a3d1fde03a8923f9ffcce522fc01b6d6f9f0a85b3e14e2f5c2ce254a6"
     }
   ],
   "contrastPairs": [
@@ -492,13 +492,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "fce2b073dce51e7f0cc128a7f49395bfacdc85851a0602bffca3b513e2b22d82"
+    "sha256": "a86ce5bd182897f08b3e196868fc8ee385d3e293cae23d255d1afd28fea539f8"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 926,
+  "tokenCount": 932,
   "tokens": [
     {
       "aliasTarget": {
@@ -3042,6 +3042,58 @@
     },
     {
       "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-asset-tile-well": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-asset-tile-well",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ]
+      },
+      "sourcePath": "semantic.light.color.asset-tile-well",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-asset-tile-well": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-asset-tile-well",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ]
+      },
+      "sourcePath": "semantic.dark.color.asset-tile-well",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
         "id": "color-palette-gray-025",
         "mode": "base"
       },
@@ -4589,6 +4641,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.canvas-dot",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-guide": "color(srgb 0.886275 0.211765 0.443137 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-guide",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.600}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.443137
+        ]
+      },
+      "sourcePath": "semantic.light.color.canvas-guide",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-guide": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-guide",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ]
+      },
+      "sourcePath": "semantic.dark.color.canvas-guide",
       "tier": "semantic",
       "type": "color"
     },
@@ -13239,6 +13343,58 @@
         ]
       },
       "sourcePath": "semantic.dark.color.node-youtube-surface",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-notice-pill-dot": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-notice-pill-dot",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.light.color.notice-pill-dot",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-notice-pill-dot": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-notice-pill-dot",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ]
+      },
+      "sourcePath": "semantic.dark.color.notice-pill-dot",
       "tier": "semantic",
       "type": "color"
     },

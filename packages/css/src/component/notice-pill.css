@@ -1,0 +1,100 @@
+/* Notice Pill — design/components/notice-pill.md
+ *
+ * 영상 위에 뜨는 한 줄 공지(DS-D-0084). 제품 정본은 `components/landing/sections/HeroNotice.tsx:41-91`(통합 판 `54b62a8aa`) —
+ * 랜딩 히어로와 어드민 랜딩 편집의 미리보기가 같은 정의를 쓴다.
+ *
+ * **면은 테마를 따르지 않는다 — 영상 위다.** 순검정 스크림 + 유리 흐림, 글자는 두 테마 #fafafa(media 축, 제품 :23-33).
+ * **스크림은 56% 다.** 제품 48% 는 흰 영상 프레임 위에서 글자가 4.5:1 에 못 미친다 — 56% 로 올린다(DS-D-0084 3항). 호버는 같은 폭(+16)으로 72%.
+ * **누를 수 있으면 요소가 말한다.** `a[href]` · `button` 일 때만 커서 · 호버가 붙는다 — 속성 축을 따로 두지 않는다.
+ * Button 을 빌리지 않는다 — 44 히트가 높이 32 를 밀어낸다(제품 :62-65). 32 는 AA 24 를 넘는다. */
+
+.louis-notice-pill {
+  /* 스크림 농도 — 호버가 이 값만 바꾼다. */
+  --louis-notice-pill-scrim: 56%;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  max-inline-size: 100%;
+  /* 32 · 좌우 12 · 반경 12 — 제품 `h-16 px-6 rounded-12`(:44), Button md 기하(:7-9). */
+  block-size: var(--louis-layout-control-height-md);
+  margin: 0;
+  padding-inline: var(--louis-space-control-md);
+  border: 0;
+  border-radius: var(--louis-radius-control);
+  background: color-mix(in srgb, var(--louis-color-media-scrim-dark) var(--louis-notice-pill-scrim), transparent);
+  color: var(--louis-color-media-foreground-dark);
+  /* `.louis-glass-surface` 와 같은 값(base.css). 접두사를 병기하지 않는다 — 같은 주석의 lightningcss 함정. */
+  backdrop-filter: blur(var(--louis-blur-glass)) saturate(130%);
+  text-decoration: none;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+.louis-notice-pill:is(a[href], button) {
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+@media (hover: hover) {
+  /* 제품 호버 64%(:72)는 가드가 없었다. 쉼을 올린 폭만큼 72% 로 올리고 호버 기기에서만 그린다. */
+  .louis-notice-pill:is(a[href], button):hover {
+    --louis-notice-pill-scrim: 72%;
+  }
+}
+
+/* 점 — 「새 소식」 상태 표시. 로고가 있어도 남는다(제품 :79-80). 장식이라 `aria-hidden`. */
+.louis-notice-pill__dot {
+  flex: none;
+  /* 4 — 제품 `size-2`(:51). */
+  inline-size: 4px;
+  block-size: 4px;
+  /* 10 — 제품 `mr-5`(:51). 간격은 요소마다 오른쪽에 든다 — 로고가 있든 없든 값이 그대로 읽힌다(:38-40). */
+  margin-inline-end: 10px;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-notice-pill-dot);
+}
+
+/* 로고 — 어드민이 올린 임의 크기 그림. 높이 16, 가로로 긴 워드마크는 48 에서 멈춘다(제품 :53-58). */
+.louis-notice-pill__logo {
+  display: block;
+  flex: none;
+  block-size: var(--louis-icon-size-sm);
+  inline-size: auto;
+  /* 48 — 제품 `max-w-24`(:58). */
+  max-inline-size: 48px;
+  /* 6 — 제품 `mr-3`(:58). */
+  margin-inline-end: 6px;
+  object-fit: contain;
+}
+
+/* 문구 — 한 줄. 알약 높이가 고정이라 넘치면 자른다(제품은 맨 글자라 줄이 넘쳤다). */
+.louis-notice-pill__text {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-notice-pill {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 스크림 · 흐림이 사라지므로 경계를 세우고, 점은 시스템 면에 지워지지 않게 글자색으로 칠한다. */
+@media (forced-colors: active) {
+  .louis-notice-pill {
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-notice-pill__dot {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}

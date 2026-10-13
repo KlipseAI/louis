@@ -1,0 +1,35 @@
+/* Canvas Guide — design/components/canvas-guide.md
+ *
+ * 노드를 끌 때 다른 노드와 줄이 맞는 순간 나타나는 정렬 스냅 선(DS-D-0084). 제품 정본은
+ * `node-canvas-v2/components/SmartGuideOverlay.tsx`(통합 판 `54b62a8aa`). `canvas-edge.md` 가 「별건」으로 미뤄 둔 자리다.
+ *
+ * **좌표는 데이터다.** 어느 선이 어디서 어디까지인지는 스냅 계산이 정하고, 소비처가 `<line>` 의 x1 · y1 · x2 · y2 로 준다.
+ * 레시피는 층 · 색 · 두께만 소유한다.
+ * **두께는 줌과 무관하게 화면 1px 이다.** 층이 캔버스 변환 안에 있어 제품의 `strokeWidth={1}` 은 줌 50% 에서 0.5px 로 흐려진다 —
+ * `vector-effect: non-scaling-stroke` 가 변환 뒤의 두께를 고정한다.
+ * **층은 칠 순서다.** 숫자 z-index 없이 캔버스 변환 층의 마지막 자식으로 둔다(제품 `zIndex: 1000`, SGO:25).
+ * 캔버스 좌표는 쓰기 방향을 따르지 않는다 — 그래서 물리 `top` · `left` 다. */
+
+.louis-canvas-guide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.louis-canvas-guide__line {
+  fill: none;
+  stroke: var(--louis-color-canvas-guide);
+  stroke-width: var(--louis-border-width-default);
+  vector-effect: non-scaling-stroke;
+}
+
+@media (forced-colors: active) {
+  .louis-canvas-guide__line {
+    stroke: Highlight;
+  }
+}

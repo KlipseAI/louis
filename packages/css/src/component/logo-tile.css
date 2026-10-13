@@ -1,0 +1,80 @@
+/* Logo Tile — design/components/logo-tile.md
+ *
+ * 모델을 만든 회사의 로고 칸(DS-D-0084). 제품 정본은 `components/models/ModelLogo.tsx`(통합 판 `54b62a8aa`) — 비교 표 · 폰 목록 · 추천 결과.
+ *
+ * **로고는 마스크로만 쓴다.** 어드민이 올리는 로고는 어두운 영상 위에 얹으려고 만든 흰 실루엣 PNG 라 밝은 면에서 사라진다. 그래서 그림의
+ * 알파만 마스크로 삼고 색은 글자색(`fg-primary`)으로 칠한다 — 테마를 따른다(제품 :3-7). 주소는 행마다 달라 소비처가 `--louis-logo-tile-image` 로 준다.
+ * 마스크 그림은 CORS 가 열려 있어야 한다(제품 로고 CDN 은 `access-control-allow-origin: *`).
+ *
+ * **글리프는 칸의 절반이다.** 제품의 세 크기(56/28 · 48/24 · 72/36)가 모두 그 비율이라 숫자가 아니라 규칙으로 둔다. */
+
+.louis-logo-tile {
+  /* 56 — 제품 md `size-28`(:9). */
+  --louis-logo-tile-size: 56px;
+  /* 로고 주소 — `url("…")`. 없으면 소비처가 `__glyph` 대신 `__fallback` 을 둔다. */
+  --louis-logo-tile-image: none;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-logo-tile-size);
+  block-size: var(--louis-logo-tile-size);
+  overflow: hidden;
+  /* 12 — 제품 lg `rounded-12`(:9). md 의 10 은 12 로 접는다(소유자 판정 8, 기본값). */
+  border-radius: var(--louis-radius-card);
+  /* 제품 잉크 5%(:12)는 알파 계단에 없어 04 로 접는다. 장식 면이다. */
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-primary);
+}
+
+/* 48 — 제품 md 의 폰 판(`max-[719px]:size-24`, :9). 폭과 무관하게 작게 쓸 자리가 생기면 이 칸을 직접 단다. */
+.louis-logo-tile[data-size="sm"] {
+  --louis-logo-tile-size: 48px;
+}
+
+/* 72 — 추천 결과 머리(`size-36`, :9). */
+.louis-logo-tile[data-size="lg"] {
+  --louis-logo-tile-size: 72px;
+}
+
+@media (max-width: 719px) {
+  .louis-logo-tile:not([data-size]),
+  .louis-logo-tile[data-size="md"] {
+    --louis-logo-tile-size: 48px;
+  }
+}
+
+.louis-logo-tile__glyph {
+  display: block;
+  inline-size: 50%;
+  block-size: 50%;
+  background-color: currentcolor;
+  mask-image: var(--louis-logo-tile-image);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+/* 대체 글자 — 제품 `type-body-16-semibold`(:19) · 이름 첫 글자. */
+.louis-logo-tile__fallback {
+  font-family: var(--louis-typography-body-md-semibold-font-family);
+  font-size: var(--louis-typography-body-md-semibold-font-size);
+  font-weight: var(--louis-typography-body-md-semibold-font-weight);
+  line-height: var(--louis-typography-body-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+}
+
+/* forced-colors — 배경색이 시스템 면으로 바뀌면 마스크 글리프가 통째로 사라진다. 글리프만 강제 색 조정을 끄고 글자색으로 칠한다. */
+@media (forced-colors: active) {
+  .louis-logo-tile {
+    outline: var(--louis-border-width-default) solid CanvasText;
+    outline-offset: calc(0px - var(--louis-border-width-default));
+  }
+
+  .louis-logo-tile__glyph {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+}

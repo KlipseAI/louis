@@ -72,7 +72,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼). video-player 크롬 레시피 · 볼륨(B2 #60) · YouTube 미리보기(B2 O19)는 섰다((250) — 아래 기본값 표) |
-| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch(섰다, (251)) · logo-tile(섰다, (251)) · notice-pill(섰다, (251)) · media-slot(섰다, (245); 예시 갤러리 칸 `fill` 2:3 은 (251)) · prompt-variant(섰다, (248)) · asset-tile(섰다, (251)) · canvas-guide(섰다, (251)) · audio-cell(섰다, (245)). 작은 것은 모두 섰다 — 아래 기본값 표. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -157,6 +157,29 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 초안이 남긴 작은 판단 하나도 기본값을 벗어났다 — YouTube 판의 받은 분 변수 `--louis-video-player-buffer` 는 `var(…, 0)` 폴백 대신
 저작 규칙(지역 커스텀 속성은 루트에 선언)을 따라 루트에 선언했다.
 
+## 작은 새 부품에서 기본값으로 정한 판단(2026-10-13)
+
+작은 새 부품 다섯(asset-tile · color-swatch · logo-tile · notice-pill · canvas-guide)과 예시 갤러리 칸(Updates (251))은 초안
+(`scratchpad/promote/small-parts.md`, 작업 폴더)이 남긴 소유자 판정 열다섯을 소유자 지시로 초안의 기본값으로 정했다. 뒤집으면 레시피 · 토큰 한 곳을 고친다.
+
+| 판단 | 기본값 | 대안 |
+| --- | --- | --- |
+| 1 예시 갤러리 칸의 자리 | `media-slot[data-size="fill"][data-ratio="2:3"]` 변형 — 누를 수 없고 그림이 `cover` 로 칸을 덮는다 | B2 대로 `asset-tile` 의 글 없는 판 |
+| 2 `asset-tile` 을 지금 세울지 | 소비처 1 이어도 지금(소비처 수는 승격 조건이 아니다, 2026-10-12 소유자) | 둘째 소비처가 생길 때까지 제품 상수 |
+| 3 스티커 우물 색 | 두 테마 같은 `palette-gray-600` 40%(새 시맨틱 `asset-tile-well`) — 라이트 흰 에셋 2.06 은 Known deviation | 라이트만 더 진하게(테마별 값) |
+| 4 `asset-tile` 작은 값 | 호버 면 10 → 08 · 라벨 72% → `fg-secondary` · 120 → 160ms, 격자 6 · 우물 반경 4 · 그림 안쪽 2 는 리터럴 | 전부 제품 값 |
+| 5 색 칩 크기 · 경계 | md 32 · 8 · sm 16 · 4, 경계 `stroke-strong`(4.43 · 3.74) — 어드민 칩 테두리가 진해진다 | 화면마다 제품 값(30/6 · 32/8, `stroke-control` 1.27 · 1.63) |
+| 6 색 칩 지우기 히트 | 보이는 원 16 + 누르는 자리 24(WCAG 2.5.8 AA) | 제품 15 그대로 · `.louis-hit-target` 44(칩을 덮는다) |
+| 7 어드민 소비처 | 부품은 지금(근거는 하이라이트 패널 · 랜딩 히어로), 어드민 제품 (나)만 `feat/admin-ops-review` 뒤 | 부품도 그때까지 보류 |
+| 8 로고 칸 반경 · 면 | 반경 모두 12(`radius-card`) · 면 4% | 제품 md 반경 10(리터럴) · 5% |
+| 9 로고 칸의 자리 | 새 부품 `logo-tile` | `avatar[data-shape="square"]`(사람 표식 계약이 깨진다) |
+| 10 공지 알약 스크림 | 쉼 56% · 호버 72% — 흰 프레임 위 글자 4.73 · 8.85(실측), 알약이 한 단 어두워진다 | 제품 48% · 64% |
+| 11 공지 알약의 자리 | 새 부품 `notice-pill` | `badge[data-surface="glass"]`(「대화형이 아니다」 계약이 깨진다) |
+| 12 알약의 누름 표시 | 요소가 말한다(`a[href]` · `button` 이면 커서 · 호버). Figma 는 `Interactive` 축 | `data-interactive` 속성 |
+| 13 스냅 선 색 | 새 시맨틱 `canvas-guide` = 라이트 `pink-600` · 다크 `pink-500`(바닥 3.78 · 6.01, 카드 4.02 · 5.48 실측) | `red-600` · `red-500`(위험의 뜻) · `#ff2d55` 를 새 원시로 |
+| 14 스냅 선 두께 | 줌과 무관하게 화면 1px(`non-scaling-stroke`) | 제품대로 캔버스 1(줌 50% 에서 0.5px) |
+| 15 스냅 선의 자리 | 컴포넌트 `canvas-guide` | `editor-workspace` 패턴 안 블록 |
+
 ## Rollback
 
-생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). video-player 레시피와 새 토큰 일곱도 같다 — 제품이 클래스를 입기 전에는 소비처가 없다. 방침(1~5)은 소유자 지시라 되돌리지 않는다.
+생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). video-player 레시피와 새 토큰 일곱도 같다 — 제품이 클래스를 입기 전에는 소비처가 없다. 작은 새 부품 다섯 · 예시 갤러리 칸 변형 · 새 시맨틱 셋(`asset-tile-well` · `notice-pill-dot` · `canvas-guide`)도 같다. 방침(1~5)은 소유자 지시라 되돌리지 않는다.

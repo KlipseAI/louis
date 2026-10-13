@@ -5743,6 +5743,23 @@
           ]
         ],
         [
+          "color/asset-tile-well",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/palette-gray/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/palette-gray/600",
+              null
+            ]
+          ]
+        ],
+        [
           "color/bg-canvas",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -6078,6 +6095,23 @@
             [
               "Dark",
               "Klipse Primitive::color/static-white-alpha/16",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/canvas-guide",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/500",
               null
             ]
           ]
@@ -8696,6 +8730,23 @@
             [
               "Light",
               "Klipse Primitive::color/red/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/notice-pill-dot",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/500",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/500",
               null
             ]
           ]

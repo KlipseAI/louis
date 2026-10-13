@@ -35,7 +35,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 | --- | --- |
 | 칸 `md`(기본) | 32 × 32 · 반경 `radius-card`(12) · 테두리 1 `media-slot-stroke` · 면 `media-slot-surface` |
 | 칸 `video` | 76 × 52 · 반경 `radius-control-sm`(8) |
-| 칸 `fill` | 열 폭 정사각 · 반경 12 |
+| 칸 `fill` | 열 폭 정사각 · 반경 12. `data-ratio="2:3"` 이면 열 폭 × 1.5 세로 칸(스티커 예시 갤러리) |
 | 칸 `attachment` | 72 × 72 · 반경 `radius-control`(12) — 문의 본문 첨부([Text Field](text-field.md) 여러 줄 판의 `__attachments`) |
 | 지우기 | `media-scrim-dark` 56%(호버 80%, 호버 기기만) · 잉크 `media-foreground-dark` · 글리프 `icon/x` 10. 크기 — md 16 모서리 탭(왼쪽 아래 4) · video 18 원 위 · 오른쪽 3 · fill · attachment 22 원 5, 글리프 16 |
 | 빈 칸 | `data-empty="true"` — 점선 `media-slot-empty-stroke`(호버 `-hover`) · 면 `-empty-surface` · `icon/plus` 16 `-empty-foreground`(호버 `-hover`) |
@@ -61,6 +61,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 | 이름 | 값 | 뜻 |
 | --- | --- | --- |
 | `data-size` | `md`(기본) · `video` · `fill` · `attachment` | 칸 크기 — 32 정사각 · 76×52 · 열 폭 정사각 · 72 정사각 |
+| `data-ratio` | 없음(1:1) · `2:3` | `fill` 에서만 — 세로 2:3 칸. 스티커 예시 갤러리(누를 수 없는 `div`, 그림 `cover`) |
 | `data-empty` | `true` | 미디어 없이 더하기 글리프만 선 빈 칸 |
 | 줄 `data-layout` | 없음(가로 스크롤) · `wrap` · `grid` | 칸들이 서는 방식 |
 
@@ -85,6 +86,7 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 ## Acceptance tests
 
 레시피 선언은 빌드의 저작 게이트가 지킨다. 실브라우저 시험(크기 셋 · 반경 · 지우기 자리 · 빈 칸 점선)은 Figma 부품과 함께 세운다.
+`fill` 2:3 칸(열 폭 · 세로 1.5 배 · 3열 사이 8 · 반경 12, 비율 속성이 없으면 정사각)은 `packages/react/test/asset-tile.browser.test.tsx` 가 잰다.
 
 ## Known deviations
 
@@ -97,3 +99,6 @@ summary: 첨부 · 참조 미디어의 작은 썸네일 칸과 그 줄 — 노�
 6. **첨부 지우기를 칸 안 22 원으로 접었다.** 문의 화면은 28 원 · 칸 밖 6 · inverse 면이다(`app/inquiry/InquiryClient.tsx:192-193`).
    칸의 `overflow: hidden` 이 바깥 버튼을 자르고, 사진 위 지우기는 한 모양이어야 해서 `fill` 의 22 원 · 안쪽 5 · 미디어 스크림을 쓴다
    (DS-D-0084 소유자 판정 8, 2026-10-13 기본값).
+7. **스티커 예시 갤러리 칸을 `fill` 2:3 으로 접었다**(`ExampleGallery.tsx:41-47`, 2026-10-13). 제품 반경 8 · 잉크 10% 테두리 · `palette-gray-600` 40% 면을
+   fill 칸 값(반경 12 · `media-slot-stroke` · `-surface`)으로 — 그림이 `cover` 로 칸을 다 덮어 면은 뜨기 전에만 보인다. 줄은 `grid` 3열 · 8 이 값까지 같다
+   (DS-D-0084 「작은 새 부품」 판단 1).

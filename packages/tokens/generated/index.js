@@ -14924,6 +14924,32 @@ export const tokens = {
         "alpha": 0.72
       }
     },
+    "color-asset-tile-well": {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-asset-tile-well": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-asset-tile-well",
+      "mode": "light",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "sourcePath": "semantic.light.color.asset-tile-well",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ],
+        "alpha": 1
+      }
+    },
     "color-bg-canvas": {
       "aliasTarget": {
         "id": "color-palette-gray-025",
@@ -15442,6 +15468,32 @@ export const tokens = {
           0.388235
         ],
         "alpha": 0.28
+      }
+    },
+    "color-canvas-guide": {
+      "aliasTarget": {
+        "id": "color-pink-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-guide": "color(srgb 0.886275 0.211765 0.443137 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-guide",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.600}",
+      "sourcePath": "semantic.light.color.canvas-guide",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.886275,
+          0.211765,
+          0.443137
+        ],
+        "alpha": 1
       }
     },
     "color-canvas-menu-surface": {
@@ -19448,6 +19500,32 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-notice-pill-dot": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-notice-pill-dot": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-notice-pill-dot",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.light.color.notice-pill-dot",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
+        ],
+        "alpha": 1
+      }
+    },
     "color-platform-youtube-accent": {
       "aliasTarget": {
         "id": "color-youtube-red",
@@ -21255,6 +21333,32 @@ export const tokens = {
         "alpha": 0.4
       }
     },
+    "color-asset-tile-well": {
+      "aliasTarget": {
+        "id": "color-palette-gray-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-asset-tile-well": "color(srgb 0.345098 0.360784 0.388235 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-asset-tile-well",
+      "mode": "dark",
+      "rawValue": "{primitive.color.palette-gray.600}",
+      "sourcePath": "semantic.dark.color.asset-tile-well",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.345098,
+          0.360784,
+          0.388235
+        ],
+        "alpha": 1
+      }
+    },
     "color-bg-canvas": {
       "aliasTarget": {
         "id": "color-palette-gray-950",
@@ -21773,6 +21877,32 @@ export const tokens = {
           0.980392
         ],
         "alpha": 0.16
+      }
+    },
+    "color-canvas-guide": {
+      "aliasTarget": {
+        "id": "color-pink-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-canvas-guide": "color(srgb 1 0.301961 0.533333 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-canvas-guide",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.500}",
+      "sourcePath": "semantic.dark.color.canvas-guide",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.301961,
+          0.533333
+        ],
+        "alpha": 1
       }
     },
     "color-canvas-menu-surface": {
@@ -25775,6 +25905,32 @@ export const tokens = {
           0.517647,
           0.101961,
           0.141176
+        ],
+        "alpha": 1
+      }
+    },
+    "color-notice-pill-dot": {
+      "aliasTarget": {
+        "id": "color-green-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-notice-pill-dot": "color(srgb 0 0.776471 0.556863 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-notice-pill-dot",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.500}",
+      "sourcePath": "semantic.dark.color.notice-pill-dot",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.776471,
+          0.556863
         ],
         "alpha": 1
       }

@@ -1,0 +1,152 @@
+/* Color Swatch — design/components/color-swatch.md
+ *
+ * 색 값 하나를 보이고 고르게 하는 칩(DS-D-0084). 제품 정본은 갈라진 사본 셋이다(통합 판 `54b62a8aa`) —
+ * `app/admin/CaptionTemplateManagement.tsx:296-316`(필드 옆 32) · `:940-944`(표 칸 16) ·
+ * `app/highlight/[projectId]/shorts/[shortId]/CaptionColorPanel.tsx:171-223`(라벨 위 30 · 빈 칸 · 지우기).
+ *
+ * **칠은 데이터다.** `<input type="color">` 는 브라우저가 값으로 칠하고, 읽기 전용 `<span>` 은 소비처가 `--louis-color-swatch-value` 로 준다.
+ * **경계는 값과 무관하게 서야 한다.** 흰 값은 라이트 면에서(#fff on #fafafa 1.04), 검정 값은 다크 면에서 경계만 남는다 —
+ * 그래서 테두리는 3:1 을 넘는 `stroke-strong` 이다. 제품 `stroke-control` 은 고쳐 올린다(DS-D-0084 3항).
+ * 테두리는 안쪽 그림자가 아니라 border 다 — 색 견본 의사요소가 내용 상자를 덮어 안쪽 그림자를 가린다. */
+
+.louis-color-swatch {
+  /* 읽기 전용 칩의 칠 — 소비처가 칩에 인라인으로 덮는다. */
+  --louis-color-swatch-value: transparent;
+  /* 크기 · 반경 — 크기 축만 바꾼다. 32 · 8 — 제품 `w-16 h-16 rounded-8`(CTM:309). */
+  --louis-color-swatch-size: 32px;
+  --louis-color-swatch-radius: var(--louis-radius-control-sm);
+
+  display: inline-flex;
+  align-items: center;
+  /* 6 — 제품 `gap-3`(CTM:304 · :940). 두 자리가 같은 값이다. 8 로 접지 않는다(segment-track 의 6 과 같은 처리). */
+  gap: 6px;
+  min-inline-size: 0;
+}
+
+/* sm 16 — 표 칸의 읽기 전용 칩(CTM:942, `w-8 h-8 rounded-4`). 반경 4 는 사다리의 표 머리 이름이라 리터럴이다. */
+.louis-color-swatch[data-size="sm"] {
+  --louis-color-swatch-size: 16px;
+  --louis-color-swatch-radius: 4px;
+}
+
+/* 라벨 위 칩 — 편집 패널의 한 칸(CCP:185). 열 폭 44 는 「배경 · 테두리」 같은 두 글자 라벨이 들어가는 제품 값이다(`w-22`). */
+.louis-color-swatch[data-layout="stack"] {
+  flex-direction: column;
+  /* 제품 `gap-[3px]` → `space-control-xs` 4 로 접는다. */
+  gap: var(--louis-space-control-xs);
+  min-inline-size: 44px;
+}
+
+/* 헥스 필드 — text-field md(32)를 그대로 끼운다. 칩과 높이가 같다(CTM:294 주석). */
+.louis-color-swatch > .louis-text-field {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.louis-color-swatch__label {
+  color: var(--louis-color-fg-tertiary);
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 지우기를 얹는 자리 — 칩 하나와 지우기 하나를 묶는다. 지우기가 없으면 두지 않는다. */
+.louis-color-swatch__frame {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.louis-color-swatch__chip {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: var(--louis-color-swatch-size);
+  block-size: var(--louis-color-swatch-size);
+  margin: 0;
+  padding: 0;
+  border: var(--louis-border-width-default) solid var(--louis-color-stroke-strong);
+  border-radius: var(--louis-color-swatch-radius);
+  background: var(--louis-color-swatch-value);
+  color: var(--louis-color-fg-tertiary);
+}
+
+.louis-color-swatch__chip:is(input, button) {
+  cursor: pointer;
+}
+
+/* 브라우저 기본 견본 틀(안쪽 여백 · 회색 테두리)을 걷어 칩 전체가 값으로 칠해지게 한다. 제품은 걷지 않았다 — 「제품에서 발견한 것」. */
+.louis-color-swatch__chip::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.louis-color-swatch__chip::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--louis-color-swatch-radius) - var(--louis-border-width-default));
+}
+
+.louis-color-swatch__chip::-moz-color-swatch {
+  border: 0;
+  border-radius: calc(var(--louis-color-swatch-radius) - var(--louis-border-width-default));
+}
+
+/* 빈 칸 — 「색 더하기」. 점선 · 가운데 + 16(제품 14 를 아이콘 사다리로 접는다, CCP:216-218). */
+.louis-color-swatch__chip[data-empty="true"] {
+  border-style: dashed;
+  background: transparent;
+}
+
+.louis-color-swatch__chip[data-empty="true"] > :where(svg) {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+/* 지우기 — 칩 오른쪽 위 모서리에 걸친 원. 면 · 잉크는 테마를 따라 뒤집힌다(CCP:203).
+ * 보이는 원은 16(제품 15 를 짝수로), 누르는 자리는 24 — WCAG 2.5.8 최소다. 44(`.louis-hit-target`)는 칩의 오른쪽 위 사분면을 통째로 덮어
+ * 칩을 누르려던 손이 값을 지운다. */
+.louis-color-swatch__clear {
+  position: absolute;
+  /* −6 — 제품 `-top-3 -right-3`(CCP:203). */
+  inset-block-start: -6px;
+  inset-inline-end: -6px;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 16px;
+  block-size: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: var(--louis-color-fg-primary);
+  color: var(--louis-color-bg-surface);
+  cursor: pointer;
+}
+
+.louis-color-swatch__clear::after {
+  content: "";
+  position: absolute;
+  /* 16 + 4 + 4 = 24. */
+  inset: calc(0px - var(--louis-space-control-xs));
+}
+
+/* 글리프 10 — media-slot 지우기와 같은 크기. 제품의 글자 「×」 11px 은 SVG 로 바꾼다. */
+.louis-color-swatch__clear > :where(svg) {
+  display: block;
+  inline-size: 10px;
+  block-size: 10px;
+}
+
+@media (forced-colors: active) {
+  .louis-color-swatch__chip {
+    border-color: ButtonText;
+  }
+
+  .louis-color-swatch__clear {
+    outline: var(--louis-border-width-default) solid ButtonText;
+  }
+}

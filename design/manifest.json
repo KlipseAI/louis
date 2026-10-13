@@ -1808,6 +1808,11 @@
         "design/components/media-slot.md",
         "design/components/prompt-variant.md",
         "design/components/segment-track.md",
+        "design/components/asset-tile.md",
+        "design/components/color-swatch.md",
+        "design/components/logo-tile.md",
+        "design/components/notice-pill.md",
+        "design/components/canvas-guide.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -2003,6 +2008,51 @@
       "id": "segment-track",
       "path": "design/components/segment-track.md",
       "title": "Segment Track",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "asset-tile",
+      "path": "design/components/asset-tile.md",
+      "title": "Asset Tile",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "color-swatch",
+      "path": "design/components/color-swatch.md",
+      "title": "Color Swatch",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "logo-tile",
+      "path": "design/components/logo-tile.md",
+      "title": "Logo Tile",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "notice-pill",
+      "path": "design/components/notice-pill.md",
+      "title": "Notice Pill",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "canvas-guide",
+      "path": "design/components/canvas-guide.md",
+      "title": "Canvas Guide",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -2786,6 +2836,56 @@
         "SegmentTrackMapBar",
         "StageBar"
       ],
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "asset-tile",
+      "name": "Asset Tile",
+      "doc": "design/components/asset-tile.md",
+      "note": "팔레트에서 그림 하나를 넣는 칸 — 테두리 칸 · 정사각 우물 · 라벨 한 줄(DS-D-0084). 이미지 편집 모달 스티커 팔레트의 ASSET_* 상수를 한 레시피(packages/css/src/component/asset-tile.css, .louis-asset-tile · .louis-asset-tile-grid)로 옮겼다. 고르는 것이 아니라 넣는 단추라 choice-card 가 아니다. 우물은 두 테마 같은 중간 회색(새 시맨틱 asset-tile-well 40%)이고, 호버 면 · 라벨 잉크 · 전환은 사다리로 접었다. 예시 갤러리 칸은 이 부품이 아니라 media-slot fill 2:3 이다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "color-swatch",
+      "name": "Color Swatch",
+      "doc": "design/components/color-swatch.md",
+      "note": "색 값 하나의 칩 — 필드 옆 32 · 표 칸 16 · 라벨 위 칩과 빈 칸 · 지우기(DS-D-0084). 어드민 자막 템플릿 모달과 하이라이트 자막 색 패널이 크기 · 반경 · 경계에서 갈라진 사본 셋을 한 레시피(packages/css/src/component/color-swatch.css)로 모았다. 경계는 값과 무관하게 3:1 을 넘는 stroke-strong 으로 고쳐 올렸고(제품 stroke-control 1.27 · 1.63), 지우기는 16 원 + 누르는 자리 24 다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "logo-tile",
+      "name": "Logo Tile",
+      "doc": "design/components/logo-tile.md",
+      "note": "모델을 만든 회사의 로고 칸 — 로고 알파를 마스크로, 칠은 페이지 잉크(DS-D-0084). 모델 비교 표 · 추천 결과의 ModelLogo 를 한 레시피(packages/css/src/component/logo-tile.css)로 옮겼다. 크기 셋 48 · 56(719 이하 48) · 72, 글리프는 늘 칸의 절반이다. avatar 는 사람만 담는 원형 표식이라 이 부품과 갈린다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "notice-pill",
+      "name": "Notice Pill",
+      "doc": "design/components/notice-pill.md",
+      "note": "영상 위 한 줄 공지 — 점 · 로고 · 문구, 목적지가 있으면 링크(DS-D-0084). 랜딩 히어로와 어드민 미리보기가 같이 쓰는 HeroNotice 정의를 한 레시피(packages/css/src/component/notice-pill.css)로 옮겼다. 면은 두 테마 같은 유리(media-scrim-dark + blur-glass)이고 스크림을 48 → 56%(호버 64 → 72%)로 올려 흰 프레임 위 글자 대비를 4.73 으로 고쳤다. 점 색은 새 시맨틱 notice-pill-dot. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "canvas-guide",
+      "name": "Canvas Guide",
+      "doc": "design/components/canvas-guide.md",
+      "note": "노드를 끌 때 줄이 맞는 순간의 정렬 스냅 선(DS-D-0084). canvas-edge 가 별건으로 미룬 SmartGuideOverlay 를 한 레시피(packages/css/src/component/canvas-guide.css)로 옮겼다. 좌표는 데이터라 소비처가 주고, 레시피는 층 · 색 · 두께만 갖는다. 제품 리터럴 #ff2d55 를 새 시맨틱 canvas-guide(라이트 pink-600 · 다크 pink-500)로 접었고 두께는 줌과 무관하게 화면 1px(non-scaling-stroke)다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "not-ready",
       "web": "partial",
       "docs": "done"
     },

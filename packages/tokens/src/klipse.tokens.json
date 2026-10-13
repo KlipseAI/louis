@@ -7816,6 +7816,36 @@
             }
           }
         },
+        "asset-tile-well": {
+          "$value": "{primitive.color.palette-gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-asset-tile-well",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "canvas-guide": {
+          "$value": "{primitive.color.pink.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-guide",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "notice-pill-dot": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-notice-pill-dot",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "canvas-chip-surface": {
           "$value": "{primitive.color.palette-gray.000}",
           "$extensions": {
@@ -10246,6 +10276,36 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-canvas-dot",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "asset-tile-well": {
+          "$value": "{primitive.color.palette-gray.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-asset-tile-well",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "canvas-guide": {
+          "$value": "{primitive.color.pink.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-canvas-guide",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "notice-pill-dot": {
+          "$value": "{primitive.color.green.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-notice-pill-dot",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -51,7 +51,14 @@
   aspect-ratio: 1;
 }
 
-/* 첨부 — 문의 본문에 붙인 그림(apps/web/app/inquiry/InquiryClient.tsx:189-191). 72 정사각 · 반경 12.
+/* 세로 2:3 — 스티커 예시 갤러리 칸(imageEditParts/ExampleGallery.tsx:43-47). 크기는 fill(열 폭)이고 비율만 바꾼다.
+ * 제품 반경 8 · 잉크 10% 테두리 · pg-600 40% 면은 fill 칸 값(반경 12 · media-slot-stroke · -surface)으로 접는다 —
+ * 그림이 `cover` 로 칸을 다 덮어 면은 뜨기 전에만 보인다. 줄은 `media-slot-strip[data-layout="grid"]` + 열 3(제품 `gap-4` = 8, :41). */
+.louis-media-slot[data-size="fill"][data-ratio="2:3"] {
+  aspect-ratio: 2 / 3;
+}
+
+/* 첨부 —문의 본문에 붙인 그림(apps/web/app/inquiry/InquiryClient.tsx:189-191). 72 정사각 · 반경 12.
  * 72 는 간격 사다리에 없어 쓰임새 이름이다(DS-D-0084). 줄은 [Text Field](text-field.md) 여러 줄 판의 `__attachments` 다. */
 .louis-media-slot[data-size="attachment"] {
   --louis-media-slot-radius: var(--louis-radius-control);

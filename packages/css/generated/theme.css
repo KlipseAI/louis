@@ -57,6 +57,7 @@
   --color-app-tooltip-kbd-bg: var(--louis-color-app-tooltip-kbd-bg);
   --color-app-tooltip-text: var(--louis-color-app-tooltip-text);
   --color-app-tooltip-text-subtle: var(--louis-color-app-tooltip-text-subtle);
+  --color-asset-tile-well: var(--louis-color-asset-tile-well);
   --color-bg-canvas: var(--louis-color-bg-canvas);
   --color-bg-danger: var(--louis-color-bg-danger);
   --color-bg-info: var(--louis-color-bg-info);
@@ -77,6 +78,7 @@
   --color-canvas-chip-surface: var(--louis-color-canvas-chip-surface);
   --color-canvas-chip-surface-hover: var(--louis-color-canvas-chip-surface-hover);
   --color-canvas-dot: var(--louis-color-canvas-dot);
+  --color-canvas-guide: var(--louis-color-canvas-guide);
   --color-canvas-menu-surface: var(--louis-color-canvas-menu-surface);
   --color-dim-modal: var(--louis-color-dim-modal);
   --color-fg-danger: var(--louis-color-fg-danger);
@@ -231,6 +233,7 @@
   --color-node-youtube-accent: var(--louis-color-node-youtube-accent);
   --color-node-youtube-icon: var(--louis-color-node-youtube-icon);
   --color-node-youtube-surface: var(--louis-color-node-youtube-surface);
+  --color-notice-pill-dot: var(--louis-color-notice-pill-dot);
   --color-platform-youtube-accent: var(--louis-color-platform-youtube-accent);
   --color-platform-youtube-rail: var(--louis-color-platform-youtube-rail);
   --color-progress-fill: var(--louis-color-progress-fill);

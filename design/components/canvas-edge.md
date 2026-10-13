@@ -37,7 +37,7 @@ LOUIS 에는 표면이 없다 — `packages/css/src/component` 에도 `packages/
 - 쓰지 않는 자리:
   - **일반 구분선** — [Pane Divider](./pane-divider.md) 이거나 메뉴 구분자다. 저쪽은 미는 것이고
     이쪽은 잇는 것이다.
-  - **정렬 스냅 가이드** — 아래 「이 문서가 다루지 않는 것」.
+  - **정렬 스냅 가이드** — [Canvas Guide](./canvas-guide.md).
 
 ## Anatomy
 
@@ -166,8 +166,9 @@ image 하이라이트에서 갈렸다. 제품 `V2_EDGE_TONE` 의 주석이 그 �
 `static-white-alpha/16` 이다. 근거는 제품 통합 판 `54b62a8aa` `node-canvas-v2/index.tsx:530`
 ([DS-D-0082](../governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md)).
 
-**정렬 스냅 가이드.** 제품이 아직 이름 없는 색 리터럴 하나로 그린다. 이름을 정하는 일은 새
-프리미티브를 세우는 일이고, 그것은 토큰 파이프라인과 Figma 변수 컬렉션을 함께 움직이는 별건이다.
+**정렬 스냅 가이드.** [Canvas Guide](./canvas-guide.md)가 갖는다(2026-10-13, DS-D-0084). 제품의 이름 없는 리터럴
+`#ff2d55` 를 새 원시로 세우지 않고 시맨틱 `color-canvas-guide`(라이트 `pink-600` · 다크 `pink-500`)로 접었다. 전선은 캔버스 두께를
+따르는 그림이고 스냅 선은 줌과 무관하게 화면 1px 인 계기라 부품을 나눴다.
 
 ## Properties
 

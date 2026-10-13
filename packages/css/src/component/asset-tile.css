@@ -1,0 +1,112 @@
+/* Asset Tile — design/components/asset-tile.md
+ *
+ * 눌러서 무언가를 **넣는** 그림 칸(DS-D-0084). 테두리 칸 하나에 정사각 우물과 라벨 한 줄을 담는다. 제품 정본은 이미지 편집 모달의
+ * 스티커 팔레트(`imageEditParts/StickerPalette.tsx:30-56`, 통합 판 `54b62a8aa`)다.
+ *
+ * **고르는 것이 아니다.** 누르면 넣고 끝이다 — 선택 상태가 없다. 그래서 `choice-card`(radio · checkbox)가 아니고 `<button>` 이다.
+ * **우물은 테마를 따르지 않는다.** 흰 선만으로 된 에셋이 어두운 면에서 사라지지 않도록 두 테마 모두 중간 회색을 깐다(제품 :32-33).
+ * 그 반대편 — 라이트에서 흰 에셋이 덜 보이는 것 — 은 문서 Known deviations 다. 그림은 장식이고 이름은 라벨이 말한다. */
+
+.louis-asset-tile {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 4 — 제품 `gap-2` · `p-2`(:35). */
+  gap: var(--louis-space-control-xs);
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--louis-space-control-xs);
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12);
+  /* 8 — 제품 `rounded-8`(:36). */
+  border-radius: var(--louis-radius-control-sm);
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-fg-secondary);
+  font: inherit;
+  cursor: pointer;
+  /* 제품 120ms ease(:38). 컨트롤 호버 토큰(160ms)을 읽는다. */
+  transition-property: background-color, border-color, scale;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+@media (hover: hover) {
+  /* 호버 — 면 한 단 진하게, 선은 강조색 48%(제품 :39-40). 제품 10% 는 알파 계단(04 · 08 · 12)에 없어 08 로 접는다.
+   * 제품은 호버 가드가 없어 터치에서 탭 뒤 강조가 남았다 — 호버 기기에서만 그린다. */
+  .louis-asset-tile:where(:not(:disabled)):hover {
+    background: var(--louis-color-gray-000-alpha-08);
+    border-color: color-mix(in srgb, var(--louis-color-accent-primary) 48%, transparent);
+  }
+}
+
+/* 누름 0.97 — 제품 `scale(0.97)`(:41). 면이 옅은 칸이라 Button ghost 와 같은 깊이다. */
+.louis-asset-tile:where(:not(:disabled)):active {
+  scale: 0.97;
+}
+
+.louis-asset-tile__well {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  /* 4 — 제품 `rounded-4`(:45). 반경 사다리의 4 는 표 머리 전용 이름(`radius-table-header`)이라 쓰지 않는다(menu 타일 5 와 같은 처리). */
+  border-radius: 4px;
+  /* 40% — 제품 `palette-gray-600/40%`(:47). 원시 알파를 새로 세우지 않고 시맨틱을 섞는다(segment-track 선례). */
+  background: color-mix(in srgb, var(--louis-color-asset-tile-well) 40%, transparent);
+}
+
+.louis-asset-tile__media {
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  /* 2 — 제품 `p-1`(:50). 에셋 가장자리가 우물 곡률에 잘리지 않게 띄운다. */
+  padding: 2px;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.louis-asset-tile__label {
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* ── 격자 ── 같은 폭 열. 열 수는 소비처가 덮는다(팔레트 폭 212 에서 2열, 제품 `grid-cols-2`). */
+.louis-asset-tile-grid {
+  --louis-asset-tile-grid-columns: 2;
+
+  display: grid;
+  grid-template-columns: repeat(var(--louis-asset-tile-grid-columns), minmax(0, 1fr));
+  /* 6 — 제품 `gap-3`(:30). 8 로 접으면 칸 폭이 1px 줄 뿐이지만 제품 옆에서 갈린다 — segment-track 의 6 과 같은 처리. */
+  gap: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-asset-tile {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-asset-tile:where(:not(:disabled)):active {
+    scale: none;
+  }
+}
+
+/* forced-colors — 반투명 면이 사라지므로 칸 경계를 시스템 선으로 세운다. */
+@media (forced-colors: active) {
+  .louis-asset-tile {
+    border-color: ButtonText;
+  }
+}

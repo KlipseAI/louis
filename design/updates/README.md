@@ -25,6 +25,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (251) — 작은 새 부품 다섯과 예시 갤러리 칸(DS-D-0084)
+
+- **새 부품 다섯.** `asset-tile` — 넣는 그림 칸(테두리 칸 · 정사각 우물 · 라벨, `.louis-asset-tile-grid` 2열 · 6). `color-swatch` — 색 칩
+  md 32 · sm 16(읽기 전용, `--louis-color-swatch-value`) · `data-layout="stack"`(라벨 위) · 빈 칸 `data-empty` · 지우기 16 원(누르는 자리 24),
+  헥스 필드는 Text Field md. `logo-tile` — 로고 알파를 마스크로 칠하는 칸 48 · 56(719 이하 48) · 72, 글리프는 칸의 절반 · 없으면 첫 글자.
+  `notice-pill` — 영상 위 유리 공지(32 · 점 4 · 로고 16, 링크면 호버). `canvas-guide` — 캔버스 정렬 스냅 선(층 · 색 · 화면 1px, 좌표는 소비처).
+- **변형 하나.** Media Slot `data-size="fill"` + `data-ratio="2:3"` — 스티커 예시 갤러리 칸. `asset-tile` 의 글 없는 판으로 보지 않았다(누를 수 없고 그림이 칸을 덮는다).
+- **새 시맨틱 셋.** `color-asset-tile-well`(두 테마 `palette-gray-600`, 레시피가 40% 로 섞는다) · `color-notice-pill-dot`(두 테마 `green-500`) ·
+  `color-canvas-guide`(라이트 `pink-600` · 다크 `pink-500`). 원시는 늘지 않았다 — 제품 리터럴 `#ff2d55` 를 세우지 않았다.
+- **고쳐 올린 대비(실브라우저 실측).** 색 칩 경계 `stroke-control`(1.27 · 1.63) → `stroke-strong` 4.43 · 3.74, 공지 알약 스크림 48 → 56%
+  (흰 프레임 위 글자 4.73, 호버 64 → 72% 8.85), 스냅 선 라이트 `#ff2d55` 3.28 → `pink-600` 3.78(카드 위 4.02, 다크 6.01 · 5.48).
+  라이트 우물 위 흰 선 에셋 2.06 은 장식이라 Known deviation 으로 둔다.
+- **보이는 변화(제품이 클래스를 입을 때).** 어드민 색 칩 테두리가 진해지고 패널 칩이 30 → 32, 공지 알약이 한 단 어두워지고, 로고 칸 md 반경 10 → 12,
+  스냅 선이 줌과 무관하게 1px 이 된다. 어드민 소비처(자막 템플릿 · 랜딩 미리보기)의 제품 (나)는 어드민 작업 브랜치 뒤다.
+- 소유자 판정 열다섯은 초안의 기본값으로 — DS-D-0084 「작은 새 부품에서 기본값으로 정한 판단」. 실브라우저 시험 다섯
+  (`asset-tile` · `color-swatch` · `logo-tile` · `notice-pill` · `canvas-guide.browser.test.tsx`). Figma 세트와 새 변수는 다음이다(figma `not-ready`).
+
 ## 2026-10-13 (250) — 비디오 플레이어 크롬을 LOUIS 레시피로(DS-D-0084, DS-D-0083 2a)
 
 - **레시피 `.louis-video-player`.** 제품 `VideoPlayer` 의 크롬 한 벌을 한 파일(`video-player.css`)로 — 루트(`data-tone` · `data-chrome` ·

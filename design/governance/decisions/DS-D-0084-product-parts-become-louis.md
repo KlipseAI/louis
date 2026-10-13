@@ -63,6 +63,21 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 - 제품 (나): `NodePromptGenerateButton` 이 이 클래스를 물면 `CHROME` · `OVERLAY_STROKE` · `TRAILING` 상수와 소비처의 `opacity-[0.35]` 덮어쓰기를 지운다.
   같은 빛을 `::before/::after` 로 복사한 BgmNode · EditNode · ImageNode · InstagramNode 의 다른 버튼은 각자 부품으로 올릴 때 이 빛을 공유한다.
 
+## 승격 목록(2026-10-13 조사)
+
+표면 원장의 Figma 제품 세트 30종과 needed 의 부품 60 · 한 자리 18 · 판단 대기 1, DS-D-0083 (다) 일곱을 넷으로 갈랐다(조사 원문은
+작업 폴더 `scratchpad/promote/` — A · B1 · B2).
+
+| 판정 | 수 | 처리 |
+| --- | ---: | --- |
+| 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
+| 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼) |
+| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot · prompt-variant · asset-tile · canvas-guide · audio-cell. 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
+| 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
+
+소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
+지울지. 어드민 통계 타일의 칸 격자 덮어쓰기도 같은 질문이다. `canvas-edge` 의 「레시피를 세우지 않는다」(DS-D-0061)는 이 결정으로 다시 판정한다.
+
 ## Rollback
 
 생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). 방침(1~5)은 소유자 지시라 되돌리지 않는다.

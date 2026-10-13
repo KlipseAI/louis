@@ -125,10 +125,13 @@ const UNCLASSIFIED_BASELINE = 0;
 // 같은 날 밤: 105 → 114 · 컴포넌트 47 → 56 — 앵커를 54b62a8a 로 옮기며(빠진 작업 브랜치 여섯) 새 표면 59종을 판정했다(figma 9:
 // StudioAlert ← Alert · StudioListSheet ← Dialog · DeckCard ← ProjectCard · DeckLangSwitch ← FloatingShell · DeckNoticePage ← EmptyState ·
 // NoticeItem · CanvasFirstNodeCallout ← Toast · NodeMenuItem ← Menu · 앰배서더 SectionHead ← SectionHeader). 파일만 옮겨진 셋은 판정을 옮겼다.
-const MAPPED_BASELINE = 114;
+// 2026-10-13: 114 → 137 · 컴포넌트 56 → 91 — DS-D-0084(제품에 보이는 부품은 LOUIS 부품으로)의 승격 조사가 「이미 LOUIS 에 있다」로 가른
+// 표면을 옮겼다. needed 23(인증 입력 둘 · 크롭 · 인스펙터 셋 · 빈 캔버스 · 연결선 층 · 차트 블록 · 배지 · 탭 · 표 · 팝오버 등)이 LOUIS 대응이
+// 됐고, 제품 세트(`Product/…`) 대응 12 가 같은 부품의 LOUIS 대응으로 옮겨 갔다(아래 MAPPED_PRODUCT_BASELINE).
+const MAPPED_BASELINE = 137;
 // **합계와 따로 잠근다.** 컴포넌트 대응을 패턴 대응으로 바꿔치기하면 합계는 그대로인데
 // 재사용할 인스턴스가 사라진다 — 이 수가 그 후퇴를 잡는 유일한 그물이다.
-const MAPPED_COMPONENT_BASELINE = 56;
+const MAPPED_COMPONENT_BASELINE = 91;
 // **제품 세트 대응(DS-D-0071).** 「Figma 먼저 · 생성기로 묶어서」(소유자 결정 2026-09-26) — 제품 전용 부품은 LOUIS 컴포넌트가
 // 아니라 Figma 제품 세트(`Product/…`)로 선다. LOUIS 대응 · 패턴 대응과 합치지 않고 따로 잠근다. 합계만 잠그면 LOUIS 대응을
 // 제품 세트 대응으로 바꿔치기해도 수가 유지된다.
@@ -144,7 +147,10 @@ const MAPPED_COMPONENT_BASELINE = 56;
 // LLM 결과 · 모바일 타임라인 · 눈금자). 화면 종류(레이어 · 에셋 패널 · 쇼츠 결과 · 히어로 · 후기 밴드)와 줌 트리거(트리 변환이 멈춤)는 needed 다.
 // 같은 날 뒤: 52 → 53 — 줌 트리거(CanvasZoomControl)가 섰다. 트리 변환이 글자 + 캐럿 단추의 떼어낸 글자를 버튼 상자(36 높이)로 잡아
 // 감긴 글자로 읽던 것을 익명 flex 항목 규칙(figma-tree-spec flexRowTextRect, 조립 규칙 28조)이 풀었다.
-const MAPPED_PRODUCT_BASELINE = 53;
+// 2026-10-13: 53 → 41 — **LOUIS 로 옮겨 간 몫(후퇴 아님).** DS-D-0084 로 기본값이 바뀌어 제품 세트만 있던 열하나(인증 입력 · 가입 약관 ·
+// 어드민 섹션 머리 · 페이지 머리 · 테마 순환 · 셀렉트 · 줌 트리거 · 노드 머리 동작 · 제목 · 연결점 · 생성 버튼)가 같은 조형의 LOUIS 부품
+// 대응이 됐다(표면 12). 위 MAPPED_COMPONENT_BASELINE 이 그만큼 올랐다.
+const MAPPED_PRODUCT_BASELINE = 41;
 const TOTAL_FLOOR = 400;
 // 2026-09-09 실측. `needed` 176 을 앞 회차 판정에서 되살려 키 단위로 심었다 —
 // 부품 87 · 화면 59 · 한자리 29 · 판단 대기 1. 앞 회차는 181 을 판정했고 그 사이 다섯이

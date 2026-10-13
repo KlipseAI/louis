@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 88,
-        "variants": 986
+        "sets": 89,
+        "variants": 990
       },
       "icons": 70,
       "templates": 9
@@ -18515,6 +18515,109 @@
           "BACKGROUND_BLUR:PROGRESSIVE:var(blur/surface):0:0.5,0:0.5,0.45"
         ]
       }
+    },
+    "PromptVariant": {
+      "outsideParts": [],
+      "tokenId": "prompt-variant",
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Expand": {
+          "type": "BOOLEAN"
+        },
+        "Style": {
+          "type": "TEXT"
+        },
+        "Prompt": {
+          "type": "TEXT"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "Action": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "card",
+            "column"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 20,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 12,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "card": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            364
+          ],
+          "height": [
+            109
+          ],
+          "paddingBlock": [
+            10
+          ],
+          "paddingInline": [
+            10
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "column": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            400
+          ],
+          "height": [
+            213
+          ],
+          "paddingBlock": [
+            16
+          ],
+          "paddingInline": [
+            16
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            16
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "RecordCard": {
       "outsideParts": [],

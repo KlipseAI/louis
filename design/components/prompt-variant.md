@@ -60,7 +60,7 @@ summary: AI 프롬프트 후보 하나 — 스타일 이름 + 프롬프트 본�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/prompt-variant.css`. React 표면은 없다 — 소비처(텍스트 노드 · 비교 모달)가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | 부품이 아직 없다 — Figma 는 다음 작업이다 |
+| Figma         | `partial`      | PromptVariant — Layout(card · column) × State(Default · Hover), BOOLEAN Expand, TEXT Style · Prompt · Label · Action(2026-10-13). 펼침 글리프는 아이콘 세트에 대각 양방향 화살표가 없어 `icon/frame-corners` 로 대신했다. 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

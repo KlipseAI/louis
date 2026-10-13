@@ -3711,6 +3711,23 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "prompt-variant",
+    figmaName: "PromptVariant",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/prompt-variant.css 가 정본이다(2026-10-13, DS-D-0083 2c · DS-D-0084).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: { options: ["card", "column"], reason: "코드의 `data-layout` 이다. card 는 노드 응답 칸의 후보 카드(비교 대화를 여는 버튼), column 은 비교 대화의 한 열(이름 알약 · 라벨 · 본문 · 사용 버튼)로 담기는 것이 바뀐다." },
+      State: { options: ["Default", "Hover"], reason: "Hover 는 CSS 상태(card 의 테두리 · 면이 한 단 진해진다). Figma 가 희소 세트를 받지 않아 column 에도 Default 와 같은 Hover 칸이 있다 — 세트 설명에 적었다." },
+      Expand: { type: "BOOLEAN", reason: "card 의 펼침 글리프 레이어 가시성." },
+      Style: { type: "TEXT", reason: "스타일 이름." },
+      Prompt: { type: "TEXT", reason: "프롬프트 본문." },
+      Label: { type: "TEXT", reason: "column 의 본문 라벨." },
+      Action: { type: "TEXT", reason: "column 의 사용 버튼 글." },
+    },
+  },
+  {
     id: "audio-cell",
     figmaName: "AudioCell",
     figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",

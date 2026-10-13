@@ -275,6 +275,7 @@ const CAPTURE = {
   "AppTopBarHome": {"key":{"by":["State"]},"fields":["height","minWidth","paddingInline","paddingInlineEnd","layoutMode"]},
   "SliderRulerTicks": {"key":{"name":"ticks"},"fields":["width","height"]},
   "ChartCardDotTile": {"key":{"name":"tile"},"fields":["width","height"]},
+  "PromptVariant": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

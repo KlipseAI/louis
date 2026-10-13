@@ -4512,6 +4512,96 @@ const COMPONENT_CONTRACTS = [
     },
   },
   {
+    id: "plan-comparison",
+    figmaName: "PlanComparisonItem",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-comparison.css 의 `__item` 이 정본이다(2026-10-14, DS-D-0092). 폭 260 · 128 은 열 안쪽 폭의 표본이다 — 열 폭은 격자가 정하는 데이터라 계약이 아니다. 대시 글자는 16 칸 프레임 안 가운데에 서고 글자 행간 24 는 프레임 위아래로 넘친다(CSS `line-height: 1` 의 대응, clipsContent 끔).",
+    variantProperties: {},
+    strokes: {},
+    effects: {},
+    figmaOnlyProperties: {
+      Layout: { options: ["included", "excluded", "text"], reason: "CSS `__value[data-value]` 철자 그대로 — 체크(아이콘 check) · 대시 「–」 · 짧은 글. 값 칸에 담기는 것이 갈리는 자리라 figma-component-authoring §2 `Layout` 의 「CSS 속성값 철자」 예외다(DS-D-0092 판정 6)." },
+      Size: { options: ["md", "sm"], reason: "너비 대역 — sm 은 767 이하 좁은 판(칸 안쪽 20 → 14). 코드에는 속성이 없고 뷰포트가 고른다." },
+      Feature: { type: "TEXT", reason: "기능 이름 — 코드에서 `__feature` 의 글자다." },
+      Value: { type: "TEXT", reason: "짧은 값 — 코드에서 `__value[data-value=\"text\"]` 의 글자다(Layout=text 칸에만 선다)." },
+    },
+    geometry: {
+      measuredId: "plan-comparison-item",
+      sizeKeys: ["included/md", "excluded/md", "text/md", "included/sm", "excluded/sm", "text/sm"],
+      fields: {
+        paddingBlock: "paddingBlock",
+        paddingInline: "paddingInline",
+        itemSpacing: "gap",
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        // 표시 칸 16 — 체크는 icon/check 인스턴스를 2/3 배(획도 함께 1.0), 대시는 16 고정 프레임. text 칸에는 없다.
+        Mark: { fields: { width: "markSize", height: "markSize" }, optional: true },
+        Feature: { fields: { fontSize: "featureSize" } },
+      },
+    },
+  },
+  {
+    id: "plan-comparison",
+    figmaName: "PlanComparisonColumn",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-comparison.css 의 `__column` 이 정본이다(2026-10-14, DS-D-0092). 열 사이 선(CSS border-inline-start)은 1px Divider 사각형으로 그려 내용 폭을 1 줄인다 — CSS 와 같다. 묶음 하나 · 항목 셋은 시드 데이터다(묶음 · 항목 수는 내용이라 축이 아니다).",
+    variantProperties: {},
+    // 머리 아래 선 — CSS border-block-end 1, Figma 는 아래 변만 두께를 준 INSIDE 획(strokesIncludedInLayout false)이고 패딩 아래 = 16 + 1(§10).
+    strokes: { Head: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Size: { options: ["md", "sm"], reason: "너비 대역 — sm 은 767 이하 좁은 판(칸 안쪽 20 → 14 · 머리 18 · 20 · 16 → 14 · 14 · 12). 코드에는 속성이 없고 뷰포트가 고른다." },
+      Plan: { type: "TEXT", reason: "플랜 이름 — 코드에서 `__head` 의 글자다." },
+      Divider: { type: "BOOLEAN", reason: "열 사이 1px — CSS 는 `__column` 의 border-inline-start 이고 `:first-child` 가 끈다. Figma 는 첫 열 인스턴스에서 끈다." },
+    },
+    geometry: {
+      measuredId: "plan-comparison-column",
+      sizeKeys: ["md", "sm"],
+      fields: {
+        layoutMode: { literal: "HORIZONTAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Divider: { fields: { width: "borderWidth" } },
+        Head: { fields: { paddingBlock: "headPaddingTop", paddingBlockEnd: ["headPaddingBottom", "borderWidth"], paddingInline: "inset" } },
+        Plan: { fields: { fontSize: "planSize" } },
+        Body: { fields: { paddingBlock: "bodyPaddingTop", paddingBlockEnd: "bodyPaddingBottom" } },
+        "Group 예시": { fields: { paddingBlock: "groupPadding", paddingBlockEnd: "groupPadding" } },
+        GroupName: { fields: { paddingBlock: "groupNamePaddingTop", paddingBlockEnd: "groupNamePaddingBottom", paddingInline: "inset" } },
+        Name: { fields: { fontSize: "groupNameSize" } },
+      },
+    },
+  },
+  {
+    id: "plan-comparison",
+    figmaName: "PlanComparison",
+    figmaAhead: "React 표면 없음 — packages/css/src/component/plan-comparison.css 가 정본이다(2026-10-14, DS-D-0092). 열 다섯(Trial · Lite · Plus · Pro · Ultra)과 값은 시드 데이터다 — 열 수는 CSS 변수 `--louis-plan-comparison-columns` 가 받는 데이터라 축이 아니다. 가로 스크롤 칸은 그리지 않는다(최소 폭은 격자의 minWidth). 바깥 여백 · 페이지 폭 · content-visibility 는 소비처 몫이다.",
+    variantProperties: {},
+    // 격자 바깥 선 — CSS border 1(gray-000-alpha-12), Figma INSIDE 획(strokesIncludedInLayout false)이고 패딩 = 0 + 1(§10).
+    strokes: { Grid: { weight: "borderWidth", align: "INSIDE" } },
+    effects: {},
+    figmaOnlyProperties: {
+      Size: { options: ["md", "sm"], reason: "너비 대역 — sm 은 767 이하 좁은 판(최소 폭 760 → 640). 코드에는 속성이 없고 뷰포트가 고른다." },
+      Title: { type: "TEXT", reason: "표 제목 — 코드에서 `__title` 의 글자다." },
+    },
+    geometry: {
+      measuredId: "plan-comparison",
+      sizeKeys: ["md", "sm"],
+      fields: {
+        itemSpacing: "titleGap",
+        layoutMode: { literal: "VERTICAL" },
+      },
+      slots: {},
+      extraStrokeWeights: [],
+      parts: {
+        Title: { fields: { fontSize: "titleSize" } },
+        Grid: { fields: { minWidth: "minInlineSize", paddingBlock: ["gridPadding", "borderWidth"], paddingInline: ["gridPadding", "borderWidth"], cornerRadius: "radius" } },
+      },
+    },
+  },
+  {
     id: "audio-cell",
     figmaName: "AudioCell",
     figmaAhead: "React 표면 없음 — packages/css/src/component/audio-cell.css 가 정본이다(2026-10-13, DS-D-0084).",

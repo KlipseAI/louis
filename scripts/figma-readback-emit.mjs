@@ -328,6 +328,12 @@ const CAPTURE = {
   "PlanTierCardFeature": {"key":{"by":["Interactive"]},"fields":["itemSpacing","layoutMode"],"parts":{"Icon":["paddingBlock"],"Glyph":["width","height"],"Text":["fontSize"]}},
   // 예약 안내 — 위아래 8 · 좌우 12 에 테두리 1 을 접는다(strokesIncludedInLayout false, §10). 버튼은 Button 인스턴스다.
   "PlanTierCardNotice": {"key":{"name":"base"},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"parts":{"Label":["fontSize"]},"strokes":["self"]},
+  // Plan Comparison(2026-10-14, DS-D-0092). 항목 한 줄 — 안쪽 · 사이, 표시 칸 16(체크는 icon/check 인스턴스, 대시는 16 프레임 — text 칸에는 없다), 기능 14.
+  "PlanComparisonItem": {"key":{"by":["Layout","Size"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode"],"parts":{"Mark":["width","height"],"Feature":["fontSize"]}},
+  // 한 열 — 열 사이 1px Divider(BOOLEAN), 머리(아래 한 변 INSIDE 획, 패딩 아래 = 16 + 1) · 본문 · 묶음 · 묶음 이름. 항목은 인스턴스라 훑기가 그 안으로 들어가지 않는다.
+  "PlanComparisonColumn": {"key":{"by":["Size"]},"fields":["layoutMode"],"parts":{"Divider":["width"],"Head":["paddingBlock","paddingBlockEnd","paddingInline"],"Plan":["fontSize"],"Body":["paddingBlock","paddingBlockEnd"],"Group 예시":["paddingBlock","paddingBlockEnd"],"GroupName":["paddingBlock","paddingBlockEnd","paddingInline"],"Name":["fontSize"]},"strokes":["Head"]},
+  // 비교표 — 제목 아래 32, 격자(바깥 INSIDE 획 1 · 패딩 0 + 1 · 반경 16 · 최소 폭). 열은 시드 데이터 인스턴스다.
+  "PlanComparison": {"key":{"by":["Size"]},"fields":["itemSpacing","layoutMode"],"parts":{"Title":["fontSize"],"Grid":["minWidth","paddingBlock","paddingInline","cornerRadius"]},"strokes":["Grid"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

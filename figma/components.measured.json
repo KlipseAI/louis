@@ -6785,6 +6785,171 @@
           "$labelFontSize": "caption medium 12. 제품 UPC:325."
         }
       }
+    },
+    "plan-comparison-item": {
+      "$doc": "design/components/plan-comparison.md",
+      "$source": "packages/css/src/component/plan-comparison.css — 2026-10-14 DS-D-0092",
+      "$note": "Plan Comparison 의 항목 한 줄(`__item`). 키는 Figma PlanComparisonItem 의 Layout(= CSS `__value[data-value]`)/Size(sm = 767 이하). 약칭 PS = components/landing/sections/PricingSection.tsx. plan-comparison-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "included/md": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 20,
+          "$paddingInline": "20. `--louis-plan-comparison-inset` — 제품 PS:378 `[padding:7px_20px]`.",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384.",
+          "markSize": 16,
+          "$markSize": "16. `__mark` — 제품 PS:457 체크 svg `width=16 height=16`. Figma 는 icon/check 인스턴스 2/3 배(획 1.5 → 1.0 함께)."
+        },
+        "excluded/md": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 20,
+          "$paddingInline": "20. `--louis-plan-comparison-inset` — 제품 PS:378 `[padding:7px_20px]`.",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384.",
+          "markSize": 16,
+          "$markSize": "16. `__mark` 칸 — 대시 글자 상자를 칸에 맞춘다(제품 PS:401 `[line-height:1]` · body-16)."
+        },
+        "text/md": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 20,
+          "$paddingInline": "20. `--louis-plan-comparison-inset` — 제품 PS:378 `[padding:7px_20px]`.",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384."
+        },
+        "included/sm": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 767 이하 `--louis-plan-comparison-inset` — 제품 PS:379 `max-width:768px` 의 `px-7`(단위당 2px).",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384.",
+          "markSize": 16,
+          "$markSize": "16. `__mark` — 제품 PS:457 체크 svg `width=16 height=16`. Figma 는 icon/check 인스턴스 2/3 배(획 1.5 → 1.0 함께)."
+        },
+        "excluded/sm": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 767 이하 `--louis-plan-comparison-inset` — 제품 PS:379 `max-width:768px` 의 `px-7`(단위당 2px).",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384.",
+          "markSize": 16,
+          "$markSize": "16. `__mark` 칸 — 대시 글자 상자를 칸에 맞춘다(제품 PS:401 `[line-height:1]` · body-16)."
+        },
+        "text/sm": {
+          "paddingBlock": 7,
+          "$paddingBlock": "7. `__item { padding }` — 제품 PS:378 `[padding:7px_20px]`. 사다리 밖 리터럴.",
+          "paddingInline": 14,
+          "$paddingInline": "14. 767 이하 `--louis-plan-comparison-inset` — 제품 PS:379 `max-width:768px` 의 `px-7`(단위당 2px).",
+          "gap": 12,
+          "$gap": "space-control-md 12. `__item { gap }` — 제품 PS:377 `gap-6`(단위당 2px).",
+          "featureSize": 14,
+          "$featureSize": "body-sm regular 14. `__feature` — 제품 PS:384."
+        }
+      }
+    },
+    "plan-comparison-column": {
+      "$doc": "design/components/plan-comparison.md",
+      "$source": "packages/css/src/component/plan-comparison.css — 2026-10-14 DS-D-0092",
+      "$note": "Plan Comparison 의 한 열(`__column` · `__head` · `__body` · `__group` · `__group-name`). 키는 Figma PlanComparisonColumn 의 Size(sm = 767 이하). plan-comparison-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "md": {
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 열 사이 `border-inline-start` · 머리 `border-block-end` — 제품 PS:347 · :357 `1px_solid`.",
+          "headPaddingTop": 18,
+          "$headPaddingTop": "18. `__head { padding }` — 제품 PS:352 `[padding:18px_20px_16px]`.",
+          "headPaddingBottom": 16,
+          "$headPaddingBottom": "space-control-lg 16. 제품 PS:352. Figma 패딩 아래 = 16 + 선 1(§10).",
+          "inset": 20,
+          "$inset": "20. `--louis-plan-comparison-inset`(머리 · 묶음 이름 · 항목 좌우) — 제품 PS:352 · :366 · :378.",
+          "planSize": 16,
+          "$planSize": "body-md semibold 16. `__head` — 제품 PS:353.",
+          "bodyPaddingTop": 4,
+          "$bodyPaddingTop": "space-control-xs 4. `__body` — 제품 PS:361 `[padding:4px_0_12px]`.",
+          "bodyPaddingBottom": 12,
+          "$bodyPaddingBottom": "space-control-md 12. 제품 PS:361.",
+          "groupPadding": 8,
+          "$groupPadding": "space-control-sm 8. `__group` — 제품 PS:363 `[padding:8px_0]`.",
+          "groupNamePaddingTop": 10,
+          "$groupNamePaddingTop": "10. `__group-name` — 제품 PS:366 `[padding:10px_20px_4px]`. 사다리 밖 리터럴.",
+          "groupNamePaddingBottom": 4,
+          "$groupNamePaddingBottom": "space-control-xs 4. 제품 PS:366.",
+          "groupNameSize": 12,
+          "$groupNameSize": "caption medium 12. `__group-name` — 제품 PS:367."
+        },
+        "sm": {
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. 열 사이 `border-inline-start` · 머리 `border-block-end` — 제품 PS:347 · :357 `1px_solid`.",
+          "headPaddingTop": 14,
+          "$headPaddingTop": "14. 767 이하 — 제품 PS:358 `[padding:14px_14px_12px]`.",
+          "headPaddingBottom": 12,
+          "$headPaddingBottom": "space-control-md 12. 제품 PS:358. Figma 패딩 아래 = 12 + 선 1(§10).",
+          "inset": 14,
+          "$inset": "14. 767 이하 — 제품 PS:358 · :371 · :379.",
+          "planSize": 16,
+          "$planSize": "body-md semibold 16. `__head` — 제품 PS:353.",
+          "bodyPaddingTop": 4,
+          "$bodyPaddingTop": "space-control-xs 4. `__body` — 제품 PS:361 `[padding:4px_0_12px]`.",
+          "bodyPaddingBottom": 12,
+          "$bodyPaddingBottom": "space-control-md 12. 제품 PS:361.",
+          "groupPadding": 8,
+          "$groupPadding": "space-control-sm 8. `__group` — 제품 PS:363 `[padding:8px_0]`.",
+          "groupNamePaddingTop": 10,
+          "$groupNamePaddingTop": "10. `__group-name` — 제품 PS:366 `[padding:10px_20px_4px]`. 사다리 밖 리터럴.",
+          "groupNamePaddingBottom": 4,
+          "$groupNamePaddingBottom": "space-control-xs 4. 제품 PS:366.",
+          "groupNameSize": 12,
+          "$groupNameSize": "caption medium 12. `__group-name` — 제품 PS:367."
+        }
+      }
+    },
+    "plan-comparison": {
+      "$doc": "design/components/plan-comparison.md",
+      "$source": "packages/css/src/component/plan-comparison.css — 2026-10-14 DS-D-0092",
+      "$note": "Plan Comparison 의 틀(`__title` · `__grid`). 키는 Figma PlanComparison 의 Size(sm = 767 이하). plan-comparison-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "md": {
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `__grid { border }` — 제품 PS:338 `[border:1px_solid_…_12%]`.",
+          "gridPadding": 0,
+          "$gridPadding": "0. 격자에는 안쪽 여백이 없다 — Figma 패딩 = 0 + 테두리 1(§10).",
+          "radius": 16,
+          "$radius": "16. `__grid { border-radius }` — 제품 PS:339 `rounded-16`(DS-D-0092 판정 3, 리터럴).",
+          "minInlineSize": 760,
+          "$minInlineSize": "760. `--louis-plan-comparison-min-inline-size` — 제품 PS:337 `min-w-[760px]`.",
+          "titleGap": 32,
+          "$titleGap": "32. `__title { margin-block-end }` — 제품 PS:331 `mb-16`(단위당 2px).",
+          "titleSize": 36,
+          "$titleSize": "heading-md semibold 36. `__title` — 제품 PS:331 `type-heading-36-semibold`."
+        },
+        "sm": {
+          "borderWidth": 1,
+          "$borderWidth": "border-width-default 1. `__grid { border }` — 제품 PS:338 `[border:1px_solid_…_12%]`.",
+          "gridPadding": 0,
+          "$gridPadding": "0. 격자에는 안쪽 여백이 없다 — Figma 패딩 = 0 + 테두리 1(§10).",
+          "radius": 16,
+          "$radius": "16. `__grid { border-radius }` — 제품 PS:339 `rounded-16`(DS-D-0092 판정 3, 리터럴).",
+          "minInlineSize": 640,
+          "$minInlineSize": "640. 767 이하 — 제품 PS:341 `min-w-[640px]`.",
+          "titleGap": 32,
+          "$titleGap": "32. `__title { margin-block-end }` — 제품 PS:331 `mb-16`(단위당 2px).",
+          "titleSize": 36,
+          "$titleSize": "heading-md semibold 36. `__title` — 제품 PS:331 `type-heading-36-semibold`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -6846,7 +7011,10 @@
     "coverflow": "위(coverflow-card)와 같은 이유다.",
     "plan-tier-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 공개 /pricing 은 렌더되지만 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 components/landing/sections/PricingSection.tsx · app/mypage/upgrade/UpgradePlanPageClient.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다 — 업그레이드 화면(현재 플랜 · 예약 안내 · 상세 툴팁)은 로그인 뒤라 상태 하네스도 닿지 않는다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 PricingSection.tsx 를 소스로 등록하고 TIER_CARD · TIER_FEATURE_LIST 탐침을 세우면 이 면제를 지운다.",
     "plan-tier-card-feature": "위와 같은 이유다. 기능 줄(TIER_FEATURE_LIST)은 티어 카드 안에서만 그려진다.",
-    "plan-tier-card-notice": "위와 같은 이유다. 예약 안내(PENDING_DOWNGRADE_NOTICE)는 로그인 뒤 업그레이드 화면에서 예약이 있을 때만 그려진다."
+    "plan-tier-card-notice": "위와 같은 이유다. 예약 안내(PENDING_DOWNGRADE_NOTICE)는 로그인 뒤 업그레이드 화면에서 예약이 있을 때만 그려진다.",
+    "plan-comparison": "제품 렌더 하네스가 이 조형에 닿지 못한다. 공개 /pricing 은 렌더되지만 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 components/landing/sections/PricingSection.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 PricingSection.tsx 를 소스로 등록하고 COMPARISON_GRID · COMPARISON_COL_HEAD · COMPARISON_COL_ITEM 탐침을 세우면 이 면제를 지운다.",
+    "plan-comparison-column": "위(plan-comparison)와 같은 이유다.",
+    "plan-comparison-item": "위(plan-comparison)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

@@ -287,6 +287,25 @@
       }
     },
     {
+      "name": "check",
+      "symbol": "IconCheck",
+      "figmaName": "icon/check",
+      "source": "packages/react/src/icons/svg/check.svg",
+      "geometryHash": "9cfb3163bf44ce2f",
+      "elementCount": 1,
+      "keywords": [
+        "check",
+        "included",
+        "tick",
+        "포함",
+        "체크",
+        "확인"
+      ],
+      "provenance": {
+        "origin": "original"
+      }
+    },
+    {
       "name": "check-circle",
       "symbol": "IconCheckCircle",
       "figmaName": "icon/check-circle",

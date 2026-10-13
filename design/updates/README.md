@@ -25,6 +25,25 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (258) — 요금제마다 한 열을 세우는 비교표를 새 부품 `plan-comparison` 으로, 아이콘 `check`(DS-D-0092, DS-D-0084)
+
+- **새 부품 `plan-comparison`.** 제목 · 가로 스크롤 · 격자 · 열 · 머리 · 본문 · 묶음 · 묶음 이름 · 항목(기능 이름 | 값) · 표시 칸(`.louis-plan-comparison` · `__title` ·
+  `__scroll` · `__grid` · `__column` · `__head` · `__body` · `__group` · `__group-name` · `__list` · `__item` · `__feature` · `__value` · `__mark`). 공개 가격 `/pricing` 과
+  로그인 뒤 플랜 선택 `/mypage/upgrade` 가 함께 쓰는 `PlanComparisonTable` 의 상수 열넷을 한 레시피로 옮겼다. **열이 플랜인 완전 피벗**이라 Table(행 × 열 격자)의
+  변형이 아니다.
+- **값은 `__value[data-value]` 셋** — `included`(체크 16, `stroke-strong`) · `excluded`(대시 「–」 16 칸, `fg-secondary`) · `text`(caption semibold, `fg-primary`).
+- **열 수는 데이터** — `--louis-plan-comparison-columns`(기본 4). **좁은 판은 767 이하**(최소 폭 760 → 640 · 칸 안쪽 20 → 14 · 머리 18 · 20 · 16 → 14 · 14 · 12) — 제품 768 경계를
+  있는 767 로 접었다. 바깥 여백 · 페이지 폭 · `content-visibility` 는 소비처 몫이다.
+- **접근 의미를 더했다** — 열 `role="group"` + `aria-labelledby`(머리), 목록 `aria-labelledby`(묶음 이름). 제품은 맨 `div` · `ul` 이다.
+- **새 아이콘 `check`**(원 없는 체크, `original`) — 제품 인라인 글리프 `M5 12.5L10 17.5L19 7` 을 세트 관례 획 1.5 로 올렸다(16px 에서 1.33 → 1.0px). 소비처는
+  `<IconCheck size="sm" className="louis-plan-comparison__mark" label="포함" />` 으로 넣는다. Figma DS · Icons 에 `icon/check`.
+- **새 토큰 0.** 대비 부채는 앵커 `54b62a8a` 에서 이미 풀렸다 — 옛 메모(다크 1.42 · 1.83)는 낡았다. 보이는 변화는 다크 머리 · 텍스트 값 잉크가 `fg-primary` 로
+  한 칸 밝아지는 것(#dcdee1 → #fafafa) 하나다.
+- **Figma.** DS · Components 「5 · 내용」에 `PlanComparison`(Size = 2, 시드 다섯 열) · `PlanComparisonColumn`(Size = 2, BOOLEAN `Divider`) ·
+  `PlanComparisonItem`(Layout × Size = 6 — Layout 은 `data-value` 철자, figma-component-authoring §2 예외에 한 줄). 원시 칠 0. 기록 셋과 parity 기하 계약(figma `partial`).
+  제품 세트 `Product/Plan Comparison Table` 을 DS 세트 인스턴스로 다시 짓는 일은 제품이 클래스를 물 때로 미뤘다(DS-D-0092 판정 10).
+- 소유자 판정 열은 초안의 기본값으로 — DS-D-0092 표. 실브라우저 시험 `plan-comparison.browser.test.tsx` · `plan-comparison-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (257) — 요금제 한 단을 세로 카드 한 장에 담는 새 부품 `plan-tier-card`, 짝 블록 `plan-tier-deck`(DS-D-0091, DS-D-0084)
 
 - **새 부품 `plan-tier-card`.** 이름 · (원가) · 가격 · 크레딧 · 포함 · 기능 목록 · (메모 · 예약 안내) · CTA 의 세로 카드(`.louis-plan-tier-card` · `__head` · `__name` ·

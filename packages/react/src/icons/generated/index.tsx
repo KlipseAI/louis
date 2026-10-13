@@ -19,6 +19,7 @@ export type IconName =
   | "caret-left"
   | "caret-right"
   | "chat-bubbles"
+  | "check"
   | "check-circle"
   | "clip-split"
   | "cloud-arrow-up"
@@ -180,6 +181,14 @@ export function IconChatBubbles(props: IconProps): JSX.Element {
     <IconRoot {...props} name="chat-bubbles">
       <path d="M14.5 8.5V6.25a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v5.25a2 2 0 0 0 2 2h1V16l3-2.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M10.5 11.5a2 2 0 0 1 2-2H19a2 2 0 0 1 2 2v4.25a2 2 0 0 1-2 2h-1v2.5l-3-2.5h-2.5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </IconRoot>
+  );
+}
+
+export function IconCheck(props: IconProps): JSX.Element {
+  return (
+    <IconRoot {...props} name="check">
+      <polyline points="5 12.5 10 17.5 19 7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </IconRoot>
   );
 }

@@ -22276,6 +22276,478 @@
         ]
       }
     },
+    "PlanComparison": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Title": {
+          "type": "TEXT"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 2,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 2,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Title": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Grid": {
+              "minWidth": [
+                760
+              ],
+              "paddingBlock": [
+                1
+              ],
+              "paddingInline": [
+                1
+              ],
+              "cornerRadius": [
+                16
+              ]
+            }
+          },
+          "itemSpacing": [
+            32
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Title": {
+              "fontSize": [
+                36
+              ]
+            },
+            "Grid": {
+              "minWidth": [
+                640
+              ],
+              "paddingBlock": [
+                1
+              ],
+              "paddingInline": [
+                1
+              ],
+              "cornerRadius": [
+                16
+              ]
+            }
+          },
+          "itemSpacing": [
+            32
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "Grid": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "PlanComparisonColumn": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Plan": {
+          "type": "TEXT"
+        },
+        "Divider": {
+          "type": "BOOLEAN"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 6,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 4,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "md": {
+          "slots": {},
+          "parts": {
+            "Divider": {
+              "width": [
+                1
+              ]
+            },
+            "Head": {
+              "paddingBlock": [
+                18
+              ],
+              "paddingBlockEnd": [
+                17
+              ],
+              "paddingInline": [
+                20
+              ]
+            },
+            "Plan": {
+              "fontSize": [
+                16
+              ]
+            },
+            "Body": {
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                12
+              ]
+            },
+            "Group 예시": {
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                8
+              ]
+            },
+            "GroupName": {
+              "paddingBlock": [
+                10
+              ],
+              "paddingBlockEnd": [
+                4
+              ],
+              "paddingInline": [
+                20
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm": {
+          "slots": {},
+          "parts": {
+            "Divider": {
+              "width": [
+                1
+              ]
+            },
+            "Head": {
+              "paddingBlock": [
+                14
+              ],
+              "paddingBlockEnd": [
+                13
+              ],
+              "paddingInline": [
+                14
+              ]
+            },
+            "Plan": {
+              "fontSize": [
+                16
+              ]
+            },
+            "Body": {
+              "paddingBlock": [
+                4
+              ],
+              "paddingBlockEnd": [
+                12
+              ]
+            },
+            "Group 예시": {
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                8
+              ]
+            },
+            "GroupName": {
+              "paddingBlock": [
+                10
+              ],
+              "paddingBlockEnd": [
+                4
+              ],
+              "paddingInline": [
+                14
+              ]
+            },
+            "Name": {
+              "fontSize": [
+                12
+              ]
+            }
+          },
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {
+        "Head": [
+          "1|INSIDE"
+        ]
+      },
+      "effects": {}
+    },
+    "PlanComparisonItem": {
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Feature": {
+          "type": "TEXT"
+        },
+        "Value": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "included",
+            "excluded",
+            "text"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 10,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 10,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "included/md": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Mark": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            20
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "excluded/md": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Mark": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            20
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "text/md": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            20
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "included/sm": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Mark": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            14
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "excluded/sm": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            },
+            "Mark": {
+              "width": [
+                16
+              ],
+              "height": [
+                16
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            14
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "text/sm": {
+          "slots": {},
+          "parts": {
+            "Feature": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "paddingBlock": [
+            7
+          ],
+          "paddingInline": [
+            14
+          ],
+          "itemSpacing": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "PlanTierCard": {
       "variantCount": 4,
       "hasDescription": true,
@@ -31611,6 +32083,32 @@
         "메시지",
         "소셜",
         "소통"
+      ]
+    },
+    "icon/check": {
+      "width": 24,
+      "height": 24,
+      "vectors": 1,
+      "strokeWeights": [
+        1.5
+      ],
+      "strokeCaps": [
+        "ROUND"
+      ],
+      "binding": {
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "boundFills": 0,
+        "rawFills": 0
+      },
+      "hasDescription": true,
+      "keywords": [
+        "check",
+        "included",
+        "tick",
+        "포함",
+        "체크",
+        "확인"
       ]
     },
     "icon/check-circle": {

@@ -383,6 +383,15 @@
       "generated": false
     },
     {
+      "id": "decision-plan-comparison",
+      "path": "design/governance/decisions/DS-D-0092-plan-comparison.md",
+      "title": "DS-D-0092 요금제마다 한 열을 세우는 비교표를 새 부품 plan-comparison 으로 — Table 의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1873,6 +1882,7 @@
         "design/components/timeline.md",
         "design/components/coverflow.md",
         "design/components/plan-tier-card.md",
+        "design/components/plan-comparison.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1956,6 +1966,7 @@
         "design/governance/decisions/DS-D-0089-timeline.md",
         "design/governance/decisions/DS-D-0090-coverflow.md",
         "design/governance/decisions/DS-D-0091-plan-tier-card.md",
+        "design/governance/decisions/DS-D-0092-plan-comparison.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2173,6 +2184,15 @@
       "id": "plan-tier-card",
       "path": "design/components/plan-tier-card.md",
       "title": "Plan Tier Card",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "plan-comparison",
+      "path": "design/components/plan-comparison.md",
+      "title": "Plan Comparison",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3098,6 +3118,21 @@
         "PlanTierCard",
         "PlanTierCardFeature",
         "PlanTierCardNotice"
+      ]
+    },
+    {
+      "id": "plan-comparison",
+      "name": "Plan Comparison",
+      "doc": "design/components/plan-comparison.md",
+      "note": "요금제마다 한 열을 세워 각 플랜이 무엇을 주는지 묶음별로 나란히 보여 주는 비교표(DS-D-0092, DS-D-0084). 공개 가격 /pricing 과 로그인 뒤 플랜 선택 /mypage/upgrade 가 함께 쓰는 PricingSection 의 PlanComparisonTable 상수 열넷을 한 레시피(packages/css/src/component/plan-comparison.css)로 옮겼다 — 제목 · 가로 스크롤 · 격자(바깥 1px 알파 선 · 반경 16 · 최소 760) · 열(사이 1px, role=group) · 머리 · 본문 · 묶음 · 묶음 이름 · 항목(기능 이름 | 값) · 표시 칸 16. 값은 data-value 셋 — included(아이콘 check, stroke-strong) · excluded(대시, fg-secondary) · text(caption semibold, fg-primary). 열 수는 데이터라 --louis-plan-comparison-columns 로 받고, 767 이하 좁은 판(최소 640 · 안쪽 14 · 머리 14 · 14 · 12)을 갖는다. 열이 플랜인 완전 피벗이라 Table(행 × 열 격자)의 변형이 아니다. 새 토큰 0, 새 아이콘 check(original). 대비 부채는 앵커에서 이미 풀렸고 다크 머리 잉크만 fg-primary 로 한 칸 밝아진다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 PlanComparison 세트(Size md · sm — sm 은 767 이하, TEXT Title, 시드 데이터 다섯 열)와 한 열 PlanComparisonColumn(Size, TEXT Plan, BOOLEAN Divider — 열 사이 1px), 항목 한 줄 PlanComparisonItem(Layout included · excluded · text — 코드 data-value 철자 × Size, TEXT Feature · Value)으로 섰다 — 체크는 새 아이콘 icon/check 인스턴스 2/3 배, 선은 INSIDE 획(패딩에 테두리를 접었다). 원시 칠 0. 기록 plan-comparison · plan-comparison-column · plan-comparison-item 과 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "PlanComparison",
+        "PlanComparisonColumn",
+        "PlanComparisonItem"
       ]
     },
     {

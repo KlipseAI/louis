@@ -9732,6 +9732,203 @@ textarea.louis-node-shell__response-text {
   }
 }
 
+/* Plan Comparison — design/components/plan-comparison.md
+ *
+ * 요금제 비교표(DS-D-0084, DS-D-0092). 제품 정본은 `PricingSection.tsx:322-504` 의 `PlanComparisonTable`(통합 판 `54b62a8aa`) —
+ * `/pricing` 과 `/mypage/upgrade` 가 같은 컴포넌트를 쓴다. 아래 주석의 약칭 `PS` = `components/landing/sections/PricingSection.tsx`.
+ *
+ * **열이 플랜이다(완전 피벗).** 각 열이 묶음별 체크리스트를 자기완결로 담는다 — 한 플랜만 내려 읽어도 그 플랜이 무엇을
+ * 주는지 끝까지 읽힌다. 그래서 `<table>` 이 아니다(`table.css` 는 행 × 열 격자다). 기능 이름이 열마다 되풀이되는 것은
+ * 이 조형의 값이지 중복이 아니다.
+ *
+ * **열 수는 데이터다** — 소비처가 `--louis-plan-comparison-columns` 로 준다. 바깥 여백 · 페이지 폭 · 화면 밖 렌더 생략
+ * (`content-visibility`)은 소비처 몫이다.
+ *
+ * 색 — 잉크는 역할(fg-*)로 받는다. 선은 바닥과 무관하게 같은 무게로 보이도록 알파 잉크 `gray-000-alpha-*` 다(asset-tile.css 선례).
+ * 표 자신은 면을 칠하지 않는다 — 랜딩 바닥과 메인 카드 위에 같은 표가 선다. 체크 글리프는 소비처가 아이콘 `check` 를 넣는다. */
+
+.louis-plan-comparison {
+  /* ── 소비처가 주는 데이터 ── 플랜 수. 제품 `--comparison-cols` 기본 4(PS:337). */
+  --louis-plan-comparison-columns: 4;
+
+  /* ── 레시피 내부 ── 좁은 판이 덮는 둘. */
+  /* 칸 좌우 안쪽 — 묶음 이름과 항목이 같은 선에 선다. 20 은 제품 `[padding:…20px…]`(PS:366 · :378), 사다리(16 · 24) 사이라 리터럴. */
+  --louis-plan-comparison-inset: 20px;
+  /* 격자 최소 폭 — 다섯 열이 기능 이름을 두 줄 안에 담는 폭(PS:337). 넘치면 `__scroll` 이 구른다. */
+  --louis-plan-comparison-min-inline-size: 760px;
+
+  box-sizing: border-box;
+  display: block;
+  min-inline-size: 0;
+}
+
+/* ── 제목 ── 표 위 가운데 한 줄(PS:330-331). */
+.louis-plan-comparison__title {
+  margin: 0;
+  /* 32 — 제품 `mb-16`(단위당 2px, PS:331). 간격 사다리(24 `layout-section`)에 없다. */
+  margin-block-end: 32px;
+  color: var(--louis-color-fg-primary);
+  text-align: center;
+  font-family: var(--louis-typography-heading-md-semibold-font-family);
+  font-size: var(--louis-typography-heading-md-semibold-font-size);
+  font-weight: var(--louis-typography-heading-md-semibold-font-weight);
+  line-height: var(--louis-typography-heading-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-heading-md-semibold-letter-spacing);
+}
+
+/* ── 가로 스크롤 ── 격자가 최소 폭보다 좁은 자리에 놓이면 이 칸이 구른다(PS:333). 표의 스크롤을 부품이 갖는 이유는
+ * 최소 폭이 레시피 값이기 때문이다(`table.css` 는 열 폭이 데이터라 스크롤을 소비처에 둔다 — 사정이 다르다). */
+.louis-plan-comparison__scroll {
+  overflow-x: auto;
+  min-inline-size: 0;
+}
+
+/* ── 격자 틀 ── 바깥 1px 12% · 반경 16 · 모서리 자름(PS:336-340). */
+.louis-plan-comparison__grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(var(--louis-plan-comparison-columns), minmax(0, 1fr));
+  min-inline-size: var(--louis-plan-comparison-min-inline-size);
+  border: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-12);
+  /* 16 — 제품 `rounded-16`(PS:339). 반경 사다리는 12(`radius-card`) · 20(`radius-card-lg`)이고 16 은 `radius-overlay` 라
+   * 이름이 다르다 — 리터럴로 둔다(DS-D-0092 판정 3). */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ── 열 ── 열 사이 1px 8%(PS:345-349). 쓰기 방향을 따른다(RTL 이면 오른쪽 선). */
+.louis-plan-comparison__column {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  border-inline-start: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+}
+
+.louis-plan-comparison__column:first-child {
+  border-inline-start: 0;
+}
+
+/* ── 머리 ── 플랜 이름. 18 · 20 · 16 — 이름을 위로 2 올려 아래 선과의 틈을 넓힌 값이라 사다리에 없다(PS:352). */
+.louis-plan-comparison__head {
+  padding: 18px var(--louis-plan-comparison-inset) var(--louis-space-control-lg);
+  border-block-end: var(--louis-border-width-default) solid var(--louis-color-gray-000-alpha-08);
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-body-md-semibold-font-family);
+  font-size: var(--louis-typography-body-md-semibold-font-size);
+  font-weight: var(--louis-typography-body-md-semibold-font-weight);
+  line-height: var(--louis-typography-body-md-semibold-line-height);
+  letter-spacing: var(--louis-typography-body-md-semibold-letter-spacing);
+}
+
+/* ── 본문 ── 위 4 · 아래 12(PS:361). */
+.louis-plan-comparison__body {
+  padding-block: var(--louis-space-control-xs) var(--louis-space-control-md);
+}
+
+/* ── 묶음 ── 위아래 8(PS:363). */
+.louis-plan-comparison__group {
+  padding-block: var(--louis-space-control-sm);
+}
+
+/* 묶음 이름 — 10 · inset · 4(PS:366). 위 10 은 묶음 사이 숨 — 사다리(8 · 12) 사이라 리터럴. */
+.louis-plan-comparison__group-name {
+  margin: 0;
+  padding: 10px var(--louis-plan-comparison-inset) var(--louis-space-control-xs);
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+.louis-plan-comparison__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── 항목 ── 기능 이름 | 값. 7 · inset — 한 줄 항목 높이 35(PS:378). 7 은 사다리 밖이라 리터럴. */
+.louis-plan-comparison__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--louis-space-control-md);
+  padding: 7px var(--louis-plan-comparison-inset);
+}
+
+/* 기능 이름 — 좁은 열에서는 접힌다(말줄임 없음). 값 칸이 줄지 않으므로 이 칸이 남는 폭을 받는다. */
+.louis-plan-comparison__feature {
+  min-inline-size: 0;
+  color: var(--louis-color-fg-secondary);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+}
+
+/* ── 값 ── `data-value` 셋: included(체크) · excluded(대시) · text(짧은 값). 표시 하나만 담는다(PS:390). */
+.louis-plan-comparison__value {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 표시 칸 16 × 16 — 체크 글리프(소비처가 넣는 아이콘 `check`)나 대시 글자가 이 칸에 선다. 칸이 높이를 정해 항목 높이 35 를 지킨다. */
+.louis-plan-comparison__mark {
+  display: block;
+  flex: none;
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+/* 포함 — 획 잉크 #72757b(두 mode 같은 값, 제품 `text-gray-500`, PS:392). 그래픽 대비 3:1 위(문서 Accessibility). */
+.louis-plan-comparison__value[data-value="included"] {
+  color: var(--louis-color-stroke-strong);
+}
+
+/* 미포함 — 「–」 글자. 체크보다 진한 `fg-secondary` 다: 한 칸 흐린 잉크는 다크에서 「없음」이 읽히지 않았다(PS:394-397 주석). */
+.louis-plan-comparison__value[data-value="excluded"] {
+  color: var(--louis-color-fg-secondary);
+}
+
+.louis-plan-comparison__value[data-value="excluded"] > .louis-plan-comparison__mark {
+  font-family: var(--louis-typography-body-md-regular-font-family);
+  font-size: var(--louis-typography-body-md-regular-font-size);
+  /* 1 — 글자 상자를 표시 칸 16 에 맞춘다(PS:401). */
+  line-height: 1;
+  text-align: center;
+}
+
+/* 텍스트 값 — 「720p」 · 「10분」 같은 짧은 값(PS:404-409). */
+.louis-plan-comparison__value[data-value="text"] {
+  color: var(--louis-color-fg-primary);
+  text-align: end;
+  font-family: var(--louis-typography-caption-semibold-font-family);
+  font-size: var(--louis-typography-caption-semibold-font-size);
+  font-weight: var(--louis-typography-caption-semibold-font-weight);
+  line-height: var(--louis-typography-caption-semibold-line-height);
+  letter-spacing: var(--louis-typography-caption-semibold-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 좁은 판 ── 767 이하에서 최소 폭 640, 칸 안쪽 14, 머리 14 · 14 · 12(PS:341 · :358 · :371 · :379).
+ * 제품 경계는 `max-width: 768px` 이다 — LOUIS 에 이미 있는 767 경계(section-header.css, responsive-layout.md 타입 계단)를 쓴다.
+ * 정확히 768px 폭에서만 1px 갈린다(DS-D-0092 판정 4). */
+@media (max-width: 767px) {
+  .louis-plan-comparison {
+    /* 14 — 제품 `px-7`(단위당 2px). 사다리(12 · 16) 사이라 리터럴. */
+    --louis-plan-comparison-inset: 14px;
+    --louis-plan-comparison-min-inline-size: 640px;
+  }
+
+  .louis-plan-comparison__head {
+    padding: 14px var(--louis-plan-comparison-inset) var(--louis-space-control-md);
+  }
+}
+
 /* Plan Tier Card — design/components/plan-tier-card.md
  *
  * 요금제 하나를 세로 카드 한 장에 — 이름 · (원가) · 가격 · 크레딧 · 포함 · 기능 목록 · (메모 · 안내) · CTA(DS-D-0084, DS-D-0091).

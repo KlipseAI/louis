@@ -261,6 +261,10 @@
   --color-table-header-surface: var(--louis-color-table-header-surface);
   --color-table-row-hover: var(--louis-color-table-row-hover);
   --color-table-row-line: var(--louis-color-table-row-line);
+  --color-timeline-accent: var(--louis-color-timeline-accent);
+  --color-timeline-clip-audio: var(--louis-color-timeline-clip-audio);
+  --color-timeline-clip-caption: var(--louis-color-timeline-clip-caption);
+  --color-timeline-clip-image: var(--louis-color-timeline-clip-image);
 
   /* 곡률 — rounded-* 유틸리티가 된다 */
   --radius-alert: var(--louis-radius-alert);

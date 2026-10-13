@@ -6298,6 +6298,146 @@
           "$titleSize": "body-lg medium 20 — 1024 이상. 제품 TP:120 `type-body-20-medium`."
         }
       }
+    },
+    "timeline-clip": {
+      "$doc": "design/components/timeline.md",
+      "$source": "packages/css/src/component/timeline.css — 2026-10-14 DS-D-0089",
+      "$note": "Timeline 클립(`.louis-timeline__clip`). 키는 Figma TimelineClip 의 Tone/Selected 축 — 고름(aria-pressed)은 고리 · 손잡이만 더해 기하가 같다. 폭은 --louis-timeline-w 의 데이터라 담지 않는다. packages/react/test/timeline-geometry.browser.test.tsx 가 되잰다.",
+      "sizes": {
+        "video/false": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "caption/false": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "image/false": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "audio/false": {
+          "height": 36,
+          "$height": "36. `.louis-timeline__lane[data-tone=\"audio\"] { --louis-timeline-lane-height: 36px }` — 제품 mobileTimelineClass.ts:226. 클립 높이는 레인을 물려받는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "video/true": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "caption/true": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "image/true": {
+          "height": 44,
+          "$height": "44. `--louis-timeline-lane-height: 44px` — 제품 mobileTimelineClass.ts:77-81 `var(--vem-mobile-lane-height,44px)`.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        },
+        "audio/true": {
+          "height": 36,
+          "$height": "36. `.louis-timeline__lane[data-tone=\"audio\"] { --louis-timeline-lane-height: 36px }` — 제품 mobileTimelineClass.ts:226. 클립 높이는 레인을 물려받는다.",
+          "paddingInline": 8,
+          "$paddingInline": "space-control-sm 8. `.louis-timeline__clip { padding: 0 var(--louis-space-control-sm) }` — 제품 mobileTimelineClass.ts:95 `[padding:0_8px]`.",
+          "radius": 8,
+          "$radius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:100."
+        }
+      }
+    },
+    "timeline-trim-handle": {
+      "$doc": "design/components/timeline.md",
+      "$source": "packages/css/src/component/timeline.css — 2026-10-14 DS-D-0089",
+      "$note": "트림 손잡이(`.louis-timeline__trim`). 키는 Figma TimelineTrimHandle 의 Direction 축(코드 data-edge start = prev, end = next). 높이는 레인의 것이라 담지 않는다.",
+      "sizes": {
+        "prev": {
+          "width": 24,
+          "$width": "24. `.louis-timeline__trim { inline-size: 24px }` — 손가락 폭, 제품 mobileTimelineClass.ts:124.",
+          "bracketWidth": 8,
+          "$bracketWidth": "space-control-sm 8. `::before` 괄호 — 제품 mobileTimelineClass.ts:132 `[&::after]:[width:8px]`(제품은 괄호가 ::after).",
+          "gripWidth": 2,
+          "$gripWidth": "2. `::after` 그립 — 제품 mobileTimelineClass.ts:138(제품은 그립이 ::before).",
+          "gripHeight": 12,
+          "$gripHeight": "12. `::after` 그립 — 제품 mobileTimelineClass.ts:139."
+        },
+        "next": {
+          "width": 24,
+          "$width": "24. `.louis-timeline__trim { inline-size: 24px }` — 손가락 폭, 제품 mobileTimelineClass.ts:124.",
+          "bracketWidth": 8,
+          "$bracketWidth": "space-control-sm 8. `::before` 괄호 — 제품 mobileTimelineClass.ts:132 `[&::after]:[width:8px]`(제품은 괄호가 ::after).",
+          "gripWidth": 2,
+          "$gripWidth": "2. `::after` 그립 — 제품 mobileTimelineClass.ts:138(제품은 그립이 ::before).",
+          "gripHeight": 12,
+          "$gripHeight": "12. `::after` 그립 — 제품 mobileTimelineClass.ts:139."
+        }
+      }
+    },
+    "timeline-ruler": {
+      "$doc": "design/components/timeline.md",
+      "$source": "packages/css/src/component/timeline.css — 2026-10-14 DS-D-0089",
+      "$note": "눈금자(`.louis-timeline-ruler`). 키는 Figma TimelineRuler 의 Layout 축(코드 data-layout, 없음 = base). 큰 눈금 하나의 치수만 담는다 — 자리 · 단 · 글자는 데이터다.",
+      "sizes": {
+        "base": {
+          "height": 40,
+          "$height": "40. `.louis-timeline-ruler { block-size: 40px }` — 제품 sequenceRuler.tsx:102 `var(--timeline-result-lane-h, 40px)`.",
+          "tickWidth": 1,
+          "$tickWidth": "border-width-default 1. 제품 sequenceRuler.tsx:46 `[width:1px]`.",
+          "tickHeight": 12,
+          "$tickHeight": "12. 큰 눈금(data-level 없음) — 제품 sequenceRuler.tsx:37 `[height:12px]`(시퀀스 스코프)."
+        },
+        "compact": {
+          "height": 20,
+          "$height": "20. `[data-layout=compact] { block-size: 20px }` — 제품 mobileTimelineClass.ts:186.",
+          "tickWidth": 1,
+          "$tickWidth": "border-width-default 1. 제품 mobileTimelineClass.ts:194.",
+          "tickHeight": 20,
+          "$tickHeight": "20. 촘촘한 판의 선은 높이 전체(`inset-block: 0`) — 제품 mobileTimelineClass.ts:192-193."
+        }
+      }
+    },
+    "timeline": {
+      "$doc": "design/components/timeline.md",
+      "$source": "packages/css/src/component/timeline.css — 2026-10-14 DS-D-0089",
+      "$note": "Timeline 셸(`.louis-timeline`). Figma Timeline 은 시드 데이터 보드라 키 하나(base). 레인 자리 · 클립 길이는 데이터다.",
+      "sizes": {
+        "base": {
+          "flowGap": 4,
+          "$flowGap": "space-control-xs 4. `.louis-timeline__flow { gap }` — 제품 mobileTimelineClass.ts:68 `[gap:4px]`.",
+          "flowPadding": 8,
+          "$flowPadding": "space-control-sm 8. `.louis-timeline__flow { padding-block }` — 제품 mobileTimelineClass.ts:69 `[padding-block:8px]`.",
+          "addSize": 44,
+          "$addSize": "44 = 레인 높이. `.louis-timeline__add { inline-size · block-size: var(--louis-timeline-lane-height) }` — 제품 mobileTimelineClass.ts:278-279.",
+          "addRadius": 8,
+          "$addRadius": "radius-control-sm 8. 제품 mobileTimelineClass.ts:286.",
+          "playheadWidth": 2,
+          "$playheadWidth": "2. `.louis-timeline__playhead { inline-size: 2px }` — 제품 mobileTimelineClass.ts:52 `[width:2px]`."
+        }
+      }
     }
   },
   "$noProductRender": {
@@ -6348,7 +6488,11 @@
     "lightbox": "제품 렌더 하네스가 이 조형에 닿지 못한다. 라이트박스는 만들기 화면에서 참조 · 대표 · 에셋 칸에 그림을 올린 뒤 그 칸을 눌러야 열리는데 measure-product-components 는 라우트를 열어 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스라 그 상태에 도달하지 못하고, components/scenes/create/ImageLightbox.tsx 는 명부에도 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 ImageLightbox.tsx 를 소스로 등록하고 액션 · 묶음 두 탐침을 세우면 이 면제를 지운다.",
     "channel-header": "제품 렌더 하네스가 이 조형에 닿지 못한다. 채널 머리는 유튜브 · 인스타그램 계정을 연결한 뒤 분석 화면에서만 그려지는데 measure-product-components 는 라우트를 열어 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스라 연결된 계정 상태에 도달하지 못하고, components/scenes/analytics/AnalyticsChannelHeader.tsx 는 명부에도 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 AnalyticsChannelHeader.tsx 를 소스로 등록하고 HEADER_CARD · PROFILE_ROW · INFO · NAME 네 탐침을 세우면 이 면제를 지운다.",
     "channel-header-description": "위와 같은 이유다. 설명 버튼(DESCRIPTION_BUTTON)은 채널 머리 안에서만 그려진다.",
-    "content-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 블로그 · 템플릿 인덱스는 migration/measure-states/public.json 의 상태 하네스로는 그려지지만 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 app/blog/page.tsx · app/templates/page.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 두 파일을 소스로 등록하고 CARD_CLASS · COVER_BOX_CLASS · CARD_BODY_CLASS 탐침을 세우면 이 면제를 지운다."
+    "content-card": "제품 렌더 하네스가 이 조형에 닿지 못한다. 블로그 · 템플릿 인덱스는 migration/measure-states/public.json 의 상태 하네스로는 그려지지만 measure-product-components 는 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스이고 app/blog/page.tsx · app/templates/page.tsx 는 그 명부(scripts/lib/product-files.mjs)에 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 두 파일을 소스로 등록하고 CARD_CLASS · COVER_BOX_CLASS · CARD_BODY_CLASS 탐침을 세우면 이 면제를 지운다.",
+    "timeline-clip": "제품 렌더 하네스가 이 조형에 닿지 못한다. 모바일 타임라인은 편집기 모달을 719 이하 폭으로 열고 프로젝트에 클립이 있어야 그려지는데 measure-product-components 는 라우트를 열어 등록된 제품 소스의 클래스 상수를 컴파일하는 하네스라 그 상태에 도달하지 못하고, videoEditParts/mobileTimelineClass.ts · sequenceRuler.tsx 는 명부(scripts/lib/product-files.mjs)에도 없다. 값의 출처는 그래도 제품이다 — 칸마다 $ 사유가 통합 판 54b62a8aa 의 어느 선언에서 왔는지를 적는다. 다음 회차가 두 파일을 소스로 등록하고 clip · trimHandle · flow · playhead · 눈금 탐침을 세우면 이 면제를 지운다.",
+    "timeline-trim-handle": "위(timeline-clip)와 같은 이유다.",
+    "timeline-ruler": "위(timeline-clip)와 같은 이유다.",
+    "timeline": "위(timeline-clip)와 같은 이유다."
   },
   "$noRecipe": {
     "$comment": "**LOUIS CSS 레시피를 세우지 않기로 판정한 컴포넌트의 명부다.** 레시피가 «아직» 없는 것(그것은 manifest 의 `not-ready` 다)과 «없는 것이 결론인» 것을 가른다. 여기 이름이 있으면 `packages/css/src/component/<id>.css` 가 없는 것이 정상이고, manifest 의 `web` 은 `not-planned` 여야 한다 — `verify-recipe-record.mjs` 가 세 방향을 다 문다. 면제가 아니라 판정이므로 뒤집으려면 Decision 이 필요하다.",

@@ -302,6 +302,15 @@ const CAPTURE = {
   // Content Card(2026-10-14, DS-D-0088). 루트 사이 · 방향 · 패딩(stack 은 테두리 1 을 접는다) · 반경 · 선 두께, 커버 크기 · 반경, 본문 사이 · 여백,
   // 제목 크기, 메타 위 2. 배지는 Badge 인스턴스라 훑기가 그 안으로 들어가지 않는다.
   "ContentCard": {"key":{"by":["Layout","State"]},"fields":["paddingBlock","paddingInline","itemSpacing","layoutMode","cornerRadius","strokeWeight"],"parts":{"Cover":["width","height","cornerRadius"],"Body":["itemSpacing","paddingBlock","paddingBlockEnd","paddingInline"],"Title":["fontSize"],"Meta":["paddingBlock"]}},
+  // Timeline(2026-10-14, DS-D-0089). 클립 — 레인 높이 · 좌우 · 반경. 고른 칸의 트림 손잡이 둘은 클립 바깥 8 에 서는 인스턴스라 outsideParts 다.
+  // 바닥(필름 · 파형) · 길이 배지는 예시라 담지 않는다.
+  "TimelineClip": {"key":{"by":["Tone","Selected"]},"fields":["height","paddingInline","paddingInlineEnd","cornerRadius","layoutMode"],"outsideParts":["TrimStart","TrimEnd"]},
+  // 트림 손잡이 — 손가락 폭 24, 괄호 폭, 그립 2 × 12.
+  "TimelineTrimHandle": {"key":{"by":["Direction"]},"fields":["width"],"parts":{"Bracket":["width"],"Grip":["width","height"]}},
+  // 눈금자 — 높이와 큰 눈금의 높이 · 폭(base 12 바닥 정렬, compact 높이 전체). 자리 · 글자는 시드 데이터다.
+  "TimelineRuler": {"key":{"by":["Layout"]},"fields":["height"],"parts":{"Tick major":["width","height"]}},
+  // 시드 보드 — 흐르는 층 사이 · 위아래, 「+」 크기, 재생헤드 폭. 흐르는 층과 그 안(눈금 · 레인 · 클립 · 「+」)은 스크롤 창 밖으로 이어지는 것이 의도라 outsideParts 다(웹은 창이 자른다).
+  "Timeline": {"key":{"name":"base"},"fields":["layoutMode"],"parts":{"Flow":["itemSpacing","paddingBlock","paddingBlockEnd","layoutMode"],"Add":["width","height","cornerRadius"],"Playhead":["width"]},"outsideParts":["Flow","Ruler","Lane 예시 자막","Lane 예시 영상","Lane 예시 오디오","TimelineClip","Add","Glyph"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

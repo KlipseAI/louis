@@ -9209,6 +9209,74 @@
               null
             ]
           ]
+        ],
+        [
+          "color/timeline-accent",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/600",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/500",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-clip-audio",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/pink/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/pink/300",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-clip-caption",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/yellow/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/yellow/300",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/timeline-clip-image",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/green/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/green/300",
+              null
+            ]
+          ]
         ]
       ]
     }
@@ -28854,6 +28922,432 @@
             "HORIZONTAL"
           ],
           "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "Timeline": {
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 8,
+        "rawFills": 0,
+        "boundStrokes": 1,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Flow": {
+              "itemSpacing": [
+                4
+              ],
+              "paddingBlock": [
+                8
+              ],
+              "paddingBlockEnd": [
+                8
+              ],
+              "layoutMode": [
+                "VERTICAL"
+              ]
+            },
+            "Add": {
+              "width": [
+                44
+              ],
+              "height": [
+                44
+              ],
+              "cornerRadius": [
+                8
+              ]
+            },
+            "Playhead": {
+              "width": [
+                2
+              ]
+            }
+          },
+          "layoutMode": [
+            "NONE"
+          ],
+          "overflowingParts": [
+            "Flow",
+            "Ruler",
+            "Lane 예시 자막",
+            "Lane 예시 영상",
+            "TimelineClip",
+            "Add",
+            "Glyph",
+            "Lane 예시 오디오"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {},
+      "outsideParts": [
+        "Flow",
+        "Ruler",
+        "Lane 예시 자막",
+        "Lane 예시 영상",
+        "Lane 예시 오디오",
+        "TimelineClip",
+        "Add",
+        "Glyph"
+      ]
+    },
+    "TimelineClip": {
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Tone": {
+          "type": "VARIANT",
+          "options": [
+            "video",
+            "caption",
+            "image",
+            "audio"
+          ]
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 108,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 6,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "video/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "caption/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "image/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "audio/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "video/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "TrimStart",
+            "TrimEnd"
+          ],
+          "offCenterMarks": []
+        },
+        "caption/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "TrimStart",
+            "TrimEnd"
+          ],
+          "offCenterMarks": []
+        },
+        "image/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            44
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "TrimStart",
+            "TrimEnd"
+          ],
+          "offCenterMarks": []
+        },
+        "audio/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            8
+          ],
+          "paddingInlineEnd": [
+            8
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "TrimStart",
+            "TrimEnd"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {},
+      "outsideParts": [
+        "TrimStart",
+        "TrimEnd"
+      ]
+    },
+    "TimelineRuler": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "compact"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 21,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 5,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Tick major": {
+              "width": [
+                1
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "height": [
+            40
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact": {
+          "slots": {},
+          "parts": {
+            "Tick major": {
+              "width": [
+                1
+              ],
+              "height": [
+                20
+              ]
+            }
+          },
+          "height": [
+            20
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "TimelineTrimHandle": {
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Direction": {
+          "type": "VARIANT",
+          "options": [
+            "prev",
+            "next"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 4,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "prev": {
+          "slots": {},
+          "parts": {
+            "Bracket": {
+              "width": [
+                8
+              ]
+            },
+            "Grip": {
+              "width": [
+                2
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "next": {
+          "slots": {},
+          "parts": {
+            "Bracket": {
+              "width": [
+                8
+              ]
+            },
+            "Grip": {
+              "width": [
+                2
+              ],
+              "height": [
+                12
+              ]
+            }
+          },
+          "width": [
+            24
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }

@@ -25,6 +25,26 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (255) — 시간축 위에 클립을 놓는 편집 타임라인을 새 부품 `timeline` 으로, 짝 블록 `timeline-ruler`(DS-D-0089, DS-D-0084)
+
+- **새 부품 `timeline`.** 화면 가운데 고정 재생헤드 아래로 트랙이 흐르는 편집 타임라인(`.louis-timeline` · `__viewport` · `__spacer` · `__flow` ·
+  `__lane` · `__clip` · `__strip` · `__wave` · `__label` · `__duration` · `__trim` · `__add` · `__playhead`). 편집기 좁은 화면의 `MOBILE_TIMELINE_CLASS` 를
+  한 레시피로 옮겼다. Segment Track(칸이 시간 순서로 흐르는 줄)의 변형이 아니다 — 클립이 px 좌표에 절대 배치되고 창이 스크롤된다.
+- **기하는 데이터다.** 소비처가 변수 셋 — `--louis-timeline-extent`(전체 길이) · `-x`(자리) · `-w`(길이) — 을 준다. 흐르는 층 `left: 50%` 와
+  자리지기 `calc(100% + extent)` 는 레시피가 창 폭으로 푼다(제품이 재서 주던 `layoutWidth / 2` 가 사라진다).
+- **마크업 계약.** 클립 `data-tone`(video · caption · image · audio) · 고름 `aria-pressed` · 손잡이 `data-edge` · 오디오 레인 `data-tone="audio"`(36).
+  영상 길이는 `louis-badge[data-surface="media"]` + `__duration`, 「+」 는 `aria-label` 필수.
+- **짝 블록 `.louis-timeline-ruler`** — 기본 40(데스크톱 시퀀스, 눈금 `data-level` 12 · 8 · 6 바닥 정렬, 양끝 글자 `data-align`)과
+  `data-layout="compact"` 20(타임라인 안, 선 높이 전체 · 글자 오른쪽 4). 끌어 시킹 면은 `data-interactive="true"`.
+- **새 토큰 넷** — `color-timeline-clip-caption`(yellow-300) · `-image`(green-300) · `-audio`(pink-300), 면은 `color-mix` 48% — 와
+  `color-timeline-accent`(라이트 blue-600 · 다크 blue-500). `contrastPairs` 에 `bg-inset` 위 3:1 한 줄.
+- **고쳐 올린 값(DS-D-0084 3항)** — 촘촘한 눈금 글자 흰색 56% → `gray-000-alpha-56`(라이트 1.07 → 4.73) · 선 24% → `-48`(1.03 → 3.60),
+  재생헤드 · 고리 · 괄호 `accent-primary`(라이트 2.98) → `timeline-accent`(3.89), 영상 길이 흰 글자 → media 배지, 데스크톱 눈금자의 테마 분기 여덟 ·
+  그림자 넷 → 적응 시맨틱(라이트 눈금이 진해진다). 재생헤드 캡 · 격자선(소비처 0)은 올리지 않았다.
+- **Figma.** DS · Components 「7 · 캔버스 · 에디터」에 `TimelineClip`(Tone × Selected = 8) · `TimelineTrimHandle`(Direction) · `TimelineRuler`(Layout)
+  세트와 시드 데이터 보드 `Timeline`, 변수 `color/timeline-*` 넷. 원시 칠 0. 기록 넷과 parity 기하 계약(figma `partial`).
+- 소유자 판정 열셋은 초안의 기본값으로 — DS-D-0089 표. 실브라우저 시험 `timeline.browser.test.tsx` · `timeline-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (254) — 커버 밖에 글이 서는 링크 카드를 새 부품 `content-card` 로(DS-D-0088, DS-D-0084)
 
 - **새 부품 `content-card`.** 커버 그림과 그 **밖**의 제목 · 설명 · 날짜를 카드 전체가 링크 하나로 누른다(`.louis-content-card` · `__cover` ·

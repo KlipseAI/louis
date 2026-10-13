@@ -11,6 +11,12 @@
       "figmaCollection": "Klipse",
       "contrastPairs": [
         {
+          "foreground": "color-timeline-accent",
+          "background": "color-bg-inset",
+          "minimum": 3,
+          "note": "타임라인 재생헤드 · 선택 고리 · 트림 괄호(그래픽, DS-D-0089). 라이트 accent-primary 가 bg-inset 위 2.98 이라 blue-600 으로 한 단 내렸다."
+        },
+        {
           "foreground": "color-content-card-title-hover",
           "background": "color-landing-page-bg",
           "minimum": 4.5
@@ -7851,6 +7857,46 @@
             }
           }
         },
+        "timeline-clip-caption": {
+          "$value": "{primitive.color.yellow.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-caption",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-clip-image": {
+          "$value": "{primitive.color.green.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-image",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-clip-audio": {
+          "$value": "{primitive.color.pink.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-audio",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "timeline-accent": {
+          "$value": "{primitive.color.blue.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-accent",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "notice-pill-dot": {
           "$value": "{primitive.color.green.500}",
           "$extensions": {
@@ -10321,6 +10367,46 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-content-card-title-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-clip-caption": {
+          "$value": "{primitive.color.yellow.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-caption",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-clip-image": {
+          "$value": "{primitive.color.green.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-image",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-clip-audio": {
+          "$value": "{primitive.color.pink.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-clip-audio",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "timeline-accent": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-timeline-accent",
               "tier": "semantic",
               "mode": "dark"
             }

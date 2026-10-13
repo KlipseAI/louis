@@ -1,0 +1,412 @@
+/* Timeline — design/components/timeline.md
+ *
+ * 편집기 좁은 화면의 타임라인(DS-D-0089 · DS-D-0084). 제품 정본은 `MobileTimeline.tsx:823-1085` 와 `mobileTimelineClass.ts`(통합 판 `54b62a8aa`),
+ * 소비처는 편집기 모달 하나(`VideoEditModal.tsx:12937`). 같은 파일 끝의 `.louis-timeline-ruler` 는 시간 눈금자 — 데스크톱 시퀀스
+ * 눈금자(`sequenceRuler.tsx`)와 이 셸 안의 촘촘한 눈금이 함께 쓴다.
+ *
+ * **원점은 화면 가운데다.** 재생헤드는 움직이지 않고 트랙이 흐른다. 흐르는 층은 스크롤 창의 절대 배치 자식이라 `left: 50%` 가 창 폭의
+ * 절반이고, `scrollLeft = x(t)` 이면 시각 t 가 정확히 가운데 온다. 창을 옮기는 것은 브라우저 스크롤이다(관성 · 되튐이 플랫폼의 것).
+ *
+ * **기하는 데이터다.** 시각 → 픽셀 식(`xOf`)과 배율은 프로젝트마다 다르다 — 소비처가 결과를 세 변수로 준다. 시간축은 쓰기 방향을
+ * 따르지 않는다(왼쪽이 0초) — 그래서 위치는 물리 `left` 다(`segment-track.css` · `slider.css` 눈금과 같은 판단).
+ *
+ * **층은 칠 순서다(숫자 z-index 없음).** 재생헤드는 셸의 마지막 자식이라 창 위에 선다. 클립 안은 필름스트립 · 파형(절대) → 라벨(상대) →
+ * 트림 손잡이(절대) 순서로 둔다. 손잡이의 괄호는 `::before`, 그립은 `::after` 라 그립이 괄호 위다. 셸의 `isolation` 이 이 순서를 셸 안에 가둔다.
+ *
+ * 색 — 클립 면은 종류 색 48%(데스크톱 트랙과 같은 말). 알파는 시맨틱 + `color-mix`(`audio-cell.css` · `segment-track.css` 선례).
+ * 재생헤드 · 선택 고리 · 트림 괄호는 `timeline-accent` 하나다 — 라이트 `accent-primary` 가 `bg-inset` 위 2.98 이라 한 단 내렸다. */
+
+.louis-timeline {
+  /* ── 소비처가 주는 기하(데이터) ── 기본값은 「모른다」의 그림이다. */
+  /* 전체 길이를 픽셀로 — `xOf(전체)`. 자리지기 폭과 촘촘한 눈금의 폭이 이것을 읽는다(MT:834 · :850). */
+  --louis-timeline-extent: 0px;
+  /* 시간축 위 자리 · 길이 — 클립 · 「+」가 제 요소에 인라인으로 덮는다(MT:885-886 · :1015-1016). */
+  --louis-timeline-x: 0px;
+  --louis-timeline-w: 0px;
+
+  /* ── 레시피 내부 ── 레인 높이. 클립 · 「+」가 레인에서 물려받는다(제품 `--vem-mobile-lane-height`, MTC:74-81). */
+  --louis-timeline-lane-height: 44px;
+
+  position: relative;
+  isolation: isolate;
+  display: block;
+  /* 남는 높이를 채운다 — 제품 `[flex:1_1_0%]` · `[min-height:0]`(MTC:12-13). 부모가 flex 가 아니면 효과 없다. */
+  flex: 1 1 0%;
+  min-block-size: 0;
+  overflow: hidden;
+  background-color: var(--louis-color-bg-inset);
+}
+
+/* ── 창 ── 진짜 가로 스크롤러. 세로 · 핀치는 소비처가 받는다(MTC:25-37). */
+.louis-timeline__viewport {
+  position: absolute;
+  inset: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* 타임라인 끝에서 페이지가 따라 움직이면 편집 중 화면이 흔들린다(MTC:31-32). */
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+
+.louis-timeline__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* 자리지기 — 보이지 않지만 이 폭이 「끌 수 있는 범위」다. 창 폭 + 전체 길이라야 처음과 끝이 재생헤드(가운데)에 닿는다(MTC:39-43). */
+.louis-timeline__spacer {
+  inline-size: calc(100% + var(--louis-timeline-extent));
+  /* 1 — 제품 `[height:1px]`(MTC:41). 0 이면 일부 엔진이 스크롤 폭에 넣지 않는다. */
+  block-size: 1px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ── 흐르는 층 ── 창 폭의 절반에 한 번 놓이고, 그 뒤로는 스크롤이 옮긴다. 눈금 · 레인이 위에서부터 쌓인다(MTC:62-72). */
+.louis-timeline__flow {
+  position: absolute;
+  inset-block-start: 0;
+  /* 제품은 폭을 재서 인라인으로 줬다(MT:844). 담는 상자가 창의 padding box 라 50% 가 같은 값이다. */
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-space-control-xs);
+  padding-block: var(--louis-space-control-sm);
+}
+
+/* ── 재생헤드 ── 가운데 고정. 셸의 마지막 자식으로 둔다 — 창 안에 두면 스크롤에 쓸려간다(MT:824-826). */
+.louis-timeline__playhead {
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  /* 2 — 제품 `[width:2px]`(MTC:52). 고리 두께와 같은 값이지만 고리가 아니라 선이라 리터럴이다. */
+  inline-size: 2px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background-color: var(--louis-color-timeline-accent);
+}
+
+/* ── 레인 ── 내용이 있는 줄만 그린다(소비처). 클립은 레인 안에 절대 배치된다. */
+.louis-timeline__lane {
+  position: relative;
+  block-size: var(--louis-timeline-lane-height);
+}
+
+/* 오디오 줄 36 — 그림이 없는 줄이라 낮춘다(MTC:221-227). */
+.louis-timeline__lane[data-tone="audio"] {
+  --louis-timeline-lane-height: 36px;
+}
+
+/* ── 클립 ── 시간에서 나온 px 자리 · 길이. 잘라내지 않는다 — 트림 괄호가 클립 바깥 8 에 선다(MTC:83-88). */
+.louis-timeline__clip {
+  position: absolute;
+  inset-block-start: 0;
+  left: var(--louis-timeline-x);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  inline-size: var(--louis-timeline-w);
+  block-size: var(--louis-timeline-lane-height);
+  margin: 0;
+  padding: 0 var(--louis-space-control-sm);
+  border: none;
+  border-radius: var(--louis-radius-control-sm);
+  background-color: var(--louis-color-accent-secondary);
+  color: var(--louis-color-fg-primary);
+  font-family: inherit;
+  cursor: pointer;
+  /* 클립 위에서도 타임라인이 끌려야 한다 — 클립이 화면 대부분이다. 고른 클립만 아래에서 뺏는다(MTC:103-106). */
+  touch-action: pan-x;
+}
+
+/* 종류 — 데스크톱 트랙과 같은 계열(자막 yellow · 이미지 green · 오디오 pink, MTC:207-233). 영상은 필름스트립이 바닥을 채우고
+ * 기본 면(`accent-secondary`)은 필름이 오기 전에만 보인다. */
+.louis-timeline__clip[data-tone="caption"] {
+  background-color: color-mix(in srgb, var(--louis-color-timeline-clip-caption) 48%, transparent);
+}
+
+.louis-timeline__clip[data-tone="image"] {
+  background-color: color-mix(in srgb, var(--louis-color-timeline-clip-image) 48%, transparent);
+}
+
+.louis-timeline__clip[data-tone="audio"] {
+  background-color: color-mix(in srgb, var(--louis-color-timeline-clip-audio) 48%, transparent);
+}
+
+/* 고른 클립 — 바깥 고리 2. 바로 끌어 옮기는 것이라 스크롤에 내주지 않는다(MTC:109-114). 고리는 포커스가 아니라 상태다. */
+.louis-timeline__clip[aria-pressed="true"] {
+  box-shadow: 0 0 0 var(--louis-border-width-ring) var(--louis-color-timeline-accent);
+  touch-action: none;
+}
+
+/* ── 클립 바닥 ── 필름스트립(영상) · 파형(오디오). 클립이 잘라내지 않으므로 제 모서리를 둥글린다(MTC:243-244 · :250-258). */
+.louis-timeline__strip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 타일 줄 — 절대 배치로 부모를 채워 자식 없이도 폭을 갖는다. 소비처가 이 상자를 재서 타일 수를 정한다(MTC:259-271 데드락 주석). */
+.louis-timeline__strip-tiles {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* 1 — 타일 사이 틈(MTC:269). */
+  gap: 1px;
+  overflow: hidden;
+}
+
+.louis-timeline__strip-tile {
+  flex: none;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* 파형 — 전경색의 절반. 라벨과 다투지 않으면서 소리의 들쭉날쭉함은 읽힌다(MTC:235-248). 장식이라 대비 대상이 아니다. */
+.louis-timeline__wave {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  color: var(--louis-color-fg-primary);
+  /* 0.5 — 제품 `[opacity:0.5]`(MTC:247). */
+  opacity: 0.5;
+}
+
+/* ── 라벨 ── 자막 내용 · IMG · TTS/BGM. 영상 클립의 길이는 이 라벨이 아니라 사진 위 배지(`louis-badge[data-surface="media"]`)다. */
+.louis-timeline__label {
+  position: relative;
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 필름 위 길이 배지 — `<span class="louis-badge louis-timeline__duration" data-surface="media">`. 배지 레시피가 면 · 잉크 · 말줄임을 갖는다.
+ * 여기서는 절대 배치된 필름 위로 칠 순서만 올린다(content-card 의 `__badge` 와 같은 방식 — 남의 클래스를 선택하지 않는다). */
+.louis-timeline__duration {
+  position: relative;
+  pointer-events: none;
+}
+
+/* ── 트림 손잡이 ── 고른 클립의 양 끝(CapCut). 손가락 24 를 잡되 보이는 것은 클립 바깥 8 괄호와 그 안의 2 × 12 그립이다.
+ * 괄호는 선택 고리와 같은 색이라 고리와 이어져 하나의 틀로 읽힌다(MTC:116-118). 안쪽 16 은 클립 위라 짧은 클립도 잡힌다. */
+.louis-timeline__trim {
+  position: absolute;
+  inset-block: 0;
+  /* 24 — 손가락 폭(MTC:124). 컨트롤 사다리 sm 과 같은 수지만 컨트롤 높이가 아니라 맞히는 폭이다. */
+  inline-size: 24px;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.louis-timeline__trim::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--louis-space-control-sm);
+  background-color: var(--louis-color-timeline-accent);
+}
+
+.louis-timeline__trim::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  /* 2 × 12 — 제품 그립(MTC:138-140). */
+  inline-size: 2px;
+  block-size: 12px;
+  margin-block-start: -6px;
+  border-radius: var(--louis-radius-control-sm);
+  background-color: var(--louis-color-fg-inverse);
+}
+
+/* 괄호는 클립 바깥 모서리에 붙는다 — 손잡이를 −8 에 두고 괄호를 손잡이의 0 에. 그립은 괄호 가운데 (8 − 2) / 2 = 3. 바깥 모서리만 둥글다. */
+.louis-timeline__trim[data-edge="start"] {
+  left: calc(var(--louis-space-control-sm)*-1);
+}
+
+.louis-timeline__trim[data-edge="start"]::before {
+  left: 0;
+  border-radius: var(--louis-radius-control-sm) 0 0 var(--louis-radius-control-sm);
+}
+
+.louis-timeline__trim[data-edge="start"]::after {
+  left: 3px;
+}
+
+.louis-timeline__trim[data-edge="end"] {
+  right: calc(var(--louis-space-control-sm)*-1);
+}
+
+.louis-timeline__trim[data-edge="end"]::before {
+  right: 0;
+  border-radius: 0 var(--louis-radius-control-sm) var(--louis-radius-control-sm) 0;
+}
+
+.louis-timeline__trim[data-edge="end"]::after {
+  right: 3px;
+}
+
+/* ── 끝의 「+」 ── 소재를 더하는 가장 짧은 길. 클립과 같은 높이 · 모서리로 트랙의 일부처럼 선다(MTC:272-289). 메인 트랙 끝에만(소비처). */
+.louis-timeline__add {
+  position: absolute;
+  inset-block-start: 0;
+  left: var(--louis-timeline-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--louis-timeline-lane-height);
+  block-size: var(--louis-timeline-lane-height);
+  /* 6 — 마지막 클립과의 틈(MTC:280). */
+  margin: 0 0 0 6px;
+  padding: 0;
+  border: none;
+  border-radius: var(--louis-radius-control-sm);
+  background-color: var(--louis-color-accent-secondary);
+  color: var(--louis-color-fg-primary);
+  cursor: pointer;
+}
+
+.louis-timeline__add-glyph {
+  display: block;
+  inline-size: var(--louis-icon-size-md);
+  block-size: var(--louis-icon-size-md);
+}
+
+@media (hover: hover) {
+  /* LOUIS 가 더한다 — 제품은 터치 전용이라 호버가 없다. 호버 기기(태블릿 + 마우스)에서만 한 단 진하게. */
+  .louis-timeline__add:hover {
+    background-color: var(--louis-color-accent-secondary-hover);
+  }
+}
+
+@media (forced-colors: active) {
+  .louis-timeline__clip {
+    outline: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  /* 고리(box-shadow)는 강제 색에서 사라진다 — 윤곽선으로 다시 그린다. */
+  .louis-timeline__clip[aria-pressed="true"] {
+    outline: var(--louis-border-width-ring) solid Highlight;
+  }
+
+  .louis-timeline__playhead,
+  .louis-timeline__trim::before {
+    background-color: Highlight;
+    forced-color-adjust: none;
+  }
+}
+
+/* ── Timeline Ruler ─────────────────────────────────────────────────────────
+ * 시간 눈금자. 기본은 데스크톱 시퀀스 눈금자(SR:33-150) — 40 높이, 3단 눈금이 바닥에 붙고 시각 글자가 큰 눈금 위 가운데.
+ * `data-layout="compact"` 는 모바일 타임라인의 흐르는 층 안 눈금(MTC:183-205) — 20 높이, 높이 전체 선 오른쪽에 글자.
+ * 눈금 자리 · 단 · 글자 정렬은 모델(`buildSequenceRulerModel`)의 데이터라 소비처가 준다. 보조기술에는 감춘다.
+ * 제품의 테마 분기 여덟과 그림자 넷은 적응 시맨틱으로 접었다 — 파인 면 위라 그림자가 할 일이 없다. */
+.louis-timeline-ruler {
+  /* 눈금 · 글자의 자리 — 기본은 백분율(데스크톱 `left: pct%`), 촘촘한 판은 px. 제 요소에 인라인으로 덮는다. */
+  --louis-timeline-x: 0px;
+
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  inline-size: 100%;
+  /* 40 — 제품 `var(--timeline-result-lane-h, 40px)`(SR:102). */
+  block-size: 40px;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* 끌어 시킹 — 소비처가 포인터를 받을 때만(SR:347-360). 키보드 시킹은 편집기 단축키가 갖는다. */
+.louis-timeline-ruler[data-interactive="true"] {
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.louis-timeline-ruler__tick {
+  position: absolute;
+  inset-block-end: 0;
+  left: var(--louis-timeline-x);
+  inline-size: var(--louis-border-width-default);
+  /* 12 · 8 · 6 — 디자인 13 · 7 을 2px 격자로 내린 값(SR:19-32). 단을 줄이지 않는다 — 줌마다 그릴 단의 임계가 모델에서 갈린다. */
+  block-size: 12px;
+  border-radius: var(--louis-radius-pill);
+  transform: translateX(-50%);
+  pointer-events: none;
+  background-color: var(--louis-color-gray-000-alpha-80);
+}
+
+.louis-timeline-ruler__tick[data-level="mid"] {
+  block-size: 8px;
+}
+
+.louis-timeline-ruler__tick[data-level="minor"] {
+  block-size: 6px;
+}
+
+.louis-timeline-ruler__label {
+  position: absolute;
+  /* 6 — 제품 `top:8px` + `line-height:1`(SR:129 · :139). 글자 칸을 caption 줄 높이(16)로 접으면서 글자 가운데(14)를 지키려고 2 올렸다. */
+  inset-block-start: 6px;
+  left: var(--louis-timeline-x);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  color: var(--louis-color-fg-primary);
+  font-family: var(--louis-typography-caption-regular-font-family);
+  font-size: var(--louis-typography-caption-regular-font-size);
+  font-weight: var(--louis-typography-caption-regular-font-weight);
+  line-height: var(--louis-typography-caption-regular-line-height);
+  letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+}
+
+/* 양끝 글자 — 칸 밖으로 나가지 않게 닻을 옮긴다(SR:143-150). */
+.louis-timeline-ruler__label[data-align="start"] {
+  transform: none;
+}
+
+.louis-timeline-ruler__label[data-align="end"] {
+  transform: translateX(-100%);
+}
+
+/* ── 촘촘한 판 ── 모바일 흐르는 층의 첫 줄. 큰 눈금만, 선은 높이 전체, 글자는 선 오른쪽 4(MTC:183-205). */
+.louis-timeline-ruler[data-layout="compact"] {
+  /* 전체 길이 — 타임라인 루트의 `--louis-timeline-extent` 를 읽는다(MT:850). */
+  inline-size: var(--louis-timeline-extent);
+  /* 20 — 제품 `[height:20px]`(MTC:186). */
+  block-size: 20px;
+}
+
+.louis-timeline-ruler[data-layout="compact"] .louis-timeline-ruler__tick {
+  inset-block: 0;
+  block-size: auto;
+  border-radius: 0;
+  transform: none;
+  /* 제품 흰색 24%(라이트 1.03 · 다크 2.09) → 적응 잉크 48%(3.60 · 4.83). */
+  background-color: var(--louis-color-gray-000-alpha-48);
+}
+
+.louis-timeline-ruler[data-layout="compact"] .louis-timeline-ruler__label {
+  /* 2 — 제품 `[top:2px]`(MTC:200). */
+  inset-block-start: 2px;
+  transform: translateX(var(--louis-space-control-xs));
+  /* 제품 흰색 56%(라이트 1.07) → 적응 잉크 56%. 다크는 같은 값(6.18), 라이트 4.73. */
+  color: var(--louis-color-gray-000-alpha-56);
+}
+
+@media (forced-colors: active) {
+  .louis-timeline-ruler__tick {
+    background-color: CanvasText;
+    forced-color-adjust: none;
+  }
+}

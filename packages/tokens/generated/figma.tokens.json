@@ -9,6 +9,12 @@
       },
       "contrastPairs": [
         {
+          "background": "color-bg-inset",
+          "foreground": "color-timeline-accent",
+          "minimum": 3,
+          "note": "타임라인 재생헤드 · 선택 고리 · 트림 괄호(그래픽, DS-D-0089). 라이트 accent-primary 가 bg-inset 위 2.98 이라 blue-600 으로 한 단 내렸다."
+        },
+        {
           "background": "color-landing-page-bg",
           "foreground": "color-content-card-title-hover",
           "minimum": 4.5
@@ -29848,6 +29854,210 @@
                 ]
               },
               "sourcePath": "semantic.light.color.table-row-line"
+            }
+          }
+        },
+        "color-timeline-accent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/timeline-accent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.timeline-accent"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.600}",
+              "aliasTarget": {
+                "id": "color-blue-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.458824,
+                  0.858824
+                ]
+              },
+              "sourcePath": "semantic.light.color.timeline-accent"
+            }
+          }
+        },
+        "color-timeline-clip-audio": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/timeline-clip-audio",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.pink.300}",
+              "aliasTarget": {
+                "id": "color-pink-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.607843,
+                  0.745098
+                ]
+              },
+              "sourcePath": "semantic.dark.color.timeline-clip-audio"
+            },
+            "Light": {
+              "$value": "{primitive.color.pink.300}",
+              "aliasTarget": {
+                "id": "color-pink-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.607843,
+                  0.745098
+                ]
+              },
+              "sourcePath": "semantic.light.color.timeline-clip-audio"
+            }
+          }
+        },
+        "color-timeline-clip-caption": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/timeline-clip-caption",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.300}",
+              "aliasTarget": {
+                "id": "color-yellow-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.85098,
+                  0.501961
+                ]
+              },
+              "sourcePath": "semantic.dark.color.timeline-clip-caption"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.300}",
+              "aliasTarget": {
+                "id": "color-yellow-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.85098,
+                  0.501961
+                ]
+              },
+              "sourcePath": "semantic.light.color.timeline-clip-caption"
+            }
+          }
+        },
+        "color-timeline-clip-image": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/timeline-clip-image",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.green.300}",
+              "aliasTarget": {
+                "id": "color-green-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.47451,
+                  0.92549,
+                  0.8
+                ]
+              },
+              "sourcePath": "semantic.dark.color.timeline-clip-image"
+            },
+            "Light": {
+              "$value": "{primitive.color.green.300}",
+              "aliasTarget": {
+                "id": "color-green-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.47451,
+                  0.92549,
+                  0.8
+                ]
+              },
+              "sourcePath": "semantic.light.color.timeline-clip-image"
             }
           }
         },

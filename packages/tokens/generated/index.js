@@ -4,6 +4,12 @@ export const themes = Object.freeze(["light","dark"]);
 export const metadata = Object.freeze({
   "contrastPairs": [
     {
+      "foreground": "color-timeline-accent",
+      "background": "color-bg-inset",
+      "minimum": 3,
+      "note": "타임라인 재생헤드 · 선택 고리 · 트림 괄호(그래픽, DS-D-0089). 라이트 accent-primary 가 bg-inset 위 2.98 이라 blue-600 으로 한 단 내렸다."
+    },
+    {
       "foreground": "color-content-card-title-hover",
       "background": "color-landing-page-bg",
       "minimum": 4.5
@@ -20233,6 +20239,110 @@ export const tokens = {
         "alpha": 1
       }
     },
+    "color-timeline-accent": {
+      "aliasTarget": {
+        "id": "color-blue-600",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-accent": "color(srgb 0 0.458824 0.858824 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-accent",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.600}",
+      "sourcePath": "semantic.light.color.timeline-accent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.458824,
+          0.858824
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-audio": {
+      "aliasTarget": {
+        "id": "color-pink-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-audio": "color(srgb 1 0.607843 0.745098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-audio",
+      "mode": "light",
+      "rawValue": "{primitive.color.pink.300}",
+      "sourcePath": "semantic.light.color.timeline-clip-audio",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.607843,
+          0.745098
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-caption": {
+      "aliasTarget": {
+        "id": "color-yellow-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-caption": "color(srgb 1 0.85098 0.501961 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-caption",
+      "mode": "light",
+      "rawValue": "{primitive.color.yellow.300}",
+      "sourcePath": "semantic.light.color.timeline-clip-caption",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.85098,
+          0.501961
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-image": {
+      "aliasTarget": {
+        "id": "color-green-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-image": "color(srgb 0.47451 0.92549 0.8 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-image",
+      "mode": "light",
+      "rawValue": "{primitive.color.green.300}",
+      "sourcePath": "semantic.light.color.timeline-clip-image",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47451,
+          0.92549,
+          0.8
+        ],
+        "alpha": 1
+      }
+    },
     "elevation-menu": {
       "aliasTarget": {
         "id": "shadow-menu-light",
@@ -26664,6 +26774,110 @@ export const tokens = {
           0.254902,
           0.270588,
           0.298039
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-accent": {
+      "aliasTarget": {
+        "id": "color-blue-500",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-accent": "color(srgb 0 0.533333 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-accent",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.500}",
+      "sourcePath": "semantic.dark.color.timeline-accent",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.533333,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-audio": {
+      "aliasTarget": {
+        "id": "color-pink-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-audio": "color(srgb 1 0.607843 0.745098 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-audio",
+      "mode": "dark",
+      "rawValue": "{primitive.color.pink.300}",
+      "sourcePath": "semantic.dark.color.timeline-clip-audio",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.607843,
+          0.745098
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-caption": {
+      "aliasTarget": {
+        "id": "color-yellow-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-caption": "color(srgb 1 0.85098 0.501961 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-caption",
+      "mode": "dark",
+      "rawValue": "{primitive.color.yellow.300}",
+      "sourcePath": "semantic.dark.color.timeline-clip-caption",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.85098,
+          0.501961
+        ],
+        "alpha": 1
+      }
+    },
+    "color-timeline-clip-image": {
+      "aliasTarget": {
+        "id": "color-green-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-timeline-clip-image": "color(srgb 0.47451 0.92549 0.8 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-timeline-clip-image",
+      "mode": "dark",
+      "rawValue": "{primitive.color.green.300}",
+      "sourcePath": "semantic.dark.color.timeline-clip-image",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.47451,
+          0.92549,
+          0.8
         ],
         "alpha": 1
       }

@@ -560,6 +560,10 @@
   --louis-color-table-header-surface: color(srgb 0.862745 0.870588 0.882353 / 1);
   --louis-color-table-row-hover: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-table-row-line: color(srgb 0.807843 0.815686 0.831373 / 1);
+  --louis-color-timeline-accent: color(srgb 0 0.458824 0.858824 / 1);
+  --louis-color-timeline-clip-audio: color(srgb 1 0.607843 0.745098 / 1);
+  --louis-color-timeline-clip-caption: color(srgb 1 0.85098 0.501961 / 1);
+  --louis-color-timeline-clip-image: color(srgb 0.47451 0.92549 0.8 / 1);
   --louis-elevation-focus-ring: 0px 0px 0px 3px color(srgb 0 0.533333 1 / 0.42);
   --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.24);
   --louis-elevation-modal: 0px 16px 48px -8px color(srgb 0 0 0 / 0.22);
@@ -1081,6 +1085,10 @@
   --louis-color-table-header-surface: color(srgb 0.090196 0.105882 0.133333 / 1);
   --louis-color-table-row-hover: color(srgb 0.980392 0.980392 0.980392 / 0.08);
   --louis-color-table-row-line: color(srgb 0.254902 0.270588 0.298039 / 1);
+  --louis-color-timeline-accent: color(srgb 0 0.533333 1 / 1);
+  --louis-color-timeline-clip-audio: color(srgb 1 0.607843 0.745098 / 1);
+  --louis-color-timeline-clip-caption: color(srgb 1 0.85098 0.501961 / 1);
+  --louis-color-timeline-clip-image: color(srgb 0.47451 0.92549 0.8 / 1);
   --louis-elevation-menu: 0px 12px 32px 0px color(srgb 0 0 0 / 0.48);
   --louis-elevation-tooltip: 0px 12px 24px 0px color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --louis-elevation-upgrade: inset 0px 0px 0px 1px color(srgb 0 0 0 / 0.08), 0px 1px 2px 0px color(srgb 0 0 0 / 0.12);

@@ -926,7 +926,8 @@ export function toFigmaTreeSpec(inputTree, options = {}) {
   const { tree: filteredTree, filtered: colorFiltered } = applyColorFilters(liftedTree);
   const { tree, scaled: transformScaled } = applyTransformScale(filteredTree);
   const { byPath, childrenOf } = buildHierarchy(tree, rootPath);
-  const stats = { total: tree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}), ...(colorFiltered ? { colorFiltered } : {}), ...(shadowOverlays ? { shadowOverlays } : {}) };
+  // `total` 은 원장의 측정 노드 수다 — 덮개 끌어올리기(hoistShadowOverlays)가 뺀 자식까지 센다. 로캘 생성기가 이 수로 보드와 원장을 맞댄다.
+  const stats = { total: inputTree.length, kept: 0, droppedInvisible: 0, droppedEmpty: 0, textSplits: 0, unresolved: [], verticalWrap: [], lineBoxSlack: [], gridRows: [], ...(transformScaled ? { transformScaled } : {}), ...(colorFiltered ? { colorFiltered } : {}), ...(shadowOverlays ? { shadowOverlays } : {}) };
 
   // `inStretchedRow` — 이 노드가 늘어난 한 줄 grid 행의 칸이다(gridStretchedRow 주석). 늘어남은 위에서 아래로만 이어진다.
   const convert = (node, parent, inStretchedRow = false) => {

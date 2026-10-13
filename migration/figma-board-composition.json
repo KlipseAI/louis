@@ -1235,7 +1235,8 @@
       "frameId": "359:2032",
       "file": "figma/app-screens.home.desktop.00.draw.js",
       "files": [
-        "figma/app-screens.home.desktop.00.draw.js"
+        "figma/app-screens.home.desktop.00.draw.js",
+        "figma/app-screens.home.desktop.01.draw.js"
       ],
       "counts": {
         "total": 207,
@@ -2193,7 +2194,8 @@
         "figma/app-screens.privacy.desktop.01.draw.js",
         "figma/app-screens.privacy.desktop.02.draw.js",
         "figma/app-screens.privacy.desktop.03.draw.js",
-        "figma/app-screens.privacy.desktop.04.draw.js"
+        "figma/app-screens.privacy.desktop.04.draw.js",
+        "figma/app-screens.privacy.desktop.05.draw.js"
       ],
       "counts": {
         "total": 689,
@@ -2216,7 +2218,8 @@
         "figma/app-screens.privacy.mobile.01.draw.js",
         "figma/app-screens.privacy.mobile.02.draw.js",
         "figma/app-screens.privacy.mobile.03.draw.js",
-        "figma/app-screens.privacy.mobile.04.draw.js"
+        "figma/app-screens.privacy.mobile.04.draw.js",
+        "figma/app-screens.privacy.mobile.05.draw.js"
       ],
       "counts": {
         "total": 668,
@@ -2694,7 +2697,8 @@
         "figma/app-screens.terms.desktop.00.draw.js",
         "figma/app-screens.terms.desktop.01.draw.js",
         "figma/app-screens.terms.desktop.02.draw.js",
-        "figma/app-screens.terms.desktop.03.draw.js"
+        "figma/app-screens.terms.desktop.03.draw.js",
+        "figma/app-screens.terms.desktop.04.draw.js"
       ],
       "counts": {
         "total": 536,
@@ -2716,7 +2720,8 @@
         "figma/app-screens.terms.mobile.00.draw.js",
         "figma/app-screens.terms.mobile.01.draw.js",
         "figma/app-screens.terms.mobile.02.draw.js",
-        "figma/app-screens.terms.mobile.03.draw.js"
+        "figma/app-screens.terms.mobile.03.draw.js",
+        "figma/app-screens.terms.mobile.04.draw.js"
       ],
       "counts": {
         "total": 536,
@@ -49533,8 +49538,8 @@
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
       "tag": "path",
       "rect": [
-        72.83,
-        7.01
+        72.99,
+        7.03
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -49544,8 +49549,8 @@
       "board": "figma/app-screens.nodecanvas-project-.desktop.00.draw.js",
       "tag": "path",
       "rect": [
-        72.12,
-        166.82
+        72.26,
+        166.83
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -50437,8 +50442,8 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "path",
       "rect": [
-        16.58,
-        1.38
+        16.75,
+        1.4
       ],
       "verdict": "structural",
       "rule": "frame",
@@ -50448,8 +50453,8 @@
       "board": "figma/app-screens.nodecanvas-project-.mobile.00.draw.js",
       "tag": "path",
       "rect": [
-        16.44,
-        38.54
+        16.75,
+        38.53
       ],
       "verdict": "structural",
       "rule": "frame",

@@ -276,6 +276,11 @@ const CAPTURE = {
   "SliderRulerTicks": {"key":{"name":"ticks"},"fields":["width","height"]},
   "ChartCardDotTile": {"key":{"name":"tile"},"fields":["width","height"]},
   "PromptVariant": {"key":{"by":["Layout"]},"fields":["width","height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
+  // 무대 고리(`Current ring`)는 CSS `outline` 2 · 띄움 1 이라 칸 바깥에 선다 — 넘침이 아니라 계약이다(NodeResizeHandle 의 Hint 와 같은 자리).
+  "SegmentTrack": {"key":{"by":["Layout","State"]},"fields":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
+  "SegmentTrackBlock": {"key":{"by":["Look","Selected"]},"fields":["height","paddingInline","itemSpacing","cornerRadius","layoutMode"],"outsideParts":["Current ring"]},
+  "SegmentTrackMapBar": {"key":{"by":["Look","Emphasis"]},"fields":["height","cornerRadius"]},
+  "StageBar": {"key":{"by":["Layout"]},"fields":["height","paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},

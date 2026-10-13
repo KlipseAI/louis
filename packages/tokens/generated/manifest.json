@@ -2,23 +2,23 @@
   "artifacts": [
     {
       "path": "packages/tokens/generated/figma.tokens.json",
-      "sha256": "f6aaccbb1eb038f990989a0abb092dcf742dd826b08a4006ad08aadfe24fae8f"
+      "sha256": "d20953cd570969d8b5868ba0f9d9e198702ef469e3419cc8eb468b6228c979d1"
     },
     {
       "path": "packages/tokens/generated/index.d.ts",
-      "sha256": "43696c2792498b1d4c007b4768482fb201effd0071280d003b5710b0b96be531"
+      "sha256": "bea86bc93f8601fcc2d4a2ab13adee62c8c9a4beae92ca1c6efb2960549c8ba5"
     },
     {
       "path": "packages/tokens/generated/index.js",
-      "sha256": "191bc07058596ad87adc1db7f8bbc58f91be9b47969ad3647f4cd417d79c2c88"
+      "sha256": "fcbe590a64fa9b88868bbf4115791cbf71f3a184ea788daf1fe3379715691214"
     },
     {
       "path": "packages/tokens/generated/tokens.css",
-      "sha256": "8c0f2c9df1440368af34776eb39f374795be5e262b513753891b90122e9dd321"
+      "sha256": "49aaecbddde1cecf906466d3eb4c723aba7e3798133ddc351ee4c99067af4569"
     },
     {
       "path": "packages/tokens/generated/tokens.json",
-      "sha256": "0abbf373c8d56d0d7276b9046705e09f8db7a72c098173ebe1e05edca9ff0d09"
+      "sha256": "52f8c9efdcad034f48a326099d5e01f9546895f5612d40772b9bb7ff21ed0403"
     }
   ],
   "contrastPairs": [
@@ -492,13 +492,13 @@
   },
   "source": {
     "path": "packages/tokens/src/klipse.tokens.json",
-    "sha256": "b8e5711c647930cde3e0877a3f58593cf13f4976d77149476a9e5c977053c4ab"
+    "sha256": "c84049890270a171a65358607cf08e81de6e7a19fb084bad1e5d28a90a6244d2"
   },
   "themes": [
     "light",
     "dark"
   ],
-  "tokenCount": 909,
+  "tokenCount": 915,
   "tokens": [
     {
       "aliasTarget": {
@@ -14596,6 +14596,162 @@
         ]
       },
       "sourcePath": "semantic.dark.color.scrollbar.thumb-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.300}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.segment-track-clip",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.300}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.segment-track-clip",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.segment-track-clip-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.400}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ]
+      },
+      "sourcePath": "semantic.dark.color.segment-track-clip-hover",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-stroke": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-stroke",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.300}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ]
+      },
+      "sourcePath": "semantic.light.color.segment-track-clip-stroke",
+      "tier": "semantic",
+      "type": "color"
+    },
+    {
+      "aliasTarget": {
+        "id": "color-blue-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-stroke": "color(srgb 0 0.286275 0.541176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-stroke",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.800}",
+      "resolvedValue": {
+        "alpha": 1,
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.286275,
+          0.541176
+        ]
+      },
+      "sourcePath": "semantic.dark.color.segment-track-clip-stroke",
       "tier": "semantic",
       "type": "color"
     },

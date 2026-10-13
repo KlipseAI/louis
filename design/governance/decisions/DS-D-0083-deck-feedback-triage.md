@@ -40,7 +40,7 @@ authority: normative
 | 1b 카드 썸네일 글자 띠 | (가) | `.louis-project-card-overlay[data-ink="on-dark\|on-bright"]` + `media-foreground-bright-soft` |
 | 1c 카드 더보기 버튼 | (나) | 없음 — 레시피 inset 이 이미 8 이다 |
 | 2a 비디오 플레이어 크롬 | (가), 다음 작업 | 없음 — 막힘 셋이 남았다(아래) |
-| 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) | 없음 |
+| 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) → (가) DS-D-0084 | 새 부품 `.louis-segment-track` + 짝 블록 `.louis-stage-bar`(무대는 기존 `drop-zone[data-surface="media"]`) — Updates (249) |
 | 2c AI 프롬프트 후보 카드 | (다) → (가) DS-D-0084 | 새 부품 `.louis-prompt-variant`(`data-layout` card · column) — Updates (248) |
 | 2d-1 TTS 오디오 칸 | (가), 다음 작업 | 없음 — 슬라이더 접근성 계약을 새로 가진다 |
 | 2d-2 컴포지션 소스 썸네일 줄 | (다) | 없음 — node-shell 판정 9 로 접는다 |

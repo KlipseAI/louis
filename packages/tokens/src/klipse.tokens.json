@@ -8764,6 +8764,36 @@
             }
           }
         },
+        "segment-track-clip": {
+          "$value": "{primitive.color.blue.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "segment-track-clip-hover": {
+          "$value": "{primitive.color.blue.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "segment-track-clip-stroke": {
+          "$value": "{primitive.color.blue.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip-stroke",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "stroke-control": {
           "$value": "{primitive.color.static-black-alpha.12}",
           "$extensions": {
@@ -11124,6 +11154,36 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-progress-track",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "segment-track-clip": {
+          "$value": "{primitive.color.blue.300}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "segment-track-clip-hover": {
+          "$value": "{primitive.color.blue.400}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "segment-track-clip-stroke": {
+          "$value": "{primitive.color.blue.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-segment-track-clip-stroke",
               "tier": "semantic",
               "mode": "dark"
             }

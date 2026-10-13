@@ -171,9 +171,9 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 185 |
+| Normative documents | 186 |
 | Generated documents | 5 |
-| Components | 61 |
+| Components | 62 |
 | Patterns | 9 |
 | Web done | 0 |
 | Token artifacts done | 6/6 |
@@ -2895,7 +2895,7 @@ X3 은 보드에서 묶이지 않는 칠의 대부분을 만든다 — 제품의
 | 1b 카드 썸네일 글자 띠 | (가) | `.louis-project-card-overlay[data-ink="on-dark\|on-bright"]` + `media-foreground-bright-soft` |
 | 1c 카드 더보기 버튼 | (나) | 없음 — 레시피 inset 이 이미 8 이다 |
 | 2a 비디오 플레이어 크롬 | (가), 다음 작업 | 없음 — 막힘 셋이 남았다(아래) |
-| 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) | 없음 |
+| 2b 하이라이트 트랙 · 무대 · 무대 아래 막대 | (다) → (가) DS-D-0084 | 새 부품 `.louis-segment-track` + 짝 블록 `.louis-stage-bar`(무대는 기존 `drop-zone[data-surface="media"]`) — Updates (249) |
 | 2c AI 프롬프트 후보 카드 | (다) → (가) DS-D-0084 | 새 부품 `.louis-prompt-variant`(`data-layout` card · column) — Updates (248) |
 | 2d-1 TTS 오디오 칸 | (가), 다음 작업 | 없음 — 슬라이더 접근성 계약을 새로 가진다 |
 | 2d-2 컴포지션 소스 썸네일 줄 | (다) | 없음 — node-shell 판정 9 로 접는다 |
@@ -3111,7 +3111,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼) |
-| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -3154,6 +3154,22 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 차트 점 · 미디어 위 점 | `gray-000-alpha-12` 로 접음 | `color-canvas-dot-on-media` |
 | 넓은 대화 | `data-size="compare"` · 반경 유도값 20 | `xlarge` · 24 |
 | 미룬 것 | 라이트박스 버튼(`lightbox` 회차) · 타임라인 푸터 · canvas-edge 삭제 · 플레이어 볼륨 · stat-tile cell(어드민 뒤) | — |
+
+#### segment-track 에서 기본값으로 정한 판단(2026-10-13)
+
+하이라이트 트랙 · 무대 아래 막대(Updates (249), DS-D-0083 2b)는 「큰 것(Decision 먼저)」이었으나, 초안(`scratchpad/promote/segment-track.md`,
+작업 폴더)이 남긴 소유자 판정 여덟을 소유자 지시로 초안의 기본값으로 정했다. 뒤집으면 레시피 · 토큰 한 곳을 고친다.
+
+| 판단 | 기본값 | 대안 |
+| --- | --- | --- |
+| 기하의 소유 | 소비처가 변수 일곱(`--louis-segment-track-*`)으로 준다. React 표면은 두 번째 화면(편집기 타임라인)이 붙을 때 | React `SegmentTrack` 이 시각 → 위치 계산까지 소유 |
+| 이름과 범위 | `segment-track` + 시맨틱 `segment-track-clip-*` | `timeline-track` + `timeline-clip-*` 로 열어 컴포지션 오디오 클립(pink)을 `data-tone` 으로 함께 |
+| 촘촘한 판의 경계 | 소비처가 `data-layout="compact"` 를 단다 | 레시피에 화면 폭 900 미디어 쿼리 · 트랙 폭 컨테이너 쿼리 |
+| 칸 경계 · 지도 막대 그래픽 대비(1.38~3.01) | 제품 값 그대로 + Known deviation(상태는 글자 · 선 모양 · 접근 이름이 말한다) | 라이트 선을 `blue-500` 으로(다음 추출 · 숏폼과 겹친다) |
+| 무대 아래 막대의 형태 | 같은 파일의 짝 블록 `.louis-stage-bar` | 문서 스니펫만(제품 상수 유지) · 독립 컴포넌트 `stage-bar` |
+| 실패 줄 잉크 | `fg-danger-on-surface`(6.34 · 6.43) — 보이는 변화 | 제품 `fg-danger`(14.27 · 14.49, 위험으로 읽히지 않는다) |
+| 칸 상태 속성 | `data-look` 하나(candidate · selected · clip · short) | 제품처럼 `data-included` + `data-state` |
+| 숏폼 칸 글자 3.37 | Button primary 의 소유자 수용 편차를 따른다 | 이 칸만 다른 짝 |
 
 #### Rollback
 
@@ -16911,6 +16927,23 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-13 (249) — 하이라이트 트랙 · 무대 아래 막대를 새 부품 `segment-track` 으로(DS-D-0084, DS-D-0083 2b)
+
+- **새 부품 `segment-track`.** 원본 영상의 시간축 위 구간 트랙 한 벌을 한 레시피로 — 틀(올린 면 · 줄 머리 96 격자) · 눈금(28, 시각 글자 닻 ·
+  큰 눈금 1 × 8 · 잔눈금) · 줄 머리 · 빈 줄(점선 56) · 전체 지도(줄 1~3 → 10 · 16 · 22, 막대 4 · 최소 3) · 구간 줄(`role="toolbar"`, 넘치면
+  구르고 끝 40 흐림) · 칸(32 · 최소 88 · 길이 비중) · 두 재생헤드. 칸 상태는 `data-look`(candidate · selected · clip · short) 하나,
+  무대 칸은 `aria-current`, 폰 판은 소비처가 다는 `data-layout="compact"`(칸 44 × 136 · 눈금 24).
+- **기하는 데이터다.** 시각 → 위치 계산은 소비처가 하고 결과만 변수 일곱(`--louis-segment-track-minor` · `-at` · `-lanes` · `-lane` ·
+  `-start` · `-span` · `-weight`)으로 준다.
+- **짝 블록 `.louis-stage-bar`.** 무대 아래 상태 | 행동 한 줄 — 같은 올린 면 · 한 줄 최소 40 · 슬롯(`__state` · `__note` · `__actions` ·
+  `__progress` · `__error`). 안의 조작은 LOUIS Button · Checkbox · ProgressBar · LoadingWord · Menu 그대로다.
+- **새 토큰 셋(시맨틱 색).** `color-segment-track-clip`(blue-300 · blue-300) · `-clip-hover`(blue-400 · blue-400) · `-clip-stroke`
+  (라이트 blue-300 · 다크 blue-800). 칸 면 48% 는 `color-mix` 로 만들고, 제품의 테마 분기(`html[data-theme=dark] &`)는 `-stroke` 한 칸에 접었다.
+- **고쳐 올린 것.** 막대 실패 줄 잉크 `fg-danger`(카드 위 라이트 14.27 · 다크 14.49 — 거의 검정 · 흰색이라 「실패」로 읽히지 않는다) →
+  `fg-danger-on-surface`(6.34 · 6.43). 칸 경계 · 지도 막대의 그래픽 대비(3:1 미만)와 숏폼 칸 글자 3.37 은 제품 값 그대로 — 문서 Known deviations.
+- 소유자 판정 여덟은 초안의 기본값으로 — DS-D-0084 「segment-track 에서 기본값으로 정한 판단」. 실브라우저 시험
+  `segment-track.browser.test.tsx`(기하 · 상태 · 촘촘한 판 · 막대 · 두 테마 대비). Figma 세트 · 변수와 React 표면은 다음이다(figma `not-ready`).
 
 #### 2026-10-13 (248) — AI 프롬프트 후보를 새 부품 `prompt-variant` 로(DS-D-0084, DS-D-0083 2c)
 

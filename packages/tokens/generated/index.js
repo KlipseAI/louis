@@ -19480,6 +19480,84 @@ export const tokens = {
         "alpha": 0.32
       }
     },
+    "color-segment-track-clip": {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.300}",
+      "sourcePath": "semantic.light.color.segment-track-clip",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-segment-track-clip-hover": {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-hover",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.400}",
+      "sourcePath": "semantic.light.color.segment-track-clip-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-segment-track-clip-stroke": {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-stroke": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-stroke",
+      "mode": "light",
+      "rawValue": "{primitive.color.blue.300}",
+      "sourcePath": "semantic.light.color.segment-track-clip-stroke",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ],
+        "alpha": 1
+      }
+    },
     "color-stroke-control": {
       "aliasTarget": {
         "id": "color-static-black-alpha-12",
@@ -25627,6 +25705,84 @@ export const tokens = {
           0.980392
         ],
         "alpha": 0.4
+      }
+    },
+    "color-segment-track-clip": {
+      "aliasTarget": {
+        "id": "color-blue-300",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip": "color(srgb 0.439216 0.74902 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.300}",
+      "sourcePath": "semantic.dark.color.segment-track-clip",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.439216,
+          0.74902,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-segment-track-clip-hover": {
+      "aliasTarget": {
+        "id": "color-blue-400",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-hover": "color(srgb 0.219608 0.643137 1 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-hover",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.400}",
+      "sourcePath": "semantic.dark.color.segment-track-clip-hover",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.219608,
+          0.643137,
+          1
+        ],
+        "alpha": 1
+      }
+    },
+    "color-segment-track-clip-stroke": {
+      "aliasTarget": {
+        "id": "color-blue-800",
+        "mode": "base"
+      },
+      "cssProperties": {
+        "--louis-color-segment-track-clip-stroke": "color(srgb 0 0.286275 0.541176 / 1)"
+      },
+      "deprecated": null,
+      "description": null,
+      "id": "color-segment-track-clip-stroke",
+      "mode": "dark",
+      "rawValue": "{primitive.color.blue.800}",
+      "sourcePath": "semantic.dark.color.segment-track-clip-stroke",
+      "tier": "semantic",
+      "type": "color",
+      "value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.286275,
+          0.541176
+        ],
+        "alpha": 1
       }
     },
     "color-stroke-control": {

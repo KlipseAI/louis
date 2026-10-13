@@ -25,6 +25,23 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (249) — 하이라이트 트랙 · 무대 아래 막대를 새 부품 `segment-track` 으로(DS-D-0084, DS-D-0083 2b)
+
+- **새 부품 `segment-track`.** 원본 영상의 시간축 위 구간 트랙 한 벌을 한 레시피로 — 틀(올린 면 · 줄 머리 96 격자) · 눈금(28, 시각 글자 닻 ·
+  큰 눈금 1 × 8 · 잔눈금) · 줄 머리 · 빈 줄(점선 56) · 전체 지도(줄 1~3 → 10 · 16 · 22, 막대 4 · 최소 3) · 구간 줄(`role="toolbar"`, 넘치면
+  구르고 끝 40 흐림) · 칸(32 · 최소 88 · 길이 비중) · 두 재생헤드. 칸 상태는 `data-look`(candidate · selected · clip · short) 하나,
+  무대 칸은 `aria-current`, 폰 판은 소비처가 다는 `data-layout="compact"`(칸 44 × 136 · 눈금 24).
+- **기하는 데이터다.** 시각 → 위치 계산은 소비처가 하고 결과만 변수 일곱(`--louis-segment-track-minor` · `-at` · `-lanes` · `-lane` ·
+  `-start` · `-span` · `-weight`)으로 준다.
+- **짝 블록 `.louis-stage-bar`.** 무대 아래 상태 | 행동 한 줄 — 같은 올린 면 · 한 줄 최소 40 · 슬롯(`__state` · `__note` · `__actions` ·
+  `__progress` · `__error`). 안의 조작은 LOUIS Button · Checkbox · ProgressBar · LoadingWord · Menu 그대로다.
+- **새 토큰 셋(시맨틱 색).** `color-segment-track-clip`(blue-300 · blue-300) · `-clip-hover`(blue-400 · blue-400) · `-clip-stroke`
+  (라이트 blue-300 · 다크 blue-800). 칸 면 48% 는 `color-mix` 로 만들고, 제품의 테마 분기(`html[data-theme=dark] &`)는 `-stroke` 한 칸에 접었다.
+- **고쳐 올린 것.** 막대 실패 줄 잉크 `fg-danger`(카드 위 라이트 14.27 · 다크 14.49 — 거의 검정 · 흰색이라 「실패」로 읽히지 않는다) →
+  `fg-danger-on-surface`(6.34 · 6.43). 칸 경계 · 지도 막대의 그래픽 대비(3:1 미만)와 숏폼 칸 글자 3.37 은 제품 값 그대로 — 문서 Known deviations.
+- 소유자 판정 여덟은 초안의 기본값으로 — DS-D-0084 「segment-track 에서 기본값으로 정한 판단」. 실브라우저 시험
+  `segment-track.browser.test.tsx`(기하 · 상태 · 촘촘한 판 · 막대 · 두 테마 대비). Figma 세트 · 변수와 React 표면은 다음이다(figma `not-ready`).
+
 ## 2026-10-13 (248) — AI 프롬프트 후보를 새 부품 `prompt-variant` 로(DS-D-0084, DS-D-0083 2c)
 
 - **새 부품 `prompt-variant`.** 스타일 이름 + 프롬프트 본문 한 벌을 한 레시피로 — 노드 응답 칸 안 후보 카드(`data-layout="card"`, 기본 ·

@@ -234,6 +234,9 @@
   --color-progress-track: var(--louis-color-progress-track);
   --color-scrollbar-thumb: var(--louis-color-scrollbar-thumb);
   --color-scrollbar-thumb-hover: var(--louis-color-scrollbar-thumb-hover);
+  --color-segment-track-clip: var(--louis-color-segment-track-clip);
+  --color-segment-track-clip-hover: var(--louis-color-segment-track-clip-hover);
+  --color-segment-track-clip-stroke: var(--louis-color-segment-track-clip-stroke);
   --color-stroke-control: var(--louis-color-stroke-control);
   --color-stroke-danger: var(--louis-color-stroke-danger);
   --color-stroke-default: var(--louis-color-stroke-default);

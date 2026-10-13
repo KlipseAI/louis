@@ -1807,6 +1807,7 @@
         "design/components/node-chrome-button.md",
         "design/components/media-slot.md",
         "design/components/prompt-variant.md",
+        "design/components/segment-track.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -1993,6 +1994,15 @@
       "id": "prompt-variant",
       "path": "design/components/prompt-variant.md",
       "title": "Prompt Variant",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "segment-track",
+      "path": "design/components/segment-track.md",
+      "title": "Segment Track",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -2758,6 +2768,22 @@
       "maturity": "experimental",
       "figma": "partial",
       "figmaName": "PromptVariant",
+      "web": "partial",
+      "docs": "done"
+    },
+    {
+      "id": "segment-track",
+      "name": "Segment Track",
+      "doc": "design/components/segment-track.md",
+      "note": "원본 영상의 시간축 위에 구간을 놓는 트랙과 그 짝 블록인 무대 아래 막대(DS-D-0084, DS-D-0083 2b). 하이라이트 허브의 빈 트랙과 스튜디오 판이 각자 상수로 들던 눈금 · 줄 머리 · 전체 지도 · 구간 줄 · 칸 · 재생헤드와 무대 아래 상태 | 행동 막대 세 벌을 한 레시피(packages/css/src/component/segment-track.css, .louis-segment-track · .louis-stage-bar)로 모았다. 시각 → 위치 계산은 데이터라 소비처가 변수 일곱으로 주고, 칸 상태는 data-look 하나(candidate · selected · clip · short), 촘촘한 판은 소비처가 data-layout compact 로 단다. 새 색 시맨틱 셋(segment-track-clip · -hover · -stroke)이 제품의 테마 분기를 접었고, 실패 줄 잉크는 대비를 고친 fg-danger-on-surface 로 옮겼다. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 부품은 아직 없어 not-ready 다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "figmaNames": [
+        "SegmentTrack",
+        "SegmentTrackBlock",
+        "SegmentTrackMapBar",
+        "StageBar"
+      ],
       "web": "partial",
       "docs": "done"
     },

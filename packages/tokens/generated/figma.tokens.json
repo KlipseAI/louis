@@ -28423,6 +28423,159 @@
             }
           }
         },
+        "color-segment-track-clip": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/segment-track-clip",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.300}",
+              "aliasTarget": {
+                "id": "color-blue-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.439216,
+                  0.74902,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.segment-track-clip"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.300}",
+              "aliasTarget": {
+                "id": "color-blue-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.439216,
+                  0.74902,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.segment-track-clip"
+            }
+          }
+        },
+        "color-segment-track-clip-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/segment-track-clip-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.400}",
+              "aliasTarget": {
+                "id": "color-blue-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.643137,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.segment-track-clip-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.400}",
+              "aliasTarget": {
+                "id": "color-blue-400",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.219608,
+                  0.643137,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.segment-track-clip-hover"
+            }
+          }
+        },
+        "color-segment-track-clip-stroke": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/segment-track-clip-stroke",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.800}",
+              "aliasTarget": {
+                "id": "color-blue-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.286275,
+                  0.541176
+                ]
+              },
+              "sourcePath": "semantic.dark.color.segment-track-clip-stroke"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.300}",
+              "aliasTarget": {
+                "id": "color-blue-300",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.439216,
+                  0.74902,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.segment-track-clip-stroke"
+            }
+          }
+        },
         "color-stroke-control": {
           "$type": "color",
           "fields": [],

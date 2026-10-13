@@ -72,7 +72,7 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | --- | ---: | --- |
 | 이미 LOUIS 부품이 있다 | 33 | 표면 원장 대응을 LOUIS 이름으로 옮겼다(같은 날, 표면 35). 제품이 그 클래스를 무는 일은 제품 (나) 목록 |
 | 기존 부품의 변형 · 하위 부품 | 36 | 축 하나씩 더하는 변형 묶음(Select lg · Tabs 활성 막대 · Section Header 단 · Choice Card list 등)과 node-shell 하위 부품(썸네일 줄 · 응답 칸 · 미디어 칸 · 채널 줄 · 크기 손잡이 · 글자 생성 버튼) |
-| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
+| 새 부품 | 약 21 | 작은 것: color-swatch · logo-tile · notice-pill · media-slot(섰다, (245)) · prompt-variant(섰다, (248)) · asset-tile · canvas-guide · audio-cell(섰다, (245)). 큰 것(각각 Decision 먼저): plan-comparison · timeline · coverflow · date-picker · color-picker · segment-track(섰다, (249) — Decision 대신 아래 기본값 표) · chat-panel · command-palette · lightbox · content-card · plan-tier-card · channel-header · canvas-section |
 | 부품이 아니다 | 19 | 아이콘 세트로(글리프 넷 · 레이아웃 썸네일 — sparkle 1 · 모바일 동작 글리프 15 가 새로 필요), 화면 조립, 데이터 계산 경로(스파크라인 · 차트 곡선) |
 
 소유자 판정 둘: 어드민 섹션 머리의 촘촘한 값 넷(간격 · 정렬 · 제목 28 · 설명 14 Regular)을 LOUIS compact 칸으로 열지, 제품 덮어쓰기를
@@ -115,6 +115,22 @@ primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 �
 | 차트 점 · 미디어 위 점 | `gray-000-alpha-12` 로 접음 | `color-canvas-dot-on-media` |
 | 넓은 대화 | `data-size="compare"` · 반경 유도값 20 | `xlarge` · 24 |
 | 미룬 것 | 라이트박스 버튼(`lightbox` 회차) · 타임라인 푸터 · canvas-edge 삭제 · 플레이어 볼륨 · stat-tile cell(어드민 뒤) | — |
+
+## segment-track 에서 기본값으로 정한 판단(2026-10-13)
+
+하이라이트 트랙 · 무대 아래 막대(Updates (249), DS-D-0083 2b)는 「큰 것(Decision 먼저)」이었으나, 초안(`scratchpad/promote/segment-track.md`,
+작업 폴더)이 남긴 소유자 판정 여덟을 소유자 지시로 초안의 기본값으로 정했다. 뒤집으면 레시피 · 토큰 한 곳을 고친다.
+
+| 판단 | 기본값 | 대안 |
+| --- | --- | --- |
+| 기하의 소유 | 소비처가 변수 일곱(`--louis-segment-track-*`)으로 준다. React 표면은 두 번째 화면(편집기 타임라인)이 붙을 때 | React `SegmentTrack` 이 시각 → 위치 계산까지 소유 |
+| 이름과 범위 | `segment-track` + 시맨틱 `segment-track-clip-*` | `timeline-track` + `timeline-clip-*` 로 열어 컴포지션 오디오 클립(pink)을 `data-tone` 으로 함께 |
+| 촘촘한 판의 경계 | 소비처가 `data-layout="compact"` 를 단다 | 레시피에 화면 폭 900 미디어 쿼리 · 트랙 폭 컨테이너 쿼리 |
+| 칸 경계 · 지도 막대 그래픽 대비(1.38~3.01) | 제품 값 그대로 + Known deviation(상태는 글자 · 선 모양 · 접근 이름이 말한다) | 라이트 선을 `blue-500` 으로(다음 추출 · 숏폼과 겹친다) |
+| 무대 아래 막대의 형태 | 같은 파일의 짝 블록 `.louis-stage-bar` | 문서 스니펫만(제품 상수 유지) · 독립 컴포넌트 `stage-bar` |
+| 실패 줄 잉크 | `fg-danger-on-surface`(6.34 · 6.43) — 보이는 변화 | 제품 `fg-danger`(14.27 · 14.49, 위험으로 읽히지 않는다) |
+| 칸 상태 속성 | `data-look` 하나(candidate · selected · clip · short) | 제품처럼 `data-included` + `data-state` |
+| 숏폼 칸 글자 3.37 | Button primary 의 소유자 수용 편차를 따른다 | 이 칸만 다른 짝 |
 
 ## Rollback
 

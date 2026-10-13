@@ -531,6 +531,9 @@
   --louis-color-progress-track: color(srgb 0.090196 0.105882 0.133333 / 0.08);
   --louis-color-scrollbar-thumb: color(srgb 0 0 0 / 0.2);
   --louis-color-scrollbar-thumb-hover: color(srgb 0 0 0 / 0.32);
+  --louis-color-segment-track-clip: color(srgb 0.439216 0.74902 1 / 1);
+  --louis-color-segment-track-clip-hover: color(srgb 0.219608 0.643137 1 / 1);
+  --louis-color-segment-track-clip-stroke: color(srgb 0.439216 0.74902 1 / 1);
   --louis-color-stroke-control: color(srgb 0.090196 0.105882 0.133333 / 0.12);
   --louis-color-stroke-danger: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-stroke-default: color(srgb 0.647059 0.658824 0.678431 / 1);
@@ -1041,6 +1044,9 @@
   --louis-color-progress-track: color(srgb 0.980392 0.980392 0.980392 / 0.08);
   --louis-color-scrollbar-thumb: color(srgb 0.980392 0.980392 0.980392 / 0.24);
   --louis-color-scrollbar-thumb-hover: color(srgb 0.980392 0.980392 0.980392 / 0.4);
+  --louis-color-segment-track-clip: color(srgb 0.439216 0.74902 1 / 1);
+  --louis-color-segment-track-clip-hover: color(srgb 0.219608 0.643137 1 / 1);
+  --louis-color-segment-track-clip-stroke: color(srgb 0 0.286275 0.541176 / 1);
   --louis-color-stroke-control: color(srgb 0.980392 0.980392 0.980392 / 0.16);
   --louis-color-stroke-danger: color(srgb 1 0.294118 0.34902 / 1);
   --louis-color-stroke-default: color(srgb 0.345098 0.360784 0.388235 / 1);

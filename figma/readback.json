@@ -8728,6 +8728,57 @@
           ]
         ],
         [
+          "color/segment-track-clip",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/300",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/segment-track-clip-hover",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/400",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/400",
+              null
+            ]
+          ]
+        ],
+        [
+          "color/segment-track-clip-stroke",
+          "COLOR",
+          "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
+          [
+            [
+              "Light",
+              "Klipse Primitive::color/blue/300",
+              null
+            ],
+            [
+              "Dark",
+              "Klipse Primitive::color/blue/800",
+              null
+            ]
+          ]
+        ],
+        [
           "color/stroke-control",
           "COLOR",
           "FRAME_FILL,SHAPE_FILL,STROKE_COLOR,TEXT_FILL",
@@ -21424,6 +21475,498 @@
       "strokes": {},
       "effects": {}
     },
+    "SegmentTrack": {
+      "variantCount": 4,
+      "hasDescription": true,
+      "properties": {
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "regular",
+            "compact"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Filled",
+            "Empty"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 236,
+        "rawFills": 0,
+        "boundStrokes": 12,
+        "rawStrokes": 0,
+        "textStyled": 12,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "regular/Filled": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            114
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingInline": [
+            16
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact/Filled": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            108
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "regular/Empty": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            116
+          ],
+          "paddingBlock": [
+            12
+          ],
+          "paddingInline": [
+            16
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "compact/Empty": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            88
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            12
+          ],
+          "itemSpacing": [
+            6
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "SegmentTrackBlock": {
+      "variantCount": 8,
+      "hasDescription": true,
+      "properties": {
+        "Number": {
+          "type": "TEXT"
+        },
+        "Title": {
+          "type": "TEXT"
+        },
+        "Playhead": {
+          "type": "BOOLEAN"
+        },
+        "Look": {
+          "type": "VARIANT",
+          "options": [
+            "clip",
+            "candidate",
+            "selected",
+            "short"
+          ]
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 28,
+        "rawFills": 0,
+        "boundStrokes": 12,
+        "rawStrokes": 0,
+        "textStyled": 16,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "clip/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "candidate/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "selected/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "short/false": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "clip/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Current ring"
+          ],
+          "offCenterMarks": []
+        },
+        "candidate/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Current ring"
+          ],
+          "offCenterMarks": []
+        },
+        "selected/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Current ring"
+          ],
+          "offCenterMarks": []
+        },
+        "short/true": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            0
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Current ring"
+          ],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {},
+      "outsideParts": [
+        "Current ring"
+      ]
+    },
+    "SegmentTrackMapBar": {
+      "variantCount": 9,
+      "hasDescription": true,
+      "properties": {
+        "Look": {
+          "type": "VARIANT",
+          "options": [
+            "clip",
+            "candidate",
+            "accent"
+          ]
+        },
+        "Emphasis": {
+          "type": "VARIANT",
+          "options": [
+            "rest",
+            "current",
+            "hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 6,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "clip/rest": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            4
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "clip/current": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "clip/hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "candidate/rest": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            4
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "candidate/current": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "candidate/hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "accent/rest": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            4
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "accent/current": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "accent/hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            8
+          ],
+          "cornerRadius": [
+            999
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "SegmentedCodeInput": {
       "variantCount": 3,
       "hasDescription": true,
@@ -23964,6 +24507,110 @@
             12
           ],
           "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "StageBar": {
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Error": {
+          "type": "BOOLEAN"
+        },
+        "Progress": {
+          "type": "BOOLEAN"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "board",
+            "waiting",
+            "stopped"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 19,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 10,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "board": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            56
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "waiting": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            56
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stopped": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            56
+          ],
+          "paddingBlock": [
+            8
+          ],
+          "paddingInline": [
+            8
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
           "overflowingParts": [],
           "offCenterMarks": []
         }

@@ -120,3 +120,88 @@
     color: GrayText;
   }
 }
+
+/* ── 크기 sm — 글 입력칸 · 응답 칸의 복사 버튼(28) ─────────────────────────────
+ *
+ * 정본: 제품 `node-canvas-v2/components/NodePromptInputCopyButton.tsx`(통합 판 `54b62a8aa`). 노드 다섯
+ * (Bgm · Image · Text · Tts · Video)이 글 입력칸 위와 응답 칸 아래 「복사 · 글자 수 줄」에 같은 버튼을 둔다
+ * ([Node Shell] `__count-row`).
+ *
+ * **sm 이 다시 쓰는 것은 넷이다 — 기하(28 · 반경 8), 글리프 14, 호버 잉크, 누름 0.96.** 면 없음 · 테두리 없음 ·
+ * 호버 틴트 · 비활성 0.35 는 md 를 그대로 물려받는다.
+ *
+ * **잉크와 비활성은 제품 값이 아니다(DS-D-0084 §3).** 제품은 잉크를 `palette-gray-500` 으로 고정하고 비활성에서
+ * 잉크만 600/400 으로 바꾼다. 다크 입력판 위 500 은 2.91:1 이라 글리프의 3:1 도 넘지 못한다 — md 의
+ * `fg-secondary`(다크 5.63:1)를 물려받는 것으로 고친다. 갈림은 문서 Known deviations 7 이 소유한다. */
+.louis-node-chrome-button[data-size="sm"] {
+  /* 28. 제품 `w-14 h-14`(--spacing 2px, NodePromptInputCopyButton.tsx:22). 「복사 · 글자 수 줄」의 높이도 이 토큰을 읽는다 —
+   * 헤더 높이가 md 버튼을 읽는 것과 같은 계약이다. */
+  inline-size: var(--louis-node-chrome-btn-h-sm);
+  block-size: var(--louis-node-chrome-btn-h-sm);
+  /* 8. 제품 `rounded-8`(:23). md 의 노드 크롬 반경(12)이 아니다. */
+  border-radius: var(--louis-radius-control-sm);
+}
+
+.louis-node-chrome-button[data-size="sm"] .louis-node-chrome-button__glyph {
+  /* 14. 제품 `COPY_GLYPH_PX`(:8) · `w-7 h-7`(:55). 아이콘 사다리(16 · 20 · 24)에 없는 값이다. 획은 24 격자 1.5 가
+   * 14 로 줄어 0.875 — 제품 표시 두께 0.88(`nodeToolbarGlyphs.tsx:11`)과 같다. */
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+/* 글리프 두 겹 — 「복사」와 「복사됨」이 한 칸에 겹쳐 서고 불투명도만 갈린다(제품 :47-53).
+ * 칸은 16 이고 글리프가 14 라 사방 1 이 남는다 — 제품 `w-8 h-8` + `place-items-center` 그대로다.
+ * 크기를 가리지 않는 하위 부품이라 md 에서 써도 된다(그때 글리프 16 이 칸을 채운다). */
+.louis-node-chrome-button__glyph-stack {
+  display: grid;
+  place-items: center;
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+.louis-node-chrome-button__glyph-stack > .louis-node-chrome-button__glyph {
+  grid-area: 1 / 1;
+  /* 제품은 `opacity 0.12s ease`(:51). 컨트롤 호버 토큰(160ms · `ease` 와 같은 곡선)을 읽는다 —
+   * `.louis-pill-trigger` 가 같은 0.12s 를 같은 판정으로 옮겼다(floating-shell.css:171). */
+  transition-property: opacity;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 쉼에서는 「복사」만, `data-copied="true"` 에서는 「복사됨」만 보인다. 되돌리는 시간(제품 1600ms, :84-87)은
+ * 레시피가 아니라 호출부 JS 가 갖는다 — CSS 는 상태를 그릴 뿐 시계를 갖지 않는다. */
+.louis-node-chrome-button__glyph[data-glyph="copied"],
+.louis-node-chrome-button[data-copied="true"] .louis-node-chrome-button__glyph[data-glyph="rest"] {
+  opacity: 0;
+}
+
+.louis-node-chrome-button[data-copied="true"] .louis-node-chrome-button__glyph[data-glyph="copied"] {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  /* sm 호버는 잉크까지 올린다 — 제품 다크 palette-gray-000 88% · 라이트 palette-gray-900 88%(:27 · :30).
+   * `fg-primary` 가 정확히 그 두 칸(라이트 pg-900 · 다크 pg-000)이라 88% 를 섞으면 바이트 단위로 같다.
+   * 면은 md 의 `accent-ghost-hover` 를 물려받는다 — 제품은 다크 16% 라 다크만 갈린다(Known deviations 1 과 같은 칸).
+   * sm 에 삭제 톤은 없다. */
+  .louis-node-chrome-button[data-size="sm"]:where(:not([data-tone="danger"])):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    color: color-mix(in srgb, var(--louis-color-fg-primary) 88%, transparent);
+  }
+}
+
+/* 누름 0.96 — 제품 `scale(0.96)`(:28). md 는 0.94 다. */
+.louis-node-chrome-button[data-size="sm"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-node-chrome-button[data-size="sm"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+    transform: none;
+  }
+
+  .louis-node-chrome-button__glyph-stack > .louis-node-chrome-button__glyph {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}

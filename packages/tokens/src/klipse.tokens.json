@@ -6580,6 +6580,16 @@
             }
           }
         },
+        "chrome-btn-h-sm": {
+          "$value": "{primitive.spacing.28}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "node-chrome-btn-h-sm",
+              "tier": "semantic",
+              "mode": "global"
+            }
+          }
+        },
         "chrome-btn-padding-x": {
           "$value": "{primitive.spacing.10}",
           "$extensions": {
@@ -8163,6 +8173,26 @@
             }
           }
         },
+        "media-slot-surface": {
+          "$value": "{primitive.color.static-pure-black-alpha.04}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-slot-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "media-slot-stroke": {
+          "$value": "{primitive.color.static-pure-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-slot-stroke",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "node-audio-accent": {
           "$value": "{primitive.color.pink.500}",
           "$extensions": {
@@ -8418,6 +8448,186 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-text-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-text-response-foreground": {
+          "$value": "{primitive.color.yellow.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-text-response-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-text-generating-foreground": {
+          "$value": "{primitive.color.yellow.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-text-generating-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-channel-foreground": {
+          "$value": "{primitive.color.static-pure-black-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-channel-foreground-muted": {
+          "$value": "{primitive.color.static-pure-black-alpha.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-foreground-muted",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-channel-avatar-surface": {
+          "$value": "{primitive.color.static-pure-black-alpha.04}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-avatar-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-channel-avatar-stroke": {
+          "$value": "{primitive.color.static-pure-black-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-avatar-stroke",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-chip-ghost-foreground": {
+          "$value": "{primitive.color.palette-gray.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-chip-ghost-foreground-hover": {
+          "$value": "{primitive.color.palette-gray.800}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-foreground-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-chip-ghost-surface-hover": {
+          "$value": "{primitive.color.static-pure-black-alpha.04}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-surface-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-resize-grip": {
+          "$value": "{primitive.color.static-pure-black-alpha.48}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-grip",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-resize-grip-hover": {
+          "$value": "{primitive.color.static-pure-black-alpha.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-grip-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-resize-hint": {
+          "$value": "{primitive.color.static-pure-black-alpha.64}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-hint",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-audio-accent-hover": {
+          "$value": "{primitive.color.pink.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-accent-hover",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-audio-on-accent": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-on-accent",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-audio-pending-fill": {
+          "$value": "{primitive.color.pink.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-pending-fill",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-audio-time": {
+          "$value": "{primitive.color.palette-gray.700}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-time",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-media-pending-surface": {
+          "$value": "{primitive.color.palette-gray.025}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-media-pending-surface",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-media-empty-ink": {
+          "$value": "{primitive.color.static.black}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-media-empty-ink",
               "tier": "semantic",
               "mode": "light"
             }
@@ -10278,6 +10488,26 @@
             }
           }
         },
+        "media-slot-surface": {
+          "$value": "{primitive.color.static-pure-black-alpha.16}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-slot-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "media-slot-stroke": {
+          "$value": "{primitive.color.static-white-alpha.12}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-media-slot-stroke",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
         "node-audio-accent": {
           "$value": "{primitive.color.pink.500}",
           "$extensions": {
@@ -10533,6 +10763,186 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-text-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-text-response-foreground": {
+          "$value": "{primitive.color.yellow.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-text-response-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-text-generating-foreground": {
+          "$value": "{primitive.color.yellow.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-text-generating-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-channel-foreground": {
+          "$value": "{primitive.color.static-white-alpha.80}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-channel-foreground-muted": {
+          "$value": "{primitive.color.static-white-alpha.56}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-foreground-muted",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-channel-avatar-surface": {
+          "$value": "{primitive.color.static-white-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-avatar-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-channel-avatar-stroke": {
+          "$value": "{primitive.color.static-white-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-channel-avatar-stroke",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-ghost-foreground": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-ghost-foreground-hover": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-foreground-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-chip-ghost-surface-hover": {
+          "$value": "{primitive.color.static-white-alpha.08}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-chip-ghost-surface-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-resize-grip": {
+          "$value": "{primitive.color.static-white-alpha.28}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-grip",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-resize-grip-hover": {
+          "$value": "{primitive.color.static-white-alpha.48}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-grip-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-resize-hint": {
+          "$value": "{primitive.color.static-white-alpha.72}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-resize-hint",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-audio-accent-hover": {
+          "$value": "{primitive.color.pink.600}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-accent-hover",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-audio-on-accent": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-on-accent",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-audio-pending-fill": {
+          "$value": "{primitive.color.pink.900}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-pending-fill",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-audio-time": {
+          "$value": "{primitive.color.static-white-alpha.56}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-audio-time",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-media-pending-surface": {
+          "$value": "{primitive.color.palette-gray.900}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-media-pending-surface",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-media-empty-ink": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-media-empty-ink",
               "tier": "semantic",
               "mode": "dark"
             }

@@ -15035,6 +15035,34 @@
             }
           }
         },
+        "node-chrome-btn-h-sm": {
+          "$type": "dimension",
+          "fields": [],
+          "figmaName": "node/chrome-btn-h-sm",
+          "hiddenFromPublishing": false,
+          "losses": [
+            "Figma FLOAT는 DTCG 단위 의미를 직접 보존하지 않으므로 source metadata를 함께 검토해야 합니다."
+          ],
+          "nativeVariableType": "FLOAT",
+          "representation": "variable",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "valuesByMode": {
+            "Global": {
+              "$value": "{primitive.spacing.28}",
+              "aliasTarget": {
+                "id": "space-28",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "unit": "px",
+                "value": 28
+              },
+              "sourcePath": "semantic.global.node.chrome-btn-h-sm"
+            }
+          }
+        },
         "node-chrome-btn-padding-x": {
           "$type": "dimension",
           "fields": [],
@@ -23957,6 +23985,108 @@
             }
           }
         },
+        "color-media-slot-stroke": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-slot-stroke",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.12}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-12",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.12,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-slot-stroke"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-slot-stroke"
+            }
+          }
+        },
+        "color-media-slot-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/media-slot-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-pure-black-alpha.16}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-16",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.16,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.media-slot-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.04}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-04",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.04,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.media-slot-surface"
+            }
+          }
+        },
         "color-media-stage-surface": {
           "$type": "color",
           "fields": [],
@@ -24059,6 +24189,57 @@
             }
           }
         },
+        "color-node-audio-accent-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-audio-accent-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.pink.600}",
+              "aliasTarget": {
+                "id": "color-pink-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.886275,
+                  0.211765,
+                  0.443137
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-audio-accent-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.pink.600}",
+              "aliasTarget": {
+                "id": "color-pink-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.886275,
+                  0.211765,
+                  0.443137
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-audio-accent-hover"
+            }
+          }
+        },
         "color-node-audio-icon": {
           "$type": "color",
           "fields": [],
@@ -24107,6 +24288,108 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-audio-icon"
+            }
+          }
+        },
+        "color-node-audio-on-accent": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-audio-on-accent",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-audio-on-accent"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-audio-on-accent"
+            }
+          }
+        },
+        "color-node-audio-pending-fill": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-audio-pending-fill",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.pink.900}",
+              "aliasTarget": {
+                "id": "color-pink-900",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.329412,
+                  0.066667,
+                  0.164706
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-audio-pending-fill"
+            },
+            "Light": {
+              "$value": "{primitive.color.pink.100}",
+              "aliasTarget": {
+                "id": "color-pink-100",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.898039,
+                  0.929412
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-audio-pending-fill"
             }
           }
         },
@@ -24161,6 +24444,57 @@
             }
           }
         },
+        "color-node-audio-time": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-audio-time",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.56}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-56",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.56,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-audio-time"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.700}",
+              "aliasTarget": {
+                "id": "color-palette-gray-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.254902,
+                  0.270588,
+                  0.298039
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-audio-time"
+            }
+          }
+        },
         "color-node-card-stroke": {
           "$type": "color",
           "fields": [],
@@ -24212,6 +24546,210 @@
             }
           }
         },
+        "color-node-channel-avatar-stroke": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-channel-avatar-stroke",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-channel-avatar-stroke"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-channel-avatar-stroke"
+            }
+          }
+        },
+        "color-node-channel-avatar-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-channel-avatar-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-channel-avatar-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.04}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-04",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.04,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-channel-avatar-surface"
+            }
+          }
+        },
+        "color-node-channel-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-channel-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.80}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-80",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.8,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-channel-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-channel-foreground"
+            }
+          }
+        },
+        "color-node-channel-foreground-muted": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-channel-foreground-muted",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.56}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-56",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.56,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-channel-foreground-muted"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.64}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-64",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.64,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-channel-foreground-muted"
+            }
+          }
+        },
         "color-node-chip-fg-disabled": {
           "$type": "color",
           "fields": [],
@@ -24260,6 +24798,159 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-chip-fg-disabled"
+            }
+          }
+        },
+        "color-node-chip-ghost-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-ghost-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-ghost-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.700}",
+              "aliasTarget": {
+                "id": "color-palette-gray-700",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.254902,
+                  0.270588,
+                  0.298039
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-ghost-foreground"
+            }
+          }
+        },
+        "color-node-chip-ghost-foreground-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-ghost-foreground-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-ghost-foreground-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.800}",
+              "aliasTarget": {
+                "id": "color-palette-gray-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.168627,
+                  0.184314,
+                  0.211765
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-ghost-foreground-hover"
+            }
+          }
+        },
+        "color-node-chip-ghost-surface-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-chip-ghost-surface-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.08}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-08",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.08,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-chip-ghost-surface-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.04}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-04",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.04,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-chip-ghost-surface-hover"
             }
           }
         },
@@ -26456,6 +27147,261 @@
             }
           }
         },
+        "color-node-media-empty-ink": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-media-empty-ink",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-media-empty-ink"
+            },
+            "Light": {
+              "$value": "{primitive.color.static.black}",
+              "aliasTarget": {
+                "id": "color-static-black",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-media-empty-ink"
+            }
+          }
+        },
+        "color-node-media-pending-surface": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-media-pending-surface",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.900}",
+              "aliasTarget": {
+                "id": "color-palette-gray-900",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.090196,
+                  0.105882,
+                  0.133333
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-media-pending-surface"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.025}",
+              "aliasTarget": {
+                "id": "color-palette-gray-025",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.94902,
+                  0.952941,
+                  0.960784
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-media-pending-surface"
+            }
+          }
+        },
+        "color-node-resize-grip": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-resize-grip",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.28}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-28",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.28,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-resize-grip"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.48}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-48",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.48,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-resize-grip"
+            }
+          }
+        },
+        "color-node-resize-grip-hover": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-resize-grip-hover",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.48}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-48",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.48,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-resize-grip-hover"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.64}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-64",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.64,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-resize-grip-hover"
+            }
+          }
+        },
+        "color-node-resize-hint": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-resize-hint",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.static-white-alpha.72}",
+              "aliasTarget": {
+                "id": "color-static-white-alpha-72",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.72,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-resize-hint"
+            },
+            "Light": {
+              "$value": "{primitive.color.static-pure-black-alpha.64}",
+              "aliasTarget": {
+                "id": "color-static-pure-black-alpha-64",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 0.64,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-resize-hint"
+            }
+          }
+        },
         "color-node-text-accent": {
           "$type": "color",
           "fields": [],
@@ -26507,6 +27453,57 @@
             }
           }
         },
+        "color-node-text-generating-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-text-generating-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.100}",
+              "aliasTarget": {
+                "id": "color-yellow-100",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  1,
+                  0.960784,
+                  0.839216
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-text-generating-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.800}",
+              "aliasTarget": {
+                "id": "color-yellow-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.478431,
+                  0.321569,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-text-generating-foreground"
+            }
+          }
+        },
         "color-node-text-icon": {
           "$type": "color",
           "fields": [],
@@ -26555,6 +27552,57 @@
                 ]
               },
               "sourcePath": "semantic.light.color.node-text-icon"
+            }
+          }
+        },
+        "color-node-text-response-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-text-response-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.yellow.600}",
+              "aliasTarget": {
+                "id": "color-yellow-600",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.894118,
+                  0.603922,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-text-response-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.yellow.800}",
+              "aliasTarget": {
+                "id": "color-yellow-800",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.478431,
+                  0.321569,
+                  0
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-text-response-foreground"
             }
           }
         },

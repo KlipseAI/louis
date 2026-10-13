@@ -126,3 +126,46 @@
     color: GrayText;
   }
 }
+
+/* **ghost** — 면 · 헤어라인이 없는 트리거. YouTube 게시 노드의 「즉시 업로드 / 예약 업로드」(`YoutubeNode.tsx:460-476`)다.
+ * 기본 알약과 같은 일(노드 툴바 안에서 눌러 드롭다운을 연다)을 하지만 값 다섯이 다르다 — 높이 28 · 좌우 8 · 간격 6 · caption-medium ·
+ * 셰브론 12. 높이 28 을 32 로 맞출지는 소유자 판정이다(아래 2-2). */
+.louis-node-chip[data-variant="ghost"],
+:where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip[data-variant="ghost"] {
+  /* 28. 제품 `h-14`(--spacing 2px, `YoutubeNode.tsx:461`). 컨트롤 사다리(24 · 32 · 40)에 없는 값이다. */
+  block-size: 28px;
+  padding-inline: var(--louis-space-control-sm);
+  /* 6. 제품 `gap-3`(`:461`). */
+  gap: 6px;
+  border-radius: var(--louis-radius-control);
+  background: transparent;
+  box-shadow: none;
+  color: var(--louis-color-node-chip-ghost-foreground);
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 셰브론 12 · 70% — 제품 `w-6 h-6 opacity-70`(`:476`). */
+.louis-node-chip[data-variant="ghost"] .louis-node-chip__glyph {
+  inline-size: 12px;
+  block-size: 12px;
+  opacity: 0.7;
+}
+
+@media (hover: hover) {
+  .louis-node-chip[data-variant="ghost"]:where(button, [role="button"]):where(
+      :not(:disabled):not([aria-disabled="true"])
+    ):hover {
+    background: var(--louis-color-node-chip-ghost-surface-hover);
+    color: var(--louis-color-node-chip-ghost-foreground-hover);
+  }
+}
+
+/* 비활성 — 기본 알약은 글자만 죽이지만(면이 남아 리듬을 지킨다) ghost 는 면이 없어 제품처럼 통째로 흐린다(`opacity-48`, `:468`). */
+.louis-node-chip[data-variant="ghost"]:is(:disabled, [aria-disabled="true"]) {
+  color: var(--louis-color-node-chip-ghost-foreground);
+  opacity: 0.48;
+}

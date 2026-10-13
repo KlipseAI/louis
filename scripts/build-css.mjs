@@ -115,10 +115,11 @@ function lintSource(label, rawSource, { isReset = false } = {}) {
     }
   }
   // component 저작 CSS의 primitive 직접 소비 금지 — LOUIS 내부 계층은 semantic만 쓴다.
+  // `color-gray-000-alpha-*` 는 이름이 원시 같지만 **시맨틱**(테마 적응 투명 잉크, DS-D-0082)이라 연다(2026-10-13, DS-D-0084).
   // (DS-D-0001 2026-08-25 개정으로 primitive color는 tokens.css로 downstream에 공개되지만,
   //  LOUIS 자신의 component CSS는 여전히 semantic만 소비한다. 이 게이트가 그 규칙을 강제한다.)
   const primitiveUse = source.match(
-    /var\(--louis-(color-(gray|blue|red|green|amber|mint|violet|pink|yellow|static-black-alpha|static-white-alpha|red-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
+    /var\(--louis-(color-(gray(?!-000-alpha-)|blue|red|green|amber|mint|violet|pink|yellow|static-black-alpha|static-white-alpha|red-alpha)-|space-\d|radius-\d|font-size-|font-weight-|line-height-|duration-)/g,
   );
   if (primitiveUse) {
     errors.push(

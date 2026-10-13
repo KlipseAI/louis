@@ -124,6 +124,37 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
 제품 클래스가 세 상수로 이미 뽑혀 있어 측정 하네스에 등록하기는 쉬운 편이다 — `$noProductRender`
 를 지우는 것이 이 칸의 다음 단계이고, recipe 가 섰다고 그 면제가 풀리지는 않는다.
 
+## 크기 sm — 복사 버튼
+
+글 입력칸 위와 응답 칸 아래 「복사 · 글자 수 줄」의 28px 복사 버튼이다(`data-size="sm"`). 제품
+`NodePromptInputCopyButton` 의 정본이고 노드 다섯(Bgm · Image · Text · Tts · Video)이 같은 버튼을 쓴다.
+면이 없고 호버에서만 틴트가 뜨는 계열은 md 와 같다 — 그래서 새 부품이 아니라 이 부품의 크기다.
+
+```html
+<button type="button" class="louis-node-chrome-button" data-size="sm" data-copied="false"
+        aria-label="프롬프트 복사">
+  <span class="louis-node-chrome-button__glyph-stack" aria-hidden="true">
+    <svg class="louis-node-chrome-button__glyph" data-glyph="rest">…copy…</svg>
+    <svg class="louis-node-chrome-button__glyph" data-glyph="copied">…copy-check…</svg>
+  </span>
+</button>
+```
+
+| 부분 | md | sm |
+| --- | --- | --- |
+| 상자 | 32 · 반경 `node-chrome-btn-radius`(12) | 28(`node-chrome-btn-h-sm`) · 반경 `radius-control-sm`(8) |
+| 글리프 | 16 | 14(칸 16 안에 겹침 둘) |
+| 호버 | 면 `accent-ghost-hover` | 면 같음 + 잉크 `fg-primary` 88% |
+| 누름 | 0.94 | 0.96 |
+| 비활성 · 쉼 잉크 | 0.35 · `fg-secondary` | 같음 |
+
+**복사됨은 상태이고 글리프는 둘이다.** 누르면 호출부가 `data-copied="true"` 를 걸고 1600ms 뒤 거둔다 — 「복사」
+(`icon/copy`)가 사라지고 「복사됨」(`icon/copy-check`)이 같은 칸에 나타난다(불투명도 교차, `motion-control-hover`).
+시계는 JS 가 갖는다. 복사할 글이 비면 `disabled` 이고 툴팁도 띄우지 않는다.
+
+**접근성.** 버튼 이름은 행동(「프롬프트 복사」)이고 복사됨에서 바뀌지 않는다. 결과를 알리려면 호출부가
+화면 밖 `aria-live="polite"` 영역에 「복사됨」을 한 번 넣는다 — 제품은 알리지 않는다(Known deviations 8).
+
 ## Known deviations
 
 1. **호버 틴트 알파가 다크에서 얕다.** 제품은 중립 호버를 라이트 검정 8% · 다크 흰 12% 로,
@@ -149,6 +180,10 @@ Figma 변형과 이 문서 States 표가 지키는 상태로 둔다.
    (`NodeHeaderActions.tsx:50`, 제목과 같은 클래스 · 2026-09-11). 위 CSS 주석의 `palette-gray-500` 은
    그 전의 값이다. `fg-secondary` 는 라이트가 정확히 같고 다크 `palette-gray-300` 이라 어긋남의 크기만
    두 단에서 한 단으로 줄었다 — [Node Shell](node-shell.md) Known deviations 3.
+8. **sm 의 잉크와 비활성이 제품과 다르다(DS-D-0084 §3).** 제품은 잉크 `palette-gray-500` 고정이고(다크 입력판 위 2.91:1)
+   비활성에서 불투명도 대신 잉크를 600/400 으로 바꾼다(`NodePromptInputCopyButton.tsx:34-45`). 레시피는 md 의 `fg-secondary`
+   (5.63:1)와 0.35 를 물려받는다. 호버 면 다크도 제품 16% 대 8% 다 — 1 과 같은 칸이다.
+9. **복사됨을 화면 읽기 도구에 알리지 않는다** — 제품 그대로다. 문서가 권하는 live 영역은 호출부 몫이다.
 
 ## Related
 

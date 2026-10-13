@@ -282,6 +282,166 @@ NodeShell (세로, 간격 4, 폭 400)
 제품 렌더 하네스가 이 조형에 닿지 못하는 사유는 `figma/components.measured.json` 의
 `$noProductRender` 가 그대로 갖는다 — recipe 가 섰다고 그 면제가 풀리지는 않는다.
 
+## 미디어 칸
+
+이미지 · 영상 · 편집 노드의 결과 칸이다(`.louis-node-shell__media`). 카드 테두리 안쪽에 맞닿고 위 두 모서리가 카드 안쪽 곡률 22(= 24 − 테두리 2)를 따른다.
+비율은 데이터라 소비처가 인라인 `aspect-ratio` 로 주고, 비율이 바뀌면 0.42초에 걸쳐 따라간다(`motion-node-media-aspect`). 결과가 서면 움직이지 않는다.
+
+| 상태 | 표식 | 안 |
+| --- | --- | --- |
+| 빈 칸 | `data-empty` | `__media-empty` — 글리프 64 + body-sm 글 한 줄, `node-media-empty-ink` 를 0.28 로 흐린다 |
+| 생성 중 | `data-state="pending"` | 노드 타입의 단계 문구(셸이 소유하지 않는다) |
+| 결과 | `data-state="result"` | `<img>`(꽉 채워 자른다) 또는 [Video Player](./video-player.md) |
+
+```html
+<div class="louis-node-shell__card">
+  <div class="louis-node-shell__media" data-empty style="aspect-ratio: 16 / 9">
+    <div class="louis-node-shell__media-empty">
+      <svg aria-hidden="true">…</svg>
+      <span>생성한 영상이 여기에 표시됩니다.</span>
+    </div>
+  </div>
+  …
+</div>
+
+<div class="louis-node-shell__media" data-state="result" style="aspect-ratio: 1 / 1">
+  <img src="…" alt="생성된 이미지">
+</div>
+```
+
+**미디어 위 제목 바탕은 없다.** 헤더가 카드 위에 서므로 미디어 위에 글자가 놓이지 않는다. 제품 코드에 남은 밝기 톤 두 벌(`NODE_TITLE_MEDIA_BACKDROP_*`)은 계산만 되고
+그려지지 않는 잔재다. 빈 칸 글은 흐려서 대비가 낮다(다크 2.47 · 라이트 1.99) — Known deviations. **Figma** 는 `NodeMedia`(State `Empty` · `Result`)이다.
+
+## 응답 칸
+
+텍스트 노드(AI 프롬프트 모드)가 카드 위쪽에 세우는 LLM 결과 자리다(`.louis-node-shell__response`). 제품 `TextNode.tsx` 의
+`LlmResponseArea` 의 정본이고, 상태 넷을 `data-state` 로 고른다. **정사각이 계약이다** — 카드 안쪽 폭(396)이 곧 높이다.
+
+```html
+<!-- 생성 중 -->
+<div class="louis-node-shell__response" data-state="generating" tabindex="-1">
+  <div class="louis-node-shell__response-status" role="status" aria-live="polite">
+    <svg class="louis-node-shell__response-icon" aria-hidden="true">…text…</svg>
+    <span class="louis-loading-word louis-node-shell__response-caption">프롬프트를 쓰는 중</span>
+  </div>
+</div>
+
+<!-- 채움 -->
+<div class="louis-node-shell__response" data-state="filled" tabindex="-1">
+  <div class="louis-node-shell__response-scroll">
+    <textarea class="louis-node-shell__response-text" rows="1" aria-label="생성된 프롬프트">…</textarea>
+  </div>
+  <div class="louis-node-shell__count-row">
+    <button type="button" class="louis-node-chrome-button" data-size="sm" aria-label="프롬프트 복사">…</button>
+    <span class="louis-node-shell__count" aria-live="polite">312자</span>
+  </div>
+</div>
+```
+
+| 상태 | 상자 | 안 |
+| --- | --- | --- |
+| `empty`(기본) | 396 정사각 · 위아래 8 · 좌우 16 · 투명 | `__response-empty` — 아이콘 64 + 안내 body-sm, 불투명도 0.28 |
+| `generating` | 여백 0 | `__response-status`(`role="status"`) — 아이콘 64 `node-text-accent` + 캡션 `loading-word`(잉크 `node-text-generating-foreground`) |
+| `filled` | 바깥 위 · 좌우 8 → 380 정사각 · 안 8 · 반경 16 · 면 `node-text-accent` 8% · 테두리 48% | `__response-scroll`(결과만 스크롤, 막대 4 · 결과 색 20/32%) + `__count-row` |
+| `error` | `empty` 와 같다 | `__response-text` 잉크 `fg-danger-on-surface` |
+
+**스크롤은 채움에서만 안쪽 칸이 갖는다.** 결과가 길면 `__response-scroll` 만 움직이고 복사 · 글자 수 줄은 바닥에 남는다. 상자는 캔버스 휠을
+가로채지 않도록 `overscroll-behavior: contain` 이고, 누르면 스크롤 없이 초점을 받는다(`tabindex="-1"`, 호출부 JS). 결과를 고칠 수 있는
+노드는 `<p>` 대신 같은 클래스의 `<textarea>` 를 두고 높이를 내용에 맞춘다 — 스크롤은 바깥 한 곳이다.
+
+스타일 후보 둘을 고르는 자리는 같은 채움 상자를 쓰고 안은 Prompt Variant 부품이다(DS-D-0084 승격 목록, 아직 서지 않았다).
+
+### 복사 · 글자 수 줄
+
+`.louis-node-shell__count-row` — 왼쪽 [Node Chrome Button](node-chrome-button.md) sm(복사), 오른쪽 남는 폭에 글자 수(`__count`,
+caption regular · 숫자 고정폭 · 말줄임 · `aria-live="polite"`). 높이는 버튼의 `node-chrome-btn-h-sm`(28), 간격 0, 넘침을 자르지 않는다(툴팁).
+글 입력칸 위(노드 다섯)와 응답 칸 바닥에 같은 줄이 선다. 잉크는 버튼과 같은 `fg-secondary` 다.
+
+## 글자 생성 버튼
+
+편집 노드 「편집」, YouTube · Instagram 의 「업로드」「분석」「저장」, Creative Media 「생성」은 같은 면에 별 대신 글리프와 글자를 얹는다
+(`data-content="label"`). 면 · 안쪽 빛 · hover · 누름 · 비활성은 위 생성 버튼 그대로이고 상자와 내용만 다르다.
+
+| 부분 | 기본(별 + 크레딧) | `data-content="label"` |
+| --- | --- | --- |
+| 좌우 | 8 | 14(사다리 밖 제품 값, `px-7`) |
+| 글리프와 글자 사이 | 2 | 4 |
+| 글리프 | 별 14 고정 | 슬롯 14 — 필름 · 업로드 · 별, 없어도 된다 |
+| 글자 | 후행 슬롯 body-sm-regular `node-generate-trailing`(blue-100) | `__generate-label` body-sm-regular, 흰 `node-generate-foreground` |
+| 진행 중 | 스피너 sm · 비활성이면 0.35 | 스피너가 내용을 바꾸고 `aria-busy="true"` 면 흐리지 않는다 |
+
+```html
+<button type="button" class="louis-node-shell__generate-button" data-content="label">
+  <span class="louis-node-shell__generate-content">
+    <svg class="louis-node-shell__generate-icon" aria-hidden="true">…</svg>
+    <span class="louis-node-shell__generate-label">편집</span>
+  </span>
+</button>
+
+<!-- 처리 중 -->
+<button type="button" class="louis-node-shell__generate-button" data-content="label"
+        disabled aria-busy="true" aria-label="처리 중" title="처리 중">
+  <span class="louis-spinner" data-size="md" aria-hidden="true"><span class="louis-spinner__ring"></span></span>
+</button>
+```
+
+글자가 보이므로 `aria-label` 을 따로 두지 않는다. 진행 중에 글자가 스피너로 바뀌면 그때만 `aria-label` 로 행동을 말한다.
+**Figma** 는 `NodeGenerateButton` 세트에 `Content`(`Credit` · `Label`) 축을 더한다.
+
+## 채널 줄
+
+YouTube · Instagram 게시 노드 본문 맨 위의 「어느 채널로 올리는가」 줄이다(`.louis-node-shell__channel`, DS-D-0084). 아바타 원과 채널 이름 한 줄이고
+이름이 길면 말줄임한다. 두 노드가 같은 줄을 다른 치수로 그려 지금은 `data-size` 둘이다.
+
+| 크기 | 아바타 | 이름 | 사이 | 여백 | 글자 색 |
+| --- | --- | --- | --- | --- | --- |
+| md(기본) · YouTube | 32 | body-md medium | 10 | 사방 8 | `node-channel-foreground` — 다크 흰 80% · 라이트 검정 72% |
+| sm · Instagram | 20 | caption medium | 8 | 위 14 · 좌우 14 · 아래 6 | `node-channel-foreground-muted` — 다크 56% · 라이트 48% |
+
+아바타는 [Avatar](./avatar.md) 가 아니다 — 크기가 그 사다리에 없고 면이 반투명(`node-channel-avatar-surface`) + 1px 테두리(`-stroke`)다.
+이미지가 없으면 같은 원 안에 채널 글리프 20 을 둔다.
+
+```html
+<div class="louis-node-shell__channel">
+  <img class="louis-node-shell__channel-avatar" src="…" alt="" width="32" height="32" referrerpolicy="no-referrer">
+  <span class="louis-node-shell__channel-name">Klipse Studio</span>
+</div>
+
+<div class="louis-node-shell__channel" data-size="sm">
+  <span class="louis-node-shell__channel-avatar"><svg aria-hidden="true">…</svg></span>
+  <span class="louis-node-shell__channel-name">klipse.official</span>
+</div>
+```
+
+아바타는 장식이다(`alt=""`) — 이름이 옆에 글자로 있다. 업로드 툴바의 「즉시 업로드 / 예약 업로드」는 [Node Chip](./node-chip.md) 의
+`data-variant="ghost"` 다(면 · 헤어라인 없음, 높이 28, caption medium, 셰브론 12).
+**Figma** 는 `NodeChannel`(Size `md` · `sm`)이다.
+
+## 크기 손잡이
+
+입력판 글이 여섯 줄을 넘으면 카드 바닥선 가운데에 끌기 손잡이가 뜬다(`.louis-node-shell__resize`). 아래로 끌면 입력칸이 늘고, 더블클릭하면 자동 높이로
+돌아간다. 카드의 **마지막 자식**으로 두면 숫자 z-index 없이 위에 선다.
+
+| 부분 | 값 |
+| --- | --- |
+| 손잡이 | 높이 16, 좌우 2, 카드 바깥 아래 변에 가운데를 걸친다(`translate: -50% 50%`) |
+| 그립 | 두께 3 알약, 폭 = 안내 글 폭 + 4 — `node-resize-grip` → hover `-grip-hover` |
+| 안내 글 | caption regular `node-resize-hint`, 얹으면 그립 아래에 2 내려오며 나타난다 |
+| 끄는 중 | `data-louis-state="active"` — hover 와 같은 그림(터치에서 유일한 표시) |
+
+```html
+<div class="louis-node-shell__card">
+  …
+  <div class="louis-node-shell__resize" role="separator" aria-orientation="horizontal" aria-label="드래그하여 크기 조절">
+    <span class="louis-node-shell__resize-label" aria-hidden="true">드래그하여 크기 조절</span>
+  </div>
+</div>
+```
+
+**포커스를 받지 않는 구분자다.** 제품은 키보드로 높이를 바꿀 길이 없다 — 입력칸이 넘친 글을 안에서 스크롤하므로 내용은 잃지 않는다.
+키 조절을 열려면 `tabindex="0"` 과 함께 `aria-valuenow` · `-valuemin` · `-valuemax`(줄 수)와 ↑↓ 를 단다([Pane Divider] 와 같은 결손).
+안내 글은 hover 에서만 보여 터치에서는 끄는 동안만 보인다. **Figma** 는 `NodeResizeHandle`(State `Rest` · `Hover`)이다.
+
 ## Known deviations
 
 1. **카드 테두리는 캔버스 토큰이다.** 카드 면은 2026-10-01 부터 두 테마 모두 `color/bg-surface` 와
@@ -375,6 +535,12 @@ NodeShell (세로, 간격 4, 폭 400)
 13. **Figma 오류 배너의 면은 primitive `color/red-alpha/08` 에 물렸다.** CSS 는 `color-mix(in srgb, accent-danger 8%, transparent)`
     인데 Figma 는 칠에 색 변수를 묶으면 변수 색의 알파가 칠 불투명도를 덮어 시맨틱 `color/accent-danger` 에 8% 를 얹을 수 없다.
     바이트 같은 값의 primitive 를 쓴다 — [Node Chrome Button](node-chrome-button.md) danger 호버와 같은 처리다.
+14. **생성 중 캡션의 쉬머가 제품과 다르다.** 제품은 매체 색 글자 위로 밝은 띠가 지나가는 2s 쉬머이고(`NodeGeneratingShimmer.tsx:21-28`)
+    아이콘에도 같은 빛줄기를 겹친다. 레시피는 제품이 문구형 로딩의 정본으로 선언한 [Loading Word](loading-word.md)(알파 파형 · 2.2s)를 쓰고
+    아이콘 빛줄기와 등장 애니메이션은 담지 않는다.
+15. **응답 칸 글자 셋이 제품 값이 아니다(DS-D-0084 §3).** 결과 글 라이트 yellow-600 → yellow-800(2.15 → 6.32:1), 생성 중 캡션 라이트 yellow-700 →
+    yellow-800(3.57 → 6.63:1), 오류는 rgb 리터럴 → `fg-danger-on-surface`. 빈 칸 잉크는 라이트 순검정 대신 `fg-primary`(palette-gray-900)다.
+16. **복사 · 글자 수 줄의 글자 수 잉크가 제품과 다르다** — palette-gray-500 → `fg-secondary`, 복사 버튼과 같은 판정이다.
 
 ## Related
 

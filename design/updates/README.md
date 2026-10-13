@@ -25,6 +25,17 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-13 (245) — 노드 캔버스 하위 부품 여덟을 LOUIS 로(DS-D-0084)
+
+- **새 부품 둘.** `media-slot`(첨부 · 참조 썸네일 칸과 줄 — 32 · 76×52 · 열 채움, 빈 칸 점선)과 `audio-cell`(TTS · BGM 결과 칸 — 재생 원 · 진행 막대
+  `role="slider"` · 시간 줄 · 대기 게이지). 재생 위치와 대기 게이지는 소비처가 변수(0 ~ 1)로 준다.
+- **Node Shell 하위 부품.** `__response`(LLM 응답 칸, 상태 넷) · `__count-row`(복사 · 글자 수 줄) · `__media`(결과 칸 · 빈 상태) ·
+  `__generate-button[data-content="label"]`(「편집」 · 「업로드」 글자 버튼) · `__channel`(YouTube · Instagram 채널 줄) · `__resize`(크기 손잡이).
+- **Node Chrome Button `data-size="sm"`**(28 복사 버튼 · 복사됨 교차)과 **Node Chip `data-variant="ghost"`**(예약 트리거).
+- 새 토큰 21(색 20 · `node-chrome-btn-h-sm`), Figma 변수도 세웠다. 대비 미달은 고쳐서 올렸다(복사 잉크 · 응답 글 · 생성 중 문구 · 인스타 채널 글 ·
+  크기 손잡이 그립) — 갈림은 각 문서 Known deviations. 저작 게이트가 시맨틱 `color-gray-000-alpha-*` 를 원시로 잘못 막던 것을 풀었다.
+- Figma 부품과 실브라우저 시험은 다음 묶음이다.
+
 ## 2026-10-13 (244) — 제품에 보이는 부품은 LOUIS 부품으로(DS-D-0084) · 노드 생성 버튼
 
 - **방침.** 소유자 지시로 기본값이 바뀌었다 — 제품에 보이는 부품은 LOUIS 부품(레시피 · 토큰 · 문서 · Figma 부품)으로 올린다. Figma 보드의

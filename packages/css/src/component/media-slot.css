@@ -1,0 +1,221 @@
+/* Media slot — 첨부 · 참조 미디어 썸네일 칸과 그 줄
+ *
+ * 규범: design/components/media-slot.md
+ * 정본: 제품 통합 판 `54b62a8aa` 의 같은 조형 넷 —
+ *       node-canvas-v2/components/PromptLinkedImageStrip.tsx(32 · Image · Video · Text 노드),
+ *       node-canvas-v2/nodes/EditNode.tsx:463-495(소스 줄), VideoNode.tsx:817-832(참조 영상 76×52),
+ *       components/scenes/create/PhotoGrid.tsx:84-111(만들기 화면 참조 칸).
+ *
+ * **왜 부품인가(DS-D-0084).** 넷이 테두리 1 · 반투명 면 · 덮어 그린 지우기 버튼이라는 같은 조형을 각자 상수로 들고,
+ * 그 사이에 값이 이미 갈렸다 — EditNode 머리 주석은 「PromptLinkedImageStrip 과 동일 토큰(32px)」이라 적고 칸은 28 이다.
+ *
+ * **크기는 셋이다.** `md` 32(기본) · `video` 76×52 · `fill`(칸을 채우는 정사각). 28 은 접는다 — 위 주석과 그림 32(:477)가
+ * 그 칸이 32 였어야 한다는 증거다. 76×52 는 사다리에 없어 쓰임새 이름이다(작성 규범 §2).
+ *
+ * **면은 미디어 위가 아니라 테마 면 위에 선다** — 그림이 비거나 투명할 때 비치는 면이라 테마를 따른다(media-slot-*).
+ * **지우기 버튼은 미디어 위에 선다** — 그래서 테마 색이 아니라 media 색이다(project-card 더보기와 같은 판정). */
+
+.louis-media-slot {
+  /* 칸 반경은 크기가 정한다. 지우기 탭이 같은 값을 읽는다. */
+  --louis-media-slot-radius: var(--louis-radius-card);
+
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  flex: none;
+  /* 32. 제품 `w-16 h-16`(PromptLinkedImageStrip.tsx:25). 같은 수를 가진 `control-height-md` 는 컨트롤 높이라 뜻이 다르다. */
+  inline-size: 32px;
+  block-size: 32px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* 12. 제품 `rounded-12`(:25). */
+  border-radius: var(--louis-media-slot-radius);
+  border: var(--louis-border-width-default) solid var(--louis-color-media-slot-stroke);
+  background: var(--louis-color-media-slot-surface);
+}
+
+/* 참조 영상 — 제품 `w-38 h-26 rounded-8`(VideoNode.tsx:818). 76 · 52 는 간격 사다리에도 원시 간격에도 없다. */
+.louis-media-slot[data-size="video"] {
+  --louis-media-slot-radius: var(--louis-radius-control-sm);
+
+  inline-size: 76px;
+  block-size: 52px;
+}
+
+/* 칸 채움 — 줄의 열 폭을 그대로 받는 정사각(PhotoGrid.tsx:85). 반경은 제품 14(기본) · 12(compact) 중 사다리에 있는 12 다
+ * (14 는 반경 사다리에 없다 — 소유자 판정). */
+.louis-media-slot[data-size="fill"] {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 1;
+}
+
+/* 누르면 무언가 열리는 칸(PhotoGrid 라이트박스, :225-233). 장식 칸(연결 이미지 줄)은 이 속성을 갖지 않는다. */
+.louis-media-slot:is(button, [role="button"]) {
+  cursor: pointer;
+}
+
+.louis-media-slot__media {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* 지우기 — 미디어 위 덮개. 칠 순서로 그림 위에 선다(숫자 z-index 없음): `__media` 뒤에 둔다.
+ *
+ * 면은 `media-scrim-dark`(두 테마 순검정) 56% — 제품 `rgb(0 0 0/56%)`(VideoNode.tsx:830 · EditNode.tsx:490 다크)와 바이트 단위로
+ * 같다. EditNode 라이트 40%(:494)와 PhotoGrid 라이트의 뒤집힌 면(:108)은 접는다 — 사진 위라 테마를 따를 이유가 없다.
+ * 잉크는 `media-foreground-dark`(두 테마 `#fafafa`). */
+.louis-media-slot__remove {
+  position: absolute;
+  /* 3. 제품 `top-[3px] right-[3px]`(VideoNode.tsx:828). */
+  inset-block-start: 3px;
+  inset-inline-end: 3px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 18. 제품 `w-9 h-9`(:829). */
+  inline-size: 18px;
+  block-size: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--louis-radius-pill);
+  background: color-mix(in srgb, var(--louis-color-media-scrim-dark) 56%, transparent);
+  color: var(--louis-color-media-foreground-dark);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-media-slot__remove > :where(svg) {
+  display: block;
+  flex: none;
+  /* 10. 제품 EditNode svg `width={10}`(:1053). 영상 노드는 글자 `×`(:2202)라 크기 계약이 없었다. */
+  inline-size: 10px;
+  block-size: 10px;
+}
+
+/* md(32) 지우기는 원이 아니라 모서리 탭이다 — 16 원을 32 칸에 띄우면 칸의 1/4 을 덮는다. 제품 EditNode 가 그린 형태
+ * (`top-0 right-0 w-8 h-8 [border-radius:0_4px_0_4px]`, :488-489) 그대로이고, 오른쪽 위 모서리는 칸의 `overflow: hidden` 이
+ * 칸 반경으로 깎으므로 탭은 왼쪽 아래만 둥글린다. 4 는 반경 사다리에 없는 제품 값이다. */
+.louis-media-slot:not([data-size]) > .louis-media-slot__remove,
+.louis-media-slot[data-size="md"] > .louis-media-slot__remove {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  /* 16. 제품 `w-8 h-8`(EditNode.tsx:489). */
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: 0;
+  border-end-start-radius: 4px;
+}
+
+/* 칸 채움 지우기 — 제품 `top-[5px] right-[5px] w-11 h-11` · 글리프 16(PhotoGrid.tsx:107 · :245). */
+.louis-media-slot[data-size="fill"] > .louis-media-slot__remove {
+  inset-block-start: 5px;
+  inset-inline-end: 5px;
+  inline-size: 22px;
+  block-size: 22px;
+}
+
+.louis-media-slot[data-size="fill"] > .louis-media-slot__remove > :where(svg) {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+@media (hover: hover) {
+  /* 호버 80% — 제품 `rgb(0 0 0/80%)`(VideoNode.tsx:831). EditNode 의 붉은 호버(:492)는 접는다 — 소유자 판정. */
+  .louis-media-slot__remove:where(:not(:disabled)):hover {
+    background: color-mix(in srgb, var(--louis-color-media-scrim-dark) 80%, transparent);
+  }
+}
+
+/* 빈 칸 — 「참조 더하기」 버튼(PhotoGrid.tsx:92-102, 210-220). 점선 · 가운데 + 16. 면 위에 미디어가 없으므로 테마 색이다. */
+.louis-media-slot[data-empty="true"] {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  border-color: var(--louis-color-gray-000-alpha-12);
+  background: var(--louis-color-gray-000-alpha-04);
+  color: var(--louis-color-gray-000-alpha-40);
+  cursor: pointer;
+  /* 제품 180ms ease(:96). 컨트롤 호버 토큰(160ms · ease 곡선)을 읽는다. */
+  transition-property: border-color, color;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+.louis-media-slot[data-empty="true"] > :where(svg) {
+  inline-size: var(--louis-icon-size-sm);
+  block-size: var(--louis-icon-size-sm);
+}
+
+@media (hover: hover) {
+  /* 제품 호버 면 `/4%`(:98)는 쉼과 같아 옮기지 않는다. */
+  .louis-media-slot[data-empty="true"]:where(:not(:disabled)):hover {
+    border-color: var(--louis-color-gray-000-alpha-24);
+    color: var(--louis-color-gray-000-alpha-64);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-media-slot__remove,
+  .louis-media-slot[data-empty="true"] {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+}
+
+/* forced-colors — 반투명 면은 사라지고 테두리만 시스템 색으로 남는다. 지우기 원은 면이 경계라 실선으로 되살린다. */
+@media (forced-colors: active) {
+  .louis-media-slot__remove {
+    outline: var(--louis-border-width-default) solid currentColor;
+    outline-offset: calc(0px - var(--louis-border-width-default));
+  }
+}
+
+/* ── 줄 ──────────────────────────────────────────────────────────────────────
+ *
+ * 기본은 한 줄 가로 스크롤이다(PromptLinkedImageStrip.tsx:10-13) — 노드 폭을 다 쓰고 넘치는 칸은 가로 휠로 민다.
+ * 막대를 숨기는 것은 노드 안 미니 줄이라서다(제품 주석 :12). 간격 4 는 `space-control-xs` 다(제품 `gap-2`). */
+.louis-media-slot-strip {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: var(--louis-space-control-xs);
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.louis-media-slot-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* 줄바꿈 — 지우기 버튼이 있는 줄(EditNode.tsx:465 · VideoNode.tsx:800). 넘치면 다음 줄로 가므로 스크롤이 없다.
+ * 간격은 4 로 모은다 — 영상 노드의 6(`gap-3`)은 소유자 판정. */
+.louis-media-slot-strip[data-layout="wrap"] {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+/* 열 — 칸 채움 칸이 같은 폭 열로 선다(PhotoGrid.tsx:70-72). 열 수는 소비처가 덮는다(제품 최대 참조 3, `create/types.ts:207`).
+ * 간격 8 — 제품 9(기본) · 8(compact) 중 사다리에 있는 값이다(9 는 소유자 판정). */
+.louis-media-slot-strip[data-layout="grid"] {
+  --louis-media-slot-strip-columns: 3;
+
+  display: grid;
+  grid-template-columns: repeat(var(--louis-media-slot-strip-columns), minmax(0, 1fr));
+  gap: var(--louis-space-control-sm);
+  overflow: visible;
+}

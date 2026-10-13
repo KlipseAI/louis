@@ -1069,6 +1069,202 @@
 }
 
 @layer louis.component {
+  /* Audio cell — design/components/audio-cell.md
+   *
+   * 노드 결과의 오디오 칸 — 재생 원 · 진행 막대 · 시간 줄(DS-D-0084, DS-D-0083 2d-1). 제품 정본은 `TtsNode.tsx:228-325` 와
+   * `BgmNode.tsx:363-458` 이고 두 파일이 같은 상수 묶음을 복제해 들고 있다(통합 판 `54b62a8aa`).
+   *
+   * **노드 셸의 하위 부품이 아니다.** 셸은 카드 안을 소유하지 않고(`node-shell.css:221`), 이 칸은 `role="slider"` 의 키 · 값 계약을 따로 갖는다.
+   * **[Slider] 도 아니다** — 그쪽은 네이티브 range 이고 `accent-primary` 로 칠한다. 이쪽은 오디오 채널 색이고 썸 12 · 레일 4 · 반경 2 다.
+   *
+   * 색은 전부 오디오 채널 강조색 `node-audio-accent`(pink-500) 하나에서 나온다 — 면 8% · 레일 20% · 채움 · 썸 · 재생 원. 알파는 `color-mix` 로
+   * 만든다(원시 rgb 리터럴은 저작 게이트가 막는다).
+   *
+   * 진행률은 소비처가 인라인 `--louis-audio-cell-progress`(0~1)로 준다. 포인터 좌표를 비율로 바꾸는 식은 소비처 몫이고, 그 식이 쓰는
+   * 썸 지름 12 는 아래 `__thumb` 과 같아야 한다(제품 `AUDIO_PROGRESS_THUMB_PX`). */
+
+  .louis-audio-cell {
+    /* 소비처가 주는 두 값(0 ~ 1) — 재생 위치(`--louis-audio-cell-progress`)와 생성 대기 게이지(`--louis-audio-cell-pending`). */
+    --louis-audio-cell-progress: 0;
+    --louis-audio-cell-pending: 0;
+
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    min-inline-size: 0;
+    /* 8 — 제품 `p-[var(--node-inner-padding,8px)]`. */
+    padding: var(--louis-space-control-sm);
+    overflow: hidden;
+    /* 16 — 제품 `rounded-16`. 입력판 면(`node-shell.css:311`)과 같은 토큰을 쓴다. */
+    border-radius: var(--louis-radius-overlay);
+    background: color-mix(in srgb, var(--louis-color-node-audio-accent) 8%, transparent);
+    box-shadow: var(--louis-hairline-inset);
+  }
+
+  /* 대기(생성 중) — 카드 면에서 시작해 핑크 게이지가 왼쪽부터 찬다. 자식이 절대 배치 게이지뿐이라 높이가 접히므로 완료 상태(원 32 + 위아래 8)를 지킨다. */
+  .louis-audio-cell[data-state="pending"] {
+    min-block-size: calc(
+      var(--louis-layout-control-height-md) + var(--louis-space-control-sm) + var(--louis-space-control-sm)
+    );
+    background: var(--louis-color-node-media-pending-surface);
+  }
+
+  /* 게이지 — 첫 자식. 내용 줄보다 먼저 칠해진다(숫자 z-index 없이). */
+  .louis-audio-cell__pending {
+    position: absolute;
+    inset: 0;
+    background: var(--louis-color-node-audio-pending-fill);
+    transform-origin: left center;
+    /* 게이지가 찬 정도(0 ~ 1)는 소비처가 준다 — 제품은 9 초 키프레임으로 채우는데(TtsNode.tsx:260-264) 그 시간은 생성 대기의
+     * 추정이라 레시피가 시계를 갖지 않는다(DS-D-0084, 모션 토큰을 새로 세우지 않았다). */
+    scale: var(--louis-audio-cell-pending, 0) 1;
+    pointer-events: none;
+  }
+
+  .louis-audio-cell__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--louis-space-control-md);
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  /* 재생 원 32. */
+  .louis-audio-cell__play {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--louis-layout-control-height-md);
+    block-size: var(--louis-layout-control-height-md);
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: var(--louis-radius-pill);
+    background: var(--louis-color-node-audio-accent);
+    color: var(--louis-color-node-audio-on-accent);
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 글리프 14 — 아이콘 사다리(16 · 20 · 24) 밖 제품 값(`TtsNode.tsx:675` `width={14}`). */
+  .louis-audio-cell__play > :where(svg) {
+    display: block;
+    inline-size: 14px;
+    block-size: 14px;
+  }
+
+  @media (hover: hover) {
+    .louis-audio-cell__play:where(:not(:disabled)):hover {
+      background: var(--louis-color-node-audio-accent-hover);
+    }
+  }
+
+  .louis-audio-cell__track {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    /* 2 — 제품 `gap-1`(`TtsNode.tsx:282`). 막대의 위아래 4 를 더해 보이는 간격이 6 이다. 같은 수의 시맨틱(`space-overlay-item-gap` 등)은
+     * 이름이 다른 자리를 말해 생성 버튼 내용(`node-shell.css` `__generate-content`)처럼 리터럴로 둔다. */
+    gap: 2px;
+    min-inline-size: 0;
+  }
+
+  /* 막대 = 슬라이더. 썸(12)은 절대 배치라 높이를 갖지 않으므로 위아래 4 로 받는다 — 그래야 막대 + 시간 묶음의 가운데가 맞는다. */
+  .louis-audio-cell__bar {
+    position: relative;
+    flex: none;
+    block-size: var(--louis-space-control-xs);
+    margin-block: var(--louis-space-control-xs);
+    /* 2. 제품 `rounded-2`. 반경 사다리의 가장 작은 칸(4)보다 작다. */
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--louis-color-node-audio-accent) 20%, transparent);
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  /* 맞힘 영역 — 보이는 막대 4 를 위아래로 넓혀 24 로 만든다(WCAG 2.5.8). 레이아웃은 움직이지 않는다. 제품에는 없는 확장이다. */
+  .louis-audio-cell__bar::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    /* 10 = (24 − 4) / 2. */
+    inset-block: -10px;
+  }
+
+  /* 채움과 썸은 같은 식이다 — 레일 양끝을 썸 반지름(6)만큼 좁힌 구간에 매핑해 썸 가운데와 채움 끝이 늘 붙는다(제품 `TtsNode.tsx:293-297`).
+   * 곱셈은 공백 없이 쓴다 — 공백을 둔 `*` 는 저작 게이트의 전역 선택자 패턴에 걸린다. */
+  .louis-audio-cell__fill {
+    block-size: 100%;
+    /* 6 / 12 — 썸 지름 12 의 반 · 전부(제품 `w-[calc(6px_+_(100%_-_12px)_*_…)]`, `TtsNode.tsx:299`). */
+    inline-size: calc(6px + (100% - 12px)*var(--louis-audio-cell-progress, 0));
+    border-radius: inherit;
+    background: var(--louis-color-node-audio-accent);
+  }
+
+  .louis-audio-cell__thumb {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: calc(6px + (100% - 12px)*var(--louis-audio-cell-progress, 0));
+    /* 12 — 제품 `w-6 h-6` · `AUDIO_PROGRESS_THUMB_PX`(`useAudioProgressScrub.ts:10`). */
+    inline-size: 12px;
+    block-size: 12px;
+    translate: -50% -50%;
+    border-radius: var(--louis-radius-pill);
+    background: var(--louis-color-node-audio-accent);
+    pointer-events: none;
+  }
+
+  .louis-audio-cell__time {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--louis-space-control-sm);
+    color: var(--louis-color-node-audio-time);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    /* 1 — caption 의 1.5 를 한 줄 표기에서 좁혀 시각 가운데를 맞춘다(제품 `leading-[1]`, `TtsNode.tsx:310-314`). */
+    line-height: 1;
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* 흐름이 없으면 게이지는 처음부터 차 있다(제품 `motion-reduce:[transform:scaleX(1)]`). */
+    .louis-audio-cell__play {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  /* 강제 색 — 면 · 레일 · 채움이 배경이라 사라진다. 칸 경계와 채움 · 썸을 시스템 색으로 되살린다. 포커스 링은 base.css 가 그린다. */
+  @media (forced-colors: active) {
+    .louis-audio-cell {
+      outline: var(--louis-border-width-default) solid CanvasText;
+      outline-offset: calc(0px - var(--louis-border-width-default));
+      box-shadow: none;
+    }
+
+    .louis-audio-cell__bar {
+      outline: var(--louis-border-width-default) solid CanvasText;
+    }
+
+    .louis-audio-cell__fill,
+    .louis-audio-cell__thumb {
+      background: Highlight;
+    }
+  }
+}
+
+@layer louis.component {
   /* Avatar — design/components/avatar.md
    *
    * 제품은 박스로 `.louis-avatar` 를 물고 크기만 호출부에서 덮는다. 폴백 글리프는
@@ -4614,6 +4810,230 @@
 }
 
 @layer louis.component {
+  /* Media slot — 첨부 · 참조 미디어 썸네일 칸과 그 줄
+   *
+   * 규범: design/components/media-slot.md
+   * 정본: 제품 통합 판 `54b62a8aa` 의 같은 조형 넷 —
+   *       node-canvas-v2/components/PromptLinkedImageStrip.tsx(32 · Image · Video · Text 노드),
+   *       node-canvas-v2/nodes/EditNode.tsx:463-495(소스 줄), VideoNode.tsx:817-832(참조 영상 76×52),
+   *       components/scenes/create/PhotoGrid.tsx:84-111(만들기 화면 참조 칸).
+   *
+   * **왜 부품인가(DS-D-0084).** 넷이 테두리 1 · 반투명 면 · 덮어 그린 지우기 버튼이라는 같은 조형을 각자 상수로 들고,
+   * 그 사이에 값이 이미 갈렸다 — EditNode 머리 주석은 「PromptLinkedImageStrip 과 동일 토큰(32px)」이라 적고 칸은 28 이다.
+   *
+   * **크기는 셋이다.** `md` 32(기본) · `video` 76×52 · `fill`(칸을 채우는 정사각). 28 은 접는다 — 위 주석과 그림 32(:477)가
+   * 그 칸이 32 였어야 한다는 증거다. 76×52 는 사다리에 없어 쓰임새 이름이다(작성 규범 §2).
+   *
+   * **면은 미디어 위가 아니라 테마 면 위에 선다** — 그림이 비거나 투명할 때 비치는 면이라 테마를 따른다(media-slot-*).
+   * **지우기 버튼은 미디어 위에 선다** — 그래서 테마 색이 아니라 media 색이다(project-card 더보기와 같은 판정). */
+
+  .louis-media-slot {
+    /* 칸 반경은 크기가 정한다. 지우기 탭이 같은 값을 읽는다. */
+    --louis-media-slot-radius: var(--louis-radius-card);
+
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    flex: none;
+    /* 32. 제품 `w-16 h-16`(PromptLinkedImageStrip.tsx:25). 같은 수를 가진 `control-height-md` 는 컨트롤 높이라 뜻이 다르다. */
+    inline-size: 32px;
+    block-size: 32px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* 12. 제품 `rounded-12`(:25). */
+    border-radius: var(--louis-media-slot-radius);
+    border: var(--louis-border-width-default) solid var(--louis-color-media-slot-stroke);
+    background: var(--louis-color-media-slot-surface);
+  }
+
+  /* 참조 영상 — 제품 `w-38 h-26 rounded-8`(VideoNode.tsx:818). 76 · 52 는 간격 사다리에도 원시 간격에도 없다. */
+  .louis-media-slot[data-size="video"] {
+    --louis-media-slot-radius: var(--louis-radius-control-sm);
+
+    inline-size: 76px;
+    block-size: 52px;
+  }
+
+  /* 칸 채움 — 줄의 열 폭을 그대로 받는 정사각(PhotoGrid.tsx:85). 반경은 제품 14(기본) · 12(compact) 중 사다리에 있는 12 다
+   * (14 는 반경 사다리에 없다 — 소유자 판정). */
+  .louis-media-slot[data-size="fill"] {
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 1;
+  }
+
+  /* 누르면 무언가 열리는 칸(PhotoGrid 라이트박스, :225-233). 장식 칸(연결 이미지 줄)은 이 속성을 갖지 않는다. */
+  .louis-media-slot:is(button, [role="button"]) {
+    cursor: pointer;
+  }
+
+  .louis-media-slot__media {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* 지우기 — 미디어 위 덮개. 칠 순서로 그림 위에 선다(숫자 z-index 없음): `__media` 뒤에 둔다.
+   *
+   * 면은 `media-scrim-dark`(두 테마 순검정) 56% — 제품 `rgb(0 0 0/56%)`(VideoNode.tsx:830 · EditNode.tsx:490 다크)와 바이트 단위로
+   * 같다. EditNode 라이트 40%(:494)와 PhotoGrid 라이트의 뒤집힌 면(:108)은 접는다 — 사진 위라 테마를 따를 이유가 없다.
+   * 잉크는 `media-foreground-dark`(두 테마 `#fafafa`). */
+  .louis-media-slot__remove {
+    position: absolute;
+    /* 3. 제품 `top-[3px] right-[3px]`(VideoNode.tsx:828). */
+    inset-block-start: 3px;
+    inset-inline-end: 3px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 18. 제품 `w-9 h-9`(:829). */
+    inline-size: 18px;
+    block-size: 18px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--louis-radius-pill);
+    background: color-mix(in srgb, var(--louis-color-media-scrim-dark) 56%, transparent);
+    color: var(--louis-color-media-foreground-dark);
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  .louis-media-slot__remove > :where(svg) {
+    display: block;
+    flex: none;
+    /* 10. 제품 EditNode svg `width={10}`(:1053). 영상 노드는 글자 `×`(:2202)라 크기 계약이 없었다. */
+    inline-size: 10px;
+    block-size: 10px;
+  }
+
+  /* md(32) 지우기는 원이 아니라 모서리 탭이다 — 16 원을 32 칸에 띄우면 칸의 1/4 을 덮는다. 제품 EditNode 가 그린 형태
+   * (`top-0 right-0 w-8 h-8 [border-radius:0_4px_0_4px]`, :488-489) 그대로이고, 오른쪽 위 모서리는 칸의 `overflow: hidden` 이
+   * 칸 반경으로 깎으므로 탭은 왼쪽 아래만 둥글린다. 4 는 반경 사다리에 없는 제품 값이다. */
+  .louis-media-slot:not([data-size]) > .louis-media-slot__remove,
+  .louis-media-slot[data-size="md"] > .louis-media-slot__remove {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    /* 16. 제품 `w-8 h-8`(EditNode.tsx:489). */
+    inline-size: 16px;
+    block-size: 16px;
+    border-radius: 0;
+    border-end-start-radius: 4px;
+  }
+
+  /* 칸 채움 지우기 — 제품 `top-[5px] right-[5px] w-11 h-11` · 글리프 16(PhotoGrid.tsx:107 · :245). */
+  .louis-media-slot[data-size="fill"] > .louis-media-slot__remove {
+    inset-block-start: 5px;
+    inset-inline-end: 5px;
+    inline-size: 22px;
+    block-size: 22px;
+  }
+
+  .louis-media-slot[data-size="fill"] > .louis-media-slot__remove > :where(svg) {
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+  }
+
+  @media (hover: hover) {
+    /* 호버 80% — 제품 `rgb(0 0 0/80%)`(VideoNode.tsx:831). EditNode 의 붉은 호버(:492)는 접는다 — 소유자 판정. */
+    .louis-media-slot__remove:where(:not(:disabled)):hover {
+      background: color-mix(in srgb, var(--louis-color-media-scrim-dark) 80%, transparent);
+    }
+  }
+
+  /* 빈 칸 — 「참조 더하기」 버튼(PhotoGrid.tsx:92-102, 210-220). 점선 · 가운데 + 16. 면 위에 미디어가 없으므로 테마 색이다. */
+  .louis-media-slot[data-empty="true"] {
+    display: grid;
+    place-items: center;
+    border-style: dashed;
+    border-color: var(--louis-color-gray-000-alpha-12);
+    background: var(--louis-color-gray-000-alpha-04);
+    color: var(--louis-color-gray-000-alpha-40);
+    cursor: pointer;
+    /* 제품 180ms ease(:96). 컨트롤 호버 토큰(160ms · ease 곡선)을 읽는다. */
+    transition-property: border-color, color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  .louis-media-slot[data-empty="true"] > :where(svg) {
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+  }
+
+  @media (hover: hover) {
+    /* 제품 호버 면 `/4%`(:98)는 쉼과 같아 옮기지 않는다. */
+    .louis-media-slot[data-empty="true"]:where(:not(:disabled)):hover {
+      border-color: var(--louis-color-gray-000-alpha-24);
+      color: var(--louis-color-gray-000-alpha-64);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-media-slot__remove,
+    .louis-media-slot[data-empty="true"] {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  /* forced-colors — 반투명 면은 사라지고 테두리만 시스템 색으로 남는다. 지우기 원은 면이 경계라 실선으로 되살린다. */
+  @media (forced-colors: active) {
+    .louis-media-slot__remove {
+      outline: var(--louis-border-width-default) solid currentColor;
+      outline-offset: calc(0px - var(--louis-border-width-default));
+    }
+  }
+
+  /* ── 줄 ──────────────────────────────────────────────────────────────────────
+   *
+   * 기본은 한 줄 가로 스크롤이다(PromptLinkedImageStrip.tsx:10-13) — 노드 폭을 다 쓰고 넘치는 칸은 가로 휠로 민다.
+   * 막대를 숨기는 것은 노드 안 미니 줄이라서다(제품 주석 :12). 간격 4 는 `space-control-xs` 다(제품 `gap-2`). */
+  .louis-media-slot-strip {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: var(--louis-space-control-xs);
+    inline-size: 100%;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .louis-media-slot-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 줄바꿈 — 지우기 버튼이 있는 줄(EditNode.tsx:465 · VideoNode.tsx:800). 넘치면 다음 줄로 가므로 스크롤이 없다.
+   * 간격은 4 로 모은다 — 영상 노드의 6(`gap-3`)은 소유자 판정. */
+  .louis-media-slot-strip[data-layout="wrap"] {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  /* 열 — 칸 채움 칸이 같은 폭 열로 선다(PhotoGrid.tsx:70-72). 열 수는 소비처가 덮는다(제품 최대 참조 3, `create/types.ts:207`).
+   * 간격 8 — 제품 9(기본) · 8(compact) 중 사다리에 있는 값이다(9 는 소유자 판정). */
+  .louis-media-slot-strip[data-layout="grid"] {
+    --louis-media-slot-strip-columns: 3;
+
+    display: grid;
+    grid-template-columns: repeat(var(--louis-media-slot-strip-columns), minmax(0, 1fr));
+    gap: var(--louis-space-control-sm);
+    overflow: visible;
+  }
+}
+
+@layer louis.component {
   /* Menu / Popover — design/components/menu-popover.md
    *
    * 패널 **표면**은 두 variant가 공유하므로 `.louis-popover`가 소유하고, action-menu 내부만
@@ -5320,6 +5740,49 @@
       color: GrayText;
     }
   }
+
+  /* **ghost** — 면 · 헤어라인이 없는 트리거. YouTube 게시 노드의 「즉시 업로드 / 예약 업로드」(`YoutubeNode.tsx:460-476`)다.
+   * 기본 알약과 같은 일(노드 툴바 안에서 눌러 드롭다운을 연다)을 하지만 값 다섯이 다르다 — 높이 28 · 좌우 8 · 간격 6 · caption-medium ·
+   * 셰브론 12. 높이 28 을 32 로 맞출지는 소유자 판정이다(아래 2-2). */
+  .louis-node-chip[data-variant="ghost"],
+  :where(.louis-node-shell, [data-louis-scope="canvas"]) .louis-node-chip[data-variant="ghost"] {
+    /* 28. 제품 `h-14`(--spacing 2px, `YoutubeNode.tsx:461`). 컨트롤 사다리(24 · 32 · 40)에 없는 값이다. */
+    block-size: 28px;
+    padding-inline: var(--louis-space-control-sm);
+    /* 6. 제품 `gap-3`(`:461`). */
+    gap: 6px;
+    border-radius: var(--louis-radius-control);
+    background: transparent;
+    box-shadow: none;
+    color: var(--louis-color-node-chip-ghost-foreground);
+    font-family: var(--louis-typography-caption-medium-font-family);
+    font-size: var(--louis-typography-caption-medium-font-size);
+    font-weight: var(--louis-typography-caption-medium-font-weight);
+    line-height: var(--louis-typography-caption-medium-line-height);
+    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+  }
+
+  /* 셰브론 12 · 70% — 제품 `w-6 h-6 opacity-70`(`:476`). */
+  .louis-node-chip[data-variant="ghost"] .louis-node-chip__glyph {
+    inline-size: 12px;
+    block-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (hover: hover) {
+    .louis-node-chip[data-variant="ghost"]:where(button, [role="button"]):where(
+        :not(:disabled):not([aria-disabled="true"])
+      ):hover {
+      background: var(--louis-color-node-chip-ghost-surface-hover);
+      color: var(--louis-color-node-chip-ghost-foreground-hover);
+    }
+  }
+
+  /* 비활성 — 기본 알약은 글자만 죽이지만(면이 남아 리듬을 지킨다) ghost 는 면이 없어 제품처럼 통째로 흐린다(`opacity-48`, `:468`). */
+  .louis-node-chip[data-variant="ghost"]:is(:disabled, [aria-disabled="true"]) {
+    color: var(--louis-color-node-chip-ghost-foreground);
+    opacity: 0.48;
+  }
 }
 
 @layer louis.component {
@@ -5443,6 +5906,91 @@
     .louis-node-chrome-button:disabled,
     .louis-node-chrome-button[aria-disabled="true"] {
       color: GrayText;
+    }
+  }
+
+  /* ── 크기 sm — 글 입력칸 · 응답 칸의 복사 버튼(28) ─────────────────────────────
+   *
+   * 정본: 제품 `node-canvas-v2/components/NodePromptInputCopyButton.tsx`(통합 판 `54b62a8aa`). 노드 다섯
+   * (Bgm · Image · Text · Tts · Video)이 글 입력칸 위와 응답 칸 아래 「복사 · 글자 수 줄」에 같은 버튼을 둔다
+   * ([Node Shell] `__count-row`).
+   *
+   * **sm 이 다시 쓰는 것은 넷이다 — 기하(28 · 반경 8), 글리프 14, 호버 잉크, 누름 0.96.** 면 없음 · 테두리 없음 ·
+   * 호버 틴트 · 비활성 0.35 는 md 를 그대로 물려받는다.
+   *
+   * **잉크와 비활성은 제품 값이 아니다(DS-D-0084 §3).** 제품은 잉크를 `palette-gray-500` 으로 고정하고 비활성에서
+   * 잉크만 600/400 으로 바꾼다. 다크 입력판 위 500 은 2.91:1 이라 글리프의 3:1 도 넘지 못한다 — md 의
+   * `fg-secondary`(다크 5.63:1)를 물려받는 것으로 고친다. 갈림은 문서 Known deviations 7 이 소유한다. */
+  .louis-node-chrome-button[data-size="sm"] {
+    /* 28. 제품 `w-14 h-14`(--spacing 2px, NodePromptInputCopyButton.tsx:22). 「복사 · 글자 수 줄」의 높이도 이 토큰을 읽는다 —
+     * 헤더 높이가 md 버튼을 읽는 것과 같은 계약이다. */
+    inline-size: var(--louis-node-chrome-btn-h-sm);
+    block-size: var(--louis-node-chrome-btn-h-sm);
+    /* 8. 제품 `rounded-8`(:23). md 의 노드 크롬 반경(12)이 아니다. */
+    border-radius: var(--louis-radius-control-sm);
+  }
+
+  .louis-node-chrome-button[data-size="sm"] .louis-node-chrome-button__glyph {
+    /* 14. 제품 `COPY_GLYPH_PX`(:8) · `w-7 h-7`(:55). 아이콘 사다리(16 · 20 · 24)에 없는 값이다. 획은 24 격자 1.5 가
+     * 14 로 줄어 0.875 — 제품 표시 두께 0.88(`nodeToolbarGlyphs.tsx:11`)과 같다. */
+    inline-size: 14px;
+    block-size: 14px;
+  }
+
+  /* 글리프 두 겹 — 「복사」와 「복사됨」이 한 칸에 겹쳐 서고 불투명도만 갈린다(제품 :47-53).
+   * 칸은 16 이고 글리프가 14 라 사방 1 이 남는다 — 제품 `w-8 h-8` + `place-items-center` 그대로다.
+   * 크기를 가리지 않는 하위 부품이라 md 에서 써도 된다(그때 글리프 16 이 칸을 채운다). */
+  .louis-node-chrome-button__glyph-stack {
+    display: grid;
+    place-items: center;
+    inline-size: var(--louis-icon-size-sm);
+    block-size: var(--louis-icon-size-sm);
+  }
+
+  .louis-node-chrome-button__glyph-stack > .louis-node-chrome-button__glyph {
+    grid-area: 1 / 1;
+    /* 제품은 `opacity 0.12s ease`(:51). 컨트롤 호버 토큰(160ms · `ease` 와 같은 곡선)을 읽는다 —
+     * `.louis-pill-trigger` 가 같은 0.12s 를 같은 판정으로 옮겼다(floating-shell.css:171). */
+    transition-property: opacity;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 쉼에서는 「복사」만, `data-copied="true"` 에서는 「복사됨」만 보인다. 되돌리는 시간(제품 1600ms, :84-87)은
+   * 레시피가 아니라 호출부 JS 가 갖는다 — CSS 는 상태를 그릴 뿐 시계를 갖지 않는다. */
+  .louis-node-chrome-button__glyph[data-glyph="copied"],
+  .louis-node-chrome-button[data-copied="true"] .louis-node-chrome-button__glyph[data-glyph="rest"] {
+    opacity: 0;
+  }
+
+  .louis-node-chrome-button[data-copied="true"] .louis-node-chrome-button__glyph[data-glyph="copied"] {
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    /* sm 호버는 잉크까지 올린다 — 제품 다크 palette-gray-000 88% · 라이트 palette-gray-900 88%(:27 · :30).
+     * `fg-primary` 가 정확히 그 두 칸(라이트 pg-900 · 다크 pg-000)이라 88% 를 섞으면 바이트 단위로 같다.
+     * 면은 md 의 `accent-ghost-hover` 를 물려받는다 — 제품은 다크 16% 라 다크만 갈린다(Known deviations 1 과 같은 칸).
+     * sm 에 삭제 톤은 없다. */
+    .louis-node-chrome-button[data-size="sm"]:where(:not([data-tone="danger"])):where(
+        :not(:disabled):not([aria-disabled="true"])
+      ):hover {
+      color: color-mix(in srgb, var(--louis-color-fg-primary) 88%, transparent);
+    }
+  }
+
+  /* 누름 0.96 — 제품 `scale(0.96)`(:28). md 는 0.94 다. */
+  .louis-node-chrome-button[data-size="sm"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+    transform: scale(0.96);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-node-chrome-button[data-size="sm"]:where(:not(:disabled):not([aria-disabled="true"])):active {
+      transform: none;
+    }
+
+    .louis-node-chrome-button__glyph-stack > .louis-node-chrome-button__glyph {
+      transition-duration: var(--louis-motion-reduced-duration);
     }
   }
 }
@@ -5688,6 +6236,293 @@
 
   .louis-node-shell[data-selected="true"] .louis-node-shell__title {
     color: var(--louis-node-shell-accent);
+  }
+
+  /* ── 응답 칸 ─────────────────────────────────────────────────────────────────
+   *
+   * 텍스트 노드(AI 프롬프트 모드)가 카드 위쪽 미디어 띠에 세우는 LLM 결과 자리다. 정본은 제품
+   * `TextNode.tsx` 의 `LlmResponseArea`(:562-785, 통합 판 `54b62a8aa`). 상태 넷 — `empty` · `generating` · `filled` · `error`.
+   *
+   * **정사각이 계약이다**(`aspect-square`, :236). 카드 안쪽 폭 396 을 그대로 높이로 쓰고, 채움만 바깥 위 · 좌우 8 을
+   * 띄워 380 이 된다(:258). 상태가 바뀔 때 띠 높이가 8 움직이는 것은 제품 그대로다.
+   *
+   * **채움 면은 카드보다 노란 한 칸이다.** 면 8% · 테두리 48% 는 `node-text-accent`(두 테마 yellow-500)를 섞어 만든다 —
+   * 제품 `rgb(accent-yellow-500/8% · 48%)`(:260-261)와 바이트 단위로 같다. 반경 16 은 제품 `--node-input-radius` 이고
+   * 입력판 면(`__field`)이 같은 판정으로 `radius-overlay` 를 읽는다.
+   *
+   * **글자 둘은 제품 값이 아니다(DS-D-0084 §3).** 결과 글 yellow-600 은 라이트에서 2.15:1, 생성 중 캡션 yellow-700 은 3.57:1 이다.
+   * 라이트를 yellow-800 으로 내린 시맨틱 둘을 세웠다(6.32 · 6.63). 다크는 제품 그대로다. 오류 잉크는 제품이 rgb 리터럴이라
+   * `fg-danger-on-surface`(6.43 · 6.08)로 옮긴다 — 입력판 `__error` 의 `accent-danger` 와 다르다(그쪽은 면 위 배너, 이쪽은 빈 자리의 글). */
+  .louis-node-shell__response {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* 폭은 적지 않는다 — 블록 흐름의 자동 폭이라 채움의 좌우 8 이 폭에서 빠진다. 높이는 폭이 정한다. */
+    aspect-ratio: 1;
+    min-inline-size: 0;
+    margin: 0;
+    /* 위아래 8 · 좌우 16 — 제품 `--node-inner-padding` · `--node-header-band-pad`(:242). */
+    padding-block: var(--louis-space-control-sm);
+    padding-inline: var(--louis-space-control-lg);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: transparent;
+    color: var(--louis-color-fg-primary);
+  }
+
+  /* 생성 중 — 여백 0, 안 상자가 정사각 전체를 채운다(:246-250). */
+  .louis-node-shell__response[data-state="generating"] {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  /* 채움 — 노란 면 + 바깥 8. 넘침은 안의 스크롤 칸만 갖는다(:257 overflow hidden). */
+  .louis-node-shell__response[data-state="filled"] {
+    position: relative;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-block-start: var(--louis-space-control-sm);
+    margin-inline: var(--louis-space-control-sm);
+    padding: var(--louis-space-control-sm);
+    overflow: hidden;
+    border: var(--louis-border-width-default) solid
+      color-mix(in srgb, var(--louis-color-node-text-accent) 48%, transparent);
+    border-radius: var(--louis-radius-overlay);
+    background: color-mix(in srgb, var(--louis-color-node-text-accent) 8%, transparent);
+  }
+
+  /* 생성 중 안 상자 — 아이콘과 캡션을 가운데에 쌓는다. 누를 것이 없어 포인터를 받지 않는다(:286-288). */
+  .louis-node-shell__response-status {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--louis-space-control-xs);
+    inline-size: 100%;
+    min-block-size: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* 64 — 아이콘 사다리 `xl`. 생성 중은 액센트(yellow-500, :303), 빈 칸은 위 잉크를 물려받는다. */
+  .louis-node-shell__response-icon {
+    display: block;
+    flex: none;
+    inline-size: var(--louis-icon-size-xl);
+    block-size: var(--louis-icon-size-xl);
+  }
+
+  .louis-node-shell__response-status > .louis-node-shell__response-icon {
+    color: var(--louis-color-node-text-accent);
+  }
+
+  /* 캡션은 [Loading Word] 의 글자 쉬머를 쓴다 — 마크업이 `louis-loading-word` 를 함께 문다. 잉크만 덮는다.
+   * 제품의 띠 쉬머(2s · 100deg 밝은 띠, NodeGeneratingShimmer.tsx:21-28)와 다르다 — 문서 Known deviations 14. */
+  .louis-node-shell__response-caption {
+    --louis-loading-word-ink: var(--louis-color-node-text-generating-foreground);
+
+    /* 92% — 제품 `max-w-[92%]`(:317). 폭의 비율이라 간격 사다리와 무관하다. */
+    max-inline-size: 92%;
+    text-align: center;
+    font-family: var(--louis-typography-body-sm-medium-font-family);
+    font-size: var(--louis-typography-body-sm-medium-font-size);
+    font-weight: var(--louis-typography-body-sm-medium-font-weight);
+    line-height: var(--louis-typography-body-sm-medium-line-height);
+    letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+  }
+
+  /* 빈 칸 — 무엇이 여기 올지 흐리게 말한다. 0.28 은 제품 값(:328)이고 이미지 · 영상 노드의 빈 자리와 같은 수다. */
+  .louis-node-shell__response-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--louis-space-control-xs);
+    inline-size: 100%;
+    block-size: 100%;
+    min-block-size: 0;
+    opacity: 0.28;
+    pointer-events: none;
+    text-align: center;
+    white-space: pre-line;
+  }
+
+  /* 채움의 스크롤 칸 — 결과만 스크롤되고 아래 「복사 · 글자 수 줄」은 바닥에 남는다(:267-268).
+   * 막대는 노란 면 위라 노란 잉크로 칠한다 — 결과 글 색 20% · 호버 32%(제품 yellow-600, :270-278). */
+  .louis-node-shell__response-scroll {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--louis-color-node-text-response-foreground) 20%, transparent)
+      transparent;
+  }
+
+  .louis-node-shell__response-scroll::-webkit-scrollbar {
+    /* 4. 제품 `[&::-webkit-scrollbar]:w-2`(:271, --spacing 2px). 앱 스크롤바(`misc-scrollbar-size` 10)보다 가늘다 — 정사각 안의 막대다. */
+    inline-size: 4px;
+  }
+
+  .louis-node-shell__response-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .louis-node-shell__response-scroll::-webkit-scrollbar-thumb {
+    border-radius: var(--louis-radius-pill);
+    background: color-mix(in srgb, var(--louis-color-node-text-response-foreground) 20%, transparent);
+  }
+
+  @media (hover: hover) {
+    .louis-node-shell__response-scroll::-webkit-scrollbar-thumb:hover {
+      background: color-mix(in srgb, var(--louis-color-node-text-response-foreground) 32%, transparent);
+    }
+  }
+
+  /* 결과 글 · 오류 글 — body-sm regular, 줄바꿈 보존(:346 · :361). 같은 클래스를 `<p>` 와 `<textarea>` 가 함께 문다. */
+  .louis-node-shell__response-text {
+    margin: 0;
+    color: var(--louis-color-node-text-response-foreground);
+    white-space: pre-wrap;
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  .louis-node-shell__response[data-state="error"] .louis-node-shell__response-text {
+    color: var(--louis-color-fg-danger-on-surface);
+  }
+
+  /* 결과 편집 — `<p>` 와 같은 자리 · 같은 글자에 textarea 크롬만 지운다(:353-358). 높이는 호출부 JS 가 내용에 맞추고
+   * 바깥 스크롤 칸 하나만 스크롤된다 — 겹친 스크롤을 만들지 않으려고 자신은 넘침을 숨긴다. */
+  textarea.louis-node-shell__response-text {
+    display: block;
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    resize: none;
+    overflow: hidden;
+    cursor: text;
+  }
+
+  /* ── 복사 · 글자 수 줄 ─────────────────────────────────────────────────────────
+   *
+   * 글 입력칸 위(노드 다섯)와 응답 칸 바닥(텍스트 노드)에 서는 한 줄 — 왼쪽 복사 버튼 sm, 오른쪽 남는 폭에 글자 수.
+   * 같은 상수가 Bgm · Image · Text · Tts · Video 다섯 파일에 바이트 단위로 같게 있다(TextNode.tsx:475-485 외 넷).
+   *
+   * **높이는 버튼이 정한다** — 28 은 [Node Chrome Button] sm 의 토큰이다(헤더가 md 를 읽는 것과 같다).
+   * **간격 0 이 계약이다** — 버튼 자신의 빈 둘레가 이미 시각 간격을 만든다고 제품 주석이 적는다(:472).
+   * **넘침을 자르지 않는다** — 자르면 복사 버튼 툴팁이 잘린다(:473). 말줄임은 글자 수가 스스로 한다. */
+  .louis-node-shell__count-row {
+    display: flex;
+    flex: 0 0 var(--louis-node-chrome-btn-h-sm);
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    inline-size: 100%;
+    min-block-size: var(--louis-node-chrome-btn-h-sm);
+  }
+
+  /* 글자 수. 잉크는 복사 버튼과 같은 칸이다 — 제품이 「복사 버튼과 동일 톤」(:478)이라 적은 짝을 지킨다. 제품
+   * palette-gray-500 은 다크에서 3.23 · 2.91:1 이라 버튼과 함께 `fg-secondary` 로 고친다(1절 머리말). */
+  .louis-node-shell__count {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    color: var(--louis-color-fg-secondary);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+  }
+
+  /* forced-colors — 채움 면은 사라지고 테두리는 진짜 border 라 시스템 색으로 남는다. 쉬머 글자는 [Loading Word] 가 CanvasText 로 되돌린다. */
+
+  /* **미디어 칸** — 이미지 · 영상 · 편집 노드의 결과 칸(DS-D-0084). 카드 테두리 안쪽에 맞닿고 위 두 모서리가 카드 안쪽 곡률을 따른다.
+   * 비율은 데이터라 소비처가 인라인 `aspect-ratio` 로 준다. 결과(그림 · 플레이어)는 이 칸의 자식이고 이 칸이 소유하지 않는다 —
+   * 플레이어는 [Video Player] 의 것이다.
+   *
+   * **미디어 위 제목 바탕은 세우지 않는다.** 제품이 계산만 하고 그리지 않는 잔재다(`ImageNode.tsx:209-223`, `:1410`). 헤더는 카드 위에 선다. */
+  .louis-node-shell__media {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    min-block-size: 0;
+    overflow: hidden;
+    /* 22 = 카드 반경 24 − 테두리 2. 제품 `--node-inner-radius:22px`(`ncv2/index.tsx:397`). 카드 반경(`node-shell.css:213`)이 리터럴이라 같이 둔다. */
+    border-start-start-radius: 22px;
+    border-start-end-radius: 22px;
+    background: transparent;
+    transition-property: aspect-ratio;
+    transition-duration: var(--louis-motion-layout-change-duration);
+    transition-timing-function: var(--louis-motion-layout-change-timing-function);
+  }
+
+  /* 결과가 서면 비율이 결과의 것이라 움직이지 않는다(제품 `IMAGE_AREA_MEDIA_FRAMED`, `ImageNode.tsx:300`). */
+  .louis-node-shell__media[data-state="result"] {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  /* 임베드에서 카드 아래까지 미디어만 보일 때(`ImageNode.tsx:302-303`). */
+  .louis-node-shell__media[data-edge="both"] {
+    border-end-start-radius: 22px;
+    border-end-end-radius: 22px;
+  }
+
+  .louis-node-shell__media > :where(img) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* 빈 칸 — 글리프 64 와 안내 글 한 줄을 흐리게 가운데 둔다. 칸 자체가 아니라 안쪽 묶음을 흐린다 — 칸의 곡률 · 경계는 그대로다. */
+  .louis-node-shell__media-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--louis-space-control-xs);
+    color: var(--louis-color-node-media-empty-ink);
+    /* 0.28 — 제품 `opacity-[0.28]`(`VideoNode.tsx:231`). 대비 미달은 아래 소유자 판정 5-1. */
+    opacity: 0.28;
+    pointer-events: none;
+    text-align: center;
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  /* 글리프 64 — 아이콘 사다리의 xl 이다. 획은 줌과 무관한 화면 2px 이고 그것은 글리프 쪽(제품 `strokeScreenPx`)이 정한다. */
+  .louis-node-shell__media-empty > :where(svg) {
+    flex: none;
+    inline-size: var(--louis-icon-size-xl);
+    block-size: var(--louis-icon-size-xl);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-node-shell__media {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
   }
 
   /* ── 입력판 ──────────────────────────────────────────────────────────────────
@@ -5993,6 +6828,228 @@
       outline: var(--louis-border-width-default) solid currentColor;
       outline-offset: calc(0px - var(--louis-border-width-default));
       box-shadow: none;
+    }
+  }
+
+  /* 참조 미디어 줄이 면 첫 줄로 서면 아래 글 입력칸과 8 떨어진다 — 제품 `PROMPT_REFERENCE_MEDIA_INSIDE_SHELL` 의 `mb-4`
+   * (ImageNode.tsx:517-518 · VideoNode.tsx:796-797). 줄 자신은 바깥 여백을 갖지 않으므로 자리를 아는 셸이 준다. */
+  .louis-node-shell__field > .louis-media-slot-strip {
+    margin-block-end: var(--louis-space-control-sm);
+  }
+
+  /* **글자 생성 버튼** — `data-content="label"`(DS-D-0084 · DS-D-0083 2d-3 재판정). 편집 노드 「편집」, YouTube · Instagram 의
+   * 「업로드」「분석」「저장」, Creative Media 「생성」이 기본 생성 버튼과 같은 면 · 안쪽 빛 · hover · 누름 · 비활성을 쓰고 별 + 크레딧 대신
+   * 글리프 + 글자를 얹는다. 면 · 빛 · 상태는 위 기본 규칙을 그대로 받고 여기서는 상자와 내용만 바꾼다.
+   *
+   * 기본과 다른 것 넷 — 좌우 14(기본 8) · 글리프와 글자 사이 4(기본 2) · 글자가 흰 `node-generate-foreground`(기본 후행 슬롯은
+   * blue-100 `node-generate-trailing`) · 글리프가 별 고정이 아니라 슬롯이다(필름 · 업로드 · 별 · 없음). */
+  .louis-node-shell__generate-button[data-content="label"] {
+    /* 14. 제품 `px-7`(--spacing 2px) — `EditNode.tsx:517` · `InstagramNode.tsx:302` · `YoutubeNode.tsx:621` ·
+     * `vemClass.ts:785` `[padding:0_14px]`. 간격 사다리(12 · 16)에 없는 값이다. */
+    padding-inline: 14px;
+  }
+
+  /* 글리프와 글자 사이 4 — 제품 `gap-2`(`EditNode.tsx:516`, IG `:301`, YT `:620`). */
+  .louis-node-shell__generate-button[data-content="label"] > .louis-node-shell__generate-content {
+    gap: var(--louis-space-control-xs);
+  }
+
+  /* 글자. 색은 버튼의 `node-generate-foreground` 를 그대로 받는다 — 후행 슬롯의 blue-100 이 아니다. */
+  .louis-node-shell__generate-label {
+    display: inline-block;
+    color: inherit;
+    font-family: var(--louis-typography-body-sm-regular-font-family);
+    font-size: var(--louis-typography-body-sm-regular-font-size);
+    font-weight: var(--louis-typography-body-sm-regular-font-weight);
+    line-height: var(--louis-typography-body-sm-regular-line-height);
+    letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  }
+
+  /* 진행 중 — 편집 노드는 처리 중에 버튼을 잠그되 흐리지 않고 스피너를 또렷이 보인다(`EditNode.tsx:536-537`
+   * `PROCESS_BUTTON_PROCESSING` 「버튼 자체 disabled 상태 대신 커서/포인터만 죽여 스피너가 또렷이 보이게」). 비활성 규칙(0-2-0)을
+   * 특이도 0-3-0 으로 이긴다. 판정 대기 — Instagram · YouTube 의 「분석」은 진행 중에 흐린다(아래 소유자 판정 1-2). */
+  .louis-node-shell__generate-button[data-content="label"][aria-busy="true"] {
+    opacity: 1;
+    cursor: progress;
+  }
+
+  /* **채널 줄** — 게시 노드(YouTube · Instagram) 본문 맨 위의 연결된 채널 아바타 + 이름(DS-D-0084 · DS-D-0083 2d-4 재판정).
+   * 두 노드가 같은 줄을 다른 치수로 그린다 — YouTube 는 아바타 32 · body-md, Instagram 은 20 · caption 이다. 한 크기로 접을지는
+   * 소유자 판정이라(아래 2-1) 지금은 `data-size` 축 둘로 둔다. 기본(md)이 YouTube 다.
+   *
+   * 아바타는 [Avatar] 를 쓰지 않는다 — 크기가 그 사다리(24 · 28 · 40)에 없고 면이 단색 `bg-inset` 이 아니라 반투명 면 + 1px 테두리다. */
+  .louis-node-shell__channel {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    /* 10. 제품 `gap-5`(--spacing 2px, `YoutubeNode.tsx:270`). 간격 사다리(8 · 12)에 없는 값이다. */
+    gap: 10px;
+    inline-size: 100%;
+    min-inline-size: 0;
+    padding-block: var(--louis-space-control-sm);
+    padding-inline: var(--louis-space-control-sm);
+    color: var(--louis-color-node-channel-foreground);
+    font-family: var(--louis-typography-body-md-medium-font-family);
+    font-size: var(--louis-typography-body-md-medium-font-size);
+    font-weight: var(--louis-typography-body-md-medium-font-weight);
+    line-height: var(--louis-typography-body-md-medium-line-height);
+    letter-spacing: var(--louis-typography-body-md-medium-letter-spacing);
+  }
+
+  /* sm — Instagram. 위 14 · 좌우 14 · 아래 6 은 제품 `pt-7 px-7 pb-3`(`InstagramNode.tsx:216`)이다. */
+  .louis-node-shell__channel[data-size="sm"] {
+    gap: var(--louis-space-control-sm);
+    /* 14 / 6. 사다리 밖 제품 값 — `InstagramNode.tsx:216`. */
+    padding-block: 14px 6px;
+    padding-inline: 14px;
+    color: var(--louis-color-node-channel-foreground-muted);
+    font-family: var(--louis-typography-caption-medium-font-family);
+    font-size: var(--louis-typography-caption-medium-font-size);
+    font-weight: var(--louis-typography-caption-medium-font-weight);
+    line-height: var(--louis-typography-caption-medium-line-height);
+    letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+  }
+
+  /* 아바타 — `<img>` 든 자리표시 `<span>` 이든 같은 원이다. 테두리는 헤어라인이 아니라 진짜 1px border 이고(제품 `border`)
+   * 상자 안으로 접힌다 — 제품의 32 · 20 은 테두리를 포함한 바깥 치수다. */
+  .louis-node-shell__channel-avatar {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    /* 32. 제품 `w-16 h-16`(`YoutubeNode.tsx:278`). 아바타 사다리(24 · 28 · 40)에 없다. */
+    inline-size: 32px;
+    block-size: 32px;
+    overflow: hidden;
+    border: var(--louis-border-width-default) solid var(--louis-color-node-channel-avatar-stroke);
+    border-radius: var(--louis-radius-pill);
+    background: var(--louis-color-node-channel-avatar-surface);
+    color: inherit;
+    object-fit: cover;
+  }
+
+  .louis-node-shell__channel[data-size="sm"] .louis-node-shell__channel-avatar {
+    /* 20. 제품 `w-10 h-10`(`InstagramNode.tsx:65`). */
+    inline-size: 20px;
+    block-size: 20px;
+  }
+
+  /* 자리표시 글리프 — 두 노드 모두 20(`YoutubeNode.tsx:703` · `NODE_SIDE_HANDLE_ICON_PX`). sm 에서는 원을 꽉 채운다. */
+  .louis-node-shell__channel-avatar > :where(svg) {
+    flex: none;
+    inline-size: var(--louis-icon-size-md);
+    block-size: var(--louis-icon-size-md);
+  }
+
+  .louis-node-shell__channel-name {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* **크기 손잡이** — 입력판 글이 여섯 줄을 넘으면 카드 바닥선 가운데에 뜨는 끌기 손잡이(DS-D-0084, B2 #32). 제품
+   * `NodePromptResizeHandle` 의 정본이고 Bgm · Image · Text · Tts · Video 다섯이 같은 것을 단다.
+   *
+   * [Pane Divider] 가 아니다 — 그쪽은 트랙 4 · 그립 60/80 고정 길이로 레이아웃 칸 사이에 서고, 이쪽은 그립 길이가 안내 글 폭에 묶이고
+   * 카드 바닥선에 걸친다.
+   *
+   * 카드의 마지막 자식으로 둔다 — 숫자 z-index(제품 `z-5`) 없이 칠 순서로 위에 선다. 카드를 기준 상자로 세우는 것은 손잡이가 있을 때만이다. */
+  .louis-node-shell__card:has(> .louis-node-shell__resize) {
+    position: relative;
+  }
+
+  .louis-node-shell__resize {
+    position: absolute;
+    /* 카드 테두리 바깥 아래 변 — 제품은 노드 컨테이너 바닥(= 카드 테두리 바깥)에 건다. 기준 상자는 패딩 상자라 테두리 두께만큼 내린다. */
+    inset-block-end: calc(0px - var(--louis-border-width-ring));
+    inset-inline-start: 50%;
+    translate: -50% 50%;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: max-content;
+    /* 16. 제품 `h-8`(--spacing 2px, `NodePromptResizeHandle.tsx:21,:77`). */
+    block-size: 16px;
+    /* 2. 제품 안쪽 상자 `px-1`(`:77`) — 그립이 글자보다 양쪽 2 씩 길다. */
+    padding-inline: 2px;
+    cursor: ns-resize;
+    touch-action: none;
+    user-select: none;
+  }
+
+  /* 그립 — 두께 3 의 알약. 폭은 손잡이(= 글자 폭 + 4)를 꽉 채운다. */
+  .louis-node-shell__resize::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    /* 3. 제품 `h-[3px]`(`:29`). 트랙 토큰 `layout-pane-divider-track`(4)과 다른 값이다. */
+    block-size: 3px;
+    border-radius: var(--louis-radius-pill);
+    background: var(--louis-color-node-resize-grip);
+    transition-property: background-color;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 안내 글 — 폭 재기와 표시를 겸한다. 흐름 안에서 손잡이 폭을 정하고 `translate` 로 그립 아래에 내려 보인다.
+   * 12.5 / 14.5 는 제품 위치의 환산이다: 제품 안내 글의 윗변은 안쪽 상자(16) 위에서 `100% - 2.5px` = 13.5 이고 쉴 때 −2 를 더 올린다.
+   * 흐름 안의 글자 줄 상자는 18(caption 12 × 1.5)이라 16 상자 가운데 정렬로 윗변이 −1 에 선다 → 쉴 때 11.5 − (−1) = 12.5, 보일 때 14.5. */
+  .louis-node-shell__resize-label {
+    position: relative;
+    color: var(--louis-color-node-resize-hint);
+    font-family: var(--louis-typography-caption-regular-font-family);
+    font-size: var(--louis-typography-caption-regular-font-size);
+    font-weight: var(--louis-typography-caption-regular-font-weight);
+    line-height: var(--louis-typography-caption-regular-line-height);
+    letter-spacing: var(--louis-typography-caption-regular-letter-spacing);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    translate: 0 12.5px;
+    transition-property: opacity, translate;
+    transition-duration: var(--louis-motion-control-hover-duration);
+    transition-timing-function: var(--louis-motion-control-hover-timing-function);
+  }
+
+  /* 얹으면 그립이 짙어지고 안내 글이 2 내려오며 나타난다. 끄는 동안(`data-louis-state="active"`)도 같다 — 제품에는 없는 상태다.
+   * 터치에서는 hover 가 없어 끄는 중에만 보인다([Pane Divider] 와 같은 처리). */
+  @media (hover: hover) {
+    .louis-node-shell__resize:hover::before {
+      background: var(--louis-color-node-resize-grip-hover);
+    }
+
+    .louis-node-shell__resize:hover > .louis-node-shell__resize-label {
+      opacity: 1;
+      translate: 0 14.5px;
+    }
+  }
+
+  .louis-node-shell__resize[data-louis-state="active"]::before {
+    background: var(--louis-color-node-resize-grip-hover);
+  }
+
+  .louis-node-shell__resize[data-louis-state="active"] > .louis-node-shell__resize-label {
+    opacity: 1;
+    translate: 0 14.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .louis-node-shell__resize::before,
+    .louis-node-shell__resize-label {
+      transition-duration: var(--louis-motion-reduced-duration);
+    }
+  }
+
+  /* 강제 색 — 그립은 배경으로 그려 사라진다. 시스템 글자색으로 되살린다. */
+  @media (forced-colors: active) {
+    .louis-node-shell__resize::before {
+      background: CanvasText;
     }
   }
 }

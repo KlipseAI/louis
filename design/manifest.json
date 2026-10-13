@@ -311,6 +311,15 @@
       "generated": false
     },
     {
+      "id": "decision-product-parts-become-louis",
+      "path": "design/governance/decisions/DS-D-0084-product-parts-become-louis.md",
+      "title": "DS-D-0084 제품에 보이는 부품은 LOUIS 부품으로 올린다 — 첫 건 노드 생성 버튼",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1861,6 +1870,7 @@
         "design/governance/decisions/DS-D-0081-locale-string-collection.md",
         "design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md",
         "design/governance/decisions/DS-D-0083-deck-feedback-triage.md",
+        "design/governance/decisions/DS-D-0084-product-parts-become-louis.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",

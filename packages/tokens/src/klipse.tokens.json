@@ -8283,6 +8283,46 @@
             }
           }
         },
+        "node-generate-surface-edge": {
+          "$value": "{primitive.color.blue.450}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-surface-edge",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-generate-surface-center": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-surface-center",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-generate-foreground": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-foreground",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
+        "node-generate-trailing": {
+          "$value": "{primitive.color.blue.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-trailing",
+              "tier": "semantic",
+              "mode": "light"
+            }
+          }
+        },
         "node-edit-surface": {
           "$value": "{primitive.color.violet.200}",
           "$extensions": {
@@ -10353,6 +10393,46 @@
           "$extensions": {
             "com.klipse-design": {
               "id": "color-node-edit-chip-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-generate-surface-edge": {
+          "$value": "{primitive.color.blue.450}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-surface-edge",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-generate-surface-center": {
+          "$value": "{primitive.color.blue.500}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-surface-center",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-generate-foreground": {
+          "$value": "{primitive.color.palette-gray.000}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-foreground",
+              "tier": "semantic",
+              "mode": "dark"
+            }
+          }
+        },
+        "node-generate-trailing": {
+          "$value": "{primitive.color.blue.100}",
+          "$extensions": {
+            "com.klipse-design": {
+              "id": "color-node-generate-trailing",
               "tier": "semantic",
               "mode": "dark"
             }

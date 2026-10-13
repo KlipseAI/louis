@@ -5764,12 +5764,127 @@
   overflow: visible;
 }
 
-/* 오른쪽 끝 행동 자리 — 알약 줄과 8 떨어진다. 안에 서는 생성 버튼은 이 레시피 밖이다. */
+/* 오른쪽 끝 행동 자리 — 알약 줄과 8 떨어진다. 안에 서는 생성 버튼은 아래 `__generate-button` 이다(DS-D-0084). */
 .louis-node-shell__generate {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   margin-inline-start: var(--louis-space-control-sm);
+}
+
+/* **생성 버튼** — 입력판 오른쪽 끝의 별 + 크레딧 알약(DS-D-0084). 제품 `NodePromptGenerateButton` 의 정본이고,
+ * 노드 다섯(이미지 · 비디오 · 텍스트 · BGM · 앵글)과 Creative Media 가 같은 조형을 쓴다.
+ *
+ * **Button 의 변형이 아니다.** primary 의 빛은 위아래 1px 하이라이트(DS-D-0066)이고 이쪽은 사방 8px 안쪽 빛이며,
+ * 면이 단색이 아니라 가로 그라디언트(양 끝 `blue-450` · 가운데 `blue-500`)이고, 라벨 대신 별과 후행 슬롯(크레딧 숫자 ·
+ * 캡션)을 갖는다. 높이 32 · 반경 `radius-control` · 좌우 8 · 최소 폭 32 는 제품 값 그대로다.
+ *
+ * **그라디언트는 토큰 형식이 아니라 시맨틱 색 둘의 조합이다.** LOUIS 에 gradient 토큰 형식이 없어 제품이 승격을 미뤘던
+ * 자리다(제품 globals.css 의 `--node-prompt-generate-gradient` 주석). 끝 색과 가운데 색을 각각 시맨틱으로 세우면
+ * 형식을 새로 만들지 않고 같은 그림이 된다. */
+.louis-node-shell__generate-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--louis-layout-control-height-md);
+  block-size: var(--louis-layout-control-height-md);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-sm);
+  border: none;
+  border-radius: var(--louis-radius-control);
+  background: linear-gradient(
+    90deg,
+    var(--louis-color-node-generate-surface-edge) 0%,
+    var(--louis-color-node-generate-surface-center) 50%,
+    var(--louis-color-node-generate-surface-edge) 100%
+  );
+  color: var(--louis-color-node-generate-foreground);
+  cursor: pointer;
+  transition-property: filter, scale, opacity;
+  transition-duration: var(--louis-motion-control-hover-duration);
+  transition-timing-function: var(--louis-motion-control-hover-timing-function);
+}
+
+/* 안쪽 빛 — 사방 8px 흰 안쪽 그림자를 오버레이로 섞는다(제품 `OVERLAY_STROKE`, 소유자 Figma 스펙 X/Y 0 · 흐림 8 · 퍼짐 0).
+ * 제품은 빈 `<span>` 을 덮어 그리고 이 레시피는 `::before` 에 싣는다 — 둘은 같은 그림이고(덮개가 버튼과 같은 상자),
+ * 가상 요소가 소비처 마크업을 한 겹 줄인다. isolation 이 섞임을 버튼 면 안에서 끝낸다. */
+.louis-node-shell__generate-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 8px 0 var(--louis-color-node-generate-foreground);
+  mix-blend-mode: overlay;
+}
+
+/* 별 · 후행 슬롯 · 스피너는 빛 위에 선다 — 숫자 z-index 없이 칠 순서로. 둘 다 positioned 이고 z-index 가 auto 라
+ * 트리 순서대로 칠해지는데 `::before` 가 먼저다(Project Card 띠 · dialog surface 와 같은 방식). */
+.louis-node-shell__generate-content,
+.louis-node-shell__generate-button > .louis-spinner {
+  position: relative;
+}
+
+.louis-node-shell__generate-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+/* 별. 14 는 아이콘 사다리(16 · 20 · 24)에 없는 제품 값이다(Phosphor Sparkle fill, `size={14}`). */
+.louis-node-shell__generate-icon {
+  display: block;
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+}
+
+/* 별 오른쪽 후행 슬롯 — 예상 크레딧 숫자나 「Regenerate」 같은 캡션이 같은 자리 · 같은 서식을 쓴다. */
+.louis-node-shell__generate-trailing {
+  display: inline-block;
+  color: var(--louis-color-node-generate-trailing);
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  font-variant-numeric: tabular-nums;
+}
+
+/* hover 는 호버 기기에서만(DS-D-0077). 제품 `brightness(1.06)`. */
+@media (hover: hover) {
+  .louis-node-shell__generate-button:where(:not(:disabled):not([aria-disabled="true"])):hover {
+    filter: brightness(1.06);
+  }
+}
+
+/* 누름 0.95 — 제품 값. 제품 주석의 「1.05 스케일 업」은 코드와 다르다(코드가 0.95). */
+.louis-node-shell__generate-button:where(:not(:disabled):not([aria-disabled="true"])):active {
+  scale: 0.95;
+}
+
+/* 비활성 — 프롬프트가 비었거나 크레딧이 모자라 누를 수 없을 때. 제품 소비처가 다는 `opacity-[0.35]`
+ * (`PROMPT_SUBMIT_FAB_DIMMED`)를 레시피가 갖는다. 면 · 빛은 그대로 두고 흐리게만 한다 — 같은 버튼이 잠긴 것으로 읽힌다. */
+.louis-node-shell__generate-button:is(:disabled, [aria-disabled="true"]) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .louis-node-shell__generate-button {
+    transition-duration: var(--louis-motion-reduced-duration);
+  }
+
+  .louis-node-shell__generate-button:where(:not(:disabled):not([aria-disabled="true"])):active {
+    scale: 1;
+  }
 }
 
 /* 오류 배너 — 줄마다 흩어져 뜨던 빨간 글자를 푸터 아래 한 자리로 모은다.

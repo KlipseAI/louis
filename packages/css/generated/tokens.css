@@ -459,6 +459,10 @@
   --louis-color-node-edit-chip-surface: color(srgb 0.376471 0.333333 1 / 0.08);
   --louis-color-node-edit-icon: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-surface: color(srgb 0.788235 0.760784 1 / 1);
+  --louis-color-node-generate-foreground: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --louis-color-node-generate-surface-center: color(srgb 0 0.533333 1 / 1);
+  --louis-color-node-generate-surface-edge: color(srgb 0.078431 0.568627 1 / 1);
+  --louis-color-node-generate-trailing: color(srgb 0.839216 0.921569 1 / 1);
   --louis-color-node-handle-bg-audio: color(srgb 1 0.756863 0.839216 / 1);
   --louis-color-node-handle-bg-disabled-audio: color(srgb 0.772549 0.592157 0.654902 / 1);
   --louis-color-node-handle-bg-disabled-edit: color(srgb 0.615686 0.596078 0.772549 / 1);
@@ -939,6 +943,10 @@
   --louis-color-node-edit-chip-surface: color(srgb 0.376471 0.333333 1 / 0.16);
   --louis-color-node-edit-icon: color(srgb 0.376471 0.333333 1 / 1);
   --louis-color-node-edit-surface: color(srgb 0.133333 0.101961 0.501961 / 1);
+  --louis-color-node-generate-foreground: color(srgb 0.980392 0.980392 0.980392 / 1);
+  --louis-color-node-generate-surface-center: color(srgb 0 0.533333 1 / 1);
+  --louis-color-node-generate-surface-edge: color(srgb 0.078431 0.568627 1 / 1);
+  --louis-color-node-generate-trailing: color(srgb 0.839216 0.921569 1 / 1);
   --louis-color-node-handle-bg-audio: color(srgb 0.517647 0.101961 0.247059 / 1);
   --louis-color-node-handle-bg-disabled-audio: color(srgb 0.329412 0.066667 0.164706 / 1);
   --louis-color-node-handle-bg-disabled-edit: color(srgb 0.082353 0.062745 0.301961 / 1);

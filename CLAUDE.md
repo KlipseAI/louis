@@ -42,7 +42,8 @@ Klipse Design을 SEED Design처럼 제품 저장소와 분리된, 버전이 지�
 
 - generated 파일과 generated 구간을 직접 수정하지 않는다.
 - 규범, manifest, 구현, 테스트, Updates를 같은 변경 단위에서 일치시킨다.
-- 제품 전용 화면 코드와 과거 UI 부채를 이 저장소의 공용 규범으로 복사하지 않는다.
+- 제품에 보이는 부품은 LOUIS 부품으로 올린다([DS-D-0084](design/governance/decisions/DS-D-0084-product-parts-become-louis.md)). 화면 코드를
+  복사하는 것이 아니라 부품으로 추상화하고, 과거 UI 부채(대비 미달 등)는 고쳐서 올린다.
 - 새 의존성이나 package architecture는 먼저 Decision으로 선택 기준과 rollback을 기록한다.
 - `web: done`, `figma: done`, `stable`은 인계서의 증거 조건을 모두 충족할 때만 사용한다.
 - 안전하고 되돌릴 수 있는 로컬 작업은 자율적으로 끝까지 진행한다. 자격 증명, 외부 publish, 파괴적

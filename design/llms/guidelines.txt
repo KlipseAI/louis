@@ -4,7 +4,7 @@
 
 - System maturity: experimental
 - Coverage: exhaustive
-- Documents: 95
+- Documents: 96
 - Purpose: 개발, 콘텐츠, 거버넌스와 adoption 계약
 
 ## Sources
@@ -38,6 +38,7 @@
 - design/governance/decisions/DS-D-0081-locale-string-collection.md
 - design/governance/decisions/DS-D-0082-canvas-semantics-and-product-ink-alpha.md
 - design/governance/decisions/DS-D-0083-deck-feedback-triage.md
+- design/governance/decisions/DS-D-0084-product-parts-become-louis.md
 - design/governance/contributing.md
 - design/governance/operating-model.md
 - design/governance/figma-sync.md
@@ -169,7 +170,7 @@ Figma library는 아직 `not-ready`다. 시스템 전체 maturity도 `experiment
 | 항목 | 현재 값 |
 | --- | --- |
 | System maturity | `experimental` |
-| Normative documents | 180 |
+| Normative documents | 181 |
 | Generated documents | 5 |
 | Components | 58 |
 | Patterns | 9 |
@@ -3002,6 +3003,9 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 
 ##### (다) — 화면에 두는 것과 그 이유
 
+> **2026-10-13 — 이 절은 [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md) 로 다시 판정한다.** 소유자 지시로 기본값이 「제품에 보이는
+> 부품은 LOUIS 부품으로」 바뀌었다. 아래 일곱은 (가)로 옮겨 순서대로 올린다(차트 곡선 경로만 예외). 아래 사유는 그 시점의 기록이다.
+
 - 2b 트랙 · 무대 · 막대: 무대와 막대는 이미 토큰과 LOUIS button · progress-bar 만으로 짜였다. 트랙은 원본 시간축의
   기하이고 한 컴포넌트가 하이라이트 화면 두 곳에서만 쓴다.
 - 2c 후보 카드: 소비처 하나. 선택이 아니라 비교 모달을 여는 버튼이라 choice-card 도 아니다.
@@ -3032,6 +3036,73 @@ component CSS 는 테마 선택자를 쓰지 않으므로 테마마다 다른 �
 
 새 변형 넷(배지 `data-surface`, 띠 `data-ink`, 머리 `list`, 제목 칩)은 속성을 달지 않으면 아무것도 바꾸지 않는다.
 되돌리려면 그 규칙과 새 시맨틱 · primitive 를 지운다. 쓰는 소비처는 덱 하나다.
+
+## DS-D-0084 제품에 보이는 부품은 LOUIS 부품으로 올린다 — 첫 건 노드 생성 버튼
+
+- Source: design/governance/decisions/DS-D-0084-product-parts-become-louis.md
+- Maturity: experimental
+
+### DS-D-0084 제품에 보이는 부품은 LOUIS 부품으로 올린다 — 첫 건 노드 생성 버튼
+
+- Status: accepted (소유자 지시, 2026-10-12 저녁)
+- Date: 2026-10-13
+- Owners: repository owner, design system maintainer
+- Affects: `node-shell`, `decision-deck-feedback-triage`, `governance-figma-screen-assembly`
+
+#### Context
+
+2026-10-12 저녁 소유자가 Figma 의 노드 생성 버튼이 제품과 다르다고 짚었다. 고치고 보니 그 버튼은 **Figma 보드(제품 측정 재현)에만
+있고 LOUIS 에는 없었다** — `node-shell` 은 버튼이 서는 자리(`__generate`)만 갖고, 문서는 「생성 버튼은 제품 콘텐츠다」라고 적고 있었다.
+덱 키트처럼 LOUIS 부품만으로 화면을 짓는 쪽은 이 버튼을 쓸 수 없다.
+
+그 보고에 소유자가 「제품의 모든걸 LOUIS 부품으로 올려야 맞지」, 「제품에 보이는 부품들을 LOUIS 부품으로 하는 게 맞지? LOUIS 에 더한다는
+의미」라고 했다.
+
+지금까지의 기본값은 그 반대였다.
+
+- 2026-09-26 결정(Figma 먼저 · 생성기로 묶어서): 제품 전용 부품은 Figma 제품 컴포넌트(`Product/…`)로 세우고, LOUIS 코드는 제품이 그
+  정본을 실제로 쓰게 될 때 따라간다.
+- [DS-D-0083](../governance/decisions/DS-D-0083-deck-feedback-triage.md) 은 22건 가운데 일곱을 (다) 「화면 고유로 둔다」로 판정했다.
+- 저장소 규칙(CLAUDE.md) 「제품 전용 화면 코드와 과거 UI 부채를 공용 규범으로 복사하지 않는다」.
+
+#### Decision
+
+1. **제품에 보이는 부품은 LOUIS 부품으로 올리는 것이 기본이다.** 「LOUIS 에 더한다」는 레시피(`louis-…` 클래스) · 필요한 시맨틱 토큰 ·
+   문서 · Figma 디자인 시스템 부품을 갖춘다는 뜻이다. Figma 보드의 측정 재현은 등록이 아니다.
+2. **예외는 부품이 될 수 없는 것뿐이다** — 데이터에서 좌표를 내는 차트 경로처럼 화면이 계산하는 것. 예외는 사유를 문서에 적는다.
+3. **화면 코드를 복사하는 것이 아니다.** 같은 조형을 여러 화면이 쓰면 한 부품으로 추상화하고, 대비 미달 같은 부채는 고쳐서 올린다.
+   CLAUDE.md 의 규칙은 이 뜻으로 고쳐 쓴다.
+4. **DS-D-0083 의 (다) 일곱은 다시 판정한다** — 2b 하이라이트 트랙 · 무대 아래 막대, 2c AI 프롬프트 후보 카드, 2d-2 소스 썸네일 줄,
+   2d-3 「편집」 버튼, 2d-4 채널 줄 · 예약 버튼, 2f 차트 점 바닥(곡선 경로는 예외로 남는다), 3c 업로드 무대. 각각 (가)로 옮겨 순서대로 올린다.
+5. **진행은 묶어서 한다.** 표면 원장(`migration/product.surfaces.json`)의 「필요」 목록에서 뽑아 생성기로 묶는다 — 한 건씩 손으로 하지 않는다.
+
+##### 첫 건 — 노드 생성 버튼(`.louis-node-shell__generate-button`)
+
+제품 정본 `NodePromptGenerateButton`(노드 다섯 · Creative Media). Button 의 변형이 아니라 node-shell 하위 부품이다 — 소유자가 고른 안이고,
+primary 의 빛(위아래 1px, DS-D-0066)과 모양이 다르며 라벨 대신 별과 후행 슬롯을 갖기 때문이다.
+
+| 부분 | 값 | 근거 |
+| --- | --- | --- |
+| 면 | 가로 그라디언트 `node-generate-surface-edge`(blue-450) → `-center`(blue-500) → edge | 제품 `--node-prompt-generate-gradient` |
+| 안쪽 빛 | `::before` 에 `inset 0 0 8px 0` `node-generate-foreground` + `mix-blend-mode: overlay` | 제품 `OVERLAY_STROKE` |
+| 상자 | 높이 · 최소 폭 32, 좌우 8, 반경 `radius-control` | 제품 `h-16 min-w-16 px-4` · `--button-radius` |
+| 별 | 14 × 14, `node-generate-foreground` | Phosphor Sparkle fill `size={14}` |
+| 후행 슬롯 | body-sm-regular, `node-generate-trailing`(blue-100), 숫자 고정폭 | 제품 `TRAILING` |
+| 상태 | hover `brightness(1.06)`(호버 기기만), 누름 `scale 0.95`, 비활성 `opacity 0.35` | 제품 `CHROME` · `PROMPT_SUBMIT_FAB_DIMMED` |
+
+**그라디언트는 토큰 형식을 새로 만들지 않는다.** 끝 색과 가운데 색을 시맨틱 둘로 세우고 레시피가 `linear-gradient` 로 조합한다 — 제품이
+「gradient 토큰 타입이 없어서」 승격을 미뤘던 자리가 이것으로 풀린다.
+
+#### Consequences
+
+- 새 시맨틱 넷(`node-generate-surface-edge` · `-surface-center` · `-foreground` · `-trailing`, 두 mode 같은 값). Figma 변수는 다음 동기화.
+- Figma DS 부품(`NodeGenerateButton`)과 브라우저 시험은 다음 작업이다 — 그 전까지 `figma` 상태는 node-shell 의 기존 값 그대로.
+- 제품 (나): `NodePromptGenerateButton` 이 이 클래스를 물면 `CHROME` · `OVERLAY_STROKE` · `TRAILING` 상수와 소비처의 `opacity-[0.35]` 덮어쓰기를 지운다.
+  같은 빛을 `::before/::after` 로 복사한 BgmNode · EditNode · ImageNode · InstagramNode 의 다른 버튼은 각자 부품으로 올릴 때 이 빛을 공유한다.
+
+#### Rollback
+
+생성 버튼 규칙과 시맨틱 넷을 지우면 이전과 같다(쓰는 소비처가 아직 없다). 방침(1~5)은 소유자 지시라 되돌리지 않는다.
 
 ## Contributing
 
@@ -5359,6 +5430,8 @@ Figma 의 축은 **제품에서 그 크기를 누가 정했는지**로 정한다
 | 칠 없이 패딩만 가진 글자 잎(자식 없이 제 글자만 가진 블록) | 세로 자동 배치 + 패딩 프레임과 글자 자식으로 가른다 — Figma 글자 노드에는 패딩이 없다. 상자가 가로 HUG(폭 선언 없는 링크 · 인라인 버튼)면 글자도 HUG, 아니면 콘텐츠 상자를 채운다(FILL). 칠이 있는 잎은 렌더러가 면 + 안쪽 글자로 그린다 | 템플릿 목록의 빈 상태 문구(「Templates are coming soon.」, 위아래 패딩 80)가 181 → 21 로 접혀 보드가 160 짧았다(`figma-tree-spec` 의 `padTextLeaf`, 2026-09-30) |
 | 내용 폭(HUG)으로 판정됐지만 여러 줄로 감긴 `flex-wrap: wrap` 줄 | 가로 FILL — 한 줄 내용이 자리보다 넓어 감겼다면 CSS 폭(fit-content)은 자리 폭이다. Figma 의 HUG 감기 자동 배치는 감기지 않고 한 줄로 늘어난다. 측정 자식이 두 줄 이상이고 부모가 세로로 쌓거나 grid 칸일 때만(가로 부모의 FILL 은 늘이기라 뜻이 다르다) | 공개 페이지 푸터의 링크 묶음 넷 — 모바일에서 2×2 로 감기는데 보드는 한 줄 732 로 늘어나 높이가 304 → 132 였다(`figma-tree-spec` 의 `wrapsIntoRows`, 2026-09-30) |
 | 칠 · 글자 · 자식이 없지만 흐름 안에서 넓이를 가진 상자(가상 요소가 그리는 부품의 몸 · 빈 표 칸) | 버리지 않고 측정 크기의 빈 상자(FIXED)로 남긴다 — 제품에서 자리를 차지한다. SVG 안의 도형은 상자가 아니다(아이콘은 서명으로 그린다). 가상 요소가 그리는 LOUIS 부품은 그 자리를 인스턴스로 바꾼다 — `LoadingSpinner` 의 링(칠 없는 16×16 원)은 레시피 probe `spinner-md` 의 몸 축과 모양으로 판정해 `Spinner` `Size=md` 로(인증 fixture 측정기는 가상 요소를 싣지 않아 그 축은 대지 않는다 — 자리의 `pseudoUnmeasured`) | 하이라이트 불러오는 중 · 업로드 중 · 분석 중 · 추출 중 — 스피너를 빈 껍데기로 버리자 문구가 32(스피너 16 + 간격 16) 올라갔고 고리가 보이지 않았다. 요금제 모바일 비교표의 빈 칸 29 개도 같은 규칙으로 선다(2026-09-29) |
+| 색만 바꾸는 CSS `filter`(`brightness` · `saturate` · `contrast` · `grayscale` 만으로 된 것) | Figma 에 같은 효과가 없다. 노드와 자손의 색 리터럴(면 · 글자 · 획 · 그림자 · 그라디언트 · 글리프)에 sRGB 선형 변환을 미리 곱해 싣는다(`applyColorFilters`, 겹친 필터는 안쪽부터). 흐림 · 그림자 · `url()` 이 섞인 필터는 건드리지 않는다 | 라이트 비활성 연결점 — 제품이 활성 색에 `brightness(0.78) saturate(0.95)` 를 걸어 `#91c1b3` · `#c6b582` 로 그리는데 보드는 필터 전 파스텔(`#b8f8e5` · `#ffe8a3`)로 섰다. 구운 값이 제품 `toneDownLightInactive` 와 같다(2026-10-12) |
+| 부모를 그대로 덮고 그림자만 칠하는 빈 자식(`absolute` · 네 변 0 · 칠 · 테두리 · 글자 · 자식 없음) | Figma 는 칠 없는 층의 이너 섀도를 그리지 않는다. 그 그림자를 자식의 `mix-blend-mode` 째 부모 그림자로 올리고 자식은 뺀다(`hoistShadowOverlays` → `withPseudoShadows`). 측정기는 일반 노드의 `mixBlendMode` 도 싣는다. 올린 그림자도 확대 배율을 받는다 | 노드 생성 버튼 — 제품 `OVERLAY_STROKE`(`inset 0 0 8px 흰색` · overlay) 가 진짜 `<span>` 이라 보드 버튼이 평평한 파랑이었다(2026-10-12) |
 | `%` 비율 · `aspect-ratio` | constraints `SCALE` · `lockAspectRatio` | — |
 | `position: absolute` · `fixed` + `inset` | 절대 배치 + constraints. 자기 크기는 위 규칙을 따른다 | 결제 장면의 사이드바(`position: fixed`, 15번대로 마지막 자식) |
 
@@ -16737,6 +16810,15 @@ window.」와 도움말이 연분홍 면 위에 거의 같은 색으로 칠해�
 > ([읽기 함정](../foundations/product-reading-traps.md) 참조).
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
+
+#### 2026-10-13 (244) — 제품에 보이는 부품은 LOUIS 부품으로(DS-D-0084) · 노드 생성 버튼
+
+- **방침.** 소유자 지시로 기본값이 바뀌었다 — 제품에 보이는 부품은 LOUIS 부품(레시피 · 토큰 · 문서 · Figma 부품)으로 올린다. Figma 보드의
+  측정 재현은 등록이 아니다. DS-D-0083 의 (다) 일곱은 다시 판정해 (가)로 옮긴다. CLAUDE.md 의 「제품 전용 화면 코드를 복사하지 않는다」를
+  「화면 코드 복사가 아니라 부품으로 추상화하고 부채는 고쳐서 올린다」로 고쳐 썼다.
+- **Node Shell `__generate-button`.** 입력판 오른쪽 끝의 별 + 크레딧 알약. 가로 그라디언트(blue-450 · 500 · 450, 새 시맨틱 `node-generate-surface-edge` ·
+  `-center`), `::before` 의 안쪽 8px 빛(overlay), 별 14 · 후행 슬롯(`node-generate-trailing` blue-100), hover 1.06 · 누름 0.95 · 비활성 0.35.
+  그라디언트 토큰 형식 없이 시맨틱 둘로 조합한다. Figma DS 부품과 브라우저 시험은 다음 작업.
 
 #### 2026-10-12 (243) — 덱 키트 피드백 22건 분류(DS-D-0083) — 사진 위 배지 · 띠 잉크 · 목록 머리 · 제목 옆 칩 · 연결점 채널 여섯
 

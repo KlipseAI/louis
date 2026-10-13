@@ -69,7 +69,7 @@ NodeShell (세로, 간격 4, 폭 400)
             └─ Footer (세로, 간격 8)   ← 앞에 무엇이 있으면 위로 8
                ├─ FooterControls (가로, 높이 32)
                │  ├─ Meta (가로, 간격 4, 남는 폭)   ← Node Chip 줄
-               │  └─ Generate (오른쪽 끝, 왼쪽 8)   ← 생성 버튼 슬롯
+               │  └─ Generate (오른쪽 끝, 왼쪽 8)   ← 생성 버튼 `__generate-button`(DS-D-0084)
                └─ Error (최소 높이 28, 반경 12)   ← 있을 때만
 ```
 
@@ -98,6 +98,32 @@ NodeShell (세로, 간격 4, 폭 400)
 **헤더와 카드 사이 4는 뺄셈의 결과다.** 제품은 컨테이너 간격 10(`gap-5`, 격자가 2px)에 헤더의
 `-mb-3`(−6)을 겹쳐 4를 만든다. Figma 오토레이아웃에는 음수 여백이 없으므로 결과값 4를
 컨테이너 간격으로 세웠다. 값은 같고 만드는 방법이 다르다.
+
+## 생성 버튼
+
+입력판 오른쪽 끝의 별 + 크레딧 알약이다(`.louis-node-shell__generate-button`, [DS-D-0084](../governance/decisions/DS-D-0084-product-parts-become-louis.md)).
+제품 `NodePromptGenerateButton` 의 정본이고 노드 다섯과 Creative Media 가 같은 조형을 쓴다. Button 의 변형이 아니다 — 빛이 사방 8px
+안쪽 그림자(overlay)이고 면이 가로 그라디언트이며 라벨 대신 별과 후행 슬롯을 갖는다.
+
+```html
+<button type="button" class="louis-node-shell__generate-button" aria-label="Generate — 2250 credits">
+  <span class="louis-node-shell__generate-content">
+    <svg class="louis-node-shell__generate-icon" aria-hidden="true">…</svg>
+    <span class="louis-node-shell__generate-trailing">2250</span>
+  </span>
+</button>
+```
+
+| 부분 | 값 |
+| --- | --- |
+| 면 | `linear-gradient(90deg, node-generate-surface-edge, -center 50%, -edge)` — blue-450 · blue-500 |
+| 안쪽 빛 | `::before` `inset 0 0 8px 0 node-generate-foreground` · `mix-blend-mode: overlay` |
+| 상자 | 높이 · 최소 폭 32, 좌우 8, 반경 `radius-control`, 별과 후행 슬롯 사이 2 |
+| 별 · 후행 | 별 14(사다리 밖 제품 값) · 후행 body-sm-regular `node-generate-trailing`(blue-100), 숫자 고정폭 |
+| 상태 | hover `brightness(1.06)`(호버 기기만) · 누름 0.95 · `:disabled`/`aria-disabled` 불투명도 0.35 · 생성 중은 안에 `louis-spinner` `data-size="sm"` 을 두고 `aria-busy="true"` |
+
+후행 슬롯은 예상 크레딧 숫자와 「Regenerate」 같은 캡션이 같은 자리 · 같은 서식을 쓴다. 숫자만 보이는 버튼은 `aria-label` 로 행동을 말한다.
+**Figma DS 부품과 브라우저 시험은 아직 없다.**
 
 ## 제목 옆 칩
 
@@ -145,8 +171,8 @@ NodeShell (세로, 간격 4, 폭 400)
 **이 부품이 소유하지 않는 것.**
 
 - **글 입력칸과 복사 · 글자 수 줄.** 텍스트를 받는 노드의 슬롯이다.
-- **생성 버튼.** 자리(`__generate`)만 있다. 안쪽 버튼의 절대 배치를 흐름으로 되돌리는 후손 선택자는
-  제품 생성 버튼과의 결합이라 호출부가 갖는다.
+- **생성 버튼의 배치 덮어쓰기.** 버튼 자체는 이제 이 부품이 갖는다(아래 「생성 버튼」). 제품 버튼의 절대 배치를 흐름으로
+  되돌리던 후손 선택자는 제품 쪽 결합이라 호출부가 갖는다.
 - **미디어 위 유리 칩 · 참조 썸네일.** Known deviations 9.
 - **`PROMPT_COMPOSER` 래퍼.** 면 아래 흐름 상자이고 `--node-prompt-gen-btn-w` 만 얹었는데, 생성 버튼이
   푸터 안 흐름 배치가 된 뒤로 읽는 곳이 없다.
@@ -175,7 +201,7 @@ NodeShell (세로, 간격 4, 폭 400)
   Figma 에는 자식별 여백이 없어 간격으로 옮겼고, `HasLead` 를 끄면 간격도 함께 사라져 같은 결과가 난다. 생성 버튼 자리의 왼쪽
   8(`margin-inline-start`)도 같은 이유로 `FooterControls` 의 간격이다.
 - **`Lead` 는 비어 있는 자리표시(높이 48)다.** 첫 줄은 이 부품이 소유하지 않는다 — 시안에서는 인스턴스의 `Lead` 에 입력칸을 채운다.
-  `Meta` 의 NodeChip 둘과 `Generate` 의 IconButton 도 자리 표시이지 정본이 아니다(생성 버튼은 제품 콘텐츠다).
+  `Meta` 의 NodeChip 둘과 `Generate` 의 IconButton 도 자리 표시이지 정본이 아니다(생성 버튼 정본은 `__generate-button` — Figma 부품은 아직 없다).
 - 높이는 내용의 합이다 — 기본 120(8 + 면 104 + 8), `HasError` 를 켜면 162, `HasLead` 를 끄면 64.
 - **오류 배너는 따로 선 컴포넌트다.** 배너가 `NodeComposer` 안에서는 기본 꺼짐이라 되읽기가 감춘 칸의 치수를 보지 않는다 —
   원본을 따로 세워 반경 `radius/control`(12) · 사방 8 · 줄 사이 8 · 최소 높이 28 · 헤어라인을 맞댄다. 글자는

@@ -24722,6 +24722,210 @@
             }
           }
         },
+        "color-node-generate-foreground": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-generate-foreground",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-generate-foreground"
+            },
+            "Light": {
+              "$value": "{primitive.color.palette-gray.000}",
+              "aliasTarget": {
+                "id": "color-palette-gray-000",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.980392,
+                  0.980392,
+                  0.980392
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-generate-foreground"
+            }
+          }
+        },
+        "color-node-generate-surface-center": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-generate-surface-center",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-generate-surface-center"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.500}",
+              "aliasTarget": {
+                "id": "color-blue-500",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0,
+                  0.533333,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-generate-surface-center"
+            }
+          }
+        },
+        "color-node-generate-surface-edge": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-generate-surface-edge",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.450}",
+              "aliasTarget": {
+                "id": "color-blue-450",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.078431,
+                  0.568627,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-generate-surface-edge"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.450}",
+              "aliasTarget": {
+                "id": "color-blue-450",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.078431,
+                  0.568627,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-generate-surface-edge"
+            }
+          }
+        },
+        "color-node-generate-trailing": {
+          "$type": "color",
+          "fields": [],
+          "figmaName": "color/node-generate-trailing",
+          "hiddenFromPublishing": false,
+          "losses": [],
+          "nativeVariableType": "COLOR",
+          "representation": "variable",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE_COLOR",
+            "TEXT_FILL"
+          ],
+          "valuesByMode": {
+            "Dark": {
+              "$value": "{primitive.color.blue.100}",
+              "aliasTarget": {
+                "id": "color-blue-100",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.839216,
+                  0.921569,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.dark.color.node-generate-trailing"
+            },
+            "Light": {
+              "$value": "{primitive.color.blue.100}",
+              "aliasTarget": {
+                "id": "color-blue-100",
+                "mode": "base"
+              },
+              "resolvedValue": {
+                "alpha": 1,
+                "colorSpace": "srgb",
+                "components": [
+                  0.839216,
+                  0.921569,
+                  1
+                ]
+              },
+              "sourcePath": "semantic.light.color.node-generate-trailing"
+            }
+          }
+        },
         "color-node-handle-bg-audio": {
           "$type": "color",
           "fields": [],

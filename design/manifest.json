@@ -419,6 +419,15 @@
       "generated": false
     },
     {
+      "id": "decision-date-picker",
+      "path": "design/governance/decisions/DS-D-0096-date-picker.md",
+      "title": "DS-D-0096 날짜는 달력에서, 시각은 세 열에서 고르는 칸들을 새 부품 date-picker 로 — 면이 없는 내용 부품, Menu 값 목록의 변형이 아니다",
+      "section": "governance",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
       "id": "transform-frame",
       "path": "design/components/transform-frame.md",
       "title": "TransformFrame",
@@ -1913,6 +1922,7 @@
         "design/components/canvas-section.md",
         "design/components/chat-panel.md",
         "design/components/command-palette.md",
+        "design/components/date-picker.md",
         "design/components/audio-cell.md",
         "design/components/node-shell.md",
         "design/components/node-side-handle.md",
@@ -2000,6 +2010,7 @@
         "design/governance/decisions/DS-D-0093-canvas-section.md",
         "design/governance/decisions/DS-D-0094-chat-panel.md",
         "design/governance/decisions/DS-D-0095-command-palette.md",
+        "design/governance/decisions/DS-D-0096-date-picker.md",
         "design/governance/contributing.md",
         "design/governance/operating-model.md",
         "design/governance/figma-sync.md",
@@ -2253,6 +2264,15 @@
       "id": "command-palette",
       "path": "design/components/command-palette.md",
       "title": "Command Palette",
+      "section": "components",
+      "authority": "normative",
+      "maturity": "experimental",
+      "generated": false
+    },
+    {
+      "id": "date-picker",
+      "path": "design/components/date-picker.md",
+      "title": "Date Picker",
       "section": "components",
       "authority": "normative",
       "maturity": "experimental",
@@ -3241,6 +3261,21 @@
       "figmaNames": [
         "CommandPalette",
         "CommandPaletteEmpty"
+      ]
+    },
+    {
+      "id": "date-picker",
+      "name": "Date Picker",
+      "doc": "design/components/date-picker.md",
+      "note": "날짜는 달력에서, 시각은 세 열에서 고르는 칸들(DS-D-0096, DS-D-0084). 캔버스 유튜브 노드 예약 팝오버 YoutubeSchedulePickers 의 상수 서른과 게시 흐름 인라인 달력 PublishFlow 의 상수 열을 한 레시피(packages/css/src/component/date-picker.css)로 옮겼다 — 면이 없는 내용 부품이고 두 모드다. data-mode=date 는 달 머리(이동 Icon Button secondary md + icon/caret-left · -right · 달 이름) · table[role=grid] 요일 머리 + 6주 42칸(칸 36 · 사이 4) · 바닥(「오늘」 Button ghost md), data-mode=time 은 세 listbox 열(우물 accent-secondary · 곡률 12 · 상한 196). 날짜 칸과 시각 항목은 한 칸 문법 — 호버 · 키보드 위치 accent-ghost-hover, 선택 accent-inverse + fg-on-accent-inverse, 막힘 fg-disabled(aria-disabled 는 포커스를 받는다), 오늘 aria-current=date + 점 4. 면은 놓이는 자리가 갖는다 — 팝오버면 .louis-popover[data-kind=composite-popover](296 × 370 · 256 × 234), 인라인이면 소비처 카드(data-layout=inline). 위치 · 겹 · 포커스 · 방향키 · 달 계산은 소비처, 접근성 계약은 APG 날짜 선택 대화. Menu 값 목록 · Segmented Control 의 변형이 아니다. 새 토큰 0. 고쳐 올린 값 — 선택 면 1.77 · 2.57 → 21.0 · 16.54, 다크 시각 우물 소실 1.00 → 잉크 8%, 게시 흐름 요일 3.45 → fg-tertiary. web 이 partial 인 이유는 CSS recipe 만 있고 React 표면이 없기 때문이다. Figma 는 DatePickerCell 세트(Selected — 코드 aria-selected × State Default · Hover · Disabled, BOOLEAN Today — 오늘 점, TEXT Label — 날짜 칸과 시각 항목이 한 세트)와 달력 DatePickerCalendar(Layout base · inline — 코드 data-layout, TEXT Month, BOOLEAN HasFooter, 시드 2026년 10월), 시각 세 열 DatePickerTime(우물 196 clipsContent), 예시 보드 둘(캔버스 팝오버 296 × 370 · 256 × 234)로 섰다 — 이동은 IconButton secondary md + icon/caret-*, 「오늘」은 Button ghost md 인스턴스. 원시 칠 0. 기록 date-picker-cell · -calendar · -time 과 parity 기하 계약, 실브라우저 되재기가 있으나 제품 렌더 대조가 없어 partial 이다.",
+      "maturity": "experimental",
+      "figma": "partial",
+      "web": "partial",
+      "docs": "done",
+      "figmaNames": [
+        "DatePickerCell",
+        "DatePickerCalendar",
+        "DatePickerTime"
       ]
     },
     {

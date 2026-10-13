@@ -25,6 +25,29 @@ authority: normative
 
 디자이너와 개발자가 알아야 할 사용자 영향 변경과 migration을 최신순으로 기록한다.
 
+## 2026-10-14 (262) — 날짜는 달력에서, 시각은 세 열에서 고르는 칸들을 새 부품 `date-picker` 로(DS-D-0096, DS-D-0084)
+
+- **새 부품 `date-picker`.** 캔버스 유튜브 노드 예약 팝오버(`YoutubeSchedulePickers`)의 상수 서른과 게시 흐름 인라인 달력(`PublishFlow`)의 상수 열을 한 레시피로
+  옮겼다(`.louis-date-picker` · `__header` · `__title` · `__grid` · `__weekday` · `__cell` · `__day` · `__footer` · `__time` · `__column` · `__column-label` ·
+  `__listbox` · `__option`). **면이 없는 내용 부품**이고 두 모드다 — `data-mode="date"` 는 달 머리 · `table[role="grid"]` 요일 머리 + 6주 42칸(칸 36 · 사이 4) ·
+  바닥, `data-mode="time"` 은 세 `listbox` 열(우물 잉크 8% · 곡률 12 · 안쪽 2 · 상한 196). Menu 값 목록 · Segmented Control 의 변형이 아니다.
+- **면은 놓이는 자리가 갖는다** — 팝오버면 `.louis-popover[data-kind="composite-popover"]`(296 × 370 · 256 × 234, 내용 280 · 240), 인라인이면 소비처 카드
+  (`data-layout="inline"`). 달 이동은 Icon Button secondary md + `icon/caret-left` · `-right`, 「오늘」은 Button ghost md.
+- **한 칸 문법** — 날짜 칸과 시각 항목이 같은 칸이다. 호버 · 키보드 위치 `accent-ghost-hover`, 선택 `accent-inverse` + `fg-on-accent-inverse`(선택이 이긴다),
+  막힘 `fg-disabled`(`aria-disabled` 는 포커스를 받는다), 오늘 `aria-current="date"` + 점 4.
+- **접근성 계약** — APG 날짜 선택 대화(초기 포커스 · 가둠 · Esc 복귀 · 방향키 · PageUp/Down · 전체 날짜 이름 · `aria-live` 달 이름), 시각 열은 `listbox` +
+  `aria-activedescendant`. 마크업 계약은 문서가 소유하고 React 표면은 만들지 않았다. 위치 · 겹(`louis-layer-modal`) · 달 계산 · 문자열은 소비처.
+- **새 토큰 0.**
+- **고쳐 올린 값(DS-D-0084 3항)** — 선택 면 `pg-200` · `pg-600`(쉼 면 대비 1.77 · 2.57) → 뒤집힌 면(21.0 · 16.54), 다크 시각 우물 = 팝오버 면(1.00) · 라이트 항목
+  호버 = 우물(1.00) → 우물 `accent-secondary` + 호버 `accent-ghost-hover`, 게시 흐름 요일 흰 40%(3.45) → `fg-tertiary`, 요일 줄과 칸의 열 어긋남 → 한 표.
+- **보이는 변화(제품이 클래스를 물 때)** — 선택 날 · 시각이 라이트 검정 · 다크 흰 면, 다크 시각 우물이 보임, 시각 항목 37 → 36, 격자 → 바닥 20 → 16, 「오늘」 33 → 32,
+  이동 버튼이 Icon Button 글리프, 게시 흐름 칸이 원에서 곡률 10 · 글자 16 → 14, 오늘에 점.
+- **Figma.** DS · Components 「2 · 입력」에 `DatePickerCell`(Selected × State `Default` · `Hover` · `Disabled`, BOOLEAN `Today`, TEXT `Label` — 날짜 칸과
+  시각 항목이 한 세트) · `DatePickerCalendar`(Layout `base` · `inline` = `data-layout`, TEXT `Month`, BOOLEAN `HasFooter`, 시드 2026년 10월) · `DatePickerTime`
+  (우물 196 clipsContent), 예시 보드 둘(캔버스 팝오버 296 × 370 · 256 × 234). 원시 칠 0. 기록 셋(`$noProductRender` 사유)과 parity 기하 계약(figma `partial`),
+  §2 Layout 에 DatePickerCalendar `inline` 한 마디.
+- 소유자 판정 열은 초안의 기본값으로 — DS-D-0096 표. 실브라우저 시험 `date-picker.browser.test.tsx` · `date-picker-geometry.browser.test.tsx`.
+
 ## 2026-10-14 (261) — 입력 하나로 앱의 행동을 찾아 실행하는 모달을 새 부품 `command-palette` 로, Menu 항목에 한 줄 변형(DS-D-0095, DS-D-0084)
 
 - **새 부품 `command-palette`.** 사이드바 「검색」과 ⌘K 가 여는 전역 검색 · 실행 모달(`.louis-command-palette` · `__scrim` · `__panel` · `__search` ·

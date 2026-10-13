@@ -18,8 +18,8 @@
         "effect": 11
       },
       "components": {
-        "sets": 131,
-        "variants": 1138
+        "sets": 134,
+        "variants": 1147
       },
       "icons": 72,
       "templates": 9
@@ -12748,6 +12748,392 @@
           ],
           "strokeWeight": [],
           "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "DatePickerCalendar": {
+      "outsideParts": [],
+      "tokenId": "date-picker",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Month": {
+          "type": "TEXT"
+        },
+        "HasFooter": {
+          "type": "BOOLEAN"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "base",
+            "inline"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 22,
+        "rawFills": 0,
+        "boundStrokes": 4,
+        "rawStrokes": 0,
+        "textStyled": 16,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                32
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Grid": {
+              "paddingTop": [
+                12
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Weekdays": {
+              "paddingBottom": [
+                4
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Footer": {
+              "paddingTop": [
+                16
+              ]
+            }
+          },
+          "itemSpacing": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "inline": {
+          "slots": {},
+          "parts": {
+            "Header": {
+              "height": [
+                32
+              ],
+              "itemSpacing": [
+                8
+              ]
+            },
+            "Grid": {
+              "paddingTop": [
+                12
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Weekdays": {
+              "paddingBottom": [
+                4
+              ],
+              "itemSpacing": [
+                4
+              ]
+            },
+            "Footer": {
+              "paddingTop": [
+                16
+              ]
+            }
+          },
+          "itemSpacing": [
+            0
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "DatePickerCell": {
+      "outsideParts": [],
+      "tokenId": "date-picker",
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Today": {
+          "type": "BOOLEAN"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "Selected": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Disabled"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 16,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 6,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/Default": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/Disabled": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "false/Hover": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Default": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Disabled": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Hover": {
+          "slots": {},
+          "parts": {
+            "Label": {
+              "fontSize": [
+                14
+              ]
+            }
+          },
+          "height": [
+            36
+          ],
+          "paddingInline": [
+            4
+          ],
+          "paddingInlineEnd": [
+            4
+          ],
+          "cornerRadius": [
+            10
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
+    "DatePickerTime": {
+      "outsideParts": [
+        "Option"
+      ],
+      "tokenId": "date-picker",
+      "variantCount": 1,
+      "hasDescription": true,
+      "properties": {},
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "base": {
+          "slots": {},
+          "parts": {
+            "ColumnLabel": {
+              "height": [
+                18
+              ]
+            },
+            "Listbox": {
+              "paddingBlock": [
+                2
+              ],
+              "paddingInline": [
+                2
+              ],
+              "itemSpacing": [
+                4
+              ],
+              "cornerRadius": [
+                12
+              ]
+            },
+            "Hour": {
+              "height": [
+                218
+              ],
+              "itemSpacing": [
+                4
+              ]
+            }
+          },
+          "width": [
+            240
+          ],
+          "itemSpacing": [
+            8
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [
+            "Option"
+          ],
           "offCenterMarks": []
         }
       },

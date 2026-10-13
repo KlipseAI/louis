@@ -1,0 +1,281 @@
+/* Date Picker — design/components/date-picker.md (DS-D-0096 · DS-D-0084)
+ *
+ * **면이 없는 내용 부품이다.** 날짜(달력)와 시각(세 열)을 고르는 칸들만 소유한다. 면 · 곡률 · 그림자 · 안쪽 여백은
+ * 놓이는 자리가 갖는다 — 팝오버면 `.louis-popover[data-kind="composite-popover"]`(제품 34 · 35), 인라인이면 소비처
+ * 카드(제품 게시 흐름). 위치 · 겹 순서 · 포커스 이동 · 방향키는 소비처의 행동이고, 계약은 문서 Accessibility 가 정한다.
+ *
+ * 마크업:
+ *   .louis-date-picker[data-mode="date"]
+ *     .louis-date-picker__header > .louis-icon-button × 2 + .louis-date-picker__title
+ *     table.louis-date-picker__grid[role="grid"]
+ *       thead th.louis-date-picker__weekday × 7
+ *       tbody tr × 6 > td.louis-date-picker__cell[aria-selected] > button.louis-date-picker__day
+ *     .louis-date-picker__footer > .louis-button[data-variant="ghost"]
+ *   .louis-date-picker[data-mode="time"]
+ *     .louis-date-picker__time > .louis-date-picker__column × 3
+ *       .louis-date-picker__column-label + .louis-date-picker__listbox[role="listbox"]
+ *         > .louis-date-picker__option[role="option"][aria-selected]
+ *
+ * 겹 순서 숫자를 두지 않는다 — 겹은 소비처가 `louis-layer-*` 로 고른다. 전이 없음 — 제품 팝오버도 칸에 전이가 없다. */
+
+.louis-date-picker {
+  /* 제품 팝오버 폭 296(통합 판 `54b62a8aa` `YoutubeSchedulePickers.tsx:184`) − composite-popover 안쪽 8 × 2.
+   * 제품은 action 안쪽 6 을 썼다(내용 284). 바깥 296 을 지키고 안쪽만 composite 로 옮긴다. */
+  --louis-date-picker-inline-size: 280px;
+  /* 칸 높이 — 제품 날짜 칸 `min-h-18` = 36(`:83`). 시각 항목(6 / 8 → 37, `:166`)을 여기로 접는다. */
+  --louis-date-picker-cell-block-size: 36px;
+  /* 칸 사이 — 제품 `gap-2` = 4(`:79` 날짜 격자 · `:159` 시각 목록). */
+  --louis-date-picker-cell-gap: var(--louis-space-control-xs);
+  /* 시각 목록 높이 상한 — 제품 `max-h-98` = 196(`:159`). 다섯 칸 반이 보여 아래에 더 있음을 말한다. */
+  --louis-date-picker-listbox-max-block-size: 196px;
+  /* 오늘 점 — 새 값(DS-D-0096 판정 3). 36 칸 아래 4 안쪽에 선다. */
+  --louis-date-picker-today-mark-size: 4px;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--louis-date-picker-inline-size);
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* 시각 — 제품 팝오버 폭 256(`:186`) − 8 × 2. */
+.louis-date-picker[data-mode="time"] {
+  --louis-date-picker-inline-size: 240px;
+}
+
+/* 인라인 — 카드 폭을 따른다(제품 게시 흐름 `PublishFlow.tsx:95-98`). 칸 높이는 그대로 36 이라 넓은 카드에서 칸이 가로로 길어진다. */
+.louis-date-picker[data-layout="inline"] {
+  inline-size: auto;
+}
+
+/* ── 날짜: 머리 ───────────────────────────────────────────────────────────── */
+
+.louis-date-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 제품 `gap-4` = 8(`:54`). */
+  gap: var(--louis-space-control-sm);
+  /* 제품 `mb-5` 10 + 팝오버 항목 사이 2 = 12(`:54`). */
+  margin-block-end: var(--louis-space-control-md);
+}
+
+/* 달 이름. 달을 넘기면 보조기술에 읽히게 소비처가 `aria-live="polite"` 를 단다(Accessibility). */
+.louis-date-picker__title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--louis-color-fg-primary);
+  text-align: center;
+  font-family: var(--louis-typography-body-sm-medium-font-family);
+  font-size: var(--louis-typography-body-sm-medium-font-size);
+  font-weight: var(--louis-typography-body-sm-medium-font-weight);
+  line-height: var(--louis-typography-body-sm-medium-line-height);
+  letter-spacing: var(--louis-typography-body-sm-medium-letter-spacing);
+}
+
+/* ── 날짜: 격자 ───────────────────────────────────────────────────────────── */
+
+/* 표다. 요일 머리와 날짜 칸이 **같은 열**을 쓰게 한다 — 제품은 요일 줄 사이 2 · 격자 사이 4 를 따로 두어 열 폭이 1.7px 어긋났다
+ * (`:72` · `:79`). `border-spacing` 은 바깥 가장자리에도 서므로 음수 여백으로 되먹는다(뺄셈으로 — 저작 게이트가 공백 둘러싼 `*` 를 선택자로 읽는다). */
+.louis-date-picker__grid {
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: var(--louis-date-picker-cell-gap);
+  inline-size: calc(100% + var(--louis-date-picker-cell-gap) + var(--louis-date-picker-cell-gap));
+  margin: calc(0px - var(--louis-date-picker-cell-gap));
+}
+
+/* 요일. 제품 `text-palette-gray-600 dark:text-gray-400`(`:74-77`)은 `fg-tertiary` 와 두 테마 모두 같은 값이다(6.72 · 5.25). */
+.louis-date-picker__weekday {
+  /* 요일 → 첫 줄 = 이 4 + 줄 사이 4 = 8. 제품 `mb-3` 6 + 팝오버 2(`:72`). */
+  padding: 0 0 var(--louis-space-control-xs);
+  color: var(--louis-color-fg-tertiary);
+  text-align: center;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 칸. 빈 칸(달 앞뒤)도 높이를 갖는다 — 다섯 주인 달의 여섯째 줄이 0 으로 접히면 팝오버 높이가 달마다 뛴다(제품 게시 흐름이 그렇다, `PublishFlow.tsx:235-238`). */
+.louis-date-picker__cell {
+  block-size: var(--louis-date-picker-cell-block-size);
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* ── 날짜 칸 · 시각 항목 — 같은 칸 하나 ─────────────────────────────────────── */
+
+.louis-date-picker__day,
+.louis-date-picker__option {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: var(--louis-date-picker-cell-block-size);
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--louis-space-control-xs);
+  border: 0;
+  /* 제품 `rounded-10`(`:83` · `:166`). 팝오버 항목 곡률과 같은 이름이다. */
+  border-radius: var(--louis-radius-overlay-item);
+  background: transparent;
+  color: inherit;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: var(--louis-typography-body-sm-regular-font-family);
+  font-size: var(--louis-typography-body-sm-regular-font-size);
+  font-weight: var(--louis-typography-body-sm-regular-font-weight);
+  line-height: var(--louis-typography-body-sm-regular-line-height);
+  letter-spacing: var(--louis-typography-body-sm-regular-letter-spacing);
+  /* 제품 `tabular-nums` — 1 과 8 이 같은 폭이라 칸 안 숫자가 흔들리지 않는다. */
+  font-variant-numeric: tabular-nums;
+}
+
+.louis-date-picker__option {
+  flex: none;
+}
+
+/* 호버 — 잉크 8%. 제품 고정 팔레트(`pg-100` · `pg-700`)는 라이트 시각 우물(`pg-100`)과 같은 값이라 우물 안에서 사라졌다(`:160` · `:170`).
+ * 잉크 알파는 팝오버 면에서도 우물(8%) 위에서도 한 칸 더 짙어진다. 막힌 칸은 호버가 없다(제품 시각 항목은 있었다, `:163-164`). */
+@media (hover: hover) {
+  .louis-date-picker__day:where(:not([aria-disabled="true"]):not(:disabled)):hover,
+  .louis-date-picker__option:where(:not([aria-disabled="true"])):hover {
+    background: var(--louis-color-accent-ghost-hover);
+  }
+}
+
+/* 키보드 위치 — 링 대신 호버와 같은 면(DS-D-0074). 막힌 칸에도 선다: 방향키가 지난 날 위를 지나가므로 자리를 잃지 않게 한다.
+ * 날짜는 칸 자신이 포커스를 받고(로빙 tabindex), 시각은 목록이 포커스를 갖고 `aria-activedescendant` 가 가리키는 항목에 `data-highlighted` 를 단다
+ * (메뉴와 같은 문법, `menu-popover.css` 의 `[data-highlighted]`). */
+.louis-date-picker__day:focus-visible,
+.louis-date-picker__option[data-highlighted="true"] {
+  background: var(--louis-color-accent-ghost-hover);
+}
+
+/* 막힌 칸 — 지난 날 · 최소 시각 이전. 날짜는 `aria-disabled`(포커스는 받는다), 네이티브 `disabled` 도 같은 모양이다. */
+.louis-date-picker__day:is(:disabled, [aria-disabled="true"]),
+.louis-date-picker__option[aria-disabled="true"] {
+  color: var(--louis-color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* 선택 — 뒤집힌 면. 제품 팝오버의 `pg-200` · `pg-600` 면은 쉼 면 대비 1.77 · 2.57 로 상태 표식 3:1 에 못 미쳤다(`:92-94`).
+ * 게시 흐름은 이미 뒤집힌 면이다(`PublishFlow.tsx:128-132`), LOUIS 에서는 ChoiceCard 행 고름이 같은 짝을 쓴다(`choice-card.css:138-141`).
+ * 면 21.0 · 16.54, 글자 20.12 · 20.12. 호버 · 포커스 · 막힘보다 뒤에 두고 특이도를 같거나 높게 해 **선택이 이긴다** —
+ * 저장된 예약일이 오늘보다 지나 「선택 + 지난 날」이 되어도 지금 값이 무엇인지는 읽혀야 한다(커서만 not-allowed 로 남는다). */
+.louis-date-picker__cell[aria-selected="true"] > .louis-date-picker__day,
+.louis-date-picker__option[aria-selected="true"] {
+  background: var(--louis-color-accent-inverse);
+  color: var(--louis-color-fg-on-accent-inverse);
+}
+
+/* 오늘 — `aria-current="date"`. 숫자 아래 점 하나, 잉크는 칸 글자를 따른다(선택 칸에서는 뒤집힌 글자색). DS-D-0096 판정 3.
+ * 가운데 맞춤을 `inset-inline: 0` + `margin-inline: auto` 로 한다 — `left: 50%` + `translate` 는 RTL 에서 반대로 밀린다. */
+.louis-date-picker__day[aria-current="date"]::after {
+  content: "";
+  position: absolute;
+  inset-block-end: var(--louis-space-control-xs);
+  inset-inline: 0;
+  inline-size: var(--louis-date-picker-today-mark-size);
+  block-size: var(--louis-date-picker-today-mark-size);
+  margin-inline: auto;
+  border-radius: var(--louis-radius-pill);
+  background: currentColor;
+  pointer-events: none;
+}
+
+/* ── 날짜: 바닥 ───────────────────────────────────────────────────────────── */
+
+/* 「오늘」은 `.louis-button[data-variant="ghost"][data-size="md"]` 다. 이 줄은 자리만 갖는다.
+ * 제품 `mt-5 pt-4` 10 + 8 + 팝오버 2 = 20(`:130`) → `space-control-lg` 16(DS-D-0096 판정 5). 구분선은 제품에도 없다. */
+.louis-date-picker__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--louis-space-control-sm);
+  margin-block-start: var(--louis-space-control-lg);
+}
+
+/* ── 시각: 세 열 ──────────────────────────────────────────────────────────── */
+
+.louis-date-picker__time {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* 제품 `gap-4` = 8(`:149`). 위 `mt-1` 2 는 composite 안쪽 8 이 대신한다(6 + 2 = 8). */
+  gap: var(--louis-space-control-sm);
+}
+
+.louis-date-picker__column {
+  display: flex;
+  flex-direction: column;
+  /* 제품 `gap-2` 4 + 머리 `mb-1` 2 = 6(`:151` · `:154`) → 4(DS-D-0096 판정 5). */
+  gap: var(--louis-space-stack-xs);
+  min-inline-size: 0;
+}
+
+/* 열 머리. 오전/오후 열은 머리가 비어 있어도 줄 높이를 지켜 세 목록의 위 끝이 맞는다(제품은 공백 글자로 맞췄다, `:630-632`).
+ * 줄 높이 토큰이 단위 없는 수라 글자 크기와 곱한다(공백 없이). */
+.louis-date-picker__column-label {
+  min-block-size: calc(var(--louis-typography-caption-medium-font-size)*var(--louis-typography-caption-medium-line-height));
+  margin: 0;
+  color: var(--louis-color-fg-tertiary);
+  text-align: center;
+  font-family: var(--louis-typography-caption-medium-font-family);
+  font-size: var(--louis-typography-caption-medium-font-size);
+  font-weight: var(--louis-typography-caption-medium-font-weight);
+  line-height: var(--louis-typography-caption-medium-line-height);
+  letter-spacing: var(--louis-typography-caption-medium-letter-spacing);
+}
+
+/* 우물 — 구르는 목록. 면은 잉크 8%(`accent-secondary`) — SegmentedControl 트랙과 같은 판정이다(고를 것들을 담는 우물).
+ * 제품 다크 `gray-900` 은 팝오버 면과 같은 값이라 우물이 사라졌다(1.00, `:160`). 알파는 두 테마에서 같은 세기(1.17 · 1.25)로 선다.
+ * 곡률 12 = 항목 10 + 안쪽 2 — 동심이다(제품 `rounded-12` · `p-1`). */
+.louis-date-picker__listbox {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--louis-date-picker-cell-gap);
+  max-block-size: var(--louis-date-picker-listbox-max-block-size);
+  padding: var(--louis-space-overlay-item-gap);
+  border-radius: var(--louis-radius-control);
+  background: var(--louis-color-accent-secondary);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* 소비처가 선택 항목을 `scrollIntoView` 할 때 우물 안쪽 여백만큼 띄운다. */
+  scroll-padding-block: var(--louis-space-overlay-item-gap);
+}
+
+/* ── 강제 색 ─────────────────────────────────────────────────────────────── */
+
+/* 저작 색이 치환되며 **사라지는 것만** 시스템 색으로 되살린다. `forced-color-adjust: none` 은 쓰지 않는다.
+ * 선택 면 · 우물 면이 사라진다. 포커스 링은 base.css 가 `Highlight` 로 그린다 — 시각 항목은 실제 포커스가 목록에 있어
+ * 항목 쪽 표시를 따로 세운다. */
+@media (forced-colors: active) {
+  /* 막힘을 선택보다 앞에 둔다 — 시각 항목은 두 규칙의 특이도가 같아 순서로 선택이 이긴다. */
+  .louis-date-picker__day:is(:disabled, [aria-disabled="true"]),
+  .louis-date-picker__option[aria-disabled="true"] {
+    color: GrayText;
+  }
+
+  .louis-date-picker__cell[aria-selected="true"] > .louis-date-picker__day,
+  .louis-date-picker__option[aria-selected="true"] {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .louis-date-picker__listbox {
+    border: var(--louis-border-width-default) solid CanvasText;
+  }
+
+  .louis-date-picker__option[data-highlighted="true"] {
+    outline: var(--louis-border-width-ring) solid Highlight;
+    outline-offset: calc(0px - var(--louis-border-width-ring));
+  }
+}

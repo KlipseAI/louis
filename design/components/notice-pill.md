@@ -45,7 +45,7 @@ summary: 영상 위에 한 줄 공지를 띄웁니다. 목적지가 있으면 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/notice-pill.css`. React 표면은 없다 — 소비처(히어로 · 어드민 미리보기)가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | Figma 부품은 아직 없다. 세울 것: `NoticePill` 세트 — `Interactive`(false · true) × `State`(rest · hover), BOOLEAN `Logo`, TEXT `Text` |
+| Figma         | `partial`      | 2026-10-13 — `NoticePill` — 조건 축 Interactive(false · true) × State(Default · Hover — true 에만), BOOLEAN Logo, TEXT Text. 면 `color/media-scrim-dark` 56 · 72% + 흐림 16. `saturate(130%)` 는 Figma 에 없다. 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

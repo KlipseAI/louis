@@ -40,7 +40,7 @@ summary: 회사 · 서비스의 로고를 페이지 잉크로 칠해 담는 정�
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/logo-tile.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | Figma 부품은 아직 없다. 세울 것: `LogoTile` 세트 — `Size`(sm · md · lg) × `Content`(glyph · fallback), TEXT `Initial` |
+| Figma         | `partial`      | 2026-10-13 — `LogoTile` — Size(sm 48 · md 56 · lg 72) × Content(glyph · fallback), TEXT Initial. 글리프는 SCALE 제약으로 칸의 절반. 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

@@ -42,7 +42,7 @@ summary: 눌러서 그림 하나를 넣는 칸입니다. 테두리 칸 안에 �
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/asset-tile.css`. React 표면은 없다 — 소비처(스티커 팔레트)가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | Figma 부품은 아직 없다. 세울 것: `AssetTile` 세트 — `State`(rest · hover · pressed), TEXT `Label`, 우물 안 그림 슬롯 |
+| Figma         | `partial`      | 2026-10-13 — `AssetTile` — State(Default · Hover · Active — §2 어휘, 누름 축소 0.97 은 그리지 않았다), TEXT Label, INSTANCE_SWAP Media. 우물 `color/asset-tile-well` 40%, 호버 선 `color/accent-primary` 48%. 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

@@ -64,7 +64,7 @@ summary: 색 값 하나를 칩으로 보이고, 누르면 고르게 합니다.
 | Surface       | 상태           | 근거 |
 | ------------- | -------------- | ---- |
 | Web           | `partial`      | CSS recipe `packages/css/src/component/color-swatch.css`. React 표면은 없다 — 소비처가 클래스를 물면 된다 |
-| Figma         | `not-ready`    | Figma 부품은 아직 없다. 세울 것: `ColorSwatch` 세트 — `Layout`(row · stack) × `Size`(md · sm) × `State`(filled · empty), BOOLEAN `Clear`, TEXT `Label` |
+| Figma         | `partial`      | 2026-10-13 — `ColorSwatch` — Layout(row · stack) × Size(md · sm) × Content(filled · empty) 다섯 칸, BOOLEAN Clear, TEXT Label · Value. 칩 칠은 사용자 색이라 변수가 없다(시드). row 는 Figma TextField 의 위아래 4 때문에 높이 40(CSS 32). 기하 계약 · 기록은 아직 없다 |
 | Documentation | `done`         | 이 문서 |
 | Maturity      | `experimental` | 제품이 아직 이 클래스를 물지 않는다 |
 

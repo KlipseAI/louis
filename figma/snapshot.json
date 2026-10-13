@@ -18,8 +18,8 @@
         "effect": 9
       },
       "components": {
-        "sets": 95,
-        "variants": 1025
+        "sets": 100,
+        "variants": 1045
       },
       "icons": 70,
       "templates": 9
@@ -7800,6 +7800,103 @@
       "strokes": {},
       "effects": {}
     },
+    "AssetTile": {
+      "outsideParts": [],
+      "tokenId": "asset-tile",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Label": {
+          "type": "TEXT"
+        },
+        "Media": {
+          "type": "INSTANCE_SWAP"
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover",
+            "Active"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 3,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "Active": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Default": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "Hover": {
+          "slots": {},
+          "parts": {},
+          "paddingBlock": [
+            4
+          ],
+          "paddingInline": [
+            4
+          ],
+          "itemSpacing": [
+            4
+          ],
+          "cornerRadius": [
+            8
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "AudioCell": {
       "outsideParts": [],
       "tokenId": "audio-cell",
@@ -8959,6 +9056,57 @@
       },
       "effects": {}
     },
+    "CanvasGuide": {
+      "outsideParts": [],
+      "tokenId": "canvas-guide",
+      "variantCount": 2,
+      "hasDescription": true,
+      "properties": {
+        "Orientation": {
+          "type": "VARIANT",
+          "options": [
+            "vertical",
+            "horizontal"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 0,
+        "rawFills": 0,
+        "boundStrokes": 2,
+        "rawStrokes": 0,
+        "textStyled": 0,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "horizontal": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            120
+          ],
+          "height": [
+            1
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "vertical": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            1
+          ],
+          "height": [
+            120
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "CarouselArrow": {
       "outsideParts": [],
       "tokenId": "carousel-arrow",
@@ -9903,6 +10051,116 @@
           "INNER_SHADOW:0:0:2"
         ]
       }
+    },
+    "ColorSwatch": {
+      "outsideParts": [],
+      "tokenId": "color-swatch",
+      "variantCount": 5,
+      "hasDescription": true,
+      "properties": {
+        "Clear": {
+          "type": "BOOLEAN"
+        },
+        "Label": {
+          "type": "TEXT"
+        },
+        "Value": {
+          "type": "TEXT"
+        },
+        "Layout": {
+          "type": "VARIANT",
+          "options": [
+            "row",
+            "stack"
+          ]
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "md",
+            "sm"
+          ]
+        },
+        "Content": {
+          "type": "VARIANT",
+          "options": [
+            "filled",
+            "empty"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 7,
+        "rawFills": 0,
+        "boundStrokes": 5,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "row/md/empty": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/md/filled": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "row/sm/filled": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            6
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/md/empty": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "stack/md/filled": {
+          "slots": {},
+          "parts": {},
+          "itemSpacing": [
+            4
+          ],
+          "layoutMode": [
+            "VERTICAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "CompositePopover": {
       "outsideParts": [],
@@ -13238,6 +13496,134 @@
       "strokes": {},
       "effects": {}
     },
+    "LogoTile": {
+      "outsideParts": [],
+      "tokenId": "logo-tile",
+      "variantCount": 6,
+      "hasDescription": true,
+      "properties": {
+        "Initial": {
+          "type": "TEXT"
+        },
+        "Size": {
+          "type": "VARIANT",
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "Content": {
+          "type": "VARIANT",
+          "options": [
+            "glyph",
+            "fallback"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 12,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "lg/fallback": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            72
+          ],
+          "height": [
+            72
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "lg/glyph": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            72
+          ],
+          "height": [
+            72
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/fallback": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            56
+          ],
+          "height": [
+            56
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "md/glyph": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            56
+          ],
+          "height": [
+            56
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/fallback": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            48
+          ],
+          "height": [
+            48
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "sm/glyph": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            48
+          ],
+          "height": [
+            48
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
+    },
     "MediaCard": {
       "outsideParts": [],
       "tokenId": "media-card",
@@ -13507,7 +13893,7 @@
     "MediaSlot": {
       "outsideParts": [],
       "tokenId": "media-slot",
-      "variantCount": 6,
+      "variantCount": 7,
       "hasDescription": true,
       "properties": {
         "RemoveButton": {
@@ -13535,12 +13921,19 @@
             "Default",
             "Hover"
           ]
+        },
+        "Ratio": {
+          "type": "VARIANT",
+          "options": [
+            "1:1",
+            "2:3"
+          ]
         }
       },
       "binding": {
-        "boundFills": 10,
+        "boundFills": 12,
         "rawFills": 0,
-        "boundStrokes": 6,
+        "boundStrokes": 7,
         "rawStrokes": 0,
         "textStyled": 0,
         "textUnstyled": 0
@@ -13570,6 +13963,22 @@
           ],
           "height": [
             96
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "strokeWeight": [],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "fill/base/Default/2:3": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            96
+          ],
+          "height": [
+            144
           ],
           "cornerRadius": [
             12
@@ -17840,6 +18249,100 @@
           "INNER_SHADOW:0:8:0"
         ]
       }
+    },
+    "NoticePill": {
+      "outsideParts": [],
+      "tokenId": "notice-pill",
+      "variantCount": 3,
+      "hasDescription": true,
+      "properties": {
+        "Logo": {
+          "type": "BOOLEAN"
+        },
+        "Text": {
+          "type": "TEXT"
+        },
+        "Interactive": {
+          "type": "VARIANT",
+          "options": [
+            "false",
+            "true"
+          ]
+        },
+        "State": {
+          "type": "VARIANT",
+          "options": [
+            "Default",
+            "Hover"
+          ]
+        }
+      },
+      "binding": {
+        "boundFills": 9,
+        "rawFills": 0,
+        "boundStrokes": 0,
+        "rawStrokes": 0,
+        "textStyled": 3,
+        "textUnstyled": 0
+      },
+      "geometry": {
+        "false/Default": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            12
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Default": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            12
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
+        "true/Hover": {
+          "slots": {},
+          "parts": {},
+          "height": [
+            32
+          ],
+          "paddingInline": [
+            12
+          ],
+          "cornerRadius": [
+            12
+          ],
+          "layoutMode": [
+            "HORIZONTAL"
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        }
+      },
+      "strokes": {},
+      "effects": {}
     },
     "PaneDivider": {
       "outsideParts": [],
@@ -26155,7 +26658,7 @@
           "options": [
             "Default",
             "Hover",
-            "Pressed"
+            "Active"
           ]
         },
         "Standalone": {
@@ -26175,6 +26678,21 @@
         "textUnstyled": 0
       },
       "geometry": {
+        "Active": {
+          "slots": {},
+          "parts": {},
+          "width": [
+            32
+          ],
+          "height": [
+            32
+          ],
+          "cornerRadius": [
+            0
+          ],
+          "overflowingParts": [],
+          "offCenterMarks": []
+        },
         "Default": {
           "slots": {},
           "parts": {},
@@ -26191,21 +26709,6 @@
           "offCenterMarks": []
         },
         "Hover": {
-          "slots": {},
-          "parts": {},
-          "width": [
-            32
-          ],
-          "height": [
-            32
-          ],
-          "cornerRadius": [
-            0
-          ],
-          "overflowingParts": [],
-          "offCenterMarks": []
-        },
-        "Pressed": {
           "slots": {},
           "parts": {},
           "width": [

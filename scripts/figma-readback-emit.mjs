@@ -266,7 +266,7 @@ const CAPTURE = {
   "NodeMedia": {"key":{"by":["State"]},"fields":["width","height","layoutMode"]},
   "NodeChannel": {"key":{"by":["Size"]},"fields":["height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","layoutMode"]},
   "NodeResizeHandle": {"key":{"by":["State"]},"fields":["height","paddingInline","paddingInlineEnd","layoutMode"],"outsideParts":["Hint"]},
-  "MediaSlot": {"key":{"by":["Size","Layout","State"]},"fields":["width","height","cornerRadius","strokeWeight"]},
+  "MediaSlot": {"key":{"by":["Size","Layout","State","Ratio"],"omit":{"Ratio":"1:1"}},"fields":["width","height","cornerRadius","strokeWeight"]},
   "AudioCell": {"key":{"by":["State"]},"fields":["width","height","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","cornerRadius","layoutMode"],"effects":["self"]},
   // 변형 묶음(2026-10-13, DS-D-0084)이 세운 새 세트 · 하위 컴포넌트 — 노드 캔버스 묶음처럼 축 키와 겉 치수만 담는 첫 채취다.
   "FloatingShellItem": {"key":{"by":["Size","State"]},"fields":["width","height","cornerRadius","opacity"],"slots":{"Glyph":"size"}},
@@ -284,6 +284,11 @@ const CAPTURE = {
   "VideoPlayerChip": {"key":{"by":["State"]},"fields":["width","height","cornerRadius"]},
   // 볼륨 패널은 칩 위로 열려(틈 8 · 64 ~ 112) 칩 프레임 밖에 선다 — 패널과 그 자손 전부가 계약된 바깥 부품이다.
   "VideoPlayerVolume": {"key":{"by":["State"]},"fields":["width","height"],"outsideParts":["Panel","Surface","Slider","Track","Fill","Thumb"]},
+  "AssetTile": {"key":{"by":["State"]},"fields":["paddingBlock","paddingInline","itemSpacing","cornerRadius","layoutMode"]},
+  "ColorSwatch": {"key":{"by":["Layout","Size","Content"]},"fields":["itemSpacing","layoutMode"]},
+  "LogoTile": {"key":{"by":["Size","Content"]},"fields":["width","height","cornerRadius"]},
+  "NoticePill": {"key":{"by":["Interactive","State"]},"fields":["height","paddingInline","cornerRadius","layoutMode"]},
+  "CanvasGuide": {"key":{"by":["Orientation"]},"fields":["width","height"]},
   "NodeComposerError": {"key":{"name":"error"},"fields":["minHeight","paddingBlock","paddingBlockEnd","paddingInline","paddingInlineEnd","itemSpacing","cornerRadius","layoutMode","strokeWeight"],"effects":["self"]},
   // 사이드 핸들 — 셸은 투명하고 채색은 Facet 이 갖는다. 이너 섀도(overlay 블렌드)도 Facet 이다.
   "NodeSideHandle": {"key":{"by":["Channel"]},"slots":{"Glyph":"size"},"parts":{"Facet":["width","height","cornerRadius"],"Glyph":["width","height"]},"effects":["Facet"]},
